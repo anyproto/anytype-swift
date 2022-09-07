@@ -1,6 +1,7 @@
 import SwiftUI
 import BlocksModels
 import Combine
+import AnytypeCore
 
 final class EditorSetViewPickerViewModel: ObservableObject {
     @Published var rows: [EditorSetViewRowConfiguration] = []
@@ -8,8 +9,11 @@ final class EditorSetViewPickerViewModel: ObservableObject {
     private let setModel: EditorSetViewModel
     private var cancellable: AnyCancellable?
     
-    init(setModel: EditorSetViewModel){
+    private let showViewTypes: RoutingAction<DataviewView>
+    
+    init(setModel: EditorSetViewModel, showViewTypes: @escaping RoutingAction<DataviewView>) {
         self.setModel = setModel
+        self.showViewTypes = showViewTypes
         self.cancellable = setModel.$dataView.sink { [weak self] dataView in
             self?.updateRows(with: dataView)
         }
@@ -22,9 +26,12 @@ final class EditorSetViewPickerViewModel: ObservableObject {
                 name: view.name,
                 typeName: view.type.name.lowercased(),
                 isSupported: view.type.isSupported,
-                isActive: view == setModel.activeView,
+                isActive: view == dataView.views.first { $0.id == dataView.activeViewId },
                 onTap: { [weak self] in
                     self?.handleTap(with: view.id)
+                },
+                onEditTap: { [weak self] in
+                    self?.handleEditTap(with: view.id)
                 }
             )
         }
@@ -32,5 +39,12 @@ final class EditorSetViewPickerViewModel: ObservableObject {
     
     private func handleTap(with id: String) {
         setModel.updateActiveViewId(id)
+    }
+    
+    private func handleEditTap(with id: String) {
+        guard let activeView = setModel.dataView.views.first(where: { $0.id == id }) else {
+            return
+        }
+        showViewTypes(activeView)
     }
 }

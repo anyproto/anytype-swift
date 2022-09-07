@@ -602,6 +602,9 @@
 "SetViewTypesPicker.Title" = "Edit view";
 "SetViewTypesPicker.Section.Types.Title" = "View as";
 
+// MARK: Select view picker
+"EditorSetViewPicker.View.Available.Soon" = "%s view soon";
+
 // BlockContent
 "Content.File.Upload" = "Upload a file";
 "Content.Audio.Upload" = "Upload audio";

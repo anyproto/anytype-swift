@@ -508,8 +508,11 @@ extension EditorRouter: RelationValueCoordinatorOutput {
 
 extension EditorRouter {
     
-    func showViewPicker(setModel: EditorSetViewModel) {
-        let viewModel = EditorSetViewPickerViewModel(setModel: setModel)
+    func showViewPicker(setModel: EditorSetViewModel, showViewTypes: @escaping RoutingAction<DataviewView>) {
+        let viewModel = EditorSetViewPickerViewModel(
+            setModel: setModel,
+            showViewTypes: showViewTypes
+        )
         let vc = UIHostingController(
             rootView: EditorSetViewPicker(viewModel: viewModel)
         )

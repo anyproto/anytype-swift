@@ -973,6 +973,17 @@ internal enum Loc {
     }
   }
 
+  internal enum EditorSetViewPicker {
+    internal enum View {
+      internal enum Available {
+        /// %s view soon
+        internal static func soon(_ p1: UnsafePointer<CChar>) -> String {
+          return Loc.tr("Localizable", "EditorSetViewPicker.View.Available.Soon", p1)
+        }
+      }
+    }
+  }
+
   internal enum ErrorOccurred {
     /// Error occurred. Please try again
     internal static let pleaseTryAgain = Loc.tr("Localizable", "Error occurred. Please try again")
