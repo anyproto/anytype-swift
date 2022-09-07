@@ -19,6 +19,16 @@ final class SetViewTypesPickerViewModel: ObservableObject {
         updateView(completion: completion)
     }
     
+    func deleteView(completion: () -> Void) {
+        dataviewService.deleteView(activeView.id)
+        completion()
+    }
+    
+    func duplicateView(completion: () -> Void) {
+        dataviewService.createView(activeView)
+        completion()
+    }
+    
     private func updateTypes() {
         types = DataviewViewType.allCases.map { viewType in
             SetViewTypeConfiguration(

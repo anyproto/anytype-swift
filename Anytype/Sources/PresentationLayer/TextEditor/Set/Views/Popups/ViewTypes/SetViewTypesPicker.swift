@@ -7,14 +7,57 @@ struct SetViewTypesPicker: View {
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
-            TitleView(title: Loc.SetViewTypesPicker.title)
+            InlineNavigationBar {
+                TitleView(title: Loc.SetViewTypesPicker.title)
+            } rightButton: {
+                settingsMenu
+            }
             content
             Spacer()
             button
         }
     }
     
-    var content: some View {
+    private var settingsMenu: some View {
+        Menu {
+            deleteButton
+            duplicateButton
+        } label: {
+            Image(asset: .more)
+                .foregroundColor(.buttonActive)
+                .frame(width: 24, height: 24)
+        }
+    }
+    
+    private var deleteButton: some View {
+        Button(action: {
+            viewModel.deleteView {
+                presentationMode.wrappedValue.dismiss()
+            }
+        }) {
+            AnytypeText(
+                Loc.SetViewTypesPicker.Settings.Delete.view,
+                style: .uxCalloutRegular,
+                color: .textPrimary
+            )
+        }
+    }
+    
+    private var duplicateButton: some View {
+        Button(action: {
+            viewModel.duplicateView {
+                presentationMode.wrappedValue.dismiss()
+            }
+        }) {
+            AnytypeText(
+                Loc.SetViewTypesPicker.Settings.Duplicate.view,
+                style: .uxCalloutRegular,
+                color: .textPrimary
+            )
+        }
+    }
+    
+    private var content: some View {
         typesSection
             .padding(.horizontal, 20)
     }

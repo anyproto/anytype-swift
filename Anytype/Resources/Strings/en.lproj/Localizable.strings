@@ -599,6 +599,8 @@
 // MARK: Edit view type
 "SetViewTypesPicker.Title" = "Edit view";
 "SetViewTypesPicker.Section.Types.Title" = "View as";
+"SetViewTypesPicker.Settings.Duplicate.View" = "Duplicate";
+"SetViewTypesPicker.Settings.Delete.View" = "Delete view";
 
 // BlockContent
 "Content.File.Upload" = "Upload a file";

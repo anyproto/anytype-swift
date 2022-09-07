@@ -1175,6 +1175,16 @@ internal enum Loc {
         internal static let title = Loc.tr("Localizable", "SetViewTypesPicker.Section.Types.Title")
       }
     }
+    internal enum Settings {
+      internal enum Delete {
+        /// Delete view
+        internal static let view = Loc.tr("Localizable", "SetViewTypesPicker.Settings.Delete.View")
+      }
+      internal enum Duplicate {
+        /// Duplicate
+        internal static let view = Loc.tr("Localizable", "SetViewTypesPicker.Settings.Duplicate.View")
+      }
+    }
   }
 
   internal enum SignUp {
