@@ -16,6 +16,7 @@ struct SetViewTypesPicker: View {
             content
             Spacer()
             button
+            Spacer.fixedHeight(8)
         }
     }
     
