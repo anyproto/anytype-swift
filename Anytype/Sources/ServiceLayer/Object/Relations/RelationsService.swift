@@ -6,7 +6,7 @@ import SwiftProtobuf
 final class RelationsService: RelationsServiceProtocol {
     
     private let searchCommonService = ServiceLocator.shared.searchCommonService()
-    
+    private let relationDetailsStorage = ServiceLocator.shared.relationDetailsStorage()
     private let objectId: String
         
     init(objectId: String) {
@@ -154,30 +154,7 @@ final class RelationsService: RelationsServiceProtocol {
 //        }
     }
 
-    #warning("Change this code")
     func availableRelations() -> [RelationDetails] {
-        RelationDetailsStorage.shared.relations()
-        
-//        let sort = SearchHelper.sort(
-//            relation: BundledRelationKey.name,
-//            type: .asc
-//        )
-//        let filters = [
-//            SearchHelper.isArchivedFilter(isArchived: false),
-//            SearchHelper.typeFilter(typeIds: [ObjectTypeId.bundled(.relation).rawValue])
-//        ]
-//
-//        let relations = searchCommonService.search(filters: filters, sorts: [sort], fullText: "", limit: 0)
-//
-//        return relations?.map { RelationDetails(objectDetails: $0) }
-        
-//        let relations = Anytype_Rpc.ObjectRelation.ListAvailable.Service
-//            .invoke(contextID: objectId)
-//            .map { $0.relations }
-//            .getValue(domain: .relationsService)
-//
-        
-//        return relations?.map { RelationMetadata(middlewareRelation: $0) }
+        relationDetailsStorage.relations()
     }
-    
 }

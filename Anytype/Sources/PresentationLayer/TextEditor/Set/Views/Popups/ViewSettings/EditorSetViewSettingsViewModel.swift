@@ -160,7 +160,7 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
     }
     
     private func imagePreviewValueFromRelations() -> String? {
-        setModel.dataView.relations.first { [weak self] relation in
+        setModel.relationDetails.first { [weak self] relation in
             guard let self = self else { return false }
             return relation.key == self.setModel.activeView.coverRelationKey
         }?.name

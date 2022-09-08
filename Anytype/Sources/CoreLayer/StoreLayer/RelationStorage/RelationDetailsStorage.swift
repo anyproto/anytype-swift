@@ -3,17 +3,17 @@ import BlocksModels
 
 extension RelationDetails: IdProvider {}
 
-final class RelationDetailsStorage {
-    
-    public static let shared = RelationDetailsStorage()
+final class RelationDetailsStorage: RelationDetailsStorageProtocol {
     
     private let subscriptionsService: SubscriptionsServiceProtocol = ServiceLocator.shared.subscriptionService()
     private var details = [RelationDetails]()
     private var localSubscriptions = [String: [RelationLink]]()
     
-    private init() {
+    init() {
         self.startSubscription()
     }
+    
+    // MARK: - RelationDetailsStorageProtocol
     
     func relations(for links: [RelationLink]) -> [RelationDetails] {
         let ids = links.map { $0.id }
@@ -23,6 +23,8 @@ final class RelationDetailsStorage {
     func relations() -> [RelationDetails] {
         return details
     }
+    
+    // MARK: - Private
     
     private func startSubscription() {
         subscriptionsService.startSubscription(data: .relation) { [weak self] subId, update in

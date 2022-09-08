@@ -15,7 +15,7 @@ final class EditorSetViewModel: ObservableObject {
     @Published var sorts: [SetSort] = []
     #warning("Check me")
     @Published var filters: [SetFilter] = []
-//    @Published var relations: [RelationDetails] = []
+    @Published var relationDetails: [RelationDetails] = []
     
     var isEmpty: Bool {
         dataView.views.isEmpty
@@ -67,7 +67,7 @@ final class EditorSetViewModel: ObservableObject {
     
     var relations: [RelationDetails] {
         activeView.options.compactMap { option in
-            let relationDetails = dataView.relations.first { relation in
+            let relationDetails = relationDetails.first { relation in
                 option.key == relation.key
             }
             
@@ -107,18 +107,21 @@ final class EditorSetViewModel: ObservableObject {
     private let dataviewService: DataviewServiceProtocol
     private let searchService: SearchServiceProtocol
     private let detailsService: DetailsServiceProtocol
+    private let relationDetailsStorage: RelationDetailsStorageProtocol
     
     init(
         document: BaseDocument,
         dataviewService: DataviewServiceProtocol,
         searchService: SearchServiceProtocol,
-        detailsService: DetailsServiceProtocol
+        detailsService: DetailsServiceProtocol,
+        relationDetailsStorage: RelationDetailsStorageProtocol
     ) {
         ObjectTypeProvider.shared.resetCache()
         self.document = document
         self.dataviewService = dataviewService
         self.searchService = searchService
         self.detailsService = detailsService
+        self.relationDetailsStorage = relationDetailsStorage
     }
     
     func setup(router: EditorRouterProtocol) {
@@ -207,6 +210,7 @@ final class EditorSetViewModel: ObservableObject {
         
         self.dataView = document.dataviews.first ?? .empty
         
+        updateRelationDetails()
         updateActiveViewId()
         updateSorts()
         updateFilters()
@@ -226,7 +230,7 @@ final class EditorSetViewModel: ObservableObject {
     
     private func updateSorts() {
         sorts = activeView.sorts.uniqued().compactMap { sort in
-            let relationDetails = dataView.relations.first { relation in
+            let relationDetails = relationDetails.first { relation in
                 sort.relationKey == relation.key
             }
             guard let relationDetails = relationDetails else { return nil }
@@ -237,7 +241,7 @@ final class EditorSetViewModel: ObservableObject {
     
     private func updateFilters() {
         filters = activeView.filters.compactMap { filter in
-            let relationDetails = dataView.relations.first { relation in
+            let relationDetails = relationDetails.first { relation in
                 filter.relationKey == relation.key
             }
             guard let relationDetails = relationDetails else { return nil }
@@ -246,6 +250,10 @@ final class EditorSetViewModel: ObservableObject {
         }
     }
     
+    private func updateRelationDetails() {
+        relationDetails = relationDetailsStorage.relations(for: dataView.relationLinks)
+    }
+ 
     private func shouldAddRelationDetails(_ relationDetails: RelationDetails) -> Bool {
         guard sorts.first(where: { $0.relationDetails.key == relationDetails.key }) == nil else {
             return false
@@ -405,14 +413,7 @@ extension EditorSetViewModel {
         document: BaseDocument(objectId: "objectId"),
         dataviewService: DataviewService(objectId: "objectId", prefilledFieldsBuilder: SetFilterPrefilledFieldsBuilder()),
         searchService: ServiceLocator.shared.searchService(),
-        detailsService: DetailsService(objectId: "objectId", service: ObjectActionsService())
+        detailsService: DetailsService(objectId: "objectId", service: ObjectActionsService()),
+        relationDetailsStorage: ServiceLocator.shared.relationDetailsStorage()
     )
-}
-
-
-#warning("Fix me. Change this logic. Save relations once.")
-extension BlockDataview {
-    var relations: [RelationDetails] {
-        RelationDetailsStorage.shared.relations(for: relationLinks)
-    }
 }

@@ -54,7 +54,8 @@ final class EditorAssembly {
             document: document,
             dataviewService: dataviewService,
             searchService: ServiceLocator.shared.searchService(),
-            detailsService: detailsService
+            detailsService: detailsService,
+            relationDetailsStorage: ServiceLocator.shared.relationDetailsStorage()
         )
         let controller = EditorSetHostingController(objectId: data.pageId, model: model)
 

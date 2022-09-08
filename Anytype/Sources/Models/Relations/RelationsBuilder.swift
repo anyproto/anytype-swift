@@ -557,11 +557,3 @@ private extension RelationDetails {
         return !self.isReadOnlyValue
     }
 }
-
-#warning("Move to different file")
-extension RelationDetails {
-    var isBundled: Bool {
-        guard let keyType = BundledRelationKey(rawValue: key) else { return false }
-        return BundledRelationKey.notRemovableRelationKeys.contains(keyType)
-    }
-}
