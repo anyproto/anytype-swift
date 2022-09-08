@@ -183,13 +183,10 @@ final class EditorSetViewModel: ObservableObject {
     
     private func onDataChange(_ data: DocumentUpdate) {
         switch data {
-        case .general:
+        case .general, .blocks, .details, .dataSourceUpdate:
             objectWillChange.send()
             setupDataview()
-        case .syncStatus, .blocks, .details, .dataSourceUpdate:
-            objectWillChange.send()
-            setupDataview()
-        case .header:
+        case .header, .syncStatus:
             break // handled in ObjectHeaderViewModel
         }
     }
