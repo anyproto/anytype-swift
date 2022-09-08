@@ -7,7 +7,7 @@ final class RelationValueModuleAssembly: RelationValueModuleAssemblyProtocol {
     func make(
         objectId: BlockId,
         source: RelationSource,
-        relation: Relation,
+        relationValue: RelationValue,
         delegate: TextRelationActionButtonViewModelDelegate,
         output: RelationValueViewModelOutput
     ) -> UIViewController? {
@@ -16,7 +16,7 @@ final class RelationValueModuleAssembly: RelationValueModuleAssemblyProtocol {
             .buildViewModel(
                 source: source,
                 objectId: objectId,
-                relation: relation,
+                relationValue: relationValue,
                 onTap: { [weak output] pageId, viewType in
                     output?.onTapRelation(pageId: pageId, viewType: viewType)
                 }

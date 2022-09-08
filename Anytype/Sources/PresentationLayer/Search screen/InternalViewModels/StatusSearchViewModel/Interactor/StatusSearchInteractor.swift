@@ -2,12 +2,12 @@ import Foundation
 
 final class StatusSearchInteractor {
     
-    private let allStatuses: [Relation.Status.Option]
+    private let allStatuses: [RelationValue.Status.Option]
     private let selectedStatusesIds: [String]
     private let isPreselectModeAvailable: Bool
     
     init(
-        allStatuses: [Relation.Status.Option],
+        allStatuses: [RelationValue.Status.Option],
         selectedStatusesIds: [String],
         isPreselectModeAvailable: Bool
     ) {
@@ -20,12 +20,12 @@ final class StatusSearchInteractor {
 
 extension StatusSearchInteractor {
     
-    func search(text: String) -> Result<[Relation.Status.Option], NewSearchError> {
+    func search(text: String) -> Result<[RelationValue.Status.Option], NewSearchError> {
         guard text.isNotEmpty else {
             return .success(availableStatuses)
         }
 
-        let filteredStatuses: [Relation.Status.Option] = availableStatuses.filter {
+        let filteredStatuses: [RelationValue.Status.Option] = availableStatuses.filter {
             guard $0.text.isNotEmpty else { return false }
             
             return $0.text.lowercased().contains(text.lowercased())
@@ -51,7 +51,7 @@ extension StatusSearchInteractor {
 
 private extension StatusSearchInteractor {
     
-    var availableStatuses: [Relation.Status.Option] {
+    var availableStatuses: [RelationValue.Status.Option] {
         guard selectedStatusesIds.isNotEmpty, !isPreselectModeAvailable else { return allStatuses }
         
         return allStatuses.filter { status in

@@ -61,8 +61,8 @@ final class EditorSetViewModel: ObservableObject {
         document.details
     }
     
-    var featuredRelations: [Relation] {
-        document.featuredRelationsForEditor
+    var featuredRelationValues: [RelationValue] {
+        document.featuredRelationValuessForEditor
     }
     
     var relations: [RelationDetails] {
@@ -82,7 +82,7 @@ final class EditorSetViewModel: ObservableObject {
         FlowRelationsViewModel(
             title: details.flatMap { $0.title },
             description: details?.description,
-            relations: featuredRelations,
+            relationValues: featuredRelationValues,
             style: .header,
             onRelationTap: { [weak self] relation in
                 AnytypeAnalytics.instance().logChangeRelationValue(type: .set)
@@ -313,14 +313,14 @@ extension EditorSetViewModel {
     func showRelationValueEditingView(
         objectId: BlockId,
         source: RelationSource,
-        relation: Relation
+        relationValue: RelationValue
     ) {
         AnytypeAnalytics.instance().logChangeRelationValue(type: .set)
         
         router.showRelationValueEditingView(
             objectId: objectId,
             source: source,
-            relation: relation
+            relationValue: relationValue
         )
     }
     

@@ -11,25 +11,25 @@ final class StatusRelationDetailsViewModel: ObservableObject {
     let popupLayout = AnytypePopupLayoutType.constantHeight(height: 116, floatingPanelStyle: false)
 
     private let source: RelationSource
-    private var selectedStatus: Relation.Status.Option? {
+    private var selectedStatus: RelationValue.Status.Option? {
         didSet {
             updateSelectedStatusViewModel()
         }
     }
     var isEditable: Bool {
-        return relation.isEditable
+        return relationValue.isEditable
     }
-    private let allStatuses: [Relation.Status.Option]
-    private let relation: Relation
+    private let allStatuses: [RelationValue.Status.Option]
+    private let relationValue: RelationValue
     private let service: RelationsServiceProtocol
     
     private weak var popup: AnytypePopupProxy?
     
     init(
         source: RelationSource,
-        selectedStatus: Relation.Status.Option?,
-        allStatuses: [Relation.Status.Option],
-        relation: Relation,
+        selectedStatus: RelationValue.Status.Option?,
+        allStatuses: [RelationValue.Status.Option],
+        relationValue: RelationValue,
         service: RelationsServiceProtocol
     ) {
         self.source = source
@@ -37,7 +37,7 @@ final class StatusRelationDetailsViewModel: ObservableObject {
         self.selectedStatus = selectedStatus
         self.allStatuses = allStatuses
         
-        self.relation = relation
+        self.relationValue = relationValue
         self.service = service
         
         updateSelectedStatusViewModel()
@@ -53,7 +53,7 @@ extension StatusRelationDetailsViewModel {
     
     func didTapClearButton() {
         selectedStatus = nil
-        service.updateRelation(relationKey: relation.key, value: nil)
+        service.updateRelation(relationKey: relationValue.key, value: nil)
     }
     
     @ViewBuilder
@@ -89,7 +89,7 @@ private extension StatusRelationDetailsViewModel {
         else {
             ids.first.flatMap {
                 service.updateRelation(
-                    relationKey: relation.key,
+                    relationKey: relationValue.key,
                     value: $0.protobufValue
                 )
             }
@@ -98,11 +98,11 @@ private extension StatusRelationDetailsViewModel {
         }
         
         selectedStatus = newStatus
-        service.updateRelation(relationKey: relation.key, value: newStatusId.protobufValue)
+        service.updateRelation(relationKey: relationValue.key, value: newStatusId.protobufValue)
     }
     
     func handleCreateOption(title: String) {
-        let optionId = service.addRelationOption(source: source, relationKey: relation.key, optionText: title)
+        let optionId = service.addRelationOption(source: source, relationKey: relationValue.key, optionText: title)
         guard let optionId = optionId else {
             return
         }

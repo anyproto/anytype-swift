@@ -3,7 +3,7 @@ import BlocksModels
 
 final class TagsSearchInteractor {
     
-    private let allTags: [Relation.Tag.Option] = []
+    private let allTags: [RelationValue.Tag.Option] = []
     private let relationKey: String
     private let selectedTagIds: [String]
     private let isPreselectModeAvailable: Bool
@@ -23,20 +23,20 @@ final class TagsSearchInteractor {
 
 extension TagsSearchInteractor {
     
-    func search(text: String) -> Result<[Relation.Tag.Option], NewSearchError> {
+    func search(text: String) -> Result<[RelationValue.Tag.Option], NewSearchError> {
         #warning("Check me")
         let filteredTags = searchService.searchRelationOptions(
             text: text,
             relationKey: relationKey,
             excludedObjectIds: selectedTagIds)?
             .map { RelationOption(details: $0) }
-            .map { Relation.Tag.Option(option: $0) } ?? []
+            .map { RelationValue.Tag.Option(option: $0) } ?? []
         #warning("Fix two maps ^^^")
 //        guard text.isNotEmpty else {
 //            return .success(availableTags)
 //        }
 //
-//        let filteredTags: [Relation.Tag.Option] = availableTags.filter {
+//        let filteredTags: [RelationValue.Tag.Option] = availableTags.filter {
 //            guard $0.text.isNotEmpty else { return false }
 //
 //            return $0.text.lowercased().contains(text.lowercased())
@@ -56,7 +56,7 @@ extension TagsSearchInteractor {
         return .success(filteredTags)
     }
     
-    func isCreateButtonAvailable(searchText: String, tags: [Relation.Tag.Option]) -> Bool {
+    func isCreateButtonAvailable(searchText: String, tags: [RelationValue.Tag.Option]) -> Bool {
         searchText.isNotEmpty && tags.isEmpty
     }
 }

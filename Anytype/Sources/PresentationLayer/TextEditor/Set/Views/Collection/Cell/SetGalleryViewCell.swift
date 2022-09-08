@@ -74,7 +74,7 @@ struct SetGalleryViewCell: View {
     
     private var relations: some View {
         LazyVStack(spacing: 4) {
-            ForEach(configuration.relations) { relation in
+            ForEach(configuration.relationValues) { relation in
                 if relation.hasValue {
                     row(relation)
                 }
@@ -82,10 +82,9 @@ struct SetGalleryViewCell: View {
         }
     }
     
-    private func row(_ relationData: Relation) -> some View {
+    private func row(_ relationValue: RelationValue) -> some View {
         RelationValueView(
-            relation: RelationItemModel(
-                relation: relationData),
+            relation: RelationItemModel(relationValue: relationValue),
             style: .setCollection, action: {}
         )
     }

@@ -1,7 +1,7 @@
 import Foundation
 import BlocksModels
 
-enum Relation: Hashable, Identifiable {
+enum RelationValue: Hashable, Identifiable {
     case text(Text)
     case number(Text)
     case status(Status)
@@ -16,9 +16,9 @@ enum Relation: Hashable, Identifiable {
     case unknown(Unknown)
 }
 
-// MARK: - RelationProtocol
+// MARK: - RelationValueProtocol
 
-extension Relation: RelationProtocol {
+extension RelationValue: RelationValueProtocol {
     
     var id: String {
         switch self {
@@ -141,18 +141,18 @@ extension Relation: RelationProtocol {
     
     var hasValue: Bool {
         switch self {
-        case .text(let text): return (text.value ?? "").isNotEmpty
-        case .number(let text): return (text.value ?? "").isNotEmpty
-        case .status(let status): return status.values.isNotEmpty
-        case .date(let date): return date.value != nil
-        case .object(let object): return object.selectedObjects.isNotEmpty
-        case .checkbox: return true
-        case .url(let text): return (text.value ?? "").isNotEmpty
-        case .email(let text): return (text.value ?? "").isNotEmpty
-        case .phone(let text): return (text.value ?? "").isNotEmpty
-        case .tag(let tag): return tag.selectedTags.isNotEmpty
-        case .file(let file): return file.files.isNotEmpty
-        case .unknown(let unknown): return unknown.value.isNotEmpty
+        case .text(let text): return text.hasValue
+        case .number(let text): return text.hasValue
+        case .status(let status): return status.hasValue
+        case .date(let date): return date.hasValue
+        case .object(let object): return object.hasValue
+        case .checkbox(let checkbox): return checkbox.hasValue
+        case .url(let text): return text.hasValue
+        case .email(let text): return text.hasValue
+        case .phone(let text): return text.hasValue
+        case .tag(let tag): return tag.hasValue
+        case .file(let file): return file.hasValue
+        case .unknown(let unknown): return unknown.hasValue
         }
     }
 }

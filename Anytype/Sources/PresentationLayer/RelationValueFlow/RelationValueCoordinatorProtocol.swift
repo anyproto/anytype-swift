@@ -5,7 +5,7 @@ protocol RelationValueCoordinatorProtocol: AnyObject {
     func startFlow(
         objectId: BlockId,
         source: RelationSource,
-        relation: Relation,
+        relationValue: RelationValue,
         output: RelationValueCoordinatorOutput
     )
 }

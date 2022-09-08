@@ -9,6 +9,6 @@ struct SetFilterRowConfiguration: Identifiable, Equatable {
 }
 
 enum SetFilterRowType: Equatable {
-    case relation(Relation?)
+    case relation(RelationValue?)
     case date(String)
 }

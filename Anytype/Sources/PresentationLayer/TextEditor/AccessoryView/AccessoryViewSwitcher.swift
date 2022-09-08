@@ -53,7 +53,7 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
         
         cursorModeAccessoryView.update(info: data.info, textView: data.textView, usecase: data.usecase)
         markupAccessoryView.update(info: data.info, textView: data.textView)
-        slashMenuView.update(info: data.info, relations: document.parsedRelations.all)
+        slashMenuView.update(info: data.info, relationValues: document.parsedRelations.all)
 
         if data.textView.selectedRange.length != .zero {
             showMarkupView(range: data.textView.selectedRange)

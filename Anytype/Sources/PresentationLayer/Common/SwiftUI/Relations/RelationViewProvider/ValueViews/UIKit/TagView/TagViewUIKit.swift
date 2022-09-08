@@ -1,10 +1,10 @@
 import UIKit
 
 final class TagViewUIKit: UIView {
-    private let relationTag: Relation.Tag.Option
+    private let relationTag: RelationValue.Tag.Option
     private let style: RelationStyle
 
-    init(tag: Relation.Tag.Option, style: RelationStyle) {
+    init(tag: RelationValue.Tag.Option, style: RelationStyle) {
         self.relationTag = tag
         self.style = style
 

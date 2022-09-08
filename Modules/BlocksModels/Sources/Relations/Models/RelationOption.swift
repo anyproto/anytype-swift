@@ -1,6 +1,6 @@
 import Foundation
 
-#warning("Drop this model or Relation.Tag.Option")
+#warning("Drop this model or RelationValue.Tag.Option")
 public struct RelationOption: Hashable {
     public let id: String
     public let text: String

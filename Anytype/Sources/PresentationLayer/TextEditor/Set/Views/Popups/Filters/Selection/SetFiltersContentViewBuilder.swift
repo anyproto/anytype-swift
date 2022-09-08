@@ -56,8 +56,8 @@ final class SetFiltersContentViewBuilder {
         onSelect: @escaping (_ ids: [String]) -> Void
     ) -> some View {
         #warning("fix options")
-//        let allTags = filter.relationDetails.selections.map { Relation.Tag.Option(option: $0) }
-        let allTags = [Relation.Tag.Option]()
+//        let allTags = filter.relationDetails.selections.map { RelationValue.Tag.Option(option: $0) }
+        let allTags = [RelationValue.Tag.Option]()
         let selectedTagIds = selectedIds(
             from: filter.filter.value,
             allOptions: allTags.map { $0.id }
@@ -100,8 +100,8 @@ final class SetFiltersContentViewBuilder {
         onSelect: @escaping (_ ids: [String]) -> Void
     ) -> some View {
         #warning("Fix selections")
-//        let allStatuses = filter.relationDetails.selections.map { Relation.Status.Option(option: $0) }
-        let allStatuses = [Relation.Status.Option]()
+//        let allStatuses = filter.relationDetails.selections.map { RelationValue.Status.Option(option: $0) }
+        let allStatuses = [RelationValue.Status.Option]()
         let selectedStatusesIds = selectedIds(
             from: filter.filter.value,
             allOptions: allStatuses.map { $0.id }

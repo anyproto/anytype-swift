@@ -2,9 +2,9 @@ import Foundation
 import BlocksModels
 import SwiftUI
 
-extension Relation {
+extension RelationValue {
     
-    struct File: RelationProtocol, Hashable, Identifiable {
+    struct File: RelationValueProtocol, Hashable, Identifiable {
         let id: String
         let key: String
         let name: String
@@ -13,11 +13,15 @@ extension Relation {
         let isBundled: Bool
 
         let files: [Option]
+        
+        var hasValue: Bool {
+            files.isNotEmpty
+        }
     }
     
 }
 
-extension Relation.File {
+extension RelationValue.File {
     
     struct Option: Hashable, Identifiable {
         

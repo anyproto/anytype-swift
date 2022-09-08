@@ -2,9 +2,9 @@ import Foundation
 import BlocksModels
 import SwiftUI
 
-extension Relation {
+extension RelationValue {
     
-    struct Tag: RelationProtocol, Hashable, Identifiable {
+    struct Tag: RelationValueProtocol, Hashable, Identifiable {
         let id: String
         let key: String
         let name: String
@@ -15,11 +15,15 @@ extension Relation {
         let selectedTags: [Option]
         #warning("Delete field")
         let allTags: [Option]
+        
+        var hasValue: Bool {
+            selectedTags.isNotEmpty
+        }
     }
     
 }
 
-extension Relation.Tag {
+extension RelationValue.Tag {
     
     struct Option: Hashable, Identifiable {
         let id: String
@@ -31,7 +35,7 @@ extension Relation.Tag {
     
 }
 
-extension Relation.Tag.Option {
+extension RelationValue.Tag.Option {
     
     init(option: RelationOption) {
         self.id = option.id

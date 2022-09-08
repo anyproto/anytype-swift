@@ -2,9 +2,9 @@ import Foundation
 import BlocksModels
 import UIKit
 
-extension Relation {
+extension RelationValue {
     
-    struct Status: RelationProtocol, Hashable, Identifiable {
+    struct Status: RelationValueProtocol, Hashable, Identifiable {
         let id: String
         let key: String
         let name: String
@@ -14,11 +14,15 @@ extension Relation {
         
         let values: [Option]
         let allOptions: [Option]
+        
+        var hasValue: Bool {
+            values.isNotEmpty
+        }
     }
     
 }
 
-extension Relation.Status {
+extension RelationValue.Status {
     
     struct Option: Hashable, Identifiable {
         let id: String
@@ -29,7 +33,7 @@ extension Relation.Status {
     
 }
 
-extension Relation.Status.Option {
+extension RelationValue.Status.Option {
     
     init(option: RelationOption) {
         let middlewareColor = MiddlewareColor(rawValue: option.color)

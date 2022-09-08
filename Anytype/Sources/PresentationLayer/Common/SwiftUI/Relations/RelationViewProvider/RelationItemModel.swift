@@ -1,21 +1,21 @@
 import BlocksModels
 
 enum RelationItemModel: Hashable {
-    case text(Relation.Text)
-    case number(Relation.Text)
-    case status(Relation.Status)
+    case text(RelationValue.Text)
+    case number(RelationValue.Text)
+    case status(RelationValue.Status)
     case date(DateModel)
-    case object(Relation.Object)
-    case checkbox(Relation.Checkbox)
-    case url(Relation.Text)
-    case email(Relation.Text)
-    case phone(Relation.Text)
-    case tag(Relation.Tag)
-    case file(Relation.File)
-    case unknown(Relation.Unknown)
+    case object(RelationValue.Object)
+    case checkbox(RelationValue.Checkbox)
+    case url(RelationValue.Text)
+    case email(RelationValue.Text)
+    case phone(RelationValue.Text)
+    case tag(RelationValue.Tag)
+    case file(RelationValue.File)
+    case unknown(RelationValue.Unknown)
 
-    init(relation: Relation) {
-        switch relation {
+    init(relationValue: RelationValue) {
+        switch relationValue {
         case .text(let text):
             self = .text(text)
         case .number(let text):
@@ -28,7 +28,7 @@ enum RelationItemModel: Hashable {
                     key: date.key,
                     name: date.name,
                     textValue: date.value?.text,
-                    isEditable: relation.isEditable
+                    isEditable: relationValue.isEditable
                 )
             )
         case .object(let object):

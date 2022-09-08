@@ -6,7 +6,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
     static func statusSearchModule(
         style: NewSearchView.Style = .default,
         selectionMode: NewSearchViewModel.SelectionMode = .singleItem,
-        allStatuses: [Relation.Status.Option],
+        allStatuses: [RelationValue.Status.Option],
         selectedStatusesIds: [String],
         onSelect: @escaping (_ ids: [String]) -> Void,
         onCreate: @escaping (_ title: String) -> Void

@@ -6,7 +6,7 @@ struct SetContentViewItemConfiguration: Identifiable, Hashable {
     let title: String
     let description: String?
     let icon: ObjectIconImage?
-    let relations: [Relation]
+    let relationValues: [RelationValue]
     let showIcon: Bool
     let smallItemSize: Bool
     let hasCover: Bool
@@ -20,7 +20,7 @@ struct SetContentViewItemConfiguration: Identifiable, Hashable {
         title: String,
         description: String?,
         icon: ObjectIconImage?,
-        relations: [Relation],
+        relationValues: [RelationValue],
         showIcon: Bool,
         smallItemSize: Bool,
         hasCover: Bool,
@@ -33,7 +33,7 @@ struct SetContentViewItemConfiguration: Identifiable, Hashable {
         self.title = title
         self.description = description
         self.icon = icon
-        self.relations = relations
+        self.relationValues = relationValues
         self.showIcon = showIcon
         self.smallItemSize = smallItemSize
         self.hasCover = hasCover

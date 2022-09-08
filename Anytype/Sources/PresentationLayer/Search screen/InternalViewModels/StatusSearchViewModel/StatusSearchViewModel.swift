@@ -8,7 +8,7 @@ final class StatusSearchViewModel {
     let viewStateSubject = PassthroughSubject<NewSearchViewState, Never>()
     
     private var selectedStatusesIds: [String] = []
-    private var statuses: [Relation.Status.Option] = []
+    private var statuses: [RelationValue.Status.Option] = []
     
     private let interactor: StatusSearchInteractor
     
@@ -58,7 +58,7 @@ private extension StatusSearchViewModel {
         viewStateSubject.send(.error(error))
     }
     
-    func handleSearchResults(_ statuses: [Relation.Status.Option]) {
+    func handleSearchResults(_ statuses: [RelationValue.Status.Option]) {
         let sections = NewSearchSectionsBuilder.makeSections(statuses) {
             $0.asRowConfigurations(with: selectedStatusesIds, selectionMode: selectionMode)
         }
@@ -67,7 +67,7 @@ private extension StatusSearchViewModel {
     
 }
 
-private extension Array where Element == Relation.Status.Option {
+private extension Array where Element == RelationValue.Status.Option {
 
     func asRowConfigurations(with selectedIds: [String], selectionMode: NewSearchViewModel.SelectionMode) -> [ListRowConfiguration] {
         map { option in
@@ -91,7 +91,7 @@ private extension Array where Element == Relation.Status.Option {
 
 private extension NewSearchViewModel.SelectionMode {
     
-    func asSelectionIndicatorViewModel(option: Relation.Status.Option, selectedIds: [String]) -> SelectionIndicatorView.Model? {
+    func asSelectionIndicatorViewModel(option: RelationValue.Status.Option, selectedIds: [String]) -> SelectionIndicatorView.Model? {
         switch self {
         case .multipleItems:
             return SelectionIndicatorViewModelBuilder.buildModel(id: option.id, selectedIds: selectedIds)

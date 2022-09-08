@@ -20,7 +20,7 @@ struct SetListViewCell: View {
                 showIcon: configuration.showIcon,
                 title: configuration.title,
                 description: configuration.description,
-                relations: configuration.relations.filter { $0.hasValue },
+                relationValues: configuration.relationValues.filter { $0.hasValue },
                 style: .cell,
                 onIconTap: configuration.onIconTap,
                 onRelationTap: { _ in }

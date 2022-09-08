@@ -51,21 +51,21 @@ struct FlowRelationsView: View {
     
     private var flowRelations: some View {
         Group {
-            if viewModel.relations.isNotEmpty {
+            if viewModel.relationValues.isNotEmpty {
                 FlowLayout(
-                    items: viewModel.relations,
+                    items: viewModel.relationValues,
                     alignment: .leading,
                     spacing: viewModel.style.relationSpacing,
                     cell: { item, index in
                         HStack(spacing: 0) {
                             RelationValueView(
-                                relation: RelationItemModel(relation: item),
+                                relation: RelationItemModel(relationValue: item),
                                 style: viewModel.style.relationStyle)
                             {
                                 viewModel.onRelationTap(item)
                             }
 
-                            if viewModel.relations.count - 1 > index {
+                            if viewModel.relationValues.count - 1 > index {
                                 dotImage
                             }
                         }

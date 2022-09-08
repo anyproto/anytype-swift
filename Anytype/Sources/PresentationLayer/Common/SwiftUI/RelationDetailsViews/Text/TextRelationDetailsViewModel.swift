@@ -18,11 +18,11 @@ final class TextRelationDetailsViewModel: ObservableObject, TextRelationDetailsV
     @Published var value: String = ""
     
     var isEditable: Bool {
-        return relation.isEditable
+        return relationValue.isEditable
     }
     
     var title: String {
-        relation.name
+        relationValue.name
     }
     
     let type: TextRelationDetailsViewType
@@ -32,7 +32,7 @@ final class TextRelationDetailsViewModel: ObservableObject, TextRelationDetailsV
     
     let actionsViewModel: [TextRelationActionViewModelProtocol]
     
-    private let relation: Relation
+    private let relationValue: RelationValue
     private let service: TextRelationDetailsServiceProtocol
         
     private var cancellable: AnyCancellable?
@@ -44,7 +44,7 @@ final class TextRelationDetailsViewModel: ObservableObject, TextRelationDetailsV
     init(
         value: String,
         type: TextRelationDetailsViewType,
-        relation: Relation,
+        relationValue: RelationValue,
         service: TextRelationDetailsServiceProtocol,
         actionButtonViewModel: TextRelationActionButtonViewModel?,
         actionsViewModel: [TextRelationActionViewModelProtocol] = []
@@ -52,7 +52,7 @@ final class TextRelationDetailsViewModel: ObservableObject, TextRelationDetailsV
         self.value = value
         self.type = type
         self.actionButtonViewModel = actionButtonViewModel
-        self.relation = relation
+        self.relationValue = relationValue
         self.service = service
         self.actionsViewModel = actionsViewModel
         
@@ -96,7 +96,7 @@ extension TextRelationDetailsViewModel: AnytypePopupViewModelProtocol {
 private extension TextRelationDetailsViewModel {
     
     func saveValue() {
-        service.saveRelation(value: value, key: relation.key, textType: type)
+        service.saveRelation(value: value, key: relationValue.key, textType: type)
         logEvent()
     }
     
