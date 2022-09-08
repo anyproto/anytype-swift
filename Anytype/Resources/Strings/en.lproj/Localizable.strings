@@ -601,6 +601,8 @@
 // MARK: Edit view type
 "SetViewTypesPicker.Title" = "Edit view";
 "SetViewTypesPicker.Section.Types.Title" = "View as";
+"SetViewTypesPicker.Settings.Duplicate.View" = "Duplicate";
+"SetViewTypesPicker.Settings.Delete.View" = "Delete view";
 
 // MARK: Select view picker
 "EditorSetViewPicker.View.Available.Soon" = "%s view soon";

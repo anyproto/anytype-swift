@@ -1,4 +1,5 @@
 import SwiftUI
+import BlocksModels
 
 struct SetViewTypesPicker: View {
     @ObservedObject var viewModel: SetViewTypesPickerViewModel
@@ -7,21 +8,83 @@ struct SetViewTypesPicker: View {
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
-            TitleView(title: Loc.SetViewTypesPicker.title)
+            InlineNavigationBar {
+                TitleView(title: Loc.SetViewTypesPicker.title)
+            } rightButton: {
+                settingsMenu
+            }
             content
             Spacer()
             button
+            Spacer.fixedHeight(8)
         }
     }
     
-    var content: some View {
-        typesSection
-            .padding(.horizontal, 20)
+    private var settingsMenu: some View {
+        Menu {
+            deleteButton
+            duplicateButton
+        } label: {
+            Image(asset: .more)
+                .foregroundColor(.buttonActive)
+                .frame(width: 24, height: 24)
+        }
     }
+    
+    private var deleteButton: some View {
+        Button(action: {
+            viewModel.deleteView {
+                presentationMode.wrappedValue.dismiss()
+            }
+        }) {
+            AnytypeText(
+                Loc.SetViewTypesPicker.Settings.Delete.view,
+                style: .uxCalloutRegular,
+                color: .textPrimary
+            )
+        }
+    }
+    
+    private var duplicateButton: some View {
+        Button(action: {
+            viewModel.duplicateView {
+                presentationMode.wrappedValue.dismiss()
+            }
+        }) {
+            AnytypeText(
+                Loc.SetViewTypesPicker.Settings.Duplicate.view,
+                style: .uxCalloutRegular,
+                color: .textPrimary
+            )
+        }
+    }
+    
+    private var content: some View {
+        ScrollView(.vertical, showsIndicators: false) {
+            nameSection
+            typesSection
+        }
+        .padding(.horizontal, 20)
+    }
+    
+    private var nameSection: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            Spacer.fixedHeight(11)
+            AnytypeText(Loc.name, style: .caption1Regular, color: .textSecondary)
+            Spacer.fixedHeight(6)
+            
+            TextField(Loc.untitled, text: $viewModel.name)
+                .foregroundColor(.textPrimary)
+                .font(AnytypeFontBuilder.font(anytypeFont: .heading))
+            Spacer.fixedHeight(10)
+        }
+        .divider(alignment: .leading)
+    }
+
     
     private func sectionTitle(_ title: String) -> some View {
         VStack(spacing: 0) {
-            Spacer.fixedHeight(11)
+            Spacer.fixedHeight(26)
             AnytypeText(title, style: .caption1Regular, color: .textSecondary)
             Spacer.fixedHeight(8)
         }
@@ -29,7 +92,7 @@ struct SetViewTypesPicker: View {
     }
     
     private var typesSection: some View {
-        Group {
+        VStack(spacing: 0) {
             sectionTitle(Loc.SetViewTypesPicker.Section.Types.title)
             ForEach(viewModel.types) {
                 viewType($0)
@@ -78,5 +141,19 @@ struct SetViewTypesPicker: View {
             }
         }
         .padding(.horizontal, 20)
+    }
+}
+
+struct SetViewTypesPicker_Previews: PreviewProvider {
+    static var previews: some View {
+        SetViewTypesPicker(
+            viewModel: SetViewTypesPickerViewModel(
+                activeView: DataviewView.empty,
+                dataviewService: DataviewService(
+                    objectId: "objectId",
+                    prefilledFieldsBuilder: SetFilterPrefilledFieldsBuilder()
+                )
+            )
+        )
     }
 }

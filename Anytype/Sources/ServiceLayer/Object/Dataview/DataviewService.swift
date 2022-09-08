@@ -30,6 +30,22 @@ final class DataviewService: DataviewServiceProtocol {
             .send()
     }
     
+    func createView( _ view: DataviewView) {
+        Anytype_Rpc.BlockDataview.View.Create.Service
+            .invoke(contextID: objectId, blockID: SetConstants.dataviewBlockId, view: view.asMiddleware)
+            .map { EventsBunch(event: $0.event) }
+            .getValue(domain: .dataviewService)?
+            .send()
+    }
+    
+    func deleteView( _ viewId: String) {
+        Anytype_Rpc.BlockDataview.View.Delete.Service
+            .invoke(contextID: objectId, blockID: SetConstants.dataviewBlockId, viewID: viewId)
+            .map { EventsBunch(event: $0.event) }
+            .getValue(domain: .dataviewService)?
+            .send()
+    }
+    
     func addRelation(_ relation: RelationMetadata) -> Bool {
         let events = Anytype_Rpc.BlockDataview.Relation.Add.Service
             .invoke(contextID: objectId, blockID: SetConstants.dataviewBlockId, relation: relation.asMiddleware)
