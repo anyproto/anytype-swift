@@ -8,14 +8,28 @@ final class EditorSetViewPickerViewModel: ObservableObject {
     
     private let setModel: EditorSetViewModel
     private var cancellable: AnyCancellable?
-    
+    private let dataviewService: DataviewServiceProtocol
     private let showViewTypes: RoutingAction<DataviewView>
     
-    init(setModel: EditorSetViewModel, showViewTypes: @escaping RoutingAction<DataviewView>) {
+    init(
+        setModel: EditorSetViewModel,
+        dataviewService: DataviewServiceProtocol,
+        showViewTypes: @escaping RoutingAction<DataviewView>)
+    {
         self.setModel = setModel
+        self.dataviewService = dataviewService
         self.showViewTypes = showViewTypes
         self.cancellable = setModel.$dataView.sink { [weak self] dataView in
             self?.updateRows(with: dataView)
+        }
+    }
+    
+    func move(from: IndexSet, to: Int) {
+        from.forEach { viewFromIndex in
+            guard viewFromIndex != to, viewFromIndex < setModel.dataView.views.count else { return }
+            let view = setModel.dataView.views[viewFromIndex]
+            let position = to > viewFromIndex ? to - 1 : to
+            dataviewService.setPositionForView(view.id, position: position)
         }
     }
     

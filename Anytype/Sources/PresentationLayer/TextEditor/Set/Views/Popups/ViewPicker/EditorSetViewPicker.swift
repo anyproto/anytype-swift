@@ -28,12 +28,23 @@ struct EditorSetViewPicker: View {
                     row(with: $0)
                         .divider()
                         .listRowSeparator(.hidden)
-                        .listRowInsets(.init(top: 0, leading: 20, bottom: 0, trailing: 20))
+                        .listRowInsets(.init(
+                            top: 0,
+                            leading: editMode == .active && $0.isSupported ? -24 : 20,
+                            bottom: 0,
+                            trailing: 20
+                        ))
+                        .moveDisabled(!$0.isSupported)
                 } else {
                     row(with: $0)
+                        .moveDisabled(!$0.isSupported)
                 }
             }
+            .onMove { from, to in
+                viewModel.move(from: from, to: to)
+            }
         }
+        .animation(nil)
         .listStyle(.plain)
         .buttonStyle(BorderlessButtonStyle())
         .toolbar {
@@ -50,6 +61,7 @@ struct EditorSetViewPicker: View {
             configuration.onTap()
         })
         .environment(\.editMode, $editMode)
+        .animation(nil)
     }
 }
     
