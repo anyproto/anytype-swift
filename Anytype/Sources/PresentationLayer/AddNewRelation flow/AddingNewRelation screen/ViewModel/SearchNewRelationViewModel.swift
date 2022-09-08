@@ -45,17 +45,17 @@ extension SearchNewRelationViewModel {
         }
 
         newSearchData.forEach { section in
-            guard case let .addFromLibriry(relationsMetadata) = section else { return }
+            guard case let .addFromLibriry(relations) = section else { return }
             searchData.removeAll()
 
-            let filteredRelationsMetadata = relationsMetadata.filter { relationDetails in
-                relationDetails.name.range(of: text, options: .caseInsensitive) != nil
+            let filteredRelations = relations.filter { relation in
+                relation.name.range(of: text, options: .caseInsensitive) != nil
             }
             
             searchData.append(.createNewRelation)
 
-            if filteredRelationsMetadata.isNotEmpty {
-                searchData.append(.addFromLibriry(filteredRelationsMetadata))
+            if filteredRelations.isNotEmpty {
+                searchData.append(.addFromLibriry(filteredRelations))
             }
         }
     }
@@ -68,7 +68,7 @@ extension SearchNewRelationViewModel {
         return [.createNewRelation, .addFromLibriry(relatonsMetadata)]
     }
 
-    func addRelation(_ relation: RelationDetails) {
+    func addRelation(_ relation: Relation) {
         guard relationService.addRelation(relation: relation) else { return }
         UISelectionFeedbackGenerator().selectionChanged()
         output?.didAddRelation(relation)

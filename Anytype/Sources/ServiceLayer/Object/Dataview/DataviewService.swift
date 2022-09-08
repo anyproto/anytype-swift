@@ -27,7 +27,7 @@ final class DataviewService: DataviewServiceProtocol {
     }
     
 //    #warning("Merge with relation service")
-    func addRelation(_ relation: RelationDetails) -> Bool {
+    func addRelation(_ relation: Relation) -> Bool {
         #warning("Check me")
         let events = Anytype_Rpc.BlockDataview.Relation.Add.Service
             .invoke(contextID: objectId, blockID: SetConstants.dataviewBlockId, relationID: relation.id)

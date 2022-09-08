@@ -68,8 +68,8 @@ extension RelationsListViewModel {
     }
     
     func showAddNewRelationView() {
-        router.showAddNewRelationView { relationDetails, isNew in
-            AnytypeAnalytics.instance().logAddRelation(format: relationDetails.format, isNew: isNew, type: .menu)
+        router.showAddNewRelationView { relation, isNew in
+            AnytypeAnalytics.instance().logAddRelation(format: relation.format, isNew: isNew, type: .menu)
         }
     }
     

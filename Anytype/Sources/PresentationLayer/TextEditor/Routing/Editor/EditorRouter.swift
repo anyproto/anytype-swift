@@ -481,7 +481,7 @@ extension EditorRouter {
         relationValueCoordinator.startFlow(objectId: objectId, source: source, relationValue: relationValue, output: self)
     }
 
-    func showAddNewRelationView(onSelect: ((RelationDetails, _ isNew: Bool) -> Void)?) {
+    func showAddNewRelationView(onSelect: ((Relation, _ isNew: Bool) -> Void)?) {
         addNewRelationCoordinator.showAddNewRelationView(onCompletion: onSelect)
     }
 }
@@ -534,7 +534,7 @@ extension EditorRouter {
         showCreateObject(with: viewModel)
     }
     
-    func showRelationSearch(relations: [RelationDetails], onSelect: @escaping (RelationDetails) -> Void) {
+    func showRelationSearch(relations: [Relation], onSelect: @escaping (Relation) -> Void) {
         let vc = UIHostingController(
             rootView: NewSearchModuleAssembly.setSortsSearchModule(
                 relations: relations,

@@ -3,17 +3,17 @@ import SwiftProtobuf
 import OrderedCollections
 
 struct SetFilter: Identifiable, Equatable, Hashable {
-    let relationDetails: RelationDetails
+    let relation: Relation
     let filter: DataviewFilter
     
-    var id: String { relationDetails.id }
+    var id: String { relation.id }
     
     var conditionString: String? {
         conditionType.data[filter.condition]
     }
     
-    static func defaultCondition(for relationDetails: RelationDetails) -> DataviewFilter.Condition {
-        let conditionType =  Self.conditionType(for: relationDetails)
+    static func defaultCondition(for relation: Relation) -> DataviewFilter.Condition {
+        let conditionType =  Self.conditionType(for: relation)
         switch conditionType {
         case .text, .number, .checkbox, .date:
             return .equal
@@ -23,17 +23,17 @@ struct SetFilter: Identifiable, Equatable, Hashable {
     }
     
     var conditionType: Condition {
-        Self.conditionType(for: relationDetails)
+        Self.conditionType(for: relation)
     }
     
-    static func conditionType(for relationDetails: RelationDetails) -> Condition {
-        switch relationDetails.format {
+    static func conditionType(for relation: Relation) -> Condition {
+        switch relation.format {
         case .shortText, .longText, .url, .email, .file, .unrecognized, .phone:
             return .text
         case .number:
             return .number
         case .tag, .status, .object:
-            return .selected(relationDetails.format)
+            return .selected(relation.format)
         case .checkbox:
             return .checkbox
         case .date:
@@ -117,11 +117,11 @@ struct SetFilter: Identifiable, Equatable, Hashable {
 
 extension SetFilter {
     func updated(
-        relationDetails: RelationDetails? = nil,
+        relation: Relation? = nil,
         filter: DataviewFilter? = nil
     ) -> SetFilter {
         SetFilter(
-            relationDetails: relationDetails ?? self.relationDetails,
+            relation: relation ?? self.relation,
             filter: filter ?? self.filter
         )
     }

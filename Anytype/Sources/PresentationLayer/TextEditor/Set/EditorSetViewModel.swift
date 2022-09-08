@@ -15,7 +15,7 @@ final class EditorSetViewModel: ObservableObject {
     @Published var sorts: [SetSort] = []
     #warning("Check me")
     @Published var filters: [SetFilter] = []
-    @Published var relationDetails: [RelationDetails] = []
+    @Published var dataViewRelations: [Relation] = []
     
     var isEmpty: Bool {
         dataView.views.isEmpty
@@ -25,8 +25,8 @@ final class EditorSetViewModel: ObservableObject {
         dataView.views.first { $0.id == dataView.activeViewId } ?? .empty
     }
     
-    var colums: [RelationDetails] {
-        sortedRelations.filter { $0.option.isVisible }.map(\.relationDetails)
+    var colums: [Relation] {
+        sortedRelations.filter { $0.option.isVisible }.map(\.relation)
     }
  
     var configurations: [SetContentViewItemConfiguration] {
@@ -65,16 +65,16 @@ final class EditorSetViewModel: ObservableObject {
         document.featuredRelationValuessForEditor
     }
     
-    var relations: [RelationDetails] {
+    var relations: [Relation] {
         activeView.options.compactMap { option in
-            let relationDetails = relationDetails.first { relation in
+            let relation = dataViewRelations.first { relation in
                 option.key == relation.key
             }
             
-            guard let relationDetails = relationDetails,
-                  shouldAddRelationDetails(relationDetails) else { return nil }
+            guard let relation = relation,
+                  shouldAddRelationDetails(relation) else { return nil }
             
-            return relationDetails
+            return relation
         }
     }
     
@@ -107,21 +107,21 @@ final class EditorSetViewModel: ObservableObject {
     private let dataviewService: DataviewServiceProtocol
     private let searchService: SearchServiceProtocol
     private let detailsService: DetailsServiceProtocol
-    private let relationDetailsStorage: RelationDetailsStorageProtocol
+    private let relationStorage: RelationStorageProtocol
     
     init(
         document: BaseDocument,
         dataviewService: DataviewServiceProtocol,
         searchService: SearchServiceProtocol,
         detailsService: DetailsServiceProtocol,
-        relationDetailsStorage: RelationDetailsStorageProtocol
+        relationStorage: RelationStorageProtocol
     ) {
         ObjectTypeProvider.shared.resetCache()
         self.document = document
         self.dataviewService = dataviewService
         self.searchService = searchService
         self.detailsService = detailsService
-        self.relationDetailsStorage = relationDetailsStorage
+        self.relationStorage = relationStorage
     }
     
     func setup(router: EditorRouterProtocol) {
@@ -210,7 +210,7 @@ final class EditorSetViewModel: ObservableObject {
         
         self.dataView = document.dataviews.first ?? .empty
         
-        updateRelationDetails()
+        updateDataViewRelations()
         updateActiveViewId()
         updateSorts()
         updateFilters()
@@ -230,41 +230,41 @@ final class EditorSetViewModel: ObservableObject {
     
     private func updateSorts() {
         sorts = activeView.sorts.uniqued().compactMap { sort in
-            let relationDetails = relationDetails.first { relation in
+            let relation = dataViewRelations.first { relation in
                 sort.relationKey == relation.key
             }
-            guard let relationDetails = relationDetails else { return nil }
+            guard let relation = relation else { return nil }
             
-            return SetSort(relationDetails: relationDetails, sort: sort)
+            return SetSort(relation: relation, sort: sort)
         }
     }
     
     private func updateFilters() {
         filters = activeView.filters.compactMap { filter in
-            let relationDetails = relationDetails.first { relation in
+            let relation = dataViewRelations.first { relation in
                 filter.relationKey == relation.key
             }
-            guard let relationDetails = relationDetails else { return nil }
+            guard let relation = relation else { return nil }
             
-            return SetFilter(relationDetails: relationDetails, filter: filter)
+            return SetFilter(relation: relation, filter: filter)
         }
     }
     
-    private func updateRelationDetails() {
-        relationDetails = relationDetailsStorage.relations(for: dataView.relationLinks)
+    private func updateDataViewRelations() {
+        dataViewRelations = relationStorage.relations(for: dataView.relationLinks)
     }
  
-    private func shouldAddRelationDetails(_ relationDetails: RelationDetails) -> Bool {
-        guard sorts.first(where: { $0.relationDetails.key == relationDetails.key }) == nil else {
+    private func shouldAddRelationDetails(_ relation: Relation) -> Bool {
+        guard sorts.first(where: { $0.relation.key == relation.key }) == nil else {
             return false
         }
-        guard relationDetails.key != ExceptionalSetSort.name.rawValue,
-              relationDetails.key != ExceptionalSetSort.done.rawValue else {
+        guard relation.key != ExceptionalSetSort.name.rawValue,
+              relation.key != ExceptionalSetSort.done.rawValue else {
             return true
         }
-        return !relationDetails.isHidden &&
-        relationDetails.format != .file &&
-        relationDetails.format != .unrecognized
+        return !relation.isHidden &&
+        relation.format != .file &&
+        relation.format != .unrecognized
     }
     
     private func isBookmarksSet() -> Bool {
@@ -365,7 +365,7 @@ extension EditorSetViewModel {
         router.showSettings()
     }
     
-    func showAddNewRelationView(onSelect: @escaping (RelationDetails, _ isNew: Bool) -> Void) {
+    func showAddNewRelationView(onSelect: @escaping (Relation, _ isNew: Bool) -> Void) {
         router.showAddNewRelationView(onSelect: onSelect)
     }
     
@@ -414,6 +414,6 @@ extension EditorSetViewModel {
         dataviewService: DataviewService(objectId: "objectId", prefilledFieldsBuilder: SetFilterPrefilledFieldsBuilder()),
         searchService: ServiceLocator.shared.searchService(),
         detailsService: DetailsService(objectId: "objectId", service: ObjectActionsService()),
-        relationDetailsStorage: ServiceLocator.shared.relationDetailsStorage()
+        relationStorage: ServiceLocator.shared.relationStorage()
     )
 }

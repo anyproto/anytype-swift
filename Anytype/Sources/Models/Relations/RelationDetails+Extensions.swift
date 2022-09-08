@@ -1,7 +1,7 @@
 import Foundation
 import BlocksModels
 
-extension RelationDetails {
+extension Relation {
     var isBundled: Bool {
         guard let keyType = BundledRelationKey(rawValue: key) else { return false }
         return BundledRelationKey.notRemovableRelationKeys.contains(keyType)

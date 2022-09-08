@@ -56,7 +56,7 @@ final class SetFiltersContentViewBuilder {
         onSelect: @escaping (_ ids: [String]) -> Void
     ) -> some View {
         #warning("fix options")
-//        let allTags = filter.relationDetails.selections.map { RelationValue.Tag.Option(option: $0) }
+//        let allTags = filter.relation.selections.map { RelationValue.Tag.Option(option: $0) }
         let allTags = [RelationValue.Tag.Option]()
         let selectedTagIds = selectedIds(
             from: filter.filter.value,
@@ -65,7 +65,7 @@ final class SetFiltersContentViewBuilder {
         return NewSearchModuleAssembly.tagsSearchModule(
             style: .embedded,
             selectionMode: .multipleItems(preselectedIds: selectedTagIds),
-            relationKey: filter.relationDetails.key,
+            relationKey: filter.relation.key,
             selectedTagIds: [],
             onSelect: onSelect,
             onCreate: { _ in }
@@ -91,7 +91,7 @@ final class SetFiltersContentViewBuilder {
             style: .embedded,
             selectionMode: .multipleItems(preselectedIds: selectedObjectsIds),
             excludedObjectIds: [],
-            limitedObjectType: filter.relationDetails.objectTypes,
+            limitedObjectType: filter.relation.objectTypes,
             onSelect: onSelect
         )
     }
@@ -100,7 +100,7 @@ final class SetFiltersContentViewBuilder {
         onSelect: @escaping (_ ids: [String]) -> Void
     ) -> some View {
         #warning("Fix selections")
-//        let allStatuses = filter.relationDetails.selections.map { RelationValue.Status.Option(option: $0) }
+//        let allStatuses = filter.relation.selections.map { RelationValue.Status.Option(option: $0) }
         let allStatuses = [RelationValue.Status.Option]()
         let selectedStatusesIds = selectedIds(
             from: filter.filter.value,

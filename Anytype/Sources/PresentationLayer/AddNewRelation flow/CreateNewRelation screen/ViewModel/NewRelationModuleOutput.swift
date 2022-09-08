@@ -5,6 +5,6 @@ protocol NewRelationModuleOutput: AnyObject {
     
     func didAskToShowRelationFormats(selectedFormat: SupportedRelationFormat)
     func didAskToShowObjectTypesSearch(selectedObjectTypesIds: [String])
-    func didCreateRelation(_ relationDetails: RelationDetails)
+    func didCreateRelation(_ relation: Relation)
     
 }

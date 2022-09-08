@@ -2,16 +2,16 @@ import BlocksModels
 
 final class SetSortsSearchInteractor {
     
-    private let relations: [RelationDetails]
+    private let relations: [Relation]
     
-    init(relations: [RelationDetails]) {
+    init(relations: [Relation]) {
         self.relations = relations
     }
 }
 
 extension SetSortsSearchInteractor {
     
-    func search(text: String) -> Result<[RelationDetails], NewSearchError> {
+    func search(text: String) -> Result<[Relation], NewSearchError> {
         guard text.isNotEmpty else {
             return .success(relations)
         }

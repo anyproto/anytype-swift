@@ -45,7 +45,7 @@ final class SetViewSettingsImagePreviewViewModel: ObservableObject {
         guard let activeView = activeView(from: blockDataView) else {
             return []
         }
-        let fileRelations = setModel.relationDetails.filter {
+        let fileRelations = setModel.dataViewRelations.filter {
             !$0.isHidden && $0.format == RelationFormat.file
         }
         return fileRelations.map { relation in

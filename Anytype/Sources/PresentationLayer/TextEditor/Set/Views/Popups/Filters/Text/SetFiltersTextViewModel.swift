@@ -53,7 +53,7 @@ final class SetFiltersTextViewModel: ObservableObject {
     }
     
     private static func keybordType(for filter: SetFilter) -> UIKeyboardType {
-        switch filter.relationDetails.format {
+        switch filter.relation.format {
         case .number: return .decimalPad
         case .url: return .URL
         case .email: return .emailAddress

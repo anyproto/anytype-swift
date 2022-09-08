@@ -57,14 +57,14 @@ extension SetFiltersListViewModel {
     private func updateRows(with filters: [SetFilter]) {
         rows = filters.enumerated().map { index, filter in
             SetFilterRowConfiguration(
-                id: "\(filter.relationDetails.id)_\(index)",
-                title: filter.relationDetails.name,
+                id: "\(filter.relation.id)_\(index)",
+                title: filter.relation.name,
                 subtitle: filter.conditionString,
-                iconAsset: filter.relationDetails.format.iconAsset,
+                iconAsset: filter.relation.format.iconAsset,
                 type: type(for: filter),
                 hasValues: filter.filter.condition.hasValues,
                 onTap: { [weak self] in
-                    self?.rowTapped(filter.relationDetails.id, index: index)
+                    self?.rowTapped(filter.relation.id, index: index)
                 }
             )
         }
@@ -87,9 +87,9 @@ extension SetFiltersListViewModel {
         dataviewService.updateView(newView)
     }
     
-    private func makeSetFilter(with relation: RelationDetails) -> SetFilter? {
+    private func makeSetFilter(with relation: Relation) -> SetFilter? {
         return SetFilter(
-            relationDetails: relation,
+            relation: relation,
             filter: DataviewFilter(
                 relationKey: relation.key,
                 condition: SetFilter.defaultCondition(for: relation),
@@ -112,7 +112,7 @@ extension SetFiltersListViewModel {
     }
     
     private func type(for filter: SetFilter) -> SetFilterRowType {
-        switch filter.relationDetails.format {
+        switch filter.relation.format {
         case .date:
             return .date(
                 relationFilterBuilder.dateString(
@@ -122,7 +122,7 @@ extension SetFiltersListViewModel {
         default:
             return .relation(
                 relationFilterBuilder.relation(
-                    relationDetails: filter.relationDetails,
+                    relation: filter.relation,
                     filter: filter.filter
                 )
             )

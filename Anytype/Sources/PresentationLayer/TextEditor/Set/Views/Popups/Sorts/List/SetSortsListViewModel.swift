@@ -43,7 +43,7 @@ extension SetSortsListViewModel {
             sort: setSort,
             onSelect: { [weak self] sort in
                 let newSetSort = SetSort(
-                    relationDetails: setSort.relationDetails,
+                    relation: setSort.relation,
                     sort: sort
                 )
                 self?.updateSorts(with: newSetSort)
@@ -70,7 +70,7 @@ extension SetSortsListViewModel {
         updateView(with: sorts)
     }
     
-    func addNewSort(with relation: RelationDetails) {
+    func addNewSort(with relation: Relation) {
         var dataviewSorts = setModel.sorts.map { $0.sort }
         dataviewSorts.append(
             DataviewSort(
@@ -91,16 +91,16 @@ extension SetSortsListViewModel {
         rows = sorts.map {
             SetSortRowConfiguration(
                 id: $0.id,
-                title: $0.relationDetails.name,
+                title: $0.relation.name,
                 subtitle: $0.typeTitle(),
-                iconAsset: $0.relationDetails.format.iconAsset
+                iconAsset: $0.relation.format.iconAsset
             )
         }
     }
     
     private func updateSorts(with setSort: SetSort) {
         let sorts: [SetSort] = setModel.sorts.map { sort in
-            if sort.relationDetails.key == setSort.relationDetails.key {
+            if sort.relation.key == setSort.relation.key {
                 return setSort
             } else {
                 return sort

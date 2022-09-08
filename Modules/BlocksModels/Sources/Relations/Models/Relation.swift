@@ -1,7 +1,7 @@
 import Foundation
 import SwiftProtobuf
 
-public struct RelationDetails: Hashable {
+public struct Relation: Hashable {
 
     public let id: String
     public let key: String
@@ -33,7 +33,7 @@ public struct RelationDetails: Hashable {
     }
 }
 
-public extension RelationDetails {
+public extension Relation {
     
     init(objectDetails: ObjectDetails) {
         #warning("Add fields to constants")

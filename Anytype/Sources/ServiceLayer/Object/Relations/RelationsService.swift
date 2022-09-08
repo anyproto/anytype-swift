@@ -6,7 +6,7 @@ import SwiftProtobuf
 final class RelationsService: RelationsServiceProtocol {
     
     private let searchCommonService = ServiceLocator.shared.searchCommonService()
-    private let relationDetailsStorage = ServiceLocator.shared.relationDetailsStorage()
+    private let relationStorage = ServiceLocator.shared.relationStorage()
     private let objectId: String
         
     init(objectId: String) {
@@ -51,7 +51,7 @@ final class RelationsService: RelationsServiceProtocol {
             .send()
     }
 
-    func createRelation(relation: RelationDetails) -> Bool {
+    func createRelation(relation: Relation) -> Bool {
         #warning("Check me")
         let result = Anytype_Rpc.Object.CreateRelation.Service
             .invocation(details: relation.asCreateMiddleware)
@@ -63,7 +63,7 @@ final class RelationsService: RelationsServiceProtocol {
         return addRelation(relationId: result.objectID)
     }
 
-    func addRelation(relation: RelationDetails) -> Bool {
+    func addRelation(relation: Relation) -> Bool {
         #warning("Check me")
         return addRelation(relationId: relation.id)
     }
@@ -154,7 +154,7 @@ final class RelationsService: RelationsServiceProtocol {
 //        }
     }
 
-    func availableRelations() -> [RelationDetails] {
-        relationDetailsStorage.relations()
+    func availableRelations() -> [Relation] {
+        relationStorage.relations()
     }
 }

@@ -6,17 +6,17 @@ import SwiftProtobuf
 final class SetContentViewDataBuilder {
     private let relationsBuilder = RelationsBuilder(scope: [.object, .type])
     private let storage = ObjectDetailsStorage.shared
-    private let relationDetailsStorage = ServiceLocator.shared.relationDetailsStorage()
+    private let relationStorage = ServiceLocator.shared.relationStorage()
     
     func sortedRelations(dataview: BlockDataview, view: DataviewView) -> [SetRelation] {
         let relations: [SetRelation] = view.options
             .compactMap { option in
-                let relationDetails = relationDetailsStorage.relations(for: dataview.relationLinks)
+                let relation = relationStorage.relations(for: dataview.relationLinks)
                     .filter { !$0.isHidden }
                     .first { $0.key == option.key }
-                guard let relationDetails = relationDetails else { return nil }
+                guard let relation = relation else { return nil }
                 
-                return SetRelation(relationDetails: relationDetails, option: option)
+                return SetRelation(relation: relation, option: option)
             }
 
         return NSOrderedSet(array: relations).array as! [SetRelation]
@@ -26,19 +26,19 @@ final class SetContentViewDataBuilder {
         _ details: [ObjectDetails],
         dataView: BlockDataview,
         activeView: DataviewView,
-        colums: [RelationDetails],
+        colums: [Relation],
         isObjectLocked: Bool,
         onIconTap: @escaping (ObjectDetails) -> Void,
         onItemTap: @escaping (ObjectDetails) -> Void
     ) -> [SetContentViewItemConfiguration] {
         
-        let relationDetails = sortedRelations(dataview: dataView, view: activeView)
+        let relation = sortedRelations(dataview: dataView, view: activeView)
             .filter { $0.option.isVisible == true }
-            .map { $0.relationDetails }
+            .map { $0.relation }
         return details.compactMap { details in
             let parsedRelations = relationsBuilder
                 .parsedRelations(
-                    relationsDetails: relationDetails,
+                    relations: relation,
                     objectId: details.id,
                     isObjectLocked: isObjectLocked
                 )
@@ -99,7 +99,7 @@ final class SetContentViewDataBuilder {
         dataView: BlockDataview,
         activeView: DataviewView) -> ObjectHeaderCoverType?
     {
-        let relation = relationDetailsStorage.relations(for: dataView.relationLinks)
+        let relation = relationStorage.relations(for: dataView.relationLinks)
             .first { $0.format == .file && $0.key == activeView.coverRelationKey }
         
         guard let relation = relation,
