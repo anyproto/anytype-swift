@@ -1,0 +1,25 @@
+// swiftlint:disable all
+
+{% if files %}
+import Foundation
+{% macro fileBlock file %}
+  {% call documentBlock file file.document %}
+{% endmacro %}
+{% macro documentBlock file document %}
+  {% call valueBlock document.data document.metadata %}
+{% endmacro %}
+{% macro valueBlock value metadata %}
+  {% for value in value %}
+    {% set propertyName %}{{value["key"]|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords}}{% endset %}
+    var {{propertyName}}: 
+  {% endfor %}
+{% endmacro %}
+
+public protocol RelationKeyValueProvider {
+    
+    {% for file in files %}
+        {% call fileBlock file %}
+    {% endfor %}
+}
+
+{% endif %}

@@ -1,0 +1,96 @@
+// swiftlint:disable all
+
+{% if files %}
+import Foundation
+import SwiftProtobuf
+import AnytypeCore
+
+{% macro typeNameBlock type %}
+  {%- if type == "object" or type == "tag" or type == "status" -%}
+    ObjectId
+  {%- elif type == "longtext" or type == "shorttext" or type == "email" or type == "phone" -%}
+    String
+  {%- elif type == "number" -%}
+    Int
+  {%- elif type == "checkbox" -%}
+    Bool
+  {%- elif type == "url" -%}
+    URL
+  {%- elif type == "emoji" -%}
+    Emoji
+  {%- elif type == "date" -%}
+    Date
+  {%- elif type == "file" -%}
+    Hash
+  {%- else -%}
+    {{type}}
+  {%- endif -%}
+{% endmacro %}
+{% macro optionalBlock type %}
+  {%- if type == "emoji" or type == "date" or type == "file" or type == "number" or type == "url" -%}
+    ?
+  {%- endif -%}
+{% endmacro %}
+{% macro typeBlock value %}
+  {% set maxCount %}{{value["maxCount"]}}{% endset %}
+  {% set typeName %}{% call typeNameBlock value["format"] %}{% endset %}
+  {% set optional %}{% call optionalBlock value["format"] %}{% endset %}
+  {%- if maxCount == "1" -%}
+  {{typeName}}{{optional}}
+  {%- elif maxCount == "0" -%}
+  [{{typeName}}]
+  {%- else -%}
+    MaxCountUndefined
+  {%- endif -%}
+{% endmacro %}
+
+public enum RelationKey: String {
+    {% for file in files %}
+      {% for value in file.document.data %}
+        {% set propertyName %}{{value["key"]|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords}}{% endset %}
+    case {{propertyName}} = "{{value["key"]}}"
+      {% endfor %}
+    {% endfor %}
+}
+
+public protocol RelationValueProvider {
+    
+    var values: [String: Google_Protobuf_Value] { get }
+    
+    {% for file in files %}
+      {% for value in file.document.data %}
+        {% set propertyName %}{{value["key"]|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords}}{% endset %}
+        {% set propertyType %}{% call typeBlock value %}{% endset %}
+    var {{propertyName}}: {{propertyType}} { get }
+      {% endfor %}
+    {% endfor %}
+} 
+
+public extension RelationValueProvider {
+  {% for file in files %}
+    {% for value in file.document.data %}
+      {% set propertyName %}{{value["key"]|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords}}{% endset %}
+      {% set propertyType %}{% call typeBlock value %}{% endset %}
+      {% set propertyTypePrefix %}{{propertyType|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords}}{% endset %}
+    var {{propertyName}}: {{propertyType}} {
+        return value(for: RelationKey.{{propertyName}}.rawValue)
+    }
+    {% endfor %}
+  {% endfor %}
+
+    func value<T>(for key: String) -> T? where T: ProtobufSupport{
+        guard let value = values[key]?.unwrapedListValue else { return nil }
+        return T(value) 
+    }
+
+    func value<T>(for key: String) -> T where T: ProtobufSupport, T: ProtobufDefaultTypeProvider {
+        guard let value = values[key]?.unwrapedListValue else { return T.protobufDefaultType() }
+        return T(value) ?? T.protobufDefaultType()
+    }
+
+    func value<T: ProtobufSupport>(for key: String) -> [T] {
+        guard let values = values[key]?.listValue.values else { return [] }
+        return values.compactMap { T($0) }
+    }
+}
+{% endif %}

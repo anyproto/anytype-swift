@@ -82,7 +82,7 @@ internal enum Loc {
   internal static let archive = Loc.tr("Localizable", "Archive")
   /// Plural format key: "Are you sure you want to delete %#@object@?"
   internal static func areYouSureYouWantToDelete(_ p1: Int) -> String {
-    return Loc.tr("Localizable", "Are you sure you want to delete", p1)
+    return Loc.tr("Localizable", "Are you sure you want to delete",p1)
   }
   /// Arrangement of objects on a canvas
   internal static let arrangementOfObjectsOnACanvas = Loc.tr("Localizable", "Arrangement of objects on a canvas")
@@ -185,7 +185,7 @@ internal enum Loc {
   internal static let connectionRefused = Loc.tr("Localizable", "Connection refused")
   /// %s copied to clipboard
   internal static func copiedToClipboard(_ p1: UnsafePointer<CChar>) -> String {
-    return Loc.tr("Localizable", "copied to clipboard", p1)
+    return Loc.tr("Localizable", "copied to clipboard",p1)
   }
   /// Copy
   internal static let copy = Loc.tr("Localizable", "Copy")
@@ -203,13 +203,13 @@ internal enum Loc {
   internal static let createObject = Loc.tr("Localizable", "Create object")
   /// Create option %s
   internal static func createOption(_ p1: UnsafePointer<CChar>) -> String {
-    return Loc.tr("Localizable", "Create option", p1)
+    return Loc.tr("Localizable", "Create option",p1)
   }
   /// Create pin code
   internal static let createPinCode = Loc.tr("Localizable", "Create pin code")
   /// Create relation "%s"
   internal static func createRelation(_ p1: UnsafePointer<CChar>) -> String {
-    return Loc.tr("Localizable", "Create relation", p1)
+    return Loc.tr("Localizable", "Create relation",p1)
   }
   /// Data
   internal static let data = Loc.tr("Localizable", "Data")
@@ -217,7 +217,7 @@ internal enum Loc {
   internal static let date = Loc.tr("Localizable", "Date")
   /// Plural format key: "This account will be deleted %#@days@"
   internal static func daysToDeletionAccount(_ p1: Int) -> String {
-    return Loc.tr("Localizable", "Days to deletion account", p1)
+    return Loc.tr("Localizable", "Days to deletion account",p1)
   }
   /// Default background
   internal static let defaultBackground = Loc.tr("Localizable", "Default background")
@@ -355,7 +355,7 @@ internal enum Loc {
   internal static let invalidInvitationCode = Loc.tr("Localizable", "Invalid invitation code")
   /// %s is already selected
   internal static func isAlreadySelected(_ p1: UnsafePointer<CChar>) -> String {
-    return Loc.tr("Localizable", "is already selected", p1)
+    return Loc.tr("Localizable", "is already selected",p1)
   }
   /// Italic
   internal static let italic = Loc.tr("Localizable", "Italic")
@@ -449,7 +449,7 @@ internal enum Loc {
   internal static let object = Loc.tr("Localizable", "Object")
   /// Plural format key: "%#@object@ selected"
   internal static func objectSelected(_ p1: Int) -> String {
-    return Loc.tr("Localizable", "Object selected", p1)
+    return Loc.tr("Localizable", "Object selected",p1)
   }
   /// Objects
   internal static let objects = Loc.tr("Localizable", "Objects")
@@ -555,7 +555,7 @@ internal enum Loc {
   internal static let selectTags = Loc.tr("Localizable", "Select tags")
   /// Plural format key: "%#@object@"
   internal static func selectedBlocks(_ p1: Int) -> String {
-    return Loc.tr("Localizable", "Selected blocks", p1)
+    return Loc.tr("Localizable", "Selected blocks",p1)
   }
   /// Set
   internal static let `set` = Loc.tr("Localizable", "Set")
@@ -626,11 +626,11 @@ internal enum Loc {
   internal static let thereIsNoEmojiNamed = Loc.tr("Localizable", "There is no emoji named")
   /// There is no object named %s
   internal static func thereIsNoObjectNamed(_ p1: UnsafePointer<CChar>) -> String {
-    return Loc.tr("Localizable", "There is no object named", p1)
+    return Loc.tr("Localizable", "There is no object named",p1)
   }
   /// There is no relation named %s
   internal static func thereIsNoRelationNamed(_ p1: UnsafePointer<CChar>) -> String {
-    return Loc.tr("Localizable", "There is no relation named", p1)
+    return Loc.tr("Localizable", "There is no relation named",p1)
   }
   /// These objects will be deleted irrevocably. You can’t undo this action.
   internal static let theseObjectsWillBeDeletedIrrevocably = Loc.tr("Localizable", "These objects will be deleted irrevocably")
@@ -722,62 +722,70 @@ internal enum Loc {
   internal static let yourPublicPage = Loc.tr("Localizable", "Your public page")
 
   internal enum Alert {
+
     internal enum CameraPermissions {
-      /// Go to Settings?
+    /// Go to Settings?
       internal static let goToSettings = Loc.tr("Localizable", "Alert.CameraPermissions.GoToSettings")
       /// Settings
       internal static let settings = Loc.tr("Localizable", "Alert.CameraPermissions.Settings")
     }
+
     internal enum TemplatesAvailable {
-      /// Show
+    /// Show
       internal static let button = Loc.tr("Localizable", "Alert.Templates_Available.Button")
       /// Swipe down to skip
       internal static let description = Loc.tr("Localizable", "Alert.Templates_Available.Description")
       /// This type has %d templates
       internal static func title(_ p1: Int) -> String {
-        return Loc.tr("Localizable", "Alert.Templates_Available.Title", p1)
+        return Loc.tr("Localizable", "Alert.Templates_Available.Title",p1)
       }
     }
   }
 
   internal enum Auth {
-    /// Camera access required to scan QR code
+  /// Camera access required to scan QR code
     internal static let cameraPermissionTitle = Loc.tr("Localizable", "Auth.CameraPermissionTitle")
   }
 
   internal enum Content {
+
     internal enum Audio {
-      /// Upload audio
+    /// Upload audio
       internal static let upload = Loc.tr("Localizable", "Content.Audio.Upload")
     }
+
     internal enum Bookmark {
-      /// Add a web bookmark
+    /// Add a web bookmark
       internal static let add = Loc.tr("Localizable", "Content.Bookmark.Add")
       /// Loading, please wait...
       internal static let loading = Loc.tr("Localizable", "Content.Bookmark.Loading")
     }
+
     internal enum Common {
-      /// Something went wrong, try again
+    /// Something went wrong, try again
       internal static let error = Loc.tr("Localizable", "Content.Common.Error")
       /// Uploading...
       internal static let uploading = Loc.tr("Localizable", "Content.Common.Uploading")
     }
+
     internal enum File {
-      /// Upload a file
+    /// Upload a file
       internal static let upload = Loc.tr("Localizable", "Content.File.Upload")
     }
+
     internal enum Picture {
-      /// Upload a picture
+    /// Upload a picture
       internal static let upload = Loc.tr("Localizable", "Content.Picture.Upload")
     }
+
     internal enum Video {
-      /// Upload a video
+    /// Upload a video
       internal static let upload = Loc.tr("Localizable", "Content.Video.Upload")
     }
   }
 
   internal enum DataviewType {
-    /// Gallery
+  /// Gallery
     internal static let gallery = Loc.tr("Localizable", "DataviewType.gallery")
     /// Grid
     internal static let grid = Loc.tr("Localizable", "DataviewType.grid")
@@ -788,31 +796,36 @@ internal enum Loc {
   }
 
   internal enum DebugMenu {
-    /// Release: %s, %s
+  /// Release: %s, %s
     internal static func toggleAuthor(_ p1: UnsafePointer<CChar>, _ p2: UnsafePointer<CChar>) -> String {
-      return Loc.tr("Localizable", "DebugMenu.ToggleAuthor", p1, p2)
+      return Loc.tr("Localizable", "DebugMenu.ToggleAuthor",p1, p2)
     }
   }
 
   internal enum DeletionAlert {
-    /// You will be logged out on all other devices. You will have 30 days to recover it. Afterwards it will be deleted permanently
+  /// You will be logged out on all other devices. You will have 30 days to recover it. Afterwards it will be deleted permanently
     internal static let description = Loc.tr("Localizable", "DeletionAlert.description")
     /// Are you sure to delete account?
     internal static let title = Loc.tr("Localizable", "DeletionAlert.title")
   }
 
   internal enum EditSet {
+
     internal enum Popup {
+
       internal enum Filter {
+
         internal enum Condition {
+
           internal enum Checkbox {
-            /// Is
+          /// Is
             internal static let equal = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.Checkbox.Equal")
             /// Is not
             internal static let notEqual = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.Checkbox.NotEqual")
           }
+
           internal enum Date {
-            /// Is after
+          /// Is after
             internal static let after = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.Date.After")
             /// Is before
             internal static let before = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.Date.Before")
@@ -825,16 +838,18 @@ internal enum Loc {
             /// Is on or before
             internal static let onOrBefore = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.Date.OnOrBefore")
           }
+
           internal enum General {
-            /// Is empty
+          /// Is empty
             internal static let empty = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.General.Empty")
             /// All
             internal static let `none` = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.General.None")
             /// Is not empty
             internal static let notEmpty = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.General.NotEmpty")
           }
+
           internal enum Number {
-            /// Is equal to
+          /// Is equal to
             internal static let equal = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.Number.Equal")
             /// Is greater than
             internal static let greater = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.Number.Greater")
@@ -847,8 +862,9 @@ internal enum Loc {
             /// Is not equal to
             internal static let notEqual = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.Number.NotEqual")
           }
+
           internal enum Selected {
-            /// Has all of
+          /// Has all of
             internal static let allIn = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.Selected.AllIn")
             /// Is exactly
             internal static let equal = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.Selected.Equal")
@@ -857,8 +873,9 @@ internal enum Loc {
             /// Has none of
             internal static let notIn = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.Selected.NotIn")
           }
+
           internal enum Text {
-            /// Is
+          /// Is
             internal static let equal = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.Text.Equal")
             /// Contains
             internal static let like = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.Text.Like")
@@ -868,9 +885,11 @@ internal enum Loc {
             internal static let notLike = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.Text.NotLike")
           }
         }
+
         internal enum Date {
+
           internal enum Option {
-            /// Current month
+          /// Current month
             internal static let currentMonth = Loc.tr("Localizable", "EditSet.Popup.Filter.Date.Option.CurrentMonth")
             /// Current week
             internal static let currentWeek = Loc.tr("Localizable", "EditSet.Popup.Filter.Date.Option.CurrentWeek")
@@ -894,60 +913,73 @@ internal enum Loc {
             internal static let tomorrow = Loc.tr("Localizable", "EditSet.Popup.Filter.Date.Option.Tomorrow")
             /// Yesterday
             internal static let yesterday = Loc.tr("Localizable", "EditSet.Popup.Filter.Date.Option.Yesterday")
+
             internal enum NumberOfDaysAgo {
-              /// %s days ago
+            /// %s days ago
               internal static func short(_ p1: UnsafePointer<CChar>) -> String {
-                return Loc.tr("Localizable", "EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo.Short", p1)
+                return Loc.tr("Localizable", "EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo.Short",p1)
               }
             }
+
             internal enum NumberOfDaysFromNow {
-              /// %s days from now
+            /// %s days from now
               internal static func short(_ p1: UnsafePointer<CChar>) -> String {
-                return Loc.tr("Localizable", "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short", p1)
+                return Loc.tr("Localizable", "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short",p1)
               }
             }
           }
         }
+
         internal enum Value {
-          /// Checked
+        /// Checked
           internal static let checked = Loc.tr("Localizable", "EditSet.Popup.Filter.Value.Checked")
           /// Unchecked
           internal static let unchecked = Loc.tr("Localizable", "EditSet.Popup.Filter.Value.Unchecked")
         }
       }
+
       internal enum Filters {
+
         internal enum EmptyView {
-          /// No filters here. You can add some
+        /// No filters here. You can add some
           internal static let title = Loc.tr("Localizable", "EditSet.Popup.Filters.EmptyView.Title")
         }
+
         internal enum NavigationView {
-          /// Filters
+        /// Filters
           internal static let title = Loc.tr("Localizable", "EditSet.Popup.Filters.NavigationView.Title")
         }
+
         internal enum TextView {
-          /// Value
+        /// Value
           internal static let placeholder = Loc.tr("Localizable", "EditSet.Popup.Filters.TextView.Placeholder")
         }
       }
+
       internal enum Sort {
+
         internal enum Add {
-          /// Сhoose a relation to sort
+        /// Сhoose a relation to sort
           internal static let searchPlaceholder = Loc.tr("Localizable", "EditSet.Popup.Sort.Add.SearchPlaceholder")
         }
+
         internal enum Types {
-          /// Ascending
+        /// Ascending
           internal static let ascending = Loc.tr("Localizable", "EditSet.Popup.Sort.Types.Ascending")
           /// Descending
           internal static let descending = Loc.tr("Localizable", "EditSet.Popup.Sort.Types.Descending")
         }
       }
+
       internal enum Sorts {
+
         internal enum EmptyView {
-          /// No sorts here. You can add some
+        /// No sorts here. You can add some
           internal static let title = Loc.tr("Localizable", "EditSet.Popup.Sorts.EmptyView.Title")
         }
+
         internal enum NavigationView {
-          /// Sorts
+        /// Sorts
           internal static let title = Loc.tr("Localizable", "EditSet.Popup.Sorts.NavigationView.Title")
         }
       }
@@ -955,8 +987,9 @@ internal enum Loc {
   }
 
   internal enum Editor {
+
     internal enum LinkToObject {
-      /// Copy link
+    /// Copy link
       internal static let copyLink = Loc.tr("Localizable", "Editor.LinkToObject.CopyLink")
       /// Linked to
       internal static let linkedTo = Loc.tr("Localizable", "Editor.LinkToObject.LinkedTo")
@@ -967,30 +1000,33 @@ internal enum Loc {
       /// Paste link or search objects
       internal static let searchPlaceholder = Loc.tr("Localizable", "Editor.LinkToObject.SearchPlaceholder")
     }
+
     internal enum MovingState {
-      /// Scroll to select a place
+    /// Scroll to select a place
       internal static let scrollToSelectedPlace = Loc.tr("Localizable", "Editor.MovingState.ScrollToSelectedPlace")
     }
   }
 
   internal enum EditorSetViewPicker {
+
     internal enum View {
+
       internal enum Available {
-        /// %s view soon
+      /// %s view soon
         internal static func soon(_ p1: UnsafePointer<CChar>) -> String {
-          return Loc.tr("Localizable", "EditorSetViewPicker.View.Available.Soon", p1)
+          return Loc.tr("Localizable", "EditorSetViewPicker.View.Available.Soon",p1)
         }
       }
     }
   }
 
   internal enum ErrorOccurred {
-    /// Error occurred. Please try again
+  /// Error occurred. Please try again
     internal static let pleaseTryAgain = Loc.tr("Localizable", "Error occurred. Please try again")
   }
 
   internal enum General {
-    /// Add block below
+  /// Add block below
     internal static let addBlockBelow = Loc.tr("Localizable", "General.AddBlockBelow")
     /// Delete
     internal static let delete = Loc.tr("Localizable", "General.Delete")
@@ -999,14 +1035,15 @@ internal enum Loc {
   }
 
   internal enum Home {
+
     internal enum Snackbar {
-      /// Library is available in desktop app
+    /// Library is available in desktop app
       internal static let library = Loc.tr("Localizable", "Home.Snackbar.Library")
     }
   }
 
   internal enum InterfaceStyle {
-    /// Dark
+  /// Dark
     internal static let dark = Loc.tr("Localizable", "InterfaceStyle.dark")
     /// Light
     internal static let light = Loc.tr("Localizable", "InterfaceStyle.light")
@@ -1015,7 +1052,7 @@ internal enum Loc {
   }
 
   internal enum Keychain {
-    /// Don’t forget to save your recovery phrase
+  /// Don’t forget to save your recovery phrase
     internal static let donTForgetToSaveYourRecoveryPhrase = Loc.tr("Localizable", "Keychain.Don’t forget to save your recovery phrase")
     /// Have you backed up your recovery phrase?
     internal static let haveYouBackedUpYourRecoveryPhrase = Loc.tr("Localizable", "Keychain.Have you backed up your recovery phrase?")
@@ -1038,34 +1075,39 @@ internal enum Loc {
   }
 
   internal enum LinkAppearance {
+
     internal enum Description {
+
       internal enum Added {
-        /// Show only added description
+      /// Show only added description
         internal static let subtitle = Loc.tr("Localizable", "LinkAppearance.Description.Added.Subtitle")
         /// Only Added
         internal static let title = Loc.tr("Localizable", "LinkAppearance.Description.Added.Title")
       }
+
       internal enum Content {
-        /// Show first sentenses of the object
+      /// Show first sentenses of the object
         internal static let subtitle = Loc.tr("Localizable", "LinkAppearance.Description.Content.Subtitle")
         /// Content preview
         internal static let title = Loc.tr("Localizable", "LinkAppearance.Description.Content.Title")
       }
+
       internal enum None {
-        /// Don't show description
+      /// Don't show description
         internal static let subtitle = Loc.tr("Localizable", "LinkAppearance.Description.None.Subtitle")
         /// None
         internal static let title = Loc.tr("Localizable", "LinkAppearance.Description.None.Title")
       }
     }
+
     internal enum ObjectType {
-      /// Object type
+    /// Object type
       internal static let title = Loc.tr("Localizable", "LinkAppearance.ObjectType.Title")
     }
   }
 
   internal enum LinkPaste {
-    /// Create bookmark
+  /// Create bookmark
     internal static let bookmark = Loc.tr("Localizable", "LinkPaste.bookmark")
     /// Paste as link
     internal static let link = Loc.tr("Localizable", "LinkPaste.link")
@@ -1074,19 +1116,19 @@ internal enum Loc {
   }
 
   internal enum ObjectType {
-    /// Blank canvas with no title
+  /// Blank canvas with no title
     internal static let fallbackDescription = Loc.tr("Localizable", "ObjectType.fallbackDescription")
   }
 
   internal enum QuickAction {
-    /// Create %s
+  /// Create %s
     internal static func create(_ p1: UnsafePointer<CChar>) -> String {
-      return Loc.tr("Localizable", "QuickAction.create", p1)
+      return Loc.tr("Localizable", "QuickAction.create",p1)
     }
   }
 
   internal enum RedactedText {
-    /// Wake up, Neo
+  /// Wake up, Neo
     internal static let pageTitle = Loc.tr("Localizable", "RedactedText.pageTitle")
     /// Red pill
     internal static let pageType = Loc.tr("Localizable", "RedactedText.pageType")
@@ -1095,16 +1137,18 @@ internal enum Loc {
   }
 
   internal enum Relation {
+
     internal enum View {
+
       internal enum Hint {
-        /// empty
+      /// empty
         internal static let empty = Loc.tr("Localizable", "Relation.View.Hint.Empty")
       }
     }
   }
 
   internal enum RelationAction {
-    /// Call phone numbler
+  /// Call phone numbler
     internal static let callPhone = Loc.tr("Localizable", "RelationAction.CallPhone")
     /// Copied
     internal static let copied = Loc.tr("Localizable", "RelationAction.Copied")
@@ -1125,54 +1169,69 @@ internal enum Loc {
   }
 
   internal enum Set {
+
     internal enum Bookmark {
+
       internal enum Create {
-        /// Paste link
+      /// Paste link
         internal static let placeholder = Loc.tr("Localizable", "Set.Bookmark.Create.Placeholder")
       }
+
       internal enum Error {
-        /// Please try again
+      /// Please try again
         internal static let message = Loc.tr("Localizable", "Set.Bookmark.Error.Message")
         /// Oops - something went wrong
         internal static let title = Loc.tr("Localizable", "Set.Bookmark.Error.Title")
       }
     }
+
     internal enum FeaturedRelations {
-      /// Source
+    /// Source
       internal static let source = Loc.tr("Localizable", "Set.FeaturedRelations.Source")
     }
+
     internal enum Filters {
+
       internal enum Search {
+
         internal enum Button {
-          /// Apply
+        /// Apply
           internal static let title = Loc.tr("Localizable", "Set.Filters.Search.Button.Title")
         }
       }
     }
+
     internal enum SourceType {
-      /// Select source
+    /// Select source
       internal static let selectSource = Loc.tr("Localizable", "Set.SourceType.SelectSource")
     }
+
     internal enum View {
+
       internal enum Settings {
+
         internal enum CardSize {
-          /// Card size
+        /// Card size
           internal static let title = Loc.tr("Localizable", "Set.View.Settings.CardSize.Title")
+
           internal enum Large {
-            /// Large
+          /// Large
             internal static let title = Loc.tr("Localizable", "Set.View.Settings.CardSize.Large.Title")
           }
+
           internal enum Small {
-            /// Small
+          /// Small
             internal static let title = Loc.tr("Localizable", "Set.View.Settings.CardSize.Small.Title")
           }
         }
+
         internal enum ImageFit {
-          /// Fit image
+        /// Fit image
           internal static let title = Loc.tr("Localizable", "Set.View.Settings.ImageFit.Title")
         }
+
         internal enum ImagePreview {
-          /// Image preview
+        /// Image preview
           internal static let title = Loc.tr("Localizable", "Set.View.Settings.ImagePreview.Title")
         }
       }
@@ -1180,26 +1239,30 @@ internal enum Loc {
   }
 
   internal enum SetViewTypesPicker {
-    /// Edit view
+  /// Edit view
     internal static let title = Loc.tr("Localizable", "SetViewTypesPicker.Title")
+
     internal enum Section {
+
       internal enum Types {
-        /// View as
+      /// View as
         internal static let title = Loc.tr("Localizable", "SetViewTypesPicker.Section.Types.Title")
       }
     }
   }
 
   internal enum SignUp {
+
     internal enum InvintationCode {
-      /// Invitation code
+    /// Invitation code
       internal static let placeholder = Loc.tr("Localizable", "SignUp.InvintationCode.Placeholder")
     }
   }
 
   internal enum SimpleTableMenu {
+
     internal enum Item {
-      /// Clear
+    /// Clear
       internal static let clearContents = Loc.tr("Localizable", "SimpleTableMenu.Item.clearContents")
       /// Reset style
       internal static let clearStyle = Loc.tr("Localizable", "SimpleTableMenu.Item.clearStyle")
@@ -1233,7 +1296,7 @@ internal enum Loc {
   }
 
   internal enum SlashMenu {
-    /// Dots divider
+  /// Dots divider
     internal static let dotsDivider = Loc.tr("Localizable", "SlashMenu.DotsDivider")
     /// Line divider
     internal static let lineDivider = Loc.tr("Localizable", "SlashMenu.LineDivider")
@@ -1244,7 +1307,7 @@ internal enum Loc {
   }
 
   internal enum Specific {
-    /// Download
+  /// Download
     internal static let download = Loc.tr("Localizable", "Specific.Download")
     /// Replace
     internal static let replace = Loc.tr("Localizable", "Specific.Replace")
@@ -1257,15 +1320,16 @@ internal enum Loc {
   }
 
   internal enum TalbeOfContents {
-    /// Add headings to create a table of contents
+  /// Add headings to create a table of contents
     internal static let empty = Loc.tr("Localizable", "TalbeOfContents.Empty")
   }
 
   internal enum TemplatePicker {
-    /// Choose template
+  /// Choose template
     internal static let chooseTemplate = Loc.tr("Localizable", "TemplatePicker.ChooseTemplate")
+
     internal enum Buttons {
-      /// Skip
+    /// Skip
       internal static let skip = Loc.tr("Localizable", "TemplatePicker.Buttons.Skip")
       /// Use template
       internal static let useTemplate = Loc.tr("Localizable", "TemplatePicker.Buttons.UseTemplate")
@@ -1273,7 +1337,7 @@ internal enum Loc {
   }
 
   internal enum ToggleEmpty {
-    /// Toggle empty. Tap to create block.
+  /// Toggle empty. Tap to create block.
     internal static let tapToCreateBlock = Loc.tr("Localizable", "Toggle empty. Tap to create block.")
   }
 }

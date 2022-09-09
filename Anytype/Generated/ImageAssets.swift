@@ -25,7 +25,7 @@ internal extension ImageAsset {
   static let marketplace = ImageAsset.bundle(name: "marketplace")
   static let selection = ImageAsset.bundle(name: "selection")
   enum EditingToolbar {
-    static let actions = ImageAsset.bundle(name: "EditingToolbar/actions")
+  static let actions = ImageAsset.bundle(name: "EditingToolbar/actions")
     static let addNew = ImageAsset.bundle(name: "EditingToolbar/add_new")
     static let mention = ImageAsset.bundle(name: "EditingToolbar/mention")
     static let move = ImageAsset.bundle(name: "EditingToolbar/move")
@@ -141,7 +141,7 @@ internal extension ImageAsset {
   static let slashMenuGroupRelation = ImageAsset.bundle(name: "slash_menu_group_relation")
   static let slashMenuGroupStyle = ImageAsset.bundle(name: "slash_menu_group_style")
   enum Format {
-    static let attachment = ImageAsset.bundle(name: "format/attachment")
+  static let attachment = ImageAsset.bundle(name: "format/attachment")
     static let checkbox = ImageAsset.bundle(name: "format/checkbox")
     static let date = ImageAsset.bundle(name: "format/date")
     static let email = ImageAsset.bundle(name: "format/email")
@@ -159,14 +159,14 @@ internal extension ImageAsset {
   static let slashBackArrow = ImageAsset.bundle(name: "slash_back_arrow")
   static let slashMenuLinkTo = ImageAsset.bundle(name: "slash_menu_link_to")
   enum StyleBottomSheet {
-    static let bullet = ImageAsset.bundle(name: "StyleBottomSheet/bullet")
+  static let bullet = ImageAsset.bundle(name: "StyleBottomSheet/bullet")
     static let checkbox = ImageAsset.bundle(name: "StyleBottomSheet/checkbox")
     static let color = ImageAsset.bundle(name: "StyleBottomSheet/color")
     static let numbered = ImageAsset.bundle(name: "StyleBottomSheet/numbered")
     static let toggle = ImageAsset.bundle(name: "StyleBottomSheet/toggle")
   }
   enum TextAttributes {
-    static let alignCenter = ImageAsset.bundle(name: "TextAttributes/align_center")
+  static let alignCenter = ImageAsset.bundle(name: "TextAttributes/align_center")
     static let alignLeft = ImageAsset.bundle(name: "TextAttributes/align_left")
     static let alignRight = ImageAsset.bundle(name: "TextAttributes/align_right")
     static let bold = ImageAsset.bundle(name: "TextAttributes/bold")
@@ -177,9 +177,9 @@ internal extension ImageAsset {
     static let url = ImageAsset.bundle(name: "TextAttributes/url")
   }
   enum TextEditor {
-    enum BlockFile {
-      enum Content {
-        static let archive = ImageAsset.bundle(name: "TextEditor/BlockFile/Content/Archive")
+  enum BlockFile {
+    enum Content {
+      static let archive = ImageAsset.bundle(name: "TextEditor/BlockFile/Content/Archive")
         static let audio = ImageAsset.bundle(name: "TextEditor/BlockFile/Content/Audio")
         static let image = ImageAsset.bundle(name: "TextEditor/BlockFile/Content/Image")
         static let other = ImageAsset.bundle(name: "TextEditor/BlockFile/Content/Other")
@@ -190,14 +190,14 @@ internal extension ImageAsset {
         static let video = ImageAsset.bundle(name: "TextEditor/BlockFile/Content/Video")
       }
       enum Empty {
-        static let bookmark = ImageAsset.bundle(name: "TextEditor/BlockFile/Empty/Bookmark")
+      static let bookmark = ImageAsset.bundle(name: "TextEditor/BlockFile/Empty/Bookmark")
         static let file = ImageAsset.bundle(name: "TextEditor/BlockFile/Empty/File")
         static let image = ImageAsset.bundle(name: "TextEditor/BlockFile/Empty/Image")
         static let video = ImageAsset.bundle(name: "TextEditor/BlockFile/Empty/Video")
       }
     }
     enum BlocksOption {
-      static let addBelow = ImageAsset.bundle(name: "TextEditor/BlocksOption/add_below")
+    static let addBelow = ImageAsset.bundle(name: "TextEditor/BlocksOption/add_below")
       static let cellMenuClear = ImageAsset.bundle(name: "TextEditor/BlocksOption/cell_menu_clear")
       static let cellMenuColor = ImageAsset.bundle(name: "TextEditor/BlocksOption/cell_menu_color")
       static let columnInsertLeft = ImageAsset.bundle(name: "TextEditor/BlocksOption/column_insert_left")
@@ -222,7 +222,7 @@ internal extension ImageAsset {
     }
     static let turnIntoArrow = ImageAsset.bundle(name: "TextEditor/turn_into_arrow")
     enum Divider {
-      static let dots = ImageAsset.bundle(name: "TextEditor/Divider/Dots")
+    static let dots = ImageAsset.bundle(name: "TextEditor/Divider/Dots")
     }
     static let backArrow = ImageAsset.bundle(name: "TextEditor/backArrow")
     static let forwardArrow = ImageAsset.bundle(name: "TextEditor/forwardArrow")
@@ -231,7 +231,7 @@ internal extension ImageAsset {
     static let search = ImageAsset.bundle(name: "TextEditor/search")
     static let shimmering = ImageAsset.bundle(name: "TextEditor/shimmering")
     enum Text {
-      static let checked = ImageAsset.bundle(name: "TextEditor/Text/checked")
+    static let checked = ImageAsset.bundle(name: "TextEditor/Text/checked")
       static let folded = ImageAsset.bundle(name: "TextEditor/Text/folded")
       static let unchecked = ImageAsset.bundle(name: "TextEditor/Text/unchecked")
     }

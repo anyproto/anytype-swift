@@ -18,3 +18,9 @@ strings:
       output: ../../Anytype/Generated/Strings.swift
       params:
         enumName: Loc
+json:
+  inputs:
+    - ../../Dependencies/relations.json
+  outputs:
+    - templateName: relation-keys
+      output: ../../Modules/BlocksModels/Sources/Relations/Generated/RelationKeys.swift
