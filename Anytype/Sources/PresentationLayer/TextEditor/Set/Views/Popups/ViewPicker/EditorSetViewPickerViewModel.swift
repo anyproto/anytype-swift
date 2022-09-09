@@ -5,6 +5,7 @@ import AnytypeCore
 
 final class EditorSetViewPickerViewModel: ObservableObject {
     @Published var rows: [EditorSetViewRowConfiguration] = []
+    @Published var disableDeletion = false
     
     private let setModel: EditorSetViewModel
     private var cancellable: AnyCancellable?
@@ -33,6 +34,14 @@ final class EditorSetViewPickerViewModel: ObservableObject {
         }
     }
     
+    func delete(_ indexSet: IndexSet) {
+        indexSet.forEach { deleteIndex in
+            guard deleteIndex < setModel.dataView.views.count else { return }
+            let view = setModel.dataView.views[deleteIndex]
+            dataviewService.deleteView(view.id)
+        }
+    }
+    
     private func updateRows(with dataView: BlockDataview) {
         rows = dataView.views.map { view in
             EditorSetViewRowConfiguration(
@@ -49,6 +58,7 @@ final class EditorSetViewPickerViewModel: ObservableObject {
                 }
             )
         }
+        disableDeletion = rows.count < 2
     }
     
     private func handleTap(with id: String) {
