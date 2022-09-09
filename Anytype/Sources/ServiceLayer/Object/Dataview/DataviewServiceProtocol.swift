@@ -8,4 +8,5 @@ protocol DataviewServiceProtocol {
     func deleteRelation(key: BlockId)
     func addRecord(templateId: BlockId, setFilters: [SetFilter]) -> ObjectDetails?
     func setSource(typeObjectId: String)
+    func setPositionForView(_ viewId: String, position: Int)
 }

@@ -105,4 +105,17 @@ final class DataviewService: DataviewServiceProtocol {
         .getValue(domain: .dataviewService)?
         .send()
     }
+    
+    func setPositionForView(_ viewId: String, position: Int) {
+        Anytype_Rpc.BlockDataview.View.SetPosition.Service
+            .invoke(
+                contextID: objectId,
+                blockID: Constants.dataview,
+                viewID: viewId,
+                position: UInt32(position)
+            )
+            .map { EventsBunch(event: $0.event) }
+            .getValue(domain: .dataviewService)?
+            .send()
+    }
 }

@@ -73,13 +73,17 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
         templatesTypeURL: ObjectTypeUrl
     )
     
-    func showViewPicker(setModel: EditorSetViewModel, showViewTypes: @escaping RoutingAction<DataviewView>)
+    func showViewPicker(
+        setModel: EditorSetViewModel,
+        dataviewService: DataviewServiceProtocol,
+        showViewTypes: @escaping RoutingAction<DataviewView>
+    )
 
     func showCreateObject(pageId: BlockId)
     func showCreateBookmarkObject()
     
     func showSetSettings(setModel: EditorSetViewModel)
-    func showViewTypes(activeView: DataviewView, dataviewService: DataviewServiceProtocol)
+    func showViewTypes(activeView: DataviewView, canDelete: Bool, dataviewService: DataviewServiceProtocol)
     func showViewSettings(setModel: EditorSetViewModel, dataviewService: DataviewServiceProtocol)
     func dismissSetSettingsIfNeeded()
     func showSorts(setModel: EditorSetViewModel, dataviewService: DataviewServiceProtocol)
