@@ -135,10 +135,7 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     func updateActiveViewId(_ id: BlockId) {
-        document.infoContainer.updateDataview(blockId: SetConstants.dataviewBlockId) { dataView in
-            dataView.updated(activeViewId: id)
-        }
-        
+        updateDataview(with: id)
         setupDataview()
     }
     
@@ -242,10 +239,18 @@ final class EditorSetViewModel: ObservableObject {
         let activeViewId = dataView.views.first(where: { $0.type.isSupported })?.id ?? dataView.views.first?.id
         if let activeViewId = activeViewId {
             if self.dataView.activeViewId.isEmpty || !dataView.views.contains(where: { $0.id == self.dataView.activeViewId }) {
-                self.dataView.activeViewId = activeViewId
+                updateDataview(with: activeViewId)
+                dataView.activeViewId = activeViewId
             }
         } else {
+            updateDataview(with: "")
             dataView.activeViewId = ""
+        }
+    }
+    
+    private func updateDataview(with activeViewId: BlockId) {
+        document.infoContainer.updateDataview(blockId: SetConstants.dataviewBlockId) { dataView in
+            dataView.updated(activeViewId: activeViewId)
         }
     }
     
