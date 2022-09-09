@@ -30,11 +30,9 @@ struct EditorSetViewPicker: View {
                         .listRowSeparator(.hidden)
                         .listRowInsets(.init(top: 0, leading: 20, bottom: 0, trailing: 20))
                         .deleteDisabled(viewModel.disableDeletion)
-                        .moveDisabled(!$0.isSupported)
                 } else {
                     row(with: $0)
                         .deleteDisabled(viewModel.disableDeletion)
-                        .moveDisabled(!$0.isSupported)
                 }
             }
             .onMove { from, to in
