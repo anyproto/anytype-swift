@@ -22,7 +22,9 @@ struct SetViewTypesPicker: View {
     
     private var settingsMenu: some View {
         Menu {
-            deleteButton
+            if viewModel.canDelete {
+                deleteButton
+            }
             duplicateButton
         } label: {
             Image(asset: .more)
@@ -149,6 +151,7 @@ struct SetViewTypesPicker_Previews: PreviewProvider {
         SetViewTypesPicker(
             viewModel: SetViewTypesPickerViewModel(
                 activeView: DataviewView.empty,
+                canDelete: true,
                 dataviewService: DataviewService(
                     objectId: "objectId",
                     prefilledFieldsBuilder: SetFilterPrefilledFieldsBuilder()

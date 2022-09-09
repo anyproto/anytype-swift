@@ -573,8 +573,12 @@ extension EditorRouter {
         viewController?.topPresentedController.present(vc, animated: true)
     }
     
-    func showViewTypes(activeView: DataviewView, dataviewService: DataviewServiceProtocol) {
-        let viewModel = SetViewTypesPickerViewModel(activeView: activeView, dataviewService: dataviewService)
+    func showViewTypes(activeView: DataviewView, canDelete: Bool, dataviewService: DataviewServiceProtocol) {
+        let viewModel = SetViewTypesPickerViewModel(
+            activeView: activeView,
+            canDelete: canDelete,
+            dataviewService: dataviewService
+        )
         let vc = UIHostingController(
             rootView: SetViewTypesPicker(viewModel: viewModel)
         )

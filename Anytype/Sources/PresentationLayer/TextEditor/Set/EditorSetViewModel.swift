@@ -356,8 +356,7 @@ extension EditorSetViewModel {
     
     func showViewPicker() {
         router.showViewPicker(setModel: self, dataviewService: dataviewService) { [weak self] activeView in
-            guard let self = self else { return }
-            self.router.showViewTypes(activeView: activeView, dataviewService: self.dataviewService)
+            self?.showViewTypes(with: activeView)
         }
     }
     
@@ -373,8 +372,12 @@ extension EditorSetViewModel {
         }
     }
     
-    func showViewTypes() {
-        router.showViewTypes(activeView: activeView, dataviewService: dataviewService)
+    func showViewTypes(with activeView: DataviewView? = nil) {
+        router.showViewTypes(
+            activeView: activeView ?? self.activeView,
+            canDelete: dataView.views.count > 1,
+            dataviewService: dataviewService
+        )
     }
     
     func showViewSettings() {
