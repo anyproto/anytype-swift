@@ -20,7 +20,7 @@ internal typealias AssetColorTypeAlias = ColorAsset.Color
 // swiftlint:disable identifier_name line_length nesting type_body_length type_name
 internal enum Asset {
   internal enum Background {
-  static let amber = ColorAsset(name: "Background/amber")
+    static let amber = ColorAsset(name: "Background/amber")
     static let blue = ColorAsset(name: "Background/blue")
     static let green = ColorAsset(name: "Background/green")
     static let grey = ColorAsset(name: "Background/grey")
@@ -32,7 +32,7 @@ internal enum Asset {
     static let yellow = ColorAsset(name: "Background/yellow")
   }
   internal enum System {
-  static let amber = ColorAsset(name: "System/amber")
+    static let amber = ColorAsset(name: "System/amber")
     static let amber125 = ColorAsset(name: "System/amber125")
     static let amber25 = ColorAsset(name: "System/amber25")
     static let amber50 = ColorAsset(name: "System/amber50")
@@ -48,7 +48,7 @@ internal enum Asset {
     static let yellow = ColorAsset(name: "System/yellow")
   }
   internal enum TagBackground {
-  static let amber = ColorAsset(name: "TagBackground/amber")
+    static let amber = ColorAsset(name: "TagBackground/amber")
     static let blue = ColorAsset(name: "TagBackground/blue")
     static let green = ColorAsset(name: "TagBackground/green")
     static let grey = ColorAsset(name: "TagBackground/grey")
@@ -60,7 +60,7 @@ internal enum Asset {
     static let yellow = ColorAsset(name: "TagBackground/yellow")
   }
   internal enum Text {
-  static let amber = ColorAsset(name: "Text/amber")
+    static let amber = ColorAsset(name: "Text/amber")
     static let blue = ColorAsset(name: "Text/blue")
     static let green = ColorAsset(name: "Text/green")
     static let grey = ColorAsset(name: "Text/grey")
