@@ -32,31 +32,21 @@ import AnytypeCore
   {%- endif -%}
 {% endmacro %}
 {% macro typeBlock value %}
-  {% set maxCount %}{{value["maxCount"]}}{% endset %}
-  {% set typeName %}{% call typeNameBlock value["format"] %}{% endset %}
-  {% set optional %}{% call optionalBlock value["format"] %}{% endset %}
+  {%- set maxCount %}{{value["maxCount"]}}{% endset -%}
+  {%- set typeName %}{% call typeNameBlock value["format"] %}{% endset -%}
+  {%- set optional %}{% call optionalBlock value["format"] %}{% endset -%}
   {%- if maxCount == "1" -%}
   {{typeName}}{{optional}}
   {%- elif maxCount == "0" -%}
   [{{typeName}}]
   {%- else -%}
-    MaxCountUndefined
+  MaxCountUndefined
   {%- endif -%}
 {% endmacro %}
-
-public enum RelationKey: String {
-    {% for file in files %}
-      {% for value in file.document.data %}
-        {% set propertyName %}{{value["key"]|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords}}{% endset %}
-    case {{propertyName}} = "{{value["key"]}}"
-      {% endfor %}
-    {% endfor %}
-}
-
 public protocol RelationValueProvider {
-    
+
     var values: [String: Google_Protobuf_Value] { get }
-    
+
     {% for file in files %}
       {% for value in file.document.data %}
         {% set propertyName %}{{value["key"]|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords}}{% endset %}

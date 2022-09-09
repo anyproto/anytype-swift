@@ -1,0 +1,10 @@
+input_dir: ../../
+
+json:
+  inputs:
+    - Dependencies/relations.json
+  outputs:
+    - templatePath: ./Templates/relation-keys.stencil
+      output: ./Sources/Relations/Generated/RelationKeys.swift
+    - templatePath: ./Templates/relation-value-provider.stencil
+      output: ./Sources/Relations/Generated/RelationValueProvider.swift

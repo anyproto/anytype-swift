@@ -1,26 +1,32 @@
+input_dir: ../../
+output_dir: ../../
+
 xcassets:
   inputs:
-    - ../../Anytype/Resources/SystemColors.xcassets
-    - ../../Anytype/Resources/ComponentColors.xcassets
+    - Anytype/Resources/SystemColors.xcassets
+    - Anytype/Resources/ComponentColors.xcassets
   outputs:
     - templateName: swift5
-      output: ../../Anytype/Generated/Assets.swift
+      output: Anytype/Generated/Assets.swift
     - templateName: swift5_UIColors
-      output: ../../Anytype/Generated/UIColor+Assets.swift
+      output: Anytype/Generated/UIColor+Assets.swift
     - templateName: swift5_SwiftUIColors
-      output: ../../Anytype/Generated/Color+Assets.swift
+      output: Anytype/Generated/Color+Assets.swift
 strings:
   inputs: 
-    - ../../Anytype/Resources/Strings/en.lproj/Localizable.strings
-    - ../../Anytype/Resources/Strings/en.lproj/Localizable.stringsdict
+    - Anytype/Resources/Strings/en.lproj/Localizable.strings
+    - Anytype/Resources/Strings/en.lproj/Localizable.stringsdict
   outputs:
     - templateName: structured-swift5
-      output: ../../Anytype/Generated/Strings.swift
+      output: Anytype/Generated/Strings.swift
       params:
         enumName: Loc
+# Delete for xcode 14. See Package.swift for BlockModels
 json:
   inputs:
-    - ../../Dependencies/relations.json
+    - Dependencies/relations.json
   outputs:
-    - templateName: relation-keys
-      output: ../../Modules/BlocksModels/Sources/Relations/Generated/RelationKeys.swift
+    - templatePath: ../../Modules/BlocksModels/Templates/relation-keys.stencil
+      output: Modules/BlocksModels/Sources/Relations/Generated/RelationKeys.swift
+    - templatePath: ../../Modules/BlocksModels/Templates/relation-value-provider.stencil
+      output: Modules/BlocksModels/Sources/Relations/Generated/RelationValueProvider.swift
