@@ -16,6 +16,7 @@ protocol SearchServiceProtocol {
         sortRelationKey: BundledRelationKey?
     ) -> [ObjectDetails]?
     func searchRelationOptions(text: String, relationKey: String, excludedObjectIds: [String]) -> [ObjectDetails]?
+    func searchRelationOptions(optionIds: [String]) -> [ObjectDetails]?
 }
 
 final class SearchService: ObservableObject, SearchServiceProtocol {
@@ -50,15 +51,15 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         var filters = [
             SearchHelper.isArchivedFilter(isArchived: false),
             SearchHelper.typeFilter(typeIds: [ObjectTypeId.bundled(.objectType).rawValue]),
-            SearchHelper.supportedObjectTypeIdsFilter(
+            SearchHelper.supportedIdsFilter(
                 ObjectTypeProvider.shared.supportedTypeIds
             ),
-            SearchHelper.excludedObjectTypeIdFilter(ObjectTypeId.bundled(.set).rawValue)
+            SearchHelper.excludedIdFilter(ObjectTypeId.bundled(.set).rawValue)
         ]
         if FeatureFlags.bookmarksFlow {
-            filters.append(SearchHelper.excludedObjectTypeIdFilter(ObjectTypeId.bundled(.bookmark).rawValue))
+            filters.append(SearchHelper.excludedIdFilter(ObjectTypeId.bundled(.bookmark).rawValue))
         }
-        filteringTypeId.map { filters.append(SearchHelper.excludedObjectTypeIdFilter($0)) }
+        filteringTypeId.map { filters.append(SearchHelper.excludedIdFilter($0)) }
 
         let result = searchCommonService.search(filters: filters, sorts: [sort], fullText: text, limit: 0)
         return result?.reordered(
@@ -139,6 +140,16 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         filters.append(SearchHelper.relationOptionText(text))
         
         return searchCommonService.search(filters: filters, sorts: [sort], fullText: "")
+    }
+    
+    func searchRelationOptions(optionIds: [String]) -> [ObjectDetails]? {
+        var filters = buildFilters(
+            isArchived: false,
+            typeIds: [ObjectTypeId.bundled(.relationOption).rawValue]
+        )
+        filters.append(SearchHelper.supportedIdsFilter(optionIds))
+        
+        return searchCommonService.search(filters: filters, sorts: [], fullText: "")
     }
 }
 

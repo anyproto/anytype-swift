@@ -13,8 +13,6 @@ extension RelationValue {
         let isBundled: Bool
         
         let selectedTags: [Option]
-        #warning("Delete field")
-        let allTags: [Option]
         
         var hasValue: Bool {
             selectedTags.isNotEmpty

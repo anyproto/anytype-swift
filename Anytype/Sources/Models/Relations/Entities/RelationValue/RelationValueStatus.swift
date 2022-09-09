@@ -13,7 +13,6 @@ extension RelationValue {
         let isBundled: Bool
         
         let values: [Option]
-        let allOptions: [Option]
         
         var hasValue: Bool {
             values.isNotEmpty

@@ -271,9 +271,6 @@ private extension RelationFilterBuilder {
     ) -> RelationValue? {
         guard filter.condition.hasValues else { return nil }
         #warning("Fix selection status")
-//        let statuses: [RelationValue.Status.Option] = relation.selections.map {
-//            RelationValue.Status.Option(option: $0)
-//        }
         let statuses = [RelationValue.Status.Option]()
         
         let selectedStatuses: [RelationValue.Status.Option] = {
@@ -295,8 +292,8 @@ private extension RelationFilterBuilder {
                 isFeatured: false,
                 isEditable: false,
                 isBundled: relation.isBundled,
-                values: selectedStatuses,
-                allOptions: statuses
+                values: selectedStatuses
+//                allOptions: statuses
             )
         )
     }
@@ -306,9 +303,7 @@ private extension RelationFilterBuilder {
         filter: DataviewFilter
     ) -> RelationValue? {
         guard filter.condition.hasValues else { return nil }
-        #warning("fix selections")
-//        let tags: [RelationValue.Tag.Option] = relation.selections.map { RelationValue.Tag.Option(option: $0) }
-        let tags = [RelationValue.Tag.Option]()
+        #warning("Check selections")
         
         let selectedTags: [RelationValue.Tag.Option] = {
             let value = filter.value
@@ -318,9 +313,12 @@ private extension RelationFilterBuilder {
                 return tagId.isEmpty ? nil : tagId
             }
             
-            return selectedTagIds.compactMap { id in
-                tags.first { $0.id == id }
-            }
+            let tags = selectedTagIds
+                .compactMap { storage.get(id: $0) }
+                .map { RelationOption(details: $0) }
+                .map { RelationValue.Tag.Option(option: $0) }
+            
+            return tags
         }()
         
         return .tag(
@@ -331,8 +329,7 @@ private extension RelationFilterBuilder {
                 isFeatured: false,
                 isEditable: false,
                 isBundled: relation.isBundled,
-                selectedTags: selectedTags,
-                allTags: tags
+                selectedTags: selectedTags
             )
         )
     }

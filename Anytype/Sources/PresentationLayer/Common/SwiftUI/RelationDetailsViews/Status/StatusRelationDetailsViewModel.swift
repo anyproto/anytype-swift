@@ -19,23 +19,20 @@ final class StatusRelationDetailsViewModel: ObservableObject {
     var isEditable: Bool {
         return relationValue.isEditable
     }
-    private let allStatuses: [RelationValue.Status.Option]
     private let relationValue: RelationValue
     private let service: RelationsServiceProtocol
-    
+    private let searchService = ServiceLocator.shared.searchService()
     private weak var popup: AnytypePopupProxy?
     
     init(
         source: RelationSource,
         selectedStatus: RelationValue.Status.Option?,
-        allStatuses: [RelationValue.Status.Option],
         relationValue: RelationValue,
         service: RelationsServiceProtocol
     ) {
         self.source = source
         
         self.selectedStatus = selectedStatus
-        self.allStatuses = allStatuses
         
         self.relationValue = relationValue
         self.service = service
@@ -59,7 +56,7 @@ extension StatusRelationDetailsViewModel {
     @ViewBuilder
     func makeSearchView() -> some View {
         NewSearchModuleAssembly.statusSearchModule(
-            allStatuses: allStatuses,
+            relationKey: relationValue.key,
             selectedStatusesIds: selectedStatus.flatMap { [$0.id] } ?? []
         ) { [weak self] ids in
             self?.handleSelectedOptionIds(ids)
@@ -83,22 +80,20 @@ private extension StatusRelationDetailsViewModel {
             isSearchPresented = false
         }
         
-        guard
-            let newStatusId = ids.first,
-            let newStatus = allStatuses.first(where: { $0.id ==  newStatusId })
-        else {
-            ids.first.flatMap {
-                service.updateRelation(
-                    relationKey: relationValue.key,
-                    value: $0.protobufValue
-                )
-            }
+        guard let newStatusId = ids.first else { return }
+        
+        service.updateRelation(relationKey: relationValue.key, value: newStatusId.protobufValue)
+        
+        let newStatus = searchService.searchRelationOptions(optionIds: [newStatusId])?.first
+            .map { RelationOption(details: $0) }
+            .map { RelationValue.Status.Option(option: $0) }
+        
+        guard let newStatus = newStatus else {
             popup?.close()
             return
         }
         
         selectedStatus = newStatus
-        service.updateRelation(relationKey: relationValue.key, value: newStatusId.protobufValue)
     }
     
     func handleCreateOption(title: String) {

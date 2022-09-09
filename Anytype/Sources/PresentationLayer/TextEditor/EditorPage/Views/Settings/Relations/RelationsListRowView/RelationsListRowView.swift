@@ -152,36 +152,6 @@ struct ObjectRelationRow_Previews: PreviewProvider {
                                 backgroundColor: UIColor.Background.teal,
                                 scope: .local
                             )
-                        ],
-                        allTags: [
-                            RelationValue.Tag.Option(
-                                id: "id1",
-                                text: "text1",
-                                textColor: UIColor.Text.teal,
-                                backgroundColor: .backgroundDashboard,
-                                scope: .local
-                            ),
-                            RelationValue.Tag.Option(
-                                id: "id2",
-                                text: "text2",
-                                textColor: UIColor.Text.red,
-                                backgroundColor: UIColor.Background.red,
-                                scope: .local
-                            ),
-                            RelationValue.Tag.Option(
-                                id: "id3",
-                                text: "text3",
-                                textColor: UIColor.Text.teal,
-                                backgroundColor: UIColor.Background.teal,
-                                scope: .local
-                            ),
-                            RelationValue.Tag.Option(
-                                id: "id4",
-                                text: "text4",
-                                textColor: UIColor.Text.red,
-                                backgroundColor: UIColor.Background.red,
-                                scope: .local
-                            )
                         ]
                     )
                 ),

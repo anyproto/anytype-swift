@@ -269,10 +269,6 @@ private extension RelationsBuilder {
         isObjectLocked: Bool
     ) -> RelationValue {
         #warning("Fix options")
-        let options: [RelationValue.Status.Option] = []
-//        let options: [RelationValue.Status.Option] = relation.selections.map {
-//            RelationValue.Status.Option(option: $0)
-//        }
         
         let selectedOption: RelationValue.Status.Option? = {
             let value = details.values[relation.key]
@@ -281,7 +277,9 @@ private extension RelationsBuilder {
                 let optionId = value?.unwrapedListValue.stringValue, optionId.isNotEmpty
             else { return nil }
             
-            return options.first { $0.id == optionId }
+            guard let optionDetails = storage.get(id: optionId) else { return nil }
+            let option = RelationOption(details: optionDetails)
+            return RelationValue.Status.Option(option: option)
         }()
         var values = [RelationValue.Status.Option]()
         if let selectedOption = selectedOption {
@@ -295,8 +293,7 @@ private extension RelationsBuilder {
                 isFeatured: relation.isFeatured(details: details),
                 isEditable: relation.isEditable(objectLocked: isObjectLocked),
                 isBundled: relation.isBundled,
-                values: values,
-                allOptions: options
+                values: values
             )
         )
     }
@@ -352,9 +349,7 @@ private extension RelationsBuilder {
         details: ObjectDetails,
         isObjectLocked: Bool
     ) -> RelationValue {
-        #warning("Fix tags list")
-//        let tags: [RelationValue.Tag.Option] = relation.selections.map { RelationValue.Tag.Option(option: $0) }
-        let tags: [RelationValue.Tag.Option] = []
+        #warning("Check tags list")
         
         let selectedTags: [RelationValue.Tag.Option] = {
             let value = details.values[relation.key]
@@ -365,9 +360,12 @@ private extension RelationsBuilder {
                 return tagId.isEmpty ? nil : tagId
             }
             
-            return selectedTagIds.compactMap { id in
-                tags.first { $0.id == id }
-            }
+            let tags = selectedTagIds
+                .compactMap { storage.get(id: $0) }
+                .map { RelationOption(details: $0) }
+                .map { RelationValue.Tag.Option(option: $0) }
+            
+            return tags
         }()
         
         return .tag(
@@ -378,8 +376,7 @@ private extension RelationsBuilder {
                 isFeatured: relation.isFeatured(details: details),
                 isEditable: relation.isEditable(objectLocked: isObjectLocked),
                 isBundled: relation.isBundled,
-                selectedTags: selectedTags,
-                allTags: tags
+                selectedTags: selectedTags
             )
         )
     }

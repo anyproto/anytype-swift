@@ -91,7 +91,7 @@ class SearchHelper {
         return filter
     }
     
-    static func supportedObjectTypeIdsFilter(_ typeIds: [String]) -> DataviewFilter {
+    static func supportedIdsFilter(_ typeIds: [String]) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .in
         filter.value = typeIds.protobufValue
@@ -120,7 +120,7 @@ class SearchHelper {
         ]
     }
     
-    static func excludedObjectTypeIdFilter(_ typeUrl: String) -> DataviewFilter {
+    static func excludedIdFilter(_ typeUrl: String) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .notEqual
         filter.value = typeUrl.protobufValue

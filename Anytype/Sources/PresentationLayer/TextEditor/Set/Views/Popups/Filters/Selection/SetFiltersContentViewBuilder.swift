@@ -56,11 +56,8 @@ final class SetFiltersContentViewBuilder {
         onSelect: @escaping (_ ids: [String]) -> Void
     ) -> some View {
         #warning("fix options")
-//        let allTags = filter.relation.selections.map { RelationValue.Tag.Option(option: $0) }
-        let allTags = [RelationValue.Tag.Option]()
         let selectedTagIds = selectedIds(
-            from: filter.filter.value,
-            allOptions: allTags.map { $0.id }
+            from: filter.filter.value
         )
         return NewSearchModuleAssembly.tagsSearchModule(
             style: .embedded,
@@ -100,16 +97,13 @@ final class SetFiltersContentViewBuilder {
         onSelect: @escaping (_ ids: [String]) -> Void
     ) -> some View {
         #warning("Fix selections")
-//        let allStatuses = filter.relation.selections.map { RelationValue.Status.Option(option: $0) }
-        let allStatuses = [RelationValue.Status.Option]()
         let selectedStatusesIds = selectedIds(
-            from: filter.filter.value,
-            allOptions: allStatuses.map { $0.id }
+            from: filter.filter.value
         )
         return NewSearchModuleAssembly.statusSearchModule(
             style: .embedded,
             selectionMode: .multipleItems(preselectedIds: selectedStatusesIds),
-            allStatuses: allStatuses,
+            relationKey: filter.relation.key,
             selectedStatusesIds: [],
             onSelect: onSelect,
             onCreate: { _ in }
@@ -164,16 +158,13 @@ final class SetFiltersContentViewBuilder {
     // MARK: - Helper methods
     
     private func selectedIds(
-        from value: SwiftProtobuf.Google_Protobuf_Value,
-        allOptions: [String]
+        from value: SwiftProtobuf.Google_Protobuf_Value
     ) -> [String] {
         let selectedIds: [String] = value.listValue.values.compactMap {
             let value = $0.stringValue
             return value.isEmpty ? nil : value
         }
         
-        return selectedIds.compactMap { id in
-            allOptions.first { $0 == id }
-        }
+        return selectedIds
     }
 }

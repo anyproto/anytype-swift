@@ -2512,6 +2512,9 @@ public struct Anytype_Rpc {
 
         public var traceID: String = String()
 
+        /// some clients may set this option instead if having the single subscription to all relations
+        public var includeRelationsAsDependentObjects: Bool = false
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public init() {}
@@ -2715,6 +2718,9 @@ public struct Anytype_Rpc {
         public var objectID: String = String()
 
         public var traceID: String = String()
+
+        /// some clients may set this option instead if having the single subscription to all relations
+        public var includeRelationsAsDependentObjects: Bool = false
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -2936,11 +2942,20 @@ public struct Anytype_Rpc {
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
-        public var url: String = String()
+        public var details: SwiftProtobuf.Google_Protobuf_Struct {
+          get {return _details ?? SwiftProtobuf.Google_Protobuf_Struct()}
+          set {_details = newValue}
+        }
+        /// Returns true if `details` has been explicitly set.
+        public var hasDetails: Bool {return self._details != nil}
+        /// Clears the value of `details`. Subsequent reads from it will return its default value.
+        public mutating func clearDetails() {self._details = nil}
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public init() {}
+
+        fileprivate var _details: SwiftProtobuf.Google_Protobuf_Struct? = nil
       }
 
       public struct Response {
@@ -7272,7 +7287,7 @@ public struct Anytype_Rpc {
 
         public var optionIds: [String] = []
 
-        public var removeInObject: Bool = false
+        public var checkInObjects: Bool = false
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -7311,6 +7326,7 @@ public struct Anytype_Rpc {
             case null // = 0
             case unknownError // = 1
             case badInput // = 2
+            case optionUsedByObjects // = 3
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -7322,6 +7338,7 @@ public struct Anytype_Rpc {
               case 0: self = .null
               case 1: self = .unknownError
               case 2: self = .badInput
+              case 3: self = .optionUsedByObjects
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -7331,6 +7348,7 @@ public struct Anytype_Rpc {
               case .null: return 0
               case .unknownError: return 1
               case .badInput: return 2
+              case .optionUsedByObjects: return 3
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -10949,6 +10967,8 @@ public struct Anytype_Rpc {
         public var blockIds: [String] = []
 
         public var position: Anytype_Model_Block.Position = .none
+
+        public var targetContextID: String = String()
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -19265,6 +19285,7 @@ extension Anytype_Rpc.Relation.ListRemoveOption.Response.Error.Code: CaseIterabl
     .null,
     .unknownError,
     .badInput,
+    .optionUsedByObjects,
   ]
 }
 
@@ -24410,6 +24431,7 @@ extension Anytype_Rpc.Object.Open.Request: SwiftProtobuf.Message, SwiftProtobuf.
     1: .same(proto: "contextId"),
     2: .same(proto: "objectId"),
     3: .same(proto: "traceId"),
+    4: .same(proto: "includeRelationsAsDependentObjects"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -24421,6 +24443,7 @@ extension Anytype_Rpc.Object.Open.Request: SwiftProtobuf.Message, SwiftProtobuf.
       case 1: try { try decoder.decodeSingularStringField(value: &self.contextID) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.objectID) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self.traceID) }()
+      case 4: try { try decoder.decodeSingularBoolField(value: &self.includeRelationsAsDependentObjects) }()
       default: break
       }
     }
@@ -24436,6 +24459,9 @@ extension Anytype_Rpc.Object.Open.Request: SwiftProtobuf.Message, SwiftProtobuf.
     if !self.traceID.isEmpty {
       try visitor.visitSingularStringField(value: self.traceID, fieldNumber: 3)
     }
+    if self.includeRelationsAsDependentObjects != false {
+      try visitor.visitSingularBoolField(value: self.includeRelationsAsDependentObjects, fieldNumber: 4)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -24443,6 +24469,7 @@ extension Anytype_Rpc.Object.Open.Request: SwiftProtobuf.Message, SwiftProtobuf.
     if lhs.contextID != rhs.contextID {return false}
     if lhs.objectID != rhs.objectID {return false}
     if lhs.traceID != rhs.traceID {return false}
+    if lhs.includeRelationsAsDependentObjects != rhs.includeRelationsAsDependentObjects {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -24702,6 +24729,7 @@ extension Anytype_Rpc.Object.Show.Request: SwiftProtobuf.Message, SwiftProtobuf.
     1: .same(proto: "contextId"),
     2: .same(proto: "objectId"),
     3: .same(proto: "traceId"),
+    4: .same(proto: "includeRelationsAsDependentObjects"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -24713,6 +24741,7 @@ extension Anytype_Rpc.Object.Show.Request: SwiftProtobuf.Message, SwiftProtobuf.
       case 1: try { try decoder.decodeSingularStringField(value: &self.contextID) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.objectID) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self.traceID) }()
+      case 4: try { try decoder.decodeSingularBoolField(value: &self.includeRelationsAsDependentObjects) }()
       default: break
       }
     }
@@ -24728,6 +24757,9 @@ extension Anytype_Rpc.Object.Show.Request: SwiftProtobuf.Message, SwiftProtobuf.
     if !self.traceID.isEmpty {
       try visitor.visitSingularStringField(value: self.traceID, fieldNumber: 3)
     }
+    if self.includeRelationsAsDependentObjects != false {
+      try visitor.visitSingularBoolField(value: self.includeRelationsAsDependentObjects, fieldNumber: 4)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -24735,6 +24767,7 @@ extension Anytype_Rpc.Object.Show.Request: SwiftProtobuf.Message, SwiftProtobuf.
     if lhs.contextID != rhs.contextID {return false}
     if lhs.objectID != rhs.objectID {return false}
     if lhs.traceID != rhs.traceID {return false}
+    if lhs.includeRelationsAsDependentObjects != rhs.includeRelationsAsDependentObjects {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -25013,7 +25046,7 @@ extension Anytype_Rpc.Object.CreateBookmark: SwiftProtobuf.Message, SwiftProtobu
 extension Anytype_Rpc.Object.CreateBookmark.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Object.CreateBookmark.protoMessageName + ".Request"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "url"),
+    1: .same(proto: "details"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -25022,21 +25055,25 @@ extension Anytype_Rpc.Object.CreateBookmark.Request: SwiftProtobuf.Message, Swif
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.url) }()
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._details) }()
       default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.url.isEmpty {
-      try visitor.visitSingularStringField(value: self.url, fieldNumber: 1)
-    }
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._details {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Object.CreateBookmark.Request, rhs: Anytype_Rpc.Object.CreateBookmark.Request) -> Bool {
-    if lhs.url != rhs.url {return false}
+    if lhs._details != rhs._details {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -31365,7 +31402,7 @@ extension Anytype_Rpc.Relation.ListRemoveOption.Request: SwiftProtobuf.Message, 
   public static let protoMessageName: String = Anytype_Rpc.Relation.ListRemoveOption.protoMessageName + ".Request"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "optionIds"),
-    2: .same(proto: "removeInObject"),
+    2: .same(proto: "checkInObjects"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -31375,7 +31412,7 @@ extension Anytype_Rpc.Relation.ListRemoveOption.Request: SwiftProtobuf.Message, 
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeRepeatedStringField(value: &self.optionIds) }()
-      case 2: try { try decoder.decodeSingularBoolField(value: &self.removeInObject) }()
+      case 2: try { try decoder.decodeSingularBoolField(value: &self.checkInObjects) }()
       default: break
       }
     }
@@ -31385,15 +31422,15 @@ extension Anytype_Rpc.Relation.ListRemoveOption.Request: SwiftProtobuf.Message, 
     if !self.optionIds.isEmpty {
       try visitor.visitRepeatedStringField(value: self.optionIds, fieldNumber: 1)
     }
-    if self.removeInObject != false {
-      try visitor.visitSingularBoolField(value: self.removeInObject, fieldNumber: 2)
+    if self.checkInObjects != false {
+      try visitor.visitSingularBoolField(value: self.checkInObjects, fieldNumber: 2)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Relation.ListRemoveOption.Request, rhs: Anytype_Rpc.Relation.ListRemoveOption.Request) -> Bool {
     if lhs.optionIds != rhs.optionIds {return false}
-    if lhs.removeInObject != rhs.removeInObject {return false}
+    if lhs.checkInObjects != rhs.checkInObjects {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -31478,6 +31515,7 @@ extension Anytype_Rpc.Relation.ListRemoveOption.Response.Error.Code: SwiftProtob
     0: .same(proto: "NULL"),
     1: .same(proto: "UNKNOWN_ERROR"),
     2: .same(proto: "BAD_INPUT"),
+    3: .same(proto: "OPTION_USED_BY_OBJECTS"),
   ]
 }
 
@@ -36770,6 +36808,7 @@ extension Anytype_Rpc.Block.ListDuplicate.Request: SwiftProtobuf.Message, SwiftP
     2: .same(proto: "targetId"),
     3: .same(proto: "blockIds"),
     4: .same(proto: "position"),
+    5: .same(proto: "targetContextId"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -36782,6 +36821,7 @@ extension Anytype_Rpc.Block.ListDuplicate.Request: SwiftProtobuf.Message, SwiftP
       case 2: try { try decoder.decodeSingularStringField(value: &self.targetID) }()
       case 3: try { try decoder.decodeRepeatedStringField(value: &self.blockIds) }()
       case 4: try { try decoder.decodeSingularEnumField(value: &self.position) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.targetContextID) }()
       default: break
       }
     }
@@ -36800,6 +36840,9 @@ extension Anytype_Rpc.Block.ListDuplicate.Request: SwiftProtobuf.Message, SwiftP
     if self.position != .none {
       try visitor.visitSingularEnumField(value: self.position, fieldNumber: 4)
     }
+    if !self.targetContextID.isEmpty {
+      try visitor.visitSingularStringField(value: self.targetContextID, fieldNumber: 5)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -36808,6 +36851,7 @@ extension Anytype_Rpc.Block.ListDuplicate.Request: SwiftProtobuf.Message, SwiftP
     if lhs.targetID != rhs.targetID {return false}
     if lhs.blockIds != rhs.blockIds {return false}
     if lhs.position != rhs.position {return false}
+    if lhs.targetContextID != rhs.targetContextID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
