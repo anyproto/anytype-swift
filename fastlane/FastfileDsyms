@@ -29,14 +29,27 @@ platform :ios do
         in_house: false
     )
 
-    download_dsyms(
-      version: options[:version],
-      build_number: options[:build_number]
-    )
+    if !options[:version] && !options[:build_number] 
+      download_dsyms(
+        version: 'latest'
+      )
+    elsif !options[:build_number]
+      download_dsyms(
+        version: options[:version]
+      )
+    else
+      download_dsyms(
+        version: options[:version],
+        build_number: options[:build_number]
+      )
+    end
+
+    
 
     upload_symbols_to_crashlytics(
       gsp_path: options[:gsp_path],
       binary_path: './Scripts/firebase/upload-symbols',
+      dsym_worker_threads: 2,
       debug: true
     )
   end
