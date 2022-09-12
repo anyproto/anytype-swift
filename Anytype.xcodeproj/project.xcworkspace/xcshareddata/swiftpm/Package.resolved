@@ -190,15 +190,6 @@
       }
     },
     {
-      "identity" : "swiftgenplugin",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/SwiftGen/SwiftGenPlugin",
-      "state" : {
-        "branch" : "6.6.2",
-        "revision" : "879b85a470cacd70c19e22eb7e11a3aed66f4068"
-      }
-    },
-    {
       "identity" : "swiftui-visual-effects",
       "kind" : "remoteSourceControl",
       "location" : "git@github.com:lucasbrown/swiftui-visual-effects.git",

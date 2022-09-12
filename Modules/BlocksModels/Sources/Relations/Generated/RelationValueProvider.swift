@@ -22,7 +22,7 @@ public protocol RelationValueProvider {
     var relationOptionColor: String { get }
     var instructions: String { get }
     var done: Bool { get }
-    var mediaArtistURL: URL? { get }
+    var mediaArtistURL: String { get }
     var templateIsBundled: Bool { get }
     var shipTo: String { get }
     var dateOfBirth: Date? { get }
@@ -36,7 +36,7 @@ public protocol RelationValueProvider {
     var hypothesisAssumptions: String { get }
     var gratefulFor: String { get }
     var founders: [ObjectId] { get }
-    var website: URL? { get }
+    var website: String { get }
     var relationFormat: Int? { get }
     var relationReadonlyValue: Bool { get }
     var iconImage: Hash? { get }
@@ -47,7 +47,7 @@ public protocol RelationValueProvider {
     var solution: String { get }
     var releasedYear: Int? { get }
     var coverScale: Int? { get }
-    var twitter: URL? { get }
+    var twitter: String { get }
     var resources: String { get }
     var userStories: String { get }
     var relationDefaultValue: String { get }
@@ -117,7 +117,7 @@ public protocol RelationValueProvider {
     var billTo: String { get }
     var audioGenre: String { get }
     var intentions: String { get }
-    var telegram: URL? { get }
+    var telegram: String { get }
     var isDraft: Bool { get }
     var trailer: [Hash] { get }
     var name: String { get }
@@ -125,7 +125,7 @@ public protocol RelationValueProvider {
     var agenda: String { get }
     var number: Int? { get }
     var audioLyrics: String { get }
-    var instagram: URL? { get }
+    var instagram: String { get }
     var classType: [ObjectId] { get }
     var howToReproduce: String { get }
     var focalRatio: Int? { get }
@@ -138,17 +138,17 @@ public protocol RelationValueProvider {
     var placeOfBirth: String { get }
     var composer: String { get }
     var internalFlags: [Int] { get }
-    var socialProfile: URL? { get }
+    var socialProfile: String { get }
     var occupation: String { get }
     var _7hourssleep: Bool { get }
     var coverX: Int? { get }
     var description: String { get }
-    var facebook: URL? { get }
+    var facebook: String { get }
     var address: String { get }
     var picture: Hash? { get }
     var id: ObjectId { get }
     var stockprice: Int? { get }
-    var url: URL? { get }
+    var url: String { get }
     var objectives: String { get }
     var cameraIso: Int? { get }
     var healthyEating: Bool { get }
@@ -178,7 +178,7 @@ public protocol RelationValueProvider {
     var phone: String { get }
     var imdbRating: Int? { get }
     var smartblockTypes: [Int] { get }
-    var source: URL? { get }
+    var source: String { get }
 } 
 
 public extension RelationValueProvider {
@@ -224,7 +224,7 @@ public extension RelationValueProvider {
     var done: Bool {
         return value(for: RelationKey.done.rawValue)
     }
-    var mediaArtistURL: URL? {
+    var mediaArtistURL: String {
         return value(for: RelationKey.mediaArtistURL.rawValue)
     }
     var templateIsBundled: Bool {
@@ -266,7 +266,7 @@ public extension RelationValueProvider {
     var founders: [ObjectId] {
         return value(for: RelationKey.founders.rawValue)
     }
-    var website: URL? {
+    var website: String {
         return value(for: RelationKey.website.rawValue)
     }
     var relationFormat: Int? {
@@ -299,7 +299,7 @@ public extension RelationValueProvider {
     var coverScale: Int? {
         return value(for: RelationKey.coverScale.rawValue)
     }
-    var twitter: URL? {
+    var twitter: String {
         return value(for: RelationKey.twitter.rawValue)
     }
     var resources: String {
@@ -509,7 +509,7 @@ public extension RelationValueProvider {
     var intentions: String {
         return value(for: RelationKey.intentions.rawValue)
     }
-    var telegram: URL? {
+    var telegram: String {
         return value(for: RelationKey.telegram.rawValue)
     }
     var isDraft: Bool {
@@ -533,7 +533,7 @@ public extension RelationValueProvider {
     var audioLyrics: String {
         return value(for: RelationKey.audioLyrics.rawValue)
     }
-    var instagram: URL? {
+    var instagram: String {
         return value(for: RelationKey.instagram.rawValue)
     }
     var classType: [ObjectId] {
@@ -572,7 +572,7 @@ public extension RelationValueProvider {
     var internalFlags: [Int] {
         return value(for: RelationKey.internalFlags.rawValue)
     }
-    var socialProfile: URL? {
+    var socialProfile: String {
         return value(for: RelationKey.socialProfile.rawValue)
     }
     var occupation: String {
@@ -587,7 +587,7 @@ public extension RelationValueProvider {
     var description: String {
         return value(for: RelationKey.description.rawValue)
     }
-    var facebook: URL? {
+    var facebook: String {
         return value(for: RelationKey.facebook.rawValue)
     }
     var address: String {
@@ -602,7 +602,7 @@ public extension RelationValueProvider {
     var stockprice: Int? {
         return value(for: RelationKey.stockprice.rawValue)
     }
-    var url: URL? {
+    var url: String {
         return value(for: RelationKey.url.rawValue)
     }
     var objectives: String {
@@ -692,7 +692,7 @@ public extension RelationValueProvider {
     var smartblockTypes: [Int] {
         return value(for: RelationKey.smartblockTypes.rawValue)
     }
-    var source: URL? {
+    var source: String {
         return value(for: RelationKey.source.rawValue)
     }
 

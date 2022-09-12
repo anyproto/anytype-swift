@@ -8,14 +8,12 @@ import AnytypeCore
 {% macro typeNameBlock type %}
   {%- if type == "object" or type == "tag" or type == "status" -%}
     ObjectId
-  {%- elif type == "longtext" or type == "shorttext" or type == "email" or type == "phone" -%}
+  {%- elif type == "longtext" or type == "shorttext" or type == "email" or type == "phone" or type == "url" -%}
     String
   {%- elif type == "number" -%}
     Int
   {%- elif type == "checkbox" -%}
     Bool
-  {%- elif type == "url" -%}
-    URL
   {%- elif type == "emoji" -%}
     Emoji
   {%- elif type == "date" -%}
@@ -27,7 +25,7 @@ import AnytypeCore
   {%- endif -%}
 {% endmacro %}
 {% macro optionalBlock type %}
-  {%- if type == "emoji" or type == "date" or type == "file" or type == "number" or type == "url" -%}
+  {%- if type == "emoji" or type == "date" or type == "file" or type == "number" -%}
     ?
   {%- endif -%}
 {% endmacro %}

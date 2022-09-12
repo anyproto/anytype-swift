@@ -13,7 +13,7 @@ extension BlockBookmark {
             title: objectDetails.title,
             theDescription: objectDetails.description,
             imageHash: BlockBookmark.picture(from: objectDetails),
-            faviconHash: objectDetails.iconImageHash?.value ?? "",
+            faviconHash: objectDetails.iconImage?.value ?? "",
             type: .unknown,
             targetObjectID: objectDetails.id,
             state: .done

@@ -31,7 +31,7 @@ extension BlockBookmarkPayload {
         self.title = objectDetails.title
         self.subtitle = objectDetails.description
         self.imageHash = BlockBookmarkPayload.picture(from: objectDetails)
-        self.faviconHash = objectDetails.iconImageHash?.value ?? ""
+        self.faviconHash = objectDetails.iconImage?.value ?? ""
         self.isArchived = objectDetails.isArchived
     }
     

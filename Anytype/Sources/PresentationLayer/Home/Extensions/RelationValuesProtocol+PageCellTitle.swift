@@ -2,10 +2,10 @@ import Foundation
 import BlocksModels
 import AnytypeCore
 
-extension BundledRelationsValueProvider {
+extension RelationValueProvider {
     
     var pageCellTitle: String {
-        switch layout {
+        switch layoutValue {
         case .note:
             return snippet
         default:
@@ -20,7 +20,7 @@ extension BundledRelationsValueProvider {
         
         let title: String
 
-        switch layout {
+        switch layoutValue {
         case .note:
             title = snippet
         default:

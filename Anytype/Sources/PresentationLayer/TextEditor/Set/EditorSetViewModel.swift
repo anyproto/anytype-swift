@@ -293,7 +293,7 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     private func updateDetailsIfNeeded(_ details: ObjectDetails) {
-        guard details.layout == .todo else { return }
+        guard details.layoutValue == .todo else { return }
         detailsService.updateBundledDetails(
             contextID: details.id,
             bundledDpdates: [.done(!details.isDone)]
@@ -323,7 +323,7 @@ extension EditorSetViewModel {
 
     func showRelationValueEditingView(key: String, source: RelationSource) {
         if key == BundledRelationKey.setOf.rawValue {
-            router.showTypesSearch(title: Loc.Set.SourceType.selectSource, selectedObjectId: document.details?.setOf) { [weak self] typeObjectId in
+            router.showTypesSearch(title: Loc.Set.SourceType.selectSource, selectedObjectId: document.details?.setOf.first) { [weak self] typeObjectId in
                 self?.dataviewService.setSource(typeObjectId: typeObjectId)
             }
 

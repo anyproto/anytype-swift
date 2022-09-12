@@ -2,12 +2,12 @@ import BlocksModels
 import UIKit
 import AnytypeCore
 
-extension BundledRelationsValueProvider {
+extension RelationValueProvider {
     
     // MARK: - Icon
     
     var icon: ObjectIconType? {
-        switch layout {
+        switch layoutValue {
         case .basic, .set:
             return basicIcon
         case .profile:
@@ -24,11 +24,11 @@ extension BundledRelationsValueProvider {
     }
     
     private var basicIcon: ObjectIconType? {
-        if let iconImageHash = self.iconImageHash {
+        if let iconImageHash = self.iconImage {
             return ObjectIconType.basic(iconImageHash.value)
         }
         
-        if let iconEmoji = Emoji(self.iconEmoji) {
+        if let iconEmoji = self.iconEmoji {
             return ObjectIconType.emoji(iconEmoji)
         }
         
@@ -36,7 +36,7 @@ extension BundledRelationsValueProvider {
     }
     
     private var profileIcon: ObjectIconType.Profile? {
-        if let iconImageHash = self.iconImageHash {
+        if let iconImageHash = self.iconImage {
             return ObjectIconType.Profile.imageId(iconImageHash.value)
         }
         
@@ -44,7 +44,7 @@ extension BundledRelationsValueProvider {
     }
     
     private var bookmarkIcon: ObjectIconType? {
-        return iconImageHash.map { ObjectIconType.bookmark($0.value) }
+        return iconImage.map { ObjectIconType.bookmark($0.value) }
     }
     
     // MARK: - Cover
@@ -52,7 +52,7 @@ extension BundledRelationsValueProvider {
     var documentCover: DocumentCover? {
         guard !coverId.isEmpty else { return nil }
         
-        switch coverType {
+        switch coverTypeValue {
         case .none:
             return nil
         case .uploadedImage:
@@ -79,7 +79,7 @@ extension BundledRelationsValueProvider {
             return .icon(icon)
         }
         
-        if layout == .todo {
+        if layoutValue == .todo {
             return .todo(isDone)
         }
         
@@ -101,7 +101,7 @@ extension BundledRelationsValueProvider {
     }
     
     var editorViewType: EditorViewType {
-        switch layout {
+        switch layoutValue {
         case .basic, .profile, .todo, .note, .bookmark:
             return .page
         case .set:
