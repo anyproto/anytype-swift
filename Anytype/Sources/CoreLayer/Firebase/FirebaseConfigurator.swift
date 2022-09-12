@@ -16,6 +16,8 @@ final class FirebaseConfigurator: AppConfiguratorProtocol {
         }
         FirebaseApp.configure(options: options)
         
+        #if !DEBUG
         AssertionLogger.shared.handler = FirebaseNonFatalLogger()
+        #endif
     }
 }
