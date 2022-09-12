@@ -36,7 +36,6 @@ public struct Relation: Hashable {
 public extension Relation {
     
     init(objectDetails: ObjectDetails) {
-        #warning("Add fields to constants")
         self.id = objectDetails.id
         self.key = objectDetails.relationKey
         self.name = objectDetails.name

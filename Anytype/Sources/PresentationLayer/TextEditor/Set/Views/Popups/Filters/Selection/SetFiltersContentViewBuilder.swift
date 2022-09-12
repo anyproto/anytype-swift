@@ -83,7 +83,6 @@ final class SetFiltersContentViewBuilder {
             }()
             return values.map { $0.stringValue }
         }()
-        #warning("Check limitedObjectType")
         return NewSearchModuleAssembly.objectsSearchModule(
             style: .embedded,
             selectionMode: .multipleItems(preselectedIds: selectedObjectsIds),

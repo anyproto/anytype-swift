@@ -24,7 +24,6 @@ final class TagsSearchInteractor {
 extension TagsSearchInteractor {
     
     func search(text: String) -> Result<[RelationValue.Tag.Option], NewSearchError> {
-        #warning("Check me")
         let filteredTags = searchService.searchRelationOptions(
             text: text,
             relationKey: relationKey,
@@ -32,27 +31,7 @@ extension TagsSearchInteractor {
             .map { RelationOption(details: $0) }
             .map { RelationValue.Tag.Option(option: $0) } ?? []
         #warning("Fix two maps ^^^")
-//        guard text.isNotEmpty else {
-//            return .success(availableTags)
-//        }
-//
-//        let filteredTags: [RelationValue.Tag.Option] = availableTags.filter {
-//            guard $0.text.isNotEmpty else { return false }
-//
-//            return $0.text.lowercased().contains(text.lowercased())
-//        }
-//
-//        if filteredTags.isEmpty {
-//            let isSearchedTagSelected = allTags.filter { tag in
-//                selectedTagIds.contains { $0 == tag.id }
-//            }
-//                .contains { $0.text.lowercased() == text.lowercased() }
-//
-//            return isSearchedTagSelected ?
-//                .failure(.alreadySelected(searchText: text)) :
-//                .success(filteredTags)
-//        }
-        
+
         return .success(filteredTags)
     }
     

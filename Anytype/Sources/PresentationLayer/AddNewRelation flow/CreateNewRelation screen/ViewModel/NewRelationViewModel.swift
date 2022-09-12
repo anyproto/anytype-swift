@@ -48,7 +48,6 @@ extension NewRelationViewModel {
     }
     
     func didTapAddButton() {
-        #warning("Check objectTypeIds")
         let relation = Relation(
             id: "",
             key: "",
@@ -59,21 +58,6 @@ extension NewRelationViewModel {
             isReadOnlyValue: false,
             objectTypes: objectTypeIds
         )
-        
-//        let relationMetatdata = RelationMetadata(
-//            key: "",
-//            name: name,
-//            format: format.asRelationMetadataFormat,
-//            isHidden: false,
-//            isReadOnly: false,
-//            isMulti: format.isMulti,
-//            selections: [],
-//            objectTypes: objectTypeIds,
-//            scope: .object,
-//            isBundled: false
-//        )
-
-//        #warning("Fix me")
         
         guard service.createRelation(relation: relation) else { return }
         UINotificationFeedbackGenerator().notificationOccurred(.success)

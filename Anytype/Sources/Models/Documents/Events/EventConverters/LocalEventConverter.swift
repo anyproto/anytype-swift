@@ -61,7 +61,6 @@ final class LocalEventConverter {
 
             parsedDetails.forEach { detailsStorage.add(details: $0) }
     
-            #warning("Check me")
             let relationLinks = data.relationLinks.map { RelationLink(middlewareRelationLink: $0) }
             relationLinksStorage.set(relationLinks: relationLinks)
             

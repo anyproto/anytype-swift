@@ -154,7 +154,6 @@ private extension RelationFilterBuilder {
             return objectOptions
         }()
         
-        #warning("Check limit object types")
         return .object(
             RelationValue.Object(
                 id: relation.id,

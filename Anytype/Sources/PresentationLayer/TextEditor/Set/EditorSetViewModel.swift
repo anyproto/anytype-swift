@@ -11,9 +11,7 @@ final class EditorSetViewModel: ObservableObject {
     @Published var loadingDocument = true
     @Published var pagitationData = EditorSetPaginationData.empty
     
-    #warning("Check me")
     @Published var sorts: [SetSort] = []
-    #warning("Check me")
     @Published var filters: [SetFilter] = []
     @Published var dataViewRelations: [Relation] = []
     

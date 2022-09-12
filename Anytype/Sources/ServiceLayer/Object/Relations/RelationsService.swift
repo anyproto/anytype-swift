@@ -52,7 +52,6 @@ final class RelationsService: RelationsServiceProtocol {
     }
 
     func createRelation(relation: Relation) -> Bool {
-        #warning("Check me")
         let result = Anytype_Rpc.Object.CreateRelation.Service
             .invocation(details: relation.asCreateMiddleware)
             .invoke()
@@ -64,12 +63,10 @@ final class RelationsService: RelationsServiceProtocol {
     }
 
     func addRelation(relation: Relation) -> Bool {
-        #warning("Check me")
         return addRelation(relationId: relation.id)
     }
 
     private func addRelation(relationId: String) -> Bool {
-        #warning("Check me")
         let events = Anytype_Rpc.ObjectRelation.Add.Service
             .invocation(contextID: objectId, relationIds: [relationId])
             .invoke()
@@ -82,7 +79,6 @@ final class RelationsService: RelationsServiceProtocol {
     }
     
     func removeRelation(relationId: String) {
-        #warning("Check me")
         Anytype_Rpc.ObjectRelation.Delete.Service
             .invocation(contextID: objectId, relationID: relationId)
             .invoke()
@@ -94,14 +90,6 @@ final class RelationsService: RelationsServiceProtocol {
     }
     
     func addRelationOption(source: RelationSource, relationKey: String, optionText: String) -> String? {
-        #warning("Fix scope")
-//        let option = Anytype_Model_Relation.Option(
-//            id: "",
-//            text: optionText,
-//            color: MiddlewareColor.allCases.randomElement()?.rawValue ?? MiddlewareColor.default.rawValue,
-//            scope: .local
-//        )
-        
         let color = MiddlewareColor.allCases.randomElement()?.rawValue ?? MiddlewareColor.default.rawValue
         
         let details = Google_Protobuf_Struct(
@@ -112,46 +100,11 @@ final class RelationsService: RelationsServiceProtocol {
             ]
         )
         
-        #warning("Check it")
         let optionResult = Anytype_Rpc.Object.CreateRelationOption.Service.invocation(details: details)
             .invoke()
             .getValue(domain: .relationsService)
         
         return optionResult?.objectID
-        
-//        switch source {
-//        case .object:
-//            #warning("Fix me")
-//            return nil
-//            let response = Anytype_Rpc.ObjectRelationOption.Add.Service.invoke(
-//                contextID: objectId,
-//                relationKey: relationKey,
-//                option: option
-//            )
-//                .getValue(domain: .relationsService)
-//
-//            guard let response = response else { return nil }
-//
-//            EventsBunch(event: response.event).send()
-//
-//            return response.option.id
-//        case .dataview(let contextId):
-//        #warning("Fix me")
-//            return nil
-//            let response = Anytype_Rpc.BlockDataviewRecord.RelationOption.Add.Service.invoke(
-//                contextID: contextId,
-//                blockID: SetConstants.dataviewBlockId,
-//                relationKey: relationKey,
-//                option: option,
-//                recordID: objectId
-//            ).getValue(domain: .relationsService)
-//
-//            guard let response = response else { return nil }
-//
-//            EventsBunch(event: response.event).send()
-//
-//            return response.option.id
-//        }
     }
 
     func availableRelations() -> [Relation] {

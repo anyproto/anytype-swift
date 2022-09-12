@@ -1,6 +1,5 @@
 import Foundation
 
-#warning("Rename to relation key")
 public enum BundledRelationKey: String {
     
     case id

@@ -26,9 +26,7 @@ final class DataviewService: DataviewServiceProtocol {
             .send()
     }
     
-//    #warning("Merge with relation service")
     func addRelation(_ relation: Relation) -> Bool {
-        #warning("Check me")
         let events = Anytype_Rpc.BlockDataview.Relation.Add.Service
             .invoke(contextID: objectId, blockID: SetConstants.dataviewBlockId, relationID: relation.id)
             .map { EventsBunch(event: $0.event) }
@@ -37,18 +35,8 @@ final class DataviewService: DataviewServiceProtocol {
         events?.send()
         
         return events.isNotNil
-//        let events = Anytype_Rpc.ObjectRelation.Add.Service
-//            .invocation(contextID: objectId, relationIds: [relation.id])
-//            .invoke()
-//            .map { EventsBunch(event: $0.event) }
-//            .getValue(domain: .dataviewService)
-//
-//        events?.send()
-//
-//        return events.isNotNil
     }
     
-//    #warning("Merge with relation service")
     func deleteRelation(relationId: BlockId) {
         #warning("Check me")
 //        Anytype_Rpc.ObjectRelation.Delete.Service

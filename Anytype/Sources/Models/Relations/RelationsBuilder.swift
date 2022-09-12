@@ -426,7 +426,6 @@ private extension RelationsBuilder {
             return objectOptions
         }()
         
-        #warning("Check object type")
         return .object(
             RelationValue.Object(
                 id: relation.id,
