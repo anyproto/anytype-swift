@@ -3,9 +3,9 @@ import BlocksModels
 
 protocol NewRelationOptionProtocol {
     
-    var scope: RelationMetadata.Option.Scope { get }
+    var scope: RelationOption.Scope { get }
     
 }
 
-extension Relation.Status.Option: NewRelationOptionProtocol {}
-extension Relation.Tag.Option: NewRelationOptionProtocol {}
+extension RelationValue.Status.Option: NewRelationOptionProtocol {}
+extension RelationValue.Tag.Option: NewRelationOptionProtocol {}

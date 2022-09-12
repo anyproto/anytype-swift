@@ -24,9 +24,9 @@ final class SlashMenuView: DismissableInputAccessoryView {
         }
     }
     
-    func update(info: BlockInformation, relations: [Relation]) {
+    func update(info: BlockInformation, relationValues: [RelationValue]) {
         viewModel.info = info
-        menuItems = SlashMenuItemsBuilder(blockType: info.content.type, relations: relations).slashMenuItems
+        menuItems = SlashMenuItemsBuilder(blockType: info.content.type, relationValues: relationValues).slashMenuItems
         
         restoreDefaultState()
     }

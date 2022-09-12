@@ -2,36 +2,40 @@ import Foundation
 import BlocksModels
 import SwiftUI
 
-extension Relation {
+extension RelationValue {
     
-    struct Tag: RelationProtocol, Hashable, Identifiable {
+    struct Tag: RelationValueProtocol, Hashable, Identifiable {
         let id: String
+        let key: String
         let name: String
         let isFeatured: Bool
         let isEditable: Bool
         let isBundled: Bool
         
         let selectedTags: [Option]
-        let allTags: [Option]
+        
+        var hasValue: Bool {
+            selectedTags.isNotEmpty
+        }
     }
     
 }
 
-extension Relation.Tag {
+extension RelationValue.Tag {
     
     struct Option: Hashable, Identifiable {
         let id: String
         let text: String
         let textColor: UIColor
         let backgroundColor: UIColor
-        let scope: RelationMetadata.Option.Scope
+        let scope: RelationOption.Scope
     }
     
 }
 
-extension Relation.Tag.Option {
+extension RelationValue.Tag.Option {
     
-    init(option: RelationMetadata.Option) {
+    init(option: RelationOption) {
         self.id = option.id
         self.text = option.text
         self.textColor = MiddlewareColor(rawValue: option.color)

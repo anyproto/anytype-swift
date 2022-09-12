@@ -3,7 +3,7 @@ import BlocksModels
 
 enum SearchNewRelationSectionType: Hashable, Identifiable {
     case createNewRelation
-    case addFromLibriry([RelationDetails])
+    case addFromLibriry([Relation])
 
     var id: Self { self }
 

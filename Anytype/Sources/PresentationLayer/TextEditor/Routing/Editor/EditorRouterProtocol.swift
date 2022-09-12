@@ -53,8 +53,8 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func showObjectPreview(blockLinkAppearance: BlockLink.Appearance, onSelect: @escaping (BlockLink.Appearance) -> Void)
     
     func showRelationValueEditingView(key: String, source: RelationSource)
-    func showRelationValueEditingView(objectId: BlockId, source: RelationSource, relation: Relation)
-    func showAddNewRelationView(onSelect: ((RelationDetails, _ isNew: Bool) -> Void)?)
+    func showRelationValueEditingView(objectId: BlockId, source: RelationSource, relationValue: RelationValue)
+    func showAddNewRelationView(onSelect: ((Relation, _ isNew: Bool) -> Void)?)
 
     func showLinkContextualMenu(inputParameters: TextBlockURLInputParameters)
 
@@ -80,7 +80,7 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func showViewSettings(setModel: EditorSetViewModel, dataviewService: DataviewServiceProtocol)
     func dismissSetSettingsIfNeeded()
     func showSorts(setModel: EditorSetViewModel, dataviewService: DataviewServiceProtocol)
-    func showRelationSearch(relations: [RelationMetadata], onSelect: @escaping (String) -> Void)
+    func showRelationSearch(relations: [Relation], onSelect: @escaping (Relation) -> Void)
     func showFilterSearch(filter: SetFilter, onApply: @escaping (SetFilter) -> Void)
     
     func showFilters(setModel: EditorSetViewModel, dataviewService: DataviewServiceProtocol)

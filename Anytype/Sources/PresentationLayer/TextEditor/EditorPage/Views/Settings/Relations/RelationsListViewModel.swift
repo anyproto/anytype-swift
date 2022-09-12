@@ -44,32 +44,32 @@ extension RelationsListViewModel {
         self.navigationBarButtonsDisabled = isObjectLocked
     }
     
-    func changeRelationFeaturedState(relationId: String) {
-        let relationsRowData: [Relation] = sections.flatMap { $0.relations }
-        let relationRowData = relationsRowData.first { $0.id == relationId }
+    func changeRelationFeaturedState(relationValue: RelationValue) {
+//        let relationsRowData: [Relation] = sections.flatMap { $0.relations }
+//        let relationRowData = relationsRowData.first { $0.key == relationKey }
+//
+//        guard let relationRowData = relationRowData else { return }
         
-        guard let relationRowData = relationRowData else { return }
-        
-        if relationRowData.isFeatured {
-            relationsService.removeFeaturedRelation(relationKey: relationRowData.id)
+        if relationValue.isFeatured {
+            relationsService.removeFeaturedRelation(relationKey: relationValue.key)
         } else {
-            relationsService.addFeaturedRelation(relationKey: relationRowData.id)
+            relationsService.addFeaturedRelation(relationKey: relationValue.key)
         }
         UISelectionFeedbackGenerator().selectionChanged()
     }
     
-    func handleTapOnRelation(relationId: String) {
+    func handleTapOnRelation(relationValue: RelationValue) {
         AnytypeAnalytics.instance().logChangeRelationValue(type: .menu)
-        router.showRelationValueEditingView(key: relationId, source: .object)
+        router.showRelationValueEditingView(key: relationValue.key, source: .object)
     }
     
-    func removeRelation(id: String) {
-        relationsService.removeRelation(relationId: id)
+    func removeRelation(relationValue: RelationValue) {
+        relationsService.removeRelation(relationId: relationValue.id)
     }
     
     func showAddNewRelationView() {
-        router.showAddNewRelationView { relationMetadata, isNew in
-            AnytypeAnalytics.instance().logAddRelation(format: relationMetadata.format, isNew: isNew, type: .menu)
+        router.showAddNewRelationView { relation, isNew in
+            AnytypeAnalytics.instance().logAddRelation(format: relation.format, isNew: isNew, type: .menu)
         }
     }
     

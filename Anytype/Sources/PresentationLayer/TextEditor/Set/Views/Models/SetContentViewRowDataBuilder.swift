@@ -6,16 +6,17 @@ import SwiftProtobuf
 final class SetContentViewDataBuilder {
     private let relationsBuilder = RelationsBuilder(scope: [.object, .type])
     private let storage = ObjectDetailsStorage.shared
+    private let relationStorage = ServiceLocator.shared.relationStorage()
     
     func sortedRelations(dataview: BlockDataview, view: DataviewView) -> [SetRelation] {
         let relations: [SetRelation] = view.options
             .compactMap { option in
-                let metadata = dataview.relations
+                let relation = relationStorage.relations(for: dataview.relationLinks)
                     .filter { !$0.isHidden }
                     .first { $0.key == option.key }
-                guard let metadata = metadata else { return nil }
+                guard let relation = relation else { return nil }
                 
-                return SetRelation(metadata: metadata, option: option)
+                return SetRelation(relation: relation, option: option)
             }
 
         return NSOrderedSet(array: relations).array as! [SetRelation]
@@ -25,32 +26,32 @@ final class SetContentViewDataBuilder {
         _ details: [ObjectDetails],
         dataView: BlockDataview,
         activeView: DataviewView,
-        colums: [RelationMetadata],
+        colums: [Relation],
         isObjectLocked: Bool,
         onIconTap: @escaping (ObjectDetails) -> Void,
         onItemTap: @escaping (ObjectDetails) -> Void
     ) -> [SetContentViewItemConfiguration] {
         
-        let metadata = sortedRelations(dataview: dataView, view: activeView)
+        let relation = sortedRelations(dataview: dataView, view: activeView)
             .filter { $0.option.isVisible == true }
-            .map { $0.metadata }
+            .map { $0.relation }
         return details.compactMap { details in
             let parsedRelations = relationsBuilder
                 .parsedRelations(
-                    relationMetadatas: metadata,
+                    relations: relation,
                     objectId: details.id,
                     isObjectLocked: isObjectLocked
                 )
                 .all
             
             let sortedRelations = colums.compactMap { colum in
-                parsedRelations.first { $0.id == colum.key }
+                parsedRelations.first { $0.key == colum.key }
             }
             
-            let relations: [Relation] = colums.map { colum in
-                let relation = sortedRelations.first { $0.id == colum.key }
+            let relationValues: [RelationValue] = colums.map { colum in
+                let relation = sortedRelations.first { $0.key == colum.key }
                 guard let relation = relation else {
-                    return .unknown(.empty(id: colum.id, name: colum.name))
+                    return .unknown(.empty(id: colum.id, key: colum.key, name: colum.name))
                 }
                 
                 return relation
@@ -61,7 +62,7 @@ final class SetContentViewDataBuilder {
                 title: details.title,
                 description: details.description,
                 icon: details.objectIconImage,
-                relations: relations,
+                relationValues: relationValues,
                 showIcon: !activeView.hideIcon,
                 smallItemSize: activeView.cardSize == .small,
                 hasCover: activeView.coverRelationKey.isNotEmpty,
@@ -98,7 +99,8 @@ final class SetContentViewDataBuilder {
         dataView: BlockDataview,
         activeView: DataviewView) -> ObjectHeaderCoverType?
     {
-        let relation = dataView.relations.first { $0.format == .file && $0.key == activeView.coverRelationKey }
+        let relation = relationStorage.relations(for: dataView.relationLinks)
+            .first { $0.format == .file && $0.key == activeView.coverRelationKey }
         
         guard let relation = relation,
               let list = details.values[relation.key],

@@ -25,17 +25,17 @@ extension SupportedRelationFormat {
 
     var iconAsset: ImageAsset {
         switch self {
-        case .text: return RelationMetadata.Format.longText.iconAsset
-        case .tag: return RelationMetadata.Format.tag.iconAsset
-        case .status:  return RelationMetadata.Format.status.iconAsset
-        case .number:  return RelationMetadata.Format.number.iconAsset
-        case .date:  return RelationMetadata.Format.date.iconAsset
-        case .file:  return RelationMetadata.Format.file.iconAsset
-        case .object:  return RelationMetadata.Format.object.iconAsset
-        case .checkbox: return RelationMetadata.Format.checkbox.iconAsset
-        case .url:  return RelationMetadata.Format.url.iconAsset
-        case .email: return RelationMetadata.Format.email.iconAsset
-        case .phone: return RelationMetadata.Format.phone.iconAsset
+        case .text: return RelationFormat.longText.iconAsset
+        case .tag: return RelationFormat.tag.iconAsset
+        case .status:  return RelationFormat.status.iconAsset
+        case .number:  return RelationFormat.number.iconAsset
+        case .date:  return RelationFormat.date.iconAsset
+        case .file:  return RelationFormat.file.iconAsset
+        case .object:  return RelationFormat.object.iconAsset
+        case .checkbox: return RelationFormat.checkbox.iconAsset
+        case .url:  return RelationFormat.url.iconAsset
+        case .email: return RelationFormat.email.iconAsset
+        case .phone: return RelationFormat.phone.iconAsset
         }
     }
 

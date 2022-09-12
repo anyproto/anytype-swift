@@ -4,10 +4,10 @@ final class FileRelationViewUIKit: UIView {
     private let iconView = ObjectIconImageView()
     private var titleLabel: AnytypeLabel!
 
-    private let option: Relation.File.Option
+    private let option: RelationValue.File.Option
     private let relationStyle: RelationStyle
     
-    init(options: Relation.File.Option, relationStyle: RelationStyle) {
+    init(options: RelationValue.File.Option, relationStyle: RelationStyle) {
         self.option = options
         self.relationStyle = relationStyle
 

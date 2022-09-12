@@ -5,9 +5,9 @@ struct FeaturedRelationsBlockViewModel: BlockViewModelProtocol {
     let info: BlockInformation
 
     private let type: String
-    private let featuredRelations: [Relation]
+    private let featuredRelationValues: [RelationValue]
     private weak var blockDelegate: BlockDelegate?
-    private let onRelationTap: (Relation) -> Void
+    private let onRelationValueTap: (RelationValue) -> Void
     private let relationViewModels: [RelationItemModel]
     
     var hashable: AnyHashable {
@@ -19,17 +19,17 @@ struct FeaturedRelationsBlockViewModel: BlockViewModelProtocol {
     
     init(
         info: BlockInformation,
-        featuredRelation: [Relation],
+        featuredRelationValues: [RelationValue],
         type: String,
         blockDelegate: BlockDelegate,
-        onRelationTap: @escaping (Relation) -> Void
+        onRelationValueTap: @escaping (RelationValue) -> Void
     ) {
         self.info = info
-        self.featuredRelations = featuredRelation
+        self.featuredRelationValues = featuredRelationValues
         self.type = type
         self.blockDelegate = blockDelegate
-        self.onRelationTap = onRelationTap
-        self.relationViewModels = featuredRelations.map(RelationItemModel.init)
+        self.onRelationValueTap = onRelationValueTap
+        self.relationViewModels = featuredRelationValues.map(RelationItemModel.init)
     }
     
     func makeContentConfiguration(maxWidth _: CGFloat) -> UIContentConfiguration {
@@ -38,9 +38,9 @@ struct FeaturedRelationsBlockViewModel: BlockViewModelProtocol {
             type: type,
             alignment: info.horizontalAlignment.asNSTextAlignment,
             onRelationTap: { item in
-                featuredRelations
-                    .first { $0.id == item.id }
-                    .map(onRelationTap)
+                featuredRelationValues
+                    .first { $0.key == item.key }
+                    .map(onRelationValueTap)
             },
             heightDidChanged: { blockDelegate?.textBlockSetNeedsLayout() }
         ).cellBlockConfiguration(

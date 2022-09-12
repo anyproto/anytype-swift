@@ -1,10 +1,11 @@
 import BlocksModels
 import SwiftUI
 
-extension Relation {
+extension RelationValue {
     
-    struct Object: RelationProtocol, Hashable, Identifiable {
+    struct Object: RelationValueProtocol, Hashable, Identifiable {
         let id: String
+        let key: String
         let name: String
         let isFeatured: Bool
         let isEditable: Bool
@@ -12,11 +13,15 @@ extension Relation {
         
         let selectedObjects: [Option]
         let limitedObjectTypes: [String]
+        
+        var hasValue: Bool {
+            selectedObjects.isNotEmpty
+        }
     }
     
 }
 
-extension Relation.Object {
+extension RelationValue.Object {
 
     struct Option: Hashable, Identifiable {
         let id: String

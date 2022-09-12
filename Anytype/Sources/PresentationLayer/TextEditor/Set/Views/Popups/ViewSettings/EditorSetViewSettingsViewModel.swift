@@ -53,10 +53,10 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
         setModel.sortedRelations.map { relation in
             EditorSetViewSettingsRelation(
                 id: relation.id,
-                image: relation.metadata.format.iconAsset,
-                title: relation.metadata.name,
+                image: relation.relation.format.iconAsset,
+                title: relation.relation.name,
                 isOn: relation.option.isVisible,
-                isBundled: relation.metadata.isBundled,
+                isBundled: relation.relation.isBundled,
                 onChange: { [weak self] isVisible in
                     self?.onRelationVisibleChange(relation, isVisible: isVisible)
                 }
@@ -80,7 +80,7 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
                 anytypeAssertionFailure("No relation to delete at index: \(index)", domain: .dataviewService)
                 return
             }
-            service.deleteRelation(relationId: relation.metadata.id)
+            service.deleteRelation(relationId: relation.relation.id)
         }
     }
     
@@ -160,7 +160,7 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
     }
     
     private func imagePreviewValueFromRelations() -> String? {
-        setModel.dataView.relations.first { [weak self] relation in
+        setModel.dataViewRelations.first { [weak self] relation in
             guard let self = self else { return false }
             return relation.key == self.setModel.activeView.coverRelationKey
         }?.name

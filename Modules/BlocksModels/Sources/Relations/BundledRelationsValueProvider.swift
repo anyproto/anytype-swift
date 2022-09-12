@@ -30,6 +30,12 @@ public protocol BundledRelationsValueProvider {
     var url: String { get }
     var picture: String { get }
     var smartblockTypes: [SmartBlockType] { get }
+    var relationOptionText: String { get }
+    var relationOptionColor: String { get }
+    var relationKey: String { get }
+    var relationFormat: RelationFormat { get }
+    var readonlyValue: Bool { get }
+    var relationFormatObjectTypes: [String] { get }
 }
 
 
@@ -160,6 +166,31 @@ public extension BundledRelationsValueProvider {
             .compactMap { $0.safeIntValue }
             .compactMap { Anytype_Model_SmartBlockType(rawValue: $0) }
             .map { SmartBlockType(smartBlockType: $0) }
+    }
+    
+    var relationOptionText: String {
+        stringValue(with: .relationOptionText)
+    }
+    
+    var relationOptionColor: String {
+        stringValue(with: .relationOptionColor)
+    }
+    
+    var relationKey: String {
+        stringValue(with: .relationKey)
+    }
+    
+    var relationFormat: RelationFormat {
+        values[BundledRelationKey.relationFormat.rawValue]?
+            .safeIntValue.map { RelationFormat(rawValue: $0) } ?? .unrecognized
+    }
+    
+    var readonlyValue: Bool {
+        boolValue(with: .readonlyValue)
+    }
+    
+    var relationFormatObjectTypes: [String] {
+        values[BundledRelationKey.relationFormatObjectTypes.rawValue]?.listValue.values.map { $0.stringValue } ?? []
     }
     
     // MARK: - Private

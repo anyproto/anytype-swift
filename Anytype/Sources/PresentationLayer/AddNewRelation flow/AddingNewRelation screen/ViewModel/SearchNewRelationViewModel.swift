@@ -11,7 +11,7 @@ final class SearchNewRelationViewModel: ObservableObject {
     // MARK: - Private variables
     
     // Used for exclude relations that already has in object
-    private let usedObjectRelationsIds: Set<String>
+    private let usedObjectRelationsKeys: Set<String>
     private let relationService: RelationsServiceProtocol
     private weak var output: SearchNewRelationModuleOutput?
     
@@ -25,7 +25,7 @@ final class SearchNewRelationViewModel: ObservableObject {
         self.relationService = relationService
         self.output = output
 
-        usedObjectRelationsIds = Set(objectRelations.all.map { $0.id })
+        usedObjectRelationsKeys = Set(objectRelations.all.map { $0.key })
     }
     
 }
@@ -45,30 +45,30 @@ extension SearchNewRelationViewModel {
         }
 
         newSearchData.forEach { section in
-            guard case let .addFromLibriry(relationsMetadata) = section else { return }
+            guard case let .addFromLibriry(relations) = section else { return }
             searchData.removeAll()
 
-            let filteredRelationsMetadata = relationsMetadata.filter { relationMetadata in
-                relationMetadata.name.range(of: text, options: .caseInsensitive) != nil
+            let filteredRelations = relations.filter { relation in
+                relation.name.range(of: text, options: .caseInsensitive) != nil
             }
             
             searchData.append(.createNewRelation)
 
-            if filteredRelationsMetadata.isNotEmpty {
-                searchData.append(.addFromLibriry(filteredRelationsMetadata))
+            if filteredRelations.isNotEmpty {
+                searchData.append(.addFromLibriry(filteredRelations))
             }
         }
     }
 
     func obtainAvailbaleRelationList() -> [SearchNewRelationSectionType] {
-        let relatonsMetadata = relationService.availableRelations()?.filter {
-            !$0.isHidden && !usedObjectRelationsIds.contains($0.key)
-        } ?? []
+        let relatonsMetadata = relationService.availableRelations().filter {
+            !$0.isHidden && !usedObjectRelationsKeys.contains($0.key)
+        }
         
         return [.createNewRelation, .addFromLibriry(relatonsMetadata)]
     }
 
-    func addRelation(_ relation: RelationDetails) {
+    func addRelation(_ relation: Relation) {
         guard relationService.addRelation(relation: relation) else { return }
         UISelectionFeedbackGenerator().selectionChanged()
         output?.didAddRelation(relation)

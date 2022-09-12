@@ -2,5 +2,5 @@
 
 enum SlashActionRelations {
     case newRealtion
-    case relation(Relation)
+    case relation(RelationValue)
 }

@@ -1,7 +1,7 @@
 import UIKit
 
 final class FileListRelationViewUIKit: UIView {
-    let options: [Relation.File.Option]
+    let options: [RelationValue.File.Option]
     let hint: String
     let style: RelationStyle
 
@@ -10,7 +10,7 @@ final class FileListRelationViewUIKit: UIView {
 
     // MARK: - Lifecycle
 
-    init(options: [Relation.File.Option], hint: String, style: RelationStyle) {
+    init(options: [RelationValue.File.Option], hint: String, style: RelationStyle) {
         self.options = options
         self.hint = hint
         self.style = style

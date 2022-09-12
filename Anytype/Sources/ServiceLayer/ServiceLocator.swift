@@ -77,6 +77,12 @@ final class ServiceLocator {
         ObjectTypesService(searchCommonService: searchCommonService())
     }
     
+    // Sigletone
+    private lazy var _relationStorage = RelationStorage()
+    func relationStorage() -> RelationStorageProtocol {
+        return _relationStorage
+    }
+    
     // MARK: - Private
     
     func searchCommonService() -> SearchCommonServiceProtocol {

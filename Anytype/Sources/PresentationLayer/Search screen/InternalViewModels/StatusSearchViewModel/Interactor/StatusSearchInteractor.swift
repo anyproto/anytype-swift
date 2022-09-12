@@ -1,17 +1,19 @@
 import Foundation
+import BlocksModels
 
 final class StatusSearchInteractor {
     
-    private let allStatuses: [Relation.Status.Option]
+    private let relationKey: String
     private let selectedStatusesIds: [String]
     private let isPreselectModeAvailable: Bool
+    private let searchService = ServiceLocator.shared.searchService()
     
     init(
-        allStatuses: [Relation.Status.Option],
+        relationKey: String,
         selectedStatusesIds: [String],
         isPreselectModeAvailable: Bool
     ) {
-        self.allStatuses = allStatuses
+        self.relationKey = relationKey
         self.selectedStatusesIds = selectedStatusesIds
         self.isPreselectModeAvailable = isPreselectModeAvailable
     }
@@ -20,43 +22,22 @@ final class StatusSearchInteractor {
 
 extension StatusSearchInteractor {
     
-    func search(text: String) -> Result<[Relation.Status.Option], NewSearchError> {
-        guard text.isNotEmpty else {
-            return .success(availableStatuses)
-        }
-
-        let filteredStatuses: [Relation.Status.Option] = availableStatuses.filter {
-            guard $0.text.isNotEmpty else { return false }
-            
-            return $0.text.lowercased().contains(text.lowercased())
-        }
+    func search(text: String) -> Result<[RelationValue.Status.Option], NewSearchError> {
+        #warning("Check me")
+        let statuses = searchService.searchRelationOptions(
+            text: text,
+            relationKey: relationKey,
+            excludedObjectIds: selectedStatusesIds)?
+            .map { RelationOption(details: $0) }
+            .map { RelationValue.Status.Option(option: $0) } ?? []
         
-        if filteredStatuses.isEmpty {
-            let isSearchedStatusSelected = allStatuses.filter { status in
-                selectedStatusesIds.contains { $0 == status.id }
-            }.contains { $0.text.lowercased() == text.lowercased() }
-            return isSearchedStatusSelected ?
-                .failure(.alreadySelected(searchText: text)) :
-                .success(filteredStatuses)
-        } else {
-            return .success(filteredStatuses)
-        }
+        return .success(statuses)
+        
+        #warning("Fix two maps ^^^")
     }
     
-    func isCreateButtonAvailable(searchText: String) -> Bool {
-        searchText.isNotEmpty && !allStatuses.contains { $0.text.lowercased() == searchText.lowercased() }
-    }
-    
-}
-
-private extension StatusSearchInteractor {
-    
-    var availableStatuses: [Relation.Status.Option] {
-        guard selectedStatusesIds.isNotEmpty, !isPreselectModeAvailable else { return allStatuses }
-        
-        return allStatuses.filter { status in
-            !selectedStatusesIds.contains { $0 == status.id }
-        }
+    func isCreateButtonAvailable(searchText: String, statuses: [RelationValue.Status.Option]) -> Bool {
+        searchText.isNotEmpty && statuses.isEmpty
     }
     
 }

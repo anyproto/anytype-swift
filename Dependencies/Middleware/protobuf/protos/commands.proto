@@ -772,7 +772,7 @@ message Rpc {
 
         message CreateBookmark {
             message Request {
-                string url = 1;
+                google.protobuf.Struct details = 1;
             }
 
             message Response {
@@ -1851,7 +1851,7 @@ message Rpc {
          message ListRemoveOption {
             message Request {
                 repeated string optionIds = 1;
-                bool removeInObject = 2;
+                bool checkInObjects = 2;
             }
 
             message Response {
@@ -1865,6 +1865,7 @@ message Rpc {
                         NULL = 0;
                         UNKNOWN_ERROR = 1;
                         BAD_INPUT = 2;
+                        OPTION_USED_BY_OBJECTS = 3;
                     }
                 }
             }

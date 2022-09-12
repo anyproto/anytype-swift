@@ -37,7 +37,7 @@ final class SetFiltersContentViewBuilder {
     
     @ViewBuilder
     private func buildSearchView(
-        with format: RelationMetadata.Format,
+        with format: RelationFormat,
         onSelect: @escaping (_ ids: [String]) -> Void
     ) -> some View {
         switch format {
@@ -55,15 +55,14 @@ final class SetFiltersContentViewBuilder {
     private func buildTagsSearchView(
         onSelect: @escaping (_ ids: [String]) -> Void
     ) -> some View {
-        let allTags = filter.metadata.selections.map { Relation.Tag.Option(option: $0) }
+        #warning("fix options")
         let selectedTagIds = selectedIds(
-            from: filter.filter.value,
-            allOptions: allTags.map { $0.id }
+            from: filter.filter.value
         )
         return NewSearchModuleAssembly.tagsSearchModule(
             style: .embedded,
             selectionMode: .multipleItems(preselectedIds: selectedTagIds),
-            allTags: allTags,
+            relationKey: filter.relation.key,
             selectedTagIds: [],
             onSelect: onSelect,
             onCreate: { _ in }
@@ -84,11 +83,12 @@ final class SetFiltersContentViewBuilder {
             }()
             return values.map { $0.stringValue }
         }()
+        #warning("Check limitedObjectType")
         return NewSearchModuleAssembly.objectsSearchModule(
             style: .embedded,
             selectionMode: .multipleItems(preselectedIds: selectedObjectsIds),
             excludedObjectIds: [],
-            limitedObjectType: filter.metadata.objectTypes,
+            limitedObjectType: filter.relation.objectTypes,
             onSelect: onSelect
         )
     }
@@ -96,15 +96,14 @@ final class SetFiltersContentViewBuilder {
     private func buildStatusesSearchView(
         onSelect: @escaping (_ ids: [String]) -> Void
     ) -> some View {
-        let allStatuses = filter.metadata.selections.map { Relation.Status.Option(option: $0) }
+        #warning("Fix selections")
         let selectedStatusesIds = selectedIds(
-            from: filter.filter.value,
-            allOptions: allStatuses.map { $0.id }
+            from: filter.filter.value
         )
         return NewSearchModuleAssembly.statusSearchModule(
             style: .embedded,
             selectionMode: .multipleItems(preselectedIds: selectedStatusesIds),
-            allStatuses: allStatuses,
+            relationKey: filter.relation.key,
             selectedStatusesIds: [],
             onSelect: onSelect,
             onCreate: { _ in }
@@ -159,16 +158,13 @@ final class SetFiltersContentViewBuilder {
     // MARK: - Helper methods
     
     private func selectedIds(
-        from value: SwiftProtobuf.Google_Protobuf_Value,
-        allOptions: [String]
+        from value: SwiftProtobuf.Google_Protobuf_Value
     ) -> [String] {
         let selectedIds: [String] = value.listValue.values.compactMap {
             let value = $0.stringValue
             return value.isEmpty ? nil : value
         }
         
-        return selectedIds.compactMap { id in
-            allOptions.first { $0 == id }
-        }
+        return selectedIds
     }
 }

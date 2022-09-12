@@ -34,13 +34,13 @@ private extension SetSortsSearchViewModel {
         viewStateSubject.send(.error(error))
     }
     
-    func handleSearchResults(_ relations: [RelationMetadata]) {
+    func handleSearchResults(_ relations: [Relation]) {
         viewStateSubject.send(.resultsList(.plain(rows: relations.asRowConfigurations())))
     }
     
 }
 
-private extension Array where Element == RelationMetadata {
+private extension Array where Element == Relation {
 
     func asRowConfigurations() -> [ListRowConfiguration] {
         map { relation in
@@ -60,7 +60,7 @@ private extension Array where Element == RelationMetadata {
 
 private extension SearchObjectRowView.Model {
     
-    init(relation: RelationMetadata) {
+    init(relation: Relation) {
         self.icon = .imageAsset(relation.format.iconAsset)
         self.title = relation.name
         self.subtitle = nil

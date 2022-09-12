@@ -2,35 +2,39 @@ import Foundation
 import BlocksModels
 import UIKit
 
-extension Relation {
+extension RelationValue {
     
-    struct Status: RelationProtocol, Hashable, Identifiable {
+    struct Status: RelationValueProtocol, Hashable, Identifiable {
         let id: String
+        let key: String
         let name: String
         let isFeatured: Bool
         let isEditable: Bool
         let isBundled: Bool
         
         let values: [Option]
-        let allOptions: [Option]
+        
+        var hasValue: Bool {
+            values.isNotEmpty
+        }
     }
     
 }
 
-extension Relation.Status {
+extension RelationValue.Status {
     
     struct Option: Hashable, Identifiable {
         let id: String
         let text: String
         let color: UIColor
-        let scope: RelationMetadata.Option.Scope
+        let scope: RelationOption.Scope
     }
     
 }
 
-extension Relation.Status.Option {
+extension RelationValue.Status.Option {
     
-    init(option: RelationMetadata.Option) {
+    init(option: RelationOption) {
         let middlewareColor = MiddlewareColor(rawValue: option.color)
         
         self.id = option.id

@@ -11,6 +11,7 @@ public enum ObjectTypeId: RawRepresentable {
         case bookmark = "_otbookmark"
         case objectType = "_otobjectType"
         case relation = "_otrelation"
+        case relationOption = "_otrelationOption"
     }
 
     public init?(rawValue: String) {

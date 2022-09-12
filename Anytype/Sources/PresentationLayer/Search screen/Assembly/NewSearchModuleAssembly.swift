@@ -6,13 +6,13 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
     static func statusSearchModule(
         style: NewSearchView.Style = .default,
         selectionMode: NewSearchViewModel.SelectionMode = .singleItem,
-        allStatuses: [Relation.Status.Option],
+        relationKey: String,
         selectedStatusesIds: [String],
         onSelect: @escaping (_ ids: [String]) -> Void,
         onCreate: @escaping (_ title: String) -> Void
     ) -> NewSearchView {
         let interactor = StatusSearchInteractor(
-            allStatuses: allStatuses,
+            relationKey: relationKey,
             selectedStatusesIds: selectedStatusesIds,
             isPreselectModeAvailable: selectionMode.isPreselectModeAvailable
         )
@@ -32,13 +32,13 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
     static func tagsSearchModule(
         style: NewSearchView.Style = .default,
         selectionMode: NewSearchViewModel.SelectionMode = .multipleItems(),
-        allTags: [Relation.Tag.Option],
+        relationKey: String,
         selectedTagIds: [String],
         onSelect: @escaping (_ ids: [String]) -> Void,
         onCreate: @escaping (_ title: String) -> Void
     ) -> NewSearchView {
         let interactor = TagsSearchInteractor(
-            allTags: allTags,
+            relationKey: relationKey,
             selectedTagIds: selectedTagIds,
             isPreselectModeAvailable: selectionMode.isPreselectModeAvailable
         )
@@ -183,8 +183,8 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
     
     static func setSortsSearchModule(
         style: NewSearchView.Style = .default,
-        relations: [RelationMetadata],
-        onSelect: @escaping (_ id: String) -> Void
+        relations: [Relation],
+        onSelect: @escaping (_ relation: Relation) -> Void
     ) -> NewSearchView {
         let interactor = SetSortsSearchInteractor(relations: relations)
         
@@ -196,8 +196,9 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
             itemCreationMode: .unavailable,
             internalViewModel: internalViewModel,
             onSelect: { ids in
-                guard let id = ids.first else { return }
-                onSelect(id)
+                guard let id = ids.first,
+                      let relation = relations.first(where: { $0.id == id }) else { return }
+                onSelect(relation)
             }
         )
         

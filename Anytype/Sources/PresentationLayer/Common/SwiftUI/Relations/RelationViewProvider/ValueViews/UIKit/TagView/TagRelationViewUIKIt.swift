@@ -1,7 +1,7 @@
 import UIKit
 
 final class TagRelationViewUIKIt: UIView {
-    let tags: [Relation.Tag.Option]
+    let tags: [RelationValue.Tag.Option]
     let hint: String
     let style: RelationStyle
 
@@ -10,7 +10,7 @@ final class TagRelationViewUIKIt: UIView {
 
     // MARK: - Lifecycle
 
-    init(tags: [Relation.Tag.Option], hint: String, style: RelationStyle) {
+    init(tags: [RelationValue.Tag.Option], hint: String, style: RelationStyle) {
         self.tags = tags
         self.hint = hint
         self.style = style
@@ -50,7 +50,7 @@ final class TagRelationViewUIKIt: UIView {
         // add more tags view
         if tags.count > Constants.maxShowingTag {
             let count = tags.count - Constants.maxShowingTag
-            let moreTags = Relation.Tag.Option(id: "",
+            let moreTags = RelationValue.Tag.Option(id: "",
                                                text: "+\(count)",
                                                textColor: .textSecondary,
                                                backgroundColor: .strokeTransperent,

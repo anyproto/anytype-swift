@@ -9,7 +9,7 @@
 import UIKit
 
 final class StatusRelationViewUIKit: UIView {
-    let statusOption: Relation.Status.Option?
+    let statusOption: RelationValue.Status.Option?
     let hint: String
     let style: RelationStyle
 
@@ -18,7 +18,7 @@ final class StatusRelationViewUIKit: UIView {
 
     // MARK: - Lifecycle
 
-    init(statusOption: Relation.Status.Option?, hint: String, style: RelationStyle) {
+    init(statusOption: RelationValue.Status.Option?, hint: String, style: RelationStyle) {
         self.statusOption = statusOption
         self.hint = hint
         self.style = style

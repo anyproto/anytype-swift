@@ -11,8 +11,11 @@ final class EditorSetViewModel: ObservableObject {
     @Published var loadingDocument = true
     @Published var pagitationData = EditorSetPaginationData.empty
     
+    #warning("Check me")
     @Published var sorts: [SetSort] = []
+    #warning("Check me")
     @Published var filters: [SetFilter] = []
+    @Published var dataViewRelations: [Relation] = []
     
     var isEmpty: Bool {
         dataView.views.isEmpty
@@ -22,8 +25,8 @@ final class EditorSetViewModel: ObservableObject {
         dataView.views.first { $0.id == dataView.activeViewId } ?? .empty
     }
     
-    var colums: [RelationMetadata] {
-        sortedRelations.filter { $0.option.isVisible }.map(\.metadata)
+    var colums: [Relation] {
+        sortedRelations.filter { $0.option.isVisible }.map(\.relation)
     }
  
     var configurations: [SetContentViewItemConfiguration] {
@@ -58,20 +61,20 @@ final class EditorSetViewModel: ObservableObject {
         document.details
     }
     
-    var featuredRelations: [Relation] {
-        document.featuredRelationsForEditor
+    var featuredRelationValues: [RelationValue] {
+        document.featuredRelationValuessForEditor
     }
     
-    var relations: [RelationMetadata] {
+    var relations: [Relation] {
         activeView.options.compactMap { option in
-            let metadata = dataView.relations.first { relation in
+            let relation = dataViewRelations.first { relation in
                 option.key == relation.key
             }
             
-            guard let metadata = metadata,
-                  shouldAddRelationMetadata(metadata) else { return nil }
+            guard let relation = relation,
+                  shouldAddRelationDetails(relation) else { return nil }
             
-            return metadata
+            return relation
         }
     }
     
@@ -79,11 +82,11 @@ final class EditorSetViewModel: ObservableObject {
         FlowRelationsViewModel(
             title: details.flatMap { $0.title },
             description: details?.description,
-            relations: featuredRelations,
+            relationValues: featuredRelationValues,
             style: .header,
             onRelationTap: { [weak self] relation in
                 AnytypeAnalytics.instance().logChangeRelationValue(type: .set)
-                self?.showRelationValueEditingView(key: relation.id, source: .object)
+                self?.showRelationValueEditingView(key: relation.key, source: .object)
             }
         )
     }
@@ -104,18 +107,21 @@ final class EditorSetViewModel: ObservableObject {
     private let dataviewService: DataviewServiceProtocol
     private let searchService: SearchServiceProtocol
     private let detailsService: DetailsServiceProtocol
+    private let relationStorage: RelationStorageProtocol
     
     init(
         document: BaseDocument,
         dataviewService: DataviewServiceProtocol,
         searchService: SearchServiceProtocol,
-        detailsService: DetailsServiceProtocol
+        detailsService: DetailsServiceProtocol,
+        relationStorage: RelationStorageProtocol
     ) {
         ObjectTypeProvider.shared.resetCache()
         self.document = document
         self.dataviewService = dataviewService
         self.searchService = searchService
         self.detailsService = detailsService
+        self.relationStorage = relationStorage
     }
     
     func setup(router: EditorRouterProtocol) {
@@ -204,6 +210,7 @@ final class EditorSetViewModel: ObservableObject {
         
         self.dataView = document.dataviews.first ?? .empty
         
+        updateDataViewRelations()
         updateActiveViewId()
         updateSorts()
         updateFilters()
@@ -223,37 +230,41 @@ final class EditorSetViewModel: ObservableObject {
     
     private func updateSorts() {
         sorts = activeView.sorts.uniqued().compactMap { sort in
-            let metadata = dataView.relations.first { relation in
+            let relation = dataViewRelations.first { relation in
                 sort.relationKey == relation.key
             }
-            guard let metadata = metadata else { return nil }
+            guard let relation = relation else { return nil }
             
-            return SetSort(metadata: metadata, sort: sort)
+            return SetSort(relation: relation, sort: sort)
         }
     }
     
     private func updateFilters() {
         filters = activeView.filters.compactMap { filter in
-            let metadata = dataView.relations.first { relation in
+            let relation = dataViewRelations.first { relation in
                 filter.relationKey == relation.key
             }
-            guard let metadata = metadata else { return nil }
+            guard let relation = relation else { return nil }
             
-            return SetFilter(metadata: metadata, filter: filter)
+            return SetFilter(relation: relation, filter: filter)
         }
     }
     
-    private func shouldAddRelationMetadata(_ relationMetadata: RelationMetadata) -> Bool {
-        guard sorts.first(where: { $0.metadata.key == relationMetadata.key }) == nil else {
+    private func updateDataViewRelations() {
+        dataViewRelations = relationStorage.relations(for: dataView.relationLinks)
+    }
+ 
+    private func shouldAddRelationDetails(_ relation: Relation) -> Bool {
+        guard sorts.first(where: { $0.relation.key == relation.key }) == nil else {
             return false
         }
-        guard relationMetadata.key != ExceptionalSetSort.name.rawValue,
-              relationMetadata.key != ExceptionalSetSort.done.rawValue else {
+        guard relation.key != ExceptionalSetSort.name.rawValue,
+              relation.key != ExceptionalSetSort.done.rawValue else {
             return true
         }
-        return !relationMetadata.isHidden &&
-        relationMetadata.format != .file &&
-        relationMetadata.format != .unrecognized
+        return !relation.isHidden &&
+        relation.format != .file &&
+        relation.format != .unrecognized
     }
     
     private func isBookmarksSet() -> Bool {
@@ -302,14 +313,14 @@ extension EditorSetViewModel {
     func showRelationValueEditingView(
         objectId: BlockId,
         source: RelationSource,
-        relation: Relation
+        relationValue: RelationValue
     ) {
         AnytypeAnalytics.instance().logChangeRelationValue(type: .set)
         
         router.showRelationValueEditingView(
             objectId: objectId,
             source: source,
-            relation: relation
+            relationValue: relationValue
         )
     }
     
@@ -354,7 +365,7 @@ extension EditorSetViewModel {
         router.showSettings()
     }
     
-    func showAddNewRelationView(onSelect: @escaping (RelationDetails, _ isNew: Bool) -> Void) {
+    func showAddNewRelationView(onSelect: @escaping (Relation, _ isNew: Bool) -> Void) {
         router.showAddNewRelationView(onSelect: onSelect)
     }
     
@@ -402,6 +413,7 @@ extension EditorSetViewModel {
         document: BaseDocument(objectId: "objectId"),
         dataviewService: DataviewService(objectId: "objectId", prefilledFieldsBuilder: SetFilterPrefilledFieldsBuilder()),
         searchService: ServiceLocator.shared.searchService(),
-        detailsService: DetailsService(objectId: "objectId", service: ObjectActionsService())
+        detailsService: DetailsService(objectId: "objectId", service: ObjectActionsService()),
+        relationStorage: ServiceLocator.shared.relationStorage()
     )
 }

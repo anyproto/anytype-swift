@@ -24,6 +24,8 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
             return startProfileSubscription(blockId: profileId)
         case let .set(data):
             return startSetSubscription(data: data)
+        case .relation:
+            return startRelationSubscription()
         }
     }
     
@@ -56,7 +58,17 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
             with: homeDetailsKeys.map { $0.rawValue}
         )
         
-        return makeRequest(subId: .set, filters: data.filters, sorts: data.sorts, source: data.source, keys: keys, pageNumber: data.currentPage)
+        let offset = Int64(data.currentPage - 1) * numberOfRowsPerPageInSubscriptions
+        
+        return makeRequest(
+            subId: .set,
+            filters: data.filters,
+            sorts: data.sorts,
+            source: data.source,
+            keys: keys,
+            offset: offset,
+            limit: numberOfRowsPerPageInSubscriptions
+        )
     }
     
     private func startHistoryTabSubscription() -> SubscriptionTogglerResult? {
@@ -110,6 +122,31 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
         
         return makeRequest(subId: .setsTab, filters: filters, sorts: [sort])
     }
+    
+    private func startRelationSubscription() -> SubscriptionTogglerResult? {
+        let sort = SearchHelper.sort(
+            relation: BundledRelationKey.name,
+            type: .asc
+        )
+        let filters = [
+            SearchHelper.isArchivedFilter(isArchived: false),
+            SearchHelper.typeFilter(typeIds: [ObjectTypeId.bundled(.relation).rawValue])
+        ]
+        
+        let keys = [
+            BundledRelationKey.id.rawValue,
+            BundledRelationKey.relationKey.rawValue,
+            BundledRelationKey.name.rawValue,
+            BundledRelationKey.relationFormat.rawValue,
+            BundledRelationKey.readonlyValue.rawValue,
+            BundledRelationKey.objectTypes.rawValue,
+            BundledRelationKey.relationFormatObjectTypes.rawValue,
+            BundledRelationKey.isHidden.rawValue,
+            BundledRelationKey.isReadonly.rawValue
+        ]
+        
+        return makeRequest(subId: .relation, filters: filters, sorts: [sort], keys: keys)
+    }
 
     private let homeDetailsKeys: [BundledRelationKey] = [
         .id, .iconEmoji, .iconImage, .name, .snippet, .description, .type, .layout, .isArchived, .isDeleted, .done, .isFavorite
@@ -120,15 +157,15 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
         sorts: [DataviewSort],
         source: [String] = [],
         keys: [String]? = nil,
-        pageNumber: Int64 = 1
+        offset: Int64 = 0,
+        limit: Int64 = 0
     ) -> SubscriptionTogglerResult? {
-        let offset = Int64(pageNumber - 1) * numberOfRowsPerPageInSubscriptions
         let response = Anytype_Rpc.Object.SearchSubscribe.Service
             .invoke(
                 subID: subId.rawValue,
                 filters: filters,
                 sorts: sorts,
-                limit: numberOfRowsPerPageInSubscriptions,
+                limit: limit,
                 offset: offset,
                 keys: keys ?? homeDetailsKeys.map { $0.rawValue },
                 afterID: "",

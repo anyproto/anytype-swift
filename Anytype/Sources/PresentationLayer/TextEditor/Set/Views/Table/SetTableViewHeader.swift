@@ -16,7 +16,7 @@ struct SetTableViewHeader: View {
             ForEach(model.colums, id: \.key) { data in
                 HStack(spacing: 0) {
                     Spacer.fixedWidth(15)
-                    if data.isReadOnly {
+                    if data.isReadOnlyValue {
                         Image(asset: .relationLockedSmall)
                         Spacer.fixedWidth(4)
                     }

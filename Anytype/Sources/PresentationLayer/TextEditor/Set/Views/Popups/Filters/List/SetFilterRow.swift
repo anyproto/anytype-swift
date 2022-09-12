@@ -60,11 +60,11 @@ struct SetFilterRow: View {
         }
     }
     
-    private func relationValueView(for relation: Relation?) -> some View {
+    private func relationValueView(for relationValue: RelationValue?) -> some View {
         Group {
-            if let relation = relation {
+            if let relationValue = relationValue {
                 RelationValueView(
-                    relation: RelationItemModel(relation: relation),
+                    relation: RelationItemModel(relationValue: relationValue),
                     style: .filter(hasValues: configuration.hasValues),
                     action: nil
                 )

@@ -60,7 +60,7 @@ struct RelationsListView: View {
                     VStack(alignment: .leading, spacing: 0) {
                         
                         Section(header: sectionHeader(title: section.title)) {
-                            ForEach(section.relations) {
+                            ForEach(section.relationValues) {
                                 row(with: $0)
                             }
                         }
@@ -78,13 +78,13 @@ struct RelationsListView: View {
             .frame(height: 48)
     }
     
-    private func row(with relation: Relation) -> some View {
-        RelationsListRowView(editingMode: $editingMode, starButtonAvailable: !viewModel.navigationBarButtonsDisabled, relation: relation) {
-            viewModel.removeRelation(id: $0)
+    private func row(with relationValue: RelationValue) -> some View {
+        RelationsListRowView(editingMode: $editingMode, starButtonAvailable: !viewModel.navigationBarButtonsDisabled, relationValue: relationValue) {
+            viewModel.removeRelation(relationValue: $0)
         } onStarTap: {
-            viewModel.changeRelationFeaturedState(relationId: $0)
+            viewModel.changeRelationFeaturedState(relationValue: $0)
         } onEditTap: {
-            viewModel.handleTapOnRelation(relationId: $0)
+            viewModel.handleTapOnRelation(relationValue: $0)
         }
     }
     

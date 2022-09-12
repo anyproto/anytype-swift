@@ -5,16 +5,16 @@ struct SlashMenuItemsBuilder {
     
     private let restrictions: BlockRestrictions
     private let searchService: SearchServiceProtocol
-    private let relations: [Relation]
+    private let relationValues: [RelationValue]
     
     init(
         blockType: BlockContentType,
         searchService: SearchServiceProtocol = ServiceLocator.shared.searchService(),
-        relations: [Relation]
+        relationValues: [RelationValue]
     ) {
         self.restrictions = BlockRestrictionsBuilder.build(contentType: blockType)
         self.searchService = searchService
-        self.relations = relations
+        self.relationValues = relationValues
     }
     
     var slashMenuItems: [SlashMenuItem] {
@@ -72,7 +72,7 @@ struct SlashMenuItemsBuilder {
     }
     
     private var relationMenuItem: SlashMenuItem? {
-        let relations = relations.map {
+        let relations = relationValues.map {
             SlashAction.relations(.relation($0))
         }
         let childrens = [SlashAction.relations(.newRealtion)] + relations

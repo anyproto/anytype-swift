@@ -48,14 +48,16 @@ extension NewRelationViewModel {
     }
     
     func didTapAddButton() {
-        #warning("Fix objectTypeIds")
-        let relationMetatdata = RelationDetails(
+        #warning("Check objectTypeIds")
+        let relation = Relation(
             id: "",
             key: "",
             name: name,
-            format: format.asRelationMetadataFormat,
+            format: format.asRelationFormat,
             isHidden: false,
-            isReadOnly: false
+            isReadOnly: false,
+            isReadOnlyValue: false,
+            objectTypes: objectTypeIds
         )
         
 //        let relationMetatdata = RelationMetadata(
@@ -73,9 +75,9 @@ extension NewRelationViewModel {
 
 //        #warning("Fix me")
         
-        guard service.createRelation(relation: relationMetatdata) else { return }
+        guard service.createRelation(relation: relation) else { return }
         UINotificationFeedbackGenerator().notificationOccurred(.success)
-        output?.didCreateRelation(relationMetatdata)
+        output?.didCreateRelation(relation)
     }
     
 }
@@ -119,7 +121,7 @@ private extension SupportedRelationFormat {
         NewRelationFormatSectionView.Model(icon: self.iconAsset, title: self.title)
     }
     
-    var asRelationMetadataFormat: RelationMetadata.Format {
+    var asRelationFormat: RelationFormat {
         switch self {
         case .text: return .longText
         case .tag: return .tag

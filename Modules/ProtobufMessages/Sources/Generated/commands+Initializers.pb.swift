@@ -2441,8 +2441,8 @@ extension Anytype_Rpc.Object.Create.Response.Error {
 }
 
 extension Anytype_Rpc.Object.CreateBookmark.Request {
-    public init(url: String = String()) {
-        self.url = url
+    public init(details: SwiftProtobuf.Google_Protobuf_Struct) {
+        self.details = details
     }
 }
 
@@ -3356,9 +3356,9 @@ extension Anytype_Rpc.Process.Cancel.Response.Error {
 }
 
 extension Anytype_Rpc.Relation.ListRemoveOption.Request {
-    public init(optionIds: [String] = [], removeInObject: Bool = false) {
+    public init(optionIds: [String] = [], checkInObjects: Bool = false) {
         self.optionIds = optionIds
-        self.removeInObject = removeInObject
+        self.checkInObjects = checkInObjects
     }
 }
 

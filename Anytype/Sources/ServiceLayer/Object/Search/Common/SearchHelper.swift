@@ -91,7 +91,7 @@ class SearchHelper {
         return filter
     }
     
-    static func supportedObjectTypeIdsFilter(_ typeIds: [String]) -> DataviewFilter {
+    static func supportedIdsFilter(_ typeIds: [String]) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .in
         filter.value = typeIds.protobufValue
@@ -120,7 +120,7 @@ class SearchHelper {
         ]
     }
     
-    static func excludedObjectTypeIdFilter(_ typeUrl: String) -> DataviewFilter {
+    static func excludedIdFilter(_ typeUrl: String) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .notEqual
         filter.value = typeUrl.protobufValue
@@ -137,6 +137,28 @@ class SearchHelper {
         filter.value = ids.protobufValue
         
         filter.relationKey = BundledRelationKey.id.rawValue
+        filter.operator = .and
+        
+        return filter
+    }
+    
+    static func relationKey(_ relationKey: String) -> DataviewFilter {
+        var filter = DataviewFilter()
+        filter.condition = .equal
+        filter.value = relationKey.protobufValue
+        
+        filter.relationKey = BundledRelationKey.relationKey.rawValue
+        filter.operator = .and
+        
+        return filter
+    }
+    
+    static func relationOptionText(_ text: String) -> DataviewFilter {
+        var filter = DataviewFilter()
+        filter.condition = .like
+        filter.value = text.protobufValue
+        
+        filter.relationKey = BundledRelationKey.relationOptionText.rawValue
         filter.operator = .and
         
         return filter
