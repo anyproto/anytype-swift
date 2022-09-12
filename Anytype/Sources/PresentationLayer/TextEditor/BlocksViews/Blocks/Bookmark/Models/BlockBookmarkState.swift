@@ -30,7 +30,7 @@ extension BlockBookmarkPayload {
         self.source = objectDetails.source
         self.title = objectDetails.title
         self.subtitle = objectDetails.description
-        self.imageHash = BlockBookmarkPayload.picture(from: objectDetails)
+        self.imageHash = objectDetails.picture?.value ?? ""
         self.faviconHash = objectDetails.iconImage?.value ?? ""
         self.isArchived = objectDetails.isArchived
     }
@@ -43,8 +43,4 @@ extension BlockBookmarkPayload {
         self.faviconHash = blockBookmark.faviconHash
         self.isArchived = false
     }
-    
-    private static func picture(from details: ObjectDetails) -> String {
-         return details.values[Constants.pictureRelationKey]?.stringValue ?? ""
-     }
 }

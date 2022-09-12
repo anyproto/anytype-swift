@@ -5,6 +5,6 @@ json:
     - Dependencies/relations.json
   outputs:
     - templatePath: ./Templates/relation-keys.stencil
-      output: ./Sources/Relations/Generated/RelationKeys.swift
+      output: ./Sources/Relations/Provider/Bundled/Generated/BundledRelationKey.swift
     - templatePath: ./Templates/relation-value-provider.stencil
-      output: ./Sources/Relations/Generated/RelationValueProvider.swift
+      output: ./Sources/Relations/Provider/Bundled/Generated/BundledRelationValueProvider.swift

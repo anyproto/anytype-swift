@@ -27,6 +27,6 @@ json:
     - Dependencies/relations.json
   outputs:
     - templatePath: ../../Modules/BlocksModels/Templates/relation-keys.stencil
-      output: Modules/BlocksModels/Sources/Relations/Generated/RelationKeys.swift
+      output: Modules/BlocksModels/Sources/Relations/Provider/Bundled/Generated/BundledRelationKey.swift
     - templatePath: ../../Modules/BlocksModels/Templates/relation-value-provider.stencil
-      output: Modules/BlocksModels/Sources/Relations/Generated/RelationValueProvider.swift
+      output: Modules/BlocksModels/Sources/Relations/Provider/Bundled/Generated/BundledRelationValueProvider.swift

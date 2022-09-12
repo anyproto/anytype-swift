@@ -1,9 +1,5 @@
 import Foundation
 
-public protocol ProtobufDefaultTypeProvider {
-    static func protobufDefaultType() -> Self
-}
-
 extension String: ProtobufDefaultTypeProvider {
     public static func protobufDefaultType() -> Self {
         return ""

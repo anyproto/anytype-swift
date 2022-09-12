@@ -221,7 +221,7 @@ final class EditorSetViewModel: ObservableObject {
 
                 self.textService.setText(
                     contextId: self.document.objectId,
-                    blockId: BundledRelationKey.title.rawValue,
+                    blockId: RelationKey.title.rawValue,
                     middlewareString: .init(text: newValue, marks: .init())
                 )
 
@@ -310,7 +310,7 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     private func url(from details: ObjectDetails) -> URL? {
-        var urlString = details.values[EditorSetViewModel.urlRelationKey]?.stringValue ?? ""
+        var urlString = details.url
         if !urlString.isEncoded {
             urlString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? urlString
         }

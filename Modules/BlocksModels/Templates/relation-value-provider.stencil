@@ -5,6 +5,8 @@ import Foundation
 import SwiftProtobuf
 import AnytypeCore
 
+public typealias ObjectId = String
+
 {% macro typeNameBlock type %}
   {%- if type == "object" or type == "tag" or type == "status" -%}
     ObjectId
@@ -41,9 +43,12 @@ import AnytypeCore
   MaxCountUndefined
   {%- endif -%}
 {% endmacro %}
-public protocol RelationValueProvider {
-
-    var values: [String: Google_Protobuf_Value] { get }
+{% macro typeDescription value %}
+  {%- if value["description"] -%}
+  /// {{value["description"]}}
+  {%- endif -%}
+{% endmacro %}
+public protocol BundledRelationValueProvider {
 
     {% for file in files %}
       {% for value in file.document.data %}
@@ -54,31 +59,18 @@ public protocol RelationValueProvider {
     {% endfor %}
 } 
 
-public extension RelationValueProvider {
+public extension BundledRelationValueProvider where Self: RelationValueProvider {
   {% for file in files %}
     {% for value in file.document.data %}
       {% set propertyName %}{{value["key"]|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords}}{% endset %}
       {% set propertyType %}{% call typeBlock value %}{% endset %}
       {% set propertyTypePrefix %}{{propertyType|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords}}{% endset %}
+    
+    {% call typeDescription value %}
     var {{propertyName}}: {{propertyType}} {
-        return value(for: RelationKey.{{propertyName}}.rawValue)
+        return value(for: BundledRelationKey.{{propertyName}}.rawValue)
     }
     {% endfor %}
   {% endfor %}
-
-    func value<T>(for key: String) -> T? where T: ProtobufSupport{
-        guard let value = values[key]?.unwrapedListValue else { return nil }
-        return T(value) 
-    }
-
-    func value<T>(for key: String) -> T where T: ProtobufSupport, T: ProtobufDefaultTypeProvider {
-        guard let value = values[key]?.unwrapedListValue else { return T.protobufDefaultType() }
-        return T(value) ?? T.protobufDefaultType()
-    }
-
-    func value<T: ProtobufSupport>(for key: String) -> [T] {
-        guard let values = values[key]?.listValue.values else { return [] }
-        return values.compactMap { T($0) }
-    }
 }
 {% endif %}

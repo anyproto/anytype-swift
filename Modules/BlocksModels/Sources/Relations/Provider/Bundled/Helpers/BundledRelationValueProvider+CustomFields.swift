@@ -2,7 +2,7 @@ import Foundation
 import AnytypeCore
 import ProtobufMessages
 
-extension RelationValueProvider {
+extension BundledRelationValueProvider {
     
     public var isDone: Bool {
         return done

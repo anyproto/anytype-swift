@@ -2,7 +2,7 @@ import Foundation
 import BlocksModels
 import AnytypeCore
 
-extension RelationValueProvider {
+extension BundledRelationValueProvider {
     
     var pageCellTitle: String {
         switch layoutValue {

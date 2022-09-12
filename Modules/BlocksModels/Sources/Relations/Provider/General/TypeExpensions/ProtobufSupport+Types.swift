@@ -2,10 +2,6 @@ import Foundation
 import SwiftProtobuf
 import AnytypeCore
 
-public protocol ProtobufSupport {
-    init?(_ value: Google_Protobuf_Value)
-}
-
 extension String: ProtobufSupport {
     public init?(_ value: Google_Protobuf_Value) {
         self = value.stringValue
@@ -15,6 +11,13 @@ extension String: ProtobufSupport {
 extension Int: ProtobufSupport {
      public init?(_ value: Google_Protobuf_Value) {
         guard let intValue = value.safeIntValue else { return nil }
+        self = intValue
+    }
+}
+
+extension Double: ProtobufSupport {
+     public init?(_ value: Google_Protobuf_Value) {
+        guard let intValue = value.safeDoubleValue else { return nil }
         self = intValue
     }
 }
