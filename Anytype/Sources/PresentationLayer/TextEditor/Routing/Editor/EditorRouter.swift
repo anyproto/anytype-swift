@@ -96,7 +96,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         hostViewController.modalPresentationStyle = .popover
 
         hostViewController.preferredContentSize = hostViewController
-            .sizeThatFits(in: hostViewController.view.frame.size)
+            .sizeThatFits(in: hostViewController.view.bounds.size)
 
         if let popoverPresentationController = hostViewController.popoverPresentationController {
             popoverPresentationController.sourceRect = inputParameters.rect
