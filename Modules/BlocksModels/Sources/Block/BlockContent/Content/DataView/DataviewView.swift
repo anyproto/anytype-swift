@@ -32,6 +32,7 @@ public struct DataviewView: Hashable, Identifiable {
     }
     
     public func updated(
+        name: String? = nil,
         type: DataviewViewType? = nil,
         cardSize: DataviewViewSize? = nil,
         hideIcon: Bool? = nil,
@@ -43,7 +44,7 @@ public struct DataviewView: Hashable, Identifiable {
     ) -> DataviewView {
         DataviewView(
             id: id,
-            name: name,
+            name: name ?? self.name,
             type: type ?? self.type,
             options: options ?? self.options,
             sorts: sorts ?? self.sorts,

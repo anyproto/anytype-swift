@@ -29,9 +29,19 @@ struct EditorSetViewPicker: View {
                         .divider()
                         .listRowSeparator(.hidden)
                         .listRowInsets(.init(top: 0, leading: 20, bottom: 0, trailing: 20))
+                        .deleteDisabled(viewModel.disableDeletion)
+                        .moveDisabled(!$0.isSupported)
                 } else {
                     row(with: $0)
+                        .deleteDisabled(viewModel.disableDeletion)
+                        .moveDisabled(!$0.isSupported)
                 }
+            }
+            .onMove { from, to in
+                viewModel.move(from: from, to: to)
+            }
+            .onDelete {
+                viewModel.delete($0)
             }
         }
         .listStyle(.plain)
@@ -50,6 +60,7 @@ struct EditorSetViewPicker: View {
             configuration.onTap()
         })
         .environment(\.editMode, $editMode)
+        .animation(nil, value: editMode)
     }
 }
     

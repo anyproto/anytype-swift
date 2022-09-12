@@ -135,10 +135,7 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     func updateActiveViewId(_ id: BlockId) {
-        document.infoContainer.updateDataview(blockId: SetConstants.dataviewBlockId) { dataView in
-            dataView.updated(activeViewId: id)
-        }
-        
+        updateDataview(with: id)
         setupDataview()
     }
     
@@ -183,13 +180,10 @@ final class EditorSetViewModel: ObservableObject {
     
     private func onDataChange(_ data: DocumentUpdate) {
         switch data {
-        case .general:
+        case .general, .blocks, .details, .dataSourceUpdate:
             objectWillChange.send()
             setupDataview()
-        case .syncStatus, .blocks, .details, .dataSourceUpdate:
-            objectWillChange.send()
-            setupDataview()
-        case .header:
+        case .header, .syncStatus:
             break // handled in ObjectHeaderViewModel
         }
     }
@@ -242,10 +236,18 @@ final class EditorSetViewModel: ObservableObject {
         let activeViewId = dataView.views.first(where: { $0.type.isSupported })?.id ?? dataView.views.first?.id
         if let activeViewId = activeViewId {
             if self.dataView.activeViewId.isEmpty || !dataView.views.contains(where: { $0.id == self.dataView.activeViewId }) {
-                self.dataView.activeViewId = activeViewId
+                updateDataview(with: activeViewId)
+                dataView.activeViewId = activeViewId
             }
         } else {
+            updateDataview(with: "")
             dataView.activeViewId = ""
+        }
+    }
+    
+    private func updateDataview(with activeViewId: BlockId) {
+        document.infoContainer.updateDataview(blockId: SetConstants.dataviewBlockId) { dataView in
+            dataView.updated(activeViewId: activeViewId)
         }
     }
     
@@ -342,9 +344,8 @@ extension EditorSetViewModel {
     }
     
     func showViewPicker() {
-        router.showViewPicker(setModel: self) { [weak self] activeView in
-            guard let self = self else { return }
-            self.router.showViewTypes(activeView: activeView, dataviewService: self.dataviewService)
+        router.showViewPicker(setModel: self, dataviewService: dataviewService) { [weak self] activeView in
+            self?.showViewTypes(with: activeView)
         }
     }
     
@@ -360,8 +361,12 @@ extension EditorSetViewModel {
         }
     }
     
-    func showViewTypes() {
-        router.showViewTypes(activeView: activeView, dataviewService: dataviewService)
+    func showViewTypes(with activeView: DataviewView? = nil) {
+        router.showViewTypes(
+            activeView: activeView ?? self.activeView,
+            canDelete: dataView.views.count > 1,
+            dataviewService: dataviewService
+        )
     }
     
     func showViewSettings() {
