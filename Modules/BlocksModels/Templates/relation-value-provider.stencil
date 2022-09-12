@@ -50,7 +50,7 @@ public typealias ObjectId = String
   /// {{value["description"]}}
   {%- endif -%}
 {% endmacro %}
-public protocol BundledRelationValueProvider {
+public protocol BundledRelationsValueProvider {
 
     {% for file in files %}
       {% for value in file.document.data %}
@@ -61,7 +61,7 @@ public protocol BundledRelationValueProvider {
     {% endfor %}
 } 
 
-public extension BundledRelationValueProvider where Self: RelationValueProvider {
+public extension BundledRelationsValueProvider where Self: RelationValueProvider {
   {% for file in files %}
     {% for value in file.document.data %}
       {% set propertyName %}{{value["key"]|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords}}{% endset %}

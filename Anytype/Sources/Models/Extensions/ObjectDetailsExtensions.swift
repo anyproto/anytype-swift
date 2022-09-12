@@ -2,7 +2,7 @@ import BlocksModels
 import UIKit
 import AnytypeCore
 
-extension BundledRelationValueProvider {
+extension BundledRelationsValueProvider {
     
     // MARK: - Icon
     

@@ -6,7 +6,7 @@ import AnytypeCore
 
 public typealias ObjectId = String
 
-public protocol BundledRelationValueProvider {
+public protocol BundledRelationsValueProvider {
 
     var meditation: Bool { get }
     var relationOptionsDict: [ObjectId] { get }
@@ -181,7 +181,7 @@ public protocol BundledRelationValueProvider {
     var source: AnytypeURL? { get }
 } 
 
-public extension BundledRelationValueProvider where Self: RelationValueProvider {
+public extension BundledRelationsValueProvider where Self: RelationValueProvider {
     var meditation: Bool {
         return value(for: BundledRelationKey.meditation.rawValue)
     }
