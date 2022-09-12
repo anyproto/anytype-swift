@@ -129,7 +129,7 @@ struct SetViewTypesPicker: View {
             if !configuration.isSupported {
                 AnytypeText(Loc.soon, style: .caption1Regular, color: .textTertiary)
             }
-            if configuration.isSelected {
+            if configuration.isSelected && configuration.isSupported {
                 Image(asset: .optionChecked)
                     .foregroundColor(.buttonSelected)
             }

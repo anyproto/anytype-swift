@@ -43,18 +43,20 @@ struct EditorSetViewRow: View {
                         .foregroundColor(.buttonSelected)
                 }
             } else {
-                AnytypeText(
-                    Loc.EditorSetViewPicker.View.Available.soon(configuration.typeName),
-                    style: .uxBodyRegular,
-                    color: .textSecondary
-                )
+                if editMode?.wrappedValue == .inactive {
+                    AnytypeText(
+                        Loc.EditorSetViewPicker.View.Available.soon(configuration.typeName),
+                        style: .uxBodyRegular,
+                        color: .textSecondary
+                    )
+                }
             }
         }
     }
     
     private var editButton: some View {
         Group {
-            if configuration.isSupported, editMode?.wrappedValue == .active {
+            if editMode?.wrappedValue == .active {
                 Button(action: {
                     configuration.onEditTap()
                 }) {
