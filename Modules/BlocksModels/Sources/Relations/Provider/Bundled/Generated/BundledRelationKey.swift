@@ -1,5 +1,7 @@
 // swiftlint:disable all
 
+// Generated from https://github.com/anytypeio/go-anytype-middleware/blob/master/pkg/lib/bundle/relations.json
+
 import Foundation
 
 public enum BundledRelationKey: String {
