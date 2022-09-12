@@ -57,7 +57,7 @@ final class HomeCellDataBuilder {
             destinationId: pageLink.targetBlockId,
             icon: pageLink.details?.objectIconImage,
             title: pageLink.details?.pageCellTitle ?? "",
-            titleLayout: .vertical,
+            titleLayout: pageLink.details?.homeLayout ?? .vertical,
             type: type,
             isLoading: pageLink.isLoading,
             isArchived: pageLink.isArchived,
