@@ -490,6 +490,7 @@
 		2E37F01428C768B900337BD4 /* EditorSetViewRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E37F01328C768B900337BD4 /* EditorSetViewRow.swift */; };
 		2E412CC8283BCA3E00C973FF /* MediaPickerContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E412CC7283BCA3E00C973FF /* MediaPickerContentType.swift */; };
 		2E412D152847B15C00C973FF /* SetSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E412D142847B15C00C973FF /* SetSort.swift */; };
+		2E48D74328CF461400CEE69D /* TertiaryPressedBackgroundButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E48D74228CF461400CEE69D /* TertiaryPressedBackgroundButtonStyle.swift */; };
 		2E61D470286C63FC004BC2E7 /* BlockBookmarkStateConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E61D46F286C63FC004BC2E7 /* BlockBookmarkStateConverter.swift */; };
 		2E63047728A54F1900BEF2E9 /* SetContentViewType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E63047628A54F1900BEF2E9 /* SetContentViewType.swift */; };
 		2E63047928A55D2000BEF2E9 /* SetGalleryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E63047828A55D2000BEF2E9 /* SetGalleryViewCell.swift */; };
@@ -1657,6 +1658,7 @@
 		2E37F01328C768B900337BD4 /* EditorSetViewRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetViewRow.swift; sourceTree = "<group>"; };
 		2E412CC7283BCA3E00C973FF /* MediaPickerContentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaPickerContentType.swift; sourceTree = "<group>"; };
 		2E412D142847B15C00C973FF /* SetSort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetSort.swift; sourceTree = "<group>"; };
+		2E48D74228CF461400CEE69D /* TertiaryPressedBackgroundButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TertiaryPressedBackgroundButtonStyle.swift; sourceTree = "<group>"; };
 		2E61D46F286C63FC004BC2E7 /* BlockBookmarkStateConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockBookmarkStateConverter.swift; sourceTree = "<group>"; };
 		2E63047628A54F1900BEF2E9 /* SetContentViewType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetContentViewType.swift; sourceTree = "<group>"; };
 		2E63047828A55D2000BEF2E9 /* SetGalleryViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetGalleryViewCell.swift; sourceTree = "<group>"; };
@@ -5254,6 +5256,7 @@
 				12AB963028007E58008E32EA /* ShrinkingButtonStyle.swift */,
 				C99DCEC3283CCBF30051F99D /* GenericUIKitToSwiftUIView.swift */,
 				2EE10C7328ACFCF100F41D50 /* LightDimmingButtonStyle.swift */,
+				2E48D74228CF461400CEE69D /* TertiaryPressedBackgroundButtonStyle.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -8100,6 +8103,7 @@
 				0ABB73A92549975800F32C6F /* FirebaseConfigurator.swift in Sources */,
 				535E02A8274FE5A600E1AF8C /* RelationBlockContentConfiguration.swift in Sources */,
 				12C8440726FCEC1800D64B8D /* ObjectHeaderFilledConfiguration.swift in Sources */,
+				2E48D74328CF461400CEE69D /* TertiaryPressedBackgroundButtonStyle.swift in Sources */,
 				12CAF34C26D643F7001E56B2 /* EmojiIconImageGuideline.swift in Sources */,
 				53F7447627F71789005C9BB0 /* CheckPopupItem.swift in Sources */,
 				3D0BCACF26665794002F7A0D /* HomeCellDataBuilder.swift in Sources */,
