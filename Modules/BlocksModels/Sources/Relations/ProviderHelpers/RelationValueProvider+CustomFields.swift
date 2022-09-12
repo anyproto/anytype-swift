@@ -54,11 +54,5 @@ extension RelationValueProvider {
         return internalFlags.contains(flag)
     }
     
-//    func stringValue(for key: String) -> String {
-//        value(for: key)
-//    }
-//    
-//    func boolValue(for key: String) -> Bool {
-//        value(for: key)
-//    }
+
 }
