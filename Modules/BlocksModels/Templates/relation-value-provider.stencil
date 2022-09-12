@@ -10,8 +10,10 @@ public typealias ObjectId = String
 {% macro typeNameBlock type %}
   {%- if type == "object" or type == "tag" or type == "status" -%}
     ObjectId
-  {%- elif type == "longtext" or type == "shorttext" or type == "email" or type == "phone" or type == "url" -%}
+  {%- elif type == "longtext" or type == "shorttext" or type == "email" or type == "phone" -%}
     String
+  {%- elif type == "url" -%}
+    AnytypeURL
   {%- elif type == "number" -%}
     Int
   {%- elif type == "checkbox" -%}
@@ -27,7 +29,7 @@ public typealias ObjectId = String
   {%- endif -%}
 {% endmacro %}
 {% macro optionalBlock type %}
-  {%- if type == "emoji" or type == "date" or type == "file" or type == "number" -%}
+  {%- if type != "longtext" and type != "shorttext" and type != "checkbox" and type != "object" -%}
     ?
   {%- endif -%}
 {% endmacro %}

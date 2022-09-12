@@ -28,9 +28,10 @@ extension Bool: ProtobufSupport {
     }
 }
 
-extension URL: ProtobufSupport {
+extension AnytypeURL: ProtobufSupport {
     public init?(_ value: Google_Protobuf_Value) {
-        guard let url = URL(string: value.stringValue) else { return nil }
+        let stringValue = value.stringValue
+        guard stringValue.isNotEmpty, let url = AnytypeURL(string: stringValue) else { return nil }
         self = url
     }
 }

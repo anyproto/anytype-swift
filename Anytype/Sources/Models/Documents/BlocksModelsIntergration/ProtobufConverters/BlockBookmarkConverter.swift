@@ -1,5 +1,6 @@
 import ProtobufMessages
 import BlocksModels
+import AnytypeCore
 
 extension Anytype_Model_Block.Content.Bookmark {
     var blockConten: BlockContent? {
@@ -7,7 +8,7 @@ extension Anytype_Model_Block.Content.Bookmark {
             {
                 .bookmark(
                     .init(
-                        source: url,
+                        source: AnytypeURL(string: url),
                         title: title,
                         theDescription: description_p,
                         imageHash: imageHash,
@@ -26,7 +27,7 @@ extension BlockBookmark {
     var asMiddleware: Anytype_Model_Block.OneOf_Content {
         .bookmark(
             .init(
-                url: source,
+                url: source?.absoluteString ?? "",
                 title: title,
                 description_p: theDescription,
                 imageHash: imageHash,

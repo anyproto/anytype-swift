@@ -302,19 +302,11 @@ final class EditorSetViewModel: ObservableObject {
     
     private func itemTapped(_ details: ObjectDetails) {
         if !FeatureFlags.bookmarksFlow && isBookmarksSet(),
-           let url = url(from: details) {
-            router.openUrl(url)
+           let url = details.url {
+            router.openUrl(url.url)
         } else {
             openObject(pageId: details.id, type: details.editorViewType)
         }
-    }
-    
-    private func url(from details: ObjectDetails) -> URL? {
-        var urlString = details.url
-        if !urlString.isEncoded {
-            urlString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? urlString
-        }
-        return URL(string: urlString)
     }
 }
 

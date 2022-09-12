@@ -22,7 +22,7 @@ public protocol BundledRelationValueProvider {
     var relationOptionColor: String { get }
     var instructions: String { get }
     var done: Bool { get }
-    var mediaArtistURL: String { get }
+    var mediaArtistURL: AnytypeURL? { get }
     var templateIsBundled: Bool { get }
     var shipTo: String { get }
     var dateOfBirth: Date? { get }
@@ -36,7 +36,7 @@ public protocol BundledRelationValueProvider {
     var hypothesisAssumptions: String { get }
     var gratefulFor: String { get }
     var founders: [ObjectId] { get }
-    var website: String { get }
+    var website: AnytypeURL? { get }
     var relationFormat: Int? { get }
     var relationReadonlyValue: Bool { get }
     var iconImage: Hash? { get }
@@ -47,7 +47,7 @@ public protocol BundledRelationValueProvider {
     var solution: String { get }
     var releasedYear: Int? { get }
     var coverScale: Int? { get }
-    var twitter: String { get }
+    var twitter: AnytypeURL? { get }
     var resources: String { get }
     var userStories: String { get }
     var relationDefaultValue: String { get }
@@ -59,7 +59,7 @@ public protocol BundledRelationValueProvider {
     var `class`: [ObjectId] { get }
     var difficulty: Int? { get }
     var director: [ObjectId] { get }
-    var status: ObjectId { get }
+    var status: ObjectId? { get }
     var candidate: [ObjectId] { get }
     var happenings: String { get }
     var durationInSeconds: Int? { get }
@@ -74,7 +74,7 @@ public protocol BundledRelationValueProvider {
     var budget: Int? { get }
     var mediaArtistName: String { get }
     var rating: String { get }
-    var email: String { get }
+    var email: String? { get }
     var company: ObjectId { get }
     var aperture: String { get }
     var lastModifiedDate: Date? { get }
@@ -117,7 +117,7 @@ public protocol BundledRelationValueProvider {
     var billTo: String { get }
     var audioGenre: String { get }
     var intentions: String { get }
-    var telegram: String { get }
+    var telegram: AnytypeURL? { get }
     var isDraft: Bool { get }
     var trailer: [Hash] { get }
     var name: String { get }
@@ -125,7 +125,7 @@ public protocol BundledRelationValueProvider {
     var agenda: String { get }
     var number: Int? { get }
     var audioLyrics: String { get }
-    var instagram: String { get }
+    var instagram: AnytypeURL? { get }
     var classType: [ObjectId] { get }
     var howToReproduce: String { get }
     var focalRatio: Int? { get }
@@ -138,17 +138,17 @@ public protocol BundledRelationValueProvider {
     var placeOfBirth: String { get }
     var composer: String { get }
     var internalFlags: [Int] { get }
-    var socialProfile: String { get }
+    var socialProfile: AnytypeURL? { get }
     var occupation: String { get }
     var _7hourssleep: Bool { get }
     var coverX: Int? { get }
     var description: String { get }
-    var facebook: String { get }
+    var facebook: AnytypeURL? { get }
     var address: String { get }
     var picture: Hash? { get }
     var id: ObjectId { get }
     var stockprice: Int? { get }
-    var url: String { get }
+    var url: AnytypeURL? { get }
     var objectives: String { get }
     var cameraIso: Int? { get }
     var healthyEating: Bool { get }
@@ -168,17 +168,17 @@ public protocol BundledRelationValueProvider {
     var running: Bool { get }
     var progress: Int? { get }
     var setOf: [ObjectId] { get }
-    var gender: ObjectId { get }
+    var gender: ObjectId? { get }
     var isArchived: Bool { get }
     var fileExt: String { get }
     var scope: String { get }
     var job: String { get }
     var mpAddedToLibrary: Bool { get }
     var featuredRelations: [ObjectId] { get }
-    var phone: String { get }
+    var phone: String? { get }
     var imdbRating: Int? { get }
     var smartblockTypes: [Int] { get }
-    var source: String { get }
+    var source: AnytypeURL? { get }
 } 
 
 public extension BundledRelationValueProvider where Self: RelationValueProvider {
@@ -235,7 +235,7 @@ public extension BundledRelationValueProvider where Self: RelationValueProvider 
         return value(for: BundledRelationKey.done.rawValue)
     }
     /// Artist URL
-    var mediaArtistURL: String {
+    var mediaArtistURL: AnytypeURL? {
         return value(for: BundledRelationKey.mediaArtistURL.rawValue)
     }
     /// Specifies whether template is provided by anytype
@@ -283,7 +283,7 @@ public extension BundledRelationValueProvider where Self: RelationValueProvider 
     var founders: [ObjectId] {
         return value(for: BundledRelationKey.founders.rawValue)
     }
-    var website: String {
+    var website: AnytypeURL? {
         return value(for: BundledRelationKey.website.rawValue)
     }
     /// Type of the underlying value
@@ -321,7 +321,7 @@ public extension BundledRelationValueProvider where Self: RelationValueProvider 
     var coverScale: Int? {
         return value(for: BundledRelationKey.coverScale.rawValue)
     }
-    var twitter: String {
+    var twitter: AnytypeURL? {
         return value(for: BundledRelationKey.twitter.rawValue)
     }
     var resources: String {
@@ -360,7 +360,7 @@ public extension BundledRelationValueProvider where Self: RelationValueProvider 
         return value(for: BundledRelationKey.director.rawValue)
     }
     /// Task status
-    var status: ObjectId {
+    var status: ObjectId? {
         return value(for: BundledRelationKey.status.rawValue)
     }
     var candidate: [ObjectId] {
@@ -409,7 +409,7 @@ public extension BundledRelationValueProvider where Self: RelationValueProvider 
     var rating: String {
         return value(for: BundledRelationKey.rating.rawValue)
     }
-    var email: String {
+    var email: String? {
         return value(for: BundledRelationKey.email.rawValue)
     }
     var company: ObjectId {
@@ -558,7 +558,7 @@ public extension BundledRelationValueProvider where Self: RelationValueProvider 
     var intentions: String {
         return value(for: BundledRelationKey.intentions.rawValue)
     }
-    var telegram: String {
+    var telegram: AnytypeURL? {
         return value(for: BundledRelationKey.telegram.rawValue)
     }
     /// Relation that indicates document in draft state
@@ -585,7 +585,7 @@ public extension BundledRelationValueProvider where Self: RelationValueProvider 
     var audioLyrics: String {
         return value(for: BundledRelationKey.audioLyrics.rawValue)
     }
-    var instagram: String {
+    var instagram: AnytypeURL? {
         return value(for: BundledRelationKey.instagram.rawValue)
     }
     var classType: [ObjectId] {
@@ -630,7 +630,7 @@ public extension BundledRelationValueProvider where Self: RelationValueProvider 
     var internalFlags: [Int] {
         return value(for: BundledRelationKey.internalFlags.rawValue)
     }
-    var socialProfile: String {
+    var socialProfile: AnytypeURL? {
         return value(for: BundledRelationKey.socialProfile.rawValue)
     }
     var occupation: String {
@@ -646,7 +646,7 @@ public extension BundledRelationValueProvider where Self: RelationValueProvider 
     var description: String {
         return value(for: BundledRelationKey.description.rawValue)
     }
-    var facebook: String {
+    var facebook: AnytypeURL? {
         return value(for: BundledRelationKey.facebook.rawValue)
     }
     var address: String {
@@ -664,7 +664,7 @@ public extension BundledRelationValueProvider where Self: RelationValueProvider 
         return value(for: BundledRelationKey.stockprice.rawValue)
     }
     /// Web address, a reference to a web resource that specifies its location on a computer network and a mechanism for retrieving it
-    var url: String {
+    var url: AnytypeURL? {
         return value(for: BundledRelationKey.url.rawValue)
     }
     var objectives: String {
@@ -731,7 +731,7 @@ public extension BundledRelationValueProvider where Self: RelationValueProvider 
     var setOf: [ObjectId] {
         return value(for: BundledRelationKey.setOf.rawValue)
     }
-    var gender: ObjectId {
+    var gender: ObjectId? {
         return value(for: BundledRelationKey.gender.rawValue)
     }
     /// Hides the object
@@ -755,7 +755,7 @@ public extension BundledRelationValueProvider where Self: RelationValueProvider 
     var featuredRelations: [ObjectId] {
         return value(for: BundledRelationKey.featuredRelations.rawValue)
     }
-    var phone: String {
+    var phone: String? {
         return value(for: BundledRelationKey.phone.rawValue)
     }
     var imdbRating: Int? {
@@ -765,7 +765,7 @@ public extension BundledRelationValueProvider where Self: RelationValueProvider 
     var smartblockTypes: [Int] {
         return value(for: BundledRelationKey.smartblockTypes.rawValue)
     }
-    var source: String {
+    var source: AnytypeURL? {
         return value(for: BundledRelationKey.source.rawValue)
     }
 }
