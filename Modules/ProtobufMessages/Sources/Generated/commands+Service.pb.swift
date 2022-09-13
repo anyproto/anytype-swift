@@ -3246,14 +3246,14 @@ extension Anytype_Rpc.BlockDataview.View.SetActive {
 
 extension Anytype_Rpc.BlockDataview.Relation.Add {
   public enum Service {
-    public static func invoke(contextID: String = String(), blockID: String = String(), relationID: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
-        return invocation(contextID: contextID, blockID: blockID, relationID: relationID).invoke(on: queue)
+    public static func invoke(contextID: String = String(), blockID: String = String(), relationIds: [String] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(contextID: contextID, blockID: blockID, relationIds: relationIds).invoke(on: queue)
     }
-    public static func invoke(contextID: String = String(), blockID: String = String(), relationID: String = String()) -> Result<Response, Error> {
-        return invocation(contextID: contextID, blockID: blockID, relationID: relationID).invoke()
+    public static func invoke(contextID: String = String(), blockID: String = String(), relationIds: [String] = []) -> Result<Response, Error> {
+        return invocation(contextID: contextID, blockID: blockID, relationIds: relationIds).invoke()
     }
-    public static func invocation(contextID: String = String(), blockID: String = String(), relationID: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
-        let request = Request(contextID: contextID, blockID: blockID, relationID: relationID)
+    public static func invocation(contextID: String = String(), blockID: String = String(), relationIds: [String] = []) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockID: blockID, relationIds: relationIds)
         return Invocation<Request,Response>(messageName: "BlockDataviewRelationAdd", request: request) { request in
             return self.invoke(request)
         }
@@ -3268,14 +3268,14 @@ extension Anytype_Rpc.BlockDataview.Relation.Add {
 
 extension Anytype_Rpc.BlockDataview.Relation.Delete {
   public enum Service {
-    public static func invoke(contextID: String = String(), blockID: String = String(), relationID: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
-        return invocation(contextID: contextID, blockID: blockID, relationID: relationID).invoke(on: queue)
+    public static func invoke(contextID: String = String(), blockID: String = String(), relationIds: [String] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(contextID: contextID, blockID: blockID, relationIds: relationIds).invoke(on: queue)
     }
-    public static func invoke(contextID: String = String(), blockID: String = String(), relationID: String = String()) -> Result<Response, Error> {
-        return invocation(contextID: contextID, blockID: blockID, relationID: relationID).invoke()
+    public static func invoke(contextID: String = String(), blockID: String = String(), relationIds: [String] = []) -> Result<Response, Error> {
+        return invocation(contextID: contextID, blockID: blockID, relationIds: relationIds).invoke()
     }
-    public static func invocation(contextID: String = String(), blockID: String = String(), relationID: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
-        let request = Request(contextID: contextID, blockID: blockID, relationID: relationID)
+    public static func invocation(contextID: String = String(), blockID: String = String(), relationIds: [String] = []) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockID: blockID, relationIds: relationIds)
         return Invocation<Request,Response>(messageName: "BlockDataviewRelationDelete", request: request) { request in
             return self.invoke(request)
         }

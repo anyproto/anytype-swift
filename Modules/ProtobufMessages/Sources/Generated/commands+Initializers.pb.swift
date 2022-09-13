@@ -833,10 +833,10 @@ extension Anytype_Rpc.BlockDataview.ObjectOrder.Update.Response.Error {
 }
 
 extension Anytype_Rpc.BlockDataview.Relation.Add.Request {
-    public init(contextID: String = String(), blockID: String = String(), relationID: String = String()) {
+    public init(contextID: String = String(), blockID: String = String(), relationIds: [String] = []) {
         self.contextID = contextID
         self.blockID = blockID
-        self.relationID = relationID
+        self.relationIds = relationIds
     }
 }
 
@@ -855,10 +855,10 @@ extension Anytype_Rpc.BlockDataview.Relation.Add.Response.Error {
 }
 
 extension Anytype_Rpc.BlockDataview.Relation.Delete.Request {
-    public init(contextID: String = String(), blockID: String = String(), relationID: String = String()) {
+    public init(contextID: String = String(), blockID: String = String(), relationIds: [String] = []) {
         self.contextID = contextID
         self.blockID = blockID
-        self.relationID = relationID
+        self.relationIds = relationIds
     }
 }
 

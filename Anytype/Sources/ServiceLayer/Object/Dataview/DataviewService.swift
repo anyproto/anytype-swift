@@ -48,7 +48,7 @@ final class DataviewService: DataviewServiceProtocol {
 
     func addRelation(_ relation: Relation) -> Bool {
         let events = Anytype_Rpc.BlockDataview.Relation.Add.Service
-            .invoke(contextID: objectId, blockID: SetConstants.dataviewBlockId, relationID: relation.id)
+            .invoke(contextID: objectId, blockID: SetConstants.dataviewBlockId, relationIds: [relation.id])
             .map { EventsBunch(event: $0.event) }
             .getValue(domain: .dataviewService)
         
@@ -60,7 +60,7 @@ final class DataviewService: DataviewServiceProtocol {
     func deleteRelation(relationId: BlockId) {
         #warning("Check me")
         Anytype_Rpc.BlockDataview.Relation.Delete.Service
-            .invoke(contextID: objectId, blockID: SetConstants.dataviewBlockId, relationID: relationId)
+            .invoke(contextID: objectId, blockID: SetConstants.dataviewBlockId, relationIds: [relationId])
             .map { EventsBunch(event: $0.event) }
             .getValue(domain: .dataviewService)?
             .send()

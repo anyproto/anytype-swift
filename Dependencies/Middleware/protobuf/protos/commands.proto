@@ -4132,7 +4132,7 @@ message Rpc {
                 message Request {
                     string contextId = 1;
                     string blockId = 2; // id of dataview block to add relation
-                    string relationId = 3;
+                    repeated string relationIds = 3;
                 }
 
                 message Response {
@@ -4156,7 +4156,7 @@ message Rpc {
                 message Request {
                     string contextId = 1;
                     string blockId = 2; // id of dataview block to add relation
-                    string relationId = 3;
+                    repeated string relationIds = 3;
                 }
 
                 message Response {
