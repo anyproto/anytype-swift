@@ -31,10 +31,9 @@ class BookmarkService: BookmarkServiceProtocol {
     
     func createBookmarkObject(url: String, completion: @escaping (_ withError: Bool) -> Void) {
         
-        #warning("Use key from constants")
         let details = Google_Protobuf_Struct(
             fields: [
-                "source": url.protobufValue
+                BundledRelationKey.source.rawValue: url.protobufValue
             ]
         )
         
