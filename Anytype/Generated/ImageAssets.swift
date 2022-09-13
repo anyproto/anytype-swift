@@ -32,7 +32,7 @@ internal extension ImageAsset {
     static let style = ImageAsset.bundle(name: "EditingToolbar/style")
   }
   enum Emoji {
-  }
+    }
   static let createNewObject = ImageAsset.bundle(name: "createNewObject")
   static let todoCheckbox = ImageAsset.bundle(name: "todo_checkbox")
   static let todoCheckmark = ImageAsset.bundle(name: "todo_checkmark")

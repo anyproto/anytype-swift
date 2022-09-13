@@ -215,7 +215,7 @@ final class EditorSetViewModel: ObservableObject {
 
                 self.textService.setText(
                     contextId: self.document.objectId,
-                    blockId: BundledRelationKey.title.rawValue,
+                    blockId: RelationKey.title.rawValue,
                     middlewareString: .init(text: newValue, marks: .init())
                 )
 
@@ -295,7 +295,7 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     private func updateDetailsIfNeeded(_ details: ObjectDetails) {
-        guard details.layout == .todo else { return }
+        guard details.layoutValue == .todo else { return }
         detailsService.updateBundledDetails(
             contextID: details.id,
             bundledDpdates: [.done(!details.isDone)]
@@ -304,19 +304,11 @@ final class EditorSetViewModel: ObservableObject {
     
     private func itemTapped(_ details: ObjectDetails) {
         if !FeatureFlags.bookmarksFlow && isBookmarksSet(),
-           let url = url(from: details) {
-            router.openUrl(url)
+           let url = details.url {
+            router.openUrl(url.url)
         } else {
             openObject(pageId: details.id, type: details.editorViewType)
         }
-    }
-    
-    private func url(from details: ObjectDetails) -> URL? {
-        var urlString = details.values[EditorSetViewModel.urlRelationKey]?.stringValue ?? ""
-        if !urlString.isEncoded {
-            urlString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? urlString
-        }
-        return URL(string: urlString)
     }
 }
 
@@ -325,7 +317,7 @@ extension EditorSetViewModel {
 
     func showRelationValueEditingView(key: String, source: RelationSource) {
         if key == BundledRelationKey.setOf.rawValue {
-            router.showTypesSearch(title: Loc.Set.SourceType.selectSource, selectedObjectId: document.details?.setOf) { [weak self] typeObjectId in
+            router.showTypesSearch(title: Loc.Set.SourceType.selectSource, selectedObjectId: document.details?.setOf.first) { [weak self] typeObjectId in
                 self?.dataviewService.setSource(typeObjectId: typeObjectId)
             }
 

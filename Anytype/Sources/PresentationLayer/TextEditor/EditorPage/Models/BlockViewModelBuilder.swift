@@ -84,7 +84,7 @@ final class BlockViewModelBuilder {
                     }
                 )
             default:
-                let isCheckable = content.contentType == .title ? document.details?.layout == .todo : false
+                let isCheckable = content.contentType == .title ? document.details?.layoutValue == .todo : false
 
                 let textBlockActionHandler = TextBlockActionHandler(
                     info: info,
