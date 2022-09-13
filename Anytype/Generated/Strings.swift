@@ -1168,11 +1168,11 @@ internal enum Loc {
     internal enum Settings {
       internal enum Delete {
         /// Delete view
-        internal static let view = Loc.tr("Localizable", "SetViewTypesPicker.Settings.Delete.View")
+        internal static let view = Loc.tr("Localizable", "SetViewTypesPicker.Settings.Delete.View", fallback: "Delete view")
       }
       internal enum Duplicate {
         /// Duplicate
-        internal static let view = Loc.tr("Localizable", "SetViewTypesPicker.Settings.Duplicate.View")
+        internal static let view = Loc.tr("Localizable", "SetViewTypesPicker.Settings.Duplicate.View", fallback: "Duplicate")
       }
     }
   }

@@ -39,7 +39,7 @@ public extension Relation {
         self.id = objectDetails.id
         self.key = objectDetails.relationKey
         self.name = objectDetails.name
-        self.format = objectDetails.relationFormat
+        self.format = objectDetails.relationFormatValue
         self.isHidden = objectDetails.isHidden
         self.isReadOnly = objectDetails.isReadonly
         #warning("Check. Middleware should be add this field.")

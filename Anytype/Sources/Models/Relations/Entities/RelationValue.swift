@@ -157,6 +157,6 @@ extension RelationValue: RelationValueProtocol {
     }
     
     var isSource: Bool {
-        return id == "source"
+        return id == BundledRelationKey.source.rawValue
     }
 }

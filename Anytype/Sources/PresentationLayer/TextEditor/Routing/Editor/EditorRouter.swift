@@ -55,8 +55,8 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
 
     func replaceCurrentPage(with data: EditorScreenData) {
         if let details = ObjectDetailsStorage.shared.get(id: data.pageId) {
-            guard ObjectTypeProvider.shared.isSupported(typeUrl: details.type) else {
-                showUnsupportedTypeAlert(typeUrl: details.type)
+            guard ObjectTypeProvider.shared.isSupported(typeId: details.type) else {
+                showUnsupportedTypeAlert(typeId: details.type)
                 return
             }
         }

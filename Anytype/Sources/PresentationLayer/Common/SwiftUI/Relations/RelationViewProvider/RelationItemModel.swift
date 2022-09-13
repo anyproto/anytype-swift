@@ -56,7 +56,7 @@ enum RelationItemModel: Hashable {
         case .number: return Loc.enterNumber
         case .date: return Loc.enterDate
         case .object:
-            switch id {
+            switch key {
             case BundledRelationKey.setOf.rawValue:
                 return Loc.Set.FeaturedRelations.source
             default:

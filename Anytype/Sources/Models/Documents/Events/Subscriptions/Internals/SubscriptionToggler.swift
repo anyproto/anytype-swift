@@ -138,8 +138,7 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
             BundledRelationKey.relationKey.rawValue,
             BundledRelationKey.name.rawValue,
             BundledRelationKey.relationFormat.rawValue,
-            BundledRelationKey.readonlyValue.rawValue,
-            BundledRelationKey.objectTypes.rawValue,
+            RelationKey.readonlyValue.rawValue,
             BundledRelationKey.relationFormatObjectTypes.rawValue,
             BundledRelationKey.isHidden.rawValue,
             BundledRelationKey.isReadonly.rawValue

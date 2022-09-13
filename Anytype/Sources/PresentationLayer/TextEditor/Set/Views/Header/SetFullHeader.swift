@@ -91,20 +91,20 @@ extension SetFullHeader {
 
     private var flowRelations: some View {
         FlowLayout(
-            items: model.featuredRelations,
+            items: model.featuredRelationValues,
             alignment: .leading,
             spacing: .init(width: 6, height: 4),
             cell: { item, index in
                 HStack(spacing: 0) {
                     RelationValueView(
-                        relation: RelationItemModel(relation: item),
+                        relation: RelationItemModel(relationValue: item),
                         style: .featuredRelationBlock(allowMultiLine: false)
                     ) { [weak model] in
                         UIApplication.shared.hideKeyboard()
-                        model?.onRelationTap(relation: item)
+                        model?.onRelationTap(relationValue: item)
                     }
 
-                    if model.featuredRelations.count - 1 > index {
+                    if model.featuredRelationValues.count - 1 > index {
                         dotImage
                     }
                 }

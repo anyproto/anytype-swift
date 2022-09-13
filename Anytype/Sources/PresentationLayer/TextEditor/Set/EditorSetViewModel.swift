@@ -11,7 +11,7 @@ final class EditorSetViewModel: ObservableObject {
     @Published private(set) var headerModel: ObjectHeaderViewModel!
     @Published var loadingDocument = true
     @Published var pagitationData = EditorSetPaginationData.empty
-    @Published var featuredRelations = [Relation]()
+    @Published var featuredRelationValues = [RelationValue]()
     @Published var configurations = [SetContentViewItemConfiguration]()
 
     @Published var sorts: [SetSort] = []
@@ -98,7 +98,7 @@ final class EditorSetViewModel: ObservableObject {
         self.relationStorage = relationStorage
 
         self.titleString = document.details?.pageCellTitle ?? ""
-        self.featuredRelations = document.featuredRelationsForEditor
+        self.featuredRelationValues = document.featuredRelationValuessForEditor
     }
     
     func setup(router: EditorRouterProtocol) {
@@ -133,9 +133,9 @@ final class EditorSetViewModel: ObservableObject {
         subscriptionService.stopAllSubscriptions()
     }
 
-    func onRelationTap(relation: Relation) {
+    func onRelationTap(relationValue: RelationValue) {
         AnytypeAnalytics.instance().logChangeRelationValue(type: .set)
-        showRelationValueEditingView(key: relation.id, source: .object)
+        showRelationValueEditingView(key: relationValue.id, source: .object)
     }
 
     func updateActiveViewId(_ id: BlockId) {
@@ -232,7 +232,7 @@ final class EditorSetViewModel: ObservableObject {
         updateSorts()
         updateFilters()
         setupSubscriptions()
-        featuredRelations = document.featuredRelationsForEditor
+        featuredRelationValues = document.featuredRelationValuessForEditor
 
         isUpdating = false
     }

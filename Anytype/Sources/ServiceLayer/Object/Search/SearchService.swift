@@ -71,7 +71,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
                 ObjectTypeId.bundled(.page).rawValue,
                 ObjectTypeId.bundled(.note).rawValue,
                 ObjectTypeId.bundled(.task).rawValue,
-                ObjectTypeUrl.bundled(.set).rawValue
+                ObjectTypeId.bundled(.set).rawValue
             ]
         ) { $0.id }
     }

@@ -60,7 +60,7 @@ final class ChangeTypeAccessoryViewModel {
     }
 
     private func onObjectTap(object: ObjectDetails) {
-        if object.id == ObjectTypeUrl.BundledTypeUrl.set.rawValue {
+        if object.id == ObjectTypeId.BundledTypeId.set.rawValue {
             let setObjectID = handler.setObjectSetType()
 
             router.replaceCurrentPage(with: .init(pageId: setObjectID, type: .set))

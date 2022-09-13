@@ -369,7 +369,7 @@ private extension RelationsBuilder {
         relation: Relation,
         details: ObjectDetails,
         isObjectLocked: Bool
-    ) -> Relation {
+    ) -> RelationValue {
         let objectOptions: [RelationValue.Object.Option] = {
             let values = details.stringArrayValue(for: relation.key)
             
@@ -419,7 +419,7 @@ private extension RelationsBuilder {
         relation: Relation,
         details: ObjectDetails,
         isObjectLocked: Bool
-    ) -> Relation {
+    ) -> RelationValue {
         let fileOptions: [RelationValue.File.Option] = {
             let values = details.stringArrayValue(for: relation.key)
             
