@@ -1,5 +1,3 @@
-import AnytypeCore
-
 public struct BlockBookmark: Hashable {
     public enum Style {
         case unknown
@@ -15,7 +13,7 @@ public struct BlockBookmark: Hashable {
         case error
     }
     
-    public var source: AnytypeURL?
+    public var source: String
     public var title: String
     public var theDescription: String
     public var imageHash: String
@@ -26,16 +24,16 @@ public struct BlockBookmark: Hashable {
 
     // MARK: - Empty
     public static func empty() -> Self {
-        .init(source: nil, title: "", theDescription: "", imageHash: "", faviconHash: "", type: .unknown, targetObjectID: "", state: .empty)
+        .init(source: "", title: "", theDescription: "", imageHash: "", faviconHash: "", type: .unknown, targetObjectID: "", state: .empty)
     }
     
     public static func empty(targetObjectID: String) -> Self {
-        .init(source: nil, title: "", theDescription: "", imageHash: "", faviconHash: "", type: .unknown, targetObjectID: targetObjectID, state: .done)
+        .init(source: "", title: "", theDescription: "", imageHash: "", faviconHash: "", type: .unknown, targetObjectID: targetObjectID, state: .done)
     }
     
     // MARK: - Memberwise initializer
     public init(
-        source: AnytypeURL?,
+        source: String,
         title: String,
         theDescription: String,
         imageHash: String,

@@ -22,7 +22,7 @@ struct LinkToObjectSearchData: SearchDataProtocol {
         self.callout = details.objectType.name
         self.typeUrl = details.objectType.url
 
-        if details.layoutValue == .todo {
+        if details.layout == .todo {
             self.iconImage = .todo(details.isDone)
         } else {
             self.iconImage = details.icon.flatMap { .icon($0) } ?? .placeholder(title.first)

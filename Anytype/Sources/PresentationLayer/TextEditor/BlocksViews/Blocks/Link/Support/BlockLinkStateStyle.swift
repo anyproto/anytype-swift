@@ -24,7 +24,7 @@ extension BlockLinkState.Style {
             return
         }
         
-        guard case .todo = details.layoutValue else {
+        guard case .todo = details.layout else {
             self = .noContent
             return
         }

@@ -64,7 +64,7 @@ public extension RelationMetadata {
         }
         self.objectTypes = middlewareRelation.objectTypes
         self.scope = Scope(rawValue: middlewareRelation.scope.rawValue)
-        self.isBundled = BundledRelationKey.readonlyKeys.contains { $0.rawValue == middlewareRelation.key }
+        self.isBundled = BundledRelationKey(rawValue: middlewareRelation.key).isNotNil
     }
 
     var asMiddleware: Anytype_Model_Relation {

@@ -3,7 +3,6 @@ import BlocksModels
 import UIKit
 import Logger
 import ProtobufMessages
-import AnytypeCore
 
 final class BlockActionService: BlockActionServiceProtocol {
     private let documentId: BlockId

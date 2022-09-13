@@ -82,7 +82,7 @@
   {{accessModifier}} static let {{asset.name|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords}} = {{symbolType}}(name: "{{asset.value}}")
   {% elif asset.items and ( forceNamespaces == "true" or asset.isNamespaced == "true" ) %}
   {{accessModifier}} enum {{asset.name|swiftIdentifier:"pretty"|escapeReservedKeywords}} {
-    {% filter indent:2," ",true %}{% call casesBlock asset.items %}{% endfilter %}
+    {% filter indent:2 %}{% call casesBlock asset.items %}{% endfilter %}
   }
   {% elif asset.items %}
 

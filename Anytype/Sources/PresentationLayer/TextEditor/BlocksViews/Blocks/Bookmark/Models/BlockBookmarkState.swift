@@ -2,7 +2,7 @@ import BlocksModels
 import AnytypeCore
 
 struct BlockBookmarkPayload: Hashable, Equatable {
-    let source: AnytypeURL?
+    let source: String
     let title: String
     let subtitle: String
     let imageHash: String
@@ -30,8 +30,8 @@ extension BlockBookmarkPayload {
         self.source = objectDetails.source
         self.title = objectDetails.title
         self.subtitle = objectDetails.description
-        self.imageHash = objectDetails.picture?.value ?? ""
-        self.faviconHash = objectDetails.iconImage?.value ?? ""
+        self.imageHash = BlockBookmarkPayload.picture(from: objectDetails)
+        self.faviconHash = objectDetails.iconImageHash?.value ?? ""
         self.isArchived = objectDetails.isArchived
     }
     
@@ -43,4 +43,8 @@ extension BlockBookmarkPayload {
         self.faviconHash = blockBookmark.faviconHash
         self.isArchived = false
     }
+    
+    private static func picture(from details: ObjectDetails) -> String {
+         return details.values[Constants.pictureRelationKey]?.stringValue ?? ""
+     }
 }

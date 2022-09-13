@@ -19,7 +19,7 @@ extension HomeProfileData {
     
     init(details: ObjectDetails) {        
         name = details.name.isNotEmpty ? details.name : Self.defaultName
-        avatarId = details.iconImage
+        avatarId = details.iconImageHash
         blockId = details.id
     }
     
