@@ -19,9 +19,10 @@ final class TextRelationReloadContentActionViewModel: TextRelationActionViewMode
         bookmarkService: BookmarkServiceProtocol,
         alertOpener: AlertOpenerProtocol
     ) {
+        #warning("migrate to source constant")
         guard let objectInfo = ObjectDetailsStorage.shared.get(id: objectId),
               objectInfo.objectType.id == ObjectTypeId.bundled(.bookmark).rawValue,
-              relationValue.isBundled else { return nil }
+              relationValue.key == "source" else { return nil }
         
         self.objectId = objectId
         self.relationValue = relationValue

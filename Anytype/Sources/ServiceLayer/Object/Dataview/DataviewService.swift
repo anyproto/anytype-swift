@@ -52,35 +52,26 @@ final class DataviewService: DataviewServiceProtocol {
             .send()
     }
     
-    func addRecord(templateId: BlockId, setFilters: [SetFilter]) -> ObjectDetails? {
+    func addRecord(objectType: String, templateId: BlockId, setFilters: [SetFilter]) -> String? {
         var prefilledFields = prefilledFieldsBuilder.buildPrefilledFields(from: setFilters)
+        prefilledFields[BundledRelationKey.type.rawValue] = objectType.protobufValue
         
-        let internalFlags: [Int] = [
-            Anytype_Model_InternalFlag(value: .editorSelectTemplate).value.rawValue,
-            Anytype_Model_InternalFlag(value: .editorSelectType).value.rawValue
+        let internalFlags: [Anytype_Model_InternalFlag] = [
+            Anytype_Model_InternalFlag(value: .editorSelectTemplate),
+            Anytype_Model_InternalFlag(value: .editorSelectType)
         ]
-        prefilledFields[BundledRelationKey.internalFlags.rawValue] = internalFlags.protobufValue
-       
-        let protobufStruct: Google_Protobuf_Struct = .init(fields: prefilledFields)
-
-        #warning("Fix me")
-        return nil
-//        let response = Anytype_Rpc.BlockDataviewRecord.Create.Service
-//            .invoke(
-//                contextID: objectId,
-//                blockID: SetConstants.dataviewBlockId,
-//                record: protobufStruct,
-//                templateID: templateId
-//            )
-//            .getValue(domain: .dataviewService)
-//
-//        guard let response = response else { return nil }
-//
-//        let idValue = response.record.fields[BundledRelationKey.id.rawValue]
-//        let idString = idValue?.unwrapedListValue.stringValue
-//
-//        guard let id = idString else { return nil }
-//
-//        return ObjectDetails(id: id, values: response.record.fields)
+        
+        let details: Google_Protobuf_Struct = .init(fields: prefilledFields)
+        
+        let response = Anytype_Rpc.Object.Create.Service
+            .invocation(details: details, internalFlags: internalFlags, templateID: templateId)
+            .invoke()
+            .getValue(domain: .dataviewService)
+        
+        guard let response = response else { return nil }
+                
+        EventsBunch(event: response.event).send()
+        
+        return response.objectID
     }
 }

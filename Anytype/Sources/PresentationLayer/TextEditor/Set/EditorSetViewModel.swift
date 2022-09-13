@@ -368,8 +368,9 @@ extension EditorSetViewModel {
     }
     
     private func createDefaultObject() {
+        let objectType = dataView.source.first
         let templateId: String
-        if let objectType = dataView.source.first {
+        if let objectType = objectType {
             let availableTemplates = searchService.searchTemplates(
                 for: .dynamic(objectType)
             )
@@ -378,17 +379,23 @@ extension EditorSetViewModel {
         } else {
             templateId = ""
         }
-
-        guard let objectDetails = dataviewService.addRecord(templateId: templateId, setFilters: filters) else { return }
         
-        handleCreatedObjectDetails(objectDetails)
+        let objectId = dataviewService.addRecord(
+            objectType: objectType ?? "",
+            templateId: templateId,
+            setFilters: filters
+        )
+
+        guard let objectId = objectId else { return }
+        
+        handleCreatedObjectId(objectId)
     }
     
-    private func handleCreatedObjectDetails(_ objectDetails: ObjectDetails) {
+    private func handleCreatedObjectId(_ objectId: String) {
         if isNotesSet() {
-            openObject(pageId: objectDetails.id, type: objectDetails.editorViewType)
+            openObject(pageId: objectId, type: .page)
         } else {
-            router.showCreateObject(pageId: objectDetails.id)
+            router.showCreateObject(pageId: objectId)
         }
     }
     
