@@ -1,0 +1,78 @@
+// swiftlint:disable all
+
+{% if files %}
+import Foundation
+import SwiftProtobuf
+import AnytypeCore
+
+public typealias ObjectId = String
+
+{% macro typeNameBlock type %}
+  {%- if type == "object" or type == "tag" or type == "status" -%}
+    ObjectId
+  {%- elif type == "longtext" or type == "shorttext" or type == "email" or type == "phone" -%}
+    String
+  {%- elif type == "url" -%}
+    AnytypeURL
+  {%- elif type == "number" -%}
+    Int
+  {%- elif type == "checkbox" -%}
+    Bool
+  {%- elif type == "emoji" -%}
+    Emoji
+  {%- elif type == "date" -%}
+    Date
+  {%- elif type == "file" -%}
+    Hash
+  {%- else -%}
+    {{type}}
+  {%- endif -%}
+{% endmacro %}
+{% macro optionalBlock type %}
+  {%- if type != "longtext" and type != "shorttext" and type != "checkbox" and type != "object" -%}
+    ?
+  {%- endif -%}
+{% endmacro %}
+{% macro typeBlock value %}
+  {%- set maxCount %}{{value["maxCount"]}}{% endset -%}
+  {%- set typeName %}{% call typeNameBlock value["format"] %}{% endset -%}
+  {%- set optional %}{% call optionalBlock value["format"] %}{% endset -%}
+  {%- if maxCount == "1" -%}
+  {{typeName}}{{optional}}
+  {%- elif maxCount == "0" -%}
+  [{{typeName}}]
+  {%- else -%}
+  MaxCountUndefined
+  {%- endif -%}
+{% endmacro %}
+{% macro typeDescription value %}
+  {%- if value["description"] -%}
+  /// {{value["description"]}}
+  {%- endif -%}
+{% endmacro %}
+public protocol BundledRelationsValueProvider {
+
+    {% for file in files %}
+      {% for value in file.document.data %}
+        {% set propertyName %}{{value["key"]|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords}}{% endset %}
+        {% set propertyType %}{% call typeBlock value %}{% endset %}
+    var {{propertyName}}: {{propertyType}} { get }
+      {% endfor %}
+    {% endfor %}
+} 
+
+public extension BundledRelationsValueProvider where Self: RelationValueProvider {
+  {% for file in files %}
+    {% for value in file.document.data %}
+      {% set propertyName %}{{value["key"]|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords}}{% endset %}
+      {% set propertyType %}{% call typeBlock value %}{% endset %}
+      {% set propertyTypePrefix %}{{propertyType|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords}}{% endset %}
+    
+    {% call typeDescription value %}
+    var {{propertyName}}: {{propertyType}} {
+        return value(for: BundledRelationKey.{{propertyName}}.rawValue)
+    }
+    {% endfor %}
+  {% endfor %}
+}
+{% endif %}

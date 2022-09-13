@@ -1,11 +1,11 @@
 import Foundation
 
-struct AnytypeURL {
+public struct AnytypeURL: Hashable {
     
     private let sourceString: String
     private let sourceURL: URL
     
-    init?(string: String) {
+    public init?(string: String) {
         
         // Encoded url from browser and valid string for URL can be different. We should remove encoding symbols and then add valid encoding symbols for url.
         // Example :
@@ -16,6 +16,8 @@ struct AnytypeURL {
         //     Add percent encoding. Corrent for URL:
         //     https://www.figma.com/file/zXl9RNoINX07RXg2qZtfKP/Mobile-%E2%80%93-WebClipper-&-Bookmarks?node-id=12395:1153
 
+        guard string.isNotEmpty else { return nil }
+        
         let removingPercent = string.removingPercentEncoding ?? string
         let encodedString = removingPercent.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
         
@@ -26,16 +28,16 @@ struct AnytypeURL {
         self.sourceURL = url
     }
     
-    init(url: URL) {
+    public init(url: URL) {
         self.sourceURL = url
         self.sourceString = url.absoluteString.removingPercentEncoding ?? url.absoluteString
     }
     
-    var absoluteString: String {
+    public var absoluteString: String {
         return sourceString
     }
     
-    var url: URL {
+    public var url: URL {
         return sourceURL
     }
 }

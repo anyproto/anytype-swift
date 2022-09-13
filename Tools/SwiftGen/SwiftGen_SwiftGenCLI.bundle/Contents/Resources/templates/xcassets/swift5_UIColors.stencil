@@ -18,12 +18,12 @@ import UIKit
   {{accessModifier}} static let {{asset.name|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords}} = UIColor(asset: Asset.{{asset.value|replace:'/','.'}})
   {% elif asset.items and catalName == "SystemColors" %}
   
-
   // MARK: - {{asset.name}}
   {% call casesBlock asset.items %}
   {% elif asset.items %}
+  
   enum {{asset.name|swiftIdentifier:"pretty"|escapeReservedKeywords}}: ComponentColor {
-  {% filter indent:2 %}
+  {% filter indent:2," ",true %}
   typealias T = UIColor
   {% call casesBlock asset.items %}{% endfilter %}
   }

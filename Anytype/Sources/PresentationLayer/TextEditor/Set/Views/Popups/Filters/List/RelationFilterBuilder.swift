@@ -339,14 +339,12 @@ private extension RelationFilterBuilder {
             let objectOptions: [Relation.File.Option] = objectDetails.map { objectDetail in
                 let fileName: String = {
                     let name = objectDetail.name
-                    let fileExt = objectDetail.values[BundledRelationKey.fileExt.rawValue]
-                    let fileExtString = fileExt?.stringValue
+                    let fileExt = objectDetail.fileExt
                     
-                    guard
-                        let fileExtString = fileExtString, fileExtString.isNotEmpty
+                    guard fileExt.isNotEmpty
                     else { return name }
                     
-                    return "\(name).\(fileExtString)"
+                    return "\(name).\(fileExt)"
                 }()
                 
                 let icon: ObjectIconImage = {
@@ -354,10 +352,10 @@ private extension RelationFilterBuilder {
                         return .icon(objectIconType)
                     }
                     
-                    let fileMimeType = objectDetail.values[BundledRelationKey.fileMimeType.rawValue]?.stringValue
-                    let fileName = objectDetail.values[BundledRelationKey.name.rawValue]?.stringValue
+                    let fileMimeType = objectDetail.fileMimeType
+                    let fileName = objectDetail.name
 
-                    guard let fileMimeType = fileMimeType, let fileName = fileName else {
+                    guard fileMimeType.isNotEmpty, fileName.isNotEmpty else {
                         return .imageAsset(FileIconConstants.other)
                     }
                     
