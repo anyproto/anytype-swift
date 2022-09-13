@@ -5,15 +5,18 @@ struct EditorSetSettingsView: View {
     @EnvironmentObject private var model: EditorSetSettingsViewModel
     
     var body: some View {
-        HStack(spacing: 16) {
-            ForEach(EditorSetSetting.allCases) { setting in
-                settingsButton(setting)
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 16) {
+                ForEach(EditorSetSetting.allCases) { setting in
+                    settingsButton(setting)
+                }
+                Spacer()
             }
-            Spacer()
+            .background(Color.backgroundSecondary)
+            .padding(.vertical, 13)
+            .padding(.horizontal, 16)
         }
-        .background(Color.backgroundSecondary)
-        .padding(.vertical, 13)
-        .padding(.horizontal, 16)
+        .ignoresSafeArea()
     }
     
     private func settingsButton(_ setting: EditorSetSetting) -> some View {

@@ -200,6 +200,18 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         ).send()
     }
 
+    func setObjectSetType(objectId: BlockId) -> BlockId {
+        guard let response = Anytype_Rpc.Object.ToSet.Service.invoke(
+            contextID: objectId,
+            source: []
+        ).getValue(domain: .objectActionsService) else {
+            anytypeAssertionFailure("Cannot create set", domain: .objectActionsService)
+            return ""
+        }
+
+        return response.setID
+    }
+
     func applyTemplate(objectId: BlockId, templateId: BlockId) {
         let _ = Anytype_Rpc.Object.ApplyTemplate.Service.invoke(
             contextID: objectId,

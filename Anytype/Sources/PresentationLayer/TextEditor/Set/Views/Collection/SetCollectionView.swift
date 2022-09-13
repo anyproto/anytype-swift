@@ -18,12 +18,6 @@ struct SetCollectionView: View {
             contentTypeView
             pagination
         }
-        .overlay(
-            SetFullHeader()
-                .readSize { tableHeaderSize = $0 }
-                .offset(x: 0, y: offset.y)
-            , alignment: .topLeading
-        )
     }
     
     private var contentTypeView: some View {

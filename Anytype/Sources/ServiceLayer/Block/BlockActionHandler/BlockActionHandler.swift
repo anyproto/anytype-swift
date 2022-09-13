@@ -49,6 +49,10 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     func setObjectTypeId(_ objectTypeId: String) {
         service.setObjectTypeId(objectTypeId)
     }
+
+    func setObjectSetType() -> BlockId {
+        service.setObjectSetType()
+    }
     
     func setTextColor(_ color: BlockColor, blockIds: [BlockId]) {
         listService.setBlockColor(blockIds: blockIds, color: color.middleware)
@@ -269,7 +273,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     func createAndFetchBookmark(
         targetID: BlockId,
         position: BlockPosition,
-        url: String
+        url: AnytypeURL
     ) {
         service.createAndFetchBookmark(
             contextID: document.objectId,

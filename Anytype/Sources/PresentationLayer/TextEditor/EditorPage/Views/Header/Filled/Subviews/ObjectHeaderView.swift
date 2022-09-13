@@ -176,7 +176,11 @@ private extension ObjectHeaderView {
         }
 
         addSubview(coverView) {
-            $0.pinToSuperview(insets: UIEdgeInsets(top: 0, left: 0, bottom: -ObjectHeaderConstants.coverBottomInset, right: 0))
+            $0.pinToSuperview(
+                excluding: [.bottom],
+                insets: .zero
+            )
+            $0.bottom.greaterThanOrEqual(to: bottomAnchor, constant: -ObjectHeaderConstants.coverBottomInset, priority: .init(rawValue: 999))
             $0.height.equal(to: ObjectHeaderConstants.coverHeight)
         }
         

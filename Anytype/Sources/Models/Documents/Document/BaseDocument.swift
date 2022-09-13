@@ -88,7 +88,6 @@ final class BaseDocument: BaseDocumentProtocol {
     
     var children: [BlockInformation] {
         guard let model = infoContainer.get(id: objectId) else {
-            anytypeAssertionFailure("getModels. Our document is not ready yet", domain: .baseDocument)
             return []
         }
         return model.flatChildrenTree(container: infoContainer)

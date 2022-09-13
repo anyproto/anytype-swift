@@ -53,13 +53,20 @@ final class SimpleTableDependenciesBuilder {
     func buildDependenciesContainer(blockInformation: BlockInformation) -> SimpleTableDependenciesContainer {
         let cursorManager = EditorCursorManager(focusSubjectHolder: focusSubjectHolder)
 
+        let selectionOptionHandler = SimpleTableSelectionOptionHandler(
+            router: router,
+            listService: BlockListService(contextId: document.objectId),
+            tableService: tableService,
+            document: document,
+            tableBlockInformation: blockInformation,
+            actionHandler: handler
+        )
+
         let stateManager = SimpleTableStateManager(
             document: document,
             tableBlockInformation: blockInformation,
-            tableService: tableService,
-            listService: BlockListService(contextId: document.objectId),
+            selectionOptionHandler: selectionOptionHandler,
             router: router,
-            actionHandler: handler,
             cursorManager: cursorManager,
             mainEditorSelectionManager: mainEditorSelectionManager
         )

@@ -5,7 +5,7 @@ import AnytypeCore
 
 protocol SearchServiceProtocol {
     func search(text: String) -> [ObjectDetails]?
-    func searchObjectTypes(text: String, filteringTypeId: String?) -> [ObjectDetails]?
+    func searchObjectTypes(text: String, filteringTypeId: String?, shouldIncludeSets: Bool) -> [ObjectDetails]?
     func searchFiles(text: String, excludedFileIds: [String]) -> [ObjectDetails]?
     func searchObjects(text: String, excludedObjectIds: [String], limitedTypeIds: [String]) -> [ObjectDetails]?
     func searchTemplates(for type: ObjectTypeId) -> [ObjectDetails]?
@@ -43,7 +43,11 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         return searchCommonService.search(filters: filters, sorts: [sort], fullText: text)
     }
     
-    func searchObjectTypes(text: String, filteringTypeId: String? = nil) -> [ObjectDetails]? {
+    func searchObjectTypes(
+        text: String,
+        filteringTypeId: String? = nil,
+        shouldIncludeSets: Bool
+    ) -> [ObjectDetails]? {
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.name,
             type: .asc
@@ -54,8 +58,8 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             SearchHelper.supportedIdsFilter(
                 ObjectTypeProvider.shared.supportedTypeIds
             ),
-            SearchHelper.excludedIdFilter(ObjectTypeId.bundled(.set).rawValue)
-        ]
+            shouldIncludeSets ? nil : SearchHelper.excludedIdFilter(ObjectTypeId.bundled(.set).rawValue)
+        ].compactMap { $0 }
         if FeatureFlags.bookmarksFlow {
             filters.append(SearchHelper.excludedIdFilter(ObjectTypeId.bundled(.bookmark).rawValue))
         }
@@ -66,7 +70,8 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             by: [
                 ObjectTypeId.bundled(.page).rawValue,
                 ObjectTypeId.bundled(.note).rawValue,
-                ObjectTypeId.bundled(.task).rawValue
+                ObjectTypeId.bundled(.task).rawValue,
+                ObjectTypeUrl.bundled(.set).rawValue
             ]
         ) { $0.id }
     }
@@ -124,13 +129,13 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         
         return searchCommonService.search(filters: filters, sorts: [sort], fullText: text)
     }
-    
+
     func searchRelationOptions(text: String, relationKey: String, excludedObjectIds: [String]) -> [ObjectDetails]? {
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.name,
             type: .asc
         )
-        
+
         var filters = buildFilters(
             isArchived: false,
             typeIds: [ObjectTypeId.bundled(.relationOption).rawValue]
@@ -138,23 +143,23 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         filters.append(SearchHelper.relationKey(relationKey))
         filters.append(SearchHelper.excludedIdsFilter(excludedObjectIds))
         filters.append(SearchHelper.relationOptionText(text))
-        
+
         return searchCommonService.search(filters: filters, sorts: [sort], fullText: "")
     }
-    
+
     func searchRelationOptions(optionIds: [String]) -> [ObjectDetails]? {
         var filters = buildFilters(
             isArchived: false,
             typeIds: [ObjectTypeId.bundled(.relationOption).rawValue]
         )
         filters.append(SearchHelper.supportedIdsFilter(optionIds))
-        
+
         return searchCommonService.search(filters: filters, sorts: [], fullText: "")
     }
 }
 
 private extension SearchService {
-        
+
     func buildFilters(isArchived: Bool, typeIds: [String]) -> [DataviewFilter] {
         [
             SearchHelper.notHiddenFilter(),

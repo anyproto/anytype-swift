@@ -4,10 +4,11 @@ import AnytypeCore
 import SwiftProtobuf
 
 final class SetContentViewDataBuilder {
-    private let relationsBuilder = RelationsBuilder(scope: [.object, .type])
+    private let relationsBuilder = RelationsBuilder()
     private let storage = ObjectDetailsStorage.shared
     private let relationStorage = ServiceLocator.shared.relationStorage()
-    
+    private let isGalleryViewEnabled = FeatureFlags.setGalleryView
+
     func sortedRelations(dataview: BlockDataview, view: DataviewView) -> [SetRelation] {
         let relations: [SetRelation] = view.options
             .compactMap { option in
@@ -83,7 +84,7 @@ final class SetContentViewDataBuilder {
         dataView: BlockDataview,
         activeView: DataviewView) -> ObjectHeaderCoverType?
     {
-        guard FeatureFlags.setGalleryView, activeView.type == .gallery else {
+        guard isGalleryViewEnabled, activeView.type == .gallery else {
             return nil
         }
         if activeView.coverRelationKey == SetViewSettingsImagePreviewCover.pageCover.rawValue,
@@ -102,13 +103,25 @@ final class SetContentViewDataBuilder {
         let relation = relationStorage.relations(for: dataView.relationLinks)
             .first { $0.format == .file && $0.key == activeView.coverRelationKey }
         
-        guard let relation = relation,
-              let list = details.values[relation.key],
-              case let .listValue(listValue) = list.kind else {
+        guard let relation = relation else {
             return nil
         }
-        for value in listValue.values {
-            let details = storage.get(id: value.stringValue)
+
+        let values = details.stringArrayValue(for: relation.key)
+        let value = details.stringValue(for: relation.key)
+
+        if values.isNotEmpty {
+            return findCover(at: values, details)
+        } else if value.isNotEmpty {
+            return findCover(at: [value], details)
+        } else {
+            return nil
+        }
+    }
+
+    private func findCover(at values: [String], _ details: ObjectDetails) -> ObjectHeaderCoverType? {
+        for value in values {
+            let details = storage.get(id: value)
             if let details = details, details.type == Constants.imageType {
                 return .cover(.imageId(details.id))
             }

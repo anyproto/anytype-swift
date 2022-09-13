@@ -17,7 +17,7 @@ final class DeletedLabel: UIView {
             )
         }
         
-        backgroundColor = .backgroundSelected
+        backgroundColor = .strokeTertiary
         layer.cornerRadius = 3
     }
     

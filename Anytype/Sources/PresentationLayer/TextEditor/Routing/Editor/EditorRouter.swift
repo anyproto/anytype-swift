@@ -48,10 +48,25 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         
         let controller = editorAssembly.buildEditorController(
             browser: rootController,
-            data: data,
-            editorBrowserViewInput: rootController
+            data: data
         )
         viewController?.navigationController?.pushViewController(controller, animated: true)
+    }
+
+    func replaceCurrentPage(with data: EditorScreenData) {
+        if let details = ObjectDetailsStorage.shared.get(id: data.pageId) {
+            guard ObjectTypeProvider.shared.isSupported(typeUrl: details.type) else {
+                showUnsupportedTypeAlert(typeUrl: details.type)
+                return
+            }
+        }
+
+        let controller = editorAssembly.buildEditorController(
+            browser: rootController,
+            data: data
+        )
+
+        rootController?.childNavigation?.replaceLastViewController(controller, animated: false)
     }
 
     func showAlert(alertModel: AlertModel) {
@@ -81,12 +96,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         hostViewController.modalPresentationStyle = .popover
 
         hostViewController.preferredContentSize = hostViewController
-            .sizeThatFits(
-                in: .init(
-                    width: CGFloat.greatestFiniteMagnitude,
-                    height: CGFloat.greatestFiniteMagnitude
-                )
-            )
+            .sizeThatFits(in: hostViewController.view.bounds.size)
 
         if let popoverPresentationController = hostViewController.popoverPresentationController {
             popoverPresentationController.sourceRect = inputParameters.rect
@@ -253,9 +263,10 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         presentSwiftUIView(view: searchView, model: viewModel)
     }
     
-    func showTypesSearch(onSelect: @escaping (BlockId) -> ()) {
+    func showTypesSearch(title: String, selectedObjectId: BlockId?, onSelect: @escaping (BlockId) -> ()) {
         let view = NewSearchModuleAssembly.objectTypeSearchModule(
-            title: Loc.changeType,
+            title: title,
+            selectedObjectId: selectedObjectId,
             excludedObjectTypeId: document.details?.type
         ) { [weak self] id in
             onSelect(id)
@@ -497,8 +508,16 @@ extension EditorRouter: RelationValueCoordinatorOutput {
 
 extension EditorRouter {
     
-    func showViewPicker(setModel: EditorSetViewModel) {
-        let viewModel = EditorSetViewPickerViewModel(setModel: setModel)
+    func showViewPicker(
+        setModel: EditorSetViewModel,
+        dataviewService: DataviewServiceProtocol,
+        showViewTypes: @escaping RoutingAction<DataviewView>)
+    {
+        let viewModel = EditorSetViewPickerViewModel(
+            setModel: setModel,
+            dataviewService: dataviewService,
+            showViewTypes: showViewTypes
+        )
         let vc = UIHostingController(
             rootView: EditorSetViewPicker(viewModel: viewModel)
         )
@@ -552,6 +571,18 @@ extension EditorRouter {
             }
         }
         viewController?.topPresentedController.present(vc, animated: true)
+    }
+    
+    func showViewTypes(activeView: DataviewView, canDelete: Bool, dataviewService: DataviewServiceProtocol) {
+        let viewModel = SetViewTypesPickerViewModel(
+            activeView: activeView,
+            canDelete: canDelete,
+            dataviewService: dataviewService
+        )
+        let vc = UIHostingController(
+            rootView: SetViewTypesPicker(viewModel: viewModel)
+        )
+        presentSheet(vc)
     }
     
     func showSetSettings(setModel: EditorSetViewModel) {

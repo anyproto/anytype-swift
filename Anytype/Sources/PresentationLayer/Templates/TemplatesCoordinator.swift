@@ -90,7 +90,7 @@ final class TemplatesCoordinator {
             let item = info.element
             let data = EditorScreenData(pageId: item.id, type: .page, isOpenedForPreview: true)
 
-            let editorController = editorPageAssembly.buildEditorController(browser: nil, data: data, editorBrowserViewInput: nil)
+            let editorController = editorPageAssembly.buildEditorController(browser: nil, data: data)
 
             return TemplatePickerViewModel.Item(
                 id: info.offset,

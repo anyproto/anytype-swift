@@ -1,0 +1,23 @@
+// swiftlint:disable all
+
+// Generated from https://github.com/anytypeio/go-anytype-middleware/blob/master/pkg/lib/bundle/relations.json
+
+{% macro typeDescription value %}
+  {%- if value["description"] -%}
+  /// {{value["description"]}}
+  {%- endif -%}
+{% endmacro %}
+{% if files %}
+import Foundation
+
+public enum BundledRelationKey: String {
+    {% for file in files %}
+      {% for value in file.document.data %}
+        {% set propertyName %}{{value["key"]|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords}}{% endset %}
+
+    {% call typeDescription value %}
+    case {{propertyName}} = "{{value["key"]}}"
+      {% endfor %}
+    {% endfor %}
+}
+{% endif %}

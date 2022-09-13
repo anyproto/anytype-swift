@@ -21,7 +21,6 @@ struct SetListViewCell: View {
                 title: configuration.title,
                 description: configuration.description,
                 relationValues: configuration.relationValues.filter { $0.hasValue },
-                style: .cell,
                 onIconTap: configuration.onIconTap,
                 onRelationTap: { _ in }
             )

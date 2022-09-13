@@ -155,4 +155,8 @@ extension RelationValue: RelationValueProtocol {
         case .unknown(let unknown): return unknown.hasValue
         }
     }
+    
+    var isSource: Bool {
+        return id == "source"
+    }
 }

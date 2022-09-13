@@ -55,7 +55,13 @@ enum RelationItemModel: Hashable {
         case .text: return Loc.enterText
         case .number: return Loc.enterNumber
         case .date: return Loc.enterDate
-        case .object: return Loc.selectObjects
+        case .object:
+            switch id {
+            case BundledRelationKey.setOf.rawValue:
+                return Loc.Set.FeaturedRelations.source
+            default:
+                return Loc.selectObjects
+            }
         case .url: return Loc.enterURL
         case .email: return Loc.enterEMail
         case .phone: return Loc.enterPhone

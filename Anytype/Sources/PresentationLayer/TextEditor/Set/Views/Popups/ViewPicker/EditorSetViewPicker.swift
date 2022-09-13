@@ -2,50 +2,63 @@ import SwiftUI
 
 struct EditorSetViewPicker: View {
     @ObservedObject var viewModel: EditorSetViewPickerViewModel
+    @State private var editMode = EditMode.inactive
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
-        VStack(spacing: 0) {
-            DragIndicator()
-            TitleView(title: Loc.views)
-            ScrollView(.vertical, showsIndicators: false) {
-                VStack(alignment: .center, spacing: 0) {
-                    Spacer.fixedHeight(10)
-                    
-                    ForEach(viewModel.rows) {
-                        viewButton($0)
+        DragIndicator()
+        NavigationView {
+            viewsList
+                .navigationTitle(Loc.views)
+                .navigationBarTitleDisplayMode(.inline)
+                .environment(\.editMode, $editMode)
+                .onChange(of: viewModel.rows) { newValue in
+                    if editMode == .active && viewModel.rows.count == 0 {
+                        editMode = .inactive
                     }
                 }
-            }
         }
-        .background(Color.backgroundSecondary)
+        .navigationViewStyle(.stack)
     }
     
-    func viewButton(_ configuration: EditorSetViewRowConfiguration) -> some View {
-        VStack(spacing: 0) {
-            Spacer.fixedHeight(12)
-            HStack(spacing: 0) {
-                if configuration.isSupported {
-                    Button(action: {
-                        configuration.onTap()
-                        withAnimation(.fastSpring) {
-                            presentationMode.wrappedValue.dismiss()
-                        }
-                    }) {
-                        AnytypeText(configuration.name, style: .uxBodyRegular, color: .textPrimary)
-                        Spacer(minLength: 5)
-                        if configuration.isActive {
-                            Image(asset: .optionChecked)
-                        }
-                    }
+    private var viewsList: some View {
+        List {
+            ForEach(viewModel.rows) {
+                if #available(iOS 15.0, *) {
+                    row(with: $0)
+                        .divider()
+                        .listRowSeparator(.hidden)
+                        .listRowInsets(.init(top: 0, leading: 20, bottom: 0, trailing: 20))
+                        .deleteDisabled(viewModel.disableDeletion)
                 } else {
-                    AnytypeText("\(configuration.name)", style: .uxBodyRegular, color: .textSecondary)
-                    Spacer(minLength: 5)
-                    AnytypeText("\(configuration.typeName) view soon", style: .uxBodyRegular, color: .textSecondary)
+                    row(with: $0)
+                        .deleteDisabled(viewModel.disableDeletion)
                 }
             }
-            .divider(spacing: 14)
-            .padding(.horizontal, 20)
+            .onMove { from, to in
+                viewModel.move(from: from, to: to)
+            }
+            .onDelete {
+                viewModel.delete($0)
+            }
+        }
+        .listStyle(.plain)
+        .buttonStyle(BorderlessButtonStyle())
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                EditButton()
+                    .foregroundColor(Color.buttonActive)
+            }
         }
     }
+    
+    private func row(with configuration: EditorSetViewRowConfiguration) -> some View {
+        EditorSetViewRow(configuration: configuration, onTap: {
+            presentationMode.wrappedValue.dismiss()
+            configuration.onTap()
+        })
+        .environment(\.editMode, $editMode)
+        .animation(nil, value: editMode)
+    }
 }
+    

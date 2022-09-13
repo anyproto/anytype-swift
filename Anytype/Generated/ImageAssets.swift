@@ -32,7 +32,7 @@ internal extension ImageAsset {
     static let style = ImageAsset.bundle(name: "EditingToolbar/style")
   }
   enum Emoji {
-  }
+    }
   static let createNewObject = ImageAsset.bundle(name: "createNewObject")
   static let todoCheckbox = ImageAsset.bundle(name: "todo_checkbox")
   static let todoCheckmark = ImageAsset.bundle(name: "todo_checkmark")
@@ -74,10 +74,15 @@ internal extension ImageAsset {
   static let objectSettingsRelations = ImageAsset.bundle(name: "object_settings_relations")
   static let webPage = ImageAsset.bundle(name: "web_page")
   static let searchTextFieldIcon = ImageAsset.bundle(name: "searchTextFieldIcon")
+  static let setGalleryView = ImageAsset.bundle(name: "set_gallery_view")
+  static let setGridView = ImageAsset.bundle(name: "set_grid_view")
   static let setImagePlaceholder = ImageAsset.bundle(name: "set_image_placeholder")
+  static let setKanbanView = ImageAsset.bundle(name: "set_kanban_view")
+  static let setListView = ImageAsset.bundle(name: "set_list_view")
   static let setOpenToEdit = ImageAsset.bundle(name: "set_open_to_edit")
   static let setPaginationArrowBackward = ImageAsset.bundle(name: "set_pagination_arrow_backward")
   static let setPaginationArrowForward = ImageAsset.bundle(name: "set_pagination_arrow_forward")
+  static let setPenEdit = ImageAsset.bundle(name: "set_pen_edit")
   static let setSettings = ImageAsset.bundle(name: "set_settings")
   static let setSettingsSettings = ImageAsset.bundle(name: "set_settings_settings")
   static let setSettinsFilter = ImageAsset.bundle(name: "set_settins_filter")

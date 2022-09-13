@@ -17,7 +17,7 @@ final class ObjectHeaderViewModel: ObservableObject {
     
     private lazy var onCoverTap = { [weak self] in
         guard let self = self, !self.isOpenedForPreview else { return }
-        guard self.document.details?.layout != .note else { return }
+        guard self.document.details?.layoutValue != .note else { return }
 
 
         UISelectionFeedbackGenerator().selectionChanged()
@@ -138,13 +138,13 @@ final class ObjectHeaderViewModel: ObservableObject {
     }
     
     private func buildObjectHeader(details: ObjectDetails) -> ObjectHeader {
-        let layoutAlign = details.layoutAlign
+        let layoutAlign = details.layoutAlignValue
 
-        if details.layout == .note {
+        if details.layoutValue == .note {
             return .empty(data: .init(onTap: {}))
         }
         
-        let icon = details.layout == .bookmark && FeatureFlags.bookmarksFlowP2 ? nil : details.icon
+        let icon = details.layoutValue == .bookmark && FeatureFlags.bookmarksFlowP2 ? nil : details.icon
         
         if let icon = icon, let cover = details.documentCover {
             return .filled(state:

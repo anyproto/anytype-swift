@@ -8,7 +8,7 @@ final class RelationsBuilder {
     private let scope: [Relation.Scope]
     private let storage: ObjectDetailsStorage
     
-    init(scope: [Relation.Scope] = [.object], storage: ObjectDetailsStorage = ObjectDetailsStorage.shared) {
+    init(scope: [Relation.Scope] = [.object, .type], storage: ObjectDetailsStorage = ObjectDetailsStorage.shared) {
         self.scope = scope
         self.storage = storage
     }
@@ -178,7 +178,7 @@ private extension RelationsBuilder {
                 isFeatured: relation.isFeatured(details: details),
                 isEditable: relation.isEditable(objectLocked: isObjectLocked),
                 isBundled: relation.isBundled,
-                value: details.values[relation.key]?.stringValue
+                value: details.stringValue(for: relation.key)
             )
         )
     }
@@ -189,10 +189,7 @@ private extension RelationsBuilder {
         isObjectLocked: Bool
     ) -> RelationValue {
         let numberValue: String? = {
-            let value = details.values[relation.key]
-            
-            guard let number = value?.safeDoubleValue else { return nil }
-            
+            guard let number = details.doubleValue(for: relation.key) else { return nil }
             return numberFormatter.string(from: NSNumber(floatLiteral: number))
         }()
         
@@ -222,7 +219,7 @@ private extension RelationsBuilder {
                 isFeatured: relation.isFeatured(details: details),
                 isEditable: relation.isEditable(objectLocked: isObjectLocked),
                 isBundled: relation.isBundled,
-                value: details.values[relation.key]?.stringValue
+                value: details.stringValue(for: relation.key)
             )
         )
     }
@@ -240,7 +237,7 @@ private extension RelationsBuilder {
                 isFeatured: relation.isFeatured(details: details),
                 isEditable: relation.isEditable(objectLocked: isObjectLocked),
                 isBundled: relation.isBundled,
-                value: details.values[relation.key]?.stringValue
+                value: details.stringValue(for: relation.key)
             )
         )
     }
@@ -258,7 +255,7 @@ private extension RelationsBuilder {
                 isFeatured: relation.isFeatured(details: details),
                 isEditable: relation.isEditable(objectLocked: isObjectLocked),
                 isBundled: relation.isBundled,
-                value: details.values[relation.key]?.stringValue
+                value: details.stringValue(for: relation.key)
             )
         )
     }
@@ -271,11 +268,9 @@ private extension RelationsBuilder {
         #warning("Fix options")
         
         let selectedOption: RelationValue.Status.Option? = {
-            let value = details.values[relation.key]
+            let optionId = details.stringValue(for: relation.key)
             
-            guard
-                let optionId = value?.unwrapedListValue.stringValue, optionId.isNotEmpty
-            else { return nil }
+            guard optionId.isNotEmpty else { return nil }
             
             guard let optionDetails = storage.get(id: optionId) else { return nil }
             let option = RelationOption(details: optionDetails)
@@ -304,12 +299,7 @@ private extension RelationsBuilder {
         isObjectLocked: Bool
     ) -> RelationValue {
         let value: DateRelationValue? = {
-            let value = details.values[relation.key]
-            
-            guard let timeInterval = value?.safeDoubleValue, !timeInterval.isZero
-            else { return nil }
-            
-            let date = Date(timeIntervalSince1970: timeInterval)
+            guard let date = details.dateValue(for: relation.key) else { return nil }
             return DateRelationValue(date: date, text: dateFormatter.string(from: date))
         }()
         
@@ -339,7 +329,7 @@ private extension RelationsBuilder {
                 isFeatured: relation.isFeatured(details: details),
                 isEditable: relation.isEditable(objectLocked: isObjectLocked),
                 isBundled: relation.isBundled,
-                value: details.values[relation.key]?.boolValue ?? false
+                value: details.boolValue(for: relation.key)
             )
         )
     }
@@ -352,19 +342,13 @@ private extension RelationsBuilder {
         #warning("Check tags list")
         
         let selectedTags: [RelationValue.Tag.Option] = {
-            let value = details.values[relation.key]
-            guard let value = value else { return [] }
-            
-            let selectedTagIds: [String] = value.listValue.values.compactMap {
-                let tagId = $0.stringValue
-                return tagId.isEmpty ? nil : tagId
-            }
+            let selectedTagIds = details.stringArrayValue(for: relation.key)
             
             let tags = selectedTagIds
                 .compactMap { storage.get(id: $0) }
                 .map { RelationOption(details: $0) }
                 .map { RelationValue.Tag.Option(option: $0) }
-            
+
             return tags
         }()
         
@@ -385,21 +369,12 @@ private extension RelationsBuilder {
         relation: Relation,
         details: ObjectDetails,
         isObjectLocked: Bool
-    ) -> RelationValue {
+    ) -> Relation {
         let objectOptions: [RelationValue.Object.Option] = {
-            let value = details.values[relation.key]
-            guard let value = value else { return [] }
-            
-            let values: [Google_Protobuf_Value] = {
-                if case let .listValue(listValue) = value.kind {
-                    return listValue.values
-                }
-                
-                return [value]
-            }()
+            let values = details.stringArrayValue(for: relation.key)
             
             let objectDetails: [ObjectDetails] = values.compactMap {
-                return storage.get(id: $0.stringValue)
+                return storage.get(id: $0)
             }
 
             let objectOptions: [RelationValue.Object.Option] = objectDetails.map { objectDetail in
@@ -444,26 +419,23 @@ private extension RelationsBuilder {
         relation: Relation,
         details: ObjectDetails,
         isObjectLocked: Bool
-    ) -> RelationValue {
+    ) -> Relation {
         let fileOptions: [RelationValue.File.Option] = {
-            let value = details.values[relation.key]
-            guard let value = value else { return [] }
+            let values = details.stringArrayValue(for: relation.key)
             
-            let objectDetails: [ObjectDetails] = value.listValue.values.compactMap {
-                return storage.get(id: $0.stringValue)
+            let objectDetails: [ObjectDetails] = values.compactMap {
+                return storage.get(id: $0)
             }
 
             let objectOptions: [RelationValue.File.Option] = objectDetails.map { objectDetail in
                 let fileName: String = {
                     let name = objectDetail.name
-                    let fileExt = objectDetail.values[BundledRelationKey.fileExt.rawValue]
-                    let fileExtString = fileExt?.stringValue
+                    let fileExt = objectDetail.fileExt
                     
-                    guard
-                        let fileExtString = fileExtString, fileExtString.isNotEmpty
+                    guard fileExt.isNotEmpty
                     else { return name }
                     
-                    return "\(name).\(fileExtString)"
+                    return "\(name).\(fileExt)"
                 }()
                 
                 let icon: ObjectIconImage = {
@@ -471,10 +443,10 @@ private extension RelationsBuilder {
                         return .icon(objectIconType)
                     }
                     
-                    let fileMimeType = objectDetail.values[BundledRelationKey.fileMimeType.rawValue]?.stringValue
-                    let fileName = objectDetail.values[BundledRelationKey.name.rawValue]?.stringValue
+                    let fileMimeType = objectDetail.fileMimeType
+                    let fileName = objectDetail.name
 
-                    guard let fileMimeType = fileMimeType, let fileName = fileName else {
+                    guard fileMimeType.isNotEmpty, fileName.isNotEmpty else {
                         return .imageAsset(FileIconConstants.other)
                     }
                     
@@ -549,7 +521,9 @@ private extension Relation {
     
     func isEditable(objectLocked: Bool) -> Bool {
         guard !objectLocked else { return false }
-        
+
+        if id == BundledRelationKey.setOf.rawValue { return true }
+
         return !self.isReadOnlyValue
     }
 }

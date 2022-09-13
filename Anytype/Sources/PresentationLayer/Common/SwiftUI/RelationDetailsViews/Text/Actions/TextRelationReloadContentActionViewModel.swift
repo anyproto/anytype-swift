@@ -21,8 +21,8 @@ final class TextRelationReloadContentActionViewModel: TextRelationActionViewMode
     ) {
         #warning("migrate to source constant")
         guard let objectInfo = ObjectDetailsStorage.shared.get(id: objectId),
-              objectInfo.objectType.id == ObjectTypeId.bundled(.bookmark).rawValue,
-              relationValue.key == "source" else { return nil }
+              objectInfo.objectType.url == ObjectTypeUrl.bundled(.bookmark).rawValue,
+              relation.isSource else { return nil }
         
         self.objectId = objectId
         self.relationValue = relationValue

@@ -318,6 +318,28 @@ extension Anytype_Rpc.Account.Move {
   }
 }
 
+extension Anytype_Rpc.Account.ConfigUpdate {
+  public enum Service {
+    public static func invoke(timeZone: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(timeZone: timeZone).invoke(on: queue)
+    }
+    public static func invoke(timeZone: String = String()) -> Result<Response, Error> {
+        return invocation(timeZone: timeZone).invoke()
+    }
+    public static func invocation(timeZone: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(timeZone: timeZone)
+        return Invocation<Request,Response>(messageName: "AccountConfigUpdate", request: request) { request in
+            return self.invoke(request)
+        }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+        return Lib.ServiceAccountConfigUpdate(try? request.serializedData()).flatMap {
+            try? Response(serializedData: $0)
+        }
+    }
+  }
+}
+
 extension Anytype_Rpc.Workspace.GetCurrent {
   public enum Service {
     public static func invoke(queue: DispatchQueue? = nil) -> Future<Response, Error> {
@@ -3172,6 +3194,28 @@ extension Anytype_Rpc.BlockDataview.View.Delete {
     }
     private static func invoke(_ request: Request) -> Response? {
         return Lib.ServiceBlockDataviewViewDelete(try? request.serializedData()).flatMap {
+            try? Response(serializedData: $0)
+        }
+    }
+  }
+}
+
+extension Anytype_Rpc.BlockDataview.View.SetPosition {
+  public enum Service {
+    public static func invoke(contextID: String = String(), blockID: String = String(), viewID: String = String(), position: UInt32 = 0, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(contextID: contextID, blockID: blockID, viewID: viewID, position: position).invoke(on: queue)
+    }
+    public static func invoke(contextID: String = String(), blockID: String = String(), viewID: String = String(), position: UInt32 = 0) -> Result<Response, Error> {
+        return invocation(contextID: contextID, blockID: blockID, viewID: viewID, position: position).invoke()
+    }
+    public static func invocation(contextID: String = String(), blockID: String = String(), viewID: String = String(), position: UInt32 = 0) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockID: blockID, viewID: viewID, position: position)
+        return Invocation<Request,Response>(messageName: "BlockDataviewViewSetPosition", request: request) { request in
+            return self.invoke(request)
+        }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+        return Lib.ServiceBlockDataviewViewSetPosition(try? request.serializedData()).flatMap {
             try? Response(serializedData: $0)
         }
     }

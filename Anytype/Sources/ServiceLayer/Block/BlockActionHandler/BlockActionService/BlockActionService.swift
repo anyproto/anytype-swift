@@ -3,6 +3,7 @@ import BlocksModels
 import UIKit
 import Logger
 import ProtobufMessages
+import AnytypeCore
 
 final class BlockActionService: BlockActionServiceProtocol {
     private let documentId: BlockId
@@ -137,6 +138,10 @@ final class BlockActionService: BlockActionServiceProtocol {
         pageService.setObjectType(objectId: documentId, objectTypeId: objectTypeId)
     }
 
+    func setObjectSetType() -> BlockId {
+        pageService.setObjectSetType(objectId: documentId)
+    }
+
     private func setFocus(model: BlockViewModelProtocol) {
         if case let .text(text) = model.info.content {
             model.set(focus: .at(text.endOfTextRangeWithMention))
@@ -162,13 +167,13 @@ extension BlockActionService {
         contextID: BlockId,
         targetID: BlockId,
         position: BlockPosition,
-        url: String
+        url: AnytypeURL
     ) {
         bookmarkService.createAndFetchBookmark(
             contextID: contextID,
             targetID: targetID,
             position: position,
-            url: url
+            url: url.absoluteString
         )
     }
 }

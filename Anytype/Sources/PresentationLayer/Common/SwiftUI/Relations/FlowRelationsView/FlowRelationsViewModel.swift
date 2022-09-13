@@ -6,7 +6,6 @@ class FlowRelationsViewModel: ObservableObject {
     let title: String?
     let description: String?
     let relationValues: [RelationValue]
-    let style: FlowRelationsStyle
     let onRelationTap: (RelationValue) -> Void
     let onIconTap: () -> Void
     
@@ -16,7 +15,6 @@ class FlowRelationsViewModel: ObservableObject {
         title: String?,
         description: String?,
         relationValues: [RelationValue],
-        style: FlowRelationsStyle,
         onIconTap: @escaping () -> Void = {},
         onRelationTap: @escaping (RelationValue) -> Void
     ) {
@@ -25,7 +23,6 @@ class FlowRelationsViewModel: ObservableObject {
         self.title = title
         self.description = description
         self.relationValues = relationValues
-        self.style = style
         self.onIconTap = onIconTap
         self.onRelationTap = onRelationTap
     }

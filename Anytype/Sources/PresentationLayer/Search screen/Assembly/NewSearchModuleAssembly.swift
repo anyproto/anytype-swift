@@ -104,6 +104,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
     static func objectTypeSearchModule(
         style: NewSearchView.Style = .default,
         title: String,
+        selectedObjectId: BlockId? = nil,
         excludedObjectTypeId: String?,
         onSelect: @escaping (_ id: String) -> Void
     ) -> NewSearchView {
@@ -112,7 +113,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
             excludedObjectTypeId: excludedObjectTypeId
         )
         
-        let internalViewModel = ObjectTypesSearchViewModel(interactor: interactor)
+        let internalViewModel = ObjectTypesSearchViewModel(interactor: interactor, selectedObjectId: selectedObjectId)
         let viewModel = NewSearchViewModel(
             title: title,
             style: style,

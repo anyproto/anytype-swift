@@ -1,6 +1,7 @@
 import BlocksModels
 import UIKit
 import ProtobufMessages
+import AnytypeCore
 
 protocol BlockActionServiceProtocol {
 
@@ -41,11 +42,12 @@ protocol BlockActionServiceProtocol {
     func merge(secondBlockId: BlockId)
     
     func setObjectTypeId(_ objectTypeId: String)
+    func setObjectSetType() -> BlockId
     func createAndFetchBookmark(
         contextID: BlockId,
         targetID: BlockId,
         position: BlockPosition,
-        url: String
+        url: AnytypeURL
     )
 }
 

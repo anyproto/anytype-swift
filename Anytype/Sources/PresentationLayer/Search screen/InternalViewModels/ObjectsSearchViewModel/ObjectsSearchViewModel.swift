@@ -106,7 +106,7 @@ private extension SearchObjectRowView.Model {
     init(details: ObjectDetails) {
         let title = details.title
         self.icon = {
-            if details.layout == .todo {
+            if details.layoutValue == .todo {
                 return .todo(details.isDone)
             } else {
                 return details.icon.flatMap { .icon($0) } ?? .placeholder(title.first)
@@ -115,6 +115,7 @@ private extension SearchObjectRowView.Model {
         self.title = title
         self.subtitle = details.objectType.name
         self.style = .default
+        self.isChecked = false
     }
     
 }

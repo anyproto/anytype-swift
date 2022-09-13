@@ -7,61 +7,61 @@ struct FlowRelationsView: View {
     var body: some View {
         VStack(
             alignment: .leading,
-            spacing: viewModel.style.headerToContentOffset
+            spacing: 4
         ) {
             header
             content
         }
     }
-    
+
     private var content: some View {
-        VStack(alignment: .leading, spacing: viewModel.style.relationsOffset) {
+        VStack(alignment: .leading, spacing: 2) {
             description
             flowRelations
         }
     }
-    
+
     private var header: some View {
         VStack(alignment: .leading, spacing: 0) {
             TitleWithIconView(
                 icon: viewModel.icon,
                 showIcon: viewModel.showIcon,
                 title: viewModel.title,
-                style: viewModel.style.titleStyle,
+                style: .list,
                 onIconTap: viewModel.onIconTap
             )
         }
     }
-    
+
     private var description: some View {
         Group {
             if let description = viewModel.description, description.isNotEmpty {
                 AnytypeText(
                     description,
-                    style: viewModel.style.descriptionFont,
-                    color: viewModel.style.descriptionColor
+                    style: .relation3Regular,
+                    color: .textSecondary
                 )
-                    .fixedSize(horizontal: false, vertical: true)
-                    .lineLimit(viewModel.style.descriptionLineLimit)
+                .fixedSize(horizontal: false, vertical: true)
+                .lineLimit(1)
             } else {
                 EmptyView()
             }
         }
     }
-    
+
     private var flowRelations: some View {
         Group {
             if viewModel.relationValues.isNotEmpty {
                 FlowLayout(
                     items: viewModel.relationValues,
                     alignment: .leading,
-                    spacing: viewModel.style.relationSpacing,
+                    spacing: .init(width: 6, height: 2),
                     cell: { item, index in
                         HStack(spacing: 0) {
                             RelationValueView(
                                 relation: RelationItemModel(relationValue: item),
-                                style: viewModel.style.relationStyle)
-                            {
+                                style: .setCollection
+                            ) {
                                 viewModel.onRelationTap(item)
                             }
 
@@ -76,7 +76,7 @@ struct FlowRelationsView: View {
             }
         }
     }
-    
+
     private var dotImage: some View {
         Image(systemName: "circle.fill")
             .resizable()

@@ -20,7 +20,8 @@ public final class FeatureFlags {
         .bookmarksFlow,
         .bookmarksFlowP2,
         .setGalleryView,
-        .setListView
+        .setListView,
+        .setViewTypes
     ]
     
     public static func update(key feature: FeatureDescription, value: Bool) {
@@ -75,5 +76,9 @@ public extension FeatureFlags {
     
     static var setListView: Bool {
         value(for: .setListView)
+    }
+    
+    static var setViewTypes: Bool {
+        value(for: .setViewTypes)
     }
 }

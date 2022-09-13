@@ -10,11 +10,7 @@ final class BlockBookmarkInfoView: UIView {
         titleView.text = payload.title
         descriptionView.text = payload.subtitle
 
-        urlView.text = payload.url
-        
-        if payload.url.isEncoded {
-            urlView.text = payload.url.removingPercentEncoding
-        }
+        urlView.text = payload.source?.absoluteString
         
         layoutUsing.stack {
             $0.edgesToSuperview(insets: Layout.contentInsets)

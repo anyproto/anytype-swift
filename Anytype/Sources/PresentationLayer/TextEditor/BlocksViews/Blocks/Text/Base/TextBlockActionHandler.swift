@@ -1,6 +1,7 @@
 import Combine
 import UIKit
 import BlocksModels
+import AnytypeCore
 
 struct TextBlockURLInputParameters {
     let textView: UITextView
@@ -155,19 +156,16 @@ struct TextBlockActionHandler: TextBlockActionHandlerProtocol {
         let previousTypingAttributes = textView.typingAttributes
         let originalAttributedString = textView.attributedText
         let trimmedText = replacementText.trimmed
-        var urlString = trimmedText
 
-        if !urlString.isEncoded {
-            urlString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? urlString
-        }
+        let urlString = trimmedText
 
-        guard urlString.isValidURL(), let url = URL(string: urlString) else {
+        guard urlString.isValidURL(), let url = AnytypeURL(string: urlString) else {
             return false
         }
 
         let newTextWithLink = makeAttributedString(
             attributedText: textView.attributedText,
-            replacementURL: url,
+            replacementURL: url.url,
             replacementText: replacementText.trimmed,
             range: range
         )
@@ -190,7 +188,7 @@ struct TextBlockActionHandler: TextBlockActionHandlerProtocol {
                     actionHandler.createAndFetchBookmark(
                         targetID: info.id,
                         position: position,
-                        url: url.absoluteString
+                        url: url
                     )
 
                     originalAttributedString.map {

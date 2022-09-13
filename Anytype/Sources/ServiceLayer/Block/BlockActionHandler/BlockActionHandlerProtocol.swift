@@ -1,5 +1,6 @@
 import Foundation
 import BlocksModels
+import AnytypeCore
 
 protocol BlockSelectionHandler: AnyObject {
     func didSelectEditingState(info: BlockInformation)
@@ -31,7 +32,9 @@ protocol BlockActionHandlerProtocol: AnyObject {
     func toggleWholeBlockMarkup(_ markup: MarkupType, blockId: BlockId)
     func upload(blockId: BlockId, filePath: String)
     func createPage(targetId: BlockId, type: ObjectTypeId) -> BlockId?
+
     func setObjectTypeId(_ objectTypeId: String)
+    func setObjectSetType() -> BlockId
     func changeTextForced(_ text: NSAttributedString, blockId: BlockId)
     func changeText(_ text: NSAttributedString, info: BlockInformation)
     func handleKeyboardAction(
@@ -46,7 +49,7 @@ protocol BlockActionHandlerProtocol: AnyObject {
     func createAndFetchBookmark(
         targetID: BlockId,
         position: BlockPosition,
-        url: String
+        url: AnytypeURL
     )
     func setAppearance(blockId: BlockId, appearance: BlockLink.Appearance)
     func createTable(

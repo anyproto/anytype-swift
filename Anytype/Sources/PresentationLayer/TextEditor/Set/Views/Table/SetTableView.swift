@@ -26,7 +26,10 @@ struct SetTableView: View {
             OffsetAwareScrollView(
                 axes: [.vertical],
                 showsIndicators: false,
-                offsetChanged: { offset.y = $0.y }
+                offsetChanged: {
+                    offset.y = $0.y
+                    UIApplication.shared.hideKeyboard()
+                }
             ) {
                 Spacer.fixedHeight(tableHeaderSize.height)
                 LazyVStack(
@@ -41,12 +44,6 @@ struct SetTableView: View {
                 .padding(.top, -headerMinimizedSize.height)
             }
         }
-        .overlay(
-            SetFullHeader()
-                .readSize { tableHeaderSize = $0 }
-                .offset(x: 0, y: offset.y)
-            , alignment: .topLeading
-        )
     }
     
     private var content: some View {

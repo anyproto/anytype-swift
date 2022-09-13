@@ -20,7 +20,7 @@ final class SimpleTableMenuViewModel: ObservableObject, OptionsItemProvider {
     @Published var tabModels = [SimpleTableMenuModel.TabModel]()
 
     func update(with model: SimpleTableMenuModel) {
-        withAnimation(.fastSpring) {
+        withAnimation(nil) {
             self.items = model.items
             self.tabModels = model.tabs
         }

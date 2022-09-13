@@ -16,6 +16,10 @@ struct SearchObjectRowView: View {
             )
             Spacer.fixedWidth(12)
             content
+            if viewModel.isChecked {
+                Image(asset: .optionChecked)
+                    .accentColor(.textPrimary)
+            }
         }
         .frame(height: viewModel.style.rowHeight)
         .divider(leadingPadding: viewModel.style.leadingDividerPadding)
@@ -60,6 +64,7 @@ extension SearchObjectRowView {
         let title: String
         let subtitle: String?
         let style: Style
+        let isChecked: Bool
         
         enum Style {
             case `default`
