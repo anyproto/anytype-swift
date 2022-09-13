@@ -101,25 +101,22 @@ final class SetContentViewDataBuilder {
     {
         let relation = dataView.relations.first { $0.format == .file && $0.key == activeView.coverRelationKey }
         
-        guard let relation = relation else {
+        guard let relation = relation,
+              let value = details.values[relation.key] else {
             return nil
         }
-        
-        let values = details.stringArrayValue(for: relation.key)
-        let value = details.stringValue(for: relation.key)
-        
-        if values.isNotEmpty {
-            return findCover(at: values, details)
-        } else if value.isNotEmpty {
+        if case let .listValue(listValue) = value.kind {
+            return findCover(at: listValue.values, details)
+        } else if value.stringValue.isNotEmpty {
             return findCover(at: [value], details)
         } else {
             return nil
         }
     }
     
-    private func findCover(at values: [String], _ details: ObjectDetails) -> ObjectHeaderCoverType? {
+    private func findCover(at values: [Google_Protobuf_Value], _ details: ObjectDetails) -> ObjectHeaderCoverType? {
         for value in values {
-            let details = storage.get(id: value)
+            let details = storage.get(id: value.stringValue)
             if let details = details, details.type == Constants.imageType {
                 return .cover(.imageId(details.id))
             }

@@ -90,7 +90,7 @@ final class SimpleTableCellsBuilder {
         table: ComputedTable,
         isHeaderRow: Bool
     ) -> EditorItem {
-        let isCheckable = content.contentType == .title ? document.details?.layoutValue == .todo : false
+        let isCheckable = content.contentType == .title ? document.details?.layout == .todo : false
 
         let textBlockActionHandler = SimpleTablesTextBlockActionHandler(
             info: information,

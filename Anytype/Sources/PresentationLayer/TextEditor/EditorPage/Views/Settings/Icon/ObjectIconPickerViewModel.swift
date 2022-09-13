@@ -10,7 +10,7 @@ final class ObjectIconPickerViewModel: ObservableObject, ObjectIconPickerViewMod
     var isRemoveButtonAvailable: Bool { document.details?.icon != nil }
 
     var detailsLayout: DetailsLayout {
-        document.details?.layoutValue ?? .basic
+        document.details?.layout ?? .basic
     }
     
     var isRemoveEnabled: Bool {
@@ -19,7 +19,7 @@ final class ObjectIconPickerViewModel: ObservableObject, ObjectIconPickerViewMod
             return true
         case .profile:
             guard let details = document.details else { return false }
-            return details.iconImage.isNotNil
+            return details.iconImageHash.isNotNil
         default:
             anytypeAssertionFailure(
                 "`ObjectIconPickerViewModel` unavailable in \(detailsLayout)",

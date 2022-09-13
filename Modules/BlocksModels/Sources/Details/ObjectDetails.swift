@@ -2,7 +2,7 @@ import Foundation
 import AnytypeCore
 import SwiftProtobuf
 
-public struct ObjectDetails: Hashable, RelationValueProvider, BundledRelationsValueProvider {
+public struct ObjectDetails: Hashable, BundledRelationsValueProvider {
     
     public let id: BlockId
     public let values: [String: Google_Protobuf_Value]

@@ -53,7 +53,7 @@ extension ObjectSearchData {
     }
 
     var iconImage: ObjectIconImage {
-        let layout = details.layoutValue
+        let layout = details.layout
         if layout == .todo {
             return .todo(details.isDone)
         } else {

@@ -1,7 +1,6 @@
 import Combine
 import UIKit
 import BlocksModels
-import AnytypeCore
 
 struct TextBlockURLInputParameters {
     let textView: UITextView

@@ -7,7 +7,7 @@ extension BundledRelationsValueProvider {
     // MARK: - Icon
     
     var icon: ObjectIconType? {
-        switch layoutValue {
+        switch layout {
         case .basic, .set:
             return basicIcon
         case .profile:
@@ -24,11 +24,11 @@ extension BundledRelationsValueProvider {
     }
     
     private var basicIcon: ObjectIconType? {
-        if let iconImageHash = self.iconImage {
+        if let iconImageHash = self.iconImageHash {
             return ObjectIconType.basic(iconImageHash.value)
         }
         
-        if let iconEmoji = self.iconEmoji {
+        if let iconEmoji = Emoji(self.iconEmoji) {
             return ObjectIconType.emoji(iconEmoji)
         }
         
@@ -36,7 +36,7 @@ extension BundledRelationsValueProvider {
     }
     
     private var profileIcon: ObjectIconType.Profile? {
-        if let iconImageHash = self.iconImage {
+        if let iconImageHash = self.iconImageHash {
             return ObjectIconType.Profile.imageId(iconImageHash.value)
         }
         
@@ -44,7 +44,7 @@ extension BundledRelationsValueProvider {
     }
     
     private var bookmarkIcon: ObjectIconType? {
-        return iconImage.map { ObjectIconType.bookmark($0.value) }
+        return iconImageHash.map { ObjectIconType.bookmark($0.value) }
     }
     
     // MARK: - Cover
@@ -52,7 +52,7 @@ extension BundledRelationsValueProvider {
     var documentCover: DocumentCover? {
         guard !coverId.isEmpty else { return nil }
         
-        switch coverTypeValue {
+        switch coverType {
         case .none:
             return nil
         case .uploadedImage:
@@ -79,7 +79,7 @@ extension BundledRelationsValueProvider {
             return .icon(icon)
         }
         
-        if layoutValue == .todo {
+        if layout == .todo {
             return .todo(isDone)
         }
         
@@ -101,7 +101,7 @@ extension BundledRelationsValueProvider {
     }
     
     var editorViewType: EditorViewType {
-        switch layoutValue {
+        switch layout {
         case .basic, .profile, .todo, .note, .bookmark:
             return .page
         case .set:
