@@ -59,6 +59,13 @@ extension FeatureDescription {
         defaultValue: false
     )
     
+    static let setSyncStatus = FeatureDescription(
+        title: "Set sync status",
+        author: "joe_pusya@anytype.io",
+        releaseVersion: "0.19.0",
+        defaultValue: false
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(
