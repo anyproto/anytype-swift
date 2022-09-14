@@ -16,6 +16,9 @@ final class EditorSetViewModel: ObservableObject {
     
     @Published var sorts: [SetSort] = []
     @Published var filters: [SetFilter] = []
+    
+    private let setSyncStatus = FeatureFlags.setSyncStatus
+    @Published var syncStatus: SyncStatus = .unknown
 
     var isUpdating = false
     
@@ -183,7 +186,11 @@ final class EditorSetViewModel: ObservableObject {
         case .general, .blocks, .details, .dataSourceUpdate:
             objectWillChange.send()
             setupDataview()
-        case .header, .syncStatus:
+        case .syncStatus(let status):
+            if setSyncStatus {
+                syncStatus = status
+            }
+        case .header:
             break // handled in ObjectHeaderViewModel
         }
     }
