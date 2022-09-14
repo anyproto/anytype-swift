@@ -2,9 +2,9 @@ import Foundation
 import BlocksModels
 import CoreImage
 
-extension RelationValue {
+extension Relation {
     
-    struct Unknown: RelationValueProtocol, Hashable, Identifiable {
+    struct Unknown: RelationProtocol, Hashable, Identifiable {
         let id: String
         let key: String
         let name: String

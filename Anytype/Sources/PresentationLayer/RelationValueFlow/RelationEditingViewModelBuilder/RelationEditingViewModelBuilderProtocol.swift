@@ -6,7 +6,7 @@ protocol RelationEditingViewModelBuilderProtocol: AnyObject {
     func buildViewModel(
         source: RelationSource,
         objectId: BlockId,
-        relationValue: RelationValue,
+        relation: Relation,
         onTap: @escaping (_ pageId: BlockId, _ viewType: EditorViewType) -> Void
     ) -> AnytypePopupViewModelProtocol?
     

@@ -43,27 +43,27 @@ final class RelationsBuilder {
             return .empty
         }
         
-        var featuredRelationValues: [RelationValue] = []
-        var otherRelationValues: [RelationValue] = []
+        var featuredRelations: [Relation] = []
+        var otherRelations: [Relation] = []
         
         relationsDetails.forEach { relationDetails in
             #warning("Fix scope")
             guard !relationDetails.isHidden else { return } // , scope.contains(relationMetadata.scope) else { return }
             
-            let value = relationValue(
+            let value = relation(
                 relationDetails: relationDetails,
                 details: objectDetails,
                 isObjectLocked: isObjectLocked
             )
             
             if value.isFeatured {
-                featuredRelationValues.append(value)
+                featuredRelations.append(value)
             } else {
-                otherRelationValues.append(value)
+                otherRelations.append(value)
             }
         }
         
-        return ParsedRelations(featuredRelationValues: featuredRelationValues, otherRelationValues: otherRelationValues)
+        return ParsedRelations(featuredRelations: featuredRelations, otherRelations: otherRelations)
     }
     
 }
@@ -72,11 +72,11 @@ final class RelationsBuilder {
 
 private extension RelationsBuilder {
     
-    func relationValue(
+    func relation(
         relationDetails: RelationDetails,
         details: ObjectDetails,
         isObjectLocked: Bool
-    ) -> RelationValue {
+    ) -> Relation {
         switch relationDetails.format {
         case .longText:
             return textRelation(
@@ -152,7 +152,7 @@ private extension RelationsBuilder {
             )
         case .unrecognized:
             return .text(
-                RelationValue.Text(
+                Relation.Text(
                     id: relationDetails.id,
                     key: relationDetails.key,
                     name: relationDetails.name,
@@ -169,9 +169,9 @@ private extension RelationsBuilder {
         relationDetails: RelationDetails,
         details: ObjectDetails,
         isObjectLocked: Bool
-    ) -> RelationValue {
+    ) -> Relation {
         .text(
-            RelationValue.Text(
+            Relation.Text(
                 id: relationDetails.id,
                 key: relationDetails.key,
                 name: relationDetails.name,
@@ -187,14 +187,14 @@ private extension RelationsBuilder {
         relationDetails: RelationDetails,
         details: ObjectDetails,
         isObjectLocked: Bool
-    ) -> RelationValue {
+    ) -> Relation {
         let numberValue: String? = {
             guard let number = details.doubleValue(for: relationDetails.key) else { return nil }
             return numberFormatter.string(from: NSNumber(floatLiteral: number))
         }()
         
         return .number(
-            RelationValue.Text(
+            Relation.Text(
                 id: relationDetails.id,
                 key: relationDetails.key,
                 name: relationDetails.name,
@@ -210,9 +210,9 @@ private extension RelationsBuilder {
         relationDetails: RelationDetails,
         details: ObjectDetails,
         isObjectLocked: Bool
-    ) -> RelationValue {
+    ) -> Relation {
         .phone(
-            RelationValue.Text(
+            Relation.Text(
                 id: relationDetails.id,
                 key: relationDetails.key,
                 name: relationDetails.name,
@@ -228,9 +228,9 @@ private extension RelationsBuilder {
         relationDetails: RelationDetails,
         details: ObjectDetails,
         isObjectLocked: Bool
-    ) -> RelationValue {
+    ) -> Relation {
         .email(
-            RelationValue.Text(
+            Relation.Text(
                 id: relationDetails.id,
                 key: relationDetails.key,
                 name: relationDetails.name,
@@ -246,9 +246,9 @@ private extension RelationsBuilder {
         relationDetails: RelationDetails,
         details: ObjectDetails,
         isObjectLocked: Bool
-    ) -> RelationValue {
+    ) -> Relation {
         .url(
-            RelationValue.Text(
+            Relation.Text(
                 id: relationDetails.id,
                 key: relationDetails.key,
                 name: relationDetails.name,
@@ -264,24 +264,24 @@ private extension RelationsBuilder {
         relationDetails: RelationDetails,
         details: ObjectDetails,
         isObjectLocked: Bool
-    ) -> RelationValue {
+    ) -> Relation {
         #warning("Fix options")
         
-        let selectedOption: RelationValue.Status.Option? = {
+        let selectedOption: Relation.Status.Option? = {
             let optionId = details.stringValue(for: relationDetails.key)
             
             guard optionId.isNotEmpty else { return nil }
             
             guard let optionDetails = storage.get(id: optionId) else { return nil }
             let option = RelationOption(details: optionDetails)
-            return RelationValue.Status.Option(option: option)
+            return Relation.Status.Option(option: option)
         }()
-        var values = [RelationValue.Status.Option]()
+        var values = [Relation.Status.Option]()
         if let selectedOption = selectedOption {
             values.append(selectedOption)
         }
         return .status(
-            RelationValue.Status(
+            Relation.Status(
                 id: relationDetails.id,
                 key: relationDetails.key,
                 name: relationDetails.name,
@@ -297,14 +297,14 @@ private extension RelationsBuilder {
         relationDetails: RelationDetails,
         details: ObjectDetails,
         isObjectLocked: Bool
-    ) -> RelationValue {
+    ) -> Relation {
         let value: DateRelationValue? = {
             guard let date = details.dateValue(for: relationDetails.key) else { return nil }
             return DateRelationValue(date: date, text: dateFormatter.string(from: date))
         }()
         
         return .date(
-            RelationValue.Date(
+            Relation.Date(
                 id: relationDetails.id,
                 key: relationDetails.key,
                 name: relationDetails.name,
@@ -320,9 +320,9 @@ private extension RelationsBuilder {
         relationDetails: RelationDetails,
         details: ObjectDetails,
         isObjectLocked: Bool
-    ) -> RelationValue {
+    ) -> Relation {
         .checkbox(
-            RelationValue.Checkbox(
+            Relation.Checkbox(
                 id: relationDetails.id,
                 key: relationDetails.key,
                 name: relationDetails.name,
@@ -338,22 +338,22 @@ private extension RelationsBuilder {
         relationDetails: RelationDetails,
         details: ObjectDetails,
         isObjectLocked: Bool
-    ) -> RelationValue {
+    ) -> Relation {
         #warning("Check tags list")
         
-        let selectedTags: [RelationValue.Tag.Option] = {
+        let selectedTags: [Relation.Tag.Option] = {
             let selectedTagIds = details.stringArrayValue(for: relationDetails.key)
             
             let tags = selectedTagIds
                 .compactMap { storage.get(id: $0) }
                 .map { RelationOption(details: $0) }
-                .map { RelationValue.Tag.Option(option: $0) }
+                .map { Relation.Tag.Option(option: $0) }
 
             return tags
         }()
         
         return .tag(
-            RelationValue.Tag(
+            Relation.Tag(
                 id: relationDetails.id,
                 key: relationDetails.key,
                 name: relationDetails.name,
@@ -369,15 +369,15 @@ private extension RelationsBuilder {
         relationDetails: RelationDetails,
         details: ObjectDetails,
         isObjectLocked: Bool
-    ) -> RelationValue {
-        let objectOptions: [RelationValue.Object.Option] = {
+    ) -> Relation {
+        let objectOptions: [Relation.Object.Option] = {
             let values = details.stringArrayValue(for: relationDetails.key)
             
             let objectDetails: [ObjectDetails] = values.compactMap {
                 return storage.get(id: $0)
             }
 
-            let objectOptions: [RelationValue.Object.Option] = objectDetails.map { objectDetail in
+            let objectOptions: [Relation.Object.Option] = objectDetails.map { objectDetail in
                 let name = objectDetail.title
                 let icon: ObjectIconImage = {
                     if let objectIcon = objectDetail.objectIconImage {
@@ -387,7 +387,7 @@ private extension RelationsBuilder {
                     return .placeholder(name.first)
                 }()
                 
-                return RelationValue.Object.Option(
+                return Relation.Object.Option(
                     id: objectDetail.id,
                     icon: icon,
                     title: name,
@@ -402,7 +402,7 @@ private extension RelationsBuilder {
         }()
         
         return .object(
-            RelationValue.Object(
+            Relation.Object(
                 id: relationDetails.id,
                 key: relationDetails.key,
                 name: relationDetails.name,
@@ -419,15 +419,15 @@ private extension RelationsBuilder {
         relationDetails: RelationDetails,
         details: ObjectDetails,
         isObjectLocked: Bool
-    ) -> RelationValue {
-        let fileOptions: [RelationValue.File.Option] = {
+    ) -> Relation {
+        let fileOptions: [Relation.File.Option] = {
             let values = details.stringArrayValue(for: relationDetails.key)
             
             let objectDetails: [ObjectDetails] = values.compactMap {
                 return storage.get(id: $0)
             }
 
-            let objectOptions: [RelationValue.File.Option] = objectDetails.map { objectDetail in
+            let objectOptions: [Relation.File.Option] = objectDetails.map { objectDetail in
                 let fileName: String = {
                     let name = objectDetail.name
                     let fileExt = objectDetail.fileExt
@@ -453,7 +453,7 @@ private extension RelationsBuilder {
                     return .imageAsset(BlockFileIconBuilder.convert(mime: fileMimeType, fileName: fileName))
                 }()
                 
-                return RelationValue.File.Option(
+                return Relation.File.Option(
                     id: objectDetail.id,
                     icon: icon,
                     title: fileName
@@ -464,7 +464,7 @@ private extension RelationsBuilder {
         }()
         
         return .file(
-            RelationValue.File(
+            Relation.File(
                 id: relationDetails.id,
                 key: relationDetails.key,
                 name: relationDetails.name,

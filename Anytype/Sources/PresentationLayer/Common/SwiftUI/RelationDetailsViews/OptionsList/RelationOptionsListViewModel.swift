@@ -29,18 +29,18 @@ final class RelationOptionsListViewModel: ObservableObject {
         source: RelationSource,
         selectedOptions: [ListRowConfiguration],
         emptyOptionsPlaceholder: String,
-        relationValue: RelationValue,
+        relation: Relation,
         searchModuleBuilder: RelationOptionsSearchModuleBuilderProtocol,
         service: RelationsServiceProtocol
     ) {
         self.source = source
         self.selectedOptions = selectedOptions
-        self.title = relationValue.name
+        self.title = relation.name
         self.emptyPlaceholder = emptyOptionsPlaceholder
-        self.relationKey = relationValue.key
+        self.relationKey = relation.key
         self.searchModuleBuilder = searchModuleBuilder
         self.service = service
-        self.isEditable = relationValue.isEditable
+        self.isEditable = relation.isEditable
         
         updateLayout()
     }

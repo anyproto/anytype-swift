@@ -29,7 +29,7 @@ final class RelationFilterBuilder {
     func relation(
         relationDetails: RelationDetails,
         filter: DataviewFilter
-    ) -> RelationValue? {
+    ) -> Relation? {
         switch relationDetails.format {
         case .object:
             return objectRelation(
@@ -83,7 +83,7 @@ final class RelationFilterBuilder {
             )
         default:
             return .text(
-                RelationValue.Text(
+                Relation.Text(
                     id: relationDetails.id,
                     key: relationDetails.key,
                     name: relationDetails.name,
@@ -114,10 +114,10 @@ private extension RelationFilterBuilder {
     func objectRelation(
         relationDetails: RelationDetails,
         filter: DataviewFilter
-    ) -> RelationValue? {
+    ) -> Relation? {
         guard filter.condition.hasValues else { return nil }
         
-        let objectOptions: [RelationValue.Object.Option] = {
+        let objectOptions: [Relation.Object.Option] = {
             let values: [Google_Protobuf_Value] = {
                 if case let .listValue(listValue) = filter.value.kind {
                     return listValue.values
@@ -130,7 +130,7 @@ private extension RelationFilterBuilder {
                 return storage.get(id: $0.stringValue)
             }
 
-            let objectOptions: [RelationValue.Object.Option] = objectDetails.map { objectDetail in
+            let objectOptions: [Relation.Object.Option] = objectDetails.map { objectDetail in
                 let name = objectDetail.title
                 let icon: ObjectIconImage = {
                     if let objectIcon = objectDetail.objectIconImage {
@@ -140,7 +140,7 @@ private extension RelationFilterBuilder {
                     }
                 }()
                 
-                return RelationValue.Object.Option(
+                return Relation.Object.Option(
                     id: objectDetail.id,
                     icon: icon,
                     title: name,
@@ -155,7 +155,7 @@ private extension RelationFilterBuilder {
         }()
         
         return .object(
-            RelationValue.Object(
+            Relation.Object(
                 id: relationDetails.id,
                 key: relationDetails.key,
                 name: relationDetails.name,
@@ -171,10 +171,10 @@ private extension RelationFilterBuilder {
     func textRelation(
         relationDetails: RelationDetails,
         filter: DataviewFilter
-    ) -> RelationValue? {
+    ) -> Relation? {
         guard filter.condition.hasValues else { return nil }
         return .text(
-            RelationValue.Text(
+            Relation.Text(
                 id: relationDetails.id,
                 key: relationDetails.key,
                 name: relationDetails.name,
@@ -189,7 +189,7 @@ private extension RelationFilterBuilder {
     func numberRelation(
         relationDetails: RelationDetails,
         filter: DataviewFilter
-    ) -> RelationValue? {
+    ) -> Relation? {
         guard filter.condition.hasValues else { return nil }
         
         let numberValue: String? = {
@@ -198,7 +198,7 @@ private extension RelationFilterBuilder {
             return numberFormatter.string(from: NSNumber(floatLiteral: number))
         }()
         return .number(
-            RelationValue.Text(
+            Relation.Text(
                 id: relationDetails.id,
                 key: relationDetails.key,
                 name: relationDetails.name,
@@ -213,10 +213,10 @@ private extension RelationFilterBuilder {
     func phoneRelation(
         relationDetails: RelationDetails,
         filter: DataviewFilter
-    ) -> RelationValue? {
+    ) -> Relation? {
         guard filter.condition.hasValues else { return nil }
         return .phone(
-            RelationValue.Text(
+            Relation.Text(
                 id: relationDetails.id,
                 key: relationDetails.key,
                 name: relationDetails.name,
@@ -231,10 +231,10 @@ private extension RelationFilterBuilder {
     func emailRelation(
         relationDetails: RelationDetails,
         filter: DataviewFilter
-    ) -> RelationValue? {
+    ) -> Relation? {
         guard filter.condition.hasValues else { return nil }
         return .email(
-            RelationValue.Text(
+            Relation.Text(
                 id: relationDetails.id,
                 key: relationDetails.key,
                 name: relationDetails.name,
@@ -249,10 +249,10 @@ private extension RelationFilterBuilder {
     func urlRelation(
         relationDetails: RelationDetails,
         filter: DataviewFilter
-    ) -> RelationValue? {
+    ) -> Relation? {
         guard filter.condition.hasValues else { return nil }
         return .url(
-            RelationValue.Text(
+            Relation.Text(
                 id: relationDetails.id,
                 key: relationDetails.key,
                 name: relationDetails.name,
@@ -267,12 +267,12 @@ private extension RelationFilterBuilder {
     func statusRelation(
         relationDetails: RelationDetails,
         filter: DataviewFilter
-    ) -> RelationValue? {
+    ) -> Relation? {
         guard filter.condition.hasValues else { return nil }
         #warning("Fix selection status")
-        let statuses = [RelationValue.Status.Option]()
+        let statuses = [Relation.Status.Option]()
         
-        let selectedStatuses: [RelationValue.Status.Option] = {
+        let selectedStatuses: [Relation.Status.Option] = {
             let selectedSatusesIds: [String] = filter.value.listValue.values.compactMap {
                 let statusId = $0.stringValue
                 return statusId.isEmpty ? nil : statusId
@@ -284,7 +284,7 @@ private extension RelationFilterBuilder {
         }()
         
         return .status(
-            RelationValue.Status(
+            Relation.Status(
                 id: relationDetails.id,
                 key: relationDetails.key,
                 name: relationDetails.name,
@@ -300,11 +300,11 @@ private extension RelationFilterBuilder {
     func tagRelation(
         relationDetails: RelationDetails,
         filter: DataviewFilter
-    ) -> RelationValue? {
+    ) -> Relation? {
         guard filter.condition.hasValues else { return nil }
         #warning("Check selections")
         
-        let selectedTags: [RelationValue.Tag.Option] = {
+        let selectedTags: [Relation.Tag.Option] = {
             let value = filter.value
             
             let selectedTagIds: [String] = value.listValue.values.compactMap {
@@ -315,13 +315,13 @@ private extension RelationFilterBuilder {
             let tags = selectedTagIds
                 .compactMap { storage.get(id: $0) }
                 .map { RelationOption(details: $0) }
-                .map { RelationValue.Tag.Option(option: $0) }
+                .map { Relation.Tag.Option(option: $0) }
             
             return tags
         }()
         
         return .tag(
-            RelationValue.Tag(
+            Relation.Tag(
                 id: relationDetails.id,
                 key: relationDetails.key,
                 name: relationDetails.name,
@@ -336,15 +336,15 @@ private extension RelationFilterBuilder {
     func fileRelation(
         relationDetails: RelationDetails,
         filter: DataviewFilter
-    ) -> RelationValue? {
+    ) -> Relation? {
         guard filter.condition.hasValues else { return nil }
         
-        let fileOptions: [RelationValue.File.Option] = {
+        let fileOptions: [Relation.File.Option] = {
             let objectDetails: [ObjectDetails] = filter.value.listValue.values.compactMap {
                 return storage.get(id: $0.stringValue)
             }
 
-            let objectOptions: [RelationValue.File.Option] = objectDetails.map { objectDetail in
+            let objectOptions: [Relation.File.Option] = objectDetails.map { objectDetail in
                 let fileName: String = {
                     let name = objectDetail.name
                     let fileExt = objectDetail.fileExt
@@ -370,7 +370,7 @@ private extension RelationFilterBuilder {
                     return .imageAsset(BlockFileIconBuilder.convert(mime: fileMimeType, fileName: fileName))
                 }()
                 
-                return RelationValue.File.Option(
+                return Relation.File.Option(
                     id: objectDetail.id,
                     icon: icon,
                     title: fileName
@@ -381,7 +381,7 @@ private extension RelationFilterBuilder {
         }()
         
         return .file(
-            RelationValue.File(
+            Relation.File(
                 id: relationDetails.id,
                 key: relationDetails.key,
                 name: relationDetails.name,
@@ -396,10 +396,10 @@ private extension RelationFilterBuilder {
     func checkboxRelation(
         relationDetails: RelationDetails,
         filter: DataviewFilter
-    ) -> RelationValue? {
+    ) -> Relation? {
         guard filter.condition.hasValues else { return nil }
         return .checkbox(
-            RelationValue.Checkbox(
+            Relation.Checkbox(
                 id: relationDetails.id,
                 key: relationDetails.key,
                 name: relationDetails.name,

@@ -16,15 +16,15 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
     func buildViewModel(
         source: RelationSource,
         objectId: BlockId,
-        relationValue: RelationValue,
+        relation: Relation,
         onTap: @escaping (_ id: BlockId, _ viewType: EditorViewType) -> Void
     ) -> AnytypePopupViewModelProtocol? {
-        switch relationValue {
+        switch relation {
         case .text(let text):
             return TextRelationDetailsViewModel(
                 value: text.value ?? "",
                 type: .text,
-                relationValue: relationValue,
+                relation: relation,
                 service: TextRelationDetailsService(service: RelationsService(objectId: objectId)),
                 actionButtonViewModel: nil
             )
@@ -32,7 +32,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
             return TextRelationDetailsViewModel(
                 value: number.value ?? "",
                 type: .number,
-                relationValue: relationValue,
+                relation: relation,
                 service: TextRelationDetailsService(service: RelationsService(objectId: objectId)),
                 actionButtonViewModel: nil
             )
@@ -40,7 +40,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
             return TextRelationDetailsViewModel(
                 value: phone.value ?? "",
                 type: .phone,
-                relationValue: relationValue,
+                relation: relation,
                 service: TextRelationDetailsService(service: RelationsService(objectId: objectId)),
                 actionButtonViewModel: TextRelationActionButtonViewModel(type: .phone, delegate: delegate),
                 actionsViewModel: [
@@ -60,7 +60,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
             return TextRelationDetailsViewModel(
                 value: email.value ?? "",
                 type: .email,
-                relationValue: relationValue,
+                relation: relation,
                 service: TextRelationDetailsService(service: RelationsService(objectId: objectId)),
                 actionButtonViewModel: TextRelationActionButtonViewModel(type: .email, delegate: delegate),
                 actionsViewModel: [
@@ -90,7 +90,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                 ),
                 TextRelationReloadContentActionViewModel(
                     objectId: objectId,
-                    relationValue: relationValue,
+                    relation: relation,
                     bookmarkService: ServiceLocator.shared.bookmarkService(),
                     alertOpener: ServiceLocator.shared.alertOpener()
                 )
@@ -98,7 +98,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
             return TextRelationDetailsViewModel(
                 value: url.value ?? "",
                 type: .url,
-                relationValue: relationValue,
+                relation: relation,
                 service: TextRelationDetailsService(service: RelationsService(objectId: objectId)),
                 actionButtonViewModel: TextRelationActionButtonViewModel(type: .url, delegate: delegate),
                 actionsViewModel: actions.compactMap { $0 }
@@ -106,7 +106,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
         case .date(let value):
             return DateRelationDetailsViewModel(
                 value: value.value,
-                relationValue: relationValue,
+                relation: relation,
                 service: RelationsService(objectId: objectId)
             )
         case .status(let status):
@@ -114,7 +114,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
             return StatusRelationDetailsViewModel(
                 source: source,
                 selectedStatus: status.values.first,
-                relationValue: relationValue,
+                relation: relation,
                 service: RelationsService(objectId: objectId)
             )
         case .tag(let tag):
@@ -131,8 +131,8 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                     }
                 },
                 emptyOptionsPlaceholder: Constants.tagsOrFilesOptionsPlaceholder,
-                relationValue: relationValue,
-                searchModuleBuilder: TagsOptionsSearchModuleBuilder(relationKey: relationValue.key),
+                relation: relation,
+                searchModuleBuilder: TagsOptionsSearchModuleBuilder(relationKey: relation.key),
                 service: RelationsService(objectId: objectId)
             )
         case .object(let object):
@@ -150,7 +150,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                     }
                 },
                 emptyOptionsPlaceholder: Constants.objectsOptionsPlaceholder,
-                relationValue: relationValue,
+                relation: relation,
                 searchModuleBuilder: ObjectsOptionsSearchModuleBuilder(limitedObjectType: object.limitedObjectTypes),
                 service: RelationsService(objectId: objectId)
             )
@@ -169,7 +169,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                     }
                 },
                 emptyOptionsPlaceholder: Constants.tagsOrFilesOptionsPlaceholder,
-                relationValue: relationValue,
+                relation: relation,
                 searchModuleBuilder: FilesOptionsSearchModuleBuilder(),
                 service: RelationsService(objectId: objectId)
             )

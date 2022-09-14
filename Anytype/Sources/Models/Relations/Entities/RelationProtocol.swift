@@ -1,6 +1,6 @@
 import BlocksModels
 
-protocol RelationValueProtocol {
+protocol RelationProtocol {
     var id: String { get }
     var key: String { get }
     var name: String { get }

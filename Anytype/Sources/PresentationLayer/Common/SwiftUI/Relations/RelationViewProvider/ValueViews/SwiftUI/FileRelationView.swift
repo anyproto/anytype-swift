@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct FileRelationView: View {
-    let options: [RelationValue.File.Option]
+    let options: [Relation.File.Option]
     let hint: String
     let style: RelationStyle
     
@@ -26,7 +26,7 @@ struct FileRelationView: View {
         }
     }
     
-    private func objectView(option: RelationValue.File.Option) -> some View {
+    private func objectView(option: Relation.File.Option) -> some View {
         HStack(spacing: style.objectRelationStyle.hSpaсingObject) {
             SwiftUIObjectIconImageView(
                 iconImage: option.icon,
@@ -56,7 +56,7 @@ struct FileRelationView: View {
         .padding(.horizontal, 1)
     }
     
-    private func objectView(options: [RelationValue.File.Option]) -> some View {
+    private func objectView(options: [Relation.File.Option]) -> some View {
         ForEach(options) { option in
             objectView(option: option)
         }

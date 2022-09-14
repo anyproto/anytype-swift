@@ -2,9 +2,9 @@ import Foundation
 import BlocksModels
 import SwiftUI
 
-extension RelationValue {
+extension Relation {
     
-    struct Tag: RelationValueProtocol, Hashable, Identifiable {
+    struct Tag: RelationProtocol, Hashable, Identifiable {
         let id: String
         let key: String
         let name: String
@@ -21,7 +21,7 @@ extension RelationValue {
     
 }
 
-extension RelationValue.Tag {
+extension Relation.Tag {
     
     struct Option: Hashable, Identifiable {
         let id: String
@@ -33,7 +33,7 @@ extension RelationValue.Tag {
     
 }
 
-extension RelationValue.Tag.Option {
+extension Relation.Tag.Option {
     
     init(option: RelationOption) {
         self.id = option.id

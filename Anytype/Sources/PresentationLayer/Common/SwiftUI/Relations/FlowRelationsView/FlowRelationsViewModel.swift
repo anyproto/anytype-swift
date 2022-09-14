@@ -5,8 +5,8 @@ class FlowRelationsViewModel: ObservableObject {
     let showIcon: Bool
     let title: String?
     let description: String?
-    let relationValues: [RelationValue]
-    let onRelationTap: (RelationValue) -> Void
+    let relations: [Relation]
+    let onRelationTap: (Relation) -> Void
     let onIconTap: () -> Void
     
     init(
@@ -14,15 +14,15 @@ class FlowRelationsViewModel: ObservableObject {
         showIcon: Bool = true,
         title: String?,
         description: String?,
-        relationValues: [RelationValue],
+        relations: [Relation],
         onIconTap: @escaping () -> Void = {},
-        onRelationTap: @escaping (RelationValue) -> Void
+        onRelationTap: @escaping (Relation) -> Void
     ) {
         self.icon = icon
         self.showIcon = showIcon
         self.title = title
         self.description = description
-        self.relationValues = relationValues
+        self.relations = relations
         self.onIconTap = onIconTap
         self.onRelationTap = onRelationTap
     }

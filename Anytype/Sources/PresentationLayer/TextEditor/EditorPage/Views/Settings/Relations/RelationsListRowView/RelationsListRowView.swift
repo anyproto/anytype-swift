@@ -4,11 +4,11 @@ struct RelationsListRowView: View {
     
     @Binding var editingMode: Bool
     let starButtonAvailable: Bool
-    let relationValue: RelationValue
+    let relation: Relation
     
-    let onRemoveTap: (_ relationValue: RelationValue) -> ()
-    let onStarTap: (_ relationValue: RelationValue) -> ()
-    let onEditTap: (_ relationValue: RelationValue) -> ()
+    let onRemoveTap: (_ relation: Relation) -> ()
+    let onStarTap: (_ relation: Relation) -> ()
+    let onEditTap: (_ relation: Relation) -> ()
     
     @State private var size: CGSize = .zero
     
@@ -21,7 +21,7 @@ struct RelationsListRowView: View {
     private var row: some View {
         HStack(spacing: 8) {
             if editingMode {
-                if !relationValue.isBundled {
+                if !relation.isBundled {
                     removeButton
                 } else {
                     Spacer.fixedWidth(Constants.buttonWidth)
@@ -51,14 +51,14 @@ struct RelationsListRowView: View {
     
     private var name: some View {
         Menu {
-            AnytypeText(relationValue.name, style: .relation1Regular, color: .textSecondary)
+            AnytypeText(relation.name, style: .relation1Regular, color: .textSecondary)
         } label: {
             HStack(spacing: 6) {
-                if !relationValue.isEditable {
+                if !relation.isEditable {
                     Image(asset: .relationLocked)
                         .frame(width: 15, height: 12)
                 }
-                AnytypeText(relationValue.name, style: .relation1Regular, color: .textSecondary).lineLimit(1)
+                AnytypeText(relation.name, style: .relation1Regular, color: .textSecondary).lineLimit(1)
             }
             .frame(width: size.width * 0.4, alignment: .leading)
         }
@@ -66,7 +66,7 @@ struct RelationsListRowView: View {
     
     private var valueViewButton: some View {
         Button {
-            onEditTap(relationValue)
+            onEditTap(relation)
         } label: {
             valueView
         }
@@ -74,7 +74,7 @@ struct RelationsListRowView: View {
     
     private var valueView: some View {
         RelationValueView(
-            relation: RelationItemModel(relationValue: relationValue),
+            relation: RelationItemModel(relation: relation),
             style: .regular(allowMultiLine: false), action: nil
         )
     }
@@ -82,7 +82,7 @@ struct RelationsListRowView: View {
     private var removeButton: some View {
         withAnimation(.spring()) {
             Button {
-                onRemoveTap(relationValue)
+                onRemoveTap(relation)
             } label: {
                 Image(systemName: "minus.circle.fill")
                     .foregroundColor(.red)
@@ -92,9 +92,9 @@ struct RelationsListRowView: View {
     
     private var starImageView: some View {
         Button {
-            onStarTap(relationValue)
+            onStarTap(relation)
         } label: {
-            relationValue.isFeatured ?
+            relation.isFeatured ?
                 Image(asset: .relationRemoveFromFeatured) :
                 Image(asset: .relationAddToFeatured)
         }.frame(width: Constants.buttonWidth, height: Constants.buttonWidth)
@@ -115,8 +115,8 @@ struct ObjectRelationRow_Previews: PreviewProvider {
             RelationsListRowView(
                 editingMode: .constant(false),
                 starButtonAvailable: true,
-                relationValue: RelationValue.tag(
-                    RelationValue.Tag(
+                relation: Relation.tag(
+                    Relation.Tag(
                         id: "1",
                         key: "1",
                         name: "relation name",
@@ -124,28 +124,28 @@ struct ObjectRelationRow_Previews: PreviewProvider {
                         isEditable: true,
                         isBundled: false,
                         selectedTags: [
-                            RelationValue.Tag.Option(
+                            Relation.Tag.Option(
                                 id: "id1",
                                 text: "text1",
                                 textColor: UIColor.Text.teal,
                                 backgroundColor: UIColor.Background.teal,
                                 scope: .local
                             ),
-                            RelationValue.Tag.Option(
+                            Relation.Tag.Option(
                                 id: "id2",
                                 text: "text2",
                                 textColor: UIColor.Text.red,
                                 backgroundColor: UIColor.Background.teal,
                                 scope: .local
                             ),
-                            RelationValue.Tag.Option(
+                            Relation.Tag.Option(
                                 id: "id3",
                                 text: "text3",
                                 textColor: UIColor.Text.teal,
                                 backgroundColor: UIColor.Background.teal,
                                 scope: .local
                             ),
-                            RelationValue.Tag.Option(
+                            Relation.Tag.Option(
                                 id: "id4",
                                 text: "text4",
                                 textColor: UIColor.Text.red,
@@ -162,8 +162,8 @@ struct ObjectRelationRow_Previews: PreviewProvider {
             RelationsListRowView(
                 editingMode: .constant(false),
                 starButtonAvailable: true,
-                relationValue: RelationValue.text(
-                    RelationValue.Text(
+                relation: Relation.text(
+                    Relation.Text(
                         id: "1",
                         key: "1",
                         name: "Relation name",

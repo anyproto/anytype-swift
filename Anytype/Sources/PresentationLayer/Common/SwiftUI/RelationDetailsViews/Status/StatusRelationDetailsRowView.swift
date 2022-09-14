@@ -2,8 +2,8 @@ import SwiftUI
 
 struct StatusRelationDetailsRowView: View {
     
-    @Binding var selectedStatus: RelationValue.Status.Option?
-    let status: RelationValue.Status.Option
+    @Binding var selectedStatus: Relation.Status.Option?
+    let status: Relation.Status.Option
     
     var body: some View {
         VStack(alignment: .leading) {

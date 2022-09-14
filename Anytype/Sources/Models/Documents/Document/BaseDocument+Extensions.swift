@@ -3,14 +3,14 @@ import BlocksModels
 
 extension BaseDocumentProtocol {
     // without description and with type
-    var featuredRelationValuessForEditor: [RelationValue] {
+    var featuredRelationsForEditor: [Relation] {
         let type = details?.objectType ?? .fallbackType
         let objectRestriction = objectRestrictions.objectRestriction
         
-        var enhancedRelationValues = parsedRelations.featuredRelationValues
+        var enhancedRelations = parsedRelations.featuredRelations
         
-        let objectTypeRelationValue: RelationValue = .text(
-            RelationValue.Text(
+        let objectTypeRelationValue: Relation = .text(
+            Relation.Text(
                 id: BundledRelationKey.type.rawValue,
                 key: BundledRelationKey.type.rawValue,
                 name: "",
@@ -21,13 +21,13 @@ extension BaseDocumentProtocol {
             )
         )
 
-        enhancedRelationValues.insert(objectTypeRelationValue, at: 0)
+        enhancedRelations.insert(objectTypeRelationValue, at: 0)
 
-        enhancedRelationValues.removeAll { relation in
+        enhancedRelations.removeAll { relation in
             relation.key == BundledRelationKey.description.rawValue
         }
 
-        return enhancedRelationValues
+        return enhancedRelations
     }
     
 }

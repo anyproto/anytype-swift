@@ -7,7 +7,7 @@ protocol RelationValueModuleAssemblyProtocol: AnyObject {
     func make(
         objectId: BlockId,
         source: RelationSource,
-        relationValue: RelationValue,
+        relation: Relation,
         delegate: TextRelationActionButtonViewModelDelegate,
         output: RelationValueViewModelOutput
     ) -> UIViewController?

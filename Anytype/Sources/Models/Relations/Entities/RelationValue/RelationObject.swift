@@ -1,9 +1,9 @@
 import BlocksModels
 import SwiftUI
 
-extension RelationValue {
+extension Relation {
     
-    struct Object: RelationValueProtocol, Hashable, Identifiable {
+    struct Object: RelationProtocol, Hashable, Identifiable {
         let id: String
         let key: String
         let name: String
@@ -21,7 +21,7 @@ extension RelationValue {
     
 }
 
-extension RelationValue.Object {
+extension Relation.Object {
 
     struct Option: Hashable, Identifiable {
         let id: String

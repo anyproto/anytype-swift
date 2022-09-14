@@ -2,7 +2,7 @@ import SwiftUI
 
 struct RelationFilesRowView: View {
     
-    let file: RelationValue.File.Option
+    let file: Relation.File.Option
     let action: (() -> Void)
     
     var body: some View {
@@ -27,7 +27,7 @@ struct RelationFilesRowView: View {
 struct RelationFilesRowView_Previews: PreviewProvider {
     static var previews: some View {
         RelationFilesRowView(
-            file: RelationValue.File.Option(
+            file: Relation.File.Option(
                 id: "s",
                 icon: .todo(false),
                 title: "title"

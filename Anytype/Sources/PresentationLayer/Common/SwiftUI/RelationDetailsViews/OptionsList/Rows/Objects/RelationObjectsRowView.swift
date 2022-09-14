@@ -2,7 +2,7 @@ import SwiftUI
 
 struct RelationObjectsRowView: View {
     
-    let object: RelationValue.Object.Option
+    let object: Relation.Object.Option
     let action: (() -> Void)
     
     var body: some View {
@@ -72,7 +72,7 @@ struct RelationObjectsRowView: View {
 struct RelationObjectsRowView_Previews: PreviewProvider {
     static var previews: some View {
         RelationObjectsRowView(
-            object: RelationValue.Object.Option(
+            object: Relation.Object.Option(
                 id: "",
                 icon: .placeholder("r"),
                 title: "title",

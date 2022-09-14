@@ -51,7 +51,7 @@ struct SetTableViewRow: View {
     
     private var cells: some View {
         LazyHStack(spacing: 0) {
-            ForEach(configuration.relationValues) { colum in
+            ForEach(configuration.relations) { colum in
                 Spacer.fixedWidth(16)
                 cell(colum)
                 Rectangle()
@@ -62,14 +62,14 @@ struct SetTableViewRow: View {
         .frame(height: 18)
     }
     
-    private func cell(_ relationValue: RelationValue) -> some View {
-        RelationValueView(relation: RelationItemModel(relationValue: relationValue), style: .set) {
+    private func cell(_ relation: Relation) -> some View {
+        RelationValueView(relation: RelationItemModel(relation: relation), style: .set) {
             AnytypeAnalytics.instance().logChangeRelationValue(type: .set)
 
             model.showRelationValueEditingView(
                 objectId: configuration.id,
                 source: .dataview(contextId: model.document.objectId),
-                relationValue: relationValue
+                relation: relation
             )
         }
         .frame(width: 128)

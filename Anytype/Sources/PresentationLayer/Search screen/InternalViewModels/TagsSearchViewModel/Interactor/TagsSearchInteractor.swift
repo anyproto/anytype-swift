@@ -3,7 +3,7 @@ import BlocksModels
 
 final class TagsSearchInteractor {
     
-    private let allTags: [RelationValue.Tag.Option] = []
+    private let allTags: [Relation.Tag.Option] = []
     private let relationKey: String
     private let selectedTagIds: [String]
     private let isPreselectModeAvailable: Bool
@@ -23,17 +23,17 @@ final class TagsSearchInteractor {
 
 extension TagsSearchInteractor {
     
-    func search(text: String) -> Result<[RelationValue.Tag.Option], NewSearchError> {
+    func search(text: String) -> Result<[Relation.Tag.Option], NewSearchError> {
         let filteredTags = searchService.searchRelationOptions(
             text: text,
             relationKey: relationKey,
             excludedObjectIds: selectedTagIds)?
-            .map { RelationValue.Tag.Option(option: $0) } ?? []
+            .map { Relation.Tag.Option(option: $0) } ?? []
 
         return .success(filteredTags)
     }
     
-    func isCreateButtonAvailable(searchText: String, tags: [RelationValue.Tag.Option]) -> Bool {
+    func isCreateButtonAvailable(searchText: String, tags: [Relation.Tag.Option]) -> Bool {
         searchText.isNotEmpty && tags.isEmpty
     }
 }

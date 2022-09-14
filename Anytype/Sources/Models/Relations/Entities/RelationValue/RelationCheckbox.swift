@@ -1,8 +1,8 @@
 import BlocksModels
 
-extension RelationValue {
+extension Relation {
     
-    struct Date: RelationValueProtocol, Hashable, Identifiable {
+    struct Checkbox: RelationProtocol, Hashable, Identifiable {
         let id: String
         let key: String
         let name: String
@@ -10,10 +10,10 @@ extension RelationValue {
         let isEditable: Bool
         let isBundled: Bool
         
-        let value: DateRelationValue?
+        let value: Bool
         
         var hasValue: Bool {
-            value != nil
+            return true
         }
     }
     

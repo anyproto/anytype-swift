@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct ObjectRelationView: View {
-    let options: [RelationValue.Object.Option]
+    let options: [Relation.Object.Option]
     let hint: String
     let style: RelationStyle
     
@@ -27,7 +27,7 @@ struct ObjectRelationView: View {
         }
     }
     
-    private func objectView(option: RelationValue.Object.Option) -> some View {
+    private func objectView(option: Relation.Object.Option) -> some View {
         HStack(spacing: style.objectRelationStyle.hSpaсingObject) {
             
             if shouldShowIcon(icon: option.icon) {
@@ -60,13 +60,13 @@ struct ObjectRelationView: View {
         .padding(.horizontal, 1)
     }
     
-    private func objectView(options: [RelationValue.Object.Option]) -> some View {
+    private func objectView(options: [Relation.Object.Option]) -> some View {
         ForEach(options) { option in
             objectView(option: option)
         }
     }
     
-    private func titleColor(option: RelationValue.Object.Option) -> Color {
+    private func titleColor(option: Relation.Object.Option) -> Color {
         if option.isDeleted || option.isArchived {
             return .textTertiary
         } else {

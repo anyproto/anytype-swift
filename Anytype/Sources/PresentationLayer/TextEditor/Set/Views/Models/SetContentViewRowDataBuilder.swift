@@ -49,7 +49,7 @@ final class SetContentViewDataBuilder {
                 parsedRelations.first { $0.key == colum.key }
             }
             
-            let relationValues: [RelationValue] = colums.map { colum in
+            let relations: [Relation] = colums.map { colum in
                 let relation = sortedRelations.first { $0.key == colum.key }
                 guard let relation = relation else {
                     return .unknown(.empty(id: colum.id, key: colum.key, name: colum.name))
@@ -63,7 +63,7 @@ final class SetContentViewDataBuilder {
                 title: details.title,
                 description: details.description,
                 icon: details.objectIconImage,
-                relationValues: relationValues,
+                relations: relations,
                 showIcon: !activeView.hideIcon,
                 smallItemSize: activeView.cardSize == .small,
                 hasCover: activeView.coverRelationKey.isNotEmpty,

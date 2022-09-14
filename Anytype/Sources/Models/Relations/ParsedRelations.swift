@@ -3,21 +3,21 @@ import BlocksModels
 
 struct ParsedRelations {
 
-    let all: [RelationValue]
+    let all: [Relation]
     
-    let featuredRelationValues: [RelationValue]
-    let otherRelationValues: [RelationValue]
+    let featuredRelations: [Relation]
+    let otherRelations: [Relation]
     
-    init(featuredRelationValues: [RelationValue], otherRelationValues: [RelationValue]) {
-        self.all = featuredRelationValues + otherRelationValues
-        self.featuredRelationValues = featuredRelationValues
-        self.otherRelationValues = otherRelationValues
+    init(featuredRelations: [Relation], otherRelations: [Relation]) {
+        self.all = featuredRelations + otherRelations
+        self.featuredRelations = featuredRelations
+        self.otherRelations = otherRelations
     }
         
 }
 
 extension ParsedRelations {
     
-    static let empty = ParsedRelations(featuredRelationValues: [], otherRelationValues: [])
+    static let empty = ParsedRelations(featuredRelations: [], otherRelations: [])
     
 }

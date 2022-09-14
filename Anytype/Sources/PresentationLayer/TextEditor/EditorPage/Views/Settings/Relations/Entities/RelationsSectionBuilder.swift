@@ -17,23 +17,23 @@ final class RelationsSectionBuilder {
     // MARK: - Internal functions
 
     func buildSections(from parsedRelations: ParsedRelations) -> [RelationsSection] {
-        let featuredRelationValues = parsedRelations.featuredRelationValues
-        let otherRelationValues = parsedRelations.otherRelationValues
+        let featuredRelations = parsedRelations.featuredRelations
+        let otherRelations = parsedRelations.otherRelations
         
         var sections: [RelationsSection] = []
 
-        if featuredRelationValues.isNotEmpty {
+        if featuredRelations.isNotEmpty {
             sections.append(
                 RelationsSection(
                     id: Constants.featuredRelationsSectionId,
                     title: Loc.featuredRelations,
-                    relationValues: featuredRelationValues
+                    relations: featuredRelations
                 )
             )
         }
 
-        if otherRelationValues.isNotEmpty {
-            let otherRelationsSectionTitle = featuredRelationValues.isNotEmpty ?
+        if otherRelations.isNotEmpty {
+            let otherRelationsSectionTitle = featuredRelations.isNotEmpty ?
             Loc.otherRelations :
             Loc.inThisObject
 
@@ -41,7 +41,7 @@ final class RelationsSectionBuilder {
                 RelationsSection(
                     id: Constants.otherRelationsSectionId,
                     title: otherRelationsSectionTitle,
-                    relationValues: otherRelationValues
+                    relations: otherRelations
                 )
             )
         }

@@ -44,22 +44,22 @@ extension RelationsListViewModel {
         self.navigationBarButtonsDisabled = isObjectLocked
     }
     
-    func changeRelationFeaturedState(relationValue: RelationValue) {
-        if relationValue.isFeatured {
-            relationsService.removeFeaturedRelation(relationKey: relationValue.key)
+    func changeRelationFeaturedState(relation: Relation) {
+        if relation.isFeatured {
+            relationsService.removeFeaturedRelation(relationKey: relation.key)
         } else {
-            relationsService.addFeaturedRelation(relationKey: relationValue.key)
+            relationsService.addFeaturedRelation(relationKey: relation.key)
         }
         UISelectionFeedbackGenerator().selectionChanged()
     }
     
-    func handleTapOnRelation(relationValue: RelationValue) {
+    func handleTapOnRelation(relation: Relation) {
         AnytypeAnalytics.instance().logChangeRelationValue(type: .menu)
-        router.showRelationValueEditingView(key: relationValue.key, source: .object)
+        router.showRelationValueEditingView(key: relation.key, source: .object)
     }
     
-    func removeRelation(relationValue: RelationValue) {
-        relationsService.removeRelation(relationId: relationValue.id)
+    func removeRelation(relation: Relation) {
+        relationsService.removeRelation(relationId: relation.id)
     }
     
     func showAddNewRelationView() {

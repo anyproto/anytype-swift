@@ -201,7 +201,7 @@ final class BlockViewModelBuilder {
         case .featuredRelations:
             guard let objectType = document.details?.objectType else { return nil }
             
-            let featuredRelationValues = document.featuredRelationValuessForEditor
+            let featuredRelationValues = document.featuredRelationsForEditor
             return FeaturedRelationsBlockViewModel(
                 info: info,
                 featuredRelationValues: featuredRelationValues,
@@ -227,20 +227,20 @@ final class BlockViewModelBuilder {
                 }
             }
         case let .relation(content):
-            let relationValue = document.parsedRelations.all.first {
+            let relation = document.parsedRelations.all.first {
                 $0.key == content.key
             }
 
-            guard let relationValue = relationValue else {
+            guard let relation = relation else {
                 return nil
             }
 
             return RelationBlockViewModel(
                 info: info,
-                relationValue: relationValue
+                relation: relation
             ) { [weak self] in
                 AnytypeAnalytics.instance().logChangeRelationValue(type: .block)
-                self?.router.showRelationValueEditingView(key: relationValue.key, source: .object)
+                self?.router.showRelationValueEditingView(key: relation.key, source: .object)
             }
         case .tableOfContents:
             return TableOfContentsViewModel(

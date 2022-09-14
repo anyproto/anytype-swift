@@ -1,7 +1,7 @@
 import UIKit
 
 final class ObjectListRelationViewUIKit: UIView {
-    let options: [RelationValue.Object.Option]
+    let options: [Relation.Object.Option]
     let hint: String
     let style: RelationStyle
 
@@ -9,7 +9,7 @@ final class ObjectListRelationViewUIKit: UIView {
 
     // MARK: - Lifecycle
 
-    init(options: [RelationValue.Object.Option], hint: String, style: RelationStyle) {
+    init(options: [Relation.Object.Option], hint: String, style: RelationStyle) {
         self.options = options
         self.hint = hint
         self.style = style

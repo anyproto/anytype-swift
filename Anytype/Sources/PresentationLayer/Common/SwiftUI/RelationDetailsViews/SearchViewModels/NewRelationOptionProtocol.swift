@@ -7,5 +7,5 @@ protocol NewRelationOptionProtocol {
     
 }
 
-extension RelationValue.Status.Option: NewRelationOptionProtocol {}
-extension RelationValue.Tag.Option: NewRelationOptionProtocol {}
+extension Relation.Status.Option: NewRelationOptionProtocol {}
+extension Relation.Tag.Option: NewRelationOptionProtocol {}

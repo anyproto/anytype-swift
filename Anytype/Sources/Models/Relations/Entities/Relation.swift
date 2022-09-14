@@ -1,7 +1,7 @@
 import Foundation
 import BlocksModels
 
-enum RelationValue: Hashable, Identifiable {
+enum Relation: Hashable, Identifiable {
     case text(Text)
     case number(Text)
     case status(Status)
@@ -18,7 +18,7 @@ enum RelationValue: Hashable, Identifiable {
 
 // MARK: - RelationValueProtocol
 
-extension RelationValue: RelationValueProtocol {
+extension Relation: RelationProtocol {
     
     var id: String {
         switch self {

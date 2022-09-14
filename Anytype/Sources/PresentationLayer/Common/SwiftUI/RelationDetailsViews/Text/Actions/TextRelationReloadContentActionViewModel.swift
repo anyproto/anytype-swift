@@ -5,7 +5,7 @@ import BlocksModels
 final class TextRelationReloadContentActionViewModel: TextRelationActionViewModelProtocol {
     
     private let objectId: BlockId
-    private let relationValue: RelationValue
+    private let relation: Relation
     private let bookmarkService: BookmarkServiceProtocol
     private let alertOpener: AlertOpenerProtocol
     
@@ -15,16 +15,16 @@ final class TextRelationReloadContentActionViewModel: TextRelationActionViewMode
     
     init?(
         objectId: BlockId,
-        relationValue: RelationValue,
+        relation: Relation,
         bookmarkService: BookmarkServiceProtocol,
         alertOpener: AlertOpenerProtocol
     ) {
         guard let objectInfo = ObjectDetailsStorage.shared.get(id: objectId),
               objectInfo.objectType.id == ObjectTypeId.bundled(.bookmark).rawValue,
-              relationValue.isSource else { return nil }
+              relation.isSource else { return nil }
         
         self.objectId = objectId
-        self.relationValue = relationValue
+        self.relation = relation
         self.bookmarkService = bookmarkService
         self.alertOpener = alertOpener
     }

@@ -5,9 +5,9 @@ struct FeaturedRelationsBlockViewModel: BlockViewModelProtocol {
     let info: BlockInformation
 
     private let type: String
-    private let featuredRelationValues: [RelationValue]
+    private let featuredRelationValues: [Relation]
     private weak var blockDelegate: BlockDelegate?
-    private let onRelationValueTap: (RelationValue) -> Void
+    private let onRelationTap: (Relation) -> Void
     private let relationViewModels: [RelationItemModel]
     
     var hashable: AnyHashable {
@@ -19,16 +19,16 @@ struct FeaturedRelationsBlockViewModel: BlockViewModelProtocol {
     
     init(
         info: BlockInformation,
-        featuredRelationValues: [RelationValue],
+        featuredRelationValues: [Relation],
         type: String,
         blockDelegate: BlockDelegate,
-        onRelationValueTap: @escaping (RelationValue) -> Void
+        onRelationValueTap: @escaping (Relation) -> Void
     ) {
         self.info = info
         self.featuredRelationValues = featuredRelationValues
         self.type = type
         self.blockDelegate = blockDelegate
-        self.onRelationValueTap = onRelationValueTap
+        self.onRelationTap = onRelationValueTap
         self.relationViewModels = featuredRelationValues.map(RelationItemModel.init)
     }
     
@@ -40,7 +40,7 @@ struct FeaturedRelationsBlockViewModel: BlockViewModelProtocol {
             onRelationTap: { item in
                 featuredRelationValues
                     .first { $0.key == item.key }
-                    .map(onRelationValueTap)
+                    .map(onRelationTap)
             },
             heightDidChanged: { blockDelegate?.textBlockSetNeedsLayout() }
         ).cellBlockConfiguration(

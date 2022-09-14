@@ -1,8 +1,8 @@
 import BlocksModels
 
-extension RelationValue {
+extension Relation {
     
-    struct Text: RelationValueProtocol, Hashable, Identifiable {
+    struct Text: RelationProtocol, Hashable, Identifiable {
         let id: String
         let key: String
         let name: String

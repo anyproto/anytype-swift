@@ -23,23 +23,23 @@ final class DateRelationDetailsViewModel: ObservableObject {
     
     let values = DateRelationDetailsValue.allCases
     
-    private let relationValue: RelationValue
+    private let relation: Relation
     private let service: RelationsServiceProtocol
     
     init(
         value: DateRelationValue?,
-        relationValue: RelationValue,
+        relation: Relation,
         service: RelationsServiceProtocol
     ) {
         self.selectedValue = value?.dateRelationEditingValue ?? .noDate
         self.date = value?.date ?? Date()
         
-        self.relationValue = relationValue
+        self.relation = relation
         self.service = service
     }
     
     var title: String {
-        relationValue.name
+        relation.name
     }
     
 }
@@ -80,7 +80,7 @@ private extension DateRelationDetailsViewModel {
             }
         }()
         
-        service.updateRelation(relationKey: relationValue.key, value: value)
+        service.updateRelation(relationKey: relation.key, value: value)
     }
      
 }

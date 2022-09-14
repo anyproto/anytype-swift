@@ -5,10 +5,10 @@ final class ObjectRelationViewUIKit: UIView {
     private let iconView = ObjectIconImageView()
     private var titleLabel: AnytypeLabel!
 
-    private let option: RelationValue.Object.Option
+    private let option: Relation.Object.Option
     private let relationStyle: RelationStyle
     
-    init(options: RelationValue.Object.Option, relationStyle: RelationStyle) {
+    init(options: Relation.Object.Option, relationStyle: RelationStyle) {
         self.option = options
         self.relationStyle = relationStyle
 
@@ -74,7 +74,7 @@ private extension ObjectRelationViewUIKit {
 
 private extension ObjectRelationViewUIKit {
     
-    func titleColor(option: RelationValue.Object.Option) -> UIColor {
+    func titleColor(option: Relation.Object.Option) -> UIColor {
         if option.isDeleted || option.isArchived {
             return .textTertiary
         } else {

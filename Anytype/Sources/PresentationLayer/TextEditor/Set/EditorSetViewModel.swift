@@ -11,7 +11,7 @@ final class EditorSetViewModel: ObservableObject {
     @Published private(set) var headerModel: ObjectHeaderViewModel!
     @Published var loadingDocument = true
     @Published var pagitationData = EditorSetPaginationData.empty
-    @Published var featuredRelationValues = [RelationValue]()
+    @Published var featuredRelations = [Relation]()
     @Published var configurations = [SetContentViewItemConfiguration]()
 
     @Published var sorts: [SetSort] = []
@@ -98,7 +98,7 @@ final class EditorSetViewModel: ObservableObject {
         self.relationDetailsStorage = relationDetailsStorage
 
         self.titleString = document.details?.pageCellTitle ?? ""
-        self.featuredRelationValues = document.featuredRelationValuessForEditor
+        self.featuredRelations = document.featuredRelationsForEditor
     }
     
     func setup(router: EditorRouterProtocol) {
@@ -133,9 +133,9 @@ final class EditorSetViewModel: ObservableObject {
         subscriptionService.stopAllSubscriptions()
     }
 
-    func onRelationTap(relationValue: RelationValue) {
+    func onRelationTap(relation: Relation) {
         AnytypeAnalytics.instance().logChangeRelationValue(type: .set)
-        showRelationValueEditingView(key: relationValue.id, source: .object)
+        showRelationValueEditingView(key: relation.id, source: .object)
     }
 
     func updateActiveViewId(_ id: BlockId) {
@@ -232,7 +232,7 @@ final class EditorSetViewModel: ObservableObject {
         updateSorts()
         updateFilters()
         setupSubscriptions()
-        featuredRelationValues = document.featuredRelationValuessForEditor
+        featuredRelations = document.featuredRelationsForEditor
 
         isUpdating = false
     }
@@ -341,14 +341,14 @@ extension EditorSetViewModel {
     func showRelationValueEditingView(
         objectId: BlockId,
         source: RelationSource,
-        relationValue: RelationValue
+        relation: Relation
     ) {
         AnytypeAnalytics.instance().logChangeRelationValue(type: .set)
         
         router.showRelationValueEditingView(
             objectId: objectId,
             source: source,
-            relationValue: relationValue
+            relation: relation
         )
     }
     

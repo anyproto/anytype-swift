@@ -27,14 +27,14 @@ final class RelationValueCoordinator: RelationValueCoordinatorProtocol,
     func startFlow(
         objectId: BlockId,
         source: RelationSource,
-        relationValue: RelationValue,
+        relation: Relation,
         output: RelationValueCoordinatorOutput
     ) {
         self.output = output
         
-        guard relationValue.isEditable || (relationValue.hasDetails && FeatureFlags.relationDetails) else { return }
+        guard relation.isEditable || (relation.hasDetails && FeatureFlags.relationDetails) else { return }
         
-        if case .checkbox(let checkbox) = relationValue {
+        if case .checkbox(let checkbox) = relation {
             let relationsService = RelationsService(objectId: objectId)
             relationsService.updateRelation(relationKey: checkbox.key, value: (!checkbox.value).protobufValue)
             return
@@ -43,7 +43,7 @@ final class RelationValueCoordinator: RelationValueCoordinatorProtocol,
         guard let moduleViewController = relationValueModuleAssembly.make(
             objectId: objectId,
             source: source,
-            relationValue: relationValue,
+            relation: relation,
             delegate: self,
             output: self
         ) else { return }

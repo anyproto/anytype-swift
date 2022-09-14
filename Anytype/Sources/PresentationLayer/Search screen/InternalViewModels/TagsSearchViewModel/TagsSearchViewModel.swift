@@ -7,7 +7,7 @@ final class TagsSearchViewModel {
     let selectionMode: NewSearchViewModel.SelectionMode
     let viewStateSubject = PassthroughSubject<NewSearchViewState, Never> ()
     
-    private var tags: [RelationValue.Tag.Option] = []
+    private var tags: [Relation.Tag.Option] = []
     private var selectedTagIds: [String] = []
     
     private let interactor: TagsSearchInteractor
@@ -58,7 +58,7 @@ private extension TagsSearchViewModel {
         viewStateSubject.send(.resultsList(.sectioned(sectinos: sections)))
     }
     
-    func makeSections(tags: [RelationValue.Tag.Option], selectedTagIds: [String]) -> [ListSectionConfiguration] {
+    func makeSections(tags: [Relation.Tag.Option], selectedTagIds: [String]) -> [ListSectionConfiguration] {
         NewSearchSectionsBuilder.makeSections(tags) {
             $0.asRowConfigurations(with: selectedTagIds)
         }
@@ -66,7 +66,7 @@ private extension TagsSearchViewModel {
     
 }
 
-private extension Array where Element == RelationValue.Tag.Option {
+private extension Array where Element == Relation.Tag.Option {
     
     func asRowConfigurations(with selectedTagIds: [String]) -> [ListRowConfiguration] {
         map { tag in
@@ -85,7 +85,7 @@ private extension Array where Element == RelationValue.Tag.Option {
     
 }
 
-private extension RelationValue.Tag.Option {
+private extension Relation.Tag.Option {
     
     var asTagViewModel: TagView.Model {
         TagView.Model(text: text, textColor: textColor, backgroundColor: backgroundColor)
