@@ -4,7 +4,7 @@ enum RelationItemModel: Hashable {
     case text(Relation.Text)
     case number(Relation.Text)
     case status(Relation.Status)
-    case date(DateModel)
+    case date(Relation.Date)
     case object(Relation.Object)
     case checkbox(Relation.Checkbox)
     case url(Relation.Text)
@@ -23,15 +23,7 @@ enum RelationItemModel: Hashable {
         case .status(let status):
             self = .status(status)
         case .date(let date):
-            #warning("Delete model")
-            self = .date(
-                .init(
-                    key: date.key,
-                    name: date.name,
-                    textValue: date.value?.text,
-                    isEditable: relation.isEditable
-                )
-            )
+            self = .date(date)
         case .object(let object):
             self = .object(object)
         case .checkbox(let checkbox):
@@ -123,14 +115,5 @@ enum RelationItemModel: Hashable {
         case .file(let file): return file.key
         case .unknown(let unknown): return unknown.key
         }
-    }
-}
-
-extension RelationItemModel {
-    struct DateModel: Hashable {
-        let key: String
-        let name: String
-        let textValue: String?
-        let isEditable: Bool
     }
 }
