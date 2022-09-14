@@ -5,10 +5,10 @@ import UIKit
 
 final class RelationsBuilder {
     
-    private let scope: [Relation.Scope]
+    private let scope: [RelationDetails.Scope]
     private let storage: ObjectDetailsStorage
     
-    init(scope: [Relation.Scope] = [.object, .type], storage: ObjectDetailsStorage = ObjectDetailsStorage.shared) {
+    init(scope: [RelationDetails.Scope] = [.object, .type], storage: ObjectDetailsStorage = ObjectDetailsStorage.shared) {
         self.scope = scope
         self.storage = storage
     }
@@ -33,7 +33,7 @@ final class RelationsBuilder {
     // MARK: - Internal functions
     
     func parsedRelations(
-        relations: [Relation],
+        relationsDetails: [RelationDetails],
         objectId: BlockId,
         isObjectLocked: Bool
     ) -> ParsedRelations {
@@ -46,12 +46,12 @@ final class RelationsBuilder {
         var featuredRelationValues: [RelationValue] = []
         var otherRelationValues: [RelationValue] = []
         
-        relations.forEach { relation in
+        relationsDetails.forEach { relationDetails in
             #warning("Fix scope")
-            guard !relation.isHidden else { return } // , scope.contains(relationMetadata.scope) else { return }
+            guard !relationDetails.isHidden else { return } // , scope.contains(relationMetadata.scope) else { return }
             
             let value = relationValue(
-                relation: relation,
+                relationDetails: relationDetails,
                 details: objectDetails,
                 isObjectLocked: isObjectLocked
             )
@@ -73,92 +73,92 @@ final class RelationsBuilder {
 private extension RelationsBuilder {
     
     func relationValue(
-        relation: Relation,
+        relationDetails: RelationDetails,
         details: ObjectDetails,
         isObjectLocked: Bool
     ) -> RelationValue {
-        switch relation.format {
+        switch relationDetails.format {
         case .longText:
             return textRelation(
-                relation: relation,
+                relationDetails: relationDetails,
                 details: details,
                 isObjectLocked: isObjectLocked
             )
         case .shortText:
             return textRelation(
-                relation: relation,
+                relationDetails: relationDetails,
                 details: details,
                 isObjectLocked: isObjectLocked
             )
         case .number:
             return numberRelation(
-                relation: relation,
+                relationDetails: relationDetails,
                 details: details,
                 isObjectLocked: isObjectLocked
             )
         case .status:
             return statusRelation(
-                relation: relation,
+                relationDetails: relationDetails,
                 details: details,
                 isObjectLocked: isObjectLocked
             )
         case .date:
             return dateRelation(
-                relation: relation,
+                relationDetails: relationDetails,
                 details: details,
                 isObjectLocked: isObjectLocked
             )
         case .file:
             return fileRelation(
-                relation: relation,
+                relationDetails: relationDetails,
                 details: details,
                 isObjectLocked: isObjectLocked
             )
         case .checkbox:
             return checkboxRelation(
-                relation: relation,
+                relationDetails: relationDetails,
                 details: details,
                 isObjectLocked: isObjectLocked
             )
         case .url:
             return urlRelation(
-                relation: relation,
+                relationDetails: relationDetails,
                 details: details,
                 isObjectLocked: isObjectLocked
             )
         case .email:
             return emailRelation(
-                relation: relation,
+                relationDetails: relationDetails,
                 details: details,
                 isObjectLocked: isObjectLocked
             )
         case .phone:
             return phoneRelation(
-                relation: relation,
+                relationDetails: relationDetails,
                 details: details,
                 isObjectLocked: isObjectLocked
             )
         case .tag:
             return tagRelation(
-                relation: relation,
+                relationDetails: relationDetails,
                 details: details,
                 isObjectLocked: isObjectLocked
             )
         case .object:
             return objectRelation(
-                relation: relation,
+                relationDetails: relationDetails,
                 details: details,
                 isObjectLocked: isObjectLocked
             )
         case .unrecognized:
             return .text(
                 RelationValue.Text(
-                    id: relation.id,
-                    key: relation.key,
-                    name: relation.name,
-                    isFeatured: relation.isFeatured(details: details),
-                    isEditable: relation.isEditable(objectLocked: isObjectLocked),
-                    isBundled: relation.isBundled,
+                    id: relationDetails.id,
+                    key: relationDetails.key,
+                    name: relationDetails.name,
+                    isFeatured: relationDetails.isFeatured(details: details),
+                    isEditable: relationDetails.isEditable(objectLocked: isObjectLocked),
+                    isBundled: relationDetails.isBundled,
                     value: Loc.unsupportedValue
                 )
             )
@@ -166,109 +166,109 @@ private extension RelationsBuilder {
     }
     
     func textRelation(
-        relation: Relation,
+        relationDetails: RelationDetails,
         details: ObjectDetails,
         isObjectLocked: Bool
     ) -> RelationValue {
         .text(
             RelationValue.Text(
-                id: relation.id,
-                key: relation.key,
-                name: relation.name,
-                isFeatured: relation.isFeatured(details: details),
-                isEditable: relation.isEditable(objectLocked: isObjectLocked),
-                isBundled: relation.isBundled,
-                value: details.stringValue(for: relation.key)
+                id: relationDetails.id,
+                key: relationDetails.key,
+                name: relationDetails.name,
+                isFeatured: relationDetails.isFeatured(details: details),
+                isEditable: relationDetails.isEditable(objectLocked: isObjectLocked),
+                isBundled: relationDetails.isBundled,
+                value: details.stringValue(for: relationDetails.key)
             )
         )
     }
     
     func numberRelation(
-        relation: Relation,
+        relationDetails: RelationDetails,
         details: ObjectDetails,
         isObjectLocked: Bool
     ) -> RelationValue {
         let numberValue: String? = {
-            guard let number = details.doubleValue(for: relation.key) else { return nil }
+            guard let number = details.doubleValue(for: relationDetails.key) else { return nil }
             return numberFormatter.string(from: NSNumber(floatLiteral: number))
         }()
         
         return .number(
             RelationValue.Text(
-                id: relation.id,
-                key: relation.key,
-                name: relation.name,
-                isFeatured: relation.isFeatured(details: details),
-                isEditable: relation.isEditable(objectLocked: isObjectLocked),
-                isBundled: relation.isBundled,
+                id: relationDetails.id,
+                key: relationDetails.key,
+                name: relationDetails.name,
+                isFeatured: relationDetails.isFeatured(details: details),
+                isEditable: relationDetails.isEditable(objectLocked: isObjectLocked),
+                isBundled: relationDetails.isBundled,
                 value: numberValue
             )
         )
     }
     
     func phoneRelation(
-        relation: Relation,
+        relationDetails: RelationDetails,
         details: ObjectDetails,
         isObjectLocked: Bool
     ) -> RelationValue {
         .phone(
             RelationValue.Text(
-                id: relation.id,
-                key: relation.key,
-                name: relation.name,
-                isFeatured: relation.isFeatured(details: details),
-                isEditable: relation.isEditable(objectLocked: isObjectLocked),
-                isBundled: relation.isBundled,
-                value: details.stringValue(for: relation.key)
+                id: relationDetails.id,
+                key: relationDetails.key,
+                name: relationDetails.name,
+                isFeatured: relationDetails.isFeatured(details: details),
+                isEditable: relationDetails.isEditable(objectLocked: isObjectLocked),
+                isBundled: relationDetails.isBundled,
+                value: details.stringValue(for: relationDetails.key)
             )
         )
     }
     
     func emailRelation(
-        relation: Relation,
+        relationDetails: RelationDetails,
         details: ObjectDetails,
         isObjectLocked: Bool
     ) -> RelationValue {
         .email(
             RelationValue.Text(
-                id: relation.id,
-                key: relation.key,
-                name: relation.name,
-                isFeatured: relation.isFeatured(details: details),
-                isEditable: relation.isEditable(objectLocked: isObjectLocked),
-                isBundled: relation.isBundled,
-                value: details.stringValue(for: relation.key)
+                id: relationDetails.id,
+                key: relationDetails.key,
+                name: relationDetails.name,
+                isFeatured: relationDetails.isFeatured(details: details),
+                isEditable: relationDetails.isEditable(objectLocked: isObjectLocked),
+                isBundled: relationDetails.isBundled,
+                value: details.stringValue(for: relationDetails.key)
             )
         )
     }
     
     func urlRelation(
-        relation: Relation,
+        relationDetails: RelationDetails,
         details: ObjectDetails,
         isObjectLocked: Bool
     ) -> RelationValue {
         .url(
             RelationValue.Text(
-                id: relation.id,
-                key: relation.key,
-                name: relation.name,
-                isFeatured: relation.isFeatured(details: details),
-                isEditable: relation.isEditable(objectLocked: isObjectLocked),
-                isBundled: relation.isBundled,
-                value: details.stringValue(for: relation.key)
+                id: relationDetails.id,
+                key: relationDetails.key,
+                name: relationDetails.name,
+                isFeatured: relationDetails.isFeatured(details: details),
+                isEditable: relationDetails.isEditable(objectLocked: isObjectLocked),
+                isBundled: relationDetails.isBundled,
+                value: details.stringValue(for: relationDetails.key)
             )
         )
     }
     
     func statusRelation(
-        relation: Relation,
+        relationDetails: RelationDetails,
         details: ObjectDetails,
         isObjectLocked: Bool
     ) -> RelationValue {
         #warning("Fix options")
         
         let selectedOption: RelationValue.Status.Option? = {
-            let optionId = details.stringValue(for: relation.key)
+            let optionId = details.stringValue(for: relationDetails.key)
             
             guard optionId.isNotEmpty else { return nil }
             
@@ -282,67 +282,67 @@ private extension RelationsBuilder {
         }
         return .status(
             RelationValue.Status(
-                id: relation.id,
-                key: relation.key,
-                name: relation.name,
-                isFeatured: relation.isFeatured(details: details),
-                isEditable: relation.isEditable(objectLocked: isObjectLocked),
-                isBundled: relation.isBundled,
+                id: relationDetails.id,
+                key: relationDetails.key,
+                name: relationDetails.name,
+                isFeatured: relationDetails.isFeatured(details: details),
+                isEditable: relationDetails.isEditable(objectLocked: isObjectLocked),
+                isBundled: relationDetails.isBundled,
                 values: values
             )
         )
     }
     
     func dateRelation(
-        relation: Relation,
+        relationDetails: RelationDetails,
         details: ObjectDetails,
         isObjectLocked: Bool
     ) -> RelationValue {
         let value: DateRelationValue? = {
-            guard let date = details.dateValue(for: relation.key) else { return nil }
+            guard let date = details.dateValue(for: relationDetails.key) else { return nil }
             return DateRelationValue(date: date, text: dateFormatter.string(from: date))
         }()
         
         return .date(
             RelationValue.Date(
-                id: relation.id,
-                key: relation.key,
-                name: relation.name,
-                isFeatured: relation.isFeatured(details: details),
-                isEditable: relation.isEditable(objectLocked: isObjectLocked),
-                isBundled: relation.isBundled,
+                id: relationDetails.id,
+                key: relationDetails.key,
+                name: relationDetails.name,
+                isFeatured: relationDetails.isFeatured(details: details),
+                isEditable: relationDetails.isEditable(objectLocked: isObjectLocked),
+                isBundled: relationDetails.isBundled,
                 value: value
             )
         )
     }
     
     func checkboxRelation(
-        relation: Relation,
+        relationDetails: RelationDetails,
         details: ObjectDetails,
         isObjectLocked: Bool
     ) -> RelationValue {
         .checkbox(
             RelationValue.Checkbox(
-                id: relation.id,
-                key: relation.key,
-                name: relation.name,
-                isFeatured: relation.isFeatured(details: details),
-                isEditable: relation.isEditable(objectLocked: isObjectLocked),
-                isBundled: relation.isBundled,
-                value: details.boolValue(for: relation.key)
+                id: relationDetails.id,
+                key: relationDetails.key,
+                name: relationDetails.name,
+                isFeatured: relationDetails.isFeatured(details: details),
+                isEditable: relationDetails.isEditable(objectLocked: isObjectLocked),
+                isBundled: relationDetails.isBundled,
+                value: details.boolValue(for: relationDetails.key)
             )
         )
     }
     
     func tagRelation(
-        relation: Relation,
+        relationDetails: RelationDetails,
         details: ObjectDetails,
         isObjectLocked: Bool
     ) -> RelationValue {
         #warning("Check tags list")
         
         let selectedTags: [RelationValue.Tag.Option] = {
-            let selectedTagIds = details.stringArrayValue(for: relation.key)
+            let selectedTagIds = details.stringArrayValue(for: relationDetails.key)
             
             let tags = selectedTagIds
                 .compactMap { storage.get(id: $0) }
@@ -354,24 +354,24 @@ private extension RelationsBuilder {
         
         return .tag(
             RelationValue.Tag(
-                id: relation.id,
-                key: relation.key,
-                name: relation.name,
-                isFeatured: relation.isFeatured(details: details),
-                isEditable: relation.isEditable(objectLocked: isObjectLocked),
-                isBundled: relation.isBundled,
+                id: relationDetails.id,
+                key: relationDetails.key,
+                name: relationDetails.name,
+                isFeatured: relationDetails.isFeatured(details: details),
+                isEditable: relationDetails.isEditable(objectLocked: isObjectLocked),
+                isBundled: relationDetails.isBundled,
                 selectedTags: selectedTags
             )
         )
     }
     
     func objectRelation(
-        relation: Relation,
+        relationDetails: RelationDetails,
         details: ObjectDetails,
         isObjectLocked: Bool
     ) -> RelationValue {
         let objectOptions: [RelationValue.Object.Option] = {
-            let values = details.stringArrayValue(for: relation.key)
+            let values = details.stringArrayValue(for: relationDetails.key)
             
             let objectDetails: [ObjectDetails] = values.compactMap {
                 return storage.get(id: $0)
@@ -403,25 +403,25 @@ private extension RelationsBuilder {
         
         return .object(
             RelationValue.Object(
-                id: relation.id,
-                key: relation.key,
-                name: relation.name,
-                isFeatured: relation.isFeatured(details: details),
-                isEditable: relation.isEditable(objectLocked: isObjectLocked),
-                isBundled: relation.isBundled,
+                id: relationDetails.id,
+                key: relationDetails.key,
+                name: relationDetails.name,
+                isFeatured: relationDetails.isFeatured(details: details),
+                isEditable: relationDetails.isEditable(objectLocked: isObjectLocked),
+                isBundled: relationDetails.isBundled,
                 selectedObjects: objectOptions,
-                limitedObjectTypes: relation.objectTypes
+                limitedObjectTypes: relationDetails.objectTypes
             )
         )
     }
     
     func fileRelation(
-        relation: Relation,
+        relationDetails: RelationDetails,
         details: ObjectDetails,
         isObjectLocked: Bool
     ) -> RelationValue {
         let fileOptions: [RelationValue.File.Option] = {
-            let values = details.stringArrayValue(for: relation.key)
+            let values = details.stringArrayValue(for: relationDetails.key)
             
             let objectDetails: [ObjectDetails] = values.compactMap {
                 return storage.get(id: $0)
@@ -465,12 +465,12 @@ private extension RelationsBuilder {
         
         return .file(
             RelationValue.File(
-                id: relation.id,
-                key: relation.key,
-                name: relation.name,
-                isFeatured: relation.isFeatured(details: details),
-                isEditable: relation.isEditable(objectLocked: isObjectLocked),
-                isBundled: relation.isBundled,
+                id: relationDetails.id,
+                key: relationDetails.key,
+                name: relationDetails.name,
+                isFeatured: relationDetails.isFeatured(details: details),
+                isEditable: relationDetails.isEditable(objectLocked: isObjectLocked),
+                isBundled: relationDetails.isBundled,
                 files: fileOptions
             )
         )
@@ -513,7 +513,7 @@ extension RelationFormat {
     
 }
 
-private extension Relation {
+private extension RelationDetails {
     
     func isFeatured(details: ObjectDetails) -> Bool {
         details.featuredRelations.contains(key)

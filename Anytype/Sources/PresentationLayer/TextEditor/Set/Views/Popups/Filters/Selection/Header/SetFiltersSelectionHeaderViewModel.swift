@@ -27,9 +27,9 @@ final class SetFiltersSelectionHeaderViewModel: ObservableObject {
     private static func headerConfiguration(with filter: SetFilter) -> SetFiltersSelectionHeaderConfiguration {
         SetFiltersSelectionHeaderConfiguration(
             id: filter.id,
-            title: filter.relation.name,
+            title: filter.relationDetails.name,
             condition: filter.conditionString ?? "",
-            iconAsset: filter.relation.format.iconAsset
+            iconAsset: filter.relationDetails.format.iconAsset
         )
     }
     

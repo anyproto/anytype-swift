@@ -41,12 +41,10 @@ final class EventsListener: EventsListenerProtocol {
         self.middlewareConverter = MiddlewareEventConverter(
             infoContainer: infoContainer,
             relationLinksStorage: relationLinksStorage,
-//            relationStorage: relationStorage,
             informationCreator: informationCreator,
             restrictionsContainer: restrictionsContainer
         )
         self.localConverter = LocalEventConverter(
-//            relationStorage: relationStorage,
             relationLinksStorage: relationLinksStorage,
             restrictionsContainer: restrictionsContainer,
             infoContainer: infoContainer

@@ -32,8 +32,8 @@ extension SetFiltersListViewModel {
     // MARK: - Actions
     
     func addButtonTapped() {
-        router.showRelationSearch(relations: setModel.relations) { [weak self] relation in
-            guard let filter = self?.makeSetFilter(with: relation) else {
+        router.showRelationSearch(relationsDetails: setModel.relationsDetails) { [weak self] relationDetails in
+            guard let filter = self?.makeSetFilter(with: relationDetails) else {
                 return
             }
             self?.showFilterSearch(with: filter)
@@ -57,14 +57,14 @@ extension SetFiltersListViewModel {
     private func updateRows(with filters: [SetFilter]) {
         rows = filters.enumerated().map { index, filter in
             SetFilterRowConfiguration(
-                id: "\(filter.relation.id)_\(index)",
-                title: filter.relation.name,
+                id: "\(filter.relationDetails.id)_\(index)",
+                title: filter.relationDetails.name,
                 subtitle: filter.conditionString,
-                iconAsset: filter.relation.format.iconAsset,
+                iconAsset: filter.relationDetails.format.iconAsset,
                 type: type(for: filter),
                 hasValues: filter.filter.condition.hasValues,
                 onTap: { [weak self] in
-                    self?.rowTapped(filter.relation.id, index: index)
+                    self?.rowTapped(filter.relationDetails.id, index: index)
                 }
             )
         }
@@ -87,12 +87,12 @@ extension SetFiltersListViewModel {
         dataviewService.updateView(newView)
     }
     
-    private func makeSetFilter(with relation: Relation) -> SetFilter? {
+    private func makeSetFilter(with relationDetails: RelationDetails) -> SetFilter? {
         return SetFilter(
-            relation: relation,
+            relationDetails: relationDetails,
             filter: DataviewFilter(
-                relationKey: relation.key,
-                condition: SetFilter.defaultCondition(for: relation),
+                relationKey: relationDetails.key,
+                condition: SetFilter.defaultCondition(for: relationDetails),
                 value: [String]().protobufValue
             )
         )
@@ -112,7 +112,7 @@ extension SetFiltersListViewModel {
     }
     
     private func type(for filter: SetFilter) -> SetFilterRowType {
-        switch filter.relation.format {
+        switch filter.relationDetails.format {
         case .date:
             return .date(
                 relationFilterBuilder.dateString(
@@ -122,7 +122,7 @@ extension SetFiltersListViewModel {
         default:
             return .relation(
                 relationFilterBuilder.relation(
-                    relation: filter.relation,
+                    relationDetails: filter.relationDetails,
                     filter: filter.filter
                 )
             )

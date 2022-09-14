@@ -62,7 +62,7 @@ final class SetFiltersContentViewBuilder {
         return NewSearchModuleAssembly.tagsSearchModule(
             style: .embedded,
             selectionMode: .multipleItems(preselectedIds: selectedTagIds),
-            relationKey: filter.relation.key,
+            relationKey: filter.relationDetails.key,
             selectedTagIds: [],
             onSelect: onSelect,
             onCreate: { _ in }
@@ -87,7 +87,7 @@ final class SetFiltersContentViewBuilder {
             style: .embedded,
             selectionMode: .multipleItems(preselectedIds: selectedObjectsIds),
             excludedObjectIds: [],
-            limitedObjectType: filter.relation.objectTypes,
+            limitedObjectType: filter.relationDetails.objectTypes,
             onSelect: onSelect
         )
     }
@@ -102,7 +102,7 @@ final class SetFiltersContentViewBuilder {
         return NewSearchModuleAssembly.statusSearchModule(
             style: .embedded,
             selectionMode: .multipleItems(preselectedIds: selectedStatusesIds),
-            relationKey: filter.relation.key,
+            relationKey: filter.relationDetails.key,
             selectedStatusesIds: [],
             onSelect: onSelect,
             onCreate: { _ in }

@@ -184,10 +184,10 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
     
     static func setSortsSearchModule(
         style: NewSearchView.Style = .default,
-        relations: [Relation],
-        onSelect: @escaping (_ relation: Relation) -> Void
+        relationsDetails: [RelationDetails],
+        onSelect: @escaping (_ relation: RelationDetails) -> Void
     ) -> NewSearchView {
-        let interactor = SetSortsSearchInteractor(relations: relations)
+        let interactor = SetSortsSearchInteractor(relationsDetails: relationsDetails)
         
         let internalViewModel = SetSortsSearchViewModel(interactor: interactor)
         
@@ -198,7 +198,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
             internalViewModel: internalViewModel,
             onSelect: { ids in
                 guard let id = ids.first,
-                      let relation = relations.first(where: { $0.id == id }) else { return }
+                      let relation = relationsDetails.first(where: { $0.id == id }) else { return }
                 onSelect(relation)
             }
         )

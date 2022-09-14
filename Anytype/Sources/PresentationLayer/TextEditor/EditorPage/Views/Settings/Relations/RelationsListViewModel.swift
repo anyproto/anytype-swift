@@ -45,11 +45,6 @@ extension RelationsListViewModel {
     }
     
     func changeRelationFeaturedState(relationValue: RelationValue) {
-//        let relationsRowData: [Relation] = sections.flatMap { $0.relations }
-//        let relationRowData = relationsRowData.first { $0.key == relationKey }
-//
-//        guard let relationRowData = relationRowData else { return }
-        
         if relationValue.isFeatured {
             relationsService.removeFeaturedRelation(relationKey: relationValue.key)
         } else {

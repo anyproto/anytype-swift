@@ -46,9 +46,9 @@ final class DataviewService: DataviewServiceProtocol {
             .send()
     }
 
-    func addRelation(_ relation: Relation) -> Bool {
+    func addRelation(_ relationDetails: RelationDetails) -> Bool {
         let events = Anytype_Rpc.BlockDataview.Relation.Add.Service
-            .invoke(contextID: objectId, blockID: SetConstants.dataviewBlockId, relationIds: [relation.id])
+            .invoke(contextID: objectId, blockID: SetConstants.dataviewBlockId, relationIds: [relationDetails.id])
             .map { EventsBunch(event: $0.event) }
             .getValue(domain: .dataviewService)
         

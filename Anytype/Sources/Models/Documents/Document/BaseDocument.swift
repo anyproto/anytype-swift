@@ -29,11 +29,11 @@ final class BaseDocument: BaseDocumentProtocol {
     private let updateSubject = PassthroughSubject<DocumentUpdate, Never>()
     private let relationBuilder = RelationsBuilder()
     private let detailsStorage = ObjectDetailsStorage.shared
-    private let relationStorage = ServiceLocator.shared.relationStorage()
+    private let relationDetailsStorage = ServiceLocator.shared.relationDetailsStorage()
 
     var parsedRelations: ParsedRelations {
         relationBuilder.parsedRelations(
-            relations: relationStorage.relations(for: relationLinksStorage.relationLinks),
+            relationsDetails: relationDetailsStorage.relationsDetails(for: relationLinksStorage.relationLinks),
             objectId: objectId,
             isObjectLocked: isLocked
         )
@@ -46,7 +46,6 @@ final class BaseDocument: BaseDocumentProtocol {
             objectId: objectId,
             infoContainer: infoContainer,
             relationLinksStorage: relationLinksStorage,
-//            relationStorage: relationsStorage,
             restrictionsContainer: restrictionsContainer
         )
         

@@ -15,7 +15,7 @@ final class SetFilterConditionsViewModel: CheckPopupViewViewModelProtocol {
         filter: SetFilter,
         onSelect: @escaping (DataviewFilter.Condition) -> Void
     ) {
-        self.title = filter.relation.name
+        self.title = filter.relationDetails.name
         self.filter = filter
         self.selectedCondition = filter.filter.condition
         self.onSelect = onSelect

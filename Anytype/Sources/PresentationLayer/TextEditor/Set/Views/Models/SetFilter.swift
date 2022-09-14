@@ -3,17 +3,17 @@ import SwiftProtobuf
 import OrderedCollections
 
 struct SetFilter: Identifiable, Equatable, Hashable {
-    let relation: Relation
+    let relationDetails: RelationDetails
     let filter: DataviewFilter
     
-    var id: String { relation.id }
+    var id: String { relationDetails.id }
     
     var conditionString: String? {
         conditionType.data[filter.condition]
     }
     
-    static func defaultCondition(for relation: Relation) -> DataviewFilter.Condition {
-        let conditionType =  Self.conditionType(for: relation)
+    static func defaultCondition(for relationDetails: RelationDetails) -> DataviewFilter.Condition {
+        let conditionType =  Self.conditionType(for: relationDetails)
         switch conditionType {
         case .text, .number, .checkbox, .date:
             return .equal
@@ -23,17 +23,17 @@ struct SetFilter: Identifiable, Equatable, Hashable {
     }
     
     var conditionType: Condition {
-        Self.conditionType(for: relation)
+        Self.conditionType(for: relationDetails)
     }
     
-    static func conditionType(for relation: Relation) -> Condition {
-        switch relation.format {
+    static func conditionType(for relationDetails: RelationDetails) -> Condition {
+        switch relationDetails.format {
         case .shortText, .longText, .url, .email, .file, .unrecognized, .phone:
             return .text
         case .number:
             return .number
         case .tag, .status, .object:
-            return .selected(relation.format)
+            return .selected(relationDetails.format)
         case .checkbox:
             return .checkbox
         case .date:
@@ -117,11 +117,11 @@ struct SetFilter: Identifiable, Equatable, Hashable {
 
 extension SetFilter {
     func updated(
-        relation: Relation? = nil,
+        relationDetails: RelationDetails? = nil,
         filter: DataviewFilter? = nil
     ) -> SetFilter {
         SetFilter(
-            relation: relation ?? self.relation,
+            relationDetails: relationDetails ?? self.relationDetails,
             filter: filter ?? self.filter
         )
     }

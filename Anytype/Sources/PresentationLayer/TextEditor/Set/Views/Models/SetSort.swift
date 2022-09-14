@@ -1,10 +1,10 @@
 import BlocksModels
 
 struct SetSort: Identifiable, Equatable, Hashable {
-    let relation: Relation
+    let relationDetails: RelationDetails
     let sort: DataviewSort
     
-    var id: String { relation.id }
+    var id: String { relationDetails.id }
     
     func typeTitle() -> String {
         typeTitle(for: sort.type)

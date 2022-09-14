@@ -62,7 +62,7 @@ struct SearchNewRelationView: View {
                                         AnytypeAnalytics.instance().logSearchResult(index: index + 1, length: searchText.count)
                                     }
                                 ) {
-                                    NewRelationCell(cellKind: .relation(realtionMetadata: relation))
+                                    NewRelationCell(cellKind: .relation(realtionDetails: relation))
                                         .padding([.leading, .trailing], 20)
                                 }
                                 .frame(maxWidth: .infinity)

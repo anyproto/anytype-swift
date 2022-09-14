@@ -48,7 +48,7 @@ extension NewRelationViewModel {
     }
     
     func didTapAddButton() {
-        let relation = Relation(
+        let relationDetails = RelationDetails(
             id: "",
             key: "",
             name: name,
@@ -59,9 +59,9 @@ extension NewRelationViewModel {
             objectTypes: objectTypeIds
         )
         
-        guard service.createRelation(relation: relation) else { return }
+        guard service.createRelation(relationDetails: relationDetails) else { return }
         UINotificationFeedbackGenerator().notificationOccurred(.success)
-        output?.didCreateRelation(relation)
+        output?.didCreateRelation(relationDetails)
     }
     
 }

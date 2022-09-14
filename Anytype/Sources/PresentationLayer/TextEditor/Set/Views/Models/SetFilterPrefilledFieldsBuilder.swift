@@ -15,7 +15,7 @@ final class SetFilterPrefilledFieldsBuilder: SetFilterPrefilledFieldsBuilderProt
         for setFilter in setFilters {
             if !prefilledConditions.contains(setFilter.filter.condition) ||
                 !setFilter.filter.hasValue ||
-                setFilter.relation.isReadOnlyValue {
+                setFilter.relationDetails.isReadOnlyValue {
                 continue
             }
             prefilledFields[setFilter.filter.relationKey] = setFilter.filter.value

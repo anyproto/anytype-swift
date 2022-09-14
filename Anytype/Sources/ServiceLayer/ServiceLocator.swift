@@ -80,9 +80,9 @@ final class ServiceLocator {
     }
     
     // Sigletone
-    private lazy var _relationStorage = RelationStorage()
-    func relationStorage() -> RelationStorageProtocol {
-        return _relationStorage
+    private lazy var _relationDetailsStorage = RelationDetailsStorage()
+    func relationDetailsStorage() -> RelationDetailsStorageProtocol {
+        return _relationDetailsStorage
     }
     
     // MARK: - Private

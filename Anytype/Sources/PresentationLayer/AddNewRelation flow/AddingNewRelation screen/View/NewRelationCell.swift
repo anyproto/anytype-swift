@@ -30,14 +30,14 @@ struct NewRelationCell: View {
 extension NewRelationCell {
     enum CellKind {
         case createNew(searchText: String)
-        case relation(realtionMetadata: Relation)
+        case relation(realtionDetails: RelationDetails)
 
         var icon: Image {
             switch self {
             case .createNew:
                 return Image(asset: .relationNew)
-            case .relation(let realtionMetadata):
-                return Image(asset: realtionMetadata.format.iconAsset)
+            case .relation(let realtionDetails):
+                return Image(asset: realtionDetails.format.iconAsset)
             }
         }
 
@@ -48,8 +48,8 @@ extension NewRelationCell {
                     return Loc.createFromScratch
                 }
                 return Loc.createRelation(searchText)
-            case let .relation(realtionMetadata):
-                return realtionMetadata.name
+            case let .relation(realtionDetails):
+                return realtionDetails.name
             }
         }
     }

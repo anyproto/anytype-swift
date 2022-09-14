@@ -1,27 +1,28 @@
 import Foundation
 import BlocksModels
 
-// TODO what?
-extension Relation: IdProvider {}
 
-final class RelationStorage: RelationStorageProtocol {
+#warning("what?")
+extension RelationDetails: IdProvider {}
+
+final class RelationDetailsStorage: RelationDetailsStorageProtocol {
     
     private let subscriptionsService: SubscriptionsServiceProtocol = ServiceLocator.shared.subscriptionService()
-    private var details = [Relation]()
+    private var details = [RelationDetails]()
     private var localSubscriptions = [String: [RelationLink]]()
     
     init() {
         self.startSubscription()
     }
     
-    // MARK: - RelationStorageProtocol
+    // MARK: - RelationDetailsStorageProtocol
     
-    func relations(for links: [RelationLink]) -> [Relation] {
+    func relationsDetails(for links: [RelationLink]) -> [RelationDetails] {
         let ids = links.map { $0.id }
         return details.filter { ids.contains($0.id) }
     }
     
-    func relations() -> [Relation] {
+    func relationsDetails() -> [RelationDetails] {
         return details
     }
     
@@ -34,7 +35,7 @@ final class RelationStorage: RelationStorageProtocol {
     }
     
     private func handleEvent(update: SubscriptionUpdate) {
-        details.applySubscriptionUpdate(update, transform: { Relation(objectDetails: $0) })
+        details.applySubscriptionUpdate(update, transform: { RelationDetails(objectDetails: $0) })
         
         switch update {
         case .initialData(let details):
