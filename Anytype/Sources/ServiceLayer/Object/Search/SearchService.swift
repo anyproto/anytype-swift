@@ -21,10 +21,8 @@ protocol SearchServiceProtocol: AnyObject {
 
 final class SearchService: ObservableObject, SearchServiceProtocol {
     
-    private let searchCommonService: SearchCommonServiceProtocol
-    
-    init(searchCommonService: SearchCommonServiceProtocol) {
-        self.searchCommonService = searchCommonService
+    private enum Constants {
+        static let defaultLimit = 100
     }
     
     // MARK: - SearchServiceProtocol
@@ -40,7 +38,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             typeIds: ObjectTypeProvider.shared.supportedTypeIds
         )
         
-        return searchCommonService.search(filters: filters, sorts: [sort], fullText: text)
+        return search(filters: filters, sorts: [sort], fullText: text, limit: Constants.defaultLimit)
     }
     
     func searchObjectTypes(
@@ -65,7 +63,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         }
         filteringTypeId.map { filters.append(SearchHelper.excludedIdFilter($0)) }
 
-        let result = searchCommonService.search(filters: filters, sorts: [sort], fullText: text, limit: 0)
+        let result = search(filters: filters, sorts: [sort], fullText: text)
         return result?.reordered(
             by: [
                 ObjectTypeId.bundled(.page).rawValue,
@@ -89,7 +87,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             SearchHelper.excludedIdsFilter(excludedFileIds)
         ]
         
-        return searchCommonService.search(filters: filters, sorts: [sort], fullText: text)
+        return search(filters: filters, sorts: [sort], fullText: text, limit: Constants.defaultLimit)
     }
     
     func searchObjects(text: String, excludedObjectIds: [String], limitedTypeIds: [String]) -> [ObjectDetails]? {
@@ -102,11 +100,11 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         var filters = buildFilters(isArchived: false, typeIds: typeIds)
         filters.append(SearchHelper.excludedIdsFilter(excludedObjectIds))
         
-        return searchCommonService.search(filters: filters, sorts: [sort], fullText: text)
+        return search(filters: filters, sorts: [sort], fullText: text)
     }
 
     func searchTemplates(for type: ObjectTypeId) -> [ObjectDetails]? {
-        return searchCommonService.search(filters: SearchHelper.templatesFilters(type: type))
+        return search(filters: SearchHelper.templatesFilters(type: type))
     }
 	
     func searchObjects(
@@ -127,7 +125,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         filters.append(SearchHelper.excludedTypeFilter(excludedTypeIds))
         filters.append(SearchHelper.excludedIdsFilter(excludedObjectIds))
         
-        return searchCommonService.search(filters: filters, sorts: [sort], fullText: text)
+        return search(filters: filters, sorts: [sort], fullText: text, limit: Constants.defaultLimit)
     }
 
     func searchRelationOptions(text: String, relationKey: String, excludedObjectIds: [String]) -> [RelationOption]? {
@@ -144,7 +142,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         filters.append(SearchHelper.excludedIdsFilter(excludedObjectIds))
         filters.append(SearchHelper.relationOptionText(text))
 
-        let details = searchCommonService.search(filters: filters, sorts: [sort], fullText: "")
+        let details = search(filters: filters, sorts: [sort], fullText: "", limit: 0)
         return details?.map { RelationOption(details: $0) }
     }
 
@@ -155,12 +153,41 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         )
         filters.append(SearchHelper.supportedIdsFilter(optionIds))
 
-        let details = searchCommonService.search(filters: filters, sorts: [], fullText: "")
+        let details = search(filters: filters, sorts: [], fullText: "")
         return details?.map { RelationOption(details: $0) }
     }
 }
 
 private extension SearchService {
+    
+    func search(
+        filters: [DataviewFilter] = [],
+        sorts: [DataviewSort] = [],
+        fullText: String = "",
+        limit: Int = 0
+    ) -> [ObjectDetails]? {
+        
+        guard let response = Anytype_Rpc.Object.Search.Service.invoke(
+            filters: filters,
+            sorts: sorts,
+            fullText: fullText,
+            offset: 0,
+            limit: Int32(limit),
+            objectTypeFilter: [],
+            keys: []
+        ).getValue(domain: .searchService) else { return nil }
+            
+        let details: [ObjectDetails] = response.records.compactMap { search in
+            let idValue = search.fields["id"]
+            let idString = idValue?.unwrapedListValue.stringValue
+            
+            guard let id = idString else { return nil }
+            
+            return ObjectDetails(id: id, values: search.fields)
+        }
+            
+        return details
+    }
 
     func buildFilters(isArchived: Bool, typeIds: [String]) -> [DataviewFilter] {
         [

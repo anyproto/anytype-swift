@@ -49,7 +49,7 @@ final class ServiceLocator {
     }
     
     func searchService() -> SearchServiceProtocol {
-        SearchService(searchCommonService: searchCommonService())
+        SearchService()
     }
     
     func detailsService(objectId: BlockId) -> DetailsServiceProtocol {
@@ -82,10 +82,6 @@ final class ServiceLocator {
     }
     
     // MARK: - Private
-    
-    func searchCommonService() -> SearchCommonServiceProtocol {
-        SearchCommonService()
-    }
     
     private func subscriptionToggler() -> SubscriptionTogglerProtocol {
         SubscriptionToggler()
