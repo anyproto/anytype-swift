@@ -7,7 +7,7 @@ enum RelationSource {
     case dataview(contextId: BlockId)
 }
 
-protocol RelationsServiceProtocol {
+protocol RelationsServiceProtocol: AnyObject {
     func addFeaturedRelation(relationKey: String)
     func removeFeaturedRelation(relationKey: String)
     

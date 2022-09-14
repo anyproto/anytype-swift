@@ -1,8 +1,6 @@
 import Foundation
 import BlocksModels
 
-
-#warning("what?")
 extension RelationDetails: IdProvider {}
 
 final class RelationDetailsStorage: RelationDetailsStorageProtocol {

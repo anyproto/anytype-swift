@@ -26,6 +26,8 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
             return startSetSubscription(data: data)
         case .relation:
             return startRelationSubscription()
+        case .objectType:
+            return startObjectTypeSubscription()
         }
     }
     
@@ -145,6 +147,29 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
         ]
         
         return makeRequest(subId: .relation, filters: filters, sorts: [sort], keys: keys)
+    }
+    
+    private func startObjectTypeSubscription() -> SubscriptionTogglerResult? {
+        let sort = SearchHelper.sort(
+            relation: BundledRelationKey.name,
+            type: .asc
+        )
+        let filters = [
+            SearchHelper.typeFilter(typeIds: [ObjectTypeId.bundled(.objectType).rawValue])
+        ]
+        
+        let keys = [
+            BundledRelationKey.id.rawValue,
+            BundledRelationKey.name.rawValue,
+            BundledRelationKey.iconEmoji.rawValue,
+            BundledRelationKey.description.rawValue,
+            BundledRelationKey.isHidden.rawValue,
+            BundledRelationKey.isReadonly.rawValue,
+            BundledRelationKey.isArchived.rawValue,
+            BundledRelationKey.smartblockTypes.rawValue
+        ]
+        
+        return makeRequest(subId: .objectType, filters: filters, sorts: [sort], keys: keys)
     }
 
     private let homeDetailsKeys: [BundledRelationKey] = [

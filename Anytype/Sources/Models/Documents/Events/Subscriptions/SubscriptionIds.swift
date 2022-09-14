@@ -43,6 +43,7 @@ enum SubscriptionData: Hashable {
     case profile(id: BlockId)
     case set(SetSubsriptionData)
     case relation
+    case objectType
     
     var identifier: SubscriptionId {
         switch self {
@@ -60,6 +61,8 @@ enum SubscriptionData: Hashable {
             return .set
         case .relation:
             return .relation
+        case .objectType:
+            return .objectType
         }
     }
 }
@@ -74,4 +77,5 @@ enum SubscriptionId: String {
     
     case set = "SubscriptionId.Set"
     case relation = "SubscriptionId.Relation"
+    case objectType = "SubscriptionId.ObjectType"
 }

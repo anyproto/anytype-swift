@@ -89,7 +89,6 @@ final class EditorSetViewModel: ObservableObject {
         textService: TextServiceProtocol,
         relationDetailsStorage: RelationDetailsStorageProtocol
     ) {
-        ObjectTypeProvider.shared.resetCache()
         self.document = document
         self.dataviewService = dataviewService
         self.searchService = searchService

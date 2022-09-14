@@ -3,7 +3,7 @@ import Combine
 import BlocksModels
 import AnytypeCore
 
-protocol SearchServiceProtocol {
+protocol SearchServiceProtocol: AnyObject {
     func search(text: String) -> [ObjectDetails]?
     func searchObjectTypes(text: String, filteringTypeId: String?, shouldIncludeSets: Bool) -> [ObjectDetails]?
     func searchFiles(text: String, excludedFileIds: [String]) -> [ObjectDetails]?

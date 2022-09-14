@@ -64,7 +64,6 @@ final class BaseDocument: BaseDocumentProtocol {
     
     @MainActor
     func open() async throws {
-        ObjectTypeProvider.shared.resetCache()
         try await blockActionsService.open()
         isOpened = true
     }

@@ -5,7 +5,6 @@ import SwiftProtobuf
 
 final class RelationsService: RelationsServiceProtocol {
     
-    private let searchCommonService = ServiceLocator.shared.searchCommonService()
     private let relationDetailsStorage = ServiceLocator.shared.relationDetailsStorage()
     private let objectId: String
         

@@ -75,10 +75,6 @@ final class ServiceLocator {
         AlertOpener()
     }
     
-    func objectTypeService() -> ObjectTypesServiceProtocol {
-        ObjectTypesService(searchCommonService: searchCommonService())
-    }
-    
     // Sigletone
     private lazy var _relationDetailsStorage = RelationDetailsStorage()
     func relationDetailsStorage() -> RelationDetailsStorageProtocol {

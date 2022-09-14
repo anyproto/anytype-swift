@@ -2,30 +2,35 @@ import AnytypeCore
 import BlocksModels
 import ProtobufMessages
 
+extension ObjectType: IdProvider {}
+
 final class ObjectTypeProvider: ObjectTypeProviderProtocol {
         
-    static let shared = ObjectTypeProvider(service: ServiceLocator.shared.objectTypeService())
+    static let shared = ObjectTypeProvider(
+        subscriptionsService: ServiceLocator.shared.subscriptionService()
+    )
     
     // MARK: - Private variables
     
-    private let service: ObjectTypesServiceProtocol
+    private let subscriptionsService: SubscriptionsServiceProtocol
     private let supportedSmartblockTypes: Set<SmartBlockType> = [.page, .profilePage, .anytypeProfile, .set, .file]
     
-    private var cachedObtainedObjectTypes: Set<ObjectType> = []
+    private var objectTypes = [ObjectType]()
     private var cachedSupportedTypeIds: Set<String> = []
     
-    private init(service: ObjectTypesServiceProtocol) {
-        self.service = service
+    private init(subscriptionsService: SubscriptionsServiceProtocol) {
+        self.subscriptionsService = subscriptionsService
+        startSubscription()
     }
     
     // MARK: - ObjectTypeProviderProtocol
     
     var supportedTypeIds: [String] {
-        Array(obtainedSupportedTypeIds)
+        Array(cachedSupportedTypeIds)
     }
     
     func isSupported(typeId: String) -> Bool {
-        obtainedSupportedTypeIds.contains(typeId)
+        cachedSupportedTypeIds.contains(typeId)
     }
     
     var defaultObjectType: ObjectType {
@@ -35,39 +40,32 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     func objectType(id: String?) -> ObjectType? {
         guard let id = id else { return nil }
         
-        return obtainedObjectTypes.filter { $0.id == id }.first
+        return objectTypes.filter { $0.id == id }.first
     }
     
     func objectTypes(smartblockTypes: Set<SmartBlockType>) -> [ObjectType] {
-        obtainedObjectTypes.filter {
+        objectTypes.filter {
             $0.smartBlockTypes.intersection(smartblockTypes).isNotEmpty
         }
     }
     
-    // MARK: - Internal func
+    // MARK: - Private func
     
-    func resetCache() {
-        cachedObtainedObjectTypes = []
-        cachedSupportedTypeIds = []
-    }
-    
-    private var obtainedObjectTypes: Set<ObjectType> {
-        if cachedObtainedObjectTypes.isEmpty {
-            cachedObtainedObjectTypes = service.obtainObjectTypes()
+    private func startSubscription() {
+        subscriptionsService.startSubscription(data: .objectType) { [weak self] subId, update in
+            self?.handleEvent(update: update)
         }
-        
-        return cachedObtainedObjectTypes
     }
     
-    private var obtainedSupportedTypeIds: Set<String> {
-        if cachedSupportedTypeIds.isEmpty {
-            let result = obtainedObjectTypes.filter {
-                    $0.smartBlockTypes.intersection(supportedSmartblockTypes).isNotEmpty
-                }.map { $0.id }
-            cachedSupportedTypeIds = Set(result)
-        }
-        
-        return cachedSupportedTypeIds
+    private func handleEvent(update: SubscriptionUpdate) {
+        objectTypes.applySubscriptionUpdate(update, transform: { ObjectType(details: $0) })
+        updateSupportedTypeIds()
     }
     
+    private func updateSupportedTypeIds() {
+        let result = objectTypes.filter {
+                $0.smartBlockTypes.intersection(supportedSmartblockTypes).isNotEmpty
+            }.map { $0.id }
+        cachedSupportedTypeIds = Set(result)
+    }
 }
