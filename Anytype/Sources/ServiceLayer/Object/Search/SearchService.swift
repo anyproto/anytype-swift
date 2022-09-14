@@ -15,8 +15,8 @@ protocol SearchServiceProtocol {
         excludedTypeIds: [String],
         sortRelationKey: BundledRelationKey?
     ) -> [ObjectDetails]?
-    func searchRelationOptions(text: String, relationKey: String, excludedObjectIds: [String]) -> [ObjectDetails]?
-    func searchRelationOptions(optionIds: [String]) -> [ObjectDetails]?
+    func searchRelationOptions(text: String, relationKey: String, excludedObjectIds: [String]) -> [RelationOption]?
+    func searchRelationOptions(optionIds: [String]) -> [RelationOption]?
 }
 
 final class SearchService: ObservableObject, SearchServiceProtocol {
@@ -130,7 +130,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         return searchCommonService.search(filters: filters, sorts: [sort], fullText: text)
     }
 
-    func searchRelationOptions(text: String, relationKey: String, excludedObjectIds: [String]) -> [ObjectDetails]? {
+    func searchRelationOptions(text: String, relationKey: String, excludedObjectIds: [String]) -> [RelationOption]? {
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.name,
             type: .asc
@@ -144,17 +144,19 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         filters.append(SearchHelper.excludedIdsFilter(excludedObjectIds))
         filters.append(SearchHelper.relationOptionText(text))
 
-        return searchCommonService.search(filters: filters, sorts: [sort], fullText: "")
+        let details = searchCommonService.search(filters: filters, sorts: [sort], fullText: "")
+        return details?.map { RelationOption(details: $0) }
     }
 
-    func searchRelationOptions(optionIds: [String]) -> [ObjectDetails]? {
+    func searchRelationOptions(optionIds: [String]) -> [RelationOption]? {
         var filters = buildFilters(
             isArchived: false,
             typeIds: [ObjectTypeId.bundled(.relationOption).rawValue]
         )
         filters.append(SearchHelper.supportedIdsFilter(optionIds))
 
-        return searchCommonService.search(filters: filters, sorts: [], fullText: "")
+        let details = searchCommonService.search(filters: filters, sorts: [], fullText: "")
+        return details?.map { RelationOption(details: $0) }
     }
 }
 

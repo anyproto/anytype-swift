@@ -85,7 +85,6 @@ private extension StatusRelationDetailsViewModel {
         service.updateRelation(relationKey: relationValue.key, value: newStatusId.protobufValue)
         
         let newStatus = searchService.searchRelationOptions(optionIds: [newStatusId])?.first
-            .map { RelationOption(details: $0) }
             .map { RelationValue.Status.Option(option: $0) }
         
         guard let newStatus = newStatus else {

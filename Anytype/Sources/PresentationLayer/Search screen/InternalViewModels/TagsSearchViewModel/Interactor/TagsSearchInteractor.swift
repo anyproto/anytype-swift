@@ -28,9 +28,7 @@ extension TagsSearchInteractor {
             text: text,
             relationKey: relationKey,
             excludedObjectIds: selectedTagIds)?
-            .map { RelationOption(details: $0) }
             .map { RelationValue.Tag.Option(option: $0) } ?? []
-        #warning("Fix two maps ^^^")
 
         return .success(filteredTags)
     }

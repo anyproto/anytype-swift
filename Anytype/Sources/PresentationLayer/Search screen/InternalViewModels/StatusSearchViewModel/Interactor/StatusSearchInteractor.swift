@@ -23,17 +23,13 @@ final class StatusSearchInteractor {
 extension StatusSearchInteractor {
     
     func search(text: String) -> Result<[RelationValue.Status.Option], NewSearchError> {
-        #warning("Check me")
         let statuses = searchService.searchRelationOptions(
             text: text,
             relationKey: relationKey,
             excludedObjectIds: selectedStatusesIds)?
-            .map { RelationOption(details: $0) }
             .map { RelationValue.Status.Option(option: $0) } ?? []
         
         return .success(statuses)
-        
-        #warning("Fix two maps ^^^")
     }
     
     func isCreateButtonAvailable(searchText: String, statuses: [RelationValue.Status.Option]) -> Bool {
