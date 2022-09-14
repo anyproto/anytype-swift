@@ -631,7 +631,7 @@
 		3D30416A27EA4DC100FFE0EB /* EditorSetViewSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D30416827EA4DC100FFE0EB /* EditorSetViewSettingsView.swift */; };
 		3D30416D27EA5E9900FFE0EB /* DataviewService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D30416C27EA5E9900FFE0EB /* DataviewService.swift */; };
 		3D30416F27EA5EA700FFE0EB /* DataviewServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D30416E27EA5EA600FFE0EB /* DataviewServiceProtocol.swift */; };
-		3D30417227EA689F00FFE0EB /* SetContentViewRowDataBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D30417127EA689F00FFE0EB /* SetContentViewRowDataBuilder.swift */; };
+		3D30417227EA689F00FFE0EB /* SetContentViewDataBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D30417127EA689F00FFE0EB /* SetContentViewDataBuilder.swift */; };
 		3D30418127EC878000FFE0EB /* SetRelation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D30418027EC877F00FFE0EB /* SetRelation.swift */; };
 		3D30418527ECBBDB00FFE0EB /* AnytypeToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D30418427ECBBDB00FFE0EB /* AnytypeToggle.swift */; };
 		3D34F20727BE2FAB00990C49 /* PersonalizationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D34F20627BE2FAB00990C49 /* PersonalizationView.swift */; };
@@ -1799,7 +1799,7 @@
 		3D30416827EA4DC100FFE0EB /* EditorSetViewSettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorSetViewSettingsView.swift; sourceTree = "<group>"; };
 		3D30416C27EA5E9900FFE0EB /* DataviewService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataviewService.swift; sourceTree = "<group>"; };
 		3D30416E27EA5EA600FFE0EB /* DataviewServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataviewServiceProtocol.swift; sourceTree = "<group>"; };
-		3D30417127EA689F00FFE0EB /* SetContentViewRowDataBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetContentViewRowDataBuilder.swift; sourceTree = "<group>"; };
+		3D30417127EA689F00FFE0EB /* SetContentViewDataBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetContentViewDataBuilder.swift; sourceTree = "<group>"; };
 		3D30418027EC877F00FFE0EB /* SetRelation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetRelation.swift; sourceTree = "<group>"; };
 		3D30418427ECBBDB00FFE0EB /* AnytypeToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeToggle.swift; sourceTree = "<group>"; };
 		3D34F20627BE2FAB00990C49 /* PersonalizationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalizationView.swift; sourceTree = "<group>"; };
@@ -5061,7 +5061,7 @@
 			isa = PBXGroup;
 			children = (
 				2E9EFE5E285B45C500C8E47A /* ExceptionalSetSort.swift */,
-				3D30417127EA689F00FFE0EB /* SetContentViewRowDataBuilder.swift */,
+				3D30417127EA689F00FFE0EB /* SetContentViewDataBuilder.swift */,
 				3D30418027EC877F00FFE0EB /* SetRelation.swift */,
 				2E412D142847B15C00C973FF /* SetSort.swift */,
 				2E9EFE71285B62E500C8E47A /* SetFilter.swift */,
@@ -7712,7 +7712,7 @@
 				1211AF7927F4A79800BACB88 /* ImageCornersGuidelineRadius.swift in Sources */,
 				120E818726A0546F006FE84E /* ObjectCoverPickerViewModel.swift in Sources */,
 				534785642743D4EC0097CA30 /* ParsedRelations.swift in Sources */,
-				3D30417227EA689F00FFE0EB /* SetContentViewRowDataBuilder.swift in Sources */,
+				3D30417227EA689F00FFE0EB /* SetContentViewDataBuilder.swift in Sources */,
 				53F7441727F4A09B005C9BB0 /* ObjectPreviewModel.swift in Sources */,
 				2E412CC8283BCA3E00C973FF /* MediaPickerContentType.swift in Sources */,
 				3D93D575270CA3D600614E29 /* EditorPageAssembly.swift in Sources */,
