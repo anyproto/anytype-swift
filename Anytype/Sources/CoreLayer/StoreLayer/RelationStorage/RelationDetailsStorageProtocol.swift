@@ -5,4 +5,7 @@ protocol RelationDetailsStorageProtocol: AnyObject {
     
     func relationsDetails(for links: [RelationLink]) -> [RelationDetails]
     func relationsDetails() -> [RelationDetails]
+    
+    func startSubscription()
+    func stopSubscription()
 }

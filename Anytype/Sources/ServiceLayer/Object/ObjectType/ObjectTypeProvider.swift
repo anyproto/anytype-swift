@@ -20,7 +20,6 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     
     private init(subscriptionsService: SubscriptionsServiceProtocol) {
         self.subscriptionsService = subscriptionsService
-        startSubscription()
     }
     
     // MARK: - ObjectTypeProviderProtocol
@@ -49,13 +48,19 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
         }
     }
     
-    // MARK: - Private func
-    
-    private func startSubscription() {
+    func startSubscription() {
         subscriptionsService.startSubscription(data: .objectType) { [weak self] subId, update in
             self?.handleEvent(update: update)
         }
     }
+    
+    func stopSubscription() {
+        subscriptionsService.stopSubscription(id: .objectType)
+        objectTypes.removeAll()
+        cachedSupportedTypeIds.removeAll()
+    }
+    
+    // MARK: - Private func
     
     private func handleEvent(update: SubscriptionUpdate) {
         objectTypes.applySubscriptionUpdate(update, transform: { ObjectType(details: $0) })

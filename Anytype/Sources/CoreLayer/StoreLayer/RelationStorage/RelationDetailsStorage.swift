@@ -9,10 +9,6 @@ final class RelationDetailsStorage: RelationDetailsStorageProtocol {
     private var details = [RelationDetails]()
     private var localSubscriptions = [String: [RelationLink]]()
     
-    init() {
-        self.startSubscription()
-    }
-    
     // MARK: - RelationDetailsStorageProtocol
     
     func relationsDetails(for links: [RelationLink]) -> [RelationDetails] {
@@ -24,13 +20,19 @@ final class RelationDetailsStorage: RelationDetailsStorageProtocol {
         return details
     }
     
-    // MARK: - Private
-    
-    private func startSubscription() {
+    func startSubscription() {
         subscriptionsService.startSubscription(data: .relation) { [weak self] subId, update in
             self?.handleEvent(update: update)
         }
     }
+    
+    func stopSubscription() {
+        subscriptionsService.stopSubscription(id: .relation)
+        details.removeAll()
+        localSubscriptions.removeAll()
+    }
+    
+    // MARK: - Private
     
     private func handleEvent(update: SubscriptionUpdate) {
         details.applySubscriptionUpdate(update, transform: { RelationDetails(objectDetails: $0) })
