@@ -30,7 +30,7 @@ final class HorizonalTypeListViewModel: ObservableObject {
 
 extension HorizontalListItem {
     init(from details: ObjectDetails, handler: @escaping () -> Void) {
-        let emoji = Emoji(details.iconEmoji).map { ObjectIconImage.icon(.emoji($0)) } ??  ObjectIconImage.image(UIImage())
+        let emoji = details.iconEmoji.map { ObjectIconImage.icon(.emoji($0)) } ??  ObjectIconImage.image(UIImage())
 
         self.init(
             id: details.id,
