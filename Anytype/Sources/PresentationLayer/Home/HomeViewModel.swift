@@ -35,8 +35,8 @@ final class HomeViewModel: ObservableObject {
     
     private let dashboardService: DashboardServiceProtocol = ServiceLocator.shared.dashboardService()
     private let subscriptionService: SubscriptionsServiceProtocol = ServiceLocator.shared.subscriptionService()
-    private let tabsSubsciptionDataBuilder: TabsSubscriptionDataBuilderProtocol = TabsSubscriptionDataBuilder()
-    private let profileSubsciptionDataBuilder: HomeProfileSubscriptionDataBuilderProtocol = HomeProfileSubscriptionDataBuilder()
+    private let tabsSubsciptionDataBuilder: TabsSubscriptionDataBuilderProtocol
+    private let profileSubsciptionDataBuilder: ProfileSubscriptionDataBuilderProtocol
     
     let document: BaseDocumentProtocol
     lazy var cellDataBuilder = HomeCellDataBuilder(document: document)
@@ -49,9 +49,16 @@ final class HomeViewModel: ObservableObject {
     
     private let editorBrowserAssembly: EditorBrowserAssembly
     
-    init(homeBlockId: BlockId, editorBrowserAssembly: EditorBrowserAssembly) {
+    init(
+        homeBlockId: BlockId,
+        editorBrowserAssembly: EditorBrowserAssembly,
+        tabsSubsciptionDataBuilder: TabsSubscriptionDataBuilderProtocol,
+        profileSubsciptionDataBuilder: ProfileSubscriptionDataBuilderProtocol
+    ) {
         document = BaseDocument(objectId: homeBlockId)
         self.editorBrowserAssembly = editorBrowserAssembly
+        self.tabsSubsciptionDataBuilder = tabsSubsciptionDataBuilder
+        self.profileSubsciptionDataBuilder = profileSubsciptionDataBuilder
         setupSubscriptions()
         
         let data = UserDefaultsConfig.screenDataFromLastSession

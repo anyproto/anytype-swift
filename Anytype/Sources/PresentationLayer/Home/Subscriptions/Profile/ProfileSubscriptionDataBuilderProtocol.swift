@@ -1,5 +1,5 @@
 import Foundation
 
-protocol HomeProfileSubscriptionDataBuilderProtocol: AnyObject {
+protocol ProfileSubscriptionDataBuilderProtocol: AnyObject {
     func profile(id: String) -> SubscriptionData
 }

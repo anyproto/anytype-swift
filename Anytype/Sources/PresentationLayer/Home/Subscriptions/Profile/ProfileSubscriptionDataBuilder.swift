@@ -5,9 +5,9 @@ extension SubscriptionId {
     static var profile = SubscriptionId(value: "SubscriptionId.Profile")
 }
 
-final class HomeProfileSubscriptionDataBuilder: HomeProfileSubscriptionDataBuilderProtocol {
+final class ProfileSubscriptionDataBuilder: ProfileSubscriptionDataBuilderProtocol {
     
-    // MARK: - HomeProfileSubscriptionDataBuilderProtocol
+    // MARK: - ProfileSubscriptionDataBuilderProtocol
     
     func profile(id: String) -> SubscriptionData {
         
