@@ -29,11 +29,14 @@ platform :ios do
         in_house: false
     )
 
-    if !options[:version] && !options[:build_number] 
+    is_version_empty = !options[:version] || options[:version] == ""
+    is_build_number_empty = !options[:build_number] || options[:build_number] == ""
+
+    if is_version_empty && is_build_number_empty
       download_dsyms(
         version: 'latest'
       )
-    elsif !options[:build_number]
+    elsif is_build_number_empty
       download_dsyms(
         version: options[:version]
       )
@@ -43,8 +46,6 @@ platform :ios do
         build_number: options[:build_number]
       )
     end
-
-    
 
     upload_symbols_to_crashlytics(
       gsp_path: options[:gsp_path],

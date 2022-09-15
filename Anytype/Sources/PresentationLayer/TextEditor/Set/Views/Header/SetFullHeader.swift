@@ -3,7 +3,6 @@ import Kingfisher
 
 struct SetFullHeader: View {
     @State private var width: CGFloat = .zero
-    @State var textEditorHeight: CGFloat = 20
 
     @EnvironmentObject private var model: EditorSetViewModel
     
@@ -67,26 +66,15 @@ extension SetFullHeader {
     }
 
     private var titleView: some View {
-        ZStack(alignment: .leading) {
-            Text(model.titleString)
-                .frame(alignment: .leading)
-                .foregroundColor(Color.clear)
-                .font(AnytypeFontBuilder.font(anytypeFont: .title))
-                .padding(.horizontal, 6.2)
-                .readSize { size in
-                    textEditorHeight = size.height
-                }
-            AutofocusedTextEditor(
-                text: $model.titleString,
-                shouldSkipFocusOnFilled: true
-            )
-            .font(AnytypeFontBuilder.font(anytypeFont: .title))
-            .frame(height: textEditorHeight)
-            .offset(x: -6.2)
-            .placeholder(when: model.titleString.isEmpty) {
-                AnytypeText(Loc.untitled, style: .title, color: .textTertiary)
-            }
-        }
+        AutofocusedTextField(
+            placeholder: Loc.untitled,
+            placeholderFont: .title,
+            shouldSkipFocusOnFilled: true,
+            text: $model.titleString
+        )
+        .padding([.trailing], 20)
+        .font(AnytypeFontBuilder.font(anytypeFont: .title))
+        .disableAutocorrection(true)
     }
 
     private var flowRelations: some View {

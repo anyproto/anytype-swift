@@ -22,6 +22,23 @@ final class SetContentViewDataBuilder {
         return NSOrderedSet(array: relations).array as! [SetRelation]
     }
     
+    func activeViewRelations(
+        dataview: BlockDataview,
+        view: DataviewView,
+        excludeRelations: [RelationMetadata]
+    ) -> [RelationMetadata] {
+        view.options.compactMap { option in
+            let metadata = dataview.relations.first { relation in
+                option.key == relation.key
+            }
+            
+            guard let metadata = metadata,
+                  shouldAddRelationMetadata(metadata, excludeRelations: excludeRelations) else { return nil }
+            
+            return metadata
+        }
+    }
+    
     func itemData(
         _ details: [ObjectDetails],
         dataView: BlockDataview,
@@ -125,6 +142,19 @@ final class SetContentViewDataBuilder {
             }
         }
         return nil
+    }
+    
+    private func shouldAddRelationMetadata(_ relationMetadata: RelationMetadata, excludeRelations: [RelationMetadata]) -> Bool {
+        guard excludeRelations.first(where: { $0.key == relationMetadata.key }) == nil else {
+            return false
+        }
+        guard relationMetadata.key != ExceptionalSetSort.name.rawValue,
+              relationMetadata.key != ExceptionalSetSort.done.rawValue else {
+            return true
+        }
+        return !relationMetadata.isHidden &&
+        relationMetadata.format != .file &&
+        relationMetadata.format != .unrecognized
     }
 }
 
