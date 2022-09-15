@@ -35,6 +35,8 @@ final class HomeViewModel: ObservableObject {
     
     private let dashboardService: DashboardServiceProtocol = ServiceLocator.shared.dashboardService()
     private let subscriptionService: SubscriptionsServiceProtocol = ServiceLocator.shared.subscriptionService()
+    private let tabsSubsciptionDataBuilder: TabsSubscriptionDataBuilderProtocol = TabsSubscriptionDataBuilder()
+    private let profileSubsciptionDataBuilder: HomeProfileSubscriptionDataBuilderProtocol = HomeProfileSubscriptionDataBuilder()
     
     let document: BaseDocumentProtocol
     lazy var cellDataBuilder = HomeCellDataBuilder(document: document)
@@ -82,7 +84,7 @@ final class HomeViewModel: ObservableObject {
         
         UserDefaultsConfig.selectedTab = tab
         subscriptionService.stopSubscriptions(ids: [.sharedTab, .setsTab, .archiveTab, .recentTab])
-        tab.subscriptionId.flatMap { subId in
+        tabsSubsciptionDataBuilder.build(for: tab).flatMap { subId in
             subscriptionService.startSubscription(data: subId) { [weak self] id, update in
                 withAnimation(update.isInitialData ? nil : .spring()) {
                     self?.updateCollections(id: id, update)
@@ -167,7 +169,7 @@ final class HomeViewModel: ObservableObject {
     
     private func setupProfileSubscriptions() {
         subscriptionService.startSubscription(
-            data: .profile(id: AccountManager.shared.account.info.profileObjectID)
+            data: profileSubsciptionDataBuilder.profile(id: AccountManager.shared.account.info.profileObjectID)
         ) { [weak self] id, update in
             withAnimation {
                 self?.onProfileUpdate(update: update)

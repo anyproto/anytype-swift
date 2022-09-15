@@ -9,21 +9,6 @@ extension HomeTabsView {
         case sets
         case shared
         case bin
-        
-        var subscriptionId: SubscriptionData? {
-            switch self {
-            case .favourites:
-                return nil
-            case .sets:
-                return .setsTab
-            case .shared:
-                return .sharedTab
-            case .recent:
-                return .recentTab
-            case .bin:
-                return .archiveTab
-            }
-        }
     }
 }
 
