@@ -3,8 +3,8 @@ import BlocksModels
 
 enum SubscriptionData {
     
-    case search(SubscriptionDescriptionSearch)
-    case objects(SubscriptionDescriptionObjects)
+    case search(Search)
+    case objects(Object)
     
     var identifier: SubscriptionId {
         switch self {
@@ -16,62 +16,65 @@ enum SubscriptionData {
     }
 }
 
-struct SubscriptionDescriptionSearch {
-    let identifier: SubscriptionId
-    let sorts: [DataviewSort]
-    let filters: [DataviewFilter]
-    let limit: Int
-    let offset: Int
-    let keys: [String]
-    let afterID: String?
-    let beforeID: String?
-    let source: [String]
-    let ignoreWorkspace: String?
-    let noDepSubscription: Bool
+extension SubscriptionData {
     
-    init(
-        identifier: SubscriptionId,
-        sorts: [DataviewSort],
-        filters: [DataviewFilter],
-        limit: Int,
-        offset: Int,
-        keys: [String],
-        afterID: String? = nil,
-        beforeID: String? = nil,
-        source: [String] = [],
-        ignoreWorkspace: String? = nil,
-        noDepSubscription: Bool = false
-    ) {
-        self.identifier = identifier
-        self.sorts = sorts
-        self.filters = filters
-        self.limit = limit
-        self.offset = offset
-        self.keys = keys
-        self.afterID = afterID
-        self.beforeID = beforeID
-        self.source = source
-        self.ignoreWorkspace = ignoreWorkspace
-        self.noDepSubscription = noDepSubscription
+    struct Search {
+        let identifier: SubscriptionId
+        let sorts: [DataviewSort]
+        let filters: [DataviewFilter]
+        let limit: Int
+        let offset: Int
+        let keys: [String]
+        let afterID: String?
+        let beforeID: String?
+        let source: [String]
+        let ignoreWorkspace: String?
+        let noDepSubscription: Bool
+        
+        init(
+            identifier: SubscriptionId,
+            sorts: [DataviewSort],
+            filters: [DataviewFilter],
+            limit: Int,
+            offset: Int,
+            keys: [String],
+            afterID: String? = nil,
+            beforeID: String? = nil,
+            source: [String] = [],
+            ignoreWorkspace: String? = nil,
+            noDepSubscription: Bool = false
+        ) {
+            self.identifier = identifier
+            self.sorts = sorts
+            self.filters = filters
+            self.limit = limit
+            self.offset = offset
+            self.keys = keys
+            self.afterID = afterID
+            self.beforeID = beforeID
+            self.source = source
+            self.ignoreWorkspace = ignoreWorkspace
+            self.noDepSubscription = noDepSubscription
+        }
     }
-}
 
-struct SubscriptionDescriptionObjects {
-    
-    let identifier: SubscriptionId
-    let objectIds: [String]
-    let keys: [String]
-    let ignoreWorkspace: String?
-    
-    init(
-        identifier: SubscriptionId,
-        objectIds: [String],
-        keys: [String],
-        ignoreWorkspace: String? = nil
-    ) {
-        self.identifier = identifier
-        self.objectIds = objectIds
-        self.keys = keys
-        self.ignoreWorkspace = ignoreWorkspace
+    struct Object {
+        
+        let identifier: SubscriptionId
+        let objectIds: [String]
+        let keys: [String]
+        let ignoreWorkspace: String?
+        
+        init(
+            identifier: SubscriptionId,
+            objectIds: [String],
+            keys: [String],
+            ignoreWorkspace: String? = nil
+        ) {
+            self.identifier = identifier
+            self.objectIds = objectIds
+            self.keys = keys
+            self.ignoreWorkspace = ignoreWorkspace
+        }
     }
 }

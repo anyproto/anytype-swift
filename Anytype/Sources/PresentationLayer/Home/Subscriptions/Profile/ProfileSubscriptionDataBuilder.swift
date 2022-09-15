@@ -18,7 +18,7 @@ final class ProfileSubscriptionDataBuilder: ProfileSubscriptionDataBuilderProtoc
         ]
 
         return .objects(
-            SubscriptionDescriptionObjects(
+            SubscriptionData.Object(
                 identifier: SubscriptionId.profile,
                 objectIds: [id],
                 keys: keys

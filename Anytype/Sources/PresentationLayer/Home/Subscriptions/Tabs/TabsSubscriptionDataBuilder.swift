@@ -56,7 +56,7 @@ final class TabsSubscriptionDataBuilder: TabsSubscriptionDataBuilderProtocol {
         filters.append(SearchHelper.lastOpenedDateNotNilFilter())
         
         return .search(
-            SubscriptionDescriptionSearch(
+            SubscriptionData.Search(
                 identifier: SubscriptionId.recentTab,
                 sorts: [sort],
                 filters: filters,
@@ -79,7 +79,7 @@ final class TabsSubscriptionDataBuilder: TabsSubscriptionDataBuilderProtocol {
         )
         
         return .search(
-            SubscriptionDescriptionSearch(
+            SubscriptionData.Search(
                 identifier: SubscriptionId.archiveTab,
                 sorts: [sort],
                 filters: filters,
@@ -99,7 +99,7 @@ final class TabsSubscriptionDataBuilder: TabsSubscriptionDataBuilderProtocol {
         filters.append(contentsOf: SearchHelper.sharedObjectsFilters())
         
         return .search(
-            SubscriptionDescriptionSearch(
+            SubscriptionData.Search(
                 identifier: SubscriptionId.sharedTab,
                 sorts: [sort],
                 filters: filters,
@@ -121,7 +121,7 @@ final class TabsSubscriptionDataBuilder: TabsSubscriptionDataBuilderProtocol {
         )
         
         return .search(
-            SubscriptionDescriptionSearch(
+            SubscriptionData.Search(
                 identifier: SubscriptionId.setsTab,
                 sorts: [sort],
                 filters: filters,
@@ -137,7 +137,7 @@ final class TabsSubscriptionDataBuilder: TabsSubscriptionDataBuilderProtocol {
         filters.append(SearchHelper.isFavoriteFilter(isFavorite: true))
         
         return .search(
-            SubscriptionDescriptionSearch(
+            SubscriptionData.Search(
                 identifier: SubscriptionId.favoritesTab,
                 sorts: [],
                 filters: filters,

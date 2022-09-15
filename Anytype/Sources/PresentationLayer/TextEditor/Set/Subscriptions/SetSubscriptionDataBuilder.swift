@@ -1,6 +1,10 @@
 import Foundation
 import BlocksModels
 
+extension SubscriptionId {
+    static var set = SubscriptionId(value: "SubscriptionId.Set")
+}
+
 final class SetSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol {
     
     // MARK: - SetSubscriptionDataBuilderProtocol
@@ -13,7 +17,7 @@ final class SetSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol {
         let offset = (data.currentPage - 1) * numberOfRowsPerPageInSubscriptions
         
         return .search(
-            SubscriptionDescriptionSearch(
+            SubscriptionData.Search(
                 identifier: SubscriptionId.set,
                 sorts: data.sorts,
                 filters: data.filters,
