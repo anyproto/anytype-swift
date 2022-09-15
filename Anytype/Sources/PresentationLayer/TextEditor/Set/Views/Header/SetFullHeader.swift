@@ -66,15 +66,15 @@ extension SetFullHeader {
     }
 
     private var titleView: some View {
-        ZStack(alignment: .leading) {
-            AutofocusedTextField(
-                placeholder: Loc.untitled,
-                placeholderFont: .title,
-                shouldSkipFocusOnFilled: true,
-                text: $model.titleString
-            )
-            .font(AnytypeFontBuilder.font(anytypeFont: .title))
-        }
+        AutofocusedTextField(
+            placeholder: Loc.untitled,
+            placeholderFont: .title,
+            shouldSkipFocusOnFilled: true,
+            text: $model.titleString
+        )
+        .padding([.trailing], 20)
+        .font(AnytypeFontBuilder.font(anytypeFont: .title))
+        .autocorrectionDisabled()
     }
 
     private var flowRelations: some View {
