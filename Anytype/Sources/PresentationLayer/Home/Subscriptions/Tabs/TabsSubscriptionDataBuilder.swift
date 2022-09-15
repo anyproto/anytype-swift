@@ -2,6 +2,7 @@ import Foundation
 import BlocksModels
 
 extension SubscriptionId {
+    static var favoritesTab = SubscriptionId(value: "SubscriptionId.FavoritesTab")
     static var recentTab = SubscriptionId(value: "SubscriptionId.RecentTab")
     static var archiveTab = SubscriptionId(value: "SubscriptionId.ArchiveTab")
     static var sharedTab = SubscriptionId(value: "SubscriptionId.SharedTab")
@@ -22,24 +23,28 @@ final class TabsSubscriptionDataBuilder: TabsSubscriptionDataBuilderProtocol {
     
     // MARK: - TabsSubscriptionDataBuilderProtocol
     
-    func build(for tab: HomeTabsView.Tab) -> SubscriptionData? {
+    func build(for tab: HomeTabsView.Tab) -> SubscriptionData {
         switch tab {
         case .favourites:
-            return nil
+            return favoritesTab()
         case .sets:
             return setsTab()
         case .shared:
             return sharedTab()
         case .recent:
-            return profileTab()
+            return recentTab()
         case .bin:
             return archiveTab()
         }
     }
     
+    func allIds() -> [SubscriptionId] {
+        return [.sharedTab, .setsTab, .archiveTab, .recentTab, .favoritesTab]
+    }
+    
     // MARK: - Private
     
-    private func profileTab() -> SubscriptionData {
+    private func recentTab() -> SubscriptionData {
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.lastModifiedDate,
             type: .desc
@@ -126,6 +131,22 @@ final class TabsSubscriptionDataBuilder: TabsSubscriptionDataBuilderProtocol {
             )
         )
     }
+    
+    private func favoritesTab() -> SubscriptionData {
+        var filters = buildFilters(isArchived: false, typeUrls: objectTypeProvider.supportedTypeUrls)
+        filters.append(SearchHelper.isFavoriteFilter(isFavorite: true))
+        
+        return .search(
+            SubscriptionDescriptionSearch(
+                identifier: SubscriptionId.favoritesTab,
+                sorts: [],
+                filters: filters,
+                limit: Constants.limit,
+                offset: 0,
+                keys: homeDetailsKeys
+            )
+        )
+    }
 
     
     private var homeDetailsKeys: [String] {
@@ -147,7 +168,7 @@ final class TabsSubscriptionDataBuilder: TabsSubscriptionDataBuilderProtocol {
     }
     
     private func buildFilters(isArchived: Bool, typeUrls: [String]) -> [DataviewFilter] {
-        [
+        return [
             SearchHelper.notHiddenFilter(),
             SearchHelper.isArchivedFilter(isArchived: isArchived),
             SearchHelper.typeFilter(typeUrls: typeUrls)
