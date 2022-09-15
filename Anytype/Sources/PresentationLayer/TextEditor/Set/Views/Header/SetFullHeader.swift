@@ -74,7 +74,7 @@ extension SetFullHeader {
         )
         .padding([.trailing], 20)
         .font(AnytypeFontBuilder.font(anytypeFont: .title))
-        .autocorrectionDisabled()
+        .disableAutocorrection(true)
     }
 
     private var flowRelations: some View {
