@@ -104,25 +104,33 @@ final class TextBlockLayoutManager: NSLayoutManager {
         guard let textContainer = textContainer(forGlyphAt: glyphRange.location,
                                                 effectiveRange: nil) else { return }
 
-        let withinRange = NSRange(location: NSNotFound, length: 0)
-        enumerateEnclosingRects(forGlyphRange: glyphRange,
-                                withinSelectedGlyphRange: withinRange,
-                                in: textContainer) { [weak self] rect, _ in
+        enumerateLineFragments(forGlyphRange: glyphRange) { [weak self] _, _, _, glyphRangeInLine, _ in
 
-            let textRect = rect.offsetBy(dx: origin.x, dy: origin.y)
+            guard let glyphRangeWithAttribute = glyphRangeInLine.intersection(glyphRange) else { return }
+            guard let rect = self?.boundingRect(forGlyphRange: glyphRangeWithAttribute, in: textContainer) else { return }
+
+            guard let font = self?.textStorage?.attribute(.font, at: 0, effectiveRange: nil) as? UIFont else {
+                anytypeAssertionFailure("font attribute must be UIFont", domain: .textLayout)
+                return
+            }
+            let rectRelatvieToFontHeight = CGRect(origin: rect.origin, size: .init(width: rect.width, height: font.lineHeight))
+            let textRect = rectRelatvieToFontHeight.offsetBy(dx: origin.x, dy: origin.y)
+
             color.setFill()
-            let lineHeight: CGFloat = 1
+            let lineHeight: CGFloat = thinkness
 
             // When size of the uitextview was reduced using negative textContainerInset values, underline should be moved upper to be visible.
             // Otherwise it will be outside the uitextview and not visible.
             var additionalYOffset: CGFloat = 0
+
             if origin.y < 0 {
                 let font = self?.textStorage?.attribute(.font, at: 0, effectiveRange: nil) as! UIFont
                 // line should not be upper font descender otherwise smth wrong
                 additionalYOffset = max(font.descender, origin.y) - lineHeight
             }
+
             UIBezierPath(rect: CGRect(origin: CGPoint(x: textRect.minX,
-                                                      y: textRect.maxY + additionalYOffset),
+                                                      y: textRect.maxY + additionalYOffset - 2),
                                       size: CGSize(width: textRect.width,
                                                    height: lineHeight))).fill()
         }

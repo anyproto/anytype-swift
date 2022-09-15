@@ -16,6 +16,9 @@ final class EditorSetViewModel: ObservableObject {
     
     @Published var sorts: [SetSort] = []
     @Published var filters: [SetFilter] = []
+    
+    private let setSyncStatus = FeatureFlags.setSyncStatus
+    @Published var syncStatus: SyncStatus = .unknown
 
     var isUpdating = false
     
@@ -47,17 +50,12 @@ final class EditorSetViewModel: ObservableObject {
         document.details
     }
 
-    var relations: [RelationMetadata] {
-        activeView.options.compactMap { option in
-            let metadata = dataView.relations.first { relation in
-                option.key == relation.key
-            }
-            
-            guard let metadata = metadata,
-                  shouldAddRelationMetadata(metadata) else { return nil }
-            
-            return metadata
-        }
+    func activeViewRelations(excludeRelations: [RelationMetadata] = []) -> [RelationMetadata] {
+        dataBuilder.activeViewRelations(
+            dataview: dataView,
+            view: activeView,
+            excludeRelations: excludeRelations
+        )
     }
     
     private var isObjectLocked: Bool {
@@ -183,7 +181,11 @@ final class EditorSetViewModel: ObservableObject {
         case .general, .blocks, .details, .dataSourceUpdate:
             objectWillChange.send()
             setupDataview()
-        case .header, .syncStatus:
+        case .syncStatus(let status):
+            if setSyncStatus {
+                syncStatus = status
+            }
+        case .header:
             break // handled in ObjectHeaderViewModel
         }
     }
@@ -271,19 +273,6 @@ final class EditorSetViewModel: ObservableObject {
             
             return SetFilter(metadata: metadata, filter: filter)
         }
-    }
-    
-    private func shouldAddRelationMetadata(_ relationMetadata: RelationMetadata) -> Bool {
-        guard sorts.first(where: { $0.metadata.key == relationMetadata.key }) == nil else {
-            return false
-        }
-        guard relationMetadata.key != ExceptionalSetSort.name.rawValue,
-              relationMetadata.key != ExceptionalSetSort.done.rawValue else {
-            return true
-        }
-        return !relationMetadata.isHidden &&
-        relationMetadata.format != .file &&
-        relationMetadata.format != .unrecognized
     }
     
     private func isBookmarksSet() -> Bool {
