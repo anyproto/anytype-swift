@@ -25,6 +25,10 @@ final class EditorSetViewPickerViewModel: ObservableObject {
         }
     }
     
+    func addButtonTapped() {
+        
+    }
+    
     func move(from: IndexSet, to: Int) {
         from.forEach { viewFromIndex in
             guard viewFromIndex != to, viewFromIndex < setModel.dataView.views.count else { return }
