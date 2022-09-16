@@ -2,10 +2,12 @@ import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    
+    private let appMetricsTracker = AppMetricsTracker()
     /// receive events from middleware and broadcast throught notification center
     private lazy var eventListener = MiddlewareEventsListener()
     private lazy var configurator = AppConfigurator()
-
+    
     func application(
         _ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
