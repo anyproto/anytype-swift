@@ -41,10 +41,13 @@ final class SetSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol {
             BundledRelationKey.description.rawValue,
             BundledRelationKey.type.rawValue,
             BundledRelationKey.layout.rawValue,
-            BundledRelationKey.isArchived.rawValue,
             BundledRelationKey.isDeleted.rawValue,
             BundledRelationKey.done.rawValue,
-            BundledRelationKey.isFavorite.rawValue
+            BundledRelationKey.coverId.rawValue,
+            BundledRelationKey.coverScale.rawValue,
+            BundledRelationKey.coverType.rawValue,
+            BundledRelationKey.coverX.rawValue,
+            BundledRelationKey.coverY.rawValue
         ]
         
         keys.append(contentsOf: data.options.map { $0.key })
