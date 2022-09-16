@@ -35,7 +35,7 @@ extension FeatureDescription {
         title: "New bookmarks flow part 2",
         author: "m@anytype.io",
         releaseVersion: "0.18.0",
-        defaultValue: false
+        defaultValue: true
     )
     
     static let setGalleryView = FeatureDescription(
@@ -49,14 +49,14 @@ extension FeatureDescription {
         title: "Set list view",
         author: "joe_pusya@anytype.io",
         releaseVersion: "0.18.0",
-        defaultValue: false
+        defaultValue: true
     )
     
     static let setViewTypes = FeatureDescription(
         title: "Set view types",
         author: "joe_pusya@anytype.io",
         releaseVersion: "0.18.0",
-        defaultValue: false
+        defaultValue: true
     )
     
     static let setSyncStatus = FeatureDescription(
