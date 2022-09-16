@@ -54,7 +54,8 @@ final class EditorAssembly {
             dataviewService: dataviewService,
             searchService: searchService,
             detailsService: detailsService,
-            textService: serviceLocator.textService
+            textService: serviceLocator.textService,
+            setSubscriptionDataBuilder: SetSubscriptionDataBuilder()
         )
         let controller = EditorSetHostingController(objectId: data.pageId, model: model)
 

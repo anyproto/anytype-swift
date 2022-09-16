@@ -74,6 +74,7 @@ final class EditorSetViewModel: ObservableObject {
     private let searchService: SearchServiceProtocol
     private let detailsService: DetailsServiceProtocol
     private let textService: TextServiceProtocol
+    private let setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol
     private var subscriptions = [AnyCancellable]()
     private var titleSubscription: AnyCancellable?
     
@@ -82,7 +83,8 @@ final class EditorSetViewModel: ObservableObject {
         dataviewService: DataviewServiceProtocol,
         searchService: SearchServiceProtocol,
         detailsService: DetailsServiceProtocol,
-        textService: TextServiceProtocol
+        textService: TextServiceProtocol,
+        setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol
     ) {
         ObjectTypeProvider.shared.resetCache()
         self.document = document
@@ -90,6 +92,7 @@ final class EditorSetViewModel: ObservableObject {
         self.searchService = searchService
         self.detailsService = detailsService
         self.textService = textService
+        self.setSubscriptionDataBuilder = setSubscriptionDataBuilder
 
         self.titleString = document.details?.pageCellTitle ?? ""
         self.featuredRelations = document.featuredRelationsForEditor
@@ -142,7 +145,7 @@ final class EditorSetViewModel: ObservableObject {
         guard !isEmpty else { return }
         
         subscriptionService.startSubscription(
-            data: .set(
+            data: setSubscriptionDataBuilder.set(
                 .init(
                     dataView: dataView,
                     view: activeView,
@@ -432,6 +435,7 @@ extension EditorSetViewModel {
         dataviewService: DataviewService(objectId: "objectId", prefilledFieldsBuilder: SetFilterPrefilledFieldsBuilder()),
         searchService: SearchService(),
         detailsService: DetailsService(objectId: "objectId", service: ObjectActionsService()),
-        textService: TextService()
+        textService: TextService(),
+        setSubscriptionDataBuilder: SetSubscriptionDataBuilder()
     )
 }
