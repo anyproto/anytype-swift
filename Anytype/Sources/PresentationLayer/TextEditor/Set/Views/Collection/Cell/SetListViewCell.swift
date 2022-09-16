@@ -1,5 +1,5 @@
 import SwiftUI
-import Kingfisher
+import BlocksModels
 
 struct SetListViewCell: View {
     let configuration: SetContentViewItemConfiguration
@@ -20,7 +20,9 @@ struct SetListViewCell: View {
                 showIcon: configuration.showIcon,
                 title: configuration.title,
                 description: configuration.description,
-                relations: configuration.relations.filter { $0.hasValue },
+                relations: configuration.relations.filter {
+                    $0.hasValue && $0.id != BundledRelationKey.description.rawValue
+                },
                 onIconTap: configuration.onIconTap,
                 onRelationTap: { _ in }
             )
