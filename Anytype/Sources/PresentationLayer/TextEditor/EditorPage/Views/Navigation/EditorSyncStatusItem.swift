@@ -8,9 +8,12 @@ final class EditorSyncStatusItem: UIView {
     private var status: SyncStatus
     private var state = EditorBarItemState.initial
     
+    private var intristicSize: CGSize = .zero
+    
     func changeState(_ state: EditorBarItemState) {
         self.state = state
         updateState()
+        updateIntristicSize()
     }
     
     func changeStatus(_ status: SyncStatus) {
@@ -18,12 +21,17 @@ final class EditorSyncStatusItem: UIView {
         UIView.transition(with: self, duration: 0.3, options: .transitionCrossDissolve) {
             self.updateButtonState()
         }
+        updateIntristicSize()
     }
     
     init(status: SyncStatus) {
         self.status = status
         super.init(frame: .zero)
         setup()
+    }
+    
+    override var intrinsicContentSize: CGSize {
+        intristicSize
     }
     
     // MARK: - Private
@@ -39,7 +47,7 @@ final class EditorSyncStatusItem: UIView {
         updateButtonState()
         
         layoutUsing.anchors {
-            $0.height.equal(to: 28)
+            $0.height.equal(to: Constants.height)
             $0.centerY.equal(to: centerYAnchor)
         }
         
@@ -51,6 +59,7 @@ final class EditorSyncStatusItem: UIView {
             $0.pinToSuperview(insets: UIEdgeInsets(top: 0, left: 9, bottom: 0, right: -10))
         }
         button.setContentCompressionResistancePriority(.required, for: .horizontal)
+        setContentHuggingPriority(.required, for: .vertical)
     }
     
     private func updateButtonState() {
@@ -71,8 +80,23 @@ final class EditorSyncStatusItem: UIView {
         button.setTitle(state.textIsHidden ? nil : status.title, for: .normal)
     }
     
+    private func updateIntristicSize() {
+        intristicSize = systemLayoutSizeFitting(
+            CGSize(width: .zero, height: Constants.height),
+            withHorizontalFittingPriority: .defaultHigh,
+            verticalFittingPriority: .fittingSizeLevel
+        )
+        invalidateIntrinsicContentSize()
+    }
+    
     // MARK: - Unavailable
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+}
+
+private extension EditorSyncStatusItem {
+    enum Constants {
+        static let height: CGFloat = 28
     }
 }
