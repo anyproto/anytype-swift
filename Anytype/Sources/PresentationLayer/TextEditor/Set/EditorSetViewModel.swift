@@ -108,6 +108,10 @@ final class EditorSetViewModel: ObservableObject {
                 try await document.open()
                 loadingDocument = false
                 setupDataview()
+
+                if let details = document.details, details.setOf.isNil {
+                    showSetOfTypeSelection()
+                }
             } catch {
                 router.goBack()
             }
@@ -314,9 +318,7 @@ extension EditorSetViewModel {
 
     func showRelationValueEditingView(key: String, source: RelationSource) {
         if key == BundledRelationKey.setOf.rawValue {
-            router.showTypesSearch(title: Loc.Set.SourceType.selectSource, selectedObjectId: document.details?.setOf) { [weak self] typeObjectId in
-                self?.dataviewService.setSource(typeObjectId: typeObjectId)
-            }
+            showSetOfTypeSelection()
 
             return
         }
@@ -393,6 +395,12 @@ extension EditorSetViewModel {
     
     func showAddNewRelationView(onSelect: @escaping (RelationMetadata, _ isNew: Bool) -> Void) {
         router.showAddNewRelationView(onSelect: onSelect)
+    }
+
+    private func showSetOfTypeSelection() {
+        router.showTypesSearch(title: Loc.Set.SourceType.selectSource, selectedObjectId: document.details?.setOf) { [weak self] typeObjectId in
+            self?.dataviewService.setSource(typeObjectId: typeObjectId)
+        }
     }
     
     private func createDefaultObject() {

@@ -110,7 +110,13 @@ public extension BundledRelationsValueProvider {
     }
 
     var setOf: String? {
-        stringValue(with: .setOf)
+        guard let setOfValue = values[BundledRelationKey.setOf.rawValue] else {
+            return nil
+        }
+
+        let setOf = setOfValue.unwrapedListValue.stringValue
+
+        return setOf.isEmpty ? nil : setOf
     }
     
     var isDeleted: Bool {
