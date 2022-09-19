@@ -295,7 +295,7 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     private func itemTapped(_ details: ObjectDetails) {
-        if !FeatureFlags.bookmarksFlow && isBookmarksSet(),
+        if isBookmarksSet(),
            let url = details.url {
             router.openUrl(url.url)
         } else {
