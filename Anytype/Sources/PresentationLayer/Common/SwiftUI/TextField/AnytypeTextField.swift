@@ -4,20 +4,14 @@ struct AnytypeTextField: View {
     let placeholder: String
     let placeholderFont: AnytypeFont
     @Binding var text: String
-    
-    @State private var textFieldHeight: CGFloat = 0
-    
+
     var body: some View {
-        ZStack(alignment: .leading) {
-            if text.isEmpty {
-                AnytypeText(placeholder, style: placeholderFont, color: .textTertiary)
-            }
+        Group {
             TextField("", text: $text)
-                .readSize {
-                    textFieldHeight = $0.height
+                .placeholder(when: text.isEmpty) {
+                    AnytypeText(placeholder, style: placeholderFont, color: .textTertiary)
                 }
         }
-        .frame(height: textFieldHeight)
     }
 }
 
