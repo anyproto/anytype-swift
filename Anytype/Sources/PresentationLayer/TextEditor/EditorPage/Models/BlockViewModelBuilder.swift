@@ -172,7 +172,7 @@ final class BlockViewModelBuilder {
             
             let details = ObjectDetailsStorage.shared.get(id: data.targetObjectID)
             
-            if FeatureFlags.bookmarksFlowP2 && (details?.isDeleted ?? false) {
+            if details?.isDeleted ?? false {
                 return NonExistentBlockViewModel(info: info)
             }
             

@@ -17,13 +17,6 @@ extension FeatureDescription {
         defaultValue: true
     )
     
-    static let bookmarksFlowP2 = FeatureDescription(
-        title: "New bookmarks flow part 2",
-        author: "m@anytype.io",
-        releaseVersion: "0.18.0",
-        defaultValue: false
-    )
-    
     static let setGalleryView = FeatureDescription(
         title: "Set gallery view",
         author: "joe_pusya@anytype.io",
