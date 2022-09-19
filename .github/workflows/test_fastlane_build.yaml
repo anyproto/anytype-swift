@@ -23,6 +23,9 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_KEY_FASTLANE_COMMIT }}
 
+      - name: Bundle Install
+        run: bundle install
+         
 #      - name: Setup ruby
 #        uses: ruby/setup-ruby@v1.100.0
 #        with:
