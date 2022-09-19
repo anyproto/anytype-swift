@@ -57,7 +57,7 @@ struct HomeCollectionView: View {
                 }
             }
             .padding()
-            .padding(.bottom, viewModel.isSelectionMode ? 48 : 0)
+            .padding(.bottom, viewModel.isSelectionMode ? DashboardSelectionActionsView.height : 0)
         }
         .padding([.top], -22)
     }
