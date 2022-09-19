@@ -10,12 +10,12 @@ final class EditorSetViewPickerViewModel: ObservableObject {
     private let setModel: EditorSetViewModel
     private var cancellable: AnyCancellable?
     private let dataviewService: DataviewServiceProtocol
-    private let showViewTypes: RoutingAction<DataviewView>
+    private let showViewTypes: RoutingAction<DataviewView?>
     
     init(
         setModel: EditorSetViewModel,
         dataviewService: DataviewServiceProtocol,
-        showViewTypes: @escaping RoutingAction<DataviewView>)
+        showViewTypes: @escaping RoutingAction<DataviewView?>)
     {
         self.setModel = setModel
         self.dataviewService = dataviewService
@@ -26,7 +26,7 @@ final class EditorSetViewPickerViewModel: ObservableObject {
     }
     
     func addButtonTapped() {
-        
+        showViewTypes(nil)
     }
     
     func move(from: IndexSet, to: Int) {

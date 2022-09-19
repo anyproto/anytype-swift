@@ -1197,6 +1197,16 @@ internal enum Loc {
         /// Duplicate
         internal static let view = Loc.tr("Localizable", "SetViewTypesPicker.Settings.Duplicate.View")
       }
+      internal enum Texfield {
+        internal enum Placeholder {
+          /// Untitled
+          internal static let untitled = Loc.tr("Localizable", "SetViewTypesPicker.Settings.Texfield.Placeholder.Untitled")
+          internal enum New {
+            /// New view
+            internal static let view = Loc.tr("Localizable", "SetViewTypesPicker.Settings.Texfield.Placeholder.New.View")
+          }
+        }
+      }
     }
   }
 

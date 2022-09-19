@@ -358,9 +358,9 @@ extension EditorSetViewModel {
         }
     }
     
-    func showViewTypes(with activeView: DataviewView? = nil) {
+    func showViewTypes(with activeView: DataviewView?) {
         router.showViewTypes(
-            activeView: activeView ?? self.activeView,
+            activeView: activeView,
             canDelete: dataView.views.count > 1,
             dataviewService: dataviewService
         )
