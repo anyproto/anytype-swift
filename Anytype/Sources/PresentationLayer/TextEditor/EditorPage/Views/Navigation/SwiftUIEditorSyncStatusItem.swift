@@ -6,7 +6,7 @@ struct SwiftUIEditorSyncStatusItem: UIViewRepresentable {
     let state: EditorBarItemState
     
     func makeUIView(context: Context) -> EditorSyncStatusItem {
-        return EditorSyncStatusItem(status: status)
+        EditorSyncStatusItem(status: status)
     }
     
     func updateUIView(_ item: EditorSyncStatusItem, context: Context) {
