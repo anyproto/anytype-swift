@@ -21,6 +21,16 @@ class SearchHelper {
         return filter
     }
     
+    static func isFavoriteFilter(isFavorite: Bool) -> DataviewFilter {
+        var filter = DataviewFilter()
+        filter.condition = .equal
+        filter.value = isFavorite.protobufValue
+        filter.relationKey = BundledRelationKey.isFavorite.rawValue
+        filter.operator = .and
+        
+        return filter
+    }
+    
     static func isDeletedFilter(isDeleted: Bool) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .equal

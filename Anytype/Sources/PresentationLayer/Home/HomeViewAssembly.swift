@@ -12,7 +12,12 @@ final class HomeViewAssembly {
     @MainActor
     func createHomeView() -> HomeView? {
         let homeObjectId = AccountManager.shared.account.info.homeObjectID
-        let model = HomeViewModel(homeBlockId: homeObjectId, editorBrowserAssembly: coordinatorsDI.browser)
+        let model = HomeViewModel(
+            homeBlockId: homeObjectId,
+            editorBrowserAssembly: coordinatorsDI.browser,
+            tabsSubsciptionDataBuilder: TabsSubscriptionDataBuilder(),
+            profileSubsciptionDataBuilder: ProfileSubscriptionDataBuilder()
+        )
         return HomeView(model: model)
     }
     

@@ -30,8 +30,11 @@ extension SetSortsListViewModel {
     // MARK: - Routing
     
     func addButtonTapped() {
-        router.showRelationSearch(relationsDetails: setModel.relationsDetails) { [weak self] relation in
-            self?.addNewSort(with: relation)
+        let excludeRelations: [RelationDetails] = setModel.sorts.map { $0.metadata }
+        router.showRelationSearch(
+            relationsDetails: setModel.activeViewRelations(excludeRelations: excludeRelations))
+        { [weak self] key in
+            self?.addNewSort(with: key)
         }
     }
     

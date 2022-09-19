@@ -1,6 +1,7 @@
 @testable import Anytype
 import BlocksModels
 import Foundation
+import AnytypeCore
 
 final class BlockActionHandlerMock: BlockActionHandlerProtocol {
     var blockSelectionHandler: BlockSelectionHandler? {

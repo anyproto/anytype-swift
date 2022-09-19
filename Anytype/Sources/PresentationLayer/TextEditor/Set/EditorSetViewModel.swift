@@ -17,6 +17,9 @@ final class EditorSetViewModel: ObservableObject {
     @Published var sorts: [SetSort] = []
     @Published var filters: [SetFilter] = []
     @Published var dataViewRelationsDetails: [RelationDetails] = []
+    
+    private let setSyncStatus = FeatureFlags.setSyncStatus
+    @Published var syncStatus: SyncStatus = .unknown
 
     var isUpdating = false
 
@@ -48,6 +51,7 @@ final class EditorSetViewModel: ObservableObject {
         document.details
     }
 
+    #warning("May be dropped")
     var relationsDetails: [RelationDetails] {
         activeView.options.compactMap { option in
             let relationDetails = dataViewRelationsDetails.first { relation in
@@ -59,6 +63,14 @@ final class EditorSetViewModel: ObservableObject {
             
             return relationDetails
         }
+    }
+
+    func activeViewRelations(excludeRelations: [RelationMetadata] = []) -> [RelationMetadata] {
+        dataBuilder.activeViewRelations(
+            dataview: dataView,
+            view: activeView,
+            excludeRelations: excludeRelations
+        )
     }
 
     private var isObjectLocked: Bool {
@@ -77,6 +89,7 @@ final class EditorSetViewModel: ObservableObject {
     private let searchService: SearchServiceProtocol
     private let detailsService: DetailsServiceProtocol
     private let textService: TextServiceProtocol
+    private let setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol
     private var subscriptions = [AnyCancellable]()
     private var titleSubscription: AnyCancellable?
     private let relationDetailsStorage: RelationDetailsStorageProtocol
@@ -87,7 +100,8 @@ final class EditorSetViewModel: ObservableObject {
         searchService: SearchServiceProtocol,
         detailsService: DetailsServiceProtocol,
         textService: TextServiceProtocol,
-        relationDetailsStorage: RelationDetailsStorageProtocol
+        relationDetailsStorage: RelationDetailsStorageProtocol,
+        setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol
     ) {
         self.document = document
         self.dataviewService = dataviewService
@@ -95,6 +109,7 @@ final class EditorSetViewModel: ObservableObject {
         self.detailsService = detailsService
         self.textService = textService
         self.relationDetailsStorage = relationDetailsStorage
+        self.setSubscriptionDataBuilder = setSubscriptionDataBuilder
 
         self.titleString = document.details?.pageCellTitle ?? ""
         self.featuredRelations = document.featuredRelationsForEditor
@@ -147,7 +162,7 @@ final class EditorSetViewModel: ObservableObject {
         guard !isEmpty else { return }
         
         subscriptionService.startSubscription(
-            data: .set(
+            data: setSubscriptionDataBuilder.set(
                 .init(
                     dataView: dataView,
                     view: activeView,
@@ -186,7 +201,11 @@ final class EditorSetViewModel: ObservableObject {
         case .general, .blocks, .details, .dataSourceUpdate:
             objectWillChange.send()
             setupDataview()
-        case .header, .syncStatus:
+        case .syncStatus(let status):
+            if setSyncStatus {
+                syncStatus = status
+            }
+        case .header:
             break // handled in ObjectHeaderViewModel
         }
     }
@@ -281,6 +300,7 @@ final class EditorSetViewModel: ObservableObject {
         dataViewRelationsDetails = relationDetailsStorage.relationsDetails(for: dataView.relationLinks)
     }
 
+    #warning("may be dropped")
     private func shouldAddRelationDetails(_ relationDetails: RelationDetails) -> Bool {
         guard sorts.first(where: { $0.relationDetails.key == relationDetails.key }) == nil else {
             return false
@@ -459,6 +479,7 @@ extension EditorSetViewModel {
         searchService: ServiceLocator.shared.searchService(),
         detailsService: DetailsService(objectId: "objectId", service: ObjectActionsService()),
         textService: TextService(),
-        relationDetailsStorage: ServiceLocator.shared.relationDetailsStorage()
+        relationDetailsStorage: ServiceLocator.shared.relationDetailsStorage(),
+        setSubscriptionDataBuilder: SetSubscriptionDataBuilder()
     )
 }

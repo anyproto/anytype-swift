@@ -12,211 +12,65 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
     
     func startSubscription(data: SubscriptionData) -> SubscriptionTogglerResult? {
         switch data {
-        case .recentTab:
-            return startHistoryTabSubscription()
-        case .archiveTab:
-            return startArchiveTabSubscription()
-        case .sharedTab:
-            return startSharedTabSubscription()
-        case .setsTab:
-            return startSetsTabSubscription()
-        case .profile(id: let profileId):
-            return startProfileSubscription(blockId: profileId)
-        case let .set(data):
-            return startSetSubscription(data: data)
-        case .relation:
-            return startRelationSubscription()
-        case .objectType:
-            return startObjectTypeSubscription()
+        case let .search(data):
+            return makeSearchToggler(data: data)
+        case let .objects(data):
+            return makeObjectsToggler(data: data)
         }
     }
     
     func stopSubscription(id: SubscriptionId) {
-        _ = Anytype_Rpc.Object.SearchUnsubscribe.Service.invoke(subIds: [id.rawValue])
+        _ = Anytype_Rpc.Object.SearchUnsubscribe.Service.invoke(subIds: [id.value])
     }
     
     // MARK: - Private
-    private func startProfileSubscription(blockId: BlockId) -> SubscriptionTogglerResult? {
-        let response = Anytype_Rpc.Object.SubscribeIds.Service.invoke(
-            subID: SubscriptionId.profile.rawValue,
-            ids: [blockId],
-            keys: [BundledRelationKey.id.rawValue, BundledRelationKey.name.rawValue, BundledRelationKey.iconImage.rawValue],
-            ignoreWorkspace: ""
-        )
-        
-        guard let result = response.getValue(domain: .subscriptionService) else {
-            return nil
-        }
-
-        return SubscriptionTogglerResult(
-            records: result.records.asDetais,
-            dependencies: result.dependencies.asDetais,
-            count: 1
-        )
-    }
     
-    private func startSetSubscription(data: SetSubsriptionData) -> SubscriptionTogglerResult? {
-        let keys = data.buildKeys(
-            with: homeDetailsKeys.map { $0.rawValue}
-        )
-        
-        let offset = Int64(data.currentPage - 1) * numberOfRowsPerPageInSubscriptions
-        
-        return makeRequest(
-            subId: .set,
-            filters: data.filters,
-            sorts: data.sorts,
-            source: data.source,
-            keys: keys,
-            offset: offset,
-            limit: numberOfRowsPerPageInSubscriptions
-        )
-    }
-    
-    private func startHistoryTabSubscription() -> SubscriptionTogglerResult? {
-        let sort = SearchHelper.sort(
-            relation: BundledRelationKey.lastModifiedDate,
-            type: .desc
-        )
-        var filters = buildFilters(
-            isArchived: false,
-            typeIds: ObjectTypeProvider.shared.supportedTypeIds
-        )
-        filters.append(SearchHelper.lastOpenedDateNotNilFilter())
-        
-        return makeRequest(subId: .recentTab, filters: filters, sorts: [sort])
-    }
-    
-    private func startArchiveTabSubscription() -> SubscriptionTogglerResult? {
-        let sort = SearchHelper.sort(
-            relation: BundledRelationKey.lastModifiedDate,
-            type: .desc
-        )
-        
-        let filters = buildFilters(
-            isArchived: true,
-            typeIds: ObjectTypeProvider.shared.supportedTypeIds
-        )
-        
-        return makeRequest(subId: .archiveTab, filters: filters, sorts: [sort])
-    }
-    
-    private func startSharedTabSubscription() -> SubscriptionTogglerResult? {
-        let sort = SearchHelper.sort(
-            relation: BundledRelationKey.lastModifiedDate,
-            type: .desc
-        )
-        var filters = buildFilters(isArchived: false, typeIds: ObjectTypeProvider.shared.supportedTypeIds)
-        filters.append(contentsOf: SearchHelper.sharedObjectsFilters())
-        
-        return makeRequest(subId: .sharedTab, filters: filters, sorts: [sort])
-    }
-    
-    private func startSetsTabSubscription() -> SubscriptionTogglerResult? {
-        let sort = SearchHelper.sort(
-            relation: BundledRelationKey.lastModifiedDate,
-            type: .desc
-        )
-        let filters = buildFilters(
-            isArchived: false,
-            typeIds: ObjectTypeProvider.shared.objectTypes(smartblockTypes: [.set]).map { $0.id }
-        )
-        
-        return makeRequest(subId: .setsTab, filters: filters, sorts: [sort])
-    }
-    
-    private func startRelationSubscription() -> SubscriptionTogglerResult? {
-        let sort = SearchHelper.sort(
-            relation: BundledRelationKey.name,
-            type: .asc
-        )
-        let filters = [
-            SearchHelper.isArchivedFilter(isArchived: false),
-            SearchHelper.typeFilter(typeIds: [ObjectTypeId.bundled(.relation).rawValue])
-        ]
-        
-        let keys = [
-            BundledRelationKey.id.rawValue,
-            BundledRelationKey.relationKey.rawValue,
-            BundledRelationKey.name.rawValue,
-            BundledRelationKey.relationFormat.rawValue,
-            RelationKey.readonlyValue.rawValue,
-            BundledRelationKey.relationFormatObjectTypes.rawValue,
-            BundledRelationKey.isHidden.rawValue,
-            BundledRelationKey.isReadonly.rawValue
-        ]
-        
-        return makeRequest(subId: .relation, filters: filters, sorts: [sort], keys: keys)
-    }
-    
-    private func startObjectTypeSubscription() -> SubscriptionTogglerResult? {
-        let sort = SearchHelper.sort(
-            relation: BundledRelationKey.name,
-            type: .asc
-        )
-        let filters = [
-            SearchHelper.typeFilter(typeIds: [ObjectTypeId.bundled(.objectType).rawValue])
-        ]
-        
-        let keys = [
-            BundledRelationKey.id.rawValue,
-            BundledRelationKey.name.rawValue,
-            BundledRelationKey.iconEmoji.rawValue,
-            BundledRelationKey.description.rawValue,
-            BundledRelationKey.isHidden.rawValue,
-            BundledRelationKey.isReadonly.rawValue,
-            BundledRelationKey.isArchived.rawValue,
-            BundledRelationKey.smartblockTypes.rawValue
-        ]
-        
-        return makeRequest(subId: .objectType, filters: filters, sorts: [sort], keys: keys)
-    }
-
-    private let homeDetailsKeys: [BundledRelationKey] = [
-        .id, .iconEmoji, .iconImage, .name, .snippet, .description, .type, .layout, .isArchived, .isDeleted, .done, .isFavorite
-    ]
-    private func makeRequest(
-        subId: SubscriptionId,
-        filters: [DataviewFilter],
-        sorts: [DataviewSort],
-        source: [String] = [],
-        keys: [String]? = nil,
-        offset: Int64 = 0,
-        limit: Int64 = 0
-    ) -> SubscriptionTogglerResult? {
-        let response = Anytype_Rpc.Object.SearchSubscribe.Service
+    private func makeSearchToggler(data: SubscriptionData.Search) -> SubscriptionTogglerResult? {
+        let result = Anytype_Rpc.Object.SearchSubscribe.Service
             .invoke(
-                subID: subId.rawValue,
-                filters: filters,
-                sorts: sorts,
-                limit: limit,
-                offset: offset,
-                keys: keys ?? homeDetailsKeys.map { $0.rawValue },
-                afterID: "",
-                beforeID: "",
-                source: source,
-                ignoreWorkspace: "",
-                noDepSubscription: false
+                subID: data.identifier.value,
+                filters: data.filters,
+                sorts: data.sorts,
+                limit: Int64(data.limit),
+                offset: Int64(data.offset),
+                keys: data.keys,
+                afterID: data.afterID ?? "",
+                beforeID: data.beforeID ?? "",
+                source: data.source,
+                ignoreWorkspace: data.ignoreWorkspace ?? "",
+                noDepSubscription: data.noDepSubscription
             )
+            .getValue(domain: .subscriptionService)
         
-        guard let result = response.getValue(domain: .subscriptionService) else {
+        guard let result = result else {
             return nil
         }
         
         return SubscriptionTogglerResult(
             records: result.records.asDetais,
             dependencies: result.dependencies.asDetais,
-            count: result.counters.total
+            count: Int(result.counters.total)
         )
     }
     
-    private func buildFilters(isArchived: Bool, typeIds: [String]) -> [DataviewFilter] {
-        [
-            SearchHelper.notHiddenFilter(),
-            
-            SearchHelper.isArchivedFilter(isArchived: isArchived),
-            
-            SearchHelper.typeFilter(typeIds: typeIds)
-        ]
+    private func makeObjectsToggler(data: SubscriptionData.Object) -> SubscriptionTogglerResult? {
+        let result = Anytype_Rpc.Object.SubscribeIds.Service
+            .invoke(
+                subID: data.identifier.value,
+                ids: data.objectIds,
+                keys: data.keys,
+                ignoreWorkspace: data.ignoreWorkspace ?? ""
+            )
+            .getValue(domain: .subscriptionService)
+        
+        guard let result = result else {
+            return nil
+        }
+
+        return SubscriptionTogglerResult(
+            records: result.records.asDetais,
+            dependencies: result.dependencies.asDetais,
+            count: data.objectIds.count
+        )
     }
 }

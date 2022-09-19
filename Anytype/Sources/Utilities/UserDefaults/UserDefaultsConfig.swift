@@ -27,7 +27,7 @@ struct UserDefaultsConfig {
     }
     
     @UserDefault("UserData.RowsPerPageInSet", defaultValue: 50)
-    static var rowsPerPageInSet: Int64
+    static var rowsPerPageInSet: Int
     
     @UserDefault("UserData.ShowKeychainAlert", defaultValue: false)
     static var showKeychainAlert: Bool

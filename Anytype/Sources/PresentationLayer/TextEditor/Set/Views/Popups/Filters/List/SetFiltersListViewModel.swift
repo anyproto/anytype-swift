@@ -32,7 +32,7 @@ extension SetFiltersListViewModel {
     // MARK: - Actions
     
     func addButtonTapped() {
-        router.showRelationSearch(relationsDetails: setModel.relationsDetails) { [weak self] relationDetails in
+        router.showRelationSearch(relationsDetails: setModel.activeViewRelations()) { [weak self] relationDetails in
             guard let filter = self?.makeSetFilter(with: relationDetails) else {
                 return
             }
@@ -88,6 +88,9 @@ extension SetFiltersListViewModel {
     }
     
     private func makeSetFilter(with relationDetails: RelationDetails) -> SetFilter? {
+        guard let metadata = setModel.activeViewRelations().first(where: { $0.id == id }) else {
+            return nil
+        }
         return SetFilter(
             relationDetails: relationDetails,
             filter: DataviewFilter(

@@ -10,7 +10,7 @@ on:
 
 jobs:
   main:
-    runs-on: macOS-12
+    runs-on: self-hosted
     timeout-minutes: 35
 
     steps:
@@ -42,7 +42,7 @@ jobs:
       - name: Download Middleware
         run: ruby ./Scripts/middleware.rb --token ${{ secrets.ANYTYPE_MIDDLEWARE_ACCESS_TOKEN }}
 
-      - name: Build and upload to Testflight
+      - name: Build 
         run: |
           export LC_ALL=en_US.UTF-8
           export LANG=en_US.UTF-8

@@ -32,7 +32,7 @@ struct DebugMenu: View {
         }
         .padding(20)
         .onChange(of: rowsPerPageInSet) { count in
-            guard let count = Int64(count) else { return }
+            guard let count = Int(count) else { return }
             UserDefaultsConfig.rowsPerPageInSet = count
         }
     }
