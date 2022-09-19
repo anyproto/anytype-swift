@@ -88,14 +88,14 @@ extension SetFiltersListViewModel {
     }
     
     private func makeSetFilter(with relationDetails: RelationDetails) -> SetFilter? {
-        guard let metadata = setModel.activeViewRelations().first(where: { $0.id == id }) else {
+        guard let filteredDetails = setModel.activeViewRelations().first(where: { $0.id == relationDetails.id }) else {
             return nil
         }
         return SetFilter(
-            relationDetails: relationDetails,
+            relationDetails: filteredDetails,
             filter: DataviewFilter(
-                relationKey: relationDetails.key,
-                condition: SetFilter.defaultCondition(for: relationDetails),
+                relationKey: filteredDetails.key,
+                condition: SetFilter.defaultCondition(for: filteredDetails),
                 value: [String]().protobufValue
             )
         )

@@ -24,19 +24,19 @@ final class SetContentViewDataBuilder {
     }
     
     func activeViewRelations(
-        dataview: BlockDataview,
+        dataViewRelationsDetails: [RelationDetails],
         view: DataviewView,
-        excludeRelations: [RelationMetadata]
-    ) -> [RelationMetadata] {
+        excludeRelations: [RelationDetails]
+    ) -> [RelationDetails] {
         view.options.compactMap { option in
-            let metadata = dataview.relations.first { relation in
+            let relationDetails = dataViewRelationsDetails.first { relation in
                 option.key == relation.key
             }
             
-            guard let metadata = metadata,
-                  shouldAddRelationMetadata(metadata, excludeRelations: excludeRelations) else { return nil }
+            guard let relationDetails = relationDetails,
+                  shouldAddRelationDetails(relationDetails, excludeRelations: excludeRelations) else { return nil }
             
-            return metadata
+            return relationDetails
         }
     }
     
@@ -146,17 +146,17 @@ final class SetContentViewDataBuilder {
         return nil
     }
     
-    private func shouldAddRelationMetadata(_ relationMetadata: RelationMetadata, excludeRelations: [RelationMetadata]) -> Bool {
-        guard excludeRelations.first(where: { $0.key == relationMetadata.key }) == nil else {
+    private func shouldAddRelationDetails(_ relationDetails: RelationDetails, excludeRelations: [RelationDetails]) -> Bool {
+        guard excludeRelations.first(where: { $0.key == relationDetails.key }) == nil else {
             return false
         }
-        guard relationMetadata.key != ExceptionalSetSort.name.rawValue,
-              relationMetadata.key != ExceptionalSetSort.done.rawValue else {
+        guard relationDetails.key != ExceptionalSetSort.name.rawValue,
+              relationDetails.key != ExceptionalSetSort.done.rawValue else {
             return true
         }
-        return !relationMetadata.isHidden &&
-        relationMetadata.format != .file &&
-        relationMetadata.format != .unrecognized
+        return !relationDetails.isHidden &&
+        relationDetails.format != .file &&
+        relationDetails.format != .unrecognized
     }
 }
 

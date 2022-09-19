@@ -51,23 +51,9 @@ final class EditorSetViewModel: ObservableObject {
         document.details
     }
 
-    #warning("May be dropped")
-    var relationsDetails: [RelationDetails] {
-        activeView.options.compactMap { option in
-            let relationDetails = dataViewRelationsDetails.first { relation in
-                option.key == relation.key
-            }
-            
-            guard let relationDetails = relationDetails,
-                  shouldAddRelationDetails(relationDetails) else { return nil }
-            
-            return relationDetails
-        }
-    }
-
-    func activeViewRelations(excludeRelations: [RelationMetadata] = []) -> [RelationMetadata] {
+    func activeViewRelations(excludeRelations: [RelationDetails] = []) -> [RelationDetails] {
         dataBuilder.activeViewRelations(
-            dataview: dataView,
+            dataViewRelationsDetails: dataViewRelationsDetails,
             view: activeView,
             excludeRelations: excludeRelations
         )
@@ -298,20 +284,6 @@ final class EditorSetViewModel: ObservableObject {
     
     private func updateDataViewRelations() {
         dataViewRelationsDetails = relationDetailsStorage.relationsDetails(for: dataView.relationLinks)
-    }
-
-    #warning("may be dropped")
-    private func shouldAddRelationDetails(_ relationDetails: RelationDetails) -> Bool {
-        guard sorts.first(where: { $0.relationDetails.key == relationDetails.key }) == nil else {
-            return false
-        }
-        guard relationDetails.key != ExceptionalSetSort.name.rawValue,
-              relationDetails.key != ExceptionalSetSort.done.rawValue else {
-            return true
-        }
-        return !relationDetails.isHidden &&
-        relationDetails.format != .file &&
-        relationDetails.format != .unrecognized
     }
     
     private func isBookmarksSet() -> Bool {
