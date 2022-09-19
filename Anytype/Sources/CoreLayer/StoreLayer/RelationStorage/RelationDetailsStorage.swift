@@ -5,10 +5,19 @@ extension RelationDetails: IdProvider {}
 
 final class RelationDetailsStorage: RelationDetailsStorageProtocol {
     
-    private let subscriptionsService: SubscriptionsServiceProtocol = ServiceLocator.shared.subscriptionService()
+    private let subscriptionsService: SubscriptionsServiceProtocol
+    private let subscriptionDataBuilder: RelationSubscriptionDataBuilderProtocol
+    
     private var details = [RelationDetails]()
     private var localSubscriptions = [String: [RelationLink]]()
-    
+
+    init(
+        subscriptionsService: SubscriptionsServiceProtocol,
+        subscriptionDataBuilder: RelationSubscriptionDataBuilderProtocol
+    ) {
+        self.subscriptionsService = subscriptionsService
+        self.subscriptionDataBuilder = subscriptionDataBuilder
+    }
     // MARK: - RelationDetailsStorageProtocol
     
     func relationsDetails(for links: [RelationLink]) -> [RelationDetails] {
@@ -21,7 +30,7 @@ final class RelationDetailsStorage: RelationDetailsStorageProtocol {
     }
     
     func startSubscription() {
-        subscriptionsService.startSubscription(data: .relation) { [weak self] subId, update in
+        subscriptionsService.startSubscription(data: subscriptionDataBuilder.build()) { [weak self] subId, update in
             self?.handleEvent(update: update)
         }
     }

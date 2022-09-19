@@ -7,19 +7,25 @@ extension ObjectType: IdProvider {}
 final class ObjectTypeProvider: ObjectTypeProviderProtocol {
         
     static let shared = ObjectTypeProvider(
-        subscriptionsService: ServiceLocator.shared.subscriptionService()
+        subscriptionsService: ServiceLocator.shared.subscriptionService(),
+        subscriptionBuilder: ObjectTypeSubscriptionDataBuilder()
     )
     
     // MARK: - Private variables
     
     private let subscriptionsService: SubscriptionsServiceProtocol
+    private let subscriptionBuilder: ObjectTypeSubscriptionDataBuilderProtocol
     private let supportedSmartblockTypes: Set<SmartBlockType> = [.page, .profilePage, .anytypeProfile, .set, .file]
     
     private var objectTypes = [ObjectType]()
     private var cachedSupportedTypeIds: Set<String> = []
     
-    private init(subscriptionsService: SubscriptionsServiceProtocol) {
+    private init(
+        subscriptionsService: SubscriptionsServiceProtocol,
+        subscriptionBuilder: ObjectTypeSubscriptionDataBuilderProtocol
+    ) {
         self.subscriptionsService = subscriptionsService
+        self.subscriptionBuilder = subscriptionBuilder
     }
     
     // MARK: - ObjectTypeProviderProtocol
@@ -49,7 +55,7 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     }
     
     func startSubscription() {
-        subscriptionsService.startSubscription(data: .objectType) { [weak self] subId, update in
+        subscriptionsService.startSubscription(data: subscriptionBuilder.build()) { [weak self] subId, update in
             self?.handleEvent(update: update)
         }
     }

@@ -76,7 +76,10 @@ final class ServiceLocator {
     }
     
     // Sigletone
-    private lazy var _relationDetailsStorage = RelationDetailsStorage()
+    private lazy var _relationDetailsStorage = RelationDetailsStorage(
+        subscriptionsService: subscriptionService(),
+        subscriptionDataBuilder: RelationSubscriptionDataBuilder()
+    )
     func relationDetailsStorage() -> RelationDetailsStorageProtocol {
         return _relationDetailsStorage
     }
