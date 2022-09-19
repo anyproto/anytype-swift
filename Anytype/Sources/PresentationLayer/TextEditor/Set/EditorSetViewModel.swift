@@ -295,12 +295,7 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     private func itemTapped(_ details: ObjectDetails) {
-        if isBookmarksSet(),
-           let url = details.url {
-            router.openUrl(url.url)
-        } else {
-            openObject(pageId: details.id, type: details.editorViewType)
-        }
+        openObject(pageId: details.id, type: details.editorViewType)
     }
 }
 
