@@ -6,35 +6,35 @@ username("iosteam@anytype.io") # Your Apple Developer Portal username
 
 for_lane :dev do
 	type("appstore")
-	app_identifier(["com.anytypeio.anytype.dev"]) 
+	app_identifier(["com.anytypeio.anytype.dev", "com.anytypeio.anytype.dev.home.widget"]) 
 end
 
 for_lane :release do
 	type("appstore")
-	app_identifier(["com.anytypeio.anytype"]) 
+	app_identifier(["com.anytypeio.anytype", "com.anytypeio.anytype.home.widget"]) 
 end
 
 for_lane :test_build do
 	type("appstore")
-	app_identifier(["com.anytypeio.anytype.dev"]) 
-end
-
-for_lane :install_dev_profiles do
-	type("development")
-	app_identifier(["com.anytypeio.anytype.dev"]) 
-end
-
-for_lane :install_appstore_profiles do
-	type("appstore")
-	app_identifier(["com.anytypeio.anytype.dev", "com.anytypeio.anytype"]) 
+	app_identifier(["com.anytypeio.anytype.dev", "com.anytypeio.anytype.dev.home.widget"]) 
 end
 
 for_lane :generate_dev_profiles do
 	type('development')
-	app_identifier(["com.anytypeio.anytype.dev"])
+	app_identifier(["com.anytypeio.anytype.dev", "com.anytypeio.anytype.dev.home.widget"])
+end
+
+for_lane :install_dev_profiles do
+	type("development")
+	app_identifier(["com.anytypeio.anytype.dev", "com.anytypeio.anytype.dev.home.widget"]) 
 end
 
 for_lane :generate_appstore_profiles do
 	type("appstore")
-	app_identifier(["com.anytypeio.anytype.dev", "com.anytypeio.anytype"]) 
+	app_identifier(["com.anytypeio.anytype.dev", "com.anytypeio.anytype.dev.home.widget", "com.anytypeio.anytype", "com.anytypeio.anytype.home.widget"]) 
+end
+
+for_lane :install_appstore_profiles do
+	type("appstore")
+	app_identifier(["com.anytypeio.anytype.dev", "com.anytypeio.anytype.dev.home.widget", "com.anytypeio.anytype", "com.anytypeio.anytype.home.widget"]) 
 end
