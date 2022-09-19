@@ -23,11 +23,11 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_KEY_FASTLANE_COMMIT }}
 
-      - name: Setup ruby
-        uses: ruby/setup-ruby@v1.100.0
-        with:
-          ruby-version: 2.7.2
-          bundler-cache: true
+#      - name: Setup ruby
+#        uses: ruby/setup-ruby@v1.100.0
+#        with:
+#          ruby-version: 2.7.2
+#          bundler-cache: true
 
       - name: Update git config
         run: |
