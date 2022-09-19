@@ -16,9 +16,7 @@ final class TextRelationDetailsViewController: UIViewController {
     
     private let viewModel: TextRelationDetailsViewModelProtocol
     
-//    private var textViewTrailingConstraint: NSLayoutConstraint?
     private var textViewBottomConstraint: NSLayoutConstraint?
-//    private var actionButtonLeadingConstraint: NSLayoutConstraint?
     
     private let maxViewHeight: CGFloat
     
