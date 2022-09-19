@@ -57,6 +57,7 @@ struct HomeCollectionView: View {
                 }
             }
             .padding()
+            .padding(.bottom, viewModel.isSelectionMode ? 48 : 0)
         }
         .padding([.top], -22)
     }

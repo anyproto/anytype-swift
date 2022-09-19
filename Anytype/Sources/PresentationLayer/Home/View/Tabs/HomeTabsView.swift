@@ -50,18 +50,6 @@ struct HomeTabsView: View {
                         }
                 )
             tabs
-            selectionViewStub
-        }
-    }
-    
-    // stub for DashboardSelectionActionsView
-    private var selectionViewStub: some View {
-        Group {
-            if model.isSelectionMode {
-                Color.clear.frame(height: DashboardSelectionActionsView.height)
-            } else {
-                EmptyView()
-            }
         }
     }
     
