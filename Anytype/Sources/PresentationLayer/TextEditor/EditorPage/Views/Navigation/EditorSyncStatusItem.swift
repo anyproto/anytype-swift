@@ -8,6 +8,7 @@ final class EditorSyncStatusItem: UIView {
     private var status: SyncStatus
     private var state = EditorBarItemState.initial
     
+    private let height: CGFloat = 28
     private var intristicSize: CGSize = .zero
     
     func changeState(_ state: EditorBarItemState) {
@@ -47,7 +48,7 @@ final class EditorSyncStatusItem: UIView {
         updateButtonState()
         
         layoutUsing.anchors {
-            $0.height.equal(to: Constants.height)
+            $0.height.equal(to: height)
             $0.centerY.equal(to: centerYAnchor)
         }
         
@@ -82,7 +83,7 @@ final class EditorSyncStatusItem: UIView {
     
     private func updateIntristicSize() {
         intristicSize = systemLayoutSizeFitting(
-            CGSize(width: .zero, height: Constants.height),
+            CGSize(width: .zero, height: height),
             withHorizontalFittingPriority: .defaultHigh,
             verticalFittingPriority: .fittingSizeLevel
         )
@@ -92,11 +93,5 @@ final class EditorSyncStatusItem: UIView {
     // MARK: - Unavailable
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-}
-
-private extension EditorSyncStatusItem {
-    enum Constants {
-        static let height: CGFloat = 28
     }
 }
