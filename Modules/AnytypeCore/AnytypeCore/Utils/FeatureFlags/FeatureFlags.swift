@@ -15,7 +15,6 @@ public final class FeatureFlags {
         .showAlertOnAssert,
         .analytics,
         .objectPreview,
-        .setFilters,
         .relationDetails,
         .bookmarksFlow,
         .bookmarksFlowP2,
@@ -53,10 +52,6 @@ public extension FeatureFlags {
 
     static var objectPreview: Bool {
         value(for: .objectPreview)
-    }
-    
-    static var isSetFiltersAvailable: Bool {
-        value(for: .setFilters)
     }
         
     static var relationDetails: Bool {
