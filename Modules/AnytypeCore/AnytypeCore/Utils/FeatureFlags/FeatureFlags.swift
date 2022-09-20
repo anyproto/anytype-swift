@@ -18,7 +18,6 @@ public final class FeatureFlags {
         .relationDetails,
         .bookmarksFlow,
         .bookmarksFlowP2,
-        .setGalleryView,
         .setListView,
         .setViewTypes,
         .setSyncStatus
@@ -64,10 +63,6 @@ public extension FeatureFlags {
     
     static var bookmarksFlowP2: Bool {
         value(for: .bookmarksFlowP2)
-    }
-    
-    static var setGalleryView: Bool {
-        value(for: .setGalleryView)
     }
     
     static var setListView: Bool {
