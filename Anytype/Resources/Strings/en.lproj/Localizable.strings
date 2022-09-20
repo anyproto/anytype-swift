@@ -603,8 +603,8 @@
 "SetViewTypesPicker.Section.Types.Title" = "View as";
 "SetViewTypesPicker.Settings.Duplicate.View" = "Duplicate";
 "SetViewTypesPicker.Settings.Delete.View" = "Delete view";
-"SetViewTypesPicker.Settings.Texfield.Placeholder.New.View" = "New view";
-"SetViewTypesPicker.Settings.Texfield.Placeholder.Untitled" = "Untitled";
+"SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "New view";
+"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Untitled";
 
 // MARK: Select view picker
 "EditorSetViewPicker.View.Available.Soon" = "%s view soon";

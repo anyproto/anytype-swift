@@ -71,7 +71,7 @@ final class SetViewTypesPickerViewModel: ObservableObject {
     }
     
     private func createView() {
-        let name = name.isEmpty ? Loc.SetViewTypesPicker.Settings.Texfield.Placeholder.untitled : name
+        let name = name.isEmpty ? Loc.SetViewTypesPicker.Settings.Textfield.Placeholder.untitled : name
         dataviewService.createView(
             DataviewView.created(with: name, type: selectedType)
         )

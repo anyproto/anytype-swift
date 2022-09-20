@@ -79,8 +79,8 @@ struct SetViewTypesPicker: View {
             
             TextField(
                 viewModel.hasActiveView ?
-                Loc.SetViewTypesPicker.Settings.Texfield.Placeholder.untitled :
-                Loc.SetViewTypesPicker.Settings.Texfield.Placeholder.New.view,
+                Loc.SetViewTypesPicker.Settings.Textfield.Placeholder.untitled :
+                Loc.SetViewTypesPicker.Settings.Textfield.Placeholder.New.view,
                 text: $viewModel.name
             )
                 .foregroundColor(.textPrimary)
