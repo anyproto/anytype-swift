@@ -3,6 +3,7 @@ import BlocksModels
 import Combine
 import AnytypeCore
 
+@MainActor
 final class EditorSetViewPickerViewModel: ObservableObject {
     @Published var rows: [EditorSetViewRowConfiguration] = []
     @Published var disableDeletion = false
@@ -35,10 +36,12 @@ final class EditorSetViewPickerViewModel: ObservableObject {
     }
     
     func delete(_ indexSet: IndexSet) {
-        indexSet.forEach { deleteIndex in
-            guard deleteIndex < setModel.dataView.views.count else { return }
-            let view = setModel.dataView.views[deleteIndex]
-            dataviewService.deleteView(view.id)
+        Task { @MainActor in
+            for deleteIndex in indexSet {
+                guard deleteIndex < setModel.dataView.views.count else { return }
+                let view = setModel.dataView.views[deleteIndex]
+                try await dataviewService.deleteView(view.id)
+            }
         }
     }
     

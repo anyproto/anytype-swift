@@ -1,6 +1,7 @@
 import SwiftUI
 import BlocksModels
 
+@MainActor
 final class SetViewTypesPickerViewModel: ObservableObject {
     @Published var name = ""
     @Published var types: [SetViewTypeConfiguration] = []
@@ -23,14 +24,18 @@ final class SetViewTypesPickerViewModel: ObservableObject {
         updateView(completion: completion)
     }
     
-    func deleteView(completion: () -> Void) {
-        dataviewService.deleteView(activeView.id)
-        completion()
+    func deleteView(completion: @escaping () -> Void) {
+        Task { @MainActor in
+            try await dataviewService.deleteView(activeView.id)
+            completion()
+        }
     }
     
-    func duplicateView(completion: () -> Void) {
-        dataviewService.createView(activeView)
-        completion()
+    func duplicateView(completion: @escaping () -> Void) {
+        Task { @MainActor in
+            try await dataviewService.createView(activeView)
+            completion()
+        }
     }
     
     private func updateTypes() {
