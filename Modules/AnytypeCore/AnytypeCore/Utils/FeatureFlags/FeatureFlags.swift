@@ -16,9 +16,6 @@ public final class FeatureFlags {
         .analytics,
         .objectPreview,
         .setFilters,
-        .relationDetails,
-        .bookmarksFlow,
-        .bookmarksFlowP2,
         .setGalleryView,
         .setListView,
         .setViewTypes,
@@ -57,18 +54,6 @@ public extension FeatureFlags {
     
     static var isSetFiltersAvailable: Bool {
         value(for: .setFilters)
-    }
-        
-    static var relationDetails: Bool {
-        value(for: .relationDetails)
-    }
-    
-    static var bookmarksFlow: Bool {
-        value(for: .bookmarksFlow)
-    }
-    
-    static var bookmarksFlowP2: Bool {
-        value(for: .bookmarksFlowP2)
     }
     
     static var setGalleryView: Bool {
