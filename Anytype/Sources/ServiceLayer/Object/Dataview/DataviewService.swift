@@ -57,12 +57,12 @@ final class DataviewService: DataviewServiceProtocol {
         return events.isNotNil
     }
     
-    func deleteRelation(key: BlockId) {
-        Anytype_Rpc.BlockDataview.Relation.Delete.Service
-            .invoke(contextID: objectId, blockID: SetConstants.dataviewBlockId, relationKey: key)
-            .map { EventsBunch(event: $0.event) }
-            .getValue(domain: .dataviewService)?
-            .send()
+    func deleteRelation(key: BlockId) async throws {
+        let result = try await Anytype_Rpc.BlockDataview.Relation.Delete.Service
+            .invocation(contextID: objectId, blockID: SetConstants.dataviewBlockId, relationKey: key)
+            .invoke(errorDomain: .dataviewService)
+        let event = EventsBunch(event: result.event)
+        event.send()
     }
     
     func addRecord(templateId: BlockId, setFilters: [SetFilter]) async throws -> ObjectDetails? {

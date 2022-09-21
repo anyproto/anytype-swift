@@ -80,7 +80,9 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
                 anytypeAssertionFailure("No relation to delete at index: \(index)", domain: .dataviewService)
                 return
             }
-            service.deleteRelation(key: relation.metadata.key)
+            Task { @MainActor in
+                try await service.deleteRelation(key: relation.metadata.key)
+            }
         }
     }
     
