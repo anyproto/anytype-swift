@@ -65,7 +65,7 @@ final class DataviewService: DataviewServiceProtocol {
             .send()
     }
     
-    func addRecord(templateId: BlockId, setFilters: [SetFilter]) -> ObjectDetails? {
+    func addRecord(templateId: BlockId, setFilters: [SetFilter]) async throws -> ObjectDetails? {
         var prefilledFields = prefilledFieldsBuilder.buildPrefilledFields(from: setFilters)
         
         let internalFlags: [Int] = [
@@ -76,16 +76,14 @@ final class DataviewService: DataviewServiceProtocol {
        
         let protobufStruct: Google_Protobuf_Struct = .init(fields: prefilledFields)
 
-        let response = Anytype_Rpc.BlockDataviewRecord.Create.Service
-            .invoke(
+        let response = try await Anytype_Rpc.BlockDataviewRecord.Create.Service
+            .invocation(
                 contextID: objectId,
                 blockID: SetConstants.dataviewBlockId,
                 record: protobufStruct,
                 templateID: templateId
             )
-            .getValue(domain: .dataviewService)
-
-        guard let response = response else { return nil }
+            .invoke(errorDomain: .dataviewService)
 
         let idValue = response.record.fields[BundledRelationKey.id.rawValue]
         let idString = idValue?.unwrapedListValue.stringValue

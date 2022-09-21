@@ -404,10 +404,11 @@ extension EditorSetViewModel {
         } else {
             templateId = ""
         }
-
-        guard let objectDetails = dataviewService.addRecord(templateId: templateId, setFilters: filters) else { return }
-        
-        handleCreatedObjectDetails(objectDetails)
+        Task { @MainActor in
+            guard let objectDetails = try await dataviewService.addRecord(templateId: templateId, setFilters: filters) else { return }
+            
+            handleCreatedObjectDetails(objectDetails)
+        }
     }
     
     private func handleCreatedObjectDetails(_ objectDetails: ObjectDetails) {
