@@ -17,17 +17,17 @@ final class DataviewService: DataviewServiceProtocol {
         self.prefilledFieldsBuilder = prefilledFieldsBuilder
     }
     
-    func updateView( _ view: DataviewView) {
-        Anytype_Rpc.BlockDataview.View.Update.Service
-            .invoke(
+    func updateView( _ view: DataviewView) async throws {
+        let result = try await Anytype_Rpc.BlockDataview.View.Update.Service
+            .invocation(
                 contextID: objectId,
                 blockID: SetConstants.dataviewBlockId,
                 viewID: view.id,
                 view: view.asMiddleware
             )
-            .map { EventsBunch(event: $0.event) }
-            .getValue(domain: .dataviewService)?
-            .send()
+            .invoke(errorDomain: .dataviewService)
+        let event = EventsBunch(event: result.event)
+        event.send()
     }
     
     func createView( _ view: DataviewView) async throws {

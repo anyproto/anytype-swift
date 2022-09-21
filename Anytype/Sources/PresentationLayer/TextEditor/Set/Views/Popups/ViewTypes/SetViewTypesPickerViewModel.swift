@@ -62,7 +62,9 @@ final class SetViewTypesPickerViewModel: ObservableObject {
             name: name,
             type: selectedType
         )
-        dataviewService.updateView(newView)
+        Task { @MainActor in
+            try await dataviewService.updateView(newView)
+        }
     }
     
     private func handleTap(with type: DataviewViewType) {
