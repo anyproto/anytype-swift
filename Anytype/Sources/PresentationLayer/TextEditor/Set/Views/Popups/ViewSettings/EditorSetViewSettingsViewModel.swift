@@ -87,8 +87,8 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
     }
     
     func moveRelation(from: IndexSet, to: Int) {
-        from.forEach { sortedRelationsFromIndex in
-            guard sortedRelationsFromIndex != to else { return }
+        from.forEach { [weak self] sortedRelationsFromIndex in
+            guard let self = self, sortedRelationsFromIndex != to else { return }
             
             let relationFrom = setModel.sortedRelations[sortedRelationsFromIndex]
             let sortedRelationsToIndex = to > sortedRelationsFromIndex ? to - 1 : to // map insert index to item index
@@ -115,12 +115,14 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
         setModel.showAddNewRelationView { [weak self] relation, isNew in
             guard let self = self else { return }
             
-            if self.service.addRelation(relation) {
-                let newOption = DataviewRelationOption(key: relation.key, isVisible: true)
-                let newView = self.setModel.activeView.updated(option: newOption)
-                self.updateView(newView)
+            Task { @MainActor in
+                if try await self.service.addRelation(relation) {
+                    let newOption = DataviewRelationOption(key: relation.key, isVisible: true)
+                    let newView = self.setModel.activeView.updated(option: newOption)
+                    self.updateView(newView)
+                }
+                AnytypeAnalytics.instance().logAddRelation(format: relation.format, isNew: isNew, type: .set)
             }
-            AnytypeAnalytics.instance().logAddRelation(format: relation.format, isNew: isNew, type: .set)
         }
     }
     

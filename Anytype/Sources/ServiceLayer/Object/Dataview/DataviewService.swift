@@ -46,15 +46,14 @@ final class DataviewService: DataviewServiceProtocol {
         event.send()
     }
     
-    func addRelation(_ relation: RelationMetadata) -> Bool {
-        let events = Anytype_Rpc.BlockDataview.Relation.Add.Service
-            .invoke(contextID: objectId, blockID: SetConstants.dataviewBlockId, relation: relation.asMiddleware)
-            .map { EventsBunch(event: $0.event) }
-            .getValue(domain: .dataviewService)
+    func addRelation(_ relation: RelationMetadata) async throws -> Bool {
+        let result = try await Anytype_Rpc.BlockDataview.Relation.Add.Service
+            .invocation(contextID: objectId, blockID: SetConstants.dataviewBlockId, relation: relation.asMiddleware)
+            .invoke(errorDomain: .dataviewService)
+        let event = EventsBunch(event: result.event)
+        event.send()
         
-        events?.send()
-        
-        return events.isNotNil
+        return result.hasEvent
     }
     
     func deleteRelation(key: BlockId) async throws {
