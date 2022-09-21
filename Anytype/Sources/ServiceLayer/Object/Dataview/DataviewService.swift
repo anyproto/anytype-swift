@@ -95,27 +95,28 @@ final class DataviewService: DataviewServiceProtocol {
         return ObjectDetails(id: id, values: response.record.fields)
     }
 
-    func setSource(typeObjectId: String) {
-        Anytype_Rpc.BlockDataview.SetSource.Service.invoke(
-            contextID: objectId,
-            blockID: Constants.dataview,
-            source: [typeObjectId]
-        )
-        .map { EventsBunch(event: $0.event) }
-        .getValue(domain: .dataviewService)?
-        .send()
+    func setSource(typeObjectId: String) async throws {
+        let result = try await Anytype_Rpc.BlockDataview.SetSource.Service
+            .invocation(
+                contextID: objectId,
+                blockID: Constants.dataview,
+                source: [typeObjectId]
+            )
+            .invoke(errorDomain: .dataviewService)
+        let event = EventsBunch(event: result.event)
+        event.send()
     }
     
-    func setPositionForView(_ viewId: String, position: Int) {
-        Anytype_Rpc.BlockDataview.View.SetPosition.Service
-            .invoke(
+    func setPositionForView(_ viewId: String, position: Int) async throws {
+        let result = try await Anytype_Rpc.BlockDataview.View.SetPosition.Service
+            .invocation(
                 contextID: objectId,
                 blockID: Constants.dataview,
                 viewID: viewId,
                 position: UInt32(position)
             )
-            .map { EventsBunch(event: $0.event) }
-            .getValue(domain: .dataviewService)?
-            .send()
+            .invoke(errorDomain: .dataviewService)
+        let event = EventsBunch(event: result.event)
+        event.send()
     }
 }

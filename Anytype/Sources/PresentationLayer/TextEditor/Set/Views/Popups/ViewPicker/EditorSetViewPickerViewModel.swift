@@ -31,15 +31,17 @@ final class EditorSetViewPickerViewModel: ObservableObject {
             guard viewFromIndex != to, viewFromIndex < setModel.dataView.views.count else { return }
             let view = setModel.dataView.views[viewFromIndex]
             let position = to > viewFromIndex ? to - 1 : to
-            dataviewService.setPositionForView(view.id, position: position)
+            Task { @MainActor in
+                try await dataviewService.setPositionForView(view.id, position: position)
+            }
         }
     }
     
     func delete(_ indexSet: IndexSet) {
-        Task { @MainActor in
-            for deleteIndex in indexSet {
-                guard deleteIndex < setModel.dataView.views.count else { return }
-                let view = setModel.dataView.views[deleteIndex]
+        indexSet.forEach { deleteIndex in
+            guard deleteIndex < setModel.dataView.views.count else { return }
+            let view = setModel.dataView.views[deleteIndex]
+            Task { @MainActor in
                 try await dataviewService.deleteView(view.id)
             }
         }
