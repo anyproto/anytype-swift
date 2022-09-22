@@ -130,18 +130,19 @@ final class BlockViewModelBuilder {
                 return BlockFileViewModel(
                     info: info,
                     fileData: content,
+                    handler: handler,
                     showFilePicker: { [weak self] blockId in
                         self?.showFilePicker(blockId: blockId)
                     },
-                    downloadFile: { [weak router] fileMetadata in
-                        guard let url = fileMetadata.contentUrl else { return }
-                        router?.saveFile(fileURL: url, type: .file)
+                    onFileOpen: { [weak router] fileContext in
+                        router?.openImage(fileContext)
                     }
                 )
             case .image:
                 return BlockImageViewModel(
                     info: info,
                     fileData: content,
+                    handler: handler,
                     showIconPicker: { [weak self] blockId in
                         self?.showMediaPicker(type: .images, blockId: blockId)
                     },
@@ -280,7 +281,7 @@ final class BlockViewModelBuilder {
             guard let itemProvider = itemProvider else { return }
 
             self?.handler.uploadMediaFile(
-                itemProvider: itemProvider,
+                uploadingSource: .itemProvider(itemProvider),
                 type: type,
                 blockId: blockId
             )

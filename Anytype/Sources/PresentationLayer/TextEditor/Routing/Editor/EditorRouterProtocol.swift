@@ -3,7 +3,7 @@ import AnytypeCore
 import UIKit
 
 protocol AttachmentRouterProtocol {
-    func openImage(_ imageContext: BlockImageViewModel.ImageOpeningContext)
+    func openImage(_ imageContext: FilePreviewContext)
 }
 
 protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
