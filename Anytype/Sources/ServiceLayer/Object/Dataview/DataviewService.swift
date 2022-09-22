@@ -84,6 +84,8 @@ final class DataviewService: DataviewServiceProtocol {
             )
             .invoke(errorDomain: .dataviewService)
 
+        guard response.hasRecord else { return nil }
+        
         let idValue = response.record.fields[BundledRelationKey.id.rawValue]
         let idString = idValue?.unwrapedListValue.stringValue
 
