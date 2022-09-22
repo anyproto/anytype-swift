@@ -15,8 +15,6 @@ public final class FeatureFlags {
         .showAlertOnAssert,
         .analytics,
         .objectPreview,
-        .setFilters,
-        .setGalleryView,
         .setListView,
         .setViewTypes,
         .setSyncStatus
@@ -50,14 +48,6 @@ public extension FeatureFlags {
 
     static var objectPreview: Bool {
         value(for: .objectPreview)
-    }
-    
-    static var isSetFiltersAvailable: Bool {
-        value(for: .setFilters)
-    }
-    
-    static var setGalleryView: Bool {
-        value(for: .setGalleryView)
     }
     
     static var setListView: Bool {
