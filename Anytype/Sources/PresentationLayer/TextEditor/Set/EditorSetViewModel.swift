@@ -306,7 +306,7 @@ extension EditorSetViewModel {
         if key == BundledRelationKey.setOf.rawValue {
             router.showTypesSearch(title: Loc.Set.SourceType.selectSource, selectedObjectId: document.details?.setOf.first) { [weak self] typeObjectId in
                 guard let self = self else { return }
-                Task { @MainActor in
+                Task {
                     try await self.dataviewService.setSource(typeObjectId: typeObjectId)
                 }
             }

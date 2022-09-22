@@ -23,8 +23,7 @@ final class SetViewTypesPickerViewModel: ObservableObject {
         self.updateTypes()
     }
     
-    func buttonTapped(completion: () -> Void) {
-        defer { completion() }
+    func buttonTapped() {
         if let activeView = activeView {
             updateView(activeView: activeView)
         } else {
@@ -32,19 +31,17 @@ final class SetViewTypesPickerViewModel: ObservableObject {
         }
     }
     
-    func deleteView(completion: @escaping () -> Void) {
+    func deleteView() {
         guard let activeView = activeView else { return }
-        Task { @MainActor in
+        Task {
             try await dataviewService.deleteView(activeView.id)
-            completion()
         }
     }
     
-    func duplicateView(completion: @escaping () -> Void) {
+    func duplicateView() {
         guard let activeView = activeView else { return }
-        Task { @MainActor in
+        Task {
             try await dataviewService.createView(activeView)
-            completion()
         }
     }
     
@@ -71,14 +68,14 @@ final class SetViewTypesPickerViewModel: ObservableObject {
             name: name,
             type: selectedType
         )
-        Task { @MainActor in
+        Task {
             try await dataviewService.updateView(newView)
         }
     }
     
     private func createView() {
         let name = name.isEmpty ? Loc.SetViewTypesPicker.Settings.Textfield.Placeholder.untitled : name
-        Task { @MainActor in
+        Task {
             try await dataviewService.createView(
                 DataviewView.created(with: name, type: selectedType)
             )

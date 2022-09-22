@@ -80,7 +80,7 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
                 anytypeAssertionFailure("No relation to delete at index: \(index)", domain: .dataviewService)
                 return
             }
-            Task { @MainActor in
+            Task {
                 try await service.deleteRelation(key: relation.metadata.key)
             }
         }
@@ -115,14 +115,14 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
         setModel.showAddNewRelationView { [weak self] relation, isNew in
             guard let self = self else { return }
             
-            Task { @MainActor in
+            Task {
                 if try await self.service.addRelation(relation) {
                     let newOption = DataviewRelationOption(key: relation.key, isVisible: true)
                     let newView = self.setModel.activeView.updated(option: newOption)
                     self.updateView(newView)
                 }
-                AnytypeAnalytics.instance().logAddRelation(format: relation.format, isNew: isNew, type: .set)
             }
+            AnytypeAnalytics.instance().logAddRelation(format: relation.format, isNew: isNew, type: .set)
         }
     }
     
@@ -153,7 +153,7 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
     }
     
     private func updateView(_ view: DataviewView) {
-        Task { @MainActor in
+        Task {
             try await service.updateView(view)
         }
     }

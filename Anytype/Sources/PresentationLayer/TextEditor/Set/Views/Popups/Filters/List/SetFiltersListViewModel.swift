@@ -84,7 +84,7 @@ extension SetFiltersListViewModel {
     
     private func updateView(with dataviewFilters: [DataviewFilter]) {
         let newView = setModel.activeView.updated(filters: dataviewFilters)
-        Task { @MainActor in
+        Task {
             try await dataviewService.updateView(newView)
         }
     }
