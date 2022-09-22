@@ -60,7 +60,7 @@ final class EditorSetViewModel: ObservableObject {
     
     private var isObjectLocked: Bool {
         document.isLocked ||
-        (FeatureFlags.setGalleryView && activeView.type == .gallery) ||
+        activeView.type == .gallery ||
         (FeatureFlags.setListView && activeView.type == .list)
     }
     
@@ -295,12 +295,7 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     private func itemTapped(_ details: ObjectDetails) {
-        if !FeatureFlags.bookmarksFlow && isBookmarksSet(),
-           let url = details.url {
-            router.openUrl(url.url)
-        } else {
-            openObject(pageId: details.id, type: details.editorViewType)
-        }
+        openObject(pageId: details.id, type: details.editorViewType)
     }
 }
 
@@ -356,9 +351,9 @@ extension EditorSetViewModel {
         }
     }
     
-    func showViewTypes(with activeView: DataviewView? = nil) {
+    func showViewTypes(with activeView: DataviewView?) {
         router.showViewTypes(
-            activeView: activeView ?? self.activeView,
+            activeView: activeView,
             canDelete: dataView.views.count > 1,
             dataviewService: dataviewService
         )

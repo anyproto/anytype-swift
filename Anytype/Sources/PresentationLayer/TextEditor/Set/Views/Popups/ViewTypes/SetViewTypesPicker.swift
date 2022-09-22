@@ -11,7 +11,9 @@ struct SetViewTypesPicker: View {
             InlineNavigationBar {
                 TitleView(title: Loc.SetViewTypesPicker.title)
             } rightButton: {
-                settingsMenu
+                if viewModel.hasActiveView {
+                    settingsMenu
+                }
             }
             content
             Spacer()
@@ -75,7 +77,12 @@ struct SetViewTypesPicker: View {
             AnytypeText(Loc.name, style: .caption1Regular, color: .textSecondary)
             Spacer.fixedHeight(6)
             
-            TextField(Loc.untitled, text: $viewModel.name)
+            TextField(
+                viewModel.hasActiveView ?
+                Loc.SetViewTypesPicker.Settings.Textfield.Placeholder.untitled :
+                Loc.SetViewTypesPicker.Settings.Textfield.Placeholder.New.view,
+                text: $viewModel.name
+            )
                 .foregroundColor(.textPrimary)
                 .font(AnytypeFontBuilder.font(anytypeFont: .heading))
             Spacer.fixedHeight(10)

@@ -14,10 +14,6 @@ extension BundledRelationsValueProvider {
             let layout = DetailsLayout(rawValue: number)
         else { return .basic }
         
-        if layout == .bookmark && !FeatureFlags.bookmarksFlowP2 {
-            return .basic
-        }
-        
         return layout
     }
     

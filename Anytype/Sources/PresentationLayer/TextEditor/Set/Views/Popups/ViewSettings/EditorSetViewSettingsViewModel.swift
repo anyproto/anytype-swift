@@ -65,7 +65,7 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
     }
     
     var needShowAllSettings: Bool {
-        FeatureFlags.setGalleryView && setModel.activeView.type == .gallery
+        setModel.activeView.type == .gallery
     }
     
     init(setModel: EditorSetViewModel, service: DataviewServiceProtocol, router: EditorRouterProtocol) {

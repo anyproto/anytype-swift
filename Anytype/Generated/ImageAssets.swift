@@ -55,7 +55,6 @@ internal extension ImageAsset {
   static let layoutSettingsTodo = ImageAsset.bundle(name: "layout_settings_todo")
   static let relationSmallCopy = ImageAsset.bundle(name: "relation_small_copy")
   static let relationSmallEmailIcon = ImageAsset.bundle(name: "relation_small_email_icon")
-  static let relationSmallGoToUrlIcon = ImageAsset.bundle(name: "relation_small_go_to_url_icon")
   static let relationSmallOpenLink = ImageAsset.bundle(name: "relation_small_open_link")
   static let relationSmallPhoneIcon = ImageAsset.bundle(name: "relation_small_phone_icon")
   static let relationSmallReload = ImageAsset.bundle(name: "relation_small_reload")

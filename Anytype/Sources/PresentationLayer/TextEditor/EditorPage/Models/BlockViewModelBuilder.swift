@@ -172,7 +172,7 @@ final class BlockViewModelBuilder {
             
             let details = ObjectDetailsStorage.shared.get(id: data.targetObjectID)
             
-            if FeatureFlags.bookmarksFlowP2 && (details?.isDeleted ?? false) {
+            if details?.isDeleted ?? false {
                 return NonExistentBlockViewModel(info: info)
             }
             
@@ -210,8 +210,7 @@ final class BlockViewModelBuilder {
             ) { [weak self] relation in
                 guard let self = self else { return }
 
-                let bookmarkFilter = FeatureFlags.bookmarksFlow ?
-                    self.document.details?.type != ObjectTypeUrl.bundled(.bookmark).rawValue : true
+                let bookmarkFilter = self.document.details?.type != ObjectTypeUrl.bundled(.bookmark).rawValue
                 
                 if relation.id == BundledRelationKey.type.rawValue && !self.document.isLocked && bookmarkFilter {
                     self.router.showTypesSearch(

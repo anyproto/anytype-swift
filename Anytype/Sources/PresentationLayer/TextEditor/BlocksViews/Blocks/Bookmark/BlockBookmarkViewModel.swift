@@ -19,38 +19,22 @@ struct BlockBookmarkViewModel: BlockViewModelProtocol {
 
         let payload = BlockBookmarkPayload(bookmarkData: bookmarkData, objectDetails: objectDetails)
 
-        if FeatureFlags.bookmarksFlowP2 {
-            switch bookmarkData.state {
-            case .empty:
-                return emptyViewConfiguration(text: Loc.Content.Bookmark.add, state: .default)
-            case .fetching:
-                return emptyViewConfiguration(text: Loc.Content.Bookmark.loading, state: .uploading)
-            case .done:
-                return BlockBookmarkConfiguration(
-                    payload: payload,
-                    backgroundColor: backgroundColor
-                )
-                    .cellBlockConfiguration(
-                    indentationSettings: .init(with: info.configurationData),
-                    dragConfiguration: .init(id: info.id)
-                )
-            case .error:
-                return emptyViewConfiguration(text: Loc.Content.Common.error, state: .error)
-            }
-        } else {
-            switch bookmarkData.state {
-            case .empty, .fetching, .error:
-                return emptyViewConfiguration(text: Loc.Content.Bookmark.add, state: .default)
-            case .done:
-                return BlockBookmarkConfiguration(
-                    payload: payload,
-                    backgroundColor: backgroundColor
-                )
-                    .cellBlockConfiguration(
-                    indentationSettings: .init(with: info.configurationData),
-                    dragConfiguration: .init(id: info.id)
-                )
-            }
+        switch bookmarkData.state {
+        case .empty:
+            return emptyViewConfiguration(text: Loc.Content.Bookmark.add, state: .default)
+        case .fetching:
+            return emptyViewConfiguration(text: Loc.Content.Bookmark.loading, state: .uploading)
+        case .done:
+            return BlockBookmarkConfiguration(
+                payload: payload,
+                backgroundColor: backgroundColor
+            )
+                .cellBlockConfiguration(
+                indentationSettings: .init(with: info.configurationData),
+                dragConfiguration: .init(id: info.id)
+            )
+        case .error:
+            return emptyViewConfiguration(text: Loc.Content.Common.error, state: .error)
         }
     }
     
