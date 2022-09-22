@@ -83,10 +83,10 @@ extension BundledRelationsValueProvider {
     }
     
     var objectType: ObjectType {
-        guard !isDeleted else {
+        guard !isDeleted, type.isNotEmpty else {
             return ObjectTypeProvider.shared.defaultObjectType
         }
-        
+                
         let parsedType = ObjectTypeProvider.shared.objectType(url: type)
         anytypeAssert(
             parsedType != nil,
