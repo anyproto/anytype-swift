@@ -11,15 +11,12 @@ final class TextRelationDetailsViewController: UIViewController {
     
     private let titleLabel = makeTitleLabel()
     private let textView = makeTextView()
-    private let actionButton = UIButton(type: .custom)
     private let actionStackView = UIStackView()
     private var actionButtons: [ButtonHolder] = []
     
     private let viewModel: TextRelationDetailsViewModelProtocol
     
-    private var textViewTrailingConstraint: NSLayoutConstraint?
     private var textViewBottomConstraint: NSLayoutConstraint?
-    private var actionButtonLeadingConstraint: NSLayoutConstraint?
     
     private let maxViewHeight: CGFloat
     
@@ -78,20 +75,8 @@ extension TextRelationDetailsViewController {
 private extension TextRelationDetailsViewController {
     
     func updateActionButtonVisibility() {
-        if FeatureFlags.bookmarksFlow {
-            for buttonHolder in actionButtons {
-                buttonHolder.button.isEnabled = buttonHolder.viewModel.isActionAvailable
-            }
-        } else {
-            if viewModel.actionButtonViewModel?.isActionAvailable ?? false {
-                textViewTrailingConstraint?.isActive = false
-                actionButtonLeadingConstraint?.isActive = true
-                actionButton.isHidden = false
-            } else {
-                textViewTrailingConstraint?.isActive = true
-                actionButtonLeadingConstraint?.isActive = false
-                actionButton.isHidden = true
-            }
+        for buttonHolder in actionButtons {
+            buttonHolder.button.isEnabled = buttonHolder.viewModel.isActionAvailable
         }
     }
 
@@ -126,11 +111,7 @@ private extension TextRelationDetailsViewController {
     func setupView() {
         titleLabel.text = viewModel.title
         setupTextView()
-        if FeatureFlags.bookmarksFlow {
-            setupActionButtons()
-        } else {
-            setupActionButton()
-        }
+        setupActionButtons()
         setupLayout()
         
         if FeatureFlags.rainbowViews {
@@ -157,65 +138,23 @@ private extension TextRelationDetailsViewController {
         textView.delegate = self
     }
     
-    func setupActionButton() {
-        guard let actionButtonViewModel = viewModel.actionButtonViewModel else {
-            actionButton.isHidden = true
-            return
-        }
-        
-        actionButton.adjustsImageWhenHighlighted = false
-        let image = UIImage(asset: actionButtonViewModel.iconAsset)?.withRenderingMode(.alwaysTemplate)
-        actionButton.setImage(image, for: .normal)
-        actionButton.tintColor = .buttonActive
-        
-        actionButton.addAction(
-            UIAction(
-                handler: { [weak self] _ in
-                    self?.viewModel.actionButtonViewModel?.performAction()
-                }
-            ),
-            for: .touchUpInside
-        )
-        actionButton.layer.cornerRadius = Constants.actionButtonSize.width / 2.0
-        actionButton.layer.borderColor = UIColor.strokePrimary.cgColor
-        actionButton.layer.borderWidth = 1
-        
-        actionButton.isHidden = !actionButtonViewModel.isActionAvailable
-    }
-    
     func setupLayout() {
         view.addSubview(titleLabel) {
             $0.height.equal(to: Constants.titleLabelHeight)
             $0.pinToSuperview(excluding: [.bottom])
         }
         
-        if FeatureFlags.bookmarksFlow {
-            view.addSubview(actionStackView) {
-                $0.leading.equal(to: view.leadingAnchor)
-                $0.trailing.equal(to: view.trailingAnchor)
-                self.textViewBottomConstraint = $0.bottom.equal(to: view.bottomAnchor, constant: -Constants.textViewBottomInset)
-            }
-            view.addSubview(textView) {
-                $0.height.greaterThanOrEqual(to: Constants.textViewMinHeight)
-                $0.top.equal(to: titleLabel.bottomAnchor)
-                $0.bottom.equal(to: actionStackView.topAnchor, constant: -Constants.actionButtonTitleInset)
-                $0.leading.equal(to: view.leadingAnchor)
-                self.textViewTrailingConstraint =  $0.trailing.equal(to: view.trailingAnchor)
-            }
-        } else {
-            view.addSubview(textView) {
-                $0.height.greaterThanOrEqual(to: Constants.textViewMinHeight)
-                $0.top.equal(to: titleLabel.bottomAnchor)
-                self.textViewBottomConstraint = $0.bottom.equal(to: view.bottomAnchor, constant: -Constants.textViewBottomInset)
-                $0.leading.equal(to: view.leadingAnchor)
-                self.textViewTrailingConstraint =  $0.trailing.equal(to: view.trailingAnchor)
-            }
-            view.addSubview(actionButton) {
-                $0.centerY.equal(to: textView.centerYAnchor)
-                $0.trailing.equal(to: view.trailingAnchor, constant: -Constants.actionButtonRightInset)
-                self.actionButtonLeadingConstraint = $0.leading.equal(to: textView.trailingAnchor, activate: false)
-                $0.size(Constants.actionButtonSize)
-            }
+        view.addSubview(actionStackView) {
+            $0.leading.equal(to: view.leadingAnchor)
+            $0.trailing.equal(to: view.trailingAnchor)
+            self.textViewBottomConstraint = $0.bottom.equal(to: view.bottomAnchor, constant: -Constants.textViewBottomInset)
+        }
+        view.addSubview(textView) {
+            $0.height.greaterThanOrEqual(to: Constants.textViewMinHeight)
+            $0.top.equal(to: titleLabel.bottomAnchor)
+            $0.bottom.equal(to: actionStackView.topAnchor, constant: -Constants.actionButtonTitleInset)
+            $0.leading.equal(to: view.leadingAnchor)
+            $0.trailing.equal(to: view.trailingAnchor)
         }
         
         view.layoutUsing.anchors {

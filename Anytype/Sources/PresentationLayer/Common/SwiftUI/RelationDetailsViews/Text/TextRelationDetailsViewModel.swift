@@ -27,9 +27,6 @@ final class TextRelationDetailsViewModel: ObservableObject, TextRelationDetailsV
     
     let type: TextRelationDetailsViewType
     
-    // Delete with bookmarksFlow toggle
-    let actionButtonViewModel: TextRelationActionButtonViewModel?
-    
     let actionsViewModel: [TextRelationActionViewModelProtocol]
     
     private let relation: Relation
@@ -46,12 +43,10 @@ final class TextRelationDetailsViewModel: ObservableObject, TextRelationDetailsV
         type: TextRelationDetailsViewType,
         relation: Relation,
         service: TextRelationDetailsServiceProtocol,
-        actionButtonViewModel: TextRelationActionButtonViewModel?,
         actionsViewModel: [TextRelationActionViewModelProtocol] = []
     ) {
         self.value = value
         self.type = type
-        self.actionButtonViewModel = actionButtonViewModel
         self.relation = relation
         self.service = service
         self.actionsViewModel = actionsViewModel
@@ -126,7 +121,6 @@ private extension TextRelationDetailsViewModel {
     }
     
     func handleValueUpdate(value: String) {
-        actionButtonViewModel?.text = value
         for actionViewModel in actionsViewModel {
             actionViewModel.inputText = value
         }

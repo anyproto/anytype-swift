@@ -15,9 +15,6 @@ public final class FeatureFlags {
         .showAlertOnAssert,
         .analytics,
         .objectPreview,
-        .relationDetails,
-        .bookmarksFlow,
-        .bookmarksFlowP2,
         .setListView,
         .setViewTypes,
         .setSyncStatus
@@ -51,18 +48,6 @@ public extension FeatureFlags {
 
     static var objectPreview: Bool {
         value(for: .objectPreview)
-    }
-        
-    static var relationDetails: Bool {
-        value(for: .relationDetails)
-    }
-    
-    static var bookmarksFlow: Bool {
-        value(for: .bookmarksFlow)
-    }
-    
-    static var bookmarksFlowP2: Bool {
-        value(for: .bookmarksFlowP2)
     }
     
     static var setListView: Bool {
