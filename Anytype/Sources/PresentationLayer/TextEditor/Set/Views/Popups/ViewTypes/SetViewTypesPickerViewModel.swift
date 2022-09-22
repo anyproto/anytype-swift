@@ -6,29 +6,40 @@ final class SetViewTypesPickerViewModel: ObservableObject {
     @Published var types: [SetViewTypeConfiguration] = []
     let canDelete: Bool
     
-    private let activeView: DataviewView
+    var hasActiveView: Bool {
+        activeView.isNotNil
+    }
+    
+    private let activeView: DataviewView?
     private var selectedType: DataviewViewType = .table
     private let dataviewService: DataviewServiceProtocol
     
-    init(activeView: DataviewView, canDelete: Bool, dataviewService: DataviewServiceProtocol) {
-        self.name = activeView.name
+    init(activeView: DataviewView?, canDelete: Bool, dataviewService: DataviewServiceProtocol) {
+        self.name = activeView?.name ?? ""
         self.activeView = activeView
         self.canDelete = canDelete
-        self.selectedType = activeView.type
+        self.selectedType = activeView?.type ?? .table
         self.dataviewService = dataviewService
         self.updateTypes()
     }
     
     func buttonTapped(completion: () -> Void) {
-        updateView(completion: completion)
+        defer { completion() }
+        if let activeView = activeView {
+            updateView(activeView: activeView)
+        } else {
+            createView()
+        }
     }
     
     func deleteView(completion: () -> Void) {
+        guard let activeView = activeView else { return }
         dataviewService.deleteView(activeView.id)
         completion()
     }
     
     func duplicateView(completion: () -> Void) {
+        guard let activeView = activeView else { return }
         dataviewService.createView(activeView)
         completion()
     }
@@ -48,8 +59,7 @@ final class SetViewTypesPickerViewModel: ObservableObject {
         }
     }
     
-    private func updateView(completion: () -> Void) {
-        defer { completion() }
+    private func updateView(activeView: DataviewView) {
         guard activeView.type != selectedType || activeView.name != name else {
             return
         }
@@ -58,6 +68,13 @@ final class SetViewTypesPickerViewModel: ObservableObject {
             type: selectedType
         )
         dataviewService.updateView(newView)
+    }
+    
+    private func createView() {
+        let name = name.isEmpty ? Loc.SetViewTypesPicker.Settings.Textfield.Placeholder.untitled : name
+        dataviewService.createView(
+            DataviewView.created(with: name, type: selectedType)
+        )
     }
     
     private func handleTap(with type: DataviewViewType) {
