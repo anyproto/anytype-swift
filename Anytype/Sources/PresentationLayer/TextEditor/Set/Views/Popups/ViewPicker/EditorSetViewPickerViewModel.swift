@@ -3,7 +3,6 @@ import BlocksModels
 import Combine
 import AnytypeCore
 
-@MainActor
 final class EditorSetViewPickerViewModel: ObservableObject {
     @Published var rows: [EditorSetViewRowConfiguration] = []
     @Published var disableDeletion = false

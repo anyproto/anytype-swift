@@ -1,7 +1,6 @@
 import SwiftUI
 import BlocksModels
 
-@MainActor
 final class SetViewTypesPickerViewModel: ObservableObject {
     @Published var name = ""
     @Published var types: [SetViewTypeConfiguration] = []
