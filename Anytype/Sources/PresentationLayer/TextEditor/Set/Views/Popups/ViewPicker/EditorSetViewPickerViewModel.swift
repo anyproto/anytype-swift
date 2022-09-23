@@ -34,7 +34,9 @@ final class EditorSetViewPickerViewModel: ObservableObject {
             guard viewFromIndex != to, viewFromIndex < setModel.dataView.views.count else { return }
             let view = setModel.dataView.views[viewFromIndex]
             let position = to > viewFromIndex ? to - 1 : to
-            dataviewService.setPositionForView(view.id, position: position)
+            Task {
+                try await dataviewService.setPositionForView(view.id, position: position)
+            }
         }
     }
     
@@ -42,7 +44,9 @@ final class EditorSetViewPickerViewModel: ObservableObject {
         indexSet.forEach { deleteIndex in
             guard deleteIndex < setModel.dataView.views.count else { return }
             let view = setModel.dataView.views[deleteIndex]
-            dataviewService.deleteView(view.id)
+            Task {
+                try await dataviewService.deleteView(view.id)
+            }
         }
     }
     

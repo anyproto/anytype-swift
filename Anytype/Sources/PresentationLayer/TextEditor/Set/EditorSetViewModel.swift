@@ -305,7 +305,10 @@ extension EditorSetViewModel {
     func showRelationValueEditingView(key: String, source: RelationSource) {
         if key == BundledRelationKey.setOf.rawValue {
             router.showTypesSearch(title: Loc.Set.SourceType.selectSource, selectedObjectId: document.details?.setOf.first) { [weak self] typeObjectId in
-                self?.dataviewService.setSource(typeObjectId: typeObjectId)
+                guard let self = self else { return }
+                Task {
+                    try await self.dataviewService.setSource(typeObjectId: typeObjectId)
+                }
             }
 
             return
@@ -396,10 +399,11 @@ extension EditorSetViewModel {
         } else {
             templateId = ""
         }
-
-        guard let objectDetails = dataviewService.addRecord(templateId: templateId, setFilters: filters) else { return }
-        
-        handleCreatedObjectDetails(objectDetails)
+        Task { @MainActor in
+            guard let objectDetails = try await dataviewService.addRecord(templateId: templateId, setFilters: filters) else { return }
+            
+            handleCreatedObjectDetails(objectDetails)
+        }
     }
     
     private func handleCreatedObjectDetails(_ objectDetails: ObjectDetails) {

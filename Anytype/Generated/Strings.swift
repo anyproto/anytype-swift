@@ -1177,10 +1177,10 @@ internal enum Loc {
       internal enum Textfield {
         internal enum Placeholder {
           /// Untitled
-          internal static let untitled = Loc.tr("Localizable", "SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled")
+          internal static let untitled = Loc.tr("Localizable", "SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled", fallback: "Untitled")
           internal enum New {
             /// New view
-            internal static let view = Loc.tr("Localizable", "SetViewTypesPicker.Settings.Textfield.Placeholder.New.View")
+            internal static let view = Loc.tr("Localizable", "SetViewTypesPicker.Settings.Textfield.Placeholder.New.View", fallback: "New view")
           }
         }
       }

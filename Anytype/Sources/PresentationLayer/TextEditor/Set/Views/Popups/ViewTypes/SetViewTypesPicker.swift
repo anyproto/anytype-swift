@@ -37,9 +37,8 @@ struct SetViewTypesPicker: View {
     
     private var deleteButton: some View {
         Button(action: {
-            viewModel.deleteView {
-                presentationMode.wrappedValue.dismiss()
-            }
+            presentationMode.wrappedValue.dismiss()
+            viewModel.deleteView()
         }) {
             AnytypeText(
                 Loc.SetViewTypesPicker.Settings.Delete.view,
@@ -51,9 +50,8 @@ struct SetViewTypesPicker: View {
     
     private var duplicateButton: some View {
         Button(action: {
-            viewModel.duplicateView {
-                presentationMode.wrappedValue.dismiss()
-            }
+            presentationMode.wrappedValue.dismiss()
+            viewModel.duplicateView()
         }) {
             AnytypeText(
                 Loc.SetViewTypesPicker.Settings.Duplicate.view,
@@ -145,9 +143,8 @@ struct SetViewTypesPicker: View {
     
     private var button: some View {
         StandardButton(disabled: false, text: Loc.done, style: .primary) {
-            viewModel.buttonTapped() {
-                presentationMode.wrappedValue.dismiss()
-            }
+            presentationMode.wrappedValue.dismiss()
+            viewModel.buttonTapped()
         }
         .padding(.horizontal, 20)
     }
