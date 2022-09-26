@@ -197,7 +197,8 @@ internal extension ImageAsset {
     }
     enum BlocksOption {
       static let addBelow = ImageAsset.bundle(name: "TextEditor/BlocksOption/add_below")
-      static let cellMenuClear = ImageAsset.bundle(name: "TextEditor/BlocksOption/cell_menu_clear")
+      static let cellMenuClearContents = ImageAsset.bundle(name: "TextEditor/BlocksOption/cell_menu_clear_contents")
+      static let cellMenuClearStyle = ImageAsset.bundle(name: "TextEditor/BlocksOption/cell_menu_clear_style")
       static let cellMenuColor = ImageAsset.bundle(name: "TextEditor/BlocksOption/cell_menu_color")
       static let columnInsertLeft = ImageAsset.bundle(name: "TextEditor/BlocksOption/column_insert_left")
       static let columnInsertRight = ImageAsset.bundle(name: "TextEditor/BlocksOption/column_insert_right")
