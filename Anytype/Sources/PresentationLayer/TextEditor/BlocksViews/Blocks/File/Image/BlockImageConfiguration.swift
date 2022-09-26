@@ -3,21 +3,24 @@ import BlocksModels
 
 struct BlockImageConfiguration: BlockConfiguration {
     typealias View = BlockImageContentView
-    
-    let fileData: BlockFile
+
+    let blockId: BlockId
     let maxWidth: CGFloat
     let alignment: LayoutAlignment
+    @EquatableNoop private(set) var fileData: BlockFile
     @EquatableNoop private(set) var imageViewTapHandler: (UIImageView) -> Void
 
     init(
-        fileData: BlockFile,
-        alignmetn: LayoutAlignment,
+        blockId: BlockId,
         maxWidth: CGFloat,
+        alignment: LayoutAlignment,
+        fileData: BlockFile,
         imageViewTapHandler: @escaping (UIImageView) -> Void
     ) {
-        self.fileData = fileData
-        self.alignment = alignmetn
+        self.blockId = blockId
         self.maxWidth = maxWidth
+        self.alignment = alignment
+        self.fileData = fileData
         self.imageViewTapHandler = imageViewTapHandler
     }
 }

@@ -460,17 +460,12 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
 }
 
 extension EditorRouter: AttachmentRouterProtocol {
-    func openImage(_ imageContext: BlockImageViewModel.ImageOpeningContext) {
-        let viewModel = GalleryViewModel(
-            items: [.init(imageSource: imageContext.image, previewImage: imageContext.imageView.image)],
-            initialImageDisplayIndex: 0
-        )
-        let galleryViewController = GalleryViewController(
-            viewModel: viewModel,
-            initialImageView: imageContext.imageView
-        )
+    func openImage(_ imageContext: FilePreviewContext) {
+        let previewController = AnytypePreviewController(with: [imageContext.file], sourceView: imageContext.sourceView, onContentChanged: imageContext.onDidEditFile)
 
-        viewController?.present(galleryViewController, animated: true, completion: nil)
+        rootController?.present(previewController, animated: true) { [weak previewController] in
+            previewController.didFinishTransition = true
+        }
     }
 }
 
