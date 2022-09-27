@@ -12,7 +12,7 @@ final class EditorPageController: UIViewController {
         onBackTap: viewModel.router.goBack
     )
     private weak var firstResponderView: UIView?
-    
+
     let collectionView: EditorCollectionView = {
         var listConfiguration = UICollectionLayoutListConfiguration(appearance: .plain)
         listConfiguration.backgroundColor = .clear
@@ -91,7 +91,7 @@ final class EditorPageController: UIViewController {
         
         setupView()
     }
-    
+    var dfsd: Any?
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -101,6 +101,21 @@ final class EditorPageController: UIViewController {
         collectionView.allowsSelectionDuringEditing = true
 
         navigationBarHelper.handleViewWillAppear(scrollView: collectionView)
+
+        AnytypeWindow.shared.textRangeTouchSubject.sink { [unowned self] touch in
+            print("in Editor")
+            if let selectionEditorItem = selectionEditorItem {
+                let point = touch.location(in: collectionView)
+                guard let indexPath = collectionView.indexPathForItem(at: point) else {
+                    return
+                }
+                let item = dataSource.itemIdentifier(for: indexPath)
+
+                if item != selectionEditorItem {
+                    UIApplication.shared.hideKeyboard()
+                }
+            }
+        }.store(in: &cancellables)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -213,6 +228,8 @@ final class EditorPageController: UIViewController {
 
         super.present(viewControllerToPresent, animated: flag, completion: completion)
     }
+
+    private var selectionEditorItem: EditorItem?
 }
 
 // MARK: - EditorPageViewInput
@@ -254,6 +271,12 @@ extension EditorPageController: EditorPageViewInput {
 
                 reloadCell(for: change.element)
             }
+        }
+    }
+
+    func didChangeSelection(blockId: BlockId) {
+        if let item = dataSourceItem(for: blockId) {
+            self.selectionEditorItem = item
         }
     }
 
@@ -320,6 +343,8 @@ extension EditorPageController: EditorPageViewInput {
     }
 
     func blockDidFinishEditing(blockId: BlockId) {
+        self.selectionEditorItem = nil
+
         guard let newItem = viewModel.modelsHolder.contentProvider(for: blockId) else { return }
 
         reloadCell(for: .block(newItem))

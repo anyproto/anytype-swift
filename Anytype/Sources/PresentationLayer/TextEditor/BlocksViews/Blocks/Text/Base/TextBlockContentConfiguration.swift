@@ -25,7 +25,7 @@ struct TextBlockContentConfiguration: BlockConfiguration {
         let textViewDidBeginEditing: (UITextView) -> Void
         let textViewDidEndEditing: (UITextView) -> Void
 
-        let textViewDidChangeCaretPosition: (NSRange) -> Void
+        let textViewDidChangeCaretPosition: (UITextView, NSRange) -> Void
         let textViewShouldReplaceText: (UITextView, String, NSRange) -> Bool
 
         let toggleCheckBox: () -> Void

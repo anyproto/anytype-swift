@@ -2103,8 +2103,6 @@
 		53CC99B2280DB6CC00C39CCF /* EventConfigurtion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventConfigurtion.swift; sourceTree = "<group>"; };
 		53D4088527EC9D0A00495335 /* ObjectPreviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectPreviewViewModel.swift; sourceTree = "<group>"; };
 		53D4088727EC9EFE00495335 /* ObjectPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectPreviewView.swift; sourceTree = "<group>"; };
-		53D4089327ECBB6900495335 /* ObjectPreviewFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectPreviewFields.swift; sourceTree = "<group>"; };
-		53D4089627ECCEFC00495335 /* ObjectPreviewFieldsConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectPreviewFieldsConverter.swift; sourceTree = "<group>"; };
 		53D408AB27F0B7EE00495335 /* CodeBlockFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeBlockFields.swift; sourceTree = "<group>"; };
 		53D408AD27F0B85B00495335 /* CodeBlockFieldsConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeBlockFieldsConverter.swift; sourceTree = "<group>"; };
 		53D408AF27F0BF7600495335 /* FieldsConvertibleProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldsConvertibleProtocol.swift; sourceTree = "<group>"; };
@@ -6549,8 +6547,6 @@
 			isa = PBXGroup;
 			children = (
 				53D408AF27F0BF7600495335 /* FieldsConvertibleProtocol.swift */,
-				53D4089327ECBB6900495335 /* ObjectPreviewFields.swift */,
-				53D4089627ECCEFC00495335 /* ObjectPreviewFieldsConverter.swift */,
 				53D408AB27F0B7EE00495335 /* CodeBlockFields.swift */,
 				53D408AD27F0B85B00495335 /* CodeBlockFieldsConverter.swift */,
 			);
