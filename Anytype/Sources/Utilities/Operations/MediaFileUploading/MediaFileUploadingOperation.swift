@@ -11,17 +11,22 @@ import Combine
 import BlocksModels
 import UIKit
 
+enum MediaFileUploadingSource {
+    case url(URL)
+    case itemProvider(NSItemProvider)
+}
+
 final class MediaFileUploadingOperation: AsyncOperation {
         
     // MARK: - Private variables
     
-    private let itemProvider: NSItemProvider
+    private let uploadingSource: MediaFileUploadingSource
     private let worker: MediaFileUploadingWorkerProtocol
     
     // MARK: - Initializers
     
-    init(itemProvider: NSItemProvider, worker: MediaFileUploadingWorkerProtocol) {
-        self.itemProvider = itemProvider
+    init(uploadingSource: MediaFileUploadingSource, worker: MediaFileUploadingWorkerProtocol) {
+        self.uploadingSource = uploadingSource
         self.worker = worker
         
         super.init()
@@ -32,30 +37,37 @@ final class MediaFileUploadingOperation: AsyncOperation {
             worker.cancel()
             return
         }
-        
-        let typeIdentifier: String? = itemProvider.registeredTypeIdentifiers.first {
-            worker.contentType.supportedTypeIdentifiers.contains($0)
-        }
-        
-        guard let identifier = typeIdentifier else {
-            worker.finish()
-            state = .finished
-            return
-        }
-        
-        worker.prepare()
-        
-        itemProvider.loadFileRepresentation(
-            forTypeIdentifier: identifier
-        ) { [weak self] temporaryUrl, error in
-            guard let temporaryUrl = temporaryUrl else {
-                self?.worker.finish()
-                self?.state = .finished
+
+        switch uploadingSource {
+        case .url(let url):
+            uploadFile(with: url)
+        case .itemProvider(let itemProvider):
+            let typeIdentifier: String? = itemProvider.registeredTypeIdentifiers.first {
+                worker.contentType.supportedTypeIdentifiers.contains($0)
+            }
+
+            guard let identifier = typeIdentifier else {
+                worker.finish()
+                state = .finished
                 return
             }
 
-            self?.uploadFile(with: temporaryUrl)
+            itemProvider.loadFileRepresentation(
+                forTypeIdentifier: identifier
+            ) { [weak self] temporaryUrl, error in
+                guard let temporaryUrl = temporaryUrl else {
+                    self?.worker.finish()
+                    self?.state = .finished
+                    return
+                }
+
+                self?.uploadFile(with: temporaryUrl)
+            }
         }
+        
+
+        
+        worker.prepare()
         
         state = .executing
     }

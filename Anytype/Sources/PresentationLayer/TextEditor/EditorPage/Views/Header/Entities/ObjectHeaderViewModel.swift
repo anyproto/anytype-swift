@@ -144,7 +144,7 @@ final class ObjectHeaderViewModel: ObservableObject {
             return .empty(data: .init(onTap: {}))
         }
         
-        let icon = details.layoutValue == .bookmark && FeatureFlags.bookmarksFlowP2 ? nil : details.icon
+        let icon = details.layoutValue == .bookmark ? nil : details.icon
         
         if let icon = icon, let cover = details.documentCover {
             return .filled(state:

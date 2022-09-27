@@ -28,7 +28,7 @@ final class TextRelationCopyActionViewModel: TextRelationActionViewModelProtocol
     }
     
     var isActionAvailable: Bool {
-        true
+        return inputText.isNotEmpty
     }
     
     func performAction() {

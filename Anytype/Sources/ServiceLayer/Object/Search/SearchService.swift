@@ -56,11 +56,8 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             shouldIncludeSets ? nil : SearchHelper.excludedObjectTypeUrlFilter(ObjectTypeUrl.bundled(.set).rawValue)
         ].compactMap { $0 }
 
-        if FeatureFlags.bookmarksFlow {
-            filters.append(SearchHelper.excludedObjectTypeUrlFilter(ObjectTypeUrl.bundled(.bookmark).rawValue))
-        }
+        filters.append(SearchHelper.excludedObjectTypeUrlFilter(ObjectTypeUrl.bundled(.bookmark).rawValue))
         filteringTypeUrl.map { filters.append(SearchHelper.excludedObjectTypeUrlFilter($0)) }
-
 
         let result = makeRequest(filters: filters, sorts: [sort], fullText: text)
         
