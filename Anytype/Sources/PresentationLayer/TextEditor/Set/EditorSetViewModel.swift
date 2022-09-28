@@ -60,7 +60,7 @@ final class EditorSetViewModel: ObservableObject {
     
     private var isObjectLocked: Bool {
         document.isLocked ||
-        (FeatureFlags.setGalleryView && activeView.type == .gallery) ||
+        activeView.type == .gallery ||
         (FeatureFlags.setListView && activeView.type == .list)
     }
     
@@ -74,6 +74,7 @@ final class EditorSetViewModel: ObservableObject {
     private let searchService: SearchServiceProtocol
     private let detailsService: DetailsServiceProtocol
     private let textService: TextServiceProtocol
+    private let setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol
     private var subscriptions = [AnyCancellable]()
     private var titleSubscription: AnyCancellable?
     
@@ -82,7 +83,8 @@ final class EditorSetViewModel: ObservableObject {
         dataviewService: DataviewServiceProtocol,
         searchService: SearchServiceProtocol,
         detailsService: DetailsServiceProtocol,
-        textService: TextServiceProtocol
+        textService: TextServiceProtocol,
+        setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol
     ) {
         ObjectTypeProvider.shared.resetCache()
         self.document = document
@@ -90,6 +92,7 @@ final class EditorSetViewModel: ObservableObject {
         self.searchService = searchService
         self.detailsService = detailsService
         self.textService = textService
+        self.setSubscriptionDataBuilder = setSubscriptionDataBuilder
 
         self.titleString = document.details?.pageCellTitle ?? ""
         self.featuredRelations = document.featuredRelationsForEditor
@@ -109,7 +112,7 @@ final class EditorSetViewModel: ObservableObject {
                 loadingDocument = false
                 setupDataview()
 
-                if let details = document.details, details.setOf.isNil {
+                if let details = document.details, details.setOf.isEmpty {
                     showSetOfTypeSelection()
                 }
             } catch {
@@ -146,7 +149,7 @@ final class EditorSetViewModel: ObservableObject {
         guard !isEmpty else { return }
         
         subscriptionService.startSubscription(
-            data: .set(
+            data: setSubscriptionDataBuilder.set(
                 .init(
                     dataView: dataView,
                     view: activeView,
@@ -221,7 +224,7 @@ final class EditorSetViewModel: ObservableObject {
 
                 self.textService.setText(
                     contextId: self.document.objectId,
-                    blockId: BundledRelationKey.title.rawValue,
+                    blockId: RelationKey.title.rawValue,
                     middlewareString: .init(text: newValue, marks: .init())
                 )
 
@@ -288,7 +291,7 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     private func updateDetailsIfNeeded(_ details: ObjectDetails) {
-        guard details.layout == .todo else { return }
+        guard details.layoutValue == .todo else { return }
         detailsService.updateBundledDetails(
             contextID: details.id,
             bundledDpdates: [.done(!details.isDone)]
@@ -296,20 +299,7 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     private func itemTapped(_ details: ObjectDetails) {
-        if !FeatureFlags.bookmarksFlow && isBookmarksSet(),
-           let url = url(from: details) {
-            router.openUrl(url)
-        } else {
-            openObject(pageId: details.id, type: details.editorViewType)
-        }
-    }
-    
-    private func url(from details: ObjectDetails) -> URL? {
-        var urlString = details.values[EditorSetViewModel.urlRelationKey]?.stringValue ?? ""
-        if !urlString.isEncoded {
-            urlString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? urlString
-        }
-        return URL(string: urlString)
+        openObject(pageId: details.id, type: details.editorViewType)
     }
 }
 
@@ -319,7 +309,7 @@ extension EditorSetViewModel {
     func showRelationValueEditingView(key: String, source: RelationSource) {
         if key == BundledRelationKey.setOf.rawValue {
             showSetOfTypeSelection()
-
+            
             return
         }
 
@@ -360,9 +350,9 @@ extension EditorSetViewModel {
         }
     }
     
-    func showViewTypes(with activeView: DataviewView? = nil) {
+    func showViewTypes(with activeView: DataviewView?) {
         router.showViewTypes(
-            activeView: activeView ?? self.activeView,
+            activeView: activeView,
             canDelete: dataView.views.count > 1,
             dataviewService: dataviewService
         )
@@ -414,10 +404,11 @@ extension EditorSetViewModel {
         } else {
             templateId = ""
         }
-
-        guard let objectDetails = dataviewService.addRecord(templateId: templateId, setFilters: filters) else { return }
-        
-        handleCreatedObjectDetails(objectDetails)
+        Task { @MainActor in
+            guard let objectDetails = try await dataviewService.addRecord(templateId: templateId, setFilters: filters) else { return }
+            
+            handleCreatedObjectDetails(objectDetails)
+        }
     }
     
     private func handleCreatedObjectDetails(_ objectDetails: ObjectDetails) {
@@ -448,6 +439,7 @@ extension EditorSetViewModel {
         dataviewService: DataviewService(objectId: "objectId", prefilledFieldsBuilder: SetFilterPrefilledFieldsBuilder()),
         searchService: SearchService(),
         detailsService: DetailsService(objectId: "objectId", service: ObjectActionsService()),
-        textService: TextService()
+        textService: TextService(),
+        setSubscriptionDataBuilder: SetSubscriptionDataBuilder()
     )
 }

@@ -24,30 +24,16 @@ class BlocksFileEmptyView: UIView, BlockContentView {
             $0.pinToSuperview()
         }
         
-        if FeatureFlags.bookmarksFlowP2 {
-            contentView.layoutUsing.stack {
-                $0.edgesToSuperview(insets: Layout.contentInsets)
-            } builder: {
-                $0.hStack(
-                    icon,
-                    $0.hGap(fixed: Layout.labelSpacing),
-                    label,
-                    $0.hGap(fixed: Layout.labelSpacing),
-                    newActivityIndicator
-                )
-            }
-        } else {
-            contentView.layoutUsing.stack {
-                $0.edgesToSuperview(insets: Layout.contentInsets)
-            } builder: {
-                $0.hStack(
-                    icon,
-                    $0.hGap(fixed: Layout.labelSpacing),
-                    label,
-                    $0.hGap(fixed: Layout.labelSpacing),
-                    activityIndicator
-                )
-            }
+        contentView.layoutUsing.stack {
+            $0.edgesToSuperview(insets: Layout.contentInsets)
+        } builder: {
+            $0.hStack(
+                icon,
+                $0.hGap(fixed: Layout.labelSpacing),
+                label,
+                $0.hGap(fixed: Layout.labelSpacing),
+                activityIndicator
+            )
         }
     
         icon.layoutUsing.anchors {
@@ -58,36 +44,22 @@ class BlocksFileEmptyView: UIView, BlockContentView {
     
     // MARK: - New configuration
     func apply(configuration: BlocksFileEmptyViewConfiguration) {
-        if FeatureFlags.bookmarksFlowP2 {
-            icon.image = UIImage(asset: configuration.imageAsset)?.withRenderingMode(.alwaysTemplate)
-        } else {
-            icon.image = UIImage(asset: configuration.imageAsset)
-        }
+        icon.image = UIImage(asset: configuration.imageAsset)?.withRenderingMode(.alwaysTemplate)
         label.text = configuration.text
         
         switch configuration.state {
         case .default:
-            activityIndicator.stopAnimating()
-            newActivityIndicator.stopAnimation()
-            if FeatureFlags.bookmarksFlowP2 {
-                label.textColor = .buttonActive
-                icon.tintColor = .buttonActive
-            }
+            activityIndicator.stopAnimation()
+            label.textColor = .buttonActive
+            icon.tintColor = .buttonActive
         case .uploading:
-            activityIndicator.isHidden = false
-            activityIndicator.startAnimating()
-            newActivityIndicator.startAnimation()
-            if FeatureFlags.bookmarksFlowP2 {
-                label.textColor = .buttonActive
-                icon.tintColor = .buttonActive
-            }
+            activityIndicator.startAnimation()
+            label.textColor = .buttonActive
+            icon.tintColor = .buttonActive
         case .error:
-            activityIndicator.stopAnimating()
-            newActivityIndicator.stopAnimation()
-            if FeatureFlags.bookmarksFlowP2 {
-                label.textColor = .System.red
-                icon.tintColor = .System.red
-            }
+            activityIndicator.stopAnimation()
+            label.textColor = .System.red
+            icon.tintColor = .System.red
         }
     }
     
@@ -95,7 +67,7 @@ class BlocksFileEmptyView: UIView, BlockContentView {
         let view = UIView()
         view.layer.borderWidth = 0.5
         view.layer.borderColor = UIColor.strokePrimary.cgColor
-        view.layer.cornerRadius = FeatureFlags.bookmarksFlowP2 ? 16 : 2
+        view.layer.cornerRadius = 16
         view.clipsToBounds = true
         return view
     }()
@@ -103,9 +75,7 @@ class BlocksFileEmptyView: UIView, BlockContentView {
     private let label: UILabel = {
         let label = UILabel()
         label.font = .bodyRegular
-        if !FeatureFlags.bookmarksFlowP2 {
-            label.textColor = .buttonActive
-        }
+        label.textColor = .buttonActive
         return label
     }()
     
@@ -114,15 +84,8 @@ class BlocksFileEmptyView: UIView, BlockContentView {
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
-             
-    private let activityIndicator: UIActivityIndicatorView = {
-        let loader = UIActivityIndicatorView()
-        loader.color = .buttonActive
-        loader.hidesWhenStopped = true
-        return loader
-    }()
     
-    private let newActivityIndicator: UIAnytypeActivityIndicator = {
+    private let activityIndicator: UIAnytypeActivityIndicator = {
         let loader = UIAnytypeActivityIndicator()
         loader.hidesWhenStopped = true
         return loader

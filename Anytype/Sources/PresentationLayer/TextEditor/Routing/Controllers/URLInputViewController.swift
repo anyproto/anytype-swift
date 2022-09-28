@@ -1,5 +1,5 @@
 import UIKit
-
+import AnytypeCore
 
 final class URLInputViewController: UIViewController {
     

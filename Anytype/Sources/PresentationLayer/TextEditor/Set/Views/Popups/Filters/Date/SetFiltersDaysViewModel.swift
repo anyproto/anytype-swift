@@ -9,7 +9,6 @@ final class SetFiltersDaysViewModel: TextRelationDetailsViewModelProtocol {
     let title: String
     let isEditable = true
     let type: TextRelationDetailsViewType = .numberOfDays
-    let actionButtonViewModel: TextRelationActionButtonViewModel? = nil
     let actionsViewModel: [TextRelationActionViewModelProtocol] = []
     let onValueChanged: (String) -> Void
     

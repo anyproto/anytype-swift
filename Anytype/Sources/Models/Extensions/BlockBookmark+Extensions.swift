@@ -12,15 +12,11 @@ extension BlockBookmark {
             source: objectDetails.source,
             title: objectDetails.title,
             theDescription: objectDetails.description,
-            imageHash: BlockBookmark.picture(from: objectDetails),
-            faviconHash: objectDetails.iconImageHash?.value ?? "",
+            imageHash: objectDetails.picture?.value ?? "",
+            faviconHash: objectDetails.iconImage?.value ?? "",
             type: .unknown,
             targetObjectID: objectDetails.id,
             state: .done
         )
-    }
-    
-    private static func picture(from details: ObjectDetails) -> String {
-        return details.values[Constants.pictureRelationKey]?.stringValue ?? ""
     }
 }

@@ -1,6 +1,7 @@
 import BlocksModels
 import UIKit
 import ProtobufMessages
+import AnytypeCore
 
 protocol BlockActionServiceProtocol {
 

@@ -10,41 +10,6 @@ extension FeatureDescription {
         debugValue: false
     )
     
-    static let setFilters = FeatureDescription(
-        title: "Set filters",
-        author: "joe_pusya@anytype.io",
-        releaseVersion: "0.17.0",
-        defaultValue: true
-    )
-    
-    static let relationDetails = FeatureDescription(
-        title: "Relation details in read only mode",
-        author: "m@anytype.io",
-        releaseVersion: "0.17.0",
-        defaultValue: true
-    )
-    
-    static let bookmarksFlow = FeatureDescription(
-        title: "New bookmarks flow",
-        author: "m@anytype.io",
-        releaseVersion: "0.17.0",
-        defaultValue: true
-    )
-    
-    static let bookmarksFlowP2 = FeatureDescription(
-        title: "New bookmarks flow part 2",
-        author: "m@anytype.io",
-        releaseVersion: "0.18.0",
-        defaultValue: true
-    )
-    
-    static let setGalleryView = FeatureDescription(
-        title: "Set gallery view",
-        author: "joe_pusya@anytype.io",
-        releaseVersion: "0.17.0",
-        defaultValue: true
-    )
-    
     static let setListView = FeatureDescription(
         title: "Set list view",
         author: "joe_pusya@anytype.io",

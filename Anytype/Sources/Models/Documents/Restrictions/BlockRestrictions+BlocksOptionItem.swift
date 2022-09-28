@@ -82,7 +82,7 @@ extension Array where Element == BlockInformation {
             mergedItems.remove(.paste)
         }
         
-        if !FeatureFlags.bookmarksFlow || !isOpenObjectAvailable || count > 1 {
+        if !isOpenObjectAvailable || count > 1 {
             mergedItems.remove(.openObject)
         }
 

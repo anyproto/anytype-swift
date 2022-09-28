@@ -3,6 +3,7 @@ import BlocksModels
 import ProtobufMessages
 import XCTest
 import Foundation
+import AnytypeCore
 
 struct SplitData {
     let string: NSAttributedString

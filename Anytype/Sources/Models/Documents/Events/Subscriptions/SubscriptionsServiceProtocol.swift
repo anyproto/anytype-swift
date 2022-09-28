@@ -6,7 +6,7 @@ enum SubscriptionUpdate {
     case remove(BlockId)
     case add(ObjectDetails, after: BlockId?)
     case move(from: BlockId, after: BlockId?)
-    case pageCount(Int64)
+    case pageCount(Int)
     
     var isInitialData: Bool {
         switch self {

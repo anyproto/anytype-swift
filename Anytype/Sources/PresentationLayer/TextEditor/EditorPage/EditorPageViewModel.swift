@@ -226,7 +226,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
 extension EditorPageViewModel {
     func viewDidLoad() {
         if let objectDetails = document.details {
-            AnytypeAnalytics.instance().logShowObject(type: objectDetails.type, layout: objectDetails.layout)
+            AnytypeAnalytics.instance().logShowObject(type: objectDetails.type, layout: objectDetails.layoutValue)
         }
         
         blocksStateManager.checkOpenedState()

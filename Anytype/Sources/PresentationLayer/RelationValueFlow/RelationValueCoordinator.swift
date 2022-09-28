@@ -32,7 +32,7 @@ final class RelationValueCoordinator: RelationValueCoordinatorProtocol,
     ) {
         self.output = output
         
-        guard relation.isEditable || (relation.hasDetails && FeatureFlags.relationDetails) else { return }
+        guard relation.isEditable || relation.hasDetails else { return }
         
         if case .checkbox(let checkbox) = relation {
             let relationsService = RelationsService(objectId: objectId)
