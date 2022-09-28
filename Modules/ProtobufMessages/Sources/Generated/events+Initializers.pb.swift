@@ -59,6 +59,15 @@ extension Anytype_Event.Block.Dataview.GroupOrderUpdate {
     }
 }
 
+extension Anytype_Event.Block.Dataview.ObjectOrderUpdate {
+    public init(id: String = String(), viewID: String = String(), groupID: String = String(), sliceChanges: [Anytype_Event.Block.Dataview.SliceChange] = []) {
+        self.id = id
+        self.viewID = viewID
+        self.groupID = groupID
+        self.sliceChanges = sliceChanges
+    }
+}
+
 extension Anytype_Event.Block.Dataview.RecordsDelete {
     public init(id: String = String(), viewID: String = String(), removed: [String] = []) {
         self.id = id
@@ -105,6 +114,14 @@ extension Anytype_Event.Block.Dataview.RelationSet {
         self.id = id
         self.relationKey = relationKey
         self.relation = relation
+    }
+}
+
+extension Anytype_Event.Block.Dataview.SliceChange {
+    public init(op: Anytype_Event.Block.Dataview.SliceOperation = .none, ids: [String] = [], afterID: String = String()) {
+        self.op = op
+        self.ids = ids
+        self.afterID = afterID
     }
 }
 

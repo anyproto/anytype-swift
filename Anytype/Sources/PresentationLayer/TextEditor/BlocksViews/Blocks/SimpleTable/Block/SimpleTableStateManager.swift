@@ -102,6 +102,8 @@ final class SimpleTableStateManager: SimpleTableStateManagerProtocol {
     func didUpdateSelectedIndexPaths(_ indexPaths: [IndexPath]) {
         guard case .selecting = editingState else { return }
 
+        UISelectionFeedbackGenerator().selectionChanged()
+
         guard indexPaths.count > 0 else {
             resetToEditingMode()
             return
