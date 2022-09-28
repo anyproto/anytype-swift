@@ -387,9 +387,12 @@ extension EditorSetViewModel {
         router.showAddNewRelationView(onSelect: onSelect)
     }
 
+
     private func showSetOfTypeSelection() {
-        router.showTypesSearch(title: Loc.Set.SourceType.selectSource, selectedObjectId: document.details?.setOf) { [weak self] typeObjectId in
-            self?.dataviewService.setSource(typeObjectId: typeObjectId)
+        router.showTypesSearch(title: Loc.Set.SourceType.selectSource, selectedObjectId: document.details?.setOf.first) { [unowned self] typeObjectId in
+            Task { @MainActor in
+                try? await dataviewService.setSource(typeObjectId: typeObjectId)
+            }
         }
     }
     

@@ -399,6 +399,7 @@ final class MiddlewareEventConverter {
                 .blockDataviewRecordsInsert,
                 .blockDataviewRecordsDelete,
                 .blockDataViewGroupOrderUpdate,
+                .blockDataViewObjectOrderUpdate,
                 .userBlockJoin,
                 .userBlockLeft,
                 .userBlockSelectRange,
