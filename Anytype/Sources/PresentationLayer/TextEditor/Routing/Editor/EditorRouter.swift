@@ -464,7 +464,7 @@ extension EditorRouter: AttachmentRouterProtocol {
         let previewController = AnytypePreviewController(with: [imageContext.file], sourceView: imageContext.sourceView, onContentChanged: imageContext.onDidEditFile)
 
         rootController?.present(previewController, animated: true) { [weak previewController] in
-            previewController.didFinishTransition = true
+            previewController?.didFinishTransition = true
         }
     }
 }

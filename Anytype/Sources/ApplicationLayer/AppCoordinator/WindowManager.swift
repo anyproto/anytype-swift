@@ -3,11 +3,16 @@ import UIKit
 final class WindowManager {
     static let shared = WindowManager()
     private let di: DIProtocol = DI()
-    
+
+    private weak var lastHomeViewModel: HomeViewModel?
+
     @MainActor
     func showHomeWindow() {
         let homeAssembly = di.coordinatorsDI.homeViewAssemby
-        windowHolder?.startNewRootView(homeAssembly.createHomeView())
+        let homeView = homeAssembly.createHomeView()
+
+        self.lastHomeViewModel = homeView?.model
+        windowHolder?.startNewRootView(homeView)
     }
     
     func showAuthWindow() {
@@ -16,6 +21,11 @@ final class WindowManager {
     
     func showLaunchWindow() {
         windowHolder?.startNewRootView(LaunchView())
+    }
+
+    @MainActor
+    func createAndShowNewObject() {
+        lastHomeViewModel?.createAndShowNewPage()
     }
     
     @MainActor
