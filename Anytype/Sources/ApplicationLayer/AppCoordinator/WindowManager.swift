@@ -4,14 +4,14 @@ final class WindowManager {
     static let shared = WindowManager()
     private let di: DIProtocol = DI()
 
-    private var lastHomeView: HomeView?
+    private weak var lastHomeViewModel: HomeViewModel?
 
     @MainActor
     func showHomeWindow() {
         let homeAssembly = di.coordinatorsDI.homeViewAssemby
         let homeView = homeAssembly.createHomeView()
 
-        self.lastHomeView = homeView
+        self.lastHomeViewModel = homeView?.model
         windowHolder?.startNewRootView(homeView)
     }
     
@@ -25,9 +25,7 @@ final class WindowManager {
 
     @MainActor
     func createAndShowNewObject() {
-        guard let lastHomeView = lastHomeView else { return }
-
-        lastHomeView.model.createAndShowNewPage()
+        lastHomeViewModel?.createAndShowNewPage()
     }
     
     @MainActor
