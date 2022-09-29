@@ -22,7 +22,7 @@ extension BlockBookmarkPayload {
     }
     
     private init(objectDetails: ObjectDetails, blockBookmark: BlockBookmark) {
-        self.source = objectDetails.source
+        self.source = blockBookmark.source
         self.title = objectDetails.title
         self.subtitle = objectDetails.description
         self.imageHash = objectDetails.picture?.value ?? ""

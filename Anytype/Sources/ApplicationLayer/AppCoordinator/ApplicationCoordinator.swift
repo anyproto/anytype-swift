@@ -18,11 +18,20 @@ final class ApplicationCoordinator {
     }
 
     @MainActor
-    func start() {
+    func start(connectionOptions: UIScene.ConnectionOptions) {
         runAtFirstLaunch()
-        login()
+        login(connectionOptions: connectionOptions)
     }
- 
+
+    @MainActor
+    func handleDeeplink(url: URL) {
+        switch url {
+        case URLConstants.createObjectURL:
+            WindowManager.shared.createAndShowNewObject()
+        default:
+            break
+        }
+    }
 }
 
 // MARK: - Private extension
@@ -36,7 +45,7 @@ private extension ApplicationCoordinator {
     }
 
     @MainActor
-    func login() {
+    func login(connectionOptions: UIScene.ConnectionOptions) {
         let userId = UserDefaultsConfig.usersId
         guard userId.isNotEmpty else {
             WindowManager.shared.showAuthWindow()
@@ -45,7 +54,7 @@ private extension ApplicationCoordinator {
         
         WindowManager.shared.showLaunchWindow()
         
-        authService.selectAccount(id: userId) { result in
+        authService.selectAccount(id: userId) { [weak self] result in
             switch result {
             case .active:
                 WindowManager.shared.showHomeWindow()
@@ -54,6 +63,12 @@ private extension ApplicationCoordinator {
             case .deleted, .none:
                 WindowManager.shared.showAuthWindow()
             }
+
+            connectionOptions
+                .urlContexts
+                .map(\.url)
+                .first
+                .map { self?.handleDeeplink(url: $0) }
         }
     }
 } 

@@ -25,7 +25,7 @@ final class URLOpener: URLOpenerProtocol {
         let url = url.urlByAddingHttpIfSchemeIsEmpty()
         if url.containsHttpProtocol {
             let safariController = SFSafariViewController(url: url)
-            viewController?.present(safariController, animated: true)
+            viewController?.topPresentedController.present(safariController, animated: true)
             return
         }
         if UIApplication.shared.canOpenURL(url) {
