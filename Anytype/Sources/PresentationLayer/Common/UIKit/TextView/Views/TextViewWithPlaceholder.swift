@@ -141,64 +141,13 @@ final class TextViewWithPlaceholder: UITextView {
     required init?(coder: NSCoder) {
         fatalError("Not implemented")
     }
-
-//    override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-//        print("+++ \(gestureRecognizer)")
-//        return super.gestureRecognizerShouldBegin(gestureRecognizer)
-//    }
-//
-//    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
-//        print("point(inside \(point)")
-//
-//        return super.point(inside: point, with: event)
-//    }
-//
-//    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-//        print("hitTest \(point)")
-//
-//        return super.hitTest(point, with: event)
-//    }
-//
-//
-//
-//    override func updateFloatingCursor(at point: CGPoint) {
-//        print("updateFloatingCursor \(point)")
-//        super.updateFloatingCursor(at: point)
-//    }
 }
 
 // MARK: - Private extension
 
 private extension TextViewWithPlaceholder {
-
-    @objc
-    func handlePanGesture(_ panGesture: UIPanGestureRecognizer) {
-        let state = panGesture.state
-        switch state {
-        case .possible:
-            print("=_= possible")
-        case .began:
-            print("=_= began")
-        case .changed:
-            print("=_= changed")
-        case .ended:
-            print("=_= ended")
-        case .cancelled:
-            print("=_= cancelled")
-        case .failed:
-            print("=_= failed")
-        case .recognized:
-            print("=_= recognized")
-        }
-    }
     
     func setup() {
-        gestureRecognizers?.forEach {
-            if $0.isKind(of: UIPanGestureRecognizer.self) {
-                $0.addTarget(self, action: #selector(Self.handlePanGesture(_:)))
-            }
-        }
-
         textStorage.delegate = self
         addSubview(placeholderLabel)
         
@@ -210,15 +159,6 @@ private extension TextViewWithPlaceholder {
             $0.width.equal(to: widthAnchor).priority = .defaultHigh - 1
         }
         placeholderLabel.setContentHuggingPriority(.defaultLow - 1, for: .horizontal)
-
-        let panGestureRecognizer = UIHoverGestureRecognizer(target: self, action: #selector(handleCustomPan(pan:)))
-
-//        panGestureRecognizer.minimumNumberOfTouches = 1
-        addGestureRecognizer(panGestureRecognizer)
-    }
-
-    @objc func handleCustomPan(pan: UIHoverGestureRecognizer) {
-        print("handleCustomPan(pan)")
     }
 
     func updatePlaceholderLayout() {
