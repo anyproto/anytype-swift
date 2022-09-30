@@ -91,7 +91,7 @@ final class EditorPageController: UIViewController {
         
         setupView()
     }
-    var dfsd: Any?
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -102,20 +102,56 @@ final class EditorPageController: UIViewController {
 
         navigationBarHelper.handleViewWillAppear(scrollView: collectionView)
 
-        AnytypeWindow.shared.textRangeTouchSubject.sink { [unowned self] touch in
-            print("in Editor")
-            if let selectionEditorItem = selectionEditorItem {
-                let point = touch.location(in: collectionView)
-                guard let indexPath = collectionView.indexPathForItem(at: point) else {
-                    return
-                }
-                let item = dataSource.itemIdentifier(for: indexPath)
-
-                if item != selectionEditorItem {
-                    UIApplication.shared.hideKeyboard()
-                }
-            }
+        AnytypeWindow.shared?.textRangeTouchSubject.sink { [unowned self] touch in
+            handleTextSelectionTouch(touch)
         }.store(in: &cancellables)
+    }
+
+    private func performBlocksSelection(with touch: UITouch) {
+        guard let indexPath = collectionView.indexPath(for: touch) else {
+            return
+        }
+
+        selectItem(at: indexPath)
+    }
+
+    private func selectItem(at indexPath: IndexPath, animated: Bool = true) {
+        guard viewModel.blocksStateManager.canSelectBlock(at: indexPath) else {
+            return
+        }
+
+        if collectionView.indexPathsForSelectedItems?.contains(indexPath) ?? false {
+            return
+        }
+
+        collectionView.selectItem(at: indexPath, animated: true, scrollPosition: [])
+        collectionView.indexPathsForSelectedItems.map {
+            viewModel.blocksStateManager.didUpdateSelectedIndexPaths($0)
+        }
+    }
+
+    private func handleTextSelectionTouch(_ touch: UITouch) {
+        switch viewModel.blocksStateManager.editingState {
+        case .selecting:
+            performBlocksSelection(with: touch)
+        case .editing:
+            guard let touchingIndexPath = collectionView.indexPath(for: touch),
+                  let touchingItem = dataSource.itemIdentifier(for: touchingIndexPath),
+                  let selectionEditorItem = selectionEditorItem,
+                  touchingItem != selectionEditorItem
+            else {
+                return
+            }
+
+            UIApplication.shared.hideKeyboard()
+
+            let sourceTextIndexPath = dataSource.indexPath(for: selectionEditorItem)
+            sourceTextIndexPath.map(viewModel.blocksStateManager.didSelectSelection(from:))
+
+
+            selectItem(at: touchingIndexPath)
+        default: break
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -582,6 +618,14 @@ private extension EditorPageController {
         selectedCells?.forEach {
             self.collectionView.selectItem(at: $0, animated: false, scrollPosition: [])
         }
+    }
+}
+
+extension UICollectionView {
+    func indexPath(for touch: UITouch) -> IndexPath? {
+        let point = touch.location(in: self)
+
+        return indexPathForItem(at: point)
     }
 }
 

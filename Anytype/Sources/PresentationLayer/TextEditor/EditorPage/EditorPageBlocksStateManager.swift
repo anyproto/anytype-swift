@@ -28,6 +28,12 @@ protocol EditorPageSelectionManagerProtocol {
     func canSelectBlock(at indexPath: IndexPath) -> Bool
     func didLongTap(at indexPath: IndexPath)
     func didUpdateSelectedIndexPaths(_ indexPaths: [IndexPath])
+
+    // MARK: - Optional
+    func didSelectSelection(from indexPath: IndexPath)}
+
+extension EditorPageSelectionManagerProtocol {
+    func didSelectSelection(from indexPath: IndexPath) {}
 }
 
 protocol EditorPageBlocksStateManagerProtocol: EditorPageSelectionManagerProtocol, EditorPageMovingManagerProtocol, AnyObject {
@@ -440,6 +446,14 @@ extension EditorPageBlocksStateManager: SimpleTableSelectionHandler {
 }
 
 extension EditorPageBlocksStateManager: BlockSelectionHandler {
+    func didSelectSelection(from indexPath: IndexPath) {
+        guard let blockViewModel = modelsHolder.blockViewModel(at: indexPath.row) else { return }
+
+        editingState = .selecting(blocks: [blockViewModel.info.id])
+        selectedBlocks = [blockViewModel.info.id]
+        updateSelectionBarActions(selectedBlocks: [blockViewModel.info])
+    }
+
     func didSelectEditingState(info: BlockInformation) {
         editingState = .selecting(blocks: [info.id])
         selectedBlocks = [info.id]

@@ -10,7 +10,7 @@ extension UITextView {
         
         return offsetFromBegining(caretPosition) == 0
     }
-    
+
     var caretPosition: UITextPosition? {
         guard isFirstResponder else { return nil }
         let offset = selectedRange.location + selectedRange.length
