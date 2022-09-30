@@ -4,6 +4,7 @@ import Foundation
 import AnytypeCore
 
 final class BlockActionHandlerMock: BlockActionHandlerProtocol {
+    
     var blockSelectionHandler: BlockSelectionHandler? {
         get {
             assertionFailure()
@@ -182,6 +183,10 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
     }
 
     func createTable(blockId: BlockId, rowsCount: Int, columnsCount: Int) {
+        assertionFailure()
+    }
+    
+    func uploadMediaFile(uploadingSource: Anytype.MediaFileUploadingSource, type: Anytype.MediaPickerContentType, blockId: BlocksModels.BlockId) {
         assertionFailure()
     }
 }
