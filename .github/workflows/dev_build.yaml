@@ -56,8 +56,6 @@ jobs:
 
       - name: Build and upload to Testflight
         run: |
-          export FASTLANE_ITUNES_TRANSPORTER_USE_SHELL_SCRIPT=1 
-          export FASTLANE_ITUNES_TRANSPORTER_PATH=/Applications/Transporter.app/Contents/itms
           export LC_ALL=en_US.UTF-8
           export LANG=en_US.UTF-8
           bundle exec fastlane dev
