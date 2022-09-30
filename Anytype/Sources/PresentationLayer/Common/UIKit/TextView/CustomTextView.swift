@@ -39,45 +39,6 @@ final class CustomTextView: UIView {
             $0.pinToSuperview()
         }
     }
-
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        print("touchesMoved")
-        super.touchesMoved(touches, with: event)
-    }
-
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        print("touchesBegan")
-        super.touchesBegan(touches, with: event)
-    }
-
-    private lazy var panGestureRecognizer: UIPanGestureRecognizer = {
-        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(Self.handlePanGesture(_:)))
-        panGestureRecognizer.minimumNumberOfTouches = 1
-
-        return panGestureRecognizer
-    }()
-
-
-    @objc
-    func handlePanGesture(_ panGesture: UIPanGestureRecognizer) {
-        let state = panGesture.state
-        switch state {
-        case .possible:
-            print("=_= possible")
-        case .began:
-            print("=_= began")
-        case .changed:
-            print("=_= changed")
-        case .ended:
-            print("=_= ended")
-        case .cancelled:
-            print("=_= cancelled")
-        case .failed:
-            print("=_= failed")
-        case .recognized:
-            print("=_= recognized")
-        }
-    }
 }
 
 // MARK: - Views
@@ -126,9 +87,6 @@ private extension CustomTextView {
         textView.addInteraction(mentionSelection)
         textView.addInteraction(objectSelection)
         textView.autocorrectionType = autocorrect ? .yes : .no
-//
-//        textView.addGestureRecognizer(self.panGestureRecognizer)
-//        panGestureRecognizer.isEnabled = true
 
         return textView
     }

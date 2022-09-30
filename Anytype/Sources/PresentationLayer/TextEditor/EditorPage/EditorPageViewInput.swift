@@ -34,5 +34,5 @@ protocol EditorPageViewInput: RelativePositionProvider {
 
     func restoreEditingState()
 
-    func didChangeSelection(blockId: BlockId)
+    func didSelectTextRangeSelection(blockId: BlockId, textView: UITextView)
 }

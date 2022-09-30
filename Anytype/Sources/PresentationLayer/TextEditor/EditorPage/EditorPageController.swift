@@ -70,6 +70,10 @@ final class EditorPageController: UIViewController {
             viewModel.setupSubscriptions()
         }
     }
+
+    private var selectingRangeEditorItem: EditorItem?
+    private var selectingRangeTextView: UITextView?
+
     private var cancellables = [AnyCancellable]()
     
     // MARK: - Initializers
@@ -137,19 +141,25 @@ final class EditorPageController: UIViewController {
         case .editing:
             guard let touchingIndexPath = collectionView.indexPath(for: touch),
                   let touchingItem = dataSource.itemIdentifier(for: touchingIndexPath),
-                  let selectionEditorItem = selectionEditorItem,
-                  touchingItem != selectionEditorItem
+                  let selectingRangeEditorItem = selectingRangeEditorItem,
+                  touchingItem != selectingRangeEditorItem,
+                  let selectingRangeTextView = selectingRangeTextView,
+                  let sourceTextIndexPath = dataSource.indexPath(for: selectingRangeEditorItem)
             else {
                 return
             }
 
-            UIApplication.shared.hideKeyboard()
+            let isValidForDescending = selectingRangeTextView.textViewSelectionPosition.contains(.start) &&
+                            sourceTextIndexPath.compare(touchingIndexPath) == .orderedDescending
 
-            let sourceTextIndexPath = dataSource.indexPath(for: selectionEditorItem)
-            sourceTextIndexPath.map(viewModel.blocksStateManager.didSelectSelection(from:))
+            let isValidForAscending = selectingRangeTextView.textViewSelectionPosition.contains(.end) &&
+                            sourceTextIndexPath.compare(touchingIndexPath) == .orderedAscending
 
-
-            selectItem(at: touchingIndexPath)
+            if isValidForAscending || isValidForDescending {
+                UIApplication.shared.hideKeyboard()
+                viewModel.blocksStateManager.didSelectSelection(from: sourceTextIndexPath)
+                selectItem(at: touchingIndexPath)
+            }
         default: break
         }
     }
@@ -264,8 +274,6 @@ final class EditorPageController: UIViewController {
 
         super.present(viewControllerToPresent, animated: flag, completion: completion)
     }
-
-    private var selectionEditorItem: EditorItem?
 }
 
 // MARK: - EditorPageViewInput
@@ -310,9 +318,10 @@ extension EditorPageController: EditorPageViewInput {
         }
     }
 
-    func didChangeSelection(blockId: BlockId) {
-        if let item = dataSourceItem(for: blockId) {
-            self.selectionEditorItem = item
+    func didSelectTextRangeSelection(blockId: BlockId, textView: UITextView) {
+        if let item = dataSourceItem(for: blockId), textView.textViewSelectionPosition.contains(.end) || textView.textViewSelectionPosition.contains(.start) {
+            self.selectingRangeEditorItem = item
+            self.selectingRangeTextView = textView
         }
     }
 
@@ -379,7 +388,8 @@ extension EditorPageController: EditorPageViewInput {
     }
 
     func blockDidFinishEditing(blockId: BlockId) {
-        self.selectionEditorItem = nil
+        self.selectingRangeTextView = nil
+        self.selectingRangeEditorItem = nil
 
         guard let newItem = viewModel.modelsHolder.contentProvider(for: blockId) else { return }
 
@@ -601,7 +611,6 @@ private extension EditorPageController {
 // MARK: - Initial Update data
 
 private extension EditorPageController {
-    
     func applyBlocksSectionSnapshot(
         _ snapshot: NSDiffableDataSourceSectionSnapshot<EditorItem>,
         animatingDifferences: Bool

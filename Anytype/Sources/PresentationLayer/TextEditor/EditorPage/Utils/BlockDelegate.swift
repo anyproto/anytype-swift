@@ -61,7 +61,8 @@ final class BlockDelegateImpl: BlockDelegate {
 
     func selectionDidChange(data: TextBlockDelegateData, range: NSRange) {
         accessoryState.selectionDidChange(range: range)
-        viewInput?.didChangeSelection(blockId: data.info.id)
+
+        viewInput?.didSelectTextRangeSelection(blockId: data.info.id, textView: data.textView)
     }
     
     func scrollToBlock(blockId: BlockId) {

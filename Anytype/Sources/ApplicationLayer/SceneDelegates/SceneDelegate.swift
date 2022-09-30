@@ -1,52 +1,6 @@
 import UIKit
 import SwiftUI
 import AnytypeCore
-import Combine
-
-final class AnytypeWindow: UIWindow {
-    enum Constants {
-        static let textRangeViewClass: AnyClass? = NSClassFromString("UITextRangeView")
-    }
-
-    static private(set) var shared: AnytypeWindow?
-
-    let textRangeTouchSubject = PassthroughSubject<UITouch, Never>()
-
-    private weak var textRangeTouch: UITouch?
-
-    override init(windowScene: UIWindowScene) {
-        super.init(windowScene: windowScene)
-
-        Self.shared = self
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    override func sendEvent(_ event: UIEvent) {
-        event.allTouches?.forEach { touch in
-            touch.gestureRecognizers?.forEach { recognizer in
-                guard let view = recognizer.view, let className = Constants.textRangeViewClass else { return }
-                if view.isKind(of: className) {
-
-                    textRangeTouch = touch
-                }
-            }
-        }
-
-        super.sendEvent(event)
-
-        textRangeTouch.map { textRangeTouchSubject.send($0) }
-    }
-
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesEnded(touches, with: event)
-
-        textRangeTouch = nil
-    }
-}
-
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 

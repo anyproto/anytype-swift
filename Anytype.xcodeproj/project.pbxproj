@@ -994,6 +994,7 @@
 		C9121A5E273B918900FFDA07 /* BlocksSelectionOverlayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9121A5D273B918900FFDA07 /* BlocksSelectionOverlayViewModel.swift */; };
 		C91989ED2811673600CC6BEB /* UndoRedoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91989EC2811673600CC6BEB /* UndoRedoView.swift */; };
 		C91AFF11270C3E2F005F9386 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91AFF10270C3E2F005F9386 /* ActivityViewController.swift */; };
+		C91B81BA28E74222006AE9EB /* AnytypeWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91B81B928E74222006AE9EB /* AnytypeWindow.swift */; };
 		C91FAF5D2812865B0055BC4A /* UndoRedoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91FAF5C2812865B0055BC4A /* UndoRedoViewModel.swift */; };
 		C91FAF5F2812C2510055BC4A /* AlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91FAF5E2812C2510055BC4A /* AlertModel.swift */; };
 		C9215175289801B6007FC95D /* ShimmeringBlockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9215174289801B6007FC95D /* ShimmeringBlockViewModel.swift */; };
@@ -2196,6 +2197,7 @@
 		C9121A5D273B918900FFDA07 /* BlocksSelectionOverlayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksSelectionOverlayViewModel.swift; sourceTree = "<group>"; };
 		C91989EC2811673600CC6BEB /* UndoRedoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndoRedoView.swift; sourceTree = "<group>"; };
 		C91AFF10270C3E2F005F9386 /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
+		C91B81B928E74222006AE9EB /* AnytypeWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeWindow.swift; sourceTree = "<group>"; };
 		C91FAF5C2812865B0055BC4A /* UndoRedoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndoRedoViewModel.swift; sourceTree = "<group>"; };
 		C91FAF5E2812C2510055BC4A /* AlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertModel.swift; sourceTree = "<group>"; };
 		C9215174289801B6007FC95D /* ShimmeringBlockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmeringBlockViewModel.swift; sourceTree = "<group>"; };
@@ -4261,6 +4263,7 @@
 			isa = PBXGroup;
 			children = (
 				0303ED0022D8EDAA005C552B /* SceneDelegate.swift */,
+				C91B81B928E74222006AE9EB /* AnytypeWindow.swift */,
 				12EE02D42840EB2800223EB5 /* LifecycleStateTransitionSceneDelegate */,
 			);
 			path = SceneDelegates;
@@ -8128,6 +8131,7 @@
 				53C9F69226C166AF00209CA1 /* TitleBlockRestrictions.swift in Sources */,
 				3D16841226DD672E008B9DFF /* BlockDividerConverter.swift in Sources */,
 				C9E9F5E427FC7E7F008163D9 /* InsetConstraints.swift in Sources */,
+				C91B81BA28E74222006AE9EB /* AnytypeWindow.swift in Sources */,
 				C9892C3D284E22E2006E3BE3 /* SpreadsheetLayout.swift in Sources */,
 				2E975EF0287C23DA004DE574 /* SetSortsListViewModel.swift in Sources */,
 				2E0DAF2528A2723C00F43320 /* SetViewSettingsImagePreviewView.swift in Sources */,
