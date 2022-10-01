@@ -9061,10 +9061,10 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 0.19.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.anytypeio.anytype.dev.home.widget;
+				PRODUCT_BUNDLE_IDENTIFIER = com.anytypeio.anytype.dev.homewidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development com.anytypeio.anytype.dev.home.widget";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development com.anytypeio.anytype.dev.homewidget";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -9094,10 +9094,10 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 0.19.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.anytypeio.anytype.home.widget;
+				PRODUCT_BUNDLE_IDENTIFIER = com.anytypeio.anytype.homewidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AppStore com.anytypeio.anytype.home.widget";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AppStore com.anytypeio.anytype.homewidget";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -9127,10 +9127,10 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 0.19.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.anytypeio.anytype.dev.home.widget;
+				PRODUCT_BUNDLE_IDENTIFIER = com.anytypeio.anytype.dev.homewidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AppStore com.anytypeio.anytype.dev.home.widget";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AppStore com.anytypeio.anytype.dev.homewidget";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
