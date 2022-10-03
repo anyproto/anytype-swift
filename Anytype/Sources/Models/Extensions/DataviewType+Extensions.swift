@@ -32,7 +32,7 @@ extension DataviewViewType {
     var setContentViewType: SetContentViewType {
         switch self {
         case .gallery:
-            return FeatureFlags.setGalleryView ? .gallery : .table
+            return .gallery
         case .list:
             return FeatureFlags.setListView ? .list : .table
         default:
@@ -42,7 +42,7 @@ extension DataviewViewType {
     
     var isSupported: Bool {
         self == .table ||
-        (FeatureFlags.setGalleryView && self == .gallery) ||
+        self == .gallery ||
         (FeatureFlags.setListView && self == .list)
     }
 }

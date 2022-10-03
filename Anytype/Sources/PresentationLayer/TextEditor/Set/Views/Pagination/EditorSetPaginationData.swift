@@ -1,7 +1,7 @@
 struct EditorSetPaginationData {
-    let selectedPage: Int64
-    let visiblePages: [Int64]
-    let pageCount: Int64
+    let selectedPage: Int
+    let visiblePages: [Int]
+    let pageCount: Int
     
     var canGoBackward: Bool {
         guard let first = visiblePages.first else { return false }
@@ -13,7 +13,7 @@ struct EditorSetPaginationData {
         return last < pageCount
     }
     
-    func updated(visiblePages: [Int64]) -> EditorSetPaginationData {
+    func updated(visiblePages: [Int]) -> EditorSetPaginationData {
         EditorSetPaginationData(
             selectedPage: selectedPage,
             visiblePages: visiblePages,
@@ -21,7 +21,7 @@ struct EditorSetPaginationData {
         )
     }
     
-    func updated(pageCount: Int64) -> EditorSetPaginationData {
+    func updated(pageCount: Int) -> EditorSetPaginationData {
         EditorSetPaginationData(
             selectedPage: selectedPage,
             visiblePages: visiblePages,
@@ -29,7 +29,7 @@ struct EditorSetPaginationData {
         )
     }
     
-    func updated(selectedPage: Int64) -> EditorSetPaginationData {
+    func updated(selectedPage: Int) -> EditorSetPaginationData {
         EditorSetPaginationData(
             selectedPage: selectedPage,
             visiblePages: visiblePages,

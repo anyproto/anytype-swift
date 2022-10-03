@@ -49,6 +49,21 @@ struct EditorSetViewPicker: View {
                 EditButton()
                     .foregroundColor(Color.buttonActive)
             }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                addButton
+            }
+        }
+    }
+    
+    private var addButton: some View {
+        Group {
+            if editMode == .inactive {
+                Button {
+                    viewModel.addButtonTapped()
+                } label: {
+                    Image(asset: .plus).frame(width: 24, height: 24)
+                }
+            }
         }
     }
     

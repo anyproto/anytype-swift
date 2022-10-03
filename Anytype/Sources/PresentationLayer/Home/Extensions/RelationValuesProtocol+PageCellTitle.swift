@@ -5,7 +5,7 @@ import AnytypeCore
 extension BundledRelationsValueProvider {
     
     var pageCellTitle: String {
-        switch layout {
+        switch layoutValue {
         case .note:
             return snippet
         default:
@@ -20,7 +20,7 @@ extension BundledRelationsValueProvider {
         
         let title: String
 
-        switch layout {
+        switch layoutValue {
         case .note:
             title = snippet
         default:
@@ -31,20 +31,11 @@ extension BundledRelationsValueProvider {
     }
     
     var homeLayout: HomeCellData.TitleLayout {
-        if FeatureFlags.bookmarksFlowP2 {
-            switch objectIconImage {
-            case .todo, .icon(.bookmark):
-                return .horizontal
-            default:
-                return .vertical
-            }
-        } else {
-            switch objectIconImage {
-            case .todo:
-                return .horizontal
-            default:
-                return .vertical
-            }
+        switch objectIconImage {
+        case .todo, .icon(.bookmark):
+            return .horizontal
+        default:
+            return .vertical
         }
     }
     
