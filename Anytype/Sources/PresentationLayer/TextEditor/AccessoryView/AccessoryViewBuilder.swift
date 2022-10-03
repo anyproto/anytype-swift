@@ -21,9 +21,20 @@ struct AccessoryViewBuilder {
         
         let markupViewModel = MarkupAccessoryViewModel(
             document: document,
-            actionHandler: actionHandler,
-            onLinkToObject: router.showLinkToObject(onSelect:)
+            actionHandler: actionHandler
         )
+
+        markupViewModel.onShowLinkToObject = { [weak router] args in
+            router?.showLinkToObject(currentLink: args.0, onSelect: args.1)
+        }
+
+        markupViewModel.onShowURL = { [weak router] url in
+            router?.openUrl(url)
+        }
+
+        markupViewModel.onShowObject = { [weak router] objectId in
+            router?.showPage(data: .init(pageId: objectId, type: .page))
+        }
 
         let changeTypeViewModel = ChangeTypeAccessoryViewModel(
             router: router,
@@ -32,9 +43,13 @@ struct AccessoryViewBuilder {
             objectService: ServiceLocator.shared.objectActionsService(),
             document: document
         ) { [weak router, weak actionHandler] in
-            router?.showTypesSearch(onSelect: { id in
-                actionHandler?.setObjectTypeUrl(id)
-            })
+            router?.showTypesSearch(
+                title: Loc.changeType,
+                selectedObjectId: document.details?.type,
+                onSelect: { id in
+                    actionHandler?.setObjectTypeUrl(id)
+                }
+            )
         }
 
         let typeListViewModel = HorizonalTypeListViewModel(itemProvider: changeTypeViewModel)

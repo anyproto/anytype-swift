@@ -1,3 +1,5 @@
+import UIKit
+
 enum SlashAction {
     case style(SlashActionStyle)
     case media(SlashActionMedia)
@@ -33,7 +35,7 @@ enum SlashAction {
             )
         case let .style(style):
             return .titleSubtitleDisplayData(
-                SlashMenuItemDisplayData(iconData: .imageAsset(style.iconAsset), title: style.title, subtitle: style.subtitle, expandedIcon: true)
+                SlashMenuItemDisplayData(iconData: .image(style.image ?? UIImage()), title: style.title, subtitle: style.subtitle, expandedIcon: true)
             )
         case let .other(other):
             return .titleSubtitleDisplayData(

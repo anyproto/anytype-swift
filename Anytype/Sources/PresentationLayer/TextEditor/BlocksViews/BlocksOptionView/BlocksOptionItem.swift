@@ -1,18 +1,20 @@
 import UIKit
 
 enum BlocksOptionItem: CaseIterable, Comparable {
+    case delete
+    // -- Unique options. Start
+    case download
+    case style
+    case preview
+    case openObject
+    // -- Unique options. End
     case paste
     case copy
-    case preview
-    case style
-    case download
-    case delete
-    case openObject
-    case addBlockBelow
     case duplicate
-    case turnInto
+    case addBlockBelow
     case move
     case moveTo
+    case turnInto
 }
 
 extension BlocksOptionItem {
@@ -58,7 +60,7 @@ extension BlocksOptionItem {
         case .duplicate:
             return Loc.duplicate
         case .turnInto:
-            return Loc.turnInto
+            return Loc.intoObject
         case .moveTo:
             return Loc.moveTo
         case .move:
@@ -72,7 +74,7 @@ extension BlocksOptionItem {
         case .copy:
             return Loc.copy
         case .preview:
-            return Loc.preview
+            return Loc.view
         }
     }
 

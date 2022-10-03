@@ -11,8 +11,7 @@ class UnsupportedBlockView: UIView, BlockContentView {
     }()
 
     private let icon: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "TextEditor/questionMark")
+        let imageView = UIImageView(asset: .TextEditor.questionMark)
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()

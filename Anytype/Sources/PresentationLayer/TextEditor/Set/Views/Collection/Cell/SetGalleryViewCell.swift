@@ -1,7 +1,7 @@
 import SwiftUI
 import Kingfisher
 
-struct SetCollectionViewCell: View {
+struct SetGalleryViewCell: View {
     @State private var width: CGFloat = .zero
     let configuration: SetContentViewItemConfiguration
     
@@ -20,7 +20,13 @@ struct SetCollectionViewCell: View {
                 coverContent
             }
             VStack(alignment: .leading, spacing: 0) {
-                titleWithIcon
+                 TitleWithIconView(
+                    icon: configuration.icon,
+                    showIcon: configuration.showIcon,
+                    title: configuration.title,
+                    style: .gallery,
+                    onIconTap: configuration.onIconTap
+                 )
                 Spacer.fixedHeight(4)
                 relations
             }
@@ -66,26 +72,6 @@ struct SetCollectionViewCell: View {
             .frame(width: 48, height: 48, alignment: .center)
     }
     
-    private var titleWithIcon: some View {
-        Group {
-            if let icon = configuration.icon, configuration.showIcon {
-                ZStack(alignment: .topLeading) {
-                    title(with: configuration.leftIndentedTitle)
-                    SwiftUIObjectIconImageView(
-                        iconImage: icon,
-                        usecase: .setRow)
-                    .frame(width: 18, height: 18)
-                    .padding(.top, 1)
-                    .onTapGesture {
-                        configuration.onIconTap()
-                    }
-                }
-            } else {
-                title(with: configuration.title)
-            }
-        }
-    }
-    
     private var relations: some View {
         LazyVStack(spacing: 4) {
             ForEach(configuration.relations) { relation in
@@ -96,24 +82,18 @@ struct SetCollectionViewCell: View {
         }
     }
     
-    private func title(with text: String) -> some View {
-        AnytypeText(text, style: .previewTitle2Medium, color: .textPrimary)
-            .lineLimit(3)
-            .multilineTextAlignment(.leading)
-    }
-    
     private func row(_ relationData: Relation) -> some View {
         RelationValueView(
             relation: RelationItemModel(
                 relation: relationData),
-            style: .setGallery, action: {}
+            style: .setCollection, action: {}
         )
     }
 }
 
-extension SetCollectionViewCell {
+extension SetGalleryViewCell {
     enum Constants {
-        static let contentPadding: CGFloat = 16
+        static let contentPadding: CGFloat = 12
         static let cornerRadius: CGFloat = 16
         static let smallItemHeight: CGFloat = 112
         static let largeItemHeight: CGFloat = 188

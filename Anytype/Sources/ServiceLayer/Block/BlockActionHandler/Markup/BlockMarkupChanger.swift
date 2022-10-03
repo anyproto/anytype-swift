@@ -83,6 +83,19 @@ final class BlockMarkupChanger: BlockMarkupChangerProtocol {
         )
         
         modifier.apply(action, shouldApplyMarkup: shouldApplyMarkup, range: range)
+
+        switch action {
+        case .link(let linkURL):
+            if linkURL.isNotNil {
+                modifier.apply(.linkToObject(nil), shouldApplyMarkup: true, range: range)
+            }
+        case .linkToObject(let blockId):
+            if blockId.isNotNil {
+                modifier.apply(.link(nil), shouldApplyMarkup: true, range: range)
+            }
+        default: break
+        }
+
         return NSAttributedString(attributedString: modifier.attributedString)
     }
     

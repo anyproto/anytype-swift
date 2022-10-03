@@ -10,9 +10,11 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func showAlert(alertModel: AlertModel)
 
     func showPage(data: EditorScreenData)
+    func replaceCurrentPage(with data: EditorScreenData)
+    
     func openUrl(_ url: URL)
-    func showBookmarkBar(completion: @escaping (URL) -> ())
-    func showLinkMarkup(url: URL?, completion: @escaping (URL?) -> Void)
+    func showBookmarkBar(completion: @escaping (AnytypeURL) -> ())
+    func showLinkMarkup(url: AnytypeURL?, completion: @escaping (AnytypeURL?) -> Void)
     
     func showFilePicker(model: Picker.ViewModel)
     func showImagePicker(contentType: MediaPickerContentType, onSelect: @escaping (NSItemProvider?) -> Void)
@@ -44,9 +46,12 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     
     func showMoveTo(onSelect: @escaping (BlockId) -> ())
     func showLinkTo(onSelect: @escaping (BlockId, _ typeUrl: String) -> ())
-    func showLinkToObject(onSelect: @escaping (LinkToObjectSearchViewModel.SearchKind) -> ())
+    func showLinkToObject(
+        currentLink: Either<URL, BlockId>?,
+        onSelect: @escaping (LinkToObjectSearchViewModel.SearchKind) -> ()
+    )
     func showSearch(onSelect: @escaping (EditorScreenData) -> ())
-    func showTypesSearch(onSelect: @escaping (BlockId) -> ())
+    func showTypesSearch(title: String, selectedObjectId: BlockId?, onSelect: @escaping (BlockId) -> ())
     func showObjectPreview(blockLinkAppearance: BlockLink.Appearance, onSelect: @escaping (BlockLink.Appearance) -> Void)
     
     func showRelationValueEditingView(key: String, source: RelationSource)
@@ -68,12 +73,17 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
         templatesTypeURL: ObjectTypeUrl
     )
     
-    func showViewPicker(setModel: EditorSetViewModel)
+    func showViewPicker(
+        setModel: EditorSetViewModel,
+        dataviewService: DataviewServiceProtocol,
+        showViewTypes: @escaping RoutingAction<DataviewView>
+    )
 
     func showCreateObject(pageId: BlockId)
     func showCreateBookmarkObject()
     
     func showSetSettings(setModel: EditorSetViewModel)
+    func showViewTypes(activeView: DataviewView, canDelete: Bool, dataviewService: DataviewServiceProtocol)
     func showViewSettings(setModel: EditorSetViewModel, dataviewService: DataviewServiceProtocol)
     func dismissSetSettingsIfNeeded()
     func showSorts(setModel: EditorSetViewModel, dataviewService: DataviewServiceProtocol)

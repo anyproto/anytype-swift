@@ -17,7 +17,7 @@ protocol BlockActionHandlerProtocol: AnyObject {
     func setBackgroundColor(_ color: BlockBackgroundColor, blockIds: [BlockId])
     func duplicate(blockId: BlockId)
     func setFields(_ fields: FieldsConvertibleProtocol, blockId: BlockId)
-    func fetch(url: URL, blockId: BlockId)
+    func fetch(url: AnytypeURL, blockId: BlockId)
     func checkbox(selected: Bool, blockId: BlockId)
     func toggle(blockId: BlockId)
     func setAlignment(_ alignment: LayoutAlignment, blockIds: [BlockId])
@@ -31,7 +31,10 @@ protocol BlockActionHandlerProtocol: AnyObject {
     func toggleWholeBlockMarkup(_ markup: MarkupType, blockId: BlockId)
     func upload(blockId: BlockId, filePath: String)
     func createPage(targetId: BlockId, type: ObjectTypeUrl) -> BlockId?
+
     func setObjectTypeUrl(_ objectTypeUrl: String)
+    func setObjectSetType() -> BlockId
+
     func changeTextForced(_ text: NSAttributedString, blockId: BlockId)
     func changeText(_ text: NSAttributedString, info: BlockInformation)
     func handleKeyboardAction(
@@ -46,7 +49,7 @@ protocol BlockActionHandlerProtocol: AnyObject {
     func createAndFetchBookmark(
         targetID: BlockId,
         position: BlockPosition,
-        url: String
+        url: AnytypeURL
     )
     func setAppearance(blockId: BlockId, appearance: BlockLink.Appearance)
     func createTable(

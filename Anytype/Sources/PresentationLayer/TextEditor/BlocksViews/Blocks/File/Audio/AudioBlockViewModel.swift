@@ -45,14 +45,14 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
     func makeContentConfiguration(maxWidth _ : CGFloat) -> UIContentConfiguration {
         switch fileData.state {
         case .empty:
-            return emptyViewConfiguration(state: .default)
+            return emptyViewConfiguration(text: Loc.Content.Audio.upload, state: .default)
         case .uploading:
-            return emptyViewConfiguration(state: .uploading)
+            return emptyViewConfiguration(text: Loc.Content.Common.uploading, state: .uploading)
         case .error:
-            return emptyViewConfiguration(state: .error)
+            return emptyViewConfiguration(text: Loc.Content.Common.error, state: .error)
         case .done:
             guard playerItem != nil else {
-                return emptyViewConfiguration(state: .error)
+                return emptyViewConfiguration(text: Loc.Content.Common.error, state: .error)
             }
             audioPlayer.updateDelegate(audioId: info.id, delegate: self)
             return AudioBlockContentConfiguration(
@@ -66,10 +66,10 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
         }
     }
 
-    private func emptyViewConfiguration(state: BlocksFileEmptyViewState) -> UIContentConfiguration {
+    private func emptyViewConfiguration(text: String, state: BlocksFileEmptyViewState) -> UIContentConfiguration {
         BlocksFileEmptyViewConfiguration(
             imageAsset: .TextEditor.BlockFile.Empty.video,
-            text: Loc.uploadAudio,
+            text: text,
             state: state
         ).cellBlockConfiguration(
             indentationSettings: .init(with: info.configurationData),

@@ -18,7 +18,8 @@ extension ObjectTypesSearchInteractor {
     func search(text: String) -> [ObjectDetails] {
         searchService.searchObjectTypes(
             text: text,
-            filteringTypeUrl: excludedObjectTypeId
+            filteringTypeUrl: excludedObjectTypeId,
+            shouldIncludeSets: false
         ) ?? []
     }
     

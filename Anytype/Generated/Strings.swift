@@ -38,8 +38,6 @@ internal enum Loc {
   internal static let add = Loc.tr("Localizable", "Add")
   /// Add a description
   internal static let addADescription = Loc.tr("Localizable", "Add a description")
-  /// Add a web bookmark
-  internal static let addAWebBookmark = Loc.tr("Localizable", "Add a web bookmark")
   /// Add below
   internal static let addBelow = Loc.tr("Localizable", "Add below")
   /// Add email
@@ -351,6 +349,8 @@ internal enum Loc {
   internal static let inThisObject = Loc.tr("Localizable", "In this object")
   /// Initializing sync
   internal static let initializingSync = Loc.tr("Localizable", "Initializing sync")
+  /// Into object
+  internal static let intoObject = Loc.tr("Localizable", "Into object")
   /// Invalid invitation code
   internal static let invalidInvitationCode = Loc.tr("Localizable", "Invalid invitation code")
   /// %s is already selected
@@ -471,8 +471,6 @@ internal enum Loc {
   internal static let page = Loc.tr("Localizable", "Page")
   /// Paste
   internal static let paste = Loc.tr("Localizable", "Paste")
-  /// Paste link or search objects
-  internal static let pasteLinkOrSearchObjects = Loc.tr("Localizable", "Paste link or search objects")
   /// Paste or type URL
   internal static let pasteOrTypeURL = Loc.tr("Localizable", "Paste or type URL")
   /// Paste processing...
@@ -690,12 +688,6 @@ internal enum Loc {
   internal static let untitled = Loc.tr("Localizable", "Untitled")
   /// Upload
   internal static let upload = Loc.tr("Localizable", "Upload")
-  /// Upload a picture
-  internal static let uploadAPicture = Loc.tr("Localizable", "Upload a picture")
-  /// Upload a video
-  internal static let uploadAVideo = Loc.tr("Localizable", "Upload a video")
-  /// Upload audio
-  internal static let uploadAudio = Loc.tr("Localizable", "Upload audio")
   /// Upload playable audio
   internal static let uploadPlayableAudio = Loc.tr("Localizable", "Upload playable audio")
   /// URL
@@ -753,15 +745,46 @@ internal enum Loc {
     internal static let cameraPermissionTitle = Loc.tr("Localizable", "Auth.CameraPermissionTitle")
   }
 
+  internal enum Content {
+    internal enum Audio {
+      /// Upload audio
+      internal static let upload = Loc.tr("Localizable", "Content.Audio.Upload")
+    }
+    internal enum Bookmark {
+      /// Add a web bookmark
+      internal static let add = Loc.tr("Localizable", "Content.Bookmark.Add")
+      /// Loading, please wait...
+      internal static let loading = Loc.tr("Localizable", "Content.Bookmark.Loading")
+    }
+    internal enum Common {
+      /// Something went wrong, try again
+      internal static let error = Loc.tr("Localizable", "Content.Common.Error")
+      /// Uploading...
+      internal static let uploading = Loc.tr("Localizable", "Content.Common.Uploading")
+    }
+    internal enum File {
+      /// Upload a file
+      internal static let upload = Loc.tr("Localizable", "Content.File.Upload")
+    }
+    internal enum Picture {
+      /// Upload a picture
+      internal static let upload = Loc.tr("Localizable", "Content.Picture.Upload")
+    }
+    internal enum Video {
+      /// Upload a video
+      internal static let upload = Loc.tr("Localizable", "Content.Video.Upload")
+    }
+  }
+
   internal enum DataviewType {
-    /// gallery
+    /// Gallery
     internal static let gallery = Loc.tr("Localizable", "DataviewType.gallery")
-    /// kanban
+    /// Grid
+    internal static let grid = Loc.tr("Localizable", "DataviewType.grid")
+    /// Kanban
     internal static let kanban = Loc.tr("Localizable", "DataviewType.kanban")
-    /// list
+    /// List
     internal static let list = Loc.tr("Localizable", "DataviewType.list")
-    /// table
-    internal static let table = Loc.tr("Localizable", "DataviewType.table")
   }
 
   internal enum DebugMenu {
@@ -932,9 +955,32 @@ internal enum Loc {
   }
 
   internal enum Editor {
+    internal enum LinkToObject {
+      /// Copy link
+      internal static let copyLink = Loc.tr("Localizable", "Editor.LinkToObject.CopyLink")
+      /// Linked to
+      internal static let linkedTo = Loc.tr("Localizable", "Editor.LinkToObject.LinkedTo")
+      /// Paste from clipboard
+      internal static let pasteFromClipboard = Loc.tr("Localizable", "Editor.LinkToObject.PasteFromClipboard")
+      /// Remove link
+      internal static let removeLink = Loc.tr("Localizable", "Editor.LinkToObject.RemoveLink")
+      /// Paste link or search objects
+      internal static let searchPlaceholder = Loc.tr("Localizable", "Editor.LinkToObject.SearchPlaceholder")
+    }
     internal enum MovingState {
       /// Scroll to select a place
       internal static let scrollToSelectedPlace = Loc.tr("Localizable", "Editor.MovingState.ScrollToSelectedPlace")
+    }
+  }
+
+  internal enum EditorSetViewPicker {
+    internal enum View {
+      internal enum Available {
+        /// %s view soon
+        internal static func soon(_ p1: UnsafePointer<CChar>) -> String {
+          return Loc.tr("Localizable", "EditorSetViewPicker.View.Available.Soon", p1)
+        }
+      }
     }
   }
 
@@ -1091,6 +1137,10 @@ internal enum Loc {
         internal static let title = Loc.tr("Localizable", "Set.Bookmark.Error.Title")
       }
     }
+    internal enum FeaturedRelations {
+      /// Source
+      internal static let source = Loc.tr("Localizable", "Set.FeaturedRelations.Source")
+    }
     internal enum Filters {
       internal enum Search {
         internal enum Button {
@@ -1098,6 +1148,10 @@ internal enum Loc {
           internal static let title = Loc.tr("Localizable", "Set.Filters.Search.Button.Title")
         }
       }
+    }
+    internal enum SourceType {
+      /// Select source
+      internal static let selectSource = Loc.tr("Localizable", "Set.SourceType.SelectSource")
     }
     internal enum View {
       internal enum Settings {
@@ -1125,11 +1179,39 @@ internal enum Loc {
     }
   }
 
+  internal enum SetViewTypesPicker {
+    /// Edit view
+    internal static let title = Loc.tr("Localizable", "SetViewTypesPicker.Title")
+    internal enum Section {
+      internal enum Types {
+        /// View as
+        internal static let title = Loc.tr("Localizable", "SetViewTypesPicker.Section.Types.Title")
+      }
+    }
+    internal enum Settings {
+      internal enum Delete {
+        /// Delete view
+        internal static let view = Loc.tr("Localizable", "SetViewTypesPicker.Settings.Delete.View")
+      }
+      internal enum Duplicate {
+        /// Duplicate
+        internal static let view = Loc.tr("Localizable", "SetViewTypesPicker.Settings.Duplicate.View")
+      }
+    }
+  }
+
+  internal enum SignUp {
+    internal enum InvintationCode {
+      /// Invitation code
+      internal static let placeholder = Loc.tr("Localizable", "SignUp.InvintationCode.Placeholder")
+    }
+  }
+
   internal enum SimpleTableMenu {
     internal enum Item {
-      /// Clear contents
+      /// Clear
       internal static let clearContents = Loc.tr("Localizable", "SimpleTableMenu.Item.clearContents")
-      /// Clear style
+      /// Reset style
       internal static let clearStyle = Loc.tr("Localizable", "SimpleTableMenu.Item.clearStyle")
       /// Color
       internal static let color = Loc.tr("Localizable", "SimpleTableMenu.Item.color")

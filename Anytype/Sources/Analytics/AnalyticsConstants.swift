@@ -110,6 +110,15 @@ enum AnalyticsEventsName {
     static let relationUrlOpen = "RelationUrlOpen"
     static let relationUrlCopy = "RelationUrlCopy"
     static let relationUrlEditMobile = "RelationUrlEditMobile"
+
+    // Keyboard bar actions
+    enum KeyboardBarAction {
+        static let slashMenu = "KeyboardBarSlashMenu"
+        static let styleMenu = "KeyboardBarStyleMenu"
+        static let selectionMenu = "KeyboardBarSelectionMenu"
+        static let mentionMenu = "KeyboardBarMentionMenu"
+        static let hideKeyboard = "KeyboardBarHideKeyboardMenu"
+    }
 }
 
 // MARK: - Home tab names

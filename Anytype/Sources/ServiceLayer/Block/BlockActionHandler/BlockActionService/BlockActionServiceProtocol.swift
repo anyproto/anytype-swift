@@ -24,7 +24,7 @@ protocol BlockActionServiceProtocol {
         newBlockContentType: BlockText.Style
     )
     
-    func bookmarkFetch(blockId: BlockId, url: String)
+    func bookmarkFetch(blockId: BlockId, url: AnytypeURL)
     
     func setBackgroundColor(blockIds: [BlockId], color: BlockBackgroundColor)
     func setBackgroundColor(blockIds: [BlockId], color: MiddlewareColor)
@@ -41,11 +41,13 @@ protocol BlockActionServiceProtocol {
     func merge(secondBlockId: BlockId)
     
     func setObjectTypeUrl(_ objectTypeUrl: String)
+    func setObjectSetType() -> BlockId
+
     func createAndFetchBookmark(
         contextID: BlockId,
         targetID: BlockId,
         position: BlockPosition,
-        url: String
+        url: AnytypeURL
     )
 }
 

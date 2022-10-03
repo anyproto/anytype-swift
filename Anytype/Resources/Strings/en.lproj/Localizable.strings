@@ -14,7 +14,6 @@
 "Checkbox" = "Checkbox";
 "Bulleted placeholder" = "Bulleted list item";
 "Numbered placeholder" = "Numbered list item";
-"Upload a video" = "Upload a video";
 "Loading, please wait" = "Loading, please wait";
 "Untitled" = "Untitled";
 "Select or drag and drop blocks" = "Select or drag and drop blocks";
@@ -33,6 +32,7 @@
 "Duplicate" = "Duplicate";
 "Copy" = "Copy";
 "Preview" = "Preview";
+"View" = "View";
 "Paste" = "Paste";
 "Move" = "Move";
 "Move to" = "Move to";
@@ -66,9 +66,7 @@
 "Picture block subtitle" = "Upload and enrich the page with image";
 "Video block subtitle" = "Upload playable video";
 "Bookmark block subtitle" = "Save your favorite link with summary";
-"Add a web bookmark" = "Add a web bookmark";
 "Code block subtitle" = "Capture code snippet";
-"Upload a picture" = "Upload a picture";
 "Align right" = "Align right";
 "Align left" = "Align left";
 "Align center" = "Align center";
@@ -160,6 +158,7 @@
 "Sign up error" = "No internet connection / invalid invitation code";
 "Account recover error" = "Account recover error, try again";
 "Account recover error no internet" = "Account recover error, probably no internet connection";
+"SignUp.InvintationCode.Placeholder" = "Invitation code";
 
 
 // Auth Errors
@@ -227,7 +226,11 @@
 
 // MARK: - Link to search
 
-"Paste link or search objects" = "Paste link or search objects";
+"Editor.LinkToObject.SearchPlaceholder" = "Paste link or search objects";
+"Editor.LinkToObject.PasteFromClipboard" = "Paste from clipboard";
+"Editor.LinkToObject.LinkedTo" = "Linked to";
+"Editor.LinkToObject.CopyLink" = "Copy link";
+"Editor.LinkToObject.RemoveLink" = "Remove link";
 
 // MARK: - Main search
 "There is no object named" = "There is no object named %s";
@@ -347,6 +350,9 @@
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo.Short" = "%s days ago";
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%s days from now";
 
+// MARK: - Sets: Featured relations
+"Set.FeaturedRelations.Source" = "Source";
+
 // MARK: - Sets: Filters search
 "Set.Filters.Search.Button.Title" = "Apply";
 
@@ -361,6 +367,9 @@
 "Set.View.Settings.CardSize.Small.Title" = "Small";
 "Set.View.Settings.CardSize.Large.Title" = "Large";
 "Set.View.Settings.ImagePreview.Title" = "Image preview";
+
+// MARK: - Set source type
+"Set.SourceType.SelectSource" = "Select source";
 
 // MARK: Slash Menu
 "SlashMenu.DotsDivider" = "Dots divider";
@@ -462,11 +471,11 @@
 "Syncing..." = "Syncing...";
 "No connection" = "No connection";
 "Preparing..." = "Preparing...";
-"Upload audio" = "Upload audio";
 "Deleted" = "Deleted";
 "Download" = "Download";
 "Open object" = "Open object";
 "Turn into" = "Turn into";
+"Into object" = "Into object";
 "Add below" = "Add below";
 "Change type" = "Change type";
 "Link to existing object" = "Link to existing object";
@@ -528,10 +537,10 @@
 "DeletionAlert.description" = "You will be logged out on all other devices. You will have 30 days to recover it. Afterwards it will be deleted permanently";
 
 // MARK: - DataviewType
-"DataviewType.table" = "table";
-"DataviewType.list" = "list";
-"DataviewType.gallery" = "gallery";
-"DataviewType.kanban" = "kanban";
+"DataviewType.grid" = "Grid";
+"DataviewType.list" = "List";
+"DataviewType.gallery" = "Gallery";
+"DataviewType.kanban" = "Kanban";
 
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "Blank canvas with no title";
@@ -553,10 +562,10 @@
 "TalbeOfContents.Empty" = "Add headings to create a table of contents";
 
 // MARK: - Simple tables
-"SimpleTableMenu.Item.clearContents" = "Clear contents";
+"SimpleTableMenu.Item.clearContents" = "Clear";
 "SimpleTableMenu.Item.color" = "Color";
 "SimpleTableMenu.Item.style" = "Style";
-"SimpleTableMenu.Item.clearStyle" = "Clear style";
+"SimpleTableMenu.Item.clearStyle" = "Reset style";
 
 "SimpleTableMenu.Item.InsertLeft" = "Insert left";
 "SimpleTableMenu.Item.InsertRight" = "Insert right";
@@ -588,3 +597,22 @@
 "RelationAction.CallPhone" = "Call phone numbler";
 "RelationAction.SendEmail" = "Send email";
 "RelationAction.OpenLink" = "Open link";
+
+// MARK: Edit view type
+"SetViewTypesPicker.Title" = "Edit view";
+"SetViewTypesPicker.Section.Types.Title" = "View as";
+"SetViewTypesPicker.Settings.Duplicate.View" = "Duplicate";
+"SetViewTypesPicker.Settings.Delete.View" = "Delete view";
+
+// MARK: Select view picker
+"EditorSetViewPicker.View.Available.Soon" = "%s view soon";
+
+// BlockContent
+"Content.File.Upload" = "Upload a file";
+"Content.Audio.Upload" = "Upload audio";
+"Content.Video.Upload" = "Upload a video";
+"Content.Picture.Upload" = "Upload a picture";
+"Content.Common.Uploading" = "Uploading...";
+"Content.Common.Error" = "Something went wrong, try again";
+"Content.Bookmark.Add" = "Add a web bookmark";
+"Content.Bookmark.Loading" = "Loading, please wait...";

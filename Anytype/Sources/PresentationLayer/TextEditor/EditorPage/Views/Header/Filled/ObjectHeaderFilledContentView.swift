@@ -49,14 +49,9 @@ final class ObjectHeaderFilledContentView: UIView, BlockContentView {
         )
         .compactMap { $0.object as? CGFloat }
         .receiveOnMain()
-        .sink {
-            self.updateCoverTransform($0)
+        .sink { [weak self] in
+            self?.updateCoverTransform($0)
         }
-
-
-
-
-        print("isShimmering \(shimmeringView.isShimmering)")
     }
 
     func update(with state: UICellConfigurationState) {

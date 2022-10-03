@@ -24,6 +24,8 @@ final class ObjectSettingBuilder {
             return [.layout, .relations]
         case .set:
             return ObjectSetting.allCases
+        case .bookmark:
+            return ObjectSetting.allCases.filter { $0 != .icon }
         }
     }
 }

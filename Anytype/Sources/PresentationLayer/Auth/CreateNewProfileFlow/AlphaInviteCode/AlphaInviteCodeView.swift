@@ -36,15 +36,16 @@ struct AlphaInviteCodeView: View {
                 AnytypeText(Loc.doNotHaveInvite, style: .uxCalloutRegular, color: .textPrimary)
                 Spacer.fixedHeight(30)
                 
-                AutofocusedTextField(placeholder: "", text: $signUpData.inviteCode)
+                AutofocusedTextField(
+                    placeholder: Loc.SignUp.InvintationCode.placeholder,
+                    placeholderFont: .uxBodyRegular,
+                    text: $signUpData.inviteCode
+                )
                     .disableAutocorrection(true)
                     .textContentType(.password)
                     .autocapitalization(.none)
                     .font(AnytypeFontBuilder.font(anytypeFont: .uxBodyRegular))
                     .foregroundColor(.textPrimary)
-                    .placeholder(when: signUpData.inviteCode.isEmpty) {
-                        AnytypeText("Invitation code", style: .uxBodyRegular, color: .textTertiary)
-                    }
                     .divider(spacing: 11.5)
                 Spacer.fixedHeight(20)
                 

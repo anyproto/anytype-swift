@@ -25,8 +25,6 @@ protocol EditorPageMovingManagerProtocol {
 }
 
 protocol EditorPageSelectionManagerProtocol {
-    var selectedBlocksIndexPaths: [IndexPath] { get }
-
     func canSelectBlock(at indexPath: IndexPath) -> Bool
     func didLongTap(at indexPath: IndexPath)
     func didUpdateSelectedIndexPaths(_ indexPaths: [IndexPath])
@@ -131,6 +129,11 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
     }
 
     func didUpdateSelectedIndexPaths(_ indexPaths: [IndexPath]) {
+        guard indexPaths.count > 0 else {
+            resetToEditingMode()
+            return
+        }
+
         selectedBlocksIndexPaths = indexPaths
 
         blocksSelectionOverlayViewModel?.state = .editorMenu(selectedBlocksCount: indexPaths.count)
@@ -408,6 +411,15 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
                 }
             }
         }
+
+        editingState = .editing
+    }
+
+    private func resetToEditingMode() {
+        movingDestination = nil
+        selectedBlocksIndexPaths.removeAll()
+        movingBlocksIds.removeAll()
+        movingBlocksWithChildsIndexPaths.removeAll()
 
         editingState = .editing
     }

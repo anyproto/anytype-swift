@@ -115,6 +115,7 @@ private extension SearchObjectRowView.Model {
         self.title = title
         self.subtitle = details.objectType.name
         self.style = .default
+        self.isChecked = false
     }
     
 }

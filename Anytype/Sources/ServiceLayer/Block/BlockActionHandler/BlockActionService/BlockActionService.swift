@@ -137,6 +137,10 @@ final class BlockActionService: BlockActionServiceProtocol {
         pageService.setObjectType(objectId: documentId, objectTypeUrl: objectTypeUrl)
     }
 
+    func setObjectSetType() -> BlockId {
+        pageService.setObjectSetType(objectId: documentId)
+    }
+
     private func setFocus(model: BlockViewModelProtocol) {
         if case let .text(text) = model.info.content {
             model.set(focus: .at(text.endOfTextRangeWithMention))
@@ -154,21 +158,21 @@ private extension BlockActionService {
 // MARK: - BookmarkFetch
 
 extension BlockActionService {
-    func bookmarkFetch(blockId: BlockId, url: String) {
-        bookmarkService.fetchBookmark(contextID: self.documentId, blockID: blockId, url: url)
+    func bookmarkFetch(blockId: BlockId, url: AnytypeURL) {
+        bookmarkService.fetchBookmark(contextID: self.documentId, blockID: blockId, url: url.absoluteString)
     }
 
     func createAndFetchBookmark(
         contextID: BlockId,
         targetID: BlockId,
         position: BlockPosition,
-        url: String
+        url: AnytypeURL
     ) {
         bookmarkService.createAndFetchBookmark(
             contextID: contextID,
             targetID: targetID,
             position: position,
-            url: url
+            url: url.absoluteString
         )
     }
 }

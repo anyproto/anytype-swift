@@ -50,7 +50,7 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
-    func fetch(url: URL, blockId: BlockId) {
+    func fetch(url: AnytypeURL, blockId: BlockId) {
         assertionFailure()
     }
     
@@ -64,6 +64,11 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
     
     func setAlignment(_ alignment: LayoutAlignment, blockIds: [BlockId]) {
         assertionFailure()
+    }
+    
+    func setObjectSetType() -> BlockId {
+        assertionFailure()
+        return ""
     }
     
     func delete(blockIds: [BlockId]) {
@@ -163,7 +168,7 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
 
-    func createAndFetchBookmark(targetID: BlockId, position: BlockPosition, url: String) {
+    func createAndFetchBookmark(targetID: BlockId, position: BlockPosition, url: AnytypeURL) {
         assertionFailure()
     }
 

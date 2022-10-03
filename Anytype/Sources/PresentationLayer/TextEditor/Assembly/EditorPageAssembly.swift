@@ -17,21 +17,19 @@ final class EditorAssembly {
     
     func buildEditorController(
         browser: EditorBrowserController?,
-        data: EditorScreenData,
-        editorBrowserViewInput: EditorBrowserViewInputProtocol?
+        data: EditorScreenData
     ) -> UIViewController {
-        buildEditorModule(browser: browser, data: data, editorBrowserViewInput: editorBrowserViewInput).vc
+        buildEditorModule(browser: browser, data: data).vc
     }
 
     func buildEditorModule(
         browser: EditorBrowserController?,
-        data: EditorScreenData,
-        editorBrowserViewInput: EditorBrowserViewInputProtocol?
+        data: EditorScreenData
     ) -> (vc: UIViewController, router: EditorRouterProtocol) {
         switch data.type {
         case .page:
             let module = buildPageModule(browser: browser, data: data)
-            module.0.browserViewInput = editorBrowserViewInput
+            module.0.browserViewInput = browser
             return module
         case .set:
             return buildSetModule(browser: browser, data: data)
@@ -55,7 +53,8 @@ final class EditorAssembly {
             document: document,
             dataviewService: dataviewService,
             searchService: searchService,
-            detailsService: detailsService
+            detailsService: detailsService,
+            textService: serviceLocator.textService
         )
         let controller = EditorSetHostingController(objectId: data.pageId, model: model)
 

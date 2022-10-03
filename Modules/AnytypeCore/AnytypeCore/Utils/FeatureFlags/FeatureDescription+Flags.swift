@@ -5,8 +5,9 @@ extension FeatureDescription {
     static let objectPreview = FeatureDescription(
         title: "Object preview",
         author: "k@anytype.io",
-        releaseVersion: "?",
-        defaultValue: false
+        releaseVersion: "-",
+        defaultValue: false,
+        debugValue: false
     )
     
     static let setFilters = FeatureDescription(
@@ -30,11 +31,39 @@ extension FeatureDescription {
         defaultValue: true
     )
     
+    static let bookmarksFlowP2 = FeatureDescription(
+        title: "New bookmarks flow part 2",
+        author: "m@anytype.io",
+        releaseVersion: "0.18.0",
+        defaultValue: true
+    )
+    
     static let setGalleryView = FeatureDescription(
         title: "Set gallery view",
         author: "joe_pusya@anytype.io",
         releaseVersion: "0.17.0",
         defaultValue: true
+    )
+    
+    static let setListView = FeatureDescription(
+        title: "Set list view",
+        author: "joe_pusya@anytype.io",
+        releaseVersion: "0.18.0",
+        defaultValue: true
+    )
+    
+    static let setViewTypes = FeatureDescription(
+        title: "Set view types",
+        author: "joe_pusya@anytype.io",
+        releaseVersion: "0.18.0",
+        defaultValue: true
+    )
+    
+    static let setSyncStatus = FeatureDescription(
+        title: "Set sync status",
+        author: "joe_pusya@anytype.io",
+        releaseVersion: "0.19.0",
+        defaultValue: false
     )
     
     // MARK: - Debug

@@ -2,7 +2,7 @@ import SwiftUI
 import SwiftUIVisualEffects
 
 struct DashboardSelectionActionsView: View {
-    static var height = UIApplication.shared.mainWindowInsets.bottom + 48
+    static let height: CGFloat = 48
     @EnvironmentObject private var model: HomeViewModel
     
     var body: some View {
@@ -24,7 +24,7 @@ struct DashboardSelectionActionsView: View {
             buttons
             Spacer.fixedHeight(UIApplication.shared.mainWindowInsets.bottom + 12)
         }
-        .frame(height: Self.height)
+        .frame(height: Self.height + UIApplication.shared.mainWindowInsets.bottom)
         .background(BlurEffect())
     }
     

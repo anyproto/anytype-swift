@@ -51,7 +51,7 @@ struct EditorSetView: View {
                     offset: $offset,
                     headerMinimizedSize: headerMinimizedSize
                 )
-            case .gallery:
+            case .gallery, .list:
                 SetCollectionView(
                     model: model,
                     tableHeaderSize: $tableHeaderSize,
@@ -60,6 +60,12 @@ struct EditorSetView: View {
                 )
             }
         }
+        .overlay(
+            SetFullHeader()
+                .readSize { tableHeaderSize = $0 }
+                .offset(x: 0, y: offset.y)
+            , alignment: .topLeading
+        )
     }
     
     private var placeholder: some View {

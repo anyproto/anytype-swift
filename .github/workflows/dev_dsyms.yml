@@ -1,0 +1,42 @@
+name: Anytype Dev dSYM's
+
+on:
+  schedule:
+    # Triggers the workflow every weekdays at 00:00 UTC:
+    - cron:  '0 2 * * 1-5'
+
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'The app version for dSYMs you wish to download'     
+        required: false
+      build_number:
+        description: 'The app build_number for dSYMs you wish to download. If empty – dSYMs for all builds of provided app_version will be downloaded'     
+        required: false
+
+jobs:
+  main:
+    runs-on: macOS-12
+    timeout-minutes: 20
+    env:
+        APP_STORE_CONNECT_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
+        APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }}
+        APP_STORE_CONNECT_KEY_CONTENT: ${{ secrets.APP_STORE_CONNECT_API_PRIVATE_KEY }}
+
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v2.4.0
+        with:
+          ref: 'develop'
+          
+      - name: Setup ruby
+        uses: ruby/setup-ruby@v1.100.0
+        with:
+            ruby-version: 2.7.2
+            bundler-cache: true
+
+      - name: Update Anytype Dev dSYMs
+        run: |
+          export LC_ALL=en_US.UTF-8
+          export LANG=en_US.UTF-8
+          bundle exec fastlane update_dev_symbols version:"${{ github.event.inputs.version }}" build_number:"${{ github.event.inputs.build_number }}"

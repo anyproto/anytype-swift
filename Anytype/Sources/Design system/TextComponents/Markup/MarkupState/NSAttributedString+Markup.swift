@@ -40,8 +40,8 @@ extension NSAttributedString {
     }
 
     func isUnderscored(range: NSRange) -> Bool {
-        let isUnderscored: NSNumber? = value(for: .underlineStyle, range: range)
-        return isUnderscored != 0
+        guard length > 0 else { return false }
+        return isEverySymbol(in: range, has: .anytypeUnderline)
     }
 
     func mention(range: NSRange) -> String? {

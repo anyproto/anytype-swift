@@ -22,14 +22,14 @@ final class MentionsViewModel {
         self.onSelect = onSelect
     }
     
-    func obtainMentions() {
+    func obtainMentions(filterString: String) {
         guard let mentions = mentionService.loadMentions() else { return }
-        view?.display(mentions.map { .mention($0) })
+        view?.display(mentions.map { .mention($0) }, newObjectName: filterString)
     }
     
     func setFilterString(_ string: String) {
         mentionService.filterString = string
-        obtainMentions()
+        obtainMentions(filterString: string)
 
         AnytypeAnalytics.instance().logSearchQuery(.mention, length: string.count)
     }

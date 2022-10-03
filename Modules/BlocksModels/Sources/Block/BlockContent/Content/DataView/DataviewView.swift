@@ -31,12 +31,9 @@ public struct DataviewView: Hashable, Identifiable {
         )
     }
     
-    public var isSupported: Bool {
-        type == .table ||
-        (FeatureFlags.setGalleryView && type == .gallery)
-    }
-    
     public func updated(
+        name: String? = nil,
+        type: DataviewViewType? = nil,
         cardSize: DataviewViewSize? = nil,
         hideIcon: Bool? = nil,
         coverRelationKey: String? = nil,
@@ -47,8 +44,8 @@ public struct DataviewView: Hashable, Identifiable {
     ) -> DataviewView {
         DataviewView(
             id: id,
-            name: name,
-            type: type,
+            name: name ?? self.name,
+            type: type ?? self.type,
             options: options ?? self.options,
             sorts: sorts ?? self.sorts,
             filters: filters ?? self.filters,

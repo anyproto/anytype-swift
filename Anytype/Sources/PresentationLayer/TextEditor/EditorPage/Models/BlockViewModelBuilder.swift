@@ -169,18 +169,23 @@ final class BlockViewModelBuilder {
         case .divider(let content):
             return DividerBlockViewModel(content: content, info: info)
         case let .bookmark(data):
-            let newData = FeatureFlags.bookmarksFlow
-                ? ObjectDetailsStorage.shared.get(id: data.targetObjectID).map { BlockBookmark(objectDetails: $0) }
-                : nil
+            
+            let details = ObjectDetailsStorage.shared.get(id: data.targetObjectID)
+            
+            if FeatureFlags.bookmarksFlowP2 && (details?.isDeleted ?? false) {
+                return NonExistentBlockViewModel(info: info)
+            }
+            
             return BlockBookmarkViewModel(
                 info: info,
-                bookmarkData: newData ?? data,
+                bookmarkData: data,
+                objectDetails: details,
                 showBookmarkBar: { [weak self] info in
                     self?.showBookmarkBar(info: info)
                 },
                 openUrl: { [weak self] url in
                     AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.blockBookmarkOpenUrl)
-                    self?.router.openUrl(url)
+                    self?.router.openUrl(url.url)
                 }
             )
         case let .link(content):            
@@ -210,6 +215,8 @@ final class BlockViewModelBuilder {
                 
                 if relation.id == BundledRelationKey.type.rawValue && !self.document.isLocked && bookmarkFilter {
                     self.router.showTypesSearch(
+                        title: Loc.changeType,
+                        selectedObjectId: self.document.details?.type,
                         onSelect: { [weak self] id in
                             self?.handler.setObjectTypeUrl(id)
                         }

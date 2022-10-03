@@ -49,6 +49,10 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     func setObjectTypeUrl(_ objectTypeUrl: String) {
         service.setObjectTypeUrl(objectTypeUrl)
     }
+
+    func setObjectSetType() -> BlockId {
+        service.setObjectSetType()
+    }
     
     func setTextColor(_ color: BlockColor, blockIds: [BlockId]) {
         listService.setBlockColor(blockIds: blockIds, color: color.middleware)
@@ -70,8 +74,8 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         service.setFields(blockFields: newFields, blockId: blockId)
     }
     
-    func fetch(url: URL, blockId: BlockId) {
-        service.bookmarkFetch(blockId: blockId, url: url.absoluteString)
+    func fetch(url: AnytypeURL, blockId: BlockId) {
+        service.bookmarkFetch(blockId: blockId, url: url)
     }
     
     func checkbox(selected: Bool, blockId: BlockId) {
@@ -269,7 +273,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     func createAndFetchBookmark(
         targetID: BlockId,
         position: BlockPosition,
-        url: String
+        url: AnytypeURL
     ) {
         service.createAndFetchBookmark(
             contextID: document.objectId,

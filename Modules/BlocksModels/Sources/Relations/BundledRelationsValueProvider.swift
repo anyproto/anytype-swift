@@ -82,6 +82,11 @@ public extension BundledRelationsValueProvider {
         else {
             return .basic
         }
+        
+        if layout == .bookmark && !FeatureFlags.bookmarksFlowP2 {
+            return .basic
+        }
+        
         return layout
     }
     
@@ -102,6 +107,16 @@ public extension BundledRelationsValueProvider {
     
     var type: String {
         stringValue(with: .type)
+    }
+
+    var setOf: String? {
+        guard let setOfValue = values[BundledRelationKey.setOf.rawValue] else {
+            return nil
+        }
+
+        let setOf = setOfValue.unwrapedListValue.stringValue
+
+        return setOf.isEmpty ? nil : setOf
     }
     
     var isDeleted: Bool {

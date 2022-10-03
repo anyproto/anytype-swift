@@ -48,10 +48,25 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         
         let controller = editorAssembly.buildEditorController(
             browser: rootController,
-            data: data,
-            editorBrowserViewInput: rootController
+            data: data
         )
         viewController?.navigationController?.pushViewController(controller, animated: true)
+    }
+
+    func replaceCurrentPage(with data: EditorScreenData) {
+        if let details = ObjectDetailsStorage.shared.get(id: data.pageId) {
+            guard ObjectTypeProvider.shared.isSupported(typeUrl: details.type) else {
+                showUnsupportedTypeAlert(typeUrl: details.type)
+                return
+            }
+        }
+
+        let controller = editorAssembly.buildEditorController(
+            browser: rootController,
+            data: data
+        )
+
+        rootController?.childNavigation?.replaceLastViewController(controller, animated: false)
     }
 
     func showAlert(alertModel: AlertModel) {
@@ -81,12 +96,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         hostViewController.modalPresentationStyle = .popover
 
         hostViewController.preferredContentSize = hostViewController
-            .sizeThatFits(
-                in: .init(
-                    width: CGFloat.greatestFiniteMagnitude,
-                    height: CGFloat.greatestFiniteMagnitude
-                )
-            )
+            .sizeThatFits(in: hostViewController.view.bounds.size)
 
         if let popoverPresentationController = hostViewController.popoverPresentationController {
             popoverPresentationController.sourceRect = inputParameters.rect
@@ -102,14 +112,14 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         urlOpener.openUrl(url)
     }
     
-    func showBookmarkBar(completion: @escaping (URL) -> ()) {
+    func showBookmarkBar(completion: @escaping (AnytypeURL) -> ()) {
         showURLInputViewController { url in
             guard let url = url else { return }
             completion(url)
         }
     }
     
-    func showLinkMarkup(url: URL?, completion: @escaping (URL?) -> Void) {
+    func showLinkMarkup(url: AnytypeURL?, completion: @escaping (AnytypeURL?) -> Void) {
         showURLInputViewController(url: url, completion: completion)
     }
     
@@ -203,8 +213,11 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         presentSwiftUIView(view: moveToView, model: nil)
     }
 
-    func showLinkToObject(onSelect: @escaping (LinkToObjectSearchViewModel.SearchKind) -> ()) {
-        let viewModel = LinkToObjectSearchViewModel { data in
+    func showLinkToObject(
+        currentLink: Either<URL, BlockId>?,
+        onSelect: @escaping (LinkToObjectSearchViewModel.SearchKind) -> ()
+    ) {
+        let viewModel = LinkToObjectSearchViewModel(currentLink: currentLink) { data in
             onSelect(data.searchKind)
         }
         let linkToView = SearchView(title: Loc.linkTo, context: .menuSearch, viewModel: viewModel)
@@ -245,9 +258,10 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         presentSwiftUIView(view: searchView, model: viewModel)
     }
     
-    func showTypesSearch(onSelect: @escaping (BlockId) -> ()) {
+    func showTypesSearch(title: String, selectedObjectId: BlockId?, onSelect: @escaping (BlockId) -> ()) {
         let view = NewSearchModuleAssembly.objectTypeSearchModule(
-            title: Loc.changeType,
+            title: title,
+            selectedObjectId: selectedObjectId,
             excludedObjectTypeId: document.details?.type
         ) { [weak self] id in
             onSelect(id)
@@ -436,8 +450,8 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     }
     
     private func showURLInputViewController(
-        url: URL? = nil,
-        completion: @escaping(URL?) -> Void
+        url: AnytypeURL? = nil,
+        completion: @escaping(AnytypeURL?) -> Void
     ) {
         let controller = URLInputViewController(url: url, didSetURL: completion)
         controller.modalPresentationStyle = .overCurrentContext
@@ -489,8 +503,16 @@ extension EditorRouter: RelationValueCoordinatorOutput {
 
 extension EditorRouter {
     
-    func showViewPicker(setModel: EditorSetViewModel) {
-        let viewModel = EditorSetViewPickerViewModel(setModel: setModel)
+    func showViewPicker(
+        setModel: EditorSetViewModel,
+        dataviewService: DataviewServiceProtocol,
+        showViewTypes: @escaping RoutingAction<DataviewView>)
+    {
+        let viewModel = EditorSetViewPickerViewModel(
+            setModel: setModel,
+            dataviewService: dataviewService,
+            showViewTypes: showViewTypes
+        )
         let vc = UIHostingController(
             rootView: EditorSetViewPicker(viewModel: viewModel)
         )
@@ -546,6 +568,18 @@ extension EditorRouter {
         viewController?.topPresentedController.present(vc, animated: true)
     }
     
+    func showViewTypes(activeView: DataviewView, canDelete: Bool, dataviewService: DataviewServiceProtocol) {
+        let viewModel = SetViewTypesPickerViewModel(
+            activeView: activeView,
+            canDelete: canDelete,
+            dataviewService: dataviewService
+        )
+        let vc = UIHostingController(
+            rootView: SetViewTypesPicker(viewModel: viewModel)
+        )
+        presentSheet(vc)
+    }
+    
     func showSetSettings(setModel: EditorSetViewModel) {
         guard let currentSetSettingsPopup = currentSetSettingsPopup else {
             showSetSettingsPopup(setModel: setModel)
@@ -584,9 +618,7 @@ extension EditorRouter {
             router: self
         )
         let vc = UIHostingController(
-            rootView: SetSortsListView()
-                .environmentObject(viewModel)
-                .environmentObject(setModel)
+            rootView: SetSortsListView(viewModel: viewModel)
         )
         presentSheet(vc)
     }
@@ -598,9 +630,7 @@ extension EditorRouter {
             router: self
         )
         let vc = UIHostingController(
-            rootView: SetFiltersListView()
-                .environmentObject(viewModel)
-                .environmentObject(setModel)
+            rootView: SetFiltersListView(viewModel: viewModel)
         )
         presentSheet(vc)
     }

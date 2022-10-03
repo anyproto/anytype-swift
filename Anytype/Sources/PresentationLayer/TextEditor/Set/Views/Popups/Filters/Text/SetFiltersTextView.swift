@@ -17,8 +17,11 @@ struct SetFiltersTextView: View {
     var textField: some View {
         AutofocusedTextField(
             placeholder: Loc.EditSet.Popup.Filters.TextView.placeholder,
+            placeholderFont: .uxBodyRegular,
             text: $viewModel.input
         )
+        .foregroundColor(.textPrimary)
+        .font(AnytypeFontBuilder.font(anytypeFont: .uxBodyRegular))
         .keyboardType(viewModel.keyboardType)
         .frame(height: 48)
         .divider()

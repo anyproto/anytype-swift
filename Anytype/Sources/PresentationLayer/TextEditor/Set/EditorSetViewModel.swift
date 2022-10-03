@@ -5,11 +5,22 @@ import ProtobufMessages
 import SwiftUI
 
 final class EditorSetViewModel: ObservableObject {
+    @Published var titleString: String
     @Published var dataView = BlockDataview.empty
     @Published private var records: [ObjectDetails] = []
     @Published private(set) var headerModel: ObjectHeaderViewModel!
     @Published var loadingDocument = true
     @Published var pagitationData = EditorSetPaginationData.empty
+    @Published var featuredRelations = [Relation]()
+    @Published var configurations = [SetContentViewItemConfiguration]()
+    
+    @Published var sorts: [SetSort] = []
+    @Published var filters: [SetFilter] = []
+    
+    private let setSyncStatus = FeatureFlags.setSyncStatus
+    @Published var syncStatus: SyncStatus = .unknown
+
+    var isUpdating = false
     
     var isEmpty: Bool {
         dataView.views.isEmpty
@@ -21,22 +32,6 @@ final class EditorSetViewModel: ObservableObject {
     
     var colums: [RelationMetadata] {
         sortedRelations.filter { $0.option.isVisible }.map(\.metadata)
-    }
- 
-    var configurations: [SetContentViewItemConfiguration] {
-        dataBuilder.itemData(
-            records,
-            dataView: dataView,
-            activeView: activeView,
-            colums: colums,
-            isObjectLocked: isObjectLocked,
-            onIconTap: { [weak self] details in
-                self?.updateDetailsIfNeeded(details)
-            },
-            onItemTap: { [weak self] details in
-                self?.itemTapped(details)
-            }
-        )
     }
     
     var isSmallItemSize: Bool {
@@ -54,87 +49,69 @@ final class EditorSetViewModel: ObservableObject {
     var details: ObjectDetails? {
         document.details
     }
-    
-    var featuredRelations: [Relation] {
-        document.featuredRelationsForEditor
-    }
-    
-    var sorts: [SetSort] {
-        activeView.sorts.uniqued().compactMap { sort in
-            let metadata = dataView.relations.first { relation in
-                sort.relationKey == relation.key
-            }
-            guard let metadata = metadata else { return nil }
-            
-            return SetSort(metadata: metadata, sort: sort)
-        }
-    }
-    
-    var relations: [RelationMetadata] {
-        activeView.options.compactMap { option in
-            let metadata = dataView.relations.first { relation in
-                option.key == relation.key
-            }
-            
-            guard let metadata = metadata,
-                  shouldAddRelationMetadata(metadata) else { return nil }
-            
-            return metadata
-        }
-    }
-    
-    var filters: [SetFilter] {
-        activeView.filters.compactMap { filter in
-            let metadata = dataView.relations.first { relation in
-                filter.relationKey == relation.key
-            }
-            guard let metadata = metadata else { return nil }
-            
-            return SetFilter(metadata: metadata, filter: filter)
-        }
+
+    func activeViewRelations(excludeRelations: [RelationMetadata] = []) -> [RelationMetadata] {
+        dataBuilder.activeViewRelations(
+            dataview: dataView,
+            view: activeView,
+            excludeRelations: excludeRelations
+        )
     }
     
     private var isObjectLocked: Bool {
-        document.isLocked || activeView.type == .gallery
+        document.isLocked ||
+        (FeatureFlags.setGalleryView && activeView.type == .gallery) ||
+        (FeatureFlags.setListView && activeView.type == .list)
     }
     
     let document: BaseDocument
     private var router: EditorRouterProtocol!
 
     let paginationHelper = EditorSetPaginationHelper()
-    private var subscription: AnyCancellable?
     private let subscriptionService = ServiceLocator.shared.subscriptionService()
     private let dataBuilder = SetContentViewDataBuilder()
     private let dataviewService: DataviewServiceProtocol
     private let searchService: SearchServiceProtocol
     private let detailsService: DetailsServiceProtocol
+    private let textService: TextServiceProtocol
+    private var subscriptions = [AnyCancellable]()
+    private var titleSubscription: AnyCancellable?
     
     init(
         document: BaseDocument,
         dataviewService: DataviewServiceProtocol,
         searchService: SearchServiceProtocol,
-        detailsService: DetailsServiceProtocol
+        detailsService: DetailsServiceProtocol,
+        textService: TextServiceProtocol
     ) {
         ObjectTypeProvider.shared.resetCache()
         self.document = document
         self.dataviewService = dataviewService
         self.searchService = searchService
         self.detailsService = detailsService
+        self.textService = textService
+
+        self.titleString = document.details?.pageCellTitle ?? ""
+        self.featuredRelations = document.featuredRelationsForEditor
     }
     
     func setup(router: EditorRouterProtocol) {
         self.router = router
         self.headerModel = ObjectHeaderViewModel(document: document, router: router, isOpenedForPreview: false)
         
-        subscription = document.updatePublisher.sink { [weak self] in
+        document.updatePublisher.sink { [weak self] in
             self?.onDataChange($0)
-        }
-        
+        }.store(in: &subscriptions)
+
         Task { @MainActor in
             do {
                 try await document.open()
                 loadingDocument = false
                 setupDataview()
+
+                if let details = document.details, details.setOf.isNil {
+                    showSetOfTypeSelection()
+                }
             } catch {
                 router.goBack()
             }
@@ -153,12 +130,14 @@ final class EditorSetViewModel: ObservableObject {
     func onDisappear() {
         subscriptionService.stopAllSubscriptions()
     }
+
+    func onRelationTap(relation: Relation) {
+        AnytypeAnalytics.instance().logChangeRelationValue(type: .set)
+        showRelationValueEditingView(key: relation.id, source: .object)
+    }
     
     func updateActiveViewId(_ id: BlockId) {
-        document.infoContainer.updateDataview(blockId: SetConstants.dataviewBlockId) { dataView in
-            dataView.updated(activeViewId: id)
-        }
-        
+        updateDataview(with: id)
         setupDataview()
     }
     
@@ -176,13 +155,26 @@ final class EditorSetViewModel: ObservableObject {
             )
         ) { [weak self] subId, update in
             guard let self = self else { return }
-            
+
             if case let .pageCount(count) = update {
                 self.updatePageCount(count)
                 return
             }
             
             self.records.applySubscriptionUpdate(update)
+            self.configurations = self.dataBuilder.itemData(
+                self.records,
+                dataView: self.dataView,
+                activeView: self.activeView,
+                colums: self.colums,
+                isObjectLocked: self.isObjectLocked,
+                onIconTap: { [weak self] details in
+                    self?.updateDetailsIfNeeded(details)
+                },
+                onItemTap: { [weak self] details in
+                    self?.itemTapped(details)
+                }
+            )
         }
     }
     
@@ -190,54 +182,109 @@ final class EditorSetViewModel: ObservableObject {
     
     private func onDataChange(_ data: DocumentUpdate) {
         switch data {
-        case .general:
+        case .general, .blocks, .details, .dataSourceUpdate:
             objectWillChange.send()
             setupDataview()
-        case .syncStatus, .blocks, .details, .dataSourceUpdate:
-            objectWillChange.send()
+        case .syncStatus(let status):
+            if setSyncStatus {
+                syncStatus = status
+            }
         case .header:
             break // handled in ObjectHeaderViewModel
         }
     }
     
     private func setupDataview() {
+        isUpdating = true
+
         anytypeAssert(document.dataviews.count < 2, "\(document.dataviews.count) dataviews in set", domain: .editorSet)
         document.dataviews.first.flatMap { dataView in
             anytypeAssert(dataView.views.isNotEmpty, "Empty views in dataview: \(dataView)", domain: .editorSet)
         }
         
         self.dataView = document.dataviews.first ?? .empty
-        
+
+        if let details = document.details {
+            titleString = details.pageCellTitle
+
+            titleSubscription = $titleString.sink { [weak self] newValue in
+                guard let self = self, !self.isUpdating else { return }
+
+                if newValue.contains(where: \.isNewline) {
+                    self.isUpdating = true
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) { // Return button tapped on keyboard. Waiting for iOS 15 support!!!
+                        self.titleString = newValue.trimmingCharacters(in: .newlines)
+                    }
+                    UIApplication.shared.hideKeyboard()
+                    return
+                }
+
+                self.textService.setText(
+                    contextId: self.document.objectId,
+                    blockId: BundledRelationKey.title.rawValue,
+                    middlewareString: .init(text: newValue, marks: .init())
+                )
+
+                self.isUpdating = false
+            }
+        }
+
         updateActiveViewId()
+        updateSorts()
+        updateFilters()
         setupSubscriptions()
+        featuredRelations = document.featuredRelationsForEditor
+
+        isUpdating = false
     }
     
     private func updateActiveViewId() {
-        let activeViewId = dataView.views.first(where: { $0.isSupported })?.id ?? dataView.views.first?.id
+        let activeViewId = dataView.views.first(where: { $0.type.isSupported })?.id ?? dataView.views.first?.id
         if let activeViewId = activeViewId {
             if self.dataView.activeViewId.isEmpty || !dataView.views.contains(where: { $0.id == self.dataView.activeViewId }) {
-                self.dataView.activeViewId = activeViewId
+                updateDataview(with: activeViewId)
+                dataView.activeViewId = activeViewId
             }
         } else {
+            updateDataview(with: "")
             dataView.activeViewId = ""
         }
     }
     
-    private func shouldAddRelationMetadata(_ relationMetadata: RelationMetadata) -> Bool {
-        guard sorts.first(where: { $0.metadata.key == relationMetadata.key }) == nil else {
-            return false
+    private func updateDataview(with activeViewId: BlockId) {
+        document.infoContainer.updateDataview(blockId: SetConstants.dataviewBlockId) { dataView in
+            dataView.updated(activeViewId: activeViewId)
         }
-        guard relationMetadata.key != ExceptionalSetSort.name.rawValue,
-              relationMetadata.key != ExceptionalSetSort.done.rawValue else {
-            return true
-        }
-        return !relationMetadata.isHidden &&
-        relationMetadata.format != .file &&
-        relationMetadata.format != .unrecognized
     }
     
-    private func isBookmarkObject() -> Bool {
+    private func updateSorts() {
+        sorts = activeView.sorts.uniqued().compactMap { sort in
+            let metadata = dataView.relations.first { relation in
+                sort.relationKey == relation.key
+            }
+            guard let metadata = metadata else { return nil }
+            
+            return SetSort(metadata: metadata, sort: sort)
+        }
+    }
+    
+    private func updateFilters() {
+        filters = activeView.filters.compactMap { filter in
+            let metadata = dataView.relations.first { relation in
+                filter.relationKey == relation.key
+            }
+            guard let metadata = metadata else { return nil }
+            
+            return SetFilter(metadata: metadata, filter: filter)
+        }
+    }
+    
+    private func isBookmarksSet() -> Bool {
         dataView.source.contains(ObjectTypeUrl.BundledTypeUrl.bookmark.rawValue)
+    }
+    
+    private func isNotesSet() -> Bool {
+        dataView.source.contains(ObjectTypeUrl.BundledTypeUrl.note.rawValue)
     }
     
     private func updateDetailsIfNeeded(_ details: ObjectDetails) {
@@ -249,12 +296,11 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     private func itemTapped(_ details: ObjectDetails) {
-        if !FeatureFlags.bookmarksFlow && isBookmarkObject(),
+        if !FeatureFlags.bookmarksFlow && isBookmarksSet(),
            let url = url(from: details) {
             router.openUrl(url)
         } else {
-            let screenData = EditorScreenData(pageId: details.id, type: details.editorViewType)
-            router.showPage(data: screenData)
+            openObject(pageId: details.id, type: details.editorViewType)
         }
     }
     
@@ -271,6 +317,12 @@ final class EditorSetViewModel: ObservableObject {
 extension EditorSetViewModel {
 
     func showRelationValueEditingView(key: String, source: RelationSource) {
+        if key == BundledRelationKey.setOf.rawValue {
+            showSetOfTypeSelection()
+
+            return
+        }
+
         AnytypeAnalytics.instance().logChangeRelationValue(type: .set)
 
         router.showRelationValueEditingView(key: key, source: source)
@@ -291,7 +343,9 @@ extension EditorSetViewModel {
     }
     
     func showViewPicker() {
-        router.showViewPicker(setModel: self)
+        router.showViewPicker(setModel: self, dataviewService: dataviewService) { [weak self] activeView in
+            self?.showViewTypes(with: activeView)
+        }
     }
     
     func showSetSettings() {
@@ -299,11 +353,19 @@ extension EditorSetViewModel {
     }
 
     func createObject() {
-        if isBookmarkObject() {
+        if isBookmarksSet() {
             createBookmarkObject()
         } else {
             createDefaultObject()
         }
+    }
+    
+    func showViewTypes(with activeView: DataviewView? = nil) {
+        router.showViewTypes(
+            activeView: activeView ?? self.activeView,
+            canDelete: dataView.views.count > 1,
+            dataviewService: dataviewService
+        )
     }
     
     func showViewSettings() {
@@ -334,6 +396,12 @@ extension EditorSetViewModel {
     func showAddNewRelationView(onSelect: @escaping (RelationMetadata, _ isNew: Bool) -> Void) {
         router.showAddNewRelationView(onSelect: onSelect)
     }
+
+    private func showSetOfTypeSelection() {
+        router.showTypesSearch(title: Loc.Set.SourceType.selectSource, selectedObjectId: document.details?.setOf) { [weak self] typeObjectId in
+            self?.dataviewService.setSource(typeObjectId: typeObjectId)
+        }
+    }
     
     private func createDefaultObject() {
         let templateId: String
@@ -349,7 +417,20 @@ extension EditorSetViewModel {
 
         guard let objectDetails = dataviewService.addRecord(templateId: templateId, setFilters: filters) else { return }
         
-        router.showCreateObject(pageId: objectDetails.id)
+        handleCreatedObjectDetails(objectDetails)
+    }
+    
+    private func handleCreatedObjectDetails(_ objectDetails: ObjectDetails) {
+        if isNotesSet() {
+            openObject(pageId: objectDetails.id, type: objectDetails.editorViewType)
+        } else {
+            router.showCreateObject(pageId: objectDetails.id)
+        }
+    }
+    
+    private func openObject(pageId: BlockId, type: EditorViewType) {
+        let screenData = EditorScreenData(pageId: pageId, type: type)
+        router.showPage(data: screenData)
     }
     
     private func createBookmarkObject() {
@@ -366,6 +447,7 @@ extension EditorSetViewModel {
         document: BaseDocument(objectId: "objectId"),
         dataviewService: DataviewService(objectId: "objectId", prefilledFieldsBuilder: SetFilterPrefilledFieldsBuilder()),
         searchService: SearchService(),
-        detailsService: DetailsService(objectId: "objectId", service: ObjectActionsService())
+        detailsService: DetailsService(objectId: "objectId", service: ObjectActionsService()),
+        textService: TextService()
     )
 }
