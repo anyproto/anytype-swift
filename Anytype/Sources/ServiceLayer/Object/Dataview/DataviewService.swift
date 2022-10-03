@@ -64,7 +64,7 @@ final class DataviewService: DataviewServiceProtocol {
         event.send()
     }
     
-    func addRecord(objectType: String, templateId: BlockId, setFilters: [SetFilter]) async throws -> String? {
+    func addRecord(objectType: String, templateId: BlockId, setFilters: [SetFilter]) async throws -> String {
         var prefilledFields = prefilledFieldsBuilder.buildPrefilledFields(from: setFilters)
         prefilledFields[BundledRelationKey.type.rawValue] = objectType.protobufValue
 
@@ -79,24 +79,7 @@ final class DataviewService: DataviewServiceProtocol {
             .invocation(details: details, internalFlags: internalFlags, templateID: templateId)
             .invoke(errorDomain: .dataviewService)
 
-        guard let response = response else { return nil }
-
         EventsBunch(event: response.event).send()
-        #warning("check me after merge")
-
-//         let response = try await Anytype_Rpc.BlockDataviewRecord.Create.Service
-//             .invocation(
-//                 contextID: objectId,
-//                 blockID: SetConstants.dataviewBlockId,
-//                 record: protobufStruct,
-//                 templateID: templateId
-//             )
-//             .invoke(errorDomain: .dataviewService)
-
-//         guard response.hasRecord else { return nil }
-        
-//         let idValue = response.record.fields[BundledRelationKey.id.rawValue]
-//         let idString = idValue?.unwrapedListValue.stringValue
 
         return response.objectID
     }

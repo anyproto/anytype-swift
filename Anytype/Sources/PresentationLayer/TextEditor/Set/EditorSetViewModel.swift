@@ -424,8 +424,6 @@ extension EditorSetViewModel {
                 templateId: templateId,
                 setFilters: filters
             )
-
-            guard let objectId = objectId else { return }
             
             handleCreatedObjectId(objectId)
         }
