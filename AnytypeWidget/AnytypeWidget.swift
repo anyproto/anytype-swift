@@ -68,8 +68,8 @@ struct AnytypeWidget: Widget {
         StaticConfiguration(kind: kind, provider: StaticProvider()) { entry in
             AnytypeWidgetEntryView(entry: entry)
         }
-        .configurationDisplayName("Anytype quick action")
-        .description("Use this widget to quickly create an object with preselected object type")
+        .configurationDisplayName(Loc.WidgetExtension.LockScreen.title)
+        .description(Loc.WidgetExtension.LockScreen.description)
 
         .supportedFamilies([.accessoryCircular])
     }
