@@ -618,3 +618,7 @@
 "Content.Common.Error" = "Something went wrong, try again";
 "Content.Bookmark.Add" = "Add a web bookmark";
 "Content.Bookmark.Loading" = "Loading, please wait...";
+
+// MARK: - Widget extension
+"WidgetExtension.LockScreen.Title" = "New object";
+"WidgetExtension.LockScreen.Description" = "Create a new object on the fly";
