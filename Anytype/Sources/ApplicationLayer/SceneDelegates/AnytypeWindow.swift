@@ -35,7 +35,6 @@ final class AnytypeWindow: UIWindow {
             touch.gestureRecognizers?.forEach { recognizer in
                 guard let view = recognizer.view, let className = Constants.textRangeViewClass else { return }
                 if view.isKind(of: className) {
-
                     textRangeTouch = touch
                 }
             }

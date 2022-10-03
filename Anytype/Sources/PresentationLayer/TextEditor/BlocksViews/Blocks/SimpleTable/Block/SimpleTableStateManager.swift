@@ -246,8 +246,6 @@ extension SimpleTableStateManager: SimpleTableMenuDelegate {
 
 // MARK: - BlocksSelectionHandler
 extension SimpleTableStateManager: BlockSelectionHandler {
-
-
     func didSelectEditingState(info: BlockInformation) {
         guard let computedTable = ComputedTable(blockInformation: tableBlockInformation, infoContainer: document.infoContainer),
               let selectedIndexPath = computedTable.cells.indexPaths(for: info) else {
