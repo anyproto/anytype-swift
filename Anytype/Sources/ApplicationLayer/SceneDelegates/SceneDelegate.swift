@@ -2,7 +2,6 @@ import UIKit
 import SwiftUI
 import AnytypeCore
 
-
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
@@ -20,7 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
 
         connectionOptions.shortcutItem.flatMap { _ = handleQuickAction($0) }
-        let window = UIWindow(windowScene: windowScene)
+        let window = AnytypeWindow(windowScene: windowScene)
         self.window = window
         
         let applicationCoordinator = ServiceLocator.shared.applicationCoordinator(window: window)

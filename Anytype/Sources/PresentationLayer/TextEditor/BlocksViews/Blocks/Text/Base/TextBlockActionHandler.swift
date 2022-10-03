@@ -71,7 +71,7 @@ struct TextBlockActionHandler: TextBlockActionHandlerProtocol {
               textViewWillBeginEditing: textViewWillBeginEditing(textView:),
               textViewDidBeginEditing: textViewDidBeginEditing(textView:),
               textViewDidEndEditing: textViewDidEndEditing(textView:),
-              textViewDidChangeCaretPosition: textViewDidChangeCaretPosition(range:),
+              textViewDidChangeCaretPosition: textViewDidChangeCaretPosition(textView:range:),
               textViewShouldReplaceText: textViewShouldReplaceText(textView:replacementText:range:),
               toggleCheckBox: toggleCheckBox,
               toggleDropDown: toggleDropdownView,
@@ -275,8 +275,11 @@ struct TextBlockActionHandler: TextBlockActionHandlerProtocol {
         blockDelegate?.didEndEditing(data: blockDelegateData(textView: textView))
     }
 
-    private func textViewDidChangeCaretPosition(range: NSRange) {
-        blockDelegate?.selectionDidChange(range: range)
+    private func textViewDidChangeCaretPosition(textView: UITextView, range: NSRange) {
+        blockDelegate?.selectionDidChange(
+            data: blockDelegateData(textView: textView),
+            range: range
+        )
     }
 
     private func toggleCheckBox() {

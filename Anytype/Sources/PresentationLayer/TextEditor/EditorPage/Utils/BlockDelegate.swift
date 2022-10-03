@@ -10,7 +10,7 @@ protocol BlockDelegate: AnyObject {
     func textWillChange(changeType: TextChangeType)
     func textDidChange(data: TextBlockDelegateData)
     func textBlockSetNeedsLayout()
-    func selectionDidChange(range: NSRange)
+    func selectionDidChange(data: TextBlockDelegateData, range: NSRange)
     func scrollToBlock(blockId: BlockId)
 }
 
@@ -59,8 +59,10 @@ final class BlockDelegateImpl: BlockDelegate {
         viewInput?.blockDidChangeFrame()
     }
 
-    func selectionDidChange(range: NSRange) {
+    func selectionDidChange(data: TextBlockDelegateData, range: NSRange) {
         accessoryState.selectionDidChange(range: range)
+
+        viewInput?.didSelectTextRangeSelection(blockId: data.info.id, textView: data.textView)
     }
     
     func scrollToBlock(blockId: BlockId) {

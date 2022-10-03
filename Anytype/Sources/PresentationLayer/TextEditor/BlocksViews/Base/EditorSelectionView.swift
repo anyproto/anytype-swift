@@ -15,14 +15,16 @@ final class EditorSelectionView: UIView {
     }
 
     func updateStyle(isSelected: Bool) {
-        if isSelected {
-            layer.borderWidth = Constants.borderWidth
-            layer.borderColor = UIColor.System.amber.cgColor
-            backgroundColor = UIColor.System.amber.withAlphaComponent(0.2)
-        } else {
-            layer.borderWidth = 0.0
-            layer.borderColor = nil
-            backgroundColor = .clear
+        UIView.animate(withDuration: 0.34, delay: 0) { [unowned self] in
+            if isSelected {
+                layer.borderWidth = Constants.borderWidth
+                layer.borderColor = UIColor.System.amber.cgColor
+                backgroundColor = UIColor.System.amber.withAlphaComponent(0.2)
+            } else {
+                layer.borderWidth = 0.0
+                layer.borderColor = nil
+                backgroundColor = .clear
+            }
         }
     }
 

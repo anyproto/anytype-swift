@@ -28,7 +28,9 @@ final class ObjectHeaderFilledContentView: UIView, BlockContentView {
 
     // MARK: - BlockContentView
     func update(with configuration: ObjectHeaderFilledConfiguration) {
-        shimmeringView.isShimmering = configuration.isShimmering
+        UIView.performWithoutAnimation {
+            shimmeringView.isShimmering = configuration.isShimmering
+        }
         headerView.configure(
             model: ObjectHeaderView.Model(
                 state: configuration.state,
