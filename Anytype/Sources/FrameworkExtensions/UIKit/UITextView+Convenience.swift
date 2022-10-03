@@ -27,7 +27,7 @@ extension UITextView {
     }
 
     var textViewSelectionPosition: TextViewSelectionPosition {
-        guard selectedRange.length > 0 else { return [.none] }
+        guard selectedRange.length > 0 else { return .none }
 
         var position = TextViewSelectionPosition.middle
 

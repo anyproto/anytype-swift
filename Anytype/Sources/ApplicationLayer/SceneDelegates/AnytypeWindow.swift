@@ -29,6 +29,8 @@ final class AnytypeWindow: UIWindow {
     // MARK: - 
 
     override func sendEvent(_ event: UIEvent) {
+        super.sendEvent(event)
+
         event.allTouches?.forEach { touch in
             touch.gestureRecognizers?.forEach { recognizer in
                 guard let view = recognizer.view, let className = Constants.textRangeViewClass else { return }
@@ -38,8 +40,6 @@ final class AnytypeWindow: UIWindow {
                 }
             }
         }
-
-        super.sendEvent(event)
 
         textRangeTouch.map { textRangeTouchSubject.send($0) }
     }
