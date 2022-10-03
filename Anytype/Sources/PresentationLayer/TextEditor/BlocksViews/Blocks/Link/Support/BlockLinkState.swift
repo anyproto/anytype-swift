@@ -51,7 +51,7 @@ struct BlockLinkState: Hashable, Equatable {
     init(title: String,
          description: String,
          style: Style,
-         typeId: String?,
+         typeId: String,
          viewType: EditorViewType,
          archived: Bool,
          deleted: Bool,
@@ -77,6 +77,6 @@ struct BlockLinkState: Hashable, Equatable {
 
 extension BlockLinkState {
     
-    static let empty = BlockLinkState(title: .empty, description: .empty, style: .noContent, typeId: nil, viewType: .page, archived: false, deleted: false, cardStyle: .text, relations: [], iconSize: .medium, descriptionState: .none)
+    static let empty = BlockLinkState(title: .empty, description: .empty, style: .noContent, typeId: "", viewType: .page, archived: false, deleted: false, cardStyle: .text, relations: [], iconSize: .medium, descriptionState: .none)
     
 }

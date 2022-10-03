@@ -17,17 +17,12 @@ extension BlockBookmarkPayload {
     }
     
     init(bookmarkData: BlockBookmark, objectDetails: ObjectDetails?) {
-
-        if FeatureFlags.bookmarksFlow {
-            self = objectDetails.map { BlockBookmarkPayload(objectDetails: $0, blockBookmark: bookmarkData) }
-                ?? BlockBookmarkPayload(blockBookmark: bookmarkData)
-        } else {
-            self = BlockBookmarkPayload(blockBookmark: bookmarkData)
-        }
+        self = objectDetails.map { BlockBookmarkPayload(objectDetails: $0, blockBookmark: bookmarkData) }
+            ?? BlockBookmarkPayload(blockBookmark: bookmarkData)
     }
     
     private init(objectDetails: ObjectDetails, blockBookmark: BlockBookmark) {
-        self.source = objectDetails.source
+        self.source = blockBookmark.source
         self.title = objectDetails.title
         self.subtitle = objectDetails.description
         self.imageHash = objectDetails.picture?.value ?? ""

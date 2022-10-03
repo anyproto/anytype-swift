@@ -25,13 +25,13 @@ enum SimpleTableCellMenuItem: CaseIterable {
     var imageAsset: ImageAsset {
         switch self {
         case .clearContents:
-            return BlockOptionImage.cellMenuClear
+            return BlockOptionImage.cellMenuClearContents
         case .color:
             return BlockOptionImage.cellMenuColor
         case .style:
             return .EditingToolbar.style
         case .clearStyle:
-            return BlockOptionImage.cellMenuClear
+            return BlockOptionImage.cellMenuClearStyle
         }
     }
 }
@@ -90,7 +90,7 @@ enum SimpleTableColumnMenuItem: CaseIterable {
         case .delete:
             return BlockOptionImage.delete
         case .clearContents:
-            return BlockOptionImage.cellMenuClear
+            return BlockOptionImage.cellMenuClearContents
         case .sort:
             return BlockOptionImage.columnSort
         case .color:
@@ -152,7 +152,7 @@ enum SimpleTableRowMenuItem: CaseIterable {
         case .delete:
             return BlockOptionImage.delete
         case .clearContents:
-            return BlockOptionImage.cellMenuClear
+            return BlockOptionImage.cellMenuClearContents
         case .color:
             return BlockOptionImage.cellMenuColor
         case .style:

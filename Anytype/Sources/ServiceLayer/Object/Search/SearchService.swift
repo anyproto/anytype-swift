@@ -58,12 +58,12 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             ),
             shouldIncludeSets ? nil : SearchHelper.excludedIdFilter(ObjectTypeId.bundled(.set).rawValue)
         ].compactMap { $0 }
-        if FeatureFlags.bookmarksFlow {
-            filters.append(SearchHelper.excludedIdFilter(ObjectTypeId.bundled(.bookmark).rawValue))
-        }
-        filteringTypeId.map { filters.append(SearchHelper.excludedIdFilter($0)) }
 
+        filters.append(SearchHelper.excludedIdFilter(ObjectTypeId.bundled(.bookmark).rawValue))
+        filteringTypeId.map { filters.append(SearchHelper.excludedIdFilter($0)) }
+        
         let result = search(filters: filters, sorts: [sort], fullText: text)
+
         return result?.reordered(
             by: [
                 ObjectTypeId.bundled(.page).rawValue,

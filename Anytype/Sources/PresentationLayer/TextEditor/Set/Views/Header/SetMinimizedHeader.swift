@@ -68,7 +68,6 @@ struct SetMinimizedHeader: View {
                 opacity: syncStatusItemOpacity
             )
         )
-        .frame(minWidth: 30, maxWidth: 96, maxHeight: 28, alignment: .leading)
     }
     
     private var settingsButton: some View {

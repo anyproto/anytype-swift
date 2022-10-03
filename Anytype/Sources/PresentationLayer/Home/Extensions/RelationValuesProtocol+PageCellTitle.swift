@@ -31,20 +31,11 @@ extension BundledRelationsValueProvider {
     }
     
     var homeLayout: HomeCellData.TitleLayout {
-        if FeatureFlags.bookmarksFlowP2 {
-            switch objectIconImage {
-            case .todo, .icon(.bookmark):
-                return .horizontal
-            default:
-                return .vertical
-            }
-        } else {
-            switch objectIconImage {
-            case .todo:
-                return .horizontal
-            default:
-                return .vertical
-            }
+        switch objectIconImage {
+        case .todo, .icon(.bookmark):
+            return .horizontal
+        default:
+            return .vertical
         }
     }
     

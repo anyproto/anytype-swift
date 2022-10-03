@@ -13,11 +13,7 @@ extension BundledRelationsValueProvider {
         case .profile:
             return profileIcon.flatMap { ObjectIconType.profile($0) }
         case .bookmark:
-            if FeatureFlags.bookmarksFlowP2 {
-                return bookmarkIcon
-            } else {
-                return basicIcon
-            }
+            return bookmarkIcon
         case .todo, .note:
             return nil
         }
@@ -87,7 +83,7 @@ extension BundledRelationsValueProvider {
     }
     
     var objectType: ObjectType {
-        guard !isDeleted else {
+        guard !isDeleted, type.isNotEmpty else {
             return ObjectTypeProvider.shared.defaultObjectType
         }
         

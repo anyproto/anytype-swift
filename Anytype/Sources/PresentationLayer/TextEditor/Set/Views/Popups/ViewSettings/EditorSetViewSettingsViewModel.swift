@@ -65,7 +65,7 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
     }
     
     var needShowAllSettings: Bool {
-        FeatureFlags.setGalleryView && setModel.activeView.type == .gallery
+        setModel.activeView.type == .gallery
     }
     
     init(setModel: EditorSetViewModel, service: DataviewServiceProtocol, router: EditorRouterProtocol) {
@@ -80,13 +80,15 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
                 anytypeAssertionFailure("No relation to delete at index: \(index)", domain: .dataviewService)
                 return
             }
-            service.deleteRelation(relationId: relation.relationDetails.id)
+            Task {
+                try await service.deleteRelation(relationId: relation.relationDetails.id)
+            }
         }
     }
     
     func moveRelation(from: IndexSet, to: Int) {
-        from.forEach { sortedRelationsFromIndex in
-            guard sortedRelationsFromIndex != to else { return }
+        from.forEach { [weak self] sortedRelationsFromIndex in
+            guard let self = self, sortedRelationsFromIndex != to else { return }
             
             let relationFrom = setModel.sortedRelations[sortedRelationsFromIndex]
             let sortedRelationsToIndex = to > sortedRelationsFromIndex ? to - 1 : to // map insert index to item index
@@ -105,7 +107,7 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
             var newOptions = setModel.activeView.options
             newOptions.moveElement(from: indexFrom, to: indexTo)
             let newView = setModel.activeView.updated(options: newOptions)
-            service.updateView(newView)
+            self.updateView(newView)
         }
     }
     
@@ -113,10 +115,12 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
         setModel.showAddNewRelationView { [weak self] relation, isNew in
             guard let self = self else { return }
             
-            if self.service.addRelation(relation) {
-                let newOption = DataviewRelationOption(key: relation.key, isVisible: true)
-                let newView = self.setModel.activeView.updated(option: newOption)
-                self.service.updateView(newView)
+            Task {
+                if try await self.service.addRelation(relation) {
+                    let newOption = DataviewRelationOption(key: relation.key, isVisible: true)
+                    let newView = self.setModel.activeView.updated(option: newOption)
+                    self.updateView(newView)
+                }
             }
             AnytypeAnalytics.instance().logAddRelation(format: relation.format, isNew: isNew, type: .set)
         }
@@ -125,27 +129,33 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
     private func onRelationVisibleChange(_ relation: SetRelation, isVisible: Bool) {
         let newOption = relation.option.updated(isVisible: isVisible)
         let newView = setModel.activeView.updated(option: newOption)
-        service.updateView(newView)
+        updateView(newView)
     }
     
     private func onShowIconChange(_ show: Bool) {
         let newView = setModel.activeView.updated(hideIcon: !show)
-        service.updateView(newView)
+        updateView(newView)
     }
     
     private func onImagePreviewChange(_ key: String) {
         let newView = setModel.activeView.updated(coverRelationKey: key)
-        service.updateView(newView)
+        updateView(newView)
     }
     
     private func onCoverFitChange(_ fit: Bool) {
         let newView = setModel.activeView.updated(coverFit: fit)
-        service.updateView(newView)
+        updateView(newView)
     }
     
     private func onCardSizeChange(_ size: DataviewViewSize) {
         let newView = setModel.activeView.updated(cardSize: size)
-        service.updateView(newView)
+        updateView(newView)
+    }
+    
+    private func updateView(_ view: DataviewView) {
+        Task {
+            try await service.updateView(view)
+        }
     }
     
     private func imagePreviewValue() -> String {

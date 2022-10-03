@@ -3,7 +3,7 @@ import AnytypeCore
 import UIKit
 
 protocol AttachmentRouterProtocol {
-    func openImage(_ imageContext: BlockImageViewModel.ImageOpeningContext)
+    func openImage(_ imageContext: FilePreviewContext)
 }
 
 protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
@@ -76,14 +76,14 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func showViewPicker(
         setModel: EditorSetViewModel,
         dataviewService: DataviewServiceProtocol,
-        showViewTypes: @escaping RoutingAction<DataviewView>
+        showViewTypes: @escaping RoutingAction<DataviewView?>
     )
 
     func showCreateObject(pageId: BlockId)
     func showCreateBookmarkObject()
     
     func showSetSettings(setModel: EditorSetViewModel)
-    func showViewTypes(activeView: DataviewView, canDelete: Bool, dataviewService: DataviewServiceProtocol)
+    func showViewTypes(activeView: DataviewView?, canDelete: Bool, dataviewService: DataviewServiceProtocol)
     func showViewSettings(setModel: EditorSetViewModel, dataviewService: DataviewServiceProtocol)
     func dismissSetSettingsIfNeeded()
     func showSorts(setModel: EditorSetViewModel, dataviewService: DataviewServiceProtocol)

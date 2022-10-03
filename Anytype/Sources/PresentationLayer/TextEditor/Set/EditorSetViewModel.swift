@@ -61,7 +61,7 @@ final class EditorSetViewModel: ObservableObject {
 
     private var isObjectLocked: Bool {
         document.isLocked ||
-        (FeatureFlags.setGalleryView && activeView.type == .gallery) ||
+        activeView.type == .gallery ||
         (FeatureFlags.setListView && activeView.type == .list)
     }
     
@@ -114,6 +114,10 @@ final class EditorSetViewModel: ObservableObject {
                 try await document.open()
                 loadingDocument = false
                 setupDataview()
+
+                if let details = document.details, details.setOf.isEmpty {
+                    showSetOfTypeSelection()
+                }
             } catch {
                 router.goBack()
             }
@@ -303,12 +307,7 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     private func itemTapped(_ details: ObjectDetails) {
-        if !FeatureFlags.bookmarksFlow && isBookmarksSet(),
-           let url = details.url {
-            router.openUrl(url.url)
-        } else {
-            openObject(pageId: details.id, type: details.editorViewType)
-        }
+        openObject(pageId: details.id, type: details.editorViewType)
     }
 }
 
@@ -317,10 +316,8 @@ extension EditorSetViewModel {
 
     func showRelationValueEditingView(key: String, source: RelationSource) {
         if key == BundledRelationKey.setOf.rawValue {
-            router.showTypesSearch(title: Loc.Set.SourceType.selectSource, selectedObjectId: document.details?.setOf.first) { [weak self] typeObjectId in
-                self?.dataviewService.setSource(typeObjectId: typeObjectId)
-            }
-
+            showSetOfTypeSelection()
+            
             return
         }
 
@@ -361,9 +358,9 @@ extension EditorSetViewModel {
         }
     }
     
-    func showViewTypes(with activeView: DataviewView? = nil) {
+    func showViewTypes(with activeView: DataviewView?) {
         router.showViewTypes(
-            activeView: activeView ?? self.activeView,
+            activeView: activeView,
             canDelete: dataView.views.count > 1,
             dataviewService: dataviewService
         )
@@ -397,6 +394,15 @@ extension EditorSetViewModel {
     func showAddNewRelationView(onSelect: @escaping (RelationDetails, _ isNew: Bool) -> Void) {
         router.showAddNewRelationView(onSelect: onSelect)
     }
+
+
+    private func showSetOfTypeSelection() {
+        router.showTypesSearch(title: Loc.Set.SourceType.selectSource, selectedObjectId: document.details?.setOf.first) { [unowned self] typeObjectId in
+            Task { @MainActor in
+                try? await dataviewService.setSource(typeObjectId: typeObjectId)
+            }
+        }
+    }
     
     private func createDefaultObject() {
         let objectType = dataView.source.first
@@ -411,15 +417,18 @@ extension EditorSetViewModel {
             templateId = ""
         }
 
-        let objectId = dataviewService.addRecord(
-            objectType: objectType ?? "",
-            templateId: templateId,
-            setFilters: filters
-        )
+        Task { @MainActor in
 
-        guard let objectId = objectId else { return }
-        
-        handleCreatedObjectId(objectId)
+            let objectId = try await dataviewService.addRecord(
+                objectType: objectType ?? "",
+                templateId: templateId,
+                setFilters: filters
+            )
+
+            guard let objectId = objectId else { return }
+            
+            handleCreatedObjectId(objectId)
+        }
     }
     
     private func handleCreatedObjectId(_ objectId: String) {

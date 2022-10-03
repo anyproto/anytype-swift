@@ -67,7 +67,7 @@ extension ObjectIconPickerViewModel {
         AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.setIcon)
 
         let operation = MediaFileUploadingOperation(
-            itemProvider: itemProvider,
+            uploadingSource: .itemProvider(itemProvider),
             worker: ObjectHeaderImageUploadingWorker(
                 objectId: document.objectId,
                 detailsService: detailsService,

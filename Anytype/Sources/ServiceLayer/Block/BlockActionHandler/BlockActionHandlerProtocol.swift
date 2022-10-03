@@ -43,7 +43,7 @@ protocol BlockActionHandlerProtocol: AnyObject {
         info: BlockInformation
     )
     func changeTextStyle(_ attribute: MarkupType, range: NSRange, blockId: BlockId)
-    func uploadMediaFile(itemProvider: NSItemProvider, type: MediaPickerContentType, blockId: BlockId)
+    func uploadMediaFile(uploadingSource: MediaFileUploadingSource, type: MediaPickerContentType, blockId: BlockId)
     func uploadFileAt(localPath: String, blockId: BlockId)
     func selectBlock(info: BlockInformation)
     func createAndFetchBookmark(

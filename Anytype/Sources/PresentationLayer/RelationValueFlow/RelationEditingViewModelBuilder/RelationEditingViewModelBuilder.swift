@@ -25,16 +25,14 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                 value: text.value ?? "",
                 type: .text,
                 relation: relation,
-                service: TextRelationDetailsService(service: RelationsService(objectId: objectId)),
-                actionButtonViewModel: nil
+                service: TextRelationDetailsService(service: RelationsService(objectId: objectId))
             )
         case .number(let number):
             return TextRelationDetailsViewModel(
                 value: number.value ?? "",
                 type: .number,
                 relation: relation,
-                service: TextRelationDetailsService(service: RelationsService(objectId: objectId)),
-                actionButtonViewModel: nil
+                service: TextRelationDetailsService(service: RelationsService(objectId: objectId))
             )
         case .phone(let phone):
             return TextRelationDetailsViewModel(
@@ -42,7 +40,6 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                 type: .phone,
                 relation: relation,
                 service: TextRelationDetailsService(service: RelationsService(objectId: objectId)),
-                actionButtonViewModel: TextRelationActionButtonViewModel(type: .phone, delegate: delegate),
                 actionsViewModel: [
                     TextRelationURLActionViewModel(
                         type: .phone,
@@ -62,7 +59,6 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                 type: .email,
                 relation: relation,
                 service: TextRelationDetailsService(service: RelationsService(objectId: objectId)),
-                actionButtonViewModel: TextRelationActionButtonViewModel(type: .email, delegate: delegate),
                 actionsViewModel: [
                     TextRelationURLActionViewModel(
                         type: .email,
@@ -100,7 +96,6 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                 type: .url,
                 relation: relation,
                 service: TextRelationDetailsService(service: RelationsService(objectId: objectId)),
-                actionButtonViewModel: TextRelationActionButtonViewModel(type: .url, delegate: delegate),
                 actionsViewModel: actions.compactMap { $0 }
             )
         case .date(let value):

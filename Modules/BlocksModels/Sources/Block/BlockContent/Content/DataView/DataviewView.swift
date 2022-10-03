@@ -69,6 +69,21 @@ public struct DataviewView: Hashable, Identifiable {
         return updated(options: newOptions)
     }
     
+    public static func created(with name: String, type: DataviewViewType) -> DataviewView {
+        DataviewView(
+            id: "",
+            name: name,
+            type: type,
+            options: [],
+            sorts: [],
+            filters: [],
+            coverRelationKey: "",
+            hideIcon: false,
+            cardSize: .small,
+            coverFit: false
+        )
+    }
+    
     public var asMiddleware: MiddlewareDataviewView {
         MiddlewareDataviewView(
             id: id,

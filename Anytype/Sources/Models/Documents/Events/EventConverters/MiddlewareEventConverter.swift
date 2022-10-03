@@ -362,8 +362,35 @@ final class MiddlewareEventConverter {
             }
             
             return .general
-        default:
-            anytypeAssertionFailure("Unsupported event: \(event)", domain: .middlewareEventConverter)
+        case .accountShow,
+                .accountDetails, // Skipped
+                .accountConfigUpdate, // Remote config updates
+                .objectRemove, // Remove from History Object wich was deleted. For Desktop purposes
+                .subscriptionAdd, // Implemented in `SubscriptionsService`
+                .subscriptionRemove, // Implemented in `SubscriptionsService`
+                .subscriptionPosition, // Implemented in `SubscriptionsService`
+                .subscriptionCounters, // Implemented in `SubscriptionsService`
+                .filesUpload,
+                .marksInfo,
+                .blockSetRestrictions,
+                .blockSetRelation,
+                .blockSetLatex,
+                .blockSetVerticalAlign,
+                .blockSetTableRow,
+                .blockDataviewRecordsSet,
+                .blockDataviewRecordsUpdate,
+                .blockDataviewRecordsInsert,
+                .blockDataviewRecordsDelete,
+                .blockDataViewGroupOrderUpdate,
+                .blockDataViewObjectOrderUpdate,
+                .userBlockJoin,
+                .userBlockLeft,
+                .userBlockSelectRange,
+                .userBlockTextRange,
+                .ping,
+                .processNew,
+                .processUpdate,
+                .processDone:
             return nil
         }
     }

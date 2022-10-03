@@ -119,6 +119,8 @@ extension SetSortsListViewModel {
     
     private func updateView(with dataviewSorts: [DataviewSort]) {
         let newView = setModel.activeView.updated(sorts: dataviewSorts)
-        service.updateView(newView)
+        Task {
+            try await service.updateView(newView)
+        }
     }
 }

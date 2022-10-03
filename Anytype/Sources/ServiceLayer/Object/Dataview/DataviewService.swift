@@ -17,55 +17,54 @@ final class DataviewService: DataviewServiceProtocol {
         self.prefilledFieldsBuilder = prefilledFieldsBuilder
     }
     
-    func updateView( _ view: DataviewView) {
-        Anytype_Rpc.BlockDataview.View.Update.Service
-            .invoke(
+    func updateView( _ view: DataviewView) async throws {
+        let result = try await Anytype_Rpc.BlockDataview.View.Update.Service
+            .invocation(
                 contextID: objectId,
                 blockID: SetConstants.dataviewBlockId,
                 viewID: view.id,
                 view: view.asMiddleware
             )
-            .map { EventsBunch(event: $0.event) }
-            .getValue(domain: .dataviewService)?
-            .send()
+            .invoke(errorDomain: .dataviewService)
+        let event = EventsBunch(event: result.event)
+        event.send()
     }
 
-    func createView( _ view: DataviewView) {
-        Anytype_Rpc.BlockDataview.View.Create.Service
-            .invoke(contextID: objectId, blockID: SetConstants.dataviewBlockId, view: view.asMiddleware)
-            .map { EventsBunch(event: $0.event) }
-            .getValue(domain: .dataviewService)?
-            .send()
+    func createView( _ view: DataviewView) async throws {
+        let result = try await Anytype_Rpc.BlockDataview.View.Create.Service
+            .invocation(contextID: objectId, blockID: SetConstants.dataviewBlockId, view: view.asMiddleware)
+            .invoke(errorDomain: .dataviewService)
+        let event = EventsBunch(event: result.event)
+        event.send()
     }
 
-    func deleteView( _ viewId: String) {
-        Anytype_Rpc.BlockDataview.View.Delete.Service
-            .invoke(contextID: objectId, blockID: SetConstants.dataviewBlockId, viewID: viewId)
-            .map { EventsBunch(event: $0.event) }
-            .getValue(domain: .dataviewService)?
-            .send()
+    func deleteView( _ viewId: String) async throws {
+        let result = try await Anytype_Rpc.BlockDataview.View.Delete.Service
+            .invocation(contextID: objectId, blockID: SetConstants.dataviewBlockId, viewID: viewId)
+            .invoke(errorDomain: .dataviewService)
+        let event = EventsBunch(event: result.event)
+        event.send()
     }
 
-    func addRelation(_ relationDetails: RelationDetails) -> Bool {
-        let events = Anytype_Rpc.BlockDataview.Relation.Add.Service
-            .invoke(contextID: objectId, blockID: SetConstants.dataviewBlockId, relationIds: [relationDetails.id])
-            .map { EventsBunch(event: $0.event) }
-            .getValue(domain: .dataviewService)
+    func addRelation(_ relationDetails: RelationDetails) async throws -> Bool {
+        let result = try await Anytype_Rpc.BlockDataview.Relation.Add.Service
+            .invocation(contextID: objectId, blockID: SetConstants.dataviewBlockId, relationIds: [relationDetails.id])
+            .invoke(errorDomain: .dataviewService)
+        let event = EventsBunch(event: result.event)
+        event.send()
         
-        events?.send()
-        
-        return events.isNotNil
+        return result.hasEvent
     }
     
-    func deleteRelation(relationId: BlockId) {
-        Anytype_Rpc.BlockDataview.Relation.Delete.Service
-            .invoke(contextID: objectId, blockID: SetConstants.dataviewBlockId, relationIds: [relationId])
-            .map { EventsBunch(event: $0.event) }
-            .getValue(domain: .dataviewService)?
-            .send()
+    func deleteRelation(relationId: BlockId) async throws {
+        let result = try await Anytype_Rpc.BlockDataview.Relation.Delete.Service
+            .invocation(contextID: objectId, blockID: SetConstants.dataviewBlockId, relationIds: [relationId])
+            .invoke(errorDomain: .dataviewService)
+        let event = EventsBunch(event: result.event)
+        event.send()
     }
     
-    func addRecord(objectType: String, templateId: BlockId, setFilters: [SetFilter]) -> String? {
+    func addRecord(objectType: String, templateId: BlockId, setFilters: [SetFilter]) async throws -> String? {
         var prefilledFields = prefilledFieldsBuilder.buildPrefilledFields(from: setFilters)
         prefilledFields[BundledRelationKey.type.rawValue] = objectType.protobufValue
 
@@ -76,39 +75,54 @@ final class DataviewService: DataviewServiceProtocol {
 
         let details: Google_Protobuf_Struct = .init(fields: prefilledFields)
 
-        let response = Anytype_Rpc.Object.Create.Service
+        let response = try await Anytype_Rpc.Object.Create.Service
             .invocation(details: details, internalFlags: internalFlags, templateID: templateId)
-            .invoke()
-            .getValue(domain: .dataviewService)
+            .invoke(errorDomain: .dataviewService)
 
         guard let response = response else { return nil }
 
         EventsBunch(event: response.event).send()
+        #warning("check me after merge")
+
+//         let response = try await Anytype_Rpc.BlockDataviewRecord.Create.Service
+//             .invocation(
+//                 contextID: objectId,
+//                 blockID: SetConstants.dataviewBlockId,
+//                 record: protobufStruct,
+//                 templateID: templateId
+//             )
+//             .invoke(errorDomain: .dataviewService)
+
+//         guard response.hasRecord else { return nil }
+        
+//         let idValue = response.record.fields[BundledRelationKey.id.rawValue]
+//         let idString = idValue?.unwrapedListValue.stringValue
 
         return response.objectID
     }
 
-    func setSource(typeObjectId: String) {
-        Anytype_Rpc.BlockDataview.SetSource.Service.invoke(
-            contextID: objectId,
-            blockID: Constants.dataview,
-            source: [typeObjectId]
-        )
-        .map { EventsBunch(event: $0.event) }
-        .getValue(domain: .dataviewService)?
-        .send()
+    func setSource(typeObjectId: String) async throws {
+        let result = try await Anytype_Rpc.BlockDataview.SetSource.Service
+            .invocation(
+                contextID: objectId,
+                blockID: Constants.dataview,
+                source: [typeObjectId]
+            )
+            .invoke(errorDomain: .dataviewService)
+        let event = EventsBunch(event: result.event)
+        event.send()
     }
-
-    func setPositionForView(_ viewId: String, position: Int) {
-        Anytype_Rpc.BlockDataview.View.SetPosition.Service
-            .invoke(
+    
+    func setPositionForView(_ viewId: String, position: Int) async throws {
+        let result = try await Anytype_Rpc.BlockDataview.View.SetPosition.Service
+            .invocation(
                 contextID: objectId,
                 blockID: Constants.dataview,
                 viewID: viewId,
                 position: UInt32(position)
             )
-            .map { EventsBunch(event: $0.event) }
-            .getValue(domain: .dataviewService)?
-            .send()
+            .invoke(errorDomain: .dataviewService)
+        let event = EventsBunch(event: result.event)
+        event.send()
     }
 }

@@ -42,8 +42,8 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
         UserDefaultsConfig.defaultObjectType
     }
     
-    func objectType(id: String?) -> ObjectType? {
-        guard let id = id else { return nil }
+    func objectType(id: String) -> ObjectType? {
+        guard id.isNotEmpty else { return nil }
         
         return objectTypes.filter { $0.id == id }.first
     }

@@ -130,18 +130,19 @@ final class BlockViewModelBuilder {
                 return BlockFileViewModel(
                     info: info,
                     fileData: content,
+                    handler: handler,
                     showFilePicker: { [weak self] blockId in
                         self?.showFilePicker(blockId: blockId)
                     },
-                    downloadFile: { [weak router] fileMetadata in
-                        guard let url = fileMetadata.contentUrl else { return }
-                        router?.saveFile(fileURL: url, type: .file)
+                    onFileOpen: { [weak router] fileContext in
+                        router?.openImage(fileContext)
                     }
                 )
             case .image:
                 return BlockImageViewModel(
                     info: info,
                     fileData: content,
+                    handler: handler,
                     showIconPicker: { [weak self] blockId in
                         self?.showMediaPicker(type: .images, blockId: blockId)
                     },
@@ -172,7 +173,7 @@ final class BlockViewModelBuilder {
             
             let details = ObjectDetailsStorage.shared.get(id: data.targetObjectID)
             
-            if FeatureFlags.bookmarksFlowP2 && (details?.isDeleted ?? false) {
+            if details?.isDeleted ?? false {
                 return NonExistentBlockViewModel(info: info)
             }
             
@@ -210,8 +211,7 @@ final class BlockViewModelBuilder {
             ) { [weak self] relation in
                 guard let self = self else { return }
 
-                let bookmarkFilter = FeatureFlags.bookmarksFlow ?
-                    self.document.details?.type != ObjectTypeId.bundled(.bookmark).rawValue : true
+                let bookmarkFilter = self.document.details?.type != ObjectTypeId.bundled(.bookmark).rawValue
                 
                 if relation.key == BundledRelationKey.type.rawValue && !self.document.isLocked && bookmarkFilter {
                     self.router.showTypesSearch(
@@ -280,7 +280,7 @@ final class BlockViewModelBuilder {
             guard let itemProvider = itemProvider else { return }
 
             self?.handler.uploadMediaFile(
-                itemProvider: itemProvider,
+                uploadingSource: .itemProvider(itemProvider),
                 type: type,
                 blockId: blockId
             )

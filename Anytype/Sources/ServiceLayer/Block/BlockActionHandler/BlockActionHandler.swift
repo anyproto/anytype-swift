@@ -104,7 +104,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     }
     
     func addLink(targetId: BlockId, typeId: String, blockId: BlockId) {
-        let isBookmarkType = FeatureFlags.bookmarksFlow ? ObjectTypeId.bundled(.bookmark).rawValue == typeId : false
+        let isBookmarkType = ObjectTypeId.bundled(.bookmark).rawValue == typeId
         service.add(
             info: isBookmarkType ? .bookmark(targetId: targetId) : .emptyLink(targetId: targetId),
             targetBlockId: blockId,
@@ -190,14 +190,14 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     }
     
     // MARK: - Public methods
-    func uploadMediaFile(itemProvider: NSItemProvider, type: MediaPickerContentType, blockId: BlockId) {
+    func uploadMediaFile(uploadingSource: MediaFileUploadingSource, type: MediaPickerContentType, blockId: BlockId) {
         EventsBunch(
             contextId: document.objectId,
             localEvents: [.setLoadingState(blockId: blockId)]
         ).send()
         
         let operation = MediaFileUploadingOperation(
-            itemProvider: itemProvider,
+            uploadingSource: uploadingSource,
             worker: BlockMediaUploadingWorker(
                 objectId: document.objectId,
                 blockId: blockId,
