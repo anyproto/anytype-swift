@@ -99,7 +99,7 @@ final class BlockImageViewModel: BlockViewModelProtocol {
     private func didTapOpenImage(_ sender: UIImageView) {
         onImageOpen?(
             .init(
-                file: ImagePreviewMedia(file: fileData, previewImage: sender.image),
+                file: ImagePreviewMedia(file: fileData, blockId: info.id, previewImage: sender.image),
                 sourceView: sender, previewImage: sender.image, onDidEditFile: {  [weak self] url in
                     guard let info = self?.info else {
                         return

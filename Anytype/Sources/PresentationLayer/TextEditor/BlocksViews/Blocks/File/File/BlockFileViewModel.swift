@@ -17,7 +17,7 @@ struct BlockFileViewModel: BlockViewModelProtocol {
         case .done:
             onFileOpen(
                 .init(
-                    file: FilePreviewMedia(file: fileData),
+                    file: FilePreviewMedia(file: fileData, blockId: info.id),
                     sourceView: nil,
                     previewImage: nil,
                     onDidEditFile: { url in
