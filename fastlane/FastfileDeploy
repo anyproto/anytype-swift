@@ -17,6 +17,8 @@ platform :ios do
   # Private lanes
 
   private_lane :deploy do |options| 
+    xcodeproj = "Anytype.xcodeproj"
+
     setup_ci
     match(readonly: true)
     
@@ -24,12 +26,12 @@ platform :ios do
       show_uncommitted_changes: true
     )
 
-    build_number = increment_build_number(xcodeproj: "Anytype.xcodeproj")
-    version = get_version_number(xcodeproj: "Anytype.xcodeproj", target: "Anytype")
+    build_number = increment_build_number(xcodeproj: xcodeproj)
+    version = get_version_number(xcodeproj: xcodeproj, target: "Anytype")
 
     commit_version_bump(
       message: "Bump version #{version}(#{build_number})",
-      xcodeproj: "Anytype.xcodeproj",
+      xcodeproj: xcodeproj,
       no_verify: true
     )
 
