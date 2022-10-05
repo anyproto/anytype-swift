@@ -46,10 +46,12 @@ platform :ios do
       scheme: "Anytype", 
       configuration: options[:release] ? "Release" : "Dev-Release",
       include_symbols: true,
-      use_system_scm: true
+      use_system_scm: true,
+      output_directory: "./build_app_results"
     )
 
     upload_build_to_testflight
+    upload_dsyms_to_crashlytics(release: options[:release])
 
     prefix = options[:release] ? "release" : "dev"
     add_git_tag(
@@ -75,6 +77,23 @@ platform :ios do
     upload_to_testflight(
       api_key: api_key, 
       skip_waiting_for_build_processing: true
+    )
+  end
+
+  private_lane :upload_dsyms_to_crashlytics do |options|
+    gsp_plist = options[:release] ? "GoogleService-Info.plist" : "GoogleService-Info-Dev.plist"
+    dsym_paths = []
+
+    Dir.chdir("..") do
+      dsym_paths = Dir["./build_app_results/*.dSYM.zip"]
+    end
+
+    upload_symbols_to_crashlytics(
+      dsym_paths: dsym_paths,
+      gsp_path: "./Anytype/Resources/Plists/#{gsp_plist}",
+      binary_path: './Scripts/firebase/upload-symbols',
+      dsym_worker_threads: 2,
+      debug: true
     )
   end
 
