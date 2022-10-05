@@ -9,22 +9,24 @@ final class ImagePreviewMedia: NSObject, PreviewRemoteItem {
     var previewItemURL: URL?
 
     let file: BlockFile
+    private let blockId: BlockId
     private let imageSource: ImageSource
     private let previewImage: UIImage?
     private let semaphore = DispatchSemaphore(value: 1)
     private var cancellables = [AnyCancellable]()
 
-    init(file: BlockFile, previewImage: UIImage?) {
+    init(file: BlockFile, blockId: BlockId, previewImage: UIImage?) {
         self.file = file
 
         let imageId = ImageMetadata(id: file.metadata.hash, width: .original)
         self.imageSource = .middleware(imageId)
         self.previewImage = previewImage
+        self.blockId = blockId
 
         super.init()
 
-        if FileManager.default.fileExists(atPath: file.originalPath.relativePath) {
-            self.previewItemURL = file.originalPath
+        if FileManager.default.fileExists(atPath: file.originalPath(with: blockId).relativePath) {
+            self.previewItemURL = file.originalPath(with: blockId)
         } else {
             startDownloading()
         }
@@ -60,10 +62,13 @@ final class ImagePreviewMedia: NSObject, PreviewRemoteItem {
             self.semaphore.wait()
 
             do {
-                let path = isPreview ? self.file.previewPath : self.file.originalPath
+                let path = isPreview ? self.file.previewPath(with: self.blockId) : self.file.originalPath(with: self.blockId)
 
-
-                try data.write(to: path)
+                try FileManager.default.createDirectory(
+                    at: path.deletingLastPathComponent(),
+                    withIntermediateDirectories: true
+                )
+                try data.write(to: path, options: .withoutOverwriting)
                 self.previewItemURL = path
 
                 DispatchQueue.main.async {

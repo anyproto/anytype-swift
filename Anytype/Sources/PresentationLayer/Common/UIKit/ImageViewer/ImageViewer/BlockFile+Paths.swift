@@ -2,20 +2,21 @@ import BlocksModels
 import Foundation
 
 extension BlockFile {
-    var originalPath: URL {
+    func originalPath(with blockId: BlockId) -> URL {
         FileManager
             .default
             .temporaryDirectory
+            .appendingPathComponent(blockId)
             .appendingPathComponent(metadata.name)
-            .appendingPathExtension(metadata.name.fileExtension())
     }
 
-    var previewPath: URL {
+    func previewPath(with blockId: BlockId) -> URL {
         FileManager
             .default
             .temporaryDirectory
-            .appendingPathComponent(metadata.name + "-preview")
-            .appendingPathExtension(metadata.name.fileExtension())
+            .appendingPathComponent(blockId)
+            .appendingPathComponent("preview")
+            .appendingPathComponent(metadata.name)
     }
 }
 
