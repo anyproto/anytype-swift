@@ -68,8 +68,7 @@ final class DataviewService: DataviewServiceProtocol {
         var prefilledFields = prefilledFieldsBuilder.buildPrefilledFields(from: setFilters)
         
         let internalFlags: [Int] = [
-            Anytype_Model_InternalFlag(value: .editorSelectTemplate).value.rawValue,
-            Anytype_Model_InternalFlag(value: .editorSelectType).value.rawValue
+            Anytype_Model_InternalFlag(value: .editorSelectTemplate).value.rawValue
         ]
         prefilledFields[BundledRelationKey.internalFlags.rawValue] = internalFlags.protobufValue
        

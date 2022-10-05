@@ -70,7 +70,9 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func setNavigationViewHidden(_ isHidden: Bool, animated: Bool)
     func showTemplatesAvailabilityPopupIfNeeded(
         document: BaseDocumentProtocol,
-        templatesTypeURL: ObjectTypeUrl
+        templatesTypeURL: ObjectTypeUrl,
+        onShow: (() -> Void)?,
+        onDismiss: (() -> Void)?
     )
     
     func showViewPicker(

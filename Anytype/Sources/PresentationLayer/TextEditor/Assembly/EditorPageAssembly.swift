@@ -179,8 +179,14 @@ final class EditorAssembly {
             viewInput: viewInput
         )
         
+        let editorPageTemplatesHandler = EditorPageTemplatesHandler(
+            router: router,
+            objectsService: ServiceLocator.shared.objectActionsService()
+        )
+        
         let accessoryState = AccessoryViewBuilder.accessoryState(
             actionHandler: actionHandler,
+            editorPageTemplatesHandler: editorPageTemplatesHandler,
             router: router,
             pasteboardService: pasteboardService,
             document: document,
@@ -244,6 +250,7 @@ final class EditorAssembly {
             cursorManager: cursorManager,
             objectActionsService: ServiceLocator.shared.objectActionsService(),
             searchService: ServiceLocator.shared.searchService(),
+            editorPageTemplatesHandler: editorPageTemplatesHandler,
             isOpenedForPreview: isOpenedForPreview
         )
     }

@@ -20,6 +20,7 @@ enum BundledDetails {
     case coverType(CoverType)
     case type(ObjectTypeUrl)
     case done(Bool)
+    case internalFlags([Int])
 }
 
 extension BundledDetails {
@@ -33,6 +34,7 @@ extension BundledDetails {
         case .coverType: return BundledRelationKey.coverType.rawValue
         case .type: return BundledRelationKey.type.rawValue
         case .done: return BundledRelationKey.done.rawValue
+        case .internalFlags: return BundledRelationKey.internalFlags.rawValue
         }
     }
     
@@ -45,6 +47,7 @@ extension BundledDetails {
         case .coverType(let coverType): return coverType.rawValue.protobufValue
         case .type(let ObjectTypeUrl): return ObjectTypeUrl.rawValue.protobufValue
         case .done(let bool): return bool.protobufValue
+        case .internalFlags(let flags): return flags.protobufValue
         }
     }
     

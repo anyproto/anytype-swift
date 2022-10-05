@@ -32,27 +32,36 @@ final class TemplatesCoordinator {
 
     func showTemplatesAvailabilityPopupIfNeeded(
         document: BaseDocumentProtocol,
-        templatesTypeURL: ObjectTypeUrl
+        templatesTypeURL: ObjectTypeUrl,
+        onShow: (() -> Void)?,
+        onDismiss: (() -> Void)?
     ) {
         let isSelectTemplate = document.details?.isSelectTemplate ?? false
         guard isSelectTemplate, let availableTemplates = searchService.searchTemplates(for: templatesTypeURL) else {
             return
         }
         
+        currentPopup?.removePanelFromParent(animated: false, completion: nil)
+        
         guard availableTemplates.count >= Constants.minimumTemplatesAvailableToPick else {
             return
         }
 
-        currentPopup?.removePanelFromParent(animated: false, completion: nil)
+        onShow?()
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [weak self] in
-            self?.showTemplateAvailablitityPopup(availableTemplates: availableTemplates, document: document)
+            self?.showTemplateAvailablitityPopup(
+                availableTemplates: availableTemplates,
+                document: document,
+                onDismiss: onDismiss
+            )
         }
     }
 
     private func showTemplateAvailablitityPopup(
         availableTemplates: [ObjectDetails],
-        document: BaseDocumentProtocol
+        document: BaseDocumentProtocol,
+        onDismiss: (() -> Void)?
     ) {
         guard let rootViewController = rootViewController else {
             return
@@ -64,7 +73,8 @@ final class TemplatesCoordinator {
         let popup = AnytypePopup(
             viewModel: viewModel,
             floatingPanelStyle: true,
-            configuration: .init(isGrabberVisible: true, dismissOnBackdropView: false, skipThroughGestures: true)
+            configuration: .init(isGrabberVisible: true, dismissOnBackdropView: false, skipThroughGestures: true),
+            onDismiss: onDismiss
         )
 
         currentPopup = popup
