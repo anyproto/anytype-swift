@@ -42,6 +42,8 @@ platform :ios do
     )
   end
 
+  # Private lane
+  
   private_lane :bump_app_version_number do |options|
     increment_build_number(
       build_number: "0"
