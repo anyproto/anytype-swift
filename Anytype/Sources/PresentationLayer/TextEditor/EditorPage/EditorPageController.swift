@@ -421,8 +421,12 @@ extension EditorPageController: EditorPageViewInput {
 
         switch item {
         case let .block(block):
-            if let blockViewModel = block as? TextBlockViewModel {
-                blockViewModel.set(focus: .end)
+            if FeatureFlags.cursorPosition {
+                viewModel.cursorFocus(blockId: block.blockId)
+            } else {
+                if let blockViewModel = block as? TextBlockViewModel {
+                    blockViewModel.set(focus: .end)
+                }
             }
         case .header, .system:
             return

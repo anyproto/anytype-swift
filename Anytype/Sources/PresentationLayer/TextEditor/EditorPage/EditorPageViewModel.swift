@@ -302,6 +302,13 @@ extension EditorPageViewModel {
     }
 }
 
+// Cursor
+extension EditorPageViewModel {
+    func cursorFocus(blockId: BlockId) {
+        cursorManager.restoreLastFocus(at: blockId)
+    }
+}
+
 // MARK: - Debug
 
 extension EditorPageViewModel: CustomDebugStringConvertible {
