@@ -88,7 +88,6 @@ platform :ios do
       api_token: ENV['PERSONAL_TOKEN_FOR_GITHUB_RELEASE'],
       tag_name: tag_name,
       name: "#{app_name} #{version}(#{build_number})",
-      is_draft: true,
       upload_assets: dsym_paths
     )
 
