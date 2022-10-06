@@ -1,10 +1,6 @@
 name: Anytype Dev dSYM's
 
 on:
-  schedule:
-    # Triggers the workflow every weekdays at 00:00 UTC:
-    - cron:  '0 2 * * 1-5'
-
   workflow_dispatch:
     inputs:
       version:
