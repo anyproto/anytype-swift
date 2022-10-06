@@ -18,13 +18,18 @@ platform :ios do
 
   private_lane :deploy do |options| 
     xcodeproj = "Anytype.xcodeproj"
+    current_branch = git_branch
+    temp_branch = "#{current_branch}-temp"
 
     setup_ci
     match(readonly: true)
     
+    git_pull
     ensure_git_status_clean(
       show_uncommitted_changes: true
     )
+
+    sh("git checkout -b " + temp_branch)
 
     build_number = increment_build_number(xcodeproj: xcodeproj)
     version = get_version_number(xcodeproj: xcodeproj, target: "Anytype")
@@ -52,6 +57,10 @@ platform :ios do
 
     upload_build_to_testflight
     upload_dsyms_to_crashlytics(release: options[:release])
+
+    sh("git checkout " + current_branch)
+    sh("git merge --ff " + temp_branch)
+    sh("git branch -d " + temp_branch)
 
     prefix = options[:release] ? "release" : "dev"
     add_git_tag(
