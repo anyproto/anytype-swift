@@ -205,6 +205,7 @@
 
 "Undo typing" = "Undo typing";
 "Undo" = "Undo";
+"Actions.LinkItself" = "Link to";
 
 // Object Type
 "Page" = "Page";

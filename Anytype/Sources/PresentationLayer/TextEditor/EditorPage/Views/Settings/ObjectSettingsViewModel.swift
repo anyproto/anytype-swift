@@ -59,6 +59,10 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
                 router?.showPage(data: screenData)
             }
         )
+
+        objectActionsViewModel.onLinkItselfAction = { [weak router] onSelect in
+            router?.showLinkTo(onSelect: onSelect)
+        }
         
         setupSubscription()
         onDocumentUpdate()

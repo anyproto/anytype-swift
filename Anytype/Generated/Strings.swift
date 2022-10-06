@@ -720,6 +720,10 @@ internal enum Loc {
   internal static let yourLibrary = Loc.tr("Localizable", "Your library", fallback: "Your library")
   /// Your public page
   internal static let yourPublicPage = Loc.tr("Localizable", "Your public page", fallback: "Your public page")
+  internal enum Actions {
+    /// Link to
+    internal static let linkItself = Loc.tr("Localizable", "Actions.LinkItself", fallback: "Link to")
+  }
   internal enum Alert {
     internal enum CameraPermissions {
       /// Go to Settings?
