@@ -24,7 +24,6 @@ platform :ios do
     setup_ci
     match(readonly: true)
     
-    git_pull
     ensure_git_status_clean(
       show_uncommitted_changes: true
     )
@@ -59,6 +58,9 @@ platform :ios do
     upload_dsyms_to_crashlytics(release: options[:release])
 
     sh("git checkout " + current_branch)
+
+    git_pull
+
     sh("git merge --ff " + temp_branch)
     sh("git branch -d " + temp_branch)
 
