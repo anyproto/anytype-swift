@@ -65,8 +65,9 @@ platform :ios do
     sh("git branch -d " + temp_branch)
 
     prefix = options[:release] ? "release" : "dev"
+    tag_name = "#{prefix}/#{version}/#{build_number}"
     add_git_tag(
-      tag: "#{prefix}/#{version}/#{build_number}",
+      tag: tag_name,
       force: true
     )
 
@@ -74,6 +75,23 @@ platform :ios do
     reset_git_repo(skip_clean: true)
 
     push_to_git_remote
+
+    app_name = options[:release] ? "Anytype" : "Anytype Dev",
+    dsym_paths = []
+    Dir.chdir("..") do
+      dsym_paths = Dir["./build_app_results/*.dSYM.zip"]
+    end
+
+
+    set_github_release(
+      repository_name: "anytypeio/ios-anytype",
+      api_token: ENV['PERSONAL_TOKEN_FOR_GITHUB_RELEASE'],
+      tag_name: tag_name,
+      name: "#{app_name} #{version}(#{build_number})",
+      is_draft: true,
+      upload_assets: dsym_paths
+    )
+
   end
 
   private_lane :upload_build_to_testflight do 
