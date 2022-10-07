@@ -61,7 +61,7 @@ platform :ios do
 
     git_pull
 
-    sh("git merge --ff --no-verify" + temp_branch)
+    sh("git merge --ff --no-verify " + temp_branch)
     sh("git branch -d " + temp_branch)
 
     prefix = options[:release] ? "release" : "dev"
