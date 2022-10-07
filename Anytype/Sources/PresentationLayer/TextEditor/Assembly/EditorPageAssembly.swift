@@ -192,7 +192,8 @@ final class EditorAssembly {
         
         let blockDelegate = BlockDelegateImpl(
             viewInput: viewInput,
-            accessoryState: accessoryState
+            accessoryState: accessoryState,
+            cursorManager: cursorManager
         )
 
         let headerModel = ObjectHeaderViewModel(

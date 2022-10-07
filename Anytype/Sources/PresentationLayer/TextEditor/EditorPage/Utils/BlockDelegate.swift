@@ -20,13 +20,16 @@ final class BlockDelegateImpl: BlockDelegate {
     weak private var viewInput: EditorPageViewInput?
 
     private let accessoryState: AccessoryViewStateManager
+    private let cursorManager: EditorCursorManager
     
     init(
         viewInput: EditorPageViewInput?,
-        accessoryState: AccessoryViewStateManager
+        accessoryState: AccessoryViewStateManager,
+        cursorManager: EditorCursorManager
     ) {
         self.viewInput = viewInput
         self.accessoryState = accessoryState
+        self.cursorManager = cursorManager
     }
 
     func didBeginEditing(view: UIView) {
@@ -61,7 +64,7 @@ final class BlockDelegateImpl: BlockDelegate {
 
     func selectionDidChange(data: TextBlockDelegateData, range: NSRange) {
         accessoryState.selectionDidChange(range: range)
-
+        cursorManager.didChangeCursorPosition(at: data.info.id, position: .at(range))
         viewInput?.didSelectTextRangeSelection(blockId: data.info.id, textView: data.textView)
     }
     

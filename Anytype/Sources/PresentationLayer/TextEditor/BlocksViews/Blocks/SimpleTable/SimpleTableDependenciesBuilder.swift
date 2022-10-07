@@ -82,7 +82,8 @@ final class SimpleTableDependenciesBuilder {
 
         let simpleTablesBlockDelegate = BlockDelegateImpl(
             viewInput: viewInput,
-            accessoryState: simpleTablesAccessoryState
+            accessoryState: simpleTablesAccessoryState,
+            cursorManager: cursorManager
         )
 
         let cellsBuilder = SimpleTableCellsBuilder(

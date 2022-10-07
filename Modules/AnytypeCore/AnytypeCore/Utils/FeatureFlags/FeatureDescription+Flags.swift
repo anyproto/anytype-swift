@@ -31,6 +31,13 @@ extension FeatureDescription {
         defaultValue: false
     )
     
+    static let cursorPosition = FeatureDescription(
+        title: "Cursor position after change style",
+        author: "m@anytype.io",
+        releaseVersion: "0.19.0",
+        defaultValue: false
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(
