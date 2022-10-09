@@ -5,7 +5,6 @@ import AnytypeCore
 struct AccessoryViewBuilder {
     static func accessoryState(
         actionHandler: BlockActionHandlerProtocol,
-        editorPageTemplatesHandler: EditorPageTemplatesHandlerProtocol,
         router: EditorRouterProtocol,
         pasteboardService: PasteboardServiceProtocol,
         document: BaseDocumentProtocol,
@@ -87,7 +86,13 @@ struct AccessoryViewBuilder {
         )
 
         accessoryViewSwitcher.onDoneButton = {
-            editorPageTemplatesHandler.showTemplatesPopupIfNeeded(for: document)
+            guard let typeURL = document.details?.objectType else { return }
+            
+            router.showTemplatesPopupIfNeeded(
+                document: document,
+                templatesTypeURL: .dynamic(typeURL.url),
+                onShow: nil
+            )
         }
 
         slashMenuViewModel.resetSlashMenuHandler = { [weak accessoryViewSwitcher] in

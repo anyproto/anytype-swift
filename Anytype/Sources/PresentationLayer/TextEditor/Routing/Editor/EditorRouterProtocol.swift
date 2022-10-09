@@ -68,11 +68,16 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func presentSheet(_ vc: UIViewController)
     func presentFullscreen(_ vc: UIViewController)
     func setNavigationViewHidden(_ isHidden: Bool, animated: Bool)
-    func showTemplatesAvailabilityPopupIfNeeded(
+    
+    func showTemplatesPopupIfNeeded(
         document: BaseDocumentProtocol,
         templatesTypeURL: ObjectTypeUrl,
-        onShow: (() -> Void)?,
-        onDismiss: (() -> Void)?
+        onShow: (() -> Void)?
+    )
+    func showTemplatesPopupWithTypeCheckIfNeeded(
+        document: BaseDocumentProtocol,
+        templatesTypeURL: ObjectTypeUrl,
+        onShow: (() -> Void)?
     )
     
     func showViewPicker(

@@ -70,15 +70,9 @@ final class SimpleTableDependenciesBuilder {
             cursorManager: cursorManager,
             mainEditorSelectionManager: mainEditorSelectionManager
         )
-
-        let editorPageTemplatesHandler = EditorPageTemplatesHandler(
-            router: router,
-            objectsService: ServiceLocator.shared.objectActionsService()
-        )
         
         let simpleTablesAccessoryState = AccessoryViewBuilder.accessoryState(
             actionHandler: handler,
-            editorPageTemplatesHandler: editorPageTemplatesHandler,
             router: router,
             pasteboardService: pasteboardService,
             document: document,

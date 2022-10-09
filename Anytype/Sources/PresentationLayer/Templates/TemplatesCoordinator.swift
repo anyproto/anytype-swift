@@ -13,6 +13,7 @@ final class TemplatesCoordinator {
 
     private let searchService: SearchServiceProtocol
     private let editorPageAssembly: EditorAssembly
+    private let objectsService: ObjectActionsServiceProtocol
 
     private let keyboardHeightListener: KeyboardHeightListener
     private var keyboardHeightSubscription: AnyCancellable?
@@ -22,19 +23,20 @@ final class TemplatesCoordinator {
         rootViewController: UIViewController,
         keyboardHeightListener: KeyboardHeightListener,
         searchService: SearchServiceProtocol,
+        objectsService: ObjectActionsServiceProtocol,
         editorPageAssembly: EditorAssembly
     ) {
         self.rootViewController = rootViewController
         self.keyboardHeightListener = keyboardHeightListener
         self.searchService = searchService
+        self.objectsService = objectsService
         self.editorPageAssembly = editorPageAssembly
     }
 
-    func showTemplatesAvailabilityPopupIfNeeded(
+    func showTemplatesPopupIfNeeded(
         document: BaseDocumentProtocol,
         templatesTypeURL: ObjectTypeUrl,
-        onShow: (() -> Void)?,
-        onDismiss: (() -> Void)?
+        onShow: (() -> Void)?
     ) {
         let isSelectTemplate = document.details?.isSelectTemplate ?? false
         guard isSelectTemplate, let availableTemplates = searchService.searchTemplates(for: templatesTypeURL) else {
@@ -52,16 +54,31 @@ final class TemplatesCoordinator {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [weak self] in
             self?.showTemplateAvailablitityPopup(
                 availableTemplates: availableTemplates,
-                document: document,
-                onDismiss: onDismiss
+                document: document
             )
         }
+    }
+    
+    func showTemplatesPopupWithTypeCheckIfNeeded(
+        document: BaseDocumentProtocol,
+        templatesTypeURL: ObjectTypeUrl,
+        onShow: (() -> Void)?
+    ) {
+        let needShowTypeMenu = document.details?.isSelectType ?? false &&
+        !document.objectRestrictions.objectRestriction.contains(.typechange)
+        guard !needShowTypeMenu else {
+            return
+        }
+        showTemplatesPopupIfNeeded(
+            document: document,
+            templatesTypeURL: templatesTypeURL,
+            onShow: onShow
+        )
     }
 
     private func showTemplateAvailablitityPopup(
         availableTemplates: [ObjectDetails],
-        document: BaseDocumentProtocol,
-        onDismiss: (() -> Void)?
+        document: BaseDocumentProtocol
     ) {
         guard let rootViewController = rootViewController else {
             return
@@ -74,7 +91,9 @@ final class TemplatesCoordinator {
             viewModel: viewModel,
             floatingPanelStyle: true,
             configuration: .init(isGrabberVisible: true, dismissOnBackdropView: false, skipThroughGestures: true),
-            onDismiss: onDismiss
+            onDismiss: { [weak self] in
+                self?.resetTemplatesFlag(for: document)
+            }
         )
 
         currentPopup = popup
@@ -123,5 +142,14 @@ final class TemplatesCoordinator {
 
         hostViewController.modalPresentationStyle = .fullScreen
         rootViewController.present(hostViewController, animated: true, completion: nil)
+    }
+    
+    private func resetTemplatesFlag(for document: BaseDocumentProtocol) {
+        guard let details = document.details else { return }
+        
+        objectsService.updateBundledDetails(
+            contextID: details.id,
+            details: [.internalFlags(details.internalFlagsWithoutTemplates)]
+        )
     }
 }

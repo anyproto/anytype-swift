@@ -179,14 +179,8 @@ final class EditorAssembly {
             viewInput: viewInput
         )
         
-        let editorPageTemplatesHandler = EditorPageTemplatesHandler(
-            router: router,
-            objectsService: ServiceLocator.shared.objectActionsService()
-        )
-        
         let accessoryState = AccessoryViewBuilder.accessoryState(
             actionHandler: actionHandler,
-            editorPageTemplatesHandler: editorPageTemplatesHandler,
             router: router,
             pasteboardService: pasteboardService,
             document: document,
@@ -235,6 +229,8 @@ final class EditorAssembly {
 
         blocksStateManager.blocksSelectionOverlayViewModel = blocksSelectionOverlayViewModel
         blocksStateManager.blocksOptionViewModel = blocksOptionViewModel
+        
+        let editorPageTemplatesHandler = EditorPageTemplatesHandler()
         
         return EditorPageViewModel(
             document: document,

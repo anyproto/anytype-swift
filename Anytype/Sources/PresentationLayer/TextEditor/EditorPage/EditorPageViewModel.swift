@@ -160,7 +160,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
 
         if !document.isLocked {
             cursorManager.handleGeneralUpdate(with: modelsHolder.items, type: document.details?.type)
-            editorPageTemplatesHandler.showTemplatesPopupWithTypeCheckIfNeeded(for: document)
+            handleTemplatesPopupShowing()
         }
     }
     
@@ -175,7 +175,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             router.goBack()
         }
     }
-
 
     private func difference(
         with blockIds: Set<BlockId>
@@ -228,6 +227,20 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
 
         viewInput?.update(header: headerModel, details: document.details)
         modelsHolder.header = headerModel
+    }
+    
+    private func handleTemplatesPopupShowing() {
+        guard editorPageTemplatesHandler.canShowTemplates(for: document),
+              let typeURL = document.details?.objectType else {
+            return
+        }
+        router.showTemplatesPopupWithTypeCheckIfNeeded(
+            document: document,
+            templatesTypeURL: .dynamic(typeURL.url),
+            onShow: { [weak self] in
+                self?.editorPageTemplatesHandler.onTemplatesShow()
+            }
+        )
     }
 }
 
