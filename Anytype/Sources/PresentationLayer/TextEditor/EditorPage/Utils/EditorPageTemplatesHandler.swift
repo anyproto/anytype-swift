@@ -2,7 +2,7 @@ import BlocksModels
 
 protocol EditorPageTemplatesHandlerProtocol {
     func didAppeared(with type: String?)
-    func canShowTemplates(for document: BaseDocumentProtocol) -> Bool
+    func needShowTemplates(for document: BaseDocumentProtocol) -> Bool
     func onTemplatesShow()
 }
 
@@ -14,7 +14,7 @@ final class EditorPageTemplatesHandler: EditorPageTemplatesHandlerProtocol {
         currentType = type
     }
     
-    func canShowTemplates(for document: BaseDocumentProtocol) -> Bool {
+    func needShowTemplates(for document: BaseDocumentProtocol) -> Bool {
         if currentType != document.details?.type {
             currentType = document.details?.type
             didShowTemplatesForType = false

@@ -230,7 +230,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     }
     
     private func handleTemplatesPopupShowing() {
-        guard editorPageTemplatesHandler.canShowTemplates(for: document),
+        guard editorPageTemplatesHandler.needShowTemplates(for: document),
               let typeURL = document.details?.objectType else {
             return
         }

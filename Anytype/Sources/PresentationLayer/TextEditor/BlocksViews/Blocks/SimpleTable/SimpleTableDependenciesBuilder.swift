@@ -70,7 +70,7 @@ final class SimpleTableDependenciesBuilder {
             cursorManager: cursorManager,
             mainEditorSelectionManager: mainEditorSelectionManager
         )
-        
+
         let simpleTablesAccessoryState = AccessoryViewBuilder.accessoryState(
             actionHandler: handler,
             router: router,
