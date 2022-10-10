@@ -41,7 +41,7 @@ final class BottomSheetsFactory {
 
         let popup = AnytypePopup(
             contentView: styleView,
-            popupLayout: .intrinsic,
+            popupLayout: FeatureFlags.hideBottomViewForStyleMenu ? .intrinsic : .alert(height: 0),
             floatingPanelStyle: true,
             configuration: .init(
                 isGrabberVisible: true,

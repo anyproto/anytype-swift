@@ -1,4 +1,5 @@
 import Foundation
+import AnytypeCore
 
 protocol EditorBottomNavigationManagerProtocol: AnyObject {
     func multiselectActive(_ active: Bool)
@@ -36,8 +37,10 @@ final class EditorBottomNavigationManager: EditorBottomNavigationManagerProtocol
     }
     
     func styleViewActive(_ active: Bool) {
-        isStyleViewActive = active
-        updateNavigationVisibility(animated: false)
+        if FeatureFlags.hideBottomViewForStyleMenu {
+            isStyleViewActive = active
+            updateNavigationVisibility(animated: false)
+        }
     }
     
     private func updateNavigationVisibility(animated: Bool) {
