@@ -9,7 +9,8 @@ final class EditorCursorManager {
     private let focusSubjectHolder: FocusSubjectsHolder
     private var currentType: String?
     private var didAppearedOnce = false
-
+    private var lastBlockFocus: BlockFocus?
+    
     var blockFocus: BlockFocus?
 
     init(focusSubjectHolder: FocusSubjectsHolder) {
@@ -44,13 +45,27 @@ final class EditorCursorManager {
 
         self.blockFocus = nil
     }
+    
+    func restoreLastFocus(at blockId: BlockId) {
+        
+        guard let lastBlockFocus = lastBlockFocus, lastBlockFocus.id == blockId else { return }
+        let focusSubject = focusSubjectHolder.focusSubject(for: lastBlockFocus.id)
 
+        focusSubject.send(lastBlockFocus.position)
+    }
+    
     func focus(at blockId: BlockId, position: BlockFocusPosition = .end) {
         let focusSubject = focusSubjectHolder.focusSubject(for: blockId)
 
         focusSubject.send(position)
     }
+    
+    func didChangeCursorPosition(at blockId: BlockId, position: BlockFocusPosition) {
+        lastBlockFocus = BlockFocus(id: blockId, position: position)
+    }
 
+    // MARK: - Private
+    
     private func setFocusOnFirstTextBlock(blocks: [EditorItem]) {
         let firstModel = Array(blocks.prefix(3)).first(applying: { item -> BlockViewModelProtocol? in
             if case let .block(blockViewModel) = item, blockViewModel.content.isText {

@@ -61,7 +61,7 @@ platform :ios do
 
     git_pull
 
-    sh("git merge --ff " + temp_branch)
+    sh("git merge --ff --no-verify " + temp_branch)
     sh("git branch -d " + temp_branch)
 
     prefix = options[:release] ? "release" : "dev"
@@ -76,7 +76,7 @@ platform :ios do
 
     push_to_git_remote
 
-    app_name = options[:release] ? "Anytype" : "Anytype Dev",
+    build_name = options[:release] ? "Anytype" : "Anytype Dev"
     dsym_paths = []
     Dir.chdir("..") do
       dsym_paths = Dir["./build_app_results/*.dSYM.zip"]
@@ -87,7 +87,7 @@ platform :ios do
       repository_name: "anytypeio/ios-anytype",
       api_token: ENV['PERSONAL_TOKEN_FOR_GITHUB_RELEASE'],
       tag_name: tag_name,
-      name: "#{app_name} #{version}(#{build_number})",
+      name: "#{build_name} #{version}(#{build_number})",
       upload_assets: dsym_paths
     )
 
