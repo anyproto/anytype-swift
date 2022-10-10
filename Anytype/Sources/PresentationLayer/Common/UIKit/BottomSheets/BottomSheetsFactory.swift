@@ -41,6 +41,7 @@ final class BottomSheetsFactory {
 
         let popup = AnytypePopup(
             contentView: styleView,
+            popupLayout: .intrinsic,
             floatingPanelStyle: true,
             configuration: .init(
                 isGrabberVisible: true,

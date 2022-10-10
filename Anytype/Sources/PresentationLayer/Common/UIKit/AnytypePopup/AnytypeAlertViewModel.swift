@@ -8,12 +8,17 @@ final class AnytypeAlertViewModel: AnytypePopupViewModelProtocol, ObservableObje
     private let keyboardListener: KeyboardHeightListener
     private var keyboardHeightSubscription: AnyCancellable?
 
-    init(contentView: UIView, keyboardListener: KeyboardHeightListener) {
+    init(
+        contentView: UIView,
+        keyboardListener: KeyboardHeightListener,
+        popupLayout: AnytypePopupLayoutType = .alert(height: 0)
+    ) {
         self.contentView = contentView
-        self.popupLayout = .alert(height: 0)
+        self.popupLayout = popupLayout
         self.keyboardListener = keyboardListener
 
         keyboardHeightSubscription = keyboardListener.$currentKeyboardHeight.sink { [weak self] in
+            guard case .alert = self?.popupLayout else { return }
             self?.popupLayout = .alert(height: $0)
             self?.popup?.updateBottomInset()
         }

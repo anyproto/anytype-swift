@@ -10,8 +10,6 @@ protocol EditorBrowser: AnyObject {
 }
 
 protocol EditorBrowserViewInputProtocol: AnyObject {
-    func multiselectActive(_ active: Bool)
-    func onScroll(bottom: Bool)
     func didShow(collectionView: UICollectionView)
 }
 
@@ -139,34 +137,8 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
         router.showPage(data: data)
     }
     
-    private var isMultiselectActive = false
-    func multiselectActive(_ active: Bool) {
-        isMultiselectActive = active
-        updateNavigationVisibility(animated: false)
-    }
-    
-    private var scrollDirectionBottom = false
-    func onScroll(bottom: Bool) {
-        guard !isMultiselectActive, scrollDirectionBottom != bottom else { return }
-        scrollDirectionBottom = bottom
-        updateNavigationVisibility(animated: true)
-    }
-    
     func didShow(collectionView: UICollectionView) {
         browserView.childCollectionView = collectionView
-    }
-    
-    private func updateNavigationVisibility(animated: Bool) {
-        guard !isMultiselectActive else {
-            setNavigationViewHidden(true, animated: animated)
-            return
-        }
-        
-        if scrollDirectionBottom {
-            setNavigationViewHidden(true, animated: animated)
-        } else {
-            setNavigationViewHidden(false, animated: animated)
-        }
     }
 
     func setNavigationViewHidden(_ isHidden: Bool, animated: Bool) {
