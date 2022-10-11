@@ -44,6 +44,8 @@ private extension ObjectAction {
             return isLocked ? Loc.unlock : Loc.lock
         case .duplicate:
             return Loc.duplicate
+        case .linkItself:
+            return Loc.Actions.linkItself
         }
     }
 
@@ -59,6 +61,8 @@ private extension ObjectAction {
             return isLocked ? .unlock : .lock
         case .duplicate:
             return .duplicate
+        case .linkItself:
+            return .linkToItself
         }
     }
 }

@@ -42,6 +42,7 @@ internal extension ImageAsset {
   static let addToFavorites = ImageAsset.bundle(name: "addToFavorites")
   static let delete = ImageAsset.bundle(name: "delete")
   static let duplicate = ImageAsset.bundle(name: "duplicate")
+  static let linkToItself = ImageAsset.bundle(name: "link_to_itself")
   static let lock = ImageAsset.bundle(name: "lock")
   static let moveTo = ImageAsset.bundle(name: "moveTo")
   static let restore = ImageAsset.bundle(name: "restore")

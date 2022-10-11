@@ -4,7 +4,6 @@ import BlocksModels
 import AnytypeCore
 
 final class ObjectActionsViewModel: ObservableObject {
-    
     var objectActions: [ObjectAction] {
         guard let details = details else { return [] }
 
@@ -19,8 +18,10 @@ final class ObjectActionsViewModel: ObservableObject {
     @Published var objectRestrictions: ObjectRestrictions = ObjectRestrictions()
     @Published var isLocked: Bool = false
 
-    let popScreenAction: () -> ()
+    var onLinkItselfAction: RoutingAction<(BlockId, String) -> Void>?
     var dismissSheet: () -> () = {}
+
+    let popScreenAction: () -> ()
     let undoRedoAction: () -> ()
     let openPageAction: (_ screenData: EditorScreenData) -> ()
     
@@ -68,6 +69,24 @@ final class ObjectActionsViewModel: ObservableObject {
         let screenData = EditorScreenData(pageId: duplicatedId, type: details.editorViewType)
         dismissSheet()
         openPageAction(screenData)
+    }
+
+    func linkItselfAction() {
+        guard let currentObjectId = details?.id else { return }
+
+        let onObjectSelection: (BlockId, String) -> Void = { objectId, typeUrl in
+            Task {
+                let targetDocument = BaseDocument(objectId: objectId)
+                try? await targetDocument.open()
+                guard let id = targetDocument.children.last?.id else { return }
+
+                let targetObjectService = BlockActionsServiceSingle(contextId: objectId)
+
+                let _ = targetObjectService.add(targetId: id, info: .emptyLink(targetId: currentObjectId), position: .bottom)
+            }
+        }
+
+        onLinkItselfAction?(onObjectSelection)
     }
 
     func moveTo() {
