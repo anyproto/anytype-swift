@@ -18,7 +18,8 @@ public final class FeatureFlags {
         .setListView,
         .setViewTypes,
         .setSyncStatus,
-        .cursorPosition
+        .cursorPosition,
+        .hideBottomViewForStyleMenu
     ]
     
     public static func update(key feature: FeatureDescription, value: Bool) {
@@ -65,5 +66,9 @@ public extension FeatureFlags {
     
     static var cursorPosition: Bool {
         value(for: .cursorPosition)
+    }
+    
+    static var hideBottomViewForStyleMenu: Bool {
+        value(for: .hideBottomViewForStyleMenu)
     }
 }

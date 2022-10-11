@@ -28,9 +28,7 @@ final class EditorAssembly {
     ) -> (vc: UIViewController, router: EditorRouterProtocol) {
         switch data.type {
         case .page:
-            let module = buildPageModule(browser: browser, data: data)
-            module.0.browserViewInput = browser
-            return module
+            return buildPageModule(browser: browser, data: data)
         case .set:
             return buildSetModule(browser: browser, data: data)
         }
@@ -87,8 +85,13 @@ final class EditorAssembly {
             simleTableMenuViewModel: simpleTableMenuViewModel,
             blockOptionsViewViewModel: blocksOptionViewModel
         )
-
-        let controller = EditorPageController(blocksSelectionOverlayView: blocksSelectionOverlayView)
+        let bottomNavigationManager = EditorBottomNavigationManager(browser: browser)
+        
+        let controller = EditorPageController(
+            blocksSelectionOverlayView: blocksSelectionOverlayView,
+            bottomNavigationManager: bottomNavigationManager,
+            browserViewInput: browser
+        )
         let document = BaseDocument(objectId: data.pageId)
         let router = EditorRouter(
             rootController: browser,
@@ -108,6 +111,7 @@ final class EditorAssembly {
             blocksOptionViewModel: blocksOptionViewModel,
             simpleTableMenuViewModel: simpleTableMenuViewModel,
             blocksSelectionOverlayViewModel: blocksSelectionOverlayView.viewModel,
+            bottomNavigationManager: bottomNavigationManager,
             isOpenedForPreview: data.isOpenedForPreview
         )
 
@@ -124,6 +128,7 @@ final class EditorAssembly {
         blocksOptionViewModel: SelectionOptionsViewModel,
         simpleTableMenuViewModel: SimpleTableMenuViewModel,
         blocksSelectionOverlayViewModel: BlocksSelectionOverlayViewModel,
+        bottomNavigationManager: EditorBottomNavigationManagerProtocol,
         isOpenedForPreview: Bool
     ) -> EditorPageViewModel {
         let modelsHolder = EditorMainItemModelsHolder()
@@ -176,7 +181,8 @@ final class EditorAssembly {
             pasteboardService: pasteboardService,
             router: router,
             initialEditingState: isOpenedForPreview ? .locked : .editing,
-            viewInput: viewInput
+            viewInput: viewInput,
+            bottomNavigationManager: bottomNavigationManager
         )
         
         let accessoryState = AccessoryViewBuilder.accessoryState(

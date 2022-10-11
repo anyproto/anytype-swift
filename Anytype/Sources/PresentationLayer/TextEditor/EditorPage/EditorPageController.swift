@@ -5,7 +5,9 @@ import AnytypeCore
 import SwiftUI
 
 final class EditorPageController: UIViewController {
-    weak var browserViewInput: EditorBrowserViewInputProtocol?
+    
+    let bottomNavigationManager: EditorBottomNavigationManagerProtocol
+    private(set) weak var browserViewInput: EditorBrowserViewInputProtocol?
     private(set) lazy var dataSource = makeCollectionViewDataSource()
     
     private lazy var deletedScreen = EditorPageDeletedScreen(
@@ -77,8 +79,14 @@ final class EditorPageController: UIViewController {
     private var cancellables = [AnyCancellable]()
     
     // MARK: - Initializers
-    init(blocksSelectionOverlayView: BlocksSelectionOverlayView) {
+    init(
+        blocksSelectionOverlayView: BlocksSelectionOverlayView,
+        bottomNavigationManager: EditorBottomNavigationManagerProtocol,
+        browserViewInput: EditorBrowserViewInputProtocol?
+    ) {
         self.blocksSelectionOverlayView = blocksSelectionOverlayView
+        self.bottomNavigationManager = bottomNavigationManager
+        self.browserViewInput = browserViewInput
 
         super.init(nibName: nil, bundle: nil)
     }
@@ -199,7 +207,7 @@ final class EditorPageController: UIViewController {
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
         collectionView.isEditing = editing
-        browserViewInput?.multiselectActive(!editing)
+        bottomNavigationManager.multiselectActive(!editing)
     }
     
     private var controllerForNavigationItems: UIViewController? {
@@ -250,7 +258,7 @@ final class EditorPageController: UIViewController {
             view.endEditing(true)
             collectionView.isLocked = true
         case .simpleTablesSelection:
-            browserViewInput?.multiselectActive(true)
+            bottomNavigationManager.multiselectActive(true)
             view.endEditing(true)
             collectionView.isLocked = true
         case .loading:

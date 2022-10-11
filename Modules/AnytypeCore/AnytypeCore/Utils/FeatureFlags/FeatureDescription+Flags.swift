@@ -38,6 +38,13 @@ extension FeatureDescription {
         defaultValue: false
     )
     
+    static let hideBottomViewForStyleMenu = FeatureDescription(
+        title: "Hide bottom navigation view in editor for style menu (IOS-293)",
+        author: "m@anytype.io",
+        releaseVersion: "0.19.0",
+        defaultValue: false
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(
