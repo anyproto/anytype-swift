@@ -1,6 +1,6 @@
 import Foundation
 import Logging
-import Pulse
+import PulseLogHandler
 
 public final class EventLogger {
     
