@@ -45,6 +45,13 @@ extension FeatureDescription {
         defaultValue: false
     )
     
+    static let setKanbanView = FeatureDescription(
+        title: "Set kanban view",
+        author: "joe_pusya@anytype.io",
+        releaseVersion: "0.20.0",
+        defaultValue: false
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(
