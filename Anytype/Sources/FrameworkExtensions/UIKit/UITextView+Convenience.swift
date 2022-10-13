@@ -5,7 +5,7 @@ import UIKit
 struct TextViewSelectionPosition: OptionSet {
     var rawValue: UInt8
 
-    static let none = TextViewSelectionPosition(rawValue: 0x00)
+    static let none = TextViewSelectionPosition([])
     static let start = TextViewSelectionPosition(rawValue: 0x01)
     static let middle = TextViewSelectionPosition(rawValue: 0x02)
     static let end = TextViewSelectionPosition(rawValue: 0x04)
