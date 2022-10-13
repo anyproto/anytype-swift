@@ -1,7 +1,6 @@
 import Foundation
 import Logger
 import ProtobufMessages
-import Pulse
 
 final class LoggerConfigurator: AppConfiguratorProtocol {
     
@@ -13,7 +12,6 @@ final class LoggerConfigurator: AppConfiguratorProtocol {
         #else
             InvocationSettings.handler = invocationHandler
             EventLogger.setupLgger()
-            Experimental.URLSessionProxy.shared.isEnabled = true
         #endif
     }
 }
