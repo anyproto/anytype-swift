@@ -17,6 +17,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     private let urlOpener: URLOpenerProtocol
     private let relationValueCoordinator: RelationValueCoordinatorProtocol
     private weak var currentSetSettingsPopup: AnytypePopup?
+    private let editorPageCoordinator: EditorPageCoordinatorProtocol
     
     init(
         rootController: EditorBrowserController?,
@@ -25,7 +26,8 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         assembly: EditorAssembly,
         templatesCoordinator: TemplatesCoordinator,
         urlOpener: URLOpenerProtocol,
-        relationValueCoordinator: RelationValueCoordinatorProtocol
+        relationValueCoordinator: RelationValueCoordinatorProtocol,
+        editorPageCoordinator: EditorPageCoordinatorProtocol
     ) {
         self.rootController = rootController
         self.viewController = viewController
@@ -36,51 +38,20 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         self.templatesCoordinator = templatesCoordinator
         self.urlOpener = urlOpener
         self.relationValueCoordinator = relationValueCoordinator
+        self.editorPageCoordinator = editorPageCoordinator
     }
 
     func showPage(data: EditorScreenData) {
-        if let details = ObjectDetailsStorage.shared.get(id: data.pageId) {
-            guard ObjectTypeProvider.shared.isSupported(typeUrl: details.type) else {
-                showUnsupportedTypeAlert(typeUrl: details.type)
-                return
-            }
-        }
-        
-        let controller = editorAssembly.buildEditorController(
-            browser: rootController,
-            data: data
-        )
-        viewController?.navigationController?.pushViewController(controller, animated: true)
+        editorPageCoordinator.startFlow(data: data, replaceCurrentPage: false)
     }
 
     func replaceCurrentPage(with data: EditorScreenData) {
-        if let details = ObjectDetailsStorage.shared.get(id: data.pageId) {
-            guard ObjectTypeProvider.shared.isSupported(typeUrl: details.type) else {
-                showUnsupportedTypeAlert(typeUrl: details.type)
-                return
-            }
-        }
-
-        let controller = editorAssembly.buildEditorController(
-            browser: rootController,
-            data: data
-        )
-
-        rootController?.childNavigation?.replaceLastViewController(controller, animated: false)
+        editorPageCoordinator.startFlow(data: data, replaceCurrentPage: true)
     }
 
     func showAlert(alertModel: AlertModel) {
         let alertController = AlertsFactory.alertController(from: alertModel)
         viewController?.present(alertController, animated: true, completion: nil)
-    }
-    
-    private func showUnsupportedTypeAlert(typeUrl: String) {
-        let typeName = ObjectTypeProvider.shared.objectType(url: typeUrl)?.name ?? Loc.unknown
-        
-        AlertHelper.showToast(
-            title: "Not supported type \"\(typeName)\"",
-            message: "You can open it via desktop"
-        )
     }
 
     func showLinkContextualMenu(inputParameters: TextBlockURLInputParameters) {
@@ -210,19 +181,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
             self?.viewController?.topPresentedController.dismiss(animated: true)
         }
 
-        presentSwiftUIView(view: moveToView, model: nil)
-    }
-
-    func showLinkToObject(
-        currentLink: Either<URL, BlockId>?,
-        onSelect: @escaping (LinkToObjectSearchViewModel.SearchKind) -> ()
-    ) {
-        let viewModel = LinkToObjectSearchViewModel(currentLink: currentLink) { data in
-            onSelect(data.searchKind)
-        }
-        let linkToView = SearchView(title: Loc.linkTo, context: .menuSearch, viewModel: viewModel)
-
-        presentSwiftUIView(view: linkToView, model: viewModel)
+        viewController?.topPresentedController.presentSwiftUIView(view: moveToView, model: nil)
     }
 
     func showLinkTo(onSelect: @escaping (BlockId, _ typeUrl: String) -> ()) {
@@ -231,7 +190,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         }
         let linkToView = SearchView(title: Loc.linkTo, context: .menuSearch, viewModel: viewModel)
         
-        presentSwiftUIView(view: linkToView, model: viewModel)
+        viewController?.topPresentedController.presentSwiftUIView(view: linkToView, model: viewModel)
     }
 
     func showTextIconPicker(contextId: BlockId, objectId: BlockId) {
@@ -246,7 +205,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
             rootController?.dismiss(animated: true, completion: nil)
         }
 
-        presentSwiftUIView(view: iconPicker, model: nil)
+        viewController?.topPresentedController.presentSwiftUIView(view: iconPicker, model: nil)
     }
     
     func showSearch(onSelect: @escaping (EditorScreenData) -> ()) {
@@ -255,7 +214,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         }
         let searchView = SearchView(title: nil, context: .menuSearch, viewModel: viewModel)
         
-        presentSwiftUIView(view: searchView, model: viewModel)
+        viewController?.topPresentedController.presentSwiftUIView(view: searchView, model: viewModel)
     }
     
     func showTypesSearch(title: String, selectedObjectId: BlockId?, onSelect: @escaping (BlockId) -> ()) {
@@ -424,14 +383,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     }
     
     // MARK: - Private
-
-    private func presentSwiftUIView<Content: View>(view: Content, model: Dismissible?) {
-        guard let viewController = viewController else { return }
-        
-        let controller = UIHostingController(rootView: view)
-        model?.onDismiss = { [weak controller] in controller?.dismiss(animated: true) }
-        viewController.topPresentedController.present(controller, animated: true)
-    }
     
     private func presentOverCurrentContextSwuftUIView<Content: View>(view: Content, model: Dismissible) {
         guard let viewController = rootController else { return }

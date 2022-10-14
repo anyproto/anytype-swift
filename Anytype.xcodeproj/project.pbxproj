@@ -474,6 +474,10 @@
 		2AFB542328634FC5004F7458 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 2AFB542128634FC5004F7458 /* Localizable.stringsdict */; };
 		2AFB5467286997C6004F7458 /* DataviewType+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFB5466286997C6004F7458 /* DataviewType+Extensions.swift */; };
 		2AFB54692869989D004F7458 /* ObjectType+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFB54682869989D004F7458 /* ObjectType+Extensions.swift */; };
+		2AFE04B528F94380008647E0 /* LinkInTextCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFE04B428F94380008647E0 /* LinkInTextCoordinatorAssembly.swift */; };
+		2AFE04B728F946D7008647E0 /* LinkInTextCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFE04B628F946D7008647E0 /* LinkInTextCoordinator.swift */; };
+		2AFE04B928F94ABB008647E0 /* EditorPageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFE04B828F94ABB008647E0 /* EditorPageCoordinator.swift */; };
+		2AFE04BB28F94C52008647E0 /* EditorPageCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFE04BA28F94C52008647E0 /* EditorPageCoordinatorAssembly.swift */; };
 		2E0D0E75289D652000785833 /* EditorSetViewSettingsRelation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0D0E74289D652000785833 /* EditorSetViewSettingsRelation.swift */; };
 		2E0D0E77289D653500785833 /* EditorSetViewSettingsToggleItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0D0E76289D653500785833 /* EditorSetViewSettingsToggleItem.swift */; };
 		2E0D0E79289D678200785833 /* EditorSetViewSettingsValueItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0D0E78289D678200785833 /* EditorSetViewSettingsValueItem.swift */; };
@@ -1682,6 +1686,10 @@
 		2AFB542228634FC5004F7458 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		2AFB5466286997C6004F7458 /* DataviewType+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataviewType+Extensions.swift"; sourceTree = "<group>"; };
 		2AFB54682869989D004F7458 /* ObjectType+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ObjectType+Extensions.swift"; sourceTree = "<group>"; };
+		2AFE04B428F94380008647E0 /* LinkInTextCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkInTextCoordinatorAssembly.swift; sourceTree = "<group>"; };
+		2AFE04B628F946D7008647E0 /* LinkInTextCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkInTextCoordinator.swift; sourceTree = "<group>"; };
+		2AFE04B828F94ABB008647E0 /* EditorPageCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorPageCoordinator.swift; sourceTree = "<group>"; };
+		2AFE04BA28F94C52008647E0 /* EditorPageCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorPageCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		2E0D0E74289D652000785833 /* EditorSetViewSettingsRelation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetViewSettingsRelation.swift; sourceTree = "<group>"; };
 		2E0D0E76289D653500785833 /* EditorSetViewSettingsToggleItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetViewSettingsToggleItem.swift; sourceTree = "<group>"; };
 		2E0D0E78289D678200785833 /* EditorSetViewSettingsValueItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetViewSettingsValueItem.swift; sourceTree = "<group>"; };
@@ -2671,14 +2679,15 @@
 		038FB5C622D8F2DE002B90B8 /* PresentationLayer */ = {
 			isa = PBXGroup;
 			children = (
-				2A2C330A28928D5F008BC326 /* Assemblies */,
-				2A2C330728928BF7008BC326 /* Openers */,
 				129C54D527FC8BC100C390C7 /* AddNewRelation flow */,
+				2A2C330A28928D5F008BC326 /* Assemblies */,
 				03074B86239514BF009FA7D0 /* Auth */,
 				0331BBE122E608AC002AD179 /* Common */,
 				C91AFEEB270B4C9C005F9386 /* Debug */,
 				1289C50E2810278F005085E2 /* FileDownloading flow */,
 				3D932D3626317E3A00C7D1EA /* Home */,
+				2AFE04B128F9434C008647E0 /* LinkInTextFlow */,
+				2A2C330728928BF7008BC326 /* Openers */,
 				2A2C330128928633008BC326 /* RelationValueFlow */,
 				1244790F27D8A35800581174 /* Search screen */,
 				C90189A428338D1100F30853 /* Templates */,
@@ -2950,6 +2959,7 @@
 		0A0965BE25BEF5B000C004BD /* EditorPage */ = {
 			isa = PBXGroup;
 			children = (
+				2AFE04B828F94ABB008647E0 /* EditorPageCoordinator.swift */,
 				C9D5F7B8281A79B00076A47F /* CompositionalBlock */,
 				3D36B0A526A71B4A0046C90F /* Utils */,
 				3D180220264E9C0000224815 /* Models */,
@@ -4547,6 +4557,15 @@
 			path = ActivityIndicator;
 			sourceTree = "<group>";
 		};
+		2AFE04B128F9434C008647E0 /* LinkInTextFlow */ = {
+			isa = PBXGroup;
+			children = (
+				2AFE04B628F946D7008647E0 /* LinkInTextCoordinator.swift */,
+				2AFE04B428F94380008647E0 /* LinkInTextCoordinatorAssembly.swift */,
+			);
+			path = LinkInTextFlow;
+			sourceTree = "<group>";
+		};
 		2E0DAF1C28A26DBD00F43320 /* CardSize */ = {
 			isa = PBXGroup;
 			children = (
@@ -5656,6 +5675,7 @@
 				3D93D574270CA3D600614E29 /* EditorPageAssembly.swift */,
 				3D540C7A2625C9DE00A07BD8 /* EditorBrowserAssembly.swift */,
 				3D8D41BD2743D32000F8EBF3 /* EditorScreenData.swift */,
+				2AFE04BA28F94C52008647E0 /* EditorPageCoordinatorAssembly.swift */,
 			);
 			path = Assembly;
 			sourceTree = "<group>";
@@ -8226,6 +8246,7 @@
 				125B6EC826F235F400BCD7D6 /* MentionsViewModel.swift in Sources */,
 				535E02B227502ECF00E1AF8C /* RelationBlockViewModel.swift in Sources */,
 				A3940BB1245AB45600CD6F37 /* SearchTextFieldView.swift in Sources */,
+				2AFE04B728F946D7008647E0 /* LinkInTextCoordinator.swift in Sources */,
 				3DAE1C84273E69AD009A72F3 /* Range+Mention.swift in Sources */,
 				3DB1CA6E272C0C19000D2779 /* WallpaperColorsGridView.swift in Sources */,
 				53EA4A7F2637639F00968B8E /* StyleColorCellConfiguration.swift in Sources */,
@@ -8402,6 +8423,7 @@
 				3DB1C9E12727DAEF000D2779 /* UIView+SpookyShake.swift in Sources */,
 				127EABF42739440200C731F2 /* TagRelationView.swift in Sources */,
 				3DE3C91D26F464BF0012AF51 /* MentionObjectsService.swift in Sources */,
+				2AFE04BB28F94C52008647E0 /* EditorPageCoordinatorAssembly.swift in Sources */,
 				EA57F3DA26B84AA9007D4292 /* MarkupRange.swift in Sources */,
 				3D5A416B2703170300F1F6A1 /* BlockBackgroundColor.swift in Sources */,
 				125683E027DF1D3C003A8251 /* ObjectsSearchInteractorProtocol.swift in Sources */,
@@ -8536,6 +8558,7 @@
 				2A176438283E2211002853D3 /* AnytypePopupProxy.swift in Sources */,
 				C90F8F2A28DCBD9900E874A9 /* PreviewRemoteItem.swift in Sources */,
 				53FF7CBE26FDD37D00A5A592 /* ObjectAction.swift in Sources */,
+				2AFE04B528F94380008647E0 /* LinkInTextCoordinatorAssembly.swift in Sources */,
 				C971EA4627E9C696002FF3BE /* UnsplashService.swift in Sources */,
 				2A150BE028AA8E9700F2E569 /* TextRelationURLActionViewModel.swift in Sources */,
 				125FD2FE26CE522700D21F5A /* EditorNavigationBarHelperProtocol.swift in Sources */,
@@ -8565,6 +8588,7 @@
 				2AD8592D283CE60C008BCE4B /* HomeView+ContextMenu.swift in Sources */,
 				0ACDB07C255AA40900B8B0D8 /* FileActionsServiceProtocol.swift in Sources */,
 				03A24B8C231EC07700DA7369 /* ArrayExtension.swift in Sources */,
+				2AFE04B928F94ABB008647E0 /* EditorPageCoordinator.swift in Sources */,
 				129D78C52694B7E700DA6757 /* ObjectLayoutRow.swift in Sources */,
 				C9C536AB276C86DD003CD3F3 /* UIColor+Assets.swift in Sources */,
 				1244792427D8AE4100581174 /* NewSearchModuleAssembly.swift in Sources */,

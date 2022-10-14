@@ -9,12 +9,12 @@ final class MentionsViewModel {
     weak var view: MentionsView!
     
     private let mentionService: MentionObjectsService
-    private let pageService: PageService
+    private let pageService: PageServiceProtocol
     private let onSelect: (MentionObject) -> Void
     
     init(
         mentionService: MentionObjectsService,
-        pageService: PageService,
+        pageService: PageServiceProtocol,
         onSelect: @escaping (MentionObject) -> Void
     ) {
         self.mentionService = mentionService
