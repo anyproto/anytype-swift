@@ -179,26 +179,29 @@ final class EditorSetViewModel: ObservableObject {
             }
             
             self.records.applySubscriptionUpdate(update)
-            self.configurations = self.dataBuilder.itemData(
-                self.records,
-                dataView: self.dataView,
-                activeView: self.activeView,
-                colums: self.colums,
-                isObjectLocked: self.isObjectLocked,
-                onIconTap: { [weak self] details in
-                    self?.updateDetailsIfNeeded(details)
-                },
-                onItemTap: { [weak self] details in
-                    self?.itemTapped(details)
-                }
-            )
+            self.updateConfigurations()
         }
+    }
+    
+    private func updateConfigurations() {
+        self.configurations = dataBuilder.itemData(
+            records,
+            dataView: dataView,
+            activeView: activeView,
+            colums: colums,
+            isObjectLocked: isObjectLocked,
+            onIconTap: { [weak self] details in
+                self?.updateDetailsIfNeeded(details)
+            },
+            onItemTap: { [weak self] details in
+                self?.itemTapped(details)
+            }
+        )
     }
     
     private func onDataChange(_ data: DocumentUpdate) {
         switch data {
         case .general, .blocks, .details, .dataSourceUpdate:
-            objectWillChange.send()
             setupDataview()
         case .syncStatus(let status):
             if setSyncStatus {
@@ -249,6 +252,7 @@ final class EditorSetViewModel: ObservableObject {
         updateFilters()
         startSubscriptionIfNeeded()
         featuredRelations = document.featuredRelationsForEditor
+        updateConfigurations()
 
         isUpdating = false
     }
