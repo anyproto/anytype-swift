@@ -159,11 +159,17 @@ final class EditorSetViewModel: ObservableObject {
             )
         )
         
-        guard subscriptionService.needRestartSubscription(data: data) else {
+        guard subscriptionService.hasSubscriptionDataDiff(with: data) else {
             return
         }
-        subscriptionService.stopAllSubscriptions()
         
+        restartSubscription(with: data)
+    }
+    
+    // MARK: - Private
+    
+    private func restartSubscription(with data: SubscriptionData) {
+        subscriptionService.stopAllSubscriptions()
         subscriptionService.startSubscription(data: data) { [weak self] subId, update in
             guard let self = self else { return }
 
@@ -188,8 +194,6 @@ final class EditorSetViewModel: ObservableObject {
             )
         }
     }
-    
-    // MARK: - Private
     
     private func onDataChange(_ data: DocumentUpdate) {
         switch data {

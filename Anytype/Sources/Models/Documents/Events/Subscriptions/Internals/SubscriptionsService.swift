@@ -61,7 +61,7 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
         update(data.identifier, .pageCount(numberOfPagesFromTotalCount(result.count)))
     }
     
-    func needRestartSubscription(data: SubscriptionData) -> Bool {
+    func hasSubscriptionDataDiff(with data: SubscriptionData) -> Bool {
         guard let prevData = subscribers[data.identifier] else {
             return true
         }
