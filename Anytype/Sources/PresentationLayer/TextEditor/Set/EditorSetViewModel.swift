@@ -7,11 +7,12 @@ import SwiftUI
 final class EditorSetViewModel: ObservableObject {
     @Published var titleString: String
     @Published var dataView = BlockDataview.empty
-    @Published private var records: [ObjectDetails] = []
     @Published private(set) var headerModel: ObjectHeaderViewModel!
     @Published var loadingDocument = true
     @Published var pagitationData = EditorSetPaginationData.empty
     @Published var featuredRelations = [Relation]()
+    
+    private var records: [ObjectDetails] = []
     @Published var configurations = [SetContentViewItemConfiguration]()
     
     @Published var sorts: [SetSort] = []
@@ -122,7 +123,7 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     func onAppear() {
-        setupSubscriptions()
+        startSubscriptionIfNeeded()
         router?.setNavigationViewHidden(false, animated: true)
     }
     
@@ -144,19 +145,26 @@ final class EditorSetViewModel: ObservableObject {
         setupDataview()
     }
     
-    func setupSubscriptions() {
-        subscriptionService.stopAllSubscriptions()
-        guard !isEmpty else { return }
+    func startSubscriptionIfNeeded() {
+        guard !isEmpty else {
+            subscriptionService.stopAllSubscriptions()
+            return
+        }
         
-        subscriptionService.startSubscription(
-            data: setSubscriptionDataBuilder.set(
-                .init(
-                    dataView: dataView,
-                    view: activeView,
-                    currentPage: max(pagitationData.selectedPage, 1) // show first page for empty request
-                )
+        let data = setSubscriptionDataBuilder.set(
+            .init(
+                dataView: dataView,
+                view: activeView,
+                currentPage: max(pagitationData.selectedPage, 1) // show first page for empty request
             )
-        ) { [weak self] subId, update in
+        )
+        
+        guard subscriptionService.needRestartSubscription(data: data) else {
+            return
+        }
+        subscriptionService.stopAllSubscriptions()
+        
+        subscriptionService.startSubscription(data: data) { [weak self] subId, update in
             guard let self = self else { return }
 
             if case let .pageCount(count) = update {
@@ -235,7 +243,7 @@ final class EditorSetViewModel: ObservableObject {
         updateActiveViewId()
         updateSorts()
         updateFilters()
-        setupSubscriptions()
+        startSubscriptionIfNeeded()
         featuredRelations = document.featuredRelationsForEditor
 
         isUpdating = false

@@ -60,6 +60,13 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
         update(data.identifier, .initialData(result.records))
         update(data.identifier, .pageCount(numberOfPagesFromTotalCount(result.count)))
     }
+    
+    func needRestartSubscription(data: SubscriptionData) -> Bool {
+        guard let prevData = subscribers[data.identifier] else {
+            return true
+        }
+        return data != prevData.data
+    }
  
     // MARK: - Private
     private let dependencySubscriptionSuffix = "/dep"
