@@ -25,7 +25,8 @@ enum AttributeState {
         var allAttributesState = [MarkupType: AttributeState]()
 
         MarkupType.allCases.forEach {
-            allAttributesState[$0] = AttributeState.state(markup: $0, in: range, string: string, with: restrictions)
+            let value = string.markupValue($0, range: range) ?? $0
+            allAttributesState[value] = AttributeState.state(markup: $0, in: range, string: string, with: restrictions)
         }
 
         return allAttributesState

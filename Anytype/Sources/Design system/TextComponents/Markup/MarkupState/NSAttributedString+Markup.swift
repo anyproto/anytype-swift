@@ -52,30 +52,37 @@ extension NSAttributedString {
         return value(for: .emoji, range: range)
     }
     
-    func hasMarkup(_ markup: MarkupType, range: NSRange) -> Bool {
+    func markupValue(_ markup: MarkupType, range: NSRange) -> MarkupType? {
         switch markup {
         case .bold:
-            return boldState(range: range)
+            return boldState(range: range) ? .bold : nil
         case .italic:
-            return italicState(range: range)
+            return italicState(range: range) ? .italic : nil
         case .keyboard:
-            return codeState(range: range)
+            return codeState(range: range) ? .keyboard : nil
         case .strikethrough:
-            return strikethroughState(range: range)
+            return strikethroughState(range: range) ? .strikethrough : nil
         case .textColor:
-            return colorState(range: range).isNotNil
+            return colorState(range: range).map { .textColor($0) } ?? nil
         case .underscored:
-            return isUnderscored(range: range)
+            return isUnderscored(range: range) ? .underscored : nil
         case .backgroundColor:
-            return backgroundColor(range: range).isNotNil
+            return backgroundColor(range: range).map { .backgroundColor($0) } ?? nil
         case .link:
-            return linkState(range: range).isNotNil
+            return linkState(range: range).map { .link($0) } ?? nil
         case .linkToObject:
-            return linkToObjectState(range: range).isNotNil
+            return linkToObjectState(range: range).map { .linkToObject($0) } ?? nil
         case .mention:
-            return mention(range: range).isNotNil
+            return mention(range: range).map { .mention(MentionData.noDetails(blockId: $0)) } ?? nil
         case .emoji:
-            return emoji(range: range).isNotNil
+            if let emojiString = emoji(range: range), let emoji = Emoji(emojiString) {
+                return .emoji(emoji)
+            }
+            return nil
         }
+    }
+    
+    func hasMarkup(_ markup: MarkupType, range: NSRange) -> Bool {
+        return markupValue(markup, range: range).isNotNil
     }
 }
