@@ -31,8 +31,6 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     )
 
     func showMarkupBottomSheet(
-        selectedMarkups: [MarkupType : AttributeState],
-        selectedHorizontalAlignment: [LayoutAlignment : AttributeState],
         selectedBlockIds: [BlockId],
         viewDidClose: @escaping () -> Void
     )

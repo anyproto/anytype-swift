@@ -395,9 +395,6 @@
 		2A176438283E2211002853D3 /* AnytypePopupProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A176437283E2211002853D3 /* AnytypePopupProxy.swift */; };
 		2A17643A283E2245002853D3 /* ContentUrlBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A176439283E2245002853D3 /* ContentUrlBuilder.swift */; };
 		2A1AEDA028FD318A008C3660 /* MarkupViewTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1AED9F28FD318A008C3660 /* MarkupViewTypes.swift */; };
-		2A1AEDA328FD3A10008C3660 /* MarkupViewModelAdapterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1AEDA228FD3A10008C3660 /* MarkupViewModelAdapterProtocol.swift */; };
-		2A1AEDA528FD3B04008C3660 /* MarkupEditorViewModelAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1AEDA428FD3B04008C3660 /* MarkupEditorViewModelAdapter.swift */; };
-		2A1AEDA728FD416B008C3660 /* MarkupSimpleTableViewModelAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1AEDA628FD416B008C3660 /* MarkupSimpleTableViewModelAdapter.swift */; };
 		2A2C330028919576008BC326 /* RelationMetadataFormat+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2C32FF28919576008BC326 /* RelationMetadataFormat+Extensions.swift */; };
 		2A2C330328928668008BC326 /* RelationValueCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2C330228928668008BC326 /* RelationValueCoordinator.swift */; };
 		2A2C330528928A7C008BC326 /* RelationValueCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2C330428928A7C008BC326 /* RelationValueCoordinatorAssembly.swift */; };
@@ -1624,9 +1621,6 @@
 		2A176437283E2211002853D3 /* AnytypePopupProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnytypePopupProxy.swift; sourceTree = "<group>"; };
 		2A176439283E2245002853D3 /* ContentUrlBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentUrlBuilder.swift; sourceTree = "<group>"; };
 		2A1AED9F28FD318A008C3660 /* MarkupViewTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupViewTypes.swift; sourceTree = "<group>"; };
-		2A1AEDA228FD3A10008C3660 /* MarkupViewModelAdapterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupViewModelAdapterProtocol.swift; sourceTree = "<group>"; };
-		2A1AEDA428FD3B04008C3660 /* MarkupEditorViewModelAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupEditorViewModelAdapter.swift; sourceTree = "<group>"; };
-		2A1AEDA628FD416B008C3660 /* MarkupSimpleTableViewModelAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupSimpleTableViewModelAdapter.swift; sourceTree = "<group>"; };
 		2A2C32FF28919576008BC326 /* RelationMetadataFormat+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RelationMetadataFormat+Extensions.swift"; sourceTree = "<group>"; };
 		2A2C330228928668008BC326 /* RelationValueCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationValueCoordinator.swift; sourceTree = "<group>"; };
 		2A2C330428928A7C008BC326 /* RelationValueCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationValueCoordinatorAssembly.swift; sourceTree = "<group>"; };
@@ -4356,16 +4350,6 @@
 			path = URL;
 			sourceTree = "<group>";
 		};
-		2A1AEDA128FD39E1008C3660 /* MarkupViewModelAdapter */ = {
-			isa = PBXGroup;
-			children = (
-				2A1AEDA228FD3A10008C3660 /* MarkupViewModelAdapterProtocol.swift */,
-				2A1AEDA428FD3B04008C3660 /* MarkupEditorViewModelAdapter.swift */,
-				2A1AEDA628FD416B008C3660 /* MarkupSimpleTableViewModelAdapter.swift */,
-			);
-			path = MarkupViewModelAdapter;
-			sourceTree = "<group>";
-		};
 		2A2C330128928633008BC326 /* RelationValueFlow */ = {
 			isa = PBXGroup;
 			children = (
@@ -6348,7 +6332,6 @@
 		533856AC263B2285005A06A9 /* TextAttributesView */ = {
 			isa = PBXGroup;
 			children = (
-				2A1AEDA128FD39E1008C3660 /* MarkupViewModelAdapter */,
 				533856AF263B22B8005A06A9 /* MarkupViewController.swift */,
 				EA57F3D426B84592007D4292 /* MarkupViewModelAction.swift */,
 				EA57F41926B99936007D4292 /* MarkupViewModel.swift */,
@@ -7666,7 +7649,6 @@
 				3D88217C26F3722600A41E75 /* BlockText+AnytypeText.swift in Sources */,
 				12AF9986273A8B87004CBB80 /* RelationsBuilder.swift in Sources */,
 				EA57F41B26B99937007D4292 /* MarkupViewProtocol.swift in Sources */,
-				2A1AEDA528FD3B04008C3660 /* MarkupEditorViewModelAdapter.swift in Sources */,
 				3D210C142758CCE50007F558 /* RelationsListRowPlaceholderView.swift in Sources */,
 				EAED57A6269F346D00374A46 /* TextBlockViewModel.swift in Sources */,
 				0A0965FB25BEF5B000C004BD /* EditorPageController.swift in Sources */,
@@ -8159,7 +8141,6 @@
 				3DE0D01426F8BABD003A606A /* AnytypeText+Mention.swift in Sources */,
 				2E0DAF1E28A26DBD00F43320 /* SetViewSettingsCardSizeViewModel.swift in Sources */,
 				5356072926E61E2E001464A4 /* UnsupportedBlockContentConfiguration.swift in Sources */,
-				2A1AEDA728FD416B008C3660 /* MarkupSimpleTableViewModelAdapter.swift in Sources */,
 				5392CACF28469E1000F56F10 /* PasteboardPasteResult.swift in Sources */,
 				1215E8B426A860ED0089AF7E /* AppConfiguratorProtocol.swift in Sources */,
 				3DDC6A602627071E004F5EA4 /* BlockLinkState.swift in Sources */,
@@ -8516,7 +8497,6 @@
 				12CAF35C26D6644E001E56B2 /* ObjectIconImageGuidelineSet.swift in Sources */,
 				1280E20B265C1A5700E5AEEE /* UIImageExtensions.swift in Sources */,
 				12FD9D232767177400991886 /* RelationStatus.swift in Sources */,
-				2A1AEDA328FD3A10008C3660 /* MarkupViewModelAdapterProtocol.swift in Sources */,
 				124478CB27D77CCD00581174 /* NewRelationOptionProtocol.swift in Sources */,
 				C9432719285DE08200D82F3F /* SimpleTablesTextBlockActionHandler.swift in Sources */,
 				535E02B827503D7D00E1AF8C /* BlockRelationConverter.swift in Sources */,

@@ -344,8 +344,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     }
 
     func showMarkupBottomSheet(
-        selectedMarkups: [MarkupType : AttributeState],
-        selectedHorizontalAlignment: [LayoutAlignment : AttributeState],
         selectedBlockIds: [BlockId],
         viewDidClose: @escaping () -> Void
     ) {
@@ -356,14 +354,11 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
             return
         }
         
-        let viewModelAdadpter = MarkupSimpleTableViewModelAdapter(
-            selectedMarkups: selectedMarkups,
-            selectedHorizontalAlignment: selectedHorizontalAlignment,
+        let viewModel = MarkupViewModel(
+            document: document,
             blockIds: selectedBlockIds,
             actionHandler: controller.viewModel.actionHandler
         )
-        
-        let viewModel = MarkupViewModel(viewModelAdadpter: viewModelAdadpter)
         let viewController = MarkupsViewController(
             viewModel: viewModel,
             viewDidClose: viewDidClose

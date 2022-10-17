@@ -64,14 +64,11 @@ final class BottomSheetsFactory {
         actionHandler: BlockActionHandlerProtocol,
         viewDidClose: @escaping () -> Void
     ) {
-        
-        let viewModelAdadpter = MarkupEditorViewModelAdapter(
+        let viewModel = MarkupViewModel(
             document: document,
             blockIds: [blockId],
             actionHandler: actionHandler
         )
-        
-        let viewModel = MarkupViewModel(viewModelAdadpter: viewModelAdadpter)
         let viewController = MarkupsViewController(
             viewModel: viewModel,
             viewDidClose: viewDidClose

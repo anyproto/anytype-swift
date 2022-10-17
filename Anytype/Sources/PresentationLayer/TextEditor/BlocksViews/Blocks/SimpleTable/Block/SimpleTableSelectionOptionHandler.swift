@@ -166,11 +166,7 @@ final class SimpleTableSelectionOptionHandler {
     }
 
     private func onStyleSelection(for selectedBlockIds: [BlockId]) {
-        let blockInformations = selectedBlockIds.compactMap(document.infoContainer.get(id:))
-
         router.showMarkupBottomSheet(
-            selectedMarkups: AttributeState.markupAttributes(from: blockInformations),
-            selectedHorizontalAlignment: AttributeState.alignmentAttributes(from: blockInformations),
             selectedBlockIds: selectedBlockIds,
             viewDidClose: {
                 //

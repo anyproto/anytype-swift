@@ -6,20 +6,35 @@ import Combine
 final class MarkupViewModel: MarkupViewModelProtocol {
     weak var view: MarkupViewProtocol?
 
-    private let viewModelAdapter: MarkupViewModelAdapterProtocol
     private var cancellable: AnyCancellable? = nil
     
-    init(viewModelAdadpter: MarkupViewModelAdapterProtocol) {
-        self.viewModelAdapter = viewModelAdadpter
+    private let blockIds: [BlockId]
+    private let actionHandler: BlockActionHandlerProtocol
+    private let document: BaseDocumentProtocol
+    
+    init(
+        document: BaseDocumentProtocol,
+        blockIds: [BlockId],
+        actionHandler: BlockActionHandlerProtocol
+    ) {
+        self.document = document
+        self.blockIds = blockIds
+        self.actionHandler = actionHandler
     }
 
     private func subscribeToPublishers() {
-        cancellable = Publishers.Zip(
-            viewModelAdapter.selectedMarkupsPublisher,
-            viewModelAdapter.selectedHorizontalAlignmentPublisher
-        ).sink { [weak self] markups, aligment in
-            self?.displayCurrentState(selectedMarkups: markups, selectedHorizontalAlignment: aligment)
+        cancellable =  document.updatePublisher.sink { [weak self] _ in
+            self?.updateState()
         }
+    }
+    
+    private func updateState() {
+        let info = blockIds.compactMap { document.infoContainer.get(id: $0) }
+    
+        displayCurrentState(
+            selectedMarkups: AttributeState.markupAttributes(from: info),
+            selectedHorizontalAlignment: AttributeState.alignmentAttributes(from: info)
+        )
     }
 
     private func displayCurrentState(
@@ -48,28 +63,16 @@ final class MarkupViewModel: MarkupViewModelProtocol {
     // MARK: - MarkupViewModelProtocol
     
     func handle(action: MarupViewAction) {
-
-
         switch action {
         case .toggleMarkup(let markupType):
-            viewModelAdapter.onMarkupAction(.toggleMarkup(markupType.markupType))
-//            selectedMarkups[markupType] = selectedMarkups[markupType] == .applied ? .notApplied : .applied
+            actionHandler.changeMarkup(blockIds: blockIds, markType: markupType.markupType)
         case .selectAlignment(let layoutAlignment):
-            viewModelAdapter.onMarkupAction(.selectAlignment(layoutAlignment.layoutAlignment))
-//            for (key, value) in selectedHorizontalAlignment {
-//                if value == .disabled { continue }
-//
-//                selectedHorizontalAlignment[key] = .notApplied
-//            }
-//
-//            selectedHorizontalAlignment[layoutAlignment] = .applied
+            actionHandler.setAlignment(layoutAlignment.layoutAlignment, blockIds: blockIds)
         }
-
-//        displayCurrentState()
     }
 
     func viewLoaded() {
         subscribeToPublishers()
-//        displayCurrentState()
+        updateState()
     }
 }
