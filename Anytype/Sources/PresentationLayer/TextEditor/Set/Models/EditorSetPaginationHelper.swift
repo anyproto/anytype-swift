@@ -1,11 +1,4 @@
 import AnytypeCore
-struct EditorSetPaginationHelperData {
-    let data: EditorSetPaginationData
-    
-    init(data: EditorSetPaginationData) {
-        self.data = data
-    }
-}
 
 final class EditorSetPaginationHelper {
     private let numberOfPagesPerRow: Int = 5
