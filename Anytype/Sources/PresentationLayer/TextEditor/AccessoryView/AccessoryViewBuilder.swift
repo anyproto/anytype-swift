@@ -11,7 +11,7 @@ struct AccessoryViewBuilder {
         onShowStyleMenu: @escaping RoutingAction<BlockInformation>,
         onBlockSelection: @escaping RoutingAction<BlockInformation>,
         pageService: PageServiceProtocol,
-        linkInTextCoordinator: LinkInTextCoordinatorProtocol
+        linkToObjectCoordinator: LinkToObjectCoordinatorProtocol
     ) -> AccessoryViewStateManager {
         let mentionsView = MentionView(frame: CGRect(origin: .zero, size: menuActionsViewSize))
         
@@ -25,7 +25,7 @@ struct AccessoryViewBuilder {
             document: document,
             actionHandler: actionHandler,
             pageService: pageService,
-            linkInTextCoordinator: linkInTextCoordinator
+            linkToObjectCoordinator: linkToObjectCoordinator
         )
 
         let changeTypeViewModel = ChangeTypeAccessoryViewModel(

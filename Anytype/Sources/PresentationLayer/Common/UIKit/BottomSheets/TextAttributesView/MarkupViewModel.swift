@@ -11,17 +11,82 @@ final class MarkupViewModel: MarkupViewModelProtocol {
     private let blockIds: [BlockId]
     private let actionHandler: BlockActionHandlerProtocol
     private let document: BaseDocumentProtocol
+    private let linkToObjectCoordinator: LinkToObjectCoordinatorProtocol
+    
+    // For read link value
+    private var selectedMarkups: [MarkupType: AttributeState] = [:]
     
     init(
         document: BaseDocumentProtocol,
         blockIds: [BlockId],
-        actionHandler: BlockActionHandlerProtocol
+        actionHandler: BlockActionHandlerProtocol,
+        linkToObjectCoordinator: LinkToObjectCoordinatorProtocol
     ) {
         self.document = document
         self.blockIds = blockIds
         self.actionHandler = actionHandler
+        self.linkToObjectCoordinator = linkToObjectCoordinator
     }
 
+    // MARK: - MarkupViewModelProtocol
+    
+    func handle(action: MarupViewAction) {
+        switch action {
+        case .toggleMarkup(let markupType):
+            handleMarkup(markupType)
+        case .selectAlignment(let layoutAlignment):
+            handleAlignment(layoutAlignment)
+        }
+    }
+
+    func viewLoaded() {
+        subscribeToPublishers()
+        updateState()
+    }
+    
+    // MARK: - Private
+    
+    private func handleMarkup(_ markup: MarkupViewType) {
+        switch markup {
+        case .bold:
+            actionHandler.changeMarkup(blockIds: blockIds, markType: .bold)
+        case .italic:
+            actionHandler.changeMarkup(blockIds: blockIds, markType: .italic)
+        case .keyboard:
+            actionHandler.changeMarkup(blockIds: blockIds, markType: .keyboard)
+        case .strikethrough:
+            actionHandler.changeMarkup(blockIds: blockIds, markType: .strikethrough)
+        case .link:
+            let urlLink = selectedMarkups.keys.compactMap { $0.urlLink }.first
+            let blokcLink = selectedMarkups.keys.compactMap { $0.blokcLink }.first
+            let currentLink = Either.from(left: urlLink, right: blokcLink)
+            
+            linkToObjectCoordinator.startFlow(
+                currentLink: currentLink,
+                setLinkToObject: { [weak self, blockIds] blockId in
+                    self?.actionHandler.changeMarkup(blockIds: blockIds, markType: .linkToObject(blockId))
+                },
+                setLinkToUrl: { [weak self, blockIds] url in
+                    self?.actionHandler.changeMarkup(blockIds: blockIds, markType: .link(url))
+                },
+                removeLink: { [weak self, blockIds] in
+                    switch currentLink {
+                    case .right:
+                        self?.actionHandler.changeMarkup(blockIds: blockIds, markType: .linkToObject(nil))
+                    case .left:
+                        self?.actionHandler.changeMarkup(blockIds: blockIds, markType: .link(nil))
+                    case .none:
+                        break
+                    }
+                }
+            )
+        }
+    }
+    
+    private func handleAlignment(_ alignment: MarkupViewLayoutAlignmentType) {
+        actionHandler.setAlignment(alignment.toLayoutAlignment, blockIds: blockIds)
+    }
+    
     private func subscribeToPublishers() {
         cancellable =  document.updatePublisher.sink { [weak self] _ in
             self?.updateState()
@@ -41,15 +106,25 @@ final class MarkupViewModel: MarkupViewModelProtocol {
         selectedMarkups: [MarkupType: AttributeState],
         selectedHorizontalAlignment: [LayoutAlignment: AttributeState]
     ) {
+        self.selectedMarkups = selectedMarkups
+        
         let displayMarkups: [MarkupViewType: AttributeState] = selectedMarkups.reduce(into: [:])
         { partialResult, item in
-            if let key = item.key.markupViewType {
+            guard let key = item.key.toMarkupViewType else { return }
+            let currentKey = partialResult[key]
+            
+            switch (currentKey, item.value) {
+            case (.disabled, _), (_, .disabled):
+                partialResult[key] = .disabled
+            case (.applied, _), (_, .applied):
+                partialResult[key] = .applied
+            default:
                 partialResult[key] = item.value
             }
         }
         
         let displayHorizontalAlignment = selectedHorizontalAlignment.reduce(into: [:]) { partialResult, item in
-            partialResult[item.key.layoutAlignmentViewType] = item.value
+            partialResult[item.key.toLayoutAlignmentViewType] = item.value
         }
         
         let displayState = MarkupViewsState(
@@ -59,20 +134,26 @@ final class MarkupViewModel: MarkupViewModelProtocol {
         
         view?.setMarkupState(displayState)
     }
+}
 
-    // MARK: - MarkupViewModelProtocol
+
+fileprivate extension MarkupType {
     
-    func handle(action: MarupViewAction) {
-        switch action {
-        case .toggleMarkup(let markupType):
-            actionHandler.changeMarkup(blockIds: blockIds, markType: markupType.markupType)
-        case .selectAlignment(let layoutAlignment):
-            actionHandler.setAlignment(layoutAlignment.layoutAlignment, blockIds: blockIds)
+    var urlLink: URL? {
+        switch self {
+        case let .link(url):
+            return url
+        default:
+            return nil
         }
     }
-
-    func viewLoaded() {
-        subscribeToPublishers()
-        updateState()
+    
+    var blokcLink: BlockId? {
+        switch self {
+        case let .linkToObject(blokcId):
+            return blokcId
+        default:
+            return nil
+        }
     }
 }

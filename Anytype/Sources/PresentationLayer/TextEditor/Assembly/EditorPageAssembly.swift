@@ -65,7 +65,8 @@ final class EditorAssembly {
             templatesCoordinator: coordinatorsDI.templates.make(viewController: controller),
             urlOpener: URLOpener(viewController: browser),
             relationValueCoordinator: coordinatorsDI.relationValue.make(viewController: controller),
-            editorPageCoordinator: coordinatorsDI.editorPage.make(rootController: browser, viewController: controller)
+            editorPageCoordinator: coordinatorsDI.editorPage.make(rootController: browser, viewController: controller),
+            linkToObjectCoordinator: coordinatorsDI.linkToObject.make(rootController: browser, viewController: controller)
         )
         
         model.setup(router: router)
@@ -102,7 +103,8 @@ final class EditorAssembly {
             templatesCoordinator: coordinatorsDI.templates.make(viewController: controller),
             urlOpener: URLOpener(viewController: browser),
             relationValueCoordinator: coordinatorsDI.relationValue.make(viewController: controller),
-            editorPageCoordinator: coordinatorsDI.editorPage.make(rootController: browser, viewController: controller)
+            editorPageCoordinator: coordinatorsDI.editorPage.make(rootController: browser, viewController: controller),
+            linkToObjectCoordinator: coordinatorsDI.linkToObject.make(rootController: browser, viewController: controller)
         )
 
         let viewModel = buildViewModel(
@@ -199,11 +201,7 @@ final class EditorAssembly {
             onShowStyleMenu: blocksStateManager.didSelectStyleSelection(info:),
             onBlockSelection: actionHandler.selectBlock(info:),
             pageService: serviceLocator.pageService(),
-            linkInTextCoordinator: coordinatorsDI.linkInText.make(
-                rootController: browser,
-                viewController: controller,
-                blockActionHandler: actionHandler
-            )
+            linkToObjectCoordinator: coordinatorsDI.linkToObject.make(rootController: browser, viewController: controller)
         )
         
         let markdownListener = MarkdownListenerImpl()
@@ -232,11 +230,7 @@ final class EditorAssembly {
             mainEditorSelectionManager: blocksStateManager,
             responderScrollViewHelper: responderScrollViewHelper,
             pageService: serviceLocator.pageService(),
-            linkInTextCoordinator: coordinatorsDI.linkInText.make(
-                rootController: browser,
-                viewController: controller,
-                blockActionHandler: actionHandler
-            )
+            linkToObjectCoordinator: coordinatorsDI.linkToObject.make(rootController: browser, viewController: controller)
         )
 
         let blocksConverter = BlockViewModelBuilder(

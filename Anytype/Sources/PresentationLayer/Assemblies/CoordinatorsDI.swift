@@ -31,8 +31,8 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
         )
     }
     
-    var linkInText: LinkInTextCoordinatorAssemblyProtocol {
-        return LinkInTextCoordinatorAssembly(
+    var linkToObject: LinkToObjectCoordinatorAssemblyProtocol {
+        return LinkToObjectCoordinatorAssembly(
             serviceLocator: serviceLocator,
             modulesDI: modulesDI,
             coordinatorsID: self

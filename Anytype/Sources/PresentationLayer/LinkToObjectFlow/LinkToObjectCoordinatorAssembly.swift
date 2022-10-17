@@ -1,15 +1,14 @@
 import Foundation
 import UIKit
 
-protocol LinkInTextCoordinatorAssemblyProtocol: AnyObject {
+protocol LinkToObjectCoordinatorAssemblyProtocol: AnyObject {
     func make(
         rootController: EditorBrowserController?,
-        viewController: UIViewController,
-        blockActionHandler: BlockActionHandlerProtocol
-    ) -> LinkInTextCoordinatorProtocol
+        viewController: UIViewController
+    ) -> LinkToObjectCoordinatorProtocol
 }
 
-final class LinkInTextCoordinatorAssembly: LinkInTextCoordinatorAssemblyProtocol {
+final class LinkToObjectCoordinatorAssembly: LinkToObjectCoordinatorAssemblyProtocol {
     
     private let serviceLocator: ServiceLocator
     private let modulesDI: ModulesDIProtocol
@@ -21,17 +20,15 @@ final class LinkInTextCoordinatorAssembly: LinkInTextCoordinatorAssemblyProtocol
         self.coordinatorsID = coordinatorsID
     }
     
-    // MARK: - LinkInTextCoordinatorAssemblyProtocol
+    // MARK: - LinkToObjectCoordinatorAssemblyProtocol
     
     func make(
         rootController: EditorBrowserController?,
-        viewController: UIViewController,
-        blockActionHandler: BlockActionHandlerProtocol
-    ) -> LinkInTextCoordinatorProtocol {
+        viewController: UIViewController
+    ) -> LinkToObjectCoordinatorProtocol {
         
-        let coordinator = LinkInTextCoordinator(
+        let coordinator = LinkToObjectCoordinator(
             rootViewController: viewController,
-            actionHandler: blockActionHandler,
             pageService: serviceLocator.pageService(),
             urlOpener: URLOpener(viewController: viewController),
             editorPageCoordinator: coordinatorsID.editorPage.make(

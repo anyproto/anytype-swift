@@ -25,7 +25,7 @@ final class SimpleTableDependenciesBuilder {
     private let responderScrollViewHelper: ResponderScrollViewHelper
     private let cacheContainer = SimpleTableHeightCacheContainer()
     private let pageService: PageServiceProtocol
-    private let linkInTextCoordinator: LinkInTextCoordinatorProtocol
+    private let linkToObjectCoordinator: LinkToObjectCoordinatorProtocol
 
     weak var mainEditorSelectionManager: SimpleTableSelectionHandler?
     weak var viewInput: (EditorPageViewInput & RelativePositionProvider)?
@@ -41,7 +41,7 @@ final class SimpleTableDependenciesBuilder {
         mainEditorSelectionManager: SimpleTableSelectionHandler?,
         responderScrollViewHelper: ResponderScrollViewHelper,
         pageService: PageServiceProtocol,
-        linkInTextCoordinator: LinkInTextCoordinatorProtocol
+        linkToObjectCoordinator: LinkToObjectCoordinatorProtocol
     ) {
         self.document = document
         self.router = router
@@ -53,7 +53,7 @@ final class SimpleTableDependenciesBuilder {
         self.mainEditorSelectionManager = mainEditorSelectionManager
         self.responderScrollViewHelper = responderScrollViewHelper
         self.pageService = pageService
-        self.linkInTextCoordinator = linkInTextCoordinator
+        self.linkToObjectCoordinator = linkToObjectCoordinator
     }
 
     func buildDependenciesContainer(blockInformation: BlockInformation) -> SimpleTableDependenciesContainer {
@@ -85,7 +85,7 @@ final class SimpleTableDependenciesBuilder {
             onShowStyleMenu: stateManager.didSelectStyleSelection(info:),
             onBlockSelection: stateManager.didSelectEditingState(info:),
             pageService: pageService,
-            linkInTextCoordinator: linkInTextCoordinator
+            linkToObjectCoordinator: linkToObjectCoordinator
         )
 
         let simpleTablesBlockDelegate = BlockDelegateImpl(

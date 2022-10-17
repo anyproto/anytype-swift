@@ -27,7 +27,7 @@ enum MarkupViewLayoutAlignmentType {
 
 extension MarkupType {
     
-    var markupViewType: MarkupViewType? {
+    var toMarkupViewType: MarkupViewType? {
         switch self {
         case .bold:
             return .bold
@@ -45,27 +45,8 @@ extension MarkupType {
     }
 }
 
-// TODO: Delete it
-extension MarkupViewType {
-    
-    var markupType: MarkupType {
-        switch self {
-        case .bold:
-            return .bold
-        case .italic:
-            return .italic
-        case .keyboard:
-            return .keyboard
-        case .strikethrough:
-            return .strikethrough
-        case .link:
-            return .linkToObject(nil)
-        }
-    }
-}
-
 extension LayoutAlignment {
-    var layoutAlignmentViewType: MarkupViewLayoutAlignmentType {
+    var toLayoutAlignmentViewType: MarkupViewLayoutAlignmentType {
         switch self {
         case .left:
             return .left
@@ -78,7 +59,7 @@ extension LayoutAlignment {
 }
 
 extension MarkupViewLayoutAlignmentType {
-    var layoutAlignment: LayoutAlignment {
+    var toLayoutAlignment: LayoutAlignment {
         switch self {
         case .left:
             return .left

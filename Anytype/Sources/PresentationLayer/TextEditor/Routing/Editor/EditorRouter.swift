@@ -12,12 +12,13 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     private let addNewRelationCoordinator: AddNewRelationCoordinator
     private let document: BaseDocumentProtocol
     private let settingAssembly = ObjectSettingAssembly()
-    private let editorAssembly: EditorAssembly
+    private let editorAssembly: EditorAssembly // Delete it
     private let templatesCoordinator: TemplatesCoordinator
     private let urlOpener: URLOpenerProtocol
     private let relationValueCoordinator: RelationValueCoordinatorProtocol
     private weak var currentSetSettingsPopup: AnytypePopup?
     private let editorPageCoordinator: EditorPageCoordinatorProtocol
+    private let linkToObjectCoordinator: LinkToObjectCoordinatorProtocol
     
     init(
         rootController: EditorBrowserController?,
@@ -27,7 +28,8 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         templatesCoordinator: TemplatesCoordinator,
         urlOpener: URLOpenerProtocol,
         relationValueCoordinator: RelationValueCoordinatorProtocol,
-        editorPageCoordinator: EditorPageCoordinatorProtocol
+        editorPageCoordinator: EditorPageCoordinatorProtocol,
+        linkToObjectCoordinator: LinkToObjectCoordinatorProtocol
     ) {
         self.rootController = rootController
         self.viewController = viewController
@@ -39,6 +41,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         self.urlOpener = urlOpener
         self.relationValueCoordinator = relationValueCoordinator
         self.editorPageCoordinator = editorPageCoordinator
+        self.linkToObjectCoordinator = linkToObjectCoordinator
     }
 
     func showPage(data: EditorScreenData) {
@@ -138,16 +141,18 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
             info: info,
             actionHandler: controller.viewModel.actionHandler,
             restrictions: restrictions,
-            showMarkupMenu: { [weak controller, weak rootController, unowned document] styleView, viewDidClose in
+            showMarkupMenu: { [weak controller, weak rootController, weak self] styleView, viewDidClose in
+                guard let self = self else { return }
                 guard let controller = controller else { return }
                 guard let rootController = rootController else { return }
 
                 BottomSheetsFactory.showMarkupBottomSheet(
                     parentViewController: rootController,
                     styleView: styleView,
-                    document: document,
+                    document: self.document,
                     blockId: info.id,
                     actionHandler: controller.viewModel.actionHandler,
+                    linkToObjectCoordinator: self.linkToObjectCoordinator,
                     viewDidClose: viewDidClose
                 )
             },
@@ -357,7 +362,8 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         let viewModel = MarkupViewModel(
             document: document,
             blockIds: selectedBlockIds,
-            actionHandler: controller.viewModel.actionHandler
+            actionHandler: controller.viewModel.actionHandler,
+            linkToObjectCoordinator: linkToObjectCoordinator
         )
         let viewController = MarkupsViewController(
             viewModel: viewModel,
