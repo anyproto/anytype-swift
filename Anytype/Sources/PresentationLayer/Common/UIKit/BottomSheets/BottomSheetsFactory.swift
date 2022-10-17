@@ -59,16 +59,19 @@ final class BottomSheetsFactory {
     static func showMarkupBottomSheet(
         parentViewController: UIViewController,
         styleView: UIView,
-        selectedMarkups: [MarkupType : AttributeState],
-        selectedHorizontalAlignment: [LayoutAlignment : AttributeState],
-        onMarkupAction: @escaping (MarkupViewModelAction) -> Void,
+        document: BaseDocumentProtocol,
+        blockId: BlockId,
+        actionHandler: BlockActionHandlerProtocol,
         viewDidClose: @escaping () -> Void
     ) {
-        let viewModel = MarkupViewModel(
-            selectedMarkups: selectedMarkups,
-            selectedHorizontalAlignment: selectedHorizontalAlignment,
-            onMarkupAction: onMarkupAction
+        
+        let viewModelAdadpter = MarkupEditorViewModelAdapter(
+            document: document,
+            blockIds: [blockId],
+            actionHandler: actionHandler
         )
+        
+        let viewModel = MarkupViewModel(viewModelAdadpter: viewModelAdadpter)
         let viewController = MarkupsViewController(
             viewModel: viewModel,
             viewDidClose: viewDidClose

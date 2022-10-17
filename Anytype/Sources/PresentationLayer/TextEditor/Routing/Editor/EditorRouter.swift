@@ -141,21 +141,13 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
             showMarkupMenu: { [weak controller, weak rootController, unowned document] styleView, viewDidClose in
                 guard let controller = controller else { return }
                 guard let rootController = rootController else { return }
-                guard let info = document.infoContainer.get(id: information.id) else { return }
 
                 BottomSheetsFactory.showMarkupBottomSheet(
                     parentViewController: rootController,
                     styleView: styleView,
-                    selectedMarkups: AttributeState.markupAttributes(from: [info]),
-                    selectedHorizontalAlignment: AttributeState.alignmentAttributes(from: [info]),
-                    onMarkupAction: { [unowned controller] action in
-                        switch action {
-                        case let .selectAlignment(alignment):
-                            controller.viewModel.actionHandler.setAlignment(alignment, blockIds: [info.id])
-                        case let .toggleMarkup(markup):
-                            controller.viewModel.actionHandler.toggleWholeBlockMarkup(markup, blockId: info.id)
-                        }
-                    },
+                    document: document,
+                    blockId: info.id,
+                    actionHandler: controller.viewModel.actionHandler,
                     viewDidClose: viewDidClose
                 )
             },
@@ -354,16 +346,24 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     func showMarkupBottomSheet(
         selectedMarkups: [MarkupType : AttributeState],
         selectedHorizontalAlignment: [LayoutAlignment : AttributeState],
-        onMarkupAction: @escaping (MarkupViewModelAction) -> Void,
+        selectedBlockIds: [BlockId],
         viewDidClose: @escaping () -> Void
     ) {
-        guard let rootController = rootController else { return }
-
-        let viewModel = MarkupViewModel(
+        guard let controller = viewController,
+            let rootController = rootController else { return }
+        guard let controller = controller as? EditorPageController else {
+            anytypeAssertionFailure("Not supported type of controller: \(controller)", domain: .editorPage)
+            return
+        }
+        
+        let viewModelAdadpter = MarkupSimpleTableViewModelAdapter(
             selectedMarkups: selectedMarkups,
             selectedHorizontalAlignment: selectedHorizontalAlignment,
-            onMarkupAction: onMarkupAction
+            blockIds: selectedBlockIds,
+            actionHandler: controller.viewModel.actionHandler
         )
+        
+        let viewModel = MarkupViewModel(viewModelAdadpter: viewModelAdadpter)
         let viewController = MarkupsViewController(
             viewModel: viewModel,
             viewDidClose: viewDidClose

@@ -1,64 +1,75 @@
 import AnytypeCore
 import BlocksModels
 import Foundation
+import Combine
 
-extension MarkupViewModel {
-    struct AllAttributesState {
-        let markup: [MarkupType: AttributeState]
-        let alignment: [LayoutAlignment: AttributeState]
-    }
-}
-
-final class MarkupViewModel {
+final class MarkupViewModel: MarkupViewModelProtocol {
     weak var view: MarkupViewProtocol?
 
-    private var selectedMarkups: [MarkupType: AttributeState]
-    private var selectedHorizontalAlignment: [LayoutAlignment: AttributeState]
-    private let onMarkupAction: (MarkupViewModelAction) -> Void
-
-    init(
-        selectedMarkups: [MarkupType: AttributeState],
-        selectedHorizontalAlignment: [LayoutAlignment: AttributeState],
-        onMarkupAction: @escaping (MarkupViewModelAction) -> Void
-    ) {
-        self.selectedMarkups = selectedMarkups
-        self.selectedHorizontalAlignment = selectedHorizontalAlignment
-        self.onMarkupAction = onMarkupAction
-    }
+    private let viewModelAdapter: MarkupViewModelAdapterProtocol
+    private var cancellable: AnyCancellable? = nil
     
+    init(viewModelAdadpter: MarkupViewModelAdapterProtocol) {
+        self.viewModelAdapter = viewModelAdadpter
+    }
 
-    private func displayCurrentState() {
-        let displayState = AllAttributesState(
-            markup: selectedMarkups,
-            alignment: selectedHorizontalAlignment
+    private func subscribeToPublishers() {
+        cancellable = Publishers.Zip(
+            viewModelAdapter.selectedMarkupsPublisher,
+            viewModelAdapter.selectedHorizontalAlignmentPublisher
+        ).sink { [weak self] markups, aligment in
+            self?.displayCurrentState(selectedMarkups: markups, selectedHorizontalAlignment: aligment)
+        }
+    }
+
+    private func displayCurrentState(
+        selectedMarkups: [MarkupType: AttributeState],
+        selectedHorizontalAlignment: [LayoutAlignment: AttributeState]
+    ) {
+        let displayMarkups: [MarkupViewType: AttributeState] = selectedMarkups.reduce(into: [:])
+        { partialResult, item in
+            if let key = item.key.markupViewType {
+                partialResult[key] = item.value
+            }
+        }
+        
+        let displayHorizontalAlignment = selectedHorizontalAlignment.reduce(into: [:]) { partialResult, item in
+            partialResult[item.key.layoutAlignmentViewType] = item.value
+        }
+        
+        let displayState = MarkupViewsState(
+            markup: displayMarkups,
+            alignment: displayHorizontalAlignment
         )
-
+        
         view?.setMarkupState(displayState)
     }
-}
 
-// MARK: - MarkupViewModelProtocol
-extension MarkupViewModel: MarkupViewModelProtocol {
-    func handle(action: MarkupViewModelAction) {
-        onMarkupAction(action)
+    // MARK: - MarkupViewModelProtocol
+    
+    func handle(action: MarupViewAction) {
+
 
         switch action {
         case .toggleMarkup(let markupType):
-            selectedMarkups[markupType] = selectedMarkups[markupType] == .applied ? .notApplied : .applied
+            viewModelAdapter.onMarkupAction(.toggleMarkup(markupType.markupType))
+//            selectedMarkups[markupType] = selectedMarkups[markupType] == .applied ? .notApplied : .applied
         case .selectAlignment(let layoutAlignment):
-            for (key, value) in selectedHorizontalAlignment {
-                if value == .disabled { continue }
-
-                selectedHorizontalAlignment[key] = .notApplied
-            }
-
-            selectedHorizontalAlignment[layoutAlignment] = .applied
+            viewModelAdapter.onMarkupAction(.selectAlignment(layoutAlignment.layoutAlignment))
+//            for (key, value) in selectedHorizontalAlignment {
+//                if value == .disabled { continue }
+//
+//                selectedHorizontalAlignment[key] = .notApplied
+//            }
+//
+//            selectedHorizontalAlignment[layoutAlignment] = .applied
         }
 
-        displayCurrentState()
+//        displayCurrentState()
     }
 
     func viewLoaded() {
-        displayCurrentState()
+        subscribeToPublishers()
+//        displayCurrentState()
     }
 }
