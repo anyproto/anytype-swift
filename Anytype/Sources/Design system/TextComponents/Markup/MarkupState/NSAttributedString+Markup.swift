@@ -63,22 +63,19 @@ extension NSAttributedString {
         case .strikethrough:
             return strikethroughState(range: range) ? .strikethrough : nil
         case .textColor:
-            return colorState(range: range).map { .textColor($0) } ?? nil
+            return colorState(range: range).map { .textColor($0) }
         case .underscored:
             return isUnderscored(range: range) ? .underscored : nil
         case .backgroundColor:
-            return backgroundColor(range: range).map { .backgroundColor($0) } ?? nil
+            return backgroundColor(range: range).map { .backgroundColor($0) }
         case .link:
-            return linkState(range: range).map { .link($0) } ?? nil
+            return linkState(range: range).map { .link($0) }
         case .linkToObject:
-            return linkToObjectState(range: range).map { .linkToObject($0) } ?? nil
+            return linkToObjectState(range: range).map { .linkToObject($0) }
         case .mention:
-            return mention(range: range).map { .mention(MentionData.noDetails(blockId: $0)) } ?? nil
+            return mention(range: range).map { .mention(MentionData.noDetails(blockId: $0)) }
         case .emoji:
-            if let emojiString = emoji(range: range), let emoji = Emoji(emojiString) {
-                return .emoji(emoji)
-            }
-            return nil
+            return emoji(range: range).flatMap { Emoji($0) }.map { .emoji($0) }
         }
     }
     
