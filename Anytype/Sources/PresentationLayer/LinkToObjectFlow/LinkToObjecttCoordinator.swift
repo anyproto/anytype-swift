@@ -8,7 +8,8 @@ protocol LinkToObjectCoordinatorProtocol: AnyObject {
         currentLink: Either<URL, BlockId>?,
         setLinkToObject: @escaping (_ blockId: String) -> Void,
         setLinkToUrl: @escaping (_ url: URL) -> Void,
-        removeLink: @escaping () -> Void
+        removeLink: @escaping () -> Void,
+        willShowNextScreen: (() -> Void)?
     )
 }
 
@@ -37,7 +38,8 @@ final class LinkToObjectCoordinator: LinkToObjectCoordinatorProtocol {
         currentLink: Either<URL, BlockId>?,
         setLinkToObject: @escaping (_ blockId: String) -> Void,
         setLinkToUrl: @escaping (_ url: URL) -> Void,
-        removeLink: @escaping () -> Void
+        removeLink: @escaping () -> Void,
+        willShowNextScreen: (() -> Void)?
     ) {
         
         let onLinkSelection: (LinkToObjectSearchViewModel.SearchKind) -> () = { [weak self] searchKind in
@@ -52,8 +54,10 @@ final class LinkToObjectCoordinator: LinkToObjectCoordinatorProtocol {
             case let .web(url):
                 setLinkToUrl(url)
             case let .openURL(url):
+                willShowNextScreen?()
                 self?.urlOpener.openUrl(url)
             case let .openObject(objectId):
+                willShowNextScreen?()
                 let data = EditorScreenData(pageId: objectId, type: .page)
                 self?.editorPageCoordinator.startFlow(data: data, replaceCurrentPage: false)
             case .removeLink:

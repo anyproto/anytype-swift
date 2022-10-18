@@ -135,7 +135,8 @@ final class MarkupAccessoryViewModel: ObservableObject {
                 case .none:
                     break
                 }
-            }
+            },
+            willShowNextScreen: nil
         )
     }
 

@@ -78,6 +78,9 @@ final class MarkupViewModel: MarkupViewModelProtocol {
                     case .none:
                         break
                     }
+                },
+                willShowNextScreen: { [weak self] in
+                    self?.view?.dismiss()
                 }
             )
         }
