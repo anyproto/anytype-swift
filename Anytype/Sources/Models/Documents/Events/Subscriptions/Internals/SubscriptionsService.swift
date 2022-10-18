@@ -62,10 +62,10 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
     }
     
     func hasSubscriptionDataDiff(with data: SubscriptionData) -> Bool {
-        guard let prevData = subscribers[data.identifier] else {
+        guard let subscriber = subscribers[data.identifier] else {
             return true
         }
-        return data != prevData.data
+        return data != subscriber.data
     }
  
     // MARK: - Private

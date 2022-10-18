@@ -82,13 +82,12 @@ extension SubscriptionData {
 extension SubscriptionData: Equatable {
     static func == (lhs: SubscriptionData, rhs: SubscriptionData) -> Bool {
         switch (lhs, rhs) {
-        case let (.search(lhsBlock), .search(rhsBlock)):
-            return lhsBlock == rhsBlock
-        case let (.objects(lhsHeader), .objects(rhsHeader)):
-            return lhsHeader == rhsHeader
+        case let (.search(lhsSearch), .search(rhsSearch)):
+            return lhsSearch == rhsSearch
+        case let (.objects(lhsObject), .objects(rhsObject)):
+            return lhsObject == rhsObject
         default:
             return false
         }
     }
-    
 }

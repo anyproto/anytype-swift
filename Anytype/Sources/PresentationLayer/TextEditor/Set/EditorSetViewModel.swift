@@ -251,8 +251,8 @@ final class EditorSetViewModel: ObservableObject {
         updateSorts()
         updateFilters()
         startSubscriptionIfNeeded()
-        featuredRelations = document.featuredRelationsForEditor
         updateConfigurations()
+        featuredRelations = document.featuredRelationsForEditor
 
         isUpdating = false
     }
