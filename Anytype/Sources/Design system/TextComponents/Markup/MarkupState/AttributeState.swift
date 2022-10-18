@@ -53,18 +53,29 @@ enum AttributeState {
         var mergedMarkupAttributes = [MarkupType: AttributeState]()
         blocksMarkupAttributes.forEach { markups in
             markups.forEach { markupKey, value in
-                if let existingValue = mergedMarkupAttributes[markupKey] {
-                    switch existingValue {
-                    case .applied:
+                let keyWithSameType = mergedMarkupAttributes.keys
+                    .first { $0.sameType(markupKey) }
+                
+                if keyWithSameType == markupKey {
+                    // Same value
+                    let existingValue = mergedMarkupAttributes[markupKey]
+                    switch (existingValue, value) {
+                    case (.disabled, _):
+                        break // safe disable
+                    case (.notApplied, .applied):
+                        break // safe notApplied
+                    default:
                         mergedMarkupAttributes[markupKey] = value
-                    case .disabled:
-                        mergedMarkupAttributes[markupKey] = .disabled
-                    case .notApplied:
-                        if case .applied = value {
-                            return
-                        }
-
-                        mergedMarkupAttributes[markupKey] = value
+                    }
+                } else if let keyWithSameType {
+                    // Different value for same markup type
+                    let existingValue = mergedMarkupAttributes[keyWithSameType]
+                    mergedMarkupAttributes[keyWithSameType] = nil
+                    switch (existingValue, value) {
+                    case (.disabled, _), (_, .disabled):
+                        mergedMarkupAttributes[markupKey.typeWithoutValue()] = .disabled
+                    default:
+                        mergedMarkupAttributes[markupKey.typeWithoutValue()] = .notApplied
                     }
                 } else {
                     mergedMarkupAttributes[markupKey] = value
