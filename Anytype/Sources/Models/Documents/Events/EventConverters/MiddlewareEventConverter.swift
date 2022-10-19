@@ -362,6 +362,7 @@ final class MiddlewareEventConverter {
             }
             
             return .general
+            
         case .accountShow,
                 .accountDetails, // Skipped
                 .accountConfigUpdate, // Remote config updates
@@ -380,6 +381,7 @@ final class MiddlewareEventConverter {
                 .blockDataviewOldRelationSet,
                 .blockDataviewOldRelationDelete,
                 .blockDataViewGroupOrderUpdate,
+                .blockDataViewObjectOrderUpdate,
                 .userBlockJoin,
                 .userBlockLeft,
                 .userBlockSelectRange,

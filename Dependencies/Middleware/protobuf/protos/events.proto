@@ -55,11 +55,12 @@ message Event {
             Block.Set.VerticalAlign blockSetVerticalAlign = 36;
             Block.Set.TableRow blockSetTableRow = 37;
 
-            Block.Dataview.GroupOrderUpdate blockDataViewGroupOrderUpdate = 38;
-            Block.Dataview.SourceSet blockDataviewSourceSet = 35;
             Block.Dataview.ViewSet blockDataviewViewSet = 19;
             Block.Dataview.ViewDelete blockDataviewViewDelete = 20;
             Block.Dataview.ViewOrder blockDataviewViewOrder = 29;
+            Block.Dataview.SourceSet blockDataviewSourceSet = 35;
+            Block.Dataview.GroupOrderUpdate blockDataViewGroupOrderUpdate = 38;
+            Block.Dataview.ObjectOrderUpdate blockDataViewObjectOrderUpdate = 39;
             Block.Dataview.RelationDelete blockDataviewRelationDelete = 124;
             Block.Dataview.RelationSet blockDataviewRelationSet = 123;
 
@@ -709,6 +710,27 @@ message Event {
             message GroupOrderUpdate {
                 string id = 1; // dataview block's id
                 anytype.model.Block.Content.Dataview.GroupOrder groupOrder = 2;
+            }
+
+            message ObjectOrderUpdate {
+                string id = 1; // dataview block's id
+                string viewId = 2;
+                string groupId = 3;
+                repeated SliceChange sliceChanges = 4;
+            }
+
+            message SliceChange {
+                SliceOperation op = 1;
+                repeated string ids = 2;
+                string afterId = 3;
+            }
+
+            enum SliceOperation {
+                SliceOperationNone = 0; // not used
+                SliceOperationAdd = 1;
+                SliceOperationMove = 2;
+                SliceOperationRemove = 3;
+                SliceOperationReplace = 4;
             }
         }
     }

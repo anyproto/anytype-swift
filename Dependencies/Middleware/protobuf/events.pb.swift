@@ -307,22 +307,6 @@ public struct Anytype_Event {
       set {value = .blockSetTableRow(newValue)}
     }
 
-    public var blockDataViewGroupOrderUpdate: Anytype_Event.Block.Dataview.GroupOrderUpdate {
-      get {
-        if case .blockDataViewGroupOrderUpdate(let v)? = value {return v}
-        return Anytype_Event.Block.Dataview.GroupOrderUpdate()
-      }
-      set {value = .blockDataViewGroupOrderUpdate(newValue)}
-    }
-
-    public var blockDataviewSourceSet: Anytype_Event.Block.Dataview.SourceSet {
-      get {
-        if case .blockDataviewSourceSet(let v)? = value {return v}
-        return Anytype_Event.Block.Dataview.SourceSet()
-      }
-      set {value = .blockDataviewSourceSet(newValue)}
-    }
-
     public var blockDataviewViewSet: Anytype_Event.Block.Dataview.ViewSet {
       get {
         if case .blockDataviewViewSet(let v)? = value {return v}
@@ -345,6 +329,30 @@ public struct Anytype_Event {
         return Anytype_Event.Block.Dataview.ViewOrder()
       }
       set {value = .blockDataviewViewOrder(newValue)}
+    }
+
+    public var blockDataviewSourceSet: Anytype_Event.Block.Dataview.SourceSet {
+      get {
+        if case .blockDataviewSourceSet(let v)? = value {return v}
+        return Anytype_Event.Block.Dataview.SourceSet()
+      }
+      set {value = .blockDataviewSourceSet(newValue)}
+    }
+
+    public var blockDataViewGroupOrderUpdate: Anytype_Event.Block.Dataview.GroupOrderUpdate {
+      get {
+        if case .blockDataViewGroupOrderUpdate(let v)? = value {return v}
+        return Anytype_Event.Block.Dataview.GroupOrderUpdate()
+      }
+      set {value = .blockDataViewGroupOrderUpdate(newValue)}
+    }
+
+    public var blockDataViewObjectOrderUpdate: Anytype_Event.Block.Dataview.ObjectOrderUpdate {
+      get {
+        if case .blockDataViewObjectOrderUpdate(let v)? = value {return v}
+        return Anytype_Event.Block.Dataview.ObjectOrderUpdate()
+      }
+      set {value = .blockDataViewObjectOrderUpdate(newValue)}
     }
 
     public var blockDataviewRelationDelete: Anytype_Event.Block.Dataview.RelationDelete {
@@ -488,11 +496,12 @@ public struct Anytype_Event {
       case blockSetLatex(Anytype_Event.Block.Set.Latex)
       case blockSetVerticalAlign(Anytype_Event.Block.Set.VerticalAlign)
       case blockSetTableRow(Anytype_Event.Block.Set.TableRow)
-      case blockDataViewGroupOrderUpdate(Anytype_Event.Block.Dataview.GroupOrderUpdate)
-      case blockDataviewSourceSet(Anytype_Event.Block.Dataview.SourceSet)
       case blockDataviewViewSet(Anytype_Event.Block.Dataview.ViewSet)
       case blockDataviewViewDelete(Anytype_Event.Block.Dataview.ViewDelete)
       case blockDataviewViewOrder(Anytype_Event.Block.Dataview.ViewOrder)
+      case blockDataviewSourceSet(Anytype_Event.Block.Dataview.SourceSet)
+      case blockDataViewGroupOrderUpdate(Anytype_Event.Block.Dataview.GroupOrderUpdate)
+      case blockDataViewObjectOrderUpdate(Anytype_Event.Block.Dataview.ObjectOrderUpdate)
       case blockDataviewRelationDelete(Anytype_Event.Block.Dataview.RelationDelete)
       case blockDataviewRelationSet(Anytype_Event.Block.Dataview.RelationSet)
       /// deprecated
@@ -643,14 +652,6 @@ public struct Anytype_Event {
           guard case .blockSetTableRow(let l) = lhs, case .blockSetTableRow(let r) = rhs else { preconditionFailure() }
           return l == r
         }()
-        case (.blockDataViewGroupOrderUpdate, .blockDataViewGroupOrderUpdate): return {
-          guard case .blockDataViewGroupOrderUpdate(let l) = lhs, case .blockDataViewGroupOrderUpdate(let r) = rhs else { preconditionFailure() }
-          return l == r
-        }()
-        case (.blockDataviewSourceSet, .blockDataviewSourceSet): return {
-          guard case .blockDataviewSourceSet(let l) = lhs, case .blockDataviewSourceSet(let r) = rhs else { preconditionFailure() }
-          return l == r
-        }()
         case (.blockDataviewViewSet, .blockDataviewViewSet): return {
           guard case .blockDataviewViewSet(let l) = lhs, case .blockDataviewViewSet(let r) = rhs else { preconditionFailure() }
           return l == r
@@ -661,6 +662,18 @@ public struct Anytype_Event {
         }()
         case (.blockDataviewViewOrder, .blockDataviewViewOrder): return {
           guard case .blockDataviewViewOrder(let l) = lhs, case .blockDataviewViewOrder(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.blockDataviewSourceSet, .blockDataviewSourceSet): return {
+          guard case .blockDataviewSourceSet(let l) = lhs, case .blockDataviewSourceSet(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.blockDataViewGroupOrderUpdate, .blockDataViewGroupOrderUpdate): return {
+          guard case .blockDataViewGroupOrderUpdate(let l) = lhs, case .blockDataViewGroupOrderUpdate(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.blockDataViewObjectOrderUpdate, .blockDataViewObjectOrderUpdate): return {
+          guard case .blockDataViewObjectOrderUpdate(let l) = lhs, case .blockDataViewObjectOrderUpdate(let r) = rhs else { preconditionFailure() }
           return l == r
         }()
         case (.blockDataviewRelationDelete, .blockDataviewRelationDelete): return {
@@ -2921,6 +2934,45 @@ public struct Anytype_Event {
 
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
+      public enum SliceOperation: SwiftProtobuf.Enum {
+        public typealias RawValue = Int
+
+        /// not used
+        case none // = 0
+        case add // = 1
+        case move // = 2
+        case remove // = 3
+        case replace // = 4
+        case UNRECOGNIZED(Int)
+
+        public init() {
+          self = .none
+        }
+
+        public init?(rawValue: Int) {
+          switch rawValue {
+          case 0: self = .none
+          case 1: self = .add
+          case 2: self = .move
+          case 3: self = .remove
+          case 4: self = .replace
+          default: self = .UNRECOGNIZED(rawValue)
+          }
+        }
+
+        public var rawValue: Int {
+          switch self {
+          case .none: return 0
+          case .add: return 1
+          case .move: return 2
+          case .remove: return 3
+          case .replace: return 4
+          case .UNRECOGNIZED(let i): return i
+          }
+        }
+
+      }
+
       /// sent when the view have been changed or added
       public struct ViewSet {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -3106,6 +3158,41 @@ public struct Anytype_Event {
         public init() {}
 
         fileprivate var _groupOrder: Anytype_Model_Block.Content.Dataview.GroupOrder? = nil
+      }
+
+      public struct ObjectOrderUpdate {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        /// dataview block's id
+        public var id: String = String()
+
+        public var viewID: String = String()
+
+        public var groupID: String = String()
+
+        public var sliceChanges: [Anytype_Event.Block.Dataview.SliceChange] = []
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public init() {}
+      }
+
+      public struct SliceChange {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var op: Anytype_Event.Block.Dataview.SliceOperation = .none
+
+        public var ids: [String] = []
+
+        public var afterID: String = String()
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public init() {}
       }
 
       public init() {}
@@ -3530,6 +3617,17 @@ public struct Anytype_Event {
 
 #if swift(>=4.2)
 
+extension Anytype_Event.Block.Dataview.SliceOperation: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Event.Block.Dataview.SliceOperation] = [
+    .none,
+    .add,
+    .move,
+    .remove,
+    .replace,
+  ]
+}
+
 extension Anytype_Event.Status.Thread.SyncStatus: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
   public static var allCases: [Anytype_Event.Status.Thread.SyncStatus] = [
@@ -3830,6 +3928,7 @@ extension Anytype_Event.Block.Fill.Bookmark.FaviconHash: @unchecked Sendable {}
 extension Anytype_Event.Block.Fill.Bookmark.TypeMessage: @unchecked Sendable {}
 extension Anytype_Event.Block.Fill.Bookmark.TargetObjectId: @unchecked Sendable {}
 extension Anytype_Event.Block.Dataview: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.SliceOperation: @unchecked Sendable {}
 extension Anytype_Event.Block.Dataview.ViewSet: @unchecked Sendable {}
 extension Anytype_Event.Block.Dataview.ViewDelete: @unchecked Sendable {}
 extension Anytype_Event.Block.Dataview.ViewOrder: @unchecked Sendable {}
@@ -3839,6 +3938,8 @@ extension Anytype_Event.Block.Dataview.OldRelationSet: @unchecked Sendable {}
 extension Anytype_Event.Block.Dataview.RelationDelete: @unchecked Sendable {}
 extension Anytype_Event.Block.Dataview.RelationSet: @unchecked Sendable {}
 extension Anytype_Event.Block.Dataview.GroupOrderUpdate: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.ObjectOrderUpdate: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.SliceChange: @unchecked Sendable {}
 extension Anytype_Event.User: @unchecked Sendable {}
 extension Anytype_Event.User.Block: @unchecked Sendable {}
 extension Anytype_Event.User.Block.Join: @unchecked Sendable {}
@@ -3959,11 +4060,12 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     25: .same(proto: "blockSetLatex"),
     36: .same(proto: "blockSetVerticalAlign"),
     37: .same(proto: "blockSetTableRow"),
-    38: .same(proto: "blockDataViewGroupOrderUpdate"),
-    35: .same(proto: "blockDataviewSourceSet"),
     19: .same(proto: "blockDataviewViewSet"),
     20: .same(proto: "blockDataviewViewDelete"),
     29: .same(proto: "blockDataviewViewOrder"),
+    35: .same(proto: "blockDataviewSourceSet"),
+    38: .same(proto: "blockDataViewGroupOrderUpdate"),
+    39: .same(proto: "blockDataViewObjectOrderUpdate"),
     124: .same(proto: "blockDataviewRelationDelete"),
     123: .same(proto: "blockDataviewRelationSet"),
     24: .same(proto: "blockDataviewOldRelationDelete"),
@@ -4388,6 +4490,19 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
           self.value = .blockDataViewGroupOrderUpdate(v)
         }
       }()
+      case 39: try {
+        var v: Anytype_Event.Block.Dataview.ObjectOrderUpdate?
+        var hadOneofValue = false
+        if let current = self.value {
+          hadOneofValue = true
+          if case .blockDataViewObjectOrderUpdate(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.value = .blockDataViewObjectOrderUpdate(v)
+        }
+      }()
       case 50: try {
         var v: Anytype_Event.Object.Details.Amend?
         var hadOneofValue = false
@@ -4769,6 +4884,10 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     case .blockDataViewGroupOrderUpdate?: try {
       guard case .blockDataViewGroupOrderUpdate(let v)? = self.value else { preconditionFailure() }
       try visitor.visitSingularMessageField(value: v, fieldNumber: 38)
+    }()
+    case .blockDataViewObjectOrderUpdate?: try {
+      guard case .blockDataViewObjectOrderUpdate(let v)? = self.value else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 39)
     }()
     case .objectDetailsAmend?: try {
       guard case .objectDetailsAmend(let v)? = self.value else { preconditionFailure() }
@@ -9044,6 +9163,16 @@ extension Anytype_Event.Block.Dataview: SwiftProtobuf.Message, SwiftProtobuf._Me
   }
 }
 
+extension Anytype_Event.Block.Dataview.SliceOperation: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "SliceOperationNone"),
+    1: .same(proto: "SliceOperationAdd"),
+    2: .same(proto: "SliceOperationMove"),
+    3: .same(proto: "SliceOperationRemove"),
+    4: .same(proto: "SliceOperationReplace"),
+  ]
+}
+
 extension Anytype_Event.Block.Dataview.ViewSet: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Event.Block.Dataview.protoMessageName + ".ViewSet"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -9453,6 +9582,100 @@ extension Anytype_Event.Block.Dataview.GroupOrderUpdate: SwiftProtobuf.Message, 
   public static func ==(lhs: Anytype_Event.Block.Dataview.GroupOrderUpdate, rhs: Anytype_Event.Block.Dataview.GroupOrderUpdate) -> Bool {
     if lhs.id != rhs.id {return false}
     if lhs._groupOrder != rhs._groupOrder {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Block.Dataview.ObjectOrderUpdate: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Block.Dataview.protoMessageName + ".ObjectOrderUpdate"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "id"),
+    2: .same(proto: "viewId"),
+    3: .same(proto: "groupId"),
+    4: .same(proto: "sliceChanges"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.viewID) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.groupID) }()
+      case 4: try { try decoder.decodeRepeatedMessageField(value: &self.sliceChanges) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.id.isEmpty {
+      try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
+    }
+    if !self.viewID.isEmpty {
+      try visitor.visitSingularStringField(value: self.viewID, fieldNumber: 2)
+    }
+    if !self.groupID.isEmpty {
+      try visitor.visitSingularStringField(value: self.groupID, fieldNumber: 3)
+    }
+    if !self.sliceChanges.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.sliceChanges, fieldNumber: 4)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Block.Dataview.ObjectOrderUpdate, rhs: Anytype_Event.Block.Dataview.ObjectOrderUpdate) -> Bool {
+    if lhs.id != rhs.id {return false}
+    if lhs.viewID != rhs.viewID {return false}
+    if lhs.groupID != rhs.groupID {return false}
+    if lhs.sliceChanges != rhs.sliceChanges {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Block.Dataview.SliceChange: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Block.Dataview.protoMessageName + ".SliceChange"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "op"),
+    2: .same(proto: "ids"),
+    3: .same(proto: "afterId"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.op) }()
+      case 2: try { try decoder.decodeRepeatedStringField(value: &self.ids) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.afterID) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.op != .none {
+      try visitor.visitSingularEnumField(value: self.op, fieldNumber: 1)
+    }
+    if !self.ids.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.ids, fieldNumber: 2)
+    }
+    if !self.afterID.isEmpty {
+      try visitor.visitSingularStringField(value: self.afterID, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Block.Dataview.SliceChange, rhs: Anytype_Event.Block.Dataview.SliceChange) -> Bool {
+    if lhs.op != rhs.op {return false}
+    if lhs.ids != rhs.ids {return false}
+    if lhs.afterID != rhs.afterID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
