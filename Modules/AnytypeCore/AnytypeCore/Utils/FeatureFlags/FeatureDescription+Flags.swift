@@ -52,6 +52,13 @@ extension FeatureDescription {
         defaultValue: false
     )
     
+    static let linktoObjectFromItself = FeatureDescription(
+        title: "Link to object from itself",
+        author: "db@anytype.io",
+        releaseVersion: "0.20.0",
+        defaultValue: false
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(

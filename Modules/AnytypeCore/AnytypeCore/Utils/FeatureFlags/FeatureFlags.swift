@@ -20,7 +20,8 @@ public final class FeatureFlags {
         .setSyncStatus,
         .cursorPosition,
         .hideBottomViewForStyleMenu,
-        .setKanbanView
+        .setKanbanView,
+        .linktoObjectFromItself
     ]
     
     public static func update(key feature: FeatureDescription, value: Bool) {
@@ -75,5 +76,9 @@ public extension FeatureFlags {
     
     static var setKanbanView: Bool {
         value(for: .setKanbanView)
+    }
+    
+    static var linktoObjectFromItself: Bool {
+        value(for: .linktoObjectFromItself)
     }
 }
