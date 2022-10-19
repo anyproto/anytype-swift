@@ -402,6 +402,10 @@ extension EditorPageController: EditorPageViewInput {
         guard let newItem = viewModel.modelsHolder.contentProvider(for: blockId) else { return }
 
         reloadCell(for: .block(newItem))
+
+        var blocksSnapshot = NSDiffableDataSourceSectionSnapshot<EditorItem>()
+        blocksSnapshot.append(viewModel.modelsHolder.items)
+        applyBlocksSectionSnapshot(blocksSnapshot, animatingDifferences: false)
     }
 
     // MARK: -
