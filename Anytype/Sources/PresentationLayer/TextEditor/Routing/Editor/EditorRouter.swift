@@ -12,7 +12,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     private let addNewRelationCoordinator: AddNewRelationCoordinator
     private let document: BaseDocumentProtocol
     private let settingAssembly = ObjectSettingAssembly()
-    private let editorAssembly: EditorAssembly // Delete it
     private let templatesCoordinator: TemplatesCoordinator
     private let urlOpener: URLOpenerProtocol
     private let relationValueCoordinator: RelationValueCoordinatorProtocol
@@ -24,7 +23,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         rootController: EditorBrowserController?,
         viewController: UIViewController,
         document: BaseDocumentProtocol,
-        assembly: EditorAssembly,
         templatesCoordinator: TemplatesCoordinator,
         urlOpener: URLOpenerProtocol,
         relationValueCoordinator: RelationValueCoordinatorProtocol,
@@ -34,7 +32,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         self.rootController = rootController
         self.viewController = viewController
         self.document = document
-        self.editorAssembly = assembly
         self.fileCoordinator = FileDownloadingCoordinator(viewController: viewController)
         self.addNewRelationCoordinator = AddNewRelationCoordinator(document: document, viewController: viewController)
         self.templatesCoordinator = templatesCoordinator
