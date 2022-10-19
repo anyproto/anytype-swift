@@ -25,11 +25,9 @@ final class EditorPageCoordinator: EditorPageCoordinatorProtocol {
     // MARK: - EditorPageCoordinatorProtocol
     
     func startFlow(data: EditorScreenData, replaceCurrentPage: Bool) {
-        if let details = ObjectDetailsStorage.shared.get(id: data.pageId) {
-            guard ObjectTypeProvider.shared.isSupported(typeUrl: details.type) else {
-                showUnsupportedTypeAlert(typeUrl: details.type)
-                return
-            }
+        if let details = ObjectDetailsStorage.shared.get(id: data.pageId), !ObjectTypeProvider.shared.isSupported(typeUrl: details.type) {
+            showUnsupportedTypeAlert(typeUrl: details.type)
+            return
         }
         
         let controller = editorAssembly.buildEditorController(
