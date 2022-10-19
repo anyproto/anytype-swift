@@ -147,9 +147,21 @@ final class EditorPageController: UIViewController {
         case .selecting:
             performBlocksSelection(with: touch)
         case .editing:
-            guard let touchingIndexPath = collectionView.indexPath(for: touch),
+            guard let selectingRangeEditorItem = selectingRangeEditorItem,
+                  let sourceTextIndexPath = dataSource.indexPath(for: selectingRangeEditorItem),
+                  let cell = collectionView.cellForItem(at: sourceTextIndexPath) else {
+                return
+            }
+
+            let pointInCell = touch.location(in: cell)
+            let isAscendingTouch = pointInCell.y > cell.center.y
+            let threshold: CGFloat = isAscendingTouch ? Constants.selectingTextThreshold : -Constants.selectingTextThreshold
+            var locationInCollectionView = touch.location(in: collectionView)
+
+            locationInCollectionView.y = locationInCollectionView.y + threshold
+
+            guard let touchingIndexPath = collectionView.indexPathForItem(at: locationInCollectionView),
                   let touchingItem = dataSource.itemIdentifier(for: touchingIndexPath),
-                  let selectingRangeEditorItem = selectingRangeEditorItem,
                   touchingItem != selectingRangeEditorItem,
                   let selectingRangeTextView = selectingRangeTextView,
                   let sourceTextIndexPath = dataSource.indexPath(for: selectingRangeEditorItem)
@@ -402,6 +414,10 @@ extension EditorPageController: EditorPageViewInput {
         guard let newItem = viewModel.modelsHolder.contentProvider(for: blockId) else { return }
 
         reloadCell(for: .block(newItem))
+
+        var blocksSnapshot = NSDiffableDataSourceSectionSnapshot<EditorItem>()
+        blocksSnapshot.append(viewModel.modelsHolder.items)
+        applyBlocksSectionSnapshot(blocksSnapshot, animatingDifferences: false)
     }
 
     // MARK: -
@@ -648,5 +664,9 @@ extension UICollectionView {
 
         return indexPathForItem(at: point)
     }
+}
+
+private enum Constants {
+    static let selectingTextThreshold: CGFloat = 30
 }
 

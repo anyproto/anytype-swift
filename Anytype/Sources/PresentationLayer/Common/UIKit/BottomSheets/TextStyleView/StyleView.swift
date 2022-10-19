@@ -242,7 +242,7 @@ final class StyleView: UIView {
             highlightedButton.isEnabled = restrictions.turnIntoStyles.contains(.text(.quote))
         }
 
-        let colorButton = ButtonsFactory.roundedBorderуButton(image: UIImage(named: "StyleBottomSheet/color"))
+        let colorButton = ButtonsFactory.roundedBorderуButton(image: UIImage(asset: .StyleBottomSheet.color))
         colorButton.layer.borderWidth = 0
         colorButton.layer.cornerRadius = smallButtonSize.height / 2
         colorButton.setBackgroundColor(.backgroundSelected, state: .selected)
