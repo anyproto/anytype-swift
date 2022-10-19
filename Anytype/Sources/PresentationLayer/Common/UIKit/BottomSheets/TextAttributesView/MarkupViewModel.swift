@@ -86,8 +86,8 @@ final class MarkupViewModel: MarkupViewModelProtocol {
         }
     }
     
-    private func handleAlignment(_ alignment: MarkupViewLayoutAlignmentType) {
-        actionHandler.setAlignment(alignment.toLayoutAlignment, blockIds: blockIds)
+    private func handleAlignment(_ alignment: LayoutAlignment) {
+        actionHandler.setAlignment(alignment, blockIds: blockIds)
     }
     
     private func subscribeToPublishers() {
@@ -114,25 +114,12 @@ final class MarkupViewModel: MarkupViewModelProtocol {
         let displayMarkups: [MarkupViewType: AttributeState] = selectedMarkups.reduce(into: [:])
         { partialResult, item in
             guard let key = item.key.toMarkupViewType else { return }
-            let currentKey = partialResult[key]
-            
-            switch (currentKey, item.value) {
-            case (.disabled, _), (_, .disabled):
-                partialResult[key] = .disabled
-            case (.applied, _), (_, .applied):
-                partialResult[key] = .applied
-            default:
-                partialResult[key] = item.value
-            }
-        }
-        
-        let displayHorizontalAlignment = selectedHorizontalAlignment.reduce(into: [:]) { partialResult, item in
-            partialResult[item.key.toLayoutAlignmentViewType] = item.value
+            partialResult[key] = item.value
         }
         
         let displayState = MarkupViewsState(
             markup: displayMarkups,
-            alignment: displayHorizontalAlignment
+            alignment: selectedHorizontalAlignment
         )
         
         view?.setMarkupState(displayState)

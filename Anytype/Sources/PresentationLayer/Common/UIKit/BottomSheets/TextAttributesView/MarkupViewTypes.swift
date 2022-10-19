@@ -3,12 +3,12 @@ import BlocksModels
 
 enum MarupViewAction {
     case toggleMarkup(MarkupViewType)
-    case selectAlignment(MarkupViewLayoutAlignmentType)
+    case selectAlignment(LayoutAlignment)
 }
 
 struct MarkupViewsState {
     let markup: [MarkupViewType: AttributeState]
-    let alignment: [MarkupViewLayoutAlignmentType: AttributeState]
+    let alignment: [LayoutAlignment: AttributeState]
 }
 
 enum MarkupViewType {
@@ -41,32 +41,6 @@ extension MarkupType {
             return .link
         case .emoji, .underscored, .textColor, .backgroundColor, .mention:
             return nil
-        }
-    }
-}
-
-extension LayoutAlignment {
-    var toLayoutAlignmentViewType: MarkupViewLayoutAlignmentType {
-        switch self {
-        case .left:
-            return .left
-        case .center:
-            return .center
-        case .right:
-            return .right
-        }
-    }
-}
-
-extension MarkupViewLayoutAlignmentType {
-    var toLayoutAlignment: LayoutAlignment {
-        switch self {
-        case .left:
-            return .left
-        case .center:
-            return .center
-        case .right:
-            return .right
         }
     }
 }
