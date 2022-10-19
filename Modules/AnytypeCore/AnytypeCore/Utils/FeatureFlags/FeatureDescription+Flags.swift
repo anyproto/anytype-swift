@@ -52,6 +52,13 @@ extension FeatureDescription {
         defaultValue: false
     )
     
+    static let redesignNewButton = FeatureDescription(
+        title: "Set redesing \"new\" button",
+        author: "m@anytype.io",
+        releaseVersion: "0.19.0",
+        defaultValue: false
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(

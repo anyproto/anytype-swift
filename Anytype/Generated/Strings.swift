@@ -409,6 +409,8 @@ internal enum Loc {
   internal static let moveToBin = Loc.tr("Localizable", "Move To Bin", fallback: "Move To Bin")
   /// Name
   internal static let name = Loc.tr("Localizable", "Name", fallback: "Name")
+  /// New
+  internal static let new = Loc.tr("Localizable", "New", fallback: "New")
   /// New profile
   internal static let newProfile = Loc.tr("Localizable", "New profile", fallback: "New profile")
   /// New relation
