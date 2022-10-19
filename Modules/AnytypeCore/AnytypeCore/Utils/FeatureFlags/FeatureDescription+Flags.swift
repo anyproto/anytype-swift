@@ -53,7 +53,7 @@ extension FeatureDescription {
     )
     
     static let redesignNewButton = FeatureDescription(
-        title: "Set redesing \"new\" button",
+        title: "Set redesign \"new\" button",
         author: "m@anytype.io",
         releaseVersion: "0.19.0",
         defaultValue: false
