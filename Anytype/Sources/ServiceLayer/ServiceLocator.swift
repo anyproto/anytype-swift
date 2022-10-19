@@ -75,6 +75,10 @@ final class ServiceLocator {
         AlertOpener()
     }
     
+    func pageService() -> PageServiceProtocol {
+        return PageService()
+    }
+    
     private func subscriptionToggler() -> SubscriptionTogglerProtocol {
         SubscriptionToggler()
     }

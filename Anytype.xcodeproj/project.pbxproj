@@ -394,6 +394,7 @@
 		2A150BE028AA8E9700F2E569 /* TextRelationURLActionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A150BDF28AA8E9700F2E569 /* TextRelationURLActionViewModel.swift */; };
 		2A176438283E2211002853D3 /* AnytypePopupProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A176437283E2211002853D3 /* AnytypePopupProxy.swift */; };
 		2A17643A283E2245002853D3 /* ContentUrlBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A176439283E2245002853D3 /* ContentUrlBuilder.swift */; };
+		2A1AEDA028FD318A008C3660 /* MarkupViewTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1AED9F28FD318A008C3660 /* MarkupViewTypes.swift */; };
 		2A2C330028919576008BC326 /* RelationMetadataFormat+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2C32FF28919576008BC326 /* RelationMetadataFormat+Extensions.swift */; };
 		2A2C330328928668008BC326 /* RelationValueCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2C330228928668008BC326 /* RelationValueCoordinator.swift */; };
 		2A2C330528928A7C008BC326 /* RelationValueCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2C330428928A7C008BC326 /* RelationValueCoordinatorAssembly.swift */; };
@@ -460,6 +461,8 @@
 		2AD8592D283CE60C008BCE4B /* HomeView+ContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD8592C283CE60C008BCE4B /* HomeView+ContextMenu.swift */; };
 		2AD98618289AA23900F5DF73 /* SelectionOptionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD98617289AA23900F5DF73 /* SelectionOptionsViewModel.swift */; };
 		2ADA5EEA28A292D000CD82A4 /* FeatureFlagViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADA5EE928A292D000CD82A4 /* FeatureFlagViewModel.swift */; };
+		2ADD1EAF28FD795E00F41DE1 /* LinkToObjectCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADD1EAD28FD795E00F41DE1 /* LinkToObjectCoordinatorAssembly.swift */; };
+		2ADD1EB028FD795E00F41DE1 /* LinkToObjecttCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADD1EAE28FD795E00F41DE1 /* LinkToObjecttCoordinator.swift */; };
 		2AE4EDB92834CF5D00B61ABE /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE4EDB82834CF5D00B61ABE /* LaunchView.swift */; };
 		2AECFD37289939DE000E9CFB /* DIProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AECFD36289939DE000E9CFB /* DIProtocol.swift */; };
 		2AECFD3928993AD8000E9CFB /* ModulesDIProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AECFD3828993AD8000E9CFB /* ModulesDIProtocol.swift */; };
@@ -474,6 +477,8 @@
 		2AFB542328634FC5004F7458 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 2AFB542128634FC5004F7458 /* Localizable.stringsdict */; };
 		2AFB5467286997C6004F7458 /* DataviewType+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFB5466286997C6004F7458 /* DataviewType+Extensions.swift */; };
 		2AFB54692869989D004F7458 /* ObjectType+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFB54682869989D004F7458 /* ObjectType+Extensions.swift */; };
+		2AFE04B928F94ABB008647E0 /* EditorPageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFE04B828F94ABB008647E0 /* EditorPageCoordinator.swift */; };
+		2AFE04BB28F94C52008647E0 /* EditorPageCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFE04BA28F94C52008647E0 /* EditorPageCoordinatorAssembly.swift */; };
 		2E0D0E75289D652000785833 /* EditorSetViewSettingsRelation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0D0E74289D652000785833 /* EditorSetViewSettingsRelation.swift */; };
 		2E0D0E77289D653500785833 /* EditorSetViewSettingsToggleItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0D0E76289D653500785833 /* EditorSetViewSettingsToggleItem.swift */; };
 		2E0D0E79289D678200785833 /* EditorSetViewSettingsValueItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0D0E78289D678200785833 /* EditorSetViewSettingsValueItem.swift */; };
@@ -1130,7 +1135,6 @@
 		EA57F37A26B740D5007D4292 /* UIFontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA57F37926B740D5007D4292 /* UIFontExtension.swift */; };
 		EA57F39826B74D2E007D4292 /* BlockInformationCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA57F39426B74D2E007D4292 /* BlockInformationCreator.swift */; };
 		EA57F3D126B83DDF007D4292 /* AttributeState.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA57F3D026B83DDF007D4292 /* AttributeState.swift */; };
-		EA57F3D526B84592007D4292 /* MarkupViewModelAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA57F3D426B84592007D4292 /* MarkupViewModelAction.swift */; };
 		EA57F3DA26B84AA9007D4292 /* MarkupRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA57F3D926B84AA9007D4292 /* MarkupRange.swift */; };
 		EA57F41B26B99937007D4292 /* MarkupViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA57F41826B99936007D4292 /* MarkupViewProtocol.swift */; };
 		EA57F41C26B99937007D4292 /* MarkupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA57F41926B99936007D4292 /* MarkupViewModel.swift */; };
@@ -1615,6 +1619,7 @@
 		2A150BDF28AA8E9700F2E569 /* TextRelationURLActionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRelationURLActionViewModel.swift; sourceTree = "<group>"; };
 		2A176437283E2211002853D3 /* AnytypePopupProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnytypePopupProxy.swift; sourceTree = "<group>"; };
 		2A176439283E2245002853D3 /* ContentUrlBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentUrlBuilder.swift; sourceTree = "<group>"; };
+		2A1AED9F28FD318A008C3660 /* MarkupViewTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupViewTypes.swift; sourceTree = "<group>"; };
 		2A2C32FF28919576008BC326 /* RelationMetadataFormat+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RelationMetadataFormat+Extensions.swift"; sourceTree = "<group>"; };
 		2A2C330228928668008BC326 /* RelationValueCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationValueCoordinator.swift; sourceTree = "<group>"; };
 		2A2C330428928A7C008BC326 /* RelationValueCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationValueCoordinatorAssembly.swift; sourceTree = "<group>"; };
@@ -1668,6 +1673,8 @@
 		2AD8592C283CE60C008BCE4B /* HomeView+ContextMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeView+ContextMenu.swift"; sourceTree = "<group>"; };
 		2AD98617289AA23900F5DF73 /* SelectionOptionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionOptionsViewModel.swift; sourceTree = "<group>"; };
 		2ADA5EE928A292D000CD82A4 /* FeatureFlagViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureFlagViewModel.swift; sourceTree = "<group>"; };
+		2ADD1EAD28FD795E00F41DE1 /* LinkToObjectCoordinatorAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkToObjectCoordinatorAssembly.swift; sourceTree = "<group>"; };
+		2ADD1EAE28FD795E00F41DE1 /* LinkToObjecttCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkToObjecttCoordinator.swift; sourceTree = "<group>"; };
 		2AE4EDB82834CF5D00B61ABE /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
 		2AECFD36289939DE000E9CFB /* DIProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIProtocol.swift; sourceTree = "<group>"; };
 		2AECFD3828993AD8000E9CFB /* ModulesDIProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModulesDIProtocol.swift; sourceTree = "<group>"; };
@@ -1682,6 +1689,8 @@
 		2AFB542228634FC5004F7458 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		2AFB5466286997C6004F7458 /* DataviewType+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataviewType+Extensions.swift"; sourceTree = "<group>"; };
 		2AFB54682869989D004F7458 /* ObjectType+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ObjectType+Extensions.swift"; sourceTree = "<group>"; };
+		2AFE04B828F94ABB008647E0 /* EditorPageCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorPageCoordinator.swift; sourceTree = "<group>"; };
+		2AFE04BA28F94C52008647E0 /* EditorPageCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorPageCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		2E0D0E74289D652000785833 /* EditorSetViewSettingsRelation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetViewSettingsRelation.swift; sourceTree = "<group>"; };
 		2E0D0E76289D653500785833 /* EditorSetViewSettingsToggleItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetViewSettingsToggleItem.swift; sourceTree = "<group>"; };
 		2E0D0E78289D678200785833 /* EditorSetViewSettingsValueItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetViewSettingsValueItem.swift; sourceTree = "<group>"; };
@@ -2332,7 +2341,6 @@
 		EA57F37926B740D5007D4292 /* UIFontExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFontExtension.swift; sourceTree = "<group>"; };
 		EA57F39426B74D2E007D4292 /* BlockInformationCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockInformationCreator.swift; sourceTree = "<group>"; };
 		EA57F3D026B83DDF007D4292 /* AttributeState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributeState.swift; sourceTree = "<group>"; };
-		EA57F3D426B84592007D4292 /* MarkupViewModelAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupViewModelAction.swift; sourceTree = "<group>"; };
 		EA57F3D926B84AA9007D4292 /* MarkupRange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupRange.swift; sourceTree = "<group>"; };
 		EA57F41826B99936007D4292 /* MarkupViewProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkupViewProtocol.swift; sourceTree = "<group>"; };
 		EA57F41926B99936007D4292 /* MarkupViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkupViewModel.swift; sourceTree = "<group>"; };
@@ -2671,14 +2679,15 @@
 		038FB5C622D8F2DE002B90B8 /* PresentationLayer */ = {
 			isa = PBXGroup;
 			children = (
-				2A2C330A28928D5F008BC326 /* Assemblies */,
-				2A2C330728928BF7008BC326 /* Openers */,
 				129C54D527FC8BC100C390C7 /* AddNewRelation flow */,
+				2A2C330A28928D5F008BC326 /* Assemblies */,
 				03074B86239514BF009FA7D0 /* Auth */,
 				0331BBE122E608AC002AD179 /* Common */,
 				C91AFEEB270B4C9C005F9386 /* Debug */,
 				1289C50E2810278F005085E2 /* FileDownloading flow */,
 				3D932D3626317E3A00C7D1EA /* Home */,
+				2AFE04B128F9434C008647E0 /* LinkToObjectFlow */,
+				2A2C330728928BF7008BC326 /* Openers */,
 				2A2C330128928633008BC326 /* RelationValueFlow */,
 				1244790F27D8A35800581174 /* Search screen */,
 				C90189A428338D1100F30853 /* Templates */,
@@ -2950,6 +2959,7 @@
 		0A0965BE25BEF5B000C004BD /* EditorPage */ = {
 			isa = PBXGroup;
 			children = (
+				2AFE04B828F94ABB008647E0 /* EditorPageCoordinator.swift */,
 				C9D5F7B8281A79B00076A47F /* CompositionalBlock */,
 				3D36B0A526A71B4A0046C90F /* Utils */,
 				3D180220264E9C0000224815 /* Models */,
@@ -4547,6 +4557,15 @@
 			path = ActivityIndicator;
 			sourceTree = "<group>";
 		};
+		2AFE04B128F9434C008647E0 /* LinkToObjectFlow */ = {
+			isa = PBXGroup;
+			children = (
+				2ADD1EAE28FD795E00F41DE1 /* LinkToObjecttCoordinator.swift */,
+				2ADD1EAD28FD795E00F41DE1 /* LinkToObjectCoordinatorAssembly.swift */,
+			);
+			path = LinkToObjectFlow;
+			sourceTree = "<group>";
+		};
 		2E0DAF1C28A26DBD00F43320 /* CardSize */ = {
 			isa = PBXGroup;
 			children = (
@@ -5656,6 +5675,7 @@
 				3D93D574270CA3D600614E29 /* EditorPageAssembly.swift */,
 				3D540C7A2625C9DE00A07BD8 /* EditorBrowserAssembly.swift */,
 				3D8D41BD2743D32000F8EBF3 /* EditorScreenData.swift */,
+				2AFE04BA28F94C52008647E0 /* EditorPageCoordinatorAssembly.swift */,
 			);
 			path = Assembly;
 			sourceTree = "<group>";
@@ -6311,10 +6331,10 @@
 			isa = PBXGroup;
 			children = (
 				533856AF263B22B8005A06A9 /* MarkupViewController.swift */,
-				EA57F3D426B84592007D4292 /* MarkupViewModelAction.swift */,
 				EA57F41926B99936007D4292 /* MarkupViewModel.swift */,
 				EA57F41A26B99937007D4292 /* MarkupViewModelProtocol.swift */,
 				EA57F41826B99936007D4292 /* MarkupViewProtocol.swift */,
+				2A1AED9F28FD318A008C3660 /* MarkupViewTypes.swift */,
 			);
 			path = TextAttributesView;
 			sourceTree = "<group>";
@@ -7860,7 +7880,6 @@
 				032E00122395D0C400620E1A /* WaitingView.swift in Sources */,
 				537F49722677EB6700C81BA0 /* BlockDelegate.swift in Sources */,
 				535F79732746AAD40050A1B8 /* FlowLayout.swift in Sources */,
-				EA57F3D526B84592007D4292 /* MarkupViewModelAction.swift in Sources */,
 				3D67F945269DF79B00883681 /* DragAndDropDelegate.swift in Sources */,
 				3D07ECE9261B735300C007E2 /* UINavigationController+UIGestureRecognizerDelegate.swift in Sources */,
 				535E02AD274FF0B100E1AF8C /* RelationValueView.swift in Sources */,
@@ -8351,6 +8370,7 @@
 				12AA74FC27B26C100098BC94 /* GeometryProxyExtensions.swift in Sources */,
 				127240D72846249600C6F8E2 /* NewSearchViewState.swift in Sources */,
 				0A74E4FA23A90E7B00B6C406 /* MainAuthViewModel.swift in Sources */,
+				2ADD1EAF28FD795E00F41DE1 /* LinkToObjectCoordinatorAssembly.swift in Sources */,
 				12FD9D212767174E00991886 /* RelationCheckbox.swift in Sources */,
 				0A74E4F823A90E5100B6C406 /* Gradients.swift in Sources */,
 				12EB9B342774437300BA732F /* RelationFilesRowView.swift in Sources */,
@@ -8402,6 +8422,7 @@
 				3DB1C9E12727DAEF000D2779 /* UIView+SpookyShake.swift in Sources */,
 				127EABF42739440200C731F2 /* TagRelationView.swift in Sources */,
 				3DE3C91D26F464BF0012AF51 /* MentionObjectsService.swift in Sources */,
+				2AFE04BB28F94C52008647E0 /* EditorPageCoordinatorAssembly.swift in Sources */,
 				EA57F3DA26B84AA9007D4292 /* MarkupRange.swift in Sources */,
 				3D5A416B2703170300F1F6A1 /* BlockBackgroundColor.swift in Sources */,
 				125683E027DF1D3C003A8251 /* ObjectsSearchInteractorProtocol.swift in Sources */,
@@ -8477,12 +8498,14 @@
 				535E02B827503D7D00E1AF8C /* BlockRelationConverter.swift in Sources */,
 				1244794527DC931900581174 /* NewSearchSectionsBuilder.swift in Sources */,
 				C922F68E2860973900DF2EF5 /* SimpleTableCellsBuilder.swift in Sources */,
+				2A1AEDA028FD318A008C3660 /* MarkupViewTypes.swift in Sources */,
 				1270CE9526DA85BB00B2D443 /* GradientColor.swift in Sources */,
 				539E019A2758422800067A24 /* SlashMenuRealtionView.swift in Sources */,
 				2A2C33162892B2A3008BC326 /* HomeViewModel+Preview.swift in Sources */,
 				EA4AC463261C9AAB002E961E /* FileLoader.swift in Sources */,
 				127EABA32734FD6E00C731F2 /* CheckboxRelationView.swift in Sources */,
 				53F7443127F4BC7B005C9BB0 /* ObjectPreviewLayoutMenuViewModel.swift in Sources */,
+				2ADD1EB028FD795E00F41DE1 /* LinkToObjecttCoordinator.swift in Sources */,
 				1244793D27DC626B00581174 /* NewInternalSearchViewModelProtocol.swift in Sources */,
 				3DB1CA1D272A7FE3000D2779 /* QuickAction.swift in Sources */,
 				123FDADD26C17CBA00F6F44B /* ObjectHeaderCover.swift in Sources */,
@@ -8565,6 +8588,7 @@
 				2AD8592D283CE60C008BCE4B /* HomeView+ContextMenu.swift in Sources */,
 				0ACDB07C255AA40900B8B0D8 /* FileActionsServiceProtocol.swift in Sources */,
 				03A24B8C231EC07700DA7369 /* ArrayExtension.swift in Sources */,
+				2AFE04B928F94ABB008647E0 /* EditorPageCoordinator.swift in Sources */,
 				129D78C52694B7E700DA6757 /* ObjectLayoutRow.swift in Sources */,
 				C9C536AB276C86DD003CD3F3 /* UIColor+Assets.swift in Sources */,
 				1244792427D8AE4100581174 /* NewSearchModuleAssembly.swift in Sources */,

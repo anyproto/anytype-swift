@@ -9,7 +9,9 @@ struct AccessoryViewBuilder {
         pasteboardService: PasteboardServiceProtocol,
         document: BaseDocumentProtocol,
         onShowStyleMenu: @escaping RoutingAction<BlockInformation>,
-        onBlockSelection: @escaping RoutingAction<BlockInformation>
+        onBlockSelection: @escaping RoutingAction<BlockInformation>,
+        pageService: PageServiceProtocol,
+        linkToObjectCoordinator: LinkToObjectCoordinatorProtocol
     ) -> AccessoryViewStateManager {
         let mentionsView = MentionView(frame: CGRect(origin: .zero, size: menuActionsViewSize))
         
@@ -21,20 +23,10 @@ struct AccessoryViewBuilder {
         
         let markupViewModel = MarkupAccessoryViewModel(
             document: document,
-            actionHandler: actionHandler
+            actionHandler: actionHandler,
+            pageService: pageService,
+            linkToObjectCoordinator: linkToObjectCoordinator
         )
-
-        markupViewModel.onShowLinkToObject = { [weak router] args in
-            router?.showLinkToObject(currentLink: args.0, onSelect: args.1)
-        }
-
-        markupViewModel.onShowURL = { [weak router] url in
-            router?.openUrl(url)
-        }
-
-        markupViewModel.onShowObject = { [weak router] objectId in
-            router?.showPage(data: .init(pageId: objectId, type: .page))
-        }
 
         let changeTypeViewModel = ChangeTypeAccessoryViewModel(
             router: router,

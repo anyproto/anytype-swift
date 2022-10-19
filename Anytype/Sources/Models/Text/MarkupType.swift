@@ -65,4 +65,27 @@ enum MarkupType: Equatable, Hashable, CaseIterable {
     static var allCases: [MarkupType] {
         return [.bold, italic, .keyboard, .strikethrough, .underscored, .textColor(.textSecondary), .backgroundColor(.textSecondary), .link(nil), .linkToObject(nil), .mention(MentionData.noDetails(blockId: ""))]
     }
+    
+    func sameType(_ other: MarkupType) -> Bool {
+        switch (self, other) {
+        case (.bold, .bold),
+            (.italic, .italic),
+            (.keyboard, .keyboard),
+            (.strikethrough, .strikethrough),
+            (.underscored, .underscored),
+            (.textColor, .textColor),
+            (.backgroundColor, .backgroundColor),
+            (.link, .link),
+            (.linkToObject, .linkToObject),
+            (.mention, .mention),
+            (.emoji, .emoji):
+            return true
+        default:
+            return false
+        }
+    }
+    
+    func typeWithoutValue() -> MarkupType {
+        return MarkupType.allCases.first { $0.sameType(self) } ?? self
+    }
 }
