@@ -49,8 +49,19 @@ struct ObjectRelationView: View {
     
     private var moreObjectsView: some View {
         let moreObjectsCount = (options.count - maxOptions) > 0 ? options.count - maxOptions : 0
+        let relationOptions = options.filter { $0.type == Constants.relationType }
 
         return HStack(spacing: style.objectRelationStyle.hSpaсingObject) {
+            if options == relationOptions, case .featuredRelationBlock  = style {
+                AnytypeText(
+                    moreObjectsCount > 0
+                        ? Loc.Set.FeaturedRelations.relationsList
+                        : Loc.Set.FeaturedRelations.relation,
+                    style: style.font,
+                    color: style.fontColor
+                )
+            }
+
             objectView(options: Array(options.prefix(maxOptions)))
 
             if moreObjectsCount > 0 {
@@ -89,8 +100,8 @@ extension ObjectRelationView {
     
     private var maxOptions: Int {
         switch style {
-        case .regular, .set, .featuredRelationBlock: return 0
-        case .filter, .setCollection: return 1
+        case .regular, .set: return 0
+        case .filter, .setCollection, .featuredRelationBlock: return 1
         }
     }
 }
@@ -100,4 +111,8 @@ struct ObjectRelationView_Previews: PreviewProvider {
     static var previews: some View {
         ObjectRelationView(options: [], hint: "Hint", style: .regular(allowMultiLine: false))
     }
+}
+
+private enum Constants {
+    static let relationType = "Relation"
 }

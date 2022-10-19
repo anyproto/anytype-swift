@@ -353,6 +353,8 @@
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Source" = "Source";
+"Set.FeaturedRelations.RelationsList" = "Relations:";
+"Set.FeaturedRelations.Relation" = "Relation:";
 
 // MARK: - Sets: Filters search
 "Set.Filters.Search.Button.Title" = "Apply";
@@ -623,3 +625,4 @@
 // MARK: - Widget extension
 "WidgetExtension.LockScreen.Title" = "New object";
 "WidgetExtension.LockScreen.Description" = "Create a new object on the fly";
+
