@@ -33,8 +33,8 @@ extension SetSortsListViewModel {
         let excludeRelations: [RelationDetails] = setModel.sorts.map { $0.relationDetails }
         router.showRelationSearch(
             relationsDetails: setModel.activeViewRelations(excludeRelations: excludeRelations))
-        { [weak self] key in
-            self?.addNewSort(with: key)
+        { [weak self] relationDetails in
+            self?.addNewSort(with: relationDetails)
         }
     }
     

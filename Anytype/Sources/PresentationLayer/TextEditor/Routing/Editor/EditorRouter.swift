@@ -179,8 +179,8 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     }
 
     func showLinkTo(onSelect: @escaping (BlockId, _ typeUrl: String) -> ()) {
-        let viewModel = ObjectSearchViewModel { data in
-            onSelect(data.blockId, data.typeUrl)
+        let viewModel = ObjectSearchViewModel(searchService: ServiceLocator.shared.searchService()) { data in
+            onSelect(data.blockId, data.typeId)
         }
         let linkToView = SearchView(title: Loc.linkTo, context: .menuSearch, viewModel: viewModel)
         
@@ -203,7 +203,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     }
     
     func showSearch(onSelect: @escaping (EditorScreenData) -> ()) {
-        let viewModel = ObjectSearchViewModel { data in
+        let viewModel = ObjectSearchViewModel(searchService: ServiceLocator.shared.searchService()) { data in
             onSelect(EditorScreenData(pageId: data.blockId, type: data.viewType))
         }
         let searchView = SearchView(title: nil, context: .menuSearch, viewModel: viewModel)
@@ -290,11 +290,11 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
 
     func showTemplatesAvailabilityPopupIfNeeded(
         document: BaseDocumentProtocol,
-        templatesTypeURL: ObjectTypeUrl
+        templatesTypeId: ObjectTypeId
     ) {
         templatesCoordinator.showTemplatesAvailabilityPopupIfNeeded(
             document: document,
-            templatesTypeURL: .dynamic(templatesTypeURL.rawValue)
+            templatesTypeId: .dynamic(templatesTypeId.rawValue)
         )
     }
     
@@ -431,7 +431,7 @@ extension EditorRouter {
         relationValueCoordinator.startFlow(objectId: objectId, source: source, relation: relation, output: self)
     }
 
-    func showAddNewRelationView(onSelect: ((RelationMetadata, _ isNew: Bool) -> Void)?) {
+    func showAddNewRelationView(onSelect: ((RelationDetails, _ isNew: Bool) -> Void)?) {
         addNewRelationCoordinator.showAddNewRelationView(onCompletion: onSelect)
     }
 }
@@ -492,13 +492,13 @@ extension EditorRouter {
         showCreateObject(with: viewModel)
     }
     
-    func showRelationSearch(relations: [RelationMetadata], onSelect: @escaping (String) -> Void) {
+    func showRelationSearch(relationsDetails: [RelationDetails], onSelect: @escaping (RelationDetails) -> Void) {
         let vc = UIHostingController(
             rootView: NewSearchModuleAssembly.setSortsSearchModule(
-                relations: relations,
-                onSelect: { [weak self] key in
+                relationsDetails: relationsDetails,
+                onSelect: { [weak self] relationDetails in
                     self?.viewController?.topPresentedController.dismiss(animated: false) {
-                        onSelect(key)
+                        onSelect(relationDetails)
                     }
                 }
             )

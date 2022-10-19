@@ -25,8 +25,9 @@ final class EditorPageCoordinator: EditorPageCoordinatorProtocol {
     // MARK: - EditorPageCoordinatorProtocol
     
     func startFlow(data: EditorScreenData, replaceCurrentPage: Bool) {
-        if let details = ObjectDetailsStorage.shared.get(id: data.pageId), !ObjectTypeProvider.shared.isSupported(typeUrl: details.type) {
-            showUnsupportedTypeAlert(typeUrl: details.type)
+        if let details = ObjectDetailsStorage.shared.get(id: data.pageId),
+            !ObjectTypeProvider.shared.isSupported(typeId: details.type) {
+            showUnsupportedTypeAlert(typeId: details.type)
             return
         }
         
@@ -44,8 +45,8 @@ final class EditorPageCoordinator: EditorPageCoordinatorProtocol {
     
     // MARK: - Private
     
-    private func showUnsupportedTypeAlert(typeUrl: String) {
-        let typeName = ObjectTypeProvider.shared.objectType(url: typeUrl)?.name ?? Loc.unknown
+    private func showUnsupportedTypeAlert(typeId: String) {
+        let typeName = ObjectTypeProvider.shared.objectType(id: typeId)?.name ?? Loc.unknown
         
         AlertHelper.showToast(
             title: "Not supported type \"\(typeName)\"",

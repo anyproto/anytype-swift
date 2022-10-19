@@ -29,7 +29,7 @@ enum ObjectAction: Hashable, Identifiable {
             allCases.append(.duplicate)
         }
 
-        if details.objectType.url != ObjectTypeUrl.bundled(.set).rawValue {
+        if details.objectType.id != ObjectTypeId.bundled(.set).rawValue {
             allCases.append(.undoRedo)
             allCases.append(.linkItself)
             allCases.append(.locked(isLocked: isLocked))
