@@ -140,7 +140,7 @@ final class EditorSetViewModel: ObservableObject {
 
     func onRelationTap(relation: Relation) {
         AnytypeAnalytics.instance().logChangeRelationValue(type: .set)
-        showRelationValueEditingView(key: relation.id, source: .object)
+        showRelationValueEditingView(key: relation.key, source: .object)
     }
 
     func updateActiveViewId(_ id: BlockId) {

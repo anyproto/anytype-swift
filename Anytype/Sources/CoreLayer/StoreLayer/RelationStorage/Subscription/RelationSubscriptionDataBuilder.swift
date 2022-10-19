@@ -24,7 +24,7 @@ final class RelationSubscriptionDataBuilder: RelationSubscriptionDataBuilderProt
             BundledRelationKey.relationKey.rawValue,
             BundledRelationKey.name.rawValue,
             BundledRelationKey.relationFormat.rawValue,
-            RelationKey.readonlyValue.rawValue,
+            BundledRelationKey.relationReadonlyValue.rawValue,
             BundledRelationKey.relationFormatObjectTypes.rawValue,
             BundledRelationKey.isHidden.rawValue,
             BundledRelationKey.isReadonly.rawValue

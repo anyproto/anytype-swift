@@ -42,8 +42,7 @@ public extension RelationDetails {
         self.format = objectDetails.relationFormatValue
         self.isHidden = objectDetails.isHidden
         self.isReadOnly = objectDetails.isReadonly
-        #warning("Check. Middleware should be add this field.")
-        self.isReadOnlyValue = objectDetails.readonlyValue
+        self.isReadOnlyValue = objectDetails.relationReadonlyValue
         self.objectTypes = objectDetails.relationFormatObjectTypes
     }
     
