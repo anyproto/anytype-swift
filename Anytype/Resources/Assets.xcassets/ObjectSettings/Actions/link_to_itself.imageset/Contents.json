@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "link_to_itself.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

@@ -1,6 +1,7 @@
 import Foundation
 import Logging
 import Pulse
+import PulseLogHandler
 
 public final class EventLogger {
     
@@ -14,6 +15,7 @@ public final class EventLogger {
     
     public static func setupLgger() {
         LoggingSystem.bootstrap(PersistentLogHandler.init)
+        Experimental.URLSessionProxy.shared.isEnabled = true
     }
     
     public func log(

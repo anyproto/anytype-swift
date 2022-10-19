@@ -2,7 +2,11 @@ import ProtobufMessages
 import SwiftProtobuf
 import BlocksModels
 
-final class PageService {
+protocol PageServiceProtocol: AnyObject {
+    func createPage(name: String) -> BlockId?
+}
+
+final class PageService: PageServiceProtocol {
     func createPage(name: String) -> BlockId? {
         let details = Google_Protobuf_Struct(
             fields: [

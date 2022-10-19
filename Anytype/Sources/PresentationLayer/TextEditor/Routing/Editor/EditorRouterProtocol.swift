@@ -31,9 +31,7 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     )
 
     func showMarkupBottomSheet(
-        selectedMarkups: [MarkupType : AttributeState],
-        selectedHorizontalAlignment: [LayoutAlignment : AttributeState],
-        onMarkupAction: @escaping (MarkupViewModelAction) -> Void,
+        selectedBlockIds: [BlockId],
         viewDidClose: @escaping () -> Void
     )
     
@@ -45,7 +43,8 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func presentUndoRedo()
     
     func showMoveTo(onSelect: @escaping (BlockId) -> ())
-    func showLinkTo(onSelect: @escaping (BlockId, _ typeId: String) -> ())
+    func showLinkTo(onSelect: @escaping (BlockId, _ typeUrl: String) -> ())
+    // TODO: Check use this method
     func showLinkToObject(
         currentLink: Either<URL, BlockId>?,
         onSelect: @escaping (LinkToObjectSearchViewModel.SearchKind) -> ()

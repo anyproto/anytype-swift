@@ -720,6 +720,10 @@ internal enum Loc {
   internal static let yourLibrary = Loc.tr("Localizable", "Your library", fallback: "Your library")
   /// Your public page
   internal static let yourPublicPage = Loc.tr("Localizable", "Your public page", fallback: "Your public page")
+  internal enum Actions {
+    /// Link to
+    internal static let linkItself = Loc.tr("Localizable", "Actions.LinkItself", fallback: "Link to")
+  }
   internal enum Alert {
     internal enum CameraPermissions {
       /// Go to Settings?
@@ -1265,6 +1269,14 @@ internal enum Loc {
   internal enum ToggleEmpty {
     /// Toggle empty. Tap to create block.
     internal static let tapToCreateBlock = Loc.tr("Localizable", "Toggle empty. Tap to create block.", fallback: "Toggle empty. Tap to create block.")
+  }
+  internal enum WidgetExtension {
+    internal enum LockScreen {
+      /// Create a new object on the fly
+      internal static let description = Loc.tr("Localizable", "WidgetExtension.LockScreen.Description", fallback: "Create a new object on the fly")
+      /// New object
+      internal static let title = Loc.tr("Localizable", "WidgetExtension.LockScreen.Title", fallback: "New object")
+    }
   }
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length

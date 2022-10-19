@@ -4,7 +4,7 @@ import Combine
 import Kingfisher
 import AnytypeCore
 
-final class BlockImageViewModel: BlockViewModelProtocol {
+struct BlockImageViewModel: BlockViewModelProtocol {
     typealias Action<T> = (_ arg: T) -> Void
     
     var hashable: AnyHashable { [ info ] as [AnyHashable] }
@@ -51,10 +51,10 @@ final class BlockImageViewModel: BlockViewModelProtocol {
                 blockId: info.id,
                 maxWidth: maxWidth,
                 alignment: info.horizontalAlignment,
-                fileData: fileData
-            ) { [weak self] imageView in
-                self?.didTapOpenImage(imageView)
-            }.cellBlockConfiguration(
+                fileData: fileData,
+                imageViewTapHandler: didTapOpenImage
+            )
+            .cellBlockConfiguration(
                 indentationSettings: .init(with: info.configurationData),
                 dragConfiguration: .init(id: info.id)
             )
@@ -99,13 +99,9 @@ final class BlockImageViewModel: BlockViewModelProtocol {
     private func didTapOpenImage(_ sender: UIImageView) {
         onImageOpen?(
             .init(
-                file: ImagePreviewMedia(file: fileData, previewImage: sender.image),
-                sourceView: sender, previewImage: sender.image, onDidEditFile: {  [weak self] url in
-                    guard let info = self?.info else {
-                        return
-                    }
-
-                    self?.handler.uploadMediaFile(
+                file: ImagePreviewMedia(file: fileData, blockId: info.id, previewImage: sender.image),
+                sourceView: sender, previewImage: sender.image, onDidEditFile: { url in
+                    handler.uploadMediaFile(
                         uploadingSource: .url(url),
                         type: .images,
                         blockId: info.id

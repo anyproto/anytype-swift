@@ -12,75 +12,46 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     private let addNewRelationCoordinator: AddNewRelationCoordinator
     private let document: BaseDocumentProtocol
     private let settingAssembly = ObjectSettingAssembly()
-    private let editorAssembly: EditorAssembly
     private let templatesCoordinator: TemplatesCoordinator
     private let urlOpener: URLOpenerProtocol
     private let relationValueCoordinator: RelationValueCoordinatorProtocol
     private weak var currentSetSettingsPopup: AnytypePopup?
+    private let editorPageCoordinator: EditorPageCoordinatorProtocol
+    private let linkToObjectCoordinator: LinkToObjectCoordinatorProtocol
     
     init(
         rootController: EditorBrowserController?,
         viewController: UIViewController,
         document: BaseDocumentProtocol,
-        assembly: EditorAssembly,
         templatesCoordinator: TemplatesCoordinator,
         urlOpener: URLOpenerProtocol,
-        relationValueCoordinator: RelationValueCoordinatorProtocol
+        relationValueCoordinator: RelationValueCoordinatorProtocol,
+        editorPageCoordinator: EditorPageCoordinatorProtocol,
+        linkToObjectCoordinator: LinkToObjectCoordinatorProtocol
     ) {
         self.rootController = rootController
         self.viewController = viewController
         self.document = document
-        self.editorAssembly = assembly
         self.fileCoordinator = FileDownloadingCoordinator(viewController: viewController)
         self.addNewRelationCoordinator = AddNewRelationCoordinator(document: document, viewController: viewController)
         self.templatesCoordinator = templatesCoordinator
         self.urlOpener = urlOpener
         self.relationValueCoordinator = relationValueCoordinator
+        self.editorPageCoordinator = editorPageCoordinator
+        self.linkToObjectCoordinator = linkToObjectCoordinator
     }
 
     func showPage(data: EditorScreenData) {
-        if let details = ObjectDetailsStorage.shared.get(id: data.pageId) {
-            guard ObjectTypeProvider.shared.isSupported(typeId: details.type) else {
-                showUnsupportedTypeAlert(typeId: details.type)
-                return
-            }
-        }
-        
-        let controller = editorAssembly.buildEditorController(
-            browser: rootController,
-            data: data
-        )
-        viewController?.navigationController?.pushViewController(controller, animated: true)
+        editorPageCoordinator.startFlow(data: data, replaceCurrentPage: false)
     }
 
     func replaceCurrentPage(with data: EditorScreenData) {
-        if let details = ObjectDetailsStorage.shared.get(id: data.pageId) {
-            guard ObjectTypeProvider.shared.isSupported(typeId: details.type) else {
-                showUnsupportedTypeAlert(typeId: details.type)
-                return
-            }
-        }
-
-        let controller = editorAssembly.buildEditorController(
-            browser: rootController,
-            data: data
-        )
-
-        rootController?.childNavigation?.replaceLastViewController(controller, animated: false)
+        editorPageCoordinator.startFlow(data: data, replaceCurrentPage: true)
     }
 
     func showAlert(alertModel: AlertModel) {
         let alertController = AlertsFactory.alertController(from: alertModel)
         viewController?.present(alertController, animated: true, completion: nil)
-    }
-    
-    private func showUnsupportedTypeAlert(typeId: String) {
-        let typeName = ObjectTypeProvider.shared.objectType(id: typeId)?.name ?? Loc.unknown
-        
-        AlertHelper.showToast(
-            title: "Not supported type \"\(typeName)\"",
-            message: "You can open it via desktop"
-        )
     }
 
     func showLinkContextualMenu(inputParameters: TextBlockURLInputParameters) {
@@ -167,24 +138,18 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
             info: info,
             actionHandler: controller.viewModel.actionHandler,
             restrictions: restrictions,
-            showMarkupMenu: { [weak controller, weak rootController, unowned document] styleView, viewDidClose in
+            showMarkupMenu: { [weak controller, weak rootController, weak self] styleView, viewDidClose in
+                guard let self = self else { return }
                 guard let controller = controller else { return }
                 guard let rootController = rootController else { return }
-                guard let info = document.infoContainer.get(id: information.id) else { return }
 
                 BottomSheetsFactory.showMarkupBottomSheet(
                     parentViewController: rootController,
                     styleView: styleView,
-                    selectedMarkups: AttributeState.markupAttributes(from: [info]),
-                    selectedHorizontalAlignment: AttributeState.alignmentAttributes(from: [info]),
-                    onMarkupAction: { [unowned controller] action in
-                        switch action {
-                        case let .selectAlignment(alignment):
-                            controller.viewModel.actionHandler.setAlignment(alignment, blockIds: [info.id])
-                        case let .toggleMarkup(markup):
-                            controller.viewModel.actionHandler.toggleWholeBlockMarkup(markup, blockId: info.id)
-                        }
-                    },
+                    document: self.document,
+                    blockId: info.id,
+                    actionHandler: controller.viewModel.actionHandler,
+                    linkToObjectCoordinator: self.linkToObjectCoordinator,
                     viewDidClose: viewDidClose
                 )
             },
@@ -210,33 +175,16 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
             self?.viewController?.topPresentedController.dismiss(animated: true)
         }
 
-        presentSwiftUIView(view: moveToView, model: nil)
+        viewController?.topPresentedController.presentSwiftUIView(view: moveToView, model: nil)
     }
 
-    func showLinkToObject(
-        currentLink: Either<URL, BlockId>?,
-        onSelect: @escaping (LinkToObjectSearchViewModel.SearchKind) -> ()
-    ) {
-        let viewModel = LinkToObjectSearchViewModel(
-            currentLink: currentLink,
-            searchService: ServiceLocator.shared.searchService()
-        ) { data in
-            onSelect(data.searchKind)
-        }
-        let linkToView = SearchView(title: Loc.linkTo, context: .menuSearch, viewModel: viewModel)
-
-        presentSwiftUIView(view: linkToView, model: viewModel)
-    }
-
-    func showLinkTo(onSelect: @escaping (BlockId, _ typeId: String) -> ()) {
-        let viewModel = ObjectSearchViewModel(
-            searchService: ServiceLocator.shared.searchService()
-        ) { data in
-            onSelect(data.blockId, data.typeId)
+    func showLinkTo(onSelect: @escaping (BlockId, _ typeUrl: String) -> ()) {
+        let viewModel = ObjectSearchViewModel { data in
+            onSelect(data.blockId, data.typeUrl)
         }
         let linkToView = SearchView(title: Loc.linkTo, context: .menuSearch, viewModel: viewModel)
         
-        presentSwiftUIView(view: linkToView, model: viewModel)
+        viewController?.topPresentedController.presentSwiftUIView(view: linkToView, model: viewModel)
     }
 
     func showTextIconPicker(contextId: BlockId, objectId: BlockId) {
@@ -251,16 +199,16 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
             rootController?.dismiss(animated: true, completion: nil)
         }
 
-        presentSwiftUIView(view: iconPicker, model: nil)
+        viewController?.topPresentedController.presentSwiftUIView(view: iconPicker, model: nil)
     }
     
     func showSearch(onSelect: @escaping (EditorScreenData) -> ()) {
-        let viewModel = ObjectSearchViewModel(searchService: ServiceLocator.shared.searchService()) { data in
+        let viewModel = ObjectSearchViewModel { data in
             onSelect(EditorScreenData(pageId: data.blockId, type: data.viewType))
         }
         let searchView = SearchView(title: nil, context: .menuSearch, viewModel: viewModel)
         
-        presentSwiftUIView(view: searchView, model: viewModel)
+        viewController?.topPresentedController.presentSwiftUIView(view: searchView, model: viewModel)
     }
     
     func showTypesSearch(title: String, selectedObjectId: BlockId?, onSelect: @escaping (BlockId) -> ()) {
@@ -342,11 +290,11 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
 
     func showTemplatesAvailabilityPopupIfNeeded(
         document: BaseDocumentProtocol,
-        templatesTypeId: ObjectTypeId
+        templatesTypeURL: ObjectTypeUrl
     ) {
         templatesCoordinator.showTemplatesAvailabilityPopupIfNeeded(
             document: document,
-            templatesTypeId: .dynamic(templatesTypeId.rawValue)
+            templatesTypeURL: .dynamic(templatesTypeURL.rawValue)
         )
     }
     
@@ -398,17 +346,21 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     }
 
     func showMarkupBottomSheet(
-        selectedMarkups: [MarkupType : AttributeState],
-        selectedHorizontalAlignment: [LayoutAlignment : AttributeState],
-        onMarkupAction: @escaping (MarkupViewModelAction) -> Void,
+        selectedBlockIds: [BlockId],
         viewDidClose: @escaping () -> Void
     ) {
-        guard let rootController = rootController else { return }
-
+        guard let controller = viewController,
+            let rootController = rootController else { return }
+        guard let controller = controller as? EditorPageController else {
+            anytypeAssertionFailure("Not supported type of controller: \(controller)", domain: .editorPage)
+            return
+        }
+        
         let viewModel = MarkupViewModel(
-            selectedMarkups: selectedMarkups,
-            selectedHorizontalAlignment: selectedHorizontalAlignment,
-            onMarkupAction: onMarkupAction
+            document: document,
+            blockIds: selectedBlockIds,
+            actionHandler: controller.viewModel.actionHandler,
+            linkToObjectCoordinator: linkToObjectCoordinator
         )
         let viewController = MarkupsViewController(
             viewModel: viewModel,
@@ -429,14 +381,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     }
     
     // MARK: - Private
-
-    private func presentSwiftUIView<Content: View>(view: Content, model: Dismissible?) {
-        guard let viewController = viewController else { return }
-        
-        let controller = UIHostingController(rootView: view)
-        model?.onDismiss = { [weak controller] in controller?.dismiss(animated: true) }
-        viewController.topPresentedController.present(controller, animated: true)
-    }
     
     private func presentOverCurrentContextSwuftUIView<Content: View>(view: Content, model: Dismissible) {
         guard let viewController = rootController else { return }
@@ -477,7 +421,7 @@ extension EditorRouter: AttachmentRouterProtocol {
 // MARK: - Relations
 extension EditorRouter {
     func showRelationValueEditingView(key: String, source: RelationSource) {
-        let relation = document.parsedRelations.all.first { $0.key == key }
+        let relation = document.parsedRelations.all.first { $0.id == key }
         guard let relation = relation else { return }
         
         showRelationValueEditingView(objectId: document.objectId, source: source, relation: relation)
@@ -487,7 +431,7 @@ extension EditorRouter {
         relationValueCoordinator.startFlow(objectId: objectId, source: source, relation: relation, output: self)
     }
 
-    func showAddNewRelationView(onSelect: ((RelationDetails, _ isNew: Bool) -> Void)?) {
+    func showAddNewRelationView(onSelect: ((RelationMetadata, _ isNew: Bool) -> Void)?) {
         addNewRelationCoordinator.showAddNewRelationView(onCompletion: onSelect)
     }
 }
@@ -548,13 +492,13 @@ extension EditorRouter {
         showCreateObject(with: viewModel)
     }
     
-    func showRelationSearch(relationsDetails: [RelationDetails], onSelect: @escaping (RelationDetails) -> Void) {
+    func showRelationSearch(relations: [RelationMetadata], onSelect: @escaping (String) -> Void) {
         let vc = UIHostingController(
             rootView: NewSearchModuleAssembly.setSortsSearchModule(
-                relationsDetails: relationsDetails,
-                onSelect: { [weak self] relation in
+                relations: relations,
+                onSelect: { [weak self] key in
                     self?.viewController?.topPresentedController.dismiss(animated: false) {
-                        onSelect(relation)
+                        onSelect(key)
                     }
                 }
             )

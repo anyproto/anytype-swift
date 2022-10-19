@@ -72,7 +72,7 @@ extension TextBlockContentView: CustomTextViewDelegate {
     }
     
     func changeCaretPosition(_ range: NSRange) {
-        actions?.textViewDidChangeCaretPosition(range)
+        actions?.textViewDidChangeCaretPosition(textView.textView, range)
     }
     
     func shouldChangeText(range: NSRange, replacementText: String) -> Bool {

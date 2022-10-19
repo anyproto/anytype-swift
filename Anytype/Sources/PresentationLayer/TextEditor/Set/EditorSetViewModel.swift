@@ -7,11 +7,12 @@ import SwiftUI
 final class EditorSetViewModel: ObservableObject {
     @Published var titleString: String
     @Published var dataView = BlockDataview.empty
-    @Published private var records: [ObjectDetails] = []
     @Published private(set) var headerModel: ObjectHeaderViewModel!
     @Published var loadingDocument = true
     @Published var pagitationData = EditorSetPaginationData.empty
     @Published var featuredRelations = [Relation]()
+    
+    private var records: [ObjectDetails] = []
     @Published var configurations = [SetContentViewItemConfiguration]()
 
     @Published var sorts: [SetSort] = []
@@ -125,7 +126,7 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     func onAppear() {
-        setupSubscriptions()
+        startSubscriptionIfNeeded()
         router?.setNavigationViewHidden(false, animated: true)
     }
     
@@ -147,19 +148,32 @@ final class EditorSetViewModel: ObservableObject {
         setupDataview()
     }
     
-    func setupSubscriptions() {
-        subscriptionService.stopAllSubscriptions()
-        guard !isEmpty else { return }
+    func startSubscriptionIfNeeded() {
+        guard !isEmpty else {
+            subscriptionService.stopAllSubscriptions()
+            return
+        }
         
-        subscriptionService.startSubscription(
-            data: setSubscriptionDataBuilder.set(
-                .init(
-                    dataView: dataView,
-                    view: activeView,
-                    currentPage: max(pagitationData.selectedPage, 1) // show first page for empty request
-                )
+        let data = setSubscriptionDataBuilder.set(
+            .init(
+                dataView: dataView,
+                view: activeView,
+                currentPage: max(pagitationData.selectedPage, 1) // show first page for empty request
             )
-        ) { [weak self] subId, update in
+        )
+        
+        guard subscriptionService.hasSubscriptionDataDiff(with: data) else {
+            return
+        }
+        
+        restartSubscription(with: data)
+    }
+    
+    // MARK: - Private
+    
+    private func restartSubscription(with data: SubscriptionData) {
+        subscriptionService.stopAllSubscriptions()
+        subscriptionService.startSubscription(data: data) { [weak self] subId, update in
             guard let self = self else { return }
 
             if case let .pageCount(count) = update {
@@ -168,28 +182,29 @@ final class EditorSetViewModel: ObservableObject {
             }
             
             self.records.applySubscriptionUpdate(update)
-            self.configurations = self.dataBuilder.itemData(
-                self.records,
-                dataView: self.dataView,
-                activeView: self.activeView,
-                colums: self.colums,
-                isObjectLocked: self.isObjectLocked,
-                onIconTap: { [weak self] details in
-                    self?.updateDetailsIfNeeded(details)
-                },
-                onItemTap: { [weak self] details in
-                    self?.itemTapped(details)
-                }
-            )
+            self.updateConfigurations()
         }
     }
     
-    // MARK: - Private
+    private func updateConfigurations() {
+        self.configurations = dataBuilder.itemData(
+            records,
+            dataView: dataView,
+            activeView: activeView,
+            colums: colums,
+            isObjectLocked: isObjectLocked,
+            onIconTap: { [weak self] details in
+                self?.updateDetailsIfNeeded(details)
+            },
+            onItemTap: { [weak self] details in
+                self?.itemTapped(details)
+            }
+        )
+    }
     
     private func onDataChange(_ data: DocumentUpdate) {
         switch data {
         case .general, .blocks, .details, .dataSourceUpdate:
-            objectWillChange.send()
             setupDataview()
         case .syncStatus(let status):
             if setSyncStatus {
@@ -239,7 +254,8 @@ final class EditorSetViewModel: ObservableObject {
         updateActiveViewId()
         updateSorts()
         updateFilters()
-        setupSubscriptions()
+        startSubscriptionIfNeeded()
+        updateConfigurations()
         featuredRelations = document.featuredRelationsForEditor
 
         isUpdating = false

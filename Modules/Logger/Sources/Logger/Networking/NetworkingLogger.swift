@@ -1,6 +1,5 @@
 import Foundation
 import Pulse
-import PulseCore
 
 public final class NetworkingLogger {
     
@@ -21,7 +20,7 @@ public final class NetworkingLogger {
             headerFields: nil
         )
         
-        LoggerStore.default.storeRequest(
+        LoggerStore.shared.storeRequest(
             request,
             response: response,
             error: responseError,

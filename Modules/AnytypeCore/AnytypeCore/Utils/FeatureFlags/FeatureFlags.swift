@@ -17,7 +17,10 @@ public final class FeatureFlags {
         .objectPreview,
         .setListView,
         .setViewTypes,
-        .setSyncStatus
+        .setSyncStatus,
+        .cursorPosition,
+        .hideBottomViewForStyleMenu,
+        .setKanbanView
     ]
     
     public static func update(key feature: FeatureDescription, value: Bool) {
@@ -60,5 +63,17 @@ public extension FeatureFlags {
     
     static var setSyncStatus: Bool {
         value(for: .setSyncStatus)
+    }
+    
+    static var cursorPosition: Bool {
+        value(for: .cursorPosition)
+    }
+    
+    static var hideBottomViewForStyleMenu: Bool {
+        value(for: .hideBottomViewForStyleMenu)
+    }
+    
+    static var setKanbanView: Bool {
+        value(for: .setKanbanView)
     }
 }

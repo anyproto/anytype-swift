@@ -143,11 +143,10 @@ private extension TextRelationDetailsViewController {
             $0.height.equal(to: Constants.titleLabelHeight)
             $0.pinToSuperview(excluding: [.bottom])
         }
-        
         view.addSubview(actionStackView) {
             $0.leading.equal(to: view.leadingAnchor)
             $0.trailing.equal(to: view.trailingAnchor)
-            self.textViewBottomConstraint = $0.bottom.equal(to: view.bottomAnchor, constant: -Constants.textViewBottomInset)
+            self.textViewBottomConstraint = $0.bottom.equal(to: view.safeAreaLayoutGuide.bottomAnchor, constant: -Constants.textViewBottomInset)
         }
         view.addSubview(textView) {
             $0.height.greaterThanOrEqual(to: Constants.textViewMinHeight)
@@ -208,6 +207,7 @@ private extension TextRelationDetailsViewController {
             actionStackView.addArrangedSubview(UIKitAnytypeDivider())
             actionButtons.append(ButtonHolder(button: actionButton, viewModel: actionViewModel))
         }
+        actionStackView.addArrangedSubview(UIView())
     }
 }
 

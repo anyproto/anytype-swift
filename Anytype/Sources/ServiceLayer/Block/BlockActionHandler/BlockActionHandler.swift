@@ -112,6 +112,10 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         )
     }
     
+    func changeMarkup(blockIds: [BlockId], markType: MarkupType) {
+        listService.changeMarkup(blockIds: blockIds, markType: markType)
+    }
+    
     // MARK: - Markup changer proxy
     func toggleWholeBlockMarkup(_ markup: MarkupType, blockId: BlockId) {
         guard let newText = markupChanger.toggleMarkup(markup, blockId: blockId) else { return }

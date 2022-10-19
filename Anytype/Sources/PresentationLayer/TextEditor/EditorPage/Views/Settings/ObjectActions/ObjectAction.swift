@@ -8,6 +8,7 @@ enum ObjectAction: Hashable, Identifiable {
     case favorite(isFavorite: Bool)
     case locked(isLocked: Bool)
     case duplicate
+    case linkItself
 
     // When adding to case
     static func allCasesWith(
@@ -27,10 +28,13 @@ enum ObjectAction: Hashable, Identifiable {
         if !objectRestrictions.objectRestriction.contains(.duplicate) {
             allCases.append(.duplicate)
         }
-        
-        if details.objectType.id != ObjectTypeId.bundled(.set).rawValue {
+
+        if details.objectType.url != ObjectTypeUrl.bundled(.set).rawValue {
             allCases.append(.undoRedo)
+            allCases.append(.linkItself)
             allCases.append(.locked(isLocked: isLocked))
+        } else {
+            allCases.append(.linkItself)
         }
 
         return allCases
@@ -48,6 +52,8 @@ enum ObjectAction: Hashable, Identifiable {
             return "locked"
         case .duplicate:
             return "duplicate"
+        case .linkItself:
+            return "linkItself"
         }
     }
 }

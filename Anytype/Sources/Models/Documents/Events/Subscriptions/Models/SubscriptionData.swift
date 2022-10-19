@@ -18,7 +18,7 @@ enum SubscriptionData {
 
 extension SubscriptionData {
     
-    struct Search {
+    struct Search: Equatable {
         let identifier: SubscriptionId
         let sorts: [DataviewSort]
         let filters: [DataviewFilter]
@@ -58,7 +58,7 @@ extension SubscriptionData {
         }
     }
 
-    struct Object {
+    struct Object: Equatable {
         
         let identifier: SubscriptionId
         let objectIds: [String]
@@ -75,6 +75,19 @@ extension SubscriptionData {
             self.objectIds = objectIds
             self.keys = keys
             self.ignoreWorkspace = ignoreWorkspace
+        }
+    }
+}
+
+extension SubscriptionData: Equatable {
+    static func == (lhs: SubscriptionData, rhs: SubscriptionData) -> Bool {
+        switch (lhs, rhs) {
+        case let (.search(lhsSearch), .search(rhsSearch)):
+            return lhsSearch == rhsSearch
+        case let (.objects(lhsObject), .objects(rhsObject)):
+            return lhsObject == rhsObject
+        default:
+            return false
         }
     }
 }

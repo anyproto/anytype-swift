@@ -31,6 +31,27 @@ extension FeatureDescription {
         defaultValue: false
     )
     
+    static let cursorPosition = FeatureDescription(
+        title: "Cursor position after change style",
+        author: "m@anytype.io",
+        releaseVersion: "0.19.0",
+        defaultValue: false
+    )
+    
+    static let hideBottomViewForStyleMenu = FeatureDescription(
+        title: "Hide bottom navigation view in editor for style menu (IOS-293)",
+        author: "m@anytype.io",
+        releaseVersion: "0.19.0",
+        defaultValue: false
+    )
+    
+    static let setKanbanView = FeatureDescription(
+        title: "Set kanban view",
+        author: "joe_pusya@anytype.io",
+        releaseVersion: "0.20.0",
+        defaultValue: false
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(

@@ -33,4 +33,6 @@ protocol EditorPageViewInput: RelativePositionProvider {
     func adjustContentOffset(relatively: UIView)
 
     func restoreEditingState()
+
+    func didSelectTextRangeSelection(blockId: BlockId, textView: UITextView)
 }

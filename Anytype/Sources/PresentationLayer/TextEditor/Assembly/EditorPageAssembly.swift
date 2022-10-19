@@ -28,9 +28,7 @@ final class EditorAssembly {
     ) -> (vc: UIViewController, router: EditorRouterProtocol) {
         switch data.type {
         case .page:
-            let module = buildPageModule(browser: browser, data: data)
-            module.0.browserViewInput = browser
-            return module
+            return buildPageModule(browser: browser, data: data)
         case .set:
             return buildSetModule(browser: browser, data: data)
         }
@@ -63,10 +61,11 @@ final class EditorAssembly {
             rootController: browser,
             viewController: controller,
             document: document,
-            assembly: self,
             templatesCoordinator: coordinatorsDI.templates.make(viewController: controller),
             urlOpener: URLOpener(viewController: browser),
-            relationValueCoordinator: coordinatorsDI.relationValue.make(viewController: controller)
+            relationValueCoordinator: coordinatorsDI.relationValue.make(viewController: controller),
+            editorPageCoordinator: coordinatorsDI.editorPage.make(rootController: browser, viewController: controller),
+            linkToObjectCoordinator: coordinatorsDI.linkToObject.make(rootController: browser, viewController: controller)
         )
         
         model.setup(router: router)
@@ -87,20 +86,28 @@ final class EditorAssembly {
             simleTableMenuViewModel: simpleTableMenuViewModel,
             blockOptionsViewViewModel: blocksOptionViewModel
         )
-
-        let controller = EditorPageController(blocksSelectionOverlayView: blocksSelectionOverlayView)
+        let bottomNavigationManager = EditorBottomNavigationManager(browser: browser)
+        
+        let controller = EditorPageController(
+            blocksSelectionOverlayView: blocksSelectionOverlayView,
+            bottomNavigationManager: bottomNavigationManager,
+            browserViewInput: browser
+        )
         let document = BaseDocument(objectId: data.pageId)
         let router = EditorRouter(
             rootController: browser,
             viewController: controller,
             document: document,
-            assembly: self,
             templatesCoordinator: coordinatorsDI.templates.make(viewController: controller),
             urlOpener: URLOpener(viewController: browser),
-            relationValueCoordinator: coordinatorsDI.relationValue.make(viewController: controller)
+            relationValueCoordinator: coordinatorsDI.relationValue.make(viewController: controller),
+            editorPageCoordinator: coordinatorsDI.editorPage.make(rootController: browser, viewController: controller),
+            linkToObjectCoordinator: coordinatorsDI.linkToObject.make(rootController: browser, viewController: controller)
         )
 
         let viewModel = buildViewModel(
+            browser: browser,
+            controller: controller,
             scrollView: controller.collectionView,
             viewInput: controller,
             document: document,
@@ -108,6 +115,7 @@ final class EditorAssembly {
             blocksOptionViewModel: blocksOptionViewModel,
             simpleTableMenuViewModel: simpleTableMenuViewModel,
             blocksSelectionOverlayViewModel: blocksSelectionOverlayView.viewModel,
+            bottomNavigationManager: bottomNavigationManager,
             isOpenedForPreview: data.isOpenedForPreview
         )
 
@@ -117,6 +125,8 @@ final class EditorAssembly {
     }
     
     private func buildViewModel(
+        browser: EditorBrowserController?,
+        controller: UIViewController,
         scrollView: UIScrollView,
         viewInput: EditorPageViewInput,
         document: BaseDocumentProtocol,
@@ -124,6 +134,7 @@ final class EditorAssembly {
         blocksOptionViewModel: SelectionOptionsViewModel,
         simpleTableMenuViewModel: SimpleTableMenuViewModel,
         blocksSelectionOverlayViewModel: BlocksSelectionOverlayViewModel,
+        bottomNavigationManager: EditorBottomNavigationManagerProtocol,
         isOpenedForPreview: Bool
     ) -> EditorPageViewModel {
         let modelsHolder = EditorMainItemModelsHolder()
@@ -176,7 +187,8 @@ final class EditorAssembly {
             pasteboardService: pasteboardService,
             router: router,
             initialEditingState: isOpenedForPreview ? .locked : .editing,
-            viewInput: viewInput
+            viewInput: viewInput,
+            bottomNavigationManager: bottomNavigationManager
         )
         
         let accessoryState = AccessoryViewBuilder.accessoryState(
@@ -185,14 +197,17 @@ final class EditorAssembly {
             pasteboardService: pasteboardService,
             document: document,
             onShowStyleMenu: blocksStateManager.didSelectStyleSelection(info:),
-            onBlockSelection: actionHandler.selectBlock(info:)
+            onBlockSelection: actionHandler.selectBlock(info:),
+            pageService: serviceLocator.pageService(),
+            linkToObjectCoordinator: coordinatorsDI.linkToObject.make(rootController: browser, viewController: controller)
         )
         
         let markdownListener = MarkdownListenerImpl()
         
         let blockDelegate = BlockDelegateImpl(
             viewInput: viewInput,
-            accessoryState: accessoryState
+            accessoryState: accessoryState,
+            cursorManager: cursorManager
         )
 
         let headerModel = ObjectHeaderViewModel(
@@ -211,7 +226,9 @@ final class EditorAssembly {
             focusSubjectHolder: focusSubjectHolder,
             viewInput: viewInput,
             mainEditorSelectionManager: blocksStateManager,
-            responderScrollViewHelper: responderScrollViewHelper
+            responderScrollViewHelper: responderScrollViewHelper,
+            pageService: serviceLocator.pageService(),
+            linkToObjectCoordinator: coordinatorsDI.linkToObject.make(rootController: browser, viewController: controller)
         )
 
         let blocksConverter = BlockViewModelBuilder(
@@ -222,7 +239,8 @@ final class EditorAssembly {
             delegate: blockDelegate,
             markdownListener: markdownListener,
             simpleTableDependenciesBuilder: simpleTableDependenciesBuilder,
-            subjectsHolder: focusSubjectHolder
+            subjectsHolder: focusSubjectHolder,
+            pageService: serviceLocator.pageService()
         )
 
         actionHandler.blockSelectionHandler = blocksStateManager
