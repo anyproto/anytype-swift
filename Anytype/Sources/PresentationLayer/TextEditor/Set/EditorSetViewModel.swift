@@ -1,7 +1,6 @@
 import Combine
 import BlocksModels
 import AnytypeCore
-import ProtobufMessages
 import SwiftUI
 import OrderedCollections
 
