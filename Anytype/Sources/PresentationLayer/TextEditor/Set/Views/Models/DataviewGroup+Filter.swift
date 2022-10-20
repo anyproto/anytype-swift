@@ -6,13 +6,13 @@ extension DataviewGroup {
         case .tag(let tag):
             return DataviewFilter(
                 relationKey: relationKey,
-                condition: .exactIn,
+                condition: tag.ids.isEmpty ? .empty : .exactIn,
                 value: tag.ids.protobufValue
             )
         case .status(let status):
             return DataviewFilter(
                 relationKey: relationKey,
-                condition: .equal,
+                condition: status.id.isEmpty ? .empty : .equal,
                 value: status.id.protobufValue
             )
         case .checkbox(let checkbox):
