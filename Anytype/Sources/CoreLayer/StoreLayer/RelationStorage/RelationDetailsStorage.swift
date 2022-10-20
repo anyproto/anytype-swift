@@ -21,8 +21,8 @@ final class RelationDetailsStorage: RelationDetailsStorageProtocol {
     // MARK: - RelationDetailsStorageProtocol
     
     func relationsDetails(for links: [RelationLink]) -> [RelationDetails] {
-        let ids = links.map { $0.id }
-        return details.filter { ids.contains($0.id) }
+        let keys = links.map { $0.key }
+        return details.filter { keys.contains($0.key) }
     }
     
     func relationsDetails() -> [RelationDetails] {
@@ -48,17 +48,17 @@ final class RelationDetailsStorage: RelationDetailsStorageProtocol {
         
         switch update {
         case .initialData(let details):
-            let ids = details.map { $0.id }
-            sendLocalEvents(relationIds: ids)
+            let relationKeys = details.map { $0.relationKey }
+            sendLocalEvents(relationKeys: relationKeys)
         case .update(let objectDetails):
-            sendLocalEvents(relationIds: [objectDetails.id])
+            sendLocalEvents(relationKeys: [objectDetails.relationKey])
         case .remove, .add, .move, .pageCount:
             break
         }
     }
     
-    private func sendLocalEvents(relationIds: [String]) {
-        RelationEventsBunch(events: [.relationChanged(relationIds: relationIds)])
+    private func sendLocalEvents(relationKeys: [String]) {
+        RelationEventsBunch(events: [.relationChanged(relationKeys: relationKeys)])
             .send()
     }
 }

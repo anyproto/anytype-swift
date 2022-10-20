@@ -41,8 +41,10 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum {
   case marketplaceType // = 272
   case marketplaceRelation // = 273
   case marketplaceTemplate // = 274
+
+  /// DEPRECATED
   case bundledRelation // = 512
-  case indexedRelation // = 513
+  case subObject // = 513
   case bundledObjectType // = 514
   case anytypeProfile // = 515
   case date // = 516
@@ -50,7 +52,6 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum {
   /// deprecated thread-based workspace
   case workspaceOld // = 517
   case workspace // = 518
-  case relationOption // = 519
   case UNRECOGNIZED(Int)
 
   public init() {
@@ -75,13 +76,12 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum {
     case 288: self = .template
     case 289: self = .bundledTemplate
     case 512: self = .bundledRelation
-    case 513: self = .indexedRelation
+    case 513: self = .subObject
     case 514: self = .bundledObjectType
     case 515: self = .anytypeProfile
     case 516: self = .date
     case 517: self = .workspaceOld
     case 518: self = .workspace
-    case 519: self = .relationOption
     default: self = .UNRECOGNIZED(rawValue)
     }
   }
@@ -104,13 +104,12 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum {
     case .template: return 288
     case .bundledTemplate: return 289
     case .bundledRelation: return 512
-    case .indexedRelation: return 513
+    case .subObject: return 513
     case .bundledObjectType: return 514
     case .anytypeProfile: return 515
     case .date: return 516
     case .workspaceOld: return 517
     case .workspace: return 518
-    case .relationOption: return 519
     case .UNRECOGNIZED(let i): return i
     }
   }
@@ -138,13 +137,12 @@ extension Anytype_Model_SmartBlockType: CaseIterable {
     .marketplaceRelation,
     .marketplaceTemplate,
     .bundledRelation,
-    .indexedRelation,
+    .subObject,
     .bundledObjectType,
     .anytypeProfile,
     .date,
     .workspaceOld,
     .workspace,
-    .relationOption,
   ]
 }
 
@@ -2687,6 +2685,9 @@ public struct Anytype_Model_Account {
 
     public var deviceID: String = String()
 
+    /// marketplace template id
+    public var accountSpaceID: String = String()
+
     /// gateway url for fetching static files
     public var gatewayURL: String = String()
 
@@ -2986,7 +2987,7 @@ public struct Anytype_Model_ObjectType {
   public var name: String = String()
 
   /// cannot contain more than one Relation with the same RelationType
-  public var relations: [Anytype_Model_Relation] = []
+  public var relationLinks: [Anytype_Model_RelationLink] = []
 
   public var layout: Anytype_Model_ObjectType.Layout = .basic
 
@@ -3313,47 +3314,10 @@ public struct Anytype_Model_Relation {
     /// stored
     public var color: String = String()
 
-    /// on-store contains only local-scope relations. All others injected on-the-fly
-    public var scope: Anytype_Model_Relation.Option.Scope = .local
+    /// 4 is reserved for old relation format
+    public var relationKey: String = String()
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-    public enum Scope: SwiftProtobuf.Enum {
-      public typealias RawValue = Int
-
-      /// stored within the object/aggregated from set
-      case local // = 0
-
-      /// aggregated from all relation of this relation's key
-      case relation // = 1
-
-      /// aggregated from all relations of this relation's format
-      case format // = 2
-      case UNRECOGNIZED(Int)
-
-      public init() {
-        self = .local
-      }
-
-      public init?(rawValue: Int) {
-        switch rawValue {
-        case 0: self = .local
-        case 1: self = .relation
-        case 2: self = .format
-        default: self = .UNRECOGNIZED(rawValue)
-        }
-      }
-
-      public var rawValue: Int {
-        switch self {
-        case .local: return 0
-        case .relation: return 1
-        case .format: return 2
-        case .UNRECOGNIZED(let i): return i
-        }
-      }
-
-    }
 
     public init() {}
   }
@@ -3386,15 +3350,6 @@ extension Anytype_Model_Relation.DataSource: CaseIterable {
   ]
 }
 
-extension Anytype_Model_Relation.Option.Scope: CaseIterable {
-  // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [Anytype_Model_Relation.Option.Scope] = [
-    .local,
-    .relation,
-    .format,
-  ]
-}
-
 #endif  // swift(>=4.2)
 
 public struct Anytype_Model_RelationLink {
@@ -3402,9 +3357,9 @@ public struct Anytype_Model_RelationLink {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  public var id: String = String()
-
   public var key: String = String()
+
+  public var format: Anytype_Model_RelationFormat = .longtext
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -3686,7 +3641,6 @@ extension Anytype_Model_Relation: @unchecked Sendable {}
 extension Anytype_Model_Relation.Scope: @unchecked Sendable {}
 extension Anytype_Model_Relation.DataSource: @unchecked Sendable {}
 extension Anytype_Model_Relation.Option: @unchecked Sendable {}
-extension Anytype_Model_Relation.Option.Scope: @unchecked Sendable {}
 extension Anytype_Model_RelationLink: @unchecked Sendable {}
 extension Anytype_Model_Relations: @unchecked Sendable {}
 extension Anytype_Model_RelationOptions: @unchecked Sendable {}
@@ -3720,13 +3674,12 @@ extension Anytype_Model_SmartBlockType: SwiftProtobuf._ProtoNameProviding {
     288: .same(proto: "Template"),
     289: .same(proto: "BundledTemplate"),
     512: .same(proto: "BundledRelation"),
-    513: .same(proto: "IndexedRelation"),
+    513: .same(proto: "SubObject"),
     514: .same(proto: "BundledObjectType"),
     515: .same(proto: "AnytypeProfile"),
     516: .same(proto: "Date"),
     517: .same(proto: "WorkspaceOld"),
     518: .same(proto: "Workspace"),
-    519: .same(proto: "RelationOption"),
   ]
 }
 
@@ -6272,6 +6225,7 @@ extension Anytype_Model_Account.Info: SwiftProtobuf.Message, SwiftProtobuf._Mess
     6: .same(proto: "marketplaceRelationObjectId"),
     7: .same(proto: "marketplaceTemplateObjectId"),
     8: .same(proto: "deviceId"),
+    9: .same(proto: "accountSpaceId"),
     101: .same(proto: "gatewayUrl"),
     103: .same(proto: "localStoragePath"),
     104: .same(proto: "timeZone"),
@@ -6290,6 +6244,7 @@ extension Anytype_Model_Account.Info: SwiftProtobuf.Message, SwiftProtobuf._Mess
       case 6: try { try decoder.decodeSingularStringField(value: &self.marketplaceRelationObjectID) }()
       case 7: try { try decoder.decodeSingularStringField(value: &self.marketplaceTemplateObjectID) }()
       case 8: try { try decoder.decodeSingularStringField(value: &self.deviceID) }()
+      case 9: try { try decoder.decodeSingularStringField(value: &self.accountSpaceID) }()
       case 101: try { try decoder.decodeSingularStringField(value: &self.gatewayURL) }()
       case 103: try { try decoder.decodeSingularStringField(value: &self.localStoragePath) }()
       case 104: try { try decoder.decodeSingularStringField(value: &self.timeZone) }()
@@ -6320,6 +6275,9 @@ extension Anytype_Model_Account.Info: SwiftProtobuf.Message, SwiftProtobuf._Mess
     if !self.deviceID.isEmpty {
       try visitor.visitSingularStringField(value: self.deviceID, fieldNumber: 8)
     }
+    if !self.accountSpaceID.isEmpty {
+      try visitor.visitSingularStringField(value: self.accountSpaceID, fieldNumber: 9)
+    }
     if !self.gatewayURL.isEmpty {
       try visitor.visitSingularStringField(value: self.gatewayURL, fieldNumber: 101)
     }
@@ -6340,6 +6298,7 @@ extension Anytype_Model_Account.Info: SwiftProtobuf.Message, SwiftProtobuf._Mess
     if lhs.marketplaceRelationObjectID != rhs.marketplaceRelationObjectID {return false}
     if lhs.marketplaceTemplateObjectID != rhs.marketplaceTemplateObjectID {return false}
     if lhs.deviceID != rhs.deviceID {return false}
+    if lhs.accountSpaceID != rhs.accountSpaceID {return false}
     if lhs.gatewayURL != rhs.gatewayURL {return false}
     if lhs.localStoragePath != rhs.localStoragePath {return false}
     if lhs.timeZone != rhs.timeZone {return false}
@@ -6599,7 +6558,7 @@ extension Anytype_Model_ObjectType: SwiftProtobuf.Message, SwiftProtobuf._Messag
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "url"),
     2: .same(proto: "name"),
-    3: .same(proto: "relations"),
+    3: .same(proto: "relationLinks"),
     4: .same(proto: "layout"),
     5: .same(proto: "iconEmoji"),
     6: .same(proto: "description"),
@@ -6617,7 +6576,7 @@ extension Anytype_Model_ObjectType: SwiftProtobuf.Message, SwiftProtobuf._Messag
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.url) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.name) }()
-      case 3: try { try decoder.decodeRepeatedMessageField(value: &self.relations) }()
+      case 3: try { try decoder.decodeRepeatedMessageField(value: &self.relationLinks) }()
       case 4: try { try decoder.decodeSingularEnumField(value: &self.layout) }()
       case 5: try { try decoder.decodeSingularStringField(value: &self.iconEmoji) }()
       case 6: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
@@ -6637,8 +6596,8 @@ extension Anytype_Model_ObjectType: SwiftProtobuf.Message, SwiftProtobuf._Messag
     if !self.name.isEmpty {
       try visitor.visitSingularStringField(value: self.name, fieldNumber: 2)
     }
-    if !self.relations.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.relations, fieldNumber: 3)
+    if !self.relationLinks.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.relationLinks, fieldNumber: 3)
     }
     if self.layout != .basic {
       try visitor.visitSingularEnumField(value: self.layout, fieldNumber: 4)
@@ -6667,7 +6626,7 @@ extension Anytype_Model_ObjectType: SwiftProtobuf.Message, SwiftProtobuf._Messag
   public static func ==(lhs: Anytype_Model_ObjectType, rhs: Anytype_Model_ObjectType) -> Bool {
     if lhs.url != rhs.url {return false}
     if lhs.name != rhs.name {return false}
-    if lhs.relations != rhs.relations {return false}
+    if lhs.relationLinks != rhs.relationLinks {return false}
     if lhs.layout != rhs.layout {return false}
     if lhs.iconEmoji != rhs.iconEmoji {return false}
     if lhs.description_p != rhs.description_p {return false}
@@ -6971,7 +6930,7 @@ extension Anytype_Model_Relation.Option: SwiftProtobuf.Message, SwiftProtobuf._M
     1: .same(proto: "id"),
     2: .same(proto: "text"),
     3: .same(proto: "color"),
-    4: .same(proto: "scope"),
+    5: .same(proto: "relationKey"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -6983,7 +6942,7 @@ extension Anytype_Model_Relation.Option: SwiftProtobuf.Message, SwiftProtobuf._M
       case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.text) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self.color) }()
-      case 4: try { try decoder.decodeSingularEnumField(value: &self.scope) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.relationKey) }()
       default: break
       }
     }
@@ -6999,8 +6958,8 @@ extension Anytype_Model_Relation.Option: SwiftProtobuf.Message, SwiftProtobuf._M
     if !self.color.isEmpty {
       try visitor.visitSingularStringField(value: self.color, fieldNumber: 3)
     }
-    if self.scope != .local {
-      try visitor.visitSingularEnumField(value: self.scope, fieldNumber: 4)
+    if !self.relationKey.isEmpty {
+      try visitor.visitSingularStringField(value: self.relationKey, fieldNumber: 5)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -7009,25 +6968,17 @@ extension Anytype_Model_Relation.Option: SwiftProtobuf.Message, SwiftProtobuf._M
     if lhs.id != rhs.id {return false}
     if lhs.text != rhs.text {return false}
     if lhs.color != rhs.color {return false}
-    if lhs.scope != rhs.scope {return false}
+    if lhs.relationKey != rhs.relationKey {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Model_Relation.Option.Scope: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "local"),
-    1: .same(proto: "relation"),
-    2: .same(proto: "format"),
-  ]
-}
-
 extension Anytype_Model_RelationLink: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".RelationLink"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "id"),
-    2: .same(proto: "key"),
+    1: .same(proto: "key"),
+    2: .same(proto: "format"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -7036,26 +6987,26 @@ extension Anytype_Model_RelationLink: SwiftProtobuf.Message, SwiftProtobuf._Mess
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self.key) }()
+      case 1: try { try decoder.decodeSingularStringField(value: &self.key) }()
+      case 2: try { try decoder.decodeSingularEnumField(value: &self.format) }()
       default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.id.isEmpty {
-      try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
-    }
     if !self.key.isEmpty {
-      try visitor.visitSingularStringField(value: self.key, fieldNumber: 2)
+      try visitor.visitSingularStringField(value: self.key, fieldNumber: 1)
+    }
+    if self.format != .longtext {
+      try visitor.visitSingularEnumField(value: self.format, fieldNumber: 2)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Model_RelationLink, rhs: Anytype_Model_RelationLink) -> Bool {
-    if lhs.id != rhs.id {return false}
     if lhs.key != rhs.key {return false}
+    if lhs.format != rhs.format {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

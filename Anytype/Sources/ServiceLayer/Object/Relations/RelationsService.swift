@@ -58,16 +58,16 @@ final class RelationsService: RelationsServiceProtocol {
         
         guard let result = result else { return false }
         
-        return addRelation(relationId: result.objectID)
+        return addRelation(relationKey: result.key)
     }
 
     func addRelation(relationDetails: RelationDetails) -> Bool {
-        return addRelation(relationId: relationDetails.id)
+        return addRelation(relationKey: relationDetails.key)
     }
 
-    private func addRelation(relationId: String) -> Bool {
+    private func addRelation(relationKey: String) -> Bool {
         let events = Anytype_Rpc.ObjectRelation.Add.Service
-            .invocation(contextID: objectId, relationIds: [relationId])
+            .invocation(contextID: objectId, relationKeys: [relationKey])
             .invoke()
             .map { EventsBunch(event: $0.event) }
             .getValue(domain: .relationsService)
@@ -77,9 +77,9 @@ final class RelationsService: RelationsServiceProtocol {
         return events.isNotNil
     }
     
-    func removeRelation(relationId: String) {
+    func removeRelation(relationKey: String) {
         Anytype_Rpc.ObjectRelation.Delete.Service
-            .invocation(contextID: objectId, relationID: relationId)
+            .invocation(contextID: objectId, relationKey: relationKey)
             .invoke()
             .map { EventsBunch(event: $0.event) }
             .getValue(domain: .relationsService)?

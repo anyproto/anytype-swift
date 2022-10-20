@@ -127,12 +127,10 @@ extension Anytype_Event.Block.Dataview.ViewOrder {
 }
 
 extension Anytype_Event.Block.Dataview.ViewSet {
-    public init(id: String = String(), viewID: String = String(), view: Anytype_Model_Block.Content.Dataview.View, offset: UInt32 = 0, limit: UInt32 = 0) {
+    public init(id: String = String(), viewID: String = String(), view: Anytype_Model_Block.Content.Dataview.View) {
         self.id = id
         self.viewID = viewID
         self.view = view
-        self.offset = offset
-        self.limit = limit
     }
 }
 

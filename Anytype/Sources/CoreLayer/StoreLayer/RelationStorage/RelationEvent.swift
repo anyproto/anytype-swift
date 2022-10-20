@@ -1,5 +1,5 @@
 import Foundation
 
 enum RelationEvent {
-    case relationChanged(relationIds: [String])
+    case relationChanged(relationKeys: [String])
 }

@@ -81,7 +81,7 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
                 return
             }
             Task {
-                try await service.deleteRelation(relationId: relation.relationDetails.id)
+                try await service.deleteRelation(relationKey: relation.relationDetails.key)
             }
         }
     }

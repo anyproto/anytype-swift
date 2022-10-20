@@ -48,7 +48,7 @@ final class DataviewService: DataviewServiceProtocol {
 
     func addRelation(_ relationDetails: RelationDetails) async throws -> Bool {
         let result = try await Anytype_Rpc.BlockDataview.Relation.Add.Service
-            .invocation(contextID: objectId, blockID: SetConstants.dataviewBlockId, relationIds: [relationDetails.id])
+            .invocation(contextID: objectId, blockID: SetConstants.dataviewBlockId, relationKeys: [relationDetails.key])
             .invoke(errorDomain: .dataviewService)
         let event = EventsBunch(event: result.event)
         event.send()
@@ -56,9 +56,9 @@ final class DataviewService: DataviewServiceProtocol {
         return result.hasEvent
     }
     
-    func deleteRelation(relationId: BlockId) async throws {
+    func deleteRelation(relationKey: String) async throws {
         let result = try await Anytype_Rpc.BlockDataview.Relation.Delete.Service
-            .invocation(contextID: objectId, blockID: SetConstants.dataviewBlockId, relationIds: [relationId])
+            .invocation(contextID: objectId, blockID: SetConstants.dataviewBlockId, relationKeys: [relationKey])
             .invoke(errorDomain: .dataviewService)
         let event = EventsBunch(event: result.event)
         event.send()

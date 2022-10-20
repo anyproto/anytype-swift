@@ -17,7 +17,7 @@ public final class RelationLinksStorage: RelationLinksStorageProtocol {
     
     public func amend(relationLinks: [RelationLink]) {
         relationLinks.forEach { relationLink in
-            let index = storage.array.firstIndex { $0.id == relationLink.id }
+            let index = storage.array.firstIndex { $0.key == relationLink.key }
             if let index = index {
                 storage[index] = relationLink
             } else {
@@ -28,7 +28,7 @@ public final class RelationLinksStorage: RelationLinksStorageProtocol {
     
     public func remove(relationIds: [String]) {
         storage.removeAll {
-            relationIds.contains($0.id)
+            relationIds.contains($0.key)
         }
     }
     

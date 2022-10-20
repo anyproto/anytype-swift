@@ -30,7 +30,7 @@ public enum SmartBlockType: Hashable, Codable {
     case marketplaceRelation // = 273
     case marketplaceTemplate // = 274
     case bundledRelation // = 512
-    case indexedRelation // = 513
+    case subObject // = 513
     case bundledObjectType // = 514
     case anytypeProfile // = 515
     case date // = 516
@@ -77,8 +77,8 @@ extension SmartBlockType {
             self = .marketplaceTemplate
         case .bundledRelation:
             self = .bundledRelation
-        case .indexedRelation:
-            self = .indexedRelation
+        case .subObject:
+            self = .subObject
         case .bundledObjectType:
             self = .bundledObjectType
         case .anytypeProfile:
@@ -89,9 +89,6 @@ extension SmartBlockType {
             self = .workspaceOld
         case .workspace:
             self = .workspace
-        // TODO: Support
-        case .relationOption:
-            self = .UNRECOGNIZED(0)
         case .UNRECOGNIZED(let int):
             self = .UNRECOGNIZED(int)
         }
@@ -131,8 +128,8 @@ extension SmartBlockType {
             return .marketplaceTemplate
         case .bundledRelation:
             return .bundledRelation
-        case .indexedRelation:
-            return .indexedRelation
+        case .subObject:
+            return .subObject
         case .bundledObjectType:
             return .bundledObjectType
         case .anytypeProfile:

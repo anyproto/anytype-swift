@@ -36,14 +36,13 @@ enum SmartBlockType {
     MarketplaceRelation = 0x111;
     MarketplaceTemplate = 0x112;
 
-    BundledRelation = 0x200;
-    IndexedRelation = 0x201;
+    BundledRelation = 0x200; // DEPRECATED
+    SubObject = 0x201;
     BundledObjectType = 0x202;
     AnytypeProfile = 0x203;
     Date = 0x204;
     WorkspaceOld = 0x205; // deprecated thread-based workspace
     Workspace = 0x206;
-    RelationOption = 0x207;
 }
 
 message Block {
@@ -556,6 +555,8 @@ message Account {
         string marketplaceRelationObjectId = 6; // marketplace relation id
         string marketplaceTemplateObjectId = 7; // marketplace template id
         string deviceId = 8;
+        string accountSpaceId = 9; // marketplace template id
+
         string gatewayUrl = 101; // gateway url for fetching static files
         string localStoragePath = 103; // path to local storage
         string timeZone = 104; // time zone from config
@@ -630,7 +631,7 @@ message ThreadCreateQueueEntry {
 message ObjectType {
     string url = 1; // leave empty in case you want to create the new one
     string name = 2; // name of objectType (can be localized for bundled types)
-    repeated Relation relations = 3; // cannot contain more than one Relation with the same RelationType
+    repeated RelationLink relationLinks = 3; // cannot contain more than one Relation with the same RelationType
     Layout layout = 4;
     string iconEmoji = 5; // emoji symbol
     string description = 6;
@@ -703,13 +704,8 @@ message Relation {
         string id = 1; // id generated automatically if omitted
         string text = 2;
         string color = 3; // stored
-        Scope scope = 4; // on-store contains only local-scope relations. All others injected on-the-fly
-
-        enum Scope {
-            local = 0; // stored within the object/aggregated from set
-            relation = 1; // aggregated from all relation of this relation's key
-            format = 2; // aggregated from all relations of this relation's format
-        }
+        // 4 is reserved for old relation format
+        string relationKey = 5; // stored
     }
 
     enum Scope {
@@ -749,8 +745,8 @@ enum RelationFormat {
 }
 
 message RelationLink {
-    string id = 1;
-    string key = 2;
+    string key = 1;
+    RelationFormat format = 2;
 }
 
 message Relations {

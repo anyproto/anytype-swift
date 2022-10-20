@@ -102,7 +102,7 @@ message Change {
     }
 
     message RelationRemove {
-        repeated string relationId = 1;
+        repeated string relationKey = 1;
     }
 
     message _RelationAdd {

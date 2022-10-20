@@ -458,7 +458,7 @@ public struct Anytype_Change {
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
     // methods supported on all messages.
 
-    public var relationID: [String] = []
+    public var relationKey: [String] = []
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -1508,7 +1508,7 @@ extension Anytype_Change.RelationAdd: SwiftProtobuf.Message, SwiftProtobuf._Mess
 extension Anytype_Change.RelationRemove: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Change.protoMessageName + ".RelationRemove"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "relationId"),
+    1: .same(proto: "relationKey"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -1517,21 +1517,21 @@ extension Anytype_Change.RelationRemove: SwiftProtobuf.Message, SwiftProtobuf._M
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeRepeatedStringField(value: &self.relationID) }()
+      case 1: try { try decoder.decodeRepeatedStringField(value: &self.relationKey) }()
       default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.relationID.isEmpty {
-      try visitor.visitRepeatedStringField(value: self.relationID, fieldNumber: 1)
+    if !self.relationKey.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.relationKey, fieldNumber: 1)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Change.RelationRemove, rhs: Anytype_Change.RelationRemove) -> Bool {
-    if lhs.relationID != rhs.relationID {return false}
+    if lhs.relationKey != rhs.relationKey {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

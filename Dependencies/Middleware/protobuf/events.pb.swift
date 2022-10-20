@@ -2994,11 +2994,6 @@ public struct Anytype_Event {
         /// Clears the value of `view`. Subsequent reads from it will return its default value.
         public mutating func clearView() {self._view = nil}
 
-        /// middleware will try to preserve the current aciveview's offset&limit but may reset it in case it becomes invalid or not actual anymore
-        public var offset: UInt32 = 0
-
-        public var limit: UInt32 = 0
-
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public init() {}
@@ -9179,8 +9174,6 @@ extension Anytype_Event.Block.Dataview.ViewSet: SwiftProtobuf.Message, SwiftProt
     1: .same(proto: "id"),
     2: .same(proto: "viewId"),
     3: .same(proto: "view"),
-    4: .same(proto: "offset"),
-    5: .same(proto: "limit"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -9192,8 +9185,6 @@ extension Anytype_Event.Block.Dataview.ViewSet: SwiftProtobuf.Message, SwiftProt
       case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.viewID) }()
       case 3: try { try decoder.decodeSingularMessageField(value: &self._view) }()
-      case 4: try { try decoder.decodeSingularUInt32Field(value: &self.offset) }()
-      case 5: try { try decoder.decodeSingularUInt32Field(value: &self.limit) }()
       default: break
       }
     }
@@ -9213,12 +9204,6 @@ extension Anytype_Event.Block.Dataview.ViewSet: SwiftProtobuf.Message, SwiftProt
     try { if let v = self._view {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
     } }()
-    if self.offset != 0 {
-      try visitor.visitSingularUInt32Field(value: self.offset, fieldNumber: 4)
-    }
-    if self.limit != 0 {
-      try visitor.visitSingularUInt32Field(value: self.limit, fieldNumber: 5)
-    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -9226,8 +9211,6 @@ extension Anytype_Event.Block.Dataview.ViewSet: SwiftProtobuf.Message, SwiftProt
     if lhs.id != rhs.id {return false}
     if lhs.viewID != rhs.viewID {return false}
     if lhs._view != rhs._view {return false}
-    if lhs.offset != rhs.offset {return false}
-    if lhs.limit != rhs.limit {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

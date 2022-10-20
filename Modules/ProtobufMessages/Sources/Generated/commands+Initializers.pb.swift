@@ -833,10 +833,10 @@ extension Anytype_Rpc.BlockDataview.ObjectOrder.Update.Response.Error {
 }
 
 extension Anytype_Rpc.BlockDataview.Relation.Add.Request {
-    public init(contextID: String = String(), blockID: String = String(), relationIds: [String] = []) {
+    public init(contextID: String = String(), blockID: String = String(), relationKeys: [String] = []) {
         self.contextID = contextID
         self.blockID = blockID
-        self.relationIds = relationIds
+        self.relationKeys = relationKeys
     }
 }
 
@@ -855,10 +855,10 @@ extension Anytype_Rpc.BlockDataview.Relation.Add.Response.Error {
 }
 
 extension Anytype_Rpc.BlockDataview.Relation.Delete.Request {
-    public init(contextID: String = String(), blockID: String = String(), relationIds: [String] = []) {
+    public init(contextID: String = String(), blockID: String = String(), relationKeys: [String] = []) {
         self.contextID = contextID
         self.blockID = blockID
-        self.relationIds = relationIds
+        self.relationKeys = relationKeys
     }
 }
 
@@ -1244,10 +1244,10 @@ extension Anytype_Rpc.BlockLink.ListSetAppearance.Response.Error {
 }
 
 extension Anytype_Rpc.BlockRelation.Add.Request {
-    public init(contextID: String = String(), blockID: String = String(), relationID: String = String()) {
+    public init(contextID: String = String(), blockID: String = String(), relationKey: String = String()) {
         self.contextID = contextID
         self.blockID = blockID
-        self.relationID = relationID
+        self.relationKey = relationKey
     }
 }
 
@@ -2489,10 +2489,11 @@ extension Anytype_Rpc.Object.CreateRelation.Request {
 }
 
 extension Anytype_Rpc.Object.CreateRelation.Response {
-    public init(error: Anytype_Rpc.Object.CreateRelation.Response.Error, objectID: String = String(), key: String = String()) {
+    public init(error: Anytype_Rpc.Object.CreateRelation.Response.Error, objectID: String = String(), key: String = String(), details: SwiftProtobuf.Google_Protobuf_Struct) {
         self.error = error
         self.objectID = objectID
         self.key = key
+        self.details = details
     }
 }
 
@@ -2510,9 +2511,10 @@ extension Anytype_Rpc.Object.CreateRelationOption.Request {
 }
 
 extension Anytype_Rpc.Object.CreateRelationOption.Response {
-    public init(error: Anytype_Rpc.Object.CreateRelationOption.Response.Error, objectID: String = String()) {
+    public init(error: Anytype_Rpc.Object.CreateRelationOption.Response.Error, objectID: String = String(), details: SwiftProtobuf.Google_Protobuf_Struct) {
         self.error = error
         self.objectID = objectID
+        self.details = details
     }
 }
 
@@ -3171,9 +3173,9 @@ extension Anytype_Rpc.Object.UndoRedoCounter {
 }
 
 extension Anytype_Rpc.ObjectRelation.Add.Request {
-    public init(contextID: String = String(), relationIds: [String] = []) {
+    public init(contextID: String = String(), relationKeys: [String] = []) {
         self.contextID = contextID
-        self.relationIds = relationIds
+        self.relationKeys = relationKeys
     }
 }
 
@@ -3213,9 +3215,9 @@ extension Anytype_Rpc.ObjectRelation.AddFeatured.Response.Error {
 }
 
 extension Anytype_Rpc.ObjectRelation.Delete.Request {
-    public init(contextID: String = String(), relationID: String = String()) {
+    public init(contextID: String = String(), relationKey: String = String()) {
         self.contextID = contextID
-        self.relationID = relationID
+        self.relationKey = relationKey
     }
 }
 
@@ -3275,9 +3277,9 @@ extension Anytype_Rpc.ObjectRelation.RemoveFeatured.Response.Error {
 }
 
 extension Anytype_Rpc.ObjectType.Relation.Add.Request {
-    public init(objectTypeURL: String = String(), relationIds: [String] = []) {
+    public init(objectTypeURL: String = String(), relationKeys: [String] = []) {
         self.objectTypeURL = objectTypeURL
-        self.relationIds = relationIds
+        self.relationKeys = relationKeys
     }
 }
 
@@ -3303,7 +3305,7 @@ extension Anytype_Rpc.ObjectType.Relation.List.Request {
 }
 
 extension Anytype_Rpc.ObjectType.Relation.List.Response {
-    public init(error: Anytype_Rpc.ObjectType.Relation.List.Response.Error, relations: [Anytype_Model_Relation] = []) {
+    public init(error: Anytype_Rpc.ObjectType.Relation.List.Response.Error, relations: [Anytype_Model_RelationLink] = []) {
         self.error = error
         self.relations = relations
     }
@@ -3317,9 +3319,9 @@ extension Anytype_Rpc.ObjectType.Relation.List.Response.Error {
 }
 
 extension Anytype_Rpc.ObjectType.Relation.Remove.Request {
-    public init(objectTypeURL: String = String(), relationID: String = String()) {
+    public init(objectTypeURL: String = String(), relationKeys: [String] = []) {
         self.objectTypeURL = objectTypeURL
-        self.relationID = relationID
+        self.relationKeys = relationKeys
     }
 }
 

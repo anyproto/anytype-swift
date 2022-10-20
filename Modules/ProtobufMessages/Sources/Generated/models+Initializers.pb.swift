@@ -37,7 +37,7 @@ extension Anytype_Model_Account.Config {
 }
 
 extension Anytype_Model_Account.Info {
-    public init(homeObjectID: String = String(), archiveObjectID: String = String(), profileObjectID: String = String(), marketplaceTypeObjectID: String = String(), marketplaceRelationObjectID: String = String(), marketplaceTemplateObjectID: String = String(), deviceID: String = String(), gatewayURL: String = String(), localStoragePath: String = String(), timeZone: String = String()) {
+    public init(homeObjectID: String = String(), archiveObjectID: String = String(), profileObjectID: String = String(), marketplaceTypeObjectID: String = String(), marketplaceRelationObjectID: String = String(), marketplaceTemplateObjectID: String = String(), deviceID: String = String(), accountSpaceID: String = String(), gatewayURL: String = String(), localStoragePath: String = String(), timeZone: String = String()) {
         self.homeObjectID = homeObjectID
         self.archiveObjectID = archiveObjectID
         self.profileObjectID = profileObjectID
@@ -45,6 +45,7 @@ extension Anytype_Model_Account.Info {
         self.marketplaceRelationObjectID = marketplaceRelationObjectID
         self.marketplaceTemplateObjectID = marketplaceTemplateObjectID
         self.deviceID = deviceID
+        self.accountSpaceID = accountSpaceID
         self.gatewayURL = gatewayURL
         self.localStoragePath = localStoragePath
         self.timeZone = timeZone
@@ -322,10 +323,10 @@ extension Anytype_Model_LinkPreview {
 }
 
 extension Anytype_Model_ObjectType {
-    public init(url: String = String(), name: String = String(), relations: [Anytype_Model_Relation] = [], layout: Anytype_Model_ObjectType.Layout = .basic, iconEmoji: String = String(), description_p: String = String(), hidden: Bool = false, readonly: Bool = false, types: [Anytype_Model_SmartBlockType] = [], isArchived: Bool = false) {
+    public init(url: String = String(), name: String = String(), relationLinks: [Anytype_Model_RelationLink] = [], layout: Anytype_Model_ObjectType.Layout = .basic, iconEmoji: String = String(), description_p: String = String(), hidden: Bool = false, readonly: Bool = false, types: [Anytype_Model_SmartBlockType] = [], isArchived: Bool = false) {
         self.url = url
         self.name = name
-        self.relations = relations
+        self.relationLinks = relationLinks
         self.layout = layout
         self.iconEmoji = iconEmoji
         self.description_p = description_p
@@ -400,18 +401,18 @@ extension Anytype_Model_Relation {
 }
 
 extension Anytype_Model_Relation.Option {
-    public init(id: String = String(), text: String = String(), color: String = String(), scope: Anytype_Model_Relation.Option.Scope = .local) {
+    public init(id: String = String(), text: String = String(), color: String = String(), relationKey: String = String()) {
         self.id = id
         self.text = text
         self.color = color
-        self.scope = scope
+        self.relationKey = relationKey
     }
 }
 
 extension Anytype_Model_RelationLink {
-    public init(id: String = String(), key: String = String()) {
-        self.id = id
+    public init(key: String = String(), format: Anytype_Model_RelationFormat = .longtext) {
         self.key = key
+        self.format = format
     }
 }
 

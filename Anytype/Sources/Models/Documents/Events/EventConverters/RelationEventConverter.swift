@@ -13,8 +13,8 @@ final class RelationEventConverter {
     
     func convert(_ event: RelationEvent) -> DocumentUpdate? {
         switch event {
-        case let .relationChanged(relationIds):
-            let contains = relationLinksStorage.relationLinks.contains { relationIds.contains($0.id) }
+        case let .relationChanged(relationKeys):
+            let contains = relationLinksStorage.relationLinks.contains { relationKeys.contains($0.key) }
             return contains ? .general : .none
         }
     }
