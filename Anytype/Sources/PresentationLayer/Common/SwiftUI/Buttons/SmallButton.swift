@@ -16,9 +16,10 @@ struct SmallButton: View {
                 AnytypeText(text, style: .caption1Medium, color: .textWhite)
                 Spacer.fixedWidth(8)
             }
+            .frame(height: 28)
+            .background(Color.System.amber100)
+            .cornerRadius(6)
         }
-        .frame(height: 28)
-        .background(Color.System.amber100)
-        .cornerRadius(6)
+        .buttonStyle(ShrinkingButtonStyle())
     }
 }
