@@ -81,6 +81,13 @@ extension FeatureDescription {
         defaultValue: false
     )
     
+    static let fixColorsForStyleMenu = FeatureDescription(
+        title: "Fix colors for style menu (IOS-94)",
+        author: "m@anytype.io",
+        releaseVersion: "0.20.0",
+        defaultValue: false
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(
