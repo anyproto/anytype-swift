@@ -55,7 +55,6 @@ final class SetFiltersContentViewBuilder {
     private func buildTagsSearchView(
         onSelect: @escaping (_ ids: [String]) -> Void
     ) -> some View {
-        #warning("fix options")
         let selectedTagIds = selectedIds(
             from: filter.filter.value
         )
@@ -95,7 +94,6 @@ final class SetFiltersContentViewBuilder {
     private func buildStatusesSearchView(
         onSelect: @escaping (_ ids: [String]) -> Void
     ) -> some View {
-        #warning("Fix selections")
         let selectedStatusesIds = selectedIds(
             from: filter.filter.value
         )

@@ -105,7 +105,6 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                 service: RelationsService(objectId: objectId)
             )
         case .status(let status):
-            #warning("Check status options list")
             return StatusRelationDetailsViewModel(
                 source: source,
                 selectedStatus: status.values.first,

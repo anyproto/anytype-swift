@@ -9,7 +9,6 @@ struct SetRelation: Identifiable, Equatable, Hashable {
 }
 
 extension Array where Element == DataviewRelationOption {
-    #warning("Check")
     func index(of relation: SetRelation) -> Index? {
         firstIndex(where: { $0.key == relation.relationDetails.key })
     }

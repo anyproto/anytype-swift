@@ -269,8 +269,6 @@ private extension RelationFilterBuilder {
         filter: DataviewFilter
     ) -> Relation? {
         guard filter.condition.hasValues else { return nil }
-        #warning("Fix selection status")
-        let statuses = [Relation.Status.Option]()
         
         let selectedStatuses: [Relation.Status.Option] = {
             let selectedSatusesIds: [String] = filter.value.listValue.values.compactMap {
@@ -278,9 +276,10 @@ private extension RelationFilterBuilder {
                 return statusId.isEmpty ? nil : statusId
             }
             
-            return selectedSatusesIds.compactMap { id in
-                statuses.first { $0.id == id }
-            }
+            return selectedSatusesIds
+                .compactMap { storage.get(id: $0) }
+                .map { RelationOption(details: $0) }
+                .map { Relation.Status.Option(option: $0) }
         }()
         
         return .status(
@@ -292,7 +291,6 @@ private extension RelationFilterBuilder {
                 isEditable: false,
                 isBundled: relationDetails.isBundled,
                 values: selectedStatuses
-//                allOptions: statuses
             )
         )
     }
@@ -302,7 +300,6 @@ private extension RelationFilterBuilder {
         filter: DataviewFilter
     ) -> Relation? {
         guard filter.condition.hasValues else { return nil }
-        #warning("Check selections")
         
         let selectedTags: [Relation.Tag.Option] = {
             let value = filter.value

@@ -3,7 +3,6 @@ import BlocksModels
 
 protocol SearchNewRelationModuleOutput: AnyObject {
     
-    #warning("Delete relation. Use subscription for object details")
     func didAddRelation(_ relationDetails: RelationDetails)
     func didAskToShowCreateNewRelation(searchText: String)
     

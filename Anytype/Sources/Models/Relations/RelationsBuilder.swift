@@ -262,7 +262,6 @@ private extension RelationsBuilder {
         details: ObjectDetails,
         isObjectLocked: Bool
     ) -> Relation {
-        #warning("Fix options")
         
         let selectedOption: Relation.Status.Option? = {
             let optionId = details.stringValue(for: relationDetails.key)
@@ -336,7 +335,6 @@ private extension RelationsBuilder {
         details: ObjectDetails,
         isObjectLocked: Bool
     ) -> Relation {
-        #warning("Check tags list")
         
         let selectedTags: [Relation.Tag.Option] = {
             let selectedTagIds = details.stringArrayValue(for: relationDetails.key)
