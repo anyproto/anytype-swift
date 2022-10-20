@@ -182,6 +182,17 @@ class SearchHelper {
             templateTypeFilter(type: type.rawValue)
         ]
     }
+    
+    static func workspaceId(_ workspaceId: String) -> DataviewFilter {
+        var filter = DataviewFilter()
+        filter.condition = .equal
+        filter.value = workspaceId.protobufValue
+        
+        filter.relationKey = BundledRelationKey.workspaceId.rawValue
+        filter.operator = .and
+        
+        return filter
+    }
 
     private static func templateTypeFilter(type: String) -> DataviewFilter {
         var filter = DataviewFilter()

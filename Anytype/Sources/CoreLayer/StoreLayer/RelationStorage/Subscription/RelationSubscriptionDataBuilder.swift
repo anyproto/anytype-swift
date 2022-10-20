@@ -16,7 +16,8 @@ final class RelationSubscriptionDataBuilder: RelationSubscriptionDataBuilderProt
         )
         let filters = [
             SearchHelper.isArchivedFilter(isArchived: false),
-            SearchHelper.typeFilter(typeIds: [ObjectTypeId.bundled(.relation).rawValue])
+            SearchHelper.typeFilter(typeIds: [ObjectTypeId.bundled(.relation).rawValue]),
+            SearchHelper.workspaceId(AccountManager.shared.account.info.accountSpaceId)
         ]
         
         let keys = [
