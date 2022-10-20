@@ -5,11 +5,9 @@ import UIKit
 
 final class RelationsBuilder {
     
-    private let scope: [RelationDetails.Scope]
     private let storage: ObjectDetailsStorage
     
-    init(scope: [RelationDetails.Scope] = [.object, .type], storage: ObjectDetailsStorage = ObjectDetailsStorage.shared) {
-        self.scope = scope
+    init(storage: ObjectDetailsStorage = ObjectDetailsStorage.shared) {
         self.storage = storage
     }
 
@@ -47,8 +45,7 @@ final class RelationsBuilder {
         var otherRelations: [Relation] = []
         
         relationsDetails.forEach { relationDetails in
-            #warning("Fix scope")
-            guard !relationDetails.isHidden else { return } // , scope.contains(relationMetadata.scope) else { return }
+            guard !relationDetails.isHidden else { return }
             
             let value = relation(
                 relationDetails: relationDetails,

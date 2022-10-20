@@ -28,7 +28,6 @@ extension Relation.Tag {
         let text: String
         let textColor: UIColor
         let backgroundColor: UIColor
-        let scope: RelationOption.Scope
     }
     
 }
@@ -42,8 +41,6 @@ extension Relation.Tag.Option {
             .map { UIColor.Text.uiColor(from: $0) } ?? .textSecondary
         self.backgroundColor = MiddlewareColor(rawValue: option.color)
             .map { UIColor.TagBackground.uiColor(from: $0) } ?? .backgroundSecondary
-
-        self.scope = option.scope
     }
     
 }
