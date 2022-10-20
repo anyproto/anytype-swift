@@ -1,5 +1,6 @@
 import Foundation
 import BlocksModels
+import AnytypeCore
 
 extension RelationDetails: IdProvider {}
 
@@ -9,6 +10,7 @@ final class RelationDetailsStorage: RelationDetailsStorageProtocol {
     private let subscriptionDataBuilder: RelationSubscriptionDataBuilderProtocol
     
     private var details = [RelationDetails]()
+    private var searchDetailsByKey = [String: RelationDetails]()
     private var localSubscriptions = [String: [RelationLink]]()
 
     init(
@@ -21,8 +23,7 @@ final class RelationDetailsStorage: RelationDetailsStorageProtocol {
     // MARK: - RelationDetailsStorageProtocol
     
     func relationsDetails(for links: [RelationLink]) -> [RelationDetails] {
-        let keys = links.map { $0.key }
-        return details.filter { keys.contains($0.key) }
+        return links.compactMap { searchDetailsByKey[$0.key] }
     }
     
     func relationsDetails() -> [RelationDetails] {
@@ -38,6 +39,7 @@ final class RelationDetailsStorage: RelationDetailsStorageProtocol {
     func stopSubscription() {
         subscriptionsService.stopSubscription(id: .relation)
         details.removeAll()
+        updateSearchCache()
         localSubscriptions.removeAll()
     }
     
@@ -45,6 +47,7 @@ final class RelationDetailsStorage: RelationDetailsStorageProtocol {
     
     private func handleEvent(update: SubscriptionUpdate) {
         details.applySubscriptionUpdate(update, transform: { RelationDetails(objectDetails: $0) })
+        updateSearchCache()
         
         switch update {
         case .initialData(let details):
@@ -60,5 +63,18 @@ final class RelationDetailsStorage: RelationDetailsStorageProtocol {
     private func sendLocalEvents(relationKeys: [String]) {
         RelationEventsBunch(events: [.relationChanged(relationKeys: relationKeys)])
             .send()
+    }
+    
+    private func updateSearchCache() {
+        searchDetailsByKey.removeAll()
+        details.forEach {
+            if searchDetailsByKey[$0.key] != nil {
+                anytypeAssertionFailure(
+                    "Dublicate relation found for key \($0.key), id: \($0.id)",
+                    domain: .relationDetailsStorage
+                )
+            }
+            searchDetailsByKey[$0.key] = $0
+        }
     }
 }

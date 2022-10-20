@@ -5040,8 +5040,8 @@
 			isa = PBXGroup;
 			children = (
 				2AA0209128D3502000321A66 /* Array+SubscriptionUpdate.swift */,
-				2AA0208228D34F8200321A66 /* Models */,
 				3D24912327BD271900821595 /* Internals */,
+				2AA0208228D34F8200321A66 /* Models */,
 				3D24912627BD271900821595 /* SubscriptionsServiceProtocol.swift */,
 			);
 			path = Subscriptions;

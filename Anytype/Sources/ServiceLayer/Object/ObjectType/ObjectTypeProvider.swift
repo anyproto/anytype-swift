@@ -18,6 +18,7 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     private let supportedSmartblockTypes: Set<SmartBlockType> = [.page, .profilePage, .anytypeProfile, .set, .file]
     
     private var objectTypes = [ObjectType]()
+    private var searchTypesById = [String: ObjectType]()
     private var cachedSupportedTypeIds: Set<String> = []
     
     private init(
@@ -43,9 +44,7 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     }
     
     func objectType(id: String) -> ObjectType? {
-        guard id.isNotEmpty else { return nil }
-        
-        return objectTypes.filter { $0.id == id }.first
+        return searchTypesById[id]
     }
     
     func objectTypes(smartblockTypes: Set<SmartBlockType>) -> [ObjectType] {
@@ -63,7 +62,8 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     func stopSubscription() {
         subscriptionsService.stopSubscription(id: .objectType)
         objectTypes.removeAll()
-        cachedSupportedTypeIds.removeAll()
+        updateSupportedTypeIds()
+        updateSearchCache()
     }
     
     // MARK: - Private func
@@ -71,6 +71,7 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     private func handleEvent(update: SubscriptionUpdate) {
         objectTypes.applySubscriptionUpdate(update, transform: { ObjectType(details: $0) })
         updateSupportedTypeIds()
+        updateSearchCache()
     }
     
     private func updateSupportedTypeIds() {
@@ -78,5 +79,18 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
                 $0.smartBlockTypes.intersection(supportedSmartblockTypes).isNotEmpty
             }.map { $0.id }
         cachedSupportedTypeIds = Set(result)
+    }
+    
+    private func updateSearchCache() {
+        searchTypesById.removeAll()
+        objectTypes.forEach {
+            if searchTypesById[$0.id] != nil {
+                anytypeAssertionFailure(
+                    "Dublicate object type found for id: \($0.id), name: \($0.name)",
+                    domain: .objectTypeProvider
+                )
+            }
+            searchTypesById[$0.id] = $0
+        }
     }
 }
