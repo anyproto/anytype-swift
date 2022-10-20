@@ -35,6 +35,10 @@ public final class EventLogger {
             line: line
         )
     }
+    
+    public static func disableRemoteLogger() {
+        RemoteLogger.shared.disable()
+    }
 }
 
 public extension EventLogger {
