@@ -8,7 +8,7 @@ final class LoggerConfigurator: AppConfiguratorProtocol {
     
     func configure() {
         #if RELEASE
-            RemoteLogger.shared.disable()
+            EventLogger.disableRemoteLogger()
         #else
             InvocationSettings.handler = invocationHandler
             EventLogger.setupLgger()
