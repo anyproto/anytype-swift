@@ -15,17 +15,17 @@ jobs:
     timeout-minutes: 40
 
     steps:
-      - uses: actions/checkout@v2.4.0
+      - uses: actions/checkout@v3.1.0
         with:
           ref: ${{ github.event.inputs.branch }}
 
       - name: Install SSH key for access to repository.
-        uses: webfactory/ssh-agent@v0.5.4
+        uses: webfactory/ssh-agent@v0.6.0
         with:
           ssh-private-key: ${{ secrets.SSH_KEY_FASTLANE_COMMIT }}
 
       - name: Setup ruby
-        uses: ruby/setup-ruby@v1.100.0
+        uses: ruby/setup-ruby@v1.118.0
         with:
           ruby-version: 2.7.2
           bundler-cache: true
@@ -36,7 +36,7 @@ jobs:
           git config --global user.name "William Blake"
           git config --global user.email "iosteam@anytype.io"
 
-      - uses: maxim-lobanov/setup-xcode@v1.4.1
+      - uses: maxim-lobanov/setup-xcode@v1.5.1
         with:
           xcode-version: '14.0'
 
