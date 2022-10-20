@@ -28,21 +28,21 @@ extension FeatureDescription {
         title: "Set sync status",
         author: "joe_pusya@anytype.io",
         releaseVersion: "0.19.0",
-        defaultValue: false
+        defaultValue: true
     )
     
     static let cursorPosition = FeatureDescription(
         title: "Cursor position after change style",
         author: "m@anytype.io",
         releaseVersion: "0.19.0",
-        defaultValue: false
+        defaultValue: true
     )
     
     static let hideBottomViewForStyleMenu = FeatureDescription(
         title: "Hide bottom navigation view in editor for style menu (IOS-293)",
         author: "m@anytype.io",
         releaseVersion: "0.19.0",
-        defaultValue: false
+        defaultValue: true
     )
     
     static let setKanbanView = FeatureDescription(
@@ -56,7 +56,7 @@ extension FeatureDescription {
         title: "Set redesign \"new\" button",
         author: "m@anytype.io",
         releaseVersion: "0.19.0",
-        defaultValue: false
+        defaultValue: true
     )
 
     static let linktoObjectFromItself = FeatureDescription(
@@ -69,7 +69,7 @@ extension FeatureDescription {
     static let linkToObjectFromMarkup = FeatureDescription(
         title: "Link to object from markup",
         author: "m@anytype.io",
-        releaseVersion: "0.19.0",
+        releaseVersion: "0.20.0",
         defaultValue: false
     )
     
