@@ -1,5 +1,6 @@
 import Foundation
 import BlocksModels
+import AnytypeCore
 
 final class ObjectTypesSearchInteractor {
     
@@ -19,7 +20,8 @@ extension ObjectTypesSearchInteractor {
         searchService.searchObjectTypes(
             text: text,
             filteringTypeUrl: excludedObjectTypeId,
-            shouldIncludeSets: false
+            shouldIncludeSets: false,
+            shouldIncludeBookmark: FeatureFlags.showBookmarkInSets
         ) ?? []
     }
     

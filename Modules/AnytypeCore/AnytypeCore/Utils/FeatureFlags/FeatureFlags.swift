@@ -23,7 +23,8 @@ public final class FeatureFlags {
         .setKanbanView,
         .redesignNewButton,
         .linktoObjectFromItself,
-        .linkToObjectFromMarkup
+        .linkToObjectFromMarkup,
+        .showBookmarkInSets
     ]
     
     public static func update(key feature: FeatureDescription, value: Bool) {
@@ -90,5 +91,9 @@ public extension FeatureFlags {
     
     static var linkToObjectFromMarkup: Bool {
         value(for: .linkToObjectFromMarkup)
+    }
+    
+    static var showBookmarkInSets: Bool {
+        value(for: .showBookmarkInSets)
     }
 }

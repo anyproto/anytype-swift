@@ -73,6 +73,13 @@ extension FeatureDescription {
         defaultValue: false
     )
     
+    static let showBookmarkInSets = FeatureDescription(
+        title: "Show bookmark type in sets (IOS-538)",
+        author: "m@anytype.io",
+        releaseVersion: "0.19.0",
+        defaultValue: false
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(
