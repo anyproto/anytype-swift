@@ -59,6 +59,13 @@ extension FeatureDescription {
         defaultValue: false
     )
     
+    static let linkToObjectFromMarkup = FeatureDescription(
+        title: "Link to object from markup",
+        author: "m@anytype.io",
+        releaseVersion: "0.19.0",
+        defaultValue: false
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(

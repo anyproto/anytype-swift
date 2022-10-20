@@ -21,7 +21,8 @@ public final class FeatureFlags {
         .cursorPosition,
         .hideBottomViewForStyleMenu,
         .setKanbanView,
-        .linktoObjectFromItself
+        .linktoObjectFromItself,
+        .linkToObjectFromMarkup
     ]
     
     public static func update(key feature: FeatureDescription, value: Bool) {
@@ -80,5 +81,9 @@ public extension FeatureFlags {
     
     static var linktoObjectFromItself: Bool {
         value(for: .linktoObjectFromItself)
+    }
+    
+    static var linkToObjectFromMarkup: Bool {
+        value(for: .linkToObjectFromMarkup)
     }
 }
