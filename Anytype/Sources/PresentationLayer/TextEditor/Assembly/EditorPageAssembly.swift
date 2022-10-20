@@ -53,6 +53,7 @@ final class EditorAssembly {
             searchService: searchService,
             detailsService: detailsService,
             textService: serviceLocator.textService,
+            relationSearchDistinctService: RelationSearchDistinctService(),
             setSubscriptionDataBuilder: SetSubscriptionDataBuilder()
         )
         let controller = EditorSetHostingController(objectId: data.pageId, model: model)

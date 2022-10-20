@@ -36,6 +36,8 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
     }
     
     func stopSubscription(id: SubscriptionId) {
+        guard subscribers[id].isNotNil else { return }
+
         _ = toggler.stopSubscription(id: id)
         subscribers[id] = nil
     }

@@ -49,7 +49,8 @@ extension FeatureDescription {
         title: "Set kanban view",
         author: "joe_pusya@anytype.io",
         releaseVersion: "0.20.0",
-        defaultValue: false
+        defaultValue: false,
+        debugValue: false
     )
 
     static let redesignNewButton = FeatureDescription(

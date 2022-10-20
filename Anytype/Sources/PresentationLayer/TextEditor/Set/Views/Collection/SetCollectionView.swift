@@ -81,8 +81,9 @@ struct SetCollectionView: View {
                 EmptyView()
             } else {
                 Section(header: compoundHeader) {
-                    ForEach(model.configurations) { configuration in
-                        if model.configurations.first == configuration {
+                    let configurations = model.configurations
+                    ForEach(configurations) { configuration in
+                        if configurations.first == configuration {
                             Divider()
                         }
                         SetListViewCell(configuration: configuration)

@@ -549,6 +549,9 @@
 		2E9EFE62285B45C500C8E47A /* ExceptionalSetSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9EFE5E285B45C500C8E47A /* ExceptionalSetSort.swift */; };
 		2E9EFE72285B62E500C8E47A /* SetFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9EFE71285B62E500C8E47A /* SetFilter.swift */; };
 		2EB97A1B28B64CDC002BBB39 /* SetListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB97A1A28B64CDC002BBB39 /* SetListViewCell.swift */; };
+		2EC9424F28F97F4D00DE91E4 /* RelationSearchDistinctService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC9424E28F97F4D00DE91E4 /* RelationSearchDistinctService.swift */; };
+		2EC9425128F97F5E00DE91E4 /* RelationSearchDistinctServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC9425028F97F5E00DE91E4 /* RelationSearchDistinctServiceProtocol.swift */; };
+		2EC9425F2900351C00DE91E4 /* DataviewGroup+Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC9425E2900351C00DE91E4 /* DataviewGroup+Filter.swift */; };
 		2ECD122B28AFE58E00BD464A /* TitleWithIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECD122A28AFE58E00BD464A /* TitleWithIconView.swift */; };
 		2ECD123028AFE6A900BD464A /* TitleWithIconStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECD122F28AFE6A900BD464A /* TitleWithIconStyle.swift */; };
 		2EE10C7428ACFCF100F41D50 /* LightDimmingButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE10C7328ACFCF100F41D50 /* LightDimmingButtonStyle.swift */; };
@@ -1762,6 +1765,9 @@
 		2E9EFE5E285B45C500C8E47A /* ExceptionalSetSort.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExceptionalSetSort.swift; sourceTree = "<group>"; };
 		2E9EFE71285B62E500C8E47A /* SetFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFilter.swift; sourceTree = "<group>"; };
 		2EB97A1A28B64CDC002BBB39 /* SetListViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetListViewCell.swift; sourceTree = "<group>"; };
+		2EC9424E28F97F4D00DE91E4 /* RelationSearchDistinctService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationSearchDistinctService.swift; sourceTree = "<group>"; };
+		2EC9425028F97F5E00DE91E4 /* RelationSearchDistinctServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationSearchDistinctServiceProtocol.swift; sourceTree = "<group>"; };
+		2EC9425E2900351C00DE91E4 /* DataviewGroup+Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataviewGroup+Filter.swift"; sourceTree = "<group>"; };
 		2ECD122A28AFE58E00BD464A /* TitleWithIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleWithIconView.swift; sourceTree = "<group>"; };
 		2ECD122F28AFE6A900BD464A /* TitleWithIconStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleWithIconStyle.swift; sourceTree = "<group>"; };
 		2EE10C7328ACFCF100F41D50 /* LightDimmingButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightDimmingButtonStyle.swift; sourceTree = "<group>"; };
@@ -4726,6 +4732,15 @@
 			path = Filters;
 			sourceTree = "<group>";
 		};
+		2EC9424928F97F2A00DE91E4 /* RelationSearchDistinct */ = {
+			isa = PBXGroup;
+			children = (
+				2EC9424E28F97F4D00DE91E4 /* RelationSearchDistinctService.swift */,
+				2EC9425028F97F5E00DE91E4 /* RelationSearchDistinctServiceProtocol.swift */,
+			);
+			path = RelationSearchDistinct;
+			sourceTree = "<group>";
+		};
 		2ECD122C28AFE5DE00BD464A /* TitleWIthIconView */ = {
 			isa = PBXGroup;
 			children = (
@@ -5067,6 +5082,7 @@
 		3D2F9C14271EADC50043C326 /* Object */ = {
 			isa = PBXGroup;
 			children = (
+				2EC9424928F97F2A00DE91E4 /* RelationSearchDistinct */,
 				3D30416B27EA5E8A00FFE0EB /* Dataview */,
 				126F3D85273E4E4300AEF39A /* Relations */,
 				120E818226A04A23006FE84E /* Details */,
@@ -5209,6 +5225,7 @@
 				2E7C44742898434A0062287C /* DataviewFilter+QuickOption.swift */,
 				2E0DAF2028A26F1600F43320 /* DataviewViewSize+Value.swift */,
 				2E0DAF1A28A17DB400F43320 /* SetFilterPrefilledFieldsBuilder.swift */,
+				2EC9425E2900351C00DE91E4 /* DataviewGroup+Filter.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -7752,6 +7769,7 @@
 				535F79962746CDBC0050A1B8 /* FlowRelationsView.swift in Sources */,
 				2A2C33212892BA36008BC326 /* RelationValueViewModelOutput.swift in Sources */,
 				2AECFD3E28993C67000E9CFB /* RelationValueCoordinatorAssemblyProtocol.swift in Sources */,
+				2EC9425128F97F5E00DE91E4 /* RelationSearchDistinctServiceProtocol.swift in Sources */,
 				53856BCB2659B38F00CB1FAE /* CodeBlockViewModel.swift in Sources */,
 				2A03039828ABAA45002EFC46 /* TextRelationActionViewModelProtocol.swift in Sources */,
 				532D1D6127691FA100A1E4D8 /* SearchNewRelationViewModel.swift in Sources */,
@@ -7989,6 +8007,7 @@
 				3D93D56F270C9E4E00614E29 /* EditorMainItemModelsHolder.swift in Sources */,
 				C97B5D6227F498C600EA7E33 /* EditorContentView.swift in Sources */,
 				530F503426F0ECC400F76D03 /* AudioBlockContentView.swift in Sources */,
+				2EC9424F28F97F4D00DE91E4 /* RelationSearchDistinctService.swift in Sources */,
 				3D44985C26D57773005A3E06 /* DismissHandler.swift in Sources */,
 				3D93D561270B3FC500614E29 /* UINavigationController+Extension.swift in Sources */,
 				2A6F5046288A8F0B00ED6E2E /* ImageAssets.swift in Sources */,
@@ -8125,6 +8144,7 @@
 				3D85FB5B2799B66E00E17BB2 /* EditorSetPaginationView.swift in Sources */,
 				3D7F718127A088B7003FE893 /* EditorSetViewModel+Pagination.swift in Sources */,
 				120F7D5C267D0C4400327734 /* Color+Extensions.swift in Sources */,
+				2EC9425F2900351C00DE91E4 /* DataviewGroup+Filter.swift in Sources */,
 				2AD06B81285729890006C255 /* TableOfContentsConfiguration.swift in Sources */,
 				12C2A59F2757A7F000311854 /* StatusRelationDetailsRowView.swift in Sources */,
 				3DE0CFD926F8593D003A606A /* SlashMenuItemFilterMatch.swift in Sources */,
