@@ -15,9 +15,11 @@ extension EditorSetViewModel {
         update(data: paginationHelper.goBackwardRow(data: pagitationData))
     }
     
-    private func update(data: EditorSetPaginationData?) {
+    private func update(data: EditorSetPaginationHelperData?) {
         guard let data = data else { return }
-        pagitationData = data
-        startSubscriptionIfNeeded()
+        pagitationData = data.data
+        if data.shoudUpdateSubscription {
+            startSubscriptionIfNeeded()
+        }
     }
 }

@@ -120,8 +120,8 @@ final class MarkupAccessoryViewModel: ObservableObject {
         
         linkToObjectCoordinator.startFlow(
             currentLink: eitherLink,
-            setLinkToObject: { [weak self] blockId in
-                self?.actionHandler.setLinkToObject(linkBlockId: blockId, range: range, blockId: blockId)
+            setLinkToObject: { [weak self] linkBlockId in
+                self?.actionHandler.setLinkToObject(linkBlockId: linkBlockId, range: range, blockId: blockId)
             },
             setLinkToUrl: { [weak self] url in
                 self?.actionHandler.setLink(url: url, range: range, blockId: blockId)

@@ -21,7 +21,9 @@ public final class FeatureFlags {
         .cursorPosition,
         .hideBottomViewForStyleMenu,
         .setKanbanView,
-        .redesignNewButton
+        .redesignNewButton,
+        .linktoObjectFromItself,
+        .linkToObjectFromMarkup
     ]
     
     public static func update(key feature: FeatureDescription, value: Bool) {
@@ -80,5 +82,13 @@ public extension FeatureFlags {
     
     static var redesignNewButton: Bool {
         value(for: .redesignNewButton)
+    }
+
+    static var linktoObjectFromItself: Bool {
+        value(for: .linktoObjectFromItself)
+    }
+    
+    static var linkToObjectFromMarkup: Bool {
+        value(for: .linkToObjectFromMarkup)
     }
 }
