@@ -532,6 +532,7 @@
 "Delete account" = "Delete account";
 "Cancel deletion" = "Cancel deletion";
 "Logout and clear data" = "Logout and clear data";
+"New" = "New";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Are you sure to delete account?";

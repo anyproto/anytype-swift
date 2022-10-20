@@ -51,7 +51,14 @@ extension FeatureDescription {
         releaseVersion: "0.20.0",
         defaultValue: false
     )
-    
+
+    static let redesignNewButton = FeatureDescription(
+        title: "Set redesign \"new\" button",
+        author: "m@anytype.io",
+        releaseVersion: "0.19.0",
+        defaultValue: false
+    )
+
     static let linktoObjectFromItself = FeatureDescription(
         title: "Link to object from itself",
         author: "db@anytype.io",

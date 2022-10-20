@@ -21,6 +21,7 @@ public final class FeatureFlags {
         .cursorPosition,
         .hideBottomViewForStyleMenu,
         .setKanbanView,
+        .redesignNewButton,
         .linktoObjectFromItself,
         .linkToObjectFromMarkup
     ]
@@ -79,6 +80,10 @@ public extension FeatureFlags {
         value(for: .setKanbanView)
     }
     
+    static var redesignNewButton: Bool {
+        value(for: .redesignNewButton)
+    }
+
     static var linktoObjectFromItself: Bool {
         value(for: .linktoObjectFromItself)
     }
