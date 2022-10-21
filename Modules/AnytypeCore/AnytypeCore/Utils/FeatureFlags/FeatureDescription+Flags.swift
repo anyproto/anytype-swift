@@ -76,7 +76,7 @@ extension FeatureDescription {
     static let showBookmarkInSets = FeatureDescription(
         title: "Show bookmark type in sets (IOS-538)",
         author: "m@anytype.io",
-        releaseVersion: "0.19.0",
+        releaseVersion: "0.20.0",
         defaultValue: false
     )
     
