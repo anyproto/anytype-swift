@@ -190,8 +190,15 @@ final class BlockViewModelBuilder {
                     self?.router.openUrl(url.url)
                 }
             )
-        case let .link(content):            
-            let details = ObjectDetailsStorage.shared.get(id: content.targetBlockID)
+        case let .link(content):
+            guard let details = ObjectDetailsStorage.shared.get(id: content.targetBlockID) else {
+                anytypeAssertionFailure(
+                    "Couldn't find details for block link with id \(content.targetBlockID)",
+                    domain: .blockBuilder
+                )
+                return nil
+            }
+
             return BlockLinkViewModel(
                 info: info,
                 content: content,

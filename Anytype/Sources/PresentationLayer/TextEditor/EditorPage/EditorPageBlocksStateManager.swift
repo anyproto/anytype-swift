@@ -413,9 +413,12 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
             elements.first.map {
                 let blockId = $0.blockId
 
-                guard case let .link(blockLink) = $0.info.content else { return }
+                guard case let .link(blockLink) = $0.info.content,
+                      let details = ObjectDetailsStorage.shared.get(id: blockLink.targetBlockID) else { return }
+
+                let blockLinkState = BlockLinkState(details: details, blockLink: blockLink)
                 
-                router.showObjectPreview(blockLinkAppearance: blockLink.appearance) { [weak self] appearance in
+                router.showObjectPreview(blockLinkState: blockLinkState) { [weak self] appearance in
                     self?.actionHandler.setAppearance(blockId: blockId, appearance: appearance)
                 }
             }

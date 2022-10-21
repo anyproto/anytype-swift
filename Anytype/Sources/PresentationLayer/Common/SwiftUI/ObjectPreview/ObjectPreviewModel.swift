@@ -7,58 +7,77 @@
 //
 
 import BlocksModels
-import OrderedCollections
-
 
 struct ObjectPreviewModel {
+    var cardStyle: BlockLink.CardStyle
+    var iconSize: BlockLink.IconSize
+    var description: BlockLink.Description
+    var coverRelation: Relation?
+    var isCoverRelationEnabled: Bool
+    
+    var relations: [ListItem]
 
-    let iconSize: IconSize
-    let cardStyle: CardStyle
-    let description: Description
+    init(linkState: BlockLinkState) {
+        self.relations = Self.buildRealtions(relations: linkState.relations)
+        self.cardStyle = linkState.cardStyle
 
-    let relations: [ListItem]
+        var iconSize = linkState.iconSize
+        if iconSize == .medium && linkState.objectLayout == .todo {
+            iconSize = .small
+        }
 
-    init(iconSize: ObjectPreviewModel.IconSize,
-         cardStyle: ObjectPreviewModel.CardStyle,
-         description: ObjectPreviewModel.Description,
-         relations: [ObjectPreviewModel.ListItem]) {
         self.iconSize = iconSize
-        self.cardStyle = cardStyle
-        self.description = description
-        self.relations = relations
-    }
+        self.description = linkState.descriptionState
+        self.isCoverRelationEnabled = linkState.relations.contains(.cover)
 
-    init(linkApperance: BlockLink.Appearance) {
-        self.iconSize = IconSize(linkApperance.iconSize)
-        self.cardStyle = CardStyle(linkApperance.cardStyle)
-        self.description = Description(linkApperance.description)
-        self.relations = ObjectPreviewModel.buildRealtions(linkApperance: linkApperance)
+        setupCoverRelation()
     }
 
     var asBlockLinkAppearance: BlockLink.Appearance {
-        let relations: [BlockLink.Relation] = relations.compactMap { item in
+        var relations: [BlockLink.Relation] = relations.compactMap { item in
             guard let relation = item.relation, relation.isEnabled else { return nil }
 
             return BlockLink.Relation(rawValue: relation.key)
         }
 
-        return BlockLink.Appearance(iconSize: iconSize.asBlockLink,
-                                    cardStyle: cardStyle.asBlockLink,
-                                    description: description.asBlockLink,
-                                    relations: relations)
+        if let coverRelation = coverRelation, coverRelation.isEnabled {
+            relations.append(.cover)
+        }
+
+        return BlockLink.Appearance(
+            iconSize: iconSize,
+            cardStyle: cardStyle,
+            description: description,
+            relations: relations
+        )
     }
 
-    private static func buildRealtions(linkApperance: BlockLink.Appearance) -> [ListItem] {
+    mutating func setupCoverRelation() {
+        switch cardStyle {
+        case .card:
+            self.coverRelation = Relation(
+                key: BundledRelationKey.coverType.rawValue,
+                name: Loc.cover,
+                iconAsset: nil,
+                isLocked: false,
+                isEnabled: isCoverRelationEnabled
+            )
+        case .text:
+            self.coverRelation = nil
+        }
+    }
+
+    private static func buildRealtions(relations: [BlockLink.Relation]) -> [ListItem] {
         let nameRelation = Relation(key: BundledRelationKey.name.rawValue,
                                     name: Loc.name,
                                     iconAsset: RelationMetadata.Format.shortText.iconAsset,
                                     isLocked: true,
-                                    isEnabled: linkApperance.relations.contains(.name))
+                                    isEnabled: relations.contains(.name))
         let typeRelation = Relation(key: BundledRelationKey.type.rawValue,
                                     name: Loc.LinkAppearance.ObjectType.title,
                                     iconAsset: RelationMetadata.Format.object.iconAsset,
                                     isLocked: false,
-                                    isEnabled: linkApperance.relations.contains(.type))
+                                    isEnabled: relations.contains(.type))
 
         return [.relation(nameRelation), .description, .relation(typeRelation)]
     }
@@ -84,152 +103,76 @@ extension ObjectPreviewModel {
         }
         let key: String
         let name: String
-        let iconAsset: ImageAsset
+        let iconAsset: ImageAsset?
         let isLocked: Bool
         var isEnabled: Bool
     }
 }
 
-extension ObjectPreviewModel {
-    enum IconSize: String, CaseIterable {
-        case none
-        case small
-        case medium
-
-        init(_ iconSize: BlockLink.IconSize) {
-            switch iconSize {
-            case .none:
-                self = .none
-            case .small:
-                self = .small
-            case .medium:
-                self = .medium
-            }
-        }
-
-        var asBlockLink: BlockLink.IconSize {
-            switch self {
-            case .none:
-                return.none
-            case .small:
-                return .small
-            case .medium:
-                return .medium
-            }
-        }
-
-        var name: String {
-            switch self {
-            case .none:
-                return Loc.none
-            case .small:
-                return Loc.small
-            case .medium:
-                return Loc.medium
-            }
-        }
-
-        var hasIcon: Bool {
-            guard case .none = self else {
-                return true
-            }
-            return false
+extension BlockLink.IconSize {
+    var name: String {
+        switch self {
+        case .none:
+            return Loc.none
+        case .small:
+            return Loc.small
+        case .medium:
+            return Loc.medium
         }
     }
 
-    enum CardStyle: String, CaseIterable {
-        case text
-        case card
-
-        init(_ cardStyle: BlockLink.CardStyle) {
-            switch cardStyle {
-            case .text:
-                self = .text
-            case .card:
-                self = .card
-            }
+    var hasIcon: Bool {
+        guard case .none = self else {
+            return true
         }
+        return false
+    }
+}
 
-        var asBlockLink: BlockLink.CardStyle {
-            switch self {
-            case .text:
-                return .text
-            case .card:
-                return .card
-            }
-        }
-
-        var name: String {
-            switch self {
-            case .text:
-                return Loc.text
-            case .card:
-                return Loc.card
-            }
-        }
-
-        var iconAsset: ImageAsset {
-            switch self {
-            case .text:
-                return .text
-            case .card:
-                return .card
-            }
+extension BlockLink.CardStyle {
+    var name: String {
+        switch self {
+        case .text:
+            return Loc.text
+        case .card:
+            return Loc.card
         }
     }
 
-    enum Description: String, CaseIterable, Hashable {
-        case none
-        case added
-        case content
-
-        init(_ description: BlockLink.Description) {
-            switch description {
-            case .none:
-                self = .none
-            case .added:
-                self = .added
-            case .content:
-                self = .content
-            }
+    var iconAsset: ImageAsset {
+        switch self {
+        case .text:
+            return .text
+        case .card:
+            return .card
         }
+    }
+}
 
-        var asBlockLink: BlockLink.Description {
-            switch self {
-            case .none:
-                return.none
-            case .added:
-                return .added
-            case .content:
-                return .content
-            }
-        }
-
-        var name: String {
-            switch self {
-            case .none:
-                return Loc.LinkAppearance.Description.None.title
-            case .added:
-                return Loc.LinkAppearance.Description.Added.title
-            case .content:
-                return Loc.LinkAppearance.Description.Content.title
-            }
-        }
-
-        var iconAsset: ImageAsset {
-            RelationMetadata.Format.longText.iconAsset
-        }
-
-        var subtitle: String {
-            switch self {
-            case .none:
-                return Loc.LinkAppearance.Description.None.subtitle
-            case .added:
-                return Loc.LinkAppearance.Description.Added.subtitle
-            case .content:
-                return Loc.LinkAppearance.Description.Content.subtitle
-            }
+extension BlockLink.Description {
+    var name: String {
+        switch self {
+        case .none:
+            return Loc.LinkAppearance.Description.None.title
+        case .added:
+            return Loc.LinkAppearance.Description.Added.title
+        case .content:
+            return Loc.LinkAppearance.Description.Content.title
         }
     }
 
+    var iconAsset: ImageAsset {
+        RelationMetadata.Format.longText.iconAsset
+    }
+
+    var subtitle: String {
+        switch self {
+        case .none:
+            return Loc.LinkAppearance.Description.None.subtitle
+        case .added:
+            return Loc.LinkAppearance.Description.Added.subtitle
+        case .content:
+            return Loc.LinkAppearance.Description.Content.subtitle
+        }
+    }
 }

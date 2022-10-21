@@ -1,35 +1,98 @@
 import UIKit
 import BlocksModels
-import Kingfisher
 
 extension BlockLinkState {
-    
-    func makeIconView() -> UIView? {
-        if deleted {
-            return makeIconImageView(UIImage(asset: .ghost))
-        }
-        
+    var iconImage: ObjectIconImage? {
         switch style {
         case .noContent:
             return nil
-        case let .icon(icon):
-            guard iconSize.hasIcon else { return nil }
-
-            switch icon {
-            case let .basic(id), let .bookmark(id):
-                return makeImageView(imageId: id, cornerRadius: 4)
-            case let .profile(profile):
-                return makeProfileIconView(profile)
-            case let .emoji(emoji):
-                return makeEmoji(with: emoji.value)
-                
-            }
-        case let .checkmark(isChecked):
-            let image = UIImage(asset: isChecked ? .todoCheckmark : .todoCheckbox)
-            return makeIconImageView(image)
+        case .checkmark(let isChecked):
+            return .todo(isChecked)
+        case .icon(let iconType):
+            return .icon(iconType)
         }
     }
-    
+
+    func applyTitleState(
+        on label: UILabel,
+        attributes: [NSAttributedString.Key : Any],
+        iconIntendHidden: Bool = false
+    ) {
+        if archived, let ghostImage = UIImage(asset: .ghost) {
+            label.attributedText = NSAttributedString.imageFirstComposite(
+                image: ghostImage,
+                text: titleText,
+                attributes: attributes
+            )
+
+            return 
+        } else if style == .noContent || !iconSize.hasIcon || iconIntendHidden {
+            label.attributedText = .init(
+                string: titleText,
+                attributes: attributes
+            )
+
+            return
+        }
+
+        let image = UIImage.circleImage(
+            size: imageSize,
+            fillColor: .strokePrimary,
+            borderColor: .clear,
+            borderWidth: 0
+        )
+
+        label.attributedText = NSAttributedString.imageFirstComposite(
+            image: image,
+            text: titleText,
+            attributes: attributes
+        )
+
+        let anytypeLoader = AnytypeIconDownloader()
+
+        Task { @MainActor in
+            guard let image = await anytypeLoader.image(with: style, imageGuideline: .init(size: imageSize)) else {
+                return
+            }
+
+            label.attributedText = NSAttributedString.imageFirstComposite(
+                image: image,
+                text: titleText,
+                attributes: attributes
+            )
+        }
+    }
+}
+
+extension NSAttributedString {
+    static func imageFirstComposite(
+        image: UIImage,
+        text: String,
+        spacerText: String = "  ",
+        attributes: [NSAttributedString.Key : Any]
+    ) -> NSAttributedString {
+        let font = (attributes[.font] as? UIFont) ?? UIFont.preferredFont(forTextStyle: .body)
+
+        let textAttachment = NSTextAttachment()
+        textAttachment.image = image
+
+        textAttachment.bounds = CGRect(
+            x: 0,
+            y: (font.capHeight - image.size.height).rounded() / 2,
+            width: image.size.width,
+            height: image.size.height
+        )
+
+        let textAttributedString = NSAttributedString(string: text, attributes: attributes)
+
+        let compositeAttributedString = NSMutableAttributedString(attachment: textAttachment)
+        
+        compositeAttributedString.append(.init(string: spacerText))
+
+        compositeAttributedString.append(textAttributedString)
+
+        return compositeAttributedString
+    }
 }
 
 private extension BlockLinkState {
@@ -40,7 +103,7 @@ private extension BlockLinkState {
             return makeImageView(imageId: imageId, cornerRadius: imageSize.width / 2)
             
         case let .character(placeholder):
-            return makePlaceholderView(placeholder)
+            return makeIconImageView(makePlaceholderImage(placeholder))
         }
     }
     
@@ -68,24 +131,14 @@ private extension BlockLinkState {
         return imageView
     }
     
-    func makePlaceholderView(_ placeholder: Character) -> UIView {
+    func makePlaceholderImage(_ placeholder: Character) -> UIImage {
         let imageGuideline = ImageGuideline(size: imageSize, radius: .widthFraction(0.5))
         
-        let image = ImageBuilder(imageGuideline)
+        return ImageBuilder(imageGuideline)
             .setImageColor(.strokePrimary)
             .setText(String(placeholder))
             .setFont(UIFont.systemFont(ofSize: 17))
             .build()
-        return makeIconImageView(image)
-    }
-    
-    func makeEmoji(with string: String) -> UIView {
-        switch cardStyle {
-        case .text:
-            return makeLabelEmoji(with: string)
-        case .card:
-            return makeEmojiImageView(with: string)
-        }
     }
 
     func makeLabelEmoji(with string: String) -> UILabel {
@@ -119,28 +172,7 @@ private extension BlockLinkState {
     }
 
     var imageSize: CGSize {
-        if deleted {
-            return Constants.TextLayout.imageViewSize
-        }
-        
-        switch cardStyle {
-        case .text:
-            return Constants.TextLayout.imageViewSize
-        case .card:
-            switch style {
-            case.checkmark:
-                return Constants.CardLayout.checkmarkViewSize
-            case .icon(let type):
-                switch type {
-                case .emoji:
-                    return Constants.CardLayout.emojiViewSize
-                default:
-                    return Constants.CardLayout.imageViewSize
-                }
-            case .noContent:
-                return .zero
-            }
-        }
+        Constants.TextLayout.imageViewSize
     }
     
 }
@@ -149,7 +181,7 @@ private extension BlockLinkState {
     
     enum Constants {
         enum TextLayout {
-            static let imageViewSize = CGSize(width: 24, height: 24)
+            static let imageViewSize = CGSize(width: 22, height: 22)
         }
 
         enum CardLayout {

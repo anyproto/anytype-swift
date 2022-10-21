@@ -229,6 +229,8 @@ internal enum Loc {
   internal static let deleteAccount = Loc.tr("Localizable", "Delete account", fallback: "Delete account")
   /// Deleted
   internal static let deleted = Loc.tr("Localizable", "Deleted", fallback: "Deleted")
+  /// Deleted object
+  internal static let deletedObject = Loc.tr("Localizable", "Deleted object", fallback: "Deleted object")
   /// Deletion error
   internal static let deletionError = Loc.tr("Localizable", "Deletion error", fallback: "Deletion error")
   /// Description

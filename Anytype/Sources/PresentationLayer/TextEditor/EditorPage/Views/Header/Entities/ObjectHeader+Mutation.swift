@@ -49,7 +49,7 @@ extension ObjectHeader {
                 .iconOnly(
                     ObjectHeaderIconOnlyState(
                         icon: ObjectHeaderIcon(
-                            icon: .basicPreview(image),
+                            icon: .init(mode: .basicPreview(image), usecase: .openedObject),
                             layoutAlignment: .left,
                             onTap: onIconTap
                         ),
@@ -105,7 +105,7 @@ private extension ObjectHeaderFilledState {
         case .coverOnly(let objectCover):
             return .iconAndCover(
                 icon: ObjectHeaderIcon(
-                    icon: .basicPreview(image),
+                    icon: .init(mode: .basicPreview(image), usecase: .openedObject),
                     layoutAlignment: .left,
                     onTap: onIconTap
                 ),
@@ -125,16 +125,16 @@ private extension ObjectHeaderFilledState {
 private extension ObjectHeaderIcon {
     
     func modifiedBy(previewImage image: UIImage?) -> ObjectHeaderIcon {
-        switch self.icon {
+        switch self.icon.mode {
         case .icon(.basic), .icon(.emoji), .icon(.bookmark), .basicPreview, .image:
             return ObjectHeaderIcon(
-                icon: .basicPreview(image),
+                icon: .init(mode: .basicPreview(image), usecase: icon.usecase),
                 layoutAlignment: self.layoutAlignment,
                 onTap: self.onTap
             )
         case .icon(.profile), .profilePreview:
             return ObjectHeaderIcon(
-                icon: .profilePreview(image),
+                icon: .init(mode: .profilePreview(image), usecase: icon.usecase),
                 layoutAlignment: self.layoutAlignment,
                 onTap: self.onTap
             )
