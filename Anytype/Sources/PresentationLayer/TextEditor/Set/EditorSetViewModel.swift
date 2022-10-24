@@ -20,6 +20,14 @@ final class EditorSetViewModel: ObservableObject {
     
     private let setSyncStatus = FeatureFlags.setSyncStatus
     @Published var syncStatus: SyncStatus = .unknown
+    
+    lazy var kanbanViewModel: SetKanbanViewModel = {
+        SetKanbanViewModel(
+            document: document,
+            onIconTap: updateDetailsIfNeeded(_:),
+            onItemTap: itemTapped(_:)
+        )
+    }()
 
     var isUpdating = false
     
@@ -135,7 +143,9 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     func onDisappear() {
-        subscriptionService.stopAllSubscriptions()
+        if !activeView.type.hasGroups {
+            subscriptionService.stopAllSubscriptions()
+        }
     }
 
     func onRelationTap(relation: Relation) {
@@ -155,7 +165,7 @@ final class EditorSetViewModel: ObservableObject {
         }
         
         if activeView.type.hasGroups {
-            setupGroupSubscriptions()
+//            setupGroupSubscriptions()
         } else {
             startSubscriptionIfNeeded(with: SubscriptionId.set)
         }
@@ -227,7 +237,6 @@ final class EditorSetViewModel: ObservableObject {
                     records,
                     dataView: dataView,
                     activeView: activeView,
-                    colums: colums,
                     isObjectLocked: isObjectLocked,
                     onIconTap: { [weak self] details in
                         self?.updateDetailsIfNeeded(details)
@@ -348,7 +357,8 @@ final class EditorSetViewModel: ObservableObject {
         dataView.source.contains(ObjectTypeUrl.BundledTypeUrl.note.rawValue)
     }
     
-    private func updateDetailsIfNeeded(_ details: ObjectDetails) {
+    // temp
+    func updateDetailsIfNeeded(_ details: ObjectDetails) {
         guard details.layoutValue == .todo else { return }
         detailsService.updateBundledDetails(
             contextID: details.id,
@@ -356,7 +366,7 @@ final class EditorSetViewModel: ObservableObject {
         )
     }
     
-    private func itemTapped(_ details: ObjectDetails) {
+    func itemTapped(_ details: ObjectDetails) {
         openObject(pageId: details.id, type: details.editorViewType)
     }
 }
