@@ -87,6 +87,13 @@ extension FeatureDescription {
         releaseVersion: "0.20.0",
         defaultValue: false
     )
+
+    static let redesignBookmarkBlock = FeatureDescription(
+        title: "Redesign bookmark block (ios-527)",
+        author: "m@anytype.io",
+        releaseVersion: "0.20.0",
+        defaultValue: false
+    )
     
     // MARK: - Debug
     

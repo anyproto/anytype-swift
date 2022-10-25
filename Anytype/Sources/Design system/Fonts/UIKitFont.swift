@@ -103,6 +103,7 @@ extension UIFont {
     static let uxCalloutMedium = UIKitFontBuilder.uiKitFont(font: .uxCalloutMedium)
     static let previewTitle1Medium = UIKitFontBuilder.uiKitFont(font: .previewTitle1Medium)
     static let previewTitle2Regular = UIKitFontBuilder.uiKitFont(font: .previewTitle2Regular)
+    static let previewTitle2Medium = UIKitFontBuilder.uiKitFont(font: .previewTitle2Medium)
 
     static let code = UIKitFontBuilder.uiKitFont(font: .codeBlock)
 

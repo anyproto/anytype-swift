@@ -1122,6 +1122,10 @@ internal enum Loc {
       }
     }
     internal enum FeaturedRelations {
+      /// Relation:
+      internal static let relation = Loc.tr("Localizable", "Set.FeaturedRelations.Relation", fallback: "Relation:")
+      /// Relations:
+      internal static let relationsList = Loc.tr("Localizable", "Set.FeaturedRelations.RelationsList", fallback: "Relations:")
       /// Source
       internal static let source = Loc.tr("Localizable", "Set.FeaturedRelations.Source", fallback: "Source")
     }
