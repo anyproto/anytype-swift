@@ -149,7 +149,7 @@ private extension BlockLinkView {
             contentView.layer.borderWidth = .zero
         } else {
             contentView.backgroundColor = nil
-            contentView.layer.borderColor = UIColor.strokePrimary.cgColor
+            contentView.dynamicBorderColor = UIColor.strokePrimary
             contentView.layer.borderWidth = 1
         }
 

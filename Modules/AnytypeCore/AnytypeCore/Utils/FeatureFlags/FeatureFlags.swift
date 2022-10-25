@@ -25,6 +25,7 @@ public final class FeatureFlags {
         .linktoObjectFromItself,
         .linkToObjectFromMarkup,
         .showBookmarkInSets,
+        .fixColorsForStyleMenu,
         .redesignBookmarkBlock
     ]
     
@@ -98,6 +99,10 @@ public extension FeatureFlags {
         value(for: .showBookmarkInSets)
     }
     
+    static var fixColorsForStyleMenu: Bool {
+        value(for: .fixColorsForStyleMenu)
+    }
+
     static var redesignBookmarkBlock: Bool {
         value(for: .redesignBookmarkBlock)
     }
