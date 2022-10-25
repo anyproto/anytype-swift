@@ -1,6 +1,7 @@
 import UIKit
 import Combine
 import Kingfisher
+import AnytypeCore
 
 final class BlockBookmarkInfoView: UIView {
     func update(payload: BlockBookmarkPayload) {
@@ -13,13 +14,17 @@ final class BlockBookmarkInfoView: UIView {
         urlView.text = payload.source?.absoluteString
         
         layoutUsing.stack {
-            $0.edgesToSuperview(insets: Layout.contentInsets)
+            if FeatureFlags.redesignBookmarkBlock {
+                $0.edgesToSuperview()
+            } else {
+                $0.edgesToSuperview(insets: Layout.contentInsets)
+            }
         } builder: {
             $0.vStack(
                 titleView,
-                $0.vGap(fixed: 2),
+                $0.vGap(fixed: FeatureFlags.redesignBookmarkBlock ? 0 : 2),
                 descriptionView,
-                $0.vGap(min: 4, max: 22),
+                $0.vGap(min: FeatureFlags.redesignBookmarkBlock ? 6 : 4, max: 22),
                 urlStackView
             )
         }
@@ -73,7 +78,11 @@ final class BlockBookmarkInfoView: UIView {
     
     private let titleView: UILabel = {
         let view = UILabel()
-        view.font = .previewTitle2Regular
+        if FeatureFlags.redesignBookmarkBlock {
+            view.font = .previewTitle2Medium
+        } else {
+            view.font = .previewTitle2Regular
+        }
         view.numberOfLines = 2
         view.lineBreakMode = .byWordWrapping
         view.textColor = .textPrimary
@@ -113,6 +122,7 @@ final class BlockBookmarkInfoView: UIView {
 extension BlockBookmarkInfoView {
     enum Layout {
         static let iconSize = CGSize(width: 16, height: 16)
+        // Delete with FeatureFlags.redesignBookmarkBlock
         static let contentInsets = UIEdgeInsets(top: 14, left: 16, bottom: 14, right: 16)
     }
 }
