@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct SetKanbanColumn: View {
+    let headerRelation: Relation?
     let configurations: [SetContentViewItemConfiguration]
 
     var body: some View {
@@ -28,7 +29,15 @@ struct SetKanbanColumn: View {
     
     private var header: some View {
         HStack(spacing: 0) {
-            AnytypeText("Tags/status", style: .uxBodyRegular, color: .textPrimary)
+            if let headerRelation {
+                RelationValueView(
+                    relation: RelationItemModel(relation: headerRelation),
+                    style: .regular(allowMultiLine: false),
+                    action: {}
+                )
+            } else {
+                AnytypeText("Uncategorized", style: .relation1Regular, color: .textSecondary)
+            }
             Spacer()
             Button {} label: {
                 Image(asset: .more).foregroundColor(.buttonActive)

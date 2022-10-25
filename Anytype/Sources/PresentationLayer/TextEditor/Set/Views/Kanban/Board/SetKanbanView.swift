@@ -52,7 +52,10 @@ struct SetKanbanView: View {
             HStack(alignment: .top, spacing: 16) {
                 ForEach(model.recordsDict.keys, id: \.value) { key in
                     if let configurations = model.configurationsDict[key] {
-                        SetKanbanColumn(configurations: configurations)
+                        SetKanbanColumn(
+                            headerRelation: nil, // will be updated after branch `relatio-as-object` was merged
+                            configurations: configurations
+                        )
                     }
                 }
             }
