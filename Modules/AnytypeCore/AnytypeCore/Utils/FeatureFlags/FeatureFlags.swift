@@ -2,8 +2,8 @@ import Foundation
 
 public final class FeatureFlags {
     
-    private static var isRelease: Bool {
-        #if RELEASE
+    private static var isDebug: Bool {
+        #if DEBUG
         true
         #else
         false
@@ -33,7 +33,7 @@ public final class FeatureFlags {
     }
     
     public static func value(for feature: FeatureDescription) -> Bool {
-        let defaultValue = isRelease ? feature.defaultValue : feature.debugValue
+        let defaultValue = isDebug ? feature.debugValue : feature.defaultValue
         return FeatureFlagsStorage.featureFlags[feature.title] ?? defaultValue
     }
 }
