@@ -307,6 +307,7 @@ final class EditorSetViewModel: ObservableObject {
         if modeChanged || groupRelationKeyChanged {
             recordsDict = [:]
             configurationsDict = [:]
+            subscriptionService.stopAllSubscriptions()
         }
     }
     
@@ -359,8 +360,7 @@ final class EditorSetViewModel: ObservableObject {
         dataView.source.contains(ObjectTypeUrl.BundledTypeUrl.note.rawValue)
     }
     
-    // temp
-    func updateDetailsIfNeeded(_ details: ObjectDetails) {
+    private func updateDetailsIfNeeded(_ details: ObjectDetails) {
         guard details.layoutValue == .todo else { return }
         detailsService.updateBundledDetails(
             contextID: details.id,
@@ -368,7 +368,7 @@ final class EditorSetViewModel: ObservableObject {
         )
     }
     
-    func itemTapped(_ details: ObjectDetails) {
+    private func itemTapped(_ details: ObjectDetails) {
         openObject(pageId: details.id, type: details.editorViewType)
     }
 }

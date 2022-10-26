@@ -18,8 +18,6 @@ struct SetKanbanView: View {
             Spacer.fixedHeight(tableHeaderSize.height)
             content
         }
-        .onAppear { model.onAppear() }
-        .onDisappear { model.onDisappear() }
     }
 
     // MARK: List view
