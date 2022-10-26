@@ -81,6 +81,13 @@ extension FeatureDescription {
         defaultValue: false
     )
     
+    static let inlineMarkdown = FeatureDescription(
+        title: "Inline markdown (IOS-78)",
+        author: "m@anytype.io",
+        releaseVersion: "0.20.0",
+        defaultValue: false
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(

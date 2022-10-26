@@ -1,5 +1,6 @@
 import Foundation
 import UIKit
+import AnytypeCore
 
 final class InlineMarkdownListener: MarkdownListener {
     
@@ -13,6 +14,8 @@ final class InlineMarkdownListener: MarkdownListener {
     // MARK: - MarkdownListener
     
     func markdownChange(textView: UITextView, replacementText: String, range: NSRange) -> MarkdownChange? {
+        
+        guard FeatureFlags.inlineMarkdown else { return nil }
         
         let replacedAttributedText = textView.attributedText.mutable
         replacedAttributedText.replaceCharacters(in: range, with: replacementText)

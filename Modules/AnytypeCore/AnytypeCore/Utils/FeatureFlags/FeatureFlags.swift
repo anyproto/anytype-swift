@@ -24,7 +24,8 @@ public final class FeatureFlags {
         .redesignNewButton,
         .linktoObjectFromItself,
         .linkToObjectFromMarkup,
-        .showBookmarkInSets
+        .showBookmarkInSets,
+        .inlineMarkdown
     ]
     
     public static func update(key feature: FeatureDescription, value: Bool) {
@@ -95,5 +96,9 @@ public extension FeatureFlags {
     
     static var showBookmarkInSets: Bool {
         value(for: .showBookmarkInSets)
+    }
+    
+    static var inlineMarkdown: Bool {
+        value(for: .inlineMarkdown)
     }
 }
