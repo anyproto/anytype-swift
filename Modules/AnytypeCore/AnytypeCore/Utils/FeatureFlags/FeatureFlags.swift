@@ -25,7 +25,9 @@ public final class FeatureFlags {
         .linktoObjectFromItself,
         .linkToObjectFromMarkup,
         .showBookmarkInSets,
-        .inlineMarkdown
+        .inlineMarkdown,
+        .fixColorsForStyleMenu,
+        .redesignBookmarkBlock
     ]
     
     public static func update(key feature: FeatureDescription, value: Bool) {
@@ -100,5 +102,13 @@ public extension FeatureFlags {
     
     static var inlineMarkdown: Bool {
         value(for: .inlineMarkdown)
+    }
+
+    static var fixColorsForStyleMenu: Bool {
+        value(for: .fixColorsForStyleMenu)
+    }
+
+    static var redesignBookmarkBlock: Bool {
+        value(for: .redesignBookmarkBlock)
     }
 }
