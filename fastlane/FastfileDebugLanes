@@ -11,7 +11,7 @@ platform :ios do
     desc "Runs all the tests"
     build_app(
       scheme: "Anytype", 
-      configuration: "Dev-Release",
+      configuration: "Debug-Nightly",
       use_system_scm: true,
       output_directory: "./tests_bild",
       skip_package_ipa: false,
