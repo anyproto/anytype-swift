@@ -359,7 +359,9 @@ private extension RelationsBuilder {
         isObjectLocked: Bool
     ) -> Relation {
         let objectOptions: [Relation.Object.Option] = {
-            let values = details.stringArrayValue(for: metadata.key)
+            let values = metadata.isMulti
+                ? details.stringArrayValue(for: metadata.key)
+                : [details.stringValue(for: metadata.key)]
             
             let objectDetails: [ObjectDetails] = values.compactMap {
                 return storage.get(id: $0)
