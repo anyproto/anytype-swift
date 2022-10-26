@@ -552,7 +552,6 @@
 		2EC9424F28F97F4D00DE91E4 /* RelationSearchDistinctService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC9424E28F97F4D00DE91E4 /* RelationSearchDistinctService.swift */; };
 		2EC9425128F97F5E00DE91E4 /* RelationSearchDistinctServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC9425028F97F5E00DE91E4 /* RelationSearchDistinctServiceProtocol.swift */; };
 		2EC9425F2900351C00DE91E4 /* DataviewGroup+Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC9425E2900351C00DE91E4 /* DataviewGroup+Filter.swift */; };
-		2EC9426B2901905900DE91E4 /* SetKanbanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC942682901905800DE91E4 /* SetKanbanViewModel.swift */; };
 		2EC9426C2901905900DE91E4 /* SetKanbanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC942692901905800DE91E4 /* SetKanbanView.swift */; };
 		2EC9426E2901946800DE91E4 /* SetKanbanColumn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC9426D2901946800DE91E4 /* SetKanbanColumn.swift */; };
 		2ECD122B28AFE58E00BD464A /* TitleWithIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECD122A28AFE58E00BD464A /* TitleWithIconView.swift */; };
@@ -1771,7 +1770,6 @@
 		2EC9424E28F97F4D00DE91E4 /* RelationSearchDistinctService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationSearchDistinctService.swift; sourceTree = "<group>"; };
 		2EC9425028F97F5E00DE91E4 /* RelationSearchDistinctServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationSearchDistinctServiceProtocol.swift; sourceTree = "<group>"; };
 		2EC9425E2900351C00DE91E4 /* DataviewGroup+Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataviewGroup+Filter.swift"; sourceTree = "<group>"; };
-		2EC942682901905800DE91E4 /* SetKanbanViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetKanbanViewModel.swift; sourceTree = "<group>"; };
 		2EC942692901905800DE91E4 /* SetKanbanView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetKanbanView.swift; sourceTree = "<group>"; };
 		2EC9426D2901946800DE91E4 /* SetKanbanColumn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetKanbanColumn.swift; sourceTree = "<group>"; };
 		2ECD122A28AFE58E00BD464A /* TitleWithIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleWithIconView.swift; sourceTree = "<group>"; };
@@ -4759,7 +4757,6 @@
 		2EC942672901905800DE91E4 /* Board */ = {
 			isa = PBXGroup;
 			children = (
-				2EC942682901905800DE91E4 /* SetKanbanViewModel.swift */,
 				2EC942692901905800DE91E4 /* SetKanbanView.swift */,
 			);
 			path = Board;
@@ -7890,7 +7887,6 @@
 				1247BCA727FF3827005F2DB4 /* FeedbackGeneratorExamplesView.swift in Sources */,
 				3D929B2F263307700063F1BE /* AnytypeFont.swift in Sources */,
 				53CC99A8280D6DD900C39CCF /* AnytypeAnalytics.swift in Sources */,
-				2EC9426B2901905900DE91E4 /* SetKanbanViewModel.swift in Sources */,
 				EAC5FD542657DD2E006BB24E /* EditorContentInsetsHelper.swift in Sources */,
 				3D3040F427E2193500FFE0EB /* ObjectHeaderFilledContentSwitfUIView.swift in Sources */,
 				3D00F1EE278F09BB00863D7C /* HomeProfileData.swift in Sources */,

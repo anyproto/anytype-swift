@@ -61,7 +61,7 @@ struct EditorSetView: View {
                 )
             case .kanban:
                 SetKanbanView(
-                    model: model.kanbanViewModel,
+                    model: model,
                     tableHeaderSize: $tableHeaderSize,
                     offset: $offset,
                     headerMinimizedSize: headerMinimizedSize

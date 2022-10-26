@@ -2,7 +2,7 @@ import SwiftUI
 import BlocksModels
 
 struct SetKanbanView: View {
-    @ObservedObject var model: SetKanbanViewModel
+    @ObservedObject var model: EditorSetViewModel
     
     @Binding var tableHeaderSize: CGSize
     @Binding var offset: CGPoint
@@ -37,7 +37,7 @@ struct SetKanbanView: View {
     
     private var boardView: some View {
         Group {
-            if model.recordsDict.keys.isEmpty {
+            if model.isEmpty {
                 EmptyView()
             } else {
                 Section(header: compoundHeader) {
@@ -50,7 +50,7 @@ struct SetKanbanView: View {
     private var boardContent: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(alignment: .top, spacing: 16) {
-                ForEach(model.recordsDict.keys, id: \.value) { key in
+                ForEach(model.configurationsDict.keys, id: \.value) { key in
                     if let configurations = model.configurationsDict[key] {
                         SetKanbanColumn(
                             headerRelation: nil, // will be updated after branch `relatio-as-object` was merged
