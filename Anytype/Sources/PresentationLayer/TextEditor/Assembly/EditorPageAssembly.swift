@@ -203,7 +203,9 @@ final class EditorAssembly {
             linkToObjectCoordinator: coordinatorsDI.linkToObject.make(rootController: browser, viewController: controller)
         )
         
-        let markdownListener = MarkdownListenerImpl()
+        let markdownListener = MarkdownListenerImpl(
+            inlineListener: InlineMarkdownListener()
+        )
         
         let blockDelegate = BlockDelegateImpl(
             viewInput: viewInput,

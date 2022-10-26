@@ -6,6 +6,7 @@ import AnytypeCore
 enum MarkdownChange {
     case turnInto(BlockText.Style, text: NSAttributedString)
     case addBlock(type: BlockContentType, text: NSAttributedString)
+    case addStyle(MarkupType, text: NSAttributedString, range: NSRange)
 }
 
 protocol MarkdownListener {
@@ -13,15 +14,26 @@ protocol MarkdownListener {
 }
 
 final class MarkdownListenerImpl: MarkdownListener {
+    
+    private let inlineListener: MarkdownListener
+    
+    init(inlineListener: MarkdownListener) {
+        self.inlineListener = inlineListener
+    }
+    
+    // MARK: - MarkdownListener
+    
     func markdownChange(textView: UITextView, replacementText: String, range: NSRange) -> MarkdownChange? {
         guard textView.textChangeType(changeTextRange: range, replacementText: replacementText) == .typingSymbols else {
             return nil
         }
         
         return applyBeginningOfTextShortcuts(textView: textView, replacementText: replacementText, range: range)
+            ?? inlineListener.markdownChange(textView: textView, replacementText: replacementText, range: range)
     }
 
     // MARK: - BeginningOfText
+    
     private func applyBeginningOfTextShortcuts(
         textView: UITextView,
         replacementText: String,

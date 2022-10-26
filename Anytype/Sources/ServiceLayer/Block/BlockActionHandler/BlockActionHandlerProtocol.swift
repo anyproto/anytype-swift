@@ -45,6 +45,7 @@ protocol BlockActionHandlerProtocol: AnyObject {
         info: BlockInformation
     )
     func changeTextStyle(_ attribute: MarkupType, range: NSRange, blockId: BlockId)
+    func setTextStyle(_ attribute: MarkupType, range: NSRange, blockId: BlockId, currentText: NSAttributedString?)
     func uploadMediaFile(uploadingSource: MediaFileUploadingSource, type: MediaPickerContentType, blockId: BlockId)
     func uploadFileAt(localPath: String, blockId: BlockId)
     func selectBlock(info: BlockInformation)
