@@ -204,7 +204,10 @@ final class EditorAssembly {
         )
         
         let markdownListener = MarkdownListenerImpl(
-            inlineListener: InlineMarkdownListener()
+            internalListeners: [
+                BeginingOfTextMarkdownListener(),
+                InlineMarkdownListener()
+            ]
         )
         
         let blockDelegate = BlockDelegateImpl(
