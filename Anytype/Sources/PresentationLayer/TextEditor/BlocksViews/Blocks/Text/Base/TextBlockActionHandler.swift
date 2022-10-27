@@ -116,7 +116,7 @@ struct TextBlockActionHandler: TextBlockActionHandlerProtocol {
                 textView.setFocus(.beginning)
             case let .addBlock(type, newText):
                 actionHandler.changeTextForced(newText, blockId: info.id)
-                actionHandler.addBlock(type, blockId: info.id, position: .top)
+                actionHandler.addBlock(type, blockId: info.id, blockText: newText, position: .top)
                 resetSubject.send()
             case let .addStyle(style, newText, styleRange):
                 actionHandler.setTextStyle(style, range: styleRange, blockId: info.id, currentText: newText)

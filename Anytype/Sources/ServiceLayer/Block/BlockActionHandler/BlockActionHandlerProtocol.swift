@@ -29,7 +29,7 @@ protocol BlockActionHandlerProtocol: AnyObject {
     func setLinkToObject(linkBlockId: BlockId?, range: NSRange, blockId: BlockId)
     func addLink(targetId: BlockId, typeUrl: String, blockId: BlockId)
     func changeMarkup(blockIds: [BlockId], markType: MarkupType)
-    func addBlock(_ type: BlockContentType, blockId: BlockId, position: BlockPosition?)
+    func addBlock(_ type: BlockContentType, blockId: BlockId, blockText: NSAttributedString?, position: BlockPosition?)
     func toggleWholeBlockMarkup(_ markup: MarkupType, blockId: BlockId)
     func upload(blockId: BlockId, filePath: String)
     func createPage(targetId: BlockId, type: ObjectTypeUrl) -> BlockId?
@@ -58,12 +58,13 @@ protocol BlockActionHandlerProtocol: AnyObject {
     func createTable(
         blockId: BlockId,
         rowsCount: Int,
-        columnsCount: Int
+        columnsCount: Int,
+        blockText: NSAttributedString?
     )
 }
 
 extension BlockActionHandlerProtocol {
-    func addBlock(_ type: BlockContentType, blockId: BlockId) {
-        addBlock(type, blockId: blockId, position: nil)
+    func addBlock(_ type: BlockContentType, blockId: BlockId, blockText: NSAttributedString? = nil) {
+        addBlock(type, blockId: blockId, blockText: blockText, position: nil)
     }
 }

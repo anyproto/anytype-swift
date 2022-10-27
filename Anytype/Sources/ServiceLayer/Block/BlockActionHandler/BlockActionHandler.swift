@@ -249,10 +249,15 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     func createTable(
         blockId: BlockId,
         rowsCount: Int,
-        columnsCount: Int
+        columnsCount: Int,
+        blockText: NSAttributedString?
     ) {
-        guard let info = document.infoContainer.get(id: blockId) else { return }
-        let position: BlockPosition = info.isTextAndEmpty ? .replace : .bottom
+        let blockText = FeatureFlags.fixInsetMediaContent ? blockText : nil
+        
+        guard let isTextAndEmpty = blockText?.string.isEmpty
+                ?? document.infoContainer.get(id: blockId)?.isTextAndEmpty else { return }
+        
+        let position: BlockPosition = isTextAndEmpty ? .replace : .bottom
 
         blockTableService.createTable(
             contextId: document.objectId,
@@ -264,7 +269,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     }
 
 
-    func addBlock(_ type: BlockContentType, blockId: BlockId, position: BlockPosition?) {
+    func addBlock(_ type: BlockContentType, blockId: BlockId, blockText: NSAttributedString?, position: BlockPosition?) {
         guard type != .smartblock(.page) else {
             anytypeAssertionFailure("Use createPage func instead", domain: .blockActionsService)
             return
@@ -272,11 +277,14 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
             
         guard let newBlock = BlockBuilder.createNewBlock(type: type) else { return }
 
-        guard let info = document.infoContainer.get(id: blockId) else { return }
+        let blockText = FeatureFlags.fixInsetMediaContent ? blockText : nil
         
-        let position: BlockPosition = info.isTextAndEmpty ? .replace : (position ?? .bottom)
+        guard let isTextAndEmpty = blockText?.string.isEmpty
+            ?? document.infoContainer.get(id: blockId)?.isTextAndEmpty else { return }
+        
+        let position: BlockPosition = isTextAndEmpty ? .replace : (position ?? .bottom)
 
-        service.add(info: newBlock, targetBlockId: info.id, position: position)
+        service.add(info: newBlock, targetBlockId: blockId, position: position)
     }
 
     func selectBlock(info: BlockInformation) {
