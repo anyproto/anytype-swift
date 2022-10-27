@@ -131,6 +131,15 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         changeTextForced(newText, blockId: blockId)
     }
     
+    func setTextStyle(_ attribute: MarkupType, range: NSRange, blockId: BlockId, currentText: NSAttributedString?) {
+        guard let newText = markupChanger.setMarkup(attribute, blockId: blockId, range: range, currentText: currentText)
+            else { return }
+
+        AnytypeAnalytics.instance().logSetMarkup(attribute)
+
+        changeTextForced(newText, blockId: blockId)
+    }
+    
     func setLink(url: URL?, range: NSRange, blockId: BlockId) {
         let newText: NSAttributedString?
         if let url = url {

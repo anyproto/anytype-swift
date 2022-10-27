@@ -81,6 +81,13 @@ extension FeatureDescription {
         defaultValue: false
     )
     
+    static let inlineMarkdown = FeatureDescription(
+        title: "Inline markdown (IOS-78)",
+        author: "m@anytype.io",
+        releaseVersion: "0.20.0",
+        defaultValue: false
+    )
+
     static let fixColorsForStyleMenu = FeatureDescription(
         title: "Fix colors for style menu (IOS-94)",
         author: "m@anytype.io",

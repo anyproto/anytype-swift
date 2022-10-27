@@ -79,6 +79,8 @@ final class ServiceLocator {
         return PageService()
     }
     
+    // MARK: - Private
+    
     private func subscriptionToggler() -> SubscriptionTogglerProtocol {
         SubscriptionToggler()
     }

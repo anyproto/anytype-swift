@@ -4,7 +4,7 @@ import Foundation
 import AnytypeCore
 
 final class BlockActionHandlerMock: BlockActionHandlerProtocol {
-    
+        
     var blockSelectionHandler: BlockSelectionHandler? {
         get {
             assertionFailure()
@@ -151,6 +151,10 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
     }
     
     func changeTextStyle(_ attribute: MarkupType, range: NSRange, blockId: BlockId) {
+        assertionFailure()
+    }
+    
+    func setTextStyle(_ attribute: Anytype.MarkupType, range: NSRange, blockId: BlocksModels.BlockId, currentText: NSAttributedString?) {
         assertionFailure()
     }
     
