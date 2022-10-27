@@ -9,6 +9,7 @@ final class InlineMarkdownListener: MarkdownListener {
         let shortcutText: InlineMarkdown.Pattern
         let text: NSAttributedString
         let range: NSRange
+        let focusRange: NSRange
     }
     
     // MARK: - MarkdownListener
@@ -40,7 +41,7 @@ final class InlineMarkdownListener: MarkdownListener {
                 let endNSRange = NSRange(endRange, in: replacedText)
                 let startNSRange = NSRange(startRange, in: replacedText)
                 
-                finalText.replaceCharacters(in: endNSRange, with: "")
+                finalText.replaceCharacters(in: endNSRange, with: " ")
                 finalText.replaceCharacters(in: startNSRange, with: "")
                 
                 let finalRange = NSRange(
@@ -52,7 +53,8 @@ final class InlineMarkdownListener: MarkdownListener {
                     shortcut: shortcut,
                     shortcutText: shortcutText,
                     text: finalText,
-                    range: finalRange
+                    range: finalRange,
+                    focusRange: NSRange(location: finalRange.upperBound + 1, length: 0)
                 )
                 
                 matchResults.append(result)
@@ -63,7 +65,7 @@ final class InlineMarkdownListener: MarkdownListener {
         
         guard let finalResult = matchResults.first else { return nil }
         
-        return .addStyle(finalResult.shortcut.markup, text: finalResult.text, range: finalResult.range)
+        return .addStyle(finalResult.shortcut.markup, text: finalResult.text, range: finalResult.range, focusRange: finalResult.focusRange)
     }
 }
 

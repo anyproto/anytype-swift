@@ -6,7 +6,7 @@ import AnytypeCore
 enum MarkdownChange {
     case turnInto(BlockText.Style, text: NSAttributedString)
     case addBlock(type: BlockContentType, text: NSAttributedString)
-    case addStyle(MarkupType, text: NSAttributedString, range: NSRange)
+    case addStyle(MarkupType, text: NSAttributedString, range: NSRange, focusRange: NSRange)
 }
 
 protocol MarkdownListener {

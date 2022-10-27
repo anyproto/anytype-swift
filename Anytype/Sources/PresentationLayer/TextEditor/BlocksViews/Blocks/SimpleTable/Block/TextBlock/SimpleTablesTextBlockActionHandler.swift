@@ -113,8 +113,9 @@ struct SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
             case let .addBlock(type, newText):
                 actionHandler.changeTextForced(newText, blockId: info.id)
                 actionHandler.addBlock(type, blockId: info.id, blockText: newText, position: .top)
-            case let .addStyle(style, newText, styleRange):
+            case let .addStyle(style, newText, styleRange, focusRange):
                 actionHandler.setTextStyle(style, range: styleRange, blockId: info.id, currentText: newText)
+                textView.setFocus(.at(focusRange))
             }
 
             return false

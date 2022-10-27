@@ -7,9 +7,12 @@ class InlineMarkdownListenerTests: XCTestCase {
     struct Case {
         let text: String
         let inputText: String
+        let range: NSRange
         
-        var range: NSRange {
-            return NSRange(location: text.count, length: 0)
+        init(text: String, inputText: String, range: NSRange? = nil) {
+            self.text = text
+            self.inputText = inputText
+            self.range = range ?? NSRange(location: text.count, length: 0)
         }
     }
     
@@ -36,28 +39,32 @@ class InlineMarkdownListenerTests: XCTestCase {
             Case(text:"AAA**bbb*", inputText: "*"),
             Case(text:"AAA**bbb", inputText: "*"),
             Case(text:"AAA~~bbb~", inputText: "~"),
-            Case(text:"AAA~~bbb", inputText: "~")
+            Case(text:"AAA~~bbb", inputText: "~"),
+            // Middle cursor position
+            Case(text:"AAA~~bbb~ccc", inputText: "~", range: NSRange(location: 9, length: 0)),
         ]
         
-        let text = NSAttributedString(string: "AAAbbb")
+        let text = NSAttributedString(string: "AAAbbb ")
         let range = NSRange(location: 3, length: 3)
+        let focusRange = NSRange(location: 7, length: 0)
         
         let expectedResults: [MarkdownChange?] = [
-            .addStyle(.keyboard, text: text, range: range),
-            .addStyle(.keyboard, text: text, range: range),
-            .addStyle(.keyboard, text: text, range: range),
-            .addStyle(.keyboard, text: text, range: range),
-            .addStyle(.keyboard, text: text, range: range),
+            .addStyle(.keyboard, text: text, range: range, focusRange: focusRange),
+            .addStyle(.keyboard, text: text, range: range, focusRange: focusRange),
+            .addStyle(.keyboard, text: text, range: range, focusRange: focusRange),
+            .addStyle(.keyboard, text: text, range: range, focusRange: focusRange),
+            .addStyle(.keyboard, text: text, range: range, focusRange: focusRange),
             nil,
             nil,
-            .addStyle(.italic, text: text, range: range),
-            .addStyle(.italic, text: text, range: range),
-            .addStyle(.bold, text: text, range: range),
+            .addStyle(.italic, text: text, range: range, focusRange: focusRange),
+            .addStyle(.italic, text: text, range: range, focusRange: focusRange),
+            .addStyle(.bold, text: text, range: range, focusRange: focusRange),
             nil,
-            .addStyle(.bold, text: text, range: range),
+            .addStyle(.bold, text: text, range: range, focusRange: focusRange),
             nil,
-            .addStyle(.strikethrough, text: text, range: range),
-            nil
+            .addStyle(.strikethrough, text: text, range: range, focusRange: focusRange),
+            nil,
+            .addStyle(.strikethrough, text: NSAttributedString(string: "AAAbbb ccc"), range: range, focusRange: focusRange)
         ]
         
         let textView = UITextView()
@@ -71,10 +78,13 @@ class InlineMarkdownListenerTests: XCTestCase {
         
         for i in 0..<expectedResults.count {
             switch (expectedResults[i], results[i]) {
-            case let (.addStyle(expectedStyle, expectedText, expectedRange), .addStyle(style, text, range)):
+            case let (
+                .addStyle(expectedStyle, expectedText, expectedRange, expectedFocusRange),
+                .addStyle(style, text, range, focusRange)):
                 XCTAssertEqual(expectedStyle, style)
                 XCTAssertEqual(expectedText.string, text.string)
                 XCTAssertEqual(expectedRange, range)
+                XCTAssertEqual(expectedFocusRange, focusRange)
             case (nil, nil):
                 break
             default:
