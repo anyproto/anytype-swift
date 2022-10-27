@@ -95,6 +95,13 @@ extension FeatureDescription {
         defaultValue: false
     )
     
+    static let fixInsetMediaContent = FeatureDescription(
+        title: "Fix insert media content (IOS-552)",
+        author: "m@anytype.io",
+        releaseVersion: "0.20.0",
+        defaultValue: false
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(
