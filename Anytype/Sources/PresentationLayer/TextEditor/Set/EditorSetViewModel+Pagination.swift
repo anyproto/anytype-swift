@@ -19,7 +19,7 @@ extension EditorSetViewModel {
         guard let data = data else { return }
         pagitationData = data.data
         if data.shoudUpdateSubscription {
-            setupSubscriptions()
+            startSubscriptionIfNeeded()
         }
     }
 }

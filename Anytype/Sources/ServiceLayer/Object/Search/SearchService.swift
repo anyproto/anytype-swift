@@ -5,7 +5,12 @@ import AnytypeCore
 
 protocol SearchServiceProtocol {
     func search(text: String) -> [ObjectDetails]?
-    func searchObjectTypes(text: String, filteringTypeUrl: String?, shouldIncludeSets: Bool) -> [ObjectDetails]?
+    func searchObjectTypes(
+        text: String,
+        filteringTypeUrl: String?,
+        shouldIncludeSets: Bool,
+        shouldIncludeBookmark: Bool
+    ) -> [ObjectDetails]?
     func searchFiles(text: String, excludedFileIds: [String]) -> [ObjectDetails]?
     func searchObjects(text: String, excludedObjectIds: [String], limitedTypeUrls: [String]) -> [ObjectDetails]?
     func searchTemplates(for type: ObjectTypeUrl) -> [ObjectDetails]?
@@ -42,7 +47,8 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
     func searchObjectTypes(
         text: String,
         filteringTypeUrl: String? = nil,
-        shouldIncludeSets: Bool
+        shouldIncludeSets: Bool,
+        shouldIncludeBookmark: Bool
     ) -> [ObjectDetails]? {
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.name,
@@ -53,10 +59,10 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             SearchHelper.supportedObjectTypeUrlsFilter(
                 ObjectTypeProvider.shared.supportedTypeUrls
             ),
-            shouldIncludeSets ? nil : SearchHelper.excludedObjectTypeUrlFilter(ObjectTypeUrl.bundled(.set).rawValue)
+            shouldIncludeSets ? nil : SearchHelper.excludedObjectTypeUrlFilter(ObjectTypeUrl.bundled(.set).rawValue),
+            shouldIncludeBookmark ? nil : SearchHelper.excludedObjectTypeUrlFilter(ObjectTypeUrl.bundled(.bookmark).rawValue)
         ].compactMap { $0 }
 
-        filters.append(SearchHelper.excludedObjectTypeUrlFilter(ObjectTypeUrl.bundled(.bookmark).rawValue))
         filteringTypeUrl.map { filters.append(SearchHelper.excludedObjectTypeUrlFilter($0)) }
 
         let result = makeRequest(filters: filters, sorts: [sort], fullText: text)

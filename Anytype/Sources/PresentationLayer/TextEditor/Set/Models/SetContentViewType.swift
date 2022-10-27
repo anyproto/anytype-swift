@@ -1,7 +1,12 @@
 import BlocksModels
 
 enum SetContentViewType {
+    case collection(CollectionType)
     case table
-    case gallery
-    case list
+    case kanban
+    
+    enum CollectionType {
+        case gallery
+        case list
+    }
 }

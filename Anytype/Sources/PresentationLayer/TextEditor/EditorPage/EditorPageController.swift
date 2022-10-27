@@ -5,7 +5,9 @@ import AnytypeCore
 import SwiftUI
 
 final class EditorPageController: UIViewController {
-    weak var browserViewInput: EditorBrowserViewInputProtocol?
+    
+    let bottomNavigationManager: EditorBottomNavigationManagerProtocol
+    private(set) weak var browserViewInput: EditorBrowserViewInputProtocol?
     private(set) lazy var dataSource = makeCollectionViewDataSource()
     
     private lazy var deletedScreen = EditorPageDeletedScreen(
@@ -77,8 +79,14 @@ final class EditorPageController: UIViewController {
     private var cancellables = [AnyCancellable]()
     
     // MARK: - Initializers
-    init(blocksSelectionOverlayView: BlocksSelectionOverlayView) {
+    init(
+        blocksSelectionOverlayView: BlocksSelectionOverlayView,
+        bottomNavigationManager: EditorBottomNavigationManagerProtocol,
+        browserViewInput: EditorBrowserViewInputProtocol?
+    ) {
         self.blocksSelectionOverlayView = blocksSelectionOverlayView
+        self.bottomNavigationManager = bottomNavigationManager
+        self.browserViewInput = browserViewInput
 
         super.init(nibName: nil, bundle: nil)
     }
@@ -139,9 +147,21 @@ final class EditorPageController: UIViewController {
         case .selecting:
             performBlocksSelection(with: touch)
         case .editing:
-            guard let touchingIndexPath = collectionView.indexPath(for: touch),
+            guard let selectingRangeEditorItem = selectingRangeEditorItem,
+                  let sourceTextIndexPath = dataSource.indexPath(for: selectingRangeEditorItem),
+                  let cell = collectionView.cellForItem(at: sourceTextIndexPath) else {
+                return
+            }
+
+            let pointInCell = touch.location(in: cell)
+            let isAscendingTouch = pointInCell.y > cell.center.y
+            let threshold: CGFloat = isAscendingTouch ? Constants.selectingTextThreshold : -Constants.selectingTextThreshold
+            var locationInCollectionView = touch.location(in: collectionView)
+
+            locationInCollectionView.y = locationInCollectionView.y + threshold
+
+            guard let touchingIndexPath = collectionView.indexPathForItem(at: locationInCollectionView),
                   let touchingItem = dataSource.itemIdentifier(for: touchingIndexPath),
-                  let selectingRangeEditorItem = selectingRangeEditorItem,
                   touchingItem != selectingRangeEditorItem,
                   let selectingRangeTextView = selectingRangeTextView,
                   let sourceTextIndexPath = dataSource.indexPath(for: selectingRangeEditorItem)
@@ -199,7 +219,7 @@ final class EditorPageController: UIViewController {
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
         collectionView.isEditing = editing
-        browserViewInput?.multiselectActive(!editing)
+        bottomNavigationManager.multiselectActive(!editing)
     }
     
     private var controllerForNavigationItems: UIViewController? {
@@ -250,7 +270,7 @@ final class EditorPageController: UIViewController {
             view.endEditing(true)
             collectionView.isLocked = true
         case .simpleTablesSelection:
-            browserViewInput?.multiselectActive(true)
+            bottomNavigationManager.multiselectActive(true)
             view.endEditing(true)
             collectionView.isLocked = true
         case .loading:
@@ -394,6 +414,10 @@ extension EditorPageController: EditorPageViewInput {
         guard let newItem = viewModel.modelsHolder.contentProvider(for: blockId) else { return }
 
         reloadCell(for: .block(newItem))
+
+        var blocksSnapshot = NSDiffableDataSourceSectionSnapshot<EditorItem>()
+        blocksSnapshot.append(viewModel.modelsHolder.items)
+        applyBlocksSectionSnapshot(blocksSnapshot, animatingDifferences: false)
     }
 
     // MARK: -
@@ -421,8 +445,12 @@ extension EditorPageController: EditorPageViewInput {
 
         switch item {
         case let .block(block):
-            if let blockViewModel = block as? TextBlockViewModel {
-                blockViewModel.set(focus: .end)
+            if FeatureFlags.cursorPosition {
+                viewModel.cursorFocus(blockId: block.blockId)
+            } else {
+                if let blockViewModel = block as? TextBlockViewModel {
+                    blockViewModel.set(focus: .end)
+                }
             }
         case .header, .system:
             return
@@ -636,5 +664,9 @@ extension UICollectionView {
 
         return indexPathForItem(at: point)
     }
+}
+
+private enum Constants {
+    static let selectingTextThreshold: CGFloat = 30
 }
 

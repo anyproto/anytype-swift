@@ -1,13 +1,14 @@
 import AnytypeCore
+
 struct EditorSetPaginationHelperData {
-    let data: EditorSetPaginationData
-    let shoudUpdateSubscription: Bool
-    
-    init(data: EditorSetPaginationData, shoudUpdateSubscription: Bool = false) {
-        self.data = data
-        self.shoudUpdateSubscription = shoudUpdateSubscription
-    }
-}
+     let data: EditorSetPaginationData
+     let shoudUpdateSubscription: Bool
+
+     init(data: EditorSetPaginationData, shoudUpdateSubscription: Bool = false) {
+         self.data = data
+         self.shoudUpdateSubscription = shoudUpdateSubscription
+     }
+ }
 
 final class EditorSetPaginationHelper {
     private let numberOfPagesPerRow: Int = 5
@@ -15,6 +16,7 @@ final class EditorSetPaginationHelper {
     func changePage(_ page: Int, data: EditorSetPaginationData) -> EditorSetPaginationHelperData? {
         guard page != data.selectedPage else { return nil }
         guard page <= data.pageCount else { return nil }
+        
         return EditorSetPaginationHelperData(
             data: data.updated(selectedPage: page),
             shoudUpdateSubscription: true
@@ -30,7 +32,6 @@ final class EditorSetPaginationHelper {
             guard page <= data.pageCount else { continue }
             newVisiblePages.append(page)
         }
-        
         let data = data.updated(visiblePages: newVisiblePages)
         return EditorSetPaginationHelperData(data: data)
     }
@@ -50,7 +51,7 @@ final class EditorSetPaginationHelper {
     }
     
     func updatePageCount(_ count: Int, data: EditorSetPaginationData) -> EditorSetPaginationHelperData? {
-        guard count != 0 else { return EditorSetPaginationHelperData(data: .empty)}
+        guard count != 0 else { return EditorSetPaginationHelperData(data: .empty) }
         
         var data = data
         data = updateVisiblePagesPage(count: count, data: data)

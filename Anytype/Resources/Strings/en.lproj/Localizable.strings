@@ -205,6 +205,7 @@
 
 "Undo typing" = "Undo typing";
 "Undo" = "Undo";
+"Actions.LinkItself" = "Link to";
 
 // Object Type
 "Page" = "Page";
@@ -352,6 +353,8 @@
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Source" = "Source";
+"Set.FeaturedRelations.RelationsList" = "Relations:";
+"Set.FeaturedRelations.Relation" = "Relation:";
 
 // MARK: - Sets: Filters search
 "Set.Filters.Search.Button.Title" = "Apply";
@@ -531,6 +534,7 @@
 "Delete account" = "Delete account";
 "Cancel deletion" = "Cancel deletion";
 "Logout and clear data" = "Logout and clear data";
+"New" = "New";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Are you sure to delete account?";
@@ -622,3 +626,4 @@
 // MARK: - Widget extension
 "WidgetExtension.LockScreen.Title" = "New object";
 "WidgetExtension.LockScreen.Description" = "Create a new object on the fly";
+

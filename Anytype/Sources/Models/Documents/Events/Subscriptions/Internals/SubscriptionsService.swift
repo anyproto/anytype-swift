@@ -36,6 +36,8 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
     }
     
     func stopSubscription(id: SubscriptionId) {
+        guard subscribers[id].isNotNil else { return }
+
         _ = toggler.stopSubscription(id: id)
         subscribers[id] = nil
     }
@@ -59,6 +61,13 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
         
         update(data.identifier, .initialData(result.records))
         update(data.identifier, .pageCount(numberOfPagesFromTotalCount(result.count)))
+    }
+    
+    func hasSubscriptionDataDiff(with data: SubscriptionData) -> Bool {
+        guard let subscriber = subscribers[data.identifier] else {
+            return true
+        }
+        return data != subscriber.data
     }
  
     // MARK: - Private

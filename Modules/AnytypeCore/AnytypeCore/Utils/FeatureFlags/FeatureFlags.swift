@@ -17,7 +17,16 @@ public final class FeatureFlags {
         .objectPreview,
         .setListView,
         .setViewTypes,
-        .setSyncStatus
+        .setSyncStatus,
+        .cursorPosition,
+        .hideBottomViewForStyleMenu,
+        .setKanbanView,
+        .redesignNewButton,
+        .linktoObjectFromItself,
+        .linkToObjectFromMarkup,
+        .showBookmarkInSets,
+        .fixColorsForStyleMenu,
+        .redesignBookmarkBlock
     ]
     
     public static func update(key feature: FeatureDescription, value: Bool) {
@@ -60,5 +69,41 @@ public extension FeatureFlags {
     
     static var setSyncStatus: Bool {
         value(for: .setSyncStatus)
+    }
+    
+    static var cursorPosition: Bool {
+        value(for: .cursorPosition)
+    }
+    
+    static var hideBottomViewForStyleMenu: Bool {
+        value(for: .hideBottomViewForStyleMenu)
+    }
+    
+    static var setKanbanView: Bool {
+        value(for: .setKanbanView)
+    }
+    
+    static var redesignNewButton: Bool {
+        value(for: .redesignNewButton)
+    }
+
+    static var linktoObjectFromItself: Bool {
+        value(for: .linktoObjectFromItself)
+    }
+    
+    static var linkToObjectFromMarkup: Bool {
+        value(for: .linkToObjectFromMarkup)
+    }
+    
+    static var showBookmarkInSets: Bool {
+        value(for: .showBookmarkInSets)
+    }
+    
+    static var fixColorsForStyleMenu: Bool {
+        value(for: .fixColorsForStyleMenu)
+    }
+
+    static var redesignBookmarkBlock: Bool {
+        value(for: .redesignBookmarkBlock)
     }
 }

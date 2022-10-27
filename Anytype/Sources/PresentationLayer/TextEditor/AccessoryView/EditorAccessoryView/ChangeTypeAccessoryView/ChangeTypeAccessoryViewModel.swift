@@ -49,7 +49,7 @@ final class ChangeTypeAccessoryViewModel {
 
     private func fetchSupportedTypes() {
         let supportedTypes = searchService
-            .searchObjectTypes(text: "", filteringTypeUrl: nil, shouldIncludeSets: true)?
+            .searchObjectTypes(text: "", filteringTypeUrl: nil, shouldIncludeSets: true, shouldIncludeBookmark: false)?
             .map { object in
                 TypeItem(from: object, handler: { [weak self] in
                     self?.onObjectTap(object: object)

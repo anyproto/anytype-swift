@@ -7,6 +7,7 @@ struct SetCollectionView: View {
     @Binding var offset: CGPoint
     
     var headerMinimizedSize: CGSize
+    let viewType: SetContentViewType.CollectionType
 
     var body: some View {
         OffsetAwareScrollView(
@@ -22,13 +23,11 @@ struct SetCollectionView: View {
     
     private var contentTypeView: some View {
         Group {
-            switch model.contentViewType {
+            switch viewType {
             case .list:
                 list
             case .gallery:
                 gallery
-            case .table:
-                EmptyView()
             }
         }
     }
@@ -82,8 +81,9 @@ struct SetCollectionView: View {
                 EmptyView()
             } else {
                 Section(header: compoundHeader) {
-                    ForEach(model.configurations) { configuration in
-                        if model.configurations.first == configuration {
+                    let configurations = model.configurations
+                    ForEach(configurations) { configuration in
+                        if configurations.first == configuration {
                             Divider()
                         }
                         SetListViewCell(configuration: configuration)
@@ -111,7 +111,7 @@ struct SetCollectionView: View {
                     Spacer()
                 }
                 Spacer.fixedHeight(
-                    model.contentViewType == .list ? 16 : 6
+                    viewType == .list ? 16 : 6
                 )
             }
         }
@@ -136,7 +136,8 @@ struct SetCollectionView_Previews: PreviewProvider {
             model: EditorSetViewModel.empty,
             tableHeaderSize: .constant(.zero),
             offset: .constant(.zero),
-            headerMinimizedSize: .zero
+            headerMinimizedSize: .zero,
+            viewType: .gallery
         )
     }
 }

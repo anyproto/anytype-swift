@@ -70,7 +70,8 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
     private let actionHandler: BlockActionHandlerProtocol
     private let pasteboardService: PasteboardServiceProtocol
     private let router: EditorRouterProtocol
-
+    private let bottomNavigationManager: EditorBottomNavigationManagerProtocol
+    
     weak var blocksOptionViewModel: SelectionOptionsViewModel?
     weak var blocksSelectionOverlayViewModel: BlocksSelectionOverlayViewModel?
     weak var viewInput: EditorPageViewInput?
@@ -86,7 +87,8 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         pasteboardService: PasteboardServiceProtocol,
         router: EditorRouterProtocol,
         initialEditingState: EditorEditingState,
-        viewInput: EditorPageViewInput
+        viewInput: EditorPageViewInput,
+        bottomNavigationManager: EditorBottomNavigationManagerProtocol
     ) {
         self.document = document
         self.modelsHolder = modelsHolder
@@ -97,6 +99,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         self.router = router
         self.editingState = initialEditingState
         self.viewInput = viewInput
+        self.bottomNavigationManager = bottomNavigationManager
 
         setupEditingHandlers()
     }
@@ -462,12 +465,14 @@ extension EditorPageBlocksStateManager: BlockSelectionHandler {
 
     func didSelectStyleSelection(info: BlockInformation) {
         viewInput?.endEditing()
+        bottomNavigationManager.styleViewActive(true)
         selectedBlocks = [info.id]
 
         let restrictions = BlockRestrictionsBuilder.build(content: info.content)
         router.showStyleMenu(information: info, restrictions: restrictions) { [weak self] presentedView in
             self?.viewInput?.adjustContentOffset(relatively: presentedView)
         } onDismiss: { [weak self] in
+            self?.bottomNavigationManager.styleViewActive(false)
             self?.viewInput?.restoreEditingState()
         }
     }

@@ -12,28 +12,44 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     
     // MARK: - CoordinatorsDIProtocol
     
-    lazy var relationValue: RelationValueCoordinatorAssemblyProtocol = {
+    var relationValue: RelationValueCoordinatorAssemblyProtocol {
         return RelationValueCoordinatorAssembly(
             serviceLocator: serviceLocator,
             modulesDI: modulesDI
         )
-    }()
+    }
     
-    lazy var templates: TemplatesCoordinatorAssemblyProtocol = {
+    var templates: TemplatesCoordinatorAssemblyProtocol {
         return TemplatesCoordinatorAssembly(serviceLocator: serviceLocator, coordinatorsDI: self)
-    }()
+    }
     
-    lazy var browser: EditorBrowserAssembly = {
+    var editorPage: EditorPageCoordinatorAssemblyProtocol {
+        return EditorPageCoordinatorAssembly(
+            serviceLocator: serviceLocator,
+            modulesDI: modulesDI,
+            coordinatorsID: self
+        )
+    }
+    
+    var linkToObject: LinkToObjectCoordinatorAssemblyProtocol {
+        return LinkToObjectCoordinatorAssembly(
+            serviceLocator: serviceLocator,
+            modulesDI: modulesDI,
+            coordinatorsID: self
+        )
+    }
+    
+    var browser: EditorBrowserAssembly {
         return EditorBrowserAssembly(coordinatorsDI: self)
-    }()
+    }
     
-    lazy var editor: EditorAssembly = {
+    var editor: EditorAssembly {
         return EditorAssembly(serviceLocator: serviceLocator, coordinatorsDI: self)
-    }()
+    }
     
-    lazy var homeViewAssemby: HomeViewAssembly = {
+    var homeViewAssemby: HomeViewAssembly {
         return HomeViewAssembly(coordinatorsDI: self)
-    }()
+    }
 }
 
 extension CoordinatorsDI {

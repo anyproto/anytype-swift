@@ -189,4 +189,8 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
     func uploadMediaFile(uploadingSource: Anytype.MediaFileUploadingSource, type: Anytype.MediaPickerContentType, blockId: BlocksModels.BlockId) {
         assertionFailure()
     }
+    
+    func changeMarkup(blockIds: [BlocksModels.BlockId], markType: Anytype.MarkupType) {
+        assertionFailure()
+    }
 }

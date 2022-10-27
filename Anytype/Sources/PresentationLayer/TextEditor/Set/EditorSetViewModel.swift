@@ -1,18 +1,19 @@
 import Combine
 import BlocksModels
 import AnytypeCore
-import ProtobufMessages
 import SwiftUI
+import OrderedCollections
 
 final class EditorSetViewModel: ObservableObject {
     @Published var titleString: String
     @Published var dataView = BlockDataview.empty
-    @Published private var records: [ObjectDetails] = []
     @Published private(set) var headerModel: ObjectHeaderViewModel!
     @Published var loadingDocument = true
-    @Published var pagitationData = EditorSetPaginationData.empty
     @Published var featuredRelations = [Relation]()
-    @Published var configurations = [SetContentViewItemConfiguration]()
+    
+    private var recordsDict: OrderedDictionary<SubscriptionId, [ObjectDetails]> = [:]
+    @Published var configurations: [SetContentViewItemConfiguration] = []
+    @Published var pagitationData = EditorSetPaginationData.empty
     
     @Published var sorts: [SetSort] = []
     @Published var filters: [SetFilter] = []
@@ -74,6 +75,7 @@ final class EditorSetViewModel: ObservableObject {
     private let searchService: SearchServiceProtocol
     private let detailsService: DetailsServiceProtocol
     private let textService: TextServiceProtocol
+    private let relationSearchDistinctService: RelationSearchDistinctServiceProtocol
     private let setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol
     private var subscriptions = [AnyCancellable]()
     private var titleSubscription: AnyCancellable?
@@ -84,6 +86,7 @@ final class EditorSetViewModel: ObservableObject {
         searchService: SearchServiceProtocol,
         detailsService: DetailsServiceProtocol,
         textService: TextServiceProtocol,
+        relationSearchDistinctService: RelationSearchDistinctServiceProtocol,
         setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol
     ) {
         ObjectTypeProvider.shared.resetCache()
@@ -92,6 +95,7 @@ final class EditorSetViewModel: ObservableObject {
         self.searchService = searchService
         self.detailsService = detailsService
         self.textService = textService
+        self.relationSearchDistinctService = relationSearchDistinctService
         self.setSubscriptionDataBuilder = setSubscriptionDataBuilder
 
         self.titleString = document.details?.pageCellTitle ?? ""
@@ -122,7 +126,7 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     func onAppear() {
-        setupSubscriptions()
+        startSubscriptionIfNeeded()
         router?.setNavigationViewHidden(false, animated: true)
     }
     
@@ -144,49 +148,102 @@ final class EditorSetViewModel: ObservableObject {
         setupDataview()
     }
     
-    func setupSubscriptions() {
-        subscriptionService.stopAllSubscriptions()
-        guard !isEmpty else { return }
+    func startSubscriptionIfNeeded() {
+        guard !isEmpty else {
+            subscriptionService.stopAllSubscriptions()
+            return
+        }
         
-        subscriptionService.startSubscription(
-            data: setSubscriptionDataBuilder.set(
-                .init(
-                    dataView: dataView,
-                    view: activeView,
-                    currentPage: max(pagitationData.selectedPage, 1) // show first page for empty request
-                )
-            )
-        ) { [weak self] subId, update in
-            guard let self = self else { return }
-
-            if case let .pageCount(count) = update {
-                self.updatePageCount(count)
-                return
-            }
-            
-            self.records.applySubscriptionUpdate(update)
-            self.configurations = self.dataBuilder.itemData(
-                self.records,
-                dataView: self.dataView,
-                activeView: self.activeView,
-                colums: self.colums,
-                isObjectLocked: self.isObjectLocked,
-                onIconTap: { [weak self] details in
-                    self?.updateDetailsIfNeeded(details)
-                },
-                onItemTap: { [weak self] details in
-                    self?.itemTapped(details)
-                }
-            )
+        if activeView.type.hasGroups {
+            setupGroupSubscriptions()
+        } else {
+            startSubscriptionIfNeeded(with: SubscriptionId.set)
         }
     }
     
     // MARK: - Private
     
+    private func setupGroupSubscriptions() {
+        Task {
+            let groups = try await relationSearchDistinctService.searchDistinct(
+                relationKey: activeView.groupRelationKey,
+                filters: activeView.filters
+            )
+            groups.forEach { [weak self] group in
+                guard let self else { return }
+                let groupFilter = group.filter(with: self.activeView.groupRelationKey)
+                let subscriptionId = SubscriptionId(value: "\(self.document.objectId)-dataview:\(group.id)")
+                self.startSubscriptionIfNeeded(with: subscriptionId, groupFilter: groupFilter)
+            }
+        }
+    }
+    
+    private func startSubscriptionIfNeeded(with subscriptionId: SubscriptionId, groupFilter: DataviewFilter? = nil) {
+        let data = setSubscriptionDataBuilder.set(
+            .init(
+                identifier: subscriptionId,
+                dataView: dataView,
+                view: activeView,
+                groupFilter: groupFilter,
+                currentPage: max(pagitationData.selectedPage, 1) // show first page for empty request
+            )
+        )
+        
+        if subscriptionService.hasSubscriptionDataDiff(with: data) {
+            restartSubscription(with: data)
+        }
+    }
+    
+    private func restartSubscription(with data: SubscriptionData) {
+        subscriptionService.stopSubscription(id: data.identifier)
+        subscriptionService.startSubscription(data: data) { subId, update in
+            DispatchQueue.main.async { [weak self] in
+                self?.updateData(with: subId, update: update)
+            }
+        }
+    }
+    
+    private func updateData(with subscriptionId: SubscriptionId, update: SubscriptionUpdate) {
+        if case let .pageCount(count) = update {
+            updatePageCount(count)
+            return
+        }
+        
+        updateRecords(for: subscriptionId, update: update)
+        updateConfigurations()
+    }
+    
+    private func updateRecords(for subscriptionId: SubscriptionId, update: SubscriptionUpdate) {
+        var records = recordsDict[subscriptionId, default: []]
+        records.applySubscriptionUpdate(update)
+        recordsDict[subscriptionId] = records
+    }
+    
+    private func updateConfigurations() {
+        var tempConfigurations: [SetContentViewItemConfiguration] = []
+        for records in recordsDict.values {
+            tempConfigurations.append(
+                contentsOf: dataBuilder.itemData(
+                    records,
+                    dataView: dataView,
+                    activeView: activeView,
+                    colums: colums,
+                    isObjectLocked: isObjectLocked,
+                    onIconTap: { [weak self] details in
+                        self?.updateDetailsIfNeeded(details)
+                    },
+                    onItemTap: { [weak self] details in
+                        self?.itemTapped(details)
+                    }
+                )
+            )
+        }
+        configurations = tempConfigurations
+    }
+    
     private func onDataChange(_ data: DocumentUpdate) {
         switch data {
         case .general, .blocks, .details, .dataSourceUpdate:
-            objectWillChange.send()
             setupDataview()
         case .syncStatus(let status):
             if setSyncStatus {
@@ -235,7 +292,8 @@ final class EditorSetViewModel: ObservableObject {
         updateActiveViewId()
         updateSorts()
         updateFilters()
-        setupSubscriptions()
+        startSubscriptionIfNeeded()
+        updateConfigurations()
         featuredRelations = document.featuredRelationsForEditor
 
         isUpdating = false
@@ -443,6 +501,7 @@ extension EditorSetViewModel {
         searchService: SearchService(),
         detailsService: DetailsService(objectId: "objectId", service: ObjectActionsService()),
         textService: TextService(),
+        relationSearchDistinctService: RelationSearchDistinctService(),
         setSubscriptionDataBuilder: SetSubscriptionDataBuilder()
     )
 }

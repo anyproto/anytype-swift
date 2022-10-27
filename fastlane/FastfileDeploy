@@ -14,20 +14,13 @@ platform :ios do
     )
   end
 
-  lane :tests do 
-  desc "Runs all the tests"
-    scan(
-      devices: ["iPhone 8"], 
-      scheme: "AnytypeTests",
-      slack_url: "https://hooks.slack.com/services/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",
-      slack_only_on_failure: true,
-      fail_build: false
-    )
-  end
-
   # Private lanes
 
   private_lane :deploy do |options| 
+    xcodeproj = "Anytype.xcodeproj"
+    current_branch = git_branch
+    temp_branch = "#{current_branch}-temp"
+
     setup_ci
     match(readonly: true)
     
@@ -35,12 +28,14 @@ platform :ios do
       show_uncommitted_changes: true
     )
 
-    build_number = increment_build_number(xcodeproj: "Anytype.xcodeproj")
-    version = get_version_number(xcodeproj: "Anytype.xcodeproj", target: "Anytype")
+    sh("git checkout -b " + temp_branch)
+
+    build_number = increment_build_number(xcodeproj: xcodeproj)
+    version = get_version_number(xcodeproj: xcodeproj, target: "Anytype")
 
     commit_version_bump(
       message: "Bump version #{version}(#{build_number})",
-      xcodeproj: "Anytype.xcodeproj",
+      xcodeproj: xcodeproj,
       no_verify: true
     )
 
@@ -55,14 +50,24 @@ platform :ios do
       scheme: "Anytype", 
       configuration: options[:release] ? "Release" : "Dev-Release",
       include_symbols: true,
-      use_system_scm: true
+      use_system_scm: true,
+      output_directory: "./build_app_results"
     )
 
     upload_build_to_testflight
+    upload_dsyms_to_crashlytics(release: options[:release])
+
+    sh("git checkout " + current_branch)
+
+    git_pull
+
+    sh("git merge --ff --no-verify " + temp_branch)
+    sh("git branch -d " + temp_branch)
 
     prefix = options[:release] ? "release" : "dev"
+    tag_name = "#{prefix}/#{version}/#{build_number}"
     add_git_tag(
-      tag: "#{prefix}/#{version}/#{build_number}",
+      tag: tag_name,
       force: true
     )
 
@@ -70,6 +75,22 @@ platform :ios do
     reset_git_repo(skip_clean: true)
 
     push_to_git_remote
+
+    build_name = options[:release] ? "Anytype" : "Anytype Dev"
+    dsym_paths = []
+    Dir.chdir("..") do
+      dsym_paths = Dir["./build_app_results/*.dSYM.zip"]
+    end
+
+
+    set_github_release(
+      repository_name: "anytypeio/ios-anytype",
+      api_token: ENV['PERSONAL_TOKEN_FOR_GITHUB_RELEASE'],
+      tag_name: tag_name,
+      name: "#{build_name} #{version}(#{build_number})",
+      upload_assets: dsym_paths
+    )
+
   end
 
   private_lane :upload_build_to_testflight do 
@@ -84,6 +105,23 @@ platform :ios do
     upload_to_testflight(
       api_key: api_key, 
       skip_waiting_for_build_processing: true
+    )
+  end
+
+  private_lane :upload_dsyms_to_crashlytics do |options|
+    gsp_plist = options[:release] ? "GoogleService-Info.plist" : "GoogleService-Info-Dev.plist"
+    dsym_paths = []
+
+    Dir.chdir("..") do
+      dsym_paths = Dir["./build_app_results/*.dSYM.zip"]
+    end
+
+    upload_symbols_to_crashlytics(
+      dsym_paths: dsym_paths,
+      gsp_path: "./Anytype/Resources/Plists/#{gsp_plist}",
+      binary_path: './Scripts/firebase/upload-symbols',
+      dsym_worker_threads: 2,
+      debug: true
     )
   end
 

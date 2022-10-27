@@ -409,6 +409,8 @@ internal enum Loc {
   internal static let moveToBin = Loc.tr("Localizable", "Move To Bin", fallback: "Move To Bin")
   /// Name
   internal static let name = Loc.tr("Localizable", "Name", fallback: "Name")
+  /// New
+  internal static let new = Loc.tr("Localizable", "New", fallback: "New")
   /// New profile
   internal static let newProfile = Loc.tr("Localizable", "New profile", fallback: "New profile")
   /// New relation
@@ -720,6 +722,10 @@ internal enum Loc {
   internal static let yourLibrary = Loc.tr("Localizable", "Your library", fallback: "Your library")
   /// Your public page
   internal static let yourPublicPage = Loc.tr("Localizable", "Your public page", fallback: "Your public page")
+  internal enum Actions {
+    /// Link to
+    internal static let linkItself = Loc.tr("Localizable", "Actions.LinkItself", fallback: "Link to")
+  }
   internal enum Alert {
     internal enum CameraPermissions {
       /// Go to Settings?
@@ -1116,6 +1122,10 @@ internal enum Loc {
       }
     }
     internal enum FeaturedRelations {
+      /// Relation:
+      internal static let relation = Loc.tr("Localizable", "Set.FeaturedRelations.Relation", fallback: "Relation:")
+      /// Relations:
+      internal static let relationsList = Loc.tr("Localizable", "Set.FeaturedRelations.RelationsList", fallback: "Relations:")
       /// Source
       internal static let source = Loc.tr("Localizable", "Set.FeaturedRelations.Source", fallback: "Source")
     }
