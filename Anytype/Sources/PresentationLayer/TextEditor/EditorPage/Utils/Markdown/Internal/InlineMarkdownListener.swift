@@ -71,7 +71,7 @@ final class InlineMarkdownListener: MarkdownListener {
 private extension StringProtocol {
     
     // Also check if pattern repeat more one times.
-    // Example: "123**456" for pattern "*", this method return nil, because pattern repeat twise in next position.
+    // Example: "123**456" for pattern "*", this method return nil, because pattern repeat twice in next position.
     func findUniqueRangeFor(pattern: String, endIndex: String.Index) -> Range<String.Index>? {
         
         guard  let firstRange = range(of: pattern, options: [.backwards], range: startIndex..<endIndex) else {
