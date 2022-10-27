@@ -495,6 +495,7 @@
 		2E0DAF2528A2723C00F43320 /* SetViewSettingsImagePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DAF2428A2723C00F43320 /* SetViewSettingsImagePreviewView.swift */; };
 		2E0DAF2728A273FC00F43320 /* SetViewSettingsImagePreviewCover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DAF2628A273FC00F43320 /* SetViewSettingsImagePreviewCover.swift */; };
 		2E0DAF2928A2767B00F43320 /* SetViewSettingsImagePreviewRowConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DAF2828A2767B00F43320 /* SetViewSettingsImagePreviewRowConfiguration.swift */; };
+		2E2B0D18290AEB5A00150841 /* SetViewSettingsGroupByViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2B0D17290AEB5A00150841 /* SetViewSettingsGroupByViewModel.swift */; };
 		2E2D255D28880C8D00E3DFD1 /* SetFiltersSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2D255428880C8D00E3DFD1 /* SetFiltersSelectionView.swift */; };
 		2E2D255E28880C8D00E3DFD1 /* SetFiltersSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2D255528880C8D00E3DFD1 /* SetFiltersSelectionViewModel.swift */; };
 		2E2D255F28880C8D00E3DFD1 /* SetFilterConditionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2D255628880C8D00E3DFD1 /* SetFilterConditionsViewModel.swift */; };
@@ -1718,6 +1719,7 @@
 		2E0DAF2428A2723C00F43320 /* SetViewSettingsImagePreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewSettingsImagePreviewView.swift; sourceTree = "<group>"; };
 		2E0DAF2628A273FC00F43320 /* SetViewSettingsImagePreviewCover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewSettingsImagePreviewCover.swift; sourceTree = "<group>"; };
 		2E0DAF2828A2767B00F43320 /* SetViewSettingsImagePreviewRowConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewSettingsImagePreviewRowConfiguration.swift; sourceTree = "<group>"; };
+		2E2B0D17290AEB5A00150841 /* SetViewSettingsGroupByViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewSettingsGroupByViewModel.swift; sourceTree = "<group>"; };
 		2E2D255428880C8D00E3DFD1 /* SetFiltersSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetFiltersSelectionView.swift; sourceTree = "<group>"; };
 		2E2D255528880C8D00E3DFD1 /* SetFiltersSelectionViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetFiltersSelectionViewModel.swift; sourceTree = "<group>"; };
 		2E2D255628880C8D00E3DFD1 /* SetFilterConditionsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetFilterConditionsViewModel.swift; sourceTree = "<group>"; };
@@ -4643,6 +4645,14 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		2E2B0D16290AEB4400150841 /* GroupBy */ = {
+			isa = PBXGroup;
+			children = (
+				2E2B0D17290AEB5A00150841 /* SetViewSettingsGroupByViewModel.swift */,
+			);
+			path = GroupBy;
+			sourceTree = "<group>";
+		};
 		2E2D255328880C8D00E3DFD1 /* Selection */ = {
 			isa = PBXGroup;
 			children = (
@@ -5250,6 +5260,7 @@
 		3D30416627EA4DC100FFE0EB /* ViewSettings */ = {
 			isa = PBXGroup;
 			children = (
+				2E2B0D16290AEB4400150841 /* GroupBy */,
 				2E0DAF1F28A26DC400F43320 /* ImagePreview */,
 				2E0DAF1C28A26DBD00F43320 /* CardSize */,
 				3D30416727EA4DC100FFE0EB /* EditorSetViewSettingsViewModel.swift */,
@@ -7784,6 +7795,7 @@
 				2E975F06287F00E6004DE574 /* SetFiltersTextViewModel.swift in Sources */,
 				53040A4626D80DFD0023AC73 /* UIKitAnytypeText.swift in Sources */,
 				3D8D41BE2743D32000F8EBF3 /* EditorScreenData.swift in Sources */,
+				2E2B0D18290AEB5A00150841 /* SetViewSettingsGroupByViewModel.swift in Sources */,
 				125B6ECB26F235F400BCD7D6 /* FilterableItemsView.swift in Sources */,
 				3D9EE8DA273D432C004FEAA7 /* InlineMarkdown.swift in Sources */,
 				3D2D59B1268CD584004745EC /* BlockImageConfiguration.swift in Sources */,
