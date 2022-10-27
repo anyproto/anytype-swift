@@ -1000,6 +1000,28 @@ extension Anytype_Rpc.Object.SetObjectType {
   }
 }
 
+extension Anytype_Rpc.Object.SetInternalFlags {
+  public enum Service {
+    public static func invoke(contextID: String = String(), internalFlags: [Anytype_Model_InternalFlag] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(contextID: contextID, internalFlags: internalFlags).invoke(on: queue)
+    }
+    public static func invoke(contextID: String = String(), internalFlags: [Anytype_Model_InternalFlag] = []) -> Result<Response, Error> {
+        return invocation(contextID: contextID, internalFlags: internalFlags).invoke()
+    }
+    public static func invocation(contextID: String = String(), internalFlags: [Anytype_Model_InternalFlag] = []) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, internalFlags: internalFlags)
+        return Invocation<Request,Response>(messageName: "ObjectSetInternalFlags", request: request) { request in
+            return self.invoke(request)
+        }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+        return Lib.ServiceObjectSetInternalFlags(try? request.serializedData()).flatMap {
+            try? Response(serializedData: $0)
+        }
+    }
+  }
+}
+
 extension Anytype_Rpc.Object.SetDetails {
   public enum Service {
     public static func invoke(contextID: String = String(), details: [Anytype_Rpc.Object.SetDetails.Detail] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {

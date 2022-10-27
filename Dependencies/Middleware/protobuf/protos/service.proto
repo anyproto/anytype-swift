@@ -57,6 +57,7 @@ service ClientCommands {
     // ObjectSetObjectType sets an existing object type to the object so it will appear in sets and suggests relations from this type
     rpc ObjectSetObjectType (anytype.Rpc.Object.SetObjectType.Request) returns (anytype.Rpc.Object.SetObjectType.Response);
     rpc ObjectSetLayout (anytype.Rpc.Object.SetLayout.Request) returns (anytype.Rpc.Object.SetLayout.Response);
+    rpc ObjectSetInternalFlags (anytype.Rpc.Object.SetInternalFlags.Request) returns (anytype.Rpc.Object.SetInternalFlags.Response);
     rpc ObjectSetIsFavorite (anytype.Rpc.Object.SetIsFavorite.Request) returns (anytype.Rpc.Object.SetIsFavorite.Response);
     rpc ObjectSetIsArchived (anytype.Rpc.Object.SetIsArchived.Request) returns (anytype.Rpc.Object.SetIsArchived.Response);
     rpc ObjectListDuplicate (anytype.Rpc.Object.ListDuplicate.Request) returns (anytype.Rpc.Object.ListDuplicate.Response);

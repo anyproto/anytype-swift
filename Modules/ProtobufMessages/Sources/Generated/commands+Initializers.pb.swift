@@ -3049,6 +3049,27 @@ extension Anytype_Rpc.Object.SetDetails.Response.Error {
     }
 }
 
+extension Anytype_Rpc.Object.SetInternalFlags.Request {
+    public init(contextID: String = String(), internalFlags: [Anytype_Model_InternalFlag] = []) {
+        self.contextID = contextID
+        self.internalFlags = internalFlags
+    }
+}
+
+extension Anytype_Rpc.Object.SetInternalFlags.Response {
+    public init(error: Anytype_Rpc.Object.SetInternalFlags.Response.Error, event: Anytype_ResponseEvent) {
+        self.error = error
+        self.event = event
+    }
+}
+
+extension Anytype_Rpc.Object.SetInternalFlags.Response.Error {
+    public init(code: Anytype_Rpc.Object.SetInternalFlags.Response.Error.Code = .null, description_p: String = String()) {
+        self.code = code
+        self.description_p = description_p
+    }
+}
+
 extension Anytype_Rpc.Object.SetIsArchived.Request {
     public init(contextID: String = String(), isArchived: Bool = false) {
         self.contextID = contextID
