@@ -35,4 +35,6 @@ protocol ObjectActionsServiceProtocol {
     
     func undo(objectId: BlockId) throws
     func redo(objectId: BlockId) throws
+    
+    func setInternalFlags(contextId: BlockId, internalFlags: [Int]) async throws
 }

@@ -243,4 +243,19 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
             throw ObjectActionsServiceError.nothingToRedo
         }
     }
+    
+    func setInternalFlags(contextId: BlockId, internalFlags: [Int]) async throws {
+        let flags: [Anytype_Model_InternalFlag] = internalFlags.compactMap {
+            guard let value = Anytype_Model_InternalFlag.Value(rawValue: $0) else { return nil }
+            return Anytype_Model_InternalFlag(value: value)
+        }
+        let result = try await Anytype_Rpc.Object.SetInternalFlags.Service
+            .invocation(
+                contextID: contextId,
+                internalFlags: flags
+            )
+            .invoke(errorDomain: .objectActionsService)
+        let event = EventsBunch(event: result.event)
+        event.send()
+    }
 }

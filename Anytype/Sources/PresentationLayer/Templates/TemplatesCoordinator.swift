@@ -147,9 +147,11 @@ final class TemplatesCoordinator {
     private func resetTemplatesFlag(for document: BaseDocumentProtocol) {
         guard let details = document.details else { return }
         
-        objectsService.updateBundledDetails(
-            contextID: details.id,
-            details: [.internalFlags(details.internalFlagsWithoutTemplates)]
-        )
+        Task {
+            try await objectsService.setInternalFlags(
+                contextId: details.id,
+                internalFlags: details.internalFlagsWithoutTemplates
+            )
+        }
     }
 }
