@@ -12,7 +12,7 @@ final class EditorSetViewModel: ObservableObject {
     @Published var featuredRelations = [Relation]()
     
     private var recordsDict: OrderedDictionary<SubscriptionId, [ObjectDetails]> = [:]
-    @Published var configurations: [SetContentViewItemConfiguration] = []
+    @Published var configurationsDict: OrderedDictionary<SubscriptionId, [SetContentViewItemConfiguration]> = [:]
     @Published var pagitationData = EditorSetPaginationData.empty
     
     @Published var sorts: [SetSort] = []
@@ -189,7 +189,7 @@ final class EditorSetViewModel: ObservableObject {
             )
         )
         
-        if subscriptionService.hasSubscriptionDataDiff(with: data) {
+        if subscriptionService.hasSubscriptionDataDiff(with: data) || recordsDict.keys.isEmpty {
             restartSubscription(with: data)
         }
     }
@@ -210,7 +210,7 @@ final class EditorSetViewModel: ObservableObject {
         }
         
         updateRecords(for: subscriptionId, update: update)
-        updateConfigurations()
+        updateConfigurations(with: [subscriptionId])
     }
     
     private func updateRecords(for subscriptionId: SubscriptionId, update: SubscriptionUpdate) {
@@ -219,15 +219,13 @@ final class EditorSetViewModel: ObservableObject {
         recordsDict[subscriptionId] = records
     }
     
-    private func updateConfigurations() {
-        var tempConfigurations: [SetContentViewItemConfiguration] = []
-        for records in recordsDict.values {
-            tempConfigurations.append(
-                contentsOf: dataBuilder.itemData(
+    private func updateConfigurations(with subscriptionIds: [SubscriptionId]) {
+        for subscriptionId in subscriptionIds {
+            if let records = recordsDict[subscriptionId] {
+                let configurations = dataBuilder.itemData(
                     records,
                     dataView: dataView,
                     activeView: activeView,
-                    colums: colums,
                     isObjectLocked: isObjectLocked,
                     onIconTap: { [weak self] details in
                         self?.updateDetailsIfNeeded(details)
@@ -236,9 +234,9 @@ final class EditorSetViewModel: ObservableObject {
                         self?.itemTapped(details)
                     }
                 )
-            )
+                configurationsDict[subscriptionId] = configurations
+            }
         }
-        configurations = tempConfigurations
     }
     
     private func onDataChange(_ data: DocumentUpdate) {
@@ -261,8 +259,9 @@ final class EditorSetViewModel: ObservableObject {
         document.dataviews.first.flatMap { dataView in
             anytypeAssert(dataView.views.isNotEmpty, "Empty views in dataview: \(dataView)", domain: .editorSet)
         }
-        
+        let prevActiveView = activeView
         self.dataView = document.dataviews.first ?? .empty
+        clearRecordsIfNeeded(prevActiveView: prevActiveView)
 
         if let details = document.details {
             titleString = details.pageCellTitle
@@ -293,10 +292,23 @@ final class EditorSetViewModel: ObservableObject {
         updateSorts()
         updateFilters()
         startSubscriptionIfNeeded()
-        updateConfigurations()
+        updateConfigurations(with: Array(recordsDict.keys))
         featuredRelations = document.featuredRelationsForEditor
 
         isUpdating = false
+    }
+    
+    private func clearRecordsIfNeeded(prevActiveView: DataviewView) {
+        let modeChanged = (prevActiveView.type.hasGroups && !activeView.type.hasGroups) ||
+        (!prevActiveView.type.hasGroups && activeView.type.hasGroups)
+        
+        let groupRelationKeyChanged = prevActiveView.groupRelationKey != activeView.groupRelationKey
+        
+        if modeChanged || groupRelationKeyChanged {
+            recordsDict = [:]
+            configurationsDict = [:]
+            subscriptionService.stopAllSubscriptions()
+        }
     }
     
     private func updateActiveViewId() {
