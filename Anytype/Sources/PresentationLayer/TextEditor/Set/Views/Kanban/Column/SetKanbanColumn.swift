@@ -5,14 +5,15 @@ struct SetKanbanColumn: View {
     let configurations: [SetContentViewItemConfiguration]
 
     var body: some View {
-        VStack(spacing: 16) {
+        VStack(spacing: 13) {
             header
             if configurations.isNotEmpty {
                 column
             }
         }
-        .padding(.horizontal, 10)
-        .padding(.vertical, 16)
+        .padding(.horizontal, 8)
+        .padding(.top, 13)
+        .padding(.bottom, 8)
         .background(Color.shimmering)
         .cornerRadius(4)
         .frame(width: 270)
@@ -24,7 +25,7 @@ struct SetKanbanColumn: View {
                 SetGalleryViewCell(configuration: configuration)
             }
         }
-        .frame(width: 250)
+        .frame(width: 254)
     }
     
     private var header: some View {

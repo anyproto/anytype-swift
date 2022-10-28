@@ -17,6 +17,7 @@ struct SetKanbanView: View {
         ) {
             Spacer.fixedHeight(tableHeaderSize.height)
             content
+            Spacer()
         }
     }
 
