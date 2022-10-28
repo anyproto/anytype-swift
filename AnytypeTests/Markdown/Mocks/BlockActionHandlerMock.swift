@@ -97,7 +97,7 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
-    func addBlock(_ type: BlockContentType, blockId: BlockId, position: BlockPosition?) {
+    func addBlock(_ type: BlockContentType, blockId: BlockId, blockText: NSAttributedString?, position: BlockPosition?) {
         assertionFailure()
     }
     
@@ -186,7 +186,7 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
 
-    func createTable(blockId: BlockId, rowsCount: Int, columnsCount: Int) {
+    func createTable(blockId: BlockId, rowsCount: Int, columnsCount: Int, blockText: NSAttributedString?) {
         assertionFailure()
     }
     
