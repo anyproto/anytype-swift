@@ -248,22 +248,22 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
     }
     
     private func groupByRelations() -> [RelationMetadata] {
-        let dataview = setModel.dataView
-        let relations: [RelationMetadata] = setModel.activeView.options.compactMap { option in
-            let metadata = dataview.relations.first { relation in
-                option.key == relation.key
+        let activeView = setModel.activeView
+        let relations: [RelationMetadata] = setModel.dataView.relations.filter { relation in
+            if relation.key == BundledRelationKey.done.rawValue {
+                return true
             }
             
-            guard let metadata = metadata,
-                    (!metadata.isHidden || metadata.key == BundledRelationKey.done.rawValue) else {
-                return nil
+            let hasOption = activeView.options.first(where: { option in option.key == relation.key }) != nil
+            if relation.isHidden || !hasOption {
+                return false
             }
             
-            switch metadata.format {
+            switch relation.format {
             case .status, .tag, .checkbox:
-                return metadata
+                return true
             default:
-                return nil
+                return false
             }
         }
         return relations
