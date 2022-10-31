@@ -127,15 +127,15 @@ final class DataviewService: DataviewServiceProtocol {
                 objectIds: $0.objectIds
             )
         }
-        let result = try await Anytype_Rpc.BlockDataview.ObjectOrder.Update.Service
+        let _ = try await Anytype_Rpc.BlockDataview.ObjectOrder.Update.Service
             .invocation(
                 contextID: objectId,
                 blockID: Constants.dataview,
                 objectOrders: objectOrders
             )
             .invoke(errorDomain: .dataviewService)
-
-        let event = EventsBunch(event: result.event)
-        event.send()
+// temporary comments
+//        let event = EventsBunch(event: result.event)
+//        event.send()
     }
 }

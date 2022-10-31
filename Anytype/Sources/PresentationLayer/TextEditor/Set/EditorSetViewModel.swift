@@ -172,7 +172,7 @@ final class EditorSetViewModel: ObservableObject {
             groups.forEach { [weak self] group in
                 guard let self else { return }
                 let groupFilter = group.filter(with: self.activeView.groupRelationKey)
-                let subscriptionId = SubscriptionId(value: "\(self.document.objectId)-dataview:\(group.id)")
+                let subscriptionId = SubscriptionId(value: group.id)
                 self.startSubscriptionIfNeeded(with: subscriptionId, groupFilter: groupFilter)
             }
         }
@@ -456,7 +456,15 @@ extension EditorSetViewModel {
     func showAddNewRelationView(onSelect: @escaping (RelationMetadata, _ isNew: Bool) -> Void) {
         router.showAddNewRelationView(onSelect: onSelect)
     }
-
+    
+    func objectOrderUpdate(with groupObjectIds: [GroupObjectIds]) {
+        Task {
+            try await dataviewService.objectOrderUpdate(
+                viewId: activeView.id,
+                groupObjectIds: groupObjectIds
+            )
+        }
+    }
 
     private func showSetOfTypeSelection() {
         router.showTypesSearch(title: Loc.Set.SourceType.selectSource, selectedObjectId: document.details?.setOf.first) { [unowned self] typeObjectId in

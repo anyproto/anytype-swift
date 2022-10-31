@@ -1,8 +1,13 @@
 import SwiftUI
+import UniformTypeIdentifiers
 
 struct SetKanbanColumn: View {
+    let subId: SubscriptionId
     let headerRelation: Relation?
     let configurations: [SetContentViewItemConfiguration]
+    
+    let dragAndDropDelegate: KanbanDragAndDropDelegate
+    @State private var dropData = KanbanCardDropData()
 
     var body: some View {
         VStack(spacing: 13) {
@@ -23,6 +28,21 @@ struct SetKanbanColumn: View {
         VStack(spacing: 8) {
             ForEach(configurations) { configuration in
                 SetGalleryViewCell(configuration: configuration)
+                    .onDrag {
+                        UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+                        dropData.draggingCard = configuration
+                        dropData.fromSubId = subId
+                        return NSItemProvider(object: configuration.id as NSString)
+                    }
+                    .onDrop(
+                        of: [UTType.text],
+                        delegate: KanbanCardDropInsideDelegate(
+                            dragAndDropDelegate: dragAndDropDelegate,
+                            droppingData: configuration,
+                            toSubId: subId,
+                            data: $dropData
+                        )
+                    )
             }
         }
         .frame(width: 254)

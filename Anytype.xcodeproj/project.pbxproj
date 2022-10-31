@@ -496,6 +496,9 @@
 		2E0DAF2728A273FC00F43320 /* SetViewSettingsImagePreviewCover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DAF2628A273FC00F43320 /* SetViewSettingsImagePreviewCover.swift */; };
 		2E0DAF2928A2767B00F43320 /* SetViewSettingsImagePreviewRowConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DAF2828A2767B00F43320 /* SetViewSettingsImagePreviewRowConfiguration.swift */; };
 		2E2B0D1A290C197300150841 /* GroupObjectIds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2B0D19290C197300150841 /* GroupObjectIds.swift */; };
+		2E2B0D1C290FE1F000150841 /* EditorSetViewModel+DragAndDropDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2B0D1B290FE1F000150841 /* EditorSetViewModel+DragAndDropDelegate.swift */; };
+		2E2B0D1E290FE6BB00150841 /* KanbanCardDropInsideDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2B0D1D290FE6BB00150841 /* KanbanCardDropInsideDelegate.swift */; };
+		2E2B0D20290FE70100150841 /* KanbanCardDropData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2B0D1F290FE70100150841 /* KanbanCardDropData.swift */; };
 		2E2D255D28880C8D00E3DFD1 /* SetFiltersSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2D255428880C8D00E3DFD1 /* SetFiltersSelectionView.swift */; };
 		2E2D255E28880C8D00E3DFD1 /* SetFiltersSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2D255528880C8D00E3DFD1 /* SetFiltersSelectionViewModel.swift */; };
 		2E2D255F28880C8D00E3DFD1 /* SetFilterConditionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2D255628880C8D00E3DFD1 /* SetFilterConditionsViewModel.swift */; };
@@ -1720,6 +1723,9 @@
 		2E0DAF2628A273FC00F43320 /* SetViewSettingsImagePreviewCover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewSettingsImagePreviewCover.swift; sourceTree = "<group>"; };
 		2E0DAF2828A2767B00F43320 /* SetViewSettingsImagePreviewRowConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewSettingsImagePreviewRowConfiguration.swift; sourceTree = "<group>"; };
 		2E2B0D19290C197300150841 /* GroupObjectIds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupObjectIds.swift; sourceTree = "<group>"; };
+		2E2B0D1B290FE1F000150841 /* EditorSetViewModel+DragAndDropDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorSetViewModel+DragAndDropDelegate.swift"; sourceTree = "<group>"; };
+		2E2B0D1D290FE6BB00150841 /* KanbanCardDropInsideDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KanbanCardDropInsideDelegate.swift; sourceTree = "<group>"; };
+		2E2B0D1F290FE70100150841 /* KanbanCardDropData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KanbanCardDropData.swift; sourceTree = "<group>"; };
 		2E2D255428880C8D00E3DFD1 /* SetFiltersSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetFiltersSelectionView.swift; sourceTree = "<group>"; };
 		2E2D255528880C8D00E3DFD1 /* SetFiltersSelectionViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetFiltersSelectionViewModel.swift; sourceTree = "<group>"; };
 		2E2D255628880C8D00E3DFD1 /* SetFilterConditionsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetFilterConditionsViewModel.swift; sourceTree = "<group>"; };
@@ -4788,6 +4794,8 @@
 			isa = PBXGroup;
 			children = (
 				2EC942692901905800DE91E4 /* SetKanbanView.swift */,
+				2E2B0D1D290FE6BB00150841 /* KanbanCardDropInsideDelegate.swift */,
+				2E2B0D1F290FE70100150841 /* KanbanCardDropData.swift */,
 			);
 			path = Board;
 			sourceTree = "<group>";
@@ -6026,6 +6034,7 @@
 				3D8D41B8274287A900F8EBF3 /* EditorSetHostingController.swift */,
 				3D8D41BA274297FF00F8EBF3 /* EditorSetViewModel.swift */,
 				3D7F718027A088B7003FE893 /* EditorSetViewModel+Pagination.swift */,
+				2E2B0D1B290FE1F000150841 /* EditorSetViewModel+DragAndDropDelegate.swift */,
 			);
 			path = Set;
 			sourceTree = "<group>";
@@ -8020,6 +8029,7 @@
 				5386E3CD27B51BA7004D8221 /* CheckboxRelationViewUIKit.swift in Sources */,
 				2AD06B7C2857271D0006C255 /* TableOfContentsViewModel.swift in Sources */,
 				53A4878827D6AC0900A2E627 /* PasteboardService.swift in Sources */,
+				2E2B0D1C290FE1F000150841 /* EditorSetViewModel+DragAndDropDelegate.swift in Sources */,
 				2E330C52286CB6A70099C7C3 /* CreateBookmarkViewModel.swift in Sources */,
 				12C2A5672754E1C400311854 /* DateRelationDetailsValue.swift in Sources */,
 				12CAF32026D53866001E56B2 /* ObjectIconImagePainter.swift in Sources */,
@@ -8146,6 +8156,7 @@
 				C99DCE8B283B5BDE0051F99D /* KeyboardHeightListener.swift in Sources */,
 				53F80F1027BDA95D00E9E12A /* FileListRelationViewUIKit.swift in Sources */,
 				C9EA69D328C7412A003F488C /* SimpleTableBlockView+UICollectionViewDelegate.swift in Sources */,
+				2E2B0D20290FE70100150841 /* KanbanCardDropData.swift in Sources */,
 				535FDE2227E8CB0B0098DBFA /* PasteboardFileOperation.swift in Sources */,
 				3DF6F628262EDA31000E05A5 /* DebugMenu.swift in Sources */,
 				53F8211126529CC9003FEB0B /* TextViewManagingFocus.swift in Sources */,
@@ -8304,6 +8315,7 @@
 				12CAF34A26D643C0001E56B2 /* ProfileIconImageGuideline.swift in Sources */,
 				C9215175289801B6007FC95D /* ShimmeringBlockViewModel.swift in Sources */,
 				534D19C72623A7220080AEF0 /* SearchListViewController.swift in Sources */,
+				2E2B0D1E290FE6BB00150841 /* KanbanCardDropInsideDelegate.swift in Sources */,
 				2AFB541D28621776004F7458 /* Strings.swift in Sources */,
 				C90F8F2628DCBB4000E874A9 /* ImageSourceMedia.swift in Sources */,
 				3D38CC9326D626A700E4F7BF /* ObjectSettingAssembly.swift in Sources */,
