@@ -474,8 +474,17 @@ final class MiddlewareEventConverter {
     }
     
     private func handleDataViewGroupOrderUpdate(_ update: Anytype_Event.Block.Dataview.GroupOrderUpdate) {
+        guard update.hasGroupOrder else { return }
+        
         infoContainer.updateDataview(blockId: update.id) { dataView in
-            return dataView
+            var groupOrders = dataView.groupOrders
+            if let groupIndex = groupOrders.firstIndex(where: { $0.viewID == update.groupOrder.viewID }) {
+                groupOrders[groupIndex] = update.groupOrder
+            } else {
+                groupOrders.append(update.groupOrder)
+            }
+            
+            return dataView.updated(groupOrders: groupOrders)
         }
     }
 
