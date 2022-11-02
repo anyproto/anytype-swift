@@ -221,7 +221,7 @@ final class EditorSetViewModel: ObservableObject {
     
     private func updateConfigurations(with subscriptionIds: [SubscriptionId]) {
         for subscriptionId in subscriptionIds {
-            if let records = recordsDict[subscriptionId] {
+            if let records = sortedRecords(with: subscriptionId) {
                 let configurations = dataBuilder.itemData(
                     records,
                     dataView: dataView,
@@ -237,6 +237,33 @@ final class EditorSetViewModel: ObservableObject {
                 configurationsDict[subscriptionId] = configurations
             }
         }
+    }
+    
+    private func sortedRecords(with subscriptionId: SubscriptionId) -> [ObjectDetails]? {
+        let neededObjectOrders = dataView.objectOrders.filter { [weak self] objectOrder in
+            objectOrder.viewID == self?.activeView.id && objectOrder.groupID == subscriptionId.value
+        }
+        guard neededObjectOrders.isNotEmpty else {
+            return recordsDict[subscriptionId]
+        }
+        
+        guard let records = recordsDict[subscriptionId] else {
+            return nil
+        }
+        var recordsDict: [String: ObjectDetails] = [:]
+        for record in records {
+            recordsDict[record.id] = record
+        }
+        
+        var sortedRecords: [ObjectDetails] = []
+        neededObjectOrders.forEach { objectOrder in
+            objectOrder.objectIds.forEach { objectId in
+                if let record = recordsDict[objectId] {
+                    sortedRecords.append(record)
+                }
+            }
+        }
+        return sortedRecords
     }
     
     private func onDataChange(_ data: DocumentUpdate) {
