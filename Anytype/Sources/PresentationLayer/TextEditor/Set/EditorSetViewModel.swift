@@ -292,10 +292,10 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     private func sortedRecords(with subscriptionId: SubscriptionId) -> [ObjectDetails]? {
-        let neededObjectOrders = dataView.objectOrders.filter { [weak self] objectOrder in
+        let neededObjectOrder = dataView.objectOrders.first { [weak self] objectOrder in
             objectOrder.viewID == self?.activeView.id && objectOrder.groupID == subscriptionId.value
         }
-        guard neededObjectOrders.isNotEmpty else {
+        guard let neededObjectOrder, neededObjectOrder.objectIds.isNotEmpty else {
             return recordsDict[subscriptionId]
         }
         
@@ -308,11 +308,9 @@ final class EditorSetViewModel: ObservableObject {
         }
         
         var sortedRecords: [ObjectDetails] = []
-        neededObjectOrders.forEach { objectOrder in
-            objectOrder.objectIds.forEach { objectId in
-                if let record = recordsDict[objectId] {
-                    sortedRecords.append(record)
-                }
+        neededObjectOrder.objectIds.forEach { objectId in
+            if let record = recordsDict[objectId] {
+                sortedRecords.append(record)
             }
         }
         return sortedRecords
