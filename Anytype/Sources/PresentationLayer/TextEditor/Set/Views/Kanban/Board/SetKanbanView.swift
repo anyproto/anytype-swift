@@ -7,6 +7,8 @@ struct SetKanbanView: View {
     @Binding var tableHeaderSize: CGSize
     @Binding var offset: CGPoint
     
+    @State private var dropData = KanbanCardDropData()
+    
     var headerMinimizedSize: CGSize
 
     var body: some View {
@@ -55,7 +57,8 @@ struct SetKanbanView: View {
                             subId: key,
                             headerRelation: nil, // will be updated after branch `relatio-as-object` was merged
                             configurations: configurations,
-                            dragAndDropDelegate: model
+                            dragAndDropDelegate: model,
+                            dropData: $dropData
                         )
                     }
                 }

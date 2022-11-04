@@ -2,31 +2,34 @@ import SwiftUI
 
 struct KanbanCardDropInsideDelegate: DropDelegate {
     let dragAndDropDelegate: KanbanDragAndDropDelegate
-    let droppingData: SetContentViewItemConfiguration
+    let droppingData: SetContentViewItemConfiguration?
     let toSubId: SubscriptionId
     @Binding var data: KanbanCardDropData
     
     func dropEntered(info: DropInfo) {
-        guard let draggingCellData = data.draggingCard, let fromSubId = data.fromSubId else {
+        guard let draggingData = data.draggingCard, let fromSubId = data.fromSubId else {
             return
         }
         
         dragAndDropDelegate.onDrag(
             from: KanbanDragAndDropConfiguration(
                 subscriptionId: fromSubId,
-                configurationId: draggingCellData.id
+                configurationId: draggingData.id
             ),
             to: KanbanDragAndDropConfiguration(
                 subscriptionId: toSubId,
-                configurationId: droppingData.id
+                configurationId: droppingData?.id
             )
         )
+        
+        if fromSubId != toSubId {
+            data.fromSubId = toSubId
+        }
         
         UIImpactFeedbackGenerator(style: .rigid).impactOccurred()
         
         data.droppingData = droppingData
         data.toSubId = toSubId
-        print("\(droppingData.title)")
     }
 
     func performDrop(info: DropInfo) -> Bool {

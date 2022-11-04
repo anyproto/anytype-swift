@@ -7,18 +7,24 @@ struct SetKanbanColumn: View {
     let configurations: [SetContentViewItemConfiguration]
     
     let dragAndDropDelegate: KanbanDragAndDropDelegate
-    @State private var dropData = KanbanCardDropData()
+    @Binding var dropData: KanbanCardDropData
 
     var body: some View {
-        VStack(spacing: 13) {
-            header
-            if configurations.isNotEmpty {
-                column
+        VStack(spacing: 0) {
+            content
+            if configurations.isEmpty {
+                emptyDroppableArea
             }
         }
+    }
+    
+    var content: some View {
+        VStack(spacing: 0) {
+            header
+            column
+        }
         .padding(.horizontal, 8)
-        .padding(.top, 13)
-        .padding(.bottom, 8)
+        .padding(.bottom, configurations.isEmpty ? 0 : 8)
         .background(Color.shimmering)
         .cornerRadius(4)
         .frame(width: 270)
@@ -69,5 +75,21 @@ struct SetKanbanColumn: View {
             }
         }
         .padding(.horizontal, 10)
+        .frame(height: 44)
+    }
+    
+    private var emptyDroppableArea: some View {
+        Rectangle()
+            .fill(Color.backgroundPrimary)
+            .frame(height: 44)
+            .onDrop(
+                of: [UTType.text],
+                delegate: KanbanCardDropInsideDelegate(
+                    dragAndDropDelegate: dragAndDropDelegate,
+                    droppingData: nil,
+                    toSubId: subId,
+                    data: $dropData
+                )
+            )
     }
 }

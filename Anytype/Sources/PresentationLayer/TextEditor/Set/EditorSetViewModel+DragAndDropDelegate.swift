@@ -2,7 +2,7 @@ import SwiftUI
 
 struct KanbanDragAndDropConfiguration {
     let subscriptionId: SubscriptionId
-    let configurationId: String
+    let configurationId: String?
 }
 
 protocol KanbanDragAndDropDelegate {
@@ -16,11 +16,12 @@ extension EditorSetViewModel: KanbanDragAndDropDelegate {
             return
         }
         
-        if from.subscriptionId.value == to.subscriptionId.value {
+        if from.subscriptionId.value == to.subscriptionId.value,
+           let fromId = from.configurationId, let toId = to.configurationId {
             swipeItemsInTheSameColumn(
                 subId: from.subscriptionId,
-                fromId: from.configurationId,
-                toId: to.configurationId
+                fromId: fromId,
+                toId: toId
             )
         } else {
             swipeItemsInDifferentColumns(from: from, to: to)
@@ -35,7 +36,7 @@ extension EditorSetViewModel: KanbanDragAndDropDelegate {
             )
             objectOrderUpdate(with: [groupObjectIds])
         } else if fromSubId.value != toSubId.value,
-                    let fromConfigurations = configurationsDict[fromSubId],
+                  let fromConfigurations = configurationsDict[fromSubId],
                   let toConfigurations = configurationsDict[toSubId]
         {
             let fromGroupObjectIds = GroupObjectIds(
@@ -75,14 +76,15 @@ extension EditorSetViewModel: KanbanDragAndDropDelegate {
     
     private func swipeItemsInDifferentColumns(from: KanbanDragAndDropConfiguration, to: KanbanDragAndDropConfiguration) {
         guard var fromConfigurations = configurationsDict[from.subscriptionId],
-              var toConfigurations = configurationsDict[to.subscriptionId] else {
+              var toConfigurations = configurationsDict[to.subscriptionId],
+              let fromConfigurationId = from.configurationId,
+              let fromIndex = fromConfigurations.index(id: fromConfigurationId) else {
             return
         }
         
-        // TODO: handle empty columns
-        guard let fromIndex = fromConfigurations.index(id: from.configurationId),
-              let toIndex = toConfigurations.index(id: to.configurationId) else {
-            return
+        var toIndex = 0
+        if let toConfigurationId = to.configurationId {
+            toIndex = toConfigurations.index(id: toConfigurationId) ?? 0
         }
         
         withAnimation(.spring()) {
@@ -90,7 +92,9 @@ extension EditorSetViewModel: KanbanDragAndDropDelegate {
             fromConfigurations.remove(at: fromIndex)
             
             let dropAfter = toIndex > fromIndex
-            toConfigurations.insert(fromConfig, at: dropAfter ? toIndex + 1 : toIndex)
+            let dropIndex = dropAfter ? toIndex + 1 : toIndex
+            toConfigurations.insert(fromConfig, at: dropIndex)
+            
             configurationsDict[from.subscriptionId] = fromConfigurations
             configurationsDict[to.subscriptionId] = toConfigurations
         }
