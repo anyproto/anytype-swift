@@ -1,8 +1,9 @@
 import ProtobufMessages
 
 struct KanbanCardDropData {
-    var fromSubId: SubscriptionId?
-    var toSubId: SubscriptionId?
+    var initialFromGroupId: String?
+    var fromGroupId: String?
+    var toGroupId: String?
     var draggingCard: SetContentViewItemConfiguration?
-    var droppingData: SetContentViewItemConfiguration?
+    var droppingCard: SetContentViewItemConfiguration?
 }

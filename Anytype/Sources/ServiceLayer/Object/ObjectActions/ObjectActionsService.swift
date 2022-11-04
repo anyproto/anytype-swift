@@ -150,6 +150,21 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
             .getValue(domain: .objectActionsService)?
             .send()
     }
+    
+    func updateDetails(contextId: String, relationKey: String, value: Google_Protobuf_Value) {
+        Anytype_Rpc.Object.SetDetails.Service.invoke(
+            contextID: contextId,
+            details: [
+                Anytype_Rpc.Object.SetDetails.Detail(
+                    key: relationKey,
+                    value: value
+                )
+            ]
+        )
+            .map { EventsBunch(event: $0.event) }
+            .getValue(domain: .relationsService)?
+            .send()
+    }
 
     func convertChildrenToPages(contextID: BlockId, blocksIds: [BlockId], objectType: String) -> [BlockId]? {
         AnytypeAnalytics.instance().logCreateObject(objectType: objectType, route: .turnInto)

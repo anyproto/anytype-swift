@@ -161,6 +161,18 @@ final class EditorSetViewModel: ObservableObject {
         }
     }
     
+    func updateDetails(_ detailsId: String, subscriptionId: SubscriptionId) {
+        guard let records = recordsDict[subscriptionId],
+        let record = records.first,
+        let value = record.values[activeView.groupRelationKey] else { return }
+        
+        detailsService.updateDetails(
+            contextId: detailsId,
+            relationKey: activeView.groupRelationKey,
+            value: value
+        )
+    }
+    
     // MARK: - Private
     
     private func setupGroupSubscriptions() {

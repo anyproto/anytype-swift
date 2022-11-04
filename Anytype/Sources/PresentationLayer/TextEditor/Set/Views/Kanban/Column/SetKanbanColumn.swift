@@ -2,7 +2,7 @@ import SwiftUI
 import UniformTypeIdentifiers
 
 struct SetKanbanColumn: View {
-    let subId: SubscriptionId
+    let groupId: String
     let headerRelation: Relation?
     let configurations: [SetContentViewItemConfiguration]
     
@@ -37,15 +37,16 @@ struct SetKanbanColumn: View {
                     .onDrag {
                         UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
                         dropData.draggingCard = configuration
-                        dropData.fromSubId = subId
+                        dropData.initialFromGroupId = groupId
+                        dropData.fromGroupId = groupId
                         return NSItemProvider(object: configuration.id as NSString)
                     }
                     .onDrop(
                         of: [UTType.text],
                         delegate: KanbanCardDropInsideDelegate(
                             dragAndDropDelegate: dragAndDropDelegate,
-                            droppingData: configuration,
-                            toSubId: subId,
+                            droppingCard: configuration,
+                            toGroupId: groupId,
                             data: $dropData
                         )
                     )
@@ -86,8 +87,8 @@ struct SetKanbanColumn: View {
                 of: [UTType.text],
                 delegate: KanbanCardDropInsideDelegate(
                     dragAndDropDelegate: dragAndDropDelegate,
-                    droppingData: nil,
-                    toSubId: subId,
+                    droppingCard: nil,
+                    toGroupId: groupId,
                     data: $dropData
                 )
             )

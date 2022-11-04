@@ -54,7 +54,7 @@ struct SetKanbanView: View {
                 ForEach(model.configurationsDict.keys, id: \.value) { key in
                     if let configurations = model.configurationsDict[key] {
                         SetKanbanColumn(
-                            subId: key,
+                            groupId: key.value,
                             headerRelation: nil, // will be updated after branch `relatio-as-object` was merged
                             configurations: configurations,
                             dragAndDropDelegate: model,

@@ -2,48 +2,53 @@ import SwiftUI
 
 struct KanbanCardDropInsideDelegate: DropDelegate {
     let dragAndDropDelegate: KanbanDragAndDropDelegate
-    let droppingData: SetContentViewItemConfiguration?
-    let toSubId: SubscriptionId
+    let droppingCard: SetContentViewItemConfiguration?
+    let toGroupId: String
     @Binding var data: KanbanCardDropData
     
     func dropEntered(info: DropInfo) {
-        guard let draggingData = data.draggingCard, let fromSubId = data.fromSubId else {
+        guard let draggingCard = data.draggingCard, let fromGroupId = data.fromGroupId else {
             return
         }
-        
+
         dragAndDropDelegate.onDrag(
             from: KanbanDragAndDropConfiguration(
-                subscriptionId: fromSubId,
-                configurationId: draggingData.id
+                groupId: fromGroupId,
+                configurationId: draggingCard.id
             ),
             to: KanbanDragAndDropConfiguration(
-                subscriptionId: toSubId,
-                configurationId: droppingData?.id
+                groupId: toGroupId,
+                configurationId: droppingCard?.id
             )
         )
-        
-        if fromSubId != toSubId {
-            data.fromSubId = toSubId
+
+        if fromGroupId != toGroupId {
+            data.fromGroupId = toGroupId
         }
-        
+
         UIImpactFeedbackGenerator(style: .rigid).impactOccurred()
-        
-        data.droppingData = droppingData
-        data.toSubId = toSubId
+
+        data.droppingCard = droppingCard
+        data.toGroupId = toGroupId
     }
 
     func performDrop(info: DropInfo) -> Bool {
-        guard let fromSubId = data.fromSubId,
-              let toSubId = data.toSubId else {
+        guard let initialFromGroupId = data.initialFromGroupId,
+              let toGroupId = data.toGroupId,
+              let configurationId = data.draggingCard?.id else {
             return false
         }
-        
+
         data.draggingCard = nil
-        data.droppingData = nil
-        data.fromSubId = nil
-        data.toSubId = nil
-        
-        return dragAndDropDelegate.onDrop(fromSubId: fromSubId, toSubId: toSubId)
+        data.droppingCard = nil
+        data.fromGroupId = nil
+        data.toGroupId = nil
+
+        return dragAndDropDelegate.onDrop(
+            configurationId: configurationId,
+            fromGroupId: initialFromGroupId,
+            toGroupId: toGroupId
+        )
     }
     
     func dropUpdated(info: DropInfo) -> DropProposal? {

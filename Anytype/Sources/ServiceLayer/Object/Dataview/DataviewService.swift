@@ -135,7 +135,7 @@ final class DataviewService: DataviewServiceProtocol {
             )
             .invoke(errorDomain: .dataviewService)
 
-//        let event = EventsBunch(event: result.event)
-//        event.send()
+        let event = EventsBunch(event: result.event)
+        event.send()
     }
 }

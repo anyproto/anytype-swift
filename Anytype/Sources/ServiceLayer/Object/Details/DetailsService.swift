@@ -25,6 +25,10 @@ extension DetailsService: DetailsServiceProtocol {
     func updateBundledDetails(contextID: String, bundledDpdates: [BundledDetails]) {
         service.updateBundledDetails(contextID: contextID, details: bundledDpdates)
     }
+    
+    func updateDetails(contextId: String, relationKey: String, value: Google_Protobuf_Value) {
+        service.updateDetails(contextId: contextId, relationKey: relationKey, value: value)
+    }
 
     func setLayout(_ detailsLayout: DetailsLayout) {
         service.updateLayout(contextID: objectId, value: detailsLayout.rawValue)
