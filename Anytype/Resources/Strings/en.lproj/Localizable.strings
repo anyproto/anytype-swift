@@ -371,6 +371,9 @@
 "Set.View.Settings.CardSize.Large.Title" = "Large";
 "Set.View.Settings.ImagePreview.Title" = "Image preview";
 
+// MARK: - Sets: Kanban
+"Set.View.Kanban.Column.Title.Uncategorized" = "Uncategorized";
+
 // MARK: - Set source type
 "Set.SourceType.SelectSource" = "Select source";
 

@@ -64,7 +64,11 @@ struct SetKanbanColumn: View {
                     action: {}
                 )
             } else {
-                AnytypeText("Uncategorized", style: .relation1Regular, color: .textSecondary)
+                AnytypeText(
+                    Loc.Set.View.Kanban.Column.Title.uncategorized,
+                    style: .relation1Regular,
+                    color: .textSecondary
+                )
             }
             Spacer()
             Button {} label: {
