@@ -50,7 +50,7 @@ struct SetKanbanView: View {
     
     private var boardContent: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack(alignment: .top, spacing: 16) {
+            LazyHStack(alignment: .top, spacing: 16) { // think about it
                 ForEach(model.configurationsDict.keys, id: \.value) { key in
                     if let configurations = model.configurationsDict[key] {
                         SetKanbanColumn(

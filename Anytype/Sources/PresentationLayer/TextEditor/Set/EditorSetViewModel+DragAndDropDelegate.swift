@@ -41,10 +41,9 @@ extension EditorSetViewModel: KanbanDragAndDropDelegate {
                   let fromConfigurations = configurationsDict[SubscriptionId(value: fromGroupId)],
                   let toConfigurations = configurationsDict[SubscriptionId(value: toGroupId)]
         {
-            // сеттим детейлзы
             updateDetails(
-                configurationId,
-                subscriptionId: SubscriptionId(value: toGroupId)
+                groupId: toGroupId,
+                detailsId: configurationId
             )
             let fromGroupObjectIds = GroupObjectIds(
                 groupId: fromGroupId,

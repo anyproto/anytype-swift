@@ -12,6 +12,7 @@ final class EditorSetViewModel: ObservableObject {
     @Published var featuredRelations = [Relation]()
     
     private var recordsDict: OrderedDictionary<SubscriptionId, [ObjectDetails]> = [:]
+    private var sortedGroups: [DataviewGroup] = []
     @Published var configurationsDict: OrderedDictionary<SubscriptionId, [SetContentViewItemConfiguration]> = [:]
     @Published var pagitationData = EditorSetPaginationData.empty
     
@@ -161,11 +162,10 @@ final class EditorSetViewModel: ObservableObject {
         }
     }
     
-    func updateDetails(_ detailsId: String, subscriptionId: SubscriptionId) {
-        guard let records = recordsDict[subscriptionId],
-        let record = records.first,
-        let value = record.values[activeView.groupRelationKey] else { return }
-        
+    func updateDetails(groupId: String, detailsId: String) {
+        guard let group = sortedGroups.first(where: { $0.id == groupId }),
+        let value = group.protobufValue else { return }
+
         detailsService.updateDetails(
             contextId: detailsId,
             relationKey: activeView.groupRelationKey,
@@ -181,7 +181,7 @@ final class EditorSetViewModel: ObservableObject {
                 relationKey: activeView.groupRelationKey,
                 filters: activeView.filters
             )
-            let sortedGroups = sortedGroups(groups)
+            sortedGroups = sortedGroups(groups)
             sortedGroups.forEach { [weak self] group in
                 guard let self else { return }
                 let groupFilter = group.filter(with: self.activeView.groupRelationKey)
@@ -255,16 +255,26 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     private func sortedConfigurationsDict() -> OrderedDictionary<SubscriptionId, [SetContentViewItemConfiguration]> {
-        let sortedGroupsIds = sortedGroupsIds()
+        let sortedGroupsIds = sortedGroups.map { $0.id }
         guard sortedGroupsIds.isNotEmpty else { return configurationsDict }
         
+        let subscriptionIds = Array(configurationsDict.keys)
+        let sortedSubscriptionIds = subscriptionIds.sorted { (a, b) -> Bool in
+            if let first = sortedGroupsIds.firstIndex(of: a.value),
+                let second = sortedGroupsIds.firstIndex(of: b.value)
+            {
+                return first < second
+            }
+            return false
+        }
+        
         var sortedConfigurationsDict: OrderedDictionary<SubscriptionId, [SetContentViewItemConfiguration]> = [:]
-        sortedGroupsIds.forEach { groupId in
-            let subId = SubscriptionId(value: groupId)
+        sortedSubscriptionIds.forEach { subId in
             if let records = configurationsDict[subId] {
                 sortedConfigurationsDict[subId] = records
             }
         }
+        
         return sortedConfigurationsDict
     }
     private func sortedGroupsIds() -> [String] {
@@ -307,25 +317,20 @@ final class EditorSetViewModel: ObservableObject {
         let neededObjectOrder = dataView.objectOrders.first { [weak self] objectOrder in
             objectOrder.viewID == self?.activeView.id && objectOrder.groupID == subscriptionId.value
         }
-        guard let neededObjectOrder, neededObjectOrder.objectIds.isNotEmpty else {
+        guard let neededObjectOrder,
+                neededObjectOrder.objectIds.isNotEmpty,
+              let records = recordsDict[subscriptionId] else {
             return recordsDict[subscriptionId]
         }
         
-        guard let records = recordsDict[subscriptionId] else {
-            return nil
-        }
-        var recordsDict: [String: ObjectDetails] = [:]
-        for record in records {
-            recordsDict[record.id] = record
-        }
-        
-        var sortedRecords: [ObjectDetails] = []
-        neededObjectOrder.objectIds.forEach { objectId in
-            if let record = recordsDict[objectId] {
-                sortedRecords.append(record)
+        return records.sorted { (a, b) -> Bool in
+            if let first = neededObjectOrder.objectIds.firstIndex(of: a.id),
+               let second = neededObjectOrder.objectIds.firstIndex(of: b.id)
+            {
+                return first < second
             }
+            return false
         }
-        return sortedRecords
     }
     
     private func onDataChange(_ data: DocumentUpdate) {
