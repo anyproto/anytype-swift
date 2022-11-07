@@ -12,7 +12,7 @@ final class EditorSetViewModel: ObservableObject {
     @Published var featuredRelations = [Relation]()
     
     private var recordsDict: OrderedDictionary<SubscriptionId, [ObjectDetails]> = [:]
-    private var sortedGroups: [DataviewGroup] = []
+    private var groups: [DataviewGroup] = []
     @Published var configurationsDict: OrderedDictionary<SubscriptionId, [SetContentViewItemConfiguration]> = [:]
     @Published var pagitationData = EditorSetPaginationData.empty
     
@@ -163,7 +163,7 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     func updateDetails(groupId: String, detailsId: String) {
-        guard let group = sortedGroups.first(where: { $0.id == groupId }),
+        guard let group = groups.first(where: { $0.id == groupId }),
         let value = group.protobufValue else { return }
 
         detailsService.updateDetails(
@@ -177,11 +177,11 @@ final class EditorSetViewModel: ObservableObject {
     
     private func setupGroupSubscriptions() {
         Task {
-            let groups = try await relationSearchDistinctService.searchDistinct(
+            groups = try await relationSearchDistinctService.searchDistinct(
                 relationKey: activeView.groupRelationKey,
                 filters: activeView.filters
             )
-            sortedGroups = sortedGroups(groups)
+            let sortedGroups = sortedGroups(groups)
             sortedGroups.forEach { [weak self] group in
                 guard let self else { return }
                 let groupFilter = group.filter(with: self.activeView.groupRelationKey)
@@ -255,7 +255,7 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     private func sortedConfigurationsDict() -> OrderedDictionary<SubscriptionId, [SetContentViewItemConfiguration]> {
-        let sortedGroupsIds = sortedGroups.map { $0.id }
+        let sortedGroupsIds = sortedGroupsIds()
         guard sortedGroupsIds.isNotEmpty else { return configurationsDict }
         
         let subscriptionIds = Array(configurationsDict.keys)
