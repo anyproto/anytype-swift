@@ -168,7 +168,7 @@ final class EditorSetViewModel: ObservableObject {
     
     func updateObjectDetails(_ detailsId: String, groupId: String) {
         guard let group = groups.first(where: { $0.id == groupId }),
-        let value = group.protobufValue else { return }
+        let value = group.value else { return }
 
         detailsService.updateDetails(
             contextId: detailsId,

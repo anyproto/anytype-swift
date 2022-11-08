@@ -7,6 +7,7 @@ public typealias DataviewDateFormat = MiddlewareRelation.DateFormat
 public typealias DataviewTypeEnum = Anytype_Model_Block.Content.Dataview.View.TypeEnum
 public typealias DataviewViewSize = MiddlewareDataviewView.Size
 public typealias DataviewGroup = Anytype_Model_Block.Content.Dataview.Group
+public typealias DataviewGroupValue = Anytype_Model_Block.Content.Dataview.Group.OneOf_Value
 public typealias DataviewGroupOrder = Anytype_Model_Block.Content.Dataview.GroupOrder
 public typealias DataviewObjectOrder = Anytype_Model_Block.Content.Dataview.ObjectOrder
 

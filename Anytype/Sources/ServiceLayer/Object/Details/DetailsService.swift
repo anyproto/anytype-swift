@@ -1,6 +1,5 @@
 import Foundation
 import BlocksModels
-import SwiftProtobuf
 import AnytypeCore
 
 final class DetailsService {
@@ -26,7 +25,7 @@ extension DetailsService: DetailsServiceProtocol {
         service.updateBundledDetails(contextID: contextID, details: bundledDpdates)
     }
     
-    func updateDetails(contextId: String, relationKey: String, value: Google_Protobuf_Value) {
+    func updateDetails(contextId: String, relationKey: String, value: DataviewGroupValue) {
         service.updateDetails(contextId: contextId, relationKey: relationKey, value: value)
     }
 
