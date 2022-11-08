@@ -11,9 +11,9 @@ final class EditorSetViewModel: ObservableObject {
     @Published var loadingDocument = true
     @Published var featuredRelations = [Relation]()
     
-    private var recordsDict: OrderedDictionary<SubscriptionId, [ObjectDetails]> = [:]
+    private var recordsDict: OrderedDictionary<String, [ObjectDetails]> = [:]
     private var groups: [DataviewGroup] = []
-    @Published var configurationsDict: OrderedDictionary<SubscriptionId, [SetContentViewItemConfiguration]> = [:]
+    @Published var configurationsDict: OrderedDictionary<String, [SetContentViewItemConfiguration]> = [:]
     @Published var pagitationData = EditorSetPaginationData.empty
     
     @Published var sorts: [SetSort] = []
@@ -214,31 +214,31 @@ final class EditorSetViewModel: ObservableObject {
         subscriptionService.stopSubscription(id: data.identifier)
         subscriptionService.startSubscription(data: data) { subId, update in
             DispatchQueue.main.async { [weak self] in
-                self?.updateData(with: subId, update: update)
+                self?.updateData(with: subId.value, update: update)
             }
         }
     }
     
-    private func updateData(with subscriptionId: SubscriptionId, update: SubscriptionUpdate) {
+    private func updateData(with groupId: String, update: SubscriptionUpdate) {
         if case let .pageCount(count) = update {
             updatePageCount(count)
             return
         }
         
-        updateRecords(for: subscriptionId, update: update)
-        updateConfigurations(with: [subscriptionId])
+        updateRecords(for: groupId, update: update)
+        updateConfigurations(with: [groupId])
     }
     
-    private func updateRecords(for subscriptionId: SubscriptionId, update: SubscriptionUpdate) {
-        var records = recordsDict[subscriptionId, default: []]
+    private func updateRecords(for groupId: String, update: SubscriptionUpdate) {
+        var records = recordsDict[groupId, default: []]
         records.applySubscriptionUpdate(update)
-        recordsDict[subscriptionId] = records
+        recordsDict[groupId] = records
     }
     
-    private func updateConfigurations(with subscriptionIds: [SubscriptionId], shouldReorder: Bool = false) {
+    private func updateConfigurations(with groupIds: [String], shouldReorder: Bool = false) {
         var tempConfigurationsDict = shouldReorder ? sortedConfigurationsDict() : configurationsDict
-        for subscriptionId in subscriptionIds {
-            if let records = sortedRecords(with: subscriptionId) {
+        for groupId in groupIds {
+            if let records = sortedRecords(with: groupId) {
                 let configurations = dataBuilder.itemData(
                     records,
                     dataView: dataView,
@@ -251,28 +251,27 @@ final class EditorSetViewModel: ObservableObject {
                         self?.itemTapped(details)
                     }
                 )
-                tempConfigurationsDict[subscriptionId] = configurations
+                tempConfigurationsDict[groupId] = configurations
             }
         }
         configurationsDict = tempConfigurationsDict
     }
     
-    private func sortedConfigurationsDict() -> OrderedDictionary<SubscriptionId, [SetContentViewItemConfiguration]> {
+    private func sortedConfigurationsDict() -> OrderedDictionary<String, [SetContentViewItemConfiguration]> {
         let sortedGroupsIds = sortedGroupsIds()
         guard sortedGroupsIds.isNotEmpty else { return configurationsDict }
         
-        let subscriptionIds = Array(configurationsDict.keys)
-        let sortedSubscriptionIds = subscriptionIds.sorted { (a, b) -> Bool in
-            if let first = sortedGroupsIds.firstIndex(of: a.value),
-                let second = sortedGroupsIds.firstIndex(of: b.value)
+        let groupIds = Array(configurationsDict.keys).sorted { (a, b) -> Bool in
+            if let first = sortedGroupsIds.firstIndex(of: a),
+                let second = sortedGroupsIds.firstIndex(of: b)
             {
                 return first < second
             }
             return false
         }
         
-        var sortedConfigurationsDict: OrderedDictionary<SubscriptionId, [SetContentViewItemConfiguration]> = [:]
-        sortedSubscriptionIds.forEach { subId in
+        var sortedConfigurationsDict: OrderedDictionary<String, [SetContentViewItemConfiguration]> = [:]
+        groupIds.forEach { subId in
             if let records = configurationsDict[subId] {
                 sortedConfigurationsDict[subId] = records
             }
@@ -316,14 +315,14 @@ final class EditorSetViewModel: ObservableObject {
         return sortedGroups
     }
     
-    private func sortedRecords(with subscriptionId: SubscriptionId) -> [ObjectDetails]? {
+    private func sortedRecords(with groupId: String) -> [ObjectDetails]? {
         let neededObjectOrder = dataView.objectOrders.first { [weak self] objectOrder in
-            objectOrder.viewID == self?.activeView.id && objectOrder.groupID == subscriptionId.value
+            objectOrder.viewID == self?.activeView.id && objectOrder.groupID == groupId
         }
         guard let neededObjectOrder,
                 neededObjectOrder.objectIds.isNotEmpty,
-              let records = recordsDict[subscriptionId] else {
-            return recordsDict[subscriptionId]
+              let records = recordsDict[groupId] else {
+            return recordsDict[groupId]
         }
         
         return records.sorted { (a, b) -> Bool in

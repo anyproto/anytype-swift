@@ -51,10 +51,10 @@ struct SetKanbanView: View {
     private var boardContent: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(alignment: .top, spacing: 8) {
-                ForEach(model.configurationsDict.keys, id: \.value) { key in
-                    if let configurations = model.configurationsDict[key] {
+                ForEach(model.configurationsDict.keys, id: \.self) { groupId in
+                    if let configurations = model.configurationsDict[groupId] {
                         SetKanbanColumn(
-                            groupId: key.value,
+                            groupId: groupId,
                             headerRelation: nil, // will be updated after branch `relatio-as-object` was merged
                             configurations: configurations,
                             isGroupBackgroundColors: model.isGroupBackgroundColors,

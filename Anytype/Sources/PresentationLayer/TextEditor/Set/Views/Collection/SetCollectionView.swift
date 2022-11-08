@@ -53,8 +53,8 @@ struct SetCollectionView: View {
                 EmptyView()
             } else {
                 Section(header: compoundHeader) {
-                    ForEach(model.configurationsDict.keys, id: \.value) { key in
-                        if let configurations = model.configurationsDict[key] {
+                    ForEach(model.configurationsDict.keys, id: \.self) { groupId in
+                        if let configurations = model.configurationsDict[groupId] {
                             ForEach(configurations) { configuration in
                                 SetGalleryViewCell(configuration: configuration)
                             }
@@ -85,8 +85,8 @@ struct SetCollectionView: View {
                 EmptyView()
             } else {
                 Section(header: compoundHeader) {
-                    ForEach(model.configurationsDict.keys, id: \.value) { key in
-                        if let configurations = model.configurationsDict[key] {
+                    ForEach(model.configurationsDict.keys, id: \.self) { groupId in
+                        if let configurations = model.configurationsDict[groupId] {
                             ForEach(configurations) { configuration in
                                 if configurations.first == configuration {
                                     Divider()
