@@ -463,7 +463,7 @@ extension EditorSetViewModel {
 
 
     private func showSetOfTypeSelection() {
-        router.showTypesSearch(title: Loc.Set.SourceType.selectSource, selectedObjectId: document.details?.setOf.first) { [unowned self] typeObjectId in
+        router.showSources(selectedObjectId: document.details?.setOf.first) { [unowned self] typeObjectId in
             Task { @MainActor in
                 try? await dataviewService.setSource(typeObjectId: typeObjectId)
             }

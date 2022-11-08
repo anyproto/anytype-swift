@@ -106,11 +106,13 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         title: String,
         selectedObjectId: BlockId? = nil,
         excludedObjectTypeId: String?,
+        showBookmark: Bool,
         onSelect: @escaping (_ id: String) -> Void
     ) -> NewSearchView {
         let interactor = ObjectTypesSearchInteractor(
             searchService: SearchService(),
-            excludedObjectTypeId: excludedObjectTypeId
+            excludedObjectTypeId: excludedObjectTypeId,
+            showBookmark: showBookmark
         )
         
         let internalViewModel = ObjectTypesSearchViewModel(interactor: interactor, selectedObjectId: selectedObjectId)
@@ -134,7 +136,8 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
     ) -> NewSearchView {
         let interactor = ObjectTypesSearchInteractor(
             searchService: SearchService(),
-            excludedObjectTypeId: nil
+            excludedObjectTypeId: nil,
+            showBookmark: false
         )
         
         let internalViewModel = MultiselectObjectTypesSearchViewModel(
