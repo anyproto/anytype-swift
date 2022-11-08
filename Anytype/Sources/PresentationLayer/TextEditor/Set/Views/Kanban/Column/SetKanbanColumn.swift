@@ -26,7 +26,7 @@ struct SetKanbanColumn: View {
         }
         .padding(.horizontal, 8)
         .padding(.bottom, configurations.isEmpty ? 0 : 8)
-        .background(Color.shimmering)
+        .background(isGroupBackgroundColors ? Color.shimmering : Color.backgroundPrimary)
         .cornerRadius(4)
         .frame(width: 270)
     }
