@@ -40,6 +40,10 @@ final class EditorSetViewModel: ObservableObject {
         activeView.cardSize == .small
     }
     
+    var isGroupBackgroundColors: Bool {
+        activeView.groupBackgroundColors
+    }
+    
     var contentViewType: SetContentViewType {
         activeView.type.setContentViewType
     }

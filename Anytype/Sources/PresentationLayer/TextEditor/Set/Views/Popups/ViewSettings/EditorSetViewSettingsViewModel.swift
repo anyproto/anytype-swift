@@ -49,6 +49,26 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
         )
     }
     
+    var groupBySetting: EditorSetViewSettingsValueItem {
+        EditorSetViewSettingsValueItem(
+            title: Loc.Set.View.Settings.GroupBy.title,
+            value: groupByValue(with: setModel.activeView.groupRelationKey),
+            onTap: { [weak self] in
+                self?.showGroupByRelations()
+            }
+        )
+    }
+    
+    var groupBackgroundColorsSetting: EditorSetViewSettingsToggleItem {
+        EditorSetViewSettingsToggleItem(
+            title: Loc.Set.View.Settings.GroupBackgroundColors.title,
+            isSelected: setModel.activeView.groupBackgroundColors,
+            onChange: { [weak self] colored in
+                self?.onGroupBackgroundColorsChange(colored)
+            }
+        )
+    }
+    
     var relations: [EditorSetViewSettingsRelation] {
         setModel.sortedRelations.map { relation in
             EditorSetViewSettingsRelation(
@@ -64,8 +84,8 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
         }
     }
     
-    var needShowAllSettings: Bool {
-        setModel.activeView.type == .gallery
+    var contentViewType: SetContentViewType {
+        setModel.contentViewType
     }
     
     init(setModel: EditorSetViewModel, service: DataviewServiceProtocol, router: EditorRouterProtocol) {
@@ -147,6 +167,16 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
         updateView(newView)
     }
     
+    private func onGroupBackgroundColorsChange(_ colored: Bool) {
+        let newView = setModel.activeView.updated(groupBackgroundColors: colored)
+        updateView(newView)
+    }
+    
+    private func onGroupBySettingChange(_ key: String) {
+        let newView = setModel.activeView.updated(groupRelationKey: key)
+        updateView(newView)
+    }
+    
     private func onCardSizeChange(_ size: DataviewViewSize) {
         let newView = setModel.activeView.updated(cardSize: size)
         updateView(newView)
@@ -183,6 +213,12 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
         return setModel.activeView.cardSize
     }
     
+    private func groupByValue(with key: String) -> String {
+        setModel.dataView.relations.first { relation in
+            relation.key == key
+        }?.name ?? key
+    }
+    
     private func showCardSizes() {
         router.showCardSizes(
             size: mappedCardSize(),
@@ -199,5 +235,37 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
                 self?.onImagePreviewChange(key)
             }
         )
+    }
+    
+    private func showGroupByRelations() {
+        router.showGroupByRelations(
+            selectedRelationId: setModel.activeView.groupRelationKey,
+            relations: groupByRelations(),
+            onSelect: { [weak self] key in
+                self?.onGroupBySettingChange(key)
+            }
+        )
+    }
+    
+    private func groupByRelations() -> [RelationMetadata] {
+        let activeView = setModel.activeView
+        let relations: [RelationMetadata] = setModel.dataView.relations.filter { relation in
+            if relation.key == BundledRelationKey.done.rawValue {
+                return true
+            }
+            
+            let hasOption = activeView.options.first(where: { option in option.key == relation.key }) != nil
+            if relation.isHidden || !hasOption {
+                return false
+            }
+            
+            switch relation.format {
+            case .status, .tag, .checkbox:
+                return true
+            default:
+                return false
+            }
+        }
+        return relations
     }
 }

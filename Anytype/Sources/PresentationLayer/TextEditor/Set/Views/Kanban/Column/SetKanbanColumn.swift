@@ -5,6 +5,7 @@ struct SetKanbanColumn: View {
     let groupId: String
     let headerRelation: Relation?
     let configurations: [SetContentViewItemConfiguration]
+    let isGroupBackgroundColors: Bool
     
     let dragAndDropDelegate: KanbanDragAndDropDelegate
     @Binding var dropData: KanbanCardDropData

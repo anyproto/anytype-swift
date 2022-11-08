@@ -62,12 +62,21 @@ struct EditorSetViewSettingsView: View {
     
     private var settingsSection: some View {
         Group {
-            if model.needShowAllSettings {
-                valueSetting(with: model.cardSizeSetting)
+            switch model.contentViewType {
+            case .collection(let type):
+                if type == .gallery {
+                    valueSetting(with: model.cardSizeSetting)
+                    toggleSettings(with: model.iconSetting)
+                    valueSetting(with: model.imagePreviewSetting)
+                    toggleSettings(with: model.coverFitSetting)
+                } else {
+                    toggleSettings(with: model.iconSetting)
+                }
+            case .kanban:
+                valueSetting(with: model.groupBySetting)
+                toggleSettings(with: model.groupBackgroundColorsSetting)
                 toggleSettings(with: model.iconSetting)
-                valueSetting(with: model.imagePreviewSetting)
-                toggleSettings(with: model.coverFitSetting)
-            } else {
+            case .table:
                 toggleSettings(with: model.iconSetting)
             }
         }

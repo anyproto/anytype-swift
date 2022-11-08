@@ -1163,6 +1163,14 @@ internal enum Loc {
             internal static let title = Loc.tr("Localizable", "Set.View.Settings.CardSize.Small.Title", fallback: "Small")
           }
         }
+        internal enum GroupBackgroundColors {
+          /// Color columns
+          internal static let title = Loc.tr("Localizable", "Set.View.Settings.GroupBackgroundColors.Title", fallback: "Color columns")
+        }
+        internal enum GroupBy {
+          /// Group by
+          internal static let title = Loc.tr("Localizable", "Set.View.Settings.GroupBy.Title", fallback: "Group by")
+        }
         internal enum ImageFit {
           /// Fit image
           internal static let title = Loc.tr("Localizable", "Set.View.Settings.ImageFit.Title", fallback: "Fit image")
