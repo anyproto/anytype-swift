@@ -1,10 +1,22 @@
 import SwiftUI
 
-struct KanbanCardDropInsideDelegate: DropDelegate {
+final class KanbanCardDropInsideDelegate: DropDelegate {
     let dragAndDropDelegate: KanbanDragAndDropDelegate
     let droppingCard: SetContentViewItemConfiguration?
     let toGroupId: String
     @Binding var data: KanbanCardDropData
+    
+    init(
+        dragAndDropDelegate: KanbanDragAndDropDelegate,
+        droppingCard: SetContentViewItemConfiguration?,
+        toGroupId: String,
+        data: Binding<KanbanCardDropData>
+    ) {
+        self.dragAndDropDelegate = dragAndDropDelegate
+        self.droppingCard = droppingCard
+        self.toGroupId = toGroupId
+        self._data = data
+    }
     
     func dropEntered(info: DropInfo) {
         guard let draggingCard = data.draggingCard, let fromGroupId = data.fromGroupId else {
