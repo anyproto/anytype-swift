@@ -185,7 +185,7 @@ message Event {
 
             message Remove {
                 string id = 1; // context objectId
-                repeated string relationIds = 2;
+                repeated string relationKeys = 2;
             }
         }
 
@@ -696,7 +696,7 @@ message Event {
 
             message RelationDelete {
                 string id = 1; // dataview block's id
-                repeated string relationIds = 2; // relation key to remove
+                repeated string relationKeys = 2; // relation key to remove
             }
 
             // sent when the dataview relation has been changed or added

@@ -5,7 +5,12 @@ import AnytypeCore
 
 protocol SearchServiceProtocol: AnyObject {
     func search(text: String) -> [ObjectDetails]?
-    func searchObjectTypes(text: String, filteringTypeId: String?, shouldIncludeSets: Bool) -> [ObjectDetails]?
+    func searchObjectTypes(
+        text: String,
+        filteringTypeId: String?,
+        shouldIncludeSets: Bool,
+        shouldIncludeBookmark: Bool
+    ) -> [ObjectDetails]?
     func searchFiles(text: String, excludedFileIds: [String]) -> [ObjectDetails]?
     func searchObjects(text: String, excludedObjectIds: [String], limitedTypeIds: [String]) -> [ObjectDetails]?
     func searchTemplates(for type: ObjectTypeId) -> [ObjectDetails]?
@@ -44,7 +49,8 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
     func searchObjectTypes(
         text: String,
         filteringTypeId: String? = nil,
-        shouldIncludeSets: Bool
+        shouldIncludeSets: Bool,
+        shouldIncludeBookmark: Bool
     ) -> [ObjectDetails]? {
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.name,
@@ -56,10 +62,10 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             SearchHelper.supportedIdsFilter(
                 ObjectTypeProvider.shared.supportedTypeIds
             ),
-            shouldIncludeSets ? nil : SearchHelper.excludedIdFilter(ObjectTypeId.bundled(.set).rawValue)
+            shouldIncludeSets ? nil : SearchHelper.excludedIdFilter(ObjectTypeId.bundled(.set).rawValue),
+            shouldIncludeBookmark ? nil : SearchHelper.excludedIdFilter(ObjectTypeId.bundled(.bookmark).rawValue)
         ].compactMap { $0 }
 
-        filters.append(SearchHelper.excludedIdFilter(ObjectTypeId.bundled(.bookmark).rawValue))
         filteringTypeId.map { filters.append(SearchHelper.excludedIdFilter($0)) }
         
         let result = search(filters: filters, sorts: [sort], fullText: text)

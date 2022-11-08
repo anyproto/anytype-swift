@@ -119,6 +119,8 @@ extension Anytype_Rpc.Object.CreateRelationOption.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.CreateSet.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.Duplicate.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.Graph.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Object.Import.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Object.ImportList.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.ImportMarkdown.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.ListDelete.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.ListDuplicate.Response.Error: Swift.Error {}
@@ -134,6 +136,7 @@ extension Anytype_Rpc.Object.SearchSubscribe.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.SearchUnsubscribe.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.SetBreadcrumbs.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.SetDetails.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Object.SetInternalFlags.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.SetIsArchived.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.SetIsFavorite.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.SetLayout.Response.Error: Swift.Error {}

@@ -43,15 +43,16 @@ final class SetContentViewDataBuilder {
         _ details: [ObjectDetails],
         dataView: BlockDataview,
         activeView: DataviewView,
-        colums: [RelationDetails],
         isObjectLocked: Bool,
         onIconTap: @escaping (ObjectDetails) -> Void,
         onItemTap: @escaping (ObjectDetails) -> Void
     ) -> [SetContentViewItemConfiguration] {
         
-        let relationsDetails = sortedRelations(dataview: dataView, view: activeView)
-            .filter { $0.option.isVisible == true }
-            .map { $0.relationDetails }
+        let relationsDetails = sortedRelations(
+            dataview: dataView,
+            view: activeView
+        ).filter { $0.option.isVisible }.map(\.relationDetails)
+
         return details.compactMap { details in
             let parsedRelations = relationsBuilder
                 .parsedRelations(
@@ -60,12 +61,11 @@ final class SetContentViewDataBuilder {
                     isObjectLocked: isObjectLocked
                 )
                 .all
-            
-            let sortedRelations = colums.compactMap { colum in
+            let sortedRelations = relationsDetails.compactMap { colum in
                 parsedRelations.first { $0.key == colum.key }
             }
             
-            let relations: [Relation] = colums.map { colum in
+            let relations: [Relation] = relationsDetails.map { colum in
                 let relation = sortedRelations.first { $0.key == colum.key }
                 guard let relation = relation else {
                     return .unknown(.empty(id: colum.id, key: colum.key, name: colum.name))
@@ -73,6 +73,8 @@ final class SetContentViewDataBuilder {
                 
                 return relation
             }
+            
+            let hasCover = activeView.coverRelationKey.isNotEmpty && activeView.type != .kanban
             
             return SetContentViewItemConfiguration(
                 id: details.id,
@@ -82,7 +84,7 @@ final class SetContentViewDataBuilder {
                 relations: relations,
                 showIcon: !activeView.hideIcon,
                 smallItemSize: activeView.cardSize == .small,
-                hasCover: activeView.coverRelationKey.isNotEmpty,
+                hasCover: hasCover,
                 coverFit: activeView.coverFit,
                 coverType: coverType(details, dataView: dataView, activeView: activeView),
                 onIconTap: {

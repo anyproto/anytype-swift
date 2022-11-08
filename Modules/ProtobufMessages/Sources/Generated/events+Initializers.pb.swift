@@ -84,9 +84,9 @@ extension Anytype_Event.Block.Dataview.OldRelationSet {
 }
 
 extension Anytype_Event.Block.Dataview.RelationDelete {
-    public init(id: String = String(), relationIds: [String] = []) {
+    public init(id: String = String(), relationKeys: [String] = []) {
         self.id = id
-        self.relationIds = relationIds
+        self.relationKeys = relationKeys
     }
 }
 
@@ -771,9 +771,9 @@ extension Anytype_Event.Object.Relations.Amend {
 }
 
 extension Anytype_Event.Object.Relations.Remove {
-    public init(id: String = String(), relationIds: [String] = []) {
+    public init(id: String = String(), relationKeys: [String] = []) {
         self.id = id
-        self.relationIds = relationIds
+        self.relationKeys = relationKeys
     }
 }
 

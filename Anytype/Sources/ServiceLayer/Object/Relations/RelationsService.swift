@@ -79,7 +79,7 @@ final class RelationsService: RelationsServiceProtocol {
     
     func removeRelation(relationKey: String) {
         Anytype_Rpc.ObjectRelation.Delete.Service
-            .invocation(contextID: objectId, relationKey: relationKey)
+            .invocation(contextID: objectId, relationKeys: [relationKey])
             .invoke()
             .map { EventsBunch(event: $0.event) }
             .getValue(domain: .relationsService)?

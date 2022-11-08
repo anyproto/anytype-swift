@@ -24,7 +24,7 @@ final class SetSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol {
         
         return .search(
             SubscriptionData.Search(
-                identifier: SubscriptionId.set,
+                identifier: data.identifier,
                 sorts: data.sorts,
                 filters: filters,
                 limit: numberOfRowsPerPageInSubscriptions,

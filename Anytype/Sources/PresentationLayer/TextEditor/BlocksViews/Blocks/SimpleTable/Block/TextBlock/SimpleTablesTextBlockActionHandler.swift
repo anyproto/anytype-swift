@@ -112,7 +112,10 @@ struct SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
                 textView.setFocus(.beginning)
             case let .addBlock(type, newText):
                 actionHandler.changeTextForced(newText, blockId: info.id)
-                actionHandler.addBlock(type, blockId: info.id, position: .top)
+                actionHandler.addBlock(type, blockId: info.id, blockText: newText, position: .top)
+            case let .addStyle(style, newText, styleRange, focusRange):
+                actionHandler.setTextStyle(style, range: styleRange, blockId: info.id, currentText: newText)
+                textView.setFocus(.at(focusRange))
             }
 
             return false
@@ -226,7 +229,7 @@ struct SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
     private func textViewDidBeginEditing(textView: UITextView) {
         blockDelegate?.didBeginEditing(view: textView)
 
-        DispatchQueue.main.async {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             responderScrollViewHelper.textViewDidBeginEditing(textView: textView)
         }
     }

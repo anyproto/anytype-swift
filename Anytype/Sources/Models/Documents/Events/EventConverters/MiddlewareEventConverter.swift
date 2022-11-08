@@ -130,7 +130,7 @@ final class MiddlewareEventConverter {
             return .general
             
         case .objectRelationsRemove(let remove):
-            relationLinksStorage.remove(relationIds: remove.relationIds)
+            relationLinksStorage.remove(relationKeys: remove.relationKeys)
             
             return .general
             
@@ -350,8 +350,7 @@ final class MiddlewareEventConverter {
             return .general
         case .blockDataviewRelationDelete(let data):
             infoContainer.updateDataview(blockId: data.id) { dataView in
-                #warning("data.relationIds should be rename")
-                let newRelationLinks = dataView.relationLinks.filter { !data.relationIds.contains($0.key) }
+                let newRelationLinks = dataView.relationLinks.filter { !data.relationKeys.contains($0.key) }
                 return dataView.updated(relationLinks: newRelationLinks)
             }
             

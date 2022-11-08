@@ -53,6 +53,7 @@ final class EditorAssembly {
             detailsService: detailsService,
             textService: serviceLocator.textService,
             relationDetailsStorage: ServiceLocator.shared.relationDetailsStorage(),
+            relationSearchDistinctService: RelationSearchDistinctService(),
             setSubscriptionDataBuilder: SetSubscriptionDataBuilder()
         )
         let controller = EditorSetHostingController(objectId: data.pageId, model: model)
@@ -202,7 +203,12 @@ final class EditorAssembly {
             linkToObjectCoordinator: coordinatorsDI.linkToObject.make(rootController: browser, viewController: controller)
         )
         
-        let markdownListener = MarkdownListenerImpl()
+        let markdownListener = MarkdownListenerImpl(
+            internalListeners: [
+                BeginingOfTextMarkdownListener(),
+                InlineMarkdownListener()
+            ]
+        )
         
         let blockDelegate = BlockDelegateImpl(
             viewInput: viewInput,

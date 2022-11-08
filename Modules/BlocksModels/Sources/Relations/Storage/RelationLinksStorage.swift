@@ -26,9 +26,9 @@ public final class RelationLinksStorage: RelationLinksStorageProtocol {
         }
     }
     
-    public func remove(relationIds: [String]) {
+    public func remove(relationKeys: [String]) {
         storage.removeAll {
-            relationIds.contains($0.key)
+            relationKeys.contains($0.key)
         }
     }
     

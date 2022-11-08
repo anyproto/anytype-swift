@@ -20,7 +20,15 @@ public final class FeatureFlags {
         .setSyncStatus,
         .cursorPosition,
         .hideBottomViewForStyleMenu,
-        .setKanbanView
+        .setKanbanView,
+        .redesignNewButton,
+        .linktoObjectFromItself,
+        .linkToObjectFromMarkup,
+        .showBookmarkInSets,
+        .inlineMarkdown,
+        .fixColorsForStyleMenu,
+        .redesignBookmarkBlock,
+        .fixInsetMediaContent
     ]
     
     public static func update(key feature: FeatureDescription, value: Bool) {
@@ -75,5 +83,37 @@ public extension FeatureFlags {
     
     static var setKanbanView: Bool {
         value(for: .setKanbanView)
+    }
+    
+    static var redesignNewButton: Bool {
+        value(for: .redesignNewButton)
+    }
+
+    static var linktoObjectFromItself: Bool {
+        value(for: .linktoObjectFromItself)
+    }
+    
+    static var linkToObjectFromMarkup: Bool {
+        value(for: .linkToObjectFromMarkup)
+    }
+    
+    static var showBookmarkInSets: Bool {
+        value(for: .showBookmarkInSets)
+    }
+    
+    static var inlineMarkdown: Bool {
+        value(for: .inlineMarkdown)
+    }
+
+    static var fixColorsForStyleMenu: Bool {
+        value(for: .fixColorsForStyleMenu)
+    }
+
+    static var redesignBookmarkBlock: Bool {
+        value(for: .redesignBookmarkBlock)
+    }
+    
+    static var fixInsetMediaContent: Bool {
+        value(for: .fixInsetMediaContent)
     }
 }
