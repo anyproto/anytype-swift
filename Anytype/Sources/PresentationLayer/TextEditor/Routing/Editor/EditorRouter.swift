@@ -651,6 +651,25 @@ extension EditorRouter {
         )
         presentSheet(vc)
     }
+    
+    func showGroupByRelations(
+        selectedRelationId: String,
+        relations: [RelationMetadata],
+        onSelect: @escaping (String) -> Void
+    ) {
+        let view = CheckPopupView(
+            viewModel: SetViewSettingsGroupByViewModel(
+                selectedRelationId: selectedRelationId,
+                relations: relations,
+                onSelect: onSelect
+            )
+        )
+        presentSheet(
+            AnytypePopup(
+                contentView: view
+            )
+        )
+    }
 }
 
 

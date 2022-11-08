@@ -3,6 +3,7 @@ import SwiftUI
 struct SetKanbanColumn: View {
     let headerRelation: Relation?
     let configurations: [SetContentViewItemConfiguration]
+    let isGroupBackgroundColors: Bool
 
     var body: some View {
         VStack(spacing: 16) {
@@ -13,7 +14,7 @@ struct SetKanbanColumn: View {
         }
         .padding(.horizontal, 10)
         .padding(.vertical, 16)
-        .background(Color.shimmering)
+        .background(isGroupBackgroundColors ? Color.shimmering : Color.clear)
         .cornerRadius(4)
         .frame(width: 270)
     }
