@@ -536,6 +536,7 @@
 		2E8387BB291A51A000506766 /* KanbanCardDropInsideDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8387B9291A51A000506766 /* KanbanCardDropInsideDelegate.swift */; };
 		2E8387BD291A520C00506766 /* GroupObjectIds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8387BC291A520C00506766 /* GroupObjectIds.swift */; };
 		2E8387BF291A521900506766 /* EditorSetViewModel+DragAndDropDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8387BE291A521900506766 /* EditorSetViewModel+DragAndDropDelegate.swift */; };
+		2E8387C1291A897700506766 /* BlockDataview+Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8387C0291A897700506766 /* BlockDataview+Group.swift */; };
 		2E975EC72874BB18004DE574 /* EditorSetViewPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E975EC62874BB18004DE574 /* EditorSetViewPickerViewModel.swift */; };
 		2E975EC92874BBC5004DE574 /* EditorSetViewRowConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E975EC82874BBC5004DE574 /* EditorSetViewRowConfiguration.swift */; };
 		2E975EDA287C2325004DE574 /* SetFilterRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E975ED0287C2325004DE574 /* SetFilterRow.swift */; };
@@ -1764,6 +1765,7 @@
 		2E8387B9291A51A000506766 /* KanbanCardDropInsideDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KanbanCardDropInsideDelegate.swift; sourceTree = "<group>"; };
 		2E8387BC291A520C00506766 /* GroupObjectIds.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupObjectIds.swift; sourceTree = "<group>"; };
 		2E8387BE291A521900506766 /* EditorSetViewModel+DragAndDropDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EditorSetViewModel+DragAndDropDelegate.swift"; sourceTree = "<group>"; };
+		2E8387C0291A897700506766 /* BlockDataview+Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockDataview+Group.swift"; sourceTree = "<group>"; };
 		2E975EC62874BB18004DE574 /* EditorSetViewPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetViewPickerViewModel.swift; sourceTree = "<group>"; };
 		2E975EC82874BBC5004DE574 /* EditorSetViewRowConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetViewRowConfiguration.swift; sourceTree = "<group>"; };
 		2E975ED0287C2325004DE574 /* SetFilterRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetFilterRow.swift; sourceTree = "<group>"; };
@@ -5305,6 +5307,7 @@
 				2E0DAF2028A26F1600F43320 /* DataviewViewSize+Value.swift */,
 				2E0DAF1A28A17DB400F43320 /* SetFilterPrefilledFieldsBuilder.swift */,
 				2EC9425E2900351C00DE91E4 /* DataviewGroup+Filter.swift */,
+				2E8387C0291A897700506766 /* BlockDataview+Group.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -8394,6 +8397,7 @@
 				53D4088827EC9EFE00495335 /* ObjectPreviewView.swift in Sources */,
 				12EB9AF12771CD6600BA732F /* RelationOptionsListViewModel.swift in Sources */,
 				EA5FB42A266A970F00DCD56C /* MentionObject.swift in Sources */,
+				2E8387C1291A897700506766 /* BlockDataview+Group.swift in Sources */,
 				12C2A59D2757A6E000311854 /* StatusRelationDetailsViewModel.swift in Sources */,
 				C90189A928338D2900F30853 /* TemplatesCoordinator.swift in Sources */,
 				1240EAF627B13D6B005B501E /* UIDeviceExtension.swift in Sources */,

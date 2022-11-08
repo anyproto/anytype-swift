@@ -41,10 +41,11 @@ extension EditorSetViewModel: KanbanDragAndDropDelegate {
                   let fromConfigurations = configurationsDict[SubscriptionId(value: fromGroupId)],
                   let toConfigurations = configurationsDict[SubscriptionId(value: toGroupId)]
         {
-            updateDetails(
-                groupId: toGroupId,
-                detailsId: configurationId
+            updateObjectDetails(
+                configurationId,
+                groupId: toGroupId
             )
+
             let fromGroupObjectIds = GroupObjectIds(
                 groupId: fromGroupId,
                 objectIds: fromConfigurations.map { $0.id }
@@ -62,10 +63,8 @@ extension EditorSetViewModel: KanbanDragAndDropDelegate {
     }
     
     private func swipeItemsInTheSameColumn(subscriptionId: SubscriptionId, fromId: String, toId: String) {
-        guard var configurations = configurationsDict[subscriptionId] else {
-            return
-        }
-        guard let fromIndex = configurations.index(id: fromId),
+        guard var configurations = configurationsDict[subscriptionId],
+              let fromIndex = configurations.index(id: fromId),
               let toIndex = configurations.index(id: toId) else {
             return
         }
@@ -96,12 +95,12 @@ extension EditorSetViewModel: KanbanDragAndDropDelegate {
         }
 
         withAnimation(.spring()) {
-            let fromConfig = fromConfigurations[fromIndex]
+            let fromConfiguration = fromConfigurations[fromIndex]
             fromConfigurations.remove(at: fromIndex)
 
             let dropAfter = toIndex > fromIndex
             let dropIndex = dropAfter ? toIndex + 1 : toIndex
-            toConfigurations.insert(fromConfig, at: dropIndex)
+            toConfigurations.insert(fromConfiguration, at: dropIndex)
 
             configurationsDict[fromSubscriptionId] = fromConfigurations
             configurationsDict[toSubscriptionId] = toConfigurations

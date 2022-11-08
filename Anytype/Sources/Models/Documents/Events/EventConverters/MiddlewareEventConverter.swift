@@ -508,7 +508,10 @@ final class MiddlewareEventConverter {
                     if objectOrderIds.isEmpty {
                         objectOrderIds.append(contentsOf: change.ids)
                     } else {
-                        let addIndex = idx == nil ? 0 : (idx ?? 0) + 1
+                        var addIndex = 0
+                        if let idx {
+                            addIndex = idx + 1
+                        }
                         objectOrderIds.insert(contentsOf: change.ids, at: addIndex)
                     }
                     objectOrder.objectIds = objectOrderIds

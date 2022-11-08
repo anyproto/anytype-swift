@@ -38,12 +38,9 @@ struct KanbanCardDropInsideDelegate: DropDelegate {
               let configurationId = data.draggingCard?.id else {
             return false
         }
-
-        data.draggingCard = nil
-        data.droppingCard = nil
-        data.fromGroupId = nil
-        data.toGroupId = nil
-
+        
+        clearDropData()
+        
         return dragAndDropDelegate.onDrop(
             configurationId: configurationId,
             fromGroupId: initialFromGroupId,
@@ -53,5 +50,13 @@ struct KanbanCardDropInsideDelegate: DropDelegate {
     
     func dropUpdated(info: DropInfo) -> DropProposal? {
         return DropProposal(operation: .move)
+    }
+    
+    private func clearDropData() {
+        data.initialFromGroupId = nil
+        data.fromGroupId = nil
+        data.toGroupId = nil
+        data.draggingCard = nil
+        data.droppingCard = nil
     }
 }

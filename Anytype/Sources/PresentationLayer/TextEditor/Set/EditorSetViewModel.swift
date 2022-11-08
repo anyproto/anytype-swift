@@ -166,7 +166,7 @@ final class EditorSetViewModel: ObservableObject {
         }
     }
     
-    func updateDetails(groupId: String, detailsId: String) {
+    func updateObjectDetails(_ detailsId: String, groupId: String) {
         guard let group = groups.first(where: { $0.id == groupId }),
         let value = group.protobufValue else { return }
 
@@ -185,8 +185,7 @@ final class EditorSetViewModel: ObservableObject {
                 relationKey: activeView.groupRelationKey,
                 filters: activeView.filters
             )
-            let sortedGroups = sortedGroups(groups)
-            sortedGroups.forEach { [weak self] group in
+            sortedGroups(groups).forEach { [weak self] group in
                 guard let self else { return }
                 let groupFilter = group.filter(with: self.activeView.groupRelationKey)
                 let subscriptionId = SubscriptionId(value: group.id)
@@ -520,8 +519,8 @@ extension EditorSetViewModel {
     
     func showViewTypes(with activeView: DataviewView?) {
         router.showViewTypes(
+            dataView: dataView,
             activeView: activeView,
-            canDelete: dataView.views.count > 1,
             dataviewService: dataviewService
         )
     }
