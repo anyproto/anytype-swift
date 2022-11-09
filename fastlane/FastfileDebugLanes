@@ -17,7 +17,7 @@ platform :ios do
       skip_package_ipa: false,
       include_symbols: true,
       include_bitcode: false,
-      xcargs: ENV['EXPORT_OPTIONS']
+      xcargs: ENV['BUILD_OPTIONS']
     )
 
   end

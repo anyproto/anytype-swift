@@ -52,7 +52,7 @@ platform :ios do
       include_symbols: true,
       use_system_scm: true,
       output_directory: "./build_app_results",
-      xcargs: ENV['EXPORT_OPTIONS']
+      xcargs: ENV['BUILD_OPTIONS']
     )
 
     upload_build_to_testflight
