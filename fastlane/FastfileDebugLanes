@@ -16,7 +16,8 @@ platform :ios do
       output_directory: "./tests_bild",
       skip_package_ipa: false,
       include_symbols: true,
-      include_bitcode: false
+      include_bitcode: false,
+      export_options: ENV['EXPORT_OPTIONS']
     )
 
   end
