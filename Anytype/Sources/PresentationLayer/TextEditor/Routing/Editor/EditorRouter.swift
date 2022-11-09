@@ -211,21 +211,14 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         viewController?.topPresentedController.presentSwiftUIView(view: searchView, model: viewModel)
     }
     
-    func showTypesSearch(title: String, selectedObjectId: BlockId?, onSelect: @escaping (BlockId) -> ()) {
-        let view = NewSearchModuleAssembly.objectTypeSearchModule(
-            title: title,
-            selectedObjectId: selectedObjectId,
-            excludedObjectTypeId: document.details?.type
-        ) { [weak self] id in
-            onSelect(id)
-            
-            self?.viewController?.topPresentedController.dismiss(animated: true)
-        }
-        
-        let controller = UIHostingController(rootView: view)
-        viewController?.topPresentedController.present(controller, animated: true)
+    func showTypes(selectedObjectId: BlockId?, onSelect: @escaping (BlockId) -> ()) {
+        showTypesSearch(title: Loc.changeType, selectedObjectId: selectedObjectId, showBookmark: false, onSelect: onSelect)
     }
-
+    
+    func showSources(selectedObjectId: BlockId?, onSelect: @escaping (BlockId) -> ()) {
+        showTypesSearch(title: Loc.Set.SourceType.selectSource, selectedObjectId: selectedObjectId, showBookmark: true, onSelect: onSelect)
+    }
+    
     func showWaitingView(text: String) {
         let popup = PopupViewBuilder.createWaitingPopup(text: text)
         viewController?.topPresentedController.present(popup, animated: true, completion: nil)
@@ -405,6 +398,22 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         let controller = URLInputViewController(url: url, didSetURL: completion)
         controller.modalPresentationStyle = .overCurrentContext
         viewController?.present(controller, animated: false)
+    }
+    
+    private func showTypesSearch(title: String, selectedObjectId: BlockId?, showBookmark: Bool, onSelect: @escaping (BlockId) -> ()) {
+        let view = NewSearchModuleAssembly.objectTypeSearchModule(
+            title: title,
+            selectedObjectId: selectedObjectId,
+            excludedObjectTypeId: document.details?.type,
+            showBookmark: showBookmark
+        ) { [weak self] id in
+            onSelect(id)
+            
+            self?.viewController?.topPresentedController.dismiss(animated: true)
+        }
+        
+        let controller = UIHostingController(rootView: view)
+        viewController?.topPresentedController.present(controller, animated: true)
     }
 }
 
