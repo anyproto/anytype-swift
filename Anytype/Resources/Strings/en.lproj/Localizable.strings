@@ -375,6 +375,7 @@
 
 // MARK: - Sets: Kanban
 "Set.View.Kanban.Column.Title.Uncategorized" = "Uncategorized";
+"Set.View.Kanban.Column.Paging.Title.ShowMore" = "Show %d more objects";
 
 // MARK: - Set source type
 "Set.SourceType.SelectSource" = "Select source";
