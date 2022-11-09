@@ -78,7 +78,11 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func showCreateBookmarkObject()
     
     func showSetSettings(setModel: EditorSetViewModel)
-    func showViewTypes(activeView: DataviewView?, canDelete: Bool, dataviewService: DataviewServiceProtocol)
+    func showViewTypes(
+        dataView: BlockDataview,
+        activeView: DataviewView?,
+        dataviewService: DataviewServiceProtocol
+    )
     func showViewSettings(setModel: EditorSetViewModel, dataviewService: DataviewServiceProtocol)
     func dismissSetSettingsIfNeeded()
     func showSorts(setModel: EditorSetViewModel, dataviewService: DataviewServiceProtocol)

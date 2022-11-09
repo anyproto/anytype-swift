@@ -150,6 +150,38 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
             .getValue(domain: .objectActionsService)?
             .send()
     }
+    
+    func updateDetails(contextId: String, relationKey: String, value: DataviewGroupValue) {
+        let protobufValue: Google_Protobuf_Value?
+        switch value {
+        case .tag(let tag):
+            protobufValue = tag.ids.protobufValue
+        case .status(let status):
+            protobufValue = status.id.protobufValue
+        case .checkbox(let checkbox):
+            protobufValue = checkbox.checked.protobufValue
+        default:
+            protobufValue = nil
+        }
+        
+        guard let protobufValue else {
+            anytypeAssertionFailure("DataviewGroupValue doesnt support", domain: .objectActionsService)
+            return
+        }
+        
+        Anytype_Rpc.Object.SetDetails.Service.invoke(
+            contextID: contextId,
+            details: [
+                Anytype_Rpc.Object.SetDetails.Detail(
+                    key: relationKey,
+                    value: protobufValue
+                )
+            ]
+        )
+            .map { EventsBunch(event: $0.event) }
+            .getValue(domain: .relationsService)?
+            .send()
+    }
 
     func convertChildrenToPages(contextID: BlockId, blocksIds: [BlockId], objectType: String) -> [BlockId]? {
         AnytypeAnalytics.instance().logCreateObject(objectType: objectType, route: .turnInto)

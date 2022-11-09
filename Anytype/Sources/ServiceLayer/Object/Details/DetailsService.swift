@@ -1,6 +1,5 @@
 import Foundation
 import BlocksModels
-import SwiftProtobuf
 import AnytypeCore
 
 final class DetailsService {
@@ -24,6 +23,10 @@ extension DetailsService: DetailsServiceProtocol {
     
     func updateBundledDetails(contextID: String, bundledDpdates: [BundledDetails]) {
         service.updateBundledDetails(contextID: contextID, details: bundledDpdates)
+    }
+    
+    func updateDetails(contextId: String, relationKey: String, value: DataviewGroupValue) {
+        service.updateDetails(contextId: contextId, relationKey: relationKey, value: value)
     }
 
     func setLayout(_ detailsLayout: DetailsLayout) {

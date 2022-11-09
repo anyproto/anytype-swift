@@ -7,6 +7,8 @@ struct SetKanbanView: View {
     @Binding var tableHeaderSize: CGSize
     @Binding var offset: CGPoint
     
+    @State private var dropData = KanbanCardDropData()
+    
     var headerMinimizedSize: CGSize
 
     var body: some View {
@@ -17,6 +19,7 @@ struct SetKanbanView: View {
         ) {
             Spacer.fixedHeight(tableHeaderSize.height)
             content
+            Spacer()
         }
     }
 
@@ -48,12 +51,15 @@ struct SetKanbanView: View {
     private var boardContent: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(alignment: .top, spacing: 8) {
-                ForEach(model.configurationsDict.keys, id: \.value) { key in
-                    if let configurations = model.configurationsDict[key] {
+                ForEach(model.configurationsDict.keys, id: \.self) { groupId in
+                    if let configurations = model.configurationsDict[groupId] {
                         SetKanbanColumn(
+                            groupId: groupId,
                             headerRelation: nil, // will be updated after branch `relatio-as-object` was merged
                             configurations: configurations,
-                            isGroupBackgroundColors: model.isGroupBackgroundColors
+                            isGroupBackgroundColors: model.isGroupBackgroundColors,
+                            dragAndDropDelegate: model,
+                            dropData: $dropData
                         )
                     }
                 }

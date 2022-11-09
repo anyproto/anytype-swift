@@ -1142,6 +1142,14 @@ internal enum Loc {
       internal static let selectSource = Loc.tr("Localizable", "Set.SourceType.SelectSource", fallback: "Select source")
     }
     internal enum View {
+      internal enum Kanban {
+        internal enum Column {
+          internal enum Title {
+            /// Uncategorized
+            internal static let uncategorized = Loc.tr("Localizable", "Set.View.Kanban.Column.Title.Uncategorized", fallback: "Uncategorized")
+          }
+        }
+      }
       internal enum Settings {
         internal enum CardSize {
           /// Card size

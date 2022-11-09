@@ -10,14 +10,20 @@ final class SetViewTypesPickerViewModel: ObservableObject {
         activeView.isNotNil
     }
     
+    private let dataView: BlockDataview
     private let activeView: DataviewView?
     private var selectedType: DataviewViewType = .table
     private let dataviewService: DataviewServiceProtocol
     
-    init(activeView: DataviewView?, canDelete: Bool, dataviewService: DataviewServiceProtocol) {
+    init(
+        dataView: BlockDataview,
+        activeView: DataviewView?,
+        dataviewService: DataviewServiceProtocol)
+    {
+        self.dataView = dataView
         self.name = activeView?.name ?? ""
         self.activeView = activeView
-        self.canDelete = canDelete
+        self.canDelete = dataView.views.count > 1
         self.selectedType = activeView?.type ?? .table
         self.dataviewService = dataviewService
         self.updateTypes()
@@ -64,9 +70,13 @@ final class SetViewTypesPickerViewModel: ObservableObject {
         guard activeView.type != selectedType || activeView.name != name else {
             return
         }
+        let groupRelationKey = activeView.groupRelationKey.isEmpty ?
+        dataView.groupByRelations(for: activeView).first?.key ?? "" :
+        activeView.groupRelationKey
         let newView = activeView.updated(
             name: name,
-            type: selectedType
+            type: selectedType,
+            groupRelationKey: groupRelationKey
         )
         Task {
             try await dataviewService.updateView(newView)

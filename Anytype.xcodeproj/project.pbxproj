@@ -532,6 +532,11 @@
 		2E7C4471289842E10062287C /* DataviewFilter+Update.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C4470289842E10062287C /* DataviewFilter+Update.swift */; };
 		2E7C4473289843220062287C /* DataviewFilter+Condition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C4472289843220062287C /* DataviewFilter+Condition.swift */; };
 		2E7C44752898434A0062287C /* DataviewFilter+QuickOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C44742898434A0062287C /* DataviewFilter+QuickOption.swift */; };
+		2E8387BA291A51A000506766 /* KanbanCardDropData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8387B8291A51A000506766 /* KanbanCardDropData.swift */; };
+		2E8387BB291A51A000506766 /* KanbanCardDropInsideDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8387B9291A51A000506766 /* KanbanCardDropInsideDelegate.swift */; };
+		2E8387BD291A520C00506766 /* GroupObjectIds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8387BC291A520C00506766 /* GroupObjectIds.swift */; };
+		2E8387BF291A521900506766 /* EditorSetViewModel+DragAndDropDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8387BE291A521900506766 /* EditorSetViewModel+DragAndDropDelegate.swift */; };
+		2E8387C1291A897700506766 /* BlockDataview+Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8387C0291A897700506766 /* BlockDataview+Group.swift */; };
 		2E975EC72874BB18004DE574 /* EditorSetViewPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E975EC62874BB18004DE574 /* EditorSetViewPickerViewModel.swift */; };
 		2E975EC92874BBC5004DE574 /* EditorSetViewRowConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E975EC82874BBC5004DE574 /* EditorSetViewRowConfiguration.swift */; };
 		2E975EDA287C2325004DE574 /* SetFilterRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E975ED0287C2325004DE574 /* SetFilterRow.swift */; };
@@ -1756,6 +1761,11 @@
 		2E7C4470289842E10062287C /* DataviewFilter+Update.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataviewFilter+Update.swift"; sourceTree = "<group>"; };
 		2E7C4472289843220062287C /* DataviewFilter+Condition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataviewFilter+Condition.swift"; sourceTree = "<group>"; };
 		2E7C44742898434A0062287C /* DataviewFilter+QuickOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataviewFilter+QuickOption.swift"; sourceTree = "<group>"; };
+		2E8387B8291A51A000506766 /* KanbanCardDropData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KanbanCardDropData.swift; sourceTree = "<group>"; };
+		2E8387B9291A51A000506766 /* KanbanCardDropInsideDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KanbanCardDropInsideDelegate.swift; sourceTree = "<group>"; };
+		2E8387BC291A520C00506766 /* GroupObjectIds.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupObjectIds.swift; sourceTree = "<group>"; };
+		2E8387BE291A521900506766 /* EditorSetViewModel+DragAndDropDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EditorSetViewModel+DragAndDropDelegate.swift"; sourceTree = "<group>"; };
+		2E8387C0291A897700506766 /* BlockDataview+Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockDataview+Group.swift"; sourceTree = "<group>"; };
 		2E975EC62874BB18004DE574 /* EditorSetViewPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetViewPickerViewModel.swift; sourceTree = "<group>"; };
 		2E975EC82874BBC5004DE574 /* EditorSetViewRowConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetViewRowConfiguration.swift; sourceTree = "<group>"; };
 		2E975ED0287C2325004DE574 /* SetFilterRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetFilterRow.swift; sourceTree = "<group>"; };
@@ -4795,6 +4805,8 @@
 		2EC942672901905800DE91E4 /* Board */ = {
 			isa = PBXGroup;
 			children = (
+				2E8387B8291A51A000506766 /* KanbanCardDropData.swift */,
+				2E8387B9291A51A000506766 /* KanbanCardDropInsideDelegate.swift */,
 				2EC942692901905800DE91E4 /* SetKanbanView.swift */,
 			);
 			path = Board;
@@ -5295,6 +5307,7 @@
 				2E0DAF2028A26F1600F43320 /* DataviewViewSize+Value.swift */,
 				2E0DAF1A28A17DB400F43320 /* SetFilterPrefilledFieldsBuilder.swift */,
 				2EC9425E2900351C00DE91E4 /* DataviewGroup+Filter.swift */,
+				2E8387C0291A897700506766 /* BlockDataview+Group.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -6028,6 +6041,7 @@
 		3DAE1CAB273EA1F2009A72F3 /* Set */ = {
 			isa = PBXGroup;
 			children = (
+				2E8387BE291A521900506766 /* EditorSetViewModel+DragAndDropDelegate.swift */,
 				2AA0209328D3521E00321A66 /* Subscriptions */,
 				3DCFDE312796C360006C7D02 /* Models */,
 				3DA6DBCF27457D9700516E75 /* Views */,
@@ -6229,6 +6243,7 @@
 		3DCFDE312796C360006C7D02 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				2E8387BC291A520C00506766 /* GroupObjectIds.swift */,
 				3DCFDE352796C36A006C7D02 /* Array+Dataview.swift */,
 				3DC2D2C2279817B100437E04 /* Document+Dataview.swift */,
 				3D7F718527A190C6003FE893 /* EditorSetPaginationHelper.swift */,
@@ -7743,6 +7758,7 @@
 				12AF9986273A8B87004CBB80 /* RelationsBuilder.swift in Sources */,
 				EA57F41B26B99937007D4292 /* MarkupViewProtocol.swift in Sources */,
 				3D210C142758CCE50007F558 /* RelationsListRowPlaceholderView.swift in Sources */,
+				2E8387BD291A520C00506766 /* GroupObjectIds.swift in Sources */,
 				EAED57A6269F346D00374A46 /* TextBlockViewModel.swift in Sources */,
 				0A0965FB25BEF5B000C004BD /* EditorPageController.swift in Sources */,
 				2E975EF1287C23DA004DE574 /* SetSortsListView.swift in Sources */,
@@ -8313,6 +8329,7 @@
 				C9215175289801B6007FC95D /* ShimmeringBlockViewModel.swift in Sources */,
 				534D19C72623A7220080AEF0 /* SearchListViewController.swift in Sources */,
 				2AFB541D28621776004F7458 /* Strings.swift in Sources */,
+				2E8387BB291A51A000506766 /* KanbanCardDropInsideDelegate.swift in Sources */,
 				C90F8F2628DCBB4000E874A9 /* ImageSourceMedia.swift in Sources */,
 				3D38CC9326D626A700E4F7BF /* ObjectSettingAssembly.swift in Sources */,
 				2A9D299428BCC78900789AC7 /* NonExistentBlockViewModel.swift in Sources */,
@@ -8337,6 +8354,7 @@
 				129C54CB27FC694A00C390C7 /* NewRelationSectionView.swift in Sources */,
 				3D38CC9626D632C500E4F7BF /* ObjectHeaderViewModel.swift in Sources */,
 				C92DCD91272990CE00A03D91 /* ChangeTypeAccessoryView.swift in Sources */,
+				2E8387BA291A51A000506766 /* KanbanCardDropData.swift in Sources */,
 				C973E1AD285C567F00978BC4 /* SimpleTableDependenciesBuilder.swift in Sources */,
 				12C2A5602754E13000311854 /* DateRelationDetailsView.swift in Sources */,
 				12EEC36B26A0903F00C3C4B1 /* EmojiData.swift in Sources */,
@@ -8379,6 +8397,7 @@
 				53D4088827EC9EFE00495335 /* ObjectPreviewView.swift in Sources */,
 				12EB9AF12771CD6600BA732F /* RelationOptionsListViewModel.swift in Sources */,
 				EA5FB42A266A970F00DCD56C /* MentionObject.swift in Sources */,
+				2E8387C1291A897700506766 /* BlockDataview+Group.swift in Sources */,
 				12C2A59D2757A6E000311854 /* StatusRelationDetailsViewModel.swift in Sources */,
 				C90189A928338D2900F30853 /* TemplatesCoordinator.swift in Sources */,
 				1240EAF627B13D6B005B501E /* UIDeviceExtension.swift in Sources */,
@@ -8577,6 +8596,7 @@
 				3D93D57A270CBF7100614E29 /* BrowserNavigationManager.swift in Sources */,
 				12EB9B31277442BC00BA732F /* FileRelationView.swift in Sources */,
 				2ECD123028AFE6A900BD464A /* TitleWithIconStyle.swift in Sources */,
+				2E8387BF291A521900506766 /* EditorSetViewModel+DragAndDropDelegate.swift in Sources */,
 				1244791C27D8A63D00581174 /* StatusSearchInteractor.swift in Sources */,
 				12A7B6C126C3E47200544037 /* DocumentCover.swift in Sources */,
 				53D408AC27F0B7EE00495335 /* CodeBlockFields.swift in Sources */,
