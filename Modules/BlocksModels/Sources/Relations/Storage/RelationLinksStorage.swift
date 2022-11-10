@@ -1,23 +1,29 @@
 import Foundation
 import AnytypeCore
+import Combine
 
 public final class RelationLinksStorage: RelationLinksStorageProtocol {
     
-    private var storage = SynchronizedArray<RelationLink>()
+    @Published private var storage = [RelationLink]()
+        
+    public var relationLinksPublisher: AnyPublisher<[RelationLink], Never> {
+        $storage.eraseToAnyPublisher()
+    }
+//    private var storage = SynchronizedArray<RelationLink>()
     
     public init() {}
     
     public var relationLinks: [RelationLink] {
-        storage.array
+        storage
     }
-    
+
     public func set(relationLinks: [RelationLink]) {
-        storage = SynchronizedArray<RelationLink>(array: relationLinks)
+        storage = relationLinks
     }
     
     public func amend(relationLinks: [RelationLink]) {
         relationLinks.forEach { relationLink in
-            let index = storage.array.firstIndex { $0.key == relationLink.key }
+            let index = storage.firstIndex { $0.key == relationLink.key }
             if let index = index {
                 storage[index] = relationLink
             } else {
@@ -33,6 +39,6 @@ public final class RelationLinksStorage: RelationLinksStorageProtocol {
     }
     
     public func contains(relationKeys: [String]) -> Bool {
-        storage.array.contains { relationKeys.contains($0.key) }
+        storage.contains { relationKeys.contains($0.key) }
     }
 }

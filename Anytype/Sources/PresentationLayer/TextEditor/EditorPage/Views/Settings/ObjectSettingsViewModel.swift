@@ -23,8 +23,6 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
     
     let objectActionsViewModel: ObjectActionsViewModel
 
-    let relationsViewModel: RelationsListViewModel
-
     private weak var router: EditorRouterProtocol?
     private let document: BaseDocumentProtocol
     private let objectDetailsService: DetailsServiceProtocol
@@ -40,12 +38,6 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
         self.document = document
         self.objectDetailsService = objectDetailsService
         self.router = router
-
-        self.relationsViewModel = RelationsListViewModel(
-            router: router,
-            relationsService: RelationsService(objectId: document.objectId),
-            isObjectLocked: document.isLocked
-        )
 
         self.objectActionsViewModel = ObjectActionsViewModel(
             objectId: document.objectId,
@@ -80,6 +72,10 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
         router?.showCoverPicker()
     }
     
+    func showRelations() {
+        router?.showRelations()
+    }
+    
     // MARK: - Private
     private func setupSubscription() {
         subscription = document.updatePublisher.sink { [weak self] _ in
@@ -91,7 +87,6 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
         objectWillChange.send()
         if let details = document.details {
             objectActionsViewModel.details = details
-            relationsViewModel.update(with: document.parsedRelations, isObjectLocked: document.isLocked)
         }
         objectActionsViewModel.isLocked = document.isLocked
         objectActionsViewModel.objectRestrictions = document.objectRestrictions

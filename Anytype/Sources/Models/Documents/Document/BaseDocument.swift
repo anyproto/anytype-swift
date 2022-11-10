@@ -31,6 +31,20 @@ final class BaseDocument: BaseDocumentProtocol {
     private let detailsStorage = ObjectDetailsStorage.shared
     private let relationDetailsStorage = ServiceLocator.shared.relationDetailsStorage()
 
+    private var subscriptions = [AnyCancellable]()
+    
+    // MARK: - State
+    @Published private var documentDetails = ObjectDetails(id: "")
+    @Published private var parsedRelations2: ParsedRelations = ParsedRelations(featuredRelations: [], otherRelations: [])
+    var parsedRelationsPublisher: AnyPublisher<ParsedRelations, Never> {
+        $parsedRelations2.eraseToAnyPublisher()
+    }
+    
+    @Published private var _isLocked = false
+    var isLockedPublisher: AnyPublisher<Bool, Never> {
+        $_isLocked.eraseToAnyPublisher()
+    }
+    
     var parsedRelations: ParsedRelations {
         relationBuilder.parsedRelations(
             relationsDetails: relationDetailsStorage.relationsDetails(for: relationLinksStorage.relationLinks),
@@ -113,5 +127,36 @@ final class BaseDocument: BaseDocumentProtocol {
             }
         }
         eventsListener.startListening()
+        
+        ObjectDetailsStorage.shared.publisherFor(id: objectId)
+            .assign(to: &$documentDetails)
+        
+        infoContainer.publisherFor(id: objectId)
+            .map { container in
+                guard let isLockedField = container.fields[BlockFieldBundledKey.isLocked.rawValue],
+                      case let .boolValue(isLocked) = isLockedField.kind else {
+                    return false
+                }
+
+                return isLocked
+            }
+            .assign(to: &$_isLocked)
+        
+        Publishers
+            .CombineLatest3(
+                relationLinksStorage.relationLinksPublisher,
+                relationDetailsStorage.relationsDetailsPublisher,
+                $documentDetails
+            )
+            .map { [weak self] links, relationDetails, _ in
+                guard let self = self else { return ParsedRelations(featuredRelations: [], otherRelations: []) }
+                let data = self.relationBuilder.parsedRelations(
+                    relationsDetails: self.relationDetailsStorage.relationsDetails(for: links),
+                    objectId: self.objectId,
+                    isObjectLocked: self.isLocked
+                )
+                return data
+            }
+            .assign(to: &$parsedRelations2)
     }
 }

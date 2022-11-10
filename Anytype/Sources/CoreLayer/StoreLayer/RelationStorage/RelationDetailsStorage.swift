@@ -1,6 +1,7 @@
 import Foundation
 import BlocksModels
 import AnytypeCore
+import Combine
 
 extension RelationDetails: IdProvider {}
 
@@ -9,10 +10,14 @@ final class RelationDetailsStorage: RelationDetailsStorageProtocol {
     private let subscriptionsService: SubscriptionsServiceProtocol
     private let subscriptionDataBuilder: RelationSubscriptionDataBuilderProtocol
     
-    private var details = [RelationDetails]()
+    @Published private var details = [RelationDetails]()
     private var searchDetailsByKey = [String: RelationDetails]()
     private var localSubscriptions = [String: [RelationLink]]()
 
+    var relationsDetailsPublisher: AnyPublisher<[RelationDetails], Never> {
+        $details.eraseToAnyPublisher()
+    }
+    
     init(
         subscriptionsService: SubscriptionsServiceProtocol,
         subscriptionDataBuilder: RelationSubscriptionDataBuilderProtocol

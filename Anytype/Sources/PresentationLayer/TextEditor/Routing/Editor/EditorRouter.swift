@@ -298,6 +298,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         )
     }
     
+    
     // MARK: - Settings
     func showSettings() {
         let popup = settingAssembly.settingsPopup(document: document, router: self)
@@ -378,6 +379,23 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
             $0.centerX.equal(to: rootController.view.centerXAnchor, constant: 10)
             $0.bottom.equal(to: rootController.view.bottomAnchor, constant: -50)
         }
+    }
+    
+    func showRelations() {
+        
+        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.objectRelationShow)
+        
+        let viewModel = RelationsListViewModel(
+            document: document,
+            router: self,
+            relationsService: RelationsService(objectId: document.objectId)
+        )
+        
+        let view = RelationsListView(viewModel: viewModel)
+        
+        let popup = AnytypePopup(contentView: view, popupLayout: .fullScreen)
+        
+        viewController?.topPresentedController.present(popup, animated: true, completion: nil)
     }
     
     // MARK: - Private

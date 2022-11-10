@@ -5,14 +5,17 @@ import AnytypeCore
 public final class InfoContainer: InfoContainerProtocol {
     
     private var models = SynchronizedDictionary<BlockId, BlockInformation>()
-    
+    private var publishers = SynchronizedDictionary<BlockId, PassthroughSubject<BlockInformation, Never>>()
     public init() {}
+    
+    public func publisherFor(id: BlockId) -> AnyPublisher<BlockInformation, Never> {
+        return subjectFor(id: id).eraseToAnyPublisher()
+    }
     
     public func children(of id: BlockId) -> [BlockInformation] {
         guard let information = models[id] else {
             return []
         }
-        
         return information.childrenIds.compactMap { get(id: $0) }
     }
 
@@ -30,6 +33,7 @@ public final class InfoContainer: InfoContainerProtocol {
     
     public func add(_ info: BlockInformation) {
         models[info.id] = info
+        subjectFor(id: info.id).send(info)
     }
 
     public func remove(id: BlockId) {
@@ -40,6 +44,7 @@ public final class InfoContainer: InfoContainerProtocol {
         }
         
         models.removeValue(forKey: id)
+        publishers.removeValue(forKey: id)
     }
 
     public func setChildren(ids: [BlockId], parentId: BlockId) {
@@ -73,5 +78,13 @@ public final class InfoContainer: InfoContainerProtocol {
             let content = BlockContent.dataView(updateAction(dataView))
             return info.updated(content: content)
         }
+    }
+    
+    // MARK: - Private
+    
+    private func subjectFor(id: BlockId) -> PassthroughSubject<BlockInformation, Never> {
+        let publisher = publishers[id] ?? PassthroughSubject()
+        publishers[id] = publisher
+        return publisher
     }
 }
