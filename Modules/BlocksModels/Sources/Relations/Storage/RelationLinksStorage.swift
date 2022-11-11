@@ -4,27 +4,23 @@ import Combine
 
 public final class RelationLinksStorage: RelationLinksStorageProtocol {
     
-    @Published private var storage = [RelationLink]()
+    private var storage = SynchronizedArray<RelationLink>()
     
     public init() {}
     
     // MARK: - RelationLinksStorageProtocol
     
     public var relationLinks: [RelationLink] {
-        storage
-    }
-
-    public var relationLinksPublisher: AnyPublisher<[RelationLink], Never> {
-        $storage.eraseToAnyPublisher()
+        storage.array
     }
     
     public func set(relationLinks: [RelationLink]) {
-        storage = relationLinks
+        storage = SynchronizedArray<RelationLink>(array: relationLinks)
     }
     
     public func amend(relationLinks: [RelationLink]) {
         relationLinks.forEach { relationLink in
-            let index = storage.firstIndex { $0.key == relationLink.key }
+            let index = storage.array.firstIndex { $0.key == relationLink.key }
             if let index = index {
                 storage[index] = relationLink
             } else {
@@ -40,6 +36,6 @@ public final class RelationLinksStorage: RelationLinksStorageProtocol {
     }
     
     public func contains(relationKeys: [String]) -> Bool {
-        storage.contains { relationKeys.contains($0.key) }
+        storage.array.contains { relationKeys.contains($0.key) }
     }
 }
