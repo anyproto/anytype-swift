@@ -44,7 +44,7 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     }
     
     var editor: EditorAssembly {
-        return EditorAssembly(serviceLocator: serviceLocator, coordinatorsDI: self)
+        return EditorAssembly(serviceLocator: serviceLocator, coordinatorsDI: self, modulesDI: modulesDI)
     }
     
     var homeViewAssemby: HomeViewAssembly {

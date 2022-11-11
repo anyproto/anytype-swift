@@ -18,6 +18,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     private weak var currentSetSettingsPopup: AnytypePopup?
     private let editorPageCoordinator: EditorPageCoordinatorProtocol
     private let linkToObjectCoordinator: LinkToObjectCoordinatorProtocol
+    private let relationsListModuleAssembly: RelationsListModuleAssemblyProtocol
     
     init(
         rootController: EditorBrowserController?,
@@ -27,7 +28,8 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         urlOpener: URLOpenerProtocol,
         relationValueCoordinator: RelationValueCoordinatorProtocol,
         editorPageCoordinator: EditorPageCoordinatorProtocol,
-        linkToObjectCoordinator: LinkToObjectCoordinatorProtocol
+        linkToObjectCoordinator: LinkToObjectCoordinatorProtocol,
+        relationsListModuleAssembly: RelationsListModuleAssemblyProtocol
     ) {
         self.rootController = rootController
         self.viewController = viewController
@@ -39,6 +41,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         self.relationValueCoordinator = relationValueCoordinator
         self.editorPageCoordinator = editorPageCoordinator
         self.linkToObjectCoordinator = linkToObjectCoordinator
+        self.relationsListModuleAssembly = relationsListModuleAssembly
     }
 
     func showPage(data: EditorScreenData) {
@@ -382,20 +385,10 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     }
     
     func showRelations() {
-        
         AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.objectRelationShow)
         
-        let viewModel = RelationsListViewModel(
-            document: document,
-            router: self,
-            relationsService: RelationsService(objectId: document.objectId)
-        )
-        
-        let view = RelationsListView(viewModel: viewModel)
-        
-        let popup = AnytypePopup(contentView: view, popupLayout: .fullScreen)
-        
-        viewController?.topPresentedController.present(popup, animated: true, completion: nil)
+        let moduleViewController = relationsListModuleAssembly.make(document: document, router: self)
+        viewController?.topPresentedController.present(moduleViewController, animated: true, completion: nil)
     }
     
     // MARK: - Private
