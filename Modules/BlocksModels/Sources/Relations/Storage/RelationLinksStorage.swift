@@ -5,18 +5,19 @@ import Combine
 public final class RelationLinksStorage: RelationLinksStorageProtocol {
     
     @Published private var storage = [RelationLink]()
-        
-    public var relationLinksPublisher: AnyPublisher<[RelationLink], Never> {
-        $storage.eraseToAnyPublisher()
-    }
-//    private var storage = SynchronizedArray<RelationLink>()
     
     public init() {}
+    
+    // MARK: - RelationLinksStorageProtocol
     
     public var relationLinks: [RelationLink] {
         storage
     }
 
+    public var relationLinksPublisher: AnyPublisher<[RelationLink], Never> {
+        $storage.eraseToAnyPublisher()
+    }
+    
     public func set(relationLinks: [RelationLink]) {
         storage = relationLinks
     }

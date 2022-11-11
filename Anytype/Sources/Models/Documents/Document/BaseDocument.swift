@@ -21,13 +21,10 @@ final class BaseDocument: BaseDocumentProtocol {
     private let detailsStorage = ObjectDetailsStorage.shared
     private let relationDetailsStorage = ServiceLocator.shared.relationDetailsStorage()
 
-    private var subscriptions = [AnyCancellable]()
-    
     // MARK: - State
-    @Published private var documentDetails = ObjectDetails(id: "")
-    @Published private var parsedRelations2: ParsedRelations = ParsedRelations(featuredRelations: [], otherRelations: [])
+    @Published var parsedRelations: ParsedRelations = .empty
     var parsedRelationsPublisher: AnyPublisher<ParsedRelations, Never> {
-        $parsedRelations2.eraseToAnyPublisher()
+        $parsedRelations.eraseToAnyPublisher()
     }
     
     @Published var isLocked = false
@@ -35,14 +32,6 @@ final class BaseDocument: BaseDocumentProtocol {
         $isLocked.eraseToAnyPublisher()
     }
     
-    var parsedRelations: ParsedRelations {
-        relationBuilder.parsedRelations(
-            relationsDetails: relationDetailsStorage.relationsDetails(for: relationLinksStorage.relationLinks),
-            objectId: objectId,
-            isObjectLocked: isLocked
-        )
-    }
-        
     init(objectId: BlockId) {
         self.objectId = objectId
         
@@ -117,37 +106,31 @@ final class BaseDocument: BaseDocumentProtocol {
             }
         }
         eventsListener.startListening()
-        
-        ObjectDetailsStorage.shared.publisherFor(id: objectId)
-            .compactMap { $0 }
-            .assign(to: &$documentDetails)
-        
+                
         infoContainer.publisherFor(id: objectId)
-            .map { container in
-                guard let isLockedField = container?.fields[BlockFieldBundledKey.isLocked.rawValue],
-                      case let .boolValue(isLocked) = isLockedField.kind else {
-                    return false
-                }
-
-                return isLocked
-            }
+            .compactMap { $0?.isLocked }
+            .removeDuplicates()
             .assign(to: &$isLocked)
         
         Publishers
-            .CombineLatest3(
-                relationLinksStorage.relationLinksPublisher,
+            .CombineLatest(
                 relationDetailsStorage.relationsDetailsPublisher,
-                $documentDetails
+                // Depended from different objects: relation options and relation objects
+                // Subscriptions for each object will be complicated. Subscribes to any document updates.
+                updatePublisher
             )
-            .map { [weak self] links, relationDetails, _ in
-                guard let self = self else { return ParsedRelations(featuredRelations: [], otherRelations: []) }
+            .map { [weak self] _ in
+                guard let self = self else { return .empty }
                 let data = self.relationBuilder.parsedRelations(
-                    relationsDetails: self.relationDetailsStorage.relationsDetails(for: links),
+                    relationsDetails: self.relationDetailsStorage.relationsDetails(
+                        for: self.relationLinksStorage.relationLinks
+                    ),
                     objectId: self.objectId,
                     isObjectLocked: self.isLocked
                 )
                 return data
             }
-            .assign(to: &$parsedRelations2)
+            .removeDuplicates()
+            .assign(to: &$parsedRelations)
     }
 }
