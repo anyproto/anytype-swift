@@ -1066,6 +1066,28 @@ extension Anytype_Rpc.Object.SetObjectType {
   }
 }
 
+extension Anytype_Rpc.Object.SetInternalFlags {
+  public enum Service {
+    public static func invoke(contextID: String = String(), internalFlags: [Anytype_Model_InternalFlag] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(contextID: contextID, internalFlags: internalFlags).invoke(on: queue)
+    }
+    public static func invoke(contextID: String = String(), internalFlags: [Anytype_Model_InternalFlag] = []) -> Result<Response, Error> {
+        return invocation(contextID: contextID, internalFlags: internalFlags).invoke()
+    }
+    public static func invocation(contextID: String = String(), internalFlags: [Anytype_Model_InternalFlag] = []) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, internalFlags: internalFlags)
+        return Invocation<Request,Response>(messageName: "ObjectSetInternalFlags", request: request) { request in
+            return self.invoke(request)
+        }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+        return Lib.ServiceObjectSetInternalFlags(try? request.serializedData()).flatMap {
+            try? Response(serializedData: $0)
+        }
+    }
+  }
+}
+
 extension Anytype_Rpc.Object.SetDetails {
   public enum Service {
     public static func invoke(contextID: String = String(), details: [Anytype_Rpc.Object.SetDetails.Detail] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
@@ -1286,6 +1308,50 @@ extension Anytype_Rpc.Object.ListExport {
   }
 }
 
+extension Anytype_Rpc.Object.Import {
+  public enum Service {
+    public static func invoke(params: Anytype_Rpc.Object.Import.Request.OneOf_Params? = nil, snapshots: [Anytype_Rpc.Object.Import.Request.Snapshot] = [], updateExistingObjects: Bool = false, type: Anytype_Rpc.Object.Import.Request.TypeEnum = .notion, mode: Anytype_Rpc.Object.Import.Request.Mode = .allOrNothing, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(params: params, snapshots: snapshots, updateExistingObjects: updateExistingObjects, type: type, mode: mode).invoke(on: queue)
+    }
+    public static func invoke(params: Anytype_Rpc.Object.Import.Request.OneOf_Params? = nil, snapshots: [Anytype_Rpc.Object.Import.Request.Snapshot] = [], updateExistingObjects: Bool = false, type: Anytype_Rpc.Object.Import.Request.TypeEnum = .notion, mode: Anytype_Rpc.Object.Import.Request.Mode = .allOrNothing) -> Result<Response, Error> {
+        return invocation(params: params, snapshots: snapshots, updateExistingObjects: updateExistingObjects, type: type, mode: mode).invoke()
+    }
+    public static func invocation(params: Anytype_Rpc.Object.Import.Request.OneOf_Params? = nil, snapshots: [Anytype_Rpc.Object.Import.Request.Snapshot] = [], updateExistingObjects: Bool = false, type: Anytype_Rpc.Object.Import.Request.TypeEnum = .notion, mode: Anytype_Rpc.Object.Import.Request.Mode = .allOrNothing) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(params: params, snapshots: snapshots, updateExistingObjects: updateExistingObjects, type: type, mode: mode)
+        return Invocation<Request,Response>(messageName: "ObjectImport", request: request) { request in
+            return self.invoke(request)
+        }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+        return Lib.ServiceObjectImport(try? request.serializedData()).flatMap {
+            try? Response(serializedData: $0)
+        }
+    }
+  }
+}
+
+extension Anytype_Rpc.Object.ImportList {
+  public enum Service {
+    public static func invoke(queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation().invoke(on: queue)
+    }
+    public static func invoke() -> Result<Response, Error> {
+        return invocation().invoke()
+    }
+    public static func invocation() -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request()
+        return Invocation<Request,Response>(messageName: "ObjectImportList", request: request) { request in
+            return self.invoke(request)
+        }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+        return Lib.ServiceObjectImportList(try? request.serializedData()).flatMap {
+            try? Response(serializedData: $0)
+        }
+    }
+  }
+}
+
 extension Anytype_Rpc.ObjectRelation.Add {
   public enum Service {
     public static func invoke(contextID: String = String(), relationKeys: [String] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
@@ -1310,14 +1376,14 @@ extension Anytype_Rpc.ObjectRelation.Add {
 
 extension Anytype_Rpc.ObjectRelation.Delete {
   public enum Service {
-    public static func invoke(contextID: String = String(), relationKey: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
-        return invocation(contextID: contextID, relationKey: relationKey).invoke(on: queue)
+    public static func invoke(contextID: String = String(), relationKeys: [String] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(contextID: contextID, relationKeys: relationKeys).invoke(on: queue)
     }
-    public static func invoke(contextID: String = String(), relationKey: String = String()) -> Result<Response, Error> {
-        return invocation(contextID: contextID, relationKey: relationKey).invoke()
+    public static func invoke(contextID: String = String(), relationKeys: [String] = []) -> Result<Response, Error> {
+        return invocation(contextID: contextID, relationKeys: relationKeys).invoke()
     }
-    public static func invocation(contextID: String = String(), relationKey: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
-        let request = Request(contextID: contextID, relationKey: relationKey)
+    public static func invocation(contextID: String = String(), relationKeys: [String] = []) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, relationKeys: relationKeys)
         return Invocation<Request,Response>(messageName: "ObjectRelationDelete", request: request) { request in
             return self.invoke(request)
         }

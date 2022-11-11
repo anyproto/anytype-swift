@@ -13,7 +13,7 @@ import "google/protobuf/descriptor.proto";
 
 // To disable authorization in specific method use no_auth option inside Request of that method
 extend google.protobuf.MessageOptions {
-    optional bool no_auth = 7777;
+    bool no_auth = 7777;
 }
 
 /*
@@ -755,6 +755,7 @@ message Rpc {
                 Error error = 1;
                 string objectId = 3;
                 ResponseEvent event = 4;
+                google.protobuf.Struct details = 5;
 
                 message Error {
                     Code code = 1;
@@ -778,6 +779,7 @@ message Rpc {
             message Response {
                 Error error = 1;
                 string objectId = 2;
+                google.protobuf.Struct details = 3;
 
                 message Error {
                     Code code = 1;
@@ -852,6 +854,7 @@ message Rpc {
                 Error error = 1;
                 string objectId = 3;
                 ResponseEvent event = 4;
+                google.protobuf.Struct details = 5;
 
                 message Error {
                     Code code = 1;
@@ -875,7 +878,7 @@ message Rpc {
 
             message Response {
                 Error error = 1;
-                google.protobuf.Struct newDetails = 2;
+                google.protobuf.Struct details = 2;
                 string objectId = 3;
 
                 message Error {
@@ -1388,6 +1391,29 @@ message Rpc {
                 }
             }
         }
+        message SetInternalFlags {
+            message Request {
+                string contextId = 1;
+                repeated anytype.model.InternalFlag internalFlags = 7;
+
+            }
+            message Response {
+                Error error = 1;
+                ResponseEvent event = 2;
+
+                message Error {
+                    Code code = 1;
+                    string description = 2;
+
+                    enum Code {
+                        NULL = 0;
+                        UNKNOWN_ERROR = 1;
+                        BAD_INPUT = 2;
+                        UNKNOWN_OBJECT_TYPE_URL = 3;
+                    }
+                }
+            }
+        }
 
         message SetDetails {
             message Detail {
@@ -1653,6 +1679,85 @@ message Rpc {
                 GRAPH_JSON = 5;
             }
         }
+
+        message Import {
+            message Request {
+                oneof params {
+                    NotionParams notionParams = 1;
+                    BookmarksParams bookmarksParams = 2;
+                }
+                repeated Snapshot snapshots = 3; // optional, for external developers usage
+                bool updateExistingObjects = 4;
+                Type type = 5;
+                Mode mode = 6;
+
+                message NotionParams {
+                    string path = 1;
+                }
+
+                message BookmarksParams {
+                    string url = 1;
+                }
+
+                enum Mode {
+                    ALL_OR_NOTHING = 0;
+                    IGNORE_ERRORS = 1;
+                };
+
+                message Snapshot {
+                    string id = 1; 
+                    anytype.model.SmartBlockSnapshotBase snapshot = 2;
+                };
+                enum Type {
+                    Notion = 0;
+                    External = 1; // external developers use it
+                };
+
+            }
+
+            message Response {
+                Error error = 1;
+
+                message Error {
+                    Code code = 1;
+                    string description = 2;
+                    
+                    enum Code {
+                        NULL = 0;
+                        INTERNAL_ERROR = 1;
+                        UNKNOWN_ERROR = 2;
+                        BAD_INPUT = 3;
+                    }
+                }
+            }
+        }
+        message ImportList {
+            message Request {}
+
+            message Response {
+                Error error = 1;
+                repeated ImportResponse response = 2;
+
+                message Error {
+                    Code code = 1;
+                    string description = 2;
+                    
+                    enum Code {
+                        NULL = 0;
+                        INTERNAL_ERROR = 1;
+                        UNKNOWN_ERROR = 2;
+                        BAD_INPUT = 3;
+                    }
+                }
+                
+            }
+            message ImportResponse {
+                Type type = 1; 
+                enum Type {
+                    Notion = 0;
+                };
+            }
+        }
     }
 
     message ObjectRelation {
@@ -1682,7 +1787,7 @@ message Rpc {
         message Delete {
             message Request {
                 string contextId = 1;
-                string relationKey = 2;
+                repeated string relationKeys = 2;
             }
 
             message Response {

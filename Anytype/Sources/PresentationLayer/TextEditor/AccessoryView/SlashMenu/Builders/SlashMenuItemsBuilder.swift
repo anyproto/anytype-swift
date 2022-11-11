@@ -60,7 +60,12 @@ struct SlashMenuItemsBuilder {
     }
     
     private var objectsMenuItem: SlashMenuItem? {
-        let searchTypes = searchService.searchObjectTypes(text: "", filteringTypeId: nil, shouldIncludeSets: false) ?? []
+        let searchTypes = searchService.searchObjectTypes(
+            text: "",
+            filteringTypeId: nil,
+            shouldIncludeSets: false,
+            shouldIncludeBookmark: false
+        ) ?? []
 
         let linkTo = SlashActionObject.linkTo
         let objectTypes = searchTypes.map(SlashActionObject.objectType)

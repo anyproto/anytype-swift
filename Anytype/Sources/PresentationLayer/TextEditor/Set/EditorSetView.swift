@@ -44,7 +44,7 @@ struct EditorSetView: View {
     private var contentTypeView: some View {
         Group {
             switch model.contentViewType {
-            case .table, .kanban:
+            case .table:
                 SetTableView(
                     model: model,
                     tableHeaderSize: $tableHeaderSize,
@@ -58,6 +58,13 @@ struct EditorSetView: View {
                     offset: $offset,
                     headerMinimizedSize: headerMinimizedSize,
                     viewType: viewType
+                )
+            case .kanban:
+                SetKanbanView(
+                    model: model,
+                    tableHeaderSize: $tableHeaderSize,
+                    offset: $offset,
+                    headerMinimizedSize: headerMinimizedSize
                 )
             }
         }

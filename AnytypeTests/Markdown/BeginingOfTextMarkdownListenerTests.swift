@@ -2,12 +2,12 @@ import XCTest
 @testable import Anytype
 @testable import BlocksModels
 
-class StartOfTextMarkdownTests: XCTestCase {
+class BeginingOfTextMarkdownListenerTests: XCTestCase {
 
-    var listener: MarkdownListenerImpl!
+    var listener: MarkdownListener!
     
     override func setUpWithError() throws {
-        listener = MarkdownListenerImpl()
+        listener = BeginingOfTextMarkdownListener()
     }
 
     func testStartOfTextMarkdowns() throws {

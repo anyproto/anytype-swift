@@ -95,4 +95,10 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func showCovers(setModel: EditorSetViewModel, onSelect: @escaping (String) -> Void)
     
     func showRelations()
+
+    func showGroupByRelations(
+        selectedRelationId: String,
+        relations: [RelationDetails],
+        onSelect: @escaping (String) -> Void
+    )
 }

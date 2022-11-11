@@ -574,6 +574,16 @@ extension Anytype_Rpc.Object.Graph.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }
 }
 
+extension Anytype_Rpc.Object.Import.Response: ResultWithError {}
+extension Anytype_Rpc.Object.Import.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null }
+}
+
+extension Anytype_Rpc.Object.ImportList.Response: ResultWithError {}
+extension Anytype_Rpc.Object.ImportList.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null }
+}
+
 extension Anytype_Rpc.Object.ImportMarkdown.Response: ResultWithError {}
 extension Anytype_Rpc.Object.ImportMarkdown.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }
@@ -646,6 +656,11 @@ extension Anytype_Rpc.Object.SetBreadcrumbs.Response.Error: ResponseError {
 
 extension Anytype_Rpc.Object.SetDetails.Response: ResultWithError {}
 extension Anytype_Rpc.Object.SetDetails.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null }
+}
+
+extension Anytype_Rpc.Object.SetInternalFlags.Response: ResultWithError {}
+extension Anytype_Rpc.Object.SetInternalFlags.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }
 }
 

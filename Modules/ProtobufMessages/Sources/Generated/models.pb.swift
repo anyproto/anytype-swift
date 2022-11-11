@@ -1742,6 +1742,10 @@ public struct Anytype_Model_Block {
 
         public var quickOption: Anytype_Model_Block.Content.Dataview.Filter.QuickOption = .exactDate
 
+        public var format: Anytype_Model_RelationFormat = .longtext
+
+        public var includeTime: Bool = false
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public enum Operator: SwiftProtobuf.Enum {
@@ -5240,6 +5244,8 @@ extension Anytype_Model_Block.Content.Dataview.Filter: SwiftProtobuf.Message, Sw
     3: .same(proto: "condition"),
     4: .same(proto: "value"),
     6: .same(proto: "quickOption"),
+    7: .same(proto: "format"),
+    8: .same(proto: "includeTime"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -5254,6 +5260,8 @@ extension Anytype_Model_Block.Content.Dataview.Filter: SwiftProtobuf.Message, Sw
       case 4: try { try decoder.decodeSingularMessageField(value: &self._value) }()
       case 5: try { try decoder.decodeSingularStringField(value: &self.relationProperty) }()
       case 6: try { try decoder.decodeSingularEnumField(value: &self.quickOption) }()
+      case 7: try { try decoder.decodeSingularEnumField(value: &self.format) }()
+      case 8: try { try decoder.decodeSingularBoolField(value: &self.includeTime) }()
       default: break
       }
     }
@@ -5282,6 +5290,12 @@ extension Anytype_Model_Block.Content.Dataview.Filter: SwiftProtobuf.Message, Sw
     if self.quickOption != .exactDate {
       try visitor.visitSingularEnumField(value: self.quickOption, fieldNumber: 6)
     }
+    if self.format != .longtext {
+      try visitor.visitSingularEnumField(value: self.format, fieldNumber: 7)
+    }
+    if self.includeTime != false {
+      try visitor.visitSingularBoolField(value: self.includeTime, fieldNumber: 8)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -5292,6 +5306,8 @@ extension Anytype_Model_Block.Content.Dataview.Filter: SwiftProtobuf.Message, Sw
     if lhs.condition != rhs.condition {return false}
     if lhs._value != rhs._value {return false}
     if lhs.quickOption != rhs.quickOption {return false}
+    if lhs.format != rhs.format {return false}
+    if lhs.includeTime != rhs.includeTime {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

@@ -2426,10 +2426,11 @@ extension Anytype_Rpc.Object.Create.Request {
 }
 
 extension Anytype_Rpc.Object.Create.Response {
-    public init(error: Anytype_Rpc.Object.Create.Response.Error, objectID: String = String(), event: Anytype_ResponseEvent) {
+    public init(error: Anytype_Rpc.Object.Create.Response.Error, objectID: String = String(), event: Anytype_ResponseEvent, details: SwiftProtobuf.Google_Protobuf_Struct) {
         self.error = error
         self.objectID = objectID
         self.event = event
+        self.details = details
     }
 }
 
@@ -2447,9 +2448,10 @@ extension Anytype_Rpc.Object.CreateBookmark.Request {
 }
 
 extension Anytype_Rpc.Object.CreateBookmark.Response {
-    public init(error: Anytype_Rpc.Object.CreateBookmark.Response.Error, objectID: String = String()) {
+    public init(error: Anytype_Rpc.Object.CreateBookmark.Response.Error, objectID: String = String(), details: SwiftProtobuf.Google_Protobuf_Struct) {
         self.error = error
         self.objectID = objectID
+        self.details = details
     }
 }
 
@@ -2468,9 +2470,9 @@ extension Anytype_Rpc.Object.CreateObjectType.Request {
 }
 
 extension Anytype_Rpc.Object.CreateObjectType.Response {
-    public init(error: Anytype_Rpc.Object.CreateObjectType.Response.Error, newDetails: SwiftProtobuf.Google_Protobuf_Struct, objectID: String = String()) {
+    public init(error: Anytype_Rpc.Object.CreateObjectType.Response.Error, details: SwiftProtobuf.Google_Protobuf_Struct, objectID: String = String()) {
         self.error = error
-        self.newDetails = newDetails
+        self.details = details
         self.objectID = objectID
     }
 }
@@ -2535,10 +2537,11 @@ extension Anytype_Rpc.Object.CreateSet.Request {
 }
 
 extension Anytype_Rpc.Object.CreateSet.Response {
-    public init(error: Anytype_Rpc.Object.CreateSet.Response.Error, objectID: String = String(), event: Anytype_ResponseEvent) {
+    public init(error: Anytype_Rpc.Object.CreateSet.Response.Error, objectID: String = String(), event: Anytype_ResponseEvent, details: SwiftProtobuf.Google_Protobuf_Struct) {
         self.error = error
         self.objectID = objectID
         self.event = event
+        self.details = details
     }
 }
 
@@ -2601,6 +2604,68 @@ extension Anytype_Rpc.Object.Graph.Response {
 
 extension Anytype_Rpc.Object.Graph.Response.Error {
     public init(code: Anytype_Rpc.Object.Graph.Response.Error.Code = .null, description_p: String = String()) {
+        self.code = code
+        self.description_p = description_p
+    }
+}
+
+extension Anytype_Rpc.Object.Import.Request {
+    public init(params: Anytype_Rpc.Object.Import.Request.OneOf_Params? = nil, snapshots: [Anytype_Rpc.Object.Import.Request.Snapshot] = [], updateExistingObjects: Bool = false, type: Anytype_Rpc.Object.Import.Request.TypeEnum = .notion, mode: Anytype_Rpc.Object.Import.Request.Mode = .allOrNothing) {
+        self.params = params
+        self.snapshots = snapshots
+        self.updateExistingObjects = updateExistingObjects
+        self.type = type
+        self.mode = mode
+    }
+}
+
+extension Anytype_Rpc.Object.Import.Request.BookmarksParams {
+    public init(url: String = String()) {
+        self.url = url
+    }
+}
+
+extension Anytype_Rpc.Object.Import.Request.NotionParams {
+    public init(path: String = String()) {
+        self.path = path
+    }
+}
+
+extension Anytype_Rpc.Object.Import.Request.Snapshot {
+    public init(id: String = String(), snapshot: Anytype_Model_SmartBlockSnapshotBase) {
+        self.id = id
+        self.snapshot = snapshot
+    }
+}
+
+extension Anytype_Rpc.Object.Import.Response {
+    public init(error: Anytype_Rpc.Object.Import.Response.Error) {
+        self.error = error
+    }
+}
+
+extension Anytype_Rpc.Object.Import.Response.Error {
+    public init(code: Anytype_Rpc.Object.Import.Response.Error.Code = .null, description_p: String = String()) {
+        self.code = code
+        self.description_p = description_p
+    }
+}
+
+extension Anytype_Rpc.Object.ImportList.ImportResponse {
+    public init(type: Anytype_Rpc.Object.ImportList.ImportResponse.TypeEnum = .notion) {
+        self.type = type
+    }
+}
+
+extension Anytype_Rpc.Object.ImportList.Response {
+    public init(error: Anytype_Rpc.Object.ImportList.Response.Error, response: [Anytype_Rpc.Object.ImportList.ImportResponse] = []) {
+        self.error = error
+        self.response = response
+    }
+}
+
+extension Anytype_Rpc.Object.ImportList.Response.Error {
+    public init(code: Anytype_Rpc.Object.ImportList.Response.Error.Code = .null, description_p: String = String()) {
         self.code = code
         self.description_p = description_p
     }
@@ -2950,6 +3015,27 @@ extension Anytype_Rpc.Object.SetDetails.Response.Error {
     }
 }
 
+extension Anytype_Rpc.Object.SetInternalFlags.Request {
+    public init(contextID: String = String(), internalFlags: [Anytype_Model_InternalFlag] = []) {
+        self.contextID = contextID
+        self.internalFlags = internalFlags
+    }
+}
+
+extension Anytype_Rpc.Object.SetInternalFlags.Response {
+    public init(error: Anytype_Rpc.Object.SetInternalFlags.Response.Error, event: Anytype_ResponseEvent) {
+        self.error = error
+        self.event = event
+    }
+}
+
+extension Anytype_Rpc.Object.SetInternalFlags.Response.Error {
+    public init(code: Anytype_Rpc.Object.SetInternalFlags.Response.Error.Code = .null, description_p: String = String()) {
+        self.code = code
+        self.description_p = description_p
+    }
+}
+
 extension Anytype_Rpc.Object.SetIsArchived.Request {
     public init(contextID: String = String(), isArchived: Bool = false) {
         self.contextID = contextID
@@ -3215,9 +3301,9 @@ extension Anytype_Rpc.ObjectRelation.AddFeatured.Response.Error {
 }
 
 extension Anytype_Rpc.ObjectRelation.Delete.Request {
-    public init(contextID: String = String(), relationKey: String = String()) {
+    public init(contextID: String = String(), relationKeys: [String] = []) {
         self.contextID = contextID
-        self.relationKey = relationKey
+        self.relationKeys = relationKeys
     }
 }
 

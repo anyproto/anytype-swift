@@ -77,6 +77,7 @@ public enum ErrorDomain: String {
     case dataviewService
     case simpleTablesService
     case relationDetailsStorage
+    case relationSearchDistinctService
     
     case homeView
     case baseDocument

@@ -104,13 +104,15 @@ extension Anytype_Model_Block.Content.Dataview.Checkbox {
 }
 
 extension Anytype_Model_Block.Content.Dataview.Filter {
-    public init(`operator`: Anytype_Model_Block.Content.Dataview.Filter.Operator = .and, relationKey: String = String(), relationProperty: String = String(), condition: Anytype_Model_Block.Content.Dataview.Filter.Condition = .none, value: SwiftProtobuf.Google_Protobuf_Value, quickOption: Anytype_Model_Block.Content.Dataview.Filter.QuickOption = .exactDate) {
+    public init(`operator`: Anytype_Model_Block.Content.Dataview.Filter.Operator = .and, relationKey: String = String(), relationProperty: String = String(), condition: Anytype_Model_Block.Content.Dataview.Filter.Condition = .none, value: SwiftProtobuf.Google_Protobuf_Value, quickOption: Anytype_Model_Block.Content.Dataview.Filter.QuickOption = .exactDate, format: Anytype_Model_RelationFormat = .longtext, includeTime: Bool = false) {
         self.`operator` = `operator`
         self.relationKey = relationKey
         self.relationProperty = relationProperty
         self.condition = condition
         self.value = value
         self.quickOption = quickOption
+        self.format = format
+        self.includeTime = includeTime
     }
 }
 

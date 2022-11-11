@@ -15,7 +15,7 @@ protocol LinkToObjectCoordinatorProtocol: AnyObject {
 
 final class LinkToObjectCoordinator: LinkToObjectCoordinatorProtocol {
     
-    private let rootViewController: UIViewController
+    private weak var rootViewController: UIViewController?
     private let pageService: PageServiceProtocol
     private let urlOpener: URLOpenerProtocol
     private let editorPageCoordinator: EditorPageCoordinatorProtocol
@@ -85,7 +85,7 @@ final class LinkToObjectCoordinator: LinkToObjectCoordinatorProtocol {
         }
         let linkToView = SearchView(title: Loc.linkTo, context: .menuSearch, viewModel: viewModel)
 
-        rootViewController.topPresentedController.presentSwiftUIView(view: linkToView, model: viewModel)
+        rootViewController?.topPresentedController.presentSwiftUIView(view: linkToView, model: viewModel)
     }
     
 }

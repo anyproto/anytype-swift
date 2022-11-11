@@ -12,8 +12,13 @@ struct SetHeaderSettings: View {
             Spacer()
             settingButton
 
-            Spacer.fixedWidth(24)
-            createObjectButton
+            if FeatureFlags.redesignNewButton {
+                Spacer.fixedWidth(16)
+                createObjectButton
+            } else {
+                Spacer.fixedWidth(24)
+                createObjectButtonOld
+            }
         }
         .padding(.horizontal, 20)
         .frame(height: settingsHeight)
@@ -28,12 +33,19 @@ struct SetHeaderSettings: View {
         }
     }
 
-    private var createObjectButton: some View {
+    private var createObjectButtonOld: some View {
         Button(action: {
             UISelectionFeedbackGenerator().selectionChanged()
             model.createObject()
         }) {
             Image(asset: .plus)
+        }
+    }
+    
+    private var createObjectButton: some View {
+        SmallButton(icon: .plusWhite12, text: Loc.new) {
+            UISelectionFeedbackGenerator().selectionChanged()
+            model.createObject()
         }
     }
     

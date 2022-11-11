@@ -19,6 +19,7 @@ extension UIColor {
     enum System: ComponentColor {
       typealias T = UIColor
       internal static let amber = UIColor(asset: Asset.System.amber)
+      internal static let amber100 = UIColor(asset: Asset.System.amber100)
       internal static let amber125 = UIColor(asset: Asset.System.amber125)
       internal static let amber25 = UIColor(asset: Asset.System.amber25)
       internal static let amber50 = UIColor(asset: Asset.System.amber50)
