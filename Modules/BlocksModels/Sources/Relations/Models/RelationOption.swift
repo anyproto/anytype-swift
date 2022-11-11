@@ -10,7 +10,7 @@ public extension RelationOption {
     
     init(details: ObjectDetails) {
         self.id = details.id
-        self.text = details.relationOptionText
+        self.text = details.name
         self.color = details.relationOptionColor
     }
 }
