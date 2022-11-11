@@ -1,16 +1,14 @@
 import Foundation
 import BlocksModels
 import Combine
+import AnytypeCore
 
 protocol RelationDetailsStorageProtocol: AnyObject {
     
-    var relationsDetailsPublisher: AnyPublisher<[RelationDetails], Never> { get }
-    
     func relationsDetails(for links: [RelationLink]) -> [RelationDetails]
     func relationsDetails() -> [RelationDetails]
+    var relationsDetailsPublisher: AnyPublisher<[RelationDetails], Never> { get }
     
     func startSubscription()
     func stopSubscription()
-    
-//    var relationD: Published<[RelationDetails]> { get }
 }

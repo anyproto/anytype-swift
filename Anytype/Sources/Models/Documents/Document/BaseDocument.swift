@@ -14,16 +14,6 @@ final class BaseDocument: BaseDocumentProtocol {
     
     var objectRestrictions: ObjectRestrictions { restrictionsContainer.restrinctions }
 
-    var isLocked: Bool {
-        guard let isLockedField = infoContainer.get(id: objectId)?
-                .fields[BlockFieldBundledKey.isLocked.rawValue],
-              case let .boolValue(isLocked) = isLockedField.kind else {
-            return false
-        }
-
-        return isLocked
-    }
-    
     private let blockActionsService: BlockActionsServiceSingleProtocol
     private let eventsListener: EventsListener
     private let updateSubject = PassthroughSubject<DocumentUpdate, Never>()
@@ -40,9 +30,9 @@ final class BaseDocument: BaseDocumentProtocol {
         $parsedRelations2.eraseToAnyPublisher()
     }
     
-    @Published private var _isLocked = false
+    @Published var isLocked = false
     var isLockedPublisher: AnyPublisher<Bool, Never> {
-        $_isLocked.eraseToAnyPublisher()
+        $isLocked.eraseToAnyPublisher()
     }
     
     var parsedRelations: ParsedRelations {
@@ -129,18 +119,19 @@ final class BaseDocument: BaseDocumentProtocol {
         eventsListener.startListening()
         
         ObjectDetailsStorage.shared.publisherFor(id: objectId)
+            .compactMap { $0 }
             .assign(to: &$documentDetails)
         
         infoContainer.publisherFor(id: objectId)
             .map { container in
-                guard let isLockedField = container.fields[BlockFieldBundledKey.isLocked.rawValue],
+                guard let isLockedField = container?.fields[BlockFieldBundledKey.isLocked.rawValue],
                       case let .boolValue(isLocked) = isLockedField.kind else {
                     return false
                 }
 
                 return isLocked
             }
-            .assign(to: &$_isLocked)
+            .assign(to: &$isLocked)
         
         Publishers
             .CombineLatest3(

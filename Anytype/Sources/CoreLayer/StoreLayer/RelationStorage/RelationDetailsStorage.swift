@@ -12,7 +12,6 @@ final class RelationDetailsStorage: RelationDetailsStorageProtocol {
     
     @Published private var details = [RelationDetails]()
     private var searchDetailsByKey = [String: RelationDetails]()
-    private var localSubscriptions = [String: [RelationLink]]()
 
     var relationsDetailsPublisher: AnyPublisher<[RelationDetails], Never> {
         $details.eraseToAnyPublisher()
@@ -45,7 +44,6 @@ final class RelationDetailsStorage: RelationDetailsStorageProtocol {
         subscriptionsService.stopSubscription(id: .relation)
         details.removeAll()
         updateSearchCache()
-        localSubscriptions.removeAll()
     }
     
     // MARK: - Private

@@ -7,11 +7,10 @@ import Combine
 public final class ObjectDetailsStorage {
     public static let shared = ObjectDetailsStorage()
     
-    private var storage = SynchronizedDictionary<BlockId, ObjectDetails>()
-    private var publishers = SynchronizedDictionary<BlockId, PassthroughSubject<ObjectDetails, Never>>()
+    private var storage = PublishedDictionary<BlockId, ObjectDetails>()
     
-    public func publisherFor(id: BlockId) -> AnyPublisher<ObjectDetails, Never> {
-        return subjectFor(id: id).eraseToAnyPublisher()
+    public func publisherFor(id: BlockId) -> AnyPublisher<ObjectDetails?, Never> {
+        return storage.publisher(id)
     }
         
     public func get(id: BlockId) -> ObjectDetails? {
@@ -21,7 +20,6 @@ public final class ObjectDetailsStorage {
     
     public func add(details: ObjectDetails) {
         storage[details.id] = details
-        subjectFor(id: details.id).send(details)
     }
     
     public func set(data: Anytype_Event.Object.Details.Set) -> ObjectDetails? {
@@ -77,13 +75,5 @@ public final class ObjectDetailsStorage {
         let updatedDetails = currentDetails.updated(by: values)
         add(details: updatedDetails)
         return updatedDetails
-    }
-    
-    // MARK: - Private
-    
-    private func subjectFor(id: BlockId) -> PassthroughSubject<ObjectDetails, Never> {
-        let publisher = publishers[id] ?? PassthroughSubject()
-        publishers[id] = publisher
-        return publisher
     }
 }
