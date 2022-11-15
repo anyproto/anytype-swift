@@ -1,11 +1,14 @@
 import Foundation
 import AnytypeCore
+import Combine
 
 public final class RelationLinksStorage: RelationLinksStorageProtocol {
     
     private var storage = SynchronizedArray<RelationLink>()
     
     public init() {}
+    
+    // MARK: - RelationLinksStorageProtocol
     
     public var relationLinks: [RelationLink] {
         storage.array

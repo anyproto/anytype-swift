@@ -3,34 +3,36 @@ import BlocksModels
 import SwiftProtobuf
 import UIKit
 import AnytypeCore
+import Combine
 
 final class RelationsListViewModel: ObservableObject {
         
     @Published private(set) var navigationBarButtonsDisabled: Bool = false
-    
-    var sections: [RelationsSection] {
-        sectionsBuilder.buildSections(from: parsedRelations)
-    }
+    @Published var sections = [RelationsSection]()
     
     // MARK: - Private variables
-    
-    @Published private var parsedRelations: ParsedRelations = .empty
     
     private let sectionsBuilder = RelationsSectionBuilder()
     private let relationsService: RelationsServiceProtocol
     
     private let router: EditorRouterProtocol
-        
+    private var subscriptions = [AnyCancellable]()
+    
     // MARK: - Initializers
     
     init(
+        document: BaseDocumentProtocol,
         router: EditorRouterProtocol,
-        relationsService: RelationsServiceProtocol,
-        isObjectLocked: Bool
+        relationsService: RelationsServiceProtocol
     ) {
         self.router = router
         self.relationsService = relationsService
-        self.navigationBarButtonsDisabled = isObjectLocked
+        
+        document.parsedRelationsPublisher
+            .map { [sectionsBuilder] relations in sectionsBuilder.buildSections(from: relations) }
+            .assign(to: &$sections)
+        
+        document.isLockedPublisher.assign(to: &$navigationBarButtonsDisabled)
     }
     
 }
@@ -38,11 +40,6 @@ final class RelationsListViewModel: ObservableObject {
 // MARK: - Internal functions
 
 extension RelationsListViewModel {
-    
-    func update(with parsedRelations: ParsedRelations, isObjectLocked: Bool) {
-        self.parsedRelations = parsedRelations
-        self.navigationBarButtonsDisabled = isObjectLocked
-    }
     
     func changeRelationFeaturedState(relation: Relation) {
         if relation.isFeatured {

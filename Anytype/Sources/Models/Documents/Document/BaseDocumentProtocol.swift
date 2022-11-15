@@ -13,7 +13,10 @@ protocol BaseDocumentProtocol: AnyObject {
     var isLocked: Bool { get }
     var isEmpty: Bool { get }
     var isOpened: Bool { get }
-
+    
+    var parsedRelationsPublisher: AnyPublisher<ParsedRelations, Never> { get }
+    var isLockedPublisher: AnyPublisher<Bool, Never> { get }
+    
     @MainActor
     func open() async throws
     @MainActor

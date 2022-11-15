@@ -18,6 +18,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     private weak var currentSetSettingsPopup: AnytypePopup?
     private let editorPageCoordinator: EditorPageCoordinatorProtocol
     private let linkToObjectCoordinator: LinkToObjectCoordinatorProtocol
+    private let relationsListModuleAssembly: RelationsListModuleAssemblyProtocol
     
     init(
         rootController: EditorBrowserController?,
@@ -27,7 +28,8 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         urlOpener: URLOpenerProtocol,
         relationValueCoordinator: RelationValueCoordinatorProtocol,
         editorPageCoordinator: EditorPageCoordinatorProtocol,
-        linkToObjectCoordinator: LinkToObjectCoordinatorProtocol
+        linkToObjectCoordinator: LinkToObjectCoordinatorProtocol,
+        relationsListModuleAssembly: RelationsListModuleAssemblyProtocol
     ) {
         self.rootController = rootController
         self.viewController = viewController
@@ -39,6 +41,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         self.relationValueCoordinator = relationValueCoordinator
         self.editorPageCoordinator = editorPageCoordinator
         self.linkToObjectCoordinator = linkToObjectCoordinator
+        self.relationsListModuleAssembly = relationsListModuleAssembly
     }
 
     func showPage(data: EditorScreenData) {
@@ -378,6 +381,13 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
             $0.centerX.equal(to: rootController.view.centerXAnchor, constant: 10)
             $0.bottom.equal(to: rootController.view.bottomAnchor, constant: -50)
         }
+    }
+    
+    func showRelations() {
+        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.objectRelationShow)
+        
+        let moduleViewController = relationsListModuleAssembly.make(document: document, router: self)
+        viewController?.topPresentedController.present(moduleViewController, animated: true, completion: nil)
     }
     
     // MARK: - Private
