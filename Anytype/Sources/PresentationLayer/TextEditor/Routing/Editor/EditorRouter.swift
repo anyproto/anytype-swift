@@ -301,7 +301,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         )
     }
     
-    
     // MARK: - Settings
     func showSettings() {
         let popup = settingAssembly.settingsPopup(document: document, router: self)

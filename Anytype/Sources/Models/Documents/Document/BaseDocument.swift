@@ -115,7 +115,7 @@ final class BaseDocument: BaseDocumentProtocol {
         Publishers
             .CombineLatest(
                 relationDetailsStorage.relationsDetailsPublisher,
-                // Depended from different objects: relation options and relation objects
+                // Depends on different objects: relation options and relation objects
                 // Subscriptions for each object will be complicated. Subscribes to any document updates.
                 updatePublisher
             )
