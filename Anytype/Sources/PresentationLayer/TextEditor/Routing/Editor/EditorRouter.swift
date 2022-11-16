@@ -18,6 +18,8 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     private weak var currentSetSettingsPopup: AnytypePopup?
     private let editorPageCoordinator: EditorPageCoordinatorProtocol
     private let linkToObjectCoordinator: LinkToObjectCoordinatorProtocol
+    private let undoRedoModuleAssembly: UndoRedoModuleAssemblyProtocol
+    private let alertHelper: AlertHelper
     
     init(
         rootController: EditorBrowserController?,
@@ -27,7 +29,9 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         urlOpener: URLOpenerProtocol,
         relationValueCoordinator: RelationValueCoordinatorProtocol,
         editorPageCoordinator: EditorPageCoordinatorProtocol,
-        linkToObjectCoordinator: LinkToObjectCoordinatorProtocol
+        linkToObjectCoordinator: LinkToObjectCoordinatorProtocol,
+        undoRedoModuleAssembly: UndoRedoModuleAssemblyProtocol,
+        alertHelper: AlertHelper
     ) {
         self.rootController = rootController
         self.viewController = viewController
@@ -39,6 +43,8 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         self.relationValueCoordinator = relationValueCoordinator
         self.editorPageCoordinator = editorPageCoordinator
         self.linkToObjectCoordinator = linkToObjectCoordinator
+        self.undoRedoModuleAssembly = undoRedoModuleAssembly
+        self.alertHelper = alertHelper
     }
 
     func showPage(data: EditorScreenData) {
@@ -248,20 +254,8 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     }
 
     func presentUndoRedo() {
-        guard let viewController = viewController else { return }
-
-        let toastPresenter = ToastPresenter(rootViewController: viewController)
-        let undoRedoView = UndoRedoView(
-            viewModel: .init(objectId: document.objectId, toastPresenter: toastPresenter)
-        )
-        let popupViewController = AnytypePopup(
-            contentView: undoRedoView,
-            floatingPanelStyle: true,
-            configuration: .init(isGrabberVisible: false, dismissOnBackdropView: true)
-        )
-        popupViewController.backdropView.backgroundColor = .clear
-
-        self.viewController?.dismissAndPresent(viewController: popupViewController)
+        let moduleViewController = undoRedoModuleAssembly.make(document: document)
+        self.viewController?.dismissAndPresent(viewController: moduleViewController)
     }
     
     func setNavigationViewHidden(_ isHidden: Bool, animated: Bool) {
@@ -490,7 +484,7 @@ extension EditorRouter {
             closeAction: { [weak self] withError in
                 self?.viewController?.topPresentedController.dismiss(animated: true, completion: {
                     guard withError else { return }
-                    AlertHelper.showToast(
+                    self?.alertHelper.showToast(
                         title: Loc.Set.Bookmark.Error.title,
                         message: Loc.Set.Bookmark.Error.message
                     )

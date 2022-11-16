@@ -293,9 +293,6 @@ final class MiddlewareEventConverter {
                 }
             }
             return .blocks(blockIds: [data.id])
-        case .accountUpdate(let account):
-            handleAccountUpdate(account)
-            return nil
             
         //MARK: - Dataview
         case .blockDataviewViewSet(let data):
@@ -387,6 +384,7 @@ final class MiddlewareEventConverter {
             handleDataViewObjectOrderUpdate(data)
             return .general
         case .accountShow,
+                .accountUpdate, // Event not working on middleware. See old code in AccountManager.
                 .accountDetails, // Skipped
                 .accountConfigUpdate, // Remote config updates
                 .objectRemove, // Remove from History Object wich was deleted. For Desktop purposes
@@ -450,27 +448,6 @@ final class MiddlewareEventConverter {
         childIds.append(newData.id)
 
         return toggleStyleChanged ? .general : .blocks(blockIds: Set(childIds))
-    }
-    
-    private func handleAccountUpdate(_ update: Anytype_Event.Account.Update) {
-        let currentStatus = AccountManager.shared.account.status
-        let newStatus = AccountManager.shared.account.status
-        guard currentStatus != newStatus else { return }
-        
-        switch newStatus {
-        case .active:
-            break
-        case .pendingDeletion(let deadline):
-            Task { @MainActor in
-                WindowManager.shared.showDeletedAccountWindow(deadline: deadline)
-            }
-        case .deleted:
-            if UserDefaultsConfig.usersId.isNotEmpty {
-                ServiceLocator.shared.authService().logout(removeData: true) { _ in }
-                WindowManager.shared.showAuthWindow()
-            }
-        }
-        
     }
     
     private func handleDataViewGroupOrderUpdate(_ update: Anytype_Event.Block.Dataview.GroupOrderUpdate) {

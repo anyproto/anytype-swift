@@ -6,14 +6,13 @@ import BlocksModels
 
 final class ApplicationCoordinator {
     
-    private let window: UIWindow
-    
+    private let windowManager: WindowManager
     private let authService: AuthServiceProtocol
         
     // MARK: - Initializers
     
-    init(window: UIWindow, authService: AuthServiceProtocol) {
-        self.window = window
+    init(windowManager: WindowManager, authService: AuthServiceProtocol) {
+        self.windowManager = windowManager
         self.authService = authService
     }
 
@@ -27,7 +26,7 @@ final class ApplicationCoordinator {
     func handleDeeplink(url: URL) {
         switch url {
         case URLConstants.createObjectURL:
-            WindowManager.shared.createAndShowNewObject()
+            windowManager.createAndShowNewObject()
         default:
             break
         }
@@ -48,20 +47,20 @@ private extension ApplicationCoordinator {
     func login(connectionOptions: UIScene.ConnectionOptions) {
         let userId = UserDefaultsConfig.usersId
         guard userId.isNotEmpty else {
-            WindowManager.shared.showAuthWindow()
+            windowManager.showAuthWindow()
             return
         }
         
-        WindowManager.shared.showLaunchWindow()
+        windowManager.showLaunchWindow()
         
         authService.selectAccount(id: userId) { [weak self] result in
             switch result {
             case .active:
-                WindowManager.shared.showHomeWindow()
+                self?.windowManager.showHomeWindow()
             case .pendingDeletion(let deadline):
-                WindowManager.shared.showDeletedAccountWindow(deadline: deadline)
+                self?.windowManager.showDeletedAccountWindow(deadline: deadline)
             case .deleted, .none:
-                WindowManager.shared.showAuthWindow()
+                self?.windowManager.showAuthWindow()
             }
 
             connectionOptions
@@ -72,25 +71,3 @@ private extension ApplicationCoordinator {
         }
     }
 } 
-
-// MARK: - MainWindowHolde
-
-extension ApplicationCoordinator: WindowHolder {
-    
-    func startNewRootView<ViewType: View>(_ view: ViewType) {
-        let controller = NavigationControllerWithSwiftUIContent(
-            rootViewController: UIHostingController(rootView: view)
-        )
-        
-        let navBarAppearance = UINavigationBarAppearance()
-        navBarAppearance.configureWithTransparentBackground()
-        controller.modifyBarAppearance(navBarAppearance)
-        
-        window.rootViewController = controller
-        window.makeKeyAndVisible()
-    }
-    
-    func presentOnTop(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)?) {
-        window.rootViewController?.topPresentedController.present(viewControllerToPresent, animated: flag, completion: completion)
-    }
-}

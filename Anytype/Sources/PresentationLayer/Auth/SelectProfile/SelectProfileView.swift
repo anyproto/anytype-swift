@@ -2,7 +2,7 @@ import SwiftUI
 
 
 struct SelectProfileView: View {
-    @StateObject var viewModel: SelectProfileViewModel
+    @ObservedObject var viewModel: SelectProfileViewModel
     
     @Environment(\.presentationMode) private var presentationMode
     
@@ -35,7 +35,7 @@ struct SelectProfileView: View {
 
 struct SelectProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        let viewModel =  SelectProfileViewModel()
+        let viewModel =  SelectProfileViewModel(windowManager: DI.makeForPreview().coordinatorsDI.windowManager)
         return SelectProfileView(viewModel: viewModel)
     }
 }
