@@ -59,7 +59,7 @@ final class WindowManager {
         
         let window = viewControllerProvider.window
         
-        window.rootViewController = controller
-        window.makeKeyAndVisible()
+        window?.rootViewController = controller
+        window?.makeKeyAndVisible()
     }
 }

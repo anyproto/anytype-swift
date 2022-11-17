@@ -2,14 +2,14 @@ import Foundation
 import UIKit
 
 protocol ViewControllerProviderProtocol {
-    var window: UIWindow { get }
+    var window: UIWindow? { get }
     var rootViewController: UIViewController? { get }
     var topViewController: UIViewController? { get }
 }
 
 final class ViewControllerProvider: ViewControllerProviderProtocol {
     
-    private let sceneWindow: UIWindow
+    private weak var sceneWindow: UIWindow?
     
     init(sceneWindow: UIWindow) {
         self.sceneWindow = sceneWindow
@@ -17,15 +17,15 @@ final class ViewControllerProvider: ViewControllerProviderProtocol {
     
     // MARK: - ViewControllerProviderProtocol
     
-    var window: UIWindow {
+    var window: UIWindow? {
         return sceneWindow
     }
     
     var rootViewController: UIViewController? {
-        return sceneWindow.rootViewController
+        return sceneWindow?.rootViewController
     }
     
     var topViewController: UIViewController? {
-        return sceneWindow.rootViewController?.topPresentedController
+        return sceneWindow?.rootViewController?.topPresentedController
     }
 }
