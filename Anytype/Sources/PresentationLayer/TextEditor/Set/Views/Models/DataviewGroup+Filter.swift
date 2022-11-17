@@ -1,6 +1,6 @@
 import BlocksModels
 
-extension DataviewGroup {
+extension DataviewGroup {    
     func filter(with relationKey: String) -> DataviewFilter? {
         switch value {
         case .tag(let tag):

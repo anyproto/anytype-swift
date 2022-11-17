@@ -34,16 +34,8 @@ struct AccessoryViewBuilder {
             searchService: ServiceLocator.shared.searchService(),
             objectService: ServiceLocator.shared.objectActionsService(),
             document: document
-        ) { [weak router, weak actionHandler] in
-            router?.showTypesSearch(
-                title: Loc.changeType,
-                selectedObjectId: document.details?.type,
-                onSelect: { id in
-                    actionHandler?.setObjectTypeId(id)
-                }
-            )
-        }
-
+        )
+        
         let typeListViewModel = HorizonalTypeListViewModel(itemProvider: changeTypeViewModel)
 
         let horizontalTypeListView = HorizonalTypeListView(viewModel: typeListViewModel)

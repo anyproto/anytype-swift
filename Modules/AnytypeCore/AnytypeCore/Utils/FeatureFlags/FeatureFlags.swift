@@ -28,6 +28,7 @@ public final class FeatureFlags {
         .inlineMarkdown,
         .fixColorsForStyleMenu,
         .redesignBookmarkBlock,
+        .showSetsInChangeTypeSearchMenu,
         .fixInsetMediaContent
     ]
     
@@ -111,6 +112,10 @@ public extension FeatureFlags {
 
     static var redesignBookmarkBlock: Bool {
         value(for: .redesignBookmarkBlock)
+    }
+    
+    static var showSetsInChangeTypeSearchMenu: Bool {
+        value(for: .showSetsInChangeTypeSearchMenu)
     }
     
     static var fixInsetMediaContent: Bool {

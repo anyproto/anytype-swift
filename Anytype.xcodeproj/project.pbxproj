@@ -395,6 +395,7 @@
 		2A176438283E2211002853D3 /* AnytypePopupProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A176437283E2211002853D3 /* AnytypePopupProxy.swift */; };
 		2A17643A283E2245002853D3 /* ContentUrlBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A176439283E2245002853D3 /* ContentUrlBuilder.swift */; };
 		2A1AEDA028FD318A008C3660 /* MarkupViewTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1AED9F28FD318A008C3660 /* MarkupViewTypes.swift */; };
+		2A2A347529229D2B0004BD8B /* NavigationContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2A347429229D2B0004BD8B /* NavigationContext.swift */; };
 		2A2C330028919576008BC326 /* RelationMetadataFormat+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2C32FF28919576008BC326 /* RelationMetadataFormat+Extensions.swift */; };
 		2A2C330328928668008BC326 /* RelationValueCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2C330228928668008BC326 /* RelationValueCoordinator.swift */; };
 		2A2C330528928A7C008BC326 /* RelationValueCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2C330428928A7C008BC326 /* RelationValueCoordinatorAssembly.swift */; };
@@ -543,6 +544,11 @@
 		2E7C4471289842E10062287C /* DataviewFilter+Update.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C4470289842E10062287C /* DataviewFilter+Update.swift */; };
 		2E7C4473289843220062287C /* DataviewFilter+Condition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C4472289843220062287C /* DataviewFilter+Condition.swift */; };
 		2E7C44752898434A0062287C /* DataviewFilter+QuickOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C44742898434A0062287C /* DataviewFilter+QuickOption.swift */; };
+		2E8387BA291A51A000506766 /* KanbanCardDropData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8387B8291A51A000506766 /* KanbanCardDropData.swift */; };
+		2E8387BB291A51A000506766 /* KanbanCardDropInsideDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8387B9291A51A000506766 /* KanbanCardDropInsideDelegate.swift */; };
+		2E8387BD291A520C00506766 /* GroupObjectIds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8387BC291A520C00506766 /* GroupObjectIds.swift */; };
+		2E8387BF291A521900506766 /* EditorSetViewModel+DragAndDropDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8387BE291A521900506766 /* EditorSetViewModel+DragAndDropDelegate.swift */; };
+		2E8387C1291A897700506766 /* BlockDataview+Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8387C0291A897700506766 /* BlockDataview+Group.swift */; };
 		2E975EC72874BB18004DE574 /* EditorSetViewPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E975EC62874BB18004DE574 /* EditorSetViewPickerViewModel.swift */; };
 		2E975EC92874BBC5004DE574 /* EditorSetViewRowConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E975EC82874BBC5004DE574 /* EditorSetViewRowConfiguration.swift */; };
 		2E975EDA287C2325004DE574 /* SetFilterRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E975ED0287C2325004DE574 /* SetFilterRow.swift */; };
@@ -1643,6 +1649,7 @@
 		2A176437283E2211002853D3 /* AnytypePopupProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnytypePopupProxy.swift; sourceTree = "<group>"; };
 		2A176439283E2245002853D3 /* ContentUrlBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentUrlBuilder.swift; sourceTree = "<group>"; };
 		2A1AED9F28FD318A008C3660 /* MarkupViewTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupViewTypes.swift; sourceTree = "<group>"; };
+		2A2A347429229D2B0004BD8B /* NavigationContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationContext.swift; sourceTree = "<group>"; };
 		2A2C32FF28919576008BC326 /* RelationMetadataFormat+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RelationMetadataFormat+Extensions.swift"; sourceTree = "<group>"; };
 		2A2C330228928668008BC326 /* RelationValueCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationValueCoordinator.swift; sourceTree = "<group>"; };
 		2A2C330428928A7C008BC326 /* RelationValueCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationValueCoordinatorAssembly.swift; sourceTree = "<group>"; };
@@ -1778,6 +1785,11 @@
 		2E7C4470289842E10062287C /* DataviewFilter+Update.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataviewFilter+Update.swift"; sourceTree = "<group>"; };
 		2E7C4472289843220062287C /* DataviewFilter+Condition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataviewFilter+Condition.swift"; sourceTree = "<group>"; };
 		2E7C44742898434A0062287C /* DataviewFilter+QuickOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataviewFilter+QuickOption.swift"; sourceTree = "<group>"; };
+		2E8387B8291A51A000506766 /* KanbanCardDropData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KanbanCardDropData.swift; sourceTree = "<group>"; };
+		2E8387B9291A51A000506766 /* KanbanCardDropInsideDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KanbanCardDropInsideDelegate.swift; sourceTree = "<group>"; };
+		2E8387BC291A520C00506766 /* GroupObjectIds.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupObjectIds.swift; sourceTree = "<group>"; };
+		2E8387BE291A521900506766 /* EditorSetViewModel+DragAndDropDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EditorSetViewModel+DragAndDropDelegate.swift"; sourceTree = "<group>"; };
+		2E8387C0291A897700506766 /* BlockDataview+Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockDataview+Group.swift"; sourceTree = "<group>"; };
 		2E975EC62874BB18004DE574 /* EditorSetViewPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetViewPickerViewModel.swift; sourceTree = "<group>"; };
 		2E975EC82874BBC5004DE574 /* EditorSetViewRowConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetViewRowConfiguration.swift; sourceTree = "<group>"; };
 		2E975ED0287C2325004DE574 /* SetFilterRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetFilterRow.swift; sourceTree = "<group>"; };
@@ -2797,6 +2809,7 @@
 		038FB5CA22D8F34E002B90B8 /* CoreLayer */ = {
 			isa = PBXGroup;
 			children = (
+				2A2A347229229D190004BD8B /* Navigation */,
 				2A4FFBBC289D1B64004938DF /* Logger */,
 				0ABB73A72549974300F32C6F /* Firebase */,
 				039F669A23C7FD6700DBE36A /* Helpers */,
@@ -4396,6 +4409,14 @@
 			path = URL;
 			sourceTree = "<group>";
 		};
+		2A2A347229229D190004BD8B /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				2A2A347429229D2B0004BD8B /* NavigationContext.swift */,
+			);
+			path = Navigation;
+			sourceTree = "<group>";
+		};
 		2A2C330128928633008BC326 /* RelationValueFlow */ = {
 			isa = PBXGroup;
 			children = (
@@ -4857,6 +4878,8 @@
 		2EC942672901905800DE91E4 /* Board */ = {
 			isa = PBXGroup;
 			children = (
+				2E8387B8291A51A000506766 /* KanbanCardDropData.swift */,
+				2E8387B9291A51A000506766 /* KanbanCardDropInsideDelegate.swift */,
 				2EC942692901905800DE91E4 /* SetKanbanView.swift */,
 			);
 			path = Board;
@@ -5358,6 +5381,7 @@
 				2E0DAF2028A26F1600F43320 /* DataviewViewSize+Value.swift */,
 				2E0DAF1A28A17DB400F43320 /* SetFilterPrefilledFieldsBuilder.swift */,
 				2EC9425E2900351C00DE91E4 /* DataviewGroup+Filter.swift */,
+				2E8387C0291A897700506766 /* BlockDataview+Group.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -6091,6 +6115,7 @@
 		3DAE1CAB273EA1F2009A72F3 /* Set */ = {
 			isa = PBXGroup;
 			children = (
+				2E8387BE291A521900506766 /* EditorSetViewModel+DragAndDropDelegate.swift */,
 				2AA0209328D3521E00321A66 /* Subscriptions */,
 				3DCFDE312796C360006C7D02 /* Models */,
 				3DA6DBCF27457D9700516E75 /* Views */,
@@ -6292,6 +6317,7 @@
 		3DCFDE312796C360006C7D02 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				2E8387BC291A520C00506766 /* GroupObjectIds.swift */,
 				3DCFDE352796C36A006C7D02 /* Array+Dataview.swift */,
 				3DC2D2C2279817B100437E04 /* Document+Dataview.swift */,
 				3D7F718527A190C6003FE893 /* EditorSetPaginationHelper.swift */,
@@ -7808,6 +7834,7 @@
 				12AF9986273A8B87004CBB80 /* RelationsBuilder.swift in Sources */,
 				EA57F41B26B99937007D4292 /* MarkupViewProtocol.swift in Sources */,
 				3D210C142758CCE50007F558 /* RelationsListRowPlaceholderView.swift in Sources */,
+				2E8387BD291A520C00506766 /* GroupObjectIds.swift in Sources */,
 				EAED57A6269F346D00374A46 /* TextBlockViewModel.swift in Sources */,
 				0A0965FB25BEF5B000C004BD /* EditorPageController.swift in Sources */,
 				2E975EF1287C23DA004DE574 /* SetSortsListView.swift in Sources */,
@@ -8235,6 +8262,7 @@
 				EA0261152624AC4100AE6D86 /* ApplicationWindowInsetsProvider.swift in Sources */,
 				53F64294284E4CDF005D4E50 /* ObjectPreviewDescriptionMenuViewModel.swift in Sources */,
 				3DB1C9F527283FA0000D2779 /* DashboardClearCacheAlert.swift in Sources */,
+				2A2A347529229D2B0004BD8B /* NavigationContext.swift in Sources */,
 				53D408D127F1D48000495335 /* PasteboardServiceProtocol.swift in Sources */,
 				1211AF7D27F4BE7400BACB88 /* CGSizeExtensions.swift in Sources */,
 				12E286E82849EF5D00BF64EB /* ObjectTypeProviderProtocol.swift in Sources */,
@@ -8385,6 +8413,7 @@
 				C9215175289801B6007FC95D /* ShimmeringBlockViewModel.swift in Sources */,
 				534D19C72623A7220080AEF0 /* SearchListViewController.swift in Sources */,
 				2AFB541D28621776004F7458 /* Strings.swift in Sources */,
+				2E8387BB291A51A000506766 /* KanbanCardDropInsideDelegate.swift in Sources */,
 				C90F8F2628DCBB4000E874A9 /* ImageSourceMedia.swift in Sources */,
 				3D38CC9326D626A700E4F7BF /* ObjectSettingAssembly.swift in Sources */,
 				2A9D299428BCC78900789AC7 /* NonExistentBlockViewModel.swift in Sources */,
@@ -8409,6 +8438,7 @@
 				129C54CB27FC694A00C390C7 /* NewRelationSectionView.swift in Sources */,
 				3D38CC9626D632C500E4F7BF /* ObjectHeaderViewModel.swift in Sources */,
 				C92DCD91272990CE00A03D91 /* ChangeTypeAccessoryView.swift in Sources */,
+				2E8387BA291A51A000506766 /* KanbanCardDropData.swift in Sources */,
 				C973E1AD285C567F00978BC4 /* SimpleTableDependenciesBuilder.swift in Sources */,
 				12C2A5602754E13000311854 /* DateRelationDetailsView.swift in Sources */,
 				12EEC36B26A0903F00C3C4B1 /* EmojiData.swift in Sources */,
@@ -8451,6 +8481,7 @@
 				53D4088827EC9EFE00495335 /* ObjectPreviewView.swift in Sources */,
 				12EB9AF12771CD6600BA732F /* RelationOptionsListViewModel.swift in Sources */,
 				EA5FB42A266A970F00DCD56C /* MentionObject.swift in Sources */,
+				2E8387C1291A897700506766 /* BlockDataview+Group.swift in Sources */,
 				12C2A59D2757A6E000311854 /* StatusRelationDetailsViewModel.swift in Sources */,
 				C90189A928338D2900F30853 /* TemplatesCoordinator.swift in Sources */,
 				1240EAF627B13D6B005B501E /* UIDeviceExtension.swift in Sources */,
@@ -8650,6 +8681,7 @@
 				3D93D57A270CBF7100614E29 /* BrowserNavigationManager.swift in Sources */,
 				12EB9B31277442BC00BA732F /* FileRelationView.swift in Sources */,
 				2ECD123028AFE6A900BD464A /* TitleWithIconStyle.swift in Sources */,
+				2E8387BF291A521900506766 /* EditorSetViewModel+DragAndDropDelegate.swift in Sources */,
 				1244791C27D8A63D00581174 /* StatusSearchInteractor.swift in Sources */,
 				12A7B6C126C3E47200544037 /* DocumentCover.swift in Sources */,
 				53D408AC27F0B7EE00495335 /* CodeBlockFields.swift in Sources */,
@@ -9036,7 +9068,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 16;
 				DEVELOPMENT_ASSET_PATHS = "Anytype/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = 6SFR4648FW;
 				ENABLE_BITCODE = NO;
@@ -9072,7 +9104,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 16;
 				DEVELOPMENT_ASSET_PATHS = "Anytype/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = 6SFR4648FW;
 				ENABLE_BITCODE = NO;
@@ -9212,7 +9244,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 16;
 				DEVELOPMENT_ASSET_PATHS = "Anytype/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = 6SFR4648FW;
 				ENABLE_BITCODE = NO;
@@ -9271,7 +9303,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 16;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 6SFR4648FW;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -9304,7 +9336,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 16;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 6SFR4648FW;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -9337,7 +9369,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 16;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 6SFR4648FW;
 				GENERATE_INFOPLIST_FILE = YES;

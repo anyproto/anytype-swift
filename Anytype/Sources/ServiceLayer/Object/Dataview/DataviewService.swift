@@ -108,4 +108,24 @@ final class DataviewService: DataviewServiceProtocol {
         let event = EventsBunch(event: result.event)
         event.send()
     }
+    
+    func objectOrderUpdate(viewId: String, groupObjectIds: [GroupObjectIds]) async throws {
+        let objectOrders: [Anytype_Model_Block.Content.Dataview.ObjectOrder] = groupObjectIds.map {
+            Anytype_Model_Block.Content.Dataview.ObjectOrder(
+                viewID: viewId,
+                groupID: $0.groupId,
+                objectIds: $0.objectIds
+            )
+        }
+        let result = try await Anytype_Rpc.BlockDataview.ObjectOrder.Update.Service
+            .invocation(
+                contextID: objectId,
+                blockID: Constants.dataview,
+                objectOrders: objectOrders
+            )
+            .invoke(errorDomain: .dataviewService)
+
+        let event = EventsBunch(event: result.event)
+        event.send()
+    }
 }

@@ -52,8 +52,8 @@ struct SetTableView: View {
                 EmptyView()
             } else {
                 Section(header: compoundHeader) {
-                    ForEach(model.configurationsDict.keys, id: \.value) { key in
-                        if let configurations = model.configurationsDict[key] {
+                    ForEach(model.configurationsDict.keys, id: \.self) { groupId in
+                        if let configurations = model.configurationsDict[groupId] {
                             ForEach(configurations) { configuration in
                                 SetTableViewRow(configuration: configuration, xOffset: xOffset)
                             }

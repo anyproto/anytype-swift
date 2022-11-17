@@ -40,6 +40,8 @@ protocol NewSearchModuleAssemblyProtocol {
         title: String,
         selectedObjectId: BlockId?,
         excludedObjectTypeId: String?,
+        showBookmark: Bool,
+        showSet: Bool,
         onSelect: @escaping (_ id: String) -> Void
     ) -> NewSearchView
     
@@ -56,3 +58,5 @@ protocol NewSearchModuleAssemblyProtocol {
         onSelect: @escaping (_ id: String) -> Void
     ) -> NewSearchView
 }
+
+// Extension for specific Settings

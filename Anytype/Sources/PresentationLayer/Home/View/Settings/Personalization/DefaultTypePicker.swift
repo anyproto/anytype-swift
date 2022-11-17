@@ -8,7 +8,7 @@ struct DefaultTypePicker: View {
     var body: some View {
         NewSearchModuleAssembly.objectTypeSearchModule(
             title: Loc.chooseDefaultObjectType,
-            excludedObjectTypeId: ObjectTypeId.bundled(.bookmark).rawValue
+            showBookmark: false
         ) { [weak model] id in
             ObjectTypeProvider.shared.objectType(id: id).flatMap {
                 UserDefaultsConfig.defaultObjectType = $0
