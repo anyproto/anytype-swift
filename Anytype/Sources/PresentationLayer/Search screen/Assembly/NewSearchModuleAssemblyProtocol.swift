@@ -41,6 +41,7 @@ protocol NewSearchModuleAssemblyProtocol {
         selectedObjectId: BlockId?,
         excludedObjectTypeId: String?,
         showBookmark: Bool,
+        showSet: Bool,
         onSelect: @escaping (_ id: String) -> Void
     ) -> NewSearchView
     
