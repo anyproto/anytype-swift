@@ -9,6 +9,7 @@ final class AccountManager: ObservableObject {
     init() { }
     
     // TODO: Handle all account events in one place - https://linear.app/anytype/issue/IOS-676
+    // We have a problem with events from middleware - https://linear.app/anytype/issue/GO-541
 //    private func handleAccountUpdate(_ update: Anytype_Event.Account.Update) {
 //        let currentStatus = AccountManager.shared.account.status
 //        let newStatus = AccountManager.shared.account.status

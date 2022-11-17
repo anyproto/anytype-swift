@@ -384,7 +384,7 @@ final class MiddlewareEventConverter {
             handleDataViewObjectOrderUpdate(data)
             return .general
         case .accountShow,
-                .accountUpdate, // Event not working on middleware. See old code in AccountManager.
+                .accountUpdate, // Event not working on middleware. See AccountManager.
                 .accountDetails, // Skipped
                 .accountConfigUpdate, // Remote config updates
                 .objectRemove, // Remove from History Object wich was deleted. For Desktop purposes
