@@ -61,6 +61,7 @@ final class EditorAssembly {
         let router = EditorRouter(
             rootController: browser,
             viewController: controller,
+            navigationContext: NavigationContext(rootViewController: browser ?? controller),
             document: document,
             templatesCoordinator: coordinatorsDI.templates.make(viewController: controller),
             urlOpener: URLOpener(viewController: browser),
@@ -98,6 +99,7 @@ final class EditorAssembly {
         let router = EditorRouter(
             rootController: browser,
             viewController: controller,
+            navigationContext: NavigationContext(rootViewController: browser ?? controller),
             document: document,
             templatesCoordinator: coordinatorsDI.templates.make(viewController: controller),
             urlOpener: URLOpener(viewController: browser),
