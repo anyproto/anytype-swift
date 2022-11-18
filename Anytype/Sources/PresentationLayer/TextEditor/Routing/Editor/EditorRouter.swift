@@ -12,7 +12,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     private let fileCoordinator: FileDownloadingCoordinator
     private let addNewRelationCoordinator: AddNewRelationCoordinator
     private let document: BaseDocumentProtocol
-    private let settingAssembly = ObjectSettingAssembly()
     private let templatesCoordinator: TemplatesCoordinator
     private let urlOpener: URLOpenerProtocol
     private let relationValueCoordinator: RelationValueCoordinatorProtocol
@@ -20,6 +19,12 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     private let editorPageCoordinator: EditorPageCoordinatorProtocol
     private let linkToObjectCoordinator: LinkToObjectCoordinatorProtocol
     private let relationsListModuleAssembly: RelationsListModuleAssemblyProtocol
+    private let undoRedoModuleAssembly: UndoRedoModuleAssemblyProtocol
+    private let objectLayoutPickerModuleAssembly: ObjectLayoutPickerModuleAssemblyProtocol
+    private let objectCoverPickerModuleAssembly: ObjectCoverPickerModuleAssemblyProtocol
+    private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
+    private let objectSettingModuleAssembly: ObjectSettingModuleAssemblyProtocol
+    private let alertHelper: AlertHelper
     
     init(
         rootController: EditorBrowserController?,
@@ -31,7 +36,13 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         relationValueCoordinator: RelationValueCoordinatorProtocol,
         editorPageCoordinator: EditorPageCoordinatorProtocol,
         linkToObjectCoordinator: LinkToObjectCoordinatorProtocol,
-        relationsListModuleAssembly: RelationsListModuleAssemblyProtocol
+        relationsListModuleAssembly: RelationsListModuleAssemblyProtocol,
+        undoRedoModuleAssembly: UndoRedoModuleAssemblyProtocol,
+        objectLayoutPickerModuleAssembly: ObjectLayoutPickerModuleAssemblyProtocol,
+        objectCoverPickerModuleAssembly: ObjectCoverPickerModuleAssemblyProtocol,
+        objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
+        objectSettingModuleAssembly: ObjectSettingModuleAssemblyProtocol,
+        alertHelper: AlertHelper
     ) {
         self.rootController = rootController
         self.viewController = viewController
@@ -45,6 +56,12 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         self.editorPageCoordinator = editorPageCoordinator
         self.linkToObjectCoordinator = linkToObjectCoordinator
         self.relationsListModuleAssembly = relationsListModuleAssembly
+        self.undoRedoModuleAssembly = undoRedoModuleAssembly
+        self.objectLayoutPickerModuleAssembly = objectLayoutPickerModuleAssembly
+        self.objectCoverPickerModuleAssembly = objectCoverPickerModuleAssembly
+        self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
+        self.objectSettingModuleAssembly = objectSettingModuleAssembly
+        self.alertHelper = alertHelper
     }
 
     func showPage(data: EditorScreenData) {
@@ -276,21 +293,9 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     }
 
     func presentUndoRedo() {
-        guard let viewController = viewController else { return }
-
-        let toastPresenter = ToastPresenter(rootViewController: viewController)
-        let undoRedoView = UndoRedoView(
-            viewModel: .init(objectId: document.objectId, toastPresenter: toastPresenter)
-        )
-        let popupViewController = AnytypePopup(
-            contentView: undoRedoView,
-            floatingPanelStyle: true,
-            configuration: .init(isGrabberVisible: false, dismissOnBackdropView: true)
-        )
-        popupViewController.backdropView.backgroundColor = .clear
-
+        let moduleViewController = undoRedoModuleAssembly.make(document: document)
         navigationContext.dismissTopPresented(animated: false)
-        navigationContext.present(popupViewController)
+        navigationContext.present(moduleViewController)
     }
     
     func setNavigationViewHidden(_ isHidden: Bool, animated: Bool) {
@@ -322,23 +327,23 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     
     // MARK: - Settings
     func showSettings() {
-        let popup = settingAssembly.settingsPopup(document: document, router: self)
-        navigationContext.present(popup)
+        let moduleViewController = objectSettingModuleAssembly.make(document: document, router: self)
+        navigationContext.present(moduleViewController)
     }
     
     func showCoverPicker() {
-        let picker = settingAssembly.coverPicker(document: document)
-        navigationContext.present(picker)
+        let moduleViewController = objectCoverPickerModuleAssembly.make(document: document)
+        navigationContext.present(moduleViewController)
     }
     
     func showIconPicker() {
-        let controller = settingAssembly.iconPicker(document: document)
-        navigationContext.present(controller)
+        let moduleViewController = objectIconPickerModuleAssembly.make(document: document)
+        navigationContext.present(moduleViewController)
     }
     
     func showLayoutPicker() {
-        let popup = settingAssembly.layoutPicker(document: document)
-        navigationContext.present(popup)
+        let moduleViewController = objectLayoutPickerModuleAssembly.make(document: document)
+        navigationContext.present(moduleViewController)
     }
 
     func showColorPicker(
@@ -529,7 +534,7 @@ extension EditorRouter {
             closeAction: { [weak self] withError in
                 self?.navigationContext.dismissTopPresented(animated: true) {
                     guard withError else { return }
-                    AlertHelper.showToast(
+                    self?.alertHelper.showToast(
                         title: Loc.Set.Bookmark.Error.title,
                         message: Loc.Set.Bookmark.Error.message
                     )

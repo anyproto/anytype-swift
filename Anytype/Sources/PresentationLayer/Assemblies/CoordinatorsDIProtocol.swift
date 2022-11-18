@@ -6,6 +6,11 @@ protocol CoordinatorsDIProtocol: AnyObject {
     var editorPage: EditorPageCoordinatorAssemblyProtocol { get }
     var linkToObject: LinkToObjectCoordinatorAssemblyProtocol { get }
     
+    // Rename
+    var application: ApplicationCoordinator { get }
+    // Split to modules
+    var windowManager: WindowManager { get }
+    
     // Now like a coordinator. Migrate to isolated modules
     var browser: EditorBrowserAssembly { get }
     var editor: EditorAssembly { get }

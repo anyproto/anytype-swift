@@ -99,11 +99,4 @@ final class ServiceLocator {
     private func detailsStorage() -> ObjectDetailsStorage {
         ObjectDetailsStorage.shared
     }
-    
-    // MARK: - Coodrdinators
-    
-    func applicationCoordinator(window: UIWindow) -> ApplicationCoordinator {
-        ApplicationCoordinator(window: window, authService: authService())
-    }
-
 }

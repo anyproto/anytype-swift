@@ -71,7 +71,13 @@ final class EditorAssembly {
             relationValueCoordinator: coordinatorsDI.relationValue.make(viewController: controller),
             editorPageCoordinator: coordinatorsDI.editorPage.make(rootController: browser, viewController: controller),
             linkToObjectCoordinator: coordinatorsDI.linkToObject.make(rootController: browser, viewController: controller),
-            relationsListModuleAssembly: modulesDI.relationsList
+            relationsListModuleAssembly: modulesDI.relationsList,
+            undoRedoModuleAssembly: modulesDI.undoRedo,
+            objectLayoutPickerModuleAssembly: modulesDI.objectLayoutPicker,
+            objectCoverPickerModuleAssembly: modulesDI.objectCoverPicker,
+            objectIconPickerModuleAssembly: modulesDI.objectIconPicker,
+            objectSettingModuleAssembly: modulesDI.objectSetting,
+            alertHelper: AlertHelper(viewController: controller)
         )
         
         model.setup(router: router)
@@ -110,7 +116,13 @@ final class EditorAssembly {
             relationValueCoordinator: coordinatorsDI.relationValue.make(viewController: controller),
             editorPageCoordinator: coordinatorsDI.editorPage.make(rootController: browser, viewController: controller),
             linkToObjectCoordinator: coordinatorsDI.linkToObject.make(rootController: browser, viewController: controller),
-            relationsListModuleAssembly: modulesDI.relationsList
+            relationsListModuleAssembly: modulesDI.relationsList,
+            undoRedoModuleAssembly: modulesDI.undoRedo,
+            objectLayoutPickerModuleAssembly: modulesDI.objectLayoutPicker,
+            objectCoverPickerModuleAssembly: modulesDI.objectCoverPicker,
+            objectIconPickerModuleAssembly: modulesDI.objectIconPicker,
+            objectSettingModuleAssembly: modulesDI.objectSetting,
+            alertHelper: AlertHelper(viewController: controller)
         )
 
         let viewModel = buildViewModel(

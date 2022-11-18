@@ -1,15 +1,21 @@
 import UIKit
 
-class ToastPresenter {
+protocol ToastPresenterProtocol {
+    func show(message: String)
+}
+
+class ToastPresenter: ToastPresenterProtocol {
     private var isShowing: Bool = false
 
-    private let rootViewController: UIViewController
+    private let viewControllerProvider: ViewControllerProviderProtocol
     private lazy var toastView = ToastView(frame: .zero)
 
-    init(rootViewController: UIViewController) {
-        self.rootViewController = rootViewController
+    init(viewControllerProvider: ViewControllerProviderProtocol) {
+        self.viewControllerProvider = viewControllerProvider
     }
 
+    // MARK: - ToastPresenterProtocol
+    
     func show(message: String) {
         if isShowing { return }
 
@@ -17,7 +23,7 @@ class ToastPresenter {
         toastView.alpha = 0.0
         toastView.setMessage(message)
 
-        rootViewController.topPresentedController.view.addSubview(toastView) {
+        viewControllerProvider.topViewController?.view.addSubview(toastView) {
             $0.pinToSuperview()
         }
 
