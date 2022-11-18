@@ -24,7 +24,8 @@ final class ServiceLocator {
     func authService() -> AuthServiceProtocol {
         return AuthService(
             localRepoService: localRepoService(),
-            loginStateService: loginStateService()
+            loginStateService: loginStateService(),
+            accountManager: accountManager()
         )
     }
     
@@ -82,6 +83,10 @@ final class ServiceLocator {
     )
     func relationDetailsStorage() -> RelationDetailsStorageProtocol {
         return _relationDetailsStorage
+    }
+    
+    func accountManager() -> AccountManager {
+        return AccountManager.shared
     }
     
     // MARK: - Private

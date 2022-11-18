@@ -2,12 +2,12 @@ import ProtobufMessages
 import BlocksModels
 
 struct AccountData {
-    let id: BlockId
-    let name: String
-    let avatar: Anytype_Model_Account.Avatar
-    let config: AccountConfiguration
-    let status: AccountStatus
-    let info: AccountInfo
+    var id: BlockId
+    var name: String
+    var avatar: Anytype_Model_Account.Avatar
+    var config: AccountConfiguration
+    var status: AccountStatus
+    var info: AccountInfo
     
     static var empty: AccountData {
         AccountData(id: "", name: "", avatar: .init(), config: .empty, status: .active, info: .empty)
