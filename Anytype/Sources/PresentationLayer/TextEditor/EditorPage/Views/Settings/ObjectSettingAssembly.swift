@@ -17,24 +17,6 @@ final class ObjectSettingAssembly {
         return popup
     }
     
-    func coverPicker(document: BaseDocumentProtocol) -> UIViewController {
-        let viewModel = ObjectCoverPickerViewModel(
-            document: document,
-            fileService: ServiceLocator.shared.fileService(),
-            detailsService: ServiceLocator.shared.detailsService(objectId: document.objectId)
-        )
-        
-        let controller = UIHostingController(
-            rootView: ObjectCoverPicker(viewModel: viewModel)
-        )
-        
-        controller.rootView.onDismiss = { [weak controller] in
-            controller?.dismiss(animated: true)
-        }
-        
-        return controller
-    }
-    
     func iconPicker(document: BaseDocumentProtocol) -> UIViewController {
         let viewModel = ObjectIconPickerViewModel(
             document: document,
@@ -53,13 +35,5 @@ final class ObjectSettingAssembly {
         )
         
         return controller
-    }
-    
-    func layoutPicker(document: BaseDocumentProtocol) -> UIViewController {
-        let viewModel = ObjectLayoutPickerViewModel(
-            document: document,
-            detailsService: ServiceLocator.shared.detailsService(objectId: document.objectId)
-        )
-        return AnytypePopup(contentView: ObjectLayoutPicker(viewModel: viewModel))
     }
 }

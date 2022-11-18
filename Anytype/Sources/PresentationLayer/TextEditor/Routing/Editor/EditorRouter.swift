@@ -20,6 +20,8 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     private let editorPageCoordinator: EditorPageCoordinatorProtocol
     private let linkToObjectCoordinator: LinkToObjectCoordinatorProtocol
     private let undoRedoModuleAssembly: UndoRedoModuleAssemblyProtocol
+    private let objectLayoutPickerModuleAssembly: ObjectLayoutPickerModuleAssemblyProtocol
+    private let objectCoverPickerModuleAssembly: ObjectCoverPickerModuleAssemblyProtocol
     private let alertHelper: AlertHelper
     
     init(
@@ -33,6 +35,8 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         editorPageCoordinator: EditorPageCoordinatorProtocol,
         linkToObjectCoordinator: LinkToObjectCoordinatorProtocol,
         undoRedoModuleAssembly: UndoRedoModuleAssemblyProtocol,
+        objectLayoutPickerModuleAssembly: ObjectLayoutPickerModuleAssemblyProtocol,
+        objectCoverPickerModuleAssembly: ObjectCoverPickerModuleAssemblyProtocol,
         alertHelper: AlertHelper
     ) {
         self.rootController = rootController
@@ -47,6 +51,8 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         self.editorPageCoordinator = editorPageCoordinator
         self.linkToObjectCoordinator = linkToObjectCoordinator
         self.undoRedoModuleAssembly = undoRedoModuleAssembly
+        self.objectLayoutPickerModuleAssembly = objectLayoutPickerModuleAssembly
+        self.objectCoverPickerModuleAssembly = objectCoverPickerModuleAssembly
         self.alertHelper = alertHelper
     }
 
@@ -318,8 +324,8 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     }
     
     func showCoverPicker() {
-        let picker = settingAssembly.coverPicker(document: document)
-        navigationContext.present(picker)
+        let moduleViewController = objectCoverPickerModuleAssembly.make(document: document)
+        navigationContext.present(moduleViewController)
     }
     
     func showIconPicker() {
@@ -328,8 +334,8 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     }
     
     func showLayoutPicker() {
-        let popup = settingAssembly.layoutPicker(document: document)
-        navigationContext.present(popup)
+        let moduleViewController = objectLayoutPickerModuleAssembly.make(document: document)
+        navigationContext.present(moduleViewController)
     }
 
     func showColorPicker(
