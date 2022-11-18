@@ -75,6 +75,7 @@ final class EditorAssembly {
             objectLayoutPickerModuleAssembly: modulesDI.objectLayoutPicker,
             objectCoverPickerModuleAssembly: modulesDI.objectCoverPicker,
             objectIconPickerModuleAssembly: modulesDI.objectIconPicker,
+            objectSettingModuleAssembly: modulesDI.objectSetting,
             alertHelper: AlertHelper(viewController: controller)
         )
         
@@ -118,6 +119,7 @@ final class EditorAssembly {
             objectLayoutPickerModuleAssembly: modulesDI.objectLayoutPicker,
             objectCoverPickerModuleAssembly: modulesDI.objectCoverPicker,
             objectIconPickerModuleAssembly: modulesDI.objectIconPicker,
+            objectSettingModuleAssembly: modulesDI.objectSetting,
             alertHelper: AlertHelper(viewController: controller)
         )
 

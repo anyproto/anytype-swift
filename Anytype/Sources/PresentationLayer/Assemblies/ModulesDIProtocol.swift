@@ -6,4 +6,5 @@ protocol ModulesDIProtocol: AnyObject {
     var objectLayoutPicker: ObjectLayoutPickerModuleAssemblyProtocol { get }
     var objectCoverPicker: ObjectCoverPickerModuleAssemblyProtocol { get }
     var objectIconPicker: ObjectIconPickerModuleAssemblyProtocol { get }
+    var objectSetting: ObjectSettingModuleAssemblyProtocol { get }
 }

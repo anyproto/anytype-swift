@@ -12,7 +12,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     private let fileCoordinator: FileDownloadingCoordinator
     private let addNewRelationCoordinator: AddNewRelationCoordinator
     private let document: BaseDocumentProtocol
-    private let settingAssembly = ObjectSettingAssembly()
     private let templatesCoordinator: TemplatesCoordinator
     private let urlOpener: URLOpenerProtocol
     private let relationValueCoordinator: RelationValueCoordinatorProtocol
@@ -23,6 +22,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     private let objectLayoutPickerModuleAssembly: ObjectLayoutPickerModuleAssemblyProtocol
     private let objectCoverPickerModuleAssembly: ObjectCoverPickerModuleAssemblyProtocol
     private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
+    private let objectSettingModuleAssembly: ObjectSettingModuleAssemblyProtocol
     private let alertHelper: AlertHelper
     
     init(
@@ -39,6 +39,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         objectLayoutPickerModuleAssembly: ObjectLayoutPickerModuleAssemblyProtocol,
         objectCoverPickerModuleAssembly: ObjectCoverPickerModuleAssemblyProtocol,
         objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
+        objectSettingModuleAssembly: ObjectSettingModuleAssemblyProtocol,
         alertHelper: AlertHelper
     ) {
         self.rootController = rootController
@@ -56,6 +57,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         self.objectLayoutPickerModuleAssembly = objectLayoutPickerModuleAssembly
         self.objectCoverPickerModuleAssembly = objectCoverPickerModuleAssembly
         self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
+        self.objectSettingModuleAssembly = objectSettingModuleAssembly
         self.alertHelper = alertHelper
     }
 
@@ -322,8 +324,8 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     
     // MARK: - Settings
     func showSettings() {
-        let popup = settingAssembly.settingsPopup(document: document, router: self)
-        navigationContext.present(popup)
+        let moduleViewController = objectSettingModuleAssembly.make(document: document, router: self)
+        navigationContext.present(moduleViewController)
     }
     
     func showCoverPicker() {

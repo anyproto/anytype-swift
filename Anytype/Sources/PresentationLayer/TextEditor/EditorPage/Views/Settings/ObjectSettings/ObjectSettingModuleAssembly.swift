@@ -1,9 +1,15 @@
-import SwiftUI
-import BlocksModels
+import Foundation
+import UIKit
 
-final class ObjectSettingAssembly {
+protocol ObjectSettingModuleAssemblyProtocol {
+    func make(document: BaseDocumentProtocol, router: EditorRouterProtocol) -> UIViewController
+}
+
+final class ObjectSettingModuleAssembly: ObjectSettingModuleAssemblyProtocol {
     
-    func settingsPopup(document: BaseDocumentProtocol, router: EditorRouterProtocol) -> UIViewController {
+    // MARK: - ObjectSettingModuleAssemblyProtocol
+    
+    func make(document: BaseDocumentProtocol, router: EditorRouterProtocol) -> UIViewController {
         
         let viewModel = ObjectSettingsViewModel(
             document: document,

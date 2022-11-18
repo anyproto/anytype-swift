@@ -31,4 +31,8 @@ final class ModulesDI: ModulesDIProtocol {
     var objectIconPicker: ObjectIconPickerModuleAssemblyProtocol {
         return ObjectIconPickerModuleAssembly()
     }
+    
+    var objectSetting: ObjectSettingModuleAssemblyProtocol {
+        return ObjectSettingModuleAssembly()
+    }
 }
