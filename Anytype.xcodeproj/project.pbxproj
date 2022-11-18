@@ -488,6 +488,10 @@
 		2AFFFB822924DEE700A487E1 /* UndoRedoAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFFFB812924DEE700A487E1 /* UndoRedoAssembly.swift */; };
 		2AFFFB842924DFC600A487E1 /* UIHelpersDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFFFB832924DFC600A487E1 /* UIHelpersDI.swift */; };
 		2AFFFB862924EE1000A487E1 /* ViewControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFFFB852924EE1000A487E1 /* ViewControllerProvider.swift */; };
+		2AFFFB8A2926670E00A487E1 /* ObjectLayoutPickerModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFFFB892926670E00A487E1 /* ObjectLayoutPickerModuleAssembly.swift */; };
+		2AFFFB972927722A00A487E1 /* ObjectCoverPickerModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFFFB962927722A00A487E1 /* ObjectCoverPickerModuleAssembly.swift */; };
+		2AFFFB99292773BF00A487E1 /* ObjectIconPickerModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFFFB98292773BF00A487E1 /* ObjectIconPickerModuleAssembly.swift */; };
+		2AFFFB9B292778B700A487E1 /* ObjectSettingModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFFFB9A292778B700A487E1 /* ObjectSettingModuleAssembly.swift */; };
 		2E0D0E75289D652000785833 /* EditorSetViewSettingsRelation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0D0E74289D652000785833 /* EditorSetViewSettingsRelation.swift */; };
 		2E0D0E77289D653500785833 /* EditorSetViewSettingsToggleItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0D0E76289D653500785833 /* EditorSetViewSettingsToggleItem.swift */; };
 		2E0D0E79289D678200785833 /* EditorSetViewSettingsValueItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0D0E78289D678200785833 /* EditorSetViewSettingsValueItem.swift */; };
@@ -675,7 +679,6 @@
 		3D34F20F27BE4B2300990C49 /* SettingsAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D34F20E27BE4B2300990C49 /* SettingsAccountView.swift */; };
 		3D34F25427C3D16400990C49 /* KeyboardActionHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D34F25327C3D16400990C49 /* KeyboardActionHandlerTests.swift */; };
 		3D34F25627C3D1D100990C49 /* BlockActionServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D34F25527C3D1D100990C49 /* BlockActionServiceMock.swift */; };
-		3D38CC9326D626A700E4F7BF /* ObjectSettingAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D38CC9226D626A700E4F7BF /* ObjectSettingAssembly.swift */; };
 		3D38CC9626D632C500E4F7BF /* ObjectHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D38CC9526D632C500E4F7BF /* ObjectHeaderViewModel.swift */; };
 		3D3A182A2733E946000D0842 /* MarkdownListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3A18292733E946000D0842 /* MarkdownListener.swift */; };
 		3D3A183927340187000D0842 /* NSAttributedString+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3A183827340187000D0842 /* NSAttributedString+Convenience.swift */; };
@@ -1719,6 +1722,10 @@
 		2AFFFB812924DEE700A487E1 /* UndoRedoAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndoRedoAssembly.swift; sourceTree = "<group>"; };
 		2AFFFB832924DFC600A487E1 /* UIHelpersDI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIHelpersDI.swift; sourceTree = "<group>"; };
 		2AFFFB852924EE1000A487E1 /* ViewControllerProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerProvider.swift; sourceTree = "<group>"; };
+		2AFFFB892926670E00A487E1 /* ObjectLayoutPickerModuleAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectLayoutPickerModuleAssembly.swift; sourceTree = "<group>"; };
+		2AFFFB962927722A00A487E1 /* ObjectCoverPickerModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectCoverPickerModuleAssembly.swift; sourceTree = "<group>"; };
+		2AFFFB98292773BF00A487E1 /* ObjectIconPickerModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectIconPickerModuleAssembly.swift; sourceTree = "<group>"; };
+		2AFFFB9A292778B700A487E1 /* ObjectSettingModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectSettingModuleAssembly.swift; sourceTree = "<group>"; };
 		2E0D0E74289D652000785833 /* EditorSetViewSettingsRelation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetViewSettingsRelation.swift; sourceTree = "<group>"; };
 		2E0D0E76289D653500785833 /* EditorSetViewSettingsToggleItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetViewSettingsToggleItem.swift; sourceTree = "<group>"; };
 		2E0D0E78289D678200785833 /* EditorSetViewSettingsValueItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetViewSettingsValueItem.swift; sourceTree = "<group>"; };
@@ -1906,7 +1913,6 @@
 		3D34F20E27BE4B2300990C49 /* SettingsAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAccountView.swift; sourceTree = "<group>"; };
 		3D34F25327C3D16400990C49 /* KeyboardActionHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardActionHandlerTests.swift; sourceTree = "<group>"; };
 		3D34F25527C3D1D100990C49 /* BlockActionServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockActionServiceMock.swift; path = AnyTypeTests/Markdown/Mocks/BlockActionServiceMock.swift; sourceTree = SOURCE_ROOT; };
-		3D38CC9226D626A700E4F7BF /* ObjectSettingAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectSettingAssembly.swift; sourceTree = "<group>"; };
 		3D38CC9526D632C500E4F7BF /* ObjectHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectHeaderViewModel.swift; sourceTree = "<group>"; };
 		3D3A18292733E946000D0842 /* MarkdownListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownListener.swift; sourceTree = "<group>"; };
 		3D3A183827340187000D0842 /* NSAttributedString+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+Convenience.swift"; sourceTree = "<group>"; };
@@ -3217,15 +3223,12 @@
 		120E816B269F26BE006FE84E /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				3D3040C927DF62BA00FFE0EB /* Model */,
 				124E2BBD273020CF00A2D534 /* Relations */,
 				53FF7CBA26FDD33400A5A592 /* ObjectActions */,
-				3D38CC8E26D625F200E4F7BF /* Views */,
+				3D38CC8E26D625F200E4F7BF /* ObjectSettings */,
 				120E819326A06CE7006FE84E /* Layout */,
 				120E818A26A05937006FE84E /* Icon */,
 				120E818526A05458006FE84E /* Cover */,
-				120E8174269F342D006FE84E /* ObjectSettingsViewModel.swift */,
-				3D38CC9226D626A700E4F7BF /* ObjectSettingAssembly.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -3248,6 +3251,7 @@
 				120F7D47267CFB0100327734 /* ItemPickerGridView.swift */,
 				120E818626A0546F006FE84E /* ObjectCoverPickerViewModel.swift */,
 				120F7D43267CD1AC00327734 /* ObjectCoverPicker.swift */,
+				2AFFFB962927722A00A487E1 /* ObjectCoverPickerModuleAssembly.swift */,
 			);
 			path = Cover;
 			sourceTree = "<group>";
@@ -3263,6 +3267,7 @@
 				12D94FD02678CD1F00F794EB /* ObjectBasicIconPicker.swift */,
 				3D89224C2680E0850023E705 /* Emoji */,
 				3D44985B26D57773005A3E06 /* DismissHandler.swift */,
+				2AFFFB98292773BF00A487E1 /* ObjectIconPickerModuleAssembly.swift */,
 			);
 			path = Icon;
 			sourceTree = "<group>";
@@ -3270,6 +3275,7 @@
 		120E819326A06CE7006FE84E /* Layout */ = {
 			isa = PBXGroup;
 			children = (
+				2AFFFB892926670E00A487E1 /* ObjectLayoutPickerModuleAssembly.swift */,
 				120E819626A06CFC006FE84E /* ObjectLayoutPickerViewModel.swift */,
 				129D78942694AE6900DA6757 /* ObjectLayoutPicker.swift */,
 				129D78C42694B7E700DA6757 /* ObjectLayoutRow.swift */,
@@ -5385,13 +5391,16 @@
 			path = "Сomponents";
 			sourceTree = "<group>";
 		};
-		3D38CC8E26D625F200E4F7BF /* Views */ = {
+		3D38CC8E26D625F200E4F7BF /* ObjectSettings */ = {
 			isa = PBXGroup;
 			children = (
+				3D3040C927DF62BA00FFE0EB /* Model */,
+				120E8174269F342D006FE84E /* ObjectSettingsViewModel.swift */,
 				120E8170269F31A8006FE84E /* ObjectSettingsView.swift */,
 				120E817E26A026F5006FE84E /* ObjectSettingRow.swift */,
+				2AFFFB9A292778B700A487E1 /* ObjectSettingModuleAssembly.swift */,
 			);
-			path = Views;
+			path = ObjectSettings;
 			sourceTree = "<group>";
 		};
 		3D3A18342733F810000D0842 /* Markdown */ = {
@@ -7894,6 +7903,7 @@
 				C9367A9E27313692007D687A /* TextBlockDelegateData.swift in Sources */,
 				3D1CEC2B27F38CE3000D36BA /* DeletedAccountView.swift in Sources */,
 				12F3E763270C6C0C002EE52F /* ObjectHeaderImageUploadingWorker.swift in Sources */,
+				2AFFFB8A2926670E00A487E1 /* ObjectLayoutPickerModuleAssembly.swift in Sources */,
 				531629372632BD0B000D6780 /* StylePanelLayout.swift in Sources */,
 				C9A7528328E3297000235BDE /* URLConstants.swift in Sources */,
 				12D15D2027F5F78500D22086 /* TagsOptionsSearchModuleBuilder.swift in Sources */,
@@ -7960,6 +7970,7 @@
 				3D2D4C6327BA76270070A4C6 /* EditorRouterProtocol.swift in Sources */,
 				12A52E2926CAA17B000F0333 /* AnimatableView.swift in Sources */,
 				039DA2E62305843D0041F95C /* ErrorAlertView.swift in Sources */,
+				2AFFFB972927722A00A487E1 /* ObjectCoverPickerModuleAssembly.swift in Sources */,
 				1247BCA727FF3827005F2DB4 /* FeedbackGeneratorExamplesView.swift in Sources */,
 				3D929B2F263307700063F1BE /* AnytypeFont.swift in Sources */,
 				53CC99A8280D6DD900C39CCF /* AnytypeAnalytics.swift in Sources */,
@@ -8345,7 +8356,6 @@
 				2AFB541D28621776004F7458 /* Strings.swift in Sources */,
 				2E8387BB291A51A000506766 /* KanbanCardDropInsideDelegate.swift in Sources */,
 				C90F8F2628DCBB4000E874A9 /* ImageSourceMedia.swift in Sources */,
-				3D38CC9326D626A700E4F7BF /* ObjectSettingAssembly.swift in Sources */,
 				2A9D299428BCC78900789AC7 /* NonExistentBlockViewModel.swift in Sources */,
 				53D408AE27F0B85B00495335 /* CodeBlockFieldsConverter.swift in Sources */,
 				12472317264EAFD400B1E753 /* StringExtensions.swift in Sources */,
@@ -8590,6 +8600,7 @@
 				5386E3C027B2DAEA004D8221 /* RelationValueViewUIKit.swift in Sources */,
 				3DB1C9DC2726C248000D2779 /* DeletedLabel.swift in Sources */,
 				C90F8F2428DCBAE100E874A9 /* FileDownloader.swift in Sources */,
+				2AFFFB99292773BF00A487E1 /* ObjectIconPickerModuleAssembly.swift in Sources */,
 				12426A1126DCE1A400693B1F /* ImageBuilder.swift in Sources */,
 				3D9384F826F9F421001C137F /* MentionImageProcessor.swift in Sources */,
 				539E019C2758423D00067A24 /* SlashMenuRealtionContentConfiguration.swift in Sources */,
@@ -8683,6 +8694,7 @@
 				535F799A274705C30050A1B8 /* FlowRelationsViewModel.swift in Sources */,
 				C93B2D2F274E41390008544D /* CustomStateKeys.swift in Sources */,
 				2A2C3311289294B8008BC326 /* ModulesDI.swift in Sources */,
+				2AFFFB9B292778B700A487E1 /* ObjectSettingModuleAssembly.swift in Sources */,
 				12928C8C27BD3C0B00CE94C3 /* IntrinsicPopupLayout.swift in Sources */,
 				538F1728272C126F009528E7 /* SearchViewModelProtocol.swift in Sources */,
 				2E2D256428880C8D00E3DFD1 /* SetFiltersSelectionHeaderViewModel.swift in Sources */,

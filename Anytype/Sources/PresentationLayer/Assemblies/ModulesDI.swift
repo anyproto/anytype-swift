@@ -19,4 +19,20 @@ final class ModulesDI: ModulesDIProtocol {
     var undoRedo: UndoRedoModuleAssemblyProtocol {
         return UndoRedoModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
     }
+    
+    var objectLayoutPicker: ObjectLayoutPickerModuleAssemblyProtocol {
+        return ObjectLayoutPickerModuleAssembly(serviceLocator: serviceLocator)
+    }
+    
+    var objectCoverPicker: ObjectCoverPickerModuleAssemblyProtocol {
+        return ObjectCoverPickerModuleAssembly(serviceLocator: serviceLocator)
+    }
+    
+    var objectIconPicker: ObjectIconPickerModuleAssemblyProtocol {
+        return ObjectIconPickerModuleAssembly(serviceLocator: serviceLocator)
+    }
+    
+    var objectSetting: ObjectSettingModuleAssemblyProtocol {
+        return ObjectSettingModuleAssembly(serviceLocator: serviceLocator)
+    }
 }
