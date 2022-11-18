@@ -3223,7 +3223,6 @@
 		120E816B269F26BE006FE84E /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				3D3040C927DF62BA00FFE0EB /* Model */,
 				124E2BBD273020CF00A2D534 /* Relations */,
 				53FF7CBA26FDD33400A5A592 /* ObjectActions */,
 				3D38CC8E26D625F200E4F7BF /* ObjectSettings */,
@@ -5395,6 +5394,7 @@
 		3D38CC8E26D625F200E4F7BF /* ObjectSettings */ = {
 			isa = PBXGroup;
 			children = (
+				3D3040C927DF62BA00FFE0EB /* Model */,
 				120E8174269F342D006FE84E /* ObjectSettingsViewModel.swift */,
 				120E8170269F31A8006FE84E /* ObjectSettingsView.swift */,
 				120E817E26A026F5006FE84E /* ObjectSettingRow.swift */,
