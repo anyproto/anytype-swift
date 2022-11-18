@@ -11,15 +11,18 @@ final class EditorPageCoordinator: EditorPageCoordinatorProtocol {
     private weak var rootController: EditorBrowserController?
     private weak var viewController: UIViewController?
     private let editorAssembly: EditorAssembly
+    private let alertHelper: AlertHelper
     
     init(
         rootController: EditorBrowserController?,
         viewController: UIViewController?,
-        editorAssembly: EditorAssembly
+        editorAssembly: EditorAssembly,
+        alertHelper: AlertHelper
     ) {
         self.rootController = rootController
         self.viewController = viewController
         self.editorAssembly = editorAssembly
+        self.alertHelper = alertHelper
     }
     
     // MARK: - EditorPageCoordinatorProtocol
@@ -47,7 +50,7 @@ final class EditorPageCoordinator: EditorPageCoordinatorProtocol {
     private func showUnsupportedTypeAlert(typeUrl: String) {
         let typeName = ObjectTypeProvider.shared.objectType(url: typeUrl)?.name ?? Loc.unknown
         
-        AlertHelper.showToast(
+        alertHelper.showToast(
             title: "Not supported type \"\(typeName)\"",
             message: "You can open it via desktop"
         )

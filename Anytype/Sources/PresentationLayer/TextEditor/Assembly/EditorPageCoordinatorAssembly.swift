@@ -30,7 +30,8 @@ final class EditorPageCoordinatorAssembly: EditorPageCoordinatorAssemblyProtocol
         let coordinator = EditorPageCoordinator(
             rootController: rootController,
             viewController: viewController,
-            editorAssembly: coordinatorsID.editor
+            editorAssembly: coordinatorsID.editor,
+            alertHelper: AlertHelper(viewController: viewController)
         )
         
         return coordinator

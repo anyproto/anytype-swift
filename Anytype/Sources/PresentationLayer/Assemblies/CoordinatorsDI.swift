@@ -1,13 +1,16 @@
 import Foundation
+import UIKit
 
 final class CoordinatorsDI: CoordinatorsDIProtocol {
     
     private let serviceLocator: ServiceLocator
     private let modulesDI: ModulesDIProtocol
+    private let uiHelpersDI: UIHelpersDIProtocol
     
-    init(serviceLocator: ServiceLocator, modulesDI: ModulesDIProtocol) {
+    init(serviceLocator: ServiceLocator, modulesDI: ModulesDIProtocol, uiHelpersDI: UIHelpersDIProtocol) {
         self.serviceLocator = serviceLocator
         self.modulesDI = modulesDI
+        self.uiHelpersDI = uiHelpersDI
     }
     
     // MARK: - CoordinatorsDIProtocol
@@ -44,16 +47,25 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     }
     
     var editor: EditorAssembly {
-        return EditorAssembly(serviceLocator: serviceLocator, coordinatorsDI: self)
+        return EditorAssembly(serviceLocator: serviceLocator, coordinatorsDI: self, modulesDI: modulesDI)
     }
     
     var homeViewAssemby: HomeViewAssembly {
         return HomeViewAssembly(coordinatorsDI: self)
     }
-}
-
-extension CoordinatorsDI {
-    static func makeForPreview() -> CoordinatorsDI {
-        CoordinatorsDI(serviceLocator: ServiceLocator.shared, modulesDI: ModulesDI())
+    
+    var application: ApplicationCoordinator {
+        return ApplicationCoordinator(
+            windowManager: windowManager,
+            authService: serviceLocator.authService()
+        )
     }
+    
+    var windowManager: WindowManager {
+        WindowManager(
+            viewControllerProvider: uiHelpersDI.viewControllerProvider,
+            homeViewAssembly: homeViewAssemby
+        )
+    }
+
 }

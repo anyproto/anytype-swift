@@ -111,7 +111,11 @@ struct CreateNewProfileView: View {
 struct CreateNewProfileView_Previews: PreviewProvider {
     static var previews: some View {
         CreateNewProfileView(
-            viewModel: CreateNewProfileViewModel(seedService: ServiceLocator.shared.seedService()),
+            viewModel: CreateNewProfileViewModel(
+                windowManager: DI.makeForPreview().coordinatorsDI.windowManager,
+                authService: DI.makeForPreview().serviceLocator.authService(),
+                seedService: DI.makeForPreview().serviceLocator.seedService()
+            ),
             showCreateNewProfile: .constant(true)
         )
         .environmentObject(SignUpData(mnemonic: ""))

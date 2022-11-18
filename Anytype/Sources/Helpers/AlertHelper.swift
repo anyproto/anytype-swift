@@ -2,7 +2,14 @@ import Dispatch
 import UIKit
 
 final class AlertHelper {
-    static func showToast(title: String, message: String) {
+    
+    private weak var viewController: UIViewController?
+    
+    init(viewController: UIViewController?) {
+        self.viewController = viewController
+    }
+    
+    func showToast(title: String, message: String) {
         let alert = UIAlertController(
             title: title,
             message: message,
@@ -13,6 +20,6 @@ final class AlertHelper {
           alert.dismiss(animated: true, completion: nil)
         }
         
-        WindowManager.shared.presentOnTop(alert, animated: true)
+        viewController?.topPresentedController.present(alert, animated: true)
     }
 }

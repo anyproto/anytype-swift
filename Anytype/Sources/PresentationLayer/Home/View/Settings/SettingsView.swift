@@ -22,7 +22,12 @@ struct SettingsView_Previews: PreviewProvider {
         ZStack {
             Color.System.amber.ignoresSafeArea()
             SettingsView()
-                .environmentObject(SettingsViewModel(authService: ServiceLocator.shared.authService()))
+                .environmentObject(
+                    SettingsViewModel(
+                        authService: ServiceLocator.shared.authService(),
+                        windowManager: DI.makeForPreview().coordinatorsDI.windowManager
+                    )
+                )
                 .previewLayout(.fixed(width: 360, height: 276))
         }
     }
