@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct WaitingOnCreatAccountView: View {
-    @ObservedObject var viewModel: WaitingOnCreatAccountViewModel
+    @StateObject var viewModel: WaitingOnCreatAccountViewModel
     
     var body: some View {
         VStack {

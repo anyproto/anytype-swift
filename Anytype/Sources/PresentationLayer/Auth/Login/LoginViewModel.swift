@@ -79,7 +79,8 @@ class LoginViewModel: ObservableObject {
     
     @MainActor
     func selectProfileFlow() -> some View {
-        return SelectProfileView(viewModel: SelectProfileViewModel(windowManager: windowManager))
+        let viewModel = SelectProfileViewModel(windowManager: windowManager)
+        return SelectProfileView(viewModel: viewModel)
     }
 
     private func recoverWallet(with string: String) {

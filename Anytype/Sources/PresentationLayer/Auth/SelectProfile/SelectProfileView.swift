@@ -2,7 +2,7 @@ import SwiftUI
 
 
 struct SelectProfileView: View {
-    @ObservedObject var viewModel: SelectProfileViewModel
+    @StateObject var viewModel: SelectProfileViewModel
     
     @Environment(\.presentationMode) private var presentationMode
     

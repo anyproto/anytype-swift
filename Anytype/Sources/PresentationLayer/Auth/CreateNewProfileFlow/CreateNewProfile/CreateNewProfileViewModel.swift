@@ -18,15 +18,14 @@ class CreateNewProfileViewModel: ObservableObject {
     }
 
     func showSetupWallet(signUpData: SignUpData, showWaitingView: Binding<Bool>) -> some View {
-        return WaitingOnCreatAccountView(
-            viewModel: WaitingOnCreatAccountViewModel(
-                signUpData: signUpData,
-                showWaitingView: showWaitingView,
-                windowManager: windowManager,
-                authService: authService,
-                seedService: seedService
-            )
+        let viewModel = WaitingOnCreatAccountViewModel(
+            signUpData: signUpData,
+            showWaitingView: showWaitingView,
+            windowManager: windowManager,
+            authService: authService,
+            seedService: seedService
         )
+        return WaitingOnCreatAccountView(viewModel: viewModel)
     }
     
     func setImage(signUpData: SignUpData, itemProvider: NSItemProvider?) {
