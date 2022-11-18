@@ -7,13 +7,19 @@ protocol ObjectSettingModuleAssemblyProtocol {
 
 final class ObjectSettingModuleAssembly: ObjectSettingModuleAssemblyProtocol {
     
+    private let serviceLocator: ServiceLocator
+    
+    init(serviceLocator: ServiceLocator) {
+        self.serviceLocator = serviceLocator
+    }
+    
     // MARK: - ObjectSettingModuleAssemblyProtocol
     
     func make(document: BaseDocumentProtocol, router: EditorRouterProtocol) -> UIViewController {
         
         let viewModel = ObjectSettingsViewModel(
             document: document,
-            objectDetailsService: ServiceLocator.shared.detailsService(objectId: document.objectId),
+            objectDetailsService: serviceLocator.detailsService(objectId: document.objectId),
             router: router
         )
         let view = ObjectSettingsView(viewModel: viewModel)

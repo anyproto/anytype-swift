@@ -8,13 +8,19 @@ protocol ObjectIconPickerModuleAssemblyProtocol {
 
 final class ObjectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol {
     
+    private let serviceLocator: ServiceLocator
+    
+    init(serviceLocator: ServiceLocator) {
+        self.serviceLocator = serviceLocator
+    }
+
     // MARK: - ObjectIconPickerModuleAssemblyProtocol
     
     func make(document: BaseDocumentProtocol) -> UIViewController {
         let viewModel = ObjectIconPickerViewModel(
             document: document,
-            fileService: ServiceLocator.shared.fileService(),
-            detailsService: ServiceLocator.shared.detailsService(objectId: document.objectId)
+            fileService: serviceLocator.fileService(),
+            detailsService: serviceLocator.detailsService(objectId: document.objectId)
         )
         
         let controller = UIHostingController(

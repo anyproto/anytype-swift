@@ -8,13 +8,19 @@ protocol ObjectCoverPickerModuleAssemblyProtocol {
 
 final class ObjectCoverPickerModuleAssembly: ObjectCoverPickerModuleAssemblyProtocol {
     
+    private let serviceLocator: ServiceLocator
+    
+    init(serviceLocator: ServiceLocator) {
+        self.serviceLocator = serviceLocator
+    }
+    
     // MARK: - ObjectCoverPickerModuleAssemblyProtocol
     
     func make(document: BaseDocumentProtocol) -> UIViewController {
         let viewModel = ObjectCoverPickerViewModel(
             document: document,
-            fileService: ServiceLocator.shared.fileService(),
-            detailsService: ServiceLocator.shared.detailsService(objectId: document.objectId)
+            fileService: serviceLocator.fileService(),
+            detailsService: serviceLocator.detailsService(objectId: document.objectId)
         )
         
         let controller = UIHostingController(

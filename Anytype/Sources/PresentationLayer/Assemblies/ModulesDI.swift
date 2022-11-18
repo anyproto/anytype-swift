@@ -25,14 +25,14 @@ final class ModulesDI: ModulesDIProtocol {
     }
     
     var objectCoverPicker: ObjectCoverPickerModuleAssemblyProtocol {
-        return ObjectCoverPickerModuleAssembly()
+        return ObjectCoverPickerModuleAssembly(serviceLocator: serviceLocator)
     }
     
     var objectIconPicker: ObjectIconPickerModuleAssemblyProtocol {
-        return ObjectIconPickerModuleAssembly()
+        return ObjectIconPickerModuleAssembly(serviceLocator: serviceLocator)
     }
     
     var objectSetting: ObjectSettingModuleAssemblyProtocol {
-        return ObjectSettingModuleAssembly()
+        return ObjectSettingModuleAssembly(serviceLocator: serviceLocator)
     }
 }
