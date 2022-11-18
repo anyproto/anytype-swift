@@ -74,6 +74,7 @@ final class EditorAssembly {
             undoRedoModuleAssembly: modulesDI.undoRedo,
             objectLayoutPickerModuleAssembly: modulesDI.objectLayoutPicker,
             objectCoverPickerModuleAssembly: modulesDI.objectCoverPicker,
+            objectIconPickerModuleAssembly: modulesDI.objectIconPicker,
             alertHelper: AlertHelper(viewController: controller)
         )
         
@@ -116,6 +117,7 @@ final class EditorAssembly {
             undoRedoModuleAssembly: modulesDI.undoRedo,
             objectLayoutPickerModuleAssembly: modulesDI.objectLayoutPicker,
             objectCoverPickerModuleAssembly: modulesDI.objectCoverPicker,
+            objectIconPickerModuleAssembly: modulesDI.objectIconPicker,
             alertHelper: AlertHelper(viewController: controller)
         )
 

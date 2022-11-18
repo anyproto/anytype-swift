@@ -2,28 +2,30 @@ import Foundation
 import UIKit
 import SwiftUI
 
-protocol ObjectCoverPickerModuleAssemblyProtocol {
+protocol ObjectIconPickerModuleAssemblyProtocol {
     func make(document: BaseDocumentProtocol) -> UIViewController
 }
 
-final class ObjectCoverPickerModuleAssembly: ObjectCoverPickerModuleAssemblyProtocol {
+final class ObjectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol {
     
-    // MARK: - ObjectCoverPickerModuleAssemblyProtocol
+    // MARK: - ObjectIconPickerModuleAssemblyProtocol
     
     func make(document: BaseDocumentProtocol) -> UIViewController {
-        let viewModel = ObjectCoverPickerViewModel(
+        let viewModel = ObjectIconPickerViewModel(
             document: document,
             fileService: ServiceLocator.shared.fileService(),
             detailsService: ServiceLocator.shared.detailsService(objectId: document.objectId)
         )
         
         let controller = UIHostingController(
-            rootView: ObjectCoverPicker(viewModel: viewModel)
+            rootView: ObjectIconPicker(viewModel: viewModel)
         )
         
-        controller.rootView.onDismiss = { [weak controller] in
-            controller?.dismiss(animated: true)
-        }
+        controller.rootView.dismissHandler = DismissHandler(
+            onDismiss:  { [weak controller] in
+                controller?.dismiss(animated: true)
+            }
+        )
         
         return controller
     }

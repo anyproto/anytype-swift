@@ -5,4 +5,5 @@ protocol ModulesDIProtocol: AnyObject {
     var undoRedo: UndoRedoModuleAssemblyProtocol { get }
     var objectLayoutPicker: ObjectLayoutPickerModuleAssemblyProtocol { get }
     var objectCoverPicker: ObjectCoverPickerModuleAssemblyProtocol { get }
+    var objectIconPicker: ObjectIconPickerModuleAssemblyProtocol { get }
 }

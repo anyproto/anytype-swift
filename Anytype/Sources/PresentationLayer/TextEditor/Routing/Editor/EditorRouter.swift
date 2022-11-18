@@ -22,6 +22,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     private let undoRedoModuleAssembly: UndoRedoModuleAssemblyProtocol
     private let objectLayoutPickerModuleAssembly: ObjectLayoutPickerModuleAssemblyProtocol
     private let objectCoverPickerModuleAssembly: ObjectCoverPickerModuleAssemblyProtocol
+    private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
     private let alertHelper: AlertHelper
     
     init(
@@ -37,6 +38,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         undoRedoModuleAssembly: UndoRedoModuleAssemblyProtocol,
         objectLayoutPickerModuleAssembly: ObjectLayoutPickerModuleAssemblyProtocol,
         objectCoverPickerModuleAssembly: ObjectCoverPickerModuleAssemblyProtocol,
+        objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
         alertHelper: AlertHelper
     ) {
         self.rootController = rootController
@@ -53,6 +55,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         self.undoRedoModuleAssembly = undoRedoModuleAssembly
         self.objectLayoutPickerModuleAssembly = objectLayoutPickerModuleAssembly
         self.objectCoverPickerModuleAssembly = objectCoverPickerModuleAssembly
+        self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
         self.alertHelper = alertHelper
     }
 
@@ -329,8 +332,8 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     }
     
     func showIconPicker() {
-        let controller = settingAssembly.iconPicker(document: document)
-        navigationContext.present(controller)
+        let moduleViewController = objectIconPickerModuleAssembly.make(document: document)
+        navigationContext.present(moduleViewController)
     }
     
     func showLayoutPicker() {

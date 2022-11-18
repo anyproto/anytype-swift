@@ -27,4 +27,8 @@ final class ModulesDI: ModulesDIProtocol {
     var objectCoverPicker: ObjectCoverPickerModuleAssemblyProtocol {
         return ObjectCoverPickerModuleAssembly()
     }
+    
+    var objectIconPicker: ObjectIconPickerModuleAssemblyProtocol {
+        return ObjectIconPickerModuleAssembly()
+    }
 }
