@@ -406,6 +406,50 @@ extension Anytype_Rpc.Workspace.Create {
   }
 }
 
+extension Anytype_Rpc.Workspace.Object.ListAdd {
+  public enum Service {
+    public static func invoke(objectIds: [String] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(objectIds: objectIds).invoke(on: queue)
+    }
+    public static func invoke(objectIds: [String] = []) -> Result<Response, Error> {
+        return invocation(objectIds: objectIds).invoke()
+    }
+    public static func invocation(objectIds: [String] = []) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(objectIds: objectIds)
+        return Invocation<Request,Response>(messageName: "WorkspaceObjectListAdd", request: request) { request in
+            return self.invoke(request)
+        }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+        return Lib.ServiceWorkspaceObjectListAdd(try? request.serializedData()).flatMap {
+            try? Response(serializedData: $0)
+        }
+    }
+  }
+}
+
+extension Anytype_Rpc.Workspace.Object.ListRemove {
+  public enum Service {
+    public static func invoke(objectIds: [String] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(objectIds: objectIds).invoke(on: queue)
+    }
+    public static func invoke(objectIds: [String] = []) -> Result<Response, Error> {
+        return invocation(objectIds: objectIds).invoke()
+    }
+    public static func invocation(objectIds: [String] = []) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(objectIds: objectIds)
+        return Invocation<Request,Response>(messageName: "WorkspaceObjectListRemove", request: request) { request in
+            return self.invoke(request)
+        }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+        return Lib.ServiceWorkspaceObjectListRemove(try? request.serializedData()).flatMap {
+            try? Response(serializedData: $0)
+        }
+    }
+  }
+}
+
 extension Anytype_Rpc.Workspace.SetIsHighlighted {
   public enum Service {
     public static func invoke(objectID: String = String(), isHighlighted: Bool = false, queue: DispatchQueue? = nil) -> Future<Response, Error> {

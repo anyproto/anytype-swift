@@ -3785,6 +3785,46 @@ extension Anytype_Rpc.Workspace.GetCurrent.Response.Error {
     }
 }
 
+extension Anytype_Rpc.Workspace.Object.ListAdd.Request {
+    public init(objectIds: [String] = []) {
+        self.objectIds = objectIds
+    }
+}
+
+extension Anytype_Rpc.Workspace.Object.ListAdd.Response {
+    public init(error: Anytype_Rpc.Workspace.Object.ListAdd.Response.Error, ids: [String] = []) {
+        self.error = error
+        self.ids = ids
+    }
+}
+
+extension Anytype_Rpc.Workspace.Object.ListAdd.Response.Error {
+    public init(code: Anytype_Rpc.Workspace.Object.ListAdd.Response.Error.Code = .null, description_p: String = String()) {
+        self.code = code
+        self.description_p = description_p
+    }
+}
+
+extension Anytype_Rpc.Workspace.Object.ListRemove.Request {
+    public init(objectIds: [String] = []) {
+        self.objectIds = objectIds
+    }
+}
+
+extension Anytype_Rpc.Workspace.Object.ListRemove.Response {
+    public init(error: Anytype_Rpc.Workspace.Object.ListRemove.Response.Error, ids: [String] = []) {
+        self.error = error
+        self.ids = ids
+    }
+}
+
+extension Anytype_Rpc.Workspace.Object.ListRemove.Response.Error {
+    public init(code: Anytype_Rpc.Workspace.Object.ListRemove.Response.Error.Code = .null, description_p: String = String()) {
+        self.code = code
+        self.description_p = description_p
+    }
+}
+
 extension Anytype_Rpc.Workspace.Select.Request {
     public init(workspaceID: String = String()) {
         self.workspaceID = workspaceID

@@ -20,6 +20,8 @@ service ClientCommands {
     // Workspace
     // ***
     rpc WorkspaceCreate (anytype.Rpc.Workspace.Create.Request) returns (anytype.Rpc.Workspace.Create.Response);
+    rpc WorkspaceObjectListAdd (anytype.Rpc.Workspace.Object.ListAdd.Request) returns (anytype.Rpc.Workspace.Object.ListAdd.Response);
+    rpc WorkspaceObjectListRemove (anytype.Rpc.Workspace.Object.ListRemove.Request) returns (anytype.Rpc.Workspace.Object.ListRemove.Response);
     rpc WorkspaceSelect (anytype.Rpc.Workspace.Select.Request) returns (anytype.Rpc.Workspace.Select.Response);
     rpc WorkspaceGetCurrent (anytype.Rpc.Workspace.GetCurrent.Request) returns (anytype.Rpc.Workspace.GetCurrent.Response);
     rpc WorkspaceGetAll (anytype.Rpc.Workspace.GetAll.Request) returns (anytype.Rpc.Workspace.GetAll.Response);

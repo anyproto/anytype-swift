@@ -844,6 +844,16 @@ extension Anytype_Rpc.Workspace.GetCurrent.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }
 }
 
+extension Anytype_Rpc.Workspace.Object.ListAdd.Response: ResultWithError {}
+extension Anytype_Rpc.Workspace.Object.ListAdd.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null }
+}
+
+extension Anytype_Rpc.Workspace.Object.ListRemove.Response: ResultWithError {}
+extension Anytype_Rpc.Workspace.Object.ListRemove.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null }
+}
+
 extension Anytype_Rpc.Workspace.Select.Response: ResultWithError {}
 extension Anytype_Rpc.Workspace.Select.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }
