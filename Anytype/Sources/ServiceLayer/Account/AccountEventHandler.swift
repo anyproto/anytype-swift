@@ -5,6 +5,9 @@ import Combine
 protocol AccountEventHandlerProtocol {
     func startSubscription()
     func stopSubscription()
+    
+    var accountShowPublisher: AnyPublisher<String, Never> { get }
+    var accountStatusPublisher: AnyPublisher<AccountStatus, Never> { get }
 }
 
 final class AccountEventHandler: AccountEventHandlerProtocol {
@@ -12,11 +15,22 @@ final class AccountEventHandler: AccountEventHandlerProtocol {
     private var cancellable: AnyCancellable?
     private var accountManager: AccountManager
     
+    private let accountShowSubject = PassthroughSubject<String, Never>()
+    private let accountStatusSubject = PassthroughSubject<AccountStatus, Never>()
+    
     init(accountManager: AccountManager) {
         self.accountManager = accountManager
     }
     
     // MARK: - AccountEventHandlerProtocol
+    
+    var accountShowPublisher: AnyPublisher<String, Never> {
+        return accountShowSubject.eraseToAnyPublisher()
+    }
+    
+    var accountStatusPublisher: AnyPublisher<AccountStatus, Never> {
+        return accountStatusSubject.eraseToAnyPublisher()
+    }
     
     func startSubscription() {
         guard cancellable == nil else { return }
@@ -43,27 +57,26 @@ final class AccountEventHandler: AccountEventHandlerProtocol {
     private func handleEvent(_ event: Anytype_Event.Message) {
         switch event.value {
         case let .accountShow(data):
-            if data.hasAccount {
-                accountManager.account = data.account.asModel
-            }
+            accountShowSubject.send(data.account.id)
         case let .accountUpdate(data):
-            if data.hasConfig {
-                accountManager.account.config = data.config.asModel
-            }
             if data.hasStatus, let status = data.status.asModel {
-                accountManager.account.status = status
+                handleStatus(status)
             }
-        case let .accountDetails(data):
+        // Other account events
+        case .accountDetails,
+             .accountConfigUpdate:
             break
-        case let .accountConfigUpdate(data):
-            if data.hasConfig {
-                accountManager.account.config = data.config.asModel
-            }
-            if data.hasStatus, let status = data.status.asModel {
-                accountManager.account.status = status
-            }
         default:
             break
         }
+    }
+    
+    private func handleStatus(_ newStatus: AccountStatus) {
+        
+        let currentStatus = accountManager.account.status
+        guard currentStatus != newStatus else { return }
+        accountManager.account.status = newStatus
+        
+        accountStatusSubject.send(newStatus)
     }
 }

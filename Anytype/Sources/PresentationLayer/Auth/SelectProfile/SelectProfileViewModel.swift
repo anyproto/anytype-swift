@@ -16,6 +16,7 @@ final class SelectProfileViewModel: ObservableObject {
     
     private let authService = ServiceLocator.shared.authService()
     private let fileService = ServiceLocator.shared.fileService()
+    private let accountEventHandler = ServiceLocator.shared.accountManager()
     
     private var cancellable: AnyCancellable?
     
