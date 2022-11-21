@@ -1146,10 +1146,8 @@ internal enum Loc {
         internal enum Column {
           internal enum Paging {
             internal enum Title {
-              /// Show %d more objects
-              internal static func showMore(_ p1: Int) -> String {
-                return Loc.tr("Localizable", "Set.View.Kanban.Column.Paging.Title.ShowMore", p1, fallback: "Show %d more objects")
-              }
+              /// Show more objects
+              internal static let showMore = Loc.tr("Localizable", "Set.View.Kanban.Column.Paging.Title.ShowMore", fallback: "Show more objects")
             }
           }
           internal enum Title {

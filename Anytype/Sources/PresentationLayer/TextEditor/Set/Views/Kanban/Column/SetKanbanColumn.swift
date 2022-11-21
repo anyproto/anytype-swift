@@ -6,9 +6,12 @@ struct SetKanbanColumn: View {
     let headerRelation: Relation?
     let configurations: [SetContentViewItemConfiguration]
     let isGroupBackgroundColors: Bool
+    let showPagingView: Bool
     
     let dragAndDropDelegate: KanbanDragAndDropDelegate
     @Binding var dropData: KanbanCardDropData
+    
+    let onShowMoreTapped: () -> Void
 
     var body: some View {
         VStack(spacing: 0) {
@@ -52,7 +55,9 @@ struct SetKanbanColumn: View {
                         )
                     )
             }
-            pagingView
+            if showPagingView {
+                pagingView
+            }
         }
         .frame(width: 254)
     }
@@ -87,7 +92,7 @@ struct SetKanbanColumn: View {
     
     private var pagingView: some View {
         Button {
-            
+            onShowMoreTapped()
         } label: {
             VStack(spacing: 0) {
                 Spacer.fixedHeight(4)
@@ -98,7 +103,7 @@ struct SetKanbanColumn: View {
                         .frame(width: 18, height: 18)
                     Spacer.fixedWidth(7)
                     AnytypeText(
-                        Loc.Set.View.Kanban.Column.Paging.Title.showMore(10),
+                        Loc.Set.View.Kanban.Column.Paging.Title.showMore,
                         style: .caption1Medium,
                         color: .textSecondary
                     )

@@ -14,7 +14,7 @@ final class EditorSetViewModel: ObservableObject {
     private var recordsDict: OrderedDictionary<String, [ObjectDetails]> = [:]
     private var groups: [DataviewGroup] = []
     @Published var configurationsDict: OrderedDictionary<String, [SetContentViewItemConfiguration]> = [:]
-    @Published var pagitationData = EditorSetPaginationData.empty
+    @Published var pagitationDataDict: OrderedDictionary<String, EditorSetPaginationData> = [:]
     
     @Published var sorts: [SetSort] = []
     @Published var filters: [SetFilter] = []
@@ -177,10 +177,20 @@ final class EditorSetViewModel: ObservableObject {
         )
     }
     
+    func pagitationData(by groupId: String) -> EditorSetPaginationData {
+        if let data = pagitationDataDict[groupId] {
+            return data
+        } else {
+            let data = EditorSetPaginationData.empty
+            pagitationDataDict[groupId] = data
+            return data
+        }
+    }
+    
     // MARK: - Private
     
     private func setupGroupSubscriptions() {
-        Task {
+        Task { @MainActor in
             groups = try await relationSearchDistinctService.searchDistinct(
                 relationKey: activeView.groupRelationKey,
                 filters: activeView.filters
@@ -194,14 +204,28 @@ final class EditorSetViewModel: ObservableObject {
         }
     }
     
+    
     private func startSubscriptionIfNeeded(with subscriptionId: SubscriptionId, groupFilter: DataviewFilter? = nil) {
+        let pagitationData = pagitationData(by: subscriptionId.value)
+        let currentPage: Int
+        let numberOfRowsPerPage: Int
+        if activeView.type.hasGroups {
+            let recordsCount = recordsDict[subscriptionId.value]?.count ?? 0
+            numberOfRowsPerPage = max(3 * max(pagitationData.selectedPage, 1), recordsCount)
+            currentPage = 1
+        } else {
+            numberOfRowsPerPage = 50
+            currentPage = max(pagitationData.selectedPage, 1)
+        }
+        
         let data = setSubscriptionDataBuilder.set(
             .init(
                 identifier: subscriptionId,
                 dataView: dataView,
                 view: activeView,
                 groupFilter: groupFilter,
-                currentPage: max(pagitationData.selectedPage, 1) // show first page for empty request
+                currentPage: currentPage, // show first page for empty request
+                numberOfRowsPerPage: numberOfRowsPerPage
             )
         )
         
@@ -221,7 +245,7 @@ final class EditorSetViewModel: ObservableObject {
     
     private func updateData(with groupId: String, update: SubscriptionUpdate) {
         if case let .pageCount(count) = update {
-            updatePageCount(count)
+            updatePageCount(count, groupId: groupId)
             return
         }
         
@@ -230,6 +254,7 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     private func updateRecords(for groupId: String, update: SubscriptionUpdate) {
+        // разобраться тут с апдейтами, которые приходят, кажется там подписка упирается в лимиты и поэтому удаеяет что-то, а что-то добавляет, плюс не может больше лимита отобрзить, поэтому появляется showmore
         var records = recordsDict[groupId, default: []]
         records.applySubscriptionUpdate(update)
         recordsDict[groupId] = records
@@ -403,6 +428,7 @@ final class EditorSetViewModel: ObservableObject {
         if modeChanged || groupRelationKeyChanged {
             recordsDict = [:]
             configurationsDict = [:]
+            pagitationDataDict = [:]
             subscriptionService.stopAllSubscriptions()
         }
     }

@@ -58,8 +58,12 @@ struct SetKanbanView: View {
                             headerRelation: nil, // will be updated after branch `relatio-as-object` was merged
                             configurations: configurations,
                             isGroupBackgroundColors: model.isGroupBackgroundColors,
+                            showPagingView: model.pagitationData(by: groupId).pageCount > 1,
                             dragAndDropDelegate: model,
-                            dropData: $dropData
+                            dropData: $dropData,
+                            onShowMoreTapped: {
+                                model.showMore(groupId: groupId)
+                            }
                         )
                     }
                 }

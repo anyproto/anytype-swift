@@ -10,7 +10,7 @@ final class SetSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol {
     // MARK: - SetSubscriptionDataBuilderProtocol
     
     func set(_ data: SetSubsriptionData) -> SubscriptionData {
-        let numberOfRowsPerPageInSubscriptions = UserDefaultsConfig.rowsPerPageInSet
+        let numberOfRowsPerPageInSubscriptions = data.numberOfRowsPerPage
 
         let keys = buildKeys(with: data)
         
