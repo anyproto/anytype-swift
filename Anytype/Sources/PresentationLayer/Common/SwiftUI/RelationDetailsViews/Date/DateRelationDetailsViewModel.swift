@@ -80,7 +80,7 @@ private extension DateRelationDetailsViewModel {
             }
         }()
         
-        service.updateRelation(relationKey: relation.id, value: value)
+        service.updateRelation(relationKey: relation.key, value: value)
     }
      
 }

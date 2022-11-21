@@ -31,19 +31,11 @@ struct AccessoryViewBuilder {
         let changeTypeViewModel = ChangeTypeAccessoryViewModel(
             router: router,
             handler: actionHandler,
-            searchService: SearchService(),
+            searchService: ServiceLocator.shared.searchService(),
             objectService: ServiceLocator.shared.objectActionsService(),
             document: document
-        ) { [weak router, weak actionHandler] in
-            router?.showTypesSearch(
-                title: Loc.changeType,
-                selectedObjectId: document.details?.type,
-                onSelect: { id in
-                    actionHandler?.setObjectTypeUrl(id)
-                }
-            )
-        }
-
+        )
+        
         let typeListViewModel = HorizonalTypeListViewModel(itemProvider: changeTypeViewModel)
 
         let horizontalTypeListView = HorizonalTypeListView(viewModel: typeListViewModel)
@@ -78,11 +70,11 @@ struct AccessoryViewBuilder {
         )
 
         accessoryViewSwitcher.onDoneButton = {
-            guard let typeURL = document.details?.objectType else { return }
+            guard let type = document.details?.objectType else { return }
 
             router.showTemplatesPopupIfNeeded(
                 document: document,
-                templatesTypeURL: .dynamic(typeURL.url),
+                templatesTypeId: .dynamic(type.id),
                 onShow: nil
             )
         }

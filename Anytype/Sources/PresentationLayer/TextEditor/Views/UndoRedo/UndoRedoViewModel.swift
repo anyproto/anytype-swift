@@ -13,12 +13,12 @@ final class UndoRedoViewModel: ObservableObject {
 
     private let objectId: String
     private let objectActionsService: ObjectActionsServiceProtocol
-    private let toastPresenter: ToastPresenter
+    private let toastPresenter: ToastPresenterProtocol
 
     init(
         objectId: String,
         objectActionsService: ObjectActionsServiceProtocol = ObjectActionsService(),
-        toastPresenter: ToastPresenter
+        toastPresenter: ToastPresenterProtocol
     ) {
         self.objectId = objectId
         self.objectActionsService = objectActionsService

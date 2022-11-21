@@ -21,12 +21,3 @@ strings:
       output: Anytype/Generated/Strings.swift
       params:
         enumName: Loc
-# Delete for xcode 14. See Package.swift for BlockModels
-json:
-  inputs:
-    - Dependencies/relations.json
-  outputs:
-    - templatePath: ../../Modules/BlocksModels/Templates/relation-keys.stencil
-      output: Modules/BlocksModels/Sources/Relations/Provider/Bundled/Generated/BundledRelationKey.swift
-    - templatePath: ../../Modules/BlocksModels/Templates/relation-value-provider.stencil
-      output: Modules/BlocksModels/Sources/Relations/Provider/Bundled/Generated/BundledRelationsValueProvider.swift

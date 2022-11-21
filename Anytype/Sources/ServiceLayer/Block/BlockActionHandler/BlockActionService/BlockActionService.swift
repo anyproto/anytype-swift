@@ -72,7 +72,7 @@ final class BlockActionService: BlockActionServiceProtocol {
     }
 
 
-    func createPage(targetId: BlockId, type: ObjectTypeUrl, position: BlockPosition) -> BlockId? {
+    func createPage(targetId: BlockId, type: ObjectTypeId, position: BlockPosition) -> BlockId? {
         guard let newBlockId = pageService.createPage(
             contextId: documentId,
             targetId: targetId,
@@ -134,8 +134,8 @@ final class BlockActionService: BlockActionServiceProtocol {
         textService.setTextForced(contextId: contextId, blockId: blockId, middlewareString: middlewareString)
     }
     
-    func setObjectTypeUrl(_ objectTypeUrl: String) {
-        pageService.setObjectType(objectId: documentId, objectTypeUrl: objectTypeUrl)
+    func setObjectTypeId(_ objectTypeId: String) {
+        pageService.setObjectType(objectId: documentId, objectTypeId: objectTypeId)
     }
 
     func setObjectSetType() -> BlockId {

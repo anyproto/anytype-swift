@@ -48,7 +48,7 @@ final class ServiceLocator {
         FileActionsService()
     }
     
-    func searchService() -> SearchService {
+    func searchService() -> SearchServiceProtocol {
         SearchService()
     }
     
@@ -75,9 +75,22 @@ final class ServiceLocator {
         AlertOpener()
     }
     
+    // Sigletone
+    private lazy var _relationDetailsStorage = RelationDetailsStorage(
+        subscriptionsService: subscriptionService(),
+        subscriptionDataBuilder: RelationSubscriptionDataBuilder()
+    )
+    func relationDetailsStorage() -> RelationDetailsStorageProtocol {
+        return _relationDetailsStorage
+    }
+    
+    // MARK: - Private
+    
     func pageService() -> PageServiceProtocol {
         return PageService()
     }
+    
+    // MARK: - Private
     
     private func subscriptionToggler() -> SubscriptionTogglerProtocol {
         SubscriptionToggler()
@@ -86,11 +99,4 @@ final class ServiceLocator {
     private func detailsStorage() -> ObjectDetailsStorage {
         ObjectDetailsStorage.shared
     }
-    
-    // MARK: - Coodrdinators
-    
-    func applicationCoordinator(window: UIWindow) -> ApplicationCoordinator {
-        ApplicationCoordinator(window: window, authService: authService())
-    }
-
 }

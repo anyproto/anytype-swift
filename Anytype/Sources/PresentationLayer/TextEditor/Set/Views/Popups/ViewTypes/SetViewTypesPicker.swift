@@ -154,12 +154,13 @@ struct SetViewTypesPicker_Previews: PreviewProvider {
     static var previews: some View {
         SetViewTypesPicker(
             viewModel: SetViewTypesPickerViewModel(
+                dataView: BlockDataview.empty,
                 activeView: DataviewView.empty,
-                canDelete: true,
                 dataviewService: DataviewService(
                     objectId: "objectId",
                     prefilledFieldsBuilder: SetFilterPrefilledFieldsBuilder()
-                )
+                ),
+                relationDetailsStorage: ServiceLocator.shared.relationDetailsStorage()
             )
         )
     }

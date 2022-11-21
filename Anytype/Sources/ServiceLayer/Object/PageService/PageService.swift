@@ -11,7 +11,7 @@ final class PageService: PageServiceProtocol {
         let details = Google_Protobuf_Struct(
             fields: [
                 BundledRelationKey.name.rawValue: name.protobufValue,
-                BundledRelationKey.type.rawValue: ObjectTypeProvider.shared.defaultObjectType.url.protobufValue
+                BundledRelationKey.type.rawValue: ObjectTypeProvider.shared.defaultObjectType.id.protobufValue
             ]
         )
         
@@ -21,6 +21,6 @@ final class PageService: PageServiceProtocol {
         }
         
         EventsBunch(event: response.event).send()
-        return response.pageID
+        return response.objectID
     }
 }

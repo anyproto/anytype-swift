@@ -1142,6 +1142,14 @@ internal enum Loc {
       internal static let selectSource = Loc.tr("Localizable", "Set.SourceType.SelectSource", fallback: "Select source")
     }
     internal enum View {
+      internal enum Kanban {
+        internal enum Column {
+          internal enum Title {
+            /// Uncategorized
+            internal static let uncategorized = Loc.tr("Localizable", "Set.View.Kanban.Column.Title.Uncategorized", fallback: "Uncategorized")
+          }
+        }
+      }
       internal enum Settings {
         internal enum CardSize {
           /// Card size
@@ -1154,6 +1162,14 @@ internal enum Loc {
             /// Small
             internal static let title = Loc.tr("Localizable", "Set.View.Settings.CardSize.Small.Title", fallback: "Small")
           }
+        }
+        internal enum GroupBackgroundColors {
+          /// Color columns
+          internal static let title = Loc.tr("Localizable", "Set.View.Settings.GroupBackgroundColors.Title", fallback: "Color columns")
+        }
+        internal enum GroupBy {
+          /// Group by
+          internal static let title = Loc.tr("Localizable", "Set.View.Settings.GroupBy.Title", fallback: "Group by")
         }
         internal enum ImageFit {
           /// Fit image

@@ -15,8 +15,9 @@ final class SignUpData: ObservableObject {
     }
 }
 
-class WaitingOnCreatAccountViewModel: ObservableObject {
-    private let authService = ServiceLocator.shared.authService()
+final class WaitingOnCreatAccountViewModel: ObservableObject {
+    private let windowManager: WindowManager
+    private let authService: AuthServiceProtocol
     private let seedService: SeedServiceProtocol
     
     private let diskStorage = DiskStorage()
@@ -28,9 +29,17 @@ class WaitingOnCreatAccountViewModel: ObservableObject {
     
     @Binding var showWaitingView: Bool
     
-    init(signUpData: SignUpData, showWaitingView: Binding<Bool>, seedService: SeedServiceProtocol) {
+    init(
+        signUpData: SignUpData,
+        showWaitingView: Binding<Bool>,
+        windowManager: WindowManager,
+        authService: AuthServiceProtocol,
+        seedService: SeedServiceProtocol
+    ) {
         self.signUpData = signUpData
         self._showWaitingView = showWaitingView
+        self.windowManager = windowManager
+        self.authService = authService
         self.seedService = seedService
 
     }
@@ -56,7 +65,7 @@ class WaitingOnCreatAccountViewModel: ObservableObject {
                 case .success:
                     try? self.seedService.saveSeed(self.signUpData.mnemonic)
 
-                    WindowManager.shared.showHomeWindow()
+                    self.windowManager.showHomeWindow()
                 }
             }
         }

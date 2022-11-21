@@ -3,34 +3,36 @@ import BlocksModels
 import SwiftProtobuf
 import UIKit
 import AnytypeCore
+import Combine
 
 final class RelationsListViewModel: ObservableObject {
         
     @Published private(set) var navigationBarButtonsDisabled: Bool = false
-    
-    var sections: [RelationsSection] {
-        sectionsBuilder.buildSections(from: parsedRelations)
-    }
+    @Published var sections = [RelationsSection]()
     
     // MARK: - Private variables
-    
-    @Published private var parsedRelations: ParsedRelations = .empty
     
     private let sectionsBuilder = RelationsSectionBuilder()
     private let relationsService: RelationsServiceProtocol
     
     private let router: EditorRouterProtocol
-        
+    private var subscriptions = [AnyCancellable]()
+    
     // MARK: - Initializers
     
     init(
+        document: BaseDocumentProtocol,
         router: EditorRouterProtocol,
-        relationsService: RelationsServiceProtocol,
-        isObjectLocked: Bool
+        relationsService: RelationsServiceProtocol
     ) {
         self.router = router
         self.relationsService = relationsService
-        self.navigationBarButtonsDisabled = isObjectLocked
+        
+        document.parsedRelationsPublisher
+            .map { [sectionsBuilder] relations in sectionsBuilder.buildSections(from: relations) }
+            .assign(to: &$sections)
+        
+        document.isLockedPublisher.assign(to: &$navigationBarButtonsDisabled)
     }
     
 }
@@ -39,37 +41,27 @@ final class RelationsListViewModel: ObservableObject {
 
 extension RelationsListViewModel {
     
-    func update(with parsedRelations: ParsedRelations, isObjectLocked: Bool) {
-        self.parsedRelations = parsedRelations
-        self.navigationBarButtonsDisabled = isObjectLocked
-    }
-    
-    func changeRelationFeaturedState(relationId: String) {
-        let relationsRowData: [Relation] = sections.flatMap { $0.relations }
-        let relationRowData = relationsRowData.first { $0.id == relationId }
-        
-        guard let relationRowData = relationRowData else { return }
-        
-        if relationRowData.isFeatured {
-            relationsService.removeFeaturedRelation(relationKey: relationRowData.id)
+    func changeRelationFeaturedState(relation: Relation) {
+        if relation.isFeatured {
+            relationsService.removeFeaturedRelation(relationKey: relation.key)
         } else {
-            relationsService.addFeaturedRelation(relationKey: relationRowData.id)
+            relationsService.addFeaturedRelation(relationKey: relation.key)
         }
         UISelectionFeedbackGenerator().selectionChanged()
     }
     
-    func handleTapOnRelation(relationId: String) {
+    func handleTapOnRelation(relation: Relation) {
         AnytypeAnalytics.instance().logChangeRelationValue(type: .menu)
-        router.showRelationValueEditingView(key: relationId, source: .object)
+        router.showRelationValueEditingView(key: relation.key, source: .object)
     }
     
-    func removeRelation(id: String) {
-        relationsService.removeRelation(relationKey: id)
+    func removeRelation(relation: Relation) {
+        relationsService.removeRelation(relationKey: relation.key)
     }
     
     func showAddNewRelationView() {
-        router.showAddNewRelationView { relationMetadata, isNew in
-            AnytypeAnalytics.instance().logAddRelation(format: relationMetadata.format, isNew: isNew, type: .menu)
+        router.showAddNewRelationView { relation, isNew in
+            AnytypeAnalytics.instance().logAddRelation(format: relation.format, isNew: isNew, type: .menu)
         }
     }
     

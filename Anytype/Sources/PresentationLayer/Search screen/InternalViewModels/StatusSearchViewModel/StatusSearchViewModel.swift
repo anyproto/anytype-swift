@@ -47,7 +47,7 @@ extension StatusSearchViewModel: NewInternalSearchViewModelProtocol {
     }
     
     func isCreateButtonAvailable(searchText: String) -> Bool {
-        interactor.isCreateButtonAvailable(searchText: searchText)
+        interactor.isCreateButtonAvailable(searchText: searchText, statuses: statuses)
     }
     
 }

@@ -2,20 +2,30 @@ import Foundation
 import SwiftUI
 
 class CreateNewProfileViewModel: ObservableObject {
+    
+    private let windowManager: WindowManager
+    private let authService: AuthServiceProtocol
     private let seedService: SeedServiceProtocol
 
-    init(seedService: SeedServiceProtocol) {
+    init(
+        windowManager: WindowManager,
+        authService: AuthServiceProtocol,
+        seedService: SeedServiceProtocol
+    ) {
+        self.windowManager = windowManager
+        self.authService = authService
         self.seedService = seedService
     }
 
     func showSetupWallet(signUpData: SignUpData, showWaitingView: Binding<Bool>) -> some View {
-        return WaitingOnCreatAccountView(
-            viewModel: WaitingOnCreatAccountViewModel(
-                signUpData: signUpData,
-                showWaitingView: showWaitingView,
-                seedService: self.seedService
-            )
+        let viewModel = WaitingOnCreatAccountViewModel(
+            signUpData: signUpData,
+            showWaitingView: showWaitingView,
+            windowManager: windowManager,
+            authService: authService,
+            seedService: seedService
         )
+        return WaitingOnCreatAccountView(viewModel: viewModel)
     }
     
     func setImage(signUpData: SignUpData, itemProvider: NSItemProvider?) {

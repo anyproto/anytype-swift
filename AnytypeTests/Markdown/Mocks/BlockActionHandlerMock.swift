@@ -4,7 +4,7 @@ import Foundation
 import AnytypeCore
 
 final class BlockActionHandlerMock: BlockActionHandlerProtocol {
-    
+        
     var blockSelectionHandler: BlockSelectionHandler? {
         get {
             assertionFailure()
@@ -97,7 +97,7 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
-    func addBlock(_ type: BlockContentType, blockId: BlockId, position: BlockPosition?) {
+    func addBlock(_ type: BlockContentType, blockId: BlockId, blockText: NSAttributedString?, position: BlockPosition?) {
         assertionFailure()
     }
     
@@ -154,6 +154,10 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
+    func setTextStyle(_ attribute: Anytype.MarkupType, range: NSRange, blockId: BlocksModels.BlockId, currentText: NSAttributedString?) {
+        assertionFailure()
+    }
+    
     func uploadMediaFile(itemProvider: NSItemProvider, type: MediaPickerContentType, blockId: BlockId) {
         assertionFailure()
     }
@@ -182,7 +186,7 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
 
-    func createTable(blockId: BlockId, rowsCount: Int, columnsCount: Int) {
+    func createTable(blockId: BlockId, rowsCount: Int, columnsCount: Int, blockText: NSAttributedString?) {
         assertionFailure()
     }
     

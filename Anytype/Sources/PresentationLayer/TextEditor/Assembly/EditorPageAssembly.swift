@@ -6,13 +6,16 @@ final class EditorAssembly {
     
     private let serviceLocator: ServiceLocator
     private let coordinatorsDI: CoordinatorsDIProtocol
+    private let modulesDI: ModulesDIProtocol
     
     init(
         serviceLocator: ServiceLocator,
-        coordinatorsDI: CoordinatorsDIProtocol
+        coordinatorsDI: CoordinatorsDIProtocol,
+        modulesDI: ModulesDIProtocol
     ) {
         self.serviceLocator = serviceLocator
         self.coordinatorsDI = coordinatorsDI
+        self.modulesDI = modulesDI
     }
     
     func buildEditorController(
@@ -39,7 +42,6 @@ final class EditorAssembly {
         browser: EditorBrowserController?,
         data: EditorScreenData
     ) -> (EditorSetHostingController, EditorRouterProtocol) {
-        let searchService = SearchService()
         let document = BaseDocument(objectId: data.pageId)
         let dataviewService = DataviewService(
             objectId: data.pageId,
@@ -50,9 +52,10 @@ final class EditorAssembly {
         let model = EditorSetViewModel(
             document: document,
             dataviewService: dataviewService,
-            searchService: searchService,
+            searchService: ServiceLocator.shared.searchService(),
             detailsService: detailsService,
             textService: serviceLocator.textService,
+            relationDetailsStorage: ServiceLocator.shared.relationDetailsStorage(),
             relationSearchDistinctService: RelationSearchDistinctService(),
             setSubscriptionDataBuilder: SetSubscriptionDataBuilder()
         )
@@ -61,12 +64,20 @@ final class EditorAssembly {
         let router = EditorRouter(
             rootController: browser,
             viewController: controller,
+            navigationContext: NavigationContext(rootViewController: browser ?? controller),
             document: document,
             templatesCoordinator: coordinatorsDI.templates.make(viewController: controller),
             urlOpener: URLOpener(viewController: browser),
             relationValueCoordinator: coordinatorsDI.relationValue.make(viewController: controller),
             editorPageCoordinator: coordinatorsDI.editorPage.make(rootController: browser, viewController: controller),
-            linkToObjectCoordinator: coordinatorsDI.linkToObject.make(rootController: browser, viewController: controller)
+            linkToObjectCoordinator: coordinatorsDI.linkToObject.make(rootController: browser, viewController: controller),
+            relationsListModuleAssembly: modulesDI.relationsList,
+            undoRedoModuleAssembly: modulesDI.undoRedo,
+            objectLayoutPickerModuleAssembly: modulesDI.objectLayoutPicker,
+            objectCoverPickerModuleAssembly: modulesDI.objectCoverPicker,
+            objectIconPickerModuleAssembly: modulesDI.objectIconPicker,
+            objectSettingModuleAssembly: modulesDI.objectSetting,
+            alertHelper: AlertHelper(viewController: controller)
         )
         
         model.setup(router: router)
@@ -98,12 +109,20 @@ final class EditorAssembly {
         let router = EditorRouter(
             rootController: browser,
             viewController: controller,
+            navigationContext: NavigationContext(rootViewController: browser ?? controller),
             document: document,
             templatesCoordinator: coordinatorsDI.templates.make(viewController: controller),
             urlOpener: URLOpener(viewController: browser),
             relationValueCoordinator: coordinatorsDI.relationValue.make(viewController: controller),
             editorPageCoordinator: coordinatorsDI.editorPage.make(rootController: browser, viewController: controller),
-            linkToObjectCoordinator: coordinatorsDI.linkToObject.make(rootController: browser, viewController: controller)
+            linkToObjectCoordinator: coordinatorsDI.linkToObject.make(rootController: browser, viewController: controller),
+            relationsListModuleAssembly: modulesDI.relationsList,
+            undoRedoModuleAssembly: modulesDI.undoRedo,
+            objectLayoutPickerModuleAssembly: modulesDI.objectLayoutPicker,
+            objectCoverPickerModuleAssembly: modulesDI.objectCoverPicker,
+            objectIconPickerModuleAssembly: modulesDI.objectIconPicker,
+            objectSettingModuleAssembly: modulesDI.objectSetting,
+            alertHelper: AlertHelper(viewController: controller)
         )
 
         let viewModel = buildViewModel(
@@ -203,7 +222,12 @@ final class EditorAssembly {
             linkToObjectCoordinator: coordinatorsDI.linkToObject.make(rootController: browser, viewController: controller)
         )
         
-        let markdownListener = MarkdownListenerImpl()
+        let markdownListener = MarkdownListenerImpl(
+            internalListeners: [
+                BeginingOfTextMarkdownListener(),
+                InlineMarkdownListener()
+            ]
+        )
         
         let blockDelegate = BlockDelegateImpl(
             viewInput: viewInput,

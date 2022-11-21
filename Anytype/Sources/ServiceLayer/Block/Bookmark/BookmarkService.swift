@@ -1,5 +1,6 @@
 import ProtobufMessages
 import BlocksModels
+import SwiftProtobuf
 
 class BookmarkService: BookmarkServiceProtocol {
     func fetchBookmark(contextID: BlockId, blockID: BlockId, url: String) {
@@ -29,19 +30,18 @@ class BookmarkService: BookmarkServiceProtocol {
     }
     
     func createBookmarkObject(url: String, completion: @escaping (_ withError: Bool) -> Void) {
-        let result = Anytype_Rpc.Object.CreateBookmark.Service.invoke(url: url)
-        switch result {
-        case .success(let response):
-            let error = response.error
-            switch error.code {
-            case .null:
-                completion(false)
-            case .unknownError, .badInput, .UNRECOGNIZED:
-                completion(true)
-            }
-        case .failure:
-            completion(true)
-        }
+        
+        let details = Google_Protobuf_Struct(
+            fields: [
+                BundledRelationKey.source.rawValue: url.protobufValue
+            ]
+        )
+        
+        let result = Anytype_Rpc.Object.CreateBookmark.Service.invocation(details: details)
+            .invoke()
+            .getValue(domain: .bookmarkService)
+
+        completion(result == nil)
     }
     
     func fetchBookmarkContent(bookmarkId: BlockId, url: String) {

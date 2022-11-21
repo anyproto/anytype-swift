@@ -16,7 +16,8 @@ final class HomeViewAssembly {
             homeBlockId: homeObjectId,
             editorBrowserAssembly: coordinatorsDI.browser,
             tabsSubsciptionDataBuilder: TabsSubscriptionDataBuilder(),
-            profileSubsciptionDataBuilder: ProfileSubscriptionDataBuilder()
+            profileSubsciptionDataBuilder: ProfileSubscriptionDataBuilder(),
+            windowManager: coordinatorsDI.windowManager
         )
         return HomeView(model: model)
     }

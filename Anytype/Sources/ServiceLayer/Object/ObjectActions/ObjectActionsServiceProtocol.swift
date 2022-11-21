@@ -11,6 +11,7 @@ protocol ObjectActionsServiceProtocol {
     func setFavorite(objectId: BlockId, _ isFavorite: Bool)
     func convertChildrenToPages(contextID: BlockId, blocksIds: [BlockId], objectType: String) -> [BlockId]?
     func updateBundledDetails(contextID: BlockId, details: [BundledDetails])
+    func updateDetails(contextId: String, relationKey: String, value: DataviewGroupValue)
     func move(dashboadId: BlockId, blockId: BlockId, dropPositionblockId: BlockId, position: Anytype_Model_Block.Position)
     func setLocked(_ isLocked: Bool, objectId: BlockId)
     func updateLayout(contextID: BlockId, value: Int)
@@ -28,9 +29,8 @@ protocol ObjectActionsServiceProtocol {
         templateId: String
     ) -> BlockId?
     
-    func setObjectType(objectId: BlockId, objectTypeUrl: String)
+    func setObjectType(objectId: BlockId, objectTypeId: String)
     func setObjectSetType(objectId: BlockId) -> BlockId
-
     func applyTemplate(objectId: BlockId, templateId: BlockId)
     
     func undo(objectId: BlockId) throws

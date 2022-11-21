@@ -158,8 +158,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-collections.git",
       "state" : {
-        "revision" : "48254824bb4248676bf7ce56014ff57b142b77eb",
-        "version" : "1.0.2"
+        "revision" : "f504716c27d2e5d4144fa4794b12129301d17729",
+        "version" : "1.0.3"
       }
     },
     {
@@ -187,6 +187,15 @@
       "state" : {
         "revision" : "5ad36cccf0c4b9fea32f4e9b17a8e38f07563ef0",
         "version" : "2.0.0"
+      }
+    },
+    {
+      "identity" : "swiftgenplugin",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SwiftGen/SwiftGenPlugin",
+      "state" : {
+        "branch" : "6.6.2",
+        "revision" : "879b85a470cacd70c19e22eb7e11a3aed66f4068"
       }
     },
     {

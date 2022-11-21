@@ -34,7 +34,8 @@ final class LinkToObjectCoordinatorAssembly: LinkToObjectCoordinatorAssemblyProt
             editorPageCoordinator: coordinatorsID.editorPage.make(
                 rootController: rootController,
                 viewController: viewController
-            )
+            ),
+            searchService: serviceLocator.searchService()
         )
         
         return coordinator

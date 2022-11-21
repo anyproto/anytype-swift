@@ -9,12 +9,12 @@
 import Foundation
 import BlocksModels
 
-protocol ObjectTypeProviderProtocol {
-    var supportedTypeUrls: [String] { get }
+protocol ObjectTypeProviderProtocol: AnyObject {
+    var supportedTypeIds: [String] { get }
     var defaultObjectType: ObjectType { get }
     
-    func isSupported(typeUrl: String) -> Bool
-    func objectType(url: String) -> ObjectType?
+    func isSupported(typeId: String) -> Bool
+    func objectType(id: String) -> ObjectType?
     
     func objectTypes(smartblockTypes: Set<SmartBlockType>) -> [ObjectType]
 }

@@ -25,8 +25,11 @@ public final class FeatureFlags {
         .linktoObjectFromItself,
         .linkToObjectFromMarkup,
         .showBookmarkInSets,
+        .inlineMarkdown,
         .fixColorsForStyleMenu,
-        .redesignBookmarkBlock
+        .redesignBookmarkBlock,
+        .showSetsInChangeTypeSearchMenu,
+        .fixInsetMediaContent
     ]
     
     public static func update(key feature: FeatureDescription, value: Bool) {
@@ -99,11 +102,23 @@ public extension FeatureFlags {
         value(for: .showBookmarkInSets)
     }
     
+    static var inlineMarkdown: Bool {
+        value(for: .inlineMarkdown)
+    }
+
     static var fixColorsForStyleMenu: Bool {
         value(for: .fixColorsForStyleMenu)
     }
 
     static var redesignBookmarkBlock: Bool {
         value(for: .redesignBookmarkBlock)
+    }
+    
+    static var showSetsInChangeTypeSearchMenu: Bool {
+        value(for: .showSetsInChangeTypeSearchMenu)
+    }
+    
+    static var fixInsetMediaContent: Bool {
+        value(for: .fixInsetMediaContent)
     }
 }

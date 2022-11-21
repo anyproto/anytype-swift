@@ -7,16 +7,16 @@ enum RelationSource {
     case dataview(contextId: BlockId)
 }
 
-protocol RelationsServiceProtocol {
+protocol RelationsServiceProtocol: AnyObject {
     func addFeaturedRelation(relationKey: String)
     func removeFeaturedRelation(relationKey: String)
     
     func updateRelation(relationKey: String, value: Google_Protobuf_Value)
 
-    func createRelation(relation: RelationMetadata) -> RelationMetadata?
-    func addRelation(relation: RelationMetadata) -> RelationMetadata?
+    func createRelation(relationDetails: RelationDetails) -> Bool
+    func addRelation(relationDetails: RelationDetails) -> Bool
 
     func removeRelation(relationKey: String)
     func addRelationOption(source: RelationSource, relationKey: String, optionText: String) -> String?
-    func availableRelations() -> [RelationMetadata]?
+    func availableRelations() -> [RelationDetails]
 }

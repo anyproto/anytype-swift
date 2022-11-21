@@ -38,8 +38,10 @@ final class BlockMarkupChanger: BlockMarkupChangerProtocol {
         )
     }
 
-    func setMarkup(_ markup: MarkupType, blockId: BlockId, range: NSRange) -> NSAttributedString? {
-        return updateMarkup(markup, shouldApplyMarkup: true, blockId: blockId, range: range)
+    func setMarkup(
+        _ markup: MarkupType, blockId: BlockId, range: NSRange, currentText: NSAttributedString?
+    ) -> NSAttributedString? {
+        return updateMarkup(markup, shouldApplyMarkup: true, blockId: blockId, range: range, currentText: currentText)
     }
 
     func removeMarkup(_ markup: MarkupType, blockId: BlockId, range: NSRange) -> NSAttributedString? {
@@ -47,7 +49,7 @@ final class BlockMarkupChanger: BlockMarkupChangerProtocol {
     }
 
     private func updateMarkup(
-        _ markup: MarkupType, shouldApplyMarkup: Bool, blockId: BlockId, range: NSRange
+        _ markup: MarkupType, shouldApplyMarkup: Bool, blockId: BlockId, range: NSRange, currentText: NSAttributedString? = nil
     ) -> NSAttributedString? {
         guard let content = blockData(blockId: blockId) else { return nil }
 
@@ -55,7 +57,7 @@ final class BlockMarkupChanger: BlockMarkupChangerProtocol {
 
         guard restrictions.isMarkupAvailable(markup) else { return nil }
 
-        let attributedText = content.anytypeText.attrString
+        let attributedText = currentText ?? content.anytypeText.attrString
 
         return apply(
             markup,

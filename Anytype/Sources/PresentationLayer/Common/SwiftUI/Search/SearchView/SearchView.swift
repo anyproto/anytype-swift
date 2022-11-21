@@ -100,8 +100,8 @@ struct HomeSearchView_Previews: PreviewProvider {
     static var previews: some View {
         SearchView(
             title: "FOoo",
-            context: .general, viewModel: ObjectSearchViewModel { _ in
-            }
+            context: .general,
+            viewModel: ObjectSearchViewModel(searchService: ServiceLocator.shared.searchService()) { _ in }
         )
     }
 }

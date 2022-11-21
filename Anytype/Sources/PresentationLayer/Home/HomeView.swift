@@ -3,14 +3,18 @@ import AnytypeCore
 
 struct HomeView: View {
     @ObservedObject var model: HomeViewModel
-    
-    @StateObject private var settingsModel = SettingsViewModel(authService: ServiceLocator.shared.authService())
+    @ObservedObject private var settingsModel: SettingsViewModel
     
     @State var bottomSheetState = HomeBottomSheetViewState.closed
     @State private var showSettings = false
     @State private var showKeychainAlert = UserDefaultsConfig.showKeychainAlert
     @State private var isFirstLaunchAfterRegistration = ServiceLocator.shared.loginStateService().isFirstLaunchAfterRegistration
 
+    init(model: HomeViewModel) {
+        self.model = model
+        self.settingsModel = model.settingsViewModel
+    }
+    
     var body: some View {
         navigationView
             .environment(\.font, .defaultAnytype)

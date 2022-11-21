@@ -35,11 +35,11 @@ final class TemplatesCoordinator {
 
     func showTemplatesPopupIfNeeded(
         document: BaseDocumentProtocol,
-        templatesTypeURL: ObjectTypeUrl,
+        templatesTypeId: ObjectTypeId,
         onShow: (() -> Void)?
     ) {
         let isSelectTemplate = document.details?.isSelectTemplate ?? false
-        guard isSelectTemplate, let availableTemplates = searchService.searchTemplates(for: templatesTypeURL) else {
+        guard isSelectTemplate, let availableTemplates = searchService.searchTemplates(for: templatesTypeId) else {
             return
         }
         
@@ -61,7 +61,7 @@ final class TemplatesCoordinator {
     
     func showTemplatesPopupWithTypeCheckIfNeeded(
         document: BaseDocumentProtocol,
-        templatesTypeURL: ObjectTypeUrl,
+        templatesTypeId: ObjectTypeId,
         onShow: (() -> Void)?
     ) {
         let needShowTypeMenu = document.details?.isSelectType ?? false &&
@@ -71,7 +71,7 @@ final class TemplatesCoordinator {
         }
         showTemplatesPopupIfNeeded(
             document: document,
-            templatesTypeURL: templatesTypeURL,
+            templatesTypeId: templatesTypeId,
             onShow: onShow
         )
     }

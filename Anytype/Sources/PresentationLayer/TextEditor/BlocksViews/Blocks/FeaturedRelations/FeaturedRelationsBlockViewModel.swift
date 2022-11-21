@@ -5,7 +5,7 @@ struct FeaturedRelationsBlockViewModel: BlockViewModelProtocol {
     let info: BlockInformation
 
     private let type: String
-    private let featuredRelations: [Relation]
+    private let featuredRelationValues: [Relation]
     private weak var blockDelegate: BlockDelegate?
     private let onRelationTap: (Relation) -> Void
     private let relationViewModels: [RelationItemModel]
@@ -19,17 +19,17 @@ struct FeaturedRelationsBlockViewModel: BlockViewModelProtocol {
     
     init(
         info: BlockInformation,
-        featuredRelation: [Relation],
+        featuredRelationValues: [Relation],
         type: String,
         blockDelegate: BlockDelegate,
-        onRelationTap: @escaping (Relation) -> Void
+        onRelationValueTap: @escaping (Relation) -> Void
     ) {
         self.info = info
-        self.featuredRelations = featuredRelation
+        self.featuredRelationValues = featuredRelationValues
         self.type = type
         self.blockDelegate = blockDelegate
-        self.onRelationTap = onRelationTap
-        self.relationViewModels = featuredRelations.map(RelationItemModel.init)
+        self.onRelationTap = onRelationValueTap
+        self.relationViewModels = featuredRelationValues.map(RelationItemModel.init)
     }
     
     func makeContentConfiguration(maxWidth _: CGFloat) -> UIContentConfiguration {
@@ -38,8 +38,8 @@ struct FeaturedRelationsBlockViewModel: BlockViewModelProtocol {
             type: type,
             alignment: info.horizontalAlignment.asNSTextAlignment,
             onRelationTap: { item in
-                featuredRelations
-                    .first { $0.id == item.id }
+                featuredRelationValues
+                    .first { $0.key == item.key }
                     .map(onRelationTap)
             },
             heightDidChanged: { blockDelegate?.textBlockSetNeedsLayout() }

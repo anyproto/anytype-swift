@@ -2,12 +2,17 @@ import Foundation
 import AnytypeCore
 import SwiftProtobuf
 import ProtobufMessages
+import Combine
 
 public final class ObjectDetailsStorage {
     public static let shared = ObjectDetailsStorage()
     
-    private var storage = SynchronizedDictionary<BlockId, ObjectDetails>()
+    private var storage = PublishedDictionary<BlockId, ObjectDetails>()
     
+    public func publisherFor(id: BlockId) -> AnyPublisher<ObjectDetails?, Never> {
+        return storage.publisher(id)
+    }
+        
     public func get(id: BlockId) -> ObjectDetails? {
         guard id.isValidId else { return nil }
         return storage[id]

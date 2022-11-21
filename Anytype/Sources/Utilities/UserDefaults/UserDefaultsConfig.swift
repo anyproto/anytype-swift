@@ -22,7 +22,7 @@ struct UserDefaultsConfig {
     @UserDefault("UserData.DefaultObjectType", defaultValue: ObjectType.fallbackType)
     static var defaultObjectType: ObjectType {
         didSet {
-            AnytypeAnalytics.instance().logDefaultObjectTypeChange(defaultObjectType.url)
+            AnytypeAnalytics.instance().logDefaultObjectTypeChange(defaultObjectType.id)
         }
     }
     

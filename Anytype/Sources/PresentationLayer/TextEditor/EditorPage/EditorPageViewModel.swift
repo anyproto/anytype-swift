@@ -231,12 +231,12 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     
     private func handleTemplatesPopupShowing() {
         guard editorPageTemplatesHandler.needShowTemplates(for: document),
-              let typeURL = document.details?.objectType else {
+              let type = document.details?.objectType else {
             return
         }
         router.showTemplatesPopupWithTypeCheckIfNeeded(
             document: document,
-            templatesTypeURL: .dynamic(typeURL.url),
+            templatesTypeId: .dynamic(type.id),
             onShow: { [weak self] in
                 self?.editorPageTemplatesHandler.onTemplatesShow()
             }

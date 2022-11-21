@@ -30,6 +30,7 @@ final class HomeViewModel: ObservableObject {
     @Published var loadingDocument = true
     
     @Published private(set) var profileData: HomeProfileData?
+    @Published private(set) var settingsViewModel: SettingsViewModel
     
     let objectActionsService: ObjectActionsServiceProtocol = ServiceLocator.shared.objectActionsService()
     
@@ -54,12 +55,17 @@ final class HomeViewModel: ObservableObject {
         homeBlockId: BlockId,
         editorBrowserAssembly: EditorBrowserAssembly,
         tabsSubsciptionDataBuilder: TabsSubscriptionDataBuilderProtocol,
-        profileSubsciptionDataBuilder: ProfileSubscriptionDataBuilderProtocol
+        profileSubsciptionDataBuilder: ProfileSubscriptionDataBuilderProtocol,
+        windowManager: WindowManager
     ) {
         document = BaseDocument(objectId: homeBlockId)
         self.editorBrowserAssembly = editorBrowserAssembly
         self.tabsSubsciptionDataBuilder = tabsSubsciptionDataBuilder
         self.profileSubsciptionDataBuilder = profileSubsciptionDataBuilder
+        self.settingsViewModel = SettingsViewModel(
+            authService: ServiceLocator.shared.authService(),
+            windowManager: windowManager
+        )
         setupSubscriptions()
         
         let data = UserDefaultsConfig.screenDataFromLastSession
@@ -187,7 +193,7 @@ extension HomeViewModel {
         guard let id = dashboardService.createNewPage() else { return }
         
         AnytypeAnalytics.instance().logCreateObject(
-            objectType: ObjectTypeProvider.shared.defaultObjectType.url,
+            objectType: ObjectTypeProvider.shared.defaultObjectType.id,
             route: .home
         )
         

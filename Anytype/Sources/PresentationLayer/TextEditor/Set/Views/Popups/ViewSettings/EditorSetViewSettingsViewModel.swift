@@ -49,14 +49,34 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
         )
     }
     
+    var groupBySetting: EditorSetViewSettingsValueItem {
+        EditorSetViewSettingsValueItem(
+            title: Loc.Set.View.Settings.GroupBy.title,
+            value: groupByValue(with: setModel.activeView.groupRelationKey),
+            onTap: { [weak self] in
+                self?.showGroupByRelations()
+            }
+        )
+    }
+    
+    var groupBackgroundColorsSetting: EditorSetViewSettingsToggleItem {
+        EditorSetViewSettingsToggleItem(
+            title: Loc.Set.View.Settings.GroupBackgroundColors.title,
+            isSelected: setModel.activeView.groupBackgroundColors,
+            onChange: { [weak self] colored in
+                self?.onGroupBackgroundColorsChange(colored)
+            }
+        )
+    }
+    
     var relations: [EditorSetViewSettingsRelation] {
         setModel.sortedRelations.map { relation in
             EditorSetViewSettingsRelation(
                 id: relation.id,
-                image: relation.metadata.format.iconAsset,
-                title: relation.metadata.name,
+                image: relation.relationDetails.format.iconAsset,
+                title: relation.relationDetails.name,
                 isOn: relation.option.isVisible,
-                isBundled: relation.metadata.isBundled,
+                isBundled: relation.relationDetails.isBundled,
                 onChange: { [weak self] isVisible in
                     self?.onRelationVisibleChange(relation, isVisible: isVisible)
                 }
@@ -64,8 +84,8 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
         }
     }
     
-    var needShowAllSettings: Bool {
-        setModel.activeView.type == .gallery
+    var contentViewType: SetContentViewType {
+        setModel.contentViewType
     }
     
     init(setModel: EditorSetViewModel, service: DataviewServiceProtocol, router: EditorRouterProtocol) {
@@ -81,7 +101,7 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
                 return
             }
             Task {
-                try await service.deleteRelation(key: relation.metadata.key)
+                try await service.deleteRelation(relationKey: relation.relationDetails.key)
             }
         }
     }
@@ -147,6 +167,16 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
         updateView(newView)
     }
     
+    private func onGroupBackgroundColorsChange(_ colored: Bool) {
+        let newView = setModel.activeView.updated(groupBackgroundColors: colored)
+        updateView(newView)
+    }
+    
+    private func onGroupBySettingChange(_ key: String) {
+        let newView = setModel.activeView.updated(groupRelationKey: key)
+        updateView(newView)
+    }
+    
     private func onCardSizeChange(_ size: DataviewViewSize) {
         let newView = setModel.activeView.updated(cardSize: size)
         updateView(newView)
@@ -170,9 +200,9 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
     }
     
     private func imagePreviewValueFromRelations() -> String? {
-        setModel.dataView.relations.first { [weak self] relation in
+        setModel.dataViewRelationsDetails.first { [weak self] relationDetails in
             guard let self = self else { return false }
-            return relation.key == self.setModel.activeView.coverRelationKey
+            return relationDetails.key == self.setModel.activeView.coverRelationKey
         }?.name
     }
     
@@ -181,6 +211,12 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
             return .large
         }
         return setModel.activeView.cardSize
+    }
+    
+    private func groupByValue(with key: String) -> String {
+        setModel.dataViewRelationsDetails.first { relation in
+            relation.key == key
+        }?.name ?? key
     }
     
     private func showCardSizes() {
@@ -198,6 +234,23 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
             onSelect: { [weak self] key in
                 self?.onImagePreviewChange(key)
             }
+        )
+    }
+    
+    private func showGroupByRelations() {
+        router.showGroupByRelations(
+            selectedRelationId: setModel.activeView.groupRelationKey,
+            relations: groupByRelations(),
+            onSelect: { [weak self] key in
+                self?.onGroupBySettingChange(key)
+            }
+        )
+    }
+    
+    private func groupByRelations() -> [RelationDetails] {
+        setModel.dataView.groupByRelations(
+            for: setModel.activeView,
+            dataViewRelationsDetails: setModel.dataViewRelationsDetails
         )
     }
 }
