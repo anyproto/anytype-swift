@@ -31,13 +31,11 @@ final class LoginStateService {
     
     private func startSubscriptions() {
         ServiceLocator.shared.relationDetailsStorage().startSubscription()
-        ServiceLocator.shared.accountEventHandler().startSubscription()
         ObjectTypeProvider.shared.startSubscription()
     }
     
     private func stopSubscriptions() {
         ServiceLocator.shared.relationDetailsStorage().stopSubscription()
-        ServiceLocator.shared.accountEventHandler().stopSubscription()
         ObjectTypeProvider.shared.stopSubscription()
     }
 }
