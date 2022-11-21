@@ -30,11 +30,11 @@ extension SetSortsListViewModel {
     // MARK: - Routing
     
     func addButtonTapped() {
-        let excludeRelations: [RelationMetadata] = setModel.sorts.map { $0.metadata }
+        let excludeRelations: [RelationDetails] = setModel.sorts.map { $0.relationDetails }
         router.showRelationSearch(
-            relations: setModel.activeViewRelations(excludeRelations: excludeRelations))
-        { [weak self] key in
-            self?.addNewSort(with: key)
+            relationsDetails: setModel.activeViewRelations(excludeRelations: excludeRelations))
+        { [weak self] relationDetails in
+            self?.addNewSort(with: relationDetails)
         }
     }
     
@@ -46,7 +46,7 @@ extension SetSortsListViewModel {
             sort: setSort,
             onSelect: { [weak self] sort in
                 let newSetSort = SetSort(
-                    metadata: setSort.metadata,
+                    relationDetails: setSort.relationDetails,
                     sort: sort
                 )
                 self?.updateSorts(with: newSetSort)
@@ -73,11 +73,11 @@ extension SetSortsListViewModel {
         updateView(with: sorts)
     }
     
-    func addNewSort(with key: String) {
+    func addNewSort(with relation: RelationDetails) {
         var dataviewSorts = setModel.sorts.map { $0.sort }
         dataviewSorts.append(
             DataviewSort(
-                relationKey: key,
+                relationKey: relation.key,
                 type: .asc
             )
         )
@@ -94,16 +94,16 @@ extension SetSortsListViewModel {
         rows = sorts.map {
             SetSortRowConfiguration(
                 id: $0.id,
-                title: $0.metadata.name,
+                title: $0.relationDetails.name,
                 subtitle: $0.typeTitle(),
-                iconAsset: $0.metadata.format.iconAsset
+                iconAsset: $0.relationDetails.format.iconAsset
             )
         }
     }
     
     private func updateSorts(with setSort: SetSort) {
         let sorts: [SetSort] = setModel.sorts.map { sort in
-            if sort.metadata.key == setSort.metadata.key {
+            if sort.relationDetails.key == setSort.relationDetails.key {
                 return setSort
             } else {
                 return sort

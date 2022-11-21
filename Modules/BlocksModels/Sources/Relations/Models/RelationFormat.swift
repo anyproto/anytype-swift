@@ -1,27 +1,22 @@
 import Foundation
-import SwiftUI
 
-public extension RelationMetadata {
-    
-    enum Format: Hashable, CaseIterable {
-        case object
-        case longText
-        case shortText
-        case number
-        case status
-        case date
-        case file
-        case checkbox
-        case url
-        case email
-        case phone
-        case tag
-        case unrecognized
-    }
-    
+public enum RelationFormat {
+    case object
+    case longText
+    case shortText
+    case number
+    case status
+    case date
+    case file
+    case checkbox
+    case url
+    case email
+    case phone
+    case tag
+    case unrecognized
 }
 
-extension RelationMetadata.Format {
+extension RelationFormat {
     
     init(rawValue: Int) {
         switch rawValue {
@@ -57,12 +52,5 @@ extension RelationMetadata.Format {
         case .object: return 100
         case .unrecognized: return -1
         }
-    }
-}
-
-extension RelationMetadata.Format: Identifiable {
-
-    public var id: Self {
-        return self
     }
 }

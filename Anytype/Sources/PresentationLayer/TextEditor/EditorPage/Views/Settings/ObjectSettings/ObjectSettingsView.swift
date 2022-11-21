@@ -5,17 +5,9 @@ struct ObjectSettingsView: View {
     
     @ObservedObject var viewModel: ObjectSettingsViewModel
     
-    @State private var isRelationsViewPresented = false
-    
     var body: some View {
         settings
             .background(Color.backgroundSecondary)
-        
-            .sheet(
-                isPresented: $isRelationsViewPresented
-            ) {
-                RelationsListView(viewModel: viewModel.relationsViewModel)
-            }
     }
     
     private var settings: some View {
@@ -46,10 +38,7 @@ struct ObjectSettingsView: View {
             case .layout:
                 viewModel.showLayoutSettings()
             case .relations:
-                if isRelationsViewPresented == false {
-                    AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.objectRelationShow)
-                    isRelationsViewPresented = true
-                }
+                viewModel.showRelations()
             }
         }
     }

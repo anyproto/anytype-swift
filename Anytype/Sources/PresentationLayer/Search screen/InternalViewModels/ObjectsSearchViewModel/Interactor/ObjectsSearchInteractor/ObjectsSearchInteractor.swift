@@ -21,7 +21,7 @@ extension ObjectsSearchInteractor: ObjectsSearchInteractorProtocol {
         let response = searchService.searchObjects(
             text: text,
             excludedObjectIds: excludedObjectIds,
-            limitedTypeUrls: limitedObjectType
+            limitedTypeIds: limitedObjectType
         )
         return response ?? []
     }

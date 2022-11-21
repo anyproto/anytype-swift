@@ -3,7 +3,7 @@ import Foundation
 // Sync with
 // https://github.com/anytypeio/go-anytype-middleware/blob/4fcbf6754f445b68b8ffa1d7ae4de591f6398ab8/pkg/lib/bundle/init.go#L18
 
-extension BundledRelationKey {
+public extension BundledRelationKey {
     static var readonlyKeys: [BundledRelationKey] {
         [
             .id,

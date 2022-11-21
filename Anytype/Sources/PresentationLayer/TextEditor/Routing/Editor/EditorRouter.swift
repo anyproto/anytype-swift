@@ -18,6 +18,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     private weak var currentSetSettingsPopup: AnytypePopup?
     private let editorPageCoordinator: EditorPageCoordinatorProtocol
     private let linkToObjectCoordinator: LinkToObjectCoordinatorProtocol
+    private let relationsListModuleAssembly: RelationsListModuleAssemblyProtocol
     private let undoRedoModuleAssembly: UndoRedoModuleAssemblyProtocol
     private let objectLayoutPickerModuleAssembly: ObjectLayoutPickerModuleAssemblyProtocol
     private let objectCoverPickerModuleAssembly: ObjectCoverPickerModuleAssemblyProtocol
@@ -35,6 +36,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         relationValueCoordinator: RelationValueCoordinatorProtocol,
         editorPageCoordinator: EditorPageCoordinatorProtocol,
         linkToObjectCoordinator: LinkToObjectCoordinatorProtocol,
+        relationsListModuleAssembly: RelationsListModuleAssemblyProtocol,
         undoRedoModuleAssembly: UndoRedoModuleAssemblyProtocol,
         objectLayoutPickerModuleAssembly: ObjectLayoutPickerModuleAssemblyProtocol,
         objectCoverPickerModuleAssembly: ObjectCoverPickerModuleAssemblyProtocol,
@@ -53,6 +55,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         self.relationValueCoordinator = relationValueCoordinator
         self.editorPageCoordinator = editorPageCoordinator
         self.linkToObjectCoordinator = linkToObjectCoordinator
+        self.relationsListModuleAssembly = relationsListModuleAssembly
         self.undoRedoModuleAssembly = undoRedoModuleAssembly
         self.objectLayoutPickerModuleAssembly = objectLayoutPickerModuleAssembly
         self.objectCoverPickerModuleAssembly = objectCoverPickerModuleAssembly
@@ -198,8 +201,8 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     }
 
     func showLinkTo(onSelect: @escaping (BlockId, _ typeUrl: String) -> ()) {
-        let viewModel = ObjectSearchViewModel { data in
-            onSelect(data.blockId, data.typeUrl)
+        let viewModel = ObjectSearchViewModel(searchService: ServiceLocator.shared.searchService()) { data in
+            onSelect(data.blockId, data.typeId)
         }
         let linkToView = SearchView(title: Loc.linkTo, context: .menuSearch, viewModel: viewModel)
         navigationContext.presentSwiftUIView(view: linkToView, model: viewModel)
@@ -221,7 +224,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     }
     
     func showSearch(onSelect: @escaping (EditorScreenData) -> ()) {
-        let viewModel = ObjectSearchViewModel { data in
+        let viewModel = ObjectSearchViewModel(searchService: ServiceLocator.shared.searchService()) { data in
             onSelect(EditorScreenData(pageId: data.blockId, type: data.viewType))
         }
         let searchView = SearchView(title: nil, context: .menuSearch, viewModel: viewModel)
@@ -314,11 +317,11 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
 
     func showTemplatesAvailabilityPopupIfNeeded(
         document: BaseDocumentProtocol,
-        templatesTypeURL: ObjectTypeUrl
+        templatesTypeId: ObjectTypeId
     ) {
         templatesCoordinator.showTemplatesAvailabilityPopupIfNeeded(
             document: document,
-            templatesTypeURL: .dynamic(templatesTypeURL.rawValue)
+            templatesTypeId: .dynamic(templatesTypeId.rawValue)
         )
     }
     
@@ -404,6 +407,13 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         }
     }
     
+    func showRelations() {
+        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.objectRelationShow)
+        
+        let moduleViewController = relationsListModuleAssembly.make(document: document, router: self)
+        viewController?.topPresentedController.present(moduleViewController, animated: true, completion: nil)
+    }
+    
     // MARK: - Private
     
     private func presentOverCurrentContextSwuftUIView<Content: View>(view: Content, model: Dismissible) {
@@ -464,7 +474,7 @@ extension EditorRouter: AttachmentRouterProtocol {
 // MARK: - Relations
 extension EditorRouter {
     func showRelationValueEditingView(key: String, source: RelationSource) {
-        let relation = document.parsedRelations.all.first { $0.id == key }
+        let relation = document.parsedRelations.all.first { $0.key == key }
         guard let relation = relation else { return }
         
         showRelationValueEditingView(objectId: document.objectId, source: source, relation: relation)
@@ -474,7 +484,7 @@ extension EditorRouter {
         relationValueCoordinator.startFlow(objectId: objectId, source: source, relation: relation, output: self)
     }
 
-    func showAddNewRelationView(onSelect: ((RelationMetadata, _ isNew: Bool) -> Void)?) {
+    func showAddNewRelationView(onSelect: ((RelationDetails, _ isNew: Bool) -> Void)?) {
         addNewRelationCoordinator.showAddNewRelationView(onCompletion: onSelect)
     }
 }
@@ -535,13 +545,13 @@ extension EditorRouter {
         showCreateObject(with: viewModel)
     }
     
-    func showRelationSearch(relations: [RelationMetadata], onSelect: @escaping (String) -> Void) {
+    func showRelationSearch(relationsDetails: [RelationDetails], onSelect: @escaping (RelationDetails) -> Void) {
         let vc = UIHostingController(
             rootView: NewSearchModuleAssembly.setSortsSearchModule(
-                relations: relations,
-                onSelect: { [weak self] key in
+                relationsDetails: relationsDetails,
+                onSelect: { [weak self] relationDetails in
                     self?.navigationContext.dismissTopPresented(animated: false) {
-                        onSelect(key)
+                        onSelect(relationDetails)
                     }
                 }
             )
@@ -558,12 +568,14 @@ extension EditorRouter {
     func showViewTypes(
         dataView: BlockDataview,
         activeView: DataviewView?,
-        dataviewService: DataviewServiceProtocol)
+        dataviewService: DataviewServiceProtocol
+    )
     {
         let viewModel = SetViewTypesPickerViewModel(
             dataView: dataView,
             activeView: activeView,
-            dataviewService: dataviewService
+            dataviewService: dataviewService,
+            relationDetailsStorage: ServiceLocator.shared.relationDetailsStorage()
         )
         let vc = UIHostingController(
             rootView: SetViewTypesPicker(viewModel: viewModel)
@@ -699,7 +711,7 @@ extension EditorRouter {
     
     func showGroupByRelations(
         selectedRelationId: String,
-        relations: [RelationMetadata],
+        relations: [RelationDetails],
         onSelect: @escaping (String) -> Void
     ) {
         let view = CheckPopupView(

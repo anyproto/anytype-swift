@@ -51,7 +51,7 @@ final class TabsSubscriptionDataBuilder: TabsSubscriptionDataBuilderProtocol {
         )
         var filters = buildFilters(
             isArchived: false,
-            typeUrls: objectTypeProvider.supportedTypeUrls
+            typeIds: objectTypeProvider.supportedTypeIds
         )
         filters.append(SearchHelper.lastOpenedDateNotNilFilter())
         
@@ -75,7 +75,7 @@ final class TabsSubscriptionDataBuilder: TabsSubscriptionDataBuilderProtocol {
         
         let filters = buildFilters(
             isArchived: true,
-            typeUrls: objectTypeProvider.supportedTypeUrls
+            typeIds: objectTypeProvider.supportedTypeIds
         )
         
         return .search(
@@ -95,7 +95,7 @@ final class TabsSubscriptionDataBuilder: TabsSubscriptionDataBuilderProtocol {
             relation: BundledRelationKey.lastModifiedDate,
             type: .desc
         )
-        var filters = buildFilters(isArchived: false, typeUrls: objectTypeProvider.supportedTypeUrls)
+        var filters = buildFilters(isArchived: false, typeIds: objectTypeProvider.supportedTypeIds)
         filters.append(contentsOf: SearchHelper.sharedObjectsFilters())
         
         return .search(
@@ -117,7 +117,7 @@ final class TabsSubscriptionDataBuilder: TabsSubscriptionDataBuilderProtocol {
         )
         let filters = buildFilters(
             isArchived: false,
-            typeUrls: objectTypeProvider.objectTypes(smartblockTypes: [.set]).map { $0.url }
+            typeIds: objectTypeProvider.objectTypes(smartblockTypes: [.set]).map { $0.id }
         )
         
         return .search(
@@ -133,7 +133,7 @@ final class TabsSubscriptionDataBuilder: TabsSubscriptionDataBuilderProtocol {
     }
     
     private func favoritesTab() -> SubscriptionData {
-        var filters = buildFilters(isArchived: false, typeUrls: objectTypeProvider.supportedTypeUrls)
+        var filters = buildFilters(isArchived: false, typeIds: objectTypeProvider.supportedTypeIds)
         filters.append(SearchHelper.isFavoriteFilter(isFavorite: true))
         
         return .search(
@@ -167,11 +167,11 @@ final class TabsSubscriptionDataBuilder: TabsSubscriptionDataBuilderProtocol {
         return keys.map { $0.rawValue }
     }
     
-    private func buildFilters(isArchived: Bool, typeUrls: [String]) -> [DataviewFilter] {
+    private func buildFilters(isArchived: Bool, typeIds: [String]) -> [DataviewFilter] {
         return [
             SearchHelper.notHiddenFilter(),
             SearchHelper.isArchivedFilter(isArchived: isArchived),
-            SearchHelper.typeFilter(typeUrls: typeUrls)
+            SearchHelper.typeFilter(typeIds: typeIds)
         ]
     }
 }

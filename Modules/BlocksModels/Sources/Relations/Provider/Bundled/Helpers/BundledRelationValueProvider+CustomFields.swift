@@ -49,6 +49,14 @@ extension BundledRelationsValueProvider {
         let flag = Anytype_Model_InternalFlag.Value.editorSelectType.rawValue
         return internalFlags.contains(flag)
     }
-    
 
+    var relationFormatValue: RelationFormat {
+        relationFormat.map { RelationFormat(rawValue: $0) } ?? .unrecognized
+    }
+    
+    var smartblockTypesValue: [SmartBlockType] {
+        return smartblockTypes
+            .compactMap { Anytype_Model_SmartBlockType(rawValue: $0) }
+            .map { SmartBlockType(smartBlockType: $0) }
+    }
 }

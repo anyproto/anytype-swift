@@ -32,10 +32,10 @@ final class TemplatesCoordinator {
 
     func showTemplatesAvailabilityPopupIfNeeded(
         document: BaseDocumentProtocol,
-        templatesTypeURL: ObjectTypeUrl
+        templatesTypeId: ObjectTypeId
     ) {
         let isSelectTemplate = document.details?.isSelectTemplate ?? false
-        guard isSelectTemplate, let availableTemplates = searchService.searchTemplates(for: templatesTypeURL) else {
+        guard isSelectTemplate, let availableTemplates = searchService.searchTemplates(for: templatesTypeId) else {
             return
         }
         

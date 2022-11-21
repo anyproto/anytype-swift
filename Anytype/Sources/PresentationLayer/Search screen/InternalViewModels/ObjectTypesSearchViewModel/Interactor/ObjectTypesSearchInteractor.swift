@@ -23,7 +23,7 @@ extension ObjectTypesSearchInteractor {
     func search(text: String) -> [ObjectDetails] {
         searchService.searchObjectTypes(
             text: text,
-            filteringTypeUrl: excludedObjectTypeId,
+            filteringTypeId: excludedObjectTypeId,
             shouldIncludeSets: FeatureFlags.showSetsInChangeTypeSearchMenu ? showSet : false,
             shouldIncludeBookmark: FeatureFlags.showBookmarkInSets ? showBookmark : false
         ) ?? []

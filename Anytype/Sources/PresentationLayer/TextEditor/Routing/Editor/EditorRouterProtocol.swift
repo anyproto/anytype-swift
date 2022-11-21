@@ -52,7 +52,7 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     
     func showRelationValueEditingView(key: String, source: RelationSource)
     func showRelationValueEditingView(objectId: BlockId, source: RelationSource, relation: Relation)
-    func showAddNewRelationView(onSelect: ((RelationMetadata, _ isNew: Bool) -> Void)?)
+    func showAddNewRelationView(onSelect: ((RelationDetails, _ isNew: Bool) -> Void)?)
 
     func showLinkContextualMenu(inputParameters: TextBlockURLInputParameters)
 
@@ -66,7 +66,7 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func setNavigationViewHidden(_ isHidden: Bool, animated: Bool)
     func showTemplatesAvailabilityPopupIfNeeded(
         document: BaseDocumentProtocol,
-        templatesTypeURL: ObjectTypeUrl
+        templatesTypeId: ObjectTypeId
     )
     
     func showViewPicker(
@@ -87,7 +87,7 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func showViewSettings(setModel: EditorSetViewModel, dataviewService: DataviewServiceProtocol)
     func dismissSetSettingsIfNeeded()
     func showSorts(setModel: EditorSetViewModel, dataviewService: DataviewServiceProtocol)
-    func showRelationSearch(relations: [RelationMetadata], onSelect: @escaping (String) -> Void)
+    func showRelationSearch(relationsDetails: [RelationDetails], onSelect: @escaping (RelationDetails) -> Void)
     func showFilterSearch(filter: SetFilter, onApply: @escaping (SetFilter) -> Void)
     
     func showFilters(setModel: EditorSetViewModel, dataviewService: DataviewServiceProtocol)
@@ -99,9 +99,12 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     
     func showCardSizes(size: DataviewViewSize, onSelect: @escaping (DataviewViewSize) -> Void)
     func showCovers(setModel: EditorSetViewModel, onSelect: @escaping (String) -> Void)
+    
+    func showRelations()
+
     func showGroupByRelations(
         selectedRelationId: String,
-        relations: [RelationMetadata],
+        relations: [RelationDetails],
         onSelect: @escaping (String) -> Void
     )
 }

@@ -1,8 +1,8 @@
 import BlocksModels
 
 extension BlockDataview {
-    func groupByRelations(for activeView: DataviewView) -> [RelationMetadata] {
-        let relations: [RelationMetadata] = relations.filter { relation in
+    func groupByRelations(for activeView: DataviewView, dataViewRelationsDetails: [RelationDetails]) -> [RelationDetails] {
+        let relations: [RelationDetails] = dataViewRelationsDetails.filter { relation in
             if relation.key == BundledRelationKey.done.rawValue {
                 return true
             }

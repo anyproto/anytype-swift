@@ -45,17 +45,17 @@ final class SetViewSettingsImagePreviewViewModel: ObservableObject {
         guard let activeView = activeView(from: blockDataView) else {
             return []
         }
-        let fileRelations = setModel.dataView.relations.filter {
-            !$0.isHidden && $0.format == RelationMetadata.Format.file
+        let fileRelationDetails = setModel.dataViewRelationsDetails.filter {
+            !$0.isHidden && $0.format == RelationFormat.file
         }
-        return fileRelations.map { relation in
+        return fileRelationDetails.map { relationDetails in
             SetViewSettingsImagePreviewRowConfiguration(
-                id: relation.id,
-                iconAsset: relation.format.iconAsset,
-                title: relation.name,
-                isSelected: activeView.coverRelationKey == relation.key,
+                id: relationDetails.id,
+                iconAsset: relationDetails.format.iconAsset,
+                title: relationDetails.name,
+                isSelected: activeView.coverRelationKey == relationDetails.key,
                 onTap: { [weak self] in
-                    self?.onSelect(relation.key)
+                    self?.onSelect(relationDetails.key)
                 }
             )
         }

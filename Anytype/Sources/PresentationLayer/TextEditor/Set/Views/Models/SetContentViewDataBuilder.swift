@@ -6,35 +6,36 @@ import SwiftProtobuf
 final class SetContentViewDataBuilder {
     private let relationsBuilder = RelationsBuilder()
     private let storage = ObjectDetailsStorage.shared
+    private let relationDetailsStorage = ServiceLocator.shared.relationDetailsStorage()
     
     func sortedRelations(dataview: BlockDataview, view: DataviewView) -> [SetRelation] {
         let relations: [SetRelation] = view.options
             .compactMap { option in
-                let metadata = dataview.relations
+                let relationsDetails = relationDetailsStorage.relationsDetails(for: dataview.relationLinks)
                     .filter { !$0.isHidden }
                     .first { $0.key == option.key }
-                guard let metadata = metadata else { return nil }
+                guard let relationsDetails = relationsDetails else { return nil }
                 
-                return SetRelation(metadata: metadata, option: option)
+                return SetRelation(relationDetails: relationsDetails, option: option)
             }
 
         return NSOrderedSet(array: relations).array as! [SetRelation]
     }
     
     func activeViewRelations(
-        dataview: BlockDataview,
+        dataViewRelationsDetails: [RelationDetails],
         view: DataviewView,
-        excludeRelations: [RelationMetadata]
-    ) -> [RelationMetadata] {
+        excludeRelations: [RelationDetails]
+    ) -> [RelationDetails] {
         view.options.compactMap { option in
-            let metadata = dataview.relations.first { relation in
+            let relationDetails = dataViewRelationsDetails.first { relation in
                 option.key == relation.key
             }
             
-            guard let metadata = metadata,
-                  shouldAddRelationMetadata(metadata, excludeRelations: excludeRelations) else { return nil }
+            guard let relationDetails = relationDetails,
+                  shouldAddRelationDetails(relationDetails, excludeRelations: excludeRelations) else { return nil }
             
-            return metadata
+            return relationDetails
         }
     }
     
@@ -47,28 +48,27 @@ final class SetContentViewDataBuilder {
         onItemTap: @escaping (ObjectDetails) -> Void
     ) -> [SetContentViewItemConfiguration] {
         
-        let metadatas = sortedRelations(
+        let relationsDetails = sortedRelations(
             dataview: dataView,
             view: activeView
-        ).filter { $0.option.isVisible }.map(\.metadata)
+        ).filter { $0.option.isVisible }.map(\.relationDetails)
 
         return details.compactMap { details in
             let parsedRelations = relationsBuilder
                 .parsedRelations(
-                    relationMetadatas: metadatas,
+                    relationsDetails: relationsDetails,
                     objectId: details.id,
                     isObjectLocked: isObjectLocked
                 )
                 .all
-            
-            let sortedRelations = metadatas.compactMap { colum in
-                parsedRelations.first { $0.id == colum.key }
+            let sortedRelations = relationsDetails.compactMap { colum in
+                parsedRelations.first { $0.key == colum.key }
             }
             
-            let relations: [Relation] = metadatas.map { colum in
-                let relation = sortedRelations.first { $0.id == colum.key }
+            let relations: [Relation] = relationsDetails.map { colum in
+                let relation = sortedRelations.first { $0.key == colum.key }
                 guard let relation = relation else {
-                    return .unknown(.empty(id: colum.id, name: colum.name))
+                    return .unknown(.empty(id: colum.id, key: colum.key, name: colum.name))
                 }
                 
                 return relation
@@ -118,15 +118,16 @@ final class SetContentViewDataBuilder {
         dataView: BlockDataview,
         activeView: DataviewView) -> ObjectHeaderCoverType?
     {
-        let relation = dataView.relations.first { $0.format == .file && $0.key == activeView.coverRelationKey }
+        let relationDetails = relationDetailsStorage.relationsDetails(for: dataView.relationLinks)
+            .first { $0.format == .file && $0.key == activeView.coverRelationKey }
         
-        guard let relation = relation else {
+        guard let relationDetails = relationDetails else {
             return nil
         }
-        
-        let values = details.stringArrayValue(for: relation.key)
-        let value = details.stringValue(for: relation.key)
-        
+
+        let values = details.stringArrayValue(for: relationDetails.key)
+        let value = details.stringValue(for: relationDetails.key)
+
         if values.isNotEmpty {
             return findCover(at: values, details)
         } else if value.isNotEmpty {
@@ -135,7 +136,7 @@ final class SetContentViewDataBuilder {
             return nil
         }
     }
-    
+
     private func findCover(at values: [String], _ details: ObjectDetails) -> ObjectHeaderCoverType? {
         for value in values {
             let details = storage.get(id: value)
@@ -146,17 +147,17 @@ final class SetContentViewDataBuilder {
         return nil
     }
     
-    private func shouldAddRelationMetadata(_ relationMetadata: RelationMetadata, excludeRelations: [RelationMetadata]) -> Bool {
-        guard excludeRelations.first(where: { $0.key == relationMetadata.key }) == nil else {
+    private func shouldAddRelationDetails(_ relationDetails: RelationDetails, excludeRelations: [RelationDetails]) -> Bool {
+        guard excludeRelations.first(where: { $0.key == relationDetails.key }) == nil else {
             return false
         }
-        guard relationMetadata.key != ExceptionalSetSort.name.rawValue,
-              relationMetadata.key != ExceptionalSetSort.done.rawValue else {
+        guard relationDetails.key != ExceptionalSetSort.name.rawValue,
+              relationDetails.key != ExceptionalSetSort.done.rawValue else {
             return true
         }
-        return !relationMetadata.isHidden &&
-        relationMetadata.format != .file &&
-        relationMetadata.format != .unrecognized
+        return !relationDetails.isHidden &&
+        relationDetails.format != .file &&
+        relationDetails.format != .unrecognized
     }
 }
 

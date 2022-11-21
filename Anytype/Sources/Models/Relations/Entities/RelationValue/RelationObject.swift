@@ -5,6 +5,7 @@ extension Relation {
     
     struct Object: RelationProtocol, Hashable, Identifiable {
         let id: String
+        let key: String
         let name: String
         let isFeatured: Bool
         let isEditable: Bool
@@ -12,6 +13,10 @@ extension Relation {
         
         let selectedObjects: [Option]
         let limitedObjectTypes: [String]
+        
+        var hasValue: Bool {
+            selectedObjects.isNotEmpty
+        }
     }
     
 }

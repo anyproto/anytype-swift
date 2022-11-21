@@ -14,11 +14,13 @@ final class SetViewTypesPickerViewModel: ObservableObject {
     private let activeView: DataviewView?
     private var selectedType: DataviewViewType = .table
     private let dataviewService: DataviewServiceProtocol
+    private let relationDetailsStorage: RelationDetailsStorageProtocol
     
     init(
         dataView: BlockDataview,
         activeView: DataviewView?,
-        dataviewService: DataviewServiceProtocol)
+        dataviewService: DataviewServiceProtocol,
+        relationDetailsStorage: RelationDetailsStorageProtocol)
     {
         self.dataView = dataView
         self.name = activeView?.name ?? ""
@@ -26,6 +28,7 @@ final class SetViewTypesPickerViewModel: ObservableObject {
         self.canDelete = dataView.views.count > 1
         self.selectedType = activeView?.type ?? .table
         self.dataviewService = dataviewService
+        self.relationDetailsStorage = relationDetailsStorage
         self.updateTypes()
     }
     
@@ -70,8 +73,9 @@ final class SetViewTypesPickerViewModel: ObservableObject {
         guard activeView.type != selectedType || activeView.name != name else {
             return
         }
+        let dataViewRelationsDetails = relationDetailsStorage.relationsDetails(for: dataView.relationLinks)
         let groupRelationKey = activeView.groupRelationKey.isEmpty ?
-        dataView.groupByRelations(for: activeView).first?.key ?? "" :
+        dataView.groupByRelations(for: activeView, dataViewRelationsDetails: dataViewRelationsDetails).first?.key ?? "" :
         activeView.groupRelationKey
         let newView = activeView.updated(
             name: name,

@@ -107,14 +107,6 @@ public struct Anytype_Event {
       set {value = .objectDetailsUnset(newValue)}
     }
 
-    public var objectRelationsSet: Anytype_Event.Object.Relations.Set {
-      get {
-        if case .objectRelationsSet(let v)? = value {return v}
-        return Anytype_Event.Object.Relations.Set()
-      }
-      set {value = .objectRelationsSet(newValue)}
-    }
-
     public var objectRelationsAmend: Anytype_Event.Object.Relations.Amend {
       get {
         if case .objectRelationsAmend(let v)? = value {return v}
@@ -315,46 +307,6 @@ public struct Anytype_Event {
       set {value = .blockSetTableRow(newValue)}
     }
 
-    public var blockDataviewRecordsSet: Anytype_Event.Block.Dataview.RecordsSet {
-      get {
-        if case .blockDataviewRecordsSet(let v)? = value {return v}
-        return Anytype_Event.Block.Dataview.RecordsSet()
-      }
-      set {value = .blockDataviewRecordsSet(newValue)}
-    }
-
-    public var blockDataviewRecordsUpdate: Anytype_Event.Block.Dataview.RecordsUpdate {
-      get {
-        if case .blockDataviewRecordsUpdate(let v)? = value {return v}
-        return Anytype_Event.Block.Dataview.RecordsUpdate()
-      }
-      set {value = .blockDataviewRecordsUpdate(newValue)}
-    }
-
-    public var blockDataviewRecordsInsert: Anytype_Event.Block.Dataview.RecordsInsert {
-      get {
-        if case .blockDataviewRecordsInsert(let v)? = value {return v}
-        return Anytype_Event.Block.Dataview.RecordsInsert()
-      }
-      set {value = .blockDataviewRecordsInsert(newValue)}
-    }
-
-    public var blockDataviewRecordsDelete: Anytype_Event.Block.Dataview.RecordsDelete {
-      get {
-        if case .blockDataviewRecordsDelete(let v)? = value {return v}
-        return Anytype_Event.Block.Dataview.RecordsDelete()
-      }
-      set {value = .blockDataviewRecordsDelete(newValue)}
-    }
-
-    public var blockDataviewSourceSet: Anytype_Event.Block.Dataview.SourceSet {
-      get {
-        if case .blockDataviewSourceSet(let v)? = value {return v}
-        return Anytype_Event.Block.Dataview.SourceSet()
-      }
-      set {value = .blockDataviewSourceSet(newValue)}
-    }
-
     public var blockDataviewViewSet: Anytype_Event.Block.Dataview.ViewSet {
       get {
         if case .blockDataviewViewSet(let v)? = value {return v}
@@ -379,20 +331,12 @@ public struct Anytype_Event {
       set {value = .blockDataviewViewOrder(newValue)}
     }
 
-    public var blockDataviewRelationDelete: Anytype_Event.Block.Dataview.RelationDelete {
+    public var blockDataviewSourceSet: Anytype_Event.Block.Dataview.SourceSet {
       get {
-        if case .blockDataviewRelationDelete(let v)? = value {return v}
-        return Anytype_Event.Block.Dataview.RelationDelete()
+        if case .blockDataviewSourceSet(let v)? = value {return v}
+        return Anytype_Event.Block.Dataview.SourceSet()
       }
-      set {value = .blockDataviewRelationDelete(newValue)}
-    }
-
-    public var blockDataviewRelationSet: Anytype_Event.Block.Dataview.RelationSet {
-      get {
-        if case .blockDataviewRelationSet(let v)? = value {return v}
-        return Anytype_Event.Block.Dataview.RelationSet()
-      }
-      set {value = .blockDataviewRelationSet(newValue)}
+      set {value = .blockDataviewSourceSet(newValue)}
     }
 
     public var blockDataViewGroupOrderUpdate: Anytype_Event.Block.Dataview.GroupOrderUpdate {
@@ -409,6 +353,40 @@ public struct Anytype_Event {
         return Anytype_Event.Block.Dataview.ObjectOrderUpdate()
       }
       set {value = .blockDataViewObjectOrderUpdate(newValue)}
+    }
+
+    public var blockDataviewRelationDelete: Anytype_Event.Block.Dataview.RelationDelete {
+      get {
+        if case .blockDataviewRelationDelete(let v)? = value {return v}
+        return Anytype_Event.Block.Dataview.RelationDelete()
+      }
+      set {value = .blockDataviewRelationDelete(newValue)}
+    }
+
+    public var blockDataviewRelationSet: Anytype_Event.Block.Dataview.RelationSet {
+      get {
+        if case .blockDataviewRelationSet(let v)? = value {return v}
+        return Anytype_Event.Block.Dataview.RelationSet()
+      }
+      set {value = .blockDataviewRelationSet(newValue)}
+    }
+
+    /// deprecated
+    public var blockDataviewOldRelationDelete: Anytype_Event.Block.Dataview.OldRelationDelete {
+      get {
+        if case .blockDataviewOldRelationDelete(let v)? = value {return v}
+        return Anytype_Event.Block.Dataview.OldRelationDelete()
+      }
+      set {value = .blockDataviewOldRelationDelete(newValue)}
+    }
+
+    /// deprecated
+    public var blockDataviewOldRelationSet: Anytype_Event.Block.Dataview.OldRelationSet {
+      get {
+        if case .blockDataviewOldRelationSet(let v)? = value {return v}
+        return Anytype_Event.Block.Dataview.OldRelationSet()
+      }
+      set {value = .blockDataviewOldRelationSet(newValue)}
     }
 
     public var userBlockJoin: Anytype_Event.User.Block.Join {
@@ -493,7 +471,6 @@ public struct Anytype_Event {
       case objectDetailsSet(Anytype_Event.Object.Details.Set)
       case objectDetailsAmend(Anytype_Event.Object.Details.Amend)
       case objectDetailsUnset(Anytype_Event.Object.Details.Unset)
-      case objectRelationsSet(Anytype_Event.Object.Relations.Set)
       case objectRelationsAmend(Anytype_Event.Object.Relations.Amend)
       case objectRelationsRemove(Anytype_Event.Object.Relations.Remove)
       case objectRemove(Anytype_Event.Object.Remove)
@@ -519,18 +496,18 @@ public struct Anytype_Event {
       case blockSetLatex(Anytype_Event.Block.Set.Latex)
       case blockSetVerticalAlign(Anytype_Event.Block.Set.VerticalAlign)
       case blockSetTableRow(Anytype_Event.Block.Set.TableRow)
-      case blockDataviewRecordsSet(Anytype_Event.Block.Dataview.RecordsSet)
-      case blockDataviewRecordsUpdate(Anytype_Event.Block.Dataview.RecordsUpdate)
-      case blockDataviewRecordsInsert(Anytype_Event.Block.Dataview.RecordsInsert)
-      case blockDataviewRecordsDelete(Anytype_Event.Block.Dataview.RecordsDelete)
-      case blockDataviewSourceSet(Anytype_Event.Block.Dataview.SourceSet)
       case blockDataviewViewSet(Anytype_Event.Block.Dataview.ViewSet)
       case blockDataviewViewDelete(Anytype_Event.Block.Dataview.ViewDelete)
       case blockDataviewViewOrder(Anytype_Event.Block.Dataview.ViewOrder)
-      case blockDataviewRelationDelete(Anytype_Event.Block.Dataview.RelationDelete)
-      case blockDataviewRelationSet(Anytype_Event.Block.Dataview.RelationSet)
+      case blockDataviewSourceSet(Anytype_Event.Block.Dataview.SourceSet)
       case blockDataViewGroupOrderUpdate(Anytype_Event.Block.Dataview.GroupOrderUpdate)
       case blockDataViewObjectOrderUpdate(Anytype_Event.Block.Dataview.ObjectOrderUpdate)
+      case blockDataviewRelationDelete(Anytype_Event.Block.Dataview.RelationDelete)
+      case blockDataviewRelationSet(Anytype_Event.Block.Dataview.RelationSet)
+      /// deprecated
+      case blockDataviewOldRelationDelete(Anytype_Event.Block.Dataview.OldRelationDelete)
+      /// deprecated
+      case blockDataviewOldRelationSet(Anytype_Event.Block.Dataview.OldRelationSet)
       case userBlockJoin(Anytype_Event.User.Block.Join)
       case userBlockLeft(Anytype_Event.User.Block.Left)
       case userBlockSelectRange(Anytype_Event.User.Block.SelectRange)
@@ -573,10 +550,6 @@ public struct Anytype_Event {
         }()
         case (.objectDetailsUnset, .objectDetailsUnset): return {
           guard case .objectDetailsUnset(let l) = lhs, case .objectDetailsUnset(let r) = rhs else { preconditionFailure() }
-          return l == r
-        }()
-        case (.objectRelationsSet, .objectRelationsSet): return {
-          guard case .objectRelationsSet(let l) = lhs, case .objectRelationsSet(let r) = rhs else { preconditionFailure() }
           return l == r
         }()
         case (.objectRelationsAmend, .objectRelationsAmend): return {
@@ -679,26 +652,6 @@ public struct Anytype_Event {
           guard case .blockSetTableRow(let l) = lhs, case .blockSetTableRow(let r) = rhs else { preconditionFailure() }
           return l == r
         }()
-        case (.blockDataviewRecordsSet, .blockDataviewRecordsSet): return {
-          guard case .blockDataviewRecordsSet(let l) = lhs, case .blockDataviewRecordsSet(let r) = rhs else { preconditionFailure() }
-          return l == r
-        }()
-        case (.blockDataviewRecordsUpdate, .blockDataviewRecordsUpdate): return {
-          guard case .blockDataviewRecordsUpdate(let l) = lhs, case .blockDataviewRecordsUpdate(let r) = rhs else { preconditionFailure() }
-          return l == r
-        }()
-        case (.blockDataviewRecordsInsert, .blockDataviewRecordsInsert): return {
-          guard case .blockDataviewRecordsInsert(let l) = lhs, case .blockDataviewRecordsInsert(let r) = rhs else { preconditionFailure() }
-          return l == r
-        }()
-        case (.blockDataviewRecordsDelete, .blockDataviewRecordsDelete): return {
-          guard case .blockDataviewRecordsDelete(let l) = lhs, case .blockDataviewRecordsDelete(let r) = rhs else { preconditionFailure() }
-          return l == r
-        }()
-        case (.blockDataviewSourceSet, .blockDataviewSourceSet): return {
-          guard case .blockDataviewSourceSet(let l) = lhs, case .blockDataviewSourceSet(let r) = rhs else { preconditionFailure() }
-          return l == r
-        }()
         case (.blockDataviewViewSet, .blockDataviewViewSet): return {
           guard case .blockDataviewViewSet(let l) = lhs, case .blockDataviewViewSet(let r) = rhs else { preconditionFailure() }
           return l == r
@@ -711,12 +664,8 @@ public struct Anytype_Event {
           guard case .blockDataviewViewOrder(let l) = lhs, case .blockDataviewViewOrder(let r) = rhs else { preconditionFailure() }
           return l == r
         }()
-        case (.blockDataviewRelationDelete, .blockDataviewRelationDelete): return {
-          guard case .blockDataviewRelationDelete(let l) = lhs, case .blockDataviewRelationDelete(let r) = rhs else { preconditionFailure() }
-          return l == r
-        }()
-        case (.blockDataviewRelationSet, .blockDataviewRelationSet): return {
-          guard case .blockDataviewRelationSet(let l) = lhs, case .blockDataviewRelationSet(let r) = rhs else { preconditionFailure() }
+        case (.blockDataviewSourceSet, .blockDataviewSourceSet): return {
+          guard case .blockDataviewSourceSet(let l) = lhs, case .blockDataviewSourceSet(let r) = rhs else { preconditionFailure() }
           return l == r
         }()
         case (.blockDataViewGroupOrderUpdate, .blockDataViewGroupOrderUpdate): return {
@@ -725,6 +674,22 @@ public struct Anytype_Event {
         }()
         case (.blockDataViewObjectOrderUpdate, .blockDataViewObjectOrderUpdate): return {
           guard case .blockDataViewObjectOrderUpdate(let l) = lhs, case .blockDataViewObjectOrderUpdate(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.blockDataviewRelationDelete, .blockDataviewRelationDelete): return {
+          guard case .blockDataviewRelationDelete(let l) = lhs, case .blockDataviewRelationDelete(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.blockDataviewRelationSet, .blockDataviewRelationSet): return {
+          guard case .blockDataviewRelationSet(let l) = lhs, case .blockDataviewRelationSet(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.blockDataviewOldRelationDelete, .blockDataviewOldRelationDelete): return {
+          guard case .blockDataviewOldRelationDelete(let l) = lhs, case .blockDataviewOldRelationDelete(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.blockDataviewOldRelationSet, .blockDataviewOldRelationSet): return {
+          guard case .blockDataviewOldRelationSet(let l) = lhs, case .blockDataviewOldRelationSet(let r) = rhs else { preconditionFailure() }
           return l == r
         }()
         case (.userBlockJoin, .userBlockJoin): return {
@@ -1106,21 +1071,6 @@ public struct Anytype_Event {
 
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-      public struct Set {
-        // SwiftProtobuf.Message conformance is added in an extension below. See the
-        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-        // methods supported on all messages.
-
-        /// context objectId
-        public var id: String = String()
-
-        public var relations: [Anytype_Model_Relation] = []
-
-        public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-        public init() {}
-      }
-
       public struct Amend {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -1129,7 +1079,7 @@ public struct Anytype_Event {
         /// context objectId
         public var id: String = String()
 
-        public var relations: [Anytype_Model_Relation] = []
+        public var relationLinks: [Anytype_Model_RelationLink] = []
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -1144,65 +1094,7 @@ public struct Anytype_Event {
         /// context objectId
         public var id: String = String()
 
-        public var keys: [String] = []
-
-        public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-        public init() {}
-      }
-
-      public init() {}
-    }
-
-    public struct Relation {
-      // SwiftProtobuf.Message conformance is added in an extension below. See the
-      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-      // methods supported on all messages.
-
-      public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-      public struct Set {
-        // SwiftProtobuf.Message conformance is added in an extension below. See the
-        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-        // methods supported on all messages.
-
-        /// context objectId
-        public var id: String {
-          get {return _storage._id}
-          set {_uniqueStorage()._id = newValue}
-        }
-
-        public var relationKey: String {
-          get {return _storage._relationKey}
-          set {_uniqueStorage()._relationKey = newValue}
-        }
-
-        /// missing value means relation should be removed
-        public var relation: Anytype_Model_Relation {
-          get {return _storage._relation ?? Anytype_Model_Relation()}
-          set {_uniqueStorage()._relation = newValue}
-        }
-        /// Returns true if `relation` has been explicitly set.
-        public var hasRelation: Bool {return _storage._relation != nil}
-        /// Clears the value of `relation`. Subsequent reads from it will return its default value.
-        public mutating func clearRelation() {_uniqueStorage()._relation = nil}
-
-        public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-        public init() {}
-
-        fileprivate var _storage = _StorageClass.defaultInstance
-      }
-
-      public struct Remove {
-        // SwiftProtobuf.Message conformance is added in an extension below. See the
-        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-        // methods supported on all messages.
-
-        /// context objectId
-        public var id: String = String()
-
-        public var relationKey: String = String()
+        public var relationKeys: [String] = []
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -1223,6 +1115,29 @@ public struct Anytype_Event {
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
       public init() {}
+    }
+
+    public struct Restriction {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      public var id: String = String()
+
+      public var restrictions: Anytype_Model_Restrictions {
+        get {return _restrictions ?? Anytype_Model_Restrictions()}
+        set {_restrictions = newValue}
+      }
+      /// Returns true if `restrictions` has been explicitly set.
+      public var hasRestrictions: Bool {return self._restrictions != nil}
+      /// Clears the value of `restrictions`. Subsequent reads from it will return its default value.
+      public mutating func clearRestrictions() {self._restrictions = nil}
+
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public init() {}
+
+      fileprivate var _restrictions: Anytype_Model_Restrictions? = nil
     }
 
     public init() {}
@@ -3079,11 +2994,6 @@ public struct Anytype_Event {
         /// Clears the value of `view`. Subsequent reads from it will return its default value.
         public mutating func clearView() {self._view = nil}
 
-        /// middleware will try to preserve the current aciveview's offset&limit but may reset it in case it becomes invalid or not actual anymore
-        public var offset: UInt32 = 0
-
-        public var limit: UInt32 = 0
-
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public init() {}
@@ -3138,7 +3048,7 @@ public struct Anytype_Event {
         public init() {}
       }
 
-      public struct RelationDelete {
+      public struct OldRelationDelete {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -3155,7 +3065,7 @@ public struct Anytype_Event {
       }
 
       /// sent when the dataview relation has been changed or added
-      public struct RelationSet {
+      public struct OldRelationSet {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -3188,8 +3098,7 @@ public struct Anytype_Event {
         fileprivate var _storage = _StorageClass.defaultInstance
       }
 
-      /// sent when the active view's visible records should be replaced
-      public struct RecordsSet {
+      public struct RelationDelete {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -3197,21 +3106,16 @@ public struct Anytype_Event {
         /// dataview block's id
         public var id: String = String()
 
-        /// view id, client should double check this to make sure client doesn't switch the active view in the middle
-        public var viewID: String = String()
-
-        public var records: [SwiftProtobuf.Google_Protobuf_Struct] = []
-
-        /// total number of records
-        public var total: UInt32 = 0
+        /// relation key to remove
+        public var relationKeys: [String] = []
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public init() {}
       }
 
-      /// sent when client should insert new records on the active view
-      public struct RecordsInsert {
+      /// sent when the dataview relation has been changed or added
+      public struct RelationSet {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
@@ -3219,52 +3123,8 @@ public struct Anytype_Event {
         /// dataview block's id
         public var id: String = String()
 
-        /// view id, client should double check this to make sure client doesn't switch the active view in the middle
-        public var viewID: String = String()
-
-        public var records: [SwiftProtobuf.Google_Protobuf_Struct] = []
-
-        /// position to insert
-        public var insertPosition: UInt32 = 0
-
-        public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-        public init() {}
-      }
-
-      /// sent when client should update existing records on the active view
-      public struct RecordsUpdate {
-        // SwiftProtobuf.Message conformance is added in an extension below. See the
-        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-        // methods supported on all messages.
-
-        /// dataview block's id
-        public var id: String = String()
-
-        /// view id, client should double check this to make sure client doesn't switch the active view in the middle
-        public var viewID: String = String()
-
-        /// records to update. Use 'id' field to get records ids
-        public var records: [SwiftProtobuf.Google_Protobuf_Struct] = []
-
-        public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-        public init() {}
-      }
-
-      /// sent when client should remove existing records on the active view
-      public struct RecordsDelete {
-        // SwiftProtobuf.Message conformance is added in an extension below. See the
-        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-        // methods supported on all messages.
-
-        /// dataview block's id
-        public var id: String = String()
-
-        /// view id, client should double check this to make sure client doesn't switch the active view in the middle
-        public var viewID: String = String()
-
-        public var removed: [String] = []
+        /// relation id to update
+        public var relationLinks: [Anytype_Model_RelationLink] = []
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -3967,13 +3827,10 @@ extension Anytype_Event.Object.Subscription.Remove: @unchecked Sendable {}
 extension Anytype_Event.Object.Subscription.Position: @unchecked Sendable {}
 extension Anytype_Event.Object.Subscription.Counters: @unchecked Sendable {}
 extension Anytype_Event.Object.Relations: @unchecked Sendable {}
-extension Anytype_Event.Object.Relations.Set: @unchecked Sendable {}
 extension Anytype_Event.Object.Relations.Amend: @unchecked Sendable {}
 extension Anytype_Event.Object.Relations.Remove: @unchecked Sendable {}
-extension Anytype_Event.Object.Relation: @unchecked Sendable {}
-extension Anytype_Event.Object.Relation.Set: @unchecked Sendable {}
-extension Anytype_Event.Object.Relation.Remove: @unchecked Sendable {}
 extension Anytype_Event.Object.Remove: @unchecked Sendable {}
+extension Anytype_Event.Object.Restriction: @unchecked Sendable {}
 extension Anytype_Event.Block: @unchecked Sendable {}
 extension Anytype_Event.Block.Add: @unchecked Sendable {}
 extension Anytype_Event.Block.FilesUpload: @unchecked Sendable {}
@@ -4071,12 +3928,10 @@ extension Anytype_Event.Block.Dataview.ViewSet: @unchecked Sendable {}
 extension Anytype_Event.Block.Dataview.ViewDelete: @unchecked Sendable {}
 extension Anytype_Event.Block.Dataview.ViewOrder: @unchecked Sendable {}
 extension Anytype_Event.Block.Dataview.SourceSet: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.OldRelationDelete: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.OldRelationSet: @unchecked Sendable {}
 extension Anytype_Event.Block.Dataview.RelationDelete: @unchecked Sendable {}
 extension Anytype_Event.Block.Dataview.RelationSet: @unchecked Sendable {}
-extension Anytype_Event.Block.Dataview.RecordsSet: @unchecked Sendable {}
-extension Anytype_Event.Block.Dataview.RecordsInsert: @unchecked Sendable {}
-extension Anytype_Event.Block.Dataview.RecordsUpdate: @unchecked Sendable {}
-extension Anytype_Event.Block.Dataview.RecordsDelete: @unchecked Sendable {}
 extension Anytype_Event.Block.Dataview.GroupOrderUpdate: @unchecked Sendable {}
 extension Anytype_Event.Block.Dataview.ObjectOrderUpdate: @unchecked Sendable {}
 extension Anytype_Event.Block.Dataview.SliceChange: @unchecked Sendable {}
@@ -4175,7 +4030,6 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     16: .same(proto: "objectDetailsSet"),
     50: .same(proto: "objectDetailsAmend"),
     51: .same(proto: "objectDetailsUnset"),
-    22: .same(proto: "objectRelationsSet"),
     52: .same(proto: "objectRelationsAmend"),
     53: .same(proto: "objectRelationsRemove"),
     54: .same(proto: "objectRemove"),
@@ -4201,18 +4055,16 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     25: .same(proto: "blockSetLatex"),
     36: .same(proto: "blockSetVerticalAlign"),
     37: .same(proto: "blockSetTableRow"),
-    18: .same(proto: "blockDataviewRecordsSet"),
-    26: .same(proto: "blockDataviewRecordsUpdate"),
-    27: .same(proto: "blockDataviewRecordsInsert"),
-    28: .same(proto: "blockDataviewRecordsDelete"),
-    35: .same(proto: "blockDataviewSourceSet"),
     19: .same(proto: "blockDataviewViewSet"),
     20: .same(proto: "blockDataviewViewDelete"),
     29: .same(proto: "blockDataviewViewOrder"),
-    24: .same(proto: "blockDataviewRelationDelete"),
-    23: .same(proto: "blockDataviewRelationSet"),
+    35: .same(proto: "blockDataviewSourceSet"),
     38: .same(proto: "blockDataViewGroupOrderUpdate"),
     39: .same(proto: "blockDataViewObjectOrderUpdate"),
+    124: .same(proto: "blockDataviewRelationDelete"),
+    123: .same(proto: "blockDataviewRelationSet"),
+    24: .same(proto: "blockDataviewOldRelationDelete"),
+    23: .same(proto: "blockDataviewOldRelationSet"),
     31: .same(proto: "userBlockJoin"),
     32: .same(proto: "userBlockLeft"),
     33: .same(proto: "userBlockSelectRange"),
@@ -4438,19 +4290,6 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
           self.value = .blockSetDiv(v)
         }
       }()
-      case 18: try {
-        var v: Anytype_Event.Block.Dataview.RecordsSet?
-        var hadOneofValue = false
-        if let current = self.value {
-          hadOneofValue = true
-          if case .blockDataviewRecordsSet(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.value = .blockDataviewRecordsSet(v)
-        }
-      }()
       case 19: try {
         var v: Anytype_Event.Block.Dataview.ViewSet?
         var hadOneofValue = false
@@ -4490,43 +4329,30 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
           self.value = .blockSetRelation(v)
         }
       }()
-      case 22: try {
-        var v: Anytype_Event.Object.Relations.Set?
-        var hadOneofValue = false
-        if let current = self.value {
-          hadOneofValue = true
-          if case .objectRelationsSet(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.value = .objectRelationsSet(v)
-        }
-      }()
       case 23: try {
-        var v: Anytype_Event.Block.Dataview.RelationSet?
+        var v: Anytype_Event.Block.Dataview.OldRelationSet?
         var hadOneofValue = false
         if let current = self.value {
           hadOneofValue = true
-          if case .blockDataviewRelationSet(let m) = current {v = m}
+          if case .blockDataviewOldRelationSet(let m) = current {v = m}
         }
         try decoder.decodeSingularMessageField(value: &v)
         if let v = v {
           if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.value = .blockDataviewRelationSet(v)
+          self.value = .blockDataviewOldRelationSet(v)
         }
       }()
       case 24: try {
-        var v: Anytype_Event.Block.Dataview.RelationDelete?
+        var v: Anytype_Event.Block.Dataview.OldRelationDelete?
         var hadOneofValue = false
         if let current = self.value {
           hadOneofValue = true
-          if case .blockDataviewRelationDelete(let m) = current {v = m}
+          if case .blockDataviewOldRelationDelete(let m) = current {v = m}
         }
         try decoder.decodeSingularMessageField(value: &v)
         if let v = v {
           if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.value = .blockDataviewRelationDelete(v)
+          self.value = .blockDataviewOldRelationDelete(v)
         }
       }()
       case 25: try {
@@ -4540,45 +4366,6 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
         if let v = v {
           if hadOneofValue {try decoder.handleConflictingOneOf()}
           self.value = .blockSetLatex(v)
-        }
-      }()
-      case 26: try {
-        var v: Anytype_Event.Block.Dataview.RecordsUpdate?
-        var hadOneofValue = false
-        if let current = self.value {
-          hadOneofValue = true
-          if case .blockDataviewRecordsUpdate(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.value = .blockDataviewRecordsUpdate(v)
-        }
-      }()
-      case 27: try {
-        var v: Anytype_Event.Block.Dataview.RecordsInsert?
-        var hadOneofValue = false
-        if let current = self.value {
-          hadOneofValue = true
-          if case .blockDataviewRecordsInsert(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.value = .blockDataviewRecordsInsert(v)
-        }
-      }()
-      case 28: try {
-        var v: Anytype_Event.Block.Dataview.RecordsDelete?
-        var hadOneofValue = false
-        if let current = self.value {
-          hadOneofValue = true
-          if case .blockDataviewRecordsDelete(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.value = .blockDataviewRecordsDelete(v)
         }
       }()
       case 29: try {
@@ -4893,6 +4680,32 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
           self.value = .threadStatus(v)
         }
       }()
+      case 123: try {
+        var v: Anytype_Event.Block.Dataview.RelationSet?
+        var hadOneofValue = false
+        if let current = self.value {
+          hadOneofValue = true
+          if case .blockDataviewRelationSet(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.value = .blockDataviewRelationSet(v)
+        }
+      }()
+      case 124: try {
+        var v: Anytype_Event.Block.Dataview.RelationDelete?
+        var hadOneofValue = false
+        if let current = self.value {
+          hadOneofValue = true
+          if case .blockDataviewRelationDelete(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.value = .blockDataviewRelationDelete(v)
+        }
+      }()
       case 201: try {
         var v: Anytype_Event.Account.Details?
         var hadOneofValue = false
@@ -5007,10 +4820,6 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
       guard case .blockSetDiv(let v)? = self.value else { preconditionFailure() }
       try visitor.visitSingularMessageField(value: v, fieldNumber: 17)
     }()
-    case .blockDataviewRecordsSet?: try {
-      guard case .blockDataviewRecordsSet(let v)? = self.value else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 18)
-    }()
     case .blockDataviewViewSet?: try {
       guard case .blockDataviewViewSet(let v)? = self.value else { preconditionFailure() }
       try visitor.visitSingularMessageField(value: v, fieldNumber: 19)
@@ -5023,33 +4832,17 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
       guard case .blockSetRelation(let v)? = self.value else { preconditionFailure() }
       try visitor.visitSingularMessageField(value: v, fieldNumber: 21)
     }()
-    case .objectRelationsSet?: try {
-      guard case .objectRelationsSet(let v)? = self.value else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 22)
-    }()
-    case .blockDataviewRelationSet?: try {
-      guard case .blockDataviewRelationSet(let v)? = self.value else { preconditionFailure() }
+    case .blockDataviewOldRelationSet?: try {
+      guard case .blockDataviewOldRelationSet(let v)? = self.value else { preconditionFailure() }
       try visitor.visitSingularMessageField(value: v, fieldNumber: 23)
     }()
-    case .blockDataviewRelationDelete?: try {
-      guard case .blockDataviewRelationDelete(let v)? = self.value else { preconditionFailure() }
+    case .blockDataviewOldRelationDelete?: try {
+      guard case .blockDataviewOldRelationDelete(let v)? = self.value else { preconditionFailure() }
       try visitor.visitSingularMessageField(value: v, fieldNumber: 24)
     }()
     case .blockSetLatex?: try {
       guard case .blockSetLatex(let v)? = self.value else { preconditionFailure() }
       try visitor.visitSingularMessageField(value: v, fieldNumber: 25)
-    }()
-    case .blockDataviewRecordsUpdate?: try {
-      guard case .blockDataviewRecordsUpdate(let v)? = self.value else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 26)
-    }()
-    case .blockDataviewRecordsInsert?: try {
-      guard case .blockDataviewRecordsInsert(let v)? = self.value else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 27)
-    }()
-    case .blockDataviewRecordsDelete?: try {
-      guard case .blockDataviewRecordsDelete(let v)? = self.value else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 28)
     }()
     case .blockDataviewViewOrder?: try {
       guard case .blockDataviewViewOrder(let v)? = self.value else { preconditionFailure() }
@@ -5146,6 +4939,14 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     case .threadStatus?: try {
       guard case .threadStatus(let v)? = self.value else { preconditionFailure() }
       try visitor.visitSingularMessageField(value: v, fieldNumber: 110)
+    }()
+    case .blockDataviewRelationSet?: try {
+      guard case .blockDataviewRelationSet(let v)? = self.value else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 123)
+    }()
+    case .blockDataviewRelationDelete?: try {
+      guard case .blockDataviewRelationDelete(let v)? = self.value else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 124)
     }()
     case .accountDetails?: try {
       guard case .accountDetails(let v)? = self.value else { preconditionFailure() }
@@ -5807,49 +5608,11 @@ extension Anytype_Event.Object.Relations: SwiftProtobuf.Message, SwiftProtobuf._
   }
 }
 
-extension Anytype_Event.Object.Relations.Set: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Event.Object.Relations.protoMessageName + ".Set"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "id"),
-    2: .same(proto: "relations"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
-      case 2: try { try decoder.decodeRepeatedMessageField(value: &self.relations) }()
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.id.isEmpty {
-      try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
-    }
-    if !self.relations.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.relations, fieldNumber: 2)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Anytype_Event.Object.Relations.Set, rhs: Anytype_Event.Object.Relations.Set) -> Bool {
-    if lhs.id != rhs.id {return false}
-    if lhs.relations != rhs.relations {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
 extension Anytype_Event.Object.Relations.Amend: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Event.Object.Relations.protoMessageName + ".Amend"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "id"),
-    2: .same(proto: "relations"),
+    2: .same(proto: "relationLinks"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -5859,7 +5622,7 @@ extension Anytype_Event.Object.Relations.Amend: SwiftProtobuf.Message, SwiftProt
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
-      case 2: try { try decoder.decodeRepeatedMessageField(value: &self.relations) }()
+      case 2: try { try decoder.decodeRepeatedMessageField(value: &self.relationLinks) }()
       default: break
       }
     }
@@ -5869,15 +5632,15 @@ extension Anytype_Event.Object.Relations.Amend: SwiftProtobuf.Message, SwiftProt
     if !self.id.isEmpty {
       try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
     }
-    if !self.relations.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.relations, fieldNumber: 2)
+    if !self.relationLinks.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.relationLinks, fieldNumber: 2)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Event.Object.Relations.Amend, rhs: Anytype_Event.Object.Relations.Amend) -> Bool {
     if lhs.id != rhs.id {return false}
-    if lhs.relations != rhs.relations {return false}
+    if lhs.relationLinks != rhs.relationLinks {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -5887,7 +5650,7 @@ extension Anytype_Event.Object.Relations.Remove: SwiftProtobuf.Message, SwiftPro
   public static let protoMessageName: String = Anytype_Event.Object.Relations.protoMessageName + ".Remove"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "id"),
-    2: .same(proto: "keys"),
+    2: .same(proto: "relationKeys"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -5897,7 +5660,7 @@ extension Anytype_Event.Object.Relations.Remove: SwiftProtobuf.Message, SwiftPro
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
-      case 2: try { try decoder.decodeRepeatedStringField(value: &self.keys) }()
+      case 2: try { try decoder.decodeRepeatedStringField(value: &self.relationKeys) }()
       default: break
       }
     }
@@ -5907,156 +5670,15 @@ extension Anytype_Event.Object.Relations.Remove: SwiftProtobuf.Message, SwiftPro
     if !self.id.isEmpty {
       try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
     }
-    if !self.keys.isEmpty {
-      try visitor.visitRepeatedStringField(value: self.keys, fieldNumber: 2)
+    if !self.relationKeys.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.relationKeys, fieldNumber: 2)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Event.Object.Relations.Remove, rhs: Anytype_Event.Object.Relations.Remove) -> Bool {
     if lhs.id != rhs.id {return false}
-    if lhs.keys != rhs.keys {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Anytype_Event.Object.Relation: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Event.Object.protoMessageName + ".Relation"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let _ = try decoder.nextFieldNumber() {
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Anytype_Event.Object.Relation, rhs: Anytype_Event.Object.Relation) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Anytype_Event.Object.Relation.Set: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Event.Object.Relation.protoMessageName + ".Set"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "id"),
-    2: .same(proto: "relationKey"),
-    3: .same(proto: "relation"),
-  ]
-
-  fileprivate class _StorageClass {
-    var _id: String = String()
-    var _relationKey: String = String()
-    var _relation: Anytype_Model_Relation? = nil
-
-    static let defaultInstance = _StorageClass()
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _id = source._id
-      _relationKey = source._relationKey
-      _relation = source._relation
-    }
-  }
-
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
-    }
-    return _storage
-  }
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        // The use of inline closures is to circumvent an issue where the compiler
-        // allocates stack space for every case branch when no optimizations are
-        // enabled. https://github.com/apple/swift-protobuf/issues/1034
-        switch fieldNumber {
-        case 1: try { try decoder.decodeSingularStringField(value: &_storage._id) }()
-        case 2: try { try decoder.decodeSingularStringField(value: &_storage._relationKey) }()
-        case 3: try { try decoder.decodeSingularMessageField(value: &_storage._relation) }()
-        default: break
-        }
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every if/case branch local when no optimizations
-      // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-      // https://github.com/apple/swift-protobuf/issues/1182
-      if !_storage._id.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._id, fieldNumber: 1)
-      }
-      if !_storage._relationKey.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._relationKey, fieldNumber: 2)
-      }
-      try { if let v = _storage._relation {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-      } }()
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Anytype_Event.Object.Relation.Set, rhs: Anytype_Event.Object.Relation.Set) -> Bool {
-    if lhs._storage !== rhs._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
-        let _storage = _args.0
-        let rhs_storage = _args.1
-        if _storage._id != rhs_storage._id {return false}
-        if _storage._relationKey != rhs_storage._relationKey {return false}
-        if _storage._relation != rhs_storage._relation {return false}
-        return true
-      }
-      if !storagesAreEqual {return false}
-    }
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Anytype_Event.Object.Relation.Remove: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Event.Object.Relation.protoMessageName + ".Remove"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "id"),
-    2: .same(proto: "relationKey"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self.relationKey) }()
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.id.isEmpty {
-      try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
-    }
-    if !self.relationKey.isEmpty {
-      try visitor.visitSingularStringField(value: self.relationKey, fieldNumber: 2)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Anytype_Event.Object.Relation.Remove, rhs: Anytype_Event.Object.Relation.Remove) -> Bool {
-    if lhs.id != rhs.id {return false}
-    if lhs.relationKey != rhs.relationKey {return false}
+    if lhs.relationKeys != rhs.relationKeys {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -6089,6 +5711,48 @@ extension Anytype_Event.Object.Remove: SwiftProtobuf.Message, SwiftProtobuf._Mes
 
   public static func ==(lhs: Anytype_Event.Object.Remove, rhs: Anytype_Event.Object.Remove) -> Bool {
     if lhs.ids != rhs.ids {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Object.Restriction: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Object.protoMessageName + ".Restriction"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "id"),
+    2: .same(proto: "restrictions"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._restrictions) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if !self.id.isEmpty {
+      try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
+    }
+    try { if let v = self._restrictions {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Object.Restriction, rhs: Anytype_Event.Object.Restriction) -> Bool {
+    if lhs.id != rhs.id {return false}
+    if lhs._restrictions != rhs._restrictions {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -9510,8 +9174,6 @@ extension Anytype_Event.Block.Dataview.ViewSet: SwiftProtobuf.Message, SwiftProt
     1: .same(proto: "id"),
     2: .same(proto: "viewId"),
     3: .same(proto: "view"),
-    4: .same(proto: "offset"),
-    5: .same(proto: "limit"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -9523,8 +9185,6 @@ extension Anytype_Event.Block.Dataview.ViewSet: SwiftProtobuf.Message, SwiftProt
       case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.viewID) }()
       case 3: try { try decoder.decodeSingularMessageField(value: &self._view) }()
-      case 4: try { try decoder.decodeSingularUInt32Field(value: &self.offset) }()
-      case 5: try { try decoder.decodeSingularUInt32Field(value: &self.limit) }()
       default: break
       }
     }
@@ -9544,12 +9204,6 @@ extension Anytype_Event.Block.Dataview.ViewSet: SwiftProtobuf.Message, SwiftProt
     try { if let v = self._view {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
     } }()
-    if self.offset != 0 {
-      try visitor.visitSingularUInt32Field(value: self.offset, fieldNumber: 4)
-    }
-    if self.limit != 0 {
-      try visitor.visitSingularUInt32Field(value: self.limit, fieldNumber: 5)
-    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -9557,8 +9211,6 @@ extension Anytype_Event.Block.Dataview.ViewSet: SwiftProtobuf.Message, SwiftProt
     if lhs.id != rhs.id {return false}
     if lhs.viewID != rhs.viewID {return false}
     if lhs._view != rhs._view {return false}
-    if lhs.offset != rhs.offset {return false}
-    if lhs.limit != rhs.limit {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -9678,8 +9330,8 @@ extension Anytype_Event.Block.Dataview.SourceSet: SwiftProtobuf.Message, SwiftPr
   }
 }
 
-extension Anytype_Event.Block.Dataview.RelationDelete: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Event.Block.Dataview.protoMessageName + ".RelationDelete"
+extension Anytype_Event.Block.Dataview.OldRelationDelete: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Block.Dataview.protoMessageName + ".OldRelationDelete"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "id"),
     2: .same(proto: "relationKey"),
@@ -9708,7 +9360,7 @@ extension Anytype_Event.Block.Dataview.RelationDelete: SwiftProtobuf.Message, Sw
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Event.Block.Dataview.RelationDelete, rhs: Anytype_Event.Block.Dataview.RelationDelete) -> Bool {
+  public static func ==(lhs: Anytype_Event.Block.Dataview.OldRelationDelete, rhs: Anytype_Event.Block.Dataview.OldRelationDelete) -> Bool {
     if lhs.id != rhs.id {return false}
     if lhs.relationKey != rhs.relationKey {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -9716,8 +9368,8 @@ extension Anytype_Event.Block.Dataview.RelationDelete: SwiftProtobuf.Message, Sw
   }
 }
 
-extension Anytype_Event.Block.Dataview.RelationSet: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Event.Block.Dataview.protoMessageName + ".RelationSet"
+extension Anytype_Event.Block.Dataview.OldRelationSet: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Block.Dataview.protoMessageName + ".OldRelationSet"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "id"),
     2: .same(proto: "relationKey"),
@@ -9783,7 +9435,7 @@ extension Anytype_Event.Block.Dataview.RelationSet: SwiftProtobuf.Message, Swift
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Event.Block.Dataview.RelationSet, rhs: Anytype_Event.Block.Dataview.RelationSet) -> Bool {
+  public static func ==(lhs: Anytype_Event.Block.Dataview.OldRelationSet, rhs: Anytype_Event.Block.Dataview.OldRelationSet) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -9800,13 +9452,11 @@ extension Anytype_Event.Block.Dataview.RelationSet: SwiftProtobuf.Message, Swift
   }
 }
 
-extension Anytype_Event.Block.Dataview.RecordsSet: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Event.Block.Dataview.protoMessageName + ".RecordsSet"
+extension Anytype_Event.Block.Dataview.RelationDelete: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Block.Dataview.protoMessageName + ".RelationDelete"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "id"),
-    2: .same(proto: "viewId"),
-    3: .same(proto: "records"),
-    7: .same(proto: "total"),
+    2: .same(proto: "relationKeys"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -9816,9 +9466,7 @@ extension Anytype_Event.Block.Dataview.RecordsSet: SwiftProtobuf.Message, SwiftP
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self.viewID) }()
-      case 3: try { try decoder.decodeRepeatedMessageField(value: &self.records) }()
-      case 7: try { try decoder.decodeSingularUInt32Field(value: &self.total) }()
+      case 2: try { try decoder.decodeRepeatedStringField(value: &self.relationKeys) }()
       default: break
       }
     }
@@ -9828,35 +9476,25 @@ extension Anytype_Event.Block.Dataview.RecordsSet: SwiftProtobuf.Message, SwiftP
     if !self.id.isEmpty {
       try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
     }
-    if !self.viewID.isEmpty {
-      try visitor.visitSingularStringField(value: self.viewID, fieldNumber: 2)
-    }
-    if !self.records.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.records, fieldNumber: 3)
-    }
-    if self.total != 0 {
-      try visitor.visitSingularUInt32Field(value: self.total, fieldNumber: 7)
+    if !self.relationKeys.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.relationKeys, fieldNumber: 2)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Event.Block.Dataview.RecordsSet, rhs: Anytype_Event.Block.Dataview.RecordsSet) -> Bool {
+  public static func ==(lhs: Anytype_Event.Block.Dataview.RelationDelete, rhs: Anytype_Event.Block.Dataview.RelationDelete) -> Bool {
     if lhs.id != rhs.id {return false}
-    if lhs.viewID != rhs.viewID {return false}
-    if lhs.records != rhs.records {return false}
-    if lhs.total != rhs.total {return false}
+    if lhs.relationKeys != rhs.relationKeys {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Event.Block.Dataview.RecordsInsert: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Event.Block.Dataview.protoMessageName + ".RecordsInsert"
+extension Anytype_Event.Block.Dataview.RelationSet: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Block.Dataview.protoMessageName + ".RelationSet"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "id"),
-    2: .same(proto: "viewId"),
-    3: .same(proto: "records"),
-    5: .same(proto: "insertPosition"),
+    2: .same(proto: "relationLinks"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -9866,9 +9504,7 @@ extension Anytype_Event.Block.Dataview.RecordsInsert: SwiftProtobuf.Message, Swi
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self.viewID) }()
-      case 3: try { try decoder.decodeRepeatedMessageField(value: &self.records) }()
-      case 5: try { try decoder.decodeSingularUInt32Field(value: &self.insertPosition) }()
+      case 2: try { try decoder.decodeRepeatedMessageField(value: &self.relationLinks) }()
       default: break
       }
     }
@@ -9878,111 +9514,15 @@ extension Anytype_Event.Block.Dataview.RecordsInsert: SwiftProtobuf.Message, Swi
     if !self.id.isEmpty {
       try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
     }
-    if !self.viewID.isEmpty {
-      try visitor.visitSingularStringField(value: self.viewID, fieldNumber: 2)
-    }
-    if !self.records.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.records, fieldNumber: 3)
-    }
-    if self.insertPosition != 0 {
-      try visitor.visitSingularUInt32Field(value: self.insertPosition, fieldNumber: 5)
+    if !self.relationLinks.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.relationLinks, fieldNumber: 2)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Event.Block.Dataview.RecordsInsert, rhs: Anytype_Event.Block.Dataview.RecordsInsert) -> Bool {
+  public static func ==(lhs: Anytype_Event.Block.Dataview.RelationSet, rhs: Anytype_Event.Block.Dataview.RelationSet) -> Bool {
     if lhs.id != rhs.id {return false}
-    if lhs.viewID != rhs.viewID {return false}
-    if lhs.records != rhs.records {return false}
-    if lhs.insertPosition != rhs.insertPosition {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Anytype_Event.Block.Dataview.RecordsUpdate: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Event.Block.Dataview.protoMessageName + ".RecordsUpdate"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "id"),
-    2: .same(proto: "viewId"),
-    4: .same(proto: "records"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self.viewID) }()
-      case 4: try { try decoder.decodeRepeatedMessageField(value: &self.records) }()
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.id.isEmpty {
-      try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
-    }
-    if !self.viewID.isEmpty {
-      try visitor.visitSingularStringField(value: self.viewID, fieldNumber: 2)
-    }
-    if !self.records.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.records, fieldNumber: 4)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Anytype_Event.Block.Dataview.RecordsUpdate, rhs: Anytype_Event.Block.Dataview.RecordsUpdate) -> Bool {
-    if lhs.id != rhs.id {return false}
-    if lhs.viewID != rhs.viewID {return false}
-    if lhs.records != rhs.records {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Anytype_Event.Block.Dataview.RecordsDelete: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Event.Block.Dataview.protoMessageName + ".RecordsDelete"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "id"),
-    2: .same(proto: "viewId"),
-    6: .same(proto: "removed"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self.viewID) }()
-      case 6: try { try decoder.decodeRepeatedStringField(value: &self.removed) }()
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.id.isEmpty {
-      try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
-    }
-    if !self.viewID.isEmpty {
-      try visitor.visitSingularStringField(value: self.viewID, fieldNumber: 2)
-    }
-    if !self.removed.isEmpty {
-      try visitor.visitRepeatedStringField(value: self.removed, fieldNumber: 6)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Anytype_Event.Block.Dataview.RecordsDelete, rhs: Anytype_Event.Block.Dataview.RecordsDelete) -> Bool {
-    if lhs.id != rhs.id {return false}
-    if lhs.viewID != rhs.viewID {return false}
-    if lhs.removed != rhs.removed {return false}
+    if lhs.relationLinks != rhs.relationLinks {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

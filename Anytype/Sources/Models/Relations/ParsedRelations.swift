@@ -1,7 +1,7 @@
 import AnytypeCore
 import BlocksModels
 
-struct ParsedRelations {
+struct ParsedRelations: Equatable {
 
     let all: [Relation]
     
@@ -13,7 +13,6 @@ struct ParsedRelations {
         self.featuredRelations = featuredRelations
         self.otherRelations = otherRelations
     }
-        
 }
 
 extension ParsedRelations {

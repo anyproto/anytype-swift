@@ -9,7 +9,7 @@ struct SlashMenuItemsBuilder {
     
     init(
         blockType: BlockContentType,
-        searchService: SearchServiceProtocol = SearchService(),
+        searchService: SearchServiceProtocol = ServiceLocator.shared.searchService(),
         relations: [Relation]
     ) {
         self.restrictions = BlockRestrictionsBuilder.build(contentType: blockType)
@@ -62,7 +62,7 @@ struct SlashMenuItemsBuilder {
     private var objectsMenuItem: SlashMenuItem? {
         let searchTypes = searchService.searchObjectTypes(
             text: "",
-            filteringTypeUrl: nil,
+            filteringTypeId: nil,
             shouldIncludeSets: false,
             shouldIncludeBookmark: false
         ) ?? []

@@ -2,7 +2,7 @@ import Foundation
 
 struct TagsOptionsSearchModuleBuilder {
     
-    let allTags: [Relation.Tag.Option]
+    let relationKey: String
     
 }
 
@@ -13,7 +13,7 @@ extension TagsOptionsSearchModuleBuilder: RelationOptionsSearchModuleBuilderProt
         onSelect: @escaping ([String]) -> Void,
         onCreate: @escaping (String) -> Void
     ) -> NewSearchView {
-        NewSearchModuleAssembly.tagsSearchModule(allTags: allTags, selectedTagIds: excludedOptionIds, onSelect: onSelect, onCreate: onCreate)
+        NewSearchModuleAssembly.tagsSearchModule(relationKey: relationKey, selectedTagIds: excludedOptionIds, onSelect: onSelect, onCreate: onCreate)
     }
     
 }

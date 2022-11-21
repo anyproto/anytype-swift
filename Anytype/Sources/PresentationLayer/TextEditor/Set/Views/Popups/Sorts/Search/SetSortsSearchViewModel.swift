@@ -34,22 +34,22 @@ private extension SetSortsSearchViewModel {
         viewStateSubject.send(.error(error))
     }
     
-    func handleSearchResults(_ relations: [RelationMetadata]) {
-        viewStateSubject.send(.resultsList(.plain(rows: relations.asRowConfigurations())))
+    func handleSearchResults(_ relationsDetails: [RelationDetails]) {
+        viewStateSubject.send(.resultsList(.plain(rows: relationsDetails.asRowConfigurations())))
     }
     
 }
 
-private extension Array where Element == RelationMetadata {
+private extension Array where Element == RelationDetails {
 
     func asRowConfigurations() -> [ListRowConfiguration] {
-        map { relation in
+        map { relationDetails in
             ListRowConfiguration(
-                id: relation.id,
-                contentHash: relation.hashValue
+                id: relationDetails.id,
+                contentHash: relationDetails.hashValue
             ) {
                 SearchObjectRowView(
-                    viewModel: SearchObjectRowView.Model(relation: relation),
+                    viewModel: SearchObjectRowView.Model(relationDetails: relationDetails),
                     selectionIndicatorViewModel: nil
                 ).eraseToAnyView()
             }
@@ -60,9 +60,9 @@ private extension Array where Element == RelationMetadata {
 
 private extension SearchObjectRowView.Model {
     
-    init(relation: RelationMetadata) {
-        self.icon = .imageAsset(relation.format.iconAsset)
-        self.title = relation.name
+    init(relationDetails: RelationDetails) {
+        self.icon = .imageAsset(relationDetails.format.iconAsset)
+        self.title = relationDetails.name
         self.subtitle = nil
         self.style = .compact
         self.isChecked = false

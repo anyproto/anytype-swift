@@ -19,17 +19,20 @@ final class LinkToObjectCoordinator: LinkToObjectCoordinatorProtocol {
     private let pageService: PageServiceProtocol
     private let urlOpener: URLOpenerProtocol
     private let editorPageCoordinator: EditorPageCoordinatorProtocol
+    private let searchService: SearchServiceProtocol
     
     init(
         rootViewController: UIViewController,
         pageService: PageServiceProtocol,
         urlOpener: URLOpenerProtocol,
-        editorPageCoordinator: EditorPageCoordinatorProtocol
+        editorPageCoordinator: EditorPageCoordinatorProtocol,
+        searchService: SearchServiceProtocol
     ) {
         self.rootViewController = rootViewController
         self.pageService = pageService
         self.urlOpener = urlOpener
         self.editorPageCoordinator = editorPageCoordinator
+        self.searchService = searchService
     }
     
     // MARK: - LinkToObjectCoordinatorProtocol
@@ -48,7 +51,7 @@ final class LinkToObjectCoordinator: LinkToObjectCoordinatorProtocol {
                 setLinkToObject(linkBlockId)
             case let .createObject(name):
                 if let linkBlockId = self?.pageService.createPage(name: name) {
-                    AnytypeAnalytics.instance().logCreateObject(objectType: ObjectTypeProvider.shared.defaultObjectType.url, route: .mention)
+                    AnytypeAnalytics.instance().logCreateObject(objectType: ObjectTypeProvider.shared.defaultObjectType.id, route: .mention)
                     setLinkToObject(linkBlockId)
                 }
             case let .web(url):
@@ -77,7 +80,7 @@ final class LinkToObjectCoordinator: LinkToObjectCoordinatorProtocol {
         currentLink: Either<URL, BlockId>?,
         onSelect: @escaping (LinkToObjectSearchViewModel.SearchKind) -> ()
     ) {
-        let viewModel = LinkToObjectSearchViewModel(currentLink: currentLink) { data in
+        let viewModel = LinkToObjectSearchViewModel(currentLink: currentLink, searchService: searchService) { data in
             onSelect(data.searchKind)
         }
         let linkToView = SearchView(title: Loc.linkTo, context: .menuSearch, viewModel: viewModel)

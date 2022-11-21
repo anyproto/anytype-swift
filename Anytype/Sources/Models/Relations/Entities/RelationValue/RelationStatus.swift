@@ -6,13 +6,17 @@ extension Relation {
     
     struct Status: RelationProtocol, Hashable, Identifiable {
         let id: String
+        let key: String
         let name: String
         let isFeatured: Bool
         let isEditable: Bool
         let isBundled: Bool
         
         let values: [Option]
-        let allOptions: [Option]
+        
+        var hasValue: Bool {
+            values.isNotEmpty
+        }
     }
     
 }
@@ -23,20 +27,18 @@ extension Relation.Status {
         let id: String
         let text: String
         let color: UIColor
-        let scope: RelationMetadata.Option.Scope
     }
     
 }
 
 extension Relation.Status.Option {
     
-    init(option: RelationMetadata.Option) {
+    init(option: RelationOption) {
         let middlewareColor = MiddlewareColor(rawValue: option.color)
         
         self.id = option.id
         self.text = option.text
         self.color = middlewareColor.map { UIColor.Text.uiColor(from: $0) } ?? UIColor.Text.default
-        self.scope = option.scope
     }
     
 }

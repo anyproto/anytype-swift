@@ -1,5 +1,5 @@
 public struct DataviewRelationOption: Hashable {
-    public let key: BlockId
+    public let key: String
     public let isVisible: Bool
     public let width: Int32
     public let dateIncludeTime: Bool

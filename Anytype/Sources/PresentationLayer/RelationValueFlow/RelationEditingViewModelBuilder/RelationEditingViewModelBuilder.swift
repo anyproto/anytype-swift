@@ -108,7 +108,6 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
             return StatusRelationDetailsViewModel(
                 source: source,
                 selectedStatus: status.values.first,
-                allStatuses: status.allOptions,
                 relation: relation,
                 service: RelationsService(objectId: objectId)
             )
@@ -127,7 +126,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                 },
                 emptyOptionsPlaceholder: Constants.tagsOrFilesOptionsPlaceholder,
                 relation: relation,
-                searchModuleBuilder: TagsOptionsSearchModuleBuilder(allTags: tag.allTags),
+                searchModuleBuilder: TagsOptionsSearchModuleBuilder(relationKey: relation.key),
                 service: RelationsService(objectId: objectId)
             )
         case .object(let object):

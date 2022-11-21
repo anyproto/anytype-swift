@@ -4,7 +4,7 @@ import BlocksModels
 extension ObjectType {
     
     public static let fallbackType: ObjectType = ObjectType(
-        url: ObjectTypeUrl.bundled(.note).rawValue,
+        id: ObjectTypeId.bundled(.note).rawValue,
         name: Loc.note,
         iconEmoji: .default,
         description: Loc.ObjectType.fallbackDescription,

@@ -52,17 +52,17 @@ struct SearchNewRelationView: View {
                             .frame(maxWidth: .infinity)
                             .divider(spacing: 0, leadingPadding: 20, trailingPadding: 20, alignment: .leading)
                         }
-                    case let .addFromLibriry(relationsMetadata):
+                    case let .addFromLibriry(relations):
                         Section(content: {
-                            ForEach(Array(relationsMetadata.enumerated()), id: \.element) { index, relationMetadata in
+                            ForEach(Array(relations.enumerated()), id: \.element) { index, relation in
                                 Button(
                                     action: {
-                                        viewModel.addRelation(relationMetadata)
+                                        viewModel.addRelation(relation)
 
                                         AnytypeAnalytics.instance().logSearchResult(index: index + 1, length: searchText.count)
                                     }
                                 ) {
-                                    NewRelationCell(cellKind: .relation(realtionMetadata: relationMetadata))
+                                    NewRelationCell(cellKind: .relation(realtionDetails: relation))
                                         .padding([.leading, .trailing], 20)
                                 }
                                 .frame(maxWidth: .infinity)
