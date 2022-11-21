@@ -52,8 +52,12 @@ struct SetTableView: View {
                 EmptyView()
             } else {
                 Section(header: compoundHeader) {
-                    ForEach(model.configurations) { configuration in
-                        SetTableViewRow(configuration: configuration, xOffset: xOffset)
+                    ForEach(model.configurationsDict.keys, id: \.self) { groupId in
+                        if let configurations = model.configurationsDict[groupId] {
+                            ForEach(configurations) { configuration in
+                                SetTableViewRow(configuration: configuration, xOffset: xOffset)
+                            }
+                        }
                     }
                 }
             }

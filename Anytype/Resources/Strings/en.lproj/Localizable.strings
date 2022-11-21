@@ -353,6 +353,8 @@
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Source" = "Source";
+"Set.FeaturedRelations.RelationsList" = "Relations:";
+"Set.FeaturedRelations.Relation" = "Relation:";
 
 // MARK: - Sets: Filters search
 "Set.Filters.Search.Button.Title" = "Apply";
@@ -368,6 +370,11 @@
 "Set.View.Settings.CardSize.Small.Title" = "Small";
 "Set.View.Settings.CardSize.Large.Title" = "Large";
 "Set.View.Settings.ImagePreview.Title" = "Image preview";
+"Set.View.Settings.GroupBy.Title" = "Group by";
+"Set.View.Settings.GroupBackgroundColors.Title" = "Color columns";
+
+// MARK: - Sets: Kanban
+"Set.View.Kanban.Column.Title.Uncategorized" = "Uncategorized";
 
 // MARK: - Set source type
 "Set.SourceType.SelectSource" = "Select source";
@@ -533,6 +540,7 @@
 "Delete account" = "Delete account";
 "Cancel deletion" = "Cancel deletion";
 "Logout and clear data" = "Logout and clear data";
+"New" = "New";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Are you sure to delete account?";
@@ -624,3 +632,4 @@
 // MARK: - Widget extension
 "WidgetExtension.LockScreen.Title" = "New object";
 "WidgetExtension.LockScreen.Description" = "Create a new object on the fly";
+

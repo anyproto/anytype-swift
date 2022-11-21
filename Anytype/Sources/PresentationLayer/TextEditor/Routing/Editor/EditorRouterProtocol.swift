@@ -45,7 +45,10 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func showMoveTo(onSelect: @escaping (BlockId) -> ())
     func showLinkTo(onSelect: @escaping (BlockId, _ typeUrl: String) -> ())
     func showSearch(onSelect: @escaping (EditorScreenData) -> ())
-    func showTypesSearch(title: String, selectedObjectId: BlockId?, onSelect: @escaping (BlockId) -> ())
+
+    func showTypes(selectedObjectId: BlockId?, onSelect: @escaping (BlockId) -> ())
+    func showTypesForEmptyObject(selectedObjectId: BlockId?, onSelect: @escaping (BlockId) -> ())
+    func showSources(selectedObjectId: BlockId?, onSelect: @escaping (BlockId) -> ())
     func showObjectPreview(
         blockLinkState: BlockLinkState,
         onSelect: @escaping (BlockLink.Appearance) -> Void
@@ -80,7 +83,11 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func showCreateBookmarkObject()
     
     func showSetSettings(setModel: EditorSetViewModel)
-    func showViewTypes(activeView: DataviewView?, canDelete: Bool, dataviewService: DataviewServiceProtocol)
+    func showViewTypes(
+        dataView: BlockDataview,
+        activeView: DataviewView?,
+        dataviewService: DataviewServiceProtocol
+    )
     func showViewSettings(setModel: EditorSetViewModel, dataviewService: DataviewServiceProtocol)
     func dismissSetSettingsIfNeeded()
     func showSorts(setModel: EditorSetViewModel, dataviewService: DataviewServiceProtocol)
@@ -96,4 +103,9 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     
     func showCardSizes(size: DataviewViewSize, onSelect: @escaping (DataviewViewSize) -> Void)
     func showCovers(setModel: EditorSetViewModel, onSelect: @escaping (String) -> Void)
+    func showGroupByRelations(
+        selectedRelationId: String,
+        relations: [RelationMetadata],
+        onSelect: @escaping (String) -> Void
+    )
 }

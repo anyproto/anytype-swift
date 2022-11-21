@@ -3,6 +3,7 @@
 import Foundation
 
 final class BlockMarkupChangerMock: BlockMarkupChangerProtocol {
+    
     func toggleMarkup(_ markup: MarkupType, blockId: BlockId) -> NSAttributedString? {
         assertionFailure()
         return nil
@@ -17,7 +18,7 @@ final class BlockMarkupChangerMock: BlockMarkupChangerProtocol {
     var setMarkupLastMarkupType: MarkupType?
     var setMarkupNumberOfCalls = 0
     var setMarkupLastRange: NSRange?
-    func setMarkup(_ markup: MarkupType, blockId: BlockId, range: NSRange) -> NSAttributedString? {
+    func setMarkup(_ markup: MarkupType, blockId: BlockId, range: NSRange, currentText: NSAttributedString?) -> NSAttributedString? {
         if let string = setMarkupStubReturnString {
             setMarkupLastMarkupType = markup
             setMarkupLastRange = range

@@ -15,8 +15,7 @@ final class ChangeTypeAccessoryViewModel {
     private let searchService: SearchServiceProtocol
     private let objectService: ObjectActionsServiceProtocol
     private let document: BaseDocumentProtocol
-    private let searchHandler: () -> Void
-    private lazy var searchItem = TypeItem.searchItem { [weak self] in self?.searchHandler() }
+    private lazy var searchItem = TypeItem.searchItem { [weak self] in self?.onSearchTap() }
 
     private var cancellables = [AnyCancellable]()
 
@@ -25,15 +24,13 @@ final class ChangeTypeAccessoryViewModel {
         handler: BlockActionHandlerProtocol,
         searchService: SearchServiceProtocol,
         objectService: ObjectActionsServiceProtocol,
-        document: BaseDocumentProtocol,
-        searchHandler: @escaping () -> Void
+        document: BaseDocumentProtocol
     ) {
         self.router = router
         self.handler = handler
         self.searchService = searchService
         self.objectService = objectService
         self.document = document
-        self.searchHandler = searchHandler
 
         fetchSupportedTypes()
         subscribeOnDocumentChanges()
@@ -49,18 +46,18 @@ final class ChangeTypeAccessoryViewModel {
 
     private func fetchSupportedTypes() {
         let supportedTypes = searchService
-            .searchObjectTypes(text: "", filteringTypeUrl: nil, shouldIncludeSets: true)?
-            .map { object in
-                TypeItem(from: object, handler: { [weak self] in
-                    self?.onObjectTap(object: object)
+            .searchObjectTypes(text: "", filteringTypeUrl: nil, shouldIncludeSets: true, shouldIncludeBookmark: false)?
+            .map { type in
+                TypeItem(from: type, handler: { [weak self] in
+                    self?.onTypeTap(typeId: type.id)
                 })
             }
 
         supportedTypes.map { allSupportedTypes = $0 }
     }
 
-    private func onObjectTap(object: ObjectDetails) {
-        if object.id == ObjectTypeUrl.BundledTypeUrl.set.rawValue {
+    private func onTypeTap(typeId: String) {
+        if typeId == ObjectTypeUrl.BundledTypeUrl.set.rawValue {
             let setObjectID = handler.setObjectSetType()
 
             router.replaceCurrentPage(with: .init(pageId: setObjectID, type: .set))
@@ -71,16 +68,16 @@ final class ChangeTypeAccessoryViewModel {
         if isSelectTemplate {
             router.showTemplatesAvailabilityPopupIfNeeded(
                 document: document,
-                templatesTypeURL: .dynamic(object.id)
+                templatesTypeURL: .dynamic(typeId)
             )
         }
 
-        handler.setObjectTypeUrl(object.id)
-        applyDefaultTemplateIfNeeded(typeDetails: object)
+        handler.setObjectTypeUrl(typeId)
+        applyDefaultTemplateIfNeeded(typeId: typeId)
     }
     
-    private func applyDefaultTemplateIfNeeded(typeDetails: ObjectDetails) {
-        let availableTemplates = searchService.searchTemplates(for: .dynamic(typeDetails.id))
+    private func applyDefaultTemplateIfNeeded(typeId: String) {
+        let availableTemplates = searchService.searchTemplates(for: .dynamic(typeId))
         
         guard availableTemplates?.count == 1,
                 let firstTemplate = availableTemplates?.first
@@ -97,6 +94,15 @@ final class ChangeTypeAccessoryViewModel {
             }
             self.supportedTypes = [self.searchItem] + filteredItems
         }.store(in: &cancellables)
+    }
+    
+    private func onSearchTap() {
+        router.showTypesForEmptyObject(
+            selectedObjectId: document.details?.type,
+            onSelect: { [weak self] typeId in
+                self?.onTypeTap(typeId: typeId)
+            }
+        )
     }
 }
 

@@ -9,4 +9,5 @@ protocol DataviewServiceProtocol {
     func addRecord(templateId: BlockId, setFilters: [SetFilter]) async throws -> ObjectDetails?
     func setSource(typeObjectId: String) async throws
     func setPositionForView(_ viewId: String, position: Int) async throws
+    func objectOrderUpdate(viewId: String, groupObjectIds: [GroupObjectIds]) async throws
 }

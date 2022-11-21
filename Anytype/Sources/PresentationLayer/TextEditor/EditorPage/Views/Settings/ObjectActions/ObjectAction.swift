@@ -31,10 +31,14 @@ enum ObjectAction: Hashable, Identifiable {
 
         if details.objectType.url != ObjectTypeUrl.bundled(.set).rawValue {
             allCases.append(.undoRedo)
-            allCases.append(.linkItself)
+            if FeatureFlags.linktoObjectFromItself {
+                allCases.append(.linkItself)
+            }
             allCases.append(.locked(isLocked: isLocked))
         } else {
-            allCases.append(.linkItself)
+            if FeatureFlags.linktoObjectFromItself {
+                allCases.append(.linkItself)
+            }
         }
 
         return allCases

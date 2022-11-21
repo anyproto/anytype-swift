@@ -2,6 +2,7 @@ import ProtobufMessages
 import BlocksModels
 import AnytypeCore
 import SwiftProtobuf
+import Foundation
 
 final class MiddlewareEventConverter {
     private let infoContainer: InfoContainerProtocol
@@ -292,9 +293,6 @@ final class MiddlewareEventConverter {
                 }
             }
             return .blocks(blockIds: [data.id])
-        case .accountUpdate(let account):
-            handleAccountUpdate(account)
-            return nil
             
         //MARK: - Dataview
         case .blockDataviewViewSet(let data):
@@ -379,7 +377,14 @@ final class MiddlewareEventConverter {
             }
             
             return .general
+        case .blockDataViewGroupOrderUpdate(let data):
+            handleDataViewGroupOrderUpdate(data)
+            return .general
+        case .blockDataViewObjectOrderUpdate(let data):
+            handleDataViewObjectOrderUpdate(data)
+            return .general
         case .accountShow,
+                .accountUpdate, // Event not working on middleware. See AccountManager.
                 .accountDetails, // Skipped
                 .accountConfigUpdate, // Remote config updates
                 .objectRemove, // Remove from History Object wich was deleted. For Desktop purposes
@@ -398,8 +403,6 @@ final class MiddlewareEventConverter {
                 .blockDataviewRecordsUpdate,
                 .blockDataviewRecordsInsert,
                 .blockDataviewRecordsDelete,
-                .blockDataViewGroupOrderUpdate,
-                .blockDataViewObjectOrderUpdate,
                 .userBlockJoin,
                 .userBlockLeft,
                 .userBlockSelectRange,
@@ -447,24 +450,76 @@ final class MiddlewareEventConverter {
         return toggleStyleChanged ? .general : .blocks(blockIds: Set(childIds))
     }
     
-    private func handleAccountUpdate(_ update: Anytype_Event.Account.Update) {
-        let currentStatus = AccountManager.shared.account.status
-        let newStatus = AccountManager.shared.account.status
-        guard currentStatus != newStatus else { return }
+    private func handleDataViewGroupOrderUpdate(_ update: Anytype_Event.Block.Dataview.GroupOrderUpdate) {
+        guard update.hasGroupOrder else { return }
         
-        switch newStatus {
-        case .active:
-            break
-        case .pendingDeletion(let deadline):
-            Task { @MainActor in
-                WindowManager.shared.showDeletedAccountWindow(deadline: deadline)
+        infoContainer.updateDataview(blockId: update.id) { dataView in
+            var groupOrders = dataView.groupOrders
+            if let groupIndex = groupOrders.firstIndex(where: { $0.viewID == update.groupOrder.viewID }) {
+                groupOrders[groupIndex] = update.groupOrder
+            } else {
+                groupOrders.append(update.groupOrder)
             }
-        case .deleted:
-            if UserDefaultsConfig.usersId.isNotEmpty {
-                ServiceLocator.shared.authService().logout(removeData: true) { _ in }
-                WindowManager.shared.showAuthWindow()
-            }
+            
+            return dataView.updated(groupOrders: groupOrders)
         }
-        
+    }
+
+    private func handleDataViewObjectOrderUpdate(_ update: Anytype_Event.Block.Dataview.ObjectOrderUpdate) {
+        infoContainer.updateDataview(blockId: update.id) { dataView in
+            var objectOrders = dataView.objectOrders
+            let objectOrderIndex = objectOrders.firstIndex { $0.viewID == update.viewID && $0.groupID == update.groupID }
+            var objectOrder: DataviewObjectOrder
+            if let objectOrderIndex {
+                objectOrder = objectOrders[objectOrderIndex]
+            } else {
+                objectOrder = DataviewObjectOrder(viewID: update.viewID, groupID: update.groupID, objectIds: [])
+            }
+            var objectOrderIds = objectOrder.objectIds
+            
+            update.sliceChanges.forEach { change in
+                let idx = objectOrderIds.firstIndex(of: change.afterID)
+                
+                switch change.op {
+                case .add:
+                    if objectOrderIds.isEmpty {
+                        objectOrderIds.append(contentsOf: change.ids)
+                    } else {
+                        var addIndex = 0
+                        if let idx {
+                            addIndex = idx + 1
+                        }
+                        objectOrderIds.insert(contentsOf: change.ids, at: addIndex)
+                    }
+                    objectOrder.objectIds = objectOrderIds
+                case .move:
+                    change.ids.enumerated().forEach { index, id in
+                        guard let objectIndex = objectOrderIds.firstIndex(of: id) else { return }
+                        let orderIndex = (idx ?? 0) + index
+                        let appendix = orderIndex < objectOrderIds.count ? 1 : 0
+                        let moveIndex = idx == nil ? index : orderIndex + appendix
+                        objectOrderIds.move(
+                            fromOffsets: IndexSet(integer: objectIndex),
+                            toOffset: moveIndex
+                        )
+                    }
+                    objectOrder.objectIds = objectOrderIds
+                case .remove:
+                    objectOrder.objectIds = objectOrderIds.filter { !change.ids.contains($0) }
+                case .replace:
+                    objectOrder.objectIds = change.ids
+                default:
+                    break
+                }
+                
+                if let objectOrderIndex {
+                    objectOrders[objectOrderIndex] = objectOrder
+                } else {
+                    objectOrders.append(objectOrder)
+                }
+            }
+            
+            return dataView.updated(objectOrders: objectOrders)
+        }
     }
 }

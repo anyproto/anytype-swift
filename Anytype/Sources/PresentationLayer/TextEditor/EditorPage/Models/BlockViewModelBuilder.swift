@@ -222,8 +222,7 @@ final class BlockViewModelBuilder {
                 let bookmarkFilter = self.document.details?.type != ObjectTypeUrl.bundled(.bookmark).rawValue
                 
                 if relation.id == BundledRelationKey.type.rawValue && !self.document.isLocked && bookmarkFilter {
-                    self.router.showTypesSearch(
-                        title: Loc.changeType,
+                    self.router.showTypes(
                         selectedObjectId: self.document.details?.type,
                         onSelect: { [weak self] id in
                             self?.handler.setObjectTypeUrl(id)

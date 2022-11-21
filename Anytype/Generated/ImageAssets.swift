@@ -19,6 +19,7 @@ internal extension ImageAsset {
   static let noImage = ImageAsset.bundle(name: "no_image")
   static let optionChecked = ImageAsset.bundle(name: "option_checked")
   static let plus = ImageAsset.bundle(name: "plus")
+  static let plusWhite12 = ImageAsset.bundle(name: "plus_white_12")
   static let draft = ImageAsset.bundle(name: "draft")
   static let mainSearch = ImageAsset.bundle(name: "main_search")
   static let mainSettings = ImageAsset.bundle(name: "main_settings")

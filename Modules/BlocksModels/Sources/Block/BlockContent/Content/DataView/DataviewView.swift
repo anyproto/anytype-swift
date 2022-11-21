@@ -15,6 +15,8 @@ public struct DataviewView: Hashable, Identifiable {
     public let hideIcon: Bool
     public let cardSize: DataviewViewSize
     public let coverFit: Bool
+    public let groupRelationKey: String
+    public let groupBackgroundColors: Bool
     
     public static var empty: DataviewView {
         DataviewView(
@@ -27,7 +29,9 @@ public struct DataviewView: Hashable, Identifiable {
             coverRelationKey: "",
             hideIcon: false,
             cardSize: .small,
-            coverFit: false
+            coverFit: false,
+            groupRelationKey: "",
+            groupBackgroundColors: false
         )
     }
     
@@ -40,7 +44,9 @@ public struct DataviewView: Hashable, Identifiable {
         coverFit: Bool? = nil,
         options: [DataviewRelationOption]? = nil,
         sorts: [DataviewSort]? = nil,
-        filters: [DataviewFilter]? = nil
+        filters: [DataviewFilter]? = nil,
+        groupRelationKey: String?  = nil,
+        groupBackgroundColors: Bool? = nil
     ) -> DataviewView {
         DataviewView(
             id: id,
@@ -52,7 +58,9 @@ public struct DataviewView: Hashable, Identifiable {
             coverRelationKey: coverRelationKey ?? self.coverRelationKey,
             hideIcon: hideIcon ?? self.hideIcon,
             cardSize: cardSize ?? self.cardSize,
-            coverFit: coverFit ?? self.coverFit
+            coverFit: coverFit ?? self.coverFit,
+            groupRelationKey: groupRelationKey ?? self.groupRelationKey,
+            groupBackgroundColors: groupBackgroundColors ?? self.groupBackgroundColors
         )
     }
     
@@ -80,7 +88,9 @@ public struct DataviewView: Hashable, Identifiable {
             coverRelationKey: "",
             hideIcon: false,
             cardSize: .small,
-            coverFit: false
+            coverFit: false,
+            groupRelationKey: "",
+            groupBackgroundColors: false
         )
     }
     
@@ -95,7 +105,9 @@ public struct DataviewView: Hashable, Identifiable {
             coverRelationKey: coverRelationKey,
             hideIcon: hideIcon,
             cardSize: cardSize,
-            coverFit: coverFit
+            coverFit: coverFit,
+            groupRelationKey: groupRelationKey,
+            groupBackgroundColors: groupBackgroundColors
         )
     }
 }
@@ -114,6 +126,8 @@ public extension DataviewView {
         self.hideIcon = data.hideIcon
         self.cardSize = data.cardSize
         self.coverFit = data.coverFit
+        self.groupRelationKey = data.groupRelationKey
+        self.groupBackgroundColors = data.groupBackgroundColors
     }
 }
 
