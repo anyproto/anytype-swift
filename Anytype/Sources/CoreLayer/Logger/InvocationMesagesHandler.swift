@@ -6,7 +6,7 @@ final class InvocationMesagesHandler: InvocationMesagesHandlerProtocol {
     
     func handle(message: InvocationMessage) {
         
-        // Delete emoji. Fix pulse crash https://github.com/kean/PulsePro/issues/22
+        // Delete emoji. Pulse crash issue https://github.com/kean/PulsePro/issues/22
         let stringWithoutCombinedEmoji = message.responseJsonData
             .flatMap { String(data: $0, encoding: .utf8) }?
             .map { String($0.map { $0.isEmoji ? Character(" ") : $0 }) }
