@@ -14,24 +14,31 @@ extension BlockLinkState {
     }
 
     func applyTitleState(
-        on label: UILabel,
-        attributes: [NSAttributedString.Key : Any],
+        on label: AnytypeLabel,
+        font: AnytypeFont,
         iconIntendHidden: Bool = false
     ) {
+        let attributes: [NSAttributedString.Key : Any] = [
+            .foregroundColor: titleColor,
+            .font: font.uiKitFont
+        ]
         if archived, let ghostImage = UIImage(asset: .ghost) {
-            label.attributedText = NSAttributedString.imageFirstComposite(
+
+            let attributedString = NSAttributedString.imageFirstComposite(
                 image: ghostImage,
                 text: titleText,
                 attributes: attributes
             )
 
+            label.setText(attributedString)
             return 
         } else if style == .noContent || !iconSize.hasIcon || iconIntendHidden {
-            label.attributedText = .init(
+            let attributedString = NSAttributedString(
                 string: titleText,
                 attributes: attributes
             )
 
+            label.setText(attributedString)
             return
         }
 
@@ -42,11 +49,13 @@ extension BlockLinkState {
             borderWidth: 0
         )
 
-        label.attributedText = NSAttributedString.imageFirstComposite(
+        let attributedText = NSAttributedString.imageFirstComposite(
             image: image,
             text: titleText,
             attributes: attributes
         )
+
+        label.setText(attributedText)
 
         let anytypeLoader = AnytypeIconDownloader()
 
@@ -55,11 +64,13 @@ extension BlockLinkState {
                 return
             }
 
-            label.attributedText = NSAttributedString.imageFirstComposite(
+            let attributedText = NSAttributedString.imageFirstComposite(
                 image: image,
                 text: titleText,
                 attributes: attributes
             )
+
+            label.setText(attributedText)
         }
     }
 }

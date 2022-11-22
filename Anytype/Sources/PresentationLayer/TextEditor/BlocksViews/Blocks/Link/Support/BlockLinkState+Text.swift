@@ -10,21 +10,10 @@ extension BlockLinkState {
         return !title.isEmpty ? title : Loc.untitled
     }
 
-    var textTitleAttributes: [NSAttributedString.Key : Any] {
-        [
-            .font: UIFont.previewTitle1Medium,
-            .foregroundColor: titleColor,
-        ]
-    }
+    var textTitleFont: AnytypeFont { .previewTitle1Medium }
+    var cardTitleFont: AnytypeFont { .uxTitle2Medium }
 
-    var cardTitleAttributes: [NSAttributedString.Key : Any] {
-        [
-            .font: UIFont.uxTitle2Medium,
-            .foregroundColor: titleColor,
-        ]
-    }
-
-    private var titleColor: UIColor {
+    var titleColor: UIColor {
         if case let .checkmark(value) = style, value {
             return .buttonActive
         }

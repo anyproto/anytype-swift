@@ -10,9 +10,9 @@ final class BlockLinkCardView: UIView, BlockContentView {
     private let coverView = BlockLinkCoverView()
     private let largeLeadingIconImageView = ObjectIconImageView()
 
-    private let titleLabel = UILabel()
-    private let descriptionLabel = UILabel()
-    private let objectTypeLabel = UILabel()
+    private let titleLabel = AnytypeLabel(style: .uxTitle2Medium)
+    private let descriptionLabel = AnytypeLabel(style: .relation3Regular)
+    private let objectTypeLabel = AnytypeLabel(style: .relation3Regular)
 
     private let mainVerticalStackView = UIStackView()
     private let verticalTextsStackView = UIStackView()
@@ -37,29 +37,31 @@ final class BlockLinkCardView: UIView, BlockContentView {
     func update(with configuration: BlockLinkCardConfiguration) {
         configuration.state.applyTitleState(
             on: titleLabel,
-            attributes: configuration.state.cardTitleAttributes,
+            font: configuration.state.textTitleFont,
             iconIntendHidden: configuration.state.iconSize == .medium
         )
 
+
         descriptionLabel.isHidden = configuration.state.description.isEmpty
-        descriptionLabel.text = configuration.state.description
+        descriptionLabel.setText(configuration.state.description)
 
         objectTypeLabel.isHidden = !configuration.state.relations.contains(.type)
-        objectTypeLabel.text = configuration.state.type?.name
+        configuration.state.type.map { objectTypeLabel.setText($0.name) }
 
         configuration.state.iconImage.map {
             largeLeadingIconImageView.configure(model: .init(iconImage: $0, usecase: .editorSearch))
         }
 
-
         setupElementsVisibility(with: configuration)
+
+        horizontalContentStackView.alignment = descriptionLabel.isHidden && objectTypeLabel.isHidden ? .center : .top
     }
 
     private func setupElementsVisibility(with configuration: Configuration) {
         let hasCover = configuration.state.documentCover != nil && configuration.state.relations.contains(.cover)
 
         switch (configuration.state.style, configuration.state.iconImage, configuration.state.iconSize, hasCover) {
-        case (.checkmark, _, _, _):
+        case (.checkmark, _, _, _), (_, .none, _, _):
             largeLeadingIconImageView.isHidden = true
         case (_, .some(_), .medium, false):
             largeLeadingIconImageView.isHidden = false
@@ -118,14 +120,10 @@ final class BlockLinkCardView: UIView, BlockContentView {
         layer.borderColor = UIColor.strokeTransperent.cgColor
         layer.borderWidth = 1.0
 
-        titleLabel.font = UIKitFontBuilder.uiKitFont(font: .uxTitle2Medium)
         titleLabel.numberOfLines = 3
 
         descriptionLabel.numberOfLines = 2
-        descriptionLabel.font = UIKitFontBuilder.uiKitFont(font: .relation3Regular)
-
         objectTypeLabel.numberOfLines = 1
-        objectTypeLabel.font = UIKitFontBuilder.uiKitFont(font: .relation3Regular)
 
         objectTypeLabel.textColor = .textSecondary
     }
@@ -140,7 +138,7 @@ final class BlockLinkCardView: UIView, BlockContentView {
 
         horizontalContentStackView.axis = .horizontal
         horizontalContentStackView.distribution = .fill
-        horizontalContentStackView.alignment = .top
+        horizontalContentStackView.alignment = .center
         horizontalContentStackView.spacing = 12
         horizontalContentStackView.directionalLayoutMargins = .init(
             top: 0,
@@ -157,7 +155,8 @@ final class BlockLinkCardView: UIView, BlockContentView {
         verticalTextsStackView.addArrangedSubview(descriptionLabel)
         verticalTextsStackView.addArrangedSubview(objectTypeLabel)
 
-        verticalTextsStackView.setContentCompressionResistancePriority(.required, for: .vertical)
+        largeLeadingIconImageView.widthAnchor.constraint(greaterThanOrEqualToConstant: 48).isActive = true
+        largeLeadingIconImageView.heightAnchor.constraint(greaterThanOrEqualToConstant: 48).isActive = true
 
         horizontalContentStackView.addArrangedSubview(largeLeadingIconImageView)
         horizontalContentStackView.addArrangedSubview(verticalTextsStackView)

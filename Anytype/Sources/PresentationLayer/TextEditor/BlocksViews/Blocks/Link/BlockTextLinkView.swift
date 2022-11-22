@@ -1,9 +1,9 @@
 import UIKit
 
 final class BlockTextLinkView: UIView, BlockContentView {
-    private let titleLabel = UILabel()
-    private let descriptionLabel = UILabel()
-    private let objectTypeLabel = UILabel()
+    private let titleLabel = AnytypeLabel(style: .previewTitle1Medium)
+    private let descriptionLabel = AnytypeLabel(style: .relation3Regular)
+    private let objectTypeLabel = AnytypeLabel(style: .relation3Regular)
 
     private let stackView = UIStackView()
 
@@ -22,14 +22,14 @@ final class BlockTextLinkView: UIView, BlockContentView {
     func update(with configuration: BlockLinkTextConfiguration) {
         configuration.state.applyTitleState(
             on: titleLabel,
-            attributes: configuration.state.textTitleAttributes
+            font: .previewTitle1Medium
         )
 
         descriptionLabel.isHidden = configuration.state.description.isEmpty
-        descriptionLabel.attributedText = configuration.state.attributedDescription
+        descriptionLabel.setText(configuration.state.attributedDescription)
 
         objectTypeLabel.isHidden = !configuration.state.relations.contains(.type)
-        objectTypeLabel.attributedText = configuration.state.attributedType
+        objectTypeLabel.setText(configuration.state.attributedType)
 
         [descriptionLabel, objectTypeLabel].forEach {
             if configuration.state.archived || configuration.state.deleted {
