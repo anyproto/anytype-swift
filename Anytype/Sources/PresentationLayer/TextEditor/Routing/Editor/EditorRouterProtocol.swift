@@ -45,10 +45,14 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func showMoveTo(onSelect: @escaping (BlockId) -> ())
     func showLinkTo(onSelect: @escaping (BlockId, _ typeUrl: String) -> ())
     func showSearch(onSelect: @escaping (EditorScreenData) -> ())
+
     func showTypes(selectedObjectId: BlockId?, onSelect: @escaping (BlockId) -> ())
     func showTypesForEmptyObject(selectedObjectId: BlockId?, onSelect: @escaping (BlockId) -> ())
     func showSources(selectedObjectId: BlockId?, onSelect: @escaping (BlockId) -> ())
-    func showObjectPreview(blockLinkAppearance: BlockLink.Appearance, onSelect: @escaping (BlockLink.Appearance) -> Void)
+    func showObjectPreview(
+        blockLinkState: BlockLinkState,
+        onSelect: @escaping (BlockLink.Appearance) -> Void
+    )
     
     func showRelationValueEditingView(key: String, source: RelationSource)
     func showRelationValueEditingView(objectId: BlockId, source: RelationSource, relation: Relation)

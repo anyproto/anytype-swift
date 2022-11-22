@@ -35,6 +35,8 @@ internal extension ImageAsset {
   enum Emoji {
     }
   static let createNewObject = ImageAsset.bundle(name: "createNewObject")
+  static let taskChecked = ImageAsset.bundle(name: "task_checked")
+  static let taskUnchecked = ImageAsset.bundle(name: "task_unchecked")
   static let todoCheckbox = ImageAsset.bundle(name: "todo_checkbox")
   static let todoCheckmark = ImageAsset.bundle(name: "todo_checkmark")
   static let card = ImageAsset.bundle(name: "card")

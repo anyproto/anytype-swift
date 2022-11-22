@@ -1,11 +1,3 @@
-//
-//  ObjectPreviewViewModel.swift
-//  Anytype
-//
-//  Created by Denis Batvinkin on 24.03.2022.
-//  Copyright © 2022 Anytype. All rights reserved.
-//
-
 import BlocksModels
 import SwiftUI
 import FloatingPanel
@@ -16,32 +8,30 @@ final class ObjectPreviewViewModel: ObservableObject {
 
     // MARK: - Private variables
 
+    private let blockLinkState: BlockLinkState
     private let router: ObjectPreviewRouter
     private let onSelect: (BlockLink.Appearance) -> Void
 
     // MARK: - Initializer
 
-    init(objectPreviewModel: ObjectPreviewModel,
+    init(blockLinkState: BlockLinkState,
          router: ObjectPreviewRouter,
          onSelect: @escaping (BlockLink.Appearance) -> Void) {
+        self.objectPreviewModel = .init(linkState: blockLinkState)
+        self.blockLinkState = blockLinkState
         self.router = router
         self.onSelect = onSelect
-        self.objectPreviewModel = objectPreviewModel
     }
 
     func toggleFeaturedRelation(relation: ObjectPreviewModel.Relation, isEnabled: Bool) {
-        var updatedRelations = objectPreviewModel.relations
         var newRelation = relation
         newRelation.isEnabled = isEnabled
 
         if let index = objectPreviewModel.relations.firstIndex(of: .relation(relation)) {
-            updatedRelations[index] = .relation(newRelation)
+            objectPreviewModel.relations[index] = .relation(newRelation)
+        } else if relation == objectPreviewModel.coverRelation {
+            objectPreviewModel.coverRelation?.isEnabled = isEnabled
         }
-
-        objectPreviewModel = ObjectPreviewModel(iconSize: objectPreviewModel.iconSize,
-                                                cardStyle: objectPreviewModel.cardStyle,
-                                                description: objectPreviewModel.description,
-                                                relations: updatedRelations)
 
         self.onSelect(objectPreviewModel.asBlockLinkAppearance)
     }
@@ -55,28 +45,30 @@ final class ObjectPreviewViewModel: ObservableObject {
             if iconSize.hasIcon {
                 switch cardStyle {
                 case .card:
-                    iconSize = .medium
+                    iconSize = iconSize
                 case .text:
                     iconSize = .small
                 }
             }
 
-            self.objectPreviewModel = ObjectPreviewModel(iconSize: iconSize,
-                                           cardStyle: cardStyle,
-                                           description: self.objectPreviewModel.description,
-                                           relations: self.objectPreviewModel.relations)
+            self.objectPreviewModel.iconSize = iconSize
+            self.objectPreviewModel.cardStyle = cardStyle
+            self.objectPreviewModel.setupCoverRelation()
+
             self.onSelect(self.objectPreviewModel.asBlockLinkAppearance)
         }
     }
 
     func showIconMenu() {
-        router.showIconMenu(iconSize: objectPreviewModel.iconSize, cardStyle: objectPreviewModel.cardStyle) { [weak self] iconSize in
+        router.showIconMenu(
+            objectLayout: blockLinkState.objectLayout,
+            iconSize: objectPreviewModel.iconSize,
+            cardStyle: objectPreviewModel.cardStyle
+        ) { [weak self] iconSize in
             guard let self = self else { return }
 
-            self.objectPreviewModel = ObjectPreviewModel(iconSize: iconSize,
-                                           cardStyle: self.objectPreviewModel.cardStyle,
-                                           description: self.objectPreviewModel.description,
-                                           relations: self.objectPreviewModel.relations)
+            self.objectPreviewModel.iconSize = iconSize
+
             self.onSelect(self.objectPreviewModel.asBlockLinkAppearance)
         }
     }
@@ -85,10 +77,8 @@ final class ObjectPreviewViewModel: ObservableObject {
         router.showDescriptionMenu(currentDescription: objectPreviewModel.description) { [weak self] description in
             guard let self = self else { return }
 
-            self.objectPreviewModel = ObjectPreviewModel(iconSize: self.objectPreviewModel.iconSize,
-                                           cardStyle: self.objectPreviewModel.cardStyle,
-                                           description: description,
-                                           relations: self.objectPreviewModel.relations)
+            self.objectPreviewModel.description = description
+
             self.onSelect(self.objectPreviewModel.asBlockLinkAppearance)
         }
     }

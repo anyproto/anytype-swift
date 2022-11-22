@@ -29,20 +29,20 @@ final class SetSortTypesListViewModel: CheckPopupViewViewModelProtocol {
                 iconAsset: nil,
                 title: sort.typeTitle(for: type),
                 subtitle: nil,
-                isSelected: type == selectedSort.type
+                isSelected: type == selectedSort.type,
+                onTap: { [weak self] in self?.onTap(item: type) }
             )
         }
     }
 
-    func onTap(itemId: String) {
-        guard let type =  DataviewSort.TypeEnum(rawValue: Int(itemId) ?? 0),
-              type != selectedSort.type else {
+    private func onTap(item: DataviewSort.TypeEnum) {
+        guard item != selectedSort.type else {
             return
         }
 
         let sort = DataviewSort(
             relationKey: selectedSort.relationKey,
-            type: type
+            type: item
         )
         selectedSort = sort
         onSelect(sort)

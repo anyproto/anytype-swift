@@ -1,11 +1,3 @@
-//
-//  ObjectPreviewRouter.swift
-//  Anytype
-//
-//  Created by Denis Batvinkin on 30.03.2022.
-//  Copyright © 2022 Anytype. All rights reserved.
-//
-
 import UIKit
 import BlocksModels
 
@@ -16,27 +8,36 @@ final class ObjectPreviewRouter {
         self.viewController = viewController
     }
 
-    func showLayoutMenu(cardStyle: ObjectPreviewModel.CardStyle,
-                        onSelect: @escaping (ObjectPreviewModel.CardStyle) -> Void) {
+    func showLayoutMenu(cardStyle: BlockLink.CardStyle, onSelect: @escaping (BlockLink.CardStyle) -> Void) {
         let viewModel = ObjectPreviewLayoutMenuViewModel(cardStyle: cardStyle, onSelect: onSelect)
         let view = PopupViewBuilder.createCheckPopup(viewModel: viewModel)
         viewController?.topPresentedController.present(view, animated: true, completion: nil)
     }
 
-    func showIconMenu(iconSize: ObjectPreviewModel.IconSize,
-                      cardStyle: ObjectPreviewModel.CardStyle,
-                      onSelect: @escaping (ObjectPreviewModel.IconSize) -> Void) {
-        let viewModel = ObjectPreviewIconMenuViewModel(iconSize: iconSize,
-                                                       cardStyle: cardStyle,
-                                                       onSelect: onSelect)
+    func showIconMenu(
+        objectLayout: DetailsLayout,
+        iconSize: BlockLink.IconSize,
+        cardStyle: BlockLink.CardStyle,
+        onSelect: @escaping (BlockLink.IconSize) -> Void
+    ) {
+        let viewModel = ObjectPreviewIconMenuViewModel(
+            objectLayout: objectLayout,
+            cardStyle: cardStyle,
+            currentIconSize: iconSize,
+            onSelect: onSelect
+        )
         let view = PopupViewBuilder.createCheckPopup(viewModel: viewModel)
         viewController?.topPresentedController.present(view, animated: true, completion: nil)
     }
 
-    func showDescriptionMenu(currentDescription: ObjectPreviewModel.Description,
-                             onSelect: @escaping (ObjectPreviewModel.Description) -> Void) {
-        let viewModel = ObjectPreviewDescriptionMenuViewModel(description: currentDescription,
-                                                              onSelect: onSelect)
+    func showDescriptionMenu(
+        currentDescription: BlockLink.Description,
+        onSelect: @escaping (BlockLink.Description) -> Void
+    ) {
+        let viewModel = ObjectPreviewDescriptionMenuViewModel(
+            description: currentDescription,
+            onSelect: onSelect
+        )
         let view = PopupViewBuilder.createCheckPopup(viewModel: viewModel)
         viewController?.topPresentedController.present(view, animated: true, completion: nil)
     }

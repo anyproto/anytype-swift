@@ -10,7 +10,9 @@ import Foundation
 import UIKit
 
 final class ObjectHeaderIconView: UIView {
-    
+
+    var initialBorderWidth = Constants.borderWidth
+
     // MARK: - Private variables
     
     private let activityIndicatorView = ActivityIndicatorView()
@@ -42,30 +44,36 @@ final class ObjectHeaderIconView: UIView {
 
 extension ObjectHeaderIconView: ConfigurableView {
 
-    enum Model: Hashable {
-        case icon(ObjectIconType)
-        case image(UIImage?)
-        case basicPreview(UIImage?)
-        case profilePreview(UIImage?)
+    struct ObjectHeaderIconModel: Hashable {
+        enum Mode: Hashable {
+            case icon(ObjectIconType)
+            case image(UIImage?)
+            case basicPreview(UIImage?)
+            case profilePreview(UIImage?)
+        }
+
+        let mode: Mode
+        let usecase: ObjectIconImageUsecase
     }
 
-    func configure(model: Model) {
-        switch model {
+
+    func configure(model: ObjectHeaderIconModel) {
+        switch model.mode {
         case .icon(let objectIconType):
-            showObjectIconType(objectIconType)
+            showObjectIconType(objectIconType, usecase: model.usecase)
         case .image(let uiImage):
             guard let uiImage = uiImage else { return }
-            showImage(uiImage)
+            showImage(uiImage, usecase: model.usecase)
         case .basicPreview(let uIImage):
             showImagePreview(
                 image: uIImage,
-                imageGuideline: ObjectIconImageUsecase.openedObject.objectIconImageGuidelineSet.basicImageGuideline
+                imageGuideline: model.usecase.objectIconImageGuidelineSet.basicImageGuideline
             )
             
         case .profilePreview(let uIImage):
             showImagePreview(
                 image: uIImage,
-                imageGuideline: ObjectIconImageUsecase.openedObject.objectIconImageGuidelineSet.profileImageGuideline
+                imageGuideline: model.usecase.objectIconImageGuidelineSet.profileImageGuideline
             )
         }
     }
@@ -73,10 +81,10 @@ extension ObjectHeaderIconView: ConfigurableView {
 
 private extension ObjectHeaderIconView {
         
-    func showObjectIconType(_ objectIconType: ObjectIconType) {
+    func showObjectIconType(_ objectIconType: ObjectIconType, usecase: ObjectIconImageUsecase) {
         let model = ObjectIconImageModel(
             iconImage: ObjectIconImage.icon(objectIconType),
-            usecase: .openedObject
+            usecase: usecase
         )
         
         applyImageGuideline(model.imageGuideline)
@@ -89,10 +97,10 @@ private extension ObjectHeaderIconView {
         activityIndicatorView.hide()
     }
 
-    func showImage(_ uiImage: UIImage) {
+    func showImage(_ uiImage: UIImage, usecase: ObjectIconImageUsecase) {
         let model = ObjectIconImageModel(
             iconImage: .image(uiImage),
-            usecase: .openedObject
+            usecase: usecase
         )
 
         applyImageGuideline(model.imageGuideline)
@@ -127,7 +135,7 @@ private extension ObjectHeaderIconView {
         containerViewWidthConstraint.constant = imageGuideline.size.width
         
         containerView.layer.cornerRadius = imageGuideline.cornerRadius
-        layer.cornerRadius = imageGuideline.cornerRadius + Constants.borderWidth
+        layer.cornerRadius = imageGuideline.cornerRadius + initialBorderWidth
     }
     
 }

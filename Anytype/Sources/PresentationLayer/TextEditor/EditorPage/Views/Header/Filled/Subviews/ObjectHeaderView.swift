@@ -210,7 +210,7 @@ private extension ObjectHeaderView {
     }
 }
 
-private extension ObjectHeaderView {
+extension ObjectHeaderView {
     
     enum State {
         case icon
