@@ -59,8 +59,6 @@ final class EditorSetPaginationHelper {
         
         if data.selectedPage == 0 {
             return changePage(1, data: data)
-//        } else if data.selectedPage > data.pageCount {
-//            return changePage(data.pageCount, data: data)
         } else {
             return EditorSetPaginationHelperData(data: data)
         }

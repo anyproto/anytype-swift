@@ -15,7 +15,7 @@ enum SubscriptionData {
         }
     }
     
-    var limit: Int {
+    var rowsPerPage: Int {
         switch self {
         case .search(let data):
             return data.limit

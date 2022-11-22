@@ -60,7 +60,7 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
         result.dependencies.forEach { storage.amend(details: $0) }
         
         update(data.identifier, .initialData(result.records))
-        update(data.identifier, .pageCount(numberOfPagesFromTotalCount(result.count, numberOfRowsPerPage: data.limit)))
+        update(data.identifier, .pageCount(numberOfPagesFromTotalCount(result.count, numberOfRowsPerPage: data.rowsPerPage)))
     }
     
     func hasSubscriptionDataDiff(with data: SubscriptionData) -> Bool {

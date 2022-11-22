@@ -204,17 +204,15 @@ final class EditorSetViewModel: ObservableObject {
         }
     }
     
-    
     private func startSubscriptionIfNeeded(with subscriptionId: SubscriptionId, groupFilter: DataviewFilter? = nil) {
         let pagitationData = pagitationData(by: subscriptionId.value)
         let currentPage: Int
         let numberOfRowsPerPage: Int
         if activeView.type.hasGroups {
-            let recordsCount = recordsDict[subscriptionId.value]?.count ?? 0
-            numberOfRowsPerPage = max(3 * max(pagitationData.selectedPage, 1), recordsCount)
+            numberOfRowsPerPage = UserDefaultsConfig.rowsPerPageInGroupedSet * max(pagitationData.selectedPage, 1)
             currentPage = 1
         } else {
-            numberOfRowsPerPage = 50
+            numberOfRowsPerPage = UserDefaultsConfig.rowsPerPageInSet
             currentPage = max(pagitationData.selectedPage, 1)
         }
         
@@ -254,7 +252,6 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     private func updateRecords(for groupId: String, update: SubscriptionUpdate) {
-        // разобраться тут с апдейтами, которые приходят, кажется там подписка упирается в лимиты и поэтому удаеяет что-то, а что-то добавляет, плюс не может больше лимита отобрзить, поэтому появляется showmore
         var records = recordsDict[groupId, default: []]
         records.applySubscriptionUpdate(update)
         recordsDict[groupId] = records
