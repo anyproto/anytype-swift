@@ -93,7 +93,7 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
-    func addLink(targetId: BlockId, typeUrl: String, blockId: BlockId) {
+    func addLink(targetId: BlockId, typeId: String, blockId: BlockId) {
         assertionFailure()
     }
     
@@ -109,12 +109,12 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
-    func createPage(targetId: BlockId, type: ObjectTypeUrl) -> BlockId? {
+    func createPage(targetId: BlockId, type: ObjectTypeId) -> BlockId? {
         assertionFailure()
         return nil
     }
     
-    func setObjectTypeUrl(_ objectTypeUrl: String) {
+    func setObjectTypeId(_ objectTypeId: String) {
         assertionFailure()
     }
     
