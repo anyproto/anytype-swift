@@ -11,6 +11,12 @@ protocol ObjectTypeSubscriptionDataBuilderProtocol: AnyObject {
 
 final class ObjectTypeSubscriptionDataBuilder: ObjectTypeSubscriptionDataBuilderProtocol {
     
+    private let accountManager: AccountManager
+    
+    init(accountManager: AccountManager) {
+        self.accountManager = accountManager
+    }
+    
     // MARK: - RelationSubscriptionDataBuilderProtocol
     
     func build() -> SubscriptionData {
@@ -19,7 +25,8 @@ final class ObjectTypeSubscriptionDataBuilder: ObjectTypeSubscriptionDataBuilder
             type: .asc
         )
         let filters = [
-            SearchHelper.typeFilter(typeIds: [ObjectTypeId.bundled(.objectType).rawValue])
+            SearchHelper.typeFilter(typeIds: [ObjectTypeId.bundled(.objectType).rawValue]),
+            SearchHelper.workspaceId(accountManager.account.info.accountSpaceId)
         ]
         
         let keys = [

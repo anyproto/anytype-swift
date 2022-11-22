@@ -8,7 +8,7 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
         
     static let shared = ObjectTypeProvider(
         subscriptionsService: ServiceLocator.shared.subscriptionService(),
-        subscriptionBuilder: ObjectTypeSubscriptionDataBuilder()
+        subscriptionBuilder: ObjectTypeSubscriptionDataBuilder(accountManager: AccountManager.shared)
     )
     
     // MARK: - Private variables

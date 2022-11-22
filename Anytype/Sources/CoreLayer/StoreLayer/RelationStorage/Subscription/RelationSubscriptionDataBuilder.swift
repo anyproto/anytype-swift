@@ -7,6 +7,12 @@ extension SubscriptionId {
 
 final class RelationSubscriptionDataBuilder: RelationSubscriptionDataBuilderProtocol {
     
+    private let accountManager: AccountManager
+    
+    init(accountManager: AccountManager) {
+        self.accountManager = accountManager
+    }
+    
     // MARK: - RelationSubscriptionDataBuilderProtocol
     
     func build() -> SubscriptionData {
@@ -17,7 +23,7 @@ final class RelationSubscriptionDataBuilder: RelationSubscriptionDataBuilderProt
         let filters = [
             SearchHelper.isArchivedFilter(isArchived: false),
             SearchHelper.typeFilter(typeIds: [ObjectTypeId.bundled(.relation).rawValue]),
-            SearchHelper.workspaceId(AccountManager.shared.account.info.accountSpaceId)
+            SearchHelper.workspaceId(accountManager.account.info.accountSpaceId)
         ]
         
         let keys = [

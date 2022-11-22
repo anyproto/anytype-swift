@@ -49,7 +49,7 @@ final class ServiceLocator {
     }
     
     func searchService() -> SearchServiceProtocol {
-        SearchService()
+        SearchService(accountManager: accountManager())
     }
     
     func detailsService(objectId: BlockId) -> DetailsServiceProtocol {
@@ -75,10 +75,14 @@ final class ServiceLocator {
         AlertOpener()
     }
     
+    func accountManager() -> AccountManager {
+        AccountManager.shared
+    }
+    
     // Sigletone
     private lazy var _relationDetailsStorage = RelationDetailsStorage(
         subscriptionsService: subscriptionService(),
-        subscriptionDataBuilder: RelationSubscriptionDataBuilder()
+        subscriptionDataBuilder: RelationSubscriptionDataBuilder(accountManager: accountManager())
     )
     func relationDetailsStorage() -> RelationDetailsStorageProtocol {
         return _relationDetailsStorage
