@@ -48,7 +48,7 @@ struct RelationNameValueView: View {
 
     private var valueViewButton: some View {
         Button {
-            onEditTap?(viewModel.relation.id)
+            onEditTap?(viewModel.relation.key)
         } label: {
             valueView
         }

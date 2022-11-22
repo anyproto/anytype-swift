@@ -15,7 +15,7 @@ final class LinkToObjectSearchViewModel: SearchViewModelProtocol {
 
     typealias SearchDataType = LinkToObjectSearchData
 
-    private let service = SearchService()
+    private let searchService: SearchServiceProtocol
     private let pasteboardHelper: PasteboardHelper
     private let currentLink: Either<URL, BlockId>?
 
@@ -31,12 +31,14 @@ final class LinkToObjectSearchViewModel: SearchViewModelProtocol {
 
     init(
         currentLink: Either<URL, BlockId>?,
-        onSelect: @escaping (SearchDataType) -> (),
-        pasteboardHelper: PasteboardHelper = PasteboardHelper()
+        searchService: SearchServiceProtocol,
+        pasteboardHelper: PasteboardHelper = PasteboardHelper(),
+        onSelect: @escaping (SearchDataType) -> ()
     ) {
         self.currentLink = currentLink
-        self.onSelect = onSelect
+        self.searchService = searchService
         self.pasteboardHelper = pasteboardHelper
+        self.onSelect = onSelect
     }
 
     func search(text: String) {
@@ -50,7 +52,7 @@ final class LinkToObjectSearchViewModel: SearchViewModelProtocol {
             return
         }
 
-        let result = service.search(text: text)
+        let result = searchService.search(text: text)
 
         var objectData = result?.compactMap { details in
             LinkToObjectSearchData(details: details)
@@ -109,7 +111,7 @@ final class LinkToObjectSearchViewModel: SearchViewModelProtocol {
                 iconImage: .imageAsset(.TextEditor.BlocksOption.copy)
             )
         case let .right(blockId):
-            let result = service.search(text: "")
+            let result = searchService.search(text: "")
 
             let object = result?.first(where: { $0.id == blockId })
 

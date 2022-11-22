@@ -46,7 +46,7 @@ final class ChangeTypeAccessoryViewModel {
 
     private func fetchSupportedTypes() {
         let supportedTypes = searchService
-            .searchObjectTypes(text: "", filteringTypeUrl: nil, shouldIncludeSets: true, shouldIncludeBookmark: false)?
+            .searchObjectTypes(text: "", filteringTypeId: nil, shouldIncludeSets: true, shouldIncludeBookmark: false)?
             .map { type in
                 TypeItem(from: type, handler: { [weak self] in
                     self?.onTypeTap(typeId: type.id)
@@ -57,7 +57,7 @@ final class ChangeTypeAccessoryViewModel {
     }
 
     private func onTypeTap(typeId: String) {
-        if typeId == ObjectTypeUrl.BundledTypeUrl.set.rawValue {
+        if typeId == ObjectTypeId.BundledTypeId.set.rawValue {
             let setObjectID = handler.setObjectSetType()
 
             router.replaceCurrentPage(with: .init(pageId: setObjectID, type: .set))
@@ -68,11 +68,11 @@ final class ChangeTypeAccessoryViewModel {
         if isSelectTemplate {
             router.showTemplatesAvailabilityPopupIfNeeded(
                 document: document,
-                templatesTypeURL: .dynamic(typeId)
+                templatesTypeId: .dynamic(typeId)
             )
         }
 
-        handler.setObjectTypeUrl(typeId)
+        handler.setObjectTypeId(typeId)
         applyDefaultTemplateIfNeeded(typeId: typeId)
     }
     

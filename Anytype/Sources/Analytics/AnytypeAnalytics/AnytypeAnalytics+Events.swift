@@ -160,7 +160,7 @@ extension AnytypeAnalytics {
                  withEventProperties: [AnalyticsEventsPropertiesKey.count: count])
     }
 
-    func logAddRelation(format: RelationMetadata.Format, isNew: Bool, type: AnalyticsEventsRelationType) {
+    func logAddRelation(format: RelationFormat, isNew: Bool, type: AnalyticsEventsRelationType) {
         let eventName = isNew ? AnalyticsEventsName.createRelation : AnalyticsEventsName.addExistingRelation
         logEvent(eventName,
                  withEventProperties: [AnalyticsEventsPropertiesKey.format: format.name,

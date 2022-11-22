@@ -42,7 +42,6 @@ final class EditorAssembly {
         browser: EditorBrowserController?,
         data: EditorScreenData
     ) -> (EditorSetHostingController, EditorRouterProtocol) {
-        let searchService = SearchService()
         let document = BaseDocument(objectId: data.pageId)
         let dataviewService = DataviewService(
             objectId: data.pageId,
@@ -53,9 +52,10 @@ final class EditorAssembly {
         let model = EditorSetViewModel(
             document: document,
             dataviewService: dataviewService,
-            searchService: searchService,
+            searchService: ServiceLocator.shared.searchService(),
             detailsService: detailsService,
             textService: serviceLocator.textService,
+            relationDetailsStorage: ServiceLocator.shared.relationDetailsStorage(),
             relationSearchDistinctService: RelationSearchDistinctService(),
             setSubscriptionDataBuilder: SetSubscriptionDataBuilder()
         )
@@ -71,6 +71,7 @@ final class EditorAssembly {
             relationValueCoordinator: coordinatorsDI.relationValue.make(viewController: controller),
             editorPageCoordinator: coordinatorsDI.editorPage.make(rootController: browser, viewController: controller),
             linkToObjectCoordinator: coordinatorsDI.linkToObject.make(rootController: browser, viewController: controller),
+            relationsListModuleAssembly: modulesDI.relationsList,
             undoRedoModuleAssembly: modulesDI.undoRedo,
             objectLayoutPickerModuleAssembly: modulesDI.objectLayoutPicker,
             objectCoverPickerModuleAssembly: modulesDI.objectCoverPicker,
@@ -115,6 +116,7 @@ final class EditorAssembly {
             relationValueCoordinator: coordinatorsDI.relationValue.make(viewController: controller),
             editorPageCoordinator: coordinatorsDI.editorPage.make(rootController: browser, viewController: controller),
             linkToObjectCoordinator: coordinatorsDI.linkToObject.make(rootController: browser, viewController: controller),
+            relationsListModuleAssembly: modulesDI.relationsList,
             undoRedoModuleAssembly: modulesDI.undoRedo,
             objectLayoutPickerModuleAssembly: modulesDI.objectLayoutPicker,
             objectCoverPickerModuleAssembly: modulesDI.objectCoverPicker,

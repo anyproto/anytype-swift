@@ -73,10 +73,10 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
         setModel.sortedRelations.map { relation in
             EditorSetViewSettingsRelation(
                 id: relation.id,
-                image: relation.metadata.format.iconAsset,
-                title: relation.metadata.name,
+                image: relation.relationDetails.format.iconAsset,
+                title: relation.relationDetails.name,
                 isOn: relation.option.isVisible,
-                isBundled: relation.metadata.isBundled,
+                isBundled: relation.relationDetails.isBundled,
                 onChange: { [weak self] isVisible in
                     self?.onRelationVisibleChange(relation, isVisible: isVisible)
                 }
@@ -101,7 +101,7 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
                 return
             }
             Task {
-                try await service.deleteRelation(key: relation.metadata.key)
+                try await service.deleteRelation(relationKey: relation.relationDetails.key)
             }
         }
     }
@@ -200,9 +200,9 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
     }
     
     private func imagePreviewValueFromRelations() -> String? {
-        setModel.dataView.relations.first { [weak self] relation in
+        setModel.dataViewRelationsDetails.first { [weak self] relationDetails in
             guard let self = self else { return false }
-            return relation.key == self.setModel.activeView.coverRelationKey
+            return relationDetails.key == self.setModel.activeView.coverRelationKey
         }?.name
     }
     
@@ -214,7 +214,7 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
     }
     
     private func groupByValue(with key: String) -> String {
-        setModel.dataView.relations.first { relation in
+        setModel.dataViewRelationsDetails.first { relation in
             relation.key == key
         }?.name ?? key
     }
@@ -247,10 +247,10 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
         )
     }
     
-    
-    private func groupByRelations() -> [RelationMetadata] {
+    private func groupByRelations() -> [RelationDetails] {
         setModel.dataView.groupByRelations(
-            for: setModel.activeView
+            for: setModel.activeView,
+            dataViewRelationsDetails: setModel.dataViewRelationsDetails
         )
     }
 }

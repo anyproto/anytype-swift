@@ -30,7 +30,7 @@ struct BlockLinkState: Hashable, Equatable {
         }
 
         let documentCover = (details.layoutValue != .note && blockLink.appearance.relations.contains(.cover)) ?
-            details.documentCover : nil
+        details.documentCover : nil
 
         var iconSize = blockLink.appearance.iconSize
         if details.layoutValue == .todo, iconSize == .medium {
@@ -42,7 +42,7 @@ struct BlockLinkState: Hashable, Equatable {
             cardStyle: blockLink.appearance.cardStyle,
             description: description,
             style: Style(details: details),
-            typeUrl: details.type,
+            typeId: details.type,
             viewType: details.editorViewType,
             archived: details.isArchived,
             deleted: details.isDeleted,
@@ -58,7 +58,7 @@ struct BlockLinkState: Hashable, Equatable {
          cardStyle: BlockLink.CardStyle,
          description: String,
          style: Style,
-         typeUrl: String,
+         typeId: String,
          viewType: EditorViewType,
          archived: Bool,
          deleted: Bool,
@@ -71,7 +71,7 @@ struct BlockLinkState: Hashable, Equatable {
         self.title = title
         self.cardStyle = cardStyle
         self.style = style
-        self.type = ObjectTypeProvider.shared.objectType(url: typeUrl)
+        self.type = ObjectTypeProvider.shared.objectType(id: typeId)
         self.viewType = viewType
         self.archived = archived
         self.deleted = deleted

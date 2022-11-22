@@ -193,7 +193,7 @@ extension HomeViewModel {
         guard let id = dashboardService.createNewPage() else { return }
         
         AnytypeAnalytics.instance().logCreateObject(
-            objectType: ObjectTypeProvider.shared.defaultObjectType.url,
+            objectType: ObjectTypeProvider.shared.defaultObjectType.id,
             route: .home
         )
         

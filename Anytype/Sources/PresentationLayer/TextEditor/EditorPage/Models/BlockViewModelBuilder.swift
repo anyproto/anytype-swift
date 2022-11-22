@@ -210,32 +210,32 @@ final class BlockViewModelBuilder {
         case .featuredRelations:
             guard let objectType = document.details?.objectType else { return nil }
             
-            let featuredRelation = document.featuredRelationsForEditor
+            let featuredRelationValues = document.featuredRelationsForEditor
             return FeaturedRelationsBlockViewModel(
                 info: info,
-                featuredRelation: featuredRelation,
+                featuredRelationValues: featuredRelationValues,
                 type: objectType.name,
                 blockDelegate: delegate
             ) { [weak self] relation in
                 guard let self = self else { return }
 
-                let bookmarkFilter = self.document.details?.type != ObjectTypeUrl.bundled(.bookmark).rawValue
+                let bookmarkFilter = self.document.details?.type != ObjectTypeId.bundled(.bookmark).rawValue
                 
-                if relation.id == BundledRelationKey.type.rawValue && !self.document.isLocked && bookmarkFilter {
+                if relation.key == BundledRelationKey.type.rawValue && !self.document.isLocked && bookmarkFilter {
                     self.router.showTypes(
                         selectedObjectId: self.document.details?.type,
                         onSelect: { [weak self] id in
-                            self?.handler.setObjectTypeUrl(id)
+                            self?.handler.setObjectTypeId(id)
                         }
                     )
                 } else {
                     AnytypeAnalytics.instance().logChangeRelationValue(type: .block)
-                    self.router.showRelationValueEditingView(key: relation.id, source: .object)
+                    self.router.showRelationValueEditingView(key: relation.key, source: .object)
                 }
             }
         case let .relation(content):
             let relation = document.parsedRelations.all.first {
-                $0.id == content.key
+                $0.key == content.key
             }
 
             guard let relation = relation else {
@@ -247,7 +247,7 @@ final class BlockViewModelBuilder {
                 relation: relation
             ) { [weak self] in
                 AnytypeAnalytics.instance().logChangeRelationValue(type: .block)
-                self?.router.showRelationValueEditingView(key: relation.id, source: .object)
+                self?.router.showRelationValueEditingView(key: relation.key, source: .object)
             }
         case .tableOfContents:
             return TableOfContentsViewModel(

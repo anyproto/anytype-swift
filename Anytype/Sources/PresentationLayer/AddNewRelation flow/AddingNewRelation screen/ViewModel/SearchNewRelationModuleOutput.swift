@@ -3,7 +3,7 @@ import BlocksModels
 
 protocol SearchNewRelationModuleOutput: AnyObject {
     
-    func didAddRelation(_ relation: RelationMetadata)
+    func didAddRelation(_ relationDetails: RelationDetails)
     func didAskToShowCreateNewRelation(searchText: String)
     
 }

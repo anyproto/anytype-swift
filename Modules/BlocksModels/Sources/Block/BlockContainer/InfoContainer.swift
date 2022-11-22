@@ -4,15 +4,17 @@ import AnytypeCore
 
 public final class InfoContainer: InfoContainerProtocol {
     
-    private var models = SynchronizedDictionary<BlockId, BlockInformation>()
-    
+    private var models = PublishedDictionary<BlockId, BlockInformation>()
     public init() {}
+    
+    public func publisherFor(id: BlockId) -> AnyPublisher<BlockInformation?, Never> {
+        return models.publisher(id)
+    }
     
     public func children(of id: BlockId) -> [BlockInformation] {
         guard let information = models[id] else {
             return []
         }
-        
         return information.childrenIds.compactMap { get(id: $0) }
     }
 

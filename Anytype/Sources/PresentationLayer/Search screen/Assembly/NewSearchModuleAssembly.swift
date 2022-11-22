@@ -6,13 +6,13 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
     static func statusSearchModule(
         style: NewSearchView.Style = .default,
         selectionMode: NewSearchViewModel.SelectionMode = .singleItem,
-        allStatuses: [Relation.Status.Option],
+        relationKey: String,
         selectedStatusesIds: [String],
         onSelect: @escaping (_ ids: [String]) -> Void,
         onCreate: @escaping (_ title: String) -> Void
     ) -> NewSearchView {
         let interactor = StatusSearchInteractor(
-            allStatuses: allStatuses,
+            relationKey: relationKey,
             selectedStatusesIds: selectedStatusesIds,
             isPreselectModeAvailable: selectionMode.isPreselectModeAvailable
         )
@@ -32,13 +32,13 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
     static func tagsSearchModule(
         style: NewSearchView.Style = .default,
         selectionMode: NewSearchViewModel.SelectionMode = .multipleItems(),
-        allTags: [Relation.Tag.Option],
+        relationKey: String,
         selectedTagIds: [String],
         onSelect: @escaping (_ ids: [String]) -> Void,
         onCreate: @escaping (_ title: String) -> Void
     ) -> NewSearchView {
         let interactor = TagsSearchInteractor(
-            allTags: allTags,
+            relationKey: relationKey,
             selectedTagIds: selectedTagIds,
             isPreselectModeAvailable: selectionMode.isPreselectModeAvailable
         )
@@ -63,7 +63,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         onSelect: @escaping (_ ids: [String]) -> Void
     ) -> NewSearchView {
         let interactor = ObjectsSearchInteractor(
-            searchService: SearchService(),
+            searchService: ServiceLocator.shared.searchService(),
             excludedObjectIds: excludedObjectIds,
             limitedObjectType: limitedObjectType
         )
@@ -86,7 +86,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         onSelect: @escaping (_ ids: [String]) -> Void
     ) -> NewSearchView {
         let interactor = FilesSearchInteractor(
-            searchService: SearchService(),
+            searchService: ServiceLocator.shared.searchService(),
             excludedFileIds: excludedFileIds
         )
         
@@ -111,7 +111,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         onSelect: @escaping (_ id: String) -> Void
     ) -> NewSearchView {
         let interactor = ObjectTypesSearchInteractor(
-            searchService: SearchService(),
+            searchService: ServiceLocator.shared.searchService(),
             excludedObjectTypeId: excludedObjectTypeId,
             showBookmark: showBookmark,
             showSet: showSet
@@ -137,7 +137,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         onSelect: @escaping (_ ids: [String]) -> Void
     ) -> NewSearchView {
         let interactor = ObjectTypesSearchInteractor(
-            searchService: SearchService(),
+            searchService: ServiceLocator.shared.searchService(),
             excludedObjectTypeId: nil,
             showBookmark: false,
             showSet: false
@@ -166,7 +166,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         onSelect: @escaping (_ id: String) -> Void
     ) -> NewSearchView {
         let interactor = MoveToSearchInteractor(
-            searchService: SearchService(),
+            searchService: ServiceLocator.shared.searchService(),
             excludedObjectIds: excludedObjectIds
         )
 
@@ -190,10 +190,10 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
     
     static func setSortsSearchModule(
         style: NewSearchView.Style = .default,
-        relations: [RelationMetadata],
-        onSelect: @escaping (_ id: String) -> Void
+        relationsDetails: [RelationDetails],
+        onSelect: @escaping (_ relation: RelationDetails) -> Void
     ) -> NewSearchView {
-        let interactor = SetSortsSearchInteractor(relations: relations)
+        let interactor = SetSortsSearchInteractor(relationsDetails: relationsDetails)
         
         let internalViewModel = SetSortsSearchViewModel(interactor: interactor)
         
@@ -203,8 +203,9 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
             itemCreationMode: .unavailable,
             internalViewModel: internalViewModel,
             onSelect: { ids in
-                guard let id = ids.first else { return }
-                onSelect(id)
+                guard let id = ids.first,
+                      let relation = relationsDetails.first(where: { $0.id == id }) else { return }
+                onSelect(relation)
             }
         )
         

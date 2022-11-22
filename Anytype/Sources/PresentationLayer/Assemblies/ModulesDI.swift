@@ -16,6 +16,10 @@ final class ModulesDI: ModulesDIProtocol {
         return RelationValueModuleAssembly()
     }
     
+    var relationsList: RelationsListModuleAssemblyProtocol {
+        return RelationsListModuleAssembly()
+    }
+    
     var undoRedo: UndoRedoModuleAssemblyProtocol {
         return UndoRedoModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
     }

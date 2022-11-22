@@ -18,12 +18,13 @@ final class EditorSetViewModel: ObservableObject {
     
     @Published var sorts: [SetSort] = []
     @Published var filters: [SetFilter] = []
+    @Published var dataViewRelationsDetails: [RelationDetails] = []
     
     private let setSyncStatus = FeatureFlags.setSyncStatus
     @Published var syncStatus: SyncStatus = .unknown
 
     var isUpdating = false
-    
+
     var isEmpty: Bool {
         dataView.views.isEmpty
     }
@@ -32,8 +33,8 @@ final class EditorSetViewModel: ObservableObject {
         dataView.views.first { $0.id == dataView.activeViewId } ?? .empty
     }
     
-    var colums: [RelationMetadata] {
-        sortedRelations.filter { $0.option.isVisible }.map(\.metadata)
+    var colums: [RelationDetails] {
+        sortedRelations.filter { $0.option.isVisible }.map(\.relationDetails)
     }
     
     var isSmallItemSize: Bool {
@@ -56,14 +57,14 @@ final class EditorSetViewModel: ObservableObject {
         document.details
     }
 
-    func activeViewRelations(excludeRelations: [RelationMetadata] = []) -> [RelationMetadata] {
+    func activeViewRelations(excludeRelations: [RelationDetails] = []) -> [RelationDetails] {
         dataBuilder.activeViewRelations(
-            dataview: dataView,
+            dataViewRelationsDetails: dataViewRelationsDetails,
             view: activeView,
             excludeRelations: excludeRelations
         )
     }
-    
+
     private var isObjectLocked: Bool {
         document.isLocked ||
         activeView.type == .gallery ||
@@ -84,22 +85,24 @@ final class EditorSetViewModel: ObservableObject {
     private let setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol
     private var subscriptions = [AnyCancellable]()
     private var titleSubscription: AnyCancellable?
-    
+    private let relationDetailsStorage: RelationDetailsStorageProtocol
+
     init(
         document: BaseDocument,
         dataviewService: DataviewServiceProtocol,
         searchService: SearchServiceProtocol,
         detailsService: DetailsServiceProtocol,
         textService: TextServiceProtocol,
+        relationDetailsStorage: RelationDetailsStorageProtocol,
         relationSearchDistinctService: RelationSearchDistinctServiceProtocol,
         setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol
     ) {
-        ObjectTypeProvider.shared.resetCache()
         self.document = document
         self.dataviewService = dataviewService
         self.searchService = searchService
         self.detailsService = detailsService
         self.textService = textService
+        self.relationDetailsStorage = relationDetailsStorage
         self.relationSearchDistinctService = relationSearchDistinctService
         self.setSubscriptionDataBuilder = setSubscriptionDataBuilder
 
@@ -145,9 +148,9 @@ final class EditorSetViewModel: ObservableObject {
 
     func onRelationTap(relation: Relation) {
         AnytypeAnalytics.instance().logChangeRelationValue(type: .set)
-        showRelationValueEditingView(key: relation.id, source: .object)
+        showRelationValueEditingView(key: relation.key, source: .object)
     }
-    
+
     func updateActiveViewId(_ id: BlockId) {
         updateDataview(with: id)
         setupDataview()
@@ -384,6 +387,7 @@ final class EditorSetViewModel: ObservableObject {
             }
         }
 
+        updateDataViewRelations()
         updateActiveViewId()
         updateSorts()
         updateFilters()
@@ -425,35 +429,39 @@ final class EditorSetViewModel: ObservableObject {
             dataView.updated(activeViewId: activeViewId)
         }
     }
-    
+
     private func updateSorts() {
         sorts = activeView.sorts.uniqued().compactMap { sort in
-            let metadata = dataView.relations.first { relation in
-                sort.relationKey == relation.key
+            let relationDetails = dataViewRelationsDetails.first { relationDetails in
+                sort.relationKey == relationDetails.key
             }
-            guard let metadata = metadata else { return nil }
+            guard let relationDetails = relationDetails else { return nil }
             
-            return SetSort(metadata: metadata, sort: sort)
+            return SetSort(relationDetails: relationDetails, sort: sort)
         }
     }
     
     private func updateFilters() {
         filters = activeView.filters.compactMap { filter in
-            let metadata = dataView.relations.first { relation in
-                filter.relationKey == relation.key
+            let relationDetails = dataViewRelationsDetails.first { relationDetails in
+                filter.relationKey == relationDetails.key
             }
-            guard let metadata = metadata else { return nil }
+            guard let relationDetails = relationDetails else { return nil }
             
-            return SetFilter(metadata: metadata, filter: filter)
+            return SetFilter(relationDetails: relationDetails, filter: filter)
         }
     }
     
+    private func updateDataViewRelations() {
+        dataViewRelationsDetails = relationDetailsStorage.relationsDetails(for: dataView.relationLinks)
+    }
+    
     private func isBookmarksSet() -> Bool {
-        dataView.source.contains(ObjectTypeUrl.BundledTypeUrl.bookmark.rawValue)
+        dataView.source.contains(ObjectTypeId.BundledTypeId.bookmark.rawValue)
     }
     
     private func isNotesSet() -> Bool {
-        dataView.source.contains(ObjectTypeUrl.BundledTypeUrl.note.rawValue)
+        dataView.source.contains(ObjectTypeId.BundledTypeId.note.rawValue)
     }
     
     private func updateDetailsIfNeeded(_ details: ObjectDetails) {
@@ -523,7 +531,7 @@ extension EditorSetViewModel {
             dataviewService: dataviewService
         )
     }
-    
+
     func showViewSettings() {
         router.showViewSettings(
             setModel: self,
@@ -549,7 +557,7 @@ extension EditorSetViewModel {
         router.showSettings()
     }
     
-    func showAddNewRelationView(onSelect: @escaping (RelationMetadata, _ isNew: Bool) -> Void) {
+    func showAddNewRelationView(onSelect: @escaping (RelationDetails, _ isNew: Bool) -> Void) {
         router.showAddNewRelationView(onSelect: onSelect)
     }
     
@@ -571,8 +579,9 @@ extension EditorSetViewModel {
     }
     
     private func createDefaultObject() {
+        let objectType = dataView.source.first
         let templateId: String
-        if let objectType = dataView.source.first {
+        if let objectType = objectType {
             let availableTemplates = searchService.searchTemplates(
                 for: .dynamic(objectType)
             )
@@ -581,18 +590,24 @@ extension EditorSetViewModel {
         } else {
             templateId = ""
         }
+
         Task { @MainActor in
-            guard let objectDetails = try await dataviewService.addRecord(templateId: templateId, setFilters: filters) else { return }
+
+            let objectId = try await dataviewService.addRecord(
+                objectType: objectType ?? "",
+                templateId: templateId,
+                setFilters: filters
+            )
             
-            handleCreatedObjectDetails(objectDetails)
+            handleCreatedObjectId(objectId)
         }
     }
     
-    private func handleCreatedObjectDetails(_ objectDetails: ObjectDetails) {
+    private func handleCreatedObjectId(_ objectId: String) {
         if isNotesSet() {
-            openObject(pageId: objectDetails.id, type: objectDetails.editorViewType)
+            openObject(pageId: objectId, type: .page)
         } else {
-            router.showCreateObject(pageId: objectDetails.id)
+            router.showCreateObject(pageId: objectId)
         }
     }
     
@@ -614,9 +629,10 @@ extension EditorSetViewModel {
     static let empty = EditorSetViewModel(
         document: BaseDocument(objectId: "objectId"),
         dataviewService: DataviewService(objectId: "objectId", prefilledFieldsBuilder: SetFilterPrefilledFieldsBuilder()),
-        searchService: SearchService(),
+        searchService: ServiceLocator.shared.searchService(),
         detailsService: DetailsService(objectId: "objectId", service: ObjectActionsService()),
         textService: TextService(),
+        relationDetailsStorage: ServiceLocator.shared.relationDetailsStorage(),
         relationSearchDistinctService: RelationSearchDistinctService(),
         setSubscriptionDataBuilder: SetSubscriptionDataBuilder()
     )

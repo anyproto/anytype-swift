@@ -212,13 +212,13 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
             .send()
     }
     
-    func setObjectType(objectId: BlockId, objectTypeUrl: String) {
+    func setObjectType(objectId: BlockId, objectTypeId: String) {
         let middlewareEvent = Anytype_Rpc.Object.SetObjectType.Service.invoke(
             contextID: objectId,
-            objectTypeURL: objectTypeUrl
+            objectTypeURL: objectTypeId
         )
             .map { (result) -> Anytype_ResponseEvent in
-                AnytypeAnalytics.instance().logObjectTypeChange(objectTypeUrl)
+                AnytypeAnalytics.instance().logObjectTypeChange(objectTypeId)
                 return result.event
             }
             .getValue(domain: .objectActionsService)

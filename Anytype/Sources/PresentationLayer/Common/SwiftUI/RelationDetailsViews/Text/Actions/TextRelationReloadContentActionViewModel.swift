@@ -20,7 +20,7 @@ final class TextRelationReloadContentActionViewModel: TextRelationActionViewMode
         alertOpener: AlertOpenerProtocol
     ) {
         guard let objectInfo = ObjectDetailsStorage.shared.get(id: objectId),
-              objectInfo.objectType.url == ObjectTypeUrl.bundled(.bookmark).rawValue,
+              objectInfo.objectType.id == ObjectTypeId.bundled(.bookmark).rawValue,
               relation.isSource else { return nil }
         
         self.objectId = objectId

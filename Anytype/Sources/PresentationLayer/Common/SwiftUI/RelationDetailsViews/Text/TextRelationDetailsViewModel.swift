@@ -91,7 +91,7 @@ extension TextRelationDetailsViewModel: AnytypePopupViewModelProtocol {
 private extension TextRelationDetailsViewModel {
     
     func saveValue() {
-        service.saveRelation(value: value, key: relation.id, textType: type)
+        service.saveRelation(value: value, key: relation.key, textType: type)
         logEvent()
     }
     

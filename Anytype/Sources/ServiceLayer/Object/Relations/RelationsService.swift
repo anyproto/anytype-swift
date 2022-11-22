@@ -3,17 +3,16 @@ import ProtobufMessages
 import BlocksModels
 import SwiftProtobuf
 
-final class RelationsService {
+final class RelationsService: RelationsServiceProtocol {
     
+    private let relationDetailsStorage = ServiceLocator.shared.relationDetailsStorage()
     private let objectId: String
         
     init(objectId: String) {
         self.objectId = objectId
     }
     
-}
-
-extension RelationsService: RelationsServiceProtocol {
+    // MARK: - RelationsServiceProtocol
     
     func addFeaturedRelation(relationKey: String) {
         AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.addFeatureRelation)
@@ -51,82 +50,63 @@ extension RelationsService: RelationsServiceProtocol {
             .send()
     }
 
-    func createRelation(relation: RelationMetadata) -> RelationMetadata? {
-        addRelation(relation: relation, isNew: true)
-    }
-
-    func addRelation(relation: RelationMetadata) -> RelationMetadata? {
-        addRelation(relation: relation, isNew: false)
-    }
-
-    private func addRelation(relation: RelationMetadata, isNew: Bool) -> RelationMetadata? {
-        let response = Anytype_Rpc.ObjectRelation.Add.Service
-            .invoke(contextID: objectId, relation: relation.asMiddleware)
+    func createRelation(relationDetails: RelationDetails) -> Bool {
+        let result = Anytype_Rpc.Object.CreateRelation.Service
+            .invocation(details: relationDetails.asCreateMiddleware)
+            .invoke()
             .getValue(domain: .relationsService)
+        
+        guard let result = result else { return false }
+        
+        return addRelation(relationKey: result.key)
+    }
 
-        guard let response = response else { return nil }
+    func addRelation(relationDetails: RelationDetails) -> Bool {
+        return addRelation(relationKey: relationDetails.key)
+    }
 
-        EventsBunch(event: response.event).send()
-
-        return RelationMetadata(middlewareRelation: response.relation)
+    private func addRelation(relationKey: String) -> Bool {
+        let events = Anytype_Rpc.ObjectRelation.Add.Service
+            .invocation(contextID: objectId, relationKeys: [relationKey])
+            .invoke()
+            .map { EventsBunch(event: $0.event) }
+            .getValue(domain: .relationsService)
+            
+        events?.send()
+        
+        return events.isNotNil
     }
     
     func removeRelation(relationKey: String) {
         Anytype_Rpc.ObjectRelation.Delete.Service
-            .invoke(contextID: objectId, relationKey: relationKey)
+            .invocation(contextID: objectId, relationKeys: [relationKey])
+            .invoke()
             .map { EventsBunch(event: $0.event) }
             .getValue(domain: .relationsService)?
             .send()
-        
+
         AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.deleteRelation)
     }
     
     func addRelationOption(source: RelationSource, relationKey: String, optionText: String) -> String? {
-        let option = Anytype_Model_Relation.Option(
-            id: "",
-            text: optionText,
-            color: MiddlewareColor.allCases.randomElement()?.rawValue ?? MiddlewareColor.default.rawValue,
-            scope: .local
+        let color = MiddlewareColor.allCases.randomElement()?.rawValue ?? MiddlewareColor.default.rawValue
+        
+        let details = Google_Protobuf_Struct(
+            fields: [
+                BundledRelationKey.relationOptionText.rawValue: optionText.protobufValue,
+                BundledRelationKey.relationKey.rawValue: relationKey.protobufValue,
+                BundledRelationKey.relationOptionColor.rawValue: color.protobufValue
+            ]
         )
         
-        switch source {
-        case .object:
-            let response = Anytype_Rpc.ObjectRelationOption.Add.Service.invoke(
-                contextID: objectId,
-                relationKey: relationKey,
-                option: option
-            )
-                .getValue(domain: .relationsService)
-            
-            guard let response = response else { return nil }
-            
-            EventsBunch(event: response.event).send()
-            
-            return response.option.id
-        case .dataview(let contextId):
-            let response = Anytype_Rpc.BlockDataviewRecord.RelationOption.Add.Service.invoke(
-                contextID: contextId,
-                blockID: SetConstants.dataviewBlockId,
-                relationKey: relationKey,
-                option: option,
-                recordID: objectId
-            ).getValue(domain: .relationsService)
-            
-            guard let response = response else { return nil }
-            
-            EventsBunch(event: response.event).send()
-            
-            return response.option.id
-        }
-    }
-
-    func availableRelations() -> [RelationMetadata]? {
-        let relations = Anytype_Rpc.ObjectRelation.ListAvailable.Service
-            .invoke(contextID: objectId)
-            .map { $0.relations }
+        let optionResult = Anytype_Rpc.Object.CreateRelationOption.Service.invocation(details: details)
+            .invoke()
             .getValue(domain: .relationsService)
         
-        return relations?.map { RelationMetadata(middlewareRelation: $0) }
+        return optionResult?.objectID
     }
-    
+
+    func availableRelations() -> [RelationDetails] {
+        relationDetailsStorage.relationsDetails()
+    }
 }

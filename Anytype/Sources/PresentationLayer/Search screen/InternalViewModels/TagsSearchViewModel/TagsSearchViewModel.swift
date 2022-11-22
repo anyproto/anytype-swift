@@ -46,7 +46,7 @@ extension TagsSearchViewModel: NewInternalSearchViewModelProtocol {
     }
     
     func isCreateButtonAvailable(searchText: String) -> Bool {
-        interactor.isCreateButtonAvailable(searchText: searchText)
+        interactor.isCreateButtonAvailable(searchText: searchText, tags: tags)
     }
     
 }

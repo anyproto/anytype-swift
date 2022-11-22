@@ -48,7 +48,7 @@ final class ServiceLocator {
         FileActionsService()
     }
     
-    func searchService() -> SearchService {
+    func searchService() -> SearchServiceProtocol {
         SearchService()
     }
     
@@ -74,6 +74,17 @@ final class ServiceLocator {
     func alertOpener() -> AlertOpenerProtocol {
         AlertOpener()
     }
+    
+    // Sigletone
+    private lazy var _relationDetailsStorage = RelationDetailsStorage(
+        subscriptionsService: subscriptionService(),
+        subscriptionDataBuilder: RelationSubscriptionDataBuilder()
+    )
+    func relationDetailsStorage() -> RelationDetailsStorageProtocol {
+        return _relationDetailsStorage
+    }
+    
+    // MARK: - Private
     
     func pageService() -> PageServiceProtocol {
         return PageService()

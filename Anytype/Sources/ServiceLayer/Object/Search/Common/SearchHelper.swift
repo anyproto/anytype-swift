@@ -61,20 +61,30 @@ class SearchHelper {
         return filter
     }
     
-    static func typeFilter(typeUrls: [String]) -> DataviewFilter {
+    static func typeFilter(typeIds: [String]) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .in
-        filter.value = typeUrls.protobufValue
+        filter.value = typeIds.protobufValue
         filter.relationKey = BundledRelationKey.type.rawValue
         filter.operator = .and
         
         return filter
     }
     
-    static func excludedTypeFilter(_ typeUrls: [String]) -> DataviewFilter {
+    static func smartblockTypesFilter(types: [SmartBlockType]) -> DataviewFilter {
+        var filter = DataviewFilter()
+        filter.condition = .in
+        filter.value = types.map { $0.asMiddleware.rawValue }.protobufValue
+        filter.relationKey = BundledRelationKey.smartblockTypes.rawValue
+        filter.operator = .and
+        
+        return filter
+    }
+    
+    static func excludedTypeFilter(_ typeIds: [String]) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .notIn
-        filter.value = typeUrls.protobufValue
+        filter.value = typeIds.protobufValue
         filter.relationKey = BundledRelationKey.type.rawValue
         filter.operator = .and
         
@@ -91,10 +101,10 @@ class SearchHelper {
         return filter
     }
     
-    static func supportedObjectTypeUrlsFilter(_ typeUrls: [String]) -> DataviewFilter {
+    static func supportedIdsFilter(_ typeIds: [String]) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .in
-        filter.value = typeUrls.protobufValue
+        filter.value = typeIds.protobufValue
         filter.relationKey = BundledRelationKey.id.rawValue
         filter.operator = .and
         
@@ -120,7 +130,7 @@ class SearchHelper {
         ]
     }
     
-    static func excludedObjectTypeUrlFilter(_ typeUrl: String) -> DataviewFilter {
+    static func excludedIdFilter(_ typeUrl: String) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .notEqual
         filter.value = typeUrl.protobufValue
@@ -141,14 +151,47 @@ class SearchHelper {
         
         return filter
     }
+    
+    static func relationKey(_ relationKey: String) -> DataviewFilter {
+        var filter = DataviewFilter()
+        filter.condition = .equal
+        filter.value = relationKey.protobufValue
+        
+        filter.relationKey = BundledRelationKey.relationKey.rawValue
+        filter.operator = .and
+        
+        return filter
+    }
+    
+    static func relationOptionText(_ text: String) -> DataviewFilter {
+        var filter = DataviewFilter()
+        filter.condition = .like
+        filter.value = text.protobufValue
+        
+        filter.relationKey = BundledRelationKey.relationOptionText.rawValue
+        filter.operator = .and
+        
+        return filter
+    }
 
-    static func templatesFilters(type: ObjectTypeUrl) -> [DataviewFilter] {
+    static func templatesFilters(type: ObjectTypeId) -> [DataviewFilter] {
         [
             isArchivedFilter(isArchived: false),
             isDeletedFilter(isDeleted: false),
             templateScheme(),
             templateTypeFilter(type: type.rawValue)
         ]
+    }
+    
+    static func workspaceId(_ workspaceId: String) -> DataviewFilter {
+        var filter = DataviewFilter()
+        filter.condition = .equal
+        filter.value = workspaceId.protobufValue
+        
+        filter.relationKey = BundledRelationKey.workspaceId.rawValue
+        filter.operator = .and
+        
+        return filter
     }
 
     private static func templateTypeFilter(type: String) -> DataviewFilter {
@@ -164,7 +207,7 @@ class SearchHelper {
         var filter = DataviewFilter()
         filter.condition = .equal
         filter.relationKey = BundledRelationKey.type.rawValue
-        filter.value = ObjectTypeUrl.bundled(.template).rawValue.protobufValue
+        filter.value = ObjectTypeId.bundled(.template).rawValue.protobufValue
 
         return filter
     }
