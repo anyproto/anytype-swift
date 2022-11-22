@@ -243,7 +243,7 @@ final class EditorSetViewModel: ObservableObject {
     
     private func updateData(with groupId: String, update: SubscriptionUpdate) {
         if case let .pageCount(count) = update {
-            updatePageCount(count, groupId: groupId)
+            updatePageCount(count, groupId: groupId, ignorePageLimit: activeView.type.hasGroups)
             return
         }
         

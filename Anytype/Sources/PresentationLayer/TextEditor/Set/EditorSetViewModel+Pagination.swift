@@ -3,7 +3,7 @@ extension EditorSetViewModel {
     func showMore(groupId: String) {
         guard let pagitationData = pagitationDataDict[groupId] else { return }
         let page = pagitationData.selectedPage + 1
-        update(data: paginationHelper.changePage(page, data: pagitationData, ignorePageCount: true), groupId: groupId)
+        update(data: paginationHelper.changePage(page, data: pagitationData, ignorePageLimit: true), groupId: groupId)
     }
     
     func changePage(_ page: Int, groupId: String) {
@@ -11,9 +11,9 @@ extension EditorSetViewModel {
         update(data: paginationHelper.changePage(page, data: pagitationData), groupId: groupId)
     }
     
-    func updatePageCount(_ count: Int, groupId: String) {
+    func updatePageCount(_ count: Int, groupId: String, ignorePageLimit: Bool) {
         guard let pagitationData = pagitationDataDict[groupId] else { return }
-        update(data: paginationHelper.updatePageCount(count, data: pagitationData), groupId: groupId)
+        update(data: paginationHelper.updatePageCount(count, data: pagitationData, ignorePageLimit: ignorePageLimit), groupId: groupId)
     }
     
     func goForwardRow(groupId: String) {
