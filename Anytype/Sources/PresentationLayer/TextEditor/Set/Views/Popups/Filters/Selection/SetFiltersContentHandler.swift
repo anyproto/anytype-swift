@@ -49,7 +49,8 @@ final class SetFiltersContentHandler: SetFiltersContentHandlerProtocol {
             filter: filter.filter.updated(
                 condition: condition,
                 value: value,
-                quickOption: date.quickOption
+                quickOption: date.quickOption,
+                format: filter.relationDetails.format
             )
         )
         onApply(filter)
@@ -76,7 +77,8 @@ final class SetFiltersContentHandler: SetFiltersContentHandlerProtocol {
         let filter = filter.updated(
             filter: filter.filter.updated(
                 condition: condition,
-                value: value
+                value: value,
+                format: filter.relationDetails.format
             )
         )
         onApply(filter)
