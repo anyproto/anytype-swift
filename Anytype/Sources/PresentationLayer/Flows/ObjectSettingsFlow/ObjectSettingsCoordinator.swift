@@ -2,7 +2,7 @@ import Foundation
 import BlocksModels
 
 protocol ObjectSettingsCoordinatorProtocol {
-    func startFlow(router: EditorRouterProtocol)
+    func startFlow()
 }
 
 final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
@@ -50,8 +50,8 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
         self.searchModuleAssembly = searchModuleAssembly
     }
     
-    func startFlow(router: EditorRouterProtocol) {
-        let moduleViewController = objectSettingsModuleAssembly.make(document: document, router: router, output: self)
+    func startFlow() {
+        let moduleViewController = objectSettingsModuleAssembly.make(document: document, output: self)
         navigationContext.present(moduleViewController)
     }
     

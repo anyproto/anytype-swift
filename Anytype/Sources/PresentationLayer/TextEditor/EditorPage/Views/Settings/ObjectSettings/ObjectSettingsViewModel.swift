@@ -33,7 +33,6 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
     
     let objectActionsViewModel: ObjectActionsViewModel
 
-    private weak var router: EditorRouterProtocol?
     private let document: BaseDocumentProtocol
     private let objectDetailsService: DetailsServiceProtocol
     private let settingsBuilder = ObjectSettingBuilder()
@@ -44,12 +43,10 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
     init(
         document: BaseDocumentProtocol,
         objectDetailsService: DetailsServiceProtocol,
-        router: EditorRouterProtocol,
         output: ObjectSettingswModelOutput
     ) {
         self.document = document
         self.objectDetailsService = objectDetailsService
-        self.router = router
         self.output = output
         
         self.objectActionsViewModel = ObjectActionsViewModel(
@@ -82,7 +79,7 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
         output?.coverPickerAction()
     }
     
-    func showRelations() {
+    func onTapRelations() {
         output?.relationsAction()
     }
     
