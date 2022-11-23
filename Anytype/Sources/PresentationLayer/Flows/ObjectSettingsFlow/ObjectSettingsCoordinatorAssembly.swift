@@ -36,7 +36,8 @@ final class ObjectSettingsCoordinatorAssembly: ObjectSettingsCoordinatorAssembly
             relationsListModuleAssembly: modulesDI.relationsList,
             relationValueCoordinator: coordinatorsDI.relationValue.make(),
             editorPageCoordinator: coordinatorsDI.editorPage.make(browserController: browserController),
-            addNewRelationCoordinator: coordinatorsDI.addNewRelation.make(document: document)
+            addNewRelationCoordinator: coordinatorsDI.addNewRelation.make(document: document),
+            searchModuleAssembly: modulesDI.search
         )
     }
 }

@@ -11,6 +11,8 @@ protocol ObjectSettingswModelOutput: AnyObject {
     func coverPickerAction()
     func iconPickerAction()
     func relationsAction()
+    func openPageAction(screenData: EditorScreenData)
+    func linkToAction(onSelect: @escaping (BlockId, _ typeUrl: String) -> ())
 }
 
 final class ObjectSettingsViewModel: ObservableObject, Dismissible {
@@ -55,13 +57,13 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
             undoRedoAction: { [weak output] in
                 output?.undoRedoAction()
             },
-            openPageAction: { [weak router] screenData in
-                router?.showPage(data: screenData)
+            openPageAction: { [weak output] screenData in
+                output?.openPageAction(screenData: screenData)
             }
         )
 
-        objectActionsViewModel.onLinkItselfAction = { [weak router] onSelect in
-            router?.showLinkTo(onSelect: onSelect)
+        objectActionsViewModel.onLinkItselfAction = { [weak output] onSelect in
+            output?.linkToAction(onSelect: onSelect)
         }
         
         setupSubscription()

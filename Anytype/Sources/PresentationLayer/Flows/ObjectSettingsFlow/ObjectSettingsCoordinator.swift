@@ -20,6 +20,7 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
     private let relationValueCoordinator: RelationValueCoordinatorProtocol
     private let editorPageCoordinator: EditorPageCoordinatorProtocol
     private let addNewRelationCoordinator: AddNewRelationCoordinatorProtocol
+    private let searchModuleAssembly: SearchModuleAssemblyProtocol
     
     init(
         document: BaseDocumentProtocol,
@@ -32,7 +33,8 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
         relationsListModuleAssembly: RelationsListModuleAssemblyProtocol,
         relationValueCoordinator: RelationValueCoordinatorProtocol,
         editorPageCoordinator: EditorPageCoordinatorProtocol,
-        addNewRelationCoordinator: AddNewRelationCoordinatorProtocol
+        addNewRelationCoordinator: AddNewRelationCoordinatorProtocol,
+        searchModuleAssembly: SearchModuleAssemblyProtocol
     ) {
         self.document = document
         self.navigationContext = navigationContext
@@ -45,6 +47,7 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
         self.relationValueCoordinator = relationValueCoordinator
         self.editorPageCoordinator = editorPageCoordinator
         self.addNewRelationCoordinator = addNewRelationCoordinator
+        self.searchModuleAssembly = searchModuleAssembly
     }
     
     func startFlow(router: EditorRouterProtocol) {
@@ -80,6 +83,17 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
         
         let moduleViewController = relationsListModuleAssembly.make(document: document, output: self)
         navigationContext.present(moduleViewController, animated: true, completion: nil)
+    }
+    
+    func openPageAction(screenData: EditorScreenData) {
+        editorPageCoordinator.startFlow(data: screenData, replaceCurrentPage: false)
+    }
+    
+    func linkToAction(onSelect: @escaping (BlockId, _ typeUrl: String) -> ()) {
+        let module = searchModuleAssembly.makeLinkToObjectSearch { data in
+            onSelect(data.blockId, data.typeId)
+        }
+        navigationContext.present(module)
     }
     
     // MARK: - RelationsListModuleOutput

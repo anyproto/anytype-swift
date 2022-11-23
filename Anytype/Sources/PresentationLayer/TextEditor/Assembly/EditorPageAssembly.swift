@@ -72,10 +72,10 @@ final class EditorAssembly {
             relationValueCoordinator: coordinatorsDI.relationValue.make(),
             editorPageCoordinator: coordinatorsDI.editorPage.make(browserController: browser),
             linkToObjectCoordinator: coordinatorsDI.linkToObject.make(browserController: browser),
-            relationsListModuleAssembly: modulesDI.relationsList,
             objectCoverPickerModuleAssembly: modulesDI.objectCoverPicker,
             objectIconPickerModuleAssembly: modulesDI.objectIconPicker,
             objectSettingCoordinator: coordinatorsDI.objectSettings.make(document: document, browserController: browser),
+            searchModuleAssembly: modulesDI.search,
             alertHelper: AlertHelper(viewController: controller)
         )
         
@@ -116,10 +116,10 @@ final class EditorAssembly {
             relationValueCoordinator: coordinatorsDI.relationValue.make(),
             editorPageCoordinator: coordinatorsDI.editorPage.make(browserController: browser),
             linkToObjectCoordinator: coordinatorsDI.linkToObject.make(browserController: browser),
-            relationsListModuleAssembly: modulesDI.relationsList,
             objectCoverPickerModuleAssembly: modulesDI.objectCoverPicker,
             objectIconPickerModuleAssembly: modulesDI.objectIconPicker,
             objectSettingCoordinator: coordinatorsDI.objectSettings.make(document: document, browserController: browser),
+            searchModuleAssembly: modulesDI.search,
             alertHelper: AlertHelper(viewController: controller)
         )
 

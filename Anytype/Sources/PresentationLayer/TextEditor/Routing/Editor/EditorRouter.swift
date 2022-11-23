@@ -18,10 +18,10 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     private weak var currentSetSettingsPopup: AnytypePopup?
     private let editorPageCoordinator: EditorPageCoordinatorProtocol
     private let linkToObjectCoordinator: LinkToObjectCoordinatorProtocol
-    private let relationsListModuleAssembly: RelationsListModuleAssemblyProtocol
     private let objectCoverPickerModuleAssembly: ObjectCoverPickerModuleAssemblyProtocol
     private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
     private let objectSettingCoordinator: ObjectSettingsCoordinatorProtocol
+    private let searchModuleAssembly: SearchModuleAssemblyProtocol
     private let alertHelper: AlertHelper
     
     init(
@@ -35,10 +35,10 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         relationValueCoordinator: RelationValueCoordinatorProtocol,
         editorPageCoordinator: EditorPageCoordinatorProtocol,
         linkToObjectCoordinator: LinkToObjectCoordinatorProtocol,
-        relationsListModuleAssembly: RelationsListModuleAssemblyProtocol,
         objectCoverPickerModuleAssembly: ObjectCoverPickerModuleAssemblyProtocol,
         objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
         objectSettingCoordinator: ObjectSettingsCoordinatorProtocol,
+        searchModuleAssembly: SearchModuleAssemblyProtocol,
         alertHelper: AlertHelper
     ) {
         self.rootController = rootController
@@ -52,10 +52,10 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         self.relationValueCoordinator = relationValueCoordinator
         self.editorPageCoordinator = editorPageCoordinator
         self.linkToObjectCoordinator = linkToObjectCoordinator
-        self.relationsListModuleAssembly = relationsListModuleAssembly
         self.objectCoverPickerModuleAssembly = objectCoverPickerModuleAssembly
         self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
         self.objectSettingCoordinator = objectSettingCoordinator
+        self.searchModuleAssembly = searchModuleAssembly
         self.alertHelper = alertHelper
     }
 
@@ -196,11 +196,10 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     }
 
     func showLinkTo(onSelect: @escaping (BlockId, _ typeUrl: String) -> ()) {
-        let viewModel = ObjectSearchViewModel(searchService: ServiceLocator.shared.searchService()) { data in
+        let module = searchModuleAssembly.makeLinkToObjectSearch { data in
             onSelect(data.blockId, data.typeId)
         }
-        let linkToView = SearchView(title: Loc.linkTo, context: .menuSearch, viewModel: viewModel)
-        navigationContext.presentSwiftUIView(view: linkToView, model: viewModel)
+        navigationContext.present(module)
     }
 
     func showTextIconPicker(contextId: BlockId, objectId: BlockId) {
@@ -219,12 +218,10 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     }
     
     func showSearch(onSelect: @escaping (EditorScreenData) -> ()) {
-        let viewModel = ObjectSearchViewModel(searchService: ServiceLocator.shared.searchService()) { data in
+        let module = searchModuleAssembly.makeObjectSearch(title: nil, context: .menuSearch) { data in
             onSelect(EditorScreenData(pageId: data.blockId, type: data.viewType))
         }
-        let searchView = SearchView(title: nil, context: .menuSearch, viewModel: viewModel)
-        
-        navigationContext.presentSwiftUIView(view: searchView, model: viewModel)
+        navigationContext.present(module)
     }
     
     func showTypes(selectedObjectId: BlockId?, onSelect: @escaping (BlockId) -> ()) {
