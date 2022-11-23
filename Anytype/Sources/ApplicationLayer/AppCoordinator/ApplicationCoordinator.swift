@@ -45,9 +45,10 @@ final class ApplicationCoordinator {
 private extension ApplicationCoordinator {
  
     func startObserve() {
-        Task { @MainActor in
+        Task { @MainActor [weak self, accountEventHandler] in
             for await status in accountEventHandler.accountStatusPublisher.myValues {
-                handleStatus(status)
+                guard let self = self else { return }
+                self.handleStatus(status)
             }
         }
     }

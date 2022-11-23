@@ -7985,7 +7985,7 @@
 				C9CD678427EC54F3001F1860 /* UnsplashItemViewModel.swift in Sources */,
 				2E975EEE287C23DA004DE574 /* SetSortRowConfiguration.swift in Sources */,
 				3DDC6A64262707CB004F5EA4 /* BlockLinkCardView.swift in Sources */,
-				3DDC6A64262707CB004F5EA4 /* BlockLinkView.swift in Sources */,
+				3DDC6A64262707CB004F5EA4 /* BlockLinkCardView.swift in Sources */,
 				2AEABE0528C7548A00BDE3AC /* RelationEventsBunch.swift in Sources */,
 				3D24910B27BBD87200821595 /* CGFloat+OnePixel.swift in Sources */,
 				EA3D1E5426CFCCC5001A31D9 /* TextViewAttributeSelectionHandler.swift in Sources */,
