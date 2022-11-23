@@ -10,6 +10,8 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol, Object
     private let objectSettingsModuleAssembly: ObjectSettingModuleAssemblyProtocol
     private let undoRedoModuleAssembly: UndoRedoModuleAssemblyProtocol
     private let objectLayoutPickerModuleAssembly: ObjectLayoutPickerModuleAssemblyProtocol
+    private let objectCoverPickerModuleAssembly: ObjectCoverPickerModuleAssemblyProtocol
+    private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
     
     private var document: BaseDocumentProtocol?
     
@@ -17,12 +19,16 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol, Object
         navigationContext: NavigationContextProtocol,
         objectSettingsModuleAssembly: ObjectSettingModuleAssemblyProtocol,
         undoRedoModuleAssembly: UndoRedoModuleAssemblyProtocol,
-        objectLayoutPickerModuleAssembly: ObjectLayoutPickerModuleAssemblyProtocol
+        objectLayoutPickerModuleAssembly: ObjectLayoutPickerModuleAssemblyProtocol,
+        objectCoverPickerModuleAssembly: ObjectCoverPickerModuleAssemblyProtocol,
+        objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
     ) {
         self.navigationContext = navigationContext
         self.objectSettingsModuleAssembly = objectSettingsModuleAssembly
         self.undoRedoModuleAssembly = undoRedoModuleAssembly
         self.objectLayoutPickerModuleAssembly = objectLayoutPickerModuleAssembly
+        self.objectCoverPickerModuleAssembly = objectCoverPickerModuleAssembly
+        self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
     }
     
     func startFlow(document: BaseDocumentProtocol, router: EditorRouterProtocol) {
@@ -40,10 +46,21 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol, Object
         navigationContext.present(moduleViewController)
     }
     
-    
     func layoutPickerAction() {
         guard let document = document else { return }
         let moduleViewController = objectLayoutPickerModuleAssembly.make(document: document)
+        navigationContext.present(moduleViewController)
+    }
+    
+    func coverPickerAction() {
+        guard let document = document else { return }
+        let moduleViewController = objectCoverPickerModuleAssembly.make(document: document)
+        navigationContext.present(moduleViewController)
+    }
+    
+    func iconPickerAction() {
+        guard let document = document else { return }
+        let moduleViewController = objectIconPickerModuleAssembly.make(document: document)
         navigationContext.present(moduleViewController)
     }
 }

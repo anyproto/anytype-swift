@@ -8,6 +8,8 @@ import SwiftUI
 protocol ObjectSettingswModelOutput: AnyObject {
     func undoRedoAction()
     func layoutPickerAction()
+    func coverPickerAction()
+    func iconPickerAction()
 }
 
 final class ObjectSettingsViewModel: ObservableObject, Dismissible {
@@ -69,12 +71,12 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
         output?.layoutPickerAction()
     }
     
-    func showIconPicker() {
-        router?.showIconPicker()
+    func onTapIconPicker() {
+        output?.iconPickerAction()
     }
     
-    func showCoverPicker() {
-        router?.showCoverPicker()
+    func onTapCoverPicker() {
+        output?.coverPickerAction()
     }
     
     func showRelations() {
