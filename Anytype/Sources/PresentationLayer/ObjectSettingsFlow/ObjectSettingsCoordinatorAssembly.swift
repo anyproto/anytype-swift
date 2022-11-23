@@ -25,7 +25,8 @@ final class ObjectSettingsCoordinatorAssembly: ObjectSettingsCoordinatorAssembly
                 rootViewController: uiHelpersDI.viewControllerProvider.topViewController
             ),
             objectSettingsModuleAssembly: modulesDI.objectSetting,
-            undoRedoModuleAssembly: modulesDI.undoRedo
+            undoRedoModuleAssembly: modulesDI.undoRedo,
+            objectLayoutPickerModuleAssembly: modulesDI.objectLayoutPicker
         )
     }
 }

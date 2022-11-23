@@ -36,7 +36,7 @@ struct ObjectSettingsView: View {
             case .cover:
                 viewModel.showCoverPicker()
             case .layout:
-                viewModel.showLayoutSettings()
+                viewModel.onTapLayoutPicker()
             case .relations:
                 viewModel.showRelations()
             }

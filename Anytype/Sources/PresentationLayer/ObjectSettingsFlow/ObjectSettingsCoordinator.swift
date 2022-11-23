@@ -9,17 +9,20 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol, Object
     private let navigationContext: NavigationContextProtocol
     private let objectSettingsModuleAssembly: ObjectSettingModuleAssemblyProtocol
     private let undoRedoModuleAssembly: UndoRedoModuleAssemblyProtocol
+    private let objectLayoutPickerModuleAssembly: ObjectLayoutPickerModuleAssemblyProtocol
     
     private var document: BaseDocumentProtocol?
     
     init(
         navigationContext: NavigationContextProtocol,
         objectSettingsModuleAssembly: ObjectSettingModuleAssemblyProtocol,
-        undoRedoModuleAssembly: UndoRedoModuleAssemblyProtocol
+        undoRedoModuleAssembly: UndoRedoModuleAssemblyProtocol,
+        objectLayoutPickerModuleAssembly: ObjectLayoutPickerModuleAssemblyProtocol
     ) {
         self.navigationContext = navigationContext
         self.objectSettingsModuleAssembly = objectSettingsModuleAssembly
         self.undoRedoModuleAssembly = undoRedoModuleAssembly
+        self.objectLayoutPickerModuleAssembly = objectLayoutPickerModuleAssembly
     }
     
     func startFlow(document: BaseDocumentProtocol, router: EditorRouterProtocol) {
@@ -37,4 +40,10 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol, Object
         navigationContext.present(moduleViewController)
     }
     
+    
+    func layoutPickerAction() {
+        guard let document = document else { return }
+        let moduleViewController = objectLayoutPickerModuleAssembly.make(document: document)
+        navigationContext.present(moduleViewController)
+    }
 }

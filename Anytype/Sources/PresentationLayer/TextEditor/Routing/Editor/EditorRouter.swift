@@ -19,7 +19,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     private let editorPageCoordinator: EditorPageCoordinatorProtocol
     private let linkToObjectCoordinator: LinkToObjectCoordinatorProtocol
     private let relationsListModuleAssembly: RelationsListModuleAssemblyProtocol
-    private let objectLayoutPickerModuleAssembly: ObjectLayoutPickerModuleAssemblyProtocol
     private let objectCoverPickerModuleAssembly: ObjectCoverPickerModuleAssemblyProtocol
     private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
     private let objectSettingCoordinator: ObjectSettingsCoordinatorProtocol
@@ -36,7 +35,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         editorPageCoordinator: EditorPageCoordinatorProtocol,
         linkToObjectCoordinator: LinkToObjectCoordinatorProtocol,
         relationsListModuleAssembly: RelationsListModuleAssemblyProtocol,
-        objectLayoutPickerModuleAssembly: ObjectLayoutPickerModuleAssemblyProtocol,
         objectCoverPickerModuleAssembly: ObjectCoverPickerModuleAssemblyProtocol,
         objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
         objectSettingCoordinator: ObjectSettingsCoordinatorProtocol,
@@ -54,7 +52,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         self.editorPageCoordinator = editorPageCoordinator
         self.linkToObjectCoordinator = linkToObjectCoordinator
         self.relationsListModuleAssembly = relationsListModuleAssembly
-        self.objectLayoutPickerModuleAssembly = objectLayoutPickerModuleAssembly
         self.objectCoverPickerModuleAssembly = objectCoverPickerModuleAssembly
         self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
         self.objectSettingCoordinator = objectSettingCoordinator
@@ -333,11 +330,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     
     func showIconPicker() {
         let moduleViewController = objectIconPickerModuleAssembly.make(document: document)
-        navigationContext.present(moduleViewController)
-    }
-    
-    func showLayoutPicker() {
-        let moduleViewController = objectLayoutPickerModuleAssembly.make(document: document)
         navigationContext.present(moduleViewController)
     }
 

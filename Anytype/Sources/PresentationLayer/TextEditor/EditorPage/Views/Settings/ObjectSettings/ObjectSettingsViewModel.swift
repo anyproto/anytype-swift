@@ -7,6 +7,7 @@ import SwiftUI
 
 protocol ObjectSettingswModelOutput: AnyObject {
     func undoRedoAction()
+    func layoutPickerAction()
 }
 
 final class ObjectSettingsViewModel: ObservableObject, Dismissible {
@@ -64,8 +65,8 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
         onDocumentUpdate()
     }
 
-    func showLayoutSettings() {
-        router?.showLayoutPicker()
+    func onTapLayoutPicker() {
+        output?.layoutPickerAction()
     }
     
     func showIconPicker() {
