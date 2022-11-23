@@ -57,7 +57,8 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     var application: ApplicationCoordinator {
         return ApplicationCoordinator(
             windowManager: windowManager,
-            authService: serviceLocator.authService()
+            authService: serviceLocator.authService(),
+            accountEventHandler: serviceLocator.accountEventHandler()
         )
     }
     
@@ -67,5 +68,4 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
             homeViewAssembly: homeViewAssemby
         )
     }
-
 }
