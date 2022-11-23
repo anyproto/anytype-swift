@@ -5,6 +5,10 @@ import UIKit
 import FloatingPanel
 import SwiftUI
 
+protocol ObjectSettingswModelOutput: AnyObject {
+    func undoRedoAction()
+}
+
 final class ObjectSettingsViewModel: ObservableObject, Dismissible {
     var onDismiss: () -> Void = {} {
         didSet {
@@ -29,20 +33,23 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
     private let settingsBuilder = ObjectSettingBuilder()
     
     private var subscription: AnyCancellable?
+    private weak var output: ObjectSettingswModelOutput?
     
     init(
         document: BaseDocumentProtocol,
         objectDetailsService: DetailsServiceProtocol,
-        router: EditorRouterProtocol
+        router: EditorRouterProtocol,
+        output: ObjectSettingswModelOutput
     ) {
         self.document = document
         self.objectDetailsService = objectDetailsService
         self.router = router
-
+        self.output = output
+        
         self.objectActionsViewModel = ObjectActionsViewModel(
             objectId: document.objectId,
-            undoRedoAction: { [weak router] in
-                router?.presentUndoRedo()
+            undoRedoAction: { [weak output] in
+                output?.undoRedoAction()
             },
             openPageAction: { [weak router] screenData in
                 router?.showPage(data: screenData)

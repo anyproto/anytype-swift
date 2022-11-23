@@ -40,7 +40,6 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func showIconPicker()
     func showLayoutPicker()
     func showTextIconPicker(contextId: BlockId, objectId: BlockId)
-    func presentUndoRedo()
     
     func showMoveTo(onSelect: @escaping (BlockId) -> ())
     func showLinkTo(onSelect: @escaping (BlockId, _ typeUrl: String) -> ())

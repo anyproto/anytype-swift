@@ -19,11 +19,10 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     private let editorPageCoordinator: EditorPageCoordinatorProtocol
     private let linkToObjectCoordinator: LinkToObjectCoordinatorProtocol
     private let relationsListModuleAssembly: RelationsListModuleAssemblyProtocol
-    private let undoRedoModuleAssembly: UndoRedoModuleAssemblyProtocol
     private let objectLayoutPickerModuleAssembly: ObjectLayoutPickerModuleAssemblyProtocol
     private let objectCoverPickerModuleAssembly: ObjectCoverPickerModuleAssemblyProtocol
     private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
-    private let objectSettingModuleAssembly: ObjectSettingModuleAssemblyProtocol
+    private let objectSettingCoordinator: ObjectSettingsCoordinatorProtocol
     private let alertHelper: AlertHelper
     
     init(
@@ -37,11 +36,10 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         editorPageCoordinator: EditorPageCoordinatorProtocol,
         linkToObjectCoordinator: LinkToObjectCoordinatorProtocol,
         relationsListModuleAssembly: RelationsListModuleAssemblyProtocol,
-        undoRedoModuleAssembly: UndoRedoModuleAssemblyProtocol,
         objectLayoutPickerModuleAssembly: ObjectLayoutPickerModuleAssemblyProtocol,
         objectCoverPickerModuleAssembly: ObjectCoverPickerModuleAssemblyProtocol,
         objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
-        objectSettingModuleAssembly: ObjectSettingModuleAssemblyProtocol,
+        objectSettingCoordinator: ObjectSettingsCoordinatorProtocol,
         alertHelper: AlertHelper
     ) {
         self.rootController = rootController
@@ -56,11 +54,10 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         self.editorPageCoordinator = editorPageCoordinator
         self.linkToObjectCoordinator = linkToObjectCoordinator
         self.relationsListModuleAssembly = relationsListModuleAssembly
-        self.undoRedoModuleAssembly = undoRedoModuleAssembly
         self.objectLayoutPickerModuleAssembly = objectLayoutPickerModuleAssembly
         self.objectCoverPickerModuleAssembly = objectCoverPickerModuleAssembly
         self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
-        self.objectSettingModuleAssembly = objectSettingModuleAssembly
+        self.objectSettingCoordinator = objectSettingCoordinator
         self.alertHelper = alertHelper
     }
 
@@ -291,12 +288,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     func presentFullscreen(_ vc: UIViewController) {
         navigationContext.present(vc)
     }
-
-    func presentUndoRedo() {
-        let moduleViewController = undoRedoModuleAssembly.make(document: document)
-        navigationContext.dismissTopPresented(animated: false)
-        navigationContext.present(moduleViewController)
-    }
     
     func setNavigationViewHidden(_ isHidden: Bool, animated: Bool) {
         rootController?.setNavigationViewHidden(isHidden, animated: animated)
@@ -332,8 +323,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     
     // MARK: - Settings
     func showSettings() {
-        let moduleViewController = objectSettingModuleAssembly.make(document: document, router: self)
-        navigationContext.present(moduleViewController)
+        objectSettingCoordinator.startFlow(document: document, router: self)
     }
     
     func showCoverPicker() {

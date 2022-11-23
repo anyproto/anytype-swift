@@ -35,7 +35,7 @@ final class NavigationContext: NavigationContextProtocol {
     private static let queue = DispatchQueue(label: "com.anytype.navigation", qos: .userInteractive)
     private static let semaphore: DispatchSemaphore = DispatchSemaphore(value: 1)
     
-    init(rootViewController: UIViewController) {
+    init(rootViewController: UIViewController?) {
         self.rootViewController = rootViewController
     }
     

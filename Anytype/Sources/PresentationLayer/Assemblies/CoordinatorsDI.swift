@@ -42,6 +42,10 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
         )
     }
     
+    var objectSettings: ObjectSettingsCoordinatorAssemblyProtocol {
+        return ObjectSettingsCoordinatorAssembly(modulesDI: modulesDI, uiHelpersDI: uiHelpersDI)
+    }
+    
     var browser: EditorBrowserAssembly {
         return EditorBrowserAssembly(coordinatorsDI: self)
     }

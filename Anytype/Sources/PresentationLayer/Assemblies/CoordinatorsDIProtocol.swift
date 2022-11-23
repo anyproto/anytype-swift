@@ -5,6 +5,7 @@ protocol CoordinatorsDIProtocol: AnyObject {
     var templates: TemplatesCoordinatorAssemblyProtocol { get }
     var editorPage: EditorPageCoordinatorAssemblyProtocol { get }
     var linkToObject: LinkToObjectCoordinatorAssemblyProtocol { get }
+    var objectSettings: ObjectSettingsCoordinatorAssemblyProtocol { get }
     
     // Rename
     var application: ApplicationCoordinator { get }

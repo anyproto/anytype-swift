@@ -72,11 +72,10 @@ final class EditorAssembly {
             editorPageCoordinator: coordinatorsDI.editorPage.make(rootController: browser, viewController: controller),
             linkToObjectCoordinator: coordinatorsDI.linkToObject.make(rootController: browser, viewController: controller),
             relationsListModuleAssembly: modulesDI.relationsList,
-            undoRedoModuleAssembly: modulesDI.undoRedo,
             objectLayoutPickerModuleAssembly: modulesDI.objectLayoutPicker,
             objectCoverPickerModuleAssembly: modulesDI.objectCoverPicker,
             objectIconPickerModuleAssembly: modulesDI.objectIconPicker,
-            objectSettingModuleAssembly: modulesDI.objectSetting,
+            objectSettingCoordinator: coordinatorsDI.objectSettings.make(),
             alertHelper: AlertHelper(viewController: controller)
         )
         
@@ -117,11 +116,10 @@ final class EditorAssembly {
             editorPageCoordinator: coordinatorsDI.editorPage.make(rootController: browser, viewController: controller),
             linkToObjectCoordinator: coordinatorsDI.linkToObject.make(rootController: browser, viewController: controller),
             relationsListModuleAssembly: modulesDI.relationsList,
-            undoRedoModuleAssembly: modulesDI.undoRedo,
             objectLayoutPickerModuleAssembly: modulesDI.objectLayoutPicker,
             objectCoverPickerModuleAssembly: modulesDI.objectCoverPicker,
             objectIconPickerModuleAssembly: modulesDI.objectIconPicker,
-            objectSettingModuleAssembly: modulesDI.objectSetting,
+            objectSettingCoordinator: coordinatorsDI.objectSettings.make(),
             alertHelper: AlertHelper(viewController: controller)
         )
 
