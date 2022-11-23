@@ -69,13 +69,13 @@ final class EditorAssembly {
             addNewRelationCoordinator: coordinatorsDI.addNewRelation.make(document: document),
             templatesCoordinator: coordinatorsDI.templates.make(viewController: controller),
             urlOpener: URLOpener(viewController: browser),
-            relationValueCoordinator: coordinatorsDI.relationValue.make(viewController: controller),
+            relationValueCoordinator: coordinatorsDI.relationValue.make(),
             editorPageCoordinator: coordinatorsDI.editorPage.make(browserController: browser),
             linkToObjectCoordinator: coordinatorsDI.linkToObject.make(browserController: browser),
             relationsListModuleAssembly: modulesDI.relationsList,
             objectCoverPickerModuleAssembly: modulesDI.objectCoverPicker,
             objectIconPickerModuleAssembly: modulesDI.objectIconPicker,
-            objectSettingCoordinator: coordinatorsDI.objectSettings.make(),
+            objectSettingCoordinator: coordinatorsDI.objectSettings.make(document: document, browserController: browser),
             alertHelper: AlertHelper(viewController: controller)
         )
         
@@ -114,12 +114,12 @@ final class EditorAssembly {
             templatesCoordinator: coordinatorsDI.templates.make(viewController: controller),
             urlOpener: URLOpener(viewController: browser),
             relationValueCoordinator: coordinatorsDI.relationValue.make(),
-            editorPageCoordinator: coordinatorsDI.editorPage.make(rootController: browser),
-            linkToObjectCoordinator: coordinatorsDI.linkToObject.make(rootController: browser),
+            editorPageCoordinator: coordinatorsDI.editorPage.make(browserController: browser),
+            linkToObjectCoordinator: coordinatorsDI.linkToObject.make(browserController: browser),
             relationsListModuleAssembly: modulesDI.relationsList,
             objectCoverPickerModuleAssembly: modulesDI.objectCoverPicker,
             objectIconPickerModuleAssembly: modulesDI.objectIconPicker,
-            objectSettingCoordinator: coordinatorsDI.objectSettings.make(),
+            objectSettingCoordinator: coordinatorsDI.objectSettings.make(document: document, browserController: browser),
             alertHelper: AlertHelper(viewController: controller)
         )
 

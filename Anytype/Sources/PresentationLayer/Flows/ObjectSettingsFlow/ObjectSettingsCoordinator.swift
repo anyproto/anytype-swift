@@ -19,7 +19,7 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
     private let relationsListModuleAssembly: RelationsListModuleAssemblyProtocol
     private let relationValueCoordinator: RelationValueCoordinatorProtocol
     private let editorPageCoordinator: EditorPageCoordinatorProtocol
-    private let addNewRelationCoordinator: AddNewRelationCoordinator
+    private let addNewRelationCoordinator: AddNewRelationCoordinatorProtocol
     
     init(
         document: BaseDocumentProtocol,
@@ -32,7 +32,7 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
         relationsListModuleAssembly: RelationsListModuleAssemblyProtocol,
         relationValueCoordinator: RelationValueCoordinatorProtocol,
         editorPageCoordinator: EditorPageCoordinatorProtocol,
-        addNewRelationCoordinator: AddNewRelationCoordinator
+        addNewRelationCoordinator: AddNewRelationCoordinatorProtocol
     ) {
         self.document = document
         self.navigationContext = navigationContext

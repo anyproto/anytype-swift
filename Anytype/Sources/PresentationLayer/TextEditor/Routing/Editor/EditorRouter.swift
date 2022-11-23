@@ -321,7 +321,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     
     // MARK: - Settings
     func showSettings() {
-        objectSettingCoordinator.startFlow(document: document, router: self)
+        objectSettingCoordinator.startFlow(router: self)
     }
     
     func showCoverPicker() {
