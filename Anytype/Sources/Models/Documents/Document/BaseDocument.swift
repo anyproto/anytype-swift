@@ -32,6 +32,12 @@ final class BaseDocument: BaseDocumentProtocol {
         $isLocked.eraseToAnyPublisher()
     }
     
+    @Published var details: ObjectDetails? = nil
+    var detailsPublisher: AnyPublisher<ObjectDetails, Never> {
+        $details.compactMap { $0 }
+            .eraseToAnyPublisher()
+    }
+    
     init(objectId: BlockId) {
         self.objectId = objectId
         
@@ -73,10 +79,6 @@ final class BaseDocument: BaseDocumentProtocol {
         isOpened = false
     }
     
-    var details: ObjectDetails? {
-        detailsStorage.get(id: objectId)
-    }
-    
     var children: [BlockInformation] {
         guard let model = infoContainer.get(id: objectId) else {
             return []
@@ -110,7 +112,12 @@ final class BaseDocument: BaseDocumentProtocol {
         infoContainer.publisherFor(id: objectId)
             .compactMap { $0?.isLocked }
             .removeDuplicates()
+            .receiveOnMain()
             .assign(to: &$isLocked)
+        
+        detailsStorage.publisherFor(id: objectId)
+            .receiveOnMain()
+            .assign(to: &$details)
         
         Publishers
             .CombineLatest(
@@ -131,6 +138,7 @@ final class BaseDocument: BaseDocumentProtocol {
                 return data
             }
             .removeDuplicates()
+            .receiveOnMain()
             .assign(to: &$parsedRelations)
     }
 }

@@ -118,6 +118,10 @@ final class EditorSetViewModel: ObservableObject {
             self?.onDataChange($0)
         }.store(in: &subscriptions)
 
+        document.detailsPublisher
+            .sink { [weak self] in self?.handleDetails(details: $0) }
+            .store(in: &subscriptions)
+        
         Task { @MainActor in
             do {
                 try await document.open()
@@ -335,6 +339,12 @@ final class EditorSetViewModel: ObservableObject {
                 return first < second
             }
             return false
+        }
+    }
+    
+    private func handleDetails(details: ObjectDetails) {
+        if details.isArchived {
+            router.goBack()
         }
     }
     
