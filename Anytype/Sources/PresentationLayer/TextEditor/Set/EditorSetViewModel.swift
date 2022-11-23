@@ -352,9 +352,11 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     private func setupDataview() {
+        guard document.dataviews.isNotEmpty else { return }
+        anytypeAssert(document.dataviews.count < 2, "\(document.dataviews.count) dataviews in set", domain: .editorSet)
+        
         isUpdating = true
 
-        anytypeAssert(document.dataviews.count < 2, "\(document.dataviews.count) dataviews in set", domain: .editorSet)
         document.dataviews.first.flatMap { dataView in
             anytypeAssert(dataView.views.isNotEmpty, "Empty views in dataview: \(dataView)", domain: .editorSet)
         }
