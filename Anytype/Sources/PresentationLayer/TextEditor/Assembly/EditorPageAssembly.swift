@@ -273,6 +273,8 @@ final class EditorAssembly {
         blocksStateManager.blocksSelectionOverlayViewModel = blocksSelectionOverlayViewModel
         blocksStateManager.blocksOptionViewModel = blocksOptionViewModel
         
+        let editorPageTemplatesHandler = EditorPageTemplatesHandler()
+        
         return EditorPageViewModel(
             document: document,
             viewInput: viewInput,
@@ -287,6 +289,7 @@ final class EditorAssembly {
             cursorManager: cursorManager,
             objectActionsService: ServiceLocator.shared.objectActionsService(),
             searchService: ServiceLocator.shared.searchService(),
+            editorPageTemplatesHandler: editorPageTemplatesHandler,
             isOpenedForPreview: isOpenedForPreview
         )
     }
