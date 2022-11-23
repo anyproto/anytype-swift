@@ -15,20 +15,20 @@ protocol LinkToObjectCoordinatorProtocol: AnyObject {
 
 final class LinkToObjectCoordinator: LinkToObjectCoordinatorProtocol {
     
-    private weak var rootViewController: UIViewController?
+    private let navigationContext: NavigationContextProtocol
     private let pageService: PageServiceProtocol
     private let urlOpener: URLOpenerProtocol
     private let editorPageCoordinator: EditorPageCoordinatorProtocol
     private let searchService: SearchServiceProtocol
     
     init(
-        rootViewController: UIViewController,
+        navigationContext: NavigationContextProtocol,
         pageService: PageServiceProtocol,
         urlOpener: URLOpenerProtocol,
         editorPageCoordinator: EditorPageCoordinatorProtocol,
         searchService: SearchServiceProtocol
     ) {
-        self.rootViewController = rootViewController
+        self.navigationContext = navigationContext
         self.pageService = pageService
         self.urlOpener = urlOpener
         self.editorPageCoordinator = editorPageCoordinator
@@ -85,7 +85,7 @@ final class LinkToObjectCoordinator: LinkToObjectCoordinatorProtocol {
         }
         let linkToView = SearchView(title: Loc.linkTo, context: .menuSearch, viewModel: viewModel)
 
-        rootViewController?.topPresentedController.presentSwiftUIView(view: linkToView, model: viewModel)
+        navigationContext.presentSwiftUIView(view: linkToView, model: viewModel)
     }
     
 }

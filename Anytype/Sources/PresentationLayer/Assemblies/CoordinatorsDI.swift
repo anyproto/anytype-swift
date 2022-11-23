@@ -38,7 +38,8 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
         return LinkToObjectCoordinatorAssembly(
             serviceLocator: serviceLocator,
             modulesDI: modulesDI,
-            coordinatorsID: self
+            coordinatorsID: self,
+            uiHelopersDI: uiHelpersDI
         )
     }
     

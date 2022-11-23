@@ -4,6 +4,7 @@ import UIKit
 protocol UIHelpersDIProtocol {
     var toastPresenter: ToastPresenterProtocol { get }
     var viewControllerProvider: ViewControllerProviderProtocol { get }
+    var commonNavigationContext: NavigationContextProtocol { get }
 }
 
 final class UIHelpersDI: UIHelpersDIProtocol {
@@ -18,5 +19,9 @@ final class UIHelpersDI: UIHelpersDIProtocol {
     
     var toastPresenter: ToastPresenterProtocol {
         ToastPresenter(viewControllerProvider: viewControllerProvider)
+    }
+    
+    var commonNavigationContext: NavigationContextProtocol {
+        NavigationContext(rootViewController: viewControllerProvider.topViewController)
     }
 }
