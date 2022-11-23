@@ -1146,6 +1146,12 @@ internal enum Loc {
     internal enum View {
       internal enum Kanban {
         internal enum Column {
+          internal enum Paging {
+            internal enum Title {
+              /// Show more objects
+              internal static let showMore = Loc.tr("Localizable", "Set.View.Kanban.Column.Paging.Title.ShowMore", fallback: "Show more objects")
+            }
+          }
           internal enum Title {
             /// Uncategorized
             internal static let uncategorized = Loc.tr("Localizable", "Set.View.Kanban.Column.Title.Uncategorized", fallback: "Uncategorized")
