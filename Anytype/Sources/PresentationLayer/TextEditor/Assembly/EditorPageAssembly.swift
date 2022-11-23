@@ -70,8 +70,8 @@ final class EditorAssembly {
             templatesCoordinator: coordinatorsDI.templates.make(viewController: controller),
             urlOpener: URLOpener(viewController: browser),
             relationValueCoordinator: coordinatorsDI.relationValue.make(viewController: controller),
-            editorPageCoordinator: coordinatorsDI.editorPage.make(rootController: browser, viewController: controller),
-            linkToObjectCoordinator: coordinatorsDI.linkToObject.make(rootController: browser, viewController: controller),
+            editorPageCoordinator: coordinatorsDI.editorPage.make(browserController: browser),
+            linkToObjectCoordinator: coordinatorsDI.linkToObject.make(browserController: browser),
             relationsListModuleAssembly: modulesDI.relationsList,
             objectCoverPickerModuleAssembly: modulesDI.objectCoverPicker,
             objectIconPickerModuleAssembly: modulesDI.objectIconPicker,
@@ -114,8 +114,8 @@ final class EditorAssembly {
             templatesCoordinator: coordinatorsDI.templates.make(viewController: controller),
             urlOpener: URLOpener(viewController: browser),
             relationValueCoordinator: coordinatorsDI.relationValue.make(),
-            editorPageCoordinator: coordinatorsDI.editorPage.make(rootController: browser, viewController: controller),
-            linkToObjectCoordinator: coordinatorsDI.linkToObject.make(rootController: browser, viewController: controller),
+            editorPageCoordinator: coordinatorsDI.editorPage.make(rootController: browser),
+            linkToObjectCoordinator: coordinatorsDI.linkToObject.make(rootController: browser),
             relationsListModuleAssembly: modulesDI.relationsList,
             objectCoverPickerModuleAssembly: modulesDI.objectCoverPicker,
             objectIconPickerModuleAssembly: modulesDI.objectIconPicker,
@@ -217,7 +217,7 @@ final class EditorAssembly {
             onShowStyleMenu: blocksStateManager.didSelectStyleSelection(info:),
             onBlockSelection: actionHandler.selectBlock(info:),
             pageService: serviceLocator.pageService(),
-            linkToObjectCoordinator: coordinatorsDI.linkToObject.make(rootController: browser, viewController: controller)
+            linkToObjectCoordinator: coordinatorsDI.linkToObject.make(browserController: browser)
         )
         
         let markdownListener = MarkdownListenerImpl(
@@ -251,7 +251,7 @@ final class EditorAssembly {
             mainEditorSelectionManager: blocksStateManager,
             responderScrollViewHelper: responderScrollViewHelper,
             pageService: serviceLocator.pageService(),
-            linkToObjectCoordinator: coordinatorsDI.linkToObject.make(rootController: browser, viewController: controller)
+            linkToObjectCoordinator: coordinatorsDI.linkToObject.make(browserController: browser)
         )
 
         let blocksConverter = BlockViewModelBuilder(

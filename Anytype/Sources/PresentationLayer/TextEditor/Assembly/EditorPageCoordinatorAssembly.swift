@@ -2,10 +2,7 @@ import Foundation
 import UIKit
 
 protocol EditorPageCoordinatorAssemblyProtocol: AnyObject {
-    func make(
-        rootController: EditorBrowserController?,
-        viewController: UIViewController?
-    ) -> EditorPageCoordinatorProtocol
+    func make(browserController: EditorBrowserController?) -> EditorPageCoordinatorProtocol
 }
 
 final class EditorPageCoordinatorAssembly: EditorPageCoordinatorAssemblyProtocol {
@@ -22,16 +19,12 @@ final class EditorPageCoordinatorAssembly: EditorPageCoordinatorAssemblyProtocol
     
     // MARK: - RelationValueCoordinatorAssemblyProtocol
     
-    func make(
-        rootController: EditorBrowserController?,
-        viewController: UIViewController?
-    ) -> EditorPageCoordinatorProtocol {
+    func make(browserController: EditorBrowserController?) -> EditorPageCoordinatorProtocol {
     
         let coordinator = EditorPageCoordinator(
-            rootController: rootController,
-            viewController: viewController,
+            browserController: browserController,
             editorAssembly: coordinatorsID.editor,
-            alertHelper: AlertHelper(viewController: viewController)
+            alertHelper: AlertHelper(viewController: browserController)
         )
         
         return coordinator
