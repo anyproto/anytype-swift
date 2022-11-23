@@ -33,7 +33,7 @@ struct BlockLinkState: Hashable, Equatable {
         details.documentCover : nil
 
         var iconSize = blockLink.appearance.iconSize
-        if details.layoutValue == .todo, iconSize == .medium {
+        if details.layoutValue == .todo {
             iconSize = .small
         }
 

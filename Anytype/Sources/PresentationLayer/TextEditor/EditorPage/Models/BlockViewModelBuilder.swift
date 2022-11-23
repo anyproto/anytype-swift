@@ -14,6 +14,7 @@ final class BlockViewModelBuilder {
     private let markdownListener: MarkdownListener
     private let simpleTableDependenciesBuilder: SimpleTableDependenciesBuilder
     private let pageService: PageServiceProtocol
+    private let detailsService: DetailsServiceProtocol
 
     init(
         document: BaseDocumentProtocol,
@@ -24,7 +25,8 @@ final class BlockViewModelBuilder {
         markdownListener: MarkdownListener,
         simpleTableDependenciesBuilder: SimpleTableDependenciesBuilder,
         subjectsHolder: FocusSubjectsHolder,
-        pageService: PageServiceProtocol
+        pageService: PageServiceProtocol,
+        detailsService: DetailsServiceProtocol
     ) {
         self.document = document
         self.handler = handler
@@ -35,6 +37,7 @@ final class BlockViewModelBuilder {
         self.simpleTableDependenciesBuilder = simpleTableDependenciesBuilder
         self.subjectsHolder = subjectsHolder
         self.pageService = pageService
+        self.detailsService = detailsService
     }
 
     func buildEditorItems(infos: [BlockInformation]) -> [EditorItem] {
@@ -203,6 +206,7 @@ final class BlockViewModelBuilder {
                 info: info,
                 content: content,
                 details: details,
+                detailsService: detailsService,
                 openLink: { [weak self] data in
                     self?.router.showPage(data: data)
                 }

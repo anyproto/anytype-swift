@@ -265,7 +265,8 @@ final class EditorAssembly {
             markdownListener: markdownListener,
             simpleTableDependenciesBuilder: simpleTableDependenciesBuilder,
             subjectsHolder: focusSubjectHolder,
-            pageService: serviceLocator.pageService()
+            pageService: serviceLocator.pageService(),
+            detailsService: serviceLocator.detailsService(objectId: document.objectId)
         )
 
         actionHandler.blockSelectionHandler = blocksStateManager

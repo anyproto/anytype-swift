@@ -13,12 +13,15 @@ final class BlockLinkCardView: UIView, BlockContentView {
     private let titleLabel = AnytypeLabel(style: .uxTitle2Medium)
     private let descriptionLabel = AnytypeLabel(style: .relation3Regular)
     private let objectTypeLabel = AnytypeLabel(style: .relation3Regular)
+    private let taskButton = UIButton()
 
     private let mainVerticalStackView = UIStackView()
     private let verticalTextsStackView = UIStackView()
     private let horizontalContentStackView = UIStackView()
 
     private var topPaddingConstraint: NSLayoutConstraint?
+
+    private var onTaskActionTap: (() -> Void)?
     
     // MARK: - Initializers
     
@@ -52,9 +55,16 @@ final class BlockLinkCardView: UIView, BlockContentView {
             largeLeadingIconImageView.configure(model: .init(iconImage: $0, usecase: .editorSearch))
         }
 
+        onTaskActionTap = configuration.todoToggleAction
+
         setupElementsVisibility(with: configuration)
 
         horizontalContentStackView.alignment = descriptionLabel.isHidden && objectTypeLabel.isHidden ? .center : .top
+    }
+
+    @objc
+    private func taskButtonAction() {
+        onTaskActionTap?()
     }
 
     private func setupElementsVisibility(with configuration: Configuration) {
@@ -108,11 +118,14 @@ final class BlockLinkCardView: UIView, BlockContentView {
 
             coverView.isHidden = true
         }
+
+        taskButton.isHidden = configuration.state.objectLayout != .todo
     }
 
     // MARK: - Private functions
 
     private func setupSubviews() {
+        taskButton.addTarget(self, action: #selector(taskButtonAction), for: .touchUpInside)
         setupLayout()
 
         layer.cornerRadius = 12
@@ -163,6 +176,13 @@ final class BlockLinkCardView: UIView, BlockContentView {
 
         addSubview(mainVerticalStackView) {
             $0.pinToSuperview(insets: .init(top: 0, left: 0, bottom: -16, right: 0))
+        }
+
+        addSubview(taskButton) {
+            $0.top.equal(to: titleLabel.topAnchor)
+            $0.leading.equal(to: titleLabel.leadingAnchor)
+            $0.width.equal(to: 24)
+            $0.height.equal(to: 24)
         }
     }
 }
