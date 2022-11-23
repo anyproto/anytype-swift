@@ -75,7 +75,7 @@ final class AccountEventHandler: AccountEventHandlerProtocol {
         
         let currentStatus = accountManager.account.status
         guard currentStatus != newStatus else { return }
-        accountManager.updateStatus(newStatus)
+        accountManager.account.status = newStatus
         
         accountStatusSubject.send(newStatus)
     }

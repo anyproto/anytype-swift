@@ -7,8 +7,4 @@ final class AccountManager: ObservableObject {
     @Published var account = AccountData.empty
     
     init() { }
-    
-    func updateStatus(_ status: AccountStatus) {
-        account = account.updateStatus(status)
-    }
 }
