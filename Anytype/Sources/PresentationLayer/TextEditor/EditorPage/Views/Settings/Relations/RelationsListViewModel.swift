@@ -15,18 +15,18 @@ final class RelationsListViewModel: ObservableObject {
     private let sectionsBuilder = RelationsSectionBuilder()
     private let relationsService: RelationsServiceProtocol
     
-    private let router: EditorRouterProtocol
     private var subscriptions = [AnyCancellable]()
+    private weak var output: RelationsListModuleOutput?
     
     // MARK: - Initializers
     
     init(
         document: BaseDocumentProtocol,
-        router: EditorRouterProtocol,
-        relationsService: RelationsServiceProtocol
+        relationsService: RelationsServiceProtocol,
+        output: RelationsListModuleOutput
     ) {
-        self.router = router
         self.relationsService = relationsService
+        self.output = output
         
         document.parsedRelationsPublisher
             .map { [sectionsBuilder] relations in sectionsBuilder.buildSections(from: relations) }
@@ -52,7 +52,7 @@ extension RelationsListViewModel {
     
     func handleTapOnRelation(relation: Relation) {
         AnytypeAnalytics.instance().logChangeRelationValue(type: .menu)
-        router.showRelationValueEditingView(key: relation.key, source: .object)
+        output?.editRelationValueAction(relationKey: relation.key)
     }
     
     func removeRelation(relation: Relation) {
@@ -60,9 +60,7 @@ extension RelationsListViewModel {
     }
     
     func showAddNewRelationView() {
-        router.showAddNewRelationView { relation, isNew in
-            AnytypeAnalytics.instance().logAddRelation(format: relation.format, isNew: isNew, type: .menu)
-        }
+        output?.addNewRelationAction()
     }
     
 }

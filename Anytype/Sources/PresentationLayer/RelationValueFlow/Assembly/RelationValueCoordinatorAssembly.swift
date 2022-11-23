@@ -5,20 +5,22 @@ final class RelationValueCoordinatorAssembly: RelationValueCoordinatorAssemblyPr
     
     private let serviceLocator: ServiceLocator
     private let modulesDI: ModulesDIProtocol
+    private let uiHelpersDI: UIHelpersDIProtocol
     
-    init(serviceLocator: ServiceLocator, modulesDI: ModulesDIProtocol) {
+    init(serviceLocator: ServiceLocator, modulesDI: ModulesDIProtocol, uiHelpersDI: UIHelpersDIProtocol) {
         self.serviceLocator = serviceLocator
         self.modulesDI = modulesDI
+        self.uiHelpersDI = uiHelpersDI
     }
     
     // MARK: - RelationValueCoordinatorAssemblyProtocol
     
-    func make(viewController: UIViewController) -> RelationValueCoordinatorProtocol {
+    func make() -> RelationValueCoordinatorProtocol {
         
         let coordinator = RelationValueCoordinator(
-            viewController: viewController,
+            navigationContext: NavigationContext(rootViewController: uiHelpersDI.viewControllerProvider.rootViewController),
             relationValueModuleAssembly: modulesDI.relationValue,
-            urlOpener: URLOpener(viewController: viewController)
+            urlOpener: URLOpener(viewController: uiHelpersDI.viewControllerProvider.rootViewController)
         )
         
         return coordinator

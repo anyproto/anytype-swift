@@ -10,7 +10,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     private weak var viewController: UIViewController?
     private let navigationContext: NavigationContextProtocol
     private let fileCoordinator: FileDownloadingCoordinator
-    private let addNewRelationCoordinator: AddNewRelationCoordinator
+    private let addNewRelationCoordinator: AddNewRelationCoordinatorProtocol
     private let document: BaseDocumentProtocol
     private let templatesCoordinator: TemplatesCoordinator
     private let urlOpener: URLOpenerProtocol
@@ -29,6 +29,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         viewController: UIViewController,
         navigationContext: NavigationContextProtocol,
         document: BaseDocumentProtocol,
+        addNewRelationCoordinator: AddNewRelationCoordinatorProtocol,
         templatesCoordinator: TemplatesCoordinator,
         urlOpener: URLOpenerProtocol,
         relationValueCoordinator: RelationValueCoordinatorProtocol,
@@ -45,7 +46,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         self.navigationContext = navigationContext
         self.document = document
         self.fileCoordinator = FileDownloadingCoordinator(viewController: viewController)
-        self.addNewRelationCoordinator = AddNewRelationCoordinator(document: document, viewController: viewController)
+        self.addNewRelationCoordinator = addNewRelationCoordinator
         self.templatesCoordinator = templatesCoordinator
         self.urlOpener = urlOpener
         self.relationValueCoordinator = relationValueCoordinator
@@ -392,13 +393,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
             $0.centerX.equal(to: rootController.view.centerXAnchor, constant: 10)
             $0.bottom.equal(to: rootController.view.bottomAnchor, constant: -50)
         }
-    }
-    
-    func showRelations() {
-        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.objectRelationShow)
-        
-        let moduleViewController = relationsListModuleAssembly.make(document: document, router: self)
-        viewController?.topPresentedController.present(moduleViewController, animated: true, completion: nil)
     }
     
     // MARK: - Private

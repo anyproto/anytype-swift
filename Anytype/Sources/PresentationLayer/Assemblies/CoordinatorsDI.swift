@@ -18,7 +18,8 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     var relationValue: RelationValueCoordinatorAssemblyProtocol {
         return RelationValueCoordinatorAssembly(
             serviceLocator: serviceLocator,
-            modulesDI: modulesDI
+            modulesDI: modulesDI,
+            uiHelpersDI: uiHelpersDI
         )
     }
     
@@ -43,7 +44,11 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     }
     
     var objectSettings: ObjectSettingsCoordinatorAssemblyProtocol {
-        return ObjectSettingsCoordinatorAssembly(modulesDI: modulesDI, uiHelpersDI: uiHelpersDI)
+        return ObjectSettingsCoordinatorAssembly(modulesDI: modulesDI, uiHelpersDI: uiHelpersDI, coordinatorsDI: self)
+    }
+    
+    var addNewRelation: AddNewRelationCoordinatorAssemblyProtocol {
+        return AddNewRelationCoordinatorAssembly(uiHelpersDI: uiHelpersDI)
     }
     
     var browser: EditorBrowserAssembly {

@@ -10,6 +10,7 @@ protocol ObjectSettingswModelOutput: AnyObject {
     func layoutPickerAction()
     func coverPickerAction()
     func iconPickerAction()
+    func relationsAction()
 }
 
 final class ObjectSettingsViewModel: ObservableObject, Dismissible {
@@ -80,7 +81,7 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
     }
     
     func showRelations() {
-        router?.showRelations()
+        output?.relationsAction()
     }
     
     // MARK: - Private
