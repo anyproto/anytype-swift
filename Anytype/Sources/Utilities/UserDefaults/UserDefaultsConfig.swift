@@ -29,7 +29,7 @@ struct UserDefaultsConfig {
     @UserDefault("UserData.RowsPerPageInSet", defaultValue: 50)
     static var rowsPerPageInSet: Int
     
-    @UserDefault("UserData.RowsPerPageInGroupedSet", defaultValue: 10)
+    @UserDefault("UserData.RowsPerPageInGroupedSet", defaultValue: 20)
     static var rowsPerPageInGroupedSet: Int
     
     @UserDefault("UserData.ShowKeychainAlert", defaultValue: false)
