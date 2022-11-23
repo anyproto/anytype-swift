@@ -476,11 +476,11 @@
 		2ADD1EAF28FD795E00F41DE1 /* LinkToObjectCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADD1EAD28FD795E00F41DE1 /* LinkToObjectCoordinatorAssembly.swift */; };
 		2ADD1EB028FD795E00F41DE1 /* LinkToObjecttCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADD1EAE28FD795E00F41DE1 /* LinkToObjecttCoordinator.swift */; };
 		2AE4EDB92834CF5D00B61ABE /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE4EDB82834CF5D00B61ABE /* LaunchView.swift */; };
+		2AE671DE2901896400118F56 /* UIView+DynamicBorderColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE671DD2901896400118F56 /* UIView+DynamicBorderColor.swift */; };
+		2AE671E129018B0300118F56 /* TraitCollectionDidChangeNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE671E029018B0300118F56 /* TraitCollectionDidChangeNotification.swift */; };
 		2AEABE0328C7546200BDE3AC /* RelationEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEABE0228C7546200BDE3AC /* RelationEvent.swift */; };
 		2AEABE0528C7548A00BDE3AC /* RelationEventsBunch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEABE0428C7548A00BDE3AC /* RelationEventsBunch.swift */; };
 		2AEABE0728C7559500BDE3AC /* RelationEventConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEABE0628C7559500BDE3AC /* RelationEventConverter.swift */; };
-		2AE671DE2901896400118F56 /* UIView+DynamicBorderColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE671DD2901896400118F56 /* UIView+DynamicBorderColor.swift */; };
-		2AE671E129018B0300118F56 /* TraitCollectionDidChangeNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE671E029018B0300118F56 /* TraitCollectionDidChangeNotification.swift */; };
 		2AECFD37289939DE000E9CFB /* DIProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AECFD36289939DE000E9CFB /* DIProtocol.swift */; };
 		2AECFD3928993AD8000E9CFB /* ModulesDIProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AECFD3828993AD8000E9CFB /* ModulesDIProtocol.swift */; };
 		2AECFD3B28993B19000E9CFB /* CoordinatorsDIProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AECFD3A28993B19000E9CFB /* CoordinatorsDIProtocol.swift */; };
@@ -1723,11 +1723,11 @@
 		2ADD1EAD28FD795E00F41DE1 /* LinkToObjectCoordinatorAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkToObjectCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		2ADD1EAE28FD795E00F41DE1 /* LinkToObjecttCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkToObjecttCoordinator.swift; sourceTree = "<group>"; };
 		2AE4EDB82834CF5D00B61ABE /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
+		2AE671DD2901896400118F56 /* UIView+DynamicBorderColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+DynamicBorderColor.swift"; sourceTree = "<group>"; };
+		2AE671E029018B0300118F56 /* TraitCollectionDidChangeNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraitCollectionDidChangeNotification.swift; sourceTree = "<group>"; };
 		2AEABE0228C7546200BDE3AC /* RelationEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationEvent.swift; sourceTree = "<group>"; };
 		2AEABE0428C7548A00BDE3AC /* RelationEventsBunch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationEventsBunch.swift; sourceTree = "<group>"; };
 		2AEABE0628C7559500BDE3AC /* RelationEventConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationEventConverter.swift; sourceTree = "<group>"; };
-		2AE671DD2901896400118F56 /* UIView+DynamicBorderColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+DynamicBorderColor.swift"; sourceTree = "<group>"; };
-		2AE671E029018B0300118F56 /* TraitCollectionDidChangeNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraitCollectionDidChangeNotification.swift; sourceTree = "<group>"; };
 		2AECFD36289939DE000E9CFB /* DIProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIProtocol.swift; sourceTree = "<group>"; };
 		2AECFD3828993AD8000E9CFB /* ModulesDIProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModulesDIProtocol.swift; sourceTree = "<group>"; };
 		2AECFD3A28993B19000E9CFB /* CoordinatorsDIProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorsDIProtocol.swift; sourceTree = "<group>"; };
@@ -7970,7 +7970,7 @@
 				C9CD678427EC54F3001F1860 /* UnsplashItemViewModel.swift in Sources */,
 				2E975EEE287C23DA004DE574 /* SetSortRowConfiguration.swift in Sources */,
 				3DDC6A64262707CB004F5EA4 /* BlockLinkCardView.swift in Sources */,
-				3DDC6A64262707CB004F5EA4 /* BlockLinkView.swift in Sources */,
+				3DDC6A64262707CB004F5EA4 /* BlockLinkCardView.swift in Sources */,
 				2AEABE0528C7548A00BDE3AC /* RelationEventsBunch.swift in Sources */,
 				3D24910B27BBD87200821595 /* CGFloat+OnePixel.swift in Sources */,
 				EA3D1E5426CFCCC5001A31D9 /* TextViewAttributeSelectionHandler.swift in Sources */,

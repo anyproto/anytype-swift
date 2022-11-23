@@ -21,7 +21,6 @@ final class ObjectActionsViewModel: ObservableObject {
     var onLinkItselfAction: RoutingAction<(BlockId, String) -> Void>?
     var dismissSheet: () -> () = {}
 
-    let popScreenAction: () -> ()
     let undoRedoAction: () -> ()
     let openPageAction: (_ screenData: EditorScreenData) -> ()
     
@@ -30,12 +29,10 @@ final class ObjectActionsViewModel: ObservableObject {
     
     init(
         objectId: BlockId,
-        popScreenAction: @escaping () -> (),
         undoRedoAction: @escaping () -> (),
         openPageAction: @escaping (_ screenData: EditorScreenData) -> ()
     ) {
         self.objectId = objectId
-        self.popScreenAction = popScreenAction
         self.undoRedoAction = undoRedoAction
         self.openPageAction = openPageAction
     }
@@ -46,7 +43,6 @@ final class ObjectActionsViewModel: ObservableObject {
         let isArchived = !details.isArchived
         service.setArchive(objectId: objectId, isArchived)
         if isArchived {
-            popScreenAction()
             dismissSheet()
         }
     }
