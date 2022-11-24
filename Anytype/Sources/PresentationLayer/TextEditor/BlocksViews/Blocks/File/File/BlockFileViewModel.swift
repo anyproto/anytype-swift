@@ -7,14 +7,24 @@ struct BlockFileViewModel: BlockViewModelProtocol {
     
     let info: BlockInformation
     let fileData: BlockFile
+    let handler: BlockActionHandlerProtocol
     
     let showFilePicker: (BlockId) -> ()
-    let downloadFile: (FileMetadata) -> ()
-    
+    let onFileOpen: (FilePreviewContext) -> ()
+
     func didSelectRowInTableView(editorEditingState: EditorEditingState) {
         switch fileData.state {
         case .done:
-            downloadFile(fileData.metadata)
+            onFileOpen(
+                .init(
+                    file: FilePreviewMedia(file: fileData, blockId: info.id),
+                    sourceView: nil,
+                    previewImage: nil,
+                    onDidEditFile: { url in
+                        handler.uploadFileAt(localPath: url.relativePath, blockId: info.id)
+                    }
+                )
+            )
         case .empty, .error:
             if case .locked = editorEditingState { return }
             showFilePicker(blockId)

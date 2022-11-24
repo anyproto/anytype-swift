@@ -1,9 +1,9 @@
 extension EditorSetViewModel {
-    func changePage(_ page: Int64) {
+    func changePage(_ page: Int) {
         update(data: paginationHelper.changePage(page, data: pagitationData))
     }
     
-    func updatePageCount(_ count: Int64) {
+    func updatePageCount(_ count: Int) {
         update(data: paginationHelper.updatePageCount(count, data: pagitationData))
     }
     
@@ -19,7 +19,7 @@ extension EditorSetViewModel {
         guard let data = data else { return }
         pagitationData = data.data
         if data.shoudUpdateSubscription {
-            setupSubscriptions()
+            startSubscriptionIfNeeded()
         }
     }
 }

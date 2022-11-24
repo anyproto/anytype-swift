@@ -205,6 +205,7 @@
 
 "Undo typing" = "Undo typing";
 "Undo" = "Undo";
+"Actions.LinkItself" = "Link to";
 
 // Object Type
 "Page" = "Page";
@@ -531,6 +532,7 @@
 "Delete account" = "Delete account";
 "Cancel deletion" = "Cancel deletion";
 "Logout and clear data" = "Logout and clear data";
+"New" = "New";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Are you sure to delete account?";
@@ -603,6 +605,8 @@
 "SetViewTypesPicker.Section.Types.Title" = "View as";
 "SetViewTypesPicker.Settings.Duplicate.View" = "Duplicate";
 "SetViewTypesPicker.Settings.Delete.View" = "Delete view";
+"SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "New view";
+"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Untitled";
 
 // MARK: Select view picker
 "EditorSetViewPicker.View.Available.Soon" = "%s view soon";
@@ -616,3 +620,7 @@
 "Content.Common.Error" = "Something went wrong, try again";
 "Content.Bookmark.Add" = "Add a web bookmark";
 "Content.Bookmark.Loading" = "Loading, please wait...";
+
+// MARK: - Widget extension
+"WidgetExtension.LockScreen.Title" = "New object";
+"WidgetExtension.LockScreen.Description" = "Create a new object on the fly";

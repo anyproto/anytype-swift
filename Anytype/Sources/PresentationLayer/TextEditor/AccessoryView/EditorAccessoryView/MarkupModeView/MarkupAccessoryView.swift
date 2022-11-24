@@ -64,7 +64,7 @@ final class MarkupAccessoryView: UIView {
             if shouldShowColorView {
                 guard let viewModel = self.viewModel else { return }
                 let view = UIApplication.shared.windows[UIApplication.shared.windows.count - 1]
-                let topAnchorConstant = viewModel.colorButtonFrame?.maxY ?? 0
+                let topAnchorConstant = viewModel.colorButtonFrame?.minY ?? 0
 
                 view.addSubview(self.colorView) {
                     $0.pinToSuperview()
@@ -73,7 +73,7 @@ final class MarkupAccessoryView: UIView {
                     $0.width.equal(to: 260)
                     $0.height.equal(to: 176)
                     $0.trailing.equal(to: view.trailingAnchor, constant: -10)
-                    $0.top.equal(to: view.topAnchor, constant: topAnchorConstant + 8)
+                    $0.bottom.equal(to: view.topAnchor, constant: topAnchorConstant - 8)
                 }
 
                 let color = viewModel.currentText?.colorState(range: viewModel.range) ?? UIColor.Text.default

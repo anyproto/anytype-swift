@@ -14,7 +14,7 @@ protocol ObjectTypeProviderProtocol {
     var defaultObjectType: ObjectType { get }
     
     func isSupported(typeUrl: String) -> Bool
-    func objectType(url: String?) -> ObjectType?
+    func objectType(url: String) -> ObjectType?
     
     func objectTypes(smartblockTypes: Set<SmartBlockType>) -> [ObjectType]
 }

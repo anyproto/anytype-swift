@@ -5,14 +5,16 @@ import AnytypeCore
 import SwiftUI
 
 final class EditorPageController: UIViewController {
-    weak var browserViewInput: EditorBrowserViewInputProtocol?
+    
+    let bottomNavigationManager: EditorBottomNavigationManagerProtocol
+    private(set) weak var browserViewInput: EditorBrowserViewInputProtocol?
     private(set) lazy var dataSource = makeCollectionViewDataSource()
     
     private lazy var deletedScreen = EditorPageDeletedScreen(
         onBackTap: viewModel.router.goBack
     )
     private weak var firstResponderView: UIView?
-    
+
     let collectionView: EditorCollectionView = {
         var listConfiguration = UICollectionLayoutListConfiguration(appearance: .plain)
         listConfiguration.backgroundColor = .clear
@@ -70,11 +72,21 @@ final class EditorPageController: UIViewController {
             viewModel.setupSubscriptions()
         }
     }
+
+    private var selectingRangeEditorItem: EditorItem?
+    private var selectingRangeTextView: UITextView?
+
     private var cancellables = [AnyCancellable]()
     
     // MARK: - Initializers
-    init(blocksSelectionOverlayView: BlocksSelectionOverlayView) {
+    init(
+        blocksSelectionOverlayView: BlocksSelectionOverlayView,
+        bottomNavigationManager: EditorBottomNavigationManagerProtocol,
+        browserViewInput: EditorBrowserViewInputProtocol?
+    ) {
         self.blocksSelectionOverlayView = blocksSelectionOverlayView
+        self.bottomNavigationManager = bottomNavigationManager
+        self.browserViewInput = browserViewInput
 
         super.init(nibName: nil, bundle: nil)
     }
@@ -91,7 +103,7 @@ final class EditorPageController: UIViewController {
         
         setupView()
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -101,6 +113,75 @@ final class EditorPageController: UIViewController {
         collectionView.allowsSelectionDuringEditing = true
 
         navigationBarHelper.handleViewWillAppear(scrollView: collectionView)
+
+        AnytypeWindow.shared?.textRangeTouchSubject.sink { [unowned self] touch in
+            handleTextSelectionTouch(touch)
+        }.store(in: &cancellables)
+    }
+
+    private func performBlocksSelection(with touch: UITouch) {
+        guard let indexPath = collectionView.indexPath(for: touch) else {
+            return
+        }
+
+        selectItem(at: indexPath)
+    }
+
+    private func selectItem(at indexPath: IndexPath, animated: Bool = true) {
+        guard viewModel.blocksStateManager.canSelectBlock(at: indexPath) else {
+            return
+        }
+
+        if collectionView.indexPathsForSelectedItems?.contains(indexPath) ?? false {
+            return
+        }
+
+        collectionView.selectItem(at: indexPath, animated: true, scrollPosition: [])
+        collectionView.indexPathsForSelectedItems.map {
+            viewModel.blocksStateManager.didUpdateSelectedIndexPaths($0)
+        }
+    }
+
+    private func handleTextSelectionTouch(_ touch: UITouch) {
+        switch viewModel.blocksStateManager.editingState {
+        case .selecting:
+            performBlocksSelection(with: touch)
+        case .editing:
+            guard let selectingRangeEditorItem = selectingRangeEditorItem,
+                  let sourceTextIndexPath = dataSource.indexPath(for: selectingRangeEditorItem),
+                  let cell = collectionView.cellForItem(at: sourceTextIndexPath) else {
+                return
+            }
+
+            let pointInCell = touch.location(in: cell)
+            let isAscendingTouch = pointInCell.y > cell.center.y
+            let threshold: CGFloat = isAscendingTouch ? Constants.selectingTextThreshold : -Constants.selectingTextThreshold
+            var locationInCollectionView = touch.location(in: collectionView)
+
+            locationInCollectionView.y = locationInCollectionView.y + threshold
+
+            guard let touchingIndexPath = collectionView.indexPathForItem(at: locationInCollectionView),
+                  let touchingItem = dataSource.itemIdentifier(for: touchingIndexPath),
+                  touchingItem != selectingRangeEditorItem,
+                  let selectingRangeTextView = selectingRangeTextView,
+                  let sourceTextIndexPath = dataSource.indexPath(for: selectingRangeEditorItem)
+            else {
+                return
+            }
+
+            let isValidForDescending = selectingRangeTextView.textViewSelectionPosition.contains(.start) &&
+                            sourceTextIndexPath.compare(touchingIndexPath) == .orderedDescending
+
+            let isValidForAscending = selectingRangeTextView.textViewSelectionPosition.contains(.end) &&
+                            sourceTextIndexPath.compare(touchingIndexPath) == .orderedAscending
+
+            if isValidForAscending || isValidForDescending {
+                UIApplication.shared.hideKeyboard()
+                viewModel.blocksStateManager.didSelectSelection(from: sourceTextIndexPath)
+                selectItem(at: touchingIndexPath)
+            }
+        default: break
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -138,7 +219,7 @@ final class EditorPageController: UIViewController {
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
         collectionView.isEditing = editing
-        browserViewInput?.multiselectActive(!editing)
+        bottomNavigationManager.multiselectActive(!editing)
     }
     
     private var controllerForNavigationItems: UIViewController? {
@@ -189,7 +270,7 @@ final class EditorPageController: UIViewController {
             view.endEditing(true)
             collectionView.isLocked = true
         case .simpleTablesSelection:
-            browserViewInput?.multiselectActive(true)
+            bottomNavigationManager.multiselectActive(true)
             view.endEditing(true)
             collectionView.isLocked = true
         case .loading:
@@ -257,6 +338,13 @@ extension EditorPageController: EditorPageViewInput {
         }
     }
 
+    func didSelectTextRangeSelection(blockId: BlockId, textView: UITextView) {
+        if let item = dataSourceItem(for: blockId), textView.textViewSelectionPosition.contains(.end) || textView.textViewSelectionPosition.contains(.start) {
+            self.selectingRangeEditorItem = item
+            self.selectingRangeTextView = textView
+        }
+    }
+
     func update(
         changes: CollectionDifference<EditorItem>?,
         allModels: [EditorItem]
@@ -320,9 +408,16 @@ extension EditorPageController: EditorPageViewInput {
     }
 
     func blockDidFinishEditing(blockId: BlockId) {
+        self.selectingRangeTextView = nil
+        self.selectingRangeEditorItem = nil
+
         guard let newItem = viewModel.modelsHolder.contentProvider(for: blockId) else { return }
 
         reloadCell(for: .block(newItem))
+
+        var blocksSnapshot = NSDiffableDataSourceSectionSnapshot<EditorItem>()
+        blocksSnapshot.append(viewModel.modelsHolder.items)
+        applyBlocksSectionSnapshot(blocksSnapshot, animatingDifferences: false)
     }
 
     // MARK: -
@@ -350,8 +445,12 @@ extension EditorPageController: EditorPageViewInput {
 
         switch item {
         case let .block(block):
-            if let blockViewModel = block as? TextBlockViewModel {
-                blockViewModel.set(focus: .end)
+            if FeatureFlags.cursorPosition {
+                viewModel.cursorFocus(blockId: block.blockId)
+            } else {
+                if let blockViewModel = block as? TextBlockViewModel {
+                    blockViewModel.set(focus: .end)
+                }
             }
         case .header, .system:
             return
@@ -540,7 +639,6 @@ private extension EditorPageController {
 // MARK: - Initial Update data
 
 private extension EditorPageController {
-    
     func applyBlocksSectionSnapshot(
         _ snapshot: NSDiffableDataSourceSectionSnapshot<EditorItem>,
         animatingDifferences: Bool
@@ -558,5 +656,17 @@ private extension EditorPageController {
             self.collectionView.selectItem(at: $0, animated: false, scrollPosition: [])
         }
     }
+}
+
+extension UICollectionView {
+    func indexPath(for touch: UITouch) -> IndexPath? {
+        let point = touch.location(in: self)
+
+        return indexPathForItem(at: point)
+    }
+}
+
+private enum Constants {
+    static let selectingTextThreshold: CGFloat = 30
 }
 

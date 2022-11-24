@@ -10,41 +10,6 @@ extension FeatureDescription {
         debugValue: false
     )
     
-    static let setFilters = FeatureDescription(
-        title: "Set filters",
-        author: "joe_pusya@anytype.io",
-        releaseVersion: "0.17.0",
-        defaultValue: true
-    )
-    
-    static let relationDetails = FeatureDescription(
-        title: "Relation details in read only mode",
-        author: "m@anytype.io",
-        releaseVersion: "0.17.0",
-        defaultValue: true
-    )
-    
-    static let bookmarksFlow = FeatureDescription(
-        title: "New bookmarks flow",
-        author: "m@anytype.io",
-        releaseVersion: "0.17.0",
-        defaultValue: true
-    )
-    
-    static let bookmarksFlowP2 = FeatureDescription(
-        title: "New bookmarks flow part 2",
-        author: "m@anytype.io",
-        releaseVersion: "0.18.0",
-        defaultValue: true
-    )
-    
-    static let setGalleryView = FeatureDescription(
-        title: "Set gallery view",
-        author: "joe_pusya@anytype.io",
-        releaseVersion: "0.17.0",
-        defaultValue: true
-    )
-    
     static let setListView = FeatureDescription(
         title: "Set list view",
         author: "joe_pusya@anytype.io",
@@ -63,6 +28,48 @@ extension FeatureDescription {
         title: "Set sync status",
         author: "joe_pusya@anytype.io",
         releaseVersion: "0.19.0",
+        defaultValue: true
+    )
+    
+    static let cursorPosition = FeatureDescription(
+        title: "Cursor position after change style",
+        author: "m@anytype.io",
+        releaseVersion: "0.19.0",
+        defaultValue: true
+    )
+    
+    static let hideBottomViewForStyleMenu = FeatureDescription(
+        title: "Hide bottom navigation view in editor for style menu (IOS-293)",
+        author: "m@anytype.io",
+        releaseVersion: "0.19.0",
+        defaultValue: true
+    )
+    
+    static let setKanbanView = FeatureDescription(
+        title: "Set kanban view",
+        author: "joe_pusya@anytype.io",
+        releaseVersion: "0.20.0",
+        defaultValue: false
+    )
+
+    static let redesignNewButton = FeatureDescription(
+        title: "Set redesign \"new\" button",
+        author: "m@anytype.io",
+        releaseVersion: "0.19.0",
+        defaultValue: true
+    )
+
+    static let linktoObjectFromItself = FeatureDescription(
+        title: "Link to object from itself",
+        author: "db@anytype.io",
+        releaseVersion: "0.20.0",
+        defaultValue: false
+    )
+    
+    static let linkToObjectFromMarkup = FeatureDescription(
+        title: "Link to object from markup",
+        author: "m@anytype.io",
+        releaseVersion: "0.20.0",
         defaultValue: false
     )
     

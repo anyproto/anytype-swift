@@ -114,6 +114,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
 
             guard !diffrerence.isEmpty else { return }
             modelsHolder.applyDifference(difference: diffrerence)
+
+            guard document.isOpened else { return }
             viewInput?.update(changes: diffrerence, allModels: modelsHolder.items)
         case let .blocks(updatedIds):
             guard !updatedIds.isEmpty else {
@@ -123,6 +125,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             let diffrerence = difference(with: updatedIds)
 
             modelsHolder.applyDifference(difference: diffrerence)
+
+            guard document.isOpened else { return }
             viewInput?.update(changes: diffrerence, allModels: modelsHolder.items)
 
             updateCursorIfNeeded()
@@ -200,6 +204,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         } else {
             modelsHolder.items = models
         }
+
+        guard document.isOpened else { return }
         
         viewInput?.update(changes: difference, allModels: modelsHolder.items)
 
@@ -226,7 +232,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
 extension EditorPageViewModel {
     func viewDidLoad() {
         if let objectDetails = document.details {
-            AnytypeAnalytics.instance().logShowObject(type: objectDetails.type, layout: objectDetails.layout)
+            AnytypeAnalytics.instance().logShowObject(type: objectDetails.type, layout: objectDetails.layoutValue)
         }
         
         blocksStateManager.checkOpenedState()
@@ -293,6 +299,13 @@ extension EditorPageViewModel {
     
     func showCoverPicker() {
         router.showCoverPicker()
+    }
+}
+
+// Cursor
+extension EditorPageViewModel {
+    func cursorFocus(blockId: BlockId) {
+        cursorManager.restoreLastFocus(at: blockId)
     }
 }
 

@@ -242,7 +242,7 @@ final class StyleView: UIView {
             highlightedButton.isEnabled = restrictions.turnIntoStyles.contains(.text(.quote))
         }
 
-        let colorButton = ButtonsFactory.roundedBorderуButton(image: UIImage(named: "StyleBottomSheet/color"))
+        let colorButton = ButtonsFactory.roundedBorderуButton(image: UIImage(asset: .StyleBottomSheet.color))
         colorButton.layer.borderWidth = 0
         colorButton.layer.cornerRadius = smallButtonSize.height / 2
         colorButton.setBackgroundColor(.backgroundSelected, state: .selected)
@@ -254,14 +254,14 @@ final class StyleView: UIView {
         moreButton.layer.cornerRadius = smallButtonSize.height / 2
         moreButton.setBackgroundColor(.backgroundSelected, state: .selected)
         
-        moreButton.addAction(UIAction(handler: { [weak self] _ in
+        moreButton.addAction(UIAction(handler: { [weak self, weak moreButton] _ in
             guard let self = self else { return }
-            moreButton.isSelected = true
+            moreButton?.isSelected = true
 
             // show markup view
             self.didTapMarkupButton(self) {
                 // unselect button on closing markup view
-                moreButton.isSelected = false
+                moreButton?.isSelected = false
             }
             UISelectionFeedbackGenerator().selectionChanged()
         }), for: .touchUpInside)
@@ -294,8 +294,8 @@ final class StyleView: UIView {
     }
 
     private func setupAction(for button: UIControl, with style: BlockText.Style) {
-        let deselectAction = {
-            button.isSelected = false
+        let deselectAction: () -> Void = { [weak button] in
+            button?.isSelected = false
         }
 
         if style == self.style {
@@ -304,11 +304,11 @@ final class StyleView: UIView {
         }
 
         let action =  UIAction(
-            handler: { [weak self] _ in
-                button.isSelected = true
+            handler: { [weak self, weak button] _ in
+                button?.isSelected = true
 
                 self?.selectStyle(style) {
-                    button.isSelected = false
+                    button?.isSelected = false
                 }
                 UISelectionFeedbackGenerator().selectionChanged()
             }

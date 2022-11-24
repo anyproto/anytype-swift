@@ -1,5 +1,6 @@
 import XCTest
 @testable import Anytype
+import AnytypeCore
 
 class AnytypeURLTests: XCTestCase {
     

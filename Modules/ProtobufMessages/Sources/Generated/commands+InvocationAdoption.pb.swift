@@ -669,6 +669,11 @@ extension Anytype_Rpc.Object.SetDetails.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }
 }
 
+extension Anytype_Rpc.Object.SetInternalFlags.Response: ResultWithError {}
+extension Anytype_Rpc.Object.SetInternalFlags.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null }
+}
+
 extension Anytype_Rpc.Object.SetIsArchived.Response: ResultWithError {}
 extension Anytype_Rpc.Object.SetIsArchived.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }

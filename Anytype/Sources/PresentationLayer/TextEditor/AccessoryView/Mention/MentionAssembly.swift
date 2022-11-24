@@ -4,11 +4,10 @@ final class MentionAssembly {
         onDismiss: (() -> Void)?
     ) -> MentionsViewController {
         let mentionService = MentionObjectsService(searchService: ServiceLocator.shared.searchService())
-        let pageService = PageService()
         
         let viewModel = MentionsViewModel(
             mentionService: mentionService,
-            pageService: pageService,
+            pageService: ServiceLocator.shared.pageService(),
             onSelect: onMentionSelect
         )
         let controller = MentionsViewController(viewModel: viewModel, dismissAction: onDismiss)

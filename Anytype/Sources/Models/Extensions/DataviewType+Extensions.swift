@@ -31,18 +31,21 @@ extension DataviewViewType {
     
     var setContentViewType: SetContentViewType {
         switch self {
-        case .gallery:
-            return FeatureFlags.setGalleryView ? .gallery : .table
-        case .list:
-            return FeatureFlags.setListView ? .list : .table
-        default:
+        case .table:
             return .table
+        case .gallery:
+            return .collection(.gallery)
+        case .list:
+            return FeatureFlags.setListView ? .collection(.list) : .table
+        case .kanban:
+            return FeatureFlags.setKanbanView ? .kanban : .table
         }
     }
     
     var isSupported: Bool {
         self == .table ||
-        (FeatureFlags.setGalleryView && self == .gallery) ||
-        (FeatureFlags.setListView && self == .list)
+        self == .gallery ||
+        (FeatureFlags.setListView && self == .list) ||
+        (FeatureFlags.setKanbanView && self == .kanban)
     }
 }

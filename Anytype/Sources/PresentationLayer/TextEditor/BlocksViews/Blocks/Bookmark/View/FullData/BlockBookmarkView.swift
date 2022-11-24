@@ -35,9 +35,7 @@ final class BlockBookmarkView: UIView, BlockContentView {
             layoutWithImage(payload: payload)
         }
         
-        if FeatureFlags.bookmarksFlowP2 {
-            layoutArchiveLabel(payload: payload)
-        }
+        layoutArchiveLabel(payload: payload)
     }
     
     private func layoutWithoutImage(payload: BlockBookmarkPayload) {

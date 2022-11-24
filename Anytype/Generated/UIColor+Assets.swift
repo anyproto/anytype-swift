@@ -1,6 +1,7 @@
 import UIKit
 
 extension UIColor {
+  
     enum Background: ComponentColor {
       typealias T = UIColor
       internal static let amber = UIColor(asset: Asset.Background.amber)
@@ -14,9 +15,11 @@ extension UIColor {
       internal static let teal = UIColor(asset: Asset.Background.teal)
       internal static let yellow = UIColor(asset: Asset.Background.yellow)
     }
+    
     enum System: ComponentColor {
       typealias T = UIColor
       internal static let amber = UIColor(asset: Asset.System.amber)
+      internal static let amber100 = UIColor(asset: Asset.System.amber100)
       internal static let amber125 = UIColor(asset: Asset.System.amber125)
       internal static let amber25 = UIColor(asset: Asset.System.amber25)
       internal static let amber50 = UIColor(asset: Asset.System.amber50)
@@ -31,6 +34,7 @@ extension UIColor {
       internal static let teal = UIColor(asset: Asset.System.teal)
       internal static let yellow = UIColor(asset: Asset.System.yellow)
     }
+    
     enum TagBackground: ComponentColor {
       typealias T = UIColor
       internal static let amber = UIColor(asset: Asset.TagBackground.amber)
@@ -44,6 +48,7 @@ extension UIColor {
       internal static let teal = UIColor(asset: Asset.TagBackground.teal)
       internal static let yellow = UIColor(asset: Asset.TagBackground.yellow)
     }
+    
     enum Text: ComponentColor {
       typealias T = UIColor
       internal static let amber = UIColor(asset: Asset.Text.amber)
@@ -57,26 +62,32 @@ extension UIColor {
       internal static let teal = UIColor(asset: Asset.Text.teal)
       internal static let yellow = UIColor(asset: Asset.Text.yellow)
     }
+  
     // MARK: - Additional
     internal static let shimmering = UIColor(asset: Asset.shimmering)
+    
     // MARK: - Backgound
     internal static let backgroundDashboard = UIColor(asset: Asset.backgroundDashboard)
     internal static let backgroundPrimary = UIColor(asset: Asset.backgroundPrimary)
     internal static let backgroundSecondary = UIColor(asset: Asset.backgroundSecondary)
     internal static let backgroundSelected = UIColor(asset: Asset.backgroundSelected)
+    
     // MARK: - Button
     internal static let buttonAccent = UIColor(asset: Asset.buttonAccent)
     internal static let buttonActive = UIColor(asset: Asset.buttonActive)
     internal static let buttonInactive = UIColor(asset: Asset.buttonInactive)
     internal static let buttonSelected = UIColor(asset: Asset.buttonSelected)
     internal static let buttonWhite = UIColor(asset: Asset.buttonWhite)
+    
     // MARK: - Shadow
     internal static let shadowPrimary = UIColor(asset: Asset.shadowPrimary)
+    
     // MARK: - Stroke
     internal static let strokePrimary = UIColor(asset: Asset.strokePrimary)
     internal static let strokeSecondary = UIColor(asset: Asset.strokeSecondary)
     internal static let strokeTertiary = UIColor(asset: Asset.strokeTertiary)
     internal static let strokeTransperent = UIColor(asset: Asset.strokeTransperent)
+    
     // MARK: - Text
     internal static let textPrimary = UIColor(asset: Asset.textPrimary)
     internal static let textSecondary = UIColor(asset: Asset.textSecondary)

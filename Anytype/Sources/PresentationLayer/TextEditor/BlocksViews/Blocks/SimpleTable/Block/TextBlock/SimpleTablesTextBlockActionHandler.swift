@@ -67,7 +67,7 @@ struct SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
               textViewWillBeginEditing: textViewWillBeginEditing(textView:),
               textViewDidBeginEditing: textViewDidBeginEditing(textView:),
               textViewDidEndEditing: textViewDidEndEditing(textView:),
-              textViewDidChangeCaretPosition: textViewDidChangeCaretPosition(range:),
+              textViewDidChangeCaretPosition: textViewDidChangeCaretPosition(textView:range:),
               textViewShouldReplaceText: textViewShouldReplaceText(textView:replacementText:range:),
               toggleCheckBox: toggleCheckBox,
               toggleDropDown: toggleCheckBox,
@@ -226,7 +226,7 @@ struct SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
     private func textViewDidBeginEditing(textView: UITextView) {
         blockDelegate?.didBeginEditing(view: textView)
 
-        DispatchQueue.main.async {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             responderScrollViewHelper.textViewDidBeginEditing(textView: textView)
         }
     }
@@ -235,8 +235,11 @@ struct SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
         blockDelegate?.didEndEditing(data: blockDelegateData(textView: textView))
     }
 
-    private func textViewDidChangeCaretPosition(range: NSRange) {
-        blockDelegate?.selectionDidChange(range: range)
+    private func textViewDidChangeCaretPosition(textView: UITextView, range: NSRange) {
+        blockDelegate?.selectionDidChange(
+            data: blockDelegateData(textView: textView),
+            range: range
+        )
     }
 
     private func toggleCheckBox() {

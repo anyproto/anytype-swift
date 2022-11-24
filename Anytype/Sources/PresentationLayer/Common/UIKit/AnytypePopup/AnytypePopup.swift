@@ -51,10 +51,11 @@ final class AnytypePopup: FloatingPanelController {
     }
 
     convenience init<Content: UIView>(contentView: Content,
+                                      popupLayout: AnytypePopupLayoutType = .alert(height: 0),
                                       floatingPanelStyle: Bool = false,
                                       configuration: Configuration = Constants.defaultConifguration,
                                       onDismiss: (() -> Void)? = nil) {
-        let viewModel = AnytypeAlertViewModel(contentView: contentView, keyboardListener: .init())
+        let viewModel = AnytypeAlertViewModel(contentView: contentView, keyboardListener: .init(), popupLayout: popupLayout)
         self.init(viewModel: viewModel, floatingPanelStyle: floatingPanelStyle, configuration: configuration, onDismiss: onDismiss)
     }
     

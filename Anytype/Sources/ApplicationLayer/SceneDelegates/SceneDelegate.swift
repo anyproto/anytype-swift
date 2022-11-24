@@ -2,15 +2,13 @@ import UIKit
 import SwiftUI
 import AnytypeCore
 
-
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
     private(set) var windowHolder: WindowHolder?
 
-    private let sceneDelegates: [UIWindowSceneDelegate] = [
-        LifecycleStateTransitionSceneDelegate()
-    ]
+    private let sceneDelegates: [UIWindowSceneDelegate] = [LifecycleStateTransitionSceneDelegate()]
+    private var applicationCoordinator: ApplicationCoordinator?
     
     // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
     // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
@@ -21,13 +19,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
 
         connectionOptions.shortcutItem.flatMap { _ = handleQuickAction($0) }
-        let window = UIWindow(windowScene: windowScene)
+        let window = AnytypeWindow(windowScene: windowScene)
         self.window = window
         
         let applicationCoordinator = ServiceLocator.shared.applicationCoordinator(window: window)
+        self.applicationCoordinator = applicationCoordinator
         windowHolder = applicationCoordinator
         
-        applicationCoordinator.start()
+        applicationCoordinator.start(connectionOptions: connectionOptions)
 
         window.overrideUserInterfaceStyle = UserDefaultsConfig.userInterfaceStyle
     }
@@ -40,6 +39,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This occurs shortly after the scene enters the background, or when its session is discarded.
         // Release any resources associated with this scene that can be re-created the next time the scene connects.
         // The scene may re-connect later, as its session was not neccessarily discarded (see `application:didDiscardSceneSessions` instead).
+    }
+
+    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+        handleURLContext(openURLContexts: URLContexts)
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
@@ -86,5 +89,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         DispatchQueue.main.async { QuickActionsStorage.shared.action = action }
         return true
+    }
+
+    private func handleURLContext(openURLContexts URLContexts: Set<UIOpenURLContext>) {
+        guard URLContexts.count == 1, let context = URLContexts.first else {
+            return
+        }
+
+        applicationCoordinator?.handleDeeplink(url: context.url)
     }
 }

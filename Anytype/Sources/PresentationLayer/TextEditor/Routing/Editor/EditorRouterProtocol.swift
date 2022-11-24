@@ -3,7 +3,7 @@ import AnytypeCore
 import UIKit
 
 protocol AttachmentRouterProtocol {
-    func openImage(_ imageContext: BlockImageViewModel.ImageOpeningContext)
+    func openImage(_ imageContext: FilePreviewContext)
 }
 
 protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
@@ -31,9 +31,7 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     )
 
     func showMarkupBottomSheet(
-        selectedMarkups: [MarkupType : AttributeState],
-        selectedHorizontalAlignment: [LayoutAlignment : AttributeState],
-        onMarkupAction: @escaping (MarkupViewModelAction) -> Void,
+        selectedBlockIds: [BlockId],
         viewDidClose: @escaping () -> Void
     )
     
@@ -46,10 +44,6 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     
     func showMoveTo(onSelect: @escaping (BlockId) -> ())
     func showLinkTo(onSelect: @escaping (BlockId, _ typeUrl: String) -> ())
-    func showLinkToObject(
-        currentLink: Either<URL, BlockId>?,
-        onSelect: @escaping (LinkToObjectSearchViewModel.SearchKind) -> ()
-    )
     func showSearch(onSelect: @escaping (EditorScreenData) -> ())
     func showTypesSearch(title: String, selectedObjectId: BlockId?, onSelect: @escaping (BlockId) -> ())
     func showObjectPreview(blockLinkAppearance: BlockLink.Appearance, onSelect: @escaping (BlockLink.Appearance) -> Void)
@@ -76,14 +70,14 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func showViewPicker(
         setModel: EditorSetViewModel,
         dataviewService: DataviewServiceProtocol,
-        showViewTypes: @escaping RoutingAction<DataviewView>
+        showViewTypes: @escaping RoutingAction<DataviewView?>
     )
 
     func showCreateObject(pageId: BlockId)
     func showCreateBookmarkObject()
     
     func showSetSettings(setModel: EditorSetViewModel)
-    func showViewTypes(activeView: DataviewView, canDelete: Bool, dataviewService: DataviewServiceProtocol)
+    func showViewTypes(activeView: DataviewView?, canDelete: Bool, dataviewService: DataviewServiceProtocol)
     func showViewSettings(setModel: EditorSetViewModel, dataviewService: DataviewServiceProtocol)
     func dismissSetSettingsIfNeeded()
     func showSorts(setModel: EditorSetViewModel, dataviewService: DataviewServiceProtocol)

@@ -59,7 +59,7 @@ extension ObjectCoverPickerViewModel {
     func uploadImage(from itemProvider: NSItemProvider) {
         AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.setCover)
         let operation = MediaFileUploadingOperation(
-            itemProvider: itemProvider,
+            uploadingSource: .itemProvider(itemProvider),
             worker: ObjectHeaderImageUploadingWorker(
                 objectId: document.objectId,
                 detailsService: detailsService,

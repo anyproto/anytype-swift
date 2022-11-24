@@ -1,5 +1,5 @@
 import UIKit
-
+import AnytypeCore
 
 final class MarkupsViewController: UIViewController {
 
@@ -54,8 +54,9 @@ final class MarkupsViewController: UIViewController {
         self?.viewModel.handle(action: .toggleMarkup(.keyboard))
     }.addBorders(edges: [.right, .bottom], width: 1, color: .strokePrimary)
 
-    private lazy var urlButton = makeButton(text: Loc.link, action: {})
-        .addBorders(edges: [.bottom], width: 1, color: .strokePrimary)
+    private lazy var urlButton = makeButton(text: Loc.link) { [weak self] in
+        self?.viewModel.handle(action: .toggleMarkup(.link))
+    }.addBorders(edges: [.bottom], width: 1, color: .strokePrimary)
 
     private lazy var leftAlignButton: ButtonWithImage = {
         let button = ButtonsFactory.makeButton(image: UIImage(asset: .TextAttributes.alignLeft))
@@ -173,13 +174,17 @@ final class MarkupsViewController: UIViewController {
 
 extension MarkupsViewController: MarkupViewProtocol {
     
-    func setMarkupState(_ state: MarkupViewModel.AllAttributesState) {
+    func setMarkupState(_ state: MarkupViewsState) {
         DispatchQueue.main.async {
             self.setup(button: self.boldButton, with: state.markup[.bold, default: .disabled])
             self.setup(button: self.italicButton, with: state.markup[.italic, default: .disabled])
             self.setup(button: self.strikethroughButton, with: state.markup[.strikethrough, default: .disabled])
             self.setup(button: self.codeButton, with: state.markup[.keyboard, default: .disabled])
-            self.urlButton.isEnabled = false
+            if FeatureFlags.linkToObjectFromMarkup {
+                self.setup(button: self.urlButton, with: state.markup[.link, default: .disabled])
+            } else {
+                self.urlButton.isEnabled = false
+            }
 
             self.setup(button: self.leftAlignButton, with: state.alignment[.left, default: .disabled])
             self.setup(button: self.centerAlignButton, with: state.alignment[.center, default: .disabled])

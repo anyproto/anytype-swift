@@ -2,6 +2,7 @@ import Combine
 import Foundation
 import BlocksModels
 import UIKit
+import AnytypeCore
 
 protocol SimpleTableSelectionHandler: AnyObject {
     func didStartSimpleTableSelectionMode(
@@ -275,7 +276,11 @@ extension SimpleTableStateManager: BlockSelectionHandler {
             },
             onDismiss: { [weak self] in
                 self?.editingState = .editing
-                self?.cursorManager.focus(at: info.id)
+                if FeatureFlags.cursorPosition {
+                    self?.cursorManager.restoreLastFocus(at: info.id)
+                } else {
+                    self?.cursorManager.focus(at: info.id)
+                }
             }
         )
 

@@ -21,15 +21,12 @@ struct MarkupItem: Identifiable, Equatable {
 final class MarkupAccessoryViewModel: ObservableObject {
     let markupItems: [MarkupItem] = MarkupItem.allItems
 
-    var onShowLinkToObject: RoutingAction<(Either<URL, BlockId>?, (LinkToObjectSearchViewModel.SearchKind) -> ())>?
-    var onShowObject: RoutingAction<BlockId>?
-    var onShowURL: RoutingAction<URL>?
-
     private(set) var restrictions: BlockRestrictions?
     private(set) var actionHandler: BlockActionHandlerProtocol
     private(set) var blockId: BlockId = ""
-    private let pageService = PageService()
+    private let pageService: PageServiceProtocol
     private let document: BaseDocumentProtocol
+    private let linkToObjectCoordinator: LinkToObjectCoordinatorProtocol
 
     @Published private(set) var range: NSRange = .zero
     @Published private(set) var currentText: NSAttributedString?
@@ -41,10 +38,14 @@ final class MarkupAccessoryViewModel: ObservableObject {
 
     init(
         document: BaseDocumentProtocol,
-        actionHandler: BlockActionHandlerProtocol
+        actionHandler: BlockActionHandlerProtocol,
+        pageService: PageServiceProtocol,
+        linkToObjectCoordinator: LinkToObjectCoordinatorProtocol
     ) {
         self.actionHandler = actionHandler
         self.document = document
+        self.pageService = pageService
+        self.linkToObjectCoordinator = linkToObjectCoordinator
         self.subscribeOnBlocksChanges()
     }
 
@@ -111,40 +112,32 @@ final class MarkupAccessoryViewModel: ObservableObject {
     }
 
     private func showLinkToSearch(blockId: BlockId, range: NSRange) {
-        let urlLink = currentText?.linkState(range: range)
-        let objectIdLink = currentText?.linkToObjectState(range: range)
+        guard let currentText = currentText else { return }
+        
+        let urlLink = currentText.linkState(range: range)
+        let objectIdLink = currentText.linkToObjectState(range: range)
         let eitherLink: Either<URL, BlockId>? = urlLink.map { .left($0) } ?? objectIdLink.map { .right($0) } ?? nil
-
-        let onLinkSelection: (LinkToObjectSearchViewModel.SearchKind) -> () = { [weak self] searchKind in
-            switch searchKind {
-            case let .object(linkBlockId):
+        
+        linkToObjectCoordinator.startFlow(
+            currentLink: eitherLink,
+            setLinkToObject: { [weak self] linkBlockId in
                 self?.actionHandler.setLinkToObject(linkBlockId: linkBlockId, range: range, blockId: blockId)
-            case let .createObject(name):
-                if let linkBlockId = self?.pageService.createPage(name: name) {
-                    AnytypeAnalytics.instance().logCreateObject(objectType: ObjectTypeProvider.shared.defaultObjectType.url, route: .mention)
-                    self?.actionHandler.setLinkToObject(linkBlockId: linkBlockId, range: range, blockId: blockId)
-                }
-            case let .web(url):
+            },
+            setLinkToUrl: { [weak self] url in
                 self?.actionHandler.setLink(url: url, range: range, blockId: blockId)
-            case let .openURL(url):
-                self?.onShowURL?(url)
-            case let .openObject(objectId):
-                self?.onShowObject?(objectId)
-            case .removeLink:
+            },
+            removeLink: { [weak self] in
                 switch eitherLink {
                 case .right:
                     self?.actionHandler.setLinkToObject(linkBlockId: nil, range: range, blockId: blockId)
                 case .left:
                     self?.actionHandler.setLink(url: nil, range: range, blockId: blockId)
-                default:
+                case .none:
                     break
                 }
-            case let .copyLink(url):
-                UIPasteboard.general.string = url.absoluteString
-            }
-        }
-
-        onShowLinkToObject?((eitherLink, onLinkSelection))
+            },
+            willShowNextScreen: nil
+        )
     }
 
     private func subscribeOnBlocksChanges() {

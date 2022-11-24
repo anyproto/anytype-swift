@@ -28,8 +28,8 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
         UserDefaultsConfig.defaultObjectType
     }
     
-    func objectType(url: String?) -> ObjectType? {
-        guard let url = url else { return nil }
+    func objectType(url: String) -> ObjectType? {
+        guard url.isNotEmpty else { return nil }
         
         return obtainedObjectTypes.filter { $0.url == url }.first
     }

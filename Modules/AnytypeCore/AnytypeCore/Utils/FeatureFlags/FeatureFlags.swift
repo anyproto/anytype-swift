@@ -2,8 +2,8 @@ import Foundation
 
 public final class FeatureFlags {
     
-    private static var isRelease: Bool {
-        #if RELEASE
+    private static var isDebug: Bool {
+        #if DEBUG
         true
         #else
         false
@@ -15,14 +15,15 @@ public final class FeatureFlags {
         .showAlertOnAssert,
         .analytics,
         .objectPreview,
-        .setFilters,
-        .relationDetails,
-        .bookmarksFlow,
-        .bookmarksFlowP2,
-        .setGalleryView,
         .setListView,
         .setViewTypes,
-        .setSyncStatus
+        .setSyncStatus,
+        .cursorPosition,
+        .hideBottomViewForStyleMenu,
+        .setKanbanView,
+        .redesignNewButton,
+        .linktoObjectFromItself,
+        .linkToObjectFromMarkup
     ]
     
     public static func update(key feature: FeatureDescription, value: Bool) {
@@ -32,7 +33,7 @@ public final class FeatureFlags {
     }
     
     public static func value(for feature: FeatureDescription) -> Bool {
-        let defaultValue = isRelease ? feature.defaultValue : feature.debugValue
+        let defaultValue = isDebug ? feature.debugValue : feature.defaultValue
         return FeatureFlagsStorage.featureFlags[feature.title] ?? defaultValue
     }
 }
@@ -55,26 +56,6 @@ public extension FeatureFlags {
         value(for: .objectPreview)
     }
     
-    static var isSetFiltersAvailable: Bool {
-        value(for: .setFilters)
-    }
-        
-    static var relationDetails: Bool {
-        value(for: .relationDetails)
-    }
-    
-    static var bookmarksFlow: Bool {
-        value(for: .bookmarksFlow)
-    }
-    
-    static var bookmarksFlowP2: Bool {
-        value(for: .bookmarksFlowP2)
-    }
-    
-    static var setGalleryView: Bool {
-        value(for: .setGalleryView)
-    }
-    
     static var setListView: Bool {
         value(for: .setListView)
     }
@@ -85,5 +66,29 @@ public extension FeatureFlags {
     
     static var setSyncStatus: Bool {
         value(for: .setSyncStatus)
+    }
+    
+    static var cursorPosition: Bool {
+        value(for: .cursorPosition)
+    }
+    
+    static var hideBottomViewForStyleMenu: Bool {
+        value(for: .hideBottomViewForStyleMenu)
+    }
+    
+    static var setKanbanView: Bool {
+        value(for: .setKanbanView)
+    }
+    
+    static var redesignNewButton: Bool {
+        value(for: .redesignNewButton)
+    }
+
+    static var linktoObjectFromItself: Bool {
+        value(for: .linktoObjectFromItself)
+    }
+    
+    static var linkToObjectFromMarkup: Bool {
+        value(for: .linkToObjectFromMarkup)
     }
 }

@@ -1,4 +1,6 @@
 import UIKit
+import SwiftUI
+
 
 extension UIViewController {
     
@@ -20,5 +22,11 @@ extension UIViewController {
         dismiss(animated: animateDismissing) { [weak self] in
             self?.present(viewController, animated: animatePresenting, completion: nil)
         }
+    }
+    
+    func presentSwiftUIView<Content: View>(view: Content, model: Dismissible?) {
+        let controller = UIHostingController(rootView: view)
+        model?.onDismiss = { [weak controller] in controller?.dismiss(animated: true) }
+        present(controller, animated: true)
     }
 }

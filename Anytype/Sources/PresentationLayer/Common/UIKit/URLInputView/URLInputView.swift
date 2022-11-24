@@ -1,4 +1,5 @@
 import UIKit
+import AnytypeCore
 
 final class URLInputView: UIView {
     

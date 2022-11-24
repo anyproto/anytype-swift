@@ -19,6 +19,7 @@ internal extension ImageAsset {
   static let noImage = ImageAsset.bundle(name: "no_image")
   static let optionChecked = ImageAsset.bundle(name: "option_checked")
   static let plus = ImageAsset.bundle(name: "plus")
+  static let plusWhite12 = ImageAsset.bundle(name: "plus_white_12")
   static let draft = ImageAsset.bundle(name: "draft")
   static let mainSearch = ImageAsset.bundle(name: "main_search")
   static let mainSettings = ImageAsset.bundle(name: "main_settings")
@@ -32,7 +33,7 @@ internal extension ImageAsset {
     static let style = ImageAsset.bundle(name: "EditingToolbar/style")
   }
   enum Emoji {
-  }
+    }
   static let createNewObject = ImageAsset.bundle(name: "createNewObject")
   static let todoCheckbox = ImageAsset.bundle(name: "todo_checkbox")
   static let todoCheckmark = ImageAsset.bundle(name: "todo_checkmark")
@@ -42,6 +43,7 @@ internal extension ImageAsset {
   static let addToFavorites = ImageAsset.bundle(name: "addToFavorites")
   static let delete = ImageAsset.bundle(name: "delete")
   static let duplicate = ImageAsset.bundle(name: "duplicate")
+  static let linkToItself = ImageAsset.bundle(name: "link_to_itself")
   static let lock = ImageAsset.bundle(name: "lock")
   static let moveTo = ImageAsset.bundle(name: "moveTo")
   static let restore = ImageAsset.bundle(name: "restore")
@@ -55,7 +57,6 @@ internal extension ImageAsset {
   static let layoutSettingsTodo = ImageAsset.bundle(name: "layout_settings_todo")
   static let relationSmallCopy = ImageAsset.bundle(name: "relation_small_copy")
   static let relationSmallEmailIcon = ImageAsset.bundle(name: "relation_small_email_icon")
-  static let relationSmallGoToUrlIcon = ImageAsset.bundle(name: "relation_small_go_to_url_icon")
   static let relationSmallOpenLink = ImageAsset.bundle(name: "relation_small_open_link")
   static let relationSmallPhoneIcon = ImageAsset.bundle(name: "relation_small_phone_icon")
   static let relationSmallReload = ImageAsset.bundle(name: "relation_small_reload")
@@ -198,7 +199,8 @@ internal extension ImageAsset {
     }
     enum BlocksOption {
       static let addBelow = ImageAsset.bundle(name: "TextEditor/BlocksOption/add_below")
-      static let cellMenuClear = ImageAsset.bundle(name: "TextEditor/BlocksOption/cell_menu_clear")
+      static let cellMenuClearContents = ImageAsset.bundle(name: "TextEditor/BlocksOption/cell_menu_clear_contents")
+      static let cellMenuClearStyle = ImageAsset.bundle(name: "TextEditor/BlocksOption/cell_menu_clear_style")
       static let cellMenuColor = ImageAsset.bundle(name: "TextEditor/BlocksOption/cell_menu_color")
       static let columnInsertLeft = ImageAsset.bundle(name: "TextEditor/BlocksOption/column_insert_left")
       static let columnInsertRight = ImageAsset.bundle(name: "TextEditor/BlocksOption/column_insert_right")

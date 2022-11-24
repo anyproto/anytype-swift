@@ -13,8 +13,7 @@ final class BlockViewModelBuilder {
     private let subjectsHolder: FocusSubjectsHolder
     private let markdownListener: MarkdownListener
     private let simpleTableDependenciesBuilder: SimpleTableDependenciesBuilder
-
-    private let pageService = PageService()
+    private let pageService: PageServiceProtocol
 
     init(
         document: BaseDocumentProtocol,
@@ -24,7 +23,8 @@ final class BlockViewModelBuilder {
         delegate: BlockDelegate,
         markdownListener: MarkdownListener,
         simpleTableDependenciesBuilder: SimpleTableDependenciesBuilder,
-        subjectsHolder: FocusSubjectsHolder
+        subjectsHolder: FocusSubjectsHolder,
+        pageService: PageServiceProtocol
     ) {
         self.document = document
         self.handler = handler
@@ -34,6 +34,7 @@ final class BlockViewModelBuilder {
         self.markdownListener = markdownListener
         self.simpleTableDependenciesBuilder = simpleTableDependenciesBuilder
         self.subjectsHolder = subjectsHolder
+        self.pageService = pageService
     }
 
     func buildEditorItems(infos: [BlockInformation]) -> [EditorItem] {
@@ -84,7 +85,7 @@ final class BlockViewModelBuilder {
                     }
                 )
             default:
-                let isCheckable = content.contentType == .title ? document.details?.layout == .todo : false
+                let isCheckable = content.contentType == .title ? document.details?.layoutValue == .todo : false
 
                 let textBlockActionHandler = TextBlockActionHandler(
                     info: info,
@@ -130,18 +131,19 @@ final class BlockViewModelBuilder {
                 return BlockFileViewModel(
                     info: info,
                     fileData: content,
+                    handler: handler,
                     showFilePicker: { [weak self] blockId in
                         self?.showFilePicker(blockId: blockId)
                     },
-                    downloadFile: { [weak router] fileMetadata in
-                        guard let url = fileMetadata.contentUrl else { return }
-                        router?.saveFile(fileURL: url, type: .file)
+                    onFileOpen: { [weak router] fileContext in
+                        router?.openImage(fileContext)
                     }
                 )
             case .image:
                 return BlockImageViewModel(
                     info: info,
                     fileData: content,
+                    handler: handler,
                     showIconPicker: { [weak self] blockId in
                         self?.showMediaPicker(type: .images, blockId: blockId)
                     },
@@ -172,7 +174,7 @@ final class BlockViewModelBuilder {
             
             let details = ObjectDetailsStorage.shared.get(id: data.targetObjectID)
             
-            if FeatureFlags.bookmarksFlowP2 && (details?.isDeleted ?? false) {
+            if details?.isDeleted ?? false {
                 return NonExistentBlockViewModel(info: info)
             }
             
@@ -210,8 +212,7 @@ final class BlockViewModelBuilder {
             ) { [weak self] relation in
                 guard let self = self else { return }
 
-                let bookmarkFilter = FeatureFlags.bookmarksFlow ?
-                    self.document.details?.type != ObjectTypeUrl.bundled(.bookmark).rawValue : true
+                let bookmarkFilter = self.document.details?.type != ObjectTypeUrl.bundled(.bookmark).rawValue
                 
                 if relation.id == BundledRelationKey.type.rawValue && !self.document.isLocked && bookmarkFilter {
                     self.router.showTypesSearch(
@@ -280,7 +281,7 @@ final class BlockViewModelBuilder {
             guard let itemProvider = itemProvider else { return }
 
             self?.handler.uploadMediaFile(
-                itemProvider: itemProvider,
+                uploadingSource: .itemProvider(itemProvider),
                 type: type,
                 blockId: blockId
             )

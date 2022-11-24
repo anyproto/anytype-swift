@@ -40,7 +40,6 @@ private struct NewAutofocusedTextEditor: View {
     
     var body: some View {
         TextEditor(text: $text)
-            .fixedSize(horizontal: false, vertical: true)
             .focused($isFocused)
             .task {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {

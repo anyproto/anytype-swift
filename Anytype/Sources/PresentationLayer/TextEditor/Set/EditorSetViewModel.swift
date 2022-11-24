@@ -7,11 +7,12 @@ import SwiftUI
 final class EditorSetViewModel: ObservableObject {
     @Published var titleString: String
     @Published var dataView = BlockDataview.empty
-    @Published private var records: [ObjectDetails] = []
     @Published private(set) var headerModel: ObjectHeaderViewModel!
     @Published var loadingDocument = true
     @Published var pagitationData = EditorSetPaginationData.empty
     @Published var featuredRelations = [Relation]()
+    
+    private var records: [ObjectDetails] = []
     @Published var configurations = [SetContentViewItemConfiguration]()
     
     @Published var sorts: [SetSort] = []
@@ -60,7 +61,7 @@ final class EditorSetViewModel: ObservableObject {
     
     private var isObjectLocked: Bool {
         document.isLocked ||
-        (FeatureFlags.setGalleryView && activeView.type == .gallery) ||
+        activeView.type == .gallery ||
         (FeatureFlags.setListView && activeView.type == .list)
     }
     
@@ -74,6 +75,7 @@ final class EditorSetViewModel: ObservableObject {
     private let searchService: SearchServiceProtocol
     private let detailsService: DetailsServiceProtocol
     private let textService: TextServiceProtocol
+    private let setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol
     private var subscriptions = [AnyCancellable]()
     private var titleSubscription: AnyCancellable?
     
@@ -82,7 +84,8 @@ final class EditorSetViewModel: ObservableObject {
         dataviewService: DataviewServiceProtocol,
         searchService: SearchServiceProtocol,
         detailsService: DetailsServiceProtocol,
-        textService: TextServiceProtocol
+        textService: TextServiceProtocol,
+        setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol
     ) {
         ObjectTypeProvider.shared.resetCache()
         self.document = document
@@ -90,6 +93,7 @@ final class EditorSetViewModel: ObservableObject {
         self.searchService = searchService
         self.detailsService = detailsService
         self.textService = textService
+        self.setSubscriptionDataBuilder = setSubscriptionDataBuilder
 
         self.titleString = document.details?.pageCellTitle ?? ""
         self.featuredRelations = document.featuredRelationsForEditor
@@ -109,7 +113,7 @@ final class EditorSetViewModel: ObservableObject {
                 loadingDocument = false
                 setupDataview()
 
-                if let details = document.details, details.setOf.isNil {
+                if let details = document.details, details.setOf.isEmpty {
                     showSetOfTypeSelection()
                 }
             } catch {
@@ -119,7 +123,7 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     func onAppear() {
-        setupSubscriptions()
+        startSubscriptionIfNeeded()
         router?.setNavigationViewHidden(false, animated: true)
     }
     
@@ -141,19 +145,32 @@ final class EditorSetViewModel: ObservableObject {
         setupDataview()
     }
     
-    func setupSubscriptions() {
-        subscriptionService.stopAllSubscriptions()
-        guard !isEmpty else { return }
+    func startSubscriptionIfNeeded() {
+        guard !isEmpty else {
+            subscriptionService.stopAllSubscriptions()
+            return
+        }
         
-        subscriptionService.startSubscription(
-            data: .set(
-                .init(
-                    dataView: dataView,
-                    view: activeView,
-                    currentPage: max(pagitationData.selectedPage, 1) // show first page for empty request
-                )
+        let data = setSubscriptionDataBuilder.set(
+            .init(
+                dataView: dataView,
+                view: activeView,
+                currentPage: max(pagitationData.selectedPage, 1) // show first page for empty request
             )
-        ) { [weak self] subId, update in
+        )
+        
+        guard subscriptionService.hasSubscriptionDataDiff(with: data) else {
+            return
+        }
+        
+        restartSubscription(with: data)
+    }
+    
+    // MARK: - Private
+    
+    private func restartSubscription(with data: SubscriptionData) {
+        subscriptionService.stopAllSubscriptions()
+        subscriptionService.startSubscription(data: data) { [weak self] subId, update in
             guard let self = self else { return }
 
             if case let .pageCount(count) = update {
@@ -162,28 +179,29 @@ final class EditorSetViewModel: ObservableObject {
             }
             
             self.records.applySubscriptionUpdate(update)
-            self.configurations = self.dataBuilder.itemData(
-                self.records,
-                dataView: self.dataView,
-                activeView: self.activeView,
-                colums: self.colums,
-                isObjectLocked: self.isObjectLocked,
-                onIconTap: { [weak self] details in
-                    self?.updateDetailsIfNeeded(details)
-                },
-                onItemTap: { [weak self] details in
-                    self?.itemTapped(details)
-                }
-            )
+            self.updateConfigurations()
         }
     }
     
-    // MARK: - Private
+    private func updateConfigurations() {
+        self.configurations = dataBuilder.itemData(
+            records,
+            dataView: dataView,
+            activeView: activeView,
+            colums: colums,
+            isObjectLocked: isObjectLocked,
+            onIconTap: { [weak self] details in
+                self?.updateDetailsIfNeeded(details)
+            },
+            onItemTap: { [weak self] details in
+                self?.itemTapped(details)
+            }
+        )
+    }
     
     private func onDataChange(_ data: DocumentUpdate) {
         switch data {
         case .general, .blocks, .details, .dataSourceUpdate:
-            objectWillChange.send()
             setupDataview()
         case .syncStatus(let status):
             if setSyncStatus {
@@ -221,7 +239,7 @@ final class EditorSetViewModel: ObservableObject {
 
                 self.textService.setText(
                     contextId: self.document.objectId,
-                    blockId: BundledRelationKey.title.rawValue,
+                    blockId: RelationKey.title.rawValue,
                     middlewareString: .init(text: newValue, marks: .init())
                 )
 
@@ -232,7 +250,8 @@ final class EditorSetViewModel: ObservableObject {
         updateActiveViewId()
         updateSorts()
         updateFilters()
-        setupSubscriptions()
+        startSubscriptionIfNeeded()
+        updateConfigurations()
         featuredRelations = document.featuredRelationsForEditor
 
         isUpdating = false
@@ -288,7 +307,7 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     private func updateDetailsIfNeeded(_ details: ObjectDetails) {
-        guard details.layout == .todo else { return }
+        guard details.layoutValue == .todo else { return }
         detailsService.updateBundledDetails(
             contextID: details.id,
             bundledDpdates: [.done(!details.isDone)]
@@ -296,20 +315,7 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     private func itemTapped(_ details: ObjectDetails) {
-        if !FeatureFlags.bookmarksFlow && isBookmarksSet(),
-           let url = url(from: details) {
-            router.openUrl(url)
-        } else {
-            openObject(pageId: details.id, type: details.editorViewType)
-        }
-    }
-    
-    private func url(from details: ObjectDetails) -> URL? {
-        var urlString = details.values[EditorSetViewModel.urlRelationKey]?.stringValue ?? ""
-        if !urlString.isEncoded {
-            urlString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? urlString
-        }
-        return URL(string: urlString)
+        openObject(pageId: details.id, type: details.editorViewType)
     }
 }
 
@@ -319,7 +325,7 @@ extension EditorSetViewModel {
     func showRelationValueEditingView(key: String, source: RelationSource) {
         if key == BundledRelationKey.setOf.rawValue {
             showSetOfTypeSelection()
-
+            
             return
         }
 
@@ -360,9 +366,9 @@ extension EditorSetViewModel {
         }
     }
     
-    func showViewTypes(with activeView: DataviewView? = nil) {
+    func showViewTypes(with activeView: DataviewView?) {
         router.showViewTypes(
-            activeView: activeView ?? self.activeView,
+            activeView: activeView,
             canDelete: dataView.views.count > 1,
             dataviewService: dataviewService
         )
@@ -397,9 +403,12 @@ extension EditorSetViewModel {
         router.showAddNewRelationView(onSelect: onSelect)
     }
 
+
     private func showSetOfTypeSelection() {
-        router.showTypesSearch(title: Loc.Set.SourceType.selectSource, selectedObjectId: document.details?.setOf) { [weak self] typeObjectId in
-            self?.dataviewService.setSource(typeObjectId: typeObjectId)
+        router.showTypesSearch(title: Loc.Set.SourceType.selectSource, selectedObjectId: document.details?.setOf.first) { [unowned self] typeObjectId in
+            Task { @MainActor in
+                try? await dataviewService.setSource(typeObjectId: typeObjectId)
+            }
         }
     }
     
@@ -414,10 +423,11 @@ extension EditorSetViewModel {
         } else {
             templateId = ""
         }
-
-        guard let objectDetails = dataviewService.addRecord(templateId: templateId, setFilters: filters) else { return }
-        
-        handleCreatedObjectDetails(objectDetails)
+        Task { @MainActor in
+            guard let objectDetails = try await dataviewService.addRecord(templateId: templateId, setFilters: filters) else { return }
+            
+            handleCreatedObjectDetails(objectDetails)
+        }
     }
     
     private func handleCreatedObjectDetails(_ objectDetails: ObjectDetails) {
@@ -448,6 +458,7 @@ extension EditorSetViewModel {
         dataviewService: DataviewService(objectId: "objectId", prefilledFieldsBuilder: SetFilterPrefilledFieldsBuilder()),
         searchService: SearchService(),
         detailsService: DetailsService(objectId: "objectId", service: ObjectActionsService()),
-        textService: TextService()
+        textService: TextService(),
+        setSubscriptionDataBuilder: SetSubscriptionDataBuilder()
     )
 }

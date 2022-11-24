@@ -35,7 +35,7 @@ struct EditorSetPaginationView: View {
         }
     }
     
-    private func pagesButton(_ counter: Int64) -> some View {
+    private func pagesButton(_ counter: Int) -> some View {
         Button(action: {
             model.changePage(counter)
         }) {

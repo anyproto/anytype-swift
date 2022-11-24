@@ -10,7 +10,7 @@ on:
 
 jobs:
   main:
-    runs-on: macOS-12
+    runs-on: self-hosted
     timeout-minutes: 35
 
     steps:
@@ -23,11 +23,14 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_KEY_FASTLANE_COMMIT }}
 
-      - name: Setup ruby
-        uses: ruby/setup-ruby@v1.100.0
-        with:
-          ruby-version: 2.7.2
-          bundler-cache: true
+      - name: Bundle Install
+        run: bundle install
+         
+#      - name: Setup ruby
+#        uses: ruby/setup-ruby@v1.100.0
+#        with:
+#          ruby-version: 2.7.2
+#          bundler-cache: true
 
       - name: Update git config
         run: |
@@ -37,12 +40,12 @@ jobs:
 
       - uses: maxim-lobanov/setup-xcode@v1.4.1
         with:
-          xcode-version: '13.4'
+          xcode-version: '14.0'
 
       - name: Download Middleware
         run: ruby ./Scripts/middleware.rb --token ${{ secrets.ANYTYPE_MIDDLEWARE_ACCESS_TOKEN }}
 
-      - name: Build and upload to Testflight
+      - name: Build 
         run: |
           export LC_ALL=en_US.UTF-8
           export LANG=en_US.UTF-8

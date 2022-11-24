@@ -1,0 +1,24 @@
+default_platform(:ios)
+
+platform :ios do
+
+  # Test build
+
+  lane :test_build do
+    setup_ci
+    match(readonly: true)
+
+    desc "Runs all the tests"
+    build_app(
+      scheme: "Anytype", 
+      configuration: "Debug-Nightly",
+      use_system_scm: true,
+      output_directory: "./tests_bild",
+      skip_package_ipa: false,
+      include_symbols: true,
+      include_bitcode: false
+    )
+
+  end
+
+end

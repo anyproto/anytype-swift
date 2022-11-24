@@ -138,6 +138,7 @@ extension Anytype_Rpc.Object.SearchSubscribe.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.SearchUnsubscribe.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.SetBreadcrumbs.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.SetDetails.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Object.SetInternalFlags.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.SetIsArchived.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.SetIsFavorite.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.SetLayout.Response.Error: Swift.Error {}

@@ -1,5 +1,6 @@
 import Foundation
 import BlocksModels
+import AnytypeCore
 
 protocol BlockSelectionHandler: AnyObject {
     func didSelectEditingState(info: BlockInformation)
@@ -27,6 +28,7 @@ protocol BlockActionHandlerProtocol: AnyObject {
     func setLink(url: URL?, range: NSRange, blockId: BlockId)
     func setLinkToObject(linkBlockId: BlockId?, range: NSRange, blockId: BlockId)
     func addLink(targetId: BlockId, typeUrl: String, blockId: BlockId)
+    func changeMarkup(blockIds: [BlockId], markType: MarkupType)
     func addBlock(_ type: BlockContentType, blockId: BlockId, position: BlockPosition?)
     func toggleWholeBlockMarkup(_ markup: MarkupType, blockId: BlockId)
     func upload(blockId: BlockId, filePath: String)
@@ -43,7 +45,7 @@ protocol BlockActionHandlerProtocol: AnyObject {
         info: BlockInformation
     )
     func changeTextStyle(_ attribute: MarkupType, range: NSRange, blockId: BlockId)
-    func uploadMediaFile(itemProvider: NSItemProvider, type: MediaPickerContentType, blockId: BlockId)
+    func uploadMediaFile(uploadingSource: MediaFileUploadingSource, type: MediaPickerContentType, blockId: BlockId)
     func uploadFileAt(localPath: String, blockId: BlockId)
     func selectBlock(info: BlockInformation)
     func createAndFetchBookmark(

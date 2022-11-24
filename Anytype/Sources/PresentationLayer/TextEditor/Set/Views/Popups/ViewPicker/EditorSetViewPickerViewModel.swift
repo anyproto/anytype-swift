@@ -10,12 +10,12 @@ final class EditorSetViewPickerViewModel: ObservableObject {
     private let setModel: EditorSetViewModel
     private var cancellable: AnyCancellable?
     private let dataviewService: DataviewServiceProtocol
-    private let showViewTypes: RoutingAction<DataviewView>
+    private let showViewTypes: RoutingAction<DataviewView?>
     
     init(
         setModel: EditorSetViewModel,
         dataviewService: DataviewServiceProtocol,
-        showViewTypes: @escaping RoutingAction<DataviewView>)
+        showViewTypes: @escaping RoutingAction<DataviewView?>)
     {
         self.setModel = setModel
         self.dataviewService = dataviewService
@@ -25,12 +25,18 @@ final class EditorSetViewPickerViewModel: ObservableObject {
         }
     }
     
+    func addButtonTapped() {
+        showViewTypes(nil)
+    }
+    
     func move(from: IndexSet, to: Int) {
         from.forEach { viewFromIndex in
             guard viewFromIndex != to, viewFromIndex < setModel.dataView.views.count else { return }
             let view = setModel.dataView.views[viewFromIndex]
             let position = to > viewFromIndex ? to - 1 : to
-            dataviewService.setPositionForView(view.id, position: position)
+            Task {
+                try await dataviewService.setPositionForView(view.id, position: position)
+            }
         }
     }
     
@@ -38,7 +44,9 @@ final class EditorSetViewPickerViewModel: ObservableObject {
         indexSet.forEach { deleteIndex in
             guard deleteIndex < setModel.dataView.views.count else { return }
             let view = setModel.dataView.views[deleteIndex]
-            dataviewService.deleteView(view.id)
+            Task {
+                try await dataviewService.deleteView(view.id)
+            }
         }
     }
     

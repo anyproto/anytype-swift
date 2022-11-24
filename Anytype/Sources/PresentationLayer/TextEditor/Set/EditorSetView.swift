@@ -44,19 +44,20 @@ struct EditorSetView: View {
     private var contentTypeView: some View {
         Group {
             switch model.contentViewType {
-            case .table:
+            case .table, .kanban:
                 SetTableView(
                     model: model,
                     tableHeaderSize: $tableHeaderSize,
                     offset: $offset,
                     headerMinimizedSize: headerMinimizedSize
                 )
-            case .gallery, .list:
+            case .collection(let viewType):
                 SetCollectionView(
                     model: model,
                     tableHeaderSize: $tableHeaderSize,
                     offset: $offset,
-                    headerMinimizedSize: headerMinimizedSize
+                    headerMinimizedSize: headerMinimizedSize,
+                    viewType: viewType
                 )
             }
         }

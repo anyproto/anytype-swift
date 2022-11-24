@@ -28,6 +28,12 @@ protocol EditorPageSelectionManagerProtocol {
     func canSelectBlock(at indexPath: IndexPath) -> Bool
     func didLongTap(at indexPath: IndexPath)
     func didUpdateSelectedIndexPaths(_ indexPaths: [IndexPath])
+
+    // MARK: - Optional
+    func didSelectSelection(from indexPath: IndexPath)}
+
+extension EditorPageSelectionManagerProtocol {
+    func didSelectSelection(from indexPath: IndexPath) {}
 }
 
 protocol EditorPageBlocksStateManagerProtocol: EditorPageSelectionManagerProtocol, EditorPageMovingManagerProtocol, AnyObject {
@@ -64,7 +70,8 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
     private let actionHandler: BlockActionHandlerProtocol
     private let pasteboardService: PasteboardServiceProtocol
     private let router: EditorRouterProtocol
-
+    private let bottomNavigationManager: EditorBottomNavigationManagerProtocol
+    
     weak var blocksOptionViewModel: SelectionOptionsViewModel?
     weak var blocksSelectionOverlayViewModel: BlocksSelectionOverlayViewModel?
     weak var viewInput: EditorPageViewInput?
@@ -80,7 +87,8 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         pasteboardService: PasteboardServiceProtocol,
         router: EditorRouterProtocol,
         initialEditingState: EditorEditingState,
-        viewInput: EditorPageViewInput
+        viewInput: EditorPageViewInput,
+        bottomNavigationManager: EditorBottomNavigationManagerProtocol
     ) {
         self.document = document
         self.modelsHolder = modelsHolder
@@ -91,6 +99,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         self.router = router
         self.editingState = initialEditingState
         self.viewInput = viewInput
+        self.bottomNavigationManager = bottomNavigationManager
 
         setupEditingHandlers()
     }
@@ -440,6 +449,14 @@ extension EditorPageBlocksStateManager: SimpleTableSelectionHandler {
 }
 
 extension EditorPageBlocksStateManager: BlockSelectionHandler {
+    func didSelectSelection(from indexPath: IndexPath) {
+        guard let blockViewModel = modelsHolder.blockViewModel(at: indexPath.row) else { return }
+
+        editingState = .selecting(blocks: [blockViewModel.info.id])
+        selectedBlocks = [blockViewModel.info.id]
+        updateSelectionBarActions(selectedBlocks: [blockViewModel.info])
+    }
+
     func didSelectEditingState(info: BlockInformation) {
         editingState = .selecting(blocks: [info.id])
         selectedBlocks = [info.id]
@@ -448,12 +465,14 @@ extension EditorPageBlocksStateManager: BlockSelectionHandler {
 
     func didSelectStyleSelection(info: BlockInformation) {
         viewInput?.endEditing()
+        bottomNavigationManager.styleViewActive(true)
         selectedBlocks = [info.id]
 
         let restrictions = BlockRestrictionsBuilder.build(content: info.content)
         router.showStyleMenu(information: info, restrictions: restrictions) { [weak self] presentedView in
             self?.viewInput?.adjustContentOffset(relatively: presentedView)
         } onDismiss: { [weak self] in
+            self?.bottomNavigationManager.styleViewActive(false)
             self?.viewInput?.restoreEditingState()
         }
     }

@@ -1,6 +1,6 @@
 
 protocol MarkupViewProtocol: AnyObject {
-    func setMarkupState(_ state: MarkupViewModel.AllAttributesState)
+    func setMarkupState(_ state: MarkupViewsState)
     func dismiss()
     
 }

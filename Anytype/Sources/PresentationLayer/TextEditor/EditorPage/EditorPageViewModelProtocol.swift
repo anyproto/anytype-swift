@@ -28,4 +28,6 @@ protocol EditorPageViewModelProtocol: AnyObject {
     func showCoverPicker()
     
     func setupSubscriptions()
+    
+    func cursorFocus(blockId: BlockId)
 }
