@@ -24,7 +24,8 @@ final class ServiceLocator {
     func authService() -> AuthServiceProtocol {
         return AuthService(
             localRepoService: localRepoService(),
-            loginStateService: loginStateService()
+            loginStateService: loginStateService(),
+            accountManager: accountManager()
         )
     }
     
@@ -76,7 +77,7 @@ final class ServiceLocator {
     }
     
     func accountManager() -> AccountManager {
-        AccountManager.shared
+        return AccountManager.shared
     }
     
     // Sigletone
@@ -88,6 +89,12 @@ final class ServiceLocator {
         return _relationDetailsStorage
     }
     
+    private lazy var _accountEventHandler = AccountEventHandler(
+        accountManager: accountManager()
+    )
+    func accountEventHandler() -> AccountEventHandlerProtocol {
+        return _accountEventHandler
+    }
     // MARK: - Private
     
     func pageService() -> PageServiceProtocol {

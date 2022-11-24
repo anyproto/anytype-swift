@@ -9,13 +9,15 @@ struct SetSubsriptionData: Hashable {
     let options: [DataviewRelationOption]
     let currentPage: Int
     let coverRelationKey: String
+    let numberOfRowsPerPage: Int
     
     init(
         identifier: SubscriptionId,
         dataView: BlockDataview,
         view: DataviewView,
         groupFilter: DataviewFilter?,
-        currentPage: Int
+        currentPage: Int,
+        numberOfRowsPerPage: Int
     ) {
         self.identifier = identifier
         self.source = dataView.source
@@ -28,5 +30,6 @@ struct SetSubsriptionData: Hashable {
         self.options = view.options
         self.currentPage = currentPage
         self.coverRelationKey = view.coverRelationKey
+        self.numberOfRowsPerPage = numberOfRowsPerPage
     }
 }

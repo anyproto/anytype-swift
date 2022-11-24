@@ -13,9 +13,9 @@ struct EditorSetPaginationHelperData {
 final class EditorSetPaginationHelper {
     private let numberOfPagesPerRow: Int = 5
     
-    func changePage(_ page: Int, data: EditorSetPaginationData) -> EditorSetPaginationHelperData? {
+    func changePage(_ page: Int, data: EditorSetPaginationData, ignorePageLimit: Bool = false) -> EditorSetPaginationHelperData? {
         guard page != data.selectedPage else { return nil }
-        guard page <= data.pageCount else { return nil }
+        guard page <= data.pageCount || ignorePageLimit else { return nil }
         
         return EditorSetPaginationHelperData(
             data: data.updated(selectedPage: page),
@@ -50,7 +50,7 @@ final class EditorSetPaginationHelper {
         return EditorSetPaginationHelperData(data: data)
     }
     
-    func updatePageCount(_ count: Int, data: EditorSetPaginationData) -> EditorSetPaginationHelperData? {
+    func updatePageCount(_ count: Int, data: EditorSetPaginationData, ignorePageLimit: Bool) -> EditorSetPaginationHelperData? {
         guard count != 0 else { return EditorSetPaginationHelperData(data: .empty) }
         
         var data = data
@@ -59,7 +59,7 @@ final class EditorSetPaginationHelper {
         
         if data.selectedPage == 0 {
             return changePage(1, data: data)
-        } else if data.selectedPage > data.pageCount {
+        } else if data.selectedPage > data.pageCount && !ignorePageLimit {
             return changePage(data.pageCount, data: data)
         } else {
             return EditorSetPaginationHelperData(data: data)

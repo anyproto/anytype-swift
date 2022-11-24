@@ -229,6 +229,8 @@ internal enum Loc {
   internal static let deleteAccount = Loc.tr("Localizable", "Delete account", fallback: "Delete account")
   /// Deleted
   internal static let deleted = Loc.tr("Localizable", "Deleted", fallback: "Deleted")
+  /// Deleted object
+  internal static let deletedObject = Loc.tr("Localizable", "Deleted object", fallback: "Deleted object")
   /// Deletion error
   internal static let deletionError = Loc.tr("Localizable", "Deletion error", fallback: "Deletion error")
   /// Description
@@ -1144,6 +1146,12 @@ internal enum Loc {
     internal enum View {
       internal enum Kanban {
         internal enum Column {
+          internal enum Paging {
+            internal enum Title {
+              /// Show more objects
+              internal static let showMore = Loc.tr("Localizable", "Set.View.Kanban.Column.Paging.Title.ShowMore", fallback: "Show more objects")
+            }
+          }
           internal enum Title {
             /// Uncategorized
             internal static let uncategorized = Loc.tr("Localizable", "Set.View.Kanban.Column.Title.Uncategorized", fallback: "Uncategorized")

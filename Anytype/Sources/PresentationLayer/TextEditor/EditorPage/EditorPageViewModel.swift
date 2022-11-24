@@ -23,6 +23,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     private let cursorManager: EditorCursorManager
     private let blockBuilder: BlockViewModelBuilder
     private let headerModel: ObjectHeaderViewModel
+    private let editorPageTemplatesHandler: EditorPageTemplatesHandlerProtocol
     private let isOpenedForPreview: Bool
 
     private lazy var subscriptions = [AnyCancellable]()
@@ -54,6 +55,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         cursorManager: EditorCursorManager,
         objectActionsService: ObjectActionsServiceProtocol,
         searchService: SearchServiceProtocol,
+        editorPageTemplatesHandler: EditorPageTemplatesHandlerProtocol,
         isOpenedForPreview: Bool
     ) {
         self.viewInput = viewInput
@@ -69,6 +71,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         self.cursorManager = cursorManager
         self.objectActionsService = objectActionsService
         self.searchService = searchService
+        self.editorPageTemplatesHandler = editorPageTemplatesHandler
         self.isOpenedForPreview = isOpenedForPreview
 
         setupLoadingState()
@@ -85,6 +88,10 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             guard let headerModel = value else { return }
             self?.updateHeaderIfNeeded(headerModel: headerModel)
         }.store(in: &subscriptions)
+        
+        document.detailsPublisher
+            .sink { [weak self] in self?.handleDeletionState(details: $0) }
+            .store(in: &subscriptions)
     }
 
     private func setupLoadingState() {
@@ -147,8 +154,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     }
     
     private func performGeneralUpdate() {
-        handleDeletionState()
-        
+
         let models = document.children
         
         let blocksViewModels = blockBuilder.buildEditorItems(infos: models)
@@ -157,21 +163,16 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
 
         if !document.isLocked {
             cursorManager.handleGeneralUpdate(with: modelsHolder.items, type: document.details?.type)
+            handleTemplatesPopupShowing()
         }
     }
     
-    private func handleDeletionState() {
-        guard let details = document.details else {
-            anytypeAssertionFailure("No detais for general update", domain: .editorPage)
-            return
-        }
-        
+    private func handleDeletionState(details: ObjectDetails) {
         viewInput?.showDeletedScreen(details.isDeleted)
         if details.isArchived {
             router.goBack()
         }
     }
-
 
     private func difference(
         with blockIds: Set<BlockId>
@@ -225,6 +226,20 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         viewInput?.update(header: headerModel, details: document.details)
         modelsHolder.header = headerModel
     }
+    
+    private func handleTemplatesPopupShowing() {
+        guard editorPageTemplatesHandler.needShowTemplates(for: document),
+              let type = document.details?.objectType else {
+            return
+        }
+        router.showTemplatesPopupWithTypeCheckIfNeeded(
+            document: document,
+            templatesTypeId: .dynamic(type.id),
+            onShow: { [weak self] in
+                self?.editorPageTemplatesHandler.onTemplatesShow()
+            }
+        )
+    }
 }
 
 // MARK: - View output
@@ -255,6 +270,7 @@ extension EditorPageViewModel {
 
     func viewDidAppear() {
         cursorManager.didAppeared(with: modelsHolder.items, type: document.details?.type)
+        editorPageTemplatesHandler.didAppeared(with: document.details?.type)
     }
 
     func viewWillDisappear() {}

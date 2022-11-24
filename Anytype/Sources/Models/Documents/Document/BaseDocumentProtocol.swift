@@ -16,6 +16,7 @@ protocol BaseDocumentProtocol: AnyObject {
     
     var parsedRelationsPublisher: AnyPublisher<ParsedRelations, Never> { get }
     var isLockedPublisher: AnyPublisher<Bool, Never> { get }
+    var detailsPublisher: AnyPublisher<ObjectDetails, Never> { get }
     
     @MainActor
     func open() async throws

@@ -38,7 +38,8 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
         return LinkToObjectCoordinatorAssembly(
             serviceLocator: serviceLocator,
             modulesDI: modulesDI,
-            coordinatorsID: self
+            coordinatorsID: self,
+            uiHelopersDI: uiHelpersDI
         )
     }
     
@@ -57,7 +58,8 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     var application: ApplicationCoordinator {
         return ApplicationCoordinator(
             windowManager: windowManager,
-            authService: serviceLocator.authService()
+            authService: serviceLocator.authService(),
+            accountEventHandler: serviceLocator.accountEventHandler()
         )
     }
     
@@ -67,5 +69,4 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
             homeViewAssembly: homeViewAssemby
         )
     }
-
 }

@@ -28,7 +28,7 @@ struct CheckPopupView<ViewModel: CheckPopupViewViewModelProtocol>: View {
             ForEach(viewModel.items) { item in
                 Button {
                     presentationMode.wrappedValue.dismiss()
-                    viewModel.onTap(itemId: item.id)
+                    item.onTap()
                 } label: {
                     mainSectionRow(item)
                 }
@@ -69,8 +69,8 @@ struct CheckPopupView_Previews: PreviewProvider {
         }
 
         var items: [CheckPopupItem] = [
-            .init(id: "1", iconAsset: .text, title: "Some title", subtitle: "Long subtitle", isSelected: true),
-            .init(id: "2", iconAsset: .text, title: "Other title", subtitle: "Long subtitle", isSelected: false)
+            .init(id: "1", iconAsset: .text, title: "Some title", subtitle: "Long subtitle", isSelected: true, onTap: {}),
+            .init(id: "2", iconAsset: .text, title: "Other title", subtitle: "Long subtitle", isSelected: false, onTap: {})
         ]
     }
 

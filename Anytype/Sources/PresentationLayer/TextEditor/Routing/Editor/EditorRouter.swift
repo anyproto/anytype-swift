@@ -302,12 +302,17 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         rootController?.setNavigationViewHidden(isHidden, animated: animated)
     }
 
-    func showObjectPreview(blockLinkAppearance: BlockLink.Appearance, onSelect: @escaping (BlockLink.Appearance) -> Void) {
-        let previewModel = ObjectPreviewModel(linkApperance: blockLinkAppearance)
+    func showObjectPreview(
+        blockLinkState: BlockLinkState,
+        onSelect: @escaping (BlockLink.Appearance) -> Void
+    ) {
         let router = ObjectPreviewRouter(viewController: viewController)
-        let viewModel = ObjectPreviewViewModel(objectPreviewModel: previewModel,
-                                               router: router,
-                                               onSelect: onSelect)
+        let viewModel = ObjectPreviewViewModel(
+            blockLinkState: blockLinkState,
+            router: router,
+            onSelect: onSelect
+        )
+
         let contentView = ObjectPreviewView(viewModel: viewModel)
         let popup = AnytypePopup(contentView: contentView)
 
@@ -315,13 +320,27 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
 
     }
 
-    func showTemplatesAvailabilityPopupIfNeeded(
+    func showTemplatesPopupIfNeeded(
         document: BaseDocumentProtocol,
-        templatesTypeId: ObjectTypeId
+        templatesTypeId: ObjectTypeId,
+        onShow: (() -> Void)?
     ) {
-        templatesCoordinator.showTemplatesAvailabilityPopupIfNeeded(
+        templatesCoordinator.showTemplatesPopupIfNeeded(
             document: document,
-            templatesTypeId: .dynamic(templatesTypeId.rawValue)
+            templatesTypeId: .dynamic(templatesTypeId.rawValue),
+            onShow: onShow
+        )
+    }
+    
+    func showTemplatesPopupWithTypeCheckIfNeeded(
+        document: BaseDocumentProtocol,
+        templatesTypeId: ObjectTypeId,
+        onShow: (() -> Void)?
+    ) {
+        templatesCoordinator.showTemplatesPopupWithTypeCheckIfNeeded(
+            document: document,
+            templatesTypeId: .dynamic(templatesTypeId.rawValue),
+            onShow: onShow
         )
     }
     

@@ -8,18 +8,25 @@ final class ApplicationCoordinator {
     
     private let windowManager: WindowManager
     private let authService: AuthServiceProtocol
+    private let accountEventHandler: AccountEventHandlerProtocol
         
     // MARK: - Initializers
     
-    init(windowManager: WindowManager, authService: AuthServiceProtocol) {
+    init(
+        windowManager: WindowManager,
+        authService: AuthServiceProtocol,
+        accountEventHandler: AccountEventHandlerProtocol
+    ) {
         self.windowManager = windowManager
         self.authService = authService
+        self.accountEventHandler = accountEventHandler
     }
 
     @MainActor
     func start(connectionOptions: UIScene.ConnectionOptions) {
         runAtFirstLaunch()
         login(connectionOptions: connectionOptions)
+        startObserve()
     }
 
     @MainActor
@@ -37,6 +44,15 @@ final class ApplicationCoordinator {
 
 private extension ApplicationCoordinator {
  
+    func startObserve() {
+        Task { @MainActor [weak self, accountEventHandler] in
+            for await status in accountEventHandler.accountStatusPublisher.myValues {
+                guard let self = self else { return }
+                self.handleStatus(status)
+            }
+        }
+    }
+    
     func runAtFirstLaunch() {
         if UserDefaultsConfig.installedAtDate.isNil {
             UserDefaultsConfig.installedAtDate = Date()
@@ -68,6 +84,21 @@ private extension ApplicationCoordinator {
                 .map(\.url)
                 .first
                 .map { self?.handleDeeplink(url: $0) }
+        }
+    }
+    
+    @MainActor
+    func handleStatus(_ status: AccountStatus) {
+        switch status {
+        case .active:
+            break
+        case .pendingDeletion(let deadline):
+            windowManager.showDeletedAccountWindow(deadline: deadline)
+        case .deleted:
+            if UserDefaultsConfig.usersId.isNotEmpty {
+                ServiceLocator.shared.authService().logout(removeData: true) { _ in }
+                windowManager.showAuthWindow()
+            }
         }
     }
 } 

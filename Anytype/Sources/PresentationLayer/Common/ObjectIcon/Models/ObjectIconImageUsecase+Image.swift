@@ -51,6 +51,16 @@ extension ObjectIconImageUsecase {
                 staticImageGuideline: StaticImageGuideline.x20,
                 bookmarkImageGuideline: BookmarkIconImageGuideline.x20
             )
+        case .linkToObject:
+            return ObjectIconImageGuidelineSet(
+                basicImageGuideline: BasicIconImageGuideline.x48,
+                profileImageGuideline: ProfileIconImageGuideline.x48,
+                emojiImageGuideline: EmojiIconImageGuideline.x48,
+                todoImageGuideline: nil,
+                placeholderImageGuideline: PlaceholderIconImageGuideline.x48,
+                staticImageGuideline: BasicIconImageGuideline.x48,
+                bookmarkImageGuideline: nil
+            )
         case .dashboardList:
             return ObjectIconImageGuidelineSet(
                 basicImageGuideline: BasicIconImageGuideline.x48,

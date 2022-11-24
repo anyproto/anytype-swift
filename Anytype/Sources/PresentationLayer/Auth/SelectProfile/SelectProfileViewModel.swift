@@ -1,6 +1,5 @@
 import SwiftUI
 import Combine
-import ProtobufMessages
 
 @MainActor
 final class SelectProfileViewModel: ObservableObject {
@@ -16,6 +15,7 @@ final class SelectProfileViewModel: ObservableObject {
     
     private let authService = ServiceLocator.shared.authService()
     private let fileService = ServiceLocator.shared.fileService()
+    private let accountEventHandler = ServiceLocator.shared.accountEventHandler()
     
     private var cancellable: AnyCancellable?
     
@@ -53,32 +53,9 @@ final class SelectProfileViewModel: ObservableObject {
 private extension SelectProfileViewModel {
     
     func handleAccountShowEvent() {
-        cancellable = NotificationCenter.Publisher(
-            center: .default,
-            name: .middlewareEvent,
-            object: nil
-        )
-            .compactMap { $0.object as? EventsBunch }
-            .map(\.middlewareEvents)
-            .map {
-                $0.filter { message in
-                    guard let value = message.value else { return false }
-                    guard case Anytype_Event.Message.OneOf_Value.accountShow = value else {
-                        return false
-                    }
-                    
-                    return true
-                }
-            }
-            .filter { $0.count > 0 }
-            .receiveOnMain()
-            .sink { [weak self] events in
-                guard
-                    let self = self,
-                    let event = events.first
-                else { return }
-                
-                self.selectProfile(id: event.accountShow.account.id)
+        cancellable = accountEventHandler.accountShowPublisher
+            .sink { [weak self] accountId in
+                self?.selectProfile(id: accountId)
             }
     }
     

@@ -69,8 +69,7 @@ final class DataviewService: DataviewServiceProtocol {
         prefilledFields[BundledRelationKey.type.rawValue] = objectType.protobufValue
 
         let internalFlags: [Anytype_Model_InternalFlag] = [
-            Anytype_Model_InternalFlag(value: .editorSelectTemplate),
-            Anytype_Model_InternalFlag(value: .editorSelectType)
+            Anytype_Model_InternalFlag(value: .editorSelectTemplate)
         ]
 
         let details: Google_Protobuf_Struct = .init(fields: prefilledFields)

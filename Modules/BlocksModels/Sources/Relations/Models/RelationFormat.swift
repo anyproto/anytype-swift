@@ -1,4 +1,5 @@
 import Foundation
+import ProtobufMessages
 
 public enum RelationFormat {
     case object
@@ -14,6 +15,10 @@ public enum RelationFormat {
     case phone
     case tag
     case unrecognized
+    
+    public var asMiddleware: Anytype_Model_RelationFormat {
+        return Anytype_Model_RelationFormat(rawValue: rawValue) ?? .UNRECOGNIZED(rawValue)
+    }
 }
 
 extension RelationFormat {

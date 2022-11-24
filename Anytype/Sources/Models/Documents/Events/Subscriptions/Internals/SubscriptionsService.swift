@@ -60,7 +60,7 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
         result.dependencies.forEach { storage.amend(details: $0) }
         
         update(data.identifier, .initialData(result.records))
-        update(data.identifier, .pageCount(numberOfPagesFromTotalCount(result.count)))
+        update(data.identifier, .pageCount(numberOfPagesFromTotalCount(result.count, numberOfRowsPerPage: data.rowsPerPage)))
     }
     
     func hasSubscriptionDataDiff(with data: SubscriptionData) -> Bool {
@@ -119,7 +119,13 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
             case .objectRemove:
                 break // unsupported (Not supported in middleware converter also)
             case .subscriptionCounters(let data):
-                sendUpdate(.pageCount(numberOfPagesFromTotalCount(Int(data.total))), subId: data.subID)
+                sendUpdate(
+                    .pageCount(numberOfPagesFromTotalCount(
+                        Int(data.total),
+                        numberOfRowsPerPage: Int(data.total - data.nextCount)
+                    )),
+                    subId: data.subID
+                )
             case .accountConfigUpdate, .accountUpdate, .accountDetails, .accountShow:
                 break
             default:
@@ -148,11 +154,11 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
         }
     }
     
-    private func numberOfPagesFromTotalCount(_ count: Int) -> Int {
-        let numberOfRowsPerPageInSubscriptions = UserDefaultsConfig.rowsPerPageInSet
-        // Returns 1 if count < numberOfRowsPerPageInSubscriptions
-        // And returns 1 if count = numberOfRowsPerPageInSubscriptions
-        let closestNumberToRowsPerPage = numberOfRowsPerPageInSubscriptions - 1
-        return (count + closestNumberToRowsPerPage) / numberOfRowsPerPageInSubscriptions
+    private func numberOfPagesFromTotalCount(_ count: Int, numberOfRowsPerPage: Int) -> Int {
+        guard numberOfRowsPerPage > 0 else { return 0 }
+        // Returns 1 if count < numberOfRowsPerPage
+        // And returns 1 if count = numberOfRowsPerPage
+        let closestNumberToRowsPerPage = numberOfRowsPerPage - 1
+        return (count + closestNumberToRowsPerPage) / numberOfRowsPerPage
     }
 }

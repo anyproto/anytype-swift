@@ -55,7 +55,7 @@ final class ObjectHeaderViewModel: ObservableObject {
         return .filled(
             state: .iconAndCover(
                 icon: .init(
-                    icon: .image(image),
+                    icon: .init(mode: .image(image), usecase: .openedObject),
                     layoutAlignment: .left,
                     onTap: {}
                 ),
@@ -105,7 +105,7 @@ final class ObjectHeaderViewModel: ObservableObject {
                 .iconOnly(
                     ObjectHeaderIconOnlyState(
                         icon: ObjectHeaderIcon(
-                            icon: .basicPreview(UIImage(contentsOfFile: path)),
+                            icon: .init(mode: .basicPreview(UIImage(contentsOfFile: path)), usecase: .openedObject),
                             layoutAlignment: .left,
                             onTap: onIconTap
                         ),
@@ -150,7 +150,7 @@ final class ObjectHeaderViewModel: ObservableObject {
             return .filled(state:
                 .iconAndCover(
                     icon: ObjectHeaderIcon(
-                        icon: .icon(icon),
+                        icon: .init(mode: .icon(icon), usecase: .openedObject),
                         layoutAlignment: layoutAlign,
                         onTap: onIconTap
                     ),
@@ -167,7 +167,7 @@ final class ObjectHeaderViewModel: ObservableObject {
                 .iconOnly(
                     ObjectHeaderIconOnlyState(
                         icon: ObjectHeaderIcon(
-                            icon: .icon(icon),
+                            icon: .init(mode: .icon(icon), usecase: .openedObject),
                             layoutAlignment: layoutAlign,
                             onTap: onIconTap
                         ),

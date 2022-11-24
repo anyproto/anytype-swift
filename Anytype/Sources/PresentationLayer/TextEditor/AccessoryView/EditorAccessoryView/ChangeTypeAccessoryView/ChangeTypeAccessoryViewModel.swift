@@ -64,14 +64,6 @@ final class ChangeTypeAccessoryViewModel {
             return
         }
 
-        let isSelectTemplate = document.details?.isSelectTemplate ?? false
-        if isSelectTemplate {
-            router.showTemplatesAvailabilityPopupIfNeeded(
-                document: document,
-                templatesTypeId: .dynamic(typeId)
-            )
-        }
-
         handler.setObjectTypeId(typeId)
         applyDefaultTemplateIfNeeded(typeId: typeId)
     }

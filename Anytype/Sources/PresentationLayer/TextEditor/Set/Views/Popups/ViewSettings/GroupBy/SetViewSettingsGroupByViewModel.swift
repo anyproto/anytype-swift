@@ -29,18 +29,19 @@ final class SetViewSettingsGroupByViewModel: CheckPopupViewViewModelProtocol {
                 iconAsset: relation.format.iconAsset,
                 title: relation.name,
                 subtitle: nil,
-                isSelected: relation.id == selectedRelationId
+                isSelected: relation.id == selectedRelationId,
+                onTap: { [weak self] in self?.onTap(relation: relation) }
             )
         }
     }
 
-    func onTap(itemId: String) {
-        guard itemId != selectedRelationId else {
+    private func onTap(relation: RelationDetails) {
+        guard relation.id != selectedRelationId else {
             return
         }
 
-        selectedRelationId = itemId
-        onSelect(selectedRelationId)
+        selectedRelationId = relation.id
+        onSelect(relation.id)
         items = buildPopupItems()
     }
 }

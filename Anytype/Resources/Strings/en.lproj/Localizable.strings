@@ -375,6 +375,7 @@
 
 // MARK: - Sets: Kanban
 "Set.View.Kanban.Column.Title.Uncategorized" = "Uncategorized";
+"Set.View.Kanban.Column.Paging.Title.ShowMore" = "Show more objects";
 
 // MARK: - Set source type
 "Set.SourceType.SelectSource" = "Select source";
@@ -428,6 +429,7 @@
 "No name" = "No name";
 "New relation" = "New relation";
 "Non-existent object" = "Non-existent object";
+"Deleted object" = "Deleted object";
 "Select all" = "Select all";
 "Deselect all" = "Deselect all";
 "Shared" = "Shared";

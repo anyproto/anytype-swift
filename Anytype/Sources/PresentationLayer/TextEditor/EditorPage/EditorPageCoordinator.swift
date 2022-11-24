@@ -8,19 +8,16 @@ protocol EditorPageCoordinatorProtocol: AnyObject {
 
 final class EditorPageCoordinator: EditorPageCoordinatorProtocol {
     
-    private weak var rootController: EditorBrowserController?
-    private weak var viewController: UIViewController?
+    private weak var browserController: EditorBrowserController?
     private let editorAssembly: EditorAssembly
     private let alertHelper: AlertHelper
     
     init(
-        rootController: EditorBrowserController?,
-        viewController: UIViewController?,
+        browserController: EditorBrowserController?,
         editorAssembly: EditorAssembly,
         alertHelper: AlertHelper
     ) {
-        self.rootController = rootController
-        self.viewController = viewController
+        self.browserController = browserController
         self.editorAssembly = editorAssembly
         self.alertHelper = alertHelper
     }
@@ -35,14 +32,14 @@ final class EditorPageCoordinator: EditorPageCoordinatorProtocol {
         }
         
         let controller = editorAssembly.buildEditorController(
-            browser: rootController,
+            browser: browserController,
             data: data
         )
         
         if replaceCurrentPage {
-            rootController?.childNavigation?.replaceLastViewController(controller, animated: false)
+            browserController?.childNavigation?.replaceLastViewController(controller, animated: false)
         } else {
-            viewController?.navigationController?.pushViewController(controller, animated: true)
+            browserController?.childNavigation?.pushViewController(controller, animated: true)
         }
     }
     
