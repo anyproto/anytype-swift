@@ -9093,7 +9093,6 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = "RELEASE=1";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -9105,7 +9104,6 @@
 				MTL_FAST_MATH = YES;
 				OTHER_SWIFT_FLAGS = "-Xfrontend -warn-long-expression-type-checking=100 -Xfrontend -warn-long-function-bodies=100";
 				SDKROOT = iphoneos;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = RELEASE;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
@@ -9229,7 +9227,7 @@
 			};
 			name = Release;
 		};
-		1267458B2696FEC1002132F3 /* Dev-Release */ = {
+		1267458B2696FEC1002132F3 /* Debug-Nightly */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -9269,7 +9267,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = "ENTERPRISE=1";
+				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -9281,15 +9279,15 @@
 				MTL_FAST_MATH = YES;
 				OTHER_SWIFT_FLAGS = "-Xfrontend -warn-long-expression-type-checking=100 -Xfrontend -warn-long-function-bodies=100";
 				SDKROOT = iphoneos;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = ENTERPRISE;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
 				VALIDATE_PRODUCT = YES;
 			};
-			name = "Dev-Release";
+			name = "Debug-Nightly";
 		};
-		1267458C2696FEC1002132F3 /* Dev-Release */ = {
+		1267458C2696FEC1002132F3 /* Debug-Nightly */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -9323,9 +9321,9 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
-			name = "Dev-Release";
+			name = "Debug-Nightly";
 		};
-		1267458D2696FEC1002132F3 /* Dev-Release */ = {
+		1267458D2696FEC1002132F3 /* Debug-Nightly */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -9345,7 +9343,7 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Anytype.app/Anytype";
 			};
-			name = "Dev-Release";
+			name = "Debug-Nightly";
 		};
 		C960DFBB28D88618002898AE /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -9414,7 +9412,7 @@
 			};
 			name = Release;
 		};
-		C960DFBD28D88618002898AE /* Dev-Release */ = {
+		C960DFBD28D88618002898AE /* Debug-Nightly */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -9445,7 +9443,7 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
-			name = "Dev-Release";
+			name = "Debug-Nightly";
 		};
 /* End XCBuildConfiguration section */
 
@@ -9455,7 +9453,7 @@
 			buildConfigurations = (
 				0303ED0D22D8EDAD005C552B /* Debug */,
 				0303ED0E22D8EDAD005C552B /* Release */,
-				1267458B2696FEC1002132F3 /* Dev-Release */,
+				1267458B2696FEC1002132F3 /* Debug-Nightly */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -9465,7 +9463,7 @@
 			buildConfigurations = (
 				0303ED1022D8EDAD005C552B /* Debug */,
 				0303ED1122D8EDAD005C552B /* Release */,
-				1267458C2696FEC1002132F3 /* Dev-Release */,
+				1267458C2696FEC1002132F3 /* Debug-Nightly */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -9475,7 +9473,7 @@
 			buildConfigurations = (
 				03C5C54822DFD90C00DD91DE /* Debug */,
 				03C5C54922DFD90C00DD91DE /* Release */,
-				1267458D2696FEC1002132F3 /* Dev-Release */,
+				1267458D2696FEC1002132F3 /* Debug-Nightly */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -9485,7 +9483,7 @@
 			buildConfigurations = (
 				C960DFBB28D88618002898AE /* Debug */,
 				C960DFBC28D88618002898AE /* Release */,
-				C960DFBD28D88618002898AE /* Dev-Release */,
+				C960DFBD28D88618002898AE /* Debug-Nightly */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

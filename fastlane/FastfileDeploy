@@ -48,7 +48,7 @@ platform :ios do
     
     build_app(
       scheme: "Anytype", 
-      configuration: options[:release] ? "Release" : "Dev-Release",
+      configuration: options[:release] ? "Release" : "Debug-Nightly",
       include_symbols: true,
       use_system_scm: true,
       output_directory: "./build_app_results",
