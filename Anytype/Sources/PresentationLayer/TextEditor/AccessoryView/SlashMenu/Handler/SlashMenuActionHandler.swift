@@ -48,7 +48,7 @@ final class SlashMenuActionHandler {
             switch action {
             case .newRealtion:
                 router.showAddNewRelationView() { [weak self] relation, isNew in
-                    self?.actionHandler.addBlock(.relation(key: relation.id), blockId: blockId, blockText: textView?.attributedText)
+                    self?.actionHandler.addBlock(.relation(key: relation.key), blockId: blockId, blockText: textView?.attributedText)
 
                     AnytypeAnalytics.instance().logAddRelation(format: relation.format, isNew: isNew, type: .block)
                 }
