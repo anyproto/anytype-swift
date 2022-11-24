@@ -48,9 +48,10 @@ final class BaseDocument: BaseDocumentProtocol {
         detailsStorage.get(id: objectId)
     }
     
-    private var detailsSubject = CurrentValueSubject<ObjectDetails?, Never>(nil)
     var detailsPublisher: AnyPublisher<ObjectDetails, Never> {
-        detailsSubject.compactMap { $0 }
+        detailsStorage.publisherFor(id: objectId)
+            .receiveOnMain()
+            .compactMap { $0 }
             .eraseToAnyPublisher()
     }
     
@@ -130,11 +131,6 @@ final class BaseDocument: BaseDocumentProtocol {
             .removeDuplicates()
             .receiveOnMain()
             .assign(to: &$isLocked)
-        
-        detailsStorage.publisherFor(id: objectId)
-            .receiveOnMain()
-            .sink { [weak self] in self?.detailsSubject.send($0) }
-            .store(in: &subscriptions)
         
         Publishers
             .CombineLatest(
