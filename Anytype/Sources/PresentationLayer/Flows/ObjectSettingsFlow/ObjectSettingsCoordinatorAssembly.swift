@@ -25,9 +25,7 @@ final class ObjectSettingsCoordinatorAssembly: ObjectSettingsCoordinatorAssembly
     func make(document: BaseDocumentProtocol, browserController: EditorBrowserController?) -> ObjectSettingsCoordinatorProtocol {
         return ObjectSettingsCoordinator(
             document: document,
-            navigationContext: NavigationContext(
-                rootViewController: uiHelpersDI.viewControllerProvider.topViewController
-            ),
+            navigationContext: uiHelpersDI.commonNavigationContext,
             objectSettingsModuleAssembly: modulesDI.objectSetting,
             undoRedoModuleAssembly: modulesDI.undoRedo,
             objectLayoutPickerModuleAssembly: modulesDI.objectLayoutPicker,

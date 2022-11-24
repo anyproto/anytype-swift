@@ -15,7 +15,7 @@ final class AddNewRelationCoordinatorAssembly: AddNewRelationCoordinatorAssembly
     func make(document: BaseDocumentProtocol) -> AddNewRelationCoordinatorProtocol {
         return AddNewRelationCoordinator(
             document: document,
-            navigationContext: NavigationContext(rootViewController: uiHelpersDI.viewControllerProvider.rootViewController)
+            navigationContext: uiHelpersDI.commonNavigationContext
         )
     }
 }
