@@ -3,10 +3,10 @@ import AnytypeCore
 import Logger
 
 final class FirebaseConfigurator: AppConfiguratorProtocol {
-    #if RELEASE
-    private let settingsFile = "GoogleService-Info"
-    #else
+    #if DEBUG
     private let settingsFile = "GoogleService-Info-Dev"
+    #else
+    private let settingsFile = "GoogleService-Info"
     #endif
     
     func configure() {        

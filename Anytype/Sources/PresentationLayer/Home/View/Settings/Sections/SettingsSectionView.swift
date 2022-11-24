@@ -34,7 +34,7 @@ struct SettingsSectionView: View {
                 DebugMenu()
             }
             
-            #if !RELEASE
+            #if DEBUG
             SettingsSectionItemView(
                 name: "Debug",
                 imageAsset: .settingsDebug,

@@ -7,11 +7,11 @@ final class LoggerConfigurator: AppConfiguratorProtocol {
     private let invocationHandler = InvocationMesagesHandler()
     
     func configure() {
-        #if RELEASE
-            RemoteLogger.shared.disable()
-        #else
+        #if DEBUG
             InvocationSettings.handler = invocationHandler
             EventLogger.setupLgger()
+        #else
+            EventLogger.disableRemoteLogger()
         #endif
     }
 }
