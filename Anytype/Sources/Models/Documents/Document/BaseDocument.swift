@@ -21,10 +21,22 @@ final class BaseDocument: BaseDocumentProtocol {
     private let detailsStorage = ObjectDetailsStorage.shared
     private let relationDetailsStorage = ServiceLocator.shared.relationDetailsStorage()
 
+    private var subscriptions = [AnyCancellable]()
+    
     // MARK: - State
-    @Published var parsedRelations: ParsedRelations = .empty
+    private var parsedRelationsSubject = CurrentValueSubject<ParsedRelations, Never>(.empty)
     var parsedRelationsPublisher: AnyPublisher<ParsedRelations, Never> {
-        $parsedRelations.eraseToAnyPublisher()
+        parsedRelationsSubject.eraseToAnyPublisher()
+    }
+    // All places, where parsedRelations used, should be subscribe on parsedRelationsPublisher.
+    var parsedRelations: ParsedRelations {
+        return relationBuilder.parsedRelations(
+            relationsDetails: relationDetailsStorage.relationsDetails(
+                for: relationLinksStorage.relationLinks
+            ),
+            objectId: objectId,
+            isObjectLocked: isLocked
+        )
     }
     
     @Published var isLocked = false
@@ -32,9 +44,14 @@ final class BaseDocument: BaseDocumentProtocol {
         $isLocked.eraseToAnyPublisher()
     }
     
-    @Published var details: ObjectDetails? = nil
+    var details: ObjectDetails? {
+        detailsStorage.get(id: objectId)
+    }
+    
     var detailsPublisher: AnyPublisher<ObjectDetails, Never> {
-        $details.compactMap { $0 }
+        detailsStorage.publisherFor(id: objectId)
+            .receiveOnMain()
+            .compactMap { $0 }
             .eraseToAnyPublisher()
     }
     
@@ -115,10 +132,6 @@ final class BaseDocument: BaseDocumentProtocol {
             .receiveOnMain()
             .assign(to: &$isLocked)
         
-        detailsStorage.publisherFor(id: objectId)
-            .receiveOnMain()
-            .assign(to: &$details)
-        
         Publishers
             .CombineLatest(
                 relationDetailsStorage.relationsDetailsPublisher,
@@ -139,6 +152,7 @@ final class BaseDocument: BaseDocumentProtocol {
             }
             .removeDuplicates()
             .receiveOnMain()
-            .assign(to: &$parsedRelations)
+            .sink { [weak self] in self?.parsedRelationsSubject.send($0) }
+            .store(in: &subscriptions)
     }
 }

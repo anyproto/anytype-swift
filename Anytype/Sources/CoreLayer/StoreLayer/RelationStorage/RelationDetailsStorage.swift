@@ -10,11 +10,12 @@ final class RelationDetailsStorage: RelationDetailsStorageProtocol {
     private let subscriptionsService: SubscriptionsServiceProtocol
     private let subscriptionDataBuilder: RelationSubscriptionDataBuilderProtocol
     
-    @Published private var details = [RelationDetails]()
+    private var details = [RelationDetails]()
     private var searchDetailsByKey = [String: RelationDetails]()
 
+    private var relationsDetailsSubject = CurrentValueSubject<[RelationDetails], Never>([])
     var relationsDetailsPublisher: AnyPublisher<[RelationDetails], Never> {
-        $details.eraseToAnyPublisher()
+        relationsDetailsSubject.eraseToAnyPublisher()
     }
     
     init(
@@ -44,6 +45,7 @@ final class RelationDetailsStorage: RelationDetailsStorageProtocol {
         subscriptionsService.stopSubscription(id: .relation)
         details.removeAll()
         updateSearchCache()
+        relationsDetailsSubject.send(details)
     }
     
     // MARK: - Private
@@ -51,6 +53,7 @@ final class RelationDetailsStorage: RelationDetailsStorageProtocol {
     private func handleEvent(update: SubscriptionUpdate) {
         details.applySubscriptionUpdate(update, transform: { RelationDetails(objectDetails: $0) })
         updateSearchCache()
+        relationsDetailsSubject.send(details)
         
         switch update {
         case .initialData(let details):

@@ -45,7 +45,9 @@ final class RelationsBuilder {
         var otherRelations: [Relation] = []
         
         relationsDetails.forEach { relationDetails in
-            guard !relationDetails.isHidden else { return }
+            guard !relationDetails.isHidden,
+                    relationDetails.key != BundledRelationKey.type.rawValue
+            else { return }
             
             let value = relation(
                 relationDetails: relationDetails,
