@@ -173,6 +173,7 @@ extension Anytype_Rpc.Workspace.Create.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Workspace.Export.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Workspace.GetAll.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Workspace.GetCurrent.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Workspace.Object.Add.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Workspace.Object.ListAdd.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Workspace.Object.ListRemove.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Workspace.Select.Response.Error: Swift.Error {}

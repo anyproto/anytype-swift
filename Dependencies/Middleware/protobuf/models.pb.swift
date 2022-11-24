@@ -3009,6 +3009,8 @@ public struct Anytype_Model_ObjectType {
   /// sets locally to hide object type from set and some other places
   public var isArchived: Bool = false
 
+  public var installedByDefault: Bool = false
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public enum Layout: SwiftProtobuf.Enum {
@@ -6582,6 +6584,7 @@ extension Anytype_Model_ObjectType: SwiftProtobuf.Message, SwiftProtobuf._Messag
     10: .same(proto: "readonly"),
     8: .same(proto: "types"),
     9: .same(proto: "isArchived"),
+    11: .same(proto: "installedByDefault"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -6600,6 +6603,7 @@ extension Anytype_Model_ObjectType: SwiftProtobuf.Message, SwiftProtobuf._Messag
       case 8: try { try decoder.decodeRepeatedEnumField(value: &self.types) }()
       case 9: try { try decoder.decodeSingularBoolField(value: &self.isArchived) }()
       case 10: try { try decoder.decodeSingularBoolField(value: &self.readonly) }()
+      case 11: try { try decoder.decodeSingularBoolField(value: &self.installedByDefault) }()
       default: break
       }
     }
@@ -6636,6 +6640,9 @@ extension Anytype_Model_ObjectType: SwiftProtobuf.Message, SwiftProtobuf._Messag
     if self.readonly != false {
       try visitor.visitSingularBoolField(value: self.readonly, fieldNumber: 10)
     }
+    if self.installedByDefault != false {
+      try visitor.visitSingularBoolField(value: self.installedByDefault, fieldNumber: 11)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -6650,6 +6657,7 @@ extension Anytype_Model_ObjectType: SwiftProtobuf.Message, SwiftProtobuf._Messag
     if lhs.readonly != rhs.readonly {return false}
     if lhs.types != rhs.types {return false}
     if lhs.isArchived != rhs.isArchived {return false}
+    if lhs.installedByDefault != rhs.installedByDefault {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
