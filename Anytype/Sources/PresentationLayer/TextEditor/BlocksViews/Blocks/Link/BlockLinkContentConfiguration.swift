@@ -5,6 +5,7 @@ struct BlockLinkTextConfiguration: BlockConfiguration {
     typealias View = BlockTextLinkView
 
     let state: BlockLinkState
+    @EquatableNoop private(set) var todoToggleAction: () -> Void
 
     var contentInsets: UIEdgeInsets { .init(top: 5, left: 20, bottom: -5, right: -20) }
 }
@@ -14,6 +15,7 @@ struct BlockLinkCardConfiguration: BlockConfiguration {
 
     let state: BlockLinkState
     let backgroundColor: UIColor?
+    @EquatableNoop private(set) var todoToggleAction: () -> Void
 
     var hasOwnBackground: Bool { true }
 }

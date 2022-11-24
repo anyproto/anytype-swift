@@ -14,19 +14,15 @@ struct ObjectPreviewModel {
     var description: BlockLink.Description
     var coverRelation: Relation?
     var isCoverRelationEnabled: Bool
+    var isIconMenuVisible: Bool
     
     var relations: [ListItem]
 
     init(linkState: BlockLinkState) {
         self.relations = Self.buildRealtions(relations: linkState.relations)
         self.cardStyle = linkState.cardStyle
-
-        var iconSize = linkState.iconSize
-        if iconSize == .medium && linkState.objectLayout == .todo {
-            iconSize = .small
-        }
-
-        self.iconSize = iconSize
+        self.isIconMenuVisible = linkState.objectLayout != .todo
+        self.iconSize = linkState.iconSize
         self.description = linkState.descriptionState
         self.isCoverRelationEnabled = linkState.relations.contains(.cover)
 

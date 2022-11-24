@@ -16,16 +16,19 @@ struct BlockLinkViewModel: BlockViewModelProtocol {
     private let state: BlockLinkState
     private let content: BlockLink
     private let openLink: (EditorScreenData) -> ()
+    private let detailsService: DetailsServiceProtocol
 
     init(
         info: BlockInformation,
         content: BlockLink,
         details: ObjectDetails,
+        detailsService: DetailsServiceProtocol,
         openLink: @escaping (EditorScreenData) -> ()
     ) {
         self.info = info
         self.content = content
         self.openLink = openLink
+        self.detailsService = detailsService
         self.state = BlockLinkState(details: details, blockLink: content)
     }
     
@@ -36,13 +39,13 @@ struct BlockLinkViewModel: BlockViewModelProtocol {
                 UIColor.Background.uiColor(from: $0)
             }
 
-            return BlockLinkCardConfiguration(state: state, backgroundColor: backgroundColor)
+            return BlockLinkCardConfiguration(state: state, backgroundColor: backgroundColor, todoToggleAction: toggleTodo)
                 .cellBlockConfiguration(
                     indentationSettings: .init(with: info.configurationData),
                     dragConfiguration: .init(id: info.id)
                 )
         default:
-            return BlockLinkTextConfiguration(state: state)
+            return BlockLinkTextConfiguration(state: state, todoToggleAction: toggleTodo)
                 .cellBlockConfiguration(
                     indentationSettings: .init(with: info.configurationData),
                     dragConfiguration: .init(id: info.id)
@@ -54,5 +57,17 @@ struct BlockLinkViewModel: BlockViewModelProtocol {
         if state.deleted || state.archived { return }
         
         openLink(EditorScreenData(pageId: content.targetBlockID, type: state.viewType))
+    }
+
+    private func toggleTodo() {
+        guard case let .checkmark(isChecked) = state.style else {
+            return
+        }
+
+        detailsService.updateDetails(
+            contextId: content.targetBlockID,
+            relationKey: BundledRelationKey.done.rawValue,
+            value: .checkbox(.init(checked: !isChecked))
+        )
     }
 }

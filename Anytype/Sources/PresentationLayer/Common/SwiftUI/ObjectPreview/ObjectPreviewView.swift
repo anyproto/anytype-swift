@@ -26,8 +26,10 @@ struct ObjectPreviewView: View {
         VStack(spacing: 0) {
             cardStyle(viewModel.objectPreviewModel.cardStyle)
                 .divider()
-            iconSize(viewModel.objectPreviewModel.iconSize)
-                .divider()
+            if viewModel.objectPreviewModel.isIconMenuVisible {
+                iconSize(viewModel.objectPreviewModel.iconSize)
+                    .divider()
+            }
             if let coverRelation = viewModel.objectPreviewModel.coverRelation {
                 featuredRelationsRow(coverRelation) { isEnabled in
                     viewModel.toggleFeaturedRelation(relation: coverRelation, isEnabled: isEnabled)
