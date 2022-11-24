@@ -406,6 +406,28 @@ extension Anytype_Rpc.Workspace.Create {
   }
 }
 
+extension Anytype_Rpc.Workspace.Object.Add {
+  public enum Service {
+    public static func invoke(objectID: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(objectID: objectID).invoke(on: queue)
+    }
+    public static func invoke(objectID: String = String()) -> Result<Response, Error> {
+        return invocation(objectID: objectID).invoke()
+    }
+    public static func invocation(objectID: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(objectID: objectID)
+        return Invocation<Request,Response>(messageName: "WorkspaceObjectAdd", request: request) { request in
+            return self.invoke(request)
+        }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+        return Lib.ServiceWorkspaceObjectAdd(try? request.serializedData()).flatMap {
+            try? Response(serializedData: $0)
+        }
+    }
+  }
+}
+
 extension Anytype_Rpc.Workspace.Object.ListAdd {
   public enum Service {
     public static func invoke(objectIds: [String] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {

@@ -2,16 +2,16 @@ import Foundation
 
 public enum ObjectTypeId: RawRepresentable {
     public enum BundledTypeId: String {
-        case page = "_otpage"
-        case profile = "_otprofile"
-        case note = "_otnote"
-        case set = "_otset"
-        case task = "_ottask"
-        case template = "_ottemplate"
-        case bookmark = "_otbookmark"
-        case objectType = "_otobjectType"
-        case relation = "_otrelation"
-        case relationOption = "_otrelationOption"
+        case page = "ot-page"
+        case profile = "ot-profile"
+        case note = "ot-note"
+        case set = "ot-set"
+        case task = "ot-task"
+        case template = "ot-template"
+        case bookmark = "ot-bookmark"
+        case objectType = "ot-objectType"
+        case relation = "ot-relation"
+        case relationOption = "ot-relationOption"
     }
 
     public init?(rawValue: String) {

@@ -325,7 +325,7 @@ extension Anytype_Model_LinkPreview {
 }
 
 extension Anytype_Model_ObjectType {
-    public init(url: String = String(), name: String = String(), relationLinks: [Anytype_Model_RelationLink] = [], layout: Anytype_Model_ObjectType.Layout = .basic, iconEmoji: String = String(), description_p: String = String(), hidden: Bool = false, readonly: Bool = false, types: [Anytype_Model_SmartBlockType] = [], isArchived: Bool = false) {
+    public init(url: String = String(), name: String = String(), relationLinks: [Anytype_Model_RelationLink] = [], layout: Anytype_Model_ObjectType.Layout = .basic, iconEmoji: String = String(), description_p: String = String(), hidden: Bool = false, readonly: Bool = false, types: [Anytype_Model_SmartBlockType] = [], isArchived: Bool = false, installedByDefault: Bool = false) {
         self.url = url
         self.name = name
         self.relationLinks = relationLinks
@@ -336,6 +336,7 @@ extension Anytype_Model_ObjectType {
         self.readonly = readonly
         self.types = types
         self.isArchived = isArchived
+        self.installedByDefault = installedByDefault
     }
 }
 

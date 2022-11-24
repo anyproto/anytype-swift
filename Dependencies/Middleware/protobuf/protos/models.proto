@@ -641,6 +641,7 @@ message ObjectType {
     bool readonly = 10;
     repeated SmartBlockType types = 8;
     bool isArchived = 9; // sets locally to hide object type from set and some other places
+    bool installedByDefault = 11;
 
     enum Layout {
         basic = 0;

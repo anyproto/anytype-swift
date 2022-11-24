@@ -3785,6 +3785,27 @@ extension Anytype_Rpc.Workspace.GetCurrent.Response.Error {
     }
 }
 
+extension Anytype_Rpc.Workspace.Object.Add.Request {
+    public init(objectID: String = String()) {
+        self.objectID = objectID
+    }
+}
+
+extension Anytype_Rpc.Workspace.Object.Add.Response {
+    public init(error: Anytype_Rpc.Workspace.Object.Add.Response.Error, objectID: String = String(), details: SwiftProtobuf.Google_Protobuf_Struct) {
+        self.error = error
+        self.objectID = objectID
+        self.details = details
+    }
+}
+
+extension Anytype_Rpc.Workspace.Object.Add.Response.Error {
+    public init(code: Anytype_Rpc.Workspace.Object.Add.Response.Error.Code = .null, description_p: String = String()) {
+        self.code = code
+        self.description_p = description_p
+    }
+}
+
 extension Anytype_Rpc.Workspace.Object.ListAdd.Request {
     public init(objectIds: [String] = []) {
         self.objectIds = objectIds
@@ -3792,9 +3813,9 @@ extension Anytype_Rpc.Workspace.Object.ListAdd.Request {
 }
 
 extension Anytype_Rpc.Workspace.Object.ListAdd.Response {
-    public init(error: Anytype_Rpc.Workspace.Object.ListAdd.Response.Error, ids: [String] = []) {
+    public init(error: Anytype_Rpc.Workspace.Object.ListAdd.Response.Error, objectIds: [String] = []) {
         self.error = error
-        self.ids = ids
+        self.objectIds = objectIds
     }
 }
 

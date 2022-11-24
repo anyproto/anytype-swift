@@ -30,6 +30,12 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         static let defaultLimit = 100
     }
     
+    private let accountManager: AccountManager
+    
+    init(accountManager: AccountManager) {
+        self.accountManager = accountManager
+    }
+    
     // MARK: - SearchServiceProtocol
     
     func search(text: String) -> [ObjectDetails]? {
@@ -58,6 +64,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         )
         var filters = [
             SearchHelper.isArchivedFilter(isArchived: false),
+            SearchHelper.workspaceId(accountManager.account.info.accountSpaceId),
             SearchHelper.typeFilter(typeIds: [ObjectTypeId.bundled(.objectType).rawValue]),
             SearchHelper.supportedIdsFilter(
                 ObjectTypeProvider.shared.supportedTypeIds
