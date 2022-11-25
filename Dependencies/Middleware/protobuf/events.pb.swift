@@ -163,6 +163,14 @@ public struct Anytype_Event {
       set {value = .subscriptionCounters(newValue)}
     }
 
+    public var subscriptionGroups: Anytype_Event.Object.Subscription.Groups {
+      get {
+        if case .subscriptionGroups(let v)? = value {return v}
+        return Anytype_Event.Object.Subscription.Groups()
+      }
+      set {value = .subscriptionGroups(newValue)}
+    }
+
     public var blockAdd: Anytype_Event.Block.Add {
       get {
         if case .blockAdd(let v)? = value {return v}
@@ -478,6 +486,7 @@ public struct Anytype_Event {
       case subscriptionRemove(Anytype_Event.Object.Subscription.Remove)
       case subscriptionPosition(Anytype_Event.Object.Subscription.Position)
       case subscriptionCounters(Anytype_Event.Object.Subscription.Counters)
+      case subscriptionGroups(Anytype_Event.Object.Subscription.Groups)
       case blockAdd(Anytype_Event.Block.Add)
       case blockDelete(Anytype_Event.Block.Delete)
       case filesUpload(Anytype_Event.Block.FilesUpload)
@@ -578,6 +587,10 @@ public struct Anytype_Event {
         }()
         case (.subscriptionCounters, .subscriptionCounters): return {
           guard case .subscriptionCounters(let l) = lhs, case .subscriptionCounters(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.subscriptionGroups, .subscriptionGroups): return {
+          guard case .subscriptionGroups(let l) = lhs, case .subscriptionGroups(let r) = rhs else { preconditionFailure() }
           return l == r
         }()
         case (.blockAdd, .blockAdd): return {
@@ -1059,6 +1072,31 @@ public struct Anytype_Event {
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public init() {}
+      }
+
+      public struct Groups {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var subID: String = String()
+
+        public var group: Anytype_Model_Block.Content.Dataview.Group {
+          get {return _group ?? Anytype_Model_Block.Content.Dataview.Group()}
+          set {_group = newValue}
+        }
+        /// Returns true if `group` has been explicitly set.
+        public var hasGroup: Bool {return self._group != nil}
+        /// Clears the value of `group`. Subsequent reads from it will return its default value.
+        public mutating func clearGroup() {self._group = nil}
+
+        public var remove: Bool = false
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public init() {}
+
+        fileprivate var _group: Anytype_Model_Block.Content.Dataview.Group? = nil
       }
 
       public init() {}
@@ -3826,6 +3864,7 @@ extension Anytype_Event.Object.Subscription.Add: @unchecked Sendable {}
 extension Anytype_Event.Object.Subscription.Remove: @unchecked Sendable {}
 extension Anytype_Event.Object.Subscription.Position: @unchecked Sendable {}
 extension Anytype_Event.Object.Subscription.Counters: @unchecked Sendable {}
+extension Anytype_Event.Object.Subscription.Groups: @unchecked Sendable {}
 extension Anytype_Event.Object.Relations: @unchecked Sendable {}
 extension Anytype_Event.Object.Relations.Amend: @unchecked Sendable {}
 extension Anytype_Event.Object.Relations.Remove: @unchecked Sendable {}
@@ -4037,6 +4076,7 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     61: .same(proto: "subscriptionRemove"),
     62: .same(proto: "subscriptionPosition"),
     63: .same(proto: "subscriptionCounters"),
+    64: .same(proto: "subscriptionGroups"),
     2: .same(proto: "blockAdd"),
     3: .same(proto: "blockDelete"),
     4: .same(proto: "filesUpload"),
@@ -4615,6 +4655,19 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
           self.value = .subscriptionCounters(v)
         }
       }()
+      case 64: try {
+        var v: Anytype_Event.Object.Subscription.Groups?
+        var hadOneofValue = false
+        if let current = self.value {
+          hadOneofValue = true
+          if case .subscriptionGroups(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.value = .subscriptionGroups(v)
+        }
+      }()
       case 100: try {
         var v: Anytype_Event.Ping?
         var hadOneofValue = false
@@ -4919,6 +4972,10 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     case .subscriptionCounters?: try {
       guard case .subscriptionCounters(let v)? = self.value else { preconditionFailure() }
       try visitor.visitSingularMessageField(value: v, fieldNumber: 63)
+    }()
+    case .subscriptionGroups?: try {
+      guard case .subscriptionGroups(let v)? = self.value else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 64)
     }()
     case .ping?: try {
       guard case .ping(let v)? = self.value else { preconditionFailure() }
@@ -5584,6 +5641,54 @@ extension Anytype_Event.Object.Subscription.Counters: SwiftProtobuf.Message, Swi
     if lhs.nextCount != rhs.nextCount {return false}
     if lhs.prevCount != rhs.prevCount {return false}
     if lhs.subID != rhs.subID {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Object.Subscription.Groups: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Object.Subscription.protoMessageName + ".Groups"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "subId"),
+    2: .same(proto: "group"),
+    3: .same(proto: "remove"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.subID) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._group) }()
+      case 3: try { try decoder.decodeSingularBoolField(value: &self.remove) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if !self.subID.isEmpty {
+      try visitor.visitSingularStringField(value: self.subID, fieldNumber: 1)
+    }
+    try { if let v = self._group {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
+    if self.remove != false {
+      try visitor.visitSingularBoolField(value: self.remove, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Object.Subscription.Groups, rhs: Anytype_Event.Object.Subscription.Groups) -> Bool {
+    if lhs.subID != rhs.subID {return false}
+    if lhs._group != rhs._group {return false}
+    if lhs.remove != rhs.remove {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

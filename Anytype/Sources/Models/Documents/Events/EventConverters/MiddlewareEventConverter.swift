@@ -367,6 +367,7 @@ final class MiddlewareEventConverter {
             handleDataViewObjectOrderUpdate(data)
             return .general
         case .accountShow,
+                .subscriptionGroups,
                 .accountUpdate, // Event not working on middleware. See AccountManager.
                 .accountDetails, // Skipped
                 .accountConfigUpdate, // Remote config updates
