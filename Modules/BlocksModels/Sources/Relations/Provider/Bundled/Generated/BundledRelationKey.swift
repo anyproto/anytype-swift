@@ -33,9 +33,6 @@ public enum BundledRelationKey: String {
     /// Relation key
     case relationKey = "relationKey"
 
-    /// Relation option text
-    case relationOptionText = "relationOptionText"
-
     /// Relation option color
     case relationOptionColor = "relationOptionColor"
 

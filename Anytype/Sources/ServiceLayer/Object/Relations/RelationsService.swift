@@ -93,7 +93,7 @@ final class RelationsService: RelationsServiceProtocol {
         
         let details = Google_Protobuf_Struct(
             fields: [
-                BundledRelationKey.relationOptionText.rawValue: optionText.protobufValue,
+                BundledRelationKey.name.rawValue: optionText.protobufValue,
                 BundledRelationKey.relationKey.rawValue: relationKey.protobufValue,
                 BundledRelationKey.relationOptionColor.rawValue: color.protobufValue
             ]
