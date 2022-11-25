@@ -18,7 +18,6 @@ public protocol BundledRelationsValueProvider {
     var toBeDeletedDate: Date? { get }
     var relationFormatObjectTypes: [ObjectId] { get }
     var relationKey: String { get }
-    var relationOptionText: String { get }
     var relationOptionColor: String { get }
     var instructions: String { get }
     var done: Bool { get }
@@ -218,10 +217,6 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     /// Relation key
     var relationKey: String {
         return value(for: BundledRelationKey.relationKey.rawValue)
-    }
-    /// Relation option text
-    var relationOptionText: String {
-        return value(for: BundledRelationKey.relationOptionText.rawValue)
     }
     /// Relation option color
     var relationOptionColor: String {

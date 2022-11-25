@@ -97,16 +97,6 @@
     "source": "details"
   },
   {
-    "description": "Relation option text",
-    "format": "shorttext",
-    "hidden": true,
-    "key": "relationOptionText",
-    "maxCount": 1,
-    "name": "Relation option text",
-    "readonly": true,
-    "source": "details"
-  },
-  {
     "description": "Relation option color",
     "format": "shorttext",
     "hidden": true,
@@ -933,7 +923,7 @@
     "key": "addedDate",
     "maxCount": 1,
     "name": "Added date",
-    "readonly": false,
+    "readonly": true,
     "source": "details"
   },
   {
