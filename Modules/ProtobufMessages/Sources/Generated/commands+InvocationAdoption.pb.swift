@@ -574,6 +574,11 @@ extension Anytype_Rpc.Object.Graph.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }
 }
 
+extension Anytype_Rpc.Object.GroupsSubscribe.Response: ResultWithError {}
+extension Anytype_Rpc.Object.GroupsSubscribe.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null }
+}
+
 extension Anytype_Rpc.Object.Import.Response: ResultWithError {}
 extension Anytype_Rpc.Object.Import.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }
@@ -626,11 +631,6 @@ extension Anytype_Rpc.Object.OpenBreadcrumbs.Response.Error: ResponseError {
 
 extension Anytype_Rpc.Object.Redo.Response: ResultWithError {}
 extension Anytype_Rpc.Object.Redo.Response.Error: ResponseError {
-    public var isNull: Bool { code == .null }
-}
-
-extension Anytype_Rpc.Object.RelationSearchDistinct.Response: ResultWithError {}
-extension Anytype_Rpc.Object.RelationSearchDistinct.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }
 }
 

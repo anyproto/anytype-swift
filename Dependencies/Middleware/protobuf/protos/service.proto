@@ -37,7 +37,7 @@ service ClientCommands {
     rpc AccountSelect (anytype.Rpc.Account.Select.Request) returns (anytype.Rpc.Account.Select.Response);
     rpc AccountStop (anytype.Rpc.Account.Stop.Request) returns (anytype.Rpc.Account.Stop.Response);
     rpc AccountMove (anytype.Rpc.Account.Move.Request) returns (anytype.Rpc.Account.Move.Response);
-    rpc AccountConfigUpdate(anytype.Rpc.Account.ConfigUpdate.Request) returns (anytype.Rpc.Account.ConfigUpdate.Response);
+    rpc AccountConfigUpdate (anytype.Rpc.Account.ConfigUpdate.Request) returns (anytype.Rpc.Account.ConfigUpdate.Response);
 
     // Object
     // ***
@@ -53,8 +53,8 @@ service ClientCommands {
     rpc ObjectGraph (anytype.Rpc.Object.Graph.Request) returns (anytype.Rpc.Object.Graph.Response);
     rpc ObjectSearch (anytype.Rpc.Object.Search.Request) returns (anytype.Rpc.Object.Search.Response);
     rpc ObjectSearchSubscribe (anytype.Rpc.Object.SearchSubscribe.Request) returns (anytype.Rpc.Object.SearchSubscribe.Response);
-    rpc ObjectRelationSearchDistinct (anytype.Rpc.Object.RelationSearchDistinct.Request) returns (anytype.Rpc.Object.RelationSearchDistinct.Response);
     rpc ObjectSubscribeIds (anytype.Rpc.Object.SubscribeIds.Request) returns (anytype.Rpc.Object.SubscribeIds.Response);
+    rpc ObjectGroupsSubscribe (anytype.Rpc.Object.GroupsSubscribe.Request) returns (anytype.Rpc.Object.GroupsSubscribe.Response);
     rpc ObjectSearchUnsubscribe (anytype.Rpc.Object.SearchUnsubscribe.Request) returns (anytype.Rpc.Object.SearchUnsubscribe.Response);
     rpc ObjectSetDetails (anytype.Rpc.Object.SetDetails.Request) returns (anytype.Rpc.Object.SetDetails.Response);
     rpc ObjectDuplicate (anytype.Rpc.Object.Duplicate.Request) returns (anytype.Rpc.Object.Duplicate.Response);
@@ -184,7 +184,7 @@ service ClientCommands {
     rpc BlockDataviewViewDelete (anytype.Rpc.BlockDataview.View.Delete.Request) returns (anytype.Rpc.BlockDataview.View.Delete.Response);
     rpc BlockDataviewViewUpdate (anytype.Rpc.BlockDataview.View.Update.Request) returns (anytype.Rpc.BlockDataview.View.Update.Response);
     rpc BlockDataviewViewSetActive (anytype.Rpc.BlockDataview.View.SetActive.Request) returns (anytype.Rpc.BlockDataview.View.SetActive.Response);
-    rpc BlockDataviewViewSetPosition(anytype.Rpc.BlockDataview.View.SetPosition.Request) returns (anytype.Rpc.BlockDataview.View.SetPosition.Response);
+    rpc BlockDataviewViewSetPosition (anytype.Rpc.BlockDataview.View.SetPosition.Request) returns (anytype.Rpc.BlockDataview.View.SetPosition.Response);
     rpc BlockDataviewSetSource (anytype.Rpc.BlockDataview.SetSource.Request) returns (anytype.Rpc.BlockDataview.SetSource.Response);
     rpc BlockDataviewRelationAdd (anytype.Rpc.BlockDataview.Relation.Add.Request) returns (anytype.Rpc.BlockDataview.Relation.Add.Response);
     rpc BlockDataviewRelationDelete (anytype.Rpc.BlockDataview.Relation.Delete.Request) returns (anytype.Rpc.BlockDataview.Relation.Delete.Response);

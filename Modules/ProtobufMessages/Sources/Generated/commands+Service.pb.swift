@@ -978,22 +978,22 @@ extension Anytype_Rpc.Object.SearchSubscribe {
   }
 }
 
-extension Anytype_Rpc.Object.RelationSearchDistinct {
+extension Anytype_Rpc.Object.GroupsSubscribe {
   public enum Service {
-    public static func invoke(relationKey: String = String(), filters: [Anytype_Model_Block.Content.Dataview.Filter] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
-        return invocation(relationKey: relationKey, filters: filters).invoke(on: queue)
+    public static func invoke(subID: String = String(), relationKey: String = String(), filters: [Anytype_Model_Block.Content.Dataview.Filter] = [], source: [String] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(subID: subID, relationKey: relationKey, filters: filters, source: source).invoke(on: queue)
     }
-    public static func invoke(relationKey: String = String(), filters: [Anytype_Model_Block.Content.Dataview.Filter] = []) -> Result<Response, Error> {
-        return invocation(relationKey: relationKey, filters: filters).invoke()
+    public static func invoke(subID: String = String(), relationKey: String = String(), filters: [Anytype_Model_Block.Content.Dataview.Filter] = [], source: [String] = []) -> Result<Response, Error> {
+        return invocation(subID: subID, relationKey: relationKey, filters: filters, source: source).invoke()
     }
-    public static func invocation(relationKey: String = String(), filters: [Anytype_Model_Block.Content.Dataview.Filter] = []) -> ProtobufMessages.Invocation<Request, Response> {
-        let request = Request(relationKey: relationKey, filters: filters)
-        return Invocation<Request,Response>(messageName: "ObjectRelationSearchDistinct", request: request) { request in
+    public static func invocation(subID: String = String(), relationKey: String = String(), filters: [Anytype_Model_Block.Content.Dataview.Filter] = [], source: [String] = []) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(subID: subID, relationKey: relationKey, filters: filters, source: source)
+        return Invocation<Request,Response>(messageName: "ObjectGroupsSubscribe", request: request) { request in
             return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
-        return Lib.ServiceObjectRelationSearchDistinct(try? request.serializedData()).flatMap {
+        return Lib.ServiceObjectGroupsSubscribe(try? request.serializedData()).flatMap {
             try? Response(serializedData: $0)
         }
     }
