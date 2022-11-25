@@ -10,7 +10,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     private weak var viewController: UIViewController?
     private let navigationContext: NavigationContextProtocol
     private let fileCoordinator: FileDownloadingCoordinator
-    private let addNewRelationCoordinator: AddNewRelationCoordinator
+    private let addNewRelationCoordinator: AddNewRelationCoordinatorProtocol
     private let document: BaseDocumentProtocol
     private let templatesCoordinator: TemplatesCoordinator
     private let urlOpener: URLOpenerProtocol
@@ -18,12 +18,10 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     private weak var currentSetSettingsPopup: AnytypePopup?
     private let editorPageCoordinator: EditorPageCoordinatorProtocol
     private let linkToObjectCoordinator: LinkToObjectCoordinatorProtocol
-    private let relationsListModuleAssembly: RelationsListModuleAssemblyProtocol
-    private let undoRedoModuleAssembly: UndoRedoModuleAssemblyProtocol
-    private let objectLayoutPickerModuleAssembly: ObjectLayoutPickerModuleAssemblyProtocol
     private let objectCoverPickerModuleAssembly: ObjectCoverPickerModuleAssemblyProtocol
     private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
-    private let objectSettingModuleAssembly: ObjectSettingModuleAssemblyProtocol
+    private let objectSettingCoordinator: ObjectSettingsCoordinatorProtocol
+    private let searchModuleAssembly: SearchModuleAssemblyProtocol
     private let alertHelper: AlertHelper
     
     init(
@@ -31,17 +29,16 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         viewController: UIViewController,
         navigationContext: NavigationContextProtocol,
         document: BaseDocumentProtocol,
+        addNewRelationCoordinator: AddNewRelationCoordinatorProtocol,
         templatesCoordinator: TemplatesCoordinator,
         urlOpener: URLOpenerProtocol,
         relationValueCoordinator: RelationValueCoordinatorProtocol,
         editorPageCoordinator: EditorPageCoordinatorProtocol,
         linkToObjectCoordinator: LinkToObjectCoordinatorProtocol,
-        relationsListModuleAssembly: RelationsListModuleAssemblyProtocol,
-        undoRedoModuleAssembly: UndoRedoModuleAssemblyProtocol,
-        objectLayoutPickerModuleAssembly: ObjectLayoutPickerModuleAssemblyProtocol,
         objectCoverPickerModuleAssembly: ObjectCoverPickerModuleAssemblyProtocol,
         objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
-        objectSettingModuleAssembly: ObjectSettingModuleAssemblyProtocol,
+        objectSettingCoordinator: ObjectSettingsCoordinatorProtocol,
+        searchModuleAssembly: SearchModuleAssemblyProtocol,
         alertHelper: AlertHelper
     ) {
         self.rootController = rootController
@@ -49,18 +46,16 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         self.navigationContext = navigationContext
         self.document = document
         self.fileCoordinator = FileDownloadingCoordinator(viewController: viewController)
-        self.addNewRelationCoordinator = AddNewRelationCoordinator(document: document, viewController: viewController)
+        self.addNewRelationCoordinator = addNewRelationCoordinator
         self.templatesCoordinator = templatesCoordinator
         self.urlOpener = urlOpener
         self.relationValueCoordinator = relationValueCoordinator
         self.editorPageCoordinator = editorPageCoordinator
         self.linkToObjectCoordinator = linkToObjectCoordinator
-        self.relationsListModuleAssembly = relationsListModuleAssembly
-        self.undoRedoModuleAssembly = undoRedoModuleAssembly
-        self.objectLayoutPickerModuleAssembly = objectLayoutPickerModuleAssembly
         self.objectCoverPickerModuleAssembly = objectCoverPickerModuleAssembly
         self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
-        self.objectSettingModuleAssembly = objectSettingModuleAssembly
+        self.objectSettingCoordinator = objectSettingCoordinator
+        self.searchModuleAssembly = searchModuleAssembly
         self.alertHelper = alertHelper
     }
 
@@ -201,11 +196,10 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     }
 
     func showLinkTo(onSelect: @escaping (BlockId, _ typeUrl: String) -> ()) {
-        let viewModel = ObjectSearchViewModel(searchService: ServiceLocator.shared.searchService()) { data in
+        let module = searchModuleAssembly.makeLinkToObjectSearch { data in
             onSelect(data.blockId, data.typeId)
         }
-        let linkToView = SearchView(title: Loc.linkTo, context: .menuSearch, viewModel: viewModel)
-        navigationContext.presentSwiftUIView(view: linkToView, model: viewModel)
+        navigationContext.present(module)
     }
 
     func showTextIconPicker(contextId: BlockId, objectId: BlockId) {
@@ -224,12 +218,10 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     }
     
     func showSearch(onSelect: @escaping (EditorScreenData) -> ()) {
-        let viewModel = ObjectSearchViewModel(searchService: ServiceLocator.shared.searchService()) { data in
+        let module = searchModuleAssembly.makeObjectSearch(title: nil, context: .menuSearch) { data in
             onSelect(EditorScreenData(pageId: data.blockId, type: data.viewType))
         }
-        let searchView = SearchView(title: nil, context: .menuSearch, viewModel: viewModel)
-        
-        navigationContext.presentSwiftUIView(view: searchView, model: viewModel)
+        navigationContext.present(module)
     }
     
     func showTypes(selectedObjectId: BlockId?, onSelect: @escaping (BlockId) -> ()) {
@@ -291,12 +283,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     func presentFullscreen(_ vc: UIViewController) {
         navigationContext.present(vc)
     }
-
-    func presentUndoRedo() {
-        let moduleViewController = undoRedoModuleAssembly.make(document: document)
-        navigationContext.dismissTopPresented(animated: false)
-        navigationContext.present(moduleViewController)
-    }
     
     func setNavigationViewHidden(_ isHidden: Bool, animated: Bool) {
         rootController?.setNavigationViewHidden(isHidden, animated: animated)
@@ -346,8 +332,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     
     // MARK: - Settings
     func showSettings() {
-        let moduleViewController = objectSettingModuleAssembly.make(document: document, router: self)
-        navigationContext.present(moduleViewController)
+        objectSettingCoordinator.startFlow()
     }
     
     func showCoverPicker() {
@@ -357,11 +342,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     
     func showIconPicker() {
         let moduleViewController = objectIconPickerModuleAssembly.make(document: document)
-        navigationContext.present(moduleViewController)
-    }
-    
-    func showLayoutPicker() {
-        let moduleViewController = objectLayoutPickerModuleAssembly.make(document: document)
         navigationContext.present(moduleViewController)
     }
 
@@ -424,13 +404,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
             $0.centerX.equal(to: rootController.view.centerXAnchor, constant: 10)
             $0.bottom.equal(to: rootController.view.bottomAnchor, constant: -50)
         }
-    }
-    
-    func showRelations() {
-        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.objectRelationShow)
-        
-        let moduleViewController = relationsListModuleAssembly.make(document: document, router: self)
-        viewController?.topPresentedController.present(moduleViewController, animated: true, completion: nil)
     }
     
     // MARK: - Private

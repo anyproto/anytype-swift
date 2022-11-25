@@ -5,6 +5,16 @@ import UIKit
 import FloatingPanel
 import SwiftUI
 
+protocol ObjectSettingswModelOutput: AnyObject {
+    func undoRedoAction()
+    func layoutPickerAction()
+    func coverPickerAction()
+    func iconPickerAction()
+    func relationsAction()
+    func openPageAction(screenData: EditorScreenData)
+    func linkToAction(onSelect: @escaping (BlockId, _ typeUrl: String) -> ())
+}
+
 final class ObjectSettingsViewModel: ObservableObject, Dismissible {
     var onDismiss: () -> Void = {} {
         didSet {
@@ -23,54 +33,54 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
     
     let objectActionsViewModel: ObjectActionsViewModel
 
-    private weak var router: EditorRouterProtocol?
     private let document: BaseDocumentProtocol
     private let objectDetailsService: DetailsServiceProtocol
     private let settingsBuilder = ObjectSettingBuilder()
     
     private var subscription: AnyCancellable?
+    private weak var output: ObjectSettingswModelOutput?
     
     init(
         document: BaseDocumentProtocol,
         objectDetailsService: DetailsServiceProtocol,
-        router: EditorRouterProtocol
+        output: ObjectSettingswModelOutput
     ) {
         self.document = document
         self.objectDetailsService = objectDetailsService
-        self.router = router
-
+        self.output = output
+        
         self.objectActionsViewModel = ObjectActionsViewModel(
             objectId: document.objectId,
-            undoRedoAction: { [weak router] in
-                router?.presentUndoRedo()
+            undoRedoAction: { [weak output] in
+                output?.undoRedoAction()
             },
-            openPageAction: { [weak router] screenData in
-                router?.showPage(data: screenData)
+            openPageAction: { [weak output] screenData in
+                output?.openPageAction(screenData: screenData)
             }
         )
 
-        objectActionsViewModel.onLinkItselfAction = { [weak router] onSelect in
-            router?.showLinkTo(onSelect: onSelect)
+        objectActionsViewModel.onLinkItselfAction = { [weak output] onSelect in
+            output?.linkToAction(onSelect: onSelect)
         }
         
         setupSubscription()
         onDocumentUpdate()
     }
 
-    func showLayoutSettings() {
-        router?.showLayoutPicker()
+    func onTapLayoutPicker() {
+        output?.layoutPickerAction()
     }
     
-    func showIconPicker() {
-        router?.showIconPicker()
+    func onTapIconPicker() {
+        output?.iconPickerAction()
     }
     
-    func showCoverPicker() {
-        router?.showCoverPicker()
+    func onTapCoverPicker() {
+        output?.coverPickerAction()
     }
     
-    func showRelations() {
-        router?.showRelations()
+    func onTapRelations() {
+        output?.relationsAction()
     }
     
     // MARK: - Private

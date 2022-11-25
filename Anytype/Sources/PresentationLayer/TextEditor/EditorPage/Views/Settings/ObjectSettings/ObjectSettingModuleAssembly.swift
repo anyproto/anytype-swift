@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 
 protocol ObjectSettingModuleAssemblyProtocol {
-    func make(document: BaseDocumentProtocol, router: EditorRouterProtocol) -> UIViewController
+    func make(document: BaseDocumentProtocol, output: ObjectSettingswModelOutput) -> UIViewController
 }
 
 final class ObjectSettingModuleAssembly: ObjectSettingModuleAssemblyProtocol {
@@ -15,12 +15,12 @@ final class ObjectSettingModuleAssembly: ObjectSettingModuleAssemblyProtocol {
     
     // MARK: - ObjectSettingModuleAssemblyProtocol
     
-    func make(document: BaseDocumentProtocol, router: EditorRouterProtocol) -> UIViewController {
+    func make(document: BaseDocumentProtocol, output: ObjectSettingswModelOutput) -> UIViewController {
         
         let viewModel = ObjectSettingsViewModel(
             document: document,
             objectDetailsService: serviceLocator.detailsService(objectId: document.objectId),
-            router: router
+            output: output
         )
         let view = ObjectSettingsView(viewModel: viewModel)
         let popup = AnytypePopup(contentView: view, floatingPanelStyle: true)

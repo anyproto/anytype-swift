@@ -3,10 +3,14 @@ import UIKit
 import BlocksModels
 import SwiftUI
 
+protocol AddNewRelationCoordinatorProtocol {
+    func showAddNewRelationView(onCompletion: ((_ newRelationDetails: RelationDetails, _ isNew: Bool) -> Void)?)
+}
+
 final class AddNewRelationCoordinator {
     
     private let document: BaseDocumentProtocol
-    private weak var viewController: UIViewController?
+    private let navigationContext: NavigationContextProtocol
     
     private var onCompletion: ((_ newRelationDetails: RelationDetails, _ isNew: Bool) -> Void)?
     
@@ -14,17 +18,17 @@ final class AddNewRelationCoordinator {
     
     init(
         document: BaseDocumentProtocol,
-        viewController: UIViewController
+        navigationContext: NavigationContextProtocol
     ) {
         self.document = document
-        self.viewController = viewController
+        self.navigationContext = navigationContext
     }
     
 }
 
 // MARK: - Entry point
 
-extension AddNewRelationCoordinator {
+extension AddNewRelationCoordinator: AddNewRelationCoordinatorProtocol {
     
     func showAddNewRelationView(onCompletion: ((_ newRelationDetails: RelationDetails, _ isNew: Bool) -> Void)?) {
         self.onCompletion = onCompletion
@@ -39,7 +43,7 @@ extension AddNewRelationCoordinator {
 
         let view = SearchNewRelationView(viewModel: viewModel)
         
-        presentSwiftUIView(view: view)
+        navigationContext.presentSwiftUIView(view: view)
     }
     
 }
@@ -50,13 +54,12 @@ extension AddNewRelationCoordinator: SearchNewRelationModuleOutput {
     
     func didAddRelation(_ relationDetails: RelationDetails) {
         onCompletion?(relationDetails, false)
-        viewController?.topPresentedController.dismiss(animated: true)
+        navigationContext.dismissTopPresented(animated: true)
     }
     
     func didAskToShowCreateNewRelation(searchText: String) {
-        viewController?.topPresentedController.dismiss(animated: true) { [weak self] in
-            self?.showCreateNewRelationView(searchText: searchText)
-        }
+        navigationContext.dismissTopPresented(animated: true)
+        showCreateNewRelationView(searchText: searchText)
     }
     
     private func showCreateNewRelationView(searchText: String) {
@@ -78,7 +81,7 @@ extension AddNewRelationCoordinator: SearchNewRelationModuleOutput {
             }
         }
         
-        viewController?.topPresentedController.present(vc, animated: true)
+        navigationContext.present(vc, animated: true)
     }
       
 }
@@ -91,7 +94,7 @@ extension AddNewRelationCoordinator: NewRelationModuleOutput {
         let viewModel = RelationFormatsListViewModel(selectedFormat: selectedFormat, output: self)
         let view = RelationFormatsListView(viewModel: viewModel)
         
-        presentSwiftUIView(view: view)
+        navigationContext.presentSwiftUIView(view: view)
     }
     
     func didAskToShowObjectTypesSearch(selectedObjectTypesIds: [String]) {
@@ -101,17 +104,17 @@ extension AddNewRelationCoordinator: NewRelationModuleOutput {
             self?.handleObjectTypesSelection(objectTypesIds: ids)
         }
         
-        presentSwiftUIView(view: view)
+        navigationContext.presentSwiftUIView(view: view)
     }
     
     func didCreateRelation(_ relation: RelationDetails) {
         onCompletion?(relation, true)
-        viewController?.topPresentedController.dismiss(animated: true)
+        navigationContext.dismissTopPresented(animated: true)
     }
     
     private func handleObjectTypesSelection(objectTypesIds: [String]) {
         newRelationModuleInput?.updateTypesRestriction(objectTypeIds: objectTypesIds)
-        viewController?.topPresentedController.dismiss(animated: true)
+        navigationContext.dismissTopPresented(animated: true)
     }
     
 }
@@ -122,20 +125,7 @@ extension AddNewRelationCoordinator: RelationFormatsListModuleOutput {
     
     func didSelectFormat(_ format: SupportedRelationFormat) {
         newRelationModuleInput?.updateRelationFormat(format)
-        viewController?.topPresentedController.dismiss(animated: true)
-    }
-    
-}
-
-// MARK: - Private extension
-
-private extension AddNewRelationCoordinator {
-    
-    func presentSwiftUIView<Content: View>(view: Content) {
-        guard let viewController = viewController else { return }
-        
-        let controller = UIHostingController(rootView: view)
-        viewController.topPresentedController.present(controller, animated: true)
+        navigationContext.dismissTopPresented(animated: true)
     }
     
 }

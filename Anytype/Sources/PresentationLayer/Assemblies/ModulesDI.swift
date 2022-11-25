@@ -39,4 +39,8 @@ final class ModulesDI: ModulesDIProtocol {
     var objectSetting: ObjectSettingModuleAssemblyProtocol {
         return ObjectSettingModuleAssembly(serviceLocator: serviceLocator)
     }
+    
+    var search: SearchModuleAssemblyProtocol {
+        return SearchModuleAssembly(serviceLocator: serviceLocator)
+    }
 }

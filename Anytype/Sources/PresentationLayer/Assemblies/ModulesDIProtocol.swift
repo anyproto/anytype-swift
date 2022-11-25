@@ -8,4 +8,5 @@ protocol ModulesDIProtocol: AnyObject {
     var objectCoverPicker: ObjectCoverPickerModuleAssemblyProtocol { get }
     var objectIconPicker: ObjectIconPickerModuleAssemblyProtocol { get }
     var objectSetting: ObjectSettingModuleAssemblyProtocol { get }
+    var search: SearchModuleAssemblyProtocol { get }
 }

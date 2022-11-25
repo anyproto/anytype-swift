@@ -3,19 +3,19 @@ import UIKit
 
 protocol RelationsListModuleAssemblyProtocol {
  
-    func make(document: BaseDocumentProtocol, router: EditorRouterProtocol) -> UIViewController
+    func make(document: BaseDocumentProtocol, output: RelationsListModuleOutput) -> UIViewController
 }
 
 final class RelationsListModuleAssembly: RelationsListModuleAssemblyProtocol {
     
     // MARK: - RelationsListModuleAssemblyProtocol
     
-    func make(document: BaseDocumentProtocol, router: EditorRouterProtocol) -> UIViewController {
+    func make(document: BaseDocumentProtocol, output: RelationsListModuleOutput) -> UIViewController {
         
         let viewModel = RelationsListViewModel(
             document: document,
-            router: router,
-            relationsService: RelationsService(objectId: document.objectId)
+            relationsService: RelationsService(objectId: document.objectId),
+            output: output
         )
         
         let view = RelationsListView(viewModel: viewModel)

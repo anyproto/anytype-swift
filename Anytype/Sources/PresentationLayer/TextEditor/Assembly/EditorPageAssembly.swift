@@ -66,17 +66,16 @@ final class EditorAssembly {
             viewController: controller,
             navigationContext: NavigationContext(rootViewController: browser ?? controller),
             document: document,
+            addNewRelationCoordinator: coordinatorsDI.addNewRelation.make(document: document),
             templatesCoordinator: coordinatorsDI.templates.make(viewController: controller),
             urlOpener: URLOpener(viewController: browser),
-            relationValueCoordinator: coordinatorsDI.relationValue.make(viewController: controller),
+            relationValueCoordinator: coordinatorsDI.relationValue.make(),
             editorPageCoordinator: coordinatorsDI.editorPage.make(browserController: browser),
             linkToObjectCoordinator: coordinatorsDI.linkToObject.make(browserController: browser),
-            relationsListModuleAssembly: modulesDI.relationsList,
-            undoRedoModuleAssembly: modulesDI.undoRedo,
-            objectLayoutPickerModuleAssembly: modulesDI.objectLayoutPicker,
             objectCoverPickerModuleAssembly: modulesDI.objectCoverPicker,
             objectIconPickerModuleAssembly: modulesDI.objectIconPicker,
-            objectSettingModuleAssembly: modulesDI.objectSetting,
+            objectSettingCoordinator: coordinatorsDI.objectSettings.make(document: document, browserController: browser),
+            searchModuleAssembly: modulesDI.search,
             alertHelper: AlertHelper(viewController: controller)
         )
         
@@ -111,17 +110,16 @@ final class EditorAssembly {
             viewController: controller,
             navigationContext: NavigationContext(rootViewController: browser ?? controller),
             document: document,
+            addNewRelationCoordinator: coordinatorsDI.addNewRelation.make(document: document),
             templatesCoordinator: coordinatorsDI.templates.make(viewController: controller),
             urlOpener: URLOpener(viewController: browser),
-            relationValueCoordinator: coordinatorsDI.relationValue.make(viewController: controller),
+            relationValueCoordinator: coordinatorsDI.relationValue.make(),
             editorPageCoordinator: coordinatorsDI.editorPage.make(browserController: browser),
             linkToObjectCoordinator: coordinatorsDI.linkToObject.make(browserController: browser),
-            relationsListModuleAssembly: modulesDI.relationsList,
-            undoRedoModuleAssembly: modulesDI.undoRedo,
-            objectLayoutPickerModuleAssembly: modulesDI.objectLayoutPicker,
             objectCoverPickerModuleAssembly: modulesDI.objectCoverPicker,
             objectIconPickerModuleAssembly: modulesDI.objectIconPicker,
-            objectSettingModuleAssembly: modulesDI.objectSetting,
+            objectSettingCoordinator: coordinatorsDI.objectSettings.make(document: document, browserController: browser),
+            searchModuleAssembly: modulesDI.search,
             alertHelper: AlertHelper(viewController: controller)
         )
 

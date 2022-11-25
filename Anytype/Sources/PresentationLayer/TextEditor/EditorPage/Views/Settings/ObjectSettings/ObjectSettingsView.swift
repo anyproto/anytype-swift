@@ -32,13 +32,13 @@ struct ObjectSettingsView: View {
         ObjectSettingRow(setting: viewModel.settings[index], isLast: index == viewModel.settings.count - 1) {
             switch viewModel.settings[index] {
             case .icon:
-                viewModel.showIconPicker()
+                viewModel.onTapIconPicker()
             case .cover:
-                viewModel.showCoverPicker()
+                viewModel.onTapCoverPicker()
             case .layout:
-                viewModel.showLayoutSettings()
+                viewModel.onTapLayoutPicker()
             case .relations:
-                viewModel.showRelations()
+                viewModel.onTapRelations()
             }
         }
     }

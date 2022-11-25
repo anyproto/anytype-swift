@@ -38,9 +38,7 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func showSettings()
     func showCoverPicker()
     func showIconPicker()
-    func showLayoutPicker()
     func showTextIconPicker(contextId: BlockId, objectId: BlockId)
-    func presentUndoRedo()
     
     func showMoveTo(onSelect: @escaping (BlockId) -> ())
     func showLinkTo(onSelect: @escaping (BlockId, _ typeUrl: String) -> ())
@@ -111,8 +109,6 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func showCardSizes(size: DataviewViewSize, onSelect: @escaping (DataviewViewSize) -> Void)
     func showCovers(setModel: EditorSetViewModel, onSelect: @escaping (String) -> Void)
     
-    func showRelations()
-
     func showGroupByRelations(
         selectedRelationId: String,
         relations: [RelationDetails],
