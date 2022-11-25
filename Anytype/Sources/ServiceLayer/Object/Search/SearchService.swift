@@ -97,7 +97,8 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             SearchHelper.notHiddenFilter(),
             SearchHelper.isDeletedFilter(isDeleted: false),
             SearchHelper.layoutFilter(layouts: [DetailsLayout.fileLayout, DetailsLayout.imageLayout]),
-            SearchHelper.excludedIdsFilter(excludedFileIds)
+            SearchHelper.excludedIdsFilter(excludedFileIds),
+            SearchHelper.workspaceId(accountManager.account.info.accountSpaceId),
         ]
         
         return search(filters: filters, sorts: [sort], fullText: text, limit: Constants.defaultLimit)
@@ -153,9 +154,8 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         )
         filters.append(SearchHelper.relationKey(relationKey))
         filters.append(SearchHelper.excludedIdsFilter(excludedObjectIds))
-        filters.append(SearchHelper.relationOptionText(text))
-
-        let details = search(filters: filters, sorts: [sort], fullText: "", limit: 0)
+        
+        let details = search(filters: filters, sorts: [sort], fullText: text, limit: 0)
         return details?.map { RelationOption(details: $0) }
     }
 
@@ -206,7 +206,8 @@ private extension SearchService {
         [
             SearchHelper.notHiddenFilter(),
             SearchHelper.isArchivedFilter(isArchived: isArchived),
-            SearchHelper.typeFilter(typeIds: typeIds)
+            SearchHelper.typeFilter(typeIds: typeIds),
+            SearchHelper.workspaceId(accountManager.account.info.accountSpaceId),
         ]
     }
     
