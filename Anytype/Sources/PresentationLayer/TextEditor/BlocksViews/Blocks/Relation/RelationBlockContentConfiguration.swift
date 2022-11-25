@@ -7,6 +7,6 @@ struct RelationBlockContentConfiguration: BlockConfiguration {
     let relation: RelationItemModel
 
     var contentInsets: UIEdgeInsets {
-        UIEdgeInsets(top: 0, left: 20, bottom: 0, right: -20)
+        UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
     }
 }

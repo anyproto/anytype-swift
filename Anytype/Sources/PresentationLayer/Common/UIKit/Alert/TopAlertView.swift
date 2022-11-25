@@ -25,7 +25,7 @@ final class TopAlertView: UIView {
         label.font = .caption1Medium
         addSubview(label) {
             $0.height.equal(to: 18)
-            $0.pinToSuperview(excluding: [], insets: UIEdgeInsets(top: 12, left: 32, bottom: -12, right: -32))
+            $0.pinToSuperview(excluding: [], insets: UIEdgeInsets(top: 12, left: 32, bottom: 12, right: 32))
         }
         layer.cornerRadius = 21
     }

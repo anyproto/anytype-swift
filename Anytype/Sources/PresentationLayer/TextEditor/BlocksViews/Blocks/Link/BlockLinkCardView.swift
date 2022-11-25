@@ -175,7 +175,7 @@ final class BlockLinkCardView: UIView, BlockContentView {
         horizontalContentStackView.addArrangedSubview(verticalTextsStackView)
 
         addSubview(mainVerticalStackView) {
-            $0.pinToSuperview(insets: .init(top: 0, left: 0, bottom: -16, right: 0))
+            $0.pinToSuperview(insets: .init(top: 0, left: 0, bottom: 16, right: 0))
         }
 
         addSubview(taskButton) {

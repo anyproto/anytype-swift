@@ -49,7 +49,7 @@ final class ToastView: ThroughHitView {
 
 
         decoratedView.addSubview(label) {
-            $0.pinToSuperview(insets: .init(top: 8, left: 8, bottom: -8, right: -8))
+            $0.pinToSuperview(insets: .init(top: 8, left: 8, bottom: 8, right: 8))
         }
     }
 }

@@ -18,6 +18,6 @@ struct CodeBlockContentConfiguration: BlockConfiguration {
 
 extension CodeBlockContentConfiguration {
     var contentInsets: UIEdgeInsets {
-        UIEdgeInsets(top: 6, left: 10, bottom: -6, right: -10)
+        UIEdgeInsets(top: 6, left: 10, bottom: 6, right: 10)
     }
 }
