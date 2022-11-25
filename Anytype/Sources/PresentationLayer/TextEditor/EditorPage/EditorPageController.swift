@@ -11,7 +11,7 @@ final class EditorPageController: UIViewController {
     private(set) lazy var dataSource = makeCollectionViewDataSource()
     
     private lazy var deletedScreen = EditorPageDeletedScreen(
-        onBackTap: viewModel.router.goBack
+        onBackTap: viewModel.router.closeEditor
     )
     private weak var firstResponderView: UIView?
 

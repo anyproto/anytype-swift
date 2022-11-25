@@ -63,7 +63,7 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func showWaitingView(text: String)
     func hideWaitingView()
     
-    func goBack()
+    func closeEditor()
     
     func presentSheet(_ vc: UIViewController)
     func presentFullscreen(_ vc: UIViewController)

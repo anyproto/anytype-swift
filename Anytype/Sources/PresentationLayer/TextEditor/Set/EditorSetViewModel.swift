@@ -22,7 +22,8 @@ final class EditorSetViewModel: ObservableObject {
     
     private let setSyncStatus = FeatureFlags.setSyncStatus
     @Published var syncStatus: SyncStatus = .unknown
-
+    @Published private var isAppear: Bool = false
+    
     var isUpdating = false
 
     var isEmpty: Bool {
@@ -118,8 +119,8 @@ final class EditorSetViewModel: ObservableObject {
             self?.onDataChange($0)
         }.store(in: &subscriptions)
 
-        document.detailsPublisher
-            .sink { [weak self] in self?.handleDetails(details: $0) }
+        Publishers.CombineLatest(document.detailsPublisher, $isAppear)
+            .sink { [weak self] in self?.handleDetails(details: $0, isAppear: $1) }
             .store(in: &subscriptions)
         
         Task { @MainActor in
@@ -132,7 +133,7 @@ final class EditorSetViewModel: ObservableObject {
                     showSetOfTypeSelection()
                 }
             } catch {
-                router.goBack()
+                router.closeEditor()
             }
         }
     }
@@ -140,10 +141,12 @@ final class EditorSetViewModel: ObservableObject {
     func onAppear() {
         startSubscriptionIfNeeded()
         router?.setNavigationViewHidden(false, animated: true)
+        isAppear = true
     }
     
     func onWillDisappear() {
         router.dismissSetSettingsIfNeeded()
+        isAppear = false
     }
     
     func onDisappear() {
@@ -364,9 +367,9 @@ final class EditorSetViewModel: ObservableObject {
         }
     }
     
-    private func handleDetails(details: ObjectDetails) {
-        if details.isArchived {
-            router.goBack()
+    private func handleDetails(details: ObjectDetails, isAppear: Bool) {
+        if details.isArchived && isAppear {
+            router.closeEditor()
         }
     }
     

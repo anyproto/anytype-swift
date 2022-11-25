@@ -4,6 +4,7 @@ import AnytypeCore
 
 protocol EditorBrowser: AnyObject {
     func pop()
+    func popIfPresent(_ viewController: UIViewController)
     func goToHome(animated: Bool)
     func showPage(data: EditorScreenData)
     func setNavigationViewHidden(_ isHidden: Bool, animated: Bool)
@@ -127,6 +128,11 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
         } else {
             navigationController?.popViewController(animated: true)
         }
+    }
+    
+    func popIfPresent(_ viewController: UIViewController) {
+        guard childNavigation.topViewController == viewController else { return }
+        pop()
     }
     
     func goToHome(animated: Bool) {

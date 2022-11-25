@@ -274,8 +274,9 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         navigationContext.dismissTopPresented()
     }
     
-    func goBack() {
-        rootController?.pop()
+    func closeEditor() {
+        guard let viewController else { return }
+        rootController?.popIfPresent(viewController)
     }
     
     func presentSheet(_ vc: UIViewController) {
