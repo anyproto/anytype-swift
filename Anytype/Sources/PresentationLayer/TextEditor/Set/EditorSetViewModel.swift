@@ -172,6 +172,7 @@ final class EditorSetViewModel: ObservableObject {
         if activeView.type.hasGroups {
             setupGroupSubscriptions()
         } else {
+            setupPaginationDataIfNeeded(groupId: SubscriptionId.set.value)
             startSubscriptionIfNeeded(with: SubscriptionId.set)
         }
     }
@@ -188,13 +189,7 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     func pagitationData(by groupId: String) -> EditorSetPaginationData {
-        if let data = pagitationDataDict[groupId] {
-            return data
-        } else {
-            let data = EditorSetPaginationData.empty
-            pagitationDataDict[groupId] = data
-            return data
-        }
+        pagitationDataDict[groupId] ?? EditorSetPaginationData.empty
     }
     
     // MARK: - Private
@@ -209,9 +204,15 @@ final class EditorSetViewModel: ObservableObject {
                 guard let self else { return }
                 let groupFilter = group.filter(with: self.activeView.groupRelationKey)
                 let subscriptionId = SubscriptionId(value: group.id)
+                self.setupPaginationDataIfNeeded(groupId: group.id)
                 self.startSubscriptionIfNeeded(with: subscriptionId, groupFilter: groupFilter)
             }
         }
+    }
+    
+    private func setupPaginationDataIfNeeded(groupId: String) {
+        guard pagitationDataDict[groupId] == nil else { return }
+        pagitationDataDict[groupId] = EditorSetPaginationData.empty
     }
     
     private func startSubscriptionIfNeeded(with subscriptionId: SubscriptionId, groupFilter: DataviewFilter? = nil) {
