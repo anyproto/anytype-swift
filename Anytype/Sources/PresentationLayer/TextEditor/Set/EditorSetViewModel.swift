@@ -108,7 +108,6 @@ final class EditorSetViewModel: ObservableObject {
         self.setSubscriptionDataBuilder = setSubscriptionDataBuilder
 
         self.titleString = document.details?.pageCellTitle ?? ""
-        self.featuredRelations = document.featuredRelationsForEditor
     }
     
     func setup(router: EditorRouterProtocol) {
@@ -387,6 +386,9 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     private func setupDataview() {
+        // Show for empty state
+        featuredRelations = document.featuredRelationsForEditor
+        
         guard document.dataviews.isNotEmpty else { return }
         anytypeAssert(document.dataviews.count < 2, "\(document.dataviews.count) dataviews in set", domain: .editorSet)
         
@@ -430,7 +432,6 @@ final class EditorSetViewModel: ObservableObject {
         updateFilters()
         startSubscriptionIfNeeded()
         updateConfigurations(with: Array(recordsDict.keys), shouldReorder: true)
-        featuredRelations = document.featuredRelationsForEditor
 
         isUpdating = false
     }
