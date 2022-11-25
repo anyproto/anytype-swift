@@ -25,7 +25,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     private let headerModel: ObjectHeaderViewModel
     private let editorPageTemplatesHandler: EditorPageTemplatesHandlerProtocol
     private let isOpenedForPreview: Bool
-
+    @Published private var isAppear: Bool = false
+    
     private lazy var subscriptions = [AnyCancellable]()
 
     private let blockActionsService: BlockActionsServiceSingleProtocol
@@ -89,8 +90,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             self?.updateHeaderIfNeeded(headerModel: headerModel)
         }.store(in: &subscriptions)
         
-        document.detailsPublisher
-            .sink { [weak self] in self?.handleDeletionState(details: $0) }
+        Publishers.CombineLatest(document.detailsPublisher, $isAppear)
+            .sink { [weak self] in self?.handleDeletionState(details: $0, isAppear: $1) }
             .store(in: &subscriptions)
     }
 
@@ -167,10 +168,10 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         }
     }
     
-    private func handleDeletionState(details: ObjectDetails) {
+    private func handleDeletionState(details: ObjectDetails, isAppear: Bool) {
         viewInput?.showDeletedScreen(details.isDeleted)
-        if details.isArchived {
-            router.goBack()
+        if details.isArchived && isAppear {
+            router.closeEditor()
         }
     }
 
@@ -261,7 +262,7 @@ extension EditorPageViewModel {
                 }
                 blocksStateManager.checkOpenedState()
             } catch {
-                router.goBack()
+                router.closeEditor()
             }
         }
     }
@@ -271,11 +272,14 @@ extension EditorPageViewModel {
     func viewDidAppear() {
         cursorManager.didAppeared(with: modelsHolder.items, type: document.details?.type)
         editorPageTemplatesHandler.didAppeared(with: document.details?.type)
+        isAppear = true
     }
 
     func viewWillDisappear() {}
 
-    func viewDidDissapear() {}
+    func viewDidDissapear() {
+        isAppear = false
+    }
 
 
     func shakeMotionDidAppear() {
