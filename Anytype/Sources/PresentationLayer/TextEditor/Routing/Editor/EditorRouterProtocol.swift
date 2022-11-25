@@ -114,4 +114,6 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
         relations: [RelationDetails],
         onSelect: @escaping (String) -> Void
     )
+    
+    func showKanbanColumnSetting()
 }

@@ -131,7 +131,7 @@ extension NewSearchView {
         var buttonTitle: String {
             switch self {
             case .default: return Loc.add
-            case .embedded: return Loc.Set.Filters.Search.Button.title
+            case .embedded: return Loc.Set.Button.Title.apply
             }
         }
         

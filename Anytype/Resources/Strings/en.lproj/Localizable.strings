@@ -357,7 +357,7 @@
 "Set.FeaturedRelations.Relation" = "Relation:";
 
 // MARK: - Sets: Filters search
-"Set.Filters.Search.Button.Title" = "Apply";
+"Set.Button.Title.Apply" = "Apply";
 
 // MARK: - Set.Bookmarks
 "Set.Bookmark.Create.Placeholder" = "Paste link";
@@ -376,6 +376,8 @@
 // MARK: - Sets: Kanban
 "Set.View.Kanban.Column.Title.Uncategorized" = "Uncategorized";
 "Set.View.Kanban.Column.Paging.Title.ShowMore" = "Show more objects";
+"Set.View.Kanban.Column.Settings.Color.Title" = "Column color";
+"Set.View.Kanban.Column.Settings.Hide.Column.Title" = "Hide column";
 
 // MARK: - Set source type
 "Set.SourceType.SelectSource" = "Select source";

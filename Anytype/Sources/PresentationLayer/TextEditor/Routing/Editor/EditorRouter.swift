@@ -726,6 +726,21 @@ extension EditorRouter {
             )
         )
     }
+    
+    func showKanbanColumnSetting() {
+        let popup = AnytypePopup(
+            viewModel: SetKanbanColumnSettingsViewModel(
+                hideColumn: false,
+                selectedColor: nil
+            ),
+            configuration: .init(
+                isGrabberVisible: true,
+                dismissOnBackdropView: true
+            )
+        )
+        currentSetSettingsPopup = popup
+        presentFullscreen(popup)
+    }
 }
 
 

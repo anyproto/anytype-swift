@@ -11,7 +11,8 @@ struct SetKanbanColumn: View {
     let dragAndDropDelegate: KanbanDragAndDropDelegate
     @Binding var dropData: KanbanCardDropData
     
-    let onShowMoreTapped: () -> Void
+    let onShowMoreTap: () -> Void
+    let onSettingsTap: () -> Void
 
     var body: some View {
         VStack(spacing: 0) {
@@ -78,7 +79,9 @@ struct SetKanbanColumn: View {
                 )
             }
             Spacer()
-            Button {} label: {
+            Button {
+                onSettingsTap()
+            } label: {
                 Image(asset: .more).foregroundColor(.buttonActive)
             }
             Spacer.fixedWidth(16)
@@ -92,7 +95,7 @@ struct SetKanbanColumn: View {
     
     private var pagingView: some View {
         Button {
-            onShowMoreTapped()
+            onShowMoreTap()
         } label: {
             VStack(spacing: 0) {
                 Spacer.fixedHeight(4)

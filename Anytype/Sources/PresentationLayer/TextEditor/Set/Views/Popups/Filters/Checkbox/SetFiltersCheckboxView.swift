@@ -55,7 +55,7 @@ struct SetFiltersCheckboxView: View {
     }
     
     private var button: some View {
-        StandardButton(disabled: false, text: Loc.Set.Filters.Search.Button.title, style: .primary) {
+        StandardButton(disabled: false, text: Loc.Set.Button.Title.apply, style: .primary) {
             viewModel.handleCheckbox()
         }
         .padding(.top, 20)

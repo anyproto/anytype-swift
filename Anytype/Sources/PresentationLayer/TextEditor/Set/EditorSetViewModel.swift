@@ -608,6 +608,10 @@ extension EditorSetViewModel {
             )
         }
     }
+    
+    func showKanbanViewSettings() {
+        router.showKanbanColumnSetting()
+    }
 
     private func showSetOfTypeSelection() {
         router.showSources(selectedObjectId: document.details?.setOf.first) { [unowned self] typeObjectId in

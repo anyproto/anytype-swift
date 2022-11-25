@@ -522,6 +522,8 @@
 		2E0DAF2528A2723C00F43320 /* SetViewSettingsImagePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DAF2428A2723C00F43320 /* SetViewSettingsImagePreviewView.swift */; };
 		2E0DAF2728A273FC00F43320 /* SetViewSettingsImagePreviewCover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DAF2628A273FC00F43320 /* SetViewSettingsImagePreviewCover.swift */; };
 		2E0DAF2928A2767B00F43320 /* SetViewSettingsImagePreviewRowConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DAF2828A2767B00F43320 /* SetViewSettingsImagePreviewRowConfiguration.swift */; };
+		2E1146D0293124ED0057C753 /* SetKanbanColumnSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1146CF293124ED0057C753 /* SetKanbanColumnSettingsViewModel.swift */; };
+		2E1146D2293125610057C753 /* SetKanbanColumnSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1146D1293125610057C753 /* SetKanbanColumnSettingsView.swift */; };
 		2E21599D28EC619E0042B205 /* EditorPageTemplatesHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E21599C28EC619E0042B205 /* EditorPageTemplatesHandler.swift */; };
 		2E2D255D28880C8D00E3DFD1 /* SetFiltersSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2D255428880C8D00E3DFD1 /* SetFiltersSelectionView.swift */; };
 		2E2D255E28880C8D00E3DFD1 /* SetFiltersSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2D255528880C8D00E3DFD1 /* SetFiltersSelectionViewModel.swift */; };
@@ -1779,6 +1781,8 @@
 		2E0DAF2428A2723C00F43320 /* SetViewSettingsImagePreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewSettingsImagePreviewView.swift; sourceTree = "<group>"; };
 		2E0DAF2628A273FC00F43320 /* SetViewSettingsImagePreviewCover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewSettingsImagePreviewCover.swift; sourceTree = "<group>"; };
 		2E0DAF2828A2767B00F43320 /* SetViewSettingsImagePreviewRowConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewSettingsImagePreviewRowConfiguration.swift; sourceTree = "<group>"; };
+		2E1146CF293124ED0057C753 /* SetKanbanColumnSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetKanbanColumnSettingsViewModel.swift; sourceTree = "<group>"; };
+		2E1146D1293125610057C753 /* SetKanbanColumnSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetKanbanColumnSettingsView.swift; sourceTree = "<group>"; };
 		2E21599C28EC619E0042B205 /* EditorPageTemplatesHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorPageTemplatesHandler.swift; sourceTree = "<group>"; };
 		2E2D255428880C8D00E3DFD1 /* SetFiltersSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetFiltersSelectionView.swift; sourceTree = "<group>"; };
 		2E2D255528880C8D00E3DFD1 /* SetFiltersSelectionViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetFiltersSelectionViewModel.swift; sourceTree = "<group>"; };
@@ -4792,6 +4796,15 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		2E1146CE29311E7A0057C753 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				2E1146CF293124ED0057C753 /* SetKanbanColumnSettingsViewModel.swift */,
+				2E1146D1293125610057C753 /* SetKanbanColumnSettingsView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
 		2E2B0D16290AEB4400150841 /* GroupBy */ = {
 			isa = PBXGroup;
 			children = (
@@ -4959,6 +4972,7 @@
 		2EC9426A2901905900DE91E4 /* Column */ = {
 			isa = PBXGroup;
 			children = (
+				2E1146CE29311E7A0057C753 /* Settings */,
 				2EC9426D2901946800DE91E4 /* SetKanbanColumn.swift */,
 			);
 			path = Column;
@@ -7812,6 +7826,7 @@
 				53D408CF27F1D44F00495335 /* PasteboardCopyResult.swift in Sources */,
 				C9EA69D128C61D8A003F488C /* SimpleTableSelectionOptionHandler.swift in Sources */,
 				3DE0CFD626F8593D003A606A /* SlashMenuItemDisplayData.swift in Sources */,
+				2E1146D0293124ED0057C753 /* SetKanbanColumnSettingsViewModel.swift in Sources */,
 				3D34F20A27BE3B5300990C49 /* SettingsAppearanceView.swift in Sources */,
 				C93E25BD292BA25700CBBF30 /* AnytypeIconDownloader.swift in Sources */,
 				EAADB1B32678EB52004B0AF2 /* MarkStyleModifier.swift in Sources */,
@@ -8303,6 +8318,7 @@
 				2E2D256128880C8D00E3DFD1 /* SetFiltersSelectionViewState.swift in Sources */,
 				12F6072D26D7F6E500876C92 /* SwiftUIObjectIconImageView.swift in Sources */,
 				03C5C54D22E0A0C200DD91DE /* InternetProtocol.swift in Sources */,
+				2E1146D2293125610057C753 /* SetKanbanColumnSettingsView.swift in Sources */,
 				C961582027AC2AD400AE8848 /* FocusSubjectsHolder.swift in Sources */,
 				2AECFD4028993C77000E9CFB /* RelationValueCoordinatorProtocol.swift in Sources */,
 				1247BC8727FEE504005F2DB4 /* MultiselectObjectTypesSearchViewModel.swift in Sources */,
