@@ -32,7 +32,7 @@ struct DateRelationEditingView_Previews: PreviewProvider {
         DateRelationDetailsView(
             viewModel: DateRelationDetailsViewModel(
                 value: nil,
-                relation: .date(Relation.Date(id: "", key: "", name: "name", isFeatured: false, isEditable: false, isBundled: false, value: nil)),
+                relation: .date(Relation.Date(id: "", key: "", name: "name", isFeatured: false, isEditable: false, isSystem: false, value: nil)),
                 service: RelationsService(objectId: "")
             )
         )

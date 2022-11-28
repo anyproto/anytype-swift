@@ -21,7 +21,7 @@ struct RelationsListRowView: View {
     private var row: some View {
         HStack(spacing: 8) {
             if editingMode {
-                if !relation.isBundled {
+                if !relation.isSystem {
                     removeButton
                 } else {
                     Spacer.fixedWidth(Constants.buttonWidth)
@@ -122,7 +122,7 @@ struct ObjectRelationRow_Previews: PreviewProvider {
                         name: "relation name",
                         isFeatured: false,
                         isEditable: true,
-                        isBundled: false,
+                        isSystem: false,
                         selectedTags: [
                             Relation.Tag.Option(
                                 id: "id1",
@@ -165,7 +165,7 @@ struct ObjectRelationRow_Previews: PreviewProvider {
                         name: "Relation name",
                         isFeatured: false,
                         isEditable: true,
-                        isBundled: false,
+                        isSystem: false,
                         value: "hello"
                     )
                 ),

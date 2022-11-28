@@ -88,20 +88,20 @@ extension Relation: RelationProtocol {
         }
     }
     
-    var isBundled: Bool {
+    var isSystem: Bool {
         switch self {
-        case .text(let text): return text.isBundled
-        case .number(let text): return text.isBundled
-        case .status(let status): return status.isBundled
-        case .date(let date): return date.isBundled
-        case .object(let object): return object.isBundled
-        case .checkbox(let checkbox): return checkbox.isBundled
-        case .url(let text): return text.isBundled
-        case .email(let text): return text.isBundled
-        case .phone(let text): return text.isBundled
-        case .tag(let tag): return tag.isBundled
-        case .file(let file): return file.isBundled
-        case .unknown(let unknown): return unknown.isBundled
+        case .text(let text): return text.isSystem
+        case .number(let text): return text.isSystem
+        case .status(let status): return status.isSystem
+        case .date(let date): return date.isSystem
+        case .object(let object): return object.isSystem
+        case .checkbox(let checkbox): return checkbox.isSystem
+        case .url(let text): return text.isSystem
+        case .email(let text): return text.isSystem
+        case .phone(let text): return text.isSystem
+        case .tag(let tag): return tag.isSystem
+        case .file(let file): return file.isSystem
+        case .unknown(let unknown): return unknown.isSystem
         }
     }
     
