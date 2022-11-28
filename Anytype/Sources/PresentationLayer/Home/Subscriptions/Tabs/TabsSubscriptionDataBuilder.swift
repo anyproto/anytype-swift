@@ -16,9 +16,14 @@ final class TabsSubscriptionDataBuilder: TabsSubscriptionDataBuilderProtocol {
     }
     
     private let objectTypeProvider: ObjectTypeProviderProtocol
+    private let accountManager: AccountManager
     
-    init(objectTypeProvider: ObjectTypeProviderProtocol = ObjectTypeProvider.shared) {
+    init(
+        objectTypeProvider: ObjectTypeProviderProtocol = ObjectTypeProvider.shared,
+        accountManager: AccountManager = AccountManager.shared
+    ) {
         self.objectTypeProvider = objectTypeProvider
+        self.accountManager = accountManager
     }
     
     // MARK: - TabsSubscriptionDataBuilderProtocol
@@ -171,7 +176,8 @@ final class TabsSubscriptionDataBuilder: TabsSubscriptionDataBuilderProtocol {
         return [
             SearchHelper.notHiddenFilter(),
             SearchHelper.isArchivedFilter(isArchived: isArchived),
-            SearchHelper.typeFilter(typeIds: typeIds)
+            SearchHelper.typeFilter(typeIds: typeIds),
+            SearchHelper.workspaceId(accountManager.account.info.accountSpaceId)
         ]
     }
 }
