@@ -16,7 +16,7 @@ extension BaseDocumentProtocol {
                 name: "",
                 isFeatured: false,
                 isEditable: !objectRestriction.contains(.typechange),
-                isBundled: true,
+                isSystem: true,
                 value: type.name
             )
         )

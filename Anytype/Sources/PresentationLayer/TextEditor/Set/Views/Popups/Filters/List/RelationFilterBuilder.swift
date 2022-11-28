@@ -89,7 +89,7 @@ final class RelationFilterBuilder {
                     name: relationDetails.name,
                     isFeatured: false,
                     isEditable: false,
-                    isBundled: relationDetails.isBundled,
+                    isSystem: relationDetails.isSystem,
                     value: Loc.unsupportedValue
                 )
             )
@@ -161,7 +161,7 @@ private extension RelationFilterBuilder {
                 name: relationDetails.name,
                 isFeatured: false,
                 isEditable: false,
-                isBundled: relationDetails.isBundled,
+                isSystem: relationDetails.isSystem,
                 selectedObjects: objectOptions,
                 limitedObjectTypes: relationDetails.objectTypes
             )
@@ -180,7 +180,7 @@ private extension RelationFilterBuilder {
                 name: relationDetails.name,
                 isFeatured: false,
                 isEditable: false,
-                isBundled: relationDetails.isBundled,
+                isSystem: relationDetails.isSystem,
                 value: "“\(filter.value.stringValue)“"
             )
         )
@@ -204,7 +204,7 @@ private extension RelationFilterBuilder {
                 name: relationDetails.name,
                 isFeatured: false,
                 isEditable: false,
-                isBundled: relationDetails.isBundled,
+                isSystem: relationDetails.isSystem,
                 value: "“\(numberValue ?? "")“"
             )
         )
@@ -222,7 +222,7 @@ private extension RelationFilterBuilder {
                 name: relationDetails.name,
                 isFeatured: false,
                 isEditable: false,
-                isBundled: relationDetails.isBundled,
+                isSystem: relationDetails.isSystem,
                 value: "“\(filter.value.stringValue)“"
             )
         )
@@ -240,7 +240,7 @@ private extension RelationFilterBuilder {
                 name: relationDetails.name,
                 isFeatured: false,
                 isEditable: false,
-                isBundled: relationDetails.isBundled,
+                isSystem: relationDetails.isSystem,
                 value: "“\(filter.value.stringValue)“"
             )
         )
@@ -258,7 +258,7 @@ private extension RelationFilterBuilder {
                 name: relationDetails.name,
                 isFeatured: false,
                 isEditable: false,
-                isBundled: relationDetails.isBundled,
+                isSystem: relationDetails.isSystem,
                 value: "“\(filter.value.stringValue)“"
             )
         )
@@ -289,7 +289,7 @@ private extension RelationFilterBuilder {
                 name: relationDetails.name,
                 isFeatured: false,
                 isEditable: false,
-                isBundled: relationDetails.isBundled,
+                isSystem: relationDetails.isSystem,
                 values: selectedStatuses
             )
         )
@@ -324,7 +324,7 @@ private extension RelationFilterBuilder {
                 name: relationDetails.name,
                 isFeatured: false,
                 isEditable: false,
-                isBundled: relationDetails.isBundled,
+                isSystem: relationDetails.isSystem,
                 selectedTags: selectedTags
             )
         )
@@ -384,7 +384,7 @@ private extension RelationFilterBuilder {
                 name: relationDetails.name,
                 isFeatured: false,
                 isEditable: false,
-                isBundled: relationDetails.isBundled,
+                isSystem: relationDetails.isSystem,
                 files: fileOptions
             )
         )
@@ -402,7 +402,7 @@ private extension RelationFilterBuilder {
                 name: relationDetails.name,
                 isFeatured: false,
                 isEditable: false,
-                isBundled: relationDetails.isBundled,
+                isSystem: relationDetails.isSystem,
                 value: filter.value.boolValue
             )
         )

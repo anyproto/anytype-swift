@@ -1,10 +1,11 @@
 import Foundation
 
 // Sync with
-// https://github.com/anytypeio/go-anytype-middleware/blob/4fcbf6754f445b68b8ffa1d7ae4de591f6398ab8/pkg/lib/bundle/init.go#L18
+// https://github.com/anytypeio/go-anytype-middleware/blob/master/pkg/lib/bundle/init.go#L18
+// and desktop
 
 public extension BundledRelationKey {
-    static var readonlyKeys: [BundledRelationKey] {
+    static var systemKeys: [BundledRelationKey] {
         [
             .id,
             .name,
@@ -31,7 +32,9 @@ public extension BundledRelationKey {
             .isFavorite,
             .workspaceId,
             .links,
-            .internalFlags
+            .internalFlags,
+            .addedDate,
+            .done
         ]
     }
 }

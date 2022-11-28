@@ -2,8 +2,8 @@ import Foundation
 import BlocksModels
 
 extension RelationDetails {
-    var isBundled: Bool {
+    var isSystem: Bool {
         guard let keyType = BundledRelationKey(rawValue: key) else { return false }
-        return BundledRelationKey.readonlyKeys.contains(keyType)
+        return BundledRelationKey.systemKeys.contains(keyType)
     }
 }

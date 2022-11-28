@@ -76,7 +76,7 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
                 image: relation.relationDetails.format.iconAsset,
                 title: relation.relationDetails.name,
                 isOn: relation.option.isVisible,
-                isBundled: relation.relationDetails.isBundled,
+                isSystem: relation.relationDetails.isSystem,
                 onChange: { [weak self] isVisible in
                     self?.onRelationVisibleChange(relation, isVisible: isVisible)
                 }

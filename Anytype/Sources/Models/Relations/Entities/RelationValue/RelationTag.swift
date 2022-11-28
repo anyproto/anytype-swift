@@ -10,7 +10,7 @@ extension Relation {
         let name: String
         let isFeatured: Bool
         let isEditable: Bool
-        let isBundled: Bool
+        let isSystem: Bool
         
         let selectedTags: [Option]
         
