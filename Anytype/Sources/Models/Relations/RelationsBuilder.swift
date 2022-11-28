@@ -368,7 +368,8 @@ private extension RelationsBuilder {
         isObjectLocked: Bool
     ) -> Relation {
         let objectOptions: [Relation.Object.Option] = {
-            let values = details.stringArrayValue(for: relationDetails.key)
+            
+            let values = details.stringValueOrArray(for: relationDetails)
             
             let objectDetails: [ObjectDetails] = values.compactMap {
                 return storage.get(id: $0)
