@@ -11,6 +11,7 @@ public struct RelationDetails: Hashable {
     public let isReadOnly: Bool
     public let isReadOnlyValue: Bool
     public let objectTypes: [String]
+    public let maxCount: Int
     
     public init(
         id: String,
@@ -20,7 +21,8 @@ public struct RelationDetails: Hashable {
         isHidden: Bool,
         isReadOnly: Bool,
         isReadOnlyValue: Bool,
-        objectTypes: [String]
+        objectTypes: [String],
+        maxCount: Int
     ) {
         self.id = id
         self.key = key
@@ -30,6 +32,7 @@ public struct RelationDetails: Hashable {
         self.isReadOnly = isReadOnly
         self.isReadOnlyValue = isReadOnlyValue
         self.objectTypes = objectTypes
+        self.maxCount = maxCount
     }
 }
 
@@ -44,6 +47,7 @@ public extension RelationDetails {
         self.isReadOnly = objectDetails.isReadonly
         self.isReadOnlyValue = objectDetails.relationReadonlyValue
         self.objectTypes = objectDetails.relationFormatObjectTypes
+        self.maxCount = objectDetails.relationMaxCount ?? 1
     }
     
     var asCreateMiddleware: Google_Protobuf_Struct {
@@ -59,5 +63,12 @@ public extension RelationDetails {
         }
         
         return Google_Protobuf_Struct(fields: fields)
+    }
+}
+
+
+public extension RelationDetails {
+    var isMultiSelect: Bool {
+        return maxCount == 0
     }
 }
