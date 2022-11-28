@@ -7,7 +7,7 @@ struct BlockLinkTextConfiguration: BlockConfiguration {
     let state: BlockLinkState
     @EquatableNoop private(set) var todoToggleAction: () -> Void
 
-    var contentInsets: UIEdgeInsets { .init(top: 5, left: 20, bottom: -5, right: -20) }
+    var contentInsets: UIEdgeInsets { .init(top: 5, left: 20, bottom: 5, right: 20) }
 }
 
 struct BlockLinkCardConfiguration: BlockConfiguration {
@@ -23,6 +23,6 @@ struct BlockLinkCardConfiguration: BlockConfiguration {
 
 extension BlockLinkCardConfiguration {
     var contentInsets: UIEdgeInsets {
-        UIEdgeInsets(top: 10, left: 20, bottom: -10, right: -20)
+        UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
     }
 }

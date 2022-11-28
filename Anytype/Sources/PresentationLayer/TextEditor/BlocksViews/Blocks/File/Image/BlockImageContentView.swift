@@ -77,7 +77,7 @@ final class BlockImageContentView: UIView, BlockContentView {
 private extension BlockImageContentView {
     enum Layout {
         static let imageContentViewDefaultHeight: CGFloat = 250
-        static let imageViewInsets = UIEdgeInsets(top: 10, left: 20, bottom: -10, right: -20)
+        static let imageViewInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
     }
 }
 

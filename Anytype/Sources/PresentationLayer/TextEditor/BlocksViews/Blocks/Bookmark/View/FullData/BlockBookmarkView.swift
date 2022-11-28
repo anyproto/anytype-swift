@@ -42,7 +42,7 @@ final class BlockBookmarkView: UIView, BlockContentView {
         informationView.update(payload: payload)
         backgroundView.addSubview(informationView) {
             if FeatureFlags.redesignBookmarkBlock {
-                $0.pinToSuperview(insets: Layout.contentInsetsForPin)
+                $0.pinToSuperview(insets: Layout.contentInsets)
             } else {
                 $0.pinToSuperview()
             }
@@ -102,9 +102,8 @@ final class BlockBookmarkView: UIView, BlockContentView {
 
 private extension BlockBookmarkView {
     enum Layout {
-        static let backgroundViewInsets = UIEdgeInsets(top: 10, left: 0, bottom: -10, right: 0)
-        static let deletedInsets = UIEdgeInsets(top: 8, left: 0, bottom: 0, right: -8)
-        static let contentInsetsForPin = UIEdgeInsets(top: 16, left: 16, bottom: -16, right: -16)
+        static let backgroundViewInsets = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
+        static let deletedInsets = UIEdgeInsets(top: 8, left: 0, bottom: 0, right: 8)
         static let contentInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
     }
 }

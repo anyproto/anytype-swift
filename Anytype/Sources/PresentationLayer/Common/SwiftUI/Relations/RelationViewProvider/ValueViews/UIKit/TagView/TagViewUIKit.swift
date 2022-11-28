@@ -38,7 +38,7 @@ final class TagViewUIKit: UIView {
         textView.setLineBreakMode(.byTruncatingTail)
 
         addSubview(textView) {
-            $0.pinToSuperview(insets: UIEdgeInsets(top: 0, left: style.tagViewGuidlines.textPadding, bottom: 0, right: -style.tagViewGuidlines.textPadding))
+            $0.pinToSuperview(insets: UIEdgeInsets(top: 0, left: style.tagViewGuidlines.textPadding, bottom: 0, right: style.tagViewGuidlines.textPadding))
             $0.height.equal(to: style.tagViewGuidlines.tagHeight, priority: .defaultHigh)
         }
     }

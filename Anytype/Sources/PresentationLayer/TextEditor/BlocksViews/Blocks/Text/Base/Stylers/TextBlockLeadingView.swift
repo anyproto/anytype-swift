@@ -61,7 +61,7 @@ final class TextBlockLeadingView: UIView {
                         top: 2,
                         left: 12,
                         bottom: 0,
-                        right: -6 // 12 subtract contentStackView horizontal spacing
+                        right: 6 // 12 subtract contentStackView horizontal spacing
                     )
                 )
             }

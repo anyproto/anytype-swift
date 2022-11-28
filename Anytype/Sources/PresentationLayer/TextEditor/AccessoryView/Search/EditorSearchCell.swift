@@ -31,7 +31,7 @@ final class EditorSearchCell: UIView, UIContentView {
 
     private func setup() {
         addSubview(container) {
-            $0.pinToSuperview(insets: UIEdgeInsets(top: 0, left: 20, bottom: 0, right: -20))
+            $0.pinToSuperview(insets: UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20))
             $0.height.equal(to: 56)
         }
         

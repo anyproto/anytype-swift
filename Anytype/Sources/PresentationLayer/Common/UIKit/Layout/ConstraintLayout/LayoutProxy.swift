@@ -37,6 +37,7 @@ public extension LayoutProxy {
     func pin(to view: UIView,
              excluding edgesToExclude: [UIRectEdge] = [],
              insets: UIEdgeInsets = .zero) -> [NSLayoutConstraint] {
+        
         var constraints: [NSLayoutConstraint] = []
         
         if !edgesToExclude.contains(.top) {
@@ -45,7 +46,7 @@ public extension LayoutProxy {
         }
         
         if !edgesToExclude.contains(.bottom) {
-            let bottomConstraint = bottom.equal(to: view.bottomAnchor, constant: insets.bottom)
+            let bottomConstraint = bottom.equal(to: view.bottomAnchor, constant: -insets.bottom)
             constraints.append(bottomConstraint)
         }
         
@@ -55,7 +56,7 @@ public extension LayoutProxy {
         }
         
         if !edgesToExclude.contains(.right) {
-            let topConstraint = trailing.equal(to: view.trailingAnchor, constant: insets.right)
+            let topConstraint = trailing.equal(to: view.trailingAnchor, constant: -insets.right)
             constraints.append(topConstraint)
         }
         
@@ -108,7 +109,7 @@ public extension LayoutProxy {
         }
         
         if !edgesToExclude.contains(.bottom), !edgesToExclude.contains(.all) {
-            let bottomConstraint = bottom.equal(to: layoutGuide.bottomAnchor, constant: insets.bottom)
+            let bottomConstraint = bottom.equal(to: layoutGuide.bottomAnchor, constant: -insets.bottom)
             constraints.append(bottomConstraint)
         }
         
@@ -118,7 +119,7 @@ public extension LayoutProxy {
         }
         
         if !edgesToExclude.contains(.right), !edgesToExclude.contains(.all) {
-            let topConstraint = trailing.equal(to: layoutGuide.trailingAnchor, constant: insets.right)
+            let topConstraint = trailing.equal(to: layoutGuide.trailingAnchor, constant: -insets.right)
             constraints.append(topConstraint)
         }
         

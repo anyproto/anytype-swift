@@ -34,7 +34,7 @@ final class MoreRelationView: UIView {
         textView.textColor = .textSecondary
 
         addSubview(textView) {
-            $0.pinToSuperview(insets: UIEdgeInsets(top: 0, left: Constants.padding, bottom: 0, right: -Constants.padding))
+            $0.pinToSuperview(insets: UIEdgeInsets(top: 0, left: Constants.padding, bottom: 0, right: Constants.padding))
         }
     }
 }
