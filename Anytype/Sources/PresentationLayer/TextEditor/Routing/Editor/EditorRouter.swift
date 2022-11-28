@@ -727,7 +727,7 @@ extension EditorRouter {
         )
     }
     
-    func showKanbanColumnSetting() {
+    func showKanbanColumnSettings() {
         let popup = AnytypePopup(
             viewModel: SetKanbanColumnSettingsViewModel(
                 hideColumn: false,

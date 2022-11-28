@@ -609,8 +609,8 @@ extension EditorSetViewModel {
         }
     }
     
-    func showKanbanViewSettings() {
-        router.showKanbanColumnSetting()
+    func showKanbanColumnSettings() {
+        router.showKanbanColumnSettings()
     }
 
     private func showSetOfTypeSelection() {

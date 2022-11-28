@@ -65,7 +65,7 @@ struct SetKanbanView: View {
                                 model.showMore(groupId: groupId)
                             },
                             onSettingsTap: {
-                                model.showKanbanViewSettings()
+                                model.showKanbanColumnSettings()
                             }
                         )
                     }
