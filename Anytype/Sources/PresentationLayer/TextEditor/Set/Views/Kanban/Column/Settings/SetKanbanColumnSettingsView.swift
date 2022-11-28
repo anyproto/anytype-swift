@@ -42,6 +42,7 @@ struct SetKanbanColumnSettingsView: View {
                         }) {
                             colorItem(backgroundColor)
                         }
+                        .buttonStyle(LightDimmingButtonStyle())
                     }
                 }
                 .padding(.horizontal, 20)

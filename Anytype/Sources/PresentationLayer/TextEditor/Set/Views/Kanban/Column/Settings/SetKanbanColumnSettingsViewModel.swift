@@ -6,12 +6,19 @@ final class SetKanbanColumnSettingsViewModel: ObservableObject, AnytypePopupView
     @Published var selectedColor: BlockBackgroundColor?
     let colors: [BlockBackgroundColor]
     
+    private let onApplyTap: (Bool, BlockBackgroundColor?) -> Void
+    
     weak var popup: AnytypePopupProxy?
     
-    init(hideColumn: Bool, selectedColor: BlockBackgroundColor?) {
+    init(
+        hideColumn: Bool,
+        selectedColor: BlockBackgroundColor?,
+        onApplyTap: @escaping (Bool, BlockBackgroundColor?) -> Void)
+    {
         self.hideColumn = hideColumn
         self.selectedColor = selectedColor
         self.colors = BlockBackgroundColor.allCases.filter { $0 != .default }
+        self.onApplyTap = onApplyTap
     }
     
     func hideColumnTapped() {
@@ -23,6 +30,7 @@ final class SetKanbanColumnSettingsViewModel: ObservableObject, AnytypePopupView
     }
     
     func applyTapped() {
+        onApplyTap(hideColumn, selectedColor)
     }
     
     // MARK: - AnytypePopupViewModelProtocol

@@ -731,14 +731,16 @@ extension EditorRouter {
         let popup = AnytypePopup(
             viewModel: SetKanbanColumnSettingsViewModel(
                 hideColumn: false,
-                selectedColor: nil
+                selectedColor: nil,
+                onApplyTap: { [weak self] _, _ in
+                    self?.navigationContext.dismissTopPresented()
+                }
             ),
             configuration: .init(
                 isGrabberVisible: true,
                 dismissOnBackdropView: true
             )
         )
-        currentSetSettingsPopup = popup
         presentFullscreen(popup)
     }
 }
