@@ -573,7 +573,13 @@ extension EditorRouter {
         let vc = UIHostingController(
             rootView: SetViewTypesPicker(viewModel: viewModel)
         )
-        presentSheet(vc)
+        if #available(iOS 15.0, *) {
+            if let sheet = vc.sheetPresentationController {
+                sheet.detents = [.large()]
+                sheet.selectedDetentIdentifier = .large
+            }
+        }
+        navigationContext.present(vc)
     }
     
     func showSetSettings(setModel: EditorSetViewModel) {
@@ -719,6 +725,23 @@ extension EditorRouter {
                 contentView: view
             )
         )
+    }
+    
+    func showKanbanColumnSettings() {
+        let popup = AnytypePopup(
+            viewModel: SetKanbanColumnSettingsViewModel(
+                hideColumn: false,
+                selectedColor: nil,
+                onApplyTap: { [weak self] _, _ in
+                    self?.navigationContext.dismissTopPresented()
+                }
+            ),
+            configuration: .init(
+                isGrabberVisible: true,
+                dismissOnBackdropView: true
+            )
+        )
+        presentFullscreen(popup)
     }
 }
 

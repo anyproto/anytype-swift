@@ -61,8 +61,11 @@ struct SetKanbanView: View {
                             showPagingView: model.pagitationData(by: groupId).pageCount > 1,
                             dragAndDropDelegate: model,
                             dropData: $dropData,
-                            onShowMoreTapped: {
+                            onShowMoreTap: {
                                 model.showMore(groupId: groupId)
+                            },
+                            onSettingsTap: {
+                                model.showKanbanColumnSettings()
                             }
                         )
                     }
