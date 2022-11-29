@@ -4,9 +4,11 @@ final class LoginStateService {
     var isFirstLaunchAfterRegistration: Bool = false
 
     private let seedService: SeedServiceProtocol
+    private let objectTypeProvider: ObjectTypeProviderProtocol
     
-    init(seedService: SeedServiceProtocol) {
+    init(seedService: SeedServiceProtocol, objectTypeProvider: ObjectTypeProviderProtocol) {
         self.seedService = seedService
+        self.objectTypeProvider = objectTypeProvider
     }
     
     func setupStateAfterLoginOrAuth(account: AccountData) {
@@ -31,11 +33,11 @@ final class LoginStateService {
     
     private func startSubscriptions() {
         ServiceLocator.shared.relationDetailsStorage().startSubscription()
-        ObjectTypeProvider.shared.startSubscription()
+        objectTypeProvider.startSubscription()
     }
     
     private func stopSubscriptions() {
         ServiceLocator.shared.relationDetailsStorage().stopSubscription()
-        ObjectTypeProvider.shared.stopSubscription()
+        objectTypeProvider.stopSubscription()
     }
 }

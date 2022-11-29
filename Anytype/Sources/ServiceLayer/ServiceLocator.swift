@@ -30,7 +30,7 @@ final class ServiceLocator {
     }
     
     func loginStateService() -> LoginStateService {
-        LoginStateService(seedService: seedService())
+        LoginStateService(seedService: seedService(), objectTypeProvider: objectTypeProvider())
     }
     
     func dashboardService() -> DashboardServiceProtocol {
@@ -50,7 +50,7 @@ final class ServiceLocator {
     }
     
     func searchService() -> SearchServiceProtocol {
-        SearchService(accountManager: accountManager())
+        SearchService(accountManager: accountManager(), objectTypeProvider: objectTypeProvider())
     }
     
     func detailsService(objectId: BlockId) -> DetailsServiceProtocol {
@@ -78,6 +78,10 @@ final class ServiceLocator {
     
     func accountManager() -> AccountManager {
         return AccountManager.shared
+    }
+    
+    func objectTypeProvider() -> ObjectTypeProviderProtocol {
+        return ObjectTypeProvider.shared
     }
     
     // Sigletone

@@ -6,7 +6,7 @@ extension ObjectType: IdProvider {}
 
 final class ObjectTypeProvider: ObjectTypeProviderProtocol {
         
-    static let shared = ObjectTypeProvider(
+    static let shared: ObjectTypeProviderProtocol = ObjectTypeProvider(
         subscriptionsService: ServiceLocator.shared.subscriptionService(),
         subscriptionBuilder: ObjectTypeSubscriptionDataBuilder(accountManager: AccountManager.shared)
     )
@@ -51,6 +51,15 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
         objectTypes.filter {
             $0.smartBlockTypes.intersection(smartblockTypes).isNotEmpty
         }
+    }
+    
+    func visibleSupportedTypeIds(excludeTypeIds: [String]) -> [String] {
+        let excludeSmartBlocks: [SmartBlockType] = [.file]
+        return objectTypes.filter {
+            !excludeTypeIds.contains($0.id)
+            && supportedTypeIds.contains($0.id)
+            && $0.smartBlockTypes.intersection(excludeSmartBlocks).isEmpty
+        }.map { $0.id }
     }
     
     func startSubscription() {
