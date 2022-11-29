@@ -40,6 +40,7 @@ public struct ObjectType: Equatable, Hashable, Codable {
         self.readonly = readonly
         self.isArchived = isArchived
         self.smartBlockTypes = smartBlockTypes
+        print("")
     }
 }
 

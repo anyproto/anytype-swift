@@ -15,7 +15,7 @@ final class AnytypeIconDownloader {
         }
     }
 
-    private func image(
+    func image(
         with objectIconType: ObjectIconType,
         imageGuideline: ImageGuideline
     ) async -> UIImage? {

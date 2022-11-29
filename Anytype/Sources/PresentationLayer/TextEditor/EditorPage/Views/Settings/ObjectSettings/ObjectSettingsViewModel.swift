@@ -13,6 +13,7 @@ protocol ObjectSettingswModelOutput: AnyObject {
     func relationsAction()
     func openPageAction(screenData: EditorScreenData)
     func linkToAction(onSelect: @escaping (BlockId, _ typeUrl: String) -> ())
+    func showActionMessage(message: NSAttributedString)
 }
 
 final class ObjectSettingsViewModel: ObservableObject, Dismissible {
@@ -58,6 +59,12 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
                 output?.openPageAction(screenData: screenData)
             }
         )
+        
+        objectActionsViewModel.onLinkCompletion = { [weak output] message in
+            DispatchQueue.main.async {
+                output?.showActionMessage(message: message)
+            }
+        }
 
         objectActionsViewModel.onLinkItselfAction = { [weak output] onSelect in
             output?.linkToAction(onSelect: onSelect)
