@@ -51,11 +51,11 @@ protocol NewSearchModuleAssemblyProtocol {
         onSelect: @escaping (_ ids: [String]) -> Void
     ) -> NewSearchView
     
-    static func moveToObjectSearchModule(
+    static func blockObjectsSearchModule(
         style: NewSearchView.Style,
         title: String,
         excludedObjectIds: [String],
-        onSelect: @escaping (_ id: String) -> Void
+        onSelect: @escaping (_ details: ObjectDetails) -> Void
     ) -> NewSearchView
 }
 

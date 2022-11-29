@@ -18,7 +18,7 @@ final class ObjectActionsViewModel: ObservableObject {
     @Published var objectRestrictions: ObjectRestrictions = ObjectRestrictions()
     @Published var isLocked: Bool = false
 
-    var onLinkItselfAction: RoutingAction<(BlockId, String) -> Void>?
+    var onLinkItselfAction: RoutingAction<(BlockId) -> Void>?
     var dismissSheet: () -> () = {}
 
     let undoRedoAction: () -> ()
@@ -70,7 +70,7 @@ final class ObjectActionsViewModel: ObservableObject {
     func linkItselfAction() {
         guard let currentObjectId = details?.id else { return }
 
-        let onObjectSelection: (BlockId, String) -> Void = { objectId, typeUrl in
+        let onObjectSelection: (BlockId) -> Void = { objectId in
             Task {
                 let targetDocument = BaseDocument(objectId: objectId)
                 try? await targetDocument.open()

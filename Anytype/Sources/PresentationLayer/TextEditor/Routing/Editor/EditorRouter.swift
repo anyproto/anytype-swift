@@ -184,22 +184,27 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     
     func showMoveTo(onSelect: @escaping (BlockId) -> ()) {
         
-        let moveToView = NewSearchModuleAssembly.moveToObjectSearchModule(
+        let moveToView = NewSearchModuleAssembly.blockObjectsSearchModule(
             title: Loc.moveTo,
             excludedObjectIds: [document.objectId]
-        ) { [weak self] blockId in
-            onSelect(blockId)
+        ) { [weak self] details in
+            onSelect(details.id)
             self?.navigationContext.dismissTopPresented()
         }
 
         navigationContext.presentSwiftUIView(view: moveToView, model: nil)
     }
 
-    func showLinkTo(onSelect: @escaping (BlockId, _ typeUrl: String) -> ()) {
-        let module = searchModuleAssembly.makeLinkToObjectSearch { data in
-            onSelect(data.blockId, data.typeId)
+    func showLinkTo(onSelect: @escaping (ObjectDetails) -> ()) {
+        let moduleView = NewSearchModuleAssembly.blockObjectsSearchModule(
+            title: Loc.linkTo,
+            excludedObjectIds: [document.objectId]
+        ) { [weak self] details in
+            onSelect(details)
+            self?.navigationContext.dismissTopPresented()
         }
-        navigationContext.present(module)
+
+        navigationContext.presentSwiftUIView(view: moduleView)
     }
 
     func showTextIconPicker(contextId: BlockId, objectId: BlockId) {

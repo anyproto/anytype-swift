@@ -89,11 +89,16 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
         editorPageCoordinator.startFlow(data: screenData, replaceCurrentPage: false)
     }
     
-    func linkToAction(onSelect: @escaping (BlockId, _ typeUrl: String) -> ()) {
-        let module = searchModuleAssembly.makeLinkToObjectSearch { data in
-            onSelect(data.blockId, data.typeId)
+    func linkToAction(onSelect: @escaping (BlockId) -> ()) {
+        let moduleView = NewSearchModuleAssembly.blockObjectsSearchModule(
+            title: Loc.linkTo,
+            excludedObjectIds: [document.objectId]
+        ) { [weak self] details in
+            onSelect(details.id)
+            self?.navigationContext.dismissTopPresented()
         }
-        navigationContext.present(module)
+
+        navigationContext.presentSwiftUIView(view: moduleView)
     }
     
     // MARK: - RelationsListModuleOutput

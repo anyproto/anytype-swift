@@ -17,14 +17,17 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
             isPreselectModeAvailable: selectionMode.isPreselectModeAvailable
         )
         
-        let internalViewModel = StatusSearchViewModel(selectionMode: selectionMode, interactor: interactor)
+        let internalViewModel = StatusSearchViewModel(
+            selectionMode: selectionMode,
+            interactor: interactor,
+            onSelect: onSelect
+        )
         
         let viewModel = NewSearchViewModel(
             style: style,
             itemCreationMode: style.isCreationModeAvailable ? .available(action: onCreate) : .unavailable,
             selectionMode: selectionMode,
-            internalViewModel: internalViewModel,
-            onSelect: onSelect
+            internalViewModel: internalViewModel
         )
         return NewSearchView(viewModel: viewModel)
     }
@@ -43,14 +46,17 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
             isPreselectModeAvailable: selectionMode.isPreselectModeAvailable
         )
         
-        let internalViewModel = TagsSearchViewModel(selectionMode: selectionMode, interactor: interactor)
+        let internalViewModel = TagsSearchViewModel(
+            selectionMode: selectionMode,
+            interactor: interactor,
+            onSelect: onSelect
+        )
         
         let viewModel = NewSearchViewModel(
             style: style,
             itemCreationMode: style.isCreationModeAvailable ? .available(action: onCreate) : .unavailable,
             selectionMode: selectionMode,
-            internalViewModel: internalViewModel,
-            onSelect: onSelect
+            internalViewModel: internalViewModel
         )
         return NewSearchView(viewModel: viewModel)
     }
@@ -68,14 +74,17 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
             limitedObjectType: limitedObjectType
         )
         
-        let internalViewModel = ObjectsSearchViewModel(selectionMode: selectionMode, interactor: interactor)
+        let internalViewModel = ObjectsSearchViewModel(
+            selectionMode: selectionMode,
+            interactor: interactor,
+            onSelect: { onSelect($0.map { $0.id })}
+        )
         
         let viewModel = NewSearchViewModel(
             style: style,
             itemCreationMode: .unavailable,
             selectionMode: selectionMode,
-            internalViewModel: internalViewModel,
-            onSelect: onSelect
+            internalViewModel: internalViewModel
         )
         return NewSearchView(viewModel: viewModel)
     }
@@ -90,13 +99,16 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
             excludedFileIds: excludedFileIds
         )
         
-        let internalViewModel = ObjectsSearchViewModel(selectionMode: .multipleItems(), interactor: interactor)
+        let internalViewModel = ObjectsSearchViewModel(
+            selectionMode: .multipleItems(),
+            interactor: interactor,
+            onSelect: { onSelect($0.map { $0.id })}
+        )
         
         let viewModel = NewSearchViewModel(
             style: style,
             itemCreationMode: .unavailable,
-            internalViewModel: internalViewModel,
-            onSelect: onSelect
+            internalViewModel: internalViewModel
         )
         return NewSearchView(viewModel: viewModel)
     }
@@ -117,16 +129,20 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
             showSet: showSet
         )
         
-        let internalViewModel = ObjectTypesSearchViewModel(interactor: interactor, selectedObjectId: selectedObjectId)
+        let internalViewModel = ObjectTypesSearchViewModel(
+            interactor: interactor,
+            selectedObjectId: selectedObjectId,
+            onSelect: { ids in
+                guard let id = ids.first else { return }
+                onSelect(id)
+            }
+        )
         let viewModel = NewSearchViewModel(
             title: title,
             style: style,
             itemCreationMode: .unavailable,
             internalViewModel: internalViewModel
-        ) { ids in
-            guard let id = ids.first else { return }
-            onSelect(id)
-        }
+        )
         
         return NewSearchView(viewModel: viewModel)
     }
@@ -145,44 +161,44 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         
         let internalViewModel = MultiselectObjectTypesSearchViewModel(
             selectedObjectTypeIds: selectedObjectTypeIds,
-            interactor: interactor
+            interactor: interactor,
+            onSelect: onSelect
         )
         
         let viewModel = NewSearchViewModel(
             title: Loc.limitObjectTypes,
             style: style,
             itemCreationMode: .unavailable,
-            internalViewModel: internalViewModel,
-            onSelect: onSelect
+            internalViewModel: internalViewModel
         )
         
         return NewSearchView(viewModel: viewModel)
     }
     
-    static func moveToObjectSearchModule(
+    static func blockObjectsSearchModule(
         style: NewSearchView.Style = .default,
         title: String,
         excludedObjectIds: [String],
-        onSelect: @escaping (_ id: String) -> Void
+        onSelect: @escaping (_ details: ObjectDetails) -> Void
     ) -> NewSearchView {
-        let interactor = MoveToSearchInteractor(
+        let interactor = BlockObjectsSearchInteractor(
             searchService: ServiceLocator.shared.searchService(),
             excludedObjectIds: excludedObjectIds
         )
 
         let internalViewModel = ObjectsSearchViewModel(
             selectionMode: .singleItem,
-            interactor: interactor
+            interactor: interactor,
+            onSelect: { details in
+                guard let result = details.first else { return }
+                onSelect(result)
+            }
         )
         let viewModel = NewSearchViewModel(
             title: title,
             style: style,
             itemCreationMode: .unavailable,
-            internalViewModel: internalViewModel,
-            onSelect: { ids in
-                guard let id = ids.first else { return }
-                onSelect(id)
-            }
+            internalViewModel: internalViewModel
         )
 
         return NewSearchView(viewModel: viewModel)
@@ -195,18 +211,19 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
     ) -> NewSearchView {
         let interactor = SetSortsSearchInteractor(relationsDetails: relationsDetails)
         
-        let internalViewModel = SetSortsSearchViewModel(interactor: interactor)
+        let internalViewModel = SetSortsSearchViewModel(
+            interactor: interactor,
+            onSelect: { details in
+                guard let result = details.first else { return }
+                onSelect(result)
+            }
+        )
         
         let viewModel = NewSearchViewModel(
             searchPlaceholder: Loc.EditSet.Popup.Sort.Add.searchPlaceholder,
             style: style,
             itemCreationMode: .unavailable,
-            internalViewModel: internalViewModel,
-            onSelect: { ids in
-                guard let id = ids.first,
-                      let relation = relationsDetails.first(where: { $0.id == id }) else { return }
-                onSelect(relation)
-            }
+            internalViewModel: internalViewModel
         )
         
         return NewSearchView(viewModel: viewModel)

@@ -41,7 +41,7 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func showTextIconPicker(contextId: BlockId, objectId: BlockId)
     
     func showMoveTo(onSelect: @escaping (BlockId) -> ())
-    func showLinkTo(onSelect: @escaping (BlockId, _ typeUrl: String) -> ())
+    func showLinkTo(onSelect: @escaping (ObjectDetails) -> ())
     func showSearch(onSelect: @escaping (EditorScreenData) -> ())
 
     func showTypes(selectedObjectId: BlockId?, onSelect: @escaping (BlockId) -> ())

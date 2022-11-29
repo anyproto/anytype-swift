@@ -12,7 +12,7 @@ protocol ObjectSettingswModelOutput: AnyObject {
     func iconPickerAction()
     func relationsAction()
     func openPageAction(screenData: EditorScreenData)
-    func linkToAction(onSelect: @escaping (BlockId, _ typeUrl: String) -> ())
+    func linkToAction(onSelect: @escaping (BlockId) -> ())
 }
 
 final class ObjectSettingsViewModel: ObservableObject, Dismissible {
