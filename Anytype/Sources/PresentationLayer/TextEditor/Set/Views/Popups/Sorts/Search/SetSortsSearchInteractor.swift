@@ -26,4 +26,8 @@ extension SetSortsSearchInteractor {
             return .success(searchedRelations)
         }
     }
+    
+    func convert(ids: [String]) -> [RelationDetails] {
+        return relationsDetails.filter { ids.contains($0.id) }
+    }
 }

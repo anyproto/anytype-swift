@@ -11,10 +11,16 @@ final class StatusSearchViewModel {
     private var statuses: [Relation.Status.Option] = []
     
     private let interactor: StatusSearchInteractor
+    private let onSelect: (_ ids: [String]) -> Void
     
-    init(selectionMode: NewSearchViewModel.SelectionMode, interactor: StatusSearchInteractor) {
+    init(
+        selectionMode: NewSearchViewModel.SelectionMode,
+        interactor: StatusSearchInteractor,
+        onSelect: @escaping (_ ids: [String]) -> Void
+    ) {
         self.selectionMode = selectionMode
         self.interactor = interactor
+        self.onSelect = onSelect
         self.setup()
     }
     
@@ -44,6 +50,10 @@ extension StatusSearchViewModel: NewInternalSearchViewModelProtocol {
         
         selectedStatusesIds = ids
         handleSearchResults(statuses)
+    }
+    
+    func handleConfirmSelection(ids: [String]) {
+        onSelect(ids)
     }
     
     func isCreateButtonAvailable(searchText: String) -> Bool {

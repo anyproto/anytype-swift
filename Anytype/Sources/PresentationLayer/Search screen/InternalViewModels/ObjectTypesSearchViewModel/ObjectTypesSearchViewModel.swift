@@ -11,10 +11,16 @@ final class ObjectTypesSearchViewModel {
     private var objects: [ObjectDetails] = []
     private let interactor: ObjectTypesSearchInteractor
     private let selectedObjectId: BlockId?
+    private let onSelect: (_ ids: [String]) -> Void
     
-    init(interactor: ObjectTypesSearchInteractor, selectedObjectId: BlockId? = nil) {
+    init(
+        interactor: ObjectTypesSearchInteractor,
+        selectedObjectId: BlockId? = nil,
+        onSelect: @escaping (_ ids: [String]) -> Void
+    ) {
         self.interactor = interactor
         self.selectedObjectId = selectedObjectId
+        self.onSelect = onSelect
     }
 }
 
@@ -34,6 +40,9 @@ extension ObjectTypesSearchViewModel: NewInternalSearchViewModelProtocol {
     
     func handleRowsSelection(ids: [String]) {}
     
+    func handleConfirmSelection(ids: [String]) {
+        onSelect(ids)
+    }
 }
 
 private extension ObjectTypesSearchViewModel {

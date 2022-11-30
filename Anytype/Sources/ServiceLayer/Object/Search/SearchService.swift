@@ -31,9 +31,11 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
     }
     
     private let accountManager: AccountManager
+    private let objectTypeProvider: ObjectTypeProviderProtocol
     
-    init(accountManager: AccountManager) {
+    init(accountManager: AccountManager, objectTypeProvider: ObjectTypeProviderProtocol) {
         self.accountManager = accountManager
+        self.objectTypeProvider = objectTypeProvider
     }
     
     // MARK: - SearchServiceProtocol
@@ -46,7 +48,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         
         let filters = buildFilters(
             isArchived: false,
-            typeIds: ObjectTypeProvider.shared.supportedTypeIds
+            typeIds: objectTypeProvider.visibleSupportedTypeIds()
         )
         
         return search(filters: filters, sorts: [sort], fullText: text, limit: Constants.defaultLimit)
@@ -62,16 +64,18 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             relation: BundledRelationKey.name,
             type: .asc
         )
+        
+        let excludedTypeIds = [
+            shouldIncludeSets ? nil : ObjectTypeId.bundled(.set).rawValue,
+            shouldIncludeBookmark ? nil : ObjectTypeId.bundled(.bookmark).rawValue
+        ].compactMap { $0 }
+        
         var filters = [
             SearchHelper.isArchivedFilter(isArchived: false),
             SearchHelper.workspaceId(accountManager.account.info.accountSpaceId),
             SearchHelper.typeFilter(typeIds: [ObjectTypeId.bundled(.objectType).rawValue]),
-            SearchHelper.supportedIdsFilter(
-                ObjectTypeProvider.shared.supportedTypeIds
-            ),
-            shouldIncludeSets ? nil : SearchHelper.excludedIdFilter(ObjectTypeId.bundled(.set).rawValue),
-            shouldIncludeBookmark ? nil : SearchHelper.excludedIdFilter(ObjectTypeId.bundled(.bookmark).rawValue)
-        ].compactMap { $0 }
+            SearchHelper.supportedIdsFilter(objectTypeProvider.visibleSupportedTypeIds(excludeTypeIds: excludedTypeIds))
+        ]
 
         filteringTypeId.map { filters.append(SearchHelper.excludedIdFilter($0)) }
         
@@ -110,7 +114,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             type: .desc
         )
         
-        let typeIds: [String] = limitedTypeIds.isNotEmpty ? limitedTypeIds : ObjectTypeProvider.shared.supportedTypeIds
+        let typeIds: [String] = limitedTypeIds.isNotEmpty ? limitedTypeIds : objectTypeProvider.visibleSupportedTypeIds()
         var filters = buildFilters(isArchived: false, typeIds: typeIds)
         filters.append(SearchHelper.excludedIdsFilter(excludedObjectIds))
         
@@ -134,7 +138,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         
         var filters = buildFilters(
             isArchived: false,
-            typeIds: ObjectTypeProvider.shared.supportedTypeIds
+            typeIds: objectTypeProvider.visibleSupportedTypeIds()
         )
         filters.append(SearchHelper.excludedTypeFilter(excludedTypeIds))
         filters.append(SearchHelper.excludedIdsFilter(excludedObjectIds))

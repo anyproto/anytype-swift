@@ -17,4 +17,15 @@ protocol ObjectTypeProviderProtocol: AnyObject {
     func objectType(id: String) -> ObjectType?
     
     func objectTypes(smartblockTypes: Set<SmartBlockType>) -> [ObjectType]
+    func visibleSupportedTypeIds(excludeTypeIds: [String]) -> [String]
+    
+    func startSubscription()
+    func stopSubscription()
+}
+
+// Default arguments
+extension ObjectTypeProviderProtocol {
+    func visibleSupportedTypeIds() -> [String] {
+        visibleSupportedTypeIds(excludeTypeIds: [])
+    }
 }

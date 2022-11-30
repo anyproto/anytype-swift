@@ -11,10 +11,16 @@ final class TagsSearchViewModel {
     private var selectedTagIds: [String] = []
     
     private let interactor: TagsSearchInteractor
+    private let onSelect: (_ ids: [String]) -> Void
     
-    init(selectionMode: NewSearchViewModel.SelectionMode, interactor: TagsSearchInteractor) {
+    init(
+        selectionMode: NewSearchViewModel.SelectionMode,
+        interactor: TagsSearchInteractor,
+        onSelect: @escaping (_ ids: [String]) -> Void
+    ) {
         self.selectionMode = selectionMode
         self.interactor = interactor
+        self.onSelect = onSelect
         self.setup()
     }
     
@@ -43,6 +49,10 @@ extension TagsSearchViewModel: NewInternalSearchViewModelProtocol {
         
         selectedTagIds = ids
         handleSearchedTags()
+    }
+    
+    func handleConfirmSelection(ids: [String]) {
+        onSelect(ids)
     }
     
     func isCreateButtonAvailable(searchText: String) -> Bool {

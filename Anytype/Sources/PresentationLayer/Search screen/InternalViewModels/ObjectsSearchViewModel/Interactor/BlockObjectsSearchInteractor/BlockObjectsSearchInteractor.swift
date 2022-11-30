@@ -1,11 +1,11 @@
 import Foundation
 import BlocksModels
 
-final class MoveToSearchInteractor {
+final class BlockObjectsSearchInteractor {
     
     private let searchService: SearchServiceProtocol
     private let excludedObjectIds: [String]
-    
+                
     init(
         searchService: SearchServiceProtocol,
         excludedObjectIds: [String]
@@ -15,7 +15,7 @@ final class MoveToSearchInteractor {
     }
 }
 
-extension MoveToSearchInteractor: ObjectsSearchInteractorProtocol {
+extension BlockObjectsSearchInteractor: ObjectsSearchInteractorProtocol {
     
     func search(text: String) -> [ObjectDetails] {
         let response = searchService.searchObjects(

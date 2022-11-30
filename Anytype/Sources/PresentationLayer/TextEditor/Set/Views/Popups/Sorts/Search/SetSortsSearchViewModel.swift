@@ -7,9 +7,11 @@ final class SetSortsSearchViewModel {
     let viewStateSubject = PassthroughSubject<NewSearchViewState, Never> ()
     
     private let interactor: SetSortsSearchInteractor
+    private let onSelect: (_ details: [RelationDetails]) -> Void
     
-    init(interactor: SetSortsSearchInteractor) {
+    init(interactor: SetSortsSearchInteractor, onSelect: @escaping (_ details: [RelationDetails]) -> Void) {
         self.interactor = interactor
+        self.onSelect = onSelect
     }
 }
 
@@ -26,6 +28,10 @@ extension SetSortsSearchViewModel: NewInternalSearchViewModelProtocol {
     }
     
     func handleRowsSelection(ids: [String]) {}
+    
+    func handleConfirmSelection(ids: [String]) {
+        onSelect(interactor.convert(ids: ids))
+    }
 }
 
 private extension SetSortsSearchViewModel {
