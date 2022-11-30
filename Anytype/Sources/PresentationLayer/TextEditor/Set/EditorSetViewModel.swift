@@ -167,14 +167,14 @@ final class EditorSetViewModel: ObservableObject {
         setupDataview()
     }
     
-    func startSubscriptionIfNeeded() {
+    func startSubscriptionIfNeeded(forceUpdate: Bool = false) {
         guard !isEmpty else {
             subscriptionService.stopAllSubscriptions()
             return
         }
         
         if activeView.type.hasGroups {
-            setupGroupsSubscription()
+            setupGroupsSubscription(forceUpdate: forceUpdate)
         } else {
             setupPaginationDataIfNeeded(groupId: SubscriptionId.set.value)
             startSubscriptionIfNeeded(with: SubscriptionId.set)
@@ -198,7 +198,7 @@ final class EditorSetViewModel: ObservableObject {
     
     // MARK: - Private
     
-    private func setupGroupsSubscription() {
+    private func setupGroupsSubscription(forceUpdate: Bool) {
         Task { @MainActor in
             let data = GroupsSubscription(
                 identifier: SubscriptionId.setGroups,
@@ -209,6 +209,10 @@ final class EditorSetViewModel: ObservableObject {
             if groupsSubscriptionsHandler.hasGroupsSubscriptionDataDiff(with: data) {
                 groupsSubscriptionsHandler.stopAllSubscriptions()
                 groups = try await startGroupsSubscription(with: data)
+            }
+            
+            if forceUpdate {
+                startSubscriptionsByGroups()
             }
         }
     }

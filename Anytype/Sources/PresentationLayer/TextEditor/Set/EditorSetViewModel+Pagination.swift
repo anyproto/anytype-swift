@@ -30,7 +30,7 @@ extension EditorSetViewModel {
         guard let data = data else { return }
         pagitationDataDict[groupId] = data.data
         if data.shoudUpdateSubscription {
-            startSubscriptionIfNeeded()
+            startSubscriptionIfNeeded(forceUpdate: true)
         }
     }
 }
