@@ -12,7 +12,11 @@ final class EditorSetViewModel: ObservableObject {
     @Published var featuredRelations = [Relation]()
     
     private var recordsDict: OrderedDictionary<String, [ObjectDetails]> = [:]
-    private var groups: [DataviewGroup] = []
+    private var groups: [DataviewGroup] = [] {
+        didSet {
+            startSubscriptionsByGroups()
+        }
+    }
     @Published var configurationsDict: OrderedDictionary<String, [SetContentViewItemConfiguration]> = [:]
     @Published var pagitationDataDict: OrderedDictionary<String, EditorSetPaginationData> = [:]
     
@@ -82,7 +86,7 @@ final class EditorSetViewModel: ObservableObject {
     private let searchService: SearchServiceProtocol
     private let detailsService: DetailsServiceProtocol
     private let textService: TextServiceProtocol
-    private let relationSearchDistinctService: RelationSearchDistinctServiceProtocol
+    private let groupsSubscriptionsHandler: GroupsSubscriptionsHandlerProtocol
     private let setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol
     private var subscriptions = [AnyCancellable]()
     private var titleSubscription: AnyCancellable?
@@ -95,7 +99,7 @@ final class EditorSetViewModel: ObservableObject {
         detailsService: DetailsServiceProtocol,
         textService: TextServiceProtocol,
         relationDetailsStorage: RelationDetailsStorageProtocol,
-        relationSearchDistinctService: RelationSearchDistinctServiceProtocol,
+        groupsSubscriptionsHandler: GroupsSubscriptionsHandlerProtocol,
         setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol
     ) {
         self.document = document
@@ -104,7 +108,7 @@ final class EditorSetViewModel: ObservableObject {
         self.detailsService = detailsService
         self.textService = textService
         self.relationDetailsStorage = relationDetailsStorage
-        self.relationSearchDistinctService = relationSearchDistinctService
+        self.groupsSubscriptionsHandler = groupsSubscriptionsHandler
         self.setSubscriptionDataBuilder = setSubscriptionDataBuilder
 
         self.titleString = document.details?.pageCellTitle ?? ""
@@ -150,6 +154,7 @@ final class EditorSetViewModel: ObservableObject {
     
     func onDisappear() {
         subscriptionService.stopAllSubscriptions()
+        groupsSubscriptionsHandler.stopAllSubscriptions()
     }
 
     func onRelationTap(relation: Relation) {
@@ -169,7 +174,7 @@ final class EditorSetViewModel: ObservableObject {
         }
         
         if activeView.type.hasGroups {
-            setupGroupSubscriptions()
+            setupGroupsSubscription()
         } else {
             setupPaginationDataIfNeeded(groupId: SubscriptionId.set.value)
             startSubscriptionIfNeeded(with: SubscriptionId.set)
@@ -193,19 +198,39 @@ final class EditorSetViewModel: ObservableObject {
     
     // MARK: - Private
     
-    private func setupGroupSubscriptions() {
+    private func setupGroupsSubscription() {
         Task { @MainActor in
-            groups = try await relationSearchDistinctService.searchDistinct(
+            let data = GroupsSubscription(
+                identifier: SubscriptionId.setGroups,
                 relationKey: activeView.groupRelationKey,
-                filters: activeView.filters
+                filters: activeView.filters,
+                source: dataView.source
             )
-            sortedGroups(groups).forEach { [weak self] group in
-                guard let self else { return }
-                let groupFilter = group.filter(with: self.activeView.groupRelationKey)
-                let subscriptionId = SubscriptionId(value: group.id)
-                self.setupPaginationDataIfNeeded(groupId: group.id)
-                self.startSubscriptionIfNeeded(with: subscriptionId, groupFilter: groupFilter)
+            if groupsSubscriptionsHandler.hasGroupsSubscriptionDataDiff(with: data) {
+                groupsSubscriptionsHandler.stopAllSubscriptions()
+                groups = try await startGroupsSubscription(with: data)
             }
+        }
+    }
+    
+    private func startGroupsSubscription(with data: GroupsSubscription) async throws -> [DataviewGroup] {
+        try await groupsSubscriptionsHandler.startGroupsSubscription(data: data) { [weak self] group, remove in
+            guard let self else { return }
+            if remove {
+                self.groups = self.groups.filter { $0 != group }
+            } else {
+                self.groups.append(group)
+            }
+        }
+    }
+    
+    private func startSubscriptionsByGroups() {
+        sortedGroups(groups).forEach { [weak self] group in
+            guard let self else { return }
+            let groupFilter = group.filter(with: self.activeView.groupRelationKey)
+            let subscriptionId = SubscriptionId(value: group.id)
+            self.setupPaginationDataIfNeeded(groupId: group.id)
+            self.startSubscriptionIfNeeded(with: subscriptionId, groupFilter: groupFilter)
         }
     }
     
@@ -447,7 +472,9 @@ final class EditorSetViewModel: ObservableObject {
             recordsDict = [:]
             configurationsDict = [:]
             pagitationDataDict = [:]
+            groups = []
             subscriptionService.stopAllSubscriptions()
+            groupsSubscriptionsHandler.stopAllSubscriptions()
         }
     }
     
@@ -677,7 +704,7 @@ extension EditorSetViewModel {
         detailsService: DetailsService(objectId: "objectId", service: ObjectActionsService()),
         textService: TextService(),
         relationDetailsStorage: ServiceLocator.shared.relationDetailsStorage(),
-        relationSearchDistinctService: RelationSearchDistinctService(),
+        groupsSubscriptionsHandler: ServiceLocator.shared.groupsSubscriptionsHandler(),
         setSubscriptionDataBuilder: SetSubscriptionDataBuilder()
     )
 }

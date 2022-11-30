@@ -3,6 +3,7 @@ import BlocksModels
 
 extension SubscriptionId {
     static var set = SubscriptionId(value: "SubscriptionId.Set")
+    static var setGroups = SubscriptionId(value: "SubscriptionId.Set.Groups")
 }
 
 final class SetSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol {
