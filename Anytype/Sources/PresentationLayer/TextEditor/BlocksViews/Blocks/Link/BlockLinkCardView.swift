@@ -20,6 +20,8 @@ final class BlockLinkCardView: UIView, BlockContentView {
     private let horizontalContentStackView = UIStackView()
 
     private var topPaddingConstraint: NSLayoutConstraint?
+    private var largeLeadingIconImageViewHeightConstraint: NSLayoutConstraint?
+    private var verticalTextsStackViewHeightConstraint: NSLayoutConstraint?
 
     private var onTaskActionTap: (() -> Void)?
     
@@ -52,14 +54,12 @@ final class BlockLinkCardView: UIView, BlockContentView {
         configuration.state.type.map { objectTypeLabel.setText($0.name) }
 
         configuration.state.iconImage.map {
-            largeLeadingIconImageView.configure(model: .init(iconImage: $0, usecase: .editorSearch))
+            largeLeadingIconImageView.configure(model: .init(iconImage: $0, usecase: .linkToObject))
         }
 
         onTaskActionTap = configuration.todoToggleAction
 
         setupElementsVisibility(with: configuration)
-
-        horizontalContentStackView.alignment = descriptionLabel.isHidden && objectTypeLabel.isHidden ? .center : .top
     }
 
     @objc
@@ -72,11 +72,11 @@ final class BlockLinkCardView: UIView, BlockContentView {
 
         switch (configuration.state.style, configuration.state.iconImage, configuration.state.iconSize, hasCover) {
         case (.checkmark, _, _, _), (_, .none, _, _):
-            largeLeadingIconImageView.isHidden = true
+            setLargeLeadingIconImageViewHidden(true)
         case (_, .some(_), .medium, false):
-            largeLeadingIconImageView.isHidden = false
+            setLargeLeadingIconImageViewHidden(false)
         default:
-            largeLeadingIconImageView.isHidden = true
+            setLargeLeadingIconImageViewHidden(true)
         }
 
         switch configuration.state.documentCover {
@@ -123,6 +123,12 @@ final class BlockLinkCardView: UIView, BlockContentView {
     }
 
     // MARK: - Private functions
+    
+    private func setLargeLeadingIconImageViewHidden(_ isHidden: Bool) {
+        largeLeadingIconImageView.isHidden = isHidden
+        largeLeadingIconImageViewHeightConstraint?.constant = isHidden ? 0 : 48
+        verticalTextsStackViewHeightConstraint?.isActive = !isHidden
+    }
 
     private func setupSubviews() {
         taskButton.addTarget(self, action: #selector(taskButtonAction), for: .touchUpInside)
@@ -133,7 +139,8 @@ final class BlockLinkCardView: UIView, BlockContentView {
         layer.borderColor = UIColor.strokeTransperent.cgColor
         layer.borderWidth = 1.0
 
-        titleLabel.numberOfLines = 3
+        titleLabel.numberOfLines = 2
+        titleLabel.setLineBreakMode(.byTruncatingTail)
 
         descriptionLabel.numberOfLines = 2
         objectTypeLabel.numberOfLines = 1
@@ -151,7 +158,7 @@ final class BlockLinkCardView: UIView, BlockContentView {
 
         horizontalContentStackView.axis = .horizontal
         horizontalContentStackView.distribution = .fill
-        horizontalContentStackView.alignment = .center
+        horizontalContentStackView.alignment = .top
         horizontalContentStackView.spacing = 12
         horizontalContentStackView.directionalLayoutMargins = .init(
             top: 0,
@@ -167,12 +174,22 @@ final class BlockLinkCardView: UIView, BlockContentView {
         verticalTextsStackView.addArrangedSubview(titleLabel)
         verticalTextsStackView.addArrangedSubview(descriptionLabel)
         verticalTextsStackView.addArrangedSubview(objectTypeLabel)
-
-        largeLeadingIconImageView.widthAnchor.constraint(greaterThanOrEqualToConstant: 48).isActive = true
-        largeLeadingIconImageView.heightAnchor.constraint(greaterThanOrEqualToConstant: 48).isActive = true
+        
+        let verticalWrapperStackView = UIStackView()
+        verticalWrapperStackView.alignment = .center
+        verticalWrapperStackView.distribution = .equalSpacing
+        verticalWrapperStackView.axis = .vertical
+        
+        verticalWrapperStackView.addArrangedSubview(UIView())
+        verticalWrapperStackView.addArrangedSubview(verticalTextsStackView)
+        verticalWrapperStackView.addArrangedSubview(UIView())
+        
+        largeLeadingIconImageView.widthAnchor.constraint(equalToConstant: 48).isActive = true
+        largeLeadingIconImageViewHeightConstraint = largeLeadingIconImageView.heightAnchor.constraint(equalToConstant: 48)
+        largeLeadingIconImageViewHeightConstraint?.isActive = true
 
         horizontalContentStackView.addArrangedSubview(largeLeadingIconImageView)
-        horizontalContentStackView.addArrangedSubview(verticalTextsStackView)
+        horizontalContentStackView.addArrangedSubview(verticalWrapperStackView)
 
         addSubview(mainVerticalStackView) {
             $0.pinToSuperview(insets: .init(top: 0, left: 0, bottom: 16, right: 0))
@@ -184,6 +201,10 @@ final class BlockLinkCardView: UIView, BlockContentView {
             $0.width.equal(to: 24)
             $0.height.equal(to: 24)
         }
+            
+        verticalTextsStackViewHeightConstraint = verticalWrapperStackView.heightAnchor.constraint(greaterThanOrEqualToConstant: 48)
+        verticalTextsStackViewHeightConstraint?.isActive = true
+        verticalTextsStackViewHeightConstraint?.priority = .defaultHigh
     }
 }
 
