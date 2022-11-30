@@ -11,7 +11,8 @@ final class AnytypeIconDownloader {
         case .icon(let objectIconType):
             return await image(with: objectIconType, imageGuideline: imageGuideline)
         case .checkmark(let isChecked):
-            return UIImage(asset: isChecked ? .taskChecked : .taskUnchecked)
+            return UIImage(asset: isChecked ? .taskChecked : .taskUnchecked)?
+                .imageResized(to: imageGuideline.size)
         }
     }
 
