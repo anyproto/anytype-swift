@@ -84,7 +84,7 @@ private extension Anytype_Event {
                 message.subscriptionCounters.subID,
                 message.subscriptionPosition.subID
             ]
-        }.flatMap { $0 }
+        }.flatMap { $0 }.filter { !$0.isEmpty }
         return Array(Set(result))
     }
 }
