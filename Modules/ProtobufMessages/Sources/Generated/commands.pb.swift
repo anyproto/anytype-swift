@@ -4996,7 +4996,7 @@ public struct Anytype_Rpc {
       public init() {}
     }
 
-    public struct RelationSearchDistinct {
+    public struct GroupsSubscribe {
       // SwiftProtobuf.Message conformance is added in an extension below. See the
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
       // methods supported on all messages.
@@ -5008,9 +5008,13 @@ public struct Anytype_Rpc {
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
+        public var subID: String = String()
+
         public var relationKey: String = String()
 
         public var filters: [Anytype_Model_Block.Content.Dataview.Filter] = []
+
+        public var source: [String] = []
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -5022,8 +5026,8 @@ public struct Anytype_Rpc {
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
-        public var error: Anytype_Rpc.Object.RelationSearchDistinct.Response.Error {
-          get {return _error ?? Anytype_Rpc.Object.RelationSearchDistinct.Response.Error()}
+        public var error: Anytype_Rpc.Object.GroupsSubscribe.Response.Error {
+          get {return _error ?? Anytype_Rpc.Object.GroupsSubscribe.Response.Error()}
           set {_error = newValue}
         }
         /// Returns true if `error` has been explicitly set.
@@ -5033,6 +5037,8 @@ public struct Anytype_Rpc {
 
         public var groups: [Anytype_Model_Block.Content.Dataview.Group] = []
 
+        public var subID: String = String()
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public struct Error {
@@ -5040,7 +5046,7 @@ public struct Anytype_Rpc {
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
 
-          public var code: Anytype_Rpc.Object.RelationSearchDistinct.Response.Error.Code = .null
+          public var code: Anytype_Rpc.Object.GroupsSubscribe.Response.Error.Code = .null
 
           public var description_p: String = String()
 
@@ -5082,7 +5088,7 @@ public struct Anytype_Rpc {
 
         public init() {}
 
-        fileprivate var _error: Anytype_Rpc.Object.RelationSearchDistinct.Response.Error? = nil
+        fileprivate var _error: Anytype_Rpc.Object.GroupsSubscribe.Response.Error? = nil
       }
 
       public init() {}
@@ -19885,9 +19891,9 @@ extension Anytype_Rpc.Object.SearchSubscribe.Response.Error.Code: CaseIterable {
   ]
 }
 
-extension Anytype_Rpc.Object.RelationSearchDistinct.Response.Error.Code: CaseIterable {
+extension Anytype_Rpc.Object.GroupsSubscribe.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [Anytype_Rpc.Object.RelationSearchDistinct.Response.Error.Code] = [
+  public static var allCases: [Anytype_Rpc.Object.GroupsSubscribe.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -21394,11 +21400,11 @@ extension Anytype_Rpc.Object.SearchSubscribe.Request: @unchecked Sendable {}
 extension Anytype_Rpc.Object.SearchSubscribe.Response: @unchecked Sendable {}
 extension Anytype_Rpc.Object.SearchSubscribe.Response.Error: @unchecked Sendable {}
 extension Anytype_Rpc.Object.SearchSubscribe.Response.Error.Code: @unchecked Sendable {}
-extension Anytype_Rpc.Object.RelationSearchDistinct: @unchecked Sendable {}
-extension Anytype_Rpc.Object.RelationSearchDistinct.Request: @unchecked Sendable {}
-extension Anytype_Rpc.Object.RelationSearchDistinct.Response: @unchecked Sendable {}
-extension Anytype_Rpc.Object.RelationSearchDistinct.Response.Error: @unchecked Sendable {}
-extension Anytype_Rpc.Object.RelationSearchDistinct.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Object.GroupsSubscribe: @unchecked Sendable {}
+extension Anytype_Rpc.Object.GroupsSubscribe.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Object.GroupsSubscribe.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Object.GroupsSubscribe.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Object.GroupsSubscribe.Response.Error.Code: @unchecked Sendable {}
 extension Anytype_Rpc.Object.SubscribeIds: @unchecked Sendable {}
 extension Anytype_Rpc.Object.SubscribeIds.Request: @unchecked Sendable {}
 extension Anytype_Rpc.Object.SubscribeIds.Response: @unchecked Sendable {}
@@ -28988,8 +28994,8 @@ extension Anytype_Rpc.Object.SearchSubscribe.Response.Error.Code: SwiftProtobuf.
   ]
 }
 
-extension Anytype_Rpc.Object.RelationSearchDistinct: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Object.protoMessageName + ".RelationSearchDistinct"
+extension Anytype_Rpc.Object.GroupsSubscribe: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Object.protoMessageName + ".GroupsSubscribe"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -29001,17 +29007,19 @@ extension Anytype_Rpc.Object.RelationSearchDistinct: SwiftProtobuf.Message, Swif
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Object.RelationSearchDistinct, rhs: Anytype_Rpc.Object.RelationSearchDistinct) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Object.GroupsSubscribe, rhs: Anytype_Rpc.Object.GroupsSubscribe) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Object.RelationSearchDistinct.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Object.RelationSearchDistinct.protoMessageName + ".Request"
+extension Anytype_Rpc.Object.GroupsSubscribe.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Object.GroupsSubscribe.protoMessageName + ".Request"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "relationKey"),
-    2: .same(proto: "filters"),
+    1: .same(proto: "subId"),
+    2: .same(proto: "relationKey"),
+    3: .same(proto: "filters"),
+    4: .same(proto: "source"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -29020,36 +29028,47 @@ extension Anytype_Rpc.Object.RelationSearchDistinct.Request: SwiftProtobuf.Messa
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.relationKey) }()
-      case 2: try { try decoder.decodeRepeatedMessageField(value: &self.filters) }()
+      case 1: try { try decoder.decodeSingularStringField(value: &self.subID) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.relationKey) }()
+      case 3: try { try decoder.decodeRepeatedMessageField(value: &self.filters) }()
+      case 4: try { try decoder.decodeRepeatedStringField(value: &self.source) }()
       default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.subID.isEmpty {
+      try visitor.visitSingularStringField(value: self.subID, fieldNumber: 1)
+    }
     if !self.relationKey.isEmpty {
-      try visitor.visitSingularStringField(value: self.relationKey, fieldNumber: 1)
+      try visitor.visitSingularStringField(value: self.relationKey, fieldNumber: 2)
     }
     if !self.filters.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.filters, fieldNumber: 2)
+      try visitor.visitRepeatedMessageField(value: self.filters, fieldNumber: 3)
+    }
+    if !self.source.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.source, fieldNumber: 4)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Object.RelationSearchDistinct.Request, rhs: Anytype_Rpc.Object.RelationSearchDistinct.Request) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Object.GroupsSubscribe.Request, rhs: Anytype_Rpc.Object.GroupsSubscribe.Request) -> Bool {
+    if lhs.subID != rhs.subID {return false}
     if lhs.relationKey != rhs.relationKey {return false}
     if lhs.filters != rhs.filters {return false}
+    if lhs.source != rhs.source {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Object.RelationSearchDistinct.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Object.RelationSearchDistinct.protoMessageName + ".Response"
+extension Anytype_Rpc.Object.GroupsSubscribe.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Object.GroupsSubscribe.protoMessageName + ".Response"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
     2: .same(proto: "groups"),
+    3: .same(proto: "subId"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -29060,6 +29079,7 @@ extension Anytype_Rpc.Object.RelationSearchDistinct.Response: SwiftProtobuf.Mess
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
       case 2: try { try decoder.decodeRepeatedMessageField(value: &self.groups) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.subID) }()
       default: break
       }
     }
@@ -29076,19 +29096,23 @@ extension Anytype_Rpc.Object.RelationSearchDistinct.Response: SwiftProtobuf.Mess
     if !self.groups.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.groups, fieldNumber: 2)
     }
+    if !self.subID.isEmpty {
+      try visitor.visitSingularStringField(value: self.subID, fieldNumber: 3)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Object.RelationSearchDistinct.Response, rhs: Anytype_Rpc.Object.RelationSearchDistinct.Response) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Object.GroupsSubscribe.Response, rhs: Anytype_Rpc.Object.GroupsSubscribe.Response) -> Bool {
     if lhs._error != rhs._error {return false}
     if lhs.groups != rhs.groups {return false}
+    if lhs.subID != rhs.subID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Object.RelationSearchDistinct.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Object.RelationSearchDistinct.Response.protoMessageName + ".Error"
+extension Anytype_Rpc.Object.GroupsSubscribe.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Object.GroupsSubscribe.Response.protoMessageName + ".Error"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "code"),
     2: .same(proto: "description"),
@@ -29117,7 +29141,7 @@ extension Anytype_Rpc.Object.RelationSearchDistinct.Response.Error: SwiftProtobu
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Object.RelationSearchDistinct.Response.Error, rhs: Anytype_Rpc.Object.RelationSearchDistinct.Response.Error) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Object.GroupsSubscribe.Response.Error, rhs: Anytype_Rpc.Object.GroupsSubscribe.Response.Error) -> Bool {
     if lhs.code != rhs.code {return false}
     if lhs.description_p != rhs.description_p {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -29125,7 +29149,7 @@ extension Anytype_Rpc.Object.RelationSearchDistinct.Response.Error: SwiftProtobu
   }
 }
 
-extension Anytype_Rpc.Object.RelationSearchDistinct.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+extension Anytype_Rpc.Object.GroupsSubscribe.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "NULL"),
     1: .same(proto: "UNKNOWN_ERROR"),

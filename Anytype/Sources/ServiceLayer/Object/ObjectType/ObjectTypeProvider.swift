@@ -5,8 +5,19 @@ import ProtobufMessages
 extension ObjectType: IdProvider {}
 
 final class ObjectTypeProvider: ObjectTypeProviderProtocol {
+    
+    private enum Constants {
+        static let notVisibleSmartBlocks: [SmartBlockType] = [.file]
+        static let notVisibleTypes: [String] = [
+            ObjectTypeId.bundled(.template).rawValue,
+            ObjectTypeId.bundled(.relation).rawValue,
+            ObjectTypeId.bundled(.relationOption).rawValue,
+            ObjectTypeId.bundled(.objectType).rawValue
+        ]
+        static let supportedForEditSmartblockTypes: [SmartBlockType] = [.page, .profilePage, .anytypeProfile, .set, .file]
+    }
         
-    static let shared = ObjectTypeProvider(
+    static let shared: ObjectTypeProviderProtocol = ObjectTypeProvider(
         subscriptionsService: ServiceLocator.shared.subscriptionService(),
         subscriptionBuilder: ObjectTypeSubscriptionDataBuilder(accountManager: AccountManager.shared)
     )
@@ -15,11 +26,12 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     
     private let subscriptionsService: SubscriptionsServiceProtocol
     private let subscriptionBuilder: ObjectTypeSubscriptionDataBuilderProtocol
-    private let supportedSmartblockTypes: Set<SmartBlockType> = [.page, .profilePage, .anytypeProfile, .set, .file]
+    
     
     private var objectTypes = [ObjectType]()
     private var searchTypesById = [String: ObjectType]()
-    private var cachedSupportedTypeIds: Set<String> = []
+    private var cachedSupportedTypeIds: [String] = []
+    private var notVisibleTypeIdsCache: [String] = []
     
     private init(
         subscriptionsService: SubscriptionsServiceProtocol,
@@ -31,16 +43,18 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     
     // MARK: - ObjectTypeProviderProtocol
     
-    var supportedTypeIds: [String] {
-        Array(cachedSupportedTypeIds)
-    }
-    
-    func isSupported(typeId: String) -> Bool {
+    func isSupportedForEdit(typeId: String) -> Bool {
         cachedSupportedTypeIds.contains(typeId)
     }
     
     var defaultObjectType: ObjectType {
-        UserDefaultsConfig.defaultObjectType
+        let type = UserDefaultsConfig.defaultObjectType
+        return objectTypes.first { $0.id == type.id } ?? ObjectType.fallbackType
+    }
+    
+    func setDefaulObjectType(id: String) {
+        guard let type = objectTypes.first(where: { $0.id == id }) else { return }
+        UserDefaultsConfig.defaultObjectType = type
     }
     
     func objectType(id: String) -> ObjectType? {
@@ -53,6 +67,10 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
         }
     }
     
+    func notVisibleTypeIds() -> [String] {
+        return notVisibleTypeIdsCache
+    }
+    
     func startSubscription() {
         subscriptionsService.startSubscription(data: subscriptionBuilder.build()) { [weak self] subId, update in
             self?.handleEvent(update: update)
@@ -62,23 +80,26 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     func stopSubscription() {
         subscriptionsService.stopSubscription(id: .objectType)
         objectTypes.removeAll()
-        updateSupportedTypeIds()
-        updateSearchCache()
+        updateAllCache()
     }
     
     // MARK: - Private func
     
     private func handleEvent(update: SubscriptionUpdate) {
         objectTypes.applySubscriptionUpdate(update, transform: { ObjectType(details: $0) })
+        updateAllCache()
+    }
+    
+    private func updateAllCache() {
         updateSupportedTypeIds()
         updateSearchCache()
+        updateNotVisibleTypeIds()
     }
     
     private func updateSupportedTypeIds() {
-        let result = objectTypes.filter {
-                $0.smartBlockTypes.intersection(supportedSmartblockTypes).isNotEmpty
-            }.map { $0.id }
-        cachedSupportedTypeIds = Set(result)
+        cachedSupportedTypeIds = objectTypes.filter {
+            $0.smartBlockTypes.intersection(Constants.supportedForEditSmartblockTypes).isNotEmpty
+        }.map { $0.id }
     }
     
     private func updateSearchCache() {
@@ -92,5 +113,12 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
             }
             searchTypesById[$0.id] = $0
         }
+    }
+    
+    private func updateNotVisibleTypeIds() {
+        notVisibleTypeIdsCache = objectTypes.filter {
+            $0.smartBlockTypes.intersection(Constants.notVisibleSmartBlocks).isNotEmpty
+            || Constants.notVisibleTypes.contains($0.id)
+        }.map { $0.id }
     }
 }

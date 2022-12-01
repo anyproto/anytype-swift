@@ -127,7 +127,7 @@ struct EditorSetViewSettingsView: View {
         ForEach(model.relations) { relation in
             relationRow(relation)
                 .divider()
-                .deleteDisabled(relation.isBundled)
+                .deleteDisabled(relation.isSystem)
         }
         .onDelete { indexes in
             model.deleteRelations(indexes: indexes)

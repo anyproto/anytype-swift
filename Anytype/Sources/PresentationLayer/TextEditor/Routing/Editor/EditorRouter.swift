@@ -184,22 +184,27 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     
     func showMoveTo(onSelect: @escaping (BlockId) -> ()) {
         
-        let moveToView = NewSearchModuleAssembly.moveToObjectSearchModule(
+        let moveToView = NewSearchModuleAssembly.blockObjectsSearchModule(
             title: Loc.moveTo,
             excludedObjectIds: [document.objectId]
-        ) { [weak self] blockId in
-            onSelect(blockId)
+        ) { [weak self] details in
+            onSelect(details.id)
             self?.navigationContext.dismissTopPresented()
         }
 
         navigationContext.presentSwiftUIView(view: moveToView, model: nil)
     }
 
-    func showLinkTo(onSelect: @escaping (BlockId, _ typeUrl: String) -> ()) {
-        let module = searchModuleAssembly.makeLinkToObjectSearch { data in
-            onSelect(data.blockId, data.typeId)
+    func showLinkTo(onSelect: @escaping (ObjectDetails) -> ()) {
+        let moduleView = NewSearchModuleAssembly.blockObjectsSearchModule(
+            title: Loc.linkTo,
+            excludedObjectIds: [document.objectId]
+        ) { [weak self] details in
+            onSelect(details)
+            self?.navigationContext.dismissTopPresented()
         }
-        navigationContext.present(module)
+
+        navigationContext.presentSwiftUIView(view: moduleView)
     }
 
     func showTextIconPicker(contextId: BlockId, objectId: BlockId) {
@@ -573,7 +578,13 @@ extension EditorRouter {
         let vc = UIHostingController(
             rootView: SetViewTypesPicker(viewModel: viewModel)
         )
-        presentSheet(vc)
+        if #available(iOS 15.0, *) {
+            if let sheet = vc.sheetPresentationController {
+                sheet.detents = [.large()]
+                sheet.selectedDetentIdentifier = .large
+            }
+        }
+        navigationContext.present(vc)
     }
     
     func showSetSettings(setModel: EditorSetViewModel) {
@@ -719,6 +730,23 @@ extension EditorRouter {
                 contentView: view
             )
         )
+    }
+    
+    func showKanbanColumnSettings() {
+        let popup = AnytypePopup(
+            viewModel: SetKanbanColumnSettingsViewModel(
+                hideColumn: false,
+                selectedColor: nil,
+                onApplyTap: { [weak self] _, _ in
+                    self?.navigationContext.dismissTopPresented()
+                }
+            ),
+            configuration: .init(
+                isGrabberVisible: true,
+                dismissOnBackdropView: true
+            )
+        )
+        presentFullscreen(popup)
     }
 }
 

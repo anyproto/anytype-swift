@@ -31,7 +31,7 @@ struct SetFiltersDateView: View {
     private var button: some View {
         Group {
             let disabled = viewModel.rows.first { $0.isSelected }.isNil
-            StandardButton(disabled: disabled, text: Loc.Set.Filters.Search.Button.title, style: .primary) {
+            StandardButton(disabled: disabled, text: Loc.Set.Button.Title.apply, style: .primary) {
                 viewModel.handleDate()
             }
             .padding(.top, 20)

@@ -119,7 +119,7 @@ final class SpreadsheetBlockView<View: BlockContentView>: UIView & UIContentView
             $0.pinToSuperview(excluding: [.bottom], insets: blockConfiguration.spreadsheetInsets)
             $0.bottom.equal(
                 to: bottomAnchor,
-                constant: blockConfiguration.spreadsheetInsets.bottom,
+                constant: -blockConfiguration.spreadsheetInsets.bottom,
                 priority: .init(999)
             )
         }

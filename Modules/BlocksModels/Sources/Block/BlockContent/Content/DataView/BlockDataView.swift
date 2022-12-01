@@ -43,6 +43,8 @@ public struct BlockDataview: Hashable {
             source: source,
             views: views.map(\.asMiddleware),
             activeView: activeViewId,
+            groupOrders: groupOrders,
+            objectOrders: objectOrders,
             relationLinks: relationLinks.map(\.asMiddleware)
         )
     }

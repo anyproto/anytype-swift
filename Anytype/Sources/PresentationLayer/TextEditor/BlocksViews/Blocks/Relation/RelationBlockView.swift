@@ -68,7 +68,7 @@ final class RelationBlockView: UIView, BlockContentView {
                 insets: UIEdgeInsets(
                     top: LayoutConstants.topBottomInset,
                     left: 0,
-                    bottom: -LayoutConstants.topBottomInset,
+                    bottom: LayoutConstants.topBottomInset,
                     right: 0
                 )
             )

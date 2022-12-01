@@ -807,6 +807,14 @@ extension Anytype_Event.Object.Subscription.Counters {
     }
 }
 
+extension Anytype_Event.Object.Subscription.Groups {
+    public init(subID: String = String(), group: Anytype_Model_Block.Content.Dataview.Group, remove: Bool = false) {
+        self.subID = subID
+        self.group = group
+        self.remove = remove
+    }
+}
+
 extension Anytype_Event.Object.Subscription.Position {
     public init(id: String = String(), afterID: String = String(), subID: String = String()) {
         self.id = id

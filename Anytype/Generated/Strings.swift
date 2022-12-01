@@ -1123,6 +1123,12 @@ internal enum Loc {
         internal static let title = Loc.tr("Localizable", "Set.Bookmark.Error.Title", fallback: "Oops - something went wrong")
       }
     }
+    internal enum Button {
+      internal enum Title {
+        /// Apply
+        internal static let apply = Loc.tr("Localizable", "Set.Button.Title.Apply", fallback: "Apply")
+      }
+    }
     internal enum FeaturedRelations {
       /// Relation:
       internal static let relation = Loc.tr("Localizable", "Set.FeaturedRelations.Relation", fallback: "Relation:")
@@ -1130,14 +1136,6 @@ internal enum Loc {
       internal static let relationsList = Loc.tr("Localizable", "Set.FeaturedRelations.RelationsList", fallback: "Relations:")
       /// Source
       internal static let source = Loc.tr("Localizable", "Set.FeaturedRelations.Source", fallback: "Source")
-    }
-    internal enum Filters {
-      internal enum Search {
-        internal enum Button {
-          /// Apply
-          internal static let title = Loc.tr("Localizable", "Set.Filters.Search.Button.Title", fallback: "Apply")
-        }
-      }
     }
     internal enum SourceType {
       /// Select source
@@ -1150,6 +1148,18 @@ internal enum Loc {
             internal enum Title {
               /// Show more objects
               internal static let showMore = Loc.tr("Localizable", "Set.View.Kanban.Column.Paging.Title.ShowMore", fallback: "Show more objects")
+            }
+          }
+          internal enum Settings {
+            internal enum Color {
+              /// Column color
+              internal static let title = Loc.tr("Localizable", "Set.View.Kanban.Column.Settings.Color.Title", fallback: "Column color")
+            }
+            internal enum Hide {
+              internal enum Column {
+                /// Hide column
+                internal static let title = Loc.tr("Localizable", "Set.View.Kanban.Column.Settings.Hide.Column.Title", fallback: "Hide column")
+              }
             }
           }
           internal enum Title {

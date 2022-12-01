@@ -58,12 +58,12 @@ final class BlockTextLinkView: UIView, BlockContentView {
         objectTypeLabel.numberOfLines = 1
 
         stackView.axis = .vertical
-        stackView.spacing = 4
+        stackView.spacing = 2
     }
 
     private func setupLayout() {
         addSubview(stackView) {
-            $0.pinToSuperview(insets: .init(top: 1, left: 4, bottom: -1, right: -4))
+            $0.pinToSuperview(insets: .init(top: 1, left: 4, bottom: 1, right: 4))
         }
 
         stackView.addArrangedSubview(titleLabel)

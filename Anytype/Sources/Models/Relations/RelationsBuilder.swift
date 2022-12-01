@@ -157,7 +157,7 @@ private extension RelationsBuilder {
                     name: relationDetails.name,
                     isFeatured: relationDetails.isFeatured(details: details),
                     isEditable: relationDetails.isEditable(objectLocked: isObjectLocked),
-                    isBundled: relationDetails.isBundled,
+                    isSystem: relationDetails.isSystem,
                     value: Loc.unsupportedValue
                 )
             )
@@ -176,7 +176,7 @@ private extension RelationsBuilder {
                 name: relationDetails.name,
                 isFeatured: relationDetails.isFeatured(details: details),
                 isEditable: relationDetails.isEditable(objectLocked: isObjectLocked),
-                isBundled: relationDetails.isBundled,
+                isSystem: relationDetails.isSystem,
                 value: details.stringValue(for: relationDetails.key)
             )
         )
@@ -199,7 +199,7 @@ private extension RelationsBuilder {
                 name: relationDetails.name,
                 isFeatured: relationDetails.isFeatured(details: details),
                 isEditable: relationDetails.isEditable(objectLocked: isObjectLocked),
-                isBundled: relationDetails.isBundled,
+                isSystem: relationDetails.isSystem,
                 value: numberValue
             )
         )
@@ -217,7 +217,7 @@ private extension RelationsBuilder {
                 name: relationDetails.name,
                 isFeatured: relationDetails.isFeatured(details: details),
                 isEditable: relationDetails.isEditable(objectLocked: isObjectLocked),
-                isBundled: relationDetails.isBundled,
+                isSystem: relationDetails.isSystem,
                 value: details.stringValue(for: relationDetails.key)
             )
         )
@@ -235,7 +235,7 @@ private extension RelationsBuilder {
                 name: relationDetails.name,
                 isFeatured: relationDetails.isFeatured(details: details),
                 isEditable: relationDetails.isEditable(objectLocked: isObjectLocked),
-                isBundled: relationDetails.isBundled,
+                isSystem: relationDetails.isSystem,
                 value: details.stringValue(for: relationDetails.key)
             )
         )
@@ -253,7 +253,7 @@ private extension RelationsBuilder {
                 name: relationDetails.name,
                 isFeatured: relationDetails.isFeatured(details: details),
                 isEditable: relationDetails.isEditable(objectLocked: isObjectLocked),
-                isBundled: relationDetails.isBundled,
+                isSystem: relationDetails.isSystem,
                 value: details.stringValue(for: relationDetails.key)
             )
         )
@@ -285,7 +285,7 @@ private extension RelationsBuilder {
                 name: relationDetails.name,
                 isFeatured: relationDetails.isFeatured(details: details),
                 isEditable: relationDetails.isEditable(objectLocked: isObjectLocked),
-                isBundled: relationDetails.isBundled,
+                isSystem: relationDetails.isSystem,
                 values: values
             )
         )
@@ -308,7 +308,7 @@ private extension RelationsBuilder {
                 name: relationDetails.name,
                 isFeatured: relationDetails.isFeatured(details: details),
                 isEditable: relationDetails.isEditable(objectLocked: isObjectLocked),
-                isBundled: relationDetails.isBundled,
+                isSystem: relationDetails.isSystem,
                 value: value
             )
         )
@@ -326,7 +326,7 @@ private extension RelationsBuilder {
                 name: relationDetails.name,
                 isFeatured: relationDetails.isFeatured(details: details),
                 isEditable: relationDetails.isEditable(objectLocked: isObjectLocked),
-                isBundled: relationDetails.isBundled,
+                isSystem: relationDetails.isSystem,
                 value: details.boolValue(for: relationDetails.key)
             )
         )
@@ -356,7 +356,7 @@ private extension RelationsBuilder {
                 name: relationDetails.name,
                 isFeatured: relationDetails.isFeatured(details: details),
                 isEditable: relationDetails.isEditable(objectLocked: isObjectLocked),
-                isBundled: relationDetails.isBundled,
+                isSystem: relationDetails.isSystem,
                 selectedTags: selectedTags
             )
         )
@@ -368,7 +368,8 @@ private extension RelationsBuilder {
         isObjectLocked: Bool
     ) -> Relation {
         let objectOptions: [Relation.Object.Option] = {
-            let values = details.stringArrayValue(for: relationDetails.key)
+            
+            let values = details.stringValueOrArray(for: relationDetails)
             
             let objectDetails: [ObjectDetails] = values.compactMap {
                 return storage.get(id: $0)
@@ -405,7 +406,7 @@ private extension RelationsBuilder {
                 name: relationDetails.name,
                 isFeatured: relationDetails.isFeatured(details: details),
                 isEditable: relationDetails.isEditable(objectLocked: isObjectLocked),
-                isBundled: relationDetails.isBundled,
+                isSystem: relationDetails.isSystem,
                 selectedObjects: objectOptions,
                 limitedObjectTypes: relationDetails.objectTypes
             )
@@ -467,7 +468,7 @@ private extension RelationsBuilder {
                 name: relationDetails.name,
                 isFeatured: relationDetails.isFeatured(details: details),
                 isEditable: relationDetails.isEditable(objectLocked: isObjectLocked),
-                isBundled: relationDetails.isBundled,
+                isSystem: relationDetails.isSystem,
                 files: fileOptions
             )
         )

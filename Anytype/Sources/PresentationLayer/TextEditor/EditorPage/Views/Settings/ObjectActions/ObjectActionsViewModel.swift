@@ -21,7 +21,7 @@ final class ObjectActionsViewModel: ObservableObject {
     @Published var objectRestrictions: ObjectRestrictions = ObjectRestrictions()
     @Published var isLocked: Bool = false
 
-    var onLinkItselfAction: RoutingAction<(BlockId, String) -> Void>?
+    var onLinkItselfAction: RoutingAction<(BlockId) -> Void>?
     var dismissSheet: () -> () = {}
 
     let undoRedoAction: () -> ()
@@ -73,9 +73,11 @@ final class ObjectActionsViewModel: ObservableObject {
     func linkItselfAction() {
         guard let currentObjectId = details?.id else { return }
 
-        let onObjectSelection: (BlockId, String) -> Void = { objectId, typeUrl in
+
+        let onObjectSelection: (BlockId) -> Void = { objectId in
             Task { [weak self] in
                 guard let self = self else { return }
+
                 let targetDocument = BaseDocument(objectId: objectId)
                 try? await targetDocument.open()
                 guard let id = targetDocument.children.last?.id else { return }
@@ -85,7 +87,6 @@ final class ObjectActionsViewModel: ObservableObject {
 
                 let _ = targetObjectService.add(targetId: id, info: .emptyLink(targetId: currentObjectId), position: .bottom)
                 
-                print(targetDocument.details)
                 guard let details = targetDocument.details else {
                     return
                 }
@@ -127,6 +128,5 @@ final class ObjectActionsViewModel: ObservableObject {
             text: objectDetails.name,
             attributes: [.foregroundColor: UIColor.textPrimary]
         )
-        
     }
 }

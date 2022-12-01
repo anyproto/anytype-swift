@@ -126,7 +126,7 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
                     )),
                     subId: data.subID
                 )
-            case .accountConfigUpdate, .accountUpdate, .accountDetails, .accountShow:
+            case .accountConfigUpdate, .accountUpdate, .accountDetails, .accountShow, .subscriptionGroups:
                 break
             default:
                 anytypeAssertionFailure("Unsupported event \(event)", domain: .subscriptionStorage)
@@ -137,7 +137,6 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
     private func sendUpdate(_ update: SubscriptionUpdate, subId: String) {
         let subId = SubscriptionId(value: subId)
         guard let action = subscribers[subId]?.callback else {
-            anytypeAssertionFailure("Unrecognized subscription: \(subId.value)", domain: .subscriptionStorage)
             return
         }
         action(subId, update)
@@ -147,7 +146,6 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
         for id in ids {
             let id = SubscriptionId(value: id)
             guard let action = subscribers[id]?.callback else {
-                anytypeAssertionFailure("Unrecognized subscription: \(id.value)", domain: .subscriptionStorage)
                 continue
             }
             action(id, .update(details))

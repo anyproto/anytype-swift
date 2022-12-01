@@ -2609,6 +2609,30 @@ extension Anytype_Rpc.Object.Graph.Response.Error {
     }
 }
 
+extension Anytype_Rpc.Object.GroupsSubscribe.Request {
+    public init(subID: String = String(), relationKey: String = String(), filters: [Anytype_Model_Block.Content.Dataview.Filter] = [], source: [String] = []) {
+        self.subID = subID
+        self.relationKey = relationKey
+        self.filters = filters
+        self.source = source
+    }
+}
+
+extension Anytype_Rpc.Object.GroupsSubscribe.Response {
+    public init(error: Anytype_Rpc.Object.GroupsSubscribe.Response.Error, groups: [Anytype_Model_Block.Content.Dataview.Group] = [], subID: String = String()) {
+        self.error = error
+        self.groups = groups
+        self.subID = subID
+    }
+}
+
+extension Anytype_Rpc.Object.GroupsSubscribe.Response.Error {
+    public init(code: Anytype_Rpc.Object.GroupsSubscribe.Response.Error.Code = .null, description_p: String = String()) {
+        self.code = code
+        self.description_p = description_p
+    }
+}
+
 extension Anytype_Rpc.Object.Import.Request {
     public init(params: Anytype_Rpc.Object.Import.Request.OneOf_Params? = nil, snapshots: [Anytype_Rpc.Object.Import.Request.Snapshot] = [], updateExistingObjects: Bool = false, type: Anytype_Rpc.Object.Import.Request.TypeEnum = .notion, mode: Anytype_Rpc.Object.Import.Request.Mode = .allOrNothing) {
         self.params = params
@@ -2862,27 +2886,6 @@ extension Anytype_Rpc.Object.Redo.Response {
 
 extension Anytype_Rpc.Object.Redo.Response.Error {
     public init(code: Anytype_Rpc.Object.Redo.Response.Error.Code = .null, description_p: String = String()) {
-        self.code = code
-        self.description_p = description_p
-    }
-}
-
-extension Anytype_Rpc.Object.RelationSearchDistinct.Request {
-    public init(relationKey: String = String(), filters: [Anytype_Model_Block.Content.Dataview.Filter] = []) {
-        self.relationKey = relationKey
-        self.filters = filters
-    }
-}
-
-extension Anytype_Rpc.Object.RelationSearchDistinct.Response {
-    public init(error: Anytype_Rpc.Object.RelationSearchDistinct.Response.Error, groups: [Anytype_Model_Block.Content.Dataview.Group] = []) {
-        self.error = error
-        self.groups = groups
-    }
-}
-
-extension Anytype_Rpc.Object.RelationSearchDistinct.Response.Error {
-    public init(code: Anytype_Rpc.Object.RelationSearchDistinct.Response.Error.Code = .null, description_p: String = String()) {
         self.code = code
         self.description_p = description_p
     }

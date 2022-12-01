@@ -31,9 +31,11 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
     }
     
     private let accountManager: AccountManager
+    private let objectTypeProvider: ObjectTypeProviderProtocol
     
-    init(accountManager: AccountManager) {
+    init(accountManager: AccountManager, objectTypeProvider: ObjectTypeProviderProtocol) {
         self.accountManager = accountManager
+        self.objectTypeProvider = objectTypeProvider
     }
     
     // MARK: - SearchServiceProtocol
@@ -46,7 +48,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         
         let filters = buildFilters(
             isArchived: false,
-            typeIds: ObjectTypeProvider.shared.supportedTypeIds
+            excludedTypeIds: objectTypeProvider.notVisibleTypeIds()
         )
         
         return search(filters: filters, sorts: [sort], fullText: text, limit: Constants.defaultLimit)
@@ -62,18 +64,21 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             relation: BundledRelationKey.name,
             type: .asc
         )
+        
+        var excludedTypeIds: [String] = [
+            filteringTypeId,
+            shouldIncludeSets ? nil : ObjectTypeId.bundled(.set).rawValue,
+            shouldIncludeBookmark ? nil : ObjectTypeId.bundled(.bookmark).rawValue
+        ].compactMap { $0 }
+        
+        excludedTypeIds.append(contentsOf: objectTypeProvider.notVisibleTypeIds())
+        
         var filters = [
             SearchHelper.isArchivedFilter(isArchived: false),
             SearchHelper.workspaceId(accountManager.account.info.accountSpaceId),
             SearchHelper.typeFilter(typeIds: [ObjectTypeId.bundled(.objectType).rawValue]),
-            SearchHelper.supportedIdsFilter(
-                ObjectTypeProvider.shared.supportedTypeIds
-            ),
-            shouldIncludeSets ? nil : SearchHelper.excludedIdFilter(ObjectTypeId.bundled(.set).rawValue),
-            shouldIncludeBookmark ? nil : SearchHelper.excludedIdFilter(ObjectTypeId.bundled(.bookmark).rawValue)
-        ].compactMap { $0 }
-
-        filteringTypeId.map { filters.append(SearchHelper.excludedIdFilter($0)) }
+            SearchHelper.excludedIdsFilter(excludedTypeIds)
+        ]
         
         let result = search(filters: filters, sorts: [sort], fullText: text)
 
@@ -110,8 +115,12 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             type: .desc
         )
         
-        let typeIds: [String] = limitedTypeIds.isNotEmpty ? limitedTypeIds : ObjectTypeProvider.shared.supportedTypeIds
-        var filters = buildFilters(isArchived: false, typeIds: typeIds)
+//        let typeIds: [String] = limitedTypeIds.isNotEmpty ? limitedTypeIds : objectTypeProvider.visibleSupportedTypeIds()
+        var filters = limitedTypeIds.isNotEmpty
+            ? buildFilters(isArchived: false, typeIds: limitedTypeIds)
+            : buildFilters(isArchived: false, excludedTypeIds: objectTypeProvider.notVisibleTypeIds())
+        
+        
         filters.append(SearchHelper.excludedIdsFilter(excludedObjectIds))
         
         return search(filters: filters, sorts: [sort], fullText: text)
@@ -134,9 +143,8 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         
         var filters = buildFilters(
             isArchived: false,
-            typeIds: ObjectTypeProvider.shared.supportedTypeIds
+            excludedTypeIds: objectTypeProvider.notVisibleTypeIds() + excludedTypeIds
         )
-        filters.append(SearchHelper.excludedTypeFilter(excludedTypeIds))
         filters.append(SearchHelper.excludedIdsFilter(excludedObjectIds))
         
         return search(filters: filters, sorts: [sort], fullText: text, limit: Constants.defaultLimit)
@@ -202,13 +210,23 @@ private extension SearchService {
         return details
     }
 
-    func buildFilters(isArchived: Bool, typeIds: [String]) -> [DataviewFilter] {
+    private func buildFilters(isArchived: Bool) -> [DataviewFilter] {
         [
             SearchHelper.notHiddenFilter(),
             SearchHelper.isArchivedFilter(isArchived: isArchived),
-            SearchHelper.typeFilter(typeIds: typeIds),
             SearchHelper.workspaceId(accountManager.account.info.accountSpaceId),
         ]
     }
     
+    private func buildFilters(isArchived: Bool, typeIds: [String]) -> [DataviewFilter] {
+        var filters = buildFilters(isArchived: isArchived)
+        filters.append(SearchHelper.typeFilter(typeIds: typeIds))
+        return filters
+    }
+    
+    private func buildFilters(isArchived: Bool, excludedTypeIds: [String]) -> [DataviewFilter] {
+        var filters = buildFilters(isArchived: isArchived)
+        filters.append(SearchHelper.excludedTypeFilter(excludedTypeIds))
+        return filters
+    }
 }

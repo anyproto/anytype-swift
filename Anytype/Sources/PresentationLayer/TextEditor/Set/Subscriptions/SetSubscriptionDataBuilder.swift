@@ -3,6 +3,7 @@ import BlocksModels
 
 extension SubscriptionId {
     static var set = SubscriptionId(value: "SubscriptionId.Set")
+    static var setGroups = SubscriptionId(value: "SubscriptionId.Set.Groups")
 }
 
 final class SetSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol {
@@ -53,7 +54,8 @@ final class SetSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol {
             BundledRelationKey.coverScale.rawValue,
             BundledRelationKey.coverType.rawValue,
             BundledRelationKey.coverX.rawValue,
-            BundledRelationKey.coverY.rawValue
+            BundledRelationKey.coverY.rawValue,
+            BundledRelationKey.relationOptionColor.rawValue
         ]
         
         keys.append(contentsOf: data.options.map { $0.key })

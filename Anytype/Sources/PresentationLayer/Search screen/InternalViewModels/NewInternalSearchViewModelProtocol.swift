@@ -13,6 +13,7 @@ protocol NewInternalSearchViewModelProtocol {
     
     func isCreateButtonAvailable(searchText: String) -> Bool
     
+    func handleConfirmSelection(ids: [String])
 }
 
 extension NewInternalSearchViewModelProtocol {

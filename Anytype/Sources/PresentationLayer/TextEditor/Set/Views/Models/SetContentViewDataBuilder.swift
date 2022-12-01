@@ -125,16 +125,8 @@ final class SetContentViewDataBuilder {
             return nil
         }
 
-        let values = details.stringArrayValue(for: relationDetails.key)
-        let value = details.stringValue(for: relationDetails.key)
-
-        if values.isNotEmpty {
-            return findCover(at: values, details)
-        } else if value.isNotEmpty {
-            return findCover(at: [value], details)
-        } else {
-            return nil
-        }
+        let values = details.stringValueOrArray(for: relationDetails)
+        return findCover(at: values, details)
     }
 
     private func findCover(at values: [String], _ details: ObjectDetails) -> ObjectHeaderCoverType? {

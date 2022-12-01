@@ -92,13 +92,17 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
         editorPageCoordinator.startFlow(data: screenData, replaceCurrentPage: false)
     }
     
-    func linkToAction(onSelect: @escaping (BlockId, _ typeUrl: String) -> ()) {
-        let module = searchModuleAssembly.makeLinkToObjectSearch { [weak navigationContext] data in
+    func linkToAction(onSelect: @escaping (BlockId) -> ()) {
+        let moduleView = NewSearchModuleAssembly.blockObjectsSearchModule(
+            title: Loc.linkTo,
+            excludedObjectIds: [document.objectId]
+        ) { [weak self] details in
             navigationContext?.dismissAllPresented(animated: true) {
-                onSelect(data.blockId, data.typeId)
+                onSelect(data.blockId)
             }
         }
-        navigationContext.present(module)
+
+        navigationContext.presentSwiftUIView(view: moduleView)
     }
     
     func showActionMessage(message: NSAttributedString) {

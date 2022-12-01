@@ -444,8 +444,6 @@
 		2A90C46E285B5A9100B6B44E /* ProtobufMessages in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 2A90C46C285B5A9100B6B44E /* ProtobufMessages */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		2A90C470285B5AA700B6B44E /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = 2A90C46F285B5AA700B6B44E /* SwiftProtobuf */; };
 		2A90C47B28605F8C00B6B44E /* TableOfContentsContentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A90C47A28605F8C00B6B44E /* TableOfContentsContentProvider.swift */; };
-		2A9696E428C21B05008A4EEF /* SearchCommonService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9696E328C21B05008A4EEF /* SearchCommonService.swift */; };
-		2A9696E828C2419A008A4EEF /* SearchCommonServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9696E728C2419A008A4EEF /* SearchCommonServiceProtocol.swift */; };
 		2A9D299028BCC11A00789AC7 /* NonExistentBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9D298F28BCC11A00789AC7 /* NonExistentBlockView.swift */; };
 		2A9D299228BCC16E00789AC7 /* NonExistentBlockContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9D299128BCC16E00789AC7 /* NonExistentBlockContentConfiguration.swift */; };
 		2A9D299428BCC78900789AC7 /* NonExistentBlockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9D299328BCC78900789AC7 /* NonExistentBlockViewModel.swift */; };
@@ -467,7 +465,7 @@
 		2AB2C23728B658D1000191F8 /* AnytypeURLTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB2C23628B658D1000191F8 /* AnytypeURLTests.swift */; };
 		2AB511AC29093A36005D0A91 /* BeginingOfTextMarkdownListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB511AB29093A36005D0A91 /* BeginingOfTextMarkdownListener.swift */; };
 		2AB511AE29093CB4005D0A91 /* InlineMarkdownListenerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB511AD29093CB4005D0A91 /* InlineMarkdownListenerTests.swift */; };
-		2ABA0E07283BC420008369DC /* MoveToSearchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABA0E06283BC420008369DC /* MoveToSearchInteractor.swift */; };
+		2ABA0E07283BC420008369DC /* BlockObjectsSearchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABA0E06283BC420008369DC /* BlockObjectsSearchInteractor.swift */; };
 		2ABFED9428C9D784008B5C03 /* RelationDetailsStorageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABFED9328C9D784008B5C03 /* RelationDetailsStorageProtocol.swift */; };
 		2ABFED9628C9DAA4008B5C03 /* RelationDetails+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABFED9528C9DAA4008B5C03 /* RelationDetails+Extensions.swift */; };
 		2AD06B7C2857271D0006C255 /* TableOfContentsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD06B7B2857271D0006C255 /* TableOfContentsViewModel.swift */; };
@@ -522,6 +520,8 @@
 		2E0DAF2528A2723C00F43320 /* SetViewSettingsImagePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DAF2428A2723C00F43320 /* SetViewSettingsImagePreviewView.swift */; };
 		2E0DAF2728A273FC00F43320 /* SetViewSettingsImagePreviewCover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DAF2628A273FC00F43320 /* SetViewSettingsImagePreviewCover.swift */; };
 		2E0DAF2928A2767B00F43320 /* SetViewSettingsImagePreviewRowConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DAF2828A2767B00F43320 /* SetViewSettingsImagePreviewRowConfiguration.swift */; };
+		2E1146D0293124ED0057C753 /* SetKanbanColumnSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1146CF293124ED0057C753 /* SetKanbanColumnSettingsViewModel.swift */; };
+		2E1146D2293125610057C753 /* SetKanbanColumnSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1146D1293125610057C753 /* SetKanbanColumnSettingsView.swift */; };
 		2E21599D28EC619E0042B205 /* EditorPageTemplatesHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E21599C28EC619E0042B205 /* EditorPageTemplatesHandler.swift */; };
 		2E2D255D28880C8D00E3DFD1 /* SetFiltersSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2D255428880C8D00E3DFD1 /* SetFiltersSelectionView.swift */; };
 		2E2D255E28880C8D00E3DFD1 /* SetFiltersSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2D255528880C8D00E3DFD1 /* SetFiltersSelectionViewModel.swift */; };
@@ -580,16 +580,20 @@
 		2E975EF2287C23DA004DE574 /* SetSortRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E975EEB287C23DA004DE574 /* SetSortRow.swift */; };
 		2E975F04287F00BC004DE574 /* SetFiltersTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E975F03287F00BC004DE574 /* SetFiltersTextView.swift */; };
 		2E975F06287F00E6004DE574 /* SetFiltersTextViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E975F05287F00E6004DE574 /* SetFiltersTextViewModel.swift */; };
+		2E98634F2937B55800304645 /* GroupsSubscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E98634C2937B55800304645 /* GroupsSubscription.swift */; };
+		2E9863512937B55800304645 /* GroupsSubscriptionsHandlerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E98634E2937B55800304645 /* GroupsSubscriptionsHandlerProtocol.swift */; };
+		2E9863532937B5A300304645 /* GroupsSubscriptionsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9863522937B5A200304645 /* GroupsSubscriptionsHandler.swift */; };
 		2E9BF63828B78E02006D3CC2 /* CountTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9BF63728B78E02006D3CC2 /* CountTagView.swift */; };
 		2E9BF63B28B7D370006D3CC2 /* SetViewTypesPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9BF63A28B7D370006D3CC2 /* SetViewTypesPicker.swift */; };
 		2E9BF63D28B7D38F006D3CC2 /* SetViewTypesPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9BF63C28B7D38F006D3CC2 /* SetViewTypesPickerViewModel.swift */; };
 		2E9BF63F28B7D40A006D3CC2 /* SetViewTypeConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9BF63E28B7D40A006D3CC2 /* SetViewTypeConfiguration.swift */; };
 		2E9EFE62285B45C500C8E47A /* ExceptionalSetSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9EFE5E285B45C500C8E47A /* ExceptionalSetSort.swift */; };
 		2E9EFE72285B62E500C8E47A /* SetFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9EFE71285B62E500C8E47A /* SetFilter.swift */; };
+		2EA0F4912936629E003225BA /* GroupsSubscribeResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA0F4902936629E003225BA /* GroupsSubscribeResult.swift */; };
 		2EB7D2AE292BD1E50076592B /* SetViewSettingsGroupByViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB7D2AD292BD1E50076592B /* SetViewSettingsGroupByViewModel.swift */; };
 		2EB97A1B28B64CDC002BBB39 /* SetListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB97A1A28B64CDC002BBB39 /* SetListViewCell.swift */; };
-		2EC9424F28F97F4D00DE91E4 /* RelationSearchDistinctService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC9424E28F97F4D00DE91E4 /* RelationSearchDistinctService.swift */; };
-		2EC9425128F97F5E00DE91E4 /* RelationSearchDistinctServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC9425028F97F5E00DE91E4 /* RelationSearchDistinctServiceProtocol.swift */; };
+		2EC9424F28F97F4D00DE91E4 /* GroupsSubscribeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC9424E28F97F4D00DE91E4 /* GroupsSubscribeService.swift */; };
+		2EC9425128F97F5E00DE91E4 /* GroupsSubscribeServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC9425028F97F5E00DE91E4 /* GroupsSubscribeServiceProtocol.swift */; };
 		2EC9425F2900351C00DE91E4 /* DataviewGroup+Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC9425E2900351C00DE91E4 /* DataviewGroup+Filter.swift */; };
 		2EC9426C2901905900DE91E4 /* SetKanbanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC942692901905800DE91E4 /* SetKanbanView.swift */; };
 		2EC9426E2901946800DE91E4 /* SetKanbanColumn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC9426D2901946800DE91E4 /* SetKanbanColumn.swift */; };
@@ -1702,8 +1706,6 @@
 		2A7DCDE7292E8260001919B4 /* SearchModuleAssemblyProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModuleAssemblyProtocol.swift; sourceTree = "<group>"; };
 		2A8DCAD128C635CE0029B914 /* RelationDetailsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationDetailsStorage.swift; sourceTree = "<group>"; };
 		2A90C47A28605F8C00B6B44E /* TableOfContentsContentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableOfContentsContentProvider.swift; sourceTree = "<group>"; };
-		2A9696E328C21B05008A4EEF /* SearchCommonService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCommonService.swift; sourceTree = "<group>"; };
-		2A9696E728C2419A008A4EEF /* SearchCommonServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCommonServiceProtocol.swift; sourceTree = "<group>"; };
 		2A9D298F28BCC11A00789AC7 /* NonExistentBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonExistentBlockView.swift; sourceTree = "<group>"; };
 		2A9D299128BCC16E00789AC7 /* NonExistentBlockContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonExistentBlockContentConfiguration.swift; sourceTree = "<group>"; };
 		2A9D299328BCC78900789AC7 /* NonExistentBlockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonExistentBlockViewModel.swift; sourceTree = "<group>"; };
@@ -1725,7 +1727,7 @@
 		2AB2C23628B658D1000191F8 /* AnytypeURLTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AnytypeURLTests.swift; path = AnyTypeTests/AnytypeURL/AnytypeURLTests.swift; sourceTree = SOURCE_ROOT; };
 		2AB511AB29093A36005D0A91 /* BeginingOfTextMarkdownListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeginingOfTextMarkdownListener.swift; sourceTree = "<group>"; };
 		2AB511AD29093CB4005D0A91 /* InlineMarkdownListenerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = InlineMarkdownListenerTests.swift; path = AnyTypeTests/Markdown/InlineMarkdownListenerTests.swift; sourceTree = SOURCE_ROOT; };
-		2ABA0E06283BC420008369DC /* MoveToSearchInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveToSearchInteractor.swift; sourceTree = "<group>"; };
+		2ABA0E06283BC420008369DC /* BlockObjectsSearchInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockObjectsSearchInteractor.swift; sourceTree = "<group>"; };
 		2ABFED9328C9D784008B5C03 /* RelationDetailsStorageProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationDetailsStorageProtocol.swift; sourceTree = "<group>"; };
 		2ABFED9528C9DAA4008B5C03 /* RelationDetails+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RelationDetails+Extensions.swift"; sourceTree = "<group>"; };
 		2AD06B7B2857271D0006C255 /* TableOfContentsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableOfContentsViewModel.swift; sourceTree = "<group>"; };
@@ -1780,6 +1782,8 @@
 		2E0DAF2428A2723C00F43320 /* SetViewSettingsImagePreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewSettingsImagePreviewView.swift; sourceTree = "<group>"; };
 		2E0DAF2628A273FC00F43320 /* SetViewSettingsImagePreviewCover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewSettingsImagePreviewCover.swift; sourceTree = "<group>"; };
 		2E0DAF2828A2767B00F43320 /* SetViewSettingsImagePreviewRowConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewSettingsImagePreviewRowConfiguration.swift; sourceTree = "<group>"; };
+		2E1146CF293124ED0057C753 /* SetKanbanColumnSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetKanbanColumnSettingsViewModel.swift; sourceTree = "<group>"; };
+		2E1146D1293125610057C753 /* SetKanbanColumnSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetKanbanColumnSettingsView.swift; sourceTree = "<group>"; };
 		2E21599C28EC619E0042B205 /* EditorPageTemplatesHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorPageTemplatesHandler.swift; sourceTree = "<group>"; };
 		2E2D255428880C8D00E3DFD1 /* SetFiltersSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetFiltersSelectionView.swift; sourceTree = "<group>"; };
 		2E2D255528880C8D00E3DFD1 /* SetFiltersSelectionViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetFiltersSelectionViewModel.swift; sourceTree = "<group>"; };
@@ -1838,16 +1842,20 @@
 		2E975EEB287C23DA004DE574 /* SetSortRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetSortRow.swift; sourceTree = "<group>"; };
 		2E975F03287F00BC004DE574 /* SetFiltersTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersTextView.swift; sourceTree = "<group>"; };
 		2E975F05287F00E6004DE574 /* SetFiltersTextViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersTextViewModel.swift; sourceTree = "<group>"; };
+		2E98634C2937B55800304645 /* GroupsSubscription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupsSubscription.swift; sourceTree = "<group>"; };
+		2E98634E2937B55800304645 /* GroupsSubscriptionsHandlerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupsSubscriptionsHandlerProtocol.swift; sourceTree = "<group>"; };
+		2E9863522937B5A200304645 /* GroupsSubscriptionsHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupsSubscriptionsHandler.swift; sourceTree = "<group>"; };
 		2E9BF63728B78E02006D3CC2 /* CountTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountTagView.swift; sourceTree = "<group>"; };
 		2E9BF63A28B7D370006D3CC2 /* SetViewTypesPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewTypesPicker.swift; sourceTree = "<group>"; };
 		2E9BF63C28B7D38F006D3CC2 /* SetViewTypesPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewTypesPickerViewModel.swift; sourceTree = "<group>"; };
 		2E9BF63E28B7D40A006D3CC2 /* SetViewTypeConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewTypeConfiguration.swift; sourceTree = "<group>"; };
 		2E9EFE5E285B45C500C8E47A /* ExceptionalSetSort.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExceptionalSetSort.swift; sourceTree = "<group>"; };
 		2E9EFE71285B62E500C8E47A /* SetFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFilter.swift; sourceTree = "<group>"; };
+		2EA0F4902936629E003225BA /* GroupsSubscribeResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsSubscribeResult.swift; sourceTree = "<group>"; };
 		2EB7D2AD292BD1E50076592B /* SetViewSettingsGroupByViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetViewSettingsGroupByViewModel.swift; sourceTree = "<group>"; };
 		2EB97A1A28B64CDC002BBB39 /* SetListViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetListViewCell.swift; sourceTree = "<group>"; };
-		2EC9424E28F97F4D00DE91E4 /* RelationSearchDistinctService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationSearchDistinctService.swift; sourceTree = "<group>"; };
-		2EC9425028F97F5E00DE91E4 /* RelationSearchDistinctServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationSearchDistinctServiceProtocol.swift; sourceTree = "<group>"; };
+		2EC9424E28F97F4D00DE91E4 /* GroupsSubscribeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsSubscribeService.swift; sourceTree = "<group>"; };
+		2EC9425028F97F5E00DE91E4 /* GroupsSubscribeServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsSubscribeServiceProtocol.swift; sourceTree = "<group>"; };
 		2EC9425E2900351C00DE91E4 /* DataviewGroup+Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataviewGroup+Filter.swift"; sourceTree = "<group>"; };
 		2EC942692901905800DE91E4 /* SetKanbanView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetKanbanView.swift; sourceTree = "<group>"; };
 		2EC9426D2901946800DE91E4 /* SetKanbanColumn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetKanbanColumn.swift; sourceTree = "<group>"; };
@@ -3624,7 +3632,7 @@
 		1247BC6F27FDD351005F2DB4 /* Interactor */ = {
 			isa = PBXGroup;
 			children = (
-				2ABA0E05283BC420008369DC /* MoveToSearchInteractor */,
+				2ABA0E05283BC420008369DC /* BlockObjectsSearchInteractor */,
 				125683DF27DF1D3C003A8251 /* ObjectsSearchInteractorProtocol.swift */,
 				1247BC6C27FDD324005F2DB4 /* ObjectsSearchInteractor */,
 				1247BC6D27FDD32E005F2DB4 /* FilesSearchInteractor */,
@@ -4601,8 +4609,6 @@
 			isa = PBXGroup;
 			children = (
 				3D2F9C15271EAE4D0043C326 /* SearchHelper.swift */,
-				2A9696E328C21B05008A4EEF /* SearchCommonService.swift */,
-				2A9696E728C2419A008A4EEF /* SearchCommonServiceProtocol.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -4679,12 +4685,12 @@
 			path = Internal;
 			sourceTree = "<group>";
 		};
-		2ABA0E05283BC420008369DC /* MoveToSearchInteractor */ = {
+		2ABA0E05283BC420008369DC /* BlockObjectsSearchInteractor */ = {
 			isa = PBXGroup;
 			children = (
-				2ABA0E06283BC420008369DC /* MoveToSearchInteractor.swift */,
+				2ABA0E06283BC420008369DC /* BlockObjectsSearchInteractor.swift */,
 			);
-			path = MoveToSearchInteractor;
+			path = BlockObjectsSearchInteractor;
 			sourceTree = "<group>";
 		};
 		2AE4EDB42834CF4F00B61ABE /* Launch */ = {
@@ -4794,6 +4800,15 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		2E1146CE29311E7A0057C753 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				2E1146CF293124ED0057C753 /* SetKanbanColumnSettingsViewModel.swift */,
+				2E1146D1293125610057C753 /* SetKanbanColumnSettingsView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
 		2E2B0D16290AEB4400150841 /* GroupBy */ = {
 			isa = PBXGroup;
 			children = (
@@ -4900,6 +4915,16 @@
 			path = Text;
 			sourceTree = "<group>";
 		};
+		2E98634B2937B55800304645 /* GroupsSubscriptionsHandler */ = {
+			isa = PBXGroup;
+			children = (
+				2E9863522937B5A200304645 /* GroupsSubscriptionsHandler.swift */,
+				2E98634C2937B55800304645 /* GroupsSubscription.swift */,
+				2E98634E2937B55800304645 /* GroupsSubscriptionsHandlerProtocol.swift */,
+			);
+			path = GroupsSubscriptionsHandler;
+			sourceTree = "<group>";
+		};
 		2E9BF63928B7D341006D3CC2 /* ViewTypes */ = {
 			isa = PBXGroup;
 			children = (
@@ -4930,13 +4955,14 @@
 			path = GroupBy;
 			sourceTree = "<group>";
 		};
-		2EC9424928F97F2A00DE91E4 /* RelationSearchDistinct */ = {
+		2EC9424928F97F2A00DE91E4 /* GroupsSubscribeService */ = {
 			isa = PBXGroup;
 			children = (
-				2EC9424E28F97F4D00DE91E4 /* RelationSearchDistinctService.swift */,
-				2EC9425028F97F5E00DE91E4 /* RelationSearchDistinctServiceProtocol.swift */,
+				2EC9424E28F97F4D00DE91E4 /* GroupsSubscribeService.swift */,
+				2EC9425028F97F5E00DE91E4 /* GroupsSubscribeServiceProtocol.swift */,
+				2EA0F4902936629E003225BA /* GroupsSubscribeResult.swift */,
 			);
-			path = RelationSearchDistinct;
+			path = GroupsSubscribeService;
 			sourceTree = "<group>";
 		};
 		2EC9426229018A9D00DE91E4 /* Kanban */ = {
@@ -4961,6 +4987,7 @@
 		2EC9426A2901905900DE91E4 /* Column */ = {
 			isa = PBXGroup;
 			children = (
+				2E1146CE29311E7A0057C753 /* Settings */,
 				2EC9426D2901946800DE91E4 /* SetKanbanColumn.swift */,
 			);
 			path = Column;
@@ -5308,7 +5335,8 @@
 		3D2F9C14271EADC50043C326 /* Object */ = {
 			isa = PBXGroup;
 			children = (
-				2EC9424928F97F2A00DE91E4 /* RelationSearchDistinct */,
+				2E98634B2937B55800304645 /* GroupsSubscriptionsHandler */,
+				2EC9424928F97F2A00DE91E4 /* GroupsSubscribeService */,
 				3D30416B27EA5E8A00FFE0EB /* Dataview */,
 				126F3D85273E4E4300AEF39A /* Relations */,
 				120E818226A04A23006FE84E /* Details */,
@@ -7823,6 +7851,7 @@
 				53D408CF27F1D44F00495335 /* PasteboardCopyResult.swift in Sources */,
 				C9EA69D128C61D8A003F488C /* SimpleTableSelectionOptionHandler.swift in Sources */,
 				3DE0CFD626F8593D003A606A /* SlashMenuItemDisplayData.swift in Sources */,
+				2E1146D0293124ED0057C753 /* SetKanbanColumnSettingsViewModel.swift in Sources */,
 				3D34F20A27BE3B5300990C49 /* SettingsAppearanceView.swift in Sources */,
 				C93E25BD292BA25700CBBF30 /* AnytypeIconDownloader.swift in Sources */,
 				EAADB1B32678EB52004B0AF2 /* MarkStyleModifier.swift in Sources */,
@@ -7903,6 +7932,7 @@
 				3D93D56B270C9E3400614E29 /* URLInputViewController.swift in Sources */,
 				EAC6BAA6262715B5004C8C06 /* BookmarkBlockRestrictions.swift in Sources */,
 				C982025E28746DBF00065EBE /* SimpleTableStateManager.swift in Sources */,
+				2E9863512937B55800304645 /* GroupsSubscriptionsHandlerProtocol.swift in Sources */,
 				C91989ED2811673600CC6BEB /* UndoRedoView.swift in Sources */,
 				C9121A5C273B8E2F00FFDA07 /* RoundedShadowView.swift in Sources */,
 				2E7C446F289409610062287C /* TextRelationDetailsViewModelProtocol.swift in Sources */,
@@ -7951,7 +7981,6 @@
 				2E975EF2287C23DA004DE574 /* SetSortRow.swift in Sources */,
 				EA3D1E3226CEEE3B001A31D9 /* MiddlewareString.swift in Sources */,
 				3DB98100274E86AA00ECC882 /* Array+Emoji.swift in Sources */,
-				2A9696E428C21B05008A4EEF /* SearchCommonService.swift in Sources */,
 				3DE0CFE126F860EF003A606A /* StringExtension.swift in Sources */,
 				3D1B5F72274CF24B007D97AE /* SetHeaderSettings.swift in Sources */,
 				533AEDA026CC44920018E33C /* UIKitFont.swift in Sources */,
@@ -8033,7 +8062,7 @@
 				535F79962746CDBC0050A1B8 /* FlowRelationsView.swift in Sources */,
 				2A2C33212892BA36008BC326 /* RelationValueViewModelOutput.swift in Sources */,
 				2AECFD3E28993C67000E9CFB /* RelationValueCoordinatorAssemblyProtocol.swift in Sources */,
-				2EC9425128F97F5E00DE91E4 /* RelationSearchDistinctServiceProtocol.swift in Sources */,
+				2EC9425128F97F5E00DE91E4 /* GroupsSubscribeServiceProtocol.swift in Sources */,
 				53856BCB2659B38F00CB1FAE /* CodeBlockViewModel.swift in Sources */,
 				2A03039828ABAA45002EFC46 /* TextRelationActionViewModelProtocol.swift in Sources */,
 				532D1D6127691FA100A1E4D8 /* SearchNewRelationViewModel.swift in Sources */,
@@ -8170,7 +8199,7 @@
 				3D7C08212684B68600E2168D /* BlockFileViewModel.swift in Sources */,
 				1247BCAC27FF3A0C005F2DB4 /* FeedbackGeneratorExample.swift in Sources */,
 				EA0261242625CE0800AE6D86 /* TextBlockRestrictions.swift in Sources */,
-				2ABA0E07283BC420008369DC /* MoveToSearchInteractor.swift in Sources */,
+				2ABA0E07283BC420008369DC /* BlockObjectsSearchInteractor.swift in Sources */,
 				12EEC36C26A0903F00C3C4B1 /* EmojiProvider.swift in Sources */,
 				032E00122395D0C400620E1A /* WaitingView.swift in Sources */,
 				537F49722677EB6700C81BA0 /* BlockDelegate.swift in Sources */,
@@ -8282,7 +8311,7 @@
 				3D93D56F270C9E4E00614E29 /* EditorMainItemModelsHolder.swift in Sources */,
 				C97B5D6227F498C600EA7E33 /* EditorContentView.swift in Sources */,
 				530F503426F0ECC400F76D03 /* AudioBlockContentView.swift in Sources */,
-				2EC9424F28F97F4D00DE91E4 /* RelationSearchDistinctService.swift in Sources */,
+				2EC9424F28F97F4D00DE91E4 /* GroupsSubscribeService.swift in Sources */,
 				3D44985C26D57773005A3E06 /* DismissHandler.swift in Sources */,
 				3D93D561270B3FC500614E29 /* UINavigationController+Extension.swift in Sources */,
 				2A6F5046288A8F0B00ED6E2E /* ImageAssets.swift in Sources */,
@@ -8315,6 +8344,7 @@
 				2E2D256128880C8D00E3DFD1 /* SetFiltersSelectionViewState.swift in Sources */,
 				12F6072D26D7F6E500876C92 /* SwiftUIObjectIconImageView.swift in Sources */,
 				03C5C54D22E0A0C200DD91DE /* InternetProtocol.swift in Sources */,
+				2E1146D2293125610057C753 /* SetKanbanColumnSettingsView.swift in Sources */,
 				C961582027AC2AD400AE8848 /* FocusSubjectsHolder.swift in Sources */,
 				2AECFD4028993C77000E9CFB /* RelationValueCoordinatorProtocol.swift in Sources */,
 				1247BC8727FEE504005F2DB4 /* MultiselectObjectTypesSearchViewModel.swift in Sources */,
@@ -8558,6 +8588,7 @@
 				C920F7F92903082600360F01 /* BlockTextLinkView.swift in Sources */,
 				2E7C4461289184BA0062287C /* SetFiltersDateRowConfiguration.swift in Sources */,
 				3D24912D27BD271900821595 /* EventsListenerProtocol.swift in Sources */,
+				2EA0F4912936629E003225BA /* GroupsSubscribeResult.swift in Sources */,
 				129C54D027FC79F900C390C7 /* RelationFormatsListView.swift in Sources */,
 				12A8CCE326BC055400090468 /* ImageBlockRestrictions.swift in Sources */,
 				1211AF7727F49A9300BACB88 /* DownloadableImageViewWrapper.swift in Sources */,
@@ -8749,6 +8780,7 @@
 				EA57F41D26B99937007D4292 /* MarkupViewModelProtocol.swift in Sources */,
 				C9C536AD276C9040003CD3F3 /* Color+Assets.swift in Sources */,
 				C9A59DEF27E0F4D30063D3E1 /* TextBlockLeadingView.swift in Sources */,
+				2E98634F2937B55800304645 /* GroupsSubscription.swift in Sources */,
 				3D5A414B2702E80700F1F6A1 /* SlashMenuActionHandler.swift in Sources */,
 				12C8440226FCE92200D64B8D /* ObjectHeaderEmptyConfiguration.swift in Sources */,
 				3D8D41BB274297FF00F8EBF3 /* EditorSetViewModel.swift in Sources */,
@@ -8835,6 +8867,7 @@
 				03F910B923A93EFE00DF2F36 /* ScannerViewController.swift in Sources */,
 				2A2C33132892A161008BC326 /* TemplatesCoordinatorAssembly.swift in Sources */,
 				03C5C53922DF6C9900DD91DE /* SeedServiceProtocol.swift in Sources */,
+				2E9863532937B5A300304645 /* GroupsSubscriptionsHandler.swift in Sources */,
 				0372AB4423A0BF29008CF5B9 /* SelectProfileViewModel.swift in Sources */,
 				3D40C00C273FD77A0001E336 /* SetTableView.swift in Sources */,
 				12426A2C26DD006500693B1F /* ImageMetadata.swift in Sources */,
@@ -8940,7 +8973,6 @@
 				12CAF34E26D64440001E56B2 /* TodoIconImageGuideline.swift in Sources */,
 				3DB92FA6264D8B0100E83276 /* SettingsSectionItemView.swift in Sources */,
 				C9367AB7273153D2007D687A /* BlocksSelectionOverlayView.swift in Sources */,
-				2A9696E828C2419A008A4EEF /* SearchCommonServiceProtocol.swift in Sources */,
 				125683D027DF14F5003A8251 /* TagsSearchInteractor.swift in Sources */,
 				533856B0263B22B8005A06A9 /* MarkupViewController.swift in Sources */,
 				3D540C7B2625C9DE00A07BD8 /* EditorBrowserAssembly.swift in Sources */,
@@ -9175,7 +9207,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 29;
 				DEVELOPMENT_ASSET_PATHS = "Anytype/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = 6SFR4648FW;
 				ENABLE_BITCODE = NO;
@@ -9212,7 +9244,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 29;
 				DEVELOPMENT_ASSET_PATHS = "Anytype/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = 6SFR4648FW;
 				ENABLE_BITCODE = NO;
@@ -9353,7 +9385,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 29;
 				DEVELOPMENT_ASSET_PATHS = "Anytype/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = 6SFR4648FW;
 				ENABLE_BITCODE = NO;
@@ -9413,7 +9445,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 29;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 6SFR4648FW;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -9446,7 +9478,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 29;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 6SFR4648FW;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -9479,7 +9511,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 29;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 6SFR4648FW;
 				GENERATE_INFOPLIST_FILE = YES;

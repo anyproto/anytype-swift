@@ -28,7 +28,7 @@ struct SetFiltersTextView: View {
     }
     
     private var button: some View {
-        StandardButton(disabled: viewModel.input.isEmpty, text: Loc.Set.Filters.Search.Button.title, style: .primary) {
+        StandardButton(disabled: viewModel.input.isEmpty, text: Loc.Set.Button.Title.apply, style: .primary) {
             viewModel.handleText()
         }
         .padding(.top, 10)

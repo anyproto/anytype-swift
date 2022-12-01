@@ -10,9 +10,7 @@ struct DefaultTypePicker: View {
             title: Loc.chooseDefaultObjectType,
             showBookmark: false
         ) { [weak model] id in
-            ObjectTypeProvider.shared.objectType(id: id).flatMap {
-                UserDefaultsConfig.defaultObjectType = $0
-            }
+            ObjectTypeProvider.shared.setDefaulObjectType(id: id)
             model?.defaultType = false
             model?.personalization = false
         }
