@@ -48,7 +48,13 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     }
     
     var defaultObjectType: ObjectType {
-        UserDefaultsConfig.defaultObjectType
+        let type = UserDefaultsConfig.defaultObjectType
+        return objectTypes.first { $0.id == type.id } ?? ObjectType.fallbackType
+    }
+    
+    func setDefaulObjectType(id: String) {
+        guard let type = objectTypes.first(where: { $0.id == id }) else { return }
+        UserDefaultsConfig.defaultObjectType = type
     }
     
     func objectType(id: String) -> ObjectType? {
