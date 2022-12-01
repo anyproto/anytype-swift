@@ -69,6 +69,12 @@ final class EditorSetViewModel: ObservableObject {
             excludeRelations: excludeRelations
         )
     }
+    
+    func groupBackgroundColor(for groupId: String) -> BlockBackgroundColor? {
+        let groupOrder = dataView.groupOrders.first { $0.viewID == activeView.id }
+        guard let viewGroup = groupOrder?.viewGroups.first(where: { $0.groupID == groupId }) else { return nil }
+        return MiddlewareColor(rawValue: viewGroup.backgroundColor)?.backgroundColor
+    }
 
     private var isObjectLocked: Bool {
         document.isLocked ||
@@ -641,8 +647,30 @@ extension EditorSetViewModel {
         }
     }
     
-    func showKanbanColumnSettings() {
-        router.showKanbanColumnSettings()
+    func showKanbanColumnSettings(for groupId: String) {
+        guard let groupOrder = dataView.groupOrders.first(where: { $0.viewID == activeView.id }),
+              let viewGroupIndex = groupOrder.viewGroups.firstIndex(where: { $0.groupID == groupId }) else { return }
+        var viewGroups = groupOrder.viewGroups
+        let viewGroup = viewGroups[viewGroupIndex]
+        let selectedColor = MiddlewareColor(rawValue: viewGroup.backgroundColor)?.backgroundColor
+        router.showKanbanColumnSettings(
+            hideColumn: viewGroup.hidden,
+            selectedColor: selectedColor,
+            onSelect: { [weak self] hidden, backgroundColor in
+                guard let self,
+                        hidden != viewGroup.hidden ||
+                        backgroundColor?.middleware.rawValue != viewGroup.backgroundColor else { return }
+                let updatedViewGroup = viewGroup.updated(hidden: hidden, backgroundColor: backgroundColor?.middleware.rawValue)
+                viewGroups[viewGroupIndex] = updatedViewGroup
+                let updatedGroupOrder = groupOrder.updated(viewGroups: viewGroups)
+                Task {
+                    try await self.dataviewService.groupOrderUpdate(
+                        viewId: self.activeView.id,
+                        groupOrder: updatedGroupOrder
+                    )
+                }
+            }
+        )
     }
 
     private func showSetOfTypeSelection() {

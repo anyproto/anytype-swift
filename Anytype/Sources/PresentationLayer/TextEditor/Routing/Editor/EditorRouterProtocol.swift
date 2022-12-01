@@ -115,5 +115,9 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
         onSelect: @escaping (String) -> Void
     )
     
-    func showKanbanColumnSettings()
+    func showKanbanColumnSettings(
+        hideColumn: Bool,
+        selectedColor: BlockBackgroundColor?,
+        onSelect: @escaping (Bool, BlockBackgroundColor?) -> Void
+    )
 }

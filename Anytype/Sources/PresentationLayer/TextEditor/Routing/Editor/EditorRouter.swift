@@ -732,12 +732,17 @@ extension EditorRouter {
         )
     }
     
-    func showKanbanColumnSettings() {
+    func showKanbanColumnSettings(
+        hideColumn: Bool,
+        selectedColor: BlockBackgroundColor?,
+        onSelect: @escaping (Bool, BlockBackgroundColor?) -> Void
+    ) {
         let popup = AnytypePopup(
             viewModel: SetKanbanColumnSettingsViewModel(
-                hideColumn: false,
-                selectedColor: nil,
-                onApplyTap: { [weak self] _, _ in
+                hideColumn: hideColumn,
+                selectedColor: selectedColor,
+                onApplyTap: { [weak self] hidden, backgroundColor in
+                    onSelect(hidden, backgroundColor)
                     self?.navigationContext.dismissTopPresented()
                 }
             ),

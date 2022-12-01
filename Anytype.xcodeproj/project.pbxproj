@@ -513,6 +513,7 @@
 		2E0D0E75289D652000785833 /* EditorSetViewSettingsRelation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0D0E74289D652000785833 /* EditorSetViewSettingsRelation.swift */; };
 		2E0D0E77289D653500785833 /* EditorSetViewSettingsToggleItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0D0E76289D653500785833 /* EditorSetViewSettingsToggleItem.swift */; };
 		2E0D0E79289D678200785833 /* EditorSetViewSettingsValueItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0D0E78289D678200785833 /* EditorSetViewSettingsValueItem.swift */; };
+		2E0D0F712938CFE200674D3F /* DataviewGroupOrder+Update.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0D0F702938CFE200674D3F /* DataviewGroupOrder+Update.swift */; };
 		2E0DAF1B28A17DB400F43320 /* SetFilterPrefilledFieldsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DAF1A28A17DB400F43320 /* SetFilterPrefilledFieldsBuilder.swift */; };
 		2E0DAF1E28A26DBD00F43320 /* SetViewSettingsCardSizeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DAF1D28A26DBD00F43320 /* SetViewSettingsCardSizeViewModel.swift */; };
 		2E0DAF2128A26F1600F43320 /* DataviewViewSize+Value.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DAF2028A26F1600F43320 /* DataviewViewSize+Value.swift */; };
@@ -1774,6 +1775,7 @@
 		2E0D0E74289D652000785833 /* EditorSetViewSettingsRelation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetViewSettingsRelation.swift; sourceTree = "<group>"; };
 		2E0D0E76289D653500785833 /* EditorSetViewSettingsToggleItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetViewSettingsToggleItem.swift; sourceTree = "<group>"; };
 		2E0D0E78289D678200785833 /* EditorSetViewSettingsValueItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetViewSettingsValueItem.swift; sourceTree = "<group>"; };
+		2E0D0F702938CFE200674D3F /* DataviewGroupOrder+Update.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataviewGroupOrder+Update.swift"; sourceTree = "<group>"; };
 		2E0DAF1A28A17DB400F43320 /* SetFilterPrefilledFieldsBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFilterPrefilledFieldsBuilder.swift; sourceTree = "<group>"; };
 		2E0DAF1D28A26DBD00F43320 /* SetViewSettingsCardSizeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetViewSettingsCardSizeViewModel.swift; sourceTree = "<group>"; };
 		2E0DAF2028A26F1600F43320 /* DataviewViewSize+Value.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataviewViewSize+Value.swift"; sourceTree = "<group>"; };
@@ -5481,6 +5483,7 @@
 				2E0DAF1A28A17DB400F43320 /* SetFilterPrefilledFieldsBuilder.swift */,
 				2EC9425E2900351C00DE91E4 /* DataviewGroup+Filter.swift */,
 				2E8387C0291A897700506766 /* BlockDataview+Group.swift */,
+				2E0D0F702938CFE200674D3F /* DataviewGroupOrder+Update.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -8189,6 +8192,7 @@
 				EA0261242625CE0800AE6D86 /* TextBlockRestrictions.swift in Sources */,
 				2ABA0E07283BC420008369DC /* BlockObjectsSearchInteractor.swift in Sources */,
 				12EEC36C26A0903F00C3C4B1 /* EmojiProvider.swift in Sources */,
+				2E0D0F712938CFE200674D3F /* DataviewGroupOrder+Update.swift in Sources */,
 				032E00122395D0C400620E1A /* WaitingView.swift in Sources */,
 				537F49722677EB6700C81BA0 /* BlockDelegate.swift in Sources */,
 				535F79732746AAD40050A1B8 /* FlowLayout.swift in Sources */,
