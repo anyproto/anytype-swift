@@ -70,10 +70,14 @@ final class EditorSetViewModel: ObservableObject {
         )
     }
     
-    func groupBackgroundColor(for groupId: String) -> BlockBackgroundColor? {
+    func groupBackgroundColor(for groupId: String) -> BlockBackgroundColor {
         let groupOrder = dataView.groupOrders.first { $0.viewID == activeView.id }
-        guard let viewGroup = groupOrder?.viewGroups.first(where: { $0.groupID == groupId }) else { return nil }
-        return MiddlewareColor(rawValue: viewGroup.backgroundColor)?.backgroundColor
+        guard let viewGroup = groupOrder?.viewGroups.first(where: { $0.groupID == groupId }) else {
+            return BlockBackgroundColor.gray
+        }
+        return MiddlewareColor(
+            rawValue: viewGroup.backgroundColor
+        )?.backgroundColor ?? BlockBackgroundColor.gray
     }
 
     private var isObjectLocked: Bool {
@@ -235,7 +239,7 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     private func startSubscriptionsByGroups() {
-        sortedGroups(groups).forEach { [weak self] group in
+        sortedGroups().forEach { [weak self] group in
             guard let self else { return }
             let groupFilter = group.filter(with: self.activeView.groupRelationKey)
             let subscriptionId = SubscriptionId(value: group.id)
@@ -347,39 +351,31 @@ final class EditorSetViewModel: ObservableObject {
         return sortedConfigurationsDict
     }
     private func sortedGroupsIds() -> [String] {
-        let neededGroupOrders = dataView.groupOrders.filter { [weak self] groupOrder in
+        let neededGroupOrder = dataView.groupOrders.first { [weak self] groupOrder in
             groupOrder.viewID == self?.activeView.id
         }
         
-        guard neededGroupOrders.isNotEmpty else {
+        guard let neededGroupOrder else {
             return []
         }
-        
-        var sortedGroupsIds: [String] = []
-        neededGroupOrders.forEach { groupOrder in
-            groupOrder.viewGroups.forEach { viewGroup in
-                sortedGroupsIds.append(viewGroup.groupID)
-            }
+        let sortedViewGroups = neededGroupOrder.viewGroups.sorted { (a, b) -> Bool in
+            return a.index < b.index
         }
-        return sortedGroupsIds
+        return sortedViewGroups.map { $0.groupID }
     }
     
-    private func sortedGroups(_ groups: [DataviewGroup]) -> [DataviewGroup] {
+    private func sortedGroups() -> [DataviewGroup] {
         let sortedGroupsIds = sortedGroupsIds()
-        guard sortedGroupsIds.isNotEmpty else { return groups}
+        guard sortedGroupsIds.isNotEmpty else { return groups }
         
-        var groupsDict: [String: DataviewGroup] = [:]
-        for group in groups {
-            groupsDict[group.id] = group
-        }
-        
-        var sortedGroups: [DataviewGroup] = []
-        sortedGroupsIds.forEach { groupId in
-            if let group = groupsDict[groupId] {
-                sortedGroups.append(group)
+        return groups.sorted { (a, b) -> Bool in
+            let first = sortedGroupsIds.firstIndex(of: a.id)
+            let second = sortedGroupsIds.firstIndex(of: b.id)
+            if let first, let second {
+                return first < second
             }
+            return second == nil
         }
-        return sortedGroups
     }
     
     private func sortedRecords(with groupId: String) -> [ObjectDetails]? {
@@ -648,31 +644,52 @@ extension EditorSetViewModel {
     }
     
     func showKanbanColumnSettings(for groupId: String) {
-        guard let groupOrder = dataView.groupOrders.first(where: { $0.viewID == activeView.id }),
-              let viewGroupIndex = groupOrder.viewGroups.firstIndex(where: { $0.groupID == groupId }) else { return }
-        var viewGroups = groupOrder.viewGroups
-        let viewGroup = viewGroups[viewGroupIndex]
-        let selectedColor = MiddlewareColor(rawValue: viewGroup.backgroundColor)?.backgroundColor
+        let groupOrder = dataView.groupOrders.first { $0.viewID == activeView.id }
+        let viewGroup = groupOrder?.viewGroups.first { $0.groupID == groupId }
+        let selectedColor = MiddlewareColor(rawValue: viewGroup?.backgroundColor ?? "")?.backgroundColor
         router.showKanbanColumnSettings(
-            hideColumn: viewGroup.hidden,
+            hideColumn: viewGroup?.hidden ?? false,
             selectedColor: selectedColor,
             onSelect: { [weak self] hidden, backgroundColor in
-                guard let self,
-                        hidden != viewGroup.hidden ||
-                        backgroundColor?.middleware.rawValue != viewGroup.backgroundColor else { return }
-                let updatedViewGroup = viewGroup.updated(hidden: hidden, backgroundColor: backgroundColor?.middleware.rawValue)
-                viewGroups[viewGroupIndex] = updatedViewGroup
-                let updatedGroupOrder = groupOrder.updated(viewGroups: viewGroups)
-                Task {
-                    try await self.dataviewService.groupOrderUpdate(
-                        viewId: self.activeView.id,
-                        groupOrder: updatedGroupOrder
-                    )
-                }
+                self?.dataviewGroupOrderUpdate(
+                    groupId: groupId,
+                    hidden: hidden,
+                    backgroundColor: backgroundColor
+                )
             }
         )
     }
-
+    
+    private func dataviewGroupOrderUpdate(groupId: String, hidden: Bool, backgroundColor: BlockBackgroundColor?) {
+        let groupOrder = dataView.groupOrders.first { $0.viewID == activeView.id } ?? DataviewGroupOrder.create(viewID: activeView.id)
+        var viewGroups = groupOrder.viewGroups
+        let viewGroupIndex = viewGroups.firstIndex { $0.groupID == groupId }
+        let viewGroup: DataviewViewGroup
+        if let viewGroupIndex {
+            viewGroup = viewGroups[viewGroupIndex]
+                .updated(
+                    hidden: hidden,
+                    backgroundColor: backgroundColor?.middleware.rawValue
+                )
+            viewGroups[viewGroupIndex] = viewGroup
+        } else {
+            viewGroup = DataviewViewGroup.create(
+                groupId: groupId,
+                index: groups.count + 1,
+                hidden: hidden,
+                backgroundColor: backgroundColor?.middleware.rawValue
+            )
+            viewGroups.append(viewGroup)
+        }
+        let updatedGroupOrder = groupOrder.updated(viewGroups: viewGroups)
+        Task {
+            try await self.dataviewService.groupOrderUpdate(
+                viewId: self.activeView.id,
+                groupOrder: updatedGroupOrder
+            )
+        }
+    }
+    
     private func showSetOfTypeSelection() {
         router.showSources(selectedObjectId: document.details?.setOf.first) { [unowned self] typeObjectId in
             Task { @MainActor in

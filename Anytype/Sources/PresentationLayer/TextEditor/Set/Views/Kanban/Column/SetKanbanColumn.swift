@@ -6,7 +6,7 @@ struct SetKanbanColumn: View {
     let headerRelation: Relation?
     let configurations: [SetContentViewItemConfiguration]
     let isGroupBackgroundColors: Bool
-    let backgroundColor: BlockBackgroundColor?
+    let backgroundColor: BlockBackgroundColor
     let showPagingView: Bool
     
     let dragAndDropDelegate: KanbanDragAndDropDelegate
@@ -33,7 +33,8 @@ struct SetKanbanColumn: View {
         .padding(.bottom, configurations.isEmpty ? 0 : 8)
         .background(
             isGroupBackgroundColors ?
-            backgroundColor?.swiftColor.opacity(0.5) : Color.backgroundPrimary
+            backgroundColor.swiftColor.opacity(0.5) :
+            Color.backgroundPrimary
         )
         .cornerRadius(4)
         .frame(width: 270)

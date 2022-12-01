@@ -9,6 +9,13 @@ extension DataviewGroupOrder {
             viewGroups: viewGroups ?? self.viewGroups
         )
     }
+    
+    static func create(viewID: String) -> DataviewGroupOrder {
+        DataviewGroupOrder(
+            viewID: viewID,
+            viewGroups: []
+        )
+    }
 }
 
 extension DataviewViewGroup {
@@ -21,6 +28,15 @@ extension DataviewViewGroup {
             index: self.index,
             hidden: hidden ?? self.hidden,
             backgroundColor: backgroundColor ?? self.backgroundColor
+        )
+    }
+    
+    static func create(groupId: String, index: Int, hidden: Bool, backgroundColor: String?) -> DataviewViewGroup {
+        DataviewViewGroup(
+            groupID: groupId,
+            index: Int32(index),
+            hidden: hidden,
+            backgroundColor: backgroundColor ?? ""
         )
     }
 }
