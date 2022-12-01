@@ -21,6 +21,7 @@ struct SetKanbanView: View {
             content
             Spacer()
         }
+        .frame(maxHeight: .infinity)
     }
 
     // MARK: List view
