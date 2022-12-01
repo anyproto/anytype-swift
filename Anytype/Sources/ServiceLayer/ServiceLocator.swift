@@ -84,6 +84,10 @@ final class ServiceLocator {
         return ObjectTypeProvider.shared
     }
     
+    func groupsSubscriptionsHandler() -> GroupsSubscriptionsHandlerProtocol {
+        GroupsSubscriptionsHandler(groupsSubscribeService: GroupsSubscribeService())
+    }
+    
     // Sigletone
     private lazy var _relationDetailsStorage = RelationDetailsStorage(
         subscriptionsService: subscriptionService(),

@@ -56,7 +56,7 @@ final class EditorAssembly {
             detailsService: detailsService,
             textService: serviceLocator.textService,
             relationDetailsStorage: ServiceLocator.shared.relationDetailsStorage(),
-            relationSearchDistinctService: RelationSearchDistinctService(),
+            groupsSubscriptionsHandler: ServiceLocator.shared.groupsSubscriptionsHandler(),
             setSubscriptionDataBuilder: SetSubscriptionDataBuilder()
         )
         let controller = EditorSetHostingController(objectId: data.pageId, model: model)

@@ -126,7 +126,7 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
                     )),
                     subId: data.subID
                 )
-            case .accountConfigUpdate, .accountUpdate, .accountDetails, .accountShow:
+            case .accountConfigUpdate, .accountUpdate, .accountDetails, .accountShow, .subscriptionGroups:
                 break
             default:
                 anytypeAssertionFailure("Unsupported event \(event)", domain: .subscriptionStorage)

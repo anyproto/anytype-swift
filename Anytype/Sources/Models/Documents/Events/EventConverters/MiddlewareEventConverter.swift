@@ -251,7 +251,7 @@ final class MiddlewareEventConverter {
                     return info.updated(content: .divider(divider))
                     
                 default:
-                    anytypeAssertionFailure("Wrong conten \(info.content) in blockSetDiv", domain: .middlewareEventConverter)
+                    anytypeAssertionFailure("Wrong content \(info.content) in blockSetDiv", domain: .middlewareEventConverter)
                     return nil
                 }
             })
@@ -367,7 +367,6 @@ final class MiddlewareEventConverter {
             handleDataViewObjectOrderUpdate(data)
             return .general
         case .accountShow,
-                .subscriptionGroups,
                 .accountUpdate, // Event not working on middleware. See AccountManager.
                 .accountDetails, // Skipped
                 .accountConfigUpdate, // Remote config updates
@@ -376,6 +375,7 @@ final class MiddlewareEventConverter {
                 .subscriptionRemove, // Implemented in `SubscriptionsService`
                 .subscriptionPosition, // Implemented in `SubscriptionsService`
                 .subscriptionCounters, // Implemented in `SubscriptionsService`
+                .subscriptionGroups, // Implemented in `GroupsSubscriptionsHandler`
                 .filesUpload,
                 .marksInfo,
                 .blockSetRestrictions,
