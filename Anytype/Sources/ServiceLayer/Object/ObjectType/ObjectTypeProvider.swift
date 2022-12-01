@@ -5,6 +5,17 @@ import ProtobufMessages
 extension ObjectType: IdProvider {}
 
 final class ObjectTypeProvider: ObjectTypeProviderProtocol {
+    
+    private enum Constants {
+        static let notVisibleSmartBlocks: [SmartBlockType] = [.file]
+        static let notVisibleTypes: [String] = [
+            ObjectTypeId.bundled(.template).rawValue,
+            ObjectTypeId.bundled(.relation).rawValue,
+            ObjectTypeId.bundled(.relationOption).rawValue,
+            ObjectTypeId.bundled(.objectType).rawValue
+        ]
+        static let supportedForEditSmartblockTypes: [SmartBlockType] = [.page, .profilePage, .anytypeProfile, .set, .file]
+    }
         
     static let shared: ObjectTypeProviderProtocol = ObjectTypeProvider(
         subscriptionsService: ServiceLocator.shared.subscriptionService(),
@@ -15,11 +26,12 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     
     private let subscriptionsService: SubscriptionsServiceProtocol
     private let subscriptionBuilder: ObjectTypeSubscriptionDataBuilderProtocol
-    private let supportedSmartblockTypes: Set<SmartBlockType> = [.page, .profilePage, .anytypeProfile, .set, .file]
+    
     
     private var objectTypes = [ObjectType]()
     private var searchTypesById = [String: ObjectType]()
-    private var cachedSupportedTypeIds: Set<String> = []
+    private var cachedSupportedTypeIds: [String] = []
+    private var notVisibleTypeIdsCache: [String] = []
     
     private init(
         subscriptionsService: SubscriptionsServiceProtocol,
@@ -31,11 +43,7 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     
     // MARK: - ObjectTypeProviderProtocol
     
-    var supportedTypeIds: [String] {
-        Array(cachedSupportedTypeIds)
-    }
-    
-    func isSupported(typeId: String) -> Bool {
+    func isSupportedForEdit(typeId: String) -> Bool {
         cachedSupportedTypeIds.contains(typeId)
     }
     
@@ -53,13 +61,8 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
         }
     }
     
-    func visibleSupportedTypeIds(excludeTypeIds: [String]) -> [String] {
-        let excludeSmartBlocks: [SmartBlockType] = [.file]
-        return objectTypes.filter {
-            !excludeTypeIds.contains($0.id)
-            && supportedTypeIds.contains($0.id)
-            && $0.smartBlockTypes.intersection(excludeSmartBlocks).isEmpty
-        }.map { $0.id }
+    func notVisibleTypeIds() -> [String] {
+        return notVisibleTypeIdsCache
     }
     
     func startSubscription() {
@@ -71,23 +74,26 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     func stopSubscription() {
         subscriptionsService.stopSubscription(id: .objectType)
         objectTypes.removeAll()
-        updateSupportedTypeIds()
-        updateSearchCache()
+        updateAllCache()
     }
     
     // MARK: - Private func
     
     private func handleEvent(update: SubscriptionUpdate) {
         objectTypes.applySubscriptionUpdate(update, transform: { ObjectType(details: $0) })
+        updateAllCache()
+    }
+    
+    private func updateAllCache() {
         updateSupportedTypeIds()
         updateSearchCache()
+        updateNotVisibleTypeIds()
     }
     
     private func updateSupportedTypeIds() {
-        let result = objectTypes.filter {
-                $0.smartBlockTypes.intersection(supportedSmartblockTypes).isNotEmpty
-            }.map { $0.id }
-        cachedSupportedTypeIds = Set(result)
+        cachedSupportedTypeIds = objectTypes.filter {
+            $0.smartBlockTypes.intersection(Constants.supportedForEditSmartblockTypes).isNotEmpty
+        }.map { $0.id }
     }
     
     private func updateSearchCache() {
@@ -101,5 +107,12 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
             }
             searchTypesById[$0.id] = $0
         }
+    }
+    
+    private func updateNotVisibleTypeIds() {
+        notVisibleTypeIdsCache = objectTypes.filter {
+            $0.smartBlockTypes.intersection(Constants.notVisibleSmartBlocks).isNotEmpty
+            || Constants.notVisibleTypes.contains($0.id)
+        }.map { $0.id }
     }
 }

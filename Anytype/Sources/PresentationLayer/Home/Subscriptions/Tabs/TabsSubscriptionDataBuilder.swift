@@ -54,9 +54,10 @@ final class TabsSubscriptionDataBuilder: TabsSubscriptionDataBuilderProtocol {
             relation: BundledRelationKey.lastModifiedDate,
             type: .desc
         )
+        
         var filters = buildFilters(
             isArchived: false,
-            typeIds: objectTypeProvider.visibleSupportedTypeIds()
+            excludedTypeIds: objectTypeProvider.notVisibleTypeIds()
         )
         filters.append(SearchHelper.lastOpenedDateNotNilFilter())
         
@@ -80,7 +81,7 @@ final class TabsSubscriptionDataBuilder: TabsSubscriptionDataBuilderProtocol {
         
         let filters = buildFilters(
             isArchived: true,
-            typeIds: objectTypeProvider.visibleSupportedTypeIds()
+            excludedTypeIds: objectTypeProvider.notVisibleTypeIds()
         )
         
         return .search(
@@ -100,7 +101,7 @@ final class TabsSubscriptionDataBuilder: TabsSubscriptionDataBuilderProtocol {
             relation: BundledRelationKey.lastModifiedDate,
             type: .desc
         )
-        var filters = buildFilters(isArchived: false, typeIds: objectTypeProvider.supportedTypeIds)
+        var filters = buildFilters(isArchived: false, excludedTypeIds: objectTypeProvider.notVisibleTypeIds())
         filters.append(contentsOf: SearchHelper.sharedObjectsFilters())
         
         return .search(
@@ -138,7 +139,7 @@ final class TabsSubscriptionDataBuilder: TabsSubscriptionDataBuilderProtocol {
     }
     
     private func favoritesTab() -> SubscriptionData {
-        var filters = buildFilters(isArchived: false, typeIds: objectTypeProvider.visibleSupportedTypeIds())
+        var filters = buildFilters(isArchived: false, excludedTypeIds: objectTypeProvider.notVisibleTypeIds())
         filters.append(SearchHelper.isFavoriteFilter(isFavorite: true))
         
         return .search(
@@ -172,12 +173,23 @@ final class TabsSubscriptionDataBuilder: TabsSubscriptionDataBuilderProtocol {
         return keys.map { $0.rawValue }
     }
     
-    private func buildFilters(isArchived: Bool, typeIds: [String]) -> [DataviewFilter] {
-        return [
+    private func buildFilters(isArchived: Bool) -> [DataviewFilter] {
+        [
             SearchHelper.notHiddenFilter(),
             SearchHelper.isArchivedFilter(isArchived: isArchived),
-            SearchHelper.typeFilter(typeIds: typeIds),
-            SearchHelper.workspaceId(accountManager.account.info.accountSpaceId)
+            SearchHelper.workspaceId(accountManager.account.info.accountSpaceId),
         ]
+    }
+    
+    private func buildFilters(isArchived: Bool, typeIds: [String]) -> [DataviewFilter] {
+        var filters = buildFilters(isArchived: isArchived)
+        filters.append(SearchHelper.typeFilter(typeIds: typeIds))
+        return filters
+    }
+    
+    private func buildFilters(isArchived: Bool, excludedTypeIds: [String]) -> [DataviewFilter] {
+        var filters = buildFilters(isArchived: isArchived)
+        filters.append(SearchHelper.excludedTypeFilter(excludedTypeIds))
+        return filters
     }
 }
