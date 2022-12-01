@@ -11,7 +11,12 @@ import UIKit
 
 final class ObjectHeaderIconView: UIView {
 
-    var initialBorderWidth = Constants.borderWidth
+    var initialBorderWidth = Constants.borderWidth {
+        didSet {
+            iconViewTopConstraint?.constant = initialBorderWidth
+            iconViewLeadingConstraint?.constant = initialBorderWidth
+        }
+    }
 
     // MARK: - Private variables
     
@@ -19,6 +24,9 @@ final class ObjectHeaderIconView: UIView {
         
     private var containerViewHeightConstraint: NSLayoutConstraint!
     private var containerViewWidthConstraint: NSLayoutConstraint!
+    
+    private var iconViewTopConstraint: NSLayoutConstraint?
+    private var iconViewLeadingConstraint: NSLayoutConstraint?
     
     private let containerView = UIView()
     
@@ -80,7 +88,7 @@ extension ObjectHeaderIconView: ConfigurableView {
 }
 
 private extension ObjectHeaderIconView {
-        
+    
     func showObjectIconType(_ objectIconType: ObjectIconType, usecase: ObjectIconImageUsecase) {
         let model = ObjectIconImageModel(
             iconImage: ObjectIconImage.icon(objectIconType),
@@ -96,31 +104,31 @@ private extension ObjectHeaderIconView {
         
         activityIndicatorView.hide()
     }
-
+    
     func showImage(_ uiImage: UIImage, usecase: ObjectIconImageUsecase) {
         let model = ObjectIconImageModel(
             iconImage: .image(uiImage),
             usecase: usecase
         )
-
+        
         applyImageGuideline(model.imageGuideline)
-
+        
         iconImageView.configure(model: model)
-
+        
         iconImageView.isHidden = false
         previewImageView.isHidden = true
-
+        
         activityIndicatorView.hide()
     }
     
     func showImagePreview(image: UIImage?, imageGuideline: ImageGuideline?) {
         applyImageGuideline(imageGuideline)
-
+        
         previewImageView.image = image
-
+        
         iconImageView.isHidden = true
         previewImageView.isHidden = false
-
+        
         activityIndicatorView.show()
     }
     
@@ -136,8 +144,7 @@ private extension ObjectHeaderIconView {
         
         containerView.layer.cornerRadius = imageGuideline.cornerRadius
         layer.cornerRadius = imageGuideline.cornerRadius + initialBorderWidth
-    }
-    
+    }    
 }
 
 // MARK: - Private extension
@@ -167,13 +174,13 @@ private extension ObjectHeaderIconView {
     func setupLayout() {
         addSubview(containerView) {
             $0.center(in: self)
-            $0.leading.equal(
+            iconViewLeadingConstraint = $0.leading.equal(
                 to: leadingAnchor,
-                constant: Constants.borderWidth
+                constant: initialBorderWidth
             )
-            $0.top.equal(
+            iconViewTopConstraint = $0.top.equal(
                 to: topAnchor,
-                constant: Constants.borderWidth
+                constant: initialBorderWidth
             )
             
             containerViewHeightConstraint = $0.height.equal(to: 0)

@@ -74,7 +74,7 @@ extension BlockLinkState {
     private var enabledDescriptionAttributes: [NSAttributedString.Key : Any] {
         [
             .font: UIFont.relation2Regular,
-            .foregroundColor: UIColor.textSecondary,
+            .foregroundColor: UIColor.textPrimary,
         ]
     }
     
