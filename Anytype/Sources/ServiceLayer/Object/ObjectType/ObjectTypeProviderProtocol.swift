@@ -4,6 +4,7 @@ import BlocksModels
 protocol ObjectTypeProviderProtocol: AnyObject {
 
     var defaultObjectType: ObjectType { get }
+    func setDefaulObjectType(id: String)
     
     func isSupportedForEdit(typeId: String) -> Bool
     func objectType(id: String) -> ObjectType?
