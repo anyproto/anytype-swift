@@ -714,13 +714,13 @@ extension EditorRouter {
     }
     
     func showGroupByRelations(
-        selectedRelationId: String,
+        selectedRelationKey: String,
         relations: [RelationDetails],
         onSelect: @escaping (String) -> Void
     ) {
         let view = CheckPopupView(
             viewModel: SetViewSettingsGroupByViewModel(
-                selectedRelationId: selectedRelationId,
+                selectedRelationKey: selectedRelationKey,
                 relations: relations,
                 onSelect: onSelect
             )
