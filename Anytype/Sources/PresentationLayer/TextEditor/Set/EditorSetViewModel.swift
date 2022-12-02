@@ -71,9 +71,9 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     func groupBackgroundColor(for groupId: String) -> BlockBackgroundColor {
-        let groupOrder = dataView.groupOrders.first { $0.viewID == activeView.id }
-        guard let viewGroup = groupOrder?.viewGroups.first(where: { $0.groupID == groupId }),
-              let middlewareColor = MiddlewareColor(rawValue: viewGroup.backgroundColor) else {
+        guard let groupOrder = dataView.groupOrders.first(where: { $0.viewID == activeView.id }),
+            let viewGroup = groupOrder.viewGroups.first(where: { $0.groupID == groupId }),
+            let middlewareColor = MiddlewareColor(rawValue: viewGroup.backgroundColor) else {
             return BlockBackgroundColor.gray
         }
         return middlewareColor.backgroundColor
