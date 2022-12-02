@@ -13,7 +13,7 @@ final class GroupsSubscriptionsHandler: GroupsSubscriptionsHandlerProtocol {
     private var subscription: AnyCancellable?
     private let groupsSubscribeService: GroupsSubscribeServiceProtocol
     
-    private var subscribers = [SubscriptionId: Subscriber]()
+    private var subscribers = SynchronizedDictionary<SubscriptionId, Subscriber>()
     
     init(groupsSubscribeService: GroupsSubscribeServiceProtocol) {
         self.groupsSubscribeService = groupsSubscribeService
@@ -41,7 +41,6 @@ final class GroupsSubscriptionsHandler: GroupsSubscriptionsHandlerProtocol {
     }
     
     func hasGroupsSubscriptionDataDiff(with data: GroupsSubscription) -> Bool {
-        // тут падает периодически, пофиксить
         guard let subscriber = subscribers[data.identifier] else {
             return true
         }

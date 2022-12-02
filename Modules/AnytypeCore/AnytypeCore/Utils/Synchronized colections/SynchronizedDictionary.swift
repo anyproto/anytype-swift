@@ -37,5 +37,12 @@ public final class SynchronizedDictionary<K, V> where K: Hashable {
         dictionary.removeValue(forKey: key)
         lock.unlock()
     }
-
+    
+    public var keys: Dictionary<K, V>.Keys {
+        lock.lock()
+        let keys = dictionary.keys
+        lock.unlock()
+        
+        return keys
+    }
 }

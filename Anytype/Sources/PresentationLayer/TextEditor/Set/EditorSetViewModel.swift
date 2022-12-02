@@ -72,12 +72,11 @@ final class EditorSetViewModel: ObservableObject {
     
     func groupBackgroundColor(for groupId: String) -> BlockBackgroundColor {
         let groupOrder = dataView.groupOrders.first { $0.viewID == activeView.id }
-        guard let viewGroup = groupOrder?.viewGroups.first(where: { $0.groupID == groupId }) else {
+        guard let viewGroup = groupOrder?.viewGroups.first(where: { $0.groupID == groupId }),
+              let middlewareColor = MiddlewareColor(rawValue: viewGroup.backgroundColor) else {
             return BlockBackgroundColor.gray
         }
-        return MiddlewareColor(
-            rawValue: viewGroup.backgroundColor
-        )?.backgroundColor ?? BlockBackgroundColor.gray
+        return middlewareColor.backgroundColor
     }
 
     private var isObjectLocked: Bool {
