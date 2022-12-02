@@ -41,6 +41,7 @@ final class GroupsSubscriptionsHandler: GroupsSubscriptionsHandlerProtocol {
     }
     
     func hasGroupsSubscriptionDataDiff(with data: GroupsSubscription) -> Bool {
+        // тут падает периодически, пофиксить
         guard let subscriber = subscribers[data.identifier] else {
             return true
         }
