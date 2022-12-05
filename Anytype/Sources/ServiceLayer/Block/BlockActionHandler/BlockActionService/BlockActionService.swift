@@ -120,11 +120,6 @@ final class BlockActionService: BlockActionServiceProtocol {
         _ = singleService.delete(blockIds: blockIds)
     }
     
-    func setFields(blockFields: BlockFields, blockId: BlockId) {
-        let setFieldsRequest = Anytype_Rpc.Block.ListSetFields.Request.BlockField(blockID: blockId, fields: .init(fields: blockFields))
-        listService.setFields(fields: [setFieldsRequest])
-    }
-    
     func setText(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) {
         textService.setText(contextId: contextId, blockId: blockId, middlewareString: middlewareString)
     }

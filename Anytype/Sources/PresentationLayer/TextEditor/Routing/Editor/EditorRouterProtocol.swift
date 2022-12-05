@@ -21,7 +21,7 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     
     func saveFile(fileURL: URL, type: FileContentType)
     
-    func showCodeLanguageView(languages: [CodeLanguage], completion: @escaping (CodeLanguage) -> Void)
+    func showCodeLanguage(blockId: BlockId)
     
     func showStyleMenu(
         information: BlockInformation,

@@ -76,6 +76,7 @@ final class EditorAssembly {
             objectIconPickerModuleAssembly: modulesDI.objectIconPicker,
             objectSettingCoordinator: coordinatorsDI.objectSettings.make(document: document, browserController: browser),
             searchModuleAssembly: modulesDI.search,
+            codeLanguageListModuleAssembly: modulesDI.codeLanguageList,
             alertHelper: AlertHelper(viewController: controller)
         )
         
@@ -120,6 +121,7 @@ final class EditorAssembly {
             objectIconPickerModuleAssembly: modulesDI.objectIconPicker,
             objectSettingCoordinator: coordinatorsDI.objectSettings.make(document: document, browserController: browser),
             searchModuleAssembly: modulesDI.search,
+            codeLanguageListModuleAssembly: modulesDI.codeLanguageList,
             alertHelper: AlertHelper(viewController: controller)
         )
 
@@ -160,7 +162,7 @@ final class EditorAssembly {
         let focusSubjectHolder = FocusSubjectsHolder()
 
         let cursorManager = EditorCursorManager(focusSubjectHolder: focusSubjectHolder)
-        let listService = BlockListService(contextId: document.objectId)
+        let listService = ServiceLocator.shared.blockListService(documentId: document.objectId)
         let singleService = ServiceLocator.shared.blockActionsServiceSingle(contextId: document.objectId)
         let blockActionService = BlockActionService(
             documentId: document.objectId,

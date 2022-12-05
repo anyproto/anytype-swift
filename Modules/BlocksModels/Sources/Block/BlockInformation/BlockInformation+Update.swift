@@ -21,4 +21,7 @@ public extension BlockInformation {
         )
     }
     
+    func addFields(_ newFields: BlockFields) -> BlockInformation {
+        return updated(fields: fields.merging(newFields) { (_, new) in new })
+    }
 }

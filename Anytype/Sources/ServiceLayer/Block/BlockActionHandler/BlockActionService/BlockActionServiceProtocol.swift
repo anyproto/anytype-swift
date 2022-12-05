@@ -34,8 +34,6 @@ protocol BlockActionServiceProtocol {
     
     func duplicate(blockId: BlockId)
     
-    func setFields(blockFields: BlockFields, blockId: BlockId)
-
     func setText(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString)
     @discardableResult
     func setTextForced(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) -> Bool

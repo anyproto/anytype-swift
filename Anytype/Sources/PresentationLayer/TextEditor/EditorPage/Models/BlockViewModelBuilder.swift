@@ -81,10 +81,7 @@ final class BlockViewModelBuilder {
                         self?.delegate.textBlockSetNeedsLayout()
                     },
                     showCodeSelection: { [weak self] info in
-                        self?.router.showCodeLanguageView(languages: CodeLanguage.allCases) { language in
-                            let fields = CodeBlockFields(language: language)
-                            self?.handler.setFields(fields, blockId: info.id)
-                        }
+                        self?.router.showCodeLanguage(blockId: info.id)
                     }
                 )
             default:

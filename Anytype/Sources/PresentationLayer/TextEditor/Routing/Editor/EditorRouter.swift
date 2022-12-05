@@ -22,6 +22,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
     private let objectSettingCoordinator: ObjectSettingsCoordinatorProtocol
     private let searchModuleAssembly: SearchModuleAssemblyProtocol
+    private let codeLanguageListModuleAssembly: CodeLanguageListModuleAssemblyProtocol
     private let alertHelper: AlertHelper
     
     init(
@@ -39,6 +40,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
         objectSettingCoordinator: ObjectSettingsCoordinatorProtocol,
         searchModuleAssembly: SearchModuleAssemblyProtocol,
+        codeLanguageListModuleAssembly: CodeLanguageListModuleAssemblyProtocol,
         alertHelper: AlertHelper
     ) {
         self.rootController = rootController
@@ -56,6 +58,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
         self.objectSettingCoordinator = objectSettingCoordinator
         self.searchModuleAssembly = searchModuleAssembly
+        self.codeLanguageListModuleAssembly = codeLanguageListModuleAssembly
         self.alertHelper = alertHelper
     }
 
@@ -130,10 +133,9 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         fileCoordinator.downloadFileAt(fileURL, withType: type)
     }
     
-    func showCodeLanguageView(languages: [CodeLanguage], completion: @escaping (CodeLanguage) -> Void) {
-        let searchListViewController = SearchListViewController(items: languages, completion: completion)
-        searchListViewController.modalPresentationStyle = .pageSheet
-        navigationContext.present(searchListViewController)
+    func showCodeLanguage(blockId: BlockId) {
+        let moduleViewController = codeLanguageListModuleAssembly.make(document: document, blockId: blockId)
+        navigationContext.present(moduleViewController)
     }
     
     func showStyleMenu(
