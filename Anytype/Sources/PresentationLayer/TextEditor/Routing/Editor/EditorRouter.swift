@@ -641,16 +641,13 @@ extension EditorRouter {
     }
     
     private func showCreateObject(with viewModel: CreateObjectViewModelProtocol) {
-        guard let viewController = viewController else { return }
-        
         let view = CreateObjectView(viewModel: viewModel)
         let fpc = AnytypePopup(contentView: view,
                                floatingPanelStyle: true,
-                               configuration: .init(isGrabberVisible: true, dismissOnBackdropView: true ))
+                               configuration: .init(isGrabberVisible: true, dismissOnBackdropView: true ),
+                               showKeyboard: true)
 
-        viewController.topPresentedController.present(fpc, animated: true) {
-            _ = view.becomeFirstResponder()
-        }
+        navigationContext.present(fpc)
     }
     
     private func showSetSettingsPopup(setModel: EditorSetViewModel) {
