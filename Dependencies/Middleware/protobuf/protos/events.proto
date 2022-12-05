@@ -24,17 +24,16 @@ message Event {
             Object.Details.Set objectDetailsSet = 16;
             Object.Details.Amend objectDetailsAmend = 50;
             Object.Details.Unset objectDetailsUnset = 51;
-            Object.Relations.Set objectRelationsSet = 22;
             Object.Relations.Amend objectRelationsAmend = 52;
             Object.Relations.Remove objectRelationsRemove = 53;
 
             Object.Remove objectRemove = 54;
-            Object.Show objectShow = 30;
 
             Object.Subscription.Add subscriptionAdd = 60;
             Object.Subscription.Remove subscriptionRemove = 61;
             Object.Subscription.Position subscriptionPosition = 62;
             Object.Subscription.Counters subscriptionCounters = 63;
+            Object.Subscription.Groups subscriptionGroups = 64;
 
             Block.Add blockAdd = 2;
             Block.Delete blockDelete = 3;
@@ -57,18 +56,20 @@ message Event {
             Block.Set.VerticalAlign blockSetVerticalAlign = 36;
             Block.Set.TableRow blockSetTableRow = 37;
 
-            Block.Dataview.RecordsSet blockDataviewRecordsSet = 18;
-            Block.Dataview.RecordsUpdate blockDataviewRecordsUpdate = 26;
-            Block.Dataview.RecordsInsert blockDataviewRecordsInsert = 27;
-            Block.Dataview.RecordsDelete blockDataviewRecordsDelete = 28;
-
-            Block.Dataview.SourceSet blockDataviewSourceSet = 35;
             Block.Dataview.ViewSet blockDataviewViewSet = 19;
             Block.Dataview.ViewDelete blockDataviewViewDelete = 20;
             Block.Dataview.ViewOrder blockDataviewViewOrder = 29;
-            Block.Dataview.RelationDelete blockDataviewRelationDelete = 24;
-            Block.Dataview.RelationSet blockDataviewRelationSet = 23;
+            Block.Dataview.SourceSet blockDataviewSourceSet = 35;
             Block.Dataview.GroupOrderUpdate blockDataViewGroupOrderUpdate = 38;
+            Block.Dataview.ObjectOrderUpdate blockDataViewObjectOrderUpdate = 39;
+            Block.Dataview.RelationDelete blockDataviewRelationDelete = 124;
+            Block.Dataview.RelationSet blockDataviewRelationSet = 123;
+
+            // deprecated
+            Block.Dataview.OldRelationDelete blockDataviewOldRelationDelete = 24;
+            // deprecated
+            Block.Dataview.OldRelationSet blockDataviewOldRelationSet = 23;
+
 
 
             User.Block.Join userBlockJoin = 31;
@@ -174,66 +175,35 @@ message Event {
                 string subId = 4; // subscription id
             }
 
+            message Groups {
+                string subId = 1;
+                anytype.model.Block.Content.Dataview.Group group = 2;
+                bool remove = 3;
+            }
         }
 
         message Relations {
-            message Set {
-                string id = 1; // context objectId
-                repeated anytype.model.Relation relations = 2;
-            }
 
             message Amend {
                 string id = 1; // context objectId
-                repeated anytype.model.Relation relations = 2;
+                repeated anytype.model.RelationLink relationLinks = 2;
             }
 
             message Remove {
                 string id = 1; // context objectId
-                repeated string keys = 2;
+                repeated string relationKeys = 2;
             }
         }
 
-        message Relation {
-            message Set {
-                string id = 1; // context objectId
-                string relationKey = 2;
-                anytype.model.Relation relation = 3; // missing value means relation should be removed
-            }
-            message Remove {
-                string id = 1; // context objectId
-                string relationKey = 2;
-            }
-        }
-
-        /*
-            * Works with a smart blocks: Page, Dashboard
-            * Dashboard opened, click on a page, Rpc.Block.open, Block.ShowFullscreen(PageBlock)
-        */
-        message Show {
-            string rootId = 1; // Root block id
-            repeated anytype.model.Block blocks = 2; // dependent simple blocks (descendants)
-            repeated Object.Details.Set details = 3; // details for the current and dependent objects
-            model.SmartBlockType type = 4;
-
-            message RelationWithValuePerObject {
-                string objectId = 1;
-                repeated anytype.model.RelationWithValue relations = 2;
-            }
-
-            repeated anytype.model.ObjectType objectTypes = 5; // objectTypes contains ONLY to get layouts for the actual and all dependent objects. Relations are currently omitted // todo: switch to other pb model
-            repeated anytype.model.Relation relations = 7; // combined relations of object's type + extra relations. If object doesn't has some relation key in the details this means client should hide it and only suggest when adding existing one
-            anytype.model.Restrictions restrictions = 8; // object restrictions
-            HistorySize history = 9;
-
-            message HistorySize {
-                int32 undo = 1;
-                int32 redo = 2;
-            }
-        }
 
         message Remove {
             // notifies that objects were removed
             repeated string ids = 1;
+        }
+
+        message Restriction {
+            string id = 1;
+            anytype.model.Restrictions restrictions = 2;
         }
     }
     message Block {
@@ -700,8 +670,6 @@ message Event {
                 string id = 1; // dataview block's id
                 string viewId = 2; // view id, client should double check this to make sure client doesn't switch the active view in the middle
                 anytype.model.Block.Content.Dataview.View view = 3;
-                uint32 offset = 4; // middleware will try to preserve the current aciveview's offset&limit but may reset it in case it becomes invalid or not actual anymore
-                uint32 limit = 5;
             }
 
             message ViewDelete {
@@ -720,51 +688,53 @@ message Event {
                 repeated string source = 2;
             }
 
-            message RelationDelete {
+            message OldRelationDelete {
                 string id = 1; // dataview block's id
                 string relationKey = 2; // relation key to remove
             }
 
             // sent when the dataview relation has been changed or added
-            message RelationSet {
+            message OldRelationSet {
                 string id = 1; // dataview block's id
                 string relationKey = 2; // relation key to update
                 anytype.model.Relation relation = 3;
             }
 
-            // sent when the active view's visible records should be replaced
-            message RecordsSet {
+            message RelationDelete {
                 string id = 1; // dataview block's id
-                string viewId = 2; // view id, client should double check this to make sure client doesn't switch the active view in the middle
-                repeated google.protobuf.Struct records = 3;
-                uint32 total = 7; // total number of records
+                repeated string relationKeys = 2; // relation key to remove
             }
 
-            // sent when client should insert new records on the active view
-            message RecordsInsert {
+            // sent when the dataview relation has been changed or added
+            message RelationSet {
                 string id = 1; // dataview block's id
-                string viewId = 2; // view id, client should double check this to make sure client doesn't switch the active view in the middle
-                repeated google.protobuf.Struct records = 3;
-                uint32 insertPosition = 5; // position to insert
-            }
-
-            // sent when client should update existing records on the active view
-            message RecordsUpdate {
-                string id = 1; // dataview block's id
-                string viewId = 2; // view id, client should double check this to make sure client doesn't switch the active view in the middle
-                repeated google.protobuf.Struct records = 4; // records to update. Use 'id' field to get records ids
-            }
-
-            // sent when client should remove existing records on the active view
-            message RecordsDelete {
-                string id = 1; // dataview block's id
-                string viewId = 2; // view id, client should double check this to make sure client doesn't switch the active view in the middle
-                repeated string removed = 6;
+                repeated anytype.model.RelationLink relationLinks = 2; // relation id to update
             }
 
             message GroupOrderUpdate {
                 string id = 1; // dataview block's id
                 anytype.model.Block.Content.Dataview.GroupOrder groupOrder = 2;
+            }
+
+            message ObjectOrderUpdate {
+                string id = 1; // dataview block's id
+                string viewId = 2;
+                string groupId = 3;
+                repeated SliceChange sliceChanges = 4;
+            }
+
+            message SliceChange {
+                SliceOperation op = 1;
+                repeated string ids = 2;
+                string afterId = 3;
+            }
+
+            enum SliceOperation {
+                SliceOperationNone = 0; // not used
+                SliceOperationAdd = 1;
+                SliceOperationMove = 2;
+                SliceOperationRemove = 3;
+                SliceOperationReplace = 4;
             }
         }
     }

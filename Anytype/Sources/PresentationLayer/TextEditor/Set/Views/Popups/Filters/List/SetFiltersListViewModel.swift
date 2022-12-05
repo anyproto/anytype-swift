@@ -2,32 +2,17 @@ import Foundation
 import SwiftUI
 import BlocksModels
 import FloatingPanel
+import Combine
 
 final class SetFiltersListViewModel: ObservableObject {
+    @Published var rows: [SetFilterRowConfiguration] = []
     
     private let setModel: EditorSetViewModel
+    private var cancellable: Cancellable?
+    
     private let dataviewService: DataviewServiceProtocol
     private let router: EditorRouterProtocol
     private let relationFilterBuilder = RelationFilterBuilder()
-    
-    var rows: [SetFilterRowConfiguration] {
-        setModel.filters.enumerated().map { index, filter in
-            SetFilterRowConfiguration(
-                id: "\(filter.metadata.id)_\(index)",
-                title: filter.metadata.name,
-                subtitle: filter.conditionString,
-                iconName: filter.metadata.format.iconName,
-                relation: relationFilterBuilder.relation(
-                    metadata: filter.metadata,
-                    filter: filter.filter
-                ),
-                hasValues: filter.filter.condition.hasValues,
-                onTap: { [weak self] in
-                    self?.rowTapped(filter.metadata.id, index: index)
-                }
-            )
-        }
-    }
     
     init(
         setModel: EditorSetViewModel,
@@ -37,6 +22,7 @@ final class SetFiltersListViewModel: ObservableObject {
         self.setModel = setModel
         self.dataviewService = dataviewService
         self.router = router
+        self.setup()
     }
     
 }
@@ -46,8 +32,8 @@ extension SetFiltersListViewModel {
     // MARK: - Actions
     
     func addButtonTapped() {
-        router.showRelationSearch(relations: setModel.relations) { [weak self] id in
-            guard let filter = self?.makeSetFilter(with: id) else {
+        router.showRelationSearch(relationsDetails: setModel.activeViewRelations()) { [weak self] relationDetails in
+            guard let filter = self?.makeSetFilter(with: relationDetails) else {
                 return
             }
             self?.showFilterSearch(with: filter)
@@ -61,6 +47,28 @@ extension SetFiltersListViewModel {
     }
     
     // MARK: - Private methods
+    
+    private func setup() {
+        cancellable = setModel.$filters.sink { [weak self] filters in
+            self?.updateRows(with: filters)
+        }
+    }
+    
+    private func updateRows(with filters: [SetFilter]) {
+        rows = filters.enumerated().map { index, filter in
+            SetFilterRowConfiguration(
+                id: "\(filter.relationDetails.id)_\(index)",
+                title: filter.relationDetails.name,
+                subtitle: filter.conditionString,
+                iconAsset: filter.relationDetails.format.iconAsset,
+                type: type(for: filter),
+                hasValues: filter.filter.condition.hasValues,
+                onTap: { [weak self] in
+                    self?.rowTapped(filter.relationDetails.id, index: index)
+                }
+            )
+        }
+    }
     
     private func rowTapped(_ id: String, index: Int) {
         guard let filter = setModel.filters[safe: index], filter.id == id  else {
@@ -76,18 +84,20 @@ extension SetFiltersListViewModel {
     
     private func updateView(with dataviewFilters: [DataviewFilter]) {
         let newView = setModel.activeView.updated(filters: dataviewFilters)
-        dataviewService.updateView(newView)
+        Task {
+            try await dataviewService.updateView(newView)
+        }
     }
     
-    private func makeSetFilter(with id: String) -> SetFilter? {
-        guard let metadata = setModel.relations.first(where: { $0.id == id }) else {
+    private func makeSetFilter(with relationDetails: RelationDetails) -> SetFilter? {
+        guard let filteredDetails = setModel.activeViewRelations().first(where: { $0.id == relationDetails.id }) else {
             return nil
         }
         return SetFilter(
-            metadata: metadata,
+            relationDetails: filteredDetails,
             filter: DataviewFilter(
-                relationKey: id,
-                condition: SetFilter.defaultCondition(for: metadata),
+                relationKey: filteredDetails.key,
+                condition: SetFilter.defaultCondition(for: filteredDetails),
                 value: [String]().protobufValue
             )
         )
@@ -104,6 +114,24 @@ extension SetFiltersListViewModel {
             filters.append(updatedFilter.filter)
         }
         updateView(with: filters)
+    }
+    
+    private func type(for filter: SetFilter) -> SetFilterRowType {
+        switch filter.relationDetails.format {
+        case .date:
+            return .date(
+                relationFilterBuilder.dateString(
+                    for: filter.filter
+                )
+            )
+        default:
+            return .relation(
+                relationFilterBuilder.relation(
+                    relationDetails: filter.relationDetails,
+                    filter: filter.filter
+                )
+            )
+        }
     }
     
     // MARK: - Routing

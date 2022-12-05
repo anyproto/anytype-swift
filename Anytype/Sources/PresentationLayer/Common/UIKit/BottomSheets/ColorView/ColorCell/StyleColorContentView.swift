@@ -46,10 +46,10 @@ final class StyleColorContentView: UIView, UIContentView {
         colorView.translatesAutoresizingMaskIntoConstraints = false
         backgroundView.translatesAutoresizingMaskIntoConstraints = false
 
-        colorView.layer.borderColor = UIColor.textTertiary.cgColor
+        colorView.dynamicBorderColor = UIColor.textTertiary
         colorView.layer.borderWidth = 1
 
-        backgroundView.layer.borderColor = UIColor.strokeSecondary.cgColor
+        backgroundView.dynamicBorderColor = UIColor.strokeSecondary
         backgroundView.layer.borderWidth = 3
 
         addSubview(backgroundView)

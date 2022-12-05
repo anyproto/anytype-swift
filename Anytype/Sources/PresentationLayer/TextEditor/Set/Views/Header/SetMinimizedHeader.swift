@@ -1,4 +1,5 @@
 import SwiftUI
+import AnytypeCore
 
 struct SetMinimizedHeader: View {
     var headerSize: CGSize
@@ -8,6 +9,8 @@ struct SetMinimizedHeader: View {
     @EnvironmentObject private var model: EditorSetViewModel
 
     private let minimizedHeaderHeight = ObjectHeaderConstants.minimizedHeaderHeight + UIApplication.shared.mainWindowInsets.top
+    
+    private let setSyncStatus = FeatureFlags.setSyncStatus
 
     var body: some View {
         VStack {
@@ -20,9 +23,14 @@ struct SetMinimizedHeader: View {
         VStack(spacing: 0) {
             Spacer.fixedHeight(UIApplication.shared.mainWindowInsets.top)
             HStack(alignment: .center, spacing: 0) {
-                Rectangle().frame(width: 1, height: 1).foregroundColor(.clear) // sync status here
-                Spacer.fixedWidth(8)
-                Spacer()
+                if setSyncStatus {
+                    syncsStatusItem
+                    Spacer.fixedWidth(14)
+                } else {
+                    Rectangle().frame(width: 1, height: 1).foregroundColor(.clear) // sync status here
+                    Spacer.fixedWidth(8)
+                    Spacer()
+                }
                 title
                 Spacer()
                 settingsButton
@@ -36,24 +44,35 @@ struct SetMinimizedHeader: View {
     }
     
     private var title: some View {
-        Group {
+        HStack(spacing: 8) {
             if let icon = model.details?.objectIconImage {
                 SwiftUIObjectIconImageView(iconImage: icon, usecase: .openedObjectNavigationBar)
                     .frame(width: 18, height: 18)
-                Spacer.fixedWidth(8)
             }
             model.details.flatMap {
                 AnytypeText($0.title, style: .body, color: .textPrimary)
                     .lineLimit(1)
             }
-            
         }
-        .opacity(opacity)
+        .opacity(setSyncStatus ? titleOpacity : opacity)
+        .if(setSyncStatus) {
+            $0.frame(maxWidth: .infinity).layoutPriority(1)
+        }
+    }
+    
+    private var syncsStatusItem: some View {
+        SwiftUIEditorSyncStatusItem(
+            status: model.syncStatus,
+            state: EditorBarItemState(
+                haveBackground: model.details?.documentCover.isNotNil ?? false,
+                opacity: syncStatusItemOpacity
+            )
+        )
     }
     
     private var settingsButton: some View {
         EditorBarButtonItem(
-            image: .more,
+            imageAsset: .more,
             state: EditorBarItemState(
                 haveBackground: model.details?.documentCover.isNotNil ?? false,
                 opacity: opacity
@@ -72,6 +91,14 @@ struct SetMinimizedHeader: View {
         let startingOpacityHeight = headerSize.height - minimizedHeaderHeight
         let opacity = abs(tableViewOffset.y) / startingOpacityHeight
         return min(opacity, 1)
+    }
+    
+    private var titleOpacity: Double {
+        (max(opacity, 0.5) - 0.5) * 2
+    }
+    
+    private var syncStatusItemOpacity: Double {
+        min(opacity, 0.5) * 2
     }
 }
 

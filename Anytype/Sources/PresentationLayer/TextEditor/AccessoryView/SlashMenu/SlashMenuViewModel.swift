@@ -2,6 +2,7 @@ import BlocksModels
 import Combine
 import ProtobufMessages
 import UIKit
+import AnytypeCore
 
 final class SlashMenuViewModel {
     var info: BlockInformation?
@@ -54,5 +55,8 @@ final class SlashMenuViewModel {
         mutableText.replaceCharacters(in: range, with: "")
         handler.changeText(mutableText, info: info)
         textView.attributedText = mutableText
+        if FeatureFlags.cursorPosition {
+            textView.selectedRange = NSRange(location: selectedRange.location, length: 0)
+        }
     }
 }

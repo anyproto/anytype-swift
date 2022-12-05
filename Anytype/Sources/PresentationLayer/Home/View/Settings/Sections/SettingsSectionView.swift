@@ -8,25 +8,25 @@ struct SettingsSectionView: View {
         VStack(spacing: 0) {
             SettingsSectionItemView(
                 name: Loc.accountData,
-                icon: .settings.account,
+                imageAsset: .settingsAccountAndData,
                 pressed: $viewModel.account
             )
             
             SettingsSectionItemView(
                 name: Loc.personalization,
-                icon: .settings.personalization,
+                imageAsset: .settingsPersonalization,
                 pressed: $viewModel.personalization
             )
             
             SettingsSectionItemView(
                 name: Loc.appearance,
-                icon: .settings.appearance,
+                imageAsset: .settingsAppearance,
                 pressed: $viewModel.appearance
             )
 
             SettingsSectionItemView(
                 name: Loc.about,
-                icon: .settings.about,
+                imageAsset: .settingsAbout,
                 pressed: $viewModel.about
             )
             
@@ -34,10 +34,10 @@ struct SettingsSectionView: View {
                 DebugMenu()
             }
             
-            #if !RELEASE
+            #if DEBUG
             SettingsSectionItemView(
                 name: "Debug",
-                icon: .settings.debug,
+                imageAsset: .settingsDebug,
                 pressed: $viewModel.debugMenu
             )
             #endif
@@ -51,7 +51,12 @@ struct SettingsSectionView: View {
 struct SettingsSectionView_Previews: PreviewProvider {
     static var previews: some View {
         SettingsSectionView()
-            .environmentObject(SettingsViewModel(authService: ServiceLocator.shared.authService()))
+            .environmentObject(
+                SettingsViewModel(
+                    authService: ServiceLocator.shared.authService(),
+                    windowManager: DI.makeForPreview().coordinatorsDI.windowManager
+                )
+            )
             .previewLayout(.sizeThatFits)
     }
 }

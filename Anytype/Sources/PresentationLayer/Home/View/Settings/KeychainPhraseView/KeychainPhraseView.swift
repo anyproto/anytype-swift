@@ -4,6 +4,7 @@ import SwiftUI
 struct KeychainPhraseView: View {
     var shownInContext: AnalyticsEventsKeychainContext
 
+    @StateObject private var model = KeychainPhraseViewModel()
     @State private var showSnackbar = false
     
     var body: some View {
@@ -14,14 +15,18 @@ struct KeychainPhraseView: View {
                 .multilineTextAlignment(.center)
                 .frame(maxWidth: .infinity, alignment: .center)
             Spacer.fixedHeight(25)
-            AnytypeText(Loc.recoveryPhraseDescription, style: .uxBodyRegular, color: .textPrimary)
+            AnytypeText(Loc.Keychain.recoveryPhraseDescription, style: .uxBodyRegular, color: .textPrimary)
             Spacer.fixedHeight(34)
-            SeedPhraseView {
-                showSnackbar = true
-
-                AnytypeAnalytics.instance().logKeychainPhraseCopy(shownInContext)
+            SeedPhraseView(model: model) {
+                didShowPhrase()
             }
             Spacer()
+            StandardButton(text: Loc.Keychain.showAndCopyPhrase, style: .secondary) {
+                model.onSeedViewTap(onTap: {
+                    didShowPhrase()
+                })
+            }
+            Spacer.fixedHeight(20)
         }
         .cornerRadius(12)
         .padding(.horizontal, 20)
@@ -30,9 +35,14 @@ struct KeychainPhraseView: View {
         }
         .snackbar(
             isShowing: $showSnackbar,
-            text: AnytypeText(Loc.recoveryPhraseCopiedToClipboard, style: .uxCalloutRegular, color: .textPrimary)
+            text: AnytypeText(Loc.Keychain.recoveryPhraseCopiedToClipboard, style: .uxCalloutRegular, color: .textPrimary)
         )
-
+        .environmentObject(model)
+    }
+    
+    private func didShowPhrase() {
+        showSnackbar = true
+        AnytypeAnalytics.instance().logKeychainPhraseCopy(shownInContext)
     }
 }
 

@@ -4,8 +4,7 @@ import SwiftUI
 import Combine
 import FloatingPanel
 
-final class TextRelationDetailsViewModel: ObservableObject {
-          
+final class TextRelationDetailsViewModel: ObservableObject, TextRelationDetailsViewModelProtocol {     
     weak var viewController: TextRelationDetailsViewController?
     
     private weak var popup: AnytypePopupProxy?
@@ -16,15 +15,19 @@ final class TextRelationDetailsViewModel: ObservableObject {
         }
     }
     
-    @Published var value: String = "" {
-        didSet {
-            handleValueUpdate(value: value)
-        }
+    @Published var value: String = ""
+    
+    var isEditable: Bool {
+        return relation.isEditable
+    }
+    
+    var title: String {
+        relation.name
     }
     
     let type: TextRelationDetailsViewType
     
-    let actionButtonViewModel: TextRelationActionButtonViewModel?
+    let actionsViewModel: [TextRelationActionViewModelProtocol]
     
     private let relation: Relation
     private let service: TextRelationDetailsServiceProtocol
@@ -40,13 +43,13 @@ final class TextRelationDetailsViewModel: ObservableObject {
         type: TextRelationDetailsViewType,
         relation: Relation,
         service: TextRelationDetailsServiceProtocol,
-        actionButtonViewModel: TextRelationActionButtonViewModel?
+        actionsViewModel: [TextRelationActionViewModelProtocol] = []
     ) {
         self.value = value
         self.type = type
-        self.actionButtonViewModel = actionButtonViewModel
         self.relation = relation
         self.service = service
+        self.actionsViewModel = actionsViewModel
         
         cancellable = self.$value
             .debounce(for: .seconds(0.5), scheduler: RunLoop.main)
@@ -58,10 +61,10 @@ final class TextRelationDetailsViewModel: ObservableObject {
         handleValueUpdate(value: value)
     }
     
-    var title: String {
-        relation.name
+    func updateValue(_ text: String) {
+        value = text
+        handleValueUpdate(value: value)
     }
-    
 }
 
 extension TextRelationDetailsViewModel {
@@ -88,7 +91,8 @@ extension TextRelationDetailsViewModel: AnytypePopupViewModelProtocol {
 private extension TextRelationDetailsViewModel {
     
     func saveValue() {
-        service.saveRelation(value: value, key: relation.id, textType: type)
+        service.saveRelation(value: value, key: relation.key, textType: type)
+        logEvent()
     }
     
     func setupKeyboardListener() {
@@ -117,7 +121,17 @@ private extension TextRelationDetailsViewModel {
     }
     
     func handleValueUpdate(value: String) {
-        actionButtonViewModel?.text = value
+        for actionViewModel in actionsViewModel {
+            actionViewModel.inputText = value
+        }
     }
     
+    private func logEvent() {
+        switch type {
+        case .url:
+            AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.relationUrlEditMobile)
+        default:
+            break
+        }
+    }
 }

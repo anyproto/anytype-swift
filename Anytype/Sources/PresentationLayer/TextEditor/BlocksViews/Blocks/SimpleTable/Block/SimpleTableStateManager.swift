@@ -2,6 +2,7 @@ import Combine
 import Foundation
 import BlocksModels
 import UIKit
+import AnytypeCore
 
 protocol SimpleTableSelectionHandler: AnyObject {
     func didStartSimpleTableSelectionMode(
@@ -19,45 +20,77 @@ protocol SimpleTableMenuDelegate: AnyObject {
 protocol SimpleTableStateManagerProtocol: EditorPageBlocksStateManagerProtocol {
     var selectedMenuTabPublisher: AnyPublisher<SimpleTableMenuView.Tab, Never> { get }
     var selectedMenuTab: SimpleTableMenuView.Tab { get }
+
+    var selectedBlocksIndexPathsPublisher: AnyPublisher<[IndexPath], Never> { get }
 }
 
-final class SimpleTableStateManager: SimpleTableStateManagerProtocol, SimpleTableMenuDelegate {
+final class SimpleTableStateManager: SimpleTableStateManagerProtocol {
+
+
     var editorEditingStatePublisher: AnyPublisher<EditorEditingState, Never> { $editingState.eraseToAnyPublisher() }
     var selectedMenuTabPublisher: AnyPublisher<SimpleTableMenuView.Tab, Never> { $selectedMenuTab.eraseToAnyPublisher() }
-    var editorSelectedBlocks: AnyPublisher<[BlockId], Never> { $selectedBlocks.eraseToAnyPublisher() }
-    var selectedBlocksIndexPaths = [IndexPath]()
+    var editorSelectedBlocks: AnyPublisher<[BlockId], Never> { fatalError("To remove!!!") } // Not used
+
+    var selectedBlocksIndexPathsPublisher: AnyPublisher<[IndexPath], Never> { selectedIndexPathsSubject.eraseToAnyPublisher() }
 
     @Published var editingState: EditorEditingState = .editing
     @Published var selectedMenuTab: SimpleTableMenuView.Tab = .cell
-    @Published private var selectedBlocks = [BlockId]()
 
+    private let selectedIndexPathsSubject = PassthroughSubject<[IndexPath], Never>()
     private let tableBlockInformation: BlockInformation
-
     private let document: BaseDocumentProtocol
-    private let tableService: BlockTableServiceProtocol
+    private let selectionOptionHandler: SimpleTableSelectionOptionHandler
     private let router: EditorRouterProtocol
-    private let actionHandler: BlockActionHandlerProtocol
+    private let cursorManager: EditorCursorManager
+    private var selectedBlocksIndexPaths = [IndexPath]() {
+        didSet {
+            selectionOptionHandler.selectedBlocksIndexPaths = selectedBlocksIndexPaths
+
+            if selectedMenuTab == .cell {
+                selectedCellsIndexPaths = selectedBlocksIndexPaths
+            }
+        }
+    }
+
+    private var selectedCellsIndexPaths = [IndexPath]()
+
     private weak var mainEditorSelectionManager: SimpleTableSelectionHandler?
+    weak var viewInput: EditorPageViewInput?
 
     init(
         document: BaseDocumentProtocol,
         tableBlockInformation: BlockInformation,
-        tableService: BlockTableServiceProtocol,
+        selectionOptionHandler: SimpleTableSelectionOptionHandler,
         router: EditorRouterProtocol,
-        actionHandler: BlockActionHandlerProtocol,
+        cursorManager: EditorCursorManager,
         mainEditorSelectionManager: SimpleTableSelectionHandler?
     ) {
         self.document = document
         self.tableBlockInformation = tableBlockInformation
-        self.tableService = tableService
+        self.selectionOptionHandler = selectionOptionHandler
         self.router = router
-        self.actionHandler = actionHandler
+        self.cursorManager = cursorManager
         self.mainEditorSelectionManager = mainEditorSelectionManager
+
+        selectionOptionHandler.onFinishSelection = { [weak self] in self?.resetToEditingMode() }
     }
 
     func checkOpenedState() {}
 
-    func checkDocumentLockField() {}
+    func checkDocumentLockField() {
+        switch editingState {
+        case .editing, .locked, .loading:
+            break
+        default:
+            return // Unable to change state while moving or selecting blocks
+        }
+
+        if document.isLocked {
+            editingState = .locked
+        } else if case .locked = editingState, !document.isLocked {
+            editingState = .editing
+        }
+    }
 
     func canSelectBlock(at indexPath: IndexPath) -> Bool {
         return true
@@ -69,6 +102,13 @@ final class SimpleTableStateManager: SimpleTableStateManagerProtocol, SimpleTabl
 
     func didUpdateSelectedIndexPaths(_ indexPaths: [IndexPath]) {
         guard case .selecting = editingState else { return }
+
+        UISelectionFeedbackGenerator().selectionChanged()
+
+        guard indexPaths.count > 0 else {
+            resetToEditingMode()
+            return
+        }
         selectedBlocksIndexPaths = indexPaths
 
         updateMenuItems(for: selectedBlocksIndexPaths)
@@ -93,49 +133,50 @@ final class SimpleTableStateManager: SimpleTableStateManagerProtocol, SimpleTabl
         editingState = .editing
 
         selectedBlocksIndexPaths.removeAll()
+        selectedMenuTab = .cell
     }
 
 
-    // MARK: - SimpleTableMenuDelegate
+    // MARK: - Private
 
-    func didSelectTab(tab: SimpleTableMenuView.Tab) {
-        self.selectedMenuTab = tab
-
-        updateMenuItems(for: selectedBlocksIndexPaths)
+    private func resetToEditingMode() {
+        editingState = .editing
+        mainEditorSelectionManager?.didStopSimpleTableSelectionMode()
+        selectedMenuTab = .cell
     }
 
     private func updateMenuItems(for selectedBlocks: [IndexPath]) {
         guard let computedTable = ComputedTable(blockInformation: tableBlockInformation, infoContainer: document.infoContainer) else {
             return
         }
-        let horizontalListItems: [HorizontalListItem]
+        let horizontalListItems: [SelectionOptionsItemViewModel]
 
         switch selectedMenuTab {
         case .cell:
             horizontalListItems = SimpleTableCellMenuItem.allCases.map { item in
-                HorizontalListItem.init(
-                    id: "\(item.hashValue)",
+                SelectionOptionsItemViewModel(
+                    id: "\(UUID().uuidString) \(item.hashValue)", // sometimes SwiftUI view do not update items with equal hashes and action doesn't work. This class could be deinited whilte reusing cell.s
                     title: item.title,
-                    image: .image(item.image),
-                    action: { [weak self] in self?.handleCellAction(action: item) }
+                    imageAsset: item.imageAsset,
+                    action: { [weak selectionOptionHandler] in selectionOptionHandler?.handle(action: .cell(item)) }
                 )
             }
         case .row:
             horizontalListItems = SimpleTableRowMenuItem.allCases.map { item in
-                HorizontalListItem.init(
-                    id: "\(item.hashValue)",
+                SelectionOptionsItemViewModel(
+                    id: "\(UUID().uuidString) \(item.hashValue)",
                     title: item.title,
-                    image: .image(item.image),
-                    action: { [weak self] in self?.handleRowAction(action: item) }
+                    imageAsset: item.imageAsset,
+                    action: { [weak selectionOptionHandler] in selectionOptionHandler?.handle(action: .row(item)) }
                 )
             }
         case .column:
             horizontalListItems = SimpleTableColumnMenuItem.allCases.map { item in
-                HorizontalListItem.init(
-                    id: "\(item.hashValue)",
+                SelectionOptionsItemViewModel(
+                    id: "\(UUID().uuidString) \(item.hashValue)",
                     title: item.title,
-                    image: .image(item.image),
-                    action: { [weak self] in self?.handleColumnAction(action: item) }
+                    imageAsset: item.imageAsset,
+                    action: { [weak selectionOptionHandler] in selectionOptionHandler?.handle(action: .column(item)) }
                 )
             }
         }
@@ -163,242 +204,48 @@ final class SimpleTableStateManager: SimpleTableStateManagerProtocol, SimpleTabl
             )
         }
     }
+}
 
-    private func handleColumnAction(action: SimpleTableColumnMenuItem) {
-        guard let table = ComputedTable(
-                blockInformation: tableBlockInformation,
-                infoContainer: document.infoContainer
-              ) else { return }
-
-        let selectedColumns = selectedBlocksIndexPaths
-            .map { table.cells[$0.section][$0.row].columnId }
-        let uniqueColumns = Set(selectedColumns)
-
-        let selectedBlockIds = selectedBlocksIndexPaths
-            .compactMap { table.cells[$0.section][$0.row].blockId }
-
-        fillSelectedRows()
-
-        switch action {
-        case .insertLeft:
-            uniqueColumns.forEach {
-                tableService.insertColumn(contextId: document.objectId, targetId: $0, position: .left)
-            }
-        case .insertRight:
-            uniqueColumns.forEach {
-                tableService.insertColumn(contextId: document.objectId, targetId: $0, position: .right)
-            }
-        case .moveLeft:
-            let allColumnIds = table.allColumnIds
-            let dropColumnIds = uniqueColumns.compactMap { item -> BlockId? in
-                guard let index = allColumnIds.firstIndex(of: item) else { return nil }
-                let indexBefore = allColumnIds.index(before: index)
-
-                return allColumnIds[safe: indexBefore]
-            }
-
-            zip(uniqueColumns, dropColumnIds).forEach { targetId, dropColumnId in
-                tableService.columnMove(contextId: document.objectId, targetId: targetId, dropTargetID: dropColumnId, position: .left)
-
-            }
-        case .moveRight:
-            let allColumnIds = table.allColumnIds
-            let dropColumnIds = uniqueColumns.compactMap { item -> BlockId? in
-                guard let index = allColumnIds.firstIndex(of: item) else { return nil }
-                let indexBefore = allColumnIds.index(after: index)
-
-                return allColumnIds[safe: indexBefore]
-            }
-
-            zip(uniqueColumns, dropColumnIds).forEach { targetId, dropColumnId in
-                tableService.columnMove(contextId: document.objectId, targetId: targetId, dropTargetID: dropColumnId, position: .right)
-
-            }
-        case .duplicate:
-            uniqueColumns.forEach {
-                tableService.columnDuplicate(contextId: document.objectId, targetId: $0)
-            }
-
-        case .delete:
-            uniqueColumns.forEach {
-                tableService.deleteColumn(contextId: document.objectId, targetId: $0)
-            }
-        case .clearContents:
-            tableService.clearContents(contextId: document.objectId, blockIds: selectedBlockIds)
-        case .sort:
-            uniqueColumns.forEach {
-                tableService.columnSort(contextId: document.objectId, columnId: $0, blocksSortType: .desc)
-            }
-        case .color:
-            onColorSelection(for: selectedBlockIds)
+// MARK: - SimpleTableMenuDelegate
+extension SimpleTableStateManager: SimpleTableMenuDelegate {
+    func didSelectTab(tab: SimpleTableMenuView.Tab) {
+        guard let table = ComputedTable(blockInformation: tableBlockInformation, infoContainer: document.infoContainer) else {
             return
-        case .style:
-            break
         }
 
-        editingState = .editing
-        mainEditorSelectionManager?.didStopSimpleTableSelectionMode()
-        selectedMenuTab = .cell
-    }
+        let selectedIndexPaths: [IndexPath]
 
-    private func onColorSelection(for selectedBlockIds: [BlockId]) {
-        let blockInformations = selectedBlockIds.compactMap(document.infoContainer.get(id:))
-
-        let backgroundColors = blockInformations.map(\.backgroundColor)
-        let textColors = blockInformations.compactMap { blockInformation -> MiddlewareColor in
-            if case let .text(blockText) = blockInformation.content {
-                return blockText.color ?? .default
-            }
-
-            return MiddlewareColor.default
-        }
-
-        let uniqueBackgroundColors = Set(backgroundColors)
-        let uniqueTextColors = Set(textColors)
-
-        let backgroundColor = uniqueBackgroundColors.count > 1 ? nil : (uniqueBackgroundColors.first ?? .default)
-        let textColor = uniqueTextColors.count > 1 ? nil : (uniqueTextColors.first ?? .default)
-
-        router.showColorPicker(
-            onColorSelection: { [weak actionHandler] colorItem in
-                switch colorItem {
-                case .text(let blockColor):
-                    actionHandler?.setTextColor(blockColor, blockIds: selectedBlockIds)
-                case .background(let blockBackgroundColor):
-                    actionHandler?.setBackgroundColor(blockBackgroundColor, blockIds: selectedBlockIds)
-                }
-            },
-            selectedColor: textColor.map(UIColor.Text.uiColor(from:)) ?? nil,
-            selectedBackgroundColor: backgroundColor.map(UIColor.Background.uiColor(from:)) ?? nil
-        )
-    }
-
-    private func handleRowAction(action: SimpleTableRowMenuItem) {
-        guard let table = ComputedTable(
-            blockInformation: tableBlockInformation,
-            infoContainer: document.infoContainer
-        ) else { return }
-
-        let selectedRowIds = selectedBlocksIndexPaths
-            .map { table.cells[$0.section][$0.row].rowId }
-        let uniqueRows = Set(selectedRowIds)
-
-        let selectedBlockIds = selectedBlocksIndexPaths
-            .compactMap { table.cells[$0.section][$0.row].blockId }
-
-        fillSelectedRows()
-
-        switch action {
-        case .insertAbove:
-            uniqueRows.forEach {
-                tableService.insertRow(contextId: document.objectId, targetId: $0, position: .top)
-            }
-        case .insertBelow:
-            uniqueRows.forEach {
-                tableService.insertRow(contextId: document.objectId, targetId: $0, position: .bottom)
-            }
-        case .moveUp:
-            let allRowIds = table.allRowIds
-            let dropRowIds = uniqueRows.compactMap { item -> BlockId? in
-                guard let index = allRowIds.firstIndex(of: item) else { return nil }
-                let indexBefore = allRowIds.index(before: index)
-
-                return allRowIds[safe: indexBefore]
-            }
-
-            zip(uniqueRows, dropRowIds).forEach { targetId, dropColumnId in
-                tableService.rowMove(
-                    contextId: document.objectId,
-                    targetId: targetId,
-                    dropTargetID: dropColumnId,
-                    position: .top
+        switch tab {
+        case .cell:
+            selectedIndexPaths = selectedCellsIndexPaths
+        case .column:
+            let rowIndexPaths = selectedCellsIndexPaths.flatMap {
+                SpreadsheetSelectionHelper.allIndexPaths(
+                    for: $0.row,
+                    sectionsCount: table.cells.count
                 )
             }
-        case .moveDown:
-            let allRowIds = table.allRowIds
-            let dropRowIds = uniqueRows.compactMap { item -> BlockId? in
-                guard let index = allRowIds.firstIndex(of: item) else { return nil }
-                let indexAfter = allRowIds.index(after: index)
-
-                return allRowIds[safe: indexAfter]
-            }
-
-            zip(uniqueRows, dropRowIds).forEach { targetId, dropColumnId in
-                tableService.rowMove(
-                    contextId: document.objectId,
-                    targetId: targetId,
-                    dropTargetID: dropColumnId,
-                    position: .bottom
+            selectedIndexPaths = rowIndexPaths
+        case .row:
+            let rowIndexPaths = selectedCellsIndexPaths.flatMap {
+                SpreadsheetSelectionHelper.allIndexPaths(
+                    for: $0.section,
+                    rowsCount: table.cells.first?.count ?? 0
                 )
             }
-        case .duplicate:
-            uniqueRows.forEach {
-                tableService.rowDuplicate(contextId: document.objectId, targetId: $0)
-            }
-        case .delete:
-            uniqueRows.forEach {
-                tableService.deleteRow(contextId: document.objectId, targetId: $0)
-            }
-        case .clearContents:
-            tableService.clearContents(contextId: document.objectId, blockIds: selectedBlockIds)
-        case .color:
-            onColorSelection(for: selectedBlockIds)
-            return
-        case .style:
-            return
+            selectedIndexPaths = rowIndexPaths
         }
 
-        editingState = .editing
-        mainEditorSelectionManager?.didStopSimpleTableSelectionMode()
-        selectedMenuTab = .cell
-    }
+        self.selectedMenuTab = tab
 
-    private func handleCellAction(action: SimpleTableCellMenuItem) {
-        guard let table = ComputedTable(
-            blockInformation: tableBlockInformation,
-            infoContainer: document.infoContainer
-        ) else { return }
+        self.selectedIndexPathsSubject.send(selectedIndexPaths)
+        self.selectedBlocksIndexPaths = selectedIndexPaths
 
-
-        let selectedBlockIds = selectedBlocksIndexPaths
-            .compactMap { table.cells[$0.section][$0.row].blockId }
-
-        fillSelectedRows()
-
-        switch action {
-        case .clearContents:
-            tableService.clearContents(contextId: document.objectId, blockIds: selectedBlockIds)
-        case .color:
-            onColorSelection(for: selectedBlockIds)
-            return
-        case .style:
-            return
-        case .clearStyle:
-            tableService.clearStyle(contextId: document.objectId, blocksIds: selectedBlockIds)
-        }
-
-        editingState = .editing
-        mainEditorSelectionManager?.didStopSimpleTableSelectionMode()
-        selectedMenuTab = .cell
-    }
-
-    private func fillSelectedRows() {
-        guard let table = ComputedTable(
-            blockInformation: tableBlockInformation,
-            infoContainer: document.infoContainer
-        ) else { return }
-
-        let selectedRows = Set(
-            selectedBlocksIndexPaths
-                .compactMap { table.cells[$0.section][$0.row].rowId }
-        )
-
-        guard selectedRows.count > 0 else { return }
-
-        tableService.rowListFill(contextId: document.objectId, targetIds: Array(selectedRows))
+        updateMenuItems(for: selectedBlocksIndexPaths)
     }
 }
 
+// MARK: - BlocksSelectionHandler
 extension SimpleTableStateManager: BlockSelectionHandler {
     func didSelectEditingState(info: BlockInformation) {
         guard let computedTable = ComputedTable(blockInformation: tableBlockInformation, infoContainer: document.infoContainer),
@@ -407,11 +254,41 @@ extension SimpleTableStateManager: BlockSelectionHandler {
         }
 
         editingState = .selecting(blocks: [info.id])
-        selectedBlocks = [info.id]
+        selectedIndexPathsSubject.send([selectedIndexPath])
+        selectedBlocksIndexPaths = [selectedIndexPath]
 
         updateMenuItems(for: [selectedIndexPath])
     }
+
+    func didSelectStyleSelection(info: BlockInformation) {
+        guard let computedTable = ComputedTable(blockInformation: tableBlockInformation, infoContainer: document.infoContainer),
+              let selectedIndexPath = computedTable.cells.indexPaths(for: info) else {
+            return
+        }
+
+        editingState = .selecting(blocks: [info.id])
+
+        router.showStyleMenu(
+            information: info,
+            restrictions: SimpleTableTextCellRestrictions(),
+            didShow: { presentedView in
+                //
+            },
+            onDismiss: { [weak self] in
+                self?.editingState = .editing
+                if FeatureFlags.cursorPosition {
+                    self?.cursorManager.restoreLastFocus(at: info.id)
+                } else {
+                    self?.cursorManager.focus(at: info.id)
+                }
+            }
+        )
+
+        selectedIndexPathsSubject.send([selectedIndexPath])
+    }
 }
+
+// MARK: - Private helpers
 
 extension Array where Element == [ComputedTable.Cell] {
     func indexPaths(for blockInformation: BlockInformation) -> IndexPath? {
@@ -448,11 +325,11 @@ extension Array where Element == [ComputedTable.Cell] {
 private extension EditorItem {
      var blockId: BlockId? {
         switch self {
-        case .header(let objectHeader):
+        case .header:
             return nil
         case .block(let blockViewModel):
             return blockViewModel.blockId
-        case .system(let systemContentConfiguationProvider):
+        case .system:
             return nil
         }
     }

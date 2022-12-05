@@ -46,8 +46,8 @@ final class CheckboxRelationViewUIKit: UIView {
     private func createCheckboxView() -> UIButton {
         let checkboxView = UIButton()
         checkboxView.isUserInteractionEnabled = false
-        checkboxView.setImage(UIImage.Relations.checkboxUnchecked, for: .normal)
-        checkboxView.setImage(UIImage.Relations.checkboxChecked, for: .selected)
+        checkboxView.setImage(UIImage(asset: .relationCheckboxUnchecked), for: .normal)
+        checkboxView.setImage(UIImage(asset: .relationCheckboxChecked), for: .selected)
         checkboxView.contentMode = .center
         checkboxView.isSelected = isChecked
 

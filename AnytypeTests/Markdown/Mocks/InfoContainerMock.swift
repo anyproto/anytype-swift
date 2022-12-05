@@ -1,9 +1,15 @@
 import BlocksModels
+import Combine
 import XCTest
 
 final class InfoContainerMock: InfoContainerProtocol {
     func recursiveChildren(of id: BlockId) -> [BlockInformation] {
         []
+    }
+    
+    func publisherFor(id: BlockId) -> AnyPublisher<BlockInformation?, Never> {
+        assertionFailure()
+        return PassthroughSubject().eraseToAnyPublisher()
     }
 
     var getReturnInfo = [BlockId: BlockInformation]()

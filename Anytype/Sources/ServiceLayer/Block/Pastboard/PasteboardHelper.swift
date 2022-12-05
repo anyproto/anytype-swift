@@ -10,8 +10,12 @@ import UIKit
 import UniformTypeIdentifiers
 
 final class PasteboardHelper {
-    private let pasteboard = UIPasteboard.general
+    private lazy var pasteboard = UIPasteboard.general
 
+    func obrainString() -> String? {
+        return pasteboard.string
+    }
+    
     func obtainBlocksSlots() -> [String]? {
         if pasteboard.contains(pasteboardTypes: [UTType.blockSlot.identifier], inItemSet: nil) {
             if let pasteboardData = pasteboard.values(

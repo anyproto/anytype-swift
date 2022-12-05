@@ -25,20 +25,20 @@ enum SlashActionMedia: CaseIterable {
         }
     }
     
-    var iconName: String {
+    var iconAsset: ImageAsset {
         switch self {
         case .file:
-            return ImageName.slashMenu.media.file
+            return .slashMenuMediaFile
         case .pictre:
-            return ImageName.slashMenu.media.picture
+            return .slashMenuMediaPicture
         case .video:
-            return ImageName.slashMenu.media.video
+            return .slashMenuMediaVideo
         case .audio:
-            return ImageName.slashMenu.media.audio
+            return .slashMenuMediaAudio
         case .bookmark:
-            return ImageName.slashMenu.media.bookmark
+            return .slashMenuMediaBookmark
         case .codeSnippet:
-            return ImageName.slashMenu.media.code
+            return .slashMenuMediaCode
         }
     }
     

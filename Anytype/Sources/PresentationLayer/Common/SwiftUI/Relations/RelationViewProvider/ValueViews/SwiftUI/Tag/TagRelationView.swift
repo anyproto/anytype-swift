@@ -63,15 +63,8 @@ struct TagRelationView: View {
                     .frame(width: 24, height: 18)
                     .background(Color.strokeTertiary)
                     .cornerRadius(3)
-            case .filter:
-                TagView(
-                    viewModel: TagView.Model(
-                        text: leftTagsCount,
-                        textColor: .textSecondary,
-                        backgroundColor: UIColor.TagBackground.grey
-                    ),
-                    style: style
-                )
+            case .filter, .setCollection:
+                CountTagView(count: count, style: style)
             }
         }
     }
@@ -83,14 +76,14 @@ private extension TagRelationView {
         switch style {
         case .regular, .set: return 0
         case .featuredRelationBlock: return 3
-        case .filter: return 1
+        case .filter, .setCollection: return 1
         }
     }
     
     private var hSpacing: CGFloat {
         switch style {
         case .regular, .set, .filter: return 8
-        case .featuredRelationBlock: return 6
+        case .featuredRelationBlock, .setCollection: return 6
         }
     }
 }
@@ -99,16 +92,16 @@ struct TagRelationView_Previews: PreviewProvider {
     static var previews: some View {
         TagRelationView(
             tags: [
-                Relation.Tag.Option(id: "id1", text: "text1", textColor: UIColor.Text.teal, backgroundColor: UIColor.Background.default, scope: .local),
-                Relation.Tag.Option(id: "id2", text: "text2", textColor: UIColor.Text.red, backgroundColor: UIColor.Background.red, scope: .local),
-                Relation.Tag.Option(id: "id3", text: "text3", textColor: UIColor.Text.teal, backgroundColor: UIColor.Background.teal, scope: .local),
-                Relation.Tag.Option(id: "id4", text: "text4", textColor: UIColor.Text.red, backgroundColor: UIColor.Background.red, scope: .local),
-                Relation.Tag.Option(id: "id5", text: "text5", textColor: UIColor.Text.teal, backgroundColor: UIColor.Background.teal, scope: .local),
-                Relation.Tag.Option(id: "id6", text: "text6", textColor: UIColor.Text.red, backgroundColor: UIColor.Background.red, scope: .local),
-                Relation.Tag.Option(id: "id7", text: "text7", textColor: UIColor.Text.teal, backgroundColor: UIColor.Background.teal, scope: .local),
-                Relation.Tag.Option(id: "id8", text: "text8", textColor: UIColor.Text.red, backgroundColor: UIColor.Background.red, scope: .local),
-                Relation.Tag.Option(id: "id9", text: "text9", textColor: UIColor.Text.teal, backgroundColor: UIColor.Background.teal, scope: .local),
-                Relation.Tag.Option(id: "id10", text: "text10", textColor: UIColor.Text.red, backgroundColor: UIColor.Background.red, scope: .local)
+                Relation.Tag.Option(id: "id1", text: "text1", textColor: UIColor.Text.teal, backgroundColor: UIColor.Background.default),
+                Relation.Tag.Option(id: "id2", text: "text2", textColor: UIColor.Text.red, backgroundColor: UIColor.Background.red),
+                Relation.Tag.Option(id: "id3", text: "text3", textColor: UIColor.Text.teal, backgroundColor: UIColor.Background.teal),
+                Relation.Tag.Option(id: "id4", text: "text4", textColor: UIColor.Text.red, backgroundColor: UIColor.Background.red),
+                Relation.Tag.Option(id: "id5", text: "text5", textColor: UIColor.Text.teal, backgroundColor: UIColor.Background.teal),
+                Relation.Tag.Option(id: "id6", text: "text6", textColor: UIColor.Text.red, backgroundColor: UIColor.Background.red),
+                Relation.Tag.Option(id: "id7", text: "text7", textColor: UIColor.Text.teal, backgroundColor: UIColor.Background.teal),
+                Relation.Tag.Option(id: "id8", text: "text8", textColor: UIColor.Text.red, backgroundColor: UIColor.Background.red),
+                Relation.Tag.Option(id: "id9", text: "text9", textColor: UIColor.Text.teal, backgroundColor: UIColor.Background.teal),
+                Relation.Tag.Option(id: "id10", text: "text10", textColor: UIColor.Text.red, backgroundColor: UIColor.Background.red)
             ],
             hint: "Hint",
             style: .regular(allowMultiLine: false)

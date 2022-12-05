@@ -1,11 +1,12 @@
 import Foundation
+import BlocksModels
 
 protocol NewSearchModuleAssemblyProtocol {
     
     static func statusSearchModule(
         style: NewSearchView.Style,
         selectionMode: NewSearchViewModel.SelectionMode,
-        allStatuses: [Relation.Status.Option],
+        relationKey: String,
         selectedStatusesIds: [String],
         onSelect: @escaping (_ ids: [String]) -> Void,
         onCreate: @escaping (_ title: String) -> Void
@@ -14,7 +15,7 @@ protocol NewSearchModuleAssemblyProtocol {
     static func tagsSearchModule(
         style: NewSearchView.Style,
         selectionMode: NewSearchViewModel.SelectionMode,
-        allTags: [Relation.Tag.Option],
+        relationKey: String,
         selectedTagIds: [String],
         onSelect: @escaping (_ ids: [String]) -> Void,
         onCreate: @escaping (_ title: String) -> Void
@@ -37,7 +38,10 @@ protocol NewSearchModuleAssemblyProtocol {
     static func objectTypeSearchModule(
         style: NewSearchView.Style,
         title: String,
+        selectedObjectId: BlockId?,
         excludedObjectTypeId: String?,
+        showBookmark: Bool,
+        showSet: Bool,
         onSelect: @escaping (_ id: String) -> Void
     ) -> NewSearchView
     
@@ -47,10 +51,12 @@ protocol NewSearchModuleAssemblyProtocol {
         onSelect: @escaping (_ ids: [String]) -> Void
     ) -> NewSearchView
     
-    static func moveToObjectSearchModule(
+    static func blockObjectsSearchModule(
         style: NewSearchView.Style,
         title: String,
         excludedObjectIds: [String],
-        onSelect: @escaping (_ id: String) -> Void
+        onSelect: @escaping (_ details: ObjectDetails) -> Void
     ) -> NewSearchView
 }
+
+// Extension for specific Settings

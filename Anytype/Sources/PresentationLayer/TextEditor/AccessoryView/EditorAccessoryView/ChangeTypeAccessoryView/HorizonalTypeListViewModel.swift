@@ -30,7 +30,7 @@ final class HorizonalTypeListViewModel: ObservableObject {
 
 extension HorizontalListItem {
     init(from details: ObjectDetails, handler: @escaping () -> Void) {
-        let emoji = Emoji(details.iconEmoji).map { ObjectIconImage.icon(.emoji($0)) } ??  ObjectIconImage.image(UIImage())
+        let emoji = details.iconEmoji.map { ObjectIconImage.icon(.emoji($0)) } ??  ObjectIconImage.image(UIImage())
 
         self.init(
             id: details.id,
@@ -41,7 +41,7 @@ extension HorizontalListItem {
     }
 
     static func searchItem(onTap: @escaping () -> Void) -> Self {
-        let image = UIImage.edititngToolbar.ChangeType.search.image(
+        let image = (UIImage(asset: .search) ?? UIImage()).image(
             imageSize: .init(width: 24, height: 24),
             cornerRadius: 12,
             side: 48,

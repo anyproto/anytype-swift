@@ -10,13 +10,23 @@ import Foundation
 import UIKit
 
 final class ObjectHeaderIconView: UIView {
-    
+
+    var initialBorderWidth = Constants.borderWidth {
+        didSet {
+            iconViewTopConstraint?.constant = initialBorderWidth
+            iconViewLeadingConstraint?.constant = initialBorderWidth
+        }
+    }
+
     // MARK: - Private variables
     
     private let activityIndicatorView = ActivityIndicatorView()
         
     private var containerViewHeightConstraint: NSLayoutConstraint!
     private var containerViewWidthConstraint: NSLayoutConstraint!
+    
+    private var iconViewTopConstraint: NSLayoutConstraint?
+    private var iconViewLeadingConstraint: NSLayoutConstraint?
     
     private let containerView = UIView()
     
@@ -42,39 +52,63 @@ final class ObjectHeaderIconView: UIView {
 
 extension ObjectHeaderIconView: ConfigurableView {
 
-    enum Model: Hashable {
-        case icon(ObjectIconType)
-        case basicPreview(UIImage?)
-        case profilePreview(UIImage?)
+    struct ObjectHeaderIconModel: Hashable {
+        enum Mode: Hashable {
+            case icon(ObjectIconType)
+            case image(UIImage?)
+            case basicPreview(UIImage?)
+            case profilePreview(UIImage?)
+        }
+
+        let mode: Mode
+        let usecase: ObjectIconImageUsecase
     }
 
-    func configure(model: Model) {
-        switch model {
+
+    func configure(model: ObjectHeaderIconModel) {
+        switch model.mode {
         case .icon(let objectIconType):
-            showObjectIconType(objectIconType)
-            
+            showObjectIconType(objectIconType, usecase: model.usecase)
+        case .image(let uiImage):
+            guard let uiImage = uiImage else { return }
+            showImage(uiImage, usecase: model.usecase)
         case .basicPreview(let uIImage):
             showImagePreview(
                 image: uIImage,
-                imageGuideline: ObjectIconImageUsecase.openedObject.objectIconImageGuidelineSet.basicImageGuideline
+                imageGuideline: model.usecase.objectIconImageGuidelineSet.basicImageGuideline
             )
             
         case .profilePreview(let uIImage):
             showImagePreview(
                 image: uIImage,
-                imageGuideline: ObjectIconImageUsecase.openedObject.objectIconImageGuidelineSet.profileImageGuideline
+                imageGuideline: model.usecase.objectIconImageGuidelineSet.profileImageGuideline
             )
         }
     }
-    
 }
 
 private extension ObjectHeaderIconView {
-        
-    func showObjectIconType(_ objectIconType: ObjectIconType) {
+    
+    func showObjectIconType(_ objectIconType: ObjectIconType, usecase: ObjectIconImageUsecase) {
         let model = ObjectIconImageModel(
             iconImage: ObjectIconImage.icon(objectIconType),
-            usecase: .openedObject
+            usecase: usecase
+        )
+        
+        applyImageGuideline(model.imageGuideline)
+        
+        iconImageView.configure(model: model)
+        
+        iconImageView.isHidden = false
+        previewImageView.isHidden = true
+        
+        activityIndicatorView.hide()
+    }
+    
+    func showImage(_ uiImage: UIImage, usecase: ObjectIconImageUsecase) {
+        let model = ObjectIconImageModel(
+            iconImage: .image(uiImage),
+            usecase: usecase
         )
         
         applyImageGuideline(model.imageGuideline)
@@ -89,12 +123,12 @@ private extension ObjectHeaderIconView {
     
     func showImagePreview(image: UIImage?, imageGuideline: ImageGuideline?) {
         applyImageGuideline(imageGuideline)
-
+        
         previewImageView.image = image
-
+        
         iconImageView.isHidden = true
         previewImageView.isHidden = false
-
+        
         activityIndicatorView.show()
     }
     
@@ -109,9 +143,8 @@ private extension ObjectHeaderIconView {
         containerViewWidthConstraint.constant = imageGuideline.size.width
         
         containerView.layer.cornerRadius = imageGuideline.cornerRadius
-        layer.cornerRadius = imageGuideline.cornerRadius + Constants.borderWidth
-    }
-    
+        layer.cornerRadius = imageGuideline.cornerRadius + initialBorderWidth
+    }    
 }
 
 // MARK: - Private extension
@@ -141,13 +174,13 @@ private extension ObjectHeaderIconView {
     func setupLayout() {
         addSubview(containerView) {
             $0.center(in: self)
-            $0.leading.equal(
+            iconViewLeadingConstraint = $0.leading.equal(
                 to: leadingAnchor,
-                constant: Constants.borderWidth
+                constant: initialBorderWidth
             )
-            $0.top.equal(
+            iconViewTopConstraint = $0.top.equal(
                 to: topAnchor,
-                constant: Constants.borderWidth
+                constant: initialBorderWidth
             )
             
             containerViewHeightConstraint = $0.height.equal(to: 0)

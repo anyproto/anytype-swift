@@ -12,14 +12,15 @@ struct SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
 
     private let showWaitingView: (String) -> Void
     private let hideWaitingView: () -> Void
-
+    private let onKeyboardAction: (CustomTextView.KeyboardAction) -> Void
     private let content: BlockText
-    private let showURLBookmarkPopup: (TextBlockURLInputParameters) -> Void
     private let actionHandler: BlockActionHandlerProtocol
     private let pasteboardService: PasteboardServiceProtocol
     private let mentionDetecter = MentionTextDetector()
     private let markdownListener: MarkdownListener
+    private let responderScrollViewHelper: ResponderScrollViewHelper
     private weak var blockDelegate: BlockDelegate?
+
 
     init(
         info: BlockInformation,
@@ -29,11 +30,12 @@ struct SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
         showWaitingView: @escaping (String) -> Void,
         hideWaitingView: @escaping () -> Void,
         content: BlockText,
-        showURLBookmarkPopup: @escaping (TextBlockURLInputParameters) -> Void,
         actionHandler: BlockActionHandlerProtocol,
         pasteboardService: PasteboardServiceProtocol,
         markdownListener: MarkdownListener,
-        blockDelegate: BlockDelegate?
+        blockDelegate: BlockDelegate?,
+        onKeyboardAction: @escaping (CustomTextView.KeyboardAction) -> Void,
+        responderScrollViewHelper: ResponderScrollViewHelper
     ) {
         self.info = info
         self.showPage = showPage
@@ -42,11 +44,12 @@ struct SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
         self.showWaitingView = showWaitingView
         self.hideWaitingView = hideWaitingView
         self.content = content
-        self.showURLBookmarkPopup = showURLBookmarkPopup
         self.actionHandler = actionHandler
         self.pasteboardService = pasteboardService
         self.markdownListener = markdownListener
         self.blockDelegate = blockDelegate
+        self.onKeyboardAction = onKeyboardAction
+        self.responderScrollViewHelper = responderScrollViewHelper
     }
 
     func textBlockActions() -> TextBlockContentConfiguration.Actions {
@@ -64,7 +67,7 @@ struct SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
               textViewWillBeginEditing: textViewWillBeginEditing(textView:),
               textViewDidBeginEditing: textViewDidBeginEditing(textView:),
               textViewDidEndEditing: textViewDidEndEditing(textView:),
-              textViewDidChangeCaretPosition: textViewDidChangeCaretPosition(range:),
+              textViewDidChangeCaretPosition: textViewDidChangeCaretPosition(textView:range:),
               textViewShouldReplaceText: textViewShouldReplaceText(textView:replacementText:range:),
               toggleCheckBox: toggleCheckBox,
               toggleDropDown: toggleCheckBox,
@@ -109,7 +112,10 @@ struct SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
                 textView.setFocus(.beginning)
             case let .addBlock(type, newText):
                 actionHandler.changeTextForced(newText, blockId: info.id)
-                actionHandler.addBlock(type, blockId: info.id, position: .top)
+                actionHandler.addBlock(type, blockId: info.id, blockText: newText, position: .top)
+            case let .addStyle(style, newText, styleRange, focusRange):
+                actionHandler.setTextStyle(style, range: styleRange, blockId: info.id, currentText: newText)
+                textView.setFocus(.at(focusRange))
             }
 
             return false
@@ -144,7 +150,6 @@ struct SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
         range: NSRange
     ) -> Bool {
         let previousTypingAttributes = textView.typingAttributes
-        let originalAttributedString = textView.attributedText
         let trimmedText = replacementText.trimmed
         var urlString = trimmedText
 
@@ -166,32 +171,6 @@ struct SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
         actionHandler.changeTextForced(newText, blockId: info.id)
         textView.attributedText = newText
         textView.typingAttributes = previousTypingAttributes
-
-        let replacementRange = NSRange(location: range.location, length: trimmedText.count)
-
-        guard let textRect = textView.textRectForRange(range: replacementRange) else { return true }
-
-        let urlIputParameters = TextBlockURLInputParameters(
-            textView: textView,
-            rect: textRect) { option in
-                switch option {
-                case .createBookmark:
-                    let position: BlockPosition = textView.text == trimmedText ?
-                        .replace : .bottom
-                    actionHandler.createAndFetchBookmark(
-                        targetID: info.id,
-                        position: position,
-                        url: url.absoluteString
-                    )
-
-                    originalAttributedString.map {
-                        actionHandler.changeTextForced($0, blockId: info.id)
-                    }
-                case .dismiss:
-                    break
-                }
-            }
-        showURLBookmarkPopup(urlIputParameters)
 
         return true
     }
@@ -231,11 +210,7 @@ struct SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
     }
 
     private func handleKeyboardAction(action: CustomTextView.KeyboardAction, textView: UITextView) {
-//        actionHandler.handleKeyboardAction(
-//            action,
-//            currentText: textView.attributedText,
-//            info: info
-//        )
+        onKeyboardAction(action)
     }
 
     private func textBlockSetNeedsLayout(textView: UITextView) { }
@@ -243,6 +218,8 @@ struct SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
     private func textViewDidChangeText(textView: UITextView) {
         actionHandler.changeText(textView.attributedText, info: info)
         blockDelegate?.textDidChange(data: blockDelegateData(textView: textView))
+
+        responderScrollViewHelper.textViewDidBeginEditing(textView: textView)
     }
 
     private func textViewWillBeginEditing(textView: UITextView) {
@@ -251,14 +228,21 @@ struct SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
 
     private func textViewDidBeginEditing(textView: UITextView) {
         blockDelegate?.didBeginEditing(view: textView)
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            responderScrollViewHelper.textViewDidBeginEditing(textView: textView)
+        }
     }
 
     private func textViewDidEndEditing(textView: UITextView) {
         blockDelegate?.didEndEditing(data: blockDelegateData(textView: textView))
     }
 
-    private func textViewDidChangeCaretPosition(range: NSRange) {
-        blockDelegate?.selectionDidChange(range: range)
+    private func textViewDidChangeCaretPosition(textView: UITextView, range: NSRange) {
+        blockDelegate?.selectionDidChange(
+            data: blockDelegateData(textView: textView),
+            range: range
+        )
     }
 
     private func toggleCheckBox() {

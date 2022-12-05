@@ -1,11 +1,11 @@
 import SwiftUI
 
 struct SetTableView: View {
+    @ObservedObject private(set) var model: EditorSetViewModel
+    
     @Binding var tableHeaderSize: CGSize
     @Binding var offset: CGPoint
     var headerMinimizedSize: CGSize
-
-    @EnvironmentObject private var model: EditorSetViewModel
 
     var body: some View {
         if #available(iOS 15.0, *) {
@@ -26,7 +26,10 @@ struct SetTableView: View {
             OffsetAwareScrollView(
                 axes: [.vertical],
                 showsIndicators: false,
-                offsetChanged: { offset.y = $0.y }
+                offsetChanged: {
+                    offset.y = $0.y
+                    UIApplication.shared.hideKeyboard()
+                }
             ) {
                 Spacer.fixedHeight(tableHeaderSize.height)
                 LazyVStack(
@@ -41,12 +44,6 @@ struct SetTableView: View {
                 .padding(.top, -headerMinimizedSize.height)
             }
         }
-        .overlay(
-            SetFullHeader()
-                .readSize { tableHeaderSize = $0 }
-                .offset(x: 0, y: offset.y)
-            , alignment: .topLeading
-        )
     }
     
     private var content: some View {
@@ -55,8 +52,12 @@ struct SetTableView: View {
                 EmptyView()
             } else {
                 Section(header: compoundHeader) {
-                    ForEach(model.rows) { row in
-                        SetTableViewRow(data: row, xOffset: xOffset)
+                    ForEach(model.configurationsDict.keys, id: \.self) { groupId in
+                        if let configurations = model.configurationsDict[groupId] {
+                            ForEach(configurations) { configuration in
+                                SetTableViewRow(configuration: configuration, xOffset: xOffset)
+                            }
+                        }
                     }
                 }
             }
@@ -64,9 +65,12 @@ struct SetTableView: View {
     }
     
     private var pagination: some View {
-        EditorSetPaginationView()
-            .frame(width: tableHeaderSize.width)
-            .offset(x: xOffset, y: 0)
+        EditorSetPaginationView(
+            paginationData: model.pagitationData(by: SubscriptionId.set.value),
+            groupId: SubscriptionId.set.value
+        )
+        .frame(width: tableHeaderSize.width)
+        .offset(x: xOffset, y: 0)
     }
 
     private var xOffset: CGFloat {
@@ -95,6 +99,7 @@ struct SetTableView: View {
 struct SetTableView_Previews: PreviewProvider {
     static var previews: some View {
         SetTableView(
+            model: EditorSetViewModel.empty,
             tableHeaderSize: .constant(.zero),
             offset: .constant(.zero),
             headerMinimizedSize: .zero

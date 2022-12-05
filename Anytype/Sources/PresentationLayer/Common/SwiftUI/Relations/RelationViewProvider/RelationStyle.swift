@@ -4,6 +4,7 @@ enum RelationStyle: Hashable {
     case regular(allowMultiLine: Bool)
     case featuredRelationBlock(allowMultiLine: Bool)
     case set
+    case setCollection
     case filter(hasValues: Bool)
 }
 
@@ -19,10 +20,10 @@ extension RelationStyle {
         switch self {
         case .regular, .filter:
             return .relation1Regular
-        case .set:
+        case .set, .featuredRelationBlock:
             return .relation2Regular
-        case .featuredRelationBlock:
-            return .relation2Regular
+        case .setCollection:
+            return .relation3Regular
         }
     }
 
@@ -30,7 +31,7 @@ extension RelationStyle {
         switch self {
         case .regular, .set:
             return .textPrimary
-        case .featuredRelationBlock, .filter:
+        case .featuredRelationBlock, .filter, .setCollection:
             return .textSecondary
         }
     }
@@ -39,7 +40,7 @@ extension RelationStyle {
         switch self {
         case .regular, .set:
             return .textPrimary
-        case .featuredRelationBlock, .filter:
+        case .featuredRelationBlock, .filter, .setCollection:
             return .textSecondary
         }
     }
@@ -50,7 +51,7 @@ extension RelationStyle {
             return value
         case let .featuredRelationBlock(value):
             return value
-        case .set, .filter:
+        case .set, .filter, .setCollection:
             return false
         }
     }
@@ -59,7 +60,7 @@ extension RelationStyle {
         switch self {
         case .regular, .featuredRelationBlock:
             return .hint
-        case .set:
+        case .set, .setCollection:
             return .empty
         case let .filter(hasValues):
             return .clear(withHint: hasValues)
@@ -68,7 +69,7 @@ extension RelationStyle {
     
     var hintFont: AnytypeFont {
         switch self {
-        case .regular, .set:
+        case .regular, .set, .setCollection:
             return .callout
         case .featuredRelationBlock:
             return .relation2Regular
@@ -84,6 +85,8 @@ extension RelationStyle {
             return TagView.Guidlines(textPadding: 6, cornerRadius: 5, tagHeight: Constants.size20.height)
         case .featuredRelationBlock, .filter:
             return TagView.Guidlines(textPadding: 4, cornerRadius: 4, tagHeight: Constants.size18.height)
+        case .setCollection:
+            return TagView.Guidlines(textPadding: 4, cornerRadius: 3, tagHeight: Constants.size16.height)
         }
     }
 
@@ -93,6 +96,8 @@ extension RelationStyle {
             return ObjectRelationView.ObjectRelationStyle(hSpaсingList: 8, hSpaсingObject: 6, size: Constants.size20)
         case .featuredRelationBlock:
             return ObjectRelationView.ObjectRelationStyle(hSpaсingList: 6, hSpaсingObject: 4, size: Constants.size18)
+        case .setCollection:
+            return ObjectRelationView.ObjectRelationStyle(hSpaсingList: 6, hSpaсingObject: 4, size: Constants.size16)
         }
     }
     
@@ -102,6 +107,8 @@ extension RelationStyle {
             return Constants.size20
         case .featuredRelationBlock:
             return Constants.size18
+        case .setCollection:
+            return Constants.size16
         }
     }
     
@@ -111,6 +118,8 @@ extension RelationStyle {
             return .mention(.body)
         case .featuredRelationBlock, .filter:
             return .featuredRelationsBlock
+        case .setCollection:
+            return .setCollection
         }
     }
     
@@ -121,6 +130,7 @@ private extension RelationStyle {
     enum Constants {
         static let size20 = CGSize(width: 20, height: 20)
         static let size18 = CGSize(width: 18, height: 18)
+        static let size16 = CGSize(width: 16, height: 16)
     }
     
 }

@@ -10,11 +10,18 @@ final class ObjectTypesSearchViewModel {
     
     private var objects: [ObjectDetails] = []
     private let interactor: ObjectTypesSearchInteractor
+    private let selectedObjectId: BlockId?
+    private let onSelect: (_ ids: [String]) -> Void
     
-    init(interactor: ObjectTypesSearchInteractor) {
+    init(
+        interactor: ObjectTypesSearchInteractor,
+        selectedObjectId: BlockId? = nil,
+        onSelect: @escaping (_ ids: [String]) -> Void
+    ) {
         self.interactor = interactor
+        self.selectedObjectId = selectedObjectId
+        self.onSelect = onSelect
     }
-    
 }
 
 extension ObjectTypesSearchViewModel: NewInternalSearchViewModelProtocol {
@@ -33,6 +40,9 @@ extension ObjectTypesSearchViewModel: NewInternalSearchViewModelProtocol {
     
     func handleRowsSelection(ids: [String]) {}
     
+    func handleConfirmSelection(ids: [String]) {
+        onSelect(ids)
+    }
 }
 
 private extension ObjectTypesSearchViewModel {
@@ -44,7 +54,7 @@ private extension ObjectTypesSearchViewModel {
     func handleSearchResults(_ objects: [ObjectDetails]) {
         viewStateSubject.send(
             .resultsList(
-                .plain(rows: objects.asRowConfigurations())
+                .plain(rows: objects.asRowConfigurations(selectedId: selectedObjectId))
             )
         )
     }
@@ -53,14 +63,16 @@ private extension ObjectTypesSearchViewModel {
 
 private extension Array where Element == ObjectDetails {
 
-    func asRowConfigurations() -> [ListRowConfiguration] {
-        map { details in
+    func asRowConfigurations(selectedId: BlockId?) -> [ListRowConfiguration] {
+        sorted { lhs, rhs in
+            lhs.id == selectedId && rhs.id != selectedId
+        }.map { details in
             ListRowConfiguration(
                 id: details.id,
                 contentHash: details.hashValue
             ) {
                 SearchObjectRowView(
-                    viewModel: SearchObjectRowView.Model(details: details),
+                    viewModel: SearchObjectRowView.Model(details: details, isChecked: details.id == selectedId),
                     selectionIndicatorViewModel: nil
                 ).eraseToAnyView()
             }
@@ -71,10 +83,10 @@ private extension Array where Element == ObjectDetails {
 
 private extension SearchObjectRowView.Model {
     
-    init(details: ObjectDetails) {
+    init(details: ObjectDetails, isChecked: Bool) {
         let title = details.title
         self.icon = {
-            if details.layout == .todo {
+            if details.layoutValue == .todo {
                 return .todo(details.isDone)
             } else {
                 return details.icon.flatMap { .icon($0) } ?? .placeholder(title.first)
@@ -83,6 +95,7 @@ private extension SearchObjectRowView.Model {
         self.title = title
         self.subtitle = details.description
         self.style = .default
+        self.isChecked = isChecked
     }
     
 }

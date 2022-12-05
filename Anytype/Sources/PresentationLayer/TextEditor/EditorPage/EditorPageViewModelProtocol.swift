@@ -6,7 +6,6 @@ protocol EditorPageViewModelProtocol: AnyObject {
     var blocksStateManager: EditorPageBlocksStateManagerProtocol { get }
 
     var document: BaseDocumentProtocol { get }
-    var wholeBlockMarkupViewModel: MarkupViewModel { get }
     
     var modelsHolder: EditorMainItemModelsHolder { get }
     var actionHandler: BlockActionHandlerProtocol { get }
@@ -29,4 +28,6 @@ protocol EditorPageViewModelProtocol: AnyObject {
     func showCoverPicker()
     
     func setupSubscriptions()
+    
+    func cursorFocus(blockId: BlockId)
 }

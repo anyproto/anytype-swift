@@ -16,33 +16,37 @@ final class ObjectPreviewLayoutMenuViewModel: CheckPopupViewViewModelProtocol {
 
     // MARK: - Private variables
 
-    private var cardStyle: ObjectPreviewModel.CardStyle
-    private let onSelect: (ObjectPreviewModel.CardStyle) -> Void
+    private var cardStyle: BlockLink.CardStyle
+    private let onSelect: (BlockLink.CardStyle) -> Void
 
     // MARK: - Initializer
 
-    init(cardStyle: ObjectPreviewModel.CardStyle,
-         onSelect: @escaping (ObjectPreviewModel.CardStyle) -> Void) {
+    init(cardStyle: BlockLink.CardStyle,
+         onSelect: @escaping (BlockLink.CardStyle) -> Void) {
         self.onSelect = onSelect
         self.cardStyle = cardStyle
         self.updatePreviewFields(cardStyle)
     }
 
-    func updatePreviewFields(_ cardStyle: ObjectPreviewModel.CardStyle) {
+    func updatePreviewFields(_ cardStyle: BlockLink.CardStyle) {
         items = buildObjectPreviewPopupItem(cardStyle: cardStyle)
     }
 
-    func buildObjectPreviewPopupItem(cardStyle: ObjectPreviewModel.CardStyle) -> [CheckPopupItem] {
-        ObjectPreviewModel.CardStyle.allCases.map { layout -> CheckPopupItem in
-            let isSelected = cardStyle == layout
-            return CheckPopupItem(id: layout.rawValue, icon: layout.iconName, title: layout.name, subtitle: nil, isSelected: isSelected)
+    func buildObjectPreviewPopupItem(cardStyle: BlockLink.CardStyle) -> [CheckPopupItem] {
+        BlockLink.CardStyle.allCases.map { layout -> CheckPopupItem in
+            CheckPopupItem(
+                id: String(layout.rawValue),
+                iconAsset: layout.iconAsset,
+                title: layout.name,
+                subtitle: nil,
+                isSelected: cardStyle == layout,
+                onTap: { [weak self] in self?.onTap(item: layout) }
+            )
         }
     }
 
-    func onTap(itemId: String) {
-        guard let layout = ObjectPreviewModel.CardStyle(rawValue: itemId) else { return }
-
-        onSelect(layout)
-        updatePreviewFields(layout)
+    private func onTap(item: BlockLink.CardStyle) {
+        onSelect(item)
+        updatePreviewFields(item)
     }
 }

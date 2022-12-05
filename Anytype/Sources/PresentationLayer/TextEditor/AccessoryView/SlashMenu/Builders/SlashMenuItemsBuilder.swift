@@ -9,7 +9,7 @@ struct SlashMenuItemsBuilder {
     
     init(
         blockType: BlockContentType,
-        searchService: SearchServiceProtocol = SearchService(),
+        searchService: SearchServiceProtocol = ServiceLocator.shared.searchService(),
         relations: [Relation]
     ) {
         self.restrictions = BlockRestrictionsBuilder.build(contentType: blockType)
@@ -60,7 +60,12 @@ struct SlashMenuItemsBuilder {
     }
     
     private var objectsMenuItem: SlashMenuItem? {
-        let searchTypes = searchService.searchObjectTypes(text: "", filteringTypeUrl: nil) ?? []
+        let searchTypes = searchService.searchObjectTypes(
+            text: "",
+            filteringTypeId: nil,
+            shouldIncludeSets: false,
+            shouldIncludeBookmark: false
+        ) ?? []
 
         let linkTo = SlashActionObject.linkTo
         let objectTypes = searchTypes.map(SlashActionObject.objectType)
@@ -81,15 +86,8 @@ struct SlashMenuItemsBuilder {
     
     private var otherMenuItem: SlashMenuItem {
         let defaultTableAction: SlashActionOther = .table(rowsCount: 3, columnsCount: 3)
-        var allOtherSlashActions: [SlashActionOther] = [.lineDivider, .dotsDivider, .tableOfContents, defaultTableAction]
+        let allOtherSlashActions: [SlashActionOther] = [.lineDivider, .dotsDivider, .tableOfContents, defaultTableAction]
 
-        if !FeatureFlags.isSimpleTablesAvailable {
-            allOtherSlashActions = allOtherSlashActions.filter { $0 == defaultTableAction }
-        }
-
-        if !FeatureFlags.isTableOfContentsAvailable {
-            allOtherSlashActions = allOtherSlashActions.filter { $0 == .tableOfContents }
-        }
         let children: [SlashAction] = allOtherSlashActions.map { .other($0) }
 
         return SlashMenuItem(type: .other, children: children)

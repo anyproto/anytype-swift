@@ -36,8 +36,8 @@ extension ObjectHeader {
         onCoverTap: @escaping () -> ()
     ) -> ObjectHeader? {
         switch self {
-        case .filled(let filledState):
-            return .filled(
+        case .filled(let filledState, _):
+            return .filled(state:
                 filledState.modifiedByIconUploadingEventWith(
                     image: image,
                     onIconTap: onIconTap
@@ -45,11 +45,11 @@ extension ObjectHeader {
             )
             
         case .empty:
-            return .filled(
+            return .filled(state:
                 .iconOnly(
                     ObjectHeaderIconOnlyState(
                         icon: ObjectHeaderIcon(
-                            icon: .basicPreview(image),
+                            icon: .init(mode: .basicPreview(image), usecase: .openedObject),
                             layoutAlignment: .left,
                             onTap: onIconTap
                         ),
@@ -70,18 +70,18 @@ extension ObjectHeader {
         )
         
         switch self {
-        case .filled(let filledState):
+        case .filled(let filledState, _):
             switch filledState {
             case .iconOnly(let objectHeaderIconState):
-                return .filled(.iconAndCover(icon: objectHeaderIconState.icon, cover: newCover))
+                return .filled(state: .iconAndCover(icon: objectHeaderIconState.icon, cover: newCover))
             case .coverOnly:
-                return .filled(.coverOnly(newCover))
+                return .filled(state: .coverOnly(newCover))
             case .iconAndCover(let objectHeaderIcon, _):
-                return .filled(.iconAndCover(icon: objectHeaderIcon, cover: newCover))
+                return .filled(state: .iconAndCover(icon: objectHeaderIcon, cover: newCover))
             }
             
         case .empty:
-            return .filled(.coverOnly(newCover))
+            return .filled(state: .coverOnly(newCover))
         }
     }
     
@@ -105,7 +105,7 @@ private extension ObjectHeaderFilledState {
         case .coverOnly(let objectCover):
             return .iconAndCover(
                 icon: ObjectHeaderIcon(
-                    icon: .basicPreview(image),
+                    icon: .init(mode: .basicPreview(image), usecase: .openedObject),
                     layoutAlignment: .left,
                     onTap: onIconTap
                 ),
@@ -125,37 +125,16 @@ private extension ObjectHeaderFilledState {
 private extension ObjectHeaderIcon {
     
     func modifiedBy(previewImage image: UIImage?) -> ObjectHeaderIcon {
-        switch self.icon {
-        case .icon(let objectIconType):
-            switch objectIconType {
-            case .basic:
-                return ObjectHeaderIcon(
-                    icon: .basicPreview(image),
-                    layoutAlignment: self.layoutAlignment,
-                    onTap: self.onTap
-                )
-            case .profile:
-                return ObjectHeaderIcon(
-                    icon: .profilePreview(image),
-                    layoutAlignment: self.layoutAlignment,
-                    onTap: self.onTap
-                )
-            case .emoji:
-                return ObjectHeaderIcon(
-                    icon: .basicPreview(image),
-                    layoutAlignment: self.layoutAlignment,
-                    onTap: self.onTap
-                )
-            }
-        case .basicPreview:
+        switch self.icon.mode {
+        case .icon(.basic), .icon(.emoji), .icon(.bookmark), .basicPreview, .image:
             return ObjectHeaderIcon(
-                icon: .basicPreview(image),
+                icon: .init(mode: .basicPreview(image), usecase: icon.usecase),
                 layoutAlignment: self.layoutAlignment,
                 onTap: self.onTap
             )
-        case .profilePreview:
+        case .icon(.profile), .profilePreview:
             return ObjectHeaderIcon(
-                icon: .profilePreview(image),
+                icon: .init(mode: .profilePreview(image), usecase: icon.usecase),
                 layoutAlignment: self.layoutAlignment,
                 onTap: self.onTap
             )

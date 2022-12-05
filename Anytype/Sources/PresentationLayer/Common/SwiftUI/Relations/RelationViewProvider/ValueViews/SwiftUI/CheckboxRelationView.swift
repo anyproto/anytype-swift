@@ -11,29 +11,32 @@ struct CheckboxRelationView: View {
         case .featuredRelationBlock:
             featuredRelationBlockIcon
         case .filter:
-            filterText
+            filterText(lowercased: true)
+        case .setCollection:
+            filterText()
         }
     }
     
     private var featuredRelationBlockIcon: some View {
         Group {
-            isChecked ? Image.Relations.checkboxChecked.resizable() : Image.Relations.checkboxUnchecked.resizable()
+            isChecked ? Image(asset: .relationCheckboxChecked).resizable() : Image(asset: .relationCheckboxUnchecked).resizable()
         }.frame(width: style.checkboxSize.width, height: style.checkboxSize.height)
         
     }
     
     private var icon: some View {
         Group {
-            isChecked ? Image.Relations.checkboxChecked : Image.Relations.checkboxUnchecked
+            isChecked ? Image(asset: .relationCheckboxChecked) : Image(asset: .relationCheckboxUnchecked)
         }
     }
     
-    private var filterText: some View {
+    private func filterText(lowercased: Bool = false) -> some View {
         Group {
+            let text = isChecked ? Loc.EditSet.Popup.Filter.Value.checked :
+            Loc.EditSet.Popup.Filter.Value.unchecked
             AnytypeText(
-                isChecked ? Loc.EditSorts.Popup.Filter.Value.checked :
-                    Loc.EditSorts.Popup.Filter.Value.unchecked,
-                style: .relation1Regular,
+                lowercased ? text.lowercased() : text,
+                style: lowercased ? .relation1Regular : style.font,
                 color: .textSecondary
             )
         }

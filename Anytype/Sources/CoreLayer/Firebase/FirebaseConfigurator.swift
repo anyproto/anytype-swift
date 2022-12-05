@@ -1,11 +1,12 @@
 import Firebase
 import AnytypeCore
+import Logger
 
 final class FirebaseConfigurator: AppConfiguratorProtocol {
-    #if RELEASE
-    private let settingsFile = "GoogleService-Info"
-    #else
+    #if DEBUG
     private let settingsFile = "GoogleService-Info-Dev"
+    #else
+    private let settingsFile = "GoogleService-Info"
     #endif
     
     func configure() {        
@@ -15,6 +16,8 @@ final class FirebaseConfigurator: AppConfiguratorProtocol {
         }
         FirebaseApp.configure(options: options)
         
-        AssertionLogger.shared = FirebaseNonFatalLogger()
+        #if !DEBUG
+        AssertionLogger.shared.handler = FirebaseNonFatalLogger()
+        #endif
     }
 }

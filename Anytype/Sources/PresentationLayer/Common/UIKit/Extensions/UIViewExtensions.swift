@@ -89,6 +89,31 @@ public extension UIView {
     
 }
 
+// MARK: - Draw
+extension UIView {
+    func drawToImage() -> UIImage {
+        let currentStyle = overrideUserInterfaceStyle
+        
+        overrideUserInterfaceStyle = .light
+        let lightImage = drawToImageInternal()
+        
+        overrideUserInterfaceStyle = .dark
+        let darkImage = drawToImageInternal()
+        
+        overrideUserInterfaceStyle = currentStyle
+        
+        return UIImage.dynamicImage(light: lightImage, dark: darkImage)
+    }
+    
+    private func drawToImageInternal() -> UIImage {
+        let renderer = UIGraphicsImageRenderer(size: bounds.size)
+        let image = renderer.image { ctx in
+            drawHierarchy(in: bounds, afterScreenUpdates: true)
+        }
+        return image
+    }
+}
+
 // MARK: - Debug view hierarchy
 
 public extension UIView {

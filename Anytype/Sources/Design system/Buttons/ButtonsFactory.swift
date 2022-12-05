@@ -16,7 +16,7 @@ enum ButtonsFactory {
             ),
             for: .normal
         )
-        backButton.setImage(.backArrow, for: .normal)
+        backButton.setImage(UIImage(asset: .backArrow), for: .normal)
         backButton.tintColor = .textSecondary
         
         if #available(iOS 15.0, *) {
@@ -52,7 +52,7 @@ enum ButtonsFactory {
         let button = makeButton(image: image)
         button.layer.cornerRadius = 10
         button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor.strokePrimary.cgColor
+        button.dynamicBorderColor = UIColor.strokePrimary
         button.contentMode = .center
         button.imageView.contentMode = .scaleAspectFit
 

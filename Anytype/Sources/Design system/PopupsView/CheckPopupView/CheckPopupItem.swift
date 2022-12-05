@@ -1,15 +1,10 @@
-//
-//  CheckPopupItem.swift
-//  Anytype
-//
-//  Created by Denis Batvinkin on 01.04.2022.
-//  Copyright © 2022 Anytype. All rights reserved.
-//
+import AnytypeCore
 
 struct CheckPopupItem: Identifiable, Hashable {
     let id: String
-    let icon: String?
+    let iconAsset: ImageAsset?
     let title: String
     let subtitle: String?
     let isSelected: Bool
+    @EquatableNoop private(set) var onTap: () -> Void
 }

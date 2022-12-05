@@ -2,7 +2,7 @@ import AnytypeCore
 
 public extension BlockLink {
 
-    enum IconSize {
+    enum IconSize: Int, CaseIterable {
         case none
         case small
         case medium
@@ -13,12 +13,12 @@ public extension BlockLink {
         }
     }
 
-    enum CardStyle: CaseIterable {
+    enum CardStyle: Int, CaseIterable {
         case text
         case card
     }
 
-    enum Description {
+    enum Description: Int, CaseIterable {
         case none
         case added
         case content
@@ -36,6 +36,7 @@ public extension BlockLink {
     enum Relation: String {
         case name
         case type
+        case cover
     }
 
     struct Appearance: Hashable {

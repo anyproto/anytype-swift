@@ -4,11 +4,17 @@ import AnytypeCore
 import NotificationCenter
 
 final class SubscriptionsService: SubscriptionsServiceProtocol {
+    
+    private struct Subscriber {
+        let data: SubscriptionData
+        let callback: SubscriptionCallback
+    }
+    
     private var subscription: AnyCancellable?
     private let toggler: SubscriptionTogglerProtocol
     private let storage: ObjectDetailsStorage
     
-    private var turnedOnSubs = [SubscriptionId: SubscriptionCallback]()
+    private var subscribers = [SubscriptionId: Subscriber]()
     
     init(toggler: SubscriptionTogglerProtocol, storage: ObjectDetailsStorage) {
         self.toggler = toggler
@@ -22,7 +28,7 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
     }
     
     func stopAllSubscriptions() {
-        turnedOnSubs.keys.forEach { stopSubscription(id: $0) }
+        subscribers.keys.forEach { stopSubscription(id: $0) }
     }
     
     func stopSubscriptions(ids: [SubscriptionId]) {
@@ -30,8 +36,10 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
     }
     
     func stopSubscription(id: SubscriptionId) {
+        guard subscribers[id].isNotNil else { return }
+
         _ = toggler.stopSubscription(id: id)
-        turnedOnSubs[id] = nil
+        subscribers[id] = nil
     }
     
     func startSubscriptions(data: [SubscriptionData], update: @escaping SubscriptionCallback) {
@@ -39,18 +47,27 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
     }
     
     func startSubscription(data: SubscriptionData, update: @escaping SubscriptionCallback) {
-        guard turnedOnSubs[data.identifier].isNil else {
+        guard subscribers[data.identifier].isNil else {
             anytypeAssertionFailure("Subscription: \(data) started on second time", domain: .subscriptionStorage)
             return
         }
         
-        turnedOnSubs[data.identifier] = update
+        subscribers[data.identifier] = Subscriber(data: data, callback: update)
         
-        guard let (details, count) = toggler.startSubscription(data: data) else { return }
+        guard let result = toggler.startSubscription(data: data) else { return }
         
-        details.forEach { storage.amend(details: $0) }
-        update(data.identifier, .initialData(details))
-        update(data.identifier, .pageCount(numberOfPagesFromTotalCount(count)))
+        result.records.forEach { storage.amend(details: $0) }
+        result.dependencies.forEach { storage.amend(details: $0) }
+        
+        update(data.identifier, .initialData(result.records))
+        update(data.identifier, .pageCount(numberOfPagesFromTotalCount(result.count, numberOfRowsPerPage: data.rowsPerPage)))
+    }
+    
+    func hasSubscriptionDataDiff(with data: SubscriptionData) -> Bool {
+        guard let subscriber = subscribers[data.identifier] else {
+            return true
+        }
+        return data != subscriber.data
     }
  
     // MARK: - Private
@@ -77,13 +94,13 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
             switch event.value {
             case .objectDetailsSet(let data):
                 guard let details = storage.set(data: data) else { return }
-                update(details: details, rawSubIds: data.subIds)
+                update(details: details, ids: data.subIds)
             case .objectDetailsAmend(let data):
                 guard let details = storage.amend(data: data) else { return }
-                update(details: details, rawSubIds: data.subIds)
+                update(details: details, ids: data.subIds)
             case .objectDetailsUnset(let data):
                 guard let details = storage.unset(data: data) else { return }
-                update(details: details, rawSubIds: data.subIds)
+                update(details: details, ids: data.subIds)
             case .subscriptionPosition(let position):
                 let update: SubscriptionUpdate = .move(from: position.id, after: position.afterID.isNotEmpty ? position.afterID : nil)
                 sendUpdate(update, subId: position.subID)
@@ -102,49 +119,44 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
             case .objectRemove:
                 break // unsupported (Not supported in middleware converter also)
             case .subscriptionCounters(let data):
-                sendUpdate(.pageCount(numberOfPagesFromTotalCount(data.total)), subId: data.subID)
-            case .accountConfigUpdate, .accountUpdate, .accountDetails:
+                sendUpdate(
+                    .pageCount(numberOfPagesFromTotalCount(
+                        Int(data.total),
+                        numberOfRowsPerPage: Int(data.total - data.nextCount)
+                    )),
+                    subId: data.subID
+                )
+            case .accountConfigUpdate, .accountUpdate, .accountDetails, .accountShow, .subscriptionGroups:
                 break
             default:
-                anytypeAssertionFailure("Unupported event \(event)", domain: .subscriptionStorage)
+                anytypeAssertionFailure("Unsupported event \(event)", domain: .subscriptionStorage)
             }
         }
     }
     
     private func sendUpdate(_ update: SubscriptionUpdate, subId: String) {
-        guard let subId = SubscriptionId(rawValue: subId) else {
-            if !subId.hasSuffix(dependencySubscriptionSuffix) {
-                anytypeAssertionFailure("Unrecognized subscription: \(subId)", domain: .subscriptionStorage)
-            }
+        let subId = SubscriptionId(value: subId)
+        guard let action = subscribers[subId]?.callback else {
             return
         }
-        guard let action = turnedOnSubs[subId] else { return }
         action(subId, update)
     }
     
-    private func update(details: ObjectDetails, rawSubIds: [String]) {
-        let ids: [SubscriptionId] = rawSubIds.compactMap { rawId in
-            guard let id = SubscriptionId(rawValue: rawId) else {
-                if !rawId.hasSuffix(dependencySubscriptionSuffix) {
-                    anytypeAssertionFailure("Unrecognized subscription: \(rawId)", domain: .subscriptionStorage)
-                }
-                return nil
-            }
-            
-            return id
-        }
-        
+    private func update(details: ObjectDetails, ids: [String]) {
         for id in ids {
-            guard let action = turnedOnSubs[id] else { continue }
+            let id = SubscriptionId(value: id)
+            guard let action = subscribers[id]?.callback else {
+                continue
+            }
             action(id, .update(details))
         }
     }
     
-    private func numberOfPagesFromTotalCount(_ count: Int64) -> Int64 {
-        let numberOfRowsPerPageInSubscriptions = UserDefaultsConfig.rowsPerPageInSet
-        // Returns 1 if count < numberOfRowsPerPageInSubscriptions
-        // And returns 1 if count = numberOfRowsPerPageInSubscriptions
-        let closestNumberToRowsPerPage = numberOfRowsPerPageInSubscriptions - 1
-        return (count + closestNumberToRowsPerPage) / numberOfRowsPerPageInSubscriptions
+    private func numberOfPagesFromTotalCount(_ count: Int, numberOfRowsPerPage: Int) -> Int {
+        guard numberOfRowsPerPage > 0 else { return 0 }
+        // Returns 1 if count < numberOfRowsPerPage
+        // And returns 1 if count = numberOfRowsPerPage
+        let closestNumberToRowsPerPage = numberOfRowsPerPage - 1
+        return (count + closestNumberToRowsPerPage) / numberOfRowsPerPage
     }
 }

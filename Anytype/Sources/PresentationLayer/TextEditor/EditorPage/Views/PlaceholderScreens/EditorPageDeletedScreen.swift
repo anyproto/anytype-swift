@@ -38,7 +38,7 @@ final class EditorPageDeletedScreen: UIView {
     }
 
     private func buildGhost() -> UIImageView {
-        let view = UIImageView(image: UIImage.editor.bigGhost)
+        let view = UIImageView(asset: .TextEditor.bigGhost)
         view.addTapGesture { [weak view] _ in
             UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
             view?.spookyShake()
@@ -60,7 +60,7 @@ final class EditorPageDeletedScreen: UIView {
         button.titleLabel?.font = .uxBodyRegular
         button.contentEdgeInsets = UIEdgeInsets(top: 10, left: 16, bottom: 10, right: 16)
         
-        button.layer.borderColor = UIColor.strokePrimary.cgColor
+        button.dynamicBorderColor = UIColor.strokePrimary
         button.layer.cornerRadius = 10
         button.layer.borderWidth = 1
         

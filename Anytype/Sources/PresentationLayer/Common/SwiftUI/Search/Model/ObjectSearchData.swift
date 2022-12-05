@@ -8,6 +8,7 @@ struct ObjectSearchData: SearchDataProtocol {
     let title: String
     let description: String
     let callout: String
+    let typeId: String
     
     let blockId: BlockId
     
@@ -18,6 +19,7 @@ struct ObjectSearchData: SearchDataProtocol {
         self.title = details.title
         self.description = details.description
         self.callout = details.objectType.name
+        self.typeId = details.objectType.id
         
         self.blockId = details.id
     }
@@ -51,7 +53,7 @@ extension ObjectSearchData {
     }
 
     var iconImage: ObjectIconImage {
-        let layout = details.layout
+        let layout = details.layoutValue
         if layout == .todo {
             return .todo(details.isDone)
         } else {

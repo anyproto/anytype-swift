@@ -13,8 +13,8 @@ final class BlockViewModelBuilder {
     private let subjectsHolder: FocusSubjectsHolder
     private let markdownListener: MarkdownListener
     private let simpleTableDependenciesBuilder: SimpleTableDependenciesBuilder
-
-    private let pageService = PageService()
+    private let pageService: PageServiceProtocol
+    private let detailsService: DetailsServiceProtocol
 
     init(
         document: BaseDocumentProtocol,
@@ -24,7 +24,9 @@ final class BlockViewModelBuilder {
         delegate: BlockDelegate,
         markdownListener: MarkdownListener,
         simpleTableDependenciesBuilder: SimpleTableDependenciesBuilder,
-        subjectsHolder: FocusSubjectsHolder
+        subjectsHolder: FocusSubjectsHolder,
+        pageService: PageServiceProtocol,
+        detailsService: DetailsServiceProtocol
     ) {
         self.document = document
         self.handler = handler
@@ -34,6 +36,8 @@ final class BlockViewModelBuilder {
         self.markdownListener = markdownListener
         self.simpleTableDependenciesBuilder = simpleTableDependenciesBuilder
         self.subjectsHolder = subjectsHolder
+        self.pageService = pageService
+        self.detailsService = detailsService
     }
 
     func buildEditorItems(infos: [BlockInformation]) -> [EditorItem] {
@@ -48,6 +52,12 @@ final class BlockViewModelBuilder {
         }
 
         return editorItems
+    }
+
+    func buildShimeringItem() -> EditorItem {
+        let shimmeringViewModel = ShimmeringBlockViewModel()
+
+        return .system(shimmeringViewModel)
     }
 
     private func build(_ infos: [BlockInformation]) -> [BlockViewModelProtocol] {
@@ -78,7 +88,7 @@ final class BlockViewModelBuilder {
                     }
                 )
             default:
-                let isCheckable = content.contentType == .title ? document.details?.layout == .todo : false
+                let isCheckable = content.contentType == .title ? document.details?.layoutValue == .todo : false
 
                 let textBlockActionHandler = TextBlockActionHandler(
                     info: info,
@@ -124,18 +134,19 @@ final class BlockViewModelBuilder {
                 return BlockFileViewModel(
                     info: info,
                     fileData: content,
+                    handler: handler,
                     showFilePicker: { [weak self] blockId in
                         self?.showFilePicker(blockId: blockId)
                     },
-                    downloadFile: { [weak router] fileMetadata in
-                        guard let url = fileMetadata.contentUrl else { return }
-                        router?.saveFile(fileURL: url, type: .file)
+                    onFileOpen: { [weak router] fileContext in
+                        router?.openImage(fileContext)
                     }
                 )
             case .image:
                 return BlockImageViewModel(
                     info: info,
                     fileData: content,
+                    handler: handler,
                     showIconPicker: { [weak self] blockId in
                         self?.showMediaPicker(type: .images, blockId: blockId)
                     },
@@ -163,22 +174,39 @@ final class BlockViewModelBuilder {
         case .divider(let content):
             return DividerBlockViewModel(content: content, info: info)
         case let .bookmark(data):
+            
+            let details = ObjectDetailsStorage.shared.get(id: data.targetObjectID)
+            
+            if details?.isDeleted ?? false {
+                return NonExistentBlockViewModel(info: info)
+            }
+            
             return BlockBookmarkViewModel(
                 info: info,
                 bookmarkData: data,
+                objectDetails: details,
                 showBookmarkBar: { [weak self] info in
                     self?.showBookmarkBar(info: info)
                 },
                 openUrl: { [weak self] url in
-                    self?.router.openUrl(url)
+                    AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.blockBookmarkOpenUrl)
+                    self?.router.openUrl(url.url)
                 }
             )
-        case let .link(content):            
-            let details = ObjectDetailsStorage.shared.get(id: content.targetBlockID)
+        case let .link(content):
+            guard let details = ObjectDetailsStorage.shared.get(id: content.targetBlockID) else {
+                anytypeAssertionFailure(
+                    "Couldn't find details for block link with id \(content.targetBlockID)",
+                    domain: .blockBuilder
+                )
+                return nil
+            }
+
             return BlockLinkViewModel(
                 info: info,
                 content: content,
                 details: details,
+                detailsService: detailsService,
                 openLink: { [weak self] data in
                     self?.router.showPage(data: data)
                 }
@@ -186,29 +214,32 @@ final class BlockViewModelBuilder {
         case .featuredRelations:
             guard let objectType = document.details?.objectType else { return nil }
             
-            let featuredRelation = document.featuredRelationsForEditor
+            let featuredRelationValues = document.featuredRelationsForEditor
             return FeaturedRelationsBlockViewModel(
                 info: info,
-                featuredRelation: featuredRelation,
+                featuredRelationValues: featuredRelationValues,
                 type: objectType.name,
                 blockDelegate: delegate
             ) { [weak self] relation in
                 guard let self = self else { return }
 
-                if relation.id == BundledRelationKey.type.rawValue {
-                    self.router.showTypesSearch(
+                let bookmarkFilter = self.document.details?.type != ObjectTypeId.bundled(.bookmark).rawValue
+                
+                if relation.key == BundledRelationKey.type.rawValue && !self.document.isLocked && bookmarkFilter {
+                    self.router.showTypes(
+                        selectedObjectId: self.document.details?.type,
                         onSelect: { [weak self] id in
-                            self?.handler.setObjectTypeUrl(id)
+                            self?.handler.setObjectTypeId(id)
                         }
                     )
                 } else {
                     AnytypeAnalytics.instance().logChangeRelationValue(type: .block)
-                    self.router.showRelationValueEditingView(key: relation.id, source: .object)
+                    self.router.showRelationValueEditingView(key: relation.key, source: .object)
                 }
             }
         case let .relation(content):
             let relation = document.parsedRelations.all.first {
-                $0.id == content.key
+                $0.key == content.key
             }
 
             guard let relation = relation else {
@@ -220,7 +251,7 @@ final class BlockViewModelBuilder {
                 relation: relation
             ) { [weak self] in
                 AnytypeAnalytics.instance().logChangeRelationValue(type: .block)
-                self?.router.showRelationValueEditingView(key: relation.id, source: .object)
+                self?.router.showRelationValueEditingView(key: relation.key, source: .object)
             }
         case .tableOfContents:
             return TableOfContentsViewModel(
@@ -235,10 +266,6 @@ final class BlockViewModelBuilder {
             )
         case .smartblock, .layout, .dataView, .tableRow, .tableColumn: return nil
         case .table:
-            guard FeatureFlags.isSimpleTablesAvailable else {
-                fallthrough
-            }
-
             return SimpleTableBlockViewModel(
                 info: info,
                 simpleTableDependenciesBuilder: simpleTableDependenciesBuilder
@@ -264,7 +291,7 @@ final class BlockViewModelBuilder {
             guard let itemProvider = itemProvider else { return }
 
             self?.handler.uploadMediaFile(
-                itemProvider: itemProvider,
+                uploadingSource: .itemProvider(itemProvider),
                 type: type,
                 blockId: blockId
             )
@@ -288,5 +315,3 @@ final class BlockViewModelBuilder {
         }
     }
 }
-
-

@@ -28,6 +28,19 @@ class BlockListService: BlockListServiceProtocol {
             .send()
     }
 
+    func changeMarkup(
+        blockIds: [BlockId],
+        markType: MarkupType
+    ) {
+        guard let mark = markType.asMiddleware else { return }
+        Anytype_Rpc.BlockText.ListSetMark.Service
+            .invoke(contextID: contextId, blockIds: blockIds, mark: mark
+        )
+            .map { EventsBunch(event: $0.event) }
+            .getValue(domain: .blockListService)?
+            .send()
+    }
+
     func setBackgroundColor(blockIds: [BlockId], color: MiddlewareColor) {
         AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.blockListSetBackgroundColor)
 
@@ -107,5 +120,37 @@ class BlockListService: BlockListServiceProtocol {
             .map { EventsBunch(event: $0.event) }
             .getValue(domain: .blockListService)?
             .send()
+    }
+}
+
+private extension MarkupType {
+    var asMiddleware: Anytype_Model_Block.Content.Text.Mark? {
+        switch self {
+        case .bold:
+            return Anytype_Model_Block.Content.Text.Mark.init(range: .init(), type: .bold, param: "")
+        case .italic:
+            return Anytype_Model_Block.Content.Text.Mark.init(range: .init(), type: .italic, param: "")
+        case .keyboard:
+            return Anytype_Model_Block.Content.Text.Mark.init(range: .init(), type: .keyboard, param: "")
+        case .strikethrough:
+            return Anytype_Model_Block.Content.Text.Mark.init(range: .init(), type: .strikethrough, param: "")
+        case .underscored:
+            return Anytype_Model_Block.Content.Text.Mark.init(range: .init(), type: .underscored, param: "")
+        case let .textColor(color):
+            let param = color.middlewareString(background: false) ?? ""
+            return Anytype_Model_Block.Content.Text.Mark.init(range: .init(), type: .textColor, param: param)
+        case let .backgroundColor(color):
+            let param = color.middlewareString(background: true) ?? ""
+            return Anytype_Model_Block.Content.Text.Mark.init(range: .init(), type: .backgroundColor, param: param)
+        case let .link(url):
+            let param = url?.absoluteString ?? ""
+            return Anytype_Model_Block.Content.Text.Mark.init(range: .init(), type: .link, param: param)
+        case let .linkToObject(blockId):
+            return Anytype_Model_Block.Content.Text.Mark.init(range: .init(), type: .object, param: blockId ?? "")
+        case let .mention(mentionData):
+            return Anytype_Model_Block.Content.Text.Mark.init(range: .init(), type: .mention, param: mentionData.blockId)
+        case let .emoji(emoji):
+            return Anytype_Model_Block.Content.Text.Mark.init(range: .init(), type: .emoji, param: emoji.value)
+        }
     }
 }

@@ -66,7 +66,7 @@ extension Anytype_Model_ObjectLinksInfo {
 }
 
 extension Anytype_Model_ObjectStoreChecksums {
-    public init(bundledObjectTypes: String = String(), bundledRelations: String = String(), bundledLayouts: String = String(), objectsForceReindexCounter: Int32 = 0, filesForceReindexCounter: Int32 = 0, idxRebuildCounter: Int32 = 0, fulltextRebuild: Int32 = 0, bundledTemplates: String = String(), bundledObjects: Int32 = 0) {
+    public init(bundledObjectTypes: String = String(), bundledRelations: String = String(), bundledLayouts: String = String(), objectsForceReindexCounter: Int32 = 0, filesForceReindexCounter: Int32 = 0, idxRebuildCounter: Int32 = 0, fulltextRebuild: Int32 = 0, bundledTemplates: String = String(), bundledObjects: Int32 = 0, filestoreKeysForceReindexCounter: Int32 = 0) {
         self.bundledObjectTypes = bundledObjectTypes
         self.bundledRelations = bundledRelations
         self.bundledLayouts = bundledLayouts
@@ -76,6 +76,7 @@ extension Anytype_Model_ObjectStoreChecksums {
         self.fulltextRebuild = fulltextRebuild
         self.bundledTemplates = bundledTemplates
         self.bundledObjects = bundledObjects
+        self.filestoreKeysForceReindexCounter = filestoreKeysForceReindexCounter
     }
 }
 

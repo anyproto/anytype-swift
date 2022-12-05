@@ -8,6 +8,7 @@ final class RelationOptionsListViewModel: ObservableObject {
     @Published var selectedOptions: [ListRowConfiguration] = []
     @Published var isSearchPresented: Bool = false
     
+    let isEditable: Bool
     let title: String
     let emptyPlaceholder: String
     
@@ -20,7 +21,7 @@ final class RelationOptionsListViewModel: ObservableObject {
     private weak var popup: AnytypePopupProxy?
 
     private let source: RelationSource
-    private let relationId: String
+    private let relationKey: String
     private let searchModuleBuilder: RelationOptionsSearchModuleBuilderProtocol
     private let service: RelationsServiceProtocol
     
@@ -36,9 +37,10 @@ final class RelationOptionsListViewModel: ObservableObject {
         self.selectedOptions = selectedOptions
         self.title = relation.name
         self.emptyPlaceholder = emptyOptionsPlaceholder
-        self.relationId = relation.id
+        self.relationKey = relation.key
         self.searchModuleBuilder = searchModuleBuilder
         self.service = service
+        self.isEditable = relation.isEditable
         
         updateLayout()
     }
@@ -52,7 +54,7 @@ extension RelationOptionsListViewModel {
     func delete(_ indexSet: IndexSet) {
         selectedOptions.remove(atOffsets: indexSet)
         service.updateRelation(
-            relationKey: relationId,
+            relationKey: relationKey,
             value: selectedOptions.map { $0.id }.protobufValue
         )
         
@@ -62,7 +64,7 @@ extension RelationOptionsListViewModel {
     func move(source: IndexSet, destination: Int) {
         selectedOptions.move(fromOffsets: source, toOffset: destination)
         service.updateRelation(
-            relationKey: relationId,
+            relationKey: relationKey,
             value: selectedOptions.map { $0.id }.protobufValue
         )
     }
@@ -91,7 +93,7 @@ private extension RelationOptionsListViewModel {
         let newSelectedOptionsIds = selectedOptionIds + ids
         
         service.updateRelation(
-            relationKey: relationId,
+            relationKey: relationKey,
             value: newSelectedOptionsIds.protobufValue
         )
         isSearchPresented = false
@@ -99,7 +101,7 @@ private extension RelationOptionsListViewModel {
     }
     
     func handleCreateOption(title: String) {
-        let optionId = service.addRelationOption(source: source, relationKey: relationId, optionText: title)
+        let optionId = service.addRelationOption(source: source, relationKey: relationKey, optionText: title)
         guard let optionId = optionId else { return}
 
         handleNewOptionIds([optionId])

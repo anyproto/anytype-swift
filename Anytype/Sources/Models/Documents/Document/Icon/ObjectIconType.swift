@@ -1,12 +1,10 @@
 import AnytypeCore
 
 enum ObjectIconType: Hashable {
-    
     case basic(String)
     case profile(Profile)
-    
     case emoji(Emoji)
-    
+    case bookmark(String)
 }
 
 // MARK: - ProfileIcon

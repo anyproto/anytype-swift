@@ -5,7 +5,7 @@ final class UndoRedoViewModel: ObservableObject {
     struct ButtonModel: Identifiable {
         let id: String
         let title: String
-        let image: UIImage
+        let imageAsset: ImageAsset
         let action: () -> Void
     }
 
@@ -13,12 +13,12 @@ final class UndoRedoViewModel: ObservableObject {
 
     private let objectId: String
     private let objectActionsService: ObjectActionsServiceProtocol
-    private let toastPresenter: ToastPresenter
+    private let toastPresenter: ToastPresenterProtocol
 
     init(
         objectId: String,
         objectActionsService: ObjectActionsServiceProtocol = ObjectActionsService(),
-        toastPresenter: ToastPresenter
+        toastPresenter: ToastPresenterProtocol
     ) {
         self.objectId = objectId
         self.objectActionsService = objectActionsService
@@ -50,13 +50,13 @@ final class UndoRedoViewModel: ObservableObject {
             .init(
                 id: "undo",
                 title: "Undo",
-                image: UIImage.editor.UndoRedo.undo,
+                imageAsset: .undo,
                 action: { [weak self] in self?.undo() }
             ),
             .init(
                 id: "redo",
                 title: "Redo",
-                image: UIImage.editor.UndoRedo.redo,
+                imageAsset: .redo,
                 action: { [weak self] in self?.redo() }
             )
         ]

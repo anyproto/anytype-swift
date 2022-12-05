@@ -2,10 +2,12 @@ import SwiftUI
 
 struct EditorSetPaginationView: View {
     @EnvironmentObject private var model: EditorSetViewModel
+    let paginationData: EditorSetPaginationData
+    let groupId: String
     
     var body: some View {
         VStack(spacing: 0) {
-            if model.pagitationData.pageCount >= 2 {
+            if paginationData.pageCount >= 2 {
                 content
             } else {
                 EmptyView()
@@ -28,21 +30,21 @@ struct EditorSetPaginationView: View {
     
     private var pages: some View {
         HStack(spacing: 24) {
-            ForEach(model.pagitationData.visiblePages, id: \.self) { counter in
+            ForEach(paginationData.visiblePages, id: \.self) { counter in
                 pagesButton(counter)
                     .transition(.opacity)
             }
         }
     }
     
-    private func pagesButton(_ counter: Int64) -> some View {
+    private func pagesButton(_ counter: Int) -> some View {
         Button(action: {
-            model.changePage(counter)
+            model.changePage(counter, groupId: groupId)
         }) {
             AnytypeText(
                 "\(counter)",
                 style: .body,
-                color: model.pagitationData.selectedPage == counter ? .buttonSelected : .buttonInactive
+                color: paginationData.selectedPage == counter ? .buttonSelected : .buttonInactive
             )
                 .frame(width: 24, height: 24)
         }
@@ -50,9 +52,9 @@ struct EditorSetPaginationView: View {
     
     private var backArror: some View {
         Group {
-            if model.pagitationData.canGoBackward {
-                Button(action: { model.goBackwardRow() }) {
-                    Image.set.back
+            if paginationData.canGoBackward {
+                Button(action: { model.goBackwardRow(groupId: groupId) }) {
+                    Image(asset: .setPaginationArrowBackward)
                 }
             } else {
                 EmptyView()
@@ -62,9 +64,9 @@ struct EditorSetPaginationView: View {
     
     private var forwardArror: some View {
         Group {
-            if model.pagitationData.canGoForward {
-                Button(action: { model.goForwardRow() }) {
-                    Image.set.forward
+            if paginationData.canGoForward {
+                Button(action: { model.goForwardRow(groupId: groupId) }) {
+                    Image(asset: .setPaginationArrowForward)
                 }
             } else {
                 EmptyView()

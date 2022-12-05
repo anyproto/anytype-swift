@@ -8,7 +8,6 @@ struct RelationsListView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            DragIndicator()
             navigationBar
             relationsList
         }
@@ -43,7 +42,7 @@ struct RelationsListView: View {
         Button {
             viewModel.showAddNewRelationView()
         } label: {
-            Image.Relations.createOption
+            Image(asset: .relationNew)
                 .if(viewModel.navigationBarButtonsDisabled) {
                     $0.renderingMode(.template)
                         .foregroundColor(.buttonInactive)
@@ -80,11 +79,11 @@ struct RelationsListView: View {
     
     private func row(with relation: Relation) -> some View {
         RelationsListRowView(editingMode: $editingMode, starButtonAvailable: !viewModel.navigationBarButtonsDisabled, relation: relation) {
-            viewModel.removeRelation(id: $0)
+            viewModel.removeRelation(relation: $0)
         } onStarTap: {
-            viewModel.changeRelationFeaturedState(relationId: $0)
+            viewModel.changeRelationFeaturedState(relation: $0)
         } onEditTap: {
-            viewModel.handleTapOnRelation(relationId: $0)
+            viewModel.handleTapOnRelation(relation: $0)
         }
     }
     

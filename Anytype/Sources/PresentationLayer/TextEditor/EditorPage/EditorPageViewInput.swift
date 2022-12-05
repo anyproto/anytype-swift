@@ -2,7 +2,7 @@ import BlocksModels
 import UIKit
 
 /// Input data for document view
-protocol EditorPageViewInput: AnyObject, RelativePositionProvider {
+protocol EditorPageViewInput: RelativePositionProvider {
     
     func update(header: ObjectHeader, details: ObjectDetails?)
     func update(changes: CollectionDifference<EditorItem>?)
@@ -27,4 +27,12 @@ protocol EditorPageViewInput: AnyObject, RelativePositionProvider {
     func blockDidFinishEditing(blockId: BlockId)
     
     func scrollToBlock(blockId: BlockId)
+
+    func endEditing()
+
+    func adjustContentOffset(relatively: UIView)
+
+    func restoreEditingState()
+
+    func didSelectTextRangeSelection(blockId: BlockId, textView: UITextView)
 }

@@ -15,14 +15,16 @@ final class EditorSelectionView: UIView {
     }
 
     func updateStyle(isSelected: Bool) {
-        if isSelected {
-            layer.borderWidth = Constants.borderWidth
-            layer.borderColor = UIColor.System.amber.cgColor
-            backgroundColor = UIColor.System.amber.withAlphaComponent(0.2)
-        } else {
-            layer.borderWidth = 0.0
-            layer.borderColor = nil
-            backgroundColor = .clear
+        UIView.animate(withDuration: 0.34, delay: 0) { [unowned self] in
+            if isSelected {
+                layer.borderWidth = Constants.borderWidth
+                dynamicBorderColor = UIColor.System.amber
+                backgroundColor = UIColor.System.amber.withAlphaComponent(0.2)
+            } else {
+                layer.borderWidth = 0.0
+                dynamicBorderColor = nil
+                backgroundColor = .clear
+            }
         }
     }
 
@@ -49,7 +51,7 @@ final class SpreadsheetSelectionView: UIView {
     func updateStyle(isSelected: Bool) {
         if isSelected {
             layer.borderWidth = Constants.borderWidth
-            layer.borderColor = UIColor.System.amber.cgColor
+            dynamicBorderColor = UIColor.System.amber
         } else {
             layer.borderWidth = 0.0
             backgroundColor = .clear

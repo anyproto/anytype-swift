@@ -2,6 +2,7 @@ import BlocksModels
 import Combine
 import AnytypeCore
 import Foundation
+import UIKit
 
 enum EditorEditingState {
     case editing
@@ -24,11 +25,15 @@ protocol EditorPageMovingManagerProtocol {
 }
 
 protocol EditorPageSelectionManagerProtocol {
-    var selectedBlocksIndexPaths: [IndexPath] { get }
-
     func canSelectBlock(at indexPath: IndexPath) -> Bool
     func didLongTap(at indexPath: IndexPath)
     func didUpdateSelectedIndexPaths(_ indexPaths: [IndexPath])
+
+    // MARK: - Optional
+    func didSelectSelection(from indexPath: IndexPath)}
+
+extension EditorPageSelectionManagerProtocol {
+    func didSelectSelection(from indexPath: IndexPath) {}
 }
 
 protocol EditorPageBlocksStateManagerProtocol: EditorPageSelectionManagerProtocol, EditorPageMovingManagerProtocol, AnyObject {
@@ -65,9 +70,11 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
     private let actionHandler: BlockActionHandlerProtocol
     private let pasteboardService: PasteboardServiceProtocol
     private let router: EditorRouterProtocol
-
-    weak var blocksOptionViewModel: HorizonalTypeListViewModel?
+    private let bottomNavigationManager: EditorBottomNavigationManagerProtocol
+    
+    weak var blocksOptionViewModel: SelectionOptionsViewModel?
     weak var blocksSelectionOverlayViewModel: BlocksSelectionOverlayViewModel?
+    weak var viewInput: EditorPageViewInput?
 
     private var cancellables = [AnyCancellable]()
 
@@ -79,7 +86,9 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         actionHandler: BlockActionHandlerProtocol,
         pasteboardService: PasteboardServiceProtocol,
         router: EditorRouterProtocol,
-        initialEditingState: EditorEditingState
+        initialEditingState: EditorEditingState,
+        viewInput: EditorPageViewInput,
+        bottomNavigationManager: EditorBottomNavigationManagerProtocol
     ) {
         self.document = document
         self.modelsHolder = modelsHolder
@@ -89,6 +98,8 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         self.pasteboardService = pasteboardService
         self.router = router
         self.editingState = initialEditingState
+        self.viewInput = viewInput
+        self.bottomNavigationManager = bottomNavigationManager
 
         setupEditingHandlers()
     }
@@ -127,6 +138,11 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
     }
 
     func didUpdateSelectedIndexPaths(_ indexPaths: [IndexPath]) {
+        guard indexPaths.count > 0 else {
+            resetToEditingMode()
+            return
+        }
+
         selectedBlocksIndexPaths = indexPaths
 
         blocksSelectionOverlayViewModel?.state = .editorMenu(selectedBlocksCount: indexPaths.count)
@@ -138,6 +154,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
 
         if case .selecting = editingState {
             editingState = .selecting(blocks: blocksInformation.map { $0.id })
+            UISelectionFeedbackGenerator().selectionChanged()
         }
     }
 
@@ -195,7 +212,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         switch element.content.type {
         case .file, .divider, .relation,
                 .dataView, .featuredRelations,
-                .bookmark, .smartblock, .text(.title):
+                .bookmark, .smartblock, .text(.title), .table:
             return false
         default:
             movingDestination = .object(element.blockId)
@@ -215,7 +232,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
                 blocksSelectionOverlayViewModel?.state = .moving
             case .editing:
                 movingBlocksIds.removeAll()
-            case .locked, .loading: break
+            case .locked, .loading:
                 break
             case let .simpleTablesSelection(_,  blocks, model):
                 blocksSelectionOverlayViewModel?.state = .simpleTableMenu(selectedBlocksCount: blocks.count, model: model)
@@ -234,10 +251,10 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
     private func updateSelectionBarActions(selectedBlocks: [BlockInformation]) {
         let availableItems = selectedBlocks.blocksOptionItems
         let horizontalItems = availableItems.map { item in
-            HorizontalListItem(
+            SelectionOptionsItemViewModel(
                 id: "\(item.hashValue)",
                 title: item.title,
-                image: .image(item.image)
+                imageAsset: item.imageAsset
             ) { [weak self] in
                 self?.handleBlocksOptionItemSelection(item)
             }
@@ -301,6 +318,10 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
 
     private func handleBlocksOptionItemSelection(_ item: BlocksOptionItem) {
         let elements = selectedBlocksIndexPaths.compactMap { modelsHolder.blockViewModel(at: $0.row) }
+        AnytypeAnalytics.instance().logEvent(
+            AnalyticsEventsName.blockAction,
+            withEventProperties: ["type": item.analyticsEventValue]
+        )
 
         switch item {
         case .delete:
@@ -351,9 +372,19 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
                let url = blockFile.metadata.contentUrl {
                 router.saveFile(fileURL: url, type: blockFile.contentType)
             }
+        case .openObject:
+            anytypeAssert(
+                elements.count == 1,
+                "Number of elements should be 1",
+                domain: .editorPage
+            )
+            guard case let .bookmark(bookmark) = elements.first?.content else { return }
+            AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.openAsObject)
+            let screenData = EditorScreenData(pageId: bookmark.targetObjectID, type: .page)
+            router.showPage(data: screenData)
         case .style:
             editingState = .editing
-            elements.first.map { router.showStyleMenu(information: $0.info) }
+            elements.first.map { didSelectStyleSelection(info: $0.info) }
 
             return
         case .paste:
@@ -366,19 +397,41 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
             }
 
         case .copy:
-            let blocksIds = elements.map(\.blockId)
+            var blocksIds = elements.map(\.blockId)
+
+            let blockInformations = blocksIds.compactMap(document.infoContainer.get(id:))
+
+            blockInformations.forEach { blockInformation in
+                if blockInformation.content == .table {
+                    let recursiveChilds = document.infoContainer.recursiveChildren(of: blockInformation.id).map { $0.id }
+                    blocksIds.append(contentsOf: recursiveChilds)
+                }
+            }
+
             pasteboardService.copy(blocksIds: blocksIds, selectedTextRange: NSRange())
         case .preview:
             elements.first.map {
                 let blockId = $0.blockId
 
-                guard case let .link(blockLink) = $0.info.content else { return }
+                guard case let .link(blockLink) = $0.info.content,
+                      let details = ObjectDetailsStorage.shared.get(id: blockLink.targetBlockID) else { return }
+
+                let blockLinkState = BlockLinkState(details: details, blockLink: blockLink)
                 
-                router.showObjectPreview(blockLinkAppearance: blockLink.appearance) { [weak self] appearance in
+                router.showObjectPreview(blockLinkState: blockLinkState) { [weak self] appearance in
                     self?.actionHandler.setAppearance(blockId: blockId, appearance: appearance)
                 }
             }
         }
+
+        editingState = .editing
+    }
+
+    private func resetToEditingMode() {
+        movingDestination = nil
+        selectedBlocksIndexPaths.removeAll()
+        movingBlocksIds.removeAll()
+        movingBlocksWithChildsIndexPaths.removeAll()
 
         editingState = .editing
     }
@@ -399,10 +452,32 @@ extension EditorPageBlocksStateManager: SimpleTableSelectionHandler {
 }
 
 extension EditorPageBlocksStateManager: BlockSelectionHandler {
+    func didSelectSelection(from indexPath: IndexPath) {
+        guard let blockViewModel = modelsHolder.blockViewModel(at: indexPath.row) else { return }
+
+        editingState = .selecting(blocks: [blockViewModel.info.id])
+        selectedBlocks = [blockViewModel.info.id]
+        updateSelectionBarActions(selectedBlocks: [blockViewModel.info])
+    }
+
     func didSelectEditingState(info: BlockInformation) {
         editingState = .selecting(blocks: [info.id])
         selectedBlocks = [info.id]
         updateSelectionBarActions(selectedBlocks: [info])
+    }
+
+    func didSelectStyleSelection(info: BlockInformation) {
+        viewInput?.endEditing()
+        bottomNavigationManager.styleViewActive(true)
+        selectedBlocks = [info.id]
+
+        let restrictions = BlockRestrictionsBuilder.build(content: info.content)
+        router.showStyleMenu(information: info, restrictions: restrictions) { [weak self] presentedView in
+            self?.viewInput?.adjustContentOffset(relatively: presentedView)
+        } onDismiss: { [weak self] in
+            self?.bottomNavigationManager.styleViewActive(false)
+            self?.viewInput?.restoreEditingState()
+        }
     }
 }
 

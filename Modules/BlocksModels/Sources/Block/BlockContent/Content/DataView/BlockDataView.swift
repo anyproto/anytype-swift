@@ -5,33 +5,47 @@ public struct BlockDataview: Hashable {
     public var activeViewId: BlockId 
     public let source: [String]
     public let views: [DataviewView]
-    public let relations: [RelationMetadata]
+    public let relationLinks: [RelationLink]
+    public let groupOrders: [DataviewGroupOrder]
+    public let objectOrders: [DataviewObjectOrder]
     
     public func updated(
         activeViewId: BlockId? = nil,
         source: [String]? = nil,
         views: [DataviewView]? = nil,
-        relations: [RelationMetadata]? = nil
+        relationLinks: [RelationLink]? = nil,
+        groupOrders: [DataviewGroupOrder]? = nil,
+        objectOrders: [DataviewObjectOrder]? = nil
     ) -> BlockDataview {
         BlockDataview(
             activeViewId: activeViewId ?? self.activeViewId,
             source: source ?? self.source,
             views: views ?? self.views,
-            relations: relations ?? self.relations
+            relationLinks: relationLinks ?? self.relationLinks,
+            groupOrders: groupOrders ?? self.groupOrders,
+            objectOrders: objectOrders ?? self.objectOrders
         )
     }
 
-
     public static var empty: BlockDataview {
-        BlockDataview(activeViewId: "", source: [], views: [], relations: [])
+        BlockDataview(
+            activeViewId: "",
+            source: [],
+            views: [],
+            relationLinks: [],
+            groupOrders: [],
+            objectOrders: []
+        )
     }
 
     var asMiddleware: MiddlewareDataview {
         MiddlewareDataview(
             source: source,
             views: views.map(\.asMiddleware),
-            relations: relations.map(\.asMiddleware),
-            activeView: activeViewId
+            activeView: activeViewId,
+            groupOrders: groupOrders,
+            objectOrders: objectOrders,
+            relationLinks: relationLinks.map(\.asMiddleware)
         )
     }
 }
@@ -46,7 +60,9 @@ public extension MiddlewareDataview {
             activeViewId: activeView,
             source: source,
             views: views.compactMap(\.asModel),
-            relations: relations.map { RelationMetadata(middlewareRelation: $0) }
+            relationLinks: relationLinks.map { RelationLink(middlewareRelationLink: $0) },
+            groupOrders: groupOrders,
+            objectOrders: objectOrders
         )
     }
 }

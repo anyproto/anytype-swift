@@ -57,6 +57,6 @@ final class AudioBlockContentView: UIView, BlockContentView {
 
 private extension AudioBlockContentView {
     enum Layout {
-        static let blockBackgroundPadding: UIEdgeInsets = .init(top: 10, left: 0, bottom: -10, right: 0)
+        static let blockBackgroundPadding: UIEdgeInsets = .init(top: 10, left: 0, bottom: 10, right: 0)
     }
 }

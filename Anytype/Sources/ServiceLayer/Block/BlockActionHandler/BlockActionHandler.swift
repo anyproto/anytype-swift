@@ -46,8 +46,12 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         service.upload(blockId: blockId, filePath: filePath)
     }
     
-    func setObjectTypeUrl(_ objectTypeUrl: String) {
-        service.setObjectTypeUrl(objectTypeUrl)
+    func setObjectTypeId(_ objectTypeId: String) {
+        service.setObjectTypeId(objectTypeId)
+    }
+
+    func setObjectSetType() -> BlockId {
+        service.setObjectSetType()
     }
     
     func setTextColor(_ color: BlockColor, blockIds: [BlockId]) {
@@ -70,8 +74,8 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         service.setFields(blockFields: newFields, blockId: blockId)
     }
     
-    func fetch(url: URL, blockId: BlockId) {
-        service.bookmarkFetch(blockId: blockId, url: url.absoluteString)
+    func fetch(url: AnytypeURL, blockId: BlockId) {
+        service.bookmarkFetch(blockId: blockId, url: url)
     }
     
     func checkbox(selected: Bool, blockId: BlockId) {
@@ -83,8 +87,8 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
             .send()
     }
     
-    func setAlignment(_ alignment: LayoutAlignment, blockId: BlockId) {
-        listService.setAlign(blockIds: [blockId], alignment: alignment)
+    func setAlignment(_ alignment: LayoutAlignment, blockIds: [BlockId]) {
+        listService.setAlign(blockIds: blockIds, alignment: alignment)
     }
     
     func delete(blockIds: [BlockId]) {
@@ -99,12 +103,17 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         service.addChild(info: BlockInformation.emptyText, parentId: parentId)
     }
     
-    func addLink(targetId: BlockId, blockId: BlockId) {
+    func addLink(targetId: BlockId, typeId: String, blockId: BlockId) {
+        let isBookmarkType = ObjectTypeId.bundled(.bookmark).rawValue == typeId
         service.add(
-            info: .emptyLink(targetId: targetId),
+            info: isBookmarkType ? .bookmark(targetId: targetId) : .emptyLink(targetId: targetId),
             targetBlockId: blockId,
-            position: .bottom
+            position: .replace
         )
+    }
+    
+    func changeMarkup(blockIds: [BlockId], markType: MarkupType) {
+        listService.changeMarkup(blockIds: blockIds, markType: markType)
     }
     
     // MARK: - Markup changer proxy
@@ -116,6 +125,15 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     
     func changeTextStyle(_ attribute: MarkupType, range: NSRange, blockId: BlockId) {
         guard let newText = markupChanger.toggleMarkup(attribute, blockId: blockId, range: range) else { return }
+
+        AnytypeAnalytics.instance().logSetMarkup(attribute)
+
+        changeTextForced(newText, blockId: blockId)
+    }
+    
+    func setTextStyle(_ attribute: MarkupType, range: NSRange, blockId: BlockId, currentText: NSAttributedString?) {
+        guard let newText = markupChanger.setMarkup(attribute, blockId: blockId, range: range, currentText: currentText)
+            else { return }
 
         AnytypeAnalytics.instance().logSetMarkup(attribute)
 
@@ -185,14 +203,14 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     }
     
     // MARK: - Public methods
-    func uploadMediaFile(itemProvider: NSItemProvider, type: MediaPickerContentType, blockId: BlockId) {
+    func uploadMediaFile(uploadingSource: MediaFileUploadingSource, type: MediaPickerContentType, blockId: BlockId) {
         EventsBunch(
             contextId: document.objectId,
             localEvents: [.setLoadingState(blockId: blockId)]
         ).send()
         
         let operation = MediaFileUploadingOperation(
-            itemProvider: itemProvider,
+            uploadingSource: uploadingSource,
             worker: BlockMediaUploadingWorker(
                 objectId: document.objectId,
                 blockId: blockId,
@@ -215,7 +233,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         upload(blockId: blockId, filePath: localPath)
     }
     
-    func createPage(targetId: BlockId, type: ObjectTypeUrl) -> BlockId? {
+    func createPage(targetId: BlockId, type: ObjectTypeId) -> BlockId? {
         guard let info = document.infoContainer.get(id: targetId) else { return nil }
         var position: BlockPosition
         if case .text(let blockText) = info.content, blockText.text.isEmpty {
@@ -231,10 +249,15 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     func createTable(
         blockId: BlockId,
         rowsCount: Int,
-        columnsCount: Int
+        columnsCount: Int,
+        blockText: NSAttributedString?
     ) {
-        guard let info = document.infoContainer.get(id: blockId) else { return }
-        let position: BlockPosition = info.isTextAndEmpty ? .replace : .bottom
+        let blockText = FeatureFlags.fixInsetMediaContent ? blockText : nil
+        
+        guard let isTextAndEmpty = blockText?.string.isEmpty
+                ?? document.infoContainer.get(id: blockId)?.isTextAndEmpty else { return }
+        
+        let position: BlockPosition = isTextAndEmpty ? .replace : .bottom
 
         blockTableService.createTable(
             contextId: document.objectId,
@@ -246,7 +269,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     }
 
 
-    func addBlock(_ type: BlockContentType, blockId: BlockId, position: BlockPosition?) {
+    func addBlock(_ type: BlockContentType, blockId: BlockId, blockText: NSAttributedString?, position: BlockPosition?) {
         guard type != .smartblock(.page) else {
             anytypeAssertionFailure("Use createPage func instead", domain: .blockActionsService)
             return
@@ -254,11 +277,14 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
             
         guard let newBlock = BlockBuilder.createNewBlock(type: type) else { return }
 
-        guard let info = document.infoContainer.get(id: blockId) else { return }
+        let blockText = FeatureFlags.fixInsetMediaContent ? blockText : nil
         
-        let position: BlockPosition = info.isTextAndEmpty ? .replace : (position ?? .bottom)
+        guard let isTextAndEmpty = blockText?.string.isEmpty
+            ?? document.infoContainer.get(id: blockId)?.isTextAndEmpty else { return }
+        
+        let position: BlockPosition = isTextAndEmpty ? .replace : (position ?? .bottom)
 
-        service.add(info: newBlock, targetBlockId: info.id, position: position)
+        service.add(info: newBlock, targetBlockId: blockId, position: position)
     }
 
     func selectBlock(info: BlockInformation) {
@@ -268,7 +294,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     func createAndFetchBookmark(
         targetID: BlockId,
         position: BlockPosition,
-        url: String
+        url: AnytypeURL
     ) {
         service.createAndFetchBookmark(
             contextID: document.objectId,

@@ -24,16 +24,16 @@ enum SlashActionOther: CaseIterable, Equatable {
         }
     }
     
-    var iconName: String {
+    var iconAsset: ImageAsset {
         switch self {
         case .dotsDivider:
-            return ImageName.slashMenu.other.dots_divider
+            return .slashMenuDotsDivider
         case .lineDivider:
-            return ImageName.slashMenu.other.line_divider
+            return .slashMenuLineDivider
         case .tableOfContents:
-            return ImageName.slashMenu.other.table_of_contents
+            return .slashMenuTableOfContents
         case .table:
-            return ImageName.slashMenu.other.line_divider
+            return .slashMenuTable
         }
     }
     

@@ -3,6 +3,7 @@ import ProtobufMessages
 import AnytypeCore
 import Combine
 
+@MainActor
 final class SettingsViewModel: ObservableObject {
     
     @Published var loggingOut = false
@@ -33,24 +34,34 @@ final class SettingsViewModel: ObservableObject {
     }
         
     private let authService: AuthServiceProtocol
+    private let windowManager: WindowManager
     
-    init(authService: AuthServiceProtocol) {
+    init(authService: AuthServiceProtocol, windowManager: WindowManager) {
         self.authService = authService
+        self.windowManager = windowManager
     }
 
     func logout(removeData: Bool) {
-        authService.logout(removeData: removeData) { isSuccess in
+        AnytypeAnalytics.instance().logEvent(
+            AnalyticsEventsName.logout,
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.route: AnalyticsEventsName.settingsShow
+            ]
+        )
+
+        authService.logout(removeData: removeData) { [weak self] isSuccess in
             guard isSuccess else {
                 UINotificationFeedbackGenerator().notificationOccurred(.error)
                 return
             }
             
             UINotificationFeedbackGenerator().notificationOccurred(.success)
-            WindowManager.shared.showAuthWindow()
+            self?.windowManager.showAuthWindow()
         }
     }
     
     func accountDeletionConfirm() {
+        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.deleteAccount)
         guard let status = authService.deleteAccount() else {
             UINotificationFeedbackGenerator().notificationOccurred(.error)
             return
@@ -62,7 +73,7 @@ final class SettingsViewModel: ObservableObject {
             return
         case .pendingDeletion(let deadline):
             UINotificationFeedbackGenerator().notificationOccurred(.success)
-            WindowManager.shared.showDeletedAccountWindow(deadline: deadline)
+            windowManager.showDeletedAccountWindow(deadline: deadline)
         case .deleted:
             logout(removeData: true)
         }

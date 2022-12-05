@@ -15,10 +15,14 @@ service ClientCommands {
     rpc WalletCreate (anytype.Rpc.Wallet.Create.Request) returns (anytype.Rpc.Wallet.Create.Response);
     rpc WalletRecover (anytype.Rpc.Wallet.Recover.Request) returns (anytype.Rpc.Wallet.Recover.Response);
     rpc WalletConvert (anytype.Rpc.Wallet.Convert.Request) returns (anytype.Rpc.Wallet.Convert.Response);
-
+    rpc WalletCreateSession (anytype.Rpc.Wallet.CreateSession.Request) returns (anytype.Rpc.Wallet.CreateSession.Response);
+    rpc WalletCloseSession (anytype.Rpc.Wallet.CloseSession.Request) returns (anytype.Rpc.Wallet.CloseSession.Response);
     // Workspace
     // ***
     rpc WorkspaceCreate (anytype.Rpc.Workspace.Create.Request) returns (anytype.Rpc.Workspace.Create.Response);
+    rpc WorkspaceObjectAdd (anytype.Rpc.Workspace.Object.Add.Request) returns (anytype.Rpc.Workspace.Object.Add.Response);
+    rpc WorkspaceObjectListAdd (anytype.Rpc.Workspace.Object.ListAdd.Request) returns (anytype.Rpc.Workspace.Object.ListAdd.Response);
+    rpc WorkspaceObjectListRemove (anytype.Rpc.Workspace.Object.ListRemove.Request) returns (anytype.Rpc.Workspace.Object.ListRemove.Response);
     rpc WorkspaceSelect (anytype.Rpc.Workspace.Select.Request) returns (anytype.Rpc.Workspace.Select.Response);
     rpc WorkspaceGetCurrent (anytype.Rpc.Workspace.GetCurrent.Request) returns (anytype.Rpc.Workspace.GetCurrent.Response);
     rpc WorkspaceGetAll (anytype.Rpc.Workspace.GetAll.Request) returns (anytype.Rpc.Workspace.GetAll.Response);
@@ -33,7 +37,7 @@ service ClientCommands {
     rpc AccountSelect (anytype.Rpc.Account.Select.Request) returns (anytype.Rpc.Account.Select.Response);
     rpc AccountStop (anytype.Rpc.Account.Stop.Request) returns (anytype.Rpc.Account.Stop.Response);
     rpc AccountMove (anytype.Rpc.Account.Move.Request) returns (anytype.Rpc.Account.Move.Response);
-    rpc AccountConfigUpdate(anytype.Rpc.Account.ConfigUpdate.Request) returns (anytype.Rpc.Account.ConfigUpdate.Response);
+    rpc AccountConfigUpdate (anytype.Rpc.Account.ConfigUpdate.Request) returns (anytype.Rpc.Account.ConfigUpdate.Response);
 
     // Object
     // ***
@@ -43,19 +47,21 @@ service ClientCommands {
     // ObjectCreate just creates the new page, without adding the link to it from some other page
     rpc ObjectCreate (anytype.Rpc.Object.Create.Request) returns (anytype.Rpc.Object.Create.Response);
     rpc ObjectCreateBookmark (anytype.Rpc.Object.CreateBookmark.Request) returns (anytype.Rpc.Object.CreateBookmark.Response);
+
     // ObjectCreateSet just creates the new set, without adding the link to it from some other page
     rpc ObjectCreateSet (anytype.Rpc.Object.CreateSet.Request) returns (anytype.Rpc.Object.CreateSet.Response);
     rpc ObjectGraph (anytype.Rpc.Object.Graph.Request) returns (anytype.Rpc.Object.Graph.Response);
     rpc ObjectSearch (anytype.Rpc.Object.Search.Request) returns (anytype.Rpc.Object.Search.Response);
     rpc ObjectSearchSubscribe (anytype.Rpc.Object.SearchSubscribe.Request) returns (anytype.Rpc.Object.SearchSubscribe.Response);
-    rpc ObjectRelationSearchDistinct (anytype.Rpc.Object.RelationSearchDistinct.Request) returns (anytype.Rpc.Object.RelationSearchDistinct.Response);
     rpc ObjectSubscribeIds (anytype.Rpc.Object.SubscribeIds.Request) returns (anytype.Rpc.Object.SubscribeIds.Response);
+    rpc ObjectGroupsSubscribe (anytype.Rpc.Object.GroupsSubscribe.Request) returns (anytype.Rpc.Object.GroupsSubscribe.Response);
     rpc ObjectSearchUnsubscribe (anytype.Rpc.Object.SearchUnsubscribe.Request) returns (anytype.Rpc.Object.SearchUnsubscribe.Response);
     rpc ObjectSetDetails (anytype.Rpc.Object.SetDetails.Request) returns (anytype.Rpc.Object.SetDetails.Response);
     rpc ObjectDuplicate (anytype.Rpc.Object.Duplicate.Request) returns (anytype.Rpc.Object.Duplicate.Response);
     // ObjectSetObjectType sets an existing object type to the object so it will appear in sets and suggests relations from this type
     rpc ObjectSetObjectType (anytype.Rpc.Object.SetObjectType.Request) returns (anytype.Rpc.Object.SetObjectType.Response);
     rpc ObjectSetLayout (anytype.Rpc.Object.SetLayout.Request) returns (anytype.Rpc.Object.SetLayout.Response);
+    rpc ObjectSetInternalFlags (anytype.Rpc.Object.SetInternalFlags.Request) returns (anytype.Rpc.Object.SetInternalFlags.Response);
     rpc ObjectSetIsFavorite (anytype.Rpc.Object.SetIsFavorite.Request) returns (anytype.Rpc.Object.SetIsFavorite.Response);
     rpc ObjectSetIsArchived (anytype.Rpc.Object.SetIsArchived.Request) returns (anytype.Rpc.Object.SetIsArchived.Response);
     rpc ObjectListDuplicate (anytype.Rpc.Object.ListDuplicate.Request) returns (anytype.Rpc.Object.ListDuplicate.Response);
@@ -75,27 +81,29 @@ service ClientCommands {
     rpc ObjectListExport (anytype.Rpc.Object.ListExport.Request) returns (anytype.Rpc.Object.ListExport.Response);
     rpc ObjectBookmarkFetch (anytype.Rpc.Object.BookmarkFetch.Request) returns (anytype.Rpc.Object.BookmarkFetch.Response);
     rpc ObjectToBookmark (anytype.Rpc.Object.ToBookmark.Request) returns (anytype.Rpc.Object.ToBookmark.Response);
+    rpc ObjectImport (anytype.Rpc.Object.Import.Request) returns (anytype.Rpc.Object.Import.Response);
+    rpc ObjectImportList (anytype.Rpc.Object.ImportList.Request) returns (anytype.Rpc.Object.ImportList.Response);
+
+    // Relations
+    // ***
+    rpc ObjectCreateRelation (anytype.Rpc.Object.CreateRelation.Request) returns (anytype.Rpc.Object.CreateRelation.Response);
+    rpc ObjectCreateRelationOption (anytype.Rpc.Object.CreateRelationOption.Request) returns (anytype.Rpc.Object.CreateRelationOption.Response);
+    rpc RelationListRemoveOption (anytype.Rpc.Relation.ListRemoveOption.Request) returns (anytype.Rpc.Relation.ListRemoveOption.Response);
+    rpc RelationOptions (anytype.Rpc.Relation.Options.Request) returns (anytype.Rpc.Relation.Options.Response);
 
     // Object Relations
     // ***
     rpc ObjectRelationAdd (anytype.Rpc.ObjectRelation.Add.Request) returns (anytype.Rpc.ObjectRelation.Add.Response);
-    rpc ObjectRelationUpdate (anytype.Rpc.ObjectRelation.Update.Request) returns (anytype.Rpc.ObjectRelation.Update.Response);
     rpc ObjectRelationDelete (anytype.Rpc.ObjectRelation.Delete.Request) returns (anytype.Rpc.ObjectRelation.Delete.Response);
     rpc ObjectRelationAddFeatured (anytype.Rpc.ObjectRelation.AddFeatured.Request) returns (anytype.Rpc.ObjectRelation.AddFeatured.Response);
     rpc ObjectRelationRemoveFeatured (anytype.Rpc.ObjectRelation.RemoveFeatured.Request) returns (anytype.Rpc.ObjectRelation.RemoveFeatured.Response);
     rpc ObjectRelationListAvailable (anytype.Rpc.ObjectRelation.ListAvailable.Request) returns (anytype.Rpc.ObjectRelation.ListAvailable.Response);
-    rpc ObjectRelationOptionAdd (anytype.Rpc.ObjectRelationOption.Add.Request) returns (anytype.Rpc.ObjectRelationOption.Add.Response);
-    rpc ObjectRelationOptionUpdate (anytype.Rpc.ObjectRelationOption.Update.Request) returns (anytype.Rpc.ObjectRelationOption.Update.Response);
-    rpc ObjectRelationOptionDelete (anytype.Rpc.ObjectRelationOption.Delete.Request) returns (anytype.Rpc.ObjectRelationOption.Delete.Response);
 
     // ObjectType commands
     // ***
-    rpc ObjectTypeCreate (anytype.Rpc.ObjectType.Create.Request) returns (anytype.Rpc.ObjectType.Create.Response);
-    // ObjectTypeList lists all object types both bundled and created by user
-    rpc ObjectTypeList (anytype.Rpc.ObjectType.List.Request) returns (anytype.Rpc.ObjectType.List.Response);
+    rpc ObjectCreateObjectType (anytype.Rpc.Object.CreateObjectType.Request) returns (anytype.Rpc.Object.CreateObjectType.Response);
     rpc ObjectTypeRelationList (anytype.Rpc.ObjectType.Relation.List.Request) returns (anytype.Rpc.ObjectType.Relation.List.Response);
     rpc ObjectTypeRelationAdd (anytype.Rpc.ObjectType.Relation.Add.Request) returns (anytype.Rpc.ObjectType.Relation.Add.Response);
-    rpc ObjectTypeRelationUpdate (anytype.Rpc.ObjectType.Relation.Update.Request) returns (anytype.Rpc.ObjectType.Relation.Update.Response);
     rpc ObjectTypeRelationRemove (anytype.Rpc.ObjectType.Relation.Remove.Request) returns (anytype.Rpc.ObjectType.Relation.Remove.Response);
 
     rpc HistoryShowVersion (anytype.Rpc.History.ShowVersion.Request) returns (anytype.Rpc.History.ShowVersion.Response);
@@ -176,21 +184,13 @@ service ClientCommands {
     rpc BlockDataviewViewDelete (anytype.Rpc.BlockDataview.View.Delete.Request) returns (anytype.Rpc.BlockDataview.View.Delete.Response);
     rpc BlockDataviewViewUpdate (anytype.Rpc.BlockDataview.View.Update.Request) returns (anytype.Rpc.BlockDataview.View.Update.Response);
     rpc BlockDataviewViewSetActive (anytype.Rpc.BlockDataview.View.SetActive.Request) returns (anytype.Rpc.BlockDataview.View.SetActive.Response);
-    rpc BlockDataviewViewSetPosition(anytype.Rpc.BlockDataview.View.SetPosition.Request) returns (anytype.Rpc.BlockDataview.View.SetPosition.Response);
+    rpc BlockDataviewViewSetPosition (anytype.Rpc.BlockDataview.View.SetPosition.Request) returns (anytype.Rpc.BlockDataview.View.SetPosition.Response);
     rpc BlockDataviewSetSource (anytype.Rpc.BlockDataview.SetSource.Request) returns (anytype.Rpc.BlockDataview.SetSource.Response);
     rpc BlockDataviewRelationAdd (anytype.Rpc.BlockDataview.Relation.Add.Request) returns (anytype.Rpc.BlockDataview.Relation.Add.Response);
-    rpc BlockDataviewRelationUpdate (anytype.Rpc.BlockDataview.Relation.Update.Request) returns (anytype.Rpc.BlockDataview.Relation.Update.Response);
     rpc BlockDataviewRelationDelete (anytype.Rpc.BlockDataview.Relation.Delete.Request) returns (anytype.Rpc.BlockDataview.Relation.Delete.Response);
     rpc BlockDataviewRelationListAvailable (anytype.Rpc.BlockDataview.Relation.ListAvailable.Request) returns (anytype.Rpc.BlockDataview.Relation.ListAvailable.Response);
     rpc BlockDataviewGroupOrderUpdate (anytype.Rpc.BlockDataview.GroupOrder.Update.Request) returns (anytype.Rpc.BlockDataview.GroupOrder.Update.Response);
     rpc BlockDataviewObjectOrderUpdate (anytype.Rpc.BlockDataview.ObjectOrder.Update.Request) returns (anytype.Rpc.BlockDataview.ObjectOrder.Update.Response);
-
-    rpc BlockDataviewRecordCreate (anytype.Rpc.BlockDataviewRecord.Create.Request) returns (anytype.Rpc.BlockDataviewRecord.Create.Response);
-    rpc BlockDataviewRecordUpdate (anytype.Rpc.BlockDataviewRecord.Update.Request) returns (anytype.Rpc.BlockDataviewRecord.Update.Response);
-    rpc BlockDataviewRecordDelete (anytype.Rpc.BlockDataviewRecord.Delete.Request) returns (anytype.Rpc.BlockDataviewRecord.Delete.Response);
-    rpc BlockDataviewRecordRelationOptionAdd (anytype.Rpc.BlockDataviewRecord.RelationOption.Add.Request) returns (anytype.Rpc.BlockDataviewRecord.RelationOption.Add.Response);
-    rpc BlockDataviewRecordRelationOptionUpdate (anytype.Rpc.BlockDataviewRecord.RelationOption.Update.Request) returns (anytype.Rpc.BlockDataviewRecord.RelationOption.Update.Response);
-    rpc BlockDataviewRecordRelationOptionDelete (anytype.Rpc.BlockDataviewRecord.RelationOption.Delete.Request) returns (anytype.Rpc.BlockDataviewRecord.RelationOption.Delete.Response);
 
     // Simple table block commands
     // ***
@@ -233,5 +233,5 @@ service ClientCommands {
     rpc MetricsSetParameters (anytype.Rpc.Metrics.SetParameters.Request) returns (anytype.Rpc.Metrics.SetParameters.Response);
 
     // used only for lib-server via grpc
-    rpc ListenEvents (anytype.Empty) returns (stream anytype.Event);
+    rpc ListenSessionEvents (anytype.StreamRequest) returns (stream anytype.Event);
 }

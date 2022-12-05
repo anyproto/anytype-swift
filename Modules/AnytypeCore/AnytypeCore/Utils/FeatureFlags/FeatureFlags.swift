@@ -1,129 +1,124 @@
-public enum Feature: String, Codable {
-    case rainbowViews = "Paint editor views 🌈"
-    case showAlertOnAssert = "Show alerts on asserts\n(only in testflight dev)"
-    case analytics = "Analytics Amplitude (only in development)"
-    case middlewareLogs = "Show middleware logs in Xcode console"
-
-    case uikitRelationBlocks = "UIKit relation blocks"
-    case clipboard = "Clipboard"
-    case objectPreview = "Object preview"
-    case deletion = "Account deletion"
-    case createNewRelation = "Create new relation"
-    case templates = "Show templates picker"
-    case createObjectInSet = "Create object in Set"
-    case setSorts = "Set sorts"
-    case setFilters = "Set filters"
-    case tableOfContents = "Table of contents"
-    case floatingSetMenu = "Floating Set menu"
-    case simpleTables = "Simple tables"
-    case objectDuplicate = "Object duplicate"
-}
+import Foundation
 
 public final class FeatureFlags {
-    public typealias Features = [Feature: Bool]
     
-    public static var features: Features {
-        FeatureFlagsStorage.featureFlags.merging(defaultValues, uniquingKeysWith: { (first, _) in first })
-    }
-    
-    private static var isRelease: Bool {
-        #if RELEASE
+    private static var isDebug: Bool {
+        #if DEBUG
         true
         #else
         false
         #endif
     }
     
-    private static let defaultValues: Features = [
-        .rainbowViews: false,
-        .showAlertOnAssert : true,
-        .analytics : false,
-        .middlewareLogs: false,
-        .clipboard: true,
-        .uikitRelationBlocks: true,
-        .objectPreview: false,
-        .deletion: true,
-        .createNewRelation: true,
-        .templates: true,
-        .createObjectInSet: true,
-        .setSorts: false,
-        .setFilters: false,
-        .tableOfContents: true,
-        .floatingSetMenu: false,
-        .simpleTables: false,
-        .objectDuplicate: true
+    public static let features: [FeatureDescription] = [
+        .rainbowViews,
+        .showAlertOnAssert,
+        .analytics,
+        .objectPreview,
+        .setListView,
+        .setViewTypes,
+        .setSyncStatus,
+        .cursorPosition,
+        .hideBottomViewForStyleMenu,
+        .setKanbanView,
+        .redesignNewButton,
+        .linktoObjectFromItself,
+        .linkToObjectFromMarkup,
+        .showBookmarkInSets,
+        .inlineMarkdown,
+        .fixColorsForStyleMenu,
+        .redesignBookmarkBlock,
+        .showSetsInChangeTypeSearchMenu,
+        .fixInsetMediaContent
     ]
     
-    public static func update(key: Feature, value: Bool) {
+    public static func update(key feature: FeatureDescription, value: Bool) {
         var updatedFeatures = FeatureFlagsStorage.featureFlags
-        updatedFeatures.updateValue(value, forKey: key)
+        updatedFeatures.updateValue(value, forKey: feature.title)
         FeatureFlagsStorage.featureFlags = updatedFeatures
+    }
+    
+    public static func value(for feature: FeatureDescription) -> Bool {
+        let defaultValue = isDebug ? feature.debugValue : feature.defaultValue
+        return FeatureFlagsStorage.featureFlags[feature.title] ?? defaultValue
     }
 }
 
 public extension FeatureFlags {
 
     static var showAlertOnAssert: Bool {
-        features[.showAlertOnAssert, default: true]
+        value(for: .showAlertOnAssert)
     }
 
     static var analytics: Bool {
-        features[.analytics, default: false]
+        value(for: .analytics)
     }
     
     static var rainbowViews: Bool {
-        features[.rainbowViews, default: false]
-    }
-    
-    static var middlewareLogs: Bool {
-        features[.middlewareLogs, default: false]
-    }
-
-    static var uikitRelationBlock: Bool {
-        features[.uikitRelationBlocks, default: true]
-    }
-
-    static var clipboard: Bool {
-        features[.clipboard, default: true]
+        value(for: .rainbowViews)
     }
 
     static var objectPreview: Bool {
-        features[.objectPreview, default: false]
+        value(for: .objectPreview)
     }
     
-    static var deletion: Bool {
-        features[.deletion, default: true]
+    static var setListView: Bool {
+        value(for: .setListView)
     }
     
-    static var createNewRelation: Bool {
-        features[.createNewRelation, default: true]
+    static var setViewTypes: Bool {
+        value(for: .setViewTypes)
+    }
+    
+    static var setSyncStatus: Bool {
+        value(for: .setSyncStatus)
+    }
+    
+    static var cursorPosition: Bool {
+        value(for: .cursorPosition)
+    }
+    
+    static var hideBottomViewForStyleMenu: Bool {
+        value(for: .hideBottomViewForStyleMenu)
+    }
+    
+    static var setKanbanView: Bool {
+        value(for: .setKanbanView)
+    }
+    
+    static var redesignNewButton: Bool {
+        value(for: .redesignNewButton)
     }
 
-    static var isTemplatesAvailable: Bool {
-        features[.templates, default: true]
+    static var linktoObjectFromItself: Bool {
+        value(for: .linktoObjectFromItself)
+    }
+    
+    static var linkToObjectFromMarkup: Bool {
+        value(for: .linkToObjectFromMarkup)
+    }
+    
+    static var showBookmarkInSets: Bool {
+        value(for: .showBookmarkInSets)
+    }
+    
+    static var inlineMarkdown: Bool {
+        value(for: .inlineMarkdown)
     }
 
-    static var isCreateObjectInSetAvailable: Bool {
-        features[.createObjectInSet, default: true]
-    }
-    
-    static var isSetSortsAvailable: Bool {
-        features[.setSorts, default: false]
-    }
-    
-    static var isSetFiltersAvailable: Bool {
-        features[.setFilters, default: false]
-    }
-    
-    static var isTableOfContentsAvailable: Bool {
-        features[.tableOfContents, default: true]
+    static var fixColorsForStyleMenu: Bool {
+        value(for: .fixColorsForStyleMenu)
     }
 
-    static var isSimpleTablesAvailable: Bool {
-        features[.simpleTables, default: false]
+    static var redesignBookmarkBlock: Bool {
+        value(for: .redesignBookmarkBlock)
     }
     
-    static var isObjectDuplicateAvailable: Bool {
-        features[.objectDuplicate, default: true]
+    static var showSetsInChangeTypeSearchMenu: Bool {
+        value(for: .showSetsInChangeTypeSearchMenu)
+    }
+    
+    static var fixInsetMediaContent: Bool {
+        value(for: .fixInsetMediaContent)
     }
 }

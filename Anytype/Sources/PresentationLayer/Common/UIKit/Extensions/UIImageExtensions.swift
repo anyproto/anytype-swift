@@ -1,7 +1,21 @@
 import CoreGraphics
 import UIKit
+import AnytypeCore
 
 extension UIImage {
+    
+    static func dynamicImage(light: UIImage, dark: UIImage) -> UIImage {
+        let imageAsset = UIImageAsset()
+            
+        let lightMode = UITraitCollection(traitsFrom: [.init(userInterfaceStyle: .light), .init(displayScale: light.scale)])
+        imageAsset.register(light, with: lightMode)
+        
+        let darkMode = UITraitCollection(traitsFrom: [.init(userInterfaceStyle: .dark), .init(displayScale: light.scale)])
+        imageAsset.register(dark, with: darkMode)
+        
+        return imageAsset.image(with: .current)
+   }
+
     func circleImage(width: CGFloat, opaque: Bool = false, backgroundColor: CGColor? = nil) -> UIImage {
         cropToSquare()
         .scaled(to: CGSize(width: width, height: width))
@@ -149,27 +163,26 @@ extension UIImage {
         side: CGFloat,
         backgroundColor: UIColor?
     ) -> UIImage {
-        let size = CGSize(width: side, height: side)
-        let renderer = UIGraphicsImageRenderer(size: size)
-
-        return renderer.image { actions in
-            let context = actions.cgContext
-
-            let rect = CGRect(origin: .zero, size: size)
-            let rectPath = UIBezierPath(roundedRect: rect, cornerRadius: cornerRadius)
-            context.addPath(rectPath.cgPath)
-            backgroundColor.map { context.setFillColor($0.cgColor) }
-            context.fillPath()
-
-            let x = (size.width - imageSize.width) / 2
-            let y = (size.height - imageSize.height) / 2
-
-            scaled(to: imageSize).draw(
-                at: .init(x: x, y: y),
-                blendMode: .normal,
-                alpha: 1.0
-            )
+        
+        let lightImage = imageDraw(
+            imageSize: imageSize,
+            cornerRadius: cornerRadius,
+            side: side,
+            backgroundColor: backgroundColor?.light.cgColor
+        )
+        
+        guard let backgroundColor = backgroundColor, backgroundColor.light != backgroundColor.dark else {
+            return lightImage
         }
+        
+        let darkImage = imageDraw(
+            imageSize: imageSize,
+            cornerRadius: cornerRadius,
+            side: side,
+            backgroundColor: backgroundColor.dark.cgColor
+        )
+        
+        return UIImage.dynamicImage(light: lightImage, dark: darkImage)
     }
 
     func rotate(radians: Float) -> UIImage {
@@ -220,11 +233,15 @@ extension UIImage {
         backgroundView.layer.cornerRadius = cornerRadius
         backgroundView.layer.masksToBounds = true
         
-        UIGraphicsBeginImageContextWithOptions(size, false, UIApplication.shared.keyWindow?.screen.scale ?? 0)
-        if let currentContext = UIGraphicsGetCurrentContext() {
-            backgroundView.layer.render(in: currentContext)
-            let nameImage = UIGraphicsGetImageFromCurrentImageContext()
-            return nameImage
+        if FeatureFlags.fixColorsForStyleMenu {
+            return backgroundView.drawToImage()
+        } else {
+            UIGraphicsBeginImageContextWithOptions(size, false, UIApplication.shared.keyWindow?.screen.scale ?? 0)
+            if let currentContext = UIGraphicsGetCurrentContext() {
+                backgroundView.layer.render(in: currentContext)
+                let nameImage = UIGraphicsGetImageFromCurrentImageContext()
+                return nameImage
+            }
         }
 
         return nil
@@ -257,5 +274,78 @@ extension UIImage {
         }
 
         return img
+    }
+
+    convenience init?(color: UIColor, size: CGSize = CGSize(width: 50, height: 50)) {
+        let rect = CGRect(origin: .zero, size: size)
+        UIGraphicsBeginImageContextWithOptions(rect.size, false, 0.0)
+        color.setFill()
+        UIRectFill(rect)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        guard let cgImage = image?.cgImage else { return nil }
+        self.init(cgImage: cgImage)
+    }
+    
+    // MARK: - Private
+    
+    private func imageDraw(
+        imageSize: CGSize,
+        cornerRadius: CGFloat,
+        side: CGFloat,
+        backgroundColor: CGColor? = nil
+    ) -> UIImage {
+        let size = CGSize(width: side, height: side)
+        let renderer = UIGraphicsImageRenderer(size: size)
+
+        return renderer.image { actions in
+            let context = actions.cgContext
+
+            let rect = CGRect(origin: .zero, size: size)
+            let rectPath = UIBezierPath(roundedRect: rect, cornerRadius: cornerRadius)
+            context.addPath(rectPath.cgPath)
+            backgroundColor.map { context.setFillColor($0) }
+            context.fillPath()
+
+            let x = (size.width - imageSize.width) / 2
+            let y = (size.height - imageSize.height) / 2
+
+            scaled(to: imageSize).draw(
+                at: .init(x: x, y: y),
+                blendMode: .normal,
+                alpha: 1.0
+            )
+        }
+    }
+
+    func imageResized(to size: CGSize) -> UIImage {
+        return UIGraphicsImageRenderer(size: size).image { _ in
+            draw(in: CGRect(origin: .zero, size: size))
+        }
+    }
+
+    func centeredSquareImage() -> UIImage? {
+        guard let cgImage = cgImage else { return nil }
+        let width = CGFloat(cgImage.width)
+        let height = CGFloat(cgImage.height)
+
+        let sideLenght = min(width, height)
+
+        let xOffset = (width - sideLenght) / 2
+        let yOffset = (height - sideLenght) / 2
+
+        let cropRect = CGRect(
+            x: xOffset,
+            y: yOffset,
+            width: sideLenght,
+            height: sideLenght
+        )
+
+        if let imageRef = cgImage.cropping(to: cropRect) {
+            return UIImage(cgImage: imageRef, scale: 0, orientation: imageOrientation)
+        }
+
+        return nil
     }
 }

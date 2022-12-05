@@ -53,7 +53,7 @@ final class TableOfContentsView: UIView, BlockContentView {
             $0.pinToSuperview(insets: UIEdgeInsets(
                 top: Constants.verticalBoundsInset,
                 left: 0,
-                bottom: -Constants.verticalBoundsInset,
+                bottom: Constants.verticalBoundsInset,
                 right: 0
             ))
         }

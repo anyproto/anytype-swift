@@ -1,15 +1,18 @@
 import Combine
 import UIKit
 
+@MainActor
 final class DeletedAccountViewModel: ObservableObject {
     
     private let service = ServiceLocator.shared.authService()
     private let deadline: Date
+    private let windowManager: WindowManager
     
     // MARK: - Initializer
     
-    init(deadline: Date) {
+    init(deadline: Date, windowManager: WindowManager) {
         self.deadline = deadline
+        self.windowManager = windowManager
     }
     
     // MARK: - Internal var
@@ -28,24 +31,32 @@ final class DeletedAccountViewModel: ObservableObject {
     // MARK: - Internal funcs
     
     func logOut() {
-        service.logout(removeData: true) { isSuccess in
+        AnytypeAnalytics.instance().logEvent(
+            AnalyticsEventsName.logout,
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.route: AnalyticsEventsName.screenDeletion
+            ]
+        )
+
+        service.logout(removeData: true) { [weak self] isSuccess in
             guard isSuccess else {
                 UINotificationFeedbackGenerator().notificationOccurred(.error)
                 return
             }
             
-            WindowManager.shared.showAuthWindow()
+            self?.windowManager.showAuthWindow()
         }
     }
     
     func cancel() {
+        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.cancelDeletion)
         guard let status = service.restoreAccount() else {
             UINotificationFeedbackGenerator().notificationOccurred(.error)
             return
         }
         
         if case .active = status {
-            WindowManager.shared.showHomeWindow()
+            windowManager.showHomeWindow()
         } else {
             UINotificationFeedbackGenerator().notificationOccurred(.error)
             return

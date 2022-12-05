@@ -30,14 +30,18 @@ final class HomeViewModel: ObservableObject {
     @Published var loadingDocument = true
     
     @Published private(set) var profileData: HomeProfileData?
+    @Published private(set) var settingsViewModel: SettingsViewModel
     
     let objectActionsService: ObjectActionsServiceProtocol = ServiceLocator.shared.objectActionsService()
     
     private let dashboardService: DashboardServiceProtocol = ServiceLocator.shared.dashboardService()
     private let subscriptionService: SubscriptionsServiceProtocol = ServiceLocator.shared.subscriptionService()
+    private let tabsSubsciptionDataBuilder: TabsSubscriptionDataBuilderProtocol
+    private let profileSubsciptionDataBuilder: ProfileSubscriptionDataBuilderProtocol
     
     let document: BaseDocumentProtocol
     lazy var cellDataBuilder = HomeCellDataBuilder(document: document)
+    lazy var favoritesSorter = HomeFavoritesSorter(document: document)
     private lazy var cancellables = [AnyCancellable]()
     
     let bottomSheetCoordinateSpaceName = "BottomSheetCoordinateSpaceName"
@@ -45,15 +49,28 @@ final class HomeViewModel: ObservableObject {
     weak var editorBrowser: EditorBrowser?
     private var quickActionsSubscription: AnyCancellable?
     
-    nonisolated init(homeBlockId: BlockId) {
+    private let editorBrowserAssembly: EditorBrowserAssembly
+    
+    init(
+        homeBlockId: BlockId,
+        editorBrowserAssembly: EditorBrowserAssembly,
+        tabsSubsciptionDataBuilder: TabsSubscriptionDataBuilderProtocol,
+        profileSubsciptionDataBuilder: ProfileSubscriptionDataBuilderProtocol,
+        windowManager: WindowManager
+    ) {
         document = BaseDocument(objectId: homeBlockId)
-        Task { @MainActor in
-            setupSubscriptions()
+        self.editorBrowserAssembly = editorBrowserAssembly
+        self.tabsSubsciptionDataBuilder = tabsSubsciptionDataBuilder
+        self.profileSubsciptionDataBuilder = profileSubsciptionDataBuilder
+        self.settingsViewModel = SettingsViewModel(
+            authService: ServiceLocator.shared.authService(),
+            windowManager: windowManager
+        )
+        setupSubscriptions()
         
-            let data = UserDefaultsConfig.screenDataFromLastSession
-            showingEditorScreenData = data != nil
-            openedEditorScreenData = data
-        }
+        let data = UserDefaultsConfig.screenDataFromLastSession
+        showingEditorScreenData = data != nil
+        openedEditorScreenData = data
     }
 
     // MARK: - View output
@@ -80,17 +97,13 @@ final class HomeViewModel: ObservableObject {
         selectAll(false)
         
         UserDefaultsConfig.selectedTab = tab
-        subscriptionService.stopSubscriptions(ids: [.sharedTab, .setsTab, .archiveTab, .historyTab])
-        tab.subscriptionId.flatMap { subId in
-            subscriptionService.startSubscription(data: subId) { [weak self] id, update in
-                withAnimation(update.isInitialData ? nil : .spring()) {
-                    self?.updateCollections(id: id, update)
-                }
-            }
-        }
+        subscriptionService.stopSubscriptions(ids: tabsSubsciptionDataBuilder.allIds())
+        let subscriptionData = tabsSubsciptionDataBuilder.build(for: tab)
         
-        if tab == .favourites {
-            updateFavoritesTab()
+        subscriptionService.startSubscription(data: subscriptionData) { [weak self] id, update in
+            withAnimation(update.isInitialData ? nil : .spring()) {
+                self?.updateCollections(id: id, update)
+            }
         }
         
         AnytypeAnalytics.instance().logHomeTabSelection(tab)
@@ -116,7 +129,7 @@ final class HomeViewModel: ObservableObject {
     
     private func updateCollections(id: SubscriptionId, _ update: SubscriptionUpdate) {
         switch id {
-        case .historyTab:
+        case .recentTab:
             historyCellData.applySubscriptionUpdate(update, transform: cellDataBuilder.buildCellData)
         case .archiveTab:
             binCellData.applySubscriptionUpdate(update, transform: cellDataBuilder.buildCellData)
@@ -124,23 +137,16 @@ final class HomeViewModel: ObservableObject {
             sharedCellData.applySubscriptionUpdate(update, transform: cellDataBuilder.buildCellData)
         case .setsTab:
             setsCellData.applySubscriptionUpdate(update, transform: cellDataBuilder.buildCellData)
+        case .favoritesTab:
+            favoritesCellData.applySubscriptionUpdate(update, transform: cellDataBuilder.buildCellData)
+            favoritesCellData = favoritesSorter.sort(data: favoritesCellData)
         default:
             anytypeAssertionFailure("Unsupported subscription: \(id)", domain: .homeView)
         }
     }
     
-    func updateFavoritesTab() {
-        withAnimation(.spring()) {
-            favoritesCellData = cellDataBuilder.buildFavoritesData()
-        }
-    }
-    
     // MARK: - Private methods
     private func setupSubscriptions() {
-        
-        document.updatePublisher.sink { [weak self] in
-            self?.onDashboardChange(update: $0)
-        }.store(in: &cancellables)
         
         $selectedTab.sink { [weak self] in
             self?.onTabChange(tab: $0)
@@ -166,48 +172,12 @@ final class HomeViewModel: ObservableObject {
     
     private func setupProfileSubscriptions() {
         subscriptionService.startSubscription(
-            data: .profile(id: AccountManager.shared.account.info.profileObjectID)
+            data: profileSubsciptionDataBuilder.profile(id: AccountManager.shared.account.info.profileObjectID)
         ) { [weak self] id, update in
             withAnimation {
                 self?.onProfileUpdate(update: update)
             }
         }
-    }
-    
-    private func onDashboardChange(update: DocumentUpdate) {
-        withAnimation(.spring()) {
-            switch update {
-            case .general:
-                updateFavoritesTab()
-            case .blocks(let blockIds):
-                blockIds.forEach { updateFavoritesCellWithTargetId($0) }
-            case .details(let detailId):
-                updateFavoritesCellWithTargetId(detailId)
-            case .syncStatus:
-                break
-            case .dataSourceUpdate, .header:
-                anytypeAssertionFailure("Unsupported event \(update)", domain: .homeView)
-                break
-            }
-        }
-    }
-
-    private func updateFavoritesCellWithTargetId(_ blockId: BlockId) {
-        guard
-            let newDetails = ObjectDetailsStorage.shared.get(id: blockId)
-        else {
-            anytypeAssertionFailure("Could not find object with id: \(blockId)", domain: .homeView)
-            return
-        }
-
-        favoritesCellData.enumerated()
-            .first { $0.element.destinationId == blockId }
-            .flatMap { offset, data in
-                favoritesCellData[offset] = cellDataBuilder.updatedCellData(
-                    newDetails: newDetails,
-                    oldData: data
-                )
-            }
     }
 }
 
@@ -223,7 +193,7 @@ extension HomeViewModel {
         guard let id = dashboardService.createNewPage() else { return }
         
         AnytypeAnalytics.instance().logCreateObject(
-            objectType: ObjectTypeProvider.shared.defaultObjectType.url,
+            objectType: ObjectTypeProvider.shared.defaultObjectType.id,
             route: .home
         )
         
@@ -247,7 +217,7 @@ extension HomeViewModel {
     }
     
     func createBrowser(data: EditorScreenData) -> some View {
-        EditorBrowserAssembly().editor(data: data, model: self)
+        editorBrowserAssembly.editor(data: data, model: self)
             .eraseToAnyView()
             .edgesIgnoringSafeArea(.all)
     }

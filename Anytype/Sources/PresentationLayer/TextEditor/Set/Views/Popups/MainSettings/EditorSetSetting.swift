@@ -1,10 +1,9 @@
-import SwiftUI
 import AnytypeCore
 
 enum EditorSetSetting: CaseIterable, Identifiable {
     var id: String { name }
     
-//    case view
+    case view
     case settings
     case sort
     case filter
@@ -12,8 +11,8 @@ enum EditorSetSetting: CaseIterable, Identifiable {
     
     var name: String {
         switch self {
-//        case .view:
-//            return Loc.view
+        case .view:
+            return Loc.view
         case .settings:
             return Loc.settings
         case .sort:
@@ -25,29 +24,28 @@ enum EditorSetSetting: CaseIterable, Identifiable {
         }
     }
     
-    var image: Image {
+    var imageAsset: ImageAsset {
         switch self {
-//        case .view:
-//            return .set.view
+        case .view:
+            return .setSettinsView
         case .settings:
-            return .set.viewSettings
+            return .setSettingsSettings
         case .sort:
-            return .set.sort
+            return .setSettinsSort
         case .filter:
-            return .set.filter
+            return .setSettinsFilter
 //        case .group:
 //            return .set.group
         }
     }
     
     static var allCases: Self.AllCases {
-        var cases = [EditorSetSetting.settings]
-        if FeatureFlags.isSetSortsAvailable {
-            cases.append(.sort)
+        var cases: [EditorSetSetting] = [.settings, .sort, .filter]
+        
+        if FeatureFlags.setViewTypes {
+            cases.insert(.view, at: 0)
         }
-        if FeatureFlags.isSetFiltersAvailable {
-            cases.append(.filter)
-        }
+        
         return cases
     }
 }

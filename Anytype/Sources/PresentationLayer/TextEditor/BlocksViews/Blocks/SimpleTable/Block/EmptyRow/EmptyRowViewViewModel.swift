@@ -7,7 +7,8 @@ struct EmptyRowViewViewModel: SystemContentConfiguationProvider {
         [
             contextId,
             rowId,
-            columnId
+            columnId,
+            isHeaderRow
         ] as [AnyHashable]
     }
 
@@ -15,21 +16,24 @@ struct EmptyRowViewViewModel: SystemContentConfiguationProvider {
         contextId: BlockId,
         rowId: BlockId,
         columnId: BlockId,
-        tablesService: BlockTableService,
-        cursorManager: EditorCursorManager
+        tablesService: BlockTableServiceProtocol,
+        cursorManager: EditorCursorManager,
+        isHeaderRow: Bool
     ) {
         self.contextId = contextId
         self.rowId = rowId
         self.columnId = columnId
         self.tablesService = tablesService
         self.cursorManager = cursorManager
+        self.isHeaderRow = isHeaderRow
     }
 
     private let contextId: BlockId
     private let rowId: BlockId
     private let columnId: BlockId
-    private let tablesService: BlockTableService
+    private let tablesService: BlockTableServiceProtocol
     private let cursorManager: EditorCursorManager
+    private let isHeaderRow: Bool
 
     func didSelectRowInTableView(editorEditingState: EditorEditingState) {
 
@@ -37,24 +41,32 @@ struct EmptyRowViewViewModel: SystemContentConfiguationProvider {
 
     func emptyRowConfiguration() -> EmptyRowConfiguration {
         EmptyRowConfiguration(id: "\(rowId)-\(columnId)") {
-            tablesService.rowListFill(
-                contextId: contextId,
-                targetIds: [rowId]
-            )
-
-            cursorManager.blockFocus = .init(id: "\(rowId)-\(columnId)", position: .beginning)
+            fillAndSetFocus()
         }
     }
 
     func makeSpreadsheetConfiguration() -> UIContentConfiguration {
         emptyRowConfiguration().spreadsheetConfiguration(
             dragConfiguration: nil,
-            styleConfiguration: .init(backgroundColor: .backgroundPrimary)
+            styleConfiguration: .init(backgroundColor: isHeaderRow ? UIColor.headerRowColor : .backgroundPrimary)
         )
     }
 
     func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration {
         makeSpreadsheetConfiguration()
+    }
+
+    func set(focus: BlockFocusPosition) {
+        fillAndSetFocus()
+    }
+
+    private func fillAndSetFocus() {
+        tablesService.rowListFill(
+            contextId: contextId,
+            targetIds: [rowId]
+        )
+
+        cursorManager.blockFocus = .init(id: "\(rowId)-\(columnId)", position: .beginning)
     }
 }
 
@@ -88,7 +100,7 @@ final class EmptyRowView: UIView, BlockContentView {
     }
 
     func update(with state: UICellConfigurationState) {
-        button.isHidden = !state.isEditing
+        button.isHidden = state.isLocked
     }
 
     func setup() {

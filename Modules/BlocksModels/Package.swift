@@ -14,6 +14,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-protobuf", revision: "1.15.0"),
+        .package(url: "https://github.com/SwiftGen/SwiftGenPlugin", revision: "6.6.2"),
         .package(path: "../ProtobufMessages"),
         .package(path: "../AnytypeCore")
     ],
@@ -25,7 +26,10 @@ let package = Package(
                 "ProtobufMessages",
                 "AnytypeCore"
             ],
-            path: "Sources"
+            path: "Sources",
+            plugins: [
+                .plugin(name: "SwiftGenPlugin", package: "SwiftGenPlugin")
+            ]
         )
     ]
 )

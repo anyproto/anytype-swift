@@ -39,7 +39,6 @@ final class CustomTextView: UIView {
             $0.pinToSuperview()
         }
     }
-    
 }
 
 // MARK: - Views
@@ -88,7 +87,7 @@ private extension CustomTextView {
         textView.addInteraction(mentionSelection)
         textView.addInteraction(objectSelection)
         textView.autocorrectionType = autocorrect ? .yes : .no
+
         return textView
     }
-    
 }

@@ -2,6 +2,7 @@ import SwiftUI
 
 struct AlphaInviteCodeView: View {
     @StateObject var signUpData: SignUpData
+    let windowManager: WindowManager
     @State private var showCreateNewProfile = false
     
     @Environment(\.presentationMode) var presentationMode
@@ -36,15 +37,16 @@ struct AlphaInviteCodeView: View {
                 AnytypeText(Loc.doNotHaveInvite, style: .uxCalloutRegular, color: .textPrimary)
                 Spacer.fixedHeight(30)
                 
-                AutofocusedTextField(placeholder: "", text: $signUpData.inviteCode)
+                AutofocusedTextField(
+                    placeholder: Loc.SignUp.InvintationCode.placeholder,
+                    placeholderFont: .uxBodyRegular,
+                    text: $signUpData.inviteCode
+                )
                     .disableAutocorrection(true)
                     .textContentType(.password)
                     .autocapitalization(.none)
                     .font(AnytypeFontBuilder.font(anytypeFont: .uxBodyRegular))
                     .foregroundColor(.textPrimary)
-                    .placeholder(when: signUpData.inviteCode.isEmpty) {
-                        AnytypeText("Invitation code", style: .uxBodyRegular, color: .textTertiary)
-                    }
                     .divider(spacing: 11.5)
                 Spacer.fixedHeight(20)
                 
@@ -64,7 +66,11 @@ struct AlphaInviteCodeView: View {
             
             NavigationLink(
                 destination: CreateNewProfileView(
-                    viewModel: CreateNewProfileViewModel(seedService: ServiceLocator.shared.seedService()),
+                    viewModel: CreateNewProfileViewModel(
+                        windowManager: windowManager,
+                        authService: ServiceLocator.shared.authService(),
+                        seedService: ServiceLocator.shared.seedService()
+                    ),
                     showCreateNewProfile: $showCreateNewProfile
                 ).environmentObject(signUpData),
                 isActive: $showCreateNewProfile
@@ -79,6 +85,9 @@ struct AlphaInviteCodeView: View {
 
 struct AlphaInviteCodeView_Previews: PreviewProvider {
     static var previews: some View {
-        AlphaInviteCodeView(signUpData: SignUpData(mnemonic: UUID().uuidString))
+        AlphaInviteCodeView(
+            signUpData: SignUpData(mnemonic: UUID().uuidString),
+            windowManager: DI.makeForPreview().coordinatorsDI.windowManager
+        )
     }
 }

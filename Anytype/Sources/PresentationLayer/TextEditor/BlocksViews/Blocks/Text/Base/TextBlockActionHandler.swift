@@ -1,6 +1,7 @@
 import Combine
 import UIKit
 import BlocksModels
+import AnytypeCore
 
 struct TextBlockURLInputParameters {
     let textView: UITextView
@@ -70,10 +71,10 @@ struct TextBlockActionHandler: TextBlockActionHandlerProtocol {
               textViewWillBeginEditing: textViewWillBeginEditing(textView:),
               textViewDidBeginEditing: textViewDidBeginEditing(textView:),
               textViewDidEndEditing: textViewDidEndEditing(textView:),
-              textViewDidChangeCaretPosition: textViewDidChangeCaretPosition(range:),
+              textViewDidChangeCaretPosition: textViewDidChangeCaretPosition(textView:range:),
               textViewShouldReplaceText: textViewShouldReplaceText(textView:replacementText:range:),
               toggleCheckBox: toggleCheckBox,
-              toggleDropDown: toggleCheckBox,
+              toggleDropDown: toggleDropdownView,
               tapOnCalloutIcon: showTextIconPicker
         )
     }
@@ -115,7 +116,11 @@ struct TextBlockActionHandler: TextBlockActionHandlerProtocol {
                 textView.setFocus(.beginning)
             case let .addBlock(type, newText):
                 actionHandler.changeTextForced(newText, blockId: info.id)
-                actionHandler.addBlock(type, blockId: info.id, position: .top)
+                actionHandler.addBlock(type, blockId: info.id, blockText: newText, position: .top)
+                resetSubject.send()
+            case let .addStyle(style, newText, styleRange, focusRange):
+                actionHandler.setTextStyle(style, range: styleRange, blockId: info.id, currentText: newText)
+                textView.setFocus(.at(focusRange))
             }
 
             return false
@@ -124,9 +129,9 @@ struct TextBlockActionHandler: TextBlockActionHandlerProtocol {
         return true
     }
 
-    private func attributedStringWithURL(
+    private func makeAttributedString(
         attributedText: NSAttributedString,
-        replacementURL: URL,
+        replacementURL: URL?,
         replacementText: String,
         range: NSRange
     ) -> NSAttributedString {
@@ -138,8 +143,10 @@ struct TextBlockActionHandler: TextBlockActionHandlerProtocol {
             attributedString: mutableAttributedString,
             anytypeFont: content.contentType.uiFont
         )
-
-        modifier.apply(.link(replacementURL), shouldApplyMarkup: true, range: newRange)
+        
+        if let replacementURL = replacementURL {
+            modifier.apply(.link(replacementURL), shouldApplyMarkup: true, range: newRange)
+        }
 
         return NSAttributedString(attributedString: modifier.attributedString)
     }
@@ -152,25 +159,22 @@ struct TextBlockActionHandler: TextBlockActionHandlerProtocol {
         let previousTypingAttributes = textView.typingAttributes
         let originalAttributedString = textView.attributedText
         let trimmedText = replacementText.trimmed
-        var urlString = trimmedText
 
-        if !urlString.isEncoded {
-            urlString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? urlString
-        }
+        let urlString = trimmedText
 
-        guard urlString.isValidURL(), let url = URL(string: urlString) else {
+        guard urlString.isValidURL(), let url = AnytypeURL(string: urlString) else {
             return false
         }
 
-        let newText = attributedStringWithURL(
+        let newTextWithLink = makeAttributedString(
             attributedText: textView.attributedText,
-            replacementURL: url,
+            replacementURL: url.url,
             replacementText: replacementText.trimmed,
             range: range
         )
 
-        actionHandler.changeTextForced(newText, blockId: info.id)
-        textView.attributedText = newText
+        actionHandler.changeTextForced(newTextWithLink, blockId: info.id)
+        textView.attributedText = newTextWithLink
         textView.typingAttributes = previousTypingAttributes
 
         let replacementRange = NSRange(location: range.location, length: trimmedText.count)
@@ -187,14 +191,22 @@ struct TextBlockActionHandler: TextBlockActionHandlerProtocol {
                     actionHandler.createAndFetchBookmark(
                         targetID: info.id,
                         position: position,
-                        url: url.absoluteString
+                        url: url
                     )
 
                     originalAttributedString.map {
                         actionHandler.changeTextForced($0, blockId: info.id)
                     }
-                case .dismiss:
+                case .pasteAsLink:
                     break
+                case .pasteAsText:
+                    let newText = makeAttributedString(
+                        attributedText: originalAttributedString ?? NSAttributedString(),
+                        replacementURL: nil,
+                        replacementText: replacementText.trimmed,
+                        range: range
+                    )
+                    actionHandler.changeTextForced(newText, blockId: info.id)
                 }
             }
         showURLBookmarkPopup(urlIputParameters)
@@ -266,8 +278,11 @@ struct TextBlockActionHandler: TextBlockActionHandlerProtocol {
         blockDelegate?.didEndEditing(data: blockDelegateData(textView: textView))
     }
 
-    private func textViewDidChangeCaretPosition(range: NSRange) {
-        blockDelegate?.selectionDidChange(range: range)
+    private func textViewDidChangeCaretPosition(textView: UITextView, range: NSRange) {
+        blockDelegate?.selectionDidChange(
+            data: blockDelegateData(textView: textView),
+            range: range
+        )
     }
 
     private func toggleCheckBox() {

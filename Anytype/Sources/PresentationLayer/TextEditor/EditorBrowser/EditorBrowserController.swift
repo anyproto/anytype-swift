@@ -4,14 +4,14 @@ import AnytypeCore
 
 protocol EditorBrowser: AnyObject {
     func pop()
+    func popIfPresent(_ viewController: UIViewController)
     func goToHome(animated: Bool)
     func showPage(data: EditorScreenData)
     func setNavigationViewHidden(_ isHidden: Bool, animated: Bool)
 }
 
 protocol EditorBrowserViewInputProtocol: AnyObject {
-    func multiselectActive(_ active: Bool)
-    func onScroll(bottom: Bool)
+    func didShow(collectionView: UICollectionView)
 }
 
 final class EditorBrowserController: UIViewController, UINavigationControllerDelegate, EditorBrowser, EditorBrowserViewInputProtocol {
@@ -24,12 +24,18 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
     
     private let dashboardService = ServiceLocator.shared.dashboardService()
     private let stateManager = BrowserNavigationManager()
+    private let browserView = EditorBrowserView()
     
     init() {
         super.init(nibName: nil, bundle: nil)
     }
 
+    override func loadView() {
+        view = browserView
+    }
+    
     func setup() {
+        view.backgroundColor = .backgroundPrimary
         childNavigation.delegate = self
         
         view.addSubview(navigationView) {
@@ -108,7 +114,7 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
                 guard let id = self.dashboardService.createNewPage() else { return }
                 
                 AnytypeAnalytics.instance().logCreateObjectNavBar(
-                    objectType: ObjectTypeProvider.shared.defaultObjectType.url
+                    objectType: ObjectTypeProvider.shared.defaultObjectType.id
                 )
                 
                 self.router.showPage(data: EditorScreenData(pageId: id, type: .page))
@@ -124,6 +130,11 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
         }
     }
     
+    func popIfPresent(_ viewController: UIViewController) {
+        guard childNavigation.topViewController == viewController else { return }
+        pop()
+    }
+    
     func goToHome(animated: Bool) {
         navigationController?.popViewController(animated: animated)
     }
@@ -132,30 +143,8 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
         router.showPage(data: data)
     }
     
-    private var isMultiselectActive = false
-    func multiselectActive(_ active: Bool) {
-        isMultiselectActive = active
-        updateNavigationVisibility(animated: false)
-    }
-    
-    private var scrollDirectionBottom = false
-    func onScroll(bottom: Bool) {
-        guard !isMultiselectActive, scrollDirectionBottom != bottom else { return }
-        scrollDirectionBottom = bottom
-        updateNavigationVisibility(animated: true)
-    }
-    
-    private func updateNavigationVisibility(animated: Bool) {
-        guard !isMultiselectActive else {
-            setNavigationViewHidden(true, animated: animated)
-            return
-        }
-        
-        if scrollDirectionBottom {
-            setNavigationViewHidden(true, animated: animated)
-        } else {
-            setNavigationViewHidden(false, animated: animated)
-        }
+    func didShow(collectionView: UICollectionView) {
+        browserView.childCollectionView = collectionView
     }
 
     func setNavigationViewHidden(_ isHidden: Bool, animated: Bool) {
@@ -166,7 +155,7 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
             delay: 0,
             options: .curveEaseInOut,
             animations: { [weak self] in
-                self?.view.layoutIfNeeded()
+                self?.navigationView.layoutIfNeeded()
             }, completion: nil
         )
     }

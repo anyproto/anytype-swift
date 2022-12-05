@@ -7,14 +7,24 @@ struct BlockFileViewModel: BlockViewModelProtocol {
     
     let info: BlockInformation
     let fileData: BlockFile
+    let handler: BlockActionHandlerProtocol
     
     let showFilePicker: (BlockId) -> ()
-    let downloadFile: (FileMetadata) -> ()
-    
+    let onFileOpen: (FilePreviewContext) -> ()
+
     func didSelectRowInTableView(editorEditingState: EditorEditingState) {
         switch fileData.state {
         case .done:
-            downloadFile(fileData.metadata)
+            onFileOpen(
+                .init(
+                    file: FilePreviewMedia(file: fileData, blockId: info.id),
+                    sourceView: nil,
+                    previewImage: nil,
+                    onDidEditFile: { url in
+                        handler.uploadFileAt(localPath: url.relativePath, blockId: info.id)
+                    }
+                )
+            )
         case .empty, .error:
             if case .locked = editorEditingState { return }
             showFilePicker(blockId)
@@ -26,11 +36,11 @@ struct BlockFileViewModel: BlockViewModelProtocol {
     func makeContentConfiguration(maxWidth _ : CGFloat) -> UIContentConfiguration {
         switch fileData.state {
         case .empty:
-            return emptyViewConfiguration(state: .default)
+            return emptyViewConfiguration(text: Loc.Content.File.upload, state: .default)
         case .uploading:
-            return emptyViewConfiguration(state: .uploading)
+            return emptyViewConfiguration(text: Loc.Content.Common.uploading, state: .uploading)
         case .error:
-            return emptyViewConfiguration(state: .error)
+            return emptyViewConfiguration(text: Loc.Content.Common.error, state: .error)
         case .done:
             return BlockFileConfiguration(data: fileData.mediaData).cellBlockConfiguration(
                 indentationSettings: .init(with: info.configurationData),
@@ -39,10 +49,10 @@ struct BlockFileViewModel: BlockViewModelProtocol {
         }
     }
     
-    private func emptyViewConfiguration(state: BlocksFileEmptyViewState) -> UIContentConfiguration {
+    private func emptyViewConfiguration(text: String, state: BlocksFileEmptyViewState) -> UIContentConfiguration {
         BlocksFileEmptyViewConfiguration(
-            imageName: EmptyFileIconConstants.file,
-            text: "Upload a file",
+            imageAsset: .TextEditor.BlockFile.Empty.file,
+            text: text,
             state: state
         ).cellBlockConfiguration(
             indentationSettings: .init(with: info.configurationData),

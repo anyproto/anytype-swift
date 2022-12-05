@@ -42,9 +42,9 @@ extension ObjectIconAttachementLoader {
                 backgroundColor: model.usecase.placeholderBackgroundColor
             )
             setImage(image: image, processor: processor)
-        case .staticImage(let name):
+        case .imageAsset(let imageAsset):
             let image = model.imageGuideline.flatMap {
-                painter.staticImage(name: name, imageGuideline: $0)
+                painter.staticImage(imageAsset: imageAsset, imageGuideline: $0)
             }
             setImage(image: image, processor: processor)
         case .image(let image):
@@ -58,7 +58,7 @@ extension ObjectIconAttachementLoader {
         customProcessor: ImageProcessor
     ) {
         switch type {
-        case .basic(let id):
+        case .basic(let id), .bookmark(let id):
             downloadImage(imageId: id, model: model, customProcessor: customProcessor)
         case .profile(let profile):
             switch profile {

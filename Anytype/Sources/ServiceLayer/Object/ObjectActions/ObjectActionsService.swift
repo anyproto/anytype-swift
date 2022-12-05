@@ -80,6 +80,8 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         targetId: BlockId,
         details: [BundledDetails],
         shouldDeleteEmptyObject: Bool,
+        shouldSelectType: Bool,
+        shouldSelectTemplate: Bool,
         position: BlockPosition,
         templateId: String
     ) -> BlockId? {
@@ -90,11 +92,16 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         }
         let protobufStruct = Google_Protobuf_Struct(fields: protobufDetails)
         
-        let internalFlags: [Anytype_Model_InternalFlag] = {
-            guard shouldDeleteEmptyObject else { return [] }
-            
-            return [Anytype_Model_InternalFlag(value: .editorDeleteEmpty)]
-        }()
+        var internalFlags: [Anytype_Model_InternalFlag] = []
+        if shouldDeleteEmptyObject {
+            internalFlags.append(Anytype_Model_InternalFlag(value: .editorDeleteEmpty))
+        }
+        if shouldSelectType {
+            internalFlags.append(Anytype_Model_InternalFlag(value: .editorSelectType))
+        }
+        if shouldSelectTemplate {
+            internalFlags.append(Anytype_Model_InternalFlag(value: .editorSelectTemplate))
+        }
         
         let response = Anytype_Rpc.BlockLink.CreateWithObject.Service
             .invoke(
@@ -143,6 +150,38 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
             .getValue(domain: .objectActionsService)?
             .send()
     }
+    
+    func updateDetails(contextId: String, relationKey: String, value: DataviewGroupValue) {
+        let protobufValue: Google_Protobuf_Value?
+        switch value {
+        case .tag(let tag):
+            protobufValue = tag.ids.protobufValue
+        case .status(let status):
+            protobufValue = status.id.protobufValue
+        case .checkbox(let checkbox):
+            protobufValue = checkbox.checked.protobufValue
+        default:
+            protobufValue = nil
+        }
+        
+        guard let protobufValue else {
+            anytypeAssertionFailure("DataviewGroupValue doesnt support", domain: .objectActionsService)
+            return
+        }
+        
+        Anytype_Rpc.Object.SetDetails.Service.invoke(
+            contextID: contextId,
+            details: [
+                Anytype_Rpc.Object.SetDetails.Detail(
+                    key: relationKey,
+                    value: protobufValue
+                )
+            ]
+        )
+            .map { EventsBunch(event: $0.event) }
+            .getValue(domain: .relationsService)?
+            .send()
+    }
 
     func convertChildrenToPages(contextID: BlockId, blocksIds: [BlockId], objectType: String) -> [BlockId]? {
         AnytypeAnalytics.instance().logCreateObject(objectType: objectType, route: .turnInto)
@@ -173,13 +212,13 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
             .send()
     }
     
-    func setObjectType(objectId: BlockId, objectTypeUrl: String) {
+    func setObjectType(objectId: BlockId, objectTypeId: String) {
         let middlewareEvent = Anytype_Rpc.Object.SetObjectType.Service.invoke(
             contextID: objectId,
-            objectTypeURL: objectTypeUrl
+            objectTypeURL: objectTypeId
         )
             .map { (result) -> Anytype_ResponseEvent in
-                AnytypeAnalytics.instance().logObjectTypeChange(objectTypeUrl)
+                AnytypeAnalytics.instance().logObjectTypeChange(objectTypeId)
                 return result.event
             }
             .getValue(domain: .objectActionsService)
@@ -191,6 +230,18 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
             localEvents: [],
             dataSourceEvents: []
         ).send()
+    }
+
+    func setObjectSetType(objectId: BlockId) -> BlockId {
+        guard let response = Anytype_Rpc.Object.ToSet.Service.invoke(
+            contextID: objectId,
+            source: []
+        ).getValue(domain: .objectActionsService) else {
+            anytypeAssertionFailure("Cannot create set", domain: .objectActionsService)
+            return ""
+        }
+
+        return response.setID
     }
 
     func applyTemplate(objectId: BlockId, templateId: BlockId) {
@@ -223,5 +274,20 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         case .failure:
             throw ObjectActionsServiceError.nothingToRedo
         }
+    }
+    
+    func setInternalFlags(contextId: BlockId, internalFlags: [Int]) async throws {
+        let flags: [Anytype_Model_InternalFlag] = internalFlags.compactMap {
+            guard let value = Anytype_Model_InternalFlag.Value(rawValue: $0) else { return nil }
+            return Anytype_Model_InternalFlag(value: value)
+        }
+        let result = try await Anytype_Rpc.Object.SetInternalFlags.Service
+            .invocation(
+                contextID: contextId,
+                internalFlags: flags
+            )
+            .invoke(errorDomain: .objectActionsService)
+        let event = EventsBunch(event: result.event)
+        event.send()
     }
 }

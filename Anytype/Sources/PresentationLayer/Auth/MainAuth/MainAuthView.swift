@@ -106,6 +106,6 @@ struct MainAuthView: View {
 
 struct MainAuthView_Previews : PreviewProvider {
     static var previews: some View {
-        MainAuthView(viewModel: MainAuthViewModel())
+        MainAuthView(viewModel: MainAuthViewModel(windowManager: DI.makeForPreview().coordinatorsDI.windowManager))
     }
 }

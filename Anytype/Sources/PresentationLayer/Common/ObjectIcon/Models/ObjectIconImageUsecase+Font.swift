@@ -108,7 +108,7 @@ extension ObjectIconImageUsecase {
                 emojiImageFont: nil,
                 placeholderImageFont: nil
             )
-        case .dashboardSearch:
+        case .dashboardSearch, .linkToObject:
             return ObjectIconImageFontSet(
                 profileImageFont: UIKitFontBuilder.uiKitFont(
                     name: .inter,
@@ -128,7 +128,7 @@ extension ObjectIconImageUsecase {
             )
         case let .mention(type):
             return mentionFontGuidelineSet(for: type)
-        case .setRow, .featuredRelationsBlock, .editorMenu:
+        case .setRow, .setCollection, .featuredRelationsBlock:
             return ObjectIconImageFontSet(
                 profileImageFont: UIKitFontBuilder.uiKitFont(
                     name: .inter,

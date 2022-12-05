@@ -9,12 +9,12 @@ final class MentionsViewModel {
     weak var view: MentionsView!
     
     private let mentionService: MentionObjectsService
-    private let pageService: PageService
+    private let pageService: PageServiceProtocol
     private let onSelect: (MentionObject) -> Void
     
     init(
         mentionService: MentionObjectsService,
-        pageService: PageService,
+        pageService: PageServiceProtocol,
         onSelect: @escaping (MentionObject) -> Void
     ) {
         self.mentionService = mentionService
@@ -22,14 +22,14 @@ final class MentionsViewModel {
         self.onSelect = onSelect
     }
     
-    func obtainMentions() {
+    func obtainMentions(filterString: String) {
         guard let mentions = mentionService.loadMentions() else { return }
-        view?.display(mentions.map { .mention($0) })
+        view?.display(mentions.map { .mention($0) }, newObjectName: filterString)
     }
     
     func setFilterString(_ string: String) {
         mentionService.filterString = string
-        obtainMentions()
+        obtainMentions(filterString: string)
 
         AnytypeAnalytics.instance().logSearchQuery(.mention, length: string.count)
     }
@@ -44,7 +44,7 @@ final class MentionsViewModel {
     func didSelectCreateNewMention() {
         guard let newBlockId = pageService.createPage(name: mentionService.filterString) else { return }
 
-        AnytypeAnalytics.instance().logCreateObject(objectType: ObjectTypeProvider.shared.defaultObjectType.url, route: .mention)
+        AnytypeAnalytics.instance().logCreateObject(objectType: ObjectTypeProvider.shared.defaultObjectType.id, route: .mention)
         
         let name = mentionService.filterString.isEmpty ? Loc.untitled : mentionService.filterString
         let mention = MentionObject(

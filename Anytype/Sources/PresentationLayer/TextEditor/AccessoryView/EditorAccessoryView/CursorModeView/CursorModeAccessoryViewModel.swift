@@ -42,6 +42,8 @@ final class CursorModeAccessoryViewModel {
             return
         }
 
+        AnytypeAnalytics.instance().logEvent(action.analyticsEvent)
+
         switch action {
         case .showStyleMenu:
             onShowStyleMenu(info)
@@ -70,5 +72,24 @@ final class CursorModeAccessoryViewModel {
         let haveSpaceBeforeCarret = textView.textBeforeCaret?.last == " "
         
         return !(carretInTheBeginingOfDocument || haveSpaceBeforeCarret)
+    }
+}
+
+// MARK: - Analytics
+private extension CursorModeAccessoryViewAction {
+    private typealias AnalyticsConstants = AnalyticsEventsName.KeyboardBarAction
+    var analyticsEvent: String {
+        switch self {
+        case .slashMenu:
+            return AnalyticsConstants.slashMenu
+        case .keyboardDismiss:
+            return AnalyticsConstants.hideKeyboard
+        case .showStyleMenu:
+            return AnalyticsConstants.styleMenu
+        case .mention:
+            return AnalyticsConstants.mentionMenu
+        case .editingMode:
+            return AnalyticsConstants.selectionMenu
+        }
     }
 }

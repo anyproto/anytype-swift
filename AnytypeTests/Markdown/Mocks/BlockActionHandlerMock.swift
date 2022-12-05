@@ -1,8 +1,10 @@
 @testable import Anytype
 import BlocksModels
 import Foundation
+import AnytypeCore
 
 final class BlockActionHandlerMock: BlockActionHandlerProtocol {
+        
     var blockSelectionHandler: BlockSelectionHandler? {
         get {
             assertionFailure()
@@ -50,7 +52,7 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
-    func fetch(url: URL, blockId: BlockId) {
+    func fetch(url: AnytypeURL, blockId: BlockId) {
         assertionFailure()
     }
     
@@ -62,8 +64,13 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
-    func setAlignment(_ alignment: LayoutAlignment, blockId: BlockId) {
+    func setAlignment(_ alignment: LayoutAlignment, blockIds: [BlockId]) {
         assertionFailure()
+    }
+    
+    func setObjectSetType() -> BlockId {
+        assertionFailure()
+        return ""
     }
     
     func delete(blockIds: [BlockId]) {
@@ -86,11 +93,11 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
-    func addLink(targetId: BlockId, blockId: BlockId) {
+    func addLink(targetId: BlockId, typeId: String, blockId: BlockId) {
         assertionFailure()
     }
     
-    func addBlock(_ type: BlockContentType, blockId: BlockId, position: BlockPosition?) {
+    func addBlock(_ type: BlockContentType, blockId: BlockId, blockText: NSAttributedString?, position: BlockPosition?) {
         assertionFailure()
     }
     
@@ -102,12 +109,12 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
-    func createPage(targetId: BlockId, type: ObjectTypeUrl) -> BlockId? {
+    func createPage(targetId: BlockId, type: ObjectTypeId) -> BlockId? {
         assertionFailure()
         return nil
     }
     
-    func setObjectTypeUrl(_ objectTypeUrl: String) {
+    func setObjectTypeId(_ objectTypeId: String) {
         assertionFailure()
     }
     
@@ -147,6 +154,10 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
+    func setTextStyle(_ attribute: Anytype.MarkupType, range: NSRange, blockId: BlocksModels.BlockId, currentText: NSAttributedString?) {
+        assertionFailure()
+    }
+    
     func uploadMediaFile(itemProvider: NSItemProvider, type: MediaPickerContentType, blockId: BlockId) {
         assertionFailure()
     }
@@ -163,7 +174,7 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
 
-    func createAndFetchBookmark(targetID: BlockId, position: BlockPosition, url: String) {
+    func createAndFetchBookmark(targetID: BlockId, position: BlockPosition, url: AnytypeURL) {
         assertionFailure()
     }
 
@@ -175,7 +186,15 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
 
-    func createTable(blockId: BlockId, rowsCount: Int, columnsCount: Int) {
+    func createTable(blockId: BlockId, rowsCount: Int, columnsCount: Int, blockText: NSAttributedString?) {
+        assertionFailure()
+    }
+    
+    func uploadMediaFile(uploadingSource: Anytype.MediaFileUploadingSource, type: Anytype.MediaPickerContentType, blockId: BlocksModels.BlockId) {
+        assertionFailure()
+    }
+    
+    func changeMarkup(blockIds: [BlocksModels.BlockId], markType: Anytype.MarkupType) {
         assertionFailure()
     }
 }

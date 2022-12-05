@@ -57,6 +57,7 @@ struct HomeCollectionView: View {
                 }
             }
             .padding()
+            .padding(.bottom, viewModel.isSelectionMode ? DashboardSelectionActionsView.height : nil) // nil is default
         }
         .padding([.top], -22)
     }
@@ -64,6 +65,6 @@ struct HomeCollectionView: View {
 
 struct HomeCollectionView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeCollectionView(cellData: [], dragAndDropDelegate: HomeViewModel(homeBlockId: UUID().uuidString), offsetChanged: { _ in }, onTap: { _ in })
+        HomeCollectionView(cellData: [], dragAndDropDelegate: HomeViewModel.makeForPreview(), offsetChanged: { _ in }, onTap: { _ in })
     }
 }

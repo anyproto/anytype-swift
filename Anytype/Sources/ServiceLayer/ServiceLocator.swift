@@ -3,8 +3,11 @@ import UIKit
 import BlocksModels
 import AnytypeCore
 
+// TODO: Migrate to ServicesDI
 final class ServiceLocator {
     static let shared = ServiceLocator()
+
+    let textService = TextService()
     
     // MARK: - Services
     
@@ -21,12 +24,13 @@ final class ServiceLocator {
     func authService() -> AuthServiceProtocol {
         return AuthService(
             localRepoService: localRepoService(),
-            loginStateService: loginStateService()
+            loginStateService: loginStateService(),
+            accountManager: accountManager()
         )
     }
     
     func loginStateService() -> LoginStateService {
-        LoginStateService(seedService: seedService())
+        LoginStateService(seedService: seedService(), objectTypeProvider: objectTypeProvider())
     }
     
     func dashboardService() -> DashboardServiceProtocol {
@@ -45,8 +49,8 @@ final class ServiceLocator {
         FileActionsService()
     }
     
-    func searchService() -> SearchService {
-        SearchService()
+    func searchService() -> SearchServiceProtocol {
+        SearchService(accountManager: accountManager(), objectTypeProvider: objectTypeProvider())
     }
     
     func detailsService(objectId: BlockId) -> DetailsServiceProtocol {
@@ -60,6 +64,53 @@ final class ServiceLocator {
         )
     }
     
+    func bookmarkService() -> BookmarkServiceProtocol {
+        BookmarkService()
+    }
+    
+    func systemURLService() -> SystemURLServiceProtocol {
+        SystemURLService()
+    }
+    
+    func alertOpener() -> AlertOpenerProtocol {
+        AlertOpener()
+    }
+    
+    func accountManager() -> AccountManager {
+        return AccountManager.shared
+    }
+    
+    func objectTypeProvider() -> ObjectTypeProviderProtocol {
+        return ObjectTypeProvider.shared
+    }
+    
+    func groupsSubscriptionsHandler() -> GroupsSubscriptionsHandlerProtocol {
+        GroupsSubscriptionsHandler(groupsSubscribeService: GroupsSubscribeService())
+    }
+    
+    // Sigletone
+    private lazy var _relationDetailsStorage = RelationDetailsStorage(
+        subscriptionsService: subscriptionService(),
+        subscriptionDataBuilder: RelationSubscriptionDataBuilder(accountManager: accountManager())
+    )
+    func relationDetailsStorage() -> RelationDetailsStorageProtocol {
+        return _relationDetailsStorage
+    }
+    
+    private lazy var _accountEventHandler = AccountEventHandler(
+        accountManager: accountManager()
+    )
+    func accountEventHandler() -> AccountEventHandlerProtocol {
+        return _accountEventHandler
+    }
+    // MARK: - Private
+    
+    func pageService() -> PageServiceProtocol {
+        return PageService()
+    }
+    
+    // MARK: - Private
+    
     private func subscriptionToggler() -> SubscriptionTogglerProtocol {
         SubscriptionToggler()
     }
@@ -67,11 +118,4 @@ final class ServiceLocator {
     private func detailsStorage() -> ObjectDetailsStorage {
         ObjectDetailsStorage.shared
     }
-    
-    // MARK: - Coodrdinators
-    
-    func applicationCoordinator(window: UIWindow) -> ApplicationCoordinator {
-        ApplicationCoordinator(window: window, authService: authService())
-    }
-
 }

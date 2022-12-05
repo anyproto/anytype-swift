@@ -8,6 +8,7 @@ protocol SearchDataProtocol: Identifiable {
     var title: String { get }
     var description: String { get }
     var callout: String { get }
+    var typeId: String { get }
 
     var shouldShowDescription: Bool { get }
     var descriptionTextColor: Color { get }

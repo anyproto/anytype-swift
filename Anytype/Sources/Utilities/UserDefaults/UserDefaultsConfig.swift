@@ -22,12 +22,15 @@ struct UserDefaultsConfig {
     @UserDefault("UserData.DefaultObjectType", defaultValue: ObjectType.fallbackType)
     static var defaultObjectType: ObjectType {
         didSet {
-            AnytypeAnalytics.instance().logDefaultObjectTypeChange(defaultObjectType.url)
+            AnytypeAnalytics.instance().logDefaultObjectTypeChange(defaultObjectType.id)
         }
     }
     
     @UserDefault("UserData.RowsPerPageInSet", defaultValue: 50)
-    static var rowsPerPageInSet: Int64
+    static var rowsPerPageInSet: Int
+    
+    @UserDefault("UserData.RowsPerPageInGroupedSet", defaultValue: 20)
+    static var rowsPerPageInGroupedSet: Int
     
     @UserDefault("UserData.ShowKeychainAlert", defaultValue: false)
     static var showKeychainAlert: Bool
@@ -113,12 +116,6 @@ extension UserDefaultsConfig {
         get {
             guard let rawWallpaper = _wallpaper else { return .default }
             if let wallpaper = try? JSONDecoder().decode(BackgroundType.self, from: rawWallpaper) {
-                return wallpaper
-            }
-            
-            if let oldWallpaper = try? JSONDecoder().decode(OldBackgroundType.self, from: rawWallpaper),
-               let wallpaper = oldWallpaper.newType {
-                self.wallpaper = wallpaper
                 return wallpaper
             }
             

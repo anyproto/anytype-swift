@@ -1,115 +1,149 @@
 import AnytypeCore
 import BlocksModels
 import Foundation
+import Combine
 
-extension MarkupViewModel {
-    struct AllAttributesState {
-        let markup: [MarkupType: AttributeState]
-        let alignment: [LayoutAlignment: AttributeState]
-    }
-}
-
-final class MarkupViewModel {
-    
-    var blockInformation: BlockInformation? {
-        didSet {
-            guard case let .text(textBlock) = blockInformation?.content else { return }
-            anytypeText = AttributedTextConverter.asModel(
-                text: textBlock.text,
-                marks: textBlock.marks,
-                style: textBlock.contentType
-            )
-            displayCurrentState()
-        }
-    }
+final class MarkupViewModel: MarkupViewModelProtocol {
     weak var view: MarkupViewProtocol?
-    private let actionHandler: BlockActionHandlerProtocol
 
-    private var selectedRange: MarkupRange?
-    private var anytypeText: UIKitAnytypeText?
+    private var cancellable: AnyCancellable? = nil
     
-    init(actionHandler: BlockActionHandlerProtocol) {
+    private let blockIds: [BlockId]
+    private let actionHandler: BlockActionHandlerProtocol
+    private let document: BaseDocumentProtocol
+    private let linkToObjectCoordinator: LinkToObjectCoordinatorProtocol
+    
+    // For read link value
+    private var selectedMarkups: [MarkupType: AttributeState] = [:]
+    
+    init(
+        document: BaseDocumentProtocol,
+        blockIds: [BlockId],
+        actionHandler: BlockActionHandlerProtocol,
+        linkToObjectCoordinator: LinkToObjectCoordinatorProtocol
+    ) {
+        self.document = document
+        self.blockIds = blockIds
         self.actionHandler = actionHandler
+        self.linkToObjectCoordinator = linkToObjectCoordinator
     }
+
+    // MARK: - MarkupViewModelProtocol
     
-    func setRange(_ range: MarkupRange) {
-        selectedRange = range
-        displayCurrentState()
-    }
-    
-    func removeInformationAndDismiss() {
-        blockInformation = nil
-        view?.dismiss()
-    }
-    
-    private func displayCurrentState() {
-        guard let blockInformation = blockInformation,
-              case let .text(textContent) = blockInformation.content,
-              let range = selectedRange,
-              let anytypeText = anytypeText else {
-            return
+    func handle(action: MarupViewAction) {
+        switch action {
+        case .toggleMarkup(let markupType):
+            handleMarkup(markupType)
+        case .selectAlignment(let layoutAlignment):
+            handleAlignment(layoutAlignment)
         }
-        let displayState = textAttributes(
-            anytypeText: anytypeText,
-            from: textContent,
-            range: range.range(for: anytypeText.attrString),
-            alignment: blockInformation.horizontalAlignment
+    }
+
+    func viewLoaded() {
+        subscribeToPublishers()
+        updateState()
+    }
+    
+    // MARK: - Private
+    
+    private func handleMarkup(_ markup: MarkupViewType) {
+        switch markup {
+        case .bold:
+            actionHandler.changeMarkup(blockIds: blockIds, markType: .bold)
+        case .italic:
+            actionHandler.changeMarkup(blockIds: blockIds, markType: .italic)
+        case .keyboard:
+            actionHandler.changeMarkup(blockIds: blockIds, markType: .keyboard)
+        case .strikethrough:
+            actionHandler.changeMarkup(blockIds: blockIds, markType: .strikethrough)
+        case .link:
+            let urlLink = selectedMarkups.keys.compactMap { $0.urlLink }.first
+            let blokcLink = selectedMarkups.keys.compactMap { $0.blokcLink }.first
+            let currentLink = Either.from(left: urlLink, right: blokcLink)
+            
+            linkToObjectCoordinator.startFlow(
+                currentLink: currentLink,
+                setLinkToObject: { [weak self, blockIds] blockId in
+                    self?.actionHandler.changeMarkup(blockIds: blockIds, markType: .linkToObject(blockId))
+                },
+                setLinkToUrl: { [weak self, blockIds] url in
+                    self?.actionHandler.changeMarkup(blockIds: blockIds, markType: .link(url))
+                },
+                removeLink: { [weak self, blockIds] in
+                    switch currentLink {
+                    case .right:
+                        self?.actionHandler.changeMarkup(blockIds: blockIds, markType: .linkToObject(nil))
+                    case .left:
+                        self?.actionHandler.changeMarkup(blockIds: blockIds, markType: .link(nil))
+                    case .none:
+                        break
+                    }
+                },
+                willShowNextScreen: { [weak self] in
+                    self?.view?.dismiss()
+                }
+            )
+        }
+    }
+    
+    private func handleAlignment(_ alignment: LayoutAlignment) {
+        actionHandler.setAlignment(alignment, blockIds: blockIds)
+    }
+    
+    private func subscribeToPublishers() {
+        cancellable =  document.updatePublisher.sink { [weak self] _ in
+            self?.updateState()
+        }
+    }
+    
+    private func updateState() {
+        let info = blockIds.compactMap { document.infoContainer.get(id: $0) }
+    
+        displayCurrentState(
+            selectedMarkups: AttributeState.markupAttributes(from: info),
+            selectedHorizontalAlignment: AttributeState.alignmentAttributes(from: info)
         )
+    }
+
+    private func displayCurrentState(
+        selectedMarkups: [MarkupType: AttributeState],
+        selectedHorizontalAlignment: [LayoutAlignment: AttributeState]
+    ) {
+        self.selectedMarkups = selectedMarkups
+        
+        let displayMarkups: [MarkupViewType: AttributeState] = selectedMarkups.reduce(into: [:])
+        { partialResult, item in
+            guard let key = item.key.toMarkupViewType else { return }
+            partialResult[key] = item.value
+        }
+        
+        let displayState = MarkupViewsState(
+            markup: displayMarkups,
+            alignment: selectedHorizontalAlignment
+        )
+        
         view?.setMarkupState(displayState)
     }
-    
-    private func setMarkup(
-        markup: MarkupType, blockId: BlockId
-    ) {
-        actionHandler.toggleWholeBlockMarkup(markup, blockId: blockId)
-    }
-    
-    private func textAttributes(
-        anytypeText: UIKitAnytypeText,
-        from content: BlockText,
-        range: NSRange,
-        alignment: LayoutAlignment
-    ) -> AllAttributesState {
-        let restrictions = BlockRestrictionsBuilder.build(textContentType: content.contentType)
-
-        let markupsStates = AttributeState.allMarkupAttributesState(in: range, string: anytypeText.attrString, with: restrictions)
-
-        var alignmentsStates = [LayoutAlignment: AttributeState]()
-        LayoutAlignment.allCases.forEach {
-            guard restrictions.isAlignmentAvailable($0) else {
-                alignmentsStates[$0] = .disabled
-                return
-            }
-            alignmentsStates[$0] = alignment == $0 ? .applied : .notApplied
-        }
-
-        return .init(markup: markupsStates, alignment: alignmentsStates)
-    }
 }
 
-extension MarkupViewModel: MarkupViewModelProtocol {
+
+fileprivate extension MarkupType {
     
-    func handle(action: MarkupViewModelAction) {
-        guard let blockInformation = blockInformation else {
-            anytypeAssertionFailure("blockInformation must not be nil", domain: .markupViewModel)
-            return
-        }
-        guard case .text = blockInformation.content else {
-            anytypeAssertionFailure(
-                "Expected text content type but got: \(blockInformation.content)",
-                domain: .markupViewModel
-            )
-            return
-        }
-        switch action {
-        case let .selectAlignment(alignment):
-            actionHandler.setAlignment(alignment, blockId: blockInformation.id)
-        case let .toggleMarkup(markup):
-            setMarkup(markup: markup, blockId: blockInformation.id)
+    var urlLink: URL? {
+        switch self {
+        case let .link(url):
+            return url
+        default:
+            return nil
         }
     }
     
-    func viewLoaded() {
-        displayCurrentState()
+    var blokcLink: BlockId? {
+        switch self {
+        case let .linkToObject(blokcId):
+            return blokcId
+        default:
+            return nil
+        }
     }
 }

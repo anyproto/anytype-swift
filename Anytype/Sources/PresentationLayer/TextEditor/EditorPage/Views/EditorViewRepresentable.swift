@@ -8,13 +8,14 @@ struct EditorViewRepresentable: UIViewControllerRepresentable {
     
     let data: EditorScreenData
     let model: HomeViewModel
+    let editorBrowserAssembly: EditorBrowserAssembly
     
     // MARK: - UIViewControllerRepresentable
     
     func makeUIViewController(
         context: UIViewControllerRepresentableContext<EditorViewRepresentable>
     ) -> EditorBrowserController {
-        let browser = EditorBrowserAssembly().buildEditorBrowser(data: data)
+        let browser = editorBrowserAssembly.buildEditorBrowser(data: data)
         model.editorBrowser = browser
         return browser
     }

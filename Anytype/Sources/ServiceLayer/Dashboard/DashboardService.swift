@@ -11,7 +11,7 @@ final class DashboardService: DashboardServiceProtocol {
     
     func createNewPage() -> BlockId? {
         let availableTemplates = searchService.searchTemplates(
-            for: .dynamic(ObjectTypeProvider.shared.defaultObjectType.url)
+            for: .dynamic(ObjectTypeProvider.shared.defaultObjectType.id)
         )
         let hasSingleTemplate = availableTemplates?.count == 1
         let templateId = hasSingleTemplate ? (availableTemplates?.first?.id ?? "") : ""
@@ -21,9 +21,11 @@ final class DashboardService: DashboardServiceProtocol {
             targetId: "",
             details: [
                 .name(""),
-                .type(.dynamic(ObjectTypeProvider.shared.defaultObjectType.url))
+                .type(.dynamic(ObjectTypeProvider.shared.defaultObjectType.id))
             ],
             shouldDeleteEmptyObject: true,
+            shouldSelectType: true,
+            shouldSelectTemplate: true,
             position: .bottom,
             templateId: templateId
         )

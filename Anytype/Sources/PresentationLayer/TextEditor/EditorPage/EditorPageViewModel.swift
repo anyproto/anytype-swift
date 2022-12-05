@@ -17,15 +17,16 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     let router: EditorRouterProtocol
     
     let actionHandler: BlockActionHandlerProtocol
-    let wholeBlockMarkupViewModel: MarkupViewModel
     let objectActionsService: ObjectActionsServiceProtocol
 
     private let searchService: SearchServiceProtocol
     private let cursorManager: EditorCursorManager
     private let blockBuilder: BlockViewModelBuilder
     private let headerModel: ObjectHeaderViewModel
+    private let editorPageTemplatesHandler: EditorPageTemplatesHandlerProtocol
     private let isOpenedForPreview: Bool
-
+    @Published private var isAppear: Bool = false
+    
     private lazy var subscriptions = [AnyCancellable]()
 
     private let blockActionsService: BlockActionsServiceSingleProtocol
@@ -49,13 +50,13 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         modelsHolder: EditorMainItemModelsHolder,
         blockBuilder: BlockViewModelBuilder,
         actionHandler: BlockActionHandler,
-        wholeBlockMarkupViewModel: MarkupViewModel,
         headerModel: ObjectHeaderViewModel,
         blockActionsService: BlockActionsServiceSingleProtocol,
         blocksStateManager: EditorPageBlocksStateManagerProtocol,
         cursorManager: EditorCursorManager,
         objectActionsService: ObjectActionsServiceProtocol,
         searchService: SearchServiceProtocol,
+        editorPageTemplatesHandler: EditorPageTemplatesHandlerProtocol,
         isOpenedForPreview: Bool
     ) {
         self.viewInput = viewInput
@@ -65,14 +66,16 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         self.blockBuilder = blockBuilder
         self.actionHandler = actionHandler
         self.blockDelegate = blockDelegate
-        self.wholeBlockMarkupViewModel = wholeBlockMarkupViewModel
         self.headerModel = headerModel
         self.blockActionsService = blockActionsService
         self.blocksStateManager = blocksStateManager
         self.cursorManager = cursorManager
         self.objectActionsService = objectActionsService
         self.searchService = searchService
+        self.editorPageTemplatesHandler = editorPageTemplatesHandler
         self.isOpenedForPreview = isOpenedForPreview
+
+        setupLoadingState()
     }
 
     func setupSubscriptions() {
@@ -86,6 +89,19 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             guard let headerModel = value else { return }
             self?.updateHeaderIfNeeded(headerModel: headerModel)
         }.store(in: &subscriptions)
+        
+        Publishers.CombineLatest(document.detailsPublisher, $isAppear)
+            .sink { [weak self] in self?.handleDeletionState(details: $0, isAppear: $1) }
+            .store(in: &subscriptions)
+    }
+
+    private func setupLoadingState() {
+        let shimmeringBlockViewModel = blockBuilder.buildShimeringItem()
+
+        viewInput?.update(
+            changes: nil,
+            allModels: [shimmeringBlockViewModel]
+        )
     }
     
     private func handleUpdate(updateResult: DocumentUpdate) {
@@ -96,12 +112,9 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
 
         case let .details(id):
             guard id == document.objectId else {
-                #warning("call blocks update with new details to update mentions/links")
                 performGeneralUpdate()
                 return
             }
-            
-            #warning("also we should check if blocks in current object contains mantions/link to current object if YES we must update blocks with updated details")
 
             let allRelationsBlockViewModel = modelsHolder.items.allRelationViewModel
             let relationIds = allRelationsBlockViewModel.map(\.blockId)
@@ -109,6 +122,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
 
             guard !diffrerence.isEmpty else { return }
             modelsHolder.applyDifference(difference: diffrerence)
+
+            guard document.isOpened else { return }
             viewInput?.update(changes: diffrerence, allModels: modelsHolder.items)
         case let .blocks(updatedIds):
             guard !updatedIds.isEmpty else {
@@ -116,9 +131,10 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             }
             
             let diffrerence = difference(with: updatedIds)
-            updateMarkupViewModel(updatedIds)
 
             modelsHolder.applyDifference(difference: diffrerence)
+
+            guard document.isOpened else { return }
             viewInput?.update(changes: diffrerence, allModels: modelsHolder.items)
 
             updateCursorIfNeeded()
@@ -139,33 +155,25 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     }
     
     private func performGeneralUpdate() {
-        handleDeletionState()
-        
+
         let models = document.children
         
         let blocksViewModels = blockBuilder.buildEditorItems(infos: models)
         
         handleGeneralUpdate(with: blocksViewModels)
-        
-        updateMarkupViewModel(newBlockViewModels: blocksViewModels.onlyBlockViewModels)
 
         if !document.isLocked {
             cursorManager.handleGeneralUpdate(with: modelsHolder.items, type: document.details?.type)
+            handleTemplatesPopupShowing()
         }
     }
     
-    private func handleDeletionState() {
-        guard let details = document.details else {
-            anytypeAssertionFailure("No detais for general update", domain: .editorPage)
-            return
-        }
-        
+    private func handleDeletionState(details: ObjectDetails, isAppear: Bool) {
         viewInput?.showDeletedScreen(details.isDeleted)
-        if details.isArchived {
-            router.goBack()
+        if details.isArchived && isAppear {
+            router.closeEditor()
         }
     }
-
 
     private func difference(
         with blockIds: Set<BlockId>
@@ -190,39 +198,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
 
         return modelsHolder.difference(between: currentModels)
     }
-    
-    private func updateMarkupViewModel(_ updatedBlockIds: Set<BlockId>) {
-        guard let blockIdWithMarkupMenu = wholeBlockMarkupViewModel.blockInformation?.id,
-              updatedBlockIds.contains(blockIdWithMarkupMenu) else {
-            return
-        }
-        updateMarkupViewModelWith(informationBy: blockIdWithMarkupMenu)
-    }
-    
-    private func updateMarkupViewModel(newBlockViewModels: [BlockViewModelProtocol]) {
-        guard let blockIdWithMarkupMenu = wholeBlockMarkupViewModel.blockInformation?.id else {
-            return
-        }
-        let blockIds = Set(newBlockViewModels.map { $0.blockId })
-        guard blockIds.contains(blockIdWithMarkupMenu) else {
-            wholeBlockMarkupViewModel.removeInformationAndDismiss()
-            return
-        }
-        updateMarkupViewModelWith(informationBy: blockIdWithMarkupMenu)
-    }
-    
-    private func updateMarkupViewModelWith(informationBy blockId: BlockId) {
-        guard let currentInformation = document.infoContainer.get(id: blockId) else {
-            wholeBlockMarkupViewModel.removeInformationAndDismiss()
-            AnytypeLogger(category: "Editor page view model").debug("Could not find object with id: \(blockId)")
-            return
-        }
-        guard case .text = currentInformation.content else {
-            wholeBlockMarkupViewModel.removeInformationAndDismiss()
-            return
-        }
-        wholeBlockMarkupViewModel.blockInformation = currentInformation
-    }
 
     private func handleGeneralUpdate(with models: [EditorItem]) {
         let difference = modelsHolder.difference(between: models)
@@ -231,6 +206,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         } else {
             modelsHolder.items = models
         }
+
+        guard document.isOpened else { return }
         
         viewInput?.update(changes: difference, allModels: modelsHolder.items)
 
@@ -250,6 +227,20 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         viewInput?.update(header: headerModel, details: document.details)
         modelsHolder.header = headerModel
     }
+    
+    private func handleTemplatesPopupShowing() {
+        guard editorPageTemplatesHandler.needShowTemplates(for: document),
+              let type = document.details?.objectType else {
+            return
+        }
+        router.showTemplatesPopupWithTypeCheckIfNeeded(
+            document: document,
+            templatesTypeId: .dynamic(type.id),
+            onShow: { [weak self] in
+                self?.editorPageTemplatesHandler.onTemplatesShow()
+            }
+        )
+    }
 }
 
 // MARK: - View output
@@ -257,7 +248,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
 extension EditorPageViewModel {
     func viewDidLoad() {
         if let objectDetails = document.details {
-            AnytypeAnalytics.instance().logShowObject(type: objectDetails.type, layout: objectDetails.layout)
+            AnytypeAnalytics.instance().logShowObject(type: objectDetails.type, layout: objectDetails.layoutValue)
         }
         
         blocksStateManager.checkOpenedState()
@@ -271,7 +262,7 @@ extension EditorPageViewModel {
                 }
                 blocksStateManager.checkOpenedState()
             } catch {
-                router.goBack()
+                router.closeEditor()
             }
         }
     }
@@ -280,11 +271,15 @@ extension EditorPageViewModel {
 
     func viewDidAppear() {
         cursorManager.didAppeared(with: modelsHolder.items, type: document.details?.type)
+        editorPageTemplatesHandler.didAppeared(with: document.details?.type)
+        isAppear = true
     }
 
     func viewWillDisappear() {}
 
-    func viewDidDissapear() {}
+    func viewDidDissapear() {
+        isAppear = false
+    }
 
 
     func shakeMotionDidAppear() {
@@ -324,6 +319,13 @@ extension EditorPageViewModel {
     
     func showCoverPicker() {
         router.showCoverPicker()
+    }
+}
+
+// Cursor
+extension EditorPageViewModel {
+    func cursorFocus(blockId: BlockId) {
+        cursorManager.restoreLastFocus(at: blockId)
     }
 }
 

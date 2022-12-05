@@ -49,7 +49,7 @@ final class EditorBottomNavigationView: UIView {
                 stackView.layoutUsing.anchors {
                     $0.pinToSuperview(
                         excluding: [.bottom],
-                        insets: UIEdgeInsets(top: 0, left: 60, bottom: 0, right: -60)
+                        insets: UIEdgeInsets(top: 0, left: 60, bottom: 0, right: 60)
                     )
                     $0.height.equal(to: Constants.height)
                     $0.bottom.equal(to: self.safeAreaLayoutGuide.bottomAnchor)
@@ -104,28 +104,28 @@ final class EditorBottomNavigationView: UIView {
     
     // MARK: - Views
     private func createBackButton() -> EditorBrowserButton {
-        EditorBrowserButton(image: .editorNavigation.backArrow) { [weak self] in
+        EditorBrowserButton(imageAsset: .TextEditor.backArrow) { [weak self] in
             UISelectionFeedbackGenerator().selectionChanged()
             self?.onBackTap()
         }
     }
     
     private func createForwardButton() -> EditorBrowserButton {
-        return EditorBrowserButton(image: .editorNavigation.forwardArrow, isEnabled: false) { [weak self] in
+        return EditorBrowserButton(imageAsset: .TextEditor.forwardArrow, isEnabled: false) { [weak self] in
             UISelectionFeedbackGenerator().selectionChanged()
             self?.onForwardTap()
         }
     }
     
     private func createHomeButton() -> UIView {
-        EditorBrowserButton(image: .editorNavigation.home) { [weak self] in
+        EditorBrowserButton(imageAsset: .TextEditor.home) { [weak self] in
             UISelectionFeedbackGenerator().selectionChanged()
             self?.onHomeTap()
         }
     }
     
     private func createCreateObjectButton() -> UIView {
-        EditorBrowserButton(image: .editorNavigation.draft) { [weak self] in
+        EditorBrowserButton(imageAsset: .draft) { [weak self] in
             UISelectionFeedbackGenerator().selectionChanged()
             self?.onCreateObjectTap()
         }

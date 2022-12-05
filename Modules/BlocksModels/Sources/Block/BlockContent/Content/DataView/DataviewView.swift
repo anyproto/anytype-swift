@@ -1,4 +1,5 @@
 import ProtobufMessages
+import AnytypeCore
 
 public struct DataviewView: Hashable, Identifiable {
     public let id: BlockId
@@ -14,6 +15,8 @@ public struct DataviewView: Hashable, Identifiable {
     public let hideIcon: Bool
     public let cardSize: DataviewViewSize
     public let coverFit: Bool
+    public let groupRelationKey: String
+    public let groupBackgroundColors: Bool
     
     public static var empty: DataviewView {
         DataviewView(
@@ -26,31 +29,38 @@ public struct DataviewView: Hashable, Identifiable {
             coverRelationKey: "",
             hideIcon: false,
             cardSize: .small,
-            coverFit: false
+            coverFit: false,
+            groupRelationKey: "",
+            groupBackgroundColors: false
         )
     }
     
-    public var isSupported: Bool {
-        type == .table
-    }
-    
     public func updated(
+        name: String? = nil,
+        type: DataviewViewType? = nil,
+        cardSize: DataviewViewSize? = nil,
         hideIcon: Bool? = nil,
+        coverRelationKey: String? = nil,
+        coverFit: Bool? = nil,
         options: [DataviewRelationOption]? = nil,
         sorts: [DataviewSort]? = nil,
-        filters: [DataviewFilter]? = nil
+        filters: [DataviewFilter]? = nil,
+        groupRelationKey: String?  = nil,
+        groupBackgroundColors: Bool? = nil
     ) -> DataviewView {
         DataviewView(
             id: id,
-            name: name,
-            type: type,
+            name: name ?? self.name,
+            type: type ?? self.type,
             options: options ?? self.options,
             sorts: sorts ?? self.sorts,
             filters: filters ?? self.filters,
-            coverRelationKey: coverRelationKey,
+            coverRelationKey: coverRelationKey ?? self.coverRelationKey,
             hideIcon: hideIcon ?? self.hideIcon,
-            cardSize: cardSize,
-            coverFit: coverFit
+            cardSize: cardSize ?? self.cardSize,
+            coverFit: coverFit ?? self.coverFit,
+            groupRelationKey: groupRelationKey ?? self.groupRelationKey,
+            groupBackgroundColors: groupBackgroundColors ?? self.groupBackgroundColors
         )
     }
     
@@ -67,6 +77,23 @@ public struct DataviewView: Hashable, Identifiable {
         return updated(options: newOptions)
     }
     
+    public static func created(with name: String, type: DataviewViewType) -> DataviewView {
+        DataviewView(
+            id: "",
+            name: name,
+            type: type,
+            options: [],
+            sorts: [],
+            filters: [],
+            coverRelationKey: "",
+            hideIcon: false,
+            cardSize: .small,
+            coverFit: false,
+            groupRelationKey: "",
+            groupBackgroundColors: false
+        )
+    }
+    
     public var asMiddleware: MiddlewareDataviewView {
         MiddlewareDataviewView(
             id: id,
@@ -78,7 +105,9 @@ public struct DataviewView: Hashable, Identifiable {
             coverRelationKey: coverRelationKey,
             hideIcon: hideIcon,
             cardSize: cardSize,
-            coverFit: coverFit
+            coverFit: coverFit,
+            groupRelationKey: groupRelationKey,
+            groupBackgroundColors: groupBackgroundColors
         )
     }
 }
@@ -97,6 +126,8 @@ public extension DataviewView {
         self.hideIcon = data.hideIcon
         self.cardSize = data.cardSize
         self.coverFit = data.coverFit
+        self.groupRelationKey = data.groupRelationKey
+        self.groupBackgroundColors = data.groupBackgroundColors
     }
 }
 

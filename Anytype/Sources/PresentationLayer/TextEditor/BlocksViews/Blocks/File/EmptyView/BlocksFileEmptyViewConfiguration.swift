@@ -9,13 +9,13 @@ enum BlocksFileEmptyViewState {
 struct BlocksFileEmptyViewConfiguration: BlockConfiguration {
     typealias View = BlocksFileEmptyView
 
-    let imageName: String
+    let imageAsset: ImageAsset
     let text: String
     let state: BlocksFileEmptyViewState
 }
 
 extension BlocksFileEmptyViewConfiguration {
     var contentInsets: UIEdgeInsets {
-        UIEdgeInsets(top: 7, left: 20, bottom: -7, right: -20)
+        UIEdgeInsets(top: 7, left: 20, bottom: 7, right: 20)
     }
 }

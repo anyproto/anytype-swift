@@ -4,21 +4,25 @@ import AnytypeCore
 
 final class TextRelationDetailsViewController: UIViewController {
 
+    private struct ButtonHolder {
+        let button: UIButton
+        let viewModel: TextRelationActionViewModelProtocol
+    }
+    
     private let titleLabel = makeTitleLabel()
     private let textView = makeTextView()
-    private let actionButton = UIButton(type: .custom)
+    private let actionStackView = UIStackView()
+    private var actionButtons: [ButtonHolder] = []
     
-    private let viewModel: TextRelationDetailsViewModel
+    private let viewModel: TextRelationDetailsViewModelProtocol
     
-    private var textViewTrailingConstraint: NSLayoutConstraint?
     private var textViewBottomConstraint: NSLayoutConstraint?
-    private var actionButtonLeadingConstraint: NSLayoutConstraint?
     
     private let maxViewHeight: CGFloat
     
     // MARK: - Initializers
     
-    init(viewModel: TextRelationDetailsViewModel) {
+    init(viewModel: TextRelationDetailsViewModelProtocol) {
         self.viewModel = viewModel
         self.maxViewHeight = {
             guard let window = UIApplication.shared.keyWindow else {
@@ -71,14 +75,8 @@ extension TextRelationDetailsViewController {
 private extension TextRelationDetailsViewController {
     
     func updateActionButtonVisibility() {
-        if viewModel.actionButtonViewModel?.isActionAvailable ?? false {
-            textViewTrailingConstraint?.isActive = false
-            actionButtonLeadingConstraint?.isActive = true
-            actionButton.isHidden = false
-        } else {
-            textViewTrailingConstraint?.isActive = true
-            actionButtonLeadingConstraint?.isActive = false
-            actionButton.isHidden = true
+        for buttonHolder in actionButtons {
+            buttonHolder.button.isEnabled = buttonHolder.viewModel.isActionAvailable
         }
     }
 
@@ -113,7 +111,7 @@ private extension TextRelationDetailsViewController {
     func setupView() {
         titleLabel.text = viewModel.title
         setupTextView()
-        setupActionButton()
+        setupActionButtons()
         setupLayout()
         
         if FeatureFlags.rainbowViews {
@@ -125,6 +123,7 @@ private extension TextRelationDetailsViewController {
     
     func setupTextView() {
         textView.text = viewModel.value
+        textView.isEditable = viewModel.isEditable
         textView.keyboardType = viewModel.type.keyboardType
         textView.update(
             placeholder: NSAttributedString(
@@ -139,50 +138,22 @@ private extension TextRelationDetailsViewController {
         textView.delegate = self
     }
     
-    func setupActionButton() {
-        guard let actionButtonViewModel = viewModel.actionButtonViewModel else {
-            actionButton.isHidden = true
-            return
-        }
-        
-        actionButton.adjustsImageWhenHighlighted = false
-        actionButton.setImage(actionButtonViewModel.icon.withRenderingMode(.alwaysTemplate), for: .normal)
-        actionButton.tintColor = .buttonActive
-        
-        actionButton.addAction(
-            UIAction(
-                handler: { [weak self] _ in
-                    self?.viewModel.actionButtonViewModel?.performAction()
-                }
-            ),
-            for: .touchUpInside
-        )
-        actionButton.layer.cornerRadius = Constants.actionButtonSize.width / 2.0
-        actionButton.layer.borderColor = UIColor.strokePrimary.cgColor
-        actionButton.layer.borderWidth = 1
-        
-        actionButton.isHidden = !actionButtonViewModel.isActionAvailable
-    }
-    
     func setupLayout() {
         view.addSubview(titleLabel) {
             $0.height.equal(to: Constants.titleLabelHeight)
             $0.pinToSuperview(excluding: [.bottom])
         }
-        
+        view.addSubview(actionStackView) {
+            $0.leading.equal(to: view.leadingAnchor)
+            $0.trailing.equal(to: view.trailingAnchor)
+            self.textViewBottomConstraint = $0.bottom.equal(to: view.safeAreaLayoutGuide.bottomAnchor, constant: -Constants.textViewBottomInset)
+        }
         view.addSubview(textView) {
             $0.height.greaterThanOrEqual(to: Constants.textViewMinHeight)
             $0.top.equal(to: titleLabel.bottomAnchor)
-            self.textViewBottomConstraint = $0.bottom.equal(to: view.bottomAnchor, constant: -Constants.textViewBottomInset)
+            $0.bottom.equal(to: actionStackView.topAnchor, constant: -Constants.actionButtonTitleInset)
             $0.leading.equal(to: view.leadingAnchor)
-            self.textViewTrailingConstraint =  $0.trailing.equal(to: view.trailingAnchor)
-        }
-        
-        view.addSubview(actionButton) {
-            $0.centerY.equal(to: textView.centerYAnchor)
-            $0.trailing.equal(to: view.trailingAnchor, constant: -Constants.actionButtonRightInset)
-            self.actionButtonLeadingConstraint = $0.leading.equal(to: textView.trailingAnchor, activate: false)
-            $0.size(Constants.actionButtonSize)
+            $0.trailing.equal(to: view.trailingAnchor)
         }
         
         view.layoutUsing.anchors {
@@ -190,6 +161,54 @@ private extension TextRelationDetailsViewController {
         }
     }
     
+    private func setupActionButtons() {
+        actionStackView.axis = .vertical
+        actionStackView.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20)
+        actionStackView.isLayoutMarginsRelativeArrangement = true
+        if viewModel.actionsViewModel.isNotEmpty {
+            actionStackView.addArrangedSubview(UIKitAnytypeDivider())
+        }
+        for actionViewModel in viewModel.actionsViewModel {
+            let actionButton = UIButton(type: .custom)
+            let image = UIImage(asset: actionViewModel.iconAsset)?.withRenderingMode(.alwaysTemplate)
+            actionButton.setImage(image, for: .normal)
+            actionButton.tintColor = .buttonActive
+            let text = NSAttributedString(
+                string: actionViewModel.title,
+                attributes: [
+                    .font: UIFont.bodyRegular,
+                    .foregroundColor: UIColor.textPrimary
+                ]
+            )
+            
+            let disabledText = NSAttributedString(
+                string: actionViewModel.title,
+                attributes: [
+                    .font: UIFont.bodyRegular,
+                    .foregroundColor: UIColor.textTertiary
+                ]
+            )
+            actionButton.setAttributedTitle(text, for: .normal)
+            actionButton.setAttributedTitle(disabledText, for: .disabled)
+            actionButton.contentHorizontalAlignment = .leading
+            actionButton.contentEdgeInsets = UIEdgeInsets(top: 14, left: 0, bottom: 14, right: 0)
+            actionButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
+            
+            actionButton.addAction(
+                UIAction(
+                    handler: { _ in 
+                        actionViewModel.performAction()
+                    }
+                ),
+                for: .touchUpInside
+            )
+            
+            actionStackView.addArrangedSubview(actionButton)
+            actionStackView.addArrangedSubview(UIKitAnytypeDivider())
+            actionButtons.append(ButtonHolder(button: actionButton, viewModel: actionViewModel))
+        }
+        actionStackView.addArrangedSubview(UIView())
+    }
 }
 
 // MARK: - UITextViewDelegate
@@ -197,7 +216,7 @@ private extension TextRelationDetailsViewController {
 extension TextRelationDetailsViewController: UITextViewDelegate {
     
     func textViewDidChange(_ textView: UITextView) {
-        viewModel.value = textView.text
+        viewModel.updateValue(textView.text)
         updateActionButtonVisibility()
     }
     
@@ -214,6 +233,7 @@ private extension TextRelationDetailsViewController {
         static let actionButtonSize: CGSize = CGSize(width: 36, height: 36)
         static let actionButtonRightInset: CGFloat = 20
         static let actionButtonTopInset: CGFloat = 6
+        static let actionButtonTitleInset: CGFloat = 8
     }
     
 }

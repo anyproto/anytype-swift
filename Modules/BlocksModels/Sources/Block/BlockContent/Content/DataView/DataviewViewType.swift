@@ -1,7 +1,9 @@
-public enum DataviewViewType: Hashable {
+import AnytypeCore
+
+public enum DataviewViewType: Hashable, CaseIterable {
     case table
-    case list
     case gallery
+    case list
     case kanban
     
     public var asMiddleware: DataviewTypeEnum {
@@ -14,6 +16,15 @@ public enum DataviewViewType: Hashable {
             return .gallery
         case .kanban:
             return .kanban
+        }
+    }
+    
+    public var hasGroups: Bool {
+        switch self {
+        case .kanban:
+            return FeatureFlags.setKanbanView
+        case .list, .gallery, .table:
+            return false
         }
     }
 }

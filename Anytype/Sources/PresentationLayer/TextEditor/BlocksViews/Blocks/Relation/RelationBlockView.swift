@@ -8,7 +8,7 @@ final class RelationBlockView: UIView, BlockContentView {
     private let relationValueView = RelationValueViewUIKit()
 
     private let relationNameView = AnytypeLabel(style: .relation1Regular)
-    private let relationLockedView = UIImageView(image: .Relations.Icons.locked)
+    private let relationLockedView = UIImageView(asset: .relationLocked)
     private let containerView = UIView()
     private let relationNameStack = UIStackView()
 
@@ -22,10 +22,6 @@ final class RelationBlockView: UIView, BlockContentView {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setupLayout()
-    }
-    
-    func update(with state: UICellConfigurationState) {
-        relationValueView.isUserInteractionEnabled = !state.isLocked
     }
 
     func update(with configuration: RelationBlockContentConfiguration) {
@@ -72,7 +68,7 @@ final class RelationBlockView: UIView, BlockContentView {
                 insets: UIEdgeInsets(
                     top: LayoutConstants.topBottomInset,
                     left: 0,
-                    bottom: -LayoutConstants.topBottomInset,
+                    bottom: LayoutConstants.topBottomInset,
                     right: 0
                 )
             )

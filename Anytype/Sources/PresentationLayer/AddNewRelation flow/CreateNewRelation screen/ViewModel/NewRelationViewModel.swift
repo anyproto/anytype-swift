@@ -48,23 +48,21 @@ extension NewRelationViewModel {
     }
     
     func didTapAddButton() {
-        let relationMetatdata = RelationMetadata(
+        let relationDetails = RelationDetails(
+            id: "",
             key: "",
             name: name,
-            format: format.asRelationMetadataFormat,
+            format: format.asRelationFormat,
             isHidden: false,
             isReadOnly: false,
-            isMulti: format.isMulti,
-            selections: [],
+            isReadOnlyValue: false,
             objectTypes: objectTypeIds,
-            scope: .object,
-            isBundled: false
+            maxCount: 0
         )
-
-        if let relation = service.createRelation(relation: relationMetatdata) {
-            UINotificationFeedbackGenerator().notificationOccurred(.success)
-            output?.didCreateRelation(relation)
-        }
+        
+        guard service.createRelation(relationDetails: relationDetails) else { return }
+        UINotificationFeedbackGenerator().notificationOccurred(.success)
+        output?.didCreateRelation(relationDetails)
     }
     
 }
@@ -80,7 +78,7 @@ extension NewRelationViewModel: NewRelationModuleInput {
     
     func updateTypesRestriction(objectTypeIds: [String]) {
         objectTypes = objectTypeIds.compactMap {
-            ObjectTypeProvider.shared.objectType(url: $0)
+            ObjectTypeProvider.shared.objectType(id: $0)
         }
     }
     
@@ -95,7 +93,7 @@ private extension NewRelationViewModel {
     }
     
     var objectTypeIds: [String] {
-        objectTypes?.map { $0.url } ?? []
+        objectTypes?.map { $0.id } ?? []
     }
     
 }
@@ -105,10 +103,10 @@ private extension NewRelationViewModel {
 private extension SupportedRelationFormat {
     
     var asViewModel: NewRelationFormatSectionView.Model {
-        NewRelationFormatSectionView.Model(icon: self.icon, title: self.title)
+        NewRelationFormatSectionView.Model(icon: self.iconAsset, title: self.title)
     }
     
-    var asRelationMetadataFormat: RelationMetadata.Format {
+    var asRelationFormat: RelationFormat {
         switch self {
         case .text: return .longText
         case .tag: return .tag
@@ -149,7 +147,7 @@ private extension Array where Element == ObjectType {
     var asViewModel: [NewRelationRestrictionsSectionView.ObjectTypeModel] {
         map {
             NewRelationRestrictionsSectionView.ObjectTypeModel(
-                id: $0.url,
+                id: $0.id,
                 emoji: $0.iconEmoji,
                 title: $0.name
             )

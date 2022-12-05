@@ -2,7 +2,7 @@
 import SwiftUI
 
 struct SetTableViewRow: View {
-    let data: SetTableViewRowData
+    let configuration: SetContentViewItemConfiguration
     let xOffset: CGFloat
     
     @EnvironmentObject private var model: EditorSetViewModel
@@ -29,9 +29,9 @@ struct SetTableViewRow: View {
     
     private var icon: some View {
         Group {
-            if let icon = data.icon, data.showIcon {
+            if let icon = configuration.icon, configuration.showIcon {
                 Button {
-                    data.onIconTap()
+                    configuration.onIconTap()
                 } label: {
                     SwiftUIObjectIconImageView(iconImage: icon, usecase: .setRow).frame(width: 18, height: 18)
                     Spacer.fixedWidth(8)
@@ -42,16 +42,16 @@ struct SetTableViewRow: View {
     
     private var title: some View {
         Button {
-            data.onRowTap()
+            configuration.onItemTap()
         } label: {
-            AnytypeText(data.title, style: .previewTitle2Medium, color: .textPrimary)
+            AnytypeText(configuration.title, style: .previewTitle2Medium, color: .textPrimary)
                 .lineLimit(1)
         }
     }
     
     private var cells: some View {
         LazyHStack(spacing: 0) {
-            ForEach(data.relations) { colum in
+            ForEach(configuration.relations) { colum in
                 Spacer.fixedWidth(16)
                 cell(colum)
                 Rectangle()
@@ -62,14 +62,14 @@ struct SetTableViewRow: View {
         .frame(height: 18)
     }
     
-    private func cell(_ relationData: Relation) -> some View {
-        RelationValueView(relation: RelationItemModel(relation: relationData), style: .set) {
+    private func cell(_ relation: Relation) -> some View {
+        RelationValueView(relation: RelationItemModel(relation: relation), style: .set) {
             AnytypeAnalytics.instance().logChangeRelationValue(type: .set)
 
             model.showRelationValueEditingView(
-                objectId: data.id,
+                objectId: configuration.id,
                 source: .dataview(contextId: model.document.objectId),
-                relation: relationData
+                relation: relation
             )
         }
         .frame(width: 128)

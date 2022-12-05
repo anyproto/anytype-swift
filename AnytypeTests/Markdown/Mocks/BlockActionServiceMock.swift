@@ -3,6 +3,7 @@ import BlocksModels
 import ProtobufMessages
 import XCTest
 import Foundation
+import AnytypeCore
 
 struct SplitData {
     let string: NSAttributedString
@@ -110,12 +111,12 @@ final class BlockActionServiceMock: BlockActionServiceProtocol {
         return nil
     }
     
-    func createPage(targetId: BlockId, type: ObjectTypeUrl, position: BlockPosition) -> BlockId? {
+    func createPage(targetId: BlockId, type: ObjectTypeId, position: BlockPosition) -> BlockId? {
         assertionFailure()
         return nil
     }
     
-    func bookmarkFetch(blockId: BlockId, url: String) {
+    func bookmarkFetch(blockId: BlockId, url: AnytypeURL) {
         assertionFailure()
     }
     
@@ -135,6 +136,11 @@ final class BlockActionServiceMock: BlockActionServiceProtocol {
         assertionFailure()
     }
     
+    func setObjectSetType() -> BlockId {
+        assertionFailure()
+        return ""
+    }
+    
     func setFields(blockFields: [BlockFields]) {
         assertionFailure()
     }
@@ -148,16 +154,15 @@ final class BlockActionServiceMock: BlockActionServiceProtocol {
         return false
     }
     
-    func setObjectTypeUrl(_ objectTypeUrl: String) {
+    func setObjectTypeId(_ objectTypeId: String) {
         assertionFailure()
     }
     
-    func createAndFetchBookmark(contextID: BlockId, targetID: BlockId, position: BlockPosition, url: String) {
+    func createAndFetchBookmark(contextID: BlockId, targetID: BlockId, position: BlockPosition, url: AnytypeURL) {
         assertionFailure()
     }
 
     func setFields(blockFields: BlockFields, blockId: BlockId) {
         assertionFailure()
     }
-
 }

@@ -2,12 +2,16 @@ import ProtobufMessages
 import SwiftProtobuf
 import BlocksModels
 
-final class PageService {
+protocol PageServiceProtocol: AnyObject {
+    func createPage(name: String) -> BlockId?
+}
+
+final class PageService: PageServiceProtocol {
     func createPage(name: String) -> BlockId? {
         let details = Google_Protobuf_Struct(
             fields: [
                 BundledRelationKey.name.rawValue: name.protobufValue,
-                BundledRelationKey.type.rawValue: ObjectTypeProvider.shared.defaultObjectType.url.protobufValue
+                BundledRelationKey.type.rawValue: ObjectTypeProvider.shared.defaultObjectType.id.protobufValue
             ]
         )
         
@@ -17,6 +21,6 @@ final class PageService {
         }
         
         EventsBunch(event: response.event).send()
-        return response.pageID
+        return response.objectID
     }
 }

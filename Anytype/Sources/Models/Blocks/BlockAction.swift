@@ -24,20 +24,20 @@ enum BlockAction: CaseIterable {
         }
     }
     
-    var iconName: String {
+    var iconAsset: ImageAsset {
         switch self {
         case .delete:
-            return ImageName.slashMenu.actions.delete
+            return .delete
         case .duplicate:
-            return ImageName.slashMenu.actions.duplicate
+            return .slashMenuActionDuplicate
         case .copy:
-            return ImageName.slashMenu.actions.copy
+            return .slashMenuActionCopy
         case .paste:
-            return ImageName.slashMenu.actions.paste
+            return .slashMenuActionPaste
 //        case .move:
 //            return ImageName.slashMenu.actions.move
         case .moveTo:
-            return ImageName.slashMenu.actions.moveTo
+            return .slashMenuActionMoveTo
         }
     }
 }

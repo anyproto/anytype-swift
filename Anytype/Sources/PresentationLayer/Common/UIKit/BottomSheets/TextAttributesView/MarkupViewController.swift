@@ -1,5 +1,5 @@
 import UIKit
-
+import AnytypeCore
 
 final class MarkupsViewController: UIViewController {
 
@@ -38,15 +38,15 @@ final class MarkupsViewController: UIViewController {
         return leftStackView
     }()
     
-    private lazy var boldButton = makeButton(image: .textAttributes.bold) { [weak self] in
+    private lazy var boldButton = makeButton(image: UIImage(asset: .TextAttributes.bold)) { [weak self] in
         self?.viewModel.handle(action: .toggleMarkup(.bold))
     }.addBorders(edges: [.right, .bottom], width: 1, color: .strokePrimary)
 
-    private lazy var italicButton = makeButton(image: .textAttributes.italic) { [weak self] in
+    private lazy var italicButton = makeButton(image: UIImage(asset: .TextAttributes.italic)) { [weak self] in
         self?.viewModel.handle(action: .toggleMarkup(.italic))
     }.addBorders(edges: [.right, .bottom], width: 1, color: .strokePrimary)
 
-    private lazy var strikethroughButton = makeButton(image: .textAttributes.strikethrough) { [weak self] in
+    private lazy var strikethroughButton = makeButton(image: UIImage(asset: .TextAttributes.strikethrough)) { [weak self] in
         self?.viewModel.handle(action: .toggleMarkup(.strikethrough))
     }.addBorders(edges: [.bottom], width: 1, color: .strokePrimary)
 
@@ -54,11 +54,12 @@ final class MarkupsViewController: UIViewController {
         self?.viewModel.handle(action: .toggleMarkup(.keyboard))
     }.addBorders(edges: [.right, .bottom], width: 1, color: .strokePrimary)
 
-    private lazy var urlButton = makeButton(text: Loc.link, action: {})
-        .addBorders(edges: [.bottom], width: 1, color: .strokePrimary)
+    private lazy var urlButton = makeButton(text: Loc.link) { [weak self] in
+        self?.viewModel.handle(action: .toggleMarkup(.link))
+    }.addBorders(edges: [.bottom], width: 1, color: .strokePrimary)
 
     private lazy var leftAlignButton: ButtonWithImage = {
-        let button = ButtonsFactory.makeButton(image: .textAttributes.alignLeft)
+        let button = ButtonsFactory.makeButton(image: UIImage(asset: .TextAttributes.alignLeft))
         button.addAction(UIAction(handler: { [weak self] _ in
             self?.viewModel.handle(action: .selectAlignment(.left))
             UISelectionFeedbackGenerator().selectionChanged()
@@ -66,7 +67,7 @@ final class MarkupsViewController: UIViewController {
         return button
     }()
     private lazy var centerAlignButton: ButtonWithImage = {
-        let button = ButtonsFactory.makeButton(image: .textAttributes.alignCenter)
+        let button = ButtonsFactory.makeButton(image: UIImage(asset: .TextAttributes.alignCenter))
         button.addAction(UIAction(handler: { [weak self] _ in
             self?.viewModel.handle(action: .selectAlignment(.center))
             UISelectionFeedbackGenerator().selectionChanged()
@@ -74,7 +75,7 @@ final class MarkupsViewController: UIViewController {
         return button
     }()
     private lazy var rightAlignButton: ButtonWithImage = {
-        let button = ButtonsFactory.makeButton(image: .textAttributes.alignRight)
+        let button = ButtonsFactory.makeButton(image: UIImage(asset: .TextAttributes.alignRight))
         button.addAction(UIAction(handler: { [weak self] _ in
             self?.viewModel.handle(action: .selectAlignment(.right))
             UISelectionFeedbackGenerator().selectionChanged()
@@ -173,13 +174,17 @@ final class MarkupsViewController: UIViewController {
 
 extension MarkupsViewController: MarkupViewProtocol {
     
-    func setMarkupState(_ state: MarkupViewModel.AllAttributesState) {
+    func setMarkupState(_ state: MarkupViewsState) {
         DispatchQueue.main.async {
             self.setup(button: self.boldButton, with: state.markup[.bold, default: .disabled])
             self.setup(button: self.italicButton, with: state.markup[.italic, default: .disabled])
             self.setup(button: self.strikethroughButton, with: state.markup[.strikethrough, default: .disabled])
             self.setup(button: self.codeButton, with: state.markup[.keyboard, default: .disabled])
-            self.urlButton.isEnabled = false
+            if FeatureFlags.linkToObjectFromMarkup {
+                self.setup(button: self.urlButton, with: state.markup[.link, default: .disabled])
+            } else {
+                self.urlButton.isEnabled = false
+            }
 
             self.setup(button: self.leftAlignButton, with: state.alignment[.left, default: .disabled])
             self.setup(button: self.centerAlignButton, with: state.alignment[.center, default: .disabled])

@@ -1,24 +1,16 @@
 import Foundation
 import SwiftUI
 import BlocksModels
-import FloatingPanel
+import Combine
 
 final class SetSortsListViewModel: ObservableObject {
+    @Published var rows: [SetSortRowConfiguration] = []
     
     private let setModel: EditorSetViewModel
+    private var cancellable: Cancellable?
+    
     private let service: DataviewServiceProtocol
     private let router: EditorRouterProtocol
-    
-    var rows: [SetSortRowConfiguration] {
-        setModel.sorts.map {
-            SetSortRowConfiguration(
-                id: $0.id,
-                title: $0.metadata.name,
-                subtitle: $0.typeTitle(),
-                iconName: $0.metadata.format.iconName
-            )
-        }
-    }
     
     init(
         setModel: EditorSetViewModel,
@@ -28,6 +20,7 @@ final class SetSortsListViewModel: ObservableObject {
         self.setModel = setModel
         self.service = service
         self.router = router
+        self.setup()
     }
     
 }
@@ -37,8 +30,11 @@ extension SetSortsListViewModel {
     // MARK: - Routing
     
     func addButtonTapped() {
-        router.showRelationSearch(relations: setModel.relations) { [weak self] key in
-            self?.addNewSort(with: key)
+        let excludeRelations: [RelationDetails] = setModel.sorts.map { $0.relationDetails }
+        router.showRelationSearch(
+            relationsDetails: setModel.activeViewRelations(excludeRelations: excludeRelations))
+        { [weak self] relationDetails in
+            self?.addNewSort(with: relationDetails)
         }
     }
     
@@ -50,7 +46,7 @@ extension SetSortsListViewModel {
             sort: setSort,
             onSelect: { [weak self] sort in
                 let newSetSort = SetSort(
-                    metadata: setSort.metadata,
+                    relationDetails: setSort.relationDetails,
                     sort: sort
                 )
                 self?.updateSorts(with: newSetSort)
@@ -77,20 +73,37 @@ extension SetSortsListViewModel {
         updateView(with: sorts)
     }
     
-    func addNewSort(with key: String) {
+    func addNewSort(with relation: RelationDetails) {
         var dataviewSorts = setModel.sorts.map { $0.sort }
         dataviewSorts.append(
             DataviewSort(
-                relationKey: key,
+                relationKey: relation.key,
                 type: .asc
             )
         )
         updateView(with: dataviewSorts)
     }
     
+    private func setup() {
+        cancellable = setModel.$sorts.sink { [weak self] sorts in
+            self?.updateRows(with: sorts)
+        }
+    }
+    
+    private func updateRows(with sorts: [SetSort]) {
+        rows = sorts.map {
+            SetSortRowConfiguration(
+                id: $0.id,
+                title: $0.relationDetails.name,
+                subtitle: $0.typeTitle(),
+                iconAsset: $0.relationDetails.format.iconAsset
+            )
+        }
+    }
+    
     private func updateSorts(with setSort: SetSort) {
         let sorts: [SetSort] = setModel.sorts.map { sort in
-            if sort.metadata.key == setSort.metadata.key {
+            if sort.relationDetails.key == setSort.relationDetails.key {
                 return setSort
             } else {
                 return sort
@@ -106,6 +119,8 @@ extension SetSortsListViewModel {
     
     private func updateView(with dataviewSorts: [DataviewSort]) {
         let newView = setModel.activeView.updated(sorts: dataviewSorts)
-        service.updateView(newView)
+        Task {
+            try await service.updateView(newView)
+        }
     }
 }

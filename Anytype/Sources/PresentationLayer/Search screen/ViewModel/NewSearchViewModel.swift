@@ -15,7 +15,6 @@ final class NewSearchViewModel: ObservableObject {
     private let itemCreationMode: ItemCreationMode
     private let selectionMode: SelectionMode
     private let internalViewModel: NewInternalSearchViewModelProtocol
-    private let onSelect: (_ ids: [String]) -> Void
     
     private var cancellable: AnyCancellable? = nil
     
@@ -31,8 +30,7 @@ final class NewSearchViewModel: ObservableObject {
         style: NewSearchView.Style = .default,
         itemCreationMode: ItemCreationMode,
         selectionMode: SelectionMode = .multipleItems(),
-        internalViewModel: NewInternalSearchViewModelProtocol,
-        onSelect: @escaping (_ ids: [String]) -> Void
+        internalViewModel: NewInternalSearchViewModelProtocol
     ) {
         self.title = title
         self.searchPlaceholder = searchPlaceholder
@@ -40,7 +38,6 @@ final class NewSearchViewModel: ObservableObject {
         self.itemCreationMode = itemCreationMode
         self.selectionMode = selectionMode
         self.internalViewModel = internalViewModel
-        self.onSelect = onSelect
         setup()
     }
 }
@@ -55,7 +52,7 @@ extension NewSearchViewModel {
     func didSelectRow(with id: String) {
         switch internalViewModel.selectionMode {
         case .singleItem:
-            onSelect([id])
+            internalViewModel.handleConfirmSelection(ids: [id])
         case .multipleItems:
             handleMultipleRowsSelection(rowId: id)
         }
@@ -67,7 +64,7 @@ extension NewSearchViewModel {
     }
     
     func didTapAddButton() {
-        onSelect(selectedRowIds)
+        internalViewModel.handleConfirmSelection(ids: selectedRowIds)
     }
     
 }

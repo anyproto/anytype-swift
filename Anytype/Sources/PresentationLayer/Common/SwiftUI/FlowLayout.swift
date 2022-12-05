@@ -9,7 +9,7 @@ struct SizeKey: PreferenceKey {
     }
 }
 
-func layout(sizes: [CGSize], spacing: CGSize = .init(width: 10, height: 10), containerWidth: CGFloat) -> [CGPoint] {
+func layout(sizes: [CGSize], spacing: CGSize, containerWidth: CGFloat) -> [CGPoint] {
     var currentPoint: CGPoint = .zero
     var result: [CGPoint] = []
     var lineHeight: CGFloat = 0
@@ -29,13 +29,14 @@ func layout(sizes: [CGSize], spacing: CGSize = .init(width: 10, height: 10), con
 struct FlowLayout<Element: Identifiable, Cell: View>: View {
     var items: [Element]
     var alignment: HorizontalAlignment = .leading
+    var spacing: CGSize = .init(width: 10, height: 10)
     var cell: (Element, Int) -> Cell
 
     @State private var sizes: [CGSize] = []
     @State private var containerWidth: CGFloat = 0
 
     var body: some View {
-        let laidout = layout(sizes: sizes, containerWidth: containerWidth)
+        let laidout = layout(sizes: sizes, spacing: spacing, containerWidth: containerWidth)
 
         return VStack(alignment: .leading, spacing: 0) {
             GeometryReader { proxy in

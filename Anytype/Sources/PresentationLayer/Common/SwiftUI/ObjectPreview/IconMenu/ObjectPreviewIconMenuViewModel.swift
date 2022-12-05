@@ -1,51 +1,61 @@
 import BlocksModels
-import SwiftUI
-import FloatingPanel
+import Combine
 
 final class ObjectPreviewIconMenuViewModel: CheckPopupViewViewModelProtocol {
     let title = Loc.icon
     @Published private(set) var items: [CheckPopupItem] = []
 
     // MARK: - Private variables
-
-    private var iconSize: ObjectPreviewModel.IconSize
-    private var cardStyle: ObjectPreviewModel.CardStyle
-    private let onSelect: (ObjectPreviewModel.IconSize) -> Void
+    private let objectLayout: DetailsLayout
+    private let cardStyle: BlockLink.CardStyle
+    private let currentIconSize: BlockLink.IconSize
+    private let onSelect: (BlockLink.IconSize) -> Void
 
     // MARK: - Initializer
 
-    init(iconSize: ObjectPreviewModel.IconSize,
-         cardStyle: ObjectPreviewModel.CardStyle,
-         onSelect: @escaping (ObjectPreviewModel.IconSize) -> Void) {
-        self.iconSize = iconSize
+    init(
+        objectLayout: DetailsLayout,
+        cardStyle: BlockLink.CardStyle,
+        currentIconSize: BlockLink.IconSize,
+        onSelect: @escaping (BlockLink.IconSize) -> Void
+    ) {
+        self.objectLayout = objectLayout
         self.cardStyle = cardStyle
+        self.currentIconSize = currentIconSize
         self.onSelect = onSelect
-        self.updatePreviewFields(iconSize)
+
+        self.updatePreviewFields(currentIconSize)
     }
 
-    func updatePreviewFields(_ currentIconSize: ObjectPreviewModel.IconSize) {
+    func updatePreviewFields(_ currentIconSize: BlockLink.IconSize) {
         items = buildObjectPreviewPopupItem(currentIconSize: currentIconSize)
     }
 
-    func buildObjectPreviewPopupItem(currentIconSize: ObjectPreviewModel.IconSize) -> [CheckPopupItem] {
+    func buildObjectPreviewPopupItem(currentIconSize: BlockLink.IconSize) -> [CheckPopupItem] {
         availableIconSizes().map { iconSize in
-            let isSelected = currentIconSize == iconSize
-            return CheckPopupItem(id: iconSize.rawValue, icon: nil, title: iconSize.name, subtitle: nil, isSelected: isSelected)
+             CheckPopupItem(
+                id: String(iconSize.rawValue),
+                iconAsset: nil,
+                title: iconSize.name,
+                subtitle: nil,
+                isSelected: currentIconSize == iconSize,
+                onTap: { [weak self] in self?.onTap(iconSize: iconSize) }
+             )
         }
     }
 
-    func availableIconSizes() -> [ObjectPreviewModel.IconSize] {
-        switch cardStyle {
-        case .text:
+    func availableIconSizes() -> [BlockLink.IconSize] {
+        switch (cardStyle, objectLayout) {
+        case (_, .todo):
+            fallthrough
+        case (.text, _):
             return [.small, .none]
-        case .card:
-            return [.medium, .none]
+        case (.card, _):
+            return [.medium, .small, .none]
         }
     }
 
-    func onTap(itemId: String) {
-        guard let iconSize = ObjectPreviewModel.IconSize(rawValue: itemId) else { return }
-
+    private func onTap(iconSize: BlockLink.IconSize) {
         onSelect(iconSize)
         updatePreviewFields(iconSize)
     }

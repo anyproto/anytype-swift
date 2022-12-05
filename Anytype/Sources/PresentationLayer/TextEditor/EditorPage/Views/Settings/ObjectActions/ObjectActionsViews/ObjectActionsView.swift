@@ -21,6 +21,8 @@ struct ObjectActionsView: View {
                             viewModel.undoRedoAction()
                         case .duplicate:
                             viewModel.duplicateAction()
+                        case .linkItself:
+                            viewModel.linkItselfAction()
                         }
                     }
                 }

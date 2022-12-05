@@ -39,7 +39,7 @@ struct BlockBuilder {
         case .tableColumn:
             return .tableColumn
         case .tableRow:
-            return .tableRow
+            return .tableRow(BlockTableRow(isHeader: false))
         }
     }
 }

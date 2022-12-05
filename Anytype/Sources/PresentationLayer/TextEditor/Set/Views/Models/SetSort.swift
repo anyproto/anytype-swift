@@ -1,10 +1,10 @@
 import BlocksModels
 
 struct SetSort: Identifiable, Equatable, Hashable {
-    let metadata: RelationMetadata
+    let relationDetails: RelationDetails
     let sort: DataviewSort
     
-    var id: String { metadata.id }
+    var id: String { relationDetails.id }
     
     func typeTitle() -> String {
         typeTitle(for: sort.type)
@@ -12,9 +12,9 @@ struct SetSort: Identifiable, Equatable, Hashable {
     
     func typeTitle(for sortType: DataviewSort.TypeEnum) -> String {
         if sortType == .asc {
-            return Loc.EditSorts.Popup.Sort.Types.ascending
+            return Loc.EditSet.Popup.Sort.Types.ascending
         } else {
-            return Loc.EditSorts.Popup.Sort.Types.descending
+            return Loc.EditSet.Popup.Sort.Types.descending
         }
     }
 }
@@ -27,4 +27,8 @@ extension Array where Element == DataviewSort {
             dict.updateValue(true, forKey: $0.relationKey) == nil
         }
     }
+}
+
+extension DataviewSort.TypeEnum {
+    static let allAvailableCases: [DataviewSort.TypeEnum] = [.asc, .desc]
 }

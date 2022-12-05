@@ -1,38 +1,34 @@
 import SwiftUI
-import BlocksModels
 
 struct EditorSetViewSettingsView: View {
-    @EnvironmentObject var setModel: EditorSetViewModel
-    @EnvironmentObject var model: EditorSetViewSettingsViewModel
+    @ObservedObject var setModel: EditorSetViewModel
+    @ObservedObject var model: EditorSetViewSettingsViewModel
     @State private var editMode = EditMode.inactive
     
     var body: some View {
+        DragIndicator()
         NavigationView {
             content
-                .padding(.horizontal, 20)
         }
         .background(Color.backgroundSecondary)
-    
-        .animation(.default, value: setModel.activeView)
-        .animation(.default, value: setModel.sortedRelations)
+        .navigationViewStyle(.stack)
     }
     
     private var content: some View {
         List {
-            VStack(spacing: 0) {
-                settingsSection
-                relationsHeader
+            if #available(iOS 15.0, *) {
+                listContent
+                .listRowSeparator(.hidden)
+            } else {
+                listContent
             }
-            relationsSection
         }
         .environment(\.editMode, $editMode)
         
         .navigationViewStyle(.stack)
         .navigationBarTitleDisplayMode(.inline)
         
-        .padding(.horizontal, -15) // list internal padding
         .listStyle(.plain)
-        .listRowInsets(EdgeInsets())
         .buttonStyle(BorderlessButtonStyle())
         
         .toolbar {
@@ -46,38 +42,92 @@ struct EditorSetViewSettingsView: View {
                     withAnimation { editMode = .inactive }
                     model.showAddNewRelationView()
                 }) {
-                    Image.plus
+                    Image(asset: .plus)
                 }
             }
         }
     }
     
-    private var settingsSection: some View {
-        VStack(spacing: 0) {
-            Spacer.fixedHeight(12)
-            AnytypeText(Loc.settings, style: .uxTitle1Semibold, color: .textPrimary)
-            Spacer.fixedHeight(12)
-            
-            AnytypeToggle(title: Loc.icon, isOn: !setModel.activeView.hideIcon) {
-                model.onShowIconChange($0)
+    private var listContent: some View {
+        Group {
+            VStack(spacing: 0) {
+                settingsHeader
+                settingsSection
+                relationsHeader
             }
-            .padding(.bottom, 10)
-            .padding(.top, 2)
+            relationsSection
         }
+        .listRowInsets(.init(top: 0, leading: 20, bottom: 0, trailing: 20))
+    }
+    
+    private var settingsSection: some View {
+        Group {
+            switch model.contentViewType {
+            case .collection(let type):
+                if type == .gallery {
+                    valueSetting(with: model.cardSizeSetting)
+                    toggleSettings(with: model.iconSetting)
+                    valueSetting(with: model.imagePreviewSetting)
+                    toggleSettings(with: model.coverFitSetting)
+                } else {
+                    toggleSettings(with: model.iconSetting)
+                }
+            case .kanban:
+                valueSetting(with: model.groupBySetting)
+                toggleSettings(with: model.groupBackgroundColorsSetting)
+                toggleSettings(with: model.iconSetting)
+            case .table:
+                toggleSettings(with: model.iconSetting)
+            }
+        }
+    }
+    
+    private var settingsHeader: some View {
+        AnytypeText(Loc.settings, style: .uxTitle1Semibold, color: .textPrimary)
+            .frame(height: 52)
+            .divider()
+    }
+    
+    private func valueSetting(with model: EditorSetViewSettingsValueItem) -> some View {
+        Button {
+            model.onTap()
+        } label: {
+            HStack(spacing: 0) {
+                AnytypeText(model.title, style: .uxBodyRegular, color: .textPrimary)
+                Spacer()
+                AnytypeText(model.value, style: .uxBodyRegular, color: .textSecondary)
+                Spacer.fixedWidth(11)
+                Image(asset: .arrowForward)
+                    .renderingMode(.template)
+                    .foregroundColor(.textSecondary)
+            }
+        }
+        .frame(height: 52)
+        .divider()
+    }
+    
+    private func toggleSettings(with model: EditorSetViewSettingsToggleItem) -> some View {
+        AnytypeToggle(
+            title: model.title,
+            isOn: model.isSelected
+        ) {
+            model.onChange($0)
+        }
+        .frame(height: 52)
+        .divider()
     }
     
     private var relationsHeader: some View {
-        VStack(spacing: 0) {
-            Spacer.fixedHeight(12)
-            AnytypeText(Loc.relations, style: .uxTitle1Semibold, color: .textPrimary)
-            Spacer.fixedHeight(12)
-        }
+        AnytypeText(Loc.relations, style: .uxTitle1Semibold, color: .textPrimary)
+            .frame(height: 52)
+            .divider()
     }
     
     private var relationsSection: some View {
-        ForEach(setModel.sortedRelations) { relation in
+        ForEach(model.relations) { relation in
             relationRow(relation)
-                .deleteDisabled(relation.metadata.isBundled)
+                .divider()
+                .deleteDisabled(relation.isSystem)
         }
         .onDelete { indexes in
             model.deleteRelations(indexes: indexes)
@@ -87,19 +137,18 @@ struct EditorSetViewSettingsView: View {
         }
     }
     
-    private func relationRow(_ relation: SetRelation) -> some View {
+    private func relationRow(_ relation: EditorSetViewSettingsRelation) -> some View {
         HStack(spacing: 0) {
-            Image(relation.metadata.format.iconName)
+            Image(asset: relation.image)
                 .frame(width: 24, height: 24)
             Spacer.fixedWidth(10)
             AnytypeToggle(
-                title: relation.metadata.name,
-                isOn: relation.option.isVisible
+                title: relation.title,
+                isOn: relation.isOn
             ) {
-                model.onRelationVisibleChange(relation, isVisible: $0)
+                relation.onChange($0)
             }
         }
-        .padding(.bottom, 10)
-        .padding(.top, 2)
+        .frame(height: 52)
     }
 }

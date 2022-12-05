@@ -21,7 +21,7 @@ struct SetFilterRow: View {
             ZStack(alignment: .center) {
                 RoundedRectangle(cornerRadius: 10)
                     .foregroundColor(Color.backgroundSelected)
-                Image.createImage(configuration.iconName)
+                Image(asset: configuration.iconAsset)
             }
             .frame(width: 48, height: 48)
             
@@ -35,7 +35,7 @@ struct SetFilterRow: View {
             Spacer()
             
             if editMode?.wrappedValue == .inactive {
-                Image.arrow
+                Image(asset: .arrowForward)
             }
         }
         .frame(height: 68)
@@ -48,12 +48,28 @@ struct SetFilterRow: View {
             {
                 HStack(spacing: 8) {
                     AnytypeText(subtitle, style: .relation1Regular, color: .textSecondary)
-                    RelationValueView(
-                        relation: RelationItemModel(relation: configuration.relation),
-                        style: .filter(hasValues: configuration.hasValues),
-                        action: nil
-                    )
+                        .layoutPriority(1)
+                    switch configuration.type {
+                    case let .relation(relation):
+                        relationValueView(for: relation)
+                    case let .date(date):
+                        AnytypeText(date, style: .relation1Regular, color: .textSecondary)
+                    }
                 }
+            }
+        }
+    }
+    
+    private func relationValueView(for relation: Relation?) -> some View {
+        Group {
+            if let relation = relation {
+                RelationValueView(
+                    relation: RelationItemModel(relation: relation),
+                    style: .filter(hasValues: configuration.hasValues),
+                    action: nil
+                )
+            } else {
+                EmptyView()
             }
         }
     }

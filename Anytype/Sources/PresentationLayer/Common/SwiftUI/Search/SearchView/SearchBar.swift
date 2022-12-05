@@ -8,10 +8,10 @@ struct SearchBar: View {
     var body: some View {
         Group {
             if focused {
-                AutofocusedTextField(placeholder: placeholder, text: $text)
+                AutofocusedTextField(placeholder: placeholder, placeholderFont: .uxBodyRegular, text: $text)
                     .disableAutocorrection(true)
             } else {
-                AnytypeTextField(placeholder: placeholder, text: $text)
+                AnytypeTextField(placeholder: placeholder, placeholderFont: .uxBodyRegular, text: $text)
                     .disableAutocorrection(true)
             }
         }
@@ -28,7 +28,7 @@ struct SearchBar: View {
     
     private var overlay: some View {
         HStack() {
-            Image.SearchBar.magnifyingGlass
+            Image(asset: .searchTextFieldIcon)
                 .renderingMode(.template)
                 .aspectRatio(contentMode: .fit)
                 .foregroundColor(.buttonActive)
@@ -39,7 +39,7 @@ struct SearchBar: View {
             
             if !text.isEmpty {
                 Button(action: { text = "" }) {
-                    Image.SearchBar.circleFill
+                    Image(asset: .multiplyCircleFill)
                         .renderingMode(.template)
                         .foregroundColor(.buttonActive)
                         .padding(.trailing, 8)

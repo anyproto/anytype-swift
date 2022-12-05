@@ -3,7 +3,7 @@ import UIKit
 
 protocol AccessoryViewStateManager {
     func willBeginEditing(data: TextBlockDelegateData)
-    func didEndEditing()
+    func didEndEditing(data: TextBlockDelegateData)
     func textDidChange(changeType: TextChangeType)
     func selectionDidChange(range: NSRange)
 }
@@ -26,8 +26,8 @@ final class AccessoryViewStateManagerImpl: AccessoryViewStateManager, CursorMode
         switcher.updateData(data: data)
     }
     
-    func didEndEditing() {
-        switcher.restoreDefaultState()
+    func didEndEditing(data: TextBlockDelegateData) {
+        switcher.clearAccessory(data: data)
     }
 
     func textDidChange(changeType: TextChangeType) {
@@ -132,7 +132,7 @@ final class AccessoryViewStateManagerImpl: AccessoryViewStateManager, CursorMode
         let carretOffset = textView.offsetFromBegining(caretPosition)
         let prependSpace = carretOffset > 1 // We need whitespace before / or @ if it is not 1st symbol
         
-        if textBeforeCaret.hasSuffix(TextTriggerSymbols.slashMenu) {
+        if textBeforeCaret.hasSuffix(TextTriggerSymbols.slashMenu) && data.usecase != .simpleTable {
             switcher.showSlashMenuView()
         } else if textBeforeCaret.hasSuffix(
             TextTriggerSymbols.mention(prependSpace: prependSpace)

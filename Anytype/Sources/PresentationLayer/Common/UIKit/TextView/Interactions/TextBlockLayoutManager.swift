@@ -34,15 +34,23 @@ final class TextBlockLayoutManager: NSLayoutManager {
     override func drawGlyphs(forGlyphRange glyphsToShow: NSRange, at origin: CGPoint) {
         let characterRange = self.characterRange(forGlyphRange: glyphsToShow, actualGlyphRange: nil)
         drawUnderline(
-            for: .localUnderline,
+            for: .anytypeLink,
             characterRange: characterRange,
             origin: origin
         )
+
         drawUnderline(
             for: .link,
             characterRange: characterRange,
             origin: origin
         )
+
+        drawUnderline(
+            for: .anytypeUnderline,
+            characterRange: characterRange,
+            origin: origin
+        )
+
         super.drawGlyphs(forGlyphRange: glyphsToShow, at: origin)
     }
     
@@ -58,11 +66,41 @@ final class TextBlockLayoutManager: NSLayoutManager {
             using: { value, subrange, _ in
                 guard attribute.checkValue(value) else { return }
                 let glyphRange = glyphRange(forCharacterRange: subrange, actualCharacterRange: nil)
-                drawUnderline(forGlyphRange: glyphRange, origin: origin)
-            })
+
+                drawUnderline(
+                    forGlyphRange: glyphRange,
+                    origin: origin,
+                    color: attribute.underlineColor(with: textColor(in: subrange)),
+                    thinkness: attribute.underlineThickness
+                )
+            }
+        )
+    }
+
+    private func textColor(in range: NSRange) -> UIColor {
+        guard let attributedString = textStorage?.attributedSubstring(from: range) else {
+            return primaryColor ?? tertiaryColor ?? .textPrimary
+        }
+
+        let textColor = attributedString.colorState(range: attributedString.wholeRange)
+
+        if textColor == nil {
+            return primaryColor ?? tertiaryColor ?? .textPrimary
+        }
+
+        if let tertiaryColor = tertiaryColor, textColor == .textPrimary && tertiaryColor != .textPrimary {
+            return tertiaryColor
+        }
+
+        return textColor ?? .textPrimary
     }
          
-    private func drawUnderline(forGlyphRange glyphRange: NSRange, origin: CGPoint) {
+    private func drawUnderline(
+        forGlyphRange glyphRange: NSRange,
+        origin: CGPoint,
+        color: UIColor,
+        thinkness: CGFloat
+    ) {
         guard let textContainer = textContainer(forGlyphAt: glyphRange.location,
                                                 effectiveRange: nil) else { return }
 
@@ -78,8 +116,8 @@ final class TextBlockLayoutManager: NSLayoutManager {
             let rectRelatvieToFontHeight = CGRect(origin: rect.origin, size: .init(width: rect.width, height: font.lineHeight))
             let textRect = rectRelatvieToFontHeight.offsetBy(dx: origin.x, dy: origin.y)
 
-            UIColor.buttonActive.setFill()
-            let lineHeight: CGFloat = 1
+            color.setFill()
+            let lineHeight: CGFloat = thinkness
 
             // When size of the uitextview was reduced using negative textContainerInset values, underline should be moved upper to be visible.
             // Otherwise it will be outside the uitextview and not visible.
@@ -92,7 +130,7 @@ final class TextBlockLayoutManager: NSLayoutManager {
             }
 
             UIBezierPath(rect: CGRect(origin: CGPoint(x: textRect.minX,
-                                                      y: textRect.maxY + additionalYOffset),
+                                                      y: textRect.maxY + additionalYOffset - 2),
                                       size: CGSize(width: textRect.width,
                                                    height: lineHeight))).fill()
         }
@@ -111,5 +149,31 @@ final class TextBlockLayoutManager: NSLayoutManager {
             return defaultColor?.cgColor
         }
         return nil
+    }
+}
+
+extension UIFont {
+    var anytypeDescription: String {
+        "\(description); pointSize: \(pointSize); capHeight: \(capHeight); xHeight: \(xHeight); ascender: \(ascender); descender: \(descender); lineHeight: \(lineHeight); leading: \(leading)"
+    }
+}
+
+extension NSAttributedString.Key {
+    func underlineColor(with textColor: UIColor) -> UIColor {
+        switch self {
+        case .anytypeLink:
+            return textColor.withAlphaComponent(0.5)
+        default:
+            return textColor
+        }
+    }
+
+    var underlineThickness: CGFloat {
+        switch self {
+        case .anytypeUnderline:
+            return 0.5
+        default:
+            return 1
+        }
     }
 }

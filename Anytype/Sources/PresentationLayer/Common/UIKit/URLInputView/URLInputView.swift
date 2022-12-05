@@ -1,4 +1,5 @@
 import UIKit
+import AnytypeCore
 
 final class URLInputView: UIView {
     
@@ -54,15 +55,15 @@ final class URLInputView: UIView {
         let size = super.intrinsicContentSize
         return CGSize(
             width: size.width,
-            height: Constants.insets.top + (-Constants.insets.bottom) + stackView.intrinsicContentSize.height)
+            height: Constants.insets.top + Constants.insets.bottom + stackView.intrinsicContentSize.height)
     }
     
     private var notificationToken: NSObjectProtocol?
-    private let didSetURL: (URL?) -> Void
+    private let didSetURL: (AnytypeURL?) -> Void
     
     init(
-        url: URL? = nil,
-        didSetURL: @escaping (URL?) -> Void
+        url: AnytypeURL? = nil,
+        didSetURL: @escaping (AnytypeURL?) -> Void
     ) {
         self.didSetURL = didSetURL
         super.init(frame: .zero)
@@ -70,7 +71,7 @@ final class URLInputView: UIView {
         textField.text = url?.absoluteString
     }
     
-    func updateUrl(_ url: URL?) {
+    func updateUrl(_ url: AnytypeURL?) {
         textField.text = url?.absoluteString
     }
     
@@ -87,10 +88,10 @@ final class URLInputView: UIView {
             if UIDevice.isPad {
                 $0.pin(to: readableContentGuide, excluding: [.top, .bottom])
                 $0.top.equal(to: topAnchor, constant: Constants.insets.top)
-                $0.bottom.equal(to: safeAreaLayoutGuide.bottomAnchor, constant: Constants.insets.bottom)
+                $0.bottom.equal(to: safeAreaLayoutGuide.bottomAnchor, constant: -Constants.insets.bottom)
             } else {
                 $0.pinToSuperview(excluding: [.bottom], insets: Constants.insets)
-                $0.bottom.equal(to: safeAreaLayoutGuide.bottomAnchor, constant: Constants.insets.bottom)
+                $0.bottom.equal(to: safeAreaLayoutGuide.bottomAnchor, constant: -Constants.insets.bottom)
             }
         }
         
@@ -126,7 +127,7 @@ final class URLInputView: UIView {
             didSetURL(nil)
             return
         }
-        if let text = textField.text, let url = URL(string: text) {
+        if let text = textField.text, let url = AnytypeURL(string: text) {
             didSetURL(url)
         }
     }
@@ -142,7 +143,7 @@ extension URLInputView {
     
     private enum Constants {
         static let horizontalElementsSpacing: CGFloat = 10
-        static let insets = UIEdgeInsets(top: 12, left: 16, bottom: -12, right: -16)
+        static let insets = UIEdgeInsets(top: 12, left: 16, bottom: 12, right: 16)
         static let lineHeight: CGFloat = 1
     }
 }

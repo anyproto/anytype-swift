@@ -28,14 +28,14 @@ enum SlashActionAlignment: CaseIterable {
         }
     }
     
-    var iconName: String {
+    var iconAsset: ImageAsset {
         switch self {
         case .left:
-            return ImageName.slashMenu.alignment.left
+            return .slashMenuAlignmentLeft
         case .center:
-            return ImageName.slashMenu.alignment.center
+            return .slashMenuAlignmentCenter
         case .right:
-            return ImageName.slashMenu.alignment.right
+            return .slashMenuAlignmentRight
         }
     }
 }

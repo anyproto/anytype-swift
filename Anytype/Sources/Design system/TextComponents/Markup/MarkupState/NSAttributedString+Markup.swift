@@ -40,8 +40,8 @@ extension NSAttributedString {
     }
 
     func isUnderscored(range: NSRange) -> Bool {
-        let isUnderscored: NSNumber? = value(for: .underlineStyle, range: range)
-        return isUnderscored != 0
+        guard length > 0 else { return false }
+        return isEverySymbol(in: range, has: .anytypeUnderline)
     }
 
     func mention(range: NSRange) -> String? {
@@ -52,30 +52,34 @@ extension NSAttributedString {
         return value(for: .emoji, range: range)
     }
     
-    func hasMarkup(_ markup: MarkupType, range: NSRange) -> Bool {
+    func markupValue(_ markup: MarkupType, range: NSRange) -> MarkupType? {
         switch markup {
         case .bold:
-            return boldState(range: range)
+            return boldState(range: range) ? .bold : nil
         case .italic:
-            return italicState(range: range)
+            return italicState(range: range) ? .italic : nil
         case .keyboard:
-            return codeState(range: range)
+            return codeState(range: range) ? .keyboard : nil
         case .strikethrough:
-            return strikethroughState(range: range)
+            return strikethroughState(range: range) ? .strikethrough : nil
         case .textColor:
-            return colorState(range: range).isNotNil
+            return colorState(range: range).map { .textColor($0) }
         case .underscored:
-            return isUnderscored(range: range)
+            return isUnderscored(range: range) ? .underscored : nil
         case .backgroundColor:
-            return backgroundColor(range: range).isNotNil
+            return backgroundColor(range: range).map { .backgroundColor($0) }
         case .link:
-            return linkState(range: range).isNotNil
+            return linkState(range: range).map { .link($0) }
         case .linkToObject:
-            return linkToObjectState(range: range).isNotNil
+            return linkToObjectState(range: range).map { .linkToObject($0) }
         case .mention:
-            return mention(range: range).isNotNil
+            return mention(range: range).map { .mention(MentionData.noDetails(blockId: $0)) }
         case .emoji:
-            return emoji(range: range).isNotNil
+            return emoji(range: range).flatMap { Emoji($0) }.map { .emoji($0) }
         }
+    }
+    
+    func hasMarkup(_ markup: MarkupType, range: NSRange) -> Bool {
+        return markupValue(markup, range: range).isNotNil
     }
 }

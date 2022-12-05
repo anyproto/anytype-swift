@@ -1,13 +1,9 @@
 import Combine
 import BlocksModels
 import UIKit
-import AnytypeCore
+import Logger
 import ProtobufMessages
-
-
-extension LoggerCategory {
-    static let blockActionService: Self = "blockActionService"
-}
+import AnytypeCore
 
 final class BlockActionService: BlockActionServiceProtocol {
     private let documentId: BlockId
@@ -17,7 +13,7 @@ final class BlockActionService: BlockActionServiceProtocol {
     private let pageService = ServiceLocator.shared.objectActionsService()
     private let textService = TextService()
     private let listService: BlockListServiceProtocol
-    private let bookmarkService = BookmarkService()
+    private let bookmarkService = ServiceLocator.shared.bookmarkService()
     private let fileService = FileActionsService()
     private let cursorManager: EditorCursorManager
     
@@ -76,12 +72,14 @@ final class BlockActionService: BlockActionServiceProtocol {
     }
 
 
-    func createPage(targetId: BlockId, type: ObjectTypeUrl, position: BlockPosition) -> BlockId? {
+    func createPage(targetId: BlockId, type: ObjectTypeId, position: BlockPosition) -> BlockId? {
         guard let newBlockId = pageService.createPage(
             contextId: documentId,
             targetId: targetId,
             details: [.name(""), .type(type)],
             shouldDeleteEmptyObject: false,
+            shouldSelectType: false,
+            shouldSelectTemplate: false,
             position: position,
             templateId: ""
         ) else { return nil }
@@ -136,8 +134,12 @@ final class BlockActionService: BlockActionServiceProtocol {
         textService.setTextForced(contextId: contextId, blockId: blockId, middlewareString: middlewareString)
     }
     
-    func setObjectTypeUrl(_ objectTypeUrl: String) {
-        pageService.setObjectType(objectId: documentId, objectTypeUrl: objectTypeUrl)
+    func setObjectTypeId(_ objectTypeId: String) {
+        pageService.setObjectType(objectId: documentId, objectTypeId: objectTypeId)
+    }
+
+    func setObjectSetType() -> BlockId {
+        pageService.setObjectSetType(objectId: documentId)
     }
 
     private func setFocus(model: BlockViewModelProtocol) {
@@ -157,21 +159,21 @@ private extension BlockActionService {
 // MARK: - BookmarkFetch
 
 extension BlockActionService {
-    func bookmarkFetch(blockId: BlockId, url: String) {
-        bookmarkService.fetchBookmark(contextID: self.documentId, blockID: blockId, url: url)
+    func bookmarkFetch(blockId: BlockId, url: AnytypeURL) {
+        bookmarkService.fetchBookmark(contextID: self.documentId, blockID: blockId, url: url.absoluteString)
     }
 
     func createAndFetchBookmark(
         contextID: BlockId,
         targetID: BlockId,
         position: BlockPosition,
-        url: String
+        url: AnytypeURL
     ) {
         bookmarkService.createAndFetchBookmark(
             contextID: contextID,
             targetID: targetID,
             position: position,
-            url: url
+            url: url.absoluteString
         )
     }
 }

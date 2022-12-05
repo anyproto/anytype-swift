@@ -4,9 +4,10 @@ import Combine
 
 protocol AccessoryViewSwitcherProtocol {
     func updateData(data: TextBlockDelegateData)
-    
+    func clearAccessory(data: TextBlockDelegateData)
+
     func restoreDefaultState()
-    
+
     func showDefaultView()
     func showSlashMenuView()
     func showMentionsView()
@@ -55,6 +56,7 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
         markupAccessoryView.update(info: data.info, textView: data.textView)
         slashMenuView.update(info: data.info, relations: document.parsedRelations.all)
 
+        cursorModeAccessoryView.isHidden = false
         if data.textView.selectedRange.length != .zero {
             showMarkupView(range: data.textView.selectedRange)
         } else {
@@ -82,15 +84,23 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
     func showDefaultView() {
         markupAccessoryView.selectionChanged(range: .zero)
 
-        let isDraft = document.details?.isDraft ?? false
-
-        if isDraft &&
-            document.isEmpty &&
+        let isSelectType = document.details?.isSelectType ?? false
+        
+        if isSelectType &&
             !document.objectRestrictions.objectRestriction.contains(.typechange),
             !didChangeTypeDismissByUser {
             showAccessoryView(.changeType(changeTypeView), animation: activeView.animation)
         } else {
             showAccessoryView(.default(cursorModeAccessoryView), animation: activeView.animation)
+        }
+    }
+
+    func clearAccessory(data: TextBlockDelegateData) {
+        slashMenuView.restoreDefaultState()
+        data.textView.inputAccessoryView = nil
+
+        if data.textView == self.data?.textView {
+            cursorModeAccessoryView.isHidden = true
         }
     }
     

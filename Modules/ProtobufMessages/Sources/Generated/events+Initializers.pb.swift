@@ -59,52 +59,49 @@ extension Anytype_Event.Block.Dataview.GroupOrderUpdate {
     }
 }
 
-extension Anytype_Event.Block.Dataview.RecordsDelete {
-    public init(id: String = String(), viewID: String = String(), removed: [String] = []) {
+extension Anytype_Event.Block.Dataview.ObjectOrderUpdate {
+    public init(id: String = String(), viewID: String = String(), groupID: String = String(), sliceChanges: [Anytype_Event.Block.Dataview.SliceChange] = []) {
         self.id = id
         self.viewID = viewID
-        self.removed = removed
+        self.groupID = groupID
+        self.sliceChanges = sliceChanges
     }
 }
 
-extension Anytype_Event.Block.Dataview.RecordsInsert {
-    public init(id: String = String(), viewID: String = String(), records: [SwiftProtobuf.Google_Protobuf_Struct] = [], insertPosition: UInt32 = 0) {
-        self.id = id
-        self.viewID = viewID
-        self.records = records
-        self.insertPosition = insertPosition
-    }
-}
-
-extension Anytype_Event.Block.Dataview.RecordsSet {
-    public init(id: String = String(), viewID: String = String(), records: [SwiftProtobuf.Google_Protobuf_Struct] = [], total: UInt32 = 0) {
-        self.id = id
-        self.viewID = viewID
-        self.records = records
-        self.total = total
-    }
-}
-
-extension Anytype_Event.Block.Dataview.RecordsUpdate {
-    public init(id: String = String(), viewID: String = String(), records: [SwiftProtobuf.Google_Protobuf_Struct] = []) {
-        self.id = id
-        self.viewID = viewID
-        self.records = records
-    }
-}
-
-extension Anytype_Event.Block.Dataview.RelationDelete {
+extension Anytype_Event.Block.Dataview.OldRelationDelete {
     public init(id: String = String(), relationKey: String = String()) {
         self.id = id
         self.relationKey = relationKey
     }
 }
 
-extension Anytype_Event.Block.Dataview.RelationSet {
+extension Anytype_Event.Block.Dataview.OldRelationSet {
     public init(id: String, relationKey: String, relation: Anytype_Model_Relation) {
         self.id = id
         self.relationKey = relationKey
         self.relation = relation
+    }
+}
+
+extension Anytype_Event.Block.Dataview.RelationDelete {
+    public init(id: String = String(), relationKeys: [String] = []) {
+        self.id = id
+        self.relationKeys = relationKeys
+    }
+}
+
+extension Anytype_Event.Block.Dataview.RelationSet {
+    public init(id: String = String(), relationLinks: [Anytype_Model_RelationLink] = []) {
+        self.id = id
+        self.relationLinks = relationLinks
+    }
+}
+
+extension Anytype_Event.Block.Dataview.SliceChange {
+    public init(op: Anytype_Event.Block.Dataview.SliceOperation = .none, ids: [String] = [], afterID: String = String()) {
+        self.op = op
+        self.ids = ids
+        self.afterID = afterID
     }
 }
 
@@ -130,12 +127,10 @@ extension Anytype_Event.Block.Dataview.ViewOrder {
 }
 
 extension Anytype_Event.Block.Dataview.ViewSet {
-    public init(id: String = String(), viewID: String = String(), view: Anytype_Model_Block.Content.Dataview.View, offset: UInt32 = 0, limit: UInt32 = 0) {
+    public init(id: String = String(), viewID: String = String(), view: Anytype_Model_Block.Content.Dataview.View) {
         self.id = id
         self.viewID = viewID
         self.view = view
-        self.offset = offset
-        self.limit = limit
     }
 }
 
@@ -768,39 +763,17 @@ extension Anytype_Event.Object.Details.Unset {
     }
 }
 
-extension Anytype_Event.Object.Relation.Remove {
-    public init(id: String = String(), relationKey: String = String()) {
-        self.id = id
-        self.relationKey = relationKey
-    }
-}
-
-extension Anytype_Event.Object.Relation.Set {
-    public init(id: String, relationKey: String, relation: Anytype_Model_Relation) {
-        self.id = id
-        self.relationKey = relationKey
-        self.relation = relation
-    }
-}
-
 extension Anytype_Event.Object.Relations.Amend {
-    public init(id: String = String(), relations: [Anytype_Model_Relation] = []) {
+    public init(id: String = String(), relationLinks: [Anytype_Model_RelationLink] = []) {
         self.id = id
-        self.relations = relations
+        self.relationLinks = relationLinks
     }
 }
 
 extension Anytype_Event.Object.Relations.Remove {
-    public init(id: String = String(), keys: [String] = []) {
+    public init(id: String = String(), relationKeys: [String] = []) {
         self.id = id
-        self.keys = keys
-    }
-}
-
-extension Anytype_Event.Object.Relations.Set {
-    public init(id: String = String(), relations: [Anytype_Model_Relation] = []) {
-        self.id = id
-        self.relations = relations
+        self.relationKeys = relationKeys
     }
 }
 
@@ -810,30 +783,10 @@ extension Anytype_Event.Object.Remove {
     }
 }
 
-extension Anytype_Event.Object.Show {
-    public init(rootID: String = String(), blocks: [Anytype_Model_Block] = [], details: [Anytype_Event.Object.Details.Set] = [], type: Anytype_Model_SmartBlockType = .accountOld, objectTypes: [Anytype_Model_ObjectType] = [], relations: [Anytype_Model_Relation] = [], restrictions: Anytype_Model_Restrictions, history: Anytype_Event.Object.Show.HistorySize) {
-        self.rootID = rootID
-        self.blocks = blocks
-        self.details = details
-        self.type = type
-        self.objectTypes = objectTypes
-        self.relations = relations
+extension Anytype_Event.Object.Restriction {
+    public init(id: String = String(), restrictions: Anytype_Model_Restrictions) {
+        self.id = id
         self.restrictions = restrictions
-        self.history = history
-    }
-}
-
-extension Anytype_Event.Object.Show.HistorySize {
-    public init(undo: Int32 = 0, redo: Int32 = 0) {
-        self.undo = undo
-        self.redo = redo
-    }
-}
-
-extension Anytype_Event.Object.Show.RelationWithValuePerObject {
-    public init(objectID: String = String(), relations: [Anytype_Model_RelationWithValue] = []) {
-        self.objectID = objectID
-        self.relations = relations
     }
 }
 
@@ -851,6 +804,14 @@ extension Anytype_Event.Object.Subscription.Counters {
         self.nextCount = nextCount
         self.prevCount = prevCount
         self.subID = subID
+    }
+}
+
+extension Anytype_Event.Object.Subscription.Groups {
+    public init(subID: String = String(), group: Anytype_Model_Block.Content.Dataview.Group, remove: Bool = false) {
+        self.subID = subID
+        self.group = group
+        self.remove = remove
     }
 }
 

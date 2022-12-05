@@ -1,6 +1,7 @@
 import Foundation
 import BlocksModels
 import ProtobufMessages
+import AnytypeCore
 
 protocol BlockTableServiceProtocol {
     func createTable(
@@ -40,10 +41,11 @@ final class BlockTableService: BlockTableServiceProtocol {
         rowsCount: Int,
         columnsCount: Int
     ) {
+        AnytypeAnalytics.instance().logCreateBlock(type: AnalyticsConstants.simpleTableBlock)
         let eventsBunch = Anytype_Rpc.BlockTable.Create.Service.invoke(
             contextID: contextId,
             targetID: targetId,
-            position: BlockPosition.replace.asMiddleware,
+            position: FeatureFlags.fixInsetMediaContent ? position.asMiddleware : BlockPosition.replace.asMiddleware,
             rows: UInt32(rowsCount),
             columns: UInt32(columnsCount),
             withHeaderRow: false
@@ -93,6 +95,8 @@ final class BlockTableService: BlockTableServiceProtocol {
     }
 
     func insertRow(contextId: BlockId, targetId: BlockId, position: BlockPosition) {
+
+
         let eventsBunch = Anytype_Rpc.BlockTable.RowCreate.Service.invoke(
             contextID: contextId,
             targetID: targetId,
@@ -234,4 +238,8 @@ enum BlocksSortType {
             return .desc
         }
     }
+}
+
+private enum AnalyticsConstants {
+    static let simpleTableBlock = "table"
 }

@@ -30,5 +30,5 @@ struct AudioBlockContentConfiguration: BlockConfiguration {
 }
 
 extension AudioBlockContentConfiguration {
-    var contentInsets: UIEdgeInsets { .init(top: 10, left: 20, bottom: -10, right: -20) }
+    var contentInsets: UIEdgeInsets { .init(top: 10, left: 20, bottom: 10, right: 20) }
 }

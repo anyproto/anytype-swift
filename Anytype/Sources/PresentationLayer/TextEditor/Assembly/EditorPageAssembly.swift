@@ -3,59 +3,80 @@ import UIKit
 import AnytypeCore
 
 final class EditorAssembly {
-    private weak var browser: EditorBrowserController?
     
-    init(browser: EditorBrowserController?) {
-        self.browser = browser
+    private let serviceLocator: ServiceLocator
+    private let coordinatorsDI: CoordinatorsDIProtocol
+    private let modulesDI: ModulesDIProtocol
+    
+    init(
+        serviceLocator: ServiceLocator,
+        coordinatorsDI: CoordinatorsDIProtocol,
+        modulesDI: ModulesDIProtocol
+    ) {
+        self.serviceLocator = serviceLocator
+        self.coordinatorsDI = coordinatorsDI
+        self.modulesDI = modulesDI
     }
     
     func buildEditorController(
-        data: EditorScreenData,
-        editorBrowserViewInput: EditorBrowserViewInputProtocol?
+        browser: EditorBrowserController?,
+        data: EditorScreenData
     ) -> UIViewController {
-        buildEditorModule(data: data, editorBrowserViewInput: editorBrowserViewInput).vc
+        buildEditorModule(browser: browser, data: data).vc
     }
 
     func buildEditorModule(
-        data: EditorScreenData,
-        editorBrowserViewInput: EditorBrowserViewInputProtocol?
+        browser: EditorBrowserController?,
+        data: EditorScreenData
     ) -> (vc: UIViewController, router: EditorRouterProtocol) {
         switch data.type {
         case .page:
-            let module = buildPageModule(data: data)
-            module.0.browserViewInput = editorBrowserViewInput
-            return module
+            return buildPageModule(browser: browser, data: data)
         case .set:
-            return buildSetModule(data: data)
+            return buildSetModule(browser: browser, data: data)
         }
     }
     
     // MARK: - Set
-    private func buildSetModule(data: EditorScreenData) -> (EditorSetHostingController, EditorRouterProtocol) {
-        let searchService = SearchService()
+    private func buildSetModule(
+        browser: EditorBrowserController?,
+        data: EditorScreenData
+    ) -> (EditorSetHostingController, EditorRouterProtocol) {
         let document = BaseDocument(objectId: data.pageId)
-        let dataviewService = DataviewService(objectId: data.pageId)
+        let dataviewService = DataviewService(
+            objectId: data.pageId,
+            prefilledFieldsBuilder: SetFilterPrefilledFieldsBuilder()
+        )
         let detailsService = ServiceLocator.shared.detailsService(objectId: data.pageId)
 
         let model = EditorSetViewModel(
             document: document,
             dataviewService: dataviewService,
-            searchService: searchService,
-            detailsService: detailsService
+            searchService: ServiceLocator.shared.searchService(),
+            detailsService: detailsService,
+            textService: serviceLocator.textService,
+            relationDetailsStorage: ServiceLocator.shared.relationDetailsStorage(),
+            groupsSubscriptionsHandler: ServiceLocator.shared.groupsSubscriptionsHandler(),
+            setSubscriptionDataBuilder: SetSubscriptionDataBuilder()
         )
         let controller = EditorSetHostingController(objectId: data.pageId, model: model)
 
-        
         let router = EditorRouter(
             rootController: browser,
             viewController: controller,
+            navigationContext: NavigationContext(rootViewController: browser ?? controller),
             document: document,
-            assembly: self,
-            templatesCoordinator: TemplatesCoordinator(
-                rootViewController: controller,
-                keyboardHeightListener: .init(),
-                searchService: searchService
-            )
+            addNewRelationCoordinator: coordinatorsDI.addNewRelation.make(document: document),
+            templatesCoordinator: coordinatorsDI.templates.make(viewController: controller),
+            urlOpener: URLOpener(viewController: browser),
+            relationValueCoordinator: coordinatorsDI.relationValue.make(),
+            editorPageCoordinator: coordinatorsDI.editorPage.make(browserController: browser),
+            linkToObjectCoordinator: coordinatorsDI.linkToObject.make(browserController: browser),
+            objectCoverPickerModuleAssembly: modulesDI.objectCoverPicker,
+            objectIconPickerModuleAssembly: modulesDI.objectIconPicker,
+            objectSettingCoordinator: coordinatorsDI.objectSettings.make(document: document, browserController: browser),
+            searchModuleAssembly: modulesDI.search,
+            alertHelper: AlertHelper(viewController: controller)
         )
         
         model.setup(router: router)
@@ -65,36 +86,54 @@ final class EditorAssembly {
     
     // MARK: - Page
     
-    private func buildPageModule(data: EditorScreenData) -> (EditorPageController, EditorRouterProtocol) {
+    private func buildPageModule(
+        browser: EditorBrowserController?,
+        data: EditorScreenData
+    ) -> (EditorPageController, EditorRouterProtocol) {
         let simpleTableMenuViewModel = SimpleTableMenuViewModel()
-        let blocksOptionViewModel = HorizonalTypeListViewModel(itemProvider: nil)
+        let blocksOptionViewModel = SelectionOptionsViewModel(itemProvider: nil)
 
         let blocksSelectionOverlayView = buildBlocksSelectionOverlayView(
             simleTableMenuViewModel: simpleTableMenuViewModel,
             blockOptionsViewViewModel: blocksOptionViewModel
         )
-
-        let controller = EditorPageController(blocksSelectionOverlayView: blocksSelectionOverlayView)
+        let bottomNavigationManager = EditorBottomNavigationManager(browser: browser)
+        
+        let controller = EditorPageController(
+            blocksSelectionOverlayView: blocksSelectionOverlayView,
+            bottomNavigationManager: bottomNavigationManager,
+            browserViewInput: browser
+        )
         let document = BaseDocument(objectId: data.pageId)
         let router = EditorRouter(
             rootController: browser,
             viewController: controller,
+            navigationContext: NavigationContext(rootViewController: browser ?? controller),
             document: document,
-            assembly: self,
-            templatesCoordinator: TemplatesCoordinator(
-                rootViewController: controller,
-                keyboardHeightListener: .init(),
-                searchService: SearchService()
-            )
+            addNewRelationCoordinator: coordinatorsDI.addNewRelation.make(document: document),
+            templatesCoordinator: coordinatorsDI.templates.make(viewController: controller),
+            urlOpener: URLOpener(viewController: browser),
+            relationValueCoordinator: coordinatorsDI.relationValue.make(),
+            editorPageCoordinator: coordinatorsDI.editorPage.make(browserController: browser),
+            linkToObjectCoordinator: coordinatorsDI.linkToObject.make(browserController: browser),
+            objectCoverPickerModuleAssembly: modulesDI.objectCoverPicker,
+            objectIconPickerModuleAssembly: modulesDI.objectIconPicker,
+            objectSettingCoordinator: coordinatorsDI.objectSettings.make(document: document, browserController: browser),
+            searchModuleAssembly: modulesDI.search,
+            alertHelper: AlertHelper(viewController: controller)
         )
 
         let viewModel = buildViewModel(
+            browser: browser,
+            controller: controller,
+            scrollView: controller.collectionView,
             viewInput: controller,
             document: document,
             router: router,
             blocksOptionViewModel: blocksOptionViewModel,
             simpleTableMenuViewModel: simpleTableMenuViewModel,
             blocksSelectionOverlayViewModel: blocksSelectionOverlayView.viewModel,
+            bottomNavigationManager: bottomNavigationManager,
             isOpenedForPreview: data.isOpenedForPreview
         )
 
@@ -104,14 +143,18 @@ final class EditorAssembly {
     }
     
     private func buildViewModel(
+        browser: EditorBrowserController?,
+        controller: UIViewController,
+        scrollView: UIScrollView,
         viewInput: EditorPageViewInput,
         document: BaseDocumentProtocol,
         router: EditorRouter,
-        blocksOptionViewModel: HorizonalTypeListViewModel,
+        blocksOptionViewModel: SelectionOptionsViewModel,
         simpleTableMenuViewModel: SimpleTableMenuViewModel,
         blocksSelectionOverlayViewModel: BlocksSelectionOverlayViewModel,
+        bottomNavigationManager: EditorBottomNavigationManagerProtocol,
         isOpenedForPreview: Bool
-    ) -> EditorPageViewModel {                
+    ) -> EditorPageViewModel {
         let modelsHolder = EditorMainItemModelsHolder()
         let markupChanger = BlockMarkupChanger(infoContainer: document.infoContainer)
         let focusSubjectHolder = FocusSubjectsHolder()
@@ -149,32 +192,7 @@ final class EditorAssembly {
         let pasteboardService = PasteboardService(document: document,
                                                   pasteboardHelper: pasteboardHelper,
                                                   pasteboardMiddlewareService: pasteboardMiddlewareService)
-        
-        let accessoryState = AccessoryViewBuilder.accessoryState(
-            actionHandler: actionHandler,
-            router: router,
-            pasteboardService: pasteboardService,
-            document: document,
-            onShowStyleMenu: router.showStyleMenu(information:),
-            onBlockSelection: actionHandler.selectBlock(info:)
-        )
-        
-        let markdownListener = MarkdownListenerImpl()
-        
-        let blockDelegate = BlockDelegateImpl(
-            viewInput: viewInput,
-            accessoryState: accessoryState
-        )
 
-        let wholeBlockMarkupViewModel = MarkupViewModel(
-            actionHandler: actionHandler
-        )
-
-        let headerModel = ObjectHeaderViewModel(
-            document: document,
-            router: router,
-            isOpenedForPreview: isOpenedForPreview
-        )
         let blockActionsServiceSingle = ServiceLocator.shared
             .blockActionsServiceSingle(contextId: document.objectId)
 
@@ -186,9 +204,42 @@ final class EditorAssembly {
             actionHandler: actionHandler,
             pasteboardService: pasteboardService,
             router: router,
-            initialEditingState: isOpenedForPreview ? .locked : .editing
+            initialEditingState: isOpenedForPreview ? .locked : .editing,
+            viewInput: viewInput,
+            bottomNavigationManager: bottomNavigationManager
+        )
+        
+        let accessoryState = AccessoryViewBuilder.accessoryState(
+            actionHandler: actionHandler,
+            router: router,
+            pasteboardService: pasteboardService,
+            document: document,
+            onShowStyleMenu: blocksStateManager.didSelectStyleSelection(info:),
+            onBlockSelection: actionHandler.selectBlock(info:),
+            pageService: serviceLocator.pageService(),
+            linkToObjectCoordinator: coordinatorsDI.linkToObject.make(browserController: browser)
+        )
+        
+        let markdownListener = MarkdownListenerImpl(
+            internalListeners: [
+                BeginingOfTextMarkdownListener(),
+                InlineMarkdownListener()
+            ]
+        )
+        
+        let blockDelegate = BlockDelegateImpl(
+            viewInput: viewInput,
+            accessoryState: accessoryState,
+            cursorManager: cursorManager
         )
 
+        let headerModel = ObjectHeaderViewModel(
+            document: document,
+            router: router,
+            isOpenedForPreview: isOpenedForPreview
+        )
+
+        let responderScrollViewHelper = ResponderScrollViewHelper(scrollView: scrollView)
         let simpleTableDependenciesBuilder = SimpleTableDependenciesBuilder(
             document: document,
             router: router,
@@ -197,7 +248,10 @@ final class EditorAssembly {
             markdownListener: markdownListener,
             focusSubjectHolder: focusSubjectHolder,
             viewInput: viewInput,
-            mainEditorSelectionManager: blocksStateManager
+            mainEditorSelectionManager: blocksStateManager,
+            responderScrollViewHelper: responderScrollViewHelper,
+            pageService: serviceLocator.pageService(),
+            linkToObjectCoordinator: coordinatorsDI.linkToObject.make(browserController: browser)
         )
 
         let blocksConverter = BlockViewModelBuilder(
@@ -208,13 +262,17 @@ final class EditorAssembly {
             delegate: blockDelegate,
             markdownListener: markdownListener,
             simpleTableDependenciesBuilder: simpleTableDependenciesBuilder,
-            subjectsHolder: focusSubjectHolder
+            subjectsHolder: focusSubjectHolder,
+            pageService: serviceLocator.pageService(),
+            detailsService: serviceLocator.detailsService(objectId: document.objectId)
         )
 
         actionHandler.blockSelectionHandler = blocksStateManager
 
         blocksStateManager.blocksSelectionOverlayViewModel = blocksSelectionOverlayViewModel
         blocksStateManager.blocksOptionViewModel = blocksOptionViewModel
+        
+        let editorPageTemplatesHandler = EditorPageTemplatesHandler()
         
         return EditorPageViewModel(
             document: document,
@@ -224,20 +282,20 @@ final class EditorAssembly {
             modelsHolder: modelsHolder,
             blockBuilder: blocksConverter,
             actionHandler: actionHandler,
-            wholeBlockMarkupViewModel: wholeBlockMarkupViewModel,
             headerModel: headerModel,
             blockActionsService: blockActionsServiceSingle,
             blocksStateManager: blocksStateManager,
             cursorManager: cursorManager,
             objectActionsService: ServiceLocator.shared.objectActionsService(),
             searchService: ServiceLocator.shared.searchService(),
+            editorPageTemplatesHandler: editorPageTemplatesHandler,
             isOpenedForPreview: isOpenedForPreview
         )
     }
 
     private func buildBlocksSelectionOverlayView(
         simleTableMenuViewModel: SimpleTableMenuViewModel,
-        blockOptionsViewViewModel: HorizonalTypeListViewModel
+        blockOptionsViewViewModel: SelectionOptionsViewModel
     ) -> BlocksSelectionOverlayView {
         let blocksOptionView = SelectionOptionsView(viewModel: blockOptionsViewViewModel)
         let blocksSelectionOverlayViewModel = BlocksSelectionOverlayViewModel()

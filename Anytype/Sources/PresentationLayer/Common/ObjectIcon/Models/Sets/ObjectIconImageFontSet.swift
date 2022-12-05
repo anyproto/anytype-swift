@@ -19,7 +19,7 @@ struct ObjectIconImageFontSet {
         switch iconImage {
         case .icon(let objectIconType):
             switch objectIconType {
-            case .basic:
+            case .basic, .bookmark:
                 return nil
             case .profile:
                 return profileImageFont
@@ -28,7 +28,7 @@ struct ObjectIconImageFontSet {
             }
         case .placeholder:
             return placeholderImageFont
-        case .todo, .image, .staticImage:
+        case .todo, .image, .imageAsset:
             return nil
         }
     }

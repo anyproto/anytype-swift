@@ -68,12 +68,12 @@ final class BlocksSelectionOverlayView: UIView {
         statusBarOverlayView.backgroundColor = .backgroundPrimary
 
         addSubview(shadowedBlocksOptionView) {
-            $0.pinToSuperview(excluding: [.top], insets: .init(top: 0, left: 10, bottom: -10, right: -10))
+            $0.pinToSuperview(excluding: [.top], insets: .init(top: 0, left: 10, bottom: 10, right: 10))
             $0.height.equal(to: 100)
         }
 
         addSubview(shadowedSimpleTablesOptionView) {
-            $0.pinToSuperview(excluding: [.top], insets: .init(top: 0, left: 10, bottom: -20, right: -10))
+            $0.pinToSuperview(excluding: [.top], insets: .init(top: 0, left: 10, bottom: 20, right: 10))
             $0.height.equal(to: 174)
         }
 
@@ -124,7 +124,7 @@ final class BlocksSelectionOverlayView: UIView {
                 self.movingButtonsUIView.isHidden = false
                 self.shadowedSimpleTablesOptionView.isHidden = true
                 self.shadowedBlocksOptionView.isHidden = true
-            case let .simpleTableMenu(selectedBlocksCount, model):
+            case let .simpleTableMenu(_, model):
                 self.movingButtonsUIView.isHidden = true
                 self.shadowedBlocksOptionView.isHidden = true
                 self.shadowedSimpleTablesOptionView.isHidden = false
@@ -133,6 +133,7 @@ final class BlocksSelectionOverlayView: UIView {
                 self.movingButtonsUIView.isHidden = true
                 self.shadowedSimpleTablesOptionView.isHidden = true
                 self.shadowedBlocksOptionView.isHidden = selectedBlocksCount == 0
+                return
             }
 
             self.isHidden = false

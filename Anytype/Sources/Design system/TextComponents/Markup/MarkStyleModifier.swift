@@ -19,7 +19,6 @@ final class MarkStyleModifier {
         
     func apply(_ action: MarkupType, shouldApplyMarkup: Bool, range: NSRange) {
         guard attributedString.isRangeValid(range) else {
-            anytypeAssertionFailure("Range out of bounds in \(#function)", domain: .markStyleModifier)
             return
         }
         
@@ -96,10 +95,7 @@ final class MarkStyleModifier {
             )
 
         case .underscored:
-            return AttributedStringChange(
-                changeAttributes: [.underlineStyle : shouldApplyMarkup ? NSUnderlineStyle.single.rawValue : 0]
-            )
-
+            return AttributedStringChange(changeAttributes: [.anytypeUnderline : shouldApplyMarkup])
         case let .textColor(color):
             return AttributedStringChange(changeAttributes: [.foregroundColor : color as Any])
 
@@ -115,9 +111,9 @@ final class MarkStyleModifier {
             return AttributedStringChange(
                 changeAttributes: [
                     .linkToObject: blockId as Any,
-                    .localUnderline: true
+                    .anytypeLink: true
                 ],
-                deletedKeys: blockId?.isEmpty ?? true ? [.linkToObject, .localUnderline] : []
+                deletedKeys: blockId?.isEmpty ?? true ? [.linkToObject, .anytypeLink] : []
             )
         case let .mention(data):
             return mentionUpdate(data: data)
@@ -135,7 +131,7 @@ final class MarkStyleModifier {
         
         var changeAttributes: [NSAttributedString.Key: Any] = [
             .mention: data.blockId,
-            .localUnderline: deletedStyle ? false : true
+            .anytypeLink: !deletedStyle
         ]
         if deletedStyle { changeAttributes[.foregroundColor] = UIColor.textTertiary }
         
@@ -150,7 +146,7 @@ final class MarkStyleModifier {
         }
         
         var iconAttributes = mentionAttributedString.attributes(at: 0, effectiveRange: nil)
-        iconAttributes.removeValue(forKey: .localUnderline) // no underline under icon
+        iconAttributes.removeValue(forKey: .anytypeLink) // no underline under icon
         
         let mentionIcon = data.image
         let mentionAttachment = MentionAttachment(icon: mentionIcon, size: font.mentionType)
@@ -168,7 +164,7 @@ final class MarkStyleModifier {
         }
         
         var iconAttributes = emojiAttributedString.attributes(at: 0, effectiveRange: nil)
-        iconAttributes.removeValue(forKey: .localUnderline) // no underline under icon
+        iconAttributes.removeValue(forKey: .anytypeLink) // no underline under icon
         
         let attachment = MentionAttachment(icon: .icon(.emoji(data)), size: font.mentionType)
         let attachmentString = NSMutableAttributedString(attachment: attachment)

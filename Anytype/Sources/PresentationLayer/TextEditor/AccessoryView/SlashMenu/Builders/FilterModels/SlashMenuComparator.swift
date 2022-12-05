@@ -38,7 +38,7 @@ struct SlashMenuComparator {
             ),
         ]
 
-        guard let result = comparators.first { $0.predicate(string.lowercased()) }?.result else {
+        guard let result = comparators.first(where: { $0.predicate(string.lowercased()) })?.result else {
             return nil
         }
 

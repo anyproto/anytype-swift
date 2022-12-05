@@ -1,16 +1,15 @@
 import Foundation
 import BlocksModels
+import AnytypeCore
 
 extension BundledRelationsValueProvider {
     
-    var pageCellTitle: HomeCellData.Title {
-        switch layout {
+    var pageCellTitle: String {
+        switch layoutValue {
         case .note:
-            return .default(title: snippet)
-        case .todo:
-            return .todo(title: name, isChecked: isDone)
+            return snippet
         default:
-            return .default(title: name)
+            return name
         }
     }
 
@@ -21,7 +20,7 @@ extension BundledRelationsValueProvider {
         
         let title: String
 
-        switch layout {
+        switch layoutValue {
         case .note:
             title = snippet
         default:
@@ -29,6 +28,15 @@ extension BundledRelationsValueProvider {
         }
 
         return title.isEmpty ? Loc.untitled : title
+    }
+    
+    var homeLayout: HomeCellData.TitleLayout {
+        switch objectIconImage {
+        case .todo, .icon(.bookmark):
+            return .horizontal
+        default:
+            return .vertical
+        }
     }
     
     var mentionTitle: String {

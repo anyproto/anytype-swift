@@ -51,12 +51,13 @@ struct CreateNewProfileView: View {
             }
             Spacer.fixedHeight(6)
             
-            AutofocusedTextField(placeholder: "", text: $signUpData.userName)
+            AutofocusedTextField(
+                placeholder: Loc.enterYourName,
+                placeholderFont: .uxBodyRegular,
+                text: $signUpData.userName
+            )
                 .foregroundColor(.textPrimary)
                 .font(AnytypeFontBuilder.font(anytypeFont: .heading))
-                .placeholder(when: signUpData.userName.isEmpty) {
-                    AnytypeText(Loc.enterYourName, style: .heading, color: .textTertiary)
-                }
                 .disableAutocorrection(true)
                 .divider(spacing: 10)
             
@@ -100,7 +101,7 @@ struct CreateNewProfileView: View {
                         .clipShape(Circle())
                         .frame(width: imageWidth, height: imageWidth)
                 }
-                Image.auth.photo
+                Image(asset: .authPhotoIcon)
             }
         }
     }
@@ -110,7 +111,11 @@ struct CreateNewProfileView: View {
 struct CreateNewProfileView_Previews: PreviewProvider {
     static var previews: some View {
         CreateNewProfileView(
-            viewModel: CreateNewProfileViewModel(seedService: ServiceLocator.shared.seedService()),
+            viewModel: CreateNewProfileViewModel(
+                windowManager: DI.makeForPreview().coordinatorsDI.windowManager,
+                authService: DI.makeForPreview().serviceLocator.authService(),
+                seedService: DI.makeForPreview().serviceLocator.seedService()
+            ),
             showCreateNewProfile: .constant(true)
         )
         .environmentObject(SignUpData(mnemonic: ""))

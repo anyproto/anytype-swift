@@ -13,11 +13,11 @@ final class DeletedLabel: UIView {
     private func setup() {
         addSubview(deletedLabel) {
             $0.pinToSuperview(
-                insets: UIEdgeInsets(top: 0, left: 4, bottom: 0, right: -4)
+                insets: UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 4)
             )
         }
         
-        backgroundColor = .backgroundSelected
+        backgroundColor = .strokeTertiary
         layer.cornerRadius = 3
     }
     

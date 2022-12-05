@@ -66,6 +66,7 @@ class ChangeTypeAccessoryView: UIView {
 
         let changeTypeViewHeightConstraint = changeTypeView.heightAnchor.constraint(equalToConstant: 96)
         changeTypeViewHeightConstraint.isActive = true
+        changeTypeViewHeightConstraint.priority = .init(rawValue: 999)
 
         changeTypeView.translatesAutoresizingMaskIntoConstraints = false
         translatesAutoresizingMaskIntoConstraints = false
@@ -131,7 +132,7 @@ private final class ChangeButton: UIButton {
 
     private func setup() {
         setTitle(Loc.changeType, for: .normal)
-        setImage(.codeBlock.arrow, for: .normal)
+        setImage(UIImage(asset: .TextEditor.turnIntoArrow), for: .normal)
         titleLabel?.font = .bodyRegular
         setTitleColor(.buttonActive, for: .normal)
         setTitleColor(.textPrimary, for: .highlighted)

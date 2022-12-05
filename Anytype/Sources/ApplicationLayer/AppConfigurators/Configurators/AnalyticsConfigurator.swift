@@ -5,7 +5,7 @@ final class AnalyticsConfigurator: AppConfiguratorProtocol {
 
     func configure() {
         // Check analytics feature flag
-        #if !RELEASE
+        #if DEBUG
         AnytypeAnalytics.instance().isEnabled = FeatureFlags.analytics
         #endif
 
@@ -13,7 +13,7 @@ final class AnalyticsConfigurator: AppConfiguratorProtocol {
                                                           configuation: .init(threshold: .notInRow))
         
           // Initialize SDK
-        #if !RELEASE
+        #if DEBUG
         AnytypeAnalytics.instance().initializeApiKey(AnalyticsConfiguration.devAPIKey)
         #else
         AnytypeAnalytics.instance().initializeApiKey(AnalyticsConfiguration.prodAPIKey)

@@ -1,36 +1,65 @@
 import UIKit
+import SwiftUI
 
 final class WindowManager {
-    static let shared = WindowManager()
-    private let homeAssembly = HomeViewAssembly()
     
+    private let viewControllerProvider: ViewControllerProviderProtocol
+    private let homeViewAssembly: HomeViewAssembly
+    
+    init(
+        viewControllerProvider: ViewControllerProviderProtocol,
+        homeViewAssembly: HomeViewAssembly
+    ) {
+        self.viewControllerProvider = viewControllerProvider
+        self.homeViewAssembly = homeViewAssembly
+    }
+
+    private weak var lastHomeViewModel: HomeViewModel?
+
+    @MainActor
     func showHomeWindow() {
-        windowHolder?.startNewRootView(homeAssembly.createHomeView())
+        let homeView = homeViewAssembly.createHomeView()
+
+        self.lastHomeViewModel = homeView?.model
+        startNewRootView(homeView)
     }
     
     func showAuthWindow() {
-        windowHolder?.startNewRootView(MainAuthView(viewModel: MainAuthViewModel()))
+        startNewRootView(MainAuthView(viewModel: MainAuthViewModel(windowManager: self)))
     }
     
     func showLaunchWindow() {
-        windowHolder?.startNewRootView(LaunchView())
+        startNewRootView(LaunchView())
+    }
+
+    @MainActor
+    func createAndShowNewObject() {
+        lastHomeViewModel?.createAndShowNewPage()
     }
     
+    @MainActor
     func showDeletedAccountWindow(deadline: Date) {
-        windowHolder?.startNewRootView(
+        startNewRootView(
             DeletedAccountView(
-                viewModel: DeletedAccountViewModel(deadline: deadline)
+                viewModel: DeletedAccountViewModel(deadline: deadline, windowManager: self)
             )
         )
     }
     
-    func presentOnTop(_ viewControllerToPresent: UIViewController, animated flag: Bool) {
-        windowHolder?.presentOnTop(viewControllerToPresent, animated: flag, completion: nil)
-    }
+    // MARK: - Private
     
-    private var windowHolder: WindowHolder? {
-        let sceneDeleage = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
+    private func startNewRootView<ViewType: View>(_ view: ViewType) {
+        let controller = NavigationControllerWithSwiftUIContent(
+            rootViewController: UIHostingController(rootView: view)
+        )
         
-        return sceneDeleage?.windowHolder
+        let navBarAppearance = UINavigationBarAppearance()
+        navBarAppearance.configureWithTransparentBackground()
+        controller.modifyBarAppearance(navBarAppearance)
+        
+        let window = viewControllerProvider.window
+        
+        window?.rootViewController = controller
+        window?.makeKeyAndVisible()
     }
 }

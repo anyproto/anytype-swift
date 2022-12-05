@@ -51,10 +51,10 @@ extension ObjectIconImageView: ConfigurableView {
                 backgroundColor: model.usecase.placeholderBackgroundColor
             )
             imageView.wrapper.setImage(image)
-        case .staticImage(let name):
+        case .imageAsset(let imageAsset):
             let image: UIImage? = model.imageGuideline.flatMap {
-                painter.staticImage(name: name, imageGuideline: $0)
-            }
+                painter.staticImage(imageAsset: imageAsset, imageGuideline: $0)
+            } ?? UIImage(asset: imageAsset)
             imageView.wrapper.setImage(image)
         case .image(let image):
             imageView.wrapper.setImage(image)
@@ -65,7 +65,7 @@ extension ObjectIconImageView: ConfigurableView {
     
     private func handleObjectIconType(_ type: ObjectIconType, model: Model) {
         switch type {
-        case .basic(let id):
+        case .basic(let id), .bookmark(let id):
             downloadImage(imageId: id, model: model)
         case .profile(let profile):
             switch profile {

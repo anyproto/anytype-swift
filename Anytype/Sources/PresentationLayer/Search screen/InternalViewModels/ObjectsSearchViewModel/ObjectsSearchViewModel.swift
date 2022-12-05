@@ -9,13 +9,19 @@ final class ObjectsSearchViewModel {
     let viewStateSubject = PassthroughSubject<NewSearchViewState, Never>()
 
     private let interactor: ObjectsSearchInteractorProtocol
+    private let onSelect: (_ details: [ObjectDetails]) -> Void
     
     private var objects: [ObjectDetails] = []
     private var selectedObjectIds: [String] = []
     
-    init(selectionMode: NewSearchViewModel.SelectionMode, interactor: ObjectsSearchInteractorProtocol) {
+    init(
+        selectionMode: NewSearchViewModel.SelectionMode,
+        interactor: ObjectsSearchInteractorProtocol,
+        onSelect: @escaping (_ details: [ObjectDetails]) -> Void
+    ) {
         self.selectionMode = selectionMode
         self.interactor = interactor
+        self.onSelect = onSelect
         self.setup()
     }
     
@@ -47,6 +53,10 @@ extension ObjectsSearchViewModel: NewInternalSearchViewModelProtocol {
         handleSearchResults(objects)
     }
     
+    func handleConfirmSelection(ids: [String]) {
+        let result = objects.filter { ids.contains($0.id) }
+        onSelect(result)
+    }
 }
 
 private extension ObjectsSearchViewModel {
@@ -106,7 +116,7 @@ private extension SearchObjectRowView.Model {
     init(details: ObjectDetails) {
         let title = details.title
         self.icon = {
-            if details.layout == .todo {
+            if details.layoutValue == .todo {
                 return .todo(details.isDone)
             } else {
                 return details.icon.flatMap { .icon($0) } ?? .placeholder(title.first)
@@ -115,6 +125,7 @@ private extension SearchObjectRowView.Model {
         self.title = title
         self.subtitle = details.objectType.name
         self.style = .default
+        self.isChecked = false
     }
     
 }

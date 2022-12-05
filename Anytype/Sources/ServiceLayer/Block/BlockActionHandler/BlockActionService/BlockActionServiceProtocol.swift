@@ -1,6 +1,7 @@
 import BlocksModels
 import UIKit
 import ProtobufMessages
+import AnytypeCore
 
 protocol BlockActionServiceProtocol {
 
@@ -14,7 +15,7 @@ protocol BlockActionServiceProtocol {
     
     func delete(blockIds: [BlockId])
 
-    func createPage(targetId: BlockId, type: ObjectTypeUrl, position: BlockPosition) -> BlockId?
+    func createPage(targetId: BlockId, type: ObjectTypeId, position: BlockPosition) -> BlockId?
     
     func split(
         _ string: NSAttributedString,
@@ -24,7 +25,7 @@ protocol BlockActionServiceProtocol {
         newBlockContentType: BlockText.Style
     )
     
-    func bookmarkFetch(blockId: BlockId, url: String)
+    func bookmarkFetch(blockId: BlockId, url: AnytypeURL)
     
     func setBackgroundColor(blockIds: [BlockId], color: BlockBackgroundColor)
     func setBackgroundColor(blockIds: [BlockId], color: MiddlewareColor)
@@ -40,12 +41,13 @@ protocol BlockActionServiceProtocol {
     func setTextForced(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) -> Bool
     func merge(secondBlockId: BlockId)
     
-    func setObjectTypeUrl(_ objectTypeUrl: String)
+    func setObjectTypeId(_ objectTypeId: String)
+    func setObjectSetType() -> BlockId
     func createAndFetchBookmark(
         contextID: BlockId,
         targetID: BlockId,
         position: BlockPosition,
-        url: String
+        url: AnytypeURL
     )
 }
 

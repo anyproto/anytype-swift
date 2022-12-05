@@ -1,8 +1,8 @@
 import UIKit
 
 protocol MentionsView: AnyObject {
-    func display(_ list: [MentionDisplayData])
-    func update( mention: MentionDisplayData)
+    func display(_ list: [MentionDisplayData], newObjectName: String)
+    func update(mention: MentionDisplayData)
     func dismiss()
 }
 
@@ -25,7 +25,7 @@ final class MentionsViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.obtainMentions()
+        viewModel.obtainMentions(filterString: .empty)
     }
     
     private func setup() {
@@ -50,8 +50,8 @@ final class MentionsViewController: UITableViewController {
         UITableViewDiffableDataSource<MentionSection, MentionDisplayData>(tableView: tableView) { [weak self] tableView, indexPath, displayData -> UITableViewCell? in
             let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellReuseId, for: indexPath)
             switch displayData {
-            case .createNewObject:
-                cell.contentConfiguration = self?.createNewObjectContentConfiguration()
+            case let .createNewObject(objectName):
+                cell.contentConfiguration = self?.createNewObjectContentConfiguration(objectName: objectName)
             case let .mention(mention):
                 cell.contentConfiguration = self?.confguration(for: mention)
             }
@@ -70,13 +70,32 @@ final class MentionsViewController: UITableViewController {
         )
     }
     
-    private func createNewObjectContentConfiguration() -> UIContentConfiguration {
+    private func createNewObjectContentConfiguration(objectName: String) -> UIContentConfiguration {
         var configuration = UIListContentConfiguration.cell()
-        configuration.text = Loc.createNewObject
+
+        if objectName.isEmpty {
+            configuration.text = Loc.createNewObject
+        } else {
+            let mutableAttributedString = NSMutableAttributedString(
+                string: Loc.createObject,
+                attributes: [.font: UIFont.uxTitle2Regular, .foregroundColor: UIColor.textPrimary]
+            )
+            let nameAttributedString = NSAttributedString(
+                string: objectName,
+                attributes: [.font: UIFont.uxTitle2Medium, .foregroundColor: UIColor.textPrimary]
+            )
+
+            mutableAttributedString.append(.init(string: " \""))
+            mutableAttributedString.append(nameAttributedString)
+            mutableAttributedString.append(.init(string: "\""))
+
+            configuration.attributedText = mutableAttributedString
+        }
+
         configuration.textProperties.font = .uxTitle2Regular
         configuration.textProperties.color = .textSecondary
         
-        configuration.image = UIImage(named: "createNewObject")
+        configuration.image = UIImage(asset: .createNewObject)
         configuration.imageProperties.reservedLayoutSize = CGSize(width: 40, height: 40)
         configuration.imageProperties.maximumSize = CGSize(width: 40, height: 40)
         configuration.imageToTextPadding = Constants.createNewObjectImagePadding
@@ -100,12 +119,12 @@ final class MentionsViewController: UITableViewController {
 
 extension MentionsViewController: MentionsView {
     
-    func display(_ list: [MentionDisplayData]) {
+    func display(_ list: [MentionDisplayData], newObjectName: String) {
         DispatchQueue.main.async {
             var snapshot = NSDiffableDataSourceSnapshot<MentionSection, MentionDisplayData>()
             snapshot.appendSections(MentionSection.allCases)
-            snapshot.appendItems([.createNewObject], toSection: .first)
-            snapshot.appendItems(list, toSection: .second)
+            snapshot.appendItems(list, toSection: .first)
+            snapshot.appendItems([.createNewObject(objectName: newObjectName)], toSection: .second)
             self.dataSource.apply(snapshot, animatingDifferences: false)
         }
     }

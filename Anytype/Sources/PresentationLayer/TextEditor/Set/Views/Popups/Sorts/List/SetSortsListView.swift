@@ -1,8 +1,7 @@
 import SwiftUI
 
 struct SetSortsListView: View {
-    @EnvironmentObject var setModel: EditorSetViewModel
-    @EnvironmentObject var viewModel: SetSortsListViewModel
+    @ObservedObject var viewModel: SetSortsListViewModel
     
     @State private var editMode = EditMode.inactive
     
@@ -10,7 +9,7 @@ struct SetSortsListView: View {
         DragIndicator()
         NavigationView {
             content
-                .navigationTitle(Loc.EditSorts.Popup.NavigationView.title)
+                .navigationTitle(Loc.EditSet.Popup.Sorts.NavigationView.title)
                 .navigationBarTitleDisplayMode(.inline)
                 .environment(\.editMode, $editMode)
                 .onChange(of: viewModel.rows) { newValue in
@@ -28,7 +27,7 @@ struct SetSortsListView: View {
                 Button {
                     viewModel.addButtonTapped()
                 } label: {
-                    Image.Relations.createOption.frame(width: 24, height: 24)
+                    Image(asset: .relationNew).frame(width: 24, height: 24)
                 }
             }
         }
@@ -53,7 +52,7 @@ struct SetSortsListView: View {
         VStack {
             Spacer.fixedHeight(20)
             AnytypeText(
-                Loc.EditSorts.Popup.EmptyView.title,
+                Loc.EditSet.Popup.Sorts.EmptyView.title,
                 style: .uxCalloutRegular,
                 color: .textSecondary
             )

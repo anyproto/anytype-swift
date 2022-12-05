@@ -25,6 +25,8 @@ struct SpacerBlockConfiguration: BlockConfiguration {
     typealias View = SpacerBlockView
 
     let spacerHeight: CGFloat
+    
+    var contentInsets: UIEdgeInsets { .zero }
 }
 
 final class SpacerBlockView: UIView, BlockContentView {
@@ -41,7 +43,7 @@ final class SpacerBlockView: UIView, BlockContentView {
     }
 
     private func setupView() {
-        backgroundColor = .clear
+        backgroundColor = .backgroundPrimary
         translatesAutoresizingMaskIntoConstraints = false
         heightConstraint.isActive = true
     }

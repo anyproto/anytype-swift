@@ -2,11 +2,16 @@ import BlocksModels
 import UIKit
 import AnytypeCore
 
+final class SimpleTableHeightCacheContainer {
+    var cachedSectionRowHeights = [AnyHashable: CGFloat]()
+}
+
 struct SimpleTableDependenciesContainer {
     let blockDelegate: BlockDelegate?
     let relativePositionProvider: RelativePositionProvider?
     let stateManager: SimpleTableStateManager
     let viewModel: SimpleTableViewModel
+    let cacheContainer: SimpleTableHeightCacheContainer
 }
 
 final class SimpleTableDependenciesBuilder {
@@ -17,6 +22,10 @@ final class SimpleTableDependenciesBuilder {
     private let markdownListener: MarkdownListener
     private let focusSubjectHolder: FocusSubjectsHolder
     private let tableService = BlockTableService()
+    private let responderScrollViewHelper: ResponderScrollViewHelper
+    private let cacheContainer = SimpleTableHeightCacheContainer()
+    private let pageService: PageServiceProtocol
+    private let linkToObjectCoordinator: LinkToObjectCoordinatorProtocol
 
     weak var mainEditorSelectionManager: SimpleTableSelectionHandler?
     weak var viewInput: (EditorPageViewInput & RelativePositionProvider)?
@@ -29,7 +38,10 @@ final class SimpleTableDependenciesBuilder {
         markdownListener: MarkdownListener,
         focusSubjectHolder: FocusSubjectsHolder,
         viewInput: (EditorPageViewInput & RelativePositionProvider)?,
-        mainEditorSelectionManager: SimpleTableSelectionHandler?
+        mainEditorSelectionManager: SimpleTableSelectionHandler?,
+        responderScrollViewHelper: ResponderScrollViewHelper,
+        pageService: PageServiceProtocol,
+        linkToObjectCoordinator: LinkToObjectCoordinatorProtocol
     ) {
         self.document = document
         self.router = router
@@ -39,15 +51,29 @@ final class SimpleTableDependenciesBuilder {
         self.focusSubjectHolder = focusSubjectHolder
         self.viewInput = viewInput
         self.mainEditorSelectionManager = mainEditorSelectionManager
+        self.responderScrollViewHelper = responderScrollViewHelper
+        self.pageService = pageService
+        self.linkToObjectCoordinator = linkToObjectCoordinator
     }
 
     func buildDependenciesContainer(blockInformation: BlockInformation) -> SimpleTableDependenciesContainer {
+        let cursorManager = EditorCursorManager(focusSubjectHolder: focusSubjectHolder)
+
+        let selectionOptionHandler = SimpleTableSelectionOptionHandler(
+            router: router,
+            listService: BlockListService(contextId: document.objectId),
+            tableService: tableService,
+            document: document,
+            tableBlockInformation: blockInformation,
+            actionHandler: handler
+        )
+
         let stateManager = SimpleTableStateManager(
             document: document,
             tableBlockInformation: blockInformation,
-            tableService: tableService,
+            selectionOptionHandler: selectionOptionHandler,
             router: router,
-            actionHandler: handler,
+            cursorManager: cursorManager,
             mainEditorSelectionManager: mainEditorSelectionManager
         )
 
@@ -56,16 +82,17 @@ final class SimpleTableDependenciesBuilder {
             router: router,
             pasteboardService: pasteboardService,
             document: document,
-            onShowStyleMenu: { _ in } ,
-            onBlockSelection: stateManager.didSelectEditingState(info:)
+            onShowStyleMenu: stateManager.didSelectStyleSelection(info:),
+            onBlockSelection: stateManager.didSelectEditingState(info:),
+            pageService: pageService,
+            linkToObjectCoordinator: linkToObjectCoordinator
         )
 
         let simpleTablesBlockDelegate = BlockDelegateImpl(
             viewInput: viewInput,
-            accessoryState: simpleTablesAccessoryState
+            accessoryState: simpleTablesAccessoryState,
+            cursorManager: cursorManager
         )
-
-        let cursorManager = EditorCursorManager(focusSubjectHolder: focusSubjectHolder)
 
         let cellsBuilder = SimpleTableCellsBuilder(
             document: document,
@@ -75,7 +102,8 @@ final class SimpleTableDependenciesBuilder {
             delegate: simpleTablesBlockDelegate,
             markdownListener: markdownListener,
             cursorManager: cursorManager,
-            focusSubjectHolder: focusSubjectHolder
+            focusSubjectHolder: focusSubjectHolder,
+            responderScrollViewHelper: responderScrollViewHelper
         )
 
         let viewModel = SimpleTableViewModel(
@@ -90,7 +118,8 @@ final class SimpleTableDependenciesBuilder {
             blockDelegate: simpleTablesBlockDelegate,
             relativePositionProvider: viewInput,
             stateManager: stateManager,
-            viewModel: viewModel
+            viewModel: viewModel,
+            cacheContainer: cacheContainer
         )
     }
 }

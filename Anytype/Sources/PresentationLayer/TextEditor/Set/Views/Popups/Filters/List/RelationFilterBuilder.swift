@@ -1,7 +1,6 @@
 import Foundation
 import BlocksModels
 import SwiftProtobuf
-import UIKit
 
 final class RelationFilterBuilder {
     
@@ -17,7 +16,6 @@ final class RelationFilterBuilder {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .none
-        dateFormatter.doesRelativeDateFormatting = true
         return dateFormatter
     }()
     
@@ -29,85 +27,96 @@ final class RelationFilterBuilder {
     }()
     
     func relation(
-        metadata: RelationMetadata,
+        relationDetails: RelationDetails,
         filter: DataviewFilter
-    ) -> Relation {
-        switch metadata.format {
+    ) -> Relation? {
+        switch relationDetails.format {
         case .object:
             return objectRelation(
-                metadata: metadata,
+                relationDetails: relationDetails,
                 filter: filter
             )
         case .longText, .shortText:
             return textRelation(
-                metadata: metadata,
+                relationDetails: relationDetails,
                 filter: filter
             )
         case .number:
             return numberRelation(
-                metadata: metadata,
+                relationDetails: relationDetails,
                 filter: filter
             )
         case .status:
             return statusRelation(
-                metadata: metadata,
-                filter: filter
-            )
-        case .date:
-            return dateRelation(
-                metadata: metadata,
+                relationDetails: relationDetails,
                 filter: filter
             )
         case .file:
             return fileRelation(
-                metadata: metadata,
+                relationDetails: relationDetails,
                 filter: filter
             )
         case .checkbox:
             return checkboxRelation(
-                metadata: metadata,
+                relationDetails: relationDetails,
                 filter: filter
             )
         case .url:
             return urlRelation(
-                metadata: metadata,
+                relationDetails: relationDetails,
                 filter: filter
             )
         case .email:
             return emailRelation(
-                metadata: metadata,
+                relationDetails: relationDetails,
                 filter: filter
             )
         case .phone:
             return phoneRelation(
-                metadata: metadata,
+                relationDetails: relationDetails,
                 filter: filter
             )
         case .tag:
             return tagRelation(
-                metadata: metadata,
+                relationDetails: relationDetails,
                 filter: filter
             )
         default:
             return .text(
                 Relation.Text(
-                    id: metadata.id,
-                    name: metadata.name,
+                    id: relationDetails.id,
+                    key: relationDetails.key,
+                    name: relationDetails.name,
                     isFeatured: false,
                     isEditable: false,
-                    isBundled: metadata.isBundled,
+                    isSystem: relationDetails.isSystem,
                     value: Loc.unsupportedValue
                 )
             )
+        }
+    }
+    
+    func dateString(for filter: DataviewFilter) -> String {
+        guard filter.condition.hasValues else { return "" }
+        
+        switch filter.quickOption {
+        case .exactDate:
+            return buildExactDateString(for: filter)
+        case .numberOfDaysAgo, .numberOfDaysNow:
+            return buildNumberOfDaysDateString(for: filter, option: filter.quickOption)
+        default:
+            return filter.quickOption.title.lowercased()
         }
     }
 }
 
 private extension RelationFilterBuilder {
     func objectRelation(
-        metadata: RelationMetadata,
+        relationDetails: RelationDetails,
         filter: DataviewFilter
-    ) -> Relation {
+    ) -> Relation? {
+        guard filter.condition.hasValues else { return nil }
+        
         let objectOptions: [Relation.Object.Option] = {
             let values: [Google_Protobuf_Value] = {
                 if case let .listValue(listValue) = filter.value.kind {
@@ -137,7 +146,8 @@ private extension RelationFilterBuilder {
                     title: name,
                     type: objectDetail.objectType.name,
                     isArchived: objectDetail.isArchived,
-                    isDeleted: objectDetail.isDeleted
+                    isDeleted: objectDetail.isDeleted,
+                    editorViewType: objectDetail.editorViewType
                 )
             }
             
@@ -146,110 +156,119 @@ private extension RelationFilterBuilder {
         
         return .object(
             Relation.Object(
-                id: metadata.id,
-                name: metadata.name,
+                id: relationDetails.id,
+                key: relationDetails.key,
+                name: relationDetails.name,
                 isFeatured: false,
                 isEditable: false,
-                isBundled: metadata.isBundled,
+                isSystem: relationDetails.isSystem,
                 selectedObjects: objectOptions,
-                limitedObjectTypes: metadata.objectTypes
+                limitedObjectTypes: relationDetails.objectTypes
             )
         )
     }
     
     func textRelation(
-        metadata: RelationMetadata,
+        relationDetails: RelationDetails,
         filter: DataviewFilter
-    ) -> Relation {
-        .text(
+    ) -> Relation? {
+        guard filter.condition.hasValues else { return nil }
+        return .text(
             Relation.Text(
-                id: metadata.id,
-                name: metadata.name,
+                id: relationDetails.id,
+                key: relationDetails.key,
+                name: relationDetails.name,
                 isFeatured: false,
                 isEditable: false,
-                isBundled: metadata.isBundled,
+                isSystem: relationDetails.isSystem,
                 value: "“\(filter.value.stringValue)“"
             )
         )
     }
     
     func numberRelation(
-        metadata: RelationMetadata,
+        relationDetails: RelationDetails,
         filter: DataviewFilter
-    ) -> Relation {
+    ) -> Relation? {
+        guard filter.condition.hasValues else { return nil }
+        
         let numberValue: String? = {
             guard let number = filter.value.safeDoubleValue else { return nil }
             
             return numberFormatter.string(from: NSNumber(floatLiteral: number))
         }()
-        
         return .number(
             Relation.Text(
-                id: metadata.id,
-                name: metadata.name,
+                id: relationDetails.id,
+                key: relationDetails.key,
+                name: relationDetails.name,
                 isFeatured: false,
                 isEditable: false,
-                isBundled: metadata.isBundled,
+                isSystem: relationDetails.isSystem,
                 value: "“\(numberValue ?? "")“"
             )
         )
     }
     
     func phoneRelation(
-        metadata: RelationMetadata,
+        relationDetails: RelationDetails,
         filter: DataviewFilter
-    ) -> Relation {
-        .phone(
+    ) -> Relation? {
+        guard filter.condition.hasValues else { return nil }
+        return .phone(
             Relation.Text(
-                id: metadata.id,
-                name: metadata.name,
+                id: relationDetails.id,
+                key: relationDetails.key,
+                name: relationDetails.name,
                 isFeatured: false,
                 isEditable: false,
-                isBundled: metadata.isBundled,
+                isSystem: relationDetails.isSystem,
                 value: "“\(filter.value.stringValue)“"
             )
         )
     }
     
     func emailRelation(
-        metadata: RelationMetadata,
+        relationDetails: RelationDetails,
         filter: DataviewFilter
-    ) -> Relation {
-        .email(
+    ) -> Relation? {
+        guard filter.condition.hasValues else { return nil }
+        return .email(
             Relation.Text(
-                id: metadata.id,
-                name: metadata.name,
+                id: relationDetails.id,
+                key: relationDetails.key,
+                name: relationDetails.name,
                 isFeatured: false,
                 isEditable: false,
-                isBundled: metadata.isBundled,
+                isSystem: relationDetails.isSystem,
                 value: "“\(filter.value.stringValue)“"
             )
         )
     }
     
     func urlRelation(
-        metadata: RelationMetadata,
+        relationDetails: RelationDetails,
         filter: DataviewFilter
-    ) -> Relation {
-        .url(
+    ) -> Relation? {
+        guard filter.condition.hasValues else { return nil }
+        return .url(
             Relation.Text(
-                id: metadata.id,
-                name: metadata.name,
+                id: relationDetails.id,
+                key: relationDetails.key,
+                name: relationDetails.name,
                 isFeatured: false,
                 isEditable: false,
-                isBundled: metadata.isBundled,
+                isSystem: relationDetails.isSystem,
                 value: "“\(filter.value.stringValue)“"
             )
         )
     }
     
     func statusRelation(
-        metadata: RelationMetadata,
+        relationDetails: RelationDetails,
         filter: DataviewFilter
-    ) -> Relation {
-        let statuses: [Relation.Status.Option] = metadata.selections.map {
-            Relation.Status.Option(option: $0)
-        }
+    ) -> Relation? {
+        guard filter.condition.hasValues else { return nil }
         
         let selectedStatuses: [Relation.Status.Option] = {
             let selectedSatusesIds: [String] = filter.value.listValue.values.compactMap {
@@ -257,29 +276,30 @@ private extension RelationFilterBuilder {
                 return statusId.isEmpty ? nil : statusId
             }
             
-            return selectedSatusesIds.compactMap { id in
-                statuses.first { $0.id == id }
-            }
+            return selectedSatusesIds
+                .compactMap { storage.get(id: $0) }
+                .map { RelationOption(details: $0) }
+                .map { Relation.Status.Option(option: $0) }
         }()
         
         return .status(
             Relation.Status(
-                id: metadata.id,
-                name: metadata.name,
+                id: relationDetails.id,
+                key: relationDetails.key,
+                name: relationDetails.name,
                 isFeatured: false,
                 isEditable: false,
-                isBundled: metadata.isBundled,
-                values: selectedStatuses,
-                allOptions: statuses
+                isSystem: relationDetails.isSystem,
+                values: selectedStatuses
             )
         )
     }
     
     func tagRelation(
-        metadata: RelationMetadata,
+        relationDetails: RelationDetails,
         filter: DataviewFilter
-    ) -> Relation {
-        let tags: [Relation.Tag.Option] = metadata.selections.map { Relation.Tag.Option(option: $0) }
+    ) -> Relation? {
+        guard filter.condition.hasValues else { return nil }
         
         let selectedTags: [Relation.Tag.Option] = {
             let value = filter.value
@@ -289,28 +309,33 @@ private extension RelationFilterBuilder {
                 return tagId.isEmpty ? nil : tagId
             }
             
-            return selectedTagIds.compactMap { id in
-                tags.first { $0.id == id }
-            }
+            let tags = selectedTagIds
+                .compactMap { storage.get(id: $0) }
+                .map { RelationOption(details: $0) }
+                .map { Relation.Tag.Option(option: $0) }
+            
+            return tags
         }()
         
         return .tag(
             Relation.Tag(
-                id: metadata.id,
-                name: metadata.name,
+                id: relationDetails.id,
+                key: relationDetails.key,
+                name: relationDetails.name,
                 isFeatured: false,
                 isEditable: false,
-                isBundled: metadata.isBundled,
-                selectedTags: selectedTags,
-                allTags: tags
+                isSystem: relationDetails.isSystem,
+                selectedTags: selectedTags
             )
         )
     }
     
     func fileRelation(
-        metadata: RelationMetadata,
+        relationDetails: RelationDetails,
         filter: DataviewFilter
-    ) -> Relation {
+    ) -> Relation? {
+        guard filter.condition.hasValues else { return nil }
+        
         let fileOptions: [Relation.File.Option] = {
             let objectDetails: [ObjectDetails] = filter.value.listValue.values.compactMap {
                 return storage.get(id: $0.stringValue)
@@ -319,14 +344,12 @@ private extension RelationFilterBuilder {
             let objectOptions: [Relation.File.Option] = objectDetails.map { objectDetail in
                 let fileName: String = {
                     let name = objectDetail.name
-                    let fileExt = objectDetail.values[BundledRelationKey.fileExt.rawValue]
-                    let fileExtString = fileExt?.stringValue
+                    let fileExt = objectDetail.fileExt
                     
-                    guard
-                        let fileExtString = fileExtString, fileExtString.isNotEmpty
+                    guard fileExt.isNotEmpty
                     else { return name }
                     
-                    return "\(name).\(fileExtString)"
+                    return "\(name).\(fileExt)"
                 }()
                 
                 let icon: ObjectIconImage = {
@@ -334,14 +357,14 @@ private extension RelationFilterBuilder {
                         return .icon(objectIconType)
                     }
                     
-                    let fileMimeType = objectDetail.values[BundledRelationKey.fileMimeType.rawValue]?.stringValue
-                    let fileName = objectDetail.values[BundledRelationKey.name.rawValue]?.stringValue
+                    let fileMimeType = objectDetail.fileMimeType
+                    let fileName = objectDetail.name
 
-                    guard let fileMimeType = fileMimeType, let fileName = fileName else {
-                        return .staticImage(FileIconConstants.other)
+                    guard fileMimeType.isNotEmpty, fileName.isNotEmpty else {
+                        return .imageAsset(FileIconConstants.other)
                     }
                     
-                    return .staticImage(BlockFileIconBuilder.convert(mime: fileMimeType, fileName: fileName))
+                    return .imageAsset(BlockFileIconBuilder.convert(mime: fileMimeType, fileName: fileName))
                 }()
                 
                 return Relation.File.Option(
@@ -356,53 +379,48 @@ private extension RelationFilterBuilder {
         
         return .file(
             Relation.File(
-                id: metadata.id,
-                name: metadata.name,
+                id: relationDetails.id,
+                key: relationDetails.key,
+                name: relationDetails.name,
                 isFeatured: false,
                 isEditable: false,
-                isBundled: metadata.isBundled,
+                isSystem: relationDetails.isSystem,
                 files: fileOptions
             )
         )
     }
     
-    func dateRelation(
-        metadata: RelationMetadata,
+    func checkboxRelation(
+        relationDetails: RelationDetails,
         filter: DataviewFilter
-    ) -> Relation {
-        let value: DateRelationValue? = {
-            guard let timeInterval = filter.value.safeDoubleValue, !timeInterval.isZero
-            else { return nil }
-            
-            let date = Date(timeIntervalSince1970: timeInterval)
-            return DateRelationValue(date: date, text: dateFormatter.string(from: date))
-        }()
-        
-        return .date(
-            Relation.Date(
-                id: metadata.id,
-                name: metadata.name,
+    ) -> Relation? {
+        guard filter.condition.hasValues else { return nil }
+        return .checkbox(
+            Relation.Checkbox(
+                id: relationDetails.id,
+                key: relationDetails.key,
+                name: relationDetails.name,
                 isFeatured: false,
                 isEditable: false,
-                isBundled: metadata.isBundled,
-                value: value
+                isSystem: relationDetails.isSystem,
+                value: filter.value.boolValue
             )
         )
     }
     
-    func checkboxRelation(
-        metadata: RelationMetadata,
-        filter: DataviewFilter
-    ) -> Relation {
-        .checkbox(
-            Relation.Checkbox(
-                id: metadata.id,
-                name: metadata.name,
-                isFeatured: false,
-                isEditable: false,
-                isBundled: metadata.isBundled,
-                value: filter.value.boolValue
-            )
-        )
+    func buildExactDateString(for filter: DataviewFilter) -> String {
+        guard let timeInterval = filter.value.safeDoubleValue, !timeInterval.isZero else {
+            return Loc.Relation.View.Hint.empty
+        }
+        
+        let date = Date(timeIntervalSince1970: timeInterval)
+        return dateFormatter.string(from: date)
+    }
+    
+    func buildNumberOfDaysDateString(for filter: DataviewFilter, option: DataviewFilter.QuickOption) -> String {
+        let count = "\(filter.value.safeIntValue ?? 0)"
+        return option == .numberOfDaysAgo ?
+        Loc.EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo.short(count) :
+        Loc.EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.short(count)
     }
 }

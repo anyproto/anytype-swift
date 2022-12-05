@@ -1,18 +1,21 @@
 import Foundation
 
-public enum ObjectTypeUrl: RawRepresentable {
-    public enum BundledTypeUrl: String {
-        case page = "_otpage"
-        case profile = "_otprofile"
-        case note = "_otnote"
-        case set = "_otset"
-        case task = "_ottask"
-        case template = "_ottemplate"
-        case bookmark = "_otbookmark"
+public enum ObjectTypeId: RawRepresentable {
+    public enum BundledTypeId: String {
+        case page = "ot-page"
+        case profile = "ot-profile"
+        case note = "ot-note"
+        case set = "ot-set"
+        case task = "ot-task"
+        case template = "ot-template"
+        case bookmark = "ot-bookmark"
+        case objectType = "ot-objectType"
+        case relation = "ot-relation"
+        case relationOption = "ot-relationOption"
     }
 
     public init?(rawValue: String) {
-        if let knownType = BundledTypeUrl(rawValue: rawValue) {
+        if let knownType = BundledTypeId(rawValue: rawValue) {
             self = .bundled(knownType)
         } else {
             self = .dynamic(rawValue)
@@ -28,6 +31,6 @@ public enum ObjectTypeUrl: RawRepresentable {
         }
     }
 
-    case bundled(BundledTypeUrl)
+    case bundled(BundledTypeId)
     case dynamic(String)
 }

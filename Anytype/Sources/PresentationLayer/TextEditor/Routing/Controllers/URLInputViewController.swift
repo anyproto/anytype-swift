@@ -1,5 +1,5 @@
 import UIKit
-
+import AnytypeCore
 
 final class URLInputViewController: UIViewController {
     
@@ -14,8 +14,8 @@ final class URLInputViewController: UIViewController {
     }
     
     init(
-        url: URL? = nil,
-        didSetURL: @escaping (URL?) -> Void
+        url: AnytypeURL? = nil,
+        didSetURL: @escaping (AnytypeURL?) -> Void
     ) {
         super.init(nibName: nil, bundle: nil)
         urlInputView = URLInputView(

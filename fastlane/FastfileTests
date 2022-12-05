@@ -1,0 +1,17 @@
+default_platform(:ios)
+
+platform :ios do
+
+  lane :tests do 
+  desc "Runs all the tests"
+    scan(
+      devices: ["iPhone 8"], 
+      scheme: "AnytypeTests",
+      slack_url: "https://hooks.slack.com/services/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",
+      slack_only_on_failure: true,
+      fail_build: false,
+      xcargs: ENV['BUILD_OPTIONS']
+    )
+  end
+  
+end

@@ -11,13 +11,12 @@ struct TagView: View {
             .padding(.horizontal, style.tagViewGuidlines.textPadding)
             .background(viewModel.backgroundColor.suColor)
             .cornerRadius(style.tagViewGuidlines.cornerRadius)
-            .overlay(
-                RoundedRectangle(cornerRadius: style.tagViewGuidlines.cornerRadius)
-                    .stroke(
-                        viewModel.backgroundColor == UIColor.TagBackground.default ? Color.strokePrimary : viewModel.backgroundColor.suColor,
-                        lineWidth: 1
-                    )
-            )
+            .if(viewModel.backgroundColor == UIColor.TagBackground.default) {
+                $0.overlay(
+                    RoundedRectangle(cornerRadius: style.tagViewGuidlines.cornerRadius)
+                        .stroke(Color.strokePrimary, lineWidth: 1)
+                )
+            }
             .frame(height: style.tagViewGuidlines.tagHeight)
     }
 }

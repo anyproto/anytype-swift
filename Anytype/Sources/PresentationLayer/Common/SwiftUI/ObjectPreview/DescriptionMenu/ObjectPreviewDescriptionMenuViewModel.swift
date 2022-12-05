@@ -17,37 +17,38 @@ final class ObjectPreviewDescriptionMenuViewModel: CheckPopupViewViewModelProtoc
 
     // MARK: - Private variables
 
-    private var description: ObjectPreviewModel.Description
-    private let onSelect: (ObjectPreviewModel.Description) -> Void
+    private var description: BlockLink.Description
+    private let onSelect: (BlockLink.Description) -> Void
 
     // MARK: - Initializer
 
-    init(description: ObjectPreviewModel.Description,
-         onSelect: @escaping (ObjectPreviewModel.Description) -> Void) {
+    init(description: BlockLink.Description,
+         onSelect: @escaping (BlockLink.Description) -> Void) {
         self.onSelect = onSelect
         self.description = description
         self.updatePreviewFields(description)
     }
 
-    func updatePreviewFields(_ description: ObjectPreviewModel.Description) {
+    func updatePreviewFields(_ description: BlockLink.Description) {
         items = buildObjectPreviewPopupItem(currentDescription: description)
     }
 
-    func buildObjectPreviewPopupItem(currentDescription: ObjectPreviewModel.Description) -> [CheckPopupItem] {
-        ObjectPreviewModel.Description.allCases.map { description -> CheckPopupItem in
+    func buildObjectPreviewPopupItem(currentDescription: BlockLink.Description) -> [CheckPopupItem] {
+        BlockLink.Description.allCases.map { description -> CheckPopupItem in
             let isSelected = description == currentDescription
-            return CheckPopupItem(id: description.rawValue,
-                                  icon: nil,
+            return CheckPopupItem(id: String(description.rawValue),
+                                  iconAsset: nil,
                                   title: description.name,
                                   subtitle: description.subtitle,
-                                  isSelected: isSelected)
+                                  isSelected: isSelected,
+                                  onTap: { [weak self] in self?.onTap(item: description) }
+            )
         }
     }
 
-    func onTap(itemId: String) {
-        guard let description = ObjectPreviewModel.Description(rawValue: itemId) else { return }
+    private func onTap(item: BlockLink.Description) {
 
-        onSelect(description)
-        updatePreviewFields(description)
+        onSelect(item)
+        updatePreviewFields(item)
     }
 }

@@ -1,26 +1,42 @@
 import ProtobufMessages
 import Combine
 import BlocksModels
+import AnytypeCore
 
-protocol SearchServiceProtocol {
+protocol SearchServiceProtocol: AnyObject {
     func search(text: String) -> [ObjectDetails]?
-    func searchObjectTypes(text: String, filteringTypeUrl: String?) -> [ObjectDetails]?
+    func searchObjectTypes(
+        text: String,
+        filteringTypeId: String?,
+        shouldIncludeSets: Bool,
+        shouldIncludeBookmark: Bool
+    ) -> [ObjectDetails]?
     func searchFiles(text: String, excludedFileIds: [String]) -> [ObjectDetails]?
-    func searchObjects(text: String, excludedObjectIds: [String], limitedTypeUrls: [String]) -> [ObjectDetails]?
-    func searchTemplates(for type: ObjectTypeUrl) -> [ObjectDetails]?
+    func searchObjects(text: String, excludedObjectIds: [String], limitedTypeIds: [String]) -> [ObjectDetails]?
+    func searchTemplates(for type: ObjectTypeId) -> [ObjectDetails]?
     func searchObjects(
         text: String,
         excludedObjectIds: [String],
-        excludedTypeUrls: [String],
+        excludedTypeIds: [String],
         sortRelationKey: BundledRelationKey?
     ) -> [ObjectDetails]?
+    func searchRelationOptions(text: String, relationKey: String, excludedObjectIds: [String]) -> [RelationOption]?
+    func searchRelationOptions(optionIds: [String]) -> [RelationOption]?
 }
 
 final class SearchService: ObservableObject, SearchServiceProtocol {
     
-    // MARK: - Private variables
+    private enum Constants {
+        static let defaultLimit = 100
+    }
     
-    private var subscriptions = [AnyCancellable]()
+    private let accountManager: AccountManager
+    private let objectTypeProvider: ObjectTypeProviderProtocol
+    
+    init(accountManager: AccountManager, objectTypeProvider: ObjectTypeProviderProtocol) {
+        self.accountManager = accountManager
+        self.objectTypeProvider = objectTypeProvider
+    }
     
     // MARK: - SearchServiceProtocol
     
@@ -32,34 +48,46 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         
         let filters = buildFilters(
             isArchived: false,
-            typeUrls: ObjectTypeProvider.shared.supportedTypeUrls
+            excludedTypeIds: objectTypeProvider.notVisibleTypeIds()
         )
         
-        return makeRequest(filters: filters, sorts: [sort], fullText: text)
+        return search(filters: filters, sorts: [sort], fullText: text, limit: Constants.defaultLimit)
     }
     
-    func searchObjectTypes(text: String, filteringTypeUrl: String? = nil) -> [ObjectDetails]? {
+    func searchObjectTypes(
+        text: String,
+        filteringTypeId: String? = nil,
+        shouldIncludeSets: Bool,
+        shouldIncludeBookmark: Bool
+    ) -> [ObjectDetails]? {
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.name,
             type: .asc
         )
+        
+        var excludedTypeIds: [String] = [
+            filteringTypeId,
+            shouldIncludeSets ? nil : ObjectTypeId.bundled(.set).rawValue,
+            shouldIncludeBookmark ? nil : ObjectTypeId.bundled(.bookmark).rawValue
+        ].compactMap { $0 }
+        
+        excludedTypeIds.append(contentsOf: objectTypeProvider.notVisibleTypeIds())
+        
         var filters = [
             SearchHelper.isArchivedFilter(isArchived: false),
-            SearchHelper.supportedObjectTypeUrlsFilter(
-                ObjectTypeProvider.shared.supportedTypeUrls
-            ),
-            SearchHelper.excludedObjectTypeUrlFilter(ObjectTypeUrl.bundled(.set).rawValue)
+            SearchHelper.workspaceId(accountManager.account.info.accountSpaceId),
+            SearchHelper.typeFilter(typeIds: [ObjectTypeId.bundled(.objectType).rawValue]),
+            SearchHelper.excludedIdsFilter(excludedTypeIds)
         ]
-        filteringTypeUrl.map { filters.append(SearchHelper.excludedObjectTypeUrlFilter($0)) }
-
-
-        let result = makeRequest(filters: filters, sorts: [sort], fullText: text)
         
+        let result = search(filters: filters, sorts: [sort], fullText: text)
+
         return result?.reordered(
             by: [
-                ObjectTypeUrl.bundled(.page).rawValue,
-                ObjectTypeUrl.bundled(.note).rawValue,
-                ObjectTypeUrl.bundled(.task).rawValue
+                ObjectTypeId.bundled(.page).rawValue,
+                ObjectTypeId.bundled(.note).rawValue,
+                ObjectTypeId.bundled(.task).rawValue,
+                ObjectTypeId.bundled(.set).rawValue
             ]
         ) { $0.id }
     }
@@ -74,39 +102,38 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             SearchHelper.notHiddenFilter(),
             SearchHelper.isDeletedFilter(isDeleted: false),
             SearchHelper.layoutFilter(layouts: [DetailsLayout.fileLayout, DetailsLayout.imageLayout]),
-            SearchHelper.excludedIdsFilter(excludedFileIds)
+            SearchHelper.excludedIdsFilter(excludedFileIds),
+            SearchHelper.workspaceId(accountManager.account.info.accountSpaceId),
         ]
         
-        return makeRequest(filters: filters, sorts: [sort], fullText: text)
+        return search(filters: filters, sorts: [sort], fullText: text, limit: Constants.defaultLimit)
     }
     
-    func searchObjects(text: String, excludedObjectIds: [String], limitedTypeUrls: [String]) -> [ObjectDetails]? {
+    func searchObjects(text: String, excludedObjectIds: [String], limitedTypeIds: [String]) -> [ObjectDetails]? {
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.lastOpenedDate,
             type: .desc
         )
         
-        let typeUrls: [String] = limitedTypeUrls.isNotEmpty ? limitedTypeUrls : ObjectTypeProvider.shared.supportedTypeUrls
-        var filters = buildFilters(isArchived: false, typeUrls: typeUrls)
+//        let typeIds: [String] = limitedTypeIds.isNotEmpty ? limitedTypeIds : objectTypeProvider.visibleSupportedTypeIds()
+        var filters = limitedTypeIds.isNotEmpty
+            ? buildFilters(isArchived: false, typeIds: limitedTypeIds)
+            : buildFilters(isArchived: false, excludedTypeIds: objectTypeProvider.notVisibleTypeIds())
+        
+        
         filters.append(SearchHelper.excludedIdsFilter(excludedObjectIds))
         
-        return makeRequest(filters: filters, sorts: [sort], fullText: text)
+        return search(filters: filters, sorts: [sort], fullText: text)
     }
 
-    func searchTemplates(for type: ObjectTypeUrl) -> [ObjectDetails]? {
-        let objects = makeRequest(
-            filters: SearchHelper.templatesFilters(type: type),
-            sorts: [],
-            fullText: ""
-        )
-
-        return objects
+    func searchTemplates(for type: ObjectTypeId) -> [ObjectDetails]? {
+        return search(filters: SearchHelper.templatesFilters(type: type))
     }
 	
     func searchObjects(
         text: String,
         excludedObjectIds: [String],
-        excludedTypeUrls: [String],
+        excludedTypeIds: [String],
         sortRelationKey: BundledRelationKey?
     ) -> [ObjectDetails]? {
         let sort = SearchHelper.sort(
@@ -116,28 +143,57 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         
         var filters = buildFilters(
             isArchived: false,
-            typeUrls: ObjectTypeProvider.shared.supportedTypeUrls
+            excludedTypeIds: objectTypeProvider.notVisibleTypeIds() + excludedTypeIds
         )
-        filters.append(SearchHelper.excludedTypeFilter(excludedTypeUrls))
         filters.append(SearchHelper.excludedIdsFilter(excludedObjectIds))
         
-        return makeRequest(filters: filters, sorts: [sort], fullText: text)
+        return search(filters: filters, sorts: [sort], fullText: text, limit: Constants.defaultLimit)
+    }
+
+    func searchRelationOptions(text: String, relationKey: String, excludedObjectIds: [String]) -> [RelationOption]? {
+        let sort = SearchHelper.sort(
+            relation: BundledRelationKey.name,
+            type: .asc
+        )
+
+        var filters = buildFilters(
+            isArchived: false,
+            typeIds: [ObjectTypeId.bundled(.relationOption).rawValue]
+        )
+        filters.append(SearchHelper.relationKey(relationKey))
+        filters.append(SearchHelper.excludedIdsFilter(excludedObjectIds))
+        
+        let details = search(filters: filters, sorts: [sort], fullText: text, limit: 0)
+        return details?.map { RelationOption(details: $0) }
+    }
+
+    func searchRelationOptions(optionIds: [String]) -> [RelationOption]? {
+        var filters = buildFilters(
+            isArchived: false,
+            typeIds: [ObjectTypeId.bundled(.relationOption).rawValue]
+        )
+        filters.append(SearchHelper.supportedIdsFilter(optionIds))
+
+        let details = search(filters: filters, sorts: [], fullText: "")
+        return details?.map { RelationOption(details: $0) }
     }
 }
 
 private extension SearchService {
     
-    func makeRequest(
-        filters: [DataviewFilter],
-        sorts: [DataviewSort],
-        fullText: String
+    func search(
+        filters: [DataviewFilter] = [],
+        sorts: [DataviewSort] = [],
+        fullText: String = "",
+        limit: Int = 0
     ) -> [ObjectDetails]? {
+        
         guard let response = Anytype_Rpc.Object.Search.Service.invoke(
             filters: filters,
             sorts: sorts,
             fullText: fullText,
             offset: 0,
-            limit: 100,
+            limit: Int32(limit),
             objectTypeFilter: [],
             keys: []
         ).getValue(domain: .searchService) else { return nil }
@@ -153,13 +209,24 @@ private extension SearchService {
             
         return details
     }
-    
-    func buildFilters(isArchived: Bool, typeUrls: [String]) -> [DataviewFilter] {
+
+    private func buildFilters(isArchived: Bool) -> [DataviewFilter] {
         [
             SearchHelper.notHiddenFilter(),
             SearchHelper.isArchivedFilter(isArchived: isArchived),
-            SearchHelper.typeFilter(typeUrls: typeUrls)
+            SearchHelper.workspaceId(accountManager.account.info.accountSpaceId),
         ]
     }
     
+    private func buildFilters(isArchived: Bool, typeIds: [String]) -> [DataviewFilter] {
+        var filters = buildFilters(isArchived: isArchived)
+        filters.append(SearchHelper.typeFilter(typeIds: typeIds))
+        return filters
+    }
+    
+    private func buildFilters(isArchived: Bool, excludedTypeIds: [String]) -> [DataviewFilter] {
+        var filters = buildFilters(isArchived: isArchived)
+        filters.append(SearchHelper.excludedTypeFilter(excludedTypeIds))
+        return filters
+    }
 }

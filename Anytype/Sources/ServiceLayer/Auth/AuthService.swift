@@ -8,20 +8,21 @@ import BlocksModels
 final class AuthService: AuthServiceProtocol {
     private let rootPath: String
     private let loginStateService: LoginStateService
+    private let accountManager: AccountManager
     
     private var subscriptions: [AnyCancellable] = []
     
     init(
         localRepoService: LocalRepoServiceProtocol,
-        loginStateService: LoginStateService
+        loginStateService: LoginStateService,
+        accountManager: AccountManager
     ) {
         self.rootPath = localRepoService.middlewareRepoPath
         self.loginStateService = loginStateService
+        self.accountManager = accountManager
     }
 
     func logout(removeData: Bool, onCompletion: @escaping (Bool) -> ()) {
-        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.logout)
-        
         Anytype_Rpc.Account.Stop.Service
             .invoke(removeData: removeData, queue: .global(qos: .userInitiated))
             .receiveOnMain()
@@ -42,10 +43,6 @@ final class AuthService: AuthServiceProtocol {
         let result = Anytype_Rpc.Wallet.Create.Service.invoke(rootPath: rootPath)
             .mapError { _ in AuthServiceError.createWalletError }
             .map { $0.mnemonic }
-        
-        if let mnemonic = result.getValue(domain: .authService) {
-            AnytypeLogger.create("Services.AuthService").debugPrivate("seed:", arg: mnemonic)
-        }
         
         return result
     }
@@ -69,23 +66,6 @@ final class AuthService: AuthServiceProtocol {
         }
     }
     
-    private func handleCreateAccount(response: Anytype_Rpc.Account.Create.Response) -> Result<Void, CreateAccountServiceError> {
-        if let error = CreateAccountServiceError(code: response.error.code) {
-            return .failure(error)
-        }
-
-        let accountId = response.account.id
-        AnytypeAnalytics.instance().setUserId(accountId)
-        AnytypeAnalytics.instance().logAccountCreate(accountId)
-        UserDefaultsConfig.usersId = accountId
-        
-        AccountManager.shared.account = response.account.asModel
-        
-        loginStateService.setupStateAfterRegistration(account: AccountManager.shared.account)
-        
-        return .success(Void())
-    }
-
     func walletRecovery(mnemonic: String) -> Result<Void, AuthServiceError> {
         let result = Anytype_Rpc.Wallet.Recover.Service.invoke(rootPath: rootPath, mnemonic: mnemonic)
             .mapError { _ in AuthServiceError.recoverWalletError }
@@ -145,17 +125,35 @@ final class AuthService: AuthServiceProtocol {
     }
     
     // MARK: - Private
+    
+    private func handleCreateAccount(response: Anytype_Rpc.Account.Create.Response) -> Result<Void, CreateAccountServiceError> {
+        if let error = CreateAccountServiceError(code: response.error.code) {
+            return .failure(error)
+        }
+
+        let accountId = response.account.id
+        AnytypeAnalytics.instance().setUserId(accountId)
+        AnytypeAnalytics.instance().logAccountCreate(accountId)
+        UserDefaultsConfig.usersId = accountId
+        
+        accountManager.account = response.account.asModel
+        
+        loginStateService.setupStateAfterRegistration(account: accountManager.account)
+        
+        return .success(Void())
+    }
+    
     private func handleAccountSelect(result: Result<Anytype_Rpc.Account.Select.Response, Error>) -> AccountStatus? {
         switch result {
         case .success(let response):
-            AccountManager.shared.account = response.account.asModel
-            
+            accountManager.account = response.account.asModel
+    
             let accountId = response.account.id
             AnytypeAnalytics.instance().setUserId(accountId)
             AnytypeAnalytics.instance().logAccountSelect(accountId)
             UserDefaultsConfig.usersId = accountId
             
-            loginStateService.setupStateAfterLoginOrAuth(account: AccountManager.shared.account)
+            loginStateService.setupStateAfterLoginOrAuth(account: accountManager.account)
             return response.account.status.asModel
         case .failure:
             return nil

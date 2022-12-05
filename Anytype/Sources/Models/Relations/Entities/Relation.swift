@@ -16,7 +16,7 @@ enum Relation: Hashable, Identifiable {
     case unknown(Unknown)
 }
 
-// MARK: - RelationProtocol
+// MARK: - RelationValueProtocol
 
 extension Relation: RelationProtocol {
     
@@ -34,6 +34,23 @@ extension Relation: RelationProtocol {
         case .tag(let tag): return tag.id
         case .file(let file): return file.id
         case .unknown(let unknown): return unknown.id
+        }
+    }
+    
+    var key: String {
+        switch self {
+        case .text(let text): return text.key
+        case .number(let text): return text.key
+        case .status(let status): return status.key
+        case .date(let date): return date.key
+        case .object(let object): return object.key
+        case .checkbox(let checkbox): return checkbox.key
+        case .url(let text): return text.key
+        case .email(let text): return text.key
+        case .phone(let text): return text.key
+        case .tag(let tag): return tag.key
+        case .file(let file): return file.key
+        case .unknown(let unknown): return unknown.key
         }
     }
     
@@ -71,20 +88,20 @@ extension Relation: RelationProtocol {
         }
     }
     
-    var isBundled: Bool {
+    var isSystem: Bool {
         switch self {
-        case .text(let text): return text.isBundled
-        case .number(let text): return text.isBundled
-        case .status(let status): return status.isBundled
-        case .date(let date): return date.isBundled
-        case .object(let object): return object.isBundled
-        case .checkbox(let checkbox): return checkbox.isBundled
-        case .url(let text): return text.isBundled
-        case .email(let text): return text.isBundled
-        case .phone(let text): return text.isBundled
-        case .tag(let tag): return tag.isBundled
-        case .file(let file): return file.isBundled
-        case .unknown(let unknown): return unknown.isBundled
+        case .text(let text): return text.isSystem
+        case .number(let text): return text.isSystem
+        case .status(let status): return status.isSystem
+        case .date(let date): return date.isSystem
+        case .object(let object): return object.isSystem
+        case .checkbox(let checkbox): return checkbox.isSystem
+        case .url(let text): return text.isSystem
+        case .email(let text): return text.isSystem
+        case .phone(let text): return text.isSystem
+        case .tag(let tag): return tag.isSystem
+        case .file(let file): return file.isSystem
+        case .unknown(let unknown): return unknown.isSystem
         }
     }
     
@@ -103,5 +120,43 @@ extension Relation: RelationProtocol {
         case .file(let file): return file.isFeatured
         case .unknown(let unknown): return unknown.isFeatured
         }
+    }
+    
+    var hasDetails: Bool {
+        switch self {
+        case .text: return true
+        case .number: return true
+        case .status: return true
+        case .date: return false
+        case .object: return true
+        case .checkbox: return false
+        case .url: return true
+        case .email: return true
+        case .phone: return true
+        case .tag: return true
+        case .file: return true
+        case .unknown: return false
+        }
+    }
+    
+    var hasValue: Bool {
+        switch self {
+        case .text(let text): return text.hasValue
+        case .number(let text): return text.hasValue
+        case .status(let status): return status.hasValue
+        case .date(let date): return date.hasValue
+        case .object(let object): return object.hasValue
+        case .checkbox(let checkbox): return checkbox.hasValue
+        case .url(let text): return text.hasValue
+        case .email(let text): return text.hasValue
+        case .phone(let text): return text.hasValue
+        case .tag(let tag): return tag.hasValue
+        case .file(let file): return file.hasValue
+        case .unknown(let unknown): return unknown.hasValue
+        }
+    }
+    
+    var isSource: Bool {
+        return key == BundledRelationKey.source.rawValue
     }
 }

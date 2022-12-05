@@ -23,19 +23,19 @@ extension SupportedRelationFormat: Identifiable {
 
 extension SupportedRelationFormat {
 
-    var icon: String {
+    var iconAsset: ImageAsset {
         switch self {
-        case .text: return RelationMetadata.Format.longText.iconName
-        case .tag: return RelationMetadata.Format.tag.iconName
-        case .status:  return RelationMetadata.Format.status.iconName
-        case .number:  return RelationMetadata.Format.number.iconName
-        case .date:  return RelationMetadata.Format.date.iconName
-        case .file:  return RelationMetadata.Format.file.iconName
-        case .object:  return RelationMetadata.Format.object.iconName
-        case .checkbox: return RelationMetadata.Format.checkbox.iconName
-        case .url:  return RelationMetadata.Format.url.iconName
-        case .email: return RelationMetadata.Format.email.iconName
-        case .phone: return RelationMetadata.Format.phone.iconName
+        case .text: return RelationFormat.longText.iconAsset
+        case .tag: return RelationFormat.tag.iconAsset
+        case .status:  return RelationFormat.status.iconAsset
+        case .number:  return RelationFormat.number.iconAsset
+        case .date:  return RelationFormat.date.iconAsset
+        case .file:  return RelationFormat.file.iconAsset
+        case .object:  return RelationFormat.object.iconAsset
+        case .checkbox: return RelationFormat.checkbox.iconAsset
+        case .url:  return RelationFormat.url.iconAsset
+        case .email: return RelationFormat.email.iconAsset
+        case .phone: return RelationFormat.phone.iconAsset
         }
     }
 

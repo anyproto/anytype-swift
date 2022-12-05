@@ -1,19 +1,18 @@
 import UIKit
+import Logger
 
 public func anytypeAssertionFailure(
     _ message: String,
     domain: ErrorDomain,
     file: StaticString = #file,
+    function: String = #function,
     line: UInt = #line
 ) {
-    #if RELEASE
-        logNonFatal(message, domain: domain)
-    #elseif ENTERPRISE
+    logNonFatal(message, domain: domain, file: file, function: function, line: line)
+    #if ENTERPRISE
         if FeatureFlags.showAlertOnAssert {
             showAssertionAlert(message)
         }
-    #elseif DEBUG
-        assertionFailure(message, file: file, line: line)
     #endif
 }
 
@@ -22,10 +21,11 @@ public func anytypeAssert(
     _ message: String,
     domain: ErrorDomain,
     file: StaticString = #file,
+    function: String = #function,
     line: UInt = #line
 ) {
     if condition() != true {
-        anytypeAssertionFailure(message, domain: domain, file: file, line: line)
+        anytypeAssertionFailure(message, domain: domain, file: file, function: function, line: line)
     }
 } 
 
@@ -51,6 +51,12 @@ private func showAssertionAlert(_ message: String) {
     }
 }
 
-private func logNonFatal(_ message: String, domain: ErrorDomain) {
-    AssertionLogger.shared?.log(message, domain: domain)
+private func logNonFatal(
+    _ message: String,
+    domain: ErrorDomain,
+    file: StaticString = #file,
+    function: String = #function,
+    line: UInt = #line
+) {
+    AssertionLogger.shared.log(message, domain: domain, file: "\(file)", function: function, line: line)
 }

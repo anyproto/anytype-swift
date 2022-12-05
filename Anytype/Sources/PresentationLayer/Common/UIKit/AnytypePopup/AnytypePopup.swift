@@ -22,15 +22,18 @@ final class AnytypePopup: FloatingPanelController {
     private let viewModel: AnytypePopupViewModelProtocol
     private let floatingPanelStyle: Bool
     private let configuration: Configuration
+    private let onDismiss: (() -> Void)?
 
     // MARK: - Initializers
     
     init(viewModel: AnytypePopupViewModelProtocol,
          floatingPanelStyle: Bool = false,
-         configuration: Configuration = Constants.defaultConifguration) {
+         configuration: Configuration = Constants.defaultConifguration,
+         onDismiss: (() -> Void)? = nil) {
         self.viewModel = viewModel
         self.floatingPanelStyle = floatingPanelStyle
         self.configuration = configuration
+        self.onDismiss = onDismiss
 
         super.init(delegate: nil)
         
@@ -48,10 +51,12 @@ final class AnytypePopup: FloatingPanelController {
     }
 
     convenience init<Content: UIView>(contentView: Content,
+                                      popupLayout: AnytypePopupLayoutType = .alert(height: 0),
                                       floatingPanelStyle: Bool = false,
-                                      configuration: Configuration = Constants.defaultConifguration) {
-        let viewModel = AnytypeAlertViewModel(contentView: contentView, keyboardListener: .init())
-        self.init(viewModel: viewModel, floatingPanelStyle: floatingPanelStyle, configuration: configuration)
+                                      configuration: Configuration = Constants.defaultConifguration,
+                                      onDismiss: (() -> Void)? = nil) {
+        let viewModel = AnytypeAlertViewModel(contentView: contentView, keyboardListener: .init(), popupLayout: popupLayout)
+        self.init(viewModel: viewModel, floatingPanelStyle: floatingPanelStyle, configuration: configuration, onDismiss: onDismiss)
     }
     
     @available(*, unavailable)
@@ -120,6 +125,10 @@ extension AnytypePopup: FloatingPanelControllerDelegate {
         case .right:
             return (velocity.dx >= threshold)
         }
+    }
+
+    func floatingPanelDidRemove(_ fpc: FloatingPanelController) {
+        onDismiss?()
     }
 }
 

@@ -19,15 +19,16 @@ final class EventsListener: EventsListenerProtocol {
     private let middlewareConverter: MiddlewareEventConverter
     private let localConverter: LocalEventConverter
     private let mentionMarkupEventProvider: MentionMarkupEventProvider
+    private let relationEventConverter: RelationEventConverter
     
-    private var subscription: AnyCancellable?
+    private var subscriptions = [AnyCancellable]()
     
     // MARK: - Initializers
     
     init(
         objectId: BlockId,
         infoContainer: InfoContainerProtocol,
-        relationStorage: RelationsMetadataStorageProtocol,
+        relationLinksStorage: RelationLinksStorageProtocol,
         restrictionsContainer: ObjectRestrictionsContainer
     ) {
         self.objectId = objectId
@@ -39,23 +40,31 @@ final class EventsListener: EventsListenerProtocol {
         )
         self.middlewareConverter = MiddlewareEventConverter(
             infoContainer: infoContainer,
-            relationStorage: relationStorage,
+            relationLinksStorage: relationLinksStorage,
             informationCreator: informationCreator,
             restrictionsContainer: restrictionsContainer
         )
         self.localConverter = LocalEventConverter(
+            relationLinksStorage: relationLinksStorage,
+            restrictionsContainer: restrictionsContainer,
             infoContainer: infoContainer
         )
         self.mentionMarkupEventProvider = MentionMarkupEventProvider(
             objectId: objectId,
             infoContainer: infoContainer
         )
+        self.relationEventConverter = RelationEventConverter(relationLinksStorage: relationLinksStorage)
     }
     
     // MARK: - EventsListenerProtocol
     
     func startListening() {
-        subscription = NotificationCenter.Publisher(
+        subscribeMiddlewareEvents()
+        subscribeRelationEvents()
+    }
+    
+    private func subscribeMiddlewareEvents() {
+        let subscription = NotificationCenter.Publisher(
             center: .default,
             name: .middlewareEvent,
             object: nil
@@ -66,6 +75,21 @@ final class EventsListener: EventsListenerProtocol {
             .sink { [weak self] events in
                 self?.handle(events: events)
             }
+        subscriptions.append(subscription)
+    }
+    
+    private func subscribeRelationEvents() {
+        let subscription = NotificationCenter.Publisher(
+            center: .default,
+            name: .relationEvent,
+            object: nil
+        )
+            .compactMap { $0.object as? RelationEventsBunch }
+            .receiveOnMain()
+            .sink { [weak self] eventsBunch in
+                self?.handleRelation(eventsBunch: eventsBunch)
+            }
+        subscriptions.append(subscription)
     }
     
     private func handle(events: EventsBunch) {
@@ -80,6 +104,15 @@ final class EventsListener: EventsListenerProtocol {
             updates.append(.dataSourceUpdate)
         }
 
+        receiveUpdates(updates)
+    }
+    
+    private func handleRelation(eventsBunch: RelationEventsBunch) {
+        let updates = eventsBunch.events.compactMap { relationEventConverter.convert($0) }
+        receiveUpdates(updates)
+    }
+    
+    private func receiveUpdates(_ updates: [DocumentUpdate]) {
         updates
             .filteredUpdates
             .forEach { update in

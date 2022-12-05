@@ -25,7 +25,7 @@ struct TextBlockContentConfiguration: BlockConfiguration {
         let textViewDidBeginEditing: (UITextView) -> Void
         let textViewDidEndEditing: (UITextView) -> Void
 
-        let textViewDidChangeCaretPosition: (NSRange) -> Void
+        let textViewDidChangeCaretPosition: (UITextView, NSRange) -> Void
         let textViewShouldReplaceText: (UITextView, String, NSRange) -> Bool
 
         let toggleCheckBox: () -> Void
@@ -75,15 +75,15 @@ extension TextBlockContentConfiguration {
     var contentInsets: UIEdgeInsets {
         switch content.contentType {
         case .title:
-            return .init(top: 0, left: 20, bottom: -2, right: -20)
+            return .init(top: 0, left: 20, bottom: 2, right: 20)
         case .description:
-            return .init(top: 8, left: 20, bottom: 0, right: -20)
+            return .init(top: 8, left: 20, bottom: 0, right: 20)
         case .header:
-            return .init(top: 24, left: 20, bottom: -2, right: -20)
+            return .init(top: 24, left: 20, bottom: 2, right: 20)
         case .header2, .header3:
-            return .init(top: 16, left: 20, bottom: -2, right: -20)
+            return .init(top: 16, left: 20, bottom: 2, right: 20)
         default:
-            return .init(top: 0, left: 20, bottom: -2, right: -20)
+            return .init(top: 0, left: 20, bottom: 2, right: 20)
         }
     }
 }

@@ -26,25 +26,33 @@ struct ObjectPreviewView: View {
         VStack(spacing: 0) {
             cardStyle(viewModel.objectPreviewModel.cardStyle)
                 .divider()
-            iconSize(viewModel.objectPreviewModel.iconSize)
-                .divider()
+            if viewModel.objectPreviewModel.isIconMenuVisible {
+                iconSize(viewModel.objectPreviewModel.iconSize)
+                    .divider()
+            }
+            if let coverRelation = viewModel.objectPreviewModel.coverRelation {
+                featuredRelationsRow(coverRelation) { isEnabled in
+                    viewModel.toggleFeaturedRelation(relation: coverRelation, isEnabled: isEnabled)
+                }
+            }
+
         }
     }
 
-    private func iconSize(_ iconSize: ObjectPreviewModel.IconSize) -> some View {
+    private func iconSize(_ iconSize: BlockLink.IconSize) -> some View {
         menuRow(name: Loc.icon, value: iconSize.name) {
             viewModel.showIconMenu()
         }
     }
 
-    private func cardStyle(_ cardStyle: ObjectPreviewModel.CardStyle) -> some View {
+    private func cardStyle(_ cardStyle: BlockLink.CardStyle) -> some View {
         menuRow(name: Loc.previewLayout, value: cardStyle.name) {
             viewModel.showLayoutMenu()
         }
     }
 
-    private func description(_ description: ObjectPreviewModel.Description) -> some View {
-        menuRow(name: Loc.description, icon: description.iconName, value: description.name) {
+    private func description(_ description: BlockLink.Description) -> some View {
+        menuRow(name: Loc.description, icon: description.iconAsset, value: description.name) {
             viewModel.showDescriptionMenu()
         }
     }
@@ -77,9 +85,7 @@ struct ObjectPreviewView: View {
 
     private func featuredRelationsRow(_ item: ObjectPreviewModel.Relation, onTap: @escaping (_ isEnabled: Bool) -> Void) -> some View {
         HStack(spacing: 0) {
-            Image.createImage(item.iconName)
-                .frame(width: 24, height: 24)
-            Spacer.fixedWidth(10)
+            icon(imageAsset: item.iconAsset)
 
             if item.isLocked {
                 AnytypeText(item.name, style: .uxBodyRegular, color: .textPrimary)
@@ -96,13 +102,25 @@ struct ObjectPreviewView: View {
         .frame(height: 52)
     }
 
-    private func menuRow(name: String, icon: String? = nil, value: String, onTap: @escaping () -> Void) -> some View {
+    func icon(imageAsset: ImageAsset?) -> AnyView {
+        if let imageAsset = imageAsset {
+            return Group {
+                Image(asset: imageAsset)
+                    .frame(width: 24, height: 24)
+                Spacer.fixedWidth(10)
+            }.eraseToAnyView()
+        } else {
+            return EmptyView().eraseToAnyView()
+        }
+    }
+
+    private func menuRow(name: String, icon: ImageAsset? = nil, value: String, onTap: @escaping () -> Void) -> some View {
         Button {
             onTap()
         } label: {
             HStack(spacing: 0) {
                 if let icon = icon {
-                    Image.createImage(icon)
+                    Image(asset: icon)
                         .frame(width: 24, height: 24)
                     Spacer.fixedWidth(10)
                 }
@@ -111,19 +129,9 @@ struct ObjectPreviewView: View {
                 Spacer()
                 AnytypeText(value, style: .uxBodyRegular, color: .textSecondary)
                 Spacer.fixedWidth(10)
-                Image.arrow
+                Image(asset: .arrowForward)
             }
             .frame(height: 52)
         }
-    }
-}
-
-struct ObjectPreviewView_Previews: PreviewProvider {
-    static var previews: some View {
-        let router = ObjectPreviewRouter(viewController: UIViewController())
-        let viewModel = ObjectPreviewViewModel(objectPreviewModel: .init(iconSize: .medium, cardStyle: .text, description: .none, relations: []),
-                                               router: router,
-                                               onSelect: {_ in })
-        ObjectPreviewView(viewModel: viewModel)
     }
 }
