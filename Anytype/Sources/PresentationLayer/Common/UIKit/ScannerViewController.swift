@@ -69,7 +69,7 @@ extension ScannerError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .scanningNotSupported:
-            return NSLocalizedString("Scanning not supported", comment: "Your device does not support scanning a code from an item. Please use a device with a camera.")
+            return Loc.Scanner.Error.scanningNotSupported
         }
     }
 }
