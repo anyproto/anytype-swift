@@ -22,6 +22,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
     private let objectSettingCoordinator: ObjectSettingsCoordinatorProtocol
     private let searchModuleAssembly: SearchModuleAssemblyProtocol
+    private let createObjectModuleAssembly: CreateObjectModuleAssemblyProtocol
     private let alertHelper: AlertHelper
     
     init(
@@ -39,6 +40,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
         objectSettingCoordinator: ObjectSettingsCoordinatorProtocol,
         searchModuleAssembly: SearchModuleAssemblyProtocol,
+        createObjectModuleAssembly: CreateObjectModuleAssemblyProtocol,
         alertHelper: AlertHelper
     ) {
         self.rootController = rootController
@@ -56,6 +58,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
         self.objectSettingCoordinator = objectSettingCoordinator
         self.searchModuleAssembly = searchModuleAssembly
+        self.createObjectModuleAssembly = createObjectModuleAssembly
         self.alertHelper = alertHelper
     }
 
@@ -515,20 +518,18 @@ extension EditorRouter {
     }
 
     func showCreateObject(pageId: BlockId) {
-        let relationService = RelationsService(objectId: pageId)
-        let viewModel = CreateObjectViewModel(relationService: relationService) { [weak self] in
+        let moduleViewController = createObjectModuleAssembly.makeCreateObject(objectId: pageId) { [weak self] in
             self?.navigationContext.dismissTopPresented()
             self?.showPage(data: EditorScreenData(pageId: pageId, type: .page))
         } closeAction: { [weak self] in
             self?.navigationContext.dismissTopPresented()
         }
         
-        showCreateObject(with: viewModel)
+        navigationContext.present(moduleViewController)
     }
     
     func showCreateBookmarkObject() {
-        let viewModel = CreateBookmarkViewModel(
-            bookmarkService: ServiceLocator.shared.bookmarkService(),
+        let moduleViewController = createObjectModuleAssembly.makeCreateBookmark(
             closeAction: { [weak self] withError in
                 self?.navigationContext.dismissTopPresented(animated: true) {
                     guard withError else { return }
@@ -540,7 +541,7 @@ extension EditorRouter {
             }
         )
         
-        showCreateObject(with: viewModel)
+        navigationContext.present(moduleViewController)
     }
     
     func showRelationSearch(relationsDetails: [RelationDetails], onSelect: @escaping (RelationDetails) -> Void) {
@@ -638,16 +639,6 @@ extension EditorRouter {
             rootView: SetFiltersListView(viewModel: viewModel)
         )
         presentSheet(vc)
-    }
-    
-    private func showCreateObject(with viewModel: CreateObjectViewModelProtocol) {
-        let view = CreateObjectView(viewModel: viewModel)
-        let fpc = AnytypePopup(contentView: view,
-                               floatingPanelStyle: true,
-                               configuration: .init(isGrabberVisible: true, dismissOnBackdropView: true ),
-                               showKeyboard: true)
-
-        navigationContext.present(fpc)
     }
     
     private func showSetSettingsPopup(setModel: EditorSetViewModel) {
