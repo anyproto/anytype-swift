@@ -10,4 +10,5 @@ protocol ModulesDIProtocol: AnyObject {
     var objectSetting: ObjectSettingModuleAssemblyProtocol { get }
     var search: SearchModuleAssemblyProtocol { get }
     var createObject: CreateObjectModuleAssemblyProtocol { get }
+    var codeLanguageList: CodeLanguageListModuleAssemblyProtocol { get }
 }

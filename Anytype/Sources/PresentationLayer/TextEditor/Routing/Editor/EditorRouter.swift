@@ -23,6 +23,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     private let objectSettingCoordinator: ObjectSettingsCoordinatorProtocol
     private let searchModuleAssembly: SearchModuleAssemblyProtocol
     private let createObjectModuleAssembly: CreateObjectModuleAssemblyProtocol
+    private let codeLanguageListModuleAssembly: CodeLanguageListModuleAssemblyProtocol
     private let alertHelper: AlertHelper
     
     init(
@@ -41,6 +42,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         objectSettingCoordinator: ObjectSettingsCoordinatorProtocol,
         searchModuleAssembly: SearchModuleAssemblyProtocol,
         createObjectModuleAssembly: CreateObjectModuleAssemblyProtocol,
+        codeLanguageListModuleAssembly: CodeLanguageListModuleAssemblyProtocol,
         alertHelper: AlertHelper
     ) {
         self.rootController = rootController
@@ -59,6 +61,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         self.objectSettingCoordinator = objectSettingCoordinator
         self.searchModuleAssembly = searchModuleAssembly
         self.createObjectModuleAssembly = createObjectModuleAssembly
+        self.codeLanguageListModuleAssembly = codeLanguageListModuleAssembly
         self.alertHelper = alertHelper
     }
 
@@ -133,10 +136,9 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         fileCoordinator.downloadFileAt(fileURL, withType: type)
     }
     
-    func showCodeLanguageView(languages: [CodeLanguage], completion: @escaping (CodeLanguage) -> Void) {
-        let searchListViewController = SearchListViewController(items: languages, completion: completion)
-        searchListViewController.modalPresentationStyle = .pageSheet
-        navigationContext.present(searchListViewController)
+    func showCodeLanguage(blockId: BlockId) {
+        let moduleViewController = codeLanguageListModuleAssembly.make(document: document, blockId: blockId)
+        navigationContext.present(moduleViewController)
     }
     
     func showStyleMenu(
@@ -702,13 +704,13 @@ extension EditorRouter {
     }
     
     func showGroupByRelations(
-        selectedRelationId: String,
+        selectedRelationKey: String,
         relations: [RelationDetails],
         onSelect: @escaping (String) -> Void
     ) {
         let view = CheckPopupView(
             viewModel: SetViewSettingsGroupByViewModel(
-                selectedRelationId: selectedRelationId,
+                selectedRelationKey: selectedRelationKey,
                 relations: relations,
                 onSelect: onSelect
             )
@@ -720,12 +722,17 @@ extension EditorRouter {
         )
     }
     
-    func showKanbanColumnSettings() {
+    func showKanbanColumnSettings(
+        hideColumn: Bool,
+        selectedColor: BlockBackgroundColor?,
+        onSelect: @escaping (Bool, BlockBackgroundColor?) -> Void
+    ) {
         let popup = AnytypePopup(
             viewModel: SetKanbanColumnSettingsViewModel(
-                hideColumn: false,
-                selectedColor: nil,
-                onApplyTap: { [weak self] _, _ in
+                hideColumn: hideColumn,
+                selectedColor: selectedColor,
+                onApplyTap: { [weak self] hidden, backgroundColor in
+                    onSelect(hidden, backgroundColor)
                     self?.navigationContext.dismissTopPresented()
                 }
             ),

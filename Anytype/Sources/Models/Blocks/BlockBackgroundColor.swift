@@ -163,3 +163,32 @@ enum BlockBackgroundColor: String, CaseIterable {
         }
     }
 }
+
+extension MiddlewareColor {
+    var backgroundColor: BlockBackgroundColor {
+        switch self {
+        case .default:
+            return .default
+        case .grey:
+            return .gray
+        case .yellow:
+            return .lemon
+        case .orange:
+            return .amber
+        case .red:
+            return .red
+        case .pink:
+            return .pink
+        case .purple:
+            return .purple
+        case .blue:
+            return .blue
+        case .ice:
+            return .sky
+        case .teal:
+            return .teal
+        case .lime:
+            return .green
+        }
+    }
+}
