@@ -73,7 +73,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         
         excludedTypeIds.append(contentsOf: objectTypeProvider.notVisibleTypeIds())
         
-        var filters = [
+        let filters = [
             SearchHelper.isArchivedFilter(isArchived: false),
             SearchHelper.workspaceId(accountManager.account.info.accountSpaceId),
             SearchHelper.typeFilter(typeIds: [ObjectTypeId.bundled(.objectType).rawValue]),

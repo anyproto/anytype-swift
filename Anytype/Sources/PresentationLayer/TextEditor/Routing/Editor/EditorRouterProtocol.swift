@@ -110,10 +110,14 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func showCovers(setModel: EditorSetViewModel, onSelect: @escaping (String) -> Void)
     
     func showGroupByRelations(
-        selectedRelationId: String,
+        selectedRelationKey: String,
         relations: [RelationDetails],
         onSelect: @escaping (String) -> Void
     )
     
-    func showKanbanColumnSettings()
+    func showKanbanColumnSettings(
+        hideColumn: Bool,
+        selectedColor: BlockBackgroundColor?,
+        onSelect: @escaping (Bool, BlockBackgroundColor?) -> Void
+    )
 }

@@ -714,13 +714,13 @@ extension EditorRouter {
     }
     
     func showGroupByRelations(
-        selectedRelationId: String,
+        selectedRelationKey: String,
         relations: [RelationDetails],
         onSelect: @escaping (String) -> Void
     ) {
         let view = CheckPopupView(
             viewModel: SetViewSettingsGroupByViewModel(
-                selectedRelationId: selectedRelationId,
+                selectedRelationKey: selectedRelationKey,
                 relations: relations,
                 onSelect: onSelect
             )
@@ -732,12 +732,17 @@ extension EditorRouter {
         )
     }
     
-    func showKanbanColumnSettings() {
+    func showKanbanColumnSettings(
+        hideColumn: Bool,
+        selectedColor: BlockBackgroundColor?,
+        onSelect: @escaping (Bool, BlockBackgroundColor?) -> Void
+    ) {
         let popup = AnytypePopup(
             viewModel: SetKanbanColumnSettingsViewModel(
-                hideColumn: false,
-                selectedColor: nil,
-                onApplyTap: { [weak self] _, _ in
+                hideColumn: hideColumn,
+                selectedColor: selectedColor,
+                onApplyTap: { [weak self] hidden, backgroundColor in
+                    onSelect(hidden, backgroundColor)
                     self?.navigationContext.dismissTopPresented()
                 }
             ),
