@@ -10,7 +10,7 @@ struct SeedPhraseView: View {
             VStack(alignment: .leading) {
                 Spacer.fixedHeight(10)
                 AnytypeText(
-                    model.recoveryPhrase ?? Loc.KeychainPhrase.seedPhrasePlaceholder,
+                    model.recoveryPhrase ?? Loc.Keychain.seedPhrasePlaceholder,
                     style: .codeBlock,
                     color: .Text.sky
                 )
