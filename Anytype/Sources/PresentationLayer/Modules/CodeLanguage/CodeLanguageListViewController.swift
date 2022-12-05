@@ -20,7 +20,7 @@ final class CodeLanguageListViewController: UIViewController {
         searchBar.delegate = self
         searchBar.searchBarStyle = .minimal
         searchBar.backgroundColor = .backgroundSecondary
-        searchBar.placeholder = NSLocalizedString("Search for language", comment: "")
+        searchBar.placeholder = Loc.searchForLanguage
 
         return searchBar
     }()
