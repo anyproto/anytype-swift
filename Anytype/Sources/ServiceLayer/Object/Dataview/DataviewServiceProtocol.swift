@@ -6,7 +6,12 @@ protocol DataviewServiceProtocol {
     func deleteView( _ viewId: String) async throws
     func addRelation(_ relationDetails: RelationDetails) async throws -> Bool
     func deleteRelation(relationKey: String) async throws
-    func addRecord(objectType: String, templateId: BlockId, setFilters: [SetFilter]) async throws -> String
+    func addRecord(
+        objectType: String,
+        templateId: BlockId,
+        setFilters: [SetFilter],
+        relationsDetails: [RelationDetails]
+    ) async throws -> String
     func setSource(typeObjectId: String) async throws
     func setPositionForView(_ viewId: String, position: Int) async throws
     func objectOrderUpdate(viewId: String, groupObjectIds: [GroupObjectIds]) async throws

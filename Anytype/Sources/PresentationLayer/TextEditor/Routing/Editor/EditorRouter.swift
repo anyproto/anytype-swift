@@ -74,6 +74,13 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         let alertController = AlertsFactory.alertController(from: alertModel)
         navigationContext.present(alertController)
     }
+    
+    func showToast(title: String, message: String?) {
+        alertHelper.showToast(
+            title: title,
+            message: message ?? ""
+        )
+    }
 
     func showLinkContextualMenu(inputParameters: TextBlockURLInputParameters) {
         let contextualMenuView = EditorContextualMenuView(

@@ -45,7 +45,7 @@ final class EditorAssembly {
         let document = BaseDocument(objectId: data.pageId)
         let dataviewService = DataviewService(
             objectId: data.pageId,
-            prefilledFieldsBuilder: SetFilterPrefilledFieldsBuilder()
+            prefilledFieldsBuilder: SetPrefilledFieldsBuilder()
         )
         let detailsService = ServiceLocator.shared.detailsService(objectId: data.pageId)
 

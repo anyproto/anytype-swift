@@ -359,6 +359,7 @@
 "Set.FeaturedRelations.Source" = "Source";
 "Set.FeaturedRelations.RelationsList" = "Relations:";
 "Set.FeaturedRelations.Relation" = "Relation:";
+"Set.FeaturedRelations.Type" = "Type:";
 
 // MARK: - Sets: Filters search
 "Set.Button.Title.Apply" = "Apply";
@@ -385,6 +386,7 @@
 
 // MARK: - Set source type
 "Set.SourceType.SelectSource" = "Select source";
+"Set.SourceType.Cancel.Toast.Title" = "This source can be changed on desktop only";
 
 // MARK: Slash Menu
 "SlashMenu.DotsDivider" = "Dots divider";

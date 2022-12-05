@@ -2,7 +2,7 @@ import SwiftUI
 
 enum RelationStyle: Hashable {
     case regular(allowMultiLine: Bool)
-    case featuredRelationBlock(allowMultiLine: Bool)
+    case featuredRelationBlock(FeaturedRelationSettings)
     case set
     case setCollection
     case filter(hasValues: Bool)
@@ -12,6 +12,18 @@ enum RelationPlaceholderType {
     case hint
     case empty
     case clear(withHint: Bool)
+}
+
+struct FeaturedRelationSettings: Hashable {
+    let allowMultiLine: Bool
+    let prefix: String?
+    let showIcon: Bool
+    
+    init(allowMultiLine: Bool, prefix: String? = nil, showIcon: Bool = true) {
+        self.allowMultiLine = allowMultiLine
+        self.prefix = prefix
+        self.showIcon = showIcon
+    }
 }
 
 extension RelationStyle {
@@ -49,8 +61,8 @@ extension RelationStyle {
         switch self {
         case let .regular(value):
             return value
-        case let .featuredRelationBlock(value):
-            return value
+        case let .featuredRelationBlock(settings):
+            return settings.allowMultiLine
         case .set, .filter, .setCollection:
             return false
         }
