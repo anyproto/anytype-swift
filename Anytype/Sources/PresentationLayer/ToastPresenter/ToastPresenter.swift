@@ -13,7 +13,7 @@ enum ToastPresenterMode {
 }
 
 class ToastPresenter: ToastPresenterProtocol {
-    static var shared: ToastPresenter?
+    static var shared: ToastPresenter? // Used only for SwiftUI
     
     private var isShowing: Bool = false
 
