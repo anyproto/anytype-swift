@@ -21,7 +21,7 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     
     func saveFile(fileURL: URL, type: FileContentType)
     
-    func showCodeLanguageView(languages: [CodeLanguage], completion: @escaping (CodeLanguage) -> Void)
+    func showCodeLanguage(blockId: BlockId)
     
     func showStyleMenu(
         information: BlockInformation,
@@ -110,10 +110,14 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func showCovers(setModel: EditorSetViewModel, onSelect: @escaping (String) -> Void)
     
     func showGroupByRelations(
-        selectedRelationId: String,
+        selectedRelationKey: String,
         relations: [RelationDetails],
         onSelect: @escaping (String) -> Void
     )
     
-    func showKanbanColumnSettings()
+    func showKanbanColumnSettings(
+        hideColumn: Bool,
+        selectedColor: BlockBackgroundColor?,
+        onSelect: @escaping (Bool, BlockBackgroundColor?) -> Void
+    )
 }

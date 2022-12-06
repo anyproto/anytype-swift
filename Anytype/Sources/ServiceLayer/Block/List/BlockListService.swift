@@ -20,9 +20,10 @@ class BlockListService: BlockListServiceProtocol {
             .send()
     }
     
-    func setFields(fields: [Anytype_Rpc.Block.ListSetFields.Request.BlockField]) {
+    func setFields(blockId: BlockId, fields: BlockFields) {
+        let fieldsRequest = Anytype_Rpc.Block.ListSetFields.Request.BlockField(blockID: blockId, fields: .init(fields: fields))
         Anytype_Rpc.Block.ListSetFields.Service
-            .invoke(contextID: contextId, blockFields: fields)
+            .invoke(contextID: contextId, blockFields: [fieldsRequest])
             .map { EventsBunch(event: $0.event) }
             .getValue(domain: .blockListService)?
             .send()

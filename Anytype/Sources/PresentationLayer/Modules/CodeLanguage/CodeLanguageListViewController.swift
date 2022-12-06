@@ -4,14 +4,13 @@ import UIKit
 /// View that represents list and search bar on top
 ///
 /// For more information, see  [Anytype design.](https://www.figma.com/file/TpUBIdjDYVWGyaarlnHIsz/Android-main?node-id=351%3A32)
-final class SearchListViewController: UIViewController {
+final class CodeLanguageListViewController: UIViewController {
     enum Section {
         case main
     }
 
-    private var items: [CodeLanguage] = []
+    private let viewModel: CodeLanguageListViewModel
     private var dataSource: UICollectionViewDiffableDataSource<Section, CodeLanguage>?
-    private var completion: (CodeLanguage) -> Void
 
     // MARK: - Views
 
@@ -21,7 +20,7 @@ final class SearchListViewController: UIViewController {
         searchBar.delegate = self
         searchBar.searchBarStyle = .minimal
         searchBar.backgroundColor = .backgroundSecondary
-        searchBar.placeholder = NSLocalizedString("Search for language", comment: "")
+        searchBar.placeholder = Loc.searchForLanguage
 
         return searchBar
     }()
@@ -40,10 +39,9 @@ final class SearchListViewController: UIViewController {
 
     // MARK: - Lifecycle
 
-    init(items: [CodeLanguage], completion: @escaping (CodeLanguage) -> Void) {
-        self.items = items
-        self.completion = completion
-
+    init(viewModel: CodeLanguageListViewModel) {
+        self.viewModel = viewModel
+        
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -101,30 +99,30 @@ final class SearchListViewController: UIViewController {
         // initial data
         var snapshot = NSDiffableDataSourceSnapshot<Section, CodeLanguage>()
         snapshot.appendSections([.main])
-        snapshot.appendItems(items)
+        snapshot.appendItems(viewModel.items)
         dataSource?.apply(snapshot, animatingDifferences: false)
     }
 }
 
 // MARK: - UICollectionViewDelegate
 
-extension SearchListViewController: UICollectionViewDelegate {
+extension CodeLanguageListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let selectedItem = self.dataSource?.itemIdentifier(for: indexPath) else {
             collectionView.deselectItem(at: indexPath, animated: true)
             return
         }
-        dismiss(animated: true) {
-            self.completion(selectedItem)
+        dismiss(animated: true) { [weak self] in
+            self?.viewModel.onTapCodeLanguage(selectedItem)
         }
     }
 }
 
 // MARK: - UISearchBarDelegate
 
-extension SearchListViewController: UISearchBarDelegate {
+extension CodeLanguageListViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        let filteredItems = items.filter { $0.rawValue.lowercased().hasPrefix(searchText.lowercased()) }
+        let filteredItems = viewModel.items.filter { $0.rawValue.lowercased().hasPrefix(searchText.lowercased()) }
 
         var snapshot = NSDiffableDataSourceSnapshot<Section, CodeLanguage>()
         snapshot.appendSections([.main])

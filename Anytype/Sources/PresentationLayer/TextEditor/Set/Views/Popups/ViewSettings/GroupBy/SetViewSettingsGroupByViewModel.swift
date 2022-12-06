@@ -5,18 +5,18 @@ final class SetViewSettingsGroupByViewModel: CheckPopupViewViewModelProtocol {
     let title: String = Loc.Set.View.Settings.GroupBy.title
     @Published private(set) var items: [CheckPopupItem] = []
 
-    private var selectedRelationId: String
+    private var selectedRelationKey: String
     private var relations: [RelationDetails]
     private let onSelect: (String) -> Void
 
     // MARK: - Initializer
 
     init(
-        selectedRelationId: String,
+        selectedRelationKey: String,
         relations: [RelationDetails],
         onSelect: @escaping (String) -> Void
     ) {
-        self.selectedRelationId = selectedRelationId
+        self.selectedRelationKey = selectedRelationKey
         self.relations = relations
         self.onSelect = onSelect
         self.items = self.buildPopupItems()
@@ -25,23 +25,23 @@ final class SetViewSettingsGroupByViewModel: CheckPopupViewViewModelProtocol {
     func buildPopupItems() -> [CheckPopupItem] {
         relations.compactMap { relation in
             CheckPopupItem(
-                id: relation.key,
+                id: relation.id,
                 iconAsset: relation.format.iconAsset,
                 title: relation.name,
                 subtitle: nil,
-                isSelected: relation.id == selectedRelationId,
+                isSelected: relation.key == selectedRelationKey,
                 onTap: { [weak self] in self?.onTap(relation: relation) }
             )
         }
     }
 
     private func onTap(relation: RelationDetails) {
-        guard relation.id != selectedRelationId else {
+        guard relation.key != selectedRelationKey else {
             return
         }
 
-        selectedRelationId = relation.id
-        onSelect(relation.id)
+        selectedRelationKey = relation.key
+        onSelect(relation.key)
         items = buildPopupItems()
     }
 }

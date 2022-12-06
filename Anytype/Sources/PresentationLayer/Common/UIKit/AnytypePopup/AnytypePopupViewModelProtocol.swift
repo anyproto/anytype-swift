@@ -10,4 +10,10 @@ protocol AnytypePopupViewModelProtocol {
     
     func makeContentView() -> UIViewController
     
+    func willAppear()
+}
+
+// Default implementation 
+extension AnytypePopupViewModelProtocol {
+    func willAppear() {}
 }

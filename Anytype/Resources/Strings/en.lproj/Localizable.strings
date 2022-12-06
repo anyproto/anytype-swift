@@ -131,6 +131,10 @@
 "Keychain.Don’t forget to save your recovery phrase" = "Don’t forget to save your recovery phrase";
 "Keychain.Show and copy phrase" = "Show and copy phrase";
 "Keychain.Have you backed up your recovery phrase?" = "Have you backed up your recovery phrase?";
+"Keychain.Error.String to Data conversion error" = "String to Data conversion error";
+"Keychain.Error.Data to String conversion error" = "Data to String conversion error";
+"Keychain.Error.Unknown Keychain Error" = "Unknown Keychain Error";
+"Keychain.SeedPhrasePlaceholder" = "witch collapse practice feed shame open despair creek road again ice least lake tree young address brain despair";
 
 // Auth
 "Welcome to Anytype" = "Welcome to Anytype";
@@ -562,7 +566,6 @@
 "QuickAction.create" = "Create %s";
 
 // MARK: - RedactedText
-"RedactedText.seedPhrase" = "You wake up in your bed and believe whatever you want to. You take the red pill, you stay in Wonderland, and I show you how deep the rabbit hole goes.";
 "RedactedText.pageTitle" = "Wake up, Neo";
 "RedactedText.pageType" = "Red pill";
 
@@ -638,3 +641,6 @@
 
 // MARK: - Toast
 "Editor.Toast.GetStartedLinkedTo" = "Get Started linked to";
+
+// MARK: - Scanner
+"Scanner.Error.Scanning not supported" = "Scanning not supported";

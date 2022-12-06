@@ -69,6 +69,15 @@ final class EditorSetViewModel: ObservableObject {
             excludeRelations: excludeRelations
         )
     }
+    
+    func groupBackgroundColor(for groupId: String) -> BlockBackgroundColor {
+        guard let groupOrder = dataView.groupOrders.first(where: { $0.viewID == activeView.id }),
+            let viewGroup = groupOrder.viewGroups.first(where: { $0.groupID == groupId }),
+            let middlewareColor = MiddlewareColor(rawValue: viewGroup.backgroundColor) else {
+            return BlockBackgroundColor.gray
+        }
+        return middlewareColor.backgroundColor
+    }
 
     private var isObjectLocked: Bool {
         document.isLocked ||
@@ -211,10 +220,30 @@ final class EditorSetViewModel: ObservableObject {
                 groups = try await startGroupsSubscription(with: data)
             }
             
-            if forceUpdate {
+            
+            if forceUpdate || checkGroupOrderUpdates() {
                 startSubscriptionsByGroups()
             }
         }
+    }
+    
+    private func checkGroupOrderUpdates() -> Bool {
+        let groupOrder = dataView.groupOrders.first { $0.viewID == activeView.id }
+        let visibleViewGroups = groupOrder?.viewGroups.filter { !$0.hidden }
+        let newVisible = visibleViewGroups?.first { recordsDict[$0.groupID] == nil }
+        
+        let hiddenViewGroups = groupOrder?.viewGroups.filter { $0.hidden }
+        var hasNewHidden = false
+        hiddenViewGroups?.forEach { group in
+            if recordsDict[group.groupID] != nil {
+                hasNewHidden = true
+                recordsDict[group.groupID] = nil
+                configurationsDict[group.groupID] = nil
+                subscriptionService.stopSubscription(id: SubscriptionId(value: group.groupID))
+            }
+        }
+        
+        return newVisible != nil || hasNewHidden
     }
     
     private func startGroupsSubscription(with data: GroupsSubscription) async throws -> [DataviewGroup] {
@@ -229,7 +258,7 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     private func startSubscriptionsByGroups() {
-        sortedGroups(groups).forEach { [weak self] group in
+        sortedVisibleGroups().forEach { [weak self] group in
             guard let self else { return }
             let groupFilter = group.filter(with: self.activeView.groupRelationKey)
             let subscriptionId = SubscriptionId(value: group.id)
@@ -296,8 +325,8 @@ final class EditorSetViewModel: ObservableObject {
         recordsDict[groupId] = records
     }
     
-    private func updateConfigurations(with groupIds: [String], shouldReorder: Bool = false) {
-        var tempConfigurationsDict = shouldReorder ? sortedConfigurationsDict() : configurationsDict
+    private func updateConfigurations(with groupIds: [String]) {
+        var tempConfigurationsDict = configurationsDict
         for groupId in groupIds {
             if let records = sortedRecords(with: groupId) {
                 let configurations = dataBuilder.itemData(
@@ -315,17 +344,19 @@ final class EditorSetViewModel: ObservableObject {
                 tempConfigurationsDict[groupId] = configurations
             }
         }
-        configurationsDict = tempConfigurationsDict
+        configurationsDict = sortedConfigurationsDict(with: tempConfigurationsDict)
     }
     
-    private func sortedConfigurationsDict() -> OrderedDictionary<String, [SetContentViewItemConfiguration]> {
-        let sortedGroupsIds = sortedGroupsIds()
-        guard sortedGroupsIds.isNotEmpty else { return configurationsDict }
+    private func sortedConfigurationsDict(
+        with dict: OrderedDictionary<String, [SetContentViewItemConfiguration]>
+    ) -> OrderedDictionary<String, [SetContentViewItemConfiguration]> {
+        let sortedViewGroups = sortedViewGroups()
+        guard sortedViewGroups.isNotEmpty else { return dict }
         
-        let groupIds = Array(configurationsDict.keys).sorted { (a, b) -> Bool in
-            if let first = sortedGroupsIds.firstIndex(of: a),
-                let second = sortedGroupsIds.firstIndex(of: b)
-            {
+        let groupIds = Array(dict.keys).sorted { (a, b) -> Bool in
+            let first = sortedViewGroups.firstIndex { $0.groupID == a }
+            let second = sortedViewGroups.firstIndex { $0.groupID == b }
+            if let first, let second {
                 return first < second
             }
             return false
@@ -333,47 +364,43 @@ final class EditorSetViewModel: ObservableObject {
         
         var sortedConfigurationsDict: OrderedDictionary<String, [SetContentViewItemConfiguration]> = [:]
         groupIds.forEach { subId in
-            if let records = configurationsDict[subId] {
+            if let records = dict[subId] {
                 sortedConfigurationsDict[subId] = records
             }
         }
         
         return sortedConfigurationsDict
     }
-    private func sortedGroupsIds() -> [String] {
-        let neededGroupOrders = dataView.groupOrders.filter { [weak self] groupOrder in
+    
+    private func sortedViewGroups() -> [DataviewViewGroup] {
+        let neededGroupOrder = dataView.groupOrders.first { [weak self] groupOrder in
             groupOrder.viewID == self?.activeView.id
         }
         
-        guard neededGroupOrders.isNotEmpty else {
+        guard let neededGroupOrder else {
             return []
         }
         
-        var sortedGroupsIds: [String] = []
-        neededGroupOrders.forEach { groupOrder in
-            groupOrder.viewGroups.forEach { viewGroup in
-                sortedGroupsIds.append(viewGroup.groupID)
-            }
+        let sortedViewGroups = neededGroupOrder.viewGroups.sorted { (a, b) -> Bool in
+            return a.index < b.index
         }
-        return sortedGroupsIds
+        return sortedViewGroups.map { $0 }
     }
     
-    private func sortedGroups(_ groups: [DataviewGroup]) -> [DataviewGroup] {
-        let sortedGroupsIds = sortedGroupsIds()
-        guard sortedGroupsIds.isNotEmpty else { return groups}
+    private func sortedVisibleGroups() -> [DataviewGroup] {
+        let sortedViewGroups = sortedViewGroups()
+        guard sortedViewGroups.isNotEmpty else { return groups }
+        let hiddenSortedViewGroupsIds = sortedViewGroups.filter { $0.hidden }.map { $0.groupID }
+        let visibleGroups = groups.filter { !hiddenSortedViewGroupsIds.contains($0.id) }
         
-        var groupsDict: [String: DataviewGroup] = [:]
-        for group in groups {
-            groupsDict[group.id] = group
-        }
-        
-        var sortedGroups: [DataviewGroup] = []
-        sortedGroupsIds.forEach { groupId in
-            if let group = groupsDict[groupId] {
-                sortedGroups.append(group)
+        return visibleGroups.sorted { (a, b) -> Bool in
+            let first = sortedViewGroups.firstIndex { $0.groupID == a.id }
+            let second = sortedViewGroups.firstIndex { $0.groupID == b.id }
+            if let first, let second {
+                return first < second
             }
+            return second == nil
         }
-        return sortedGroups
     }
     
     private func sortedRecords(with groupId: String) -> [ObjectDetails]? {
@@ -461,7 +488,7 @@ final class EditorSetViewModel: ObservableObject {
         updateSorts()
         updateFilters()
         startSubscriptionIfNeeded()
-        updateConfigurations(with: Array(recordsDict.keys), shouldReorder: true)
+        updateConfigurations(with: Array(recordsDict.keys))
 
         isUpdating = false
     }
@@ -641,10 +668,57 @@ extension EditorSetViewModel {
         }
     }
     
-    func showKanbanColumnSettings() {
-        router.showKanbanColumnSettings()
+    func showKanbanColumnSettings(for groupId: String) {
+        let groupOrder = dataView.groupOrders.first { $0.viewID == activeView.id }
+        let viewGroup = groupOrder?.viewGroups.first { $0.groupID == groupId }
+        let selectedColor = MiddlewareColor(rawValue: viewGroup?.backgroundColor ?? "")?.backgroundColor
+        router.showKanbanColumnSettings(
+            hideColumn: viewGroup?.hidden ?? false,
+            selectedColor: selectedColor,
+            onSelect: { [weak self] hidden, backgroundColor in
+                self?.dataviewGroupOrderUpdate(
+                    groupId: groupId,
+                    hidden: hidden,
+                    backgroundColor: backgroundColor
+                )
+            }
+        )
     }
-
+    
+    private func dataviewGroupOrderUpdate(groupId: String, hidden: Bool, backgroundColor: BlockBackgroundColor?) {
+        let updatedGroupOrder = updatedGroupOrder(groupId: groupId, hidden: hidden, backgroundColor: backgroundColor)
+        Task {
+            try await dataviewService.groupOrderUpdate(
+                viewId: activeView.id,
+                groupOrder: updatedGroupOrder
+            )
+        }
+    }
+    
+    private func updatedGroupOrder(groupId: String, hidden: Bool, backgroundColor: BlockBackgroundColor?) -> DataviewGroupOrder {
+        let groupOrder = dataView.groupOrders.first { $0.viewID == activeView.id } ?? DataviewGroupOrder.create(viewID: activeView.id)
+        var viewGroups = groupOrder.viewGroups
+        let viewGroupIndex = viewGroups.firstIndex { $0.groupID == groupId }
+        let viewGroup: DataviewViewGroup
+        if let viewGroupIndex {
+            viewGroup = viewGroups[viewGroupIndex]
+                .updated(
+                    hidden: hidden,
+                    backgroundColor: backgroundColor?.middleware.rawValue
+                )
+            viewGroups[viewGroupIndex] = viewGroup
+        } else {
+            viewGroup = DataviewViewGroup.create(
+                groupId: groupId,
+                index: groups.count + 1,
+                hidden: hidden,
+                backgroundColor: backgroundColor?.middleware.rawValue
+            )
+            viewGroups.append(viewGroup)
+        }
+        return groupOrder.updated(viewGroups: viewGroups)
+    }
+    
     private func showSetOfTypeSelection() {
         router.showSources(selectedObjectId: document.details?.setOf.first) { [unowned self] typeObjectId in
             Task { @MainActor in

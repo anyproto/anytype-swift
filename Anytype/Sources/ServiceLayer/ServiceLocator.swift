@@ -103,6 +103,10 @@ final class ServiceLocator {
     func accountEventHandler() -> AccountEventHandlerProtocol {
         return _accountEventHandler
     }
+    
+    func blockListService(documentId: String) -> BlockListServiceProtocol {
+        return BlockListService(contextId: documentId)
+    }
     // MARK: - Private
     
     func pageService() -> PageServiceProtocol {

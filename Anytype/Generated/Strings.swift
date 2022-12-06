@@ -1031,8 +1031,18 @@ internal enum Loc {
     /// Save this recovery phrase outside of Anytype for data recovery.
     /// We recommend using a secure data vault, password manager or piece of paper in the safe.
     internal static let saveKeychainAlertPart3 = Loc.tr("Localizable", "Keychain.Save keychain alert part 3", fallback: ".\nSave this recovery phrase outside of Anytype for data recovery.\nWe recommend using a secure data vault, password manager or piece of paper in the safe.")
+    /// witch collapse practice feed shame open despair creek road again ice least lake tree young address brain despair
+    internal static let seedPhrasePlaceholder = Loc.tr("Localizable", "Keychain.SeedPhrasePlaceholder", fallback: "witch collapse practice feed shame open despair creek road again ice least lake tree young address brain despair")
     /// Show and copy phrase
     internal static let showAndCopyPhrase = Loc.tr("Localizable", "Keychain.Show and copy phrase", fallback: "Show and copy phrase")
+    internal enum Error {
+      /// Data to String conversion error
+      internal static let dataToStringConversionError = Loc.tr("Localizable", "Keychain.Error.Data to String conversion error", fallback: "Data to String conversion error")
+      /// String to Data conversion error
+      internal static let stringToDataConversionError = Loc.tr("Localizable", "Keychain.Error.String to Data conversion error", fallback: "String to Data conversion error")
+      /// Unknown Keychain Error
+      internal static let unknownKeychainError = Loc.tr("Localizable", "Keychain.Error.Unknown Keychain Error", fallback: "Unknown Keychain Error")
+    }
   }
   internal enum LinkAppearance {
     internal enum Description {
@@ -1083,8 +1093,6 @@ internal enum Loc {
     internal static let pageTitle = Loc.tr("Localizable", "RedactedText.pageTitle", fallback: "Wake up, Neo")
     /// Red pill
     internal static let pageType = Loc.tr("Localizable", "RedactedText.pageType", fallback: "Red pill")
-    /// You wake up in your bed and believe whatever you want to. You take the red pill, you stay in Wonderland, and I show you how deep the rabbit hole goes.
-    internal static let seedPhrase = Loc.tr("Localizable", "RedactedText.seedPhrase", fallback: "You wake up in your bed and believe whatever you want to. You take the red pill, you stay in Wonderland, and I show you how deep the rabbit hole goes.")
   }
   internal enum Relation {
     internal enum View {
@@ -1113,6 +1121,12 @@ internal enum Loc {
     internal static let reloadingContent = Loc.tr("Localizable", "RelationAction.ReloadingContent", fallback: "Reloading content")
     /// Send email
     internal static let sendEmail = Loc.tr("Localizable", "RelationAction.SendEmail", fallback: "Send email")
+  }
+  internal enum Scanner {
+    internal enum Error {
+      /// Scanning not supported
+      internal static let scanningNotSupported = Loc.tr("Localizable", "Scanner.Error.Scanning not supported", fallback: "Scanning not supported")
+    }
   }
   internal enum Set {
     internal enum Bookmark {

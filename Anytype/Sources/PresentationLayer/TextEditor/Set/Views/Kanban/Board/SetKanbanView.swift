@@ -21,6 +21,7 @@ struct SetKanbanView: View {
             content
             Spacer()
         }
+        .frame(maxHeight: .infinity)
     }
 
     // MARK: List view
@@ -58,6 +59,7 @@ struct SetKanbanView: View {
                             headerRelation: nil, // will be updated after branch `relatio-as-object` was merged
                             configurations: configurations,
                             isGroupBackgroundColors: model.isGroupBackgroundColors,
+                            backgroundColor: model.groupBackgroundColor(for: groupId),
                             showPagingView: model.pagitationData(by: groupId).pageCount > 1,
                             dragAndDropDelegate: model,
                             dropData: $dropData,
@@ -65,7 +67,7 @@ struct SetKanbanView: View {
                                 model.showMore(groupId: groupId)
                             },
                             onSettingsTap: {
-                                model.showKanbanColumnSettings()
+                                model.showKanbanColumnSettings(for: groupId)
                             }
                         )
                     }

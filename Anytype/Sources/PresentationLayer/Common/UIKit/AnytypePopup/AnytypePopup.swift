@@ -54,8 +54,14 @@ final class AnytypePopup: FloatingPanelController {
                                       popupLayout: AnytypePopupLayoutType = .alert(height: 0),
                                       floatingPanelStyle: Bool = false,
                                       configuration: Configuration = Constants.defaultConifguration,
+                                      showKeyboard: Bool = false,
                                       onDismiss: (() -> Void)? = nil) {
-        let viewModel = AnytypeAlertViewModel(contentView: contentView, keyboardListener: .init(), popupLayout: popupLayout)
+        let viewModel = AnytypeAlertViewModel(
+            contentView: contentView,
+            keyboardListener: .init(),
+            popupLayout: popupLayout,
+            showKeyboard: showKeyboard
+        )
         self.init(viewModel: viewModel, floatingPanelStyle: floatingPanelStyle, configuration: configuration, onDismiss: onDismiss)
     }
     
@@ -64,6 +70,10 @@ final class AnytypePopup: FloatingPanelController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.willAppear()
+    }
 }
 
 // MARK: - RelationDetailsViewModelDelegate
