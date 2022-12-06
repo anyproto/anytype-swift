@@ -86,7 +86,6 @@ final class AuthService: AuthServiceProtocol {
                     return onCompletion(nil)
                 case .failure(let error as NSError):
                     let code = RecoverAccountErrorCode(rawValue: error.code) ?? .null
-                    print("")
                     return onCompletion(AuthServiceError.recoverAccountError(code: code))
                 }
             }
