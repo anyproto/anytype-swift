@@ -9,16 +9,6 @@
     "source": "details"
   },
   {
-    "description": "Strict dictionary to select relation values from",
-    "format": "object",
-    "hidden": true,
-    "key": "relationOptionsDict",
-    "maxCount": 0,
-    "name": "Dictionary",
-    "readonly": false,
-    "source": "details"
-  },
-  {
     "format": "tag",
     "hidden": false,
     "key": "tag",

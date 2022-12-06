@@ -66,3 +66,10 @@ extension BundledRelationsValueProvider {
             .map { SmartBlockType(smartBlockType: $0) }
     }
 }
+
+// TODO: Delete when middle update relations.json
+public extension BundledRelationsValueProvider where Self: RelationValueProvider {
+    var sourceObject: String {
+        stringValue(for: "sourceObject")
+    }
+}

@@ -11,6 +11,7 @@ protocol SearchServiceProtocol: AnyObject {
         shouldIncludeSets: Bool,
         shouldIncludeBookmark: Bool
     ) -> [ObjectDetails]?
+    func searchMarketplaceObjectTypes(text: String, excludedIds: [String]) -> [ObjectDetails]?
     func searchFiles(text: String, excludedFileIds: [String]) -> [ObjectDetails]?
     func searchObjects(text: String, excludedObjectIds: [String], limitedTypeIds: [String]) -> [ObjectDetails]?
     func searchTemplates(for type: ObjectTypeId) -> [ObjectDetails]?
@@ -92,6 +93,23 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         ) { $0.id }
     }
     
+    func searchMarketplaceObjectTypes(text: String, excludedIds: [String]) -> [ObjectDetails]? {
+        let sort = SearchHelper.sort(
+            relation: BundledRelationKey.name,
+            type: .asc
+        )
+        
+        let filters = [
+            SearchHelper.workspaceId(MarketplaceId.anytypeMarketplace.rawValue),
+            SearchHelper.typeFilter(typeIds: [ ObjectTypeId.bundled(.systemObjectType).rawValue]),
+            SearchHelper.excludedIdsFilter([ObjectTypeId.bundled(.systemBookmark).rawValue] + excludedIds),
+            SearchHelper.smartblockTypesFilter(types: [.page]),
+        ]
+        
+        let result = search(filters: filters, sorts: [sort], fullText: text)
+        return result
+    }
+    
     func searchFiles(text: String, excludedFileIds: [String]) -> [ObjectDetails]? {
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.name,
@@ -115,12 +133,10 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             type: .desc
         )
         
-//        let typeIds: [String] = limitedTypeIds.isNotEmpty ? limitedTypeIds : objectTypeProvider.visibleSupportedTypeIds()
         var filters = limitedTypeIds.isNotEmpty
             ? buildFilters(isArchived: false, typeIds: limitedTypeIds)
             : buildFilters(isArchived: false, excludedTypeIds: objectTypeProvider.notVisibleTypeIds())
-        
-        
+                
         filters.append(SearchHelper.excludedIdsFilter(excludedObjectIds))
         
         return search(filters: filters, sorts: [sort], fullText: text)
@@ -197,17 +213,8 @@ private extension SearchService {
             objectTypeFilter: [],
             keys: []
         ).getValue(domain: .searchService) else { return nil }
-            
-        let details: [ObjectDetails] = response.records.compactMap { search in
-            let idValue = search.fields["id"]
-            let idString = idValue?.unwrapedListValue.stringValue
-            
-            guard let id = idString else { return nil }
-            
-            return ObjectDetails(id: id, values: search.fields)
-        }
-            
-        return details
+       
+        return response.records.asDetais
     }
 
     private func buildFilters(isArchived: Bool) -> [DataviewFilter] {

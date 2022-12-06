@@ -124,6 +124,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
     ) -> NewSearchView {
         let interactor = ObjectTypesSearchInteractor(
             searchService: ServiceLocator.shared.searchService(),
+            workspaceService: ServiceLocator.shared.workspaceService(),
             excludedObjectTypeId: excludedObjectTypeId,
             showBookmark: showBookmark,
             showSet: showSet
@@ -154,6 +155,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
     ) -> NewSearchView {
         let interactor = ObjectTypesSearchInteractor(
             searchService: ServiceLocator.shared.searchService(),
+            workspaceService: ServiceLocator.shared.workspaceService(),
             excludedObjectTypeId: nil,
             showBookmark: false,
             showSet: false

@@ -9,6 +9,7 @@ final class ObjectTypesSearchViewModel {
     let viewStateSubject = PassthroughSubject<NewSearchViewState, Never>()
     
     private var objects: [ObjectDetails] = []
+    private var marketplaceObjects: [ObjectDetails] = []
     private let interactor: ObjectTypesSearchInteractor
     private let selectedObjectId: BlockId?
     private let onSelect: (_ ids: [String]) -> Void
@@ -28,20 +29,28 @@ extension ObjectTypesSearchViewModel: NewInternalSearchViewModelProtocol {
     
     func search(text: String) {
         let objects = interactor.search(text: text)
+        let sources = objects.map { $0.sourceObject }
+        let marketplaceObjects = interactor.searchInMarketplace(text: text, excludedIds: sources)
         
-        if objects.isEmpty {
+        if objects.isEmpty && marketplaceObjects.isEmpty {
             handleError(for: text)
         } else {
-            handleSearchResults(objects)
+            handleSearchResults(objects: objects, marketplaceObjects: marketplaceObjects)
         }
         
         self.objects = objects
+        self.marketplaceObjects = marketplaceObjects
     }
     
     func handleRowsSelection(ids: [String]) {}
     
     func handleConfirmSelection(ids: [String]) {
-        onSelect(ids)
+        let idsToInstall = marketplaceObjects.filter { ids.contains($0.id) }.map { $0.id }
+        let installedIds = ids.filter { !idsToInstall.contains($0) }
+        let newInstalledIds = interactor.installTypes(objectIds: idsToInstall)
+        let result = installedIds + newInstalledIds
+        
+        onSelect(result)
     }
 }
 
@@ -51,10 +60,21 @@ private extension ObjectTypesSearchViewModel {
         viewStateSubject.send(.error(.noObjectError(searchText: text)))
     }
     
-    func handleSearchResults(_ objects: [ObjectDetails]) {
+    func handleSearchResults(objects: [ObjectDetails], marketplaceObjects: [ObjectDetails]) {
         viewStateSubject.send(
             .resultsList(
-                .plain(rows: objects.asRowConfigurations(selectedId: selectedObjectId))
+                .sectioned(sectinos: [
+                    ListSectionConfiguration(
+                        id: "MyTypesID",
+                        title: "My Types",
+                        rows:  objects.asRowConfigurations(selectedId: selectedObjectId)
+                    ),
+                    ListSectionConfiguration(
+                        id: "MarketplaceId",
+                        title: "Marketplace",
+                        rows:  marketplaceObjects.asRowConfigurations(selectedId: selectedObjectId)
+                    )
+                ])
             )
         )
     }

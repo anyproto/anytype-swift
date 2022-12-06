@@ -9,7 +9,6 @@ public typealias ObjectId = String
 public protocol BundledRelationsValueProvider {
 
     var meditation: Bool { get }
-    var relationOptionsDict: [ObjectId] { get }
     var tag: [ObjectId] { get }
     var camera: String { get }
     var heightInPixels: Int? { get }
@@ -183,10 +182,6 @@ public protocol BundledRelationsValueProvider {
 public extension BundledRelationsValueProvider where Self: RelationValueProvider {
     var meditation: Bool {
         return value(for: BundledRelationKey.meditation.rawValue)
-    }
-    /// Strict dictionary to select relation values from
-    var relationOptionsDict: [ObjectId] {
-        return value(for: BundledRelationKey.relationOptionsDict.rawValue)
     }
     var tag: [ObjectId] {
         return value(for: BundledRelationKey.tag.rawValue)

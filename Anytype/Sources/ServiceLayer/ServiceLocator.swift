@@ -107,6 +107,11 @@ final class ServiceLocator {
     func blockListService(documentId: String) -> BlockListServiceProtocol {
         return BlockListService(contextId: documentId)
     }
+    
+    func workspaceService() -> WorkspaceServiceProtocol {
+        return WorkspaceService()
+    }
+    
     // MARK: - Private
     
     func pageService() -> PageServiceProtocol {

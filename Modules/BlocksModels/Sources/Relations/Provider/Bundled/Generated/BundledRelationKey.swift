@@ -8,9 +8,6 @@ public enum BundledRelationKey: String {
 
     case meditation = "meditation"
 
-    /// Strict dictionary to select relation values from
-    case relationOptionsDict = "relationOptionsDict"
-
     case tag = "tag"
 
     /// Camera used to capture image or video
