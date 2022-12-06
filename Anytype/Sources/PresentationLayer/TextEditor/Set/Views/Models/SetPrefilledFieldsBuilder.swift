@@ -13,7 +13,7 @@ final class SetPrefilledFieldsBuilder: SetPrefilledFieldsBuilderProtocol {
         var prefilledFields: [String: Google_Protobuf_Value] = [:]
         
         for relationDetails in relationsDetails {
-            prefilledFields[relationDetails.id] = "".protobufValue
+            prefilledFields[relationDetails.id] = Google_Protobuf_Value(nilLiteral: ())
         }
         
         for setFilter in setFilters {
