@@ -5,7 +5,7 @@ import AnytypeCore
 import UIKit
 
 final class ObjectActionsViewModel: ObservableObject {
-    var onLinkCompletion: RoutingAction<NSAttributedString>?
+    var onLinkItselfToObjectHandler: RoutingAction<BlockId>?
     
     var objectActions: [ObjectAction] {
         guard let details = details else { return [] }
@@ -77,23 +77,14 @@ final class ObjectActionsViewModel: ObservableObject {
         let onObjectSelection: (BlockId) -> Void = { objectId in
             Task { [weak self] in
                 guard let self = self else { return }
-
                 let targetDocument = BaseDocument(objectId: objectId)
                 try? await targetDocument.open()
                 guard let id = targetDocument.children.last?.id else { return }
 
                 let targetObjectService = BlockActionsServiceSingle(contextId: objectId)
-
-
                 let _ = targetObjectService.add(targetId: id, info: .emptyLink(targetId: currentObjectId), position: .bottom)
                 
-                guard let details = targetDocument.details else {
-                    return
-                }
-                
-                let attributedString = await self.createAttributedString(from: details)
-                
-                self.onLinkCompletion?(attributedString)
+                self.onLinkItselfToObjectHandler?(objectId)
             }
         }
 
@@ -107,26 +98,5 @@ final class ObjectActionsViewModel: ObservableObject {
     }
 
     func search() {
-    }
-    
-    func createAttributedString(from objectDetails: ObjectDetails) async -> NSAttributedString {
-        guard let icon = objectDetails.icon else {
-            return .init(string: objectDetails.name)
-        }
-        
-        let loader = AnytypeIconDownloader()
-        
-        guard let image = await loader.image(
-            with: icon,
-            imageGuideline: .init(size: .init(width: 16, height: 16))
-        ) else {
-            return .init(string: objectDetails.name)
-        }
-        
-        return NSAttributedString.imageFirstComposite(
-            image: image,
-            text: objectDetails.name,
-            attributes: [.foregroundColor: UIColor.textPrimary]
-        )
     }
 }

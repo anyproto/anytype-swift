@@ -636,3 +636,5 @@
 "WidgetExtension.LockScreen.Title" = "New object";
 "WidgetExtension.LockScreen.Description" = "Create a new object on the fly";
 
+// MARK: - Toast
+"Editor.Toast.GetStartedLinkedTo" = "Get Started linked to";

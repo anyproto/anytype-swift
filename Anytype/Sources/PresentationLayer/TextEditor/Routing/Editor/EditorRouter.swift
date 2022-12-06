@@ -22,6 +22,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
     private let objectSettingCoordinator: ObjectSettingsCoordinatorProtocol
     private let searchModuleAssembly: SearchModuleAssemblyProtocol
+    private let toastPresenter: ToastPresenterProtocol
     private let alertHelper: AlertHelper
     
     init(
@@ -39,6 +40,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
         objectSettingCoordinator: ObjectSettingsCoordinatorProtocol,
         searchModuleAssembly: SearchModuleAssemblyProtocol,
+        toastPresenter: ToastPresenterProtocol,
         alertHelper: AlertHelper
     ) {
         self.rootController = rootController
@@ -56,7 +58,12 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
         self.objectSettingCoordinator = objectSettingCoordinator
         self.searchModuleAssembly = searchModuleAssembly
+        self.toastPresenter = toastPresenter
         self.alertHelper = alertHelper
+    }
+    
+    func showToastMessage(attributedString: NSAttributedString) {
+        toastPresenter.show(message: attributedString, mode: .aboveKeyboard)
     }
 
     func showPage(data: EditorScreenData) {
@@ -66,12 +73,12 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     func replaceCurrentPage(with data: EditorScreenData) {
         editorPageCoordinator.startFlow(data: data, replaceCurrentPage: true)
     }
-
+    
     func showAlert(alertModel: AlertModel) {
         let alertController = AlertsFactory.alertController(from: alertModel)
         navigationContext.present(alertController)
     }
-
+    
     func showLinkContextualMenu(inputParameters: TextBlockURLInputParameters) {
         let contextualMenuView = EditorContextualMenuView(
             options: [.pasteAsLink, .createBookmark, .pasteAsText],
@@ -338,7 +345,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     
     // MARK: - Settings
     func showSettings() {
-        objectSettingCoordinator.startFlow()
+        objectSettingCoordinator.startFlow(delegate: self)
     }
     
     func showCoverPicker() {
@@ -747,6 +754,14 @@ extension EditorRouter {
             )
         )
         presentFullscreen(popup)
+    }
+}
+
+extension EditorRouter: ObjectSettingsModuleDelegate {
+    func didCreateLinkToItself(in objectId: BlockId) {
+        toastPresenter.showObjectCompositeAlert(p1: Loc.Editor.Toast.getStartedLinkedTo, objectId: objectId) { [weak self] in
+            self?.showPage(data: .init(pageId: objectId, type: .page))
+        }
     }
 }
 

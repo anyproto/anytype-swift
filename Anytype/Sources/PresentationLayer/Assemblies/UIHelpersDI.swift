@@ -20,10 +20,7 @@ final class UIHelpersDI: UIHelpersDIProtocol {
     let viewControllerProvider: ViewControllerProviderProtocol
     
     var toastPresenter: ToastPresenterProtocol {
-        ToastPresenter(
-            viewControllerProvider: viewControllerProvider,
-            keyboardHeightListener: KeyboardHeightListener()
-        )
+        toastPresenter(using: nil)
     }
     
     var commonNavigationContext: NavigationContextProtocol {

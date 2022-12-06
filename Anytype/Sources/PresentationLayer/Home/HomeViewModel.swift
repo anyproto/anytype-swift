@@ -25,7 +25,7 @@ final class HomeViewModel: ObservableObject {
     
     @Published var showSearch = false
     @Published var showPagesDeletionAlert = false
-    @Published var snackBarData = SnackBarData.empty
+    @Published var snackBarData = ToastBarData.empty
     @Published var loadingAlertData = LoadingAlertData.empty
     @Published var loadingDocument = true
     

@@ -5,7 +5,7 @@ struct KeychainPhraseView: View {
     var shownInContext: AnalyticsEventsKeychainContext
 
     @StateObject private var model = KeychainPhraseViewModel()
-    @State private var showSnackbar = false
+    @State private var toastBarData: ToastBarData = .empty
     
     var body: some View {
         VStack(alignment: .center, spacing: 0) {
@@ -32,15 +32,12 @@ struct KeychainPhraseView: View {
         .onAppear {
             AnytypeAnalytics.instance().logKeychainPhraseShow(shownInContext)
         }
-        .snackbar(
-            isShowing: $showSnackbar,
-            text: AnytypeText(Loc.Keychain.recoveryPhraseCopiedToClipboard, style: .uxCalloutRegular, color: .textPrimary)
-        )
+        .snackbar(toastBarData: $toastBarData)
         .environmentObject(model)
     }
     
     private func didShowPhrase() {
-        showSnackbar = true
+        toastBarData = .init(text: Loc.Keychain.recoveryPhraseCopiedToClipboard, showSnackBar: true)
         AnytypeAnalytics.instance().logKeychainPhraseCopy(shownInContext)
     }
 }

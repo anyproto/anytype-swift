@@ -67,6 +67,7 @@ extension Color {
     internal static let shimmering = Color(asset: Asset.shimmering)
     
     // MARK: - Backgound
+    internal static let backgroundBlack = Color(asset: Asset.backgroundBlack)
     internal static let backgroundDashboard = Color(asset: Asset.backgroundDashboard)
     internal static let backgroundPrimary = Color(asset: Asset.backgroundPrimary)
     internal static let backgroundSecondary = Color(asset: Asset.backgroundSecondary)

@@ -79,6 +79,7 @@ extension NSAttributedString {
     static func imageFirstComposite(
         image: UIImage,
         text: String,
+        spaceWidth: CGFloat = 6,
         attributes: [NSAttributedString.Key : Any]
     ) -> NSAttributedString {
         let font = (attributes[.font] as? UIFont) ?? UIFont.preferredFont(forTextStyle: .body)
@@ -99,7 +100,7 @@ extension NSAttributedString {
         
         let spacerAttachmenent = NSTextAttachment()
         spacerAttachmenent.image = UIImage()
-        spacerAttachmenent.bounds = .init(origin: .zero, size: .init(width: 6, height: 0.001))
+        spacerAttachmenent.bounds = .init(origin: .zero, size: .init(width: spaceWidth, height: 0.001))
         
         compositeAttributedString.append(.init(attachment: spacerAttachmenent))
 

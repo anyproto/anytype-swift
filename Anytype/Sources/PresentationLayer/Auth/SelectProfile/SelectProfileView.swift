@@ -14,11 +14,7 @@ struct SelectProfileView: View {
             }
         }
         
-        .snackbar(
-            isShowing: $viewModel.snackBarData.showSnackBar,
-            text: AnytypeText(viewModel.snackBarData.text, style: .uxCalloutRegular, color: .textPrimary),
-            autohide: .disabled
-        )
+        .snackbar(toastBarData: $viewModel.snackBarData)
         
         .errorToast(isShowing: $viewModel.showError, errorText: viewModel.errorText ?? "") {
             presentationMode.wrappedValue.dismiss()

@@ -971,6 +971,10 @@ internal enum Loc {
       /// Scroll to select a place
       internal static let scrollToSelectedPlace = Loc.tr("Localizable", "Editor.MovingState.ScrollToSelectedPlace", fallback: "Scroll to select a place")
     }
+    internal enum Toast {
+      /// Get Started linked to
+      internal static let getStartedLinkedTo = Loc.tr("Localizable", "Editor.Toast.GetStartedLinkedTo", fallback: "Get Started linked to")
+    }
   }
   internal enum EditorSetViewPicker {
     internal enum View {

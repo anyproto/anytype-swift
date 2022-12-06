@@ -4,9 +4,7 @@ import SwiftUI
 
 extension UIViewController {
     
-    @objc dynamic var bottomToastOffset: CGFloat {
-        return view.safeAreaInsets.bottom
-    }
+    @objc dynamic var bottomToastOffset: CGFloat { 0 }
     
     func setupBackBarButtonItem(_ item: UIBarButtonItem?) {
         navigationItem.hidesBackButton = true
