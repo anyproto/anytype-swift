@@ -140,6 +140,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         )
         let viewModel = NewSearchViewModel(
             title: title,
+            searchPlaceholder: Loc.ObjectType.searchOrInstall,
             style: style,
             itemCreationMode: .unavailable,
             internalViewModel: internalViewModel

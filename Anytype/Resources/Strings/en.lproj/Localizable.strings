@@ -561,6 +561,7 @@
 
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "Blank canvas with no title";
+"ObjectType.SearchOrInstall" = "Search or install a new type";
 
 // MARK: - QuickAction
 "QuickAction.create" = "Create %s";

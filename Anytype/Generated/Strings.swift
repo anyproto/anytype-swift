@@ -1077,6 +1077,8 @@ internal enum Loc {
   internal enum ObjectType {
     /// Blank canvas with no title
     internal static let fallbackDescription = Loc.tr("Localizable", "ObjectType.fallbackDescription", fallback: "Blank canvas with no title")
+    /// Search or install a new type
+    internal static let searchOrInstall = Loc.tr("Localizable", "ObjectType.SearchOrInstall", fallback: "Search or install a new type")
   }
   internal enum QuickAction {
     /// Create %s
