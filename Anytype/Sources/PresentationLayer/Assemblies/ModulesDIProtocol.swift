@@ -9,5 +9,6 @@ protocol ModulesDIProtocol: AnyObject {
     var objectIconPicker: ObjectIconPickerModuleAssemblyProtocol { get }
     var objectSetting: ObjectSettingModuleAssemblyProtocol { get }
     var search: SearchModuleAssemblyProtocol { get }
+    var createObject: CreateObjectModuleAssemblyProtocol { get }
     var codeLanguageList: CodeLanguageListModuleAssemblyProtocol { get }
 }

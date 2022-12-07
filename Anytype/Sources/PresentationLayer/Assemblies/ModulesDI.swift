@@ -44,6 +44,10 @@ final class ModulesDI: ModulesDIProtocol {
         return SearchModuleAssembly(serviceLocator: serviceLocator)
     }
     
+    var createObject: CreateObjectModuleAssemblyProtocol {
+        return CreateObjectModuleAssembly(serviceLocator: serviceLocator)
+    }
+
     var codeLanguageList: CodeLanguageListModuleAssemblyProtocol {
         return CodeLanguageListModuleAssembly(serviceLocator: serviceLocator)
     }

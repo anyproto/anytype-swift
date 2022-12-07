@@ -80,6 +80,7 @@ final class EditorAssembly {
             objectSettingCoordinator: coordinatorsDI.objectSettings.make(document: document, browserController: browser),
             searchModuleAssembly: modulesDI.search,
             toastPresenter: uiHelpersDI.toastPresenter(using: browser),
+            createObjectModuleAssembly: modulesDI.createObject,
             codeLanguageListModuleAssembly: modulesDI.codeLanguageList,
             alertHelper: AlertHelper(viewController: controller)
         )
@@ -126,6 +127,7 @@ final class EditorAssembly {
             objectSettingCoordinator: coordinatorsDI.objectSettings.make(document: document, browserController: browser),
             searchModuleAssembly: modulesDI.search,
             toastPresenter: uiHelpersDI.toastPresenter(using: browser),
+            createObjectModuleAssembly: modulesDI.createObject,
             codeLanguageListModuleAssembly: modulesDI.codeLanguageList,
             alertHelper: AlertHelper(viewController: controller)
         )
