@@ -30,12 +30,4 @@ extension NewSearchError {
             subtitle: nil
         )
     }
-    
-    static func alreadySelected(searchText: String) -> NewSearchError {
-        NewSearchError(
-            title: Loc.isAlreadySelected(searchText),
-            subtitle: nil
-        )
-    }
-    
 }
