@@ -1154,10 +1154,18 @@ internal enum Loc {
       internal static let relationsList = Loc.tr("Localizable", "Set.FeaturedRelations.RelationsList", fallback: "Relations:")
       /// Source
       internal static let source = Loc.tr("Localizable", "Set.FeaturedRelations.Source", fallback: "Source")
+      /// Type:
+      internal static let type = Loc.tr("Localizable", "Set.FeaturedRelations.Type", fallback: "Type:")
     }
     internal enum SourceType {
       /// Select source
       internal static let selectSource = Loc.tr("Localizable", "Set.SourceType.SelectSource", fallback: "Select source")
+      internal enum Cancel {
+        internal enum Toast {
+          /// This source can be changed on desktop only
+          internal static let title = Loc.tr("Localizable", "Set.SourceType.Cancel.Toast.Title", fallback: "This source can be changed on desktop only")
+        }
+      }
     }
     internal enum View {
       internal enum Kanban {

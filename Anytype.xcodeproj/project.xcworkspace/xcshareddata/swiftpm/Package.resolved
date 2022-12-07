@@ -192,7 +192,7 @@
     {
       "identity" : "swiftentrykit",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/bududomasidet/SwiftEntryKit/",
+      "location" : "git@github.com:bududomasidet/SwiftEntryKit.git",
       "state" : {
         "revision" : "371745f2f446a5ca5e2e12523db32a2169b501a0",
         "version" : "1.0.0"

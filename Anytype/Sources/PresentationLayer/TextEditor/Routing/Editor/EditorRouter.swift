@@ -81,6 +81,10 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         navigationContext.present(alertController)
     }
     
+    func showFailureToast(message: String) {
+        toastPresenter.showFailureAlert(message: message)
+    }
+    
     func showLinkContextualMenu(inputParameters: TextBlockURLInputParameters) {
         let contextualMenuView = EditorContextualMenuView(
             options: [.pasteAsLink, .createBookmark, .pasteAsText],

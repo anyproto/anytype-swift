@@ -10,9 +10,9 @@ final class DataviewService: DataviewServiceProtocol {
     }
 
     private let objectId: BlockId
-    private let prefilledFieldsBuilder: SetFilterPrefilledFieldsBuilderProtocol
+    private let prefilledFieldsBuilder: SetPrefilledFieldsBuilderProtocol
     
-    init(objectId: BlockId, prefilledFieldsBuilder: SetFilterPrefilledFieldsBuilderProtocol) {
+    init(objectId: BlockId, prefilledFieldsBuilder: SetPrefilledFieldsBuilderProtocol) {
         self.objectId = objectId
         self.prefilledFieldsBuilder = prefilledFieldsBuilder
     }
@@ -64,8 +64,13 @@ final class DataviewService: DataviewServiceProtocol {
         event.send()
     }
     
-    func addRecord(objectType: String, templateId: BlockId, setFilters: [SetFilter]) async throws -> String {
-        var prefilledFields = prefilledFieldsBuilder.buildPrefilledFields(from: setFilters)
+    func addRecord(
+        objectType: String,
+        templateId: BlockId,
+        setFilters: [SetFilter],
+        relationsDetails: [RelationDetails]
+    ) async throws -> String {
+        var prefilledFields = prefilledFieldsBuilder.buildPrefilledFields(from: setFilters, relationsDetails: relationsDetails)
         prefilledFields[BundledRelationKey.type.rawValue] = objectType.protobufValue
 
         let internalFlags: [Anytype_Model_InternalFlag] = [
