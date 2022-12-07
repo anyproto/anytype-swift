@@ -11,15 +11,15 @@ protocol NewInternalSearchViewModelProtocol {
     
     func handleRowsSelection(ids: [String])
     
-    func isCreateButtonAvailable(searchText: String) -> Bool
+    func createButtonModel(searchText: String) -> NewSearchCreateButtonModel
     
     func handleConfirmSelection(ids: [String])
 }
 
 extension NewInternalSearchViewModelProtocol {
     
-    func isCreateButtonAvailable(searchText: String) -> Bool {
-        searchText.isNotEmpty
+    func createButtonModel(searchText: String) -> NewSearchCreateButtonModel {
+        return NewSearchCreateButtonModel(show: false)
     }
     
 }

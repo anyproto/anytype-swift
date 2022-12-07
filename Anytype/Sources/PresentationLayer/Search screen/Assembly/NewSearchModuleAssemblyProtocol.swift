@@ -57,6 +57,11 @@ protocol NewSearchModuleAssemblyProtocol {
         excludedObjectIds: [String],
         onSelect: @escaping (_ details: ObjectDetails) -> Void
     ) -> NewSearchView
+    
+    static func relationsSearchModule(
+        selectedRelations: ParsedRelations,
+        output: SearchNewRelationModuleOutput
+    ) -> NewSearchView
 }
 
 // Extension for specific Settings

@@ -10,7 +10,7 @@ final class NewSearchViewModel: ObservableObject {
     
     @Published private(set) var state: NewSearchViewState = .resultsList(.plain(rows: []))
     @Published private(set) var addButtonModel: NewSearchView.AddButtonModel? = nil
-    @Published private(set) var isCreateButtonAvailable: Bool = false
+    @Published private(set) var createButtonModel: NewSearchCreateButtonModel = NewSearchCreateButtonModel(show: false)
     
     private let itemCreationMode: ItemCreationMode
     private let selectionMode: SelectionMode
@@ -86,11 +86,10 @@ private extension NewSearchViewModel {
     
     func updateCreateItemButtonState(searchText: String) {
         guard case .available = itemCreationMode else {
-            isCreateButtonAvailable = false
             return
         }
         
-        isCreateButtonAvailable = internalViewModel.isCreateButtonAvailable(searchText: searchText)
+        createButtonModel = internalViewModel.createButtonModel(searchText: searchText)
     }
     
     func updateSelectedRowIds() {
