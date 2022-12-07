@@ -12,7 +12,6 @@ protocol ObjectSettingswModelOutput: AnyObject {
     func iconPickerAction()
     func relationsAction()
     func openPageAction(screenData: EditorScreenData)
-    func showActionMessage(message: NSAttributedString)
     func linkToAction(onSelect: @escaping (BlockId) -> ())
 }
 

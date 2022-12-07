@@ -35,7 +35,6 @@ final class ObjectSettingsCoordinatorAssembly: ObjectSettingsCoordinatorAssembly
             relationValueCoordinator: coordinatorsDI.relationValue.make(),
             editorPageCoordinator: coordinatorsDI.editorPage.make(browserController: browserController),
             addNewRelationCoordinator: coordinatorsDI.addNewRelation.make(document: document),
-            toastPresenter: uiHelpersDI.toastPresenter(using: browserController),
             searchModuleAssembly: modulesDI.search
         )
     }

@@ -20,7 +20,6 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
     private let relationValueCoordinator: RelationValueCoordinatorProtocol
     private let editorPageCoordinator: EditorPageCoordinatorProtocol
     private let addNewRelationCoordinator: AddNewRelationCoordinatorProtocol
-    private let toastPresenter: ToastPresenterProtocol
     private let searchModuleAssembly: SearchModuleAssemblyProtocol
     
     init(
@@ -35,7 +34,6 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
         relationValueCoordinator: RelationValueCoordinatorProtocol,
         editorPageCoordinator: EditorPageCoordinatorProtocol,
         addNewRelationCoordinator: AddNewRelationCoordinatorProtocol,
-        toastPresenter: ToastPresenterProtocol,
         searchModuleAssembly: SearchModuleAssemblyProtocol
     ) {
         self.document = document
@@ -49,7 +47,6 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
         self.relationValueCoordinator = relationValueCoordinator
         self.editorPageCoordinator = editorPageCoordinator
         self.addNewRelationCoordinator = addNewRelationCoordinator
-        self.toastPresenter = toastPresenter
         self.searchModuleAssembly = searchModuleAssembly
     }
     
@@ -108,10 +105,6 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
         }
 
         navigationContext.presentSwiftUIView(view: moduleView)
-    }
-    
-    func showActionMessage(message: NSAttributedString) {
-        toastPresenter.show(message: message, mode: .aboveKeyboard)
     }
     
     // MARK: - RelationsListModuleOutput

@@ -7,7 +7,6 @@ protocol AttachmentRouterProtocol {
 }
 
 protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
-    func showToastMessage(attributedString: NSAttributedString)
     func showAlert(alertModel: AlertModel)
     func showPage(data: EditorScreenData)
     func replaceCurrentPage(with data: EditorScreenData)

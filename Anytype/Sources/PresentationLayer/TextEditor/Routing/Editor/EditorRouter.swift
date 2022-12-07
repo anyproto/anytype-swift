@@ -64,10 +64,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         self.codeLanguageListModuleAssembly = codeLanguageListModuleAssembly
         self.alertHelper = alertHelper
     }
-    
-    func showToastMessage(attributedString: NSAttributedString) {
-        toastPresenter.show(message: attributedString, mode: .aboveKeyboard)
-    }
 
     func showPage(data: EditorScreenData) {
         editorPageCoordinator.startFlow(data: data, replaceCurrentPage: false)
