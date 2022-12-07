@@ -76,6 +76,7 @@ final class EditorAssembly {
             objectIconPickerModuleAssembly: modulesDI.objectIconPicker,
             objectSettingCoordinator: coordinatorsDI.objectSettings.make(document: document, browserController: browser),
             searchModuleAssembly: modulesDI.search,
+            createObjectModuleAssembly: modulesDI.createObject,
             codeLanguageListModuleAssembly: modulesDI.codeLanguageList,
             alertHelper: AlertHelper(viewController: controller)
         )
@@ -121,6 +122,7 @@ final class EditorAssembly {
             objectIconPickerModuleAssembly: modulesDI.objectIconPicker,
             objectSettingCoordinator: coordinatorsDI.objectSettings.make(document: document, browserController: browser),
             searchModuleAssembly: modulesDI.search,
+            createObjectModuleAssembly: modulesDI.createObject,
             codeLanguageListModuleAssembly: modulesDI.codeLanguageList,
             alertHelper: AlertHelper(viewController: controller)
         )
