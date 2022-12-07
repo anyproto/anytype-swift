@@ -141,10 +141,7 @@ struct HomeView: View {
         }
         .animation(.fastSpring, value: settingsModel.accountDeleting)
         
-        .snackbar(
-            isShowing: $model.snackBarData.showSnackBar,
-            text: AnytypeText(model.snackBarData.text, style: .uxCalloutRegular, color: .textPrimary)
-        )
+        .snackbar(toastBarData: $model.snackBarData)
         
         .navigationBarTitleDisplayMode(.inline)
     }

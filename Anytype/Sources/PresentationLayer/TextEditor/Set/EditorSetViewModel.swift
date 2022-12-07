@@ -168,10 +168,7 @@ final class EditorSetViewModel: ObservableObject {
 
     func onRelationTap(relation: Relation) {
         if relation.hasSelectedObjectsRelationType {
-            router.showToast(
-                title: Loc.Set.SourceType.Cancel.Toast.title,
-                message: nil
-            )
+            router.showFailureToast(message: Loc.Set.SourceType.Cancel.Toast.title)
         } else {
             AnytypeAnalytics.instance().logChangeRelationValue(type: .set)
             showRelationValueEditingView(key: relation.key, source: .object)
