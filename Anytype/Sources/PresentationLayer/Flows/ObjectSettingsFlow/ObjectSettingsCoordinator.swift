@@ -2,7 +2,7 @@ import Foundation
 import BlocksModels
 
 protocol ObjectSettingsCoordinatorProtocol {
-    func startFlow()
+    func startFlow(delegate: ObjectSettingsModuleDelegate)
 }
 
 final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
@@ -50,8 +50,13 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
         self.searchModuleAssembly = searchModuleAssembly
     }
     
-    func startFlow() {
-        let moduleViewController = objectSettingsModuleAssembly.make(document: document, output: self)
+    func startFlow(delegate: ObjectSettingsModuleDelegate) {
+        let moduleViewController = objectSettingsModuleAssembly.make(
+            document: document,
+            output: self,
+            delegate: delegate
+        )
+        
         navigationContext.present(moduleViewController)
     }
     
@@ -93,9 +98,10 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
         let moduleView = NewSearchModuleAssembly.blockObjectsSearchModule(
             title: Loc.linkTo,
             excludedObjectIds: [document.objectId]
-        ) { [weak self] details in
-            onSelect(details.id)
-            self?.navigationContext.dismissTopPresented()
+        ) { [weak navigationContext] details in
+            navigationContext?.dismissAllPresented(animated: true) {
+                onSelect(details.id)
+            }
         }
 
         navigationContext.presentSwiftUIView(view: moduleView)

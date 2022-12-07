@@ -18,8 +18,7 @@ final class UndoRedoModuleAssembly: UndoRedoModuleAssemblyProtocol {
     // MARK: - UndoRedoModuleAssemblyProtocol
     
     func make(document: BaseDocumentProtocol) -> UIViewController {
-        
-        let viewModel = UndoRedoViewModel(objectId: document.objectId, toastPresenter: uiHelpersDI.toastPresenter)
+        let viewModel = UndoRedoViewModel(objectId: document.objectId)
         let undoRedoView = UndoRedoView(viewModel: viewModel)
         
         let popupViewController = AnytypePopup(
@@ -28,6 +27,13 @@ final class UndoRedoModuleAssembly: UndoRedoModuleAssemblyProtocol {
             configuration: .init(isGrabberVisible: false, dismissOnBackdropView: true)
         )
         popupViewController.backdropView.backgroundColor = .clear
+        
+        viewModel.onErrorHandler = { [weak self] errorMessage in
+            self?.uiHelpersDI.toastPresenter.show(
+                message: .init(string: errorMessage), mode: .aboveView(popupViewController.surfaceView)
+            )
+        }
+        
 
         return popupViewController
     }

@@ -242,6 +242,8 @@ internal extension ImageAsset {
     static let bigGhost = ImageAsset.bundle(name: "TextEditor/bigGhost")
     static let questionMark = ImageAsset.bundle(name: "TextEditor/questionMark")
   }
+  static let toastFailure = ImageAsset.bundle(name: "toast_failure")
+  static let toastTick = ImageAsset.bundle(name: "toast_tick")
   static let splashLogo = ImageAsset.bundle(name: "splash_logo")
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name

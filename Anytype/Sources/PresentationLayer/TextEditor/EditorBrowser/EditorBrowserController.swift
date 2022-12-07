@@ -25,6 +25,7 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
     private let dashboardService = ServiceLocator.shared.dashboardService()
     private let stateManager = BrowserNavigationManager()
     private let browserView = EditorBrowserView()
+    private var isNavigationViewHidden = false
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -42,7 +43,7 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
             $0.pinToSuperviewPreservingReadability(excluding: [.top, .bottom])
             navigationViewBottomConstaint = $0.bottom.equal(to: view.bottomAnchor)
         }
-
+        
         embedChild(childNavigation, into: view)
         childNavigation.view.layoutUsing.anchors {
             $0.pinToSuperviewPreservingReadability(excluding: [.bottom])
@@ -149,6 +150,7 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
 
     func setNavigationViewHidden(_ isHidden: Bool, animated: Bool) {
         navigationViewBottomConstaint?.constant = isHidden ? view.safeAreaInsets.bottom + EditorBottomNavigationView.Constants.height : 0
+        isNavigationViewHidden = isHidden
         
         UIView.animate(
             withDuration: animated ? 0.3 : 0,
@@ -198,5 +200,11 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
             openedPages: stateManager.openedPages,
             closedPages: stateManager.closedPages
         )
+    }
+}
+
+extension EditorBrowserController {
+    override var bottomToastOffset: CGFloat {
+        isNavigationViewHidden ? super.bottomToastOffset : EditorBottomNavigationView.Constants.height
     }
 }

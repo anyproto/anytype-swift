@@ -7,15 +7,18 @@ final class EditorAssembly {
     private let serviceLocator: ServiceLocator
     private let coordinatorsDI: CoordinatorsDIProtocol
     private let modulesDI: ModulesDIProtocol
+    private let uiHelpersDI: UIHelpersDIProtocol
     
     init(
         serviceLocator: ServiceLocator,
         coordinatorsDI: CoordinatorsDIProtocol,
-        modulesDI: ModulesDIProtocol
+        modulesDI: ModulesDIProtocol,
+        uiHelpersDI: UIHelpersDIProtocol
     ) {
         self.serviceLocator = serviceLocator
         self.coordinatorsDI = coordinatorsDI
         self.modulesDI = modulesDI
+        self.uiHelpersDI = uiHelpersDI
     }
     
     func buildEditorController(
@@ -76,6 +79,7 @@ final class EditorAssembly {
             objectIconPickerModuleAssembly: modulesDI.objectIconPicker,
             objectSettingCoordinator: coordinatorsDI.objectSettings.make(document: document, browserController: browser),
             searchModuleAssembly: modulesDI.search,
+            toastPresenter: uiHelpersDI.toastPresenter(using: browser),
             createObjectModuleAssembly: modulesDI.createObject,
             codeLanguageListModuleAssembly: modulesDI.codeLanguageList,
             alertHelper: AlertHelper(viewController: controller)
@@ -122,6 +126,7 @@ final class EditorAssembly {
             objectIconPickerModuleAssembly: modulesDI.objectIconPicker,
             objectSettingCoordinator: coordinatorsDI.objectSettings.make(document: document, browserController: browser),
             searchModuleAssembly: modulesDI.search,
+            toastPresenter: uiHelpersDI.toastPresenter(using: browser),
             createObjectModuleAssembly: modulesDI.createObject,
             codeLanguageListModuleAssembly: modulesDI.codeLanguageList,
             alertHelper: AlertHelper(viewController: controller)
