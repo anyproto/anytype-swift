@@ -40,7 +40,7 @@ final class RelationsSearchViewModel: NewInternalSearchViewModelProtocol {
     }
     
     func createButtonModel(searchText: String) -> NewSearchCreateButtonModel {
-        return NewSearchCreateButtonModel(show: true, title: Loc.createRelation(searchText))
+        return NewSearchCreateButtonModel(show: searchText.isNotEmpty, title: Loc.createRelation(searchText))
     }
     
     func handleConfirmSelection(ids: [String]) {

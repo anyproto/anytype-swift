@@ -252,7 +252,7 @@
 // MARK: - Relation
 "Featured relations" = "Featured relations";
 "Create from scratch" = "Create from scratch";
-"Create relation" = "Create relation \"%s\"";
+"Create relation" = "Create relation ‘%@’";
 "Relation.View.Hint.Empty" = "empty";
 
 // MARK: - Deletion
@@ -525,7 +525,7 @@
 "Today" = "Today";
 "No date" = "No date";
 "Clear" = "Clear";
-"Create option" = "Create option %s";
+"Create option" = "Create option ‘%s’";
 "Add URL" = "Add URL";
 "Add email" = "Add email";
 "Add phone number" = "Add phone number";

@@ -10,7 +10,7 @@ struct ListCreateButton: View {
         } label: {
             HStack(spacing: 8) {
                 Image(asset: .relationNew).frame(width: 24, height: 24)
-                AnytypeText(text, style: .uxBodyRegular, color: .textSecondary)
+                AnytypeText(text, style: .uxBodyRegular, color: .textPrimary)
                     .lineLimit(1)
                 Spacer()
             }
@@ -23,6 +23,6 @@ struct ListCreateButton: View {
 
 struct ListCreateButton_Previews: PreviewProvider {
     static var previews: some View {
-        ListCreateButton(text: "tetet") {}
+        ListCreateButton(text: "Create object") {}
     }
 }

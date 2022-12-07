@@ -201,15 +201,15 @@ internal enum Loc {
   internal static let createNewObject = Loc.tr("Localizable", "Create new object", fallback: "Create new object")
   /// Create object
   internal static let createObject = Loc.tr("Localizable", "Create object", fallback: "Create object")
-  /// Create option %s
+  /// Create option ‘%s’
   internal static func createOption(_ p1: UnsafePointer<CChar>) -> String {
-    return Loc.tr("Localizable", "Create option", p1, fallback: "Create option %s")
+    return Loc.tr("Localizable", "Create option", p1, fallback: "Create option ‘%s’")
   }
   /// Create pin code
   internal static let createPinCode = Loc.tr("Localizable", "Create pin code", fallback: "Create pin code")
-  /// Create relation "%s"
-  internal static func createRelation(_ p1: UnsafePointer<CChar>) -> String {
-    return Loc.tr("Localizable", "Create relation", p1, fallback: "Create relation \"%s\"")
+  /// Create relation ‘%@’
+  internal static func createRelation(_ p1: Any) -> String {
+    return Loc.tr("Localizable", "Create relation", String(describing: p1), fallback: "Create relation ‘%@’")
   }
   /// Data
   internal static let data = Loc.tr("Localizable", "Data", fallback: "Data")
