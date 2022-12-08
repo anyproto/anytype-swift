@@ -237,12 +237,18 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         output: SearchNewRelationModuleOutput
     ) -> NewSearchView {
         
-        let interactor = RelationsSearchInteractor(searchService: ServiceLocator.shared.searchService())
+        let interactor = RelationsSearchInteractor(
+            searchService: ServiceLocator.shared.searchService(),
+            workspaceService: ServiceLocator.shared.workspaceService()
+        )
         
         let internalViewModel = RelationsSearchViewModel(
             selectedRelations: selectedRelations,
             interactor: interactor,
-            output: output
+            onSelect: { result in
+                guard let details = result.first else { return }
+                output.didAddRelation(details)
+            }
         )
         let viewModel = NewSearchViewModel(
             searchPlaceholder: "Search or create a new relation",

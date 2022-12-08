@@ -200,12 +200,16 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             relation: BundledRelationKey.name,
             type: .asc
         )
-        var filters = buildFilters(
-            isArchived: false,
-            typeIds: [ObjectTypeId.bundled(.relation).rawValue]
-        )
-        filters.append(SearchHelper.excludedRelationKeys(BundledRelationKey.systemKeys.map(\.rawValue)))
-        filters.append(SearchHelper.excludedIdsFilter(excludedIds))
+        
+        let filters = Array.builder {
+            buildFilters(
+                isArchived: false,
+                typeIds: [ObjectTypeId.bundled(.relation).rawValue]
+            )
+            SearchHelper.excludedRelationKeys(BundledRelationKey.systemKeys.map(\.rawValue))
+            SearchHelper.excludedIdsFilter(excludedIds)
+        }
+        
         let details = search(filters: filters, sorts: [sort], fullText: text)
         return details?.map { RelationDetails(objectDetails: $0) }
     }
@@ -215,13 +219,15 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             relation: BundledRelationKey.name,
             type: .asc
         )
-        var filters = buildFilters(
-            isArchived: false,
-            typeIds: [ObjectTypeId.bundled(.systemRelation).rawValue],
-            workspaceId: MarketplaceId.anytypeMarketplace.rawValue
-        )
-        filters.append(SearchHelper.excludedRelationKeys(BundledRelationKey.systemKeys.map(\.rawValue)))
-        filters.append(SearchHelper.excludedIdsFilter(excludedIds))
+        let filters = Array.builder {
+            buildFilters(
+                isArchived: false,
+                typeIds: [ObjectTypeId.bundled(.systemRelation).rawValue],
+                workspaceId: MarketplaceId.anytypeMarketplace.rawValue
+            )
+            SearchHelper.excludedRelationKeys(BundledRelationKey.systemKeys.map(\.rawValue))
+            SearchHelper.excludedIdsFilter(excludedIds)
+        }
         let details = search(filters: filters, sorts: [sort], fullText: text)
         return details?.map { RelationDetails(objectDetails: $0) }
     }

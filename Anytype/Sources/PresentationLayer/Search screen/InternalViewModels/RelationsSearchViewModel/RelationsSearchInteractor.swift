@@ -4,9 +4,11 @@ import BlocksModels
 final class RelationsSearchInteractor {
     
     private let searchService: SearchServiceProtocol
+    private let workspaceService: WorkspaceServiceProtocol
     
-    init(searchService: SearchServiceProtocol) {
+    init(searchService: SearchServiceProtocol, workspaceService: WorkspaceServiceProtocol) {
         self.searchService = searchService
+        self.workspaceService = workspaceService
     }
     
     func search(text: String, excludedIds: [String]) -> [RelationDetails] {
@@ -17,7 +19,9 @@ final class RelationsSearchInteractor {
         return searchService.searchMarketplaceRelations(text: text, excludedIds: excludedIds) ?? []
     }
     
-    func installTypes(objectIds: [String]) -> [String] {
-        return []
+    func installRelations(objectIds: [String]) -> [RelationDetails] {
+        return objectIds
+            .compactMap { workspaceService.installObject(objectId: $0) }
+            .map { RelationDetails(objectDetails: $0)}
     }
 }

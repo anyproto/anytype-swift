@@ -7,18 +7,21 @@ final class RelationsSearchViewModel: NewInternalSearchViewModelProtocol {
     let selectionMode: NewSearchViewModel.SelectionMode = .singleItem
     let viewStateSubject = PassthroughSubject<NewSearchViewState, Never>()
     
+    private var objects: [RelationDetails] = []
+    private var marketplaceObjects: [RelationDetails] = []
+    
     private let selectedRelations: ParsedRelations
     private let interactor: RelationsSearchInteractor
-    private weak var output: SearchNewRelationModuleOutput?
+    private let onSelect: (_ ids: [RelationDetails]) -> Void
     
     init(
         selectedRelations: ParsedRelations,
         interactor: RelationsSearchInteractor,
-        output: SearchNewRelationModuleOutput
+        onSelect: @escaping (_ ids: [RelationDetails]) -> Void
     ) {
         self.selectedRelations = selectedRelations
         self.interactor = interactor
-        self.output = output
+        self.onSelect = onSelect
     }
     
     // MARK: - NewInternalSearchViewModelProtocol
@@ -28,11 +31,10 @@ final class RelationsSearchViewModel: NewInternalSearchViewModelProtocol {
         let sources = objects.map { $0.sourceObject }
         let marketplaceObjects = interactor.searchInMarketplace(text: text, excludedIds: sources)
         
-        if objects.isEmpty && marketplaceObjects.isEmpty {
-            handleError(for: text)
-        } else {
-            handleSearchResults(objects: objects, marketplaceObjects: marketplaceObjects)
-        }
+        handleSearchResults(objects: objects, marketplaceObjects: marketplaceObjects)
+        
+        self.objects = objects
+        self.marketplaceObjects = marketplaceObjects
     }
     
     func handleRowsSelection(ids: [String]) {
@@ -44,30 +46,36 @@ final class RelationsSearchViewModel: NewInternalSearchViewModelProtocol {
     }
     
     func handleConfirmSelection(ids: [String]) {
-        
+        let idsToInstall = marketplaceObjects.filter { ids.contains($0.id) }.map { $0.id }
+        let installedObjects = objects.filter { ids.contains($0.id) }
+        let newInstalledObjects = interactor.installRelations(objectIds: idsToInstall)
+        let result = installedObjects + newInstalledObjects
+    
+        onSelect(result)
     }
     
     // MARK: - Private
     
-    private func handleError(for text: String) {
-        viewStateSubject.send(.error(.noObjectError(searchText: text)))
-    }
-    
     private func handleSearchResults(objects: [RelationDetails], marketplaceObjects: [RelationDetails]) {
+    
         viewStateSubject.send(
             .resultsList(
-                .sectioned(sectinos: [
-                    ListSectionConfiguration(
-                        id: "MyId",
-                        title: "My relations",
-                        rows:  objects.asRowConfigurations()
-                    ),
-                    ListSectionConfiguration(
-                        id: "MarketplaceId",
-                        title: "Marketplace",
-                        rows:  marketplaceObjects.asRowConfigurations()
-                    )
-                ])
+                .sectioned(sectinos: .builder {
+                    if objects.isNotEmpty {
+                        ListSectionConfiguration(
+                            id: "MyId",
+                            title: "My relations",
+                            rows:  objects.asRowConfigurations()
+                        )
+                    }
+                    if marketplaceObjects.isNotEmpty {
+                        ListSectionConfiguration(
+                            id: "MarketplaceId",
+                            title: "Marketplace",
+                            rows:  marketplaceObjects.asRowConfigurations()
+                        )
+                    }
+                })
             )
         )
     }
