@@ -259,7 +259,7 @@ private extension SearchService {
         [
             SearchHelper.notHiddenFilter(),
             SearchHelper.isArchivedFilter(isArchived: isArchived),
-             SearchHelper.workspaceId(workspaceId ?? accountManager.account.info.accountSpaceId),
+            SearchHelper.workspaceId(workspaceId ?? accountManager.account.info.accountSpaceId),
         ]
     }
     
