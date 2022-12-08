@@ -67,6 +67,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
     private let document: BaseDocumentProtocol
     private let modelsHolder: EditorMainItemModelsHolder
     private let blockActionsServiceSingle: BlockActionsServiceSingleProtocol
+    private let toastPresenter: ToastPresenterProtocol
     private let actionHandler: BlockActionHandlerProtocol
     private let pasteboardService: PasteboardServiceProtocol
     private let router: EditorRouterProtocol
@@ -83,6 +84,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         modelsHolder: EditorMainItemModelsHolder,
         blocksSelectionOverlayViewModel: BlocksSelectionOverlayViewModel,
         blockActionsServiceSingle: BlockActionsServiceSingleProtocol,
+        toastPresenter: ToastPresenterProtocol,
         actionHandler: BlockActionHandlerProtocol,
         pasteboardService: PasteboardServiceProtocol,
         router: EditorRouterProtocol,
@@ -94,6 +96,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         self.modelsHolder = modelsHolder
         self.blocksSelectionOverlayViewModel = blocksSelectionOverlayViewModel
         self.blockActionsServiceSingle = blockActionsServiceSingle
+        self.toastPresenter = toastPresenter
         self.actionHandler = actionHandler
         self.pasteboardService = pasteboardService
         self.router = router
@@ -270,10 +273,18 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
                case let .link(content) = info.content {
                 let targetDocument = BaseDocument(objectId: content.targetBlockID)
                 
-                Task { @MainActor in
+                Task { @MainActor [weak self] in
                     try? await targetDocument.open()
                     guard let id = targetDocument.children.last?.id else { return }
                     move(position: .bottom, targetId: targetDocument.objectId, dropTargetId: id)
+                    
+                    self?.toastPresenter.showObjectCompositeAlert(
+                        p1: Loc.Editor.Toast.movedTo,
+                        objectId: targetDocument.objectId,
+                        tapHandler: { [weak self] in
+                            self?.router.showPage(data: .init(pageId: content.targetBlockID, type: .page))
+                        }
+                    )
                 }
             } else {
                 move(position: .inner, targetId: document.objectId, dropTargetId: blockId)
@@ -409,6 +420,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
             }
 
             pasteboardService.copy(blocksIds: blocksIds, selectedTextRange: NSRange())
+            toastPresenter.show(message: Loc.copied)
         case .preview:
             elements.first.map {
                 let blockId = $0.blockId
