@@ -100,8 +100,8 @@ class SetDocument: SetDocumentProtocol {
     // MARK: - Private
     
     private func setup() {
-        document.updatePublisher.sink { update in
-            DispatchQueue.main.async { [weak self] in
+        document.updatePublisher.sink { [weak self] update in
+            DispatchQueue.main.async {
                 self?.onDocumentUpdate(update)
             }
         }

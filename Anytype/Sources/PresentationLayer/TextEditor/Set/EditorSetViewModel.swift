@@ -58,7 +58,7 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     func groupBackgroundColor(for groupId: String) -> BlockBackgroundColor {
-        guard let groupOrder = setDocument.dataView.groupOrders.first(where: { $0.viewID == activeView.id }),
+        guard let groupOrder = setDocument.dataView.groupOrders.first(where: { [weak self] in $0.viewID == self?.activeView.id }),
             let viewGroup = groupOrder.viewGroups.first(where: { $0.groupID == groupId }),
             let middlewareColor = MiddlewareColor(rawValue: viewGroup.backgroundColor) else {
             return BlockBackgroundColor.gray
@@ -113,17 +113,18 @@ final class EditorSetViewModel: ObservableObject {
             .sink { [weak self] in self?.handleDetails(details: $0, isAppear: $1) }
             .store(in: &subscriptions)
         
-        Task { @MainActor in
+        Task { @MainActor [weak self] in
+            guard let self else { return }
             do {
-                try await setDocument.open()
-                loadingDocument = false
-                onDataviewUpdate()
+                try await self.setDocument.open()
+                self.loadingDocument = false
+                self.onDataviewUpdate()
 
-                if let details = setDocument.details, details.setOf.isEmpty {
-                    showSetOfTypeSelection()
+                if let details = self.setDocument.details, details.setOf.isEmpty {
+                    self.showSetOfTypeSelection()
                 }
             } catch {
-                router.closeEditor()
+                self.router.closeEditor()
             }
         }
     }
@@ -247,29 +248,30 @@ final class EditorSetViewModel: ObservableObject {
     // MARK: - Groups Subscriptions
     
     private func setupGroupsSubscription(forceUpdate: Bool) {
-        Task { @MainActor in
+        Task { @MainActor [weak self] in
+            guard let self else { return }
             let data = GroupsSubscription(
                 identifier: SubscriptionId.setGroups,
-                relationKey: activeView.groupRelationKey,
-                filters: activeView.filters,
-                source: setDocument.dataView.source
+                relationKey: self.activeView.groupRelationKey,
+                filters: self.activeView.filters,
+                source: self.setDocument.dataView.source
             )
-            if groupsSubscriptionsHandler.hasGroupsSubscriptionDataDiff(with: data) {
-                groupsSubscriptionsHandler.stopAllSubscriptions()
-                groups = try await startGroupsSubscription(with: data)
+            if self.groupsSubscriptionsHandler.hasGroupsSubscriptionDataDiff(with: data) {
+                self.groupsSubscriptionsHandler.stopAllSubscriptions()
+                self.groups = try await self.startGroupsSubscription(with: data)
             }
             
             
-            if forceUpdate || checkGroupOrderUpdates() {
-                startSubscriptionsByGroups()
+            if forceUpdate || self.checkGroupOrderUpdates() {
+                self.startSubscriptionsByGroups()
             }
         }
     }
     
     private func checkGroupOrderUpdates() -> Bool {
-        let groupOrder = setDocument.dataView.groupOrders.first { $0.viewID == activeView.id }
+        let groupOrder = setDocument.dataView.groupOrders.first { [weak self] in $0.viewID == self?.activeView.id }
         let visibleViewGroups = groupOrder?.viewGroups.filter { !$0.hidden }
-        let newVisible = visibleViewGroups?.first { recordsDict[$0.groupID] == nil }
+        let newVisible = visibleViewGroups?.first { [weak self] in self?.recordsDict[$0.groupID] == nil }
         
         let hiddenViewGroups = groupOrder?.viewGroups.filter { $0.hidden }
         var hasNewHidden = false
@@ -518,16 +520,16 @@ final class EditorSetViewModel: ObservableObject {
             templateId = ""
         }
 
-        Task { @MainActor in
-
-            let objectId = try await dataviewService.addRecord(
+        Task { @MainActor [weak self] in
+            guard let self else { return }
+            let objectId = try await self.dataviewService.addRecord(
                 objectType: type,
                 templateId: templateId,
-                setFilters: setDocument.filters,
+                setFilters: self.setDocument.filters,
                 relationsDetails: relationsDetails
             )
             
-            handleCreatedObjectId(objectId, type: type)
+            self.handleCreatedObjectId(objectId, type: type)
         }
     }
 }
@@ -620,16 +622,17 @@ extension EditorSetViewModel {
     }
     
     func objectOrderUpdate(with groupObjectIds: [GroupObjectIds]) {
-        Task {
-            try await dataviewService.objectOrderUpdate(
-                viewId: activeView.id,
+        Task { [weak self] in
+            guard let self else { return }
+            try await self.dataviewService.objectOrderUpdate(
+                viewId: self.activeView.id,
                 groupObjectIds: groupObjectIds
             )
         }
     }
     
     func showKanbanColumnSettings(for groupId: String) {
-        let groupOrder = setDocument.dataView.groupOrders.first { $0.viewID == activeView.id }
+        let groupOrder = setDocument.dataView.groupOrders.first { [weak self] in $0.viewID == self?.activeView.id }
         let viewGroup = groupOrder?.viewGroups.first { $0.groupID == groupId }
         let selectedColor = MiddlewareColor(rawValue: viewGroup?.backgroundColor ?? "")?.backgroundColor
         router.showKanbanColumnSettings(
@@ -647,16 +650,18 @@ extension EditorSetViewModel {
     
     private func dataviewGroupOrderUpdate(groupId: String, hidden: Bool, backgroundColor: BlockBackgroundColor?) {
         let updatedGroupOrder = updatedGroupOrder(groupId: groupId, hidden: hidden, backgroundColor: backgroundColor)
-        Task {
-            try await dataviewService.groupOrderUpdate(
-                viewId: activeView.id,
+        Task { [weak self] in
+            guard let self else { return }
+            try await self.dataviewService.groupOrderUpdate(
+                viewId: self.activeView.id,
                 groupOrder: updatedGroupOrder
             )
         }
     }
     
     private func updatedGroupOrder(groupId: String, hidden: Bool, backgroundColor: BlockBackgroundColor?) -> DataviewGroupOrder {
-        let groupOrder = setDocument.dataView.groupOrders.first { $0.viewID == activeView.id } ?? DataviewGroupOrder.create(viewID: activeView.id)
+        let groupOrder = setDocument.dataView.groupOrders.first { [weak self] in $0.viewID == self?.activeView.id } ??
+        DataviewGroupOrder.create(viewID: activeView.id)
         var viewGroups = groupOrder.viewGroups
         let viewGroupIndex = viewGroups.firstIndex { $0.groupID == groupId }
         let viewGroup: DataviewViewGroup
@@ -681,8 +686,8 @@ extension EditorSetViewModel {
     
     private func showSetOfTypeSelection() {
         router.showSources(selectedObjectId: setDocument.details?.setOf.first) { [unowned self] typeObjectId in
-            Task { @MainActor in
-                try? await dataviewService.setSource(typeObjectId: typeObjectId)
+            Task { @MainActor [weak self] in
+                try? await self?.dataviewService.setSource(typeObjectId: typeObjectId)
             }
         }
     }
