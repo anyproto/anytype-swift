@@ -67,6 +67,7 @@ extension UIColor {
     internal static let shimmering = UIColor(asset: Asset.shimmering)
     
     // MARK: - Backgound
+    internal static let backgroundBlack = UIColor(asset: Asset.backgroundBlack)
     internal static let backgroundDashboard = UIColor(asset: Asset.backgroundDashboard)
     internal static let backgroundPrimary = UIColor(asset: Asset.backgroundPrimary)
     internal static let backgroundSecondary = UIColor(asset: Asset.backgroundSecondary)

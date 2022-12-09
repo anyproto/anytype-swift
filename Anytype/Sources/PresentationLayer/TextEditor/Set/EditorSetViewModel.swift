@@ -167,8 +167,12 @@ final class EditorSetViewModel: ObservableObject {
     }
 
     func onRelationTap(relation: Relation) {
-        AnytypeAnalytics.instance().logChangeRelationValue(type: .set)
-        showRelationValueEditingView(key: relation.key, source: .object)
+        if relation.hasSelectedObjectsRelationType {
+            router.showFailureToast(message: Loc.Set.SourceType.Cancel.Toast.title)
+        } else {
+            AnytypeAnalytics.instance().logChangeRelationValue(type: .set)
+            showRelationValueEditingView(key: relation.key, source: .object)
+        }
     }
 
     func updateActiveViewId(_ id: BlockId) {
@@ -558,8 +562,13 @@ final class EditorSetViewModel: ObservableObject {
         dataView.source.contains(ObjectTypeId.BundledTypeId.bookmark.rawValue)
     }
     
-    private func isNotesSet() -> Bool {
-        dataView.source.contains(ObjectTypeId.BundledTypeId.note.rawValue)
+    private func isRelationsSet() -> Bool {
+        let relation = document.parsedRelations.all.first { $0.key == BundledRelationKey.setOf.rawValue }
+        if let relation, relation.hasSelectedObjectsRelationType {
+            return true
+        } else {
+            return false
+        }
     }
     
     private func updateDetailsIfNeeded(_ details: ObjectDetails) {
@@ -617,8 +626,17 @@ extension EditorSetViewModel {
     func createObject() {
         if isBookmarksSet() {
             createBookmarkObject()
+        } else if isRelationsSet() {
+            let relationsDetails = dataViewRelationsDetails.filter { dataView.source.contains($0.id) }
+            createObject(
+                with: ObjectTypeProvider.shared.defaultObjectType.id,
+                relationsDetails: relationsDetails
+            )
         } else {
-            createDefaultObject()
+            createObject(
+                with: dataView.source.first ?? "",
+                relationsDetails: []
+            )
         }
     }
     
@@ -727,12 +745,11 @@ extension EditorSetViewModel {
         }
     }
     
-    private func createDefaultObject() {
-        let objectType = dataView.source.first
+    private func createObject(with type: String, relationsDetails: [RelationDetails]) {
         let templateId: String
-        if let objectType = objectType {
+        if type.isNotEmpty {
             let availableTemplates = searchService.searchTemplates(
-                for: .dynamic(objectType)
+                for: .dynamic(type)
             )
             let hasSingleTemplate = availableTemplates?.count == 1
             templateId = hasSingleTemplate ? (availableTemplates?.first?.id ?? "") : ""
@@ -743,17 +760,18 @@ extension EditorSetViewModel {
         Task { @MainActor in
 
             let objectId = try await dataviewService.addRecord(
-                objectType: objectType ?? "",
+                objectType: type,
                 templateId: templateId,
-                setFilters: filters
+                setFilters: filters,
+                relationsDetails: relationsDetails
             )
             
-            handleCreatedObjectId(objectId)
+            handleCreatedObjectId(objectId, type: type)
         }
     }
     
-    private func handleCreatedObjectId(_ objectId: String) {
-        if isNotesSet() {
+    private func handleCreatedObjectId(_ objectId: String, type: String) {
+        if type == ObjectTypeId.BundledTypeId.note.rawValue {
             openObject(pageId: objectId, type: .page)
         } else {
             router.showCreateObject(pageId: objectId)
@@ -777,7 +795,7 @@ extension EditorSetViewModel {
 extension EditorSetViewModel {
     static let empty = EditorSetViewModel(
         document: BaseDocument(objectId: "objectId"),
-        dataviewService: DataviewService(objectId: "objectId", prefilledFieldsBuilder: SetFilterPrefilledFieldsBuilder()),
+        dataviewService: DataviewService(objectId: "objectId", prefilledFieldsBuilder: SetPrefilledFieldsBuilder()),
         searchService: ServiceLocator.shared.searchService(),
         detailsService: DetailsService(objectId: "objectId", service: ObjectActionsService()),
         textService: TextService(),

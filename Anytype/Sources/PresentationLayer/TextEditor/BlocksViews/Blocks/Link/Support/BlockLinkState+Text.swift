@@ -45,7 +45,10 @@ extension BlockLinkState {
 
         return NSAttributedString(
             string: type.name,
-            attributes: archived ? disabledDescriptionAttributes : enabledDescriptionAttributes
+            attributes: [
+                .font: UIFont.relation2Regular,
+                .foregroundColor: UIColor.textSecondary,
+            ]
         )
     }
     

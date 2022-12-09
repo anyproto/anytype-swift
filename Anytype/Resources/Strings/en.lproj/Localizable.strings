@@ -239,7 +239,7 @@
 "Editor.LinkToObject.RemoveLink" = "Remove link";
 
 // MARK: - Main search
-"There is no object named" = "There is no object named %s";
+"There is no object named" = "There is no object named %@";
 "Try to create a new one or search for something else" = "Try to create a new one or search for something else";
 
 // MARK: - Home
@@ -253,7 +253,7 @@
 // MARK: - Relation
 "Featured relations" = "Featured relations";
 "Create from scratch" = "Create from scratch";
-"Create relation" = "Create relation \"%s\"";
+"Create relation" = "Create relation \"%@\"";
 "Relation.View.Hint.Empty" = "empty";
 
 // MARK: - Deletion
@@ -353,13 +353,14 @@
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow" = "Number of days from now";
 "EditSet.Popup.Filter.Date.Option.ExactDate" = "Exact date";
 
-"EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo.Short" = "%s days ago";
-"EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%s days from now";
+"EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo.Short" = "%@ days ago";
+"EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ days from now";
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Source" = "Source";
 "Set.FeaturedRelations.RelationsList" = "Relations:";
 "Set.FeaturedRelations.Relation" = "Relation:";
+"Set.FeaturedRelations.Type" = "Type:";
 
 // MARK: - Sets: Filters search
 "Set.Button.Title.Apply" = "Apply";
@@ -386,6 +387,7 @@
 
 // MARK: - Set source type
 "Set.SourceType.SelectSource" = "Select source";
+"Set.SourceType.Cancel.Toast.Title" = "This source can be changed on desktop only";
 
 // MARK: Slash Menu
 "SlashMenu.DotsDivider" = "Dots divider";
@@ -419,7 +421,7 @@
 "Enter number" = "Enter number";
 "Enter text" = "Enter text";
 "Unsupported value" = "Unsupported value";
-"There is no relation named" = "There is no relation named %s";
+"There is no relation named" = "There is no relation named %@";
 "Find a relation" = "Find a relation";
 "Your library" = "Your library";
 "Select relation type" = "Select relation type";
@@ -450,7 +452,7 @@
 "Clear file cache" = "Clear file cache";
 "Application icon" = "Application icon";
 "Mode" = "Mode";
-"copied to clipboard" = "%s copied to clipboard";
+"copied to clipboard" = "%@ copied to clipboard";
 "Access to secret phrase from keychain" = "Access to secret phrase from keychain";
 "Back up your recovery phrase" = "Back up your recovery phrase";
 "Account" = "Account";
@@ -526,7 +528,7 @@
 "Today" = "Today";
 "No date" = "No date";
 "Clear" = "Clear";
-"Create option" = "Create option %s";
+"Create option" = "Create option %@";
 "Add URL" = "Add URL";
 "Add email" = "Add email";
 "Add phone number" = "Add phone number";
@@ -534,7 +536,6 @@
 "Add text" = "Add text";
 "Ok" = "Ok";
 "Error occurred. Please try again" = "Error occurred. Please try again";
-"is already selected" = "%s is already selected";
 "Add" = "Add";
 "Your device seems to be offline" = "Your device seems to be offline. Please, check your connection and try again";
 "Connection refused" = "Connection refused. Please, try again";
@@ -566,7 +567,7 @@
 "ObjectType.MyTypes" = "My Types";
 
 // MARK: - QuickAction
-"QuickAction.create" = "Create %s";
+"QuickAction.create" = "Create %@";
 
 // MARK: - RedactedText
 "RedactedText.pageTitle" = "Wake up, Neo";
@@ -599,7 +600,7 @@
 "SimpleTableMenu.Item.MoveUp" = "Move up";
 "SimpleTableMenu.Item.MoveDown" = "Move down";
 
-"DebugMenu.ToggleAuthor" = "Release: %s, %s";
+"DebugMenu.ToggleAuthor" = "Release: %@, %@";
 
 // MARK: Link Past Actions
 "LinkPaste.text" = "Paste as text";
@@ -626,7 +627,7 @@
 "SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Untitled";
 
 // MARK: Select view picker
-"EditorSetViewPicker.View.Available.Soon" = "%s view soon";
+"EditorSetViewPicker.View.Available.Soon" = "%@ view soon";
 
 // BlockContent
 "Content.File.Upload" = "Upload a file";
@@ -641,6 +642,9 @@
 // MARK: - Widget extension
 "WidgetExtension.LockScreen.Title" = "New object";
 "WidgetExtension.LockScreen.Description" = "Create a new object on the fly";
+
+// MARK: - Toast
+"Editor.Toast.GetStartedLinkedTo" = "Get Started linked to";
 
 // MARK: - Scanner
 "Scanner.Error.Scanning not supported" = "Scanning not supported";

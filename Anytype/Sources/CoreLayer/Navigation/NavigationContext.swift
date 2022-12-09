@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 import SwiftUI
 
-protocol NavigationContextProtocol {
+protocol NavigationContextProtocol: AnyObject {
     func present(_ viewControllerToPresent: UIViewController, animated: Bool, completion: (() -> Void)?)
     func dismissTopPresented(animated: Bool, completion: (() -> Void)?)
     func dismissAllPresented(animated: Bool, completion: (() -> Void)?)
