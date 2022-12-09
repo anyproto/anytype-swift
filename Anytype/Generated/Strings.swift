@@ -183,6 +183,8 @@ internal enum Loc {
   internal static let companiesContactsFriendsAndFamily = Loc.tr("Localizable", "Companies, contacts, friends and family", fallback: "Companies, contacts, friends and family")
   /// Connection refused. Please, try again
   internal static let connectionRefused = Loc.tr("Localizable", "Connection refused", fallback: "Connection refused. Please, try again")
+  /// Copied
+  internal static let copied = Loc.tr("Localizable", "Copied", fallback: "Copied")
   /// %@ copied to clipboard
   internal static func copiedToClipboard(_ p1: Any) -> String {
     return Loc.tr("Localizable", "copied to clipboard", String(describing: p1), fallback: "%@ copied to clipboard")
@@ -970,8 +972,10 @@ internal enum Loc {
       internal static let scrollToSelectedPlace = Loc.tr("Localizable", "Editor.MovingState.ScrollToSelectedPlace", fallback: "Scroll to select a place")
     }
     internal enum Toast {
-      /// Get Started linked to
-      internal static let getStartedLinkedTo = Loc.tr("Localizable", "Editor.Toast.GetStartedLinkedTo", fallback: "Get Started linked to")
+      /// linked to
+      internal static let linkedTo = Loc.tr("Localizable", "Editor.Toast.LinkedTo", fallback: "linked to")
+      /// Block moved to
+      internal static let movedTo = Loc.tr("Localizable", "Editor.Toast.MovedTo", fallback: "Block moved to")
     }
   }
   internal enum EditorSetViewPicker {
@@ -1017,8 +1021,8 @@ internal enum Loc {
     internal static let haveYouBackedUpYourRecoveryPhrase = Loc.tr("Localizable", "Keychain.Have you backed up your recovery phrase?", fallback: "Have you backed up your recovery phrase?")
     /// Recovery phrase
     internal static let recoveryPhrase = Loc.tr("Localizable", "Keychain.Recovery phrase", fallback: "Recovery phrase")
-    /// Recovery phrase copied to clipboard
-    internal static let recoveryPhraseCopiedToClipboard = Loc.tr("Localizable", "Keychain.Recovery phrase copied to clipboard", fallback: "Recovery phrase copied to clipboard")
+    /// Recovery phrase copied
+    internal static let recoveryPhraseCopiedToClipboard = Loc.tr("Localizable", "Keychain.Recovery phrase copied to clipboard", fallback: "Recovery phrase copied")
     /// You will need it to sign in. Keep it in a safe place. If you lose it, you can no longer access your account.
     internal static let recoveryPhraseDescription = Loc.tr("Localizable", "Keychain.Recovery phrase description", fallback: "You will need it to sign in. Keep it in a safe place. If you lose it, you can no longer access your account.")
     /// If you lose the recovery phrase and get logged out you will not be able to 

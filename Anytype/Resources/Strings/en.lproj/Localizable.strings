@@ -101,6 +101,8 @@
 "Paste processing..." = "Paste processing...";
 "Marketplace" = "Marketplace";
 
+"Copied" = "Copied";
+
 // Home
 "Favorites" = "Favorites";
 "Recent" = "Recent";
@@ -124,7 +126,7 @@
 
 // Keychain screen
 "Keychain.Recovery phrase" = "Recovery phrase";
-"Keychain.Recovery phrase copied to clipboard" = "Recovery phrase copied to clipboard";
+"Keychain.Recovery phrase copied to clipboard" = "Recovery phrase copied";
 "Keychain.Recovery phrase description" = "You will need it to sign in. Keep it in a safe place. If you lose it, you can no longer access your account.";
 "Keychain.Save keychain alert part 1" = "If you lose the recovery phrase and get logged out you will not be able to ";
 "Keychain.Save keychain alert part 2" = "ever access your data again";
@@ -645,7 +647,8 @@
 "WidgetExtension.LockScreen.Description" = "Create a new object on the fly";
 
 // MARK: - Toast
-"Editor.Toast.GetStartedLinkedTo" = "Get Started linked to";
+"Editor.Toast.LinkedTo" = "linked to";
+"Editor.Toast.MovedTo" = "Block moved to";
 
 // MARK: - Scanner
 "Scanner.Error.Scanning not supported" = "Scanning not supported";

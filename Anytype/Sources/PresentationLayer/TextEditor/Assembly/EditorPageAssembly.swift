@@ -204,6 +204,7 @@ final class EditorAssembly {
                                                   pasteboardHelper: pasteboardHelper,
                                                   pasteboardMiddlewareService: pasteboardMiddlewareService)
 
+        let toastPresenter = uiHelpersDI.toastPresenter(using: browser)
         let blockActionsServiceSingle = ServiceLocator.shared
             .blockActionsServiceSingle(contextId: document.objectId)
 
@@ -212,6 +213,7 @@ final class EditorAssembly {
             modelsHolder: modelsHolder,
             blocksSelectionOverlayViewModel: blocksSelectionOverlayViewModel,
             blockActionsServiceSingle: blockActionsServiceSingle,
+            toastPresenter: uiHelpersDI.toastPresenter(using: browser),
             actionHandler: actionHandler,
             pasteboardService: pasteboardService,
             router: router,

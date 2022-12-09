@@ -758,8 +758,9 @@ extension EditorRouter {
 }
 
 extension EditorRouter: ObjectSettingsModuleDelegate {
-    func didCreateLinkToItself(in objectId: BlockId) {
-        toastPresenter.showObjectCompositeAlert(p1: Loc.Editor.Toast.getStartedLinkedTo, objectId: objectId) { [weak self] in
+    func didCreateLinkToItself(selfName: String, in objectId: BlockId) {
+        let p1String = selfName + " " + Loc.Editor.Toast.linkedTo
+        toastPresenter.showObjectCompositeAlert(p1: p1String, objectId: objectId) { [weak self] in
             self?.showPage(data: .init(pageId: objectId, type: .page))
         }
     }
