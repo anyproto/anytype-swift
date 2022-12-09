@@ -177,6 +177,7 @@ public protocol BundledRelationsValueProvider {
     var imdbRating: Int? { get }
     var smartblockTypes: [Int] { get }
     var source: AnytypeURL? { get }
+    var sourceObject: ObjectId { get }
 } 
 
 public extension BundledRelationsValueProvider where Self: RelationValueProvider {
@@ -205,7 +206,7 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     var toBeDeletedDate: Date? {
         return value(for: BundledRelationKey.toBeDeletedDate.rawValue)
     }
-    /// Types that used for such relation
+    /// Prioritized target types for the relation's value
     var relationFormatObjectTypes: [ObjectId] {
         return value(for: BundledRelationKey.relationFormatObjectTypes.rawValue)
     }
@@ -717,7 +718,7 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     var progress: Int? {
         return value(for: BundledRelationKey.progress.rawValue)
     }
-    /// Point to the object types used to aggregate the set. Empty means object of all types will be aggregated 
+    /// Point to the object types or realtions used to aggregate the set. Empty means object of all types will be aggregated 
     var setOf: [ObjectId] {
         return value(for: BundledRelationKey.setOf.rawValue)
     }
@@ -751,11 +752,14 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     var imdbRating: Int? {
         return value(for: BundledRelationKey.imdbRating.rawValue)
     }
-    /// List of smartblock types
+    /// Stored for object type. Contains tge list of smartblock types used to create the object
     var smartblockTypes: [Int] {
         return value(for: BundledRelationKey.smartblockTypes.rawValue)
     }
     var source: AnytypeURL? {
         return value(for: BundledRelationKey.source.rawValue)
+    }
+    var sourceObject: ObjectId {
+        return value(for: BundledRelationKey.sourceObject.rawValue)
     }
 }

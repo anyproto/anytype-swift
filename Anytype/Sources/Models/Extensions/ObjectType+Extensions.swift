@@ -11,6 +11,7 @@ extension ObjectType {
         hidden: false,
         readonly: false,
         isArchived: false,
+        sourceObject: "",
         smartBlockTypes: [.page]
     )
     

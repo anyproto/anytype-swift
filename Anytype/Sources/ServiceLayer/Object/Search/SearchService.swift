@@ -11,7 +11,7 @@ protocol SearchServiceProtocol: AnyObject {
         shouldIncludeSets: Bool,
         shouldIncludeBookmark: Bool
     ) -> [ObjectDetails]?
-    func searchMarketplaceObjectTypes(text: String, excludedIds: [String]) -> [ObjectDetails]?
+    func searchMarketplaceObjectTypes(text: String) -> [ObjectDetails]?
     func searchFiles(text: String, excludedFileIds: [String]) -> [ObjectDetails]?
     func searchObjects(text: String, excludedObjectIds: [String], limitedTypeIds: [String]) -> [ObjectDetails]?
     func searchTemplates(for type: ObjectTypeId) -> [ObjectDetails]?
@@ -66,19 +66,22 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             type: .asc
         )
         
-        var excludedTypeIds: [String] = [
-            filteringTypeId,
-            shouldIncludeSets ? nil : ObjectTypeId.bundled(.set).rawValue,
-            shouldIncludeBookmark ? nil : ObjectTypeId.bundled(.bookmark).rawValue
-        ].compactMap { $0 }
+        let excludedTypeIds: [String] = .builder {
+            filteringTypeId
+            if shouldIncludeSets {
+                ObjectTypeId.bundled(.set).rawValue
+            }
+            if shouldIncludeBookmark {
+                ObjectTypeId.bundled(.bookmark).rawValue
+            }
+            objectTypeProvider.notVisibleTypeIds()
+        }
         
-        excludedTypeIds.append(contentsOf: objectTypeProvider.notVisibleTypeIds())
-        
-        var filters = buildFilters(isArchived: false)
-        filters.append(contentsOf: [
-            SearchHelper.typeFilter(typeIds: [ObjectTypeId.bundled(.objectType).rawValue]),
+        let filters = Array.builder {
+            buildFilters(isArchived: false)
+            SearchHelper.typeFilter(typeIds: [ObjectTypeId.bundled(.objectType).rawValue])
             SearchHelper.excludedIdsFilter(excludedTypeIds)
-        ])
+        }
         
         let result = search(filters: filters, sorts: [sort], fullText: text)
 
@@ -92,16 +95,18 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         ) { $0.id }
     }
     
-    func searchMarketplaceObjectTypes(text: String, excludedIds: [String]) -> [ObjectDetails]? {
+    func searchMarketplaceObjectTypes(text: String) -> [ObjectDetails]? {
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.name,
             type: .asc
         )
         
+        let isntalledSources = objectTypeProvider.objectTypes.map(\.sourceObject)
+        
         let filters = [
             SearchHelper.workspaceId(MarketplaceId.anytypeMarketplace.rawValue),
-            SearchHelper.typeFilter(typeIds: [ ObjectTypeId.bundled(.systemObjectType).rawValue]),
-            SearchHelper.excludedIdsFilter([ObjectTypeId.bundled(.systemBookmark).rawValue] + excludedIds),
+            SearchHelper.typeFilter(typeIds: [ObjectTypeId.bundled(.systemObjectType).rawValue]),
+            SearchHelper.excludedIdsFilter(isntalledSources),
             SearchHelper.smartblockTypesFilter(types: [.page]),
         ]
         
