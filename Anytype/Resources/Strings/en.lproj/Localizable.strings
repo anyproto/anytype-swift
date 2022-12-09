@@ -565,6 +565,7 @@
 "ObjectType.fallbackDescription" = "Blank canvas with no title";
 "ObjectType.SearchOrInstall" = "Search or install a new type";
 "ObjectType.MyTypes" = "My Types";
+"ObjectType.AddedToLibrary" = "Type ‘%@’ added to your library";
 
 // MARK: - QuickAction
 "QuickAction.create" = "Create %@";

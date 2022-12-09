@@ -1077,6 +1077,10 @@ internal enum Loc {
     internal static let text = Loc.tr("Localizable", "LinkPaste.text", fallback: "Paste as text")
   }
   internal enum ObjectType {
+    /// Type ‘%@’ added to your library
+    internal static func addedToLibrary(_ p1: Any) -> String {
+      return Loc.tr("Localizable", "ObjectType.AddedToLibrary", String(describing: p1), fallback: "Type ‘%@’ added to your library")
+    }
     /// Blank canvas with no title
     internal static let fallbackDescription = Loc.tr("Localizable", "ObjectType.fallbackDescription", fallback: "Blank canvas with no title")
     /// My Types

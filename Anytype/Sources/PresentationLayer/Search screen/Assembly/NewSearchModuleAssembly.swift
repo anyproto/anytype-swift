@@ -132,6 +132,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         
         let internalViewModel = ObjectTypesSearchViewModel(
             interactor: interactor,
+//            toastPresenter:
             selectedObjectId: selectedObjectId,
             onSelect: { ids in
                 guard let id = ids.first else { return }

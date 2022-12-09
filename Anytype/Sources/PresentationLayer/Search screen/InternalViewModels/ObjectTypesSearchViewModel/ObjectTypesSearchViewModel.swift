@@ -16,15 +16,18 @@ final class ObjectTypesSearchViewModel {
     private var objects: [ObjectDetails] = []
     private var marketplaceObjects: [ObjectDetails] = []
     private let interactor: ObjectTypesSearchInteractor
+    private let toastPresenter: ToastPresenterProtocol
     private let selectedObjectId: BlockId?
     private let onSelect: (_ ids: [String]) -> Void
     
     init(
         interactor: ObjectTypesSearchInteractor,
+        toastPresenter: ToastPresenterProtocol,
         selectedObjectId: BlockId? = nil,
         onSelect: @escaping (_ ids: [String]) -> Void
     ) {
         self.interactor = interactor
+        self.toastPresenter = toastPresenter
         self.selectedObjectId = selectedObjectId
         self.onSelect = onSelect
     }
