@@ -121,11 +121,11 @@ class SetDocument: SetDocumentProtocol {
     
     private func updateData() {
         dataView = dataviews.first ?? .empty
+        updateDataViewRelations()
         
         let prevActiveView = activeView
         activeView = dataView.views.first { $0.id == dataView.activeViewId } ?? .empty
         
-        updateDataViewRelations()
         updateActiveViewId()
         updateSorts()
         updateFilters()
