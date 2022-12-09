@@ -18,13 +18,13 @@ final class ObjectTypesSearchViewModel {
     private let interactor: ObjectTypesSearchInteractor
     private let toastPresenter: ToastPresenterProtocol
     private let selectedObjectId: BlockId?
-    private let onSelect: (_ ids: [String]) -> Void
+    private let onSelect: (_ id: String, _ message: String?) -> Void
     
     init(
         interactor: ObjectTypesSearchInteractor,
         toastPresenter: ToastPresenterProtocol,
         selectedObjectId: BlockId? = nil,
-        onSelect: @escaping (_ ids: [String]) -> Void
+        onSelect: @escaping (_ id: String, _ message: String?) -> Void
     ) {
         self.interactor = interactor
         self.toastPresenter = toastPresenter
@@ -52,12 +52,19 @@ extension ObjectTypesSearchViewModel: NewInternalSearchViewModelProtocol {
     func handleRowsSelection(ids: [String]) {}
     
     func handleConfirmSelection(ids: [String]) {
-        let idsToInstall = marketplaceObjects.filter { ids.contains($0.id) }.map { $0.id }
-        let installedIds = ids.filter { !idsToInstall.contains($0) }
-        let newInstalledIds = interactor.installTypes(objectIds: idsToInstall)
-        let result = installedIds + newInstalledIds
         
-        onSelect(result)
+        guard let id = ids.first else { return }
+
+        guard let marketplaceType = marketplaceObjects.first(where: { $0.id == id}) else {
+            onSelect(id, nil)
+            return
+        }
+        
+        guard let installedType = interactor.installType(objectId: marketplaceType.id) else { return }
+        
+        toastPresenter.show(message: Loc.ObjectType.addedToLibrary(installedType.name))
+        
+        onSelect(installedType.id, nil)
     }
 }
 

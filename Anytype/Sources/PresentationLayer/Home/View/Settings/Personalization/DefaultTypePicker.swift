@@ -15,10 +15,13 @@ struct DefaultTypePicker: View {
         newSearchModuleAssembly.objectTypeSearchModule(
             title: Loc.chooseDefaultObjectType,
             showBookmark: false
-        ) { [weak model] id in
+        ) { [weak model] id, message in
             ObjectTypeProvider.shared.setDefaulObjectType(id: id)
             model?.defaultType = false
             model?.personalization = false
+            if let message {
+                ToastPresenter.shared?.show(message: message)
+            }
         }
     }
 }
