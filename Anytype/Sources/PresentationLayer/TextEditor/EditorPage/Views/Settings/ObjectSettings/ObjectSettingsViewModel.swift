@@ -65,7 +65,8 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
         )
         
         objectActionsViewModel.onLinkItselfToObjectHandler = { [weak delegate] objectId in
-            delegate?.didCreateLinkToItself(in: objectId)
+            guard let documentName = document.details?.name else { return }
+            delegate?.didCreateLinkToItself(selfName: documentName, in: objectId)
         }
 
         objectActionsViewModel.onLinkItselfAction = { [weak output] onSelect in

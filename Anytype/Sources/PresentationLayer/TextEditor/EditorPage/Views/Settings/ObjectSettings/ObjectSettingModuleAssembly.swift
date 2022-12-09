@@ -2,7 +2,7 @@ import BlocksModels
 import UIKit
 
 protocol ObjectSettingsModuleDelegate: AnyObject {
-    func didCreateLinkToItself(in objectId: BlockId)
+    func didCreateLinkToItself(selfName: String, in objectId: BlockId)
 }
 
 protocol ObjectSettingModuleAssemblyProtocol {
