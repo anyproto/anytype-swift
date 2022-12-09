@@ -3,23 +3,14 @@ import SwiftUI
 
 final class EditorSetSettingsViewModel: ObservableObject, AnytypePopupViewModelProtocol {
     weak var popup: AnytypePopupProxy?
-    private let setModel: EditorSetViewModel
+    private let onSettingTap: (EditorSetSetting) -> Void
     
-    init(setModel: EditorSetViewModel) {
-        self.setModel = setModel
+    init(onSettingTap: @escaping (EditorSetSetting) -> Void) {
+        self.onSettingTap = onSettingTap
     }
     
     func onSettingTap(_ setting: EditorSetSetting) {
-        switch setting {
-        case .view:
-            setModel.showViewTypes(with: setModel.activeView)
-        case .settings:
-            setModel.showViewSettings()
-        case .sort:
-            setModel.showSorts()
-        case .filter:
-            setModel.showFilters()
-        }
+        onSettingTap(setting)
     }
     
     // MARK: - AnytypePopupViewModelProtocol

@@ -1,7 +1,6 @@
 import SwiftUI
 
 struct EditorSetViewSettingsView: View {
-    @ObservedObject var setModel: EditorSetViewModel
     @ObservedObject var model: EditorSetViewSettingsViewModel
     @State private var editMode = EditMode.inactive
     

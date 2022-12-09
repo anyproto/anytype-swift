@@ -32,7 +32,7 @@ extension EditorSetHostingController: DocumentDetaisProvider {
     }
     
     var details: ObjectDetails? {
-        model.document.details
+        model.details
     }
     
 }

@@ -7,7 +7,7 @@ import Combine
 final class SetFiltersListViewModel: ObservableObject {
     @Published var rows: [SetFilterRowConfiguration] = []
     
-    private let setModel: EditorSetViewModel
+    private let setDocument: SetDocumentProtocol
     private var cancellable: Cancellable?
     
     private let dataviewService: DataviewServiceProtocol
@@ -15,11 +15,11 @@ final class SetFiltersListViewModel: ObservableObject {
     private let relationFilterBuilder = RelationFilterBuilder()
     
     init(
-        setModel: EditorSetViewModel,
+        setDocument: SetDocumentProtocol,
         dataviewService: DataviewServiceProtocol,
         router: EditorRouterProtocol)
     {
-        self.setModel = setModel
+        self.setDocument = setDocument
         self.dataviewService = dataviewService
         self.router = router
         self.setup()
@@ -32,7 +32,8 @@ extension SetFiltersListViewModel {
     // MARK: - Actions
     
     func addButtonTapped() {
-        router.showRelationSearch(relationsDetails: setModel.activeViewRelations()) { [weak self] relationDetails in
+        let relationsDetails = setDocument.activeViewRelations(excludeRelations: [])
+        router.showRelationSearch(relationsDetails: relationsDetails) { [weak self] relationDetails in
             guard let filter = self?.makeSetFilter(with: relationDetails) else {
                 return
             }
@@ -41,7 +42,7 @@ extension SetFiltersListViewModel {
     }
     
     func delete(_ indexSet: IndexSet) {
-        var filters = setModel.filters
+        var filters = setDocument.filters
         filters.remove(atOffsets: indexSet)
         updateView(with: filters)
     }
@@ -49,7 +50,7 @@ extension SetFiltersListViewModel {
     // MARK: - Private methods
     
     private func setup() {
-        cancellable = setModel.$filters.sink { [weak self] filters in
+        cancellable = setDocument.filtersPublisher.sink { [weak self] filters in
             self?.updateRows(with: filters)
         }
     }
@@ -71,7 +72,7 @@ extension SetFiltersListViewModel {
     }
     
     private func rowTapped(_ id: String, index: Int) {
-        guard let filter = setModel.filters[safe: index], filter.id == id  else {
+        guard let filter = setDocument.filters[safe: index], filter.id == id  else {
             return
         }
         showFilterSearch(with: filter, index: index)
@@ -83,14 +84,14 @@ extension SetFiltersListViewModel {
     }
     
     private func updateView(with dataviewFilters: [DataviewFilter]) {
-        let newView = setModel.activeView.updated(filters: dataviewFilters)
+        let newView = setDocument.activeView.updated(filters: dataviewFilters)
         Task {
             try await dataviewService.updateView(newView)
         }
     }
     
     private func makeSetFilter(with relationDetails: RelationDetails) -> SetFilter? {
-        guard let filteredDetails = setModel.activeViewRelations().first(where: { $0.id == relationDetails.id }) else {
+        guard let filteredDetails = setDocument.activeViewRelations(excludeRelations: []).first(where: { $0.id == relationDetails.id }) else {
             return nil
         }
         return SetFilter(
@@ -104,7 +105,7 @@ extension SetFiltersListViewModel {
     }
     
     private func handleFilterSearch(_ updatedFilter: SetFilter, index: Int?) {
-        var filters = setModel.filters.map { $0.filter }
+        var filters = setDocument.filters.map { $0.filter }
         
         if let index = index,
             let filter = filters[safe: index],
