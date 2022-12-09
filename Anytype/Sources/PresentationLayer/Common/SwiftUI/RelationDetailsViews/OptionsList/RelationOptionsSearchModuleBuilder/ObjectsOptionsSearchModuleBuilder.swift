@@ -1,19 +1,23 @@
 import Foundation
 
-struct ObjectsOptionsSearchModuleBuilder {
+class ObjectsOptionsSearchModuleBuilder: RelationOptionsSearchModuleBuilderProtocol {
     
     let limitedObjectType: [String]
+    private let newSearcModuleAssembly: NewSearchModuleAssemblyProtocol
     
-}
-
-extension ObjectsOptionsSearchModuleBuilder: RelationOptionsSearchModuleBuilderProtocol {
+    init(limitedObjectType: [String], newSearcModuleAssembly: NewSearchModuleAssemblyProtocol) {
+        self.limitedObjectType = limitedObjectType
+        self.newSearcModuleAssembly = newSearcModuleAssembly
+    }
+    
+    // MARK: - RelationOptionsSearchModuleBuilderProtocol
     
     func buildModule(
         excludedOptionIds: [String],
         onSelect: @escaping ([String]) -> Void,
         onCreate _ : @escaping (String) -> Void
     ) -> NewSearchView {
-        NewSearchModuleAssembly.objectsSearchModule(
+        newSearcModuleAssembly.objectsSearchModule(
             excludedObjectIds: excludedOptionIds,
             limitedObjectType: limitedObjectType,
             onSelect: onSelect

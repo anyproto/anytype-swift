@@ -21,6 +21,7 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
     private let editorPageCoordinator: EditorPageCoordinatorProtocol
     private let addNewRelationCoordinator: AddNewRelationCoordinatorProtocol
     private let searchModuleAssembly: SearchModuleAssemblyProtocol
+    private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     
     init(
         document: BaseDocumentProtocol,
@@ -34,7 +35,8 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
         relationValueCoordinator: RelationValueCoordinatorProtocol,
         editorPageCoordinator: EditorPageCoordinatorProtocol,
         addNewRelationCoordinator: AddNewRelationCoordinatorProtocol,
-        searchModuleAssembly: SearchModuleAssemblyProtocol
+        searchModuleAssembly: SearchModuleAssemblyProtocol,
+        newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     ) {
         self.document = document
         self.navigationContext = navigationContext
@@ -48,6 +50,7 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
         self.editorPageCoordinator = editorPageCoordinator
         self.addNewRelationCoordinator = addNewRelationCoordinator
         self.searchModuleAssembly = searchModuleAssembly
+        self.newSearchModuleAssembly = newSearchModuleAssembly
     }
     
     func startFlow(delegate: ObjectSettingsModuleDelegate) {
@@ -95,7 +98,7 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
     }
     
     func linkToAction(onSelect: @escaping (BlockId) -> ()) {
-        let moduleView = NewSearchModuleAssembly.blockObjectsSearchModule(
+        let moduleView = newSearchModuleAssembly.blockObjectsSearchModule(
             title: Loc.linkTo,
             excludedObjectIds: [document.objectId]
         ) { [weak navigationContext] details in

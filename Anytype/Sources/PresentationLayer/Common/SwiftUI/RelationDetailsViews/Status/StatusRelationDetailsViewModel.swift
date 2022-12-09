@@ -21,14 +21,17 @@ final class StatusRelationDetailsViewModel: ObservableObject {
     }
     private let relation: Relation
     private let service: RelationsServiceProtocol
-    private let searchService = ServiceLocator.shared.searchService()
+    private let searchService: SearchServiceProtocol
+    private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     private weak var popup: AnytypePopupProxy?
     
     init(
         source: RelationSource,
         selectedStatus: Relation.Status.Option?,
         relation: Relation,
-        service: RelationsServiceProtocol
+        service: RelationsServiceProtocol,
+        newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
+        searchService: SearchServiceProtocol
     ) {
         self.source = source
         
@@ -36,6 +39,8 @@ final class StatusRelationDetailsViewModel: ObservableObject {
         
         self.relation = relation
         self.service = service
+        self.searchService = searchService
+        self.newSearchModuleAssembly = newSearchModuleAssembly
         
         updateSelectedStatusViewModel()
     }
@@ -55,7 +60,7 @@ extension StatusRelationDetailsViewModel {
     
     @ViewBuilder
     func makeSearchView() -> some View {
-        NewSearchModuleAssembly.statusSearchModule(
+        newSearchModuleAssembly.statusSearchModule(
             relationKey: relation.key,
             selectedStatusesIds: selectedStatus.flatMap { [$0.id] } ?? []
         ) { [weak self] ids in

@@ -13,7 +13,7 @@ final class ModulesDI: ModulesDIProtocol {
     // MARK: - ModulesDIProtocol
     
     var relationValue: RelationValueModuleAssemblyProtocol {
-        return RelationValueModuleAssembly()
+        return RelationValueModuleAssembly(modulesDI: self, serviceLocator: serviceLocator)
     }
     
     var relationsList: RelationsListModuleAssemblyProtocol {
@@ -50,5 +50,9 @@ final class ModulesDI: ModulesDIProtocol {
 
     var codeLanguageList: CodeLanguageListModuleAssemblyProtocol {
         return CodeLanguageListModuleAssembly(serviceLocator: serviceLocator)
+    }
+    
+    var newSearch: NewSearchModuleAssemblyProtocol {
+        return NewSearchModuleAssembly()
     }
 }
