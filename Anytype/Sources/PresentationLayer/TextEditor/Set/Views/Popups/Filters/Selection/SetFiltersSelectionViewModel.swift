@@ -33,12 +33,16 @@ final class SetFiltersSelectionViewModel: ObservableObject {
     init(
         filter: SetFilter,
         router: EditorRouterProtocol,
+        newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
         onApply: @escaping (SetFilter) -> Void
     ) {
         self.filter = filter
         self.router = router
         self.condition = filter.filter.condition
-        self.contentViewBuilder = SetFiltersContentViewBuilder(filter: filter)
+        self.contentViewBuilder = SetFiltersContentViewBuilder(
+            filter: filter,
+            newSearchModuleAssembly: newSearchModuleAssembly
+        )
         self.contentHandler = SetFiltersContentHandler(filter: filter, onApply: onApply)
         self.onApply = onApply
         self.state = filter.filter.condition.hasValues ? .content : .empty

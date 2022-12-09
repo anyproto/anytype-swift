@@ -7,15 +7,18 @@ protocol AddNewRelationCoordinatorAssemblyProtocol {
 final class AddNewRelationCoordinatorAssembly: AddNewRelationCoordinatorAssemblyProtocol {
     
     private let uiHelpersDI: UIHelpersDIProtocol
+    private let modulesDI: ModulesDIProtocol
     
-    init(uiHelpersDI: UIHelpersDIProtocol) {
+    init(uiHelpersDI: UIHelpersDIProtocol, modulesDI: ModulesDIProtocol) {
         self.uiHelpersDI = uiHelpersDI
+        self.modulesDI = modulesDI
     }
     
     func make(document: BaseDocumentProtocol) -> AddNewRelationCoordinatorProtocol {
         return AddNewRelationCoordinator(
             document: document,
-            navigationContext: uiHelpersDI.commonNavigationContext
+            navigationContext: uiHelpersDI.commonNavigationContext,
+            newSearchModuleAssembly: modulesDI.newSearch
         )
     }
 }

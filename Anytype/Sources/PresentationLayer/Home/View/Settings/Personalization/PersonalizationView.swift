@@ -3,6 +3,12 @@ import AnytypeCore
 
 struct PersonalizationView: View {
     @EnvironmentObject private var model: SettingsViewModel
+    
+    private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
+    
+    init(newSearchModuleAssembly: NewSearchModuleAssemblyProtocol) {
+        self.newSearchModuleAssembly = newSearchModuleAssembly
+    }
 
     var body: some View {
         VStack(spacing: 0) {
@@ -37,7 +43,7 @@ struct PersonalizationView: View {
             .padding(.horizontal, 20)
         }
         .sheet(isPresented: $model.defaultType) {
-            DefaultTypePicker()
+            DefaultTypePicker(newSearchModuleAssembly: newSearchModuleAssembly)
                 .environmentObject(model)
         }
     }
@@ -47,7 +53,7 @@ struct PersonalizationView_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
             Color.System.blue
-            PersonalizationView()
+            PersonalizationView(newSearchModuleAssembly: DI.makeForPreview().modulesDI.newSearch)
         }
     }
 }

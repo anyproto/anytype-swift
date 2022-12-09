@@ -25,6 +25,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     private let toastPresenter: ToastPresenterProtocol
     private let createObjectModuleAssembly: CreateObjectModuleAssemblyProtocol
     private let codeLanguageListModuleAssembly: CodeLanguageListModuleAssemblyProtocol
+    private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     private let alertHelper: AlertHelper
     
     init(
@@ -45,6 +46,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         toastPresenter: ToastPresenterProtocol,
         createObjectModuleAssembly: CreateObjectModuleAssemblyProtocol,
         codeLanguageListModuleAssembly: CodeLanguageListModuleAssemblyProtocol,
+        newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
         alertHelper: AlertHelper
     ) {
         self.rootController = rootController
@@ -65,6 +67,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         self.toastPresenter = toastPresenter
         self.createObjectModuleAssembly = createObjectModuleAssembly
         self.codeLanguageListModuleAssembly = codeLanguageListModuleAssembly
+        self.newSearchModuleAssembly = newSearchModuleAssembly
         self.alertHelper = alertHelper
     }
 
@@ -196,7 +199,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     
     func showMoveTo(onSelect: @escaping (BlockId) -> ()) {
         
-        let moveToView = NewSearchModuleAssembly.blockObjectsSearchModule(
+        let moveToView = newSearchModuleAssembly.blockObjectsSearchModule(
             title: Loc.moveTo,
             excludedObjectIds: [document.objectId]
         ) { [weak self] details in
@@ -208,7 +211,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     }
 
     func showLinkTo(onSelect: @escaping (ObjectDetails) -> ()) {
-        let moduleView = NewSearchModuleAssembly.blockObjectsSearchModule(
+        let moduleView = newSearchModuleAssembly.blockObjectsSearchModule(
             title: Loc.linkTo,
             excludedObjectIds: [document.objectId]
         ) { [weak self] details in
@@ -456,7 +459,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         showSet: Bool,
         onSelect: @escaping (BlockId) -> ()
     ) {
-        let view = NewSearchModuleAssembly.objectTypeSearchModule(
+        let view = newSearchModuleAssembly.objectTypeSearchModule(
             title: title,
             selectedObjectId: selectedObjectId,
             excludedObjectTypeId: document.details?.type,
@@ -555,7 +558,7 @@ extension EditorRouter {
     
     func showRelationSearch(relationsDetails: [RelationDetails], onSelect: @escaping (RelationDetails) -> Void) {
         let vc = UIHostingController(
-            rootView: NewSearchModuleAssembly.setSortsSearchModule(
+            rootView: newSearchModuleAssembly.setSortsSearchModule(
                 relationsDetails: relationsDetails,
                 onSelect: { [weak self] relationDetails in
                     self?.navigationContext.dismissTopPresented(animated: false) {
@@ -671,6 +674,7 @@ extension EditorRouter {
         let viewModel = SetFiltersSelectionViewModel(
             filter: filter,
             router: self,
+            newSearchModuleAssembly: newSearchModuleAssembly,
             onApply: { [weak self] filter in
                 onApply(filter)
                 self?.navigationContext.dismissTopPresented()

@@ -4,6 +4,16 @@ import UIKit
 
 final class RelationValueModuleAssembly: RelationValueModuleAssemblyProtocol {
     
+    private let modulesDI: ModulesDIProtocol
+    private let serviceLocator: ServiceLocator
+    
+    init(modulesDI: ModulesDIProtocol, serviceLocator: ServiceLocator) {
+        self.modulesDI = modulesDI
+        self.serviceLocator = serviceLocator
+    }
+    
+    // MARK: - RelationValueModuleAssemblyProtocol
+    
     func make(
         objectId: BlockId,
         source: RelationSource,
@@ -12,7 +22,11 @@ final class RelationValueModuleAssembly: RelationValueModuleAssemblyProtocol {
         output: RelationValueViewModelOutput
     ) -> UIViewController? {
         
-        let contentViewModel = RelationEditingViewModelBuilder(delegate: delegate)
+        let contentViewModel = RelationEditingViewModelBuilder(
+            delegate: delegate,
+            newSearchModuleAssembly: modulesDI.newSearch,
+            searchService: serviceLocator.searchService()
+        )
             .buildViewModel(
                 source: source,
                 objectId: objectId,
