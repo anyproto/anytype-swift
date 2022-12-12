@@ -79,9 +79,6 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         contextId: BlockId,
         targetId: BlockId,
         details: [BundledDetails],
-        shouldDeleteEmptyObject: Bool,
-        shouldSelectType: Bool,
-        shouldSelectTemplate: Bool,
         position: BlockPosition,
         templateId: String
     ) -> BlockId? {
@@ -91,21 +88,10 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
             return result
         }
         let protobufStruct = Google_Protobuf_Struct(fields: protobufDetails)
-        
-        var internalFlags: [Anytype_Model_InternalFlag] = []
-        if shouldDeleteEmptyObject {
-            internalFlags.append(Anytype_Model_InternalFlag(value: .editorDeleteEmpty))
-        }
-        if shouldSelectType {
-            internalFlags.append(Anytype_Model_InternalFlag(value: .editorSelectType))
-        }
-        if shouldSelectTemplate {
-            internalFlags.append(Anytype_Model_InternalFlag(value: .editorSelectTemplate))
-        }
-        
+                
         let response = Anytype_Rpc.BlockLink.CreateWithObject.Service
             .invoke(
-                contextID: contextId, details: protobufStruct, templateID: templateId, internalFlags: internalFlags, targetID: targetId, position: position.asMiddleware, fields: .init()
+                contextID: contextId, details: protobufStruct, templateID: templateId, internalFlags: [], targetID: targetId, position: position.asMiddleware, fields: .init()
             )
             .getValue(domain: .objectActionsService)
         
