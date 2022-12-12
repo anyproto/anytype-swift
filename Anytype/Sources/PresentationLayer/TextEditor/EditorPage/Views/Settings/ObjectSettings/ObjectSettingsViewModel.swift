@@ -38,16 +38,21 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
     private let settingsBuilder = ObjectSettingBuilder()
     
     private var subscription: AnyCancellable?
+    private var onLinkItselfToObjectHandler: ((BlockId) -> Void)?
+    
     private weak var output: ObjectSettingswModelOutput?
+    private weak var delegate: ObjectSettingsModuleDelegate?
     
     init(
         document: BaseDocumentProtocol,
         objectDetailsService: DetailsServiceProtocol,
-        output: ObjectSettingswModelOutput
+        output: ObjectSettingswModelOutput,
+        delegate: ObjectSettingsModuleDelegate
     ) {
         self.document = document
         self.objectDetailsService = objectDetailsService
         self.output = output
+        self.delegate = delegate
         
         self.objectActionsViewModel = ObjectActionsViewModel(
             objectId: document.objectId,
@@ -58,6 +63,11 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
                 output?.openPageAction(screenData: screenData)
             }
         )
+        
+        objectActionsViewModel.onLinkItselfToObjectHandler = { [weak delegate] objectId in
+            guard let documentName = document.details?.name else { return }
+            delegate?.didCreateLinkToItself(selfName: documentName, in: objectId)
+        }
 
         objectActionsViewModel.onLinkItselfAction = { [weak output] onSelect in
             output?.linkToAction(onSelect: onSelect)

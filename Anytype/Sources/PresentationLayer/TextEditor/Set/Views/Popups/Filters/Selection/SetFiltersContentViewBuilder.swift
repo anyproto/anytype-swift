@@ -6,9 +6,11 @@ import SwiftUI
 
 final class SetFiltersContentViewBuilder {
     let filter: SetFilter
+    private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     
-    init(filter: SetFilter) {
+    init(filter: SetFilter, newSearchModuleAssembly: NewSearchModuleAssemblyProtocol) {
         self.filter = filter
+        self.newSearchModuleAssembly = newSearchModuleAssembly
     }
     
     @ViewBuilder
@@ -58,7 +60,7 @@ final class SetFiltersContentViewBuilder {
         let selectedTagIds = selectedIds(
             from: filter.filter.value
         )
-        return NewSearchModuleAssembly.tagsSearchModule(
+        return newSearchModuleAssembly.tagsSearchModule(
             style: .embedded,
             selectionMode: .multipleItems(preselectedIds: selectedTagIds),
             relationKey: filter.relationDetails.key,
@@ -82,7 +84,7 @@ final class SetFiltersContentViewBuilder {
             }()
             return values.map { $0.stringValue }
         }()
-        return NewSearchModuleAssembly.objectsSearchModule(
+        return newSearchModuleAssembly.objectsSearchModule(
             style: .embedded,
             selectionMode: .multipleItems(preselectedIds: selectedObjectsIds),
             excludedObjectIds: [],
@@ -97,7 +99,7 @@ final class SetFiltersContentViewBuilder {
         let selectedStatusesIds = selectedIds(
             from: filter.filter.value
         )
-        return NewSearchModuleAssembly.statusSearchModule(
+        return newSearchModuleAssembly.statusSearchModule(
             style: .embedded,
             selectionMode: .multipleItems(preselectedIds: selectedStatusesIds),
             relationKey: filter.relationDetails.key,

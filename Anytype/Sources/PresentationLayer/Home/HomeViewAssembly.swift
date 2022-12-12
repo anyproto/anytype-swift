@@ -4,9 +4,11 @@ import AnytypeCore
 final class HomeViewAssembly {
     
     private let coordinatorsDI: CoordinatorsDIProtocol
+    private let modulesDI: ModulesDIProtocol
     
-    init(coordinatorsDI: CoordinatorsDIProtocol) {
+    init(coordinatorsDI: CoordinatorsDIProtocol, modulesDI: ModulesDIProtocol) {
         self.coordinatorsDI = coordinatorsDI
+        self.modulesDI = modulesDI
     }
     
     @MainActor
@@ -17,6 +19,7 @@ final class HomeViewAssembly {
             editorBrowserAssembly: coordinatorsDI.browser,
             tabsSubsciptionDataBuilder: TabsSubscriptionDataBuilder(),
             profileSubsciptionDataBuilder: ProfileSubscriptionDataBuilder(),
+            newSearchModuleAssembly: modulesDI.newSearch,
             windowManager: coordinatorsDI.windowManager
         )
         return HomeView(model: model)

@@ -25,7 +25,7 @@ final class HomeViewModel: ObservableObject {
     
     @Published var showSearch = false
     @Published var showPagesDeletionAlert = false
-    @Published var snackBarData = SnackBarData.empty
+    @Published var snackBarData = ToastBarData.empty
     @Published var loadingAlertData = LoadingAlertData.empty
     @Published var loadingDocument = true
     
@@ -50,18 +50,21 @@ final class HomeViewModel: ObservableObject {
     private var quickActionsSubscription: AnyCancellable?
     
     private let editorBrowserAssembly: EditorBrowserAssembly
+    private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     
     init(
         homeBlockId: BlockId,
         editorBrowserAssembly: EditorBrowserAssembly,
         tabsSubsciptionDataBuilder: TabsSubscriptionDataBuilderProtocol,
         profileSubsciptionDataBuilder: ProfileSubscriptionDataBuilderProtocol,
+        newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
         windowManager: WindowManager
     ) {
         document = BaseDocument(objectId: homeBlockId)
         self.editorBrowserAssembly = editorBrowserAssembly
         self.tabsSubsciptionDataBuilder = tabsSubsciptionDataBuilder
         self.profileSubsciptionDataBuilder = profileSubsciptionDataBuilder
+        self.newSearchModuleAssembly = newSearchModuleAssembly
         self.settingsViewModel = SettingsViewModel(
             authService: ServiceLocator.shared.authService(),
             windowManager: windowManager
@@ -222,4 +225,7 @@ extension HomeViewModel {
             .edgesIgnoringSafeArea(.all)
     }
     
+    func createPersonalizationView() -> some View {
+        return PersonalizationView(newSearchModuleAssembly: newSearchModuleAssembly)
+    }
 }

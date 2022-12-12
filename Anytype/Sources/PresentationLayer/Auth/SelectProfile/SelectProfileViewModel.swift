@@ -11,7 +11,7 @@ final class SelectProfileViewModel: ObservableObject {
         }
     }
     
-    @Published var snackBarData = SnackBarData.empty
+    @Published var snackBarData = ToastBarData.empty
     
     private let authService = ServiceLocator.shared.authService()
     private let fileService = ServiceLocator.shared.fileService()

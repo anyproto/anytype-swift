@@ -86,7 +86,13 @@ extension SetFullHeader {
                 HStack(spacing: 0) {
                     RelationValueView(
                         relation: RelationItemModel(relation: item),
-                        style: .featuredRelationBlock(allowMultiLine: false)
+                        style: .featuredRelationBlock(
+                            FeaturedRelationSettings(
+                                allowMultiLine: false,
+                                prefix: item.setOfPrefix,
+                                showIcon: item.showIcon
+                            )
+                        )
                     ) { [weak model] in
                         UIApplication.shared.hideKeyboard()
                         model?.onRelationTap(relation: item)

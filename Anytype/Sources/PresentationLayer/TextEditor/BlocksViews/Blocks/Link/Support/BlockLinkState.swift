@@ -75,7 +75,7 @@ struct BlockLinkState: Hashable, Equatable {
         self.viewType = viewType
         self.archived = archived
         self.deleted = deleted
-        self.description = description
+        self.description = description.replacedNewlinesWithSpaces
         self.relations = relations
         self.iconSize = iconSize
         self.descriptionState = descriptionState

@@ -49,7 +49,7 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     }
     
     var addNewRelation: AddNewRelationCoordinatorAssemblyProtocol {
-        return AddNewRelationCoordinatorAssembly(uiHelpersDI: uiHelpersDI)
+        return AddNewRelationCoordinatorAssembly(uiHelpersDI: uiHelpersDI, modulesDI: modulesDI)
     }
     
     var browser: EditorBrowserAssembly {
@@ -57,11 +57,11 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     }
     
     var editor: EditorAssembly {
-        return EditorAssembly(serviceLocator: serviceLocator, coordinatorsDI: self, modulesDI: modulesDI)
+        return EditorAssembly(serviceLocator: serviceLocator, coordinatorsDI: self, modulesDI: modulesDI, uiHelpersDI: uiHelpersDI)
     }
     
     var homeViewAssemby: HomeViewAssembly {
-        return HomeViewAssembly(coordinatorsDI: self)
+        return HomeViewAssembly(coordinatorsDI: self, modulesDI: modulesDI)
     }
     
     var application: ApplicationCoordinator {

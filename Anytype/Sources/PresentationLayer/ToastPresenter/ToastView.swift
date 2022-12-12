@@ -1,8 +1,7 @@
 import UIKit
 
-// Non-final toast view. Should be designed by design team
-final class ToastView: ThroughHitView {
-    private lazy var label = UILabel(frame: .zero)
+final class ToastView: UIView {
+    private lazy var label = TappableLabel(frame: .zero)
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -16,46 +15,36 @@ final class ToastView: ThroughHitView {
         setupView()
     }
 
-    func setMessage(_ message: String) {
-        label.text = message
+    func setMessage(_ message: NSAttributedString) {
+        label.attributedText = message
     }
 
     private func setupView() {
-        backgroundColor = .clear
-
-        label.textColor = .textWhite
+        label.textColor = .textPrimary
         label.textAlignment = .center;
         label.font = AnytypeFont.caption1Medium.uiKitFont
         label.numberOfLines = 0
 
-        let decoratedView = UIView()
-        decoratedView.backgroundColor = .buttonActive
-        decoratedView.layer.cornerRadius = 8
-        decoratedView.layer.masksToBounds = true
-
-        addSubview(decoratedView) {
+        backgroundColor = .clear
+        
+        let wrapperView = UIView()
+        addSubview(wrapperView) {
+            $0.pinToSuperview(excluding: [.left, .right])
+            $0.leading.greaterThanOrEqual(to: leadingAnchor)
+            $0.trailing.lessThanOrEqual(to: trailingAnchor)
             $0.centerX.equal(to: centerXAnchor)
         }
-
-        NSLayoutConstraint(
-            item: decoratedView,
-            attribute: .centerY,
-            relatedBy: .equal,
-            toItem: self,
-            attribute: .centerY,
-            multiplier: 1.5,
-            constant: 0
-        ).isActive = true
-
-
-        decoratedView.addSubview(label) {
-            $0.pinToSuperview(insets: .init(top: 8, left: 8, bottom: 8, right: 8))
+        
+        wrapperView.backgroundColor = .backgroundBlack
+        wrapperView.layer.cornerRadius = 8
+        wrapperView.layer.masksToBounds = true
+        wrapperView.layer.borderWidth = 1
+        wrapperView.layer.borderColor = UIColor.strokePrimary.withAlphaComponent(0.14).cgColor
+        
+        wrapperView.addSubview(label) {
+            $0.pinToSuperview(
+                insets: .init(top: 12, left: 24, bottom: 12, right: 24)
+            )
         }
-    }
-}
-
-class ThroughHitView: UIView {
-    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-        return nil
     }
 }

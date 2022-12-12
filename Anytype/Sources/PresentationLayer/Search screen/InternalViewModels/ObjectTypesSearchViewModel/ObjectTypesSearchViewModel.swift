@@ -5,6 +5,11 @@ import SwiftUI
 
 final class ObjectTypesSearchViewModel {
     
+    private enum Constants {
+        static let installedSectionId = "MyTypeId"
+        static let marketplaceSectionId = "MarketplaceId"
+    }
+    
     let selectionMode: NewSearchViewModel.SelectionMode = .singleItem
     let viewStateSubject = PassthroughSubject<NewSearchViewState, Never>()
     
@@ -29,8 +34,7 @@ extension ObjectTypesSearchViewModel: NewInternalSearchViewModelProtocol {
     
     func search(text: String) {
         let objects = interactor.search(text: text)
-        let sources = objects.map { $0.sourceObject }
-        let marketplaceObjects = interactor.searchInMarketplace(text: text, excludedIds: sources)
+        let marketplaceObjects = interactor.searchInMarketplace(text: text)
         
         if objects.isEmpty && marketplaceObjects.isEmpty {
             handleError(for: text)
@@ -63,18 +67,22 @@ private extension ObjectTypesSearchViewModel {
     func handleSearchResults(objects: [ObjectDetails], marketplaceObjects: [ObjectDetails]) {
         viewStateSubject.send(
             .resultsList(
-                .sectioned(sectinos: [
-                    ListSectionConfiguration(
-                        id: "MyTypesID",
-                        title: "My Types",
-                        rows:  objects.asRowConfigurations(selectedId: selectedObjectId)
-                    ),
-                    ListSectionConfiguration(
-                        id: "MarketplaceId",
-                        title: "Marketplace",
-                        rows:  marketplaceObjects.asRowConfigurations(selectedId: selectedObjectId)
-                    )
-                ])
+                .sectioned(sectinos: .builder {
+                    if objects.isNotEmpty {
+                        ListSectionConfiguration(
+                            id: Constants.installedSectionId,
+                            title: Loc.ObjectType.myTypes,
+                            rows:  objects.asRowConfigurations(selectedId: selectedObjectId)
+                        )
+                    }
+                    if marketplaceObjects.isNotEmpty {
+                        ListSectionConfiguration(
+                            id: Constants.marketplaceSectionId,
+                            title: Loc.marketplace,
+                            rows:  marketplaceObjects.asRowConfigurations(selectedId: selectedObjectId)
+                        )
+                    }
+                })
             )
         )
     }

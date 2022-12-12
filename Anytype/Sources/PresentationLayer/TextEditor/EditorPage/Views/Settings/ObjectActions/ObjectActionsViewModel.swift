@@ -2,8 +2,11 @@ import Foundation
 import Combine
 import BlocksModels
 import AnytypeCore
+import UIKit
 
 final class ObjectActionsViewModel: ObservableObject {
+    var onLinkItselfToObjectHandler: RoutingAction<BlockId>?
+    
     var objectActions: [ObjectAction] {
         guard let details = details else { return [] }
 
@@ -70,15 +73,18 @@ final class ObjectActionsViewModel: ObservableObject {
     func linkItselfAction() {
         guard let currentObjectId = details?.id else { return }
 
+
         let onObjectSelection: (BlockId) -> Void = { objectId in
-            Task {
+            Task { [weak self] in
+                guard let self = self else { return }
                 let targetDocument = BaseDocument(objectId: objectId)
                 try? await targetDocument.open()
                 guard let id = targetDocument.children.last?.id else { return }
 
                 let targetObjectService = BlockActionsServiceSingle(contextId: objectId)
-
                 let _ = targetObjectService.add(targetId: id, info: .emptyLink(targetId: currentObjectId), position: .bottom)
+                
+                self.onLinkItselfToObjectHandler?(objectId)
             }
         }
 
@@ -93,5 +99,4 @@ final class ObjectActionsViewModel: ObservableObject {
 
     func search() {
     }
-
 }

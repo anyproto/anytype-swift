@@ -183,9 +183,11 @@ internal enum Loc {
   internal static let companiesContactsFriendsAndFamily = Loc.tr("Localizable", "Companies, contacts, friends and family", fallback: "Companies, contacts, friends and family")
   /// Connection refused. Please, try again
   internal static let connectionRefused = Loc.tr("Localizable", "Connection refused", fallback: "Connection refused. Please, try again")
-  /// %s copied to clipboard
-  internal static func copiedToClipboard(_ p1: UnsafePointer<CChar>) -> String {
-    return Loc.tr("Localizable", "copied to clipboard", p1, fallback: "%s copied to clipboard")
+  /// Copied
+  internal static let copied = Loc.tr("Localizable", "Copied", fallback: "Copied")
+  /// %@ copied to clipboard
+  internal static func copiedToClipboard(_ p1: Any) -> String {
+    return Loc.tr("Localizable", "copied to clipboard", String(describing: p1), fallback: "%@ copied to clipboard")
   }
   /// Copy
   internal static let copy = Loc.tr("Localizable", "Copy", fallback: "Copy")
@@ -201,15 +203,15 @@ internal enum Loc {
   internal static let createNewObject = Loc.tr("Localizable", "Create new object", fallback: "Create new object")
   /// Create object
   internal static let createObject = Loc.tr("Localizable", "Create object", fallback: "Create object")
-  /// Create option ‘%s’
-  internal static func createOption(_ p1: UnsafePointer<CChar>) -> String {
-    return Loc.tr("Localizable", "Create option", p1, fallback: "Create option ‘%s’")
+  /// Create option %@
+  internal static func createOption(_ p1: Any) -> String {
+    return Loc.tr("Localizable", "Create option", String(describing: p1), fallback: "Create option %@")
   }
   /// Create pin code
   internal static let createPinCode = Loc.tr("Localizable", "Create pin code", fallback: "Create pin code")
-  /// Create relation ‘%@’
+  /// Create relation "%@"
   internal static func createRelation(_ p1: Any) -> String {
-    return Loc.tr("Localizable", "Create relation", String(describing: p1), fallback: "Create relation ‘%@’")
+    return Loc.tr("Localizable", "Create relation", String(describing: p1), fallback: "Create relation \"%@\"")
   }
   /// Data
   internal static let data = Loc.tr("Localizable", "Data", fallback: "Data")
@@ -355,10 +357,6 @@ internal enum Loc {
   internal static let intoObject = Loc.tr("Localizable", "Into object", fallback: "Into object")
   /// Invalid invitation code
   internal static let invalidInvitationCode = Loc.tr("Localizable", "Invalid invitation code", fallback: "Invalid invitation code")
-  /// %s is already selected
-  internal static func isAlreadySelected(_ p1: UnsafePointer<CChar>) -> String {
-    return Loc.tr("Localizable", "is already selected", p1, fallback: "%s is already selected")
-  }
   /// Italic
   internal static let italic = Loc.tr("Localizable", "Italic", fallback: "Italic")
   /// Layout
@@ -397,6 +395,8 @@ internal enum Loc {
   internal static let logoutAndClearData = Loc.tr("Localizable", "Logout and clear data", fallback: "Logout and clear data")
   /// Logout error
   internal static let logoutError = Loc.tr("Localizable", "Logout error", fallback: "Logout error")
+  /// Marketplace
+  internal static let marketplace = Loc.tr("Localizable", "Marketplace", fallback: "Marketplace")
   /// Media
   internal static let media = Loc.tr("Localizable", "Media", fallback: "Media")
   /// Medium
@@ -628,13 +628,13 @@ internal enum Loc {
   internal static let theFutureWillBeTheOneYouBuild = Loc.tr("Localizable", "The future will be the one you build", fallback: "The future will be the one you build")
   /// There is no emoji named
   internal static let thereIsNoEmojiNamed = Loc.tr("Localizable", "There is no emoji named", fallback: "There is no emoji named")
-  /// There is no object named %s
-  internal static func thereIsNoObjectNamed(_ p1: UnsafePointer<CChar>) -> String {
-    return Loc.tr("Localizable", "There is no object named", p1, fallback: "There is no object named %s")
+  /// There is no object named %@
+  internal static func thereIsNoObjectNamed(_ p1: Any) -> String {
+    return Loc.tr("Localizable", "There is no object named", String(describing: p1), fallback: "There is no object named %@")
   }
-  /// There is no relation named %s
-  internal static func thereIsNoRelationNamed(_ p1: UnsafePointer<CChar>) -> String {
-    return Loc.tr("Localizable", "There is no relation named", p1, fallback: "There is no relation named %s")
+  /// There is no relation named %@
+  internal static func thereIsNoRelationNamed(_ p1: Any) -> String {
+    return Loc.tr("Localizable", "There is no relation named", String(describing: p1), fallback: "There is no relation named %@")
   }
   /// These objects will be deleted irrevocably. You can’t undo this action.
   internal static let theseObjectsWillBeDeletedIrrevocably = Loc.tr("Localizable", "These objects will be deleted irrevocably", fallback: "These objects will be deleted irrevocably. You can’t undo this action.")
@@ -791,9 +791,9 @@ internal enum Loc {
     internal static let list = Loc.tr("Localizable", "DataviewType.list", fallback: "List")
   }
   internal enum DebugMenu {
-    /// Release: %s, %s
-    internal static func toggleAuthor(_ p1: UnsafePointer<CChar>, _ p2: UnsafePointer<CChar>) -> String {
-      return Loc.tr("Localizable", "DebugMenu.ToggleAuthor", p1, p2, fallback: "Release: %s, %s")
+    /// Release: %@, %@
+    internal static func toggleAuthor(_ p1: Any, _ p2: Any) -> String {
+      return Loc.tr("Localizable", "DebugMenu.ToggleAuthor", String(describing: p1), String(describing: p2), fallback: "Release: %@, %@")
     }
   }
   internal enum DeletionAlert {
@@ -896,15 +896,15 @@ internal enum Loc {
             /// Yesterday
             internal static let yesterday = Loc.tr("Localizable", "EditSet.Popup.Filter.Date.Option.Yesterday", fallback: "Yesterday")
             internal enum NumberOfDaysAgo {
-              /// %s days ago
-              internal static func short(_ p1: UnsafePointer<CChar>) -> String {
-                return Loc.tr("Localizable", "EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo.Short", p1, fallback: "%s days ago")
+              /// %@ days ago
+              internal static func short(_ p1: Any) -> String {
+                return Loc.tr("Localizable", "EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo.Short", String(describing: p1), fallback: "%@ days ago")
               }
             }
             internal enum NumberOfDaysFromNow {
-              /// %s days from now
-              internal static func short(_ p1: UnsafePointer<CChar>) -> String {
-                return Loc.tr("Localizable", "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short", p1, fallback: "%s days from now")
+              /// %@ days from now
+              internal static func short(_ p1: Any) -> String {
+                return Loc.tr("Localizable", "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short", String(describing: p1), fallback: "%@ days from now")
               }
             }
           }
@@ -971,13 +971,19 @@ internal enum Loc {
       /// Scroll to select a place
       internal static let scrollToSelectedPlace = Loc.tr("Localizable", "Editor.MovingState.ScrollToSelectedPlace", fallback: "Scroll to select a place")
     }
+    internal enum Toast {
+      /// linked to
+      internal static let linkedTo = Loc.tr("Localizable", "Editor.Toast.LinkedTo", fallback: "linked to")
+      /// Block moved to
+      internal static let movedTo = Loc.tr("Localizable", "Editor.Toast.MovedTo", fallback: "Block moved to")
+    }
   }
   internal enum EditorSetViewPicker {
     internal enum View {
       internal enum Available {
-        /// %s view soon
-        internal static func soon(_ p1: UnsafePointer<CChar>) -> String {
-          return Loc.tr("Localizable", "EditorSetViewPicker.View.Available.Soon", p1, fallback: "%s view soon")
+        /// %@ view soon
+        internal static func soon(_ p1: Any) -> String {
+          return Loc.tr("Localizable", "EditorSetViewPicker.View.Available.Soon", String(describing: p1), fallback: "%@ view soon")
         }
       }
     }
@@ -1015,8 +1021,8 @@ internal enum Loc {
     internal static let haveYouBackedUpYourRecoveryPhrase = Loc.tr("Localizable", "Keychain.Have you backed up your recovery phrase?", fallback: "Have you backed up your recovery phrase?")
     /// Recovery phrase
     internal static let recoveryPhrase = Loc.tr("Localizable", "Keychain.Recovery phrase", fallback: "Recovery phrase")
-    /// Recovery phrase copied to clipboard
-    internal static let recoveryPhraseCopiedToClipboard = Loc.tr("Localizable", "Keychain.Recovery phrase copied to clipboard", fallback: "Recovery phrase copied to clipboard")
+    /// Recovery phrase copied
+    internal static let recoveryPhraseCopiedToClipboard = Loc.tr("Localizable", "Keychain.Recovery phrase copied to clipboard", fallback: "Recovery phrase copied")
     /// You will need it to sign in. Keep it in a safe place. If you lose it, you can no longer access your account.
     internal static let recoveryPhraseDescription = Loc.tr("Localizable", "Keychain.Recovery phrase description", fallback: "You will need it to sign in. Keep it in a safe place. If you lose it, you can no longer access your account.")
     /// If you lose the recovery phrase and get logged out you will not be able to 
@@ -1077,13 +1083,15 @@ internal enum Loc {
   internal enum ObjectType {
     /// Blank canvas with no title
     internal static let fallbackDescription = Loc.tr("Localizable", "ObjectType.fallbackDescription", fallback: "Blank canvas with no title")
+    /// My Types
+    internal static let myTypes = Loc.tr("Localizable", "ObjectType.MyTypes", fallback: "My Types")
     /// Search or install a new type
     internal static let searchOrInstall = Loc.tr("Localizable", "ObjectType.SearchOrInstall", fallback: "Search or install a new type")
   }
   internal enum QuickAction {
-    /// Create %s
-    internal static func create(_ p1: UnsafePointer<CChar>) -> String {
-      return Loc.tr("Localizable", "QuickAction.create", p1, fallback: "Create %s")
+    /// Create %@
+    internal static func create(_ p1: Any) -> String {
+      return Loc.tr("Localizable", "QuickAction.create", String(describing: p1), fallback: "Create %@")
     }
   }
   internal enum RedactedText {
@@ -1152,10 +1160,18 @@ internal enum Loc {
       internal static let relationsList = Loc.tr("Localizable", "Set.FeaturedRelations.RelationsList", fallback: "Relations:")
       /// Source
       internal static let source = Loc.tr("Localizable", "Set.FeaturedRelations.Source", fallback: "Source")
+      /// Type:
+      internal static let type = Loc.tr("Localizable", "Set.FeaturedRelations.Type", fallback: "Type:")
     }
     internal enum SourceType {
       /// Select source
       internal static let selectSource = Loc.tr("Localizable", "Set.SourceType.SelectSource", fallback: "Select source")
+      internal enum Cancel {
+        internal enum Toast {
+          /// This source can be changed on desktop only
+          internal static let title = Loc.tr("Localizable", "Set.SourceType.Cancel.Toast.Title", fallback: "This source can be changed on desktop only")
+        }
+      }
     }
     internal enum View {
       internal enum Kanban {

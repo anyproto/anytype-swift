@@ -1,8 +1,16 @@
-import Foundation
+import BlocksModels
 import UIKit
 
+protocol ObjectSettingsModuleDelegate: AnyObject {
+    func didCreateLinkToItself(selfName: String, in objectId: BlockId)
+}
+
 protocol ObjectSettingModuleAssemblyProtocol {
-    func make(document: BaseDocumentProtocol, output: ObjectSettingswModelOutput) -> UIViewController
+    func make(
+        document: BaseDocumentProtocol,
+        output: ObjectSettingswModelOutput,
+        delegate: ObjectSettingsModuleDelegate
+    ) -> UIViewController
 }
 
 final class ObjectSettingModuleAssembly: ObjectSettingModuleAssemblyProtocol {
@@ -15,12 +23,16 @@ final class ObjectSettingModuleAssembly: ObjectSettingModuleAssemblyProtocol {
     
     // MARK: - ObjectSettingModuleAssemblyProtocol
     
-    func make(document: BaseDocumentProtocol, output: ObjectSettingswModelOutput) -> UIViewController {
-        
+    func make(
+        document: BaseDocumentProtocol,
+        output: ObjectSettingswModelOutput,
+        delegate: ObjectSettingsModuleDelegate
+    ) -> UIViewController {
         let viewModel = ObjectSettingsViewModel(
             document: document,
             objectDetailsService: serviceLocator.detailsService(objectId: document.objectId),
-            output: output
+            output: output,
+            delegate: delegate
         )
         let view = ObjectSettingsView(viewModel: viewModel)
         let popup = AnytypePopup(contentView: view, floatingPanelStyle: true)

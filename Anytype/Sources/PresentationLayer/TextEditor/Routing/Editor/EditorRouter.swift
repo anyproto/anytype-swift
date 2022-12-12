@@ -22,7 +22,10 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
     private let objectSettingCoordinator: ObjectSettingsCoordinatorProtocol
     private let searchModuleAssembly: SearchModuleAssemblyProtocol
+    private let toastPresenter: ToastPresenterProtocol
+    private let createObjectModuleAssembly: CreateObjectModuleAssemblyProtocol
     private let codeLanguageListModuleAssembly: CodeLanguageListModuleAssemblyProtocol
+    private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     private let alertHelper: AlertHelper
     
     init(
@@ -40,7 +43,10 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
         objectSettingCoordinator: ObjectSettingsCoordinatorProtocol,
         searchModuleAssembly: SearchModuleAssemblyProtocol,
+        toastPresenter: ToastPresenterProtocol,
+        createObjectModuleAssembly: CreateObjectModuleAssemblyProtocol,
         codeLanguageListModuleAssembly: CodeLanguageListModuleAssemblyProtocol,
+        newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
         alertHelper: AlertHelper
     ) {
         self.rootController = rootController
@@ -58,7 +64,10 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
         self.objectSettingCoordinator = objectSettingCoordinator
         self.searchModuleAssembly = searchModuleAssembly
+        self.toastPresenter = toastPresenter
+        self.createObjectModuleAssembly = createObjectModuleAssembly
         self.codeLanguageListModuleAssembly = codeLanguageListModuleAssembly
+        self.newSearchModuleAssembly = newSearchModuleAssembly
         self.alertHelper = alertHelper
     }
 
@@ -69,12 +78,16 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     func replaceCurrentPage(with data: EditorScreenData) {
         editorPageCoordinator.startFlow(data: data, replaceCurrentPage: true)
     }
-
+    
     func showAlert(alertModel: AlertModel) {
         let alertController = AlertsFactory.alertController(from: alertModel)
         navigationContext.present(alertController)
     }
-
+    
+    func showFailureToast(message: String) {
+        toastPresenter.showFailureAlert(message: message)
+    }
+    
     func showLinkContextualMenu(inputParameters: TextBlockURLInputParameters) {
         let contextualMenuView = EditorContextualMenuView(
             options: [.pasteAsLink, .createBookmark, .pasteAsText],
@@ -186,7 +199,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     
     func showMoveTo(onSelect: @escaping (BlockId) -> ()) {
         
-        let moveToView = NewSearchModuleAssembly.blockObjectsSearchModule(
+        let moveToView = newSearchModuleAssembly.blockObjectsSearchModule(
             title: Loc.moveTo,
             excludedObjectIds: [document.objectId]
         ) { [weak self] details in
@@ -198,7 +211,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     }
 
     func showLinkTo(onSelect: @escaping (ObjectDetails) -> ()) {
-        let moduleView = NewSearchModuleAssembly.blockObjectsSearchModule(
+        let moduleView = newSearchModuleAssembly.blockObjectsSearchModule(
             title: Loc.linkTo,
             excludedObjectIds: [document.objectId]
         ) { [weak self] details in
@@ -340,7 +353,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     
     // MARK: - Settings
     func showSettings() {
-        objectSettingCoordinator.startFlow()
+        objectSettingCoordinator.startFlow(delegate: self)
     }
     
     func showCoverPicker() {
@@ -446,7 +459,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         showSet: Bool,
         onSelect: @escaping (BlockId) -> ()
     ) {
-        let view = NewSearchModuleAssembly.objectTypeSearchModule(
+        let view = newSearchModuleAssembly.objectTypeSearchModule(
             title: title,
             selectedObjectId: selectedObjectId,
             excludedObjectTypeId: document.details?.type,
@@ -517,20 +530,18 @@ extension EditorRouter {
     }
 
     func showCreateObject(pageId: BlockId) {
-        let relationService = RelationsService(objectId: pageId)
-        let viewModel = CreateObjectViewModel(relationService: relationService) { [weak self] in
+        let moduleViewController = createObjectModuleAssembly.makeCreateObject(objectId: pageId) { [weak self] in
             self?.navigationContext.dismissTopPresented()
             self?.showPage(data: EditorScreenData(pageId: pageId, type: .page))
         } closeAction: { [weak self] in
             self?.navigationContext.dismissTopPresented()
         }
         
-        showCreateObject(with: viewModel)
+        navigationContext.present(moduleViewController)
     }
     
     func showCreateBookmarkObject() {
-        let viewModel = CreateBookmarkViewModel(
-            bookmarkService: ServiceLocator.shared.bookmarkService(),
+        let moduleViewController = createObjectModuleAssembly.makeCreateBookmark(
             closeAction: { [weak self] withError in
                 self?.navigationContext.dismissTopPresented(animated: true) {
                     guard withError else { return }
@@ -542,12 +553,12 @@ extension EditorRouter {
             }
         )
         
-        showCreateObject(with: viewModel)
+        navigationContext.present(moduleViewController)
     }
     
     func showRelationSearch(relationsDetails: [RelationDetails], onSelect: @escaping (RelationDetails) -> Void) {
         let vc = UIHostingController(
-            rootView: NewSearchModuleAssembly.setSortsSearchModule(
+            rootView: newSearchModuleAssembly.setSortsSearchModule(
                 relationsDetails: relationsDetails,
                 onSelect: { [weak self] relationDetails in
                     self?.navigationContext.dismissTopPresented(animated: false) {
@@ -642,16 +653,6 @@ extension EditorRouter {
         presentSheet(vc)
     }
     
-    private func showCreateObject(with viewModel: CreateObjectViewModelProtocol) {
-        let view = CreateObjectView(viewModel: viewModel)
-        let fpc = AnytypePopup(contentView: view,
-                               floatingPanelStyle: true,
-                               configuration: .init(isGrabberVisible: true, dismissOnBackdropView: true ),
-                               showKeyboard: true)
-
-        navigationContext.present(fpc)
-    }
-    
     private func showSetSettingsPopup(setModel: EditorSetViewModel) {
         let popup = AnytypePopup(
             viewModel: EditorSetSettingsViewModel(setModel: setModel),
@@ -673,6 +674,7 @@ extension EditorRouter {
         let viewModel = SetFiltersSelectionViewModel(
             filter: filter,
             router: self,
+            newSearchModuleAssembly: newSearchModuleAssembly,
             onApply: { [weak self] filter in
                 onApply(filter)
                 self?.navigationContext.dismissTopPresented()
@@ -751,6 +753,15 @@ extension EditorRouter {
             )
         )
         presentFullscreen(popup)
+    }
+}
+
+extension EditorRouter: ObjectSettingsModuleDelegate {
+    func didCreateLinkToItself(selfName: String, in objectId: BlockId) {
+        let p1String = selfName + " " + Loc.Editor.Toast.linkedTo
+        toastPresenter.showObjectCompositeAlert(p1: p1String, objectId: objectId) { [weak self] in
+            self?.showPage(data: .init(pageId: objectId, type: .page))
+        }
     }
 }
 

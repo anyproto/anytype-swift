@@ -7,15 +7,18 @@ final class EditorAssembly {
     private let serviceLocator: ServiceLocator
     private let coordinatorsDI: CoordinatorsDIProtocol
     private let modulesDI: ModulesDIProtocol
+    private let uiHelpersDI: UIHelpersDIProtocol
     
     init(
         serviceLocator: ServiceLocator,
         coordinatorsDI: CoordinatorsDIProtocol,
-        modulesDI: ModulesDIProtocol
+        modulesDI: ModulesDIProtocol,
+        uiHelpersDI: UIHelpersDIProtocol
     ) {
         self.serviceLocator = serviceLocator
         self.coordinatorsDI = coordinatorsDI
         self.modulesDI = modulesDI
+        self.uiHelpersDI = uiHelpersDI
     }
     
     func buildEditorController(
@@ -45,7 +48,7 @@ final class EditorAssembly {
         let document = BaseDocument(objectId: data.pageId)
         let dataviewService = DataviewService(
             objectId: data.pageId,
-            prefilledFieldsBuilder: SetFilterPrefilledFieldsBuilder()
+            prefilledFieldsBuilder: SetPrefilledFieldsBuilder()
         )
         let detailsService = ServiceLocator.shared.detailsService(objectId: data.pageId)
 
@@ -76,7 +79,10 @@ final class EditorAssembly {
             objectIconPickerModuleAssembly: modulesDI.objectIconPicker,
             objectSettingCoordinator: coordinatorsDI.objectSettings.make(document: document, browserController: browser),
             searchModuleAssembly: modulesDI.search,
+            toastPresenter: uiHelpersDI.toastPresenter(using: browser),
+            createObjectModuleAssembly: modulesDI.createObject,
             codeLanguageListModuleAssembly: modulesDI.codeLanguageList,
+            newSearchModuleAssembly: modulesDI.newSearch,
             alertHelper: AlertHelper(viewController: controller)
         )
         
@@ -121,7 +127,10 @@ final class EditorAssembly {
             objectIconPickerModuleAssembly: modulesDI.objectIconPicker,
             objectSettingCoordinator: coordinatorsDI.objectSettings.make(document: document, browserController: browser),
             searchModuleAssembly: modulesDI.search,
+            toastPresenter: uiHelpersDI.toastPresenter(using: browser),
+            createObjectModuleAssembly: modulesDI.createObject,
             codeLanguageListModuleAssembly: modulesDI.codeLanguageList,
+            newSearchModuleAssembly: modulesDI.newSearch,
             alertHelper: AlertHelper(viewController: controller)
         )
 
@@ -195,6 +204,7 @@ final class EditorAssembly {
                                                   pasteboardHelper: pasteboardHelper,
                                                   pasteboardMiddlewareService: pasteboardMiddlewareService)
 
+        let toastPresenter = uiHelpersDI.toastPresenter(using: browser)
         let blockActionsServiceSingle = ServiceLocator.shared
             .blockActionsServiceSingle(contextId: document.objectId)
 
@@ -203,6 +213,7 @@ final class EditorAssembly {
             modelsHolder: modelsHolder,
             blocksSelectionOverlayViewModel: blocksSelectionOverlayViewModel,
             blockActionsServiceSingle: blockActionsServiceSingle,
+            toastPresenter: uiHelpersDI.toastPresenter(using: browser),
             actionHandler: actionHandler,
             pasteboardService: pasteboardService,
             router: router,

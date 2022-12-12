@@ -16,7 +16,7 @@ final class AnytypeIconDownloader {
         }
     }
 
-    private func image(
+    func image(
         with objectIconType: ObjectIconType,
         imageGuideline: ImageGuideline
     ) async -> UIImage? {
@@ -30,9 +30,9 @@ final class AnytypeIconDownloader {
         case .emoji(let emoji):
             return ObjectIconImagePainter.shared.image(
                 with: emoji.value,
-                font: .uxTitle1Semibold,
+                font: .systemFont(ofSize: imageGuideline.size.height/1.2),
                 textColor: .textPrimary,
-                imageGuideline: .init(size: imageGuideline.size),
+                imageGuideline: imageGuideline,
                 backgroundColor: .clear
             )
         }
