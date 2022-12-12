@@ -465,7 +465,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
             excludedObjectTypeId: document.details?.type,
             showBookmark: showBookmark,
             showSet: showSet,
-            browser: rootController,
+            browser: rootController
         ) { [weak self] id in
             self?.navigationContext.dismissTopPresented()
             onSelect(id)

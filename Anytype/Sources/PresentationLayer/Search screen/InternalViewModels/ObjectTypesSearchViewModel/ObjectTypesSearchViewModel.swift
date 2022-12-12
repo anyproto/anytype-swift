@@ -18,13 +18,13 @@ final class ObjectTypesSearchViewModel {
     private let interactor: ObjectTypesSearchInteractor
     private let toastPresenter: ToastPresenterProtocol
     private let selectedObjectId: BlockId?
-    private let onSelect: (_ id: String, _ message: String?) -> Void
+    private let onSelect: (_ id: String) -> Void
     
     init(
         interactor: ObjectTypesSearchInteractor,
         toastPresenter: ToastPresenterProtocol,
         selectedObjectId: BlockId? = nil,
-        onSelect: @escaping (_ id: String, _ message: String?) -> Void
+        onSelect: @escaping (_ id: String) -> Void
     ) {
         self.interactor = interactor
         self.toastPresenter = toastPresenter
@@ -56,7 +56,7 @@ extension ObjectTypesSearchViewModel: NewInternalSearchViewModelProtocol {
         guard let id = ids.first else { return }
 
         guard let marketplaceType = marketplaceObjects.first(where: { $0.id == id}) else {
-            onSelect(id, nil)
+            onSelect(id)
             return
         }
         
@@ -64,7 +64,7 @@ extension ObjectTypesSearchViewModel: NewInternalSearchViewModelProtocol {
         
         toastPresenter.show(message: Loc.ObjectType.addedToLibrary(installedType.name))
         
-        onSelect(installedType.id, nil)
+        onSelect(installedType.id)
     }
 }
 

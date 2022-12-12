@@ -1,8 +1,10 @@
 import UIKit
+import Combine
 
 final class ToastView: UIView {
     private lazy var label = TappableLabel(frame: .zero)
-
+    private var bottomConstraint: NSLayoutConstraint?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
 
@@ -18,6 +20,10 @@ final class ToastView: UIView {
     func setMessage(_ message: NSAttributedString) {
         label.attributedText = message
     }
+    
+    func updateBottomInset(_ inset: CGFloat) {
+        bottomConstraint?.constant = -inset
+    }
 
     private func setupView() {
         label.textColor = .textPrimary
@@ -29,10 +35,11 @@ final class ToastView: UIView {
         
         let wrapperView = UIView()
         addSubview(wrapperView) {
-            $0.pinToSuperview(excluding: [.left, .right])
+            $0.pinToSuperview(excluding: [.left, .right, .bottom])
             $0.leading.greaterThanOrEqual(to: leadingAnchor)
             $0.trailing.lessThanOrEqual(to: trailingAnchor)
             $0.centerX.equal(to: centerXAnchor)
+            bottomConstraint = $0.bottom.equal(to: bottomAnchor)
         }
         
         wrapperView.backgroundColor = .backgroundBlack
