@@ -1,19 +1,23 @@
 import Foundation
 
-struct TagsOptionsSearchModuleBuilder {
+class TagsOptionsSearchModuleBuilder: RelationOptionsSearchModuleBuilderProtocol {
     
     let relationKey: String
+    private let newSearcModuleAssembly: NewSearchModuleAssemblyProtocol
     
-}
-
-extension TagsOptionsSearchModuleBuilder: RelationOptionsSearchModuleBuilderProtocol {
+    init(relationKey: String, newSearcModuleAssembly: NewSearchModuleAssemblyProtocol) {
+        self.relationKey = relationKey
+        self.newSearcModuleAssembly = newSearcModuleAssembly
+    }
+    
+    // MARK: - RelationOptionsSearchModuleBuilderProtocol
     
     func buildModule(
         excludedOptionIds: [String],
         onSelect: @escaping ([String]) -> Void,
         onCreate: @escaping (String) -> Void
     ) -> NewSearchView {
-        NewSearchModuleAssembly.tagsSearchModule(relationKey: relationKey, selectedTagIds: excludedOptionIds, onSelect: onSelect, onCreate: onCreate)
+        newSearcModuleAssembly.tagsSearchModule(relationKey: relationKey, selectedTagIds: excludedOptionIds, onSelect: onSelect, onCreate: onCreate)
     }
     
 }

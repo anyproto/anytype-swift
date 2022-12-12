@@ -67,7 +67,7 @@ struct HomeView: View {
         .animation(.fastSpring, value: model.showPagesDeletionAlert)
         
         .bottomSheet(isPresented: $settingsModel.personalization) {
-            PersonalizationView()
+            model.createPersonalizationView()
                 .horizontalReadabilityPadding(0)
         }
         .animation(.fastSpring, value: settingsModel.personalization)

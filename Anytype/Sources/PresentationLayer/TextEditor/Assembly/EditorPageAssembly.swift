@@ -82,6 +82,7 @@ final class EditorAssembly {
             toastPresenter: uiHelpersDI.toastPresenter(using: browser),
             createObjectModuleAssembly: modulesDI.createObject,
             codeLanguageListModuleAssembly: modulesDI.codeLanguageList,
+            newSearchModuleAssembly: modulesDI.newSearch,
             alertHelper: AlertHelper(viewController: controller)
         )
         
@@ -129,6 +130,7 @@ final class EditorAssembly {
             toastPresenter: uiHelpersDI.toastPresenter(using: browser),
             createObjectModuleAssembly: modulesDI.createObject,
             codeLanguageListModuleAssembly: modulesDI.codeLanguageList,
+            newSearchModuleAssembly: modulesDI.newSearch,
             alertHelper: AlertHelper(viewController: controller)
         )
 
