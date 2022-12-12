@@ -2,6 +2,7 @@ import Foundation
 import BlocksModels
 import Combine
 import SwiftUI
+import AnytypeCore
 
 final class ObjectTypesSearchViewModel {
     
@@ -18,13 +19,13 @@ final class ObjectTypesSearchViewModel {
     private let interactor: ObjectTypesSearchInteractor
     private let toastPresenter: ToastPresenterProtocol
     private let selectedObjectId: BlockId?
-    private let onSelect: (_ id: String) -> Void
+    private let onSelect: (_ type: ObjectType) -> Void
     
     init(
         interactor: ObjectTypesSearchInteractor,
         toastPresenter: ToastPresenterProtocol,
         selectedObjectId: BlockId? = nil,
-        onSelect: @escaping (_ id: String) -> Void
+        onSelect: @escaping (_ type: ObjectType) -> Void
     ) {
         self.interactor = interactor
         self.toastPresenter = toastPresenter
@@ -55,16 +56,19 @@ extension ObjectTypesSearchViewModel: NewInternalSearchViewModelProtocol {
         
         guard let id = ids.first else { return }
 
-        guard let marketplaceType = marketplaceObjects.first(where: { $0.id == id}) else {
-            onSelect(id)
+        if let marketplaceType = marketplaceObjects.first(where: { $0.id == id}) {
+            guard let installedType = interactor.installType(objectId: marketplaceType.id) else { return }
+            toastPresenter.show(message: Loc.ObjectType.addedToLibrary(installedType.name))
+            onSelect(ObjectType(details: installedType))
             return
         }
         
-        guard let installedType = interactor.installType(objectId: marketplaceType.id) else { return }
-        
-        toastPresenter.show(message: Loc.ObjectType.addedToLibrary(installedType.name))
-        
-        onSelect(installedType.id)
+        if let installedType = objects.first(where: { $0.id == id}) {
+            onSelect(ObjectType(details: installedType))
+            return
+        }
+       
+        anytypeAssertionFailure("Type not found", domain: .objectTypeSearch)
     }
 }
 

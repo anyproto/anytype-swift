@@ -42,7 +42,7 @@ protocol NewSearchModuleAssemblyProtocol {
         showBookmark: Bool,
         showSet: Bool,
         browser: EditorBrowserController?,
-        onSelect: @escaping (_ id: String) -> Void
+        onSelect: @escaping (_ type: ObjectType) -> Void
     ) -> NewSearchView
     
     func multiselectObjectTypesSearchModule(
@@ -124,7 +124,7 @@ extension NewSearchModuleAssemblyProtocol {
         showBookmark: Bool = false,
         showSet: Bool = false,
         browser: EditorBrowserController? = nil,
-        onSelect: @escaping (_ id: String) -> Void
+        onSelect: @escaping (_ type: ObjectType) -> Void
     ) -> NewSearchView {
         return objectTypeSearchModule(
             style: style,

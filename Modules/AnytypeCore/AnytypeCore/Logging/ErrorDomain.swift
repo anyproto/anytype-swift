@@ -95,6 +95,7 @@ public enum ErrorDomain: String {
     case simpleTables
     
     case objectTypeProvider
+    case objectTypeSearch
 }
 
 extension AssertionLogger {

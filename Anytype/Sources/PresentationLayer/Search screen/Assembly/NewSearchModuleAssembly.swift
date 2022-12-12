@@ -128,7 +128,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         showBookmark: Bool,
         showSet: Bool,
         browser: EditorBrowserController?,
-        onSelect: @escaping (_ id: String) -> Void
+        onSelect: @escaping (_ type: ObjectType) -> Void
     ) -> NewSearchView {
         let interactor = ObjectTypesSearchInteractor(
             searchService: ServiceLocator.shared.searchService(),

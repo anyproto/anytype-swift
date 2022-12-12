@@ -15,8 +15,8 @@ struct DefaultTypePicker: View {
         newSearchModuleAssembly.objectTypeSearchModule(
             title: Loc.chooseDefaultObjectType,
             showBookmark: false
-        ) { [weak model] id in
-            ObjectTypeProvider.shared.setDefaulObjectType(id: id)
+        ) { [weak model] type in
+            ObjectTypeProvider.shared.setDefaulObjectType(type: type)
             model?.defaultType = false
             model?.personalization = false
         }

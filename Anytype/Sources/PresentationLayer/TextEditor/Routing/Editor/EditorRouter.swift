@@ -466,9 +466,9 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
             showBookmark: showBookmark,
             showSet: showSet,
             browser: rootController
-        ) { [weak self] id in
+        ) { [weak self] type in
             self?.navigationContext.dismissTopPresented()
-            onSelect(id)
+            onSelect(type.id)
         }
         
         navigationContext.presentSwiftUIView(view: view)
