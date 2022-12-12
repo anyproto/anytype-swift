@@ -1,8 +1,6 @@
 import UIKit
 import AnytypeCore
 
-
-
 class KeyboardEventsListnerHelper {
     
     typealias Action = (KeyboardEvent) -> Void

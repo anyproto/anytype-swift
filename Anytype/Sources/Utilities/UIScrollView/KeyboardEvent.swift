@@ -1,7 +1,6 @@
 import Foundation
 import UIKit
 
-
 struct KeyboardEvent {
     let animationDuration: TimeInterval?
     let animationCurve: UIView.AnimationOptions?
