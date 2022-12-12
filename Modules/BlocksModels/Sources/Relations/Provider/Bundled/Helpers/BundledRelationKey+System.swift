@@ -1,8 +1,8 @@
 import Foundation
 
 // Sync with
-// https://github.com/anytypeio/go-anytype-middleware/blob/master/pkg/lib/bundle/init.go#L18
-// and desktop
+// go https://github.com/anytypeio/go-anytype-middleware/blob/master/pkg/lib/bundle/init.go#L18
+// and desktop https://github.com/anytypeio/js-anytype/blob/d280e7b88d6c440372094caf9c800c349862f7f9/src/json/constant.json#L66
 
 public extension BundledRelationKey {
     static var systemKeys: [BundledRelationKey] {
@@ -11,30 +11,57 @@ public extension BundledRelationKey {
             .name,
             .description,
             .snippet,
-            .iconEmoji,
-            .iconImage,
             .type,
+            .featuredRelations,
+            .workspaceId,
+            .sourceObject,
+            .done,
+            .links,
+            .internalFlags,
+            .restrictions,
+
+            .setOf,
+            .smartblockTypes,
+            .targetObjectType,
+            .recommendedRelations,
+            .recommendedLayout,
+            .templateIsBundled,
+
             .layout,
             .layoutAlign,
+
+            .creator,
+            .createdDate,
+            .lastOpenedDate,
+            .lastModifiedBy,
+            .lastModifiedDate,
+            .addedDate,
+
+            .iconEmoji,
+            .iconImage,
+                    
             .coverId,
-            .coverScale,
             .coverType,
+            .coverScale,
             .coverX,
             .coverY,
-            .createdDate,
-            .creator,
-            .lastModifiedDate,
-            .lastModifiedBy,
-            .lastOpenedDate,
-            .featuredRelations,
+
+            .fileExt,
+            .fileMimeType,
+            .sizeInBytes,
+
             .isHidden,
             .isArchived,
             .isFavorite,
-            .workspaceId,
-            .links,
-            .internalFlags,
-            .addedDate,
-            .done
+            .isReadonly,
+
+            .relationKey,
+            .relationFormat,
+            .relationMaxCount,
+            .relationReadonlyValue,
+            .relationDefaultValue,
+            .relationFormatObjectTypes,
+            .relationOptionColor
         ]
     }
 }
