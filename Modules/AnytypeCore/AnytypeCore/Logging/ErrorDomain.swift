@@ -78,6 +78,7 @@ public enum ErrorDomain: String {
     case simpleTablesService
     case relationDetailsStorage
     case groupsSubscribeService
+    case workspaceService
     
     case homeView
     case baseDocument
