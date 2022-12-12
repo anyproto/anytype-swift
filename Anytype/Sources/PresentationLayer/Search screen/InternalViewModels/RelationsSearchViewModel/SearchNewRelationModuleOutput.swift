@@ -1,7 +1,7 @@
 import Foundation
 import BlocksModels
 
-protocol SearchNewRelationModuleOutput: AnyObject {
+protocol RelationSearchModuleOutput: AnyObject {
     
     func didAddRelation(_ relationDetails: RelationDetails)
     func didAskToShowCreateNewRelation(searchText: String)

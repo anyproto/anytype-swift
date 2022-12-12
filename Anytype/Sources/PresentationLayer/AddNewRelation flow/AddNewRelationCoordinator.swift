@@ -35,19 +35,9 @@ extension AddNewRelationCoordinator: AddNewRelationCoordinatorProtocol {
     
     func showAddNewRelationView(onCompletion: ((_ newRelationDetails: RelationDetails, _ isNew: Bool) -> Void)?) {
         self.onCompletion = onCompletion
-        
-//        let relationService = RelationsService(objectId: document.objectId)
-//
-//        let viewModel = SearchNewRelationViewModel(
-//            objectRelations: document.parsedRelations,
-//            relationService: relationService,
-//            output: self
-//        )
-//
-//        let view = SearchNewRelationView(viewModel: viewModel)
-        
+
         let view = newSearchModuleAssembly.relationsSearchModule(
-            selectedRelations: document.parsedRelations,
+            document: document,
             output: self
         )
         
@@ -58,7 +48,7 @@ extension AddNewRelationCoordinator: AddNewRelationCoordinatorProtocol {
 
 // MARK: - SearchNewRelationModuleOutput
 
-extension AddNewRelationCoordinator: SearchNewRelationModuleOutput {
+extension AddNewRelationCoordinator: RelationSearchModuleOutput {
     
     func didAddRelation(_ relationDetails: RelationDetails) {
         onCompletion?(relationDetails, false)

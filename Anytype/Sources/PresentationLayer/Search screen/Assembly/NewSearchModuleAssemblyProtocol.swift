@@ -61,8 +61,8 @@ protocol NewSearchModuleAssemblyProtocol {
     ) -> NewSearchView
     
     func relationsSearchModule(
-        selectedRelations: ParsedRelations,
-        output: SearchNewRelationModuleOutput
+        document: BaseDocumentProtocol,
+        output: RelationSearchModuleOutput
     ) -> NewSearchView
 }
 

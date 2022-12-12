@@ -51,6 +51,8 @@ final class RelationsSearchViewModel: NewInternalSearchViewModelProtocol {
         let newInstalledObjects = interactor.installRelations(objectIds: idsToInstall)
         let result = installedObjects + newInstalledObjects
     
+        interactor.addRelationToObject(relations: result)
+        
         onSelect(result)
     }
     

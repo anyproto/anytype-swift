@@ -70,10 +70,10 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         
         let excludedTypeIds: [String] = .builder {
             filteringTypeId
-            if shouldIncludeSets {
+            if !shouldIncludeSets {
                 ObjectTypeId.bundled(.set).rawValue
             }
-            if shouldIncludeBookmark {
+            if !shouldIncludeBookmark {
                 ObjectTypeId.bundled(.bookmark).rawValue
             }
             objectTypeProvider.notVisibleTypeIds()

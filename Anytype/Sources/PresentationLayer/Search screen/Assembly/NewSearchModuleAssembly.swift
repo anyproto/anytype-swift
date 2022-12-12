@@ -229,17 +229,18 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
     }
     
     func relationsSearchModule(
-        selectedRelations: ParsedRelations,
-        output: SearchNewRelationModuleOutput
+        document: BaseDocumentProtocol,
+        output: RelationSearchModuleOutput
     ) -> NewSearchView {
         
         let interactor = RelationsSearchInteractor(
             searchService: ServiceLocator.shared.searchService(),
-            workspaceService: ServiceLocator.shared.workspaceService()
+            workspaceService: ServiceLocator.shared.workspaceService(),
+            relationsService: RelationsService(objectId: document.objectId)
         )
         
         let internalViewModel = RelationsSearchViewModel(
-            selectedRelations: selectedRelations,
+            selectedRelations: document.parsedRelations,
             interactor: interactor,
             onSelect: { result in
                 guard let details = result.first else { return }
@@ -250,7 +251,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
             searchPlaceholder: "Search or create a new relation",
             style: .default,
             itemCreationMode: .available(action: { title in
-                print("handle Create \(title)")
+                output.didAskToShowCreateNewRelation(searchText: title)
             }),
             internalViewModel: internalViewModel
         )
