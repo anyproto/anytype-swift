@@ -46,7 +46,7 @@ extension AddNewRelationCoordinator: AddNewRelationCoordinatorProtocol {
 //
 //        let view = SearchNewRelationView(viewModel: viewModel)
         
-        let view = NewSearchModuleAssembly.relationsSearchModule(
+        let view = newSearchModuleAssembly.relationsSearchModule(
             selectedRelations: document.parsedRelations,
             output: self
         )

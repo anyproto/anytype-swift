@@ -228,7 +228,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         return NewSearchView(viewModel: viewModel)
     }
     
-    static func relationsSearchModule(
+    func relationsSearchModule(
         selectedRelations: ParsedRelations,
         output: SearchNewRelationModuleOutput
     ) -> NewSearchView {

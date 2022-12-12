@@ -55,15 +55,14 @@ protocol NewSearchModuleAssemblyProtocol {
         onSelect: @escaping (_ details: ObjectDetails) -> Void
     ) -> NewSearchView
     
-
-    func relationsSearchModule(
-        selectedRelations: ParsedRelations,
-        output: SearchNewRelationModuleOutput
-    ) -> NewSearchView
-    
     func setSortsSearchModule(
         relationsDetails: [RelationDetails],
         onSelect: @escaping (_ relation: RelationDetails) -> Void
+    ) -> NewSearchView
+    
+    func relationsSearchModule(
+        selectedRelations: ParsedRelations,
+        output: SearchNewRelationModuleOutput
     ) -> NewSearchView
 }
 
