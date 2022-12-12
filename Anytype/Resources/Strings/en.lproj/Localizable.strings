@@ -257,6 +257,7 @@
 "Create from scratch" = "Create from scratch";
 "Create relation" = "Create relation ‘%@’";
 "Relation.View.Hint.Empty" = "empty";
+"Relation.MyRelations" = "My relations";
 
 // MARK: - Deletion
 "Pending deletion text" = "We're sorry to see you go. You have 30 days to cancel this request. After 30 days, your encrypted account data is permanently removed from the backup node.";

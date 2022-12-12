@@ -1101,6 +1101,8 @@ internal enum Loc {
     internal static let pageType = Loc.tr("Localizable", "RedactedText.pageType", fallback: "Red pill")
   }
   internal enum Relation {
+    /// My relations
+    internal static let myRelations = Loc.tr("Localizable", "Relation.MyRelations", fallback: "My relations")
     internal enum View {
       internal enum Hint {
         /// empty

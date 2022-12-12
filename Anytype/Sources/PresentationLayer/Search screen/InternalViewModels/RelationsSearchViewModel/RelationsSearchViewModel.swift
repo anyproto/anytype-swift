@@ -4,6 +4,11 @@ import BlocksModels
 
 final class RelationsSearchViewModel: NewInternalSearchViewModelProtocol {
     
+    private enum Constants {
+        static let installedSectionId = "InstalledId"
+        static let marketplaceSectionId = "MarketplaceId"
+    }
+    
     let selectionMode: NewSearchViewModel.SelectionMode = .singleItem
     let viewStateSubject = PassthroughSubject<NewSearchViewState, Never>()
     
@@ -65,15 +70,15 @@ final class RelationsSearchViewModel: NewInternalSearchViewModelProtocol {
                 .sectioned(sectinos: .builder {
                     if objects.isNotEmpty {
                         ListSectionConfiguration(
-                            id: "MyId",
-                            title: "My relations",
+                            id: Constants.installedSectionId,
+                            title: Loc.Relation.myRelations,
                             rows:  objects.asRowConfigurations()
                         )
                     }
                     if marketplaceObjects.isNotEmpty {
                         ListSectionConfiguration(
-                            id: "MarketplaceId",
-                            title: "Marketplace",
+                            id: Constants.marketplaceSectionId,
+                            title: Loc.marketplace,
                             rows:  marketplaceObjects.asRowConfigurations()
                         )
                     }
