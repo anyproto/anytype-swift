@@ -99,6 +99,7 @@
 "Name" = "Name";
 "Description" = "Description";
 "Paste processing..." = "Paste processing...";
+"Marketplace" = "Marketplace";
 
 "Copied" = "Copied";
 
@@ -564,6 +565,8 @@
 
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "Blank canvas with no title";
+"ObjectType.SearchOrInstall" = "Search or install a new type";
+"ObjectType.MyTypes" = "My Types";
 
 // MARK: - QuickAction
 "QuickAction.create" = "Create %@";

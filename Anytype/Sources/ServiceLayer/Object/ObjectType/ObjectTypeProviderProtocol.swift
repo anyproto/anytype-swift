@@ -3,6 +3,7 @@ import BlocksModels
 
 protocol ObjectTypeProviderProtocol: AnyObject {
 
+    var objectTypes: [ObjectType] { get }
     var defaultObjectType: ObjectType { get }
     func setDefaulObjectType(id: String)
     

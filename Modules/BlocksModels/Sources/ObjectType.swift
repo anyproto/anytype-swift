@@ -19,6 +19,7 @@ public struct ObjectType: Equatable, Hashable, Codable {
     public let hidden: Bool
     public let readonly: Bool
     public let isArchived: Bool
+    public let sourceObject: String
     
     public let smartBlockTypes: Set<SmartBlockType>
     
@@ -30,6 +31,7 @@ public struct ObjectType: Equatable, Hashable, Codable {
         hidden: Bool,
         readonly: Bool,
         isArchived: Bool,
+        sourceObject: String,
         smartBlockTypes: Set<SmartBlockType>
     ) {
         self.id = id
@@ -39,6 +41,7 @@ public struct ObjectType: Equatable, Hashable, Codable {
         self.hidden = hidden
         self.readonly = readonly
         self.isArchived = isArchived
+        self.sourceObject = sourceObject
         self.smartBlockTypes = smartBlockTypes
     }
 }
@@ -54,6 +57,7 @@ extension ObjectType {
             hidden: details.isHidden,
             readonly: details.isReadonly,
             isArchived: details.isArchived,
+            sourceObject: details.sourceObject,
             smartBlockTypes: Set(details.smartblockTypesValue)
         )
     }

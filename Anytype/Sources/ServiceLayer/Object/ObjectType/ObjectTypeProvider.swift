@@ -28,7 +28,7 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     private let subscriptionBuilder: ObjectTypeSubscriptionDataBuilderProtocol
     
     
-    private var objectTypes = [ObjectType]()
+    private(set) var objectTypes = [ObjectType]()
     private var searchTypesById = [String: ObjectType]()
     private var cachedSupportedTypeIds: [String] = []
     private var notVisibleTypeIdsCache: [String] = []

@@ -395,6 +395,8 @@ internal enum Loc {
   internal static let logoutAndClearData = Loc.tr("Localizable", "Logout and clear data", fallback: "Logout and clear data")
   /// Logout error
   internal static let logoutError = Loc.tr("Localizable", "Logout error", fallback: "Logout error")
+  /// Marketplace
+  internal static let marketplace = Loc.tr("Localizable", "Marketplace", fallback: "Marketplace")
   /// Media
   internal static let media = Loc.tr("Localizable", "Media", fallback: "Media")
   /// Medium
@@ -1081,6 +1083,10 @@ internal enum Loc {
   internal enum ObjectType {
     /// Blank canvas with no title
     internal static let fallbackDescription = Loc.tr("Localizable", "ObjectType.fallbackDescription", fallback: "Blank canvas with no title")
+    /// My Types
+    internal static let myTypes = Loc.tr("Localizable", "ObjectType.MyTypes", fallback: "My Types")
+    /// Search or install a new type
+    internal static let searchOrInstall = Loc.tr("Localizable", "ObjectType.SearchOrInstall", fallback: "Search or install a new type")
   }
   internal enum QuickAction {
     /// Create %@

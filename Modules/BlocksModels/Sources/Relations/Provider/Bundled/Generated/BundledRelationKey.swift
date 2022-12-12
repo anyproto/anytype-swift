@@ -8,9 +8,6 @@ public enum BundledRelationKey: String {
 
     case meditation = "meditation"
 
-    /// Strict dictionary to select relation values from
-    case relationOptionsDict = "relationOptionsDict"
-
     case tag = "tag"
 
     /// Camera used to capture image or video
@@ -27,7 +24,7 @@ public enum BundledRelationKey: String {
     /// Date when the object will be deleted from your device
     case toBeDeletedDate = "toBeDeletedDate"
 
-    /// Types that used for such relation
+    /// Prioritized target types for the relation's value
     case relationFormatObjectTypes = "relationFormatObjectTypes"
 
     /// Relation key
@@ -389,7 +386,7 @@ public enum BundledRelationKey: String {
 
     case progress = "progress"
 
-    /// Point to the object types used to aggregate the set. Empty means object of all types will be aggregated 
+    /// Point to the object types or realtions used to aggregate the set. Empty means object of all types will be aggregated 
     case setOf = "setOf"
 
     case gender = "gender"
@@ -413,8 +410,10 @@ public enum BundledRelationKey: String {
 
     case imdbRating = "imdbRating"
 
-    /// List of smartblock types
+    /// Stored for object type. Contains tge list of smartblock types used to create the object
     case smartblockTypes = "smartblockTypes"
 
     case source = "source"
+
+    case sourceObject = "sourceObject"
 }

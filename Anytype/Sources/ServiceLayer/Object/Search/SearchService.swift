@@ -11,6 +11,7 @@ protocol SearchServiceProtocol: AnyObject {
         shouldIncludeSets: Bool,
         shouldIncludeBookmark: Bool
     ) -> [ObjectDetails]?
+    func searchMarketplaceObjectTypes(text: String) -> [ObjectDetails]?
     func searchFiles(text: String, excludedFileIds: [String]) -> [ObjectDetails]?
     func searchObjects(text: String, excludedObjectIds: [String], limitedTypeIds: [String]) -> [ObjectDetails]?
     func searchTemplates(for type: ObjectTypeId) -> [ObjectDetails]?
@@ -65,20 +66,22 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             type: .asc
         )
         
-        var excludedTypeIds: [String] = [
-            filteringTypeId,
-            shouldIncludeSets ? nil : ObjectTypeId.bundled(.set).rawValue,
-            shouldIncludeBookmark ? nil : ObjectTypeId.bundled(.bookmark).rawValue
-        ].compactMap { $0 }
+        let excludedTypeIds: [String] = .builder {
+            filteringTypeId
+            if shouldIncludeSets {
+                ObjectTypeId.bundled(.set).rawValue
+            }
+            if shouldIncludeBookmark {
+                ObjectTypeId.bundled(.bookmark).rawValue
+            }
+            objectTypeProvider.notVisibleTypeIds()
+        }
         
-        excludedTypeIds.append(contentsOf: objectTypeProvider.notVisibleTypeIds())
-        
-        let filters = [
-            SearchHelper.isArchivedFilter(isArchived: false),
-            SearchHelper.workspaceId(accountManager.account.info.accountSpaceId),
-            SearchHelper.typeFilter(typeIds: [ObjectTypeId.bundled(.objectType).rawValue]),
+        let filters = Array.builder {
+            buildFilters(isArchived: false)
+            SearchHelper.typeFilter(typeIds: [ObjectTypeId.bundled(.objectType).rawValue])
             SearchHelper.excludedIdsFilter(excludedTypeIds)
-        ]
+        }
         
         let result = search(filters: filters, sorts: [sort], fullText: text)
 
@@ -90,6 +93,25 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
                 ObjectTypeId.bundled(.set).rawValue
             ]
         ) { $0.id }
+    }
+    
+    func searchMarketplaceObjectTypes(text: String) -> [ObjectDetails]? {
+        let sort = SearchHelper.sort(
+            relation: BundledRelationKey.name,
+            type: .asc
+        )
+        
+        let isntalledSources = objectTypeProvider.objectTypes.map(\.sourceObject)
+        
+        let filters = [
+            SearchHelper.workspaceId(MarketplaceId.anytypeMarketplace.rawValue),
+            SearchHelper.typeFilter(typeIds: [ObjectTypeId.bundled(.systemObjectType).rawValue]),
+            SearchHelper.excludedIdsFilter(isntalledSources),
+            SearchHelper.smartblockTypesFilter(types: [.page]),
+        ]
+        
+        let result = search(filters: filters, sorts: [sort], fullText: text)
+        return result
     }
     
     func searchFiles(text: String, excludedFileIds: [String]) -> [ObjectDetails]? {
@@ -115,12 +137,10 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             type: .desc
         )
         
-//        let typeIds: [String] = limitedTypeIds.isNotEmpty ? limitedTypeIds : objectTypeProvider.visibleSupportedTypeIds()
         var filters = limitedTypeIds.isNotEmpty
             ? buildFilters(isArchived: false, typeIds: limitedTypeIds)
             : buildFilters(isArchived: false, excludedTypeIds: objectTypeProvider.notVisibleTypeIds())
-        
-        
+                
         filters.append(SearchHelper.excludedIdsFilter(excludedObjectIds))
         
         return search(filters: filters, sorts: [sort], fullText: text)
@@ -197,17 +217,8 @@ private extension SearchService {
             objectTypeFilter: [],
             keys: []
         ).getValue(domain: .searchService) else { return nil }
-            
-        let details: [ObjectDetails] = response.records.compactMap { search in
-            let idValue = search.fields["id"]
-            let idString = idValue?.unwrapedListValue.stringValue
-            
-            guard let id = idString else { return nil }
-            
-            return ObjectDetails(id: id, values: search.fields)
-        }
-            
-        return details
+       
+        return response.records.asDetais
     }
 
     private func buildFilters(isArchived: Bool) -> [DataviewFilter] {
