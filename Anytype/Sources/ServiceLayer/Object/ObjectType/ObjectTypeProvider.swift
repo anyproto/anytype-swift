@@ -53,7 +53,7 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     }
     
     func setDefaulObjectType(type: ObjectType) {
-        // Don't check in local storage, because middle send event in async after crreate a new type
+        // Don't check in local storage, because middle send event in async after create a new type
         // We check it in get method
         UserDefaultsConfig.defaultObjectType = type
     }
