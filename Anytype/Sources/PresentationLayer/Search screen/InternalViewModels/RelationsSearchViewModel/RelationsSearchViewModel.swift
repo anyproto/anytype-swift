@@ -46,8 +46,8 @@ final class RelationsSearchViewModel: NewInternalSearchViewModelProtocol {
         
     }
     
-    func createButtonModel(searchText: String) -> NewSearchCreateButtonModel {
-        return NewSearchCreateButtonModel(show: searchText.isNotEmpty, title: Loc.createRelation(searchText))
+    func createButtonModel(searchText: String) -> NewSearchViewModel.CreateButtonModel {
+        return searchText.isEmpty ? .disabled : .enabled(title: Loc.createRelation(searchText))
     }
     
     func handleConfirmSelection(ids: [String]) {

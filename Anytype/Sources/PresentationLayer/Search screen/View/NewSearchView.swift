@@ -61,7 +61,7 @@ struct NewSearchView: View {
     private func searchResults(model: ListModel) -> some View {
         ScrollView {
             LazyVStack(spacing: 0) {
-                if viewModel.createButtonModel.show {
+                if !viewModel.createButtonModel.isDisabled {
                     ListCreateButton(text: viewModel.createButtonModel.title) {
                         viewModel.didTapCreateButton(title: searchText)
                     }

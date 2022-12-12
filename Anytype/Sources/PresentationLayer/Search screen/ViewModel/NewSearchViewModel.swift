@@ -10,7 +10,7 @@ final class NewSearchViewModel: ObservableObject {
     
     @Published private(set) var state: NewSearchViewState = .resultsList(.plain(rows: []))
     @Published private(set) var addButtonModel: NewSearchView.AddButtonModel? = nil
-    @Published private(set) var createButtonModel: NewSearchCreateButtonModel = NewSearchCreateButtonModel(show: false)
+    @Published private(set) var createButtonModel: CreateButtonModel = .disabled
     
     private let itemCreationMode: ItemCreationMode
     private let selectionMode: SelectionMode

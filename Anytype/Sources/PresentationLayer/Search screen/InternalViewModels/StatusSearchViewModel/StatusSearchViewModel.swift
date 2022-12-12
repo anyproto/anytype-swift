@@ -56,11 +56,10 @@ extension StatusSearchViewModel: NewInternalSearchViewModelProtocol {
         onSelect(ids)
     }
     
-    func createButtonModel(searchText: String) -> NewSearchCreateButtonModel {
-        return NewSearchCreateButtonModel(
-            show: interactor.isCreateButtonAvailable(searchText: searchText, statuses: statuses),
-            title: Loc.createOption(searchText)
-        )
+    func createButtonModel(searchText: String) -> NewSearchViewModel.CreateButtonModel {
+        return interactor.isCreateButtonAvailable(searchText: searchText, statuses: statuses)
+            ? .enabled(title:  Loc.createOption(searchText))
+            : .disabled
     }
     
 }
