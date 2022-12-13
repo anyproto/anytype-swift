@@ -79,7 +79,7 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     )
     
     func showViewPicker(
-        setModel: EditorSetViewModel,
+        setDocument: SetDocumentProtocol,
         dataviewService: DataviewServiceProtocol,
         showViewTypes: @escaping RoutingAction<DataviewView?>
     )
@@ -87,19 +87,19 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func showCreateObject(pageId: BlockId)
     func showCreateBookmarkObject()
     
-    func showSetSettings(setModel: EditorSetViewModel)
+    func showSetSettings(onSettingTap: @escaping (EditorSetSetting) -> Void)
     func showViewTypes(
         dataView: BlockDataview,
         activeView: DataviewView?,
         dataviewService: DataviewServiceProtocol
     )
-    func showViewSettings(setModel: EditorSetViewModel, dataviewService: DataviewServiceProtocol)
+    func showViewSettings(setDocument: SetDocumentProtocol, dataviewService: DataviewServiceProtocol)
     func dismissSetSettingsIfNeeded()
-    func showSorts(setModel: EditorSetViewModel, dataviewService: DataviewServiceProtocol)
+    func showSorts(setDocument: SetDocumentProtocol, dataviewService: DataviewServiceProtocol)
     func showRelationSearch(relationsDetails: [RelationDetails], onSelect: @escaping (RelationDetails) -> Void)
     func showFilterSearch(filter: SetFilter, onApply: @escaping (SetFilter) -> Void)
     
-    func showFilters(setModel: EditorSetViewModel, dataviewService: DataviewServiceProtocol)
+    func showFilters(setDocument: SetDocumentProtocol, dataviewService: DataviewServiceProtocol)
     func showColorPicker(
         onColorSelection: @escaping (ColorView.ColorItem) -> Void,
         selectedColor: UIColor?,
@@ -107,7 +107,7 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     )
     
     func showCardSizes(size: DataviewViewSize, onSelect: @escaping (DataviewViewSize) -> Void)
-    func showCovers(setModel: EditorSetViewModel, onSelect: @escaping (String) -> Void)
+    func showCovers(setDocument: SetDocumentProtocol, onSelect: @escaping (String) -> Void)
     
     func showGroupByRelations(
         selectedRelationKey: String,

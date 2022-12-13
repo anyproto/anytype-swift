@@ -6,7 +6,6 @@ import OrderedCollections
 
 final class EditorSetViewModel: ObservableObject {
     @Published var titleString: String
-    @Published var dataView = BlockDataview.empty
     @Published private(set) var headerModel: ObjectHeaderViewModel!
     @Published var loadingDocument = true
     @Published var featuredRelations = [Relation]()
@@ -20,26 +19,26 @@ final class EditorSetViewModel: ObservableObject {
     @Published var configurationsDict: OrderedDictionary<String, [SetContentViewItemConfiguration]> = [:]
     @Published var pagitationDataDict: OrderedDictionary<String, EditorSetPaginationData> = [:]
     
-    @Published var sorts: [SetSort] = []
-    @Published var filters: [SetFilter] = []
-    @Published var dataViewRelationsDetails: [RelationDetails] = []
-    
     private let setSyncStatus = FeatureFlags.setSyncStatus
     @Published var syncStatus: SyncStatus = .unknown
     @Published private var isAppear: Bool = false
     
     var isUpdating = false
 
-    var isEmpty: Bool {
-        dataView.views.isEmpty
+    var objectId: BlocksModels.BlockId {
+        setDocument.objectId
     }
     
     var activeView: DataviewView {
-        dataView.views.first { $0.id == dataView.activeViewId } ?? .empty
+        setDocument.activeView
+    }
+    
+    var isEmpty: Bool {
+        setDocument.dataView.views.isEmpty
     }
     
     var colums: [RelationDetails] {
-        sortedRelations.filter { $0.option.isVisible }.map(\.relationDetails)
+        setDocument.sortedRelations.filter { $0.option.isVisible }.map(\.relationDetails)
     }
     
     var isSmallItemSize: Bool {
@@ -54,38 +53,20 @@ final class EditorSetViewModel: ObservableObject {
         activeView.type.setContentViewType
     }
     
-    var sortedRelations: [SetRelation] {
-        dataBuilder.sortedRelations(dataview: dataView, view: activeView)
-    }
- 
     var details: ObjectDetails? {
-        document.details
-    }
-
-    func activeViewRelations(excludeRelations: [RelationDetails] = []) -> [RelationDetails] {
-        dataBuilder.activeViewRelations(
-            dataViewRelationsDetails: dataViewRelationsDetails,
-            view: activeView,
-            excludeRelations: excludeRelations
-        )
+        setDocument.details
     }
     
     func groupBackgroundColor(for groupId: String) -> BlockBackgroundColor {
-        guard let groupOrder = dataView.groupOrders.first(where: { $0.viewID == activeView.id }),
+        guard let groupOrder = setDocument.dataView.groupOrders.first(where: { [weak self] in $0.viewID == self?.activeView.id }),
             let viewGroup = groupOrder.viewGroups.first(where: { $0.groupID == groupId }),
             let middlewareColor = MiddlewareColor(rawValue: viewGroup.backgroundColor) else {
             return BlockBackgroundColor.gray
         }
         return middlewareColor.backgroundColor
     }
-
-    private var isObjectLocked: Bool {
-        document.isLocked ||
-        activeView.type == .gallery ||
-        (FeatureFlags.setListView && activeView.type == .list)
-    }
     
-    let document: BaseDocument
+    private let setDocument: SetDocumentProtocol
     private var router: EditorRouterProtocol!
 
     let paginationHelper = EditorSetPaginationHelper()
@@ -99,53 +80,51 @@ final class EditorSetViewModel: ObservableObject {
     private let setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol
     private var subscriptions = [AnyCancellable]()
     private var titleSubscription: AnyCancellable?
-    private let relationDetailsStorage: RelationDetailsStorageProtocol
 
     init(
-        document: BaseDocument,
+        setDocument: SetDocumentProtocol,
         dataviewService: DataviewServiceProtocol,
         searchService: SearchServiceProtocol,
         detailsService: DetailsServiceProtocol,
         textService: TextServiceProtocol,
-        relationDetailsStorage: RelationDetailsStorageProtocol,
         groupsSubscriptionsHandler: GroupsSubscriptionsHandlerProtocol,
         setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol
     ) {
-        self.document = document
+        self.setDocument = setDocument
         self.dataviewService = dataviewService
         self.searchService = searchService
         self.detailsService = detailsService
         self.textService = textService
-        self.relationDetailsStorage = relationDetailsStorage
         self.groupsSubscriptionsHandler = groupsSubscriptionsHandler
         self.setSubscriptionDataBuilder = setSubscriptionDataBuilder
 
-        self.titleString = document.details?.pageCellTitle ?? ""
+        self.titleString = setDocument.details?.pageCellTitle ?? ""
     }
     
     func setup(router: EditorRouterProtocol) {
         self.router = router
-        self.headerModel = ObjectHeaderViewModel(document: document, router: router, isOpenedForPreview: false)
+        self.headerModel = ObjectHeaderViewModel(document: setDocument.document, router: router, isOpenedForPreview: false)
         
-        document.updatePublisher.sink { [weak self] in
+        setDocument.updatePublisher.sink { [weak self] in
             self?.onDataChange($0)
         }.store(in: &subscriptions)
 
-        Publishers.CombineLatest(document.detailsPublisher, $isAppear)
+        Publishers.CombineLatest(setDocument.document.detailsPublisher, $isAppear)
             .sink { [weak self] in self?.handleDetails(details: $0, isAppear: $1) }
             .store(in: &subscriptions)
         
-        Task { @MainActor in
+        Task { @MainActor [weak self] in
+            guard let self else { return }
             do {
-                try await document.open()
-                loadingDocument = false
-                setupDataview()
+                try await self.setDocument.open()
+                self.loadingDocument = false
+                self.onDataviewUpdate()
 
-                if let details = document.details, details.setOf.isEmpty {
-                    showSetOfTypeSelection()
+                if let details = self.setDocument.details, details.setOf.isEmpty {
+                    self.showSetOfTypeSelection()
                 }
             } catch {
-                router.closeEditor()
+                self.router.closeEditor()
             }
         }
     }
@@ -175,11 +154,6 @@ final class EditorSetViewModel: ObservableObject {
         }
     }
 
-    func updateActiveViewId(_ id: BlockId) {
-        updateDataview(with: id)
-        setupDataview()
-    }
-    
     func startSubscriptionIfNeeded(forceUpdate: Bool = false) {
         guard !isEmpty else {
             subscriptionService.stopAllSubscriptions()
@@ -211,30 +185,93 @@ final class EditorSetViewModel: ObservableObject {
     
     // MARK: - Private
     
+    private func onDataChange(_ update: SetDocumentUpdate) {
+        switch update {
+        case .dataviewUpdated(clearState: let clearState):
+            onDataviewUpdate(clearState: clearState)
+        case .syncStatus(let status):
+            if setSyncStatus {
+                syncStatus = status
+            }
+        }
+    }
+    
+    private func onDataviewUpdate(clearState: Bool = false) {
+        // Show for empty state
+        featuredRelations = setDocument.featuredRelationsForEditor
+        
+        guard setDocument.dataviews.isNotEmpty else { return }
+        anytypeAssert(setDocument.dataviews.count < 2, "\(setDocument.dataviews.count) dataviews in set", domain: .editorSet)
+        setDocument.dataviews.first.flatMap { dataView in
+            anytypeAssert(dataView.views.isNotEmpty, "Empty views in dataview: \(dataView)", domain: .editorSet)
+        }
+        
+        isUpdating = true
+        
+        if clearState {
+            self.clearState()
+        }
+        setupTitle()
+        startSubscriptionIfNeeded()
+        updateConfigurations(with: Array(recordsDict.keys))
+
+        isUpdating = false
+    }
+    
+    private func setupTitle() {
+        if let details = setDocument.details {
+            titleString = details.pageCellTitle
+
+            titleSubscription = $titleString.sink { [weak self] newValue in
+                guard let self = self, !self.isUpdating else { return }
+
+                if newValue.contains(where: \.isNewline) {
+                    self.isUpdating = true
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) { // Return button tapped on keyboard. Waiting for iOS 15 support!!!
+                        self.titleString = newValue.trimmingCharacters(in: .newlines)
+                    }
+                    UIApplication.shared.hideKeyboard()
+                    return
+                }
+
+                self.textService.setText(
+                    contextId: self.setDocument.objectId,
+                    blockId: RelationKey.title.rawValue,
+                    middlewareString: .init(text: newValue, marks: .init())
+                )
+
+                self.isUpdating = false
+            }
+        }
+    }
+    
+    // MARK: - Groups Subscriptions
+    
     private func setupGroupsSubscription(forceUpdate: Bool) {
-        Task { @MainActor in
+        Task { @MainActor [weak self] in
+            guard let self else { return }
             let data = GroupsSubscription(
                 identifier: SubscriptionId.setGroups,
-                relationKey: activeView.groupRelationKey,
-                filters: activeView.filters,
-                source: dataView.source
+                relationKey: self.activeView.groupRelationKey,
+                filters: self.activeView.filters,
+                source: self.setDocument.dataView.source
             )
-            if groupsSubscriptionsHandler.hasGroupsSubscriptionDataDiff(with: data) {
-                groupsSubscriptionsHandler.stopAllSubscriptions()
-                groups = try await startGroupsSubscription(with: data)
+            if self.groupsSubscriptionsHandler.hasGroupsSubscriptionDataDiff(with: data) {
+                self.groupsSubscriptionsHandler.stopAllSubscriptions()
+                self.groups = try await self.startGroupsSubscription(with: data)
             }
             
             
-            if forceUpdate || checkGroupOrderUpdates() {
-                startSubscriptionsByGroups()
+            if forceUpdate || self.checkGroupOrderUpdates() {
+                self.startSubscriptionsByGroups()
             }
         }
     }
     
     private func checkGroupOrderUpdates() -> Bool {
-        let groupOrder = dataView.groupOrders.first { $0.viewID == activeView.id }
+        let groupOrder = setDocument.dataView.groupOrders.first { [weak self] in $0.viewID == self?.activeView.id }
         let visibleViewGroups = groupOrder?.viewGroups.filter { !$0.hidden }
-        let newVisible = visibleViewGroups?.first { recordsDict[$0.groupID] == nil }
+        let newVisible = visibleViewGroups?.first { [weak self] in self?.recordsDict[$0.groupID] == nil }
         
         let hiddenViewGroups = groupOrder?.viewGroups.filter { $0.hidden }
         var hasNewHidden = false
@@ -291,7 +328,7 @@ final class EditorSetViewModel: ObservableObject {
         let data = setSubscriptionDataBuilder.set(
             .init(
                 identifier: subscriptionId,
-                dataView: dataView,
+                dataView: setDocument.dataView,
                 view: activeView,
                 groupFilter: groupFilter,
                 currentPage: currentPage, // show first page for empty request
@@ -335,9 +372,9 @@ final class EditorSetViewModel: ObservableObject {
             if let records = sortedRecords(with: groupId) {
                 let configurations = dataBuilder.itemData(
                     records,
-                    dataView: dataView,
+                    dataView: setDocument.dataView,
                     activeView: activeView,
-                    isObjectLocked: isObjectLocked,
+                    isObjectLocked: setDocument.isObjectLocked,
                     onIconTap: { [weak self] details in
                         self?.updateDetailsIfNeeded(details)
                     },
@@ -377,7 +414,7 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     private func sortedViewGroups() -> [DataviewViewGroup] {
-        let neededGroupOrder = dataView.groupOrders.first { [weak self] groupOrder in
+        let neededGroupOrder = setDocument.dataView.groupOrders.first { [weak self] groupOrder in
             groupOrder.viewID == self?.activeView.id
         }
         
@@ -408,7 +445,7 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     private func sortedRecords(with groupId: String) -> [ObjectDetails]? {
-        let neededObjectOrder = dataView.objectOrders.first { [weak self] objectOrder in
+        let neededObjectOrder = setDocument.dataView.objectOrders.first { [weak self] objectOrder in
             objectOrder.viewID == self?.activeView.id && objectOrder.groupID == groupId
         }
         guard let neededObjectOrder,
@@ -433,144 +470,6 @@ final class EditorSetViewModel: ObservableObject {
         }
     }
     
-    private func onDataChange(_ data: DocumentUpdate) {
-        switch data {
-        case .general, .blocks, .details, .dataSourceUpdate:
-            setupDataview()
-        case .syncStatus(let status):
-            if setSyncStatus {
-                syncStatus = status
-            }
-        case .header:
-            break // handled in ObjectHeaderViewModel
-        }
-    }
-    
-    private func setupDataview() {
-        // Show for empty state
-        featuredRelations = document.featuredRelationsForEditor
-        
-        guard document.dataviews.isNotEmpty else { return }
-        anytypeAssert(document.dataviews.count < 2, "\(document.dataviews.count) dataviews in set", domain: .editorSet)
-        
-        isUpdating = true
-
-        document.dataviews.first.flatMap { dataView in
-            anytypeAssert(dataView.views.isNotEmpty, "Empty views in dataview: \(dataView)", domain: .editorSet)
-        }
-        let prevActiveView = activeView
-        self.dataView = document.dataviews.first ?? .empty
-        clearRecordsIfNeeded(prevActiveView: prevActiveView)
-
-        if let details = document.details {
-            titleString = details.pageCellTitle
-
-            titleSubscription = $titleString.sink { [weak self] newValue in
-                guard let self = self, !self.isUpdating else { return }
-
-                if newValue.contains(where: \.isNewline) {
-                    self.isUpdating = true
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) { // Return button tapped on keyboard. Waiting for iOS 15 support!!!
-                        self.titleString = newValue.trimmingCharacters(in: .newlines)
-                    }
-                    UIApplication.shared.hideKeyboard()
-                    return
-                }
-
-                self.textService.setText(
-                    contextId: self.document.objectId,
-                    blockId: RelationKey.title.rawValue,
-                    middlewareString: .init(text: newValue, marks: .init())
-                )
-
-                self.isUpdating = false
-            }
-        }
-
-        updateDataViewRelations()
-        updateActiveViewId()
-        updateSorts()
-        updateFilters()
-        startSubscriptionIfNeeded()
-        updateConfigurations(with: Array(recordsDict.keys))
-
-        isUpdating = false
-    }
-    
-    private func clearRecordsIfNeeded(prevActiveView: DataviewView) {
-        let modeChanged = (prevActiveView.type.hasGroups && !activeView.type.hasGroups) ||
-        (!prevActiveView.type.hasGroups && activeView.type.hasGroups)
-        
-        let groupRelationKeyChanged = prevActiveView.groupRelationKey != activeView.groupRelationKey
-        
-        if modeChanged || groupRelationKeyChanged {
-            recordsDict = [:]
-            configurationsDict = [:]
-            pagitationDataDict = [:]
-            groups = []
-            subscriptionService.stopAllSubscriptions()
-            groupsSubscriptionsHandler.stopAllSubscriptions()
-        }
-    }
-    
-    private func updateActiveViewId() {
-        let activeViewId = dataView.views.first(where: { $0.type.isSupported })?.id ?? dataView.views.first?.id
-        if let activeViewId = activeViewId {
-            if self.dataView.activeViewId.isEmpty || !dataView.views.contains(where: { $0.id == self.dataView.activeViewId }) {
-                updateDataview(with: activeViewId)
-                dataView.activeViewId = activeViewId
-            }
-        } else {
-            updateDataview(with: "")
-            dataView.activeViewId = ""
-        }
-    }
-    
-    private func updateDataview(with activeViewId: BlockId) {
-        document.infoContainer.updateDataview(blockId: SetConstants.dataviewBlockId) { dataView in
-            dataView.updated(activeViewId: activeViewId)
-        }
-    }
-
-    private func updateSorts() {
-        sorts = activeView.sorts.uniqued().compactMap { sort in
-            let relationDetails = dataViewRelationsDetails.first { relationDetails in
-                sort.relationKey == relationDetails.key
-            }
-            guard let relationDetails = relationDetails else { return nil }
-            
-            return SetSort(relationDetails: relationDetails, sort: sort)
-        }
-    }
-    
-    private func updateFilters() {
-        filters = activeView.filters.compactMap { filter in
-            let relationDetails = dataViewRelationsDetails.first { relationDetails in
-                filter.relationKey == relationDetails.key
-            }
-            guard let relationDetails = relationDetails else { return nil }
-            
-            return SetFilter(relationDetails: relationDetails, filter: filter)
-        }
-    }
-    
-    private func updateDataViewRelations() {
-        dataViewRelationsDetails = relationDetailsStorage.relationsDetails(for: dataView.relationLinks)
-    }
-    
-    private func isBookmarksSet() -> Bool {
-        dataView.source.contains(ObjectTypeId.BundledTypeId.bookmark.rawValue)
-    }
-    
-    private func isRelationsSet() -> Bool {
-        let relation = document.parsedRelations.all.first { $0.key == BundledRelationKey.setOf.rawValue }
-        if let relation, relation.hasSelectedObjectsRelationType {
-            return true
-        } else {
-            return false
-        }
-    }
-    
     private func updateDetailsIfNeeded(_ details: ObjectDetails) {
         guard details.layoutValue == .todo else { return }
         detailsService.updateBundledDetails(
@@ -581,6 +480,57 @@ final class EditorSetViewModel: ObservableObject {
     
     private func itemTapped(_ details: ObjectDetails) {
         openObject(pageId: details.id, type: details.editorViewType)
+    }
+    
+    private func clearState() {
+        recordsDict = [:]
+        configurationsDict = [:]
+        pagitationDataDict = [:]
+        groups = []
+        subscriptionService.stopAllSubscriptions()
+        groupsSubscriptionsHandler.stopAllSubscriptions()
+    }
+    
+    func createObject() {
+        if setDocument.isBookmarksSet() {
+            createBookmarkObject()
+        } else if setDocument.isRelationsSet() {
+            let relationsDetails = setDocument.dataViewRelationsDetails.filter { setDocument.dataView.source.contains($0.id) }
+            createObject(
+                with: ObjectTypeProvider.shared.defaultObjectType.id,
+                relationsDetails: relationsDetails
+            )
+        } else {
+            createObject(
+                with: setDocument.dataView.source.first ?? "",
+                relationsDetails: []
+            )
+        }
+    }
+    
+    private func createObject(with type: String, relationsDetails: [RelationDetails]) {
+        let templateId: String
+        if type.isNotEmpty {
+            let availableTemplates = searchService.searchTemplates(
+                for: .dynamic(type)
+            )
+            let hasSingleTemplate = availableTemplates?.count == 1
+            templateId = hasSingleTemplate ? (availableTemplates?.first?.id ?? "") : ""
+        } else {
+            templateId = ""
+        }
+
+        Task { @MainActor [weak self] in
+            guard let self else { return }
+            let objectId = try await self.dataviewService.addRecord(
+                objectType: type,
+                templateId: templateId,
+                setFilters: self.setDocument.filters,
+                relationsDetails: relationsDetails
+            )
+            
+            self.handleCreatedObjectId(objectId, type: type)
+        }
     }
 }
 
@@ -614,35 +564,33 @@ extension EditorSetViewModel {
     }
     
     func showViewPicker() {
-        router.showViewPicker(setModel: self, dataviewService: dataviewService) { [weak self] activeView in
+        router.showViewPicker(
+            setDocument: setDocument,
+            dataviewService: dataviewService)
+        { [weak self] activeView in
             self?.showViewTypes(with: activeView)
         }
     }
     
     func showSetSettings() {
-        router.showSetSettings(setModel: self)
-    }
-
-    func createObject() {
-        if isBookmarksSet() {
-            createBookmarkObject()
-        } else if isRelationsSet() {
-            let relationsDetails = dataViewRelationsDetails.filter { dataView.source.contains($0.id) }
-            createObject(
-                with: ObjectTypeProvider.shared.defaultObjectType.id,
-                relationsDetails: relationsDetails
-            )
-        } else {
-            createObject(
-                with: dataView.source.first ?? "",
-                relationsDetails: []
-            )
+        router.showSetSettings { [weak self] setting in
+            guard let self else { return }
+            switch setting {
+            case .view:
+                self.showViewTypes(with: self.activeView)
+            case .settings:
+                self.showViewSettings()
+            case .sort:
+                self.showSorts()
+            case .filter:
+                self.showFilters()
+            }
         }
     }
     
     func showViewTypes(with activeView: DataviewView?) {
         router.showViewTypes(
-            dataView: dataView,
+            dataView: setDocument.dataView,
             activeView: activeView,
             dataviewService: dataviewService
         )
@@ -650,21 +598,21 @@ extension EditorSetViewModel {
 
     func showViewSettings() {
         router.showViewSettings(
-            setModel: self,
+            setDocument: setDocument,
             dataviewService: dataviewService
         )
     }
     
     func showSorts() {
         router.showSorts(
-            setModel: self,
+            setDocument: setDocument,
             dataviewService: dataviewService
         )
     }
     
     func showFilters() {
         router.showFilters(
-            setModel: self,
+            setDocument: setDocument,
             dataviewService: dataviewService
         )
     }
@@ -673,21 +621,18 @@ extension EditorSetViewModel {
         router.showSettings()
     }
     
-    func showAddNewRelationView(onSelect: @escaping (RelationDetails, _ isNew: Bool) -> Void) {
-        router.showAddNewRelationView(onSelect: onSelect)
-    }
-    
     func objectOrderUpdate(with groupObjectIds: [GroupObjectIds]) {
-        Task {
-            try await dataviewService.objectOrderUpdate(
-                viewId: activeView.id,
+        Task { [weak self] in
+            guard let self else { return }
+            try await self.dataviewService.objectOrderUpdate(
+                viewId: self.activeView.id,
                 groupObjectIds: groupObjectIds
             )
         }
     }
     
     func showKanbanColumnSettings(for groupId: String) {
-        let groupOrder = dataView.groupOrders.first { $0.viewID == activeView.id }
+        let groupOrder = setDocument.dataView.groupOrders.first { [weak self] in $0.viewID == self?.activeView.id }
         let viewGroup = groupOrder?.viewGroups.first { $0.groupID == groupId }
         let selectedColor = MiddlewareColor(rawValue: viewGroup?.backgroundColor ?? "")?.backgroundColor
         router.showKanbanColumnSettings(
@@ -705,16 +650,18 @@ extension EditorSetViewModel {
     
     private func dataviewGroupOrderUpdate(groupId: String, hidden: Bool, backgroundColor: BlockBackgroundColor?) {
         let updatedGroupOrder = updatedGroupOrder(groupId: groupId, hidden: hidden, backgroundColor: backgroundColor)
-        Task {
-            try await dataviewService.groupOrderUpdate(
-                viewId: activeView.id,
+        Task { [weak self] in
+            guard let self else { return }
+            try await self.dataviewService.groupOrderUpdate(
+                viewId: self.activeView.id,
                 groupOrder: updatedGroupOrder
             )
         }
     }
     
     private func updatedGroupOrder(groupId: String, hidden: Bool, backgroundColor: BlockBackgroundColor?) -> DataviewGroupOrder {
-        let groupOrder = dataView.groupOrders.first { $0.viewID == activeView.id } ?? DataviewGroupOrder.create(viewID: activeView.id)
+        let groupOrder = setDocument.dataView.groupOrders.first { [weak self] in $0.viewID == self?.activeView.id } ??
+        DataviewGroupOrder.create(viewID: activeView.id)
         var viewGroups = groupOrder.viewGroups
         let viewGroupIndex = viewGroups.firstIndex { $0.groupID == groupId }
         let viewGroup: DataviewViewGroup
@@ -738,35 +685,10 @@ extension EditorSetViewModel {
     }
     
     private func showSetOfTypeSelection() {
-        router.showSources(selectedObjectId: document.details?.setOf.first) { [unowned self] typeObjectId in
-            Task { @MainActor in
-                try? await dataviewService.setSource(typeObjectId: typeObjectId)
+        router.showSources(selectedObjectId: setDocument.details?.setOf.first) { [unowned self] typeObjectId in
+            Task { @MainActor [weak self] in
+                try? await self?.dataviewService.setSource(typeObjectId: typeObjectId)
             }
-        }
-    }
-    
-    private func createObject(with type: String, relationsDetails: [RelationDetails]) {
-        let templateId: String
-        if type.isNotEmpty {
-            let availableTemplates = searchService.searchTemplates(
-                for: .dynamic(type)
-            )
-            let hasSingleTemplate = availableTemplates?.count == 1
-            templateId = hasSingleTemplate ? (availableTemplates?.first?.id ?? "") : ""
-        } else {
-            templateId = ""
-        }
-
-        Task { @MainActor in
-
-            let objectId = try await dataviewService.addRecord(
-                objectType: type,
-                templateId: templateId,
-                setFilters: filters,
-                relationsDetails: relationsDetails
-            )
-            
-            handleCreatedObjectId(objectId, type: type)
         }
     }
     
@@ -789,17 +711,15 @@ extension EditorSetViewModel {
 }
 
 extension EditorSetViewModel {
-    static let urlRelationKey = "url"
-}
-
-extension EditorSetViewModel {
     static let empty = EditorSetViewModel(
-        document: BaseDocument(objectId: "objectId"),
+        setDocument: SetDocument(
+            document: BaseDocument(objectId: "objectId"),
+            relationDetailsStorage: ServiceLocator.shared.relationDetailsStorage()
+        ),
         dataviewService: DataviewService(objectId: "objectId", prefilledFieldsBuilder: SetPrefilledFieldsBuilder()),
         searchService: ServiceLocator.shared.searchService(),
         detailsService: DetailsService(objectId: "objectId", service: ObjectActionsService()),
         textService: TextService(),
-        relationDetailsStorage: ServiceLocator.shared.relationDetailsStorage(),
         groupsSubscriptionsHandler: ServiceLocator.shared.groupsSubscriptionsHandler(),
         setSubscriptionDataBuilder: SetSubscriptionDataBuilder()
     )

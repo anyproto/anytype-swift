@@ -514,12 +514,12 @@ extension EditorRouter: RelationValueCoordinatorOutput {
 extension EditorRouter {
     
     func showViewPicker(
-        setModel: EditorSetViewModel,
+        setDocument: SetDocumentProtocol,
         dataviewService: DataviewServiceProtocol,
         showViewTypes: @escaping RoutingAction<DataviewView?>)
     {
         let viewModel = EditorSetViewPickerViewModel(
-            setModel: setModel,
+            setDocument: setDocument,
             dataviewService: dataviewService,
             showViewTypes: showViewTypes
         )
@@ -600,14 +600,14 @@ extension EditorRouter {
         navigationContext.present(vc)
     }
     
-    func showSetSettings(setModel: EditorSetViewModel) {
+    func showSetSettings(onSettingTap: @escaping (EditorSetSetting) -> Void) {
         guard let currentSetSettingsPopup = currentSetSettingsPopup else {
-            showSetSettingsPopup(setModel: setModel)
+            showSetSettingsPopup(onSettingTap: onSettingTap)
             return
         }
         currentSetSettingsPopup.dismiss(animated: false) {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
-                self?.showSetSettingsPopup(setModel: setModel)
+                self?.showSetSettingsPopup(onSettingTap: onSettingTap)
             }
         }
     }
@@ -616,22 +616,21 @@ extension EditorRouter {
         currentSetSettingsPopup?.dismiss(animated: false)
     }
     
-    func showViewSettings(setModel: EditorSetViewModel, dataviewService: DataviewServiceProtocol) {
+    func showViewSettings(setDocument: SetDocumentProtocol, dataviewService: DataviewServiceProtocol) {
         let viewModel = EditorSetViewSettingsViewModel(
-            setModel: setModel,
+            setDocument: setDocument,
             service: dataviewService,
             router: self
         )
         let view = EditorSetViewSettingsView(
-            setModel: setModel,
             model: viewModel
         )
         navigationContext.presentSwiftUIView(view: view)
     }
     
-    func showSorts(setModel: EditorSetViewModel, dataviewService: DataviewServiceProtocol) {
+    func showSorts(setDocument: SetDocumentProtocol, dataviewService: DataviewServiceProtocol) {
         let viewModel = SetSortsListViewModel(
-            setModel: setModel,
+            setDocument: setDocument,
             service: dataviewService,
             router: self
         )
@@ -641,9 +640,9 @@ extension EditorRouter {
         presentSheet(vc)
     }
     
-    func showFilters(setModel: EditorSetViewModel, dataviewService: DataviewServiceProtocol) {
+    func showFilters(setDocument: SetDocumentProtocol, dataviewService: DataviewServiceProtocol) {
         let viewModel = SetFiltersListViewModel(
-            setModel: setModel,
+            setDocument: setDocument,
             dataviewService: dataviewService,
             router: self
         )
@@ -653,9 +652,9 @@ extension EditorRouter {
         presentSheet(vc)
     }
     
-    private func showSetSettingsPopup(setModel: EditorSetViewModel) {
+    private func showSetSettingsPopup(onSettingTap: @escaping (EditorSetSetting) -> Void) {
         let popup = AnytypePopup(
-            viewModel: EditorSetSettingsViewModel(setModel: setModel),
+            viewModel: EditorSetSettingsViewModel(onSettingTap: onSettingTap),
             floatingPanelStyle: true,
             configuration: .init(
                 isGrabberVisible: true,
@@ -701,9 +700,9 @@ extension EditorRouter {
         )
     }
     
-    func showCovers(setModel: EditorSetViewModel, onSelect: @escaping (String) -> Void) {
+    func showCovers(setDocument: SetDocumentProtocol, onSelect: @escaping (String) -> Void) {
         let viewModel = SetViewSettingsImagePreviewViewModel(
-            setModel: setModel,
+            setDocument: setDocument,
             onSelect: onSelect
         )
         let vc = UIHostingController(
