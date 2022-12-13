@@ -41,8 +41,8 @@ extension ObjectTypesSearchInteractor {
         return searchService.searchMarketplaceObjectTypes(text: text) ?? []
     }
     
-    func installTypes(objectIds: [String]) -> [String] {
-        return workspaceService.installObjects(objectIds: objectIds)
+    func installType(objectId: String) -> ObjectDetails? {
+        return workspaceService.installObject(objectId: objectId)
     }
 }
 

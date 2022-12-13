@@ -52,8 +52,9 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
         return objectTypes.first { $0.id == type.id } ?? ObjectType.fallbackType
     }
     
-    func setDefaulObjectType(id: String) {
-        guard let type = objectTypes.first(where: { $0.id == id }) else { return }
+    func setDefaulObjectType(type: ObjectType) {
+        // Don't check in local storage, because middle send event in async after create a new type
+        // We check it in get method
         UserDefaultsConfig.defaultObjectType = type
     }
     

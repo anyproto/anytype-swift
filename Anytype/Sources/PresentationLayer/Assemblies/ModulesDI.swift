@@ -53,6 +53,6 @@ final class ModulesDI: ModulesDIProtocol {
     }
     
     var newSearch: NewSearchModuleAssemblyProtocol {
-        return NewSearchModuleAssembly()
+        return NewSearchModuleAssembly(uiHelpersDI: uiHelpersDI)
     }
 }

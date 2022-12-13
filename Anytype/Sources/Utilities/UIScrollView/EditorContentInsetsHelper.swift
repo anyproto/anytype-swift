@@ -17,8 +17,8 @@ final class EditorContentInsetsHelper: KeyboardEventsListnerHelper {
 
     init?(scrollView: UIScrollView, stateManager: EditorPageBlocksStateManagerProtocol) {
         scrollView.handleBottomInsetChange(EditorScrollViewConstants.bottomEditorInsets)
-        let showAction: Action = { [weak scrollView] notification in
-            guard let keyboardRect = notification.localKeyboardRect(for: UIResponder.keyboardFrameEndUserInfoKey) else { return }
+        let showAction: Action = { [weak scrollView] event in
+            guard let keyboardRect = event.endFrame else { return }
             scrollView?.handleBottomInsetChange(keyboardRect.height)
             scrollView?.verticalScrollIndicatorInsets.bottom = keyboardRect.height
 

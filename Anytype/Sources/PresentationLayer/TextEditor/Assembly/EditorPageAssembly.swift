@@ -46,6 +46,10 @@ final class EditorAssembly {
         data: EditorScreenData
     ) -> (EditorSetHostingController, EditorRouterProtocol) {
         let document = BaseDocument(objectId: data.pageId)
+        let setDocument = SetDocument(
+            document: document,
+            relationDetailsStorage: ServiceLocator.shared.relationDetailsStorage()
+        )
         let dataviewService = DataviewService(
             objectId: data.pageId,
             prefilledFieldsBuilder: SetPrefilledFieldsBuilder()
@@ -53,12 +57,11 @@ final class EditorAssembly {
         let detailsService = ServiceLocator.shared.detailsService(objectId: data.pageId)
 
         let model = EditorSetViewModel(
-            document: document,
+            setDocument: setDocument,
             dataviewService: dataviewService,
             searchService: ServiceLocator.shared.searchService(),
             detailsService: detailsService,
             textService: serviceLocator.textService,
-            relationDetailsStorage: ServiceLocator.shared.relationDetailsStorage(),
             groupsSubscriptionsHandler: ServiceLocator.shared.groupsSubscriptionsHandler(),
             setSubscriptionDataBuilder: SetSubscriptionDataBuilder()
         )
