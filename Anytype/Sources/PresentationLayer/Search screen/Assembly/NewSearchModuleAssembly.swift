@@ -234,4 +234,35 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         
         return NewSearchView(viewModel: viewModel)
     }
+    
+    func relationsSearchModule(
+        document: BaseDocumentProtocol,
+        output: RelationSearchModuleOutput
+    ) -> NewSearchView {
+        
+        let interactor = RelationsSearchInteractor(
+            searchService: ServiceLocator.shared.searchService(),
+            workspaceService: ServiceLocator.shared.workspaceService(),
+            relationsService: RelationsService(objectId: document.objectId)
+        )
+        
+        let internalViewModel = RelationsSearchViewModel(
+            selectedRelations: document.parsedRelations,
+            interactor: interactor,
+            onSelect: { result in
+                guard let details = result.first else { return }
+                output.didAddRelation(details)
+            }
+        )
+        let viewModel = NewSearchViewModel(
+            searchPlaceholder: "Search or create a new relation",
+            style: .default,
+            itemCreationMode: .available(action: { title in
+                output.didAskToShowCreateNewRelation(searchText: title)
+            }),
+            internalViewModel: internalViewModel
+        )
+        
+        return NewSearchView(viewModel: viewModel)
+    }
 }

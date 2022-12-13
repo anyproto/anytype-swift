@@ -8,7 +8,7 @@ struct ListSectionConfiguration: Hashable, Identifiable {
     let rows: [ListRowConfiguration]
     
     func makeView() -> some View {
-        RelationOptionsSectionHeaderView(title: title)
+        ListSectionHeaderView(title: title)
     }
     
 }

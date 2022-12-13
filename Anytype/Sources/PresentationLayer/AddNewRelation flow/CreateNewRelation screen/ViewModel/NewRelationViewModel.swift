@@ -57,7 +57,8 @@ extension NewRelationViewModel {
             isReadOnly: false,
             isReadOnlyValue: false,
             objectTypes: objectTypeIds,
-            maxCount: 0
+            maxCount: 0,
+            sourceObject: ""
         )
         
         guard service.createRelation(relationDetails: relationDetails) else { return }

@@ -60,6 +60,11 @@ protocol NewSearchModuleAssemblyProtocol {
         relationsDetails: [RelationDetails],
         onSelect: @escaping (_ relation: RelationDetails) -> Void
     ) -> NewSearchView
+    
+    func relationsSearchModule(
+        document: BaseDocumentProtocol,
+        output: RelationSearchModuleOutput
+    ) -> NewSearchView
 }
 
 // Extension for specific Settings

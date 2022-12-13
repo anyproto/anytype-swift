@@ -162,6 +162,17 @@ class SearchHelper {
         
         return filter
     }
+    
+    static func excludedRelationKeys(_ relationKeys: [String]) -> DataviewFilter {
+        var filter = DataviewFilter()
+        filter.condition = .notIn
+        filter.value = relationKeys.protobufValue
+        
+        filter.relationKey = BundledRelationKey.relationKey.rawValue
+        filter.operator = .and
+        
+        return filter
+    }
 
     static func templatesFilters(type: ObjectTypeId) -> [DataviewFilter] {
         [
