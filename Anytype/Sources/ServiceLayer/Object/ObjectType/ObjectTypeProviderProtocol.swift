@@ -5,7 +5,7 @@ protocol ObjectTypeProviderProtocol: AnyObject {
 
     var objectTypes: [ObjectType] { get }
     var defaultObjectType: ObjectType { get }
-    func setDefaulObjectType(id: String)
+    func setDefaulObjectType(type: ObjectType)
     
     func isSupportedForEdit(typeId: String) -> Bool
     func objectType(id: String) -> ObjectType?

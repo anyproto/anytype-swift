@@ -2,6 +2,7 @@ import Foundation
 import BlocksModels
 import Combine
 import SwiftUI
+import AnytypeCore
 
 final class ObjectTypesSearchViewModel {
     
@@ -16,15 +17,18 @@ final class ObjectTypesSearchViewModel {
     private var objects: [ObjectDetails] = []
     private var marketplaceObjects: [ObjectDetails] = []
     private let interactor: ObjectTypesSearchInteractor
+    private let toastPresenter: ToastPresenterProtocol
     private let selectedObjectId: BlockId?
-    private let onSelect: (_ ids: [String]) -> Void
+    private let onSelect: (_ type: ObjectType) -> Void
     
     init(
         interactor: ObjectTypesSearchInteractor,
+        toastPresenter: ToastPresenterProtocol,
         selectedObjectId: BlockId? = nil,
-        onSelect: @escaping (_ ids: [String]) -> Void
+        onSelect: @escaping (_ type: ObjectType) -> Void
     ) {
         self.interactor = interactor
+        self.toastPresenter = toastPresenter
         self.selectedObjectId = selectedObjectId
         self.onSelect = onSelect
     }
@@ -49,12 +53,22 @@ extension ObjectTypesSearchViewModel: NewInternalSearchViewModelProtocol {
     func handleRowsSelection(ids: [String]) {}
     
     func handleConfirmSelection(ids: [String]) {
-        let idsToInstall = marketplaceObjects.filter { ids.contains($0.id) }.map { $0.id }
-        let installedIds = ids.filter { !idsToInstall.contains($0) }
-        let newInstalledIds = interactor.installTypes(objectIds: idsToInstall)
-        let result = installedIds + newInstalledIds
         
-        onSelect(result)
+        guard let id = ids.first else { return }
+
+        if let marketplaceType = marketplaceObjects.first(where: { $0.id == id}) {
+            guard let installedType = interactor.installType(objectId: marketplaceType.id) else { return }
+            toastPresenter.show(message: Loc.ObjectType.addedToLibrary(installedType.name))
+            onSelect(ObjectType(details: installedType))
+            return
+        }
+        
+        if let installedType = objects.first(where: { $0.id == id}) {
+            onSelect(ObjectType(details: installedType))
+            return
+        }
+       
+        anytypeAssertionFailure("Type not found", domain: .objectTypeSearch)
     }
 }
 
