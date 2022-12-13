@@ -8,25 +8,25 @@ protocol PageServiceProtocol: AnyObject {
         shouldDeleteEmptyObject: Bool,
         shouldSelectType: Bool,
         shouldSelectTemplate: Bool,
-        templateID: String?
+        templateId: String?
     ) -> BlockId?
 }
 
-// MARK: - Default arguments
+// MARK: - Default argumentsf
 extension PageServiceProtocol {
     func createPage(
         name: String,
         shouldDeleteEmptyObject: Bool = false,
         shouldSelectType: Bool = false,
         shouldSelectTemplate: Bool = false,
-        templateID: String? = nil
+        templateId: String? = nil
     ) -> BlockId? {
         createPage(
             name: name,
             shouldDeleteEmptyObject: shouldDeleteEmptyObject,
             shouldSelectType: shouldSelectType,
             shouldSelectTemplate: shouldSelectTemplate,
-            templateID: templateID
+            templateId: templateId
         )
     }
 }
@@ -37,7 +37,7 @@ final class PageService: PageServiceProtocol {
         shouldDeleteEmptyObject: Bool,
         shouldSelectType: Bool,
         shouldSelectTemplate: Bool,
-        templateID: String? = nil
+        templateId: String? = nil
     ) -> BlockId? {
         let details = Google_Protobuf_Struct(
             fields: [
@@ -59,7 +59,7 @@ final class PageService: PageServiceProtocol {
         }
         
         let response = Anytype_Rpc.Object.Create.Service
-            .invocation(details: details, internalFlags: internalFlags, templateID: templateID ?? "")
+            .invocation(details: details, internalFlags: internalFlags, templateID: templateId ?? "")
             .invoke()
             .getValue(domain: .pageService)
         

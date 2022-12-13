@@ -27,7 +27,8 @@ final class DashboardService: DashboardServiceProtocol {
             name: "",
             shouldDeleteEmptyObject: true,
             shouldSelectType: true,
-            shouldSelectTemplate: true
+            shouldSelectTemplate: true,
+            templateId: templateId
         )
         
         return id
