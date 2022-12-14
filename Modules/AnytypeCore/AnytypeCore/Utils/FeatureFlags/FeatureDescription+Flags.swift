@@ -10,13 +10,6 @@ extension FeatureDescription {
         debugValue: false
     )
     
-    static let setSyncStatus = FeatureDescription(
-        title: "Set sync status",
-        author: "joe_pusya@anytype.io",
-        releaseVersion: "0.19.0",
-        defaultValue: true
-    )
-    
     static let cursorPosition = FeatureDescription(
         title: "Cursor position after change style",
         author: "m@anytype.io",
