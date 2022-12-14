@@ -73,6 +73,7 @@ struct SetKanbanColumn: View {
             onSettingsTap()
         } label: {
             headerContent
+                .contentShape(Rectangle())
         }
         .frame(height: 44)
         .buttonStyle(LightDimmingButtonStyle())
