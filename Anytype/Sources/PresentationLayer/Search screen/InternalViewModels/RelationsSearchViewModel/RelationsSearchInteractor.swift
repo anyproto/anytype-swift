@@ -30,7 +30,7 @@ final class RelationsSearchInteractor {
             .map { RelationDetails(objectDetails: $0) }
     }
     
-    func addRelationToObject(relations: [RelationDetails]) -> Bool {
-        return relationsService.addRelations(relationsDetails: relations)
+    func addRelationToObject(relation: RelationDetails) -> Bool {
+        return relationsService.addRelations(relationsDetails: [relation])
     }
 }

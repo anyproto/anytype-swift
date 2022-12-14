@@ -56,19 +56,19 @@ final class RelationsSearchViewModel: NewInternalSearchViewModelProtocol {
     
     func handleConfirmSelection(ids: [String]) {
         guard let id = ids.first else { return }
-
+        
         if let marketplaceRelation = marketplaceObjects.first(where: { $0.id == id}) {
             guard let installedRelation = interactor.installRelation(objectId: marketplaceRelation.id) else {
-                anytypeAssertionFailure("Relation not installed. Id \(marketplaceRelation.id)", domain: .relationSearch)
+                anytypeAssertionFailure("Relation not installed. Relation id \(marketplaceRelation.id)", domain: .relationSearch)
                 return
             }
             toastPresenter.show(message: Loc.Relation.addedToLibrary(installedRelation.name))
-            onSelect(installedRelation)
+            addRelation(relation: installedRelation)
             return
         }
         
         if let installedRelation = objects.first(where: { $0.id == id}) {
-            onSelect(installedRelation)
+            addRelation(relation: installedRelation)
             return
         }
     
@@ -76,6 +76,14 @@ final class RelationsSearchViewModel: NewInternalSearchViewModelProtocol {
     }
     
     // MARK: - Private
+    
+    private func addRelation(relation: RelationDetails) {
+        guard interactor.addRelationToObject(relation: relation) else {
+            anytypeAssertionFailure("Relation not added to document. Relation id \(relation.id)", domain: .relationSearch)
+            return
+        }
+        onSelect(relation)
+    }
     
     private func handleSearchResults(objects: [RelationDetails], marketplaceObjects: [RelationDetails]) {
     
