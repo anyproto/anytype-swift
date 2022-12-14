@@ -18,7 +18,8 @@ final class AddNewRelationCoordinatorAssembly: AddNewRelationCoordinatorAssembly
         return AddNewRelationCoordinator(
             document: document,
             navigationContext: uiHelpersDI.commonNavigationContext,
-            newSearchModuleAssembly: modulesDI.newSearch
+            newSearchModuleAssembly: modulesDI.newSearch,
+            newRelationModuleAssembly: modulesDI.newRelation
         )
     }
 }

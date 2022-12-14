@@ -249,9 +249,9 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         let internalViewModel = RelationsSearchViewModel(
             selectedRelations: document.parsedRelations,
             interactor: interactor,
+            toastPresenter: uiHelpersDI.toastPresenter,
             onSelect: { result in
-                guard let details = result.first else { return }
-                output.didAddRelation(details)
+                output.didAddRelation(result)
             }
         )
         let viewModel = NewSearchViewModel(

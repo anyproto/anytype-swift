@@ -25,13 +25,12 @@ final class RelationsSearchInteractor {
         return searchService.searchMarketplaceRelations(text: text, excludedIds: excludedIds) ?? []
     }
     
-    func installRelations(objectIds: [String]) -> [RelationDetails] {
-        return objectIds
-            .compactMap { workspaceService.installObject(objectId: $0) }
-            .map { RelationDetails(objectDetails: $0)}
+    func installRelation(objectId: String) -> RelationDetails? {
+        return workspaceService.installObject(objectId: objectId)
+            .map { RelationDetails(objectDetails: $0) }
     }
     
-    func addRelationToObject(relations: [RelationDetails]) {
-        relationsService.addRelations(relationsDetails: relations)
+    func addRelationToObject(relations: [RelationDetails]) -> Bool {
+        return relationsService.addRelations(relationsDetails: relations)
     }
 }

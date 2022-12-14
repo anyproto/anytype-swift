@@ -1,6 +1,7 @@
 import Foundation
 import Combine
 import BlocksModels
+import AnytypeCore
 
 final class RelationsSearchViewModel: NewInternalSearchViewModelProtocol {
     
@@ -17,15 +18,18 @@ final class RelationsSearchViewModel: NewInternalSearchViewModelProtocol {
     
     private let selectedRelations: ParsedRelations
     private let interactor: RelationsSearchInteractor
-    private let onSelect: (_ ids: [RelationDetails]) -> Void
+    private let toastPresenter: ToastPresenterProtocol
+    private let onSelect: (_ relation: RelationDetails) -> Void
     
     init(
         selectedRelations: ParsedRelations,
         interactor: RelationsSearchInteractor,
-        onSelect: @escaping (_ ids: [RelationDetails]) -> Void
+        toastPresenter: ToastPresenterProtocol,
+        onSelect: @escaping (_ relation: RelationDetails) -> Void
     ) {
         self.selectedRelations = selectedRelations
         self.interactor = interactor
+        self.toastPresenter = toastPresenter
         self.onSelect = onSelect
     }
     
@@ -51,14 +55,24 @@ final class RelationsSearchViewModel: NewInternalSearchViewModelProtocol {
     }
     
     func handleConfirmSelection(ids: [String]) {
-        let idsToInstall = marketplaceObjects.filter { ids.contains($0.id) }.map { $0.id }
-        let installedObjects = objects.filter { ids.contains($0.id) }
-        let newInstalledObjects = interactor.installRelations(objectIds: idsToInstall)
-        let result = installedObjects + newInstalledObjects
-    
-        interactor.addRelationToObject(relations: result)
+        guard let id = ids.first else { return }
+
+        if let marketplaceRelation = marketplaceObjects.first(where: { $0.id == id}) {
+            guard let installedRelation = interactor.installRelation(objectId: marketplaceRelation.id) else {
+                anytypeAssertionFailure("Relation not installed. Id \(marketplaceRelation.id)", domain: .relationSearch)
+                return
+            }
+            toastPresenter.show(message: Loc.Relation.addedToLibrary(installedRelation.name))
+            onSelect(installedRelation)
+            return
+        }
         
-        onSelect(result)
+        if let installedRelation = objects.first(where: { $0.id == id}) {
+            onSelect(installedRelation)
+            return
+        }
+    
+        anytypeAssertionFailure("Relation not found", domain: .relationSearch)
     }
     
     // MARK: - Private

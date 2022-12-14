@@ -97,6 +97,7 @@ public enum ErrorDomain: String {
     
     case objectTypeProvider
     case objectTypeSearch
+    case relationSearch
 }
 
 extension AssertionLogger {
