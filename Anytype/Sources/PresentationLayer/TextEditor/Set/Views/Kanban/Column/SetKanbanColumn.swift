@@ -88,9 +88,9 @@ struct SetKanbanColumn: View {
                     color: .textSecondary
                 )
             case let .status(options):
-                StatusRelationView(options: options, hint: "", style: .filter(hasValues: false))
+                StatusRelationView(options: options, hint: "", style: .kanbanHeader)
             case let .tag(options):
-                TagRelationView(tags: options, hint: "", style: .filter(hasValues: false))
+                TagRelationView(tags: options, hint: "", style: .kanbanHeader)
             case let .checkbox(title, isChecked):
                 HStack(spacing: 6) {
                     if isChecked {

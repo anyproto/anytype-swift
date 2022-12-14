@@ -63,7 +63,7 @@ struct TagRelationView: View {
                     .frame(width: 24, height: 18)
                     .background(Color.strokeTertiary)
                     .cornerRadius(3)
-            case .filter, .setCollection:
+            case .filter, .setCollection, .kanbanHeader:
                 CountTagView(count: count, style: style)
             }
         }
@@ -76,14 +76,14 @@ private extension TagRelationView {
         switch style {
         case .regular, .set: return 0
         case .featuredRelationBlock: return 3
-        case .filter, .setCollection: return 1
+        case .filter, .setCollection, .kanbanHeader: return 1
         }
     }
     
     private var hSpacing: CGFloat {
         switch style {
         case .regular, .set, .filter: return 8
-        case .featuredRelationBlock, .setCollection: return 6
+        case .featuredRelationBlock, .setCollection, .kanbanHeader: return 6
         }
     }
 }
