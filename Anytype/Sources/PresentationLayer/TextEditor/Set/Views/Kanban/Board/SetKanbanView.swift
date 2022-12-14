@@ -56,7 +56,7 @@ struct SetKanbanView: View {
                     if let configurations = model.configurationsDict[groupId] {
                         SetKanbanColumn(
                             groupId: groupId,
-                            headerRelation: nil, // will be updated after branch `relatio-as-object` was merged
+                            headerType: model.headerType(for: groupId),
                             configurations: configurations,
                             isGroupBackgroundColors: model.isGroupBackgroundColors,
                             backgroundColor: model.groupBackgroundColor(for: groupId),

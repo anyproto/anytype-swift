@@ -66,6 +66,11 @@ final class EditorSetViewModel: ObservableObject {
         return middlewareColor.backgroundColor
     }
     
+    func headerType(for groupId: String) -> SetKanbanColumnHeaderType {
+        guard let group = groups.first(where: { $0.id == groupId }) else { return .uncategorized }
+        return group.header(with: activeView.groupRelationKey)
+    }
+    
     private let setDocument: SetDocumentProtocol
     private var router: EditorRouterProtocol!
 

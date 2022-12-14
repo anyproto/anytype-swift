@@ -3,7 +3,7 @@ import UniformTypeIdentifiers
 
 struct SetKanbanColumn: View {
     let groupId: String
-    let headerRelation: Relation?
+    let headerType: SetKanbanColumnHeaderType
     let configurations: [SetContentViewItemConfiguration]
     let isGroupBackgroundColors: Bool
     let backgroundColor: BlockBackgroundColor
@@ -69,33 +69,51 @@ struct SetKanbanColumn: View {
     }
     
     private var header: some View {
+        Button {
+            onSettingsTap()
+        } label: {
+            headerContent
+        }
+        .frame(height: 44)
+        .buttonStyle(LightDimmingButtonStyle())
+    }
+    
+    private var headerContent: some View {
         HStack(spacing: 0) {
-            if let headerRelation {
-                RelationValueView(
-                    relation: RelationItemModel(relation: headerRelation),
-                    style: .regular(allowMultiLine: false),
-                    action: {}
-                )
-            } else {
+            switch headerType {
+            case .uncategorized:
                 AnytypeText(
                     Loc.Set.View.Kanban.Column.Title.uncategorized,
-                    style: .relation1Regular,
+                    style: .relation2Regular,
                     color: .textSecondary
                 )
+            case let .status(options):
+                StatusRelationView(options: options, hint: "", style: .filter(hasValues: false))
+            case let .tag(options):
+                TagRelationView(tags: options, hint: "", style: .filter(hasValues: false))
+            case let .checkbox(title, isChecked):
+                HStack(spacing: 6) {
+                    if isChecked {
+                        Image(asset: .TextEditor.Text.checked)
+                    } else {
+                        Image(asset: .TextEditor.Text.unchecked)
+                    }
+                    let text = isChecked ?
+                    Loc.Set.View.Kanban.Column.Title.checked(title) :
+                    Loc.Set.View.Kanban.Column.Title.unchecked(title)
+                    AnytypeText(
+                        text,
+                        style: .relation2Regular,
+                        color: .textSecondary
+                    )
+                }
             }
+            
             Spacer()
-            Button {
-                onSettingsTap()
-            } label: {
-                Image(asset: .more).foregroundColor(.buttonActive)
-            }
-            Spacer.fixedWidth(16)
-            Button {} label: {
-                Image(asset: .plus)
-            }
+            
+            Image(asset: .more).foregroundColor(.buttonActive)
         }
         .padding(.horizontal, 10)
-        .frame(height: 44)
     }
     
     private var pagingView: some View {
