@@ -26,6 +26,20 @@ extension DataviewGroup {
         }
     }
     
+    var backgroundColor: BlockBackgroundColor? {
+        switch value {
+        case .tag(let tag):
+            guard let firstTagId = tag.ids.first,
+                    let details = ObjectDetailsStorage.shared.get(id: firstTagId) else { return nil }
+            return MiddlewareColor(rawValue: details.relationOptionColor)?.backgroundColor
+        case .status(let status):
+            guard let details = ObjectDetailsStorage.shared.get(id: status.id) else { return nil }
+            return MiddlewareColor(rawValue: details.relationOptionColor)?.backgroundColor
+        default:
+            return nil
+        }
+    }
+    
     func header(with groupRelationKey: String) -> SetKanbanColumnHeaderType {
         switch value {
         case .tag(let tag):
