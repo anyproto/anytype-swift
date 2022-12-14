@@ -10,13 +10,6 @@ extension FeatureDescription {
         debugValue: false
     )
     
-    static let setListView = FeatureDescription(
-        title: "Set list view",
-        author: "joe_pusya@anytype.io",
-        releaseVersion: "0.18.0",
-        defaultValue: true
-    )
-    
     static let setViewTypes = FeatureDescription(
         title: "Set view types",
         author: "joe_pusya@anytype.io",
