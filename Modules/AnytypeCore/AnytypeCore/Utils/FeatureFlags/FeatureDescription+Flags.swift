@@ -10,13 +10,6 @@ extension FeatureDescription {
         debugValue: false
     )
     
-    static let setViewTypes = FeatureDescription(
-        title: "Set view types",
-        author: "joe_pusya@anytype.io",
-        releaseVersion: "0.18.0",
-        defaultValue: true
-    )
-    
     static let setSyncStatus = FeatureDescription(
         title: "Set sync status",
         author: "joe_pusya@anytype.io",

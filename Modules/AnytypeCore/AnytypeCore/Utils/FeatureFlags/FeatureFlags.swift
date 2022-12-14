@@ -15,7 +15,6 @@ public final class FeatureFlags {
         .showAlertOnAssert,
         .analytics,
         .objectPreview,
-        .setViewTypes,
         .setSyncStatus,
         .cursorPosition,
         .hideBottomViewForStyleMenu,
@@ -59,10 +58,6 @@ public extension FeatureFlags {
 
     static var objectPreview: Bool {
         value(for: .objectPreview)
-    }
-    
-    static var setViewTypes: Bool {
-        value(for: .setViewTypes)
     }
     
     static var setSyncStatus: Bool {
