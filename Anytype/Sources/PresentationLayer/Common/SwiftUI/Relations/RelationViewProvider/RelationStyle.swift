@@ -18,11 +18,13 @@ struct FeaturedRelationSettings: Hashable {
     let allowMultiLine: Bool
     let prefix: String?
     let showIcon: Bool
+    let error: Bool
     
-    init(allowMultiLine: Bool, prefix: String? = nil, showIcon: Bool = true) {
+    init(allowMultiLine: Bool, prefix: String? = nil, showIcon: Bool = true, error: Bool = false) {
         self.allowMultiLine = allowMultiLine
         self.prefix = prefix
         self.showIcon = showIcon
+        self.error = error
     }
 }
 
@@ -40,12 +42,7 @@ extension RelationStyle {
     }
 
     var fontColor: Color {
-        switch self {
-        case .regular, .set:
-            return .textPrimary
-        case .featuredRelationBlock, .filter, .setCollection:
-            return .textSecondary
-        }
+        return Color(uiKitFontColor)
     }
 
     var uiKitFontColor: UIColor {
@@ -54,6 +51,28 @@ extension RelationStyle {
             return .textPrimary
         case .featuredRelationBlock, .filter, .setCollection:
             return .textSecondary
+        }
+    }
+    
+    var uiFontColorWithError: UIColor {
+        switch self {
+        case let .featuredRelationBlock(settings):
+            return settings.error ? .Text.red : uiKitFontColor
+        default:
+            return uiKitFontColor
+        }
+    }
+    
+    var fontColorWithError: Color {
+        return Color(uiFontColorWithError)
+    }
+    
+    var isError: Bool {
+        switch self {
+        case let .featuredRelationBlock(settings):
+            return settings.error
+        default:
+            return false
         }
     }
 

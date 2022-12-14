@@ -370,12 +370,24 @@ private extension RelationsBuilder {
         let objectOptions: [Relation.Object.Option] = {
             
             let values = details.stringValueOrArray(for: relationDetails)
-            
-            let objectDetails: [ObjectDetails] = values.compactMap {
-                return storage.get(id: $0)
-            }
 
-            let objectOptions: [Relation.Object.Option] = objectDetails.map { objectDetail in
+            let objectOptions: [Relation.Object.Option] = values.compactMap { valueId in
+                
+                guard let objectDetail = storage.get(id: valueId) else {
+                    if relationDetails.key == BundledRelationKey.setOf.rawValue {
+                        return Relation.Object.Option(
+                            id: valueId,
+                            icon: .placeholder(nil),
+                            title: Loc.deleted,
+                            type: .empty,
+                            isArchived: true,
+                            isDeleted: true,
+                            editorViewType: .page
+                        )
+                    }
+                    return nil
+                }
+                        
                 let name = objectDetail.title
                 let icon: ObjectIconImage = {
                     if let objectIcon = objectDetail.objectIconImage {

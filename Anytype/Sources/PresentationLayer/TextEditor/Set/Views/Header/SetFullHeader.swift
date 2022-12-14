@@ -84,13 +84,15 @@ extension SetFullHeader {
             spacing: .init(width: 6, height: 4),
             cell: { item, index in
                 HStack(spacing: 0) {
+                    let relation = RelationItemModel(relation: item)
                     RelationValueView(
-                        relation: RelationItemModel(relation: item),
+                        relation: relation,
                         style: .featuredRelationBlock(
                             FeaturedRelationSettings(
                                 allowMultiLine: false,
                                 prefix: item.setOfPrefix,
-                                showIcon: item.showIcon
+                                showIcon: item.showIcon,
+                                error: relation.isErrorState
                             )
                         )
                     ) { [weak model] in
