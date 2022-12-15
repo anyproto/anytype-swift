@@ -315,6 +315,14 @@ public struct Anytype_Event {
       set {value = .blockSetTableRow(newValue)}
     }
 
+    public var blockSetWidget: Anytype_Event.Block.Set.Widget {
+      get {
+        if case .blockSetWidget(let v)? = value {return v}
+        return Anytype_Event.Block.Set.Widget()
+      }
+      set {value = .blockSetWidget(newValue)}
+    }
+
     public var blockDataviewViewSet: Anytype_Event.Block.Dataview.ViewSet {
       get {
         if case .blockDataviewViewSet(let v)? = value {return v}
@@ -505,6 +513,7 @@ public struct Anytype_Event {
       case blockSetLatex(Anytype_Event.Block.Set.Latex)
       case blockSetVerticalAlign(Anytype_Event.Block.Set.VerticalAlign)
       case blockSetTableRow(Anytype_Event.Block.Set.TableRow)
+      case blockSetWidget(Anytype_Event.Block.Set.Widget)
       case blockDataviewViewSet(Anytype_Event.Block.Dataview.ViewSet)
       case blockDataviewViewDelete(Anytype_Event.Block.Dataview.ViewDelete)
       case blockDataviewViewOrder(Anytype_Event.Block.Dataview.ViewOrder)
@@ -663,6 +672,10 @@ public struct Anytype_Event {
         }()
         case (.blockSetTableRow, .blockSetTableRow): return {
           guard case .blockSetTableRow(let l) = lhs, case .blockSetTableRow(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.blockSetWidget, .blockSetWidget): return {
+          guard case .blockSetWidget(let l) = lhs, case .blockSetWidget(let r) = rhs else { preconditionFailure() }
           return l == r
         }()
         case (.blockDataviewViewSet, .blockDataviewViewSet): return {
@@ -2224,6 +2237,41 @@ public struct Anytype_Event {
         public init() {}
 
         fileprivate var _isHeader: Anytype_Event.Block.Set.TableRow.IsHeader? = nil
+      }
+
+      public struct Widget {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var id: String = String()
+
+        public var layout: Anytype_Event.Block.Set.Widget.Layout {
+          get {return _layout ?? Anytype_Event.Block.Set.Widget.Layout()}
+          set {_layout = newValue}
+        }
+        /// Returns true if `layout` has been explicitly set.
+        public var hasLayout: Bool {return self._layout != nil}
+        /// Clears the value of `layout`. Subsequent reads from it will return its default value.
+        public mutating func clearLayout() {self._layout = nil}
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public struct Layout {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          public var value: Anytype_Model_Block.Content.Widget.Layout = .link
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public init() {}
+        }
+
+        public init() {}
+
+        fileprivate var _layout: Anytype_Event.Block.Set.Widget.Layout? = nil
       }
 
       public init() {}
@@ -3924,6 +3972,8 @@ extension Anytype_Event.Block.Set.Bookmark.TargetObjectId: @unchecked Sendable {
 extension Anytype_Event.Block.Set.Bookmark.State: @unchecked Sendable {}
 extension Anytype_Event.Block.Set.TableRow: @unchecked Sendable {}
 extension Anytype_Event.Block.Set.TableRow.IsHeader: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Widget: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Widget.Layout: @unchecked Sendable {}
 extension Anytype_Event.Block.Fill: @unchecked Sendable {}
 extension Anytype_Event.Block.Fill.Details: @unchecked Sendable {}
 extension Anytype_Event.Block.Fill.DatabaseRecords: @unchecked Sendable {}
@@ -4095,6 +4145,7 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     25: .same(proto: "blockSetLatex"),
     36: .same(proto: "blockSetVerticalAlign"),
     37: .same(proto: "blockSetTableRow"),
+    40: .same(proto: "blockSetWidget"),
     19: .same(proto: "blockDataviewViewSet"),
     20: .same(proto: "blockDataviewViewDelete"),
     29: .same(proto: "blockDataviewViewOrder"),
@@ -4538,6 +4589,19 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
           self.value = .blockDataViewObjectOrderUpdate(v)
         }
       }()
+      case 40: try {
+        var v: Anytype_Event.Block.Set.Widget?
+        var hadOneofValue = false
+        if let current = self.value {
+          hadOneofValue = true
+          if case .blockSetWidget(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.value = .blockSetWidget(v)
+        }
+      }()
       case 50: try {
         var v: Anytype_Event.Object.Details.Amend?
         var hadOneofValue = false
@@ -4936,6 +5000,10 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     case .blockDataViewObjectOrderUpdate?: try {
       guard case .blockDataViewObjectOrderUpdate(let v)? = self.value else { preconditionFailure() }
       try visitor.visitSingularMessageField(value: v, fieldNumber: 39)
+    }()
+    case .blockSetWidget?: try {
+      guard case .blockSetWidget(let v)? = self.value else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 40)
     }()
     case .objectDetailsAmend?: try {
       guard case .objectDetailsAmend(let v)? = self.value else { preconditionFailure() }
@@ -7847,6 +7915,80 @@ extension Anytype_Event.Block.Set.TableRow.IsHeader: SwiftProtobuf.Message, Swif
   }
 
   public static func ==(lhs: Anytype_Event.Block.Set.TableRow.IsHeader, rhs: Anytype_Event.Block.Set.TableRow.IsHeader) -> Bool {
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Block.Set.Widget: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Block.Set.protoMessageName + ".Widget"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "id"),
+    2: .same(proto: "layout"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._layout) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if !self.id.isEmpty {
+      try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
+    }
+    try { if let v = self._layout {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Block.Set.Widget, rhs: Anytype_Event.Block.Set.Widget) -> Bool {
+    if lhs.id != rhs.id {return false}
+    if lhs._layout != rhs._layout {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Block.Set.Widget.Layout: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Block.Set.Widget.protoMessageName + ".Layout"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "value"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.value) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.value != .link {
+      try visitor.visitSingularEnumField(value: self.value, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Block.Set.Widget.Layout, rhs: Anytype_Event.Block.Set.Widget.Layout) -> Bool {
     if lhs.value != rhs.value {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true

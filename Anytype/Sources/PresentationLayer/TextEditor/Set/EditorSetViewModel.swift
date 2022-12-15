@@ -19,7 +19,6 @@ final class EditorSetViewModel: ObservableObject {
     @Published var configurationsDict: OrderedDictionary<String, [SetContentViewItemConfiguration]> = [:]
     @Published var pagitationDataDict: OrderedDictionary<String, EditorSetPaginationData> = [:]
     
-    private let setSyncStatus = FeatureFlags.setSyncStatus
     @Published var syncStatus: SyncStatus = .unknown
     @Published private var isAppear: Bool = false
     
@@ -61,9 +60,21 @@ final class EditorSetViewModel: ObservableObject {
         guard let groupOrder = setDocument.dataView.groupOrders.first(where: { [weak self] in $0.viewID == self?.activeView.id }),
             let viewGroup = groupOrder.viewGroups.first(where: { $0.groupID == groupId }),
             let middlewareColor = MiddlewareColor(rawValue: viewGroup.backgroundColor) else {
-            return BlockBackgroundColor.gray
+            return groupFirstOptionBackgroundColor(for: groupId)
         }
         return middlewareColor.backgroundColor
+    }
+    
+    func headerType(for groupId: String) -> SetKanbanColumnHeaderType {
+        guard let group = groups.first(where: { $0.id == groupId }) else { return .uncategorized }
+        return group.header(with: activeView.groupRelationKey)
+    }
+    
+    private func groupFirstOptionBackgroundColor(for groupId: String) -> BlockBackgroundColor {
+        guard let backgroundColor = groups.first(where: { $0.id == groupId })?.backgroundColor else {
+            return BlockBackgroundColor.gray
+        }
+        return backgroundColor
     }
     
     private let setDocument: SetDocumentProtocol
@@ -190,9 +201,7 @@ final class EditorSetViewModel: ObservableObject {
         case .dataviewUpdated(clearState: let clearState):
             onDataviewUpdate(clearState: clearState)
         case .syncStatus(let status):
-            if setSyncStatus {
-                syncStatus = status
-            }
+            syncStatus = status
         }
     }
     

@@ -726,6 +726,19 @@ extension Anytype_Event.Block.Set.VerticalAlign {
     }
 }
 
+extension Anytype_Event.Block.Set.Widget {
+    public init(id: String = String(), layout: Anytype_Event.Block.Set.Widget.Layout) {
+        self.id = id
+        self.layout = layout
+    }
+}
+
+extension Anytype_Event.Block.Set.Widget.Layout {
+    public init(value: Anytype_Model_Block.Content.Widget.Layout = .link) {
+        self.value = value
+    }
+}
+
 extension Anytype_Event.Message {
     public init(value: Anytype_Event.Message.OneOf_Value? = nil) {
         self.value = value

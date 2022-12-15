@@ -6,6 +6,7 @@ enum RelationStyle: Hashable {
     case set
     case setCollection
     case filter(hasValues: Bool)
+    case kanbanHeader
 }
 
 enum RelationPlaceholderType {
@@ -34,7 +35,7 @@ extension RelationStyle {
         switch self {
         case .regular, .filter:
             return .relation1Regular
-        case .set, .featuredRelationBlock:
+        case .set, .featuredRelationBlock, .kanbanHeader:
             return .relation2Regular
         case .setCollection:
             return .relation3Regular
@@ -49,7 +50,7 @@ extension RelationStyle {
         switch self {
         case .regular, .set:
             return .textPrimary
-        case .featuredRelationBlock, .filter, .setCollection:
+        case .featuredRelationBlock, .filter, .setCollection, .kanbanHeader:
             return .textSecondary
         }
     }
@@ -82,7 +83,7 @@ extension RelationStyle {
             return value
         case let .featuredRelationBlock(settings):
             return settings.allowMultiLine
-        case .set, .filter, .setCollection:
+        case .set, .filter, .setCollection, .kanbanHeader:
             return false
         }
     }
@@ -91,7 +92,7 @@ extension RelationStyle {
         switch self {
         case .regular, .featuredRelationBlock:
             return .hint
-        case .set, .setCollection:
+        case .set, .setCollection, .kanbanHeader:
             return .empty
         case let .filter(hasValues):
             return .clear(withHint: hasValues)
@@ -102,7 +103,7 @@ extension RelationStyle {
         switch self {
         case .regular, .set, .setCollection:
             return .callout
-        case .featuredRelationBlock:
+        case .featuredRelationBlock, .kanbanHeader:
             return .relation2Regular
         case .filter:
             return .relation1Regular
@@ -114,7 +115,7 @@ extension RelationStyle {
         switch self {
         case .regular, .set:
             return TagView.Guidlines(textPadding: 6, cornerRadius: 5, tagHeight: Constants.size20.height)
-        case .featuredRelationBlock, .filter:
+        case .featuredRelationBlock, .filter, .kanbanHeader:
             return TagView.Guidlines(textPadding: 4, cornerRadius: 4, tagHeight: Constants.size18.height)
         case .setCollection:
             return TagView.Guidlines(textPadding: 4, cornerRadius: 3, tagHeight: Constants.size16.height)
@@ -125,7 +126,7 @@ extension RelationStyle {
         switch self {
         case .regular, .set, .filter:
             return ObjectRelationView.ObjectRelationStyle(hSpaсingList: 8, hSpaсingObject: 6, size: Constants.size20)
-        case .featuredRelationBlock:
+        case .featuredRelationBlock, .kanbanHeader:
             return ObjectRelationView.ObjectRelationStyle(hSpaсingList: 6, hSpaсingObject: 4, size: Constants.size18)
         case .setCollection:
             return ObjectRelationView.ObjectRelationStyle(hSpaсingList: 6, hSpaсingObject: 4, size: Constants.size16)
@@ -136,7 +137,7 @@ extension RelationStyle {
         switch self {
         case .regular, .set, .filter:
             return Constants.size20
-        case .featuredRelationBlock:
+        case .featuredRelationBlock, .kanbanHeader:
             return Constants.size18
         case .setCollection:
             return Constants.size16
@@ -147,7 +148,7 @@ extension RelationStyle {
         switch self {
         case .regular, .set:
             return .mention(.body)
-        case .featuredRelationBlock, .filter:
+        case .featuredRelationBlock, .filter, .kanbanHeader:
             return .featuredRelationsBlock
         case .setCollection:
             return .setCollection

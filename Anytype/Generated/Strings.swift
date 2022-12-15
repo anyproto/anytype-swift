@@ -1203,8 +1203,16 @@ internal enum Loc {
             }
           }
           internal enum Title {
+            /// %@ is checked
+            internal static func checked(_ p1: Any) -> String {
+              return Loc.tr("Localizable", "Set.View.Kanban.Column.Title.Checked", String(describing: p1), fallback: "%@ is checked")
+            }
             /// Uncategorized
             internal static let uncategorized = Loc.tr("Localizable", "Set.View.Kanban.Column.Title.Uncategorized", fallback: "Uncategorized")
+            /// %@ is unchecked
+            internal static func unchecked(_ p1: Any) -> String {
+              return Loc.tr("Localizable", "Set.View.Kanban.Column.Title.Unchecked", String(describing: p1), fallback: "%@ is unchecked")
+            }
           }
         }
       }

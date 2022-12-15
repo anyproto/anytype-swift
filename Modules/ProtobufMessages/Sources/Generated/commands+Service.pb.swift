@@ -2188,6 +2188,28 @@ extension Anytype_Rpc.Block.Create {
   }
 }
 
+//extension Anytype_Rpc.Block.CreateWidget {
+//  public enum Service {
+//    public static func invoke(contextID: String = String(), targetID: String = String(), block: Anytype_Model_Block, position: Anytype_Model_Block.Position = .none, widgetLayout: Anytype_Model_Block.Content.Widget.Layout = .link, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+//        return invocation(contextID: contextID, targetID: targetID, block: block, position: position, widgetLayout: widgetLayout).invoke(on: queue)
+//    }
+//    public static func invoke(contextID: String = String(), targetID: String = String(), block: Anytype_Model_Block, position: Anytype_Model_Block.Position = .none, widgetLayout: Anytype_Model_Block.Content.Widget.Layout = .link) -> Result<Response, Error> {
+//        return invocation(contextID: contextID, targetID: targetID, block: block, position: position, widgetLayout: widgetLayout).invoke()
+//    }
+//    public static func invocation(contextID: String = String(), targetID: String = String(), block: Anytype_Model_Block, position: Anytype_Model_Block.Position = .none, widgetLayout: Anytype_Model_Block.Content.Widget.Layout = .link) -> ProtobufMessages.Invocation<Request, Response> {
+//        let request = Request(contextID: contextID, targetID: targetID, block: block, position: position, widgetLayout: widgetLayout)
+//        return Invocation<Request,Response>(messageName: "BlockCreateWidget", request: request) { request in
+//            return self.invoke(request)
+//        }
+//    }
+//    private static func invoke(_ request: Request) -> Response? {
+//        return Lib.ServiceBlockCreateWidget(try? request.serializedData()).flatMap {
+//            try? Response(serializedData: $0)
+//        }
+//    }
+//  }
+//}
+
 extension Anytype_Rpc.Block.ListDelete {
   public enum Service {
     public static func invoke(contextID: String = String(), blockIds: [String] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {

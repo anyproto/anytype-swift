@@ -392,7 +392,8 @@ final class MiddlewareEventConverter {
                 .ping,
                 .processNew,
                 .processUpdate,
-                .processDone:
+                .processDone,
+                .blockSetWidget:
             return nil
         }
     }

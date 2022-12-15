@@ -384,6 +384,8 @@
 
 // MARK: - Sets: Kanban
 "Set.View.Kanban.Column.Title.Uncategorized" = "Uncategorized";
+"Set.View.Kanban.Column.Title.Checked" = "%@ is checked";
+"Set.View.Kanban.Column.Title.Unchecked" = "%@ is unchecked";
 "Set.View.Kanban.Column.Paging.Title.ShowMore" = "Show more objects";
 "Set.View.Kanban.Column.Settings.Color.Title" = "Column color";
 "Set.View.Kanban.Column.Settings.Hide.Column.Title" = "Hide column";
