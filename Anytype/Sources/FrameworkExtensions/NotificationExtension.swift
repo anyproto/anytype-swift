@@ -10,17 +10,3 @@ extension Notification.Name {
     )
     
 }
-
-extension Notification {
-
-    func localKeyboardRect(for key: String) -> CGRect? {
-        guard let isLocal = userInfo?[UIResponder.keyboardIsLocalUserInfoKey] as? NSNumber, isLocal.boolValue else {
-            return nil
-        }
-        guard let frameValue = userInfo?[key] as? NSValue else {
-            return nil
-        }
-        return frameValue.cgRectValue
-    }
-    
-}

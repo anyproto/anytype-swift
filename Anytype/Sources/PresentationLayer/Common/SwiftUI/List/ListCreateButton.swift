@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct RelationOptionCreateButton: View {
+struct ListCreateButton: View {
     let text: String
     let action: () -> Void
     
@@ -10,7 +10,7 @@ struct RelationOptionCreateButton: View {
         } label: {
             HStack(spacing: 8) {
                 Image(asset: .relationNew).frame(width: 24, height: 24)
-                AnytypeText(Loc.createOption(text), style: .uxBodyRegular, color: .textSecondary)
+                AnytypeText(text, style: .uxBodyRegular, color: .textPrimary)
                     .lineLimit(1)
                 Spacer()
             }
@@ -21,8 +21,8 @@ struct RelationOptionCreateButton: View {
     }
 }
 
-struct RelationValueOptionCreateButton_Previews: PreviewProvider {
+struct ListCreateButton_Previews: PreviewProvider {
     static var previews: some View {
-        RelationOptionCreateButton(text: "tetet") {}
+        ListCreateButton(text: "Create object") {}
     }
 }

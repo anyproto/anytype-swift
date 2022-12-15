@@ -3,6 +3,14 @@ import BlocksModels
 
 final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
  
+    private let uiHelpersDI: UIHelpersDIProtocol
+    
+    init(uiHelpersDI: UIHelpersDIProtocol) {
+        self.uiHelpersDI = uiHelpersDI
+    }
+    
+    // MARK: - NewSearchModuleAssemblyProtocol
+    
     func statusSearchModule(
         style: NewSearchView.Style,
         selectionMode: NewSearchViewModel.SelectionMode,
@@ -118,8 +126,9 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         selectedObjectId: BlockId?,
         excludedObjectTypeId: String?,
         showBookmark: Bool,
-        showSet: Bool = false,
-        onSelect: @escaping (_ id: String) -> Void
+        showSet: Bool,
+        browser: EditorBrowserController?,
+        onSelect: @escaping (_ type: ObjectType) -> Void
     ) -> NewSearchView {
         let interactor = ObjectTypesSearchInteractor(
             searchService: ServiceLocator.shared.searchService(),
@@ -131,11 +140,9 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         
         let internalViewModel = ObjectTypesSearchViewModel(
             interactor: interactor,
+            toastPresenter: uiHelpersDI.toastPresenter(using: browser),
             selectedObjectId: selectedObjectId,
-            onSelect: { ids in
-                guard let id = ids.first else { return }
-                onSelect(id)
-            }
+            onSelect: onSelect
         )
         let viewModel = NewSearchViewModel(
             title: title,
@@ -222,6 +229,37 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
             searchPlaceholder: Loc.EditSet.Popup.Sort.Add.searchPlaceholder,
             style: .default,
             itemCreationMode: .unavailable,
+            internalViewModel: internalViewModel
+        )
+        
+        return NewSearchView(viewModel: viewModel)
+    }
+    
+    func relationsSearchModule(
+        document: BaseDocumentProtocol,
+        output: RelationSearchModuleOutput
+    ) -> NewSearchView {
+        
+        let interactor = RelationsSearchInteractor(
+            searchService: ServiceLocator.shared.searchService(),
+            workspaceService: ServiceLocator.shared.workspaceService(),
+            relationsService: RelationsService(objectId: document.objectId)
+        )
+        
+        let internalViewModel = RelationsSearchViewModel(
+            selectedRelations: document.parsedRelations,
+            interactor: interactor,
+            onSelect: { result in
+                guard let details = result.first else { return }
+                output.didAddRelation(details)
+            }
+        )
+        let viewModel = NewSearchViewModel(
+            searchPlaceholder: "Search or create a new relation",
+            style: .default,
+            itemCreationMode: .available(action: { title in
+                output.didAskToShowCreateNewRelation(searchText: title)
+            }),
             internalViewModel: internalViewModel
         )
         

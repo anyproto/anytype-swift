@@ -61,8 +61,8 @@ struct NewSearchView: View {
     private func searchResults(model: ListModel) -> some View {
         ScrollView {
             LazyVStack(spacing: 0) {
-                if viewModel.isCreateButtonAvailable {
-                    RelationOptionCreateButton(text: searchText) {
+                if !viewModel.createButtonModel.isDisabled {
+                    ListCreateButton(text: viewModel.createButtonModel.title) {
                         viewModel.didTapCreateButton(title: searchText)
                     }
                 }

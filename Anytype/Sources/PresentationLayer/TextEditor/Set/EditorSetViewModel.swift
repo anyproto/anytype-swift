@@ -19,7 +19,6 @@ final class EditorSetViewModel: ObservableObject {
     @Published var configurationsDict: OrderedDictionary<String, [SetContentViewItemConfiguration]> = [:]
     @Published var pagitationDataDict: OrderedDictionary<String, EditorSetPaginationData> = [:]
     
-    private let setSyncStatus = FeatureFlags.setSyncStatus
     @Published var syncStatus: SyncStatus = .unknown
     @Published private var isAppear: Bool = false
     
@@ -202,9 +201,7 @@ final class EditorSetViewModel: ObservableObject {
         case .dataviewUpdated(clearState: let clearState):
             onDataviewUpdate(clearState: clearState)
         case .syncStatus(let status):
-            if setSyncStatus {
-                syncStatus = status
-            }
+            syncStatus = status
         }
     }
     

@@ -3,7 +3,7 @@ import AnytypeCore
 
 class KeyboardEventsListnerHelper {
     
-    typealias Action = (Notification) -> Void
+    typealias Action = (KeyboardEvent) -> Void
     private var observerTokens: [NSObjectProtocol]?
     private var keyboardState = KeyboardState.hidden
     
@@ -67,11 +67,17 @@ class KeyboardEventsListnerHelper {
         }
     }
     
-    private func actionWrapper(allowedStates: [KeyboardState], newState: KeyboardState, originalAction: Action?) -> Action {
+    private func actionWrapper(
+        allowedStates: [KeyboardState],
+        newState: KeyboardState,
+        originalAction: Action?
+    ) -> (Notification) -> Void {
         return { [weak self] notification in
             guard let self = self else { return }
             if allowedStates.contains(self.keyboardState) {
-                originalAction?(notification)
+                if let event = KeyboardEvent(withUserInfo: notification.userInfo) {
+                    originalAction?(event)
+                }
                 self.keyboardState = newState
             }
         }

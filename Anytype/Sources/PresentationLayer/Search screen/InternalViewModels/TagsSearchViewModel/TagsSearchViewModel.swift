@@ -55,8 +55,10 @@ extension TagsSearchViewModel: NewInternalSearchViewModelProtocol {
         onSelect(ids)
     }
     
-    func isCreateButtonAvailable(searchText: String) -> Bool {
-        interactor.isCreateButtonAvailable(searchText: searchText, tags: tags)
+    func createButtonModel(searchText: String) -> NewSearchViewModel.CreateButtonModel {
+        return interactor.isCreateButtonAvailable(searchText: searchText, tags: tags)
+            ? .enabled(title:  Loc.createOption(searchText))
+            : .disabled
     }
     
 }

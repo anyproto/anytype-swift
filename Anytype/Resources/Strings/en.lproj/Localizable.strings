@@ -255,8 +255,9 @@
 // MARK: - Relation
 "Featured relations" = "Featured relations";
 "Create from scratch" = "Create from scratch";
-"Create relation" = "Create relation \"%@\"";
+"Create relation" = "Create relation ‘%@’";
 "Relation.View.Hint.Empty" = "empty";
+"Relation.MyRelations" = "My relations";
 
 // MARK: - Deletion
 "Pending deletion text" = "We're sorry to see you go. You have 30 days to cancel this request. After 30 days, your encrypted account data is permanently removed from the backup node.";
@@ -532,7 +533,7 @@
 "Today" = "Today";
 "No date" = "No date";
 "Clear" = "Clear";
-"Create option" = "Create option %@";
+"Create option" = "Create option ‘%s’";
 "Add URL" = "Add URL";
 "Add email" = "Add email";
 "Add phone number" = "Add phone number";
@@ -569,6 +570,7 @@
 "ObjectType.fallbackDescription" = "Blank canvas with no title";
 "ObjectType.SearchOrInstall" = "Search or install a new type";
 "ObjectType.MyTypes" = "My Types";
+"ObjectType.AddedToLibrary" = "Type ‘%@’ added to your library";
 
 // MARK: - QuickAction
 "QuickAction.create" = "Create %@";

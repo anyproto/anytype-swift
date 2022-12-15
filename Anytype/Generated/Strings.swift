@@ -203,15 +203,15 @@ internal enum Loc {
   internal static let createNewObject = Loc.tr("Localizable", "Create new object", fallback: "Create new object")
   /// Create object
   internal static let createObject = Loc.tr("Localizable", "Create object", fallback: "Create object")
-  /// Create option %@
-  internal static func createOption(_ p1: Any) -> String {
-    return Loc.tr("Localizable", "Create option", String(describing: p1), fallback: "Create option %@")
+  /// Create option ‘%s’
+  internal static func createOption(_ p1: UnsafePointer<CChar>) -> String {
+    return Loc.tr("Localizable", "Create option", p1, fallback: "Create option ‘%s’")
   }
   /// Create pin code
   internal static let createPinCode = Loc.tr("Localizable", "Create pin code", fallback: "Create pin code")
-  /// Create relation "%@"
+  /// Create relation ‘%@’
   internal static func createRelation(_ p1: Any) -> String {
-    return Loc.tr("Localizable", "Create relation", String(describing: p1), fallback: "Create relation \"%@\"")
+    return Loc.tr("Localizable", "Create relation", String(describing: p1), fallback: "Create relation ‘%@’")
   }
   /// Data
   internal static let data = Loc.tr("Localizable", "Data", fallback: "Data")
@@ -1081,6 +1081,10 @@ internal enum Loc {
     internal static let text = Loc.tr("Localizable", "LinkPaste.text", fallback: "Paste as text")
   }
   internal enum ObjectType {
+    /// Type ‘%@’ added to your library
+    internal static func addedToLibrary(_ p1: Any) -> String {
+      return Loc.tr("Localizable", "ObjectType.AddedToLibrary", String(describing: p1), fallback: "Type ‘%@’ added to your library")
+    }
     /// Blank canvas with no title
     internal static let fallbackDescription = Loc.tr("Localizable", "ObjectType.fallbackDescription", fallback: "Blank canvas with no title")
     /// My Types
@@ -1101,6 +1105,8 @@ internal enum Loc {
     internal static let pageType = Loc.tr("Localizable", "RedactedText.pageType", fallback: "Red pill")
   }
   internal enum Relation {
+    /// My relations
+    internal static let myRelations = Loc.tr("Localizable", "Relation.MyRelations", fallback: "My relations")
     internal enum View {
       internal enum Hint {
         /// empty

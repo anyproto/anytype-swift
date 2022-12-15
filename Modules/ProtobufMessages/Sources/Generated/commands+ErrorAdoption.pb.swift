@@ -17,6 +17,7 @@ extension Anytype_Rpc.App.SetDeviceState.Response.Error: Swift.Error {}
 extension Anytype_Rpc.App.Shutdown.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Copy.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Create.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Block.CreateWidget.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Cut.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Download.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Export.Response.Error: Swift.Error {}

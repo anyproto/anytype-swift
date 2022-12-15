@@ -58,16 +58,16 @@ final class RelationsService: RelationsServiceProtocol {
         
         guard let result = result else { return false }
         
-        return addRelation(relationKey: result.key)
+        return addRelations(relationKeys: [result.key])
     }
 
-    func addRelation(relationDetails: RelationDetails) -> Bool {
-        return addRelation(relationKey: relationDetails.key)
+    func addRelations(relationsDetails: [RelationDetails]) -> Bool {
+        return addRelations(relationKeys: relationsDetails.map(\.key))
     }
 
-    private func addRelation(relationKey: String) -> Bool {
+    private func addRelations(relationKeys: [String]) -> Bool {
         let events = Anytype_Rpc.ObjectRelation.Add.Service
-            .invocation(contextID: objectId, relationKeys: [relationKey])
+            .invocation(contextID: objectId, relationKeys: relationKeys)
             .invoke()
             .map { EventsBunch(event: $0.event) }
             .getValue(domain: .relationsService)
