@@ -17,6 +17,10 @@ extension Relation {
         var hasValue: Bool {
             selectedObjects.isNotEmpty
         }
+        
+        var isDeletedValue: Bool {
+            selectedObjects.contains(where: \.isDeleted)
+        }
     }
     
 }

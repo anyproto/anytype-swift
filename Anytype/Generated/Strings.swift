@@ -1085,6 +1085,8 @@ internal enum Loc {
     internal static func addedToLibrary(_ p1: Any) -> String {
       return Loc.tr("Localizable", "ObjectType.AddedToLibrary", String(describing: p1), fallback: "Type ‘%@’ added to your library")
     }
+    /// Deleted type
+    internal static let deletedName = Loc.tr("Localizable", "ObjectType.DeletedName", fallback: "Deleted type")
     /// Blank canvas with no title
     internal static let fallbackDescription = Loc.tr("Localizable", "ObjectType.fallbackDescription", fallback: "Blank canvas with no title")
     /// My Types

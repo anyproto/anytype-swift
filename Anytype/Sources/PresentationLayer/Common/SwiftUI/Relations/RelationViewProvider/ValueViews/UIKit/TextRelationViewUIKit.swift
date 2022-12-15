@@ -33,7 +33,7 @@ final class TextRelationViewUIKit: UIView {
     // MARK: - Setup view
 
     private func setupViews() {
-        textView.textColor = style.uiKitFontColor
+        textView.textColor = style.uiFontColorWithError
         textView.setText(text) 
         textView.numberOfLines = 1
         textView.numberOfLines = style.allowMultiLine ? 0 : 1

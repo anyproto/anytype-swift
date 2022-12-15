@@ -9,6 +9,7 @@ protocol ObjectTypeProviderProtocol: AnyObject {
     
     func isSupportedForEdit(typeId: String) -> Bool
     func objectType(id: String) -> ObjectType?
+    func deleteObjectType(id: String) -> ObjectType
     
     func objectTypes(smartblockTypes: Set<SmartBlockType>) -> [ObjectType]
     func notVisibleTypeIds() -> [String]

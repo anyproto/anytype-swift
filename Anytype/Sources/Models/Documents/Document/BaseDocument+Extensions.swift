@@ -17,6 +17,7 @@ extension BaseDocumentProtocol {
                 isFeatured: false,
                 isEditable: !objectRestriction.contains(.typechange),
                 isSystem: true,
+                isDeletedValue: type.isDeleted,
                 value: type.name
             )
         )

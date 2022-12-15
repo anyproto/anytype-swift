@@ -55,7 +55,7 @@ struct ObjectRelationView: View {
                 AnytypeText(
                     prefix,
                     style: style.font,
-                    color: style.fontColor
+                    color: style.fontColorWithError
                 )
             }
 
@@ -75,7 +75,9 @@ struct ObjectRelationView: View {
     }
     
     private func titleColor(option: Relation.Object.Option) -> Color {
-        if option.isDeleted || option.isArchived {
+        if style.isError {
+            return style.fontColorWithError
+        } else if option.isDeleted || option.isArchived {
             return .textTertiary
         } else {
             return style.fontColor

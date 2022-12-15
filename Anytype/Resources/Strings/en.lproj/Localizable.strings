@@ -571,6 +571,7 @@
 "ObjectType.SearchOrInstall" = "Search or install a new type";
 "ObjectType.MyTypes" = "My Types";
 "ObjectType.AddedToLibrary" = "Type ‘%@’ added to your library";
+"ObjectType.DeletedName" = "Deleted type";
 
 // MARK: - QuickAction
 "QuickAction.create" = "Create %@";
