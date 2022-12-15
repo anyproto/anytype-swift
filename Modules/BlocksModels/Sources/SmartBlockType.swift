@@ -23,6 +23,7 @@ public enum SmartBlockType: Hashable, Codable {
 
     /// have relations list
     case stobjectType // = 96
+    case widget // = 112
     case file // = 256
     case template // = 288
     case bundledTemplate // = 289
@@ -89,6 +90,8 @@ extension SmartBlockType {
             self = .workspaceOld
         case .workspace:
             self = .workspace
+        case .widget:
+            self = .widget
         case .UNRECOGNIZED(let int):
             self = .UNRECOGNIZED(int)
         }
@@ -140,6 +143,8 @@ extension SmartBlockType {
             return .workspaceOld
         case .workspace:
             return .workspace
+        case .widget:
+            return .widget
         case .UNRECOGNIZED(let int):
             return .UNRECOGNIZED(int)
         }

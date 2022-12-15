@@ -219,6 +219,7 @@ service ClientCommands {
     rpc BlockRelationAdd (anytype.Rpc.BlockRelation.Add.Request) returns (anytype.Rpc.BlockRelation.Add.Response);
     rpc BlockDivListSetStyle (anytype.Rpc.BlockDiv.ListSetStyle.Request) returns (anytype.Rpc.BlockDiv.ListSetStyle.Response);
     rpc BlockLatexSetText (anytype.Rpc.BlockLatex.SetText.Request) returns (anytype.Rpc.BlockLatex.SetText.Response);
+    rpc BlockCreateWidget (anytype.Rpc.Block.CreateWidget.Request) returns (anytype.Rpc.Block.CreateWidget.Response);
 
     rpc ProcessCancel (anytype.Rpc.Process.Cancel.Request) returns (anytype.Rpc.Process.Cancel.Response);
 
