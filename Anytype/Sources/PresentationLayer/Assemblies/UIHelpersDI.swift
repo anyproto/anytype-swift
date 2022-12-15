@@ -24,7 +24,7 @@ final class UIHelpersDI: UIHelpersDIProtocol {
     }
     
     var commonNavigationContext: NavigationContextProtocol {
-        NavigationContext(rootViewController: viewControllerProvider.topViewController)
+        NavigationContext(rootViewController: viewControllerProvider.rootViewController)
     }
     
     func toastPresenter(using containerViewController: UIViewController?) -> ToastPresenterProtocol {
