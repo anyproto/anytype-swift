@@ -32,7 +32,7 @@ class SetDocument: SetDocumentProtocol {
     var isObjectLocked: Bool {
         document.isLocked ||
         activeView.type == .gallery ||
-        (FeatureFlags.setListView && activeView.type == .list)
+        activeView.type == .list
     }
     
     var featuredRelationsForEditor: [Relation] {
