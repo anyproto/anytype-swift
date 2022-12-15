@@ -12,6 +12,7 @@ final class AddNewRelationCoordinator {
     private let document: BaseDocumentProtocol
     private let navigationContext: NavigationContextProtocol
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
+    private let newRelationModuleAssembly: NewRelationModuleAssemblyProtocol
     
     private var onCompletion: ((_ newRelationDetails: RelationDetails, _ isNew: Bool) -> Void)?
     
@@ -20,11 +21,13 @@ final class AddNewRelationCoordinator {
     init(
         document: BaseDocumentProtocol,
         navigationContext: NavigationContextProtocol,
-        newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
+        newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
+        newRelationModuleAssembly: NewRelationModuleAssemblyProtocol
     ) {
         self.document = document
         self.navigationContext = navigationContext
         self.newSearchModuleAssembly = newSearchModuleAssembly
+        self.newRelationModuleAssembly = newRelationModuleAssembly
     }
     
 }
@@ -61,25 +64,10 @@ extension AddNewRelationCoordinator: RelationSearchModuleOutput {
     }
     
     private func showCreateNewRelationView(searchText: String) {
-        let viewModel = NewRelationViewModel(
-            name: searchText,
-            service: RelationsService(objectId: document.objectId),
-            output: self
-        )
-        let view = NewRelationView(viewModel: viewModel)
+        let module = newRelationModuleAssembly.make(document: document, searchText: searchText, output: self)
+        newRelationModuleInput = module.input
         
-        newRelationModuleInput = viewModel
-        
-        let vc = UIHostingController(rootView: view)
-        
-        if #available(iOS 15.0, *) {
-            if let sheet = vc.sheetPresentationController {
-                sheet.detents = [.medium()]
-                sheet.selectedDetentIdentifier = .medium
-            }
-        }
-        
-        navigationContext.present(vc, animated: true)
+        navigationContext.present(module.viewController, animated: true)
     }
       
 }

@@ -55,4 +55,8 @@ final class ModulesDI: ModulesDIProtocol {
     var newSearch: NewSearchModuleAssemblyProtocol {
         return NewSearchModuleAssembly(uiHelpersDI: uiHelpersDI)
     }
+    
+    var newRelation: NewRelationModuleAssemblyProtocol {
+        return NewRelationModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
+    }
 }

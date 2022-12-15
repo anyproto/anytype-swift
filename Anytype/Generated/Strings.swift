@@ -1107,6 +1107,10 @@ internal enum Loc {
     internal static let pageType = Loc.tr("Localizable", "RedactedText.pageType", fallback: "Red pill")
   }
   internal enum Relation {
+    /// Relation ‘%@’ added to your library
+    internal static func addedToLibrary(_ p1: Any) -> String {
+      return Loc.tr("Localizable", "Relation.AddedToLibrary", String(describing: p1), fallback: "Relation ‘%@’ added to your library")
+    }
     /// My relations
     internal static let myRelations = Loc.tr("Localizable", "Relation.MyRelations", fallback: "My relations")
     internal enum View {
