@@ -35,6 +35,7 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum {
 
   /// have relations list
   case stobjectType // = 96
+  case widget // = 112
   case file // = 256
   case template // = 288
   case bundledTemplate // = 289
@@ -69,6 +70,7 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum {
     case 64: self = .database
     case 65: self = .set
     case 96: self = .stobjectType
+    case 112: self = .widget
     case 256: self = .file
     case 272: self = .marketplaceType
     case 273: self = .marketplaceRelation
@@ -97,6 +99,7 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum {
     case .database: return 64
     case .set: return 65
     case .stobjectType: return 96
+    case .widget: return 112
     case .file: return 256
     case .marketplaceType: return 272
     case .marketplaceRelation: return 273
@@ -130,6 +133,7 @@ extension Anytype_Model_SmartBlockType: CaseIterable {
     .database,
     .set,
     .stobjectType,
+    .widget,
     .file,
     .template,
     .bundledTemplate,
@@ -496,6 +500,14 @@ public struct Anytype_Model_Block {
     set {_uniqueStorage()._content = .tableRow(newValue)}
   }
 
+  public var widget: Anytype_Model_Block.Content.Widget {
+    get {
+      if case .widget(let v)? = _storage._content {return v}
+      return Anytype_Model_Block.Content.Widget()
+    }
+    set {_uniqueStorage()._content = .widget(newValue)}
+  }
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public enum OneOf_Content: Equatable {
@@ -515,6 +527,7 @@ public struct Anytype_Model_Block {
     case table(Anytype_Model_Block.Content.Table)
     case tableColumn(Anytype_Model_Block.Content.TableColumn)
     case tableRow(Anytype_Model_Block.Content.TableRow)
+    case widget(Anytype_Model_Block.Content.Widget)
 
   #if !swift(>=4.1)
     public static func ==(lhs: Anytype_Model_Block.OneOf_Content, rhs: Anytype_Model_Block.OneOf_Content) -> Bool {
@@ -584,6 +597,10 @@ public struct Anytype_Model_Block {
       }()
       case (.tableRow, .tableRow): return {
         guard case .tableRow(let l) = lhs, case .tableRow(let r) = rhs else { preconditionFailure() }
+        return l == r
+      }()
+      case (.widget, .widget): return {
+        guard case .widget(let l) = lhs, case .widget(let r) = rhs else { preconditionFailure() }
         return l == r
       }()
       default: return false
@@ -2155,6 +2172,46 @@ public struct Anytype_Model_Block {
       public init() {}
     }
 
+    public struct Widget {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      public var layout: Anytype_Model_Block.Content.Widget.Layout = .link
+
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public enum Layout: SwiftProtobuf.Enum {
+        public typealias RawValue = Int
+        case link // = 0
+        case tree // = 1
+        case UNRECOGNIZED(Int)
+
+        public init() {
+          self = .link
+        }
+
+        public init?(rawValue: Int) {
+          switch rawValue {
+          case 0: self = .link
+          case 1: self = .tree
+          default: self = .UNRECOGNIZED(rawValue)
+          }
+        }
+
+        public var rawValue: Int {
+          switch self {
+          case .link: return 0
+          case .tree: return 1
+          case .UNRECOGNIZED(let i): return i
+          }
+        }
+
+      }
+
+      public init() {}
+    }
+
     public init() {}
   }
 
@@ -2428,6 +2485,14 @@ extension Anytype_Model_Block.Content.Dataview.Filter.QuickOption: CaseIterable 
   ]
 }
 
+extension Anytype_Model_Block.Content.Widget.Layout: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Model_Block.Content.Widget.Layout] = [
+    .link,
+    .tree,
+  ]
+}
+
 #endif  // swift(>=4.2)
 
 ///
@@ -2678,19 +2743,24 @@ public struct Anytype_Model_Account {
     /// profile block id
     public var profileObjectID: String = String()
 
-    /// marketplace type id
+    /// deprecated, to be removed
     public var marketplaceTypeObjectID: String = String()
 
-    /// marketplace relation id
+    /// deprecated, to be removed
     public var marketplaceRelationObjectID: String = String()
 
-    /// marketplace template id
+    /// deprecated, to be removed
     public var marketplaceTemplateObjectID: String = String()
+
+    /// marketplace workspace id
+    public var marketplaceWorkspaceID: String = String()
 
     public var deviceID: String = String()
 
     /// marketplace template id
     public var accountSpaceID: String = String()
+
+    public var widgetsID: String = String()
 
     /// gateway url for fetching static files
     public var gatewayURL: String = String()
@@ -3622,6 +3692,8 @@ extension Anytype_Model_Block.Content.TableOfContents: @unchecked Sendable {}
 extension Anytype_Model_Block.Content.Table: @unchecked Sendable {}
 extension Anytype_Model_Block.Content.TableColumn: @unchecked Sendable {}
 extension Anytype_Model_Block.Content.TableRow: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Widget: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Widget.Layout: @unchecked Sendable {}
 extension Anytype_Model_BlockMetaOnly: @unchecked Sendable {}
 extension Anytype_Model_Range: @unchecked Sendable {}
 extension Anytype_Model_Account: @unchecked Sendable {}
@@ -3673,6 +3745,7 @@ extension Anytype_Model_SmartBlockType: SwiftProtobuf._ProtoNameProviding {
     64: .same(proto: "Database"),
     65: .same(proto: "Set"),
     96: .same(proto: "STObjectType"),
+    112: .same(proto: "Widget"),
     256: .same(proto: "File"),
     272: .same(proto: "MarketplaceType"),
     273: .same(proto: "MarketplaceRelation"),
@@ -3806,6 +3879,7 @@ extension Anytype_Model_Block: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
     26: .same(proto: "table"),
     27: .same(proto: "tableColumn"),
     28: .same(proto: "tableRow"),
+    29: .same(proto: "widget"),
   ]
 
   fileprivate class _StorageClass {
@@ -4064,6 +4138,19 @@ extension Anytype_Model_Block: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
             _storage._content = .tableRow(v)
           }
         }()
+        case 29: try {
+          var v: Anytype_Model_Block.Content.Widget?
+          var hadOneofValue = false
+          if let current = _storage._content {
+            hadOneofValue = true
+            if case .widget(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._content = .widget(v)
+          }
+        }()
         default: break
         }
       }
@@ -4161,6 +4248,10 @@ extension Anytype_Model_Block: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
       case .tableRow?: try {
         guard case .tableRow(let v)? = _storage._content else { preconditionFailure() }
         try visitor.visitSingularMessageField(value: v, fieldNumber: 28)
+      }()
+      case .widget?: try {
+        guard case .widget(let v)? = _storage._content else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 29)
       }()
       case nil: break
       }
@@ -5873,6 +5964,45 @@ extension Anytype_Model_Block.Content.TableRow: SwiftProtobuf.Message, SwiftProt
   }
 }
 
+extension Anytype_Model_Block.Content.Widget: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Model_Block.Content.protoMessageName + ".Widget"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "layout"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.layout) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.layout != .link {
+      try visitor.visitSingularEnumField(value: self.layout, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model_Block.Content.Widget, rhs: Anytype_Model_Block.Content.Widget) -> Bool {
+    if lhs.layout != rhs.layout {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Model_Block.Content.Widget.Layout: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "Link"),
+    1: .same(proto: "Tree"),
+  ]
+}
+
 extension Anytype_Model_BlockMetaOnly: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".BlockMetaOnly"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -6242,8 +6372,10 @@ extension Anytype_Model_Account.Info: SwiftProtobuf.Message, SwiftProtobuf._Mess
     5: .same(proto: "marketplaceTypeObjectId"),
     6: .same(proto: "marketplaceRelationObjectId"),
     7: .same(proto: "marketplaceTemplateObjectId"),
+    11: .same(proto: "marketplaceWorkspaceId"),
     8: .same(proto: "deviceId"),
     9: .same(proto: "accountSpaceId"),
+    10: .same(proto: "widgetsId"),
     101: .same(proto: "gatewayUrl"),
     103: .same(proto: "localStoragePath"),
     104: .same(proto: "timeZone"),
@@ -6263,6 +6395,8 @@ extension Anytype_Model_Account.Info: SwiftProtobuf.Message, SwiftProtobuf._Mess
       case 7: try { try decoder.decodeSingularStringField(value: &self.marketplaceTemplateObjectID) }()
       case 8: try { try decoder.decodeSingularStringField(value: &self.deviceID) }()
       case 9: try { try decoder.decodeSingularStringField(value: &self.accountSpaceID) }()
+      case 10: try { try decoder.decodeSingularStringField(value: &self.widgetsID) }()
+      case 11: try { try decoder.decodeSingularStringField(value: &self.marketplaceWorkspaceID) }()
       case 101: try { try decoder.decodeSingularStringField(value: &self.gatewayURL) }()
       case 103: try { try decoder.decodeSingularStringField(value: &self.localStoragePath) }()
       case 104: try { try decoder.decodeSingularStringField(value: &self.timeZone) }()
@@ -6296,6 +6430,12 @@ extension Anytype_Model_Account.Info: SwiftProtobuf.Message, SwiftProtobuf._Mess
     if !self.accountSpaceID.isEmpty {
       try visitor.visitSingularStringField(value: self.accountSpaceID, fieldNumber: 9)
     }
+    if !self.widgetsID.isEmpty {
+      try visitor.visitSingularStringField(value: self.widgetsID, fieldNumber: 10)
+    }
+    if !self.marketplaceWorkspaceID.isEmpty {
+      try visitor.visitSingularStringField(value: self.marketplaceWorkspaceID, fieldNumber: 11)
+    }
     if !self.gatewayURL.isEmpty {
       try visitor.visitSingularStringField(value: self.gatewayURL, fieldNumber: 101)
     }
@@ -6315,8 +6455,10 @@ extension Anytype_Model_Account.Info: SwiftProtobuf.Message, SwiftProtobuf._Mess
     if lhs.marketplaceTypeObjectID != rhs.marketplaceTypeObjectID {return false}
     if lhs.marketplaceRelationObjectID != rhs.marketplaceRelationObjectID {return false}
     if lhs.marketplaceTemplateObjectID != rhs.marketplaceTemplateObjectID {return false}
+    if lhs.marketplaceWorkspaceID != rhs.marketplaceWorkspaceID {return false}
     if lhs.deviceID != rhs.deviceID {return false}
     if lhs.accountSpaceID != rhs.accountSpaceID {return false}
+    if lhs.widgetsID != rhs.widgetsID {return false}
     if lhs.gatewayURL != rhs.gatewayURL {return false}
     if lhs.localStoragePath != rhs.localStoragePath {return false}
     if lhs.timeZone != rhs.timeZone {return false}

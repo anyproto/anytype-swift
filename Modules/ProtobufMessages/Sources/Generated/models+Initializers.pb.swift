@@ -37,15 +37,17 @@ extension Anytype_Model_Account.Config {
 }
 
 extension Anytype_Model_Account.Info {
-    public init(homeObjectID: String = String(), archiveObjectID: String = String(), profileObjectID: String = String(), marketplaceTypeObjectID: String = String(), marketplaceRelationObjectID: String = String(), marketplaceTemplateObjectID: String = String(), deviceID: String = String(), accountSpaceID: String = String(), gatewayURL: String = String(), localStoragePath: String = String(), timeZone: String = String()) {
+    public init(homeObjectID: String = String(), archiveObjectID: String = String(), profileObjectID: String = String(), marketplaceTypeObjectID: String = String(), marketplaceRelationObjectID: String = String(), marketplaceTemplateObjectID: String = String(), marketplaceWorkspaceID: String = String(), deviceID: String = String(), accountSpaceID: String = String(), widgetsID: String = String(), gatewayURL: String = String(), localStoragePath: String = String(), timeZone: String = String()) {
         self.homeObjectID = homeObjectID
         self.archiveObjectID = archiveObjectID
         self.profileObjectID = profileObjectID
         self.marketplaceTypeObjectID = marketplaceTypeObjectID
         self.marketplaceRelationObjectID = marketplaceRelationObjectID
         self.marketplaceTemplateObjectID = marketplaceTemplateObjectID
+        self.marketplaceWorkspaceID = marketplaceWorkspaceID
         self.deviceID = deviceID
         self.accountSpaceID = accountSpaceID
+        self.widgetsID = widgetsID
         self.gatewayURL = gatewayURL
         self.localStoragePath = localStoragePath
         self.timeZone = timeZone
@@ -279,6 +281,12 @@ extension Anytype_Model_Block.Content.Text.Mark {
 extension Anytype_Model_Block.Content.Text.Marks {
     public init(marks: [Anytype_Model_Block.Content.Text.Mark] = []) {
         self.marks = marks
+    }
+}
+
+extension Anytype_Model_Block.Content.Widget {
+    public init(layout: Anytype_Model_Block.Content.Widget.Layout = .link) {
+        self.layout = layout
     }
 }
 

@@ -65,6 +65,11 @@ extension Anytype_Rpc.Block.Create.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }
 }
 
+extension Anytype_Rpc.Block.CreateWidget.Response: ResultWithError {}
+extension Anytype_Rpc.Block.CreateWidget.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null }
+}
+
 extension Anytype_Rpc.Block.Cut.Response: ResultWithError {}
 extension Anytype_Rpc.Block.Cut.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }
