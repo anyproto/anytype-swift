@@ -14,11 +14,13 @@ public extension BundledRelationKey {
             .type,
             .featuredRelations,
             .workspaceId,
-            .sourceObject,
             .done,
             .links,
             .internalFlags,
             .restrictions,
+
+            .source,
+            .sourceObject,
 
             .setOf,
             .smartblockTypes,
