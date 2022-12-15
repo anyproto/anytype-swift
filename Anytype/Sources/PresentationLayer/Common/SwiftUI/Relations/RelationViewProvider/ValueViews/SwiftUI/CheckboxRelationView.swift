@@ -8,7 +8,7 @@ struct CheckboxRelationView: View {
         switch style {
         case .regular, .set:
             icon
-        case .featuredRelationBlock:
+        case .featuredRelationBlock, .kanbanHeader:
             featuredRelationBlockIcon
         case .filter:
             filterText(lowercased: true)

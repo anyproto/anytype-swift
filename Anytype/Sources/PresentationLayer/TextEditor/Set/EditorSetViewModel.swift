@@ -60,9 +60,21 @@ final class EditorSetViewModel: ObservableObject {
         guard let groupOrder = setDocument.dataView.groupOrders.first(where: { [weak self] in $0.viewID == self?.activeView.id }),
             let viewGroup = groupOrder.viewGroups.first(where: { $0.groupID == groupId }),
             let middlewareColor = MiddlewareColor(rawValue: viewGroup.backgroundColor) else {
-            return BlockBackgroundColor.gray
+            return groupFirstOptionBackgroundColor(for: groupId)
         }
         return middlewareColor.backgroundColor
+    }
+    
+    func headerType(for groupId: String) -> SetKanbanColumnHeaderType {
+        guard let group = groups.first(where: { $0.id == groupId }) else { return .uncategorized }
+        return group.header(with: activeView.groupRelationKey)
+    }
+    
+    private func groupFirstOptionBackgroundColor(for groupId: String) -> BlockBackgroundColor {
+        guard let backgroundColor = groups.first(where: { $0.id == groupId })?.backgroundColor else {
+            return BlockBackgroundColor.gray
+        }
+        return backgroundColor
     }
     
     private let setDocument: SetDocumentProtocol

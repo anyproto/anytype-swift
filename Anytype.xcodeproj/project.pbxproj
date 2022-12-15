@@ -566,6 +566,7 @@
 		2E7C4471289842E10062287C /* DataviewFilter+Update.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C4470289842E10062287C /* DataviewFilter+Update.swift */; };
 		2E7C4473289843220062287C /* DataviewFilter+Condition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C4472289843220062287C /* DataviewFilter+Condition.swift */; };
 		2E7C44752898434A0062287C /* DataviewFilter+QuickOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C44742898434A0062287C /* DataviewFilter+QuickOption.swift */; };
+		2E7CAA3C2949E6A200475898 /* SetKanbanColumnHeaderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7CAA3B2949E6A200475898 /* SetKanbanColumnHeaderType.swift */; };
 		2E8387BA291A51A000506766 /* KanbanCardDropData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8387B8291A51A000506766 /* KanbanCardDropData.swift */; };
 		2E8387BB291A51A000506766 /* KanbanCardDropInsideDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8387B9291A51A000506766 /* KanbanCardDropInsideDelegate.swift */; };
 		2E8387BD291A520C00506766 /* GroupObjectIds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8387BC291A520C00506766 /* GroupObjectIds.swift */; };
@@ -1836,6 +1837,7 @@
 		2E7C4470289842E10062287C /* DataviewFilter+Update.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataviewFilter+Update.swift"; sourceTree = "<group>"; };
 		2E7C4472289843220062287C /* DataviewFilter+Condition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataviewFilter+Condition.swift"; sourceTree = "<group>"; };
 		2E7C44742898434A0062287C /* DataviewFilter+QuickOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataviewFilter+QuickOption.swift"; sourceTree = "<group>"; };
+		2E7CAA3B2949E6A200475898 /* SetKanbanColumnHeaderType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetKanbanColumnHeaderType.swift; sourceTree = "<group>"; };
 		2E8387B8291A51A000506766 /* KanbanCardDropData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KanbanCardDropData.swift; sourceTree = "<group>"; };
 		2E8387B9291A51A000506766 /* KanbanCardDropInsideDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KanbanCardDropInsideDelegate.swift; sourceTree = "<group>"; };
 		2E8387BC291A520C00506766 /* GroupObjectIds.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupObjectIds.swift; sourceTree = "<group>"; };
@@ -5023,6 +5025,7 @@
 			children = (
 				2E1146CE29311E7A0057C753 /* Settings */,
 				2EC9426D2901946800DE91E4 /* SetKanbanColumn.swift */,
+				2E7CAA3B2949E6A200475898 /* SetKanbanColumnHeaderType.swift */,
 			);
 			path = Column;
 			sourceTree = "<group>";
@@ -8112,6 +8115,7 @@
 				3D24910B27BBD87200821595 /* CGFloat+OnePixel.swift in Sources */,
 				EA3D1E5426CFCCC5001A31D9 /* TextViewAttributeSelectionHandler.swift in Sources */,
 				1200BF9227F4CA62000A0366 /* DownloadableImageViewWrapperProtocol.swift in Sources */,
+				2E7CAA3C2949E6A200475898 /* SetKanbanColumnHeaderType.swift in Sources */,
 				C9367A9E27313692007D687A /* TextBlockDelegateData.swift in Sources */,
 				3D1CEC2B27F38CE3000D36BA /* DeletedAccountView.swift in Sources */,
 				12F3E763270C6C0C002EE52F /* ObjectHeaderImageUploadingWorker.swift in Sources */,
