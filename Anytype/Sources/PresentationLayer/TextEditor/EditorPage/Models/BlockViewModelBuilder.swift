@@ -261,12 +261,14 @@ final class BlockViewModelBuilder {
                     self?.delegate.textBlockSetNeedsLayout()
                 }
             )
-        case .smartblock, .layout, .dataView, .tableRow, .tableColumn: return nil
+        case .smartblock, .layout, .tableRow, .tableColumn: return nil
         case .table:
             return SimpleTableBlockViewModel(
                 info: info,
                 simpleTableDependenciesBuilder: simpleTableDependenciesBuilder
             )
+        case .dataView:
+            return DataViewBlockViewModel(info: info) // add toggle?
         case .unsupported:
             guard let parentId = info.configurationData.parentId,
                   let parent = document.infoContainer.get(id: parentId),

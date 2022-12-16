@@ -767,6 +767,10 @@ internal enum Loc {
       /// Uploading...
       internal static let uploading = Loc.tr("Localizable", "Content.Common.Uploading", fallback: "Uploading...")
     }
+    internal enum DataView {
+      /// Inline set
+      internal static let inlineSet = Loc.tr("Localizable", "Content.DataView.InlineSet", fallback: "Inline set")
+    }
     internal enum File {
       /// Upload a file
       internal static let upload = Loc.tr("Localizable", "Content.File.Upload", fallback: "Upload a file")

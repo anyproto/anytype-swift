@@ -646,6 +646,7 @@
 "Content.Common.Error" = "Something went wrong, try again";
 "Content.Bookmark.Add" = "Add a web bookmark";
 "Content.Bookmark.Loading" = "Loading, please wait...";
+"Content.DataView.InlineSet" = "Inline set";
 
 // MARK: - Widget extension
 "WidgetExtension.LockScreen.Title" = "New object";

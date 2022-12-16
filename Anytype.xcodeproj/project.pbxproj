@@ -574,6 +574,9 @@
 		2E8387BD291A520C00506766 /* GroupObjectIds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8387BC291A520C00506766 /* GroupObjectIds.swift */; };
 		2E8387BF291A521900506766 /* EditorSetViewModel+DragAndDropDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8387BE291A521900506766 /* EditorSetViewModel+DragAndDropDelegate.swift */; };
 		2E8387C1291A897700506766 /* BlockDataview+Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8387C0291A897700506766 /* BlockDataview+Group.swift */; };
+		2E92219D294B8B5000968750 /* DataViewBlockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E92219C294B8B5000968750 /* DataViewBlockViewModel.swift */; };
+		2E92219F294B8CDE00968750 /* DataViewBlockConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E92219E294B8CDE00968750 /* DataViewBlockConfiguration.swift */; };
+		2E9221A1294B8D4900968750 /* DataViewBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9221A0294B8D4900968750 /* DataViewBlockView.swift */; };
 		2E975EC72874BB18004DE574 /* EditorSetViewPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E975EC62874BB18004DE574 /* EditorSetViewPickerViewModel.swift */; };
 		2E975EC92874BBC5004DE574 /* EditorSetViewRowConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E975EC82874BBC5004DE574 /* EditorSetViewRowConfiguration.swift */; };
 		2E975EDA287C2325004DE574 /* SetFilterRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E975ED0287C2325004DE574 /* SetFilterRow.swift */; };
@@ -1847,6 +1850,9 @@
 		2E8387BC291A520C00506766 /* GroupObjectIds.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupObjectIds.swift; sourceTree = "<group>"; };
 		2E8387BE291A521900506766 /* EditorSetViewModel+DragAndDropDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EditorSetViewModel+DragAndDropDelegate.swift"; sourceTree = "<group>"; };
 		2E8387C0291A897700506766 /* BlockDataview+Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockDataview+Group.swift"; sourceTree = "<group>"; };
+		2E92219C294B8B5000968750 /* DataViewBlockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataViewBlockViewModel.swift; sourceTree = "<group>"; };
+		2E92219E294B8CDE00968750 /* DataViewBlockConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataViewBlockConfiguration.swift; sourceTree = "<group>"; };
+		2E9221A0294B8D4900968750 /* DataViewBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataViewBlockView.swift; sourceTree = "<group>"; };
 		2E975EC62874BB18004DE574 /* EditorSetViewPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetViewPickerViewModel.swift; sourceTree = "<group>"; };
 		2E975EC82874BBC5004DE574 /* EditorSetViewRowConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetViewRowConfiguration.swift; sourceTree = "<group>"; };
 		2E975ED0287C2325004DE574 /* SetFilterRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetFilterRow.swift; sourceTree = "<group>"; };
@@ -3112,6 +3118,7 @@
 		0A10CC5A248EC2EE000FF498 /* Blocks */ = {
 			isa = PBXGroup;
 			children = (
+				2E92219B294B8B0100968750 /* DataView */,
 				2A9D298E28BCC0F900789AC7 /* NonExistent */,
 				C921517328980172007FC95D /* Shimmer */,
 				2A83ED79285347B700612723 /* TableOfContents */,
@@ -4912,6 +4919,16 @@
 				2E7C446C2893F96A0062287C /* SetFiltersDaysViewModel.swift */,
 			);
 			path = Date;
+			sourceTree = "<group>";
+		};
+		2E92219B294B8B0100968750 /* DataView */ = {
+			isa = PBXGroup;
+			children = (
+				2E92219C294B8B5000968750 /* DataViewBlockViewModel.swift */,
+				2E92219E294B8CDE00968750 /* DataViewBlockConfiguration.swift */,
+				2E9221A0294B8D4900968750 /* DataViewBlockView.swift */,
+			);
+			path = DataView;
 			sourceTree = "<group>";
 		};
 		2E975ECF287C2325004DE574 /* List */ = {
@@ -8402,6 +8419,7 @@
 				12136D5627996F3400262FE7 /* TextRelationDetailsService.swift in Sources */,
 				EA0261332625D0E100AE6D86 /* ListBlockRestrictions.swift in Sources */,
 				3D1460E127B3F33000DC3667 /* LocalAuth.swift in Sources */,
+				2E92219D294B8B5000968750 /* DataViewBlockViewModel.swift in Sources */,
 				123949EE279FD7320080E1CF /* FullScreenHeightPopupLayout.swift in Sources */,
 				034A30412405CDBE002599E2 /* CombineExtension.swift in Sources */,
 				3D409BC026309CE100E588A7 /* HomeViewModel.swift in Sources */,
@@ -8705,6 +8723,7 @@
 				3D8A82D82656EDF400C4A9CD /* Popup.swift in Sources */,
 				C9C49A82270499B500D86463 /* CameraPermissionVerifier.swift in Sources */,
 				C92DCD97272998D800A03D91 /* BaseDocument+Extensions.swift in Sources */,
+				2E92219F294B8CDE00968750 /* DataViewBlockConfiguration.swift in Sources */,
 				12AB963128007E58008E32EA /* ShrinkingButtonStyle.swift in Sources */,
 				2A67D5AB2948D86800CBFAEF /* NewRelationModuleAssembly.swift in Sources */,
 				3DE6925127301D4000A4CD4E /* AccessoryViewStateManager+Mention.swift in Sources */,
@@ -8741,6 +8760,7 @@
 				C97B5D6427F499D200EA7E33 /* IndentationSettings.swift in Sources */,
 				C91FAF5F2812C2510055BC4A /* AlertModel.swift in Sources */,
 				C9A4268C28489CC800F388FC /* SimpleTableBlockContentConfiguration.swift in Sources */,
+				2E9221A1294B8D4900968750 /* DataViewBlockView.swift in Sources */,
 				12EE02D02840E35F00223EB5 /* SceneLifecycleStateService.swift in Sources */,
 				3D07ED6C261F49ED00C007E2 /* DividerBlockViewModel.swift in Sources */,
 				53FF7C4E26F7DB3C00A5A592 /* AnytypeSharedAudioplayer.swift in Sources */,
