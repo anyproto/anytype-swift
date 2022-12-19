@@ -1111,6 +1111,8 @@ internal enum Loc {
     internal static func addedToLibrary(_ p1: Any) -> String {
       return Loc.tr("Localizable", "Relation.AddedToLibrary", String(describing: p1), fallback: "Relation ‘%@’ added to your library")
     }
+    /// Deleted relation
+    internal static let deleted = Loc.tr("Localizable", "Relation.Deleted", fallback: "Deleted relation")
     /// My relations
     internal static let myRelations = Loc.tr("Localizable", "Relation.MyRelations", fallback: "My relations")
     internal enum View {
