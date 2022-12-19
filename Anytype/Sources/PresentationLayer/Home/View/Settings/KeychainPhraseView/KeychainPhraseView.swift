@@ -11,9 +11,7 @@ struct KeychainPhraseView: View {
         VStack(alignment: .leading, spacing: 0) {
             DragIndicator()
             Spacer.fixedHeight(53)
-            AnytypeText(Loc.backUpYourRecoveryPhrase, style: .title, color: .textPrimary)
-                .multilineTextAlignment(.center)
-                .frame(maxWidth: .infinity, alignment: .center)
+            AnytypeText(Loc.backUpYourRecoveryPhrase, style: .heading, color: .textPrimary)
             Spacer.fixedHeight(25)
             AnytypeText(Loc.Keychain.recoveryPhraseDescription, style: .uxBodyRegular, color: .textPrimary)
             Spacer.fixedHeight(34)

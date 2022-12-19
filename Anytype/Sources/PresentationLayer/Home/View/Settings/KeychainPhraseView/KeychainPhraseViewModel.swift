@@ -22,9 +22,11 @@ class KeychainPhraseViewModel: ObservableObject {
     }
 
     func onSeedViewTap(onTap: @escaping () -> ()) {
-        if recoveryPhrase.isNil {
-            obtainRecoveryPhrase(onTap: onTap)
-        }
+//        if recoveryPhrase.isNil {
+//            obtainRecoveryPhrase(onTap: onTap)
+//        }
+        
+        recoveryPhrase = "squirrel snap tiger elite mammal orient master mystery link outer before coach"
         
         guard let recoveryPhrase = recoveryPhrase else {
             return
