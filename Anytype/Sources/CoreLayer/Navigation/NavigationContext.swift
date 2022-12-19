@@ -30,20 +30,33 @@ extension NavigationContextProtocol {
 
 final class NavigationContext: NavigationContextProtocol {
     
-    private weak var rootViewController: UIViewController?
+    private var rootViewControllerProvider: () -> UIViewController?
     
     private static let queue = DispatchQueue(label: "com.anytype.navigation", qos: .userInteractive)
     private static let semaphore: DispatchSemaphore = DispatchSemaphore(value: 1)
     
-    init(rootViewController: UIViewController?) {
-        self.rootViewController = rootViewController
+    convenience init(window: UIWindow?) {
+        self.init(rootViewControllerProvider: { [weak window] in
+            return window?.rootViewController
+        })
     }
     
+    convenience init(rootViewController: UIViewController?) {
+        self.init(rootViewControllerProvider: { [weak rootViewController] in
+            return rootViewController
+        })
+    }
+    
+    private init(rootViewControllerProvider: @escaping () -> UIViewController?) {
+        self.rootViewControllerProvider = rootViewControllerProvider
+    }
+    
+    // MARK: - NavigationContextProtocol
     
     func present(_ viewControllerToPresent: UIViewController, animated: Bool, completion: (() -> Void)?) {
         addOperationToQueue { [weak self] completeCall in
                 
-            guard let viewController = self?.rootViewController?.topPresentedController else {
+            guard let viewController = self?.rootViewControllerProvider()?.topPresentedController else {
                 completeCall()
                 return
             }
@@ -58,7 +71,7 @@ final class NavigationContext: NavigationContextProtocol {
     func dismissTopPresented(animated: Bool, completion: (() -> Void)?) {
         addOperationToQueue { [weak self] completeCall in
             
-            guard let viewController = self?.rootViewController?.topPresentedController else {
+            guard let viewController = self?.rootViewControllerProvider()?.topPresentedController else {
                 completeCall()
                 return
             }
@@ -73,7 +86,7 @@ final class NavigationContext: NavigationContextProtocol {
     func dismissAllPresented(animated: Bool, completion: (() -> Void)?) {
         addOperationToQueue { [weak self] completeCall in
             
-            guard let viewController = self?.rootViewController else {
+            guard let viewController = self?.rootViewControllerProvider() else {
                 completeCall()
                 return
             }
