@@ -8,6 +8,7 @@ public struct BlockDataview: Hashable {
     public let relationLinks: [RelationLink]
     public let groupOrders: [DataviewGroupOrder]
     public let objectOrders: [DataviewObjectOrder]
+    public let targetObjectID: String
     
     public func updated(
         activeViewId: BlockId? = nil,
@@ -15,7 +16,8 @@ public struct BlockDataview: Hashable {
         views: [DataviewView]? = nil,
         relationLinks: [RelationLink]? = nil,
         groupOrders: [DataviewGroupOrder]? = nil,
-        objectOrders: [DataviewObjectOrder]? = nil
+        objectOrders: [DataviewObjectOrder]? = nil,
+        targetObjectID: String? = nil
     ) -> BlockDataview {
         BlockDataview(
             activeViewId: activeViewId ?? self.activeViewId,
@@ -23,7 +25,8 @@ public struct BlockDataview: Hashable {
             views: views ?? self.views,
             relationLinks: relationLinks ?? self.relationLinks,
             groupOrders: groupOrders ?? self.groupOrders,
-            objectOrders: objectOrders ?? self.objectOrders
+            objectOrders: objectOrders ?? self.objectOrders,
+            targetObjectID: targetObjectID ?? self.targetObjectID
         )
     }
 
@@ -34,7 +37,8 @@ public struct BlockDataview: Hashable {
             views: [],
             relationLinks: [],
             groupOrders: [],
-            objectOrders: []
+            objectOrders: [],
+            targetObjectID: ""
         )
     }
 
@@ -45,7 +49,8 @@ public struct BlockDataview: Hashable {
             activeView: activeViewId,
             groupOrders: groupOrders,
             objectOrders: objectOrders,
-            relationLinks: relationLinks.map(\.asMiddleware)
+            relationLinks: relationLinks.map(\.asMiddleware),
+            targetObjectID: targetObjectID
         )
     }
 }
@@ -62,7 +67,8 @@ public extension MiddlewareDataview {
             views: views.compactMap(\.asModel),
             relationLinks: relationLinks.map { RelationLink(middlewareRelationLink: $0) },
             groupOrders: groupOrders,
-            objectOrders: objectOrders
+            objectOrders: objectOrders,
+            targetObjectID: targetObjectID
         )
     }
 }

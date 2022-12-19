@@ -7,14 +7,15 @@ final class DataViewBlockView: UIView, BlockContentView {
     private let iconView = ObjectIconImageView()
     private let titleLabel: AnytypeLabel = {
         let title = AnytypeLabel(style: .subheading)
+        title.numberOfLines = 1
         title.textColor = .textPrimary
         return title
     }()
     private let subtitleLabel: AnytypeLabel = {
-        let title = AnytypeLabel(style: .relation3Regular)
-        title.textColor = .textSecondary
-        title.setText(Loc.Content.DataView.inlineSet)
-        return title
+        let subtitleLabel = AnytypeLabel(style: .relation3Regular)
+        subtitleLabel.textColor = .textSecondary
+        subtitleLabel.setText(Loc.Content.DataView.inlineSet)
+        return subtitleLabel
     }()
     private let contentView: UIView = {
         let view = UIView()
@@ -69,6 +70,9 @@ final class DataViewBlockView: UIView, BlockContentView {
                 $0.hGap(fixed: Layout.contentInnerInsets.right)
             )
         }
+        iconView.layoutUsing.anchors {
+            $0.size(Layout.iconViewSize)
+        }
     }
 }
 
@@ -76,5 +80,6 @@ private extension DataViewBlockView {
     enum Layout {
         static let contentViewInsets = UIEdgeInsets(top: 16, left: 0, bottom: 16, right: 0)
         static let contentInnerInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
+        static let iconViewSize = CGSize(width: 20, height: 24)
     }
 }

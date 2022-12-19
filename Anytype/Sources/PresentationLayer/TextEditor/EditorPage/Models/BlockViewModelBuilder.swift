@@ -267,8 +267,13 @@ final class BlockViewModelBuilder {
                 info: info,
                 simpleTableDependenciesBuilder: simpleTableDependenciesBuilder
             )
-        case .dataView:
-            return DataViewBlockViewModel(info: info) // add toggle?
+        case let .dataView(data):
+            let details = ObjectDetailsStorage.shared.get(id: data.targetObjectID)
+            
+            if details?.isDeleted ?? false {
+                return NonExistentBlockViewModel(info: info)
+            }
+            return DataViewBlockViewModel(info: info, objectDetails: details)
         case .unsupported:
             guard let parentId = info.configurationData.parentId,
                   let parent = document.infoContainer.get(id: parentId),
