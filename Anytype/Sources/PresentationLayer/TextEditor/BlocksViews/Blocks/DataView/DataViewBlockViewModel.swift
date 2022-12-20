@@ -9,7 +9,10 @@ struct DataViewBlockViewModel: BlockViewModelProtocol {
     let objectDetails: ObjectDetails?
 
     var hashable: AnyHashable {
-        info.id as AnyHashable
+        [
+            info,
+            objectDetails
+        ] as [AnyHashable]
     }
 
     init(info: BlockInformation, objectDetails: ObjectDetails?) {
