@@ -136,7 +136,7 @@ class SetDocument: SetDocumentProtocol {
     }
     
     private func updateDataViewRelations() {
-        dataViewRelationsDetails = relationDetailsStorage.relationsDetails(for: dataView.relationLinks)
+        dataViewRelationsDetails = relationDetailsStorage.relationsDetails(for: dataView.relationLinks, includeDeleted: false)
     }
     
     private func updateSorts() {
