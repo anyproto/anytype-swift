@@ -488,7 +488,7 @@ extension EditorRouter: AttachmentRouterProtocol {
 // MARK: - Relations
 extension EditorRouter {
     func showRelationValueEditingView(key: String, source: RelationSource) {
-        let relation = document.parsedRelations.all.first { $0.key == key }
+        let relation = document.parsedRelations.installed.first { $0.key == key }
         guard let relation = relation else { return }
         
         showRelationValueEditingView(objectId: document.objectId, source: source, relation: relation)

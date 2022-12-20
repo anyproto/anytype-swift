@@ -3,7 +3,7 @@ import BlocksModels
 
 struct ParsedRelations: Equatable {
 
-    let all: [Relation]
+    let installed: [Relation]
     let allWithDeleted: [Relation]
     
     let featuredRelations: [Relation]
@@ -11,7 +11,7 @@ struct ParsedRelations: Equatable {
     let otherRelations: [Relation]
     
     init(featuredRelations: [Relation], deletedRelations: [Relation], otherRelations: [Relation]) {
-        self.all = featuredRelations + otherRelations
+        self.installed = featuredRelations + otherRelations
         self.allWithDeleted = featuredRelations + deletedRelations + otherRelations
         self.featuredRelations = featuredRelations
         self.deletedRelations = deletedRelations

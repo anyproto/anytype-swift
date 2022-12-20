@@ -60,7 +60,7 @@ final class SetContentViewDataBuilder {
                     objectId: details.id,
                     isObjectLocked: isObjectLocked
                 )
-                .all
+                .installed
             let sortedRelations = relationsDetails.compactMap { colum in
                 parsedRelations.first { $0.key == colum.key }
             }
