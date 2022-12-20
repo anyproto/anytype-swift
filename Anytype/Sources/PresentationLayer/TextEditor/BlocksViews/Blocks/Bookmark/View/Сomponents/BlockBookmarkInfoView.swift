@@ -16,6 +16,7 @@ final class BlockBookmarkInfoView: UIView {
         
         if FeatureFlags.redesignBookmarkBlock {
             descriptionView.setText(payload.subtitle)
+            descriptionView.isHidden = payload.subtitle.isEmpty
         } else {
             descriptionViewOld.text = payload.subtitle
         }
@@ -35,7 +36,7 @@ final class BlockBookmarkInfoView: UIView {
             } builder: {
                 $0.vStack(
                     titleView,
-                    $0.vGap(fixed: 2),
+                    $0.vGap(fixed: 2, relatedTo: descriptionView),
                     descriptionView,
                     $0.vGap(fixed: 4),
                     urlStackView
@@ -53,11 +54,10 @@ final class BlockBookmarkInfoView: UIView {
                     urlStackView
                 )
             }
-        }
-        
-        
-        titleView.layoutUsing.anchors {
-            $0.bottom.equal(to: urlStackView.topAnchor, constant: -36)
+            
+            titleView.layoutUsing.anchors {
+                $0.bottom.equal(to: urlStackView.topAnchor, constant: -42)
+            }
         }
     }
     
