@@ -648,6 +648,9 @@
 "Content.Bookmark.Add" = "Add a web bookmark";
 "Content.Bookmark.Loading" = "Loading, please wait...";
 "Content.DataView.InlineSet" = "Inline set";
+"Content.DataView.InlineSet.NoDataSource" = "No data source";
+"Content.DataView.InlineSet.Untitled" = "Untitled set";
+"Content.DataView.InlineSet.Toast.Failure" = "This inline set doesn’t have source";
 
 // MARK: - Widget extension
 "WidgetExtension.LockScreen.Title" = "New object";

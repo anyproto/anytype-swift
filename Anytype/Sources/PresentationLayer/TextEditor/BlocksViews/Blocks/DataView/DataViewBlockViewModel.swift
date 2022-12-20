@@ -7,6 +7,8 @@ struct DataViewBlockViewModel: BlockViewModelProtocol {
 
     let info: BlockInformation
     let objectDetails: ObjectDetails?
+    
+    let showFailureToast: (_ message: String) -> ()
 
     var hashable: AnyHashable {
         [
@@ -15,20 +17,27 @@ struct DataViewBlockViewModel: BlockViewModelProtocol {
         ] as [AnyHashable]
     }
 
-    init(info: BlockInformation, objectDetails: ObjectDetails?) {
+    init(
+        info: BlockInformation,
+        objectDetails: ObjectDetails?,
+        showFailureToast: @escaping (_ message: String) -> ())
+    {
         self.info = info
         self.objectDetails = objectDetails
+        self.showFailureToast = showFailureToast
     }
 
     func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration {
         if let objectDetails {
-            return DataViewBlockConfiguration(title: objectDetails.title, iconImage: objectDetails.objectIconImage)
-                .cellBlockConfiguration(
-                    indentationSettings: .init(with: info.configurationData),
-                    dragConfiguration: .init(id: info.id)
-                )
+            return DataViewBlockConfiguration(
+                content: .data(title: objectDetails.title, iconImage: objectDetails.objectIconImage)
+            )
+            .cellBlockConfiguration(
+                indentationSettings: .init(with: info.configurationData),
+                dragConfiguration: .init(id: info.id)
+            )
         } else {
-            return DataViewBlockConfiguration(title: "No data source", iconImage: nil)
+            return DataViewBlockConfiguration(content: .noDataSource)
                 .cellBlockConfiguration(
                     indentationSettings: .init(with: info.configurationData),
                     dragConfiguration: .init(id: info.id)
@@ -36,5 +45,9 @@ struct DataViewBlockViewModel: BlockViewModelProtocol {
         }
     }
 
-    func didSelectRowInTableView(editorEditingState: EditorEditingState) {}
+    func didSelectRowInTableView(editorEditingState: EditorEditingState) {
+        if objectDetails == nil {
+            showFailureToast(Loc.Content.DataView.InlineSet.Toast.failure)
+        }
+    }
 }

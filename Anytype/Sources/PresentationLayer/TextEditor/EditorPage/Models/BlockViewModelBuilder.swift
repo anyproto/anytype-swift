@@ -273,7 +273,13 @@ final class BlockViewModelBuilder {
             if details?.isDeleted ?? false {
                 return NonExistentBlockViewModel(info: info)
             }
-            return DataViewBlockViewModel(info: info, objectDetails: details)
+            return DataViewBlockViewModel(
+                info: info,
+                objectDetails: details,
+                showFailureToast: { [weak self] message in
+                    self?.router.showFailureToast(message: message)
+                }
+            )
         case .unsupported:
             guard let parentId = info.configurationData.parentId,
                   let parent = document.infoContainer.get(id: parentId),
