@@ -58,11 +58,18 @@ final class BlockBookmarkView: UIView, BlockContentView {
                 $0.edgesToSuperview(insets: Layout.contentInsets)
             } builder: {
                 $0.hStack(
-                    alignedTo: .top,
+                    alignedTo: .center,
                     informationView,
                     $0.hGap(fixed: 10),
-                    imageView
+                    $0.vStack(
+                        imageView,
+                        $0.vGap()
+                    )
                 )
+            }
+            
+            imageView.layoutUsing.anchors {
+                $0.top.equal(to: backgroundView.topAnchor, constant: Layout.contentInsets.top)
             }
         } else {
             backgroundView.addSubview(informationView) {
