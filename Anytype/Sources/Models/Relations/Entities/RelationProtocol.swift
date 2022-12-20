@@ -7,6 +7,7 @@ protocol RelationProtocol {
     var isFeatured: Bool { get }
     var isEditable: Bool { get }
     var isSystem: Bool { get }
+    var isDeleted: Bool { get }
     
     var hasValue: Bool { get }
 }

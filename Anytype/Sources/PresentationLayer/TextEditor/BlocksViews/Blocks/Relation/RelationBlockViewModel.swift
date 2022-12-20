@@ -6,7 +6,7 @@ import AnytypeCore
 struct RelationBlockViewModel: BlockViewModelProtocol {
     let info: BlockInformation
 
-    let relation: Relation?
+    let relation: Relation
     let actionOnValue: (() -> Void)?
 
     // MARK: - BlockViewModelProtocol methods
@@ -23,7 +23,7 @@ struct RelationBlockViewModel: BlockViewModelProtocol {
     func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration {
         return RelationBlockContentConfiguration(
             actionOnValue: { _ in actionOnValue?() },
-            relation: relation.map { RelationItemModel(relation: $0) }
+            relation: RelationItemModel(relation: relation)
         ).cellBlockConfiguration(
             indentationSettings: .init(with: info.configurationData),
             dragConfiguration: .init(id: info.id)

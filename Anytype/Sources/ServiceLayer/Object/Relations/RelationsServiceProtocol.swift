@@ -13,7 +13,7 @@ protocol RelationsServiceProtocol: AnyObject {
     
     func updateRelation(relationKey: String, value: Google_Protobuf_Value)
 
-    func createRelation(relationDetails: RelationDetails) -> Bool
+    func createRelation(relationDetails: RelationDetails) -> RelationDetails?
     func addRelations(relationsDetails: [RelationDetails]) -> Bool
 
     func removeRelation(relationKey: String)

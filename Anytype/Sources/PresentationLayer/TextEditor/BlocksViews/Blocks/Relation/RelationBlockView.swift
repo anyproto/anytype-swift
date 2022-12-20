@@ -24,8 +24,8 @@ final class RelationBlockView: UIView, BlockContentView {
     }
 
     func update(with configuration: RelationBlockContentConfiguration) {
-        if let relation = configuration.relation {
-            setupRelationState(relation: relation, action: configuration.actionOnValue)
+        if !configuration.relation.isDeleted {
+            setupRelationState(relation: configuration.relation, action: configuration.actionOnValue)
         } else {
             setupDeletedState()
         }
@@ -72,7 +72,6 @@ final class RelationBlockView: UIView, BlockContentView {
             $0.hStack(
                 spacing: 3,
                 alignedTo: .top,
-                distributedTo: .equalSpacing,
                 relationIcon,
                 $0.vStack(
                     $0.vGap(fixed: 2),

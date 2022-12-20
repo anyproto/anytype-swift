@@ -12,7 +12,7 @@ final class SetContentViewDataBuilder {
         let relations: [SetRelation] = view.options
             .compactMap { option in
                 let relationsDetails = relationDetailsStorage.relationsDetails(for: dataview.relationLinks)
-                    .filter { !$0.isHidden }
+                    .filter { !$0.isHidden && !$0.isDeleted }
                     .first { $0.key == option.key }
                 guard let relationsDetails = relationsDetails else { return nil }
                 
