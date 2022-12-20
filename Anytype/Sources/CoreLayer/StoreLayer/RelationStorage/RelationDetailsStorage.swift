@@ -28,13 +28,7 @@ final class RelationDetailsStorage: RelationDetailsStorageProtocol {
     // MARK: - RelationDetailsStorageProtocol
     
     func relationsDetails(for links: [RelationLink]) -> [RelationDetails] {
-//        return links.map { searchDetailsByKey[$0.key] ?? createDeletedRelation(link: $0) }
-        return links.map { link in
-            if link.key == "address" {
-                return createDeletedRelation(link: link)
-            }
-            return searchDetailsByKey[link.key] ?? createDeletedRelation(link: link)
-        }
+        return links.map { searchDetailsByKey[$0.key] ?? createDeletedRelation(link: $0) }
     }
     
     func relationsDetails() -> [RelationDetails] {
