@@ -1,9 +1,10 @@
+import UIKit
 import SwiftUI
 
 extension Color {
   
-    enum Dark: ComponentColor {
-      typealias T = Color
+    // MARK: - Dark
+    enum Dark {
       internal static let amber = Color(asset: Asset.Dark.amber)
       internal static let blue = Color(asset: Asset.Dark.blue)
       internal static let green = Color(asset: Asset.Dark.green)
@@ -16,8 +17,8 @@ extension Color {
       internal static let yellow = Color(asset: Asset.Dark.yellow)
     }
     
-    enum Light: ComponentColor {
-      typealias T = Color
+    // MARK: - Light
+    enum Light {
       internal static let amber = Color(asset: Asset.Light.amber)
       internal static let blue = Color(asset: Asset.Light.blue)
       internal static let green = Color(asset: Asset.Light.green)
@@ -30,8 +31,8 @@ extension Color {
       internal static let yellow = Color(asset: Asset.Light.yellow)
     }
     
-    enum System: ComponentColor {
-      typealias T = Color
+    // MARK: - System
+    enum System {
       internal static let amber = Color(asset: Asset.System.amber)
       internal static let amber100 = Color(asset: Asset.System.amber100)
       internal static let amber125 = Color(asset: Asset.System.amber125)
@@ -49,8 +50,8 @@ extension Color {
       internal static let yellow = Color(asset: Asset.System.yellow)
     }
     
-    enum VeryLight: ComponentColor {
-      typealias T = Color
+    // MARK: - VeryLight
+    enum VeryLight {
       internal static let amber = Color(asset: Asset.VeryLight.amber)
       internal static let blue = Color(asset: Asset.VeryLight.blue)
       internal static let green = Color(asset: Asset.VeryLight.green)
