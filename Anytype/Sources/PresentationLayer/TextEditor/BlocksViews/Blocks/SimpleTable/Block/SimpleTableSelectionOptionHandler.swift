@@ -161,7 +161,7 @@ final class SimpleTableSelectionOptionHandler {
                 }
             },
             selectedColor: textColor.map(UIColor.Text.uiColor(from:)) ?? nil,
-            selectedBackgroundColor: backgroundColor.map(UIColor.Background.uiColor(from:)) ?? nil
+            selectedBackgroundColor: backgroundColor.map(UIColor.VeryLight.uiColor(from:)) ?? nil
         )
     }
 

@@ -2,20 +2,6 @@ import UIKit
 
 extension UIColor {
   
-    enum Background: ComponentColor {
-      typealias T = UIColor
-      internal static let amber = UIColor(asset: Asset.Background.amber)
-      internal static let blue = UIColor(asset: Asset.Background.blue)
-      internal static let green = UIColor(asset: Asset.Background.green)
-      internal static let grey = UIColor(asset: Asset.Background.grey)
-      internal static let pink = UIColor(asset: Asset.Background.pink)
-      internal static let purple = UIColor(asset: Asset.Background.purple)
-      internal static let red = UIColor(asset: Asset.Background.red)
-      internal static let sky = UIColor(asset: Asset.Background.sky)
-      internal static let teal = UIColor(asset: Asset.Background.teal)
-      internal static let yellow = UIColor(asset: Asset.Background.yellow)
-    }
-    
     enum System: ComponentColor {
       typealias T = UIColor
       internal static let amber = UIColor(asset: Asset.System.amber)
@@ -61,6 +47,20 @@ extension UIColor {
       internal static let sky = UIColor(asset: Asset.Text.sky)
       internal static let teal = UIColor(asset: Asset.Text.teal)
       internal static let yellow = UIColor(asset: Asset.Text.yellow)
+    }
+    
+    enum VeryLight: ComponentColor {
+      typealias T = UIColor
+      internal static let amber = UIColor(asset: Asset.VeryLight.amber)
+      internal static let blue = UIColor(asset: Asset.VeryLight.blue)
+      internal static let green = UIColor(asset: Asset.VeryLight.green)
+      internal static let grey = UIColor(asset: Asset.VeryLight.grey)
+      internal static let pink = UIColor(asset: Asset.VeryLight.pink)
+      internal static let purple = UIColor(asset: Asset.VeryLight.purple)
+      internal static let red = UIColor(asset: Asset.VeryLight.red)
+      internal static let sky = UIColor(asset: Asset.VeryLight.sky)
+      internal static let teal = UIColor(asset: Asset.VeryLight.teal)
+      internal static let yellow = UIColor(asset: Asset.VeryLight.yellow)
     }
   
     // MARK: - Additional

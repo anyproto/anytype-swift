@@ -19,7 +19,7 @@ struct TagRelationRowView_Previews: PreviewProvider {
             viewModel: TagView.Model(
                 text: "text",
                 textColor: UIColor.Text.amber,
-                backgroundColor: UIColor.Background.amber
+                backgroundColor: UIColor.VeryLight.amber
             )
         )
     }

@@ -32,7 +32,7 @@ final class MarkupAccessoryView: UIView {
 
     private func createColorView(viewModel: MarkupAccessoryViewModel) -> ColorView {
         let color = viewModel.currentText?.colorState(range: viewModel.range) ?? UIColor.Text.default
-        let backgroundColor = viewModel.currentText?.backgroundColor(range: viewModel.range) ?? UIColor.Background.default
+        let backgroundColor = viewModel.currentText?.backgroundColor(range: viewModel.range) ?? UIColor.VeryLight.default
 
         let colorView = ColorView(
             selectedColor: color,
@@ -77,7 +77,7 @@ final class MarkupAccessoryView: UIView {
                 }
 
                 let color = viewModel.currentText?.colorState(range: viewModel.range) ?? UIColor.Text.default
-                let backgroundColor = viewModel.currentText?.backgroundColor(range: viewModel.range) ?? UIColor.Background.default
+                let backgroundColor = viewModel.currentText?.backgroundColor(range: viewModel.range) ?? UIColor.VeryLight.default
 
                 self.colorView.selectedTextColor = color
                 self.colorView.selectedBackgroundColor = backgroundColor

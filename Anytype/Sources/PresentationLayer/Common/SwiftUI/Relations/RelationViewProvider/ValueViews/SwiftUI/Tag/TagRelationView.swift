@@ -92,16 +92,16 @@ struct TagRelationView_Previews: PreviewProvider {
     static var previews: some View {
         TagRelationView(
             tags: [
-                Relation.Tag.Option(id: "id1", text: "text1", textColor: UIColor.Text.teal, backgroundColor: UIColor.Background.default),
-                Relation.Tag.Option(id: "id2", text: "text2", textColor: UIColor.Text.red, backgroundColor: UIColor.Background.red),
-                Relation.Tag.Option(id: "id3", text: "text3", textColor: UIColor.Text.teal, backgroundColor: UIColor.Background.teal),
-                Relation.Tag.Option(id: "id4", text: "text4", textColor: UIColor.Text.red, backgroundColor: UIColor.Background.red),
-                Relation.Tag.Option(id: "id5", text: "text5", textColor: UIColor.Text.teal, backgroundColor: UIColor.Background.teal),
-                Relation.Tag.Option(id: "id6", text: "text6", textColor: UIColor.Text.red, backgroundColor: UIColor.Background.red),
-                Relation.Tag.Option(id: "id7", text: "text7", textColor: UIColor.Text.teal, backgroundColor: UIColor.Background.teal),
-                Relation.Tag.Option(id: "id8", text: "text8", textColor: UIColor.Text.red, backgroundColor: UIColor.Background.red),
-                Relation.Tag.Option(id: "id9", text: "text9", textColor: UIColor.Text.teal, backgroundColor: UIColor.Background.teal),
-                Relation.Tag.Option(id: "id10", text: "text10", textColor: UIColor.Text.red, backgroundColor: UIColor.Background.red)
+                Relation.Tag.Option(id: "id1", text: "text1", textColor: UIColor.Text.teal, backgroundColor: UIColor.VeryLight.default),
+                Relation.Tag.Option(id: "id2", text: "text2", textColor: UIColor.Text.red, backgroundColor: UIColor.VeryLight.red),
+                Relation.Tag.Option(id: "id3", text: "text3", textColor: UIColor.Text.teal, backgroundColor: UIColor.VeryLight.teal),
+                Relation.Tag.Option(id: "id4", text: "text4", textColor: UIColor.Text.red, backgroundColor: UIColor.VeryLight.red),
+                Relation.Tag.Option(id: "id5", text: "text5", textColor: UIColor.Text.teal, backgroundColor: UIColor.VeryLight.teal),
+                Relation.Tag.Option(id: "id6", text: "text6", textColor: UIColor.Text.red, backgroundColor: UIColor.VeryLight.red),
+                Relation.Tag.Option(id: "id7", text: "text7", textColor: UIColor.Text.teal, backgroundColor: UIColor.VeryLight.teal),
+                Relation.Tag.Option(id: "id8", text: "text8", textColor: UIColor.Text.red, backgroundColor: UIColor.VeryLight.red),
+                Relation.Tag.Option(id: "id9", text: "text9", textColor: UIColor.Text.teal, backgroundColor: UIColor.VeryLight.teal),
+                Relation.Tag.Option(id: "id10", text: "text10", textColor: UIColor.Text.red, backgroundColor: UIColor.VeryLight.red)
             ],
             hint: "Hint",
             style: .regular(allowMultiLine: false)

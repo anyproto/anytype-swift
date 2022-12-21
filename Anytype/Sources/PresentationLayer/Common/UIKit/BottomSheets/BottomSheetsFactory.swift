@@ -24,7 +24,7 @@ final class BottomSheetsFactory {
         }
         let askBackgroundColor: () -> UIColor? = {
             return info.backgroundColor.map {
-                UIColor.Background.uiColor(from: $0)
+                UIColor.VeryLight.uiColor(from: $0)
             }
         }
         
