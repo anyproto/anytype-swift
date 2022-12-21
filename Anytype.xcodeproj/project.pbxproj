@@ -411,6 +411,8 @@
 		2A3629A7292E2BB200C02EC3 /* ObjectSettingsCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3629A6292E2BB200C02EC3 /* ObjectSettingsCoordinatorAssembly.swift */; };
 		2A4373722906808700A1C4D6 /* InlineMarkdownListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4373712906808700A1C4D6 /* InlineMarkdownListener.swift */; };
 		2A48371E29002B8D006D077C /* SmallButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A48371D29002B8D006D077C /* SmallButton.swift */; };
+		2A4919A929530B0F00FCEAC9 /* HomeComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4919A829530B0F00FCEAC9 /* HomeComponent.swift */; };
+		2A4919AC29530B5700FCEAC9 /* LinkWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4919AB29530B5700FCEAC9 /* LinkWidgetView.swift */; };
 		2A4FFBBE289D1B64004938DF /* LoggerConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4FFBBD289D1B64004938DF /* LoggerConfigurator.swift */; };
 		2A4FFBC1289D1C7E004938DF /* Logger in Frameworks */ = {isa = PBXBuildFile; productRef = 2A4FFBC0289D1C7E004938DF /* Logger */; };
 		2A4FFBC2289D1C7E004938DF /* Logger in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 2A4FFBC0289D1C7E004938DF /* Logger */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -1702,6 +1704,8 @@
 		2A3629A6292E2BB200C02EC3 /* ObjectSettingsCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectSettingsCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		2A4373712906808700A1C4D6 /* InlineMarkdownListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InlineMarkdownListener.swift; sourceTree = "<group>"; };
 		2A48371D29002B8D006D077C /* SmallButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallButton.swift; sourceTree = "<group>"; };
+		2A4919A829530B0F00FCEAC9 /* HomeComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeComponent.swift; sourceTree = "<group>"; };
+		2A4919AB29530B5700FCEAC9 /* LinkWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkWidgetView.swift; sourceTree = "<group>"; };
 		2A4FFBBD289D1B64004938DF /* LoggerConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoggerConfigurator.swift; sourceTree = "<group>"; };
 		2A4FFBBF289D1C61004938DF /* Logger */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Logger; path = Modules/Logger; sourceTree = "<group>"; };
 		2A4FFBC3289D4B55004938DF /* InvocationMesagesHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvocationMesagesHandler.swift; sourceTree = "<group>"; };
@@ -4537,6 +4541,31 @@
 			path = Alert;
 			sourceTree = "<group>";
 		};
+		2A4919A629530AD200FCEAC9 /* Widgets */ = {
+			isa = PBXGroup;
+			children = (
+				2A4919AA29530B3700FCEAC9 /* Link */,
+				2A4919A729530ADD00FCEAC9 /* Common */,
+			);
+			path = Widgets;
+			sourceTree = "<group>";
+		};
+		2A4919A729530ADD00FCEAC9 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				2A4919A829530B0F00FCEAC9 /* HomeComponent.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		2A4919AA29530B3700FCEAC9 /* Link */ = {
+			isa = PBXGroup;
+			children = (
+				2A4919AB29530B5700FCEAC9 /* LinkWidgetView.swift */,
+			);
+			path = Link;
+			sourceTree = "<group>";
+		};
 		2A4FFBBC289D1B64004938DF /* Logger */ = {
 			isa = PBXGroup;
 			children = (
@@ -4644,6 +4673,7 @@
 		2A9486522950A399007A5586 /* HomeWidgets */ = {
 			isa = PBXGroup;
 			children = (
+				2A4919A629530AD200FCEAC9 /* Widgets */,
 				2A9486532950A3E7007A5586 /* HomeWidgetsModuleAssembly.swift */,
 				2A9486552950A41B007A5586 /* HomeWidgetsView.swift */,
 				2A9486572950A494007A5586 /* HomeWidgetsViewModel.swift */,
@@ -8216,6 +8246,7 @@
 				0A2ADCE42496C09A00FA135D /* BlockActionsServiceSingleProtocol.swift in Sources */,
 				03074B88239514E2009FA7D0 /* MainAuthView.swift in Sources */,
 				53960C0F242BD74E001E9D1F /* KeychainPhraseViewModel.swift in Sources */,
+				2A4919AC29530B5700FCEAC9 /* LinkWidgetView.swift in Sources */,
 				039F669C23C7FDC300DBE36A /* TimingTimer.swift in Sources */,
 				2A9D299028BCC11A00789AC7 /* NonExistentBlockView.swift in Sources */,
 				3D2F9C3F271F024E0043C326 /* FloaterAlertView.swift in Sources */,
@@ -8757,6 +8788,7 @@
 				5326FB512630D8F500F4F7A2 /* NSLayoutConstraintExtension.swift in Sources */,
 				2AA0209028D34FF700321A66 /* TabsSubscriptionDataBuilder.swift in Sources */,
 				EA57F39826B74D2E007D4292 /* BlockInformationCreator.swift in Sources */,
+				2A4919A929530B0F00FCEAC9 /* HomeComponent.swift in Sources */,
 				2A9486582950A494007A5586 /* HomeWidgetsViewModel.swift in Sources */,
 				12DE4060264AE455007B5074 /* LayoutAnchorType.swift in Sources */,
 				3D93851426FAED69001C137F /* ObjectIconImageUsecase+Font.swift in Sources */,
