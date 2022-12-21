@@ -34,9 +34,9 @@ struct DeletedAccountView: View {
         VStack(alignment: .leading, spacing: 0) {
             clock
             Spacer.fixedHeight(19)
-            AnytypeText(viewModel.title, style: .heading, color: .textPrimary)
+            AnytypeText(viewModel.title, style: .heading, color: .TextNew.primary)
             Spacer.fixedHeight(11)
-            AnytypeText(Loc.pendingDeletionText, style: .uxCalloutRegular, color: .textPrimary)
+            AnytypeText(Loc.pendingDeletionText, style: .uxCalloutRegular, color: .TextNew.primary)
             Spacer.fixedHeight(14)
             SettingsButton(text: Loc.cancelDeletion, textColor: .System.red) { viewModel.cancel() }
             SettingsButton(text: Loc.logoutAndClearData, textColor: .System.red) { viewModel.logOut() }

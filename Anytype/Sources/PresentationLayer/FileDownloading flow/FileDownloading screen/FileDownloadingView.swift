@@ -24,7 +24,7 @@ struct FileDownloadingView: View {
     }
     
     private var errorView: some View {
-        AnytypeText(viewModel.errorMessage, style: .body, color: .textPrimary)
+        AnytypeText(viewModel.errorMessage, style: .body, color: .TextNew.primary)
             .if(size.isNotZero) {
                 $0.frame(minHeight: size.height)
             }
@@ -32,11 +32,11 @@ struct FileDownloadingView: View {
     
     private var loadingView: some View {
         VStack(spacing: 0) {
-            AnytypeText(Loc.loadingPleaseWait, style: .uxCalloutRegular, color: .textPrimary)
+            AnytypeText(Loc.loadingPleaseWait, style: .uxCalloutRegular, color: .TextNew.primary)
             
             Spacer.fixedHeight(13)
             ProgressView(value: viewModel.bytesLoaded, total: viewModel.bytesExpected)
-                .progressViewStyle(LinearProgressViewStyle(tint: .textPrimary))
+                .progressViewStyle(LinearProgressViewStyle(tint: .TextNew.primary))
                 .scaleEffect(x: 1, y: 1.5, anchor: .center)
         }
         .readSize { size in

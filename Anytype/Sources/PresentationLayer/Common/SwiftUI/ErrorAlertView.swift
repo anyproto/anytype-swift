@@ -12,7 +12,7 @@ struct ErrorAlertView<Presenting>: View where Presenting: View {
             self.presenting.blur(radius: self.isShowing ? 1 : 0)
             
             VStack() {
-                AnytypeText(self.errorText, style: .body, color: .textPrimary)
+                AnytypeText(self.errorText, style: .body, color: .TextNew.primary)
                     .padding()
                     .layoutPriority(1)
                 
@@ -42,7 +42,7 @@ struct ErrorAlertView<Presenting>: View where Presenting: View {
 struct ErrorAlertView_Previews: PreviewProvider {
     static var previews: some View {
         let view = VStack {
-            AnytypeText("ParentView", style: .body, color: .textPrimary)
+            AnytypeText("ParentView", style: .body, color: .TextNew.primary)
         }
         return ErrorAlertView(isShowing: .constant(true), errorText: "Some Error long very long long long error", presenting: view, onOkPressed: {})
     }

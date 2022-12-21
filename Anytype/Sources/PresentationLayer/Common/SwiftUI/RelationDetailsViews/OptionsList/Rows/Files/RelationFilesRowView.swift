@@ -13,7 +13,7 @@ struct RelationFilesRowView: View {
             )
                 .frame(width: 18, height: 18)
             
-            AnytypeText(file.title, style: .previewTitle2Medium, color: .textPrimary)
+            AnytypeText(file.title, style: .previewTitle2Medium, color: .TextNew.primary)
                 .lineLimit(1)
         }
         .frame(height: 48)

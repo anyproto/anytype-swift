@@ -13,7 +13,7 @@ struct SmallButton: View {
                 Spacer.fixedWidth(8)
                 Image(asset: icon).frame(width: 12, height: 12)
                 Spacer.fixedWidth(4)
-                AnytypeText(text, style: .caption1Medium, color: .textWhite)
+                AnytypeText(text, style: .caption1Medium, color: .TextNew.white)
                 Spacer.fixedWidth(8)
             }
             .frame(height: 28)

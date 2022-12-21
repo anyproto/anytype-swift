@@ -60,9 +60,9 @@ private extension StandardButtonStyle {
         switch self {
         case .secondary:
             if disabled {
-                return .textSecondary
+                return .TextNew.secondary
             } else {
-                return .textPrimary
+                return .TextNew.primary
             }
         case .primary, .destructive:
             return .white

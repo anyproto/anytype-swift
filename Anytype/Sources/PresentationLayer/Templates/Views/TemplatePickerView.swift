@@ -40,7 +40,7 @@ struct TemplatePickerView: View {
     func storyIndicatorView(isSelected: Bool) -> some View {
         Spacer
             .fixedHeight(4)
-            .background(isSelected ? Color.textPrimary : Color.strokePrimary)
+            .background(isSelected ? Color.TextNew.primary : Color.strokePrimary)
             .cornerRadius(2)
             .frame(maxWidth: .infinity)
     }

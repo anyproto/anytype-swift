@@ -25,7 +25,7 @@ enum BlockToolbarBookmark {
         }
         func foregroundColor() -> UIColor {
             switch self {
-            case .title: return .textSecondary
+            case .title: return .TextNew.secondary
             case .subtitle: return .init(red: 0.422, green: 0.415, blue: 0.372, alpha: 1)
             case .section: return .init(red: 0.675, green: 0.663, blue: 0.588, alpha: 1)
             }
@@ -47,7 +47,7 @@ extension BlockToolbarBookmark {
                 Button(action: {
                     self.model.choose(url: self.model.typingURL)
                 }) {
-                    AnytypeText(self.model.buttonTitle, style: .uxBodyRegular, color: .textPrimary)
+                    AnytypeText(self.model.buttonTitle, style: .uxBodyRegular, color: .TextNew.primary)
                 }.modifier(RoundedButtonViewModifier(style: .presentation))
                 Spacer(minLength: 10)
             }.padding(10)

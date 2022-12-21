@@ -56,7 +56,7 @@ extension SetFullHeader {
                 AnytypeText(
                     description,
                     style: .relation2Regular,
-                    color: .textPrimary
+                    color: .TextNew.primary
                 )
                 .fixedSize(horizontal: false, vertical: true)
             } else {
@@ -111,7 +111,7 @@ extension SetFullHeader {
     private var dotImage: some View {
         Image(systemName: "circle.fill")
             .resizable()
-            .foregroundColor(.textSecondary)
+            .foregroundColor(.TextNew.secondary)
             .frame(width: 3, height: 3)
     }
 }

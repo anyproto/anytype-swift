@@ -42,7 +42,7 @@ struct SetMinimizedHeader: View {
                     .frame(width: 18, height: 18)
             }
             model.details.flatMap {
-                AnytypeText($0.title, style: .body, color: .textPrimary)
+                AnytypeText($0.title, style: .body, color: .TextNew.primary)
                     .lineLimit(1)
             }
         }

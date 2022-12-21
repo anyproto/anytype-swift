@@ -91,7 +91,7 @@ final class MarkStyleModifier {
         case .strikethrough:
             return AttributedStringChange(
                 changeAttributes: [.strikethroughStyle : shouldApplyMarkup ? NSUnderlineStyle.single.rawValue : 0,
-                                   .strikethroughColor: UIColor.textPrimary]
+                                   .strikethroughColor: UIColor.TextNew.primary]
             )
 
         case .underscored:
@@ -133,7 +133,7 @@ final class MarkStyleModifier {
             .mention: data.blockId,
             .anytypeLink: !deletedStyle
         ]
-        if deletedStyle { changeAttributes[.foregroundColor] = UIColor.textTertiary }
+        if deletedStyle { changeAttributes[.foregroundColor] = UIColor.TextNew.tertiary }
         
         return AttributedStringChange(changeAttributes: changeAttributes)
     }

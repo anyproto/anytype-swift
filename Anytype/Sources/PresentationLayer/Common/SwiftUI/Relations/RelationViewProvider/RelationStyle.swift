@@ -49,9 +49,9 @@ extension RelationStyle {
     var uiKitFontColor: UIColor {
         switch self {
         case .regular, .set:
-            return .textPrimary
+            return .TextNew.primary
         case .featuredRelationBlock, .filter, .setCollection, .kanbanHeader:
-            return .textSecondary
+            return .TextNew.secondary
         }
     }
     

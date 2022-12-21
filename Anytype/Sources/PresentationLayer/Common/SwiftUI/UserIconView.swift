@@ -67,7 +67,7 @@ struct UserIconView: View {
             weight: .regular
         )
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .foregroundColor(.textPrimary)
+        .foregroundColor(.TextNew.primary)
         .padding(.top, 2)
         .vibrancyEffect()
         .vibrancyEffectStyle(.separator)

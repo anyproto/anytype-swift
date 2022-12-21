@@ -135,7 +135,7 @@ private final class ChangeButton: UIButton {
         setImage(UIImage(asset: .TextEditor.turnIntoArrow), for: .normal)
         titleLabel?.font = .bodyRegular
         setTitleColor(.Button.active, for: .normal)
-        setTitleColor(.textPrimary, for: .highlighted)
+        setTitleColor(.TextNew.primary, for: .highlighted)
 
         addTarget(self, action: #selector(didTap), for: .touchUpInside)
 

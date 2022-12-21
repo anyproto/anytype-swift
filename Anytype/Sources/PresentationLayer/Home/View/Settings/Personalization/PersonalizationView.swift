@@ -15,7 +15,7 @@ struct PersonalizationView: View {
             DragIndicator()
             
             Spacer.fixedHeight(12)
-            AnytypeText(Loc.personalization, style: .uxTitle1Semibold, color: .textPrimary)
+            AnytypeText(Loc.personalization, style: .uxTitle1Semibold, color: .TextNew.primary)
             Spacer.fixedHeight(12)
             
             defaultType
@@ -32,11 +32,11 @@ struct PersonalizationView: View {
     private var defaultType: some View {
         Button(action: { model.defaultType = true }) {
             HStack(spacing: 0) {
-                AnytypeText(Loc.defaultObjectType, style: .uxBodyRegular, color: .textPrimary)
+                AnytypeText(Loc.defaultObjectType, style: .uxBodyRegular, color: .TextNew.primary)
                 Spacer()
-                AnytypeText(ObjectTypeProvider.shared.defaultObjectType.name, style: .uxBodyRegular, color: .textSecondary)
+                AnytypeText(ObjectTypeProvider.shared.defaultObjectType.name, style: .uxBodyRegular, color: .TextNew.secondary)
                 Spacer.fixedWidth(10)
-                Image(asset: .arrowForward).foregroundColor(.textTertiary)
+                Image(asset: .arrowForward).foregroundColor(.TextNew.tertiary)
             }
             .padding(.vertical, 14)
             .divider()

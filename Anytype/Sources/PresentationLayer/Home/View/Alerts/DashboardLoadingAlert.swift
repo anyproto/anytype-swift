@@ -8,7 +8,7 @@ struct DashboardLoadingAlert: View {
     var body: some View {
         VStack(spacing: 0) {
             Spacer.fixedHeight(15)
-            AnytypeText(text, style: .uxCalloutRegular, color: .textPrimary)
+            AnytypeText(text, style: .uxCalloutRegular, color: .TextNew.primary)
             Spacer.fixedHeight(13)
             ProgressBar(showAnimation: model.loadingAlertData.showAlert)
             Spacer.fixedHeight(20)

@@ -33,7 +33,7 @@ struct EditorSetSettingsView: View {
                 .frame(width: 52, height: 52)
                 
                 Spacer.fixedHeight(5)
-                AnytypeText(setting.name, style: .caption2Regular, color: .textSecondary)
+                AnytypeText(setting.name, style: .caption2Regular, color: .TextNew.secondary)
             }
             .frame(height: 52)
         }

@@ -39,7 +39,7 @@ struct LoginView: View {
     private var keychainPhraseView: some View {
         VStack(spacing: 0) {
             VStack(alignment: .leading, spacing: 0) {
-                AnytypeText(Loc.login, style: .heading, color: .textPrimary)
+                AnytypeText(Loc.login, style: .heading, color: .TextNew.primary)
                 Spacer.fixedHeight(19)
                 scanQR
                 if viewModel.canRestoreFromKeychain {
@@ -71,14 +71,14 @@ struct LoginView: View {
     private var enterMnemonic: some View {
         ZStack(alignment: .topLeading) {
             if(viewModel.seed.isEmpty) {
-                AnytypeText(Loc.orTypeYourRecoveryPhrase, style: .codeBlock, color: .textSecondary)
+                AnytypeText(Loc.orTypeYourRecoveryPhrase, style: .codeBlock, color: .TextNew.secondary)
                     .padding(.top, 17)
             }
             
             AutofocusedTextEditor(text: $viewModel.seed).lineLimit(3)
                 .font(AnytypeFontBuilder.font(anytypeFont: .codeBlock))
                 .lineSpacing(AnytypeFont.codeBlock.lineSpacing)
-                .foregroundColor(.textPrimary)
+                .foregroundColor(.TextNew.primary)
                 .padding(.top, 9)
                 .padding(.leading, -5)
                 .opacity(viewModel.seed.isEmpty ? 0.25 : 1)
@@ -97,7 +97,7 @@ struct LoginView: View {
             }
         ) {
             HStack {
-                AnytypeText(Loc.scanQRCode, style: .uxBodyRegular, color: .textPrimary)
+                AnytypeText(Loc.scanQRCode, style: .uxBodyRegular, color: .TextNew.primary)
                 Spacer()
                 Image(asset: .arrowForward)
             }

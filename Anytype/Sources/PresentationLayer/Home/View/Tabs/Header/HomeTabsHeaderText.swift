@@ -5,7 +5,7 @@ struct HomeTabsHeaderText: View {
     var isSelected: Bool
     
     var body: some View {
-        AnytypeText(text, style: .subheading, color: isSelected ? .textPrimary : .black)
+        AnytypeText(text, style: .subheading, color: isSelected ? .TextNew.primary : .black)
             .frame(alignment: .leading)
             .lineLimit(1)
             .vibrancyEffect()

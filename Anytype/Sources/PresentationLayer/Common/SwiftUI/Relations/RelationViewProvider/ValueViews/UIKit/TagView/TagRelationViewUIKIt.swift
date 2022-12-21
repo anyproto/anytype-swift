@@ -52,7 +52,7 @@ final class TagRelationViewUIKIt: UIView {
             let count = tags.count - Constants.maxShowingTag
             let moreTags = Relation.Tag.Option(id: "",
                                                text: "+\(count)",
-                                               textColor: .textSecondary,
+                                               textColor: .TextNew.secondary,
                                                backgroundColor: .strokeTransperent)
             let moreTagsView = TagViewUIKit(tag: moreTags, style: style)
             moreTagsView.setContentCompressionResistancePriority(.required + 1, for: .horizontal)

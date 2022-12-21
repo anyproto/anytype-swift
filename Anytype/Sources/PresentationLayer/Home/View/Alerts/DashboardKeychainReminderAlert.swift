@@ -8,7 +8,7 @@ struct DashboardKeychainReminderAlert: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             Spacer.fixedHeight(23)
-            AnytypeText(Loc.Keychain.donTForgetToSaveYourRecoveryPhrase, style: .heading, color: .textPrimary)
+            AnytypeText(Loc.Keychain.donTForgetToSaveYourRecoveryPhrase, style: .heading, color: .TextNew.primary)
             Spacer.fixedHeight(11)
             description
             Spacer.fixedHeight(18)

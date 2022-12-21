@@ -78,11 +78,11 @@ final class MentionsViewController: UITableViewController {
         } else {
             let mutableAttributedString = NSMutableAttributedString(
                 string: Loc.createObject,
-                attributes: [.font: UIFont.uxTitle2Regular, .foregroundColor: UIColor.textPrimary]
+                attributes: [.font: UIFont.uxTitle2Regular, .foregroundColor: UIColor.TextNew.primary]
             )
             let nameAttributedString = NSAttributedString(
                 string: objectName,
-                attributes: [.font: UIFont.uxTitle2Medium, .foregroundColor: UIColor.textPrimary]
+                attributes: [.font: UIFont.uxTitle2Medium, .foregroundColor: UIColor.TextNew.primary]
             )
 
             mutableAttributedString.append(.init(string: " \""))
@@ -93,7 +93,7 @@ final class MentionsViewController: UITableViewController {
         }
 
         configuration.textProperties.font = .uxTitle2Regular
-        configuration.textProperties.color = .textSecondary
+        configuration.textProperties.color = .TextNew.secondary
         
         configuration.image = UIImage(asset: .createNewObject)
         configuration.imageProperties.reservedLayoutSize = CGSize(width: 40, height: 40)

@@ -14,7 +14,7 @@ struct NewRelationRestrictionsSectionView: View {
     }
     
     private var emptyView: some View {
-        AnytypeText(Loc.none, style: .uxBodyRegular, color: .textPrimary)
+        AnytypeText(Loc.none, style: .uxBodyRegular, color: .TextNew.primary)
             .lineLimit(1)
     }
     
@@ -33,9 +33,9 @@ struct NewRelationRestrictionsSectionView: View {
     
     private func objectTypeView(model: ObjectTypeModel) -> some View {
         HStack(spacing: 5) {
-            AnytypeText(model.emoji.value, style: .uxBodyRegular, color: .textPrimary)
+            AnytypeText(model.emoji.value, style: .uxBodyRegular, color: .TextNew.primary)
                 .lineLimit(1)
-            AnytypeText(model.title, style: .uxBodyRegular, color: .textPrimary)
+            AnytypeText(model.title, style: .uxBodyRegular, color: .TextNew.primary)
                 .lineLimit(1)
         }
     }

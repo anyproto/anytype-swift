@@ -13,7 +13,7 @@ struct EditorBarItemState: Equatable {
     var buttonTintColor: UIColor {
         if haveBackground {
             if opacity < 0.7 {
-                return .textWhite
+                return .TextNew.white
             } else {
                 return .Button.active.withAlphaComponent(opacity)
             }
@@ -22,7 +22,7 @@ struct EditorBarItemState: Equatable {
     }
 
     var hiddableTextColor: UIColor {
-        let color: UIColor = haveBackground ? .textWhite : .textSecondary
+        let color: UIColor = haveBackground ? .TextNew.white : .TextNew.secondary
         return color.withAlphaComponent(1 - opacity)
     }
     

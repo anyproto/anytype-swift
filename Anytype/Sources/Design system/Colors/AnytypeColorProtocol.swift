@@ -27,10 +27,10 @@ extension ComponentColor where T == Color {
 }
 
 extension Color.Text {
-    static var `default`: Color { Color.textPrimary }
+    static var `default`: Color { Color.TextNew.primary }
 }
 
 extension UIColor.Text {
-    static var `default`: UIColor { UIColor.textPrimary }
+    static var `default`: UIColor { UIColor.TextNew.primary }
 }
 

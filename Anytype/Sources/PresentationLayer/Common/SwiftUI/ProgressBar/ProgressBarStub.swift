@@ -6,7 +6,7 @@ struct ProgressBarStub: View {
             Capsule()
                 .foregroundColor(.strokePrimary)
             Capsule()
-                .foregroundColor(.textPrimary)
+                .foregroundColor(.TextNew.primary)
                 .clipShape(Capsule())
         }
         .frame(height: 6)

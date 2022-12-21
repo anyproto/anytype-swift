@@ -19,7 +19,7 @@ struct ObjectActionRow: View {
                 AnytypeText(
                     setting.title,
                     style: .caption2Regular,
-                    color: .textSecondary
+                    color: .TextNew.secondary
                 )
             }
         }

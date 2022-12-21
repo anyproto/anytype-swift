@@ -47,10 +47,10 @@ struct AnytypeText: View {
 struct AnytypeText_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
-            AnytypeText("Foo", style: .title, color: .textPrimary)
-            AnytypeText("Foo", style: .body, color: .textPrimary)
-            AnytypeText("Foo", style: .relation3Regular, color: .textPrimary)
-            AnytypeText("collapse", style: .codeBlock, color: .textPrimary)
+            AnytypeText("Foo", style: .title, color: .TextNew.primary)
+            AnytypeText("Foo", style: .body, color: .TextNew.primary)
+            AnytypeText("Foo", style: .relation3Regular, color: .TextNew.primary)
+            AnytypeText("collapse", style: .codeBlock, color: .TextNew.primary)
         }
     }
 }

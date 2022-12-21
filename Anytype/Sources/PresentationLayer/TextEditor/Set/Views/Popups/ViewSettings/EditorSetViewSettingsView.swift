@@ -82,7 +82,7 @@ struct EditorSetViewSettingsView: View {
     }
     
     private var settingsHeader: some View {
-        AnytypeText(Loc.settings, style: .uxTitle1Semibold, color: .textPrimary)
+        AnytypeText(Loc.settings, style: .uxTitle1Semibold, color: .TextNew.primary)
             .frame(height: 52)
             .divider()
     }
@@ -92,13 +92,13 @@ struct EditorSetViewSettingsView: View {
             model.onTap()
         } label: {
             HStack(spacing: 0) {
-                AnytypeText(model.title, style: .uxBodyRegular, color: .textPrimary)
+                AnytypeText(model.title, style: .uxBodyRegular, color: .TextNew.primary)
                 Spacer()
-                AnytypeText(model.value, style: .uxBodyRegular, color: .textSecondary)
+                AnytypeText(model.value, style: .uxBodyRegular, color: .TextNew.secondary)
                 Spacer.fixedWidth(11)
                 Image(asset: .arrowForward)
                     .renderingMode(.template)
-                    .foregroundColor(.textSecondary)
+                    .foregroundColor(.TextNew.secondary)
             }
         }
         .frame(height: 52)
@@ -117,7 +117,7 @@ struct EditorSetViewSettingsView: View {
     }
     
     private var relationsHeader: some View {
-        AnytypeText(Loc.relations, style: .uxTitle1Semibold, color: .textPrimary)
+        AnytypeText(Loc.relations, style: .uxTitle1Semibold, color: .TextNew.primary)
             .frame(height: 52)
             .divider()
     }

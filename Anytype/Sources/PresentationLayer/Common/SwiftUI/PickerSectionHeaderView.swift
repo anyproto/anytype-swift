@@ -6,7 +6,7 @@ struct PickerSectionHeaderView: View {
     let title: String
     
     var body: some View {
-        AnytypeText(title, style: .caption1Medium, color: .textSecondary)
+        AnytypeText(title, style: .caption1Medium, color: .TextNew.secondary)
         .frame(maxWidth: .infinity)
         .padding(.top, 18)
         .padding(.bottom, -3)

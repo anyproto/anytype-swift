@@ -52,12 +52,12 @@ final class RelationPlaceholderViewUIKit: UIView {
 
         switch style.placeholderType {
         case .hint:
-            textView.textColor = .textTertiary
+            textView.textColor = .TextNew.tertiary
             textView.setText(hint)
         case .empty:
             backgroundColor = .BackgroundNew.primary
         case let .clear(withHint):
-            textView.textColor = .textSecondary
+            textView.textColor = .TextNew.secondary
             if withHint {
                 textView.setText(hint)
             }

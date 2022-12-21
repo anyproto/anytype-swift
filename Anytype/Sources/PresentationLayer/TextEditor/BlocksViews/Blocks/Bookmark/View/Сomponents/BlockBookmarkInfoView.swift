@@ -110,7 +110,7 @@ final class BlockBookmarkInfoView: UIView {
         view.font = .previewTitle2Regular
         view.numberOfLines = 2
         view.lineBreakMode = .byWordWrapping
-        view.textColor = .textPrimary
+        view.textColor = .TextNew.primary
         view.backgroundColor = .clear
         return view
     }()
@@ -119,7 +119,7 @@ final class BlockBookmarkInfoView: UIView {
         let view = AnytypeLabel(style: .previewTitle2Medium)
         view.numberOfLines = 2
         view.setLineBreakMode(.byWordWrapping)
-        view.textColor = .textPrimary
+        view.textColor = .TextNew.primary
         view.backgroundColor = .clear
         return view
     }()
@@ -129,7 +129,7 @@ final class BlockBookmarkInfoView: UIView {
         view.numberOfLines = 2
         view.lineBreakMode = .byWordWrapping
         view.font = .relation2Regular
-        view.textColor = .textSecondary
+        view.textColor = .TextNew.secondary
         view.backgroundColor = .clear
         return view
     }()
@@ -138,7 +138,7 @@ final class BlockBookmarkInfoView: UIView {
         let view = AnytypeLabel(style: .relation3Regular)
         view.numberOfLines = 2
         view.setLineBreakMode(.byWordWrapping)
-        view.textColor = .textPrimary
+        view.textColor = .TextNew.primary
         view.backgroundColor = .clear
         return view
     }()
@@ -156,14 +156,14 @@ final class BlockBookmarkInfoView: UIView {
     private let urlViewOld: UILabel = {
         let view = UILabel()
         view.font = .relation3Regular
-        view.textColor = .textSecondary
+        view.textColor = .TextNew.secondary
         view.backgroundColor = .clear
         return view
     }()
     
     private let urlView: AnytypeLabel = {
         let view = AnytypeLabel(style: .relation3Regular)
-        view.textColor = .textSecondary
+        view.textColor = .TextNew.secondary
         return view
     }()
 }

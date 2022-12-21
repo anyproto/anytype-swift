@@ -45,10 +45,10 @@ struct CheckPopupView<ViewModel: CheckPopupViewViewModelProtocol>: View {
             }
 
             VStack(alignment: .leading, spacing: 0) {
-                AnytypeText(item.title, style: .uxBodyRegular, color: .textPrimary)
+                AnytypeText(item.title, style: .uxBodyRegular, color: .TextNew.primary)
 
                 if let subtitle = item.subtitle {
-                    AnytypeText(subtitle, style: .caption1Regular, color: .textSecondary)
+                    AnytypeText(subtitle, style: .caption1Regular, color: .TextNew.secondary)
                 }
             }
             Spacer()

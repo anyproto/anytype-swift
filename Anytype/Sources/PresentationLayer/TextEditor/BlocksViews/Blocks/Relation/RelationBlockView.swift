@@ -109,7 +109,7 @@ final class RelationBlockView: UIView, BlockContentView {
             $0.height.equal(to: 24)
         }
         
-        relationNameView.textColor = .textSecondary
+        relationNameView.textColor = .TextNew.secondary
         relationNameStack.layoutUsing.anchors {
             $0.width.equal(to: containerView.widthAnchor, multiplier: 0.4)
         }

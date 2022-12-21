@@ -14,11 +14,11 @@ struct SettingsSectionItemView: View {
             HStack(alignment: .center, spacing: 0) {
                 Image(asset: imageAsset).imageScale(.large).frame(width: iconWidth, height: iconWidth)
                 Spacer.fixedWidth(iconSpacing)
-                AnytypeText(name, style: .uxBodyRegular, color: .textPrimary)
+                AnytypeText(name, style: .uxBodyRegular, color: .TextNew.primary)
                 Spacer()
                 Image(asset: .arrowForward)
                     .renderingMode(.template)
-                    .foregroundColor(.textTertiary)
+                    .foregroundColor(.TextNew.tertiary)
             }
         }
         .frame(height: 52)

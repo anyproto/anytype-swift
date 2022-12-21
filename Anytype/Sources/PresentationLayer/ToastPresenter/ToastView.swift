@@ -26,7 +26,7 @@ final class ToastView: UIView {
     }
 
     private func setupView() {
-        label.textColor = .textPrimary
+        label.textColor = .TextNew.primary
         label.textAlignment = .center;
         label.font = AnytypeFont.caption1Medium.uiKitFont
         label.numberOfLines = 0

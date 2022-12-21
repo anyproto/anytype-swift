@@ -41,14 +41,14 @@ struct NewSearchView: View {
             AnytypeText(
                 error.title,//"\(Loc.thereIsNoObjectNamed) \"\(searchText)\"",
                 style: .uxBodyRegular,
-                color: .textPrimary
+                color: .TextNew.primary
             )
             .multilineTextAlignment(.center)
             error.subtitle.flatMap {
                 AnytypeText(
                     $0,// Loc.tryToCreateANewOneOrSearchForSomethingElse,
                     style: .uxBodyRegular,
-                    color: .textSecondary
+                    color: .TextNew.secondary
                 )
                 .multilineTextAlignment(.center)
             }
@@ -100,7 +100,7 @@ struct NewSearchView: View {
                 $0.overlay(
                     HStack(spacing: 0) {
                         Spacer()
-                        AnytypeText("\(model.counter)", style: .relation1Regular, color: .textWhite)
+                        AnytypeText("\(model.counter)", style: .relation1Regular, color: .TextNew.white)
                             .frame(minWidth: 15, minHeight: 15)
                             .padding(5)
                             .background(Color.System.amber125)

@@ -51,14 +51,14 @@ struct RelationsListRowView: View {
     
     private var name: some View {
         Menu {
-            AnytypeText(relation.name, style: .relation1Regular, color: .textSecondary)
+            AnytypeText(relation.name, style: .relation1Regular, color: .TextNew.secondary)
         } label: {
             HStack(spacing: 6) {
                 if !relation.isEditable {
                     Image(asset: .relationLocked)
                         .frame(width: 15, height: 12)
                 }
-                AnytypeText(relation.name, style: .relation1Regular, color: .textSecondary).lineLimit(1)
+                AnytypeText(relation.name, style: .relation1Regular, color: .TextNew.secondary).lineLimit(1)
             }
             .frame(width: size.width * 0.4, alignment: .leading)
         }

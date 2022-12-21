@@ -43,7 +43,7 @@ struct SetViewTypesPicker: View {
             AnytypeText(
                 Loc.SetViewTypesPicker.Settings.Delete.view,
                 style: .uxCalloutRegular,
-                color: .textPrimary
+                color: .TextNew.primary
             )
         }
     }
@@ -56,7 +56,7 @@ struct SetViewTypesPicker: View {
             AnytypeText(
                 Loc.SetViewTypesPicker.Settings.Duplicate.view,
                 style: .uxCalloutRegular,
-                color: .textPrimary
+                color: .TextNew.primary
             )
         }
     }
@@ -72,7 +72,7 @@ struct SetViewTypesPicker: View {
     private var nameSection: some View {
         VStack(alignment: .leading, spacing: 0) {
             Spacer.fixedHeight(11)
-            AnytypeText(Loc.name, style: .caption1Regular, color: .textSecondary)
+            AnytypeText(Loc.name, style: .caption1Regular, color: .TextNew.secondary)
             Spacer.fixedHeight(6)
             
             TextField(
@@ -81,7 +81,7 @@ struct SetViewTypesPicker: View {
                 Loc.SetViewTypesPicker.Settings.Textfield.Placeholder.New.view,
                 text: $viewModel.name
             )
-                .foregroundColor(.textPrimary)
+                .foregroundColor(.TextNew.primary)
                 .font(AnytypeFontBuilder.font(anytypeFont: .heading))
             Spacer.fixedHeight(10)
         }
@@ -92,7 +92,7 @@ struct SetViewTypesPicker: View {
     private func sectionTitle(_ title: String) -> some View {
         VStack(spacing: 0) {
             Spacer.fixedHeight(26)
-            AnytypeText(title, style: .caption1Regular, color: .textSecondary)
+            AnytypeText(title, style: .caption1Regular, color: .TextNew.secondary)
             Spacer.fixedHeight(8)
         }
         .divider(alignment: .leading)
@@ -128,11 +128,11 @@ struct SetViewTypesPicker: View {
             AnytypeText(
                 configuration.name,
                 style: .uxBodyRegular,
-                color: configuration.isSupported ? .textPrimary : .textTertiary
+                color: configuration.isSupported ? .TextNew.primary : .TextNew.tertiary
             )
             Spacer()
             if !configuration.isSupported {
-                AnytypeText(Loc.soon, style: .caption1Regular, color: .textTertiary)
+                AnytypeText(Loc.soon, style: .caption1Regular, color: .TextNew.tertiary)
             }
             if configuration.isSelected && configuration.isSupported {
                 Image(asset: .optionChecked)

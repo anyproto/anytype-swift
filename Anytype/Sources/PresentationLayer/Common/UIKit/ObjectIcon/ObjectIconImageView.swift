@@ -47,7 +47,7 @@ extension ObjectIconImageView: ConfigurableView {
             let image: UIImage? = stringIconImage(
                 model: model,
                 string: character.flatMap { String($0).uppercased() } ?? "",
-                textColor: UIColor.textTertiary,
+                textColor: UIColor.TextNew.tertiary,
                 backgroundColor: model.usecase.placeholderBackgroundColor
             )
             imageView.wrapper.setImage(image)
@@ -75,7 +75,7 @@ extension ObjectIconImageView: ConfigurableView {
                 let image: UIImage? = stringIconImage(
                     model: model,
                     string: String(character).uppercased(),
-                    textColor: UIColor.textWhite,
+                    textColor: UIColor.TextNew.white,
                     backgroundColor: model.usecase.profileBackgroundColor
                 )
                 imageView.wrapper.setImage(image)

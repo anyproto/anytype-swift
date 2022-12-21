@@ -17,7 +17,7 @@ enum ButtonsFactory {
             for: .normal
         )
         backButton.setImage(UIImage(asset: .backArrow), for: .normal)
-        backButton.tintColor = .textSecondary
+        backButton.tintColor = .TextNew.secondary
         
         if #available(iOS 15.0, *) {
             var configuration = UIButton.Configuration.borderless()
@@ -43,7 +43,7 @@ enum ButtonsFactory {
         button.setBackgroundColor(.clear, state: .disabled)
         button.setBackgroundColor(.BackgroundNew.highlightedOfSelected, state: .selected)
         button.setImageTintColor(.Button.inactive, state: .disabled)
-        button.setImageTintColor(.textPrimary, state: .normal)
+        button.setImageTintColor(.TextNew.primary, state: .normal)
 
         return button
     }

@@ -79,6 +79,6 @@ private func createAttributedString(from objectDetails: ObjectDetails) async -> 
     return NSAttributedString.imageFirstComposite(
         image: image,
         text: objectDetails.name,
-        attributes: [.foregroundColor: UIColor.textPrimary]
+        attributes: [.foregroundColor: UIColor.TextNew.primary]
     )
 }

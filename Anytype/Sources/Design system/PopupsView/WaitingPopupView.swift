@@ -14,7 +14,7 @@ struct WaitingPopupView: View {
     var body: some View {
         VStack(spacing: 0) {
             Spacer.fixedHeight(15)
-            AnytypeText(text, style: .uxCalloutRegular, color: .textPrimary)
+            AnytypeText(text, style: .uxCalloutRegular, color: .TextNew.primary)
             Spacer.fixedHeight(13)
             ProgressBar(showAnimation: true)
             Spacer.fixedHeight(20)

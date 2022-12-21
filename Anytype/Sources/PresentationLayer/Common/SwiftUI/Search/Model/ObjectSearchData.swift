@@ -33,7 +33,7 @@ extension ObjectSearchData {
     }
     
     var descriptionTextColor: Color {
-        .textPrimary
+        .TextNew.primary
     }
     
     var descriptionFont: AnytypeFont {

@@ -16,7 +16,7 @@ final class EmptyToggleButtonBuilder {
                 string: Loc.ToggleEmpty.tapToCreateBlock,
                 attributes: [
                     .font: UIFont.bodyRegular,
-                    .foregroundColor: UIColor.textSecondary
+                    .foregroundColor: UIColor.TextNew.secondary
                 ]
             ),
             for: .normal

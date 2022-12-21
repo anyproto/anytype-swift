@@ -19,7 +19,7 @@ final class LinkToObjectSearchViewModel: SearchViewModelProtocol {
     private let pasteboardHelper: PasteboardHelper
     private let currentLink: Either<URL, BlockId>?
 
-    let descriptionTextColor: Color = .textPrimary
+    let descriptionTextColor: Color = .TextNew.primary
     let shouldShowCallout: Bool = true
 
     @Published var searchData: [SearchDataSection<SearchDataType>] = []

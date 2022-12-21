@@ -100,12 +100,12 @@ internal enum Asset {
   static let strokeSecondary = ColorAsset(name: "strokeSecondary")
   static let strokeTertiary = ColorAsset(name: "strokeTertiary")
   static let strokeTransperent = ColorAsset(name: "strokeTransperent")
-
-  // MARK: - Text
-  static let textPrimary = ColorAsset(name: "textPrimary")
-  static let textSecondary = ColorAsset(name: "textSecondary")
-  static let textTertiary = ColorAsset(name: "textTertiary")
-  static let textWhite = ColorAsset(name: "textWhite")
+  internal enum TextNew {
+    static let primary = ColorAsset(name: "TextNew/primary")
+    static let secondary = ColorAsset(name: "TextNew/secondary")
+    static let tertiary = ColorAsset(name: "TextNew/tertiary")
+    static let white = ColorAsset(name: "TextNew/white")
+  }
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name
 

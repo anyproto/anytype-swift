@@ -73,11 +73,11 @@ final class AudioPlayerView: UIView {
         currentTimeLabel.setText(Constants.defaultTimingText)
         durationLabel.setText(Constants.defaultTimingText)
 
-        durationLabel.textColor = .textPrimary
-        currentTimeLabel.textColor = .textPrimary
-        slashView.textColor = .textPrimary
+        durationLabel.textColor = .TextNew.primary
+        currentTimeLabel.textColor = .TextNew.primary
+        slashView.textColor = .TextNew.primary
 
-        trackNameLabel.textColor = .textPrimary
+        trackNameLabel.textColor = .TextNew.primary
 
         layer.cornerRadius = 16
         layer.cornerCurve = .continuous
@@ -86,7 +86,7 @@ final class AudioPlayerView: UIView {
     }
     
     private func configurePlayButtonActivity(_ isActive: Bool = true) {
-        playButton.imageView.tintColor = isActive ? .textPrimary : .textSecondary
+        playButton.imageView.tintColor = isActive ? .TextNew.primary : .TextNew.secondary
         playButton.isEnabled = isActive
     }
     

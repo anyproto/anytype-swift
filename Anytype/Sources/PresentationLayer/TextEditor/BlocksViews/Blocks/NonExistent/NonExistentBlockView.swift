@@ -16,7 +16,7 @@ final class NonExistentBlockView: UIView, BlockContentView {
     
     private let label: AnytypeLabel = {
         let label = AnytypeLabel(style: .uxBodyRegular)
-        label.textColor = .textTertiary
+        label.textColor = .TextNew.tertiary
         return label
     }()
 

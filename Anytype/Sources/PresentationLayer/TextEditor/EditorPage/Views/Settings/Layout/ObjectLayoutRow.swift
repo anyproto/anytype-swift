@@ -36,8 +36,8 @@ struct ObjectLayoutRow: View {
                 
                 HStack(spacing: 0) {
                     VStack(alignment: .leading, spacing: 0) {
-                        AnytypeText(layout.title, style: .uxTitle2Medium, color: .textPrimary)
-                        AnytypeText(layout.description, style: .caption1Regular, color: .textSecondary)
+                        AnytypeText(layout.title, style: .uxTitle2Medium, color: .TextNew.primary)
+                        AnytypeText(layout.description, style: .caption1Regular, color: .TextNew.secondary)
                             .lineLimit(1)
                             .minimumScaleFactor(0.9)
                     }

@@ -31,7 +31,7 @@ final class MoreRelationView: UIView {
 
         textView = AnytypeLabel(style: .relation2Regular)
         textView.setText("+\(count)")
-        textView.textColor = .textSecondary
+        textView.textColor = .TextNew.secondary
 
         addSubview(textView) {
             $0.pinToSuperview(insets: UIEdgeInsets(top: 0, left: Constants.padding, bottom: 0, right: Constants.padding))

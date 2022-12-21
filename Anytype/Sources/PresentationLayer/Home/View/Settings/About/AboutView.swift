@@ -51,10 +51,10 @@ struct AboutView: View {
             homeModel.snackBarData = .init(text: Loc.copiedToClipboard(label), showSnackBar: true)
         } label: {
             HStack(alignment: .top) {
-                AnytypeText(label, style: .uxBodyRegular, color: .textSecondary)
+                AnytypeText(label, style: .uxBodyRegular, color: .TextNew.secondary)
                 Spacer.fixedWidth(50)
                 Spacer()
-                AnytypeText(value, style: .uxBodyRegular, color: .textPrimary)
+                AnytypeText(value, style: .uxBodyRegular, color: .TextNew.primary)
                     .multilineTextAlignment(.trailing)
             }
             .padding(.vertical, 14)
@@ -64,7 +64,7 @@ struct AboutView: View {
     
     @State private var titleTapCount = 0
     var title: some View {
-        AnytypeText(Loc.about, style: .uxTitle1Semibold, color: .textPrimary)
+        AnytypeText(Loc.about, style: .uxTitle1Semibold, color: .TextNew.primary)
             .onTapGesture {
                 titleTapCount += 1
                 if titleTapCount == 10 {

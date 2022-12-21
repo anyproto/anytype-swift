@@ -97,9 +97,11 @@ extension UIColor {
     internal static let strokeTertiary = UIColor(asset: Asset.strokeTertiary)
     internal static let strokeTransperent = UIColor(asset: Asset.strokeTransperent)
     
-    // MARK: - Text
-    internal static let textPrimary = UIColor(asset: Asset.textPrimary)
-    internal static let textSecondary = UIColor(asset: Asset.textSecondary)
-    internal static let textTertiary = UIColor(asset: Asset.textTertiary)
-    internal static let textWhite = UIColor(asset: Asset.textWhite)
+    // MARK: - TextNew
+    enum TextNew {
+      internal static let primary = UIColor(asset: Asset.TextNew.primary)
+      internal static let secondary = UIColor(asset: Asset.TextNew.secondary)
+      internal static let tertiary = UIColor(asset: Asset.TextNew.tertiary)
+      internal static let white = UIColor(asset: Asset.TextNew.white)
+    }
 }

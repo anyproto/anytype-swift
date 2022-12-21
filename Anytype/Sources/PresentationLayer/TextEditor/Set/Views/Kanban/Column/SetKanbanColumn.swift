@@ -86,7 +86,7 @@ struct SetKanbanColumn: View {
                 AnytypeText(
                     Loc.Set.View.Kanban.Column.Title.uncategorized,
                     style: .relation2Regular,
-                    color: .textSecondary
+                    color: .TextNew.secondary
                 )
             case let .status(options):
                 StatusRelationView(options: options, hint: "", style: .kanbanHeader)
@@ -105,7 +105,7 @@ struct SetKanbanColumn: View {
                     AnytypeText(
                         text,
                         style: .relation2Regular,
-                        color: .textSecondary
+                        color: .TextNew.secondary
                     )
                 }
             }
@@ -126,13 +126,13 @@ struct SetKanbanColumn: View {
                 HStack(spacing: 0) {
                     Spacer.fixedWidth(3)
                     Image(asset: .arrowDown)
-                        .foregroundColor(.textSecondary)
+                        .foregroundColor(.TextNew.secondary)
                         .frame(width: 18, height: 18)
                     Spacer.fixedWidth(7)
                     AnytypeText(
                         Loc.Set.View.Kanban.Column.Paging.Title.showMore,
                         style: .caption1Medium,
-                        color: .textSecondary
+                        color: .TextNew.secondary
                     )
                     Spacer()
                 }

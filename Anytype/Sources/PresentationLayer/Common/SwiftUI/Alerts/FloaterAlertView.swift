@@ -9,9 +9,9 @@ struct FloaterAlertView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             Spacer.fixedHeight(23)
-            AnytypeText(title, style: .heading, color: .textPrimary)
+            AnytypeText(title, style: .heading, color: .TextNew.primary)
             Spacer.fixedHeight(11)
-            AnytypeText(description, style: .uxCalloutRegular, color: .textPrimary)
+            AnytypeText(description, style: .uxCalloutRegular, color: .TextNew.primary)
             Spacer.fixedHeight(8)
             buttons
         }

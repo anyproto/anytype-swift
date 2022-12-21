@@ -9,7 +9,7 @@ struct AnytypeTextField: View {
         Group {
             TextField("", text: $text)
                 .placeholder(when: text.isEmpty) {
-                    AnytypeText(placeholder, style: placeholderFont, color: .textTertiary)
+                    AnytypeText(placeholder, style: placeholderFont, color: .TextNew.tertiary)
                 }
         }
     }

@@ -34,14 +34,14 @@ final class TemplateAvailabilityPopupView: UIView {
 
     private func configureViews() {
         titleLabel.font = .bodyRegular
-        titleLabel.textColor = .textPrimary
+        titleLabel.textColor = .TextNew.primary
 
         descriptionLabel.text = Loc.Alert.TemplatesAvailable.description
         descriptionLabel.font = .relation3Regular
-        descriptionLabel.textColor = .textSecondary
+        descriptionLabel.textColor = .TextNew.secondary
 
         button.setTitle(Loc.Alert.TemplatesAvailable.button, for: .normal)
-        button.setTitleColor(.textPrimary, for: .normal)
+        button.setTitleColor(.TextNew.primary, for: .normal)
         button.titleLabel?.font = .calloutRegular
         button.widthAnchor.constraint(equalToConstant: 80).isActive = true
         button.heightAnchor.constraint(equalToConstant: 36).isActive = true

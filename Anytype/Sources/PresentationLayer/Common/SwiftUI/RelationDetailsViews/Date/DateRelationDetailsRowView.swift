@@ -21,7 +21,7 @@ struct DateRelationDetailsRowView: View {
             onTap()
         } label: {
             HStack(spacing: 0) {
-                AnytypeText(value.title, style: .uxBodyRegular, color: .textPrimary)
+                AnytypeText(value.title, style: .uxBodyRegular, color: .TextNew.primary)
                 Spacer()
                 
                 if isSelected {
@@ -33,7 +33,7 @@ struct DateRelationDetailsRowView: View {
                         Spacer.fixedWidth(4)
                     }
                     
-                    Image(asset: .optionChecked).foregroundColor(.textSecondary)
+                    Image(asset: .optionChecked).foregroundColor(.TextNew.secondary)
                 }
             }
         }

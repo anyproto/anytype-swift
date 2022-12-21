@@ -11,9 +11,9 @@ struct KeychainPhraseView: View {
         VStack(alignment: .leading, spacing: 0) {
             DragIndicator()
             Spacer.fixedHeight(24)
-            AnytypeText(Loc.backUpYourRecoveryPhrase, style: .heading, color: .textPrimary)
+            AnytypeText(Loc.backUpYourRecoveryPhrase, style: .heading, color: .TextNew.primary)
             Spacer.fixedHeight(8)
-            AnytypeText(Loc.Keychain.recoveryPhraseDescription, style: .uxBodyRegular, color: .textPrimary)
+            AnytypeText(Loc.Keychain.recoveryPhraseDescription, style: .uxBodyRegular, color: .TextNew.primary)
             Spacer.fixedHeight(24)
             SeedPhraseView(model: model) {
                 didShowPhrase()

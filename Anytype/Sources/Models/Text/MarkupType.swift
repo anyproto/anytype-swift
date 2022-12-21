@@ -63,7 +63,7 @@ enum MarkupType: Equatable, Hashable, CaseIterable {
     }
 
     static var allCases: [MarkupType] {
-        return [.bold, italic, .keyboard, .strikethrough, .underscored, .textColor(.textSecondary), .backgroundColor(.textSecondary), .link(nil), .linkToObject(nil), .mention(MentionData.noDetails(blockId: ""))]
+        return [.bold, italic, .keyboard, .strikethrough, .underscored, .textColor(.TextNew.secondary), .backgroundColor(.TextNew.secondary), .link(nil), .linkToObject(nil), .mention(MentionData.noDetails(blockId: ""))]
     }
     
     func sameType(_ other: MarkupType) -> Bool {

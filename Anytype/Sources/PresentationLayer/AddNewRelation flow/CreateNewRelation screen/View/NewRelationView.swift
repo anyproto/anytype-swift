@@ -35,7 +35,7 @@ struct NewRelationView: View {
             title: Loc.name,
             contentViewBuilder: {
                 TextField(Loc.noName, text: $viewModel.name)
-                    .foregroundColor(.textPrimary)
+                    .foregroundColor(.TextNew.primary)
                     .font(AnytypeFontBuilder.font(anytypeFont: .heading))
             },
             onTap: nil,

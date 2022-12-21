@@ -37,7 +37,7 @@ struct WaitingView: View {
                 LoadingAnimationView(showError: $showError)
                     .padding(.top, 24)
                 Spacer.fixedHeight(15)
-                AnytypeText(showError ? errorText : text, style: .heading, color: .textPrimary)
+                AnytypeText(showError ? errorText : text, style: .heading, color: .TextNew.primary)
                     .padding(.horizontal)
                 Spacer.fixedHeight(19)
                 if showError {

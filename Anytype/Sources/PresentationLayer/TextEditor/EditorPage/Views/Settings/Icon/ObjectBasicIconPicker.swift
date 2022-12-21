@@ -39,7 +39,7 @@ struct ObjectBasicIconPicker: View {
     
     private var navigationBarView: some View {
         InlineNavigationBar {
-            AnytypeText(Loc.changeIcon, style: .uxTitle1Semibold, color: .textPrimary)
+            AnytypeText(Loc.changeIcon, style: .uxTitle1Semibold, color: .TextNew.primary)
                 .multilineTextAlignment(.center)
         } rightButton: {
             if viewModel.isRemoveButtonAvailable {

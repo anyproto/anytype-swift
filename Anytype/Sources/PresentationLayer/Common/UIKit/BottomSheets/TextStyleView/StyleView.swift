@@ -221,13 +221,13 @@ final class StyleView: UIView {
         let smallButtonSize = CGSize(width: 32, height: 32)
 
         let highlightedButton = ButtonsFactory.roundedBorderуButton(image: UIImage.highlightImage())
-        highlightedButton.setImageTintColor(.textSecondary, state: .disabled)
+        highlightedButton.setImageTintColor(.TextNew.secondary, state: .disabled)
         setupAction(for: highlightedButton, with: .quote)
 
         let isCalloutEnabled = style == .callout ? true : restrictions.turnIntoStyles.contains(.text(.callout))
         let calloutImage = UIImage.imageWithText(
             Loc.callout,
-            textColor: isCalloutEnabled ? .textPrimary : .Button.inactive,
+            textColor: isCalloutEnabled ? .TextNew.primary : .Button.inactive,
             backgroundColor: .BackgroundNew.highlightedOfSelected,
             font: .uxCalloutRegular,
             size: .init(width: 63, height: 28),
@@ -248,7 +248,7 @@ final class StyleView: UIView {
         colorButton.setBackgroundColor(.BackgroundNew.highlightedOfSelected, state: .selected)
         colorButton.addTarget(self, action: #selector(colorActionHandler), for: .touchUpInside)
 
-        let image = UIImage(asset: .more)?.withTintColor(.textSecondary)
+        let image = UIImage(asset: .more)?.withTintColor(.TextNew.secondary)
         let moreButton = ButtonsFactory.roundedBorderуButton(image: image)
         moreButton.layer.borderWidth = 0
         moreButton.layer.cornerRadius = smallButtonSize.height / 2
@@ -373,7 +373,7 @@ final class StyleView: UIView {
 
         button.isSelected = true
 
-        let color = askColor() ?? .textPrimary
+        let color = askColor() ?? .TextNew.primary
         let backgroundColor = askBackgroundColor() ?? .BackgroundNew.primary
 
         let contentVC = StyleColorViewController(

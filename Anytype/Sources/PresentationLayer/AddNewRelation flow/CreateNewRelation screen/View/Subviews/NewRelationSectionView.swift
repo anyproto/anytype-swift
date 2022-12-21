@@ -34,7 +34,7 @@ struct NewRelationSectionView<Content: View>: View {
     }
     
     private var titleView: some View {
-        AnytypeText(title, style: .caption1Regular, color: .textSecondary)
+        AnytypeText(title, style: .caption1Regular, color: .TextNew.secondary)
             .lineLimit(1)
     }
     

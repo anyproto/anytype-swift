@@ -46,7 +46,7 @@ final class StyleColorContentView: UIView, UIContentView {
         colorView.translatesAutoresizingMaskIntoConstraints = false
         backgroundView.translatesAutoresizingMaskIntoConstraints = false
 
-        colorView.dynamicBorderColor = UIColor.textTertiary
+        colorView.dynamicBorderColor = UIColor.TextNew.tertiary
         colorView.layer.borderWidth = 1
 
         backgroundView.dynamicBorderColor = UIColor.strokeSecondary
@@ -80,7 +80,7 @@ final class StyleColorContentView: UIView, UIContentView {
         case .background:
             let title = configuration.colorItem.color == .BackgroundNew.primary ? "⁄" : ""
             colorView.setTitle(title, for: .normal)
-            colorView.setTitleColor(.textTertiary, for: .normal)
+            colorView.setTitleColor(.TextNew.tertiary, for: .normal)
             colorView.backgroundColor = configuration.colorItem.color
         case .text:
             colorView.setTitle(Loc.a, for: .normal)
