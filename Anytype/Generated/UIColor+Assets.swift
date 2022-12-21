@@ -2,6 +2,20 @@ import UIKit
 
 extension UIColor {
   
+    enum Light: ComponentColor {
+      typealias T = UIColor
+      internal static let amber = UIColor(asset: Asset.Light.amber)
+      internal static let blue = UIColor(asset: Asset.Light.blue)
+      internal static let green = UIColor(asset: Asset.Light.green)
+      internal static let grey = UIColor(asset: Asset.Light.grey)
+      internal static let pink = UIColor(asset: Asset.Light.pink)
+      internal static let purple = UIColor(asset: Asset.Light.purple)
+      internal static let red = UIColor(asset: Asset.Light.red)
+      internal static let sky = UIColor(asset: Asset.Light.sky)
+      internal static let teal = UIColor(asset: Asset.Light.teal)
+      internal static let yellow = UIColor(asset: Asset.Light.yellow)
+    }
+    
     enum System: ComponentColor {
       typealias T = UIColor
       internal static let amber = UIColor(asset: Asset.System.amber)
@@ -19,20 +33,6 @@ extension UIColor {
       internal static let sky = UIColor(asset: Asset.System.sky)
       internal static let teal = UIColor(asset: Asset.System.teal)
       internal static let yellow = UIColor(asset: Asset.System.yellow)
-    }
-    
-    enum TagBackground: ComponentColor {
-      typealias T = UIColor
-      internal static let amber = UIColor(asset: Asset.TagBackground.amber)
-      internal static let blue = UIColor(asset: Asset.TagBackground.blue)
-      internal static let green = UIColor(asset: Asset.TagBackground.green)
-      internal static let grey = UIColor(asset: Asset.TagBackground.grey)
-      internal static let pink = UIColor(asset: Asset.TagBackground.pink)
-      internal static let purple = UIColor(asset: Asset.TagBackground.purple)
-      internal static let red = UIColor(asset: Asset.TagBackground.red)
-      internal static let sky = UIColor(asset: Asset.TagBackground.sky)
-      internal static let teal = UIColor(asset: Asset.TagBackground.teal)
-      internal static let yellow = UIColor(asset: Asset.TagBackground.yellow)
     }
     
     enum Text: ComponentColor {

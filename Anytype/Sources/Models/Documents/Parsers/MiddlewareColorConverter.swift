@@ -25,7 +25,7 @@ extension UIColor {
             where: { middleware in
                 UIColor.Text.uiColor(from: middleware) == self ||
                 UIColor.VeryLight.uiColor(from: middleware) == self ||
-                UIColor.TagBackground.uiColor(from: middleware) == self
+                UIColor.Light.uiColor(from: middleware) == self
             }
         )?.rawValue
     }

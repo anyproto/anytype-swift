@@ -73,7 +73,7 @@ enum BlockBackgroundColor: String, CaseIterable {
     }
     
     var tagColor : UIColor {
-        typealias ColorComponent = UIColor.TagBackground
+        typealias ColorComponent = UIColor.Light
         switch self {
         case .default:
             return ColorComponent.default

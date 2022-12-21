@@ -41,7 +41,7 @@ extension Relation.Tag.Option {
         self.textColor = MiddlewareColor(rawValue: option.color)
             .map { UIColor.Text.uiColor(from: $0) } ?? .TextNew.secondary
         self.backgroundColor = MiddlewareColor(rawValue: option.color)
-            .map { UIColor.TagBackground.uiColor(from: $0) } ?? .BackgroundNew.secondary
+            .map { UIColor.Light.uiColor(from: $0) } ?? .BackgroundNew.secondary
     }
     
 }

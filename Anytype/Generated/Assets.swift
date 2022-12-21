@@ -19,6 +19,18 @@ internal typealias AssetColorTypeAlias = ColorAsset.Color
 
 // swiftlint:disable identifier_name line_length nesting type_body_length type_name
 internal enum Asset {
+  internal enum Light {
+    static let amber = ColorAsset(name: "Light/amber")
+    static let blue = ColorAsset(name: "Light/blue")
+    static let green = ColorAsset(name: "Light/green")
+    static let grey = ColorAsset(name: "Light/grey")
+    static let pink = ColorAsset(name: "Light/pink")
+    static let purple = ColorAsset(name: "Light/purple")
+    static let red = ColorAsset(name: "Light/red")
+    static let sky = ColorAsset(name: "Light/sky")
+    static let teal = ColorAsset(name: "Light/teal")
+    static let yellow = ColorAsset(name: "Light/yellow")
+  }
   internal enum System {
     static let amber = ColorAsset(name: "System/amber")
     static let amber100 = ColorAsset(name: "System/amber100")
@@ -35,18 +47,6 @@ internal enum Asset {
     static let sky = ColorAsset(name: "System/sky")
     static let teal = ColorAsset(name: "System/teal")
     static let yellow = ColorAsset(name: "System/yellow")
-  }
-  internal enum TagBackground {
-    static let amber = ColorAsset(name: "TagBackground/amber")
-    static let blue = ColorAsset(name: "TagBackground/blue")
-    static let green = ColorAsset(name: "TagBackground/green")
-    static let grey = ColorAsset(name: "TagBackground/grey")
-    static let pink = ColorAsset(name: "TagBackground/pink")
-    static let purple = ColorAsset(name: "TagBackground/purple")
-    static let red = ColorAsset(name: "TagBackground/red")
-    static let sky = ColorAsset(name: "TagBackground/sky")
-    static let teal = ColorAsset(name: "TagBackground/teal")
-    static let yellow = ColorAsset(name: "TagBackground/yellow")
   }
   internal enum Text {
     static let amber = ColorAsset(name: "Text/amber")
