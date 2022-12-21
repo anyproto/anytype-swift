@@ -33,7 +33,7 @@ struct SetGalleryViewCell: View {
             .padding(.top, configuration.hasCover ? 0 : Constants.contentPadding)
             .padding([.leading, .trailing, .bottom], Constants.contentPadding)
         }
-        .background(Color.backgroundPrimary)
+        .background(Color.BackgroundNew.primary)
         .frame(maxWidth: .infinity, alignment: .topLeading)
         .cornerRadius(Constants.cornerRadius)
         .overlay(

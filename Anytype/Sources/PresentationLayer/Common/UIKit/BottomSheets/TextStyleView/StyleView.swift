@@ -72,7 +72,7 @@ final class StyleView: UIView {
 
         let styleCollectionView = UICollectionView(frame: bounds, collectionViewLayout: layout)
         styleCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        styleCollectionView.backgroundColor = .backgroundSecondary
+        styleCollectionView.backgroundColor = .BackgroundNew.secondary
         styleCollectionView.alwaysBounceVertical = false
         styleCollectionView.alwaysBounceHorizontal = true
         styleCollectionView.delegate = self
@@ -163,7 +163,7 @@ final class StyleView: UIView {
     // MARK: - Setup views
 
     private func setupViews() {
-        backgroundColor = .backgroundSecondary
+        backgroundColor = .BackgroundNew.secondary
 
         containerStackView.addArrangedSubview(listStackView)
         containerStackView.addArrangedSubview(otherStyleStackView)
@@ -228,7 +228,7 @@ final class StyleView: UIView {
         let calloutImage = UIImage.imageWithText(
             Loc.callout,
             textColor: isCalloutEnabled ? .textPrimary : .buttonInactive,
-            backgroundColor: .backgroundSelected,
+            backgroundColor: .BackgroundNew.highlightedOfSelected,
             font: .uxCalloutRegular,
             size: .init(width: 63, height: 28),
             cornerRadius: 6
@@ -245,14 +245,14 @@ final class StyleView: UIView {
         let colorButton = ButtonsFactory.roundedBorderуButton(image: UIImage(asset: .StyleBottomSheet.color))
         colorButton.layer.borderWidth = 0
         colorButton.layer.cornerRadius = smallButtonSize.height / 2
-        colorButton.setBackgroundColor(.backgroundSelected, state: .selected)
+        colorButton.setBackgroundColor(.BackgroundNew.highlightedOfSelected, state: .selected)
         colorButton.addTarget(self, action: #selector(colorActionHandler), for: .touchUpInside)
 
         let image = UIImage(asset: .more)?.withTintColor(.textSecondary)
         let moreButton = ButtonsFactory.roundedBorderуButton(image: image)
         moreButton.layer.borderWidth = 0
         moreButton.layer.cornerRadius = smallButtonSize.height / 2
-        moreButton.setBackgroundColor(.backgroundSelected, state: .selected)
+        moreButton.setBackgroundColor(.BackgroundNew.highlightedOfSelected, state: .selected)
         
         moreButton.addAction(UIAction(handler: { [weak self, weak moreButton] _ in
             guard let self = self else { return }
@@ -374,7 +374,7 @@ final class StyleView: UIView {
         button.isSelected = true
 
         let color = askColor() ?? .textPrimary
-        let backgroundColor = askBackgroundColor() ?? .backgroundPrimary
+        let backgroundColor = askBackgroundColor() ?? .BackgroundNew.primary
 
         let contentVC = StyleColorViewController(
             selectedColor: color,

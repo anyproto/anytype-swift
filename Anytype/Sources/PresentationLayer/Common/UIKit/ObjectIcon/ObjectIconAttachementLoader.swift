@@ -77,7 +77,7 @@ extension ObjectIconAttachementLoader {
             let image = stringIconImage(
                 model: model,
                 string: iconEmoji.value,
-                textColor: UIColor.backgroundPrimary,
+                textColor: UIColor.BackgroundNew.primary,
                 backgroundColor: model.usecase.emojiBackgroundColor
             )
             setImage(image: image, processor: customProcessor)

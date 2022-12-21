@@ -31,7 +31,7 @@ final class ObjectHeaderEmptyContentView: UIView, BlockContentView {
 private extension ObjectHeaderEmptyContentView  {
     
     func setupView() {
-        backgroundColor = .backgroundPrimary
+        backgroundColor = .BackgroundNew.primary
         setupLayout()
         addGestureRecognizer(tapGesture)
     }

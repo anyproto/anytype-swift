@@ -137,7 +137,7 @@ extension NewSearchView {
         
         var backgroundColor: Color {
             switch self {
-            case .default: return .backgroundSecondary
+            case .default: return .BackgroundNew.secondary
             case .embedded: return .clear
             }
         }

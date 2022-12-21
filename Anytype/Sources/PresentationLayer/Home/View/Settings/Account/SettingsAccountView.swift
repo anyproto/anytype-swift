@@ -14,7 +14,7 @@ struct SettingsAccountView: View {
             Spacer.fixedHeight(20)
         }
         .padding(.horizontal, 20)
-        .background(Color.backgroundSecondary)
+        .background(Color.BackgroundNew.secondary)
         .cornerRadius(16, corners: .top)
         
         .onAppear {

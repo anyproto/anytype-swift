@@ -41,7 +41,7 @@ enum ButtonsFactory {
         button.setText(text ?? "")
         button.setBackgroundColor(.clear, state: .normal)
         button.setBackgroundColor(.clear, state: .disabled)
-        button.setBackgroundColor(.backgroundSelected, state: .selected)
+        button.setBackgroundColor(.BackgroundNew.highlightedOfSelected, state: .selected)
         button.setImageTintColor(.buttonInactive, state: .disabled)
         button.setImageTintColor(.textPrimary, state: .normal)
 

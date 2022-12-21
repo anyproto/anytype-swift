@@ -465,7 +465,7 @@ extension EditorPageController: EditorPageViewInput {
 private extension EditorPageController {
     
     func setupView() {
-        view.backgroundColor = .backgroundPrimary
+        view.backgroundColor = .BackgroundNew.primary
         
         setupCollectionView()
         

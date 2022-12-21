@@ -68,7 +68,7 @@ extension SlashMenuViewController: UITableViewDataSource {
         cell.accessoryType = .none
 
         let bgColorView = UIView()
-        bgColorView.backgroundColor = .backgroundSelected
+        bgColorView.backgroundColor = .BackgroundNew.highlightedOfSelected
         cell.selectedBackgroundView = bgColorView
 
         let item = cellData[indexPath.row]

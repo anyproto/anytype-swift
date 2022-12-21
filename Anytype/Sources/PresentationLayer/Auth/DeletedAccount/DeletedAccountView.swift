@@ -26,7 +26,7 @@ struct DeletedAccountView: View {
             mainView
                 .padding(EdgeInsets(top: 23, leading: 20, bottom: 10, trailing: 20))
         }
-        .background(Color.backgroundPrimary)
+        .background(Color.BackgroundNew.primary)
         .cornerRadius(16.0)
     }
     

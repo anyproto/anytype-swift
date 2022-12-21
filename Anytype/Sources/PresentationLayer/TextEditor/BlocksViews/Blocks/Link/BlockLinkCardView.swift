@@ -231,7 +231,7 @@ private final class BlockLinkCoverView: UIView {
     }
 
     private func setupView() {
-        backgroundColor = .backgroundPrimary
+        backgroundColor = .BackgroundNew.primary
 
         setupLayout()
 

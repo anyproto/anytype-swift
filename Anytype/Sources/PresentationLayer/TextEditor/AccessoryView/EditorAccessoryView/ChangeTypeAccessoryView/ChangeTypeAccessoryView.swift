@@ -34,7 +34,7 @@ class ChangeTypeAccessoryView: UIView {
     }
 
     private func setupViews() {
-        backgroundColor = .backgroundPrimary
+        backgroundColor = .BackgroundNew.primary
 
         addSubview(stackView) {
             $0.pinToSuperviewPreservingReadability() 

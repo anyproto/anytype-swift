@@ -11,7 +11,7 @@ struct ObjectLayoutPicker: View {
             TitleView(title: Loc.chooseLayoutType)
             layoutList
         }
-        .background(Color.backgroundSecondary)
+        .background(Color.BackgroundNew.secondary)
     }
     
     private var layoutList: some View {

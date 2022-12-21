@@ -40,7 +40,7 @@ final class SlashMenuViewController: UIViewController {
     
     private func setup() {
         self.title = topBarTitle
-        view.backgroundColor = .backgroundPrimary
+        view.backgroundColor = .BackgroundNew.primary
         
         view.addSubview(tableView) {
             $0.pinToSuperview()

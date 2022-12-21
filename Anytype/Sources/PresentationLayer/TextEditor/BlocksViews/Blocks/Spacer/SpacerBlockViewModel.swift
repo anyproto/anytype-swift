@@ -43,7 +43,7 @@ final class SpacerBlockView: UIView, BlockContentView {
     }
 
     private func setupView() {
-        backgroundColor = .backgroundPrimary
+        backgroundColor = .BackgroundNew.primary
         translatesAutoresizingMaskIntoConstraints = false
         heightConstraint.isActive = true
     }

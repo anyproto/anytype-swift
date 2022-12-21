@@ -34,7 +34,7 @@ struct SetKanbanColumn: View {
         .background(
             isGroupBackgroundColors ?
             backgroundColor.swiftColor.opacity(0.5) :
-            Color.backgroundPrimary
+            Color.BackgroundNew.primary
         )
         .cornerRadius(4)
         .frame(width: 270)
@@ -143,7 +143,7 @@ struct SetKanbanColumn: View {
     
     private var emptyDroppableArea: some View {
         Rectangle()
-            .fill(Color.backgroundPrimary)
+            .fill(Color.BackgroundNew.primary)
             .frame(height: 44)
             .onDrop(
                 of: [UTType.text],

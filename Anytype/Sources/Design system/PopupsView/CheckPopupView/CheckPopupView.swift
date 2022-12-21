@@ -19,7 +19,7 @@ struct CheckPopupView<ViewModel: CheckPopupViewViewModelProtocol>: View {
             TitleView(title: viewModel.title)
             mainSection
         }
-        .background(Color.backgroundSecondary)
+        .background(Color.BackgroundNew.secondary)
         .padding(.horizontal, 20)
     }
 

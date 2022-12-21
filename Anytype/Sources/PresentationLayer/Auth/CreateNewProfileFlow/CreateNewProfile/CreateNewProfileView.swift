@@ -35,7 +35,7 @@ struct CreateNewProfileView: View {
             VStack(spacing: 0) {
                 contentView
             }
-            .background(Color.backgroundPrimary)
+            .background(Color.BackgroundNew.primary)
             .cornerRadius(16.0)
         }
     }

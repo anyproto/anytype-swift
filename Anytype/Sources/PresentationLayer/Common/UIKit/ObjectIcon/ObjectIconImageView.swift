@@ -84,7 +84,7 @@ extension ObjectIconImageView: ConfigurableView {
             let image: UIImage? = stringIconImage(
                 model: model,
                 string: iconEmoji.value,
-                textColor: UIColor.backgroundPrimary,
+                textColor: UIColor.BackgroundNew.primary,
                 backgroundColor: model.usecase.emojiBackgroundColor
             )
             imageView.wrapper.setImage(image)

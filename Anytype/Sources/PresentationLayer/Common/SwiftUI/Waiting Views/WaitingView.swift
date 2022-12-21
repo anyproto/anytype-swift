@@ -51,7 +51,7 @@ struct WaitingView: View {
             }
         }
         .frame(maxWidth: .infinity)
-        .background(Color.backgroundPrimary)
+        .background(Color.BackgroundNew.primary)
         .cornerRadius(16.0)
     }
     

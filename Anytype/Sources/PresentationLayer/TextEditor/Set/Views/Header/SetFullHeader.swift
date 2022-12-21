@@ -30,7 +30,7 @@ struct SetFullHeader: View {
             switch model.headerModel.header {
             case .empty(let data, _):
                 Button(action: data.onTap) {
-                    Color.backgroundPrimary
+                    Color.BackgroundNew.primary
                         .frame(height: ObjectHeaderConstants.emptyViewHeight)
                 }
             case .filled(let state, _):

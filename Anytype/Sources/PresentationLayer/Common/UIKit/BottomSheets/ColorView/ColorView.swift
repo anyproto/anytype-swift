@@ -167,7 +167,7 @@ class ColorView: UIView {
         addSubview(backdropView)
         addSubview(containerView)
         containerView.addSubview(styleCollectionView)
-        containerView.backgroundColor = .backgroundSecondary
+        containerView.backgroundColor = .BackgroundNew.secondary
 
         setupLayout()
     }

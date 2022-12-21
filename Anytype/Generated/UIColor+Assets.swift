@@ -66,12 +66,14 @@ extension UIColor {
     // MARK: - Additional
     internal static let shimmering = UIColor(asset: Asset.shimmering)
     
-    // MARK: - Backgound
-    internal static let backgroundBlack = UIColor(asset: Asset.backgroundBlack)
-    internal static let backgroundDashboard = UIColor(asset: Asset.backgroundDashboard)
-    internal static let backgroundPrimary = UIColor(asset: Asset.backgroundPrimary)
-    internal static let backgroundSecondary = UIColor(asset: Asset.backgroundSecondary)
-    internal static let backgroundSelected = UIColor(asset: Asset.backgroundSelected)
+    // MARK: - BackgroundNew
+    enum BackgroundNew {
+      internal static let backgroundBlack = UIColor(asset: Asset.BackgroundNew.backgroundBlack)
+      internal static let backgroundDashboard = UIColor(asset: Asset.BackgroundNew.backgroundDashboard)
+      internal static let highlightedOfSelected = UIColor(asset: Asset.BackgroundNew.highlightedOfSelected)
+      internal static let primary = UIColor(asset: Asset.BackgroundNew.primary)
+      internal static let secondary = UIColor(asset: Asset.BackgroundNew.secondary)
+    }
     
     // MARK: - Button
     internal static let buttonAccent = UIColor(asset: Asset.buttonAccent)

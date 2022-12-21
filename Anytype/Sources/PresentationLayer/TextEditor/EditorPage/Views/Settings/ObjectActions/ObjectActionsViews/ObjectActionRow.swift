@@ -14,7 +14,7 @@ struct ObjectActionRow: View {
             VStack(spacing: Constants.space) {
                 Image(asset: setting.imageAsset)
                     .frame(width: 52, height: 52)
-                    .background(Color.backgroundSelected)
+                    .background(Color.BackgroundNew.highlightedOfSelected)
                     .cornerRadius(10)
                 AnytypeText(
                     setting.title,

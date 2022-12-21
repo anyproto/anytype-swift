@@ -108,7 +108,7 @@ final class MarkupsViewController: UIViewController {
     // MARK: -  Setup views
 
     private func setupViews() {
-        containerStackView.backgroundColor = .backgroundSecondary
+        containerStackView.backgroundColor = .BackgroundNew.secondary
 
         containerShadowView.view.layer.cornerRadius = 12
         containerShadowView.view.layer.masksToBounds = true

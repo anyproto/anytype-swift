@@ -130,8 +130,8 @@ private extension ObjectHeaderCoverView {
     }
     
     func setupBackgroundColor() {
-        backgroundColor = .backgroundPrimary
-        imageView.backgroundColor = .backgroundPrimary
+        backgroundColor = .BackgroundNew.primary
+        imageView.backgroundColor = .BackgroundNew.primary
     }
     
     func setupLayout() {

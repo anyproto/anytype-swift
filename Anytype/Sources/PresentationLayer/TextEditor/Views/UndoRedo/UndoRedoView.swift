@@ -34,7 +34,7 @@ private struct ItemView: View {
                     maxWidth: .infinity,
                     alignment: .center
                 )
-                .background(Color.backgroundSelected)
+                .background(Color.BackgroundNew.highlightedOfSelected)
                 .cornerRadius(10.5)
             AnytypeText(title, style: .caption2Regular, color: .textSecondary)
         }

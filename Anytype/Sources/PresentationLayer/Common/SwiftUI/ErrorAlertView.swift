@@ -29,7 +29,7 @@ struct ErrorAlertView<Presenting>: View where Presenting: View {
                 }
             }
             .frame(maxWidth: 300, minHeight: 0)
-            .background(Color.backgroundSecondary)
+            .background(Color.BackgroundNew.secondary)
             .cornerRadius(10)
             .transition(.slide)
             .shadow(color: Color.shadowPrimary, radius: 4)

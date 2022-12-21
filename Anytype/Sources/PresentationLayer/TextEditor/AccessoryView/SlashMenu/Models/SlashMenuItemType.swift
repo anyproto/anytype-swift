@@ -59,7 +59,7 @@ enum SlashMenuItemType {
         case .background:
             let image = UIImage.circleImage(
                 size: .init(width: 22, height: 22),
-                fillColor: .backgroundPrimary,
+                fillColor: .BackgroundNew.primary,
                 borderColor: .strokePrimary,
                 borderWidth: 0.5
             )

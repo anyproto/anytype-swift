@@ -19,7 +19,14 @@ import UIKit
   {% elif asset.items and catalName == "SystemColors" %}
   
   // MARK: - {{asset.name}}
-  {% call casesBlock asset.items %}
+  {% if asset.isNamespaced == "true" %}
+  enum {{asset.name|swiftIdentifier:"pretty"|escapeReservedKeywords}} {
+    {% filter indent:2," ",true %}
+    {% call casesBlock asset.items %}{% endfilter %}
+  }
+  {% else %}
+    {% call casesBlock asset.items %}
+  {% endif %}
   {% elif asset.items %}
   
   enum {{asset.name|swiftIdentifier:"pretty"|escapeReservedKeywords}}: ComponentColor {

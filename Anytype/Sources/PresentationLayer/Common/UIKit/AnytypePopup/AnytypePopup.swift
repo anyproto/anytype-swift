@@ -155,7 +155,7 @@ private extension AnytypePopup {
         delegate = self
         
         let contentView = viewModel.makeContentView()
-        contentView.view.backgroundColor = .backgroundSecondary
+        contentView.view.backgroundColor = .BackgroundNew.secondary
 
         set(contentViewController: contentView)
     }
@@ -219,7 +219,7 @@ private extension AnytypePopup {
     
     func makeAppearance() -> SurfaceAppearance {
         let appearance = SurfaceAppearance()
-        appearance.backgroundColor = .backgroundSecondary
+        appearance.backgroundColor = .BackgroundNew.secondary
         appearance.cornerRadius = 16.0
         appearance.cornerCurve = .continuous
 

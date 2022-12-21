@@ -14,7 +14,7 @@ final class EditorPageDeletedScreen: UIView {
     }
     
     private func setup() {
-        backgroundColor = .backgroundPrimary
+        backgroundColor = .BackgroundNew.primary
         
         addSubview(ghost) {
             $0.center(in: self)

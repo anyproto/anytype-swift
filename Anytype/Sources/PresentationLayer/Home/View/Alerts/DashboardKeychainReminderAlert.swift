@@ -20,7 +20,7 @@ struct DashboardKeychainReminderAlert: View {
             Spacer.fixedHeight(25)
         }
         .padding(.horizontal, 20)
-        .background(Color.backgroundPrimary)
+        .background(Color.BackgroundNew.primary)
         .cornerRadius(16)
     }
     

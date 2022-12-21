@@ -78,7 +78,7 @@ final class StyleColorContentView: UIView, UIContentView {
 
         switch configuration.colorItem {
         case .background:
-            let title = configuration.colorItem.color == .backgroundPrimary ? "⁄" : ""
+            let title = configuration.colorItem.color == .BackgroundNew.primary ? "⁄" : ""
             colorView.setTitle(title, for: .normal)
             colorView.setTitleColor(.textTertiary, for: .normal)
             colorView.backgroundColor = configuration.colorItem.color

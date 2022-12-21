@@ -7,7 +7,7 @@ struct ObjectSettingsView: View {
     
     var body: some View {
         settings
-            .background(Color.backgroundSecondary)
+            .background(Color.BackgroundNew.secondary)
     }
     
     private var settings: some View {

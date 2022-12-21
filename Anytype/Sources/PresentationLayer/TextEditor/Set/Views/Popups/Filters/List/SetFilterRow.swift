@@ -20,7 +20,7 @@ struct SetFilterRow: View {
         HStack {
             ZStack(alignment: .center) {
                 RoundedRectangle(cornerRadius: 10)
-                    .foregroundColor(Color.backgroundSelected)
+                    .foregroundColor(Color.BackgroundNew.highlightedOfSelected)
                 Image(asset: configuration.iconAsset)
             }
             .frame(width: 48, height: 48)

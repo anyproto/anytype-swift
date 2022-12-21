@@ -16,7 +16,7 @@ struct StyleCellBackgroundConfiguration {
 
         if state.isHighlighted || state.isSelected {
             // Set nil to use the inherited tint color of the cell when highlighted or selected
-            background.backgroundColor = UIColor.backgroundSelected
+            background.backgroundColor = UIColor.BackgroundNew.highlightedOfSelected
 
             if state.isHighlighted {
                 // Reduce the alpha of the tint color to 8% when highlighted

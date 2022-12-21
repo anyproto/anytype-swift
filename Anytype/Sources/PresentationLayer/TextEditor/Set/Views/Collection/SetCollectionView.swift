@@ -125,7 +125,7 @@ struct SetCollectionView: View {
                 )
             }
         }
-        .background(Color.backgroundPrimary)
+        .background(Color.BackgroundNew.primary)
     }
     
     private func columns() -> [GridItem] {

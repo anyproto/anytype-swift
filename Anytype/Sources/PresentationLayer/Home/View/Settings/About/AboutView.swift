@@ -40,7 +40,7 @@ struct AboutView: View {
             .padding(.horizontal, 20)
             Spacer.fixedHeight(20)
         }
-        .background(Color.backgroundSecondary)
+        .background(Color.BackgroundNew.secondary)
         .cornerRadius(12, corners: .top)
     }
     

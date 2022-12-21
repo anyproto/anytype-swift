@@ -9,7 +9,7 @@ struct EditorSetViewSettingsView: View {
         NavigationView {
             content
         }
-        .background(Color.backgroundSecondary)
+        .background(Color.BackgroundNew.secondary)
         .navigationViewStyle(.stack)
     }
     

@@ -18,7 +18,7 @@ struct ObjectPreviewView: View {
             mainSection
             featuredRealtionSection
         }
-        .background(Color.backgroundSecondary)
+        .background(Color.BackgroundNew.secondary)
         .padding(.horizontal, 20)
     }
 

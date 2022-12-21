@@ -75,13 +75,13 @@ internal enum Asset {
 
   // MARK: - Additional
   static let shimmering = ColorAsset(name: "shimmering")
-
-  // MARK: - Backgound
-  static let backgroundBlack = ColorAsset(name: "backgroundBlack")
-  static let backgroundDashboard = ColorAsset(name: "backgroundDashboard")
-  static let backgroundPrimary = ColorAsset(name: "backgroundPrimary")
-  static let backgroundSecondary = ColorAsset(name: "backgroundSecondary")
-  static let backgroundSelected = ColorAsset(name: "backgroundSelected")
+  internal enum BackgroundNew {
+    static let backgroundBlack = ColorAsset(name: "BackgroundNew/backgroundBlack")
+    static let backgroundDashboard = ColorAsset(name: "BackgroundNew/backgroundDashboard")
+    static let highlightedOfSelected = ColorAsset(name: "BackgroundNew/highlightedOfSelected")
+    static let primary = ColorAsset(name: "BackgroundNew/primary")
+    static let secondary = ColorAsset(name: "BackgroundNew/secondary")
+  }
 
   // MARK: - Button
   static let buttonAccent = ColorAsset(name: "buttonAccent")

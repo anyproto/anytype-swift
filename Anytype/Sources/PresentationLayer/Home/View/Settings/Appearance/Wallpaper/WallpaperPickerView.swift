@@ -15,7 +15,7 @@ struct WallpaperPickerView: View {
                 model.wallpaperPicker = false
             }
         }
-        .background(Color.backgroundSecondary)
+        .background(Color.BackgroundNew.secondary)
         .onAppear {
             AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.wallpaperSettingsShow)
         }

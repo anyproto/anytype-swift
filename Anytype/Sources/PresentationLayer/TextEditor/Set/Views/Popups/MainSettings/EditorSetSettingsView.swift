@@ -12,7 +12,7 @@ struct EditorSetSettingsView: View {
                 }
                 Spacer()
             }
-            .background(Color.backgroundSecondary)
+            .background(Color.BackgroundNew.secondary)
             .padding(.vertical, 13)
             .padding(.horizontal, 16)
         }
@@ -27,7 +27,7 @@ struct EditorSetSettingsView: View {
             VStack(spacing: 0) {
                 ZStack(alignment: .center) {
                     RoundedRectangle(cornerRadius: 10)
-                        .foregroundColor(Color.backgroundSelected)
+                        .foregroundColor(Color.BackgroundNew.highlightedOfSelected)
                     Image(asset: setting.imageAsset)
                 }
                 .frame(width: 52, height: 52)

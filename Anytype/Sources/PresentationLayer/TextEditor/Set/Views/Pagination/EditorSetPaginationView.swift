@@ -13,7 +13,7 @@ struct EditorSetPaginationView: View {
                 EmptyView()
             }
         
-            Rectangle().frame(height: 40).foregroundColor(.backgroundPrimary) // Navigation view stub
+            Rectangle().frame(height: 40).foregroundColor(.BackgroundNew.secondary) // Navigation view stub
         }
     }
     

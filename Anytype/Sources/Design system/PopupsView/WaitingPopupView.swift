@@ -20,7 +20,7 @@ struct WaitingPopupView: View {
             Spacer.fixedHeight(20)
         }
         .padding(.horizontal, 20)
-        .background(Color.backgroundPrimary)
+        .background(Color.BackgroundNew.primary)
         .cornerRadius(16)
     }
 }

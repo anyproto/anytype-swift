@@ -48,7 +48,7 @@ final class MarkupAccessoryView: UIView {
 
     private func setupViews(viewModel: MarkupAccessoryViewModel) {
         autoresizingMask = .flexibleHeight
-        backgroundColor = .backgroundPrimary
+        backgroundColor = .BackgroundNew.primary
         let contentView = MarkupAccessoryContentView(viewModel: viewModel).asUIView()
 
         addSubview(contentView) {
