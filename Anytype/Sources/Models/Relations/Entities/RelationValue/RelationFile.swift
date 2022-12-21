@@ -11,7 +11,8 @@ extension Relation {
         let isFeatured: Bool
         let isEditable: Bool
         let isSystem: Bool
-
+        let isDeleted: Bool
+        
         let files: [Option]
         
         var hasValue: Bool {

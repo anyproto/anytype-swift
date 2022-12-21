@@ -65,13 +65,14 @@ extension NewRelationViewModel {
             isReadOnlyValue: false,
             objectTypes: objectTypeIds,
             maxCount: 0,
-            sourceObject: ""
+            sourceObject: "",
+            isDeleted: false
         )
         
-        guard service.createRelation(relationDetails: relationDetails) else { return }
-        toastPresenter.show(message: Loc.Relation.addedToLibrary(relationDetails.name))
+        guard let createRelation = service.createRelation(relationDetails: relationDetails) else { return }
+        toastPresenter.show(message: Loc.Relation.addedToLibrary(createRelation.name))
         UINotificationFeedbackGenerator().notificationOccurred(.success)
-        output?.didCreateRelation(relationDetails)
+        output?.didCreateRelation(createRelation)
     }
     
 }

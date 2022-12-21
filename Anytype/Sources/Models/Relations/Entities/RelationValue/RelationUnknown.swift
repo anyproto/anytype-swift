@@ -11,6 +11,7 @@ extension Relation {
         let isFeatured: Bool
         let isEditable: Bool
         let isSystem: Bool
+        let isDeleted: Bool
         
         let value: String
         
@@ -19,7 +20,7 @@ extension Relation {
         }
         
         static func empty(id: String, key: String, name: String) -> Unknown {
-            Unknown(id: id, key: key, name: name, isFeatured: false, isEditable: false, isSystem: false, value: "")
+            Unknown(id: id, key: key, name: name, isFeatured: false, isEditable: false, isSystem: false, isDeleted: false, value: "")
         }
     }
     

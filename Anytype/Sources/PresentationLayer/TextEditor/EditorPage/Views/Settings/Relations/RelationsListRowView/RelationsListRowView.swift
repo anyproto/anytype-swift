@@ -123,6 +123,7 @@ struct ObjectRelationRow_Previews: PreviewProvider {
                         isFeatured: false,
                         isEditable: true,
                         isSystem: false,
+                        isDeleted: false,
                         selectedTags: [
                             Relation.Tag.Option(
                                 id: "id1",
@@ -166,6 +167,7 @@ struct ObjectRelationRow_Previews: PreviewProvider {
                         isFeatured: false,
                         isEditable: true,
                         isSystem: false,
+                        isDeleted: false,
                         value: "hello"
                     )
                 ),

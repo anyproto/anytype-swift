@@ -238,12 +238,15 @@ final class BlockViewModelBuilder {
             let relation = document.parsedRelations.all.first {
                 $0.key == content.key
             }
+            
+            guard let relation = relation else {
+                return nil
+            }
 
             return RelationBlockViewModel(
                 info: info,
                 relation: relation
             ) { [weak self] in
-                guard let relation = relation else { return }
                 AnytypeAnalytics.instance().logChangeRelationValue(type: .block)
                 self?.router.showRelationValueEditingView(key: relation.key, source: .object)
             }
