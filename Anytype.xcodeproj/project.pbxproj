@@ -447,6 +447,12 @@
 		2A90C46E285B5A9100B6B44E /* ProtobufMessages in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 2A90C46C285B5A9100B6B44E /* ProtobufMessages */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		2A90C470285B5AA700B6B44E /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = 2A90C46F285B5AA700B6B44E /* SwiftProtobuf */; };
 		2A90C47B28605F8C00B6B44E /* TableOfContentsContentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A90C47A28605F8C00B6B44E /* TableOfContentsContentProvider.swift */; };
+		2A9486542950A3E7007A5586 /* HomeWidgetsModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9486532950A3E7007A5586 /* HomeWidgetsModuleAssembly.swift */; };
+		2A9486562950A41B007A5586 /* HomeWidgetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9486552950A41B007A5586 /* HomeWidgetsView.swift */; };
+		2A9486582950A494007A5586 /* HomeWidgetsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9486572950A494007A5586 /* HomeWidgetsViewModel.swift */; };
+		2A94865B2950A590007A5586 /* HomeWidgetsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A94865A2950A590007A5586 /* HomeWidgetsCoordinator.swift */; };
+		2A94865D2950A59D007A5586 /* HomeWidgetsCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A94865C2950A59D007A5586 /* HomeWidgetsCoordinatorAssembly.swift */; };
+		2A9486612950B193007A5586 /* HomeWidgetsModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9486602950B193007A5586 /* HomeWidgetsModuleOutput.swift */; };
 		2A9D299028BCC11A00789AC7 /* NonExistentBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9D298F28BCC11A00789AC7 /* NonExistentBlockView.swift */; };
 		2A9D299228BCC16E00789AC7 /* NonExistentBlockContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9D299128BCC16E00789AC7 /* NonExistentBlockContentConfiguration.swift */; };
 		2A9D299428BCC78900789AC7 /* NonExistentBlockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9D299328BCC78900789AC7 /* NonExistentBlockViewModel.swift */; };
@@ -1720,6 +1726,12 @@
 		2A7DCDE7292E8260001919B4 /* SearchModuleAssemblyProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModuleAssemblyProtocol.swift; sourceTree = "<group>"; };
 		2A8DCAD128C635CE0029B914 /* RelationDetailsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationDetailsStorage.swift; sourceTree = "<group>"; };
 		2A90C47A28605F8C00B6B44E /* TableOfContentsContentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableOfContentsContentProvider.swift; sourceTree = "<group>"; };
+		2A9486532950A3E7007A5586 /* HomeWidgetsModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWidgetsModuleAssembly.swift; sourceTree = "<group>"; };
+		2A9486552950A41B007A5586 /* HomeWidgetsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWidgetsView.swift; sourceTree = "<group>"; };
+		2A9486572950A494007A5586 /* HomeWidgetsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWidgetsViewModel.swift; sourceTree = "<group>"; };
+		2A94865A2950A590007A5586 /* HomeWidgetsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWidgetsCoordinator.swift; sourceTree = "<group>"; };
+		2A94865C2950A59D007A5586 /* HomeWidgetsCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWidgetsCoordinatorAssembly.swift; sourceTree = "<group>"; };
+		2A9486602950B193007A5586 /* HomeWidgetsModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWidgetsModuleOutput.swift; sourceTree = "<group>"; };
 		2A9D298F28BCC11A00789AC7 /* NonExistentBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonExistentBlockView.swift; sourceTree = "<group>"; };
 		2A9D299128BCC16E00789AC7 /* NonExistentBlockContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonExistentBlockContentConfiguration.swift; sourceTree = "<group>"; };
 		2A9D299328BCC78900789AC7 /* NonExistentBlockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonExistentBlockViewModel.swift; sourceTree = "<group>"; };
@@ -4599,6 +4611,7 @@
 		2A7DCDDB292E4A4E001919B4 /* Flows */ = {
 			isa = PBXGroup;
 			children = (
+				2A9486592950A57B007A5586 /* HomeWidgetsFlow */,
 				2AEE49EC292E27E300EA53AA /* ObjectSettingsFlow */,
 			);
 			path = Flows;
@@ -4626,6 +4639,26 @@
 				2AEABE0428C7548A00BDE3AC /* RelationEventsBunch.swift */,
 			);
 			path = RelationStorage;
+			sourceTree = "<group>";
+		};
+		2A9486522950A399007A5586 /* HomeWidgets */ = {
+			isa = PBXGroup;
+			children = (
+				2A9486532950A3E7007A5586 /* HomeWidgetsModuleAssembly.swift */,
+				2A9486552950A41B007A5586 /* HomeWidgetsView.swift */,
+				2A9486572950A494007A5586 /* HomeWidgetsViewModel.swift */,
+				2A9486602950B193007A5586 /* HomeWidgetsModuleOutput.swift */,
+			);
+			path = HomeWidgets;
+			sourceTree = "<group>";
+		};
+		2A9486592950A57B007A5586 /* HomeWidgetsFlow */ = {
+			isa = PBXGroup;
+			children = (
+				2A94865A2950A590007A5586 /* HomeWidgetsCoordinator.swift */,
+				2A94865C2950A59D007A5586 /* HomeWidgetsCoordinatorAssembly.swift */,
+			);
+			path = HomeWidgetsFlow;
 			sourceTree = "<group>";
 		};
 		2A9696E228C21AE8008A4EEF /* Common */ = {
@@ -4719,6 +4752,7 @@
 		2ABAF2B62938E53A003C4730 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				2A9486522950A399007A5586 /* HomeWidgets */,
 				2ABAF2B72938E548003C4730 /* CodeLanguage */,
 			);
 			path = Modules;
@@ -8357,6 +8391,7 @@
 				3D6E9A34270D9A1E001B0A07 /* HomeBottomSheetViewConfiguration.swift in Sources */,
 				3D93D56F270C9E4E00614E29 /* EditorMainItemModelsHolder.swift in Sources */,
 				C97B5D6227F498C600EA7E33 /* EditorContentView.swift in Sources */,
+				2A94865B2950A590007A5586 /* HomeWidgetsCoordinator.swift in Sources */,
 				530F503426F0ECC400F76D03 /* AudioBlockContentView.swift in Sources */,
 				2EC9424F28F97F4D00DE91E4 /* GroupsSubscribeService.swift in Sources */,
 				3D44985C26D57773005A3E06 /* DismissHandler.swift in Sources */,
@@ -8403,6 +8438,7 @@
 				EA0261332625D0E100AE6D86 /* ListBlockRestrictions.swift in Sources */,
 				3D1460E127B3F33000DC3667 /* LocalAuth.swift in Sources */,
 				123949EE279FD7320080E1CF /* FullScreenHeightPopupLayout.swift in Sources */,
+				2A94865D2950A59D007A5586 /* HomeWidgetsCoordinatorAssembly.swift in Sources */,
 				034A30412405CDBE002599E2 /* CombineExtension.swift in Sources */,
 				3D409BC026309CE100E588A7 /* HomeViewModel.swift in Sources */,
 				12DE4063264AE4C8007B5074 /* UIViewExtensions.swift in Sources */,
@@ -8721,6 +8757,7 @@
 				5326FB512630D8F500F4F7A2 /* NSLayoutConstraintExtension.swift in Sources */,
 				2AA0209028D34FF700321A66 /* TabsSubscriptionDataBuilder.swift in Sources */,
 				EA57F39826B74D2E007D4292 /* BlockInformationCreator.swift in Sources */,
+				2A9486582950A494007A5586 /* HomeWidgetsViewModel.swift in Sources */,
 				12DE4060264AE455007B5074 /* LayoutAnchorType.swift in Sources */,
 				3D93851426FAED69001C137F /* ObjectIconImageUsecase+Font.swift in Sources */,
 				3D24912B27BD271900821595 /* MentionMarkupEventProvider.swift in Sources */,
@@ -8820,6 +8857,7 @@
 				C965247F2720781C00254057 /* HorizonalTypeListView.swift in Sources */,
 				C973E1A8285B3A5C00978BC4 /* EmptyRowViewViewModel.swift in Sources */,
 				3D929B2B263302160063F1BE /* TypographyExample.swift in Sources */,
+				2A9486542950A3E7007A5586 /* HomeWidgetsModuleAssembly.swift in Sources */,
 				129C54D427FC83C000C390C7 /* SupportedRelationFormat.swift in Sources */,
 				120F7D86267F9E8000327734 /* URLExtensions.swift in Sources */,
 				3DC9F26C2660216500B115B9 /* LogoOverlay.swift in Sources */,
@@ -8834,6 +8872,7 @@
 				3D24912F27BD271900821595 /* MiddlewareEventConverter.swift in Sources */,
 				3D1702562716D1C30079B65B /* UIButton+ImageTitleSpacing.swift in Sources */,
 				3D34F20727BE2FAB00990C49 /* PersonalizationView.swift in Sources */,
+				2A9486562950A41B007A5586 /* HomeWidgetsView.swift in Sources */,
 				12F3E765270C6EE4002EE52F /* ObjectHeaderImageUsecase.swift in Sources */,
 				3D932D5726317EFC00C7D1EA /* CommonViews+Pickers+File+UIKit.swift in Sources */,
 				125683F227DF808E003A8251 /* NewSearchViewModel+SelectionMode.swift in Sources */,
@@ -8850,6 +8889,7 @@
 				12136D2C2796C5EC00262FE7 /* RelationOptionsPopupLayout.swift in Sources */,
 				12636CF3276A0CF00084D35D /* ListSectionHeaderView.swift in Sources */,
 				120E818426A04A31006FE84E /* DetailsService.swift in Sources */,
+				2A9486612950B193007A5586 /* HomeWidgetsModuleOutput.swift in Sources */,
 				53ED6257280819AE00F5503A /* AnytypeAnalyticsProtocol.swift in Sources */,
 				530F502026F0981700F76D03 /* AnytypeLabel.swift in Sources */,
 				531767D52666899B00DF463A /* UICollectionViewDiffableDataSourceExtension.swift in Sources */,

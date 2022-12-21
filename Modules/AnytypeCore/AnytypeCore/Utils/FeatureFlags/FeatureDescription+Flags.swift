@@ -1,6 +1,6 @@
 import Foundation
 
-extension FeatureDescription {
+public extension FeatureDescription {
     
     static let objectPreview = FeatureDescription(
         title: "Object preview",
@@ -93,6 +93,14 @@ extension FeatureDescription {
         author: "m@anytype.io",
         releaseVersion: "0.20.0",
         defaultValue: false
+    )
+    
+    static let homeWidgets = FeatureDescription(
+        title: "Home widgets (IOS-731)",
+        author: "m@anytype.io",
+        releaseVersion: "0.?.0",
+        defaultValue: false,
+        debugValue: false
     )
     
     // MARK: - Debug

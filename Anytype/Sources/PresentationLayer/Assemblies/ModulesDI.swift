@@ -59,4 +59,9 @@ final class ModulesDI: ModulesDIProtocol {
     var newRelation: NewRelationModuleAssemblyProtocol {
         return NewRelationModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
     }
+    
+    @MainActor
+    var homeWidgets: HomeWidgetsModuleAssemblyProtocol {
+        return HomeWidgetsModuleAssembly(uiHelpersDI: uiHelpersDI)
+    }
 }
