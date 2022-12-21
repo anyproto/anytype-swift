@@ -69,7 +69,6 @@ extension Color {
     // MARK: - BackgroundNew
     enum BackgroundNew {
       internal static let backgroundBlack = Color(asset: Asset.BackgroundNew.backgroundBlack)
-      internal static let backgroundDashboard = Color(asset: Asset.BackgroundNew.backgroundDashboard)
       internal static let highlightedOfSelected = Color(asset: Asset.BackgroundNew.highlightedOfSelected)
       internal static let primary = Color(asset: Asset.BackgroundNew.primary)
       internal static let secondary = Color(asset: Asset.BackgroundNew.secondary)
@@ -81,6 +80,11 @@ extension Color {
     internal static let buttonInactive = Color(asset: Asset.buttonInactive)
     internal static let buttonSelected = Color(asset: Asset.buttonSelected)
     internal static let buttonWhite = Color(asset: Asset.buttonWhite)
+    
+    // MARK: - Dashboard
+    enum Dashboard {
+      internal static let card = Color(asset: Asset.Dashboard.card)
+    }
     
     // MARK: - Shadow
     internal static let shadowPrimary = Color(asset: Asset.shadowPrimary)

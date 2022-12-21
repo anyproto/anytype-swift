@@ -69,7 +69,6 @@ extension UIColor {
     // MARK: - BackgroundNew
     enum BackgroundNew {
       internal static let backgroundBlack = UIColor(asset: Asset.BackgroundNew.backgroundBlack)
-      internal static let backgroundDashboard = UIColor(asset: Asset.BackgroundNew.backgroundDashboard)
       internal static let highlightedOfSelected = UIColor(asset: Asset.BackgroundNew.highlightedOfSelected)
       internal static let primary = UIColor(asset: Asset.BackgroundNew.primary)
       internal static let secondary = UIColor(asset: Asset.BackgroundNew.secondary)
@@ -81,6 +80,11 @@ extension UIColor {
     internal static let buttonInactive = UIColor(asset: Asset.buttonInactive)
     internal static let buttonSelected = UIColor(asset: Asset.buttonSelected)
     internal static let buttonWhite = UIColor(asset: Asset.buttonWhite)
+    
+    // MARK: - Dashboard
+    enum Dashboard {
+      internal static let card = UIColor(asset: Asset.Dashboard.card)
+    }
     
     // MARK: - Shadow
     internal static let shadowPrimary = UIColor(asset: Asset.shadowPrimary)
