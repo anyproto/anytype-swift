@@ -366,7 +366,7 @@ final class MiddlewareEventConverter {
         case .blockDataViewObjectOrderUpdate(let data):
             handleDataViewObjectOrderUpdate(data)
             return .general
-        case .blockDataviewTargetObjectID(let data):
+        case .blockDataviewTargetObjectIDSet(let data):
             infoContainer.updateDataview(blockId: data.id) { dataView in
                 return dataView.updated(targetObjectID: data.targetObjectID)
             }
