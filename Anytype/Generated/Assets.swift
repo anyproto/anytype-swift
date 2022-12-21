@@ -94,12 +94,12 @@ internal enum Asset {
 
   // MARK: - Shadow
   static let shadowPrimary = ColorAsset(name: "shadowPrimary")
-
-  // MARK: - Stroke
-  static let strokePrimary = ColorAsset(name: "strokePrimary")
-  static let strokeSecondary = ColorAsset(name: "strokeSecondary")
-  static let strokeTertiary = ColorAsset(name: "strokeTertiary")
-  static let strokeTransperent = ColorAsset(name: "strokeTransperent")
+  internal enum Stroke {
+    static let primary = ColorAsset(name: "Stroke/primary")
+    static let secondary = ColorAsset(name: "Stroke/secondary")
+    static let tertiary = ColorAsset(name: "Stroke/tertiary")
+    static let transperent = ColorAsset(name: "Stroke/transperent")
+  }
   internal enum TextNew {
     static let primary = ColorAsset(name: "TextNew/primary")
     static let secondary = ColorAsset(name: "TextNew/secondary")

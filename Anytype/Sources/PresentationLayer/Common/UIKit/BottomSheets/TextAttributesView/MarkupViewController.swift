@@ -40,23 +40,23 @@ final class MarkupsViewController: UIViewController {
     
     private lazy var boldButton = makeButton(image: UIImage(asset: .TextAttributes.bold)) { [weak self] in
         self?.viewModel.handle(action: .toggleMarkup(.bold))
-    }.addBorders(edges: [.right, .bottom], width: 1, color: .strokePrimary)
+    }.addBorders(edges: [.right, .bottom], width: 1, color: .Stroke.primary)
 
     private lazy var italicButton = makeButton(image: UIImage(asset: .TextAttributes.italic)) { [weak self] in
         self?.viewModel.handle(action: .toggleMarkup(.italic))
-    }.addBorders(edges: [.right, .bottom], width: 1, color: .strokePrimary)
+    }.addBorders(edges: [.right, .bottom], width: 1, color: .Stroke.primary)
 
     private lazy var strikethroughButton = makeButton(image: UIImage(asset: .TextAttributes.strikethrough)) { [weak self] in
         self?.viewModel.handle(action: .toggleMarkup(.strikethrough))
-    }.addBorders(edges: [.bottom], width: 1, color: .strokePrimary)
+    }.addBorders(edges: [.bottom], width: 1, color: .Stroke.primary)
 
     private lazy var codeButton = makeButton(text: Loc.code) { [weak self] in
         self?.viewModel.handle(action: .toggleMarkup(.keyboard))
-    }.addBorders(edges: [.right, .bottom], width: 1, color: .strokePrimary)
+    }.addBorders(edges: [.right, .bottom], width: 1, color: .Stroke.primary)
 
     private lazy var urlButton = makeButton(text: Loc.link) { [weak self] in
         self?.viewModel.handle(action: .toggleMarkup(.link))
-    }.addBorders(edges: [.bottom], width: 1, color: .strokePrimary)
+    }.addBorders(edges: [.bottom], width: 1, color: .Stroke.primary)
 
     private lazy var leftAlignButton: ButtonWithImage = {
         let button = ButtonsFactory.makeButton(image: UIImage(asset: .TextAttributes.alignLeft))

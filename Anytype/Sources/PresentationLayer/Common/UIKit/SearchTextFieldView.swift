@@ -105,7 +105,7 @@ extension SearchTextFieldView {
         }
         
         func backgroundColor() -> UIColor {
-            .strokeTransperent
+            .Stroke.transperent
         }
     }
 }

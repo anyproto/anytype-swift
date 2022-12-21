@@ -50,9 +50,9 @@ private extension StandardButtonStyle {
         case .secondary:
             return .BackgroundNew.primary
         case .primary:
-            return disabled ? .strokePrimary : Color.System.amber
+            return disabled ? .Stroke.primary : Color.System.amber
         case .destructive:
-            return disabled ? .strokePrimary : Color.System.red
+            return disabled ? .Stroke.primary : Color.System.red
         }
     }
     
@@ -72,7 +72,7 @@ private extension StandardButtonStyle {
     var borderColor: Color? {
         switch self {
         case .secondary:
-            return .strokePrimary
+            return .Stroke.primary
         case .primary, .destructive:
             return nil
         }

@@ -10,7 +10,7 @@ struct LoadingAnimationView: View {
             return Color.System.red
         }
         
-        return shouldAnimate ? Color.strokePrimary : Color.strokeTertiary
+        return shouldAnimate ? Color.Stroke.primary : Color.Stroke.tertiary
     }
     
     var scale: CGFloat {

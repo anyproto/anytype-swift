@@ -24,7 +24,7 @@ final class MoreRelationView: UIView {
     }
 
     private func setupView() {
-        backgroundColor = .strokeTertiary
+        backgroundColor = .Stroke.tertiary
 
         layer.cornerCurve = .continuous
         layer.cornerRadius = Constants.cornerRadius

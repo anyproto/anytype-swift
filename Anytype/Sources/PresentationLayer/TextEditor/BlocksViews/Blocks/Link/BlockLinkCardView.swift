@@ -136,7 +136,7 @@ final class BlockLinkCardView: UIView, BlockContentView {
 
         layer.cornerRadius = 12
         layer.masksToBounds = true
-        layer.borderColor = UIColor.strokeTransperent.cgColor
+        layer.borderColor = UIColor.Stroke.transperent.cgColor
         layer.borderWidth = 1.0
 
         titleLabel.numberOfLines = 2

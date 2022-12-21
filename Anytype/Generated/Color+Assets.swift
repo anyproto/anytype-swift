@@ -92,10 +92,12 @@ extension Color {
     internal static let shadowPrimary = Color(asset: Asset.shadowPrimary)
     
     // MARK: - Stroke
-    internal static let strokePrimary = Color(asset: Asset.strokePrimary)
-    internal static let strokeSecondary = Color(asset: Asset.strokeSecondary)
-    internal static let strokeTertiary = Color(asset: Asset.strokeTertiary)
-    internal static let strokeTransperent = Color(asset: Asset.strokeTransperent)
+    enum Stroke {
+      internal static let primary = Color(asset: Asset.Stroke.primary)
+      internal static let secondary = Color(asset: Asset.Stroke.secondary)
+      internal static let tertiary = Color(asset: Asset.Stroke.tertiary)
+      internal static let transperent = Color(asset: Asset.Stroke.transperent)
+    }
     
     // MARK: - TextNew
     enum TextNew {

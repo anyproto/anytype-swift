@@ -53,7 +53,7 @@ final class AnytypeIconDownloader {
             let imageGuideline = ImageGuideline(size: imageGuideline.size, radius: .widthFraction(0.5))
 
             return ImageBuilder(imageGuideline)
-                .setImageColor(.strokePrimary)
+                .setImageColor(.Stroke.primary)
                 .setText(String(placeholder))
                 .setFont(UIFont.systemFont(ofSize: 17))
                 .build()

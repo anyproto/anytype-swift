@@ -97,7 +97,7 @@ final class SpreadsheetBlockView<View: BlockContentView>: UIView & UIContentView
         setupLayout()
 
         layer.borderWidth = 0.5
-        dynamicBorderColor = UIColor.strokePrimary
+        dynamicBorderColor = UIColor.Stroke.primary
 
         if let dynamicHeightBlockView = blockView as? DynamicHeightView {
             dynamicHeightBlockView.heightDidChanged = { [weak self] in

@@ -92,10 +92,12 @@ extension UIColor {
     internal static let shadowPrimary = UIColor(asset: Asset.shadowPrimary)
     
     // MARK: - Stroke
-    internal static let strokePrimary = UIColor(asset: Asset.strokePrimary)
-    internal static let strokeSecondary = UIColor(asset: Asset.strokeSecondary)
-    internal static let strokeTertiary = UIColor(asset: Asset.strokeTertiary)
-    internal static let strokeTransperent = UIColor(asset: Asset.strokeTransperent)
+    enum Stroke {
+      internal static let primary = UIColor(asset: Asset.Stroke.primary)
+      internal static let secondary = UIColor(asset: Asset.Stroke.secondary)
+      internal static let tertiary = UIColor(asset: Asset.Stroke.tertiary)
+      internal static let transperent = UIColor(asset: Asset.Stroke.transperent)
+    }
     
     // MARK: - TextNew
     enum TextNew {

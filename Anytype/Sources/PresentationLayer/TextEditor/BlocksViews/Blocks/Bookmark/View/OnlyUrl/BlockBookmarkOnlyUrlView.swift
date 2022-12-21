@@ -39,7 +39,7 @@ final class BlockBookmarkOnlyUrlView: UIView, BlockContentView {
     private let backgroundView: UIView = {
         let view = UIView()
         view.layer.borderWidth = 0.5
-        view.dynamicBorderColor = UIColor.strokePrimary
+        view.dynamicBorderColor = UIColor.Stroke.primary
         view.layer.cornerRadius = 16
         view.clipsToBounds = true
         return view

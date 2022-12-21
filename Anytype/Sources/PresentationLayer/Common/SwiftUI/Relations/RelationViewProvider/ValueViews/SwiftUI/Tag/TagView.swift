@@ -14,7 +14,7 @@ struct TagView: View {
             .if(viewModel.backgroundColor == UIColor.TagBackground.default) {
                 $0.overlay(
                     RoundedRectangle(cornerRadius: style.tagViewGuidlines.cornerRadius)
-                        .stroke(Color.strokePrimary, lineWidth: 1)
+                        .stroke(Color.Stroke.primary, lineWidth: 1)
                 )
             }
             .frame(height: style.tagViewGuidlines.tagHeight)

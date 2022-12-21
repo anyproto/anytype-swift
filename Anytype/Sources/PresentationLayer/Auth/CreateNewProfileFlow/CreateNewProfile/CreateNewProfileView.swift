@@ -97,7 +97,7 @@ struct CreateNewProfileView: View {
                         .clipShape(Circle())
                         .frame(width: imageWidth, height: imageWidth)
                 } else {
-                    Color.strokePrimary
+                    Color.Stroke.primary
                         .clipShape(Circle())
                         .frame(width: imageWidth, height: imageWidth)
                 }

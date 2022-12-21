@@ -57,7 +57,7 @@ class ChangeTypeAccessoryView: UIView {
 
         let dividerView = UIView()
         dividerView.heightAnchor.constraint(equalToConstant: 0.5).isActive = true
-        dividerView.backgroundColor = .strokePrimary
+        dividerView.backgroundColor = .Stroke.primary
 
         stackView.axis = .vertical
         stackView.addArrangedSubview(topView)

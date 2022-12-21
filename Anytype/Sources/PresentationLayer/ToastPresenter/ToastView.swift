@@ -46,7 +46,7 @@ final class ToastView: UIView {
         wrapperView.layer.cornerRadius = 8
         wrapperView.layer.masksToBounds = true
         wrapperView.layer.borderWidth = 1
-        wrapperView.layer.borderColor = UIColor.strokePrimary.withAlphaComponent(0.14).cgColor
+        wrapperView.layer.borderColor = UIColor.Stroke.primary.withAlphaComponent(0.14).cgColor
         
         wrapperView.addSubview(label) {
             $0.pinToSuperview(
