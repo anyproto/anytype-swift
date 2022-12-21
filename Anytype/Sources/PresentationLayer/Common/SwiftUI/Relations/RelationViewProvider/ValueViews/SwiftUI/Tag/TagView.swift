@@ -43,7 +43,7 @@ struct TagView_Previews: PreviewProvider {
             viewModel: TagView.Model(
                 text: "text",
                 textColor: UIColor.VeryLight.amber,
-                backgroundColor: UIColor.Text.amber
+                backgroundColor: UIColor.Dark.amber
             ),
             style: .set
         )

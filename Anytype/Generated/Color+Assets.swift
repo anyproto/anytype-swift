@@ -2,6 +2,20 @@ import SwiftUI
 
 extension Color {
   
+    enum Dark: ComponentColor {
+      typealias T = Color
+      internal static let amber = Color(asset: Asset.Dark.amber)
+      internal static let blue = Color(asset: Asset.Dark.blue)
+      internal static let green = Color(asset: Asset.Dark.green)
+      internal static let grey = Color(asset: Asset.Dark.grey)
+      internal static let pink = Color(asset: Asset.Dark.pink)
+      internal static let purple = Color(asset: Asset.Dark.purple)
+      internal static let red = Color(asset: Asset.Dark.red)
+      internal static let sky = Color(asset: Asset.Dark.sky)
+      internal static let teal = Color(asset: Asset.Dark.teal)
+      internal static let yellow = Color(asset: Asset.Dark.yellow)
+    }
+    
     enum Light: ComponentColor {
       typealias T = Color
       internal static let amber = Color(asset: Asset.Light.amber)
@@ -33,20 +47,6 @@ extension Color {
       internal static let sky = Color(asset: Asset.System.sky)
       internal static let teal = Color(asset: Asset.System.teal)
       internal static let yellow = Color(asset: Asset.System.yellow)
-    }
-    
-    enum Text: ComponentColor {
-      typealias T = Color
-      internal static let amber = Color(asset: Asset.Text.amber)
-      internal static let blue = Color(asset: Asset.Text.blue)
-      internal static let green = Color(asset: Asset.Text.green)
-      internal static let grey = Color(asset: Asset.Text.grey)
-      internal static let pink = Color(asset: Asset.Text.pink)
-      internal static let purple = Color(asset: Asset.Text.purple)
-      internal static let red = Color(asset: Asset.Text.red)
-      internal static let sky = Color(asset: Asset.Text.sky)
-      internal static let teal = Color(asset: Asset.Text.teal)
-      internal static let yellow = Color(asset: Asset.Text.yellow)
     }
     
     enum VeryLight: ComponentColor {

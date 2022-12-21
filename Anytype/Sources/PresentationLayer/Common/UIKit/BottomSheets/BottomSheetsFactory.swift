@@ -19,7 +19,7 @@ final class BottomSheetsFactory {
         let askColor: () -> UIColor? = {
             guard case let .text(textContent) = info.content else { return nil }
             return textContent.color.map {
-                UIColor.Text.uiColor(from: $0)
+                UIColor.Dark.uiColor(from: $0)
             }
         }
         let askBackgroundColor: () -> UIColor? = {

@@ -7,7 +7,7 @@ final class TextBlockTextViewStyler {
         
         textView.autocorrect = configuration.content.contentType == .title ? false : true
         
-        textView.textView.tertiaryColor = configuration.content.color.map { UIColor.Text.uiColor(from: $0) }
+        textView.textView.tertiaryColor = configuration.content.color.map { UIColor.Dark.uiColor(from: $0) }
         textView.textView.textAlignment = configuration.alignment
         
         textView.textView.selectedColor = nil

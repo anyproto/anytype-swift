@@ -2,6 +2,20 @@ import UIKit
 
 extension UIColor {
   
+    enum Dark: ComponentColor {
+      typealias T = UIColor
+      internal static let amber = UIColor(asset: Asset.Dark.amber)
+      internal static let blue = UIColor(asset: Asset.Dark.blue)
+      internal static let green = UIColor(asset: Asset.Dark.green)
+      internal static let grey = UIColor(asset: Asset.Dark.grey)
+      internal static let pink = UIColor(asset: Asset.Dark.pink)
+      internal static let purple = UIColor(asset: Asset.Dark.purple)
+      internal static let red = UIColor(asset: Asset.Dark.red)
+      internal static let sky = UIColor(asset: Asset.Dark.sky)
+      internal static let teal = UIColor(asset: Asset.Dark.teal)
+      internal static let yellow = UIColor(asset: Asset.Dark.yellow)
+    }
+    
     enum Light: ComponentColor {
       typealias T = UIColor
       internal static let amber = UIColor(asset: Asset.Light.amber)
@@ -33,20 +47,6 @@ extension UIColor {
       internal static let sky = UIColor(asset: Asset.System.sky)
       internal static let teal = UIColor(asset: Asset.System.teal)
       internal static let yellow = UIColor(asset: Asset.System.yellow)
-    }
-    
-    enum Text: ComponentColor {
-      typealias T = UIColor
-      internal static let amber = UIColor(asset: Asset.Text.amber)
-      internal static let blue = UIColor(asset: Asset.Text.blue)
-      internal static let green = UIColor(asset: Asset.Text.green)
-      internal static let grey = UIColor(asset: Asset.Text.grey)
-      internal static let pink = UIColor(asset: Asset.Text.pink)
-      internal static let purple = UIColor(asset: Asset.Text.purple)
-      internal static let red = UIColor(asset: Asset.Text.red)
-      internal static let sky = UIColor(asset: Asset.Text.sky)
-      internal static let teal = UIColor(asset: Asset.Text.teal)
-      internal static let yellow = UIColor(asset: Asset.Text.yellow)
     }
     
     enum VeryLight: ComponentColor {

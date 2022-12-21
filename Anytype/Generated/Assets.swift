@@ -19,6 +19,18 @@ internal typealias AssetColorTypeAlias = ColorAsset.Color
 
 // swiftlint:disable identifier_name line_length nesting type_body_length type_name
 internal enum Asset {
+  internal enum Dark {
+    static let amber = ColorAsset(name: "Dark/amber")
+    static let blue = ColorAsset(name: "Dark/blue")
+    static let green = ColorAsset(name: "Dark/green")
+    static let grey = ColorAsset(name: "Dark/grey")
+    static let pink = ColorAsset(name: "Dark/pink")
+    static let purple = ColorAsset(name: "Dark/purple")
+    static let red = ColorAsset(name: "Dark/red")
+    static let sky = ColorAsset(name: "Dark/sky")
+    static let teal = ColorAsset(name: "Dark/teal")
+    static let yellow = ColorAsset(name: "Dark/yellow")
+  }
   internal enum Light {
     static let amber = ColorAsset(name: "Light/amber")
     static let blue = ColorAsset(name: "Light/blue")
@@ -47,18 +59,6 @@ internal enum Asset {
     static let sky = ColorAsset(name: "System/sky")
     static let teal = ColorAsset(name: "System/teal")
     static let yellow = ColorAsset(name: "System/yellow")
-  }
-  internal enum Text {
-    static let amber = ColorAsset(name: "Text/amber")
-    static let blue = ColorAsset(name: "Text/blue")
-    static let green = ColorAsset(name: "Text/green")
-    static let grey = ColorAsset(name: "Text/grey")
-    static let pink = ColorAsset(name: "Text/pink")
-    static let purple = ColorAsset(name: "Text/purple")
-    static let red = ColorAsset(name: "Text/red")
-    static let sky = ColorAsset(name: "Text/sky")
-    static let teal = ColorAsset(name: "Text/teal")
-    static let yellow = ColorAsset(name: "Text/yellow")
   }
   internal enum VeryLight {
     static let amber = ColorAsset(name: "VeryLight/amber")

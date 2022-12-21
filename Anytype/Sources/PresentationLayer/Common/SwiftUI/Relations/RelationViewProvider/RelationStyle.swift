@@ -58,7 +58,7 @@ extension RelationStyle {
     var uiFontColorWithError: UIColor {
         switch self {
         case let .featuredRelationBlock(settings):
-            return settings.error ? .Text.red : uiKitFontColor
+            return settings.error ? .Dark.red : uiKitFontColor
         default:
             return uiKitFontColor
         }

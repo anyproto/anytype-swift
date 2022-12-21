@@ -11,7 +11,7 @@ struct SeedPhraseView: View {
                 AnytypeText(
                     model.recoveryPhrase ?? Loc.Keychain.seedPhrasePlaceholder,
                     style: .codeBlock,
-                    color: .Text.sky
+                    color: .Dark.sky
                 )
                     .redacted(reason: model.recoveryPhrase.isNil ? .placeholder : [])
                     .multilineTextAlignment(.leading)
