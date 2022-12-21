@@ -30,7 +30,7 @@ struct SetViewTypesPicker: View {
             duplicateButton
         } label: {
             Image(asset: .more)
-                .foregroundColor(.buttonActive)
+                .foregroundColor(.Button.active)
                 .frame(width: 24, height: 24)
         }
     }
@@ -123,7 +123,7 @@ struct SetViewTypesPicker: View {
             Image(asset: configuration.icon)
                 .renderingMode(.template)
                 .foregroundColor(
-                    configuration.isSupported ? .buttonActive : .buttonInactive
+                    configuration.isSupported ? .Button.active : .Button.inactive
                 )
             AnytypeText(
                 configuration.name,
@@ -136,7 +136,7 @@ struct SetViewTypesPicker: View {
             }
             if configuration.isSelected && configuration.isSupported {
                 Image(asset: .optionChecked)
-                    .foregroundColor(.buttonSelected)
+                    .foregroundColor(.Button.selected)
             }
         }
     }

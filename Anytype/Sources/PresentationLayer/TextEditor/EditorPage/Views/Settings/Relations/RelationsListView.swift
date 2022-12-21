@@ -32,7 +32,7 @@ struct RelationsListView: View {
             AnytypeText(
                 editingMode ? Loc.done : Loc.edit,
                 style: .uxBodyRegular,
-                color: viewModel.navigationBarButtonsDisabled ? .buttonInactive : .textSecondary
+                color: viewModel.navigationBarButtonsDisabled ? .Button.inactive : .textSecondary
             )
         }
         .disabled(viewModel.navigationBarButtonsDisabled)
@@ -45,7 +45,7 @@ struct RelationsListView: View {
             Image(asset: .relationNew)
                 .if(viewModel.navigationBarButtonsDisabled) {
                     $0.renderingMode(.template)
-                        .foregroundColor(.buttonInactive)
+                        .foregroundColor(.Button.inactive)
                 }
                 .frame(width: 24, height: 24)
         }

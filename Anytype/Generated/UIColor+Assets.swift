@@ -75,11 +75,13 @@ extension UIColor {
     }
     
     // MARK: - Button
-    internal static let buttonAccent = UIColor(asset: Asset.buttonAccent)
-    internal static let buttonActive = UIColor(asset: Asset.buttonActive)
-    internal static let buttonInactive = UIColor(asset: Asset.buttonInactive)
-    internal static let buttonSelected = UIColor(asset: Asset.buttonSelected)
-    internal static let buttonWhite = UIColor(asset: Asset.buttonWhite)
+    enum Button {
+      internal static let accent = UIColor(asset: Asset.Button.accent)
+      internal static let active = UIColor(asset: Asset.Button.active)
+      internal static let inactive = UIColor(asset: Asset.Button.inactive)
+      internal static let selected = UIColor(asset: Asset.Button.selected)
+      internal static let white = UIColor(asset: Asset.Button.white)
+    }
     
     // MARK: - Dashboard
     enum Dashboard {

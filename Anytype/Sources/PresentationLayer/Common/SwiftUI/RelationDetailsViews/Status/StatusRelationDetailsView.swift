@@ -54,7 +54,7 @@ private extension StatusRelationDetailsView {
                 viewModel.didTapClearButton()
             }
         } label: {
-            AnytypeText(Loc.clear, style: .uxBodyRegular, color: .buttonActive)
+            AnytypeText(Loc.clear, style: .uxBodyRegular, color: .Button.active)
         }
         .disabled(!viewModel.isEditable)
     }

@@ -81,13 +81,13 @@ internal enum Asset {
     static let primary = ColorAsset(name: "BackgroundNew/primary")
     static let secondary = ColorAsset(name: "BackgroundNew/secondary")
   }
-
-  // MARK: - Button
-  static let buttonAccent = ColorAsset(name: "buttonAccent")
-  static let buttonActive = ColorAsset(name: "buttonActive")
-  static let buttonInactive = ColorAsset(name: "buttonInactive")
-  static let buttonSelected = ColorAsset(name: "buttonSelected")
-  static let buttonWhite = ColorAsset(name: "buttonWhite")
+  internal enum Button {
+    static let accent = ColorAsset(name: "Button/accent")
+    static let active = ColorAsset(name: "Button/active")
+    static let inactive = ColorAsset(name: "Button/inactive")
+    static let selected = ColorAsset(name: "Button/selected")
+    static let white = ColorAsset(name: "Button/white")
+  }
   internal enum Dashboard {
     static let card = ColorAsset(name: "Dashboard/card")
   }

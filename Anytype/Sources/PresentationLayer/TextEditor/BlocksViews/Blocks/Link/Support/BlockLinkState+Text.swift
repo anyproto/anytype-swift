@@ -15,11 +15,11 @@ extension BlockLinkState {
 
     var titleColor: UIColor {
         if case let .checkmark(value) = style, value {
-            return .buttonActive
+            return .Button.active
         }
 
         if deleted || archived {
-            return .buttonActive
+            return .Button.active
         }
 
 
@@ -55,7 +55,7 @@ extension BlockLinkState {
     private var disabledAttributes: [NSAttributedString.Key : Any] {
         [
             .font: UIFont.bodyRegular,
-            .foregroundColor: UIColor.buttonActive
+            .foregroundColor: UIColor.Button.active
         ]
     }
     

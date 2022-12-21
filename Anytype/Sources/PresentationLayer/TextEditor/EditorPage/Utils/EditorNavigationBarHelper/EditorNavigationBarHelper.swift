@@ -42,7 +42,7 @@ final class EditorNavigationBarHelper {
             primaryAction: UIAction(handler: { _ in onDoneBarButtonItemTap() }),
             menu: nil
         )
-        self.doneBarButtonItem.tintColor = UIColor.buttonAccent
+        self.doneBarButtonItem.tintColor = UIColor.Button.accent
 
 
         self.fakeNavigationBarBackgroundView.backgroundColor = .BackgroundNew.primary

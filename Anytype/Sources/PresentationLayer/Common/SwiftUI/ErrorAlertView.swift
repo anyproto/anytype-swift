@@ -23,7 +23,7 @@ struct ErrorAlertView<Presenting>: View where Presenting: View {
                         isShowing.toggle()
                         onOkPressed()
                     }) {
-                        AnytypeText("Ok", style: .body, color: .buttonAccent)
+                        AnytypeText("Ok", style: .body, color: .Button.accent)
                             .padding()
                     }
                 }

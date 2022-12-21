@@ -112,7 +112,7 @@ struct SetKanbanColumn: View {
             
             Spacer()
             
-            Image(asset: .more).foregroundColor(.buttonActive)
+            Image(asset: .more).foregroundColor(.Button.active)
         }
         .padding(.horizontal, 10)
     }

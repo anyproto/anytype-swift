@@ -65,7 +65,7 @@ struct FileDownloadingView: View {
         Button {
             viewModel.didTapDoneButton()
         } label: {
-            AnytypeText(Loc.ok, style: .uxBodyRegular, color: .buttonAccent)
+            AnytypeText(Loc.ok, style: .uxBodyRegular, color: .Button.accent)
         }
     }
      

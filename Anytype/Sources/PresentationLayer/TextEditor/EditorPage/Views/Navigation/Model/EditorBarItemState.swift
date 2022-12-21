@@ -15,10 +15,10 @@ struct EditorBarItemState: Equatable {
             if opacity < 0.7 {
                 return .textWhite
             } else {
-                return .buttonActive.withAlphaComponent(opacity)
+                return .Button.active.withAlphaComponent(opacity)
             }
         }
-        return .buttonActive
+        return .Button.active
     }
 
     var hiddableTextColor: UIColor {

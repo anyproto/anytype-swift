@@ -76,7 +76,7 @@ struct SetViewSettingsImagePreviewView: View {
             Spacer()
 
             if configuration.isSelected {
-                Image(asset: .optionChecked).frame(width: 24, height: 24).foregroundColor(.buttonSelected)
+                Image(asset: .optionChecked).frame(width: 24, height: 24).foregroundColor(.Button.selected)
             }
         }
         .frame(height: 52)

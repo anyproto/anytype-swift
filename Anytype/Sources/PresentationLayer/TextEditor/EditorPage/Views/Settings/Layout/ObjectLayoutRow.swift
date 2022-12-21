@@ -45,7 +45,7 @@ struct ObjectLayoutRow: View {
                     Spacer(minLength: 12)
                     
                     if isSelected {
-                        Image(asset: .optionChecked).frame(width: 24, height: 24).foregroundColor(.buttonSelected)
+                        Image(asset: .optionChecked).frame(width: 24, height: 24).foregroundColor(.Button.selected)
                     }
                 }
                 

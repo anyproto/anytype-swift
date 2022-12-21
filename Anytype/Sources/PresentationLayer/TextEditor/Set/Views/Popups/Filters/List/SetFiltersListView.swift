@@ -82,7 +82,7 @@ struct SetFiltersListView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 EditButton()
-                    .foregroundColor(Color.buttonActive)
+                    .foregroundColor(Color.Button.active)
             }
         }
     }
