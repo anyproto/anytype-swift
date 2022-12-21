@@ -34,7 +34,7 @@ struct SetKanbanColumn: View {
         .background(
             isGroupBackgroundColors ?
             backgroundColor.swiftColor.opacity(0.5) :
-            Color.BackgroundNew.primary
+            Color.Background.primary
         )
         .cornerRadius(4)
         .frame(width: 270)
@@ -86,7 +86,7 @@ struct SetKanbanColumn: View {
                 AnytypeText(
                     Loc.Set.View.Kanban.Column.Title.uncategorized,
                     style: .relation2Regular,
-                    color: .TextNew.secondary
+                    color: .Text.secondary
                 )
             case let .status(options):
                 StatusRelationView(options: options, hint: "", style: .kanbanHeader)
@@ -105,7 +105,7 @@ struct SetKanbanColumn: View {
                     AnytypeText(
                         text,
                         style: .relation2Regular,
-                        color: .TextNew.secondary
+                        color: .Text.secondary
                     )
                 }
             }
@@ -126,13 +126,13 @@ struct SetKanbanColumn: View {
                 HStack(spacing: 0) {
                     Spacer.fixedWidth(3)
                     Image(asset: .arrowDown)
-                        .foregroundColor(.TextNew.secondary)
+                        .foregroundColor(.Text.secondary)
                         .frame(width: 18, height: 18)
                     Spacer.fixedWidth(7)
                     AnytypeText(
                         Loc.Set.View.Kanban.Column.Paging.Title.showMore,
                         style: .caption1Medium,
-                        color: .TextNew.secondary
+                        color: .Text.secondary
                     )
                     Spacer()
                 }
@@ -143,7 +143,7 @@ struct SetKanbanColumn: View {
     
     private var emptyDroppableArea: some View {
         Rectangle()
-            .fill(Color.BackgroundNew.primary)
+            .fill(Color.Background.primary)
             .frame(height: 44)
             .onDrop(
                 of: [UTType.text],

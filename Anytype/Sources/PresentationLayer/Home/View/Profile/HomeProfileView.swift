@@ -57,7 +57,7 @@ struct HomeProfileView: View {
         HStack(spacing: 20) {
             Button(action: { model.startSearch() }) {
                 HomeProfileViewButtonImage(
-                    image: Image(asset: .mainSearch).renderingMode(.template).foregroundColor(.TextNew.primary)
+                    image: Image(asset: .mainSearch).renderingMode(.template).foregroundColor(.Text.primary)
                 )
 
             }
@@ -70,7 +70,7 @@ struct HomeProfileView: View {
             }
             Button(action: { model.createAndShowNewPage() } ) {
                 HomeProfileViewButtonImage(
-                    image: Image(asset: .draft).renderingMode(.template).foregroundColor(.TextNew.primary)
+                    image: Image(asset: .draft).renderingMode(.template).foregroundColor(.Text.primary)
                 )
 
             }

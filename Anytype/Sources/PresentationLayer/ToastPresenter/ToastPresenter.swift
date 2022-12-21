@@ -98,6 +98,6 @@ class ToastPresenter: ToastPresenterProtocol {
 
 extension ToastPresenter {
     static var defaultAttributes: [NSAttributedString.Key : Any] {
-        [.font: UIFont.caption1Medium, .foregroundColor: UIColor.TextNew.white]
+        [.font: UIFont.caption1Medium, .foregroundColor: UIColor.Text.white]
     }
 }

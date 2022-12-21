@@ -32,9 +32,9 @@ struct AlphaInviteCodeView: View {
     private var contentView: some View {
         VStack(spacing: 0) {
             VStack(alignment: .leading, spacing: 0) {
-                AnytypeText(Loc.enterYourInvitationCode, style: .heading, color: .TextNew.primary)
+                AnytypeText(Loc.enterYourInvitationCode, style: .heading, color: .Text.primary)
                 Spacer.fixedHeight(11)
-                AnytypeText(Loc.doNotHaveInvite, style: .uxCalloutRegular, color: .TextNew.primary)
+                AnytypeText(Loc.doNotHaveInvite, style: .uxCalloutRegular, color: .Text.primary)
                 Spacer.fixedHeight(30)
                 
                 AutofocusedTextField(
@@ -46,7 +46,7 @@ struct AlphaInviteCodeView: View {
                     .textContentType(.password)
                     .autocapitalization(.none)
                     .font(AnytypeFontBuilder.font(anytypeFont: .uxBodyRegular))
-                    .foregroundColor(.TextNew.primary)
+                    .foregroundColor(.Text.primary)
                     .divider(spacing: 11.5)
                 Spacer.fixedHeight(20)
                 
@@ -54,7 +54,7 @@ struct AlphaInviteCodeView: View {
             }
             .padding(EdgeInsets(top: 23, leading: 20, bottom: 10, trailing: 20))
         }
-        .background(Color.BackgroundNew.primary)
+        .background(Color.Background.primary)
         .cornerRadius(16.0)
     }
     

@@ -10,7 +10,7 @@ struct SettingsView: View {
             SettingsSectionView()
             Spacer.fixedHeight(16)
         }
-        .background(Color.BackgroundNew.secondary)
+        .background(Color.Background.secondary)
         .cornerRadius(16)
         
         .environmentObject(model)

@@ -5,7 +5,7 @@ struct RelationsListRowHintView: View {
     let style: RelationStyle
     
     var body: some View {
-        AnytypeText(hint, style: style.hintFont, color: .TextNew.tertiary)
+        AnytypeText(hint, style: style.hintFont, color: .Text.tertiary)
             .lineLimit(1)
     }
 }

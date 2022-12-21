@@ -6,7 +6,7 @@ struct TitleView: View {
     
     var body: some View {
         if let title = title {
-            AnytypeText(title, style: .uxTitle1Semibold, color: .TextNew.primary)
+            AnytypeText(title, style: .uxTitle1Semibold, color: .Text.primary)
                 .frame(height: 48)
         }
     }

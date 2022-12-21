@@ -42,7 +42,7 @@ final class EditorBottomNavigationView: UIView {
     }
     
     private func setup() {
-        backgroundColor = .BackgroundNew.primary
+        backgroundColor = .Background.primary
         
         layoutUsing.stack(
             layout: { stackView in

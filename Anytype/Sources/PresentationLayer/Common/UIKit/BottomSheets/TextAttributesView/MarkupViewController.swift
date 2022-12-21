@@ -108,7 +108,7 @@ final class MarkupsViewController: UIViewController {
     // MARK: -  Setup views
 
     private func setupViews() {
-        containerStackView.backgroundColor = .BackgroundNew.secondary
+        containerStackView.backgroundColor = .Background.secondary
 
         containerShadowView.view.layer.cornerRadius = 12
         containerShadowView.view.layer.masksToBounds = true
@@ -141,12 +141,12 @@ final class MarkupsViewController: UIViewController {
         bottomStackView.addArrangedSubview(rightAlignButton)
 
         codeButton.label.font = .uxBodyRegular
-        codeButton.setTextColor(.TextNew.primary, state: .normal)
-        codeButton.setTextColor(.TextNew.tertiary, state: .disabled)
+        codeButton.setTextColor(.Text.primary, state: .normal)
+        codeButton.setTextColor(.Text.tertiary, state: .disabled)
 
         urlButton.label.font = .uxBodyRegular
-        urlButton.setTextColor(.TextNew.primary, state: .normal)
-        urlButton.setTextColor(.TextNew.tertiary, state: .disabled)
+        urlButton.setTextColor(.Text.primary, state: .normal)
+        urlButton.setTextColor(.Text.tertiary, state: .disabled)
     }
     
     private func makeButton(

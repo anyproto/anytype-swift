@@ -20,7 +20,7 @@ final class TopAlertView: UIView {
     }
     
     private func setupLayout() {
-        backgroundColor = .BackgroundNew.secondary
+        backgroundColor = .Background.secondary
         label.textAlignment = .center
         label.font = .caption1Medium
         addSubview(label) {

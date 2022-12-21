@@ -53,6 +53,6 @@ final class StyleCellContentView: UIView, UIContentView {
         label.text = configuration.text
         label.font = configuration.font
 
-        label.textColor = configuration.isDisabled ? .Button.inactive : .TextNew.primary
+        label.textColor = configuration.isDisabled ? .Button.inactive : .Text.primary
     }
 }

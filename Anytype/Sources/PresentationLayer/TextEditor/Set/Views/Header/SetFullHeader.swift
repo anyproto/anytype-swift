@@ -30,7 +30,7 @@ struct SetFullHeader: View {
             switch model.headerModel.header {
             case .empty(let data, _):
                 Button(action: data.onTap) {
-                    Color.BackgroundNew.primary
+                    Color.Background.primary
                         .frame(height: ObjectHeaderConstants.emptyViewHeight)
                 }
             case .filled(let state, _):
@@ -56,7 +56,7 @@ extension SetFullHeader {
                 AnytypeText(
                     description,
                     style: .relation2Regular,
-                    color: .TextNew.primary
+                    color: .Text.primary
                 )
                 .fixedSize(horizontal: false, vertical: true)
             } else {
@@ -111,7 +111,7 @@ extension SetFullHeader {
     private var dotImage: some View {
         Image(systemName: "circle.fill")
             .resizable()
-            .foregroundColor(.TextNew.secondary)
+            .foregroundColor(.Text.secondary)
             .frame(width: 3, height: 3)
     }
 }

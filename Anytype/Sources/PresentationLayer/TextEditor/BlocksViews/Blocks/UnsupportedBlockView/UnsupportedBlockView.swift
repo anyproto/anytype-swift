@@ -6,7 +6,7 @@ import AnytypeCore
 class UnsupportedBlockView: UIView, BlockContentView {
     private let label: AnytypeLabel = {
         let label = AnytypeLabel(style: .callout)
-        label.textColor = .TextNew.tertiary
+        label.textColor = .Text.tertiary
         return label
     }()
 

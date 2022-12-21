@@ -9,7 +9,7 @@ struct EditorSetViewSettingsView: View {
         NavigationView {
             content
         }
-        .background(Color.BackgroundNew.secondary)
+        .background(Color.Background.secondary)
         .navigationViewStyle(.stack)
     }
     
@@ -82,7 +82,7 @@ struct EditorSetViewSettingsView: View {
     }
     
     private var settingsHeader: some View {
-        AnytypeText(Loc.settings, style: .uxTitle1Semibold, color: .TextNew.primary)
+        AnytypeText(Loc.settings, style: .uxTitle1Semibold, color: .Text.primary)
             .frame(height: 52)
             .divider()
     }
@@ -92,13 +92,13 @@ struct EditorSetViewSettingsView: View {
             model.onTap()
         } label: {
             HStack(spacing: 0) {
-                AnytypeText(model.title, style: .uxBodyRegular, color: .TextNew.primary)
+                AnytypeText(model.title, style: .uxBodyRegular, color: .Text.primary)
                 Spacer()
-                AnytypeText(model.value, style: .uxBodyRegular, color: .TextNew.secondary)
+                AnytypeText(model.value, style: .uxBodyRegular, color: .Text.secondary)
                 Spacer.fixedWidth(11)
                 Image(asset: .arrowForward)
                     .renderingMode(.template)
-                    .foregroundColor(.TextNew.secondary)
+                    .foregroundColor(.Text.secondary)
             }
         }
         .frame(height: 52)
@@ -117,7 +117,7 @@ struct EditorSetViewSettingsView: View {
     }
     
     private var relationsHeader: some View {
-        AnytypeText(Loc.relations, style: .uxTitle1Semibold, color: .TextNew.primary)
+        AnytypeText(Loc.relations, style: .uxTitle1Semibold, color: .Text.primary)
             .frame(height: 52)
             .divider()
     }

@@ -18,7 +18,7 @@ final class BlockBookmarkOnlyUrlView: UIView, BlockContentView {
     }
     
     private func setup() {
-        backgroundColor = .BackgroundNew.primary
+        backgroundColor = .Background.primary
         
         addSubview(backgroundView) {
             $0.pinToSuperview(insets: Layout.bookmarkViewInsets)
@@ -48,8 +48,8 @@ final class BlockBookmarkOnlyUrlView: UIView, BlockContentView {
     private let urlView: UILabel = {
         let view = UILabel()
         view.font = .relation3Regular
-        view.textColor = .TextNew.secondary
-        view.backgroundColor = .BackgroundNew.primary
+        view.textColor = .Text.secondary
+        view.backgroundColor = .Background.primary
         return view
     }()
 }

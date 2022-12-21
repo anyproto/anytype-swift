@@ -14,7 +14,7 @@ struct SettingsAccountView: View {
             Spacer.fixedHeight(20)
         }
         .padding(.horizontal, 20)
-        .background(Color.BackgroundNew.secondary)
+        .background(Color.Background.secondary)
         .cornerRadius(16, corners: .top)
         
         .onAppear {
@@ -25,7 +25,7 @@ struct SettingsAccountView: View {
     private var header: some View {
         VStack(spacing: 0) {
             Spacer.fixedHeight(12)
-            AnytypeText(Loc.accountData, style: .uxTitle1Semibold, color: .TextNew.primary)
+            AnytypeText(Loc.accountData, style: .uxTitle1Semibold, color: .Text.primary)
             Spacer.fixedHeight(12)
         }
     }
@@ -55,7 +55,7 @@ struct SettingsAccountView: View {
     private var dataBlock: some View {
         VStack(spacing: 0) {
             section(Loc.data)
-            SettingsButton(text: Loc.clearFileCache, textColor: .TextNew.primary) {
+            SettingsButton(text: Loc.clearFileCache, textColor: .Text.primary) {
                 model.clearCacheAlert = true
             }
         }
@@ -65,7 +65,7 @@ struct SettingsAccountView: View {
         VStack(spacing: 0) {
             section(Loc.account)
             
-            SettingsButton(text: Loc.deleteAccount, textColor: .TextNew.primary) {
+            SettingsButton(text: Loc.deleteAccount, textColor: .Text.primary) {
                 model.accountDeleting = true
             }
             
@@ -79,7 +79,7 @@ struct SettingsAccountView: View {
         VStack(spacing: 0) {
             Spacer.fixedHeight(26)
             HStack {
-                AnytypeText(text, style: .caption1Regular, color: .TextNew.secondary)
+                AnytypeText(text, style: .caption1Regular, color: .Text.secondary)
                 Spacer()
             }
             Spacer.fixedHeight(8)

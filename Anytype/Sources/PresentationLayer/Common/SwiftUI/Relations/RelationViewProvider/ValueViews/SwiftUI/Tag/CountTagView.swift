@@ -9,7 +9,7 @@ struct CountTagView: View {
         TagView(
             viewModel: TagView.Model(
                 text: "+\(count)",
-                textColor: .TextNew.secondary,
+                textColor: .Text.secondary,
                 backgroundColor: .Stroke.transperent
             ),
             style: style

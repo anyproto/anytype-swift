@@ -58,7 +58,7 @@ struct TagRelationView: View {
 
             switch style {
             case .regular, .featuredRelationBlock, .set:
-                AnytypeText(leftTagsCount, style: .relation2Regular, color: .TextNew.secondary)
+                AnytypeText(leftTagsCount, style: .relation2Regular, color: .Text.secondary)
                     .lineLimit(1)
                     .frame(width: 24, height: 18)
                     .background(Color.Stroke.tertiary)

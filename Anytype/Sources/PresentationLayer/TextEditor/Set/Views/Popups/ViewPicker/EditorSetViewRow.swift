@@ -22,7 +22,7 @@ struct EditorSetViewRow: View {
                 AnytypeText(
                     configuration.name,
                     style: .uxBodyRegular,
-                    color: configuration.isSupported ? .TextNew.primary : .TextNew.secondary
+                    color: configuration.isSupported ? .Text.primary : .Text.secondary
                 )
                 Spacer(minLength: 5)
                 accessoryView
@@ -47,7 +47,7 @@ struct EditorSetViewRow: View {
                     AnytypeText(
                         Loc.EditorSetViewPicker.View.Available.soon(configuration.typeName),
                         style: .uxBodyRegular,
-                        color: .TextNew.secondary
+                        color: .Text.secondary
                     )
                 }
             }

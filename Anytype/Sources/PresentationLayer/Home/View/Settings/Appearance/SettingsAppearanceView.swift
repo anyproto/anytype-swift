@@ -9,7 +9,7 @@ struct SettingsAppearanceView: View {
             DragIndicator()
             
             Spacer.fixedHeight(12)
-            AnytypeText(Loc.appearance, style: .uxTitle1Semibold, color: .TextNew.primary)
+            AnytypeText(Loc.appearance, style: .uxTitle1Semibold, color: .Text.primary)
             Spacer.fixedHeight(12)
             
             wallpaper
@@ -18,7 +18,7 @@ struct SettingsAppearanceView: View {
             
             Spacer.fixedHeight(20)
         }
-        .background(Color.BackgroundNew.secondary)
+        .background(Color.Background.secondary)
         .cornerRadius(16, corners: .top)
         
         .onAppear {
@@ -40,7 +40,7 @@ struct SettingsAppearanceView: View {
 
     private var appearanceType: some View {
         VStack(alignment: .center) {
-            AnytypeText(Loc.mode, style: .caption1Medium, color: .TextNew.secondary)
+            AnytypeText(Loc.mode, style: .caption1Medium, color: .Text.secondary)
                 .frame(alignment: .center)
             HStack() {
                 ForEach(UIUserInterfaceStyle.allCases) { style in
@@ -74,14 +74,14 @@ struct SettingsAppearanceView: View {
             AnytypeText(
                 style.title,
                 style: .caption2Regular,
-                color: .TextNew.secondary
+                color: .Text.secondary
             ).frame(maxWidth: .infinity)
         }
     }
 
     private var iconPicker: some View {
         VStack(alignment: .center) {
-            AnytypeText(Loc.applicationIcon, style: .caption1Medium, color: .TextNew.secondary).padding(.bottom, 6)
+            AnytypeText(Loc.applicationIcon, style: .caption1Medium, color: .Text.secondary).padding(.bottom, 6)
             HStack {
                 ForEach(AppIcon.allCases, id: \.self) { icon in
                     appIcon(icon)

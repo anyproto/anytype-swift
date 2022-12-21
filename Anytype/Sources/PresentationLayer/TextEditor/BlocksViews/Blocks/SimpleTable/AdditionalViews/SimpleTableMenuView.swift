@@ -53,7 +53,7 @@ struct SimpleTableMenuView: View {
             tabHeaders
             SelectionOptionsView(viewModel: .init(itemProvider: viewModel))
         }
-        .background(Color.BackgroundNew.secondary)
+        .background(Color.Background.secondary)
     }
 
     private var tabHeaders: some View {

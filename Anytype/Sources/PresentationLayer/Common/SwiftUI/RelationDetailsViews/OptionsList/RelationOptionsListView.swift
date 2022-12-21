@@ -31,7 +31,7 @@ struct RelationOptionsListView: View {
     
     private var emptyView: some View {
         VStack(spacing: 0) {
-            AnytypeText(viewModel.emptyPlaceholder, style: .uxCalloutRegular, color: .TextNew.tertiary)
+            AnytypeText(viewModel.emptyPlaceholder, style: .uxCalloutRegular, color: .Text.tertiary)
                 .frame(height: 48)
             Spacer()
         }

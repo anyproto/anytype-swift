@@ -24,7 +24,7 @@ extension BlockLinkState {
 
 
 
-        return .TextNew.primary
+        return .Text.primary
     }
 
     var attributedDescription: NSAttributedString {
@@ -47,7 +47,7 @@ extension BlockLinkState {
             string: type.name,
             attributes: [
                 .font: UIFont.relation2Regular,
-                .foregroundColor: UIColor.TextNew.secondary,
+                .foregroundColor: UIColor.Text.secondary,
             ]
         )
     }
@@ -63,21 +63,21 @@ extension BlockLinkState {
 
         return [
             .font: UIFont.bodyRegular,
-            .foregroundColor: UIColor.TextNew.primary
+            .foregroundColor: UIColor.Text.primary
         ]
     }
 
     private var disabledDescriptionAttributes: [NSAttributedString.Key : Any] {
         [
             .font: UIFont.relation2Regular,
-            .foregroundColor: UIColor.TextNew.secondary,
+            .foregroundColor: UIColor.Text.secondary,
         ]
     }
 
     private var enabledDescriptionAttributes: [NSAttributedString.Key : Any] {
         [
             .font: UIFont.relation2Regular,
-            .foregroundColor: UIColor.TextNew.primary,
+            .foregroundColor: UIColor.Text.primary,
         ]
     }
     

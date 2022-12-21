@@ -54,7 +54,7 @@ struct SetSortsListView: View {
             AnytypeText(
                 Loc.EditSet.Popup.Sorts.EmptyView.title,
                 style: .uxCalloutRegular,
-                color: .TextNew.secondary
+                color: .Text.secondary
             )
                 .frame(height: 68)
             Spacer()

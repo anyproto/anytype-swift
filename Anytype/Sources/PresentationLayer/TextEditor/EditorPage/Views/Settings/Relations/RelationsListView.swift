@@ -32,7 +32,7 @@ struct RelationsListView: View {
             AnytypeText(
                 editingMode ? Loc.done : Loc.edit,
                 style: .uxBodyRegular,
-                color: viewModel.navigationBarButtonsDisabled ? .Button.inactive : .TextNew.secondary
+                color: viewModel.navigationBarButtonsDisabled ? .Button.inactive : .Text.secondary
             )
         }
         .disabled(viewModel.navigationBarButtonsDisabled)
@@ -73,7 +73,7 @@ struct RelationsListView: View {
     }
     
     private func sectionHeader(title: String) -> some View {
-        AnytypeText(title, style: .uxTitle1Semibold, color: .TextNew.primary)
+        AnytypeText(title, style: .uxTitle1Semibold, color: .Text.primary)
             .frame(height: 48)
     }
     

@@ -34,7 +34,7 @@ struct DashboardSelectionActionsView: View {
                 UISelectionFeedbackGenerator().selectionChanged()
                 model.deleteSelected()
             }, label: {
-                AnytypeText(Loc.delete, style: .uxBodyRegular, color: .TextNew.primary)
+                AnytypeText(Loc.delete, style: .uxBodyRegular, color: .Text.primary)
             })
                 .frame(maxWidth: .infinity)
             
@@ -42,7 +42,7 @@ struct DashboardSelectionActionsView: View {
                 UISelectionFeedbackGenerator().selectionChanged()
                 model.restoreSelected()
             }, label: {
-                AnytypeText(Loc.restore, style: .uxBodyRegular, color: .TextNew.primary)
+                AnytypeText(Loc.restore, style: .uxBodyRegular, color: .Text.primary)
             })
                 .frame(maxWidth: .infinity)
         }

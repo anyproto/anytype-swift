@@ -26,7 +26,7 @@ extension View {
                     view()
                     Rectangle()
                         .frame(height: UIApplication.shared.mainWindowInsets.bottom)
-                        .foregroundColor(.BackgroundNew.secondary)
+                        .foregroundColor(.Background.secondary)
                 }
             }
         )

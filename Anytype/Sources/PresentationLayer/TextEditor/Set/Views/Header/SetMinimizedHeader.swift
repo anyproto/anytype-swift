@@ -31,7 +31,7 @@ struct SetMinimizedHeader: View {
             .padding(.trailing, 2)
         }
         .frame(height: minimizedHeaderHeight)
-        .background(Color.BackgroundNew.primary.opacity(opacity))
+        .background(Color.Background.primary.opacity(opacity))
         .readSize { headerMinimizedSize = $0 }
     }
     
@@ -42,7 +42,7 @@ struct SetMinimizedHeader: View {
                     .frame(width: 18, height: 18)
             }
             model.details.flatMap {
-                AnytypeText($0.title, style: .body, color: .TextNew.primary)
+                AnytypeText($0.title, style: .body, color: .Text.primary)
                     .lineLimit(1)
             }
         }

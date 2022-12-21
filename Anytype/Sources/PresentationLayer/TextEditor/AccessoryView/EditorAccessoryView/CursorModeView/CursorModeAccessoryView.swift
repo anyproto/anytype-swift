@@ -16,7 +16,7 @@ class CursorModeAccessoryView: UIView {
 
     private func setupViews() {
         autoresizingMask = .flexibleHeight
-        backgroundColor = .BackgroundNew.primary
+        backgroundColor = .Background.primary
         addSubview(stackView) {
             $0.pinToSuperviewPreservingReadability()
         }

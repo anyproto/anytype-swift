@@ -12,7 +12,7 @@ final class TextBlockTextViewStyler {
         
         textView.textView.selectedColor = nil
         if configuration.content.contentType == .checkbox {
-            textView.textView.selectedColor = configuration.content.checked ? UIColor.TextNew.secondary : nil
+            textView.textView.selectedColor = configuration.content.checked ? UIColor.Text.secondary : nil
         }
     }
     
@@ -46,7 +46,7 @@ final class TextBlockTextViewStyler {
     private static func setupText(in textView: CustomTextView, placeholer: String, textStyle: UIKitAnytypeText) {
         let attributes: [NSAttributedString.Key: Any] = [
             .font: textStyle.anytypeFont.uiKitFont,
-            .foregroundColor: UIColor.TextNew.secondary,
+            .foregroundColor: UIColor.Text.secondary,
         ]
 
         textView.textView.update(placeholder: .init(string: placeholer, attributes: attributes))
@@ -65,6 +65,6 @@ final class TextBlockTextViewStyler {
             textView.textView.typingAttributes = textStyle.typingAttributes(for: 0)
         }
 
-        textView.textView.defaultFontColor = .TextNew.primary
+        textView.textView.defaultFontColor = .Text.primary
     }
 }

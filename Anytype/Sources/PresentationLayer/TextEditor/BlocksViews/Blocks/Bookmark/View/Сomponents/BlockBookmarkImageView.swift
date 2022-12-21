@@ -12,7 +12,7 @@ class BlockBookmarkImageView: UIImageView {
         clipsToBounds = true
         layer.cornerRadius = 2
         addDimmedOverlay(with: .black.withAlphaComponent(0.05))
-        backgroundColor = .BackgroundNew.primary
+        backgroundColor = .Background.primary
         
         layoutUsing.anchors {
             $0.size(Constants.size)

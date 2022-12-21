@@ -48,7 +48,7 @@ private extension StandardButtonStyle {
     func backgroundColor(disabled: Bool) -> Color {
         switch self {
         case .secondary:
-            return .BackgroundNew.primary
+            return .Background.primary
         case .primary:
             return disabled ? .Stroke.primary : Color.System.amber
         case .destructive:
@@ -60,9 +60,9 @@ private extension StandardButtonStyle {
         switch self {
         case .secondary:
             if disabled {
-                return .TextNew.secondary
+                return .Text.secondary
             } else {
-                return .TextNew.primary
+                return .Text.primary
             }
         case .primary, .destructive:
             return .white

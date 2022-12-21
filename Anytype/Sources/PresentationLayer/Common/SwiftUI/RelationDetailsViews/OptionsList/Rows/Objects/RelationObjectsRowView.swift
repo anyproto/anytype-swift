@@ -53,17 +53,17 @@ struct RelationObjectsRowView: View {
     
     private var titleColor: Color {
         if object.isDeleted || object.isArchived {
-            return .TextNew.tertiary
+            return .Text.tertiary
         } else {
-            return .TextNew.primary
+            return .Text.primary
         }
     }
     
     private var subtitleColor: Color {
         if object.isDeleted || object.isArchived {
-            return .TextNew.tertiary
+            return .Text.tertiary
         } else {
-            return .TextNew.secondary
+            return .Text.secondary
         }
     }
     

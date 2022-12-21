@@ -73,7 +73,7 @@ extension EditorNavigationBarTitleView: ConfigurableView {
 private extension EditorNavigationBarTitleView {
     
     func setupView() {
-        titleLabel.textColor = .TextNew.primary
+        titleLabel.textColor = .Text.primary
         titleLabel.numberOfLines = 1
         
         iconImageView.contentMode = .scaleAspectFit

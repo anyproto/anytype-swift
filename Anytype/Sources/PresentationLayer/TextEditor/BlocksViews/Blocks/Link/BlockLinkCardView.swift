@@ -145,7 +145,7 @@ final class BlockLinkCardView: UIView, BlockContentView {
         descriptionLabel.numberOfLines = 2
         objectTypeLabel.numberOfLines = 1
 
-        objectTypeLabel.textColor = .TextNew.secondary
+        objectTypeLabel.textColor = .Text.secondary
     }
 
     private func setupLayout() {
@@ -231,7 +231,7 @@ private final class BlockLinkCoverView: UIView {
     }
 
     private func setupView() {
-        backgroundColor = .BackgroundNew.primary
+        backgroundColor = .Background.primary
 
         setupLayout()
 

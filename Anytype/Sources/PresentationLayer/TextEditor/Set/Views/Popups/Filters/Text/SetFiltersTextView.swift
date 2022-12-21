@@ -20,7 +20,7 @@ struct SetFiltersTextView: View {
             placeholderFont: .uxBodyRegular,
             text: $viewModel.input
         )
-        .foregroundColor(.TextNew.primary)
+        .foregroundColor(.Text.primary)
         .font(AnytypeFontBuilder.font(anytypeFont: .uxBodyRegular))
         .keyboardType(viewModel.keyboardType)
         .frame(height: 48)

@@ -39,7 +39,7 @@ struct FlowRelationsView: View {
                 AnytypeText(
                     description,
                     style: .relation3Regular,
-                    color: .TextNew.secondary
+                    color: .Text.secondary
                 )
                 .fixedSize(horizontal: false, vertical: true)
                 .lineLimit(1)
@@ -80,7 +80,7 @@ struct FlowRelationsView: View {
     private var dotImage: some View {
         Image(systemName: "circle.fill")
             .resizable()
-            .foregroundColor(.TextNew.secondary)
+            .foregroundColor(.Text.secondary)
             .frame(width: 3, height: 3)
     }
 }

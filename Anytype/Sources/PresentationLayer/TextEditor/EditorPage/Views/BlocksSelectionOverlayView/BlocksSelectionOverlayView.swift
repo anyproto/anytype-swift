@@ -65,7 +65,7 @@ final class BlocksSelectionOverlayView: UIView {
             $0.height.equal(to: statusBarHeight)
         }
 
-        statusBarOverlayView.backgroundColor = .BackgroundNew.primary
+        statusBarOverlayView.backgroundColor = .Background.primary
 
         addSubview(shadowedBlocksOptionView) {
             $0.pinToSuperview(excluding: [.top], insets: .init(top: 0, left: 10, bottom: 10, right: 10))

@@ -53,7 +53,7 @@ extension LinkToObjectSearchData {
     }
     
     var descriptionTextColor: Color {
-        .TextNew.primary
+        .Text.primary
     }
     
     var descriptionFont: AnytypeFont {

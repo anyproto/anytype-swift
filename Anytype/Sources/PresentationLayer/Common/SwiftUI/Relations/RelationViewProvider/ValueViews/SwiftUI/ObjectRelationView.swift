@@ -78,7 +78,7 @@ struct ObjectRelationView: View {
         if style.isError {
             return style.fontColorWithError
         } else if option.isDeleted || option.isArchived {
-            return .TextNew.tertiary
+            return .Text.tertiary
         } else {
             return style.fontColor
         }

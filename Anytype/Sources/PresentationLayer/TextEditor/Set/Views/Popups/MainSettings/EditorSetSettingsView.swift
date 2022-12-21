@@ -12,7 +12,7 @@ struct EditorSetSettingsView: View {
                 }
                 Spacer()
             }
-            .background(Color.BackgroundNew.secondary)
+            .background(Color.Background.secondary)
             .padding(.vertical, 13)
             .padding(.horizontal, 16)
         }
@@ -27,13 +27,13 @@ struct EditorSetSettingsView: View {
             VStack(spacing: 0) {
                 ZStack(alignment: .center) {
                     RoundedRectangle(cornerRadius: 10)
-                        .foregroundColor(Color.BackgroundNew.highlightedOfSelected)
+                        .foregroundColor(Color.Background.highlightedOfSelected)
                     Image(asset: setting.imageAsset)
                 }
                 .frame(width: 52, height: 52)
                 
                 Spacer.fixedHeight(5)
-                AnytypeText(setting.name, style: .caption2Regular, color: .TextNew.secondary)
+                AnytypeText(setting.name, style: .caption2Regular, color: .Text.secondary)
             }
             .frame(height: 52)
         }

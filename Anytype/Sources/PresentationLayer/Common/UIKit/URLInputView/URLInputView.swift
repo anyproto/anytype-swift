@@ -16,7 +16,7 @@ final class URLInputView: UIView {
             string: Loc.pasteOrTypeURL,
             attributes: [
                 .font: UIFont.uxBodyRegular,
-                .foregroundColor: UIColor.TextNew.secondary
+                .foregroundColor: UIColor.Text.secondary
             ]
         )
         return textField

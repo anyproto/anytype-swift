@@ -36,7 +36,7 @@ struct EditorSetView: View {
                     headerMinimizedSize: $headerMinimizedSize
                 )
             }
-            Rectangle().frame(height: 40).foregroundColor(.BackgroundNew.primary) // Navigation view stub
+            Rectangle().frame(height: 40).foregroundColor(.Background.primary) // Navigation view stub
         }
         .ignoresSafeArea(edges: .top)
     }

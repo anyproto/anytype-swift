@@ -38,7 +38,7 @@ struct TitleWithIconView: View {
     private func title(with text: String?) -> some View {
         Group {
             if let text = text, text.isNotEmpty {
-                AnytypeText(text, style: style.titleFont, color: .TextNew.primary)
+                AnytypeText(text, style: style.titleFont, color: .Text.primary)
                     .lineLimit(style.lineLimit)
                     .multilineTextAlignment(.leading)
             } else {

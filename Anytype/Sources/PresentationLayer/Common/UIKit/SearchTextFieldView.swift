@@ -101,7 +101,7 @@ extension SearchTextFieldView {
         }
         
         func textColor() -> UIColor {
-            .TextNew.primary
+            .Text.primary
         }
         
         func backgroundColor() -> UIColor {

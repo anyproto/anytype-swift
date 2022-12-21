@@ -30,7 +30,7 @@ struct SetFiltersCheckboxView: View {
             AnytypeText(
                 value.title,
                 style: .uxBodyRegular,
-                color: .TextNew.primary
+                color: .Text.primary
             )
             Spacer()
             icon(for: value)

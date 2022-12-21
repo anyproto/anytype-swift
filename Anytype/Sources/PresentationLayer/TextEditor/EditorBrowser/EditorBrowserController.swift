@@ -36,7 +36,7 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
     }
     
     func setup() {
-        view.backgroundColor = .BackgroundNew.primary
+        view.backgroundColor = .Background.primary
         childNavigation.delegate = self
         
         view.addSubview(navigationView) {

@@ -87,7 +87,7 @@ final class EditorBrowserButton: UIView, CustomizableHitTestAreaView {
         button.isEnabled = isEnabled
         UIView.animate(withDuration: 0.1) { [weak self] in
             guard let self = self else { return }
-            self.button.tintColor = self.isEnabled ? .TextNew.secondary : .TextNew.tertiary
+            self.button.tintColor = self.isEnabled ? .Text.secondary : .Text.tertiary
         }
     }
     

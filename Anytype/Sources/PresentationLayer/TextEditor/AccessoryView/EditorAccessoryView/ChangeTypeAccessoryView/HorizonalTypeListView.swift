@@ -29,7 +29,7 @@ private struct TypeView: View {
     var body: some View {
         VStack(spacing: 5) {
             imageView
-            AnytypeText(title, style: .caption2Regular, color: .TextNew.secondary)
+            AnytypeText(title, style: .caption2Regular, color: .Text.secondary)
                 .lineLimit(1)
         }
         .padding(EdgeInsets(top: 16, leading: 0, bottom: 13, trailing: 0))

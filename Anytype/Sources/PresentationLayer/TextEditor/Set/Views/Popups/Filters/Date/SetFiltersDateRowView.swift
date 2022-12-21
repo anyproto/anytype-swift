@@ -12,7 +12,7 @@ struct SetFiltersDateRowView: View {
                 AnytypeText(
                     configuration.title,
                     style: .uxBodyRegular,
-                    color: .TextNew.primary
+                    color: .Text.primary
                 )
                 .layoutPriority(1)
                 Spacer()
@@ -37,7 +37,7 @@ struct SetFiltersDateRowView: View {
                     .accentColor(Color.System.amber)
                 Spacer.fixedWidth(4)
             case let .days(count):
-                AnytypeText(count, style: .uxBodyRegular, color: .TextNew.primary)
+                AnytypeText(count, style: .uxBodyRegular, color: .Text.primary)
                     .lineLimit(1)
                 Spacer.fixedWidth(4)
             default:

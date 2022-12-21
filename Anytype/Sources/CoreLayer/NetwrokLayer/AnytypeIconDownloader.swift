@@ -31,7 +31,7 @@ final class AnytypeIconDownloader {
             return ObjectIconImagePainter.shared.image(
                 with: emoji.value,
                 font: .systemFont(ofSize: imageGuideline.size.height/1.2),
-                textColor: .TextNew.primary,
+                textColor: .Text.primary,
                 imageGuideline: imageGuideline,
                 backgroundColor: .clear
             )

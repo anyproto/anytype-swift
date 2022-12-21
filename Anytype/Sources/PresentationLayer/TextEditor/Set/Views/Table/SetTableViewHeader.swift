@@ -20,7 +20,7 @@ struct SetTableViewHeader: View {
                         Image(asset: .relationLockedSmall)
                         Spacer.fixedWidth(4)
                     }
-                    AnytypeText(data.name, style: .relation2Regular, color: .TextNew.secondary)
+                    AnytypeText(data.name, style: .relation2Regular, color: .Text.secondary)
                         .lineLimit(1)
                         .minimumScaleFactor(0.5)
                     Spacer()

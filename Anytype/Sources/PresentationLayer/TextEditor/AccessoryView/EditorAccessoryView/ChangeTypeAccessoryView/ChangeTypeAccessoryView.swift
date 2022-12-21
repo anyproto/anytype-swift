@@ -34,7 +34,7 @@ class ChangeTypeAccessoryView: UIView {
     }
 
     private func setupViews() {
-        backgroundColor = .BackgroundNew.primary
+        backgroundColor = .Background.primary
 
         addSubview(stackView) {
             $0.pinToSuperviewPreservingReadability() 
@@ -135,7 +135,7 @@ private final class ChangeButton: UIButton {
         setImage(UIImage(asset: .TextEditor.turnIntoArrow), for: .normal)
         titleLabel?.font = .bodyRegular
         setTitleColor(.Button.active, for: .normal)
-        setTitleColor(.TextNew.primary, for: .highlighted)
+        setTitleColor(.Text.primary, for: .highlighted)
 
         addTarget(self, action: #selector(didTap), for: .touchUpInside)
 

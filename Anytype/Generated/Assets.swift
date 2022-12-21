@@ -75,11 +75,11 @@ internal enum Asset {
 
   // MARK: - Additional
   static let shimmering = ColorAsset(name: "shimmering")
-  internal enum BackgroundNew {
-    static let backgroundBlack = ColorAsset(name: "BackgroundNew/backgroundBlack")
-    static let highlightedOfSelected = ColorAsset(name: "BackgroundNew/highlightedOfSelected")
-    static let primary = ColorAsset(name: "BackgroundNew/primary")
-    static let secondary = ColorAsset(name: "BackgroundNew/secondary")
+  internal enum Background {
+    static let backgroundBlack = ColorAsset(name: "Background/backgroundBlack")
+    static let highlightedOfSelected = ColorAsset(name: "Background/highlightedOfSelected")
+    static let primary = ColorAsset(name: "Background/primary")
+    static let secondary = ColorAsset(name: "Background/secondary")
   }
   internal enum Button {
     static let accent = ColorAsset(name: "Button/accent")
@@ -100,11 +100,11 @@ internal enum Asset {
     static let tertiary = ColorAsset(name: "Stroke/tertiary")
     static let transperent = ColorAsset(name: "Stroke/transperent")
   }
-  internal enum TextNew {
-    static let primary = ColorAsset(name: "TextNew/primary")
-    static let secondary = ColorAsset(name: "TextNew/secondary")
-    static let tertiary = ColorAsset(name: "TextNew/tertiary")
-    static let white = ColorAsset(name: "TextNew/white")
+  internal enum Text {
+    static let primary = ColorAsset(name: "Text/primary")
+    static let secondary = ColorAsset(name: "Text/secondary")
+    static let tertiary = ColorAsset(name: "Text/tertiary")
+    static let white = ColorAsset(name: "Text/white")
   }
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name

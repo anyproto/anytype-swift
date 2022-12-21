@@ -18,7 +18,7 @@ struct SearchObjectRowView: View {
             content
             if viewModel.isChecked {
                 Image(asset: .optionChecked)
-                    .accentColor(.TextNew.primary)
+                    .accentColor(.Text.primary)
             }
         }
         .frame(height: viewModel.style.rowHeight)
@@ -45,11 +45,11 @@ struct SearchObjectRowView: View {
             AnytypeText(
                 viewModel.title,
                 style: viewModel.style.titleFont,
-                color: .TextNew.primary
+                color: .Text.primary
             ).lineLimit(1)
             if let subtitle = viewModel.subtitle, subtitle.isNotEmpty {
                 Spacer.fixedHeight(1)
-                AnytypeText(subtitle, style: .relation2Regular, color: .TextNew.secondary)
+                AnytypeText(subtitle, style: .relation2Regular, color: .Text.secondary)
                     .lineLimit(1)
             }
         }

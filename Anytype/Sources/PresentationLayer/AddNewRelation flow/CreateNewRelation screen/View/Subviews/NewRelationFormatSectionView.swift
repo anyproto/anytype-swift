@@ -7,7 +7,7 @@ struct NewRelationFormatSectionView: View {
     var body: some View {
         HStack(spacing: 5) {
             Image(asset: model.icon).frame(width: 24, height: 24)
-            AnytypeText(model.title, style: .uxBodyRegular, color: .TextNew.primary)
+            AnytypeText(model.title, style: .uxBodyRegular, color: .Text.primary)
                 .lineLimit(1)
         }
     }

@@ -14,13 +14,13 @@ struct WaitingPopupView: View {
     var body: some View {
         VStack(spacing: 0) {
             Spacer.fixedHeight(15)
-            AnytypeText(text, style: .uxCalloutRegular, color: .TextNew.primary)
+            AnytypeText(text, style: .uxCalloutRegular, color: .Text.primary)
             Spacer.fixedHeight(13)
             ProgressBar(showAnimation: true)
             Spacer.fixedHeight(20)
         }
         .padding(.horizontal, 20)
-        .background(Color.BackgroundNew.primary)
+        .background(Color.Background.primary)
         .cornerRadius(16)
     }
 }

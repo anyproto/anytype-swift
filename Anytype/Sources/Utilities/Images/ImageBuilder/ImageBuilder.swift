@@ -10,7 +10,7 @@ final class ImageBuilder {
     
     private var text: String?
     private var font = UIFont.systemFont(ofSize: UIFont.systemFontSize)
-    private var textColor = UIColor.BackgroundNew.primary
+    private var textColor = UIColor.Background.primary
     
     init(_ imageGuideline: ImageGuideline) {
         self.imageGuideline = imageGuideline

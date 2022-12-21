@@ -9,7 +9,7 @@ struct ProgressBarWithAnimation: View {
                 Capsule()
                     .foregroundColor(.Stroke.primary)
                 Capsule()
-                    .foregroundColor(.TextNew.primary)
+                    .foregroundColor(.Text.primary)
                     .offset(x: isAnimating ? geo.size.width : -geo.size.width)
                     .clipShape(Capsule())
             }

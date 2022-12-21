@@ -68,14 +68,14 @@ final class BlockFileView: UIView, BlockContentView {
     let titleView: UILabel = {
         let view = UILabel()
         view.font = .bodyRegular
-        view.textColor = .TextNew.primary
+        view.textColor = .Text.primary
         return view
     }()
     
     let sizeView: UILabel = {
         let view = UILabel()
         view.font = .calloutRegular
-        view.textColor = .TextNew.secondary
+        view.textColor = .Text.secondary
         return view
     }()
 }

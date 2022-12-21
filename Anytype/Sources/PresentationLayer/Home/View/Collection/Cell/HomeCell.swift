@@ -80,14 +80,14 @@ struct HomeCell: View {
         var titleString = text.isEmpty ? Loc.untitled : text
         titleString = isRedacted ? Loc.RedactedText.pageTitle : titleString
         
-        return AnytypeText(titleString, style: .previewTitle2Medium, color: .TextNew.primary)
+        return AnytypeText(titleString, style: .previewTitle2Medium, color: .Text.primary)
             .lineLimit(lineLimit)
             .multilineTextAlignment(.leading)
     }
     
     private var type: some View {
         let type = isRedacted ? Loc.RedactedText.pageType : cellData.type
-        return AnytypeText(type, style: .relation3Regular, color: .TextNew.secondary)
+        return AnytypeText(type, style: .relation3Regular, color: .Text.secondary)
             .if(cellData.titleLayout == .horizontal) {
                 $0.padding(.leading, 5)
             }

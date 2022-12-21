@@ -27,7 +27,7 @@ struct SetListViewCell: View {
                 onRelationTap: { _ in }
             )
         )
-        .background(Color.BackgroundNew.primary)
+        .background(Color.Background.primary)
         .frame(maxWidth: .infinity, alignment: .topLeading)
         .padding(.vertical, 20)
         .clipped()

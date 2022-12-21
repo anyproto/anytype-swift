@@ -147,7 +147,7 @@ extension ObjectHeaderView: ConfigurableView {
 private extension ObjectHeaderView {
     
     func setupView() {
-        backgroundColor = .BackgroundNew.primary
+        backgroundColor = .Background.primary
         setupGestureRecognizers()
         
         setupLayout()

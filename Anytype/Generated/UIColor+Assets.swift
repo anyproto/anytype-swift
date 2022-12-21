@@ -66,12 +66,12 @@ extension UIColor {
     // MARK: - Additional
     internal static let shimmering = UIColor(asset: Asset.shimmering)
     
-    // MARK: - BackgroundNew
-    enum BackgroundNew {
-      internal static let backgroundBlack = UIColor(asset: Asset.BackgroundNew.backgroundBlack)
-      internal static let highlightedOfSelected = UIColor(asset: Asset.BackgroundNew.highlightedOfSelected)
-      internal static let primary = UIColor(asset: Asset.BackgroundNew.primary)
-      internal static let secondary = UIColor(asset: Asset.BackgroundNew.secondary)
+    // MARK: - Background
+    enum Background {
+      internal static let backgroundBlack = UIColor(asset: Asset.Background.backgroundBlack)
+      internal static let highlightedOfSelected = UIColor(asset: Asset.Background.highlightedOfSelected)
+      internal static let primary = UIColor(asset: Asset.Background.primary)
+      internal static let secondary = UIColor(asset: Asset.Background.secondary)
     }
     
     // MARK: - Button
@@ -99,11 +99,11 @@ extension UIColor {
       internal static let transperent = UIColor(asset: Asset.Stroke.transperent)
     }
     
-    // MARK: - TextNew
-    enum TextNew {
-      internal static let primary = UIColor(asset: Asset.TextNew.primary)
-      internal static let secondary = UIColor(asset: Asset.TextNew.secondary)
-      internal static let tertiary = UIColor(asset: Asset.TextNew.tertiary)
-      internal static let white = UIColor(asset: Asset.TextNew.white)
+    // MARK: - Text
+    enum Text {
+      internal static let primary = UIColor(asset: Asset.Text.primary)
+      internal static let secondary = UIColor(asset: Asset.Text.secondary)
+      internal static let tertiary = UIColor(asset: Asset.Text.tertiary)
+      internal static let white = UIColor(asset: Asset.Text.white)
     }
 }

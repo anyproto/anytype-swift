@@ -17,7 +17,7 @@ struct SearchView<SearchViewModel: SearchViewModelProtocol>: View {
             SearchBar(text: $searchText, focused: true, placeholder: viewModel.placeholder)
             content
         }
-        .background(Color.BackgroundNew.secondary)
+        .background(Color.Background.secondary)
         .onChange(of: searchText) {
             search(text: $0)
 
@@ -58,7 +58,7 @@ struct SearchView<SearchViewModel: SearchViewModelProtocol>: View {
                         if section.sectionName.isNotEmpty {
                             VStack(alignment: .leading, spacing: 0) {
                                 Spacer()
-                                AnytypeText(section.sectionName, style: .caption1Regular, color: .TextNew.secondary)
+                                AnytypeText(section.sectionName, style: .caption1Regular, color: .Text.secondary)
                                     .divider(spacing: 7, leadingPadding: 0, trailingPadding: 0, alignment: .leading)
                             }
                             .padding(.horizontal, 20)
@@ -78,13 +78,13 @@ struct SearchView<SearchViewModel: SearchViewModelProtocol>: View {
             AnytypeText(
                 Loc.thereIsNoObjectNamed(searchText),
                 style: .uxBodyRegular,
-                color: .TextNew.primary
+                color: .Text.primary
             )
             .multilineTextAlignment(.center)
             AnytypeText(
                 Loc.tryToCreateANewOneOrSearchForSomethingElse,
                 style: .uxBodyRegular,
-                color: .TextNew.secondary
+                color: .Text.secondary
             )
             .multilineTextAlignment(.center)
             Spacer()

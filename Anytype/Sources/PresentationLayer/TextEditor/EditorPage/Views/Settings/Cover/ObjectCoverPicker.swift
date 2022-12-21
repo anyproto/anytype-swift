@@ -67,7 +67,7 @@ struct ObjectCoverPicker: View {
     
     private var navigationBarView: some View {
         InlineNavigationBar {
-            AnytypeText(Loc.changeCover, style: .uxTitle1Semibold, color: .TextNew.primary)
+            AnytypeText(Loc.changeCover, style: .uxTitle1Semibold, color: .Text.primary)
                 .multilineTextAlignment(.center)
         } rightButton: {
             if viewModel.isRemoveButtonAvailable {

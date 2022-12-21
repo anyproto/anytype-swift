@@ -79,20 +79,20 @@ final class TextBlockLayoutManager: NSLayoutManager {
 
     private func textColor(in range: NSRange) -> UIColor {
         guard let attributedString = textStorage?.attributedSubstring(from: range) else {
-            return primaryColor ?? tertiaryColor ?? .TextNew.primary
+            return primaryColor ?? tertiaryColor ?? .Text.primary
         }
 
         let textColor = attributedString.colorState(range: attributedString.wholeRange)
 
         if textColor == nil {
-            return primaryColor ?? tertiaryColor ?? .TextNew.primary
+            return primaryColor ?? tertiaryColor ?? .Text.primary
         }
 
-        if let tertiaryColor = tertiaryColor, textColor == .TextNew.primary && tertiaryColor != .TextNew.primary {
+        if let tertiaryColor = tertiaryColor, textColor == .Text.primary && tertiaryColor != .Text.primary {
             return tertiaryColor
         }
 
-        return textColor ?? .TextNew.primary
+        return textColor ?? .Text.primary
     }
          
     private func drawUnderline(

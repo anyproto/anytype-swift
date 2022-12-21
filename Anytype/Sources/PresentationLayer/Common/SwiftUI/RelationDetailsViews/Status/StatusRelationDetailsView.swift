@@ -36,7 +36,7 @@ struct StatusRelationDetailsView: View {
                     StatusSearchRowView(viewModel: currentStatusModel, selectionIndicatorViewModel: nil)
                 }
             } else {
-                AnytypeText(Loc.noRelatedOptionsHere, style: .uxCalloutRegular, color: .TextNew.tertiary)
+                AnytypeText(Loc.noRelatedOptionsHere, style: .uxCalloutRegular, color: .Text.tertiary)
                     .frame(height: 48)
             }
         }

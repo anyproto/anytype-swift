@@ -66,12 +66,12 @@ extension Color {
     // MARK: - Additional
     internal static let shimmering = Color(asset: Asset.shimmering)
     
-    // MARK: - BackgroundNew
-    enum BackgroundNew {
-      internal static let backgroundBlack = Color(asset: Asset.BackgroundNew.backgroundBlack)
-      internal static let highlightedOfSelected = Color(asset: Asset.BackgroundNew.highlightedOfSelected)
-      internal static let primary = Color(asset: Asset.BackgroundNew.primary)
-      internal static let secondary = Color(asset: Asset.BackgroundNew.secondary)
+    // MARK: - Background
+    enum Background {
+      internal static let backgroundBlack = Color(asset: Asset.Background.backgroundBlack)
+      internal static let highlightedOfSelected = Color(asset: Asset.Background.highlightedOfSelected)
+      internal static let primary = Color(asset: Asset.Background.primary)
+      internal static let secondary = Color(asset: Asset.Background.secondary)
     }
     
     // MARK: - Button
@@ -99,11 +99,11 @@ extension Color {
       internal static let transperent = Color(asset: Asset.Stroke.transperent)
     }
     
-    // MARK: - TextNew
-    enum TextNew {
-      internal static let primary = Color(asset: Asset.TextNew.primary)
-      internal static let secondary = Color(asset: Asset.TextNew.secondary)
-      internal static let tertiary = Color(asset: Asset.TextNew.tertiary)
-      internal static let white = Color(asset: Asset.TextNew.white)
+    // MARK: - Text
+    enum Text {
+      internal static let primary = Color(asset: Asset.Text.primary)
+      internal static let secondary = Color(asset: Asset.Text.secondary)
+      internal static let tertiary = Color(asset: Asset.Text.tertiary)
+      internal static let white = Color(asset: Asset.Text.white)
     }
 }
