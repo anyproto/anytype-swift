@@ -235,7 +235,7 @@ final class BlockViewModelBuilder {
                 }
             }
         case let .relation(content):
-            let relation = document.parsedRelations.allWithDeleted.first {
+            let relation = document.parsedRelations.all.first {
                 $0.key == content.key
             }
             
