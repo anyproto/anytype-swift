@@ -32,7 +32,7 @@ struct ErrorAlertView<Presenting>: View where Presenting: View {
             .background(Color.Background.secondary)
             .cornerRadius(10)
             .transition(.slide)
-            .shadow(color: Color.shadowPrimary, radius: 4)
+            .shadow(color: Color.Shadow.primary, radius: 4)
             .opacity(self.isShowing ? 1 : 0)
         }
     }

@@ -86,7 +86,7 @@ final class BlocksSelectionOverlayView: UIView {
 
     private func applyShadow() {
         [shadowedBlocksOptionView, shadowedSimpleTablesOptionView].forEach {
-            $0.shadowLayer.fillColor = UIColor.shadowPrimary.cgColor
+            $0.shadowLayer.fillColor = UIColor.Shadow.primary.cgColor
             $0.shadowLayer.shadowOffset = .init(width: 0, height: 0)
             $0.shadowLayer.shadowOpacity = 1
             $0.shadowLayer.shadowRadius = 40

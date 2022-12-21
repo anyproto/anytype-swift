@@ -89,7 +89,9 @@ extension Color {
     }
     
     // MARK: - Shadow
-    internal static let shadowPrimary = Color(asset: Asset.shadowPrimary)
+    enum Shadow {
+      internal static let primary = Color(asset: Asset.Shadow.primary)
+    }
     
     // MARK: - Stroke
     enum Stroke {

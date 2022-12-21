@@ -90,9 +90,9 @@ internal enum Asset {
   internal enum Dashboard {
     static let card = ColorAsset(name: "Dashboard/card")
   }
-
-  // MARK: - Shadow
-  static let shadowPrimary = ColorAsset(name: "shadowPrimary")
+  internal enum Shadow {
+    static let primary = ColorAsset(name: "Shadow/primary")
+  }
   internal enum Stroke {
     static let primary = ColorAsset(name: "Stroke/primary")
     static let secondary = ColorAsset(name: "Stroke/secondary")

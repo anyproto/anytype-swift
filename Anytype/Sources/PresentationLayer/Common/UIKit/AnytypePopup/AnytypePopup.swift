@@ -231,7 +231,7 @@ private extension AnytypePopup {
     
     func makeShadow() -> SurfaceAppearance.Shadow {
         let shadow = SurfaceAppearance.Shadow()
-        shadow.color = UIColor.shadowPrimary
+        shadow.color = UIColor.Shadow.primary
         shadow.offset = CGSize(width: 0, height: 0)
         shadow.radius = 40
         shadow.opacity = 1

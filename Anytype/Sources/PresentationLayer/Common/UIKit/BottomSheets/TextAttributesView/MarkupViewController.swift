@@ -112,7 +112,7 @@ final class MarkupsViewController: UIViewController {
 
         containerShadowView.view.layer.cornerRadius = 12
         containerShadowView.view.layer.masksToBounds = true
-        containerShadowView.shadowLayer.fillColor = UIColor.shadowPrimary.cgColor
+        containerShadowView.shadowLayer.fillColor = UIColor.Shadow.primary.cgColor
         containerShadowView.shadowLayer.shadowRadius = 40
 
         view.backgroundColor = .clear
