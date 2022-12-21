@@ -33,7 +33,6 @@ extension UIColor {
     
     // MARK: - System
     enum System {
-      internal static let amber = UIColor(asset: Asset.System.amber)
       internal static let amber100 = UIColor(asset: Asset.System.amber100)
       internal static let amber125 = UIColor(asset: Asset.System.amber125)
       internal static let amber25 = UIColor(asset: Asset.System.amber25)

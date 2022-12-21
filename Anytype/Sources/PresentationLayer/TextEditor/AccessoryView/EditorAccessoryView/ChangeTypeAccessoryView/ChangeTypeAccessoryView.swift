@@ -102,7 +102,7 @@ class ChangeTypeAccessoryView: UIView {
         }
 
         button.setTitle(Loc.done, for: .normal)
-        button.setTitleColor(UIColor.System.amber, for: .normal)
+        button.setTitleColor(UIColor.System.amber100, for: .normal)
         button.addAction(primaryAction, for: .touchUpInside)
 
         return button

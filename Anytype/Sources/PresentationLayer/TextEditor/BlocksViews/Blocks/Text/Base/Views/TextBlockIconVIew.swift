@@ -191,7 +191,7 @@ extension TextBlockIconView {
 
     private func createQuoteView() -> UIView {
         let quoteView = UIView()
-        quoteView.backgroundColor = UIColor.System.amber
+        quoteView.backgroundColor = UIColor.System.amber100
 
         addSubview(quoteView) {
             $0.width.equal(to: 2)

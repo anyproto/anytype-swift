@@ -50,7 +50,7 @@ private extension StandardButtonStyle {
         case .secondary:
             return .Background.primary
         case .primary:
-            return disabled ? .Stroke.primary : Color.System.amber
+            return disabled ? .Stroke.primary : Color.System.amber100
         case .destructive:
             return disabled ? .Stroke.primary : Color.System.red
         }

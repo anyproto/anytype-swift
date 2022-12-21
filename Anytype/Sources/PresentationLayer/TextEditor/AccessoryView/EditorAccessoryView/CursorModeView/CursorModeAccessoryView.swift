@@ -79,7 +79,7 @@ class CursorModeAccessoryView: UIView {
         let button = UIButton()
         button.setImage(image, for: .normal)
         button.setTitle(title, for: .normal)
-        button.setTitleColor(UIColor.System.amber, for: .normal)
+        button.setTitleColor(UIColor.System.amber100, for: .normal)
         button.addAction(primaryAction, for: .touchUpInside)
         stackView.addArrangedSubview(button)
     }

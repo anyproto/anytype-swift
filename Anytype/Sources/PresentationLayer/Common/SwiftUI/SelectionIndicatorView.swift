@@ -23,7 +23,7 @@ struct SelectionIndicatorView: View {
         AnytypeText("\(index)", style: .previewTitle1Medium, color: .Text.white)
             .lineLimit(1)
             .frame(width:24, height: 24)
-            .background(Color.System.amber)
+            .background(Color.System.amber100)
             .clipShape(Circle())
     }
 }

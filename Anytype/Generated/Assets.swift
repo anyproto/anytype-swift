@@ -44,7 +44,6 @@ internal enum Asset {
     static let yellow = ColorAsset(name: "Light/yellow")
   }
   internal enum System {
-    static let amber = ColorAsset(name: "System/amber")
     static let amber100 = ColorAsset(name: "System/amber100")
     static let amber125 = ColorAsset(name: "System/amber125")
     static let amber25 = ColorAsset(name: "System/amber25")

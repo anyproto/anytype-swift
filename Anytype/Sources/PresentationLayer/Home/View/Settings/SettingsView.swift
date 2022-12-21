@@ -20,7 +20,7 @@ struct SettingsView: View {
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
-            Color.System.amber.ignoresSafeArea()
+            Color.System.amber100.ignoresSafeArea()
             SettingsView()
                 .environmentObject(
                     SettingsViewModel(

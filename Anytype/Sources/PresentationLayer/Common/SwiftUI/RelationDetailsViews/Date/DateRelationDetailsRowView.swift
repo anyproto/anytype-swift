@@ -29,7 +29,7 @@ struct DateRelationDetailsRowView: View {
                         DatePicker("", selection: $date, displayedComponents: .date)
                             .datePickerStyle(.compact)
                             .frame(height: 24)
-                            .accentColor(Color.System.amber)
+                            .accentColor(Color.System.amber100)
                         Spacer.fixedWidth(4)
                     }
                     
