@@ -26,7 +26,7 @@ struct SearchCell<SearchData: SearchDataProtocol>: View {
         VStack(alignment: .leading, spacing: 0) {
             Spacer()
             
-            AnytypeText(data.title, style: .previewTitle2Medium, color: .textPrimary)
+            AnytypeText(data.title, style: .previewTitle2Medium, color: .Text.primary)
                 .lineLimit(1)
                 .frame(height: 20)
             
@@ -38,7 +38,7 @@ struct SearchCell<SearchData: SearchDataProtocol>: View {
             
             if data.shouldShowCallout {
                 Spacer.fixedHeight(2)
-                AnytypeText(data.callout, style: .relation2Regular, color: .textSecondary)
+                AnytypeText(data.callout, style: .relation2Regular, color: .Text.secondary)
                 .lineLimit(1)
             }
             

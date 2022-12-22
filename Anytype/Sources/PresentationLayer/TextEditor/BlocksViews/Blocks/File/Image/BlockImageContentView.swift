@@ -36,7 +36,7 @@ final class BlockImageContentView: UIView, BlockContentView {
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
         imageView.isUserInteractionEnabled = true
-        imageView.backgroundColor = .strokeTertiary
+        imageView.backgroundColor = .Stroke.tertiary
         
         addSubview(imageView) {
             $0.pinToSuperview(insets: Layout.imageViewInsets)

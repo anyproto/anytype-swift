@@ -36,8 +36,8 @@ struct ObjectLayoutRow: View {
                 
                 HStack(spacing: 0) {
                     VStack(alignment: .leading, spacing: 0) {
-                        AnytypeText(layout.title, style: .uxTitle2Medium, color: .textPrimary)
-                        AnytypeText(layout.description, style: .caption1Regular, color: .textSecondary)
+                        AnytypeText(layout.title, style: .uxTitle2Medium, color: .Text.primary)
+                        AnytypeText(layout.description, style: .caption1Regular, color: .Text.secondary)
                             .lineLimit(1)
                             .minimumScaleFactor(0.9)
                     }
@@ -45,7 +45,7 @@ struct ObjectLayoutRow: View {
                     Spacer(minLength: 12)
                     
                     if isSelected {
-                        Image(asset: .optionChecked).frame(width: 24, height: 24).foregroundColor(.buttonSelected)
+                        Image(asset: .optionChecked).frame(width: 24, height: 24).foregroundColor(.Button.selected)
                     }
                 }
                 

@@ -47,7 +47,7 @@ final class TableOfContentsView: UIView, BlockContentView {
     private func showEmptyState(title: String) {
         let label: UILabel = createLabel()
         label.font = .calloutRegular
-        label.textColor = .textTertiary
+        label.textColor = .Text.tertiary
         label.text = title
         addSubview(label) {
             $0.pinToSuperview(insets: UIEdgeInsets(
@@ -96,8 +96,8 @@ final class TableOfContentsView: UIView, BlockContentView {
     private func makeAttributedText(for string: String) -> NSAttributedString {
         return NSAttributedString(string: string, attributes: [
             .underlineStyle: NSUnderlineStyle.single.rawValue,
-            .underlineColor: UIColor.textSecondary,
-            .foregroundColor: UIColor.textSecondary,
+            .underlineColor: UIColor.Text.secondary,
+            .foregroundColor: UIColor.Text.secondary,
             .font: UIFont.calloutRegular
         ])
     }

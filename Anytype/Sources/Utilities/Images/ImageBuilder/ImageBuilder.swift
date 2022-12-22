@@ -6,11 +6,11 @@ final class ImageBuilder {
     private let imageStorage: ImageStorageProtocol = ImageStorage.shared
     
     private var imageGuideline: ImageGuideline
-    private var imageColor = UIColor.strokeTertiary
+    private var imageColor = UIColor.Stroke.tertiary
     
     private var text: String?
     private var font = UIFont.systemFont(ofSize: UIFont.systemFontSize)
-    private var textColor = UIColor.backgroundPrimary
+    private var textColor = UIColor.Background.primary
     
     init(_ imageGuideline: ImageGuideline) {
         self.imageGuideline = imageGuideline

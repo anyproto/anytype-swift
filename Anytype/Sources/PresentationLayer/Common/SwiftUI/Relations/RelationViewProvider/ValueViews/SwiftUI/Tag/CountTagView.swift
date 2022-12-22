@@ -9,8 +9,8 @@ struct CountTagView: View {
         TagView(
             viewModel: TagView.Model(
                 text: "+\(count)",
-                textColor: .textSecondary,
-                backgroundColor: .strokeTransperent
+                textColor: .Text.secondary,
+                backgroundColor: .Stroke.transperent
             ),
             style: style
         )

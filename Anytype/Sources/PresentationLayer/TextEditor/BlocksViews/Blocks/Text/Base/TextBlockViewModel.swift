@@ -72,9 +72,9 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     }
 
     func makeSpreadsheetConfiguration() -> UIContentConfiguration {
-        let color: UIColor = info.configurationData.backgroundColor.map { UIColor.Background.uiColor(from: $0) }
+        let color: UIColor = info.configurationData.backgroundColor.map { UIColor.VeryLight.uiColor(from: $0) }
             ?? customBackgroundColor
-            ?? .backgroundPrimary
+            ?? .Background.primary
 
         return textBlockContentConfiguration()
             .spreadsheetConfiguration(

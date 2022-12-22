@@ -67,8 +67,8 @@ final class CodeBlockView: UIView, BlockContentView {
         }
         
         let backgroundColor = configuration.backgroundColor.map {
-            UIColor.Background.uiColor(from: $0)
-        } ?? UIColor.Background.grey
+            UIColor.VeryLight.uiColor(from: $0)
+        } ?? UIColor.VeryLight.grey
         contentView.backgroundColor = backgroundColor
         textView.backgroundColor = backgroundColor
     }

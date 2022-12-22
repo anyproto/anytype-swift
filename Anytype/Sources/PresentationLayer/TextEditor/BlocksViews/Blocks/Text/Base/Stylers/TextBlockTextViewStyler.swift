@@ -7,12 +7,12 @@ final class TextBlockTextViewStyler {
         
         textView.autocorrect = configuration.content.contentType == .title ? false : true
         
-        textView.textView.tertiaryColor = configuration.content.color.map { UIColor.Text.uiColor(from: $0) }
+        textView.textView.tertiaryColor = configuration.content.color.map { UIColor.Dark.uiColor(from: $0) }
         textView.textView.textAlignment = configuration.alignment
         
         textView.textView.selectedColor = nil
         if configuration.content.contentType == .checkbox {
-            textView.textView.selectedColor = configuration.content.checked ? UIColor.textSecondary : nil
+            textView.textView.selectedColor = configuration.content.checked ? UIColor.Text.secondary : nil
         }
     }
     
@@ -46,7 +46,7 @@ final class TextBlockTextViewStyler {
     private static func setupText(in textView: CustomTextView, placeholer: String, textStyle: UIKitAnytypeText) {
         let attributes: [NSAttributedString.Key: Any] = [
             .font: textStyle.anytypeFont.uiKitFont,
-            .foregroundColor: UIColor.textSecondary,
+            .foregroundColor: UIColor.Text.secondary,
         ]
 
         textView.textView.update(placeholder: .init(string: placeholer, attributes: attributes))
@@ -65,6 +65,6 @@ final class TextBlockTextViewStyler {
             textView.textView.typingAttributes = textStyle.typingAttributes(for: 0)
         }
 
-        textView.textView.defaultFontColor = .textPrimary
+        textView.textView.defaultFontColor = .Text.primary
     }
 }

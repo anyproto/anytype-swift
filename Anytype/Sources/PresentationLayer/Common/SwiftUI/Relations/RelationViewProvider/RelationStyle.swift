@@ -49,16 +49,16 @@ extension RelationStyle {
     var uiKitFontColor: UIColor {
         switch self {
         case .regular, .set:
-            return .textPrimary
+            return .Text.primary
         case .featuredRelationBlock, .filter, .setCollection, .kanbanHeader:
-            return .textSecondary
+            return .Text.secondary
         }
     }
     
     var uiFontColorWithError: UIColor {
         switch self {
         case let .featuredRelationBlock(settings):
-            return settings.error ? .Text.red : uiKitFontColor
+            return settings.error ? .Dark.red : uiKitFontColor
         default:
             return uiKitFontColor
         }

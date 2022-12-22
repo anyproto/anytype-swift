@@ -17,7 +17,7 @@ extension View {
 
 struct AnytypeDivider: View {
     var body: some View {
-        Color.strokePrimary.frame(height: .onePixel)
+        Color.Stroke.primary.frame(height: .onePixel)
     }
 }
 
@@ -25,7 +25,7 @@ final class UIKitAnytypeDivider: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .strokePrimary
+        backgroundColor = .Stroke.primary
     }
     
     required init?(coder: NSCoder) {

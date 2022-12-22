@@ -30,7 +30,7 @@ struct SetKanbanColumnSettingsView: View {
             AnytypeText(
                 Loc.Set.View.Kanban.Column.Settings.Color.title,
                 style: .caption1Regular,
-                color: .textSecondary
+                color: .Text.secondary
             )
             .padding(.horizontal, 20)
             Spacer.fixedHeight(14)
@@ -58,7 +58,7 @@ struct SetKanbanColumnSettingsView: View {
             if viewModel.selectedColor == backgroundColor {
                 Image(asset: .optionChecked)
                     .frame(width: 24, height: 24)
-                    .foregroundColor(.textPrimary)
+                    .foregroundColor(.Text.primary)
             }
         }
     }

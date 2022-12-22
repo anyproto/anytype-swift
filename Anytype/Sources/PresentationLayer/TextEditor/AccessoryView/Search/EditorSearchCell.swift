@@ -81,13 +81,13 @@ final class EditorSearchCell: UIView, UIContentView {
     private let icon = ObjectIconImageView()
     private let title: AnytypeLabel = {
         let title = AnytypeLabel(style: .uxTitle2Regular)
-        title.textColor = .textPrimary
+        title.textColor = .Text.primary
         title.numberOfLines = 1
         return title
     }()
     private let subtitle: AnytypeLabel = {
         let subtitle = AnytypeLabel(style: .caption1Regular)
-        subtitle.textColor = .textSecondary
+        subtitle.textColor = .Text.secondary
         subtitle.numberOfLines = 1
         return subtitle
     }()

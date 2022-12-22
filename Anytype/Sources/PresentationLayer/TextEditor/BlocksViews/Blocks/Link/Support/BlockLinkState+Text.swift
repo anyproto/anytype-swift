@@ -15,16 +15,16 @@ extension BlockLinkState {
 
     var titleColor: UIColor {
         if case let .checkmark(value) = style, value {
-            return .buttonActive
+            return .Button.active
         }
 
         if deleted || archived {
-            return .buttonActive
+            return .Button.active
         }
 
 
 
-        return .textPrimary
+        return .Text.primary
     }
 
     var attributedDescription: NSAttributedString {
@@ -47,7 +47,7 @@ extension BlockLinkState {
             string: type.name,
             attributes: [
                 .font: UIFont.relation2Regular,
-                .foregroundColor: UIColor.textSecondary,
+                .foregroundColor: UIColor.Text.secondary,
             ]
         )
     }
@@ -55,7 +55,7 @@ extension BlockLinkState {
     private var disabledAttributes: [NSAttributedString.Key : Any] {
         [
             .font: UIFont.bodyRegular,
-            .foregroundColor: UIColor.buttonActive
+            .foregroundColor: UIColor.Button.active
         ]
     }
     
@@ -63,21 +63,21 @@ extension BlockLinkState {
 
         return [
             .font: UIFont.bodyRegular,
-            .foregroundColor: UIColor.textPrimary
+            .foregroundColor: UIColor.Text.primary
         ]
     }
 
     private var disabledDescriptionAttributes: [NSAttributedString.Key : Any] {
         [
             .font: UIFont.relation2Regular,
-            .foregroundColor: UIColor.textSecondary,
+            .foregroundColor: UIColor.Text.secondary,
         ]
     }
 
     private var enabledDescriptionAttributes: [NSAttributedString.Key : Any] {
         [
             .font: UIFont.relation2Regular,
-            .foregroundColor: UIColor.textPrimary,
+            .foregroundColor: UIColor.Text.primary,
         ]
     }
     

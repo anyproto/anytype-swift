@@ -26,7 +26,7 @@ struct DeletedAccountView: View {
             mainView
                 .padding(EdgeInsets(top: 23, leading: 20, bottom: 10, trailing: 20))
         }
-        .background(Color.backgroundPrimary)
+        .background(Color.Background.primary)
         .cornerRadius(16.0)
     }
     
@@ -34,9 +34,9 @@ struct DeletedAccountView: View {
         VStack(alignment: .leading, spacing: 0) {
             clock
             Spacer.fixedHeight(19)
-            AnytypeText(viewModel.title, style: .heading, color: .textPrimary)
+            AnytypeText(viewModel.title, style: .heading, color: .Text.primary)
             Spacer.fixedHeight(11)
-            AnytypeText(Loc.pendingDeletionText, style: .uxCalloutRegular, color: .textPrimary)
+            AnytypeText(Loc.pendingDeletionText, style: .uxCalloutRegular, color: .Text.primary)
             Spacer.fixedHeight(14)
             SettingsButton(text: Loc.cancelDeletion, textColor: .System.red) { viewModel.cancel() }
             SettingsButton(text: Loc.logoutAndClearData, textColor: .System.red) { viewModel.logOut() }
@@ -48,7 +48,7 @@ struct DeletedAccountView: View {
         HStack(spacing: 0) {
             ZStack {
                 Circle()
-                    .stroke(Color.strokePrimary, lineWidth: 2)
+                    .stroke(Color.Stroke.primary, lineWidth: 2)
                     .frame(width: 52, height: 52)
                 Clock(progress: clockProgress)
                     .fill(Color.System.red)
