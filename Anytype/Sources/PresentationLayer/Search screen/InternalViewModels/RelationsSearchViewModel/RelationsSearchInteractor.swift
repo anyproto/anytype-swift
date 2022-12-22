@@ -21,8 +21,8 @@ final class RelationsSearchInteractor {
         return searchService.searchRelations(text: text, excludedIds: excludedIds) ?? []
     }
     
-    func searchInMarketplace(text: String, excludedIds: [String]) -> [RelationDetails] {
-        return searchService.searchMarketplaceRelations(text: text, excludedIds: excludedIds) ?? []
+    func searchInMarketplace(text: String) -> [RelationDetails] {
+        return searchService.searchMarketplaceRelations(text: text, includeInstalled: false) ?? []
     }
     
     func installRelation(objectId: String) -> RelationDetails? {
