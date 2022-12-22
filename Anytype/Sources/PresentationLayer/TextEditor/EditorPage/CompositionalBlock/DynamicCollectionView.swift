@@ -16,7 +16,7 @@ final class DynamicCollectionView: EditorCollectionView {
     }
 
     private func setup() {
-        backgroundColor = .backgroundPrimary
+        backgroundColor = .Background.primary
         isDirectionalLockEnabled = true
         allowsMultipleSelection = true
         allowsSelectionDuringEditing = true

@@ -31,7 +31,7 @@ final class AnytypeIconDownloader {
             return ObjectIconImagePainter.shared.image(
                 with: emoji.value,
                 font: .systemFont(ofSize: imageGuideline.size.height/1.2),
-                textColor: .textPrimary,
+                textColor: .Text.primary,
                 imageGuideline: imageGuideline,
                 backgroundColor: .clear
             )
@@ -53,7 +53,7 @@ final class AnytypeIconDownloader {
             let imageGuideline = ImageGuideline(size: imageGuideline.size, radius: .widthFraction(0.5))
 
             return ImageBuilder(imageGuideline)
-                .setImageColor(.strokePrimary)
+                .setImageColor(.Stroke.primary)
                 .setText(String(placeholder))
                 .setFont(UIFont.systemFont(ofSize: 17))
                 .build()

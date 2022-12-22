@@ -11,10 +11,10 @@ struct TagView: View {
             .padding(.horizontal, style.tagViewGuidlines.textPadding)
             .background(viewModel.backgroundColor.suColor)
             .cornerRadius(style.tagViewGuidlines.cornerRadius)
-            .if(viewModel.backgroundColor == UIColor.TagBackground.default) {
+            .if(viewModel.backgroundColor == UIColor.Light.default) {
                 $0.overlay(
                     RoundedRectangle(cornerRadius: style.tagViewGuidlines.cornerRadius)
-                        .stroke(Color.strokePrimary, lineWidth: 1)
+                        .stroke(Color.Stroke.primary, lineWidth: 1)
                 )
             }
             .frame(height: style.tagViewGuidlines.tagHeight)
@@ -42,8 +42,8 @@ struct TagView_Previews: PreviewProvider {
         TagView(
             viewModel: TagView.Model(
                 text: "text",
-                textColor: UIColor.Background.amber,
-                backgroundColor: UIColor.Text.amber
+                textColor: UIColor.VeryLight.amber,
+                backgroundColor: UIColor.Dark.amber
             ),
             style: .set
         )

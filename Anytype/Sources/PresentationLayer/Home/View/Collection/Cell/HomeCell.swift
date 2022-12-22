@@ -19,7 +19,7 @@ struct HomeCell: View {
         .padding(padding)
         .frame(height: 126)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(Color.backgroundDashboard)
+        .background(Color.Dashboard.card)
         .redacted(reason: isRedacted ? .placeholder : [])
         .cornerRadius(16)
         
@@ -80,14 +80,14 @@ struct HomeCell: View {
         var titleString = text.isEmpty ? Loc.untitled : text
         titleString = isRedacted ? Loc.RedactedText.pageTitle : titleString
         
-        return AnytypeText(titleString, style: .previewTitle2Medium, color: .textPrimary)
+        return AnytypeText(titleString, style: .previewTitle2Medium, color: .Text.primary)
             .lineLimit(lineLimit)
             .multilineTextAlignment(.leading)
     }
     
     private var type: some View {
         let type = isRedacted ? Loc.RedactedText.pageType : cellData.type
-        return AnytypeText(type, style: .relation3Regular, color: .textSecondary)
+        return AnytypeText(type, style: .relation3Regular, color: .Text.secondary)
             .if(cellData.titleLayout == .horizontal) {
                 $0.padding(.leading, 5)
             }
@@ -99,7 +99,7 @@ struct HomeCell: View {
                 RoundedRectangle(
                     cornerRadius: Constants.iconCornerRadius
                 )
-                    .foregroundColor(Color.strokeTertiary)
+                    .foregroundColor(Color.Stroke.tertiary)
                     .frame(
                         width: Constants.iconSize.width,
                         height: Constants.iconSize.height

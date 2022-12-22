@@ -19,7 +19,7 @@ struct CheckPopupView<ViewModel: CheckPopupViewViewModelProtocol>: View {
             TitleView(title: viewModel.title)
             mainSection
         }
-        .background(Color.backgroundSecondary)
+        .background(Color.Background.secondary)
         .padding(.horizontal, 20)
     }
 
@@ -45,16 +45,16 @@ struct CheckPopupView<ViewModel: CheckPopupViewViewModelProtocol>: View {
             }
 
             VStack(alignment: .leading, spacing: 0) {
-                AnytypeText(item.title, style: .uxBodyRegular, color: .textPrimary)
+                AnytypeText(item.title, style: .uxBodyRegular, color: .Text.primary)
 
                 if let subtitle = item.subtitle {
-                    AnytypeText(subtitle, style: .caption1Regular, color: .textSecondary)
+                    AnytypeText(subtitle, style: .caption1Regular, color: .Text.secondary)
                 }
             }
             Spacer()
 
             if item.isSelected {
-                Image(asset: .optionChecked).frame(width: 24, height: 24).foregroundColor(.buttonSelected)
+                Image(asset: .optionChecked).frame(width: 24, height: 24).foregroundColor(.Button.selected)
             }
         }
         .frame(height: 52)

@@ -1,24 +1,38 @@
+import UIKit
 import SwiftUI
 
 extension Color {
   
-    enum Background: ComponentColor {
-      typealias T = Color
-      internal static let amber = Color(asset: Asset.Background.amber)
-      internal static let blue = Color(asset: Asset.Background.blue)
-      internal static let green = Color(asset: Asset.Background.green)
-      internal static let grey = Color(asset: Asset.Background.grey)
-      internal static let pink = Color(asset: Asset.Background.pink)
-      internal static let purple = Color(asset: Asset.Background.purple)
-      internal static let red = Color(asset: Asset.Background.red)
-      internal static let sky = Color(asset: Asset.Background.sky)
-      internal static let teal = Color(asset: Asset.Background.teal)
-      internal static let yellow = Color(asset: Asset.Background.yellow)
+    // MARK: - Dark
+    enum Dark {
+      internal static let amber = Color(asset: Asset.Dark.amber)
+      internal static let blue = Color(asset: Asset.Dark.blue)
+      internal static let green = Color(asset: Asset.Dark.green)
+      internal static let grey = Color(asset: Asset.Dark.grey)
+      internal static let pink = Color(asset: Asset.Dark.pink)
+      internal static let purple = Color(asset: Asset.Dark.purple)
+      internal static let red = Color(asset: Asset.Dark.red)
+      internal static let sky = Color(asset: Asset.Dark.sky)
+      internal static let teal = Color(asset: Asset.Dark.teal)
+      internal static let yellow = Color(asset: Asset.Dark.yellow)
     }
     
-    enum System: ComponentColor {
-      typealias T = Color
-      internal static let amber = Color(asset: Asset.System.amber)
+    // MARK: - Light
+    enum Light {
+      internal static let amber = Color(asset: Asset.Light.amber)
+      internal static let blue = Color(asset: Asset.Light.blue)
+      internal static let green = Color(asset: Asset.Light.green)
+      internal static let grey = Color(asset: Asset.Light.grey)
+      internal static let pink = Color(asset: Asset.Light.pink)
+      internal static let purple = Color(asset: Asset.Light.purple)
+      internal static let red = Color(asset: Asset.Light.red)
+      internal static let sky = Color(asset: Asset.Light.sky)
+      internal static let teal = Color(asset: Asset.Light.teal)
+      internal static let yellow = Color(asset: Asset.Light.yellow)
+    }
+    
+    // MARK: - System
+    enum System {
       internal static let amber100 = Color(asset: Asset.System.amber100)
       internal static let amber125 = Color(asset: Asset.System.amber125)
       internal static let amber25 = Color(asset: Asset.System.amber25)
@@ -35,63 +49,63 @@ extension Color {
       internal static let yellow = Color(asset: Asset.System.yellow)
     }
     
-    enum TagBackground: ComponentColor {
-      typealias T = Color
-      internal static let amber = Color(asset: Asset.TagBackground.amber)
-      internal static let blue = Color(asset: Asset.TagBackground.blue)
-      internal static let green = Color(asset: Asset.TagBackground.green)
-      internal static let grey = Color(asset: Asset.TagBackground.grey)
-      internal static let pink = Color(asset: Asset.TagBackground.pink)
-      internal static let purple = Color(asset: Asset.TagBackground.purple)
-      internal static let red = Color(asset: Asset.TagBackground.red)
-      internal static let sky = Color(asset: Asset.TagBackground.sky)
-      internal static let teal = Color(asset: Asset.TagBackground.teal)
-      internal static let yellow = Color(asset: Asset.TagBackground.yellow)
-    }
-    
-    enum Text: ComponentColor {
-      typealias T = Color
-      internal static let amber = Color(asset: Asset.Text.amber)
-      internal static let blue = Color(asset: Asset.Text.blue)
-      internal static let green = Color(asset: Asset.Text.green)
-      internal static let grey = Color(asset: Asset.Text.grey)
-      internal static let pink = Color(asset: Asset.Text.pink)
-      internal static let purple = Color(asset: Asset.Text.purple)
-      internal static let red = Color(asset: Asset.Text.red)
-      internal static let sky = Color(asset: Asset.Text.sky)
-      internal static let teal = Color(asset: Asset.Text.teal)
-      internal static let yellow = Color(asset: Asset.Text.yellow)
+    // MARK: - VeryLight
+    enum VeryLight {
+      internal static let amber = Color(asset: Asset.VeryLight.amber)
+      internal static let blue = Color(asset: Asset.VeryLight.blue)
+      internal static let green = Color(asset: Asset.VeryLight.green)
+      internal static let grey = Color(asset: Asset.VeryLight.grey)
+      internal static let pink = Color(asset: Asset.VeryLight.pink)
+      internal static let purple = Color(asset: Asset.VeryLight.purple)
+      internal static let red = Color(asset: Asset.VeryLight.red)
+      internal static let sky = Color(asset: Asset.VeryLight.sky)
+      internal static let teal = Color(asset: Asset.VeryLight.teal)
+      internal static let yellow = Color(asset: Asset.VeryLight.yellow)
     }
   
     // MARK: - Additional
     internal static let shimmering = Color(asset: Asset.shimmering)
     
-    // MARK: - Backgound
-    internal static let backgroundBlack = Color(asset: Asset.backgroundBlack)
-    internal static let backgroundDashboard = Color(asset: Asset.backgroundDashboard)
-    internal static let backgroundPrimary = Color(asset: Asset.backgroundPrimary)
-    internal static let backgroundSecondary = Color(asset: Asset.backgroundSecondary)
-    internal static let backgroundSelected = Color(asset: Asset.backgroundSelected)
+    // MARK: - Background
+    enum Background {
+      internal static let black = Color(asset: Asset.Background.black)
+      internal static let highlightedOfSelected = Color(asset: Asset.Background.highlightedOfSelected)
+      internal static let primary = Color(asset: Asset.Background.primary)
+      internal static let secondary = Color(asset: Asset.Background.secondary)
+    }
     
     // MARK: - Button
-    internal static let buttonAccent = Color(asset: Asset.buttonAccent)
-    internal static let buttonActive = Color(asset: Asset.buttonActive)
-    internal static let buttonInactive = Color(asset: Asset.buttonInactive)
-    internal static let buttonSelected = Color(asset: Asset.buttonSelected)
-    internal static let buttonWhite = Color(asset: Asset.buttonWhite)
+    enum Button {
+      internal static let accent = Color(asset: Asset.Button.accent)
+      internal static let active = Color(asset: Asset.Button.active)
+      internal static let inactive = Color(asset: Asset.Button.inactive)
+      internal static let selected = Color(asset: Asset.Button.selected)
+      internal static let white = Color(asset: Asset.Button.white)
+    }
+    
+    // MARK: - Dashboard
+    enum Dashboard {
+      internal static let card = Color(asset: Asset.Dashboard.card)
+    }
     
     // MARK: - Shadow
-    internal static let shadowPrimary = Color(asset: Asset.shadowPrimary)
+    enum Shadow {
+      internal static let primary = Color(asset: Asset.Shadow.primary)
+    }
     
     // MARK: - Stroke
-    internal static let strokePrimary = Color(asset: Asset.strokePrimary)
-    internal static let strokeSecondary = Color(asset: Asset.strokeSecondary)
-    internal static let strokeTertiary = Color(asset: Asset.strokeTertiary)
-    internal static let strokeTransperent = Color(asset: Asset.strokeTransperent)
+    enum Stroke {
+      internal static let primary = Color(asset: Asset.Stroke.primary)
+      internal static let secondary = Color(asset: Asset.Stroke.secondary)
+      internal static let tertiary = Color(asset: Asset.Stroke.tertiary)
+      internal static let transperent = Color(asset: Asset.Stroke.transperent)
+    }
     
     // MARK: - Text
-    internal static let textPrimary = Color(asset: Asset.textPrimary)
-    internal static let textSecondary = Color(asset: Asset.textSecondary)
-    internal static let textTertiary = Color(asset: Asset.textTertiary)
-    internal static let textWhite = Color(asset: Asset.textWhite)
+    enum Text {
+      internal static let primary = Color(asset: Asset.Text.primary)
+      internal static let secondary = Color(asset: Asset.Text.secondary)
+      internal static let tertiary = Color(asset: Asset.Text.tertiary)
+      internal static let white = Color(asset: Asset.Text.white)
+    }
 }

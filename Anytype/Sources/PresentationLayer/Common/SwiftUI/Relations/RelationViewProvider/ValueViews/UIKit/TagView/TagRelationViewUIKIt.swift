@@ -52,8 +52,8 @@ final class TagRelationViewUIKIt: UIView {
             let count = tags.count - Constants.maxShowingTag
             let moreTags = Relation.Tag.Option(id: "",
                                                text: "+\(count)",
-                                               textColor: .textSecondary,
-                                               backgroundColor: .strokeTransperent)
+                                               textColor: .Text.secondary,
+                                               backgroundColor: .Stroke.transperent)
             let moreTagsView = TagViewUIKit(tag: moreTags, style: style)
             moreTagsView.setContentCompressionResistancePriority(.required + 1, for: .horizontal)
             stackView.addArrangedSubview(moreTagsView)

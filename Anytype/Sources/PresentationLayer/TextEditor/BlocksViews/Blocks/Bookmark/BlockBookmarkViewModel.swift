@@ -15,7 +15,7 @@ struct BlockBookmarkViewModel: BlockViewModelProtocol {
     let openUrl: (AnytypeURL) -> ()
     
     func makeContentConfiguration(maxWidth _: CGFloat) -> UIContentConfiguration {
-        let backgroundColor = info.backgroundColor.map(UIColor.Background.uiColor(from:)) ?? nil
+        let backgroundColor = info.backgroundColor.map(UIColor.VeryLight.uiColor(from:)) ?? nil
 
         let payload = BlockBookmarkPayload(bookmarkData: bookmarkData, objectDetails: objectDetails)
 

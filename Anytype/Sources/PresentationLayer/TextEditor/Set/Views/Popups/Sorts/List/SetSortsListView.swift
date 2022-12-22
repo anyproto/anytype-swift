@@ -54,7 +54,7 @@ struct SetSortsListView: View {
             AnytypeText(
                 Loc.EditSet.Popup.Sorts.EmptyView.title,
                 style: .uxCalloutRegular,
-                color: .textSecondary
+                color: .Text.secondary
             )
                 .frame(height: 68)
             Spacer()
@@ -85,7 +85,7 @@ struct SetSortsListView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 EditButton()
-                    .foregroundColor(Color.buttonActive)
+                    .foregroundColor(Color.Button.active)
             }
         }
     }

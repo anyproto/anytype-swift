@@ -17,13 +17,13 @@ final class DeletedLabel: UIView {
             )
         }
         
-        backgroundColor = .strokeTertiary
+        backgroundColor = .Stroke.tertiary
         layer.cornerRadius = 3
     }
     
     private let deletedLabel: UILabel = {
         let view = UILabel()
-        view.textColor = .textSecondary
+        view.textColor = .Text.secondary
         view.font = .relation2Regular
         view.text = Loc.deleted
         return view

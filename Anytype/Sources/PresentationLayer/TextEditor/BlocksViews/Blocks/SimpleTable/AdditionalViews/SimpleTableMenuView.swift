@@ -53,7 +53,7 @@ struct SimpleTableMenuView: View {
             tabHeaders
             SelectionOptionsView(viewModel: .init(itemProvider: viewModel))
         }
-        .background(Color.backgroundSecondary)
+        .background(Color.Background.secondary)
     }
 
     private var tabHeaders: some View {
@@ -76,7 +76,7 @@ struct SimpleTableMenuView: View {
             AnytypeText(
                 item.title,
                 style: .subheading,
-                color: item.isSelected ? Color.buttonSelected : Color.buttonActive
+                color: item.isSelected ? Color.Button.selected : Color.Button.active
             )
         }
     }

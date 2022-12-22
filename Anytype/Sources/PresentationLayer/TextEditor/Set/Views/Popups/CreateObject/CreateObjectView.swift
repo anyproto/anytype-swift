@@ -84,7 +84,7 @@ final class CreateObjectView: UIView {
             string: viewModel.style.placeholder,
             attributes: [
                 .font: UIFont.previewTitle1Medium,
-                .foregroundColor: UIColor.textSecondary
+                .foregroundColor: UIColor.Text.secondary
             ]
         )
         textField.delegate = self

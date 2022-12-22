@@ -12,6 +12,7 @@ message SmartBlockSnapshotBase {
     repeated Relation extraRelations = 4;
     repeated string objectTypes = 5;
     google.protobuf.Struct collections = 6;
+    repeated string removedCollectionKeys = 8;
     repeated RelationLink relationLinks = 7;
 }
 

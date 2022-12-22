@@ -1801,6 +1801,8 @@ public struct Anytype_Rpc {
 
         public var timeZone: String = String()
 
+        public var ipfsstorageAddr: String = String()
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public init() {}
@@ -24468,6 +24470,7 @@ extension Anytype_Rpc.Account.ConfigUpdate.Request: SwiftProtobuf.Message, Swift
   public static let protoMessageName: String = Anytype_Rpc.Account.ConfigUpdate.protoMessageName + ".Request"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "timeZone"),
+    2: .same(proto: "IPFSStorageAddr"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -24477,6 +24480,7 @@ extension Anytype_Rpc.Account.ConfigUpdate.Request: SwiftProtobuf.Message, Swift
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.timeZone) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.ipfsstorageAddr) }()
       default: break
       }
     }
@@ -24486,11 +24490,15 @@ extension Anytype_Rpc.Account.ConfigUpdate.Request: SwiftProtobuf.Message, Swift
     if !self.timeZone.isEmpty {
       try visitor.visitSingularStringField(value: self.timeZone, fieldNumber: 1)
     }
+    if !self.ipfsstorageAddr.isEmpty {
+      try visitor.visitSingularStringField(value: self.ipfsstorageAddr, fieldNumber: 2)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Account.ConfigUpdate.Request, rhs: Anytype_Rpc.Account.ConfigUpdate.Request) -> Bool {
     if lhs.timeZone != rhs.timeZone {return false}
+    if lhs.ipfsstorageAddr != rhs.ipfsstorageAddr {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

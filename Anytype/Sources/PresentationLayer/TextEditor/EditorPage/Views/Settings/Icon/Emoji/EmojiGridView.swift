@@ -44,14 +44,14 @@ struct EmojiGridView: View {
             AnytypeText(
                 Loc.thereIsNoEmojiNamed + " \"\(placeholder)\"",
                 style: .uxBodyRegular,
-                color: .textPrimary
+                color: .Text.primary
             )
             .multilineTextAlignment(.center)
             
             AnytypeText(
                 Loc.tryToFindANewOneOrUploadYourImage,
                 style: .uxBodyRegular,
-                color: .textSecondary
+                color: .Text.secondary
             )
             .multilineTextAlignment(.center)
             Spacer()

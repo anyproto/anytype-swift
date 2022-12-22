@@ -101,11 +101,11 @@ extension TextBlockIconView {
 
         let originalImage = UIImage(
             imageLiteralResourceName: Constants.Toggle.foldedImageName
-        ).withTintColor(.textPrimary)
+        ).withTintColor(.Text.primary)
 
         let transformedImage = originalImage
             .rotate(radians: .pi/2)
-            .withTintColor(.textPrimary)
+            .withTintColor(.Text.primary)
 
         toggleButton.setImage(originalImage, for: .normal)
         toggleButton.setImage(transformedImage, for: .selected)
@@ -176,7 +176,7 @@ extension TextBlockIconView {
         let label = UILabel()
         label.text = "•"
         label.font = .systemFont(ofSize: 30)
-        label.textColor = .textPrimary
+        label.textColor = .Text.primary
 
         addSubview(label) {
             $0.centerY.equal(to: centerYAnchor)
@@ -191,7 +191,7 @@ extension TextBlockIconView {
 
     private func createQuoteView() -> UIView {
         let quoteView = UIView()
-        quoteView.backgroundColor = UIColor.System.amber
+        quoteView.backgroundColor = UIColor.System.amber100
 
         addSubview(quoteView) {
             $0.width.equal(to: 2)

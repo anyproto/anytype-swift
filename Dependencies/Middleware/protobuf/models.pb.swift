@@ -308,6 +308,8 @@ public struct Anytype_Model_SmartBlockSnapshotBase {
   /// Clears the value of `collections`. Subsequent reads from it will return its default value.
   public mutating func clearCollections() {self._collections = nil}
 
+  public var removedCollectionKeys: [String] = []
+
   public var relationLinks: [Anytype_Model_RelationLink] = []
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -3790,6 +3792,7 @@ extension Anytype_Model_SmartBlockSnapshotBase: SwiftProtobuf.Message, SwiftProt
     4: .same(proto: "extraRelations"),
     5: .same(proto: "objectTypes"),
     6: .same(proto: "collections"),
+    8: .same(proto: "removedCollectionKeys"),
     7: .same(proto: "relationLinks"),
   ]
 
@@ -3806,6 +3809,7 @@ extension Anytype_Model_SmartBlockSnapshotBase: SwiftProtobuf.Message, SwiftProt
       case 5: try { try decoder.decodeRepeatedStringField(value: &self.objectTypes) }()
       case 6: try { try decoder.decodeSingularMessageField(value: &self._collections) }()
       case 7: try { try decoder.decodeRepeatedMessageField(value: &self.relationLinks) }()
+      case 8: try { try decoder.decodeRepeatedStringField(value: &self.removedCollectionKeys) }()
       default: break
       }
     }
@@ -3837,6 +3841,9 @@ extension Anytype_Model_SmartBlockSnapshotBase: SwiftProtobuf.Message, SwiftProt
     if !self.relationLinks.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.relationLinks, fieldNumber: 7)
     }
+    if !self.removedCollectionKeys.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.removedCollectionKeys, fieldNumber: 8)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -3847,6 +3854,7 @@ extension Anytype_Model_SmartBlockSnapshotBase: SwiftProtobuf.Message, SwiftProt
     if lhs.extraRelations != rhs.extraRelations {return false}
     if lhs.objectTypes != rhs.objectTypes {return false}
     if lhs._collections != rhs._collections {return false}
+    if lhs.removedCollectionKeys != rhs.removedCollectionKeys {return false}
     if lhs.relationLinks != rhs.relationLinks {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true

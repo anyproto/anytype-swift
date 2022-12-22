@@ -51,14 +51,14 @@ struct RelationsListRowView: View {
     
     private var name: some View {
         Menu {
-            AnytypeText(relation.name, style: .relation1Regular, color: .textSecondary)
+            AnytypeText(relation.name, style: .relation1Regular, color: .Text.secondary)
         } label: {
             HStack(spacing: 6) {
                 if !relation.isEditable {
                     Image(asset: .relationLocked)
                         .frame(width: 15, height: 12)
                 }
-                AnytypeText(relation.name, style: .relation1Regular, color: .textSecondary).lineLimit(1)
+                AnytypeText(relation.name, style: .relation1Regular, color: .Text.secondary).lineLimit(1)
             }
             .frame(width: size.width * 0.4, alignment: .leading)
         }
@@ -128,26 +128,26 @@ struct ObjectRelationRow_Previews: PreviewProvider {
                             Relation.Tag.Option(
                                 id: "id1",
                                 text: "text1",
-                                textColor: UIColor.Text.teal,
-                                backgroundColor: UIColor.Background.teal
+                                textColor: UIColor.Dark.teal,
+                                backgroundColor: UIColor.VeryLight.teal
                             ),
                             Relation.Tag.Option(
                                 id: "id2",
                                 text: "text2",
-                                textColor: UIColor.Text.red,
-                                backgroundColor: UIColor.Background.teal
+                                textColor: UIColor.Dark.red,
+                                backgroundColor: UIColor.VeryLight.teal
                             ),
                             Relation.Tag.Option(
                                 id: "id3",
                                 text: "text3",
-                                textColor: UIColor.Text.teal,
-                                backgroundColor: UIColor.Background.teal
+                                textColor: UIColor.Dark.teal,
+                                backgroundColor: UIColor.VeryLight.teal
                             ),
                             Relation.Tag.Option(
                                 id: "id4",
                                 text: "text4",
-                                textColor: UIColor.Text.red,
-                                backgroundColor: UIColor.Background.teal
+                                textColor: UIColor.Dark.red,
+                                backgroundColor: UIColor.VeryLight.teal
                             )
                         ]
                     )

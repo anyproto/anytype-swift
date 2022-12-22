@@ -460,6 +460,7 @@ message Rpc {
         message ConfigUpdate {
             message Request {
                 string timeZone = 1;
+                string IPFSStorageAddr = 2;
             }
 
             message Response {

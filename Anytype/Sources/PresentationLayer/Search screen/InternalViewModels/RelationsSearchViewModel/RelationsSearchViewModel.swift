@@ -37,8 +37,7 @@ final class RelationsSearchViewModel: NewInternalSearchViewModelProtocol {
     
     func search(text: String) {
         let objects = interactor.search(text: text, excludedIds: selectedRelations.installed.map(\.id))
-        let sources = objects.map { $0.sourceObject }
-        let marketplaceObjects = interactor.searchInMarketplace(text: text, excludedIds: sources)
+        let marketplaceObjects = interactor.searchInMarketplace(text: text)
         
         handleSearchResults(objects: objects, marketplaceObjects: marketplaceObjects)
         

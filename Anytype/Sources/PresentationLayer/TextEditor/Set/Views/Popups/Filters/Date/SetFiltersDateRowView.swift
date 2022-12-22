@@ -12,7 +12,7 @@ struct SetFiltersDateRowView: View {
                 AnytypeText(
                     configuration.title,
                     style: .uxBodyRegular,
-                    color: .textPrimary
+                    color: .Text.primary
                 )
                 .layoutPriority(1)
                 Spacer()
@@ -21,7 +21,7 @@ struct SetFiltersDateRowView: View {
                     valueView
                     Image(asset: .optionChecked)
                         .frame(width: 24, height: 24)
-                        .foregroundColor(.buttonSelected)
+                        .foregroundColor(.Button.selected)
                 }
             }
         }
@@ -34,10 +34,10 @@ struct SetFiltersDateRowView: View {
                 DatePicker("", selection: $date, displayedComponents: .date)
                     .datePickerStyle(.compact)
                     .frame(height: 24)
-                    .accentColor(Color.System.amber)
+                    .accentColor(Color.System.amber100)
                 Spacer.fixedWidth(4)
             case let .days(count):
-                AnytypeText(count, style: .uxBodyRegular, color: .textPrimary)
+                AnytypeText(count, style: .uxBodyRegular, color: .Text.primary)
                     .lineLimit(1)
                 Spacer.fixedWidth(4)
             default:

@@ -57,9 +57,9 @@ struct SetHeaderSettings: View {
             }
         }) {
             HStack(alignment: .center, spacing: 0) {
-                AnytypeText(model.activeView.name, style: .subheading, color: .textPrimary)
+                AnytypeText(model.activeView.name, style: .subheading, color: .Text.primary)
                 Spacer.fixedWidth(4)
-                Image(asset: .arrowDown).foregroundColor(.textPrimary)
+                Image(asset: .arrowDown).foregroundColor(.Text.primary)
             }
         }
     }

@@ -14,7 +14,7 @@ final class EditorPageDeletedScreen: UIView {
     }
     
     private func setup() {
-        backgroundColor = .backgroundPrimary
+        backgroundColor = .Background.primary
         
         addSubview(ghost) {
             $0.center(in: self)
@@ -32,7 +32,7 @@ final class EditorPageDeletedScreen: UIView {
     private func buildText() -> AnytypeLabel {
         let view = AnytypeLabel(style: .heading)
         view.setText(Loc.thisObjectDoesnTExist)
-        view.textColor = .textPrimary
+        view.textColor = .Text.primary
         view.textAlignment = .center
         return view
     }
@@ -56,11 +56,11 @@ final class EditorPageDeletedScreen: UIView {
             )
         )
         button.setTitle(Loc.goBack, for: .normal)
-        button.setTitleColor(.textPrimary, for: .normal)
+        button.setTitleColor(.Text.primary, for: .normal)
         button.titleLabel?.font = .uxBodyRegular
         button.contentEdgeInsets = UIEdgeInsets(top: 10, left: 16, bottom: 10, right: 16)
         
-        button.dynamicBorderColor = UIColor.strokePrimary
+        button.dynamicBorderColor = UIColor.Stroke.primary
         button.layer.cornerRadius = 10
         button.layer.borderWidth = 1
         

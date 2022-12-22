@@ -17,7 +17,7 @@ final class SeparatorItemView: UIView, BlockContentView {
 
     // MARK: Setup
     private func setup() {
-        label.textColor = .textSecondary
+        label.textColor = .Text.secondary
         label.font = .systemFont(ofSize: 13)
 
         heightConstraint = label.heightAnchor.constraint(equalToConstant: 18)

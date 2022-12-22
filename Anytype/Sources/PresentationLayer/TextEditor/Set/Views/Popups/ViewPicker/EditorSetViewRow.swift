@@ -22,7 +22,7 @@ struct EditorSetViewRow: View {
                 AnytypeText(
                     configuration.name,
                     style: .uxBodyRegular,
-                    color: configuration.isSupported ? .textPrimary : .textSecondary
+                    color: configuration.isSupported ? .Text.primary : .Text.secondary
                 )
                 Spacer(minLength: 5)
                 accessoryView
@@ -40,14 +40,14 @@ struct EditorSetViewRow: View {
             if configuration.isSupported {
                 if configuration.isActive, editMode?.wrappedValue == .inactive {
                     Image(asset: .optionChecked)
-                        .foregroundColor(.buttonSelected)
+                        .foregroundColor(.Button.selected)
                 }
             } else {
                 if editMode?.wrappedValue == .inactive {
                     AnytypeText(
                         Loc.EditorSetViewPicker.View.Available.soon(configuration.typeName),
                         style: .uxBodyRegular,
-                        color: .textSecondary
+                        color: .Text.secondary
                     )
                 }
             }
@@ -61,7 +61,7 @@ struct EditorSetViewRow: View {
                     configuration.onEditTap()
                 }) {
                     Image(asset: .setPenEdit)
-                        .foregroundColor(.buttonSelected)
+                        .foregroundColor(.Button.selected)
                 }
             }
         }

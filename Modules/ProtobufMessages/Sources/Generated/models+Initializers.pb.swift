@@ -461,13 +461,14 @@ extension Anytype_Model_Restrictions.DataviewRestrictions {
 }
 
 extension Anytype_Model_SmartBlockSnapshotBase {
-    public init(blocks: [Anytype_Model_Block] = [], details: SwiftProtobuf.Google_Protobuf_Struct, fileKeys: SwiftProtobuf.Google_Protobuf_Struct, extraRelations: [Anytype_Model_Relation] = [], objectTypes: [String] = [], collections: SwiftProtobuf.Google_Protobuf_Struct, relationLinks: [Anytype_Model_RelationLink] = []) {
+    public init(blocks: [Anytype_Model_Block] = [], details: SwiftProtobuf.Google_Protobuf_Struct, fileKeys: SwiftProtobuf.Google_Protobuf_Struct, extraRelations: [Anytype_Model_Relation] = [], objectTypes: [String] = [], collections: SwiftProtobuf.Google_Protobuf_Struct, removedCollectionKeys: [String] = [], relationLinks: [Anytype_Model_RelationLink] = []) {
         self.blocks = blocks
         self.details = details
         self.fileKeys = fileKeys
         self.extraRelations = extraRelations
         self.objectTypes = objectTypes
         self.collections = collections
+        self.removedCollectionKeys = removedCollectionKeys
         self.relationLinks = relationLinks
     }
 }

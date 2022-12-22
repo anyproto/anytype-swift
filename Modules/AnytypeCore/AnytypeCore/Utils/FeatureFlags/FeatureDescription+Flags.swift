@@ -27,7 +27,7 @@ public extension FeatureDescription {
     static let setKanbanView = FeatureDescription(
         title: "Set kanban view",
         author: "joe_pusya@anytype.io",
-        releaseVersion: "0.20.0",
+        releaseVersion: "0.21.0",
         defaultValue: false,
         debugValue: false
     )
@@ -42,7 +42,7 @@ public extension FeatureDescription {
     static let linktoObjectFromItself = FeatureDescription(
         title: "Link to object from itself",
         author: "db@anytype.io",
-        releaseVersion: "0.20.0",
+        releaseVersion: "0.21.0",
         defaultValue: false
     )
     
@@ -50,49 +50,49 @@ public extension FeatureDescription {
         title: "Link to object from markup",
         author: "m@anytype.io",
         releaseVersion: "0.20.0",
-        defaultValue: false
+        defaultValue: true
     )
     
     static let showBookmarkInSets = FeatureDescription(
         title: "Show bookmark type in sets (IOS-538)",
         author: "m@anytype.io",
         releaseVersion: "0.20.0",
-        defaultValue: false
+        defaultValue: true
     )
     
     static let inlineMarkdown = FeatureDescription(
         title: "Inline markdown (IOS-78)",
         author: "m@anytype.io",
         releaseVersion: "0.20.0",
-        defaultValue: false
+        defaultValue: true
     )
 
     static let fixColorsForStyleMenu = FeatureDescription(
         title: "Fix colors for style menu (IOS-94)",
         author: "m@anytype.io",
         releaseVersion: "0.20.0",
-        defaultValue: false
+        defaultValue: true
     )
 
     static let redesignBookmarkBlock = FeatureDescription(
         title: "Redesign bookmark block (ios-527)",
         author: "m@anytype.io",
         releaseVersion: "0.20.0",
-        defaultValue: false
+        defaultValue: true
     )
     
     static let showSetsInChangeTypeSearchMenu = FeatureDescription(
         title: "Show sets in change type search menu (IOS-664)",
         author: "m@anytype.io",
         releaseVersion: "0.20.0",
-        defaultValue: false
+        defaultValue: true
     )
     
     static let fixInsetMediaContent = FeatureDescription(
         title: "Fix insert media content (IOS-552)",
         author: "m@anytype.io",
         releaseVersion: "0.20.0",
-        defaultValue: false
+        defaultValue: true
     )
     
     static let homeWidgets = FeatureDescription(
