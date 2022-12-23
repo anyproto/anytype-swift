@@ -45,12 +45,8 @@ struct LinkWidgetViewContainer<Content>: View where Content: View {
                     isExpanded = !isExpanded
                 }
             }, label: {
-                if isExpanded {
-                    Image(asset: .Widget.collapse)
-                        .rotationEffect(.degrees(90))
-                } else {
-                    Image(asset: .Widget.collapse)
-                }
+                Image(asset: .Widget.collapse)
+                    .rotationEffect(.degrees(isExpanded ? 90 : 0))
             })
             Spacer.fixedWidth(12)
         }
