@@ -19,7 +19,7 @@ final class HomeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol {
     
     func make(widgetObjectId: String, output: HomeWidgetsModuleOutput) -> AnyView {
         let model = HomeWidgetsViewModel(
-            widgeetObjectId: widgetObjectId,
+            widgetObject: HomeWidgetsObject(objectId: widgetObjectId),
             registry: HomeWidgetsRegistry(),
             output: output
         )

@@ -30,7 +30,7 @@ struct HomeWidgetsView_Previews: PreviewProvider {
     static var previews: some View {
         HomeWidgetsView(
             model: HomeWidgetsViewModel(
-                widgeetObjectId: "",
+                widgetObject: HomeWidgetsObject(objectId: ""),
                 registry: HomeWidgetsRegistry(),
                 output: nil
             )
