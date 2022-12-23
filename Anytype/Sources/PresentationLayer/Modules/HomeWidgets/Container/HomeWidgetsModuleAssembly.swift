@@ -20,8 +20,8 @@ final class HomeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol {
     func make(widgetObjectId: String, output: HomeWidgetsModuleOutput) -> AnyView {
         let model = HomeWidgetsViewModel(
             widgeetObjectId: widgetObjectId,
-            output: output,
-            navigationContext: uiHelpersDI.commonNavigationContext
+            registry: HomeWidgetsRegistry(),
+            output: output
         )
         let view = HomeWidgetsView(model: model)
         return view.eraseToAnyView()
