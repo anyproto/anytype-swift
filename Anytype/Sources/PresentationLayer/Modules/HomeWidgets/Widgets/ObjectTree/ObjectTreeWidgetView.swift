@@ -1,15 +1,15 @@
 import Foundation
 import SwiftUI
 
-struct ObjectLintWidgetView: View {
+struct ObjectTreeWidgetView: View {
     
-    @ObservedObject var model: ObjectLintWidgetViewModel
+    @ObservedObject var model: ObjectTreeWidgetViewModel
         
     var body: some View {
         LinkWidgetViewContainer(title: model.name, isExpanded: $model.isEexpanded) {
             // Temporary content
             VStack(alignment: .leading) {
-                Text(model.name)
+                Text("Content \(model.name)")
             }
             .onAppear {
                 print("on appear \(model.name)")

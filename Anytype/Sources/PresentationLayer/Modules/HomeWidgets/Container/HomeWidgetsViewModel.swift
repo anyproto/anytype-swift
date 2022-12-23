@@ -7,7 +7,7 @@ final class HomeWidgetsViewModel: ObservableObject {
     private var registry: HomeWidgetsRegistryProtocol
     private weak var output: HomeWidgetsModuleOutput?
     
-    @Published var models: [ObjectLintWidgetViewModel] = []
+    @Published var models: [HomeWidgetProviderProtocol] = []
     
     init(
         widgeetObjectId: String,
@@ -16,10 +16,10 @@ final class HomeWidgetsViewModel: ObservableObject {
     ) {
         self.registry = registry
         self.output = output
-        
-        for i in 0..<20 {
-            models.append(ObjectLintWidgetViewModel(name: "Name \(i)"))
-        }
+    }
+    
+    func onAppear() {
+        models = registry.providers()
     }
     
     func onDisableNewHomeTap() {

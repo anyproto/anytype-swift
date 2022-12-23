@@ -41,7 +41,6 @@ struct LinkWidgetViewContainer<Content>: View where Content: View {
             Spacer()
             Button(action: {
                 withAnimation {
-                    print("on tap")
                     isExpanded = !isExpanded
                 }
             }, label: {

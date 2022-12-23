@@ -3,6 +3,6 @@ import SwiftUI
 
 @MainActor
 protocol HomeWidgetProviderProtocol: AnyObject {
-    func view() -> AnyView
-    func componentId() -> String
+    var view: AnyView { get }
+    var componentId: String { get }
 }

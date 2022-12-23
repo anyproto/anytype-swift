@@ -472,9 +472,9 @@
 		2AA0209C28D3603900321A66 /* HomeFavoriteSorter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA0209B28D3603900321A66 /* HomeFavoriteSorter.swift */; };
 		2AA22F68289BF27500BBA174 /* EditorBrowserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA22F67289BF27500BBA174 /* EditorBrowserView.swift */; };
 		2AAE455828A5307C00E538C8 /* BlockBookmark+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAE455728A5307C00E538C8 /* BlockBookmark+Extensions.swift */; };
-		2AAF34372954C86800921320 /* ObjectLintWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAF34362954C86800921320 /* ObjectLintWidgetView.swift */; };
-		2AAF343A29559BED00921320 /* ObjectLintWidgetProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAF343929559BED00921320 /* ObjectLintWidgetProvider.swift */; };
-		2AAF343C29559BF700921320 /* ObjectLintWidgetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAF343B29559BF700921320 /* ObjectLintWidgetViewModel.swift */; };
+		2AAF34372954C86800921320 /* ObjectTreeWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAF34362954C86800921320 /* ObjectTreeWidgetView.swift */; };
+		2AAF343A29559BED00921320 /* ObjectTreeWidgetProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAF343929559BED00921320 /* ObjectTreeWidgetProvider.swift */; };
+		2AAF343C29559BF700921320 /* ObjectTreeWidgetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAF343B29559BF700921320 /* ObjectTreeWidgetViewModel.swift */; };
 		2AAF343E29559DA600921320 /* HomeWidgetsRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAF343D29559DA600921320 /* HomeWidgetsRegistry.swift */; };
 		2AB2C22428AD23FD000191F8 /* AlertOpenerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB2C22328AD23FD000191F8 /* AlertOpenerProtocol.swift */; };
 		2AB2C22628B378A5000191F8 /* BookmarkIconImageGuideline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB2C22528B378A5000191F8 /* BookmarkIconImageGuideline.swift */; };
@@ -1758,9 +1758,9 @@
 		2AA0209B28D3603900321A66 /* HomeFavoriteSorter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFavoriteSorter.swift; sourceTree = "<group>"; };
 		2AA22F67289BF27500BBA174 /* EditorBrowserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorBrowserView.swift; sourceTree = "<group>"; };
 		2AAE455728A5307C00E538C8 /* BlockBookmark+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockBookmark+Extensions.swift"; sourceTree = "<group>"; };
-		2AAF34362954C86800921320 /* ObjectLintWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectLintWidgetView.swift; sourceTree = "<group>"; };
-		2AAF343929559BED00921320 /* ObjectLintWidgetProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectLintWidgetProvider.swift; sourceTree = "<group>"; };
-		2AAF343B29559BF700921320 /* ObjectLintWidgetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectLintWidgetViewModel.swift; sourceTree = "<group>"; };
+		2AAF34362954C86800921320 /* ObjectTreeWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectTreeWidgetView.swift; sourceTree = "<group>"; };
+		2AAF343929559BED00921320 /* ObjectTreeWidgetProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectTreeWidgetProvider.swift; sourceTree = "<group>"; };
+		2AAF343B29559BF700921320 /* ObjectTreeWidgetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectTreeWidgetViewModel.swift; sourceTree = "<group>"; };
 		2AAF343D29559DA600921320 /* HomeWidgetsRegistry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWidgetsRegistry.swift; sourceTree = "<group>"; };
 		2AB2C22328AD23FD000191F8 /* AlertOpenerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertOpenerProtocol.swift; sourceTree = "<group>"; };
 		2AB2C22528B378A5000191F8 /* BookmarkIconImageGuideline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkIconImageGuideline.swift; sourceTree = "<group>"; };
@@ -4554,7 +4554,7 @@
 		2A4919A629530AD200FCEAC9 /* Widgets */ = {
 			isa = PBXGroup;
 			children = (
-				2AAF343829559BD400921320 /* ObjectLink */,
+				2AAF343829559BD400921320 /* ObjectTree */,
 				2A4919A729530ADD00FCEAC9 /* Common */,
 			);
 			path = Widgets;
@@ -4754,14 +4754,14 @@
 			path = FavoritesSorter;
 			sourceTree = "<group>";
 		};
-		2AAF343829559BD400921320 /* ObjectLink */ = {
+		2AAF343829559BD400921320 /* ObjectTree */ = {
 			isa = PBXGroup;
 			children = (
-				2AAF34362954C86800921320 /* ObjectLintWidgetView.swift */,
-				2AAF343929559BED00921320 /* ObjectLintWidgetProvider.swift */,
-				2AAF343B29559BF700921320 /* ObjectLintWidgetViewModel.swift */,
+				2AAF34362954C86800921320 /* ObjectTreeWidgetView.swift */,
+				2AAF343929559BED00921320 /* ObjectTreeWidgetProvider.swift */,
+				2AAF343B29559BF700921320 /* ObjectTreeWidgetViewModel.swift */,
 			);
-			path = ObjectLink;
+			path = ObjectTree;
 			sourceTree = "<group>";
 		};
 		2AAF343F29559DAD00921320 /* Container */ = {
@@ -8041,7 +8041,7 @@
 				3D6E9A39270E0937001B0A07 /* ResultExtension.swift in Sources */,
 				12DE4057264AE455007B5074 /* UIView+Layout.swift in Sources */,
 				3D22B20E2685DABD00C78C28 /* BlockImageViewModel.swift in Sources */,
-				2AAF343C29559BF700921320 /* ObjectLintWidgetViewModel.swift in Sources */,
+				2AAF343C29559BF700921320 /* ObjectTreeWidgetViewModel.swift in Sources */,
 				2A17643A283E2245002853D3 /* ContentUrlBuilder.swift in Sources */,
 				3D091D4B2662F233004699E7 /* HomeCollectionDropInsideDelegate.swift in Sources */,
 				129C54C927FC4EA200C390C7 /* NewRelationView.swift in Sources */,
@@ -8208,7 +8208,7 @@
 				2AEABE0528C7548A00BDE3AC /* RelationEventsBunch.swift in Sources */,
 				3D24910B27BBD87200821595 /* CGFloat+OnePixel.swift in Sources */,
 				EA3D1E5426CFCCC5001A31D9 /* TextViewAttributeSelectionHandler.swift in Sources */,
-				2AAF34372954C86800921320 /* ObjectLintWidgetView.swift in Sources */,
+				2AAF34372954C86800921320 /* ObjectTreeWidgetView.swift in Sources */,
 				1200BF9227F4CA62000A0366 /* DownloadableImageViewWrapperProtocol.swift in Sources */,
 				2E7CAA3C2949E6A200475898 /* SetKanbanColumnHeaderType.swift in Sources */,
 				C9367A9E27313692007D687A /* TextBlockDelegateData.swift in Sources */,
@@ -8702,7 +8702,7 @@
 				C9F0A4772805702C00FA16DD /* ObjectIconPickerViewModelProtocol.swift in Sources */,
 				538EF48725F831AA005C7438 /* NSAttributedStringExtension.swift in Sources */,
 				125E75E526CD199A000AF4E9 /* EditorNavigationBarTitleView.swift in Sources */,
-				2AAF343A29559BED00921320 /* ObjectLintWidgetProvider.swift in Sources */,
+				2AAF343A29559BED00921320 /* ObjectTreeWidgetProvider.swift in Sources */,
 				539E019727582AA300067A24 /* RelationNameValueView.swift in Sources */,
 				2E2D256328880C8D00E3DFD1 /* SetFiltersSelectionHeaderView.swift in Sources */,
 				3DE6924F27301C3E00A4CD4E /* AccessoryViewType.swift in Sources */,
