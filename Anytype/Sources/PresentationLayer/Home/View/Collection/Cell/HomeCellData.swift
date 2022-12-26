@@ -4,7 +4,7 @@ import Combine
 import BlocksModels
 import AnytypeCore
 
-struct HomeCellData: Identifiable, IdProvider {
+struct HomeCellData: Identifiable, Equatable, IdProvider {
     let id: BlockId
     let destinationId: BlockId
     let icon: ObjectIconImage?
@@ -17,9 +17,9 @@ struct HomeCellData: Identifiable, IdProvider {
     let isFavorite: Bool
     let viewType: EditorViewType
     
-    static func create(details: ObjectDetails) -> HomeCellData {
+    static func create(details: ObjectDetails, id: String = "") -> HomeCellData {
         HomeCellData(
-            id: details.id,
+            id: id ?? details.id,
             destinationId: details.id,
             icon: details.objectIconImage,
             title: details.pageCellTitle,

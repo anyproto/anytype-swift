@@ -48,6 +48,7 @@ struct HomeTabsView: View {
                     model.showPage(id: data.destinationId, viewType: data.viewType)
                 }
             )
+            .animation(.default, value: model.notDeletedFavoritesCellData)
             .tag(Tab.favourites)
             
             HomeCollectionView(
