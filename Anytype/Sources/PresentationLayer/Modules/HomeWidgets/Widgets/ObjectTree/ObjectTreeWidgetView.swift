@@ -10,14 +10,17 @@ struct ObjectTreeWidgetView: View {
             // Temporary content
             VStack(alignment: .leading) {
                 Text("Tree content \(model.name)")
-            }
-            .onAppear {
-                model.onAppear()
-            }
-            .onDisappear {
-                model.onDisappear()
+                Text("Widget id \(model.widgetBlockId)")
             }
             .foregroundColor(.red)
+        }
+        .onAppear {
+            model.onAppear()
+            print("ObjectTreeWidgetView onAppear \(model.widgetBlockId)")
+        }
+        .onDisappear {
+            model.onDisappear()
+            print("ObjectTreeWidgetView onDisappear \(model.widgetBlockId)")
         }
     }
 }

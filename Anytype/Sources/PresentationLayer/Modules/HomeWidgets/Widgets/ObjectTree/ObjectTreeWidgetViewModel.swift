@@ -5,7 +5,8 @@ import Combine
 @MainActor
 final class ObjectTreeWidgetViewModel: ObservableObject {
     
-    private let widgetBlockId: BlockId
+    // TODO: For debug. Make private
+    let widgetBlockId: BlockId
     private let widgetObject: HomeWidgetsObjectProtocol
     private let objectDetailsStorage: ObjectDetailsStorage
     private var subscriptions = [AnyCancellable]()
@@ -22,23 +23,28 @@ final class ObjectTreeWidgetViewModel: ObservableObject {
     // MARK: - Private
     
     func onAppear() {
-        // TODO: Think different after implement sets
-        guard let info = widgetObject.blockInformation(id: widgetBlockId) else { return }
-        guard let contentBlockId = info.childrenIds.first else { return }
-        guard let contentInfo = widgetObject.blockInformation(id: contentBlockId) else { return }
-        guard case let .link(link) = contentInfo.content else { return }
-        
-        setupSubscriptions(objectId: link.targetBlockID)
+        guard let tagetObjectId = widgetObject.targetObjectIdByLinkFor(widgetBlockId: widgetBlockId)
+            else { return }
+        setupSubscriptions(tagetObjectId: tagetObjectId)
     }
     
     func onDisappear() {
         subscriptions.removeAll()
     }
     
-    private func setupSubscriptions(objectId: BlockId) {
-        objectDetailsStorage.publisherFor(id: objectId)
+    private func setupSubscriptions(tagetObjectId: BlockId) {
+        objectDetailsStorage.publisherFor(id: tagetObjectId)
             .sink { [weak self] details in
                 self?.name = details?.title ?? ""
+                print("Handle details widgetBlockId - \(self?.widgetBlockId)")
+            }
+            .store(in: &subscriptions)
+        
+        widgetObject.infoContainer.publisherFor(id: widgetBlockId)
+            .sink { [weak self] info in
+                guard case let .widget(widget) = info?.content else { return }
+                self?.isEexpanded = widget.layout == .tree
+                print("Handle infoContainer widgetBlockId - \(self?.widgetBlockId)")
             }
             .store(in: &subscriptions)
     }

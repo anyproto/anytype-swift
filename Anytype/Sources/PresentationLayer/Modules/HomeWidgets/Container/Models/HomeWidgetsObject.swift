@@ -6,13 +6,14 @@ protocol HomeWidgetsObjectProtocol: AnyObject {
     
     var objectId: String { get }
     var widgetsPublisher: AnyPublisher<[BlockInformation], Never> { get }
+    var infoContainer: InfoContainerProtocol { get }
     
     @MainActor
     func open() async throws
     @MainActor
     func close() async throws
     
-    func blockInformation(id: BlockId) -> BlockInformation?
+    func targetObjectIdByLinkFor(widgetBlockId: BlockId) -> String?
 }
 
 final class HomeWidgetsObject: HomeWidgetsObjectProtocol {
@@ -20,9 +21,11 @@ final class HomeWidgetsObject: HomeWidgetsObjectProtocol {
     // MARK: - Private properties
     private var subscriptions = [AnyCancellable]()
     private let baseDocument: BaseDocumentProtocol
+    private let objectDetailsStorage: ObjectDetailsStorage
     
-    init(objectId: String) {
+    init(objectId: String, objectDetailsStorage: ObjectDetailsStorage) {
         self.baseDocument = BaseDocument(objectId: objectId)
+        self.objectDetailsStorage = objectDetailsStorage
         setupSubscriptions()
     }
     
@@ -37,6 +40,10 @@ final class HomeWidgetsObject: HomeWidgetsObjectProtocol {
         widgetsSubject.eraseToAnyPublisher()
     }
     
+    var infoContainer: InfoContainerProtocol {
+        return baseDocument.infoContainer
+    }
+    
     @MainActor
     func open() async throws {
         try await baseDocument.open()
@@ -47,9 +54,13 @@ final class HomeWidgetsObject: HomeWidgetsObjectProtocol {
         try await baseDocument.close()
     }
     
-    @MainActor
-    func blockInformation(id: BlockId) -> BlockInformation? {
-        return baseDocument.infoContainer.get(id: id)
+    func targetObjectIdByLinkFor(widgetBlockId: BlockId) -> String? {
+        guard let block = infoContainer.get(id: widgetBlockId),
+              let contentId = block.childrenIds.first,
+              let contentInfo = infoContainer.get(id: contentId),
+              case let .link(link) = contentInfo.content else { return nil }
+        
+        return link.targetBlockID
     }
     
     // MARK: - Private

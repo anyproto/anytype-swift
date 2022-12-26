@@ -21,7 +21,10 @@ final class HomeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol {
     
     func make(widgetObjectId: String, output: HomeWidgetsModuleOutput) -> AnyView {
         let model = HomeWidgetsViewModel(
-            widgetObject: HomeWidgetsObject(objectId: widgetObjectId),
+            widgetObject: HomeWidgetsObject(
+                objectId: widgetObjectId,
+                objectDetailsStorage: serviceLocator.objectDetailsStorage()
+            ),
             registry: serviceLocator.homeWidgetsRegistry(),
             blockWidgetService: serviceLocator.blockWidgetService(),
             output: output

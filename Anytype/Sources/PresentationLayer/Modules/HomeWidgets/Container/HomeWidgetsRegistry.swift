@@ -22,11 +22,9 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
             guard case let .widget(widget) = block.content else { return nil }
             switch widget.layout {
             case .link:
-                // TODO: Think different after implement sets
-                guard let contentId = block.childrenIds.first,
-                      let contentInfo = widgetObject.blockInformation(id: contentId),
-                      case let .link(link) = contentInfo.content,
-                      let contentDetails = objectDetailsStorage.get(id: link.targetBlockID) else { return nil }
+                
+                guard let contentId = widgetObject.targetObjectIdByLinkFor(widgetBlockId: block.id),
+                      let contentDetails = objectDetailsStorage.get(id: contentId) else { return nil }
         
                 switch contentDetails.editorViewType {
                 case .page:

@@ -57,7 +57,7 @@ final class HomeWidgetsViewModel: ObservableObject {
 //            try await blockWidgetService.createBlockWidget(
 //                contextId: widgetObject.objectId,
 //                info: info,
-//                layout: .tree
+//                layout: .link
 //            )
 //        }
     }
