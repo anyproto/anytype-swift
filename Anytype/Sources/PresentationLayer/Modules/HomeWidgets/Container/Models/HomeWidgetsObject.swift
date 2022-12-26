@@ -11,7 +11,7 @@ protocol HomeWidgetsObjectProtocol: AnyObject {
     func open() async throws
     @MainActor
     func close() async throws
-    @MainActor
+    
     func blockInformation(id: BlockId) -> BlockInformation?
 }
 

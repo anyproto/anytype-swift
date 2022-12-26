@@ -1,6 +1,5 @@
 import Foundation
 
-@MainActor
 final class ObjectTreeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol {
     
     private let serviceLocator: ServiceLocator

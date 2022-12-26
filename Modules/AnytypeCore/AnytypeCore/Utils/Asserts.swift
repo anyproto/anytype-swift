@@ -20,7 +20,7 @@ public func anytypeAssertionFailure(
     #endif
 }
 
-public func AnytypeAssertionFailureWithError(
+public func anytypeAssertionFailureWithError(
     _ message: String,
     domain: ErrorDomain,
     file: StaticString = #file,

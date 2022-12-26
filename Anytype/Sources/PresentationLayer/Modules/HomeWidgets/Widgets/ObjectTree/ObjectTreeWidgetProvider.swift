@@ -2,7 +2,6 @@ import Foundation
 import SwiftUI
 import BlocksModels
 
-@MainActor
 final class ObjectTreeWidgetProvider: HomeWidgetProviderProtocol {
     
     private let widgetBlockId: String
@@ -17,6 +16,7 @@ final class ObjectTreeWidgetProvider: HomeWidgetProviderProtocol {
     
     // MARK: - HomeWidgetProviderProtocol
     
+    @MainActor
     var view: AnyView {
         // TODO: Maybe add assembly for each widget
         let model = ObjectTreeWidgetViewModel(

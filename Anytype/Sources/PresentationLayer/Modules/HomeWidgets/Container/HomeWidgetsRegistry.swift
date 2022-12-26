@@ -1,12 +1,10 @@
 import Foundation
 import BlocksModels
 
-@MainActor
 protocol HomeWidgetsRegistryProtocol {
     func providers(blocks: [BlockInformation], widgetObject: HomeWidgetsObjectProtocol) -> [HomeWidgetProviderProtocol]
 }
 
-@MainActor
 final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
 
     private let treeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol

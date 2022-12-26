@@ -128,7 +128,6 @@ final class ServiceLocator {
         ObjectDetailsStorage.shared
     }
     
-    @MainActor
     func homeWidgetsRegistry() -> HomeWidgetsRegistryProtocol {
         return HomeWidgetsRegistry(
             treeWidgetProviderAssembly: ObjectTreeWidgetProviderAssembly(serviceLocator: self),

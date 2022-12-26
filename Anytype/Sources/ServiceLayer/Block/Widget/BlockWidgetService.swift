@@ -15,7 +15,7 @@ final class BlockWidgetService: BlockWidgetServiceProtocol {
     func createBlockWidget(contextId: String, info: BlockInformation, layout: BlockWidget.Layout) async throws {
         
         guard let block = BlockInformationConverter.convert(information: info) else {
-            throw AnytypeAssertionFailureWithError("createBlockWidget", domain: .blockWidgetService)
+            throw anytypeAssertionFailureWithError("createBlockWidget", domain: .blockWidgetService)
         }
         
         let result = try await Anytype_Rpc.Block.CreateWidget.Service
