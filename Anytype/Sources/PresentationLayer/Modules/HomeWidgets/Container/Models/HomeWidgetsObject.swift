@@ -4,6 +4,7 @@ import Combine
 
 protocol HomeWidgetsObjectProtocol: AnyObject {
     
+    var objectId: String { get }
     var widgetsPublisher: AnyPublisher<[BlockInformation], Never> { get }
     
     @MainActor
@@ -24,6 +25,10 @@ final class HomeWidgetsObject: HomeWidgetsObjectProtocol {
     }
     
     // MARK: - HomeWidgetsObjectProtocol
+    
+    var objectId: String {
+        return baseDocument.objectId
+    }
     
     private var widgetsSubject = CurrentValueSubject<[BlockInformation], Never>([])
     var widgetsPublisher: AnyPublisher<[BlockInformation], Never> {

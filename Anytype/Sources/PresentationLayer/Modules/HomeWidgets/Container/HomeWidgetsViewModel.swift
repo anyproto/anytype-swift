@@ -50,11 +50,11 @@ final class HomeWidgetsViewModel: ObservableObject {
             .map { [weak self] blocks in return self?.registry.providers(blocks: blocks) ?? [] }
             .assign(to: &$models)
         
-//        guard widgetObject.widgets.isNotEmpty else { return }
-//
-//        if widgetObject.widgets {
-//            let info = BlockInformation.empty(content: .link(.empty(targetBlockID: "bafybbawyy6dpf4mnjrjncjulsu5c7b4a6mz27wyxbowd4ukf3ga2wz2t")))
-//            try await blockWidgetService.createBlockWidget(contextId: widgetObject.baseDocument.objectId, info: info)
-//        }
+//        let info = BlockInformation.empty(content: .link(.empty(targetBlockID: "bafybbawyy6dpf4mnjrjncjulsu5c7b4a6mz27wyxbowd4ukf3ga2wz2t")))
+//        try await blockWidgetService.createBlockWidget(
+//            contextId: widgetObject.objectId,
+//            info: info,
+//            layout: .tree
+//        )
     }
 }

@@ -19,7 +19,7 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
             case .link:
                 return ObjectTreeWidgetProvider(widgetBlockId: "Block Link \(block.id)")
             case .tree:
-                return ObjectTreeWidgetProvider(widgetBlockId: "Block Link \(block.id)")
+                return ObjectTreeWidgetProvider(widgetBlockId: "Block Tree \(block.id)")
             }
         }
     }
