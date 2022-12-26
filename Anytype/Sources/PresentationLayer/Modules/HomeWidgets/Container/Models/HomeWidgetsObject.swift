@@ -57,22 +57,5 @@ final class HomeWidgetsObject: HomeWidgetsObjectProtocol {
             .receiveOnMain()
             .sink { [weak self] in self?.widgetsSubject.send($0) }
             .store(in: &subscriptions)
-        
-//        baseDocument.infoContainer.publisherFor(id: baseDocument.objectId)
-//            .map { [weak self] info in
-//                guard let info = info else { return [] }
-//                return info.childrenIds
-//                    .compactMap { self?.baseDocument.infoContainer.get(id: $0) }
-//                    .filter(\.isWidget)
-//            }
-//            .sink { [weak self] in self?.widgetsSubject.send($0) }
-//            .store(in: &subscriptions)
-        
-//        baseDocument.childrenPublisher
-//            .map { $0.filter(\.isWidget) }
-//            .removeDuplicates()
-//            .receiveOnMain()
-//            .sink { [weak self] in self?.widgetsSubject.send($0) }
-//            .store(in: &subscriptions)
     }
 }
