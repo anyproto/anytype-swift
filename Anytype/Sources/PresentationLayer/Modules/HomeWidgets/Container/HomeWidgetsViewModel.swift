@@ -12,9 +12,6 @@ final class HomeWidgetsViewModel: ObservableObject {
     
     @Published var models: [HomeWidgetProviderProtocol] = []
     
-    // TODO: Delete from ios 15
-    private var appearTask: Task<(), Error>?
-    
     init(
         widgetObject: HomeWidgetsObjectProtocol,
         registry: HomeWidgetsRegistryProtocol,
@@ -28,14 +25,16 @@ final class HomeWidgetsViewModel: ObservableObject {
     }
     
     func onAppear() {
-        appearTask = Task { [weak self] in
+        Task { [weak self] in
             try await self?.widgetObject.open()
             try await self?.setupInitialState()
         }
     }
     
-    deinit {
-        appearTask?.cancel()
+    func onDisappear() {
+        Task { [weak self] in
+            try await self?.widgetObject.close()
+        }
     }
     
     func onDisableNewHomeTap() {

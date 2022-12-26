@@ -23,6 +23,9 @@ struct HomeWidgetsView: View {
         .onAppear {
             model.onAppear()
         }
+        .onDisappear {
+            model.onDisappear()
+        }
     }
 }
 

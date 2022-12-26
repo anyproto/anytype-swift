@@ -17,6 +17,4 @@ struct ObjectTreeWidgetView: View {
             .foregroundColor(.red)
         }
     }
-    
-    
 }
