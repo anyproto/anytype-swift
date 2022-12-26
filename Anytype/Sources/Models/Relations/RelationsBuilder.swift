@@ -546,8 +546,6 @@ private extension RelationDetails {
     func isEditable(objectLocked: Bool) -> Bool {
         guard !objectLocked else { return false }
 
-        if key == BundledRelationKey.setOf.rawValue { return true }
-
         return !self.isReadOnlyValue
     }
 }
