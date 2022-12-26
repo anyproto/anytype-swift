@@ -7,7 +7,7 @@ final class HomeWidgetsViewModel: ObservableObject {
 
     private let widgetObject: HomeWidgetsObjectProtocol
     private let registry: HomeWidgetsRegistryProtocol
-    private let blockService: BlockActionsServiceSingleProtocol
+    private let blockWidgetService: BlockWidgetServiceProtocol
     private weak var output: HomeWidgetsModuleOutput?
     
     @Published var models: [HomeWidgetProviderProtocol] = []
@@ -18,19 +18,19 @@ final class HomeWidgetsViewModel: ObservableObject {
     init(
         widgetObject: HomeWidgetsObjectProtocol,
         registry: HomeWidgetsRegistryProtocol,
-        blockService: BlockActionsServiceSingleProtocol,
+        blockWidgetService: BlockWidgetServiceProtocol,
         output: HomeWidgetsModuleOutput?
     ) {
         self.widgetObject = widgetObject
         self.registry = registry
-        self.blockService = blockService
+        self.blockWidgetService = blockWidgetService
         self.output = output
     }
     
     func onAppear() {
-        appearTask = Task {
-            try await widgetObject.open()
-            setupInitialState()
+        appearTask = Task { [weak self] in
+            try await self?.widgetObject.open()
+            try await self?.setupInitialState()
         }
     }
     
@@ -45,13 +45,16 @@ final class HomeWidgetsViewModel: ObservableObject {
     
     // MARK: - Private
     
-    private func setupInitialState() {
-        models = registry.providers()
-        if widgetObject.baseDocument.children.isEmpty {
-            let info = BlockInformation.empty(content: .widget(BlockWidget(layout: .link)))
-            blockService.add(
-                targetId: widgetObject.baseDocument.objectId, info: info, position: .none
-            )
-        }
+    private func setupInitialState() async throws {
+        widgetObject.widgetsPublisher
+            .map { [weak self] blocks in return self?.registry.providers(blocks: blocks) ?? [] }
+            .assign(to: &$models)
+        
+//        guard widgetObject.widgets.isNotEmpty else { return }
+//
+//        if widgetObject.widgets {
+//            let info = BlockInformation.empty(content: .link(.empty(targetBlockID: "bafybbawyy6dpf4mnjrjncjulsu5c7b4a6mz27wyxbowd4ukf3ga2wz2t")))
+//            try await blockWidgetService.createBlockWidget(contextId: widgetObject.baseDocument.objectId, info: info)
+//        }
     }
 }

@@ -1,8 +1,9 @@
 import Foundation
+import BlocksModels
 
 @MainActor
 protocol HomeWidgetsRegistryProtocol {
-    func providers() -> [HomeWidgetProviderProtocol]
+    func providers(blocks: [BlockInformation]) -> [HomeWidgetProviderProtocol]
 }
 
 @MainActor
@@ -10,12 +11,16 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
 
     // MARK: - HomeWidgetsRegistryProtocol
     
-    func providers() -> [HomeWidgetProviderProtocol] {
-        
-        let providers = (0..<50).map {
-            // TODO: Detect block type and create specific provider
-            return ObjectTreeWidgetProvider(widgetBlockId: "Block\($0)")
+    func providers(blocks: [BlockInformation]) -> [HomeWidgetProviderProtocol] {
+        return blocks.compactMap { block in
+            guard case let .widget(widget) = block.content else { return nil }
+            
+            switch widget.layout {
+            case .link:
+                return ObjectTreeWidgetProvider(widgetBlockId: "Block Link \(block.id)")
+            case .tree:
+                return ObjectTreeWidgetProvider(widgetBlockId: "Block Link \(block.id)")
+            }
         }
-        return providers
     }
 }

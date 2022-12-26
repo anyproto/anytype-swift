@@ -3,15 +3,31 @@ import BlocksModels
 import ProtobufMessages
 
 extension Anytype_Model_Block.Content.Widget {
-    var blockContent: BlockContent {
-        return .widget(BlockWidget(layout: .link))
+    var blockContent: BlockContent? {
+        return layout.asModel.map { .widget(BlockWidget(layout: $0)) }
     }
 }
 
-
-extension BlockWidget {
-    var asMiddleware: Anytype_Model_Block.OneOf_Content {
-        .widget(Anytype_Model_Block.Content.Widget())
+extension Anytype_Model_Block.Content.Widget.Layout {
+    var asModel: BlockWidget.Layout? {
+        switch self {
+        case .link:
+            return .link
+        case .tree:
+            return .tree
+        case .UNRECOGNIZED:
+            return nil
+        }
     }
-  
+}
+
+extension BlockWidget.Layout {
+    var asMiddleware: Anytype_Model_Block.Content.Widget.Layout {
+        switch self {
+        case .link:
+            return .link
+        case .tree:
+            return .tree
+        }
+    }
 }

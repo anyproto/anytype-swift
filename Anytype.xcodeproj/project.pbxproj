@@ -478,6 +478,7 @@
 		2AAF343E29559DA600921320 /* HomeWidgetsRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAF343D29559DA600921320 /* HomeWidgetsRegistry.swift */; };
 		2AAF34412955AABF00921320 /* HomeWidgetsObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAF34402955AABF00921320 /* HomeWidgetsObject.swift */; };
 		2AAF34432955E69B00921320 /* BlockWidgetConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAF34422955E69B00921320 /* BlockWidgetConverter.swift */; };
+		2AAF344629598D8E00921320 /* BlockWidgetService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAF344529598D8E00921320 /* BlockWidgetService.swift */; };
 		2AB2C22428AD23FD000191F8 /* AlertOpenerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB2C22328AD23FD000191F8 /* AlertOpenerProtocol.swift */; };
 		2AB2C22628B378A5000191F8 /* BookmarkIconImageGuideline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB2C22528B378A5000191F8 /* BookmarkIconImageGuideline.swift */; };
 		2AB2C23728B658D1000191F8 /* AnytypeURLTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB2C23628B658D1000191F8 /* AnytypeURLTests.swift */; };
@@ -1766,6 +1767,7 @@
 		2AAF343D29559DA600921320 /* HomeWidgetsRegistry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWidgetsRegistry.swift; sourceTree = "<group>"; };
 		2AAF34402955AABF00921320 /* HomeWidgetsObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWidgetsObject.swift; sourceTree = "<group>"; };
 		2AAF34422955E69B00921320 /* BlockWidgetConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockWidgetConverter.swift; sourceTree = "<group>"; };
+		2AAF344529598D8E00921320 /* BlockWidgetService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockWidgetService.swift; sourceTree = "<group>"; };
 		2AB2C22328AD23FD000191F8 /* AlertOpenerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertOpenerProtocol.swift; sourceTree = "<group>"; };
 		2AB2C22528B378A5000191F8 /* BookmarkIconImageGuideline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkIconImageGuideline.swift; sourceTree = "<group>"; };
 		2AB2C23628B658D1000191F8 /* AnytypeURLTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AnytypeURLTests.swift; path = AnyTypeTests/AnytypeURL/AnytypeURLTests.swift; sourceTree = SOURCE_ROOT; };
@@ -3204,6 +3206,7 @@
 		0A66456924085A1E008392AF /* Block */ = {
 			isa = PBXGroup;
 			children = (
+				2AAF344429598D8300921320 /* Widget */,
 				C9E89093285866D20040DEB2 /* Table */,
 				53A4878327D6ABF200A2E627 /* Pastboard */,
 				EA5FB452266E2F6500DCD56C /* Mention */,
@@ -4771,14 +4774,30 @@
 		2AAF343F29559DAD00921320 /* Container */ = {
 			isa = PBXGroup;
 			children = (
+				2AAF344729599C4200921320 /* Models */,
 				2AAF343D29559DA600921320 /* HomeWidgetsRegistry.swift */,
 				2A9486532950A3E7007A5586 /* HomeWidgetsModuleAssembly.swift */,
 				2A9486552950A41B007A5586 /* HomeWidgetsView.swift */,
 				2A9486572950A494007A5586 /* HomeWidgetsViewModel.swift */,
 				2A9486602950B193007A5586 /* HomeWidgetsModuleOutput.swift */,
-				2AAF34402955AABF00921320 /* HomeWidgetsObject.swift */,
 			);
 			path = Container;
+			sourceTree = "<group>";
+		};
+		2AAF344429598D8300921320 /* Widget */ = {
+			isa = PBXGroup;
+			children = (
+				2AAF344529598D8E00921320 /* BlockWidgetService.swift */,
+			);
+			path = Widget;
+			sourceTree = "<group>";
+		};
+		2AAF344729599C4200921320 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				2AAF34402955AABF00921320 /* HomeWidgetsObject.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		2AB2C23528B658B3000191F8 /* AnytypeURL */ = {
@@ -8098,6 +8117,7 @@
 				0A0965FB25BEF5B000C004BD /* EditorPageController.swift in Sources */,
 				2E975EF1287C23DA004DE574 /* SetSortsListView.swift in Sources */,
 				53F7442F27F4BBE9005C9BB0 /* ObjectPreviewRouter.swift in Sources */,
+				2AAF344629598D8E00921320 /* BlockWidgetService.swift in Sources */,
 				12FD9D252767179A00991886 /* RelationDate.swift in Sources */,
 				3DB92FA5264D8B0100E83276 /* SettingsSectionView.swift in Sources */,
 				12136D5827996F7C00262FE7 /* TextRelationDetailsServiceProtocol.swift in Sources */,

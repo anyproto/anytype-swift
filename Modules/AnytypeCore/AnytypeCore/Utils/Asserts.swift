@@ -1,6 +1,10 @@
 import UIKit
 import Logger
 
+enum AssertionError: Error {
+    case common(String)
+}
+
 public func anytypeAssertionFailure(
     _ message: String,
     domain: ErrorDomain,
@@ -14,6 +18,17 @@ public func anytypeAssertionFailure(
             showAssertionAlert(message)
         }
     #endif
+}
+
+public func AnytypeAssertionFailureWithError(
+    _ message: String,
+    domain: ErrorDomain,
+    file: StaticString = #file,
+    function: String = #function,
+    line: UInt = #line
+) -> Error {
+    anytypeAssertionFailure(message, domain: domain, file: file, function: function, line: line)
+    return AssertionError.common(message)
 }
 
 public func anytypeAssert(

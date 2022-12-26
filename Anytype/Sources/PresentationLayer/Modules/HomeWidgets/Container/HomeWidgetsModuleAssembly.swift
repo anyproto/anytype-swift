@@ -23,7 +23,7 @@ final class HomeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol {
         let model = HomeWidgetsViewModel(
             widgetObject: HomeWidgetsObject(objectId: widgetObjectId),
             registry: HomeWidgetsRegistry(),
-            blockService: serviceLocator.blockActionsServiceSingle(contextId: widgetObjectId),
+            blockWidgetService: BlockWidgetService(),
             output: output
         )
         let view = HomeWidgetsView(model: model)

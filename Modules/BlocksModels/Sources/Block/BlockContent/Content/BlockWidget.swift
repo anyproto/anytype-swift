@@ -7,7 +7,7 @@ public struct BlockWidget: Hashable {
         case tree
     }
     
-    let layout: Layout
+    public let layout: Layout
     
     public init(layout: Layout) {
         self.layout = layout
