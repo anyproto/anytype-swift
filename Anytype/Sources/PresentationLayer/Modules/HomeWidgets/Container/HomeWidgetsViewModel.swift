@@ -52,6 +52,7 @@ final class HomeWidgetsViewModel: ObservableObject {
             }
             .assign(to: &$models)
         
+        // Temporary code for crate widget blocks in empty object
 //        for i in 0..<50 {
 //            let info = BlockInformation.empty(content: .link(.empty(targetBlockID: "bafybbawyy6dpf4mnjrjncjulsu5c7b4a6mz27wyxbowd4ukf3ga2wz2t")))
 //            try await blockWidgetService.createBlockWidget(
