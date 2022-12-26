@@ -479,6 +479,8 @@
 		2AAF34412955AABF00921320 /* HomeWidgetsObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAF34402955AABF00921320 /* HomeWidgetsObject.swift */; };
 		2AAF34432955E69B00921320 /* BlockWidgetConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAF34422955E69B00921320 /* BlockWidgetConverter.swift */; };
 		2AAF344629598D8E00921320 /* BlockWidgetService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAF344529598D8E00921320 /* BlockWidgetService.swift */; };
+		2AAF344B2959B5DB00921320 /* ObjectTreeWidgetProviderAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAF344A2959B5DB00921320 /* ObjectTreeWidgetProviderAssembly.swift */; };
+		2AAF344D2959B71C00921320 /* HomeWidgetProviderAssemblyProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAF344C2959B71C00921320 /* HomeWidgetProviderAssemblyProtocol.swift */; };
 		2AB2C22428AD23FD000191F8 /* AlertOpenerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB2C22328AD23FD000191F8 /* AlertOpenerProtocol.swift */; };
 		2AB2C22628B378A5000191F8 /* BookmarkIconImageGuideline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB2C22528B378A5000191F8 /* BookmarkIconImageGuideline.swift */; };
 		2AB2C23728B658D1000191F8 /* AnytypeURLTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB2C23628B658D1000191F8 /* AnytypeURLTests.swift */; };
@@ -1768,6 +1770,8 @@
 		2AAF34402955AABF00921320 /* HomeWidgetsObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWidgetsObject.swift; sourceTree = "<group>"; };
 		2AAF34422955E69B00921320 /* BlockWidgetConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockWidgetConverter.swift; sourceTree = "<group>"; };
 		2AAF344529598D8E00921320 /* BlockWidgetService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockWidgetService.swift; sourceTree = "<group>"; };
+		2AAF344A2959B5DB00921320 /* ObjectTreeWidgetProviderAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectTreeWidgetProviderAssembly.swift; sourceTree = "<group>"; };
+		2AAF344C2959B71C00921320 /* HomeWidgetProviderAssemblyProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWidgetProviderAssemblyProtocol.swift; sourceTree = "<group>"; };
 		2AB2C22328AD23FD000191F8 /* AlertOpenerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertOpenerProtocol.swift; sourceTree = "<group>"; };
 		2AB2C22528B378A5000191F8 /* BookmarkIconImageGuideline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkIconImageGuideline.swift; sourceTree = "<group>"; };
 		2AB2C23628B658D1000191F8 /* AnytypeURLTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AnytypeURLTests.swift; path = AnyTypeTests/AnytypeURL/AnytypeURLTests.swift; sourceTree = SOURCE_ROOT; };
@@ -4572,6 +4576,7 @@
 			children = (
 				2A4919AB29530B5700FCEAC9 /* LinkWidgetViewContainer.swift */,
 				2A4919A829530B0F00FCEAC9 /* HomeWidgetProviderProtocol.swift */,
+				2AAF344C2959B71C00921320 /* HomeWidgetProviderAssemblyProtocol.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -4767,6 +4772,7 @@
 				2AAF34362954C86800921320 /* ObjectTreeWidgetView.swift */,
 				2AAF343929559BED00921320 /* ObjectTreeWidgetProvider.swift */,
 				2AAF343B29559BF700921320 /* ObjectTreeWidgetViewModel.swift */,
+				2AAF344A2959B5DB00921320 /* ObjectTreeWidgetProviderAssembly.swift */,
 			);
 			path = ObjectTree;
 			sourceTree = "<group>";
@@ -8315,6 +8321,7 @@
 				2AFFFB972927722A00A487E1 /* ObjectCoverPickerModuleAssembly.swift in Sources */,
 				1247BCA727FF3827005F2DB4 /* FeedbackGeneratorExamplesView.swift in Sources */,
 				3D929B2F263307700063F1BE /* AnytypeFont.swift in Sources */,
+				2AAF344D2959B71C00921320 /* HomeWidgetProviderAssemblyProtocol.swift in Sources */,
 				53CC99A8280D6DD900C39CCF /* AnytypeAnalytics.swift in Sources */,
 				EAC5FD542657DD2E006BB24E /* EditorContentInsetsHelper.swift in Sources */,
 				3D3040F427E2193500FFE0EB /* ObjectHeaderFilledContentSwitfUIView.swift in Sources */,
@@ -9052,6 +9059,7 @@
 				53FF7CBC26FDD36200A5A592 /* ObjectActionsViewModel.swift in Sources */,
 				12B20A63273BF0DE00C87F35 /* NavigationControllerWithSwiftUIContent.swift in Sources */,
 				0A74E4F923A90E6300B6C406 /* DiskStorage.swift in Sources */,
+				2AAF344B2959B5DB00921320 /* ObjectTreeWidgetProviderAssembly.swift in Sources */,
 				C93B2D2A274E12B10008544D /* EditorCollectionView.swift in Sources */,
 				C9121A5E273B918900FFDA07 /* BlocksSelectionOverlayViewModel.swift in Sources */,
 				2E2D256B288ACA3400E3DFD1 /* SetFiltersCheckboxView.swift in Sources */,

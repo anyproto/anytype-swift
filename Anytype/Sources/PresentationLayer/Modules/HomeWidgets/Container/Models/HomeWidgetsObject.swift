@@ -11,6 +11,8 @@ protocol HomeWidgetsObjectProtocol: AnyObject {
     func open() async throws
     @MainActor
     func close() async throws
+    @MainActor
+    func blockInformation(id: BlockId) -> BlockInformation?
 }
 
 final class HomeWidgetsObject: HomeWidgetsObjectProtocol {
@@ -43,6 +45,11 @@ final class HomeWidgetsObject: HomeWidgetsObjectProtocol {
     @MainActor
     func close() async throws {
         try await baseDocument.close()
+    }
+    
+    @MainActor
+    func blockInformation(id: BlockId) -> BlockInformation? {
+        return baseDocument.infoContainer.get(id: id)
     }
     
     // MARK: - Private

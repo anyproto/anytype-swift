@@ -46,14 +46,19 @@ final class HomeWidgetsViewModel: ObservableObject {
     
     private func setupInitialState() async throws {
         widgetObject.widgetsPublisher
-            .map { [weak self] blocks in return self?.registry.providers(blocks: blocks) ?? [] }
+            .map { [weak self] blocks in
+                guard let self = self else { return [] }
+                return self.registry.providers(blocks: blocks, widgetObject: self.widgetObject)
+            }
             .assign(to: &$models)
         
-//        let info = BlockInformation.empty(content: .link(.empty(targetBlockID: "bafybbawyy6dpf4mnjrjncjulsu5c7b4a6mz27wyxbowd4ukf3ga2wz2t")))
-//        try await blockWidgetService.createBlockWidget(
-//            contextId: widgetObject.objectId,
-//            info: info,
-//            layout: .tree
-//        )
+//        for i in 0..<50 {
+//            let info = BlockInformation.empty(content: .link(.empty(targetBlockID: "bafybbawyy6dpf4mnjrjncjulsu5c7b4a6mz27wyxbowd4ukf3ga2wz2t")))
+//            try await blockWidgetService.createBlockWidget(
+//                contextId: widgetObject.objectId,
+//                info: info,
+//                layout: .tree
+//            )
+//        }
     }
 }

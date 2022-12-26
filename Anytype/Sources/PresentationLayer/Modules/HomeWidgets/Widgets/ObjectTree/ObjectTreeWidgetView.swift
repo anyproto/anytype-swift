@@ -9,10 +9,13 @@ struct ObjectTreeWidgetView: View {
         LinkWidgetViewContainer(title: model.name, isExpanded: $model.isEexpanded) {
             // Temporary content
             VStack(alignment: .leading) {
-                Text("Content \(model.name)")
+                Text("Tree content \(model.name)")
             }
             .onAppear {
-                print("on appear \(model.name)")
+                model.onAppear()
+            }
+            .onDisappear {
+                model.onDisappear()
             }
             .foregroundColor(.red)
         }
