@@ -32,6 +32,7 @@ struct HomeWidgetsView_Previews: PreviewProvider {
             model: HomeWidgetsViewModel(
                 widgetObject: HomeWidgetsObject(objectId: ""),
                 registry: HomeWidgetsRegistry(),
+                blockService: DI.makeForPreview().serviceLocator.blockActionsServiceSingle(contextId: ""),
                 output: nil
             )
         )

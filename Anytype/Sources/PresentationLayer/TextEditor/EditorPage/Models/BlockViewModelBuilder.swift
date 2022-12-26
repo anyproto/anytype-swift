@@ -261,7 +261,7 @@ final class BlockViewModelBuilder {
                     self?.delegate.textBlockSetNeedsLayout()
                 }
             )
-        case .smartblock, .layout, .dataView, .tableRow, .tableColumn: return nil
+        case .smartblock, .layout, .dataView, .tableRow, .tableColumn, .widget: return nil
         case .table:
             return SimpleTableBlockViewModel(
                 info: info,

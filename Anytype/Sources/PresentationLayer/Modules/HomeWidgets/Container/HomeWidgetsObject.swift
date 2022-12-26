@@ -1,6 +1,8 @@
 import Foundation
 
 protocol HomeWidgetsObjectProtocol: AnyObject {
+    var baseDocument: BaseDocumentProtocol { get }
+    
     @MainActor
     func open() async throws
     @MainActor
@@ -9,7 +11,7 @@ protocol HomeWidgetsObjectProtocol: AnyObject {
 
 final class HomeWidgetsObject: HomeWidgetsObjectProtocol {
     
-    private let baseDocument: BaseDocumentProtocol
+    let baseDocument: BaseDocumentProtocol
     
     init(objectId: String) {
         self.baseDocument = BaseDocument(objectId: objectId)

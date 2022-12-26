@@ -21,7 +21,8 @@ enum BlocksModelsConverter {
         case .table: return BlockContent.table
         case .tableColumn: return BlockContent.tableColumn
         case .tableRow(let data): return data.blockContent
-        case .icon, .latex, .widget:
+        case .widget(let data): return data.blockContent
+        case .icon, .latex:
             return .unsupported
         }
     }
@@ -61,6 +62,9 @@ enum BlocksModelsConverter {
             return .tableRow(.init(isHeader: data.isHeader))
         case .tableColumn:
             return .tableColumn(.init())
+        case .widget(let data):
+            return data.asMiddleware
+            
         }
     }
 }

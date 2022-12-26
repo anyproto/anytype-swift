@@ -62,6 +62,6 @@ final class ModulesDI: ModulesDIProtocol {
     
     @MainActor
     var homeWidgets: HomeWidgetsModuleAssemblyProtocol {
-        return HomeWidgetsModuleAssembly(uiHelpersDI: uiHelpersDI)
+        return HomeWidgetsModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
     }
 }
