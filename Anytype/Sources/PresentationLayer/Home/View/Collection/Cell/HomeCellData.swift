@@ -17,7 +17,7 @@ struct HomeCellData: Identifiable, Equatable, IdProvider {
     let isFavorite: Bool
     let viewType: EditorViewType
     
-    static func create(details: ObjectDetails, id: String = "") -> HomeCellData {
+    static func create(details: ObjectDetails, id: String? = nil) -> HomeCellData {
         HomeCellData(
             id: id ?? details.id,
             destinationId: details.id,
