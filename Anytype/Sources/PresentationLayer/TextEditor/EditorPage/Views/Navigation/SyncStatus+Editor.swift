@@ -48,7 +48,7 @@ extension SyncStatus {
         case .offline, .failed:
             return UIColor.System.red
         case .syncing, .unknown:
-            return UIColor.System.amber
+            return UIColor.System.amber100
         case .synced:
             return UIColor.System.green
         }

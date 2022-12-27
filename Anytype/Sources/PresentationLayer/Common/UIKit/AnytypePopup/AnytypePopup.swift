@@ -155,7 +155,7 @@ private extension AnytypePopup {
         delegate = self
         
         let contentView = viewModel.makeContentView()
-        contentView.view.backgroundColor = .backgroundSecondary
+        contentView.view.backgroundColor = .Background.secondary
 
         set(contentViewController: contentView)
     }
@@ -175,7 +175,7 @@ private extension AnytypePopup {
         
         surfaceView.grabberHandlePadding = 6.0
         surfaceView.grabberHandleSize = CGSize(width: 48.0, height: 4.0)
-        surfaceView.grabberHandle.backgroundColor = .strokePrimary
+        surfaceView.grabberHandle.backgroundColor = .Stroke.primary
         surfaceView.grabberHandle.isHidden = !configuration.isGrabberVisible
 
         surfaceView.contentPadding = UIEdgeInsets(
@@ -219,7 +219,7 @@ private extension AnytypePopup {
     
     func makeAppearance() -> SurfaceAppearance {
         let appearance = SurfaceAppearance()
-        appearance.backgroundColor = .backgroundSecondary
+        appearance.backgroundColor = .Background.secondary
         appearance.cornerRadius = 16.0
         appearance.cornerCurve = .continuous
 
@@ -231,7 +231,7 @@ private extension AnytypePopup {
     
     func makeShadow() -> SurfaceAppearance.Shadow {
         let shadow = SurfaceAppearance.Shadow()
-        shadow.color = UIColor.shadowPrimary
+        shadow.color = UIColor.Shadow.primary
         shadow.offset = CGSize(width: 0, height: 0)
         shadow.radius = 40
         shadow.opacity = 1

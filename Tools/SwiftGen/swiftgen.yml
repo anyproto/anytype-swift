@@ -8,10 +8,14 @@ xcassets:
   outputs:
     - templateName: swift5
       output: Anytype/Generated/Assets.swift
-    - templateName: swift5_UIColors
+    - templateName: swift5_Colors
       output: Anytype/Generated/UIColor+Assets.swift
-    - templateName: swift5_SwiftUIColors
+      params:
+        className: UIColor
+    - templateName: swift5_Colors
       output: Anytype/Generated/Color+Assets.swift
+      params:
+        className: Color
 strings:
   inputs: 
     - Anytype/Resources/Strings/en.lproj/Localizable.strings

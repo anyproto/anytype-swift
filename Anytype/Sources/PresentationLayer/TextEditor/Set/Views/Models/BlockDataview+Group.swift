@@ -8,7 +8,7 @@ extension BlockDataview {
             }
             
             let hasOption = activeView.options.first(where: { option in option.key == relation.key }) != nil
-            if relation.isHidden || !hasOption {
+            if relation.isHidden || relation.isDeleted || !hasOption {
                 return false
             }
             

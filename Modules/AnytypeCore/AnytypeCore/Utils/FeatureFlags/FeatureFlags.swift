@@ -26,7 +26,8 @@ public final class FeatureFlags {
         .fixColorsForStyleMenu,
         .redesignBookmarkBlock,
         .showSetsInChangeTypeSearchMenu,
-        .fixInsetMediaContent
+        .fixInsetMediaContent,
+        .homeWidgets
     ]
     
     public static func update(key feature: FeatureDescription, value: Bool) {
@@ -105,5 +106,9 @@ public extension FeatureFlags {
     
     static var fixInsetMediaContent: Bool {
         value(for: .fixInsetMediaContent)
+    }
+    
+    static var homeWidgets: Bool {
+        value(for: .homeWidgets)
     }
 }

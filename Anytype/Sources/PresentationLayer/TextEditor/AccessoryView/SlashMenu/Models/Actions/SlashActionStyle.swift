@@ -57,16 +57,16 @@ enum SlashActionStyle: CaseIterable {
         switch self {
         case .text:
             return UIImage(asset: .slashMenuStyleText)?
-                .withTintColor(.buttonActive)
+                .withTintColor(.Button.active)
         case .title:
             return UIImage(asset: .slashMenuStyleTitle)?
-                .withTintColor(.buttonActive)
+                .withTintColor(.Button.active)
         case .heading:
             return UIImage(asset: .slashMenuStyleHeading)?
-                .withTintColor(.buttonActive)
+                .withTintColor(.Button.active)
         case .subheading:
             return UIImage(asset: .slashMenuStyleSubheading)?
-                .withTintColor(.buttonActive)
+                .withTintColor(.Button.active)
         case .highlighted:
             return UIImage(asset: .slashMenuStyleHighlighted)
         case .callout:
@@ -75,28 +75,28 @@ enum SlashActionStyle: CaseIterable {
             return UIImage(asset: .slashMenuStyleCheckbox)
         case .bulleted:
             return UIImage(asset: .slashMenuStyleBulleted)?
-                .withTintColor(.buttonActive)
+                .withTintColor(.Button.active)
         case .numberedList:
             return UIImage(asset: .slashMenuStyleNumbered)?
-                .withTintColor(.buttonActive)
+                .withTintColor(.Button.active)
         case .toggle:
             return UIImage(asset: .slashMenuStyleToggle)?
-                .withTintColor(.buttonActive)
+                .withTintColor(.Button.active)
         case .bold:
             return UIImage(asset: .slashMenuStyleBold)?
-                .withTintColor(.buttonActive)
+                .withTintColor(.Button.active)
         case .italic:
             return UIImage(asset: .slashMenuStyleItalic)?
-                .withTintColor(.buttonActive)
+                .withTintColor(.Button.active)
         case .strikethrough:
             return UIImage(asset: .slashMenuStyleStrikethrough)?
-                .withTintColor(.buttonActive)
+                .withTintColor(.Button.active)
         case .code:
             return UIImage(asset: .slashMenuStyleCode)?
-                .withTintColor(.buttonActive)
+                .withTintColor(.Button.active)
         case .link:
             return UIImage(asset: .slashMenuStyleLink)?
-                .withTintColor(.buttonActive)
+                .withTintColor(.Button.active)
         }
     }
     

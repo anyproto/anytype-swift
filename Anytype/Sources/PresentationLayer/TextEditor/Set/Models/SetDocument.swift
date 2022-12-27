@@ -84,7 +84,7 @@ class SetDocument: SetDocumentProtocol {
     }
     
     func isRelationsSet() -> Bool {
-        let relation = document.parsedRelations.all.first { $0.key == BundledRelationKey.setOf.rawValue }
+        let relation = document.parsedRelations.installed.first { $0.key == BundledRelationKey.setOf.rawValue }
         if let relation, relation.hasSelectedObjectsRelationType {
             return true
         } else {
@@ -136,7 +136,7 @@ class SetDocument: SetDocumentProtocol {
     }
     
     private func updateDataViewRelations() {
-        dataViewRelationsDetails = relationDetailsStorage.relationsDetails(for: dataView.relationLinks)
+        dataViewRelationsDetails = relationDetailsStorage.relationsDetails(for: dataView.relationLinks, includeDeleted: false)
     }
     
     private func updateSorts() {

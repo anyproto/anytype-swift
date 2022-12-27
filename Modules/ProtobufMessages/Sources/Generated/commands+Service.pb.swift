@@ -320,14 +320,14 @@ extension Anytype_Rpc.Account.Move {
 
 extension Anytype_Rpc.Account.ConfigUpdate {
   public enum Service {
-    public static func invoke(timeZone: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
-        return invocation(timeZone: timeZone).invoke(on: queue)
+    public static func invoke(timeZone: String = String(), ipfsstorageAddr: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(timeZone: timeZone, ipfsstorageAddr: ipfsstorageAddr).invoke(on: queue)
     }
-    public static func invoke(timeZone: String = String()) -> Result<Response, Error> {
-        return invocation(timeZone: timeZone).invoke()
+    public static func invoke(timeZone: String = String(), ipfsstorageAddr: String = String()) -> Result<Response, Error> {
+        return invocation(timeZone: timeZone, ipfsstorageAddr: ipfsstorageAddr).invoke()
     }
-    public static func invocation(timeZone: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
-        let request = Request(timeZone: timeZone)
+    public static func invocation(timeZone: String = String(), ipfsstorageAddr: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(timeZone: timeZone, ipfsstorageAddr: ipfsstorageAddr)
         return Invocation<Request,Response>(messageName: "AccountConfigUpdate", request: request) { request in
             return self.invoke(request)
         }

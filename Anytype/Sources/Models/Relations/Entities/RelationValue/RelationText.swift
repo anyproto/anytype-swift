@@ -9,6 +9,7 @@ extension Relation {
         let isFeatured: Bool
         let isEditable: Bool
         let isSystem: Bool
+        let isDeleted: Bool
         let isDeletedValue: Bool
         
         let value: String?
@@ -20,6 +21,7 @@ extension Relation {
             isFeatured: Bool,
             isEditable: Bool, 
             isSystem: Bool,
+            isDeleted: Bool,
             isDeletedValue: Bool = false,
             value: String?
         ) {
@@ -29,6 +31,7 @@ extension Relation {
             self.isFeatured = isFeatured
             self.isEditable = isEditable
             self.isSystem = isSystem
+            self.isDeleted = isDeleted
             self.isDeletedValue = isDeletedValue
             self.value = value
         }

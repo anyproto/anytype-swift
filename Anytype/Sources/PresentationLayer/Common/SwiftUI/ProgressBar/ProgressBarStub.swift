@@ -4,9 +4,9 @@ struct ProgressBarStub: View {
     var body: some View {
         ZStack(alignment: .center) {
             Capsule()
-                .foregroundColor(.strokePrimary)
+                .foregroundColor(.Stroke.primary)
             Capsule()
-                .foregroundColor(.textPrimary)
+                .foregroundColor(.Text.primary)
                 .clipShape(Capsule())
         }
         .frame(height: 6)

@@ -20,8 +20,9 @@ extension Anytype_Rpc.Account.Config {
 }
 
 extension Anytype_Rpc.Account.ConfigUpdate.Request {
-    public init(timeZone: String = String()) {
+    public init(timeZone: String = String(), ipfsstorageAddr: String = String()) {
         self.timeZone = timeZone
+        self.ipfsstorageAddr = ipfsstorageAddr
     }
 }
 

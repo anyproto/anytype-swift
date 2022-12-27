@@ -24,13 +24,13 @@ enum MarkStyleActionConverter {
             guard let middlewareColor = MiddlewareColor(rawValue: tuple.value) else {
                 return nil
             }
-            return .textColor(UIColor.Text.uiColor(from: middlewareColor))
+            return .textColor(UIColor.Dark.uiColor(from: middlewareColor))
 
         case .backgroundColor:
             guard let middlewareColor = MiddlewareColor(rawValue: tuple.value) else {
                 return nil
             }
-            return .backgroundColor(UIColor.Background.uiColor(from: middlewareColor))
+            return .backgroundColor(UIColor.VeryLight.uiColor(from: middlewareColor))
 
         case .mention:
             guard let details = ObjectDetailsStorage.shared.get(id: tuple.value) else {

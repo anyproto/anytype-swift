@@ -50,7 +50,11 @@ final class ServiceLocator {
     }
     
     func searchService() -> SearchServiceProtocol {
-        SearchService(accountManager: accountManager(), objectTypeProvider: objectTypeProvider())
+        SearchService(
+            accountManager: accountManager(),
+            objectTypeProvider: objectTypeProvider(),
+            relationDetailsStorage: relationDetailsStorage()
+        )
     }
     
     func detailsService(objectId: BlockId) -> DetailsServiceProtocol {
@@ -60,7 +64,7 @@ final class ServiceLocator {
     func subscriptionService() -> SubscriptionsServiceProtocol {
         SubscriptionsService(
             toggler: subscriptionToggler(),
-            storage: detailsStorage()
+            storage: objectDetailsStorage()
         )
     }
     
@@ -116,19 +120,28 @@ final class ServiceLocator {
         return WorkspaceService()
     }
     
-    // MARK: - Private
-    
     func pageService() -> PageServiceProtocol {
         return PageService()
+    }
+    
+    func objectDetailsStorage() -> ObjectDetailsStorage {
+        ObjectDetailsStorage.shared
+    }
+    
+    func homeWidgetsRegistry() -> HomeWidgetsRegistryProtocol {
+        return HomeWidgetsRegistry(
+            treeWidgetProviderAssembly: ObjectTreeWidgetProviderAssembly(serviceLocator: self),
+            objectDetailsStorage: objectDetailsStorage()
+        )
+    }
+    
+    func blockWidgetService() -> BlockWidgetServiceProtocol {
+        return BlockWidgetService()
     }
     
     // MARK: - Private
     
     private func subscriptionToggler() -> SubscriptionTogglerProtocol {
         SubscriptionToggler()
-    }
-    
-    private func detailsStorage() -> ObjectDetailsStorage {
-        ObjectDetailsStorage.shared
     }
 }

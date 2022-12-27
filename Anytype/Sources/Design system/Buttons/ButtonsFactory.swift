@@ -17,7 +17,7 @@ enum ButtonsFactory {
             for: .normal
         )
         backButton.setImage(UIImage(asset: .backArrow), for: .normal)
-        backButton.tintColor = .textSecondary
+        backButton.tintColor = .Text.secondary
         
         if #available(iOS 15.0, *) {
             var configuration = UIButton.Configuration.borderless()
@@ -41,9 +41,9 @@ enum ButtonsFactory {
         button.setText(text ?? "")
         button.setBackgroundColor(.clear, state: .normal)
         button.setBackgroundColor(.clear, state: .disabled)
-        button.setBackgroundColor(.backgroundSelected, state: .selected)
-        button.setImageTintColor(.buttonInactive, state: .disabled)
-        button.setImageTintColor(.textPrimary, state: .normal)
+        button.setBackgroundColor(.Background.highlightedOfSelected, state: .selected)
+        button.setImageTintColor(.Button.inactive, state: .disabled)
+        button.setImageTintColor(.Text.primary, state: .normal)
 
         return button
     }
@@ -52,7 +52,7 @@ enum ButtonsFactory {
         let button = makeButton(image: image)
         button.layer.cornerRadius = 10
         button.layer.borderWidth = 1
-        button.dynamicBorderColor = UIColor.strokePrimary
+        button.dynamicBorderColor = UIColor.Stroke.primary
         button.contentMode = .center
         button.imageView.contentMode = .scaleAspectFit
 

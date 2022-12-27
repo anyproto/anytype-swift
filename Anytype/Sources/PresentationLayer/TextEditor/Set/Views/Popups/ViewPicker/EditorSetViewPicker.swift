@@ -47,7 +47,7 @@ struct EditorSetViewPicker: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 EditButton()
-                    .foregroundColor(Color.buttonActive)
+                    .foregroundColor(Color.Button.active)
             }
             ToolbarItem(placement: .navigationBarTrailing) {
                 addButton

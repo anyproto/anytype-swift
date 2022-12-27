@@ -244,6 +244,9 @@ internal extension ImageAsset {
   }
   static let toastFailure = ImageAsset.bundle(name: "toast_failure")
   static let toastTick = ImageAsset.bundle(name: "toast_tick")
+  enum Widget {
+    static let collapse = ImageAsset.bundle(name: "Widget/collapse")
+  }
   static let splashLogo = ImageAsset.bundle(name: "splash_logo")
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name

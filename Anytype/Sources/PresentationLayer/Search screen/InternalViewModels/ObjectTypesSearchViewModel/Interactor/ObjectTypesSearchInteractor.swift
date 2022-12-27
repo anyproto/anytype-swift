@@ -38,7 +38,7 @@ extension ObjectTypesSearchInteractor {
     }
     
     func searchInMarketplace(text: String) -> [ObjectDetails] {
-        return searchService.searchMarketplaceObjectTypes(text: text) ?? []
+        return searchService.searchMarketplaceObjectTypes(text: text, includeInstalled: false) ?? []
     }
     
     func installType(objectId: String) -> ObjectDetails? {

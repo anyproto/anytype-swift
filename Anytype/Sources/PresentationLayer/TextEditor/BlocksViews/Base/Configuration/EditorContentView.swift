@@ -109,7 +109,7 @@ final class EditorContentView<View: BlockContentView>: UIView & UIContentView, U
         isUserInteractionEnabled = state.isEditing
         viewDragInteraction.isEnabled = !state.isLocked
         if state.isMoving {
-            backgroundColor = UIColor.Background.blue
+            backgroundColor = UIColor.VeryLight.blue
         } else {
             backgroundColor = .clear
         }
@@ -338,7 +338,7 @@ final class EditorContentView<View: BlockContentView>: UIView & UIContentView, U
 
         addSubview(selectionView) {
             $0.pin(to: contentStackView, excluding: [.bottom], insets: blockConfiguration.selectionInsets)
-            $0.bottom.equal(to: blockView.bottomAnchor, constant: -blockConfiguration.selectionInsets.bottom)
+            $0.bottom.equal(to: blockView.bottomAnchor, constant: blockConfiguration.selectionInsets.bottom)
         }
 
         bringSubviewToFront(wrapperView)

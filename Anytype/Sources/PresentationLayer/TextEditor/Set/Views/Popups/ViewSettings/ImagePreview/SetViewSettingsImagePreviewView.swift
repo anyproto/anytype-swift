@@ -59,7 +59,7 @@ struct SetViewSettingsImagePreviewView: View {
     private var relationsHeader: some View {
         VStack(spacing: 0) {
             Spacer.fixedHeight(26)
-            AnytypeText(Loc.relations, style: .caption1Regular, color: .textSecondary)
+            AnytypeText(Loc.relations, style: .caption1Regular, color: .Text.secondary)
             Spacer.fixedHeight(8)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -72,11 +72,11 @@ struct SetViewSettingsImagePreviewView: View {
                 Image(asset: iconAsset)
                 Spacer.fixedWidth(12)
             }
-            AnytypeText(configuration.title, style: .uxBodyRegular, color: .textPrimary)
+            AnytypeText(configuration.title, style: .uxBodyRegular, color: .Text.primary)
             Spacer()
 
             if configuration.isSelected {
-                Image(asset: .optionChecked).frame(width: 24, height: 24).foregroundColor(.buttonSelected)
+                Image(asset: .optionChecked).frame(width: 24, height: 24).foregroundColor(.Button.selected)
             }
         }
         .frame(height: 52)

@@ -238,7 +238,7 @@ final class BlockViewModelBuilder {
             let relation = document.parsedRelations.all.first {
                 $0.key == content.key
             }
-
+            
             guard let relation = relation else {
                 return nil
             }
@@ -261,7 +261,7 @@ final class BlockViewModelBuilder {
                     self?.delegate.textBlockSetNeedsLayout()
                 }
             )
-        case .smartblock, .layout, .tableRow, .tableColumn: return nil
+        case .smartblock, .layout, .tableRow, .tableColumn, .widget: return nil
         case .table:
             return SimpleTableBlockViewModel(
                 info: info,

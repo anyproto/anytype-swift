@@ -15,6 +15,7 @@ extension BlockContent {
         case .table: return ".table"
         case .tableColumn: return ".tableColumn"
         case .tableRow: return ".tableRow"
+        case .widget: return ".widget"
         case .unsupported: return "unsupported"
         }
     }

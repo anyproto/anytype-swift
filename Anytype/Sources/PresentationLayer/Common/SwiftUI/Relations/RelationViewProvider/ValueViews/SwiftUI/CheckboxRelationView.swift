@@ -37,7 +37,7 @@ struct CheckboxRelationView: View {
             AnytypeText(
                 lowercased ? text.lowercased() : text,
                 style: lowercased ? .relation1Regular : style.font,
-                color: .textSecondary
+                color: .Text.secondary
             )
         }
     }

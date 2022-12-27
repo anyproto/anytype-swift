@@ -17,7 +17,7 @@ enum BlockBackgroundColor: String, CaseIterable {
     case green
     
     var color : UIColor {
-        typealias ColorComponent = UIColor.Background
+        typealias ColorComponent = UIColor.VeryLight
         switch self {
         case .default:
             return ColorComponent.default
@@ -45,7 +45,7 @@ enum BlockBackgroundColor: String, CaseIterable {
     }
     
     var swiftColor : Color {
-        typealias ColorComponent = Color.Background
+        typealias ColorComponent = Color.VeryLight
         switch self {
         case .default:
             return ColorComponent.default
@@ -73,7 +73,7 @@ enum BlockBackgroundColor: String, CaseIterable {
     }
     
     var tagColor : UIColor {
-        typealias ColorComponent = UIColor.TagBackground
+        typealias ColorComponent = UIColor.Light
         switch self {
         case .default:
             return ColorComponent.default
@@ -131,7 +131,7 @@ enum BlockBackgroundColor: String, CaseIterable {
         UIImage.circleImage(
             size: .init(width: 22, height: 22),
             fillColor: color,
-            borderColor: .strokePrimary,
+            borderColor: .Stroke.primary,
             borderWidth: 1
         )
     }

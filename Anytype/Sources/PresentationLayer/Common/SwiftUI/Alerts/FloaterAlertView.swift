@@ -9,16 +9,16 @@ struct FloaterAlertView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             Spacer.fixedHeight(23)
-            AnytypeText(title, style: .heading, color: .textPrimary)
+            AnytypeText(title, style: .heading, color: .Text.primary)
             Spacer.fixedHeight(11)
-            AnytypeText(description, style: .uxCalloutRegular, color: .textPrimary)
+            AnytypeText(description, style: .uxCalloutRegular, color: .Text.primary)
             Spacer.fixedHeight(8)
             buttons
         }
         .padding(.horizontal, 20)
-        .background(Color.backgroundSecondary)
+        .background(Color.Background.secondary)
         .cornerRadius(16)
-        .shadow(color: Color.shadowPrimary, radius: 4)
+        .shadow(color: Color.Shadow.primary, radius: 4)
     }
     
     private var buttons: some View {

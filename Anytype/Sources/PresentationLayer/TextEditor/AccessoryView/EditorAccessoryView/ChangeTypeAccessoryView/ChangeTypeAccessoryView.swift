@@ -34,7 +34,7 @@ class ChangeTypeAccessoryView: UIView {
     }
 
     private func setupViews() {
-        backgroundColor = .backgroundPrimary
+        backgroundColor = .Background.primary
 
         addSubview(stackView) {
             $0.pinToSuperviewPreservingReadability() 
@@ -57,7 +57,7 @@ class ChangeTypeAccessoryView: UIView {
 
         let dividerView = UIView()
         dividerView.heightAnchor.constraint(equalToConstant: 0.5).isActive = true
-        dividerView.backgroundColor = .strokePrimary
+        dividerView.backgroundColor = .Stroke.primary
 
         stackView.axis = .vertical
         stackView.addArrangedSubview(topView)
@@ -102,7 +102,7 @@ class ChangeTypeAccessoryView: UIView {
         }
 
         button.setTitle(Loc.done, for: .normal)
-        button.setTitleColor(UIColor.System.amber, for: .normal)
+        button.setTitleColor(UIColor.System.amber100, for: .normal)
         button.addAction(primaryAction, for: .touchUpInside)
 
         return button
@@ -134,8 +134,8 @@ private final class ChangeButton: UIButton {
         setTitle(Loc.changeType, for: .normal)
         setImage(UIImage(asset: .TextEditor.turnIntoArrow), for: .normal)
         titleLabel?.font = .bodyRegular
-        setTitleColor(.buttonActive, for: .normal)
-        setTitleColor(.textPrimary, for: .highlighted)
+        setTitleColor(.Button.active, for: .normal)
+        setTitleColor(.Text.primary, for: .highlighted)
 
         addTarget(self, action: #selector(didTap), for: .touchUpInside)
 

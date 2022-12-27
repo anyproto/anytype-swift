@@ -28,7 +28,7 @@ final class RelationDetailsStorage: RelationDetailsStorageProtocol {
     // MARK: - RelationDetailsStorageProtocol
     
     func relationsDetails(for links: [RelationLink]) -> [RelationDetails] {
-        return links.compactMap { searchDetailsByKey[$0.key] }
+        return links.map { searchDetailsByKey[$0.key] ?? createDeletedRelation(link: $0) }
     }
     
     func relationsDetails() -> [RelationDetails] {
@@ -82,5 +82,21 @@ final class RelationDetailsStorage: RelationDetailsStorageProtocol {
             }
             searchDetailsByKey[$0.key] = $0
         }
+    }
+    
+    private func createDeletedRelation(link: RelationLink) -> RelationDetails {
+        return RelationDetails(
+            id: "",
+            key: link.key,
+            name: "",
+            format: .shortText,
+            isHidden: false,
+            isReadOnly: true,
+            isReadOnlyValue: true,
+            objectTypes: [],
+            maxCount: 1,
+            sourceObject: "",
+            isDeleted: true
+        )
     }
 }

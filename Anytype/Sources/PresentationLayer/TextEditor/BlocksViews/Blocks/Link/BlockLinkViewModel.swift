@@ -36,7 +36,7 @@ struct BlockLinkViewModel: BlockViewModelProtocol {
         switch (content.appearance.cardStyle, state.deleted, state.archived) {
         case (.card, false, false):
             let backgroundColor = info.backgroundColor.map {
-                UIColor.Background.uiColor(from: $0)
+                UIColor.VeryLight.uiColor(from: $0)
             }
 
             return BlockLinkCardConfiguration(state: state, backgroundColor: backgroundColor, todoToggleAction: toggleTodo)

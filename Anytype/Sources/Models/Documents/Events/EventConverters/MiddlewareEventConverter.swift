@@ -90,6 +90,12 @@ final class MiddlewareEventConverter {
         
         case let .objectDetailsSet(data):
             guard let details = detailsStorage.set(data: data) else { return nil }
+            
+            // if `type` deleted we should reload featured relations block
+            if details.isDeleted {
+                return .general
+            }
+            
             return .details(id: details.id)
             
         case let .objectDetailsAmend(data):

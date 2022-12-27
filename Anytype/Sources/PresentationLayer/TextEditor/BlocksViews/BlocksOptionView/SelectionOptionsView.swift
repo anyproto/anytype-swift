@@ -21,7 +21,7 @@ struct SelectionOptionsView: View {
             }
             .padding(.horizontal, 8)
         }
-        .background(Color.backgroundSecondary)
+        .background(Color.Background.secondary)
     }
 }
 
@@ -33,9 +33,9 @@ private struct SelectionOptionsItemView: View {
         VStack(spacing: 5) {
             Image(asset: imageAsset)
                 .frame(width: 52, height: 52)
-                .background(Color.backgroundSelected)
+                .background(Color.Background.highlightedOfSelected)
                 .cornerRadius(10.5)
-            AnytypeText(title, style: .caption2Regular, color: .textSecondary)
+            AnytypeText(title, style: .caption2Regular, color: .Text.secondary)
         }
         .padding(EdgeInsets(top: 16, leading: 0, bottom: 13, trailing: 0))
 

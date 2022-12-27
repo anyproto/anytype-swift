@@ -26,7 +26,7 @@ final class ToastView: UIView {
     }
 
     private func setupView() {
-        label.textColor = .textPrimary
+        label.textColor = .Text.primary
         label.textAlignment = .center;
         label.font = AnytypeFont.caption1Medium.uiKitFont
         label.numberOfLines = 0
@@ -42,11 +42,11 @@ final class ToastView: UIView {
             bottomConstraint = $0.bottom.equal(to: bottomAnchor)
         }
         
-        wrapperView.backgroundColor = .backgroundBlack
+        wrapperView.backgroundColor = .Background.black
         wrapperView.layer.cornerRadius = 8
         wrapperView.layer.masksToBounds = true
         wrapperView.layer.borderWidth = 1
-        wrapperView.layer.borderColor = UIColor.strokePrimary.withAlphaComponent(0.14).cgColor
+        wrapperView.layer.borderColor = UIColor.Stroke.primary.withAlphaComponent(0.14).cgColor
         
         wrapperView.addSubview(label) {
             $0.pinToSuperview(

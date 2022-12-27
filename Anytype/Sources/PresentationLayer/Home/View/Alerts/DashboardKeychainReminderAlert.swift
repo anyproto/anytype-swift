@@ -8,7 +8,7 @@ struct DashboardKeychainReminderAlert: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             Spacer.fixedHeight(23)
-            AnytypeText(Loc.Keychain.donTForgetToSaveYourRecoveryPhrase, style: .heading, color: .textPrimary)
+            AnytypeText(Loc.Keychain.donTForgetToSaveYourRecoveryPhrase, style: .heading, color: .Text.primary)
             Spacer.fixedHeight(11)
             description
             Spacer.fixedHeight(18)
@@ -20,7 +20,7 @@ struct DashboardKeychainReminderAlert: View {
             Spacer.fixedHeight(25)
         }
         .padding(.horizontal, 20)
-        .background(Color.backgroundPrimary)
+        .background(Color.Background.primary)
         .cornerRadius(16)
     }
     

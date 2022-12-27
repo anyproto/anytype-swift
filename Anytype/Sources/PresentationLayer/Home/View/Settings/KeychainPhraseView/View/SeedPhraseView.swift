@@ -7,19 +7,21 @@ struct SeedPhraseView: View {
     
     var body: some View {
         Button(action: { model.onSeedViewTap(onTap: onTap) }) {
-            VStack(alignment: .leading) {
-                Spacer.fixedHeight(10)
+            HStack {
                 AnytypeText(
                     model.recoveryPhrase ?? Loc.Keychain.seedPhrasePlaceholder,
                     style: .codeBlock,
-                    color: .Text.sky
+                    color: .Dark.sky
                 )
                     .redacted(reason: model.recoveryPhrase.isNil ? .placeholder : [])
                     .multilineTextAlignment(.leading)
-                    .padding(.horizontal, 20)
-                Spacer.fixedHeight(10)
+                if model.recoveryPhrase.isNotNil {
+                    Spacer()
+                }
             }
-            .background(Color.strokeTransperent)
+            .padding(.vertical, 10)
+            .padding(.horizontal, 20)
+            .background(Color.Stroke.transperent)
             .cornerRadius(4)
         }
     }

@@ -12,3 +12,9 @@ protocol RelationDetailsStorageProtocol: AnyObject {
     func startSubscription()
     func stopSubscription()
 }
+
+extension RelationDetailsStorageProtocol {
+    func relationsDetails(for links: [RelationLink], includeDeleted: Bool = false) -> [RelationDetails] {
+        return relationsDetails().filter { !$0.isDeleted }
+    }
+}

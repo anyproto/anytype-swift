@@ -119,7 +119,7 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
     }
     
     func editRelationValueAction(relationKey: String) {
-        let relation = document.parsedRelations.all.first { $0.key == relationKey }
+        let relation = document.parsedRelations.installed.first { $0.key == relationKey }
         guard let relation = relation else { return }
         
         relationValueCoordinator.startFlow(

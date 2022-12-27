@@ -13,7 +13,7 @@ struct EditorSetPaginationView: View {
                 EmptyView()
             }
         
-            Rectangle().frame(height: 40).foregroundColor(.backgroundPrimary) // Navigation view stub
+            Rectangle().frame(height: 40).foregroundColor(.Background.secondary) // Navigation view stub
         }
     }
     
@@ -44,7 +44,7 @@ struct EditorSetPaginationView: View {
             AnytypeText(
                 "\(counter)",
                 style: .body,
-                color: paginationData.selectedPage == counter ? .buttonSelected : .buttonInactive
+                color: paginationData.selectedPage == counter ? .Button.selected : .Button.inactive
             )
                 .frame(width: 24, height: 24)
         }
