@@ -94,7 +94,7 @@ final class DataViewBlockView: UIView, BlockContentView {
                 $0.hGap(fixed: Layout.contentInnerInsets.left),
                 $0.vStack(
                     $0.vGap(fixed: Layout.contentInnerInsets.top),
-                    $0.hStack(spacing: 6, alignedTo: .leading,
+                    $0.hStack(spacing: 6, alignedTo: .center,
                               iconView,
                               titleLabel,
                               badgeContainerView
