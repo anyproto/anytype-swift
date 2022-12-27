@@ -12,7 +12,7 @@ final class ObjectTreeWidgetViewModel: ObservableObject {
     private var subscriptions = [AnyCancellable]()
     
     @Published var name: String = ""
-    @Published var isEexpanded: Bool = true
+    @Published var isExpanded: Bool = true
     
     init(widgetBlockId: BlockId, widgetObject: HomeWidgetsObjectProtocol, objectDetailsStorage: ObjectDetailsStorage) {
         self.widgetBlockId = widgetBlockId
@@ -43,7 +43,7 @@ final class ObjectTreeWidgetViewModel: ObservableObject {
         widgetObject.infoContainer.publisherFor(id: widgetBlockId)
             .sink { [weak self] info in
                 guard case let .widget(widget) = info?.content else { return }
-                self?.isEexpanded = widget.layout == .tree
+                self?.isExpanded = widget.layout == .tree
                 print("Handle infoContainer widgetBlockId - \(self?.widgetBlockId)")
             }
             .store(in: &subscriptions)
