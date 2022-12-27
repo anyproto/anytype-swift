@@ -8,7 +8,7 @@ extension Relation {
         let key: String
         let name: String
         let isFeatured: Bool
-        let isEditable: Bool
+        var isEditable: Bool
         let isSystem: Bool
         let isDeleted: Bool
         

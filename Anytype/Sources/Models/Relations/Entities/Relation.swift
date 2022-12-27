@@ -176,4 +176,15 @@ extension Relation: RelationProtocol {
         case .unknown(let unknown): return unknown.isDeleted
         }
     }
+    
+    var editableRelation: Relation? {
+        switch self {
+        case .object(let object):
+            var editableObject = object
+            editableObject.isEditable = true
+            return Relation.object(editableObject)
+        default:
+            return nil
+        }
+    }
 }
