@@ -773,8 +773,10 @@ internal enum Loc {
       /// Inline set
       internal static let inlineSet = Loc.tr("Localizable", "Content.DataView.InlineSet", fallback: "Inline set")
       internal enum InlineSet {
-        /// No data source
-        internal static let noDataSource = Loc.tr("Localizable", "Content.DataView.InlineSet.NoDataSource", fallback: "No data source")
+        /// No data
+        internal static let noData = Loc.tr("Localizable", "Content.DataView.InlineSet.NoData", fallback: "No data")
+        /// No source
+        internal static let noSource = Loc.tr("Localizable", "Content.DataView.InlineSet.NoSource", fallback: "No source")
         /// Untitled set
         internal static let untitled = Loc.tr("Localizable", "Content.DataView.InlineSet.Untitled", fallback: "Untitled set")
         internal enum Toast {

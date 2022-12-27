@@ -28,21 +28,27 @@ struct DataViewBlockViewModel: BlockViewModelProtocol {
     }
 
     func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration {
+        let content: DataViewBlockContent
         if let objectDetails {
-            return DataViewBlockConfiguration(
-                content: .data(title: objectDetails.title, iconImage: objectDetails.objectIconImage)
-            )
-            .cellBlockConfiguration(
-                indentationSettings: .init(with: info.configurationData),
-                dragConfiguration: .init(id: info.id)
+            content = DataViewBlockContent(
+                title: objectDetails.title,
+                iconImage: objectDetails.objectIconImage,
+                badgeTitle: objectDetails.setOf.isEmpty ? Loc.Content.DataView.InlineSet.noData : nil
             )
         } else {
-            return DataViewBlockConfiguration(content: .noDataSource)
-                .cellBlockConfiguration(
-                    indentationSettings: .init(with: info.configurationData),
-                    dragConfiguration: .init(id: info.id)
-                )
+            content = DataViewBlockContent(
+                title: nil,
+                iconImage: nil,
+                badgeTitle: Loc.Content.DataView.InlineSet.noSource
+            )
         }
+        return DataViewBlockConfiguration(
+            content: content
+        )
+        .cellBlockConfiguration(
+            indentationSettings: .init(with: info.configurationData),
+            dragConfiguration: .init(id: info.id)
+        )
     }
 
     func didSelectRowInTableView(editorEditingState: EditorEditingState) {

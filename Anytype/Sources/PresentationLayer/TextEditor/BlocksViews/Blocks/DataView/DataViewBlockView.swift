@@ -11,22 +11,29 @@ final class DataViewBlockView: UIView, BlockContentView {
         title.textColor = .textPrimary
         return title
     }()
+    
     private let subtitleLabel: AnytypeLabel = {
         let subtitleLabel = AnytypeLabel(style: .relation3Regular)
         subtitleLabel.textColor = .textSecondary
         subtitleLabel.setText(Loc.Content.DataView.inlineSet)
         return subtitleLabel
     }()
-    private let noDataSourceBadge: AnytypeLabel = {
+    
+    private let badgeLabel: AnytypeLabel = {
         let label = AnytypeLabel(style: .caption2Regular)
         label.textColor = .darkGray
-        label.backgroundColor = .strokeTertiary
-        label.setText(Loc.Content.DataView.InlineSet.noDataSource)
         label.textAlignment = .center
-        label.layer.cornerRadius = 3
-        label.clipsToBounds = true
         return label
     }()
+    
+    private let badgeContainerView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .strokeTertiary
+        view.layer.cornerRadius = 3
+        view.clipsToBounds = true
+        return view
+    }()
+    
     private let contentView: UIView = {
         let view = UIView()
         view.layer.borderWidth = 1
@@ -48,24 +55,28 @@ final class DataViewBlockView: UIView, BlockContentView {
     }
 
     func update(with configuration: DataViewBlockConfiguration) {
-        switch configuration.content {
-        case let .data(title, iconImage):
-            if let iconImage {
-                iconView.configure(
-                    model: ObjectIconImageModel(iconImage: iconImage, usecase: .editorCalloutBlock)
-                )
-                iconView.isHidden = false
-            } else {
-                iconView.isHidden = true
-            }
+        if let iconImage = configuration.content.iconImage {
+            iconView.configure(
+                model: ObjectIconImageModel(iconImage: iconImage, usecase: .editorCalloutBlock)
+            )
+            iconView.isHidden = false
+        } else {
+            iconView.isHidden = true
+        }
+        
+        if let title = configuration.content.title, title.isNotEmpty {
             titleLabel.setText(title)
             titleLabel.textColor = .textPrimary
-            noDataSourceBadge.isHidden = true
-        case .noDataSource:
-            iconView.isHidden = true
+        } else {
             titleLabel.setText(Loc.Content.DataView.InlineSet.untitled)
             titleLabel.textColor = .textTertiary
-            noDataSourceBadge.isHidden = false
+        }
+        if let badgeTitle = configuration.content.badgeTitle, badgeTitle.isNotEmpty {
+            badgeLabel.setText(badgeTitle)
+            badgeLabel.invalidateIntrinsicContentSize()
+            badgeContainerView.isHidden = false
+        } else {
+            badgeContainerView.isHidden = true
         }
     }
 
@@ -73,15 +84,20 @@ final class DataViewBlockView: UIView, BlockContentView {
         addSubview(contentView) {
             $0.pinToSuperview(insets: Layout.contentViewInsets)
         }
+        
+        badgeContainerView.addSubview(badgeLabel) {
+            $0.pinToSuperview(insets: Layout.badgeLabelInsets)
+        }
+        
         contentView.layoutUsing.stack {
             $0.hStack(
                 $0.hGap(fixed: Layout.contentInnerInsets.left),
                 $0.vStack(
                     $0.vGap(fixed: Layout.contentInnerInsets.top),
-                    $0.hStack(spacing: 6, alignedTo: .center,
-                        iconView,
-                        titleLabel,
-                        noDataSourceBadge
+                    $0.hStack(spacing: 6, alignedTo: .leading,
+                              iconView,
+                              titleLabel,
+                              badgeContainerView
                     ),
                     $0.vGap(fixed: 4),
                     subtitleLabel,
@@ -90,9 +106,7 @@ final class DataViewBlockView: UIView, BlockContentView {
                 $0.hGap(fixed: Layout.contentInnerInsets.right)
             )
         }
-        noDataSourceBadge.layoutUsing.anchors {
-            $0.size(Layout.noDataSourceBadgeSize)
-        }
+
         iconView.layoutUsing.anchors {
             $0.size(Layout.iconViewSize)
         }
@@ -102,8 +116,8 @@ final class DataViewBlockView: UIView, BlockContentView {
 private extension DataViewBlockView {
     enum Layout {
         static let contentViewInsets = UIEdgeInsets(top: 16, left: 0, bottom: 16, right: 0)
+        static let badgeLabelInsets = UIEdgeInsets(top: 1, left: 5, bottom: 1, right: 5)
         static let contentInnerInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
         static let iconViewSize = CGSize(width: 20, height: 20)
-        static let noDataSourceBadgeSize = CGSize(width: 91, height: 16)
     }
 }

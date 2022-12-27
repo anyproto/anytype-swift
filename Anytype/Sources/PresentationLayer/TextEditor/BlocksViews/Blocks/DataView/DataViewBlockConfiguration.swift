@@ -1,9 +1,10 @@
 import BlocksModels
 import UIKit
 
-enum DataViewBlockContent: Hashable {
-    case data(title: String, iconImage: ObjectIconImage?)
-    case noDataSource
+struct DataViewBlockContent: Hashable {
+    let title: String?
+    let iconImage: ObjectIconImage?
+    let badgeTitle: String?
 }
 
 struct DataViewBlockConfiguration: BlockConfiguration {
