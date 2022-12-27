@@ -346,12 +346,6 @@ final class MiddlewareEventConverter {
             }
             
             return .general
-        case .blockDataviewSourceSet(let data):
-            infoContainer.updateDataview(blockId: data.id) { dataView in
-                return dataView.updated(source: data.source)
-            }
-            
-            return .general
         case .blockDataviewRelationDelete(let data):
             infoContainer.updateDataview(blockId: data.id) { dataView in
                 let newRelationLinks = dataView.relationLinks.filter { !data.relationKeys.contains($0.key) }
@@ -382,6 +376,7 @@ final class MiddlewareEventConverter {
                 .subscriptionPosition, // Implemented in `SubscriptionsService`
                 .subscriptionCounters, // Implemented in `SubscriptionsService`
                 .subscriptionGroups, // Implemented in `GroupsSubscriptionsHandler`
+                .blockDataviewSourceSet, // will be deleted on middle soon
                 .filesUpload,
                 .marksInfo,
                 .blockSetRestrictions,
@@ -399,7 +394,8 @@ final class MiddlewareEventConverter {
                 .processNew,
                 .processUpdate,
                 .processDone,
-                .blockSetWidget:
+                .blockSetWidget,
+                .blockDataviewTargetObjectIDSet:
             return nil
         }
     }

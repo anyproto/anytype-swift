@@ -80,7 +80,7 @@ class SetDocument: SetDocumentProtocol {
     }
     
     func isBookmarksSet() -> Bool {
-        dataView.source.contains(ObjectTypeId.BundledTypeId.bookmark.rawValue)
+        details?.setOf.contains(ObjectTypeId.BundledTypeId.bookmark.rawValue) ?? false
     }
     
     func isRelationsSet() -> Bool {

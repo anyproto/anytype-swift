@@ -61,6 +61,7 @@ final class EditorAssembly {
             dataviewService: dataviewService,
             searchService: ServiceLocator.shared.searchService(),
             detailsService: detailsService,
+            objectActionsService: ServiceLocator.shared.objectActionsService(),
             textService: serviceLocator.textService,
             groupsSubscriptionsHandler: ServiceLocator.shared.groupsSubscriptionsHandler(),
             setSubscriptionDataBuilder: SetSubscriptionDataBuilder()
@@ -207,7 +208,6 @@ final class EditorAssembly {
                                                   pasteboardHelper: pasteboardHelper,
                                                   pasteboardMiddlewareService: pasteboardMiddlewareService)
 
-        let toastPresenter = uiHelpersDI.toastPresenter(using: browser)
         let blockActionsServiceSingle = ServiceLocator.shared
             .blockActionsServiceSingle(contextId: document.objectId)
 

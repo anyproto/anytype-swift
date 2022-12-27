@@ -12,7 +12,6 @@ protocol DataviewServiceProtocol {
         setFilters: [SetFilter],
         relationsDetails: [RelationDetails]
     ) async throws -> String
-    func setSource(typeObjectId: String) async throws
     func setPositionForView(_ viewId: String, position: Int) async throws
     func objectOrderUpdate(viewId: String, groupObjectIds: [GroupObjectIds]) async throws
     func groupOrderUpdate(viewId: String, groupOrder: DataviewGroupOrder) async throws

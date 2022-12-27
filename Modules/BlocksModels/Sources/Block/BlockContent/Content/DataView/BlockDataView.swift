@@ -2,8 +2,7 @@ import AnytypeCore
 import ProtobufMessages
 
 public struct BlockDataview: Hashable {
-    public var activeViewId: BlockId 
-    public let source: [String]
+    public var activeViewId: BlockId
     public let views: [DataviewView]
     public let relationLinks: [RelationLink]
     public let groupOrders: [DataviewGroupOrder]
@@ -11,7 +10,6 @@ public struct BlockDataview: Hashable {
     
     public func updated(
         activeViewId: BlockId? = nil,
-        source: [String]? = nil,
         views: [DataviewView]? = nil,
         relationLinks: [RelationLink]? = nil,
         groupOrders: [DataviewGroupOrder]? = nil,
@@ -19,7 +17,6 @@ public struct BlockDataview: Hashable {
     ) -> BlockDataview {
         BlockDataview(
             activeViewId: activeViewId ?? self.activeViewId,
-            source: source ?? self.source,
             views: views ?? self.views,
             relationLinks: relationLinks ?? self.relationLinks,
             groupOrders: groupOrders ?? self.groupOrders,
@@ -30,22 +27,10 @@ public struct BlockDataview: Hashable {
     public static var empty: BlockDataview {
         BlockDataview(
             activeViewId: "",
-            source: [],
             views: [],
             relationLinks: [],
             groupOrders: [],
             objectOrders: []
-        )
-    }
-
-    var asMiddleware: MiddlewareDataview {
-        MiddlewareDataview(
-            source: source,
-            views: views.map(\.asMiddleware),
-            activeView: activeViewId,
-            groupOrders: groupOrders,
-            objectOrders: objectOrders,
-            relationLinks: relationLinks.map(\.asMiddleware)
         )
     }
 }
@@ -58,7 +43,6 @@ public extension MiddlewareDataview {
     var asModel: BlockDataview {
         BlockDataview(
             activeViewId: activeView,
-            source: source,
             views: views.compactMap(\.asModel),
             relationLinks: relationLinks.map { RelationLink(middlewareRelationLink: $0) },
             groupOrders: groupOrders,

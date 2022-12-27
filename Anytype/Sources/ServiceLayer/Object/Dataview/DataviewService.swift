@@ -87,18 +87,6 @@ final class DataviewService: DataviewServiceProtocol {
 
         return response.objectID
     }
-
-    func setSource(typeObjectId: String) async throws {
-        let result = try await Anytype_Rpc.BlockDataview.SetSource.Service
-            .invocation(
-                contextID: objectId,
-                blockID: Constants.dataview,
-                source: [typeObjectId]
-            )
-            .invoke(errorDomain: .dataviewService)
-        let event = EventsBunch(event: result.event)
-        event.send()
-    }
     
     func setPositionForView(_ viewId: String, position: Int) async throws {
         let result = try await Anytype_Rpc.BlockDataview.View.SetPosition.Service
