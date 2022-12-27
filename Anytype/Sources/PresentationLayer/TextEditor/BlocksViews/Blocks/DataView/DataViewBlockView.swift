@@ -8,27 +8,27 @@ final class DataViewBlockView: UIView, BlockContentView {
     private let titleLabel: AnytypeLabel = {
         let title = AnytypeLabel(style: .subheading)
         title.numberOfLines = 1
-        title.textColor = .textPrimary
+        title.textColor = .Text.primary
         return title
     }()
     
     private let subtitleLabel: AnytypeLabel = {
         let subtitleLabel = AnytypeLabel(style: .relation3Regular)
-        subtitleLabel.textColor = .textSecondary
+        subtitleLabel.textColor = .Text.secondary
         subtitleLabel.setText(Loc.Content.DataView.inlineSet)
         return subtitleLabel
     }()
     
     private let badgeLabel: AnytypeLabel = {
         let label = AnytypeLabel(style: .caption2Regular)
-        label.textColor = .darkGray
+        label.textColor = .Dark.grey
         label.textAlignment = .center
         return label
     }()
     
     private let badgeContainerView: UIView = {
         let view = UIView()
-        view.backgroundColor = .strokeTertiary
+        view.backgroundColor = .VeryLight.grey
         view.layer.cornerRadius = 3
         view.clipsToBounds = true
         return view
@@ -37,7 +37,7 @@ final class DataViewBlockView: UIView, BlockContentView {
     private let contentView: UIView = {
         let view = UIView()
         view.layer.borderWidth = 1
-        view.dynamicBorderColor = UIColor.strokePrimary
+        view.dynamicBorderColor = .Stroke.primary
         view.layer.cornerRadius = 12
         view.clipsToBounds = true
         view.backgroundColor = .clear
@@ -66,10 +66,10 @@ final class DataViewBlockView: UIView, BlockContentView {
         
         if let title = configuration.content.title, title.isNotEmpty {
             titleLabel.setText(title)
-            titleLabel.textColor = .textPrimary
+            titleLabel.textColor = .Text.primary
         } else {
             titleLabel.setText(Loc.Content.DataView.InlineSet.untitled)
-            titleLabel.textColor = .textTertiary
+            titleLabel.textColor = .Text.tertiary
         }
         if let badgeTitle = configuration.content.badgeTitle, badgeTitle.isNotEmpty {
             badgeLabel.setText(badgeTitle)
