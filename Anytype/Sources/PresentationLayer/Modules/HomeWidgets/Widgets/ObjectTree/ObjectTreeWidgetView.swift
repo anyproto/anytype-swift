@@ -7,12 +7,11 @@ struct ObjectTreeWidgetView: View {
         
     var body: some View {
         LinkWidgetViewContainer(title: model.name, isExpanded: $model.isExpanded) {
-            // Temporary content
-            VStack(alignment: .leading) {
-                Text("Tree content \(model.name)")
-                Text("Widget id \(model.widgetBlockId)")
+            VStack(spacing: 0) {
+                ForEach(model.rows, id: \.id) {
+                    ObjectTreeWidgetRowView(model: $0)
+                }
             }
-            .foregroundColor(.red)
         }
         .onAppear {
             model.onAppear()

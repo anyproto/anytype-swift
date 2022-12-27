@@ -13,7 +13,7 @@ struct LinkWidgetViewContainer<Content>: View where Content: View {
     }
     
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             Spacer.fixedHeight(6)
             header
             if !isExpanded {
@@ -35,7 +35,7 @@ struct LinkWidgetViewContainer<Content>: View where Content: View {
     // MARK: - Private
     
     private var header: some View {
-        HStack {
+        HStack(spacing: 0) {
             Spacer.fixedWidth(16)
             AnytypeText(title, style: .subheading, color: .Text.primary)
             Spacer()

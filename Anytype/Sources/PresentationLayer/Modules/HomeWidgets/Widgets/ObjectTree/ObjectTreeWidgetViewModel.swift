@@ -13,6 +13,7 @@ final class ObjectTreeWidgetViewModel: ObservableObject {
     
     @Published var name: String = ""
     @Published var isExpanded: Bool = true
+    @Published var rows: [ObjectTreeWidgetRowViewModel] = []
     
     init(widgetBlockId: BlockId, widgetObject: HomeWidgetsObjectProtocol, objectDetailsStorage: ObjectDetailsStorage) {
         self.widgetBlockId = widgetBlockId
@@ -47,5 +48,14 @@ final class ObjectTreeWidgetViewModel: ObservableObject {
                 print("Handle infoContainer widgetBlockId - \(self?.widgetBlockId)")
             }
             .store(in: &subscriptions)
+        
+        rows = (0..<5).map { id in
+            ObjectTreeWidgetRowViewModel(
+                id: "\(id)",
+                title: "Item \(id)",
+                expandedType: .dot,
+                level: 0
+            )
+        }
     }
 }

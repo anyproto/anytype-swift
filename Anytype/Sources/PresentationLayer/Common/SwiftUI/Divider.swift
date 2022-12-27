@@ -13,6 +13,15 @@ extension View {
             )
         )
     }
+    
+    func newDivider(
+        leadingPadding: CGFloat = 0,
+        trailingPadding: CGFloat = 0
+    ) -> some View {
+        modifier(
+            NewDividerModifier(leadingPadding: leadingPadding, trailingPadding: trailingPadding)
+        )
+    }
 }
 
 struct AnytypeDivider: View {
@@ -60,6 +69,24 @@ struct DividerModifier: ViewModifier {
             AnytypeDivider()
                 .padding(.leading, leadingPadding)
                 .padding(.trailing, trailingPadding)
+        }
+    }
+}
+
+struct NewDividerModifier: ViewModifier {
+    let leadingPadding: CGFloat
+    let trailingPadding: CGFloat
+    
+    func body(content: Content) -> some View {
+        if #available(iOS 15.0, *) {
+            content
+                .overlay(alignment: .bottom) {
+                    AnytypeDivider()
+                        .padding(.leading, leadingPadding)
+                        .padding(.trailing, trailingPadding)
+                }
+        } else {
+            content
         }
     }
 }
