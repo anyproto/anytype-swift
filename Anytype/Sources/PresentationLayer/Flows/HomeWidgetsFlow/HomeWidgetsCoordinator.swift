@@ -27,7 +27,7 @@ final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsM
     }
     
     func startFlow() -> AnyView {
-        return homeWidgetsModuleAssembly.make(widgetObjectId: "", output: self)
+        return homeWidgetsModuleAssembly.make(widgetObjectId: accountManager.account.info.widgetsId, output: self)
     }
     
     // MARK: - HomeWidgetsModuleOutput

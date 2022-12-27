@@ -23,6 +23,9 @@ struct HomeWidgetsView: View {
         .onAppear {
             model.onAppear()
         }
+        .onDisappear {
+            model.onDisappear()
+        }
     }
 }
 
@@ -30,8 +33,12 @@ struct HomeWidgetsView_Previews: PreviewProvider {
     static var previews: some View {
         HomeWidgetsView(
             model: HomeWidgetsViewModel(
-                widgeetObjectId: "",
-                registry: HomeWidgetsRegistry(),
+                widgetObject: HomeWidgetsObject(
+                    objectId: "",
+                    objectDetailsStorage: DI.makeForPreview().serviceLocator.objectDetailsStorage()
+                ),
+                registry: DI.makeForPreview().serviceLocator.homeWidgetsRegistry(),
+                blockWidgetService: DI.makeForPreview().serviceLocator.blockWidgetService(),
                 output: nil
             )
         )

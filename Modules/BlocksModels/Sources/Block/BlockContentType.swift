@@ -14,6 +14,7 @@ public enum BlockContentType: Hashable {
     case table
     case tableColumn
     case tableRow
+    case widget(BlockWidget.Layout)
 
     public var style: String {
         switch self {
@@ -45,6 +46,8 @@ public enum BlockContentType: Hashable {
             return "tableColumn"
         case .tableRow:
             return "tableRow"
+        case let .widget(layout):
+            return "Widget \(String(describing: layout))"
         }
     }
 }

@@ -46,7 +46,9 @@ public enum IndentationBuilder {
                     numberValue: &updatedBlockNumber
                 )
 
-                container.add(updatedChild)
+                if child != updatedChild {
+                    container.add(updatedChild)
+                }
 
                 privateBuild(
                     container: container,

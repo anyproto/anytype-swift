@@ -79,6 +79,7 @@ public enum ErrorDomain: String {
     case relationDetailsStorage
     case groupsSubscribeService
     case workspaceService
+    case blockWidgetService
     
     case homeView
     case baseDocument

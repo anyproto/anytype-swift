@@ -9,9 +9,11 @@ protocol HomeWidgetsModuleAssemblyProtocol {
 @MainActor
 final class HomeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol {
     
+    private let serviceLocator: ServiceLocator
     private let uiHelpersDI: UIHelpersDIProtocol
     
-    init(uiHelpersDI: UIHelpersDIProtocol) {
+    init(serviceLocator: ServiceLocator, uiHelpersDI: UIHelpersDIProtocol) {
+        self.serviceLocator = serviceLocator
         self.uiHelpersDI = uiHelpersDI
     }
     
@@ -19,8 +21,12 @@ final class HomeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol {
     
     func make(widgetObjectId: String, output: HomeWidgetsModuleOutput) -> AnyView {
         let model = HomeWidgetsViewModel(
-            widgeetObjectId: widgetObjectId,
-            registry: HomeWidgetsRegistry(),
+            widgetObject: HomeWidgetsObject(
+                objectId: widgetObjectId,
+                objectDetailsStorage: serviceLocator.objectDetailsStorage()
+            ),
+            registry: serviceLocator.homeWidgetsRegistry(),
+            blockWidgetService: serviceLocator.blockWidgetService(),
             output: output
         )
         let view = HomeWidgetsView(model: model)
