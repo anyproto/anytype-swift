@@ -8,9 +8,15 @@ struct ObjectTreeWidgetView: View {
     var body: some View {
         LinkWidgetViewContainer(title: model.name, isExpanded: $model.isExpanded) {
             VStack(spacing: 0) {
-                ForEach(model.rows, id: \.id) {
+                ForEach(model.rows, id: \.rowId) {
                     ObjectTreeWidgetRowView(model: $0)
                 }
+            }
+            .onAppear {
+                model.onAppearList()
+            }
+            .onDisappear {
+                model.onDisappearList()
             }
         }
         .onAppear {

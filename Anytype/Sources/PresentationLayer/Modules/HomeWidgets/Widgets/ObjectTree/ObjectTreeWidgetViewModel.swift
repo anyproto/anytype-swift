@@ -5,16 +5,28 @@ import Combine
 @MainActor
 final class ObjectTreeWidgetViewModel: ObservableObject {
     
+    private enum Constants {
+        static let maxExpandableLevel = 2
+    }
+    
+    private struct ExpandedId {
+        let rowId: String
+        let objectId: String
+    }
+    
+    // MARK: - DI
     // TODO: For debug. Make private
     let widgetBlockId: BlockId
     private let widgetObject: HomeWidgetsObjectProtocol
     private let objectDetailsStorage: ObjectDetailsStorage
     private let subscriptionManager: ObjectTreeSubscriptionManagerProtocol
     
+    // MARK: - State
+    
     private var subscriptions = [AnyCancellable]()
+    private var linkedObjectDetails: ObjectDetails?
     private var subscriptionData: [ObjectDetails] = []
-    private var widgetBlockLinkedObjectId: String?
-    private var widgetBlockObjectDetails: ObjectDetails?
+    private var expandedRowIds: [ExpandedId] = []
     
     @Published var name: String = ""
     @Published var isExpanded: Bool = true
@@ -32,12 +44,14 @@ final class ObjectTreeWidgetViewModel: ObservableObject {
         self.subscriptionManager = subscriptionManager
     }
     
-    // MARK: - Private
+    // MARK: - Public
     
     func onAppear() {
-        guard let tagetObjectId = widgetObject.targetObjectIdByLinkFor(widgetBlockId: widgetBlockId)
-            else { return }
-        setupSubscriptions(tagetObjectId: tagetObjectId)
+        setupAllSubscriptions()
+    }
+    
+    func onAppearList() {
+        updateLinksSubscriptionsAndTree()
     }
     
     func onDisappear() {
@@ -45,76 +59,120 @@ final class ObjectTreeWidgetViewModel: ObservableObject {
         subscriptionManager.stopAllSubscriptions()
     }
     
-    private func setupSubscriptions(tagetObjectId: BlockId) {
+    func onDisappearList() {
+        subscriptionManager.stopAllSubscriptions()
+    }
+    
+    // MARK: - Private
+    
+    private func onTapExpand(model: ObjectTreeWidgetRowViewModel) {
+        expandedRowIds.append(ExpandedId(rowId: model.rowId, objectId: model.objectId))
+        updateLinksSubscriptionsAndTree()
+    }
+    
+    private func onTapCollapse(model: ObjectTreeWidgetRowViewModel) {
+        expandedRowIds.removeAll { $0.rowId == model.rowId }
+        updateLinksSubscriptionsAndTree()
+    }
+    
+    private func setupAllSubscriptions() {
         
-        widgetBlockLinkedObjectId = tagetObjectId
+        guard let tagetObjectId = widgetObject.targetObjectIdByLinkFor(widgetBlockId: widgetBlockId)
+            else { return }
         
         objectDetailsStorage.publisherFor(id: tagetObjectId)
             .compactMap { $0 }
             .receiveOnMain()
             .sink { [weak self] details in
-                let oldLinks = self?.widgetBlockObjectDetails?.links
-                self?.widgetBlockObjectDetails = details
+                self?.linkedObjectDetails = details
                 self?.name = details.title
-                if oldLinks != details.links {
-                    self?.updateSubscriptions(links: details.links)
-                }
-                print("Handle details widgetBlockId - \(self?.widgetBlockId)")
+                self?.updateLinksSubscriptionsAndTree()
             }
             .store(in: &subscriptions)
-        
-//        objectDetailsStorage.publisherFor(id: tagetObjectId)
-//            .compactMap { $0?.links }
-//            .removeDuplicates()
-//            .sink { [weak self] in self?.updateSubscriptions(links: $0) }
-//            .store(in: &subscriptions)
         
         widgetObject.infoContainer.publisherFor(id: widgetBlockId)
             .sink { [weak self] info in
                 guard case let .widget(widget) = info?.content else { return }
                 self?.isExpanded = widget.layout == .tree
-                print("Handle infoContainer widgetBlockId - \(self?.widgetBlockId)")
             }
             .store(in: &subscriptions)
         
         subscriptionManager.handler = { [weak self] details in
             self?.subscriptionData = details
-//            self?.subscriptionData[objectId] = details
-            self?.updateTree()
+            self?.updateLinksSubscriptionsAndTree()
         }
-        
-//        if subscriptionData.isEmpty {
-//            subscriptionManager.startSubscription(objectId: tagetObjectId)
-//        } else {
-//            subscriptionData.keys.forEach {
-//                subscriptionManager.startSubscription(objectId: $0)
-//            }
-//        }
     }
     
-    private func updateSubscriptions(links: [String]) {
-        subscriptionManager.stopAllSubscriptions()
-        subscriptionManager.startSubscription(objectIds: links)
+    private func updateLinksSubscriptionsAndTree() {
+        updateSubscriptions()
+        updateTree()
+    }
+    
+    private func updateSubscriptions() {
+        guard let linkedObjectDetails else { return }
+        
+        let expandedObjectIds = expandedRowIds.map { $0.objectId }
+        
+        let childLinks = subscriptionData
+            .filter { expandedObjectIds.contains($0.id) }
+            .flatMap { $0.links }
+        
+        let objectIds = linkedObjectDetails.links + childLinks
+        subscriptionManager.startOrUpdateSubscription(objectIds: objectIds)
     }
     
     private func updateTree() {
-        guard let details = widgetBlockObjectDetails else { return }
-        updateRows(links: details.links)
+        guard let linkedObjectDetails else { return }
+        rows = buildRows(links: linkedObjectDetails.links, idPrefix: linkedObjectDetails.id, level: 0)
     }
     
-    private func updateRows(links: [String]) {
+    private func buildRows(links: [String], idPrefix: String, level: Int) -> [ObjectTreeWidgetRowViewModel] {
         
         let rowsDetails = subscriptionData
             .filter { links.contains($0.id) }
             .reordered(by: links, transform: { $0.id })
-        
-        rows = rowsDetails.map { details in
-            ObjectTreeWidgetRowViewModel(
-                id: "\(details.id)",
+
+        return rowsDetails.flatMap { details in
+            // One object can be linked in different parent objects or can be linked to self.
+            // We should create unique identity for correct save expanded state.
+            // Id contains all parent id. It's like path.
+            let rowId = "\(idPrefix)-\(details.id)"
+            let isExpanded = expandedRowIds.contains { $0.rowId == rowId }
+            
+            let row = ObjectTreeWidgetRowViewModel(
+                rowId: rowId,
+                objectId: details.id,
                 title: details.title,
-                expandedType: .dot,
-                level: 0
+                expandedType: details.expandedType(
+                    isExpanded: isExpanded,
+                    canBeExpanded: level < Constants.maxExpandableLevel
+                ),
+                level: level,
+                tapExpand: { [weak self] model in
+                    self?.onTapExpand(model: model)
+                },
+                tapCollapse: { [weak self] model in
+                    self?.onTapCollapse(model: model)
+                }
             )
+            
+            if isExpanded {
+                let child = buildRows(links: details.links, idPrefix: row.rowId, level: level + 1)
+                return [row] + child
+            }
+            
+            return [row]
+        }
+    }
+}
+
+private extension ObjectDetails {
+    func expandedType(isExpanded: Bool, canBeExpanded: Bool) -> ObjectTreeWidgetRowViewModel.ExpandedType {
+        switch editorViewType {
+        case .page:
+            return links.isEmpty || !canBeExpanded ? .dot : .arrow(expanded: isExpanded)
+        case .set:
+            return .set
         }
     }
 }

@@ -9,10 +9,13 @@ struct ObjectTreeWidgetRowViewModel {
         case dot
     }
     
-    let id: String
+    let rowId: String
+    let objectId: String
     let title: String
     let expandedType: ExpandedType
     let level: Int
+    let tapExpand: (ObjectTreeWidgetRowViewModel) -> Void
+    let tapCollapse: (ObjectTreeWidgetRowViewModel) -> Void
 }
 
 struct ObjectTreeWidgetRowView: View {
@@ -21,8 +24,8 @@ struct ObjectTreeWidgetRowView: View {
     
     var body: some View {
         HStack(alignment: .center, spacing: 0) {
-            Spacer.fixedWidth(16)
-            Image(asset: .Widget.collapse)
+            Spacer.fixedWidth(16 * CGFloat(model.level + 1))
+            rowIcon
                 .frame(width: 20, height: 20)
             Spacer.fixedWidth(8)
             // TODO: For image
@@ -36,5 +39,30 @@ struct ObjectTreeWidgetRowView: View {
         }
         .frame(height: 40)
         .newDivider(leadingPadding: 16, trailingPadding: 16)
+    }
+    
+    private var rowIcon: some View {
+        Group {
+            switch model.expandedType {
+            case .dot:
+                Image(asset: .Widget.dot)
+            case .set:
+                Image(asset: .Widget.set)
+            case let .arrow(expanded: expanded):
+                Button(action: {
+                    withAnimation {
+                        if expanded {
+                            model.tapCollapse(model)
+                        } else {
+                            model.tapExpand(model)
+                        }
+                    }
+                }, label: {
+                    Image(asset: .Widget.collapse)
+                        .rotationEffect(.degrees(expanded ? 90 : 0))
+                })
+                
+            }
+        }
     }
 }

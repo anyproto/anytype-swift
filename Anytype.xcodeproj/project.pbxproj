@@ -4775,12 +4775,11 @@
 		2AAF343829559BD400921320 /* ObjectTree */ = {
 			isa = PBXGroup;
 			children = (
+				2AF4C3D9295C906A00FD7153 /* Subscriptions */,
 				2AF4C3D8295C3F0A00FD7153 /* Provider */,
 				2AF4C3D7295C3E8300FD7153 /* Rows */,
 				2AAF34362954C86800921320 /* ObjectTreeWidgetView.swift */,
 				2AAF343B29559BF700921320 /* ObjectTreeWidgetViewModel.swift */,
-				2AAF3451295B19DF00921320 /* ObjectTreeSubscriptionDataBuilder.swift */,
-				2AAF3453295B1B5F00921320 /* ObjectTreeSubscriptionManager.swift */,
 			);
 			path = ObjectTree;
 			sourceTree = "<group>";
@@ -4924,6 +4923,15 @@
 				2AAF344A2959B5DB00921320 /* ObjectTreeWidgetProviderAssembly.swift */,
 			);
 			path = Provider;
+			sourceTree = "<group>";
+		};
+		2AF4C3D9295C906A00FD7153 /* Subscriptions */ = {
+			isa = PBXGroup;
+			children = (
+				2AAF3451295B19DF00921320 /* ObjectTreeSubscriptionDataBuilder.swift */,
+				2AAF3453295B1B5F00921320 /* ObjectTreeSubscriptionManager.swift */,
+			);
+			path = Subscriptions;
 			sourceTree = "<group>";
 		};
 		2AFE04B128F9434C008647E0 /* LinkToObjectFlow */ = {
