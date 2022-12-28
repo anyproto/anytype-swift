@@ -30,7 +30,9 @@ struct ObjectTreeWidgetRowView: View {
 //                .frame(width: 18, height: 18)
 //            Spacer.fixedWidth(12)
             AnytypeText(model.title, style: .previewTitle2Medium, color: .Text.primary)
-            Spacer.minWidth(12)
+                .lineLimit(1)
+            Spacer.fixedWidth(12)
+            Spacer()
         }
         .frame(height: 40)
         .newDivider(leadingPadding: 16, trailingPadding: 16)

@@ -482,6 +482,8 @@
 		2AAF344B2959B5DB00921320 /* ObjectTreeWidgetProviderAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAF344A2959B5DB00921320 /* ObjectTreeWidgetProviderAssembly.swift */; };
 		2AAF344D2959B71C00921320 /* HomeWidgetProviderAssemblyProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAF344C2959B71C00921320 /* HomeWidgetProviderAssemblyProtocol.swift */; };
 		2AAF344F295AD8D200921320 /* ObjectTreeWidgetRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAF344E295AD8D200921320 /* ObjectTreeWidgetRowView.swift */; };
+		2AAF3452295B19DF00921320 /* ObjectTreeSubscriptionDataBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAF3451295B19DF00921320 /* ObjectTreeSubscriptionDataBuilder.swift */; };
+		2AAF3454295B1B5F00921320 /* ObjectTreeSubscriptionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAF3453295B1B5F00921320 /* ObjectTreeSubscriptionManager.swift */; };
 		2AB2C22428AD23FD000191F8 /* AlertOpenerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB2C22328AD23FD000191F8 /* AlertOpenerProtocol.swift */; };
 		2AB2C22628B378A5000191F8 /* BookmarkIconImageGuideline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB2C22528B378A5000191F8 /* BookmarkIconImageGuideline.swift */; };
 		2AB2C23728B658D1000191F8 /* AnytypeURLTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB2C23628B658D1000191F8 /* AnytypeURLTests.swift */; };
@@ -1774,6 +1776,8 @@
 		2AAF344A2959B5DB00921320 /* ObjectTreeWidgetProviderAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectTreeWidgetProviderAssembly.swift; sourceTree = "<group>"; };
 		2AAF344C2959B71C00921320 /* HomeWidgetProviderAssemblyProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWidgetProviderAssemblyProtocol.swift; sourceTree = "<group>"; };
 		2AAF344E295AD8D200921320 /* ObjectTreeWidgetRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectTreeWidgetRowView.swift; sourceTree = "<group>"; };
+		2AAF3451295B19DF00921320 /* ObjectTreeSubscriptionDataBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectTreeSubscriptionDataBuilder.swift; sourceTree = "<group>"; };
+		2AAF3453295B1B5F00921320 /* ObjectTreeSubscriptionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectTreeSubscriptionManager.swift; sourceTree = "<group>"; };
 		2AB2C22328AD23FD000191F8 /* AlertOpenerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertOpenerProtocol.swift; sourceTree = "<group>"; };
 		2AB2C22528B378A5000191F8 /* BookmarkIconImageGuideline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkIconImageGuideline.swift; sourceTree = "<group>"; };
 		2AB2C23628B658D1000191F8 /* AnytypeURLTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AnytypeURLTests.swift; path = AnyTypeTests/AnytypeURL/AnytypeURLTests.swift; sourceTree = SOURCE_ROOT; };
@@ -4771,11 +4775,12 @@
 		2AAF343829559BD400921320 /* ObjectTree */ = {
 			isa = PBXGroup;
 			children = (
+				2AF4C3D8295C3F0A00FD7153 /* Provider */,
+				2AF4C3D7295C3E8300FD7153 /* Rows */,
 				2AAF34362954C86800921320 /* ObjectTreeWidgetView.swift */,
-				2AAF343929559BED00921320 /* ObjectTreeWidgetProvider.swift */,
 				2AAF343B29559BF700921320 /* ObjectTreeWidgetViewModel.swift */,
-				2AAF344A2959B5DB00921320 /* ObjectTreeWidgetProviderAssembly.swift */,
-				2AAF344E295AD8D200921320 /* ObjectTreeWidgetRowView.swift */,
+				2AAF3451295B19DF00921320 /* ObjectTreeSubscriptionDataBuilder.swift */,
+				2AAF3453295B1B5F00921320 /* ObjectTreeSubscriptionManager.swift */,
 			);
 			path = ObjectTree;
 			sourceTree = "<group>";
@@ -4902,6 +4907,23 @@
 				2AF2C6B828BD104B00F8612B /* UIAnytypeActivityIndicator.swift */,
 			);
 			path = ActivityIndicator;
+			sourceTree = "<group>";
+		};
+		2AF4C3D7295C3E8300FD7153 /* Rows */ = {
+			isa = PBXGroup;
+			children = (
+				2AAF344E295AD8D200921320 /* ObjectTreeWidgetRowView.swift */,
+			);
+			path = Rows;
+			sourceTree = "<group>";
+		};
+		2AF4C3D8295C3F0A00FD7153 /* Provider */ = {
+			isa = PBXGroup;
+			children = (
+				2AAF343929559BED00921320 /* ObjectTreeWidgetProvider.swift */,
+				2AAF344A2959B5DB00921320 /* ObjectTreeWidgetProviderAssembly.swift */,
+			);
+			path = Provider;
 			sourceTree = "<group>";
 		};
 		2AFE04B128F9434C008647E0 /* LinkToObjectFlow */ = {
@@ -8053,6 +8075,7 @@
 				53F7447927F71A83005C9BB0 /* PopupViewBuilder.swift in Sources */,
 				C99DCEDE283D0E820051F99D /* TemplatePickerViewModel.swift in Sources */,
 				3D3A9C3F265BC9AC000F07DB /* Publisher+Sink.swift in Sources */,
+				2AAF3454295B1B5F00921320 /* ObjectTreeSubscriptionManager.swift in Sources */,
 				2AD409DF292B6C6B00D96C89 /* AsyncExtensions.swift in Sources */,
 				120E8177269F3474006FE84E /* ObjectSetting.swift in Sources */,
 				3D5A416A2703170300F1F6A1 /* BlockAction.swift in Sources */,
@@ -8572,6 +8595,7 @@
 				2A2A347529229D2B0004BD8B /* NavigationContext.swift in Sources */,
 				53D408D127F1D48000495335 /* PasteboardServiceProtocol.swift in Sources */,
 				1211AF7D27F4BE7400BACB88 /* CGSizeExtensions.swift in Sources */,
+				2AAF3452295B19DF00921320 /* ObjectTreeSubscriptionDataBuilder.swift in Sources */,
 				12E286E82849EF5D00BF64EB /* ObjectTypeProviderProtocol.swift in Sources */,
 				2AFB5467286997C6004F7458 /* DataviewType+Extensions.swift in Sources */,
 				2A9D299228BCC16E00789AC7 /* NonExistentBlockContentConfiguration.swift in Sources */,

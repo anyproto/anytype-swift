@@ -14,7 +14,8 @@ final class ObjectTreeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
         return ObjectTreeWidgetProvider(
             widgetBlockId: widgetBlockId,
             widgetObject: widgetObject,
-            objectDetailsStorage: serviceLocator.objectDetailsStorage()
+            objectDetailsStorage: serviceLocator.objectDetailsStorage(),
+            subscriptionService: serviceLocator.subscriptionService()
         )
     }
 }
