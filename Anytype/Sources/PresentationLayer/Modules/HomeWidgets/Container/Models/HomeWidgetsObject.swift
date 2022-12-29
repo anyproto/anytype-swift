@@ -4,6 +4,9 @@ import Combine
 
 protocol HomeWidgetsObjectProtocol: AnyObject {
     
+    // TODO: Detete it. For test
+    var baseDocument: BaseDocumentProtocol { get }
+    
     var objectId: String { get }
     var widgetsPublisher: AnyPublisher<[BlockInformation], Never> { get }
     var infoContainer: InfoContainerProtocol { get }
@@ -20,7 +23,7 @@ final class HomeWidgetsObject: HomeWidgetsObjectProtocol {
     
     // MARK: - Private properties
     private var subscriptions = [AnyCancellable]()
-    private let baseDocument: BaseDocumentProtocol
+    let baseDocument: BaseDocumentProtocol
     private let objectDetailsStorage: ObjectDetailsStorage
     
     init(objectId: String, objectDetailsStorage: ObjectDetailsStorage) {

@@ -37,7 +37,7 @@ struct HomeWidgetsView_Previews: PreviewProvider {
                     objectId: "",
                     objectDetailsStorage: DI.makeForPreview().serviceLocator.objectDetailsStorage()
                 ),
-                registry: DI.makeForPreview().serviceLocator.homeWidgetsRegistry(),
+                registry: DI.makeForPreview().widgetsDI.homeWidgetsRegistry(),
                 blockWidgetService: DI.makeForPreview().serviceLocator.blockWidgetService(),
                 output: nil
             )
