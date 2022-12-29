@@ -27,6 +27,7 @@ final class CreateWidgetCoordinator: CreateWidgetCoordinatorProtocol {
     
     func startFlow(widgetObjectId: String) {
         let searchView = newSearchModuleAssembly.objectsSearchModule(
+            title: Loc.Widgets.sourceSearch,
             style: .default,
             selectionMode: .singleItem,
             excludedObjectIds: [],
