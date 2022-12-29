@@ -52,13 +52,18 @@ final class HomeWidgetsViewModel: ObservableObject {
             }
             .assign(to: &$models)
         
+        // Temporary code for delete all widget blocks
+//        for child in widgetObject.baseDocument.children {
+//            try await blockWidgetService.removeWidgetBlock(contextId: widgetObject.objectId, widgetBlockId: child.id)
+//        }
+        
         // Temporary code for crate widget blocks in empty object
-//        for i in 0..<50 {
-//            let info = BlockInformation.empty(content: .link(.empty(targetBlockID: "bafybbawyy6dpf4mnjrjncjulsu5c7b4a6mz27wyxbowd4ukf3ga2wz2t")))
-//            try await blockWidgetService.createBlockWidget(
+//        for i in 0..<1 {
+//            let info = BlockInformation.empty(content: .link(.empty(targetBlockID: "bafybbczjvvl2aky3lwqpc2l6g2wttyblljhwnhltfcm6bp6fjm5mezzu")))
+//            try await blockWidgetService.createWidgetBlock(
 //                contextId: widgetObject.objectId,
 //                info: info,
-//                layout: .link
+//                layout: .tree
 //            )
 //        }
     }

@@ -13,6 +13,5 @@ protocol ModulesDIProtocol: AnyObject {
     var codeLanguageList: CodeLanguageListModuleAssemblyProtocol { get }
     var newSearch: NewSearchModuleAssemblyProtocol { get }
     var newRelation: NewRelationModuleAssemblyProtocol { get }
-    @MainActor
     var homeWidgets: HomeWidgetsModuleAssemblyProtocol { get }
 }
