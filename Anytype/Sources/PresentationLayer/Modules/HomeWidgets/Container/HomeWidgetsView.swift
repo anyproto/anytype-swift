@@ -13,6 +13,9 @@ struct HomeWidgetsView: View {
                     ForEach(model.models, id: \.componentId) { model in
                         model.view
                     }
+                    Button("Create widget") {
+                        model.onCreateWidgetTap()
+                    }
                     Button("Show old home") {
                         model.onDisableNewHomeTap()
                     }
