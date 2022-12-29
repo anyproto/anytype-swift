@@ -261,11 +261,24 @@ final class BlockViewModelBuilder {
                     self?.delegate.textBlockSetNeedsLayout()
                 }
             )
-        case .smartblock, .layout, .dataView, .tableRow, .tableColumn, .widget: return nil
+        case .smartblock, .layout, .tableRow, .tableColumn, .widget: return nil
         case .table:
             return SimpleTableBlockViewModel(
                 info: info,
                 simpleTableDependenciesBuilder: simpleTableDependenciesBuilder
+            )
+        case let .dataView(data):
+            let details = ObjectDetailsStorage.shared.get(id: data.targetObjectID)
+            
+            if details?.isDeleted ?? false {
+                return NonExistentBlockViewModel(info: info)
+            }
+            return DataViewBlockViewModel(
+                info: info,
+                objectDetails: details,
+                showFailureToast: { [weak self] message in
+                    self?.router.showFailureToast(message: message)
+                }
             )
         case .unsupported:
             guard let parentId = info.configurationData.parentId,

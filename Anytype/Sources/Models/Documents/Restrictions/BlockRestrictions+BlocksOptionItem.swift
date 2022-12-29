@@ -30,6 +30,7 @@ extension Array where Element == BlockInformation {
         var isDownloadAvailable = true
         var isStyleAvailable = true
         var isOpenObjectAvailable = false
+        var isOpenSourceAvailable = false
         
         var restrictions = [BlockRestrictions]()
 
@@ -49,6 +50,13 @@ extension Array where Element == BlockInformation {
 
             if !element.content.isText {
                 isStyleAvailable = false
+            }
+            
+            if case let .dataView(data) = element.content,
+               data.targetObjectID.isNotEmpty,
+                let details = ObjectDetailsStorage.shared.get(id: data.targetObjectID),
+                !details.isArchived, !details.isDeleted {
+                isOpenSourceAvailable = true
             }
 
             let restriction = BlockRestrictionsBuilder.build(contentType: element.content.type)
@@ -84,6 +92,10 @@ extension Array where Element == BlockInformation {
         
         if !isOpenObjectAvailable || count > 1 {
             mergedItems.remove(.openObject)
+        }
+        
+        if !isOpenSourceAvailable || count > 1 {
+            mergedItems.remove(.openSource)
         }
 
         return Array<BlocksOptionItem>(mergedItems).sorted()

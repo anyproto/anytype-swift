@@ -7,6 +7,7 @@ enum BlocksOptionItem: CaseIterable, Comparable {
     case style
     case preview
     case openObject
+    case openSource
     // -- Unique options. End
     case paste
     case copy
@@ -40,6 +41,8 @@ extension BlocksOptionItem {
             return BlockOptionImage.download
         case .openObject:
             return BlockOptionImage.openToEdit
+        case .openSource:
+            return BlockOptionImage.openToEdit
         case .paste:
             return BlockOptionImage.paste
         case .copy:
@@ -69,6 +72,8 @@ extension BlocksOptionItem {
             return Loc.download
         case .openObject:
             return Loc.openObject
+        case .openSource:
+            return Loc.openSource
         case .paste:
             return Loc.paste
         case .copy:
@@ -98,6 +103,8 @@ extension BlocksOptionItem {
             return "Download"
         case .openObject:
             return "OpenObject"
+        case .openSource:
+            return "OpenSource"
         case .paste:
             return "Paste"
         case .copy:

@@ -32,6 +32,7 @@ enum AnalyticsEventsName {
     static let reorderBlock = "ReorderBlock"
     static let blockBookmarkOpenUrl = "BlockBookmarkOpenUrl"
     static let openAsObject = "OpenAsObject"
+    static let openAsSource = "OpenAsSource"
     
     // Relation events
     static let addExistingRelation = "AddExistingRelation"

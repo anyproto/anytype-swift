@@ -366,6 +366,11 @@ final class MiddlewareEventConverter {
         case .blockDataViewObjectOrderUpdate(let data):
             handleDataViewObjectOrderUpdate(data)
             return .general
+        case .blockDataviewTargetObjectIDSet(let data):
+            infoContainer.updateDataview(blockId: data.id) { dataView in
+                return dataView.updated(targetObjectID: data.targetObjectID)
+            }
+            return .general
         case .accountShow,
                 .accountUpdate, // Event not working on middleware. See AccountManager.
                 .accountDetails, // Skipped
@@ -394,8 +399,7 @@ final class MiddlewareEventConverter {
                 .processNew,
                 .processUpdate,
                 .processDone,
-                .blockSetWidget,
-                .blockDataviewTargetObjectIDSet:
+                .blockSetWidget:
             return nil
         }
     }
