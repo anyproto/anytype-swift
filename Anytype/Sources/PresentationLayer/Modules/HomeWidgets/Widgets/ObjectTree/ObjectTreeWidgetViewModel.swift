@@ -149,6 +149,7 @@ final class ObjectTreeWidgetViewModel: ObservableObject {
                 rowId: rowId,
                 objectId: details.id,
                 title: details.title,
+                icon: details.objectIconImage,
                 expandedType: details.expandedType(
                     isExpanded: isExpanded,
                     canBeExpanded: level < Constants.maxExpandableLevel

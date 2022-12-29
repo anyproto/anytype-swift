@@ -12,6 +12,7 @@ struct ObjectTreeWidgetRowViewModel {
     let rowId: String
     let objectId: String
     let title: String
+    let icon: ObjectIconImage?
     let expandedType: ExpandedType
     let level: Int
     let tapExpand: (ObjectTreeWidgetRowViewModel) -> Void
@@ -28,6 +29,11 @@ struct ObjectTreeWidgetRowView: View {
             rowIcon
                 .frame(width: 20, height: 20)
             Spacer.fixedWidth(8)
+            if let icon = model.icon {
+                SwiftUIObjectIconImageView(iconImage: icon, usecase: .widgetTree)
+                    .frame(width: 18, height: 18)
+                Spacer.fixedWidth(12)
+            }
             // TODO: For image
 //            Image()
 //                .frame(width: 18, height: 18)
