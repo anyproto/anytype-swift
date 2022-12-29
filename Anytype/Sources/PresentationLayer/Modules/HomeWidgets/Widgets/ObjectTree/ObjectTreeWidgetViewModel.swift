@@ -20,9 +20,10 @@ final class ObjectTreeWidgetViewModel: ObservableObject {
     private let widgetObject: HomeWidgetsObjectProtocol
     private let objectDetailsStorage: ObjectDetailsStorage
     private let subscriptionManager: ObjectTreeSubscriptionManagerProtocol
+    private let objectTreeExpandalbeItemsHelper: ObjectTreeExpandalbeItemsHelperProtocol
     
     // MARK: - State
-    
+    private let maxExandableItems: Int
     private var subscriptions = [AnyCancellable]()
     private var linkedObjectDetails: ObjectDetails?
     private var subscriptionData: [ObjectDetails] = []
@@ -36,12 +37,15 @@ final class ObjectTreeWidgetViewModel: ObservableObject {
         widgetBlockId: BlockId,
         widgetObject: HomeWidgetsObjectProtocol,
         objectDetailsStorage: ObjectDetailsStorage,
-        subscriptionManager: ObjectTreeSubscriptionManagerProtocol
+        subscriptionManager: ObjectTreeSubscriptionManagerProtocol,
+        objectTreeExpandalbeItemsHelper: ObjectTreeExpandalbeItemsHelperProtocol
     ) {
         self.widgetBlockId = widgetBlockId
         self.widgetObject = widgetObject
         self.objectDetailsStorage = objectDetailsStorage
         self.subscriptionManager = subscriptionManager
+        self.objectTreeExpandalbeItemsHelper = objectTreeExpandalbeItemsHelper
+        maxExandableItems = objectTreeExpandalbeItemsHelper.maxExpandalbeItems()
     }
     
     // MARK: - Public
@@ -123,7 +127,9 @@ final class ObjectTreeWidgetViewModel: ObservableObject {
     
     private func updateTree() {
         guard let linkedObjectDetails else { return }
-        rows = buildRows(links: linkedObjectDetails.links, idPrefix: linkedObjectDetails.id, level: 0)
+        let rowsSlice = buildRows(links: linkedObjectDetails.links, idPrefix: linkedObjectDetails.id, level: 0)
+            .prefix(maxExandableItems)
+        rows = Array(rowsSlice)
     }
     
     private func buildRows(links: [String], idPrefix: String, level: Int) -> [ObjectTreeWidgetRowViewModel] {

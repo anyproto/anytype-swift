@@ -19,7 +19,8 @@ final class ObjectTreeSubscriptionDataBuilder: ObjectTreeSubscriptionDataBuilder
             BundledRelationKey.links.rawValue,
             BundledRelationKey.type.rawValue,
             BundledRelationKey.layout.rawValue,
-            BundledRelationKey.isDeleted.rawValue
+            BundledRelationKey.isDeleted.rawValue,
+            BundledRelationKey.isArchived.rawValue,
         ]
         
         return .objects(

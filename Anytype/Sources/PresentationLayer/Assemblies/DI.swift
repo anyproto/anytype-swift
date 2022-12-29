@@ -9,12 +9,14 @@ final class DI: DIProtocol {
         self.viewControllerProvider = viewControllerProvider
     }
     
+    // MARK: - DIProtocol
+    
     lazy var coordinatorsDI: CoordinatorsDIProtocol = {
         return CoordinatorsDI(serviceLocator: serviceLocator, modulesDI: modulesDI, uiHelpersDI: uihelpersDI)
     }()
     
     lazy var modulesDI: ModulesDIProtocol = {
-        return ModulesDI(serviceLocator: serviceLocator, uiHelpersDI: uihelpersDI)
+        return ModulesDI(serviceLocator: serviceLocator, uiHelpersDI: uihelpersDI, widgetsDI: widgetsDI)
     }()
     
     lazy var uihelpersDI: UIHelpersDIProtocol = {
@@ -24,6 +26,10 @@ final class DI: DIProtocol {
     var serviceLocator: ServiceLocator {
         return ServiceLocator.shared
     }
+    
+    lazy var widgetsDI: WidgetsDIProtocol = {
+        return WidgetsDI(serviceLocator: serviceLocator, uiHelpersDI: uihelpersDI)
+    }()
 }
 
 

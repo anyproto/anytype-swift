@@ -6,39 +6,23 @@ final class ObjectTreeWidgetProvider: HomeWidgetProviderProtocol {
     
     private let widgetBlockId: String
     private let widgetObject: HomeWidgetsObjectProtocol
-    private let objectDetailsStorage: ObjectDetailsStorage
-    private let subscriptionService: SubscriptionsServiceProtocol
+    private let objectTreeWidgetModuleAssembly: ObjectTreeWidgetModuleAssemblyProtocol
     
     init(
         widgetBlockId: String,
         widgetObject: HomeWidgetsObjectProtocol,
-        objectDetailsStorage: ObjectDetailsStorage,
-        subscriptionService: SubscriptionsServiceProtocol
+        objectTreeWidgetModuleAssembly: ObjectTreeWidgetModuleAssemblyProtocol
     ) {
         self.widgetBlockId = widgetBlockId
         self.widgetObject = widgetObject
-        self.objectDetailsStorage = objectDetailsStorage
-        self.subscriptionService = subscriptionService
+        self.objectTreeWidgetModuleAssembly = objectTreeWidgetModuleAssembly
     }
     
     // MARK: - HomeWidgetProviderProtocol
     
     @MainActor
     var view: AnyView {
-        
-        let subscriptionManager = ObjectTreeSubscriptionManager(
-            subscriptionDataBuilder: ObjectTreeSubscriptionDataBuilder(),
-            subscriptionService: subscriptionService
-        )
-        
-        // TODO: Maybe add assembly for each widget
-        let model = ObjectTreeWidgetViewModel(
-            widgetBlockId: widgetBlockId,
-            widgetObject: widgetObject,
-            objectDetailsStorage: objectDetailsStorage,
-            subscriptionManager: subscriptionManager
-        )
-        return ObjectTreeWidgetView(model: model).eraseToAnyView()
+        return objectTreeWidgetModuleAssembly.make(widgetBlockId: widgetBlockId, widgetObject: widgetObject)
     }
     
     var componentId: String {

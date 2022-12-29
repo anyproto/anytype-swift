@@ -37,10 +37,16 @@ struct ObjectTreeWidgetRowView: View {
             Spacer.fixedWidth(12)
             Spacer()
         }
-        .frame(height: 40)
+        .frame(height: ObjectTreeWidgetRowView.height())
         .newDivider(leadingPadding: 16, trailingPadding: 16)
     }
     
+    // Used for calculate max expandable items
+    static func height() -> CGFloat {
+        return 40.0
+    }
+    
+    // MARK: - Private
     private var rowIcon: some View {
         Group {
             switch model.expandedType {

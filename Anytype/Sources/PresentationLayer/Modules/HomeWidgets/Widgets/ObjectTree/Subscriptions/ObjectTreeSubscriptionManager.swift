@@ -11,6 +11,7 @@ final class ObjectTreeSubscriptionManager: ObjectTreeSubscriptionManagerProtocol
     
     private let subscriptionDataBuilder: ObjectTreeSubscriptionDataBuilderProtocol
     private let subscriptionService: SubscriptionsServiceProtocol
+    private let objectTypeProvider: ObjectTypeProviderProtocol
     private var objectIds: [String] = []
     private var data: [ObjectDetails] = []
 
@@ -18,10 +19,12 @@ final class ObjectTreeSubscriptionManager: ObjectTreeSubscriptionManagerProtocol
     
     init(
         subscriptionDataBuilder: ObjectTreeSubscriptionDataBuilderProtocol,
-        subscriptionService: SubscriptionsServiceProtocol
+        subscriptionService: SubscriptionsServiceProtocol,
+        objectTypeProvider: ObjectTypeProviderProtocol
     ) {
         self.subscriptionDataBuilder = subscriptionDataBuilder
         self.subscriptionService = subscriptionService
+        self.objectTypeProvider = objectTypeProvider
     }
     
     // MARK: - ObjectTreeSubscriptionManagerProtocol
@@ -52,6 +55,9 @@ final class ObjectTreeSubscriptionManager: ObjectTreeSubscriptionManagerProtocol
     
     private func handleEvent(subId: SubscriptionId, update: SubscriptionUpdate) {
         data.applySubscriptionUpdate(update)
-        handler?(data)
+        let result = data.filter {
+            !$0.isDeleted && !$0.isArchived && objectTypeProvider.isSupportedForEdit(typeId: $0.type)
+        }
+        handler?(result)
     }
 }

@@ -2,10 +2,10 @@ import Foundation
 
 final class ObjectTreeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol {
     
-    private let serviceLocator: ServiceLocator
+    private let widgetsDI: WidgetsDIProtocol
     
-    init(serviceLocator: ServiceLocator) {
-        self.serviceLocator = serviceLocator
+    init(widgetsDI: WidgetsDIProtocol) {
+        self.widgetsDI = widgetsDI
     }
     
     // MARK: - HomeWidgetProviderAssemblyProtocol
@@ -14,8 +14,7 @@ final class ObjectTreeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
         return ObjectTreeWidgetProvider(
             widgetBlockId: widgetBlockId,
             widgetObject: widgetObject,
-            objectDetailsStorage: serviceLocator.objectDetailsStorage(),
-            subscriptionService: serviceLocator.subscriptionService()
+            objectTreeWidgetModuleAssembly: widgetsDI.objectTreeWidgetModuleAssembly()
         )
     }
 }

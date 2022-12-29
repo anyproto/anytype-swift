@@ -5,4 +5,5 @@ protocol DIProtocol: AnyObject {
     var modulesDI: ModulesDIProtocol { get }
     var uihelpersDI: UIHelpersDIProtocol { get }
     var serviceLocator: ServiceLocator { get }
+    var widgetsDI: WidgetsDIProtocol { get }
 }
