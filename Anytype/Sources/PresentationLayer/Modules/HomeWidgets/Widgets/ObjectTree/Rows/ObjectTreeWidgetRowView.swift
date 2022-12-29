@@ -34,10 +34,6 @@ struct ObjectTreeWidgetRowView: View {
                     .frame(width: 18, height: 18)
                 Spacer.fixedWidth(12)
             }
-            // TODO: For image
-//            Image()
-//                .frame(width: 18, height: 18)
-//            Spacer.fixedWidth(12)
             AnytypeText(model.title, style: .previewTitle2Medium, color: .Text.primary)
                 .lineLimit(1)
             Spacer.fixedWidth(12)

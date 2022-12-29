@@ -78,15 +78,12 @@ struct NewDividerModifier: ViewModifier {
     let trailingPadding: CGFloat
     
     func body(content: Content) -> some View {
-        if #available(iOS 15.0, *) {
-            content
-                .overlay(alignment: .bottom) {
-                    AnytypeDivider()
-                        .padding(.leading, leadingPadding)
-                        .padding(.trailing, trailingPadding)
-                }
-        } else {
-            content
-        }
+        content
+            .overlay(
+                AnytypeDivider()
+                    .padding(.leading, leadingPadding)
+                    .padding(.trailing, trailingPadding),
+                alignment: .bottom
+            )
     }
 }
