@@ -27,16 +27,11 @@ final class ObjectTreeWidgetModuleAssembly: ObjectTreeWidgetModuleAssemblyProtoc
             objectTypeProvider: serviceLocator.objectTypeProvider()
         )
         
-        let objectTreeExpandalbeItemsHelper = ObjectTreeExpandalbeItemsHelper(
-            viewControllerProvider: uiHelpersDI.viewControllerProvider
-        )
-        
         let model = ObjectTreeWidgetViewModel(
             widgetBlockId: widgetBlockId,
             widgetObject: widgetObject,
             objectDetailsStorage: serviceLocator.objectDetailsStorage(),
-            subscriptionManager: subscriptionManager,
-            objectTreeExpandalbeItemsHelper: objectTreeExpandalbeItemsHelper
+            subscriptionManager: subscriptionManager
         )
         return ObjectTreeWidgetView(model: model).eraseToAnyView()
     }

@@ -43,13 +43,8 @@ struct ObjectTreeWidgetRowView: View {
             Spacer.fixedWidth(12)
             Spacer()
         }
-        .frame(height: ObjectTreeWidgetRowView.height())
+        .frame(height: 40)
         .newDivider(leadingPadding: 16, trailingPadding: 16)
-    }
-    
-    // Used for calculate max expandable items
-    static func height() -> CGFloat {
-        return 40.0
     }
     
     // MARK: - Private

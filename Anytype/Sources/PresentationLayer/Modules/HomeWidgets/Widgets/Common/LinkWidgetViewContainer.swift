@@ -32,11 +32,6 @@ struct LinkWidgetViewContainer<Content>: View where Content: View {
         .cornerRadius(16, style: .continuous)
     }
     
-    // Used for calculate max expandable items.
-    static func emptyHeight() -> CGFloat where Content: Any {
-        return 52.0
-    }
-    
     // MARK: - Private
     
     private var header: some View {
