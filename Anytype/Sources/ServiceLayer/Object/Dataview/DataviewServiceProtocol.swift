@@ -2,7 +2,7 @@ import BlocksModels
 
 protocol DataviewServiceProtocol {
     func updateView( _ view: DataviewView) async throws
-    func createView( _ view: DataviewView) async throws
+    func createView( _ view: DataviewView, source: [String]) async throws
     func deleteView( _ viewId: String) async throws
     func addRelation(_ relationDetails: RelationDetails) async throws -> Bool
     func deleteRelation(relationKey: String) async throws

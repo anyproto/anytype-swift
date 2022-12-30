@@ -580,12 +580,14 @@ extension EditorRouter {
     func showViewTypes(
         dataView: BlockDataview,
         activeView: DataviewView?,
+        source: [String],
         dataviewService: DataviewServiceProtocol
     )
     {
         let viewModel = SetViewTypesPickerViewModel(
             dataView: dataView,
             activeView: activeView,
+            source: source,
             dataviewService: dataviewService,
             relationDetailsStorage: ServiceLocator.shared.relationDetailsStorage()
         )

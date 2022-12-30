@@ -608,6 +608,7 @@ extension EditorSetViewModel {
         router.showViewTypes(
             dataView: setDocument.dataView,
             activeView: activeView,
+            source: details?.setOf ?? [],
             dataviewService: dataviewService
         )
     }

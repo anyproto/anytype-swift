@@ -91,6 +91,7 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func showViewTypes(
         dataView: BlockDataview,
         activeView: DataviewView?,
+        source: [String],
         dataviewService: DataviewServiceProtocol
     )
     func showViewSettings(setDocument: SetDocumentProtocol, dataviewService: DataviewServiceProtocol)

@@ -156,6 +156,7 @@ struct SetViewTypesPicker_Previews: PreviewProvider {
             viewModel: SetViewTypesPickerViewModel(
                 dataView: BlockDataview.empty,
                 activeView: DataviewView.empty,
+                source: [],
                 dataviewService: DataviewService(
                     objectId: "objectId",
                     blockId: "blockId",

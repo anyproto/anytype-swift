@@ -13,12 +13,14 @@ final class SetViewTypesPickerViewModel: ObservableObject {
     private let dataView: BlockDataview
     private let activeView: DataviewView?
     private var selectedType: DataviewViewType = .table
+    private let source: [String]
     private let dataviewService: DataviewServiceProtocol
     private let relationDetailsStorage: RelationDetailsStorageProtocol
     
     init(
         dataView: BlockDataview,
         activeView: DataviewView?,
+        source: [String],
         dataviewService: DataviewServiceProtocol,
         relationDetailsStorage: RelationDetailsStorageProtocol)
     {
@@ -27,6 +29,7 @@ final class SetViewTypesPickerViewModel: ObservableObject {
         self.activeView = activeView
         self.canDelete = dataView.views.count > 1
         self.selectedType = activeView?.type ?? .table
+        self.source = source
         self.dataviewService = dataviewService
         self.relationDetailsStorage = relationDetailsStorage
         self.updateTypes()
@@ -50,7 +53,7 @@ final class SetViewTypesPickerViewModel: ObservableObject {
     func duplicateView() {
         guard let activeView = activeView else { return }
         Task {
-            try await dataviewService.createView(activeView)
+            try await dataviewService.createView(activeView, source: source)
         }
     }
     
@@ -91,7 +94,8 @@ final class SetViewTypesPickerViewModel: ObservableObject {
         let name = name.isEmpty ? Loc.SetViewTypesPicker.Settings.Textfield.Placeholder.untitled : name
         Task {
             try await dataviewService.createView(
-                DataviewView.created(with: name, type: selectedType)
+                DataviewView.created(with: name, type: selectedType),
+                source: source
             )
         }
     }

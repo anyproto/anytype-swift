@@ -32,9 +32,14 @@ final class DataviewService: DataviewServiceProtocol {
         event.send()
     }
 
-    func createView( _ view: DataviewView) async throws {
+    func createView( _ view: DataviewView, source: [String]) async throws {
         let result = try await Anytype_Rpc.BlockDataview.View.Create.Service
-            .invocation(contextID: objectId, blockID: blockId, view: view.asMiddleware)
+            .invocation(
+                contextID: objectId,
+                blockID: blockId,
+                view: view.asMiddleware,
+                source: source
+            )
             .invoke(errorDomain: .dataviewService)
         let event = EventsBunch(event: result.event)
         event.send()
