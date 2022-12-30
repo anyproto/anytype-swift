@@ -401,7 +401,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
             )
             guard case let .dataView(data) = elements.first?.content else { return }
             AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.openAsSource)
-            let screenData = EditorScreenData(pageId: data.targetObjectID, type: .set)
+            let screenData = EditorScreenData(pageId: data.targetObjectID, type: .set())
             router.showPage(data: screenData)
         case .style:
             editingState = .editing

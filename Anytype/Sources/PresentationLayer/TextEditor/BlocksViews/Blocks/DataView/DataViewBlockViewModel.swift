@@ -8,7 +8,8 @@ struct DataViewBlockViewModel: BlockViewModelProtocol {
     let info: BlockInformation
     let objectDetails: ObjectDetails?
     
-    let showFailureToast: (_ message: String) -> ()
+    private let showFailureToast: (_ message: String) -> ()
+    private let openInlineSet: (EditorScreenData) -> ()
 
     var hashable: AnyHashable {
         [
@@ -20,11 +21,13 @@ struct DataViewBlockViewModel: BlockViewModelProtocol {
     init(
         info: BlockInformation,
         objectDetails: ObjectDetails?,
-        showFailureToast: @escaping (_ message: String) -> ())
-    {
+        showFailureToast: @escaping (_ message: String) -> (),
+        openInlineSet: @escaping (EditorScreenData) -> ()
+    ) {
         self.info = info
         self.objectDetails = objectDetails
         self.showFailureToast = showFailureToast
+        self.openInlineSet = openInlineSet
     }
 
     func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration {
@@ -52,8 +55,21 @@ struct DataViewBlockViewModel: BlockViewModelProtocol {
     }
 
     func didSelectRowInTableView(editorEditingState: EditorEditingState) {
-        if objectDetails == nil {
-            showFailureToast(Loc.Content.DataView.InlineSet.Toast.failure)
-        }
+        openInlineSet(
+            EditorScreenData(
+                pageId: "bafybbojoxlfqbvo2qs2kbwipm72huy4dk5v2di57onks5kwaasgrka7g",
+                type: .set(blockId: info.id, targetObjectID: objectDetails?.id)
+            )
+        )
+//        if let pageId = info.configurationData.parentId {
+//            openInlineSet(
+//                EditorScreenData(
+//                    pageId: pageId,
+//                    type: .set(blockId: info.id, targetObjectID: objectDetails?.id)
+//                )
+//            )
+//        } else if objectDetails == nil {
+//            showFailureToast(Loc.Content.DataView.InlineSet.Toast.failure)
+//        }
     }
 }

@@ -247,7 +247,7 @@ final class EditorSetViewModel: ObservableObject {
                 }
 
                 self.textService.setText(
-                    contextId: self.setDocument.objectId,
+                    contextId: self.setDocument.targetObjectID ?? self.objectId,
                     blockId: RelationKey.title.rawValue,
                     middlewareString: .init(text: newValue, marks: .init())
                 )
@@ -731,9 +731,11 @@ extension EditorSetViewModel {
     static let empty = EditorSetViewModel(
         setDocument: SetDocument(
             document: BaseDocument(objectId: "objectId"),
+            blockId: nil,
+            targetObjectID: nil,
             relationDetailsStorage: ServiceLocator.shared.relationDetailsStorage()
         ),
-        dataviewService: DataviewService(objectId: "objectId", prefilledFieldsBuilder: SetPrefilledFieldsBuilder()),
+        dataviewService: DataviewService(objectId: "objectId", blockId: "blockId", prefilledFieldsBuilder: SetPrefilledFieldsBuilder()),
         searchService: ServiceLocator.shared.searchService(),
         detailsService: DetailsService(objectId: "objectId", service: ObjectActionsService()),
         objectActionsService: ServiceLocator.shared.objectActionsService(),

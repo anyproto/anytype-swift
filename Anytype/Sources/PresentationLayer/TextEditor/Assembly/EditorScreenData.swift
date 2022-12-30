@@ -13,7 +13,25 @@ struct EditorScreenData: Hashable {
     }
 }
 
-enum EditorViewType: String {
+enum EditorViewType: Hashable {
     case page
-    case set
+    case set(blockId: BlockId? = nil, targetObjectID: String? = nil)
+    
+    init?(rawValue: String, blockId: BlockId?, targetObjectID: String?) {
+        switch rawValue {
+        case "page":
+            self = .page
+        case "set":
+            self = .set(blockId: blockId, targetObjectID: targetObjectID)
+        default:
+            return nil
+        }
+    }
+    
+    var rawValue: String {
+        switch self {
+        case .page: return "page"
+        case .set: return "set"
+        }
+    }
 }
