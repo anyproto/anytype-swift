@@ -62,6 +62,14 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
         )
     }
     
+    var createWidget: CreateWidgetCoordinatorAssemblyProtocol {
+        return CreateWidgetCoordinatorAssembly(
+            modulesDI: modulesDI,
+            serviceLocator: serviceLocator,
+            uiHelpersDI: uiHelpersDI
+        )
+    }
+    
     var browser: EditorBrowserAssembly {
         return EditorBrowserAssembly(coordinatorsDI: self)
     }

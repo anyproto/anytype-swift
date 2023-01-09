@@ -13,12 +13,16 @@ struct HomeWidgetsView: View {
                     ForEach(model.models, id: \.componentId) { model in
                         model.view
                     }
+                    Button("Create widget") {
+                        model.onCreateWidgetTap()
+                    }
                     Button("Show old home") {
                         model.onDisableNewHomeTap()
                     }
                 }
                 .padding(.horizontal, 20)
             }
+            .animation(.default, value: model.models.count)
         }
         .onAppear {
             model.onAppear()

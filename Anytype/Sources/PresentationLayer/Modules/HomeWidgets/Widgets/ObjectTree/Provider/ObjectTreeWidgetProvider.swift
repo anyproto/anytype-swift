@@ -21,9 +21,9 @@ final class ObjectTreeWidgetProvider: HomeWidgetProviderProtocol {
     // MARK: - HomeWidgetProviderProtocol
     
     @MainActor
-    var view: AnyView {
+    lazy var view: AnyView = {
         return objectTreeWidgetModuleAssembly.make(widgetBlockId: widgetBlockId, widgetObject: widgetObject)
-    }
+    }()
     
     var componentId: String {
         return widgetBlockId

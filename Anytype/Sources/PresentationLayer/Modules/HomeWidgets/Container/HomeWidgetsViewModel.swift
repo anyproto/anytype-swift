@@ -42,6 +42,10 @@ final class HomeWidgetsViewModel: ObservableObject {
         output?.onOldHomeSelected()
     }
     
+    func onCreateWidgetTap() {
+        output?.onCreateWidgetSelected()
+    }
+    
     // MARK: - Private
     
     private func setupInitialState() async throws {
