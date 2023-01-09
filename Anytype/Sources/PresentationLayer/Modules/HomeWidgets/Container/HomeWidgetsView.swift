@@ -19,6 +19,14 @@ struct HomeWidgetsView: View {
                 }
                 .padding(.horizontal, 20)
             }
+            VStack {
+                Spacer()
+                HomeWidgetsBottomPanelView(model: HomeWidgetsBottomPanelViewModel(buttons: [
+                    HomeWidgetsBottomPanelViewModel.Button(id: "1", image: .addNew, onTap: {
+                        print("on tap new")
+                    })
+                ]))
+            }
         }
         .onAppear {
             model.onAppear()

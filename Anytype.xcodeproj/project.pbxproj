@@ -414,6 +414,8 @@
 		2A4919A929530B0F00FCEAC9 /* HomeWidgetProviderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4919A829530B0F00FCEAC9 /* HomeWidgetProviderProtocol.swift */; };
 		2A4919AC29530B5700FCEAC9 /* LinkWidgetViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4919AB29530B5700FCEAC9 /* LinkWidgetViewContainer.swift */; };
 		2A4919AE295333CF00FCEAC9 /* Color+ComponentColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4919AD295333CF00FCEAC9 /* Color+ComponentColor.swift */; };
+		2A4E5C8A296C0BAD002BB71B /* HomeWidgetsBottomPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4E5C89296C0BAD002BB71B /* HomeWidgetsBottomPanelView.swift */; };
+		2A4E5C8D296C0BFF002BB71B /* HomeWidgetsBottomPanelViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4E5C8C296C0BFF002BB71B /* HomeWidgetsBottomPanelViewModel.swift */; };
 		2A4FFBBE289D1B64004938DF /* LoggerConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4FFBBD289D1B64004938DF /* LoggerConfigurator.swift */; };
 		2A4FFBC1289D1C7E004938DF /* Logger in Frameworks */ = {isa = PBXBuildFile; productRef = 2A4FFBC0289D1C7E004938DF /* Logger */; };
 		2A4FFBC2289D1C7E004938DF /* Logger in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 2A4FFBC0289D1C7E004938DF /* Logger */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -1722,6 +1724,8 @@
 		2A4919A829530B0F00FCEAC9 /* HomeWidgetProviderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWidgetProviderProtocol.swift; sourceTree = "<group>"; };
 		2A4919AB29530B5700FCEAC9 /* LinkWidgetViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkWidgetViewContainer.swift; sourceTree = "<group>"; };
 		2A4919AD295333CF00FCEAC9 /* Color+ComponentColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+ComponentColor.swift"; sourceTree = "<group>"; };
+		2A4E5C89296C0BAD002BB71B /* HomeWidgetsBottomPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWidgetsBottomPanelView.swift; sourceTree = "<group>"; };
+		2A4E5C8C296C0BFF002BB71B /* HomeWidgetsBottomPanelViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWidgetsBottomPanelViewModel.swift; sourceTree = "<group>"; };
 		2A4FFBBD289D1B64004938DF /* LoggerConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoggerConfigurator.swift; sourceTree = "<group>"; };
 		2A4FFBBF289D1C61004938DF /* Logger */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Logger; path = Modules/Logger; sourceTree = "<group>"; };
 		2A4FFBC3289D4B55004938DF /* InvocationMesagesHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvocationMesagesHandler.swift; sourceTree = "<group>"; };
@@ -4592,6 +4596,23 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
+		2A4E5C88296C0B76002BB71B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				2A4E5C8B296C0BEF002BB71B /* HomeWidgetsBottomPanelView */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		2A4E5C8B296C0BEF002BB71B /* HomeWidgetsBottomPanelView */ = {
+			isa = PBXGroup;
+			children = (
+				2A4E5C89296C0BAD002BB71B /* HomeWidgetsBottomPanelView.swift */,
+				2A4E5C8C296C0BFF002BB71B /* HomeWidgetsBottomPanelViewModel.swift */,
+			);
+			path = HomeWidgetsBottomPanelView;
+			sourceTree = "<group>";
+		};
 		2A4FFBBC289D1B64004938DF /* Logger */ = {
 			isa = PBXGroup;
 			children = (
@@ -4793,6 +4814,7 @@
 		2AAF343F29559DAD00921320 /* Container */ = {
 			isa = PBXGroup;
 			children = (
+				2A4E5C88296C0B76002BB71B /* Views */,
 				2AAF344729599C4200921320 /* Models */,
 				2AAF343D29559DA600921320 /* HomeWidgetsRegistry.swift */,
 				2A9486532950A3E7007A5586 /* HomeWidgetsModuleAssembly.swift */,
@@ -8505,6 +8527,7 @@
 				3DA626532657ADA700942249 /* PopupExtension.swift in Sources */,
 				3D00F1CF278D7CB700863D7C /* ObjectSearchData.swift in Sources */,
 				EA0261362625D12000AE6D86 /* BlockRestrictionsBuilder.swift in Sources */,
+				2A4E5C8D296C0BFF002BB71B /* HomeWidgetsBottomPanelViewModel.swift in Sources */,
 				3D44984D26D54A64005A3E06 /* BindableGestureRecognizer.swift in Sources */,
 				53EDA8802837EC4000887804 /* CreateObjectView.swift in Sources */,
 				1244792227D8A8BE00581174 /* StatusSearchRowView.swift in Sources */,
@@ -9133,6 +9156,7 @@
 				EA02612D2625D04D00AE6D86 /* HighlightedBlockRestrictions.swift in Sources */,
 				2A176438283E2211002853D3 /* AnytypePopupProxy.swift in Sources */,
 				C90F8F2A28DCBD9900E874A9 /* PreviewRemoteItem.swift in Sources */,
+				2A4E5C8A296C0BAD002BB71B /* HomeWidgetsBottomPanelView.swift in Sources */,
 				53FF7CBE26FDD37D00A5A592 /* ObjectAction.swift in Sources */,
 				C971EA4627E9C696002FF3BE /* UnsplashService.swift in Sources */,
 				2A150BE028AA8E9700F2E569 /* TextRelationURLActionViewModel.swift in Sources */,
