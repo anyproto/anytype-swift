@@ -8,19 +8,23 @@ final class HomeWidgetsViewModel: ObservableObject {
     private let widgetObject: HomeWidgetsObjectProtocol
     private let registry: HomeWidgetsRegistryProtocol
     private let blockWidgetService: BlockWidgetServiceProtocol
+    private let toastPresenter: ToastPresenterProtocol
     private weak var output: HomeWidgetsModuleOutput?
     
     @Published var models: [HomeWidgetProviderProtocol] = []
+    @Published var bottomModel: HomeWidgetsBottomPanelViewModel = HomeWidgetsBottomPanelViewModel(buttons: [])
     
     init(
         widgetObject: HomeWidgetsObjectProtocol,
         registry: HomeWidgetsRegistryProtocol,
         blockWidgetService: BlockWidgetServiceProtocol,
+        toastPresenter: ToastPresenterProtocol,
         output: HomeWidgetsModuleOutput?
     ) {
         self.widgetObject = widgetObject
         self.registry = registry
         self.blockWidgetService = blockWidgetService
+        self.toastPresenter = toastPresenter
         self.output = output
     }
     
@@ -52,19 +56,16 @@ final class HomeWidgetsViewModel: ObservableObject {
             }
             .assign(to: &$models)
         
-        // Temporary code for delete all widget blocks
-//        for child in widgetObject.baseDocument.children {
-//            try await blockWidgetService.removeWidgetBlock(contextId: widgetObject.objectId, widgetBlockId: child.id)
-//        }
-        
-        // Temporary code for crate widget blocks in empty object
-//        for i in 0..<1 {
-//            let info = BlockInformation.empty(content: .link(.empty(targetBlockID: "bafybbczjvvl2aky3lwqpc2l6g2wttyblljhwnhltfcm6bp6fjm5mezzu")))
-//            try await blockWidgetService.createWidgetBlock(
-//                contextId: widgetObject.objectId,
-//                info: info,
-//                layout: .tree
-//            )
-//        }
+        bottomModel = HomeWidgetsBottomPanelViewModel(buttons: [
+            HomeWidgetsBottomPanelViewModel.Button(id: "search", image: .Widget.search, onTap: { [weak self] in
+                self?.toastPresenter.show(message: "On tap search")
+            }),
+            HomeWidgetsBottomPanelViewModel.Button(id: "new", image: .Widget.add, onTap: { [weak self] in
+                self?.toastPresenter.show(message: "On tap create object")
+            }),
+            HomeWidgetsBottomPanelViewModel.Button(id: "space", image: .Widget.add, onTap: { [weak self] in
+                self?.toastPresenter.show(message: "On tap space")
+           })
+        ])
     }
 }

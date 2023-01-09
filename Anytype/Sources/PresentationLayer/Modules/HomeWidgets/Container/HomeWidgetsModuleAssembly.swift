@@ -28,6 +28,7 @@ final class HomeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol {
             ),
             registry: widgetsDI.homeWidgetsRegistry(),
             blockWidgetService: serviceLocator.blockWidgetService(),
+            toastPresenter: DI.makeForPreview().uihelpersDI.toastPresenter,
             output: output
         )
         let view = HomeWidgetsView(model: model)

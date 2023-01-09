@@ -16,23 +16,16 @@ struct HomeWidgetsView: View {
                     Button("Show old home") {
                         model.onDisableNewHomeTap()
                     }
+                    if #available(iOS 15.0, *) {} else {
+                        // For safeAreaInsetLegacy
+                        Color.clear.frame(height: 72)
+                    }
                 }
                 .padding(.horizontal, 20)
             }
-            VStack {
-                Spacer()
-                HomeWidgetsBottomPanelView(model: HomeWidgetsBottomPanelViewModel(buttons: [
-                    HomeWidgetsBottomPanelViewModel.Button(id: "1", image: .Widget.search, onTap: {
-                        print("on tap search")
-                    }),
-                    HomeWidgetsBottomPanelViewModel.Button(id: "2", image: .Widget.add, onTap: {
-                       print("on tap new")
-                    }),
-                    HomeWidgetsBottomPanelViewModel.Button(id: "3", image: .Widget.add, onTap: {
-                      print("on tap space")
-                   })
-                ]))
-            }
+        }
+        .safeAreaInsetLegacy(edge: .bottom, spacing: 20) {
+            HomeWidgetsBottomPanelView(model: model.bottomModel)
         }
         .onAppear {
             model.onAppear()
@@ -53,6 +46,7 @@ struct HomeWidgetsView_Previews: PreviewProvider {
                 ),
                 registry: DI.makeForPreview().widgetsDI.homeWidgetsRegistry(),
                 blockWidgetService: DI.makeForPreview().serviceLocator.blockWidgetService(),
+                toastPresenter: DI.makeForPreview().uihelpersDI.toastPresenter,
                 output: nil
             )
         )
