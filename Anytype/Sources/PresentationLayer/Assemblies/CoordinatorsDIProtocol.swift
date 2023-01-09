@@ -7,8 +7,8 @@ protocol CoordinatorsDIProtocol: AnyObject {
     var linkToObject: LinkToObjectCoordinatorAssemblyProtocol { get }
     var objectSettings: ObjectSettingsCoordinatorAssemblyProtocol { get }
     var addNewRelation: AddNewRelationCoordinatorAssemblyProtocol { get }
-    @MainActor
     var homeWidgets: HomeWidgetsCoordinatorAssemblyProtocol { get }
+    var createWidget: CreateWidgetCoordinatorAssemblyProtocol { get }
     
     // Rename
     @MainActor

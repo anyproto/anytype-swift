@@ -22,6 +22,7 @@ protocol NewSearchModuleAssemblyProtocol {
     ) -> NewSearchView
     
     func objectsSearchModule(
+        title: String?,
         style: NewSearchView.Style,
         selectionMode: NewSearchViewModel.SelectionMode,
         excludedObjectIds: [String],
@@ -106,6 +107,7 @@ extension NewSearchModuleAssemblyProtocol {
     }
     
     func objectsSearchModule(
+        title: String? = nil,
         style: NewSearchView.Style = .default,
         selectionMode: NewSearchViewModel.SelectionMode = .multipleItems(),
         excludedObjectIds: [String],
@@ -113,6 +115,7 @@ extension NewSearchModuleAssemblyProtocol {
         onSelect: @escaping (_ ids: [String]) -> Void
     ) -> NewSearchView {
         return objectsSearchModule(
+            title: title,
             style: style,
             selectionMode: selectionMode,
             excludedObjectIds: excludedObjectIds,

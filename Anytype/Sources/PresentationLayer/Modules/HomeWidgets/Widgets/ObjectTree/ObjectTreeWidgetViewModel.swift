@@ -20,6 +20,7 @@ final class ObjectTreeWidgetViewModel: ObservableObject {
     private let widgetObject: HomeWidgetsObjectProtocol
     private let objectDetailsStorage: ObjectDetailsStorage
     private let subscriptionManager: ObjectTreeSubscriptionManagerProtocol
+    private let blockWidgetService: BlockWidgetServiceProtocol
     
     // MARK: - State
     private var subscriptions = [AnyCancellable]()
@@ -35,12 +36,14 @@ final class ObjectTreeWidgetViewModel: ObservableObject {
         widgetBlockId: BlockId,
         widgetObject: HomeWidgetsObjectProtocol,
         objectDetailsStorage: ObjectDetailsStorage,
-        subscriptionManager: ObjectTreeSubscriptionManagerProtocol
+        subscriptionManager: ObjectTreeSubscriptionManagerProtocol,
+        blockWidgetService: BlockWidgetServiceProtocol
     ) {
         self.widgetBlockId = widgetBlockId
         self.widgetObject = widgetObject
         self.objectDetailsStorage = objectDetailsStorage
         self.subscriptionManager = subscriptionManager
+        self.blockWidgetService = blockWidgetService
     }
     
     // MARK: - Public
@@ -60,6 +63,15 @@ final class ObjectTreeWidgetViewModel: ObservableObject {
     
     func onDisappearList() {
         subscriptionManager.stopAllSubscriptions()
+    }
+    
+    func onDeleteWidgetTap() {
+        Task {
+            try? await blockWidgetService.removeWidgetBlock(
+                contextId: widgetObject.objectId,
+                widgetBlockId: widgetBlockId
+            )
+        }
     }
     
     // MARK: - Private

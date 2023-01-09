@@ -13,17 +13,20 @@ final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsM
     private let accountManager: AccountManager
     private let navigationContext: NavigationContextProtocol
     private let windowManager: WindowManager
+    private let createWidgetCoordinator: CreateWidgetCoordinatorProtocol
     
     init(
         homeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol,
         accountManager: AccountManager,
         navigationContext: NavigationContextProtocol,
-        windowManager: WindowManager
+        windowManager: WindowManager,
+        createWidgetCoordinator: CreateWidgetCoordinatorProtocol
     ) {
         self.homeWidgetsModuleAssembly = homeWidgetsModuleAssembly
         self.accountManager = accountManager
         self.navigationContext = navigationContext
         self.windowManager = windowManager
+        self.createWidgetCoordinator = createWidgetCoordinator
     }
     
     func startFlow() -> AnyView {
@@ -34,5 +37,9 @@ final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsM
     
     func onOldHomeSelected() {
         windowManager.showHomeWindow()
+    }
+    
+    func onCreateWidgetSelected() {
+        createWidgetCoordinator.startFlow(widgetObjectId: accountManager.account.info.widgetsId)
     }
 }

@@ -31,7 +31,8 @@ final class ObjectTreeWidgetModuleAssembly: ObjectTreeWidgetModuleAssemblyProtoc
             widgetBlockId: widgetBlockId,
             widgetObject: widgetObject,
             objectDetailsStorage: serviceLocator.objectDetailsStorage(),
-            subscriptionManager: subscriptionManager
+            subscriptionManager: subscriptionManager,
+            blockWidgetService: serviceLocator.blockWidgetService()
         )
         return ObjectTreeWidgetView(model: model).eraseToAnyView()
     }

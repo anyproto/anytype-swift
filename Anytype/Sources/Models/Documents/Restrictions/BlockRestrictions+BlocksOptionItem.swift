@@ -65,7 +65,7 @@ extension Array where Element == BlockInformation {
             mergedItems.remove(.style)
         }
 
-        if !FeatureFlags.objectPreview {
+        if !FeatureFlags.objectPreviewSettings {
             mergedItems.remove(.preview)
         }
 

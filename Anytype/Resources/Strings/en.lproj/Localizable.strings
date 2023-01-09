@@ -658,3 +658,6 @@
 
 // MARK: - Scanner
 "Scanner.Error.Scanning not supported" = "Scanning not supported";
+
+// MARK: - Widgets
+"Widgets.SourceSearch" = "Widget source";

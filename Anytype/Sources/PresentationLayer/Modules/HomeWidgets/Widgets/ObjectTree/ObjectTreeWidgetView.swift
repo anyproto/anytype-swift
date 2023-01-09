@@ -11,6 +11,9 @@ struct ObjectTreeWidgetView: View {
                 ForEach(model.rows, id: \.rowId) {
                     ObjectTreeWidgetRowView(model: $0)
                 }
+                Button("Delete widget") {
+                    model.onDeleteWidgetTap()
+                }
             }
             .onAppear {
                 model.onAppearList()
