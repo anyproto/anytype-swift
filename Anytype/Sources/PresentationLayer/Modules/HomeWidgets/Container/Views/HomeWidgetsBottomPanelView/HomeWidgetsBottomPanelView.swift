@@ -11,9 +11,13 @@ struct HomeWidgetsBottomPanelView: View {
                 Button(action: button.onTap, label: {
                     Image(asset: button.image)
                 })
+                .frame(width: 32, height: 32)
             }
         }
-        .frame(height: 52)
-        .background(Color.red)
+        .padding(.horizontal, 20)
+        .padding(.vertical, 10)
+        .background(Color.Background.material)
+        .backgroundMaterial(.thinMaterial)
+        .cornerRadius(16, style: .continuous)
     }
 }

@@ -22,9 +22,15 @@ struct HomeWidgetsView: View {
             VStack {
                 Spacer()
                 HomeWidgetsBottomPanelView(model: HomeWidgetsBottomPanelViewModel(buttons: [
-                    HomeWidgetsBottomPanelViewModel.Button(id: "1", image: .addNew, onTap: {
-                        print("on tap new")
-                    })
+                    HomeWidgetsBottomPanelViewModel.Button(id: "1", image: .Widget.search, onTap: {
+                        print("on tap search")
+                    }),
+                    HomeWidgetsBottomPanelViewModel.Button(id: "2", image: .Widget.add, onTap: {
+                       print("on tap new")
+                    }),
+                    HomeWidgetsBottomPanelViewModel.Button(id: "3", image: .Widget.add, onTap: {
+                      print("on tap space")
+                   })
                 ]))
             }
         }
