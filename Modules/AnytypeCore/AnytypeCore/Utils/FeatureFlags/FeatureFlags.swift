@@ -14,7 +14,7 @@ public final class FeatureFlags {
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
-        .objectPreview,
+        .objectPreviewSettings,
         .cursorPosition,
         .hideBottomViewForStyleMenu,
         .setKanbanView,
@@ -56,8 +56,8 @@ public extension FeatureFlags {
         value(for: .rainbowViews)
     }
 
-    static var objectPreview: Bool {
-        value(for: .objectPreview)
+    static var objectPreviewSettings: Bool {
+        value(for: .objectPreviewSettings)
     }
     
     static var cursorPosition: Bool {
