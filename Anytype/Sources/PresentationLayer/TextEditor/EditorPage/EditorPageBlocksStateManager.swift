@@ -350,18 +350,13 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
                 }
                 self?.editingState = .editing
                 
-                Task { @MainActor [weak self] in
-                    let targetDocument = BaseDocument(objectId: pageId)
-                    try? await targetDocument.open()
-                    
-                    self?.toastPresenter.showObjectCompositeAlert(
-                        p1: Loc.Editor.Toast.movedTo,
-                        objectId: targetDocument.objectId,
-                        tapHandler: { [weak self] in
-                            self?.router.showPage(data: .init(pageId: pageId, type: .page))
-                        }
-                    )
-                }
+                self?.toastPresenter.showObjectCompositeAlert(
+                    p1: Loc.Editor.Toast.movedTo,
+                    objectId: pageId,
+                    tapHandler: { [weak self] in
+                        self?.router.showPage(data: .init(pageId: pageId, type: .page))
+                    }
+                )
             }
             return
         case .move:

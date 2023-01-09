@@ -50,7 +50,7 @@ final class ToastView: UIView {
         
         wrapperView.addSubview(label) {
             $0.pinToSuperview(
-                insets: .init(top: 12, left: 24, bottom: 12, right: 24)
+                insets: .init(top: 12, left: 16, bottom: 12, right: 16)
             )
         }
     }
