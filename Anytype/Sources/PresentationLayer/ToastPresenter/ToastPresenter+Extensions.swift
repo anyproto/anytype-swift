@@ -2,6 +2,19 @@ import UIKit
 import BlocksModels
 
 extension ToastPresenterProtocol {
+    func showObjectName(
+        _ firstObjectName: String,
+        middleAction: String,
+        secondObjectId: BlockId,
+        tapHandler: @escaping () -> Void
+    ) {
+        showObjectCompositeAlert(
+            p1: firstObjectName.trimmed(numberOfCharacters: 16) + " " + middleAction,
+            objectId: secondObjectId,
+            tapHandler: tapHandler
+        )
+    }
+    
     func showObjectCompositeAlert(
         p1: String,
         objectId: BlockId,
@@ -64,7 +77,7 @@ private func retrieveObjectDetails(objectId: BlockId) async -> ObjectDetails? {
 
 private func createAttributedString(from objectDetails: ObjectDetails) async -> NSAttributedString {
     guard let icon = objectDetails.icon else {
-        return .init(string: objectDetails.name)
+        return .init(string: objectDetails.name.trimmed(numberOfCharacters: 16))
     }
     
     let loader = AnytypeIconDownloader()
@@ -78,7 +91,7 @@ private func createAttributedString(from objectDetails: ObjectDetails) async -> 
     
     return NSAttributedString.imageFirstComposite(
         image: image,
-        text: objectDetails.name,
+        text: objectDetails.name.trimmed(numberOfCharacters: 16),
         attributes: [.foregroundColor: UIColor.textPrimary]
     )
 }

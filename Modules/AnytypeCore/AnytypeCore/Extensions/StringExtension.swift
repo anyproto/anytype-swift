@@ -16,5 +16,12 @@ public extension String {
     var isEncoded: Bool {
         return removingPercentEncoding != self
     }
-    
+		
+		func trimmed(numberOfCharacters: Int, suffix: String = "...") -> String {
+				if count > numberOfCharacters {
+						return String(prefix(numberOfCharacters)) + suffix
+				}
+				
+				return self
+		}
 }
