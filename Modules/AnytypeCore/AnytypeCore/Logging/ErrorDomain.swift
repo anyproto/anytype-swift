@@ -78,6 +78,8 @@ public enum ErrorDomain: String {
     case simpleTablesService
     case relationDetailsStorage
     case groupsSubscribeService
+    case workspaceService
+    case blockWidgetService
     
     case homeView
     case baseDocument
@@ -95,6 +97,8 @@ public enum ErrorDomain: String {
     case simpleTables
     
     case objectTypeProvider
+    case objectTypeSearch
+    case relationSearch
 }
 
 extension AssertionLogger {

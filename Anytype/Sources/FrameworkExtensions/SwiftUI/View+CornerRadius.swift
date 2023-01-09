@@ -4,6 +4,10 @@ extension View {
     func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
         clipShape( RoundedCorner(radius: radius, corners: corners) )
     }
+    
+    func cornerRadius(_ radius: CGFloat, style: RoundedCornerStyle) -> some View {
+        clipShape(RoundedRectangle(cornerRadius: radius, style: style))
+    }
 }
 
 struct RoundedCorner: Shape {

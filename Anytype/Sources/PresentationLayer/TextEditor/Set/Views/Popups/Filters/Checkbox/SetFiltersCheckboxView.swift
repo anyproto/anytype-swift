@@ -30,7 +30,7 @@ struct SetFiltersCheckboxView: View {
             AnytypeText(
                 value.title,
                 style: .uxBodyRegular,
-                color: .textPrimary
+                color: .Text.primary
             )
             Spacer()
             icon(for: value)
@@ -51,7 +51,7 @@ struct SetFiltersCheckboxView: View {
     private var icon: some View {
         Image(asset: .optionChecked)
             .frame(width: 24, height: 24)
-            .foregroundColor(.buttonSelected)
+            .foregroundColor(.Button.selected)
     }
     
     private var button: some View {

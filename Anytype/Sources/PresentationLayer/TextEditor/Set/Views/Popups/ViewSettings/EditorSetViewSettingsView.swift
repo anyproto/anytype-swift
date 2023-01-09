@@ -1,7 +1,6 @@
 import SwiftUI
 
 struct EditorSetViewSettingsView: View {
-    @ObservedObject var setModel: EditorSetViewModel
     @ObservedObject var model: EditorSetViewSettingsViewModel
     @State private var editMode = EditMode.inactive
     
@@ -10,7 +9,7 @@ struct EditorSetViewSettingsView: View {
         NavigationView {
             content
         }
-        .background(Color.backgroundSecondary)
+        .background(Color.Background.secondary)
         .navigationViewStyle(.stack)
     }
     
@@ -34,7 +33,7 @@ struct EditorSetViewSettingsView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 EditButton()
-                    .foregroundColor(Color.buttonActive)
+                    .foregroundColor(Color.Button.active)
                     .environment(\.editMode, $editMode)
             }
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -83,7 +82,7 @@ struct EditorSetViewSettingsView: View {
     }
     
     private var settingsHeader: some View {
-        AnytypeText(Loc.settings, style: .uxTitle1Semibold, color: .textPrimary)
+        AnytypeText(Loc.settings, style: .uxTitle1Semibold, color: .Text.primary)
             .frame(height: 52)
             .divider()
     }
@@ -93,13 +92,13 @@ struct EditorSetViewSettingsView: View {
             model.onTap()
         } label: {
             HStack(spacing: 0) {
-                AnytypeText(model.title, style: .uxBodyRegular, color: .textPrimary)
+                AnytypeText(model.title, style: .uxBodyRegular, color: .Text.primary)
                 Spacer()
-                AnytypeText(model.value, style: .uxBodyRegular, color: .textSecondary)
+                AnytypeText(model.value, style: .uxBodyRegular, color: .Text.secondary)
                 Spacer.fixedWidth(11)
                 Image(asset: .arrowForward)
                     .renderingMode(.template)
-                    .foregroundColor(.textSecondary)
+                    .foregroundColor(.Text.secondary)
             }
         }
         .frame(height: 52)
@@ -118,7 +117,7 @@ struct EditorSetViewSettingsView: View {
     }
     
     private var relationsHeader: some View {
-        AnytypeText(Loc.relations, style: .uxTitle1Semibold, color: .textPrimary)
+        AnytypeText(Loc.relations, style: .uxTitle1Semibold, color: .Text.primary)
             .frame(height: 52)
             .divider()
     }

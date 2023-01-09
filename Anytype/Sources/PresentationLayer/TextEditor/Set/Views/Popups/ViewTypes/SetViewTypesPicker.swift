@@ -30,7 +30,7 @@ struct SetViewTypesPicker: View {
             duplicateButton
         } label: {
             Image(asset: .more)
-                .foregroundColor(.buttonActive)
+                .foregroundColor(.Button.active)
                 .frame(width: 24, height: 24)
         }
     }
@@ -43,7 +43,7 @@ struct SetViewTypesPicker: View {
             AnytypeText(
                 Loc.SetViewTypesPicker.Settings.Delete.view,
                 style: .uxCalloutRegular,
-                color: .textPrimary
+                color: .Text.primary
             )
         }
     }
@@ -56,7 +56,7 @@ struct SetViewTypesPicker: View {
             AnytypeText(
                 Loc.SetViewTypesPicker.Settings.Duplicate.view,
                 style: .uxCalloutRegular,
-                color: .textPrimary
+                color: .Text.primary
             )
         }
     }
@@ -72,7 +72,7 @@ struct SetViewTypesPicker: View {
     private var nameSection: some View {
         VStack(alignment: .leading, spacing: 0) {
             Spacer.fixedHeight(11)
-            AnytypeText(Loc.name, style: .caption1Regular, color: .textSecondary)
+            AnytypeText(Loc.name, style: .caption1Regular, color: .Text.secondary)
             Spacer.fixedHeight(6)
             
             TextField(
@@ -81,7 +81,7 @@ struct SetViewTypesPicker: View {
                 Loc.SetViewTypesPicker.Settings.Textfield.Placeholder.New.view,
                 text: $viewModel.name
             )
-                .foregroundColor(.textPrimary)
+                .foregroundColor(.Text.primary)
                 .font(AnytypeFontBuilder.font(anytypeFont: .heading))
             Spacer.fixedHeight(10)
         }
@@ -92,7 +92,7 @@ struct SetViewTypesPicker: View {
     private func sectionTitle(_ title: String) -> some View {
         VStack(spacing: 0) {
             Spacer.fixedHeight(26)
-            AnytypeText(title, style: .caption1Regular, color: .textSecondary)
+            AnytypeText(title, style: .caption1Regular, color: .Text.secondary)
             Spacer.fixedHeight(8)
         }
         .divider(alignment: .leading)
@@ -123,20 +123,20 @@ struct SetViewTypesPicker: View {
             Image(asset: configuration.icon)
                 .renderingMode(.template)
                 .foregroundColor(
-                    configuration.isSupported ? .buttonActive : .buttonInactive
+                    configuration.isSupported ? .Button.active : .Button.inactive
                 )
             AnytypeText(
                 configuration.name,
                 style: .uxBodyRegular,
-                color: configuration.isSupported ? .textPrimary : .textTertiary
+                color: configuration.isSupported ? .Text.primary : .Text.tertiary
             )
             Spacer()
             if !configuration.isSupported {
-                AnytypeText(Loc.soon, style: .caption1Regular, color: .textTertiary)
+                AnytypeText(Loc.soon, style: .caption1Regular, color: .Text.tertiary)
             }
             if configuration.isSelected && configuration.isSupported {
                 Image(asset: .optionChecked)
-                    .foregroundColor(.buttonSelected)
+                    .foregroundColor(.Button.selected)
             }
         }
     }

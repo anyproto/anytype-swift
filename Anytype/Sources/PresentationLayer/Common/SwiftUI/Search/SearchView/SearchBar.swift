@@ -18,7 +18,7 @@ struct SearchBar: View {
         .padding(8)
         .padding(.horizontal, 25)
         .font(AnytypeFontBuilder.font(anytypeFont: .uxBodyRegular))
-        .background(Color.backgroundSelected)
+        .background(Color.Background.highlightedOfSelected)
         .cornerRadius(10)
         .overlay(overlay)
         .padding(.horizontal, 16)
@@ -31,7 +31,7 @@ struct SearchBar: View {
             Image(asset: .searchTextFieldIcon)
                 .renderingMode(.template)
                 .aspectRatio(contentMode: .fit)
-                .foregroundColor(.buttonActive)
+                .foregroundColor(.Button.active)
                 .frame(width: 14, height: 14)
                 .padding(.leading, 11)
             
@@ -41,7 +41,7 @@ struct SearchBar: View {
                 Button(action: { text = "" }) {
                     Image(asset: .multiplyCircleFill)
                         .renderingMode(.template)
-                        .foregroundColor(.buttonActive)
+                        .foregroundColor(.Button.active)
                         .padding(.trailing, 8)
                 }
             }

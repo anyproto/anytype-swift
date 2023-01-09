@@ -3,9 +3,17 @@ import BlocksModels
 
 final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
  
-    static func statusSearchModule(
-        style: NewSearchView.Style = .default,
-        selectionMode: NewSearchViewModel.SelectionMode = .singleItem,
+    private let uiHelpersDI: UIHelpersDIProtocol
+    
+    init(uiHelpersDI: UIHelpersDIProtocol) {
+        self.uiHelpersDI = uiHelpersDI
+    }
+    
+    // MARK: - NewSearchModuleAssemblyProtocol
+    
+    func statusSearchModule(
+        style: NewSearchView.Style,
+        selectionMode: NewSearchViewModel.SelectionMode,
         relationKey: String,
         selectedStatusesIds: [String],
         onSelect: @escaping (_ ids: [String]) -> Void,
@@ -32,9 +40,9 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         return NewSearchView(viewModel: viewModel)
     }
     
-    static func tagsSearchModule(
-        style: NewSearchView.Style = .default,
-        selectionMode: NewSearchViewModel.SelectionMode = .multipleItems(),
+    func tagsSearchModule(
+        style: NewSearchView.Style,
+        selectionMode: NewSearchViewModel.SelectionMode,
         relationKey: String,
         selectedTagIds: [String],
         onSelect: @escaping (_ ids: [String]) -> Void,
@@ -61,9 +69,10 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         return NewSearchView(viewModel: viewModel)
     }
     
-    static func objectsSearchModule(
-        style: NewSearchView.Style = .default,
-        selectionMode: NewSearchViewModel.SelectionMode = .multipleItems(),
+    func objectsSearchModule(
+        title: String?,
+        style: NewSearchView.Style,
+        selectionMode: NewSearchViewModel.SelectionMode,
         excludedObjectIds: [String],
         limitedObjectType: [String],
         onSelect: @escaping (_ ids: [String]) -> Void
@@ -81,6 +90,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         )
         
         let viewModel = NewSearchViewModel(
+            title: title,
             style: style,
             itemCreationMode: .unavailable,
             selectionMode: selectionMode,
@@ -89,8 +99,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         return NewSearchView(viewModel: viewModel)
     }
     
-    static func filesSearchModule(
-        style: NewSearchView.Style = .default,
+    func filesSearchModule(
         excludedFileIds: [String],
         onSelect: @escaping (_ ids: [String]) -> Void
     ) -> NewSearchView {
@@ -106,24 +115,26 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         )
         
         let viewModel = NewSearchViewModel(
-            style: style,
+            style: .default,
             itemCreationMode: .unavailable,
             internalViewModel: internalViewModel
         )
         return NewSearchView(viewModel: viewModel)
     }
     
-    static func objectTypeSearchModule(
-        style: NewSearchView.Style = .default,
+    func objectTypeSearchModule(
+        style: NewSearchView.Style,
         title: String,
-        selectedObjectId: BlockId? = nil,
-        excludedObjectTypeId: String? = nil,
-        showBookmark: Bool = false,
-        showSet: Bool = false,
-        onSelect: @escaping (_ id: String) -> Void
+        selectedObjectId: BlockId?,
+        excludedObjectTypeId: String?,
+        showBookmark: Bool,
+        showSet: Bool,
+        browser: EditorBrowserController?,
+        onSelect: @escaping (_ type: ObjectType) -> Void
     ) -> NewSearchView {
         let interactor = ObjectTypesSearchInteractor(
             searchService: ServiceLocator.shared.searchService(),
+            workspaceService: ServiceLocator.shared.workspaceService(),
             excludedObjectTypeId: excludedObjectTypeId,
             showBookmark: showBookmark,
             showSet: showSet
@@ -131,14 +142,13 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         
         let internalViewModel = ObjectTypesSearchViewModel(
             interactor: interactor,
+            toastPresenter: uiHelpersDI.toastPresenter(using: browser),
             selectedObjectId: selectedObjectId,
-            onSelect: { ids in
-                guard let id = ids.first else { return }
-                onSelect(id)
-            }
+            onSelect: onSelect
         )
         let viewModel = NewSearchViewModel(
             title: title,
+            searchPlaceholder: Loc.ObjectType.searchOrInstall,
             style: style,
             itemCreationMode: .unavailable,
             internalViewModel: internalViewModel
@@ -147,13 +157,13 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         return NewSearchView(viewModel: viewModel)
     }
     
-    static func multiselectObjectTypesSearchModule(
-        style: NewSearchView.Style = .default,
+    func multiselectObjectTypesSearchModule(
         selectedObjectTypeIds: [String],
         onSelect: @escaping (_ ids: [String]) -> Void
     ) -> NewSearchView {
         let interactor = ObjectTypesSearchInteractor(
             searchService: ServiceLocator.shared.searchService(),
+            workspaceService: ServiceLocator.shared.workspaceService(),
             excludedObjectTypeId: nil,
             showBookmark: false,
             showSet: false
@@ -167,7 +177,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         
         let viewModel = NewSearchViewModel(
             title: Loc.limitObjectTypes,
-            style: style,
+            style: .default,
             itemCreationMode: .unavailable,
             internalViewModel: internalViewModel
         )
@@ -175,8 +185,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         return NewSearchView(viewModel: viewModel)
     }
     
-    static func blockObjectsSearchModule(
-        style: NewSearchView.Style = .default,
+    func blockObjectsSearchModule(
         title: String,
         excludedObjectIds: [String],
         onSelect: @escaping (_ details: ObjectDetails) -> Void
@@ -196,7 +205,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         )
         let viewModel = NewSearchViewModel(
             title: title,
-            style: style,
+            style: .default,
             itemCreationMode: .unavailable,
             internalViewModel: internalViewModel
         )
@@ -204,8 +213,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         return NewSearchView(viewModel: viewModel)
     }
     
-    static func setSortsSearchModule(
-        style: NewSearchView.Style = .default,
+    func setSortsSearchModule(
         relationsDetails: [RelationDetails],
         onSelect: @escaping (_ relation: RelationDetails) -> Void
     ) -> NewSearchView {
@@ -221,8 +229,39 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         
         let viewModel = NewSearchViewModel(
             searchPlaceholder: Loc.EditSet.Popup.Sort.Add.searchPlaceholder,
-            style: style,
+            style: .default,
             itemCreationMode: .unavailable,
+            internalViewModel: internalViewModel
+        )
+        
+        return NewSearchView(viewModel: viewModel)
+    }
+    
+    func relationsSearchModule(
+        document: BaseDocumentProtocol,
+        output: RelationSearchModuleOutput
+    ) -> NewSearchView {
+        
+        let interactor = RelationsSearchInteractor(
+            searchService: ServiceLocator.shared.searchService(),
+            workspaceService: ServiceLocator.shared.workspaceService(),
+            relationsService: RelationsService(objectId: document.objectId)
+        )
+        
+        let internalViewModel = RelationsSearchViewModel(
+            selectedRelations: document.parsedRelations,
+            interactor: interactor,
+            toastPresenter: uiHelpersDI.toastPresenter,
+            onSelect: { result in
+                output.didAddRelation(result)
+            }
+        )
+        let viewModel = NewSearchViewModel(
+            searchPlaceholder: "Search or create a new relation",
+            style: .default,
+            itemCreationMode: .available(action: { title in
+                output.didAskToShowCreateNewRelation(searchText: title)
+            }),
             internalViewModel: internalViewModel
         )
         

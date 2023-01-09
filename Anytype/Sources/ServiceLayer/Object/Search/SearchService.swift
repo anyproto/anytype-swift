@@ -11,6 +11,7 @@ protocol SearchServiceProtocol: AnyObject {
         shouldIncludeSets: Bool,
         shouldIncludeBookmark: Bool
     ) -> [ObjectDetails]?
+    func searchMarketplaceObjectTypes(text: String, includeInstalled: Bool) -> [ObjectDetails]?
     func searchFiles(text: String, excludedFileIds: [String]) -> [ObjectDetails]?
     func searchObjects(text: String, excludedObjectIds: [String], limitedTypeIds: [String]) -> [ObjectDetails]?
     func searchTemplates(for type: ObjectTypeId) -> [ObjectDetails]?
@@ -22,6 +23,8 @@ protocol SearchServiceProtocol: AnyObject {
     ) -> [ObjectDetails]?
     func searchRelationOptions(text: String, relationKey: String, excludedObjectIds: [String]) -> [RelationOption]?
     func searchRelationOptions(optionIds: [String]) -> [RelationOption]?
+    func searchRelations(text: String, excludedIds: [String]) -> [RelationDetails]?
+    func searchMarketplaceRelations(text: String, includeInstalled: Bool) -> [RelationDetails]?
 }
 
 final class SearchService: ObservableObject, SearchServiceProtocol {
@@ -32,10 +35,16 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
     
     private let accountManager: AccountManager
     private let objectTypeProvider: ObjectTypeProviderProtocol
+    private let relationDetailsStorage: RelationDetailsStorageProtocol
     
-    init(accountManager: AccountManager, objectTypeProvider: ObjectTypeProviderProtocol) {
+    init(
+        accountManager: AccountManager,
+        objectTypeProvider: ObjectTypeProviderProtocol,
+        relationDetailsStorage: RelationDetailsStorageProtocol
+    ) {
         self.accountManager = accountManager
         self.objectTypeProvider = objectTypeProvider
+        self.relationDetailsStorage = relationDetailsStorage
     }
     
     // MARK: - SearchServiceProtocol
@@ -65,20 +74,22 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             type: .asc
         )
         
-        var excludedTypeIds: [String] = [
-            filteringTypeId,
-            shouldIncludeSets ? nil : ObjectTypeId.bundled(.set).rawValue,
-            shouldIncludeBookmark ? nil : ObjectTypeId.bundled(.bookmark).rawValue
-        ].compactMap { $0 }
+        let excludedTypeIds: [String] = .builder {
+            filteringTypeId
+            if !shouldIncludeSets {
+                ObjectTypeId.bundled(.set).rawValue
+            }
+            if !shouldIncludeBookmark {
+                ObjectTypeId.bundled(.bookmark).rawValue
+            }
+            objectTypeProvider.notVisibleTypeIds()
+        }
         
-        excludedTypeIds.append(contentsOf: objectTypeProvider.notVisibleTypeIds())
-        
-        let filters = [
-            SearchHelper.isArchivedFilter(isArchived: false),
-            SearchHelper.workspaceId(accountManager.account.info.accountSpaceId),
-            SearchHelper.typeFilter(typeIds: [ObjectTypeId.bundled(.objectType).rawValue]),
+        let filters = Array.builder {
+            buildFilters(isArchived: false)
+            SearchHelper.typeFilter(typeIds: [ObjectTypeId.bundled(.objectType).rawValue])
             SearchHelper.excludedIdsFilter(excludedTypeIds)
-        ]
+        }
         
         let result = search(filters: filters, sorts: [sort], fullText: text)
 
@@ -90,6 +101,25 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
                 ObjectTypeId.bundled(.set).rawValue
             ]
         ) { $0.id }
+    }
+    
+    func searchMarketplaceObjectTypes(text: String, includeInstalled: Bool) -> [ObjectDetails]? {
+        let sort = SearchHelper.sort(
+            relation: BundledRelationKey.name,
+            type: .asc
+        )
+        
+        let filters = Array.builder {
+            SearchHelper.workspaceId(MarketplaceId.anytypeMarketplace.rawValue)
+            SearchHelper.typeFilter(typeIds: [ObjectTypeId.bundled(.systemObjectType).rawValue])
+            SearchHelper.smartblockTypesFilter(types: [.page])
+            if !includeInstalled {
+                SearchHelper.excludedIdsFilter(objectTypeProvider.objectTypes.map(\.sourceObject))
+            }
+        }
+        
+        let result = search(filters: filters, sorts: [sort], fullText: text)
+        return result
     }
     
     func searchFiles(text: String, excludedFileIds: [String]) -> [ObjectDetails]? {
@@ -115,12 +145,10 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             type: .desc
         )
         
-//        let typeIds: [String] = limitedTypeIds.isNotEmpty ? limitedTypeIds : objectTypeProvider.visibleSupportedTypeIds()
         var filters = limitedTypeIds.isNotEmpty
             ? buildFilters(isArchived: false, typeIds: limitedTypeIds)
             : buildFilters(isArchived: false, excludedTypeIds: objectTypeProvider.notVisibleTypeIds())
-        
-        
+                
         filters.append(SearchHelper.excludedIdsFilter(excludedObjectIds))
         
         return search(filters: filters, sorts: [sort], fullText: text)
@@ -177,6 +205,46 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         let details = search(filters: filters, sorts: [], fullText: "")
         return details?.map { RelationOption(details: $0) }
     }
+    
+    func searchRelations(text: String, excludedIds: [String]) -> [RelationDetails]? {
+        let sort = SearchHelper.sort(
+            relation: BundledRelationKey.name,
+            type: .asc
+        )
+        
+        let filters = Array.builder {
+            buildFilters(
+                isArchived: false,
+                typeIds: [ObjectTypeId.bundled(.relation).rawValue]
+            )
+            SearchHelper.excludedRelationKeys(BundledRelationKey.systemKeys.map(\.rawValue))
+            SearchHelper.excludedIdsFilter(excludedIds)
+        }
+        
+        let details = search(filters: filters, sorts: [sort], fullText: text)
+        return details?.map { RelationDetails(objectDetails: $0) }
+    }
+    
+    func searchMarketplaceRelations(text: String, includeInstalled: Bool) -> [RelationDetails]? {
+        let sort = SearchHelper.sort(
+            relation: BundledRelationKey.name,
+            type: .asc
+        )
+        
+        let filters = Array.builder {
+            buildFilters(
+                isArchived: false,
+                typeIds: [ObjectTypeId.bundled(.systemRelation).rawValue],
+                workspaceId: MarketplaceId.anytypeMarketplace.rawValue
+            )
+            SearchHelper.excludedRelationKeys(BundledRelationKey.systemKeys.map(\.rawValue))
+            if !includeInstalled {
+                SearchHelper.excludedIdsFilter(relationDetailsStorage.relationsDetails().map(\.sourceObject))
+            }
+        }
+        let details = search(filters: filters, sorts: [sort], fullText: text)
+        return details?.map { RelationDetails(objectDetails: $0) }
+    }
 }
 
 private extension SearchService {
@@ -197,29 +265,20 @@ private extension SearchService {
             objectTypeFilter: [],
             keys: []
         ).getValue(domain: .searchService) else { return nil }
-            
-        let details: [ObjectDetails] = response.records.compactMap { search in
-            let idValue = search.fields["id"]
-            let idString = idValue?.unwrapedListValue.stringValue
-            
-            guard let id = idString else { return nil }
-            
-            return ObjectDetails(id: id, values: search.fields)
-        }
-            
-        return details
+       
+        return response.records.asDetais
     }
 
-    private func buildFilters(isArchived: Bool) -> [DataviewFilter] {
+    private func buildFilters(isArchived: Bool, workspaceId: String? = nil) -> [DataviewFilter] {
         [
             SearchHelper.notHiddenFilter(),
             SearchHelper.isArchivedFilter(isArchived: isArchived),
-            SearchHelper.workspaceId(accountManager.account.info.accountSpaceId),
+            SearchHelper.workspaceId(workspaceId ?? accountManager.account.info.accountSpaceId),
         ]
     }
     
-    private func buildFilters(isArchived: Bool, typeIds: [String]) -> [DataviewFilter] {
-        var filters = buildFilters(isArchived: isArchived)
+    private func buildFilters(isArchived: Bool, typeIds: [String], workspaceId: String? = nil) -> [DataviewFilter] {
+        var filters = buildFilters(isArchived: isArchived, workspaceId: workspaceId)
         filters.append(SearchHelper.typeFilter(typeIds: typeIds))
         return filters
     }

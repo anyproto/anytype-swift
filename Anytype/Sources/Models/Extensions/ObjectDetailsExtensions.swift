@@ -88,12 +88,7 @@ extension BundledRelationsValueProvider {
         }
         
         let parsedType = ObjectTypeProvider.shared.objectType(id: type)
-        anytypeAssert(
-            parsedType != nil,
-            "Cannot parse type :\(String(describing: type))",
-            domain: .objectDetails
-        )
-        return parsedType ?? ObjectTypeProvider.shared.defaultObjectType
+        return parsedType ?? ObjectTypeProvider.shared.deleteObjectType(id: type)
     }
     
     var editorViewType: EditorViewType {

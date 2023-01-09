@@ -10,7 +10,7 @@ struct TextRelationViewSwiftUI: View {
             AnytypeText(
                 text,
                 style: style.font,
-                color: style.fontColor
+                color: style.fontColorWithError
             )
                 .multilineTextAlignment(.leading)
                 .lineLimit(style.allowMultiLine ? nil : 1)

@@ -9,8 +9,6 @@ struct SetMinimizedHeader: View {
     @EnvironmentObject private var model: EditorSetViewModel
 
     private let minimizedHeaderHeight = ObjectHeaderConstants.minimizedHeaderHeight + UIApplication.shared.mainWindowInsets.top
-    
-    private let setSyncStatus = FeatureFlags.setSyncStatus
 
     var body: some View {
         VStack {
@@ -23,14 +21,8 @@ struct SetMinimizedHeader: View {
         VStack(spacing: 0) {
             Spacer.fixedHeight(UIApplication.shared.mainWindowInsets.top)
             HStack(alignment: .center, spacing: 0) {
-                if setSyncStatus {
-                    syncsStatusItem
-                    Spacer.fixedWidth(14)
-                } else {
-                    Rectangle().frame(width: 1, height: 1).foregroundColor(.clear) // sync status here
-                    Spacer.fixedWidth(8)
-                    Spacer()
-                }
+                syncsStatusItem
+                Spacer.fixedWidth(14)
                 title
                 Spacer()
                 settingsButton
@@ -39,7 +31,7 @@ struct SetMinimizedHeader: View {
             .padding(.trailing, 2)
         }
         .frame(height: minimizedHeaderHeight)
-        .background(Color.backgroundPrimary.opacity(opacity))
+        .background(Color.Background.primary.opacity(opacity))
         .readSize { headerMinimizedSize = $0 }
     }
     
@@ -50,14 +42,12 @@ struct SetMinimizedHeader: View {
                     .frame(width: 18, height: 18)
             }
             model.details.flatMap {
-                AnytypeText($0.title, style: .body, color: .textPrimary)
+                AnytypeText($0.title, style: .body, color: .Text.primary)
                     .lineLimit(1)
             }
         }
-        .opacity(setSyncStatus ? titleOpacity : opacity)
-        .if(setSyncStatus) {
-            $0.frame(maxWidth: .infinity).layoutPriority(1)
-        }
+        .opacity(titleOpacity)
+        .frame(maxWidth: .infinity).layoutPriority(1)
     }
     
     private var syncsStatusItem: some View {

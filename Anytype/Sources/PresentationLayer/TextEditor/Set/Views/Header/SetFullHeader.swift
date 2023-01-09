@@ -30,7 +30,7 @@ struct SetFullHeader: View {
             switch model.headerModel.header {
             case .empty(let data, _):
                 Button(action: data.onTap) {
-                    Color.backgroundPrimary
+                    Color.Background.primary
                         .frame(height: ObjectHeaderConstants.emptyViewHeight)
                 }
             case .filled(let state, _):
@@ -56,7 +56,7 @@ extension SetFullHeader {
                 AnytypeText(
                     description,
                     style: .relation2Regular,
-                    color: .textPrimary
+                    color: .Text.primary
                 )
                 .fixedSize(horizontal: false, vertical: true)
             } else {
@@ -84,13 +84,15 @@ extension SetFullHeader {
             spacing: .init(width: 6, height: 4),
             cell: { item, index in
                 HStack(spacing: 0) {
+                    let relation = RelationItemModel(relation: item)
                     RelationValueView(
-                        relation: RelationItemModel(relation: item),
+                        relation: relation,
                         style: .featuredRelationBlock(
                             FeaturedRelationSettings(
                                 allowMultiLine: false,
                                 prefix: item.setOfPrefix,
-                                showIcon: item.showIcon
+                                showIcon: item.showIcon,
+                                error: relation.isErrorState
                             )
                         )
                     ) { [weak model] in
@@ -109,7 +111,7 @@ extension SetFullHeader {
     private var dotImage: some View {
         Image(systemName: "circle.fill")
             .resizable()
-            .foregroundColor(.textSecondary)
+            .foregroundColor(.Text.secondary)
             .frame(width: 3, height: 3)
     }
 }

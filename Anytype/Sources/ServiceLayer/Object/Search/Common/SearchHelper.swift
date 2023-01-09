@@ -162,6 +162,17 @@ class SearchHelper {
         
         return filter
     }
+    
+    static func excludedRelationKeys(_ relationKeys: [String]) -> DataviewFilter {
+        var filter = DataviewFilter()
+        filter.condition = .notIn
+        filter.value = relationKeys.protobufValue
+        
+        filter.relationKey = BundledRelationKey.relationKey.rawValue
+        filter.operator = .and
+        
+        return filter
+    }
 
     static func templatesFilters(type: ObjectTypeId) -> [DataviewFilter] {
         [
@@ -176,6 +187,17 @@ class SearchHelper {
         var filter = DataviewFilter()
         filter.condition = .equal
         filter.value = workspaceId.protobufValue
+        
+        filter.relationKey = BundledRelationKey.workspaceId.rawValue
+        filter.operator = .and
+        
+        return filter
+    }
+    
+    static func workspaceIds(_ workspaceIds: [String]) -> DataviewFilter {
+        var filter = DataviewFilter()
+        filter.condition = .in
+        filter.value = workspaceIds.protobufValue
         
         filter.relationKey = BundledRelationKey.workspaceId.rawValue
         filter.operator = .and

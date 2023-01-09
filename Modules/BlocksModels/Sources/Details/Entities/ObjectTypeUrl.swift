@@ -12,6 +12,9 @@ public enum ObjectTypeId: RawRepresentable {
         case objectType = "ot-objectType"
         case relation = "ot-relation"
         case relationOption = "ot-relationOption"
+        case systemObjectType = "_otobjectType"
+        case systemBookmark = "_otbookmark"
+        case systemRelation = "_otrelation"
     }
 
     public init?(rawValue: String) {

@@ -7,12 +7,13 @@ final class UIKitAnytypeText: Hashable {
 
     let anytypeFont: AnytypeFont
     let attrString: NSAttributedString
+    let lineBreakModel: NSLineBreakMode
 
-    convenience init(text: String, style: AnytypeFont) {
-        self.init(attributedString: NSAttributedString(string: text), style: style)
+    convenience init(text: String, style: AnytypeFont, lineBreakModel: NSLineBreakMode = .byTruncatingTail) {
+        self.init(attributedString: NSAttributedString(string: text), style: style, lineBreakModel: lineBreakModel)
     }
 
-    init(attributedString: NSAttributedString, style: AnytypeFont) {
+    init(attributedString: NSAttributedString, style: AnytypeFont, lineBreakModel: NSLineBreakMode = .byTruncatingTail) {
         self.anytypeFont = style
         let font = UIKitFontBuilder.uiKitFont(font: style)
 
@@ -20,10 +21,14 @@ final class UIKitAnytypeText: Hashable {
         textModifier = MarkStyleModifier(attributedString: newAttrString, anytypeFont: style)
 
         // setup line height
-        let paragraphStyle = (attributedString.attribute(.paragraphStyle, at: 0, effectiveRange: nil) as? NSMutableParagraphStyle) ?? NSMutableParagraphStyle()
+        
+        let paragraphStyle = attributedString.length > 0
+            ? (attributedString.attribute(.paragraphStyle, at: 0, effectiveRange: nil) as? NSMutableParagraphStyle) ?? NSMutableParagraphStyle()
+            : NSMutableParagraphStyle()
 
         paragraphStyle.lineSpacing = style.lineSpacing
-
+        paragraphStyle.lineBreakMode = lineBreakModel
+        
         let range = NSMakeRange(0, newAttrString.length)
         newAttrString.addAttribute(.paragraphStyle, value: paragraphStyle, range: range)
 
@@ -33,6 +38,7 @@ final class UIKitAnytypeText: Hashable {
 
         attrString = newAttrString
         self.paragraphStyle = paragraphStyle
+        self.lineBreakModel = lineBreakModel
     }
 
     func typingAttributes(for cursorPosition: Int) -> [NSAttributedString.Key : Any] {

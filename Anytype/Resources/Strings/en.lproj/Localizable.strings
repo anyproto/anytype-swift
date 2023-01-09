@@ -99,6 +99,9 @@
 "Name" = "Name";
 "Description" = "Description";
 "Paste processing..." = "Paste processing...";
+"Marketplace" = "Marketplace";
+
+"Copied" = "Copied";
 
 "Copied" = "Copied";
 
@@ -254,8 +257,11 @@
 // MARK: - Relation
 "Featured relations" = "Featured relations";
 "Create from scratch" = "Create from scratch";
-"Create relation" = "Create relation \"%@\"";
+"Create relation" = "Create relation ‘%@’";
 "Relation.View.Hint.Empty" = "empty";
+"Relation.MyRelations" = "My relations";
+"Relation.AddedToLibrary" = "Relation ‘%@’ added to your library";
+"Relation.Deleted" = "Deleted relation";
 
 // MARK: - Deletion
 "Pending deletion text" = "We're sorry to see you go. You have 30 days to cancel this request. After 30 days, your encrypted account data is permanently removed from the backup node.";
@@ -382,6 +388,8 @@
 
 // MARK: - Sets: Kanban
 "Set.View.Kanban.Column.Title.Uncategorized" = "Uncategorized";
+"Set.View.Kanban.Column.Title.Checked" = "%@ is checked";
+"Set.View.Kanban.Column.Title.Unchecked" = "%@ is unchecked";
 "Set.View.Kanban.Column.Paging.Title.ShowMore" = "Show more objects";
 "Set.View.Kanban.Column.Settings.Color.Title" = "Column color";
 "Set.View.Kanban.Column.Settings.Hide.Column.Title" = "Hide column";
@@ -529,7 +537,7 @@
 "Today" = "Today";
 "No date" = "No date";
 "Clear" = "Clear";
-"Create option" = "Create option %@";
+"Create option" = "Create option ‘%s’";
 "Add URL" = "Add URL";
 "Add email" = "Add email";
 "Add phone number" = "Add phone number";
@@ -564,6 +572,10 @@
 
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "Blank canvas with no title";
+"ObjectType.SearchOrInstall" = "Search or install a new type";
+"ObjectType.MyTypes" = "My Types";
+"ObjectType.AddedToLibrary" = "Type ‘%@’ added to your library";
+"ObjectType.DeletedName" = "Deleted type";
 
 // MARK: - QuickAction
 "QuickAction.create" = "Create %@";
@@ -648,3 +660,6 @@
 
 // MARK: - Scanner
 "Scanner.Error.Scanning not supported" = "Scanning not supported";
+
+// MARK: - Widgets
+"Widgets.SourceSearch" = "Widget source";

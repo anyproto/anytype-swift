@@ -3,7 +3,7 @@ import UniformTypeIdentifiers
 
 struct SetKanbanColumn: View {
     let groupId: String
-    let headerRelation: Relation?
+    let headerType: SetKanbanColumnHeaderType
     let configurations: [SetContentViewItemConfiguration]
     let isGroupBackgroundColors: Bool
     let backgroundColor: BlockBackgroundColor
@@ -34,7 +34,7 @@ struct SetKanbanColumn: View {
         .background(
             isGroupBackgroundColors ?
             backgroundColor.swiftColor.opacity(0.5) :
-            Color.backgroundPrimary
+            Color.Background.primary
         )
         .cornerRadius(4)
         .frame(width: 270)
@@ -69,33 +69,52 @@ struct SetKanbanColumn: View {
     }
     
     private var header: some View {
+        Button {
+            onSettingsTap()
+        } label: {
+            headerContent
+                .contentShape(Rectangle())
+        }
+        .frame(height: 44)
+        .buttonStyle(LightDimmingButtonStyle())
+    }
+    
+    private var headerContent: some View {
         HStack(spacing: 0) {
-            if let headerRelation {
-                RelationValueView(
-                    relation: RelationItemModel(relation: headerRelation),
-                    style: .regular(allowMultiLine: false),
-                    action: {}
-                )
-            } else {
+            switch headerType {
+            case .uncategorized:
                 AnytypeText(
                     Loc.Set.View.Kanban.Column.Title.uncategorized,
-                    style: .relation1Regular,
-                    color: .textSecondary
+                    style: .relation2Regular,
+                    color: .Text.secondary
                 )
+            case let .status(options):
+                StatusRelationView(options: options, hint: "", style: .kanbanHeader)
+            case let .tag(options):
+                TagRelationView(tags: options, hint: "", style: .kanbanHeader)
+            case let .checkbox(title, isChecked):
+                HStack(spacing: 6) {
+                    if isChecked {
+                        Image(asset: .TextEditor.Text.checked)
+                    } else {
+                        Image(asset: .TextEditor.Text.unchecked)
+                    }
+                    let text = isChecked ?
+                    Loc.Set.View.Kanban.Column.Title.checked(title) :
+                    Loc.Set.View.Kanban.Column.Title.unchecked(title)
+                    AnytypeText(
+                        text,
+                        style: .relation2Regular,
+                        color: .Text.secondary
+                    )
+                }
             }
+            
             Spacer()
-            Button {
-                onSettingsTap()
-            } label: {
-                Image(asset: .more).foregroundColor(.buttonActive)
-            }
-            Spacer.fixedWidth(16)
-            Button {} label: {
-                Image(asset: .plus)
-            }
+            
+            Image(asset: .more).foregroundColor(.Button.active)
         }
         .padding(.horizontal, 10)
-        .frame(height: 44)
     }
     
     private var pagingView: some View {
@@ -107,13 +126,13 @@ struct SetKanbanColumn: View {
                 HStack(spacing: 0) {
                     Spacer.fixedWidth(3)
                     Image(asset: .arrowDown)
-                        .foregroundColor(.textSecondary)
+                        .foregroundColor(.Text.secondary)
                         .frame(width: 18, height: 18)
                     Spacer.fixedWidth(7)
                     AnytypeText(
                         Loc.Set.View.Kanban.Column.Paging.Title.showMore,
                         style: .caption1Medium,
-                        color: .textSecondary
+                        color: .Text.secondary
                     )
                     Spacer()
                 }
@@ -124,7 +143,7 @@ struct SetKanbanColumn: View {
     
     private var emptyDroppableArea: some View {
         Rectangle()
-            .fill(Color.backgroundPrimary)
+            .fill(Color.Background.primary)
             .frame(height: 44)
             .onDrop(
                 of: [UTType.text],

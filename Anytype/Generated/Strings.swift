@@ -203,15 +203,15 @@ internal enum Loc {
   internal static let createNewObject = Loc.tr("Localizable", "Create new object", fallback: "Create new object")
   /// Create object
   internal static let createObject = Loc.tr("Localizable", "Create object", fallback: "Create object")
-  /// Create option %@
-  internal static func createOption(_ p1: Any) -> String {
-    return Loc.tr("Localizable", "Create option", String(describing: p1), fallback: "Create option %@")
+  /// Create option ‘%s’
+  internal static func createOption(_ p1: UnsafePointer<CChar>) -> String {
+    return Loc.tr("Localizable", "Create option", p1, fallback: "Create option ‘%s’")
   }
   /// Create pin code
   internal static let createPinCode = Loc.tr("Localizable", "Create pin code", fallback: "Create pin code")
-  /// Create relation "%@"
+  /// Create relation ‘%@’
   internal static func createRelation(_ p1: Any) -> String {
-    return Loc.tr("Localizable", "Create relation", String(describing: p1), fallback: "Create relation \"%@\"")
+    return Loc.tr("Localizable", "Create relation", String(describing: p1), fallback: "Create relation ‘%@’")
   }
   /// Data
   internal static let data = Loc.tr("Localizable", "Data", fallback: "Data")
@@ -395,6 +395,8 @@ internal enum Loc {
   internal static let logoutAndClearData = Loc.tr("Localizable", "Logout and clear data", fallback: "Logout and clear data")
   /// Logout error
   internal static let logoutError = Loc.tr("Localizable", "Logout error", fallback: "Logout error")
+  /// Marketplace
+  internal static let marketplace = Loc.tr("Localizable", "Marketplace", fallback: "Marketplace")
   /// Media
   internal static let media = Loc.tr("Localizable", "Media", fallback: "Media")
   /// Medium
@@ -1079,8 +1081,18 @@ internal enum Loc {
     internal static let text = Loc.tr("Localizable", "LinkPaste.text", fallback: "Paste as text")
   }
   internal enum ObjectType {
+    /// Type ‘%@’ added to your library
+    internal static func addedToLibrary(_ p1: Any) -> String {
+      return Loc.tr("Localizable", "ObjectType.AddedToLibrary", String(describing: p1), fallback: "Type ‘%@’ added to your library")
+    }
+    /// Deleted type
+    internal static let deletedName = Loc.tr("Localizable", "ObjectType.DeletedName", fallback: "Deleted type")
     /// Blank canvas with no title
     internal static let fallbackDescription = Loc.tr("Localizable", "ObjectType.fallbackDescription", fallback: "Blank canvas with no title")
+    /// My Types
+    internal static let myTypes = Loc.tr("Localizable", "ObjectType.MyTypes", fallback: "My Types")
+    /// Search or install a new type
+    internal static let searchOrInstall = Loc.tr("Localizable", "ObjectType.SearchOrInstall", fallback: "Search or install a new type")
   }
   internal enum QuickAction {
     /// Create %@
@@ -1095,6 +1107,14 @@ internal enum Loc {
     internal static let pageType = Loc.tr("Localizable", "RedactedText.pageType", fallback: "Red pill")
   }
   internal enum Relation {
+    /// Relation ‘%@’ added to your library
+    internal static func addedToLibrary(_ p1: Any) -> String {
+      return Loc.tr("Localizable", "Relation.AddedToLibrary", String(describing: p1), fallback: "Relation ‘%@’ added to your library")
+    }
+    /// Deleted relation
+    internal static let deleted = Loc.tr("Localizable", "Relation.Deleted", fallback: "Deleted relation")
+    /// My relations
+    internal static let myRelations = Loc.tr("Localizable", "Relation.MyRelations", fallback: "My relations")
     internal enum View {
       internal enum Hint {
         /// empty
@@ -1189,8 +1209,16 @@ internal enum Loc {
             }
           }
           internal enum Title {
+            /// %@ is checked
+            internal static func checked(_ p1: Any) -> String {
+              return Loc.tr("Localizable", "Set.View.Kanban.Column.Title.Checked", String(describing: p1), fallback: "%@ is checked")
+            }
             /// Uncategorized
             internal static let uncategorized = Loc.tr("Localizable", "Set.View.Kanban.Column.Title.Uncategorized", fallback: "Uncategorized")
+            /// %@ is unchecked
+            internal static func unchecked(_ p1: Any) -> String {
+              return Loc.tr("Localizable", "Set.View.Kanban.Column.Title.Unchecked", String(describing: p1), fallback: "%@ is unchecked")
+            }
           }
         }
       }
@@ -1343,6 +1371,10 @@ internal enum Loc {
       /// New object
       internal static let title = Loc.tr("Localizable", "WidgetExtension.LockScreen.Title", fallback: "New object")
     }
+  }
+  internal enum Widgets {
+    /// Widget source
+    internal static let sourceSearch = Loc.tr("Localizable", "Widgets.SourceSearch", fallback: "Widget source")
   }
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length

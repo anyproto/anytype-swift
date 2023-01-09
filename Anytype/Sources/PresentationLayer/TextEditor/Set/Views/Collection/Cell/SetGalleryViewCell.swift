@@ -33,11 +33,11 @@ struct SetGalleryViewCell: View {
             .padding(.top, configuration.hasCover ? 0 : Constants.contentPadding)
             .padding([.leading, .trailing, .bottom], Constants.contentPadding)
         }
-        .background(Color.backgroundPrimary)
+        .background(Color.Background.primary)
         .frame(maxWidth: .infinity, alignment: .topLeading)
         .cornerRadius(Constants.cornerRadius)
         .overlay(
-            RoundedRectangle(cornerRadius: Constants.cornerRadius).stroke(Color.strokePrimary, lineWidth: 0.5)
+            RoundedRectangle(cornerRadius: Constants.cornerRadius).stroke(Color.Stroke.primary, lineWidth: 0.5)
         )
         .readSize { width = $0.width }
     }
@@ -64,7 +64,7 @@ struct SetGalleryViewCell: View {
                 Constants.largeItemHeight
         )
         .frame(maxWidth: .infinity)
-        .background(Color.strokeTransperent)
+        .background(Color.Stroke.transperent)
     }
     
     private var coverPlaceholder: some View {

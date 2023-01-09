@@ -49,7 +49,25 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     }
     
     var addNewRelation: AddNewRelationCoordinatorAssemblyProtocol {
-        return AddNewRelationCoordinatorAssembly(uiHelpersDI: uiHelpersDI)
+        return AddNewRelationCoordinatorAssembly(uiHelpersDI: uiHelpersDI, modulesDI: modulesDI)
+    }
+    
+    @MainActor
+    var homeWidgets: HomeWidgetsCoordinatorAssemblyProtocol {
+        return HomeWidgetsCoordinatorAssembly(
+            coordinatorsID: self,
+            modulesDI: modulesDI,
+            serviceLocator: serviceLocator,
+            uiHelpersDI: uiHelpersDI
+        )
+    }
+    
+    var createWidget: CreateWidgetCoordinatorAssemblyProtocol {
+        return CreateWidgetCoordinatorAssembly(
+            modulesDI: modulesDI,
+            serviceLocator: serviceLocator,
+            uiHelpersDI: uiHelpersDI
+        )
     }
     
     var browser: EditorBrowserAssembly {
@@ -61,9 +79,10 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     }
     
     var homeViewAssemby: HomeViewAssembly {
-        return HomeViewAssembly(coordinatorsDI: self)
+        return HomeViewAssembly(coordinatorsDI: self, modulesDI: modulesDI)
     }
     
+    @MainActor
     var application: ApplicationCoordinator {
         return ApplicationCoordinator(
             windowManager: windowManager,
@@ -72,10 +91,12 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
         )
     }
     
+    @MainActor
     var windowManager: WindowManager {
         WindowManager(
             viewControllerProvider: uiHelpersDI.viewControllerProvider,
-            homeViewAssembly: homeViewAssemby
+            homeViewAssembly: homeViewAssemby,
+            homeWidgetsCoordinatorAssembly: homeWidgets
         )
     }
 }

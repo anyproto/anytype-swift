@@ -20,8 +20,9 @@ extension Anytype_Rpc.Account.Config {
 }
 
 extension Anytype_Rpc.Account.ConfigUpdate.Request {
-    public init(timeZone: String = String()) {
+    public init(timeZone: String = String(), ipfsstorageAddr: String = String()) {
         self.timeZone = timeZone
+        self.ipfsstorageAddr = ipfsstorageAddr
     }
 }
 
@@ -245,6 +246,31 @@ extension Anytype_Rpc.Block.Create.Response {
 
 extension Anytype_Rpc.Block.Create.Response.Error {
     public init(code: Anytype_Rpc.Block.Create.Response.Error.Code = .null, description_p: String = String()) {
+        self.code = code
+        self.description_p = description_p
+    }
+}
+
+extension Anytype_Rpc.Block.CreateWidget.Request {
+    public init(contextID: String = String(), targetID: String = String(), block: Anytype_Model_Block, position: Anytype_Model_Block.Position = .none, widgetLayout: Anytype_Model_Block.Content.Widget.Layout = .link) {
+        self.contextID = contextID
+        self.targetID = targetID
+        self.block = block
+        self.position = position
+        self.widgetLayout = widgetLayout
+    }
+}
+
+extension Anytype_Rpc.Block.CreateWidget.Response {
+    public init(error: Anytype_Rpc.Block.CreateWidget.Response.Error, blockID: String = String(), event: Anytype_ResponseEvent) {
+        self.error = error
+        self.blockID = blockID
+        self.event = event
+    }
+}
+
+extension Anytype_Rpc.Block.CreateWidget.Response.Error {
+    public init(code: Anytype_Rpc.Block.CreateWidget.Response.Error.Code = .null, description_p: String = String()) {
         self.code = code
         self.description_p = description_p
     }

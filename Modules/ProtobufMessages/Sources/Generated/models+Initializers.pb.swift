@@ -37,15 +37,17 @@ extension Anytype_Model_Account.Config {
 }
 
 extension Anytype_Model_Account.Info {
-    public init(homeObjectID: String = String(), archiveObjectID: String = String(), profileObjectID: String = String(), marketplaceTypeObjectID: String = String(), marketplaceRelationObjectID: String = String(), marketplaceTemplateObjectID: String = String(), deviceID: String = String(), accountSpaceID: String = String(), gatewayURL: String = String(), localStoragePath: String = String(), timeZone: String = String()) {
+    public init(homeObjectID: String = String(), archiveObjectID: String = String(), profileObjectID: String = String(), marketplaceTypeObjectID: String = String(), marketplaceRelationObjectID: String = String(), marketplaceTemplateObjectID: String = String(), marketplaceWorkspaceID: String = String(), deviceID: String = String(), accountSpaceID: String = String(), widgetsID: String = String(), gatewayURL: String = String(), localStoragePath: String = String(), timeZone: String = String()) {
         self.homeObjectID = homeObjectID
         self.archiveObjectID = archiveObjectID
         self.profileObjectID = profileObjectID
         self.marketplaceTypeObjectID = marketplaceTypeObjectID
         self.marketplaceRelationObjectID = marketplaceRelationObjectID
         self.marketplaceTemplateObjectID = marketplaceTemplateObjectID
+        self.marketplaceWorkspaceID = marketplaceWorkspaceID
         self.deviceID = deviceID
         self.accountSpaceID = accountSpaceID
+        self.widgetsID = widgetsID
         self.gatewayURL = gatewayURL
         self.localStoragePath = localStoragePath
         self.timeZone = timeZone
@@ -282,6 +284,12 @@ extension Anytype_Model_Block.Content.Text.Marks {
     }
 }
 
+extension Anytype_Model_Block.Content.Widget {
+    public init(layout: Anytype_Model_Block.Content.Widget.Layout = .link) {
+        self.layout = layout
+    }
+}
+
 extension Anytype_Model_Block.Restrictions {
     public init(read: Bool = false, edit: Bool = false, remove: Bool = false, drag: Bool = false, dropOn: Bool = false) {
         self.read = read
@@ -453,13 +461,14 @@ extension Anytype_Model_Restrictions.DataviewRestrictions {
 }
 
 extension Anytype_Model_SmartBlockSnapshotBase {
-    public init(blocks: [Anytype_Model_Block] = [], details: SwiftProtobuf.Google_Protobuf_Struct, fileKeys: SwiftProtobuf.Google_Protobuf_Struct, extraRelations: [Anytype_Model_Relation] = [], objectTypes: [String] = [], collections: SwiftProtobuf.Google_Protobuf_Struct, relationLinks: [Anytype_Model_RelationLink] = []) {
+    public init(blocks: [Anytype_Model_Block] = [], details: SwiftProtobuf.Google_Protobuf_Struct, fileKeys: SwiftProtobuf.Google_Protobuf_Struct, extraRelations: [Anytype_Model_Relation] = [], objectTypes: [String] = [], collections: SwiftProtobuf.Google_Protobuf_Struct, removedCollectionKeys: [String] = [], relationLinks: [Anytype_Model_RelationLink] = []) {
         self.blocks = blocks
         self.details = details
         self.fileKeys = fileKeys
         self.extraRelations = extraRelations
         self.objectTypes = objectTypes
         self.collections = collections
+        self.removedCollectionKeys = removedCollectionKeys
         self.relationLinks = relationLinks
     }
 }

@@ -22,10 +22,17 @@ final class NewRelationViewModel: ObservableObject {
     @Published private var objectTypes: [ObjectType]?
     
     private let service: RelationsServiceProtocol
+    private let toastPresenter: ToastPresenterProtocol
     private weak var output: NewRelationModuleOutput?
     
-    init(name: String, service: RelationsServiceProtocol, output: NewRelationModuleOutput?) {
+    init(
+        name: String,
+        service: RelationsServiceProtocol,
+        toastPresenter: ToastPresenterProtocol,
+        output: NewRelationModuleOutput?
+    ) {
         self.service = service
+        self.toastPresenter = toastPresenter
         self.output = output
         
         self.name = name
@@ -57,12 +64,15 @@ extension NewRelationViewModel {
             isReadOnly: false,
             isReadOnlyValue: false,
             objectTypes: objectTypeIds,
-            maxCount: 0
+            maxCount: 0,
+            sourceObject: "",
+            isDeleted: false
         )
         
-        guard service.createRelation(relationDetails: relationDetails) else { return }
+        guard let createRelation = service.createRelation(relationDetails: relationDetails) else { return }
+        toastPresenter.show(message: Loc.Relation.addedToLibrary(createRelation.name))
         UINotificationFeedbackGenerator().notificationOccurred(.success)
-        output?.didCreateRelation(relationDetails)
+        output?.didCreateRelation(createRelation)
     }
     
 }

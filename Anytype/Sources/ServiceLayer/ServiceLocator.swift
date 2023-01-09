@@ -34,7 +34,7 @@ final class ServiceLocator {
     }
     
     func dashboardService() -> DashboardServiceProtocol {
-        DashboardService()
+        DashboardService(searchService: searchService(), pageService: pageService())
     }
     
     func blockActionsServiceSingle(contextId: BlockId) -> BlockActionsServiceSingleProtocol {
@@ -50,7 +50,11 @@ final class ServiceLocator {
     }
     
     func searchService() -> SearchServiceProtocol {
-        SearchService(accountManager: accountManager(), objectTypeProvider: objectTypeProvider())
+        SearchService(
+            accountManager: accountManager(),
+            objectTypeProvider: objectTypeProvider(),
+            relationDetailsStorage: relationDetailsStorage()
+        )
     }
     
     func detailsService(objectId: BlockId) -> DetailsServiceProtocol {
@@ -60,7 +64,7 @@ final class ServiceLocator {
     func subscriptionService() -> SubscriptionsServiceProtocol {
         SubscriptionsService(
             toggler: subscriptionToggler(),
-            storage: detailsStorage()
+            storage: objectDetailsStorage()
         )
     }
     
@@ -111,19 +115,26 @@ final class ServiceLocator {
     func blockListService(documentId: String) -> BlockListServiceProtocol {
         return BlockListService(contextId: documentId)
     }
-    // MARK: - Private
+    
+    func workspaceService() -> WorkspaceServiceProtocol {
+        return WorkspaceService()
+    }
     
     func pageService() -> PageServiceProtocol {
         return PageService()
+    }
+    
+    func objectDetailsStorage() -> ObjectDetailsStorage {
+        ObjectDetailsStorage.shared
+    }
+        
+    func blockWidgetService() -> BlockWidgetServiceProtocol {
+        return BlockWidgetService()
     }
     
     // MARK: - Private
     
     private func subscriptionToggler() -> SubscriptionTogglerProtocol {
         SubscriptionToggler()
-    }
-    
-    private func detailsStorage() -> ObjectDetailsStorage {
-        ObjectDetailsStorage.shared
     }
 }

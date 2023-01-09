@@ -50,24 +50,27 @@ final class RelationsService: RelationsServiceProtocol {
             .send()
     }
 
-    func createRelation(relationDetails: RelationDetails) -> Bool {
+    func createRelation(relationDetails: RelationDetails) -> RelationDetails? {
         let result = Anytype_Rpc.Object.CreateRelation.Service
             .invocation(details: relationDetails.asCreateMiddleware)
             .invoke()
             .getValue(domain: .relationsService)
         
-        guard let result = result else { return false }
+        guard let result = result,
+              addRelations(relationKeys: [result.key]),
+              let objectDetails = ObjectDetails(protobufStruct: result.details)
+            else { return nil }
         
-        return addRelation(relationKey: result.key)
+        return RelationDetails(objectDetails: objectDetails)
     }
 
-    func addRelation(relationDetails: RelationDetails) -> Bool {
-        return addRelation(relationKey: relationDetails.key)
+    func addRelations(relationsDetails: [RelationDetails]) -> Bool {
+        return addRelations(relationKeys: relationsDetails.map(\.key))
     }
 
-    private func addRelation(relationKey: String) -> Bool {
+    private func addRelations(relationKeys: [String]) -> Bool {
         let events = Anytype_Rpc.ObjectRelation.Add.Service
-            .invocation(contextID: objectId, relationKeys: [relationKey])
+            .invocation(contextID: objectId, relationKeys: relationKeys)
             .invoke()
             .map { EventsBunch(event: $0.event) }
             .getValue(domain: .relationsService)

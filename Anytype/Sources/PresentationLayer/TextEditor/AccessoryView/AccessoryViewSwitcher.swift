@@ -54,7 +54,7 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
         
         cursorModeAccessoryView.update(info: data.info, textView: data.textView, usecase: data.usecase)
         markupAccessoryView.update(info: data.info, textView: data.textView)
-        slashMenuView.update(info: data.info, relations: document.parsedRelations.all)
+        slashMenuView.update(info: data.info, relations: document.parsedRelations.installed)
 
         cursorModeAccessoryView.isHidden = false
         if data.textView.selectedRange.length != .zero {

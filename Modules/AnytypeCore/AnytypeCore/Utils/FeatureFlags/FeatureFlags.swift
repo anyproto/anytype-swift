@@ -15,9 +15,6 @@ public final class FeatureFlags {
         .showAlertOnAssert,
         .analytics,
         .objectPreview,
-        .setListView,
-        .setViewTypes,
-        .setSyncStatus,
         .cursorPosition,
         .hideBottomViewForStyleMenu,
         .setKanbanView,
@@ -29,7 +26,8 @@ public final class FeatureFlags {
         .fixColorsForStyleMenu,
         .redesignBookmarkBlock,
         .showSetsInChangeTypeSearchMenu,
-        .fixInsetMediaContent
+        .fixInsetMediaContent,
+        .homeWidgets
     ]
     
     public static func update(key feature: FeatureDescription, value: Bool) {
@@ -60,18 +58,6 @@ public extension FeatureFlags {
 
     static var objectPreview: Bool {
         value(for: .objectPreview)
-    }
-    
-    static var setListView: Bool {
-        value(for: .setListView)
-    }
-    
-    static var setViewTypes: Bool {
-        value(for: .setViewTypes)
-    }
-    
-    static var setSyncStatus: Bool {
-        value(for: .setSyncStatus)
     }
     
     static var cursorPosition: Bool {
@@ -120,5 +106,9 @@ public extension FeatureFlags {
     
     static var fixInsetMediaContent: Bool {
         value(for: .fixInsetMediaContent)
+    }
+    
+    static var homeWidgets: Bool {
+        value(for: .homeWidgets)
     }
 }

@@ -1,5 +1,6 @@
 import UIKit
 import SwiftEntryKit
+import Combine
 
 protocol ToastPresenterProtocol: AnyObject {
     func show(message: String)
@@ -21,7 +22,7 @@ class ToastPresenter: ToastPresenterProtocol {
     private weak var containerViewController: UIViewController?
     
     private let keyboardHeightListener: KeyboardHeightListener
-    
+    private var cancellable: AnyCancellable?
     private lazy var toastView = ToastView(frame: .zero)
 
     init(
@@ -75,8 +76,18 @@ class ToastPresenter: ToastPresenterProtocol {
         case .aboveKeyboard:
             let containerViewController = containerViewController ?? viewControllerProvider.rootViewController
         
-            bottomModeOffset = max(keyboardHeightListener.currentKeyboardHeight, containerViewController?.bottomToastOffset ?? 0)
+            bottomModeOffset = containerViewController?.bottomToastOffset ?? 0
+            
+            cancellable = keyboardHeightListener.animationChangePublisher.sink { [weak self] animation in
+                let bottomSafeArea = self?.viewControllerProvider.window?.safeAreaInsets.bottom ?? 0
+                let inset = max(animation.rect.height - bottomModeOffset - bottomSafeArea, 0)
+                UIView.animate(withDuration: animation.duration, delay: 0, options: animation.options) {
+                    self?.toastView.updateBottomInset(inset)
+                }
+            }
         case .aboveView(let aboveView):
+            toastView.updateBottomInset(0)
+            cancellable = nil
             let point = view.convert(aboveView.bounds.origin, from: aboveView)
             bottomModeOffset = view.bounds.height - point.y - view.safeAreaInsets.bottom
         }
@@ -87,6 +98,6 @@ class ToastPresenter: ToastPresenterProtocol {
 
 extension ToastPresenter {
     static var defaultAttributes: [NSAttributedString.Key : Any] {
-        [.font: UIFont.caption1Medium, .foregroundColor: UIColor.textWhite]
+        [.font: UIFont.caption1Medium, .foregroundColor: UIColor.Text.white]
     }
 }

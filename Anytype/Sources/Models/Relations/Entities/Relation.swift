@@ -159,4 +159,32 @@ extension Relation: RelationProtocol {
     var isSource: Bool {
         return key == BundledRelationKey.source.rawValue
     }
+    
+    var isDeleted: Bool {
+        switch self {
+        case .text(let text): return text.isDeleted
+        case .number(let text): return text.isDeleted
+        case .status(let status): return status.isDeleted
+        case .date(let date): return date.isDeleted
+        case .object(let object): return object.isDeleted
+        case .checkbox(let checkbox): return checkbox.isDeleted
+        case .url(let text): return text.isDeleted
+        case .email(let text): return text.isDeleted
+        case .phone(let text): return text.isDeleted
+        case .tag(let tag): return tag.isDeleted
+        case .file(let file): return file.isDeleted
+        case .unknown(let unknown): return unknown.isDeleted
+        }
+    }
+    
+    var editableRelation: Relation? {
+        switch self {
+        case .object(let object):
+            var editableObject = object
+            editableObject.isEditable = true
+            return Relation.object(editableObject)
+        default:
+            return nil
+        }
+    }
 }

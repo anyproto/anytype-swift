@@ -28,9 +28,9 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     private let subscriptionBuilder: ObjectTypeSubscriptionDataBuilderProtocol
     
     
-    private var objectTypes = [ObjectType]()
+    private(set) var objectTypes = [ObjectType]()
     private var searchTypesById = [String: ObjectType]()
-    private var cachedSupportedTypeIds: [String] = []
+    private var cachedNotSupportedTypeIds: [String] = []
     private var notVisibleTypeIdsCache: [String] = []
     
     private init(
@@ -44,7 +44,7 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     // MARK: - ObjectTypeProviderProtocol
     
     func isSupportedForEdit(typeId: String) -> Bool {
-        cachedSupportedTypeIds.contains(typeId)
+        !cachedNotSupportedTypeIds.contains(typeId)
     }
     
     var defaultObjectType: ObjectType {
@@ -52,13 +52,29 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
         return objectTypes.first { $0.id == type.id } ?? ObjectType.fallbackType
     }
     
-    func setDefaulObjectType(id: String) {
-        guard let type = objectTypes.first(where: { $0.id == id }) else { return }
+    func setDefaulObjectType(type: ObjectType) {
+        // Don't check in local storage, because middle send event in async after create a new type
+        // We check it in get method
         UserDefaultsConfig.defaultObjectType = type
     }
     
     func objectType(id: String) -> ObjectType? {
         return searchTypesById[id]
+    }
+    
+    func deleteObjectType(id: String) -> ObjectType {
+        return ObjectType(
+            id: id,
+            name: Loc.ObjectType.deletedName,
+            iconEmoji: .default,
+            description: "",
+            hidden: false,
+            readonly: true,
+            isArchived: false,
+            isDeleted: true,
+            sourceObject: "",
+            smartBlockTypes: [.page]
+        )
     }
     
     func objectTypes(smartblockTypes: Set<SmartBlockType>) -> [ObjectType] {
@@ -97,8 +113,8 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     }
     
     private func updateSupportedTypeIds() {
-        cachedSupportedTypeIds = objectTypes.filter {
-            $0.smartBlockTypes.intersection(Constants.supportedForEditSmartblockTypes).isNotEmpty
+        cachedNotSupportedTypeIds = objectTypes.filter {
+            $0.smartBlockTypes.intersection(Constants.supportedForEditSmartblockTypes).isEmpty
         }.map { $0.id }
     }
     

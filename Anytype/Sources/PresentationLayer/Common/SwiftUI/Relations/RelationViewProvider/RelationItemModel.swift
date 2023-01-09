@@ -116,4 +116,30 @@ enum RelationItemModel: Hashable {
         case .unknown(let unknown): return unknown.key
         }
     }
+    
+    var isErrorState: Bool {
+        switch self {
+        case let .text(text): return text.isDeletedValue
+        case let .object(object): return object.key == BundledRelationKey.setOf.rawValue && object.isDeletedValue
+        default:
+            return false
+        }
+    }
+    
+    var isDeleted: Bool {
+        switch self {
+        case .text(let text): return text.isDeleted
+        case .number(let text): return text.isDeleted
+        case .status(let status): return status.isDeleted
+        case .date(let date): return date.isDeleted
+        case .object(let object): return object.isDeleted
+        case .checkbox(let checkbox): return checkbox.isDeleted
+        case .url(let text): return text.isDeleted
+        case .email(let text): return text.isDeleted
+        case .phone(let text): return text.isDeleted
+        case .tag(let tag): return tag.isDeleted
+        case .file(let file): return file.isDeleted
+        case .unknown(let unknown): return unknown.isDeleted
+        }
+    }
 }

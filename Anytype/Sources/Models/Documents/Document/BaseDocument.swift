@@ -152,7 +152,9 @@ final class BaseDocument: BaseDocumentProtocol {
             }
             .removeDuplicates()
             .receiveOnMain()
-            .sink { [weak self] in self?.parsedRelationsSubject.send($0) }
+            .sink { [weak self] in
+                self?.parsedRelationsSubject.send($0)
+            }
             .store(in: &subscriptions)
     }
 }

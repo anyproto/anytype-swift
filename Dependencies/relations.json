@@ -9,16 +9,6 @@
     "source": "details"
   },
   {
-    "description": "Strict dictionary to select relation values from",
-    "format": "object",
-    "hidden": true,
-    "key": "relationOptionsDict",
-    "maxCount": 0,
-    "name": "Dictionary",
-    "readonly": false,
-    "source": "details"
-  },
-  {
     "format": "tag",
     "hidden": false,
     "key": "tag",
@@ -77,12 +67,12 @@
     "source": "account"
   },
   {
-    "description": "Types that used for such relation",
+    "description": "Prioritized target types for the relation's value",
     "format": "object",
     "hidden": true,
     "key": "relationFormatObjectTypes",
     "maxCount": 0,
-    "name": "Object type",
+    "name": "Relation's target object types",
     "readonly": true,
     "source": "details"
   },
@@ -914,7 +904,7 @@
     "maxCount": 1,
     "name": "Readonly",
     "readonly": true,
-    "source": "details"
+    "source": "derived"
   },
   {
     "description": "Date when the file were added into the anytype",
@@ -1186,7 +1176,7 @@
   {
     "description": "Relation that stores the object's type",
     "format": "object",
-    "hidden": true,
+    "hidden": false,
     "key": "type",
     "maxCount": 1,
     "name": "Object type",
@@ -1531,7 +1521,7 @@
     "source": "details"
   },
   {
-    "description": "Point to the object types used to aggregate the set. Empty means object of all types will be aggregated ",
+    "description": "Point to the object types or realtions used to aggregate the set. Empty means object of all types will be aggregated ",
     "format": "object",
     "hidden": false,
     "key": "setOf",
@@ -1631,14 +1621,14 @@
     "source": "details"
   },
   {
-    "description": "List of smartblock types",
+    "description": "Stored for object type. Contains tge list of smartblock types used to create the object",
     "format": "number",
     "hidden": true,
     "key": "smartblockTypes",
     "maxCount": 0,
     "name": "Smartblock types",
     "readonly": true,
-    "source": "derived"
+    "source": "details"
   },
   {
     "format": "url",
@@ -1647,6 +1637,15 @@
     "maxCount": 1,
     "name": "Source",
     "readonly": false,
+    "source": "details"
+  },
+  {
+    "format": "object",
+    "hidden": false,
+    "key": "sourceObject",
+    "maxCount": 1,
+    "name": "Source object",
+    "readonly": true,
     "source": "details"
   }
 ]

@@ -55,7 +55,7 @@ struct ObjectRelationView: View {
                 AnytypeText(
                     prefix,
                     style: style.font,
-                    color: style.fontColor
+                    color: style.fontColorWithError
                 )
             }
 
@@ -75,8 +75,10 @@ struct ObjectRelationView: View {
     }
     
     private func titleColor(option: Relation.Object.Option) -> Color {
-        if option.isDeleted || option.isArchived {
-            return .textTertiary
+        if style.isError {
+            return style.fontColorWithError
+        } else if option.isDeleted || option.isArchived {
+            return .Text.tertiary
         } else {
             return style.fontColor
         }
@@ -87,7 +89,7 @@ struct ObjectRelationView: View {
             return false
         }
         switch style {
-        case .regular, .set, .filter, .setCollection:
+        case .regular, .set, .filter, .setCollection, .kanbanHeader:
             return true
         case .featuredRelationBlock(let settings):
             return settings.showIcon
@@ -105,13 +107,13 @@ extension ObjectRelationView {
     private var maxOptions: Int {
         switch style {
         case .regular, .set: return 0
-        case .filter, .setCollection, .featuredRelationBlock: return 1
+        case .filter, .setCollection, .featuredRelationBlock, .kanbanHeader: return 1
         }
     }
     
     private var prefix: String? {
         switch style {
-        case .regular, .set, .filter, .setCollection:
+        case .regular, .set, .filter, .setCollection, .kanbanHeader:
             return nil
         case .featuredRelationBlock(let settings):
             return settings.prefix

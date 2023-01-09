@@ -122,7 +122,7 @@ service ClientCommands {
     rpc NavigationGetObjectInfoWithLinks (anytype.Rpc.Navigation.GetObjectInfoWithLinks.Request) returns (anytype.Rpc.Navigation.GetObjectInfoWithLinks.Response);
 
     rpc TemplateCreateFromObject (anytype.Rpc.Template.CreateFromObject.Request) returns (anytype.Rpc.Template.CreateFromObject.Response);
-    rpc TemplateCreateFromObjectType (anytype.Rpc.Template.CreateFromObjectType.Request) returns (anytype.Rpc.Template.CreateFromObjectType.Response);
+    rpc TemplateCreateFromObjectType (anytype.Rpc.Template.CreateFromObjectType.Request) returns (anytype.Rpc.Template.CreateFromObjectType.Response); // to be renamed to ObjectCreateTemplate
     rpc TemplateClone (anytype.Rpc.Template.Clone.Request) returns (anytype.Rpc.Template.Clone.Response);
     rpc TemplateExportAll (anytype.Rpc.Template.ExportAll.Request) returns (anytype.Rpc.Template.ExportAll.Response);
 
@@ -219,6 +219,7 @@ service ClientCommands {
     rpc BlockRelationAdd (anytype.Rpc.BlockRelation.Add.Request) returns (anytype.Rpc.BlockRelation.Add.Response);
     rpc BlockDivListSetStyle (anytype.Rpc.BlockDiv.ListSetStyle.Request) returns (anytype.Rpc.BlockDiv.ListSetStyle.Response);
     rpc BlockLatexSetText (anytype.Rpc.BlockLatex.SetText.Request) returns (anytype.Rpc.BlockLatex.SetText.Response);
+    rpc BlockCreateWidget (anytype.Rpc.Block.CreateWidget.Request) returns (anytype.Rpc.Block.CreateWidget.Response);
 
     rpc ProcessCancel (anytype.Rpc.Process.Cancel.Request) returns (anytype.Rpc.Process.Cancel.Response);
 

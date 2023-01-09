@@ -21,18 +21,20 @@ enum ObjectIconImageUsecase: Equatable, Hashable {
     
     case setRow
     case setCollection
+    
+    case widgetTree
 }
 
 extension ObjectIconImageUsecase {
     var profileBackgroundColor: UIColor {
         switch self {
-        case .openedObject: return .strokePrimary
-        default: return .strokeSecondary
+        case .openedObject: return .Stroke.primary
+        default: return .Stroke.secondary
         }
     }
     
     var placeholderBackgroundColor: UIColor {
-        .strokeTransperent
+        .Stroke.transperent
     }
     
     var emojiBackgroundColor: UIColor {
@@ -40,7 +42,7 @@ extension ObjectIconImageUsecase {
         case .openedObjectNavigationBar, .mention, .setRow, .featuredRelationsBlock, .editorCalloutBlock:
             return .clear
         default:
-            return .strokeTransperent
+            return .Stroke.transperent
         }
     }
 }

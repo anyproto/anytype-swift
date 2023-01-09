@@ -11,6 +11,8 @@ final class AddNewRelationCoordinator {
     
     private let document: BaseDocumentProtocol
     private let navigationContext: NavigationContextProtocol
+    private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
+    private let newRelationModuleAssembly: NewRelationModuleAssemblyProtocol
     
     private var onCompletion: ((_ newRelationDetails: RelationDetails, _ isNew: Bool) -> Void)?
     
@@ -18,10 +20,14 @@ final class AddNewRelationCoordinator {
     
     init(
         document: BaseDocumentProtocol,
-        navigationContext: NavigationContextProtocol
+        navigationContext: NavigationContextProtocol,
+        newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
+        newRelationModuleAssembly: NewRelationModuleAssemblyProtocol
     ) {
         self.document = document
         self.navigationContext = navigationContext
+        self.newSearchModuleAssembly = newSearchModuleAssembly
+        self.newRelationModuleAssembly = newRelationModuleAssembly
     }
     
 }
@@ -32,16 +38,11 @@ extension AddNewRelationCoordinator: AddNewRelationCoordinatorProtocol {
     
     func showAddNewRelationView(onCompletion: ((_ newRelationDetails: RelationDetails, _ isNew: Bool) -> Void)?) {
         self.onCompletion = onCompletion
-        
-        let relationService = RelationsService(objectId: document.objectId)
 
-        let viewModel = SearchNewRelationViewModel(
-            objectRelations: document.parsedRelations,
-            relationService: relationService,
+        let view = newSearchModuleAssembly.relationsSearchModule(
+            document: document,
             output: self
         )
-
-        let view = SearchNewRelationView(viewModel: viewModel)
         
         navigationContext.presentSwiftUIView(view: view)
     }
@@ -50,7 +51,7 @@ extension AddNewRelationCoordinator: AddNewRelationCoordinatorProtocol {
 
 // MARK: - SearchNewRelationModuleOutput
 
-extension AddNewRelationCoordinator: SearchNewRelationModuleOutput {
+extension AddNewRelationCoordinator: RelationSearchModuleOutput {
     
     func didAddRelation(_ relationDetails: RelationDetails) {
         onCompletion?(relationDetails, false)
@@ -63,25 +64,10 @@ extension AddNewRelationCoordinator: SearchNewRelationModuleOutput {
     }
     
     private func showCreateNewRelationView(searchText: String) {
-        let viewModel = NewRelationViewModel(
-            name: searchText,
-            service: RelationsService(objectId: document.objectId),
-            output: self
-        )
-        let view = NewRelationView(viewModel: viewModel)
+        let module = newRelationModuleAssembly.make(document: document, searchText: searchText, output: self)
+        newRelationModuleInput = module.input
         
-        newRelationModuleInput = viewModel
-        
-        let vc = UIHostingController(rootView: view)
-        
-        if #available(iOS 15.0, *) {
-            if let sheet = vc.sheetPresentationController {
-                sheet.detents = [.medium()]
-                sheet.selectedDetentIdentifier = .medium
-            }
-        }
-        
-        navigationContext.present(vc, animated: true)
+        navigationContext.present(module.viewController, animated: true)
     }
       
 }
@@ -98,7 +84,7 @@ extension AddNewRelationCoordinator: NewRelationModuleOutput {
     }
     
     func didAskToShowObjectTypesSearch(selectedObjectTypesIds: [String]) {
-        let view = NewSearchModuleAssembly.multiselectObjectTypesSearchModule(
+        let view = newSearchModuleAssembly.multiselectObjectTypesSearchModule(
             selectedObjectTypeIds: selectedObjectTypesIds
         ) { [weak self] ids in
             self?.handleObjectTypesSelection(objectTypesIds: ids)

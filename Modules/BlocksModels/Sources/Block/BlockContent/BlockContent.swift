@@ -15,6 +15,7 @@ public enum BlockContent: Hashable, CustomStringConvertible {
     case table
     case tableColumn
     case tableRow(BlockTableRow)
+    case widget(BlockWidget)
     case unsupported
     
     public var type: BlockContentType {
@@ -47,6 +48,8 @@ public enum BlockContent: Hashable, CustomStringConvertible {
             return .tableColumn
         case .tableRow:
             return .tableRow
+        case let .widget(widget):
+            return .widget(widget.layout)
         case .unsupported:
             return .text(.text)
         }
@@ -82,6 +85,8 @@ public enum BlockContent: Hashable, CustomStringConvertible {
             return "tableColumn"
         case .tableRow:
             return "tableRow"
+        case .widget:
+            return "widget"
         case .unsupported:
             return "unknown"
         }

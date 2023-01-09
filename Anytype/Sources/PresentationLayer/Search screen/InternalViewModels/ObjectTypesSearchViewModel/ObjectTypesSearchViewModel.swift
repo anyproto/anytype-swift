@@ -2,23 +2,33 @@ import Foundation
 import BlocksModels
 import Combine
 import SwiftUI
+import AnytypeCore
 
 final class ObjectTypesSearchViewModel {
+    
+    private enum Constants {
+        static let installedSectionId = "MyTypeId"
+        static let marketplaceSectionId = "MarketplaceId"
+    }
     
     let selectionMode: NewSearchViewModel.SelectionMode = .singleItem
     let viewStateSubject = PassthroughSubject<NewSearchViewState, Never>()
     
     private var objects: [ObjectDetails] = []
+    private var marketplaceObjects: [ObjectDetails] = []
     private let interactor: ObjectTypesSearchInteractor
+    private let toastPresenter: ToastPresenterProtocol
     private let selectedObjectId: BlockId?
-    private let onSelect: (_ ids: [String]) -> Void
+    private let onSelect: (_ type: ObjectType) -> Void
     
     init(
         interactor: ObjectTypesSearchInteractor,
+        toastPresenter: ToastPresenterProtocol,
         selectedObjectId: BlockId? = nil,
-        onSelect: @escaping (_ ids: [String]) -> Void
+        onSelect: @escaping (_ type: ObjectType) -> Void
     ) {
         self.interactor = interactor
+        self.toastPresenter = toastPresenter
         self.selectedObjectId = selectedObjectId
         self.onSelect = onSelect
     }
@@ -28,20 +38,37 @@ extension ObjectTypesSearchViewModel: NewInternalSearchViewModelProtocol {
     
     func search(text: String) {
         let objects = interactor.search(text: text)
+        let marketplaceObjects = interactor.searchInMarketplace(text: text)
         
-        if objects.isEmpty {
+        if objects.isEmpty && marketplaceObjects.isEmpty {
             handleError(for: text)
         } else {
-            handleSearchResults(objects)
+            handleSearchResults(objects: objects, marketplaceObjects: marketplaceObjects)
         }
         
         self.objects = objects
+        self.marketplaceObjects = marketplaceObjects
     }
     
     func handleRowsSelection(ids: [String]) {}
     
     func handleConfirmSelection(ids: [String]) {
-        onSelect(ids)
+        
+        guard let id = ids.first else { return }
+
+        if let marketplaceType = marketplaceObjects.first(where: { $0.id == id}) {
+            guard let installedType = interactor.installType(objectId: marketplaceType.id) else { return }
+            toastPresenter.show(message: Loc.ObjectType.addedToLibrary(installedType.name))
+            onSelect(ObjectType(details: installedType))
+            return
+        }
+        
+        if let installedType = objects.first(where: { $0.id == id}) {
+            onSelect(ObjectType(details: installedType))
+            return
+        }
+       
+        anytypeAssertionFailure("Type not found", domain: .objectTypeSearch)
     }
 }
 
@@ -51,10 +78,25 @@ private extension ObjectTypesSearchViewModel {
         viewStateSubject.send(.error(.noObjectError(searchText: text)))
     }
     
-    func handleSearchResults(_ objects: [ObjectDetails]) {
+    func handleSearchResults(objects: [ObjectDetails], marketplaceObjects: [ObjectDetails]) {
         viewStateSubject.send(
             .resultsList(
-                .plain(rows: objects.asRowConfigurations(selectedId: selectedObjectId))
+                .sectioned(sectinos: .builder {
+                    if objects.isNotEmpty {
+                        ListSectionConfiguration(
+                            id: Constants.installedSectionId,
+                            title: Loc.ObjectType.myTypes,
+                            rows:  objects.asRowConfigurations(selectedId: selectedObjectId)
+                        )
+                    }
+                    if marketplaceObjects.isNotEmpty {
+                        ListSectionConfiguration(
+                            id: Constants.marketplaceSectionId,
+                            title: Loc.marketplace,
+                            rows:  marketplaceObjects.asRowConfigurations(selectedId: selectedObjectId)
+                        )
+                    }
+                })
             )
         )
     }

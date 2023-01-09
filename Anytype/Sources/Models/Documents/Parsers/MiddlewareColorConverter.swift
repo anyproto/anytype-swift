@@ -23,9 +23,9 @@ extension UIColor {
     func middlewareString(background: Bool) -> String? {
         MiddlewareColor.allCases.first(
             where: { middleware in
-                UIColor.Text.uiColor(from: middleware) == self ||
-                UIColor.Background.uiColor(from: middleware) == self ||
-                UIColor.TagBackground.uiColor(from: middleware) == self
+                UIColor.Dark.uiColor(from: middleware) == self ||
+                UIColor.VeryLight.uiColor(from: middleware) == self ||
+                UIColor.Light.uiColor(from: middleware) == self
             }
         )?.rawValue
     }

@@ -16,6 +16,7 @@ final class BlockBookmarkInfoView: UIView {
         
         if FeatureFlags.redesignBookmarkBlock {
             descriptionView.setText(payload.subtitle)
+            descriptionView.isHidden = payload.subtitle.isEmpty
         } else {
             descriptionViewOld.text = payload.subtitle
         }
@@ -35,7 +36,7 @@ final class BlockBookmarkInfoView: UIView {
             } builder: {
                 $0.vStack(
                     titleView,
-                    $0.vGap(fixed: 0),
+                    $0.vGap(fixed: 2, relatedTo: descriptionView),
                     descriptionView,
                     $0.vGap(fixed: 4),
                     urlStackView
@@ -53,11 +54,10 @@ final class BlockBookmarkInfoView: UIView {
                     urlStackView
                 )
             }
-        }
-        
-        
-        titleView.layoutUsing.anchors {
-            $0.bottom.equal(to: urlStackView.topAnchor, constant: -42)
+            
+            titleView.layoutUsing.anchors {
+                $0.bottom.equal(to: urlStackView.topAnchor, constant: -42)
+            }
         }
     }
     
@@ -110,7 +110,7 @@ final class BlockBookmarkInfoView: UIView {
         view.font = .previewTitle2Regular
         view.numberOfLines = 2
         view.lineBreakMode = .byWordWrapping
-        view.textColor = .textPrimary
+        view.textColor = .Text.primary
         view.backgroundColor = .clear
         return view
     }()
@@ -119,7 +119,7 @@ final class BlockBookmarkInfoView: UIView {
         let view = AnytypeLabel(style: .previewTitle2Medium)
         view.numberOfLines = 2
         view.setLineBreakMode(.byWordWrapping)
-        view.textColor = .textPrimary
+        view.textColor = .Text.primary
         view.backgroundColor = .clear
         return view
     }()
@@ -129,16 +129,16 @@ final class BlockBookmarkInfoView: UIView {
         view.numberOfLines = 2
         view.lineBreakMode = .byWordWrapping
         view.font = .relation2Regular
-        view.textColor = .textSecondary
+        view.textColor = .Text.secondary
         view.backgroundColor = .clear
         return view
     }()
     
     private let descriptionView: AnytypeLabel = {
-        let view = AnytypeLabel(style: .relation2Regular)
+        let view = AnytypeLabel(style: .relation3Regular)
         view.numberOfLines = 2
         view.setLineBreakMode(.byWordWrapping)
-        view.textColor = .textPrimary
+        view.textColor = .Text.primary
         view.backgroundColor = .clear
         return view
     }()
@@ -156,14 +156,14 @@ final class BlockBookmarkInfoView: UIView {
     private let urlViewOld: UILabel = {
         let view = UILabel()
         view.font = .relation3Regular
-        view.textColor = .textSecondary
+        view.textColor = .Text.secondary
         view.backgroundColor = .clear
         return view
     }()
     
     private let urlView: AnytypeLabel = {
-        let view = AnytypeLabel(style: .relation2Regular)
-        view.textColor = .textSecondary
+        let view = AnytypeLabel(style: .relation3Regular)
+        view.textColor = .Text.secondary
         return view
     }()
 }

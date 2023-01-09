@@ -7,22 +7,20 @@ final class EditorSetViewPickerViewModel: ObservableObject {
     @Published var rows: [EditorSetViewRowConfiguration] = []
     @Published var disableDeletion = false
     
-    private let setModel: EditorSetViewModel
+    private let setDocument: SetDocumentProtocol
     private var cancellable: AnyCancellable?
     private let dataviewService: DataviewServiceProtocol
     private let showViewTypes: RoutingAction<DataviewView?>
     
     init(
-        setModel: EditorSetViewModel,
+        setDocument: SetDocumentProtocol,
         dataviewService: DataviewServiceProtocol,
         showViewTypes: @escaping RoutingAction<DataviewView?>)
     {
-        self.setModel = setModel
+        self.setDocument = setDocument
         self.dataviewService = dataviewService
         self.showViewTypes = showViewTypes
-        self.cancellable = setModel.$dataView.sink { [weak self] dataView in
-            self?.updateRows(with: dataView)
-        }
+        self.setup()
     }
     
     func addButtonTapped() {
@@ -31,8 +29,8 @@ final class EditorSetViewPickerViewModel: ObservableObject {
     
     func move(from: IndexSet, to: Int) {
         from.forEach { viewFromIndex in
-            guard viewFromIndex != to, viewFromIndex < setModel.dataView.views.count else { return }
-            let view = setModel.dataView.views[viewFromIndex]
+            guard viewFromIndex != to, viewFromIndex < setDocument.dataView.views.count else { return }
+            let view = setDocument.dataView.views[viewFromIndex]
             let position = to > viewFromIndex ? to - 1 : to
             Task {
                 try await dataviewService.setPositionForView(view.id, position: position)
@@ -42,11 +40,17 @@ final class EditorSetViewPickerViewModel: ObservableObject {
     
     func delete(_ indexSet: IndexSet) {
         indexSet.forEach { deleteIndex in
-            guard deleteIndex < setModel.dataView.views.count else { return }
-            let view = setModel.dataView.views[deleteIndex]
+            guard deleteIndex < setDocument.dataView.views.count else { return }
+            let view = setDocument.dataView.views[deleteIndex]
             Task {
                 try await dataviewService.deleteView(view.id)
             }
+        }
+    }
+    
+    private func setup() {
+        cancellable = setDocument.dataviewPublisher.sink { [weak self] dataView in
+            self?.updateRows(with: dataView)
         }
     }
     
@@ -70,11 +74,11 @@ final class EditorSetViewPickerViewModel: ObservableObject {
     }
     
     private func handleTap(with id: String) {
-        setModel.updateActiveViewId(id)
+        setDocument.updateActiveViewId(id)
     }
     
     private func handleEditTap(with id: String) {
-        guard let activeView = setModel.dataView.views.first(where: { $0.id == id }) else {
+        guard let activeView = setDocument.dataView.views.first(where: { $0.id == id }) else {
             return
         }
         showViewTypes(activeView)

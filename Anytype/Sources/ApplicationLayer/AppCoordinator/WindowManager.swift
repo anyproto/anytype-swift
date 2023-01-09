@@ -1,27 +1,39 @@
 import UIKit
 import SwiftUI
+import AnytypeCore
 
 final class WindowManager {
     
     private let viewControllerProvider: ViewControllerProviderProtocol
     private let homeViewAssembly: HomeViewAssembly
+    private let homeWidgetsCoordinatorAssembly: HomeWidgetsCoordinatorAssemblyProtocol
     
     init(
         viewControllerProvider: ViewControllerProviderProtocol,
-        homeViewAssembly: HomeViewAssembly
+        homeViewAssembly: HomeViewAssembly,
+        homeWidgetsCoordinatorAssembly: HomeWidgetsCoordinatorAssemblyProtocol
     ) {
         self.viewControllerProvider = viewControllerProvider
         self.homeViewAssembly = homeViewAssembly
+        self.homeWidgetsCoordinatorAssembly = homeWidgetsCoordinatorAssembly
     }
 
+    private var homeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol?
     private weak var lastHomeViewModel: HomeViewModel?
 
     @MainActor
     func showHomeWindow() {
-        let homeView = homeViewAssembly.createHomeView()
-
-        self.lastHomeViewModel = homeView?.model
-        startNewRootView(homeView)
+        if FeatureFlags.homeWidgets {
+            let coordinator = homeWidgetsCoordinatorAssembly.make()
+            self.homeWidgetsCoordinator = coordinator
+            let homeView = coordinator.startFlow()
+            startNewRootView(homeView)
+        } else {
+            let homeView = homeViewAssembly.createHomeView()
+            
+            self.lastHomeViewModel = homeView?.model
+            startNewRootView(homeView)
+        }
     }
     
     func showAuthWindow() {
@@ -34,7 +46,11 @@ final class WindowManager {
 
     @MainActor
     func createAndShowNewObject() {
-        lastHomeViewModel?.createAndShowNewPage()
+        if FeatureFlags.homeWidgets {
+            // TODO: IOS-746
+        } else {
+            lastHomeViewModel?.createAndShowNewPage()
+        }
     }
     
     @MainActor

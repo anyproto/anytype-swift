@@ -56,7 +56,7 @@ extension StatusRelationView {
     private var maxOptions: Int {
         switch style {
         case .regular, .set, .featuredRelationBlock: return 0
-        case .filter, .setCollection: return 1
+        case .filter, .setCollection, .kanbanHeader: return 1
         }
     }
 }
@@ -67,7 +67,7 @@ struct StatusRelationView_Previews: PreviewProvider {
             options: [Relation.Status.Option(
                 id: "id",
                 text: "text",
-                color: UIColor.Text.amber
+                color: UIColor.Dark.amber
             )],
             hint: "hint",
             style: .regular(allowMultiLine: false)
