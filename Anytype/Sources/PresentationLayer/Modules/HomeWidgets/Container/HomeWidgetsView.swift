@@ -21,8 +21,8 @@ struct HomeWidgetsView: View {
                     }
                 }
                 .padding(.horizontal, 20)
-                .animation(.default, value: model.models.count)
             }
+            .animation(.default, value: model.models.count)
         }
         .onAppear {
             model.onAppear()
