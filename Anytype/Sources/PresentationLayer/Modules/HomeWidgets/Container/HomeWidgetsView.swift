@@ -32,7 +32,7 @@ struct HomeWidgetsView: View {
             .animation(.default, value: model.models.count)
         }
         .safeAreaInsetLegacy(edge: .bottom, spacing: 20) {
-            model.bottomProvider.view
+            model.bottomPanelProvider.view
         }
         .onAppear {
             model.onAppear()
@@ -54,7 +54,7 @@ struct HomeWidgetsView_Previews: PreviewProvider {
                 registry: DI.makeForPreview().widgetsDI.homeWidgetsRegistry(),
                 blockWidgetService: DI.makeForPreview().serviceLocator.blockWidgetService(),
                 accountManager: DI.makeForPreview().serviceLocator.accountManager(),
-                bottomProviderAssembly: DI.makeForPreview().widgetsDI.bottomProviderAssembly(),
+                bottomPanelProviderAssembly: DI.makeForPreview().widgetsDI.bottomPanelProviderAssembly(),
                 output: nil
             )
         )

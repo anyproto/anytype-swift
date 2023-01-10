@@ -2,7 +2,7 @@ import Foundation
 import BlocksModels
 
 @MainActor
-final class HomeWidgetsBottomPanelViewModel: ObservableObject {
+final class HomeBottomPanelViewModel: ObservableObject {
     
     struct Button: Identifiable {
         let id: String
@@ -15,7 +15,7 @@ final class HomeWidgetsBottomPanelViewModel: ObservableObject {
     private let toastPresenter: ToastPresenterProtocol
     private let accountManager: AccountManager
     private let subscriptionService: SubscriptionsServiceProtocol
-    private let subscriotionBuilder: HomeWidgetsBottomSubscriptionDataBuilderProtocol
+    private let subscriotionBuilder: HomeBottomPanelSubscriptionDataBuilderProtocol
     private var subscriptionData: [ObjectDetails] = []
     
     // MARK: - Public properties
@@ -26,7 +26,7 @@ final class HomeWidgetsBottomPanelViewModel: ObservableObject {
         toastPresenter: ToastPresenterProtocol,
         accountManager: AccountManager,
         subscriptionService: SubscriptionsServiceProtocol,
-        subscriotionBuilder: HomeWidgetsBottomSubscriptionDataBuilderProtocol
+        subscriotionBuilder: HomeBottomPanelSubscriptionDataBuilderProtocol
     ) {
         self.toastPresenter = toastPresenter
         self.accountManager = accountManager
@@ -40,13 +40,13 @@ final class HomeWidgetsBottomPanelViewModel: ObservableObject {
     
     private func updateModels() {
         buttons = [
-            HomeWidgetsBottomPanelViewModel.Button(id: "search", image: .imageAsset(.Widget.search), onTap: { [weak self] in
+            HomeBottomPanelViewModel.Button(id: "search", image: .imageAsset(.Widget.search), onTap: { [weak self] in
                 self?.toastPresenter.show(message: "On tap search")
             }),
-            HomeWidgetsBottomPanelViewModel.Button(id: "new", image: .imageAsset(.Widget.add), onTap: { [weak self] in
+            HomeBottomPanelViewModel.Button(id: "new", image: .imageAsset(.Widget.add), onTap: { [weak self] in
                 self?.toastPresenter.show(message: "On tap create object")
             }),
-            HomeWidgetsBottomPanelViewModel.Button(id: "space", image: subscriptionData.first?.objectIconImage ?? .placeholder(nil), onTap: { [weak self] in
+            HomeBottomPanelViewModel.Button(id: "space", image: subscriptionData.first?.objectIconImage ?? .placeholder(nil), onTap: { [weak self] in
                 self?.toastPresenter.show(message: "On tap space")
            })
         ]

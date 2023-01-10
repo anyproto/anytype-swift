@@ -12,21 +12,21 @@ final class HomeWidgetsViewModel: ObservableObject {
     private weak var output: HomeWidgetsModuleOutput?
     
     @Published var models: [HomeWidgetProviderProtocol] = []
-    @Published var bottomProvider: HomeWidgetProviderProtocol
+    @Published var bottomPanelProvider: HomeWidgetProviderProtocol
     
     init(
         widgetObject: HomeWidgetsObjectProtocol,
         registry: HomeWidgetsRegistryProtocol,
         blockWidgetService: BlockWidgetServiceProtocol,
         accountManager: AccountManager,
-        bottomProviderAssembly: HomeWidgetsBottomProviderAssemblyProtocol,
+        bottomPanelProviderAssembly: HomeBottomPanelProviderAssemblyProtocol,
         output: HomeWidgetsModuleOutput?
     ) {
         self.widgetObject = widgetObject
         self.registry = registry
         self.blockWidgetService = blockWidgetService
         self.accountManager = accountManager
-        self.bottomProvider = bottomProviderAssembly.make()
+        self.bottomPanelProvider = bottomPanelProviderAssembly.make()
         self.output = output
     }
     

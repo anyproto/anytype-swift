@@ -1,9 +1,9 @@
 import Foundation
 import SwiftUI
 
-struct HomeWidgetsBottomPanelView: View {
+struct HomeBottomPanelView: View {
     
-    let model: HomeWidgetsBottomPanelViewModel
+    let model: HomeBottomPanelViewModel
     
     var body: some View {
         HStack(alignment: .center, spacing: 40) {

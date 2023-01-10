@@ -1,12 +1,12 @@
 import Foundation
 import SwiftUI
 
-protocol HomeWidgetsBottomModuleAssemblyProtocol {
+protocol HomeBottomPanelModuleAssemblyProtocol {
     @MainActor
     func make() -> AnyView
 }
 
-final class HomeWidgetsBottomModuleAssembly: HomeWidgetsBottomModuleAssemblyProtocol {
+final class HomeBottomPanelModuleAssembly: HomeBottomPanelModuleAssemblyProtocol {
     
     private let serviceLocator: ServiceLocator
     private let uiHelpersDI: UIHelpersDIProtocol
@@ -16,15 +16,16 @@ final class HomeWidgetsBottomModuleAssembly: HomeWidgetsBottomModuleAssemblyProt
         self.uiHelpersDI = uiHelpersDI
     }
     
-    // MARK: - HomeWidgetsBottomModuleAssemblyProtocol
+    // MARK: - HomeBottomPanelModuleAssemblyProtocol
     
     @MainActor
     func make() -> AnyView {
-        let model = HomeWidgetsBottomPanelViewModel(
+        let model = HomeBottomPanelViewModel(
             toastPresenter: uiHelpersDI.toastPresenter,
             accountManager: serviceLocator.accountManager(),
-            subscriptionService: serviceLocator.subscriptionService()
+            subscriptionService: serviceLocator.subscriptionService(),
+            subscriotionBuilder: HomeBottomPanelSubscriptionDataBuilder()
         )
-        return HomeWidgetsBottomPanelView(model: model).eraseToAnyView()
+        return HomeBottomPanelView(model: model).eraseToAnyView()
     }
 }

@@ -1,17 +1,17 @@
 import Foundation
 import BlocksModels
 
-protocol HomeWidgetsBottomSubscriptionDataBuilderProtocol {
+protocol HomeBottomPanelSubscriptionDataBuilderProtocol {
     func build(objectId: String) -> SubscriptionData
 }
 
 fileprivate extension SubscriptionId {
-    static var homeBottom = SubscriptionId(value: "HomeWidgetsBottomSubscription")
+    static var homeBottom = SubscriptionId(value: "HomeBottomPanelSubscription")
 }
 
-final class HomeWidgetsBottomSubscriptionDataBuilder: HomeWidgetsBottomSubscriptionDataBuilderProtocol {
+final class HomeBottomPanelSubscriptionDataBuilder: HomeBottomPanelSubscriptionDataBuilderProtocol {
     
-    // MARK: - HomeWidgetsBottomSubscriptionDataBuilderProtocol
+    // MARK: - HomeBottomPanelSubscriptionDataBuilderProtocol
     
     func build(objectId: String) -> SubscriptionData {
         let keys = [
