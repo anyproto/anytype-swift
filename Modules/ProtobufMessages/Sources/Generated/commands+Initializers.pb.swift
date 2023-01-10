@@ -2675,9 +2675,15 @@ extension Anytype_Rpc.Object.Import.Request.BookmarksParams {
     }
 }
 
-extension Anytype_Rpc.Object.Import.Request.NotionParams {
+extension Anytype_Rpc.Object.Import.Request.MarkdownParams {
     public init(path: String = String()) {
         self.path = path
+    }
+}
+
+extension Anytype_Rpc.Object.Import.Request.NotionParams {
+    public init(apiKey: String = String()) {
+        self.apiKey = apiKey
     }
 }
 
