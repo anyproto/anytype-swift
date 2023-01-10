@@ -758,8 +758,8 @@ extension EditorRouter {
 
 extension EditorRouter: ObjectSettingsModuleDelegate {
     func didCreateLinkToItself(selfName: String, in objectId: BlockId) {
-        let p1String = selfName + " " + Loc.Editor.Toast.linkedTo
-        toastPresenter.showObjectCompositeAlert(p1: p1String, objectId: objectId) { [weak self] in
+        UIApplication.shared.hideKeyboard()
+        toastPresenter.showObjectName(selfName, middleAction: Loc.Editor.Toast.linkedTo, secondObjectId: objectId) { [weak self] in
             self?.showPage(data: .init(pageId: objectId, type: .page))
         }
     }
