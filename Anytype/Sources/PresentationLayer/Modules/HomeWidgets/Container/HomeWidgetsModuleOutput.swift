@@ -4,4 +4,5 @@ import Foundation
 protocol HomeWidgetsModuleOutput: AnyObject {
     func onOldHomeSelected()
     func onCreateWidgetSelected()
+    func onSpaceIconChangeSelected(objectId: String)
 }

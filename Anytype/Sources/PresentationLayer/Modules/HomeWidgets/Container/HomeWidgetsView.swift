@@ -19,6 +19,9 @@ struct HomeWidgetsView: View {
                     Button("Show old home") {
                         model.onDisableNewHomeTap()
                     }
+                    Button("Edit space icon") {
+                        model.onSpaceIconChangeTap()
+                    }
                     if #available(iOS 15.0, *) {} else {
                         // For safeAreaInsetLegacy
                         Color.clear.frame(height: 72)
@@ -29,7 +32,7 @@ struct HomeWidgetsView: View {
             .animation(.default, value: model.models.count)
         }
         .safeAreaInsetLegacy(edge: .bottom, spacing: 20) {
-            HomeWidgetsBottomPanelView(model: model.bottomModel)
+            model.bottomProvider.view
         }
         .onAppear {
             model.onAppear()
@@ -50,7 +53,8 @@ struct HomeWidgetsView_Previews: PreviewProvider {
                 ),
                 registry: DI.makeForPreview().widgetsDI.homeWidgetsRegistry(),
                 blockWidgetService: DI.makeForPreview().serviceLocator.blockWidgetService(),
-                toastPresenter: DI.makeForPreview().uihelpersDI.toastPresenter,
+                accountManager: DI.makeForPreview().serviceLocator.accountManager(),
+                bottomProviderAssembly: DI.makeForPreview().widgetsDI.bottomProviderAssembly(),
                 output: nil
             )
         )

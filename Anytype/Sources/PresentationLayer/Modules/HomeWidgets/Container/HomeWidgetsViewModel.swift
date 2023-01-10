@@ -8,23 +8,25 @@ final class HomeWidgetsViewModel: ObservableObject {
     private let widgetObject: HomeWidgetsObjectProtocol
     private let registry: HomeWidgetsRegistryProtocol
     private let blockWidgetService: BlockWidgetServiceProtocol
-    private let toastPresenter: ToastPresenterProtocol
+    private let accountManager: AccountManager
     private weak var output: HomeWidgetsModuleOutput?
     
     @Published var models: [HomeWidgetProviderProtocol] = []
-    @Published var bottomModel: HomeWidgetsBottomPanelViewModel = HomeWidgetsBottomPanelViewModel(buttons: [])
+    @Published var bottomProvider: HomeWidgetProviderProtocol
     
     init(
         widgetObject: HomeWidgetsObjectProtocol,
         registry: HomeWidgetsRegistryProtocol,
         blockWidgetService: BlockWidgetServiceProtocol,
-        toastPresenter: ToastPresenterProtocol,
+        accountManager: AccountManager,
+        bottomProviderAssembly: HomeWidgetsBottomProviderAssemblyProtocol,
         output: HomeWidgetsModuleOutput?
     ) {
         self.widgetObject = widgetObject
         self.registry = registry
         self.blockWidgetService = blockWidgetService
-        self.toastPresenter = toastPresenter
+        self.accountManager = accountManager
+        self.bottomProvider = bottomProviderAssembly.make()
         self.output = output
     }
     
@@ -50,6 +52,10 @@ final class HomeWidgetsViewModel: ObservableObject {
         output?.onCreateWidgetSelected()
     }
     
+    func onSpaceIconChangeTap() {
+        output?.onSpaceIconChangeSelected(objectId: accountManager.account.info.accountSpaceId)
+    }
+    
     // MARK: - Private
     
     private func setupInitialState() async throws {
@@ -59,17 +65,5 @@ final class HomeWidgetsViewModel: ObservableObject {
                 return self.registry.providers(blocks: blocks, widgetObject: self.widgetObject)
             }
             .assign(to: &$models)
-        
-        bottomModel = HomeWidgetsBottomPanelViewModel(buttons: [
-            HomeWidgetsBottomPanelViewModel.Button(id: "search", image: .Widget.search, onTap: { [weak self] in
-                self?.toastPresenter.show(message: "On tap search")
-            }),
-            HomeWidgetsBottomPanelViewModel.Button(id: "new", image: .Widget.add, onTap: { [weak self] in
-                self?.toastPresenter.show(message: "On tap create object")
-            }),
-            HomeWidgetsBottomPanelViewModel.Button(id: "space", image: .Widget.add, onTap: { [weak self] in
-                self?.toastPresenter.show(message: "On tap space")
-           })
-        ])
     }
 }

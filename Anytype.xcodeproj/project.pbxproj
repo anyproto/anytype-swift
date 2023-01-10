@@ -532,6 +532,9 @@
 		2AF4C3E3295DE1BD00FD7153 /* CreateWidgetCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF4C3E2295DE1BD00FD7153 /* CreateWidgetCoordinator.swift */; };
 		2AF4C3E5295DE3CB00FD7153 /* CreateWidgetCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF4C3E4295DE3CB00FD7153 /* CreateWidgetCoordinatorAssembly.swift */; };
 		2AF605A128F417210078213D /* EditorBottomNavigationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF605A028F417210078213D /* EditorBottomNavigationManager.swift */; };
+		2AFA110A296C44BF0055422F /* HomeWidgetsBottomModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFA1109296C44BF0055422F /* HomeWidgetsBottomModuleAssembly.swift */; };
+		2AFA110E296C672A0055422F /* HomeWidgetsBottomProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFA110D296C672A0055422F /* HomeWidgetsBottomProvider.swift */; };
+		2AFA1110296C67B50055422F /* HomeWidgetsBottomProviderAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFA110F296C67B50055422F /* HomeWidgetsBottomProviderAssembly.swift */; };
 		2AFB541D28621776004F7458 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFB541C28621776004F7458 /* Strings.swift */; };
 		2AFB542328634FC5004F7458 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 2AFB542128634FC5004F7458 /* Localizable.stringsdict */; };
 		2AFB5467286997C6004F7458 /* DataviewType+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFB5466286997C6004F7458 /* DataviewType+Extensions.swift */; };
@@ -1833,6 +1836,9 @@
 		2AF4C3E2295DE1BD00FD7153 /* CreateWidgetCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWidgetCoordinator.swift; sourceTree = "<group>"; };
 		2AF4C3E4295DE3CB00FD7153 /* CreateWidgetCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWidgetCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		2AF605A028F417210078213D /* EditorBottomNavigationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorBottomNavigationManager.swift; sourceTree = "<group>"; };
+		2AFA1109296C44BF0055422F /* HomeWidgetsBottomModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWidgetsBottomModuleAssembly.swift; sourceTree = "<group>"; };
+		2AFA110D296C672A0055422F /* HomeWidgetsBottomProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWidgetsBottomProvider.swift; sourceTree = "<group>"; };
+		2AFA110F296C67B50055422F /* HomeWidgetsBottomProviderAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWidgetsBottomProviderAssembly.swift; sourceTree = "<group>"; };
 		2AFB541C28621776004F7458 /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		2AFB542228634FC5004F7458 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		2AFB5466286997C6004F7458 /* DataviewType+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataviewType+Extensions.swift"; sourceTree = "<group>"; };
@@ -4602,21 +4608,23 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
-		2A4E5C88296C0B76002BB71B /* Views */ = {
+		2A4E5C88296C0B76002BB71B /* Submodules */ = {
 			isa = PBXGroup;
 			children = (
-				2A4E5C8B296C0BEF002BB71B /* HomeWidgetsBottomPanelView */,
+				2A4E5C8B296C0BEF002BB71B /* HomeWidgetsBottomPanel */,
 			);
-			path = Views;
+			path = Submodules;
 			sourceTree = "<group>";
 		};
-		2A4E5C8B296C0BEF002BB71B /* HomeWidgetsBottomPanelView */ = {
+		2A4E5C8B296C0BEF002BB71B /* HomeWidgetsBottomPanel */ = {
 			isa = PBXGroup;
 			children = (
+				2AFA110C296C67090055422F /* Provider */,
+				2AFA1109296C44BF0055422F /* HomeWidgetsBottomModuleAssembly.swift */,
 				2A4E5C89296C0BAD002BB71B /* HomeWidgetsBottomPanelView.swift */,
 				2A4E5C8C296C0BFF002BB71B /* HomeWidgetsBottomPanelViewModel.swift */,
 			);
-			path = HomeWidgetsBottomPanelView;
+			path = HomeWidgetsBottomPanel;
 			sourceTree = "<group>";
 		};
 		2A4FFBBC289D1B64004938DF /* Logger */ = {
@@ -4821,7 +4829,7 @@
 		2AAF343F29559DAD00921320 /* Container */ = {
 			isa = PBXGroup;
 			children = (
-				2A4E5C88296C0B76002BB71B /* Views */,
+				2A4E5C88296C0B76002BB71B /* Submodules */,
 				2AAF344729599C4200921320 /* Models */,
 				2AAF343D29559DA600921320 /* HomeWidgetsRegistry.swift */,
 				2A9486532950A3E7007A5586 /* HomeWidgetsModuleAssembly.swift */,
@@ -4976,6 +4984,15 @@
 				2AF4C3E4295DE3CB00FD7153 /* CreateWidgetCoordinatorAssembly.swift */,
 			);
 			path = CreateWidgetFlow;
+			sourceTree = "<group>";
+		};
+		2AFA110C296C67090055422F /* Provider */ = {
+			isa = PBXGroup;
+			children = (
+				2AFA110D296C672A0055422F /* HomeWidgetsBottomProvider.swift */,
+				2AFA110F296C67B50055422F /* HomeWidgetsBottomProviderAssembly.swift */,
+			);
+			path = Provider;
 			sourceTree = "<group>";
 		};
 		2AFE04B128F9434C008647E0 /* LinkToObjectFlow */ = {
@@ -8098,6 +8115,7 @@
 				C9A59DEA27E0F40B0063D3E1 /* TextBlockLeadingStyle.swift in Sources */,
 				3D829172265E50190007C152 /* RedactedText.swift in Sources */,
 				C9EF85172938E6A50001E6EC /* TappableLabel.swift in Sources */,
+				2AFA1110296C67B50055422F /* HomeWidgetsBottomProviderAssembly.swift in Sources */,
 				2EC9426E2901946800DE91E4 /* SetKanbanColumn.swift in Sources */,
 				3D932D4626317E3A00C7D1EA /* HomeTabsView.swift in Sources */,
 				123FDACE26C1361B00F6F44B /* ObjectHeader.swift in Sources */,
@@ -8596,6 +8614,7 @@
 				125B6ECF26F235F400BCD7D6 /* SlashMenuViewController.swift in Sources */,
 				2A03039F28ABD4BD002EFC46 /* SystemURLService.swift in Sources */,
 				2E2D256128880C8D00E3DFD1 /* SetFiltersSelectionViewState.swift in Sources */,
+				2AFA110E296C672A0055422F /* HomeWidgetsBottomProvider.swift in Sources */,
 				2AF4C3DE295D82A700FD7153 /* WidgetsDI.swift in Sources */,
 				12F6072D26D7F6E500876C92 /* SwiftUIObjectIconImageView.swift in Sources */,
 				03C5C54D22E0A0C200DD91DE /* InternetProtocol.swift in Sources */,
@@ -8938,6 +8957,7 @@
 				2A4919A929530B0F00FCEAC9 /* HomeWidgetProviderProtocol.swift in Sources */,
 				2A9486582950A494007A5586 /* HomeWidgetsViewModel.swift in Sources */,
 				12DE4060264AE455007B5074 /* LayoutAnchorType.swift in Sources */,
+				2AFA110A296C44BF0055422F /* HomeWidgetsBottomModuleAssembly.swift in Sources */,
 				3D93851426FAED69001C137F /* ObjectIconImageUsecase+Font.swift in Sources */,
 				3D24912B27BD271900821595 /* MentionMarkupEventProvider.swift in Sources */,
 				3DB1CA5A272BEF3B000D2779 /* WallpaperPickerView.swift in Sources */,

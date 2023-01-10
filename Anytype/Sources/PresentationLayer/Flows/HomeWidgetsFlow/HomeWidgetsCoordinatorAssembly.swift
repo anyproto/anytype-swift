@@ -34,7 +34,8 @@ final class HomeWidgetsCoordinatorAssembly: HomeWidgetsCoordinatorAssemblyProtoc
             accountManager: serviceLocator.accountManager(),
             navigationContext: uiHelpersDI.commonNavigationContext,
             windowManager: coordinatorsID.windowManager,
-            createWidgetCoordinator: coordinatorsID.createWidget.make()
+            createWidgetCoordinator: coordinatorsID.createWidget.make(),
+            objectIconPickerModuleAssembly: modulesDI.objectIconPicker
         )
     }
 }
