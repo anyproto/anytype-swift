@@ -279,7 +279,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
                     move(position: .bottom, targetId: targetDocument.objectId, dropTargetId: id)
                     
                     self?.toastPresenter.showObjectCompositeAlert(
-                        p1: Loc.Editor.Toast.movedTo,
+                        prefixText: Loc.Editor.Toast.movedTo,
                         objectId: targetDocument.objectId,
                         tapHandler: { [weak self] in
                             self?.router.showPage(data: .init(pageId: content.targetBlockID, type: .page))
@@ -349,6 +349,14 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
                     self?.actionHandler.moveToPage(blockId: $0.blockId, pageId: pageId)
                 }
                 self?.editingState = .editing
+                
+                self?.toastPresenter.showObjectCompositeAlert(
+                    prefixText: Loc.Editor.Toast.movedTo,
+                    objectId: pageId,
+                    tapHandler: { [weak self] in
+                        self?.router.showPage(data: .init(pageId: pageId, type: .page))
+                    }
+                )
             }
             return
         case .move:

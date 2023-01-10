@@ -4,6 +4,7 @@ import Combine
 
 protocol ToastPresenterProtocol: AnyObject {
     func show(message: String)
+    func show(message: String, mode: ToastPresenterMode)
     func show(message: NSAttributedString, mode: ToastPresenterMode)
     func dismiss(completion: @escaping () -> Void)
 }
@@ -38,12 +39,19 @@ class ToastPresenter: ToastPresenterProtocol {
     // MARK: - ToastPresenterProtocol
     
     func show(message: String) {
-        show(message: .init(string: message), mode: .aboveKeyboard)
+        show(message: message, mode: .aboveKeyboard)
+    }
+    
+    func show(message: String, mode: ToastPresenterMode) {
+        let attributedString = NSAttributedString(
+            string: message,
+            attributes: ToastView.defaultAttributes
+        )
+        show(message: attributedString, mode: mode)
     }
     
     func show(message: NSAttributedString, mode: ToastPresenterMode) {
         let attributedMessage = NSMutableAttributedString(attributedString: message)
-        attributedMessage.addAttributes(Self.defaultAttributes, range: attributedMessage.wholeRange)
         
         toastView.setMessage(attributedMessage)
         
@@ -93,11 +101,5 @@ class ToastPresenter: ToastPresenterProtocol {
         }
     
         return bottomModeOffset + 8
-    }
-}
-
-extension ToastPresenter {
-    static var defaultAttributes: [NSAttributedString.Key : Any] {
-        [.font: UIFont.caption1Medium, .foregroundColor: UIColor.textWhite]
     }
 }

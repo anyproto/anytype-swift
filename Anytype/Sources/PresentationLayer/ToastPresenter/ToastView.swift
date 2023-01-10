@@ -28,7 +28,7 @@ final class ToastView: UIView {
     private func setupView() {
         label.textColor = .textPrimary
         label.textAlignment = .center;
-        label.font = AnytypeFont.caption1Medium.uiKitFont
+        label.font = AnytypeFont.caption1Regular.uiKitFont
         label.numberOfLines = 0
 
         backgroundColor = .clear
@@ -50,8 +50,18 @@ final class ToastView: UIView {
         
         wrapperView.addSubview(label) {
             $0.pinToSuperview(
-                insets: .init(top: 12, left: 24, bottom: 12, right: 24)
+                insets: .init(top: 12, left: 16, bottom: 12, right: 16)
             )
         }
+    }
+}
+
+extension ToastView {
+    static var defaultAttributes: [NSAttributedString.Key : Any] {
+        [.foregroundColor: UIColor.textWhite, .font: AnytypeFont.caption1Regular.uiKitFont]
+    }
+    
+    static var objectAttributes: [NSAttributedString.Key : Any] {
+        [.foregroundColor: UIColor.textWhite, .font: AnytypeFont.caption1Medium.uiKitFont]
     }
 }

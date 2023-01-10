@@ -75,7 +75,7 @@ final class ObjectActionsViewModel: ObservableObject {
 
 
         let onObjectSelection: (BlockId) -> Void = { objectId in
-            Task { [weak self] in
+            Task { @MainActor [weak self] in
                 guard let self = self else { return }
                 let targetDocument = BaseDocument(objectId: objectId)
                 try? await targetDocument.open()
