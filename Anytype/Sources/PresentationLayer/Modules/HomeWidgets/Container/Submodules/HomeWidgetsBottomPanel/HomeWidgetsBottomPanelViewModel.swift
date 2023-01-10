@@ -15,6 +15,7 @@ final class HomeWidgetsBottomPanelViewModel: ObservableObject {
     private let toastPresenter: ToastPresenterProtocol
     private let accountManager: AccountManager
     private let subscriptionService: SubscriptionsServiceProtocol
+    private let subscriotionBuilder: HomeWidgetsBottomSubscriptionDataBuilderProtocol
     private var subscriptionData: [ObjectDetails] = []
     
     // MARK: - Public properties
@@ -24,11 +25,13 @@ final class HomeWidgetsBottomPanelViewModel: ObservableObject {
     init(
         toastPresenter: ToastPresenterProtocol,
         accountManager: AccountManager,
-        subscriptionService: SubscriptionsServiceProtocol
+        subscriptionService: SubscriptionsServiceProtocol,
+        subscriotionBuilder: HomeWidgetsBottomSubscriptionDataBuilderProtocol
     ) {
         self.toastPresenter = toastPresenter
         self.accountManager = accountManager
         self.subscriptionService = subscriptionService
+        self.subscriotionBuilder = subscriotionBuilder
         updateModels()
         setupSubscription()
     }
@@ -50,25 +53,7 @@ final class HomeWidgetsBottomPanelViewModel: ObservableObject {
     }
     
     private func setupSubscription() {
-        let data = SubscriptionData.objects(
-            SubscriptionData.Object(
-                identifier: SubscriptionId(value: "aaaa"),
-                objectIds: [accountManager.account.info.accountSpaceId],
-                keys: [
-                    BundledRelationKey.id.rawValue,
-                    BundledRelationKey.name.rawValue,
-                    BundledRelationKey.snippet.rawValue,
-                    BundledRelationKey.links.rawValue,
-                    BundledRelationKey.type.rawValue,
-                    BundledRelationKey.layout.rawValue,
-                    BundledRelationKey.iconImage.rawValue,
-                    BundledRelationKey.iconEmoji.rawValue,
-                    BundledRelationKey.isDeleted.rawValue,
-                    BundledRelationKey.isArchived.rawValue,
-                ]
-                    
-            ))
-        
+        let data = subscriotionBuilder.build(objectId: accountManager.account.info.accountSpaceId)
         subscriptionService.startSubscription(data: data, update: { [weak self] in self?.handleEvent(update: $1) })
     }
     

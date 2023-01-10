@@ -535,6 +535,7 @@
 		2AFA110A296C44BF0055422F /* HomeWidgetsBottomModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFA1109296C44BF0055422F /* HomeWidgetsBottomModuleAssembly.swift */; };
 		2AFA110E296C672A0055422F /* HomeWidgetsBottomProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFA110D296C672A0055422F /* HomeWidgetsBottomProvider.swift */; };
 		2AFA1110296C67B50055422F /* HomeWidgetsBottomProviderAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFA110F296C67B50055422F /* HomeWidgetsBottomProviderAssembly.swift */; };
+		2AFA1113296DBBD60055422F /* HomeWidgetsBottomSubscriptionDataBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFA1112296DBBD60055422F /* HomeWidgetsBottomSubscriptionDataBuilder.swift */; };
 		2AFB541D28621776004F7458 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFB541C28621776004F7458 /* Strings.swift */; };
 		2AFB542328634FC5004F7458 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 2AFB542128634FC5004F7458 /* Localizable.stringsdict */; };
 		2AFB5467286997C6004F7458 /* DataviewType+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFB5466286997C6004F7458 /* DataviewType+Extensions.swift */; };
@@ -1839,6 +1840,7 @@
 		2AFA1109296C44BF0055422F /* HomeWidgetsBottomModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWidgetsBottomModuleAssembly.swift; sourceTree = "<group>"; };
 		2AFA110D296C672A0055422F /* HomeWidgetsBottomProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWidgetsBottomProvider.swift; sourceTree = "<group>"; };
 		2AFA110F296C67B50055422F /* HomeWidgetsBottomProviderAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWidgetsBottomProviderAssembly.swift; sourceTree = "<group>"; };
+		2AFA1112296DBBD60055422F /* HomeWidgetsBottomSubscriptionDataBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWidgetsBottomSubscriptionDataBuilder.swift; sourceTree = "<group>"; };
 		2AFB541C28621776004F7458 /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		2AFB542228634FC5004F7458 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		2AFB5466286997C6004F7458 /* DataviewType+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataviewType+Extensions.swift"; sourceTree = "<group>"; };
@@ -4619,6 +4621,7 @@
 		2A4E5C8B296C0BEF002BB71B /* HomeWidgetsBottomPanel */ = {
 			isa = PBXGroup;
 			children = (
+				2AFA1111296DBBBF0055422F /* Subscriptions */,
 				2AFA110C296C67090055422F /* Provider */,
 				2AFA1109296C44BF0055422F /* HomeWidgetsBottomModuleAssembly.swift */,
 				2A4E5C89296C0BAD002BB71B /* HomeWidgetsBottomPanelView.swift */,
@@ -4993,6 +4996,14 @@
 				2AFA110F296C67B50055422F /* HomeWidgetsBottomProviderAssembly.swift */,
 			);
 			path = Provider;
+			sourceTree = "<group>";
+		};
+		2AFA1111296DBBBF0055422F /* Subscriptions */ = {
+			isa = PBXGroup;
+			children = (
+				2AFA1112296DBBD60055422F /* HomeWidgetsBottomSubscriptionDataBuilder.swift */,
+			);
+			path = Subscriptions;
 			sourceTree = "<group>";
 		};
 		2AFE04B128F9434C008647E0 /* LinkToObjectFlow */ = {
@@ -8113,6 +8124,7 @@
 				3D24913527BD271900821595 /* EventsBunch.swift in Sources */,
 				3D24912E27BD271900821595 /* LocalEventConverter.swift in Sources */,
 				C9A59DEA27E0F40B0063D3E1 /* TextBlockLeadingStyle.swift in Sources */,
+				2AFA1113296DBBD60055422F /* HomeWidgetsBottomSubscriptionDataBuilder.swift in Sources */,
 				3D829172265E50190007C152 /* RedactedText.swift in Sources */,
 				C9EF85172938E6A50001E6EC /* TappableLabel.swift in Sources */,
 				2AFA1110296C67B50055422F /* HomeWidgetsBottomProviderAssembly.swift in Sources */,
