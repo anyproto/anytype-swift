@@ -55,21 +55,15 @@ struct DataViewBlockViewModel: BlockViewModelProtocol {
     }
 
     func didSelectRowInTableView(editorEditingState: EditorEditingState) {
-        openInlineSet(
-            EditorScreenData(
-                pageId: "bafybbojoxlfqbvo2qs2kbwipm72huy4dk5v2di57onks5kwaasgrka7g",
-                type: .set(blockId: info.id, targetObjectID: objectDetails?.id)
+        if let pageId = info.configurationData.parentId {
+            openInlineSet(
+                EditorScreenData(
+                    pageId: pageId,
+                    type: .set(blockId: info.id, targetObjectID: objectDetails?.id)
+                )
             )
-        )
-//        if let pageId = info.configurationData.parentId {
-//            openInlineSet(
-//                EditorScreenData(
-//                    pageId: pageId,
-//                    type: .set(blockId: info.id, targetObjectID: objectDetails?.id)
-//                )
-//            )
-//        } else if objectDetails == nil {
-//            showFailureToast(Loc.Content.DataView.InlineSet.Toast.failure)
-//        }
+        } else if objectDetails == nil {
+            showFailureToast(Loc.Content.DataView.InlineSet.Toast.failure)
+        }
     }
 }
