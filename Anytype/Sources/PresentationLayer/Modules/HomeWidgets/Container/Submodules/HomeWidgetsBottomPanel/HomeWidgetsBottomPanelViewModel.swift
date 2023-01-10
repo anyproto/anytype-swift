@@ -6,7 +6,7 @@ final class HomeWidgetsBottomPanelViewModel: ObservableObject {
     
     struct Button: Identifiable {
         let id: String
-        let image: ImageAsset
+        let image: ObjectIconImage
         let onTap: () -> Void
     }
     
@@ -15,6 +15,7 @@ final class HomeWidgetsBottomPanelViewModel: ObservableObject {
     private let toastPresenter: ToastPresenterProtocol
     private let accountManager: AccountManager
     private let subscriptionService: SubscriptionsServiceProtocol
+    private var subscriptionData: [ObjectDetails] = []
     
     // MARK: - Public properties
     
@@ -28,21 +29,21 @@ final class HomeWidgetsBottomPanelViewModel: ObservableObject {
         self.toastPresenter = toastPresenter
         self.accountManager = accountManager
         self.subscriptionService = subscriptionService
-        prepareModels()
+        updateModels()
         setupSubscription()
     }
         
     // MARK: - Private
     
-    private func prepareModels() {
+    private func updateModels() {
         buttons = [
-            HomeWidgetsBottomPanelViewModel.Button(id: "search", image: .Widget.search, onTap: { [weak self] in
+            HomeWidgetsBottomPanelViewModel.Button(id: "search", image: .imageAsset(.Widget.search), onTap: { [weak self] in
                 self?.toastPresenter.show(message: "On tap search")
             }),
-            HomeWidgetsBottomPanelViewModel.Button(id: "new", image: .Widget.add, onTap: { [weak self] in
+            HomeWidgetsBottomPanelViewModel.Button(id: "new", image: .imageAsset(.Widget.add), onTap: { [weak self] in
                 self?.toastPresenter.show(message: "On tap create object")
             }),
-            HomeWidgetsBottomPanelViewModel.Button(id: "space", image: .Widget.add, onTap: { [weak self] in
+            HomeWidgetsBottomPanelViewModel.Button(id: "space", image: subscriptionData.first?.objectIconImage ?? .placeholder(nil), onTap: { [weak self] in
                 self?.toastPresenter.show(message: "On tap space")
            })
         ]
@@ -72,5 +73,7 @@ final class HomeWidgetsBottomPanelViewModel: ObservableObject {
     }
     
     private func handleEvent(update: SubscriptionUpdate) {
+        subscriptionData.applySubscriptionUpdate(update)
+        updateModels()
     }
 }

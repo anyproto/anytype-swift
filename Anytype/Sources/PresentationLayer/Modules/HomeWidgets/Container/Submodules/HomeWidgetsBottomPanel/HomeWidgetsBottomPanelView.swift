@@ -9,7 +9,7 @@ struct HomeWidgetsBottomPanelView: View {
         HStack(alignment: .center, spacing: 40) {
             ForEach(model.buttons) { button in
                 Button(action: button.onTap, label: {
-                    Image(asset: button.image)
+                    SwiftUIObjectIconImageView(iconImage: button.image, usecase: .homeBottomPanel)
                 })
                 .frame(width: 32, height: 32)
             }
