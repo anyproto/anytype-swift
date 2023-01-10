@@ -8,41 +8,27 @@ extension ToastPresenterProtocol {
         secondObjectId: BlockId,
         tapHandler: @escaping () -> Void
     ) {
+        let objectAttributedString = NSMutableAttributedString(
+            string: firstObjectName.trimmed(numberOfCharacters: 16),
+            attributes: ToastView.objectAttributes
+        )
+        objectAttributedString.append(.init(string: " "))
+        objectAttributedString.append(.init(string: middleAction, attributes: ToastView.defaultAttributes))
+        
         showObjectCompositeAlert(
-            p1: firstObjectName.trimmed(numberOfCharacters: 16) + " " + middleAction,
+            p1: objectAttributedString,
             objectId: secondObjectId,
             tapHandler: tapHandler
         )
     }
     
-    func showObjectCompositeAlert(
-        p1: String,
-        objectId: BlockId,
-        tapHandler: @escaping () -> Void
-    ) {
-        Task { @MainActor [weak self] in
-            guard let details = await retrieveObjectDetails(objectId: objectId) else {
-                return
-            }
-            
-            let iconObjectAttributedString = await createAttributedString(from: details)
-            
-            let attributedString = NSMutableAttributedString(string: p1 + "  ")
-            
-            let tappableAttributedString = NSMutableAttributedString(attributedString: iconObjectAttributedString)
-            
-            let dismissableTapHandler: () -> Void = { [weak self] in
-                self?.dismiss { tapHandler() }
-            }
-            
-            tappableAttributedString.addAttributes([.tapHandler: dismissableTapHandler], range: tappableAttributedString.wholeRange)
-            
-            attributedString.append(tappableAttributedString)
-            
-            self?.show(message: attributedString, mode: .aboveKeyboard)
-        }
+    func showObjectCompositeAlert(prefixText: String, objectId: BlockId, tapHandler: @escaping () -> Void) {
+        showObjectCompositeAlert(
+            p1: .init(string: prefixText, attributes: ToastView.defaultAttributes),
+            objectId: objectId,
+            tapHandler: tapHandler
+        )
     }
-    
     
     /// Alert with a tick image at the first place
     func showSuccessAlert(message: String) {
@@ -59,10 +45,42 @@ extension ToastPresenterProtocol {
         let attributedString = NSAttributedString.imageFirstComposite(
             image: image,
             text: message,
-            attributes: ToastPresenter.defaultAttributes
+            attributes: ToastView.defaultAttributes
         )
         
         show(message: attributedString, mode: .aboveKeyboard)
+    }
+    
+    private func showObjectCompositeAlert(
+        p1: NSAttributedString,
+        objectId: BlockId,
+        tapHandler: @escaping () -> Void
+    ) {
+        Task { @MainActor [weak self] in
+            guard let details = await retrieveObjectDetails(objectId: objectId) else {
+                return
+            }
+            
+            let compositeAttributedString = NSMutableAttributedString()
+            let iconObjectAttributedString = await createAttributedString(from: details)
+            
+            compositeAttributedString.append(iconObjectAttributedString)
+            
+            let attributedString = NSMutableAttributedString(attributedString: p1)
+            attributedString.append(.init(string: "  "))
+            
+            let tappableAttributedString = NSMutableAttributedString(attributedString: iconObjectAttributedString)
+            
+            let dismissableTapHandler: () -> Void = { [weak self] in
+                self?.dismiss { tapHandler() }
+            }
+            
+            tappableAttributedString.addAttributes([.tapHandler: dismissableTapHandler], range: tappableAttributedString.wholeRange)
+            
+            attributedString.append(tappableAttributedString)
+            
+            self?.show(message: attributedString, mode: .aboveKeyboard)
+        }
     }
 }
 
@@ -77,7 +95,10 @@ private func retrieveObjectDetails(objectId: BlockId) async -> ObjectDetails? {
 
 private func createAttributedString(from objectDetails: ObjectDetails) async -> NSAttributedString {
     guard let icon = objectDetails.icon else {
-        return .init(string: objectDetails.name.trimmed(numberOfCharacters: 16))
+        return await NSAttributedString(
+            string: objectDetails.name.trimmed(numberOfCharacters: 16),
+            attributes: ToastView.objectAttributes
+        )
     }
     
     let loader = AnytypeIconDownloader()
@@ -89,9 +110,10 @@ private func createAttributedString(from objectDetails: ObjectDetails) async -> 
         return .init(string: objectDetails.name)
     }
     
-    return NSAttributedString.imageFirstComposite(
+    return await NSAttributedString.imageFirstComposite(
         image: image,
         text: objectDetails.name.trimmed(numberOfCharacters: 16),
-        attributes: [.foregroundColor: UIColor.textPrimary]
+        attributes: ToastView.objectAttributes
     )
 }
+
