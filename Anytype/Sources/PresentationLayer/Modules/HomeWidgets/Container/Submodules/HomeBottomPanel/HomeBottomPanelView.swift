@@ -3,11 +3,11 @@ import SwiftUI
 
 struct HomeBottomPanelView: View {
     
-    let model: HomeBottomPanelViewModel
+    @ObservedObject var model: HomeBottomPanelViewModel
     
     var body: some View {
         HStack(alignment: .center, spacing: 40) {
-            ForEach(model.buttons) { button in
+            ForEach(model.buttons, id:\.self) { button in
                 Button(action: button.onTap, label: {
                     SwiftUIObjectIconImageView(iconImage: button.image, usecase: .homeBottomPanel)
                 })

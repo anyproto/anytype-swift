@@ -46,6 +46,7 @@ final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsM
         createWidgetCoordinator.startFlow(widgetObjectId: accountManager.account.info.widgetsId)
     }
     
+    // TODO: Delete it. Temporary.
     func onSpaceIconChangeSelected(objectId: String) {
         Task { @MainActor in
             let document = BaseDocument(objectId: objectId)

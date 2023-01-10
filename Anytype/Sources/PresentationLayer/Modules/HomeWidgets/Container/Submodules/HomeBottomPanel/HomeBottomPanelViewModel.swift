@@ -4,10 +4,9 @@ import BlocksModels
 @MainActor
 final class HomeBottomPanelViewModel: ObservableObject {
     
-    struct Button: Identifiable {
-        let id: String
+    struct Button: Hashable {
         let image: ObjectIconImage
-        let onTap: () -> Void
+        @EquatableNoop var onTap: () -> Void
     }
     
     // MARK: - Private properties
@@ -40,13 +39,13 @@ final class HomeBottomPanelViewModel: ObservableObject {
     
     private func updateModels() {
         buttons = [
-            HomeBottomPanelViewModel.Button(id: "search", image: .imageAsset(.Widget.search), onTap: { [weak self] in
+            HomeBottomPanelViewModel.Button(image: .imageAsset(.Widget.search), onTap: { [weak self] in
                 self?.toastPresenter.show(message: "On tap search")
             }),
-            HomeBottomPanelViewModel.Button(id: "new", image: .imageAsset(.Widget.add), onTap: { [weak self] in
+            HomeBottomPanelViewModel.Button(image: .imageAsset(.Widget.add), onTap: { [weak self] in
                 self?.toastPresenter.show(message: "On tap create object")
             }),
-            HomeBottomPanelViewModel.Button(id: "space", image: subscriptionData.first?.objectIconImage ?? .placeholder(nil), onTap: { [weak self] in
+            HomeBottomPanelViewModel.Button(image: subscriptionData.first?.objectIconImage ?? .placeholder(nil), onTap: { [weak self] in
                 self?.toastPresenter.show(message: "On tap space")
            })
         ]
