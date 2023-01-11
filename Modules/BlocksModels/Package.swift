@@ -5,6 +5,7 @@ let package = Package(
     name: "BlocksModels",
     platforms: [
         .iOS(.v14),
+        .macOS(.v11)
     ],
     products: [
         .library(
