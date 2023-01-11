@@ -18,13 +18,12 @@ final class HomeBottomPanelSubscriptionDataBuilder: HomeBottomPanelSubscriptionD
             BundledRelationKey.id.rawValue,
             BundledRelationKey.name.rawValue,
             BundledRelationKey.snippet.rawValue,
-            BundledRelationKey.links.rawValue,
             BundledRelationKey.type.rawValue,
             BundledRelationKey.layout.rawValue,
             BundledRelationKey.iconImage.rawValue,
             BundledRelationKey.iconEmoji.rawValue,
             BundledRelationKey.isDeleted.rawValue,
-            BundledRelationKey.isArchived.rawValue,
+            BundledRelationKey.done.rawValue
         ]
         
         return .objects(

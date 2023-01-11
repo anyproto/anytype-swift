@@ -23,6 +23,7 @@ final class ObjectTreeSubscriptionDataBuilder: ObjectTreeSubscriptionDataBuilder
             BundledRelationKey.iconEmoji.rawValue,
             BundledRelationKey.isDeleted.rawValue,
             BundledRelationKey.isArchived.rawValue,
+            BundledRelationKey.done.rawValue
         ]
         
         return .objects(
