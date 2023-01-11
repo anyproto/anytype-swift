@@ -55,15 +55,15 @@ struct DataViewBlockViewModel: BlockViewModelProtocol {
     }
 
     func didSelectRowInTableView(editorEditingState: EditorEditingState) {
-        if let pageId = info.configurationData.parentId {
+        if objectDetails == nil {
+            showFailureToast(Loc.Content.DataView.InlineSet.Toast.failure)
+        } else if let pageId = info.configurationData.parentId {
             openInlineSet(
                 EditorScreenData(
                     pageId: pageId,
                     type: .set(blockId: info.id, targetObjectID: objectDetails?.id)
                 )
             )
-        } else if objectDetails == nil {
-            showFailureToast(Loc.Content.DataView.InlineSet.Toast.failure)
         }
     }
 }
