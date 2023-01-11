@@ -487,15 +487,15 @@ extension EditorRouter: AttachmentRouterProtocol {
 
 // MARK: - Relations
 extension EditorRouter {
-    func showRelationValueEditingView(key: String, source: RelationSource) {
+    func showRelationValueEditingView(key: String) {
         let relation = document.parsedRelations.installed.first { $0.key == key }
         guard let relation = relation else { return }
         
-        showRelationValueEditingView(objectId: document.objectId, source: source, relation: relation)
+        showRelationValueEditingView(objectId: document.objectId, relation: relation)
     }
     
-    func showRelationValueEditingView(objectId: BlockId, source: RelationSource, relation: Relation) {
-        relationValueCoordinator.startFlow(objectId: objectId, source: source, relation: relation, output: self)
+    func showRelationValueEditingView(objectId: BlockId, relation: Relation) {
+        relationValueCoordinator.startFlow(objectId: objectId, relation: relation, output: self)
     }
 
     func showAddNewRelationView(onSelect: ((RelationDetails, _ isNew: Bool) -> Void)?) {

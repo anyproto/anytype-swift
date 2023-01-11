@@ -20,20 +20,17 @@ final class RelationOptionsListViewModel: ObservableObject {
 
     private weak var popup: AnytypePopupProxy?
 
-    private let source: RelationSource
     private let relationKey: String
     private let searchModuleBuilder: RelationOptionsSearchModuleBuilderProtocol
     private let service: RelationsServiceProtocol
     
     init(
-        source: RelationSource,
         selectedOptions: [ListRowConfiguration],
         emptyOptionsPlaceholder: String,
         relation: Relation,
         searchModuleBuilder: RelationOptionsSearchModuleBuilderProtocol,
         service: RelationsServiceProtocol
     ) {
-        self.source = source
         self.selectedOptions = selectedOptions
         self.title = relation.name
         self.emptyPlaceholder = emptyOptionsPlaceholder
@@ -101,7 +98,7 @@ private extension RelationOptionsListViewModel {
     }
     
     func handleCreateOption(title: String) {
-        let optionId = service.addRelationOption(source: source, relationKey: relationKey, optionText: title)
+        let optionId = service.addRelationOption(relationKey: relationKey, optionText: title)
         guard let optionId = optionId else { return}
 
         handleNewOptionIds([optionId])

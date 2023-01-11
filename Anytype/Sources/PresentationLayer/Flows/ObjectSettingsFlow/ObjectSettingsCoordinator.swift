@@ -124,7 +124,6 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
         
         relationValueCoordinator.startFlow(
             objectId: document.objectId,
-            source: .object,
             relation: relation,
             output: self
         )

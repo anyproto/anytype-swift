@@ -231,7 +231,7 @@ final class BlockViewModelBuilder {
                     )
                 } else {
                     AnytypeAnalytics.instance().logChangeRelationValue(type: .block)
-                    self.router.showRelationValueEditingView(key: relation.key, source: .object)
+                    self.router.showRelationValueEditingView(key: relation.key)
                 }
             }
         case let .relation(content):
@@ -248,7 +248,7 @@ final class BlockViewModelBuilder {
                 relation: relation
             ) { [weak self] in
                 AnytypeAnalytics.instance().logChangeRelationValue(type: .block)
-                self?.router.showRelationValueEditingView(key: relation.key, source: .object)
+                self?.router.showRelationValueEditingView(key: relation.key)
             }
         case .tableOfContents:
             return TableOfContentsViewModel(

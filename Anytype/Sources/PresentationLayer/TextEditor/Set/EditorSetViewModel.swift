@@ -164,7 +164,7 @@ final class EditorSetViewModel: ObservableObject {
             router.showFailureToast(message: Loc.Set.SourceType.Cancel.Toast.title)
         } else {
             AnytypeAnalytics.instance().logChangeRelationValue(type: .set)
-            showRelationValueEditingView(key: relation.key, source: .object)
+            showRelationValueEditingView(key: relation.key)
         }
     }
 
@@ -553,7 +553,7 @@ final class EditorSetViewModel: ObservableObject {
 // MARK: - Routing
 extension EditorSetViewModel {
 
-    func showRelationValueEditingView(key: String, source: RelationSource) {
+    func showRelationValueEditingView(key: String) {
         if key == BundledRelationKey.setOf.rawValue {
             showSetOfTypeSelection()
             
@@ -562,19 +562,17 @@ extension EditorSetViewModel {
 
         AnytypeAnalytics.instance().logChangeRelationValue(type: .set)
 
-        router.showRelationValueEditingView(key: key, source: source)
+        router.showRelationValueEditingView(key: key)
     }
     
     func showRelationValueEditingView(
         objectId: BlockId,
-        source: RelationSource,
         relation: Relation
     ) {
         AnytypeAnalytics.instance().logChangeRelationValue(type: .set)
         
         router.showRelationValueEditingView(
             objectId: objectId,
-            source: source,
             relation: relation
         )
     }

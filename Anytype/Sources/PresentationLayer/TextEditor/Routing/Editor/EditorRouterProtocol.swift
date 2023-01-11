@@ -52,8 +52,8 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
         onSelect: @escaping (BlockLink.Appearance) -> Void
     )
     
-    func showRelationValueEditingView(key: String, source: RelationSource)
-    func showRelationValueEditingView(objectId: BlockId, source: RelationSource, relation: Relation)
+    func showRelationValueEditingView(key: String)
+    func showRelationValueEditingView(objectId: BlockId, relation: Relation)
     func showAddNewRelationView(onSelect: ((RelationDetails, _ isNew: Bool) -> Void)?)
 
     func showLinkContextualMenu(inputParameters: TextBlockURLInputParameters)
