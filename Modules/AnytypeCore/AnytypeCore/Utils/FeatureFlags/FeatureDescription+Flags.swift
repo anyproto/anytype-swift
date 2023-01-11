@@ -41,8 +41,8 @@ public extension FeatureDescription {
     static let linktoObjectFromItself = FeatureDescription(
         title: "Link to object from itself",
         author: "db@anytype.io",
-        releaseVersion: "0.21.0",
-        defaultValue: false
+        releaseVersion: "0.20.0",
+        defaultValue: true
     )
     
     static let linkToObjectFromMarkup = FeatureDescription(
