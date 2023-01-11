@@ -1,35 +1,35 @@
 import Foundation
 import BlocksModels
 
-protocol ObjectTreeSubscriptionDataBuilderProtocol {
-    func build(objectIds: [String]) -> SubscriptionData
+protocol HomeBottomPanelSubscriptionDataBuilderProtocol {
+    func build(objectId: String) -> SubscriptionData
 }
 
-final class ObjectTreeSubscriptionDataBuilder: ObjectTreeSubscriptionDataBuilderProtocol {
+fileprivate extension SubscriptionId {
+    static var homeBottom = SubscriptionId(value: "HomeBottomPanelSubscription")
+}
+
+final class HomeBottomPanelSubscriptionDataBuilder: HomeBottomPanelSubscriptionDataBuilderProtocol {
     
-    private let builderId = UUID()
+    // MARK: - HomeBottomPanelSubscriptionDataBuilderProtocol
     
-    // MARK: - ObjectTreeSubscriptionDataBuilderProtocol
-    
-    func build(objectIds: [String]) -> SubscriptionData {
+    func build(objectId: String) -> SubscriptionData {
         let keys = [
             BundledRelationKey.id.rawValue,
             BundledRelationKey.name.rawValue,
             BundledRelationKey.snippet.rawValue,
-            BundledRelationKey.links.rawValue,
             BundledRelationKey.type.rawValue,
             BundledRelationKey.layout.rawValue,
             BundledRelationKey.iconImage.rawValue,
             BundledRelationKey.iconEmoji.rawValue,
             BundledRelationKey.isDeleted.rawValue,
-            BundledRelationKey.isArchived.rawValue,
             BundledRelationKey.done.rawValue
         ]
         
         return .objects(
             SubscriptionData.Object(
-                identifier: SubscriptionId(value: "Tree-\(builderId.uuidString)"),
-                objectIds: objectIds,
+                identifier: .homeBottom,
+                objectIds: [objectId],
                 keys: keys
             )
         )

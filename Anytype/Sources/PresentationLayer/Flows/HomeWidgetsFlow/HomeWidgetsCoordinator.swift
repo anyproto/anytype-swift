@@ -14,19 +14,22 @@ final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsM
     private let navigationContext: NavigationContextProtocol
     private let windowManager: WindowManager
     private let createWidgetCoordinator: CreateWidgetCoordinatorProtocol
+    private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
     
     init(
         homeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol,
         accountManager: AccountManager,
         navigationContext: NavigationContextProtocol,
         windowManager: WindowManager,
-        createWidgetCoordinator: CreateWidgetCoordinatorProtocol
+        createWidgetCoordinator: CreateWidgetCoordinatorProtocol,
+        objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
     ) {
         self.homeWidgetsModuleAssembly = homeWidgetsModuleAssembly
         self.accountManager = accountManager
         self.navigationContext = navigationContext
         self.windowManager = windowManager
         self.createWidgetCoordinator = createWidgetCoordinator
+        self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
     }
     
     func startFlow() -> AnyView {
@@ -41,5 +44,15 @@ final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsM
     
     func onCreateWidgetSelected() {
         createWidgetCoordinator.startFlow(widgetObjectId: accountManager.account.info.widgetsId)
+    }
+    
+    // TODO: Delete it. Temporary.
+    func onSpaceIconChangeSelected(objectId: String) {
+        Task { @MainActor in
+            let document = BaseDocument(objectId: objectId)
+            try? await document.open()
+            let module = objectIconPickerModuleAssembly.make(document: document)
+            navigationContext.present(module)
+        }
     }
 }
