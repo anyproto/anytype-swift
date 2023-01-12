@@ -74,6 +74,8 @@ final class EditorAssembly {
             newSearchModuleAssembly: modulesDI.newSearch,
             editorPageCoordinator: coordinatorsDI.editorPage.make(browserController: browser),
             addNewRelationCoordinator: coordinatorsDI.addNewRelation.make(document: document),
+            objectSettingCoordinator: coordinatorsDI.objectSettings.make(document: document, browserController: browser),
+            toastPresenter: uiHelpersDI.toastPresenter(using: browser),
             alertHelper: AlertHelper(viewController: controller)
         )
         

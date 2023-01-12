@@ -51,9 +51,10 @@ protocol EditorSetRouterProtocol: AnyObject {
     func showSortTypesList(setSort: SetSort, onSelect: @escaping (SetSort) -> Void)
     
     func showAddNewRelationView(onSelect: ((RelationDetails, _ isNew: Bool) -> Void)?)
+    func showSettings()
 }
 
-final class EditorSetRouter: EditorSetRouterProtocol {
+final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsModuleDelegate {
     
     // MARK: - DI
     
@@ -63,6 +64,8 @@ final class EditorSetRouter: EditorSetRouterProtocol {
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     private let editorPageCoordinator: EditorPageCoordinatorProtocol
     private let addNewRelationCoordinator: AddNewRelationCoordinatorProtocol
+    private let objectSettingCoordinator: ObjectSettingsCoordinatorProtocol
+    private let toastPresenter: ToastPresenterProtocol
     private let alertHelper: AlertHelper
     
     // MARK: - State
@@ -76,6 +79,8 @@ final class EditorSetRouter: EditorSetRouterProtocol {
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
         editorPageCoordinator: EditorPageCoordinatorProtocol,
         addNewRelationCoordinator: AddNewRelationCoordinatorProtocol,
+        objectSettingCoordinator: ObjectSettingsCoordinatorProtocol,
+        toastPresenter: ToastPresenterProtocol,
         alertHelper: AlertHelper
     ) {
         self.rootController = rootController
@@ -84,6 +89,8 @@ final class EditorSetRouter: EditorSetRouterProtocol {
         self.newSearchModuleAssembly = newSearchModuleAssembly
         self.editorPageCoordinator = editorPageCoordinator
         self.addNewRelationCoordinator = addNewRelationCoordinator
+        self.objectSettingCoordinator = objectSettingCoordinator
+        self.toastPresenter = toastPresenter
         self.alertHelper = alertHelper
     }
     
@@ -361,7 +368,20 @@ final class EditorSetRouter: EditorSetRouterProtocol {
     func showAddNewRelationView(onSelect: ((RelationDetails, _ isNew: Bool) -> Void)?) {
         addNewRelationCoordinator.showAddNewRelationView(onCompletion: onSelect)
     }
+    
+    func showSettings() {
+        objectSettingCoordinator.startFlow(delegate: self)
+    }
+    
+    // MARK: - ObjectSettingsModuleDelegate
 
+    func didCreateLinkToItself(selfName: String, in objectId: BlockId) {
+        UIApplication.shared.hideKeyboard()
+        toastPresenter.showObjectName(selfName, middleAction: Loc.Editor.Toast.linkedTo, secondObjectId: objectId) { [weak self] in
+            self?.showPage(data: .init(pageId: objectId, type: .page))
+        }
+    }
+    
     // MARK: - Private
     
     private func showPage(data: EditorScreenData) {

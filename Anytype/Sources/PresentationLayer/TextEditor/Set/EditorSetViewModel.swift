@@ -629,7 +629,7 @@ extension EditorSetViewModel {
     }
     
     func showObjectSettings() {
-        router.showSettings()
+        setRouter?.showSettings()
     }
     
     func objectOrderUpdate(with groupObjectIds: [GroupObjectIds]) {
