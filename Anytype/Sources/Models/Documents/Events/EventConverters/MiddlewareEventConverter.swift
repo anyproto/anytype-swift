@@ -399,7 +399,8 @@ final class MiddlewareEventConverter {
                 .processNew,
                 .processUpdate,
                 .processDone,
-                .blockSetWidget:
+                .blockSetWidget,
+                .blockDataviewViewUpdate: // will be implemented later
             return nil
         }
     }
