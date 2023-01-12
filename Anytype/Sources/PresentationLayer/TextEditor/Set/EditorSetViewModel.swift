@@ -575,7 +575,7 @@ extension EditorSetViewModel {
     }
     
     func showViewPicker() {
-        router.showViewPicker(
+        setRouter?.showViewPicker(
             setDocument: setDocument,
             dataviewService: dataviewService)
         { [weak self] activeView in

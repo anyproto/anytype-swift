@@ -77,12 +77,6 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
         onShow: (() -> Void)?
     )
     
-    func showViewPicker(
-        setDocument: SetDocumentProtocol,
-        dataviewService: DataviewServiceProtocol,
-        showViewTypes: @escaping RoutingAction<DataviewView?>
-    )
-
     func showCreateObject(pageId: BlockId)
     func showCreateBookmarkObject()
     

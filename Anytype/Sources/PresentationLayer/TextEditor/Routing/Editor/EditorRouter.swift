@@ -509,22 +509,6 @@ extension EditorRouter: RelationValueCoordinatorOutput {
 
 extension EditorRouter {
     
-    func showViewPicker(
-        setDocument: SetDocumentProtocol,
-        dataviewService: DataviewServiceProtocol,
-        showViewTypes: @escaping RoutingAction<DataviewView?>)
-    {
-        let viewModel = EditorSetViewPickerViewModel(
-            setDocument: setDocument,
-            dataviewService: dataviewService,
-            showViewTypes: showViewTypes
-        )
-        let vc = UIHostingController(
-            rootView: EditorSetViewPicker(viewModel: viewModel)
-        )
-        presentSheet(vc)
-    }
-
     func showCreateObject(pageId: BlockId) {
         let moduleViewController = createObjectModuleAssembly.makeCreateObject(objectId: pageId) { [weak self] in
             self?.navigationContext.dismissTopPresented()
