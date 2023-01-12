@@ -31,7 +31,7 @@ final class EditorAssembly {
     func buildEditorModule(
         browser: EditorBrowserController?,
         data: EditorScreenData
-    ) -> (vc: UIViewController, router: EditorRouterProtocol) {
+    ) -> (vc: UIViewController, router: EditorPageOpenRouterProtocol) {
         switch data.type {
         case .page:
             return buildPageModule(browser: browser, data: data)
@@ -44,7 +44,7 @@ final class EditorAssembly {
     private func buildSetModule(
         browser: EditorBrowserController?,
         data: EditorScreenData
-    ) -> (EditorSetHostingController, EditorRouterProtocol) {
+    ) -> (EditorSetHostingController, EditorPageOpenRouterProtocol) {
         let document = BaseDocument(objectId: data.pageId)
         let setDocument = SetDocument(
             document: document,
@@ -67,7 +67,7 @@ final class EditorAssembly {
         )
         let controller = EditorSetHostingController(objectId: data.pageId, model: model)
 
-        let setRouter = EditorSetRouter(
+        let router = EditorSetRouter(
             document: document,
             rootController: browser,
             viewController: controller,
@@ -77,32 +77,14 @@ final class EditorAssembly {
             editorPageCoordinator: coordinatorsDI.editorPage.make(browserController: browser),
             addNewRelationCoordinator: coordinatorsDI.addNewRelation.make(document: document),
             objectSettingCoordinator: coordinatorsDI.objectSettings.make(document: document, browserController: browser),
-            toastPresenter: uiHelpersDI.toastPresenter(using: browser),
-            alertHelper: AlertHelper(viewController: controller)
-        )
-        
-        let router = EditorRouter(
-            rootController: browser,
-            viewController: controller,
-            navigationContext: NavigationContext(rootViewController: browser ?? controller),
-            document: document,
-            addNewRelationCoordinator: coordinatorsDI.addNewRelation.make(document: document),
-            templatesCoordinator: coordinatorsDI.templates.make(viewController: controller),
-            urlOpener: URLOpener(viewController: browser),
             relationValueCoordinator: coordinatorsDI.relationValue.make(),
-            editorPageCoordinator: coordinatorsDI.editorPage.make(browserController: browser),
-            linkToObjectCoordinator: coordinatorsDI.linkToObject.make(browserController: browser),
             objectCoverPickerModuleAssembly: modulesDI.objectCoverPicker,
             objectIconPickerModuleAssembly: modulesDI.objectIconPicker,
-            objectSettingCoordinator: coordinatorsDI.objectSettings.make(document: document, browserController: browser),
-            searchModuleAssembly: modulesDI.search,
             toastPresenter: uiHelpersDI.toastPresenter(using: browser),
-            codeLanguageListModuleAssembly: modulesDI.codeLanguageList,
-            newSearchModuleAssembly: modulesDI.newSearch,
             alertHelper: AlertHelper(viewController: controller)
         )
         
-        model.setup(router: router, setRouter: setRouter)
+        model.setup(router: router)
         
         return (controller, router)
     }
@@ -112,7 +94,7 @@ final class EditorAssembly {
     private func buildPageModule(
         browser: EditorBrowserController?,
         data: EditorScreenData
-    ) -> (EditorPageController, EditorRouterProtocol) {
+    ) -> (EditorPageController, EditorPageOpenRouterProtocol) {
         let simpleTableMenuViewModel = SimpleTableMenuViewModel()
         let blocksOptionViewModel = SelectionOptionsViewModel(itemProvider: nil)
 

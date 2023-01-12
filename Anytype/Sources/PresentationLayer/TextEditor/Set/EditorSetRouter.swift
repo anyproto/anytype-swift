@@ -4,7 +4,7 @@ import BlocksModels
 import UIKit
 import SwiftUI
 
-protocol EditorSetRouterProtocol: AnyObject {
+protocol EditorSetRouterProtocol: AnyObject, EditorPageOpenRouterProtocol, ObjectHeaderRouterProtocol {
     
     func showSetSettings(onSettingTap: @escaping (EditorSetSetting) -> Void)
     func dismissSetSettingsIfNeeded()
@@ -50,17 +50,19 @@ protocol EditorSetRouterProtocol: AnyObject {
     func showFilterConditions(filter: SetFilter, onSelect: @escaping (DataviewFilter.Condition) -> Void)
     func showSortTypesList(setSort: SetSort, onSelect: @escaping (SetSort) -> Void)
     
-    func showAddNewRelationView(onSelect: ((RelationDetails, _ isNew: Bool) -> Void)?)
     func showSettings()
-    
     func showSources(selectedObjectId: BlockId?, onSelect: @escaping (BlockId) -> ())
     
     func closeEditor()
-    
     func showFailureToast(message: String)
+    func showPage(data: EditorScreenData)
+    
+    func showRelationValueEditingView(key: String, source: RelationSource)
+    func showRelationValueEditingView(objectId: BlockId, source: RelationSource, relation: Relation)
+    func showAddNewRelationView(onSelect: ((RelationDetails, _ isNew: Bool) -> Void)?)
 }
 
-final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsModuleDelegate {
+final class EditorSetRouter: EditorSetRouterProtocol {
     
     // MARK: - DI
     
@@ -73,6 +75,9 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsModuleDelega
     private let editorPageCoordinator: EditorPageCoordinatorProtocol
     private let addNewRelationCoordinator: AddNewRelationCoordinatorProtocol
     private let objectSettingCoordinator: ObjectSettingsCoordinatorProtocol
+    private let relationValueCoordinator: RelationValueCoordinatorProtocol
+    private let objectCoverPickerModuleAssembly: ObjectCoverPickerModuleAssemblyProtocol
+    private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
     private let toastPresenter: ToastPresenterProtocol
     private let alertHelper: AlertHelper
     
@@ -90,6 +95,9 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsModuleDelega
         editorPageCoordinator: EditorPageCoordinatorProtocol,
         addNewRelationCoordinator: AddNewRelationCoordinatorProtocol,
         objectSettingCoordinator: ObjectSettingsCoordinatorProtocol,
+        relationValueCoordinator: RelationValueCoordinatorProtocol,
+        objectCoverPickerModuleAssembly: ObjectCoverPickerModuleAssemblyProtocol,
+        objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
         toastPresenter: ToastPresenterProtocol,
         alertHelper: AlertHelper
     ) {
@@ -102,6 +110,9 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsModuleDelega
         self.editorPageCoordinator = editorPageCoordinator
         self.addNewRelationCoordinator = addNewRelationCoordinator
         self.objectSettingCoordinator = objectSettingCoordinator
+        self.relationValueCoordinator = relationValueCoordinator
+        self.objectCoverPickerModuleAssembly = objectCoverPickerModuleAssembly
+        self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
         self.toastPresenter = toastPresenter
         self.alertHelper = alertHelper
     }
@@ -377,12 +388,18 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsModuleDelega
         presentSheet(popup)
     }
     
-    func showAddNewRelationView(onSelect: ((RelationDetails, _ isNew: Bool) -> Void)?) {
-        addNewRelationCoordinator.showAddNewRelationView(onCompletion: onSelect)
-    }
-    
     func showSettings() {
         objectSettingCoordinator.startFlow(delegate: self)
+    }
+    
+    func showCoverPicker() {
+        let moduleViewController = objectCoverPickerModuleAssembly.make(document: document)
+        navigationContext.present(moduleViewController)
+    }
+    
+    func showIconPicker() {
+        let moduleViewController = objectIconPickerModuleAssembly.make(document: document)
+        navigationContext.present(moduleViewController)
     }
     
     func showSources(selectedObjectId: BlockId?, onSelect: @escaping (BlockId) -> ()) {
@@ -404,13 +421,23 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsModuleDelega
         toastPresenter.showFailureAlert(message: message)
     }
     
-    // MARK: - ObjectSettingsModuleDelegate
-
-    func didCreateLinkToItself(selfName: String, in objectId: BlockId) {
-        UIApplication.shared.hideKeyboard()
-        toastPresenter.showObjectName(selfName, middleAction: Loc.Editor.Toast.linkedTo, secondObjectId: objectId) { [weak self] in
-            self?.showPage(data: .init(pageId: objectId, type: .page))
-        }
+    func showRelationValueEditingView(key: String, source: RelationSource) {
+        let relation = document.parsedRelations.installed.first { $0.key == key }
+        guard let relation = relation else { return }
+        
+        showRelationValueEditingView(objectId: document.objectId, source: source, relation: relation)
+    }
+    
+    func showRelationValueEditingView(objectId: BlockId, source: RelationSource, relation: Relation) {
+        relationValueCoordinator.startFlow(objectId: objectId, source: source, relation: relation, output: self)
+    }
+    
+    func showAddNewRelationView(onSelect: ((RelationDetails, _ isNew: Bool) -> Void)?) {
+        addNewRelationCoordinator.showAddNewRelationView(onCompletion: onSelect)
+    }
+    
+    func showPage(data: EditorScreenData) {
+        editorPageCoordinator.startFlow(data: data, replaceCurrentPage: false)
     }
     
     // MARK: - Private
@@ -437,10 +464,6 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsModuleDelega
         navigationContext.presentSwiftUIView(view: view)
     }
     
-    private func showPage(data: EditorScreenData) {
-        editorPageCoordinator.startFlow(data: data, replaceCurrentPage: false)
-    }
-    
     private func presentSheet(_ vc: UIViewController) {
         if #available(iOS 15.0, *) {
             if let sheet = vc.sheetPresentationController {
@@ -463,5 +486,21 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsModuleDelega
         )
         currentSetSettingsPopup = popup
         navigationContext.present(popup)
+    }
+}
+
+extension EditorSetRouter: RelationValueCoordinatorOutput {
+    func openObject(pageId: BlockId, viewType: EditorViewType) {
+        navigationContext.dismissAllPresented()
+        showPage(data: EditorScreenData(pageId: pageId, type: viewType))
+    }
+}
+
+extension EditorSetRouter: ObjectSettingsModuleDelegate {
+    func didCreateLinkToItself(selfName: String, in objectId: BlockId) {
+        UIApplication.shared.hideKeyboard()
+        toastPresenter.showObjectName(selfName, middleAction: Loc.Editor.Toast.linkedTo, secondObjectId: objectId) { [weak self] in
+            self?.showPage(data: .init(pageId: objectId, type: .page))
+        }
     }
 }

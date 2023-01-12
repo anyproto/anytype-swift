@@ -78,8 +78,7 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     private let setDocument: SetDocumentProtocol
-    private var router: EditorRouterProtocol!
-    private var setRouter: EditorSetRouterProtocol?
+    private var router: EditorSetRouterProtocol?
     
     let paginationHelper = EditorSetPaginationHelper()
     private let subscriptionService = ServiceLocator.shared.subscriptionService()
@@ -113,9 +112,8 @@ final class EditorSetViewModel: ObservableObject {
         self.titleString = setDocument.details?.pageCellTitle ?? ""
     }
     
-    func setup(router: EditorRouterProtocol, setRouter: EditorSetRouter) {
+    func setup(router: EditorSetRouterProtocol) {
         self.router = router
-        self.setRouter = setRouter
         self.headerModel = ObjectHeaderViewModel(document: setDocument.document, router: router, isOpenedForPreview: false)
         
         setDocument.updatePublisher.sink { [weak self] in
@@ -137,19 +135,19 @@ final class EditorSetViewModel: ObservableObject {
                     self.showSetOfTypeSelection()
                 }
             } catch {
-                self.setRouter?.closeEditor()
+                self.router?.closeEditor()
             }
         }
     }
     
     func onAppear() {
         startSubscriptionIfNeeded()
-        setRouter?.setNavigationViewHidden(false, animated: true)
+        router?.setNavigationViewHidden(false, animated: true)
         isAppear = true
     }
     
     func onWillDisappear() {
-        setRouter?.dismissSetSettingsIfNeeded()
+        router?.dismissSetSettingsIfNeeded()
         isAppear = false
     }
     
@@ -160,7 +158,7 @@ final class EditorSetViewModel: ObservableObject {
 
     func onRelationTap(relation: Relation) {
         if relation.hasSelectedObjectsRelationType {
-            setRouter?.showFailureToast(message: Loc.Set.SourceType.Cancel.Toast.title)
+            router?.showFailureToast(message: Loc.Set.SourceType.Cancel.Toast.title)
         } else {
             AnytypeAnalytics.instance().logChangeRelationValue(type: .set)
             showRelationValueEditingView(key: relation.key, source: .object)
@@ -477,7 +475,7 @@ final class EditorSetViewModel: ObservableObject {
     
     private func handleDetails(details: ObjectDetails, isAppear: Bool) {
         if details.isArchived && isAppear {
-            router.closeEditor()
+            router?.closeEditor()
         }
     }
     
@@ -557,7 +555,7 @@ extension EditorSetViewModel {
 
         AnytypeAnalytics.instance().logChangeRelationValue(type: .set)
 
-        router.showRelationValueEditingView(key: key, source: source)
+        router?.showRelationValueEditingView(key: key, source: source)
     }
     
     func showRelationValueEditingView(
@@ -567,7 +565,7 @@ extension EditorSetViewModel {
     ) {
         AnytypeAnalytics.instance().logChangeRelationValue(type: .set)
         
-        router.showRelationValueEditingView(
+        router?.showRelationValueEditingView(
             objectId: objectId,
             source: source,
             relation: relation
@@ -575,7 +573,7 @@ extension EditorSetViewModel {
     }
     
     func showViewPicker() {
-        setRouter?.showViewPicker(
+        router?.showViewPicker(
             setDocument: setDocument,
             dataviewService: dataviewService)
         { [weak self] activeView in
@@ -584,7 +582,7 @@ extension EditorSetViewModel {
     }
     
     func showSetSettings() {
-        setRouter?.showSetSettings { [weak self] setting in
+        router?.showSetSettings { [weak self] setting in
             guard let self else { return }
             switch setting {
             case .view:
@@ -600,7 +598,7 @@ extension EditorSetViewModel {
     }
     
     func showViewTypes(with activeView: DataviewView?) {
-        setRouter?.showViewTypes(
+        router?.showViewTypes(
             dataView: setDocument.dataView,
             activeView: activeView,
             dataviewService: dataviewService
@@ -608,28 +606,28 @@ extension EditorSetViewModel {
     }
 
     func showViewSettings() {
-        setRouter?.showViewSettings(
+        router?.showViewSettings(
             setDocument: setDocument,
             dataviewService: dataviewService
         )
     }
     
     func showSorts() {
-        setRouter?.showSorts(
+        router?.showSorts(
             setDocument: setDocument,
             dataviewService: dataviewService
         )
     }
     
     func showFilters() {
-        setRouter?.showFilters(
+        router?.showFilters(
             setDocument: setDocument,
             dataviewService: dataviewService
         )
     }
     
     func showObjectSettings() {
-        setRouter?.showSettings()
+        router?.showSettings()
     }
     
     func objectOrderUpdate(with groupObjectIds: [GroupObjectIds]) {
@@ -646,7 +644,7 @@ extension EditorSetViewModel {
         let groupOrder = setDocument.dataView.groupOrders.first { [weak self] in $0.viewID == self?.activeView.id }
         let viewGroup = groupOrder?.viewGroups.first { $0.groupID == groupId }
         let selectedColor = MiddlewareColor(rawValue: viewGroup?.backgroundColor ?? "")?.backgroundColor
-        setRouter?.showKanbanColumnSettings(
+        router?.showKanbanColumnSettings(
             hideColumn: viewGroup?.hidden ?? false,
             selectedColor: selectedColor,
             onSelect: { [weak self] hidden, backgroundColor in
@@ -696,7 +694,7 @@ extension EditorSetViewModel {
     }
     
     private func showSetOfTypeSelection() {
-        setRouter?.showSources(selectedObjectId: setDocument.details?.setOf.first) { [unowned self] typeObjectId in
+        router?.showSources(selectedObjectId: setDocument.details?.setOf.first) { [unowned self] typeObjectId in
             Task { @MainActor [weak self] in
                 try? await self?.dataviewService.setSource(typeObjectId: typeObjectId)
             }
@@ -707,17 +705,17 @@ extension EditorSetViewModel {
         if type == ObjectTypeId.BundledTypeId.note.rawValue {
             openObject(pageId: objectId, type: .page)
         } else {
-            setRouter?.showCreateObject(pageId: objectId)
+            router?.showCreateObject(pageId: objectId)
         }
     }
     
     private func openObject(pageId: BlockId, type: EditorViewType) {
         let screenData = EditorScreenData(pageId: pageId, type: type)
-        router.showPage(data: screenData)
+        router?.showPage(data: screenData)
     }
     
     private func createBookmarkObject() {
-        setRouter?.showCreateBookmarkObject()
+        router?.showCreateBookmarkObject()
     }
 }
 

@@ -3,6 +3,11 @@ import UIKit
 import Combine
 import AnytypeCore
 
+protocol ObjectHeaderRouterProtocol {
+    func showIconPicker()
+    func showCoverPicker()
+}
+
 final class ObjectHeaderViewModel: ObservableObject {
     
     @Published private(set) var header: ObjectHeader?
@@ -26,14 +31,14 @@ final class ObjectHeaderViewModel: ObservableObject {
     }
     
     private let document: BaseDocumentProtocol
-    private let router: EditorRouterProtocol
+    private let router: ObjectHeaderRouterProtocol
     
     private var subscription: AnyCancellable?
     private let isOpenedForPreview: Bool
     
     // MARK: - Initializers
     
-    init(document: BaseDocumentProtocol, router: EditorRouterProtocol, isOpenedForPreview: Bool) {
+    init(document: BaseDocumentProtocol, router: ObjectHeaderRouterProtocol, isOpenedForPreview: Bool) {
         self.document = document
         self.router = router
         self.isOpenedForPreview = isOpenedForPreview

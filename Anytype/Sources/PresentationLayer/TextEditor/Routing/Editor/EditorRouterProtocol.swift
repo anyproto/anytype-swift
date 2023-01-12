@@ -6,7 +6,8 @@ protocol AttachmentRouterProtocol {
     func openImage(_ imageContext: FilePreviewContext)
 }
 
-protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
+protocol EditorRouterProtocol: AnyObject, EditorPageOpenRouterProtocol,
+                                AttachmentRouterProtocol, ObjectHeaderRouterProtocol {
     func showAlert(alertModel: AlertModel)
     func showPage(data: EditorScreenData)
     func replaceCurrentPage(with data: EditorScreenData)
@@ -35,8 +36,6 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     )
     
     func showSettings()
-    func showCoverPicker()
-    func showIconPicker()
     func showTextIconPicker(contextId: BlockId, objectId: BlockId)
     
     func showMoveTo(onSelect: @escaping (BlockId) -> ())
