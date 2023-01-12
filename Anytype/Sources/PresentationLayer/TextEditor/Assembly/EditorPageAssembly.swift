@@ -55,7 +55,7 @@ final class EditorAssembly {
             prefilledFieldsBuilder: SetPrefilledFieldsBuilder()
         )
         let detailsService = ServiceLocator.shared.detailsService(objectId: data.pageId)
-
+        
         let model = EditorSetViewModel(
             setDocument: setDocument,
             dataviewService: dataviewService,
@@ -67,6 +67,11 @@ final class EditorAssembly {
         )
         let controller = EditorSetHostingController(objectId: data.pageId, model: model)
 
+        let setRouter = EditorSetRouter(
+            rootController: browser,
+            navigationContext: NavigationContext(rootViewController: browser ?? controller)
+        )
+        
         let router = EditorRouter(
             rootController: browser,
             viewController: controller,
@@ -89,7 +94,7 @@ final class EditorAssembly {
             alertHelper: AlertHelper(viewController: controller)
         )
         
-        model.setup(router: router)
+        model.setup(router: router, setRouter: setRouter)
         
         return (controller, router)
     }

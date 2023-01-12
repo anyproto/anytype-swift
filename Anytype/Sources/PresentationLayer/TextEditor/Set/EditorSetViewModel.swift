@@ -79,7 +79,8 @@ final class EditorSetViewModel: ObservableObject {
     
     private let setDocument: SetDocumentProtocol
     private var router: EditorRouterProtocol!
-
+    private var setRouter: EditorSetRouterProtocol?
+    
     let paginationHelper = EditorSetPaginationHelper()
     private let subscriptionService = ServiceLocator.shared.subscriptionService()
     private let dataBuilder = SetContentViewDataBuilder()
@@ -112,8 +113,9 @@ final class EditorSetViewModel: ObservableObject {
         self.titleString = setDocument.details?.pageCellTitle ?? ""
     }
     
-    func setup(router: EditorRouterProtocol) {
+    func setup(router: EditorRouterProtocol, setRouter: EditorSetRouter) {
         self.router = router
+        self.setRouter = setRouter
         self.headerModel = ObjectHeaderViewModel(document: setDocument.document, router: router, isOpenedForPreview: false)
         
         setDocument.updatePublisher.sink { [weak self] in
@@ -142,12 +144,12 @@ final class EditorSetViewModel: ObservableObject {
     
     func onAppear() {
         startSubscriptionIfNeeded()
-        router?.setNavigationViewHidden(false, animated: true)
+        setRouter?.setNavigationViewHidden(false, animated: true)
         isAppear = true
     }
     
     func onWillDisappear() {
-        router.dismissSetSettingsIfNeeded()
+        setRouter?.dismissSetSettingsIfNeeded()
         isAppear = false
     }
     
@@ -582,7 +584,7 @@ extension EditorSetViewModel {
     }
     
     func showSetSettings() {
-        router.showSetSettings { [weak self] setting in
+        setRouter?.showSetSettings { [weak self] setting in
             guard let self else { return }
             switch setting {
             case .view:

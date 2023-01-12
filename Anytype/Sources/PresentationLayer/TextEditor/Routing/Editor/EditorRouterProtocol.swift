@@ -65,7 +65,6 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     
     func presentSheet(_ vc: UIViewController)
     func presentFullscreen(_ vc: UIViewController)
-    func setNavigationViewHidden(_ isHidden: Bool, animated: Bool)
     
     func showTemplatesPopupIfNeeded(
         document: BaseDocumentProtocol,
@@ -87,14 +86,12 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func showCreateObject(pageId: BlockId)
     func showCreateBookmarkObject()
     
-    func showSetSettings(onSettingTap: @escaping (EditorSetSetting) -> Void)
     func showViewTypes(
         dataView: BlockDataview,
         activeView: DataviewView?,
         dataviewService: DataviewServiceProtocol
     )
     func showViewSettings(setDocument: SetDocumentProtocol, dataviewService: DataviewServiceProtocol)
-    func dismissSetSettingsIfNeeded()
     func showSorts(setDocument: SetDocumentProtocol, dataviewService: DataviewServiceProtocol)
     func showRelationSearch(relationsDetails: [RelationDetails], onSelect: @escaping (RelationDetails) -> Void)
     func showFilterSearch(filter: SetFilter, onApply: @escaping (SetFilter) -> Void)

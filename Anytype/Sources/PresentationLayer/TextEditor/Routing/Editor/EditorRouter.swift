@@ -15,7 +15,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     private let templatesCoordinator: TemplatesCoordinator
     private let urlOpener: URLOpenerProtocol
     private let relationValueCoordinator: RelationValueCoordinatorProtocol
-    private weak var currentSetSettingsPopup: AnytypePopup?
     private let editorPageCoordinator: EditorPageCoordinatorProtocol
     private let linkToObjectCoordinator: LinkToObjectCoordinatorProtocol
     private let objectCoverPickerModuleAssembly: ObjectCoverPickerModuleAssemblyProtocol
@@ -305,10 +304,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         navigationContext.present(vc)
     }
     
-    func setNavigationViewHidden(_ isHidden: Bool, animated: Bool) {
-        rootController?.setNavigationViewHidden(isHidden, animated: animated)
-    }
-
     func showObjectPreview(
         blockLinkState: BlockLinkState,
         onSelect: @escaping (BlockLink.Appearance) -> Void
@@ -601,22 +596,6 @@ extension EditorRouter {
         navigationContext.present(vc)
     }
     
-    func showSetSettings(onSettingTap: @escaping (EditorSetSetting) -> Void) {
-        guard let currentSetSettingsPopup = currentSetSettingsPopup else {
-            showSetSettingsPopup(onSettingTap: onSettingTap)
-            return
-        }
-        currentSetSettingsPopup.dismiss(animated: false) {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
-                self?.showSetSettingsPopup(onSettingTap: onSettingTap)
-            }
-        }
-    }
-    
-    func dismissSetSettingsIfNeeded() {
-        currentSetSettingsPopup?.dismiss(animated: false)
-    }
-    
     func showViewSettings(setDocument: SetDocumentProtocol, dataviewService: DataviewServiceProtocol) {
         let viewModel = EditorSetViewSettingsViewModel(
             setDocument: setDocument,
@@ -651,20 +630,6 @@ extension EditorRouter {
             rootView: SetFiltersListView(viewModel: viewModel)
         )
         presentSheet(vc)
-    }
-    
-    private func showSetSettingsPopup(onSettingTap: @escaping (EditorSetSetting) -> Void) {
-        let popup = AnytypePopup(
-            viewModel: EditorSetSettingsViewModel(onSettingTap: onSettingTap),
-            floatingPanelStyle: true,
-            configuration: .init(
-                isGrabberVisible: true,
-                dismissOnBackdropView: false,
-                skipThroughGestures: true
-            )
-        )
-        currentSetSettingsPopup = popup
-        presentFullscreen(popup)
     }
     
     func showFilterSearch(
