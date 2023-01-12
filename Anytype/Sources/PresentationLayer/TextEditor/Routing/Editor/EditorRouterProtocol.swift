@@ -8,7 +8,6 @@ protocol AttachmentRouterProtocol {
 
 protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func showAlert(alertModel: AlertModel)
-    func showFailureToast(message: String)
     func showPage(data: EditorScreenData)
     func replaceCurrentPage(with data: EditorScreenData)
     

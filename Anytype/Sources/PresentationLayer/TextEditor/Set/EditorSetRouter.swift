@@ -56,6 +56,8 @@ protocol EditorSetRouterProtocol: AnyObject {
     func showSources(selectedObjectId: BlockId?, onSelect: @escaping (BlockId) -> ())
     
     func closeEditor()
+    
+    func showFailureToast(message: String)
 }
 
 final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsModuleDelegate {
@@ -396,6 +398,10 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsModuleDelega
     func closeEditor() {
         guard let viewController else { return }
         rootController?.popIfPresent(viewController)
+    }
+    
+    func showFailureToast(message: String) {
+        toastPresenter.showFailureAlert(message: message)
     }
     
     // MARK: - ObjectSettingsModuleDelegate
