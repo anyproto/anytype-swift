@@ -46,7 +46,6 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
 
     func showTypes(selectedObjectId: BlockId?, onSelect: @escaping (BlockId) -> ())
     func showTypesForEmptyObject(selectedObjectId: BlockId?, onSelect: @escaping (BlockId) -> ())
-    func showSources(selectedObjectId: BlockId?, onSelect: @escaping (BlockId) -> ())
     func showObjectPreview(
         blockLinkState: BlockLinkState,
         onSelect: @escaping (BlockLink.Appearance) -> Void

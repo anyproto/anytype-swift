@@ -263,16 +263,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         )
     }
     
-    func showSources(selectedObjectId: BlockId?, onSelect: @escaping (BlockId) -> ()) {
-        showTypesSearch(
-            title: Loc.Set.SourceType.selectSource,
-            selectedObjectId: selectedObjectId,
-            showBookmark: true,
-            showSet: false,
-            onSelect: onSelect
-        )
-    }
-    
     func showWaitingView(text: String) {
         let popup = PopupViewBuilder.createWaitingPopup(text: text)
         navigationContext.present(popup)

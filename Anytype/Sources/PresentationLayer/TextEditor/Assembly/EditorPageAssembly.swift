@@ -68,6 +68,7 @@ final class EditorAssembly {
         let controller = EditorSetHostingController(objectId: data.pageId, model: model)
 
         let setRouter = EditorSetRouter(
+            document: document,
             rootController: browser,
             navigationContext: NavigationContext(rootViewController: browser ?? controller),
             createObjectModuleAssembly: modulesDI.createObject,

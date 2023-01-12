@@ -52,12 +52,15 @@ protocol EditorSetRouterProtocol: AnyObject {
     
     func showAddNewRelationView(onSelect: ((RelationDetails, _ isNew: Bool) -> Void)?)
     func showSettings()
+    
+    func showSources(selectedObjectId: BlockId?, onSelect: @escaping (BlockId) -> ())
 }
 
 final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsModuleDelegate {
     
     // MARK: - DI
     
+    private let document: BaseDocumentProtocol
     private weak var rootController: EditorBrowserController?
     private let navigationContext: NavigationContextProtocol
     private let createObjectModuleAssembly: CreateObjectModuleAssemblyProtocol
@@ -73,6 +76,7 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsModuleDelega
     private weak var currentSetSettingsPopup: AnytypePopup?
     
     init(
+        document: BaseDocumentProtocol,
         rootController: EditorBrowserController?,
         navigationContext: NavigationContextProtocol,
         createObjectModuleAssembly: CreateObjectModuleAssemblyProtocol,
@@ -83,6 +87,7 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsModuleDelega
         toastPresenter: ToastPresenterProtocol,
         alertHelper: AlertHelper
     ) {
+        self.document = document
         self.rootController = rootController
         self.navigationContext = navigationContext
         self.createObjectModuleAssembly = createObjectModuleAssembly
@@ -373,6 +378,16 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsModuleDelega
         objectSettingCoordinator.startFlow(delegate: self)
     }
     
+    func showSources(selectedObjectId: BlockId?, onSelect: @escaping (BlockId) -> ()) {
+        showTypesSearch(
+            title: Loc.Set.SourceType.selectSource,
+            selectedObjectId: selectedObjectId,
+            showBookmark: true,
+            showSet: false,
+            onSelect: onSelect
+        )
+    }
+    
     // MARK: - ObjectSettingsModuleDelegate
 
     func didCreateLinkToItself(selfName: String, in objectId: BlockId) {
@@ -383,6 +398,28 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsModuleDelega
     }
     
     // MARK: - Private
+    
+    private func showTypesSearch(
+        title: String,
+        selectedObjectId: BlockId?,
+        showBookmark: Bool,
+        showSet: Bool,
+        onSelect: @escaping (BlockId) -> ()
+    ) {
+        let view = newSearchModuleAssembly.objectTypeSearchModule(
+            title: title,
+            selectedObjectId: selectedObjectId,
+            excludedObjectTypeId: document.details?.type,
+            showBookmark: showBookmark,
+            showSet: showSet,
+            browser: rootController
+        ) { [weak self] type in
+            self?.navigationContext.dismissTopPresented()
+            onSelect(type.id)
+        }
+        
+        navigationContext.presentSwiftUIView(view: view)
+    }
     
     private func showPage(data: EditorScreenData) {
         editorPageCoordinator.startFlow(data: data, replaceCurrentPage: false)
