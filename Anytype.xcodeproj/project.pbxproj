@@ -514,6 +514,7 @@
 		2AE4EDB92834CF5D00B61ABE /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE4EDB82834CF5D00B61ABE /* LaunchView.swift */; };
 		2AE671DE2901896400118F56 /* UIView+DynamicBorderColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE671DD2901896400118F56 /* UIView+DynamicBorderColor.swift */; };
 		2AE671E129018B0300118F56 /* TraitCollectionDidChangeNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE671E029018B0300118F56 /* TraitCollectionDidChangeNotification.swift */; };
+		2AE906E9296FFE820044A10A /* TextIconPickerModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE906E8296FFE820044A10A /* TextIconPickerModuleAssembly.swift */; };
 		2AE942C6294713F8005BAD1F /* KeyboardEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE942C5294713F8005BAD1F /* KeyboardEvent.swift */; };
 		2AEABE0328C7546200BDE3AC /* RelationEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEABE0228C7546200BDE3AC /* RelationEvent.swift */; };
 		2AEABE0528C7548A00BDE3AC /* RelationEventsBunch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEABE0428C7548A00BDE3AC /* RelationEventsBunch.swift */; };
@@ -1819,6 +1820,7 @@
 		2AE4EDB82834CF5D00B61ABE /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
 		2AE671DD2901896400118F56 /* UIView+DynamicBorderColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+DynamicBorderColor.swift"; sourceTree = "<group>"; };
 		2AE671E029018B0300118F56 /* TraitCollectionDidChangeNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraitCollectionDidChangeNotification.swift; sourceTree = "<group>"; };
+		2AE906E8296FFE820044A10A /* TextIconPickerModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextIconPickerModuleAssembly.swift; sourceTree = "<group>"; };
 		2AE942C5294713F8005BAD1F /* KeyboardEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardEvent.swift; sourceTree = "<group>"; };
 		2AEABE0228C7546200BDE3AC /* RelationEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationEvent.swift; sourceTree = "<group>"; };
 		2AEABE0428C7548A00BDE3AC /* RelationEventsBunch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationEventsBunch.swift; sourceTree = "<group>"; };
@@ -3404,6 +3406,7 @@
 		120E818A26A05937006FE84E /* Icon */ = {
 			isa = PBXGroup;
 			children = (
+				2AE906E7296FFE720044A10A /* Modules */,
 				C9F0A47B28057D6000FA16DD /* GenericIconPickerViewModel */,
 				3D44985926D57456005A3E06 /* ObjectIconPicker.swift */,
 				120E818D26A05946006FE84E /* ObjectIconPickerViewModel.swift */,
@@ -3412,7 +3415,6 @@
 				12D94FD02678CD1F00F794EB /* ObjectBasicIconPicker.swift */,
 				3D89224C2680E0850023E705 /* Emoji */,
 				3D44985B26D57773005A3E06 /* DismissHandler.swift */,
-				2AFFFB98292773BF00A487E1 /* ObjectIconPickerModuleAssembly.swift */,
 			);
 			path = Icon;
 			sourceTree = "<group>";
@@ -4917,6 +4919,15 @@
 				2AE671E029018B0300118F56 /* TraitCollectionDidChangeNotification.swift */,
 			);
 			path = Notifications;
+			sourceTree = "<group>";
+		};
+		2AE906E7296FFE720044A10A /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				2AFFFB98292773BF00A487E1 /* ObjectIconPickerModuleAssembly.swift */,
+				2AE906E8296FFE820044A10A /* TextIconPickerModuleAssembly.swift */,
+			);
+			path = Modules;
 			sourceTree = "<group>";
 		};
 		2AECFD3C28993C57000E9CFB /* Assembly */ = {
@@ -8709,6 +8720,7 @@
 				EAC5FD4E2657DC6F006BB24E /* KeyboardEventsListenerHelper.swift in Sources */,
 				12A4793527C38E6C00E62795 /* AnytypePopupLayout.swift in Sources */,
 				53FF7CB826FCDB4B00A5A592 /* ObjectActionsView.swift in Sources */,
+				2AE906E9296FFE820044A10A /* TextIconPickerModuleAssembly.swift in Sources */,
 				3D30416D27EA5E9900FFE0EB /* DataviewService.swift in Sources */,
 				3DB1E7482639A93B00F479BB /* HomeTabsHeaderText.swift in Sources */,
 				125683D527DF17CE003A8251 /* TagSearchRowView.swift in Sources */,

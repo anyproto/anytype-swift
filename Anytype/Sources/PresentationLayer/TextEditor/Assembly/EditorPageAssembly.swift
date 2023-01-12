@@ -86,6 +86,7 @@ final class EditorAssembly {
             createObjectModuleAssembly: modulesDI.createObject,
             codeLanguageListModuleAssembly: modulesDI.codeLanguageList,
             newSearchModuleAssembly: modulesDI.newSearch,
+            textIconPickerModuleAssembly: modulesDI.textIconPicker,
             alertHelper: AlertHelper(viewController: controller)
         )
         
@@ -134,6 +135,7 @@ final class EditorAssembly {
             createObjectModuleAssembly: modulesDI.createObject,
             codeLanguageListModuleAssembly: modulesDI.codeLanguageList,
             newSearchModuleAssembly: modulesDI.newSearch,
+            textIconPickerModuleAssembly: modulesDI.textIconPicker,
             alertHelper: AlertHelper(viewController: controller)
         )
 

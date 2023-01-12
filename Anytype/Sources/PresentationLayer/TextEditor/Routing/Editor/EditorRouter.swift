@@ -26,6 +26,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     private let createObjectModuleAssembly: CreateObjectModuleAssemblyProtocol
     private let codeLanguageListModuleAssembly: CodeLanguageListModuleAssemblyProtocol
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
+    private let textIconPickerModuleAssembly: TextIconPickerModuleAssemblyProtocol
     private let alertHelper: AlertHelper
     
     init(
@@ -47,6 +48,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         createObjectModuleAssembly: CreateObjectModuleAssemblyProtocol,
         codeLanguageListModuleAssembly: CodeLanguageListModuleAssemblyProtocol,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
+        textIconPickerModuleAssembly: TextIconPickerModuleAssemblyProtocol,
         alertHelper: AlertHelper
     ) {
         self.rootController = rootController
@@ -68,6 +70,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         self.createObjectModuleAssembly = createObjectModuleAssembly
         self.codeLanguageListModuleAssembly = codeLanguageListModuleAssembly
         self.newSearchModuleAssembly = newSearchModuleAssembly
+        self.textIconPickerModuleAssembly = textIconPickerModuleAssembly
         self.alertHelper = alertHelper
     }
 
@@ -223,18 +226,15 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     }
 
     func showTextIconPicker(contextId: BlockId, objectId: BlockId) {
-        let viewModel = TextIconPickerViewModel(
-            fileService: FileActionsService(),
-            textService: TextService(),
+        let moduleView = textIconPickerModuleAssembly.make(
             contextId: contextId,
-            objectId: objectId
+            objectId: objectId,
+            onDismiss: { [weak self] in
+                self?.navigationContext.dismissTopPresented()
+            }
         )
 
-        let iconPicker = ObjectBasicIconPicker(viewModel: viewModel) { [weak self] in
-            self?.navigationContext.dismissTopPresented()
-        }
-
-        navigationContext.presentSwiftUIView(view: iconPicker, model: nil)
+        navigationContext.presentSwiftUIView(view: moduleView, model: nil)
     }
     
     func showSearch(onSelect: @escaping (EditorScreenData) -> ()) {
