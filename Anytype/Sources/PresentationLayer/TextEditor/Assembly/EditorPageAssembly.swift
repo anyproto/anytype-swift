@@ -69,7 +69,12 @@ final class EditorAssembly {
 
         let setRouter = EditorSetRouter(
             rootController: browser,
-            navigationContext: NavigationContext(rootViewController: browser ?? controller)
+            navigationContext: NavigationContext(rootViewController: browser ?? controller),
+            createObjectModuleAssembly: modulesDI.createObject,
+            newSearchModuleAssembly: modulesDI.newSearch,
+            editorPageCoordinator: coordinatorsDI.editorPage.make(browserController: browser),
+            addNewRelationCoordinator: coordinatorsDI.addNewRelation.make(document: document),
+            alertHelper: AlertHelper(viewController: controller)
         )
         
         let router = EditorRouter(
@@ -88,7 +93,6 @@ final class EditorAssembly {
             objectSettingCoordinator: coordinatorsDI.objectSettings.make(document: document, browserController: browser),
             searchModuleAssembly: modulesDI.search,
             toastPresenter: uiHelpersDI.toastPresenter(using: browser),
-            createObjectModuleAssembly: modulesDI.createObject,
             codeLanguageListModuleAssembly: modulesDI.codeLanguageList,
             newSearchModuleAssembly: modulesDI.newSearch,
             alertHelper: AlertHelper(viewController: controller)
@@ -136,7 +140,6 @@ final class EditorAssembly {
             objectSettingCoordinator: coordinatorsDI.objectSettings.make(document: document, browserController: browser),
             searchModuleAssembly: modulesDI.search,
             toastPresenter: uiHelpersDI.toastPresenter(using: browser),
-            createObjectModuleAssembly: modulesDI.createObject,
             codeLanguageListModuleAssembly: modulesDI.codeLanguageList,
             newSearchModuleAssembly: modulesDI.newSearch,
             alertHelper: AlertHelper(viewController: controller)

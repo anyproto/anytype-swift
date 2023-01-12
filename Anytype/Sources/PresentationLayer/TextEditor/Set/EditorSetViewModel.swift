@@ -600,7 +600,7 @@ extension EditorSetViewModel {
     }
     
     func showViewTypes(with activeView: DataviewView?) {
-        router.showViewTypes(
+        setRouter?.showViewTypes(
             dataView: setDocument.dataView,
             activeView: activeView,
             dataviewService: dataviewService
@@ -608,21 +608,21 @@ extension EditorSetViewModel {
     }
 
     func showViewSettings() {
-        router.showViewSettings(
+        setRouter?.showViewSettings(
             setDocument: setDocument,
             dataviewService: dataviewService
         )
     }
     
     func showSorts() {
-        router.showSorts(
+        setRouter?.showSorts(
             setDocument: setDocument,
             dataviewService: dataviewService
         )
     }
     
     func showFilters() {
-        router.showFilters(
+        setRouter?.showFilters(
             setDocument: setDocument,
             dataviewService: dataviewService
         )
@@ -646,7 +646,7 @@ extension EditorSetViewModel {
         let groupOrder = setDocument.dataView.groupOrders.first { [weak self] in $0.viewID == self?.activeView.id }
         let viewGroup = groupOrder?.viewGroups.first { $0.groupID == groupId }
         let selectedColor = MiddlewareColor(rawValue: viewGroup?.backgroundColor ?? "")?.backgroundColor
-        router.showKanbanColumnSettings(
+        setRouter?.showKanbanColumnSettings(
             hideColumn: viewGroup?.hidden ?? false,
             selectedColor: selectedColor,
             onSelect: { [weak self] hidden, backgroundColor in
@@ -707,7 +707,7 @@ extension EditorSetViewModel {
         if type == ObjectTypeId.BundledTypeId.note.rawValue {
             openObject(pageId: objectId, type: .page)
         } else {
-            router.showCreateObject(pageId: objectId)
+            setRouter?.showCreateObject(pageId: objectId)
         }
     }
     
@@ -717,7 +717,7 @@ extension EditorSetViewModel {
     }
     
     private func createBookmarkObject() {
-        router.showCreateBookmarkObject()
+        setRouter?.showCreateBookmarkObject()
     }
 }
 

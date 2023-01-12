@@ -77,38 +77,9 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
         onShow: (() -> Void)?
     )
     
-    func showCreateObject(pageId: BlockId)
-    func showCreateBookmarkObject()
-    
-    func showViewTypes(
-        dataView: BlockDataview,
-        activeView: DataviewView?,
-        dataviewService: DataviewServiceProtocol
-    )
-    func showViewSettings(setDocument: SetDocumentProtocol, dataviewService: DataviewServiceProtocol)
-    func showSorts(setDocument: SetDocumentProtocol, dataviewService: DataviewServiceProtocol)
-    func showRelationSearch(relationsDetails: [RelationDetails], onSelect: @escaping (RelationDetails) -> Void)
-    func showFilterSearch(filter: SetFilter, onApply: @escaping (SetFilter) -> Void)
-    
-    func showFilters(setDocument: SetDocumentProtocol, dataviewService: DataviewServiceProtocol)
     func showColorPicker(
         onColorSelection: @escaping (ColorView.ColorItem) -> Void,
         selectedColor: UIColor?,
         selectedBackgroundColor: UIColor?
-    )
-    
-    func showCardSizes(size: DataviewViewSize, onSelect: @escaping (DataviewViewSize) -> Void)
-    func showCovers(setDocument: SetDocumentProtocol, onSelect: @escaping (String) -> Void)
-    
-    func showGroupByRelations(
-        selectedRelationKey: String,
-        relations: [RelationDetails],
-        onSelect: @escaping (String) -> Void
-    )
-    
-    func showKanbanColumnSettings(
-        hideColumn: Bool,
-        selectedColor: BlockBackgroundColor?,
-        onSelect: @escaping (Bool, BlockBackgroundColor?) -> Void
     )
 }

@@ -22,7 +22,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     private let objectSettingCoordinator: ObjectSettingsCoordinatorProtocol
     private let searchModuleAssembly: SearchModuleAssemblyProtocol
     private let toastPresenter: ToastPresenterProtocol
-    private let createObjectModuleAssembly: CreateObjectModuleAssemblyProtocol
     private let codeLanguageListModuleAssembly: CodeLanguageListModuleAssemblyProtocol
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     private let alertHelper: AlertHelper
@@ -43,7 +42,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         objectSettingCoordinator: ObjectSettingsCoordinatorProtocol,
         searchModuleAssembly: SearchModuleAssemblyProtocol,
         toastPresenter: ToastPresenterProtocol,
-        createObjectModuleAssembly: CreateObjectModuleAssemblyProtocol,
         codeLanguageListModuleAssembly: CodeLanguageListModuleAssemblyProtocol,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
         alertHelper: AlertHelper
@@ -64,7 +62,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         self.objectSettingCoordinator = objectSettingCoordinator
         self.searchModuleAssembly = searchModuleAssembly
         self.toastPresenter = toastPresenter
-        self.createObjectModuleAssembly = createObjectModuleAssembly
         self.codeLanguageListModuleAssembly = codeLanguageListModuleAssembly
         self.newSearchModuleAssembly = newSearchModuleAssembly
         self.alertHelper = alertHelper
@@ -502,206 +499,6 @@ extension EditorRouter: RelationValueCoordinatorOutput {
     func openObject(pageId: BlockId, viewType: EditorViewType) {
         navigationContext.dismissAllPresented()
         showPage(data: EditorScreenData(pageId: pageId, type: viewType))
-    }
-}
-
-// MARK: - Set
-
-extension EditorRouter {
-    
-    func showCreateObject(pageId: BlockId) {
-        let moduleViewController = createObjectModuleAssembly.makeCreateObject(objectId: pageId) { [weak self] in
-            self?.navigationContext.dismissTopPresented()
-            self?.showPage(data: EditorScreenData(pageId: pageId, type: .page))
-        } closeAction: { [weak self] in
-            self?.navigationContext.dismissTopPresented()
-        }
-        
-        navigationContext.present(moduleViewController)
-    }
-    
-    func showCreateBookmarkObject() {
-        let moduleViewController = createObjectModuleAssembly.makeCreateBookmark(
-            closeAction: { [weak self] withError in
-                self?.navigationContext.dismissTopPresented(animated: true) {
-                    guard withError else { return }
-                    self?.alertHelper.showToast(
-                        title: Loc.Set.Bookmark.Error.title,
-                        message: Loc.Set.Bookmark.Error.message
-                    )
-                }
-            }
-        )
-        
-        navigationContext.present(moduleViewController)
-    }
-    
-    func showRelationSearch(relationsDetails: [RelationDetails], onSelect: @escaping (RelationDetails) -> Void) {
-        let vc = UIHostingController(
-            rootView: newSearchModuleAssembly.setSortsSearchModule(
-                relationsDetails: relationsDetails,
-                onSelect: { [weak self] relationDetails in
-                    self?.navigationContext.dismissTopPresented(animated: false) {
-                        onSelect(relationDetails)
-                    }
-                }
-            )
-        )
-        if #available(iOS 15.0, *) {
-            if let sheet = vc.sheetPresentationController {
-                sheet.detents = [.medium(), .large()]
-                sheet.selectedDetentIdentifier = .large
-            }
-        }
-        navigationContext.present(vc)
-    }
-    
-    func showViewTypes(
-        dataView: BlockDataview,
-        activeView: DataviewView?,
-        dataviewService: DataviewServiceProtocol
-    )
-    {
-        let viewModel = SetViewTypesPickerViewModel(
-            dataView: dataView,
-            activeView: activeView,
-            dataviewService: dataviewService,
-            relationDetailsStorage: ServiceLocator.shared.relationDetailsStorage()
-        )
-        let vc = UIHostingController(
-            rootView: SetViewTypesPicker(viewModel: viewModel)
-        )
-        if #available(iOS 15.0, *) {
-            if let sheet = vc.sheetPresentationController {
-                sheet.detents = [.large()]
-                sheet.selectedDetentIdentifier = .large
-            }
-        }
-        navigationContext.present(vc)
-    }
-    
-    func showViewSettings(setDocument: SetDocumentProtocol, dataviewService: DataviewServiceProtocol) {
-        let viewModel = EditorSetViewSettingsViewModel(
-            setDocument: setDocument,
-            service: dataviewService,
-            router: self
-        )
-        let view = EditorSetViewSettingsView(
-            model: viewModel
-        )
-        navigationContext.presentSwiftUIView(view: view)
-    }
-    
-    func showSorts(setDocument: SetDocumentProtocol, dataviewService: DataviewServiceProtocol) {
-        let viewModel = SetSortsListViewModel(
-            setDocument: setDocument,
-            service: dataviewService,
-            router: self
-        )
-        let vc = UIHostingController(
-            rootView: SetSortsListView(viewModel: viewModel)
-        )
-        presentSheet(vc)
-    }
-    
-    func showFilters(setDocument: SetDocumentProtocol, dataviewService: DataviewServiceProtocol) {
-        let viewModel = SetFiltersListViewModel(
-            setDocument: setDocument,
-            dataviewService: dataviewService,
-            router: self
-        )
-        let vc = UIHostingController(
-            rootView: SetFiltersListView(viewModel: viewModel)
-        )
-        presentSheet(vc)
-    }
-    
-    func showFilterSearch(
-        filter: SetFilter,
-        onApply: @escaping (SetFilter) -> Void
-    ) {
-        let viewModel = SetFiltersSelectionViewModel(
-            filter: filter,
-            router: self,
-            newSearchModuleAssembly: newSearchModuleAssembly,
-            onApply: { [weak self] filter in
-                onApply(filter)
-                self?.navigationContext.dismissTopPresented()
-            }
-        )
-        presentFullscreen(
-            AnytypePopup(
-                viewModel: viewModel
-            )
-        )
-    }
-    
-    func showCardSizes(size: DataviewViewSize, onSelect: @escaping (DataviewViewSize) -> Void) {
-        let view = CheckPopupView(
-            viewModel: SetViewSettingsCardSizeViewModel(
-                selectedSize: size,
-                onSelect: onSelect
-            )
-        )
-        presentSheet(
-            AnytypePopup(
-                contentView: view
-            )
-        )
-    }
-    
-    func showCovers(setDocument: SetDocumentProtocol, onSelect: @escaping (String) -> Void) {
-        let viewModel = SetViewSettingsImagePreviewViewModel(
-            setDocument: setDocument,
-            onSelect: onSelect
-        )
-        let vc = UIHostingController(
-            rootView: SetViewSettingsImagePreviewView(
-                viewModel: viewModel
-            )
-        )
-        presentSheet(vc)
-    }
-    
-    func showGroupByRelations(
-        selectedRelationKey: String,
-        relations: [RelationDetails],
-        onSelect: @escaping (String) -> Void
-    ) {
-        let view = CheckPopupView(
-            viewModel: SetViewSettingsGroupByViewModel(
-                selectedRelationKey: selectedRelationKey,
-                relations: relations,
-                onSelect: onSelect
-            )
-        )
-        presentSheet(
-            AnytypePopup(
-                contentView: view
-            )
-        )
-    }
-    
-    func showKanbanColumnSettings(
-        hideColumn: Bool,
-        selectedColor: BlockBackgroundColor?,
-        onSelect: @escaping (Bool, BlockBackgroundColor?) -> Void
-    ) {
-        let popup = AnytypePopup(
-            viewModel: SetKanbanColumnSettingsViewModel(
-                hideColumn: hideColumn,
-                selectedColor: selectedColor,
-                onApplyTap: { [weak self] hidden, backgroundColor in
-                    onSelect(hidden, backgroundColor)
-                    self?.navigationContext.dismissTopPresented()
-                }
-            ),
-            configuration: .init(
-                isGrabberVisible: true,
-                dismissOnBackdropView: true
-            )
-        )
-        presentFullscreen(popup)
     }
 }
 
