@@ -137,7 +137,7 @@ final class EditorSetViewModel: ObservableObject {
                     self.showSetOfTypeSelection()
                 }
             } catch {
-                self.router.closeEditor()
+                self.setRouter?.closeEditor()
             }
         }
     }

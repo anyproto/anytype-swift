@@ -70,6 +70,7 @@ final class EditorAssembly {
         let setRouter = EditorSetRouter(
             document: document,
             rootController: browser,
+            viewController: controller,
             navigationContext: NavigationContext(rootViewController: browser ?? controller),
             createObjectModuleAssembly: modulesDI.createObject,
             newSearchModuleAssembly: modulesDI.newSearch,

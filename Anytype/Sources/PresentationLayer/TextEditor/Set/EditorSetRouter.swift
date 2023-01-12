@@ -54,6 +54,8 @@ protocol EditorSetRouterProtocol: AnyObject {
     func showSettings()
     
     func showSources(selectedObjectId: BlockId?, onSelect: @escaping (BlockId) -> ())
+    
+    func closeEditor()
 }
 
 final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsModuleDelegate {
@@ -62,6 +64,7 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsModuleDelega
     
     private let document: BaseDocumentProtocol
     private weak var rootController: EditorBrowserController?
+    private weak var viewController: UIViewController?
     private let navigationContext: NavigationContextProtocol
     private let createObjectModuleAssembly: CreateObjectModuleAssemblyProtocol
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
@@ -78,6 +81,7 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsModuleDelega
     init(
         document: BaseDocumentProtocol,
         rootController: EditorBrowserController?,
+        viewController: UIViewController,
         navigationContext: NavigationContextProtocol,
         createObjectModuleAssembly: CreateObjectModuleAssemblyProtocol,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
@@ -89,6 +93,7 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsModuleDelega
     ) {
         self.document = document
         self.rootController = rootController
+        self.viewController = viewController
         self.navigationContext = navigationContext
         self.createObjectModuleAssembly = createObjectModuleAssembly
         self.newSearchModuleAssembly = newSearchModuleAssembly
@@ -386,6 +391,11 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsModuleDelega
             showSet: false,
             onSelect: onSelect
         )
+    }
+    
+    func closeEditor() {
+        guard let viewController else { return }
+        rootController?.popIfPresent(viewController)
     }
     
     // MARK: - ObjectSettingsModuleDelegate
