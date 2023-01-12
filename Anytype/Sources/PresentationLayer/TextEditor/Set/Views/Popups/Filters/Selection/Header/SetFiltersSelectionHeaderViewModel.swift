@@ -7,11 +7,11 @@ final class SetFiltersSelectionHeaderViewModel: ObservableObject {
     var onConditionChanged: ((DataviewFilter.Condition) -> Void)?
     
     private var filter: SetFilter
-    private let router: EditorRouterProtocol
+    private let router: EditorSetRouterProtocol
     
     init(
         filter: SetFilter,
-        router: EditorRouterProtocol
+        router: EditorSetRouterProtocol
     ) {
         self.filter = filter
         self.router = router
@@ -44,18 +44,11 @@ final class SetFiltersSelectionHeaderViewModel: ObservableObject {
     }
     
     private func showFilterConditions() {
-        let view = CheckPopupView(
-            viewModel: SetFilterConditionsViewModel(
-                filter: filter,
-                onSelect: { [weak self] condition in
-                    self?.updateFilter(with: condition)
-                }
-            )
-        )
-        router.presentSheet(
-            AnytypePopup(
-                contentView: view
-            )
+        router.showFilterConditions(
+            filter: filter,
+            onSelect: { [weak self] condition in
+                self?.updateFilter(with: condition)
+            }
         )
     }
 }

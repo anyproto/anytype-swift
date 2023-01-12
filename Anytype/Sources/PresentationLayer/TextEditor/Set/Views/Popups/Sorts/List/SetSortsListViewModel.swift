@@ -10,12 +10,12 @@ final class SetSortsListViewModel: ObservableObject {
     private var cancellable: Cancellable?
     
     private let service: DataviewServiceProtocol
-    private let router: EditorRouterProtocol
+    private let router: EditorSetRouterProtocol
     
     init(
         setDocument: SetDocumentProtocol,
         service: DataviewServiceProtocol,
-        router: EditorRouterProtocol)
+        router: EditorSetRouterProtocol)
     {
         self.setDocument = setDocument
         self.service = service
@@ -42,20 +42,11 @@ extension SetSortsListViewModel {
         guard let setSort = setDocument.sorts.first(where: { $0.id == id }) else {
             return
         }
-        let view = CheckPopupView(viewModel: SetSortTypesListViewModel(
-            sort: setSort,
-            onSelect: { [weak self] sort in
-                let newSetSort = SetSort(
-                    relationDetails: setSort.relationDetails,
-                    sort: sort
-                )
+        router.showSortTypesList(
+            setSort: setSort,
+            onSelect: { [weak self] newSetSort in
                 self?.updateSorts(with: newSetSort)
-            })
-        )
-        router.presentSheet(
-            AnytypePopup(
-                contentView: view
-            )
+            }
         )
     }
     

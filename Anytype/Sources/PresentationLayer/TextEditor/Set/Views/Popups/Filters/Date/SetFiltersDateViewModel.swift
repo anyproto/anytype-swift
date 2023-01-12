@@ -9,7 +9,7 @@ final class SetFiltersDateViewModel: ObservableObject {
     @Published var condition: DataviewFilter.Condition
     
     private let filter: SetFilter
-    private let router: EditorRouterProtocol
+    private let router: EditorSetRouterProtocol
     private let setSelectionModel: SetFiltersSelectionViewModel
     private let onApplyDate: (SetFiltersDate) -> Void
     private var cancellable: AnyCancellable?
@@ -30,7 +30,7 @@ final class SetFiltersDateViewModel: ObservableObject {
     
     init(
         filter: SetFilter,
-        router: EditorRouterProtocol,
+        router: EditorSetRouterProtocol,
         setSelectionModel: SetFiltersSelectionViewModel,
         onApplyDate: @escaping (SetFiltersDate) -> Void)
     {
@@ -97,16 +97,12 @@ final class SetFiltersDateViewModel: ObservableObject {
     }
     
     private func showFiltersDaysView() {
-        router.presentFullscreen(
-            AnytypePopup(
-                viewModel: SetFiltersDaysViewModel(
-                    title: quickOption.title,
-                    value: "\(numberOfDays)",
-                    onValueChanged: { [weak self] value in
-                        self?.numberOfDays = Int(Double(value) ?? 0)
-                    }
-                )
-            )
+        router.showFiltersDaysView(
+            title: quickOption.title,
+            days: numberOfDays,
+            onApply: { [weak self] value in
+                self?.numberOfDays = value
+            }
         )
     }
 }
