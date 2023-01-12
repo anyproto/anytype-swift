@@ -128,6 +128,7 @@ final class EditorAssembly {
             toastPresenter: uiHelpersDI.toastPresenter(using: browser),
             codeLanguageListModuleAssembly: modulesDI.codeLanguageList,
             newSearchModuleAssembly: modulesDI.newSearch,
+            textIconPickerModuleAssembly: modulesDI.textIconPicker,
             alertHelper: AlertHelper(viewController: controller)
         )
 

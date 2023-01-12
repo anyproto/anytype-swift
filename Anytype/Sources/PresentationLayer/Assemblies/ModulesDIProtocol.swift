@@ -14,4 +14,5 @@ protocol ModulesDIProtocol: AnyObject {
     var newSearch: NewSearchModuleAssemblyProtocol { get }
     var newRelation: NewRelationModuleAssemblyProtocol { get }
     var homeWidgets: HomeWidgetsModuleAssemblyProtocol { get }
+    var textIconPicker: TextIconPickerModuleAssemblyProtocol { get }
 }
