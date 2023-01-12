@@ -69,4 +69,8 @@ final class ModulesDI: ModulesDIProtocol {
             widgetsDI:  widgetsDI
         )
     }
+    
+    var textIconPicker: TextIconPickerModuleAssemblyProtocol {
+        return TextIconPickerModuleAssembly(serviceLocator: serviceLocator)
+    }
 }
