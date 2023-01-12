@@ -3,7 +3,7 @@ import UIKit
 import Combine
 import AnytypeCore
 
-protocol ObjectHeaderRouterProtocol {
+protocol ObjectHeaderRouterProtocol: AnyObject {
     func showIconPicker()
     func showCoverPicker()
 }
