@@ -463,6 +463,12 @@ extension EditorRouter: AttachmentRouterProtocol {
     }
 }
 
+extension EditorRouter: ToastRouterProtocol {
+    func showFailureToast(message: String) {
+        toastPresenter.showFailureAlert(message: message)
+    }
+}
+
 // MARK: - Relations
 extension EditorRouter {
     func showRelationValueEditingView(key: String) {

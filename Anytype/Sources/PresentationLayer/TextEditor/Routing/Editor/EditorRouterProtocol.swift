@@ -5,9 +5,17 @@ import UIKit
 protocol AttachmentRouterProtocol {
     func openImage(_ imageContext: FilePreviewContext)
 }
+protocol ToastRouterProtocol {
+    func showFailureToast(message: String)
+}
 
-protocol EditorRouterProtocol: AnyObject, EditorPageOpenRouterProtocol,
-                                AttachmentRouterProtocol, ObjectHeaderRouterProtocol {
+protocol EditorRouterProtocol:
+    AnyObject,
+    EditorPageOpenRouterProtocol,
+    AttachmentRouterProtocol,
+    ObjectHeaderRouterProtocol,
+    ToastRouterProtocol
+{
     func showAlert(alertModel: AlertModel)
     func showPage(data: EditorScreenData)
     func replaceCurrentPage(with data: EditorScreenData)

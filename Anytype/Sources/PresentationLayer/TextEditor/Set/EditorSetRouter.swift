@@ -4,7 +4,12 @@ import BlocksModels
 import UIKit
 import SwiftUI
 
-protocol EditorSetRouterProtocol: AnyObject, EditorPageOpenRouterProtocol, ObjectHeaderRouterProtocol {
+protocol EditorSetRouterProtocol:
+    AnyObject,
+    EditorPageOpenRouterProtocol,
+    ObjectHeaderRouterProtocol,
+    ToastRouterProtocol
+{
     
     func showSetSettings(onSettingTap: @escaping (EditorSetSetting) -> Void)
     func dismissSetSettingsIfNeeded()
@@ -23,6 +28,7 @@ protocol EditorSetRouterProtocol: AnyObject, EditorPageOpenRouterProtocol, Objec
     func showViewTypes(
         dataView: BlockDataview,
         activeView: DataviewView?,
+        source: [String],
         dataviewService: DataviewServiceProtocol
     )
     
@@ -54,11 +60,10 @@ protocol EditorSetRouterProtocol: AnyObject, EditorPageOpenRouterProtocol, Objec
     func showSources(selectedObjectId: BlockId?, onSelect: @escaping (BlockId) -> ())
     
     func closeEditor()
-    func showFailureToast(message: String)
     func showPage(data: EditorScreenData)
     
-    func showRelationValueEditingView(key: String, source: RelationSource)
-    func showRelationValueEditingView(objectId: BlockId, source: RelationSource, relation: Relation)
+    func showRelationValueEditingView(key: String)
+    func showRelationValueEditingView(objectId: BlockId, relation: Relation)
     func showAddNewRelationView(onSelect: ((RelationDetails, _ isNew: Bool) -> Void)?)
 }
 
@@ -205,12 +210,13 @@ final class EditorSetRouter: EditorSetRouterProtocol {
     func showViewTypes(
         dataView: BlockDataview,
         activeView: DataviewView?,
+        source: [String],
         dataviewService: DataviewServiceProtocol
-    )
-    {
+    ) {
         let viewModel = SetViewTypesPickerViewModel(
             dataView: dataView,
             activeView: activeView,
+            source: source,
             dataviewService: dataviewService,
             relationDetailsStorage: ServiceLocator.shared.relationDetailsStorage()
         )
@@ -225,6 +231,7 @@ final class EditorSetRouter: EditorSetRouterProtocol {
         }
         navigationContext.present(vc)
     }
+
     
     func showViewSettings(setDocument: SetDocumentProtocol, dataviewService: DataviewServiceProtocol) {
         let viewModel = EditorSetViewSettingsViewModel(
@@ -417,19 +424,15 @@ final class EditorSetRouter: EditorSetRouterProtocol {
         rootController?.popIfPresent(viewController)
     }
     
-    func showFailureToast(message: String) {
-        toastPresenter.showFailureAlert(message: message)
-    }
-    
-    func showRelationValueEditingView(key: String, source: RelationSource) {
+    func showRelationValueEditingView(key: String) {
         let relation = document.parsedRelations.installed.first { $0.key == key }
         guard let relation = relation else { return }
         
-        showRelationValueEditingView(objectId: document.objectId, source: source, relation: relation)
+        showRelationValueEditingView(objectId: document.objectId, relation: relation)
     }
     
-    func showRelationValueEditingView(objectId: BlockId, source: RelationSource, relation: Relation) {
-        relationValueCoordinator.startFlow(objectId: objectId, source: source, relation: relation, output: self)
+    func showRelationValueEditingView(objectId: BlockId, relation: Relation) {
+        relationValueCoordinator.startFlow(objectId: objectId, relation: relation, output: self)
     }
     
     func showAddNewRelationView(onSelect: ((RelationDetails, _ isNew: Bool) -> Void)?) {
@@ -486,6 +489,12 @@ final class EditorSetRouter: EditorSetRouterProtocol {
         )
         currentSetSettingsPopup = popup
         navigationContext.present(popup)
+    }
+}
+
+extension EditorSetRouter: ToastRouterProtocol {
+    func showFailureToast(message: String) {
+        toastPresenter.showFailureAlert(message: message)
     }
 }
 
