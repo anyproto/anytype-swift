@@ -70,6 +70,7 @@ extension Color {
     enum Background {
       internal static let black = Color(asset: Asset.Background.black)
       internal static let highlightedOfSelected = Color(asset: Asset.Background.highlightedOfSelected)
+      internal static let material = Color(asset: Asset.Background.material)
       internal static let primary = Color(asset: Asset.Background.primary)
       internal static let secondary = Color(asset: Asset.Background.secondary)
     }

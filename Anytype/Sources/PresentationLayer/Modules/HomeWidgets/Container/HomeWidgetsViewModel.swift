@@ -8,19 +8,25 @@ final class HomeWidgetsViewModel: ObservableObject {
     private let widgetObject: HomeWidgetsObjectProtocol
     private let registry: HomeWidgetsRegistryProtocol
     private let blockWidgetService: BlockWidgetServiceProtocol
+    private let accountManager: AccountManager
     private weak var output: HomeWidgetsModuleOutput?
     
     @Published var models: [HomeWidgetProviderProtocol] = []
+    @Published var bottomPanelProvider: HomeWidgetProviderProtocol
     
     init(
         widgetObject: HomeWidgetsObjectProtocol,
         registry: HomeWidgetsRegistryProtocol,
         blockWidgetService: BlockWidgetServiceProtocol,
+        accountManager: AccountManager,
+        bottomPanelProviderAssembly: HomeBottomPanelProviderAssemblyProtocol,
         output: HomeWidgetsModuleOutput?
     ) {
         self.widgetObject = widgetObject
         self.registry = registry
         self.blockWidgetService = blockWidgetService
+        self.accountManager = accountManager
+        self.bottomPanelProvider = bottomPanelProviderAssembly.make()
         self.output = output
     }
     
@@ -42,6 +48,14 @@ final class HomeWidgetsViewModel: ObservableObject {
         output?.onOldHomeSelected()
     }
     
+    func onCreateWidgetTap() {
+        output?.onCreateWidgetSelected()
+    }
+    
+    func onSpaceIconChangeTap() {
+        output?.onSpaceIconChangeSelected(objectId: accountManager.account.info.accountSpaceId)
+    }
+    
     // MARK: - Private
     
     private func setupInitialState() async throws {
@@ -51,20 +65,5 @@ final class HomeWidgetsViewModel: ObservableObject {
                 return self.registry.providers(blocks: blocks, widgetObject: self.widgetObject)
             }
             .assign(to: &$models)
-        
-        // Temporary code for delete all widget blocks
-//        for child in widgetObject.baseDocument.children {
-//            try await blockWidgetService.removeWidgetBlock(contextId: widgetObject.objectId, widgetBlockId: child.id)
-//        }
-        
-        // Temporary code for crate widget blocks in empty object
-//        for i in 0..<1 {
-//            let info = BlockInformation.empty(content: .link(.empty(targetBlockID: "bafybbczjvvl2aky3lwqpc2l6g2wttyblljhwnhltfcm6bp6fjm5mezzu")))
-//            try await blockWidgetService.createWidgetBlock(
-//                contextId: widgetObject.objectId,
-//                info: info,
-//                layout: .tree
-//            )
-//        }
     }
 }

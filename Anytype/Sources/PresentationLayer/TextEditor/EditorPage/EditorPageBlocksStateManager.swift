@@ -279,7 +279,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
                     move(position: .bottom, targetId: targetDocument.objectId, dropTargetId: id)
                     
                     self?.toastPresenter.showObjectCompositeAlert(
-                        p1: Loc.Editor.Toast.movedTo,
+                        prefixText: Loc.Editor.Toast.movedTo,
                         objectId: targetDocument.objectId,
                         tapHandler: { [weak self] in
                             self?.router.showPage(data: .init(pageId: content.targetBlockID, type: .page))
@@ -328,7 +328,10 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
     }
 
     private func handleBlocksOptionItemSelection(_ item: BlocksOptionItem) {
-        let elements = selectedBlocksIndexPaths.compactMap { modelsHolder.blockViewModel(at: $0.row) }
+        let sortedElements: [IndexPath] = selectedBlocksIndexPaths.sorted()
+        let elements = sortedElements.compactMap {
+            modelsHolder.blockViewModel(at: $0.row)
+        }
         AnytypeAnalytics.instance().logEvent(
             AnalyticsEventsName.blockAction,
             withEventProperties: ["type": item.analyticsEventValue]
@@ -349,6 +352,14 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
                     self?.actionHandler.moveToPage(blockId: $0.blockId, pageId: pageId)
                 }
                 self?.editingState = .editing
+                
+                self?.toastPresenter.showObjectCompositeAlert(
+                    prefixText: Loc.Editor.Toast.movedTo,
+                    objectId: pageId,
+                    tapHandler: { [weak self] in
+                        self?.router.showPage(data: .init(pageId: pageId, type: .page))
+                    }
+                )
             }
             return
         case .move:

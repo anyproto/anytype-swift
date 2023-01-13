@@ -70,6 +70,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
     }
     
     func objectsSearchModule(
+        title: String?,
         style: NewSearchView.Style,
         selectionMode: NewSearchViewModel.SelectionMode,
         excludedObjectIds: [String],
@@ -89,6 +90,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         )
         
         let viewModel = NewSearchViewModel(
+            title: title,
             style: style,
             itemCreationMode: .unavailable,
             selectionMode: selectionMode,

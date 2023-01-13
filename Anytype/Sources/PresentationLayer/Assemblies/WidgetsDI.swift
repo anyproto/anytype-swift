@@ -3,6 +3,8 @@ import Foundation
 protocol WidgetsDIProtocol {
     func homeWidgetsRegistry() -> HomeWidgetsRegistryProtocol
     func objectTreeWidgetModuleAssembly() -> ObjectTreeWidgetModuleAssemblyProtocol
+    func bottomPanelProviderAssembly() -> HomeBottomPanelProviderAssemblyProtocol
+    func bottomPanelModuleAssembly() -> HomeBottomPanelModuleAssemblyProtocol
 }
 
 final class WidgetsDI: WidgetsDIProtocol {
@@ -26,5 +28,13 @@ final class WidgetsDI: WidgetsDIProtocol {
     
     func objectTreeWidgetModuleAssembly() -> ObjectTreeWidgetModuleAssemblyProtocol {
         return ObjectTreeWidgetModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
+    }
+    
+    func bottomPanelProviderAssembly() -> HomeBottomPanelProviderAssemblyProtocol {
+        return HomeBottomPanelProviderAssembly(widgetsDI: self)
+    }
+    
+    func bottomPanelModuleAssembly() -> HomeBottomPanelModuleAssemblyProtocol {
+        return HomeBottomPanelModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
     }
 }

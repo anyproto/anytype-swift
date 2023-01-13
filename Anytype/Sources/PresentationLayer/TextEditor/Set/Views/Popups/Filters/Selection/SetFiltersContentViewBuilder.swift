@@ -15,7 +15,7 @@ final class SetFiltersContentViewBuilder {
     
     @ViewBuilder
     func buildContentView(
-        router: EditorRouterProtocol,
+        router: EditorSetRouterProtocol,
         setSelectionModel: SetFiltersSelectionViewModel,
         onSelect: @escaping (_ ids: [String]) -> Void,
         onApplyText: @escaping (_ text: String) -> Void,
@@ -140,7 +140,7 @@ final class SetFiltersContentViewBuilder {
     // MARK: - Private methods: Date
     
     func buildDateView(
-        router: EditorRouterProtocol,
+        router: EditorSetRouterProtocol,
         setSelectionModel: SetFiltersSelectionViewModel,
         onApplyDate: @escaping (SetFiltersDate) -> Void
     ) -> some View {

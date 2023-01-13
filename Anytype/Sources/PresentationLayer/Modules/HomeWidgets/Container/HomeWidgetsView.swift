@@ -13,12 +13,26 @@ struct HomeWidgetsView: View {
                     ForEach(model.models, id: \.componentId) { model in
                         model.view
                     }
+                    Button("Create widget") {
+                        model.onCreateWidgetTap()
+                    }
                     Button("Show old home") {
                         model.onDisableNewHomeTap()
+                    }
+                    Button("Edit space icon") {
+                        model.onSpaceIconChangeTap()
+                    }
+                    if #available(iOS 15.0, *) {} else {
+                        // For safeAreaInsetLegacy
+                        Color.clear.frame(height: 72)
                     }
                 }
                 .padding(.horizontal, 20)
             }
+            .animation(.default, value: model.models.count)
+        }
+        .safeAreaInsetLegacy(edge: .bottom, spacing: 20) {
+            model.bottomPanelProvider.view
         }
         .onAppear {
             model.onAppear()
@@ -39,6 +53,8 @@ struct HomeWidgetsView_Previews: PreviewProvider {
                 ),
                 registry: DI.makeForPreview().widgetsDI.homeWidgetsRegistry(),
                 blockWidgetService: DI.makeForPreview().serviceLocator.blockWidgetService(),
+                accountManager: DI.makeForPreview().serviceLocator.accountManager(),
+                bottomPanelProviderAssembly: DI.makeForPreview().widgetsDI.bottomPanelProviderAssembly(),
                 output: nil
             )
         )

@@ -14,10 +14,14 @@ protocol EditorBrowserViewInputProtocol: AnyObject {
     func didShow(collectionView: UICollectionView)
 }
 
+protocol EditorPageOpenRouterProtocol: AnyObject {
+    func showPage(data: EditorScreenData)
+}
+
 final class EditorBrowserController: UIViewController, UINavigationControllerDelegate, EditorBrowser, EditorBrowserViewInputProtocol {
         
     var childNavigation: UINavigationController!
-    var router: EditorRouterProtocol!
+    var router: EditorPageOpenRouterProtocol!
 
     private lazy var navigationView: EditorBottomNavigationView = createNavigationView()
     private var navigationViewBottomConstaint: NSLayoutConstraint?

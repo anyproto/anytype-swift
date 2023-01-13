@@ -77,6 +77,7 @@ internal enum Asset {
   internal enum Background {
     static let black = ColorAsset(name: "Background/black")
     static let highlightedOfSelected = ColorAsset(name: "Background/highlightedOfSelected")
+    static let material = ColorAsset(name: "Background/material")
     static let primary = ColorAsset(name: "Background/primary")
     static let secondary = ColorAsset(name: "Background/secondary")
   }
