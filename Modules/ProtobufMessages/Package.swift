@@ -5,7 +5,6 @@ let package = Package(
     name: "ProtobufMessages",
     platforms: [
         .iOS(.v14),
-        .macOS(.v11)
     ],
     products: [
         .library(
