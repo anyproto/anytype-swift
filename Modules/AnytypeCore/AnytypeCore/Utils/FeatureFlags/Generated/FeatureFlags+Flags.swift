@@ -10,10 +10,6 @@ public extension FeatureFlags {
         value(for: .objectPreviewSettings)
     }
 
-    static var cursorPosition2: Bool {
-        value(for: .cursorPosition2)
-    }
-
     static var cursorPosition: Bool {
         value(for: .cursorPosition)
     }
@@ -85,7 +81,6 @@ public extension FeatureFlags {
     // All toggles
     static let features: [FeatureDescription] = [
         .objectPreviewSettings,
-        .cursorPosition2,
         .cursorPosition,
         .hideBottomViewForStyleMenu,
         .setKanbanView,

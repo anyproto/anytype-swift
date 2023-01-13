@@ -18,7 +18,7 @@ let package = Package(
         .package(path: "../ProtobufMessages"),
         .package(path: "../Logger"),
         // Waiting issue - https://github.com/krzysztofzablocki/Sourcery/issues/1090
-        .package(url: "https://github.com/mgolovko/SourceryGenPlugin.git", revision: "1.9.2")
+        .package(url: "https://github.com/anytypeio/SourceryGenPlugin.git", revision: "1.9.2")
     ],
     targets: [
         .target(
