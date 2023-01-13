@@ -1,1 +1,28 @@
-Test
+// swiftlint:disable file_length
+    
+{% set ToggleClassName %}FeatureDescription{% endset %}
+    
+{% macro staticAccess staticVar %}
+    static var {{staticVar.name}}: Bool {
+        value(for: .{{ staticVar.name }})
+    }
+{% endmacro %}
+
+public extension FeatureFlags {
+
+    // Static value reader
+{% for type in types.types where type.name == ToggleClassName and type.isExtension %}
+    {% for staticVar in type.staticVariables where staticVar.typeName.unwrappedTypeName == ToggleClassName%}
+        {% call staticAccess staticVar %}
+
+    {% endfor %}
+{% endfor %}
+    // All toggles
+    static let features: [FeatureDescription] = [
+{% for type in types.types where type.name == ToggleClassName and type.isExtension %}
+    {% for staticVar in type.staticVariables where staticVar.typeName.unwrappedTypeName == ToggleClassName %}
+        .{{ staticVar.name }}{{ ',' if forloop.last == false }}
+    {% endfor %}
+{% endfor %}
+    ]
+}

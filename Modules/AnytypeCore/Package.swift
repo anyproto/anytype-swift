@@ -17,7 +17,8 @@ let package = Package(
         .package(url: "https://github.com/apple/swift-protobuf", revision: "1.15.0"),
         .package(path: "../ProtobufMessages"),
         .package(path: "../Logger"),
-        .package(url: "https://github.com/krzysztofzablocki/Sourcery.git", revision: "1.9.2")
+        // Waiting issue - https://github.com/krzysztofzablocki/Sourcery/issues/1090
+        .package(url: "https://github.com/mgolovko/SourceryGenPlugin.git", revision: "1.9.2")
     ],
     targets: [
         .target(
@@ -29,7 +30,7 @@ let package = Package(
             ],
             path: "AnytypeCore",
             plugins: [
-                .plugin(name: "SourceryCommandPlugin", package: "Sourcery")
+                .plugin(name: "SourceryGenPlugin", package: "SourceryGenPlugin")
             ]
         )
     ]
