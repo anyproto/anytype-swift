@@ -846,28 +846,6 @@ extension Anytype_Rpc.Object.SetBreadcrumbs {
   }
 }
 
-extension Anytype_Rpc.Object.ImportMarkdown {
-  public enum Service {
-    public static func invoke(contextID: String = String(), importPath: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
-        return invocation(contextID: contextID, importPath: importPath).invoke(on: queue)
-    }
-    public static func invoke(contextID: String = String(), importPath: String = String()) -> Result<Response, Error> {
-        return invocation(contextID: contextID, importPath: importPath).invoke()
-    }
-    public static func invocation(contextID: String = String(), importPath: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
-        let request = Request(contextID: contextID, importPath: importPath)
-        return Invocation<Request,Response>(messageName: "ObjectImportMarkdown", request: request) { request in
-            return self.invoke(request)
-        }
-    }
-    private static func invoke(_ request: Request) -> Response? {
-        return Lib.ServiceObjectImportMarkdown(try? request.serializedData()).flatMap {
-            try? Response(serializedData: $0)
-        }
-    }
-  }
-}
-
 extension Anytype_Rpc.Object.ShareByLink {
   public enum Service {
     public static func invoke(objectID: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
@@ -1390,6 +1368,28 @@ extension Anytype_Rpc.Object.Import {
     }
     private static func invoke(_ request: Request) -> Response? {
         return Lib.ServiceObjectImport(try? request.serializedData()).flatMap {
+            try? Response(serializedData: $0)
+        }
+    }
+  }
+}
+
+extension Anytype_Rpc.Object.Import.Notion.ValidateToken {
+  public enum Service {
+    public static func invoke(token: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(token: token).invoke(on: queue)
+    }
+    public static func invoke(token: String = String()) -> Result<Response, Error> {
+        return invocation(token: token).invoke()
+    }
+    public static func invocation(token: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(token: token)
+        return Invocation<Request,Response>(messageName: "ObjectImportNotionValidateToken", request: request) { request in
+            return self.invoke(request)
+        }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+        return Lib.ServiceObjectImportNotionValidateToken(try? request.serializedData()).flatMap {
             try? Response(serializedData: $0)
         }
     }

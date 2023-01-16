@@ -77,12 +77,12 @@ service ClientCommands {
     rpc ObjectSetBreadcrumbs (anytype.Rpc.Object.SetBreadcrumbs.Request) returns (anytype.Rpc.Object.SetBreadcrumbs.Response);
     rpc ObjectUndo (anytype.Rpc.Object.Undo.Request) returns (anytype.Rpc.Object.Undo.Response);
     rpc ObjectRedo (anytype.Rpc.Object.Redo.Request) returns (anytype.Rpc.Object.Redo.Response);
-    rpc ObjectImportMarkdown (anytype.Rpc.Object.ImportMarkdown.Request) returns (anytype.Rpc.Object.ImportMarkdown.Response);
     rpc ObjectListExport (anytype.Rpc.Object.ListExport.Request) returns (anytype.Rpc.Object.ListExport.Response);
     rpc ObjectBookmarkFetch (anytype.Rpc.Object.BookmarkFetch.Request) returns (anytype.Rpc.Object.BookmarkFetch.Response);
     rpc ObjectToBookmark (anytype.Rpc.Object.ToBookmark.Request) returns (anytype.Rpc.Object.ToBookmark.Response);
     rpc ObjectImport (anytype.Rpc.Object.Import.Request) returns (anytype.Rpc.Object.Import.Response);
     rpc ObjectImportList (anytype.Rpc.Object.ImportList.Request) returns (anytype.Rpc.Object.ImportList.Response);
+    rpc ObjectImportNotionValidateToken (anytype.Rpc.Object.Import.Notion.ValidateToken.Request) returns (anytype.Rpc.Object.Import.Notion.ValidateToken.Response);
 
     // Relations
     // ***

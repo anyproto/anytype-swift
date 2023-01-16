@@ -2659,6 +2659,25 @@ extension Anytype_Rpc.Object.GroupsSubscribe.Response.Error {
     }
 }
 
+extension Anytype_Rpc.Object.Import.Notion.ValidateToken.Request {
+    public init(token: String = String()) {
+        self.token = token
+    }
+}
+
+extension Anytype_Rpc.Object.Import.Notion.ValidateToken.Response {
+    public init(error: Anytype_Rpc.Object.Import.Notion.ValidateToken.Response.Error) {
+        self.error = error
+    }
+}
+
+extension Anytype_Rpc.Object.Import.Notion.ValidateToken.Response.Error {
+    public init(code: Anytype_Rpc.Object.Import.Notion.ValidateToken.Response.Error.Code = .null, description_p: String = String()) {
+        self.code = code
+        self.description_p = description_p
+    }
+}
+
 extension Anytype_Rpc.Object.Import.Request {
     public init(params: Anytype_Rpc.Object.Import.Request.OneOf_Params? = nil, snapshots: [Anytype_Rpc.Object.Import.Request.Snapshot] = [], updateExistingObjects: Bool = false, type: Anytype_Rpc.Object.Import.Request.TypeEnum = .notion, mode: Anytype_Rpc.Object.Import.Request.Mode = .allOrNothing) {
         self.params = params
@@ -2722,28 +2741,6 @@ extension Anytype_Rpc.Object.ImportList.Response {
 
 extension Anytype_Rpc.Object.ImportList.Response.Error {
     public init(code: Anytype_Rpc.Object.ImportList.Response.Error.Code = .null, description_p: String = String()) {
-        self.code = code
-        self.description_p = description_p
-    }
-}
-
-extension Anytype_Rpc.Object.ImportMarkdown.Request {
-    public init(contextID: String = String(), importPath: String = String()) {
-        self.contextID = contextID
-        self.importPath = importPath
-    }
-}
-
-extension Anytype_Rpc.Object.ImportMarkdown.Response {
-    public init(error: Anytype_Rpc.Object.ImportMarkdown.Response.Error, rootLinkIds: [String] = [], event: Anytype_ResponseEvent) {
-        self.error = error
-        self.rootLinkIds = rootLinkIds
-        self.event = event
-    }
-}
-
-extension Anytype_Rpc.Object.ImportMarkdown.Response.Error {
-    public init(code: Anytype_Rpc.Object.ImportMarkdown.Response.Error.Code = .null, description_p: String = String()) {
         self.code = code
         self.description_p = description_p
     }
