@@ -1806,7 +1806,11 @@ public struct Anytype_Model_Block {
           case lessOrEqual // = 6
           case like // = 7
           case notLike // = 8
+
+          /// "at least one value(from the provided list) is IN"
           case `in` // = 9
+
+          /// "none of provided values are IN"
           case notIn // = 10
           case empty // = 11
           case notEmpty // = 12
