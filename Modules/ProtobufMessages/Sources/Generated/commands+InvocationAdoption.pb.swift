@@ -584,6 +584,11 @@ extension Anytype_Rpc.Object.GroupsSubscribe.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }
 }
 
+extension Anytype_Rpc.Object.Import.Notion.ValidateToken.Response: ResultWithError {}
+extension Anytype_Rpc.Object.Import.Notion.ValidateToken.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null }
+}
+
 extension Anytype_Rpc.Object.Import.Response: ResultWithError {}
 extension Anytype_Rpc.Object.Import.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }
@@ -591,11 +596,6 @@ extension Anytype_Rpc.Object.Import.Response.Error: ResponseError {
 
 extension Anytype_Rpc.Object.ImportList.Response: ResultWithError {}
 extension Anytype_Rpc.Object.ImportList.Response.Error: ResponseError {
-    public var isNull: Bool { code == .null }
-}
-
-extension Anytype_Rpc.Object.ImportMarkdown.Response: ResultWithError {}
-extension Anytype_Rpc.Object.ImportMarkdown.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }
 }
 

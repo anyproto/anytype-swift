@@ -121,9 +121,9 @@ extension Anytype_Rpc.Object.CreateSet.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.Duplicate.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.Graph.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.GroupsSubscribe.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Object.Import.Notion.ValidateToken.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.Import.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.ImportList.Response.Error: Swift.Error {}
-extension Anytype_Rpc.Object.ImportMarkdown.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.ListDelete.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.ListDuplicate.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.ListExport.Response.Error: Swift.Error {}
