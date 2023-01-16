@@ -1,0 +1,6 @@
+sources:
+  - ./AnytypeCore/Utils/FeatureFlags/FeatureDescription+Flags.swift
+templates:
+  - ./SourceryTemplates/Toggles.stencil
+output:
+  ./AnytypeCore/Utils/FeatureFlags/Generated/FeatureFlags+Flags.swift
