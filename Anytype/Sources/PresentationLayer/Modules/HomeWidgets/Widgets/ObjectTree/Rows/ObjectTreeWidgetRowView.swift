@@ -17,6 +17,7 @@ struct ObjectTreeWidgetRowViewModel {
     let level: Int
     let tapExpand: (ObjectTreeWidgetRowViewModel) -> Void
     let tapCollapse: (ObjectTreeWidgetRowViewModel) -> Void
+    let tapObject: (ObjectTreeWidgetRowViewModel) -> Void
 }
 
 struct ObjectTreeWidgetRowView: View {
@@ -29,15 +30,19 @@ struct ObjectTreeWidgetRowView: View {
             rowIcon
                 .frame(width: 20, height: 20)
             Spacer.fixedWidth(8)
-            if let icon = model.icon {
-                SwiftUIObjectIconImageView(iconImage: icon, usecase: .widgetTree)
-                    .frame(width: 18, height: 18)
+            Button(action: {
+                model.tapObject(model)
+            }, label: {
+                if let icon = model.icon {
+                    SwiftUIObjectIconImageView(iconImage: icon, usecase: .widgetTree)
+                        .frame(width: 18, height: 18)
+                    Spacer.fixedWidth(12)
+                }
+                AnytypeText(model.title, style: .previewTitle2Medium, color: .Text.primary)
+                    .lineLimit(1)
                 Spacer.fixedWidth(12)
-            }
-            AnytypeText(model.title, style: .previewTitle2Medium, color: .Text.primary)
-                .lineLimit(1)
-            Spacer.fixedWidth(12)
-            Spacer()
+                Spacer()
+            })
         }
         .frame(height: 40)
         .newDivider(leadingPadding: 16, trailingPadding: 16)

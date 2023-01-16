@@ -21,6 +21,7 @@ final class ObjectTreeWidgetViewModel: ObservableObject {
     private let objectDetailsStorage: ObjectDetailsStorage
     private let subscriptionManager: ObjectTreeSubscriptionManagerProtocol
     private let blockWidgetService: BlockWidgetServiceProtocol
+    private weak var output: ObjectTreeWidgetModuleOutput?
     
     // MARK: - State
     private var subscriptions = [AnyCancellable]()
@@ -37,13 +38,15 @@ final class ObjectTreeWidgetViewModel: ObservableObject {
         widgetObject: HomeWidgetsObjectProtocol,
         objectDetailsStorage: ObjectDetailsStorage,
         subscriptionManager: ObjectTreeSubscriptionManagerProtocol,
-        blockWidgetService: BlockWidgetServiceProtocol
+        blockWidgetService: BlockWidgetServiceProtocol,
+        output: ObjectTreeWidgetModuleOutput?
     ) {
         self.widgetBlockId = widgetBlockId
         self.widgetObject = widgetObject
         self.objectDetailsStorage = objectDetailsStorage
         self.subscriptionManager = subscriptionManager
         self.blockWidgetService = blockWidgetService
+        self.output = output
     }
     
     // MARK: - Public
@@ -165,6 +168,10 @@ final class ObjectTreeWidgetViewModel: ObservableObject {
                 },
                 tapCollapse: { [weak self] model in
                     self?.onTapCollapse(model: model)
+                },
+                tapObject: { [weak self] _ in
+                    let data = EditorScreenData(pageId: details.id, type: details.editorViewType)
+                    self?.output?.onObjectSelected(screenData: data)
                 }
             )
             
