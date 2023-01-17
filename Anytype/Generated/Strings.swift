@@ -780,8 +780,8 @@ internal enum Loc {
         /// Untitled set
         internal static let untitled = Loc.tr("Localizable", "Content.DataView.InlineSet.Untitled", fallback: "Untitled set")
         internal enum Toast {
-          /// This inline set doesn’t have source
-          internal static let failure = Loc.tr("Localizable", "Content.DataView.InlineSet.Toast.Failure", fallback: "This inline set doesn’t have source")
+          /// This inline set doesn’t have a source
+          internal static let failure = Loc.tr("Localizable", "Content.DataView.InlineSet.Toast.Failure", fallback: "This inline set doesn’t have a source")
         }
       }
     }
