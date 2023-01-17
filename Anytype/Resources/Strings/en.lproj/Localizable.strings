@@ -651,7 +651,7 @@
 "Content.DataView.InlineSet.NoSource" = "No source";
 "Content.DataView.InlineSet.NoData" = "No data";
 "Content.DataView.InlineSet.Untitled" = "Untitled set";
-"Content.DataView.InlineSet.Toast.Failure" = "This inline set doesn’t have source";
+"Content.DataView.InlineSet.Toast.Failure" = "This inline set doesn’t have a source";
 
 // MARK: - Widget extension
 "WidgetExtension.LockScreen.Title" = "New object";
