@@ -660,3 +660,4 @@
 
 // MARK: - Widgets
 "Widgets.SourceSearch" = "Widget source";
+"Home.Widgets.EditTitle" = "Edit widgets";

@@ -30,6 +30,7 @@ final class HomeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol {
             blockWidgetService: serviceLocator.blockWidgetService(),
             accountManager: serviceLocator.accountManager(),
             bottomPanelProviderAssembly: widgetsDI.bottomPanelProviderAssembly(),
+            toastPresenter: uiHelpersDI.toastPresenter,
             output: output
         )
         let view = HomeWidgetsView(model: model)
