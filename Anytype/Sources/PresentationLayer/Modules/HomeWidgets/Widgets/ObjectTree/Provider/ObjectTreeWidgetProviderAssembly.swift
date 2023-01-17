@@ -3,9 +3,11 @@ import Foundation
 final class ObjectTreeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol {
     
     private let widgetsDI: WidgetsDIProtocol
+    private weak var output: ObjectTreeWidgetModuleOutput?
     
-    init(widgetsDI: WidgetsDIProtocol) {
+    init(widgetsDI: WidgetsDIProtocol, output: ObjectTreeWidgetModuleOutput?) {
         self.widgetsDI = widgetsDI
+        self.output = output
     }
     
     // MARK: - HomeWidgetProviderAssemblyProtocol
@@ -14,7 +16,8 @@ final class ObjectTreeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
         return ObjectTreeWidgetProvider(
             widgetBlockId: widgetBlockId,
             widgetObject: widgetObject,
-            objectTreeWidgetModuleAssembly: widgetsDI.objectTreeWidgetModuleAssembly()
+            objectTreeWidgetModuleAssembly: widgetsDI.objectTreeWidgetModuleAssembly(),
+            output: output
         )
     }
 }

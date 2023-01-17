@@ -6,6 +6,7 @@ protocol NavigationContextProtocol: AnyObject {
     func present(_ viewControllerToPresent: UIViewController, animated: Bool, completion: (() -> Void)?)
     func dismissTopPresented(animated: Bool, completion: (() -> Void)?)
     func dismissAllPresented(animated: Bool, completion: (() -> Void)?)
+    func push(_ viewControllerToPresent: UIViewController, animated: Bool)
 }
 
 extension NavigationContextProtocol {
@@ -25,6 +26,10 @@ extension NavigationContextProtocol {
         let controller = UIHostingController(rootView: view)
         model?.onDismiss = { [weak controller] in controller?.dismiss(animated: true) }
         present(controller, animated: animated)
+    }
+    
+    func push(_ viewControllerToPresent: UIViewController) {
+        push(viewControllerToPresent, animated: true)
     }
 }
 
@@ -95,6 +100,18 @@ final class NavigationContext: NavigationContextProtocol {
                 completeCall()
                 completion?()
             }
+        }
+    }
+    
+    func push(_ viewControllerToPresent: UIViewController, animated: Bool) {
+        addOperationToQueue { [weak self] completeCall in
+            guard let viewController = self?.rootViewControllerProvider()?.topPresentedController as? UINavigationController else {
+                completeCall()
+                return
+            }
+            
+            viewController.pushViewController(viewControllerToPresent, animated: animated)
+            completeCall()
         }
     }
          

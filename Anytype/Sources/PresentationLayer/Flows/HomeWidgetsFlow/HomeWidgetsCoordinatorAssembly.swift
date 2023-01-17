@@ -35,7 +35,8 @@ final class HomeWidgetsCoordinatorAssembly: HomeWidgetsCoordinatorAssemblyProtoc
             navigationContext: uiHelpersDI.commonNavigationContext,
             windowManager: coordinatorsID.windowManager,
             createWidgetCoordinator: coordinatorsID.createWidget.make(),
-            objectIconPickerModuleAssembly: modulesDI.objectIconPicker
+            objectIconPickerModuleAssembly: modulesDI.objectIconPicker,
+            editorBrowserAssembly: coordinatorsID.browser
         )
     }
 }
