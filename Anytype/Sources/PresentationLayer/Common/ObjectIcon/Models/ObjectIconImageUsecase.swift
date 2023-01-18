@@ -26,7 +26,7 @@ enum ObjectIconImageUsecase: Equatable, Hashable {
     
     case homeBottomPanel
     
-    case inlineHeader
+    case inlineSetHeader
 }
 
 extension ObjectIconImageUsecase {

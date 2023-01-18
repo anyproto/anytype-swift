@@ -153,7 +153,7 @@ extension ObjectIconImageUsecase {
                 staticImageGuideline: StaticImageGuideline.x24,
                 bookmarkImageGuideline: BookmarkIconImageGuideline.x24
             )
-        case .inlineHeader:
+        case .inlineSetHeader:
             return ObjectIconImageGuidelineSet(
                 basicImageGuideline: BasicIconImageGuideline.x32,
                 profileImageGuideline: ProfileIconImageGuideline.x32,

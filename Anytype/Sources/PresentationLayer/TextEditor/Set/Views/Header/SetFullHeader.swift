@@ -99,7 +99,7 @@ extension SetFullHeader {
             if model.hasTargetObjectId, let iconImage = model.details?.objectIconImage {
                 SwiftUIObjectIconImageView(
                     iconImage: iconImage,
-                    usecase: .inlineHeader)
+                    usecase: .inlineSetHeader)
                 .frame(
                     width: 32,
                     height: 32
