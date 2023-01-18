@@ -770,8 +770,8 @@ internal enum Loc {
       internal static let uploading = Loc.tr("Localizable", "Content.Common.Uploading", fallback: "Uploading...")
     }
     internal enum DataView {
-      /// Inline set
-      internal static let inlineSet = Loc.tr("Localizable", "Content.DataView.InlineSet", fallback: "Inline set")
+      /// Set View
+      internal static let setView = Loc.tr("Localizable", "Content.DataView.SetView", fallback: "Set View")
       internal enum InlineSet {
         /// No data
         internal static let noData = Loc.tr("Localizable", "Content.DataView.InlineSet.NoData", fallback: "No data")
