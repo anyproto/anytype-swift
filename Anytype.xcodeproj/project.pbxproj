@@ -399,6 +399,8 @@
 		2A1F94742978224700E25782 /* SetWidgetModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1F94732978224700E25782 /* SetWidgetModuleOutput.swift */; };
 		2A1F947A2978228F00E25782 /* SetWidgetProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1F94782978228F00E25782 /* SetWidgetProvider.swift */; };
 		2A1F947B2978228F00E25782 /* SetWidgetProviderAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1F94792978228F00E25782 /* SetWidgetProviderAssembly.swift */; };
+		2A1F947E2978312900E25782 /* SetWidgetHeaderItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1F947D2978312900E25782 /* SetWidgetHeaderItem.swift */; };
+		2A1F94802978381700E25782 /* SetWidgetRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1F947F2978381700E25782 /* SetWidgetRow.swift */; };
 		2A2A347529229D2B0004BD8B /* NavigationContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2A347429229D2B0004BD8B /* NavigationContext.swift */; };
 		2A2C330028919576008BC326 /* RelationMetadataFormat+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2C32FF28919576008BC326 /* RelationMetadataFormat+Extensions.swift */; };
 		2A2C330328928668008BC326 /* RelationValueCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2C330228928668008BC326 /* RelationValueCoordinator.swift */; };
@@ -1726,6 +1728,8 @@
 		2A1F94732978224700E25782 /* SetWidgetModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetWidgetModuleOutput.swift; sourceTree = "<group>"; };
 		2A1F94782978228F00E25782 /* SetWidgetProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetWidgetProvider.swift; sourceTree = "<group>"; };
 		2A1F94792978228F00E25782 /* SetWidgetProviderAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetWidgetProviderAssembly.swift; sourceTree = "<group>"; };
+		2A1F947D2978312900E25782 /* SetWidgetHeaderItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetWidgetHeaderItem.swift; sourceTree = "<group>"; };
+		2A1F947F2978381700E25782 /* SetWidgetRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetWidgetRow.swift; sourceTree = "<group>"; };
 		2A2A347429229D2B0004BD8B /* NavigationContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationContext.swift; sourceTree = "<group>"; };
 		2A2C32FF28919576008BC326 /* RelationMetadataFormat+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RelationMetadataFormat+Extensions.swift"; sourceTree = "<group>"; };
 		2A2C330228928668008BC326 /* RelationValueCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationValueCoordinator.swift; sourceTree = "<group>"; };
@@ -4538,6 +4542,7 @@
 		2A1F946C2978207F00E25782 /* Set */ = {
 			isa = PBXGroup;
 			children = (
+				2A1F947C2978311700E25782 /* Subviews */,
 				2A1F94772978228F00E25782 /* Provider */,
 				2A1F946D2978208F00E25782 /* SetWidgetView.swift */,
 				2A1F946F297820BD00E25782 /* SetWidgetViewModel.swift */,
@@ -4554,6 +4559,15 @@
 				2A1F94792978228F00E25782 /* SetWidgetProviderAssembly.swift */,
 			);
 			path = Provider;
+			sourceTree = "<group>";
+		};
+		2A1F947C2978311700E25782 /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				2A1F947D2978312900E25782 /* SetWidgetHeaderItem.swift */,
+				2A1F947F2978381700E25782 /* SetWidgetRow.swift */,
+			);
+			path = Subviews;
 			sourceTree = "<group>";
 		};
 		2A2A347229229D190004BD8B /* Navigation */ = {
@@ -8917,6 +8931,7 @@
 				3DE0CFD826F8593D003A606A /* SlashAction.swift in Sources */,
 				0A2C0D57247144F4008ADD86 /* CustomTextView.swift in Sources */,
 				C9F0A4772805702C00FA16DD /* ObjectIconPickerViewModelProtocol.swift in Sources */,
+				2A1F94802978381700E25782 /* SetWidgetRow.swift in Sources */,
 				538EF48725F831AA005C7438 /* NSAttributedStringExtension.swift in Sources */,
 				125E75E526CD199A000AF4E9 /* EditorNavigationBarTitleView.swift in Sources */,
 				2AAF343A29559BED00921320 /* ObjectTreeWidgetProvider.swift in Sources */,
@@ -9005,6 +9020,7 @@
 				531F0DEA283CCD8D000A0B31 /* Debouncer.swift in Sources */,
 				EA77E541262DEC3F009F91D9 /* ButtonsFactory.swift in Sources */,
 				EA20CDD526122C9200DBA9FE /* VideoBlockContentView.swift in Sources */,
+				2A1F947E2978312900E25782 /* SetWidgetHeaderItem.swift in Sources */,
 				2E61D470286C63FC004BC2E7 /* BlockBookmarkStateConverter.swift in Sources */,
 				2A6F5048288A9AB600ED6E2E /* Image+Create.swift in Sources */,
 				12F14CD52758D0B200B976B5 /* RelationEditingViewModelBuilderProtocol.swift in Sources */,

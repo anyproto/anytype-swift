@@ -18,6 +18,8 @@ final class SetWidgetViewModel: ObservableObject {
     
     @Published var name: String = ""
     @Published var isExpanded: Bool = true
+    @Published var headerItems: [SetWidgetHeaderItemModel] = []
+    @Published var rows: [SetWidgetRow.Model] = []
     
     init(
         widgetBlockId: BlockId,
@@ -65,6 +67,7 @@ final class SetWidgetViewModel: ObservableObject {
             .sink { [weak self] details in
                 self?.linkedObjectDetails = details
                 self?.name = details.title
+                self?.updateViewState()
             }
             .store(in: &subscriptions)
         
@@ -74,5 +77,23 @@ final class SetWidgetViewModel: ObservableObject {
                 self?.isExpanded = widget.layout == .tree
             }
             .store(in: &subscriptions)
+    }
+    
+    private func updateViewState() {
+        headerItems = [
+            SetWidgetHeaderItemModel(dataviewId: "1", title: "Last Edited", onTap: {}, isSelected: false),
+            SetWidgetHeaderItemModel(dataviewId: "2", title: "New movies", onTap: {}, isSelected: true),
+            SetWidgetHeaderItemModel(dataviewId: "3", title: "To watch", onTap: {}, isSelected: false),
+            SetWidgetHeaderItemModel(dataviewId: "4", title: "To watch", onTap: {}, isSelected: false),
+            SetWidgetHeaderItemModel(dataviewId: "5", title: "My Collection", onTap: {}, isSelected: false),
+            SetWidgetHeaderItemModel(dataviewId: "6", title: "My Collection 2", onTap: {}, isSelected: false),
+            SetWidgetHeaderItemModel(dataviewId: "7", title: "My Collection 3", onTap: {}, isSelected: false)
+        ]
+        
+        rows = [
+            SetWidgetRow.Model(objectId: "1", icon: .placeholder("A"), title: "Object title", description: "Object description description description description description description ", onTap: {}),
+            SetWidgetRow.Model(objectId: "2", icon: .placeholder("A"), title: "Object title title title title title title title title title", description: nil, onTap: {}),
+            SetWidgetRow.Model(objectId: "3", icon: nil, title: "Object title", description: "Object description", onTap: {})
+        ]
     }
 }

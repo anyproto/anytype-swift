@@ -108,7 +108,7 @@ extension ObjectIconImageUsecase {
                 emojiImageFont: nil,
                 placeholderImageFont: nil
             )
-        case .dashboardSearch, .linkToObject:
+        case .dashboardSearch, .linkToObject, .homeSetWidget:
             return ObjectIconImageFontSet(
                 profileImageFont: UIKitFontBuilder.uiKitFont(
                     name: .inter,
