@@ -72,7 +72,7 @@ final class StyleView: UIView {
 
         let styleCollectionView = UICollectionView(frame: bounds, collectionViewLayout: layout)
         styleCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        styleCollectionView.backgroundColor = .backgroundSecondary
+        styleCollectionView.backgroundColor = .Background.secondary
         styleCollectionView.alwaysBounceVertical = false
         styleCollectionView.alwaysBounceHorizontal = true
         styleCollectionView.delegate = self
@@ -163,7 +163,7 @@ final class StyleView: UIView {
     // MARK: - Setup views
 
     private func setupViews() {
-        backgroundColor = .backgroundSecondary
+        backgroundColor = .Background.secondary
 
         containerStackView.addArrangedSubview(listStackView)
         containerStackView.addArrangedSubview(otherStyleStackView)
@@ -221,14 +221,14 @@ final class StyleView: UIView {
         let smallButtonSize = CGSize(width: 32, height: 32)
 
         let highlightedButton = ButtonsFactory.roundedBorderуButton(image: UIImage.highlightImage())
-        highlightedButton.setImageTintColor(.textSecondary, state: .disabled)
+        highlightedButton.setImageTintColor(.Text.secondary, state: .disabled)
         setupAction(for: highlightedButton, with: .quote)
 
         let isCalloutEnabled = style == .callout ? true : restrictions.turnIntoStyles.contains(.text(.callout))
         let calloutImage = UIImage.imageWithText(
             Loc.callout,
-            textColor: isCalloutEnabled ? .textPrimary : .buttonInactive,
-            backgroundColor: .backgroundSelected,
+            textColor: isCalloutEnabled ? .Text.primary : .Button.inactive,
+            backgroundColor: .Background.highlightedOfSelected,
             font: .uxCalloutRegular,
             size: .init(width: 63, height: 28),
             cornerRadius: 6
@@ -245,14 +245,14 @@ final class StyleView: UIView {
         let colorButton = ButtonsFactory.roundedBorderуButton(image: UIImage(asset: .StyleBottomSheet.color))
         colorButton.layer.borderWidth = 0
         colorButton.layer.cornerRadius = smallButtonSize.height / 2
-        colorButton.setBackgroundColor(.backgroundSelected, state: .selected)
+        colorButton.setBackgroundColor(.Background.highlightedOfSelected, state: .selected)
         colorButton.addTarget(self, action: #selector(colorActionHandler), for: .touchUpInside)
 
-        let image = UIImage(asset: .more)?.withTintColor(.textSecondary)
+        let image = UIImage(asset: .more)?.withTintColor(.Text.secondary)
         let moreButton = ButtonsFactory.roundedBorderуButton(image: image)
         moreButton.layer.borderWidth = 0
         moreButton.layer.cornerRadius = smallButtonSize.height / 2
-        moreButton.setBackgroundColor(.backgroundSelected, state: .selected)
+        moreButton.setBackgroundColor(.Background.highlightedOfSelected, state: .selected)
         
         moreButton.addAction(UIAction(handler: { [weak self, weak moreButton] _ in
             guard let self = self else { return }
@@ -373,8 +373,8 @@ final class StyleView: UIView {
 
         button.isSelected = true
 
-        let color = askColor() ?? .textPrimary
-        let backgroundColor = askBackgroundColor() ?? .backgroundPrimary
+        let color = askColor() ?? .Text.primary
+        let backgroundColor = askBackgroundColor() ?? .Background.primary
 
         let contentVC = StyleColorViewController(
             selectedColor: color,
@@ -440,7 +440,7 @@ private extension UIImage {
         let frame = CGRect(x: 0, y: 0, width: 70, height: 24)
         let nameLabel = UILabel(frame: frame)
         nameLabel.textAlignment = .right
-        nameLabel.textColor = .buttonSelected
+        nameLabel.textColor = .Button.selected
         nameLabel.font = AnytypeFont.uxCalloutRegular.uiKitFont
         nameLabel.text = Loc.highlight
 
@@ -448,7 +448,7 @@ private extension UIImage {
         backgroundView.addSubview(nameLabel)
 
         let quoteView = UIView(frame: .init(x: 0, y: 0, width: 1, height: frame.height))
-        quoteView.backgroundColor = .buttonSelected
+        quoteView.backgroundColor = .Button.selected
 
         backgroundView.addSubview(quoteView)
         UIGraphicsBeginImageContextWithOptions(frame.size, false, UIApplication.shared.keyWindow?.screen.scale ?? 0)

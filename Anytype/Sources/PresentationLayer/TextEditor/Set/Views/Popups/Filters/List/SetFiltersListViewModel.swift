@@ -11,13 +11,13 @@ final class SetFiltersListViewModel: ObservableObject {
     private var cancellable: Cancellable?
     
     private let dataviewService: DataviewServiceProtocol
-    private let router: EditorRouterProtocol
+    private let router: EditorSetRouterProtocol
     private let relationFilterBuilder = RelationFilterBuilder()
     
     init(
         setDocument: SetDocumentProtocol,
         dataviewService: DataviewServiceProtocol,
-        router: EditorRouterProtocol)
+        router: EditorSetRouterProtocol)
     {
         self.setDocument = setDocument
         self.dataviewService = dataviewService

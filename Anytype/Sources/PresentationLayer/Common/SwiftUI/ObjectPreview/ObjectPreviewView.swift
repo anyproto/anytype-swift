@@ -18,7 +18,7 @@ struct ObjectPreviewView: View {
             mainSection
             featuredRealtionSection
         }
-        .background(Color.backgroundSecondary)
+        .background(Color.Background.secondary)
         .padding(.horizontal, 20)
     }
 
@@ -61,7 +61,7 @@ struct ObjectPreviewView: View {
         VStack(alignment: .leading, spacing: 0) {
             VStack(spacing: 0) {
                 Spacer()
-                AnytypeText(Loc.featuredRelations, style: .caption1Regular, color: .textSecondary)
+                AnytypeText(Loc.featuredRelations, style: .caption1Regular, color: .Text.secondary)
                     .padding(.bottom, 8)
             }
             .frame(height: 52)
@@ -88,7 +88,7 @@ struct ObjectPreviewView: View {
             icon(imageAsset: item.iconAsset)
 
             if item.isLocked {
-                AnytypeText(item.name, style: .uxBodyRegular, color: .textPrimary)
+                AnytypeText(item.name, style: .uxBodyRegular, color: .Text.primary)
             } else {
                 AnytypeToggle(
                     title: item.name,
@@ -125,9 +125,9 @@ struct ObjectPreviewView: View {
                     Spacer.fixedWidth(10)
                 }
 
-                AnytypeText(name, style: .uxBodyRegular, color: .textPrimary)
+                AnytypeText(name, style: .uxBodyRegular, color: .Text.primary)
                 Spacer()
-                AnytypeText(value, style: .uxBodyRegular, color: .textSecondary)
+                AnytypeText(value, style: .uxBodyRegular, color: .Text.secondary)
                 Spacer.fixedWidth(10)
                 Image(asset: .arrowForward)
             }

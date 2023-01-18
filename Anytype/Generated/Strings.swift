@@ -1005,6 +1005,10 @@ internal enum Loc {
       /// Library is available in desktop app
       internal static let library = Loc.tr("Localizable", "Home.Snackbar.Library", fallback: "Library is available in desktop app")
     }
+    internal enum Widgets {
+      /// Edit widgets
+      internal static let editTitle = Loc.tr("Localizable", "Home.Widgets.EditTitle", fallback: "Edit widgets")
+    }
   }
   internal enum InterfaceStyle {
     /// Dark
@@ -1371,6 +1375,10 @@ internal enum Loc {
       /// New object
       internal static let title = Loc.tr("Localizable", "WidgetExtension.LockScreen.Title", fallback: "New object")
     }
+  }
+  internal enum Widgets {
+    /// Widget source
+    internal static let sourceSearch = Loc.tr("Localizable", "Widgets.SourceSearch", fallback: "Widget source")
   }
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length

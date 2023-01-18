@@ -46,15 +46,15 @@ struct MainAuthView: View {
             .transition(.identity)
             .padding(EdgeInsets(top: 23, leading: 20, bottom: 10, trailing: 20))
         }
-        .background(Color.backgroundPrimary)
+        .background(Color.Background.primary)
         .cornerRadius(16.0)
     }
     
     private var analyticsConsentView: some View {
         VStack(alignment: .leading, spacing: 0) {
-            AnytypeText(Loc.onAnalytics, style: .heading, color: .textPrimary)
+            AnytypeText(Loc.onAnalytics, style: .heading, color: .Text.primary)
             Spacer.fixedHeight(11)
-            AnytypeText(Loc.analyticsConstentText, style: .uxCalloutRegular, color: .textPrimary)
+            AnytypeText(Loc.analyticsConstentText, style: .uxCalloutRegular, color: .Text.primary)
                 .padding(.trailing, 5)
             Spacer.fixedHeight(18)
             StandardButton(text: Loc.start, style: .primary) {
@@ -71,9 +71,9 @@ struct MainAuthView: View {
     
     private var standartContent: some View {
         VStack(alignment: .leading, spacing: 0) {
-            AnytypeText(Loc.welcomeToAnytype, style: .heading, color: .textPrimary)
+            AnytypeText(Loc.welcomeToAnytype, style: .heading, color: .Text.primary)
             Spacer.fixedHeight(11)
-            AnytypeText(Loc.organizeEverythingDescription, style: .uxCalloutRegular, color: .textPrimary)
+            AnytypeText(Loc.organizeEverythingDescription, style: .uxCalloutRegular, color: .Text.primary)
             Spacer.fixedHeight(18)
             buttons
         }

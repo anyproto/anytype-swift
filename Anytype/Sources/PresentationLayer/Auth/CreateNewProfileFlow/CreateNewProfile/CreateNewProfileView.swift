@@ -35,7 +35,7 @@ struct CreateNewProfileView: View {
             VStack(spacing: 0) {
                 contentView
             }
-            .background(Color.backgroundPrimary)
+            .background(Color.Background.primary)
             .cornerRadius(16.0)
         }
     }
@@ -46,7 +46,7 @@ struct CreateNewProfileView: View {
             Spacer.fixedHeight(11)
             
             HStack {
-                AnytypeText(Loc.newProfile, style: .caption1Regular, color: .textSecondary)
+                AnytypeText(Loc.newProfile, style: .caption1Regular, color: .Text.secondary)
                 Spacer()
             }
             Spacer.fixedHeight(6)
@@ -56,7 +56,7 @@ struct CreateNewProfileView: View {
                 placeholderFont: .uxBodyRegular,
                 text: $signUpData.userName
             )
-                .foregroundColor(.textPrimary)
+                .foregroundColor(.Text.primary)
                 .font(AnytypeFontBuilder.font(anytypeFont: .heading))
                 .disableAutocorrection(true)
                 .divider(spacing: 10)
@@ -97,7 +97,7 @@ struct CreateNewProfileView: View {
                         .clipShape(Circle())
                         .frame(width: imageWidth, height: imageWidth)
                 } else {
-                    Color.strokePrimary
+                    Color.Stroke.primary
                         .clipShape(Circle())
                         .frame(width: imageWidth, height: imageWidth)
                 }

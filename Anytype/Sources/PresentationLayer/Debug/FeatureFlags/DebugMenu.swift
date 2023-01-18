@@ -12,7 +12,7 @@ struct DebugMenu: View {
     var body: some View {
         VStack {
             DragIndicator()
-            AnytypeText("Debug menu 👻", style: .title, color: .textPrimary)
+            AnytypeText("Debug menu 👻", style: .title, color: .Text.primary)
             buttons
             setPageCounter
             toggles
@@ -24,7 +24,7 @@ struct DebugMenu: View {
     @State var rowsPerPageInSet = "\(UserDefaultsConfig.rowsPerPageInSet)"
     private var setPageCounter: some View {
         HStack {
-            AnytypeText("Number of rows per page in set", style: .body, color: .textPrimary)
+            AnytypeText("Number of rows per page in set", style: .body, color: .Text.primary)
                 .frame(maxWidth: .infinity)
             TextField("Pages", text: $rowsPerPageInSet)
                 .textFieldStyle(.roundedBorder)
@@ -84,14 +84,14 @@ struct DebugMenu: View {
                     VStack(alignment: .leading) {
                         Text(flag.description.title)
                             .font(AnytypeFontBuilder.font(anytypeFont: .body))
-                            .foregroundColor(.textPrimary)
+                            .foregroundColor(.Text.primary)
                         Text(Loc.DebugMenu.toggleAuthor(flag.description.releaseVersion, flag.description.author))
                             .font(AnytypeFontBuilder.font(anytypeFont: .callout))
-                            .foregroundColor(.textSecondary)
+                            .foregroundColor(.Text.secondary)
                         
                         // See AnytypeText padding comment
-//                        AnytypeText(flag.description.title, style: .body, color: .textPrimary)
-//                        AnytypeText("Release: \(flag.description.releaseVersion), \(flag.description.author)", style: .callout, color: .textSecondary)
+//                        AnytypeText(flag.description.title, style: .body, color: .Text.primary)
+//                        AnytypeText("Release: \(flag.description.releaseVersion), \(flag.description.author)", style: .callout, color: .Text.secondary)
                     }
                 }
             }

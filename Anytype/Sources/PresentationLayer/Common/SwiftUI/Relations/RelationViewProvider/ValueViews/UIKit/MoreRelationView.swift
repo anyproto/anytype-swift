@@ -24,14 +24,14 @@ final class MoreRelationView: UIView {
     }
 
     private func setupView() {
-        backgroundColor = .strokeTertiary
+        backgroundColor = .Stroke.tertiary
 
         layer.cornerCurve = .continuous
         layer.cornerRadius = Constants.cornerRadius
 
         textView = AnytypeLabel(style: .relation2Regular)
         textView.setText("+\(count)")
-        textView.textColor = .textSecondary
+        textView.textColor = .Text.secondary
 
         addSubview(textView) {
             $0.pinToSuperview(insets: UIEdgeInsets(top: 0, left: Constants.padding, bottom: 0, right: Constants.padding))

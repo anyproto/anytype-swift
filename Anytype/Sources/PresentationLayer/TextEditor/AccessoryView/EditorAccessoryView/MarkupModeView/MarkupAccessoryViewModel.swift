@@ -77,11 +77,11 @@ final class MarkupAccessoryViewModel: ObservableObject {
 
         switch state {
         case .disabled:
-            return .buttonInactive
+            return .Button.inactive
         case .applied:
-            return .buttonSelected
+            return .Button.selected
         case .notApplied:
-            return .buttonActive
+            return .Button.active
         }
     }
 

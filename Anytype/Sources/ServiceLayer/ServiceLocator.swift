@@ -64,7 +64,7 @@ final class ServiceLocator {
     func subscriptionService() -> SubscriptionsServiceProtocol {
         SubscriptionsService(
             toggler: subscriptionToggler(),
-            storage: detailsStorage()
+            storage: objectDetailsStorage()
         )
     }
     
@@ -120,19 +120,21 @@ final class ServiceLocator {
         return WorkspaceService()
     }
     
-    // MARK: - Private
-    
     func pageService() -> PageServiceProtocol {
         return PageService()
+    }
+    
+    func objectDetailsStorage() -> ObjectDetailsStorage {
+        ObjectDetailsStorage.shared
+    }
+        
+    func blockWidgetService() -> BlockWidgetServiceProtocol {
+        return BlockWidgetService()
     }
     
     // MARK: - Private
     
     private func subscriptionToggler() -> SubscriptionTogglerProtocol {
         SubscriptionToggler()
-    }
-    
-    private func detailsStorage() -> ObjectDetailsStorage {
-        ObjectDetailsStorage.shared
     }
 }

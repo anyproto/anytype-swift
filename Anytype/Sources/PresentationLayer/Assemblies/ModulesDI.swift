@@ -4,10 +4,12 @@ final class ModulesDI: ModulesDIProtocol {
     
     private let serviceLocator: ServiceLocator
     private let uiHelpersDI: UIHelpersDIProtocol
+    private let widgetsDI: WidgetsDIProtocol
     
-    init(serviceLocator: ServiceLocator, uiHelpersDI: UIHelpersDIProtocol) {
+    init(serviceLocator: ServiceLocator, uiHelpersDI: UIHelpersDIProtocol, widgetsDI: WidgetsDIProtocol) {
         self.serviceLocator = serviceLocator
         self.uiHelpersDI = uiHelpersDI
+        self.widgetsDI = widgetsDI
     }
     
     // MARK: - ModulesDIProtocol
@@ -60,8 +62,15 @@ final class ModulesDI: ModulesDIProtocol {
         return NewRelationModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
     }
     
-    @MainActor
     var homeWidgets: HomeWidgetsModuleAssemblyProtocol {
-        return HomeWidgetsModuleAssembly(uiHelpersDI: uiHelpersDI)
+        return HomeWidgetsModuleAssembly(
+            serviceLocator: serviceLocator,
+            uiHelpersDI: uiHelpersDI,
+            widgetsDI:  widgetsDI
+        )
+    }
+    
+    var textIconPicker: TextIconPickerModuleAssemblyProtocol {
+        return TextIconPickerModuleAssembly(serviceLocator: serviceLocator)
     }
 }

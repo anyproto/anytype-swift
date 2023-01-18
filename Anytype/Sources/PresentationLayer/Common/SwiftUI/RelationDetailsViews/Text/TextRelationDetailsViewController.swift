@@ -88,7 +88,7 @@ private extension TextRelationDetailsViewController {
     
     static func makeTitleLabel() -> UILabel {
         let titleLabel = UILabel()
-        titleLabel.textColor = UIColor.textPrimary
+        titleLabel.textColor = UIColor.Text.primary
         titleLabel.font = AnytypeFont.uxTitle1Semibold.uiKitFont
         titleLabel.textAlignment = .center
         
@@ -99,7 +99,7 @@ private extension TextRelationDetailsViewController {
         let textView = TextViewWithPlaceholder(frame: .zero, textContainer: nil)
         textView.isScrollEnabled = false
         textView.font = AnytypeFont.uxBodyRegular.uiKitFont
-        textView.textColor = UIColor.textPrimary
+        textView.textColor = UIColor.Text.primary
         textView.textContainerInset = UIEdgeInsets(top: 12, left: 20, bottom: 12, right: 20)
         textView.textContainer.lineFragmentPadding = 0.0
         textView.backgroundColor = nil
@@ -130,7 +130,7 @@ private extension TextRelationDetailsViewController {
                 string: viewModel.type.placeholder,
                 attributes: [
                     .font: AnytypeFont.uxBodyRegular.uiKitFont,
-                    .foregroundColor: UIColor.textTertiary
+                    .foregroundColor: UIColor.Text.tertiary
                 ]
             )
         )
@@ -172,12 +172,12 @@ private extension TextRelationDetailsViewController {
             let actionButton = UIButton(type: .custom)
             let image = UIImage(asset: actionViewModel.iconAsset)?.withRenderingMode(.alwaysTemplate)
             actionButton.setImage(image, for: .normal)
-            actionButton.tintColor = .buttonActive
+            actionButton.tintColor = .Button.active
             let text = NSAttributedString(
                 string: actionViewModel.title,
                 attributes: [
                     .font: UIFont.bodyRegular,
-                    .foregroundColor: UIColor.textPrimary
+                    .foregroundColor: UIColor.Text.primary
                 ]
             )
             
@@ -185,7 +185,7 @@ private extension TextRelationDetailsViewController {
                 string: actionViewModel.title,
                 attributes: [
                     .font: UIFont.bodyRegular,
-                    .foregroundColor: UIColor.textTertiary
+                    .foregroundColor: UIColor.Text.tertiary
                 ]
             )
             actionButton.setAttributedTitle(text, for: .normal)

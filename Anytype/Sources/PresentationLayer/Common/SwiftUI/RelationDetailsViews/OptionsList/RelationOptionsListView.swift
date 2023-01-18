@@ -31,7 +31,7 @@ struct RelationOptionsListView: View {
     
     private var emptyView: some View {
         VStack(spacing: 0) {
-            AnytypeText(viewModel.emptyPlaceholder, style: .uxCalloutRegular, color: .textTertiary)
+            AnytypeText(viewModel.emptyPlaceholder, style: .uxCalloutRegular, color: .Text.tertiary)
                 .frame(height: 48)
             Spacer()
         }
@@ -54,7 +54,7 @@ struct RelationOptionsListView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 EditButton()
-                    .foregroundColor(Color.buttonActive)
+                    .foregroundColor(Color.Button.active)
                     .disabled(!viewModel.isEditable)
             }
         }

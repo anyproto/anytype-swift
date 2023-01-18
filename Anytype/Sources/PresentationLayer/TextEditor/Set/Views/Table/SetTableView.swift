@@ -91,7 +91,7 @@ struct SetTableView: View {
                 SetTableViewHeader()
             }
         }
-        .background(Color.backgroundPrimary)
+        .background(Color.Background.primary)
     }
 }
 

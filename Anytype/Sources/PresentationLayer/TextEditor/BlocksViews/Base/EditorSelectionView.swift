@@ -18,8 +18,8 @@ final class EditorSelectionView: UIView {
         UIView.animate(withDuration: 0.34, delay: 0) { [unowned self] in
             if isSelected {
                 layer.borderWidth = Constants.borderWidth
-                dynamicBorderColor = UIColor.System.amber
-                backgroundColor = UIColor.System.amber.withAlphaComponent(0.2)
+                dynamicBorderColor = UIColor.System.amber100
+                backgroundColor = UIColor.System.amber100.withAlphaComponent(0.2)
             } else {
                 layer.borderWidth = 0.0
                 dynamicBorderColor = nil
@@ -51,7 +51,7 @@ final class SpreadsheetSelectionView: UIView {
     func updateStyle(isSelected: Bool) {
         if isSelected {
             layer.borderWidth = Constants.borderWidth
-            dynamicBorderColor = UIColor.System.amber
+            dynamicBorderColor = UIColor.System.amber100
         } else {
             layer.borderWidth = 0.0
             backgroundColor = .clear

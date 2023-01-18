@@ -13,11 +13,20 @@ extension View {
             )
         )
     }
+    
+    func newDivider(
+        leadingPadding: CGFloat = 0,
+        trailingPadding: CGFloat = 0
+    ) -> some View {
+        modifier(
+            NewDividerModifier(leadingPadding: leadingPadding, trailingPadding: trailingPadding)
+        )
+    }
 }
 
 struct AnytypeDivider: View {
     var body: some View {
-        Color.strokePrimary.frame(height: .onePixel)
+        Color.Stroke.primary.frame(height: .onePixel)
     }
 }
 
@@ -25,7 +34,7 @@ final class UIKitAnytypeDivider: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .strokePrimary
+        backgroundColor = .Stroke.primary
     }
     
     required init?(coder: NSCoder) {
@@ -61,5 +70,20 @@ struct DividerModifier: ViewModifier {
                 .padding(.leading, leadingPadding)
                 .padding(.trailing, trailingPadding)
         }
+    }
+}
+
+struct NewDividerModifier: ViewModifier {
+    let leadingPadding: CGFloat
+    let trailingPadding: CGFloat
+    
+    func body(content: Content) -> some View {
+        content
+            .overlay(
+                AnytypeDivider()
+                    .padding(.leading, leadingPadding)
+                    .padding(.trailing, trailingPadding),
+                alignment: .bottom
+            )
     }
 }

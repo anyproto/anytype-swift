@@ -54,7 +54,7 @@ struct SetFiltersListView: View {
             AnytypeText(
                 Loc.EditSet.Popup.Filters.EmptyView.title,
                 style: .uxCalloutRegular,
-                color: .textSecondary
+                color: .Text.secondary
             )
                 .frame(height: 68)
             Spacer()
@@ -82,7 +82,7 @@ struct SetFiltersListView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 EditButton()
-                    .foregroundColor(Color.buttonActive)
+                    .foregroundColor(Color.Button.active)
             }
         }
     }

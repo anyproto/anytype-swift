@@ -40,23 +40,23 @@ final class MarkupsViewController: UIViewController {
     
     private lazy var boldButton = makeButton(image: UIImage(asset: .TextAttributes.bold)) { [weak self] in
         self?.viewModel.handle(action: .toggleMarkup(.bold))
-    }.addBorders(edges: [.right, .bottom], width: 1, color: .strokePrimary)
+    }.addBorders(edges: [.right, .bottom], width: 1, color: .Stroke.primary)
 
     private lazy var italicButton = makeButton(image: UIImage(asset: .TextAttributes.italic)) { [weak self] in
         self?.viewModel.handle(action: .toggleMarkup(.italic))
-    }.addBorders(edges: [.right, .bottom], width: 1, color: .strokePrimary)
+    }.addBorders(edges: [.right, .bottom], width: 1, color: .Stroke.primary)
 
     private lazy var strikethroughButton = makeButton(image: UIImage(asset: .TextAttributes.strikethrough)) { [weak self] in
         self?.viewModel.handle(action: .toggleMarkup(.strikethrough))
-    }.addBorders(edges: [.bottom], width: 1, color: .strokePrimary)
+    }.addBorders(edges: [.bottom], width: 1, color: .Stroke.primary)
 
     private lazy var codeButton = makeButton(text: Loc.code) { [weak self] in
         self?.viewModel.handle(action: .toggleMarkup(.keyboard))
-    }.addBorders(edges: [.right, .bottom], width: 1, color: .strokePrimary)
+    }.addBorders(edges: [.right, .bottom], width: 1, color: .Stroke.primary)
 
     private lazy var urlButton = makeButton(text: Loc.link) { [weak self] in
         self?.viewModel.handle(action: .toggleMarkup(.link))
-    }.addBorders(edges: [.bottom], width: 1, color: .strokePrimary)
+    }.addBorders(edges: [.bottom], width: 1, color: .Stroke.primary)
 
     private lazy var leftAlignButton: ButtonWithImage = {
         let button = ButtonsFactory.makeButton(image: UIImage(asset: .TextAttributes.alignLeft))
@@ -108,11 +108,11 @@ final class MarkupsViewController: UIViewController {
     // MARK: -  Setup views
 
     private func setupViews() {
-        containerStackView.backgroundColor = .backgroundSecondary
+        containerStackView.backgroundColor = .Background.secondary
 
         containerShadowView.view.layer.cornerRadius = 12
         containerShadowView.view.layer.masksToBounds = true
-        containerShadowView.shadowLayer.fillColor = UIColor.shadowPrimary.cgColor
+        containerShadowView.shadowLayer.fillColor = UIColor.Shadow.primary.cgColor
         containerShadowView.shadowLayer.shadowRadius = 40
 
         view.backgroundColor = .clear
@@ -141,12 +141,12 @@ final class MarkupsViewController: UIViewController {
         bottomStackView.addArrangedSubview(rightAlignButton)
 
         codeButton.label.font = .uxBodyRegular
-        codeButton.setTextColor(.textPrimary, state: .normal)
-        codeButton.setTextColor(.textTertiary, state: .disabled)
+        codeButton.setTextColor(.Text.primary, state: .normal)
+        codeButton.setTextColor(.Text.tertiary, state: .disabled)
 
         urlButton.label.font = .uxBodyRegular
-        urlButton.setTextColor(.textPrimary, state: .normal)
-        urlButton.setTextColor(.textTertiary, state: .disabled)
+        urlButton.setTextColor(.Text.primary, state: .normal)
+        urlButton.setTextColor(.Text.tertiary, state: .disabled)
     }
     
     private func makeButton(

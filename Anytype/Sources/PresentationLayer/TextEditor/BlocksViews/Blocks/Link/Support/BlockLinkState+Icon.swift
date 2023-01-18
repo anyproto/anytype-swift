@@ -44,7 +44,7 @@ extension BlockLinkState {
 
         let image = UIImage.circleImage(
             size: imageSize,
-            fillColor: .strokePrimary,
+            fillColor: .Stroke.primary,
             borderColor: .clear,
             borderWidth: 0
         )

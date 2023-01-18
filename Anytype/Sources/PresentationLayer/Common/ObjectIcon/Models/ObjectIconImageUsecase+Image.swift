@@ -133,6 +133,26 @@ extension ObjectIconImageUsecase {
                 staticImageGuideline: StaticImageGuideline.x18,
                 bookmarkImageGuideline: BookmarkIconImageGuideline.x18
             )
+        case .widgetTree:
+            return ObjectIconImageGuidelineSet(
+                basicImageGuideline: BasicIconImageGuideline.x18,
+                profileImageGuideline: ProfileIconImageGuideline.x18,
+                emojiImageGuideline: EmojiIconImageGuideline.x18,
+                todoImageGuideline: TodoIconImageGuideline.x18,
+                placeholderImageGuideline: nil,
+                staticImageGuideline: StaticImageGuideline.x18,
+                bookmarkImageGuideline: BookmarkIconImageGuideline.x18
+            )
+        case .homeBottomPanel:
+            return ObjectIconImageGuidelineSet(
+                basicImageGuideline: BasicIconImageGuideline.x24,
+                profileImageGuideline: ProfileIconImageGuideline.x24,
+                emojiImageGuideline: EmojiIconImageGuideline.x24,
+                todoImageGuideline: TodoIconImageGuideline.x24,
+                placeholderImageGuideline: nil,
+                staticImageGuideline: StaticImageGuideline.x24,
+                bookmarkImageGuideline: BookmarkIconImageGuideline.x24
+            )
         }
     }
     

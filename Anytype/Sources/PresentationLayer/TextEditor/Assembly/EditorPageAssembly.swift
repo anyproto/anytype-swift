@@ -31,7 +31,7 @@ final class EditorAssembly {
     func buildEditorModule(
         browser: EditorBrowserController?,
         data: EditorScreenData
-    ) -> (vc: UIViewController, router: EditorRouterProtocol) {
+    ) -> (vc: UIViewController, router: EditorPageOpenRouterProtocol) {
         switch data.type {
         case .page:
             return buildPageModule(browser: browser, data: data)
@@ -44,7 +44,7 @@ final class EditorAssembly {
     private func buildSetModule(
         browser: EditorBrowserController?,
         data: EditorScreenData
-    ) -> (EditorSetHostingController, EditorRouterProtocol) {
+    ) -> (EditorSetHostingController, EditorPageOpenRouterProtocol) {
         let document = BaseDocument(objectId: data.pageId)
         let setDocument = SetDocument(
             document: document,
@@ -55,7 +55,7 @@ final class EditorAssembly {
             prefilledFieldsBuilder: SetPrefilledFieldsBuilder()
         )
         let detailsService = ServiceLocator.shared.detailsService(objectId: data.pageId)
-
+        
         let model = EditorSetViewModel(
             setDocument: setDocument,
             dataviewService: dataviewService,
@@ -67,25 +67,20 @@ final class EditorAssembly {
         )
         let controller = EditorSetHostingController(objectId: data.pageId, model: model)
 
-        let router = EditorRouter(
+        let router = EditorSetRouter(
+            document: document,
             rootController: browser,
             viewController: controller,
             navigationContext: NavigationContext(rootViewController: browser ?? controller),
-            document: document,
-            addNewRelationCoordinator: coordinatorsDI.addNewRelation.make(document: document),
-            templatesCoordinator: coordinatorsDI.templates.make(viewController: controller),
-            urlOpener: URLOpener(viewController: browser),
-            relationValueCoordinator: coordinatorsDI.relationValue.make(),
+            createObjectModuleAssembly: modulesDI.createObject,
+            newSearchModuleAssembly: modulesDI.newSearch,
             editorPageCoordinator: coordinatorsDI.editorPage.make(browserController: browser),
-            linkToObjectCoordinator: coordinatorsDI.linkToObject.make(browserController: browser),
+            addNewRelationCoordinator: coordinatorsDI.addNewRelation.make(document: document),
+            objectSettingCoordinator: coordinatorsDI.objectSettings.make(document: document, browserController: browser),
+            relationValueCoordinator: coordinatorsDI.relationValue.make(),
             objectCoverPickerModuleAssembly: modulesDI.objectCoverPicker,
             objectIconPickerModuleAssembly: modulesDI.objectIconPicker,
-            objectSettingCoordinator: coordinatorsDI.objectSettings.make(document: document, browserController: browser),
-            searchModuleAssembly: modulesDI.search,
             toastPresenter: uiHelpersDI.toastPresenter(using: browser),
-            createObjectModuleAssembly: modulesDI.createObject,
-            codeLanguageListModuleAssembly: modulesDI.codeLanguageList,
-            newSearchModuleAssembly: modulesDI.newSearch,
             alertHelper: AlertHelper(viewController: controller)
         )
         
@@ -99,7 +94,7 @@ final class EditorAssembly {
     private func buildPageModule(
         browser: EditorBrowserController?,
         data: EditorScreenData
-    ) -> (EditorPageController, EditorRouterProtocol) {
+    ) -> (EditorPageController, EditorPageOpenRouterProtocol) {
         let simpleTableMenuViewModel = SimpleTableMenuViewModel()
         let blocksOptionViewModel = SelectionOptionsViewModel(itemProvider: nil)
 
@@ -131,9 +126,9 @@ final class EditorAssembly {
             objectSettingCoordinator: coordinatorsDI.objectSettings.make(document: document, browserController: browser),
             searchModuleAssembly: modulesDI.search,
             toastPresenter: uiHelpersDI.toastPresenter(using: browser),
-            createObjectModuleAssembly: modulesDI.createObject,
             codeLanguageListModuleAssembly: modulesDI.codeLanguageList,
             newSearchModuleAssembly: modulesDI.newSearch,
+            textIconPickerModuleAssembly: modulesDI.textIconPicker,
             alertHelper: AlertHelper(viewController: controller)
         )
 

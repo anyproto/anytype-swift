@@ -18,7 +18,7 @@ extension IndentationSettings {
         var parentBlockInfo = [BlockIndentationSettings]()
 
         for (style, color) in zip(metadata.parentIndentationStyle, metadata.parentBackgroundColors) {
-            let uiColor = color.map(UIColor.Background.uiColor(from:)) ?? nil
+            let uiColor = color.map(UIColor.VeryLight.uiColor(from:)) ?? nil
 
             parentBlockInfo.append(.init(color: uiColor, indentationStyle: style))
         }
@@ -26,12 +26,12 @@ extension IndentationSettings {
         let backgroundColor: UIColor?
         if metadata.indentationStyle == .callout { // Callout background engineering
             if let middlewareColor = metadata.backgroundColor, middlewareColor != .default {
-                backgroundColor = UIColor.Background.uiColor(from: middlewareColor)
+                backgroundColor = UIColor.VeryLight.uiColor(from: middlewareColor)
             } else {
-                backgroundColor = UIColor.Background.grey
+                backgroundColor = UIColor.VeryLight.grey
             }
         } else if let middlewareColor = metadata.backgroundColor, middlewareColor != .default {
-            backgroundColor = UIColor.Background.uiColor(from: middlewareColor)
+            backgroundColor = UIColor.VeryLight.uiColor(from: middlewareColor)
         } else {
             backgroundColor = nil
         }
@@ -39,6 +39,6 @@ extension IndentationSettings {
         self.parentBlocksInfo = parentBlockInfo
         self.style = metadata.indentationStyle
         self.backgroundColor = backgroundColor
-        self.bottomBackgroundColor = metadata.calloutBackgroundColor.map { UIColor.Background.uiColor(from: $0) }
+        self.bottomBackgroundColor = metadata.calloutBackgroundColor.map { UIColor.VeryLight.uiColor(from: $0) }
     }
 }
