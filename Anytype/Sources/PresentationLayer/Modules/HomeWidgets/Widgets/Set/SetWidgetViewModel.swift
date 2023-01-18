@@ -18,7 +18,7 @@ final class SetWidgetViewModel: ObservableObject {
     
     @Published var name: String = ""
     @Published var isExpanded: Bool = true
-    @Published var headerItems: [SetWidgetHeaderItemModel] = []
+    @Published var headerItems: [SetWidgetHeaderItem.Model] = []
     @Published var rows: [SetWidgetRow.Model] = []
     
     init(
@@ -81,13 +81,13 @@ final class SetWidgetViewModel: ObservableObject {
     
     private func updateViewState() {
         headerItems = [
-            SetWidgetHeaderItemModel(dataviewId: "1", title: "Last Edited", onTap: {}, isSelected: false),
-            SetWidgetHeaderItemModel(dataviewId: "2", title: "New movies", onTap: {}, isSelected: true),
-            SetWidgetHeaderItemModel(dataviewId: "3", title: "To watch", onTap: {}, isSelected: false),
-            SetWidgetHeaderItemModel(dataviewId: "4", title: "To watch", onTap: {}, isSelected: false),
-            SetWidgetHeaderItemModel(dataviewId: "5", title: "My Collection", onTap: {}, isSelected: false),
-            SetWidgetHeaderItemModel(dataviewId: "6", title: "My Collection 2", onTap: {}, isSelected: false),
-            SetWidgetHeaderItemModel(dataviewId: "7", title: "My Collection 3", onTap: {}, isSelected: false)
+            SetWidgetHeaderItem.Model(dataviewId: "1", title: "Last Edited", onTap: {}, isSelected: false),
+            SetWidgetHeaderItem.Model(dataviewId: "2", title: "New movies", onTap: {}, isSelected: true),
+            SetWidgetHeaderItem.Model(dataviewId: "3", title: "To watch", onTap: {}, isSelected: false),
+            SetWidgetHeaderItem.Model(dataviewId: "4", title: "To watch", onTap: {}, isSelected: false),
+            SetWidgetHeaderItem.Model(dataviewId: "5", title: "My Collection", onTap: {}, isSelected: false),
+            SetWidgetHeaderItem.Model(dataviewId: "6", title: "My Collection 2", onTap: {}, isSelected: false),
+            SetWidgetHeaderItem.Model(dataviewId: "7", title: "My Collection 3", onTap: {}, isSelected: false)
         ]
         
         rows = [

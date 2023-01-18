@@ -1,16 +1,16 @@
 import Foundation
 import SwiftUI
 
-struct SetWidgetHeaderItemModel {
-    let dataviewId: String
-    let title: String
-    let onTap: () -> Void
-    let isSelected: Bool
-}
-
 struct SetWidgetHeaderItem: View {
+
+    struct Model {
+        let dataviewId: String
+        let title: String
+        let onTap: () -> Void
+        let isSelected: Bool
+    }
     
-    let model: SetWidgetHeaderItemModel
+    let model: Model
     
     var body: some View {
         Button(action: {
