@@ -1005,6 +1005,10 @@ internal enum Loc {
       /// Library is available in desktop app
       internal static let library = Loc.tr("Localizable", "Home.Snackbar.Library", fallback: "Library is available in desktop app")
     }
+    internal enum Widgets {
+      /// Edit widgets
+      internal static let editTitle = Loc.tr("Localizable", "Home.Widgets.EditTitle", fallback: "Edit widgets")
+    }
   }
   internal enum InterfaceStyle {
     /// Dark
