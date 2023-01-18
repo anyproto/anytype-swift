@@ -66,7 +66,7 @@ extension ObjectIconImageUsecase {
                     weight: .regular
                 )
             )
-        case .editorSearchExpandedIcons:
+        case .editorSearchExpandedIcons, .homeBottomPanel:
             return ObjectIconImageFontSet(
                 profileImageFont: UIKitFontBuilder.uiKitFont(
                     name: .inter,

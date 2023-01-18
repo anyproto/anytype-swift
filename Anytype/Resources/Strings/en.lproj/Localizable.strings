@@ -100,7 +100,6 @@
 "Description" = "Description";
 "Paste processing..." = "Paste processing...";
 "Marketplace" = "Marketplace";
-
 "Copied" = "Copied";
 
 // Home
@@ -664,3 +663,10 @@
 
 // MARK: - Scanner
 "Scanner.Error.Scanning not supported" = "Scanning not supported";
+
+// MARK: - Widgets
+"Widgets.SourceSearch" = "Widget source";
+"Widgets.Actions.ChangeSource" = "Change source";
+"Widgets.Actions.ChangeWidgetType" = "Change widget type";
+"Widgets.Actions.RemoveWidget" = "Remove widget";
+"Widgets.Actions.EditWidgets" = "Edit widgets";

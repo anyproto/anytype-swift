@@ -27,5 +27,31 @@ struct ObjectTreeWidgetView: View {
             model.onDisappear()
             print("ObjectTreeWidgetView onDisappear \(model.widgetBlockId)")
         }
+        .contextMenu {
+            menuItems
+        }
+    }
+    
+    private var menuItems: some View {
+        Group {
+            Button(Loc.Widgets.Actions.changeSource) {
+                print("on tap")
+            }
+            Button(Loc.Widgets.Actions.changeWidgetType) {
+                print("on tap")
+            }
+            Button(Loc.Widgets.Actions.removeWidget) {
+                // Fix anumation glytch.
+                // We should to finalize context menu transition to list and then delete object
+                // If we find how customize context menu transition, this 🩼 can be delete it
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+                    model.onDeleteWidgetTap()
+                }
+            }
+            Divider()
+            Button(Loc.Widgets.Actions.editWidgets) {
+                print("on tap")
+            }
+        }
     }
 }

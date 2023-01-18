@@ -19,7 +19,7 @@ final class SetFiltersSelectionViewModel: ObservableObject {
     private let filter: SetFilter
     private let contentViewBuilder: SetFiltersContentViewBuilder
     private let contentHandler: SetFiltersContentHandlerProtocol
-    private let router: EditorRouterProtocol
+    private let router: EditorSetRouterProtocol
     
     private var keyboardHeight: CGFloat = 0
     
@@ -32,7 +32,7 @@ final class SetFiltersSelectionViewModel: ObservableObject {
     
     init(
         filter: SetFilter,
-        router: EditorRouterProtocol,
+        router: EditorSetRouterProtocol,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
         onApply: @escaping (SetFilter) -> Void
     ) {

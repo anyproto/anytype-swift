@@ -10,7 +10,7 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
     
     private let setDocument: SetDocumentProtocol
     private let service: DataviewServiceProtocol
-    private let router: EditorRouterProtocol
+    private let router: EditorSetRouterProtocol
     
     private var cancellable: Cancellable?
 
@@ -89,7 +89,7 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
         }
     }
     
-    init(setDocument: SetDocumentProtocol, service: DataviewServiceProtocol, router: EditorRouterProtocol) {
+    init(setDocument: SetDocumentProtocol, service: DataviewServiceProtocol, router: EditorSetRouterProtocol) {
         self.setDocument = setDocument
         self.service = service
         self.router = router

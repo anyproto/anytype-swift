@@ -1088,31 +1088,6 @@ message Rpc {
             }
         }
 
-        message ImportMarkdown {
-            message Request {
-                string contextId = 1;
-                string importPath = 2;
-            }
-
-            message Response {
-                Error error = 1;
-                repeated string rootLinkIds = 2;
-                ResponseEvent event = 3;
-
-                message Error {
-                    Code code = 1;
-                    string description = 2;
-
-                    enum Code {
-                        NULL = 0;
-                        UNKNOWN_ERROR = 1;
-                        BAD_INPUT = 2;
-                        // ...
-                    }
-                }
-            }
-        }
-
         message ShareByLink {
             message Request {
                 string objectId = 1;
@@ -1760,13 +1735,18 @@ message Rpc {
                 oneof params {
                     NotionParams notionParams = 1;
                     BookmarksParams bookmarksParams = 2; //for internal use
+                    MarkdownParams markdownParams = 3;
                 }
-                repeated Snapshot snapshots = 3; // optional, for external developers usage
-                bool updateExistingObjects = 4;
-                Type type = 5;
-                Mode mode = 6;
+                repeated Snapshot snapshots = 4; // optional, for external developers usage
+                bool updateExistingObjects = 5;
+                Type type = 6;
+                Mode mode = 7;
 
                 message NotionParams {
+                    string apiKey = 1;
+                }
+
+                message MarkdownParams {
                     string path = 1;
                 }
 
@@ -1785,7 +1765,8 @@ message Rpc {
                 };
                 enum Type {
                     Notion = 0;
-                    External = 1; // external developers use it
+                    Markdown = 1; 
+                    External = 2; // external developers use it
                 };
 
             }
@@ -1802,6 +1783,31 @@ message Rpc {
                         INTERNAL_ERROR = 1;
                         UNKNOWN_ERROR = 2;
                         BAD_INPUT = 3;
+                    }
+                }
+            }
+
+            message Notion {
+                message ValidateToken {
+                    message Request {
+                        string token = 1;
+                    }
+
+                    message Response {
+                        Error error = 1;
+
+                        message Error {
+                            Code code = 1;
+                            string description = 2;
+
+                            enum Code {
+                                NULL = 0;
+                                INTERNAL_ERROR = 1;
+                                UNAUTHORIZED = 2;
+                                UNKNOWN_ERROR = 3;
+                                BAD_INPUT = 4;
+                            }
+                        }
                     }
                 }
             }
@@ -1830,6 +1836,7 @@ message Rpc {
                 Type type = 1; 
                 enum Type {
                     Notion = 0;
+                    Markdown = 1;
                 };
             }
         }

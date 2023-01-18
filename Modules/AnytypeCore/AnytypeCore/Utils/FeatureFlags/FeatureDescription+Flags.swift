@@ -2,12 +2,11 @@ import Foundation
 
 public extension FeatureDescription {
     
-    static let objectPreview = FeatureDescription(
-        title: "Object preview",
+    static let objectPreviewSettings = FeatureDescription(
+        title: "Object preview settings button",
         author: "k@anytype.io",
-        releaseVersion: "-",
-        defaultValue: false,
-        debugValue: false
+        releaseVersion: "0.20.0",
+        defaultValue: true
     )
     
     static let cursorPosition = FeatureDescription(
@@ -42,8 +41,8 @@ public extension FeatureDescription {
     static let linktoObjectFromItself = FeatureDescription(
         title: "Link to object from itself",
         author: "db@anytype.io",
-        releaseVersion: "0.21.0",
-        defaultValue: false
+        releaseVersion: "0.20.0",
+        defaultValue: true
     )
     
     static let linkToObjectFromMarkup = FeatureDescription(

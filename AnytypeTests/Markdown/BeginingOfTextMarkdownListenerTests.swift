@@ -90,7 +90,7 @@ class BeginingOfTextMarkdownListenerTests: XCTestCase {
         textView.text = text
         textView.selectedRange = NSRange(location: carretPosition, length: 0)
         
-        let text = UIKitAnytypeText(text: text, style: .body)
+        let text = UIKitAnytypeText(text: text, style: .body, lineBreakModel: .byWordWrapping)
         
         return TextBlockDelegateData(textView: textView, info: .emptyText, text: text, usecase: .editor)
     }

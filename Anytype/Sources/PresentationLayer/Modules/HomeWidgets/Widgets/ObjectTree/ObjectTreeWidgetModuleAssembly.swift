@@ -3,7 +3,7 @@ import SwiftUI
 
 protocol ObjectTreeWidgetModuleAssemblyProtocol {
     @MainActor
-    func make(widgetBlockId: String, widgetObject: HomeWidgetsObjectProtocol) -> AnyView
+    func make(widgetBlockId: String, widgetObject: HomeWidgetsObjectProtocol, output: ObjectTreeWidgetModuleOutput?) -> AnyView
 }
 
 final class ObjectTreeWidgetModuleAssembly: ObjectTreeWidgetModuleAssemblyProtocol {
@@ -19,7 +19,7 @@ final class ObjectTreeWidgetModuleAssembly: ObjectTreeWidgetModuleAssemblyProtoc
     // MARK: - ObjectTreeWidgetModuleAssemblyProtocol
     
     @MainActor
-    func make(widgetBlockId: String, widgetObject: HomeWidgetsObjectProtocol) -> AnyView {
+    func make(widgetBlockId: String, widgetObject: HomeWidgetsObjectProtocol, output: ObjectTreeWidgetModuleOutput?) -> AnyView {
         
         let subscriptionManager = ObjectTreeSubscriptionManager(
             subscriptionDataBuilder: ObjectTreeSubscriptionDataBuilder(),
@@ -31,7 +31,9 @@ final class ObjectTreeWidgetModuleAssembly: ObjectTreeWidgetModuleAssemblyProtoc
             widgetBlockId: widgetBlockId,
             widgetObject: widgetObject,
             objectDetailsStorage: serviceLocator.objectDetailsStorage(),
-            subscriptionManager: subscriptionManager
+            subscriptionManager: subscriptionManager,
+            blockWidgetService: serviceLocator.blockWidgetService(),
+            output: output
         )
         return ObjectTreeWidgetView(model: model).eraseToAnyView()
     }
