@@ -7,7 +7,8 @@ protocol HomeWidgetsCoordinatorProtocol {
 }
 
 @MainActor
-final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsModuleOutput, ObjectTreeWidgetModuleOutput {
+final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsModuleOutput,
+                                    ObjectTreeWidgetModuleOutput, SetWidgetModuleOutput {
     
     private let homeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol
     private let accountManager: AccountManager
@@ -38,7 +39,7 @@ final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsM
     }
     
     func startFlow() -> AnyView {
-        return homeWidgetsModuleAssembly.make(widgetObjectId: accountManager.account.info.widgetsId, output: self, treeWidgetOutput: self)
+        return homeWidgetsModuleAssembly.make(widgetObjectId: accountManager.account.info.widgetsId, output: self, treeWidgetOutput: self, setWidgetOutput: self)
     }
     
     // MARK: - HomeWidgetsModuleOutput
@@ -61,7 +62,7 @@ final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsM
         }
     }
     
-    // MARK: - ObjectTreeWidgetModuleOutput
+    // MARK: - ObjectTreeWidgetModuleOutput, SetWidgetModuleOutput
         
     func onObjectSelected(screenData: EditorScreenData) {
         showPage(screenData: screenData)

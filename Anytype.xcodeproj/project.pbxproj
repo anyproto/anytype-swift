@@ -393,6 +393,12 @@
 		2A176438283E2211002853D3 /* AnytypePopupProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A176437283E2211002853D3 /* AnytypePopupProxy.swift */; };
 		2A17643A283E2245002853D3 /* ContentUrlBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A176439283E2245002853D3 /* ContentUrlBuilder.swift */; };
 		2A1AEDA028FD318A008C3660 /* MarkupViewTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1AED9F28FD318A008C3660 /* MarkupViewTypes.swift */; };
+		2A1F946E2978208F00E25782 /* SetWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1F946D2978208F00E25782 /* SetWidgetView.swift */; };
+		2A1F9470297820BD00E25782 /* SetWidgetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1F946F297820BD00E25782 /* SetWidgetViewModel.swift */; };
+		2A1F94722978221400E25782 /* SetWidgetModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1F94712978221400E25782 /* SetWidgetModuleAssembly.swift */; };
+		2A1F94742978224700E25782 /* SetWidgetModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1F94732978224700E25782 /* SetWidgetModuleOutput.swift */; };
+		2A1F947A2978228F00E25782 /* SetWidgetProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1F94782978228F00E25782 /* SetWidgetProvider.swift */; };
+		2A1F947B2978228F00E25782 /* SetWidgetProviderAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1F94792978228F00E25782 /* SetWidgetProviderAssembly.swift */; };
 		2A2A347529229D2B0004BD8B /* NavigationContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2A347429229D2B0004BD8B /* NavigationContext.swift */; };
 		2A2C330028919576008BC326 /* RelationMetadataFormat+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2C32FF28919576008BC326 /* RelationMetadataFormat+Extensions.swift */; };
 		2A2C330328928668008BC326 /* RelationValueCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2C330228928668008BC326 /* RelationValueCoordinator.swift */; };
@@ -1714,6 +1720,12 @@
 		2A176437283E2211002853D3 /* AnytypePopupProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnytypePopupProxy.swift; sourceTree = "<group>"; };
 		2A176439283E2245002853D3 /* ContentUrlBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentUrlBuilder.swift; sourceTree = "<group>"; };
 		2A1AED9F28FD318A008C3660 /* MarkupViewTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupViewTypes.swift; sourceTree = "<group>"; };
+		2A1F946D2978208F00E25782 /* SetWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetWidgetView.swift; sourceTree = "<group>"; };
+		2A1F946F297820BD00E25782 /* SetWidgetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetWidgetViewModel.swift; sourceTree = "<group>"; };
+		2A1F94712978221400E25782 /* SetWidgetModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetWidgetModuleAssembly.swift; sourceTree = "<group>"; };
+		2A1F94732978224700E25782 /* SetWidgetModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetWidgetModuleOutput.swift; sourceTree = "<group>"; };
+		2A1F94782978228F00E25782 /* SetWidgetProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetWidgetProvider.swift; sourceTree = "<group>"; };
+		2A1F94792978228F00E25782 /* SetWidgetProviderAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetWidgetProviderAssembly.swift; sourceTree = "<group>"; };
 		2A2A347429229D2B0004BD8B /* NavigationContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationContext.swift; sourceTree = "<group>"; };
 		2A2C32FF28919576008BC326 /* RelationMetadataFormat+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RelationMetadataFormat+Extensions.swift"; sourceTree = "<group>"; };
 		2A2C330228928668008BC326 /* RelationValueCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationValueCoordinator.swift; sourceTree = "<group>"; };
@@ -4523,6 +4535,27 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		2A1F946C2978207F00E25782 /* Set */ = {
+			isa = PBXGroup;
+			children = (
+				2A1F94772978228F00E25782 /* Provider */,
+				2A1F946D2978208F00E25782 /* SetWidgetView.swift */,
+				2A1F946F297820BD00E25782 /* SetWidgetViewModel.swift */,
+				2A1F94712978221400E25782 /* SetWidgetModuleAssembly.swift */,
+				2A1F94732978224700E25782 /* SetWidgetModuleOutput.swift */,
+			);
+			path = Set;
+			sourceTree = "<group>";
+		};
+		2A1F94772978228F00E25782 /* Provider */ = {
+			isa = PBXGroup;
+			children = (
+				2A1F94782978228F00E25782 /* SetWidgetProvider.swift */,
+				2A1F94792978228F00E25782 /* SetWidgetProviderAssembly.swift */,
+			);
+			path = Provider;
+			sourceTree = "<group>";
+		};
 		2A2A347229229D190004BD8B /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
@@ -4610,6 +4643,7 @@
 		2A4919A629530AD200FCEAC9 /* Widgets */ = {
 			isa = PBXGroup;
 			children = (
+				2A1F946C2978207F00E25782 /* Set */,
 				2AAF343829559BD400921320 /* ObjectTree */,
 				2A4919A729530ADD00FCEAC9 /* Common */,
 			);
@@ -8357,6 +8391,7 @@
 				3DC9F276266107C200B115B9 /* AlphaInviteCodeView.swift in Sources */,
 				EAADB1BE26790459004B0AF2 /* NSMutableAttributedStringExtension.swift in Sources */,
 				5315D39B27B9A0B0000F3456 /* RelationPlaceholderViewUIKit.swift in Sources */,
+				2A1F947B2978228F00E25782 /* SetWidgetProviderAssembly.swift in Sources */,
 				125B6EBC26F235F400BCD7D6 /* EditorSearchCell.swift in Sources */,
 				127EABD9273745C000C731F2 /* AnytypeColorProtocol.swift in Sources */,
 				2A2C330328928668008BC326 /* RelationValueCoordinator.swift in Sources */,
@@ -8451,6 +8486,7 @@
 				3DB3EC66275501A4002781DA /* LoadingAlertData.swift in Sources */,
 				2A90C47B28605F8C00B6B44E /* TableOfContentsContentProvider.swift in Sources */,
 				1211D65A2667CED000541D9C /* ActivityIndicatorView.swift in Sources */,
+				2A1F947A2978228F00E25782 /* SetWidgetProvider.swift in Sources */,
 				125683E227DF1E7D003A8251 /* SearchObjectRowView.swift in Sources */,
 				C9121A5A273B549B00FFDA07 /* BlockRestrictions+BlocksOptionItem.swift in Sources */,
 				2E330C54286CC2BA0099C7C3 /* CreateObjectViewModelProtocol.swift in Sources */,
@@ -8695,6 +8731,7 @@
 				0A0965EE25BEF5B000C004BD /* EditorPageViewModel.swift in Sources */,
 				0A996BD123F0342A000FDC9C /* PlistReader.swift in Sources */,
 				12AB9638280087E7008E32EA /* StandardButtonStyle.swift in Sources */,
+				2A1F9470297820BD00E25782 /* SetWidgetViewModel.swift in Sources */,
 				C99DCE8B283B5BDE0051F99D /* KeyboardHeightListener.swift in Sources */,
 				53F80F1027BDA95D00E9E12A /* FileListRelationViewUIKit.swift in Sources */,
 				C9EA69D328C7412A003F488C /* SimpleTableBlockView+UICollectionViewDelegate.swift in Sources */,
@@ -9082,6 +9119,7 @@
 				EAC6BA9926270FE0004C8C06 /* DividerBlockRestrictions.swift in Sources */,
 				3D2F9C44271F106A0043C326 /* DashboardLogoutAlert.swift in Sources */,
 				2AFB54692869989D004F7458 /* ObjectType+Extensions.swift in Sources */,
+				2A1F94742978224700E25782 /* SetWidgetModuleOutput.swift in Sources */,
 				53F820C22648B257003FEB0B /* BlockActionService.swift in Sources */,
 				C9C283822864727C00F035C5 /* GenericCollectionViewCell.swift in Sources */,
 				2AECFD4228993CA2000E9CFB /* RelationValueModuleAssemblyProtocol.swift in Sources */,
@@ -9267,6 +9305,7 @@
 				535FDE2B27E9C6A60098DBFA /* PasteboardMiddleService.swift in Sources */,
 				3DB1CA0D2729316F000D2779 /* AccountConfiguration.swift in Sources */,
 				3D1702412715D22B0079B65B /* SyncStatus+Editor.swift in Sources */,
+				2A1F94722978221400E25782 /* SetWidgetModuleAssembly.swift in Sources */,
 				3D5A415E2703132800F1F6A1 /* SlashActionStyle.swift in Sources */,
 				03C5C53822DF6C9900DD91DE /* KeychainStore.swift in Sources */,
 				2AD8592D283CE60C008BCE4B /* HomeView+ContextMenu.swift in Sources */,
@@ -9290,6 +9329,7 @@
 				12887F26274B94A600228330 /* DetailsServiceProtocol.swift in Sources */,
 				C9F44C7F27E351400078E709 /* TextBlockLeadingViewBuilder.swift in Sources */,
 				53FF7CB526FCCDE800A5A592 /* ObjectActionRow.swift in Sources */,
+				2A1F946E2978208F00E25782 /* SetWidgetView.swift in Sources */,
 				125FD2E926CD6D2100D21F5A /* EditorNavigationBarHelper.swift in Sources */,
 				3D5A41792704541900F1F6A1 /* SearchView.swift in Sources */,
 				53F80EF427BD3BE300E9E12A /* TagRelationViewUIKIt.swift in Sources */,

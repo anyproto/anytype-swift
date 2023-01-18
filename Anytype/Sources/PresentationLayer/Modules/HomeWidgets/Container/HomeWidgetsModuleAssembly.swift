@@ -3,7 +3,12 @@ import SwiftUI
 
 protocol HomeWidgetsModuleAssemblyProtocol {
     @MainActor
-    func make(widgetObjectId: String, output: HomeWidgetsModuleOutput, treeWidgetOutput: ObjectTreeWidgetModuleOutput?) -> AnyView
+    func make(
+        widgetObjectId: String,
+        output: HomeWidgetsModuleOutput,
+        treeWidgetOutput: ObjectTreeWidgetModuleOutput?,
+        setWidgetOutput: SetWidgetModuleOutput?
+    ) -> AnyView
 }
 
 final class HomeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol {
@@ -20,13 +25,18 @@ final class HomeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol {
     
     // MARK: - HomeWidgetsModuleAssemblyProtocol
     @MainActor
-    func make(widgetObjectId: String, output: HomeWidgetsModuleOutput, treeWidgetOutput: ObjectTreeWidgetModuleOutput?) -> AnyView {
+    func make(
+        widgetObjectId: String,
+        output: HomeWidgetsModuleOutput,
+        treeWidgetOutput: ObjectTreeWidgetModuleOutput?,
+        setWidgetOutput: SetWidgetModuleOutput?
+    ) -> AnyView {
         let model = HomeWidgetsViewModel(
             widgetObject: HomeWidgetsObject(
                 objectId: widgetObjectId,
                 objectDetailsStorage: serviceLocator.objectDetailsStorage()
             ),
-            registry: widgetsDI.homeWidgetsRegistry(treeWidgetOutput: treeWidgetOutput),
+            registry: widgetsDI.homeWidgetsRegistry(treeWidgetOutput: treeWidgetOutput, setWidgetOutput: setWidgetOutput),
             blockWidgetService: serviceLocator.blockWidgetService(),
             accountManager: serviceLocator.accountManager(),
             bottomPanelProviderAssembly: widgetsDI.bottomPanelProviderAssembly(),

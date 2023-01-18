@@ -15,11 +15,17 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
     }
     
     private let treeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
+    private let setWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     private let objectDetailsStorage: ObjectDetailsStorage
     private var providersCache: [ProviderCache] = []
     
-    init(treeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol, objectDetailsStorage: ObjectDetailsStorage) {
+    init(
+        treeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
+        setWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
+        objectDetailsStorage: ObjectDetailsStorage
+    ) {
         self.treeWidgetProviderAssembly = treeWidgetProviderAssembly
+        self.setWidgetProviderAssembly = setWidgetProviderAssembly
         self.objectDetailsStorage = objectDetailsStorage
     }
     
@@ -32,12 +38,12 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
         
         providersCache = blocks.compactMap { block in
             guard case let .widget(widget) = block.content else { return nil }
+            
+            guard let contentId = widgetObject.targetObjectIdByLinkFor(widgetBlockId: block.id),
+                  let contentDetails = objectDetailsStorage.get(id: contentId) else { return nil }
+            
             switch widget.layout {
             case .link:
-                
-                guard let contentId = widgetObject.targetObjectIdByLinkFor(widgetBlockId: block.id),
-                      let contentDetails = objectDetailsStorage.get(id: contentId) else { return nil }
-        
                 switch contentDetails.editorViewType {
                 case .page:
                     return createProviderCache(
@@ -46,14 +52,27 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
                         widgetObject: widgetObject
                     )
                 case .set:
-                    return nil
+                    return createProviderCache(
+                        source: setWidgetProviderAssembly,
+                        widgetBlockId: block.id,
+                        widgetObject: widgetObject
+                    )
                 }
             case .tree:
-                return createProviderCache(
-                    source: treeWidgetProviderAssembly,
-                    widgetBlockId: block.id,
-                    widgetObject: widgetObject
-                )
+                switch contentDetails.editorViewType {
+                case .page:
+                    return createProviderCache(
+                        source: treeWidgetProviderAssembly,
+                        widgetBlockId: block.id,
+                        widgetObject: widgetObject
+                    )
+                case .set:
+                    return createProviderCache(
+                        source: setWidgetProviderAssembly,
+                        widgetBlockId: block.id,
+                        widgetObject: widgetObject
+                    )
+                }
             }
         }
         
