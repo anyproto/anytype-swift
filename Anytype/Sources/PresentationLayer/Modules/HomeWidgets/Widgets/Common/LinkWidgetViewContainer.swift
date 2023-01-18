@@ -30,6 +30,7 @@ struct LinkWidgetViewContainer<Content>: View where Content: View {
         }
         .background(Color.Dashboard.card)
         .cornerRadius(16, style: .continuous)
+        .contentShapeLegacy(.contextMenuPreview, RoundedRectangle(cornerRadius: 16, style: .continuous))
     }
     
     // MARK: - Private

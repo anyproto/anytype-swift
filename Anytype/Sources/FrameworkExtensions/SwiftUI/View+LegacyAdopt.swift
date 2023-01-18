@@ -82,3 +82,34 @@ extension View {
         }
     }
 }
+
+enum ContentShapeKindsLegacy {
+    case interaction
+    case dragPreview
+    case contextMenuPreview
+    case hoverEffect
+    
+    @available(iOS 15.0, *)
+    func toiOSKind() -> ContentShapeKinds {
+        switch self {
+        case .interaction:
+            return .interaction
+        case .dragPreview:
+            return .dragPreview
+        case .contextMenuPreview:
+            return .contextMenuPreview
+        case .hoverEffect:
+            return .hoverEffect
+        }
+    }
+}
+
+extension View {
+    func contentShapeLegacy<S>(_ kind: ContentShapeKindsLegacy, _ shape: S, eoFill: Bool = false) -> some View where S : Shape {
+        if #available(iOS 15.0, *) {
+            return self.contentShape(kind.toiOSKind(), shape, eoFill: eoFill)
+        } else {
+            return self
+        }
+    }
+}

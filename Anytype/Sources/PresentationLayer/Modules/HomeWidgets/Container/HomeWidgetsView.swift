@@ -13,7 +13,7 @@ struct HomeWidgetsView: View {
                     ForEach(model.models, id: \.componentId) { model in
                         model.view
                     }
-                    HomeEditButton(text: Loc.Home.Widgets.editTitle) {
+                    HomeEditButton(text: Loc.Widgets.Actions.editWidgets) {
                         model.onEditButtonTap()
                     }
                     Button("Create widget") {
