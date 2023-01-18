@@ -9,11 +9,11 @@ final class UIKitAnytypeText: Hashable {
     let attrString: NSAttributedString
     let lineBreakModel: NSLineBreakMode
 
-    convenience init(text: String, style: AnytypeFont, lineBreakModel: NSLineBreakMode = .byTruncatingTail) {
+    convenience init(text: String, style: AnytypeFont, lineBreakModel: NSLineBreakMode) {
         self.init(attributedString: NSAttributedString(string: text), style: style, lineBreakModel: lineBreakModel)
     }
 
-    init(attributedString: NSAttributedString, style: AnytypeFont, lineBreakModel: NSLineBreakMode = .byTruncatingTail) {
+    init(attributedString: NSAttributedString, style: AnytypeFont, lineBreakModel: NSLineBreakMode) {
         self.anytypeFont = style
         let font = UIKitFontBuilder.uiKitFont(font: style)
 

@@ -5,7 +5,7 @@ class AnytypeLabel: UIView {
     private var topLabelConstraint: NSLayoutConstraint?
     private var bottomLabelConstraint: NSLayoutConstraint?
 
-    private lazy var anytypeText: UIKitAnytypeText = .init(text: "", style: style)
+    private lazy var anytypeText: UIKitAnytypeText = .init(text: "", style: style, lineBreakModel: .byTruncatingTail)
     private let label: UILabel = .init()
     private var style: AnytypeFont = .body
 

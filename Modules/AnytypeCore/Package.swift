@@ -15,7 +15,9 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/apple/swift-protobuf", revision: "1.15.0"),
         .package(path: "../ProtobufMessages"),
-        .package(path: "../Logger")
+        .package(path: "../Logger"),
+        // Waiting issue - https://github.com/krzysztofzablocki/Sourcery/issues/1090
+        .package(url: "https://github.com/anytypeio/SourceryGenPlugin.git", revision: "1.9.2")
     ],
     targets: [
         .target(
@@ -25,7 +27,10 @@ let package = Package(
                 "ProtobufMessages",
                 "Logger"
             ],
-            path: "AnytypeCore"
+            path: "AnytypeCore",
+            plugins: [
+                .plugin(name: "SourceryGenPlugin", package: "SourceryGenPlugin")
+            ]
         )
     ]
 )

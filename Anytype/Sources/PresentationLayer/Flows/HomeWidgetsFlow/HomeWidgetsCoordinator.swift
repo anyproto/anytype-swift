@@ -7,7 +7,7 @@ protocol HomeWidgetsCoordinatorProtocol {
 }
 
 @MainActor
-final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsModuleOutput {
+final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsModuleOutput, ObjectTreeWidgetModuleOutput {
     
     private let homeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol
     private let accountManager: AccountManager
@@ -15,6 +15,9 @@ final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsM
     private let windowManager: WindowManager
     private let createWidgetCoordinator: CreateWidgetCoordinatorProtocol
     private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
+    private let editorBrowserAssembly: EditorBrowserAssembly
+    
+    private weak var browserController: EditorBrowserController?
     
     init(
         homeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol,
@@ -22,7 +25,8 @@ final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsM
         navigationContext: NavigationContextProtocol,
         windowManager: WindowManager,
         createWidgetCoordinator: CreateWidgetCoordinatorProtocol,
-        objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
+        objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
+        editorBrowserAssembly: EditorBrowserAssembly
     ) {
         self.homeWidgetsModuleAssembly = homeWidgetsModuleAssembly
         self.accountManager = accountManager
@@ -30,10 +34,11 @@ final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsM
         self.windowManager = windowManager
         self.createWidgetCoordinator = createWidgetCoordinator
         self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
+        self.editorBrowserAssembly = editorBrowserAssembly
     }
     
     func startFlow() -> AnyView {
-        return homeWidgetsModuleAssembly.make(widgetObjectId: accountManager.account.info.widgetsId, output: self)
+        return homeWidgetsModuleAssembly.make(widgetObjectId: accountManager.account.info.widgetsId, output: self, treeWidgetOutput: self)
     }
     
     // MARK: - HomeWidgetsModuleOutput
@@ -53,6 +58,24 @@ final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsM
             try? await document.open()
             let module = objectIconPickerModuleAssembly.make(document: document, objectId: document.objectId)
             navigationContext.present(module)
+        }
+    }
+    
+    // MARK: - ObjectTreeWidgetModuleOutput
+        
+    func onObjectSelected(screenData: EditorScreenData) {
+        showPage(screenData: screenData)
+    }
+    
+    
+    // MARK: - Private
+    func showPage(screenData: EditorScreenData) {
+        if let browserController {
+            browserController.showPage(data: screenData)
+        } else {
+            let controller = editorBrowserAssembly.buildEditorBrowser(data: screenData)
+            navigationContext.push(controller)
+            browserController = controller
         }
     }
 }

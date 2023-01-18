@@ -13,6 +13,9 @@ struct HomeWidgetsView: View {
                     ForEach(model.models, id: \.componentId) { model in
                         model.view
                     }
+                    HomeEditButton(text: Loc.Widgets.Actions.editWidgets) {
+                        model.onEditButtonTap()
+                    }
                     Button("Create widget") {
                         model.onCreateWidgetTap()
                     }
@@ -51,10 +54,11 @@ struct HomeWidgetsView_Previews: PreviewProvider {
                     objectId: "",
                     objectDetailsStorage: DI.makeForPreview().serviceLocator.objectDetailsStorage()
                 ),
-                registry: DI.makeForPreview().widgetsDI.homeWidgetsRegistry(),
+                registry: DI.makeForPreview().widgetsDI.homeWidgetsRegistry(treeWidgetOutput: nil),
                 blockWidgetService: DI.makeForPreview().serviceLocator.blockWidgetService(),
                 accountManager: DI.makeForPreview().serviceLocator.accountManager(),
                 bottomPanelProviderAssembly: DI.makeForPreview().widgetsDI.bottomPanelProviderAssembly(),
+                toastPresenter: DI.makeForPreview().uihelpersDI.toastPresenter,
                 output: nil
             )
         )
