@@ -53,7 +53,7 @@ enum AttributedTextConverter {
         }
 
         let font = style.uiFont
-        let anytypeText = UIKitAnytypeText(text: text, style: font)
+        let anytypeText = UIKitAnytypeText(text: text, style: font, lineBreakModel: .byWordWrapping)
 
         // We need to separate mention marks from others
         // because mention not only adds attributes to attributed string

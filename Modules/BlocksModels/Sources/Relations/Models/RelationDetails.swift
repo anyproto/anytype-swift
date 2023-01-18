@@ -53,7 +53,7 @@ public extension RelationDetails {
         self.isReadOnly = objectDetails.isReadonly
         self.isReadOnlyValue = objectDetails.relationReadonlyValue
         self.objectTypes = objectDetails.relationFormatObjectTypes
-        self.maxCount = objectDetails.relationMaxCount ?? 1
+        self.maxCount = objectDetails.relationMaxCount ?? 0
         self.sourceObject = objectDetails.sourceObject
         self.isDeleted = objectDetails.isDeleted
     }

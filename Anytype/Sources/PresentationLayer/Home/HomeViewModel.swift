@@ -41,7 +41,6 @@ final class HomeViewModel: ObservableObject {
     
     let document: BaseDocumentProtocol
     lazy var cellDataBuilder = HomeCellDataBuilder(document: document)
-    lazy var favoritesSorter = HomeFavoritesSorter(document: document)
     private lazy var cancellables = [AnyCancellable]()
     
     let bottomSheetCoordinateSpaceName = "BottomSheetCoordinateSpaceName"
@@ -141,8 +140,7 @@ final class HomeViewModel: ObservableObject {
         case .setsTab:
             setsCellData.applySubscriptionUpdate(update, transform: cellDataBuilder.buildCellData)
         case .favoritesTab:
-            favoritesCellData.applySubscriptionUpdate(update, transform: cellDataBuilder.buildCellData)
-            favoritesCellData = favoritesSorter.sort(data: favoritesCellData)
+            favoritesCellData = cellDataBuilder.buildFavoritesData()
         default:
             anytypeAssertionFailure("Unsupported subscription: \(id)", domain: .homeView)
         }
@@ -154,6 +152,15 @@ final class HomeViewModel: ObservableObject {
         $selectedTab.sink { [weak self] in
             self?.onTabChange(tab: $0)
         }.store(in: &cancellables)
+        
+        document.infoContainer.publisherFor(id: document.objectId)
+            .removeDuplicates()
+            .sink { [weak self] _ in
+                if self?.selectedTab == .favourites {
+                    self?.updateCurrentTab()
+                }
+            }
+            .store(in: &cancellables)
         
         // visual delay on application launch
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
