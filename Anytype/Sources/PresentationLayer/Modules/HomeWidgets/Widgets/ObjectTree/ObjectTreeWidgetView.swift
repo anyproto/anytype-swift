@@ -44,7 +44,7 @@ struct ObjectTreeWidgetView: View {
                 // Fix anumation glytch.
                 // We should to finalize context menu transition to list and then delete object
                 // If we find how customize context menu transition, this 🩼 can be delete it
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
                     model.onDeleteWidgetTap()
                 }
             }
