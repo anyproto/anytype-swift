@@ -71,7 +71,7 @@ final class EditorSetRouter: EditorSetRouterProtocol {
     
     // MARK: - DI
     
-    private let document: BaseDocumentProtocol
+    private let setDocument: SetDocumentProtocol
     private weak var rootController: EditorBrowserController?
     private weak var viewController: UIViewController?
     private let navigationContext: NavigationContextProtocol
@@ -91,7 +91,7 @@ final class EditorSetRouter: EditorSetRouterProtocol {
     private weak var currentSetSettingsPopup: AnytypePopup?
     
     init(
-        document: BaseDocumentProtocol,
+        setDocument: SetDocumentProtocol,
         rootController: EditorBrowserController?,
         viewController: UIViewController,
         navigationContext: NavigationContextProtocol,
@@ -106,7 +106,7 @@ final class EditorSetRouter: EditorSetRouterProtocol {
         toastPresenter: ToastPresenterProtocol,
         alertHelper: AlertHelper
     ) {
-        self.document = document
+        self.setDocument = setDocument
         self.rootController = rootController
         self.viewController = viewController
         self.navigationContext = navigationContext
@@ -400,12 +400,18 @@ final class EditorSetRouter: EditorSetRouterProtocol {
     }
     
     func showCoverPicker() {
-        let moduleViewController = objectCoverPickerModuleAssembly.make(document: document)
+        let moduleViewController = objectCoverPickerModuleAssembly.make(
+            document: setDocument,
+            objectId: setDocument.targetObjectID ?? setDocument.objectId
+        )
         navigationContext.present(moduleViewController)
     }
     
     func showIconPicker() {
-        let moduleViewController = objectIconPickerModuleAssembly.make(document: document)
+        let moduleViewController = objectIconPickerModuleAssembly.make(
+            document: setDocument,
+            objectId: setDocument.targetObjectID ?? setDocument.objectId
+        )
         navigationContext.present(moduleViewController)
     }
     
@@ -425,10 +431,10 @@ final class EditorSetRouter: EditorSetRouterProtocol {
     }
     
     func showRelationValueEditingView(key: String) {
-        let relation = document.parsedRelations.installed.first { $0.key == key }
+        let relation = setDocument.parsedRelations.installed.first { $0.key == key }
         guard let relation = relation else { return }
         
-        showRelationValueEditingView(objectId: document.objectId, relation: relation)
+        showRelationValueEditingView(objectId: setDocument.objectId, relation: relation)
     }
     
     func showRelationValueEditingView(objectId: BlockId, relation: Relation) {
@@ -455,7 +461,7 @@ final class EditorSetRouter: EditorSetRouterProtocol {
         let view = newSearchModuleAssembly.objectTypeSearchModule(
             title: title,
             selectedObjectId: selectedObjectId,
-            excludedObjectTypeId: document.details?.type,
+            excludedObjectTypeId: setDocument.details?.type,
             showBookmark: showBookmark,
             showSet: showSet,
             browser: rootController

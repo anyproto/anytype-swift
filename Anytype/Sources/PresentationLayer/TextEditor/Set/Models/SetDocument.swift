@@ -20,6 +20,10 @@ class SetDocument: SetDocumentProtocol {
         }
     }
     
+    var updatePublisher: AnyPublisher<DocumentUpdate, Never> {
+        document.updatePublisher
+    }
+    
     var dataviews: [BlockDataview] {
         return document.children.compactMap { info -> BlockDataview? in
             if case .dataView(let data) = info.content {
@@ -50,7 +54,11 @@ class SetDocument: SetDocumentProtocol {
         document.featuredRelationsForEditor
     }
     
-    var updatePublisher: AnyPublisher<SetDocumentUpdate, Never> { updateSubject.eraseToAnyPublisher() }
+    var parsedRelations: ParsedRelations {
+        document.parsedRelations
+    }
+    
+    var setUpdatePublisher: AnyPublisher<SetDocumentUpdate, Never> { updateSubject.eraseToAnyPublisher() }
     private let updateSubject = PassthroughSubject<SetDocumentUpdate, Never>()
     
     @Published var dataView = BlockDataview.empty
@@ -102,7 +110,7 @@ class SetDocument: SetDocumentProtocol {
     }
     
     func isRelationsSet() -> Bool {
-        let relation = document.parsedRelations.installed.first { $0.key == BundledRelationKey.setOf.rawValue }
+        let relation = parsedRelations.installed.first { $0.key == BundledRelationKey.setOf.rawValue }
         if let relation, relation.hasSelectedObjectsRelationType {
             return true
         } else {

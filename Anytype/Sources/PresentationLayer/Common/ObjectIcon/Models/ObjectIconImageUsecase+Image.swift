@@ -153,6 +153,16 @@ extension ObjectIconImageUsecase {
                 staticImageGuideline: StaticImageGuideline.x24,
                 bookmarkImageGuideline: BookmarkIconImageGuideline.x24
             )
+        case .inlineHeader:
+            return ObjectIconImageGuidelineSet(
+                basicImageGuideline: BasicIconImageGuideline.x32,
+                profileImageGuideline: ProfileIconImageGuideline.x32,
+                emojiImageGuideline: EmojiIconImageGuideline.x32,
+                todoImageGuideline: TodoIconImageGuideline.x28,
+                placeholderImageGuideline: nil,
+                staticImageGuideline: StaticImageGuideline.x32,
+                bookmarkImageGuideline: BookmarkIconImageGuideline.x28
+            )
         }
     }
     

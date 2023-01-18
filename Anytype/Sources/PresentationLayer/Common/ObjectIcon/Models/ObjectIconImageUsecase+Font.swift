@@ -84,7 +84,7 @@ extension ObjectIconImageUsecase {
                     weight: .regular
                 )
             )
-        case .dashboardList:
+        case .dashboardList, .inlineHeader:
             return ObjectIconImageFontSet(
                 profileImageFont: UIKitFontBuilder.uiKitFont(
                     name: .inter,

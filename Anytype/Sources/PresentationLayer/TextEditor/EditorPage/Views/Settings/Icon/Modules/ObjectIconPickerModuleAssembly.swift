@@ -3,7 +3,7 @@ import UIKit
 import SwiftUI
 
 protocol ObjectIconPickerModuleAssemblyProtocol {
-    func make(document: BaseDocumentProtocol) -> UIViewController
+    func make(document: BaseDocumentGeneralProtocol, objectId: String) -> UIViewController
 }
 
 final class ObjectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol {
@@ -16,11 +16,12 @@ final class ObjectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtoc
 
     // MARK: - ObjectIconPickerModuleAssemblyProtocol
     
-    func make(document: BaseDocumentProtocol) -> UIViewController {
+    func make(document: BaseDocumentGeneralProtocol, objectId: String) -> UIViewController {
         let viewModel = ObjectIconPickerViewModel(
             document: document,
+            objectId: objectId,
             fileService: serviceLocator.fileService(),
-            detailsService: serviceLocator.detailsService(objectId: document.objectId)
+            detailsService: serviceLocator.detailsService(objectId: objectId)
         )
         
         let controller = UIHostingController(

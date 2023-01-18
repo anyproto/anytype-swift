@@ -79,7 +79,7 @@ final class EditorAssembly {
         let controller = EditorSetHostingController(objectId: data.pageId, model: model)
 
         let router = EditorSetRouter(
-            document: document,
+            setDocument: setDocument,
             rootController: browser,
             viewController: controller,
             navigationContext: NavigationContext(rootViewController: browser ?? controller),

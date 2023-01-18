@@ -56,6 +56,10 @@ final class EditorSetViewModel: ObservableObject {
         setDocument.details
     }
     
+    var hasTargetObjectId: Bool {
+        setDocument.targetObjectID != nil
+    }
+    
     func groupBackgroundColor(for groupId: String) -> BlockBackgroundColor {
         guard let groupOrder = setDocument.dataView.groupOrders.first(where: { [weak self] in $0.viewID == self?.activeView.id }),
             let viewGroup = groupOrder.viewGroups.first(where: { $0.groupID == groupId }),
@@ -117,9 +121,9 @@ final class EditorSetViewModel: ObservableObject {
     
     func setup(router: EditorSetRouterProtocol) {
         self.router = router
-        self.headerModel = ObjectHeaderViewModel(document: setDocument.document, router: router, isOpenedForPreview: false)
+        self.headerModel = ObjectHeaderViewModel(document: setDocument, router: router, isOpenedForPreview: false)
         
-        setDocument.updatePublisher.sink { [weak self] in
+        setDocument.setUpdatePublisher.sink { [weak self] in
             self?.onDataChange($0)
         }.store(in: &subscriptions)
 
@@ -661,6 +665,10 @@ extension EditorSetViewModel {
                 )
             }
         )
+    }
+    
+    func showIconPicker() {
+        router?.showIconPicker()
     }
     
     private func dataviewGroupOrderUpdate(groupId: String, hidden: Bool, backgroundColor: BlockBackgroundColor?) {
