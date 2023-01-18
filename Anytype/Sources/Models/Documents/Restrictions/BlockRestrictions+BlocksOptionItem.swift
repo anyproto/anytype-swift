@@ -52,7 +52,8 @@ extension Array where Element == BlockInformation {
                 isStyleAvailable = false
             }
             
-            if case let .dataView(data) = element.content,
+            if FeatureFlags.fullInlineSetImpl,
+               case let .dataView(data) = element.content,
                data.targetObjectID.isNotEmpty,
                 let details = ObjectDetailsStorage.shared.get(id: data.targetObjectID),
                 !details.isArchived, !details.isDeleted {

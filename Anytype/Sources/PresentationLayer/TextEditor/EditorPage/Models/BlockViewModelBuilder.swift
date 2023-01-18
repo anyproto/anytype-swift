@@ -279,7 +279,7 @@ final class BlockViewModelBuilder {
                 showFailureToast: { [weak self] message in
                     self?.router.showFailureToast(message: message)
                 },
-                openInlineSet: { [weak self] data in
+                openSet: { [weak self] data in
                     self?.router.showPage(data: data)
                 }
             )

@@ -9,7 +9,7 @@ struct DataViewBlockViewModel: BlockViewModelProtocol {
     let objectDetails: ObjectDetails?
     
     private let showFailureToast: (_ message: String) -> ()
-    private let openInlineSet: (EditorScreenData) -> ()
+    private let openSet: (EditorScreenData) -> ()
 
     var hashable: AnyHashable {
         [
@@ -22,12 +22,12 @@ struct DataViewBlockViewModel: BlockViewModelProtocol {
         info: BlockInformation,
         objectDetails: ObjectDetails?,
         showFailureToast: @escaping (_ message: String) -> (),
-        openInlineSet: @escaping (EditorScreenData) -> ()
+        openSet: @escaping (EditorScreenData) -> ()
     ) {
         self.info = info
         self.objectDetails = objectDetails
         self.showFailureToast = showFailureToast
-        self.openInlineSet = openInlineSet
+        self.openSet = openSet
     }
 
     func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration {
@@ -57,12 +57,16 @@ struct DataViewBlockViewModel: BlockViewModelProtocol {
     func didSelectRowInTableView(editorEditingState: EditorEditingState) {
         if objectDetails == nil {
             showFailureToast(Loc.Content.DataView.InlineSet.Toast.failure)
-        } else if let pageId = info.configurationData.parentId {
-            openInlineSet(
+        } else if FeatureFlags.fullInlineSetImpl, let pageId = info.configurationData.parentId {
+            openSet(
                 EditorScreenData(
                     pageId: pageId,
                     type: .set(blockId: info.id, targetObjectID: objectDetails?.id)
                 )
+            )
+        } else if !FeatureFlags.fullInlineSetImpl, let targetObjectID = objectDetails?.id {
+            openSet(
+                EditorScreenData(pageId: targetObjectID, type: .set())
             )
         }
     }
