@@ -1,13 +1,16 @@
 import Foundation
+import UIKit
 
 final class CoordinatorsDI: CoordinatorsDIProtocol {
     
     private let serviceLocator: ServiceLocator
     private let modulesDI: ModulesDIProtocol
+    private let uiHelpersDI: UIHelpersDIProtocol
     
-    init(serviceLocator: ServiceLocator, modulesDI: ModulesDIProtocol) {
+    init(serviceLocator: ServiceLocator, modulesDI: ModulesDIProtocol, uiHelpersDI: UIHelpersDIProtocol) {
         self.serviceLocator = serviceLocator
         self.modulesDI = modulesDI
+        self.uiHelpersDI = uiHelpersDI
     }
     
     // MARK: - CoordinatorsDIProtocol
@@ -15,7 +18,8 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     var relationValue: RelationValueCoordinatorAssemblyProtocol {
         return RelationValueCoordinatorAssembly(
             serviceLocator: serviceLocator,
-            modulesDI: modulesDI
+            modulesDI: modulesDI,
+            uiHelpersDI: uiHelpersDI
         )
     }
     
@@ -35,7 +39,26 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
         return LinkToObjectCoordinatorAssembly(
             serviceLocator: serviceLocator,
             modulesDI: modulesDI,
-            coordinatorsID: self
+            coordinatorsID: self,
+            uiHelopersDI: uiHelpersDI
+        )
+    }
+    
+    var objectSettings: ObjectSettingsCoordinatorAssemblyProtocol {
+        return ObjectSettingsCoordinatorAssembly(modulesDI: modulesDI, uiHelpersDI: uiHelpersDI, coordinatorsDI: self)
+    }
+    
+    var addNewRelation: AddNewRelationCoordinatorAssemblyProtocol {
+        return AddNewRelationCoordinatorAssembly(uiHelpersDI: uiHelpersDI, modulesDI: modulesDI)
+    }
+    
+    @MainActor
+    var homeWidgets: HomeWidgetsCoordinatorAssemblyProtocol {
+        return HomeWidgetsCoordinatorAssembly(
+            coordinatorsID: self,
+            modulesDI: modulesDI,
+            serviceLocator: serviceLocator,
+            uiHelpersDI: uiHelpersDI
         )
     }
     
@@ -44,16 +67,28 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     }
     
     var editor: EditorAssembly {
-        return EditorAssembly(serviceLocator: serviceLocator, coordinatorsDI: self)
+        return EditorAssembly(serviceLocator: serviceLocator, coordinatorsDI: self, modulesDI: modulesDI, uiHelpersDI: uiHelpersDI)
     }
     
     var homeViewAssemby: HomeViewAssembly {
-        return HomeViewAssembly(coordinatorsDI: self)
+        return HomeViewAssembly(coordinatorsDI: self, modulesDI: modulesDI)
     }
-}
-
-extension CoordinatorsDI {
-    static func makeForPreview() -> CoordinatorsDI {
-        CoordinatorsDI(serviceLocator: ServiceLocator.shared, modulesDI: ModulesDI())
+    
+    @MainActor
+    var application: ApplicationCoordinator {
+        return ApplicationCoordinator(
+            windowManager: windowManager,
+            authService: serviceLocator.authService(),
+            accountEventHandler: serviceLocator.accountEventHandler()
+        )
+    }
+    
+    @MainActor
+    var windowManager: WindowManager {
+        WindowManager(
+            viewControllerProvider: uiHelpersDI.viewControllerProvider,
+            homeViewAssembly: homeViewAssemby,
+            homeWidgetsCoordinatorAssembly: homeWidgets
+        )
     }
 }

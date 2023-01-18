@@ -16,7 +16,7 @@ enum Relation: Hashable, Identifiable {
     case unknown(Unknown)
 }
 
-// MARK: - RelationProtocol
+// MARK: - RelationValueProtocol
 
 extension Relation: RelationProtocol {
     
@@ -34,6 +34,23 @@ extension Relation: RelationProtocol {
         case .tag(let tag): return tag.id
         case .file(let file): return file.id
         case .unknown(let unknown): return unknown.id
+        }
+    }
+    
+    var key: String {
+        switch self {
+        case .text(let text): return text.key
+        case .number(let text): return text.key
+        case .status(let status): return status.key
+        case .date(let date): return date.key
+        case .object(let object): return object.key
+        case .checkbox(let checkbox): return checkbox.key
+        case .url(let text): return text.key
+        case .email(let text): return text.key
+        case .phone(let text): return text.key
+        case .tag(let tag): return tag.key
+        case .file(let file): return file.key
+        case .unknown(let unknown): return unknown.key
         }
     }
     
@@ -71,20 +88,20 @@ extension Relation: RelationProtocol {
         }
     }
     
-    var isBundled: Bool {
+    var isSystem: Bool {
         switch self {
-        case .text(let text): return text.isBundled
-        case .number(let text): return text.isBundled
-        case .status(let status): return status.isBundled
-        case .date(let date): return date.isBundled
-        case .object(let object): return object.isBundled
-        case .checkbox(let checkbox): return checkbox.isBundled
-        case .url(let text): return text.isBundled
-        case .email(let text): return text.isBundled
-        case .phone(let text): return text.isBundled
-        case .tag(let tag): return tag.isBundled
-        case .file(let file): return file.isBundled
-        case .unknown(let unknown): return unknown.isBundled
+        case .text(let text): return text.isSystem
+        case .number(let text): return text.isSystem
+        case .status(let status): return status.isSystem
+        case .date(let date): return date.isSystem
+        case .object(let object): return object.isSystem
+        case .checkbox(let checkbox): return checkbox.isSystem
+        case .url(let text): return text.isSystem
+        case .email(let text): return text.isSystem
+        case .phone(let text): return text.isSystem
+        case .tag(let tag): return tag.isSystem
+        case .file(let file): return file.isSystem
+        case .unknown(let unknown): return unknown.isSystem
         }
     }
     
@@ -124,22 +141,50 @@ extension Relation: RelationProtocol {
     
     var hasValue: Bool {
         switch self {
-        case .text(let text): return (text.value ?? "").isNotEmpty
-        case .number(let text): return (text.value ?? "").isNotEmpty
-        case .status(let status): return status.values.isNotEmpty
-        case .date(let date): return date.value != nil
-        case .object(let object): return object.selectedObjects.isNotEmpty
-        case .checkbox: return true
-        case .url(let text): return (text.value ?? "").isNotEmpty
-        case .email(let text): return (text.value ?? "").isNotEmpty
-        case .phone(let text): return (text.value ?? "").isNotEmpty
-        case .tag(let tag): return tag.selectedTags.isNotEmpty
-        case .file(let file): return file.files.isNotEmpty
-        case .unknown(let unknown): return unknown.value.isNotEmpty
+        case .text(let text): return text.hasValue
+        case .number(let text): return text.hasValue
+        case .status(let status): return status.hasValue
+        case .date(let date): return date.hasValue
+        case .object(let object): return object.hasValue
+        case .checkbox(let checkbox): return checkbox.hasValue
+        case .url(let text): return text.hasValue
+        case .email(let text): return text.hasValue
+        case .phone(let text): return text.hasValue
+        case .tag(let tag): return tag.hasValue
+        case .file(let file): return file.hasValue
+        case .unknown(let unknown): return unknown.hasValue
         }
     }
     
     var isSource: Bool {
-        return id == "source"
+        return key == BundledRelationKey.source.rawValue
+    }
+    
+    var isDeleted: Bool {
+        switch self {
+        case .text(let text): return text.isDeleted
+        case .number(let text): return text.isDeleted
+        case .status(let status): return status.isDeleted
+        case .date(let date): return date.isDeleted
+        case .object(let object): return object.isDeleted
+        case .checkbox(let checkbox): return checkbox.isDeleted
+        case .url(let text): return text.isDeleted
+        case .email(let text): return text.isDeleted
+        case .phone(let text): return text.isDeleted
+        case .tag(let tag): return tag.isDeleted
+        case .file(let file): return file.isDeleted
+        case .unknown(let unknown): return unknown.isDeleted
+        }
+    }
+    
+    var editableRelation: Relation? {
+        switch self {
+        case .object(let object):
+            var editableObject = object
+            editableObject.isEditable = true
+            return Relation.object(editableObject)
+        default:
+            return nil
+        }
     }
 }

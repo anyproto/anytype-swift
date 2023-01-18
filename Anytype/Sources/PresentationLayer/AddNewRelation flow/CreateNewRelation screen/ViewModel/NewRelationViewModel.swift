@@ -22,10 +22,17 @@ final class NewRelationViewModel: ObservableObject {
     @Published private var objectTypes: [ObjectType]?
     
     private let service: RelationsServiceProtocol
+    private let toastPresenter: ToastPresenterProtocol
     private weak var output: NewRelationModuleOutput?
     
-    init(name: String, service: RelationsServiceProtocol, output: NewRelationModuleOutput?) {
+    init(
+        name: String,
+        service: RelationsServiceProtocol,
+        toastPresenter: ToastPresenterProtocol,
+        output: NewRelationModuleOutput?
+    ) {
         self.service = service
+        self.toastPresenter = toastPresenter
         self.output = output
         
         self.name = name
@@ -48,23 +55,24 @@ extension NewRelationViewModel {
     }
     
     func didTapAddButton() {
-        let relationMetatdata = RelationMetadata(
+        let relationDetails = RelationDetails(
+            id: "",
             key: "",
             name: name,
-            format: format.asRelationMetadataFormat,
+            format: format.asRelationFormat,
             isHidden: false,
             isReadOnly: false,
-            isMulti: format.isMulti,
-            selections: [],
+            isReadOnlyValue: false,
             objectTypes: objectTypeIds,
-            scope: .object,
-            isBundled: false
+            maxCount: 0,
+            sourceObject: "",
+            isDeleted: false
         )
-
-        if let relation = service.createRelation(relation: relationMetatdata) {
-            UINotificationFeedbackGenerator().notificationOccurred(.success)
-            output?.didCreateRelation(relation)
-        }
+        
+        guard let createRelation = service.createRelation(relationDetails: relationDetails) else { return }
+        toastPresenter.show(message: Loc.Relation.addedToLibrary(createRelation.name))
+        UINotificationFeedbackGenerator().notificationOccurred(.success)
+        output?.didCreateRelation(createRelation)
     }
     
 }
@@ -80,7 +88,7 @@ extension NewRelationViewModel: NewRelationModuleInput {
     
     func updateTypesRestriction(objectTypeIds: [String]) {
         objectTypes = objectTypeIds.compactMap {
-            ObjectTypeProvider.shared.objectType(url: $0)
+            ObjectTypeProvider.shared.objectType(id: $0)
         }
     }
     
@@ -95,7 +103,7 @@ private extension NewRelationViewModel {
     }
     
     var objectTypeIds: [String] {
-        objectTypes?.map { $0.url } ?? []
+        objectTypes?.map { $0.id } ?? []
     }
     
 }
@@ -108,7 +116,7 @@ private extension SupportedRelationFormat {
         NewRelationFormatSectionView.Model(icon: self.iconAsset, title: self.title)
     }
     
-    var asRelationMetadataFormat: RelationMetadata.Format {
+    var asRelationFormat: RelationFormat {
         switch self {
         case .text: return .longText
         case .tag: return .tag
@@ -149,7 +157,7 @@ private extension Array where Element == ObjectType {
     var asViewModel: [NewRelationRestrictionsSectionView.ObjectTypeModel] {
         map {
             NewRelationRestrictionsSectionView.ObjectTypeModel(
-                id: $0.url,
+                id: $0.id,
                 emoji: $0.iconEmoji,
                 title: $0.name
             )

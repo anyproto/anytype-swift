@@ -8,7 +8,7 @@ protocol AttachmentRouterProtocol {
 
 protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func showAlert(alertModel: AlertModel)
-
+    func showFailureToast(message: String)
     func showPage(data: EditorScreenData)
     func replaceCurrentPage(with data: EditorScreenData)
     
@@ -21,7 +21,7 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     
     func saveFile(fileURL: URL, type: FileContentType)
     
-    func showCodeLanguageView(languages: [CodeLanguage], completion: @escaping (CodeLanguage) -> Void)
+    func showCodeLanguage(blockId: BlockId)
     
     func showStyleMenu(
         information: BlockInformation,
@@ -38,37 +38,48 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func showSettings()
     func showCoverPicker()
     func showIconPicker()
-    func showLayoutPicker()
     func showTextIconPicker(contextId: BlockId, objectId: BlockId)
-    func presentUndoRedo()
     
     func showMoveTo(onSelect: @escaping (BlockId) -> ())
-    func showLinkTo(onSelect: @escaping (BlockId, _ typeUrl: String) -> ())
+    func showLinkTo(onSelect: @escaping (ObjectDetails) -> ())
     func showSearch(onSelect: @escaping (EditorScreenData) -> ())
-    func showTypesSearch(title: String, selectedObjectId: BlockId?, onSelect: @escaping (BlockId) -> ())
-    func showObjectPreview(blockLinkAppearance: BlockLink.Appearance, onSelect: @escaping (BlockLink.Appearance) -> Void)
+
+    func showTypes(selectedObjectId: BlockId?, onSelect: @escaping (BlockId) -> ())
+    func showTypesForEmptyObject(selectedObjectId: BlockId?, onSelect: @escaping (BlockId) -> ())
+    func showSources(selectedObjectId: BlockId?, onSelect: @escaping (BlockId) -> ())
+    func showObjectPreview(
+        blockLinkState: BlockLinkState,
+        onSelect: @escaping (BlockLink.Appearance) -> Void
+    )
     
     func showRelationValueEditingView(key: String, source: RelationSource)
     func showRelationValueEditingView(objectId: BlockId, source: RelationSource, relation: Relation)
-    func showAddNewRelationView(onSelect: ((RelationMetadata, _ isNew: Bool) -> Void)?)
+    func showAddNewRelationView(onSelect: ((RelationDetails, _ isNew: Bool) -> Void)?)
 
     func showLinkContextualMenu(inputParameters: TextBlockURLInputParameters)
 
     func showWaitingView(text: String)
     func hideWaitingView()
     
-    func goBack()
+    func closeEditor()
     
     func presentSheet(_ vc: UIViewController)
     func presentFullscreen(_ vc: UIViewController)
     func setNavigationViewHidden(_ isHidden: Bool, animated: Bool)
-    func showTemplatesAvailabilityPopupIfNeeded(
+    
+    func showTemplatesPopupIfNeeded(
         document: BaseDocumentProtocol,
-        templatesTypeURL: ObjectTypeUrl
+        templatesTypeId: ObjectTypeId,
+        onShow: (() -> Void)?
+    )
+    func showTemplatesPopupWithTypeCheckIfNeeded(
+        document: BaseDocumentProtocol,
+        templatesTypeId: ObjectTypeId,
+        onShow: (() -> Void)?
     )
     
     func showViewPicker(
-        setModel: EditorSetViewModel,
+        setDocument: SetDocumentProtocol,
         dataviewService: DataviewServiceProtocol,
         showViewTypes: @escaping RoutingAction<DataviewView?>
     )
@@ -76,15 +87,19 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func showCreateObject(pageId: BlockId)
     func showCreateBookmarkObject()
     
-    func showSetSettings(setModel: EditorSetViewModel)
-    func showViewTypes(activeView: DataviewView?, canDelete: Bool, dataviewService: DataviewServiceProtocol)
-    func showViewSettings(setModel: EditorSetViewModel, dataviewService: DataviewServiceProtocol)
+    func showSetSettings(onSettingTap: @escaping (EditorSetSetting) -> Void)
+    func showViewTypes(
+        dataView: BlockDataview,
+        activeView: DataviewView?,
+        dataviewService: DataviewServiceProtocol
+    )
+    func showViewSettings(setDocument: SetDocumentProtocol, dataviewService: DataviewServiceProtocol)
     func dismissSetSettingsIfNeeded()
-    func showSorts(setModel: EditorSetViewModel, dataviewService: DataviewServiceProtocol)
-    func showRelationSearch(relations: [RelationMetadata], onSelect: @escaping (String) -> Void)
+    func showSorts(setDocument: SetDocumentProtocol, dataviewService: DataviewServiceProtocol)
+    func showRelationSearch(relationsDetails: [RelationDetails], onSelect: @escaping (RelationDetails) -> Void)
     func showFilterSearch(filter: SetFilter, onApply: @escaping (SetFilter) -> Void)
     
-    func showFilters(setModel: EditorSetViewModel, dataviewService: DataviewServiceProtocol)
+    func showFilters(setDocument: SetDocumentProtocol, dataviewService: DataviewServiceProtocol)
     func showColorPicker(
         onColorSelection: @escaping (ColorView.ColorItem) -> Void,
         selectedColor: UIColor?,
@@ -92,5 +107,17 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     )
     
     func showCardSizes(size: DataviewViewSize, onSelect: @escaping (DataviewViewSize) -> Void)
-    func showCovers(setModel: EditorSetViewModel, onSelect: @escaping (String) -> Void)
+    func showCovers(setDocument: SetDocumentProtocol, onSelect: @escaping (String) -> Void)
+    
+    func showGroupByRelations(
+        selectedRelationKey: String,
+        relations: [RelationDetails],
+        onSelect: @escaping (String) -> Void
+    )
+    
+    func showKanbanColumnSettings(
+        hideColumn: Bool,
+        selectedColor: BlockBackgroundColor?,
+        onSelect: @escaping (Bool, BlockBackgroundColor?) -> Void
+    )
 }

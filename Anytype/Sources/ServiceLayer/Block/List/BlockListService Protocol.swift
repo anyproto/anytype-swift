@@ -5,7 +5,7 @@ protocol BlockListServiceProtocol: AnyObject {
     func setDivStyle(blockIds: [BlockId], style: BlockDivider.Style)
     func setAlign(blockIds: [BlockId], alignment: LayoutAlignment)
     func setBackgroundColor(blockIds: [BlockId], color: MiddlewareColor)
-    func setFields(fields: [Anytype_Rpc.Block.ListSetFields.Request.BlockField])
+    func setFields(blockId: BlockId, fields: BlockFields)
     func setBlockColor(blockIds: [BlockId], color: MiddlewareColor)
     
     func replace(blockIds: [BlockId], targetId: BlockId)

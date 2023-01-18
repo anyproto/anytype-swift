@@ -15,7 +15,7 @@ protocol BlockActionServiceProtocol {
     
     func delete(blockIds: [BlockId])
 
-    func createPage(targetId: BlockId, type: ObjectTypeUrl, position: BlockPosition) -> BlockId?
+    func createPage(targetId: BlockId, type: ObjectTypeId, position: BlockPosition) -> BlockId?
     
     func split(
         _ string: NSAttributedString,
@@ -34,16 +34,13 @@ protocol BlockActionServiceProtocol {
     
     func duplicate(blockId: BlockId)
     
-    func setFields(blockFields: BlockFields, blockId: BlockId)
-
     func setText(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString)
     @discardableResult
     func setTextForced(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) -> Bool
     func merge(secondBlockId: BlockId)
     
-    func setObjectTypeUrl(_ objectTypeUrl: String)
+    func setObjectTypeId(_ objectTypeId: String)
     func setObjectSetType() -> BlockId
-
     func createAndFetchBookmark(
         contextID: BlockId,
         targetID: BlockId,

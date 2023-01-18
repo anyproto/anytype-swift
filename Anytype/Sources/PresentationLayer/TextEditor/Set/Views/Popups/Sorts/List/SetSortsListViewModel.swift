@@ -6,18 +6,18 @@ import Combine
 final class SetSortsListViewModel: ObservableObject {
     @Published var rows: [SetSortRowConfiguration] = []
     
-    private let setModel: EditorSetViewModel
+    private let setDocument: SetDocumentProtocol
     private var cancellable: Cancellable?
     
     private let service: DataviewServiceProtocol
     private let router: EditorRouterProtocol
     
     init(
-        setModel: EditorSetViewModel,
+        setDocument: SetDocumentProtocol,
         service: DataviewServiceProtocol,
         router: EditorRouterProtocol)
     {
-        self.setModel = setModel
+        self.setDocument = setDocument
         self.service = service
         self.router = router
         self.setup()
@@ -30,23 +30,23 @@ extension SetSortsListViewModel {
     // MARK: - Routing
     
     func addButtonTapped() {
-        let excludeRelations: [RelationMetadata] = setModel.sorts.map { $0.metadata }
+        let excludeRelations: [RelationDetails] = setDocument.sorts.map { $0.relationDetails }
         router.showRelationSearch(
-            relations: setModel.activeViewRelations(excludeRelations: excludeRelations))
-        { [weak self] key in
-            self?.addNewSort(with: key)
+            relationsDetails: setDocument.activeViewRelations(excludeRelations: excludeRelations))
+        { [weak self] relationDetails in
+            self?.addNewSort(with: relationDetails)
         }
     }
     
     func rowTapped(_ id: String) {
-        guard let setSort = setModel.sorts.first(where: { $0.id == id }) else {
+        guard let setSort = setDocument.sorts.first(where: { $0.id == id }) else {
             return
         }
         let view = CheckPopupView(viewModel: SetSortTypesListViewModel(
             sort: setSort,
             onSelect: { [weak self] sort in
                 let newSetSort = SetSort(
-                    metadata: setSort.metadata,
+                    relationDetails: setSort.relationDetails,
                     sort: sort
                 )
                 self?.updateSorts(with: newSetSort)
@@ -62,22 +62,22 @@ extension SetSortsListViewModel {
     // MARK: - Actions
     
     func delete(_ indexSet: IndexSet) {
-        var sorts = setModel.sorts
+        var sorts = setDocument.sorts
         sorts.remove(atOffsets: indexSet)
         updateView(with: sorts)
     }
     
     func move(from: IndexSet, to: Int) {
-        var sorts = setModel.sorts
+        var sorts = setDocument.sorts
         sorts.move(fromOffsets: from, toOffset: to)
         updateView(with: sorts)
     }
     
-    func addNewSort(with key: String) {
-        var dataviewSorts = setModel.sorts.map { $0.sort }
+    func addNewSort(with relation: RelationDetails) {
+        var dataviewSorts = setDocument.sorts.map { $0.sort }
         dataviewSorts.append(
             DataviewSort(
-                relationKey: key,
+                relationKey: relation.key,
                 type: .asc
             )
         )
@@ -85,7 +85,7 @@ extension SetSortsListViewModel {
     }
     
     private func setup() {
-        cancellable = setModel.$sorts.sink { [weak self] sorts in
+        cancellable = setDocument.sortsPublisher.sink { [weak self] sorts in
             self?.updateRows(with: sorts)
         }
     }
@@ -94,16 +94,16 @@ extension SetSortsListViewModel {
         rows = sorts.map {
             SetSortRowConfiguration(
                 id: $0.id,
-                title: $0.metadata.name,
+                title: $0.relationDetails.name,
                 subtitle: $0.typeTitle(),
-                iconAsset: $0.metadata.format.iconAsset
+                iconAsset: $0.relationDetails.format.iconAsset
             )
         }
     }
     
     private func updateSorts(with setSort: SetSort) {
-        let sorts: [SetSort] = setModel.sorts.map { sort in
-            if sort.metadata.key == setSort.metadata.key {
+        let sorts: [SetSort] = setDocument.sorts.map { sort in
+            if sort.relationDetails.key == setSort.relationDetails.key {
                 return setSort
             } else {
                 return sort
@@ -118,7 +118,7 @@ extension SetSortsListViewModel {
     }
     
     private func updateView(with dataviewSorts: [DataviewSort]) {
-        let newView = setModel.activeView.updated(sorts: dataviewSorts)
+        let newView = setDocument.activeView.updated(sorts: dataviewSorts)
         Task {
             try await service.updateView(newView)
         }

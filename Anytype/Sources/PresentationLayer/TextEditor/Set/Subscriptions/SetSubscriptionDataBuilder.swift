@@ -3,6 +3,7 @@ import BlocksModels
 
 extension SubscriptionId {
     static var set = SubscriptionId(value: "SubscriptionId.Set")
+    static var setGroups = SubscriptionId(value: "SubscriptionId.Set.Groups")
 }
 
 final class SetSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol {
@@ -10,17 +11,23 @@ final class SetSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol {
     // MARK: - SetSubscriptionDataBuilderProtocol
     
     func set(_ data: SetSubsriptionData) -> SubscriptionData {
-        let numberOfRowsPerPageInSubscriptions = UserDefaultsConfig.rowsPerPageInSet
+        let numberOfRowsPerPageInSubscriptions = data.numberOfRowsPerPage
 
         let keys = buildKeys(with: data)
         
         let offset = (data.currentPage - 1) * numberOfRowsPerPageInSubscriptions
         
+        let defaultFilters = [
+            SearchHelper.workspaceId(AccountManager.shared.account.info.accountSpaceId)
+        ]
+        
+        let filters = data.filters + defaultFilters
+        
         return .search(
             SubscriptionData.Search(
-                identifier: SubscriptionId.set,
+                identifier: data.identifier,
                 sorts: data.sorts,
-                filters: data.filters,
+                filters: filters,
                 limit: numberOfRowsPerPageInSubscriptions,
                 offset: offset,
                 keys: keys,
@@ -47,7 +54,8 @@ final class SetSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol {
             BundledRelationKey.coverScale.rawValue,
             BundledRelationKey.coverType.rawValue,
             BundledRelationKey.coverX.rawValue,
-            BundledRelationKey.coverY.rawValue
+            BundledRelationKey.coverY.rawValue,
+            BundledRelationKey.relationOptionColor.rawValue
         ]
         
         keys.append(contentsOf: data.options.map { $0.key })

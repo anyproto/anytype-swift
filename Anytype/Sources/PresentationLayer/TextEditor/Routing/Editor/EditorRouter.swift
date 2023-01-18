@@ -8,37 +8,67 @@ import AnytypeCore
 final class EditorRouter: NSObject, EditorRouterProtocol {
     private weak var rootController: EditorBrowserController?
     private weak var viewController: UIViewController?
+    private let navigationContext: NavigationContextProtocol
     private let fileCoordinator: FileDownloadingCoordinator
-    private let addNewRelationCoordinator: AddNewRelationCoordinator
+    private let addNewRelationCoordinator: AddNewRelationCoordinatorProtocol
     private let document: BaseDocumentProtocol
-    private let settingAssembly = ObjectSettingAssembly()
     private let templatesCoordinator: TemplatesCoordinator
     private let urlOpener: URLOpenerProtocol
     private let relationValueCoordinator: RelationValueCoordinatorProtocol
     private weak var currentSetSettingsPopup: AnytypePopup?
     private let editorPageCoordinator: EditorPageCoordinatorProtocol
     private let linkToObjectCoordinator: LinkToObjectCoordinatorProtocol
+    private let objectCoverPickerModuleAssembly: ObjectCoverPickerModuleAssemblyProtocol
+    private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
+    private let objectSettingCoordinator: ObjectSettingsCoordinatorProtocol
+    private let searchModuleAssembly: SearchModuleAssemblyProtocol
+    private let toastPresenter: ToastPresenterProtocol
+    private let createObjectModuleAssembly: CreateObjectModuleAssemblyProtocol
+    private let codeLanguageListModuleAssembly: CodeLanguageListModuleAssemblyProtocol
+    private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
+    private let alertHelper: AlertHelper
     
     init(
         rootController: EditorBrowserController?,
         viewController: UIViewController,
+        navigationContext: NavigationContextProtocol,
         document: BaseDocumentProtocol,
+        addNewRelationCoordinator: AddNewRelationCoordinatorProtocol,
         templatesCoordinator: TemplatesCoordinator,
         urlOpener: URLOpenerProtocol,
         relationValueCoordinator: RelationValueCoordinatorProtocol,
         editorPageCoordinator: EditorPageCoordinatorProtocol,
-        linkToObjectCoordinator: LinkToObjectCoordinatorProtocol
+        linkToObjectCoordinator: LinkToObjectCoordinatorProtocol,
+        objectCoverPickerModuleAssembly: ObjectCoverPickerModuleAssemblyProtocol,
+        objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
+        objectSettingCoordinator: ObjectSettingsCoordinatorProtocol,
+        searchModuleAssembly: SearchModuleAssemblyProtocol,
+        toastPresenter: ToastPresenterProtocol,
+        createObjectModuleAssembly: CreateObjectModuleAssemblyProtocol,
+        codeLanguageListModuleAssembly: CodeLanguageListModuleAssemblyProtocol,
+        newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
+        alertHelper: AlertHelper
     ) {
         self.rootController = rootController
         self.viewController = viewController
+        self.navigationContext = navigationContext
         self.document = document
         self.fileCoordinator = FileDownloadingCoordinator(viewController: viewController)
-        self.addNewRelationCoordinator = AddNewRelationCoordinator(document: document, viewController: viewController)
+        self.addNewRelationCoordinator = addNewRelationCoordinator
         self.templatesCoordinator = templatesCoordinator
         self.urlOpener = urlOpener
         self.relationValueCoordinator = relationValueCoordinator
         self.editorPageCoordinator = editorPageCoordinator
         self.linkToObjectCoordinator = linkToObjectCoordinator
+        self.objectCoverPickerModuleAssembly = objectCoverPickerModuleAssembly
+        self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
+        self.objectSettingCoordinator = objectSettingCoordinator
+        self.searchModuleAssembly = searchModuleAssembly
+        self.toastPresenter = toastPresenter
+        self.createObjectModuleAssembly = createObjectModuleAssembly
+        self.codeLanguageListModuleAssembly = codeLanguageListModuleAssembly
+        self.newSearchModuleAssembly = newSearchModuleAssembly
+        self.alertHelper = alertHelper
     }
 
     func showPage(data: EditorScreenData) {
@@ -48,17 +78,21 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     func replaceCurrentPage(with data: EditorScreenData) {
         editorPageCoordinator.startFlow(data: data, replaceCurrentPage: true)
     }
-
+    
     func showAlert(alertModel: AlertModel) {
         let alertController = AlertsFactory.alertController(from: alertModel)
-        viewController?.present(alertController, animated: true, completion: nil)
+        navigationContext.present(alertController)
     }
-
+    
+    func showFailureToast(message: String) {
+        toastPresenter.showFailureAlert(message: message)
+    }
+    
     func showLinkContextualMenu(inputParameters: TextBlockURLInputParameters) {
         let contextualMenuView = EditorContextualMenuView(
             options: [.pasteAsLink, .createBookmark, .pasteAsText],
-            optionTapHandler: { [weak rootController] option in
-                rootController?.presentedViewController?.dismiss(animated: false, completion: nil)
+            optionTapHandler: { [weak self] option in
+                self?.navigationContext.dismissTopPresented(animated: false)
                 inputParameters.optionHandler(option)
             }
         )
@@ -74,8 +108,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
             popoverPresentationController.sourceView = inputParameters.textView
             popoverPresentationController.delegate = self
             popoverPresentationController.permittedArrowDirections = [.up, .down]
-
-            rootController?.present(hostViewController, animated: true, completion: nil)
+            navigationContext.present(hostViewController)
         }
     }
     
@@ -96,7 +129,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     
     func showFilePicker(model: Picker.ViewModel) {
         let vc = Picker(model)
-        viewController?.present(vc, animated: true, completion: nil)
+        navigationContext.present(vc)
     }
     
     func showImagePicker(contentType: MediaPickerContentType, onSelect: @escaping (NSItemProvider?) -> Void) {
@@ -106,17 +139,16 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
                 onSelect: onSelect
             )
         )
-        viewController?.present(vc, animated: true, completion: nil)
+        navigationContext.present(vc)
     }
     
     func saveFile(fileURL: URL, type: FileContentType) {
         fileCoordinator.downloadFileAt(fileURL, withType: type)
     }
     
-    func showCodeLanguageView(languages: [CodeLanguage], completion: @escaping (CodeLanguage) -> Void) {
-        let searchListViewController = SearchListViewController(items: languages, completion: completion)
-        searchListViewController.modalPresentationStyle = .pageSheet
-        viewController?.present(searchListViewController, animated: true)
+    func showCodeLanguage(blockId: BlockId) {
+        let moduleViewController = codeLanguageListModuleAssembly.make(document: document, blockId: blockId)
+        navigationContext.present(moduleViewController)
     }
     
     func showStyleMenu(
@@ -167,24 +199,27 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     
     func showMoveTo(onSelect: @escaping (BlockId) -> ()) {
         
-        let moveToView = NewSearchModuleAssembly.moveToObjectSearchModule(
+        let moveToView = newSearchModuleAssembly.blockObjectsSearchModule(
             title: Loc.moveTo,
             excludedObjectIds: [document.objectId]
-        ) { [weak self] blockId in
-            onSelect(blockId)
-            self?.viewController?.topPresentedController.dismiss(animated: true)
+        ) { [weak self] details in
+            onSelect(details.id)
+            self?.navigationContext.dismissTopPresented()
         }
 
-        viewController?.topPresentedController.presentSwiftUIView(view: moveToView, model: nil)
+        navigationContext.presentSwiftUIView(view: moveToView, model: nil)
     }
 
-    func showLinkTo(onSelect: @escaping (BlockId, _ typeUrl: String) -> ()) {
-        let viewModel = ObjectSearchViewModel { data in
-            onSelect(data.blockId, data.typeUrl)
+    func showLinkTo(onSelect: @escaping (ObjectDetails) -> ()) {
+        let moduleView = newSearchModuleAssembly.blockObjectsSearchModule(
+            title: Loc.linkTo,
+            excludedObjectIds: [document.objectId]
+        ) { [weak self] details in
+            onSelect(details)
+            self?.navigationContext.dismissTopPresented()
         }
-        let linkToView = SearchView(title: Loc.linkTo, context: .menuSearch, viewModel: viewModel)
-        
-        viewController?.topPresentedController.presentSwiftUIView(view: linkToView, model: viewModel)
+
+        navigationContext.presentSwiftUIView(view: moduleView)
     }
 
     func showTextIconPicker(contextId: BlockId, objectId: BlockId) {
@@ -195,48 +230,65 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
             objectId: objectId
         )
 
-        let iconPicker = ObjectBasicIconPicker(viewModel: viewModel) { [weak rootController] in
-            rootController?.dismiss(animated: true, completion: nil)
+        let iconPicker = ObjectBasicIconPicker(viewModel: viewModel) { [weak self] in
+            self?.navigationContext.dismissTopPresented()
         }
 
-        viewController?.topPresentedController.presentSwiftUIView(view: iconPicker, model: nil)
+        navigationContext.presentSwiftUIView(view: iconPicker, model: nil)
     }
     
     func showSearch(onSelect: @escaping (EditorScreenData) -> ()) {
-        let viewModel = ObjectSearchViewModel { data in
+        let module = searchModuleAssembly.makeObjectSearch(title: nil, context: .menuSearch) { data in
             onSelect(EditorScreenData(pageId: data.blockId, type: data.viewType))
         }
-        let searchView = SearchView(title: nil, context: .menuSearch, viewModel: viewModel)
-        
-        viewController?.topPresentedController.presentSwiftUIView(view: searchView, model: viewModel)
+        navigationContext.present(module)
     }
     
-    func showTypesSearch(title: String, selectedObjectId: BlockId?, onSelect: @escaping (BlockId) -> ()) {
-        let view = NewSearchModuleAssembly.objectTypeSearchModule(
-            title: title,
+    func showTypes(selectedObjectId: BlockId?, onSelect: @escaping (BlockId) -> ()) {
+        showTypesSearch(
+            title: Loc.changeType,
             selectedObjectId: selectedObjectId,
-            excludedObjectTypeId: document.details?.type
-        ) { [weak self] id in
-            onSelect(id)
-            
-            self?.viewController?.topPresentedController.dismiss(animated: true)
-        }
-        
-        let controller = UIHostingController(rootView: view)
-        viewController?.topPresentedController.present(controller, animated: true)
+            showBookmark: false,
+            showSet: false,
+            onSelect: onSelect
+        )
     }
-
+    
+    func showTypesForEmptyObject(
+        selectedObjectId: BlockId?,
+        onSelect: @escaping (BlockId) -> ()
+    ) {
+        showTypesSearch(
+            title: Loc.changeType,
+            selectedObjectId: selectedObjectId,
+            showBookmark: false,
+            showSet: true,
+            onSelect: onSelect
+        )
+    }
+    
+    func showSources(selectedObjectId: BlockId?, onSelect: @escaping (BlockId) -> ()) {
+        showTypesSearch(
+            title: Loc.Set.SourceType.selectSource,
+            selectedObjectId: selectedObjectId,
+            showBookmark: true,
+            showSet: false,
+            onSelect: onSelect
+        )
+    }
+    
     func showWaitingView(text: String) {
         let popup = PopupViewBuilder.createWaitingPopup(text: text)
-        viewController?.topPresentedController.present(popup, animated: true, completion: nil)
+        navigationContext.present(popup)
     }
 
     func hideWaitingView() {
-        viewController?.topPresentedController.dismiss(animated: true, completion: nil)
+        navigationContext.dismissTopPresented()
     }
     
-    func goBack() {
-        rootController?.pop()
+    func closeEditor() {
+        guard let viewController else { return }
+        rootController?.popIfPresent(viewController)
     }
     
     func presentSheet(_ vc: UIViewController) {
@@ -246,77 +298,72 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
                 sheet.selectedDetentIdentifier = .medium
             }
         }
-        
-        viewController?.topPresentedController.present(vc, animated: true)
+        navigationContext.present(vc)
     }
     
     func presentFullscreen(_ vc: UIViewController) {
-        rootController?.topPresentedController.present(vc, animated: true)
-    }
-
-    func presentUndoRedo() {
-        guard let viewController = viewController else { return }
-
-        let toastPresenter = ToastPresenter(rootViewController: viewController)
-        let undoRedoView = UndoRedoView(
-            viewModel: .init(objectId: document.objectId, toastPresenter: toastPresenter)
-        )
-        let popupViewController = AnytypePopup(
-            contentView: undoRedoView,
-            floatingPanelStyle: true,
-            configuration: .init(isGrabberVisible: false, dismissOnBackdropView: true)
-        )
-        popupViewController.backdropView.backgroundColor = .clear
-
-        self.viewController?.dismissAndPresent(viewController: popupViewController)
+        navigationContext.present(vc)
     }
     
     func setNavigationViewHidden(_ isHidden: Bool, animated: Bool) {
         rootController?.setNavigationViewHidden(isHidden, animated: animated)
     }
 
-    func showObjectPreview(blockLinkAppearance: BlockLink.Appearance, onSelect: @escaping (BlockLink.Appearance) -> Void) {
-        let previewModel = ObjectPreviewModel(linkApperance: blockLinkAppearance)
+    func showObjectPreview(
+        blockLinkState: BlockLinkState,
+        onSelect: @escaping (BlockLink.Appearance) -> Void
+    ) {
         let router = ObjectPreviewRouter(viewController: viewController)
-        let viewModel = ObjectPreviewViewModel(objectPreviewModel: previewModel,
-                                               router: router,
-                                               onSelect: onSelect)
+        let viewModel = ObjectPreviewViewModel(
+            blockLinkState: blockLinkState,
+            router: router,
+            onSelect: onSelect
+        )
+
         let contentView = ObjectPreviewView(viewModel: viewModel)
         let popup = AnytypePopup(contentView: contentView)
 
-        viewController?.topPresentedController.present(popup, animated: true, completion: nil)
+        navigationContext.present(popup)
 
     }
 
-    func showTemplatesAvailabilityPopupIfNeeded(
+    func showTemplatesPopupIfNeeded(
         document: BaseDocumentProtocol,
-        templatesTypeURL: ObjectTypeUrl
+        templatesTypeId: ObjectTypeId,
+        onShow: (() -> Void)?
     ) {
-        templatesCoordinator.showTemplatesAvailabilityPopupIfNeeded(
+        templatesCoordinator.showTemplatesPopupIfNeeded(
             document: document,
-            templatesTypeURL: .dynamic(templatesTypeURL.rawValue)
+            templatesTypeId: .dynamic(templatesTypeId.rawValue),
+            onShow: onShow
+        )
+    }
+    
+    func showTemplatesPopupWithTypeCheckIfNeeded(
+        document: BaseDocumentProtocol,
+        templatesTypeId: ObjectTypeId,
+        onShow: (() -> Void)?
+    ) {
+        templatesCoordinator.showTemplatesPopupWithTypeCheckIfNeeded(
+            document: document,
+            templatesTypeId: .dynamic(templatesTypeId.rawValue),
+            onShow: onShow
         )
     }
     
     // MARK: - Settings
     func showSettings() {
-        let popup = settingAssembly.settingsPopup(document: document, router: self)
-        viewController?.topPresentedController.present(popup, animated: true, completion: nil)
+        objectSettingCoordinator.startFlow(delegate: self)
     }
     
     func showCoverPicker() {
-        let picker = settingAssembly.coverPicker(document: document)
-        viewController?.topPresentedController.present(picker, animated: true)
+        let moduleViewController = objectCoverPickerModuleAssembly.make(document: document)
+        navigationContext.present(moduleViewController)
     }
     
     func showIconPicker() {
-        let controller = settingAssembly.iconPicker(document: document)
-        viewController?.topPresentedController.present(controller, animated: true)
-    }
-    
-    func showLayoutPicker() {
-        let popup = settingAssembly.layoutPicker(document: document)
-        viewController?.topPresentedController.present(popup, animated: true, completion: nil)
+        let moduleViewController = objectIconPickerModuleAssembly.make(document: document)
+        navigationContext.present(moduleViewController)
     }
 
     func showColorPicker(
@@ -383,8 +430,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     // MARK: - Private
     
     private func presentOverCurrentContextSwuftUIView<Content: View>(view: Content, model: Dismissible) {
-        guard let viewController = rootController else { return }
-        
         let controller = UIHostingController(rootView: view)
         controller.modalPresentationStyle = .overCurrentContext
         
@@ -395,7 +440,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
             controller?.dismiss(animated: false)
         }
         
-        viewController.topPresentedController.present(controller, animated: false)
+        navigationContext.present(controller, animated: false)
     }
     
     private func showURLInputViewController(
@@ -404,7 +449,29 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     ) {
         let controller = URLInputViewController(url: url, didSetURL: completion)
         controller.modalPresentationStyle = .overCurrentContext
-        viewController?.present(controller, animated: false)
+        navigationContext.present(controller, animated: false)
+    }
+    
+    private func showTypesSearch(
+        title: String,
+        selectedObjectId: BlockId?,
+        showBookmark: Bool,
+        showSet: Bool,
+        onSelect: @escaping (BlockId) -> ()
+    ) {
+        let view = newSearchModuleAssembly.objectTypeSearchModule(
+            title: title,
+            selectedObjectId: selectedObjectId,
+            excludedObjectTypeId: document.details?.type,
+            showBookmark: showBookmark,
+            showSet: showSet,
+            browser: rootController
+        ) { [weak self] type in
+            self?.navigationContext.dismissTopPresented()
+            onSelect(type.id)
+        }
+        
+        navigationContext.presentSwiftUIView(view: view)
     }
 }
 
@@ -412,7 +479,7 @@ extension EditorRouter: AttachmentRouterProtocol {
     func openImage(_ imageContext: FilePreviewContext) {
         let previewController = AnytypePreviewController(with: [imageContext.file], sourceView: imageContext.sourceView, onContentChanged: imageContext.onDidEditFile)
 
-        rootController?.present(previewController, animated: true) { [weak previewController] in
+        navigationContext.present(previewController) { [weak previewController] in
             previewController?.didFinishTransition = true
         }
     }
@@ -421,7 +488,7 @@ extension EditorRouter: AttachmentRouterProtocol {
 // MARK: - Relations
 extension EditorRouter {
     func showRelationValueEditingView(key: String, source: RelationSource) {
-        let relation = document.parsedRelations.all.first { $0.id == key }
+        let relation = document.parsedRelations.installed.first { $0.key == key }
         guard let relation = relation else { return }
         
         showRelationValueEditingView(objectId: document.objectId, source: source, relation: relation)
@@ -431,14 +498,14 @@ extension EditorRouter {
         relationValueCoordinator.startFlow(objectId: objectId, source: source, relation: relation, output: self)
     }
 
-    func showAddNewRelationView(onSelect: ((RelationMetadata, _ isNew: Bool) -> Void)?) {
+    func showAddNewRelationView(onSelect: ((RelationDetails, _ isNew: Bool) -> Void)?) {
         addNewRelationCoordinator.showAddNewRelationView(onCompletion: onSelect)
     }
 }
 
 extension EditorRouter: RelationValueCoordinatorOutput {
     func openObject(pageId: BlockId, viewType: EditorViewType) {
-        viewController?.dismiss(animated: true)
+        navigationContext.dismissAllPresented()
         showPage(data: EditorScreenData(pageId: pageId, type: viewType))
     }
 }
@@ -448,12 +515,12 @@ extension EditorRouter: RelationValueCoordinatorOutput {
 extension EditorRouter {
     
     func showViewPicker(
-        setModel: EditorSetViewModel,
+        setDocument: SetDocumentProtocol,
         dataviewService: DataviewServiceProtocol,
         showViewTypes: @escaping RoutingAction<DataviewView?>)
     {
         let viewModel = EditorSetViewPickerViewModel(
-            setModel: setModel,
+            setDocument: setDocument,
             dataviewService: dataviewService,
             showViewTypes: showViewTypes
         )
@@ -464,41 +531,39 @@ extension EditorRouter {
     }
 
     func showCreateObject(pageId: BlockId) {
-        let relationService = RelationsService(objectId: pageId)
-        let viewModel = CreateObjectViewModel(relationService: relationService) { [weak self] in
-            self?.viewController?.topPresentedController.dismiss(animated: true)
+        let moduleViewController = createObjectModuleAssembly.makeCreateObject(objectId: pageId) { [weak self] in
+            self?.navigationContext.dismissTopPresented()
             self?.showPage(data: EditorScreenData(pageId: pageId, type: .page))
         } closeAction: { [weak self] in
-            self?.viewController?.topPresentedController.dismiss(animated: true)
+            self?.navigationContext.dismissTopPresented()
         }
         
-        showCreateObject(with: viewModel)
+        navigationContext.present(moduleViewController)
     }
     
     func showCreateBookmarkObject() {
-        let viewModel = CreateBookmarkViewModel(
-            bookmarkService: ServiceLocator.shared.bookmarkService(),
+        let moduleViewController = createObjectModuleAssembly.makeCreateBookmark(
             closeAction: { [weak self] withError in
-                self?.viewController?.topPresentedController.dismiss(animated: true, completion: {
+                self?.navigationContext.dismissTopPresented(animated: true) {
                     guard withError else { return }
-                    AlertHelper.showToast(
+                    self?.alertHelper.showToast(
                         title: Loc.Set.Bookmark.Error.title,
                         message: Loc.Set.Bookmark.Error.message
                     )
-                })
+                }
             }
         )
         
-        showCreateObject(with: viewModel)
+        navigationContext.present(moduleViewController)
     }
     
-    func showRelationSearch(relations: [RelationMetadata], onSelect: @escaping (String) -> Void) {
+    func showRelationSearch(relationsDetails: [RelationDetails], onSelect: @escaping (RelationDetails) -> Void) {
         let vc = UIHostingController(
-            rootView: NewSearchModuleAssembly.setSortsSearchModule(
-                relations: relations,
-                onSelect: { [weak self] key in
-                    self?.viewController?.topPresentedController.dismiss(animated: false) {
-                        onSelect(key)
+            rootView: newSearchModuleAssembly.setSortsSearchModule(
+                relationsDetails: relationsDetails,
+                onSelect: { [weak self] relationDetails in
+                    self?.navigationContext.dismissTopPresented(animated: false) {
+                        onSelect(relationDetails)
                     }
                 }
             )
@@ -509,29 +574,41 @@ extension EditorRouter {
                 sheet.selectedDetentIdentifier = .large
             }
         }
-        viewController?.topPresentedController.present(vc, animated: true)
+        navigationContext.present(vc)
     }
     
-    func showViewTypes(activeView: DataviewView?, canDelete: Bool, dataviewService: DataviewServiceProtocol) {
+    func showViewTypes(
+        dataView: BlockDataview,
+        activeView: DataviewView?,
+        dataviewService: DataviewServiceProtocol
+    )
+    {
         let viewModel = SetViewTypesPickerViewModel(
+            dataView: dataView,
             activeView: activeView,
-            canDelete: canDelete,
-            dataviewService: dataviewService
+            dataviewService: dataviewService,
+            relationDetailsStorage: ServiceLocator.shared.relationDetailsStorage()
         )
         let vc = UIHostingController(
             rootView: SetViewTypesPicker(viewModel: viewModel)
         )
-        presentSheet(vc)
+        if #available(iOS 15.0, *) {
+            if let sheet = vc.sheetPresentationController {
+                sheet.detents = [.large()]
+                sheet.selectedDetentIdentifier = .large
+            }
+        }
+        navigationContext.present(vc)
     }
     
-    func showSetSettings(setModel: EditorSetViewModel) {
+    func showSetSettings(onSettingTap: @escaping (EditorSetSetting) -> Void) {
         guard let currentSetSettingsPopup = currentSetSettingsPopup else {
-            showSetSettingsPopup(setModel: setModel)
+            showSetSettingsPopup(onSettingTap: onSettingTap)
             return
         }
         currentSetSettingsPopup.dismiss(animated: false) {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
-                self?.showSetSettingsPopup(setModel: setModel)
+                self?.showSetSettingsPopup(onSettingTap: onSettingTap)
             }
         }
     }
@@ -540,24 +617,21 @@ extension EditorRouter {
         currentSetSettingsPopup?.dismiss(animated: false)
     }
     
-    func showViewSettings(setModel: EditorSetViewModel, dataviewService: DataviewServiceProtocol) {
+    func showViewSettings(setDocument: SetDocumentProtocol, dataviewService: DataviewServiceProtocol) {
         let viewModel = EditorSetViewSettingsViewModel(
-            setModel: setModel,
+            setDocument: setDocument,
             service: dataviewService,
             router: self
         )
-        let vc = UIHostingController(
-            rootView: EditorSetViewSettingsView(
-                setModel: setModel,
-                model: viewModel
-            )
+        let view = EditorSetViewSettingsView(
+            model: viewModel
         )
-        viewController?.topPresentedController.present(vc, animated: true)
+        navigationContext.presentSwiftUIView(view: view)
     }
     
-    func showSorts(setModel: EditorSetViewModel, dataviewService: DataviewServiceProtocol) {
+    func showSorts(setDocument: SetDocumentProtocol, dataviewService: DataviewServiceProtocol) {
         let viewModel = SetSortsListViewModel(
-            setModel: setModel,
+            setDocument: setDocument,
             service: dataviewService,
             router: self
         )
@@ -567,9 +641,9 @@ extension EditorRouter {
         presentSheet(vc)
     }
     
-    func showFilters(setModel: EditorSetViewModel, dataviewService: DataviewServiceProtocol) {
+    func showFilters(setDocument: SetDocumentProtocol, dataviewService: DataviewServiceProtocol) {
         let viewModel = SetFiltersListViewModel(
-            setModel: setModel,
+            setDocument: setDocument,
             dataviewService: dataviewService,
             router: self
         )
@@ -579,22 +653,9 @@ extension EditorRouter {
         presentSheet(vc)
     }
     
-    private func showCreateObject(with viewModel: CreateObjectViewModelProtocol) {
-        guard let viewController = viewController else { return }
-        
-        let view = CreateObjectView(viewModel: viewModel)
-        let fpc = AnytypePopup(contentView: view,
-                               floatingPanelStyle: true,
-                               configuration: .init(isGrabberVisible: true, dismissOnBackdropView: true ))
-
-        viewController.topPresentedController.present(fpc, animated: true) {
-            _ = view.becomeFirstResponder()
-        }
-    }
-    
-    private func showSetSettingsPopup(setModel: EditorSetViewModel) {
+    private func showSetSettingsPopup(onSettingTap: @escaping (EditorSetSetting) -> Void) {
         let popup = AnytypePopup(
-            viewModel: EditorSetSettingsViewModel(setModel: setModel),
+            viewModel: EditorSetSettingsViewModel(onSettingTap: onSettingTap),
             floatingPanelStyle: true,
             configuration: .init(
                 isGrabberVisible: true,
@@ -613,9 +674,10 @@ extension EditorRouter {
         let viewModel = SetFiltersSelectionViewModel(
             filter: filter,
             router: self,
+            newSearchModuleAssembly: newSearchModuleAssembly,
             onApply: { [weak self] filter in
                 onApply(filter)
-                self?.viewController?.topPresentedController.dismiss(animated: true)
+                self?.navigationContext.dismissTopPresented()
             }
         )
         presentFullscreen(
@@ -639,9 +701,9 @@ extension EditorRouter {
         )
     }
     
-    func showCovers(setModel: EditorSetViewModel, onSelect: @escaping (String) -> Void) {
+    func showCovers(setDocument: SetDocumentProtocol, onSelect: @escaping (String) -> Void) {
         let viewModel = SetViewSettingsImagePreviewViewModel(
-            setModel: setModel,
+            setDocument: setDocument,
             onSelect: onSelect
         )
         let vc = UIHostingController(
@@ -650,6 +712,56 @@ extension EditorRouter {
             )
         )
         presentSheet(vc)
+    }
+    
+    func showGroupByRelations(
+        selectedRelationKey: String,
+        relations: [RelationDetails],
+        onSelect: @escaping (String) -> Void
+    ) {
+        let view = CheckPopupView(
+            viewModel: SetViewSettingsGroupByViewModel(
+                selectedRelationKey: selectedRelationKey,
+                relations: relations,
+                onSelect: onSelect
+            )
+        )
+        presentSheet(
+            AnytypePopup(
+                contentView: view
+            )
+        )
+    }
+    
+    func showKanbanColumnSettings(
+        hideColumn: Bool,
+        selectedColor: BlockBackgroundColor?,
+        onSelect: @escaping (Bool, BlockBackgroundColor?) -> Void
+    ) {
+        let popup = AnytypePopup(
+            viewModel: SetKanbanColumnSettingsViewModel(
+                hideColumn: hideColumn,
+                selectedColor: selectedColor,
+                onApplyTap: { [weak self] hidden, backgroundColor in
+                    onSelect(hidden, backgroundColor)
+                    self?.navigationContext.dismissTopPresented()
+                }
+            ),
+            configuration: .init(
+                isGrabberVisible: true,
+                dismissOnBackdropView: true
+            )
+        )
+        presentFullscreen(popup)
+    }
+}
+
+extension EditorRouter: ObjectSettingsModuleDelegate {
+    func didCreateLinkToItself(selfName: String, in objectId: BlockId) {
+        UIApplication.shared.hideKeyboard()
+        toastPresenter.showObjectName(selfName, middleAction: Loc.Editor.Toast.linkedTo, secondObjectId: objectId) { [weak self] in
+            self?.showPage(data: .init(pageId: objectId, type: .page))
+        }
     }
 }
 

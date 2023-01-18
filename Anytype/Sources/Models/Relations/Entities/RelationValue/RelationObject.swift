@@ -5,13 +5,23 @@ extension Relation {
     
     struct Object: RelationProtocol, Hashable, Identifiable {
         let id: String
+        let key: String
         let name: String
         let isFeatured: Bool
-        let isEditable: Bool
-        let isBundled: Bool
+        var isEditable: Bool
+        let isSystem: Bool
+        let isDeleted: Bool
         
         let selectedObjects: [Option]
         let limitedObjectTypes: [String]
+        
+        var hasValue: Bool {
+            selectedObjects.isNotEmpty
+        }
+        
+        var isDeletedValue: Bool {
+            selectedObjects.contains(where: \.isDeleted)
+        }
     }
     
 }

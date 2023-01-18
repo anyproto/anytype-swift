@@ -1,5 +1,6 @@
 import CoreGraphics
 import UIKit
+import AnytypeCore
 
 extension UIImage {
     
@@ -232,11 +233,15 @@ extension UIImage {
         backgroundView.layer.cornerRadius = cornerRadius
         backgroundView.layer.masksToBounds = true
         
-        UIGraphicsBeginImageContextWithOptions(size, false, UIApplication.shared.keyWindow?.screen.scale ?? 0)
-        if let currentContext = UIGraphicsGetCurrentContext() {
-            backgroundView.layer.render(in: currentContext)
-            let nameImage = UIGraphicsGetImageFromCurrentImageContext()
-            return nameImage
+        if FeatureFlags.fixColorsForStyleMenu {
+            return backgroundView.drawToImage()
+        } else {
+            UIGraphicsBeginImageContextWithOptions(size, false, UIApplication.shared.keyWindow?.screen.scale ?? 0)
+            if let currentContext = UIGraphicsGetCurrentContext() {
+                backgroundView.layer.render(in: currentContext)
+                let nameImage = UIGraphicsGetImageFromCurrentImageContext()
+                return nameImage
+            }
         }
 
         return nil
@@ -289,7 +294,7 @@ extension UIImage {
         imageSize: CGSize,
         cornerRadius: CGFloat,
         side: CGFloat,
-        backgroundColor: CGColor?
+        backgroundColor: CGColor? = nil
     ) -> UIImage {
         let size = CGSize(width: side, height: side)
         let renderer = UIGraphicsImageRenderer(size: size)
@@ -312,5 +317,35 @@ extension UIImage {
                 alpha: 1.0
             )
         }
+    }
+
+    func imageResized(to size: CGSize) -> UIImage {
+        return UIGraphicsImageRenderer(size: size).image { _ in
+            draw(in: CGRect(origin: .zero, size: size))
+        }
+    }
+
+    func centeredSquareImage() -> UIImage? {
+        guard let cgImage = cgImage else { return nil }
+        let width = CGFloat(cgImage.width)
+        let height = CGFloat(cgImage.height)
+
+        let sideLenght = min(width, height)
+
+        let xOffset = (width - sideLenght) / 2
+        let yOffset = (height - sideLenght) / 2
+
+        let cropRect = CGRect(
+            x: xOffset,
+            y: yOffset,
+            width: sideLenght,
+            height: sideLenght
+        )
+
+        if let imageRef = cgImage.cropping(to: cropRect) {
+            return UIImage(cgImage: imageRef, scale: 0, orientation: imageOrientation)
+        }
+
+        return nil
     }
 }

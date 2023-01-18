@@ -24,16 +24,17 @@ final class ServiceLocator {
     func authService() -> AuthServiceProtocol {
         return AuthService(
             localRepoService: localRepoService(),
-            loginStateService: loginStateService()
+            loginStateService: loginStateService(),
+            accountManager: accountManager()
         )
     }
     
     func loginStateService() -> LoginStateService {
-        LoginStateService(seedService: seedService())
+        LoginStateService(seedService: seedService(), objectTypeProvider: objectTypeProvider())
     }
     
     func dashboardService() -> DashboardServiceProtocol {
-        DashboardService()
+        DashboardService(searchService: searchService(), pageService: pageService())
     }
     
     func blockActionsServiceSingle(contextId: BlockId) -> BlockActionsServiceSingleProtocol {
@@ -48,8 +49,12 @@ final class ServiceLocator {
         FileActionsService()
     }
     
-    func searchService() -> SearchService {
-        SearchService()
+    func searchService() -> SearchServiceProtocol {
+        SearchService(
+            accountManager: accountManager(),
+            objectTypeProvider: objectTypeProvider(),
+            relationDetailsStorage: relationDetailsStorage()
+        )
     }
     
     func detailsService(objectId: BlockId) -> DetailsServiceProtocol {
@@ -75,9 +80,53 @@ final class ServiceLocator {
         AlertOpener()
     }
     
+    func accountManager() -> AccountManager {
+        return AccountManager.shared
+    }
+    
+    func objectTypeProvider() -> ObjectTypeProviderProtocol {
+        return ObjectTypeProvider.shared
+    }
+    
+    func groupsSubscriptionsHandler() -> GroupsSubscriptionsHandlerProtocol {
+        GroupsSubscriptionsHandler(groupsSubscribeService: GroupsSubscribeService())
+    }
+    
+    func relationService(objectId: String) -> RelationsServiceProtocol {
+        return RelationsService(objectId: objectId)
+    }
+    
+    // Sigletone
+    private lazy var _relationDetailsStorage = RelationDetailsStorage(
+        subscriptionsService: subscriptionService(),
+        subscriptionDataBuilder: RelationSubscriptionDataBuilder(accountManager: accountManager())
+    )
+    func relationDetailsStorage() -> RelationDetailsStorageProtocol {
+        return _relationDetailsStorage
+    }
+    
+    private lazy var _accountEventHandler = AccountEventHandler(
+        accountManager: accountManager()
+    )
+    func accountEventHandler() -> AccountEventHandlerProtocol {
+        return _accountEventHandler
+    }
+    
+    func blockListService(documentId: String) -> BlockListServiceProtocol {
+        return BlockListService(contextId: documentId)
+    }
+    
+    func workspaceService() -> WorkspaceServiceProtocol {
+        return WorkspaceService()
+    }
+    
+    // MARK: - Private
+    
     func pageService() -> PageServiceProtocol {
         return PageService()
     }
+    
+    // MARK: - Private
     
     private func subscriptionToggler() -> SubscriptionTogglerProtocol {
         SubscriptionToggler()
@@ -86,11 +135,4 @@ final class ServiceLocator {
     private func detailsStorage() -> ObjectDetailsStorage {
         ObjectDetailsStorage.shared
     }
-    
-    // MARK: - Coodrdinators
-    
-    func applicationCoordinator(window: UIWindow) -> ApplicationCoordinator {
-        ApplicationCoordinator(window: window, authService: authService())
-    }
-
 }

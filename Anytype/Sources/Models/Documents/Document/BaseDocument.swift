@@ -9,42 +9,59 @@ final class BaseDocument: BaseDocumentProtocol {
     private(set) var isOpened = false
 
     let infoContainer: InfoContainerProtocol = InfoContainer()
-    let relationsStorage: RelationsMetadataStorageProtocol = RelationsMetadataStorage()
+    let relationLinksStorage: RelationLinksStorageProtocol = RelationLinksStorage()
     let restrictionsContainer: ObjectRestrictionsContainer = ObjectRestrictionsContainer()
     
     var objectRestrictions: ObjectRestrictions { restrictionsContainer.restrinctions }
 
-    var isLocked: Bool {
-        guard let isLockedField = infoContainer.get(id: objectId)?
-                .fields[BlockFieldBundledKey.isLocked.rawValue],
-              case let .boolValue(isLocked) = isLockedField.kind else {
-            return false
-        }
-
-        return isLocked
-    }
-    
     private let blockActionsService: BlockActionsServiceSingleProtocol
     private let eventsListener: EventsListener
     private let updateSubject = PassthroughSubject<DocumentUpdate, Never>()
     private let relationBuilder = RelationsBuilder()
     private let detailsStorage = ObjectDetailsStorage.shared
+    private let relationDetailsStorage = ServiceLocator.shared.relationDetailsStorage()
 
+    private var subscriptions = [AnyCancellable]()
+    
+    // MARK: - State
+    private var parsedRelationsSubject = CurrentValueSubject<ParsedRelations, Never>(.empty)
+    var parsedRelationsPublisher: AnyPublisher<ParsedRelations, Never> {
+        parsedRelationsSubject.eraseToAnyPublisher()
+    }
+    // All places, where parsedRelations used, should be subscribe on parsedRelationsPublisher.
     var parsedRelations: ParsedRelations {
-        relationBuilder.parsedRelations(
-            relationMetadatas: relationsStorage.relations,
+        return relationBuilder.parsedRelations(
+            relationsDetails: relationDetailsStorage.relationsDetails(
+                for: relationLinksStorage.relationLinks
+            ),
             objectId: objectId,
             isObjectLocked: isLocked
         )
     }
-        
+    
+    @Published var isLocked = false
+    var isLockedPublisher: AnyPublisher<Bool, Never> {
+        $isLocked.eraseToAnyPublisher()
+    }
+    
+    var details: ObjectDetails? {
+        detailsStorage.get(id: objectId)
+    }
+    
+    var detailsPublisher: AnyPublisher<ObjectDetails, Never> {
+        detailsStorage.publisherFor(id: objectId)
+            .receiveOnMain()
+            .compactMap { $0 }
+            .eraseToAnyPublisher()
+    }
+    
     init(objectId: BlockId) {
         self.objectId = objectId
         
         self.eventsListener = EventsListener(
             objectId: objectId,
             infoContainer: infoContainer,
-            relationStorage: relationsStorage,
+            relationLinksStorage: relationLinksStorage,
             restrictionsContainer: restrictionsContainer
         )
         
@@ -63,7 +80,6 @@ final class BaseDocument: BaseDocumentProtocol {
     
     @MainActor
     func open() async throws {
-        ObjectTypeProvider.shared.resetCache()
         try await blockActionsService.open()
         isOpened = true
     }
@@ -78,10 +94,6 @@ final class BaseDocument: BaseDocumentProtocol {
     func close() async throws {
         try await blockActionsService.close()
         isOpened = false
-    }
-    
-    var details: ObjectDetails? {
-        detailsStorage.get(id: objectId)
     }
     
     var children: [BlockInformation] {
@@ -113,5 +125,36 @@ final class BaseDocument: BaseDocumentProtocol {
             }
         }
         eventsListener.startListening()
+                
+        infoContainer.publisherFor(id: objectId)
+            .compactMap { $0?.isLocked }
+            .removeDuplicates()
+            .receiveOnMain()
+            .assign(to: &$isLocked)
+        
+        Publishers
+            .CombineLatest(
+                relationDetailsStorage.relationsDetailsPublisher,
+                // Depends on different objects: relation options and relation objects
+                // Subscriptions for each object will be complicated. Subscribes to any document updates.
+                updatePublisher
+            )
+            .map { [weak self] _ in
+                guard let self = self else { return .empty }
+                let data = self.relationBuilder.parsedRelations(
+                    relationsDetails: self.relationDetailsStorage.relationsDetails(
+                        for: self.relationLinksStorage.relationLinks
+                    ),
+                    objectId: self.objectId,
+                    isObjectLocked: self.isLocked
+                )
+                return data
+            }
+            .removeDuplicates()
+            .receiveOnMain()
+            .sink { [weak self] in
+                self?.parsedRelationsSubject.send($0)
+            }
+            .store(in: &subscriptions)
     }
 }

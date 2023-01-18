@@ -99,6 +99,8 @@
 "Name" = "Name";
 "Description" = "Description";
 "Paste processing..." = "Paste processing...";
+"Marketplace" = "Marketplace";
+"Copied" = "Copied";
 
 // Home
 "Favorites" = "Favorites";
@@ -123,7 +125,7 @@
 
 // Keychain screen
 "Keychain.Recovery phrase" = "Recovery phrase";
-"Keychain.Recovery phrase copied to clipboard" = "Recovery phrase copied to clipboard";
+"Keychain.Recovery phrase copied to clipboard" = "Recovery phrase copied";
 "Keychain.Recovery phrase description" = "You will need it to sign in. Keep it in a safe place. If you lose it, you can no longer access your account.";
 "Keychain.Save keychain alert part 1" = "If you lose the recovery phrase and get logged out you will not be able to ";
 "Keychain.Save keychain alert part 2" = "ever access your data again";
@@ -131,6 +133,10 @@
 "Keychain.Don’t forget to save your recovery phrase" = "Don’t forget to save your recovery phrase";
 "Keychain.Show and copy phrase" = "Show and copy phrase";
 "Keychain.Have you backed up your recovery phrase?" = "Have you backed up your recovery phrase?";
+"Keychain.Error.String to Data conversion error" = "String to Data conversion error";
+"Keychain.Error.Data to String conversion error" = "Data to String conversion error";
+"Keychain.Error.Unknown Keychain Error" = "Unknown Keychain Error";
+"Keychain.SeedPhrasePlaceholder" = "witch collapse practice feed shame open despair creek road again ice least lake tree young address brain despair";
 
 // Auth
 "Welcome to Anytype" = "Welcome to Anytype";
@@ -234,7 +240,7 @@
 "Editor.LinkToObject.RemoveLink" = "Remove link";
 
 // MARK: - Main search
-"There is no object named" = "There is no object named %s";
+"There is no object named" = "There is no object named %@";
 "Try to create a new one or search for something else" = "Try to create a new one or search for something else";
 
 // MARK: - Home
@@ -248,8 +254,11 @@
 // MARK: - Relation
 "Featured relations" = "Featured relations";
 "Create from scratch" = "Create from scratch";
-"Create relation" = "Create relation \"%s\"";
+"Create relation" = "Create relation ‘%@’";
 "Relation.View.Hint.Empty" = "empty";
+"Relation.MyRelations" = "My relations";
+"Relation.AddedToLibrary" = "Relation ‘%@’ added to your library";
+"Relation.Deleted" = "Deleted relation";
 
 // MARK: - Deletion
 "Pending deletion text" = "We're sorry to see you go. You have 30 days to cancel this request. After 30 days, your encrypted account data is permanently removed from the backup node.";
@@ -348,14 +357,17 @@
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow" = "Number of days from now";
 "EditSet.Popup.Filter.Date.Option.ExactDate" = "Exact date";
 
-"EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo.Short" = "%s days ago";
-"EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%s days from now";
+"EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo.Short" = "%@ days ago";
+"EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ days from now";
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Source" = "Source";
+"Set.FeaturedRelations.RelationsList" = "Relations:";
+"Set.FeaturedRelations.Relation" = "Relation:";
+"Set.FeaturedRelations.Type" = "Type:";
 
 // MARK: - Sets: Filters search
-"Set.Filters.Search.Button.Title" = "Apply";
+"Set.Button.Title.Apply" = "Apply";
 
 // MARK: - Set.Bookmarks
 "Set.Bookmark.Create.Placeholder" = "Paste link";
@@ -368,9 +380,20 @@
 "Set.View.Settings.CardSize.Small.Title" = "Small";
 "Set.View.Settings.CardSize.Large.Title" = "Large";
 "Set.View.Settings.ImagePreview.Title" = "Image preview";
+"Set.View.Settings.GroupBy.Title" = "Group by";
+"Set.View.Settings.GroupBackgroundColors.Title" = "Color columns";
+
+// MARK: - Sets: Kanban
+"Set.View.Kanban.Column.Title.Uncategorized" = "Uncategorized";
+"Set.View.Kanban.Column.Title.Checked" = "%@ is checked";
+"Set.View.Kanban.Column.Title.Unchecked" = "%@ is unchecked";
+"Set.View.Kanban.Column.Paging.Title.ShowMore" = "Show more objects";
+"Set.View.Kanban.Column.Settings.Color.Title" = "Column color";
+"Set.View.Kanban.Column.Settings.Hide.Column.Title" = "Hide column";
 
 // MARK: - Set source type
 "Set.SourceType.SelectSource" = "Select source";
+"Set.SourceType.Cancel.Toast.Title" = "This source can be changed on desktop only";
 
 // MARK: Slash Menu
 "SlashMenu.DotsDivider" = "Dots divider";
@@ -404,7 +427,7 @@
 "Enter number" = "Enter number";
 "Enter text" = "Enter text";
 "Unsupported value" = "Unsupported value";
-"There is no relation named" = "There is no relation named %s";
+"There is no relation named" = "There is no relation named %@";
 "Find a relation" = "Find a relation";
 "Your library" = "Your library";
 "Select relation type" = "Select relation type";
@@ -421,6 +444,7 @@
 "No name" = "No name";
 "New relation" = "New relation";
 "Non-existent object" = "Non-existent object";
+"Deleted object" = "Deleted object";
 "Select all" = "Select all";
 "Deselect all" = "Deselect all";
 "Shared" = "Shared";
@@ -434,7 +458,7 @@
 "Clear file cache" = "Clear file cache";
 "Application icon" = "Application icon";
 "Mode" = "Mode";
-"copied to clipboard" = "%s copied to clipboard";
+"copied to clipboard" = "%@ copied to clipboard";
 "Access to secret phrase from keychain" = "Access to secret phrase from keychain";
 "Back up your recovery phrase" = "Back up your recovery phrase";
 "Account" = "Account";
@@ -510,7 +534,7 @@
 "Today" = "Today";
 "No date" = "No date";
 "Clear" = "Clear";
-"Create option" = "Create option %s";
+"Create option" = "Create option ‘%s’";
 "Add URL" = "Add URL";
 "Add email" = "Add email";
 "Add phone number" = "Add phone number";
@@ -518,7 +542,6 @@
 "Add text" = "Add text";
 "Ok" = "Ok";
 "Error occurred. Please try again" = "Error occurred. Please try again";
-"is already selected" = "%s is already selected";
 "Add" = "Add";
 "Your device seems to be offline" = "Your device seems to be offline. Please, check your connection and try again";
 "Connection refused" = "Connection refused. Please, try again";
@@ -546,12 +569,15 @@
 
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "Blank canvas with no title";
+"ObjectType.SearchOrInstall" = "Search or install a new type";
+"ObjectType.MyTypes" = "My Types";
+"ObjectType.AddedToLibrary" = "Type ‘%@’ added to your library";
+"ObjectType.DeletedName" = "Deleted type";
 
 // MARK: - QuickAction
-"QuickAction.create" = "Create %s";
+"QuickAction.create" = "Create %@";
 
 // MARK: - RedactedText
-"RedactedText.seedPhrase" = "You wake up in your bed and believe whatever you want to. You take the red pill, you stay in Wonderland, and I show you how deep the rabbit hole goes.";
 "RedactedText.pageTitle" = "Wake up, Neo";
 "RedactedText.pageType" = "Red pill";
 
@@ -582,7 +608,7 @@
 "SimpleTableMenu.Item.MoveUp" = "Move up";
 "SimpleTableMenu.Item.MoveDown" = "Move down";
 
-"DebugMenu.ToggleAuthor" = "Release: %s, %s";
+"DebugMenu.ToggleAuthor" = "Release: %@, %@";
 
 // MARK: Link Past Actions
 "LinkPaste.text" = "Paste as text";
@@ -609,7 +635,7 @@
 "SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Untitled";
 
 // MARK: Select view picker
-"EditorSetViewPicker.View.Available.Soon" = "%s view soon";
+"EditorSetViewPicker.View.Available.Soon" = "%@ view soon";
 
 // BlockContent
 "Content.File.Upload" = "Upload a file";
@@ -624,3 +650,10 @@
 // MARK: - Widget extension
 "WidgetExtension.LockScreen.Title" = "New object";
 "WidgetExtension.LockScreen.Description" = "Create a new object on the fly";
+
+// MARK: - Toast
+"Editor.Toast.LinkedTo" = "linked to";
+"Editor.Toast.MovedTo" = "Block moved to";
+
+// MARK: - Scanner
+"Scanner.Error.Scanning not supported" = "Scanning not supported";

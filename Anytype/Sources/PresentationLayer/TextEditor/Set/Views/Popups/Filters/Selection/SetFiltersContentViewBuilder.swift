@@ -6,9 +6,11 @@ import SwiftUI
 
 final class SetFiltersContentViewBuilder {
     let filter: SetFilter
+    private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     
-    init(filter: SetFilter) {
+    init(filter: SetFilter, newSearchModuleAssembly: NewSearchModuleAssemblyProtocol) {
         self.filter = filter
+        self.newSearchModuleAssembly = newSearchModuleAssembly
     }
     
     @ViewBuilder
@@ -37,7 +39,7 @@ final class SetFiltersContentViewBuilder {
     
     @ViewBuilder
     private func buildSearchView(
-        with format: RelationMetadata.Format,
+        with format: RelationFormat,
         onSelect: @escaping (_ ids: [String]) -> Void
     ) -> some View {
         switch format {
@@ -55,15 +57,13 @@ final class SetFiltersContentViewBuilder {
     private func buildTagsSearchView(
         onSelect: @escaping (_ ids: [String]) -> Void
     ) -> some View {
-        let allTags = filter.metadata.selections.map { Relation.Tag.Option(option: $0) }
         let selectedTagIds = selectedIds(
-            from: filter.filter.value,
-            allOptions: allTags.map { $0.id }
+            from: filter.filter.value
         )
-        return NewSearchModuleAssembly.tagsSearchModule(
+        return newSearchModuleAssembly.tagsSearchModule(
             style: .embedded,
             selectionMode: .multipleItems(preselectedIds: selectedTagIds),
-            allTags: allTags,
+            relationKey: filter.relationDetails.key,
             selectedTagIds: [],
             onSelect: onSelect,
             onCreate: { _ in }
@@ -84,11 +84,11 @@ final class SetFiltersContentViewBuilder {
             }()
             return values.map { $0.stringValue }
         }()
-        return NewSearchModuleAssembly.objectsSearchModule(
+        return newSearchModuleAssembly.objectsSearchModule(
             style: .embedded,
             selectionMode: .multipleItems(preselectedIds: selectedObjectsIds),
             excludedObjectIds: [],
-            limitedObjectType: filter.metadata.objectTypes,
+            limitedObjectType: filter.relationDetails.objectTypes,
             onSelect: onSelect
         )
     }
@@ -96,15 +96,13 @@ final class SetFiltersContentViewBuilder {
     private func buildStatusesSearchView(
         onSelect: @escaping (_ ids: [String]) -> Void
     ) -> some View {
-        let allStatuses = filter.metadata.selections.map { Relation.Status.Option(option: $0) }
         let selectedStatusesIds = selectedIds(
-            from: filter.filter.value,
-            allOptions: allStatuses.map { $0.id }
+            from: filter.filter.value
         )
-        return NewSearchModuleAssembly.statusSearchModule(
+        return newSearchModuleAssembly.statusSearchModule(
             style: .embedded,
             selectionMode: .multipleItems(preselectedIds: selectedStatusesIds),
-            allStatuses: allStatuses,
+            relationKey: filter.relationDetails.key,
             selectedStatusesIds: [],
             onSelect: onSelect,
             onCreate: { _ in }
@@ -159,16 +157,13 @@ final class SetFiltersContentViewBuilder {
     // MARK: - Helper methods
     
     private func selectedIds(
-        from value: SwiftProtobuf.Google_Protobuf_Value,
-        allOptions: [String]
+        from value: SwiftProtobuf.Google_Protobuf_Value
     ) -> [String] {
         let selectedIds: [String] = value.listValue.values.compactMap {
             let value = $0.stringValue
             return value.isEmpty ? nil : value
         }
         
-        return selectedIds.compactMap { id in
-            allOptions.first { $0 == id }
-        }
+        return selectedIds
     }
 }

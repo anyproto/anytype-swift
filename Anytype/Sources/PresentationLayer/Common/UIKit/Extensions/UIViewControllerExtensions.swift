@@ -4,6 +4,8 @@ import SwiftUI
 
 extension UIViewController {
     
+    @objc dynamic var bottomToastOffset: CGFloat { 0 }
+    
     func setupBackBarButtonItem(_ item: UIBarButtonItem?) {
         navigationItem.hidesBackButton = true
         
@@ -12,16 +14,6 @@ extension UIViewController {
         // This trick enables screen edge pan gesture after setting left bar button.
         navigationController?.interactivePopGestureRecognizer?.delegate = nil
         navigationController?.interactivePopGestureRecognizer?.isEnabled = true
-    }
-
-    func dismissAndPresent(
-        viewController: UIViewController,
-        animateDismissing: Bool = false,
-        animatePresenting: Bool = true
-    ) {
-        dismiss(animated: animateDismissing) { [weak self] in
-            self?.present(viewController, animated: animatePresenting, completion: nil)
-        }
     }
     
     func presentSwiftUIView<Content: View>(view: Content, model: Dismissible?) {

@@ -51,7 +51,8 @@ platform :ios do
       configuration: options[:release] ? "Release" : "Debug-Nightly",
       include_symbols: true,
       use_system_scm: true,
-      output_directory: "./build_app_results"
+      output_directory: "./build_app_results",
+      xcargs: ENV['BUILD_OPTIONS']
     )
 
     upload_build_to_testflight

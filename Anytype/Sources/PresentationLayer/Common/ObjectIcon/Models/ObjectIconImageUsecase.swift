@@ -2,13 +2,14 @@ import Foundation
 import UIKit
 
 //@see https://www.figma.com/file/3lljgCRXYLiUeefJSxN1aC/Components?node-id=123%3A981
-enum ObjectIconImageUsecase: Equatable {
+enum ObjectIconImageUsecase: Equatable, Hashable {
     case openedObject
     case openedObjectNavigationBar
     
     case editorSearch // slash menu + mention
     case editorSearchExpandedIcons
     case editorCalloutBlock
+    case linkToObject
     
     case dashboardList
     case dashboardProfile

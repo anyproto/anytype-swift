@@ -72,14 +72,11 @@ final class BlockActionService: BlockActionServiceProtocol {
     }
 
 
-    func createPage(targetId: BlockId, type: ObjectTypeUrl, position: BlockPosition) -> BlockId? {
+    func createPage(targetId: BlockId, type: ObjectTypeId, position: BlockPosition) -> BlockId? {
         guard let newBlockId = pageService.createPage(
             contextId: documentId,
             targetId: targetId,
             details: [.name(""), .type(type)],
-            shouldDeleteEmptyObject: false,
-            shouldSelectType: false,
-            shouldSelectTemplate: false,
             position: position,
             templateId: ""
         ) else { return nil }
@@ -120,11 +117,6 @@ final class BlockActionService: BlockActionServiceProtocol {
         _ = singleService.delete(blockIds: blockIds)
     }
     
-    func setFields(blockFields: BlockFields, blockId: BlockId) {
-        let setFieldsRequest = Anytype_Rpc.Block.ListSetFields.Request.BlockField(blockID: blockId, fields: .init(fields: blockFields))
-        listService.setFields(fields: [setFieldsRequest])
-    }
-    
     func setText(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) {
         textService.setText(contextId: contextId, blockId: blockId, middlewareString: middlewareString)
     }
@@ -134,8 +126,8 @@ final class BlockActionService: BlockActionServiceProtocol {
         textService.setTextForced(contextId: contextId, blockId: blockId, middlewareString: middlewareString)
     }
     
-    func setObjectTypeUrl(_ objectTypeUrl: String) {
-        pageService.setObjectType(objectId: documentId, objectTypeUrl: objectTypeUrl)
+    func setObjectTypeId(_ objectTypeId: String) {
+        pageService.setObjectType(objectId: documentId, objectTypeId: objectTypeId)
     }
 
     func setObjectSetType() -> BlockId {

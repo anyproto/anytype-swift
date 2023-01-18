@@ -126,7 +126,7 @@ struct LoginView: View {
     
     private var loginNavigation: some View {
         NavigationLink(
-            destination: SelectProfileView(viewModel: SelectProfileViewModel()),
+            destination: viewModel.selectProfileFlow(),
             isActive: $viewModel.showSelectProfile
         ) {
             EmptyView()
@@ -136,6 +136,6 @@ struct LoginView: View {
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView(viewModel: LoginViewModel())
+        LoginView(viewModel: LoginViewModel(windowManager: DI.makeForPreview().coordinatorsDI.windowManager))
     }
 }

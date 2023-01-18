@@ -5,13 +5,15 @@ extension DataviewFilter {
     func updated(
         condition: DataviewFilter.Condition? = nil,
         value: SwiftProtobuf.Google_Protobuf_Value? = nil,
-        quickOption: DataviewFilter.QuickOption? = nil
+        quickOption: DataviewFilter.QuickOption? = nil,
+        format: RelationFormat? = nil
     ) -> DataviewFilter {
         DataviewFilter(
             relationKey: self.relationKey,
             condition: condition ?? self.condition,
             value: value ?? self.value,
-            quickOption: quickOption ?? self.quickOption
+            quickOption: quickOption ?? self.quickOption,
+            format: format?.asMiddleware ?? self.format
         )
     }
 }

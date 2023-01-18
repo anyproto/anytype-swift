@@ -2,8 +2,11 @@ import Foundation
 import Combine
 import BlocksModels
 import AnytypeCore
+import UIKit
 
 final class ObjectActionsViewModel: ObservableObject {
+    var onLinkItselfToObjectHandler: RoutingAction<BlockId>?
+    
     var objectActions: [ObjectAction] {
         guard let details = details else { return [] }
 
@@ -18,10 +21,9 @@ final class ObjectActionsViewModel: ObservableObject {
     @Published var objectRestrictions: ObjectRestrictions = ObjectRestrictions()
     @Published var isLocked: Bool = false
 
-    var onLinkItselfAction: RoutingAction<(BlockId, String) -> Void>?
+    var onLinkItselfAction: RoutingAction<(BlockId) -> Void>?
     var dismissSheet: () -> () = {}
 
-    let popScreenAction: () -> ()
     let undoRedoAction: () -> ()
     let openPageAction: (_ screenData: EditorScreenData) -> ()
     
@@ -30,12 +32,10 @@ final class ObjectActionsViewModel: ObservableObject {
     
     init(
         objectId: BlockId,
-        popScreenAction: @escaping () -> (),
         undoRedoAction: @escaping () -> (),
         openPageAction: @escaping (_ screenData: EditorScreenData) -> ()
     ) {
         self.objectId = objectId
-        self.popScreenAction = popScreenAction
         self.undoRedoAction = undoRedoAction
         self.openPageAction = openPageAction
     }
@@ -46,7 +46,6 @@ final class ObjectActionsViewModel: ObservableObject {
         let isArchived = !details.isArchived
         service.setArchive(objectId: objectId, isArchived)
         if isArchived {
-            popScreenAction()
             dismissSheet()
         }
     }
@@ -74,15 +73,18 @@ final class ObjectActionsViewModel: ObservableObject {
     func linkItselfAction() {
         guard let currentObjectId = details?.id else { return }
 
-        let onObjectSelection: (BlockId, String) -> Void = { objectId, typeUrl in
-            Task {
+
+        let onObjectSelection: (BlockId) -> Void = { objectId in
+            Task { @MainActor [weak self] in
+                guard let self = self else { return }
                 let targetDocument = BaseDocument(objectId: objectId)
                 try? await targetDocument.open()
                 guard let id = targetDocument.children.last?.id else { return }
 
                 let targetObjectService = BlockActionsServiceSingle(contextId: objectId)
-
                 let _ = targetObjectService.add(targetId: id, info: .emptyLink(targetId: currentObjectId), position: .bottom)
+                
+                self.onLinkItselfToObjectHandler?(objectId)
             }
         }
 
@@ -97,5 +99,4 @@ final class ObjectActionsViewModel: ObservableObject {
 
     func search() {
     }
-
 }

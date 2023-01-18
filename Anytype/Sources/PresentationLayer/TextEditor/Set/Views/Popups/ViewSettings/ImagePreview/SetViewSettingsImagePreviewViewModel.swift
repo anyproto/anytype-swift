@@ -6,28 +6,25 @@ final class SetViewSettingsImagePreviewViewModel: ObservableObject {
     @Published var coverRows: [SetViewSettingsImagePreviewRowConfiguration] = []
     @Published var relationsRows: [SetViewSettingsImagePreviewRowConfiguration] = []
     
+    private let setDocument: SetDocumentProtocol
     private let onSelect: (String) -> Void
-    private let setModel: EditorSetViewModel
     private var cancellable: Cancellable?
     
-    init(setModel: EditorSetViewModel, onSelect: @escaping (String) -> Void) {
-        self.setModel = setModel
+    init(setDocument: SetDocumentProtocol, onSelect: @escaping (String) -> Void) {
+        self.setDocument = setDocument
         self.onSelect = onSelect
         self.setup()
     }
     
     private func setup() {
-        cancellable = setModel.$dataView.sink { [weak self] blockDataView in
+        cancellable = setDocument.activeViewPublisher.sink { [weak self] activeView in
             guard let self = self else { return }
-            self.coverRows = self.buildCoverRows(from: blockDataView)
-            self.relationsRows = self.buildRelationsRows(from: blockDataView)
+            self.coverRows = self.buildCoverRows(from: activeView)
+            self.relationsRows = self.buildRelationsRows(from: activeView)
         }
     }
     
-    private func buildCoverRows(from blockDataView: BlockDataview) -> [SetViewSettingsImagePreviewRowConfiguration] {
-        guard let activeView = activeView(from: blockDataView) else {
-            return []
-        }
+    private func buildCoverRows(from activeView: DataviewView) -> [SetViewSettingsImagePreviewRowConfiguration] {
         return SetViewSettingsImagePreviewCover.allCases.map { cover in
             SetViewSettingsImagePreviewRowConfiguration(
                 id: cover.rawValue,
@@ -41,27 +38,20 @@ final class SetViewSettingsImagePreviewViewModel: ObservableObject {
         }
     }
     
-    private func buildRelationsRows(from blockDataView: BlockDataview) -> [SetViewSettingsImagePreviewRowConfiguration] {
-        guard let activeView = activeView(from: blockDataView) else {
-            return []
+    private func buildRelationsRows(from activeView: DataviewView) -> [SetViewSettingsImagePreviewRowConfiguration] {
+        let fileRelationDetails = setDocument.dataViewRelationsDetails.filter {
+            !$0.isHidden && $0.format == RelationFormat.file
         }
-        let fileRelations = setModel.dataView.relations.filter {
-            !$0.isHidden && $0.format == RelationMetadata.Format.file
-        }
-        return fileRelations.map { relation in
+        return fileRelationDetails.map { relationDetails in
             SetViewSettingsImagePreviewRowConfiguration(
-                id: relation.id,
-                iconAsset: relation.format.iconAsset,
-                title: relation.name,
-                isSelected: activeView.coverRelationKey == relation.key,
+                id: relationDetails.id,
+                iconAsset: relationDetails.format.iconAsset,
+                title: relationDetails.name,
+                isSelected: activeView.coverRelationKey == relationDetails.key,
                 onTap: { [weak self] in
-                    self?.onSelect(relation.key)
+                    self?.onSelect(relationDetails.key)
                 }
             )
         }
-    }
-    
-    private func activeView(from blockDataView: BlockDataview) -> DataviewView? {
-        blockDataView.views.first { $0.id == blockDataView.activeViewId }
     }
 }

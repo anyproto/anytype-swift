@@ -9,27 +9,26 @@ final class UndoRedoViewModel: ObservableObject {
         let action: () -> Void
     }
 
-    lazy var buttonModels = buildButtonModels()
+    var onErrorHandler: RoutingAction<String>?
+    
+    lazy private(set) var buttonModels = buildButtonModels()
 
     private let objectId: String
     private let objectActionsService: ObjectActionsServiceProtocol
-    private let toastPresenter: ToastPresenter
 
     init(
         objectId: String,
-        objectActionsService: ObjectActionsServiceProtocol = ObjectActionsService(),
-        toastPresenter: ToastPresenter
+        objectActionsService: ObjectActionsServiceProtocol = ObjectActionsService()
     ) {
         self.objectId = objectId
         self.objectActionsService = objectActionsService
-        self.toastPresenter = toastPresenter
     }
 
     func undo() {
         do {
             try objectActionsService.undo(objectId: objectId)
         } catch let error as ObjectActionsServiceError {
-            toastPresenter.show(message: error.message)
+            onErrorHandler?(error.message)
         } catch {
             anytypeAssertionFailure("Unknown error", domain: .editorPage)
         }
@@ -39,7 +38,7 @@ final class UndoRedoViewModel: ObservableObject {
         do {
             try objectActionsService.redo(objectId: objectId)
         } catch let error as ObjectActionsServiceError {
-            toastPresenter.show(message: error.message)
+            onErrorHandler?(error.message)
         } catch {
             anytypeAssertionFailure("Unknown error", domain: .editorPage)
         }

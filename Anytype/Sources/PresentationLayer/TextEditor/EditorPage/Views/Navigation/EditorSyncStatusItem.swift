@@ -57,7 +57,7 @@ final class EditorSyncStatusItem: UIView {
         }
         
         addSubview(button) {
-            $0.pinToSuperview(insets: UIEdgeInsets(top: 0, left: 9, bottom: 0, right: -10))
+            $0.pinToSuperview(insets: UIEdgeInsets(top: 0, left: 9, bottom: 0, right: 10))
         }
         button.setContentCompressionResistancePriority(.required, for: .horizontal)
         setContentHuggingPriority(.required, for: .vertical)

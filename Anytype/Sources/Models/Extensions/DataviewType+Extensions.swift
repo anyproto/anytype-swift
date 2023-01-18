@@ -36,7 +36,7 @@ extension DataviewViewType {
         case .gallery:
             return .collection(.gallery)
         case .list:
-            return FeatureFlags.setListView ? .collection(.list) : .table
+            return .collection(.list)
         case .kanban:
             return FeatureFlags.setKanbanView ? .kanban : .table
         }
@@ -45,7 +45,7 @@ extension DataviewViewType {
     var isSupported: Bool {
         self == .table ||
         self == .gallery ||
-        (FeatureFlags.setListView && self == .list) ||
+        self == .list ||
         (FeatureFlags.setKanbanView && self == .kanban)
     }
 }

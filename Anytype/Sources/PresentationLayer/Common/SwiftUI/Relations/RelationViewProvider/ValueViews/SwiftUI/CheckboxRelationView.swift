@@ -8,7 +8,7 @@ struct CheckboxRelationView: View {
         switch style {
         case .regular, .set:
             icon
-        case .featuredRelationBlock:
+        case .featuredRelationBlock, .kanbanHeader:
             featuredRelationBlockIcon
         case .filter:
             filterText(lowercased: true)
@@ -45,6 +45,9 @@ struct CheckboxRelationView: View {
 
 struct CheckboxRelationView_Previews: PreviewProvider {
     static var previews: some View {
-        CheckboxRelationView(isChecked: true, style: .featuredRelationBlock(allowMultiLine: false))
+        CheckboxRelationView(
+            isChecked: true,
+            style: .featuredRelationBlock(FeaturedRelationSettings(allowMultiLine: false))
+        )
     }
 }

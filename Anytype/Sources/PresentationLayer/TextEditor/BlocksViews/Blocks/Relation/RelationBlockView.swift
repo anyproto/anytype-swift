@@ -8,9 +8,8 @@ final class RelationBlockView: UIView, BlockContentView {
     private let relationValueView = RelationValueViewUIKit()
 
     private let relationNameView = AnytypeLabel(style: .relation1Regular)
-    private let relationLockedView = UIImageView(asset: .relationLocked)
+    private let relationIcon = UIImageView()
     private let containerView = UIView()
-    private let relationNameStack = UIStackView()
 
     // MARK: - Lifecycle
     
@@ -25,54 +24,94 @@ final class RelationBlockView: UIView, BlockContentView {
     }
 
     func update(with configuration: RelationBlockContentConfiguration) {
-        relationNameView.setText(configuration.relation.name)
-        relationLockedView.isHidden = configuration.relation.isEditable
+        if !configuration.relation.isDeleted {
+            setupRelationState(relation: configuration.relation, action: configuration.actionOnValue)
+        } else {
+            setupDeletedState()
+        }
+    }
+
+    // MARK: - Setup view
+    
+    private func setupDeletedState() {
+        relationNameView.setText(Loc.Relation.deleted)
+        relationIcon.image = UIImage(asset: .ghost)
+        relationIcon.isHidden = false
+        relationValueView.update(with: RelationValueViewConfiguration(
+            relation: nil,
+            style: .regular(allowMultiLine: false),
+            action: nil
+        ))
+    }
+    
+    private func setupRelationState(
+        relation: RelationItemModel,
+        action: ((_ relation: RelationItemModel) -> Void)?
+    ) {
+        relationNameView.setText(relation.name)
+        relationIcon.image = UIImage(asset: .relationLocked)
+        relationIcon.isHidden = relation.isEditable
         relationValueView.update(
             with: .init(
-                relation: configuration.relation,
+                relation: relation,
                 style: .regular(allowMultiLine: true),
-                action: configuration.actionOnValue
+                action: action
             )
         )
     }
 
-    // MARK: - Setup view
-
     private func setupLayout() {
-        relationNameStack.axis = .horizontal
-        relationNameStack.spacing = 6
-        relationNameStack.alignment = .center
-
-        relationNameStack.addArrangedSubview(relationLockedView)
-        relationNameStack.addArrangedSubview(relationNameView)
-
-        relationLockedView.layoutUsing.anchors {
-            $0.width.equal(to: 10)
-            $0.height.equal(to: 13)
-        }
-
-        relationNameView.textColor = .textSecondary
-
+        
         addSubview(containerView) {
             $0.pinToSuperview()
         }
-        containerView.addSubview(relationNameStack) {
-            $0.top.equal(to: containerView.topAnchor, constant: LayoutConstants.topBottomInset)
-            $0.leading.equal(to: containerView.leadingAnchor)
-            $0.width.equal(to: containerView.widthAnchor, multiplier: 0.4)
+        
+        let relationNameStack = UIView()
+        
+        relationNameStack.layoutUsing.stack {
+            $0.hStack(
+                spacing: 3,
+                alignedTo: .top,
+                relationIcon,
+                $0.vStack(
+                    $0.vGap(fixed: 2),
+                    relationNameView,
+                    $0.vGap(fixed: 2)
+                )
+            )
         }
-
-        containerView.addSubview(relationValueView) {
-            $0.pinToSuperview(
-                excluding: [.left],
+        
+        containerView.layoutUsing.stack {
+            $0.edgesToSuperview(
                 insets: UIEdgeInsets(
                     top: LayoutConstants.topBottomInset,
                     left: 0,
-                    bottom: -LayoutConstants.topBottomInset,
+                    bottom: LayoutConstants.topBottomInset,
                     right: 0
                 )
             )
-            $0.leading.equal(to: relationNameView.trailingAnchor, constant: 2)
+        } builder: {
+            $0.hStack(
+                spacing: 12,
+                alignedTo: .top,
+                relationNameStack,
+                $0.vStack(
+                    $0.vGap(fixed: 2),
+                    relationValueView,
+                    $0.vGap(fixed: 2)
+                )
+            )
+        }
+        
+        relationIcon.contentMode = .center
+        relationIcon.layoutUsing.anchors {
+            $0.width.equal(to: 24)
+            $0.height.equal(to: 24)
+        }
+        
+        relationNameView.textColor = .textSecondary
+        relationNameStack.layoutUsing.anchors {
+            $0.width.equal(to: containerView.widthAnchor, multiplier: 0.4)
         }
     }
 

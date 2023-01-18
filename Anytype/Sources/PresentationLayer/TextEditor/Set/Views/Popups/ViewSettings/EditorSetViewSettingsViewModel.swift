@@ -3,16 +3,21 @@ import SwiftUI
 import ProtobufMessages
 import BlocksModels
 import AnytypeCore
+import Combine
 
 final class EditorSetViewSettingsViewModel: ObservableObject {
-    private let setModel: EditorSetViewModel
+    @Published var contentViewType: SetContentViewType = .table
+    
+    private let setDocument: SetDocumentProtocol
     private let service: DataviewServiceProtocol
     private let router: EditorRouterProtocol
+    
+    private var cancellable: Cancellable?
 
     var cardSizeSetting: EditorSetViewSettingsValueItem {
         EditorSetViewSettingsValueItem(
             title: Loc.Set.View.Settings.CardSize.title,
-            value: setModel.activeView.cardSize.value,
+            value: setDocument.activeView.cardSize.value,
             onTap: { [weak self] in
                 self?.showCardSizes()
             }
@@ -22,7 +27,7 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
     var iconSetting: EditorSetViewSettingsToggleItem {
         EditorSetViewSettingsToggleItem(
             title: Loc.icon,
-            isSelected: !setModel.activeView.hideIcon,
+            isSelected: !setDocument.activeView.hideIcon,
             onChange: { [weak self] show in
                 self?.onShowIconChange(show)
             }
@@ -42,21 +47,41 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
     var coverFitSetting: EditorSetViewSettingsToggleItem {
         EditorSetViewSettingsToggleItem(
             title: Loc.Set.View.Settings.ImageFit.title,
-            isSelected: setModel.activeView.coverFit,
+            isSelected: setDocument.activeView.coverFit,
             onChange: { [weak self] fit in
                 self?.onCoverFitChange(fit)
             }
         )
     }
     
+    var groupBySetting: EditorSetViewSettingsValueItem {
+        EditorSetViewSettingsValueItem(
+            title: Loc.Set.View.Settings.GroupBy.title,
+            value: groupByValue(with: setDocument.activeView.groupRelationKey),
+            onTap: { [weak self] in
+                self?.showGroupByRelations()
+            }
+        )
+    }
+    
+    var groupBackgroundColorsSetting: EditorSetViewSettingsToggleItem {
+        EditorSetViewSettingsToggleItem(
+            title: Loc.Set.View.Settings.GroupBackgroundColors.title,
+            isSelected: setDocument.activeView.groupBackgroundColors,
+            onChange: { [weak self] colored in
+                self?.onGroupBackgroundColorsChange(colored)
+            }
+        )
+    }
+    
     var relations: [EditorSetViewSettingsRelation] {
-        setModel.sortedRelations.map { relation in
+        setDocument.sortedRelations.map { relation in
             EditorSetViewSettingsRelation(
                 id: relation.id,
-                image: relation.metadata.format.iconAsset,
-                title: relation.metadata.name,
+                image: relation.relationDetails.format.iconAsset,
+                title: relation.relationDetails.name,
                 isOn: relation.option.isVisible,
-                isBundled: relation.metadata.isBundled,
+                isSystem: relation.relationDetails.isSystem,
                 onChange: { [weak self] isVisible in
                     self?.onRelationVisibleChange(relation, isVisible: isVisible)
                 }
@@ -64,24 +89,21 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
         }
     }
     
-    var needShowAllSettings: Bool {
-        setModel.activeView.type == .gallery
-    }
-    
-    init(setModel: EditorSetViewModel, service: DataviewServiceProtocol, router: EditorRouterProtocol) {
-        self.setModel = setModel
+    init(setDocument: SetDocumentProtocol, service: DataviewServiceProtocol, router: EditorRouterProtocol) {
+        self.setDocument = setDocument
         self.service = service
         self.router = router
+        self.setup()
     }
     
     func deleteRelations(indexes: IndexSet) {
         indexes.forEach { index in
-            guard let relation = setModel.sortedRelations[safe: index] else {
+            guard let relation = setDocument.sortedRelations[safe: index] else {
                 anytypeAssertionFailure("No relation to delete at index: \(index)", domain: .dataviewService)
                 return
             }
             Task {
-                try await service.deleteRelation(key: relation.metadata.key)
+                try await service.deleteRelation(relationKey: relation.relationDetails.key)
             }
         }
     }
@@ -90,35 +112,35 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
         from.forEach { [weak self] sortedRelationsFromIndex in
             guard let self = self, sortedRelationsFromIndex != to else { return }
             
-            let relationFrom = setModel.sortedRelations[sortedRelationsFromIndex]
+            let relationFrom = setDocument.sortedRelations[sortedRelationsFromIndex]
             let sortedRelationsToIndex = to > sortedRelationsFromIndex ? to - 1 : to // map insert index to item index
-            let relationTo = setModel.sortedRelations[sortedRelationsToIndex]
+            let relationTo = setDocument.sortedRelations[sortedRelationsToIndex]
             
             // index in all options array (includes hidden options)
-            guard let indexFrom = setModel.activeView.options.index(of: relationFrom) else {
+            guard let indexFrom = setDocument.activeView.options.index(of: relationFrom) else {
                 anytypeAssertionFailure("No relation for move: \(relationFrom)", domain: .dataviewService)
                 return
             }
-            guard let indexTo = setModel.activeView.options.index(of: relationTo) else {
+            guard let indexTo = setDocument.activeView.options.index(of: relationTo) else {
                 anytypeAssertionFailure("No relation for move: \(relationTo)", domain: .dataviewService)
                 return
             }
             
-            var newOptions = setModel.activeView.options
+            var newOptions = setDocument.activeView.options
             newOptions.moveElement(from: indexFrom, to: indexTo)
-            let newView = setModel.activeView.updated(options: newOptions)
+            let newView = setDocument.activeView.updated(options: newOptions)
             self.updateView(newView)
         }
     }
     
     func showAddNewRelationView() {
-        setModel.showAddNewRelationView { [weak self] relation, isNew in
+        router.showAddNewRelationView { [weak self] relation, isNew in
             guard let self = self else { return }
             
             Task {
                 if try await self.service.addRelation(relation) {
                     let newOption = DataviewRelationOption(key: relation.key, isVisible: true)
-                    let newView = self.setModel.activeView.updated(option: newOption)
+                    let newView = self.setDocument.activeView.updated(option: newOption)
                     self.updateView(newView)
                 }
             }
@@ -126,29 +148,45 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
         }
     }
     
+    private func setup() {
+        cancellable = setDocument.activeViewPublisher.sink { [weak self] activeView in
+            self?.contentViewType = activeView.type.setContentViewType
+        }
+    }
+    
     private func onRelationVisibleChange(_ relation: SetRelation, isVisible: Bool) {
         let newOption = relation.option.updated(isVisible: isVisible)
-        let newView = setModel.activeView.updated(option: newOption)
+        let newView = setDocument.activeView.updated(option: newOption)
         updateView(newView)
     }
     
     private func onShowIconChange(_ show: Bool) {
-        let newView = setModel.activeView.updated(hideIcon: !show)
+        let newView = setDocument.activeView.updated(hideIcon: !show)
         updateView(newView)
     }
     
     private func onImagePreviewChange(_ key: String) {
-        let newView = setModel.activeView.updated(coverRelationKey: key)
+        let newView = setDocument.activeView.updated(coverRelationKey: key)
         updateView(newView)
     }
     
     private func onCoverFitChange(_ fit: Bool) {
-        let newView = setModel.activeView.updated(coverFit: fit)
+        let newView = setDocument.activeView.updated(coverFit: fit)
+        updateView(newView)
+    }
+    
+    private func onGroupBackgroundColorsChange(_ colored: Bool) {
+        let newView = setDocument.activeView.updated(groupBackgroundColors: colored)
+        updateView(newView)
+    }
+    
+    private func onGroupBySettingChange(_ key: String) {
+        let newView = setDocument.activeView.updated(groupRelationKey: key)
         updateView(newView)
     }
     
     private func onCardSizeChange(_ size: DataviewViewSize) {
-        let newView = setModel.activeView.updated(cardSize: size)
+        let newView = setDocument.activeView.updated(cardSize: size)
         updateView(newView)
     }
     
@@ -165,22 +203,28 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
     private func imagePreviewValueFromCovers() -> String? {
         SetViewSettingsImagePreviewCover.allCases.first { [weak self] cover in
             guard let self = self else { return false }
-            return cover.rawValue == self.setModel.activeView.coverRelationKey
+            return cover.rawValue == self.setDocument.activeView.coverRelationKey
         }?.title
     }
     
     private func imagePreviewValueFromRelations() -> String? {
-        setModel.dataView.relations.first { [weak self] relation in
+        setDocument.dataViewRelationsDetails.first { [weak self] relationDetails in
             guard let self = self else { return false }
-            return relation.key == self.setModel.activeView.coverRelationKey
+            return relationDetails.key == self.setDocument.activeView.coverRelationKey
         }?.name
     }
     
     private func mappedCardSize() -> DataviewViewSize {
-        if setModel.activeView.cardSize == .medium {
+        if setDocument.activeView.cardSize == .medium {
             return .large
         }
-        return setModel.activeView.cardSize
+        return setDocument.activeView.cardSize
+    }
+    
+    private func groupByValue(with key: String) -> String {
+        setDocument.dataViewRelationsDetails.first { relation in
+            relation.key == key
+        }?.name ?? key
     }
     
     private func showCardSizes() {
@@ -194,10 +238,27 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
     
     private func showCovers() {
         router.showCovers(
-            setModel: setModel,
+            setDocument: setDocument,
             onSelect: { [weak self] key in
                 self?.onImagePreviewChange(key)
             }
+        )
+    }
+    
+    private func showGroupByRelations() {
+        router.showGroupByRelations(
+            selectedRelationKey: setDocument.activeView.groupRelationKey,
+            relations: groupByRelations(),
+            onSelect: { [weak self] key in
+                self?.onGroupBySettingChange(key)
+            }
+        )
+    }
+    
+    private func groupByRelations() -> [RelationDetails] {
+        setDocument.dataView.groupByRelations(
+            for: setDocument.activeView,
+            dataViewRelationsDetails: setDocument.dataViewRelationsDetails
         )
     }
 }

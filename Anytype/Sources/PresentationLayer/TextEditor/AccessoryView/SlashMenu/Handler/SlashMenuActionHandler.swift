@@ -28,12 +28,12 @@ final class SlashMenuActionHandler {
         case let .style(style):
             handleStyle(style, blockId: blockId)
         case let .media(media):
-            actionHandler.addBlock(media.blockViewsType, blockId: blockId)
+            actionHandler.addBlock(media.blockViewsType, blockId: blockId, blockText: textView?.attributedText)
         case let .objects(action):
             switch action {
             case .linkTo:
-                router.showLinkTo { [weak self] targetDetailsId, typeUrl in
-                    self?.actionHandler.addLink(targetId: targetDetailsId, typeUrl: typeUrl, blockId: blockId)
+                router.showLinkTo { [weak self] details in
+                    self?.actionHandler.addLink(targetId: details.id, typeId: details.type, blockId: blockId)
                 }
             case .objectType(let object):
                 actionHandler
@@ -48,19 +48,19 @@ final class SlashMenuActionHandler {
             switch action {
             case .newRealtion:
                 router.showAddNewRelationView() { [weak self] relation, isNew in
-                    self?.actionHandler.addBlock(.relation(key: relation.id), blockId: blockId)
+                    self?.actionHandler.addBlock(.relation(key: relation.key), blockId: blockId, blockText: textView?.attributedText)
 
                     AnytypeAnalytics.instance().logAddRelation(format: relation.format, isNew: isNew, type: .block)
                 }
             case .relation(let relation):
-                actionHandler.addBlock(.relation(key: relation.id), blockId: blockId)
+                actionHandler.addBlock(.relation(key: relation.key), blockId: blockId, blockText: textView?.attributedText)
             }
         case let .other(other):
             switch other {
             case .table(let rowsCount, let columnsCount):
-                actionHandler.createTable(blockId: blockId, rowsCount: rowsCount, columnsCount: columnsCount)
+                actionHandler.createTable(blockId: blockId, rowsCount: rowsCount, columnsCount: columnsCount, blockText: textView?.attributedText)
             default:
-                actionHandler.addBlock(other.blockViewsType, blockId: blockId)
+                actionHandler.addBlock(other.blockViewsType, blockId: blockId, blockText: textView?.attributedText)
             }
         case let .color(color):
             actionHandler.setTextColor(color, blockIds: [blockId])

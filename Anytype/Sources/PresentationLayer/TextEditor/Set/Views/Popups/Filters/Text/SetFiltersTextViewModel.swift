@@ -34,10 +34,8 @@ final class SetFiltersTextViewModel: ObservableObject {
     }
     
     private func setupKeyboardListener() {
-        let action: KeyboardEventsListnerHelper.Action = { [weak self] notification in
-            guard
-                let keyboardRect = notification.localKeyboardRect(for: UIResponder.keyboardFrameEndUserInfoKey)
-            else { return }
+        let action: KeyboardEventsListnerHelper.Action = { [weak self] event in
+            guard let keyboardRect = event.endFrame else { return }
             self?.onKeyboardHeightChange(keyboardRect.height)
         }
 
@@ -53,7 +51,7 @@ final class SetFiltersTextViewModel: ObservableObject {
     }
     
     private static func keybordType(for filter: SetFilter) -> UIKeyboardType {
-        switch filter.metadata.format {
+        switch filter.relationDetails.format {
         case .number: return .decimalPad
         case .url: return .URL
         case .email: return .emailAddress

@@ -5,7 +5,7 @@ class AnytypeLabel: UIView {
     private var topLabelConstraint: NSLayoutConstraint?
     private var bottomLabelConstraint: NSLayoutConstraint?
 
-    private lazy var anytypeText: UIKitAnytypeText = .init(text: "", style: style)
+    private lazy var anytypeText: UIKitAnytypeText = .init(text: "", style: style, lineBreakModel: .byTruncatingTail)
     private let label: UILabel = .init()
     private var style: AnytypeFont = .body
 
@@ -76,17 +76,23 @@ class AnytypeLabel: UIView {
 
     func setLineBreakMode(_ lineBreakMode: NSLineBreakMode) {
         label.lineBreakMode = lineBreakMode
+        anytypeText = UIKitAnytypeText(
+            attributedString: anytypeText.attrString,
+            style: anytypeText.anytypeFont,
+            lineBreakModel: label.lineBreakMode
+        )
+        updateLabel()
     }
 
     func setText(_ text: String, style: AnytypeFont) {
         self.style = style
-        anytypeText = UIKitAnytypeText(text: text, style: style)
+        anytypeText = UIKitAnytypeText(text: text, style: style, lineBreakModel: label.lineBreakMode)
         updateLabel()
     }
 
     func setText(_ text: NSAttributedString, style: AnytypeFont) {
         self.style = style
-        anytypeText = UIKitAnytypeText(attributedString: text, style: style)
+        anytypeText = UIKitAnytypeText(attributedString: text, style: style, lineBreakModel: label.lineBreakMode)
         updateLabel()
     }
 

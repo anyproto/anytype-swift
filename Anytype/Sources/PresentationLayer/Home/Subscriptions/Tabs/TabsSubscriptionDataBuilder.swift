@@ -16,9 +16,14 @@ final class TabsSubscriptionDataBuilder: TabsSubscriptionDataBuilderProtocol {
     }
     
     private let objectTypeProvider: ObjectTypeProviderProtocol
+    private let accountManager: AccountManager
     
-    init(objectTypeProvider: ObjectTypeProviderProtocol = ObjectTypeProvider.shared) {
+    init(
+        objectTypeProvider: ObjectTypeProviderProtocol = ObjectTypeProvider.shared,
+        accountManager: AccountManager = AccountManager.shared
+    ) {
         self.objectTypeProvider = objectTypeProvider
+        self.accountManager = accountManager
     }
     
     // MARK: - TabsSubscriptionDataBuilderProtocol
@@ -49,9 +54,10 @@ final class TabsSubscriptionDataBuilder: TabsSubscriptionDataBuilderProtocol {
             relation: BundledRelationKey.lastModifiedDate,
             type: .desc
         )
+        
         var filters = buildFilters(
             isArchived: false,
-            typeUrls: objectTypeProvider.supportedTypeUrls
+            excludedTypeIds: objectTypeProvider.notVisibleTypeIds()
         )
         filters.append(SearchHelper.lastOpenedDateNotNilFilter())
         
@@ -75,7 +81,7 @@ final class TabsSubscriptionDataBuilder: TabsSubscriptionDataBuilderProtocol {
         
         let filters = buildFilters(
             isArchived: true,
-            typeUrls: objectTypeProvider.supportedTypeUrls
+            excludedTypeIds: objectTypeProvider.notVisibleTypeIds()
         )
         
         return .search(
@@ -95,7 +101,7 @@ final class TabsSubscriptionDataBuilder: TabsSubscriptionDataBuilderProtocol {
             relation: BundledRelationKey.lastModifiedDate,
             type: .desc
         )
-        var filters = buildFilters(isArchived: false, typeUrls: objectTypeProvider.supportedTypeUrls)
+        var filters = buildFilters(isArchived: false, excludedTypeIds: objectTypeProvider.notVisibleTypeIds())
         filters.append(contentsOf: SearchHelper.sharedObjectsFilters())
         
         return .search(
@@ -117,7 +123,7 @@ final class TabsSubscriptionDataBuilder: TabsSubscriptionDataBuilderProtocol {
         )
         let filters = buildFilters(
             isArchived: false,
-            typeUrls: objectTypeProvider.objectTypes(smartblockTypes: [.set]).map { $0.url }
+            typeIds: objectTypeProvider.objectTypes(smartblockTypes: [.set]).map { $0.id }
         )
         
         return .search(
@@ -133,7 +139,7 @@ final class TabsSubscriptionDataBuilder: TabsSubscriptionDataBuilderProtocol {
     }
     
     private func favoritesTab() -> SubscriptionData {
-        var filters = buildFilters(isArchived: false, typeUrls: objectTypeProvider.supportedTypeUrls)
+        var filters = buildFilters(isArchived: false, excludedTypeIds: objectTypeProvider.notVisibleTypeIds())
         filters.append(SearchHelper.isFavoriteFilter(isFavorite: true))
         
         return .search(
@@ -167,11 +173,23 @@ final class TabsSubscriptionDataBuilder: TabsSubscriptionDataBuilderProtocol {
         return keys.map { $0.rawValue }
     }
     
-    private func buildFilters(isArchived: Bool, typeUrls: [String]) -> [DataviewFilter] {
-        return [
+    private func buildFilters(isArchived: Bool) -> [DataviewFilter] {
+        [
             SearchHelper.notHiddenFilter(),
             SearchHelper.isArchivedFilter(isArchived: isArchived),
-            SearchHelper.typeFilter(typeUrls: typeUrls)
+            SearchHelper.workspaceId(accountManager.account.info.accountSpaceId),
         ]
+    }
+    
+    private func buildFilters(isArchived: Bool, typeIds: [String]) -> [DataviewFilter] {
+        var filters = buildFilters(isArchived: isArchived)
+        filters.append(SearchHelper.typeFilter(typeIds: typeIds))
+        return filters
+    }
+    
+    private func buildFilters(isArchived: Bool, excludedTypeIds: [String]) -> [DataviewFilter] {
+        var filters = buildFilters(isArchived: isArchived)
+        filters.append(SearchHelper.excludedTypeFilter(excludedTypeIds))
+        return filters
     }
 }

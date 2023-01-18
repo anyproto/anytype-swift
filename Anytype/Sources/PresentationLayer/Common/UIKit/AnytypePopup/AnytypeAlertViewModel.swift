@@ -7,15 +7,18 @@ final class AnytypeAlertViewModel: AnytypePopupViewModelProtocol, ObservableObje
     private let contentView: UIView
     private let keyboardListener: KeyboardHeightListener
     private var keyboardHeightSubscription: AnyCancellable?
+    private var showKeyboard: Bool
 
     init(
         contentView: UIView,
         keyboardListener: KeyboardHeightListener,
-        popupLayout: AnytypePopupLayoutType = .alert(height: 0)
+        popupLayout: AnytypePopupLayoutType = .alert(height: 0),
+        showKeyboard: Bool = false
     ) {
         self.contentView = contentView
         self.popupLayout = popupLayout
         self.keyboardListener = keyboardListener
+        self.showKeyboard = showKeyboard
 
         keyboardHeightSubscription = keyboardListener.$currentKeyboardHeight.sink { [weak self] in
             guard case .alert = self?.popupLayout else { return }
@@ -37,5 +40,10 @@ final class AnytypeAlertViewModel: AnytypePopupViewModelProtocol, ObservableObje
         viewController.view = contentView
 
         return viewController
+    }
+    
+    func willAppear() {
+        guard showKeyboard else { return }
+        contentView.becomeFirstResponder()
     }
 }

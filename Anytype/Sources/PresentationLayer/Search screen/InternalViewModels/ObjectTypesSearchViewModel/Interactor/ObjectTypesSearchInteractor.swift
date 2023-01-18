@@ -1,14 +1,27 @@
 import Foundation
 import BlocksModels
+import AnytypeCore
 
 final class ObjectTypesSearchInteractor {
     
     private let searchService: SearchServiceProtocol
+    private let workspaceService: WorkspaceServiceProtocol
     private let excludedObjectTypeId: String?
+    private let showBookmark: Bool
+    private let showSet: Bool
     
-    init(searchService: SearchServiceProtocol, excludedObjectTypeId: String?) {
+    init(
+        searchService: SearchServiceProtocol,
+        workspaceService: WorkspaceServiceProtocol,
+        excludedObjectTypeId: String?,
+        showBookmark: Bool,
+        showSet: Bool
+    ) {
         self.searchService = searchService
+        self.workspaceService = workspaceService
         self.excludedObjectTypeId = excludedObjectTypeId
+        self.showBookmark = showBookmark
+        self.showSet = showSet
     }
     
 }
@@ -18,10 +31,18 @@ extension ObjectTypesSearchInteractor {
     func search(text: String) -> [ObjectDetails] {
         searchService.searchObjectTypes(
             text: text,
-            filteringTypeUrl: excludedObjectTypeId,
-            shouldIncludeSets: false
+            filteringTypeId: excludedObjectTypeId,
+            shouldIncludeSets: FeatureFlags.showSetsInChangeTypeSearchMenu ? showSet : false,
+            shouldIncludeBookmark: FeatureFlags.showBookmarkInSets ? showBookmark : false
         ) ?? []
     }
     
+    func searchInMarketplace(text: String) -> [ObjectDetails] {
+        return searchService.searchMarketplaceObjectTypes(text: text, includeInstalled: false) ?? []
+    }
+    
+    func installType(objectId: String) -> ObjectDetails? {
+        return workspaceService.installObject(objectId: objectId)
+    }
 }
 

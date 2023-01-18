@@ -38,14 +38,4 @@ enum EditorSetSetting: CaseIterable, Identifiable {
 //            return .set.group
         }
     }
-    
-    static var allCases: Self.AllCases {
-        var cases: [EditorSetSetting] = [.settings, .sort, .filter]
-        
-        if FeatureFlags.setViewTypes {
-            cases.insert(.view, at: 0)
-        }
-        
-        return cases
-    }
 }

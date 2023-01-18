@@ -37,14 +37,17 @@ extension Anytype_Model_Account.Config {
 }
 
 extension Anytype_Model_Account.Info {
-    public init(homeObjectID: String = String(), archiveObjectID: String = String(), profileObjectID: String = String(), marketplaceTypeObjectID: String = String(), marketplaceRelationObjectID: String = String(), marketplaceTemplateObjectID: String = String(), deviceID: String = String(), gatewayURL: String = String(), localStoragePath: String = String(), timeZone: String = String()) {
+    public init(homeObjectID: String = String(), archiveObjectID: String = String(), profileObjectID: String = String(), marketplaceTypeObjectID: String = String(), marketplaceRelationObjectID: String = String(), marketplaceTemplateObjectID: String = String(), marketplaceWorkspaceID: String = String(), deviceID: String = String(), accountSpaceID: String = String(), widgetsID: String = String(), gatewayURL: String = String(), localStoragePath: String = String(), timeZone: String = String()) {
         self.homeObjectID = homeObjectID
         self.archiveObjectID = archiveObjectID
         self.profileObjectID = profileObjectID
         self.marketplaceTypeObjectID = marketplaceTypeObjectID
         self.marketplaceRelationObjectID = marketplaceRelationObjectID
         self.marketplaceTemplateObjectID = marketplaceTemplateObjectID
+        self.marketplaceWorkspaceID = marketplaceWorkspaceID
         self.deviceID = deviceID
+        self.accountSpaceID = accountSpaceID
+        self.widgetsID = widgetsID
         self.gatewayURL = gatewayURL
         self.localStoragePath = localStoragePath
         self.timeZone = timeZone
@@ -85,13 +88,14 @@ extension Anytype_Model_Block.Content.Bookmark {
 }
 
 extension Anytype_Model_Block.Content.Dataview {
-    public init(source: [String] = [], views: [Anytype_Model_Block.Content.Dataview.View] = [], relations: [Anytype_Model_Relation] = [], activeView: String = String(), groupOrders: [Anytype_Model_Block.Content.Dataview.GroupOrder] = [], objectOrders: [Anytype_Model_Block.Content.Dataview.ObjectOrder] = []) {
+    public init(source: [String] = [], views: [Anytype_Model_Block.Content.Dataview.View] = [], relations: [Anytype_Model_Relation] = [], activeView: String = String(), groupOrders: [Anytype_Model_Block.Content.Dataview.GroupOrder] = [], objectOrders: [Anytype_Model_Block.Content.Dataview.ObjectOrder] = [], relationLinks: [Anytype_Model_RelationLink] = []) {
         self.source = source
         self.views = views
         self.relations = relations
         self.activeView = activeView
         self.groupOrders = groupOrders
         self.objectOrders = objectOrders
+        self.relationLinks = relationLinks
     }
 }
 
@@ -102,13 +106,15 @@ extension Anytype_Model_Block.Content.Dataview.Checkbox {
 }
 
 extension Anytype_Model_Block.Content.Dataview.Filter {
-    public init(`operator`: Anytype_Model_Block.Content.Dataview.Filter.Operator = .and, relationKey: String = String(), relationProperty: String = String(), condition: Anytype_Model_Block.Content.Dataview.Filter.Condition = .none, value: SwiftProtobuf.Google_Protobuf_Value, quickOption: Anytype_Model_Block.Content.Dataview.Filter.QuickOption = .exactDate) {
+    public init(`operator`: Anytype_Model_Block.Content.Dataview.Filter.Operator = .and, relationKey: String = String(), relationProperty: String = String(), condition: Anytype_Model_Block.Content.Dataview.Filter.Condition = .none, value: SwiftProtobuf.Google_Protobuf_Value, quickOption: Anytype_Model_Block.Content.Dataview.Filter.QuickOption = .exactDate, format: Anytype_Model_RelationFormat = .longtext, includeTime: Bool = false) {
         self.`operator` = `operator`
         self.relationKey = relationKey
         self.relationProperty = relationProperty
         self.condition = condition
         self.value = value
         self.quickOption = quickOption
+        self.format = format
+        self.includeTime = includeTime
     }
 }
 
@@ -278,6 +284,12 @@ extension Anytype_Model_Block.Content.Text.Marks {
     }
 }
 
+extension Anytype_Model_Block.Content.Widget {
+    public init(layout: Anytype_Model_Block.Content.Widget.Layout = .link) {
+        self.layout = layout
+    }
+}
+
 extension Anytype_Model_Block.Restrictions {
     public init(read: Bool = false, edit: Bool = false, remove: Bool = false, drag: Bool = false, dropOn: Bool = false) {
         self.read = read
@@ -321,10 +333,10 @@ extension Anytype_Model_LinkPreview {
 }
 
 extension Anytype_Model_ObjectType {
-    public init(url: String = String(), name: String = String(), relations: [Anytype_Model_Relation] = [], layout: Anytype_Model_ObjectType.Layout = .basic, iconEmoji: String = String(), description_p: String = String(), hidden: Bool = false, readonly: Bool = false, types: [Anytype_Model_SmartBlockType] = [], isArchived: Bool = false) {
+    public init(url: String = String(), name: String = String(), relationLinks: [Anytype_Model_RelationLink] = [], layout: Anytype_Model_ObjectType.Layout = .basic, iconEmoji: String = String(), description_p: String = String(), hidden: Bool = false, readonly: Bool = false, types: [Anytype_Model_SmartBlockType] = [], isArchived: Bool = false, installedByDefault: Bool = false) {
         self.url = url
         self.name = name
-        self.relations = relations
+        self.relationLinks = relationLinks
         self.layout = layout
         self.iconEmoji = iconEmoji
         self.description_p = description_p
@@ -332,17 +344,18 @@ extension Anytype_Model_ObjectType {
         self.readonly = readonly
         self.types = types
         self.isArchived = isArchived
+        self.installedByDefault = installedByDefault
     }
 }
 
 extension Anytype_Model_ObjectView {
-    public init(rootID: String = String(), blocks: [Anytype_Model_Block] = [], details: [Anytype_Model_ObjectView.DetailsSet] = [], type: Anytype_Model_SmartBlockType = .accountOld, objectTypes: [Anytype_Model_ObjectType] = [], relations: [Anytype_Model_Relation] = [], restrictions: Anytype_Model_Restrictions, history: Anytype_Model_ObjectView.HistorySize) {
+    public init(rootID: String = String(), blocks: [Anytype_Model_Block] = [], details: [Anytype_Model_ObjectView.DetailsSet] = [], type: Anytype_Model_SmartBlockType = .accountOld, relations: [Anytype_Model_Relation] = [], relationLinks: [Anytype_Model_RelationLink] = [], restrictions: Anytype_Model_Restrictions, history: Anytype_Model_ObjectView.HistorySize) {
         self.rootID = rootID
         self.blocks = blocks
         self.details = details
         self.type = type
-        self.objectTypes = objectTypes
         self.relations = relations
+        self.relationLinks = relationLinks
         self.restrictions = restrictions
         self.history = history
     }
@@ -378,7 +391,8 @@ extension Anytype_Model_Range {
 }
 
 extension Anytype_Model_Relation {
-    public init(key: String = String(), format: Anytype_Model_RelationFormat = .longtext, name: String = String(), defaultValue: SwiftProtobuf.Google_Protobuf_Value, dataSource: Anytype_Model_Relation.DataSource = .details, hidden: Bool = false, readOnly: Bool = false, readOnlyRelation: Bool = false, multi: Bool = false, objectTypes: [String] = [], selectDict: [Anytype_Model_Relation.Option] = [], maxCount: Int32 = 0, description_p: String = String(), scope: Anytype_Model_Relation.Scope = .object, creator: String = String()) {
+    public init(id: String = String(), key: String = String(), format: Anytype_Model_RelationFormat = .longtext, name: String = String(), defaultValue: SwiftProtobuf.Google_Protobuf_Value, dataSource: Anytype_Model_Relation.DataSource = .details, hidden: Bool = false, readOnly: Bool = false, readOnlyRelation: Bool = false, multi: Bool = false, objectTypes: [String] = [], selectDict: [Anytype_Model_Relation.Option] = [], maxCount: Int32 = 0, description_p: String = String(), scope: Anytype_Model_Relation.Scope = .object, creator: String = String()) {
+        self.id = id
         self.key = key
         self.format = format
         self.name = name
@@ -398,11 +412,18 @@ extension Anytype_Model_Relation {
 }
 
 extension Anytype_Model_Relation.Option {
-    public init(id: String = String(), text: String = String(), color: String = String(), scope: Anytype_Model_Relation.Option.Scope = .local) {
+    public init(id: String = String(), text: String = String(), color: String = String(), relationKey: String = String()) {
         self.id = id
         self.text = text
         self.color = color
-        self.scope = scope
+        self.relationKey = relationKey
+    }
+}
+
+extension Anytype_Model_RelationLink {
+    public init(key: String = String(), format: Anytype_Model_RelationFormat = .longtext) {
+        self.key = key
+        self.format = format
     }
 }
 
@@ -440,13 +461,15 @@ extension Anytype_Model_Restrictions.DataviewRestrictions {
 }
 
 extension Anytype_Model_SmartBlockSnapshotBase {
-    public init(blocks: [Anytype_Model_Block] = [], details: SwiftProtobuf.Google_Protobuf_Struct, fileKeys: SwiftProtobuf.Google_Protobuf_Struct, extraRelations: [Anytype_Model_Relation] = [], objectTypes: [String] = [], collections: SwiftProtobuf.Google_Protobuf_Struct) {
+    public init(blocks: [Anytype_Model_Block] = [], details: SwiftProtobuf.Google_Protobuf_Struct, fileKeys: SwiftProtobuf.Google_Protobuf_Struct, extraRelations: [Anytype_Model_Relation] = [], objectTypes: [String] = [], collections: SwiftProtobuf.Google_Protobuf_Struct, removedCollectionKeys: [String] = [], relationLinks: [Anytype_Model_RelationLink] = []) {
         self.blocks = blocks
         self.details = details
         self.fileKeys = fileKeys
         self.extraRelations = extraRelations
         self.objectTypes = objectTypes
         self.collections = collections
+        self.removedCollectionKeys = removedCollectionKeys
+        self.relationLinks = relationLinks
     }
 }
 

@@ -2,21 +2,21 @@ import BlocksModels
 
 final class SetSortsSearchInteractor {
     
-    private let relations: [RelationMetadata]
+    private let relationsDetails: [RelationDetails]
     
-    init(relations: [RelationMetadata]) {
-        self.relations = relations
+    init(relationsDetails: [RelationDetails]) {
+        self.relationsDetails = relationsDetails
     }
 }
 
 extension SetSortsSearchInteractor {
     
-    func search(text: String) -> Result<[RelationMetadata], NewSearchError> {
+    func search(text: String) -> Result<[RelationDetails], NewSearchError> {
         guard text.isNotEmpty else {
-            return .success(relations)
+            return .success(relationsDetails)
         }
 
-        let searchedRelations = relations.filter {
+        let searchedRelations = relationsDetails.filter {
             $0.name.range(of: text, options: .caseInsensitive) != nil
         }
         
@@ -25,5 +25,9 @@ extension SetSortsSearchInteractor {
         } else {
             return .success(searchedRelations)
         }
+    }
+    
+    func convert(ids: [String]) -> [RelationDetails] {
+        return relationsDetails.filter { ids.contains($0.id) }
     }
 }

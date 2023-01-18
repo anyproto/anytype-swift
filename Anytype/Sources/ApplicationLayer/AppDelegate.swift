@@ -12,7 +12,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
         configurator.configure()
+        // Global listeners
         eventListener.startListening()
+        ServiceLocator.shared.accountEventHandler().startSubscription()
 
         return true
     }

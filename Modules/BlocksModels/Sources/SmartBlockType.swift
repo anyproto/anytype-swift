@@ -23,6 +23,7 @@ public enum SmartBlockType: Hashable, Codable {
 
     /// have relations list
     case stobjectType // = 96
+    case widget // = 112
     case file // = 256
     case template // = 288
     case bundledTemplate // = 289
@@ -30,7 +31,7 @@ public enum SmartBlockType: Hashable, Codable {
     case marketplaceRelation // = 273
     case marketplaceTemplate // = 274
     case bundledRelation // = 512
-    case indexedRelation // = 513
+    case subObject // = 513
     case bundledObjectType // = 514
     case anytypeProfile // = 515
     case date // = 516
@@ -77,8 +78,8 @@ extension SmartBlockType {
             self = .marketplaceTemplate
         case .bundledRelation:
             self = .bundledRelation
-        case .indexedRelation:
-            self = .indexedRelation
+        case .subObject:
+            self = .subObject
         case .bundledObjectType:
             self = .bundledObjectType
         case .anytypeProfile:
@@ -89,9 +90,63 @@ extension SmartBlockType {
             self = .workspaceOld
         case .workspace:
             self = .workspace
+        case .widget:
+            self = .widget
         case .UNRECOGNIZED(let int):
             self = .UNRECOGNIZED(int)
         }
     }
     
+    public var asMiddleware: Anytype_Model_SmartBlockType {
+        switch self {
+        case .accountOld:
+            return .accountOld
+        case .breadcrumbs:
+            return .breadcrumbs
+        case .page:
+            return .page
+        case .profilePage:
+            return .profilePage
+        case .home:
+            return .home
+        case .archive:
+            return .archive
+        case .database:
+            return .database
+        case .set:
+            return .set
+        case .stobjectType:
+            return .stobjectType
+        case .file:
+            return .file
+        case .template:
+            return .template
+        case .bundledTemplate:
+            return .bundledTemplate
+        case .marketplaceType:
+            return .marketplaceType
+        case .marketplaceRelation:
+            return .marketplaceRelation
+        case .marketplaceTemplate:
+            return .marketplaceTemplate
+        case .bundledRelation:
+            return .bundledRelation
+        case .subObject:
+            return .subObject
+        case .bundledObjectType:
+            return .bundledObjectType
+        case .anytypeProfile:
+            return .anytypeProfile
+        case .date:
+            return .date
+        case .workspaceOld:
+            return .workspaceOld
+        case .workspace:
+            return .workspace
+        case .widget:
+            return .widget
+        case .UNRECOGNIZED(let int):
+            return .UNRECOGNIZED(int)
+        }
+    }
 }

@@ -5,8 +5,7 @@ import AnytypeCore
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-    private(set) var windowHolder: WindowHolder?
-
+    private var di: DIProtocol?
     private let sceneDelegates: [UIWindowSceneDelegate] = [LifecycleStateTransitionSceneDelegate()]
     private var applicationCoordinator: ApplicationCoordinator?
     
@@ -22,13 +21,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = AnytypeWindow(windowScene: windowScene)
         self.window = window
         
-        let applicationCoordinator = ServiceLocator.shared.applicationCoordinator(window: window)
+        let viewControllerProvider = ViewControllerProvider(sceneWindow: window)
+        let di: DIProtocol = DI(viewControllerProvider: viewControllerProvider)
+        self.di = di
+        
+        let applicationCoordinator = di.coordinatorsDI.application
         self.applicationCoordinator = applicationCoordinator
-        windowHolder = applicationCoordinator
         
         applicationCoordinator.start(connectionOptions: connectionOptions)
 
         window.overrideUserInterfaceStyle = UserDefaultsConfig.userInterfaceStyle
+        
+        ToastPresenter.shared = ToastPresenter(
+            viewControllerProvider: ViewControllerProvider(sceneWindow: window),
+            keyboardHeightListener: KeyboardHeightListener()
+        )
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

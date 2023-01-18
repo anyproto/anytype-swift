@@ -14,16 +14,20 @@ public final class FeatureFlags {
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
-        .objectPreview,
-        .setListView,
-        .setViewTypes,
-        .setSyncStatus,
+        .objectPreviewSettings,
         .cursorPosition,
         .hideBottomViewForStyleMenu,
         .setKanbanView,
         .redesignNewButton,
         .linktoObjectFromItself,
-        .linkToObjectFromMarkup
+        .linkToObjectFromMarkup,
+        .showBookmarkInSets,
+        .inlineMarkdown,
+        .fixColorsForStyleMenu,
+        .redesignBookmarkBlock,
+        .showSetsInChangeTypeSearchMenu,
+        .fixInsetMediaContent,
+        .homeWidgets
     ]
     
     public static func update(key feature: FeatureDescription, value: Bool) {
@@ -52,20 +56,8 @@ public extension FeatureFlags {
         value(for: .rainbowViews)
     }
 
-    static var objectPreview: Bool {
-        value(for: .objectPreview)
-    }
-    
-    static var setListView: Bool {
-        value(for: .setListView)
-    }
-    
-    static var setViewTypes: Bool {
-        value(for: .setViewTypes)
-    }
-    
-    static var setSyncStatus: Bool {
-        value(for: .setSyncStatus)
+    static var objectPreviewSettings: Bool {
+        value(for: .objectPreviewSettings)
     }
     
     static var cursorPosition: Bool {
@@ -90,5 +82,33 @@ public extension FeatureFlags {
     
     static var linkToObjectFromMarkup: Bool {
         value(for: .linkToObjectFromMarkup)
+    }
+    
+    static var showBookmarkInSets: Bool {
+        value(for: .showBookmarkInSets)
+    }
+    
+    static var inlineMarkdown: Bool {
+        value(for: .inlineMarkdown)
+    }
+
+    static var fixColorsForStyleMenu: Bool {
+        value(for: .fixColorsForStyleMenu)
+    }
+
+    static var redesignBookmarkBlock: Bool {
+        value(for: .redesignBookmarkBlock)
+    }
+    
+    static var showSetsInChangeTypeSearchMenu: Bool {
+        value(for: .showSetsInChangeTypeSearchMenu)
+    }
+    
+    static var fixInsetMediaContent: Bool {
+        value(for: .fixInsetMediaContent)
+    }
+    
+    static var homeWidgets: Bool {
+        value(for: .homeWidgets)
     }
 }

@@ -5,17 +5,16 @@ struct KeychainPhraseView: View {
     var shownInContext: AnalyticsEventsKeychainContext
 
     @StateObject private var model = KeychainPhraseViewModel()
-    @State private var showSnackbar = false
+    @State private var toastBarData: ToastBarData = .empty
     
     var body: some View {
-        VStack(alignment: .center, spacing: 0) {
+        VStack(alignment: .leading, spacing: 0) {
             DragIndicator()
-            Spacer.fixedHeight(53)
-            AnytypeText(Loc.backUpYourRecoveryPhrase, style: .title, color: .textPrimary)
-                .multilineTextAlignment(.center)
-            Spacer.fixedHeight(25)
+            Spacer.fixedHeight(24)
+            AnytypeText(Loc.backUpYourRecoveryPhrase, style: .heading, color: .textPrimary)
+            Spacer.fixedHeight(8)
             AnytypeText(Loc.Keychain.recoveryPhraseDescription, style: .uxBodyRegular, color: .textPrimary)
-            Spacer.fixedHeight(34)
+            Spacer.fixedHeight(24)
             SeedPhraseView(model: model) {
                 didShowPhrase()
             }
@@ -28,19 +27,16 @@ struct KeychainPhraseView: View {
             Spacer.fixedHeight(20)
         }
         .cornerRadius(12)
-        .padding(.horizontal)
+        .padding(.horizontal, 20)
         .onAppear {
             AnytypeAnalytics.instance().logKeychainPhraseShow(shownInContext)
         }
-        .snackbar(
-            isShowing: $showSnackbar,
-            text: AnytypeText(Loc.Keychain.recoveryPhraseCopiedToClipboard, style: .uxCalloutRegular, color: .textPrimary)
-        )
+        .snackbar(toastBarData: $toastBarData)
         .environmentObject(model)
     }
     
     private func didShowPhrase() {
-        showSnackbar = true
+        toastBarData = .init(text: Loc.Keychain.recoveryPhraseCopiedToClipboard, showSnackBar: true)
         AnytypeAnalytics.instance().logKeychainPhraseCopy(shownInContext)
     }
 }

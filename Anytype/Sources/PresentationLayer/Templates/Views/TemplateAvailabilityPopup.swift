@@ -45,7 +45,7 @@ final class TemplateAvailabilityPopupView: UIView {
         button.titleLabel?.font = .calloutRegular
         button.widthAnchor.constraint(equalToConstant: 80).isActive = true
         button.heightAnchor.constraint(equalToConstant: 36).isActive = true
-        button.layer.borderColor = UIColor.strokePrimary.cgColor
+        button.dynamicBorderColor = UIColor.strokePrimary
         button.layer.borderWidth = 1
         button.layer.cornerRadius = 8
         button.layer.masksToBounds = true

@@ -35,6 +35,8 @@ internal extension ImageAsset {
   enum Emoji {
     }
   static let createNewObject = ImageAsset.bundle(name: "createNewObject")
+  static let taskChecked = ImageAsset.bundle(name: "task_checked")
+  static let taskUnchecked = ImageAsset.bundle(name: "task_unchecked")
   static let todoCheckbox = ImageAsset.bundle(name: "todo_checkbox")
   static let todoCheckmark = ImageAsset.bundle(name: "todo_checkmark")
   static let card = ImageAsset.bundle(name: "card")
@@ -240,6 +242,8 @@ internal extension ImageAsset {
     static let bigGhost = ImageAsset.bundle(name: "TextEditor/bigGhost")
     static let questionMark = ImageAsset.bundle(name: "TextEditor/questionMark")
   }
+  static let toastFailure = ImageAsset.bundle(name: "toast_failure")
+  static let toastTick = ImageAsset.bundle(name: "toast_tick")
   static let splashLogo = ImageAsset.bundle(name: "splash_logo")
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name

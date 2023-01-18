@@ -11,9 +11,10 @@ final class ObjectSearchViewModel: SearchViewModelProtocol {
 
     let placeholder: String = Loc.search
     
-    private let service = SearchService()
+    private let searchService: SearchServiceProtocol
     
-    init(onSelect: @escaping (SearchDataType) -> ()) {
+    init(searchService: SearchServiceProtocol, onSelect: @escaping (SearchDataType) -> ()) {
+        self.searchService = searchService
         self.onSelect = onSelect
     }
     
@@ -30,6 +31,6 @@ final class ObjectSearchViewModel: SearchViewModelProtocol {
     }
     
     private func searchDetails(text: String) -> [ObjectDetails]? {
-        service.search(text: text)
+        searchService.search(text: text)
     }
 }

@@ -28,7 +28,7 @@ struct RelationValueView: View {
             case .status(let status):
                 StatusRelationView(options: status.values, hint: relation.hint, style: style)
             case .date(let date):
-                TextRelationFactory.swiftUI(value: date.textValue, hint: relation.hint, style: style)
+                TextRelationFactory.swiftUI(value: date.value?.text, hint: relation.hint, style: style)
             case .object(let object):
                 ObjectRelationView(options: object.selectedObjects, hint: relation.hint, style: style)
             case .checkbox(let checkbox):

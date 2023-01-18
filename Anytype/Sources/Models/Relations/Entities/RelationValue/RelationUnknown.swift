@@ -5,16 +5,22 @@ import CoreImage
 extension Relation {
     
     struct Unknown: RelationProtocol, Hashable, Identifiable {
-        let id: BlockId
+        let id: String
+        let key: String
         let name: String
         let isFeatured: Bool
         let isEditable: Bool
-        let isBundled: Bool
+        let isSystem: Bool
+        let isDeleted: Bool
         
         let value: String
         
-        static func empty(id: BlockId, name: String) -> Unknown {
-            Unknown(id: id, name: name, isFeatured: false, isEditable: false, isBundled: false, value: "")
+        var hasValue: Bool {
+            value.isNotEmpty
+        }
+        
+        static func empty(id: String, key: String, name: String) -> Unknown {
+            Unknown(id: id, key: key, name: name, isFeatured: false, isEditable: false, isSystem: false, isDeleted: false, value: "")
         }
     }
     

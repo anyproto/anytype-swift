@@ -5,7 +5,7 @@ import AnytypeCore
 struct RelationValueViewConfiguration: BlockConfiguration {
     typealias View = RelationValueViewUIKit
 
-    let relation: RelationItemModel
+    let relation: RelationItemModel?
     let style: RelationStyle
     @EquatableNoop private(set) var action: ((RelationItemModel) -> Void)?
 }
@@ -16,14 +16,18 @@ final class RelationValueViewUIKit: UIView, BlockContentView {
     func update(with configuration: RelationValueViewConfiguration) {
         relationView.removeFromSuperview()
 
-        relationView = obtainRelationView(configuration.relation, style: configuration.style)
+        if let relation = configuration.relation {
+            relationView = obtainRelationView(relation, style: configuration.style)
 
-        if configuration.action.isNotNil {
-            relationView.addTapGesture { _ in
-                configuration.action?(configuration.relation)
+            if configuration.action.isNotNil {
+                relationView.addTapGesture { _ in
+                    configuration.action?(relation)
+                }
             }
+        } else {
+            relationView = UIView()
         }
-
+        
         addSubview(relationView) {
             $0.pinToSuperview()
         }
@@ -38,7 +42,7 @@ final class RelationValueViewUIKit: UIView, BlockContentView {
         case .status(let status):
             return StatusRelationViewUIKit(statusOption: status.values.first, hint: relation.hint, style: style)
         case .date(let date):
-            return TextRelationFactory.uiKit(value: date.textValue, hint: relation.hint, style: style)
+            return TextRelationFactory.uiKit(value: date.value?.text, hint: relation.hint, style: style)
         case .object(let object):
             return ObjectListRelationViewUIKit(options: object.selectedObjects, hint: relation.hint, style: style)
         case .checkbox(let checkbox):

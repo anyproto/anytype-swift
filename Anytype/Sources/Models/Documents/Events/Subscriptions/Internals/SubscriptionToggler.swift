@@ -8,8 +8,7 @@ protocol SubscriptionTogglerProtocol {
 }
 
 final class SubscriptionToggler: SubscriptionTogglerProtocol {
-    let numberOfRowsPerPageInSubscriptions = UserDefaultsConfig.rowsPerPageInSet
-    
+
     func startSubscription(data: SubscriptionData) -> SubscriptionTogglerResult? {
         switch data {
         case let .search(data):

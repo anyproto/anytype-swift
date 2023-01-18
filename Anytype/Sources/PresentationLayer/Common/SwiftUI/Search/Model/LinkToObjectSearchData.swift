@@ -9,7 +9,7 @@ struct LinkToObjectSearchData: SearchDataProtocol {
     let title: String
     let description: String
     let callout: String
-    let typeUrl: String
+    let typeId: String
     
     let iconImage: ObjectIconImage
     
@@ -20,7 +20,7 @@ struct LinkToObjectSearchData: SearchDataProtocol {
         self.title = details.title
         self.description = details.description
         self.callout = details.objectType.name
-        self.typeUrl = details.objectType.url
+        self.typeId = details.objectType.id
 
         if details.layoutValue == .todo {
             self.iconImage = .todo(details.isDone)
@@ -37,7 +37,7 @@ struct LinkToObjectSearchData: SearchDataProtocol {
         self.iconImage = iconImage
         self.description = ""
         self.callout = ""
-        self.typeUrl = ""
+        self.typeId = ""
         self.viewType = .page
     }
     

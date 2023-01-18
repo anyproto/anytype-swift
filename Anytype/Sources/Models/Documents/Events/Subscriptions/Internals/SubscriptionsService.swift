@@ -36,6 +36,8 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
     }
     
     func stopSubscription(id: SubscriptionId) {
+        guard subscribers[id].isNotNil else { return }
+
         _ = toggler.stopSubscription(id: id)
         subscribers[id] = nil
     }
@@ -58,7 +60,7 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
         result.dependencies.forEach { storage.amend(details: $0) }
         
         update(data.identifier, .initialData(result.records))
-        update(data.identifier, .pageCount(numberOfPagesFromTotalCount(result.count)))
+        update(data.identifier, .pageCount(numberOfPagesFromTotalCount(result.count, numberOfRowsPerPage: data.rowsPerPage)))
     }
     
     func hasSubscriptionDataDiff(with data: SubscriptionData) -> Bool {
@@ -117,8 +119,14 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
             case .objectRemove:
                 break // unsupported (Not supported in middleware converter also)
             case .subscriptionCounters(let data):
-                sendUpdate(.pageCount(numberOfPagesFromTotalCount(Int(data.total))), subId: data.subID)
-            case .accountConfigUpdate, .accountUpdate, .accountDetails, .accountShow:
+                sendUpdate(
+                    .pageCount(numberOfPagesFromTotalCount(
+                        Int(data.total),
+                        numberOfRowsPerPage: Int(data.total - data.nextCount)
+                    )),
+                    subId: data.subID
+                )
+            case .accountConfigUpdate, .accountUpdate, .accountDetails, .accountShow, .subscriptionGroups:
                 break
             default:
                 anytypeAssertionFailure("Unsupported event \(event)", domain: .subscriptionStorage)
@@ -129,7 +137,6 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
     private func sendUpdate(_ update: SubscriptionUpdate, subId: String) {
         let subId = SubscriptionId(value: subId)
         guard let action = subscribers[subId]?.callback else {
-            anytypeAssertionFailure("Unrecognized subscription: \(subId.value)", domain: .subscriptionStorage)
             return
         }
         action(subId, update)
@@ -139,18 +146,17 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
         for id in ids {
             let id = SubscriptionId(value: id)
             guard let action = subscribers[id]?.callback else {
-                anytypeAssertionFailure("Unrecognized subscription: \(id.value)", domain: .subscriptionStorage)
                 continue
             }
             action(id, .update(details))
         }
     }
     
-    private func numberOfPagesFromTotalCount(_ count: Int) -> Int {
-        let numberOfRowsPerPageInSubscriptions = UserDefaultsConfig.rowsPerPageInSet
-        // Returns 1 if count < numberOfRowsPerPageInSubscriptions
-        // And returns 1 if count = numberOfRowsPerPageInSubscriptions
-        let closestNumberToRowsPerPage = numberOfRowsPerPageInSubscriptions - 1
-        return (count + closestNumberToRowsPerPage) / numberOfRowsPerPageInSubscriptions
+    private func numberOfPagesFromTotalCount(_ count: Int, numberOfRowsPerPage: Int) -> Int {
+        guard numberOfRowsPerPage > 0 else { return 0 }
+        // Returns 1 if count < numberOfRowsPerPage
+        // And returns 1 if count = numberOfRowsPerPage
+        let closestNumberToRowsPerPage = numberOfRowsPerPage - 1
+        return (count + closestNumberToRowsPerPage) / numberOfRowsPerPage
     }
 }

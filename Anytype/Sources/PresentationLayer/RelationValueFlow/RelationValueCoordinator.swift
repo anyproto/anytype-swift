@@ -7,17 +7,17 @@ final class RelationValueCoordinator: RelationValueCoordinatorProtocol,
                                       TextRelationActionButtonViewModelDelegate,
                                       RelationValueViewModelOutput {
     
-    private weak var viewController: UIViewController?
+    private let navigationContext: NavigationContextProtocol
     private let relationValueModuleAssembly: RelationValueModuleAssemblyProtocol
     private let urlOpener: URLOpenerProtocol
     private weak var output: RelationValueCoordinatorOutput?
     
     init(
-        viewController: UIViewController?,
+        navigationContext: NavigationContextProtocol,
         relationValueModuleAssembly: RelationValueModuleAssemblyProtocol,
         urlOpener: URLOpenerProtocol
     ) {
-        self.viewController = viewController
+        self.navigationContext = navigationContext
         self.relationValueModuleAssembly = relationValueModuleAssembly
         self.urlOpener = urlOpener
     }
@@ -36,7 +36,7 @@ final class RelationValueCoordinator: RelationValueCoordinatorProtocol,
         
         if case .checkbox(let checkbox) = relation {
             let relationsService = RelationsService(objectId: objectId)
-            relationsService.updateRelation(relationKey: checkbox.id, value: (!checkbox.value).protobufValue)
+            relationsService.updateRelation(relationKey: checkbox.key, value: (!checkbox.value).protobufValue)
             return
         }
         
@@ -48,7 +48,7 @@ final class RelationValueCoordinator: RelationValueCoordinatorProtocol,
             output: self
         ) else { return }
         
-        viewController?.topPresentedController.present(moduleViewController, animated: true, completion: nil)
+        navigationContext.present(moduleViewController, animated: true)
     }
     
     // MARK: - TextRelationActionButtonViewModelDelegate

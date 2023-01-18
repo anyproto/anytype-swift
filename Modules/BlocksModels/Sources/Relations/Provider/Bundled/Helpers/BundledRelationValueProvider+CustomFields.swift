@@ -40,6 +40,12 @@ extension BundledRelationsValueProvider {
         return layout
     }
     
+    public var internalFlagsWithoutTemplates: [Int] {
+        internalFlags.filter {
+            $0 != Anytype_Model_InternalFlag.Value.editorSelectTemplate.rawValue
+        }
+    }
+    
     public var isSelectTemplate: Bool {
         let flag = Anytype_Model_InternalFlag.Value.editorSelectTemplate.rawValue
         return internalFlags.contains(flag)
@@ -49,6 +55,14 @@ extension BundledRelationsValueProvider {
         let flag = Anytype_Model_InternalFlag.Value.editorSelectType.rawValue
         return internalFlags.contains(flag)
     }
-    
 
+    var relationFormatValue: RelationFormat {
+        relationFormat.map { RelationFormat(rawValue: $0) } ?? .unrecognized
+    }
+    
+    var smartblockTypesValue: [SmartBlockType] {
+        return smartblockTypes
+            .compactMap { Anytype_Model_SmartBlockType(rawValue: $0) }
+            .map { SmartBlockType(smartBlockType: $0) }
+    }
 }

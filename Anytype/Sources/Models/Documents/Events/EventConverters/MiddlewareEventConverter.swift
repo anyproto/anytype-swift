@@ -2,10 +2,11 @@ import ProtobufMessages
 import BlocksModels
 import AnytypeCore
 import SwiftProtobuf
+import Foundation
 
 final class MiddlewareEventConverter {
     private let infoContainer: InfoContainerProtocol
-    private let relationStorage: RelationsMetadataStorageProtocol
+    private let relationLinksStorage: RelationLinksStorageProtocol
     private let detailsStorage: ObjectDetailsStorage
     private let restrictionsContainer: ObjectRestrictionsContainer
     
@@ -14,13 +15,13 @@ final class MiddlewareEventConverter {
     
     init(
         infoContainer: InfoContainerProtocol,
-        relationStorage: RelationsMetadataStorageProtocol,
+        relationLinksStorage: RelationLinksStorageProtocol,
         informationCreator: BlockInformationCreator,
         detailsStorage: ObjectDetailsStorage = ObjectDetailsStorage.shared,
         restrictionsContainer: ObjectRestrictionsContainer
     ) {
         self.infoContainer = infoContainer
-        self.relationStorage = relationStorage
+        self.relationLinksStorage = relationLinksStorage
         self.informationCreator = informationCreator
         self.detailsStorage = detailsStorage
         self.restrictionsContainer = restrictionsContainer
@@ -89,6 +90,12 @@ final class MiddlewareEventConverter {
         
         case let .objectDetailsSet(data):
             guard let details = detailsStorage.set(data: data) else { return nil }
+            
+            // if `type` deleted we should reload featured relations block
+            if details.isDeleted {
+                return .general
+            }
+            
             return .details(id: details.id)
             
         case let .objectDetailsAmend(data):
@@ -110,29 +117,27 @@ final class MiddlewareEventConverter {
             guard oldDetails.type == newDetails.type else {
                 return .general
             }
-
+            
+            let relationKeys = data.details.map { $0.key }
+            if relationLinksStorage.contains(relationKeys: relationKeys) {
+                return .general
+            }
+            
             return .details(id: data.id)
             
         case let .objectDetailsUnset(data):
             guard let details = detailsStorage.unset(data: data) else { return nil }
             return .details(id: details.id)
             
-        case .objectRelationsSet(let set):
-            relationStorage.set(
-                relations: set.relations.map { RelationMetadata(middlewareRelation: $0) }
-            )
-            
-            return .general
-            
         case .objectRelationsAmend(let amend):
-            relationStorage.amend(
-                relations: amend.relations.map { RelationMetadata(middlewareRelation: $0) }
+            relationLinksStorage.amend(
+                relationLinks: amend.relationLinks.map { RelationLink(middlewareRelationLink: $0) }
             )
             
             return .general
             
         case .objectRelationsRemove(let remove):
-            relationStorage.remove(relationKeys: remove.keys)
+            relationLinksStorage.remove(relationKeys: remove.relationKeys)
             
             return .general
             
@@ -252,7 +257,7 @@ final class MiddlewareEventConverter {
                     return info.updated(content: .divider(divider))
                     
                 default:
-                    anytypeAssertionFailure("Wrong conten \(info.content) in blockSetDiv", domain: .middlewareEventConverter)
+                    anytypeAssertionFailure("Wrong content \(info.content) in blockSetDiv", domain: .middlewareEventConverter)
                     return nil
                 }
             })
@@ -292,9 +297,6 @@ final class MiddlewareEventConverter {
                 }
             }
             return .blocks(blockIds: [data.id])
-        case .accountUpdate(let account):
-            handleAccountUpdate(account)
-            return nil
             
         //MARK: - Dataview
         case .blockDataviewViewSet(let data):
@@ -352,34 +354,26 @@ final class MiddlewareEventConverter {
             return .general
         case .blockDataviewRelationDelete(let data):
             infoContainer.updateDataview(blockId: data.id) { dataView in
-                guard let index = dataView.relations.firstIndex(where: { $0.key == data.relationKey }) else {
-                    anytypeAssertionFailure("Not found key \(data.relationKey) in dataview: \(dataView)", domain: .middlewareEventConverter)
-                    return dataView
-                }
-                
-                var newRelations = dataView.relations
-                newRelations.remove(at: index)
-                
-                return dataView.updated(relations: newRelations)
+                let newRelationLinks = dataView.relationLinks.filter { !data.relationKeys.contains($0.key) }
+                return dataView.updated(relationLinks: newRelationLinks)
             }
             
             return .general
         case .blockDataviewRelationSet(let data):
             infoContainer.updateDataview(blockId: data.id) { dataView in
-                let relation = RelationMetadata(middlewareRelation: data.relation)
-                
-                var newRelations = dataView.relations
-                if let index = newRelations.firstIndex(where: { $0.key == relation.key }) {
-                    newRelations[index] = relation
-                } else {
-                    newRelations.append(relation)
-                }
-                
-                return dataView.updated(relations: newRelations)
+                let newRelationLinks = data.relationLinks.map { RelationLink(middlewareRelationLink: $0) }
+                return dataView.updated(relationLinks: dataView.relationLinks + newRelationLinks)
             }
             
             return .general
+        case .blockDataViewGroupOrderUpdate(let data):
+            handleDataViewGroupOrderUpdate(data)
+            return .general
+        case .blockDataViewObjectOrderUpdate(let data):
+            handleDataViewObjectOrderUpdate(data)
+            return .general
         case .accountShow,
+                .accountUpdate, // Event not working on middleware. See AccountManager.
                 .accountDetails, // Skipped
                 .accountConfigUpdate, // Remote config updates
                 .objectRemove, // Remove from History Object wich was deleted. For Desktop purposes
@@ -387,6 +381,7 @@ final class MiddlewareEventConverter {
                 .subscriptionRemove, // Implemented in `SubscriptionsService`
                 .subscriptionPosition, // Implemented in `SubscriptionsService`
                 .subscriptionCounters, // Implemented in `SubscriptionsService`
+                .subscriptionGroups, // Implemented in `GroupsSubscriptionsHandler`
                 .filesUpload,
                 .marksInfo,
                 .blockSetRestrictions,
@@ -394,12 +389,8 @@ final class MiddlewareEventConverter {
                 .blockSetLatex,
                 .blockSetVerticalAlign,
                 .blockSetTableRow,
-                .blockDataviewRecordsSet,
-                .blockDataviewRecordsUpdate,
-                .blockDataviewRecordsInsert,
-                .blockDataviewRecordsDelete,
-                .blockDataViewGroupOrderUpdate,
-                .blockDataViewObjectOrderUpdate,
+                .blockDataviewOldRelationSet,
+                .blockDataviewOldRelationDelete,
                 .userBlockJoin,
                 .userBlockLeft,
                 .userBlockSelectRange,
@@ -407,7 +398,8 @@ final class MiddlewareEventConverter {
                 .ping,
                 .processNew,
                 .processUpdate,
-                .processDone:
+                .processDone,
+                .blockSetWidget:
             return nil
         }
     }
@@ -447,24 +439,76 @@ final class MiddlewareEventConverter {
         return toggleStyleChanged ? .general : .blocks(blockIds: Set(childIds))
     }
     
-    private func handleAccountUpdate(_ update: Anytype_Event.Account.Update) {
-        let currentStatus = AccountManager.shared.account.status
-        let newStatus = AccountManager.shared.account.status
-        guard currentStatus != newStatus else { return }
+    private func handleDataViewGroupOrderUpdate(_ update: Anytype_Event.Block.Dataview.GroupOrderUpdate) {
+        guard update.hasGroupOrder else { return }
         
-        switch newStatus {
-        case .active:
-            break
-        case .pendingDeletion(let deadline):
-            Task { @MainActor in
-                WindowManager.shared.showDeletedAccountWindow(deadline: deadline)
+        infoContainer.updateDataview(blockId: update.id) { dataView in
+            var groupOrders = dataView.groupOrders
+            if let groupIndex = groupOrders.firstIndex(where: { $0.viewID == update.groupOrder.viewID }) {
+                groupOrders[groupIndex] = update.groupOrder
+            } else {
+                groupOrders.append(update.groupOrder)
             }
-        case .deleted:
-            if UserDefaultsConfig.usersId.isNotEmpty {
-                ServiceLocator.shared.authService().logout(removeData: true) { _ in }
-                WindowManager.shared.showAuthWindow()
-            }
+            
+            return dataView.updated(groupOrders: groupOrders)
         }
-        
+    }
+
+    private func handleDataViewObjectOrderUpdate(_ update: Anytype_Event.Block.Dataview.ObjectOrderUpdate) {
+        infoContainer.updateDataview(blockId: update.id) { dataView in
+            var objectOrders = dataView.objectOrders
+            let objectOrderIndex = objectOrders.firstIndex { $0.viewID == update.viewID && $0.groupID == update.groupID }
+            var objectOrder: DataviewObjectOrder
+            if let objectOrderIndex {
+                objectOrder = objectOrders[objectOrderIndex]
+            } else {
+                objectOrder = DataviewObjectOrder(viewID: update.viewID, groupID: update.groupID, objectIds: [])
+            }
+            var objectOrderIds = objectOrder.objectIds
+            
+            update.sliceChanges.forEach { change in
+                let idx = objectOrderIds.firstIndex(of: change.afterID)
+                
+                switch change.op {
+                case .add:
+                    if objectOrderIds.isEmpty {
+                        objectOrderIds.append(contentsOf: change.ids)
+                    } else {
+                        var addIndex = 0
+                        if let idx {
+                            addIndex = idx + 1
+                        }
+                        objectOrderIds.insert(contentsOf: change.ids, at: addIndex)
+                    }
+                    objectOrder.objectIds = objectOrderIds
+                case .move:
+                    change.ids.enumerated().forEach { index, id in
+                        guard let objectIndex = objectOrderIds.firstIndex(of: id) else { return }
+                        let orderIndex = (idx ?? 0) + index
+                        let appendix = orderIndex < objectOrderIds.count ? 1 : 0
+                        let moveIndex = idx == nil ? index : orderIndex + appendix
+                        objectOrderIds.move(
+                            fromOffsets: IndexSet(integer: objectIndex),
+                            toOffset: moveIndex
+                        )
+                    }
+                    objectOrder.objectIds = objectOrderIds
+                case .remove:
+                    objectOrder.objectIds = objectOrderIds.filter { !change.ids.contains($0) }
+                case .replace:
+                    objectOrder.objectIds = change.ids
+                default:
+                    break
+                }
+                
+                if let objectOrderIndex {
+                    objectOrders[objectOrderIndex] = objectOrder
+                } else {
+                    objectOrders.append(objectOrder)
+                }
+            }
+            
+            return dataView.updated(objectOrders: objectOrders)
+        }
     }
 }

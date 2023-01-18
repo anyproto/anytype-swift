@@ -15,7 +15,7 @@ final class SetFilterConditionsViewModel: CheckPopupViewViewModelProtocol {
         filter: SetFilter,
         onSelect: @escaping (DataviewFilter.Condition) -> Void
     ) {
-        self.title = filter.metadata.name
+        self.title = filter.relationDetails.name
         self.filter = filter
         self.selectedCondition = filter.filter.condition
         self.onSelect = onSelect
@@ -29,14 +29,14 @@ final class SetFilterConditionsViewModel: CheckPopupViewViewModelProtocol {
                 iconAsset: nil,
                 title: title,
                 subtitle: nil,
-                isSelected: selectedCondition == condition
+                isSelected: selectedCondition == condition,
+                onTap: { [weak self] in self?.onTap(condition: condition) }
             )
         }
     }
 
-    func onTap(itemId: String) {
-        guard let condition =  DataviewFilter.Condition(rawValue: Int(itemId) ?? 0),
-              condition != selectedCondition else {
+    private func onTap(condition: DataviewFilter.Condition) {
+        guard condition != selectedCondition else {
             return
         }
         selectedCondition = condition

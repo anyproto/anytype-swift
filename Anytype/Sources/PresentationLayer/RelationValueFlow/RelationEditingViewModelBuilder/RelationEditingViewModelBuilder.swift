@@ -5,8 +5,17 @@ final class RelationEditingViewModelBuilder {
     
     private weak var delegate: TextRelationActionButtonViewModelDelegate?
     
-    init(delegate: TextRelationActionButtonViewModelDelegate?) {
+    private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
+    private let searchService: SearchServiceProtocol
+    
+    init(
+        delegate: TextRelationActionButtonViewModelDelegate?,
+        newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
+        searchService: SearchServiceProtocol
+    ) {
         self.delegate = delegate
+        self.newSearchModuleAssembly = newSearchModuleAssembly
+        self.searchService = searchService
     }
     
 }
@@ -108,9 +117,10 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
             return StatusRelationDetailsViewModel(
                 source: source,
                 selectedStatus: status.values.first,
-                allStatuses: status.allOptions,
                 relation: relation,
-                service: RelationsService(objectId: objectId)
+                service: RelationsService(objectId: objectId),
+                newSearchModuleAssembly: newSearchModuleAssembly,
+                searchService: searchService
             )
         case .tag(let tag):
             return RelationOptionsListViewModel(
@@ -127,7 +137,10 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                 },
                 emptyOptionsPlaceholder: Constants.tagsOrFilesOptionsPlaceholder,
                 relation: relation,
-                searchModuleBuilder: TagsOptionsSearchModuleBuilder(allTags: tag.allTags),
+                searchModuleBuilder: TagsOptionsSearchModuleBuilder(
+                    relationKey: relation.key,
+                    newSearcModuleAssembly: newSearchModuleAssembly
+                ),
                 service: RelationsService(objectId: objectId)
             )
         case .object(let object):
@@ -146,7 +159,10 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                 },
                 emptyOptionsPlaceholder: Constants.objectsOptionsPlaceholder,
                 relation: relation,
-                searchModuleBuilder: ObjectsOptionsSearchModuleBuilder(limitedObjectType: object.limitedObjectTypes),
+                searchModuleBuilder: ObjectsOptionsSearchModuleBuilder(
+                    limitedObjectType: object.limitedObjectTypes,
+                    newSearcModuleAssembly: newSearchModuleAssembly
+                ),
                 service: RelationsService(objectId: objectId)
             )
         case .file(let file):
@@ -165,7 +181,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                 },
                 emptyOptionsPlaceholder: Constants.tagsOrFilesOptionsPlaceholder,
                 relation: relation,
-                searchModuleBuilder: FilesOptionsSearchModuleBuilder(),
+                searchModuleBuilder: FilesOptionsSearchModuleBuilder(newSearcModuleAssembly: newSearchModuleAssembly),
                 service: RelationsService(objectId: objectId)
             )
         default:

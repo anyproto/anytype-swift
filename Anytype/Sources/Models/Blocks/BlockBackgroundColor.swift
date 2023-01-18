@@ -1,8 +1,9 @@
 
 import UIKit
 import BlocksModels
+import SwiftUI
 
-enum BlockBackgroundColor: CaseIterable {
+enum BlockBackgroundColor: String, CaseIterable {
     case `default`
     case gray
     case lemon
@@ -17,6 +18,34 @@ enum BlockBackgroundColor: CaseIterable {
     
     var color : UIColor {
         typealias ColorComponent = UIColor.Background
+        switch self {
+        case .default:
+            return ColorComponent.default
+        case .lemon:
+            return ColorComponent.yellow
+        case .amber:
+            return ColorComponent.amber
+        case .red:
+            return ColorComponent.red
+        case .pink:
+            return ColorComponent.pink
+        case .purple:
+            return ColorComponent.purple
+        case .sky:
+            return ColorComponent.sky
+        case .blue:
+            return ColorComponent.blue
+        case .teal:
+            return ColorComponent.teal
+        case .green:
+            return ColorComponent.green
+        case .gray:
+            return ColorComponent.grey
+        }
+    }
+    
+    var swiftColor : Color {
+        typealias ColorComponent = Color.Background
         switch self {
         case .default:
             return ColorComponent.default
@@ -131,6 +160,35 @@ enum BlockBackgroundColor: CaseIterable {
             return .lime
         case .gray:
             return .grey
+        }
+    }
+}
+
+extension MiddlewareColor {
+    var backgroundColor: BlockBackgroundColor {
+        switch self {
+        case .default:
+            return .default
+        case .grey:
+            return .gray
+        case .yellow:
+            return .lemon
+        case .orange:
+            return .amber
+        case .red:
+            return .red
+        case .pink:
+            return .pink
+        case .purple:
+            return .purple
+        case .blue:
+            return .blue
+        case .ice:
+            return .sky
+        case .teal:
+            return .teal
+        case .lime:
+            return .green
         }
     }
 }

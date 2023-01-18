@@ -4,9 +4,11 @@ extension HomeViewModel {
     static func makeForPreview() -> HomeViewModel {
         return HomeViewModel(
             homeBlockId: UUID().uuidString,
-            editorBrowserAssembly: CoordinatorsDI.makeForPreview().browser,
+            editorBrowserAssembly: DI.makeForPreview().coordinatorsDI.browser,
             tabsSubsciptionDataBuilder: TabsSubscriptionDataBuilder(),
-            profileSubsciptionDataBuilder: ProfileSubscriptionDataBuilder()
+            profileSubsciptionDataBuilder: ProfileSubscriptionDataBuilder(),
+            newSearchModuleAssembly: DI.makeForPreview().modulesDI.newSearch,
+            windowManager: DI.makeForPreview().coordinatorsDI.windowManager
         )
     }
 }

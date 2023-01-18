@@ -115,7 +115,7 @@ final class TextBlockContentView: UIView, BlockContentView, DynamicHeightView, F
         let contentInset = TextBlockLayout.contentInset(textBlockStyle: blockTextStyle)
 
         topContentConstraint?.constant = contentInset.top
-        bottomContentnConstraint?.constant = contentInset.bottom
+        bottomContentnConstraint?.constant = -contentInset.bottom
     }
 }
 

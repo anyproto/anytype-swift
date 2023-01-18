@@ -1,20 +1,19 @@
-//
-//  ObjectTypeProviderProtocol.swift
-//  Anytype
-//
-//  Created by Konstantin Mordan on 03.06.2022.
-//  Copyright © 2022 Anytype. All rights reserved.
-//
-
 import Foundation
 import BlocksModels
 
-protocol ObjectTypeProviderProtocol {
-    var supportedTypeUrls: [String] { get }
+protocol ObjectTypeProviderProtocol: AnyObject {
+
+    var objectTypes: [ObjectType] { get }
     var defaultObjectType: ObjectType { get }
+    func setDefaulObjectType(type: ObjectType)
     
-    func isSupported(typeUrl: String) -> Bool
-    func objectType(url: String) -> ObjectType?
+    func isSupportedForEdit(typeId: String) -> Bool
+    func objectType(id: String) -> ObjectType?
+    func deleteObjectType(id: String) -> ObjectType
     
     func objectTypes(smartblockTypes: Set<SmartBlockType>) -> [ObjectType]
+    func notVisibleTypeIds() -> [String]
+    
+    func startSubscription()
+    func stopSubscription()
 }

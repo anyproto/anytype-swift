@@ -62,14 +62,14 @@ struct SetTableViewRow: View {
         .frame(height: 18)
     }
     
-    private func cell(_ relationData: Relation) -> some View {
-        RelationValueView(relation: RelationItemModel(relation: relationData), style: .set) {
+    private func cell(_ relation: Relation) -> some View {
+        RelationValueView(relation: RelationItemModel(relation: relation), style: .set) {
             AnytypeAnalytics.instance().logChangeRelationValue(type: .set)
 
             model.showRelationValueEditingView(
                 objectId: configuration.id,
-                source: .dataview(contextId: model.document.objectId),
-                relation: relationData
+                source: .dataview(contextId: model.objectId),
+                relation: relation
             )
         }
         .frame(width: 128)

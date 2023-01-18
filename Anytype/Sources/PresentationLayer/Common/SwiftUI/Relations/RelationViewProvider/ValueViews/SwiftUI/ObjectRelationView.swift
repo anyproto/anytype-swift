@@ -49,8 +49,16 @@ struct ObjectRelationView: View {
     
     private var moreObjectsView: some View {
         let moreObjectsCount = (options.count - maxOptions) > 0 ? options.count - maxOptions : 0
-
+        
         return HStack(spacing: style.objectRelationStyle.hSpaсingObject) {
+            if let prefix {
+                AnytypeText(
+                    prefix,
+                    style: style.font,
+                    color: style.fontColorWithError
+                )
+            }
+
             objectView(options: Array(options.prefix(maxOptions)))
 
             if moreObjectsCount > 0 {
@@ -67,7 +75,9 @@ struct ObjectRelationView: View {
     }
     
     private func titleColor(option: Relation.Object.Option) -> Color {
-        if option.isDeleted || option.isArchived {
+        if style.isError {
+            return style.fontColorWithError
+        } else if option.isDeleted || option.isArchived {
             return .textTertiary
         } else {
             return style.fontColor
@@ -75,8 +85,15 @@ struct ObjectRelationView: View {
     }
 
     private func shouldShowIcon(icon: ObjectIconImage) -> Bool {
-        guard case .placeholder = icon else { return true }
-        return false
+        if case .placeholder = icon {
+            return false
+        }
+        switch style {
+        case .regular, .set, .filter, .setCollection, .kanbanHeader:
+            return true
+        case .featuredRelationBlock(let settings):
+            return settings.showIcon
+        }
     }
 }
 
@@ -89,8 +106,17 @@ extension ObjectRelationView {
     
     private var maxOptions: Int {
         switch style {
-        case .regular, .set, .featuredRelationBlock: return 0
-        case .filter, .setCollection: return 1
+        case .regular, .set: return 0
+        case .filter, .setCollection, .featuredRelationBlock, .kanbanHeader: return 1
+        }
+    }
+    
+    private var prefix: String? {
+        switch style {
+        case .regular, .set, .filter, .setCollection, .kanbanHeader:
+            return nil
+        case .featuredRelationBlock(let settings):
+            return settings.prefix
         }
     }
 }

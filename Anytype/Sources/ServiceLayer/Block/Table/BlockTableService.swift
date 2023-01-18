@@ -1,6 +1,7 @@
 import Foundation
 import BlocksModels
 import ProtobufMessages
+import AnytypeCore
 
 protocol BlockTableServiceProtocol {
     func createTable(
@@ -44,7 +45,7 @@ final class BlockTableService: BlockTableServiceProtocol {
         let eventsBunch = Anytype_Rpc.BlockTable.Create.Service.invoke(
             contextID: contextId,
             targetID: targetId,
-            position: BlockPosition.replace.asMiddleware,
+            position: FeatureFlags.fixInsetMediaContent ? position.asMiddleware : BlockPosition.replace.asMiddleware,
             rows: UInt32(rowsCount),
             columns: UInt32(columnsCount),
             withHeaderRow: false

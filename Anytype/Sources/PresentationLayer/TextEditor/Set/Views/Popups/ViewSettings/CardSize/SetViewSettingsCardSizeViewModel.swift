@@ -26,14 +26,14 @@ final class SetViewSettingsCardSizeViewModel: CheckPopupViewViewModelProtocol {
                 iconAsset: nil,
                 title: size.value,
                 subtitle: nil,
-                isSelected: size == selectedSize
+                isSelected: size == selectedSize,
+                onTap: { [weak self] in self?.onTap(size: size) }
             )
         }
     }
 
-    func onTap(itemId: String) {
-        guard let size =  DataviewViewSize(rawValue: Int(itemId) ?? 0),
-              size != selectedSize else {
+    func onTap(size: DataviewViewSize) {
+        guard size != selectedSize else {
             return
         }
 

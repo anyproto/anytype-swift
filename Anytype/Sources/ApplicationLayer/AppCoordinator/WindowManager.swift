@@ -1,49 +1,81 @@
 import UIKit
+import SwiftUI
+import AnytypeCore
 
 final class WindowManager {
-    static let shared = WindowManager()
-    private let di: DIProtocol = DI()
+    
+    private let viewControllerProvider: ViewControllerProviderProtocol
+    private let homeViewAssembly: HomeViewAssembly
+    private let homeWidgetsCoordinatorAssembly: HomeWidgetsCoordinatorAssemblyProtocol
+    
+    init(
+        viewControllerProvider: ViewControllerProviderProtocol,
+        homeViewAssembly: HomeViewAssembly,
+        homeWidgetsCoordinatorAssembly: HomeWidgetsCoordinatorAssemblyProtocol
+    ) {
+        self.viewControllerProvider = viewControllerProvider
+        self.homeViewAssembly = homeViewAssembly
+        self.homeWidgetsCoordinatorAssembly = homeWidgetsCoordinatorAssembly
+    }
 
+    private var homeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol?
     private weak var lastHomeViewModel: HomeViewModel?
 
     @MainActor
     func showHomeWindow() {
-        let homeAssembly = di.coordinatorsDI.homeViewAssemby
-        let homeView = homeAssembly.createHomeView()
-
-        self.lastHomeViewModel = homeView?.model
-        windowHolder?.startNewRootView(homeView)
+        if FeatureFlags.homeWidgets {
+            let coordinator = homeWidgetsCoordinatorAssembly.make()
+            self.homeWidgetsCoordinator = coordinator
+            let homeView = coordinator.startFlow()
+            startNewRootView(homeView)
+        } else {
+            let homeView = homeViewAssembly.createHomeView()
+            
+            self.lastHomeViewModel = homeView?.model
+            startNewRootView(homeView)
+        }
     }
     
     func showAuthWindow() {
-        windowHolder?.startNewRootView(MainAuthView(viewModel: MainAuthViewModel()))
+        startNewRootView(MainAuthView(viewModel: MainAuthViewModel(windowManager: self)))
     }
     
     func showLaunchWindow() {
-        windowHolder?.startNewRootView(LaunchView())
+        startNewRootView(LaunchView())
     }
 
     @MainActor
     func createAndShowNewObject() {
-        lastHomeViewModel?.createAndShowNewPage()
+        if FeatureFlags.homeWidgets {
+            // TODO: IOS-746
+        } else {
+            lastHomeViewModel?.createAndShowNewPage()
+        }
     }
     
     @MainActor
     func showDeletedAccountWindow(deadline: Date) {
-        windowHolder?.startNewRootView(
+        startNewRootView(
             DeletedAccountView(
-                viewModel: DeletedAccountViewModel(deadline: deadline)
+                viewModel: DeletedAccountViewModel(deadline: deadline, windowManager: self)
             )
         )
     }
     
-    func presentOnTop(_ viewControllerToPresent: UIViewController, animated flag: Bool) {
-        windowHolder?.presentOnTop(viewControllerToPresent, animated: flag, completion: nil)
-    }
+    // MARK: - Private
     
-    private var windowHolder: WindowHolder? {
-        let sceneDeleage = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
+    private func startNewRootView<ViewType: View>(_ view: ViewType) {
+        let controller = NavigationControllerWithSwiftUIContent(
+            rootViewController: UIHostingController(rootView: view)
+        )
         
-        return sceneDeleage?.windowHolder
+        let navBarAppearance = UINavigationBarAppearance()
+        navBarAppearance.configureWithTransparentBackground()
+        controller.modifyBarAppearance(navBarAppearance)
+        
+        let window = viewControllerProvider.window
+        
+        window?.rootViewController = controller
+        window?.makeKeyAndVisible()
     }
 }

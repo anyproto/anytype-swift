@@ -320,14 +320,14 @@ extension Anytype_Rpc.Account.Move {
 
 extension Anytype_Rpc.Account.ConfigUpdate {
   public enum Service {
-    public static func invoke(timeZone: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
-        return invocation(timeZone: timeZone).invoke(on: queue)
+    public static func invoke(timeZone: String = String(), ipfsstorageAddr: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(timeZone: timeZone, ipfsstorageAddr: ipfsstorageAddr).invoke(on: queue)
     }
-    public static func invoke(timeZone: String = String()) -> Result<Response, Error> {
-        return invocation(timeZone: timeZone).invoke()
+    public static func invoke(timeZone: String = String(), ipfsstorageAddr: String = String()) -> Result<Response, Error> {
+        return invocation(timeZone: timeZone, ipfsstorageAddr: ipfsstorageAddr).invoke()
     }
-    public static func invocation(timeZone: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
-        let request = Request(timeZone: timeZone)
+    public static func invocation(timeZone: String = String(), ipfsstorageAddr: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(timeZone: timeZone, ipfsstorageAddr: ipfsstorageAddr)
         return Invocation<Request,Response>(messageName: "AccountConfigUpdate", request: request) { request in
             return self.invoke(request)
         }
@@ -406,6 +406,72 @@ extension Anytype_Rpc.Workspace.Create {
   }
 }
 
+extension Anytype_Rpc.Workspace.Object.Add {
+  public enum Service {
+    public static func invoke(objectID: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(objectID: objectID).invoke(on: queue)
+    }
+    public static func invoke(objectID: String = String()) -> Result<Response, Error> {
+        return invocation(objectID: objectID).invoke()
+    }
+    public static func invocation(objectID: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(objectID: objectID)
+        return Invocation<Request,Response>(messageName: "WorkspaceObjectAdd", request: request) { request in
+            return self.invoke(request)
+        }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+        return Lib.ServiceWorkspaceObjectAdd(try? request.serializedData()).flatMap {
+            try? Response(serializedData: $0)
+        }
+    }
+  }
+}
+
+extension Anytype_Rpc.Workspace.Object.ListAdd {
+  public enum Service {
+    public static func invoke(objectIds: [String] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(objectIds: objectIds).invoke(on: queue)
+    }
+    public static func invoke(objectIds: [String] = []) -> Result<Response, Error> {
+        return invocation(objectIds: objectIds).invoke()
+    }
+    public static func invocation(objectIds: [String] = []) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(objectIds: objectIds)
+        return Invocation<Request,Response>(messageName: "WorkspaceObjectListAdd", request: request) { request in
+            return self.invoke(request)
+        }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+        return Lib.ServiceWorkspaceObjectListAdd(try? request.serializedData()).flatMap {
+            try? Response(serializedData: $0)
+        }
+    }
+  }
+}
+
+extension Anytype_Rpc.Workspace.Object.ListRemove {
+  public enum Service {
+    public static func invoke(objectIds: [String] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(objectIds: objectIds).invoke(on: queue)
+    }
+    public static func invoke(objectIds: [String] = []) -> Result<Response, Error> {
+        return invocation(objectIds: objectIds).invoke()
+    }
+    public static func invocation(objectIds: [String] = []) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(objectIds: objectIds)
+        return Invocation<Request,Response>(messageName: "WorkspaceObjectListRemove", request: request) { request in
+            return self.invoke(request)
+        }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+        return Lib.ServiceWorkspaceObjectListRemove(try? request.serializedData()).flatMap {
+            try? Response(serializedData: $0)
+        }
+    }
+  }
+}
+
 extension Anytype_Rpc.Workspace.SetIsHighlighted {
   public enum Service {
     public static func invoke(objectID: String = String(), isHighlighted: Bool = false, queue: DispatchQueue? = nil) -> Future<Response, Error> {
@@ -474,14 +540,14 @@ extension Anytype_Rpc.Workspace.Export {
 
 extension Anytype_Rpc.Object.Open {
   public enum Service {
-    public static func invoke(contextID: String = String(), objectID: String = String(), traceID: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
-        return invocation(contextID: contextID, objectID: objectID, traceID: traceID).invoke(on: queue)
+    public static func invoke(contextID: String = String(), objectID: String = String(), traceID: String = String(), includeRelationsAsDependentObjects: Bool = false, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(contextID: contextID, objectID: objectID, traceID: traceID, includeRelationsAsDependentObjects: includeRelationsAsDependentObjects).invoke(on: queue)
     }
-    public static func invoke(contextID: String = String(), objectID: String = String(), traceID: String = String()) -> Result<Response, Error> {
-        return invocation(contextID: contextID, objectID: objectID, traceID: traceID).invoke()
+    public static func invoke(contextID: String = String(), objectID: String = String(), traceID: String = String(), includeRelationsAsDependentObjects: Bool = false) -> Result<Response, Error> {
+        return invocation(contextID: contextID, objectID: objectID, traceID: traceID, includeRelationsAsDependentObjects: includeRelationsAsDependentObjects).invoke()
     }
-    public static func invocation(contextID: String = String(), objectID: String = String(), traceID: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
-        let request = Request(contextID: contextID, objectID: objectID, traceID: traceID)
+    public static func invocation(contextID: String = String(), objectID: String = String(), traceID: String = String(), includeRelationsAsDependentObjects: Bool = false) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, objectID: objectID, traceID: traceID, includeRelationsAsDependentObjects: includeRelationsAsDependentObjects)
         return Invocation<Request,Response>(messageName: "ObjectOpen", request: request) { request in
             return self.invoke(request)
         }
@@ -518,14 +584,14 @@ extension Anytype_Rpc.Object.Close {
 
 extension Anytype_Rpc.Object.Show {
   public enum Service {
-    public static func invoke(contextID: String = String(), objectID: String = String(), traceID: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
-        return invocation(contextID: contextID, objectID: objectID, traceID: traceID).invoke(on: queue)
+    public static func invoke(contextID: String = String(), objectID: String = String(), traceID: String = String(), includeRelationsAsDependentObjects: Bool = false, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(contextID: contextID, objectID: objectID, traceID: traceID, includeRelationsAsDependentObjects: includeRelationsAsDependentObjects).invoke(on: queue)
     }
-    public static func invoke(contextID: String = String(), objectID: String = String(), traceID: String = String()) -> Result<Response, Error> {
-        return invocation(contextID: contextID, objectID: objectID, traceID: traceID).invoke()
+    public static func invoke(contextID: String = String(), objectID: String = String(), traceID: String = String(), includeRelationsAsDependentObjects: Bool = false) -> Result<Response, Error> {
+        return invocation(contextID: contextID, objectID: objectID, traceID: traceID, includeRelationsAsDependentObjects: includeRelationsAsDependentObjects).invoke()
     }
-    public static func invocation(contextID: String = String(), objectID: String = String(), traceID: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
-        let request = Request(contextID: contextID, objectID: objectID, traceID: traceID)
+    public static func invocation(contextID: String = String(), objectID: String = String(), traceID: String = String(), includeRelationsAsDependentObjects: Bool = false) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, objectID: objectID, traceID: traceID, includeRelationsAsDependentObjects: includeRelationsAsDependentObjects)
         return Invocation<Request,Response>(messageName: "ObjectShow", request: request) { request in
             return self.invoke(request)
         }
@@ -562,20 +628,108 @@ extension Anytype_Rpc.Object.Create {
 
 extension Anytype_Rpc.Object.CreateBookmark {
   public enum Service {
-    public static func invoke(url: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
-        return invocation(url: url).invoke(on: queue)
+    public static func invoke(details: SwiftProtobuf.Google_Protobuf_Struct, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(details: details).invoke(on: queue)
     }
-    public static func invoke(url: String = String()) -> Result<Response, Error> {
-        return invocation(url: url).invoke()
+    public static func invoke(details: SwiftProtobuf.Google_Protobuf_Struct) -> Result<Response, Error> {
+        return invocation(details: details).invoke()
     }
-    public static func invocation(url: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
-        let request = Request(url: url)
+    public static func invocation(details: SwiftProtobuf.Google_Protobuf_Struct) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(details: details)
         return Invocation<Request,Response>(messageName: "ObjectCreateBookmark", request: request) { request in
             return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
         return Lib.ServiceObjectCreateBookmark(try? request.serializedData()).flatMap {
+            try? Response(serializedData: $0)
+        }
+    }
+  }
+}
+
+extension Anytype_Rpc.Object.CreateRelation {
+  public enum Service {
+    public static func invoke(details: SwiftProtobuf.Google_Protobuf_Struct, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(details: details).invoke(on: queue)
+    }
+    public static func invoke(details: SwiftProtobuf.Google_Protobuf_Struct) -> Result<Response, Error> {
+        return invocation(details: details).invoke()
+    }
+    public static func invocation(details: SwiftProtobuf.Google_Protobuf_Struct) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(details: details)
+        return Invocation<Request,Response>(messageName: "ObjectCreateRelation", request: request) { request in
+            return self.invoke(request)
+        }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+        return Lib.ServiceObjectCreateRelation(try? request.serializedData()).flatMap {
+            try? Response(serializedData: $0)
+        }
+    }
+  }
+}
+
+extension Anytype_Rpc.Object.CreateRelationOption {
+  public enum Service {
+    public static func invoke(details: SwiftProtobuf.Google_Protobuf_Struct, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(details: details).invoke(on: queue)
+    }
+    public static func invoke(details: SwiftProtobuf.Google_Protobuf_Struct) -> Result<Response, Error> {
+        return invocation(details: details).invoke()
+    }
+    public static func invocation(details: SwiftProtobuf.Google_Protobuf_Struct) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(details: details)
+        return Invocation<Request,Response>(messageName: "ObjectCreateRelationOption", request: request) { request in
+            return self.invoke(request)
+        }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+        return Lib.ServiceObjectCreateRelationOption(try? request.serializedData()).flatMap {
+            try? Response(serializedData: $0)
+        }
+    }
+  }
+}
+
+extension Anytype_Rpc.Object.CreateSet {
+  public enum Service {
+    public static func invoke(source: [String] = [], details: SwiftProtobuf.Google_Protobuf_Struct, templateID: String = String(), internalFlags: [Anytype_Model_InternalFlag] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(source: source, details: details, templateID: templateID, internalFlags: internalFlags).invoke(on: queue)
+    }
+    public static func invoke(source: [String] = [], details: SwiftProtobuf.Google_Protobuf_Struct, templateID: String = String(), internalFlags: [Anytype_Model_InternalFlag] = []) -> Result<Response, Error> {
+        return invocation(source: source, details: details, templateID: templateID, internalFlags: internalFlags).invoke()
+    }
+    public static func invocation(source: [String] = [], details: SwiftProtobuf.Google_Protobuf_Struct, templateID: String = String(), internalFlags: [Anytype_Model_InternalFlag] = []) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(source: source, details: details, templateID: templateID, internalFlags: internalFlags)
+        return Invocation<Request,Response>(messageName: "ObjectCreateSet", request: request) { request in
+            return self.invoke(request)
+        }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+        return Lib.ServiceObjectCreateSet(try? request.serializedData()).flatMap {
+            try? Response(serializedData: $0)
+        }
+    }
+  }
+}
+
+extension Anytype_Rpc.Object.CreateObjectType {
+  public enum Service {
+    public static func invoke(details: SwiftProtobuf.Google_Protobuf_Struct, internalFlags: [Anytype_Model_InternalFlag] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(details: details, internalFlags: internalFlags).invoke(on: queue)
+    }
+    public static func invoke(details: SwiftProtobuf.Google_Protobuf_Struct, internalFlags: [Anytype_Model_InternalFlag] = []) -> Result<Response, Error> {
+        return invocation(details: details, internalFlags: internalFlags).invoke()
+    }
+    public static func invocation(details: SwiftProtobuf.Google_Protobuf_Struct, internalFlags: [Anytype_Model_InternalFlag] = []) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(details: details, internalFlags: internalFlags)
+        return Invocation<Request,Response>(messageName: "ObjectCreateObjectType", request: request) { request in
+            return self.invoke(request)
+        }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+        return Lib.ServiceObjectCreateObjectType(try? request.serializedData()).flatMap {
             try? Response(serializedData: $0)
         }
     }
@@ -620,28 +774,6 @@ extension Anytype_Rpc.Object.ToBookmark {
     }
     private static func invoke(_ request: Request) -> Response? {
         return Lib.ServiceObjectToBookmark(try? request.serializedData()).flatMap {
-            try? Response(serializedData: $0)
-        }
-    }
-  }
-}
-
-extension Anytype_Rpc.Object.CreateSet {
-  public enum Service {
-    public static func invoke(source: [String] = [], details: SwiftProtobuf.Google_Protobuf_Struct, templateID: String = String(), internalFlags: [Anytype_Model_InternalFlag] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
-        return invocation(source: source, details: details, templateID: templateID, internalFlags: internalFlags).invoke(on: queue)
-    }
-    public static func invoke(source: [String] = [], details: SwiftProtobuf.Google_Protobuf_Struct, templateID: String = String(), internalFlags: [Anytype_Model_InternalFlag] = []) -> Result<Response, Error> {
-        return invocation(source: source, details: details, templateID: templateID, internalFlags: internalFlags).invoke()
-    }
-    public static func invocation(source: [String] = [], details: SwiftProtobuf.Google_Protobuf_Struct, templateID: String = String(), internalFlags: [Anytype_Model_InternalFlag] = []) -> ProtobufMessages.Invocation<Request, Response> {
-        let request = Request(source: source, details: details, templateID: templateID, internalFlags: internalFlags)
-        return Invocation<Request,Response>(messageName: "ObjectCreateSet", request: request) { request in
-            return self.invoke(request)
-        }
-    }
-    private static func invoke(_ request: Request) -> Response? {
-        return Lib.ServiceObjectCreateSet(try? request.serializedData()).flatMap {
             try? Response(serializedData: $0)
         }
     }
@@ -708,28 +840,6 @@ extension Anytype_Rpc.Object.SetBreadcrumbs {
     }
     private static func invoke(_ request: Request) -> Response? {
         return Lib.ServiceObjectSetBreadcrumbs(try? request.serializedData()).flatMap {
-            try? Response(serializedData: $0)
-        }
-    }
-  }
-}
-
-extension Anytype_Rpc.Object.ImportMarkdown {
-  public enum Service {
-    public static func invoke(contextID: String = String(), importPath: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
-        return invocation(contextID: contextID, importPath: importPath).invoke(on: queue)
-    }
-    public static func invoke(contextID: String = String(), importPath: String = String()) -> Result<Response, Error> {
-        return invocation(contextID: contextID, importPath: importPath).invoke()
-    }
-    public static func invocation(contextID: String = String(), importPath: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
-        let request = Request(contextID: contextID, importPath: importPath)
-        return Invocation<Request,Response>(messageName: "ObjectImportMarkdown", request: request) { request in
-            return self.invoke(request)
-        }
-    }
-    private static func invoke(_ request: Request) -> Response? {
-        return Lib.ServiceObjectImportMarkdown(try? request.serializedData()).flatMap {
             try? Response(serializedData: $0)
         }
     }
@@ -846,22 +956,22 @@ extension Anytype_Rpc.Object.SearchSubscribe {
   }
 }
 
-extension Anytype_Rpc.Object.RelationSearchDistinct {
+extension Anytype_Rpc.Object.GroupsSubscribe {
   public enum Service {
-    public static func invoke(relationKey: String = String(), filters: [Anytype_Model_Block.Content.Dataview.Filter] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
-        return invocation(relationKey: relationKey, filters: filters).invoke(on: queue)
+    public static func invoke(subID: String = String(), relationKey: String = String(), filters: [Anytype_Model_Block.Content.Dataview.Filter] = [], source: [String] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(subID: subID, relationKey: relationKey, filters: filters, source: source).invoke(on: queue)
     }
-    public static func invoke(relationKey: String = String(), filters: [Anytype_Model_Block.Content.Dataview.Filter] = []) -> Result<Response, Error> {
-        return invocation(relationKey: relationKey, filters: filters).invoke()
+    public static func invoke(subID: String = String(), relationKey: String = String(), filters: [Anytype_Model_Block.Content.Dataview.Filter] = [], source: [String] = []) -> Result<Response, Error> {
+        return invocation(subID: subID, relationKey: relationKey, filters: filters, source: source).invoke()
     }
-    public static func invocation(relationKey: String = String(), filters: [Anytype_Model_Block.Content.Dataview.Filter] = []) -> ProtobufMessages.Invocation<Request, Response> {
-        let request = Request(relationKey: relationKey, filters: filters)
-        return Invocation<Request,Response>(messageName: "ObjectRelationSearchDistinct", request: request) { request in
+    public static func invocation(subID: String = String(), relationKey: String = String(), filters: [Anytype_Model_Block.Content.Dataview.Filter] = [], source: [String] = []) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(subID: subID, relationKey: relationKey, filters: filters, source: source)
+        return Invocation<Request,Response>(messageName: "ObjectGroupsSubscribe", request: request) { request in
             return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
-        return Lib.ServiceObjectRelationSearchDistinct(try? request.serializedData()).flatMap {
+        return Lib.ServiceObjectGroupsSubscribe(try? request.serializedData()).flatMap {
             try? Response(serializedData: $0)
         }
     }
@@ -1242,16 +1352,82 @@ extension Anytype_Rpc.Object.ListExport {
   }
 }
 
+extension Anytype_Rpc.Object.Import {
+  public enum Service {
+    public static func invoke(params: Anytype_Rpc.Object.Import.Request.OneOf_Params? = nil, snapshots: [Anytype_Rpc.Object.Import.Request.Snapshot] = [], updateExistingObjects: Bool = false, type: Anytype_Rpc.Object.Import.Request.TypeEnum = .notion, mode: Anytype_Rpc.Object.Import.Request.Mode = .allOrNothing, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(params: params, snapshots: snapshots, updateExistingObjects: updateExistingObjects, type: type, mode: mode).invoke(on: queue)
+    }
+    public static func invoke(params: Anytype_Rpc.Object.Import.Request.OneOf_Params? = nil, snapshots: [Anytype_Rpc.Object.Import.Request.Snapshot] = [], updateExistingObjects: Bool = false, type: Anytype_Rpc.Object.Import.Request.TypeEnum = .notion, mode: Anytype_Rpc.Object.Import.Request.Mode = .allOrNothing) -> Result<Response, Error> {
+        return invocation(params: params, snapshots: snapshots, updateExistingObjects: updateExistingObjects, type: type, mode: mode).invoke()
+    }
+    public static func invocation(params: Anytype_Rpc.Object.Import.Request.OneOf_Params? = nil, snapshots: [Anytype_Rpc.Object.Import.Request.Snapshot] = [], updateExistingObjects: Bool = false, type: Anytype_Rpc.Object.Import.Request.TypeEnum = .notion, mode: Anytype_Rpc.Object.Import.Request.Mode = .allOrNothing) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(params: params, snapshots: snapshots, updateExistingObjects: updateExistingObjects, type: type, mode: mode)
+        return Invocation<Request,Response>(messageName: "ObjectImport", request: request) { request in
+            return self.invoke(request)
+        }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+        return Lib.ServiceObjectImport(try? request.serializedData()).flatMap {
+            try? Response(serializedData: $0)
+        }
+    }
+  }
+}
+
+extension Anytype_Rpc.Object.Import.Notion.ValidateToken {
+  public enum Service {
+    public static func invoke(token: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(token: token).invoke(on: queue)
+    }
+    public static func invoke(token: String = String()) -> Result<Response, Error> {
+        return invocation(token: token).invoke()
+    }
+    public static func invocation(token: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(token: token)
+        return Invocation<Request,Response>(messageName: "ObjectImportNotionValidateToken", request: request) { request in
+            return self.invoke(request)
+        }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+        return Lib.ServiceObjectImportNotionValidateToken(try? request.serializedData()).flatMap {
+            try? Response(serializedData: $0)
+        }
+    }
+  }
+}
+
+extension Anytype_Rpc.Object.ImportList {
+  public enum Service {
+    public static func invoke(queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation().invoke(on: queue)
+    }
+    public static func invoke() -> Result<Response, Error> {
+        return invocation().invoke()
+    }
+    public static func invocation() -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request()
+        return Invocation<Request,Response>(messageName: "ObjectImportList", request: request) { request in
+            return self.invoke(request)
+        }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+        return Lib.ServiceObjectImportList(try? request.serializedData()).flatMap {
+            try? Response(serializedData: $0)
+        }
+    }
+  }
+}
+
 extension Anytype_Rpc.ObjectRelation.Add {
   public enum Service {
-    public static func invoke(contextID: String = String(), relation: Anytype_Model_Relation, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-        return invocation(contextID: contextID, relation: relation).invoke(on: queue)
+    public static func invoke(contextID: String = String(), relationKeys: [String] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(contextID: contextID, relationKeys: relationKeys).invoke(on: queue)
     }
-    public static func invoke(contextID: String = String(), relation: Anytype_Model_Relation) -> Result<Response, Error> {
-        return invocation(contextID: contextID, relation: relation).invoke()
+    public static func invoke(contextID: String = String(), relationKeys: [String] = []) -> Result<Response, Error> {
+        return invocation(contextID: contextID, relationKeys: relationKeys).invoke()
     }
-    public static func invocation(contextID: String = String(), relation: Anytype_Model_Relation) -> ProtobufMessages.Invocation<Request, Response> {
-        let request = Request(contextID: contextID, relation: relation)
+    public static func invocation(contextID: String = String(), relationKeys: [String] = []) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, relationKeys: relationKeys)
         return Invocation<Request,Response>(messageName: "ObjectRelationAdd", request: request) { request in
             return self.invoke(request)
         }
@@ -1264,38 +1440,16 @@ extension Anytype_Rpc.ObjectRelation.Add {
   }
 }
 
-extension Anytype_Rpc.ObjectRelation.Update {
-  public enum Service {
-    public static func invoke(contextID: String, relationKey: String, relation: Anytype_Model_Relation, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-        return invocation(contextID: contextID, relationKey: relationKey, relation: relation).invoke(on: queue)
-    }
-    public static func invoke(contextID: String, relationKey: String, relation: Anytype_Model_Relation) -> Result<Response, Error> {
-        return invocation(contextID: contextID, relationKey: relationKey, relation: relation).invoke()
-    }
-    public static func invocation(contextID: String, relationKey: String, relation: Anytype_Model_Relation) -> ProtobufMessages.Invocation<Request, Response> {
-        let request = Request(contextID: contextID, relationKey: relationKey, relation: relation)
-        return Invocation<Request,Response>(messageName: "ObjectRelationUpdate", request: request) { request in
-            return self.invoke(request)
-        }
-    }
-    private static func invoke(_ request: Request) -> Response? {
-        return Lib.ServiceObjectRelationUpdate(try? request.serializedData()).flatMap {
-            try? Response(serializedData: $0)
-        }
-    }
-  }
-}
-
 extension Anytype_Rpc.ObjectRelation.Delete {
   public enum Service {
-    public static func invoke(contextID: String = String(), relationKey: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
-        return invocation(contextID: contextID, relationKey: relationKey).invoke(on: queue)
+    public static func invoke(contextID: String = String(), relationKeys: [String] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(contextID: contextID, relationKeys: relationKeys).invoke(on: queue)
     }
-    public static func invoke(contextID: String = String(), relationKey: String = String()) -> Result<Response, Error> {
-        return invocation(contextID: contextID, relationKey: relationKey).invoke()
+    public static func invoke(contextID: String = String(), relationKeys: [String] = []) -> Result<Response, Error> {
+        return invocation(contextID: contextID, relationKeys: relationKeys).invoke()
     }
-    public static func invocation(contextID: String = String(), relationKey: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
-        let request = Request(contextID: contextID, relationKey: relationKey)
+    public static func invocation(contextID: String = String(), relationKeys: [String] = []) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, relationKeys: relationKeys)
         return Invocation<Request,Response>(messageName: "ObjectRelationDelete", request: request) { request in
             return self.invoke(request)
         }
@@ -1374,126 +1528,16 @@ extension Anytype_Rpc.ObjectRelation.RemoveFeatured {
   }
 }
 
-extension Anytype_Rpc.ObjectRelationOption.Add {
-  public enum Service {
-    public static func invoke(contextID: String = String(), relationKey: String = String(), option: Anytype_Model_Relation.Option, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-        return invocation(contextID: contextID, relationKey: relationKey, option: option).invoke(on: queue)
-    }
-    public static func invoke(contextID: String = String(), relationKey: String = String(), option: Anytype_Model_Relation.Option) -> Result<Response, Error> {
-        return invocation(contextID: contextID, relationKey: relationKey, option: option).invoke()
-    }
-    public static func invocation(contextID: String = String(), relationKey: String = String(), option: Anytype_Model_Relation.Option) -> ProtobufMessages.Invocation<Request, Response> {
-        let request = Request(contextID: contextID, relationKey: relationKey, option: option)
-        return Invocation<Request,Response>(messageName: "ObjectRelationOptionAdd", request: request) { request in
-            return self.invoke(request)
-        }
-    }
-    private static func invoke(_ request: Request) -> Response? {
-        return Lib.ServiceObjectRelationOptionAdd(try? request.serializedData()).flatMap {
-            try? Response(serializedData: $0)
-        }
-    }
-  }
-}
-
-extension Anytype_Rpc.ObjectRelationOption.Update {
-  public enum Service {
-    public static func invoke(contextID: String = String(), relationKey: String = String(), option: Anytype_Model_Relation.Option, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-        return invocation(contextID: contextID, relationKey: relationKey, option: option).invoke(on: queue)
-    }
-    public static func invoke(contextID: String = String(), relationKey: String = String(), option: Anytype_Model_Relation.Option) -> Result<Response, Error> {
-        return invocation(contextID: contextID, relationKey: relationKey, option: option).invoke()
-    }
-    public static func invocation(contextID: String = String(), relationKey: String = String(), option: Anytype_Model_Relation.Option) -> ProtobufMessages.Invocation<Request, Response> {
-        let request = Request(contextID: contextID, relationKey: relationKey, option: option)
-        return Invocation<Request,Response>(messageName: "ObjectRelationOptionUpdate", request: request) { request in
-            return self.invoke(request)
-        }
-    }
-    private static func invoke(_ request: Request) -> Response? {
-        return Lib.ServiceObjectRelationOptionUpdate(try? request.serializedData()).flatMap {
-            try? Response(serializedData: $0)
-        }
-    }
-  }
-}
-
-extension Anytype_Rpc.ObjectRelationOption.Delete {
-  public enum Service {
-    public static func invoke(contextID: String = String(), relationKey: String = String(), optionID: String = String(), confirmRemoveAllValuesInRecords: Bool = false, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-        return invocation(contextID: contextID, relationKey: relationKey, optionID: optionID, confirmRemoveAllValuesInRecords: confirmRemoveAllValuesInRecords).invoke(on: queue)
-    }
-    public static func invoke(contextID: String = String(), relationKey: String = String(), optionID: String = String(), confirmRemoveAllValuesInRecords: Bool = false) -> Result<Response, Error> {
-        return invocation(contextID: contextID, relationKey: relationKey, optionID: optionID, confirmRemoveAllValuesInRecords: confirmRemoveAllValuesInRecords).invoke()
-    }
-    public static func invocation(contextID: String = String(), relationKey: String = String(), optionID: String = String(), confirmRemoveAllValuesInRecords: Bool = false) -> ProtobufMessages.Invocation<Request, Response> {
-        let request = Request(contextID: contextID, relationKey: relationKey, optionID: optionID, confirmRemoveAllValuesInRecords: confirmRemoveAllValuesInRecords)
-        return Invocation<Request,Response>(messageName: "ObjectRelationOptionDelete", request: request) { request in
-            return self.invoke(request)
-        }
-    }
-    private static func invoke(_ request: Request) -> Response? {
-        return Lib.ServiceObjectRelationOptionDelete(try? request.serializedData()).flatMap {
-            try? Response(serializedData: $0)
-        }
-    }
-  }
-}
-
-extension Anytype_Rpc.ObjectType.List {
-  public enum Service {
-    public static func invoke(queue: DispatchQueue? = nil) -> Future<Response, Error> {
-        return invocation().invoke(on: queue)
-    }
-    public static func invoke() -> Result<Response, Error> {
-        return invocation().invoke()
-    }
-    public static func invocation() -> ProtobufMessages.Invocation<Request, Response> {
-        let request = Request()
-        return Invocation<Request,Response>(messageName: "ObjectTypeList", request: request) { request in
-            return self.invoke(request)
-        }
-    }
-    private static func invoke(_ request: Request) -> Response? {
-        return Lib.ServiceObjectTypeList(try? request.serializedData()).flatMap {
-            try? Response(serializedData: $0)
-        }
-    }
-  }
-}
-
-extension Anytype_Rpc.ObjectType.Create {
-  public enum Service {
-    public static func invoke(objectType: Anytype_Model_ObjectType, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-        return invocation(objectType: objectType).invoke(on: queue)
-    }
-    public static func invoke(objectType: Anytype_Model_ObjectType) -> Result<Response, Error> {
-        return invocation(objectType: objectType).invoke()
-    }
-    public static func invocation(objectType: Anytype_Model_ObjectType) -> ProtobufMessages.Invocation<Request, Response> {
-        let request = Request(objectType: objectType)
-        return Invocation<Request,Response>(messageName: "ObjectTypeCreate", request: request) { request in
-            return self.invoke(request)
-        }
-    }
-    private static func invoke(_ request: Request) -> Response? {
-        return Lib.ServiceObjectTypeCreate(try? request.serializedData()).flatMap {
-            try? Response(serializedData: $0)
-        }
-    }
-  }
-}
-
 extension Anytype_Rpc.ObjectType.Relation.Add {
   public enum Service {
-    public static func invoke(objectTypeURL: String = String(), relations: [Anytype_Model_Relation] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
-        return invocation(objectTypeURL: objectTypeURL, relations: relations).invoke(on: queue)
+    public static func invoke(objectTypeURL: String = String(), relationKeys: [String] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(objectTypeURL: objectTypeURL, relationKeys: relationKeys).invoke(on: queue)
     }
-    public static func invoke(objectTypeURL: String = String(), relations: [Anytype_Model_Relation] = []) -> Result<Response, Error> {
-        return invocation(objectTypeURL: objectTypeURL, relations: relations).invoke()
+    public static func invoke(objectTypeURL: String = String(), relationKeys: [String] = []) -> Result<Response, Error> {
+        return invocation(objectTypeURL: objectTypeURL, relationKeys: relationKeys).invoke()
     }
-    public static func invocation(objectTypeURL: String = String(), relations: [Anytype_Model_Relation] = []) -> ProtobufMessages.Invocation<Request, Response> {
-        let request = Request(objectTypeURL: objectTypeURL, relations: relations)
+    public static func invocation(objectTypeURL: String = String(), relationKeys: [String] = []) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(objectTypeURL: objectTypeURL, relationKeys: relationKeys)
         return Invocation<Request,Response>(messageName: "ObjectTypeRelationAdd", request: request) { request in
             return self.invoke(request)
         }
@@ -1508,42 +1552,20 @@ extension Anytype_Rpc.ObjectType.Relation.Add {
 
 extension Anytype_Rpc.ObjectType.Relation.Remove {
   public enum Service {
-    public static func invoke(objectTypeURL: String = String(), relationKey: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
-        return invocation(objectTypeURL: objectTypeURL, relationKey: relationKey).invoke(on: queue)
+    public static func invoke(objectTypeURL: String = String(), relationKeys: [String] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(objectTypeURL: objectTypeURL, relationKeys: relationKeys).invoke(on: queue)
     }
-    public static func invoke(objectTypeURL: String = String(), relationKey: String = String()) -> Result<Response, Error> {
-        return invocation(objectTypeURL: objectTypeURL, relationKey: relationKey).invoke()
+    public static func invoke(objectTypeURL: String = String(), relationKeys: [String] = []) -> Result<Response, Error> {
+        return invocation(objectTypeURL: objectTypeURL, relationKeys: relationKeys).invoke()
     }
-    public static func invocation(objectTypeURL: String = String(), relationKey: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
-        let request = Request(objectTypeURL: objectTypeURL, relationKey: relationKey)
+    public static func invocation(objectTypeURL: String = String(), relationKeys: [String] = []) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(objectTypeURL: objectTypeURL, relationKeys: relationKeys)
         return Invocation<Request,Response>(messageName: "ObjectTypeRelationRemove", request: request) { request in
             return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
         return Lib.ServiceObjectTypeRelationRemove(try? request.serializedData()).flatMap {
-            try? Response(serializedData: $0)
-        }
-    }
-  }
-}
-
-extension Anytype_Rpc.ObjectType.Relation.Update {
-  public enum Service {
-    public static func invoke(objectTypeURL: String = String(), relation: Anytype_Model_Relation, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-        return invocation(objectTypeURL: objectTypeURL, relation: relation).invoke(on: queue)
-    }
-    public static func invoke(objectTypeURL: String = String(), relation: Anytype_Model_Relation) -> Result<Response, Error> {
-        return invocation(objectTypeURL: objectTypeURL, relation: relation).invoke()
-    }
-    public static func invocation(objectTypeURL: String = String(), relation: Anytype_Model_Relation) -> ProtobufMessages.Invocation<Request, Response> {
-        let request = Request(objectTypeURL: objectTypeURL, relation: relation)
-        return Invocation<Request,Response>(messageName: "ObjectTypeRelationUpdate", request: request) { request in
-            return self.invoke(request)
-        }
-    }
-    private static func invoke(_ request: Request) -> Response? {
-        return Lib.ServiceObjectTypeRelationUpdate(try? request.serializedData()).flatMap {
             try? Response(serializedData: $0)
         }
     }
@@ -1572,16 +1594,60 @@ extension Anytype_Rpc.ObjectType.Relation.List {
   }
 }
 
+extension Anytype_Rpc.Relation.ListRemoveOption {
+  public enum Service {
+    public static func invoke(optionIds: [String] = [], checkInObjects: Bool = false, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(optionIds: optionIds, checkInObjects: checkInObjects).invoke(on: queue)
+    }
+    public static func invoke(optionIds: [String] = [], checkInObjects: Bool = false) -> Result<Response, Error> {
+        return invocation(optionIds: optionIds, checkInObjects: checkInObjects).invoke()
+    }
+    public static func invocation(optionIds: [String] = [], checkInObjects: Bool = false) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(optionIds: optionIds, checkInObjects: checkInObjects)
+        return Invocation<Request,Response>(messageName: "RelationListRemoveOption", request: request) { request in
+            return self.invoke(request)
+        }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+        return Lib.ServiceRelationListRemoveOption(try? request.serializedData()).flatMap {
+            try? Response(serializedData: $0)
+        }
+    }
+  }
+}
+
+extension Anytype_Rpc.Relation.Options {
+  public enum Service {
+    public static func invoke(relationKey: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(relationKey: relationKey).invoke(on: queue)
+    }
+    public static func invoke(relationKey: String = String()) -> Result<Response, Error> {
+        return invocation(relationKey: relationKey).invoke()
+    }
+    public static func invocation(relationKey: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(relationKey: relationKey)
+        return Invocation<Request,Response>(messageName: "RelationOptions", request: request) { request in
+            return self.invoke(request)
+        }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+        return Lib.ServiceRelationOptions(try? request.serializedData()).flatMap {
+            try? Response(serializedData: $0)
+        }
+    }
+  }
+}
+
 extension Anytype_Rpc.History.GetVersions {
   public enum Service {
-    public static func invoke(pageID: String = String(), lastVersionID: String = String(), limit: Int32 = 0, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-        return invocation(pageID: pageID, lastVersionID: lastVersionID, limit: limit).invoke(on: queue)
+    public static func invoke(objectID: String = String(), lastVersionID: String = String(), limit: Int32 = 0, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(objectID: objectID, lastVersionID: lastVersionID, limit: limit).invoke(on: queue)
     }
-    public static func invoke(pageID: String = String(), lastVersionID: String = String(), limit: Int32 = 0) -> Result<Response, Error> {
-        return invocation(pageID: pageID, lastVersionID: lastVersionID, limit: limit).invoke()
+    public static func invoke(objectID: String = String(), lastVersionID: String = String(), limit: Int32 = 0) -> Result<Response, Error> {
+        return invocation(objectID: objectID, lastVersionID: lastVersionID, limit: limit).invoke()
     }
-    public static func invocation(pageID: String = String(), lastVersionID: String = String(), limit: Int32 = 0) -> ProtobufMessages.Invocation<Request, Response> {
-        let request = Request(pageID: pageID, lastVersionID: lastVersionID, limit: limit)
+    public static func invocation(objectID: String = String(), lastVersionID: String = String(), limit: Int32 = 0) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(objectID: objectID, lastVersionID: lastVersionID, limit: limit)
         return Invocation<Request,Response>(messageName: "HistoryGetVersions", request: request) { request in
             return self.invoke(request)
         }
@@ -1596,14 +1662,14 @@ extension Anytype_Rpc.History.GetVersions {
 
 extension Anytype_Rpc.History.ShowVersion {
   public enum Service {
-    public static func invoke(pageID: String = String(), versionID: String = String(), traceID: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
-        return invocation(pageID: pageID, versionID: versionID, traceID: traceID).invoke(on: queue)
+    public static func invoke(objectID: String = String(), versionID: String = String(), traceID: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(objectID: objectID, versionID: versionID, traceID: traceID).invoke(on: queue)
     }
-    public static func invoke(pageID: String = String(), versionID: String = String(), traceID: String = String()) -> Result<Response, Error> {
-        return invocation(pageID: pageID, versionID: versionID, traceID: traceID).invoke()
+    public static func invoke(objectID: String = String(), versionID: String = String(), traceID: String = String()) -> Result<Response, Error> {
+        return invocation(objectID: objectID, versionID: versionID, traceID: traceID).invoke()
     }
-    public static func invocation(pageID: String = String(), versionID: String = String(), traceID: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
-        let request = Request(pageID: pageID, versionID: versionID, traceID: traceID)
+    public static func invocation(objectID: String = String(), versionID: String = String(), traceID: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(objectID: objectID, versionID: versionID, traceID: traceID)
         return Invocation<Request,Response>(messageName: "HistoryShowVersion", request: request) { request in
             return self.invoke(request)
         }
@@ -1618,14 +1684,14 @@ extension Anytype_Rpc.History.ShowVersion {
 
 extension Anytype_Rpc.History.SetVersion {
   public enum Service {
-    public static func invoke(pageID: String = String(), versionID: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
-        return invocation(pageID: pageID, versionID: versionID).invoke(on: queue)
+    public static func invoke(objectID: String = String(), versionID: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(objectID: objectID, versionID: versionID).invoke(on: queue)
     }
-    public static func invoke(pageID: String = String(), versionID: String = String()) -> Result<Response, Error> {
-        return invocation(pageID: pageID, versionID: versionID).invoke()
+    public static func invoke(objectID: String = String(), versionID: String = String()) -> Result<Response, Error> {
+        return invocation(objectID: objectID, versionID: versionID).invoke()
     }
-    public static func invocation(pageID: String = String(), versionID: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
-        let request = Request(pageID: pageID, versionID: versionID)
+    public static func invocation(objectID: String = String(), versionID: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(objectID: objectID, versionID: versionID)
         return Invocation<Request,Response>(messageName: "HistorySetVersion", request: request) { request in
             return self.invoke(request)
         }
@@ -2116,6 +2182,28 @@ extension Anytype_Rpc.Block.Create {
     }
     private static func invoke(_ request: Request) -> Response? {
         return Lib.ServiceBlockCreate(try? request.serializedData()).flatMap {
+            try? Response(serializedData: $0)
+        }
+    }
+  }
+}
+
+extension Anytype_Rpc.Block.CreateWidget {
+  public enum Service {
+    public static func invoke(contextID: String = String(), targetID: String = String(), block: Anytype_Model_Block, position: Anytype_Model_Block.Position = .none, widgetLayout: Anytype_Model_Block.Content.Widget.Layout = .link, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(contextID: contextID, targetID: targetID, block: block, position: position, widgetLayout: widgetLayout).invoke(on: queue)
+    }
+    public static func invoke(contextID: String = String(), targetID: String = String(), block: Anytype_Model_Block, position: Anytype_Model_Block.Position = .none, widgetLayout: Anytype_Model_Block.Content.Widget.Layout = .link) -> Result<Response, Error> {
+        return invocation(contextID: contextID, targetID: targetID, block: block, position: position, widgetLayout: widgetLayout).invoke()
+    }
+    public static func invocation(contextID: String = String(), targetID: String = String(), block: Anytype_Model_Block, position: Anytype_Model_Block.Position = .none, widgetLayout: Anytype_Model_Block.Content.Widget.Layout = .link) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, targetID: targetID, block: block, position: position, widgetLayout: widgetLayout)
+        return Invocation<Request,Response>(messageName: "BlockCreateWidget", request: request) { request in
+            return self.invoke(request)
+        }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+        return Lib.ServiceBlockCreateWidget(try? request.serializedData()).flatMap {
             try? Response(serializedData: $0)
         }
     }
@@ -3114,14 +3202,14 @@ extension Anytype_Rpc.BlockRelation.SetKey {
 
 extension Anytype_Rpc.BlockRelation.Add {
   public enum Service {
-    public static func invoke(contextID: String, blockID: String, relation: Anytype_Model_Relation, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-        return invocation(contextID: contextID, blockID: blockID, relation: relation).invoke(on: queue)
+    public static func invoke(contextID: String = String(), blockID: String = String(), relationKey: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(contextID: contextID, blockID: blockID, relationKey: relationKey).invoke(on: queue)
     }
-    public static func invoke(contextID: String, blockID: String, relation: Anytype_Model_Relation) -> Result<Response, Error> {
-        return invocation(contextID: contextID, blockID: blockID, relation: relation).invoke()
+    public static func invoke(contextID: String = String(), blockID: String = String(), relationKey: String = String()) -> Result<Response, Error> {
+        return invocation(contextID: contextID, blockID: blockID, relationKey: relationKey).invoke()
     }
-    public static func invocation(contextID: String, blockID: String, relation: Anytype_Model_Relation) -> ProtobufMessages.Invocation<Request, Response> {
-        let request = Request(contextID: contextID, blockID: blockID, relation: relation)
+    public static func invocation(contextID: String = String(), blockID: String = String(), relationKey: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockID: blockID, relationKey: relationKey)
         return Invocation<Request,Response>(messageName: "BlockRelationAdd", request: request) { request in
             return self.invoke(request)
         }
@@ -3312,14 +3400,14 @@ extension Anytype_Rpc.BlockDataview.View.SetActive {
 
 extension Anytype_Rpc.BlockDataview.Relation.Add {
   public enum Service {
-    public static func invoke(contextID: String, blockID: String, relation: Anytype_Model_Relation, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-        return invocation(contextID: contextID, blockID: blockID, relation: relation).invoke(on: queue)
+    public static func invoke(contextID: String = String(), blockID: String = String(), relationKeys: [String] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(contextID: contextID, blockID: blockID, relationKeys: relationKeys).invoke(on: queue)
     }
-    public static func invoke(contextID: String, blockID: String, relation: Anytype_Model_Relation) -> Result<Response, Error> {
-        return invocation(contextID: contextID, blockID: blockID, relation: relation).invoke()
+    public static func invoke(contextID: String = String(), blockID: String = String(), relationKeys: [String] = []) -> Result<Response, Error> {
+        return invocation(contextID: contextID, blockID: blockID, relationKeys: relationKeys).invoke()
     }
-    public static func invocation(contextID: String, blockID: String, relation: Anytype_Model_Relation) -> ProtobufMessages.Invocation<Request, Response> {
-        let request = Request(contextID: contextID, blockID: blockID, relation: relation)
+    public static func invocation(contextID: String = String(), blockID: String = String(), relationKeys: [String] = []) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockID: blockID, relationKeys: relationKeys)
         return Invocation<Request,Response>(messageName: "BlockDataviewRelationAdd", request: request) { request in
             return self.invoke(request)
         }
@@ -3332,38 +3420,16 @@ extension Anytype_Rpc.BlockDataview.Relation.Add {
   }
 }
 
-extension Anytype_Rpc.BlockDataview.Relation.Update {
-  public enum Service {
-    public static func invoke(contextID: String, blockID: String, relationKey: String, relation: Anytype_Model_Relation, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-        return invocation(contextID: contextID, blockID: blockID, relationKey: relationKey, relation: relation).invoke(on: queue)
-    }
-    public static func invoke(contextID: String, blockID: String, relationKey: String, relation: Anytype_Model_Relation) -> Result<Response, Error> {
-        return invocation(contextID: contextID, blockID: blockID, relationKey: relationKey, relation: relation).invoke()
-    }
-    public static func invocation(contextID: String, blockID: String, relationKey: String, relation: Anytype_Model_Relation) -> ProtobufMessages.Invocation<Request, Response> {
-        let request = Request(contextID: contextID, blockID: blockID, relationKey: relationKey, relation: relation)
-        return Invocation<Request,Response>(messageName: "BlockDataviewRelationUpdate", request: request) { request in
-            return self.invoke(request)
-        }
-    }
-    private static func invoke(_ request: Request) -> Response? {
-        return Lib.ServiceBlockDataviewRelationUpdate(try? request.serializedData()).flatMap {
-            try? Response(serializedData: $0)
-        }
-    }
-  }
-}
-
 extension Anytype_Rpc.BlockDataview.Relation.Delete {
   public enum Service {
-    public static func invoke(contextID: String = String(), blockID: String = String(), relationKey: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
-        return invocation(contextID: contextID, blockID: blockID, relationKey: relationKey).invoke(on: queue)
+    public static func invoke(contextID: String = String(), blockID: String = String(), relationKeys: [String] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(contextID: contextID, blockID: blockID, relationKeys: relationKeys).invoke(on: queue)
     }
-    public static func invoke(contextID: String = String(), blockID: String = String(), relationKey: String = String()) -> Result<Response, Error> {
-        return invocation(contextID: contextID, blockID: blockID, relationKey: relationKey).invoke()
+    public static func invoke(contextID: String = String(), blockID: String = String(), relationKeys: [String] = []) -> Result<Response, Error> {
+        return invocation(contextID: contextID, blockID: blockID, relationKeys: relationKeys).invoke()
     }
-    public static func invocation(contextID: String = String(), blockID: String = String(), relationKey: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
-        let request = Request(contextID: contextID, blockID: blockID, relationKey: relationKey)
+    public static func invocation(contextID: String = String(), blockID: String = String(), relationKeys: [String] = []) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockID: blockID, relationKeys: relationKeys)
         return Invocation<Request,Response>(messageName: "BlockDataviewRelationDelete", request: request) { request in
             return self.invoke(request)
         }
@@ -3458,138 +3524,6 @@ extension Anytype_Rpc.BlockDataview.ObjectOrder.Update {
     }
     private static func invoke(_ request: Request) -> Response? {
         return Lib.ServiceBlockDataviewObjectOrderUpdate(try? request.serializedData()).flatMap {
-            try? Response(serializedData: $0)
-        }
-    }
-  }
-}
-
-extension Anytype_Rpc.BlockDataviewRecord.Update {
-  public enum Service {
-    public static func invoke(contextID: String = String(), blockID: String = String(), recordID: String = String(), record: SwiftProtobuf.Google_Protobuf_Struct, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-        return invocation(contextID: contextID, blockID: blockID, recordID: recordID, record: record).invoke(on: queue)
-    }
-    public static func invoke(contextID: String = String(), blockID: String = String(), recordID: String = String(), record: SwiftProtobuf.Google_Protobuf_Struct) -> Result<Response, Error> {
-        return invocation(contextID: contextID, blockID: blockID, recordID: recordID, record: record).invoke()
-    }
-    public static func invocation(contextID: String = String(), blockID: String = String(), recordID: String = String(), record: SwiftProtobuf.Google_Protobuf_Struct) -> ProtobufMessages.Invocation<Request, Response> {
-        let request = Request(contextID: contextID, blockID: blockID, recordID: recordID, record: record)
-        return Invocation<Request,Response>(messageName: "BlockDataviewRecordUpdate", request: request) { request in
-            return self.invoke(request)
-        }
-    }
-    private static func invoke(_ request: Request) -> Response? {
-        return Lib.ServiceBlockDataviewRecordUpdate(try? request.serializedData()).flatMap {
-            try? Response(serializedData: $0)
-        }
-    }
-  }
-}
-
-extension Anytype_Rpc.BlockDataviewRecord.Delete {
-  public enum Service {
-    public static func invoke(contextID: String = String(), blockID: String = String(), recordID: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
-        return invocation(contextID: contextID, blockID: blockID, recordID: recordID).invoke(on: queue)
-    }
-    public static func invoke(contextID: String = String(), blockID: String = String(), recordID: String = String()) -> Result<Response, Error> {
-        return invocation(contextID: contextID, blockID: blockID, recordID: recordID).invoke()
-    }
-    public static func invocation(contextID: String = String(), blockID: String = String(), recordID: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
-        let request = Request(contextID: contextID, blockID: blockID, recordID: recordID)
-        return Invocation<Request,Response>(messageName: "BlockDataviewRecordDelete", request: request) { request in
-            return self.invoke(request)
-        }
-    }
-    private static func invoke(_ request: Request) -> Response? {
-        return Lib.ServiceBlockDataviewRecordDelete(try? request.serializedData()).flatMap {
-            try? Response(serializedData: $0)
-        }
-    }
-  }
-}
-
-extension Anytype_Rpc.BlockDataviewRecord.Create {
-  public enum Service {
-    public static func invoke(contextID: String = String(), blockID: String = String(), record: SwiftProtobuf.Google_Protobuf_Struct, templateID: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
-        return invocation(contextID: contextID, blockID: blockID, record: record, templateID: templateID).invoke(on: queue)
-    }
-    public static func invoke(contextID: String = String(), blockID: String = String(), record: SwiftProtobuf.Google_Protobuf_Struct, templateID: String = String()) -> Result<Response, Error> {
-        return invocation(contextID: contextID, blockID: blockID, record: record, templateID: templateID).invoke()
-    }
-    public static func invocation(contextID: String = String(), blockID: String = String(), record: SwiftProtobuf.Google_Protobuf_Struct, templateID: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
-        let request = Request(contextID: contextID, blockID: blockID, record: record, templateID: templateID)
-        return Invocation<Request,Response>(messageName: "BlockDataviewRecordCreate", request: request) { request in
-            return self.invoke(request)
-        }
-    }
-    private static func invoke(_ request: Request) -> Response? {
-        return Lib.ServiceBlockDataviewRecordCreate(try? request.serializedData()).flatMap {
-            try? Response(serializedData: $0)
-        }
-    }
-  }
-}
-
-extension Anytype_Rpc.BlockDataviewRecord.RelationOption.Add {
-  public enum Service {
-    public static func invoke(contextID: String = String(), blockID: String = String(), relationKey: String = String(), option: Anytype_Model_Relation.Option, recordID: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
-        return invocation(contextID: contextID, blockID: blockID, relationKey: relationKey, option: option, recordID: recordID).invoke(on: queue)
-    }
-    public static func invoke(contextID: String = String(), blockID: String = String(), relationKey: String = String(), option: Anytype_Model_Relation.Option, recordID: String = String()) -> Result<Response, Error> {
-        return invocation(contextID: contextID, blockID: blockID, relationKey: relationKey, option: option, recordID: recordID).invoke()
-    }
-    public static func invocation(contextID: String = String(), blockID: String = String(), relationKey: String = String(), option: Anytype_Model_Relation.Option, recordID: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
-        let request = Request(contextID: contextID, blockID: blockID, relationKey: relationKey, option: option, recordID: recordID)
-        return Invocation<Request,Response>(messageName: "BlockDataviewRecordRelationOptionAdd", request: request) { request in
-            return self.invoke(request)
-        }
-    }
-    private static func invoke(_ request: Request) -> Response? {
-        return Lib.ServiceBlockDataviewRecordRelationOptionAdd(try? request.serializedData()).flatMap {
-            try? Response(serializedData: $0)
-        }
-    }
-  }
-}
-
-extension Anytype_Rpc.BlockDataviewRecord.RelationOption.Update {
-  public enum Service {
-    public static func invoke(contextID: String = String(), blockID: String = String(), relationKey: String = String(), option: Anytype_Model_Relation.Option, recordID: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
-        return invocation(contextID: contextID, blockID: blockID, relationKey: relationKey, option: option, recordID: recordID).invoke(on: queue)
-    }
-    public static func invoke(contextID: String = String(), blockID: String = String(), relationKey: String = String(), option: Anytype_Model_Relation.Option, recordID: String = String()) -> Result<Response, Error> {
-        return invocation(contextID: contextID, blockID: blockID, relationKey: relationKey, option: option, recordID: recordID).invoke()
-    }
-    public static func invocation(contextID: String = String(), blockID: String = String(), relationKey: String = String(), option: Anytype_Model_Relation.Option, recordID: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
-        let request = Request(contextID: contextID, blockID: blockID, relationKey: relationKey, option: option, recordID: recordID)
-        return Invocation<Request,Response>(messageName: "BlockDataviewRecordRelationOptionUpdate", request: request) { request in
-            return self.invoke(request)
-        }
-    }
-    private static func invoke(_ request: Request) -> Response? {
-        return Lib.ServiceBlockDataviewRecordRelationOptionUpdate(try? request.serializedData()).flatMap {
-            try? Response(serializedData: $0)
-        }
-    }
-  }
-}
-
-extension Anytype_Rpc.BlockDataviewRecord.RelationOption.Delete {
-  public enum Service {
-    public static func invoke(contextID: String = String(), blockID: String = String(), relationKey: String = String(), optionID: String = String(), recordID: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
-        return invocation(contextID: contextID, blockID: blockID, relationKey: relationKey, optionID: optionID, recordID: recordID).invoke(on: queue)
-    }
-    public static func invoke(contextID: String = String(), blockID: String = String(), relationKey: String = String(), optionID: String = String(), recordID: String = String()) -> Result<Response, Error> {
-        return invocation(contextID: contextID, blockID: blockID, relationKey: relationKey, optionID: optionID, recordID: recordID).invoke()
-    }
-    public static func invocation(contextID: String = String(), blockID: String = String(), relationKey: String = String(), optionID: String = String(), recordID: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
-        let request = Request(contextID: contextID, blockID: blockID, relationKey: relationKey, optionID: optionID, recordID: recordID)
-        return Invocation<Request,Response>(messageName: "BlockDataviewRecordRelationOptionDelete", request: request) { request in
-            return self.invoke(request)
-        }
-    }
-    private static func invoke(_ request: Request) -> Response? {
-        return Lib.ServiceBlockDataviewRecordRelationOptionDelete(try? request.serializedData()).flatMap {
             try? Response(serializedData: $0)
         }
     }

@@ -49,7 +49,7 @@ final class EditorBottomNavigationView: UIView {
                 stackView.layoutUsing.anchors {
                     $0.pinToSuperview(
                         excluding: [.bottom],
-                        insets: UIEdgeInsets(top: 0, left: 60, bottom: 0, right: -60)
+                        insets: UIEdgeInsets(top: 0, left: 60, bottom: 0, right: 60)
                     )
                     $0.height.equal(to: Constants.height)
                     $0.bottom.equal(to: self.safeAreaLayoutGuide.bottomAnchor)

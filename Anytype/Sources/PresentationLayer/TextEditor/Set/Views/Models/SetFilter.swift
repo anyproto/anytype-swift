@@ -3,17 +3,17 @@ import SwiftProtobuf
 import OrderedCollections
 
 struct SetFilter: Identifiable, Equatable, Hashable {
-    let metadata: RelationMetadata
+    let relationDetails: RelationDetails
     let filter: DataviewFilter
     
-    var id: String { metadata.id }
+    var id: String { relationDetails.id }
     
     var conditionString: String? {
         conditionType.data[filter.condition]
     }
     
-    static func defaultCondition(for metadata: RelationMetadata) -> DataviewFilter.Condition {
-        let conditionType =  Self.conditionType(for: metadata)
+    static func defaultCondition(for relationDetails: RelationDetails) -> DataviewFilter.Condition {
+        let conditionType =  Self.conditionType(for: relationDetails)
         switch conditionType {
         case .text, .number, .checkbox, .date:
             return .equal
@@ -23,17 +23,17 @@ struct SetFilter: Identifiable, Equatable, Hashable {
     }
     
     var conditionType: Condition {
-        Self.conditionType(for: metadata)
+        Self.conditionType(for: relationDetails)
     }
     
-    static func conditionType(for metadata: RelationMetadata) -> Condition {
-        switch metadata.format {
+    static func conditionType(for relationDetails: RelationDetails) -> Condition {
+        switch relationDetails.format {
         case .shortText, .longText, .url, .email, .file, .unrecognized, .phone:
             return .text
         case .number:
             return .number
         case .tag, .status, .object:
-            return .selected(metadata.format)
+            return .selected(relationDetails.format)
         case .checkbox:
             return .checkbox
         case .date:
@@ -44,7 +44,7 @@ struct SetFilter: Identifiable, Equatable, Hashable {
     enum Condition {
         case text
         case number
-        case selected(RelationMetadata.Format)
+        case selected(RelationFormat)
         case checkbox
         case date
         
@@ -117,11 +117,11 @@ struct SetFilter: Identifiable, Equatable, Hashable {
 
 extension SetFilter {
     func updated(
-        metadata: RelationMetadata? = nil,
+        relationDetails: RelationDetails? = nil,
         filter: DataviewFilter? = nil
     ) -> SetFilter {
         SetFilter(
-            metadata: metadata ?? self.metadata,
+            relationDetails: relationDetails ?? self.relationDetails,
             filter: filter ?? self.filter
         )
     }

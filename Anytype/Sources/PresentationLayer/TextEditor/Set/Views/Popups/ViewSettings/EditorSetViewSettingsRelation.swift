@@ -3,6 +3,6 @@ struct EditorSetViewSettingsRelation: Identifiable {
     let image: ImageAsset
     let title: String
     let isOn: Bool
-    let isBundled: Bool
+    let isSystem: Bool
     @EquatableNoop var onChange: (Bool) -> Void
 }

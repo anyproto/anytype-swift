@@ -91,15 +91,13 @@ extension TextRelationDetailsViewModel: AnytypePopupViewModelProtocol {
 private extension TextRelationDetailsViewModel {
     
     func saveValue() {
-        service.saveRelation(value: value, key: relation.id, textType: type)
+        service.saveRelation(value: value, key: relation.key, textType: type)
         logEvent()
     }
     
     func setupKeyboardListener() {
-        let showAction: KeyboardEventsListnerHelper.Action = { [weak self] notification in
-            guard
-                let keyboardRect = notification.localKeyboardRect(for: UIResponder.keyboardFrameEndUserInfoKey)
-            else { return }
+        let showAction: KeyboardEventsListnerHelper.Action = { [weak self] event in
+            guard let keyboardRect = event.endFrame else { return }
             
             self?.adjustViewHeightBy(keyboardHeight: keyboardRect.height)
         }

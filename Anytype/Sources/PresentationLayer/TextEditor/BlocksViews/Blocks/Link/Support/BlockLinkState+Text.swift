@@ -2,19 +2,29 @@ import UIKit
 import BlocksModels
 
 extension BlockLinkState {
-    
-    var attributedTitle: NSAttributedString {
+    var titleText: String {
         if deleted {
-            return NSAttributedString(
-                string: Loc.nonExistentObject,
-                attributes: disabledAttributes
-            )
+            return Loc.deletedObject
         }
-        
-        return NSAttributedString(
-            string: !title.isEmpty ? title : Loc.untitled,
-            attributes: archived ? disabledAttributes : enabledAttributes
-        )
+
+        return !title.isEmpty ? title : Loc.untitled
+    }
+
+    var textTitleFont: AnytypeFont { .previewTitle1Medium }
+    var cardTitleFont: AnytypeFont { .uxTitle2Medium }
+
+    var titleColor: UIColor {
+        if case let .checkmark(value) = style, value {
+            return .buttonActive
+        }
+
+        if deleted || archived {
+            return .buttonActive
+        }
+
+
+
+        return .textPrimary
     }
 
     var attributedDescription: NSAttributedString {
@@ -35,27 +45,25 @@ extension BlockLinkState {
 
         return NSAttributedString(
             string: type.name,
-            attributes: archived ? disabledDescriptionAttributes : enabledDescriptionAttributes
+            attributes: [
+                .font: UIFont.relation2Regular,
+                .foregroundColor: UIColor.textSecondary,
+            ]
         )
     }
     
     private var disabledAttributes: [NSAttributedString.Key : Any] {
         [
             .font: UIFont.bodyRegular,
-            .foregroundColor: UIColor.buttonActive,
-            .underlineStyle: NSUnderlineStyle.single.rawValue,
-            .underlineColor: UIColor.buttonInactive
+            .foregroundColor: UIColor.buttonActive
         ]
     }
     
     private var enabledAttributes: [NSAttributedString.Key : Any] {
-        let underlineStyle: NSUnderlineStyle = cardStyle == .card ? [] : .single
 
         return [
             .font: UIFont.bodyRegular,
-            .foregroundColor: UIColor.textPrimary,
-            .underlineStyle: underlineStyle.rawValue ,
-            .underlineColor: UIColor.buttonActive
+            .foregroundColor: UIColor.textPrimary
         ]
     }
 
@@ -69,7 +77,7 @@ extension BlockLinkState {
     private var enabledDescriptionAttributes: [NSAttributedString.Key : Any] {
         [
             .font: UIFont.relation2Regular,
-            .foregroundColor: UIColor.textSecondary,
+            .foregroundColor: UIColor.textPrimary,
         ]
     }
     

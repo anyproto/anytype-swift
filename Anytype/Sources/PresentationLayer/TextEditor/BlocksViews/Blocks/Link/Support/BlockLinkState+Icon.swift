@@ -1,162 +1,122 @@
 import UIKit
 import BlocksModels
-import Kingfisher
 
 extension BlockLinkState {
-    
-    func makeIconView() -> UIView? {
-        if deleted {
-            return makeIconImageView(UIImage(asset: .ghost))
-        }
-        
+    var iconImage: ObjectIconImage? {
         switch style {
         case .noContent:
             return nil
-        case let .icon(icon):
-            guard iconSize.hasIcon else { return nil }
-
-            switch icon {
-            case let .basic(id), let .bookmark(id):
-                return makeImageView(imageId: id, cornerRadius: 4)
-            case let .profile(profile):
-                return makeProfileIconView(profile)
-            case let .emoji(emoji):
-                return makeEmoji(with: emoji.value)
-                
-            }
-        case let .checkmark(isChecked):
-            let image = UIImage(asset: isChecked ? .todoCheckmark : .todoCheckbox)
-            return makeIconImageView(image)
-        }
-    }
-    
-}
-
-private extension BlockLinkState {
-    
-    func makeProfileIconView(_ icon: ObjectIconType.Profile) -> UIView {
-        switch icon {
-        case let .imageId(imageId):
-            return makeImageView(imageId: imageId, cornerRadius: imageSize.width / 2)
-            
-        case let .character(placeholder):
-            return makePlaceholderView(placeholder)
-        }
-    }
-    
-    func makeImageView(imageId: BlockId, cornerRadius: CGFloat) -> UIImageView {
-        let imageView = UIImageView()
-
-        let imageGuideline = ImageGuideline(size: imageSize, radius: .point(cornerRadius))
-        imageView.wrapper
-            .imageGuideline(imageGuideline)
-            .setImage(id: imageId)
-        
-        imageView.layoutUsing.anchors {
-            $0.size(imageSize)
-        }
-   
-        return imageView
-    }
-    
-    func makeIconImageView(_ image: UIImage?) -> UIView {
-        let imageView = UIImageView(image: image)
-        
-        imageView.layoutUsing.anchors {
-            $0.size(imageSize)
-        }
-        return imageView
-    }
-    
-    func makePlaceholderView(_ placeholder: Character) -> UIView {
-        let imageGuideline = ImageGuideline(size: imageSize, radius: .widthFraction(0.5))
-        
-        let image = ImageBuilder(imageGuideline)
-            .setImageColor(.strokePrimary)
-            .setText(String(placeholder))
-            .setFont(UIFont.systemFont(ofSize: 17))
-            .build()
-        return makeIconImageView(image)
-    }
-    
-    func makeEmoji(with string: String) -> UIView {
-        switch cardStyle {
-        case .text:
-            return makeLabelEmoji(with: string)
-        case .card:
-            return makeEmojiImageView(with: string)
+        case .checkmark(let isChecked):
+            return .todo(isChecked)
+        case .icon(let iconType):
+            return .icon(iconType)
         }
     }
 
-    func makeLabelEmoji(with string: String) -> UILabel {
-        let label = UILabel()
-        label.text = string
+    func applyTitleState(
+        on label: AnytypeLabel,
+        font: AnytypeFont,
+        iconIntendHidden: Bool = false
+    ) {
+        let attributes: [NSAttributedString.Key : Any] = [
+            .foregroundColor: titleColor,
+            .font: font.uiKitFont
+        ]
+        if archived, let ghostImage = UIImage(asset: .ghost) {
 
-        label.layoutUsing.anchors {
-            $0.size(imageSize)
+            let attributedString = NSAttributedString.imageFirstComposite(
+                image: ghostImage,
+                text: titleText,
+                attributes: attributes
+            )
+
+            label.setText(attributedString)
+            return 
+        } else if style == .noContent || !iconSize.hasIcon || iconIntendHidden {
+            let attributedString = NSAttributedString(
+                string: titleText,
+                attributes: attributes
+            )
+
+            label.setText(attributedString)
+            return
         }
-        return label
-    }
 
-    func makeEmojiImageView(with string: String) -> UIImageView {
-        let painter = ObjectIconImagePainter.shared
-        let image = painter.image(
-            with: string,
-            font: .previewTitle2Regular,
-            textColor: .textPrimary,
-            imageGuideline: .init(size: imageSize),
-            backgroundColor: .clear
+        let image = UIImage.circleImage(
+            size: imageSize,
+            fillColor: .strokePrimary,
+            borderColor: .clear,
+            borderWidth: 0
         )
-        let imageView = UIImageView(image: image)
 
-        imageView.layoutUsing.anchors {
-            $0.size(Constants.CardLayout.imageViewSize)
-        }
-        imageView.backgroundColor = .strokeTransperent
-        imageView.layer.cornerRadius = 14
+        let attributedText = NSAttributedString.imageFirstComposite(
+            image: image,
+            text: titleText,
+            attributes: attributes
+        )
 
-        return imageView
-    }
+        label.setText(attributedText)
 
-    var imageSize: CGSize {
-        if deleted {
-            return Constants.TextLayout.imageViewSize
-        }
-        
-        switch cardStyle {
-        case .text:
-            return Constants.TextLayout.imageViewSize
-        case .card:
-            switch style {
-            case.checkmark:
-                return Constants.CardLayout.checkmarkViewSize
-            case .icon(let type):
-                switch type {
-                case .emoji:
-                    return Constants.CardLayout.emojiViewSize
-                default:
-                    return Constants.CardLayout.imageViewSize
-                }
-            case .noContent:
-                return .zero
+        let anytypeLoader = AnytypeIconDownloader()
+
+        Task { @MainActor in
+            guard let image = await anytypeLoader.image(with: style, imageGuideline: .init(size: imageSize)) else {
+                return
             }
+
+            let attributedText = NSAttributedString.imageFirstComposite(
+                image: image,
+                text: titleText,
+                attributes: attributes
+            )
+
+            label.setText(attributedText)
         }
     }
-    
+}
+
+extension NSAttributedString {
+    static func imageFirstComposite(
+        image: UIImage,
+        text: String,
+        spaceWidth: CGFloat = 6,
+        attributes: [NSAttributedString.Key : Any]
+    ) -> NSAttributedString {
+        let font = (attributes[.font] as? UIFont) ?? UIFont.preferredFont(forTextStyle: .body)
+
+        let textAttachment = NSTextAttachment()
+        textAttachment.image = image
+
+        textAttachment.bounds = CGRect(
+            x: 0,
+            y: (font.capHeight - image.size.height).rounded() / 2,
+            width: image.size.width,
+            height: image.size.height
+        )
+
+        let textAttributedString = NSAttributedString(string: text, attributes: attributes)
+
+        let compositeAttributedString = NSMutableAttributedString(attachment: textAttachment)
+        
+        let spacerAttachmenent = NSTextAttachment()
+        spacerAttachmenent.image = UIImage()
+        spacerAttachmenent.bounds = .init(origin: .zero, size: .init(width: spaceWidth, height: 0.001))
+        
+        compositeAttributedString.append(.init(attachment: spacerAttachmenent))
+
+        compositeAttributedString.append(textAttributedString)
+
+        return compositeAttributedString
+    }
 }
 
 private extension BlockLinkState {
-    
-    enum Constants {
-        enum TextLayout {
-            static let imageViewSize = CGSize(width: 24, height: 24)
-        }
-
-        enum CardLayout {
-            static let imageViewSize = CGSize(width: 64, height: 64)
-            static let emojiViewSize = CGSize(width: 36, height: 36)
-            static let checkmarkViewSize = CGSize(width: 28, height: 28)
+    var imageSize: CGSize {
+        switch cardStyle {
+        case .card:
+            return .init(width: 18, height: 18)
+        case .text:
+            return .init(width: 20, height: 20)
         }
     }
-    
 }

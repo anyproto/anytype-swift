@@ -1,4 +1,9 @@
+import Combine
+
 public protocol InfoContainerProtocol: AnyObject {
+    
+    func publisherFor(id: BlockId) -> AnyPublisher<BlockInformation?, Never>
+    
     func children(of id: BlockId) -> [BlockInformation]
     func recursiveChildren(of id: BlockId) -> [BlockInformation]
 

@@ -25,11 +25,12 @@ final class HomeViewModel: ObservableObject {
     
     @Published var showSearch = false
     @Published var showPagesDeletionAlert = false
-    @Published var snackBarData = SnackBarData.empty
+    @Published var snackBarData = ToastBarData.empty
     @Published var loadingAlertData = LoadingAlertData.empty
     @Published var loadingDocument = true
     
     @Published private(set) var profileData: HomeProfileData?
+    @Published private(set) var settingsViewModel: SettingsViewModel
     
     let objectActionsService: ObjectActionsServiceProtocol = ServiceLocator.shared.objectActionsService()
     
@@ -40,7 +41,6 @@ final class HomeViewModel: ObservableObject {
     
     let document: BaseDocumentProtocol
     lazy var cellDataBuilder = HomeCellDataBuilder(document: document)
-    lazy var favoritesSorter = HomeFavoritesSorter(document: document)
     private lazy var cancellables = [AnyCancellable]()
     
     let bottomSheetCoordinateSpaceName = "BottomSheetCoordinateSpaceName"
@@ -49,17 +49,25 @@ final class HomeViewModel: ObservableObject {
     private var quickActionsSubscription: AnyCancellable?
     
     private let editorBrowserAssembly: EditorBrowserAssembly
+    private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     
     init(
         homeBlockId: BlockId,
         editorBrowserAssembly: EditorBrowserAssembly,
         tabsSubsciptionDataBuilder: TabsSubscriptionDataBuilderProtocol,
-        profileSubsciptionDataBuilder: ProfileSubscriptionDataBuilderProtocol
+        profileSubsciptionDataBuilder: ProfileSubscriptionDataBuilderProtocol,
+        newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
+        windowManager: WindowManager
     ) {
         document = BaseDocument(objectId: homeBlockId)
         self.editorBrowserAssembly = editorBrowserAssembly
         self.tabsSubsciptionDataBuilder = tabsSubsciptionDataBuilder
         self.profileSubsciptionDataBuilder = profileSubsciptionDataBuilder
+        self.newSearchModuleAssembly = newSearchModuleAssembly
+        self.settingsViewModel = SettingsViewModel(
+            authService: ServiceLocator.shared.authService(),
+            windowManager: windowManager
+        )
         setupSubscriptions()
         
         let data = UserDefaultsConfig.screenDataFromLastSession
@@ -132,8 +140,7 @@ final class HomeViewModel: ObservableObject {
         case .setsTab:
             setsCellData.applySubscriptionUpdate(update, transform: cellDataBuilder.buildCellData)
         case .favoritesTab:
-            favoritesCellData.applySubscriptionUpdate(update, transform: cellDataBuilder.buildCellData)
-            favoritesCellData = favoritesSorter.sort(data: favoritesCellData)
+            favoritesCellData = cellDataBuilder.buildFavoritesData()
         default:
             anytypeAssertionFailure("Unsupported subscription: \(id)", domain: .homeView)
         }
@@ -145,6 +152,15 @@ final class HomeViewModel: ObservableObject {
         $selectedTab.sink { [weak self] in
             self?.onTabChange(tab: $0)
         }.store(in: &cancellables)
+        
+        document.infoContainer.publisherFor(id: document.objectId)
+            .removeDuplicates()
+            .sink { [weak self] _ in
+                if self?.selectedTab == .favourites {
+                    self?.updateCurrentTab()
+                }
+            }
+            .store(in: &cancellables)
         
         // visual delay on application launch
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
@@ -187,7 +203,7 @@ extension HomeViewModel {
         guard let id = dashboardService.createNewPage() else { return }
         
         AnytypeAnalytics.instance().logCreateObject(
-            objectType: ObjectTypeProvider.shared.defaultObjectType.url,
+            objectType: ObjectTypeProvider.shared.defaultObjectType.id,
             route: .home
         )
         
@@ -216,4 +232,7 @@ extension HomeViewModel {
             .edgesIgnoringSafeArea(.all)
     }
     
+    func createPersonalizationView() -> some View {
+        return PersonalizationView(newSearchModuleAssembly: newSearchModuleAssembly)
+    }
 }

@@ -2,28 +2,39 @@ import Foundation
 import BlocksModels
 
 extension BaseDocumentProtocol {
-    // without description and with type
+    // without description, type and editable setOf if needed
     var featuredRelationsForEditor: [Relation] {
         let type = details?.objectType ?? .fallbackType
         let objectRestriction = objectRestrictions.objectRestriction
         
         var enhancedRelations = parsedRelations.featuredRelations
         
-        let objectTypeRelation: Relation = .text(
+        let objectTypeRelationValue: Relation = .text(
             Relation.Text(
                 id: BundledRelationKey.type.rawValue,
+                key: BundledRelationKey.type.rawValue,
                 name: "",
                 isFeatured: false,
                 isEditable: !objectRestriction.contains(.typechange),
-                isBundled: true,
+                isSystem: true,
+                isDeleted: false,
+                isDeletedValue: type.isDeleted,
                 value: type.name
             )
         )
 
-        enhancedRelations.insert(objectTypeRelation, at: 0)
+        enhancedRelations.insert(objectTypeRelationValue, at: 0)
 
         enhancedRelations.removeAll { relation in
-            relation.id == BundledRelationKey.description.rawValue
+            relation.key == BundledRelationKey.description.rawValue
+        }
+        
+        let setOfIndex = enhancedRelations.firstIndex { $0.key == BundledRelationKey.setOf.rawValue }
+        if !isLocked,
+            let setOfIndex,
+            let editableRelation = enhancedRelations[setOfIndex].editableRelation
+        {
+            enhancedRelations[setOfIndex] = editableRelation
         }
 
         return enhancedRelations

@@ -21,6 +21,7 @@ final class TemplatesCoordinatorAssembly: TemplatesCoordinatorAssemblyProtocol {
             rootViewController: viewController,
             keyboardHeightListener: .init(),
             searchService: serviceLocator.searchService(),
+            objectsService: ServiceLocator.shared.objectActionsService(),
             editorPageAssembly: coordinatorsDI.editor
         )
     }

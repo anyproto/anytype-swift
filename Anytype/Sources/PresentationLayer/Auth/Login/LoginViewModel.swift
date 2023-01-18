@@ -6,7 +6,8 @@ class LoginViewModel: ObservableObject {
     private let authService = ServiceLocator.shared.authService()
     private lazy var cameraPermissionVerifier = CameraPermissionVerifier()
     private let seedService: SeedServiceProtocol
-
+    private let windowManager: WindowManager
+    
     @Published var seed: String = ""
     @Published var showQrCodeView: Bool = false
     @Published var openSettingsURL = false
@@ -31,9 +32,10 @@ class LoginViewModel: ObservableObject {
 
     private var subscriptions = [AnyCancellable]()
 
-    init(seedService: SeedServiceProtocol = ServiceLocator.shared.seedService()) {
+    init(seedService: SeedServiceProtocol = ServiceLocator.shared.seedService(), windowManager: WindowManager) {
         self.canRestoreFromKeychain = (try? seedService.obtainSeed()).isNotNil
         self.seedService = seedService
+        self.windowManager = windowManager
     }
     
     func onEntropySet() {
@@ -73,6 +75,12 @@ class LoginViewModel: ObservableObject {
 
             recoverWallet(with: phrase)            
         }
+    }
+    
+    @MainActor
+    func selectProfileFlow() -> some View {
+        let viewModel = SelectProfileViewModel(windowManager: windowManager)
+        return SelectProfileView(viewModel: viewModel)
     }
 
     private func recoverWallet(with string: String) {

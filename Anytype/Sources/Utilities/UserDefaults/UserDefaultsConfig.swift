@@ -22,12 +22,15 @@ struct UserDefaultsConfig {
     @UserDefault("UserData.DefaultObjectType", defaultValue: ObjectType.fallbackType)
     static var defaultObjectType: ObjectType {
         didSet {
-            AnytypeAnalytics.instance().logDefaultObjectTypeChange(defaultObjectType.url)
+            AnytypeAnalytics.instance().logDefaultObjectTypeChange(defaultObjectType.id)
         }
     }
     
     @UserDefault("UserData.RowsPerPageInSet", defaultValue: 50)
     static var rowsPerPageInSet: Int
+    
+    @UserDefault("UserData.RowsPerPageInGroupedSet", defaultValue: 20)
+    static var rowsPerPageInGroupedSet: Int
     
     @UserDefault("UserData.ShowKeychainAlert", defaultValue: false)
     static var showKeychainAlert: Bool

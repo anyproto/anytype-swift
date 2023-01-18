@@ -68,12 +68,12 @@ final class BlocksSelectionOverlayView: UIView {
         statusBarOverlayView.backgroundColor = .backgroundPrimary
 
         addSubview(shadowedBlocksOptionView) {
-            $0.pinToSuperview(excluding: [.top], insets: .init(top: 0, left: 10, bottom: -10, right: -10))
+            $0.pinToSuperview(excluding: [.top], insets: .init(top: 0, left: 10, bottom: 10, right: 10))
             $0.height.equal(to: 100)
         }
 
         addSubview(shadowedSimpleTablesOptionView) {
-            $0.pinToSuperview(excluding: [.top], insets: .init(top: 0, left: 10, bottom: -20, right: -10))
+            $0.pinToSuperview(excluding: [.top], insets: .init(top: 0, left: 10, bottom: 20, right: 10))
             $0.height.equal(to: 174)
         }
 

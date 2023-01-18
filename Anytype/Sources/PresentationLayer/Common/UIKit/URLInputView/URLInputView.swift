@@ -55,7 +55,7 @@ final class URLInputView: UIView {
         let size = super.intrinsicContentSize
         return CGSize(
             width: size.width,
-            height: Constants.insets.top + (-Constants.insets.bottom) + stackView.intrinsicContentSize.height)
+            height: Constants.insets.top + Constants.insets.bottom + stackView.intrinsicContentSize.height)
     }
     
     private var notificationToken: NSObjectProtocol?
@@ -88,10 +88,10 @@ final class URLInputView: UIView {
             if UIDevice.isPad {
                 $0.pin(to: readableContentGuide, excluding: [.top, .bottom])
                 $0.top.equal(to: topAnchor, constant: Constants.insets.top)
-                $0.bottom.equal(to: safeAreaLayoutGuide.bottomAnchor, constant: Constants.insets.bottom)
+                $0.bottom.equal(to: safeAreaLayoutGuide.bottomAnchor, constant: -Constants.insets.bottom)
             } else {
                 $0.pinToSuperview(excluding: [.bottom], insets: Constants.insets)
-                $0.bottom.equal(to: safeAreaLayoutGuide.bottomAnchor, constant: Constants.insets.bottom)
+                $0.bottom.equal(to: safeAreaLayoutGuide.bottomAnchor, constant: -Constants.insets.bottom)
             }
         }
         
@@ -143,7 +143,7 @@ extension URLInputView {
     
     private enum Constants {
         static let horizontalElementsSpacing: CGFloat = 10
-        static let insets = UIEdgeInsets(top: 12, left: 16, bottom: -12, right: -16)
+        static let insets = UIEdgeInsets(top: 12, left: 16, bottom: 12, right: 16)
         static let lineHeight: CGFloat = 1
     }
 }

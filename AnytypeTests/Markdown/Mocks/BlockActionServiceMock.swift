@@ -111,7 +111,7 @@ final class BlockActionServiceMock: BlockActionServiceProtocol {
         return nil
     }
     
-    func createPage(targetId: BlockId, type: ObjectTypeUrl, position: BlockPosition) -> BlockId? {
+    func createPage(targetId: BlockId, type: ObjectTypeId, position: BlockPosition) -> BlockId? {
         assertionFailure()
         return nil
     }
@@ -154,7 +154,7 @@ final class BlockActionServiceMock: BlockActionServiceProtocol {
         return false
     }
     
-    func setObjectTypeUrl(_ objectTypeUrl: String) {
+    func setObjectTypeId(_ objectTypeId: String) {
         assertionFailure()
     }
     

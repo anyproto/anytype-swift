@@ -1,9 +1,10 @@
 import UIKit
+import Combine
 
-// Non-final toast view. Should be designed by design team
-final class ToastView: ThroughHitView {
-    private lazy var label = UILabel(frame: .zero)
-
+final class ToastView: UIView {
+    private lazy var label = TappableLabel(frame: .zero)
+    private var bottomConstraint: NSLayoutConstraint?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
 
@@ -16,46 +17,51 @@ final class ToastView: ThroughHitView {
         setupView()
     }
 
-    func setMessage(_ message: String) {
-        label.text = message
+    func setMessage(_ message: NSAttributedString) {
+        label.attributedText = message
+    }
+    
+    func updateBottomInset(_ inset: CGFloat) {
+        bottomConstraint?.constant = -inset
     }
 
     private func setupView() {
-        backgroundColor = .clear
-
-        label.textColor = .textWhite
+        label.textColor = .textPrimary
         label.textAlignment = .center;
-        label.font = AnytypeFont.caption1Medium.uiKitFont
+        label.font = AnytypeFont.caption1Regular.uiKitFont
         label.numberOfLines = 0
 
-        let decoratedView = UIView()
-        decoratedView.backgroundColor = .buttonActive
-        decoratedView.layer.cornerRadius = 8
-        decoratedView.layer.masksToBounds = true
-
-        addSubview(decoratedView) {
+        backgroundColor = .clear
+        
+        let wrapperView = UIView()
+        addSubview(wrapperView) {
+            $0.pinToSuperview(excluding: [.left, .right, .bottom])
+            $0.leading.greaterThanOrEqual(to: leadingAnchor)
+            $0.trailing.lessThanOrEqual(to: trailingAnchor)
             $0.centerX.equal(to: centerXAnchor)
+            bottomConstraint = $0.bottom.equal(to: bottomAnchor)
         }
-
-        NSLayoutConstraint(
-            item: decoratedView,
-            attribute: .centerY,
-            relatedBy: .equal,
-            toItem: self,
-            attribute: .centerY,
-            multiplier: 1.5,
-            constant: 0
-        ).isActive = true
-
-
-        decoratedView.addSubview(label) {
-            $0.pinToSuperview(insets: .init(top: 8, left: 8, bottom: -8, right: -8))
+        
+        wrapperView.backgroundColor = .backgroundBlack
+        wrapperView.layer.cornerRadius = 8
+        wrapperView.layer.masksToBounds = true
+        wrapperView.layer.borderWidth = 1
+        wrapperView.layer.borderColor = UIColor.strokePrimary.withAlphaComponent(0.14).cgColor
+        
+        wrapperView.addSubview(label) {
+            $0.pinToSuperview(
+                insets: .init(top: 12, left: 16, bottom: 12, right: 16)
+            )
         }
     }
 }
 
-class ThroughHitView: UIView {
-    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-        return nil
+extension ToastView {
+    static var defaultAttributes: [NSAttributedString.Key : Any] {
+        [.foregroundColor: UIColor.textWhite, .font: AnytypeFont.caption1Regular.uiKitFont]
+    }
+    
+    static var objectAttributes: [NSAttributedString.Key : Any] {
+        [.foregroundColor: UIColor.textWhite, .font: AnytypeFont.caption1Medium.uiKitFont]
     }
 }

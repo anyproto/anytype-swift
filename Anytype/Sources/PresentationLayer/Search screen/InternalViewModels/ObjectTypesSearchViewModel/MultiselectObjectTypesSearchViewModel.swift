@@ -12,10 +12,16 @@ final class MultiselectObjectTypesSearchViewModel {
     private var selectedObjectTypeIds: [String] = []
     
     private let interactor: ObjectTypesSearchInteractor
+    private let onSelect: (_ ids: [String]) -> Void
     
-    init(selectedObjectTypeIds: [String], interactor: ObjectTypesSearchInteractor) {
+    init(
+        selectedObjectTypeIds: [String],
+        interactor: ObjectTypesSearchInteractor,
+        onSelect: @escaping (_ ids: [String]) -> Void
+    ) {
         self.selectedObjectTypeIds = selectedObjectTypeIds
         self.interactor = interactor
+        self.onSelect = onSelect
     }
     
 }
@@ -41,6 +47,9 @@ extension MultiselectObjectTypesSearchViewModel: NewInternalSearchViewModelProto
         handleSearchResults(objects)
     }
     
+    func handleConfirmSelection(ids: [String]) {
+        onSelect(ids)
+    }
 }
 
 private extension MultiselectObjectTypesSearchViewModel {
@@ -56,7 +65,6 @@ private extension MultiselectObjectTypesSearchViewModel {
             )
         )
     }
-    
 }
 
 private extension Array where Element == ObjectDetails {

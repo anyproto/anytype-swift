@@ -9,7 +9,6 @@ public typealias ObjectId = String
 public protocol BundledRelationsValueProvider {
 
     var meditation: Bool { get }
-    var relationOptionsDict: [ObjectId] { get }
     var tag: [ObjectId] { get }
     var camera: String { get }
     var heightInPixels: Int? { get }
@@ -18,7 +17,6 @@ public protocol BundledRelationsValueProvider {
     var toBeDeletedDate: Date? { get }
     var relationFormatObjectTypes: [ObjectId] { get }
     var relationKey: String { get }
-    var relationOptionText: String { get }
     var relationOptionColor: String { get }
     var instructions: String { get }
     var done: Bool { get }
@@ -179,15 +177,12 @@ public protocol BundledRelationsValueProvider {
     var imdbRating: Int? { get }
     var smartblockTypes: [Int] { get }
     var source: AnytypeURL? { get }
+    var sourceObject: ObjectId { get }
 } 
 
 public extension BundledRelationsValueProvider where Self: RelationValueProvider {
     var meditation: Bool {
         return value(for: BundledRelationKey.meditation.rawValue)
-    }
-    /// Strict dictionary to select relation values from
-    var relationOptionsDict: [ObjectId] {
-        return value(for: BundledRelationKey.relationOptionsDict.rawValue)
     }
     var tag: [ObjectId] {
         return value(for: BundledRelationKey.tag.rawValue)
@@ -211,17 +206,13 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     var toBeDeletedDate: Date? {
         return value(for: BundledRelationKey.toBeDeletedDate.rawValue)
     }
-    /// Types that used for such relation
+    /// Prioritized target types for the relation's value
     var relationFormatObjectTypes: [ObjectId] {
         return value(for: BundledRelationKey.relationFormatObjectTypes.rawValue)
     }
     /// Relation key
     var relationKey: String {
         return value(for: BundledRelationKey.relationKey.rawValue)
-    }
-    /// Relation option text
-    var relationOptionText: String {
-        return value(for: BundledRelationKey.relationOptionText.rawValue)
     }
     /// Relation option color
     var relationOptionColor: String {
@@ -727,7 +718,7 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     var progress: Int? {
         return value(for: BundledRelationKey.progress.rawValue)
     }
-    /// Point to the object types used to aggregate the set. Empty means object of all types will be aggregated 
+    /// Point to the object types or realtions used to aggregate the set. Empty means object of all types will be aggregated 
     var setOf: [ObjectId] {
         return value(for: BundledRelationKey.setOf.rawValue)
     }
@@ -761,11 +752,14 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     var imdbRating: Int? {
         return value(for: BundledRelationKey.imdbRating.rawValue)
     }
-    /// List of smartblock types
+    /// Stored for object type. Contains tge list of smartblock types used to create the object
     var smartblockTypes: [Int] {
         return value(for: BundledRelationKey.smartblockTypes.rawValue)
     }
     var source: AnytypeURL? {
         return value(for: BundledRelationKey.source.rawValue)
+    }
+    var sourceObject: ObjectId {
+        return value(for: BundledRelationKey.sourceObject.rawValue)
     }
 }

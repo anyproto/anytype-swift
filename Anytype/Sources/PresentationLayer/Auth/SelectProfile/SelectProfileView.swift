@@ -14,11 +14,7 @@ struct SelectProfileView: View {
             }
         }
         
-        .snackbar(
-            isShowing: $viewModel.snackBarData.showSnackBar,
-            text: AnytypeText(viewModel.snackBarData.text, style: .uxCalloutRegular, color: .textPrimary),
-            autohide: .disabled
-        )
+        .snackbar(toastBarData: $viewModel.snackBarData)
         
         .errorToast(isShowing: $viewModel.showError, errorText: viewModel.errorText ?? "") {
             presentationMode.wrappedValue.dismiss()
@@ -35,7 +31,7 @@ struct SelectProfileView: View {
 
 struct SelectProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        let viewModel =  SelectProfileViewModel()
+        let viewModel =  SelectProfileViewModel(windowManager: DI.makeForPreview().coordinatorsDI.windowManager)
         return SelectProfileView(viewModel: viewModel)
     }
 }
