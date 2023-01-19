@@ -2,12 +2,15 @@ import BlocksModels
 import Combine
 import AnytypeCore
 
-protocol BaseDocumentProtocol: AnyObject {
+protocol BaseDocumentGeneralProtocol: AnyObject {
+    var details: ObjectDetails? { get }
+    var updatePublisher: AnyPublisher<DocumentUpdate, Never> { get }
+}
+
+protocol BaseDocumentProtocol: AnyObject, BaseDocumentGeneralProtocol {
     var infoContainer: InfoContainerProtocol { get }
     var objectRestrictions: ObjectRestrictions { get }
     var objectId: BlockId { get }
-    var updatePublisher: AnyPublisher<DocumentUpdate, Never> { get }
-    var details: ObjectDetails? { get }
     var children: [BlockInformation] { get }
     var parsedRelations: ParsedRelations { get }
     var isLocked: Bool { get }

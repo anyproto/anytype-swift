@@ -91,7 +91,7 @@ final class RelationsService: RelationsServiceProtocol {
         AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.deleteRelation)
     }
     
-    func addRelationOption(source: RelationSource, relationKey: String, optionText: String) -> String? {
+    func addRelationOption(relationKey: String, optionText: String) -> String? {
         let color = MiddlewareColor.allCases.randomElement()?.rawValue ?? MiddlewareColor.default.rawValue
         
         let details = Google_Protobuf_Struct(

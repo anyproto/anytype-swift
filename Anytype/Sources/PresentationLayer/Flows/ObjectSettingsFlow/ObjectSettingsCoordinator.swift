@@ -77,12 +77,12 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
     }
     
     func coverPickerAction() {
-        let moduleViewController = objectCoverPickerModuleAssembly.make(document: document)
+        let moduleViewController = objectCoverPickerModuleAssembly.make(document: document, objectId: document.objectId)
         navigationContext.present(moduleViewController)
     }
     
     func iconPickerAction() {
-        let moduleViewController = objectIconPickerModuleAssembly.make(document: document)
+        let moduleViewController = objectIconPickerModuleAssembly.make(document: document, objectId: document.objectId)
         navigationContext.present(moduleViewController)
     }
     
@@ -124,7 +124,6 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
         
         relationValueCoordinator.startFlow(
             objectId: document.objectId,
-            source: .object,
             relation: relation,
             output: self
         )

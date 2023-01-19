@@ -30,7 +30,7 @@ final class ObjectHeaderViewModel: ObservableObject {
         self.router.showCoverPicker()
     }
     
-    private let document: BaseDocumentProtocol
+    private let document: BaseDocumentGeneralProtocol
     private let router: ObjectHeaderRouterProtocol
     
     private var subscription: AnyCancellable?
@@ -38,7 +38,7 @@ final class ObjectHeaderViewModel: ObservableObject {
     
     // MARK: - Initializers
     
-    init(document: BaseDocumentProtocol, router: ObjectHeaderRouterProtocol, isOpenedForPreview: Bool) {
+    init(document: BaseDocumentGeneralProtocol, router: ObjectHeaderRouterProtocol, isOpenedForPreview: Bool) {
         self.document = document
         self.router = router
         self.isOpenedForPreview = isOpenedForPreview

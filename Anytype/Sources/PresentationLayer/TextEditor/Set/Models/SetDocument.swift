@@ -10,14 +10,28 @@ class SetDocument: SetDocumentProtocol {
         document.objectId
     }
     
+    var targetObjectID: String?
+    
     var details: ObjectDetails? {
-        document.details
+        if let targetObjectID {
+            return ObjectDetailsStorage.shared.get(id: targetObjectID)
+        } else {
+            return document.details
+        }
+    }
+    
+    var updatePublisher: AnyPublisher<DocumentUpdate, Never> {
+        document.updatePublisher
     }
     
     var dataviews: [BlockDataview] {
         return document.children.compactMap { info -> BlockDataview? in
             if case .dataView(let data) = info.content {
-                return data
+                if let blockId {
+                    return info.id == blockId ? data : nil
+                } else {
+                    return data
+                }
             }
             return nil
         }
@@ -40,7 +54,11 @@ class SetDocument: SetDocumentProtocol {
         document.featuredRelationsForEditor
     }
     
-    var updatePublisher: AnyPublisher<SetDocumentUpdate, Never> { updateSubject.eraseToAnyPublisher() }
+    var parsedRelations: ParsedRelations {
+        document.parsedRelations
+    }
+    
+    var setUpdatePublisher: AnyPublisher<SetDocumentUpdate, Never> { updateSubject.eraseToAnyPublisher() }
     private let updateSubject = PassthroughSubject<SetDocumentUpdate, Never>()
     
     @Published var dataView = BlockDataview.empty
@@ -55,14 +73,22 @@ class SetDocument: SetDocumentProtocol {
     @Published var filters: [SetFilter] = []
     var filtersPublisher: AnyPublisher<[SetFilter], Never> { $filters.eraseToAnyPublisher() }
     
+    private let blockId: BlockId?
     
     private var subscriptions = [AnyCancellable]()
     private let relationDetailsStorage: RelationDetailsStorageProtocol
     private let dataBuilder = SetContentViewDataBuilder()
     
-    init(document: BaseDocumentProtocol, relationDetailsStorage: RelationDetailsStorageProtocol) {
+    init(
+        document: BaseDocumentProtocol,
+        blockId: BlockId?,
+        targetObjectID: String?,
+        relationDetailsStorage: RelationDetailsStorageProtocol)
+    {
         self.document = document
         self.relationDetailsStorage = relationDetailsStorage
+        self.targetObjectID = targetObjectID
+        self.blockId = blockId
         self.setup()
     }
     
@@ -84,7 +110,7 @@ class SetDocument: SetDocumentProtocol {
     }
     
     func isRelationsSet() -> Bool {
-        let relation = document.parsedRelations.installed.first { $0.key == BundledRelationKey.setOf.rawValue }
+        let relation = parsedRelations.installed.first { $0.key == BundledRelationKey.setOf.rawValue }
         if let relation, relation.hasSelectedObjectsRelationType {
             return true
         } else {
@@ -184,7 +210,7 @@ class SetDocument: SetDocumentProtocol {
     }
     
     private func updateDataview(with activeViewId: BlockId) {
-        document.infoContainer.updateDataview(blockId: SetConstants.dataviewBlockId) { dataView in
+        document.infoContainer.updateDataview(blockId: blockId ?? SetConstants.dataviewBlockId) { dataView in
             dataView.updated(activeViewId: activeViewId)
         }
     }

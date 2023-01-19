@@ -770,8 +770,8 @@ internal enum Loc {
       internal static let uploading = Loc.tr("Localizable", "Content.Common.Uploading", fallback: "Uploading...")
     }
     internal enum DataView {
-      /// Inline set
-      internal static let inlineSet = Loc.tr("Localizable", "Content.DataView.InlineSet", fallback: "Inline set")
+      /// Set View
+      internal static let setView = Loc.tr("Localizable", "Content.DataView.SetView", fallback: "Set View")
       internal enum InlineSet {
         /// No data
         internal static let noData = Loc.tr("Localizable", "Content.DataView.InlineSet.NoData", fallback: "No data")
@@ -780,8 +780,8 @@ internal enum Loc {
         /// Untitled set
         internal static let untitled = Loc.tr("Localizable", "Content.DataView.InlineSet.Untitled", fallback: "Untitled set")
         internal enum Toast {
-          /// This inline set doesn’t have source
-          internal static let failure = Loc.tr("Localizable", "Content.DataView.InlineSet.Toast.Failure", fallback: "This inline set doesn’t have source")
+          /// This inline set doesn’t have a source
+          internal static let failure = Loc.tr("Localizable", "Content.DataView.InlineSet.Toast.Failure", fallback: "This inline set doesn’t have a source")
         }
       }
     }

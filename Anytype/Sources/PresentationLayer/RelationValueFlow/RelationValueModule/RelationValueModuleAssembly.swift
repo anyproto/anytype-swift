@@ -16,7 +16,6 @@ final class RelationValueModuleAssembly: RelationValueModuleAssemblyProtocol {
     
     func make(
         objectId: BlockId,
-        source: RelationSource,
         relation: Relation,
         delegate: TextRelationActionButtonViewModelDelegate,
         output: RelationValueViewModelOutput
@@ -28,7 +27,6 @@ final class RelationValueModuleAssembly: RelationValueModuleAssemblyProtocol {
             searchService: serviceLocator.searchService()
         )
             .buildViewModel(
-                source: source,
                 objectId: objectId,
                 relation: relation,
                 onTap: { [weak output] pageId, viewType in

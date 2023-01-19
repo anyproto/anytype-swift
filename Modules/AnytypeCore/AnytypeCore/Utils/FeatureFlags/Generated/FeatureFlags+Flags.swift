@@ -62,6 +62,10 @@ public extension FeatureFlags {
         value(for: .homeWidgets)
     }
 
+    static var fullInlineSetImpl: Bool {
+        value(for: .fullInlineSetImpl)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -94,6 +98,7 @@ public extension FeatureFlags {
         .showSetsInChangeTypeSearchMenu,
         .fixInsetMediaContent,
         .homeWidgets,
+        .fullInlineSetImpl,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

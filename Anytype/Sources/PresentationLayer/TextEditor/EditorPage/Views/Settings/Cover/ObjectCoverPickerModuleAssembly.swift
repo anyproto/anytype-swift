@@ -3,7 +3,7 @@ import UIKit
 import SwiftUI
 
 protocol ObjectCoverPickerModuleAssemblyProtocol {
-    func make(document: BaseDocumentProtocol) -> UIViewController
+    func make(document: BaseDocumentGeneralProtocol, objectId: String) -> UIViewController
 }
 
 final class ObjectCoverPickerModuleAssembly: ObjectCoverPickerModuleAssemblyProtocol {
@@ -16,11 +16,12 @@ final class ObjectCoverPickerModuleAssembly: ObjectCoverPickerModuleAssemblyProt
     
     // MARK: - ObjectCoverPickerModuleAssemblyProtocol
     
-    func make(document: BaseDocumentProtocol) -> UIViewController {
+    func make(document: BaseDocumentGeneralProtocol, objectId: String) -> UIViewController {
         let viewModel = ObjectCoverPickerViewModel(
             document: document,
+            objectId: objectId,
             fileService: serviceLocator.fileService(),
-            detailsService: serviceLocator.detailsService(objectId: document.objectId)
+            detailsService: serviceLocator.detailsService(objectId: objectId)
         )
         
         let controller = UIHostingController(

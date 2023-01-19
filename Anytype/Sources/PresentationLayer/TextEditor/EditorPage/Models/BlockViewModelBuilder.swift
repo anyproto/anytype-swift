@@ -231,7 +231,7 @@ final class BlockViewModelBuilder {
                     )
                 } else {
                     AnytypeAnalytics.instance().logChangeRelationValue(type: .block)
-                    self.router.showRelationValueEditingView(key: relation.key, source: .object)
+                    self.router.showRelationValueEditingView(key: relation.key)
                 }
             }
         case let .relation(content):
@@ -248,7 +248,7 @@ final class BlockViewModelBuilder {
                 relation: relation
             ) { [weak self] in
                 AnytypeAnalytics.instance().logChangeRelationValue(type: .block)
-                self?.router.showRelationValueEditingView(key: relation.key, source: .object)
+                self?.router.showRelationValueEditingView(key: relation.key)
             }
         case .tableOfContents:
             return TableOfContentsViewModel(
@@ -278,6 +278,9 @@ final class BlockViewModelBuilder {
                 objectDetails: details,
                 showFailureToast: { [weak self] message in
                     self?.router.showFailureToast(message: message)
+                },
+                openSet: { [weak self] data in
+                    self?.router.showPage(data: data)
                 }
             )
         case .unsupported:

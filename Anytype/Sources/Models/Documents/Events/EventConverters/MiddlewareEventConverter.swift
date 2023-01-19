@@ -382,6 +382,7 @@ final class MiddlewareEventConverter {
                 .subscriptionCounters, // Implemented in `SubscriptionsService`
                 .subscriptionGroups, // Implemented in `GroupsSubscriptionsHandler`
                 .blockDataviewSourceSet, // will be deleted on middle soon
+                .blockDataviewViewUpdate, // will be implemented later
                 .filesUpload,
                 .marksInfo,
                 .blockSetRestrictions,

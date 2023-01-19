@@ -56,6 +56,10 @@ final class EditorSetViewModel: ObservableObject {
         setDocument.details
     }
     
+    var hasTargetObjectId: Bool {
+        setDocument.targetObjectID != nil
+    }
+    
     func groupBackgroundColor(for groupId: String) -> BlockBackgroundColor {
         guard let groupOrder = setDocument.dataView.groupOrders.first(where: { [weak self] in $0.viewID == self?.activeView.id }),
             let viewGroup = groupOrder.viewGroups.first(where: { $0.groupID == groupId }),
@@ -117,9 +121,9 @@ final class EditorSetViewModel: ObservableObject {
     
     func setup(router: EditorSetRouterProtocol) {
         self.router = router
-        self.headerModel = ObjectHeaderViewModel(document: setDocument.document, router: router, isOpenedForPreview: false)
+        self.headerModel = ObjectHeaderViewModel(document: setDocument, router: router, isOpenedForPreview: false)
         
-        setDocument.updatePublisher.sink { [weak self] in
+        setDocument.setUpdatePublisher.sink { [weak self] in
             self?.onDataChange($0)
         }.store(in: &subscriptions)
 
@@ -164,7 +168,7 @@ final class EditorSetViewModel: ObservableObject {
             router?.showFailureToast(message: Loc.Set.SourceType.Cancel.Toast.title)
         } else {
             AnytypeAnalytics.instance().logChangeRelationValue(type: .set)
-            showRelationValueEditingView(key: relation.key, source: .object)
+            showRelationValueEditingView(key: relation.key)
         }
     }
 
@@ -247,7 +251,7 @@ final class EditorSetViewModel: ObservableObject {
                 }
 
                 self.textService.setText(
-                    contextId: self.setDocument.objectId,
+                    contextId: self.setDocument.targetObjectID ?? self.objectId,
                     blockId: RelationKey.title.rawValue,
                     middlewareString: .init(text: newValue, marks: .init())
                 )
@@ -553,7 +557,7 @@ final class EditorSetViewModel: ObservableObject {
 // MARK: - Routing
 extension EditorSetViewModel {
 
-    func showRelationValueEditingView(key: String, source: RelationSource) {
+    func showRelationValueEditingView(key: String) {
         if key == BundledRelationKey.setOf.rawValue {
             showSetOfTypeSelection()
             
@@ -562,19 +566,17 @@ extension EditorSetViewModel {
 
         AnytypeAnalytics.instance().logChangeRelationValue(type: .set)
 
-        router?.showRelationValueEditingView(key: key, source: source)
+        router?.showRelationValueEditingView(key: key)
     }
     
     func showRelationValueEditingView(
         objectId: BlockId,
-        source: RelationSource,
         relation: Relation
     ) {
         AnytypeAnalytics.instance().logChangeRelationValue(type: .set)
         
         router?.showRelationValueEditingView(
             objectId: objectId,
-            source: source,
             relation: relation
         )
     }
@@ -608,6 +610,7 @@ extension EditorSetViewModel {
         router?.showViewTypes(
             dataView: setDocument.dataView,
             activeView: activeView,
+            source: details?.setOf ?? [],
             dataviewService: dataviewService
         )
     }
@@ -662,6 +665,10 @@ extension EditorSetViewModel {
                 )
             }
         )
+    }
+    
+    func showIconPicker() {
+        router?.showIconPicker()
     }
     
     private func dataviewGroupOrderUpdate(groupId: String, hidden: Bool, backgroundColor: BlockBackgroundColor?) {
@@ -731,9 +738,11 @@ extension EditorSetViewModel {
     static let empty = EditorSetViewModel(
         setDocument: SetDocument(
             document: BaseDocument(objectId: "objectId"),
+            blockId: nil,
+            targetObjectID: nil,
             relationDetailsStorage: ServiceLocator.shared.relationDetailsStorage()
         ),
-        dataviewService: DataviewService(objectId: "objectId", prefilledFieldsBuilder: SetPrefilledFieldsBuilder()),
+        dataviewService: DataviewService(objectId: "objectId", blockId: "blockId", prefilledFieldsBuilder: SetPrefilledFieldsBuilder()),
         searchService: ServiceLocator.shared.searchService(),
         detailsService: DetailsService(objectId: "objectId", service: ObjectActionsService()),
         objectActionsService: ServiceLocator.shared.objectActionsService(),

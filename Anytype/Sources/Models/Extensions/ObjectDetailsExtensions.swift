@@ -96,7 +96,7 @@ extension BundledRelationsValueProvider {
         case .basic, .profile, .todo, .note, .bookmark:
             return .page
         case .set:
-            return .set
+            return .set()
         }
     }
 }

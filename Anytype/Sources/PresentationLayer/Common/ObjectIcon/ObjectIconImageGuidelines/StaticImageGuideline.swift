@@ -7,6 +7,11 @@ enum StaticImageGuideline {
         radius: .point(0)
     )
     
+    static let x32 = ImageGuideline(
+        size: CGSize(width: 32, height: 32),
+        radius: .point(0)
+    )
+    
     static let x28 = ImageGuideline(
         size: CGSize(width: 28, height: 28),
         radius: .point(0)

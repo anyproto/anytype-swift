@@ -647,11 +647,11 @@
 "Content.Common.Error" = "Something went wrong, try again";
 "Content.Bookmark.Add" = "Add a web bookmark";
 "Content.Bookmark.Loading" = "Loading, please wait...";
-"Content.DataView.InlineSet" = "Inline set";
+"Content.DataView.SetView" = "Set View";
 "Content.DataView.InlineSet.NoSource" = "No source";
 "Content.DataView.InlineSet.NoData" = "No data";
 "Content.DataView.InlineSet.Untitled" = "Untitled set";
-"Content.DataView.InlineSet.Toast.Failure" = "This inline set doesn’t have source";
+"Content.DataView.InlineSet.Toast.Failure" = "This inline set doesn’t have a source";
 
 // MARK: - Widget extension
 "WidgetExtension.LockScreen.Title" = "New object";

@@ -4,7 +4,11 @@ import BlocksModels
 import UIKit
 import SwiftUI
 
-protocol EditorSetRouterProtocol: AnyObject, EditorPageOpenRouterProtocol, ObjectHeaderRouterProtocol {
+protocol EditorSetRouterProtocol:
+    AnyObject,
+    EditorPageOpenRouterProtocol,
+    ObjectHeaderRouterProtocol
+{
     
     func showSetSettings(onSettingTap: @escaping (EditorSetSetting) -> Void)
     func dismissSetSettingsIfNeeded()
@@ -23,6 +27,7 @@ protocol EditorSetRouterProtocol: AnyObject, EditorPageOpenRouterProtocol, Objec
     func showViewTypes(
         dataView: BlockDataview,
         activeView: DataviewView?,
+        source: [String],
         dataviewService: DataviewServiceProtocol
     )
     
@@ -54,19 +59,20 @@ protocol EditorSetRouterProtocol: AnyObject, EditorPageOpenRouterProtocol, Objec
     func showSources(selectedObjectId: BlockId?, onSelect: @escaping (BlockId) -> ())
     
     func closeEditor()
-    func showFailureToast(message: String)
     func showPage(data: EditorScreenData)
     
-    func showRelationValueEditingView(key: String, source: RelationSource)
-    func showRelationValueEditingView(objectId: BlockId, source: RelationSource, relation: Relation)
+    func showRelationValueEditingView(key: String)
+    func showRelationValueEditingView(objectId: BlockId, relation: Relation)
     func showAddNewRelationView(onSelect: ((RelationDetails, _ isNew: Bool) -> Void)?)
+    
+    func showFailureToast(message: String)
 }
 
 final class EditorSetRouter: EditorSetRouterProtocol {
     
     // MARK: - DI
     
-    private let document: BaseDocumentProtocol
+    private let setDocument: SetDocumentProtocol
     private weak var rootController: EditorBrowserController?
     private weak var viewController: UIViewController?
     private let navigationContext: NavigationContextProtocol
@@ -86,7 +92,7 @@ final class EditorSetRouter: EditorSetRouterProtocol {
     private weak var currentSetSettingsPopup: AnytypePopup?
     
     init(
-        document: BaseDocumentProtocol,
+        setDocument: SetDocumentProtocol,
         rootController: EditorBrowserController?,
         viewController: UIViewController,
         navigationContext: NavigationContextProtocol,
@@ -101,7 +107,7 @@ final class EditorSetRouter: EditorSetRouterProtocol {
         toastPresenter: ToastPresenterProtocol,
         alertHelper: AlertHelper
     ) {
-        self.document = document
+        self.setDocument = setDocument
         self.rootController = rootController
         self.viewController = viewController
         self.navigationContext = navigationContext
@@ -205,12 +211,13 @@ final class EditorSetRouter: EditorSetRouterProtocol {
     func showViewTypes(
         dataView: BlockDataview,
         activeView: DataviewView?,
+        source: [String],
         dataviewService: DataviewServiceProtocol
-    )
-    {
+    ) {
         let viewModel = SetViewTypesPickerViewModel(
             dataView: dataView,
             activeView: activeView,
+            source: source,
             dataviewService: dataviewService,
             relationDetailsStorage: ServiceLocator.shared.relationDetailsStorage()
         )
@@ -225,6 +232,7 @@ final class EditorSetRouter: EditorSetRouterProtocol {
         }
         navigationContext.present(vc)
     }
+
     
     func showViewSettings(setDocument: SetDocumentProtocol, dataviewService: DataviewServiceProtocol) {
         let viewModel = EditorSetViewSettingsViewModel(
@@ -393,12 +401,18 @@ final class EditorSetRouter: EditorSetRouterProtocol {
     }
     
     func showCoverPicker() {
-        let moduleViewController = objectCoverPickerModuleAssembly.make(document: document)
+        let moduleViewController = objectCoverPickerModuleAssembly.make(
+            document: setDocument,
+            objectId: setDocument.targetObjectID ?? setDocument.objectId
+        )
         navigationContext.present(moduleViewController)
     }
     
     func showIconPicker() {
-        let moduleViewController = objectIconPickerModuleAssembly.make(document: document)
+        let moduleViewController = objectIconPickerModuleAssembly.make(
+            document: setDocument,
+            objectId: setDocument.targetObjectID ?? setDocument.objectId
+        )
         navigationContext.present(moduleViewController)
     }
     
@@ -417,19 +431,15 @@ final class EditorSetRouter: EditorSetRouterProtocol {
         rootController?.popIfPresent(viewController)
     }
     
-    func showFailureToast(message: String) {
-        toastPresenter.showFailureAlert(message: message)
-    }
-    
-    func showRelationValueEditingView(key: String, source: RelationSource) {
-        let relation = document.parsedRelations.installed.first { $0.key == key }
+    func showRelationValueEditingView(key: String) {
+        let relation = setDocument.parsedRelations.installed.first { $0.key == key }
         guard let relation = relation else { return }
         
-        showRelationValueEditingView(objectId: document.objectId, source: source, relation: relation)
+        showRelationValueEditingView(objectId: setDocument.objectId, relation: relation)
     }
     
-    func showRelationValueEditingView(objectId: BlockId, source: RelationSource, relation: Relation) {
-        relationValueCoordinator.startFlow(objectId: objectId, source: source, relation: relation, output: self)
+    func showRelationValueEditingView(objectId: BlockId, relation: Relation) {
+        relationValueCoordinator.startFlow(objectId: objectId, relation: relation, output: self)
     }
     
     func showAddNewRelationView(onSelect: ((RelationDetails, _ isNew: Bool) -> Void)?) {
@@ -438,6 +448,10 @@ final class EditorSetRouter: EditorSetRouterProtocol {
     
     func showPage(data: EditorScreenData) {
         editorPageCoordinator.startFlow(data: data, replaceCurrentPage: false)
+    }
+    
+    func showFailureToast(message: String) {
+        toastPresenter.showFailureAlert(message: message)
     }
     
     // MARK: - Private
@@ -452,7 +466,7 @@ final class EditorSetRouter: EditorSetRouterProtocol {
         let view = newSearchModuleAssembly.objectTypeSearchModule(
             title: title,
             selectedObjectId: selectedObjectId,
-            excludedObjectTypeId: document.details?.type,
+            excludedObjectTypeId: setDocument.details?.type,
             showBookmark: showBookmark,
             showSet: showSet,
             browser: rootController

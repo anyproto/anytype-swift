@@ -26,7 +26,6 @@ final class RelationValueCoordinator: RelationValueCoordinatorProtocol,
     
     func startFlow(
         objectId: BlockId,
-        source: RelationSource,
         relation: Relation,
         output: RelationValueCoordinatorOutput
     ) {
@@ -42,7 +41,6 @@ final class RelationValueCoordinator: RelationValueCoordinatorProtocol,
         
         guard let moduleViewController = relationValueModuleAssembly.make(
             objectId: objectId,
-            source: source,
             relation: relation,
             delegate: self,
             output: self
