@@ -54,7 +54,7 @@ struct HomeWidgetsView_Previews: PreviewProvider {
                     objectId: "",
                     objectDetailsStorage: DI.makeForPreview().serviceLocator.objectDetailsStorage()
                 ),
-                registry: DI.makeForPreview().widgetsDI.homeWidgetsRegistry(treeWidgetOutput: nil),
+                registry: DI.makeForPreview().widgetsDI.homeWidgetsRegistry(treeWidgetOutput: nil, setWidgetOutput: nil),
                 blockWidgetService: DI.makeForPreview().serviceLocator.blockWidgetService(),
                 accountManager: DI.makeForPreview().serviceLocator.accountManager(),
                 bottomPanelProviderAssembly: DI.makeForPreview().widgetsDI.bottomPanelProviderAssembly(),

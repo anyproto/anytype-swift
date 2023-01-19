@@ -25,6 +25,7 @@ enum ObjectIconImageUsecase: Equatable, Hashable {
     case widgetTree
     
     case homeBottomPanel
+    case homeSetWidget
 }
 
 extension ObjectIconImageUsecase {
