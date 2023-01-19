@@ -5,16 +5,12 @@ import UIKit
 protocol AttachmentRouterProtocol {
     func openImage(_ imageContext: FilePreviewContext)
 }
-protocol ToastRouterProtocol {
-    func showFailureToast(message: String)
-}
 
 protocol EditorRouterProtocol:
     AnyObject,
     EditorPageOpenRouterProtocol,
     AttachmentRouterProtocol,
-    ObjectHeaderRouterProtocol,
-    ToastRouterProtocol
+    ObjectHeaderRouterProtocol
 {
     func showAlert(alertModel: AlertModel)
     func showPage(data: EditorScreenData)
@@ -87,4 +83,6 @@ protocol EditorRouterProtocol:
         selectedColor: UIColor?,
         selectedBackgroundColor: UIColor?
     )
+    
+    func showFailureToast(message: String)
 }

@@ -405,6 +405,10 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         }
     }
     
+    func showFailureToast(message: String) {
+        toastPresenter.showFailureAlert(message: message)
+    }
+    
     // MARK: - Private
     
     private func presentOverCurrentContextSwuftUIView<Content: View>(view: Content, model: Dismissible) {
@@ -460,12 +464,6 @@ extension EditorRouter: AttachmentRouterProtocol {
         navigationContext.present(previewController) { [weak previewController] in
             previewController?.didFinishTransition = true
         }
-    }
-}
-
-extension EditorRouter: ToastRouterProtocol {
-    func showFailureToast(message: String) {
-        toastPresenter.showFailureAlert(message: message)
     }
 }
 

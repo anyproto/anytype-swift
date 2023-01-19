@@ -7,8 +7,7 @@ import SwiftUI
 protocol EditorSetRouterProtocol:
     AnyObject,
     EditorPageOpenRouterProtocol,
-    ObjectHeaderRouterProtocol,
-    ToastRouterProtocol
+    ObjectHeaderRouterProtocol
 {
     
     func showSetSettings(onSettingTap: @escaping (EditorSetSetting) -> Void)
@@ -65,6 +64,8 @@ protocol EditorSetRouterProtocol:
     func showRelationValueEditingView(key: String)
     func showRelationValueEditingView(objectId: BlockId, relation: Relation)
     func showAddNewRelationView(onSelect: ((RelationDetails, _ isNew: Bool) -> Void)?)
+    
+    func showFailureToast(message: String)
 }
 
 final class EditorSetRouter: EditorSetRouterProtocol {
@@ -449,6 +450,10 @@ final class EditorSetRouter: EditorSetRouterProtocol {
         editorPageCoordinator.startFlow(data: data, replaceCurrentPage: false)
     }
     
+    func showFailureToast(message: String) {
+        toastPresenter.showFailureAlert(message: message)
+    }
+    
     // MARK: - Private
     
     private func showTypesSearch(
@@ -495,12 +500,6 @@ final class EditorSetRouter: EditorSetRouterProtocol {
         )
         currentSetSettingsPopup = popup
         navigationContext.present(popup)
-    }
-}
-
-extension EditorSetRouter: ToastRouterProtocol {
-    func showFailureToast(message: String) {
-        toastPresenter.showFailureAlert(message: message)
     }
 }
 
