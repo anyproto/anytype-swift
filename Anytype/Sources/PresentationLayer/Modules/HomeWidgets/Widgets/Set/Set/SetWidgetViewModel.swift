@@ -18,8 +18,8 @@ final class SetWidgetViewModel: ListWidgetViewModelProtocol, ObservableObject {
     
     @Published private(set) var name: String = ""
     @Published var isExpanded: Bool = true
-    @Published private(set) var headerItems: [SetWidgetHeaderItem.Model] = []
-    @Published private(set) var rows: [SetWidgetRow.Model] = []
+    @Published private(set) var headerItems: [ListWidgetHeaderItem.Model] = []
+    @Published private(set) var rows: [ListWidgetRow.Model] = []
     
     init(
         widgetBlockId: BlockId,
@@ -81,19 +81,19 @@ final class SetWidgetViewModel: ListWidgetViewModelProtocol, ObservableObject {
     
     private func updateViewState() {
         headerItems = [
-            SetWidgetHeaderItem.Model(dataviewId: "1", title: "Last Edited", onTap: {}, isSelected: false),
-            SetWidgetHeaderItem.Model(dataviewId: "2", title: "New movies", onTap: {}, isSelected: true),
-            SetWidgetHeaderItem.Model(dataviewId: "3", title: "To watch", onTap: {}, isSelected: false),
-            SetWidgetHeaderItem.Model(dataviewId: "4", title: "To watch", onTap: {}, isSelected: false),
-            SetWidgetHeaderItem.Model(dataviewId: "5", title: "My Collection", onTap: {}, isSelected: false),
-            SetWidgetHeaderItem.Model(dataviewId: "6", title: "My Collection 2", onTap: {}, isSelected: false),
-            SetWidgetHeaderItem.Model(dataviewId: "7", title: "My Collection 3", onTap: {}, isSelected: false)
+            ListWidgetHeaderItem.Model(dataviewId: "1", title: "Last Edited", onTap: {}, isSelected: false),
+            ListWidgetHeaderItem.Model(dataviewId: "2", title: "New movies", onTap: {}, isSelected: true),
+            ListWidgetHeaderItem.Model(dataviewId: "3", title: "To watch", onTap: {}, isSelected: false),
+            ListWidgetHeaderItem.Model(dataviewId: "4", title: "To watch", onTap: {}, isSelected: false),
+            ListWidgetHeaderItem.Model(dataviewId: "5", title: "My Collection", onTap: {}, isSelected: false),
+            ListWidgetHeaderItem.Model(dataviewId: "6", title: "My Collection 2", onTap: {}, isSelected: false),
+            ListWidgetHeaderItem.Model(dataviewId: "7", title: "My Collection 3", onTap: {}, isSelected: false)
         ]
         
         rows = [
-            SetWidgetRow.Model(objectId: "1", icon: .placeholder("A"), title: "Object title", description: "Object description description description description description description ", onTap: {}),
-            SetWidgetRow.Model(objectId: "2", icon: .placeholder("A"), title: "Object title title title title title title title title title", description: nil, onTap: {}),
-            SetWidgetRow.Model(objectId: "3", icon: nil, title: "Object title", description: "Object description", onTap: {})
+            ListWidgetRow.Model(objectId: "1", icon: .placeholder("A"), title: "Object title", description: "Object description description description description description description ", onTap: {}),
+            ListWidgetRow.Model(objectId: "2", icon: .placeholder("A"), title: "Object title title title title title title title title title", description: nil, onTap: {}),
+            ListWidgetRow.Model(objectId: "3", icon: nil, title: "Object title", description: "Object description", onTap: {})
         ]
     }
 }

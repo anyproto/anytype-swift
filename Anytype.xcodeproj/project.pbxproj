@@ -393,13 +393,13 @@
 		2A176438283E2211002853D3 /* AnytypePopupProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A176437283E2211002853D3 /* AnytypePopupProxy.swift */; };
 		2A17643A283E2245002853D3 /* ContentUrlBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A176439283E2245002853D3 /* ContentUrlBuilder.swift */; };
 		2A1AEDA028FD318A008C3660 /* MarkupViewTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1AED9F28FD318A008C3660 /* MarkupViewTypes.swift */; };
-		2A1F946E2978208F00E25782 /* SetWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1F946D2978208F00E25782 /* SetWidgetView.swift */; };
+		2A1F946E2978208F00E25782 /* ListWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1F946D2978208F00E25782 /* ListWidgetView.swift */; };
 		2A1F9470297820BD00E25782 /* SetWidgetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1F946F297820BD00E25782 /* SetWidgetViewModel.swift */; };
 		2A1F94722978221400E25782 /* SetWidgetModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1F94712978221400E25782 /* SetWidgetModuleAssembly.swift */; };
 		2A1F947A2978228F00E25782 /* SetWidgetProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1F94782978228F00E25782 /* SetWidgetProvider.swift */; };
 		2A1F947B2978228F00E25782 /* SetWidgetProviderAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1F94792978228F00E25782 /* SetWidgetProviderAssembly.swift */; };
-		2A1F947E2978312900E25782 /* SetWidgetHeaderItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1F947D2978312900E25782 /* SetWidgetHeaderItem.swift */; };
-		2A1F94802978381700E25782 /* SetWidgetRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1F947F2978381700E25782 /* SetWidgetRow.swift */; };
+		2A1F947E2978312900E25782 /* ListWidgetHeaderItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1F947D2978312900E25782 /* ListWidgetHeaderItem.swift */; };
+		2A1F94802978381700E25782 /* ListWidgetRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1F947F2978381700E25782 /* ListWidgetRow.swift */; };
 		2A1F948329793BBA00E25782 /* ListWidgetViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1F948229793BBA00E25782 /* ListWidgetViewModelProtocol.swift */; };
 		2A1F948C297953B600E25782 /* FavoriteWidgetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1F9486297953B600E25782 /* FavoriteWidgetViewModel.swift */; };
 		2A1F948D297953B600E25782 /* FavoriteWidgetProviderAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1F9488297953B600E25782 /* FavoriteWidgetProviderAssembly.swift */; };
@@ -1725,13 +1725,13 @@
 		2A176437283E2211002853D3 /* AnytypePopupProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnytypePopupProxy.swift; sourceTree = "<group>"; };
 		2A176439283E2245002853D3 /* ContentUrlBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentUrlBuilder.swift; sourceTree = "<group>"; };
 		2A1AED9F28FD318A008C3660 /* MarkupViewTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupViewTypes.swift; sourceTree = "<group>"; };
-		2A1F946D2978208F00E25782 /* SetWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetWidgetView.swift; sourceTree = "<group>"; };
+		2A1F946D2978208F00E25782 /* ListWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListWidgetView.swift; sourceTree = "<group>"; };
 		2A1F946F297820BD00E25782 /* SetWidgetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetWidgetViewModel.swift; sourceTree = "<group>"; };
 		2A1F94712978221400E25782 /* SetWidgetModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetWidgetModuleAssembly.swift; sourceTree = "<group>"; };
 		2A1F94782978228F00E25782 /* SetWidgetProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetWidgetProvider.swift; sourceTree = "<group>"; };
 		2A1F94792978228F00E25782 /* SetWidgetProviderAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetWidgetProviderAssembly.swift; sourceTree = "<group>"; };
-		2A1F947D2978312900E25782 /* SetWidgetHeaderItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetWidgetHeaderItem.swift; sourceTree = "<group>"; };
-		2A1F947F2978381700E25782 /* SetWidgetRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetWidgetRow.swift; sourceTree = "<group>"; };
+		2A1F947D2978312900E25782 /* ListWidgetHeaderItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListWidgetHeaderItem.swift; sourceTree = "<group>"; };
+		2A1F947F2978381700E25782 /* ListWidgetRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListWidgetRow.swift; sourceTree = "<group>"; };
 		2A1F948229793BBA00E25782 /* ListWidgetViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListWidgetViewModelProtocol.swift; sourceTree = "<group>"; };
 		2A1F9486297953B600E25782 /* FavoriteWidgetViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteWidgetViewModel.swift; sourceTree = "<group>"; };
 		2A1F9488297953B600E25782 /* FavoriteWidgetProviderAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteWidgetProviderAssembly.swift; sourceTree = "<group>"; };
@@ -4552,7 +4552,7 @@
 				2A1F948429793E3D00E25782 /* Set */,
 				2A1F948229793BBA00E25782 /* ListWidgetViewModelProtocol.swift */,
 				2A1F947C2978311700E25782 /* Subviews */,
-				2A1F946D2978208F00E25782 /* SetWidgetView.swift */,
+				2A1F946D2978208F00E25782 /* ListWidgetView.swift */,
 			);
 			path = Set;
 			sourceTree = "<group>";
@@ -4569,8 +4569,8 @@
 		2A1F947C2978311700E25782 /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
-				2A1F947D2978312900E25782 /* SetWidgetHeaderItem.swift */,
-				2A1F947F2978381700E25782 /* SetWidgetRow.swift */,
+				2A1F947D2978312900E25782 /* ListWidgetHeaderItem.swift */,
+				2A1F947F2978381700E25782 /* ListWidgetRow.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -8960,7 +8960,7 @@
 				3DE0CFD826F8593D003A606A /* SlashAction.swift in Sources */,
 				0A2C0D57247144F4008ADD86 /* CustomTextView.swift in Sources */,
 				C9F0A4772805702C00FA16DD /* ObjectIconPickerViewModelProtocol.swift in Sources */,
-				2A1F94802978381700E25782 /* SetWidgetRow.swift in Sources */,
+				2A1F94802978381700E25782 /* ListWidgetRow.swift in Sources */,
 				538EF48725F831AA005C7438 /* NSAttributedStringExtension.swift in Sources */,
 				125E75E526CD199A000AF4E9 /* EditorNavigationBarTitleView.swift in Sources */,
 				2AAF343A29559BED00921320 /* ObjectTreeWidgetProvider.swift in Sources */,
@@ -9049,7 +9049,7 @@
 				531F0DEA283CCD8D000A0B31 /* Debouncer.swift in Sources */,
 				EA77E541262DEC3F009F91D9 /* ButtonsFactory.swift in Sources */,
 				EA20CDD526122C9200DBA9FE /* VideoBlockContentView.swift in Sources */,
-				2A1F947E2978312900E25782 /* SetWidgetHeaderItem.swift in Sources */,
+				2A1F947E2978312900E25782 /* ListWidgetHeaderItem.swift in Sources */,
 				2E61D470286C63FC004BC2E7 /* BlockBookmarkStateConverter.swift in Sources */,
 				2A6F5048288A9AB600ED6E2E /* Image+Create.swift in Sources */,
 				12F14CD52758D0B200B976B5 /* RelationEditingViewModelBuilderProtocol.swift in Sources */,
@@ -9373,7 +9373,7 @@
 				12887F26274B94A600228330 /* DetailsServiceProtocol.swift in Sources */,
 				C9F44C7F27E351400078E709 /* TextBlockLeadingViewBuilder.swift in Sources */,
 				53FF7CB526FCCDE800A5A592 /* ObjectActionRow.swift in Sources */,
-				2A1F946E2978208F00E25782 /* SetWidgetView.swift in Sources */,
+				2A1F946E2978208F00E25782 /* ListWidgetView.swift in Sources */,
 				125FD2E926CD6D2100D21F5A /* EditorNavigationBarHelper.swift in Sources */,
 				3D5A41792704541900F1F6A1 /* SearchView.swift in Sources */,
 				53F80EF427BD3BE300E9E12A /* TagRelationViewUIKIt.swift in Sources */,

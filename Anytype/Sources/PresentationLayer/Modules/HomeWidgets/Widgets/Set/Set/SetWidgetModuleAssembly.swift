@@ -28,6 +28,6 @@ final class SetWidgetModuleAssembly: SetWidgetModuleAssemblyProtocol {
             blockWidgetService: serviceLocator.blockWidgetService(),
             output: output
         )
-        return SetWidgetView(model: model).eraseToAnyView()
+        return ListWidgetView(model: model).eraseToAnyView()
     }
 }

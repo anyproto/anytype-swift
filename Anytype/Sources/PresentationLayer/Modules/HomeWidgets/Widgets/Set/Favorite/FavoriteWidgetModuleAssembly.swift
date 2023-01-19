@@ -26,6 +26,6 @@ final class FavoriteWidgetModuleAssembly: FavoriteWidgetModuleAssemblyProtocol {
             widgetObject: widgetObject,
             output: output
         )
-        return SetWidgetView(model: model).eraseToAnyView()
+        return ListWidgetView(model: model).eraseToAnyView()
     }
 }
