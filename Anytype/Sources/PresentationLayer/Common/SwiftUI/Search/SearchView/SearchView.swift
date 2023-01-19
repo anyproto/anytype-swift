@@ -82,7 +82,7 @@ struct SearchView<SearchViewModel: SearchViewModelProtocol>: View {
             )
             .multilineTextAlignment(.center)
             AnytypeText(
-                Loc.tryToCreateANewOneOrSearchForSomethingElse,
+                Loc.createANewOneOrSearchForSomethingElse,
                 style: .uxBodyRegular,
                 color: .Text.secondary
             )

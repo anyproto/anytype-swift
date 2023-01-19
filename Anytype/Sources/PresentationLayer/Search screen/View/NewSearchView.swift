@@ -39,14 +39,14 @@ struct NewSearchView: View {
         VStack(alignment: .center) {
             Spacer()
             AnytypeText(
-                error.title,//"\(Loc.thereIsNoObjectNamed) \"\(searchText)\"",
+                error.title,
                 style: .uxBodyRegular,
                 color: .Text.primary
             )
             .multilineTextAlignment(.center)
             error.subtitle.flatMap {
                 AnytypeText(
-                    $0,// Loc.tryToCreateANewOneOrSearchForSomethingElse,
+                    $0,
                     style: .uxBodyRegular,
                     color: .Text.secondary
                 )

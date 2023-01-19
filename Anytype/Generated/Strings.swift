@@ -195,6 +195,8 @@ internal enum Loc {
   internal static let cover = Loc.tr("Localizable", "Cover", fallback: "Cover")
   /// Create
   internal static let create = Loc.tr("Localizable", "Create", fallback: "Create")
+  /// Create a new one or search for something else
+  internal static let createANewOneOrSearchForSomethingElse = Loc.tr("Localizable", "Create a new one or search for something else", fallback: "Create a new one or search for something else")
   /// The pin code will protect your secret phrase. As we do not store your secret phrase or pin code and not ask your e-mail or phone number, there is no id recovery without your pin code or secret phrase. So, please, remember your pin code
   internal static let createAPinCodeDescription = Loc.tr("Localizable", "Create a pin code description", fallback: "The pin code will protect your secret phrase. As we do not store your secret phrase or pin code and not ask your e-mail or phone number, there is no id recovery without your pin code or secret phrase. So, please, remember your pin code")
   /// Create from scratch
@@ -636,6 +638,10 @@ internal enum Loc {
   internal static func thereIsNoRelationNamed(_ p1: Any) -> String {
     return Loc.tr("Localizable", "There is no relation named", String(describing: p1), fallback: "There is no relation named %@")
   }
+  /// There is no type named %@
+  internal static func thereIsNoTypeNamed(_ p1: Any) -> String {
+    return Loc.tr("Localizable", "There is no type named", String(describing: p1), fallback: "There is no type named %@")
+  }
   /// These objects will be deleted irrevocably. You can’t undo this action.
   internal static let theseObjectsWillBeDeletedIrrevocably = Loc.tr("Localizable", "These objects will be deleted irrevocably", fallback: "These objects will be deleted irrevocably. You can’t undo this action.")
   /// This object doesn't exist
@@ -656,8 +662,6 @@ internal enum Loc {
   internal static let toggleBlockSubtitle = Loc.tr("Localizable", "Toggle block subtitle", fallback: "Hide and show content inside")
   /// Tomorrow
   internal static let tomorrow = Loc.tr("Localizable", "Tomorrow", fallback: "Tomorrow")
-  /// Try to create a new one or search for something else
-  internal static let tryToCreateANewOneOrSearchForSomethingElse = Loc.tr("Localizable", "Try to create a new one or search for something else", fallback: "Try to create a new one or search for something else")
   /// Try to find a new one or upload your image
   internal static let tryToFindANewOneOrUploadYourImage = Loc.tr("Localizable", "Try to find a new one or upload your image", fallback: "Try to find a new one or upload your image")
   /// Turn into

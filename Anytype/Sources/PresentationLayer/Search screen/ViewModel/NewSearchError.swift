@@ -20,7 +20,14 @@ extension NewSearchError {
     static func noObjectError(searchText: String) -> NewSearchError {
         NewSearchError(
             title: Loc.thereIsNoObjectNamed(searchText),
-            subtitle: Loc.tryToCreateANewOneOrSearchForSomethingElse
+            subtitle: Loc.createANewOneOrSearchForSomethingElse
+        )
+    }
+    
+    static func noTypeError(searchText: String) -> NewSearchError {
+        NewSearchError(
+            title: Loc.thereIsNoTypeNamed(searchText),
+            subtitle: Loc.createANewOneOrSearchForSomethingElse
         )
     }
     
