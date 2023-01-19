@@ -3,30 +3,30 @@ import BlocksModels
 import Combine
 
 @MainActor
-final class SetWidgetViewModel: ObservableObject {
-    
+final class SetWidgetViewModel: ListWidgetViewModelProtocol, ObservableObject {
+        
     // MARK: - DI
     private let widgetBlockId: BlockId
     private let widgetObject: HomeWidgetsObjectProtocol
     private let objectDetailsStorage: ObjectDetailsStorage
     private let blockWidgetService: BlockWidgetServiceProtocol
-    private weak var output: SetWidgetModuleOutput?
+    private weak var output: CommonWidgetModuleOutput?
     
     // MARK: - State
     private var subscriptions = [AnyCancellable]()
     private var linkedObjectDetails: ObjectDetails?
     
-    @Published var name: String = ""
+    @Published private(set) var name: String = ""
     @Published var isExpanded: Bool = true
-    @Published var headerItems: [SetWidgetHeaderItem.Model] = []
-    @Published var rows: [SetWidgetRow.Model] = []
+    @Published private(set) var headerItems: [SetWidgetHeaderItem.Model] = []
+    @Published private(set) var rows: [SetWidgetRow.Model] = []
     
     init(
         widgetBlockId: BlockId,
         widgetObject: HomeWidgetsObjectProtocol,
         objectDetailsStorage: ObjectDetailsStorage,
         blockWidgetService: BlockWidgetServiceProtocol,
-        output: SetWidgetModuleOutput?
+        output: CommonWidgetModuleOutput?
     ) {
         self.widgetBlockId = widgetBlockId
         self.widgetObject = widgetObject
@@ -35,7 +35,7 @@ final class SetWidgetViewModel: ObservableObject {
         self.output = output
     }
     
-    // MARK: - Public
+    // MARK: - ListWidgetViewModelProtocol
     
     func onAppear() {
         setupAllSubscriptions()

@@ -14,18 +14,25 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
         let source: HomeWidgetProviderAssemblyProtocol
     }
     
+    private enum Constants {
+        static let favoriteWidgetId = "FavoriteWidgetId"
+    }
+    
     private let treeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     private let setWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
+    private let favoriteWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     private let objectDetailsStorage: ObjectDetailsStorage
     private var providersCache: [ProviderCache] = []
     
     init(
         treeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         setWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
+        favoriteWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         objectDetailsStorage: ObjectDetailsStorage
     ) {
         self.treeWidgetProviderAssembly = treeWidgetProviderAssembly
         self.setWidgetProviderAssembly = setWidgetProviderAssembly
+        self.favoriteWidgetProviderAssembly = favoriteWidgetProviderAssembly
         self.objectDetailsStorage = objectDetailsStorage
     }
     
@@ -75,6 +82,17 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
                 }
             }
         }
+        
+        // TODO: Add local state provider for widgets: favorite, set, recent, bin.
+        // Or implement it in middleware.
+        
+        providersCache.append(
+            createProviderCache(
+                source: favoriteWidgetProviderAssembly,
+                widgetBlockId: Constants.favoriteWidgetId,
+                widgetObject: widgetObject
+            )
+        )
         
         return providersCache.map { $0.provider }
     }

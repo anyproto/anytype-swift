@@ -2,11 +2,11 @@ import Foundation
 
 protocol WidgetsDIProtocol {
     func homeWidgetsRegistry(
-        treeWidgetOutput: ObjectTreeWidgetModuleOutput?,
-        setWidgetOutput: SetWidgetModuleOutput?
+        widgetOutput: CommonWidgetModuleOutput?
     ) -> HomeWidgetsRegistryProtocol
     func objectTreeWidgetModuleAssembly() -> ObjectTreeWidgetModuleAssemblyProtocol
     func setWidgetModuleAssembly() -> SetWidgetModuleAssemblyProtocol
+    func favoriteWidgetModuleAssembly() -> FavoriteWidgetModuleAssemblyProtocol
     func bottomPanelProviderAssembly() -> HomeBottomPanelProviderAssemblyProtocol
     func bottomPanelModuleAssembly() -> HomeBottomPanelModuleAssemblyProtocol
 }
@@ -24,12 +24,12 @@ final class WidgetsDI: WidgetsDIProtocol {
     // MARK: - WidgetsDIProtocol
     
     func homeWidgetsRegistry(
-        treeWidgetOutput: ObjectTreeWidgetModuleOutput?,
-        setWidgetOutput: SetWidgetModuleOutput?
+        widgetOutput: CommonWidgetModuleOutput?
     ) -> HomeWidgetsRegistryProtocol {
         return HomeWidgetsRegistry(
-            treeWidgetProviderAssembly: ObjectTreeWidgetProviderAssembly(widgetsDI: self, output: treeWidgetOutput),
-            setWidgetProviderAssembly: SetWidgetProviderAssembly(widgetsDI: self, output: setWidgetOutput),
+            treeWidgetProviderAssembly: ObjectTreeWidgetProviderAssembly(widgetsDI: self, output: widgetOutput),
+            setWidgetProviderAssembly: SetWidgetProviderAssembly(widgetsDI: self, output: widgetOutput),
+            favoriteWidgetProviderAssembly: FavoriteWidgetProviderAssembly(widgetsDI: self, output: widgetOutput),
             objectDetailsStorage: serviceLocator.objectDetailsStorage()
         )
     }
@@ -40,6 +40,10 @@ final class WidgetsDI: WidgetsDIProtocol {
     
     func setWidgetModuleAssembly() -> SetWidgetModuleAssemblyProtocol {
         return SetWidgetModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
+    }
+    
+    func favoriteWidgetModuleAssembly() -> FavoriteWidgetModuleAssemblyProtocol {
+        return FavoriteWidgetModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
     }
     
     func bottomPanelProviderAssembly() -> HomeBottomPanelProviderAssemblyProtocol {

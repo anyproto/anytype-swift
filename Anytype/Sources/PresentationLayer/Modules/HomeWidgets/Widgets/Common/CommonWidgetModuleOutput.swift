@@ -1,6 +1,6 @@
 import Foundation
 
 @MainActor
-protocol SetWidgetModuleOutput: AnyObject {
+protocol CommonWidgetModuleOutput: AnyObject {
     func onObjectSelected(screenData: EditorScreenData)
 }

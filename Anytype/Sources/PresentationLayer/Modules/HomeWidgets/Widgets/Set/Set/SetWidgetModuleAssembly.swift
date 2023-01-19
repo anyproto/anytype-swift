@@ -3,7 +3,7 @@ import SwiftUI
 
 protocol SetWidgetModuleAssemblyProtocol {
     @MainActor
-    func make(widgetBlockId: String, widgetObject: HomeWidgetsObjectProtocol, output: SetWidgetModuleOutput?) -> AnyView
+    func make(widgetBlockId: String, widgetObject: HomeWidgetsObjectProtocol, output: CommonWidgetModuleOutput?) -> AnyView
 }
 
 final class SetWidgetModuleAssembly: SetWidgetModuleAssemblyProtocol {
@@ -19,7 +19,7 @@ final class SetWidgetModuleAssembly: SetWidgetModuleAssemblyProtocol {
     // MARK: - SetWidgetModuleAssemblyProtocol
     
     @MainActor
-    func make(widgetBlockId: String, widgetObject: HomeWidgetsObjectProtocol, output: SetWidgetModuleOutput?) -> AnyView {
+    func make(widgetBlockId: String, widgetObject: HomeWidgetsObjectProtocol, output: CommonWidgetModuleOutput?) -> AnyView {
         
         let model = SetWidgetViewModel(
             widgetBlockId: widgetBlockId,

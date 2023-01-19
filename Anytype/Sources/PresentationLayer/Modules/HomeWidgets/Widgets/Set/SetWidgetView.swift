@@ -1,9 +1,9 @@
 import Foundation
 import SwiftUI
 
-struct SetWidgetView: View {
+struct SetWidgetView<Model: ListWidgetViewModelProtocol>: View {
     
-    @ObservedObject var model: SetWidgetViewModel
+    @ObservedObject var model: Model
     
     var body: some View {
         LinkWidgetViewContainer(title: model.name, isExpanded: $model.isExpanded) {
@@ -21,15 +21,21 @@ struct SetWidgetView: View {
     }
     
     private var header: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 16) {
-                ForEach(model.headerItems, id: \.dataviewId) {
-                    SetWidgetHeaderItem(model: $0)
+        Group {
+            if model.headerItems.isEmpty {
+                Spacer.fixedHeight(6)
+            } else {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 16) {
+                        ForEach(model.headerItems, id: \.dataviewId) {
+                            SetWidgetHeaderItem(model: $0)
+                        }
+                    }
+                    .padding(.horizontal, 16)
                 }
+                .frame(height: 40)
             }
-            .padding(.horizontal, 16)
         }
-        .frame(height: 40)
     }
     
     private var content: some View {

@@ -2,22 +2,23 @@ import Foundation
 import SwiftUI
 import BlocksModels
 
-final class ObjectTreeWidgetProvider: HomeWidgetProviderProtocol {
+// TODO: Create common provider, provider assembly, output if all files will be the same
+final class FavoriteWidgetProvider: HomeWidgetProviderProtocol {
     
     private let widgetBlockId: String
     private let widgetObject: HomeWidgetsObjectProtocol
-    private let objectTreeWidgetModuleAssembly: ObjectTreeWidgetModuleAssemblyProtocol
+    private let favoriteWidgetModuleAssembly: FavoriteWidgetModuleAssemblyProtocol
     private weak var output: CommonWidgetModuleOutput?
     
     init(
         widgetBlockId: String,
         widgetObject: HomeWidgetsObjectProtocol,
-        objectTreeWidgetModuleAssembly: ObjectTreeWidgetModuleAssemblyProtocol,
+        favoriteWidgetModuleAssembly: FavoriteWidgetModuleAssemblyProtocol,
         output: CommonWidgetModuleOutput?
     ) {
         self.widgetBlockId = widgetBlockId
         self.widgetObject = widgetObject
-        self.objectTreeWidgetModuleAssembly = objectTreeWidgetModuleAssembly
+        self.favoriteWidgetModuleAssembly = favoriteWidgetModuleAssembly
         self.output = output
     }
     
@@ -25,7 +26,7 @@ final class ObjectTreeWidgetProvider: HomeWidgetProviderProtocol {
     
     @MainActor
     lazy var view: AnyView = {
-        return objectTreeWidgetModuleAssembly.make(
+        return favoriteWidgetModuleAssembly.make(
             widgetBlockId: widgetBlockId,
             widgetObject: widgetObject,
             output: output
