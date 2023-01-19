@@ -75,7 +75,7 @@ extension ObjectTypesSearchViewModel: NewInternalSearchViewModelProtocol {
 private extension ObjectTypesSearchViewModel {
     
     func handleError(for text: String) {
-        viewStateSubject.send(.error(.noObjectError(searchText: text)))
+        viewStateSubject.send(.error(.noTypeError(searchText: text)))
     }
     
     func handleSearchResults(objects: [ObjectDetails], marketplaceObjects: [ObjectDetails]) {
