@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-struct SetWidgetHeaderItem: View {
+struct ListWidgetHeaderItem: View {
 
     struct Model {
         let dataviewId: String

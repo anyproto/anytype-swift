@@ -16,8 +16,8 @@ final class FavoriteWidgetViewModel: ListWidgetViewModelProtocol, ObservableObje
     
     @Published private(set) var name: String = Loc.favorites
     @Published var isExpanded: Bool = true
-    @Published private(set) var headerItems: [SetWidgetHeaderItem.Model] = []
-    @Published private(set) var rows: [SetWidgetRow.Model] = []
+    @Published private(set) var headerItems: [ListWidgetHeaderItem.Model] = []
+    @Published private(set) var rows: [ListWidgetRow.Model] = []
     
     init(
         widgetBlockId: BlockId,
@@ -51,9 +51,9 @@ final class FavoriteWidgetViewModel: ListWidgetViewModelProtocol, ObservableObje
     
     private func updateViewState() {
         rows = [
-            SetWidgetRow.Model(objectId: "1", icon: .placeholder("A"), title: "Object title", description: "Object description description description description description description ", onTap: {}),
-            SetWidgetRow.Model(objectId: "2", icon: .placeholder("A"), title: "Object title title title title title title title title title", description: nil, onTap: {}),
-            SetWidgetRow.Model(objectId: "3", icon: nil, title: "Object title", description: "Object description", onTap: {})
+            ListWidgetRow.Model(objectId: "1", icon: .placeholder("A"), title: "Object title", description: "Object description description description description description description ", onTap: {}),
+            ListWidgetRow.Model(objectId: "2", icon: .placeholder("A"), title: "Object title title title title title title title title title", description: nil, onTap: {}),
+            ListWidgetRow.Model(objectId: "3", icon: nil, title: "Object title", description: "Object description", onTap: {})
         ]
     }
 }

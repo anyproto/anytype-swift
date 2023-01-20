@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-struct SetWidgetView<Model: ListWidgetViewModelProtocol>: View {
+struct ListWidgetView<Model: ListWidgetViewModelProtocol>: View {
     
     @ObservedObject var model: Model
     
@@ -28,7 +28,7 @@ struct SetWidgetView<Model: ListWidgetViewModelProtocol>: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 16) {
                         ForEach(model.headerItems, id: \.dataviewId) {
-                            SetWidgetHeaderItem(model: $0)
+                            ListWidgetHeaderItem(model: $0)
                         }
                     }
                     .padding(.horizontal, 16)
@@ -41,7 +41,7 @@ struct SetWidgetView<Model: ListWidgetViewModelProtocol>: View {
     private var content: some View {
         VStack(spacing: 0) {
             ForEach(model.rows, id: \.objectId) {
-                SetWidgetRow(model: $0)
+                ListWidgetRow(model: $0)
             }
         }
     }

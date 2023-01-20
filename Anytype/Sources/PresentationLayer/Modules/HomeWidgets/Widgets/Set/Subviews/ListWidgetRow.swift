@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-struct SetWidgetRow: View {
+struct ListWidgetRow: View {
     
     struct Model {
         let objectId: String
