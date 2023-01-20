@@ -6,16 +6,8 @@
 public extension FeatureFlags {
 
     // Static value reader
-    static var objectPreviewSettings: Bool {
-        value(for: .objectPreviewSettings)
-    }
-
     static var setKanbanView: Bool {
         value(for: .setKanbanView)
-    }
-
-    static var linktoObjectFromItself: Bool {
-        value(for: .linktoObjectFromItself)
     }
 
     static var homeWidgets: Bool {
@@ -40,9 +32,7 @@ public extension FeatureFlags {
 
     // All toggles
     static let features: [FeatureDescription] = [
-        .objectPreviewSettings,
         .setKanbanView,
-        .linktoObjectFromItself,
         .homeWidgets,
         .rainbowViews,
         .showAlertOnAssert,
