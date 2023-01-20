@@ -14,10 +14,6 @@ public extension FeatureFlags {
         value(for: .setKanbanView)
     }
 
-    static var redesignNewButton: Bool {
-        value(for: .redesignNewButton)
-    }
-
     static var linktoObjectFromItself: Bool {
         value(for: .linktoObjectFromItself)
     }
@@ -74,7 +70,6 @@ public extension FeatureFlags {
     static let features: [FeatureDescription] = [
         .objectPreviewSettings,
         .setKanbanView,
-        .redesignNewButton,
         .linktoObjectFromItself,
         .linkToObjectFromMarkup,
         .showBookmarkInSets,
