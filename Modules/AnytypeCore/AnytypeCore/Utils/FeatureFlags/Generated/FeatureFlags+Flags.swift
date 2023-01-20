@@ -46,10 +46,6 @@ public extension FeatureFlags {
         value(for: .fixColorsForStyleMenu)
     }
 
-    static var redesignBookmarkBlock: Bool {
-        value(for: .redesignBookmarkBlock)
-    }
-
     static var showSetsInChangeTypeSearchMenu: Bool {
         value(for: .showSetsInChangeTypeSearchMenu)
     }
@@ -90,7 +86,6 @@ public extension FeatureFlags {
         .showBookmarkInSets,
         .inlineMarkdown,
         .fixColorsForStyleMenu,
-        .redesignBookmarkBlock,
         .showSetsInChangeTypeSearchMenu,
         .fixInsetMediaContent,
         .homeWidgets,
