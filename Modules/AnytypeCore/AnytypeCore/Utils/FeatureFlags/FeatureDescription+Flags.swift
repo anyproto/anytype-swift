@@ -8,21 +8,7 @@ public extension FeatureDescription {
         releaseVersion: "0.20.0",
         defaultValue: true
     )
-    
-    static let cursorPosition = FeatureDescription(
-        title: "Cursor position after change style",
-        author: "m@anytype.io",
-        releaseVersion: "0.19.0",
-        defaultValue: true
-    )
-    
-    static let hideBottomViewForStyleMenu = FeatureDescription(
-        title: "Hide bottom navigation view in editor for style menu (IOS-293)",
-        author: "m@anytype.io",
-        releaseVersion: "0.19.0",
-        defaultValue: true
-    )
-    
+        
     static let setKanbanView = FeatureDescription(
         title: "Set kanban view",
         author: "joe_pusya@anytype.io",
@@ -30,45 +16,10 @@ public extension FeatureDescription {
         defaultValue: false,
         debugValue: false
     )
-
-    static let redesignNewButton = FeatureDescription(
-        title: "Set redesign \"new\" button",
-        author: "m@anytype.io",
-        releaseVersion: "0.19.0",
-        defaultValue: true
-    )
-
+    
     static let linktoObjectFromItself = FeatureDescription(
         title: "Link to object from itself",
         author: "db@anytype.io",
-        releaseVersion: "0.20.0",
-        defaultValue: true
-    )
-    
-    static let linkToObjectFromMarkup = FeatureDescription(
-        title: "Link to object from markup",
-        author: "m@anytype.io",
-        releaseVersion: "0.20.0",
-        defaultValue: true
-    )
-    
-    static let showBookmarkInSets = FeatureDescription(
-        title: "Show bookmark type in sets (IOS-538)",
-        author: "m@anytype.io",
-        releaseVersion: "0.20.0",
-        defaultValue: true
-    )
-    
-    static let inlineMarkdown = FeatureDescription(
-        title: "Inline markdown (IOS-78)",
-        author: "m@anytype.io",
-        releaseVersion: "0.20.0",
-        defaultValue: true
-    )
-
-    static let fixColorsForStyleMenu = FeatureDescription(
-        title: "Fix colors for style menu (IOS-94)",
-        author: "m@anytype.io",
         releaseVersion: "0.20.0",
         defaultValue: true
     )

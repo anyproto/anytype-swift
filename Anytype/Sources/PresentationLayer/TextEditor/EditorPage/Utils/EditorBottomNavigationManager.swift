@@ -37,10 +37,8 @@ final class EditorBottomNavigationManager: EditorBottomNavigationManagerProtocol
     }
     
     func styleViewActive(_ active: Bool) {
-        if FeatureFlags.hideBottomViewForStyleMenu {
-            isStyleViewActive = active
-            updateNavigationVisibility(animated: false)
-        }
+        isStyleViewActive = active
+        updateNavigationVisibility(animated: false)
     }
     
     private func updateNavigationVisibility(animated: Bool) {

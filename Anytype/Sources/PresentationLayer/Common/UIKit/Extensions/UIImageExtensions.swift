@@ -233,18 +233,7 @@ extension UIImage {
         backgroundView.layer.cornerRadius = cornerRadius
         backgroundView.layer.masksToBounds = true
         
-        if FeatureFlags.fixColorsForStyleMenu {
-            return backgroundView.drawToImage()
-        } else {
-            UIGraphicsBeginImageContextWithOptions(size, false, UIApplication.shared.keyWindow?.screen.scale ?? 0)
-            if let currentContext = UIGraphicsGetCurrentContext() {
-                backgroundView.layer.render(in: currentContext)
-                let nameImage = UIGraphicsGetImageFromCurrentImageContext()
-                return nameImage
-            }
-        }
-
-        return nil
+        return backgroundView.drawToImage()
     }
 
     static func circleImage(

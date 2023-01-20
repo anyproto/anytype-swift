@@ -10,40 +10,12 @@ public extension FeatureFlags {
         value(for: .objectPreviewSettings)
     }
 
-    static var cursorPosition: Bool {
-        value(for: .cursorPosition)
-    }
-
-    static var hideBottomViewForStyleMenu: Bool {
-        value(for: .hideBottomViewForStyleMenu)
-    }
-
     static var setKanbanView: Bool {
         value(for: .setKanbanView)
     }
 
-    static var redesignNewButton: Bool {
-        value(for: .redesignNewButton)
-    }
-
     static var linktoObjectFromItself: Bool {
         value(for: .linktoObjectFromItself)
-    }
-
-    static var linkToObjectFromMarkup: Bool {
-        value(for: .linkToObjectFromMarkup)
-    }
-
-    static var showBookmarkInSets: Bool {
-        value(for: .showBookmarkInSets)
-    }
-
-    static var inlineMarkdown: Bool {
-        value(for: .inlineMarkdown)
-    }
-
-    static var fixColorsForStyleMenu: Bool {
-        value(for: .fixColorsForStyleMenu)
     }
 
     static var homeWidgets: Bool {
@@ -69,15 +41,8 @@ public extension FeatureFlags {
     // All toggles
     static let features: [FeatureDescription] = [
         .objectPreviewSettings,
-        .cursorPosition,
-        .hideBottomViewForStyleMenu,
         .setKanbanView,
-        .redesignNewButton,
         .linktoObjectFromItself,
-        .linkToObjectFromMarkup,
-        .showBookmarkInSets,
-        .inlineMarkdown,
-        .fixColorsForStyleMenu,
         .homeWidgets,
         .rainbowViews,
         .showAlertOnAssert,

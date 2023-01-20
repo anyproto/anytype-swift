@@ -276,11 +276,7 @@ extension SimpleTableStateManager: BlockSelectionHandler {
             },
             onDismiss: { [weak self] in
                 self?.editingState = .editing
-                if FeatureFlags.cursorPosition {
-                    self?.cursorManager.restoreLastFocus(at: info.id)
-                } else {
-                    self?.cursorManager.focus(at: info.id)
-                }
+                self?.cursorManager.restoreLastFocus(at: info.id)
             }
         )
 
