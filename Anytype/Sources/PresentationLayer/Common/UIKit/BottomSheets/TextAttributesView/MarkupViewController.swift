@@ -180,12 +180,8 @@ extension MarkupsViewController: MarkupViewProtocol {
             self.setup(button: self.italicButton, with: state.markup[.italic, default: .disabled])
             self.setup(button: self.strikethroughButton, with: state.markup[.strikethrough, default: .disabled])
             self.setup(button: self.codeButton, with: state.markup[.keyboard, default: .disabled])
-            if FeatureFlags.linkToObjectFromMarkup {
-                self.setup(button: self.urlButton, with: state.markup[.link, default: .disabled])
-            } else {
-                self.urlButton.isEnabled = false
-            }
-
+            self.setup(button: self.urlButton, with: state.markup[.link, default: .disabled])
+            
             self.setup(button: self.leftAlignButton, with: state.alignment[.left, default: .disabled])
             self.setup(button: self.centerAlignButton, with: state.alignment[.center, default: .disabled])
             self.setup(button: self.rightAlignButton, with: state.alignment[.right, default: .disabled])

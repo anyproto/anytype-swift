@@ -43,7 +43,7 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
         widgetObject: HomeWidgetsObjectProtocol
     ) -> [HomeWidgetProviderProtocol] {
         
-        providersCache = blocks.compactMap { block in
+        var newProvidersCache: [ProviderCache] = blocks.compactMap { block in
             guard case let .widget(widget) = block.content else { return nil }
             
             guard let contentId = widgetObject.targetObjectIdByLinkFor(widgetBlockId: block.id),
@@ -86,7 +86,7 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
         // TODO: Add local state provider for widgets: favorite, set, recent, bin.
         // Or implement it in middleware.
         
-        providersCache.append(
+        newProvidersCache.append(
             createProviderCache(
                 source: favoriteWidgetProviderAssembly,
                 widgetBlockId: Constants.favoriteWidgetId,
@@ -94,6 +94,7 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
             )
         )
         
+        providersCache = newProvidersCache
         return providersCache.map { $0.provider }
     }
     

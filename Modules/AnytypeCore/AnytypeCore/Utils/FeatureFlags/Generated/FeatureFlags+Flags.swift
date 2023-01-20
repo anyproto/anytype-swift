@@ -6,48 +6,8 @@
 public extension FeatureFlags {
 
     // Static value reader
-    static var cursorPosition: Bool {
-        value(for: .cursorPosition)
-    }
-
-    static var hideBottomViewForStyleMenu: Bool {
-        value(for: .hideBottomViewForStyleMenu)
-    }
-
     static var setKanbanView: Bool {
         value(for: .setKanbanView)
-    }
-
-    static var redesignNewButton: Bool {
-        value(for: .redesignNewButton)
-    }
-
-    static var linkToObjectFromMarkup: Bool {
-        value(for: .linkToObjectFromMarkup)
-    }
-
-    static var showBookmarkInSets: Bool {
-        value(for: .showBookmarkInSets)
-    }
-
-    static var inlineMarkdown: Bool {
-        value(for: .inlineMarkdown)
-    }
-
-    static var fixColorsForStyleMenu: Bool {
-        value(for: .fixColorsForStyleMenu)
-    }
-
-    static var redesignBookmarkBlock: Bool {
-        value(for: .redesignBookmarkBlock)
-    }
-
-    static var showSetsInChangeTypeSearchMenu: Bool {
-        value(for: .showSetsInChangeTypeSearchMenu)
-    }
-
-    static var fixInsetMediaContent: Bool {
-        value(for: .fixInsetMediaContent)
     }
 
     static var homeWidgets: Bool {
@@ -72,17 +32,7 @@ public extension FeatureFlags {
 
     // All toggles
     static let features: [FeatureDescription] = [
-        .cursorPosition,
-        .hideBottomViewForStyleMenu,
         .setKanbanView,
-        .redesignNewButton,
-        .linkToObjectFromMarkup,
-        .showBookmarkInSets,
-        .inlineMarkdown,
-        .fixColorsForStyleMenu,
-        .redesignBookmarkBlock,
-        .showSetsInChangeTypeSearchMenu,
-        .fixInsetMediaContent,
         .homeWidgets,
         .rainbowViews,
         .showAlertOnAssert,
