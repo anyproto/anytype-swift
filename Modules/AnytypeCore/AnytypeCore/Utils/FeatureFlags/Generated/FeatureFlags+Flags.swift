@@ -46,10 +46,6 @@ public extension FeatureFlags {
         value(for: .fixColorsForStyleMenu)
     }
 
-    static var fixInsetMediaContent: Bool {
-        value(for: .fixInsetMediaContent)
-    }
-
     static var homeWidgets: Bool {
         value(for: .homeWidgets)
     }
@@ -82,7 +78,6 @@ public extension FeatureFlags {
         .showBookmarkInSets,
         .inlineMarkdown,
         .fixColorsForStyleMenu,
-        .fixInsetMediaContent,
         .homeWidgets,
         .rainbowViews,
         .showAlertOnAssert,
