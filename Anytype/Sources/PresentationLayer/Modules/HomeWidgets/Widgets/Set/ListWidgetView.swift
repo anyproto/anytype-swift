@@ -6,7 +6,7 @@ struct ListWidgetView<Model: ListWidgetViewModelProtocol>: View {
     @ObservedObject var model: Model
     
     var body: some View {
-        LinkWidgetViewContainer(title: model.name, isExpanded: $model.isExpanded) {
+        LinkWidgetViewContainer(title: model.name, description: model.count, isExpanded: $model.isExpanded) {
             VStack(spacing: 0) {
                 header
                 content
@@ -43,6 +43,8 @@ struct ListWidgetView<Model: ListWidgetViewModelProtocol>: View {
             ForEach(model.rows, id: \.objectId) {
                 ListWidgetRow(model: $0)
             }
+            // Add space for static widget height
+            Spacer.fixedHeight(ListWidgetRow.height * CGFloat(max(model.minimimRowsCount - model.rows.count, 0)))
         }
     }
 }

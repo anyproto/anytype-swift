@@ -5,6 +5,10 @@ import Combine
 @MainActor
 final class SetWidgetViewModel: ListWidgetViewModelProtocol, ObservableObject {
         
+    private enum Constants {
+        static let maxItems = 3
+    }
+    
     // MARK: - DI
     private let widgetBlockId: BlockId
     private let widgetObject: HomeWidgetsObjectProtocol
@@ -20,6 +24,8 @@ final class SetWidgetViewModel: ListWidgetViewModelProtocol, ObservableObject {
     @Published var isExpanded: Bool = true
     @Published private(set) var headerItems: [ListWidgetHeaderItem.Model] = []
     @Published private(set) var rows: [ListWidgetRow.Model] = []
+    var minimimRowsCount: Int { Constants.maxItems }
+    var count: String? = nil
     
     init(
         widgetBlockId: BlockId,

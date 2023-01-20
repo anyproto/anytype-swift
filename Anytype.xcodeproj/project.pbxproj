@@ -406,6 +406,8 @@
 		2A1F948E297953B600E25782 /* FavoriteWidgetProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1F9489297953B600E25782 /* FavoriteWidgetProvider.swift */; };
 		2A1F948F297953B600E25782 /* FavoriteWidgetModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1F948A297953B600E25782 /* FavoriteWidgetModuleAssembly.swift */; };
 		2A1F94932979579B00E25782 /* CommonWidgetModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1F94922979579B00E25782 /* CommonWidgetModuleOutput.swift */; };
+		2A1F949929795FEB00E25782 /* FavoriteSubscriptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1F949829795FEB00E25782 /* FavoriteSubscriptionService.swift */; };
+		2A1F949B297961A300E25782 /* BundledRelationKey+CommonKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1F949A297961A300E25782 /* BundledRelationKey+CommonKeys.swift */; };
 		2A2A347529229D2B0004BD8B /* NavigationContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2A347429229D2B0004BD8B /* NavigationContext.swift */; };
 		2A2C330028919576008BC326 /* RelationMetadataFormat+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2C32FF28919576008BC326 /* RelationMetadataFormat+Extensions.swift */; };
 		2A2C330328928668008BC326 /* RelationValueCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2C330228928668008BC326 /* RelationValueCoordinator.swift */; };
@@ -1738,6 +1740,8 @@
 		2A1F9489297953B600E25782 /* FavoriteWidgetProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteWidgetProvider.swift; sourceTree = "<group>"; };
 		2A1F948A297953B600E25782 /* FavoriteWidgetModuleAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteWidgetModuleAssembly.swift; sourceTree = "<group>"; };
 		2A1F94922979579B00E25782 /* CommonWidgetModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonWidgetModuleOutput.swift; sourceTree = "<group>"; };
+		2A1F949829795FEB00E25782 /* FavoriteSubscriptionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteSubscriptionService.swift; sourceTree = "<group>"; };
+		2A1F949A297961A300E25782 /* BundledRelationKey+CommonKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BundledRelationKey+CommonKeys.swift"; sourceTree = "<group>"; };
 		2A2A347429229D2B0004BD8B /* NavigationContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationContext.swift; sourceTree = "<group>"; };
 		2A2C32FF28919576008BC326 /* RelationMetadataFormat+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RelationMetadataFormat+Extensions.swift"; sourceTree = "<group>"; };
 		2A2C330228928668008BC326 /* RelationValueCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationValueCoordinator.swift; sourceTree = "<group>"; };
@@ -2932,6 +2936,7 @@
 		038FB5C822D8F321002B90B8 /* ServiceLayer */ = {
 			isa = PBXGroup;
 			children = (
+				2A1F949629795FB300E25782 /* Subscriptions */,
 				2AFFFB9D2927B02500A487E1 /* Account */,
 				2A03039D28ABD480002EFC46 /* URL */,
 				12EE02CB2840E33B00223EB5 /* SceneLifecycleStateService */,
@@ -4602,6 +4607,15 @@
 				2A1F9489297953B600E25782 /* FavoriteWidgetProvider.swift */,
 			);
 			path = Provider;
+			sourceTree = "<group>";
+		};
+		2A1F949629795FB300E25782 /* Subscriptions */ = {
+			isa = PBXGroup;
+			children = (
+				2A1F949829795FEB00E25782 /* FavoriteSubscriptionService.swift */,
+				2A1F949A297961A300E25782 /* BundledRelationKey+CommonKeys.swift */,
+			);
+			path = Subscriptions;
 			sourceTree = "<group>";
 		};
 		2A2A347229229D190004BD8B /* Navigation */ = {
@@ -8733,6 +8747,7 @@
 				12CAF35E26D67540001E56B2 /* ObjectIconImageFontSet.swift in Sources */,
 				125B6ECF26F235F400BCD7D6 /* SlashMenuViewController.swift in Sources */,
 				2A03039F28ABD4BD002EFC46 /* SystemURLService.swift in Sources */,
+				2A1F949B297961A300E25782 /* BundledRelationKey+CommonKeys.swift in Sources */,
 				2E2D256128880C8D00E3DFD1 /* SetFiltersSelectionViewState.swift in Sources */,
 				2AFA110E296C672A0055422F /* HomeBottomPanelProvider.swift in Sources */,
 				2AF4C3DE295D82A700FD7153 /* WidgetsDI.swift in Sources */,
@@ -9305,6 +9320,7 @@
 				0ACFCCF7249C17B5002E0477 /* BlockListService Protocol.swift in Sources */,
 				3D1CEC3127F5A8CA000D36BA /* DeletedAccountViewModel.swift in Sources */,
 				535F799A274705C30050A1B8 /* FlowRelationsViewModel.swift in Sources */,
+				2A1F949929795FEB00E25782 /* FavoriteSubscriptionService.swift in Sources */,
 				2ADFA9DC2949C61D00F64688 /* UIKitModule.swift in Sources */,
 				C93B2D2F274E41390008544D /* CustomStateKeys.swift in Sources */,
 				2A2C3311289294B8008BC326 /* ModulesDI.swift in Sources */,

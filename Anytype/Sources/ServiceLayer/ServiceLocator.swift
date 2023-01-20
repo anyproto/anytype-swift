@@ -132,6 +132,13 @@ final class ServiceLocator {
         return BlockWidgetService()
     }
     
+    func favoriteSubscriptionService() -> FavoriteSubscriptionServiceProtocol {
+        return FavoriteSubscriptionService(
+            objectDetailsStorage: objectDetailsStorage(),
+            objectTypeProvider: objectTypeProvider()
+        )
+    }
+    
     // MARK: - Private
     
     private func subscriptionToggler() -> SubscriptionTogglerProtocol {
