@@ -371,6 +371,123 @@ final class MiddlewareEventConverter {
                 return dataView.updated(targetObjectID: data.targetObjectID)
             }
             return .general
+        case .blockDataviewViewUpdate(let data):
+            infoContainer.updateDataview(blockId: data.id) { dataView in
+                guard let viewIndex = dataView.views.firstIndex(where: { $0.id == data.viewID }) else {
+                    return dataView
+                }
+                var views = dataView.views
+                var view = views[viewIndex]
+                var filters = view.filters
+                data.filter.forEach { update in
+                    switch update.operation {
+                    case .add(let add):
+                        let afterIdIndex = filters.firstIndex { $0.id == add.afterID }
+                        var addIndex = 0
+                        if let afterIdIndex {
+                            addIndex = afterIdIndex + 1
+                        }
+                        filters.insert(contentsOf: add.items, at: addIndex)
+                    case .move(let move):
+                        let afterIdIndex = filters.firstIndex { $0.id == move.afterID }
+                        move.ids.enumerated().forEach { index, id in
+                            guard let filterIndex = filters.firstIndex(where: { $0.id == id }) else { return }
+                            let orderIndex = (afterIdIndex ?? 0) + index
+                            let appendix = orderIndex < filters.count ? 1 : 0
+                            let moveIndex = afterIdIndex == nil ? index : orderIndex + appendix
+                            filters.move(
+                                fromOffsets: IndexSet(integer: filterIndex),
+                                toOffset: moveIndex
+                            )
+                        }
+                    case .remove(let remove):
+                        filters = filters.filter { !remove.ids.contains($0.id) }
+                    case .update(let update):
+                        if update.hasItem, let index = filters.firstIndex(where: { $0.id == update.id }) {
+                            filters[index] = update.item
+                        }
+                    default:
+                        break
+                    }
+                    
+                    view = view.updated(filters: filters)
+                }
+                
+                var sorts = view.sorts
+                data.sort.forEach { update in
+                    switch update.operation {
+                    case .add(let add):
+                        let afterIdIndex = sorts.firstIndex { $0.relationKey == add.afterID }
+                        var addIndex = 0
+                        if let afterIdIndex {
+                            addIndex = afterIdIndex + 1
+                        }
+                        sorts.insert(contentsOf: add.items, at: addIndex)
+                    case .move(let move):
+                        let afterIdIndex = sorts.firstIndex { $0.relationKey == move.afterID }
+                        move.ids.enumerated().forEach { index, id in
+                            guard let sortIndex = sorts.firstIndex(where: { $0.relationKey == id }) else { return }
+                            let orderIndex = (afterIdIndex ?? 0) + index
+                            let appendix = orderIndex < sorts.count ? 1 : 0
+                            let moveIndex = afterIdIndex == nil ? index : orderIndex + appendix
+                            sorts.move(
+                                fromOffsets: IndexSet(integer: sortIndex),
+                                toOffset: moveIndex
+                            )
+                        }
+                    case .remove(let remove):
+                        sorts = sorts.filter { !remove.ids.contains($0.relationKey) }
+                    case .update(let update):
+                        if update.hasItem, let index = sorts.firstIndex(where: { $0.relationKey == update.id }) {
+                            sorts[index] = update.item
+                        }
+                    default:
+                        break
+                    }
+
+                    view = view.updated(sorts: sorts)
+                }
+                
+                var options = view.options
+                data.relation.forEach { update in
+                    switch update.operation {
+                    case .add(let add):
+                        let newOptions = add.items.map { $0.asModel }
+                        let afterIdIndex = options.firstIndex { $0.key == add.afterID }
+                        var addIndex = 0
+                        if let afterIdIndex {
+                            addIndex = afterIdIndex + 1
+                        }
+                        options.insert(contentsOf: newOptions, at: addIndex)
+                    case .move(let move):
+                        let afterIdIndex = options.firstIndex { $0.key == move.afterID }
+                        move.ids.enumerated().forEach { index, id in
+                            guard let optionIndex = options.firstIndex(where: { $0.key == id }) else { return }
+                            let orderIndex = (afterIdIndex ?? 0) + index
+                            let appendix = orderIndex < options.count ? 1 : 0
+                            let moveIndex = afterIdIndex == nil ? index : orderIndex + appendix
+                            options.move(
+                                fromOffsets: IndexSet(integer: optionIndex),
+                                toOffset: moveIndex
+                            )
+                        }
+                    case .remove(let remove):
+                        options = options.filter { !remove.ids.contains($0.key) }
+                    case .update(let update):
+                        if update.hasItem, let index = options.firstIndex(where: { $0.key == update.id }) {
+                            options[index] = update.item.asModel
+                        }
+                    default:
+                        break
+                    }
+                    
+                    view = view.updated(options: options)
+                }
+                
+                views[viewIndex] = view
+                return dataView.updated(views: views)
+            }
+            return .general
         case .accountShow,
                 .accountUpdate, // Event not working on middleware. See AccountManager.
                 .accountDetails, // Skipped
@@ -382,7 +499,6 @@ final class MiddlewareEventConverter {
                 .subscriptionCounters, // Implemented in `SubscriptionsService`
                 .subscriptionGroups, // Implemented in `GroupsSubscriptionsHandler`
                 .blockDataviewSourceSet, // will be deleted on middle soon
-                .blockDataviewViewUpdate, // will be implemented later
                 .filesUpload,
                 .marksInfo,
                 .blockSetRestrictions,

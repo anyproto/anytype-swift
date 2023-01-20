@@ -19,7 +19,7 @@ final class DataviewService: DataviewServiceProtocol {
         self.prefilledFieldsBuilder = prefilledFieldsBuilder
     }
     
-    func updateView( _ view: DataviewView) async throws {
+    func updateView(_ view: DataviewView) async throws {
         let result = try await Anytype_Rpc.BlockDataview.View.Update.Service
             .invocation(
                 contextID: objectId,
@@ -31,6 +31,160 @@ final class DataviewService: DataviewServiceProtocol {
         let event = EventsBunch(event: result.event)
         event.send()
     }
+    
+    // MARK: - Filters
+    
+    func addFilter(_ filter: DataviewFilter, viewId: String) async throws {
+        let result = try await Anytype_Rpc.BlockDataview.Filter.Add.Service
+            .invocation(
+                contextID: objectId,
+                blockID: blockId,
+                viewID: viewId,
+                filter: filter
+            )
+            .invoke(errorDomain: .dataviewService)
+        let event = EventsBunch(event: result.event)
+        event.send()
+    }
+    
+    func removeFilters(_ filterIds: [String], viewId: String) async throws {
+        let result = try await Anytype_Rpc.BlockDataview.Filter.Remove.Service
+            .invocation(
+                contextID: objectId,
+                blockID: blockId,
+                viewID: viewId,
+                filterIds: filterIds
+            )
+            .invoke(errorDomain: .dataviewService)
+        let event = EventsBunch(event: result.event)
+        event.send()
+    }
+    
+    func replaceFilter(_ filterId: String, with filter: DataviewFilter, viewId: String) async throws {
+        let result = try await Anytype_Rpc.BlockDataview.Filter.Replace.Service
+            .invocation(
+                contextID: objectId,
+                blockID: blockId,
+                viewID: viewId,
+                filterID: filterId,
+                filter: filter
+            )
+            .invoke(errorDomain: .dataviewService)
+        let event = EventsBunch(event: result.event)
+        event.send()
+    }
+    
+    // MARK: - Sorts
+    
+    func addSort(_ sort: DataviewSort, viewId: String) async throws {
+        let result = try await Anytype_Rpc.BlockDataview.Sort.Add.Service
+            .invocation(
+                contextID: objectId,
+                blockID: blockId,
+                viewID: viewId,
+                sort: sort
+            )
+            .invoke(errorDomain: .dataviewService)
+        let event = EventsBunch(event: result.event)
+        event.send()
+    }
+    
+    func removeSorts(_ sortsKeys: [String], viewId: String) async throws {
+        let result = try await Anytype_Rpc.BlockDataview.Sort.Remove.Service
+            .invocation(
+                contextID: objectId,
+                blockID: blockId,
+                viewID: viewId,
+                relationKeys: sortsKeys
+            )
+            .invoke(errorDomain: .dataviewService)
+        let event = EventsBunch(event: result.event)
+        event.send()
+    }
+    
+    func replaceSort(_ sortKey: String, with sort: DataviewSort, viewId: String) async throws {
+        let result = try await Anytype_Rpc.BlockDataview.Sort.Replace.Service
+            .invocation(
+                contextID: objectId,
+                blockID: blockId,
+                viewID: viewId,
+                relationKey: sortKey,
+                sort: sort
+            )
+            .invoke(errorDomain: .dataviewService)
+        let event = EventsBunch(event: result.event)
+        event.send()
+    }
+    
+    func sortSorts(_ sortsKeys: [String], viewId: String) async throws {
+        let result = try await Anytype_Rpc.BlockDataview.Sort.Sort.Service
+            .invocation(
+                contextID: objectId,
+                blockID: blockId,
+                viewID: viewId,
+                relationKeys: sortsKeys
+            )
+            .invoke(errorDomain: .dataviewService)
+        let event = EventsBunch(event: result.event)
+        event.send()
+    }
+    
+    // MARK: - Relations
+    
+    func addViewRelation(_ relation: MiddlewareRelation, viewId: String) async throws {
+        let result = try await Anytype_Rpc.BlockDataview.ViewRelation.Add.Service
+            .invocation(
+                contextID: objectId,
+                blockID: blockId,
+                viewID: viewId,
+                relation: relation
+            )
+            .invoke(errorDomain: .dataviewService)
+        let event = EventsBunch(event: result.event)
+        event.send()
+    }
+    
+    func removeViewRelations(_ keys: [String], viewId: String) async throws {
+        let result = try await Anytype_Rpc.BlockDataview.ViewRelation.Remove.Service
+            .invocation(
+                contextID: objectId,
+                blockID: blockId,
+                viewID: viewId,
+                relationKeys: keys
+            )
+            .invoke(errorDomain: .dataviewService)
+        let event = EventsBunch(event: result.event)
+        event.send()
+    }
+    
+    func replaceViewRelation(_ key: String, with relation: MiddlewareRelation, viewId: String) async throws {
+        let result = try await Anytype_Rpc.BlockDataview.ViewRelation.Replace.Service
+            .invocation(
+                contextID: objectId,
+                blockID: blockId,
+                viewID: viewId,
+                relationKey: key,
+                relation: relation
+            )
+            .invoke(errorDomain: .dataviewService)
+        let event = EventsBunch(event: result.event)
+        event.send()
+    }
+    
+    func sortViewRelations(_ keys: [String], viewId: String) async throws {
+        let result = try await Anytype_Rpc.BlockDataview.ViewRelation.Sort.Service
+            .invocation(
+                contextID: objectId,
+                blockID: blockId,
+                viewID: viewId,
+                relationKeys: keys
+            )
+            .invoke(errorDomain: .dataviewService)
+        let event = EventsBunch(event: result.event)
+        event.send()
+    }
+    
+    // MARK: -
 
     func createView( _ view: DataviewView, source: [String]) async throws {
         let result = try await Anytype_Rpc.BlockDataview.View.Create.Service

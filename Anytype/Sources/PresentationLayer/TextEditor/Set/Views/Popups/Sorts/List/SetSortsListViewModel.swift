@@ -9,16 +9,16 @@ final class SetSortsListViewModel: ObservableObject {
     private let setDocument: SetDocumentProtocol
     private var cancellable: Cancellable?
     
-    private let service: DataviewServiceProtocol
+    private let dataviewService: DataviewServiceProtocol
     private let router: EditorSetRouterProtocol
     
     init(
         setDocument: SetDocumentProtocol,
-        service: DataviewServiceProtocol,
+        dataviewService: DataviewServiceProtocol,
         router: EditorSetRouterProtocol)
     {
         self.setDocument = setDocument
-        self.service = service
+        self.dataviewService = dataviewService
         self.router = router
         self.setup()
     }
@@ -54,25 +54,32 @@ extension SetSortsListViewModel {
     
     func delete(_ indexSet: IndexSet) {
         var sorts = setDocument.sorts
-        sorts.remove(atOffsets: indexSet)
-        updateView(with: sorts)
+        indexSet.forEach { deleteIndex in
+            guard deleteIndex < sorts.count else { return }
+            let sort = sorts[deleteIndex]
+            Task {
+                try await dataviewService.removeSorts([sort.sort.relationKey], viewId: setDocument.activeView.id)
+            }
+        }
     }
     
     func move(from: IndexSet, to: Int) {
-        var sorts = setDocument.sorts
-        sorts.move(fromOffsets: from, toOffset: to)
-        updateView(with: sorts)
+        Task {
+            var sorts = setDocument.sorts
+            sorts.move(fromOffsets: from, toOffset: to)
+            let sortsKeys = sorts.map { $0.sort.relationKey }
+            try await dataviewService.sortSorts(sortsKeys, viewId: setDocument.activeView.id)
+        }
     }
     
     func addNewSort(with relation: RelationDetails) {
-        var dataviewSorts = setDocument.sorts.map { $0.sort }
-        dataviewSorts.append(
-            DataviewSort(
-                relationKey: relation.key,
-                type: .asc
-            )
+        let newSort = DataviewSort(
+            relationKey: relation.key,
+            type: .asc
         )
-        updateView(with: dataviewSorts)
+        Task {
+            try await dataviewService.addSort(newSort, viewId: setDocument.activeView.id)
+        }
     }
     
     private func setup() {
@@ -93,25 +100,12 @@ extension SetSortsListViewModel {
     }
     
     private func updateSorts(with setSort: SetSort) {
-        let sorts: [SetSort] = setDocument.sorts.map { sort in
-            if sort.relationDetails.key == setSort.relationDetails.key {
-                return setSort
-            } else {
-                return sort
-            }
-        }
-        updateView(with: sorts)
-    }
-    
-    private func updateView(with sorts: [SetSort]) {
-        let dataviewSorts = sorts.map { $0.sort }
-        updateView(with: dataviewSorts)
-    }
-    
-    private func updateView(with dataviewSorts: [DataviewSort]) {
-        let newView = setDocument.activeView.updated(sorts: dataviewSorts)
         Task {
-            try await service.updateView(newView)
+            try await dataviewService.replaceSort(
+                setSort.sort.relationKey,
+                with: setSort.sort,
+                viewId: setDocument.activeView.id
+            )
         }
     }
 }
