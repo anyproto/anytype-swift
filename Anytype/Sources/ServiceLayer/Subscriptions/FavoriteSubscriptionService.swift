@@ -1,6 +1,7 @@
 import Foundation
 import BlocksModels
 import Combine
+import AnytypeCore
 
 protocol FavoriteSubscriptionServiceProtocol: AnyObject {
     func startSubscription(homeDocument: BaseDocumentProtocol, objectLimit: Int?, update: @escaping (_ details: [ObjectDetails], _ count: Int) -> Void)
@@ -20,17 +21,18 @@ final class FavoriteSubscriptionService: FavoriteSubscriptionServiceProtocol {
     
     func startSubscription(homeDocument: BaseDocumentProtocol, objectLimit: Int?, update: @escaping (_ details: [ObjectDetails], _ count: Int) -> Void) {
         
-        // TODO: Discuss about publisher and maybe delete it
-        if let links = homeDocument.details?.links {
-            updateSubscription(links: links, objectLimit: objectLimit, update: update)
+        guard subscriptions.isNotEmpty else {
+            anytypeAssertionFailure("Favorite subscription already started", domain: .subscriptionService)
+            return
         }
         
+        // TODO: Discuss about publisher and maybe delete it
+        updateSubscription(children: homeDocument.children, objectLimit: objectLimit, update: update)
+        
         homeDocument.updatePublisher
-            .compactMap { [homeDocument] _ in homeDocument.details?.links }
-            .removeDuplicates()
             .receiveOnMain()
-            .sink { [weak self] links in
-                self?.updateSubscription(links: links, objectLimit: objectLimit, update: update)
+            .sink { [weak self, homeDocument] links in
+                self?.updateSubscription(children: homeDocument.children, objectLimit: objectLimit, update: update)
             }
             .store(in: &subscriptions)
     }
@@ -39,10 +41,20 @@ final class FavoriteSubscriptionService: FavoriteSubscriptionServiceProtocol {
         subscriptions.removeAll()
     }
     
-    private func updateSubscription(links: [String], objectLimit: Int?, update: @escaping (_ details: [ObjectDetails], _ count: Int) -> Void) {
+    private func updateSubscription(children: [BlockInformation], objectLimit: Int?, update: @escaping (_ details: [ObjectDetails], _ count: Int) -> Void) {
         
-        let details: [ObjectDetails] = links.compactMap {
-            guard let details = objectDetailsStorage.get(id: $0),
+        let details: [ObjectDetails] = children.compactMap { info in
+            
+            guard case .link(let link) = info.content else {
+                anytypeAssertionFailure(
+                    "Not link type in home screen dashboard: \(info.content)",
+                    domain: .homeView
+                )
+                return nil
+            }
+        
+            guard let details = objectDetailsStorage.get(id: link.targetBlockID),
+                  details.isFavorite, !details.isArchived, !details.isDeleted,
                   objectTypeProvider.isSupportedForEdit(typeId: details.type) else { return nil }
             return details
         }
