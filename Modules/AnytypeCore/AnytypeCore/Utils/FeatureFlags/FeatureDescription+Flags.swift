@@ -45,13 +45,6 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
-    static let linkToObjectFromMarkup = FeatureDescription(
-        title: "Link to object from markup",
-        author: "m@anytype.io",
-        releaseVersion: "0.20.0",
-        defaultValue: true
-    )
-    
     static let showBookmarkInSets = FeatureDescription(
         title: "Show bookmark type in sets (IOS-538)",
         author: "m@anytype.io",
