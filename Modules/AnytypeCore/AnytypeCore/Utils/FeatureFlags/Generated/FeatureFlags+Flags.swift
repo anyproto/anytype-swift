@@ -10,10 +10,6 @@ public extension FeatureFlags {
         value(for: .objectPreviewSettings)
     }
 
-    static var hideBottomViewForStyleMenu: Bool {
-        value(for: .hideBottomViewForStyleMenu)
-    }
-
     static var setKanbanView: Bool {
         value(for: .setKanbanView)
     }
@@ -77,7 +73,6 @@ public extension FeatureFlags {
     // All toggles
     static let features: [FeatureDescription] = [
         .objectPreviewSettings,
-        .hideBottomViewForStyleMenu,
         .setKanbanView,
         .redesignNewButton,
         .linktoObjectFromItself,
