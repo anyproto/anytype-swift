@@ -46,10 +46,6 @@ public extension FeatureFlags {
         value(for: .fixColorsForStyleMenu)
     }
 
-    static var showSetsInChangeTypeSearchMenu: Bool {
-        value(for: .showSetsInChangeTypeSearchMenu)
-    }
-
     static var fixInsetMediaContent: Bool {
         value(for: .fixInsetMediaContent)
     }
@@ -86,7 +82,6 @@ public extension FeatureFlags {
         .showBookmarkInSets,
         .inlineMarkdown,
         .fixColorsForStyleMenu,
-        .showSetsInChangeTypeSearchMenu,
         .fixInsetMediaContent,
         .homeWidgets,
         .rainbowViews,

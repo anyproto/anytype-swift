@@ -73,13 +73,6 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
-    static let showSetsInChangeTypeSearchMenu = FeatureDescription(
-        title: "Show sets in change type search menu (IOS-664)",
-        author: "m@anytype.io",
-        releaseVersion: "0.20.0",
-        defaultValue: true
-    )
-    
     static let fixInsetMediaContent = FeatureDescription(
         title: "Fix insert media content (IOS-552)",
         author: "m@anytype.io",
