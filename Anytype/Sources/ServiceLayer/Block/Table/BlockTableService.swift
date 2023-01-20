@@ -45,7 +45,7 @@ final class BlockTableService: BlockTableServiceProtocol {
         let eventsBunch = Anytype_Rpc.BlockTable.Create.Service.invoke(
             contextID: contextId,
             targetID: targetId,
-            position: FeatureFlags.fixInsetMediaContent ? position.asMiddleware : BlockPosition.replace.asMiddleware,
+            position: position.asMiddleware,
             rows: UInt32(rowsCount),
             columns: UInt32(columnsCount),
             withHeaderRow: false

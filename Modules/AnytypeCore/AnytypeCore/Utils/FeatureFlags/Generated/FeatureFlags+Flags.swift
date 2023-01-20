@@ -18,18 +18,6 @@ public extension FeatureFlags {
         value(for: .linktoObjectFromItself)
     }
 
-    static var redesignBookmarkBlock: Bool {
-        value(for: .redesignBookmarkBlock)
-    }
-
-    static var showSetsInChangeTypeSearchMenu: Bool {
-        value(for: .showSetsInChangeTypeSearchMenu)
-    }
-
-    static var fixInsetMediaContent: Bool {
-        value(for: .fixInsetMediaContent)
-    }
-
     static var homeWidgets: Bool {
         value(for: .homeWidgets)
     }
@@ -55,9 +43,6 @@ public extension FeatureFlags {
         .objectPreviewSettings,
         .setKanbanView,
         .linktoObjectFromItself,
-        .redesignBookmarkBlock,
-        .showSetsInChangeTypeSearchMenu,
-        .fixInsetMediaContent,
         .homeWidgets,
         .rainbowViews,
         .showAlertOnAssert,
