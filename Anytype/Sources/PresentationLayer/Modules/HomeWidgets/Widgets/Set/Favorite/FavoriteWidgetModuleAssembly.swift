@@ -24,6 +24,8 @@ final class FavoriteWidgetModuleAssembly: FavoriteWidgetModuleAssemblyProtocol {
         let model = FavoriteWidgetViewModel(
             widgetBlockId: widgetBlockId,
             widgetObject: widgetObject,
+            accountManager: serviceLocator.accountManager(),
+            favoriteSubscriptionService: serviceLocator.favoriteSubscriptionService(),
             output: output
         )
         return ListWidgetView(model: model).eraseToAnyView()

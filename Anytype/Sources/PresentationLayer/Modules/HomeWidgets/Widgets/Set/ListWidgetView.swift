@@ -43,6 +43,8 @@ struct ListWidgetView<Model: ListWidgetViewModelProtocol>: View {
             ForEach(model.rows, id: \.objectId) {
                 ListWidgetRow(model: $0)
             }
+            // Add space for static widget height
+            Spacer.fixedHeight(ListWidgetRow.height * CGFloat(max(model.minimimRowsCount - model.rows.count, 0)))
         }
     }
 }

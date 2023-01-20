@@ -12,6 +12,7 @@ struct ListWidgetRow: View {
     }
     
     let model: Model
+    static let height: CGFloat = 72
     
     var body: some View {
         Button {
@@ -36,7 +37,7 @@ struct ListWidgetRow: View {
             }
         }
         .padding(.horizontal, 16)
-        .frame(height: 72)
+        .frame(height: ListWidgetRow.height)
         .newDivider(leadingPadding: 16, trailingPadding: 16)
     }
 }

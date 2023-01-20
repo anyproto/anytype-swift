@@ -8,6 +8,8 @@ protocol ListWidgetViewModelProtocol: ObservableObject {
     var isExpanded: Bool { get set }
     var headerItems: [ListWidgetHeaderItem.Model] { get }
     var rows: [ListWidgetRow.Model] { get }
+    // For static widget height
+    var minimimRowsCount: Int { get }
     
     func onAppear()
     func onDisappear()
