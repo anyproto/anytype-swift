@@ -9,13 +9,6 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
-    static let cursorPosition = FeatureDescription(
-        title: "Cursor position after change style",
-        author: "m@anytype.io",
-        releaseVersion: "0.19.0",
-        defaultValue: true
-    )
-    
     static let hideBottomViewForStyleMenu = FeatureDescription(
         title: "Hide bottom navigation view in editor for style menu (IOS-293)",
         author: "m@anytype.io",
