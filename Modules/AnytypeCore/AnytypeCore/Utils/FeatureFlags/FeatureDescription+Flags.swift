@@ -45,13 +45,6 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
-    static let showBookmarkInSets = FeatureDescription(
-        title: "Show bookmark type in sets (IOS-538)",
-        author: "m@anytype.io",
-        releaseVersion: "0.20.0",
-        defaultValue: true
-    )
-    
     static let inlineMarkdown = FeatureDescription(
         title: "Inline markdown (IOS-78)",
         author: "m@anytype.io",

@@ -33,7 +33,7 @@ extension ObjectTypesSearchInteractor {
             text: text,
             filteringTypeId: excludedObjectTypeId,
             shouldIncludeSets: FeatureFlags.showSetsInChangeTypeSearchMenu ? showSet : false,
-            shouldIncludeBookmark: FeatureFlags.showBookmarkInSets ? showBookmark : false
+            shouldIncludeBookmark: showBookmark
         ) ?? []
     }
     
