@@ -4,7 +4,11 @@ import Combine
 import AnytypeCore
 
 protocol FavoriteSubscriptionServiceProtocol: AnyObject {
-    func startSubscription(homeDocument: BaseDocumentProtocol, objectLimit: Int?, update: @escaping (_ details: [ObjectDetails], _ count: Int) -> Void)
+    func startSubscription(
+        homeDocument: BaseDocumentProtocol,
+        objectLimit: Int?,
+        update: @escaping (_ details: [ObjectDetails], _ count: Int) -> Void
+    )
     func stopSubscription()
 }
 
@@ -19,9 +23,13 @@ final class FavoriteSubscriptionService: FavoriteSubscriptionServiceProtocol {
         self.objectTypeProvider = objectTypeProvider
     }
     
-    func startSubscription(homeDocument: BaseDocumentProtocol, objectLimit: Int?, update: @escaping (_ details: [ObjectDetails], _ count: Int) -> Void) {
+    func startSubscription(
+        homeDocument: BaseDocumentProtocol,
+        objectLimit: Int?,
+        update: @escaping (_ details: [ObjectDetails], _ count: Int) -> Void
+    ) {
         
-        guard subscriptions.isNotEmpty else {
+        guard subscriptions.isEmpty else {
             anytypeAssertionFailure("Favorite subscription already started", domain: .subscriptionService)
             return
         }

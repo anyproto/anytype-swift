@@ -2,6 +2,8 @@ import Foundation
 import BlocksModels
 
 extension BundledRelationKey {
+    
+    // Keys for object list screens
     static var objectListKeys: [String] {
         let keys: [BundledRelationKey] = [
             .id,

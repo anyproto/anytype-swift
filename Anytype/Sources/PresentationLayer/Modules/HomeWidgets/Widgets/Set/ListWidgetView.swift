@@ -46,6 +46,5 @@ struct ListWidgetView<Model: ListWidgetViewModelProtocol>: View {
             // Add space for static widget height
             Spacer.fixedHeight(ListWidgetRow.height * CGFloat(max(model.minimimRowsCount - model.rows.count, 0)))
         }
-        .animation(.default)
     }
 }

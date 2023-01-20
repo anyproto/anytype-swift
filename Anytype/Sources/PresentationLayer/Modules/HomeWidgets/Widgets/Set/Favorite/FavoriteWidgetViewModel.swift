@@ -17,7 +17,6 @@ final class FavoriteWidgetViewModel: ListWidgetViewModelProtocol, ObservableObje
     private weak var output: CommonWidgetModuleOutput?
     
     // MARK: - State
-    private var subscriptions: [AnyCancellable] = []
     private var document: BaseDocumentProtocol
     private var rowDetails: [ObjectDetails] = []
     
@@ -52,7 +51,6 @@ final class FavoriteWidgetViewModel: ListWidgetViewModelProtocol, ObservableObje
     func onDisappear() {
         Task { @MainActor [weak self] in
             try? await self?.document.close()
-            self?.subscriptions.removeAll()
             self?.favoriteSubscriptionService.stopSubscription()
         }
     }

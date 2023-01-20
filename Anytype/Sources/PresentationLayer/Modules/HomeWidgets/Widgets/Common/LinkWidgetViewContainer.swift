@@ -43,7 +43,7 @@ struct LinkWidgetViewContainer<Content>: View where Content: View {
             AnytypeText(title, style: .subheading, color: .Text.primary)
                 .lineLimit(1)
                 .layoutPriority(-1)
-            // TODO: Fix description style and spacer after title
+            // TODO: Waiting designer. Fix description style and spacer after title.
             if let description {
                 Spacer.fixedWidth(8)
                 AnytypeText(description, style: .body, color: .Text.secondary)
