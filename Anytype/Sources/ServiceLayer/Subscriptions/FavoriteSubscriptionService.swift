@@ -3,7 +3,7 @@ import BlocksModels
 import Combine
 
 protocol FavoriteSubscriptionServiceProtocol: AnyObject {
-    func startSubscription(homeDocument: BaseDocumentProtocol, objectLimit: Int?, update: @escaping ([ObjectDetails]) -> Void)
+    func startSubscription(homeDocument: BaseDocumentProtocol, objectLimit: Int?, update: @escaping (_ details: [ObjectDetails], _ count: Int) -> Void)
     func stopSubscription()
 }
 
@@ -18,7 +18,7 @@ final class FavoriteSubscriptionService: FavoriteSubscriptionServiceProtocol {
         self.objectTypeProvider = objectTypeProvider
     }
     
-    func startSubscription(homeDocument: BaseDocumentProtocol, objectLimit: Int?, update: @escaping ([ObjectDetails]) -> Void) {
+    func startSubscription(homeDocument: BaseDocumentProtocol, objectLimit: Int?, update: @escaping (_ details: [ObjectDetails], _ count: Int) -> Void) {
         
         // TODO: Discuss about publisher and maybe delete it
         if let links = homeDocument.details?.links {
@@ -39,22 +39,15 @@ final class FavoriteSubscriptionService: FavoriteSubscriptionServiceProtocol {
         subscriptions.removeAll()
     }
     
-    private func updateSubscription(links: [String], objectLimit: Int?, update: @escaping ([ObjectDetails]) -> Void) {
+    private func updateSubscription(links: [String], objectLimit: Int?, update: @escaping (_ details: [ObjectDetails], _ count: Int) -> Void) {
         
-        var visibleDetails = [ObjectDetails]()
-        
-        for link in links {
-            
-            guard let details = objectDetailsStorage.get(id: link),
-                  objectTypeProvider.isSupportedForEdit(typeId: details.type) else { continue }
-            
-            if let objectLimit, visibleDetails.count >= objectLimit {
-                break
-            }
-            
-            visibleDetails.append(details)
+        let details: [ObjectDetails] = links.compactMap {
+            guard let details = objectDetailsStorage.get(id: $0),
+                  objectTypeProvider.isSupportedForEdit(typeId: details.type) else { return nil }
+            return details
         }
         
-        update(visibleDetails)
+        let visibleDetails = objectLimit.map { Array(details.prefix($0)) } ?? details
+        update(visibleDetails, details.count)
     }
 }

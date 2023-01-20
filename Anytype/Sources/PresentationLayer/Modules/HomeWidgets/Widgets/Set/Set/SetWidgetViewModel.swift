@@ -25,6 +25,7 @@ final class SetWidgetViewModel: ListWidgetViewModelProtocol, ObservableObject {
     @Published private(set) var headerItems: [ListWidgetHeaderItem.Model] = []
     @Published private(set) var rows: [ListWidgetRow.Model] = []
     var minimimRowsCount: Int { Constants.maxItems }
+    var count: String? = nil
     
     init(
         widgetBlockId: BlockId,

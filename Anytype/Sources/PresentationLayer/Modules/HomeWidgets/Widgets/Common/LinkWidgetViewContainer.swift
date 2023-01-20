@@ -3,11 +3,13 @@ import SwiftUI
 struct LinkWidgetViewContainer<Content>: View where Content: View {
     
     var title: String
+    var description: String?
     @Binding var isExpanded: Bool
     var content: () -> Content
     
-    init(title: String, isExpanded: Binding<Bool>, @ViewBuilder content: @escaping () -> Content) {
+    init(title: String, description: String? = nil, isExpanded: Binding<Bool>, @ViewBuilder content: @escaping () -> Content) {
         self.title = title
+        self.description = description
         self._isExpanded = isExpanded
         self.content = content
     }
@@ -39,6 +41,14 @@ struct LinkWidgetViewContainer<Content>: View where Content: View {
         HStack(spacing: 0) {
             Spacer.fixedWidth(16)
             AnytypeText(title, style: .subheading, color: .Text.primary)
+                .lineLimit(1)
+                .layoutPriority(-1)
+            // TODO: Fix description style and spacer after title
+            if let description {
+                Spacer.fixedWidth(8)
+                AnytypeText(description, style: .body, color: .Text.secondary)
+                    .lineLimit(1)
+            }
             Spacer()
             Button(action: {
                 withAnimation {
@@ -61,16 +71,34 @@ struct LinkWidgetViewContainer_Previews: PreviewProvider {
             VStack {
                 LinkWidgetViewContainer(
                     title: "Name",
+                    description: nil,
                     isExpanded: .constant(true)
                 ) {
-                    Text("1")
+                    Text("Content")
                 }
                 Spacer.fixedHeight(10)
                 LinkWidgetViewContainer(
                     title: "Name",
+                    description: "1",
                     isExpanded: .constant(false)
                 ) {
-                    Text("1")
+                    Text("Content")
+                }
+                Spacer.fixedHeight(10)
+                LinkWidgetViewContainer(
+                    title: "Very long text very long text very long text very long text",
+                    description: nil,
+                    isExpanded: .constant(false)
+                ) {
+                    Text("Content")
+                }
+                Spacer.fixedHeight(10)
+                LinkWidgetViewContainer(
+                    title: "Very long text very long text very long text very long text very long text",
+                    description: "1 111",
+                    isExpanded: .constant(true)
+                ) {
+                    Text("Content")
                 }
             }
         }

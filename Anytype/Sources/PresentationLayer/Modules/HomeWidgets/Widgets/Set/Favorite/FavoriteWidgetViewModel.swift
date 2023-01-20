@@ -26,6 +26,7 @@ final class FavoriteWidgetViewModel: ListWidgetViewModelProtocol, ObservableObje
     @Published private(set) var headerItems: [ListWidgetHeaderItem.Model] = []
     @Published private(set) var rows: [ListWidgetRow.Model] = []
     var minimimRowsCount: Int { Constants.maxItems }
+    @Published var count: String? = nil
     
     init(
         widgetBlockId: BlockId,
@@ -68,8 +69,9 @@ final class FavoriteWidgetViewModel: ListWidgetViewModelProtocol, ObservableObje
             self?.favoriteSubscriptionService.startSubscription(
                 homeDocument: document,
                 objectLimit: 3,
-                update: { details in
+                update: { details, count in
                     self?.rowDetails = details
+                    self?.count = "\(count)"
                     self?.updateViewState()
                 }
             )

@@ -6,7 +6,7 @@ struct ListWidgetView<Model: ListWidgetViewModelProtocol>: View {
     @ObservedObject var model: Model
     
     var body: some View {
-        LinkWidgetViewContainer(title: model.name, isExpanded: $model.isExpanded) {
+        LinkWidgetViewContainer(title: model.name, description: model.count, isExpanded: $model.isExpanded) {
             VStack(spacing: 0) {
                 header
                 content
