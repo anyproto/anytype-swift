@@ -7,13 +7,13 @@ final class SetWidgetProvider: HomeWidgetProviderProtocol {
     private let widgetBlockId: String
     private let widgetObject: HomeWidgetsObjectProtocol
     private let setWidgetModuleAssembly: SetWidgetModuleAssemblyProtocol
-    private weak var output: SetWidgetModuleOutput?
+    private weak var output: CommonWidgetModuleOutput?
     
     init(
         widgetBlockId: String,
         widgetObject: HomeWidgetsObjectProtocol,
         setWidgetModuleAssembly: SetWidgetModuleAssemblyProtocol,
-        output: SetWidgetModuleOutput?
+        output: CommonWidgetModuleOutput?
     ) {
         self.widgetBlockId = widgetBlockId
         self.widgetObject = widgetObject

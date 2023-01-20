@@ -1,6 +1,6 @@
 import Foundation
 
-final class ObjectTreeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol {
+final class SetWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol {
     
     private let widgetsDI: WidgetsDIProtocol
     private weak var output: CommonWidgetModuleOutput?
@@ -13,10 +13,10 @@ final class ObjectTreeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     // MARK: - HomeWidgetProviderAssemblyProtocol
     
     func make(widgetBlockId: String, widgetObject: HomeWidgetsObjectProtocol) -> HomeWidgetProviderProtocol {
-        return ObjectTreeWidgetProvider(
+        return SetWidgetProvider(
             widgetBlockId: widgetBlockId,
             widgetObject: widgetObject,
-            objectTreeWidgetModuleAssembly: widgetsDI.objectTreeWidgetModuleAssembly(),
+            setWidgetModuleAssembly: widgetsDI.setWidgetModuleAssembly(),
             output: output
         )
     }

@@ -6,8 +6,7 @@ protocol HomeWidgetsModuleAssemblyProtocol {
     func make(
         widgetObjectId: String,
         output: HomeWidgetsModuleOutput,
-        treeWidgetOutput: ObjectTreeWidgetModuleOutput?,
-        setWidgetOutput: SetWidgetModuleOutput?
+        widgetOutput: CommonWidgetModuleOutput?
     ) -> AnyView
 }
 
@@ -28,15 +27,14 @@ final class HomeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol {
     func make(
         widgetObjectId: String,
         output: HomeWidgetsModuleOutput,
-        treeWidgetOutput: ObjectTreeWidgetModuleOutput?,
-        setWidgetOutput: SetWidgetModuleOutput?
+        widgetOutput: CommonWidgetModuleOutput?
     ) -> AnyView {
         let model = HomeWidgetsViewModel(
             widgetObject: HomeWidgetsObject(
                 objectId: widgetObjectId,
                 objectDetailsStorage: serviceLocator.objectDetailsStorage()
             ),
-            registry: widgetsDI.homeWidgetsRegistry(treeWidgetOutput: treeWidgetOutput, setWidgetOutput: setWidgetOutput),
+            registry: widgetsDI.homeWidgetsRegistry(widgetOutput: widgetOutput),
             blockWidgetService: serviceLocator.blockWidgetService(),
             accountManager: serviceLocator.accountManager(),
             bottomPanelProviderAssembly: widgetsDI.bottomPanelProviderAssembly(),

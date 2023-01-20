@@ -21,7 +21,7 @@ final class ObjectTreeWidgetViewModel: ObservableObject {
     private let objectDetailsStorage: ObjectDetailsStorage
     private let subscriptionManager: ObjectTreeSubscriptionManagerProtocol
     private let blockWidgetService: BlockWidgetServiceProtocol
-    private weak var output: ObjectTreeWidgetModuleOutput?
+    private weak var output: CommonWidgetModuleOutput?
     
     // MARK: - State
     private var subscriptions = [AnyCancellable]()
@@ -39,7 +39,7 @@ final class ObjectTreeWidgetViewModel: ObservableObject {
         objectDetailsStorage: ObjectDetailsStorage,
         subscriptionManager: ObjectTreeSubscriptionManagerProtocol,
         blockWidgetService: BlockWidgetServiceProtocol,
-        output: ObjectTreeWidgetModuleOutput?
+        output: CommonWidgetModuleOutput?
     ) {
         self.widgetBlockId = widgetBlockId
         self.widgetObject = widgetObject
