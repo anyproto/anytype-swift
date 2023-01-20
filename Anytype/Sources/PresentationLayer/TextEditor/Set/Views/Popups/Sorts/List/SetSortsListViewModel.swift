@@ -53,12 +53,11 @@ extension SetSortsListViewModel {
     // MARK: - Actions
     
     func delete(_ indexSet: IndexSet) {
-        var sorts = setDocument.sorts
-        indexSet.forEach { deleteIndex in
-            guard deleteIndex < sorts.count else { return }
-            let sort = sorts[deleteIndex]
+        indexSet.forEach { [weak self] deleteIndex in
+            guard let self, deleteIndex < self.setDocument.sorts.count else { return }
+            let sort = self.setDocument.sorts[deleteIndex]
             Task {
-                try await dataviewService.removeSorts([sort.sort.relationKey], viewId: setDocument.activeView.id)
+                try await dataviewService.removeSorts([sort.sort.relationKey], viewId: self.setDocument.activeView.id)
             }
         }
     }

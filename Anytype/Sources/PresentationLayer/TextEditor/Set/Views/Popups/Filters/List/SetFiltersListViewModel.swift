@@ -42,12 +42,11 @@ extension SetFiltersListViewModel {
     }
     
     func delete(_ indexSet: IndexSet) {
-        let filters = setDocument.filters
-        indexSet.forEach { deleteIndex in
-            guard deleteIndex < filters.count else { return }
-            let filter = filters[deleteIndex]
+        indexSet.forEach { [weak self] deleteIndex in
+            guard let self, deleteIndex < self.setDocument.filters.count else { return }
+            let filter = self.setDocument.filters[deleteIndex]
             Task {
-                try await dataviewService.removeFilters([filter.filter.id], viewId: setDocument.activeView.id)
+                try await dataviewService.removeFilters([filter.filter.id], viewId: self.setDocument.activeView.id)
             }
         }
     }
