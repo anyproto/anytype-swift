@@ -18,22 +18,6 @@ public extension FeatureFlags {
         value(for: .linktoObjectFromItself)
     }
 
-    static var linkToObjectFromMarkup: Bool {
-        value(for: .linkToObjectFromMarkup)
-    }
-
-    static var showBookmarkInSets: Bool {
-        value(for: .showBookmarkInSets)
-    }
-
-    static var inlineMarkdown: Bool {
-        value(for: .inlineMarkdown)
-    }
-
-    static var fixColorsForStyleMenu: Bool {
-        value(for: .fixColorsForStyleMenu)
-    }
-
     static var redesignBookmarkBlock: Bool {
         value(for: .redesignBookmarkBlock)
     }
@@ -71,10 +55,6 @@ public extension FeatureFlags {
         .objectPreviewSettings,
         .setKanbanView,
         .linktoObjectFromItself,
-        .linkToObjectFromMarkup,
-        .showBookmarkInSets,
-        .inlineMarkdown,
-        .fixColorsForStyleMenu,
         .redesignBookmarkBlock,
         .showSetsInChangeTypeSearchMenu,
         .fixInsetMediaContent,
