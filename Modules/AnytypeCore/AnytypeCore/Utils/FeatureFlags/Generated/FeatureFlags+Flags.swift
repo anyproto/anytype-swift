@@ -6,10 +6,6 @@
 public extension FeatureFlags {
 
     // Static value reader
-    static var objectPreviewSettings: Bool {
-        value(for: .objectPreviewSettings)
-    }
-
     static var cursorPosition: Bool {
         value(for: .cursorPosition)
     }
@@ -24,10 +20,6 @@ public extension FeatureFlags {
 
     static var redesignNewButton: Bool {
         value(for: .redesignNewButton)
-    }
-
-    static var linktoObjectFromItself: Bool {
-        value(for: .linktoObjectFromItself)
     }
 
     static var linkToObjectFromMarkup: Bool {
@@ -80,12 +72,10 @@ public extension FeatureFlags {
 
     // All toggles
     static let features: [FeatureDescription] = [
-        .objectPreviewSettings,
         .cursorPosition,
         .hideBottomViewForStyleMenu,
         .setKanbanView,
         .redesignNewButton,
-        .linktoObjectFromItself,
         .linkToObjectFromMarkup,
         .showBookmarkInSets,
         .inlineMarkdown,
