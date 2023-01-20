@@ -372,121 +372,7 @@ final class MiddlewareEventConverter {
             }
             return .general
         case .blockDataviewViewUpdate(let data):
-            infoContainer.updateDataview(blockId: data.id) { dataView in
-                guard let viewIndex = dataView.views.firstIndex(where: { $0.id == data.viewID }) else {
-                    return dataView
-                }
-                var views = dataView.views
-                var view = views[viewIndex]
-                var filters = view.filters
-                data.filter.forEach { update in
-                    switch update.operation {
-                    case .add(let add):
-                        let afterIdIndex = filters.firstIndex { $0.id == add.afterID }
-                        var addIndex = 0
-                        if let afterIdIndex {
-                            addIndex = afterIdIndex + 1
-                        }
-                        filters.insert(contentsOf: add.items, at: addIndex)
-                    case .move(let move):
-                        let afterIdIndex = filters.firstIndex { $0.id == move.afterID }
-                        move.ids.enumerated().forEach { index, id in
-                            guard let filterIndex = filters.firstIndex(where: { $0.id == id }) else { return }
-                            let orderIndex = (afterIdIndex ?? 0) + index
-                            let appendix = orderIndex < filters.count ? 1 : 0
-                            let moveIndex = afterIdIndex == nil ? index : orderIndex + appendix
-                            filters.move(
-                                fromOffsets: IndexSet(integer: filterIndex),
-                                toOffset: moveIndex
-                            )
-                        }
-                    case .remove(let remove):
-                        filters = filters.filter { !remove.ids.contains($0.id) }
-                    case .update(let update):
-                        if update.hasItem, let index = filters.firstIndex(where: { $0.id == update.id }) {
-                            filters[index] = update.item
-                        }
-                    default:
-                        break
-                    }
-                    
-                    view = view.updated(filters: filters)
-                }
-                
-                var sorts = view.sorts
-                data.sort.forEach { update in
-                    switch update.operation {
-                    case .add(let add):
-                        let afterIdIndex = sorts.firstIndex { $0.relationKey == add.afterID }
-                        var addIndex = 0
-                        if let afterIdIndex {
-                            addIndex = afterIdIndex + 1
-                        }
-                        sorts.insert(contentsOf: add.items, at: addIndex)
-                    case .move(let move):
-                        let afterIdIndex = sorts.firstIndex { $0.relationKey == move.afterID }
-                        move.ids.enumerated().forEach { index, id in
-                            guard let sortIndex = sorts.firstIndex(where: { $0.relationKey == id }) else { return }
-                            let orderIndex = (afterIdIndex ?? 0) + index
-                            let appendix = orderIndex < sorts.count ? 1 : 0
-                            let moveIndex = afterIdIndex == nil ? index : orderIndex + appendix
-                            sorts.move(
-                                fromOffsets: IndexSet(integer: sortIndex),
-                                toOffset: moveIndex
-                            )
-                        }
-                    case .remove(let remove):
-                        sorts = sorts.filter { !remove.ids.contains($0.relationKey) }
-                    case .update(let update):
-                        if update.hasItem, let index = sorts.firstIndex(where: { $0.relationKey == update.id }) {
-                            sorts[index] = update.item
-                        }
-                    default:
-                        break
-                    }
-
-                    view = view.updated(sorts: sorts)
-                }
-                
-                var options = view.options
-                data.relation.forEach { update in
-                    switch update.operation {
-                    case .add(let add):
-                        let newOptions = add.items.map { $0.asModel }
-                        let afterIdIndex = options.firstIndex { $0.key == add.afterID }
-                        var addIndex = 0
-                        if let afterIdIndex {
-                            addIndex = afterIdIndex + 1
-                        }
-                        options.insert(contentsOf: newOptions, at: addIndex)
-                    case .move(let move):
-                        let afterIdIndex = options.firstIndex { $0.key == move.afterID }
-                        move.ids.enumerated().forEach { index, id in
-                            guard let optionIndex = options.firstIndex(where: { $0.key == id }) else { return }
-                            let orderIndex = (afterIdIndex ?? 0) + index
-                            let appendix = orderIndex < options.count ? 1 : 0
-                            let moveIndex = afterIdIndex == nil ? index : orderIndex + appendix
-                            options.move(
-                                fromOffsets: IndexSet(integer: optionIndex),
-                                toOffset: moveIndex
-                            )
-                        }
-                    case .remove(let remove):
-                        options = options.filter { !remove.ids.contains($0.key) }
-                    case .update(let update):
-                        if update.hasItem, let index = options.firstIndex(where: { $0.key == update.id }) {
-                            options[index] = update.item.asModel
-                        }
-                    default:
-                        break
-                    }
-                    
-                    view = view.updated(options: options)
-                }
-                
-                views[viewIndex] = view
-                return dataView.updated(views: views)
-            }
+            handleBlockDataviewViewUpdate(data)
             return .general
         case .accountShow,
                 .accountUpdate, // Event not working on middleware. See AccountManager.
@@ -626,6 +512,123 @@ final class MiddlewareEventConverter {
             }
             
             return dataView.updated(objectOrders: objectOrders)
+        }
+    }
+    
+    private func handleBlockDataviewViewUpdate(_ update: Anytype_Event.Block.Dataview.ViewUpdate) {
+        infoContainer.updateDataview(blockId: update.id) { [weak self] dataView in
+            guard let self, let viewIndex = dataView.views.firstIndex(where: { $0.id == update.viewID }) else {
+                return dataView
+            }
+            var views = dataView.views
+            var view = views[viewIndex]
+            
+            self.updateFilters(update, view: &view)
+            self.updateSorts(update, view: &view)
+            self.updateOptions(update, view: &view)
+            
+            views[viewIndex] = view
+            return dataView.updated(views: views)
+        }
+    }
+    
+    private func updateFilters(_ update: Anytype_Event.Block.Dataview.ViewUpdate, view: inout DataviewView) {
+        var filters = view.filters
+        update.filter.forEach { update in
+            switch update.operation {
+            case .add(let add):
+                addItems(&filters, addItems: add.items, afterId: add.afterID)
+            case .move(let move):
+                moveItems(&filters, moveIds: move.ids, afterId: move.afterID)
+            case .remove(let remove):
+                removeItems(&filters, ids: remove.ids)
+            case .update(let update):
+                if update.hasItem {
+                    updateItems(&filters, id: update.id, item: update.item)
+                }
+            default:
+                break
+            }
+            
+            view = view.updated(filters: filters)
+        }
+    }
+    
+    private func updateSorts(_ update: Anytype_Event.Block.Dataview.ViewUpdate, view: inout DataviewView) {
+        var sorts = view.sorts
+        update.sort.forEach { update in
+            switch update.operation {
+            case .add(let add):
+                addItems(&sorts, addItems: add.items, afterId: add.afterID)
+            case .move(let move):
+                moveItems(&sorts, moveIds: move.ids, afterId: move.afterID)
+            case .remove(let remove):
+                removeItems(&sorts, ids: remove.ids)
+            case .update(let update):
+                if update.hasItem {
+                    updateItems(&sorts, id: update.id, item: update.item)
+                }
+            default:
+                break
+            }
+
+            view = view.updated(sorts: sorts)
+        }
+    }
+    
+    private func updateOptions(_ update: Anytype_Event.Block.Dataview.ViewUpdate, view: inout DataviewView) {
+        var options = view.options
+        update.relation.forEach { update in
+            switch update.operation {
+            case .add(let add):
+                let newOptions = add.items.map { $0.asModel }
+                addItems(&options, addItems: newOptions, afterId: add.afterID)
+            case .move(let move):
+                moveItems(&options, moveIds: move.ids, afterId: move.afterID)
+            case .remove(let remove):
+                removeItems(&options, ids: remove.ids)
+            case .update(let update):
+                if update.hasItem {
+                    updateItems(&options, id: update.id, item: update.item.asModel)
+                }
+            default:
+                break
+            }
+            
+            view = view.updated(options: options)
+        }
+    }
+    
+    private func addItems<T: DataviewObjectIdentifiable>(_ items: inout [T], addItems: [T], afterId: String) {
+        let afterIdIndex = items.firstIndex { $0.id == afterId }
+        var addIndex = 0
+        if let afterIdIndex {
+            addIndex = afterIdIndex + 1
+        }
+        items.insert(contentsOf: addItems, at: addIndex)
+    }
+    
+    private func moveItems<T: DataviewObjectIdentifiable>(_ items: inout [T], moveIds: [String], afterId: String) {
+        let afterIdIndex = items.firstIndex { $0.id == afterId }
+        moveIds.enumerated().forEach { index, id in
+            guard let filterIndex = items.firstIndex(where: { $0.id == id }) else { return }
+            let orderIndex = (afterIdIndex ?? 0) + index
+            let appendix = orderIndex < items.count ? 1 : 0
+            let moveIndex = afterIdIndex == nil ? index : orderIndex + appendix
+            items.move(
+                fromOffsets: IndexSet(integer: filterIndex),
+                toOffset: moveIndex
+            )
+        }
+    }
+    
+    private func removeItems<T: DataviewObjectIdentifiable>(_ items: inout [T], ids: [String]) {
+        items = items.filter { !ids.contains($0.id) }
+    }
+    
+    private func updateItems<T: DataviewObjectIdentifiable>(_ items: inout [T], id: String, item: T) {
+        if let index = items.firstIndex(where: { $0.id == id }) {
+            items[index] = item
         }
     }
 }
