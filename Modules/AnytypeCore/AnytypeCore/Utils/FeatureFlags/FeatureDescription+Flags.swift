@@ -2,13 +2,6 @@ import Foundation
 
 public extension FeatureDescription {
     
-    static let objectPreviewSettings = FeatureDescription(
-        title: "Object preview settings button",
-        author: "k@anytype.io",
-        releaseVersion: "0.20.0",
-        defaultValue: true
-    )
-    
     static let cursorPosition = FeatureDescription(
         title: "Cursor position after change style",
         author: "m@anytype.io",
@@ -35,13 +28,6 @@ public extension FeatureDescription {
         title: "Set redesign \"new\" button",
         author: "m@anytype.io",
         releaseVersion: "0.19.0",
-        defaultValue: true
-    )
-
-    static let linktoObjectFromItself = FeatureDescription(
-        title: "Link to object from itself",
-        author: "db@anytype.io",
-        releaseVersion: "0.20.0",
         defaultValue: true
     )
     
