@@ -12,13 +12,8 @@ struct SetHeaderSettings: View {
             Spacer()
             settingButton
 
-            if FeatureFlags.redesignNewButton {
-                Spacer.fixedWidth(16)
-                createObjectButton
-            } else {
-                Spacer.fixedWidth(24)
-                createObjectButtonOld
-            }
+            Spacer.fixedWidth(16)
+            createObjectButton
         }
         .padding(.horizontal, 20)
         .frame(height: settingsHeight)
@@ -30,15 +25,6 @@ struct SetHeaderSettings: View {
             model.showSetSettings()
         }) {
             Image(asset: .setSettings)
-        }
-    }
-
-    private var createObjectButtonOld: some View {
-        Button(action: {
-            UISelectionFeedbackGenerator().selectionChanged()
-            model.createObject()
-        }) {
-            Image(asset: .plus)
         }
     }
     
