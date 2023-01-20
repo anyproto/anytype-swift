@@ -30,10 +30,6 @@ public extension FeatureFlags {
         value(for: .linktoObjectFromItself)
     }
 
-    static var fixColorsForStyleMenu: Bool {
-        value(for: .fixColorsForStyleMenu)
-    }
-
     static var redesignBookmarkBlock: Bool {
         value(for: .redesignBookmarkBlock)
     }
@@ -74,7 +70,6 @@ public extension FeatureFlags {
         .setKanbanView,
         .redesignNewButton,
         .linktoObjectFromItself,
-        .fixColorsForStyleMenu,
         .redesignBookmarkBlock,
         .showSetsInChangeTypeSearchMenu,
         .fixInsetMediaContent,

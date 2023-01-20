@@ -45,13 +45,6 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
-    static let fixColorsForStyleMenu = FeatureDescription(
-        title: "Fix colors for style menu (IOS-94)",
-        author: "m@anytype.io",
-        releaseVersion: "0.20.0",
-        defaultValue: true
-    )
-
     static let redesignBookmarkBlock = FeatureDescription(
         title: "Redesign bookmark block (ios-527)",
         author: "m@anytype.io",
