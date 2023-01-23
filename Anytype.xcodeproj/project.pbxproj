@@ -474,6 +474,12 @@
 		2A94865B2950A590007A5586 /* HomeWidgetsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A94865A2950A590007A5586 /* HomeWidgetsCoordinator.swift */; };
 		2A94865D2950A59D007A5586 /* HomeWidgetsCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A94865C2950A59D007A5586 /* HomeWidgetsCoordinatorAssembly.swift */; };
 		2A9486612950B193007A5586 /* HomeWidgetsModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9486602950B193007A5586 /* HomeWidgetsModuleOutput.swift */; };
+		2A971C01297E753E00D3D786 /* RecentWidgetModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A971BFC297E753E00D3D786 /* RecentWidgetModuleAssembly.swift */; };
+		2A971C02297E753E00D3D786 /* RecentWidgetProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A971BFE297E753E00D3D786 /* RecentWidgetProvider.swift */; };
+		2A971C03297E753E00D3D786 /* RecentWidgetProviderAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A971BFF297E753E00D3D786 /* RecentWidgetProviderAssembly.swift */; };
+		2A971C04297E753E00D3D786 /* RecentWidgetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A971C00297E753E00D3D786 /* RecentWidgetViewModel.swift */; };
+		2A971C06297E75D300D3D786 /* RecentSubscriptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A971C05297E75D300D3D786 /* RecentSubscriptionService.swift */; };
+		2A971C08297E7BFD00D3D786 /* ListWidgetRow+ObjectDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A971C07297E7BFD00D3D786 /* ListWidgetRow+ObjectDetails.swift */; };
 		2A9D299028BCC11A00789AC7 /* NonExistentBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9D298F28BCC11A00789AC7 /* NonExistentBlockView.swift */; };
 		2A9D299228BCC16E00789AC7 /* NonExistentBlockContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9D299128BCC16E00789AC7 /* NonExistentBlockContentConfiguration.swift */; };
 		2A9D299428BCC78900789AC7 /* NonExistentBlockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9D299328BCC78900789AC7 /* NonExistentBlockViewModel.swift */; };
@@ -1796,6 +1802,12 @@
 		2A94865A2950A590007A5586 /* HomeWidgetsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWidgetsCoordinator.swift; sourceTree = "<group>"; };
 		2A94865C2950A59D007A5586 /* HomeWidgetsCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWidgetsCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		2A9486602950B193007A5586 /* HomeWidgetsModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWidgetsModuleOutput.swift; sourceTree = "<group>"; };
+		2A971BFC297E753E00D3D786 /* RecentWidgetModuleAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentWidgetModuleAssembly.swift; sourceTree = "<group>"; };
+		2A971BFE297E753E00D3D786 /* RecentWidgetProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentWidgetProvider.swift; sourceTree = "<group>"; };
+		2A971BFF297E753E00D3D786 /* RecentWidgetProviderAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentWidgetProviderAssembly.swift; sourceTree = "<group>"; };
+		2A971C00297E753E00D3D786 /* RecentWidgetViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentWidgetViewModel.swift; sourceTree = "<group>"; };
+		2A971C05297E75D300D3D786 /* RecentSubscriptionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSubscriptionService.swift; sourceTree = "<group>"; };
+		2A971C07297E7BFD00D3D786 /* ListWidgetRow+ObjectDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ListWidgetRow+ObjectDetails.swift"; sourceTree = "<group>"; };
 		2A9D298F28BCC11A00789AC7 /* NonExistentBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonExistentBlockView.swift; sourceTree = "<group>"; };
 		2A9D299128BCC16E00789AC7 /* NonExistentBlockContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonExistentBlockContentConfiguration.swift; sourceTree = "<group>"; };
 		2A9D299328BCC78900789AC7 /* NonExistentBlockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonExistentBlockViewModel.swift; sourceTree = "<group>"; };
@@ -4553,6 +4565,7 @@
 		2A1F946C2978207F00E25782 /* Set */ = {
 			isa = PBXGroup;
 			children = (
+				2A971BFB297E753E00D3D786 /* Recent */,
 				2A1F9485297942E400E25782 /* Favorite */,
 				2A1F948429793E3D00E25782 /* Set */,
 				2A1F948229793BBA00E25782 /* ListWidgetViewModelProtocol.swift */,
@@ -4576,6 +4589,7 @@
 			children = (
 				2A1F947D2978312900E25782 /* ListWidgetHeaderItem.swift */,
 				2A1F947F2978381700E25782 /* ListWidgetRow.swift */,
+				2A971C07297E7BFD00D3D786 /* ListWidgetRow+ObjectDetails.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -4614,6 +4628,7 @@
 			children = (
 				2A1F949829795FEB00E25782 /* FavoriteSubscriptionService.swift */,
 				2A1F949A297961A300E25782 /* BundledRelationKey+CommonKeys.swift */,
+				2A971C05297E75D300D3D786 /* RecentSubscriptionService.swift */,
 			);
 			path = Subscriptions;
 			sourceTree = "<group>";
@@ -4873,6 +4888,25 @@
 				3D2F9C15271EAE4D0043C326 /* SearchHelper.swift */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		2A971BFB297E753E00D3D786 /* Recent */ = {
+			isa = PBXGroup;
+			children = (
+				2A971BFD297E753E00D3D786 /* Provider */,
+				2A971BFC297E753E00D3D786 /* RecentWidgetModuleAssembly.swift */,
+				2A971C00297E753E00D3D786 /* RecentWidgetViewModel.swift */,
+			);
+			path = Recent;
+			sourceTree = "<group>";
+		};
+		2A971BFD297E753E00D3D786 /* Provider */ = {
+			isa = PBXGroup;
+			children = (
+				2A971BFE297E753E00D3D786 /* RecentWidgetProvider.swift */,
+				2A971BFF297E753E00D3D786 /* RecentWidgetProviderAssembly.swift */,
+			);
+			path = Provider;
 			sourceTree = "<group>";
 		};
 		2A9D298E28BCC0F900789AC7 /* NonExistent */ = {
@@ -8379,6 +8413,7 @@
 				0AD6B24E24CF634E0097A841 /* BlockToolbarBookmarkViewModel.swift in Sources */,
 				03B161A0239F3A3200BF27D1 /* WaitingViewOnCreatAccountModel.swift in Sources */,
 				125683F427DF8366003A8251 /* NewSearchView+AddButtonModel.swift in Sources */,
+				2A971C04297E753E00D3D786 /* RecentWidgetViewModel.swift in Sources */,
 				12AF69142656AB7D00C0BA99 /* UIImageViewExtensions.swift in Sources */,
 				12E15B89270B2FAE0055EA01 /* BlockActionHandlerProtocol.swift in Sources */,
 				C9F0A47D28057D8F00FA16DD /* TextIconPickerViewModel.swift in Sources */,
@@ -8450,6 +8485,7 @@
 				2A1F947B2978228F00E25782 /* SetWidgetProviderAssembly.swift in Sources */,
 				125B6EBC26F235F400BCD7D6 /* EditorSearchCell.swift in Sources */,
 				127EABD9273745C000C731F2 /* AnytypeColorProtocol.swift in Sources */,
+				2A971C08297E7BFD00D3D786 /* ListWidgetRow+ObjectDetails.swift in Sources */,
 				2A2C330328928668008BC326 /* RelationValueCoordinator.swift in Sources */,
 				C99DCE86283B53C30051F99D /* AnytypeAlertViewModel.swift in Sources */,
 				535F79962746CDBC0050A1B8 /* FlowRelationsView.swift in Sources */,
@@ -8830,6 +8866,7 @@
 				EA3D1DEE26CDAFBD001A31D9 /* BlockMarkupChangerProtocol.swift in Sources */,
 				122FFD43272BA7420069129A /* ObjectHeaderFilledState.swift in Sources */,
 				3D30416F27EA5EA700FFE0EB /* DataviewServiceProtocol.swift in Sources */,
+				2A971C03297E753E00D3D786 /* RecentWidgetProviderAssembly.swift in Sources */,
 				EAC5FD4E2657DC6F006BB24E /* KeyboardEventsListenerHelper.swift in Sources */,
 				12A4793527C38E6C00E62795 /* AnytypePopupLayout.swift in Sources */,
 				53FF7CB826FCDB4B00A5A592 /* ObjectActionsView.swift in Sources */,
@@ -8871,6 +8908,7 @@
 				2AD06B81285729890006C255 /* TableOfContentsConfiguration.swift in Sources */,
 				12C2A59F2757A7F000311854 /* StatusRelationDetailsRowView.swift in Sources */,
 				3DE0CFD926F8593D003A606A /* SlashMenuItemFilterMatch.swift in Sources */,
+				2A971C01297E753E00D3D786 /* RecentWidgetModuleAssembly.swift in Sources */,
 				2A730A732940BE7A00E51335 /* NewSearchCreateButtonModel.swift in Sources */,
 				0A83081525D572630067EEC9 /* BlockActionsServiceSingle.swift in Sources */,
 				125683ED27DF4DDF003A8251 /* SelectionIndicatorView.swift in Sources */,
@@ -9113,6 +9151,7 @@
 				2AE906F1297043A60044A10A /* EditorSetRouter.swift in Sources */,
 				3D1D840F26F4AC330091A78A /* TextTriggerSymbols.swift in Sources */,
 				12FD9D2B2767180A00991886 /* RelationUnknown.swift in Sources */,
+				2A971C02297E753E00D3D786 /* RecentWidgetProvider.swift in Sources */,
 				C97B5D6427F499D200EA7E33 /* IndentationSettings.swift in Sources */,
 				C91FAF5F2812C2510055BC4A /* AlertModel.swift in Sources */,
 				C9A4268C28489CC800F388FC /* SimpleTableBlockContentConfiguration.swift in Sources */,
@@ -9230,6 +9269,7 @@
 				12636CF3276A0CF00084D35D /* ListSectionHeaderView.swift in Sources */,
 				120E818426A04A31006FE84E /* DetailsService.swift in Sources */,
 				2A9486612950B193007A5586 /* HomeWidgetsModuleOutput.swift in Sources */,
+				2A971C06297E75D300D3D786 /* RecentSubscriptionService.swift in Sources */,
 				53ED6257280819AE00F5503A /* AnytypeAnalyticsProtocol.swift in Sources */,
 				530F502026F0981700F76D03 /* AnytypeLabel.swift in Sources */,
 				531767D52666899B00DF463A /* UICollectionViewDiffableDataSourceExtension.swift in Sources */,

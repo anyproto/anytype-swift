@@ -3,7 +3,7 @@ import BlocksModels
 import Combine
 
 @MainActor
-final class FavoriteWidgetViewModel: ListWidgetViewModelProtocol, ObservableObject {
+final class RecentWidgetViewModel: ListWidgetViewModelProtocol, ObservableObject {
     
     private enum Constants {
         static let maxItems = 3
@@ -12,34 +12,29 @@ final class FavoriteWidgetViewModel: ListWidgetViewModelProtocol, ObservableObje
     // MARK: - DI
     private let widgetBlockId: BlockId
     private let widgetObject: HomeWidgetsObjectProtocol
-    private let accountManager: AccountManager
-    private let favoriteSubscriptionService: FavoriteSubscriptionServiceProtocol
+    private let recentSubscriptionService: RecentSubscriptionServiceProtocol
     private weak var output: CommonWidgetModuleOutput?
     
     // MARK: - State
-    private var document: BaseDocumentProtocol
     private var rowDetails: [ObjectDetails] = []
     
-    @Published private(set) var name: String = Loc.favorites
+    @Published private(set) var name: String = Loc.recent
     @Published var isExpanded: Bool = true
     @Published private(set) var headerItems: [ListWidgetHeaderItem.Model] = []
     @Published private(set) var rows: [ListWidgetRow.Model] = []
     var minimimRowsCount: Int { Constants.maxItems }
-    @Published var count: String? = nil
+    let count: String? = nil
     
     init(
         widgetBlockId: BlockId,
         widgetObject: HomeWidgetsObjectProtocol,
-        accountManager: AccountManager,
-        favoriteSubscriptionService: FavoriteSubscriptionServiceProtocol,
+        recentSubscriptionService: RecentSubscriptionServiceProtocol,
         output: CommonWidgetModuleOutput?
     ) {
         self.widgetBlockId = widgetBlockId
         self.widgetObject = widgetObject
-        self.accountManager = accountManager
-        self.favoriteSubscriptionService = favoriteSubscriptionService
+        self.recentSubscriptionService = recentSubscriptionService
         self.output = output
-        self.document = BaseDocument(objectId: accountManager.account.info.homeObjectID)
     }
     
     // MARK: - ListWidgetViewModelProtocol
@@ -49,10 +44,7 @@ final class FavoriteWidgetViewModel: ListWidgetViewModelProtocol, ObservableObje
     }
 
     func onDisappear() {
-        Task { @MainActor [weak self] in
-            try? await self?.document.close()
-            self?.favoriteSubscriptionService.stopSubscription()
-        }
+        recentSubscriptionService.stopSubscription()
     }
     
     func onDeleteWidgetTap() {
@@ -62,18 +54,13 @@ final class FavoriteWidgetViewModel: ListWidgetViewModelProtocol, ObservableObje
     // MARK: - Private
     
     private func setupAllSubscriptions() {
-        Task { @MainActor [weak self, document] in
-            try? await document.open()
-            self?.favoriteSubscriptionService.startSubscription(
-                homeDocument: document,
-                objectLimit: Constants.maxItems,
-                update: { details, count in
-                    self?.rowDetails = details
-                    self?.count = "\(count)"
-                    self?.updateViewState()
-                }
-            )
-        }
+        recentSubscriptionService.startSubscription(
+            objectLimit: Constants.maxItems,
+            update: { [weak self] _, update in
+                self?.rowDetails.applySubscriptionUpdate(update)
+                self?.updateViewState()
+            }
+        )
     }
     
     private func updateViewState() {

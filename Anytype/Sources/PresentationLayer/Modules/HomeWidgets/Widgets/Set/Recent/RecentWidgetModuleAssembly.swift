@@ -1,12 +1,12 @@
 import Foundation
 import SwiftUI
 
-protocol FavoriteWidgetModuleAssemblyProtocol: AnyObject {
+protocol RecentWidgetModuleAssemblyProtocol: AnyObject {
     @MainActor
     func make(widgetBlockId: String, widgetObject: HomeWidgetsObjectProtocol, output: CommonWidgetModuleOutput?) -> AnyView
 }
 
-final class FavoriteWidgetModuleAssembly: FavoriteWidgetModuleAssemblyProtocol {
+final class RecentWidgetModuleAssembly: RecentWidgetModuleAssemblyProtocol {
     
     private let serviceLocator: ServiceLocator
     private let uiHelpersDI: UIHelpersDIProtocol
@@ -16,16 +16,15 @@ final class FavoriteWidgetModuleAssembly: FavoriteWidgetModuleAssemblyProtocol {
         self.uiHelpersDI = uiHelpersDI
     }
     
-    // MARK: - FavoriteWidgetModuleAssemblyProtocol
+    // MARK: - RecentWidgetModuleAssemblyProtocol
     
     @MainActor
     func make(widgetBlockId: String, widgetObject: HomeWidgetsObjectProtocol, output: CommonWidgetModuleOutput?) -> AnyView {
         
-        let model = FavoriteWidgetViewModel(
+        let model = RecentWidgetViewModel(
             widgetBlockId: widgetBlockId,
             widgetObject: widgetObject,
-            accountManager: serviceLocator.accountManager(),
-            favoriteSubscriptionService: serviceLocator.favoriteSubscriptionService(),
+            recentSubscriptionService: serviceLocator.recentSubscriptionService(),
             output: output
         )
         return ListWidgetView(model: model).eraseToAnyView()
