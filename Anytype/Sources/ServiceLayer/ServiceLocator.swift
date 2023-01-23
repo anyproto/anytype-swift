@@ -139,6 +139,14 @@ final class ServiceLocator {
         )
     }
     
+    func recentSubscriptionService() -> RecentSubscriptionServiceProtocol {
+        return RecentSubscriptionService(
+            subscriptionService: subscriptionService(),
+            accountManager: accountManager(),
+            objectTypeProvider: objectTypeProvider()
+        )
+    }
+    
     // MARK: - Private
     
     private func subscriptionToggler() -> SubscriptionTogglerProtocol {

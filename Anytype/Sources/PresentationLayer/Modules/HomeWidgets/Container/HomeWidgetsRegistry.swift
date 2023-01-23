@@ -16,11 +16,13 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
     
     private enum Constants {
         static let favoriteWidgetId = "FavoriteWidgetId"
+        static let recentWidgetId = "RecentWidgetId"
     }
     
     private let treeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     private let setWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     private let favoriteWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
+    private let recentWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     private let objectDetailsStorage: ObjectDetailsStorage
     private var providersCache: [ProviderCache] = []
     
@@ -28,11 +30,13 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
         treeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         setWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         favoriteWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
+        recentWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         objectDetailsStorage: ObjectDetailsStorage
     ) {
         self.treeWidgetProviderAssembly = treeWidgetProviderAssembly
         self.setWidgetProviderAssembly = setWidgetProviderAssembly
         self.favoriteWidgetProviderAssembly = favoriteWidgetProviderAssembly
+        self.recentWidgetProviderAssembly = recentWidgetProviderAssembly
         self.objectDetailsStorage = objectDetailsStorage
     }
     
@@ -90,6 +94,14 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
             createProviderCache(
                 source: favoriteWidgetProviderAssembly,
                 widgetBlockId: Constants.favoriteWidgetId,
+                widgetObject: widgetObject
+            )
+        )
+        
+        newProvidersCache.append(
+            createProviderCache(
+                source: recentWidgetProviderAssembly,
+                widgetBlockId: Constants.recentWidgetId,
                 widgetObject: widgetObject
             )
         )

@@ -15,8 +15,8 @@ protocol FavoriteSubscriptionServiceProtocol: AnyObject {
 final class FavoriteSubscriptionService: FavoriteSubscriptionServiceProtocol {
     
     private var subscriptions = [AnyCancellable]()
-    private var objectDetailsStorage: ObjectDetailsStorage
-    private var objectTypeProvider: ObjectTypeProviderProtocol
+    private let objectDetailsStorage: ObjectDetailsStorage
+    private let objectTypeProvider: ObjectTypeProviderProtocol
     
     init(objectDetailsStorage: ObjectDetailsStorage, objectTypeProvider: ObjectTypeProviderProtocol) {
         self.objectDetailsStorage = objectDetailsStorage

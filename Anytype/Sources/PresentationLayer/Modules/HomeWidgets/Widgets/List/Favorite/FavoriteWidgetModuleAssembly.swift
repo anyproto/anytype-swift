@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-protocol FavoriteWidgetModuleAssemblyProtocol {
+protocol FavoriteWidgetModuleAssemblyProtocol: AnyObject {
     @MainActor
     func make(widgetBlockId: String, widgetObject: HomeWidgetsObjectProtocol, output: CommonWidgetModuleOutput?) -> AnyView
 }

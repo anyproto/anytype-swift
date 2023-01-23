@@ -66,7 +66,7 @@ final class FavoriteWidgetViewModel: ListWidgetViewModelProtocol, ObservableObje
             try? await document.open()
             self?.favoriteSubscriptionService.startSubscription(
                 homeDocument: document,
-                objectLimit: 3,
+                objectLimit: Constants.maxItems,
                 update: { details, count in
                     self?.rowDetails = details
                     self?.count = "\(count)"
@@ -79,13 +79,9 @@ final class FavoriteWidgetViewModel: ListWidgetViewModelProtocol, ObservableObje
     private func updateViewState() {
         rows = rowDetails.map { details in
             ListWidgetRow.Model(
-                objectId: details.id,
-                icon: details.objectIconImage,
-                title: details.title,
-                description: details.description,
+                details: details,
                 onTap: { [weak self] in
-                    let data = EditorScreenData(pageId: details.id, type: details.editorViewType)
-                    self?.output?.onObjectSelected(screenData: data)
+                    self?.output?.onObjectSelected(screenData: $0)
                 }
             )
         }
