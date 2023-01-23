@@ -14,12 +14,29 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
         let source: HomeWidgetProviderAssemblyProtocol
     }
     
+    private enum Constants {
+        static let favoriteWidgetId = "FavoriteWidgetId"
+        static let recentWidgetId = "RecentWidgetId"
+    }
+    
     private let treeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
+    private let setWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
+    private let favoriteWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
+    private let recentWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     private let objectDetailsStorage: ObjectDetailsStorage
     private var providersCache: [ProviderCache] = []
     
-    init(treeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol, objectDetailsStorage: ObjectDetailsStorage) {
+    init(
+        treeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
+        setWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
+        favoriteWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
+        recentWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
+        objectDetailsStorage: ObjectDetailsStorage
+    ) {
         self.treeWidgetProviderAssembly = treeWidgetProviderAssembly
+        self.setWidgetProviderAssembly = setWidgetProviderAssembly
+        self.favoriteWidgetProviderAssembly = favoriteWidgetProviderAssembly
+        self.recentWidgetProviderAssembly = recentWidgetProviderAssembly
         self.objectDetailsStorage = objectDetailsStorage
     }
     
@@ -30,14 +47,14 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
         widgetObject: HomeWidgetsObjectProtocol
     ) -> [HomeWidgetProviderProtocol] {
         
-        providersCache = blocks.compactMap { block in
+        var newProvidersCache: [ProviderCache] = blocks.compactMap { block in
             guard case let .widget(widget) = block.content else { return nil }
+            
+            guard let contentId = widgetObject.targetObjectIdByLinkFor(widgetBlockId: block.id),
+                  let contentDetails = objectDetailsStorage.get(id: contentId) else { return nil }
+            
             switch widget.layout {
             case .link:
-                
-                guard let contentId = widgetObject.targetObjectIdByLinkFor(widgetBlockId: block.id),
-                      let contentDetails = objectDetailsStorage.get(id: contentId) else { return nil }
-        
                 switch contentDetails.editorViewType {
                 case .page:
                     return createProviderCache(
@@ -46,17 +63,50 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
                         widgetObject: widgetObject
                     )
                 case .set:
-                    return nil
+                    return createProviderCache(
+                        source: setWidgetProviderAssembly,
+                        widgetBlockId: block.id,
+                        widgetObject: widgetObject
+                    )
                 }
             case .tree:
-                return createProviderCache(
-                    source: treeWidgetProviderAssembly,
-                    widgetBlockId: block.id,
-                    widgetObject: widgetObject
-                )
+                switch contentDetails.editorViewType {
+                case .page:
+                    return createProviderCache(
+                        source: treeWidgetProviderAssembly,
+                        widgetBlockId: block.id,
+                        widgetObject: widgetObject
+                    )
+                case .set:
+                    return createProviderCache(
+                        source: setWidgetProviderAssembly,
+                        widgetBlockId: block.id,
+                        widgetObject: widgetObject
+                    )
+                }
             }
         }
         
+        // TODO: Add local state provider for widgets: favorite, set, recent, bin.
+        // Or implement it in middleware.
+        
+        newProvidersCache.append(
+            createProviderCache(
+                source: favoriteWidgetProviderAssembly,
+                widgetBlockId: Constants.favoriteWidgetId,
+                widgetObject: widgetObject
+            )
+        )
+        
+        newProvidersCache.append(
+            createProviderCache(
+                source: recentWidgetProviderAssembly,
+                widgetBlockId: Constants.recentWidgetId,
+                widgetObject: widgetObject
+            )
+        )
+        
+        providersCache = newProvidersCache
         return providersCache.map { $0.provider }
     }
     

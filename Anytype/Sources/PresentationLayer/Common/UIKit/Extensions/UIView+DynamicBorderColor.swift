@@ -8,20 +8,12 @@ extension UIView {
     
     var dynamicBorderColor: UIColor? {
         get {
-            if FeatureFlags.fixColorsForStyleMenu {
-                return UIView.borderColorsStore.object(forKey: self)
-            } else {
-                return layer.borderColor.map { UIColor(cgColor: $0) }
-            }
+            return UIView.borderColorsStore.object(forKey: self)
         }
         set {
-            if FeatureFlags.fixColorsForStyleMenu {
-                UIView.borderColorsStore.setObject(newValue, forKey: self)
-                updateNotificationSubscription()
-                updateBorderColor()
-            } else {
-                layer.borderColor = newValue?.cgColor
-            }
+            UIView.borderColorsStore.setObject(newValue, forKey: self)
+            updateNotificationSubscription()
+            updateBorderColor()
         }
     }
 

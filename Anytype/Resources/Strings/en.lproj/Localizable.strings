@@ -241,7 +241,8 @@
 
 // MARK: - Main search
 "There is no object named" = "There is no object named %@";
-"Try to create a new one or search for something else" = "Try to create a new one or search for something else";
+"There is no type named" = "There is no type named %@";
+"Create a new one or search for something else" = "Create a new one or search for something else";
 
 // MARK: - Home
 

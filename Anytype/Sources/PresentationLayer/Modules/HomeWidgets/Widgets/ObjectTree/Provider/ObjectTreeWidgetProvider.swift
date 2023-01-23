@@ -7,13 +7,13 @@ final class ObjectTreeWidgetProvider: HomeWidgetProviderProtocol {
     private let widgetBlockId: String
     private let widgetObject: HomeWidgetsObjectProtocol
     private let objectTreeWidgetModuleAssembly: ObjectTreeWidgetModuleAssemblyProtocol
-    private weak var output: ObjectTreeWidgetModuleOutput?
+    private weak var output: CommonWidgetModuleOutput?
     
     init(
         widgetBlockId: String,
         widgetObject: HomeWidgetsObjectProtocol,
         objectTreeWidgetModuleAssembly: ObjectTreeWidgetModuleAssemblyProtocol,
-        output: ObjectTreeWidgetModuleOutput?
+        output: CommonWidgetModuleOutput?
     ) {
         self.widgetBlockId = widgetBlockId
         self.widgetObject = widgetObject

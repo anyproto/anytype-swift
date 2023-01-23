@@ -32,8 +32,8 @@ extension ObjectTypesSearchInteractor {
         searchService.searchObjectTypes(
             text: text,
             filteringTypeId: excludedObjectTypeId,
-            shouldIncludeSets: FeatureFlags.showSetsInChangeTypeSearchMenu ? showSet : false,
-            shouldIncludeBookmark: FeatureFlags.showBookmarkInSets ? showBookmark : false
+            shouldIncludeSets: showSet,
+            shouldIncludeBookmark: showBookmark
         ) ?? []
     }
     

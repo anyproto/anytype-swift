@@ -74,10 +74,6 @@ extension Array where Element == BlockInformation {
             mergedItems.remove(.style)
         }
 
-        if !FeatureFlags.objectPreviewSettings {
-            mergedItems.remove(.preview)
-        }
-
         var isPreviewAvailable = false
         if case .link = first?.content, count == 1 {
             isPreviewAvailable = true

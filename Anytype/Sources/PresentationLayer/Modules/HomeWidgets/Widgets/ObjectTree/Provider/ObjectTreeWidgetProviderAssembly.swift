@@ -3,9 +3,9 @@ import Foundation
 final class ObjectTreeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol {
     
     private let widgetsDI: WidgetsDIProtocol
-    private weak var output: ObjectTreeWidgetModuleOutput?
+    private weak var output: CommonWidgetModuleOutput?
     
-    init(widgetsDI: WidgetsDIProtocol, output: ObjectTreeWidgetModuleOutput?) {
+    init(widgetsDI: WidgetsDIProtocol, output: CommonWidgetModuleOutput?) {
         self.widgetsDI = widgetsDI
         self.output = output
     }

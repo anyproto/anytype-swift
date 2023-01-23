@@ -244,8 +244,6 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         columnsCount: Int,
         blockText: NSAttributedString?
     ) {
-        let blockText = FeatureFlags.fixInsetMediaContent ? blockText : nil
-        
         guard let isTextAndEmpty = blockText?.string.isEmpty
                 ?? document.infoContainer.get(id: blockId)?.isTextAndEmpty else { return }
         
@@ -269,8 +267,6 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
             
         guard let newBlock = BlockBuilder.createNewBlock(type: type) else { return }
 
-        let blockText = FeatureFlags.fixInsetMediaContent ? blockText : nil
-        
         guard let isTextAndEmpty = blockText?.string.isEmpty
             ?? document.infoContainer.get(id: blockId)?.isTextAndEmpty else { return }
         
