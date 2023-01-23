@@ -4562,17 +4562,17 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		2A1F946C2978207F00E25782 /* Set */ = {
+		2A1F946C2978207F00E25782 /* List */ = {
 			isa = PBXGroup;
 			children = (
 				2A971BFB297E753E00D3D786 /* Recent */,
 				2A1F9485297942E400E25782 /* Favorite */,
 				2A1F948429793E3D00E25782 /* Set */,
-				2A1F948229793BBA00E25782 /* ListWidgetViewModelProtocol.swift */,
 				2A1F947C2978311700E25782 /* Subviews */,
+				2A1F948229793BBA00E25782 /* ListWidgetViewModelProtocol.swift */,
 				2A1F946D2978208F00E25782 /* ListWidgetView.swift */,
 			);
-			path = Set;
+			path = List;
 			sourceTree = "<group>";
 		};
 		2A1F94772978228F00E25782 /* Provider */ = {
@@ -4720,7 +4720,7 @@
 		2A4919A629530AD200FCEAC9 /* Widgets */ = {
 			isa = PBXGroup;
 			children = (
-				2A1F946C2978207F00E25782 /* Set */,
+				2A1F946C2978207F00E25782 /* List */,
 				2AAF343829559BD400921320 /* ObjectTree */,
 				2A4919A729530ADD00FCEAC9 /* Common */,
 			);
