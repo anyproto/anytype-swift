@@ -237,7 +237,7 @@ final class EditorSetRouter: EditorSetRouterProtocol {
     func showViewSettings(setDocument: SetDocumentProtocol, dataviewService: DataviewServiceProtocol) {
         let viewModel = EditorSetViewSettingsViewModel(
             setDocument: setDocument,
-            service: dataviewService,
+            dataviewService: dataviewService,
             router: self
         )
         let view = EditorSetViewSettingsView(
@@ -249,7 +249,7 @@ final class EditorSetRouter: EditorSetRouterProtocol {
     func showSorts(setDocument: SetDocumentProtocol, dataviewService: DataviewServiceProtocol) {
         let viewModel = SetSortsListViewModel(
             setDocument: setDocument,
-            service: dataviewService,
+            dataviewService: dataviewService,
             router: self
         )
         let vc = UIHostingController(
