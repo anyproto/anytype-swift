@@ -236,6 +236,14 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
             templateID: templateId
         )
     }
+    
+    func setSource(objectId: BlockId, source: [String]) async throws {
+        let result = try await Anytype_Rpc.Object.SetSource.Service
+            .invocation(contextID: objectId, source: source)
+            .invoke(errorDomain: .objectActionsService)
+        let event = EventsBunch(event: result.event)
+        event.send()
+    }
 
     func undo(objectId: BlockId) throws {
         let result = Anytype_Rpc.Object.Undo.Service

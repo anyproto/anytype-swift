@@ -14,6 +14,10 @@ public extension FeatureFlags {
         value(for: .homeWidgets)
     }
 
+    static var fullInlineSetImpl: Bool {
+        value(for: .fullInlineSetImpl)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -34,6 +38,7 @@ public extension FeatureFlags {
     static let features: [FeatureDescription] = [
         .setKanbanView,
         .homeWidgets,
+        .fullInlineSetImpl,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

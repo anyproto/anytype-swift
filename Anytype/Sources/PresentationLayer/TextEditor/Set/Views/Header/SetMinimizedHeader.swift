@@ -25,10 +25,12 @@ struct SetMinimizedHeader: View {
                 Spacer.fixedWidth(14)
                 title
                 Spacer()
-                settingsButton
+                if !model.hasTargetObjectId {
+                    settingsButton
+                }
             }
             .padding(.leading, 10)
-            .padding(.trailing, 2)
+            .padding(.trailing, model.hasTargetObjectId ? 46 : 2)
         }
         .frame(height: minimizedHeaderHeight)
         .background(Color.Background.primary.opacity(opacity))
@@ -54,7 +56,7 @@ struct SetMinimizedHeader: View {
         SwiftUIEditorSyncStatusItem(
             status: model.syncStatus,
             state: EditorBarItemState(
-                haveBackground: model.details?.documentCover.isNotNil ?? false,
+                haveBackground: model.hasTargetObjectId ? false : model.details?.documentCover.isNotNil ?? false,
                 opacity: syncStatusItemOpacity
             )
         )

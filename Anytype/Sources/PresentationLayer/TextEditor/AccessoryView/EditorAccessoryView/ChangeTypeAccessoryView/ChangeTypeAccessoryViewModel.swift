@@ -60,7 +60,7 @@ final class ChangeTypeAccessoryViewModel {
         if typeId == ObjectTypeId.BundledTypeId.set.rawValue {
             let setObjectID = handler.setObjectSetType()
 
-            router.replaceCurrentPage(with: .init(pageId: setObjectID, type: .set))
+            router.replaceCurrentPage(with: .init(pageId: setObjectID, type: .set()))
             return
         }
 

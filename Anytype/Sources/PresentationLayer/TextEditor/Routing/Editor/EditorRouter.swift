@@ -335,12 +335,12 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     }
     
     func showCoverPicker() {
-        let moduleViewController = objectCoverPickerModuleAssembly.make(document: document)
+        let moduleViewController = objectCoverPickerModuleAssembly.make(document: document, objectId: document.objectId)
         navigationContext.present(moduleViewController)
     }
     
     func showIconPicker() {
-        let moduleViewController = objectIconPickerModuleAssembly.make(document: document)
+        let moduleViewController = objectIconPickerModuleAssembly.make(document: document, objectId: document.objectId)
         navigationContext.present(moduleViewController)
     }
 
@@ -405,6 +405,10 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         }
     }
     
+    func showFailureToast(message: String) {
+        toastPresenter.showFailureAlert(message: message)
+    }
+    
     // MARK: - Private
     
     private func presentOverCurrentContextSwuftUIView<Content: View>(view: Content, model: Dismissible) {
@@ -465,15 +469,15 @@ extension EditorRouter: AttachmentRouterProtocol {
 
 // MARK: - Relations
 extension EditorRouter {
-    func showRelationValueEditingView(key: String, source: RelationSource) {
+    func showRelationValueEditingView(key: String) {
         let relation = document.parsedRelations.installed.first { $0.key == key }
         guard let relation = relation else { return }
         
-        showRelationValueEditingView(objectId: document.objectId, source: source, relation: relation)
+        showRelationValueEditingView(objectId: document.objectId, relation: relation)
     }
     
-    func showRelationValueEditingView(objectId: BlockId, source: RelationSource, relation: Relation) {
-        relationValueCoordinator.startFlow(objectId: objectId, source: source, relation: relation, output: self)
+    func showRelationValueEditingView(objectId: BlockId, relation: Relation) {
+        relationValueCoordinator.startFlow(objectId: objectId, relation: relation, output: self)
     }
 
     func showAddNewRelationView(onSelect: ((RelationDetails, _ isNew: Bool) -> Void)?) {

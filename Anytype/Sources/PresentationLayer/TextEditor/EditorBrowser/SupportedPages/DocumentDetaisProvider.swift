@@ -28,7 +28,7 @@ extension EditorPageController: DocumentDetaisProvider {
 extension EditorSetHostingController: DocumentDetaisProvider {
     
     var screenData: EditorScreenData {
-        EditorScreenData(pageId: objectId, type: .set)
+        EditorScreenData(pageId: objectId, type: .set())
     }
     
     var details: ObjectDetails? {

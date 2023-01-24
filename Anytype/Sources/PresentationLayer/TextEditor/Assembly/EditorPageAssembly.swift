@@ -35,23 +35,33 @@ final class EditorAssembly {
         switch data.type {
         case .page:
             return buildPageModule(browser: browser, data: data)
-        case .set:
-            return buildSetModule(browser: browser, data: data)
+        case let .set(blockId, targetObjectID):
+            return buildSetModule(
+                browser: browser,
+                data: data,
+                blockId: blockId,
+                targetObjectID: targetObjectID
+            )
         }
     }
     
     // MARK: - Set
     private func buildSetModule(
         browser: EditorBrowserController?,
-        data: EditorScreenData
+        data: EditorScreenData,
+        blockId: BlockId?,
+        targetObjectID: String?
     ) -> (EditorSetHostingController, EditorPageOpenRouterProtocol) {
         let document = BaseDocument(objectId: data.pageId)
         let setDocument = SetDocument(
             document: document,
+            blockId: blockId,
+            targetObjectID: targetObjectID,
             relationDetailsStorage: ServiceLocator.shared.relationDetailsStorage()
         )
         let dataviewService = DataviewService(
             objectId: data.pageId,
+            blockId: blockId,
             prefilledFieldsBuilder: SetPrefilledFieldsBuilder()
         )
         let detailsService = ServiceLocator.shared.detailsService(objectId: data.pageId)
@@ -61,6 +71,7 @@ final class EditorAssembly {
             dataviewService: dataviewService,
             searchService: ServiceLocator.shared.searchService(),
             detailsService: detailsService,
+            objectActionsService: ServiceLocator.shared.objectActionsService(),
             textService: serviceLocator.textService,
             groupsSubscriptionsHandler: ServiceLocator.shared.groupsSubscriptionsHandler(),
             setSubscriptionDataBuilder: SetSubscriptionDataBuilder()
@@ -68,7 +79,7 @@ final class EditorAssembly {
         let controller = EditorSetHostingController(objectId: data.pageId, model: model)
 
         let router = EditorSetRouter(
-            document: document,
+            setDocument: setDocument,
             rootController: browser,
             viewController: controller,
             navigationContext: NavigationContext(rootViewController: browser ?? controller),
@@ -202,7 +213,6 @@ final class EditorAssembly {
                                                   pasteboardHelper: pasteboardHelper,
                                                   pasteboardMiddlewareService: pasteboardMiddlewareService)
 
-        let toastPresenter = uiHelpersDI.toastPresenter(using: browser)
         let blockActionsServiceSingle = ServiceLocator.shared
             .blockActionsServiceSingle(contextId: document.objectId)
 

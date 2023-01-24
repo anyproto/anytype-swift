@@ -57,7 +57,7 @@ final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsM
         Task { @MainActor in
             let document = BaseDocument(objectId: objectId)
             try? await document.open()
-            let module = objectIconPickerModuleAssembly.make(document: document)
+            let module = objectIconPickerModuleAssembly.make(document: document, objectId: document.objectId)
             navigationContext.present(module)
         }
     }

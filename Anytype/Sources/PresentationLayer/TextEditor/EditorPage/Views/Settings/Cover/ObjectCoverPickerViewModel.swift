@@ -9,7 +9,8 @@ final class ObjectCoverPickerViewModel: ObservableObject {
     var isRemoveButtonAvailable: Bool { document.details?.documentCover != nil }
 
     // MARK: - Private variables
-    private let document: BaseDocumentProtocol
+    private let document: BaseDocumentGeneralProtocol
+    private let objectId: String
     private let imageUploadingDemon = MediaFileUploadingDemon.shared
     private let fileService: FileActionsServiceProtocol
     private let detailsService: DetailsServiceProtocol
@@ -20,12 +21,14 @@ final class ObjectCoverPickerViewModel: ObservableObject {
     // MARK: - Initializer
     
     init(
-        document: BaseDocumentProtocol,
+        document: BaseDocumentGeneralProtocol,
+        objectId: String,
         fileService: FileActionsServiceProtocol,
         detailsService: DetailsServiceProtocol,
         unsplashDownloadService: UnslpashItemDownloader = UnsplashService()
     ) {
         self.document = document
+        self.objectId = objectId
         self.fileService = fileService
         self.detailsService = detailsService
         self.unsplashDownloadService = unsplashDownloadService
@@ -61,7 +64,7 @@ extension ObjectCoverPickerViewModel {
         let operation = MediaFileUploadingOperation(
             uploadingSource: .itemProvider(itemProvider),
             worker: ObjectHeaderImageUploadingWorker(
-                objectId: document.objectId,
+                objectId: objectId,
                 detailsService: detailsService,
                 usecase: .cover
             )
@@ -72,7 +75,7 @@ extension ObjectCoverPickerViewModel {
     func uploadUnplashCover(unsplashItem: UnsplashItem) {
         AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.setCover)
         EventsBunch(
-            contextId: document.objectId,
+            contextId: objectId,
             localEvents: [unsplashItem.updateEvent]
         ).send()
 
