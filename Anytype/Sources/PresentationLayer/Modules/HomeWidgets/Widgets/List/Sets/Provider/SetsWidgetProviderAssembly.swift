@@ -12,11 +12,16 @@ final class SetsWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol {
     
     // MARK: - HomeWidgetProviderAssemblyProtocol
     
-    func make(widgetBlockId: String, widgetObject: HomeWidgetsObjectProtocol) -> HomeWidgetProviderProtocol {
+    func make(
+        widgetBlockId: String,
+        widgetObject: HomeWidgetsObjectProtocol,
+        stateManager: HomeWidgetsStateManagerProtocol
+    ) -> HomeWidgetProviderProtocol {
         return SetsWidgetProvider(
             widgetBlockId: widgetBlockId,
             widgetObject: widgetObject,
             setsWidgetModuleAssembly: widgetsDI.setsWidgetModuleAssembly(),
+            stateManager: stateManager,
             output: output
         )
     }
