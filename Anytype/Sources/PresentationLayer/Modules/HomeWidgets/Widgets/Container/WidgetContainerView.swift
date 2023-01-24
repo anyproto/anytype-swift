@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import AnytypeCore
 
 enum WidgetMenuItem: String {
     case changeSource
@@ -18,10 +19,16 @@ struct WidgetContainerView<Content: View, ContentVM: WidgetContainerContentViewM
             title: contentModel.name,
             description: contentModel.count,
             isExpanded: $model.isExpanded,
-            isEditalbeMode: model.isEditState
-        ) {
-            content
-        }
+            isEditalbeMode: model.isEditState,
+            allowMenuContent: contentModel.menuItems.isNotEmpty,
+            menu: {
+                menuItems
+            },
+            content: {
+                content
+            },
+            removeAction: removeAction()
+        )
         .onAppear {
             contentModel.onAppear()
         }
@@ -30,36 +37,43 @@ struct WidgetContainerView<Content: View, ContentVM: WidgetContainerContentViewM
         }
         .if(!model.isEditState) {
             $0.contextMenu {
-                menuItems
+                contextMenuItems
             }
         }
         
     }
     
-    private var menuItems: some View {
-        Group {
-            ForEach(contentModel.menuItems, id: \.self) {
-                menuItemToView(item: $0)
-            }
-            Divider()
-            Button(Loc.Widgets.Actions.editWidgets) {
-                model.onEditTap()
-            }
+    @ViewBuilder
+    private var contextMenuItems: some View {
+        ForEach(contentModel.menuItems, id: \.self) {
+            menuItemToView(item: $0)
+        }
+        Divider()
+        Button(Loc.Widgets.Actions.editWidgets) {
+            model.onEditTap()
         }
     }
     
+    @ViewBuilder
+    private var menuItems: some View {
+        ForEach(contentModel.menuItems, id: \.self) {
+            menuItemToView(item: $0)
+        }
+    }
+    
+    @ViewBuilder
     private func menuItemToView(item: WidgetMenuItem) -> some View {
         switch item {
         case .changeSource:
-            return Button(Loc.Widgets.Actions.changeSource) {
+            Button(Loc.Widgets.Actions.changeSource) {
                 print("on tap")
             }
         case .changeType:
-            return Button(Loc.Widgets.Actions.changeWidgetType) {
+            Button(Loc.Widgets.Actions.changeWidgetType) {
                 print("on tap")
             }
         case .remove:
-            return Button(Loc.Widgets.Actions.removeWidget) {
+            Button(Loc.Widgets.Actions.removeWidget) {
                 // Fix anumation glytch.
                 // We should to finalize context menu transition to list and then delete object
                 // If we find how customize context menu transition, this 🩼 can be delete it
@@ -67,6 +81,15 @@ struct WidgetContainerView<Content: View, ContentVM: WidgetContainerContentViewM
                     model.onDeleteWidgetTap()
                 }
             }
+        }
+    }
+            
+    private func removeAction() -> (() -> Void)? {
+        
+        guard contentModel.menuItems.contains(.remove) else { return nil}
+        
+        return {
+            model.onDeleteWidgetTap()
         }
     }
 }

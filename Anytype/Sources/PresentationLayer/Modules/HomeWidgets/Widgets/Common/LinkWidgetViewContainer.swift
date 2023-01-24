@@ -1,19 +1,34 @@
 import SwiftUI
 
-struct LinkWidgetViewContainer<Content>: View where Content: View {
+struct LinkWidgetViewContainer<Content, MenuContent>: View where Content: View, MenuContent: View {
     
-    var title: String
-    var description: String?
+    let title: String
+    let description: String?
     @Binding var isExpanded: Bool
-    var isEditalbeMode: Bool
-    var content: () -> Content
+    let isEditalbeMode: Bool
+    let allowMenuContent: Bool
+    let menu: () -> MenuContent
+    let content: () -> Content
+    let removeAction: (() -> Void)?
     
-    init(title: String, description: String? = nil, isExpanded: Binding<Bool>, isEditalbeMode: Bool = false, @ViewBuilder content: @escaping () -> Content) {
+    init(
+        title: String,
+        description: String? = nil,
+        isExpanded: Binding<Bool>,
+        isEditalbeMode: Bool = false,
+        allowMenuContent: Bool = false,
+        @ViewBuilder menu: @escaping () -> MenuContent = { EmptyView() },
+        @ViewBuilder content: @escaping () -> Content,
+        removeAction: (() -> Void)? = nil
+    ) {
         self.title = title
         self.description = description
         self._isExpanded = isExpanded
         self.isEditalbeMode = isEditalbeMode
+        self.allowMenuContent = allowMenuContent
+        self.menu = menu
         self.content = content
+        self.removeAction = removeAction
     }
     
     var body: some View {
@@ -38,14 +53,7 @@ struct LinkWidgetViewContainer<Content>: View where Content: View {
             .cornerRadius(16, style: .continuous)
             .contentShapeLegacy(.contextMenuPreview, RoundedRectangle(cornerRadius: 16, style: .continuous))
             
-            if isEditalbeMode {
-                Button(action: {
-                    // TODO: Add menu action
-                }, label: {
-                    Image(asset: .Widget.remove)
-                })
-                .offset(x: 8, y: -8)
-            }
+            removeButton
         }
     }
     
@@ -57,33 +65,59 @@ struct LinkWidgetViewContainer<Content>: View where Content: View {
             AnytypeText(title, style: .subheading, color: .Text.primary)
                 .lineLimit(1)
                 .layoutPriority(-1)
-            // TODO: Waiting designer. Fix description style and spacer after title.
-            if let description {
-                Spacer.fixedWidth(8)
-                AnytypeText(description, style: .body, color: .Text.secondary)
-                    .lineLimit(1)
-            }
+            descriptionView
             Spacer()
-            if isEditalbeMode {
-                Button(action: {
-                    // TODO: Add menu action
-                }, label: {
-                    Image(asset: .Widget.settings)
-                })
-                Spacer.fixedWidth(16)
-            }
-            Button(action: {
-                withAnimation {
-                    isExpanded = !isExpanded
-                }
-            }, label: {
-                Image(asset: .Widget.collapse)
-                    .rotationEffect(.degrees(isExpanded ? 90 : 0))
-            })
-                .allowsHitTesting(!isEditalbeMode)
+            menuButton
+            arrowButton
             Spacer.fixedWidth(12)
         }
         .frame(height: 40)
+    }
+    
+    @ViewBuilder
+    private var descriptionView: some View {
+        // TODO: Waiting designer. Fix description style and spacer after title.
+        if let description {
+            Spacer.fixedWidth(8)
+            AnytypeText(description, style: .body, color: .Text.secondary)
+                .lineLimit(1)
+        }
+    }
+    
+    private var arrowButton: some View {
+        Button(action: {
+            withAnimation {
+                isExpanded = !isExpanded
+            }
+        }, label: {
+            Image(asset: .Widget.collapse)
+                .rotationEffect(.degrees(isExpanded ? 90 : 0))
+        })
+            .allowsHitTesting(!isEditalbeMode)
+    }
+    
+    @ViewBuilder
+    private var menuButton: some View {
+        if isEditalbeMode, allowMenuContent {
+            Menu {
+                menu()
+            } label: {
+                Image(asset: .Widget.settings)
+            }
+            Spacer.fixedWidth(16)
+        }
+    }
+    
+    @ViewBuilder
+    private var removeButton: some View {
+        if isEditalbeMode, let removeAction {
+            Button(action: {
+                removeAction()
+            }, label: {
+                Image(asset: .Widget.remove)
+            })
+            .offset(x: 8, y: -8)
+        }
     }
 }
 
