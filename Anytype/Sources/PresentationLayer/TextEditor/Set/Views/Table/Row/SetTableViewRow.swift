@@ -68,7 +68,6 @@ struct SetTableViewRow: View {
 
             model.showRelationValueEditingView(
                 objectId: configuration.id,
-                source: .dataview(contextId: model.objectId),
                 relation: relation
             )
         }

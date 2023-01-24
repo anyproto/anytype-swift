@@ -56,6 +56,10 @@ final class EditorSetViewModel: ObservableObject {
         setDocument.details
     }
     
+    var hasTargetObjectId: Bool {
+        setDocument.targetObjectID != nil
+    }
+    
     func groupBackgroundColor(for groupId: String) -> BlockBackgroundColor {
         guard let groupOrder = setDocument.dataView.groupOrders.first(where: { [weak self] in $0.viewID == self?.activeView.id }),
             let viewGroup = groupOrder.viewGroups.first(where: { $0.groupID == groupId }),
@@ -86,6 +90,7 @@ final class EditorSetViewModel: ObservableObject {
     private let dataviewService: DataviewServiceProtocol
     private let searchService: SearchServiceProtocol
     private let detailsService: DetailsServiceProtocol
+    private let objectActionsService: ObjectActionsServiceProtocol
     private let textService: TextServiceProtocol
     private let groupsSubscriptionsHandler: GroupsSubscriptionsHandlerProtocol
     private let setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol
@@ -97,6 +102,7 @@ final class EditorSetViewModel: ObservableObject {
         dataviewService: DataviewServiceProtocol,
         searchService: SearchServiceProtocol,
         detailsService: DetailsServiceProtocol,
+        objectActionsService: ObjectActionsServiceProtocol,
         textService: TextServiceProtocol,
         groupsSubscriptionsHandler: GroupsSubscriptionsHandlerProtocol,
         setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol
@@ -105,6 +111,7 @@ final class EditorSetViewModel: ObservableObject {
         self.dataviewService = dataviewService
         self.searchService = searchService
         self.detailsService = detailsService
+        self.objectActionsService = objectActionsService
         self.textService = textService
         self.groupsSubscriptionsHandler = groupsSubscriptionsHandler
         self.setSubscriptionDataBuilder = setSubscriptionDataBuilder
@@ -114,9 +121,9 @@ final class EditorSetViewModel: ObservableObject {
     
     func setup(router: EditorSetRouterProtocol) {
         self.router = router
-        self.headerModel = ObjectHeaderViewModel(document: setDocument.document, router: router, isOpenedForPreview: false)
+        self.headerModel = ObjectHeaderViewModel(document: setDocument, router: router, isOpenedForPreview: false)
         
-        setDocument.updatePublisher.sink { [weak self] in
+        setDocument.setUpdatePublisher.sink { [weak self] in
             self?.onDataChange($0)
         }.store(in: &subscriptions)
 
@@ -161,7 +168,7 @@ final class EditorSetViewModel: ObservableObject {
             router?.showFailureToast(message: Loc.Set.SourceType.Cancel.Toast.title)
         } else {
             AnytypeAnalytics.instance().logChangeRelationValue(type: .set)
-            showRelationValueEditingView(key: relation.key, source: .object)
+            showRelationValueEditingView(key: relation.key)
         }
     }
 
@@ -244,7 +251,7 @@ final class EditorSetViewModel: ObservableObject {
                 }
 
                 self.textService.setText(
-                    contextId: self.setDocument.objectId,
+                    contextId: self.setDocument.targetObjectID ?? self.objectId,
                     blockId: RelationKey.title.rawValue,
                     middlewareString: .init(text: newValue, marks: .init())
                 )
@@ -258,18 +265,17 @@ final class EditorSetViewModel: ObservableObject {
     
     private func setupGroupsSubscription(forceUpdate: Bool) {
         Task { @MainActor [weak self] in
-            guard let self else { return }
+            guard let self, let source = self.details?.setOf, source.isNotEmpty else { return }
             let data = GroupsSubscription(
                 identifier: SubscriptionId.setGroups,
                 relationKey: self.activeView.groupRelationKey,
                 filters: self.activeView.filters,
-                source: self.setDocument.dataView.source
+                source: source
             )
             if self.groupsSubscriptionsHandler.hasGroupsSubscriptionDataDiff(with: data) {
                 self.groupsSubscriptionsHandler.stopAllSubscriptions()
                 self.groups = try await self.startGroupsSubscription(with: data)
             }
-            
             
             if forceUpdate || self.checkGroupOrderUpdates() {
                 self.startSubscriptionsByGroups()
@@ -334,10 +340,12 @@ final class EditorSetViewModel: ObservableObject {
             currentPage = max(pagitationData.selectedPage, 1)
         }
         
+        guard let source = details?.setOf, source.isNotEmpty else { return }
+        
         let data = setSubscriptionDataBuilder.set(
             .init(
                 identifier: subscriptionId,
-                dataView: setDocument.dataView,
+                source: source,
                 view: activeView,
                 groupFilter: groupFilter,
                 currentPage: currentPage, // show first page for empty request
@@ -504,14 +512,17 @@ final class EditorSetViewModel: ObservableObject {
         if setDocument.isBookmarksSet() {
             createBookmarkObject()
         } else if setDocument.isRelationsSet() {
-            let relationsDetails = setDocument.dataViewRelationsDetails.filter { setDocument.dataView.source.contains($0.id) }
+            let relationsDetails = setDocument.dataViewRelationsDetails.filter { [weak self] detail in
+                guard let source = self?.details?.setOf else { return false }
+                return source.contains(detail.id)
+            }
             createObject(
                 with: ObjectTypeProvider.shared.defaultObjectType.id,
                 relationsDetails: relationsDetails
             )
         } else {
             createObject(
-                with: setDocument.dataView.source.first ?? "",
+                with: details?.setOf.first ?? "",
                 relationsDetails: []
             )
         }
@@ -546,7 +557,7 @@ final class EditorSetViewModel: ObservableObject {
 // MARK: - Routing
 extension EditorSetViewModel {
 
-    func showRelationValueEditingView(key: String, source: RelationSource) {
+    func showRelationValueEditingView(key: String) {
         if key == BundledRelationKey.setOf.rawValue {
             showSetOfTypeSelection()
             
@@ -555,19 +566,17 @@ extension EditorSetViewModel {
 
         AnytypeAnalytics.instance().logChangeRelationValue(type: .set)
 
-        router?.showRelationValueEditingView(key: key, source: source)
+        router?.showRelationValueEditingView(key: key)
     }
     
     func showRelationValueEditingView(
         objectId: BlockId,
-        source: RelationSource,
         relation: Relation
     ) {
         AnytypeAnalytics.instance().logChangeRelationValue(type: .set)
         
         router?.showRelationValueEditingView(
             objectId: objectId,
-            source: source,
             relation: relation
         )
     }
@@ -601,6 +610,7 @@ extension EditorSetViewModel {
         router?.showViewTypes(
             dataView: setDocument.dataView,
             activeView: activeView,
+            source: details?.setOf ?? [],
             dataviewService: dataviewService
         )
     }
@@ -657,6 +667,10 @@ extension EditorSetViewModel {
         )
     }
     
+    func showIconPicker() {
+        router?.showIconPicker()
+    }
+    
     private func dataviewGroupOrderUpdate(groupId: String, hidden: Bool, backgroundColor: BlockBackgroundColor?) {
         let updatedGroupOrder = updatedGroupOrder(groupId: groupId, hidden: hidden, backgroundColor: backgroundColor)
         Task { [weak self] in
@@ -694,9 +708,10 @@ extension EditorSetViewModel {
     }
     
     private func showSetOfTypeSelection() {
-        router?.showSources(selectedObjectId: setDocument.details?.setOf.first) { [unowned self] typeObjectId in
-            Task { @MainActor [weak self] in
-                try? await self?.dataviewService.setSource(typeObjectId: typeObjectId)
+        router?.showSources(selectedObjectId: setDocument.details?.setOf.first) { [weak self] typeObjectId in
+            guard let self else { return }
+            Task { @MainActor in
+                try? await self.objectActionsService.setSource(objectId: self.objectId, source: [typeObjectId])
             }
         }
     }
@@ -723,11 +738,14 @@ extension EditorSetViewModel {
     static let empty = EditorSetViewModel(
         setDocument: SetDocument(
             document: BaseDocument(objectId: "objectId"),
+            blockId: nil,
+            targetObjectID: nil,
             relationDetailsStorage: ServiceLocator.shared.relationDetailsStorage()
         ),
-        dataviewService: DataviewService(objectId: "objectId", prefilledFieldsBuilder: SetPrefilledFieldsBuilder()),
+        dataviewService: DataviewService(objectId: "objectId", blockId: "blockId", prefilledFieldsBuilder: SetPrefilledFieldsBuilder()),
         searchService: ServiceLocator.shared.searchService(),
         detailsService: DetailsService(objectId: "objectId", service: ObjectActionsService()),
+        objectActionsService: ServiceLocator.shared.objectActionsService(),
         textService: TextService(),
         groupsSubscriptionsHandler: ServiceLocator.shared.groupsSubscriptionsHandler(),
         setSubscriptionDataBuilder: SetSubscriptionDataBuilder()

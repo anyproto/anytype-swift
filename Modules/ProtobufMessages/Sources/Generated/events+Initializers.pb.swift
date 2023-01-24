@@ -112,6 +112,13 @@ extension Anytype_Event.Block.Dataview.SourceSet {
     }
 }
 
+extension Anytype_Event.Block.Dataview.TargetObjectIdSet {
+    public init(id: String = String(), targetObjectID: String = String()) {
+        self.id = id
+        self.targetObjectID = targetObjectID
+    }
+}
+
 extension Anytype_Event.Block.Dataview.ViewDelete {
     public init(id: String = String(), viewID: String = String()) {
         self.id = id
@@ -131,6 +138,130 @@ extension Anytype_Event.Block.Dataview.ViewSet {
         self.id = id
         self.viewID = viewID
         self.view = view
+    }
+}
+
+extension Anytype_Event.Block.Dataview.ViewUpdate {
+    public init(id: String = String(), viewID: String = String(), filter: [Anytype_Event.Block.Dataview.ViewUpdate.Filter] = [], relation: [Anytype_Event.Block.Dataview.ViewUpdate.Relation] = [], sort: [Anytype_Event.Block.Dataview.ViewUpdate.Sort] = [], fields: Anytype_Event.Block.Dataview.ViewUpdate.Fields) {
+        self.id = id
+        self.viewID = viewID
+        self.filter = filter
+        self.relation = relation
+        self.sort = sort
+        self.fields = fields
+    }
+}
+
+extension Anytype_Event.Block.Dataview.ViewUpdate.Fields {
+    public init(type: Anytype_Model_Block.Content.Dataview.View.TypeEnum = .table, name: String = String(), coverRelationKey: String = String(), hideIcon: Bool = false, cardSize: Anytype_Model_Block.Content.Dataview.View.Size = .small, coverFit: Bool = false, groupRelationKey: String = String(), groupBackgroundColors: Bool = false, pageLimit: Int32 = 0) {
+        self.type = type
+        self.name = name
+        self.coverRelationKey = coverRelationKey
+        self.hideIcon = hideIcon
+        self.cardSize = cardSize
+        self.coverFit = coverFit
+        self.groupRelationKey = groupRelationKey
+        self.groupBackgroundColors = groupBackgroundColors
+        self.pageLimit = pageLimit
+    }
+}
+
+extension Anytype_Event.Block.Dataview.ViewUpdate.Filter {
+    public init(operation: Anytype_Event.Block.Dataview.ViewUpdate.Filter.OneOf_Operation? = nil) {
+        self.operation = operation
+    }
+}
+
+extension Anytype_Event.Block.Dataview.ViewUpdate.Filter.Add {
+    public init(afterID: String = String(), items: [Anytype_Model_Block.Content.Dataview.Filter] = []) {
+        self.afterID = afterID
+        self.items = items
+    }
+}
+
+extension Anytype_Event.Block.Dataview.ViewUpdate.Filter.Move {
+    public init(afterID: String = String(), ids: [String] = []) {
+        self.afterID = afterID
+        self.ids = ids
+    }
+}
+
+extension Anytype_Event.Block.Dataview.ViewUpdate.Filter.Remove {
+    public init(ids: [String] = []) {
+        self.ids = ids
+    }
+}
+
+extension Anytype_Event.Block.Dataview.ViewUpdate.Filter.Update {
+    public init(id: String = String(), item: Anytype_Model_Block.Content.Dataview.Filter) {
+        self.id = id
+        self.item = item
+    }
+}
+
+extension Anytype_Event.Block.Dataview.ViewUpdate.Relation {
+    public init(operation: Anytype_Event.Block.Dataview.ViewUpdate.Relation.OneOf_Operation? = nil) {
+        self.operation = operation
+    }
+}
+
+extension Anytype_Event.Block.Dataview.ViewUpdate.Relation.Add {
+    public init(afterID: String = String(), items: [Anytype_Model_Block.Content.Dataview.Relation] = []) {
+        self.afterID = afterID
+        self.items = items
+    }
+}
+
+extension Anytype_Event.Block.Dataview.ViewUpdate.Relation.Move {
+    public init(afterID: String = String(), ids: [String] = []) {
+        self.afterID = afterID
+        self.ids = ids
+    }
+}
+
+extension Anytype_Event.Block.Dataview.ViewUpdate.Relation.Remove {
+    public init(ids: [String] = []) {
+        self.ids = ids
+    }
+}
+
+extension Anytype_Event.Block.Dataview.ViewUpdate.Relation.Update {
+    public init(id: String = String(), item: Anytype_Model_Block.Content.Dataview.Relation) {
+        self.id = id
+        self.item = item
+    }
+}
+
+extension Anytype_Event.Block.Dataview.ViewUpdate.Sort {
+    public init(operation: Anytype_Event.Block.Dataview.ViewUpdate.Sort.OneOf_Operation? = nil) {
+        self.operation = operation
+    }
+}
+
+extension Anytype_Event.Block.Dataview.ViewUpdate.Sort.Add {
+    public init(afterID: String = String(), items: [Anytype_Model_Block.Content.Dataview.Sort] = []) {
+        self.afterID = afterID
+        self.items = items
+    }
+}
+
+extension Anytype_Event.Block.Dataview.ViewUpdate.Sort.Move {
+    public init(afterID: String = String(), ids: [String] = []) {
+        self.afterID = afterID
+        self.ids = ids
+    }
+}
+
+extension Anytype_Event.Block.Dataview.ViewUpdate.Sort.Remove {
+    public init(ids: [String] = []) {
+        self.ids = ids
+    }
+}
+
+extension Anytype_Event.Block.Dataview.ViewUpdate.Sort.Update {
+    public init(id: String = String(), item: Anytype_Model_Block.Content.Dataview.Sort) {
+        self.id = id
+        self.item = item
     }
 }
 

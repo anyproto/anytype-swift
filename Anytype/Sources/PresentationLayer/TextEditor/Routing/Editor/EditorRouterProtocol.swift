@@ -6,8 +6,12 @@ protocol AttachmentRouterProtocol {
     func openImage(_ imageContext: FilePreviewContext)
 }
 
-protocol EditorRouterProtocol: AnyObject, EditorPageOpenRouterProtocol,
-                                AttachmentRouterProtocol, ObjectHeaderRouterProtocol {
+protocol EditorRouterProtocol:
+    AnyObject,
+    EditorPageOpenRouterProtocol,
+    AttachmentRouterProtocol,
+    ObjectHeaderRouterProtocol
+{
     func showAlert(alertModel: AlertModel)
     func showPage(data: EditorScreenData)
     func replaceCurrentPage(with data: EditorScreenData)
@@ -49,8 +53,8 @@ protocol EditorRouterProtocol: AnyObject, EditorPageOpenRouterProtocol,
         onSelect: @escaping (BlockLink.Appearance) -> Void
     )
     
-    func showRelationValueEditingView(key: String, source: RelationSource)
-    func showRelationValueEditingView(objectId: BlockId, source: RelationSource, relation: Relation)
+    func showRelationValueEditingView(key: String)
+    func showRelationValueEditingView(objectId: BlockId, relation: Relation)
     func showAddNewRelationView(onSelect: ((RelationDetails, _ isNew: Bool) -> Void)?)
 
     func showLinkContextualMenu(inputParameters: TextBlockURLInputParameters)
@@ -79,4 +83,6 @@ protocol EditorRouterProtocol: AnyObject, EditorPageOpenRouterProtocol,
         selectedColor: UIColor?,
         selectedBackgroundColor: UIColor?
     )
+    
+    func showFailureToast(message: String)
 }

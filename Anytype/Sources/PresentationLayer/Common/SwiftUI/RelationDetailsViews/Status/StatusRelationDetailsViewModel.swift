@@ -10,7 +10,6 @@ final class StatusRelationDetailsViewModel: ObservableObject {
     
     let popupLayout = AnytypePopupLayoutType.constantHeight(height: 116, floatingPanelStyle: false)
 
-    private let source: RelationSource
     private var selectedStatus: Relation.Status.Option? {
         didSet {
             updateSelectedStatusViewModel()
@@ -26,15 +25,12 @@ final class StatusRelationDetailsViewModel: ObservableObject {
     private weak var popup: AnytypePopupProxy?
     
     init(
-        source: RelationSource,
         selectedStatus: Relation.Status.Option?,
         relation: Relation,
         service: RelationsServiceProtocol,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
         searchService: SearchServiceProtocol
-    ) {
-        self.source = source
-        
+    ) {        
         self.selectedStatus = selectedStatus
         
         self.relation = relation
@@ -101,7 +97,7 @@ private extension StatusRelationDetailsViewModel {
     }
     
     func handleCreateOption(title: String) {
-        let optionId = service.addRelationOption(source: source, relationKey: relation.key, optionText: title)
+        let optionId = service.addRelationOption(relationKey: relation.key, optionText: title)
         guard let optionId = optionId else {
             return
         }

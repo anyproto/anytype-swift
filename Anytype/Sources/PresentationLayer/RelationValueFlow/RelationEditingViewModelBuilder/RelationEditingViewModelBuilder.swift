@@ -23,7 +23,6 @@ final class RelationEditingViewModelBuilder {
 extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtocol {
     
     func buildViewModel(
-        source: RelationSource,
         objectId: BlockId,
         relation: Relation,
         onTap: @escaping (_ id: BlockId, _ viewType: EditorViewType) -> Void
@@ -115,7 +114,6 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
             )
         case .status(let status):
             return StatusRelationDetailsViewModel(
-                source: source,
                 selectedStatus: status.values.first,
                 relation: relation,
                 service: RelationsService(objectId: objectId),
@@ -124,7 +122,6 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
             )
         case .tag(let tag):
             return RelationOptionsListViewModel(
-                source: source,
                 selectedOptions: tag.selectedTags.map { tag in
                     ListRowConfiguration(
                         id: tag.id,
@@ -145,7 +142,6 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
             )
         case .object(let object):
             return RelationOptionsListViewModel(
-                source: source,
                 selectedOptions: object.selectedObjects.map { object in
                     ListRowConfiguration(
                         id: object.id,
@@ -167,7 +163,6 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
             )
         case .file(let file):
             return RelationOptionsListViewModel(
-                source: source,
                 selectedOptions: file.files.map { file in
                     ListRowConfiguration(
                         id: file.id,

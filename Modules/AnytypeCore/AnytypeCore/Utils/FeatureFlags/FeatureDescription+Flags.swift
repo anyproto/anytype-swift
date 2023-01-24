@@ -18,6 +18,14 @@ public extension FeatureDescription {
         debugValue: false
     )
     
+    static let fullInlineSetImpl = FeatureDescription(
+        title: "Full inline set impl (IOS-790)",
+        author: "joe_pusya@anytype.io",
+        releaseVersion: "0.22.0",
+        defaultValue: false,
+        debugValue: false
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(

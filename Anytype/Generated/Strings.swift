@@ -465,6 +465,8 @@ internal enum Loc {
   internal static let onAnalytics = Loc.tr("Localizable", "On analytics", fallback: "On analytics")
   /// Open object
   internal static let openObject = Loc.tr("Localizable", "Open object", fallback: "Open object")
+  /// Open source
+  internal static let openSource = Loc.tr("Localizable", "Open source", fallback: "Open source")
   /// or type your recovery phrase
   internal static let orTypeYourRecoveryPhrase = Loc.tr("Localizable", "or type your recovery phrase", fallback: "or type your recovery phrase")
   /// With Anytype you can write notes and documents, manage tasks and save important content from the web.
@@ -770,6 +772,22 @@ internal enum Loc {
       internal static let error = Loc.tr("Localizable", "Content.Common.Error", fallback: "Something went wrong, try again")
       /// Uploading...
       internal static let uploading = Loc.tr("Localizable", "Content.Common.Uploading", fallback: "Uploading...")
+    }
+    internal enum DataView {
+      internal enum InlineSet {
+        /// No data
+        internal static let noData = Loc.tr("Localizable", "Content.DataView.InlineSet.NoData", fallback: "No data")
+        /// No source
+        internal static let noSource = Loc.tr("Localizable", "Content.DataView.InlineSet.NoSource", fallback: "No source")
+        /// Inline set
+        internal static let subtitle = Loc.tr("Localizable", "Content.DataView.InlineSet.Subtitle", fallback: "Inline set")
+        /// Untitled set
+        internal static let untitled = Loc.tr("Localizable", "Content.DataView.InlineSet.Untitled", fallback: "Untitled set")
+        internal enum Toast {
+          /// This inline set doesn’t have a source
+          internal static let failure = Loc.tr("Localizable", "Content.DataView.InlineSet.Toast.Failure", fallback: "This inline set doesn’t have a source")
+        }
+      }
     }
     internal enum File {
       /// Upload a file

@@ -1,9 +1,27 @@
 import BlocksModels
 
 protocol DataviewServiceProtocol {
-    func updateView( _ view: DataviewView) async throws
-    func createView( _ view: DataviewView) async throws
-    func deleteView( _ viewId: String) async throws
+    func updateView(_ view: DataviewView) async throws
+    
+    // MARK: - Filters
+    func addFilter(_ filter: DataviewFilter, viewId: String) async throws
+    func removeFilters(_ filterIds: [String], viewId: String) async throws
+    func replaceFilter(_ filterId: String, with filter: DataviewFilter, viewId: String) async throws
+    
+    // MARK: - Sorts
+    func addSort(_ sort: DataviewSort, viewId: String) async throws
+    func removeSorts(_ sortsKeys: [String], viewId: String) async throws
+    func replaceSort(_ sortKey: String, with sort: DataviewSort, viewId: String) async throws
+    func sortSorts(_ sortsKeys: [String], viewId: String) async throws
+    
+    // MARK: - Relations
+    func addViewRelation(_ relation: MiddlewareRelation, viewId: String) async throws
+    func removeViewRelations(_ keys: [String], viewId: String) async throws
+    func replaceViewRelation(_ key: String, with relation: MiddlewareRelation, viewId: String) async throws
+    func sortViewRelations(_ keys: [String], viewId: String) async throws
+    
+    func createView(_ view: DataviewView, source: [String]) async throws
+    func deleteView(_ viewId: String) async throws
     func addRelation(_ relationDetails: RelationDetails) async throws -> Bool
     func deleteRelation(relationKey: String) async throws
     func addRecord(
@@ -12,7 +30,6 @@ protocol DataviewServiceProtocol {
         setFilters: [SetFilter],
         relationsDetails: [RelationDetails]
     ) async throws -> String
-    func setSource(typeObjectId: String) async throws
     func setPositionForView(_ viewId: String, position: Int) async throws
     func objectOrderUpdate(viewId: String, groupObjectIds: [GroupObjectIds]) async throws
     func groupOrderUpdate(viewId: String, groupOrder: DataviewGroupOrder) async throws

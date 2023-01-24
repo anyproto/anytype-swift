@@ -13,14 +13,14 @@ struct SetSubsriptionData: Hashable {
     
     init(
         identifier: SubscriptionId,
-        dataView: BlockDataview,
+        source: [String],
         view: DataviewView,
         groupFilter: DataviewFilter?,
         currentPage: Int,
         numberOfRowsPerPage: Int
     ) {
         self.identifier = identifier
-        self.source = dataView.source
+        self.source = source
         self.sorts = view.sorts
         var filters = view.filters
         if let groupFilter {

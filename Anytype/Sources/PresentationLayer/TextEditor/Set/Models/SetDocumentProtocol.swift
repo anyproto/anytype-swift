@@ -6,17 +6,19 @@ enum SetDocumentUpdate {
     case syncStatus(SyncStatus)
 }
 
-protocol SetDocumentProtocol {
+protocol SetDocumentProtocol: BaseDocumentGeneralProtocol {
     var document: BaseDocumentProtocol { get }
     var objectId: BlockId { get }
-    var details: ObjectDetails? { get }
+    var targetObjectID: String? { get }
     var dataviews: [BlockDataview] { get }
     var dataViewRelationsDetails: [RelationDetails] { get }
     var sortedRelations: [SetRelation] { get }
     var isObjectLocked: Bool { get }
-    var featuredRelationsForEditor: [Relation] { get }
     
-    var updatePublisher: AnyPublisher<SetDocumentUpdate, Never> { get }
+    var featuredRelationsForEditor: [Relation] { get }
+    var parsedRelations: ParsedRelations { get }
+    
+    var setUpdatePublisher: AnyPublisher<SetDocumentUpdate, Never> { get }
     
     var dataView: BlockDataview { get }
     var dataviewPublisher: AnyPublisher<BlockDataview, Never> { get }

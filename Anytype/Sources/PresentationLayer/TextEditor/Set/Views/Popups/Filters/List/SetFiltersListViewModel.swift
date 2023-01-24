@@ -42,9 +42,13 @@ extension SetFiltersListViewModel {
     }
     
     func delete(_ indexSet: IndexSet) {
-        var filters = setDocument.filters
-        filters.remove(atOffsets: indexSet)
-        updateView(with: filters)
+        indexSet.forEach { [weak self] deleteIndex in
+            guard let self, deleteIndex < self.setDocument.filters.count else { return }
+            let filter = self.setDocument.filters[deleteIndex]
+            Task {
+                try await dataviewService.removeFilters([filter.filter.id], viewId: self.setDocument.activeView.id)
+            }
+        }
     }
     
     // MARK: - Private methods
@@ -75,19 +79,7 @@ extension SetFiltersListViewModel {
         guard let filter = setDocument.filters[safe: index], filter.id == id  else {
             return
         }
-        showFilterSearch(with: filter, index: index)
-    }
-
-    private func updateView(with filters: [SetFilter]) {
-        let dataviewFilters = filters.map { $0.filter }
-        updateView(with: dataviewFilters)
-    }
-    
-    private func updateView(with dataviewFilters: [DataviewFilter]) {
-        let newView = setDocument.activeView.updated(filters: dataviewFilters)
-        Task {
-            try await dataviewService.updateView(newView)
-        }
+        showFilterSearch(with: filter)
     }
     
     private func makeSetFilter(with relationDetails: RelationDetails) -> SetFilter? {
@@ -102,19 +94,6 @@ extension SetFiltersListViewModel {
                 value: [String]().protobufValue
             )
         )
-    }
-    
-    private func handleFilterSearch(_ updatedFilter: SetFilter, index: Int?) {
-        var filters = setDocument.filters.map { $0.filter }
-        
-        if let index = index,
-            let filter = filters[safe: index],
-           filter.relationKey == filter.relationKey {
-            filters[index] = updatedFilter.filter
-        } else {
-            filters.append(updatedFilter.filter)
-        }
-        updateView(with: filters)
     }
     
     private func type(for filter: SetFilter) -> SetFilterRowType {
@@ -137,12 +116,23 @@ extension SetFiltersListViewModel {
     
     // MARK: - Routing
     
-    private func showFilterSearch(with filter: SetFilter, index: Int? = nil) {
-        router.showFilterSearch(
-            filter: filter,
-            onApply: { [weak self] updatedFilter in
-                self?.handleFilterSearch(updatedFilter, index: index)
+    func showFilterSearch(with filter: SetFilter) {
+        router.showFilterSearch(filter: filter) { [weak self] updatedFilter in
+            guard let self else { return }
+            Task {
+                if filter.filter.id.isNotEmpty {
+                    try await self.dataviewService.replaceFilter(
+                        filter.filter.id,
+                        with: updatedFilter.filter,
+                        viewId: self.setDocument.activeView.id
+                    )
+                } else {
+                    try await self.dataviewService.addFilter(
+                        updatedFilter.filter,
+                        viewId: self.setDocument.activeView.id
+                    )
+                }
             }
-        )
+        }
     }
 }

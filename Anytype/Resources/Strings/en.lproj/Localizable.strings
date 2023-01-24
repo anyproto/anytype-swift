@@ -500,6 +500,7 @@
 "Deleted" = "Deleted";
 "Download" = "Download";
 "Open object" = "Open object";
+"Open source" = "Open source";
 "Turn into" = "Turn into";
 "Into object" = "Into object";
 "Add below" = "Add below";
@@ -647,6 +648,11 @@
 "Content.Common.Error" = "Something went wrong, try again";
 "Content.Bookmark.Add" = "Add a web bookmark";
 "Content.Bookmark.Loading" = "Loading, please wait...";
+"Content.DataView.InlineSet.Subtitle" = "Inline set";
+"Content.DataView.InlineSet.NoSource" = "No source";
+"Content.DataView.InlineSet.NoData" = "No data";
+"Content.DataView.InlineSet.Untitled" = "Untitled set";
+"Content.DataView.InlineSet.Toast.Failure" = "This inline set doesn’t have a source";
 
 // MARK: - Widget extension
 "WidgetExtension.LockScreen.Title" = "New object";

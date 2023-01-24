@@ -2,11 +2,6 @@ import Foundation
 import BlocksModels
 import SwiftProtobuf
 
-enum RelationSource {
-    case object
-    case dataview(contextId: BlockId)
-}
-
 protocol RelationsServiceProtocol: AnyObject {
     func addFeaturedRelation(relationKey: String)
     func removeFeaturedRelation(relationKey: String)
@@ -17,6 +12,6 @@ protocol RelationsServiceProtocol: AnyObject {
     func addRelations(relationsDetails: [RelationDetails]) -> Bool
 
     func removeRelation(relationKey: String)
-    func addRelationOption(source: RelationSource, relationKey: String, optionText: String) -> String?
+    func addRelationOption(relationKey: String, optionText: String) -> String?
     func availableRelations() -> [RelationDetails]
 }
