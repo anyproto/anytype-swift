@@ -524,16 +524,7 @@ final class MiddlewareEventConverter {
             var view = views[viewIndex]
             
             if update.hasFields {
-                view = view.updated(
-                    name: update.fields.name,
-                    type: update.fields.type.asModel,
-                    cardSize: update.fields.cardSize,
-                    hideIcon: update.fields.hideIcon,
-                    coverRelationKey: update.fields.coverRelationKey,
-                    coverFit: update.fields.coverFit,
-                    groupRelationKey: update.fields.groupRelationKey,
-                    groupBackgroundColors: update.fields.groupBackgroundColors
-                )
+                view = view.updated(with: update.fields)
             }
             
             self.updateFilters(update, view: &view)
