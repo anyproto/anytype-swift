@@ -64,6 +64,7 @@ service ClientCommands {
     rpc ObjectSetInternalFlags (anytype.Rpc.Object.SetInternalFlags.Request) returns (anytype.Rpc.Object.SetInternalFlags.Response);
     rpc ObjectSetIsFavorite (anytype.Rpc.Object.SetIsFavorite.Request) returns (anytype.Rpc.Object.SetIsFavorite.Response);
     rpc ObjectSetIsArchived (anytype.Rpc.Object.SetIsArchived.Request) returns (anytype.Rpc.Object.SetIsArchived.Response);
+    rpc ObjectSetSource (anytype.Rpc.Object.SetSource.Request) returns (anytype.Rpc.Object.SetSource.Response);
     rpc ObjectListDuplicate (anytype.Rpc.Object.ListDuplicate.Request) returns (anytype.Rpc.Object.ListDuplicate.Response);
     rpc ObjectListDelete (anytype.Rpc.Object.ListDelete.Request) returns (anytype.Rpc.Object.ListDelete.Response);
     rpc ObjectListSetIsArchived (anytype.Rpc.Object.ListSetIsArchived.Request) returns (anytype.Rpc.Object.ListSetIsArchived.Response);
@@ -191,6 +192,22 @@ service ClientCommands {
     rpc BlockDataviewRelationListAvailable (anytype.Rpc.BlockDataview.Relation.ListAvailable.Request) returns (anytype.Rpc.BlockDataview.Relation.ListAvailable.Response);
     rpc BlockDataviewGroupOrderUpdate (anytype.Rpc.BlockDataview.GroupOrder.Update.Request) returns (anytype.Rpc.BlockDataview.GroupOrder.Update.Response);
     rpc BlockDataviewObjectOrderUpdate (anytype.Rpc.BlockDataview.ObjectOrder.Update.Request) returns (anytype.Rpc.BlockDataview.ObjectOrder.Update.Response);
+    rpc BlockDataviewCreateFromExistingObject (anytype.Rpc.BlockDataview.CreateFromExistingObject.Request) returns (anytype.Rpc.BlockDataview.CreateFromExistingObject.Response);
+
+    rpc BlockDataviewFilterAdd (anytype.Rpc.BlockDataview.Filter.Add.Request) returns (anytype.Rpc.BlockDataview.Filter.Add.Response);
+    rpc BlockDataviewFilterRemove (anytype.Rpc.BlockDataview.Filter.Remove.Request) returns (anytype.Rpc.BlockDataview.Filter.Remove.Response);
+    rpc BlockDataviewFilterReplace (anytype.Rpc.BlockDataview.Filter.Replace.Request) returns (anytype.Rpc.BlockDataview.Filter.Replace.Response);
+    rpc BlockDataviewFilterSort (anytype.Rpc.BlockDataview.Filter.Sort.Request) returns (anytype.Rpc.BlockDataview.Filter.Sort.Response);
+
+    rpc BlockDataviewSortAdd (anytype.Rpc.BlockDataview.Sort.Add.Request) returns (anytype.Rpc.BlockDataview.Sort.Add.Response);
+    rpc BlockDataviewSortRemove (anytype.Rpc.BlockDataview.Sort.Remove.Request) returns (anytype.Rpc.BlockDataview.Sort.Remove.Response);
+    rpc BlockDataviewSortReplace (anytype.Rpc.BlockDataview.Sort.Replace.Request) returns (anytype.Rpc.BlockDataview.Sort.Replace.Response);
+    rpc BlockDataviewSortSort (anytype.Rpc.BlockDataview.Sort.Sort.Request) returns (anytype.Rpc.BlockDataview.Sort.Sort.Response);
+
+    rpc BlockDataviewViewRelationAdd (anytype.Rpc.BlockDataview.ViewRelation.Add.Request) returns (anytype.Rpc.BlockDataview.ViewRelation.Add.Response);
+    rpc BlockDataviewViewRelationRemove (anytype.Rpc.BlockDataview.ViewRelation.Remove.Request) returns (anytype.Rpc.BlockDataview.ViewRelation.Remove.Response);
+    rpc BlockDataviewViewRelationReplace (anytype.Rpc.BlockDataview.ViewRelation.Replace.Request) returns (anytype.Rpc.BlockDataview.ViewRelation.Replace.Response);
+    rpc BlockDataviewViewRelationSort (anytype.Rpc.BlockDataview.ViewRelation.Sort.Request) returns (anytype.Rpc.BlockDataview.ViewRelation.Sort.Response);
 
     // Simple table block commands
     // ***
