@@ -648,7 +648,7 @@
 "Content.Common.Error" = "Something went wrong, try again";
 "Content.Bookmark.Add" = "Add a web bookmark";
 "Content.Bookmark.Loading" = "Loading, please wait...";
-"Content.DataView.SetView" = "Set View";
+"Content.DataView.InlineSet.Subtitle" = "Inline set";
 "Content.DataView.InlineSet.NoSource" = "No source";
 "Content.DataView.InlineSet.NoData" = "No data";
 "Content.DataView.InlineSet.Untitled" = "Untitled set";

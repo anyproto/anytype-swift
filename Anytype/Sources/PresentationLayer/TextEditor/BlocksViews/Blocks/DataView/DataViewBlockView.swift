@@ -15,7 +15,7 @@ final class DataViewBlockView: UIView, BlockContentView {
     private let subtitleLabel: AnytypeLabel = {
         let subtitleLabel = AnytypeLabel(style: .relation3Regular)
         subtitleLabel.textColor = .Text.secondary
-        subtitleLabel.setText(Loc.Content.DataView.setView)
+        subtitleLabel.setText(Loc.Content.DataView.InlineSet.subtitle)
         return subtitleLabel
     }()
     
