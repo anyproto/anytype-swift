@@ -81,13 +81,6 @@ final class SetWidgetViewModel: ListWidgetViewModelProtocol, WidgetContainerCont
                 self?.updateViewState()
             }
             .store(in: &subscriptions)
-        
-//        widgetObject.infoContainer.publisherFor(id: widgetBlockId)
-//            .sink { [weak self] info in
-//                guard case let .widget(widget) = info?.content else { return }
-//                self?.isExpanded = widget.layout == .tree
-//            }
-//            .store(in: &subscriptions)
     }
     
     private func updateViewState() {

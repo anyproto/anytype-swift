@@ -64,7 +64,6 @@ final class HomeWidgetsViewModel: ObservableObject {
     
     func onEditButtonTap() {
         stateManager.setEditState(true)
-//        toastPresenter.show(message: "On tap edit button")
     }
     
     // MARK: - Private
