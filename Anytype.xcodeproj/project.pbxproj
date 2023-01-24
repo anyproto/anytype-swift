@@ -408,6 +408,9 @@
 		2A1F94932979579B00E25782 /* CommonWidgetModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1F94922979579B00E25782 /* CommonWidgetModuleOutput.swift */; };
 		2A1F949929795FEB00E25782 /* FavoriteSubscriptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1F949829795FEB00E25782 /* FavoriteSubscriptionService.swift */; };
 		2A1F949B297961A300E25782 /* BundledRelationKey+CommonKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1F949A297961A300E25782 /* BundledRelationKey+CommonKeys.swift */; };
+		2A28D04B297E9EDB00E55E15 /* HomeWidgetsStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A28D04A297E9EDB00E55E15 /* HomeWidgetsStateManager.swift */; };
+		2A28D04D297FCC1D00E55E15 /* WidgetContainerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A28D04C297FCC1D00E55E15 /* WidgetContainerViewModel.swift */; };
+		2A28D050297FCFE400E55E15 /* WidgetContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A28D04F297FCFE400E55E15 /* WidgetContainerView.swift */; };
 		2A2A347529229D2B0004BD8B /* NavigationContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2A347429229D2B0004BD8B /* NavigationContext.swift */; };
 		2A2C330028919576008BC326 /* RelationMetadataFormat+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2C32FF28919576008BC326 /* RelationMetadataFormat+Extensions.swift */; };
 		2A2C330328928668008BC326 /* RelationValueCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2C330228928668008BC326 /* RelationValueCoordinator.swift */; };
@@ -1748,6 +1751,9 @@
 		2A1F94922979579B00E25782 /* CommonWidgetModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonWidgetModuleOutput.swift; sourceTree = "<group>"; };
 		2A1F949829795FEB00E25782 /* FavoriteSubscriptionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteSubscriptionService.swift; sourceTree = "<group>"; };
 		2A1F949A297961A300E25782 /* BundledRelationKey+CommonKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BundledRelationKey+CommonKeys.swift"; sourceTree = "<group>"; };
+		2A28D04A297E9EDB00E55E15 /* HomeWidgetsStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWidgetsStateManager.swift; sourceTree = "<group>"; };
+		2A28D04C297FCC1D00E55E15 /* WidgetContainerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetContainerViewModel.swift; sourceTree = "<group>"; };
+		2A28D04F297FCFE400E55E15 /* WidgetContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetContainerView.swift; sourceTree = "<group>"; };
 		2A2A347429229D2B0004BD8B /* NavigationContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationContext.swift; sourceTree = "<group>"; };
 		2A2C32FF28919576008BC326 /* RelationMetadataFormat+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RelationMetadataFormat+Extensions.swift"; sourceTree = "<group>"; };
 		2A2C330228928668008BC326 /* RelationValueCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationValueCoordinator.swift; sourceTree = "<group>"; };
@@ -4633,6 +4639,23 @@
 			path = Subscriptions;
 			sourceTree = "<group>";
 		};
+		2A28D049297E9EB800E55E15 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				2A28D04A297E9EDB00E55E15 /* HomeWidgetsStateManager.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		2A28D04E297FCFCB00E55E15 /* Container */ = {
+			isa = PBXGroup;
+			children = (
+				2A28D04C297FCC1D00E55E15 /* WidgetContainerViewModel.swift */,
+				2A28D04F297FCFE400E55E15 /* WidgetContainerView.swift */,
+			);
+			path = Container;
+			sourceTree = "<group>";
+		};
 		2A2A347229229D190004BD8B /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
@@ -4720,6 +4743,7 @@
 		2A4919A629530AD200FCEAC9 /* Widgets */ = {
 			isa = PBXGroup;
 			children = (
+				2A28D04E297FCFCB00E55E15 /* Container */,
 				2A1F946C2978207F00E25782 /* List */,
 				2AAF343829559BD400921320 /* ObjectTree */,
 				2A4919A729530ADD00FCEAC9 /* Common */,
@@ -4972,6 +4996,7 @@
 		2AAF343F29559DAD00921320 /* Container */ = {
 			isa = PBXGroup;
 			children = (
+				2A28D049297E9EB800E55E15 /* Manager */,
 				2A0B714F297697040003B1C5 /* Views */,
 				2AAF344729599C4200921320 /* Models */,
 				2AAF343D29559DA600921320 /* HomeWidgetsRegistry.swift */,
@@ -8810,6 +8835,7 @@
 				C905B29A2828CA2F00F1106B /* ToastPresenter.swift in Sources */,
 				12A7B6C226C3E47200544037 /* CoverColor.swift in Sources */,
 				1215E8C126A86CAC0089AF7E /* ImageSource.swift in Sources */,
+				2A28D04D297FCC1D00E55E15 /* WidgetContainerViewModel.swift in Sources */,
 				2E999483293E490300FFBED9 /* Relation+Set.swift in Sources */,
 				2E7C446D2893F96A0062287C /* SetFiltersDaysViewModel.swift in Sources */,
 				2E975EDB287C2325004DE574 /* SetFiltersListViewModel.swift in Sources */,
@@ -9428,9 +9454,11 @@
 				EAFDEFBF26381E22001B07E4 /* UITextView+Convenience.swift in Sources */,
 				12887F26274B94A600228330 /* DetailsServiceProtocol.swift in Sources */,
 				C9F44C7F27E351400078E709 /* TextBlockLeadingViewBuilder.swift in Sources */,
+				2A28D050297FCFE400E55E15 /* WidgetContainerView.swift in Sources */,
 				53FF7CB526FCCDE800A5A592 /* ObjectActionRow.swift in Sources */,
 				2A1F946E2978208F00E25782 /* ListWidgetView.swift in Sources */,
 				125FD2E926CD6D2100D21F5A /* EditorNavigationBarHelper.swift in Sources */,
+				2A28D04B297E9EDB00E55E15 /* HomeWidgetsStateManager.swift in Sources */,
 				3D5A41792704541900F1F6A1 /* SearchView.swift in Sources */,
 				53F80EF427BD3BE300E9E12A /* TagRelationViewUIKIt.swift in Sources */,
 				125B6EBD26F235F400BCD7D6 /* EditorSearchCellData.swift in Sources */,

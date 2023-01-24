@@ -3,7 +3,7 @@ import BlocksModels
 import Combine
 
 @MainActor
-final class FavoriteWidgetViewModel: ListWidgetViewModelProtocol, ObservableObject {
+final class FavoriteWidgetViewModel: ListWidgetViewModelProtocol, WidgetContainerContentViewModelProtocol, ObservableObject {
     
     private enum Constants {
         static let maxItems = 3
@@ -21,7 +21,7 @@ final class FavoriteWidgetViewModel: ListWidgetViewModelProtocol, ObservableObje
     private var rowDetails: [ObjectDetails] = []
     
     @Published private(set) var name: String = Loc.favorites
-    @Published var isExpanded: Bool = true
+//    @Published var isExpanded: Bool = true
     @Published private(set) var headerItems: [ListWidgetHeaderItem.Model] = []
     @Published private(set) var rows: [ListWidgetRow.Model] = []
     var minimimRowsCount: Int { Constants.maxItems }

@@ -23,6 +23,7 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
     private let setWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     private let favoriteWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     private let recentWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
+    private let stateManager: HomeWidgetsStateManagerProtocol
     private let objectDetailsStorage: ObjectDetailsStorage
     private var providersCache: [ProviderCache] = []
     
@@ -31,12 +32,14 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
         setWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         favoriteWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         recentWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
+        stateManager: HomeWidgetsStateManagerProtocol,
         objectDetailsStorage: ObjectDetailsStorage
     ) {
         self.treeWidgetProviderAssembly = treeWidgetProviderAssembly
         self.setWidgetProviderAssembly = setWidgetProviderAssembly
         self.favoriteWidgetProviderAssembly = favoriteWidgetProviderAssembly
         self.recentWidgetProviderAssembly = recentWidgetProviderAssembly
+        self.stateManager = stateManager
         self.objectDetailsStorage = objectDetailsStorage
     }
     
@@ -127,7 +130,7 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
             return cache
         }
         
-        let provider = source.make(widgetBlockId: widgetBlockId, widgetObject: widgetObject)
+        let provider = source.make(widgetBlockId: widgetBlockId, widgetObject: widgetObject, stateManager: stateManager)
         
         let newCache = ProviderCache(
             widgetBlockId: widgetBlockId,

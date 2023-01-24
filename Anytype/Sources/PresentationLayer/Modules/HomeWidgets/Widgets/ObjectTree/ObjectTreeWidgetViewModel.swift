@@ -3,7 +3,7 @@ import BlocksModels
 import Combine
 
 @MainActor
-final class ObjectTreeWidgetViewModel: ObservableObject {
+final class ObjectTreeWidgetViewModel: ObservableObject, WidgetContainerContentViewModelProtocol {
     
     private enum Constants {
         static let maxExpandableLevel = 2
@@ -30,7 +30,6 @@ final class ObjectTreeWidgetViewModel: ObservableObject {
     private var expandedRowIds: [ExpandedId] = []
     
     @Published var name: String = ""
-    @Published var isExpanded: Bool = true
     @Published var rows: [ObjectTreeWidgetRowViewModel] = []
     
     init(
@@ -104,12 +103,12 @@ final class ObjectTreeWidgetViewModel: ObservableObject {
             }
             .store(in: &subscriptions)
         
-        widgetObject.infoContainer.publisherFor(id: widgetBlockId)
-            .sink { [weak self] info in
-                guard case let .widget(widget) = info?.content else { return }
-                self?.isExpanded = widget.layout == .tree
-            }
-            .store(in: &subscriptions)
+//        widgetObject.infoContainer.publisherFor(id: widgetBlockId)
+//            .sink { [weak self] info in
+//                guard case let .widget(widget) = info?.content else { return }
+//                self?.isExpanded = widget.layout == .tree
+//            }
+//            .store(in: &subscriptions)
         
         subscriptionManager.handler = { [weak self] details in
             self?.subscriptionData = details
@@ -134,6 +133,10 @@ final class ObjectTreeWidgetViewModel: ObservableObject {
         let objectIds = linkedObjectDetails.links + childLinks
         subscriptionManager.startOrUpdateSubscription(objectIds: objectIds)
     }
+    
+//    private func setupStateSubscriptions() {
+//        stateManager.isEditStatePublisher
+//    }
     
     private func updateTree() {
         guard let linkedObjectDetails else { return }

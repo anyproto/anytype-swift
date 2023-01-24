@@ -3,7 +3,12 @@ import SwiftUI
 
 protocol FavoriteWidgetModuleAssemblyProtocol: AnyObject {
     @MainActor
-    func make(widgetBlockId: String, widgetObject: HomeWidgetsObjectProtocol, output: CommonWidgetModuleOutput?) -> AnyView
+    func make(
+        widgetBlockId: String,
+        widgetObject: HomeWidgetsObjectProtocol,
+        stateManager: HomeWidgetsStateManagerProtocol,
+        output: CommonWidgetModuleOutput?
+    ) -> AnyView
 }
 
 final class FavoriteWidgetModuleAssembly: FavoriteWidgetModuleAssemblyProtocol {
@@ -19,15 +24,28 @@ final class FavoriteWidgetModuleAssembly: FavoriteWidgetModuleAssemblyProtocol {
     // MARK: - FavoriteWidgetModuleAssemblyProtocol
     
     @MainActor
-    func make(widgetBlockId: String, widgetObject: HomeWidgetsObjectProtocol, output: CommonWidgetModuleOutput?) -> AnyView {
+    func make(
+        widgetBlockId: String,
+        widgetObject: HomeWidgetsObjectProtocol,
+        stateManager: HomeWidgetsStateManagerProtocol,
+        output: CommonWidgetModuleOutput?
+    ) -> AnyView {
         
-        let model = FavoriteWidgetViewModel(
+        let contentModel = FavoriteWidgetViewModel(
             widgetBlockId: widgetBlockId,
             widgetObject: widgetObject,
             accountManager: serviceLocator.accountManager(),
             favoriteSubscriptionService: serviceLocator.favoriteSubscriptionService(),
             output: output
         )
-        return ListWidgetView(model: model).eraseToAnyView()
+        let contentView = ListWidgetView(model: contentModel)
+        
+        let containerModel = WidgetContainerViewModel(stateManager: stateManager)
+        let containterView = WidgetContainerView(
+            model: containerModel,
+            contentModel: contentModel,
+            content: contentView
+        )
+        return containterView.eraseToAnyView()
     }
 }

@@ -3,7 +3,12 @@ import SwiftUI
 
 protocol ObjectTreeWidgetModuleAssemblyProtocol {
     @MainActor
-    func make(widgetBlockId: String, widgetObject: HomeWidgetsObjectProtocol, output: CommonWidgetModuleOutput?) -> AnyView
+    func make(
+        widgetBlockId: String,
+        widgetObject: HomeWidgetsObjectProtocol,
+        stateManager: HomeWidgetsStateManagerProtocol,
+        output: CommonWidgetModuleOutput?
+    ) -> AnyView
 }
 
 final class ObjectTreeWidgetModuleAssembly: ObjectTreeWidgetModuleAssemblyProtocol {
@@ -19,7 +24,12 @@ final class ObjectTreeWidgetModuleAssembly: ObjectTreeWidgetModuleAssemblyProtoc
     // MARK: - ObjectTreeWidgetModuleAssemblyProtocol
     
     @MainActor
-    func make(widgetBlockId: String, widgetObject: HomeWidgetsObjectProtocol, output: CommonWidgetModuleOutput?) -> AnyView {
+    func make(
+        widgetBlockId: String,
+        widgetObject: HomeWidgetsObjectProtocol,
+        stateManager: HomeWidgetsStateManagerProtocol,
+        output: CommonWidgetModuleOutput?
+    ) -> AnyView {
         
         let subscriptionManager = ObjectTreeSubscriptionManager(
             subscriptionDataBuilder: ObjectTreeSubscriptionDataBuilder(),
@@ -27,7 +37,7 @@ final class ObjectTreeWidgetModuleAssembly: ObjectTreeWidgetModuleAssemblyProtoc
             objectTypeProvider: serviceLocator.objectTypeProvider()
         )
         
-        let model = ObjectTreeWidgetViewModel(
+        let contentModel = ObjectTreeWidgetViewModel(
             widgetBlockId: widgetBlockId,
             widgetObject: widgetObject,
             objectDetailsStorage: serviceLocator.objectDetailsStorage(),
@@ -35,6 +45,14 @@ final class ObjectTreeWidgetModuleAssembly: ObjectTreeWidgetModuleAssemblyProtoc
             blockWidgetService: serviceLocator.blockWidgetService(),
             output: output
         )
-        return ObjectTreeWidgetView(model: model).eraseToAnyView()
+        let contentView = ObjectTreeWidgetView(model: contentModel)
+        
+        let containerModel = WidgetContainerViewModel(stateManager: stateManager)
+        let containterView = WidgetContainerView(
+            model: containerModel,
+            contentModel: contentModel,
+            content: contentView
+        )
+        return containterView.eraseToAnyView()
     }
 }

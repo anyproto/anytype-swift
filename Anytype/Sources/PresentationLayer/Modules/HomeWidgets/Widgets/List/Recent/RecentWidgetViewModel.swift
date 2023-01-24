@@ -3,7 +3,7 @@ import BlocksModels
 import Combine
 
 @MainActor
-final class RecentWidgetViewModel: ListWidgetViewModelProtocol, ObservableObject {
+final class RecentWidgetViewModel: ListWidgetViewModelProtocol, WidgetContainerContentViewModelProtocol, ObservableObject {
     
     private enum Constants {
         static let maxItems = 3
@@ -19,7 +19,7 @@ final class RecentWidgetViewModel: ListWidgetViewModelProtocol, ObservableObject
     private var rowDetails: [ObjectDetails] = []
     
     @Published private(set) var name: String = Loc.recent
-    @Published var isExpanded: Bool = true
+//    @Published var isExpanded: Bool = true
     @Published private(set) var headerItems: [ListWidgetHeaderItem.Model] = []
     @Published private(set) var rows: [ListWidgetRow.Model] = []
     var minimimRowsCount: Int { Constants.maxItems }

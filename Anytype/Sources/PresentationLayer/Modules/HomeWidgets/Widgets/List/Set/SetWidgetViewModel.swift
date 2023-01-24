@@ -3,7 +3,7 @@ import BlocksModels
 import Combine
 
 @MainActor
-final class SetWidgetViewModel: ListWidgetViewModelProtocol, ObservableObject {
+final class SetWidgetViewModel: ListWidgetViewModelProtocol, WidgetContainerContentViewModelProtocol, ObservableObject {
         
     private enum Constants {
         static let maxItems = 3
@@ -21,7 +21,7 @@ final class SetWidgetViewModel: ListWidgetViewModelProtocol, ObservableObject {
     private var linkedObjectDetails: ObjectDetails?
     
     @Published private(set) var name: String = ""
-    @Published var isExpanded: Bool = true
+//    @Published var isExpanded: Bool = true
     @Published private(set) var headerItems: [ListWidgetHeaderItem.Model] = []
     @Published private(set) var rows: [ListWidgetRow.Model] = []
     var minimimRowsCount: Int { Constants.maxItems }
@@ -77,12 +77,12 @@ final class SetWidgetViewModel: ListWidgetViewModelProtocol, ObservableObject {
             }
             .store(in: &subscriptions)
         
-        widgetObject.infoContainer.publisherFor(id: widgetBlockId)
-            .sink { [weak self] info in
-                guard case let .widget(widget) = info?.content else { return }
-                self?.isExpanded = widget.layout == .tree
-            }
-            .store(in: &subscriptions)
+//        widgetObject.infoContainer.publisherFor(id: widgetBlockId)
+//            .sink { [weak self] info in
+//                guard case let .widget(widget) = info?.content else { return }
+//                self?.isExpanded = widget.layout == .tree
+//            }
+//            .store(in: &subscriptions)
     }
     
     private func updateViewState() {
