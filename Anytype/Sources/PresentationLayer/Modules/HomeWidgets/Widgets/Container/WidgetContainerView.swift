@@ -43,7 +43,7 @@ struct WidgetContainerView<Content: View, ContentVM: WidgetContainerContentViewM
             }
             Divider()
             Button(Loc.Widgets.Actions.editWidgets) {
-                print("on tap")
+                model.onEditTap()
             }
         }
     }

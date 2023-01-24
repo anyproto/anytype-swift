@@ -38,4 +38,8 @@ final class WidgetContainerViewModel: ObservableObject {
             )
         }
     }
+    
+    func onEditTap() {
+        stateManager.setEditState(true)
+    }
 }
