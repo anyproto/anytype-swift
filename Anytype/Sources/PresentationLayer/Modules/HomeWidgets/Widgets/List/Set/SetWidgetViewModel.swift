@@ -10,6 +10,7 @@ final class SetWidgetViewModel: ListWidgetViewModelProtocol, WidgetContainerCont
     }
     
     // MARK: - DI
+    
     private let widgetBlockId: BlockId
     private let widgetObject: HomeWidgetsObjectProtocol
     private let objectDetailsStorage: ObjectDetailsStorage
@@ -17,15 +18,19 @@ final class SetWidgetViewModel: ListWidgetViewModelProtocol, WidgetContainerCont
     private weak var output: CommonWidgetModuleOutput?
     
     // MARK: - State
+    
     private var subscriptions = [AnyCancellable]()
     private var linkedObjectDetails: ObjectDetails?
     
+    // MARK: - WidgetContainerContentViewModelProtocol
+    
     @Published private(set) var name: String = ""
-//    @Published var isExpanded: Bool = true
+    
+    // MARK: - ListWidgetViewModelProtocol
+    
     @Published private(set) var headerItems: [ListWidgetHeaderItem.Model] = []
     @Published private(set) var rows: [ListWidgetRow.Model] = []
-    var minimimRowsCount: Int { Constants.maxItems }
-    let count: String? = nil
+    let minimimRowsCount = Constants.maxItems
     
     init(
         widgetBlockId: BlockId,

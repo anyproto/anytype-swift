@@ -42,12 +42,16 @@ final class ObjectTreeWidgetModuleAssembly: ObjectTreeWidgetModuleAssemblyProtoc
             widgetObject: widgetObject,
             objectDetailsStorage: serviceLocator.objectDetailsStorage(),
             subscriptionManager: subscriptionManager,
-            blockWidgetService: serviceLocator.blockWidgetService(),
             output: output
         )
         let contentView = ObjectTreeWidgetView(model: contentModel)
         
-        let containerModel = WidgetContainerViewModel(stateManager: stateManager)
+        let containerModel = WidgetContainerViewModel(
+            widgetBlockId: widgetBlockId,
+            widgetObject: widgetObject,
+            blockWidgetService: serviceLocator.blockWidgetService(),
+            stateManager: stateManager
+        )
         let containterView = WidgetContainerView(
             model: containerModel,
             contentModel: contentModel,
