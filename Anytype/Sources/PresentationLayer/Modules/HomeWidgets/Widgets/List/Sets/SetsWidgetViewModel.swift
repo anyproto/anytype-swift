@@ -46,12 +46,10 @@ final class SetsWidgetViewModel: ListWidgetViewModelProtocol, WidgetContainerCon
     // MARK: - ListWidgetViewModelProtocol
     
     func onAppear() {
-        print("-------onAppear 1------")
         setupAllSubscriptions()
     }
 
     func onDisappear() {
-        print("-------onDisappear------")
         setsSubscriptionService.stopSubscription()
     }
     

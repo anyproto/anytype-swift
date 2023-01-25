@@ -51,7 +51,6 @@ final class ObjectTreeWidgetViewModel: ObservableObject, WidgetContainerContentV
     // MARK: - Public
     
     func onAppear() {
-        print("-------onAppear 2------")
         setupAllSubscriptions()
     }
     
