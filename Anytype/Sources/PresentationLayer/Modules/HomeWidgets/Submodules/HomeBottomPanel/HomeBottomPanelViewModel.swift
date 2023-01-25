@@ -27,6 +27,7 @@ final class HomeBottomPanelViewModel: ObservableObject {
     private let subscriptionService: SubscriptionsServiceProtocol
     private let subscriotionBuilder: HomeBottomPanelSubscriptionDataBuilderProtocol
     private let stateManager: HomeWidgetsStateManagerProtocol
+    private weak var output: HomeBottomPanelModuleOutput?
     
     // MARK: - State
     
@@ -42,13 +43,15 @@ final class HomeBottomPanelViewModel: ObservableObject {
         accountManager: AccountManager,
         subscriptionService: SubscriptionsServiceProtocol,
         subscriotionBuilder: HomeBottomPanelSubscriptionDataBuilderProtocol,
-        stateManager: HomeWidgetsStateManagerProtocol
+        stateManager: HomeWidgetsStateManagerProtocol,
+        output: HomeBottomPanelModuleOutput?
     ) {
         self.toastPresenter = toastPresenter
         self.accountManager = accountManager
         self.subscriptionService = subscriptionService
         self.subscriotionBuilder = subscriotionBuilder
         self.stateManager = stateManager
+        self.output = output
         setupSubscription()
     }
         
@@ -57,7 +60,9 @@ final class HomeBottomPanelViewModel: ObservableObject {
     private func updateModels(isEditState: Bool) {
         if isEditState {
             buttonState = .edit([
-                TexButton(text: Loc.add, onTap: {}),
+                TexButton(text: Loc.add, onTap: { [weak self] in
+                    self?.output?.onCreateWidgetSelected()
+                }),
                 TexButton(text: Loc.done, onTap: { [weak self] in
                     self?.stateManager.setEditState(false)
                 })

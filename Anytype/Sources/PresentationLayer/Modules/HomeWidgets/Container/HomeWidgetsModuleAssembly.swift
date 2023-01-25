@@ -6,7 +6,8 @@ protocol HomeWidgetsModuleAssemblyProtocol {
     func make(
         widgetObjectId: String,
         output: HomeWidgetsModuleOutput,
-        widgetOutput: CommonWidgetModuleOutput?
+        widgetOutput: CommonWidgetModuleOutput?,
+        bottomPanelOutput: HomeBottomPanelModuleOutput?
     ) -> AnyView
 }
 
@@ -27,7 +28,8 @@ final class HomeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol {
     func make(
         widgetObjectId: String,
         output: HomeWidgetsModuleOutput,
-        widgetOutput: CommonWidgetModuleOutput?
+        widgetOutput: CommonWidgetModuleOutput?,
+        bottomPanelOutput: HomeBottomPanelModuleOutput?
     ) -> AnyView {
         
         let stateManager = HomeWidgetsStateManager()
@@ -40,7 +42,7 @@ final class HomeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol {
             registry: widgetsDI.homeWidgetsRegistry(stateManager: stateManager, widgetOutput: widgetOutput),
             blockWidgetService: serviceLocator.blockWidgetService(),
             accountManager: serviceLocator.accountManager(),
-            bottomPanelProviderAssembly: widgetsDI.bottomPanelProviderAssembly(),
+            bottomPanelProviderAssembly: widgetsDI.bottomPanelProviderAssembly(output: bottomPanelOutput),
             toastPresenter: uiHelpersDI.toastPresenter,
             stateManager: stateManager,
             output: output

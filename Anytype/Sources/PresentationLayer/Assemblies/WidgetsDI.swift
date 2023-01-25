@@ -10,7 +10,7 @@ protocol WidgetsDIProtocol {
     func favoriteWidgetModuleAssembly() -> FavoriteWidgetModuleAssemblyProtocol
     func recentWidgetModuleAssembly() -> RecentWidgetModuleAssemblyProtocol
     func setsWidgetModuleAssembly() -> SetsWidgetModuleAssemblyProtocol
-    func bottomPanelProviderAssembly() -> HomeBottomPanelProviderAssemblyProtocol
+    func bottomPanelProviderAssembly(output: HomeBottomPanelModuleOutput?) -> HomeBottomPanelProviderAssemblyProtocol
     func bottomPanelModuleAssembly() -> HomeBottomPanelModuleAssemblyProtocol
 }
 
@@ -61,8 +61,8 @@ final class WidgetsDI: WidgetsDIProtocol {
         return SetsWidgetModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
     }
     
-    func bottomPanelProviderAssembly() -> HomeBottomPanelProviderAssemblyProtocol {
-        return HomeBottomPanelProviderAssembly(widgetsDI: self)
+    func bottomPanelProviderAssembly(output: HomeBottomPanelModuleOutput?) -> HomeBottomPanelProviderAssemblyProtocol {
+        return HomeBottomPanelProviderAssembly(widgetsDI: self, output: output)
     }
     
     func bottomPanelModuleAssembly() -> HomeBottomPanelModuleAssemblyProtocol {

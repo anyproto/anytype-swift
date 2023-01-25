@@ -8,7 +8,7 @@ protocol HomeWidgetsCoordinatorProtocol {
 
 @MainActor
 final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsModuleOutput,
-                                    CommonWidgetModuleOutput {
+                                    CommonWidgetModuleOutput, HomeBottomPanelModuleOutput {
     
     private let homeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol
     private let accountManager: AccountManager
@@ -39,17 +39,18 @@ final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsM
     }
     
     func startFlow() -> AnyView {
-        return homeWidgetsModuleAssembly.make(widgetObjectId: accountManager.account.info.widgetsId, output: self, widgetOutput: self)
+        return homeWidgetsModuleAssembly.make(
+            widgetObjectId: accountManager.account.info.widgetsId,
+            output: self,
+            widgetOutput: self,
+            bottomPanelOutput: self
+        )
     }
     
     // MARK: - HomeWidgetsModuleOutput
     
     func onOldHomeSelected() {
         windowManager.showHomeWindow()
-    }
-    
-    func onCreateWidgetSelected() {
-        createWidgetCoordinator.startFlow(widgetObjectId: accountManager.account.info.widgetsId)
     }
     
     // TODO: Delete it. Temporary.
@@ -66,6 +67,12 @@ final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsM
         
     func onObjectSelected(screenData: EditorScreenData) {
         showPage(screenData: screenData)
+    }
+    
+    // MARK: - HomeBottomPanelModuleOutput
+    
+    func onCreateWidgetSelected() {
+        createWidgetCoordinator.startFlow(widgetObjectId: accountManager.account.info.widgetsId)
     }
     
     // MARK: - Private

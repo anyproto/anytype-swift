@@ -55,10 +55,6 @@ final class HomeWidgetsViewModel: ObservableObject {
         output?.onOldHomeSelected()
     }
     
-    func onCreateWidgetTap() {
-        output?.onCreateWidgetSelected()
-    }
-    
     func onSpaceIconChangeTap() {
         output?.onSpaceIconChangeSelected(objectId: accountManager.account.info.accountSpaceId)
     }

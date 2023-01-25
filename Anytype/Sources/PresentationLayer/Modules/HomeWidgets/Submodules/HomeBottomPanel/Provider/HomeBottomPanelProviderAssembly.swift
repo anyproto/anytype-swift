@@ -7,9 +7,11 @@ protocol HomeBottomPanelProviderAssemblyProtocol: AnyObject {
 final class HomeBottomPanelProviderAssembly: HomeBottomPanelProviderAssemblyProtocol {
     
     private let widgetsDI: WidgetsDIProtocol
+    private weak var output: HomeBottomPanelModuleOutput?
     
-    init(widgetsDI: WidgetsDIProtocol) {
+    init(widgetsDI: WidgetsDIProtocol, output: HomeBottomPanelModuleOutput?) {
         self.widgetsDI = widgetsDI
+        self.output = output
     }
     
     // MARK: - HomeBottomPanelProviderAssemblyProtocol
@@ -17,7 +19,8 @@ final class HomeBottomPanelProviderAssembly: HomeBottomPanelProviderAssemblyProt
     func make(stateManager: HomeWidgetsStateManagerProtocol) -> HomeWidgetProviderProtocol {
         return HomeBottomPanelProvider(
             bottomPanelModuleAssembly: widgetsDI.bottomPanelModuleAssembly(),
-            stateManager: stateManager
+            stateManager: stateManager,
+            output: output
         )
     }
 }
