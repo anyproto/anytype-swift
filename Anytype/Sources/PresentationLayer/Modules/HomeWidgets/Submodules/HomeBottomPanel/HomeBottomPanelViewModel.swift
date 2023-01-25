@@ -5,17 +5,17 @@ import Combine
 @MainActor
 final class HomeBottomPanelViewModel: ObservableObject {
     
-    struct ImageButton: Hashable {
+    struct ImageButton: Hashable, Equatable {
         let image: ObjectIconImage
         @EquatableNoop var onTap: () -> Void
     }
     
-    struct TexButton: Hashable {
+    struct TexButton: Hashable, Equatable {
         let text: String
         @EquatableNoop var onTap: () -> Void
     }
     
-    enum ButtonState {
+    enum ButtonState: Equatable {
         case normal(_ buttons: [ImageButton])
         case edit(_ buttons: [TexButton])
     }

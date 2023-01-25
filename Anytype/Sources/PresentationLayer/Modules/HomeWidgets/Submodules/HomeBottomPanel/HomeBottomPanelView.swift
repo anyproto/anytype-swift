@@ -3,15 +3,19 @@ import SwiftUI
 
 struct HomeBottomPanelView: View {
     
+    @Namespace private var animation
     @ObservedObject var model: HomeBottomPanelViewModel
     
     var body: some View {
-        switch model.buttonState {
-        case let .normal(buttons):
-            normalButtons(buttons)
-        case let .edit(buttons):
-            editButtons(buttons)
+        Group {
+            switch model.buttonState {
+            case let .normal(buttons):
+                normalButtons(buttons)
+            case let .edit(buttons):
+                editButtons(buttons)
+            }
         }
+        .animation(.default, value: model.buttonState)
     }
 
     @ViewBuilder
@@ -46,9 +50,5 @@ struct HomeBottomPanelView: View {
             }
         }
         .padding(.horizontal, 26)
-//        .frame(minWidth: 0, maxWidth: .infinity)
-//        .fixedSize(horizontal: true, vertical: true)
-//        .frame(width: .greatestFiniteMagnitude)
-//        .padding(.horizontal, 25)
     }
 }
