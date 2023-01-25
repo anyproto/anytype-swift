@@ -48,7 +48,9 @@ struct WidgetContainerView<Content: View, ContentVM: WidgetContainerContentViewM
             }
             Divider()
             Button(Loc.Widgets.Actions.editWidgets) {
-                model.onEditTap()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+                    model.onEditTap()
+                }
             }
         }
     }
