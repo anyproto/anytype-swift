@@ -3,27 +3,33 @@ import BlocksModels
 import Combine
 
 @MainActor
-final class SetsWidgetViewModel: ListWidgetViewModelProtocol, ObservableObject {
+final class SetsWidgetViewModel: ListWidgetViewModelProtocol, WidgetContainerContentViewModelProtocol, ObservableObject {
     
     private enum Constants {
         static let maxItems = 3
     }
     
     // MARK: - DI
+    
     private let widgetBlockId: BlockId
     private let widgetObject: HomeWidgetsObjectProtocol
     private let setsSubscriptionService: SetsSubscriptionServiceProtocol
     private weak var output: CommonWidgetModuleOutput?
     
     // MARK: - State
+    
     private var rowDetails: [ObjectDetails] = []
     
-    @Published private(set) var name: String = Loc.sets
-    @Published var isExpanded: Bool = true
+    // MARK: - WidgetContainerContentViewModelProtocol
+    
+    let name: String = Loc.sets
+    let menuItems: [WidgetMenuItem] = []
+    
+    // MARK: - ListWidgetViewModelProtocol
+    
     @Published private(set) var headerItems: [ListWidgetHeaderItem.Model] = []
     @Published private(set) var rows: [ListWidgetRow.Model] = []
-    var minimimRowsCount: Int { Constants.maxItems }
-    let count: String? = nil
+    let minimimRowsCount = Constants.maxItems
     
     init(
         widgetBlockId: BlockId,

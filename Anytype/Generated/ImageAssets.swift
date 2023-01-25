@@ -248,8 +248,10 @@ internal extension ImageAsset {
     static let add = ImageAsset.bundle(name: "Widget/add")
     static let collapse = ImageAsset.bundle(name: "Widget/collapse")
     static let dot = ImageAsset.bundle(name: "Widget/dot")
+    static let remove = ImageAsset.bundle(name: "Widget/remove")
     static let search = ImageAsset.bundle(name: "Widget/search")
     static let `set` = ImageAsset.bundle(name: "Widget/set")
+    static let settings = ImageAsset.bundle(name: "Widget/settings")
   }
   static let splashLogo = ImageAsset.bundle(name: "splash_logo")
 }

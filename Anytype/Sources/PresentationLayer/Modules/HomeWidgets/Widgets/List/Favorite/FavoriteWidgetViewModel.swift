@@ -3,13 +3,14 @@ import BlocksModels
 import Combine
 
 @MainActor
-final class FavoriteWidgetViewModel: ListWidgetViewModelProtocol, ObservableObject {
+final class FavoriteWidgetViewModel: ListWidgetViewModelProtocol, WidgetContainerContentViewModelProtocol, ObservableObject {
     
     private enum Constants {
         static let maxItems = 3
     }
     
     // MARK: - DI
+    
     private let widgetBlockId: BlockId
     private let widgetObject: HomeWidgetsObjectProtocol
     private let accountManager: AccountManager
@@ -17,15 +18,20 @@ final class FavoriteWidgetViewModel: ListWidgetViewModelProtocol, ObservableObje
     private weak var output: CommonWidgetModuleOutput?
     
     // MARK: - State
+    
     private var document: BaseDocumentProtocol
     private var rowDetails: [ObjectDetails] = []
     
-    @Published private(set) var name: String = Loc.favorites
-    @Published var isExpanded: Bool = true
-    @Published private(set) var headerItems: [ListWidgetHeaderItem.Model] = []
-    @Published private(set) var rows: [ListWidgetRow.Model] = []
-    var minimimRowsCount: Int { Constants.maxItems }
+    // MARK: - WidgetContainerContentViewModelProtocol
+    
+    let name: String = Loc.favorites
+    let menuItems: [WidgetMenuItem] = []
     @Published var count: String? = nil
+    
+    // MARK: - ListWidgetViewModelProtocol
+    
+    @Published private(set) var rows: [ListWidgetRow.Model] = []
+    let minimimRowsCount = Constants.maxItems
     
     init(
         widgetBlockId: BlockId,

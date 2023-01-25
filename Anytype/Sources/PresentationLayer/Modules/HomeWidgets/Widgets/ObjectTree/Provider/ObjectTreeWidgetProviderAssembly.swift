@@ -12,11 +12,16 @@ final class ObjectTreeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     
     // MARK: - HomeWidgetProviderAssemblyProtocol
     
-    func make(widgetBlockId: String, widgetObject: HomeWidgetsObjectProtocol) -> HomeWidgetProviderProtocol {
+    func make(
+        widgetBlockId: String,
+        widgetObject: HomeWidgetsObjectProtocol,
+        stateManager: HomeWidgetsStateManagerProtocol
+    ) -> HomeWidgetProviderProtocol {
         return ObjectTreeWidgetProvider(
             widgetBlockId: widgetBlockId,
             widgetObject: widgetObject,
             objectTreeWidgetModuleAssembly: widgetsDI.objectTreeWidgetModuleAssembly(),
+            stateManager: stateManager,
             output: output
         )
     }

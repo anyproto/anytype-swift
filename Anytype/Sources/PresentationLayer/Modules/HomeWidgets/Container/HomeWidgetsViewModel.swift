@@ -10,6 +10,7 @@ final class HomeWidgetsViewModel: ObservableObject {
     private let blockWidgetService: BlockWidgetServiceProtocol
     private let accountManager: AccountManager
     private let toastPresenter: ToastPresenterProtocol
+    private let stateManager: HomeWidgetsStateManagerProtocol
     private weak var output: HomeWidgetsModuleOutput?
     
     @Published var models: [HomeWidgetProviderProtocol] = []
@@ -22,6 +23,7 @@ final class HomeWidgetsViewModel: ObservableObject {
         accountManager: AccountManager,
         bottomPanelProviderAssembly: HomeBottomPanelProviderAssemblyProtocol,
         toastPresenter: ToastPresenterProtocol,
+        stateManager: HomeWidgetsStateManagerProtocol,
         output: HomeWidgetsModuleOutput?
     ) {
         self.widgetObject = widgetObject
@@ -30,6 +32,7 @@ final class HomeWidgetsViewModel: ObservableObject {
         self.accountManager = accountManager
         self.bottomPanelProvider = bottomPanelProviderAssembly.make()
         self.toastPresenter = toastPresenter
+        self.stateManager = stateManager
         self.output = output
     }
     
@@ -60,7 +63,7 @@ final class HomeWidgetsViewModel: ObservableObject {
     }
     
     func onEditButtonTap() {
-        toastPresenter.show(message: "On tap edit button")
+        stateManager.setEditState(true)
     }
     
     // MARK: - Private

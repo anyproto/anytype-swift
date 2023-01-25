@@ -2,6 +2,7 @@ import Foundation
 
 protocol WidgetsDIProtocol {
     func homeWidgetsRegistry(
+        stateManager: HomeWidgetsStateManagerProtocol,
         widgetOutput: CommonWidgetModuleOutput?
     ) -> HomeWidgetsRegistryProtocol
     func objectTreeWidgetModuleAssembly() -> ObjectTreeWidgetModuleAssemblyProtocol
@@ -26,6 +27,7 @@ final class WidgetsDI: WidgetsDIProtocol {
     // MARK: - WidgetsDIProtocol
     
     func homeWidgetsRegistry(
+        stateManager: HomeWidgetsStateManagerProtocol,
         widgetOutput: CommonWidgetModuleOutput?
     ) -> HomeWidgetsRegistryProtocol {
         return HomeWidgetsRegistry(
@@ -34,6 +36,7 @@ final class WidgetsDI: WidgetsDIProtocol {
             favoriteWidgetProviderAssembly: FavoriteWidgetProviderAssembly(widgetsDI: self, output: widgetOutput),
             recentWidgetProviderAssembly: RecentWidgetProviderAssembly(widgetsDI: self, output: widgetOutput),
             setsWidgetProviderAssembly: SetsWidgetProviderAssembly(widgetsDI: self, output: widgetOutput),
+            stateManager: stateManager,
             objectDetailsStorage: serviceLocator.objectDetailsStorage()
         )
     }

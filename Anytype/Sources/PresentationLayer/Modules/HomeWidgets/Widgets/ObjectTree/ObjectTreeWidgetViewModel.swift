@@ -3,7 +3,7 @@ import BlocksModels
 import Combine
 
 @MainActor
-final class ObjectTreeWidgetViewModel: ObservableObject {
+final class ObjectTreeWidgetViewModel: ObservableObject, WidgetContainerContentViewModelProtocol {
     
     private enum Constants {
         static let maxExpandableLevel = 2
@@ -15,37 +15,36 @@ final class ObjectTreeWidgetViewModel: ObservableObject {
     }
     
     // MARK: - DI
-    // TODO: For debug. Make private
-    let widgetBlockId: BlockId
+    
+    private let widgetBlockId: BlockId
     private let widgetObject: HomeWidgetsObjectProtocol
     private let objectDetailsStorage: ObjectDetailsStorage
     private let subscriptionManager: ObjectTreeSubscriptionManagerProtocol
-    private let blockWidgetService: BlockWidgetServiceProtocol
     private weak var output: CommonWidgetModuleOutput?
     
     // MARK: - State
+
     private var subscriptions = [AnyCancellable]()
     private var linkedObjectDetails: ObjectDetails?
     private var subscriptionData: [ObjectDetails] = []
     private var expandedRowIds: [ExpandedId] = []
-    
-    @Published var name: String = ""
-    @Published var isExpanded: Bool = true
     @Published var rows: [ObjectTreeWidgetRowViewModel] = []
+    
+    // MARK: - WidgetContainerContentViewModelProtocol
+    
+    @Published private(set) var name: String = ""
     
     init(
         widgetBlockId: BlockId,
         widgetObject: HomeWidgetsObjectProtocol,
         objectDetailsStorage: ObjectDetailsStorage,
         subscriptionManager: ObjectTreeSubscriptionManagerProtocol,
-        blockWidgetService: BlockWidgetServiceProtocol,
         output: CommonWidgetModuleOutput?
     ) {
         self.widgetBlockId = widgetBlockId
         self.widgetObject = widgetObject
         self.objectDetailsStorage = objectDetailsStorage
         self.subscriptionManager = subscriptionManager
-        self.blockWidgetService = blockWidgetService
         self.output = output
     }
     
@@ -66,15 +65,6 @@ final class ObjectTreeWidgetViewModel: ObservableObject {
     
     func onDisappearList() {
         subscriptionManager.stopAllSubscriptions()
-    }
-    
-    func onDeleteWidgetTap() {
-        Task {
-            try? await blockWidgetService.removeWidgetBlock(
-                contextId: widgetObject.objectId,
-                widgetBlockId: widgetBlockId
-            )
-        }
     }
     
     // MARK: - Private
@@ -101,13 +91,6 @@ final class ObjectTreeWidgetViewModel: ObservableObject {
                 self?.linkedObjectDetails = details
                 self?.name = details.title
                 self?.updateLinksSubscriptionsAndTree()
-            }
-            .store(in: &subscriptions)
-        
-        widgetObject.infoContainer.publisherFor(id: widgetBlockId)
-            .sink { [weak self] info in
-                guard case let .widget(widget) = info?.content else { return }
-                self?.isExpanded = widget.layout == .tree
             }
             .store(in: &subscriptions)
         

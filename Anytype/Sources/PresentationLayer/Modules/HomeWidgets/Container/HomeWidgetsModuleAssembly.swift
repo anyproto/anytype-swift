@@ -29,16 +29,20 @@ final class HomeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol {
         output: HomeWidgetsModuleOutput,
         widgetOutput: CommonWidgetModuleOutput?
     ) -> AnyView {
+        
+        let stateManager = HomeWidgetsStateManager()
+        
         let model = HomeWidgetsViewModel(
             widgetObject: HomeWidgetsObject(
                 objectId: widgetObjectId,
                 objectDetailsStorage: serviceLocator.objectDetailsStorage()
             ),
-            registry: widgetsDI.homeWidgetsRegistry(widgetOutput: widgetOutput),
+            registry: widgetsDI.homeWidgetsRegistry(stateManager: stateManager, widgetOutput: widgetOutput),
             blockWidgetService: serviceLocator.blockWidgetService(),
             accountManager: serviceLocator.accountManager(),
             bottomPanelProviderAssembly: widgetsDI.bottomPanelProviderAssembly(),
             toastPresenter: uiHelpersDI.toastPresenter,
+            stateManager: stateManager,
             output: output
         )
         let view = HomeWidgetsView(model: model)
