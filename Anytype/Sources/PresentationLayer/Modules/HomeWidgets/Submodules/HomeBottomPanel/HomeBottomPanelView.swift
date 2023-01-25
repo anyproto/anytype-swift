@@ -3,7 +3,6 @@ import SwiftUI
 
 struct HomeBottomPanelView: View {
     
-    @Namespace private var animation
     @ObservedObject var model: HomeBottomPanelViewModel
     
     var body: some View {

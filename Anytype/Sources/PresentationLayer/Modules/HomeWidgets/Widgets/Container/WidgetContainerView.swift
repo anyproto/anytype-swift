@@ -35,22 +35,21 @@ struct WidgetContainerView<Content: View, ContentVM: WidgetContainerContentViewM
         .onDisappear {
             contentModel.onDisappear()
         }
-        .if(!model.isEditState) {
-            $0.contextMenu {
-                contextMenuItems
-            }
+        .contextMenu {
+            contextMenuItems
         }
-        
     }
     
     @ViewBuilder
     private var contextMenuItems: some View {
-        ForEach(contentModel.menuItems, id: \.self) {
-            menuItemToView(item: $0)
-        }
-        Divider()
-        Button(Loc.Widgets.Actions.editWidgets) {
-            model.onEditTap()
+        if !model.isEditState {
+            ForEach(contentModel.menuItems, id: \.self) {
+                menuItemToView(item: $0)
+            }
+            Divider()
+            Button(Loc.Widgets.Actions.editWidgets) {
+                model.onEditTap()
+            }
         }
     }
     
