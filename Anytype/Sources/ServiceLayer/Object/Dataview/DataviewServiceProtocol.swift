@@ -10,9 +10,9 @@ protocol DataviewServiceProtocol {
     
     // MARK: - Sorts
     func addSort(_ sort: DataviewSort, viewId: String) async throws
-    func removeSorts(_ sortsKeys: [String], viewId: String) async throws
-    func replaceSort(_ sortKey: String, with sort: DataviewSort, viewId: String) async throws
-    func sortSorts(_ sortsKeys: [String], viewId: String) async throws
+    func removeSorts(_ sortIds: [String], viewId: String) async throws
+    func replaceSort(_ sortId: String, with sort: DataviewSort, viewId: String) async throws
+    func sortSorts(_ sortIds: [String], viewId: String) async throws
     
     // MARK: - Relations
     func addViewRelation(_ relation: MiddlewareRelation, viewId: String) async throws

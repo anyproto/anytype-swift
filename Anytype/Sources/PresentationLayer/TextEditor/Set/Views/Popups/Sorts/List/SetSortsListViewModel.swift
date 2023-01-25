@@ -57,7 +57,7 @@ extension SetSortsListViewModel {
             guard let self, deleteIndex < self.setDocument.sorts.count else { return }
             let sort = self.setDocument.sorts[deleteIndex]
             Task {
-                try await dataviewService.removeSorts([sort.sort.relationKey], viewId: self.setDocument.activeView.id)
+                try await dataviewService.removeSorts([sort.sort.id], viewId: self.setDocument.activeView.id)
             }
         }
     }
@@ -66,8 +66,8 @@ extension SetSortsListViewModel {
         Task {
             var sorts = setDocument.sorts
             sorts.move(fromOffsets: from, toOffset: to)
-            let sortsKeys = sorts.map { $0.sort.relationKey }
-            try await dataviewService.sortSorts(sortsKeys, viewId: setDocument.activeView.id)
+            let sortIds = sorts.map { $0.sort.id }
+            try await dataviewService.sortSorts(sortIds, viewId: setDocument.activeView.id)
         }
     }
     
@@ -101,7 +101,7 @@ extension SetSortsListViewModel {
     private func updateSorts(with setSort: SetSort) {
         Task {
             try await dataviewService.replaceSort(
-                setSort.sort.relationKey,
+                setSort.sort.id,
                 with: setSort.sort,
                 viewId: setDocument.activeView.id
             )
