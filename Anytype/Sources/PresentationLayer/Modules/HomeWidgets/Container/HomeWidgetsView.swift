@@ -16,6 +16,8 @@ struct HomeWidgetsView: View {
                     HomeEditButton(text: Loc.Widgets.Actions.editWidgets) {
                         model.onEditButtonTap()
                     }
+                    .opacity(model.hideEditButton ? 0 : 1)
+                    .animation(.default, value: model.hideEditButton)
                     Button("Create widget") {
                         model.onCreateWidgetTap()
                     }

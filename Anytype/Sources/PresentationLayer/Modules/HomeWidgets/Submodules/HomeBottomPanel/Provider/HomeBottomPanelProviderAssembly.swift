@@ -1,7 +1,7 @@
 import Foundation
 
 protocol HomeBottomPanelProviderAssemblyProtocol: AnyObject {
-    func make() -> HomeWidgetProviderProtocol
+    func make(stateManager: HomeWidgetsStateManagerProtocol) -> HomeWidgetProviderProtocol
 }
 
 final class HomeBottomPanelProviderAssembly: HomeBottomPanelProviderAssemblyProtocol {
@@ -14,7 +14,10 @@ final class HomeBottomPanelProviderAssembly: HomeBottomPanelProviderAssemblyProt
     
     // MARK: - HomeBottomPanelProviderAssemblyProtocol
     
-    func make() -> HomeWidgetProviderProtocol {
-        return HomeBottomPanelProvider(bottomPanelModuleAssembly: widgetsDI.bottomPanelModuleAssembly())
+    func make(stateManager: HomeWidgetsStateManagerProtocol) -> HomeWidgetProviderProtocol {
+        return HomeBottomPanelProvider(
+            bottomPanelModuleAssembly: widgetsDI.bottomPanelModuleAssembly(),
+            stateManager: stateManager
+        )
     }
 }
