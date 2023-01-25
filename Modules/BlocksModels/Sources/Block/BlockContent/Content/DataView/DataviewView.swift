@@ -64,6 +64,23 @@ public struct DataviewView: Hashable, Identifiable {
         )
     }
     
+    public func updated(with fields: DataviewViewUpdateFields) -> DataviewView {
+        DataviewView(
+            id: id,
+            name: fields.name,
+            type: fields.type.asModel ?? self.type,
+            options: self.options,
+            sorts: self.sorts,
+            filters: self.filters,
+            coverRelationKey: fields.coverRelationKey,
+            hideIcon: fields.hideIcon,
+            cardSize: fields.cardSize,
+            coverFit: fields.coverFit,
+            groupRelationKey: fields.groupRelationKey,
+            groupBackgroundColors: fields.groupBackgroundColors
+        )
+    }
+    
     public func updated(option: DataviewRelationOption) -> DataviewView {
         var newOptions = options
         

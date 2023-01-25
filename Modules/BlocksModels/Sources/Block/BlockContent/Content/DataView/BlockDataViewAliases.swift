@@ -11,6 +11,7 @@ public typealias DataviewGroupValue = Anytype_Model_Block.Content.Dataview.Group
 public typealias DataviewGroupOrder = Anytype_Model_Block.Content.Dataview.GroupOrder
 public typealias DataviewViewGroup = Anytype_Model_Block.Content.Dataview.ViewGroup
 public typealias DataviewObjectOrder = Anytype_Model_Block.Content.Dataview.ObjectOrder
+public typealias DataviewViewUpdateFields = Anytype_Event.Block.Dataview.ViewUpdate.Fields
 
 public typealias MiddlewareDataviewView = Anytype_Model_Block.Content.Dataview.View
 public typealias MiddlewareDataview = Anytype_Model_Block.Content.Dataview

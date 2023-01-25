@@ -523,6 +523,10 @@ final class MiddlewareEventConverter {
             var views = dataView.views
             var view = views[viewIndex]
             
+            if update.hasFields {
+                view = view.updated(with: update.fields)
+            }
+            
             self.updateFilters(update, view: &view)
             self.updateSorts(update, view: &view)
             self.updateOptions(update, view: &view)
