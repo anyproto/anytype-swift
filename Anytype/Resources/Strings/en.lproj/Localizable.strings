@@ -99,7 +99,7 @@
 "Name" = "Name";
 "Description" = "Description";
 "Paste processing..." = "Paste processing...";
-"Marketplace" = "Marketplace";
+"Anytype Library" = "Anytype Library";
 "Copied" = "Copied";
 
 // Home
@@ -362,7 +362,7 @@
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ days from now";
 
 // MARK: - Sets: Featured relations
-"Set.FeaturedRelations.Source" = "Source";
+"Set.FeaturedRelations.Query" = "Query";
 "Set.FeaturedRelations.RelationsList" = "Relations:";
 "Set.FeaturedRelations.Relation" = "Relation:";
 "Set.FeaturedRelations.Type" = "Type:";
@@ -393,8 +393,8 @@
 "Set.View.Kanban.Column.Settings.Hide.Column.Title" = "Hide column";
 
 // MARK: - Set source type
-"Set.SourceType.SelectSource" = "Select source";
-"Set.SourceType.Cancel.Toast.Title" = "This source can be changed on desktop only";
+"Set.SourceType.SelectQuery" = "Select Query";
+"Set.SourceType.Cancel.Toast.Title" = "This query can be changed on desktop only";
 
 // MARK: Slash Menu
 "SlashMenu.DotsDivider" = "Dots divider";

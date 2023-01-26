@@ -16,9 +16,8 @@ struct HomeWidgetsView: View {
                     HomeEditButton(text: Loc.Widgets.Actions.editWidgets) {
                         model.onEditButtonTap()
                     }
-                    Button("Create widget") {
-                        model.onCreateWidgetTap()
-                    }
+                    .opacity(model.hideEditButton ? 0 : 1)
+                    .animation(.default, value: model.hideEditButton)
                     Button("Show old home") {
                         model.onDisableNewHomeTap()
                     }
@@ -57,7 +56,7 @@ struct HomeWidgetsView_Previews: PreviewProvider {
                 registry: DI.makeForPreview().widgetsDI.homeWidgetsRegistry(stateManager: HomeWidgetsStateManager(), widgetOutput: nil),
                 blockWidgetService: DI.makeForPreview().serviceLocator.blockWidgetService(),
                 accountManager: DI.makeForPreview().serviceLocator.accountManager(),
-                bottomPanelProviderAssembly: DI.makeForPreview().widgetsDI.bottomPanelProviderAssembly(),
+                bottomPanelProviderAssembly: DI.makeForPreview().widgetsDI.bottomPanelProviderAssembly(output: nil),
                 toastPresenter: DI.makeForPreview().uihelpersDI.toastPresenter,
                 stateManager: HomeWidgetsStateManager(),
                 output: nil

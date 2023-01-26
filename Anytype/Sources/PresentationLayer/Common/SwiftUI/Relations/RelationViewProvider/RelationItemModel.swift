@@ -51,7 +51,7 @@ enum RelationItemModel: Hashable {
         case .object:
             switch key {
             case BundledRelationKey.setOf.rawValue:
-                return Loc.Set.FeaturedRelations.source
+                return Loc.Set.FeaturedRelations.query
             default:
                 return Loc.selectObjects
             }

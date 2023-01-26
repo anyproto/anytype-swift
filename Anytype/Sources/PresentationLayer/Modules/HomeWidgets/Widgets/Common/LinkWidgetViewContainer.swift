@@ -54,7 +54,9 @@ struct LinkWidgetViewContainer<Content, MenuContent>: View where Content: View, 
             .contentShapeLegacy(.contextMenuPreview, RoundedRectangle(cornerRadius: 16, style: .continuous))
             
             removeButton
+                .zIndex(1)
         }
+        .animation(.default, value: isEditalbeMode)
     }
     
     // MARK: - Private
@@ -110,14 +112,17 @@ struct LinkWidgetViewContainer<Content, MenuContent>: View where Content: View, 
     
     @ViewBuilder
     private var removeButton: some View {
-        if isEditalbeMode, let removeAction {
-            Button(action: {
-                removeAction()
-            }, label: {
-                Image(asset: .Widget.remove)
-            })
-            .offset(x: 8, y: -8)
+        VStack {
+            if isEditalbeMode, let removeAction {
+                Button(action: {
+                    removeAction()
+                }, label: {
+                    Image(asset: .Widget.remove)
+                })
+                .transition(.scale)
+            }
         }
+        .offset(x: 8, y: -8)
     }
 }
 

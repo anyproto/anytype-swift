@@ -99,7 +99,7 @@ final class RelationsSearchViewModel: NewInternalSearchViewModelProtocol {
                     if marketplaceObjects.isNotEmpty {
                         ListSectionConfiguration(
                             id: Constants.marketplaceSectionId,
-                            title: Loc.marketplace,
+                            title: Loc.anytypeLibrary,
                             rows:  marketplaceObjects.asRowConfigurations()
                         )
                     }
