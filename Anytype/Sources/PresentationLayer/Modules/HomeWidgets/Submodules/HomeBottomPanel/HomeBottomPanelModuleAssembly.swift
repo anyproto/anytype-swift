@@ -3,7 +3,7 @@ import SwiftUI
 
 protocol HomeBottomPanelModuleAssemblyProtocol {
     @MainActor
-    func make() -> AnyView
+    func make(stateManager: HomeWidgetsStateManagerProtocol, output: HomeBottomPanelModuleOutput?) -> AnyView
 }
 
 final class HomeBottomPanelModuleAssembly: HomeBottomPanelModuleAssemblyProtocol {
@@ -19,12 +19,14 @@ final class HomeBottomPanelModuleAssembly: HomeBottomPanelModuleAssemblyProtocol
     // MARK: - HomeBottomPanelModuleAssemblyProtocol
     
     @MainActor
-    func make() -> AnyView {
+    func make(stateManager: HomeWidgetsStateManagerProtocol, output: HomeBottomPanelModuleOutput?) -> AnyView {
         let model = HomeBottomPanelViewModel(
             toastPresenter: uiHelpersDI.toastPresenter,
             accountManager: serviceLocator.accountManager(),
             subscriptionService: serviceLocator.subscriptionService(),
-            subscriotionBuilder: HomeBottomPanelSubscriptionDataBuilder()
+            subscriotionBuilder: HomeBottomPanelSubscriptionDataBuilder(),
+            stateManager: stateManager,
+            output: output
         )
         return HomeBottomPanelView(model: model).eraseToAnyView()
     }

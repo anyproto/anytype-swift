@@ -15,6 +15,7 @@ final class HomeWidgetsViewModel: ObservableObject {
     
     @Published var models: [HomeWidgetProviderProtocol] = []
     @Published var bottomPanelProvider: HomeWidgetProviderProtocol
+    @Published var hideEditButton: Bool = false
     
     init(
         widgetObject: HomeWidgetsObjectProtocol,
@@ -30,7 +31,7 @@ final class HomeWidgetsViewModel: ObservableObject {
         self.registry = registry
         self.blockWidgetService = blockWidgetService
         self.accountManager = accountManager
-        self.bottomPanelProvider = bottomPanelProviderAssembly.make()
+        self.bottomPanelProvider = bottomPanelProviderAssembly.make(stateManager: stateManager)
         self.toastPresenter = toastPresenter
         self.stateManager = stateManager
         self.output = output
@@ -54,10 +55,6 @@ final class HomeWidgetsViewModel: ObservableObject {
         output?.onOldHomeSelected()
     }
     
-    func onCreateWidgetTap() {
-        output?.onCreateWidgetSelected()
-    }
-    
     func onSpaceIconChangeTap() {
         output?.onSpaceIconChangeSelected(objectId: accountManager.account.info.accountSpaceId)
     }
@@ -75,5 +72,8 @@ final class HomeWidgetsViewModel: ObservableObject {
                 return self.registry.providers(blocks: blocks, widgetObject: self.widgetObject)
             }
             .assign(to: &$models)
+        
+        stateManager.isEditStatePublisher
+            .assign(to: &$hideEditButton)
     }
 }
