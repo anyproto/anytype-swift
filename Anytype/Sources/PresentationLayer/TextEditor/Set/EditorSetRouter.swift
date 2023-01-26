@@ -56,7 +56,7 @@ protocol EditorSetRouterProtocol:
     func showSortTypesList(setSort: SetSort, onSelect: @escaping (SetSort) -> Void)
     
     func showSettings()
-    func showSources(selectedObjectId: BlockId?, onSelect: @escaping (BlockId) -> ())
+    func showQueries(selectedObjectId: BlockId?, onSelect: @escaping (BlockId) -> ())
     
     func closeEditor()
     func showPage(data: EditorScreenData)
@@ -416,9 +416,9 @@ final class EditorSetRouter: EditorSetRouterProtocol {
         navigationContext.present(moduleViewController)
     }
     
-    func showSources(selectedObjectId: BlockId?, onSelect: @escaping (BlockId) -> ()) {
+    func showQueries(selectedObjectId: BlockId?, onSelect: @escaping (BlockId) -> ()) {
         showTypesSearch(
-            title: Loc.Set.SourceType.selectSource,
+            title: Loc.Set.SourceType.selectQuery,
             selectedObjectId: selectedObjectId,
             showBookmark: true,
             showSet: false,

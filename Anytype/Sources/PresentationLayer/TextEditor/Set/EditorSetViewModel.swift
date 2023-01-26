@@ -708,7 +708,7 @@ extension EditorSetViewModel {
     }
     
     private func showSetOfTypeSelection() {
-        router?.showSources(selectedObjectId: setDocument.details?.setOf.first) { [weak self] typeObjectId in
+        router?.showQueries(selectedObjectId: setDocument.details?.setOf.first) { [weak self] typeObjectId in
             guard let self else { return }
             Task { @MainActor in
                 try? await self.objectActionsService.setSource(objectId: self.objectId, source: [typeObjectId])
