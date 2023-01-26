@@ -1190,18 +1190,18 @@ internal enum Loc {
       }
     }
     internal enum FeaturedRelations {
+      /// Query
+      internal static let query = Loc.tr("Localizable", "Set.FeaturedRelations.Query", fallback: "Query")
       /// Relation:
       internal static let relation = Loc.tr("Localizable", "Set.FeaturedRelations.Relation", fallback: "Relation:")
       /// Relations:
       internal static let relationsList = Loc.tr("Localizable", "Set.FeaturedRelations.RelationsList", fallback: "Relations:")
-      /// Source
-      internal static let source = Loc.tr("Localizable", "Set.FeaturedRelations.Source", fallback: "Source")
       /// Type:
       internal static let type = Loc.tr("Localizable", "Set.FeaturedRelations.Type", fallback: "Type:")
     }
     internal enum SourceType {
-      /// Select source
-      internal static let selectSource = Loc.tr("Localizable", "Set.SourceType.SelectSource", fallback: "Select source")
+      /// Select Query
+      internal static let selectQuery = Loc.tr("Localizable", "Set.SourceType.SelectQuery", fallback: "Select Query")
       internal enum Cancel {
         internal enum Toast {
           /// This source can be changed on desktop only
