@@ -2,6 +2,7 @@ import Foundation
 
 protocol WidgetsDIProtocol {
     func homeWidgetsRegistry(
+        stateManager: HomeWidgetsStateManagerProtocol,
         widgetOutput: CommonWidgetModuleOutput?
     ) -> HomeWidgetsRegistryProtocol
     func objectTreeWidgetModuleAssembly() -> ObjectTreeWidgetModuleAssemblyProtocol
@@ -9,7 +10,7 @@ protocol WidgetsDIProtocol {
     func favoriteWidgetModuleAssembly() -> FavoriteWidgetModuleAssemblyProtocol
     func recentWidgetModuleAssembly() -> RecentWidgetModuleAssemblyProtocol
     func setsWidgetModuleAssembly() -> SetsWidgetModuleAssemblyProtocol
-    func bottomPanelProviderAssembly() -> HomeBottomPanelProviderAssemblyProtocol
+    func bottomPanelProviderAssembly(output: HomeBottomPanelModuleOutput?) -> HomeBottomPanelProviderAssemblyProtocol
     func bottomPanelModuleAssembly() -> HomeBottomPanelModuleAssemblyProtocol
 }
 
@@ -26,6 +27,7 @@ final class WidgetsDI: WidgetsDIProtocol {
     // MARK: - WidgetsDIProtocol
     
     func homeWidgetsRegistry(
+        stateManager: HomeWidgetsStateManagerProtocol,
         widgetOutput: CommonWidgetModuleOutput?
     ) -> HomeWidgetsRegistryProtocol {
         return HomeWidgetsRegistry(
@@ -34,6 +36,7 @@ final class WidgetsDI: WidgetsDIProtocol {
             favoriteWidgetProviderAssembly: FavoriteWidgetProviderAssembly(widgetsDI: self, output: widgetOutput),
             recentWidgetProviderAssembly: RecentWidgetProviderAssembly(widgetsDI: self, output: widgetOutput),
             setsWidgetProviderAssembly: SetsWidgetProviderAssembly(widgetsDI: self, output: widgetOutput),
+            stateManager: stateManager,
             objectDetailsStorage: serviceLocator.objectDetailsStorage()
         )
     }
@@ -58,8 +61,8 @@ final class WidgetsDI: WidgetsDIProtocol {
         return SetsWidgetModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
     }
     
-    func bottomPanelProviderAssembly() -> HomeBottomPanelProviderAssemblyProtocol {
-        return HomeBottomPanelProviderAssembly(widgetsDI: self)
+    func bottomPanelProviderAssembly(output: HomeBottomPanelModuleOutput?) -> HomeBottomPanelProviderAssemblyProtocol {
+        return HomeBottomPanelProviderAssembly(widgetsDI: self, output: output)
     }
     
     func bottomPanelModuleAssembly() -> HomeBottomPanelModuleAssemblyProtocol {

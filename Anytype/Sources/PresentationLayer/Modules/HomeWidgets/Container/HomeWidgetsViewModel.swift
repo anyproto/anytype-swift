@@ -10,10 +10,12 @@ final class HomeWidgetsViewModel: ObservableObject {
     private let blockWidgetService: BlockWidgetServiceProtocol
     private let accountManager: AccountManager
     private let toastPresenter: ToastPresenterProtocol
+    private let stateManager: HomeWidgetsStateManagerProtocol
     private weak var output: HomeWidgetsModuleOutput?
     
     @Published var models: [HomeWidgetProviderProtocol] = []
     @Published var bottomPanelProvider: HomeWidgetProviderProtocol
+    @Published var hideEditButton: Bool = false
     
     init(
         widgetObject: HomeWidgetsObjectProtocol,
@@ -22,14 +24,16 @@ final class HomeWidgetsViewModel: ObservableObject {
         accountManager: AccountManager,
         bottomPanelProviderAssembly: HomeBottomPanelProviderAssemblyProtocol,
         toastPresenter: ToastPresenterProtocol,
+        stateManager: HomeWidgetsStateManagerProtocol,
         output: HomeWidgetsModuleOutput?
     ) {
         self.widgetObject = widgetObject
         self.registry = registry
         self.blockWidgetService = blockWidgetService
         self.accountManager = accountManager
-        self.bottomPanelProvider = bottomPanelProviderAssembly.make()
+        self.bottomPanelProvider = bottomPanelProviderAssembly.make(stateManager: stateManager)
         self.toastPresenter = toastPresenter
+        self.stateManager = stateManager
         self.output = output
     }
     
@@ -51,16 +55,12 @@ final class HomeWidgetsViewModel: ObservableObject {
         output?.onOldHomeSelected()
     }
     
-    func onCreateWidgetTap() {
-        output?.onCreateWidgetSelected()
-    }
-    
     func onSpaceIconChangeTap() {
         output?.onSpaceIconChangeSelected(objectId: accountManager.account.info.accountSpaceId)
     }
     
     func onEditButtonTap() {
-        toastPresenter.show(message: "On tap edit button")
+        stateManager.setEditState(true)
     }
     
     // MARK: - Private
@@ -72,5 +72,8 @@ final class HomeWidgetsViewModel: ObservableObject {
                 return self.registry.providers(blocks: blocks, widgetObject: self.widgetObject)
             }
             .assign(to: &$models)
+        
+        stateManager.isEditStatePublisher
+            .assign(to: &$hideEditButton)
     }
 }

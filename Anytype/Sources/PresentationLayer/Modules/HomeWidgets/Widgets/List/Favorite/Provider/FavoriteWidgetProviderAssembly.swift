@@ -12,11 +12,16 @@ final class FavoriteWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol {
     
     // MARK: - HomeWidgetProviderAssemblyProtocol
     
-    func make(widgetBlockId: String, widgetObject: HomeWidgetsObjectProtocol) -> HomeWidgetProviderProtocol {
+    func make(
+        widgetBlockId: String,
+        widgetObject: HomeWidgetsObjectProtocol,
+        stateManager: HomeWidgetsStateManagerProtocol
+    ) -> HomeWidgetProviderProtocol {
         return FavoriteWidgetProvider(
             widgetBlockId: widgetBlockId,
             widgetObject: widgetObject,
             favoriteWidgetModuleAssembly: widgetsDI.favoriteWidgetModuleAssembly(),
+            stateManager: stateManager,
             output: output
         )
     }

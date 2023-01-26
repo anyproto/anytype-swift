@@ -72,6 +72,8 @@ internal enum Loc {
   internal static let analyticsConstentText = Loc.tr("Localizable", "Analytics constent text", fallback: "Understanding how people use Anytype helps us improve the product. This version of Anytype includes the analytics code that protects your privacy.\nIt doesn't record the actual document's content but still allows us to understand how you use Anytype.\nStay subscribed to our mailing list, as we will soon announce a new release that enables you to opt-out.")
   /// Anytype info
   internal static let anytypeInfo = Loc.tr("Localizable", "Anytype info", fallback: "Anytype info")
+  /// Anytype Library
+  internal static let anytypeLibrary = Loc.tr("Localizable", "Anytype Library", fallback: "Anytype Library")
   /// Anytype node is not connected
   internal static let anytypeNodeIsNotConnected = Loc.tr("Localizable", "Anytype node is not connected", fallback: "Anytype node is not connected")
   /// Appearance
@@ -205,9 +207,9 @@ internal enum Loc {
   internal static let createNewObject = Loc.tr("Localizable", "Create new object", fallback: "Create new object")
   /// Create object
   internal static let createObject = Loc.tr("Localizable", "Create object", fallback: "Create object")
-  /// Create option ‘%s’
-  internal static func createOption(_ p1: UnsafePointer<CChar>) -> String {
-    return Loc.tr("Localizable", "Create option", p1, fallback: "Create option ‘%s’")
+  /// Create option ‘%@’
+  internal static func createOption(_ p1: Any) -> String {
+    return Loc.tr("Localizable", "Create option", String(describing: p1), fallback: "Create option ‘%@’")
   }
   /// Create pin code
   internal static let createPinCode = Loc.tr("Localizable", "Create pin code", fallback: "Create pin code")
@@ -397,8 +399,6 @@ internal enum Loc {
   internal static let logoutAndClearData = Loc.tr("Localizable", "Logout and clear data", fallback: "Logout and clear data")
   /// Logout error
   internal static let logoutError = Loc.tr("Localizable", "Logout error", fallback: "Logout error")
-  /// Marketplace
-  internal static let marketplace = Loc.tr("Localizable", "Marketplace", fallback: "Marketplace")
   /// Media
   internal static let media = Loc.tr("Localizable", "Media", fallback: "Media")
   /// Medium

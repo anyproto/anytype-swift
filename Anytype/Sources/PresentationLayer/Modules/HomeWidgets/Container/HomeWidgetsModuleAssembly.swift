@@ -6,7 +6,8 @@ protocol HomeWidgetsModuleAssemblyProtocol {
     func make(
         widgetObjectId: String,
         output: HomeWidgetsModuleOutput,
-        widgetOutput: CommonWidgetModuleOutput?
+        widgetOutput: CommonWidgetModuleOutput?,
+        bottomPanelOutput: HomeBottomPanelModuleOutput?
     ) -> AnyView
 }
 
@@ -27,18 +28,23 @@ final class HomeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol {
     func make(
         widgetObjectId: String,
         output: HomeWidgetsModuleOutput,
-        widgetOutput: CommonWidgetModuleOutput?
+        widgetOutput: CommonWidgetModuleOutput?,
+        bottomPanelOutput: HomeBottomPanelModuleOutput?
     ) -> AnyView {
+        
+        let stateManager = HomeWidgetsStateManager()
+        
         let model = HomeWidgetsViewModel(
             widgetObject: HomeWidgetsObject(
                 objectId: widgetObjectId,
                 objectDetailsStorage: serviceLocator.objectDetailsStorage()
             ),
-            registry: widgetsDI.homeWidgetsRegistry(widgetOutput: widgetOutput),
+            registry: widgetsDI.homeWidgetsRegistry(stateManager: stateManager, widgetOutput: widgetOutput),
             blockWidgetService: serviceLocator.blockWidgetService(),
             accountManager: serviceLocator.accountManager(),
-            bottomPanelProviderAssembly: widgetsDI.bottomPanelProviderAssembly(),
+            bottomPanelProviderAssembly: widgetsDI.bottomPanelProviderAssembly(output: bottomPanelOutput),
             toastPresenter: uiHelpersDI.toastPresenter,
+            stateManager: stateManager,
             output: output
         )
         let view = HomeWidgetsView(model: model)

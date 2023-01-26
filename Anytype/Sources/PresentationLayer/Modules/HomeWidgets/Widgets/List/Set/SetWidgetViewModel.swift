@@ -3,13 +3,14 @@ import BlocksModels
 import Combine
 
 @MainActor
-final class SetWidgetViewModel: ListWidgetViewModelProtocol, ObservableObject {
+final class SetWidgetViewModel: ListWidgetViewModelProtocol, WidgetContainerContentViewModelProtocol, ObservableObject {
         
     private enum Constants {
         static let maxItems = 3
     }
     
     // MARK: - DI
+    
     private let widgetBlockId: BlockId
     private let widgetObject: HomeWidgetsObjectProtocol
     private let objectDetailsStorage: ObjectDetailsStorage
@@ -17,15 +18,19 @@ final class SetWidgetViewModel: ListWidgetViewModelProtocol, ObservableObject {
     private weak var output: CommonWidgetModuleOutput?
     
     // MARK: - State
+    
     private var subscriptions = [AnyCancellable]()
     private var linkedObjectDetails: ObjectDetails?
     
+    // MARK: - WidgetContainerContentViewModelProtocol
+    
     @Published private(set) var name: String = ""
-    @Published var isExpanded: Bool = true
+    
+    // MARK: - ListWidgetViewModelProtocol
+    
     @Published private(set) var headerItems: [ListWidgetHeaderItem.Model] = []
     @Published private(set) var rows: [ListWidgetRow.Model] = []
-    var minimimRowsCount: Int { Constants.maxItems }
-    let count: String? = nil
+    let minimimRowsCount = Constants.maxItems
     
     init(
         widgetBlockId: BlockId,
@@ -74,13 +79,6 @@ final class SetWidgetViewModel: ListWidgetViewModelProtocol, ObservableObject {
                 self?.linkedObjectDetails = details
                 self?.name = details.title
                 self?.updateViewState()
-            }
-            .store(in: &subscriptions)
-        
-        widgetObject.infoContainer.publisherFor(id: widgetBlockId)
-            .sink { [weak self] info in
-                guard case let .widget(widget) = info?.content else { return }
-                self?.isExpanded = widget.layout == .tree
             }
             .store(in: &subscriptions)
     }

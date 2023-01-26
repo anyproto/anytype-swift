@@ -99,7 +99,7 @@
 "Name" = "Name";
 "Description" = "Description";
 "Paste processing..." = "Paste processing...";
-"Marketplace" = "Marketplace";
+"Anytype Library" = "Anytype Library";
 "Copied" = "Copied";
 
 // Home
@@ -536,7 +536,7 @@
 "Today" = "Today";
 "No date" = "No date";
 "Clear" = "Clear";
-"Create option" = "Create option ‘%s’";
+"Create option" = "Create option ‘%@’";
 "Add URL" = "Add URL";
 "Add email" = "Add email";
 "Add phone number" = "Add phone number";

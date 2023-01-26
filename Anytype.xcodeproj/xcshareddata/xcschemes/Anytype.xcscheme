@@ -66,11 +66,6 @@
       </BuildableProductRunnable>
       <EnvironmentVariables>
          <EnvironmentVariable
-            key = "ANYTYPE_STAGING"
-            value = "0"
-            isEnabled = "YES">
-         </EnvironmentVariable>
-         <EnvironmentVariable
             key = "ANYTYPE_LOG_NOGELF"
             value = "1"
             isEnabled = "NO">

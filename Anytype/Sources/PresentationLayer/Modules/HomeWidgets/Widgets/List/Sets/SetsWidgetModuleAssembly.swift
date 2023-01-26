@@ -3,7 +3,12 @@ import SwiftUI
 
 protocol SetsWidgetModuleAssemblyProtocol: AnyObject {
     @MainActor
-    func make(widgetBlockId: String, widgetObject: HomeWidgetsObjectProtocol, output: CommonWidgetModuleOutput?) -> AnyView
+    func make(
+        widgetBlockId: String,
+        widgetObject: HomeWidgetsObjectProtocol,
+        stateManager: HomeWidgetsStateManagerProtocol,
+        output: CommonWidgetModuleOutput?
+    ) -> AnyView
 }
 
 final class SetsWidgetModuleAssembly: SetsWidgetModuleAssemblyProtocol {
@@ -19,14 +24,32 @@ final class SetsWidgetModuleAssembly: SetsWidgetModuleAssemblyProtocol {
     // MARK: - SetsWidgetModuleAssemblyProtocol
     
     @MainActor
-    func make(widgetBlockId: String, widgetObject: HomeWidgetsObjectProtocol, output: CommonWidgetModuleOutput?) -> AnyView {
+    func make(
+        widgetBlockId: String,
+        widgetObject: HomeWidgetsObjectProtocol,
+        stateManager: HomeWidgetsStateManagerProtocol,
+        output: CommonWidgetModuleOutput?
+    ) -> AnyView {
         
-        let model = SetsWidgetViewModel(
+        let contentModel = SetsWidgetViewModel(
             widgetBlockId: widgetBlockId,
             widgetObject: widgetObject,
             setsSubscriptionService: serviceLocator.setsSubscriptionService(),
             output: output
         )
-        return ListWidgetView(model: model).eraseToAnyView()
+        let contentView = ListWidgetView(model: contentModel)
+        
+        let containerModel = WidgetContainerViewModel(
+            widgetBlockId: widgetBlockId,
+            widgetObject: widgetObject,
+            blockWidgetService: serviceLocator.blockWidgetService(),
+            stateManager: stateManager
+        )
+        let containterView = WidgetContainerView(
+            model: containerModel,
+            contentModel: contentModel,
+            content: contentView
+        )
+        return containterView.eraseToAnyView()
     }
 }
