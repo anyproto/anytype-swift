@@ -5,14 +5,14 @@ protocol DataviewServiceProtocol {
     
     // MARK: - Filters
     func addFilter(_ filter: DataviewFilter, viewId: String) async throws
-    func removeFilters(_ filterIds: [String], viewId: String) async throws
-    func replaceFilter(_ filterId: String, with filter: DataviewFilter, viewId: String) async throws
+    func removeFilters(_ ids: [String], viewId: String) async throws
+    func replaceFilter(_ id: String, with filter: DataviewFilter, viewId: String) async throws
     
     // MARK: - Sorts
     func addSort(_ sort: DataviewSort, viewId: String) async throws
-    func removeSorts(_ sortIds: [String], viewId: String) async throws
-    func replaceSort(_ sortId: String, with sort: DataviewSort, viewId: String) async throws
-    func sortSorts(_ sortIds: [String], viewId: String) async throws
+    func removeSorts(_ ids: [String], viewId: String) async throws
+    func replaceSort(_ id: String, with sort: DataviewSort, viewId: String) async throws
+    func sortSorts(_ ids: [String], viewId: String) async throws
     
     // MARK: - Relations
     func addViewRelation(_ relation: MiddlewareRelation, viewId: String) async throws

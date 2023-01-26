@@ -47,26 +47,26 @@ final class DataviewService: DataviewServiceProtocol {
         event.send()
     }
     
-    func removeFilters(_ filterIds: [String], viewId: String) async throws {
+    func removeFilters(_ ids: [String], viewId: String) async throws {
         let result = try await Anytype_Rpc.BlockDataview.Filter.Remove.Service
             .invocation(
                 contextID: objectId,
                 blockID: blockId,
                 viewID: viewId,
-                filterIds: filterIds
+                ids: ids
             )
             .invoke(errorDomain: .dataviewService)
         let event = EventsBunch(event: result.event)
         event.send()
     }
     
-    func replaceFilter(_ filterId: String, with filter: DataviewFilter, viewId: String) async throws {
+    func replaceFilter(_ id: String, with filter: DataviewFilter, viewId: String) async throws {
         let result = try await Anytype_Rpc.BlockDataview.Filter.Replace.Service
             .invocation(
                 contextID: objectId,
                 blockID: blockId,
                 viewID: viewId,
-                filterID: filterId,
+                id: id,
                 filter: filter
             )
             .invoke(errorDomain: .dataviewService)
@@ -89,26 +89,26 @@ final class DataviewService: DataviewServiceProtocol {
         event.send()
     }
     
-    func removeSorts(_ sortIds: [String], viewId: String) async throws {
+    func removeSorts(_ ids: [String], viewId: String) async throws {
         let result = try await Anytype_Rpc.BlockDataview.Sort.Remove.Service
             .invocation(
                 contextID: objectId,
                 blockID: blockId,
                 viewID: viewId,
-                ids: sortIds
+                ids: ids
             )
             .invoke(errorDomain: .dataviewService)
         let event = EventsBunch(event: result.event)
         event.send()
     }
     
-    func replaceSort(_ sortId: String, with sort: DataviewSort, viewId: String) async throws {
+    func replaceSort(_ id: String, with sort: DataviewSort, viewId: String) async throws {
         let result = try await Anytype_Rpc.BlockDataview.Sort.Replace.Service
             .invocation(
                 contextID: objectId,
                 blockID: blockId,
                 viewID: viewId,
-                id: sortId,
+                id: id,
                 sort: sort
             )
             .invoke(errorDomain: .dataviewService)
@@ -116,13 +116,13 @@ final class DataviewService: DataviewServiceProtocol {
         event.send()
     }
     
-    func sortSorts(_ sortIds: [String], viewId: String) async throws {
+    func sortSorts(_ ids: [String], viewId: String) async throws {
         let result = try await Anytype_Rpc.BlockDataview.Sort.Sort.Service
             .invocation(
                 contextID: objectId,
                 blockID: blockId,
                 viewID: viewId,
-                ids: sortIds
+                ids: ids
             )
             .invoke(errorDomain: .dataviewService)
         let event = EventsBunch(event: result.event)
