@@ -6,11 +6,10 @@ struct SetSortRow: View {
     @Environment(\.editMode) var editMode
     
     let configuration: SetSortRowConfiguration
-    let onTap: () -> Void
     
     var body: some View {
         Button {
-            onTap()
+            configuration.onTap()
         } label: {
             content
         }

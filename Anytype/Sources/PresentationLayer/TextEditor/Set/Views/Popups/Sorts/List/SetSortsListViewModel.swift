@@ -38,8 +38,8 @@ extension SetSortsListViewModel {
         }
     }
     
-    func rowTapped(_ id: String) {
-        guard let setSort = setDocument.sorts.first(where: { $0.id == id }) else {
+    func rowTapped(_ id: String, index: Int) {
+        guard let setSort = setDocument.sorts[safe: index], setSort.id == id  else {
             return
         }
         router.showSortTypesList(
@@ -88,12 +88,15 @@ extension SetSortsListViewModel {
     }
     
     private func updateRows(with sorts: [SetSort]) {
-        rows = sorts.map {
+        rows = sorts.enumerated().map { index, sort in
             SetSortRowConfiguration(
-                id: $0.id,
-                title: $0.relationDetails.name,
-                subtitle: $0.typeTitle(),
-                iconAsset: $0.relationDetails.format.iconAsset
+                id: "\(sort.relationDetails.id)_\(index)",
+                title: sort.relationDetails.name,
+                subtitle: sort.typeTitle(),
+                iconAsset: sort.relationDetails.format.iconAsset,
+                onTap: { [weak self] in
+                    self?.rowTapped(sort.relationDetails.id, index: index)
+                }
             )
         }
     }

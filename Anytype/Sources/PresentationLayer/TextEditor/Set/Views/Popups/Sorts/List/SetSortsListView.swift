@@ -91,7 +91,7 @@ struct SetSortsListView: View {
     }
     
     private func row(with configuration: SetSortRowConfiguration) -> some View {
-        SetSortRow(configuration: configuration, onTap: { viewModel.rowTapped(configuration.id) })
+        SetSortRow(configuration: configuration)
             .environment(\.editMode, $editMode)
     }
     

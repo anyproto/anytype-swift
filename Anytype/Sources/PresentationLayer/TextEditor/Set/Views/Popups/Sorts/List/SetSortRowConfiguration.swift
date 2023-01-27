@@ -3,4 +3,5 @@ struct SetSortRowConfiguration: Identifiable, Equatable {
     let title: String
     let subtitle: String
     let iconAsset: ImageAsset
+    @EquatableNoop var onTap: () -> Void
 }

@@ -166,7 +166,7 @@ class SetDocument: SetDocumentProtocol {
     }
     
     private func updateSorts() {
-        sorts = activeView.sorts.uniqued().compactMap { sort in
+        sorts = activeView.sorts.compactMap { sort in
             let relationDetails = dataViewRelationsDetails.first { relationDetails in
                 sort.relationKey == relationDetails.key
             }

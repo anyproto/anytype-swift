@@ -41,6 +41,7 @@ final class SetSortTypesListViewModel: CheckPopupViewViewModelProtocol {
         }
 
         let sort = DataviewSort(
+            id: selectedSort.id,
             relationKey: selectedSort.relationKey,
             type: item
         )
