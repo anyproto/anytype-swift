@@ -17,7 +17,7 @@ final class EditorBrowserAssembly {
     func buildEditorBrowser(data: EditorScreenData) -> EditorBrowserController {
         let browser = EditorBrowserController()
 
-        let (page, router) = coordinatorsDI.editor
+        let (page, router) = coordinatorsDI.editor()
             .buildEditorModule(browser: browser, data: data)
         
         browser.childNavigation = navigationStack(rootPage: page)

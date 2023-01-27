@@ -43,7 +43,7 @@ final class HomeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol {
             blockWidgetService: serviceLocator.blockWidgetService(),
             accountManager: serviceLocator.accountManager(),
             bottomPanelProviderAssembly: widgetsDI.bottomPanelProviderAssembly(output: bottomPanelOutput),
-            toastPresenter: uiHelpersDI.toastPresenter,
+            toastPresenter: uiHelpersDI.toastPresenter(),
             stateManager: stateManager,
             output: output
         )

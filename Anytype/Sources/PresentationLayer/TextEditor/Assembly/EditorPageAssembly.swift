@@ -83,14 +83,14 @@ final class EditorAssembly {
             rootController: browser,
             viewController: controller,
             navigationContext: NavigationContext(rootViewController: browser ?? controller),
-            createObjectModuleAssembly: modulesDI.createObject,
-            newSearchModuleAssembly: modulesDI.newSearch,
-            editorPageCoordinator: coordinatorsDI.editorPage.make(browserController: browser),
-            addNewRelationCoordinator: coordinatorsDI.addNewRelation.make(document: document),
-            objectSettingCoordinator: coordinatorsDI.objectSettings.make(document: document, browserController: browser),
-            relationValueCoordinator: coordinatorsDI.relationValue.make(),
-            objectCoverPickerModuleAssembly: modulesDI.objectCoverPicker,
-            objectIconPickerModuleAssembly: modulesDI.objectIconPicker,
+            createObjectModuleAssembly: modulesDI.createObject(),
+            newSearchModuleAssembly: modulesDI.newSearch(),
+            editorPageCoordinator: coordinatorsDI.editorPage().make(browserController: browser),
+            addNewRelationCoordinator: coordinatorsDI.addNewRelation().make(document: document),
+            objectSettingCoordinator: coordinatorsDI.objectSettings().make(document: document, browserController: browser),
+            relationValueCoordinator: coordinatorsDI.relationValue().make(),
+            objectCoverPickerModuleAssembly: modulesDI.objectCoverPicker(),
+            objectIconPickerModuleAssembly: modulesDI.objectIconPicker(),
             toastPresenter: uiHelpersDI.toastPresenter(using: browser),
             alertHelper: AlertHelper(viewController: controller)
         )
@@ -126,20 +126,20 @@ final class EditorAssembly {
             viewController: controller,
             navigationContext: NavigationContext(rootViewController: browser ?? controller),
             document: document,
-            addNewRelationCoordinator: coordinatorsDI.addNewRelation.make(document: document),
-            templatesCoordinator: coordinatorsDI.templates.make(viewController: controller),
+            addNewRelationCoordinator: coordinatorsDI.addNewRelation().make(document: document),
+            templatesCoordinator: coordinatorsDI.templates().make(viewController: controller),
             urlOpener: URLOpener(viewController: browser),
-            relationValueCoordinator: coordinatorsDI.relationValue.make(),
-            editorPageCoordinator: coordinatorsDI.editorPage.make(browserController: browser),
-            linkToObjectCoordinator: coordinatorsDI.linkToObject.make(browserController: browser),
-            objectCoverPickerModuleAssembly: modulesDI.objectCoverPicker,
-            objectIconPickerModuleAssembly: modulesDI.objectIconPicker,
-            objectSettingCoordinator: coordinatorsDI.objectSettings.make(document: document, browserController: browser),
-            searchModuleAssembly: modulesDI.search,
+            relationValueCoordinator: coordinatorsDI.relationValue().make(),
+            editorPageCoordinator: coordinatorsDI.editorPage().make(browserController: browser),
+            linkToObjectCoordinator: coordinatorsDI.linkToObject().make(browserController: browser),
+            objectCoverPickerModuleAssembly: modulesDI.objectCoverPicker(),
+            objectIconPickerModuleAssembly: modulesDI.objectIconPicker(),
+            objectSettingCoordinator: coordinatorsDI.objectSettings().make(document: document, browserController: browser),
+            searchModuleAssembly: modulesDI.search(),
             toastPresenter: uiHelpersDI.toastPresenter(using: browser),
-            codeLanguageListModuleAssembly: modulesDI.codeLanguageList,
-            newSearchModuleAssembly: modulesDI.newSearch,
-            textIconPickerModuleAssembly: modulesDI.textIconPicker,
+            codeLanguageListModuleAssembly: modulesDI.codeLanguageList(),
+            newSearchModuleAssembly: modulesDI.newSearch(),
+            textIconPickerModuleAssembly: modulesDI.textIconPicker(),
             alertHelper: AlertHelper(viewController: controller)
         )
 
@@ -238,7 +238,7 @@ final class EditorAssembly {
             onShowStyleMenu: blocksStateManager.didSelectStyleSelection(info:),
             onBlockSelection: actionHandler.selectBlock(info:),
             pageService: serviceLocator.pageService(),
-            linkToObjectCoordinator: coordinatorsDI.linkToObject.make(browserController: browser)
+            linkToObjectCoordinator: coordinatorsDI.linkToObject().make(browserController: browser)
         )
         
         let markdownListener = MarkdownListenerImpl(
@@ -272,7 +272,7 @@ final class EditorAssembly {
             mainEditorSelectionManager: blocksStateManager,
             responderScrollViewHelper: responderScrollViewHelper,
             pageService: serviceLocator.pageService(),
-            linkToObjectCoordinator: coordinatorsDI.linkToObject.make(browserController: browser)
+            linkToObjectCoordinator: coordinatorsDI.linkToObject().make(browserController: browser)
         )
 
         let blocksConverter = BlockViewModelBuilder(

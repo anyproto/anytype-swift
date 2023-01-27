@@ -22,7 +22,7 @@ final class TemplatesCoordinatorAssembly: TemplatesCoordinatorAssemblyProtocol {
             keyboardHeightListener: .init(),
             searchService: serviceLocator.searchService(),
             objectsService: ServiceLocator.shared.objectActionsService(),
-            editorPageAssembly: coordinatorsDI.editor
+            editorPageAssembly: coordinatorsDI.editor()
         )
     }
 }

@@ -31,7 +31,7 @@ struct SelectProfileView: View {
 
 struct SelectProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        let viewModel =  SelectProfileViewModel(windowManager: DI.makeForPreview().coordinatorsDI.windowManager)
+        let viewModel =  SelectProfileViewModel(windowManager: DI.preview.coordinatorsDI.windowManager())
         return SelectProfileView(viewModel: viewModel)
     }
 }

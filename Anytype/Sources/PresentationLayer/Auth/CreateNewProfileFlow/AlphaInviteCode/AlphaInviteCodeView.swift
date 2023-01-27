@@ -87,7 +87,7 @@ struct AlphaInviteCodeView_Previews: PreviewProvider {
     static var previews: some View {
         AlphaInviteCodeView(
             signUpData: SignUpData(mnemonic: UUID().uuidString),
-            windowManager: DI.makeForPreview().coordinatorsDI.windowManager
+            windowManager: DI.preview.coordinatorsDI.windowManager()
         )
     }
 }

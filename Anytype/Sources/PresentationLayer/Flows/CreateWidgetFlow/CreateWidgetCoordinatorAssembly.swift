@@ -26,8 +26,8 @@ final class CreateWidgetCoordinatorAssembly: CreateWidgetCoordinatorAssemblyProt
     @MainActor
     func make() -> CreateWidgetCoordinatorProtocol {
         return CreateWidgetCoordinator(
-            newSearchModuleAssembly: modulesDI.newSearch,
-            navigationContext: uiHelpersDI.commonNavigationContext,
+            newSearchModuleAssembly: modulesDI.newSearch(),
+            navigationContext: uiHelpersDI.commonNavigationContext(),
             blockWidgetService: serviceLocator.blockWidgetService()
         )
     }

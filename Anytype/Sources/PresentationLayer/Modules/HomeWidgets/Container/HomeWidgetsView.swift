@@ -51,13 +51,13 @@ struct HomeWidgetsView_Previews: PreviewProvider {
             model: HomeWidgetsViewModel(
                 widgetObject: HomeWidgetsObject(
                     objectId: "",
-                    objectDetailsStorage: DI.makeForPreview().serviceLocator.objectDetailsStorage()
+                    objectDetailsStorage: DI.preview.serviceLocator.objectDetailsStorage()
                 ),
-                registry: DI.makeForPreview().widgetsDI.homeWidgetsRegistry(stateManager: HomeWidgetsStateManager(), widgetOutput: nil),
-                blockWidgetService: DI.makeForPreview().serviceLocator.blockWidgetService(),
-                accountManager: DI.makeForPreview().serviceLocator.accountManager(),
-                bottomPanelProviderAssembly: DI.makeForPreview().widgetsDI.bottomPanelProviderAssembly(output: nil),
-                toastPresenter: DI.makeForPreview().uihelpersDI.toastPresenter,
+                registry: DI.preview.widgetsDI.homeWidgetsRegistry(stateManager: HomeWidgetsStateManager(), widgetOutput: nil),
+                blockWidgetService: DI.preview.serviceLocator.blockWidgetService(),
+                accountManager: DI.preview.serviceLocator.accountManager(),
+                bottomPanelProviderAssembly: DI.preview.widgetsDI.bottomPanelProviderAssembly(output: nil),
+                toastPresenter: DI.preview.uihelpersDI.toastPresenter(),
                 stateManager: HomeWidgetsStateManager(),
                 output: nil
             )
