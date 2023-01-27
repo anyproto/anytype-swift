@@ -154,7 +154,8 @@ extension Anytype_Model_Block.Content.Dataview.Relation {
 }
 
 extension Anytype_Model_Block.Content.Dataview.Sort {
-    public init(relationKey: String = String(), type: Anytype_Model_Block.Content.Dataview.Sort.TypeEnum = .asc, customOrder: [SwiftProtobuf.Google_Protobuf_Value] = [], format: Anytype_Model_RelationFormat = .longtext, includeTime: Bool = false) {
+    public init(id: String = String(), relationKey: String = String(), type: Anytype_Model_Block.Content.Dataview.Sort.TypeEnum = .asc, customOrder: [SwiftProtobuf.Google_Protobuf_Value] = [], format: Anytype_Model_RelationFormat = .longtext, includeTime: Bool = false) {
+        self.id = id
         self.relationKey = relationKey
         self.type = type
         self.customOrder = customOrder

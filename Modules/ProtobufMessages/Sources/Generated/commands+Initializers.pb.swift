@@ -863,11 +863,11 @@ extension Anytype_Rpc.BlockDataview.Filter.Add.Response.Error {
 }
 
 extension Anytype_Rpc.BlockDataview.Filter.Remove.Request {
-    public init(contextID: String = String(), blockID: String = String(), viewID: String = String(), filterIds: [String] = []) {
+    public init(contextID: String = String(), blockID: String = String(), viewID: String = String(), ids: [String] = []) {
         self.contextID = contextID
         self.blockID = blockID
         self.viewID = viewID
-        self.filterIds = filterIds
+        self.ids = ids
     }
 }
 
@@ -886,11 +886,11 @@ extension Anytype_Rpc.BlockDataview.Filter.Remove.Response.Error {
 }
 
 extension Anytype_Rpc.BlockDataview.Filter.Replace.Request {
-    public init(contextID: String = String(), blockID: String = String(), viewID: String = String(), filterID: String = String(), filter: Anytype_Model_Block.Content.Dataview.Filter) {
+    public init(contextID: String = String(), blockID: String = String(), viewID: String = String(), id: String = String(), filter: Anytype_Model_Block.Content.Dataview.Filter) {
         self.contextID = contextID
         self.blockID = blockID
         self.viewID = viewID
-        self.filterID = filterID
+        self.id = id
         self.filter = filter
     }
 }
@@ -910,11 +910,11 @@ extension Anytype_Rpc.BlockDataview.Filter.Replace.Response.Error {
 }
 
 extension Anytype_Rpc.BlockDataview.Filter.Sort.Request {
-    public init(contextID: String = String(), blockID: String = String(), viewID: String = String(), filterIds: [String] = []) {
+    public init(contextID: String = String(), blockID: String = String(), viewID: String = String(), ids: [String] = []) {
         self.contextID = contextID
         self.blockID = blockID
         self.viewID = viewID
-        self.filterIds = filterIds
+        self.ids = ids
     }
 }
 
@@ -1087,11 +1087,11 @@ extension Anytype_Rpc.BlockDataview.Sort.Add.Response.Error {
 }
 
 extension Anytype_Rpc.BlockDataview.Sort.Remove.Request {
-    public init(contextID: String = String(), blockID: String = String(), viewID: String = String(), relationKeys: [String] = []) {
+    public init(contextID: String = String(), blockID: String = String(), viewID: String = String(), ids: [String] = []) {
         self.contextID = contextID
         self.blockID = blockID
         self.viewID = viewID
-        self.relationKeys = relationKeys
+        self.ids = ids
     }
 }
 
@@ -1110,11 +1110,11 @@ extension Anytype_Rpc.BlockDataview.Sort.Remove.Response.Error {
 }
 
 extension Anytype_Rpc.BlockDataview.Sort.Replace.Request {
-    public init(contextID: String = String(), blockID: String = String(), viewID: String = String(), relationKey: String = String(), sort: Anytype_Model_Block.Content.Dataview.Sort) {
+    public init(contextID: String = String(), blockID: String = String(), viewID: String = String(), id: String = String(), sort: Anytype_Model_Block.Content.Dataview.Sort) {
         self.contextID = contextID
         self.blockID = blockID
         self.viewID = viewID
-        self.relationKey = relationKey
+        self.id = id
         self.sort = sort
     }
 }
@@ -1134,11 +1134,11 @@ extension Anytype_Rpc.BlockDataview.Sort.Replace.Response.Error {
 }
 
 extension Anytype_Rpc.BlockDataview.Sort.Sort.Request {
-    public init(contextID: String = String(), blockID: String = String(), viewID: String = String(), relationKeys: [String] = []) {
+    public init(contextID: String = String(), blockID: String = String(), viewID: String = String(), ids: [String] = []) {
         self.contextID = contextID
         self.blockID = blockID
         self.viewID = viewID
-        self.relationKeys = relationKeys
+        self.ids = ids
     }
 }
 

@@ -22,7 +22,10 @@ let package = Package(
                 .product(name: "SwiftProtobuf", package: "swift-protobuf"),
                 "Lib"
             ],
-            path: "Sources"
+            path: "Sources",
+            linkerSettings: [
+                .linkedLibrary("c++")
+            ]
         ),
         .binaryTarget(name: "Lib", path: "../../Dependencies/Middleware/Lib.xcframework")
     ]
