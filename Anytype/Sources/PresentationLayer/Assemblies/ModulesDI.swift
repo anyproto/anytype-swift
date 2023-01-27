@@ -55,7 +55,7 @@ final class ModulesDI: ModulesDIProtocol {
     }
     
     func newSearch() -> NewSearchModuleAssemblyProtocol {
-        return NewSearchModuleAssembly(uiHelpersDI: uiHelpersDI)
+        return NewSearchModuleAssembly(uiHelpersDI: uiHelpersDI, serviceLocator: serviceLocator)
     }
     
     func newRelation() -> NewRelationModuleAssemblyProtocol {

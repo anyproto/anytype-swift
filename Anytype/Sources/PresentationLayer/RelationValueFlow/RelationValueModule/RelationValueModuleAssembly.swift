@@ -24,7 +24,10 @@ final class RelationValueModuleAssembly: RelationValueModuleAssemblyProtocol {
         let contentViewModel = RelationEditingViewModelBuilder(
             delegate: delegate,
             newSearchModuleAssembly: modulesDI.newSearch(),
-            searchService: serviceLocator.searchService()
+            searchService: serviceLocator.searchService(),
+            systemURLService: serviceLocator.systemURLService(),
+            alertOpener: serviceLocator.alertOpener(),
+            bookmarkService: serviceLocator.bookmarkService()
         )
             .buildViewModel(
                 objectId: objectId,

@@ -10,10 +10,10 @@ final class BlockActionService: BlockActionServiceProtocol {
 
     private var subscriptions: [AnyCancellable] = []
     private let singleService: BlockActionsServiceSingleProtocol
-    private let pageService = ServiceLocator.shared.objectActionsService()
+    private let objectActionService: ObjectActionsServiceProtocol
     private let textService = TextService()
     private let listService: BlockListServiceProtocol
-    private let bookmarkService = ServiceLocator.shared.bookmarkService()
+    private let bookmarkService: BookmarkServiceProtocol
     private let fileService = FileActionsService()
     private let cursorManager: EditorCursorManager
     
@@ -23,13 +23,17 @@ final class BlockActionService: BlockActionServiceProtocol {
         documentId: String,
         listService: BlockListServiceProtocol,
         singleService: BlockActionsServiceSingleProtocol,
+        objectActionService: ObjectActionsServiceProtocol,
         modelsHolder: EditorMainItemModelsHolder,
+        bookmarkService: BookmarkServiceProtocol,
         cursorManager: EditorCursorManager
     ) {
         self.documentId = documentId
         self.listService = listService
         self.singleService = singleService
+        self.objectActionService = objectActionService
         self.modelsHolder = modelsHolder
+        self.bookmarkService = bookmarkService
         self.cursorManager = cursorManager
     }
 
@@ -73,7 +77,7 @@ final class BlockActionService: BlockActionServiceProtocol {
 
 
     func createPage(targetId: BlockId, type: ObjectTypeId, position: BlockPosition) -> BlockId? {
-        guard let newBlockId = pageService.createPage(
+        guard let newBlockId = objectActionService.createPage(
             contextId: documentId,
             targetId: targetId,
             details: [.name(""), .type(type)],
@@ -89,7 +93,7 @@ final class BlockActionService: BlockActionServiceProtocol {
     }
     
     func turnIntoPage(blockId: BlockId) -> BlockId? {
-        return pageService.convertChildrenToPages(contextID: documentId, blocksIds: [blockId], objectType: "")?.first
+        return objectActionService.convertChildrenToPages(contextID: documentId, blocksIds: [blockId], objectType: "")?.first
     }
     
     func checked(blockId: BlockId, newValue: Bool) {
@@ -127,11 +131,11 @@ final class BlockActionService: BlockActionServiceProtocol {
     }
     
     func setObjectTypeId(_ objectTypeId: String) {
-        pageService.setObjectType(objectId: documentId, objectTypeId: objectTypeId)
+        objectActionService.setObjectType(objectId: documentId, objectTypeId: objectTypeId)
     }
 
     func setObjectSetType() -> BlockId {
-        pageService.setObjectSetType(objectId: documentId)
+        objectActionService.setObjectSetType(objectId: documentId)
     }
 
     private func setFocus(model: BlockViewModelProtocol) {

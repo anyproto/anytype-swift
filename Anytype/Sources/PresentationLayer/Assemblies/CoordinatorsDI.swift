@@ -71,7 +71,7 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     }
     
     func browser() -> EditorBrowserAssembly {
-        return EditorBrowserAssembly(coordinatorsDI: self)
+        return EditorBrowserAssembly(coordinatorsDI: self, serviceLocator: serviceLocator)
     }
     
     func editor() -> EditorAssembly {

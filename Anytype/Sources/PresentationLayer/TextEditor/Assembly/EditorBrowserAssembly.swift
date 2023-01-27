@@ -5,9 +5,11 @@ import Combine
 final class EditorBrowserAssembly {
     
     private let coordinatorsDI: CoordinatorsDIProtocol
+    private let serviceLocator: ServiceLocator
     
-    init(coordinatorsDI: CoordinatorsDIProtocol) {
+    init(coordinatorsDI: CoordinatorsDIProtocol, serviceLocator: ServiceLocator) {
         self.coordinatorsDI = coordinatorsDI
+        self.serviceLocator = serviceLocator
     }
     
     func editor(data: EditorScreenData, model: HomeViewModel) -> some View {
@@ -15,7 +17,7 @@ final class EditorBrowserAssembly {
     }
     
     func buildEditorBrowser(data: EditorScreenData) -> EditorBrowserController {
-        let browser = EditorBrowserController()
+        let browser = EditorBrowserController(dashboardService: serviceLocator.dashboardService())
 
         let (page, router) = coordinatorsDI.editor()
             .buildEditorModule(browser: browser, data: data)

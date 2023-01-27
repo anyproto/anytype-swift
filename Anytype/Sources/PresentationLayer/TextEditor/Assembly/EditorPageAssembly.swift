@@ -57,23 +57,24 @@ final class EditorAssembly {
             document: document,
             blockId: blockId,
             targetObjectID: targetObjectID,
-            relationDetailsStorage: ServiceLocator.shared.relationDetailsStorage()
+            relationDetailsStorage: serviceLocator.relationDetailsStorage()
         )
         let dataviewService = DataviewService(
             objectId: data.pageId,
             blockId: blockId,
             prefilledFieldsBuilder: SetPrefilledFieldsBuilder()
         )
-        let detailsService = ServiceLocator.shared.detailsService(objectId: data.pageId)
+        let detailsService = serviceLocator.detailsService(objectId: data.pageId)
         
         let model = EditorSetViewModel(
             setDocument: setDocument,
+            subscriptionService: serviceLocator.subscriptionService(),
             dataviewService: dataviewService,
-            searchService: ServiceLocator.shared.searchService(),
+            searchService: serviceLocator.searchService(),
             detailsService: detailsService,
-            objectActionsService: ServiceLocator.shared.objectActionsService(),
+            objectActionsService: serviceLocator.objectActionsService(),
             textService: serviceLocator.textService,
-            groupsSubscriptionsHandler: ServiceLocator.shared.groupsSubscriptionsHandler(),
+            groupsSubscriptionsHandler: serviceLocator.groupsSubscriptionsHandler(),
             setSubscriptionDataBuilder: SetSubscriptionDataBuilder()
         )
         let controller = EditorSetHostingController(objectId: data.pageId, model: model)
@@ -180,13 +181,15 @@ final class EditorAssembly {
         let focusSubjectHolder = FocusSubjectsHolder()
 
         let cursorManager = EditorCursorManager(focusSubjectHolder: focusSubjectHolder)
-        let listService = ServiceLocator.shared.blockListService(documentId: document.objectId)
-        let singleService = ServiceLocator.shared.blockActionsServiceSingle(contextId: document.objectId)
+        let listService = serviceLocator.blockListService(documentId: document.objectId)
+        let singleService = serviceLocator.blockActionsServiceSingle(contextId: document.objectId)
         let blockActionService = BlockActionService(
             documentId: document.objectId,
             listService: listService,
             singleService: singleService,
+            objectActionService: serviceLocator.objectActionsService(),
             modelsHolder: modelsHolder,
+            bookmarkService: serviceLocator.bookmarkService(),
             cursorManager: cursorManager
         )
         let keyboardHandler = KeyboardActionHandler(
@@ -213,7 +216,7 @@ final class EditorAssembly {
                                                   pasteboardHelper: pasteboardHelper,
                                                   pasteboardMiddlewareService: pasteboardMiddlewareService)
 
-        let blockActionsServiceSingle = ServiceLocator.shared
+        let blockActionsServiceSingle = serviceLocator
             .blockActionsServiceSingle(contextId: document.objectId)
 
         let blocksStateManager = EditorPageBlocksStateManager(
@@ -307,8 +310,8 @@ final class EditorAssembly {
             blockActionsService: blockActionsServiceSingle,
             blocksStateManager: blocksStateManager,
             cursorManager: cursorManager,
-            objectActionsService: ServiceLocator.shared.objectActionsService(),
-            searchService: ServiceLocator.shared.searchService(),
+            objectActionsService: serviceLocator.objectActionsService(),
+            searchService: serviceLocator.searchService(),
             editorPageTemplatesHandler: editorPageTemplatesHandler,
             isOpenedForPreview: isOpenedForPreview
         )

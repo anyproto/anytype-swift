@@ -85,7 +85,7 @@ final class EditorSetViewModel: ObservableObject {
     private var router: EditorSetRouterProtocol?
     
     let paginationHelper = EditorSetPaginationHelper()
-    private let subscriptionService = ServiceLocator.shared.subscriptionService()
+    private let subscriptionService: SubscriptionsServiceProtocol
     private let dataBuilder = SetContentViewDataBuilder()
     private let dataviewService: DataviewServiceProtocol
     private let searchService: SearchServiceProtocol
@@ -99,6 +99,7 @@ final class EditorSetViewModel: ObservableObject {
 
     init(
         setDocument: SetDocumentProtocol,
+        subscriptionService: SubscriptionsServiceProtocol,
         dataviewService: DataviewServiceProtocol,
         searchService: SearchServiceProtocol,
         detailsService: DetailsServiceProtocol,
@@ -108,6 +109,7 @@ final class EditorSetViewModel: ObservableObject {
         setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol
     ) {
         self.setDocument = setDocument
+        self.subscriptionService = subscriptionService
         self.dataviewService = dataviewService
         self.searchService = searchService
         self.detailsService = detailsService
@@ -735,19 +737,20 @@ extension EditorSetViewModel {
 }
 
 extension EditorSetViewModel {
-    static let empty = EditorSetViewModel(
+    static let emptyPreview = EditorSetViewModel(
         setDocument: SetDocument(
             document: BaseDocument(objectId: "objectId"),
             blockId: nil,
             targetObjectID: nil,
-            relationDetailsStorage: ServiceLocator.shared.relationDetailsStorage()
+            relationDetailsStorage: DI.preview.serviceLocator.relationDetailsStorage()
         ),
+        subscriptionService: DI.preview.serviceLocator.subscriptionService(),
         dataviewService: DataviewService(objectId: "objectId", blockId: "blockId", prefilledFieldsBuilder: SetPrefilledFieldsBuilder()),
-        searchService: ServiceLocator.shared.searchService(),
+        searchService: DI.preview.serviceLocator.searchService(),
         detailsService: DetailsService(objectId: "objectId", service: ObjectActionsService()),
-        objectActionsService: ServiceLocator.shared.objectActionsService(),
+        objectActionsService: DI.preview.serviceLocator.objectActionsService(),
         textService: TextService(),
-        groupsSubscriptionsHandler: ServiceLocator.shared.groupsSubscriptionsHandler(),
+        groupsSubscriptionsHandler: DI.preview.serviceLocator.groupsSubscriptionsHandler(),
         setSubscriptionDataBuilder: SetSubscriptionDataBuilder()
     )
 }
