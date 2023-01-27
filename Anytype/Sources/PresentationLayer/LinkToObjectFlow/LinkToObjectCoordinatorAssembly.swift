@@ -24,10 +24,10 @@ final class LinkToObjectCoordinatorAssembly: LinkToObjectCoordinatorAssemblyProt
     func make(browserController: EditorBrowserController?) -> LinkToObjectCoordinatorProtocol {
         
         let coordinator = LinkToObjectCoordinator(
-            navigationContext: uiHelopersDI.commonNavigationContext,
+            navigationContext: uiHelopersDI.commonNavigationContext(),
             pageService: serviceLocator.pageService(),
             urlOpener: URLOpener(viewController: browserController),
-            editorPageCoordinator: coordinatorsID.editorPage.make(
+            editorPageCoordinator: coordinatorsID.editorPage().make(
                 browserController: browserController
             ),
             searchService: serviceLocator.searchService()

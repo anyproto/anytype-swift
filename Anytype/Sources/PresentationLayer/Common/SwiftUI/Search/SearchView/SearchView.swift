@@ -101,7 +101,7 @@ struct HomeSearchView_Previews: PreviewProvider {
         SearchView(
             title: "FOoo",
             context: .general,
-            viewModel: ObjectSearchViewModel(searchService: ServiceLocator.shared.searchService()) { _ in }
+            viewModel: ObjectSearchViewModel(searchService: DI.preview.serviceLocator.searchService()) { _ in }
         )
     }
 }

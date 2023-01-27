@@ -53,7 +53,7 @@ struct PersonalizationView_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
             Color.System.blue
-            PersonalizationView(newSearchModuleAssembly: DI.makeForPreview().modulesDI.newSearch)
+            PersonalizationView(newSearchModuleAssembly: DI.preview.modulesDI.newSearch())
         }
     }
 }

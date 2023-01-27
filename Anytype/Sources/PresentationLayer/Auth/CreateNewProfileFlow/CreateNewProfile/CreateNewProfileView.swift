@@ -112,9 +112,9 @@ struct CreateNewProfileView_Previews: PreviewProvider {
     static var previews: some View {
         CreateNewProfileView(
             viewModel: CreateNewProfileViewModel(
-                windowManager: DI.makeForPreview().coordinatorsDI.windowManager,
-                authService: DI.makeForPreview().serviceLocator.authService(),
-                seedService: DI.makeForPreview().serviceLocator.seedService()
+                windowManager: DI.preview.coordinatorsDI.windowManager(),
+                authService: DI.preview.serviceLocator.authService(),
+                seedService: DI.preview.serviceLocator.seedService()
             ),
             showCreateNewProfile: .constant(true)
         )

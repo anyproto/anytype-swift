@@ -26,12 +26,13 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
     private lazy var navigationView: EditorBottomNavigationView = createNavigationView()
     private var navigationViewBottomConstaint: NSLayoutConstraint?
     
-    private let dashboardService = ServiceLocator.shared.dashboardService()
+    private let dashboardService: DashboardServiceProtocol
     private let stateManager = BrowserNavigationManager()
     private let browserView = EditorBrowserView()
     private var isNavigationViewHidden = false
     
-    init() {
+    init(dashboardService: DashboardServiceProtocol) {
+        self.dashboardService = dashboardService
         super.init(nibName: nil, bundle: nil)
     }
 

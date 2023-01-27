@@ -30,13 +30,13 @@ final class HomeWidgetsCoordinatorAssembly: HomeWidgetsCoordinatorAssemblyProtoc
     @MainActor
     func make() -> HomeWidgetsCoordinatorProtocol {
         return HomeWidgetsCoordinator(
-            homeWidgetsModuleAssembly: modulesDI.homeWidgets,
+            homeWidgetsModuleAssembly: modulesDI.homeWidgets(),
             accountManager: serviceLocator.accountManager(),
-            navigationContext: uiHelpersDI.commonNavigationContext,
-            windowManager: coordinatorsID.windowManager,
-            createWidgetCoordinator: coordinatorsID.createWidget.make(),
-            objectIconPickerModuleAssembly: modulesDI.objectIconPicker,
-            editorBrowserAssembly: coordinatorsID.browser
+            navigationContext: uiHelpersDI.commonNavigationContext(),
+            windowManager: coordinatorsID.windowManager(),
+            createWidgetCoordinator: coordinatorsID.createWidget().make(),
+            objectIconPickerModuleAssembly: modulesDI.objectIconPicker(),
+            editorBrowserAssembly: coordinatorsID.browser()
         )
     }
 }

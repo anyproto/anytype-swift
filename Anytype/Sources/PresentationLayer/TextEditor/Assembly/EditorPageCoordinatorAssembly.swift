@@ -23,7 +23,7 @@ final class EditorPageCoordinatorAssembly: EditorPageCoordinatorAssemblyProtocol
     
         let coordinator = EditorPageCoordinator(
             browserController: browserController,
-            editorAssembly: coordinatorsID.editor,
+            editorAssembly: coordinatorsID.editor(),
             alertHelper: AlertHelper(viewController: browserController)
         )
         

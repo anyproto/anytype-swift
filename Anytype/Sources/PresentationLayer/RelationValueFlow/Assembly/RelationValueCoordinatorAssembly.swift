@@ -18,9 +18,9 @@ final class RelationValueCoordinatorAssembly: RelationValueCoordinatorAssemblyPr
     func make() -> RelationValueCoordinatorProtocol {
         
         let coordinator = RelationValueCoordinator(
-            navigationContext: uiHelpersDI.commonNavigationContext,
-            relationValueModuleAssembly: modulesDI.relationValue,
-            urlOpener: URLOpener(viewController: uiHelpersDI.viewControllerProvider.rootViewController)
+            navigationContext: uiHelpersDI.commonNavigationContext(),
+            relationValueModuleAssembly: modulesDI.relationValue(),
+            urlOpener: URLOpener(viewController: uiHelpersDI.viewControllerProvider().rootViewController)
         )
         
         return coordinator
