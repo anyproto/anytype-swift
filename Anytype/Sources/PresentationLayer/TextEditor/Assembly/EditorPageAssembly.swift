@@ -186,7 +186,9 @@ final class EditorAssembly {
             documentId: document.objectId,
             listService: listService,
             singleService: singleService,
+            objectActionService: serviceLocator.objectActionsService(),
             modelsHolder: modelsHolder,
+            bookmarkService: serviceLocator.bookmarkService(),
             cursorManager: cursorManager
         )
         let keyboardHandler = KeyboardActionHandler(

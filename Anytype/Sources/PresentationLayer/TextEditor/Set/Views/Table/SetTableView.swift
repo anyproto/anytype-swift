@@ -99,7 +99,7 @@ struct SetTableView: View {
 struct SetTableView_Previews: PreviewProvider {
     static var previews: some View {
         SetTableView(
-            model: EditorSetViewModel.empty,
+            model: EditorSetViewModel.emptyPreview,
             tableHeaderSize: .constant(.zero),
             offset: .constant(.zero),
             headerMinimizedSize: .zero

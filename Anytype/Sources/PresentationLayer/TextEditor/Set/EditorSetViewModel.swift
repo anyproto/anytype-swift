@@ -735,19 +735,19 @@ extension EditorSetViewModel {
 }
 
 extension EditorSetViewModel {
-    static let empty = EditorSetViewModel(
+    static let emptyPreview = EditorSetViewModel(
         setDocument: SetDocument(
             document: BaseDocument(objectId: "objectId"),
             blockId: nil,
             targetObjectID: nil,
-            relationDetailsStorage: ServiceLocator.shared.relationDetailsStorage()
+            relationDetailsStorage: DI.preview.serviceLocator.relationDetailsStorage()
         ),
         dataviewService: DataviewService(objectId: "objectId", blockId: "blockId", prefilledFieldsBuilder: SetPrefilledFieldsBuilder()),
-        searchService: ServiceLocator.shared.searchService(),
+        searchService: DI.preview.serviceLocator.searchService(),
         detailsService: DetailsService(objectId: "objectId", service: ObjectActionsService()),
-        objectActionsService: ServiceLocator.shared.objectActionsService(),
+        objectActionsService: DI.preview.serviceLocator.objectActionsService(),
         textService: TextService(),
-        groupsSubscriptionsHandler: ServiceLocator.shared.groupsSubscriptionsHandler(),
+        groupsSubscriptionsHandler: DI.preview.serviceLocator.groupsSubscriptionsHandler(),
         setSubscriptionDataBuilder: SetSubscriptionDataBuilder()
     )
 }
