@@ -5,7 +5,7 @@ public extension FeatureDescription {
     static let setKanbanView = FeatureDescription(
         title: "Set kanban view",
         author: "joe_pusya@anytype.io",
-        releaseVersion: "0.21.0",
+        releaseVersion: "0.?.0",
         defaultValue: false,
         debugValue: false
     )
