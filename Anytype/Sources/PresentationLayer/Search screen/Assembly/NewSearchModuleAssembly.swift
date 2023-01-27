@@ -24,7 +24,8 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         let interactor = StatusSearchInteractor(
             relationKey: relationKey,
             selectedStatusesIds: selectedStatusesIds,
-            isPreselectModeAvailable: selectionMode.isPreselectModeAvailable
+            isPreselectModeAvailable: selectionMode.isPreselectModeAvailable,
+            searchService: serviceLocator.searchService()
         )
         
         let internalViewModel = StatusSearchViewModel(
@@ -53,7 +54,8 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         let interactor = TagsSearchInteractor(
             relationKey: relationKey,
             selectedTagIds: selectedTagIds,
-            isPreselectModeAvailable: selectionMode.isPreselectModeAvailable
+            isPreselectModeAvailable: selectionMode.isPreselectModeAvailable,
+            searchService: serviceLocator.searchService()
         )
         
         let internalViewModel = TagsSearchViewModel(

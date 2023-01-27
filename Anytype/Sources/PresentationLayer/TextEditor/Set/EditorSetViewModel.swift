@@ -85,7 +85,7 @@ final class EditorSetViewModel: ObservableObject {
     private var router: EditorSetRouterProtocol?
     
     let paginationHelper = EditorSetPaginationHelper()
-    private let subscriptionService = ServiceLocator.shared.subscriptionService()
+    private let subscriptionService: SubscriptionsServiceProtocol
     private let dataBuilder = SetContentViewDataBuilder()
     private let dataviewService: DataviewServiceProtocol
     private let searchService: SearchServiceProtocol
@@ -99,6 +99,7 @@ final class EditorSetViewModel: ObservableObject {
 
     init(
         setDocument: SetDocumentProtocol,
+        subscriptionService: SubscriptionsServiceProtocol,
         dataviewService: DataviewServiceProtocol,
         searchService: SearchServiceProtocol,
         detailsService: DetailsServiceProtocol,
@@ -108,6 +109,7 @@ final class EditorSetViewModel: ObservableObject {
         setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol
     ) {
         self.setDocument = setDocument
+        self.subscriptionService = subscriptionService
         self.dataviewService = dataviewService
         self.searchService = searchService
         self.detailsService = detailsService
@@ -742,6 +744,7 @@ extension EditorSetViewModel {
             targetObjectID: nil,
             relationDetailsStorage: DI.preview.serviceLocator.relationDetailsStorage()
         ),
+        subscriptionService: DI.preview.serviceLocator.subscriptionService(),
         dataviewService: DataviewService(objectId: "objectId", blockId: "blockId", prefilledFieldsBuilder: SetPrefilledFieldsBuilder()),
         searchService: DI.preview.serviceLocator.searchService(),
         detailsService: DetailsService(objectId: "objectId", service: ObjectActionsService()),

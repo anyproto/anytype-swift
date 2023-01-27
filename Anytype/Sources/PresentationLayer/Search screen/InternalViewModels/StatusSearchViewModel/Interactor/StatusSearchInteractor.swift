@@ -6,16 +6,18 @@ final class StatusSearchInteractor {
     private let relationKey: String
     private let selectedStatusesIds: [String]
     private let isPreselectModeAvailable: Bool
-    private let searchService = ServiceLocator.shared.searchService()
+    private let searchService: SearchServiceProtocol
     
     init(
         relationKey: String,
         selectedStatusesIds: [String],
-        isPreselectModeAvailable: Bool
+        isPreselectModeAvailable: Bool,
+        searchService: SearchServiceProtocol
     ) {
         self.relationKey = relationKey
         self.selectedStatusesIds = selectedStatusesIds
         self.isPreselectModeAvailable = isPreselectModeAvailable
+        self.searchService = searchService
     }
     
 }

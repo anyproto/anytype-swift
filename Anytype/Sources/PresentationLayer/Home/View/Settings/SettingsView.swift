@@ -24,7 +24,7 @@ struct SettingsView_Previews: PreviewProvider {
             SettingsView()
                 .environmentObject(
                     SettingsViewModel(
-                        authService: ServiceLocator.shared.authService(),
+                        authService: DI.preview.serviceLocator.authService(),
                         windowManager: DI.preview.coordinatorsDI.windowManager()
                     )
                 )

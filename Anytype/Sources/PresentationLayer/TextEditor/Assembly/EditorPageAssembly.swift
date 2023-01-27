@@ -68,6 +68,7 @@ final class EditorAssembly {
         
         let model = EditorSetViewModel(
             setDocument: setDocument,
+            subscriptionService: serviceLocator.subscriptionService(),
             dataviewService: dataviewService,
             searchService: serviceLocator.searchService(),
             detailsService: detailsService,

@@ -162,7 +162,7 @@ struct SetViewTypesPicker_Previews: PreviewProvider {
                     blockId: "blockId",
                     prefilledFieldsBuilder: SetPrefilledFieldsBuilder()
                 ),
-                relationDetailsStorage: ServiceLocator.shared.relationDetailsStorage()
+                relationDetailsStorage: DI.preview.serviceLocator.relationDetailsStorage()
             )
         )
     }
