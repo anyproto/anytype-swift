@@ -96,7 +96,7 @@ private extension ApplicationCoordinator {
             windowManager.showDeletedAccountWindow(deadline: deadline)
         case .deleted:
             if UserDefaultsConfig.usersId.isNotEmpty {
-                ServiceLocator.shared.authService().logout(removeData: true) { _ in }
+                authService.logout(removeData: true) { _ in }
                 windowManager.showAuthWindow()
             }
         }

@@ -4,9 +4,11 @@ import BlocksModels
 final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
  
     private let uiHelpersDI: UIHelpersDIProtocol
+    private let serviceLocator: ServiceLocator
     
-    init(uiHelpersDI: UIHelpersDIProtocol) {
+    init(uiHelpersDI: UIHelpersDIProtocol, serviceLocator: ServiceLocator) {
         self.uiHelpersDI = uiHelpersDI
+        self.serviceLocator = serviceLocator
     }
     
     // MARK: - NewSearchModuleAssemblyProtocol
@@ -78,7 +80,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         onSelect: @escaping (_ ids: [String]) -> Void
     ) -> NewSearchView {
         let interactor = ObjectsSearchInteractor(
-            searchService: ServiceLocator.shared.searchService(),
+            searchService: serviceLocator.searchService(),
             excludedObjectIds: excludedObjectIds,
             limitedObjectType: limitedObjectType
         )
@@ -104,7 +106,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         onSelect: @escaping (_ ids: [String]) -> Void
     ) -> NewSearchView {
         let interactor = FilesSearchInteractor(
-            searchService: ServiceLocator.shared.searchService(),
+            searchService: serviceLocator.searchService(),
             excludedFileIds: excludedFileIds
         )
         
@@ -133,8 +135,8 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         onSelect: @escaping (_ type: ObjectType) -> Void
     ) -> NewSearchView {
         let interactor = ObjectTypesSearchInteractor(
-            searchService: ServiceLocator.shared.searchService(),
-            workspaceService: ServiceLocator.shared.workspaceService(),
+            searchService: serviceLocator.searchService(),
+            workspaceService: serviceLocator.workspaceService(),
             excludedObjectTypeId: excludedObjectTypeId,
             showBookmark: showBookmark,
             showSet: showSet
@@ -162,8 +164,8 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         onSelect: @escaping (_ ids: [String]) -> Void
     ) -> NewSearchView {
         let interactor = ObjectTypesSearchInteractor(
-            searchService: ServiceLocator.shared.searchService(),
-            workspaceService: ServiceLocator.shared.workspaceService(),
+            searchService: serviceLocator.searchService(),
+            workspaceService: serviceLocator.workspaceService(),
             excludedObjectTypeId: nil,
             showBookmark: false,
             showSet: false
@@ -191,7 +193,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         onSelect: @escaping (_ details: ObjectDetails) -> Void
     ) -> NewSearchView {
         let interactor = BlockObjectsSearchInteractor(
-            searchService: ServiceLocator.shared.searchService(),
+            searchService: serviceLocator.searchService(),
             excludedObjectIds: excludedObjectIds
         )
 
@@ -243,8 +245,8 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
     ) -> NewSearchView {
         
         let interactor = RelationsSearchInteractor(
-            searchService: ServiceLocator.shared.searchService(),
-            workspaceService: ServiceLocator.shared.workspaceService(),
+            searchService: serviceLocator.searchService(),
+            workspaceService: serviceLocator.workspaceService(),
             relationsService: RelationsService(objectId: document.objectId)
         )
         

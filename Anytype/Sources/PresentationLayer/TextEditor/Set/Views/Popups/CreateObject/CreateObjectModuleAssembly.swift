@@ -37,7 +37,7 @@ final class CreateObjectModuleAssembly: CreateObjectModuleAssemblyProtocol {
     
     func makeCreateBookmark(closeAction: @escaping (_ withError: Bool) -> Void) -> UIViewController {
         let viewModel = CreateBookmarkViewModel(
-            bookmarkService: ServiceLocator.shared.bookmarkService(),
+            bookmarkService: serviceLocator.bookmarkService(),
             closeAction: closeAction
         )
         return make(viewModel: viewModel)
