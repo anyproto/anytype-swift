@@ -18886,7 +18886,7 @@ public struct Anytype_Rpc {
           /// id of view to update
           public var viewID: String = String()
 
-          public var filterIds: [String] = []
+          public var ids: [String] = []
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -18992,7 +18992,7 @@ public struct Anytype_Rpc {
           /// id of view to update
           public var viewID: String = String()
 
-          public var filterID: String = String()
+          public var id: String = String()
 
           public var filter: Anytype_Model_Block.Content.Dataview.Filter {
             get {return _filter ?? Anytype_Model_Block.Content.Dataview.Filter()}
@@ -19110,7 +19110,7 @@ public struct Anytype_Rpc {
           public var viewID: String = String()
 
           /// new order of filters
-          public var filterIds: [String] = []
+          public var ids: [String] = []
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -19341,7 +19341,7 @@ public struct Anytype_Rpc {
           /// id of view to update
           public var viewID: String = String()
 
-          public var relationKeys: [String] = []
+          public var ids: [String] = []
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -19447,7 +19447,7 @@ public struct Anytype_Rpc {
           /// id of view to update
           public var viewID: String = String()
 
-          public var relationKey: String = String()
+          public var id: String = String()
 
           public var sort: Anytype_Model_Block.Content.Dataview.Sort {
             get {return _sort ?? Anytype_Model_Block.Content.Dataview.Sort()}
@@ -19565,7 +19565,7 @@ public struct Anytype_Rpc {
           public var viewID: String = String()
 
           /// new order of sorts
-          public var relationKeys: [String] = []
+          public var ids: [String] = []
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -51202,7 +51202,7 @@ extension Anytype_Rpc.BlockDataview.Filter.Remove.Request: SwiftProtobuf.Message
     1: .same(proto: "contextId"),
     2: .same(proto: "blockId"),
     3: .same(proto: "viewId"),
-    4: .same(proto: "filterIds"),
+    4: .same(proto: "ids"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -51214,7 +51214,7 @@ extension Anytype_Rpc.BlockDataview.Filter.Remove.Request: SwiftProtobuf.Message
       case 1: try { try decoder.decodeSingularStringField(value: &self.contextID) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.blockID) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self.viewID) }()
-      case 4: try { try decoder.decodeRepeatedStringField(value: &self.filterIds) }()
+      case 4: try { try decoder.decodeRepeatedStringField(value: &self.ids) }()
       default: break
       }
     }
@@ -51230,8 +51230,8 @@ extension Anytype_Rpc.BlockDataview.Filter.Remove.Request: SwiftProtobuf.Message
     if !self.viewID.isEmpty {
       try visitor.visitSingularStringField(value: self.viewID, fieldNumber: 3)
     }
-    if !self.filterIds.isEmpty {
-      try visitor.visitRepeatedStringField(value: self.filterIds, fieldNumber: 4)
+    if !self.ids.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.ids, fieldNumber: 4)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -51240,7 +51240,7 @@ extension Anytype_Rpc.BlockDataview.Filter.Remove.Request: SwiftProtobuf.Message
     if lhs.contextID != rhs.contextID {return false}
     if lhs.blockID != rhs.blockID {return false}
     if lhs.viewID != rhs.viewID {return false}
-    if lhs.filterIds != rhs.filterIds {return false}
+    if lhs.ids != rhs.ids {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -51359,7 +51359,7 @@ extension Anytype_Rpc.BlockDataview.Filter.Replace.Request: SwiftProtobuf.Messag
     1: .same(proto: "contextId"),
     2: .same(proto: "blockId"),
     3: .same(proto: "viewId"),
-    4: .same(proto: "filterId"),
+    4: .same(proto: "id"),
     5: .same(proto: "filter"),
   ]
 
@@ -51372,7 +51372,7 @@ extension Anytype_Rpc.BlockDataview.Filter.Replace.Request: SwiftProtobuf.Messag
       case 1: try { try decoder.decodeSingularStringField(value: &self.contextID) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.blockID) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self.viewID) }()
-      case 4: try { try decoder.decodeSingularStringField(value: &self.filterID) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.id) }()
       case 5: try { try decoder.decodeSingularMessageField(value: &self._filter) }()
       default: break
       }
@@ -51393,8 +51393,8 @@ extension Anytype_Rpc.BlockDataview.Filter.Replace.Request: SwiftProtobuf.Messag
     if !self.viewID.isEmpty {
       try visitor.visitSingularStringField(value: self.viewID, fieldNumber: 3)
     }
-    if !self.filterID.isEmpty {
-      try visitor.visitSingularStringField(value: self.filterID, fieldNumber: 4)
+    if !self.id.isEmpty {
+      try visitor.visitSingularStringField(value: self.id, fieldNumber: 4)
     }
     try { if let v = self._filter {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
@@ -51406,7 +51406,7 @@ extension Anytype_Rpc.BlockDataview.Filter.Replace.Request: SwiftProtobuf.Messag
     if lhs.contextID != rhs.contextID {return false}
     if lhs.blockID != rhs.blockID {return false}
     if lhs.viewID != rhs.viewID {return false}
-    if lhs.filterID != rhs.filterID {return false}
+    if lhs.id != rhs.id {return false}
     if lhs._filter != rhs._filter {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
@@ -51526,7 +51526,7 @@ extension Anytype_Rpc.BlockDataview.Filter.Sort.Request: SwiftProtobuf.Message, 
     1: .same(proto: "contextId"),
     2: .same(proto: "blockId"),
     3: .same(proto: "viewId"),
-    4: .same(proto: "filterIds"),
+    4: .same(proto: "ids"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -51538,7 +51538,7 @@ extension Anytype_Rpc.BlockDataview.Filter.Sort.Request: SwiftProtobuf.Message, 
       case 1: try { try decoder.decodeSingularStringField(value: &self.contextID) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.blockID) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self.viewID) }()
-      case 4: try { try decoder.decodeRepeatedStringField(value: &self.filterIds) }()
+      case 4: try { try decoder.decodeRepeatedStringField(value: &self.ids) }()
       default: break
       }
     }
@@ -51554,8 +51554,8 @@ extension Anytype_Rpc.BlockDataview.Filter.Sort.Request: SwiftProtobuf.Message, 
     if !self.viewID.isEmpty {
       try visitor.visitSingularStringField(value: self.viewID, fieldNumber: 3)
     }
-    if !self.filterIds.isEmpty {
-      try visitor.visitRepeatedStringField(value: self.filterIds, fieldNumber: 4)
+    if !self.ids.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.ids, fieldNumber: 4)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -51564,7 +51564,7 @@ extension Anytype_Rpc.BlockDataview.Filter.Sort.Request: SwiftProtobuf.Message, 
     if lhs.contextID != rhs.contextID {return false}
     if lhs.blockID != rhs.blockID {return false}
     if lhs.viewID != rhs.viewID {return false}
-    if lhs.filterIds != rhs.filterIds {return false}
+    if lhs.ids != rhs.ids {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -51863,7 +51863,7 @@ extension Anytype_Rpc.BlockDataview.Sort.Remove.Request: SwiftProtobuf.Message, 
     1: .same(proto: "contextId"),
     2: .same(proto: "blockId"),
     3: .same(proto: "viewId"),
-    4: .same(proto: "relationKeys"),
+    4: .same(proto: "ids"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -51875,7 +51875,7 @@ extension Anytype_Rpc.BlockDataview.Sort.Remove.Request: SwiftProtobuf.Message, 
       case 1: try { try decoder.decodeSingularStringField(value: &self.contextID) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.blockID) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self.viewID) }()
-      case 4: try { try decoder.decodeRepeatedStringField(value: &self.relationKeys) }()
+      case 4: try { try decoder.decodeRepeatedStringField(value: &self.ids) }()
       default: break
       }
     }
@@ -51891,8 +51891,8 @@ extension Anytype_Rpc.BlockDataview.Sort.Remove.Request: SwiftProtobuf.Message, 
     if !self.viewID.isEmpty {
       try visitor.visitSingularStringField(value: self.viewID, fieldNumber: 3)
     }
-    if !self.relationKeys.isEmpty {
-      try visitor.visitRepeatedStringField(value: self.relationKeys, fieldNumber: 4)
+    if !self.ids.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.ids, fieldNumber: 4)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -51901,7 +51901,7 @@ extension Anytype_Rpc.BlockDataview.Sort.Remove.Request: SwiftProtobuf.Message, 
     if lhs.contextID != rhs.contextID {return false}
     if lhs.blockID != rhs.blockID {return false}
     if lhs.viewID != rhs.viewID {return false}
-    if lhs.relationKeys != rhs.relationKeys {return false}
+    if lhs.ids != rhs.ids {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -52020,7 +52020,7 @@ extension Anytype_Rpc.BlockDataview.Sort.Replace.Request: SwiftProtobuf.Message,
     1: .same(proto: "contextId"),
     2: .same(proto: "blockId"),
     3: .same(proto: "viewId"),
-    4: .same(proto: "relationKey"),
+    4: .same(proto: "id"),
     5: .same(proto: "sort"),
   ]
 
@@ -52033,7 +52033,7 @@ extension Anytype_Rpc.BlockDataview.Sort.Replace.Request: SwiftProtobuf.Message,
       case 1: try { try decoder.decodeSingularStringField(value: &self.contextID) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.blockID) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self.viewID) }()
-      case 4: try { try decoder.decodeSingularStringField(value: &self.relationKey) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.id) }()
       case 5: try { try decoder.decodeSingularMessageField(value: &self._sort) }()
       default: break
       }
@@ -52054,8 +52054,8 @@ extension Anytype_Rpc.BlockDataview.Sort.Replace.Request: SwiftProtobuf.Message,
     if !self.viewID.isEmpty {
       try visitor.visitSingularStringField(value: self.viewID, fieldNumber: 3)
     }
-    if !self.relationKey.isEmpty {
-      try visitor.visitSingularStringField(value: self.relationKey, fieldNumber: 4)
+    if !self.id.isEmpty {
+      try visitor.visitSingularStringField(value: self.id, fieldNumber: 4)
     }
     try { if let v = self._sort {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
@@ -52067,7 +52067,7 @@ extension Anytype_Rpc.BlockDataview.Sort.Replace.Request: SwiftProtobuf.Message,
     if lhs.contextID != rhs.contextID {return false}
     if lhs.blockID != rhs.blockID {return false}
     if lhs.viewID != rhs.viewID {return false}
-    if lhs.relationKey != rhs.relationKey {return false}
+    if lhs.id != rhs.id {return false}
     if lhs._sort != rhs._sort {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
@@ -52187,7 +52187,7 @@ extension Anytype_Rpc.BlockDataview.Sort.Sort.Request: SwiftProtobuf.Message, Sw
     1: .same(proto: "contextId"),
     2: .same(proto: "blockId"),
     3: .same(proto: "viewId"),
-    4: .same(proto: "relationKeys"),
+    4: .same(proto: "ids"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -52199,7 +52199,7 @@ extension Anytype_Rpc.BlockDataview.Sort.Sort.Request: SwiftProtobuf.Message, Sw
       case 1: try { try decoder.decodeSingularStringField(value: &self.contextID) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.blockID) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self.viewID) }()
-      case 4: try { try decoder.decodeRepeatedStringField(value: &self.relationKeys) }()
+      case 4: try { try decoder.decodeRepeatedStringField(value: &self.ids) }()
       default: break
       }
     }
@@ -52215,8 +52215,8 @@ extension Anytype_Rpc.BlockDataview.Sort.Sort.Request: SwiftProtobuf.Message, Sw
     if !self.viewID.isEmpty {
       try visitor.visitSingularStringField(value: self.viewID, fieldNumber: 3)
     }
-    if !self.relationKeys.isEmpty {
-      try visitor.visitRepeatedStringField(value: self.relationKeys, fieldNumber: 4)
+    if !self.ids.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.ids, fieldNumber: 4)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -52225,7 +52225,7 @@ extension Anytype_Rpc.BlockDataview.Sort.Sort.Request: SwiftProtobuf.Message, Sw
     if lhs.contextID != rhs.contextID {return false}
     if lhs.blockID != rhs.blockID {return false}
     if lhs.viewID != rhs.viewID {return false}
-    if lhs.relationKeys != rhs.relationKeys {return false}
+    if lhs.ids != rhs.ids {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

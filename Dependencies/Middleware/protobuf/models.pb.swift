@@ -1698,6 +1698,8 @@ public struct Anytype_Model_Block {
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
+        public var id: String = String()
+
         public var relationKey: String = String()
 
         public var type: Anytype_Model_Block.Content.Dataview.Sort.TypeEnum = .asc
@@ -5313,6 +5315,7 @@ extension Anytype_Model_Block.Content.Dataview.Relation.TimeFormat: SwiftProtobu
 extension Anytype_Model_Block.Content.Dataview.Sort: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Model_Block.Content.Dataview.protoMessageName + ".Sort"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    6: .same(proto: "id"),
     1: .same(proto: "RelationKey"),
     2: .same(proto: "type"),
     3: .same(proto: "customOrder"),
@@ -5331,6 +5334,7 @@ extension Anytype_Model_Block.Content.Dataview.Sort: SwiftProtobuf.Message, Swif
       case 3: try { try decoder.decodeRepeatedMessageField(value: &self.customOrder) }()
       case 4: try { try decoder.decodeSingularEnumField(value: &self.format) }()
       case 5: try { try decoder.decodeSingularBoolField(value: &self.includeTime) }()
+      case 6: try { try decoder.decodeSingularStringField(value: &self.id) }()
       default: break
       }
     }
@@ -5352,10 +5356,14 @@ extension Anytype_Model_Block.Content.Dataview.Sort: SwiftProtobuf.Message, Swif
     if self.includeTime != false {
       try visitor.visitSingularBoolField(value: self.includeTime, fieldNumber: 5)
     }
+    if !self.id.isEmpty {
+      try visitor.visitSingularStringField(value: self.id, fieldNumber: 6)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Model_Block.Content.Dataview.Sort, rhs: Anytype_Model_Block.Content.Dataview.Sort) -> Bool {
+    if lhs.id != rhs.id {return false}
     if lhs.relationKey != rhs.relationKey {return false}
     if lhs.type != rhs.type {return false}
     if lhs.customOrder != rhs.customOrder {return false}

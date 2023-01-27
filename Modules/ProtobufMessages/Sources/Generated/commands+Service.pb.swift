@@ -3598,14 +3598,14 @@ extension Anytype_Rpc.BlockDataview.Filter.Add {
 
 extension Anytype_Rpc.BlockDataview.Filter.Remove {
   public enum Service {
-    public static func invoke(contextID: String = String(), blockID: String = String(), viewID: String = String(), filterIds: [String] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
-        return invocation(contextID: contextID, blockID: blockID, viewID: viewID, filterIds: filterIds).invoke(on: queue)
+    public static func invoke(contextID: String = String(), blockID: String = String(), viewID: String = String(), ids: [String] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(contextID: contextID, blockID: blockID, viewID: viewID, ids: ids).invoke(on: queue)
     }
-    public static func invoke(contextID: String = String(), blockID: String = String(), viewID: String = String(), filterIds: [String] = []) -> Result<Response, Error> {
-        return invocation(contextID: contextID, blockID: blockID, viewID: viewID, filterIds: filterIds).invoke()
+    public static func invoke(contextID: String = String(), blockID: String = String(), viewID: String = String(), ids: [String] = []) -> Result<Response, Error> {
+        return invocation(contextID: contextID, blockID: blockID, viewID: viewID, ids: ids).invoke()
     }
-    public static func invocation(contextID: String = String(), blockID: String = String(), viewID: String = String(), filterIds: [String] = []) -> ProtobufMessages.Invocation<Request, Response> {
-        let request = Request(contextID: contextID, blockID: blockID, viewID: viewID, filterIds: filterIds)
+    public static func invocation(contextID: String = String(), blockID: String = String(), viewID: String = String(), ids: [String] = []) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockID: blockID, viewID: viewID, ids: ids)
         return Invocation<Request,Response>(messageName: "BlockDataviewFilterRemove", request: request) { request in
             return self.invoke(request)
         }
@@ -3620,14 +3620,14 @@ extension Anytype_Rpc.BlockDataview.Filter.Remove {
 
 extension Anytype_Rpc.BlockDataview.Filter.Replace {
   public enum Service {
-    public static func invoke(contextID: String = String(), blockID: String = String(), viewID: String = String(), filterID: String = String(), filter: Anytype_Model_Block.Content.Dataview.Filter, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-        return invocation(contextID: contextID, blockID: blockID, viewID: viewID, filterID: filterID, filter: filter).invoke(on: queue)
+    public static func invoke(contextID: String = String(), blockID: String = String(), viewID: String = String(), id: String = String(), filter: Anytype_Model_Block.Content.Dataview.Filter, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(contextID: contextID, blockID: blockID, viewID: viewID, id: id, filter: filter).invoke(on: queue)
     }
-    public static func invoke(contextID: String = String(), blockID: String = String(), viewID: String = String(), filterID: String = String(), filter: Anytype_Model_Block.Content.Dataview.Filter) -> Result<Response, Error> {
-        return invocation(contextID: contextID, blockID: blockID, viewID: viewID, filterID: filterID, filter: filter).invoke()
+    public static func invoke(contextID: String = String(), blockID: String = String(), viewID: String = String(), id: String = String(), filter: Anytype_Model_Block.Content.Dataview.Filter) -> Result<Response, Error> {
+        return invocation(contextID: contextID, blockID: blockID, viewID: viewID, id: id, filter: filter).invoke()
     }
-    public static func invocation(contextID: String = String(), blockID: String = String(), viewID: String = String(), filterID: String = String(), filter: Anytype_Model_Block.Content.Dataview.Filter) -> ProtobufMessages.Invocation<Request, Response> {
-        let request = Request(contextID: contextID, blockID: blockID, viewID: viewID, filterID: filterID, filter: filter)
+    public static func invocation(contextID: String = String(), blockID: String = String(), viewID: String = String(), id: String = String(), filter: Anytype_Model_Block.Content.Dataview.Filter) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockID: blockID, viewID: viewID, id: id, filter: filter)
         return Invocation<Request,Response>(messageName: "BlockDataviewFilterReplace", request: request) { request in
             return self.invoke(request)
         }
@@ -3642,14 +3642,14 @@ extension Anytype_Rpc.BlockDataview.Filter.Replace {
 
 extension Anytype_Rpc.BlockDataview.Filter.Sort {
   public enum Service {
-    public static func invoke(contextID: String = String(), blockID: String = String(), viewID: String = String(), filterIds: [String] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
-        return invocation(contextID: contextID, blockID: blockID, viewID: viewID, filterIds: filterIds).invoke(on: queue)
+    public static func invoke(contextID: String = String(), blockID: String = String(), viewID: String = String(), ids: [String] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(contextID: contextID, blockID: blockID, viewID: viewID, ids: ids).invoke(on: queue)
     }
-    public static func invoke(contextID: String = String(), blockID: String = String(), viewID: String = String(), filterIds: [String] = []) -> Result<Response, Error> {
-        return invocation(contextID: contextID, blockID: blockID, viewID: viewID, filterIds: filterIds).invoke()
+    public static func invoke(contextID: String = String(), blockID: String = String(), viewID: String = String(), ids: [String] = []) -> Result<Response, Error> {
+        return invocation(contextID: contextID, blockID: blockID, viewID: viewID, ids: ids).invoke()
     }
-    public static func invocation(contextID: String = String(), blockID: String = String(), viewID: String = String(), filterIds: [String] = []) -> ProtobufMessages.Invocation<Request, Response> {
-        let request = Request(contextID: contextID, blockID: blockID, viewID: viewID, filterIds: filterIds)
+    public static func invocation(contextID: String = String(), blockID: String = String(), viewID: String = String(), ids: [String] = []) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockID: blockID, viewID: viewID, ids: ids)
         return Invocation<Request,Response>(messageName: "BlockDataviewFilterSort", request: request) { request in
             return self.invoke(request)
         }
@@ -3686,14 +3686,14 @@ extension Anytype_Rpc.BlockDataview.Sort.Add {
 
 extension Anytype_Rpc.BlockDataview.Sort.Remove {
   public enum Service {
-    public static func invoke(contextID: String = String(), blockID: String = String(), viewID: String = String(), relationKeys: [String] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
-        return invocation(contextID: contextID, blockID: blockID, viewID: viewID, relationKeys: relationKeys).invoke(on: queue)
+    public static func invoke(contextID: String = String(), blockID: String = String(), viewID: String = String(), ids: [String] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(contextID: contextID, blockID: blockID, viewID: viewID, ids: ids).invoke(on: queue)
     }
-    public static func invoke(contextID: String = String(), blockID: String = String(), viewID: String = String(), relationKeys: [String] = []) -> Result<Response, Error> {
-        return invocation(contextID: contextID, blockID: blockID, viewID: viewID, relationKeys: relationKeys).invoke()
+    public static func invoke(contextID: String = String(), blockID: String = String(), viewID: String = String(), ids: [String] = []) -> Result<Response, Error> {
+        return invocation(contextID: contextID, blockID: blockID, viewID: viewID, ids: ids).invoke()
     }
-    public static func invocation(contextID: String = String(), blockID: String = String(), viewID: String = String(), relationKeys: [String] = []) -> ProtobufMessages.Invocation<Request, Response> {
-        let request = Request(contextID: contextID, blockID: blockID, viewID: viewID, relationKeys: relationKeys)
+    public static func invocation(contextID: String = String(), blockID: String = String(), viewID: String = String(), ids: [String] = []) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockID: blockID, viewID: viewID, ids: ids)
         return Invocation<Request,Response>(messageName: "BlockDataviewSortRemove", request: request) { request in
             return self.invoke(request)
         }
@@ -3708,14 +3708,14 @@ extension Anytype_Rpc.BlockDataview.Sort.Remove {
 
 extension Anytype_Rpc.BlockDataview.Sort.Replace {
   public enum Service {
-    public static func invoke(contextID: String = String(), blockID: String = String(), viewID: String = String(), relationKey: String = String(), sort: Anytype_Model_Block.Content.Dataview.Sort, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-        return invocation(contextID: contextID, blockID: blockID, viewID: viewID, relationKey: relationKey, sort: sort).invoke(on: queue)
+    public static func invoke(contextID: String = String(), blockID: String = String(), viewID: String = String(), id: String = String(), sort: Anytype_Model_Block.Content.Dataview.Sort, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(contextID: contextID, blockID: blockID, viewID: viewID, id: id, sort: sort).invoke(on: queue)
     }
-    public static func invoke(contextID: String = String(), blockID: String = String(), viewID: String = String(), relationKey: String = String(), sort: Anytype_Model_Block.Content.Dataview.Sort) -> Result<Response, Error> {
-        return invocation(contextID: contextID, blockID: blockID, viewID: viewID, relationKey: relationKey, sort: sort).invoke()
+    public static func invoke(contextID: String = String(), blockID: String = String(), viewID: String = String(), id: String = String(), sort: Anytype_Model_Block.Content.Dataview.Sort) -> Result<Response, Error> {
+        return invocation(contextID: contextID, blockID: blockID, viewID: viewID, id: id, sort: sort).invoke()
     }
-    public static func invocation(contextID: String = String(), blockID: String = String(), viewID: String = String(), relationKey: String = String(), sort: Anytype_Model_Block.Content.Dataview.Sort) -> ProtobufMessages.Invocation<Request, Response> {
-        let request = Request(contextID: contextID, blockID: blockID, viewID: viewID, relationKey: relationKey, sort: sort)
+    public static func invocation(contextID: String = String(), blockID: String = String(), viewID: String = String(), id: String = String(), sort: Anytype_Model_Block.Content.Dataview.Sort) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockID: blockID, viewID: viewID, id: id, sort: sort)
         return Invocation<Request,Response>(messageName: "BlockDataviewSortReplace", request: request) { request in
             return self.invoke(request)
         }
@@ -3730,14 +3730,14 @@ extension Anytype_Rpc.BlockDataview.Sort.Replace {
 
 extension Anytype_Rpc.BlockDataview.Sort.Sort {
   public enum Service {
-    public static func invoke(contextID: String = String(), blockID: String = String(), viewID: String = String(), relationKeys: [String] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
-        return invocation(contextID: contextID, blockID: blockID, viewID: viewID, relationKeys: relationKeys).invoke(on: queue)
+    public static func invoke(contextID: String = String(), blockID: String = String(), viewID: String = String(), ids: [String] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(contextID: contextID, blockID: blockID, viewID: viewID, ids: ids).invoke(on: queue)
     }
-    public static func invoke(contextID: String = String(), blockID: String = String(), viewID: String = String(), relationKeys: [String] = []) -> Result<Response, Error> {
-        return invocation(contextID: contextID, blockID: blockID, viewID: viewID, relationKeys: relationKeys).invoke()
+    public static func invoke(contextID: String = String(), blockID: String = String(), viewID: String = String(), ids: [String] = []) -> Result<Response, Error> {
+        return invocation(contextID: contextID, blockID: blockID, viewID: viewID, ids: ids).invoke()
     }
-    public static func invocation(contextID: String = String(), blockID: String = String(), viewID: String = String(), relationKeys: [String] = []) -> ProtobufMessages.Invocation<Request, Response> {
-        let request = Request(contextID: contextID, blockID: blockID, viewID: viewID, relationKeys: relationKeys)
+    public static func invocation(contextID: String = String(), blockID: String = String(), viewID: String = String(), ids: [String] = []) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockID: blockID, viewID: viewID, ids: ids)
         return Invocation<Request,Response>(messageName: "BlockDataviewSortSort", request: request) { request in
             return self.invoke(request)
         }

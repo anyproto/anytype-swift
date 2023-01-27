@@ -1204,8 +1204,8 @@ internal enum Loc {
       internal static let selectQuery = Loc.tr("Localizable", "Set.SourceType.SelectQuery", fallback: "Select Query")
       internal enum Cancel {
         internal enum Toast {
-          /// This source can be changed on desktop only
-          internal static let title = Loc.tr("Localizable", "Set.SourceType.Cancel.Toast.Title", fallback: "This source can be changed on desktop only")
+          /// This query can be changed on desktop only
+          internal static let title = Loc.tr("Localizable", "Set.SourceType.Cancel.Toast.Title", fallback: "This query can be changed on desktop only")
         }
       }
     }
