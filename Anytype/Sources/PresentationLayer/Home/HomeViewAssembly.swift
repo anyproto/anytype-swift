@@ -16,11 +16,11 @@ final class HomeViewAssembly {
         let homeObjectId = AccountManager.shared.account.info.homeObjectID
         let model = HomeViewModel(
             homeBlockId: homeObjectId,
-            editorBrowserAssembly: coordinatorsDI.browser,
+            editorBrowserAssembly: coordinatorsDI.browser(),
             tabsSubsciptionDataBuilder: TabsSubscriptionDataBuilder(),
             profileSubsciptionDataBuilder: ProfileSubscriptionDataBuilder(),
-            newSearchModuleAssembly: modulesDI.newSearch,
-            windowManager: coordinatorsDI.windowManager
+            newSearchModuleAssembly: modulesDI.newSearch(),
+            windowManager: coordinatorsDI.windowManager()
         )
         return HomeView(model: model)
     }

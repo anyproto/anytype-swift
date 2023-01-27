@@ -1,5 +1,6 @@
 import Foundation
 import UIKit
+import AnytypeCore
 
 final class DI: DIProtocol {
     
@@ -34,7 +35,14 @@ final class DI: DIProtocol {
 
 
 extension DI {
-    static func makeForPreview() -> DIProtocol {
+    static var preview: DIProtocol {
+        if !isPreview {
+            anytypeAssertionFailure("Preview DI available only in debug", domain: .debug)
+        }
         return DI(viewControllerProvider: ViewControllerProvider(sceneWindow: UIWindow()))
+    }
+    
+    private static var isPreview: Bool {
+        return ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] == "1"
     }
 }

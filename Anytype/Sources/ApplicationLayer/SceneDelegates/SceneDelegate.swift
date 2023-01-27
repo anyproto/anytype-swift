@@ -25,7 +25,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let di: DIProtocol = DI(viewControllerProvider: viewControllerProvider)
         self.di = di
         
-        let applicationCoordinator = di.coordinatorsDI.application
+        let applicationCoordinator = di.coordinatorsDI.application()
         self.applicationCoordinator = applicationCoordinator
         
         applicationCoordinator.start(connectionOptions: connectionOptions)

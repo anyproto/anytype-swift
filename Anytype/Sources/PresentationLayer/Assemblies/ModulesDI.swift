@@ -14,55 +14,55 @@ final class ModulesDI: ModulesDIProtocol {
     
     // MARK: - ModulesDIProtocol
     
-    var relationValue: RelationValueModuleAssemblyProtocol {
+    func relationValue() -> RelationValueModuleAssemblyProtocol {
         return RelationValueModuleAssembly(modulesDI: self, serviceLocator: serviceLocator)
     }
     
-    var relationsList: RelationsListModuleAssemblyProtocol {
+    func relationsList() -> RelationsListModuleAssemblyProtocol {
         return RelationsListModuleAssembly()
     }
     
-    var undoRedo: UndoRedoModuleAssemblyProtocol {
+    func undoRedo() -> UndoRedoModuleAssemblyProtocol {
         return UndoRedoModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
     }
     
-    var objectLayoutPicker: ObjectLayoutPickerModuleAssemblyProtocol {
+    func objectLayoutPicker() -> ObjectLayoutPickerModuleAssemblyProtocol {
         return ObjectLayoutPickerModuleAssembly(serviceLocator: serviceLocator)
     }
     
-    var objectCoverPicker: ObjectCoverPickerModuleAssemblyProtocol {
+    func objectCoverPicker() -> ObjectCoverPickerModuleAssemblyProtocol {
         return ObjectCoverPickerModuleAssembly(serviceLocator: serviceLocator)
     }
     
-    var objectIconPicker: ObjectIconPickerModuleAssemblyProtocol {
+    func objectIconPicker() -> ObjectIconPickerModuleAssemblyProtocol {
         return ObjectIconPickerModuleAssembly(serviceLocator: serviceLocator)
     }
     
-    var objectSetting: ObjectSettingModuleAssemblyProtocol {
+    func objectSetting() -> ObjectSettingModuleAssemblyProtocol {
         return ObjectSettingModuleAssembly(serviceLocator: serviceLocator)
     }
     
-    var search: SearchModuleAssemblyProtocol {
+    func search() -> SearchModuleAssemblyProtocol {
         return SearchModuleAssembly(serviceLocator: serviceLocator)
     }
     
-    var createObject: CreateObjectModuleAssemblyProtocol {
+    func createObject() -> CreateObjectModuleAssemblyProtocol {
         return CreateObjectModuleAssembly(serviceLocator: serviceLocator)
     }
 
-    var codeLanguageList: CodeLanguageListModuleAssemblyProtocol {
+    func codeLanguageList() -> CodeLanguageListModuleAssemblyProtocol {
         return CodeLanguageListModuleAssembly(serviceLocator: serviceLocator)
     }
     
-    var newSearch: NewSearchModuleAssemblyProtocol {
+    func newSearch() -> NewSearchModuleAssemblyProtocol {
         return NewSearchModuleAssembly(uiHelpersDI: uiHelpersDI)
     }
     
-    var newRelation: NewRelationModuleAssemblyProtocol {
+    func newRelation() -> NewRelationModuleAssemblyProtocol {
         return NewRelationModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
     }
     
-    var homeWidgets: HomeWidgetsModuleAssemblyProtocol {
+    func homeWidgets() -> HomeWidgetsModuleAssemblyProtocol {
         return HomeWidgetsModuleAssembly(
             serviceLocator: serviceLocator,
             uiHelpersDI: uiHelpersDI,
@@ -70,7 +70,7 @@ final class ModulesDI: ModulesDIProtocol {
         )
     }
     
-    var textIconPicker: TextIconPickerModuleAssemblyProtocol {
+    func textIconPicker() -> TextIconPickerModuleAssemblyProtocol {
         return TextIconPickerModuleAssembly(serviceLocator: serviceLocator)
     }
 }

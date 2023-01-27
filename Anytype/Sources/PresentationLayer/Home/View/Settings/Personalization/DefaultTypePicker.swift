@@ -25,6 +25,6 @@ struct DefaultTypePicker: View {
 
 struct DefaultTypePicker_Previews: PreviewProvider {
     static var previews: some View {
-        DefaultTypePicker(newSearchModuleAssembly: DI.makeForPreview().modulesDI.newSearch)
+        DefaultTypePicker(newSearchModuleAssembly: DI.preview.modulesDI.newSearch())
     }
 }
