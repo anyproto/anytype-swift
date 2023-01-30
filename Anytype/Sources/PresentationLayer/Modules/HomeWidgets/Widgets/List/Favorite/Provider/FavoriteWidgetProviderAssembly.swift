@@ -3,9 +3,9 @@ import Foundation
 final class FavoriteWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol {
     
     private let widgetsDI: WidgetsDIProtocol
-    private weak var output: CommonWidgetModuleOutput?
+    private weak var output: FavoritesWidgetModuleOutput?
     
-    init(widgetsDI: WidgetsDIProtocol, output: CommonWidgetModuleOutput?) {
+    init(widgetsDI: WidgetsDIProtocol, output: FavoritesWidgetModuleOutput?) {
         self.widgetsDI = widgetsDI
         self.output = output
     }

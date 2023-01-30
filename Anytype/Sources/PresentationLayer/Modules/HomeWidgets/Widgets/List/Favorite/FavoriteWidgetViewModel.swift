@@ -3,6 +3,11 @@ import BlocksModels
 import Combine
 
 @MainActor
+protocol FavoritesWidgetModuleOutput: CommonWidgetModuleOutput {
+    func onFavoritesSelected()
+}
+
+@MainActor
 final class FavoriteWidgetViewModel: ListWidgetViewModelProtocol, WidgetContainerContentViewModelProtocol, ObservableObject {
     
     private enum Constants {
@@ -15,7 +20,7 @@ final class FavoriteWidgetViewModel: ListWidgetViewModelProtocol, WidgetContaine
     private let widgetObject: HomeWidgetsObjectProtocol
     private let accountManager: AccountManager
     private let favoriteSubscriptionService: FavoriteSubscriptionServiceProtocol
-    private weak var output: CommonWidgetModuleOutput?
+    private weak var output: FavoritesWidgetModuleOutput?
     
     // MARK: - State
     
@@ -38,7 +43,7 @@ final class FavoriteWidgetViewModel: ListWidgetViewModelProtocol, WidgetContaine
         widgetObject: HomeWidgetsObjectProtocol,
         accountManager: AccountManager,
         favoriteSubscriptionService: FavoriteSubscriptionServiceProtocol,
-        output: CommonWidgetModuleOutput?
+        output: FavoritesWidgetModuleOutput?
     ) {
         self.widgetBlockId = widgetBlockId
         self.widgetObject = widgetObject
@@ -62,7 +67,7 @@ final class FavoriteWidgetViewModel: ListWidgetViewModelProtocol, WidgetContaine
     }
     
     func onHeaderTap() {
-        // TODO: Open screen
+        output?.onFavoritesSelected()
     }
     
     // MARK: - Private
