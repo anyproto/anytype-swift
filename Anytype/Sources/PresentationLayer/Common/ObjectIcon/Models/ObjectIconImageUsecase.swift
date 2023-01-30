@@ -23,9 +23,8 @@ enum ObjectIconImageUsecase: Equatable, Hashable {
     case setCollection
     
     case widgetTree
-    
+    case widgetList
     case homeBottomPanel
-    case homeSetWidget
 
     case inlineSetHeader
 }
@@ -44,7 +43,8 @@ extension ObjectIconImageUsecase {
     
     var emojiBackgroundColor: UIColor {
         switch self {
-        case .openedObjectNavigationBar, .mention, .setRow, .featuredRelationsBlock, .editorCalloutBlock, .inlineSetHeader:
+        case .openedObjectNavigationBar, .mention, .setRow, .featuredRelationsBlock, .editorCalloutBlock,
+                .inlineSetHeader, .widgetTree, .homeBottomPanel:
             return .clear
         default:
             return .Stroke.transperent

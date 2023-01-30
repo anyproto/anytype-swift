@@ -22,7 +22,7 @@ struct ListWidgetRow: View {
                 if let icon = model.icon {
                     SwiftUIObjectIconImageView(
                         iconImage: icon,
-                        usecase: .homeSetWidget
+                        usecase: .widgetList
                     ).frame(width: 48, height: 48)
                 }
                 VStack(alignment: .leading, spacing: 1) {
