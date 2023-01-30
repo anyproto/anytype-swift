@@ -75,7 +75,7 @@ final class HomeBottomPanelViewModel: ObservableObject {
                 ImageButton(image: .imageAsset(.Widget.add), onTap: { [weak self] in
                     self?.toastPresenter.show(message: "On tap create object")
                 }),
-                ImageButton(image: subscriptionData.first?.objectIconImage ?? .placeholder(nil), onTap: { [weak self] in
+                ImageButton(image: subscriptionData.first?.objectIconImage ?? .imageAsset(.Widget.spacePlaceholder), onTap: { [weak self] in
                     self?.toastPresenter.show(message: "On tap space")
                 })
             ])
