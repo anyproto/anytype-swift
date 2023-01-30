@@ -17,6 +17,7 @@ struct HomeTabsView: View {
 
     @EnvironmentObject var model: HomeViewModel
     
+    let showSpaceTab: Bool
     let offsetChanged: (CGPoint) -> Void
     let onDrag: (CGSize) -> Void
     let onDragEnd: (CGSize) -> Void
@@ -71,7 +72,7 @@ struct HomeTabsView: View {
             )
             .tag(Tab.sets)
             
-            if AccountManager.shared.account.config.enableSpaces {
+            if showSpaceTab {
                 HomeCollectionView(
                     cellData: model.sharedCellData,
                     dragAndDropDelegate: nil, // no dnd
@@ -105,7 +106,7 @@ struct HomeTabsView_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
             Color.blue
-            HomeTabsView(offsetChanged: { _ in }, onDrag: { _ in}, onDragEnd: { _ in })
+            HomeTabsView(showSpaceTab: true, offsetChanged: { _ in }, onDrag: { _ in}, onDragEnd: { _ in })
                 .environmentObject(HomeViewModel.makeForPreview())
         }
     }

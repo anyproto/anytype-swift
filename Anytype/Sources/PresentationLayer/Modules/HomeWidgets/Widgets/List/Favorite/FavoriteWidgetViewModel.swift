@@ -13,7 +13,7 @@ final class FavoriteWidgetViewModel: ListWidgetViewModelProtocol, WidgetContaine
     
     private let widgetBlockId: BlockId
     private let widgetObject: HomeWidgetsObjectProtocol
-    private let accountManager: AccountManager
+    private let accountManager: AccountManagerProtocol
     private let favoriteSubscriptionService: FavoriteSubscriptionServiceProtocol
     private weak var output: CommonWidgetModuleOutput?
     
@@ -36,7 +36,7 @@ final class FavoriteWidgetViewModel: ListWidgetViewModelProtocol, WidgetContaine
     init(
         widgetBlockId: BlockId,
         widgetObject: HomeWidgetsObjectProtocol,
-        accountManager: AccountManager,
+        accountManager: AccountManagerProtocol,
         favoriteSubscriptionService: FavoriteSubscriptionServiceProtocol,
         output: CommonWidgetModuleOutput?
     ) {

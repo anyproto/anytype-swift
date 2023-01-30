@@ -80,8 +80,9 @@ final class ServiceLocator {
         AlertOpener()
     }
     
-    func accountManager() -> AccountManager {
-        return AccountManager.shared
+    private lazy var _accountManager = AccountManager()
+    func accountManager() -> AccountManagerProtocol {
+        return _accountManager
     }
     
     func objectTypeProvider() -> ObjectTypeProviderProtocol {

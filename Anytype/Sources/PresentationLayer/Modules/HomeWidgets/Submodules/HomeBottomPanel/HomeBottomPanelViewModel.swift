@@ -23,7 +23,7 @@ final class HomeBottomPanelViewModel: ObservableObject {
     // MARK: - Private properties
     
     private let toastPresenter: ToastPresenterProtocol
-    private let accountManager: AccountManager
+    private let accountManager: AccountManagerProtocol
     private let subscriptionService: SubscriptionsServiceProtocol
     private let subscriotionBuilder: HomeBottomPanelSubscriptionDataBuilderProtocol
     private let stateManager: HomeWidgetsStateManagerProtocol
@@ -40,7 +40,7 @@ final class HomeBottomPanelViewModel: ObservableObject {
     
     init(
         toastPresenter: ToastPresenterProtocol,
-        accountManager: AccountManager,
+        accountManager: AccountManagerProtocol,
         subscriptionService: SubscriptionsServiceProtocol,
         subscriotionBuilder: HomeBottomPanelSubscriptionDataBuilderProtocol,
         stateManager: HomeWidgetsStateManagerProtocol,

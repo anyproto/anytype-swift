@@ -79,7 +79,7 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     }
     
     func homeViewAssemby() -> HomeViewAssembly {
-        return HomeViewAssembly(coordinatorsDI: self, modulesDI: modulesDI)
+        return HomeViewAssembly(coordinatorsDI: self, modulesDI: modulesDI, serviceLocator: serviceLocator)
     }
     
     @MainActor
