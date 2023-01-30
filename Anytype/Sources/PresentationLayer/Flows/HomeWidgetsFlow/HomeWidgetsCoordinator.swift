@@ -8,7 +8,7 @@ protocol HomeWidgetsCoordinatorProtocol {
 
 @MainActor
 final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsModuleOutput,
-                                    CommonWidgetModuleOutput, HomeBottomPanelModuleOutput, FavoritesWidgetModuleOutput {
+                                    CommonWidgetModuleOutput, HomeBottomPanelModuleOutput, FavoriteWidgetModuleOutput {
     
     private let homeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol
     private let accountManager: AccountManager
@@ -72,9 +72,9 @@ final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsM
         showPage(screenData: screenData)
     }
     
-    // MARK: - FavoritesWidgetModuleOutput
+    // MARK: - FavoriteWidgetModuleOutput
     
-    func onFavoritesSelected() {
+    func onFavoriteSelected() {
         let module = widgetObjectListModuleAssembly.makeFavorites()
         navigationContext.push(module)
     }
