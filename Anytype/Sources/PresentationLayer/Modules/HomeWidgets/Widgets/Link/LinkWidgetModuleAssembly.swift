@@ -34,6 +34,17 @@ final class LinkWidgetModuleAssembly: LinkWidgetModuleAssemblyProtocol {
         let contentModel = LinkWidgetViewModel()
         let contentView = LinkWidgetView()
         
-        return contentView.eraseToAnyView()
+        let containerModel = WidgetContainerViewModel(
+            widgetBlockId: widgetBlockId,
+            widgetObject: widgetObject,
+            blockWidgetService: serviceLocator.blockWidgetService(),
+            stateManager: stateManager
+        )
+        let containterView = WidgetContainerView(
+            model: containerModel,
+            contentModel: contentModel,
+            content: contentView
+        )
+        return containterView.eraseToAnyView()
     }
 }

@@ -2,9 +2,15 @@ import SwiftUI
 
 struct LinkWidgetViewContainer<Content, MenuContent>: View where Content: View, MenuContent: View {
     
+    enum ContentState {
+        case expand
+        case collapse
+        case disable
+    }
+    
     let title: String
     let description: String?
-    @Binding var isExpanded: Bool
+    @Binding var contentState: ContentState
     let isEditalbeMode: Bool
     let allowMenuContent: Bool
     let menu: () -> MenuContent
@@ -14,7 +20,7 @@ struct LinkWidgetViewContainer<Content, MenuContent>: View where Content: View, 
     init(
         title: String,
         description: String? = nil,
-        isExpanded: Binding<Bool>,
+        contentState: Binding<ContentState>,
         isEditalbeMode: Bool = false,
         allowMenuContent: Bool = false,
         @ViewBuilder menu: @escaping () -> MenuContent = { EmptyView() },
@@ -23,7 +29,7 @@ struct LinkWidgetViewContainer<Content, MenuContent>: View where Content: View, 
     ) {
         self.title = title
         self.description = description
-        self._isExpanded = isExpanded
+        self._contentState = contentState
         self.isEditalbeMode = isEditalbeMode
         self.allowMenuContent = allowMenuContent
         self.menu = menu
@@ -36,7 +42,7 @@ struct LinkWidgetViewContainer<Content, MenuContent>: View where Content: View, 
             VStack(spacing: 0) {
                 Spacer.fixedHeight(6)
                 header
-                if !isExpanded {
+                if contentState != .expand {
                     Spacer.fixedHeight(6)
                 } else {
                     content()
@@ -86,16 +92,19 @@ struct LinkWidgetViewContainer<Content, MenuContent>: View where Content: View, 
         }
     }
     
+    @ViewBuilder
     private var arrowButton: some View {
-        Button(action: {
-            withAnimation {
-                isExpanded = !isExpanded
-            }
-        }, label: {
-            Image(asset: .Widget.collapse)
-                .rotationEffect(.degrees(isExpanded ? 90 : 0))
-        })
+        if contentState != .disable {
+            Button(action: {
+                withAnimation {
+                    contentState = .expand
+                }
+            }, label: {
+                Image(asset: .Widget.collapse)
+                    .rotationEffect(.degrees(contentState == .expand ? 90 : 0))
+            })
             .allowsHitTesting(!isEditalbeMode)
+        }
     }
     
     @ViewBuilder
@@ -134,7 +143,7 @@ struct LinkWidgetViewContainer_Previews: PreviewProvider {
                 LinkWidgetViewContainer(
                     title: "Name",
                     description: nil,
-                    isExpanded: .constant(true),
+                    contentState: .constant(.expand),
                     isEditalbeMode: false
                 ) {
                     Text("Content")
@@ -143,7 +152,7 @@ struct LinkWidgetViewContainer_Previews: PreviewProvider {
                 LinkWidgetViewContainer(
                     title: "Name",
                     description: "1",
-                    isExpanded: .constant(false),
+                    contentState: .constant(.collapse),
                     isEditalbeMode: false
                 ) {
                     Text("Content")
@@ -152,7 +161,7 @@ struct LinkWidgetViewContainer_Previews: PreviewProvider {
                 LinkWidgetViewContainer(
                     title: "Very long text very long text very long text very long text",
                     description: nil,
-                    isExpanded: .constant(false),
+                    contentState: .constant(.expand),
                     isEditalbeMode: false
                 ) {
                     Text("Content")
@@ -161,7 +170,7 @@ struct LinkWidgetViewContainer_Previews: PreviewProvider {
                 LinkWidgetViewContainer(
                     title: "Very long text very long text very long text very long text very long text",
                     description: "1 111",
-                    isExpanded: .constant(true),
+                    contentState: .constant(.collapse),
                     isEditalbeMode: true
                 ) {
                     Text("Content")
