@@ -23,7 +23,7 @@ struct WidgetContainerView<Content: View, ContentVM: WidgetContainerContentViewM
             allowMenuContent: contentModel.menuItems.isNotEmpty,
             allowContent: contentModel.allowContent,
             headerAction: {
-                print("on heade tap")
+                contentModel.onHeaderTap()
             },
             removeAction: removeAction(),
             menu: {

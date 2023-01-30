@@ -52,6 +52,10 @@ final class RecentWidgetViewModel: ListWidgetViewModelProtocol, WidgetContainerC
         recentSubscriptionService.stopSubscription()
     }
     
+    func onHeaderTap() {
+        // TODO: Open screen
+    }
+    
     // MARK: - Private
     
     private func setupAllSubscriptions() {

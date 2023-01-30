@@ -10,6 +10,7 @@ protocol WidgetContainerContentViewModelProtocol: AnyObject, ObservableObject {
     
     func onAppear()
     func onDisappear()
+    func onHeaderTap()
 }
 
 // Default Implementation

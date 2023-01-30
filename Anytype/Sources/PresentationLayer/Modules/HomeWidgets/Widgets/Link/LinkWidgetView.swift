@@ -5,9 +5,3 @@ struct LinkWidgetView: View {
         EmptyView()
     }
 }
-
-struct LinkWidgetView_Previews: PreviewProvider {
-    static var previews: some View {
-        LinkWidgetView()
-    }
-}

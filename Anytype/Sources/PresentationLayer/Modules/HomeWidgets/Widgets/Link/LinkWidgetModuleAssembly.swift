@@ -31,7 +31,12 @@ final class LinkWidgetModuleAssembly: LinkWidgetModuleAssemblyProtocol {
         output: CommonWidgetModuleOutput?
     ) -> AnyView {
         
-        let contentModel = LinkWidgetViewModel()
+        let contentModel = LinkWidgetViewModel(
+            widgetBlockId: widgetBlockId,
+            widgetObject: widgetObject,
+            objectDetailsStorage: serviceLocator.objectDetailsStorage(),
+            output: output
+        )
         let contentView = LinkWidgetView()
         
         let containerModel = WidgetContainerViewModel(

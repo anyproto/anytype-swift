@@ -53,6 +53,11 @@ final class SetWidgetViewModel: ListWidgetViewModelProtocol, WidgetContainerCont
         subscriptions.removeAll()
     }
     
+    func onHeaderTap() {
+        guard let linkedObjectDetails else { return }
+        output?.onObjectSelected(screenData: EditorScreenData(pageId: linkedObjectDetails.id, type: linkedObjectDetails.editorViewType))
+    }
+    
     // MARK: - Private
     
     private func setupAllSubscriptions() {

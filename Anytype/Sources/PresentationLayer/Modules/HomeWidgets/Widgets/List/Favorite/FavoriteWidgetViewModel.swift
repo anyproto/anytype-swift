@@ -61,6 +61,10 @@ final class FavoriteWidgetViewModel: ListWidgetViewModelProtocol, WidgetContaine
         }
     }
     
+    func onHeaderTap() {
+        // TODO: Open screen
+    }
+    
     // MARK: - Private
     
     private func setupAllSubscriptions() {
