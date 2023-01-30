@@ -8,7 +8,12 @@ final class WidgetTypeCreateObjectViewModel: WidgetTypeInternalViewModelProtocol
     private let blockWidgetService: BlockWidgetServiceProtocol
     private let onFinish: () -> Void
     
-    init(widgetObjectId: String, objectDetails: ObjectDetails, blockWidgetService: BlockWidgetServiceProtocol, onFinish: @escaping () -> Void) {
+    init(
+        widgetObjectId: String,
+        objectDetails: ObjectDetails,
+        blockWidgetService: BlockWidgetServiceProtocol,
+        onFinish: @escaping () -> Void
+    ) {
         self.widgetObjectId = widgetObjectId
         self.objectDetails = objectDetails
         self.blockWidgetService = blockWidgetService

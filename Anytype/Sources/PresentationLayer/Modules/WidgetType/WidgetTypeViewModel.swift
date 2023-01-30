@@ -41,7 +41,7 @@ private extension BlockWidget.Layout {
     var description: String {
         switch self {
         case .link:
-            return Loc.Widgets.Layout.List.description
+            return Loc.Widgets.Layout.Link.description
         case .tree:
             return Loc.Widgets.Layout.Tree.description
         case .list:
