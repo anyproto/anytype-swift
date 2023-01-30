@@ -14,7 +14,6 @@ final class SetWidgetViewModel: ListWidgetViewModelProtocol, WidgetContainerCont
     private let widgetBlockId: BlockId
     private let widgetObject: HomeWidgetsObjectProtocol
     private let objectDetailsStorage: ObjectDetailsStorage
-    private let blockWidgetService: BlockWidgetServiceProtocol
     private weak var output: CommonWidgetModuleOutput?
     
     // MARK: - State
@@ -36,13 +35,11 @@ final class SetWidgetViewModel: ListWidgetViewModelProtocol, WidgetContainerCont
         widgetBlockId: BlockId,
         widgetObject: HomeWidgetsObjectProtocol,
         objectDetailsStorage: ObjectDetailsStorage,
-        blockWidgetService: BlockWidgetServiceProtocol,
         output: CommonWidgetModuleOutput?
     ) {
         self.widgetBlockId = widgetBlockId
         self.widgetObject = widgetObject
         self.objectDetailsStorage = objectDetailsStorage
-        self.blockWidgetService = blockWidgetService
         self.output = output
     }
     
@@ -54,15 +51,6 @@ final class SetWidgetViewModel: ListWidgetViewModelProtocol, WidgetContainerCont
 
     func onDisappear() {
         subscriptions.removeAll()
-    }
-    
-    func onDeleteWidgetTap() {
-        Task {
-            try? await blockWidgetService.removeWidgetBlock(
-                contextId: widgetObject.objectId,
-                widgetBlockId: widgetBlockId
-            )
-        }
     }
     
     // MARK: - Private

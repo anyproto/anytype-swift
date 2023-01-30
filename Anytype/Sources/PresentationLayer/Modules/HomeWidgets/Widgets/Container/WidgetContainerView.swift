@@ -22,13 +22,16 @@ struct WidgetContainerView<Content: View, ContentVM: WidgetContainerContentViewM
             isEditalbeMode: model.isEditState,
             allowMenuContent: contentModel.menuItems.isNotEmpty,
             allowContent: contentModel.allowContent,
+            headerAction: {
+                print("on heade tap")
+            },
+            removeAction: removeAction(),
             menu: {
                 menuItems
             },
             content: {
                 content
-            },
-            removeAction: removeAction()
+            }
         )
         .onAppear {
             contentModel.onAppear()
@@ -88,7 +91,7 @@ struct WidgetContainerView<Content: View, ContentVM: WidgetContainerContentViewM
             
     private func removeAction() -> (() -> Void)? {
         
-        guard contentModel.menuItems.contains(.remove) else { return nil}
+        guard contentModel.menuItems.contains(.remove) else { return nil }
         
         return {
             model.onDeleteWidgetTap()

@@ -61,10 +61,6 @@ final class FavoriteWidgetViewModel: ListWidgetViewModelProtocol, WidgetContaine
         }
     }
     
-    func onDeleteWidgetTap() {
-       // TODO: Add configuration for context menu
-    }
-    
     // MARK: - Private
     
     private func setupAllSubscriptions() {

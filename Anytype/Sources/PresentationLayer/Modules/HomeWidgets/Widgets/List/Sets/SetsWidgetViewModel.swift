@@ -53,10 +53,6 @@ final class SetsWidgetViewModel: ListWidgetViewModelProtocol, WidgetContainerCon
         setsSubscriptionService.stopSubscription()
     }
     
-    func onDeleteWidgetTap() {
-       // TODO: Add configuration for context menu
-    }
-    
     // MARK: - Private
     
     private func setupAllSubscriptions() {
