@@ -62,35 +62,21 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
             
             switch widget.layout {
             case .link:
-                switch contentDetails.editorViewType {
-                case .page:
-                    return createProviderCache(
-                        source: treeWidgetProviderAssembly,
-                        widgetBlockId: block.id,
-                        widgetObject: widgetObject
-                    )
-                case .set:
-                    return createProviderCache(
-                        source: setWidgetProviderAssembly,
-                        widgetBlockId: block.id,
-                        widgetObject: widgetObject
-                    )
-                }
+                return nil
             case .tree:
-                switch contentDetails.editorViewType {
-                case .page:
-                    return createProviderCache(
-                        source: treeWidgetProviderAssembly,
-                        widgetBlockId: block.id,
-                        widgetObject: widgetObject
-                    )
-                case .set:
-                    return createProviderCache(
-                        source: setWidgetProviderAssembly,
-                        widgetBlockId: block.id,
-                        widgetObject: widgetObject
-                    )
-                }
+                guard contentDetails.editorViewType == .page else { return nil }
+                return createProviderCache(
+                    source: treeWidgetProviderAssembly,
+                    widgetBlockId: block.id,
+                    widgetObject: widgetObject
+                )
+            case .list:
+                guard contentDetails.editorViewType == .set() else { return nil }
+                return createProviderCache(
+                    source: setWidgetProviderAssembly,
+                    widgetBlockId: block.id,
+                    widgetObject: widgetObject
+                )
             }
         }
         

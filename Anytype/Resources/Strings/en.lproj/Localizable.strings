@@ -671,3 +671,10 @@
 "Widgets.Actions.ChangeWidgetType" = "Change widget type";
 "Widgets.Actions.RemoveWidget" = "Remove widget";
 "Widgets.Actions.EditWidgets" = "Edit widgets";
+"Widgets.Layout.Screen.Title" = "Widget type";
+"Widgets.Layout.Link.Title" = "Link";
+"Widgets.Layout.Tree.Title" = "Tree";
+"Widgets.Layout.List.Title" = "List";
+"Widgets.Layout.Link.Description" = "Сompact version of the object";
+"Widgets.Layout.Tree.Description" = "Hierarchical structure of objects";
+"Widgets.Layout.List.Description" = "Widget with list view of set object";

@@ -28,7 +28,7 @@ final class CreateWidgetCoordinatorAssembly: CreateWidgetCoordinatorAssemblyProt
         return CreateWidgetCoordinator(
             newSearchModuleAssembly: modulesDI.newSearch(),
             navigationContext: uiHelpersDI.commonNavigationContext(),
-            blockWidgetService: serviceLocator.blockWidgetService()
+            widgetTypeModuleAssembly: modulesDI.widgetType()
         )
     }
 }

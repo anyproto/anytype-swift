@@ -1407,6 +1407,30 @@ internal enum Loc {
       /// Remove widget
       internal static let removeWidget = Loc.tr("Localizable", "Widgets.Actions.RemoveWidget", fallback: "Remove widget")
     }
+    internal enum Layout {
+      internal enum Link {
+        /// Сompact version of the object
+        internal static let description = Loc.tr("Localizable", "Widgets.Layout.Link.Description", fallback: "Сompact version of the object")
+        /// Link
+        internal static let title = Loc.tr("Localizable", "Widgets.Layout.Link.Title", fallback: "Link")
+      }
+      internal enum List {
+        /// Widget with list view of set object
+        internal static let description = Loc.tr("Localizable", "Widgets.Layout.List.Description", fallback: "Widget with list view of set object")
+        /// List
+        internal static let title = Loc.tr("Localizable", "Widgets.Layout.List.Title", fallback: "List")
+      }
+      internal enum Screen {
+        /// Widget type
+        internal static let title = Loc.tr("Localizable", "Widgets.Layout.Screen.Title", fallback: "Widget type")
+      }
+      internal enum Tree {
+        /// Hierarchical structure of objects
+        internal static let description = Loc.tr("Localizable", "Widgets.Layout.Tree.Description", fallback: "Hierarchical structure of objects")
+        /// Tree
+        internal static let title = Loc.tr("Localizable", "Widgets.Layout.Tree.Title", fallback: "Tree")
+      }
+    }
   }
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length

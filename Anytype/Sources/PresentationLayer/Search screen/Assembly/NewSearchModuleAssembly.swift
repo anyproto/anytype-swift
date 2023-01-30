@@ -79,7 +79,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         selectionMode: NewSearchViewModel.SelectionMode,
         excludedObjectIds: [String],
         limitedObjectType: [String],
-        onSelect: @escaping (_ ids: [String]) -> Void
+        onSelect: @escaping (_ details: [ObjectDetails]) -> Void
     ) -> NewSearchView {
         let interactor = ObjectsSearchInteractor(
             searchService: serviceLocator.searchService(),
@@ -90,7 +90,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         let internalViewModel = ObjectsSearchViewModel(
             selectionMode: selectionMode,
             interactor: interactor,
-            onSelect: { onSelect($0.map { $0.id })}
+            onSelect: { onSelect($0)}
         )
         
         let viewModel = NewSearchViewModel(
