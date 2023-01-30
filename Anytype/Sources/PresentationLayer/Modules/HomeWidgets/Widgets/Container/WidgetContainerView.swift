@@ -18,9 +18,10 @@ struct WidgetContainerView<Content: View, ContentVM: WidgetContainerContentViewM
         LinkWidgetViewContainer(
             title: contentModel.name,
             description: contentModel.count,
-            contentState: $model.contentState,//contentModel.allowContent ? $model.contentState : .constant(.disable),
+            isExpanded: $model.isExpanded,
             isEditalbeMode: model.isEditState,
             allowMenuContent: contentModel.menuItems.isNotEmpty,
+            allowContent: contentModel.allowContent,
             menu: {
                 menuItems
             },

@@ -12,7 +12,7 @@ final class WidgetContainerViewModel: ObservableObject {
     
     // MARK: - State
     
-    @Published var contentState: LinkWidgetViewContainer.ContentState = .expand
+    @Published var isExpanded: Bool = true
     @Published var isEditState: Bool = false
     
     init(
