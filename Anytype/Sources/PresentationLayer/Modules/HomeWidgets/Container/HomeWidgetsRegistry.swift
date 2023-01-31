@@ -25,6 +25,7 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
     private let favoriteWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     private let recentWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     private let setsWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
+    private let linkWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     private let stateManager: HomeWidgetsStateManagerProtocol
     private let objectDetailsStorage: ObjectDetailsStorage
     private var providersCache: [ProviderCache] = []
@@ -35,6 +36,7 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
         favoriteWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         recentWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         setsWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
+        linkWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         stateManager: HomeWidgetsStateManagerProtocol,
         objectDetailsStorage: ObjectDetailsStorage
     ) {
@@ -43,6 +45,7 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
         self.favoriteWidgetProviderAssembly = favoriteWidgetProviderAssembly
         self.recentWidgetProviderAssembly = recentWidgetProviderAssembly
         self.setsWidgetProviderAssembly = setsWidgetProviderAssembly
+        self.linkWidgetProviderAssembly = linkWidgetProviderAssembly
         self.stateManager = stateManager
         self.objectDetailsStorage = objectDetailsStorage
     }
@@ -62,7 +65,11 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
             
             switch widget.layout {
             case .link:
-                return nil
+                return createProviderCache(
+                    source: linkWidgetProviderAssembly,
+                    widgetBlockId: block.id,
+                    widgetObject: widgetObject
+                )
             case .tree:
                 guard contentDetails.editorViewType == .page else { return nil }
                 return createProviderCache(

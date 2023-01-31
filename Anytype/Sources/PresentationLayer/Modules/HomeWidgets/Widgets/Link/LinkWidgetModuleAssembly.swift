@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-protocol SetWidgetModuleAssemblyProtocol {
+protocol LinkWidgetModuleAssemblyProtocol {
     @MainActor
     func make(
         widgetBlockId: String,
@@ -11,7 +11,7 @@ protocol SetWidgetModuleAssemblyProtocol {
     ) -> AnyView
 }
 
-final class SetWidgetModuleAssembly: SetWidgetModuleAssemblyProtocol {
+final class LinkWidgetModuleAssembly: LinkWidgetModuleAssemblyProtocol {
     
     private let serviceLocator: ServiceLocator
     private let uiHelpersDI: UIHelpersDIProtocol
@@ -21,7 +21,7 @@ final class SetWidgetModuleAssembly: SetWidgetModuleAssemblyProtocol {
         self.uiHelpersDI = uiHelpersDI
     }
     
-    // MARK: - SetWidgetModuleAssemblyProtocol
+    // MARK: - LinkWidgetModuleAssemblyProtocol
     
     @MainActor
     func make(
@@ -31,13 +31,13 @@ final class SetWidgetModuleAssembly: SetWidgetModuleAssemblyProtocol {
         output: CommonWidgetModuleOutput?
     ) -> AnyView {
         
-        let contentModel = SetWidgetViewModel(
+        let contentModel = LinkWidgetViewModel(
             widgetBlockId: widgetBlockId,
             widgetObject: widgetObject,
             objectDetailsStorage: serviceLocator.objectDetailsStorage(),
             output: output
         )
-        let contentView = ListWidgetView(model: contentModel)
+        let contentView = LinkWidgetView()
         
         let containerModel = WidgetContainerViewModel(
             widgetBlockId: widgetBlockId,

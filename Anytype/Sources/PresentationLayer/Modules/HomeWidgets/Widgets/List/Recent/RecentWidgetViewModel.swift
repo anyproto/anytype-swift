@@ -52,8 +52,8 @@ final class RecentWidgetViewModel: ListWidgetViewModelProtocol, WidgetContainerC
         recentSubscriptionService.stopSubscription()
     }
     
-    func onDeleteWidgetTap() {
-       // TODO: Add configuration for context menu
+    func onHeaderTap() {
+        // TODO: Open screen
     }
     
     // MARK: - Private

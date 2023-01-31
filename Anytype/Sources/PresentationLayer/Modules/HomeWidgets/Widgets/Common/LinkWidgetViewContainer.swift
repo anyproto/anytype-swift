@@ -7,8 +7,10 @@ struct LinkWidgetViewContainer<Content, MenuContent>: View where Content: View, 
     @Binding var isExpanded: Bool
     let isEditalbeMode: Bool
     let allowMenuContent: Bool
+    let allowContent: Bool
     let menu: () -> MenuContent
     let content: () -> Content
+    let headerAction: (() -> Void)
     let removeAction: (() -> Void)?
     
     init(
@@ -17,18 +19,22 @@ struct LinkWidgetViewContainer<Content, MenuContent>: View where Content: View, 
         isExpanded: Binding<Bool>,
         isEditalbeMode: Bool = false,
         allowMenuContent: Bool = false,
+        allowContent: Bool = true,
+        headerAction: @escaping (() -> Void),
+        removeAction: (() -> Void)? = nil,
         @ViewBuilder menu: @escaping () -> MenuContent = { EmptyView() },
-        @ViewBuilder content: @escaping () -> Content,
-        removeAction: (() -> Void)? = nil
+        @ViewBuilder content: @escaping () -> Content
     ) {
         self.title = title
         self.description = description
         self._isExpanded = isExpanded
         self.isEditalbeMode = isEditalbeMode
         self.allowMenuContent = allowMenuContent
+        self.allowContent = allowContent
+        self.headerAction = headerAction
+        self.removeAction = removeAction
         self.menu = menu
         self.content = content
-        self.removeAction = removeAction
     }
     
     var body: some View {
@@ -36,7 +42,7 @@ struct LinkWidgetViewContainer<Content, MenuContent>: View where Content: View, 
             VStack(spacing: 0) {
                 Spacer.fixedHeight(6)
                 header
-                if !isExpanded {
+                if !isExpanded || !allowContent {
                     Spacer.fixedHeight(6)
                 } else {
                     content()
@@ -63,12 +69,16 @@ struct LinkWidgetViewContainer<Content, MenuContent>: View where Content: View, 
     
     private var header: some View {
         HStack(spacing: 0) {
-            Spacer.fixedWidth(16)
-            AnytypeText(title, style: .subheading, color: .Text.primary)
-                .lineLimit(1)
-                .layoutPriority(-1)
-            descriptionView
-            Spacer()
+            Button {
+                headerAction()
+            } label: {
+                Spacer.fixedWidth(16)
+                AnytypeText(title, style: .subheading, color: .Text.primary)
+                    .lineLimit(1)
+                    .layoutPriority(-1)
+                descriptionView
+                Spacer()
+            }
             menuButton
             arrowButton
             Spacer.fixedWidth(12)
@@ -86,16 +96,19 @@ struct LinkWidgetViewContainer<Content, MenuContent>: View where Content: View, 
         }
     }
     
+    @ViewBuilder
     private var arrowButton: some View {
-        Button(action: {
-            withAnimation {
-                isExpanded = !isExpanded
-            }
-        }, label: {
-            Image(asset: .Widget.collapse)
-                .rotationEffect(.degrees(isExpanded ? 90 : 0))
-        })
+        if allowContent {
+            Button(action: {
+                withAnimation {
+                    isExpanded = !isExpanded
+                }
+            }, label: {
+                Image(asset: .Widget.collapse)
+                    .rotationEffect(.degrees(isExpanded ? 90 : 0))
+            })
             .allowsHitTesting(!isEditalbeMode)
+        }
     }
     
     @ViewBuilder
@@ -135,7 +148,8 @@ struct LinkWidgetViewContainer_Previews: PreviewProvider {
                     title: "Name",
                     description: nil,
                     isExpanded: .constant(true),
-                    isEditalbeMode: false
+                    isEditalbeMode: false,
+                    headerAction: {}
                 ) {
                     Text("Content")
                 }
@@ -144,7 +158,8 @@ struct LinkWidgetViewContainer_Previews: PreviewProvider {
                     title: "Name",
                     description: "1",
                     isExpanded: .constant(false),
-                    isEditalbeMode: false
+                    isEditalbeMode: false,
+                    headerAction: {}
                 ) {
                     Text("Content")
                 }
@@ -153,7 +168,8 @@ struct LinkWidgetViewContainer_Previews: PreviewProvider {
                     title: "Very long text very long text very long text very long text",
                     description: nil,
                     isExpanded: .constant(false),
-                    isEditalbeMode: false
+                    isEditalbeMode: false,
+                    headerAction: {}
                 ) {
                     Text("Content")
                 }
@@ -162,7 +178,8 @@ struct LinkWidgetViewContainer_Previews: PreviewProvider {
                     title: "Very long text very long text very long text very long text very long text",
                     description: "1 111",
                     isExpanded: .constant(true),
-                    isEditalbeMode: true
+                    isEditalbeMode: true,
+                    headerAction: {}
                 ) {
                     Text("Content")
                 }
