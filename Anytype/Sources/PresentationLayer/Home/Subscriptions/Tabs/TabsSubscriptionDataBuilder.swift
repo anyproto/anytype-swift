@@ -16,11 +16,11 @@ final class TabsSubscriptionDataBuilder: TabsSubscriptionDataBuilderProtocol {
     }
     
     private let objectTypeProvider: ObjectTypeProviderProtocol
-    private let accountManager: AccountManager
+    private let accountManager: AccountManagerProtocol
     
     init(
         objectTypeProvider: ObjectTypeProviderProtocol = ObjectTypeProvider.shared,
-        accountManager: AccountManager = AccountManager.shared
+        accountManager: AccountManagerProtocol
     ) {
         self.objectTypeProvider = objectTypeProvider
         self.accountManager = accountManager

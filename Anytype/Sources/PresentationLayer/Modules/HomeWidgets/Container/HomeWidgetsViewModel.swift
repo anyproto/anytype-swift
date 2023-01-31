@@ -8,7 +8,7 @@ final class HomeWidgetsViewModel: ObservableObject {
     private let widgetObject: HomeWidgetsObjectProtocol
     private let registry: HomeWidgetsRegistryProtocol
     private let blockWidgetService: BlockWidgetServiceProtocol
-    private let accountManager: AccountManager
+    private let accountManager: AccountManagerProtocol
     private let toastPresenter: ToastPresenterProtocol
     private let stateManager: HomeWidgetsStateManagerProtocol
     private weak var output: HomeWidgetsModuleOutput?
@@ -21,7 +21,7 @@ final class HomeWidgetsViewModel: ObservableObject {
         widgetObject: HomeWidgetsObjectProtocol,
         registry: HomeWidgetsRegistryProtocol,
         blockWidgetService: BlockWidgetServiceProtocol,
-        accountManager: AccountManager,
+        accountManager: AccountManagerProtocol,
         bottomPanelProviderAssembly: HomeBottomPanelProviderAssemblyProtocol,
         toastPresenter: ToastPresenterProtocol,
         stateManager: HomeWidgetsStateManagerProtocol,

@@ -31,6 +31,7 @@ final class HomeViewModel: ObservableObject {
     
     @Published private(set) var profileData: HomeProfileData?
     @Published private(set) var settingsViewModel: SettingsViewModel
+    @Published private(set) var enableSpace: Bool = false
     
     let objectActionsService: ObjectActionsServiceProtocol = ServiceLocator.shared.objectActionsService()
     
@@ -50,6 +51,7 @@ final class HomeViewModel: ObservableObject {
     
     private let editorBrowserAssembly: EditorBrowserAssembly
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
+    let accountManager: AccountManagerProtocol
     
     init(
         homeBlockId: BlockId,
@@ -57,7 +59,8 @@ final class HomeViewModel: ObservableObject {
         tabsSubsciptionDataBuilder: TabsSubscriptionDataBuilderProtocol,
         profileSubsciptionDataBuilder: ProfileSubscriptionDataBuilderProtocol,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
-        windowManager: WindowManager
+        windowManager: WindowManager,
+        accountManager: AccountManagerProtocol
     ) {
         document = BaseDocument(objectId: homeBlockId)
         self.editorBrowserAssembly = editorBrowserAssembly
@@ -68,6 +71,7 @@ final class HomeViewModel: ObservableObject {
             authService: ServiceLocator.shared.authService(),
             windowManager: windowManager
         )
+        self.accountManager = accountManager
         setupSubscriptions()
         
         let data = UserDefaultsConfig.screenDataFromLastSession
@@ -162,6 +166,10 @@ final class HomeViewModel: ObservableObject {
             }
             .store(in: &cancellables)
         
+        accountManager.accountPublisher
+            .map { $0.config.enableSpaces }
+            .assign(to: &$enableSpace)
+        
         // visual delay on application launch
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
             self?.quickActionsSubscription = QuickActionsStorage.shared.$action.sink { action in
@@ -182,7 +190,7 @@ final class HomeViewModel: ObservableObject {
     
     private func setupProfileSubscriptions() {
         subscriptionService.startSubscription(
-            data: profileSubsciptionDataBuilder.profile(id: AccountManager.shared.account.info.profileObjectID)
+            data: profileSubsciptionDataBuilder.profile(id: accountManager.account.info.profileObjectID)
         ) { [weak self] id, update in
             withAnimation {
                 self?.onProfileUpdate(update: update)

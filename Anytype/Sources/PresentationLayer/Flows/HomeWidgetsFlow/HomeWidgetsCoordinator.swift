@@ -11,7 +11,7 @@ final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsM
                                     CommonWidgetModuleOutput, HomeBottomPanelModuleOutput {
     
     private let homeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol
-    private let accountManager: AccountManager
+    private let accountManager: AccountManagerProtocol
     private let navigationContext: NavigationContextProtocol
     private let windowManager: WindowManager
     private let createWidgetCoordinator: CreateWidgetCoordinatorProtocol
@@ -22,7 +22,7 @@ final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsM
     
     init(
         homeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol,
-        accountManager: AccountManager,
+        accountManager: AccountManagerProtocol,
         navigationContext: NavigationContextProtocol,
         windowManager: WindowManager,
         createWidgetCoordinator: CreateWidgetCoordinatorProtocol,

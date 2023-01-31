@@ -75,7 +75,7 @@ final class EditorAssembly {
             objectActionsService: serviceLocator.objectActionsService(),
             textService: serviceLocator.textService,
             groupsSubscriptionsHandler: serviceLocator.groupsSubscriptionsHandler(),
-            setSubscriptionDataBuilder: SetSubscriptionDataBuilder()
+            setSubscriptionDataBuilder: SetSubscriptionDataBuilder(accountManager: serviceLocator.accountManager())
         )
         let controller = EditorSetHostingController(objectId: data.pageId, model: model)
 
@@ -313,6 +313,7 @@ final class EditorAssembly {
             objectActionsService: serviceLocator.objectActionsService(),
             searchService: serviceLocator.searchService(),
             editorPageTemplatesHandler: editorPageTemplatesHandler,
+            accountManager: serviceLocator.accountManager(),
             isOpenedForPreview: isOpenedForPreview
         )
     }

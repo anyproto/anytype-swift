@@ -117,7 +117,7 @@ extension UserDefaultsConfig {
         get {
             let tab = _selectedTab.flatMap { HomeTabsView.Tab(rawValue: $0) } ?? .favourites
             
-            if tab == .shared && !AccountManager.shared.account.config.enableSpaces {
+            if tab == .shared && !ServiceLocator.shared.accountManager().account.config.enableSpaces {
                 return .favourites
             }
             

@@ -11,9 +11,9 @@ protocol ObjectTypeSubscriptionDataBuilderProtocol: AnyObject {
 
 final class ObjectTypeSubscriptionDataBuilder: ObjectTypeSubscriptionDataBuilderProtocol {
     
-    private let accountManager: AccountManager
+    private let accountManager: AccountManagerProtocol
     
-    init(accountManager: AccountManager) {
+    init(accountManager: AccountManagerProtocol) {
         self.accountManager = accountManager
     }
     
