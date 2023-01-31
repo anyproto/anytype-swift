@@ -7,7 +7,7 @@ protocol FavoriteSubscriptionServiceProtocol: AnyObject {
     func startSubscription(
         homeDocument: BaseDocumentProtocol,
         objectLimit: Int?,
-        update: @escaping (_ details: [ObjectDetails], _ count: Int) -> Void
+        update: @escaping (_ details: [ObjectDetails]) -> Void
     )
     func stopSubscription()
 }
@@ -26,7 +26,7 @@ final class FavoriteSubscriptionService: FavoriteSubscriptionServiceProtocol {
     func startSubscription(
         homeDocument: BaseDocumentProtocol,
         objectLimit: Int?,
-        update: @escaping (_ details: [ObjectDetails], _ count: Int) -> Void
+        update: @escaping (_ details: [ObjectDetails]) -> Void
     ) {
         
         guard subscriptions.isEmpty else {
@@ -49,25 +49,32 @@ final class FavoriteSubscriptionService: FavoriteSubscriptionServiceProtocol {
         subscriptions.removeAll()
     }
     
-    private func updateSubscription(children: [BlockInformation], objectLimit: Int?, update: @escaping (_ details: [ObjectDetails], _ count: Int) -> Void) {
+    private func updateSubscription(children: [BlockInformation], objectLimit: Int?, update: @escaping (_ details: [ObjectDetails]) -> Void) {
         
-        let details: [ObjectDetails] = children.compactMap { info in
+        var details: [ObjectDetails] = []
+        details.reserveCapacity(objectLimit ?? children.count)
+        
+        for info in children {
+            
+            if let objectLimit, details.count >= objectLimit {
+                break
+            }
             
             guard case .link(let link) = info.content else {
                 anytypeAssertionFailure(
                     "Not link type in home screen dashboard: \(info.content)",
                     domain: .homeView
                 )
-                return nil
+                continue
             }
         
-            guard let details = objectDetailsStorage.get(id: link.targetBlockID),
-                  details.isFavorite, !details.isArchived, !details.isDeleted,
-                  objectTypeProvider.isSupportedForEdit(typeId: details.type) else { return nil }
-            return details
+            guard let childDetails = objectDetailsStorage.get(id: link.targetBlockID),
+                  childDetails.isFavorite, !childDetails.isArchived, !childDetails.isDeleted,
+                  objectTypeProvider.isSupportedForEdit(typeId: childDetails.type) else { continue }
+
+            details.append(childDetails)
         }
         
-        let visibleDetails = objectLimit.map { Array(details.prefix($0)) } ?? details
-        update(visibleDetails, details.count)
+        update(details)
     }
 }

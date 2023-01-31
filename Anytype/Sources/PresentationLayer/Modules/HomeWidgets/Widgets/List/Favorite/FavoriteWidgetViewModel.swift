@@ -26,7 +26,6 @@ final class FavoriteWidgetViewModel: ListWidgetViewModelProtocol, WidgetContaine
     
     let name: String = Loc.favorites
     let menuItems: [WidgetMenuItem] = []
-    @Published var count: String? = nil
     
     // MARK: - ListWidgetViewModelProtocol
     
@@ -73,9 +72,8 @@ final class FavoriteWidgetViewModel: ListWidgetViewModelProtocol, WidgetContaine
             self?.favoriteSubscriptionService.startSubscription(
                 homeDocument: document,
                 objectLimit: Constants.maxItems,
-                update: { details, count in
+                update: { details in
                     self?.rowDetails = details
-                    self?.count = "\(count)"
                     self?.updateViewState()
                 }
             )
