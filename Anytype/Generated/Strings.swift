@@ -1210,6 +1210,16 @@ internal enum Loc {
       }
     }
     internal enum View {
+      internal enum Empty {
+        /// All objects satisfying your query will be displayed in Set
+        internal static let subtitle = Loc.tr("Localizable", "Set.View.Empty.Subtitle", fallback: "All objects satisfying your query will be displayed in Set")
+        /// No query selected
+        internal static let title = Loc.tr("Localizable", "Set.View.Empty.Title", fallback: "No query selected")
+        internal enum Button {
+          /// Select query
+          internal static let title = Loc.tr("Localizable", "Set.View.Empty.Button.Title", fallback: "Select query")
+        }
+      }
       internal enum Kanban {
         internal enum Column {
           internal enum Paging {
