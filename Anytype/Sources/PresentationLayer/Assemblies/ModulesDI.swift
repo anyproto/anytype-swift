@@ -77,4 +77,8 @@ final class ModulesDI: ModulesDIProtocol {
     func widgetType() -> WidgetTypeModuleAssemblyProtocol {
         return WidgetTypeModuleAssembly(serviceLocator: serviceLocator)
     }
+    
+    func widgetObjectList() -> WidgetObjectListModuleAssemblyProtocol {
+        return WidgetObjectListModuleAssembly()
+    }
 }

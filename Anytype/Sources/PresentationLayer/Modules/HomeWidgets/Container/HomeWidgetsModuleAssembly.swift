@@ -6,7 +6,7 @@ protocol HomeWidgetsModuleAssemblyProtocol {
     func make(
         widgetObjectId: String,
         output: HomeWidgetsModuleOutput,
-        widgetOutput: CommonWidgetModuleOutput?,
+        widgetOutput: (CommonWidgetModuleOutput & FavoriteWidgetModuleOutput)?,
         bottomPanelOutput: HomeBottomPanelModuleOutput?
     ) -> AnyView
 }
@@ -28,7 +28,7 @@ final class HomeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol {
     func make(
         widgetObjectId: String,
         output: HomeWidgetsModuleOutput,
-        widgetOutput: CommonWidgetModuleOutput?,
+        widgetOutput: (CommonWidgetModuleOutput & FavoriteWidgetModuleOutput)?,
         bottomPanelOutput: HomeBottomPanelModuleOutput?
     ) -> AnyView {
         

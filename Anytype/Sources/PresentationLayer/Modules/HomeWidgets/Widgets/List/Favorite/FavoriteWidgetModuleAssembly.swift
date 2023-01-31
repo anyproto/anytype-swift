@@ -7,7 +7,7 @@ protocol FavoriteWidgetModuleAssemblyProtocol: AnyObject {
         widgetBlockId: String,
         widgetObject: HomeWidgetsObjectProtocol,
         stateManager: HomeWidgetsStateManagerProtocol,
-        output: CommonWidgetModuleOutput?
+        output: FavoriteWidgetModuleOutput?
     ) -> AnyView
 }
 
@@ -28,7 +28,7 @@ final class FavoriteWidgetModuleAssembly: FavoriteWidgetModuleAssemblyProtocol {
         widgetBlockId: String,
         widgetObject: HomeWidgetsObjectProtocol,
         stateManager: HomeWidgetsStateManagerProtocol,
-        output: CommonWidgetModuleOutput?
+        output: FavoriteWidgetModuleOutput?
     ) -> AnyView {
         
         let contentModel = FavoriteWidgetViewModel(

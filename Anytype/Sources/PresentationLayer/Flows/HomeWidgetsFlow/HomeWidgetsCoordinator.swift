@@ -8,7 +8,7 @@ protocol HomeWidgetsCoordinatorProtocol {
 
 @MainActor
 final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsModuleOutput,
-                                    CommonWidgetModuleOutput, HomeBottomPanelModuleOutput {
+                                    CommonWidgetModuleOutput, HomeBottomPanelModuleOutput, FavoriteWidgetModuleOutput {
     
     private let homeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol
     private let accountManager: AccountManagerProtocol
@@ -17,6 +17,7 @@ final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsM
     private let createWidgetCoordinator: CreateWidgetCoordinatorProtocol
     private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
     private let editorBrowserAssembly: EditorBrowserAssembly
+    private let widgetObjectListModuleAssembly: WidgetObjectListModuleAssemblyProtocol
     
     private weak var browserController: EditorBrowserController?
     
@@ -27,7 +28,8 @@ final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsM
         windowManager: WindowManager,
         createWidgetCoordinator: CreateWidgetCoordinatorProtocol,
         objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
-        editorBrowserAssembly: EditorBrowserAssembly
+        editorBrowserAssembly: EditorBrowserAssembly,
+        widgetObjectListModuleAssembly: WidgetObjectListModuleAssemblyProtocol
     ) {
         self.homeWidgetsModuleAssembly = homeWidgetsModuleAssembly
         self.accountManager = accountManager
@@ -36,6 +38,7 @@ final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsM
         self.createWidgetCoordinator = createWidgetCoordinator
         self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
         self.editorBrowserAssembly = editorBrowserAssembly
+        self.widgetObjectListModuleAssembly = widgetObjectListModuleAssembly
     }
     
     func startFlow() -> AnyView {
@@ -69,6 +72,13 @@ final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsM
         showPage(screenData: screenData)
     }
     
+    // MARK: - FavoriteWidgetModuleOutput
+    
+    func onFavoriteSelected() {
+        let module = widgetObjectListModuleAssembly.makeFavorites()
+        navigationContext.push(module)
+    }
+    
     // MARK: - HomeBottomPanelModuleOutput
     
     func onCreateWidgetSelected() {
@@ -77,7 +87,7 @@ final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsM
     
     // MARK: - Private
     
-    func showPage(screenData: EditorScreenData) {
+    private func showPage(screenData: EditorScreenData) {
         if let browserController {
             browserController.showPage(data: screenData)
         } else {
@@ -86,4 +96,5 @@ final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsM
             browserController = controller
         }
     }
+    
 }

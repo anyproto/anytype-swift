@@ -3,7 +3,7 @@ import Foundation
 protocol WidgetsDIProtocol {
     func homeWidgetsRegistry(
         stateManager: HomeWidgetsStateManagerProtocol,
-        widgetOutput: CommonWidgetModuleOutput?
+        widgetOutput: (CommonWidgetModuleOutput & FavoriteWidgetModuleOutput)?
     ) -> HomeWidgetsRegistryProtocol
     func objectTreeWidgetModuleAssembly() -> ObjectTreeWidgetModuleAssemblyProtocol
     func setWidgetModuleAssembly() -> SetWidgetModuleAssemblyProtocol
@@ -29,7 +29,7 @@ final class WidgetsDI: WidgetsDIProtocol {
     
     func homeWidgetsRegistry(
         stateManager: HomeWidgetsStateManagerProtocol,
-        widgetOutput: CommonWidgetModuleOutput?
+        widgetOutput: (CommonWidgetModuleOutput & FavoriteWidgetModuleOutput)?
     ) -> HomeWidgetsRegistryProtocol {
         return HomeWidgetsRegistry(
             treeWidgetProviderAssembly: ObjectTreeWidgetProviderAssembly(widgetsDI: self, output: widgetOutput),
