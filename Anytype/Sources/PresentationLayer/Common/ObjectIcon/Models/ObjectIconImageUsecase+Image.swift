@@ -81,7 +81,7 @@ extension ObjectIconImageUsecase {
                 staticImageGuideline: nil,
                 bookmarkImageGuideline: nil
             )
-        case .dashboardSearch, .homeSetWidget:
+        case .dashboardSearch, .widgetList:
             return ObjectIconImageGuidelineSet(
                 basicImageGuideline: BasicIconImageGuideline.x48,
                 profileImageGuideline: ProfileIconImageGuideline.x48,

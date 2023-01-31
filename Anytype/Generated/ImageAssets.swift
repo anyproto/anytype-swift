@@ -257,6 +257,7 @@ internal extension ImageAsset {
     static let search = ImageAsset.bundle(name: "Widget/search")
     static let `set` = ImageAsset.bundle(name: "Widget/set")
     static let settings = ImageAsset.bundle(name: "Widget/settings")
+    static let spacePlaceholder = ImageAsset.bundle(name: "Widget/spacePlaceholder")
   }
   static let splashLogo = ImageAsset.bundle(name: "splash_logo")
 }
