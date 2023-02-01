@@ -58,7 +58,7 @@ final class RecentSubscriptionService: RecentSubscriptionServiceProtocol {
                 filters: filters,
                 limit: objectLimit ?? Constants.limit,
                 offset: 0,
-                keys: BundledRelationKey.objectListKeys
+                keys: BundledRelationKey.objectListKeys.map { $0.rawValue }
             )
         )
         
