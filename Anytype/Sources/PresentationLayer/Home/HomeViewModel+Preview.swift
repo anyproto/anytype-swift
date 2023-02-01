@@ -9,7 +9,8 @@ extension HomeViewModel {
             profileSubsciptionDataBuilder: ProfileSubscriptionDataBuilder(),
             newSearchModuleAssembly: DI.preview.modulesDI.newSearch(),
             windowManager: DI.preview.coordinatorsDI.windowManager(),
-            accountManager: DI.preview.serviceLocator.accountManager()
+            accountManager: DI.preview.serviceLocator.accountManager(),
+            middlewareConfigurationProvider: DI.preview.serviceLocator.middlewareConfigurationProvider()
         )
     }
 }

@@ -30,7 +30,11 @@ final class ServiceLocator {
     }
     
     func loginStateService() -> LoginStateService {
-        LoginStateService(seedService: seedService(), objectTypeProvider: objectTypeProvider())
+        LoginStateService(
+            seedService: seedService(),
+            objectTypeProvider: objectTypeProvider(),
+            middlewareConfigurationProvider: middlewareConfigurationProvider()
+        )
     }
     
     func dashboardService() -> DashboardServiceProtocol {
@@ -154,6 +158,11 @@ final class ServiceLocator {
             accountManager: accountManager(),
             objectTypeProvider: objectTypeProvider()
         )
+    }
+    
+    private lazy var _middlewareConfigurationProvider = MiddlewareConfigurationProvider()
+    func middlewareConfigurationProvider() -> MiddlewareConfigurationProviderProtocol {
+        return _middlewareConfigurationProvider
     }
     
     // MARK: - Private

@@ -23,7 +23,8 @@ final class HomeViewAssembly {
             profileSubsciptionDataBuilder: ProfileSubscriptionDataBuilder(),
             newSearchModuleAssembly: modulesDI.newSearch(),
             windowManager: coordinatorsDI.windowManager(),
-            accountManager: serviceLocator.accountManager()
+            accountManager: serviceLocator.accountManager(),
+            middlewareConfigurationProvider: serviceLocator.middlewareConfigurationProvider()
         )
         return HomeView(model: model)
     }
