@@ -28,7 +28,7 @@ struct ListWidgetRow: View {
                 VStack(alignment: .leading, spacing: 1) {
                     AnytypeText(model.title, style: .previewTitle2Medium, color: .Text.primary)
                         .lineLimit(1)
-                    if let description = model.description {
+                    if let description = model.description, description.isNotEmpty {
                         AnytypeText(description, style: .relation3Regular, color: .Text.secondary)
                             .lineLimit(1)
                     }

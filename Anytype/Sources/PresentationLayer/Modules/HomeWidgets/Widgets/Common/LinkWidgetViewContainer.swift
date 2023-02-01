@@ -3,7 +3,6 @@ import SwiftUI
 struct LinkWidgetViewContainer<Content, MenuContent>: View where Content: View, MenuContent: View {
     
     let title: String
-    let description: String?
     @Binding var isExpanded: Bool
     let isEditalbeMode: Bool
     let allowMenuContent: Bool
@@ -15,7 +14,6 @@ struct LinkWidgetViewContainer<Content, MenuContent>: View where Content: View, 
     
     init(
         title: String,
-        description: String? = nil,
         isExpanded: Binding<Bool>,
         isEditalbeMode: Bool = false,
         allowMenuContent: Bool = false,
@@ -26,7 +24,6 @@ struct LinkWidgetViewContainer<Content, MenuContent>: View where Content: View, 
         @ViewBuilder content: @escaping () -> Content
     ) {
         self.title = title
-        self.description = description
         self._isExpanded = isExpanded
         self.isEditalbeMode = isEditalbeMode
         self.allowMenuContent = allowMenuContent
@@ -76,7 +73,7 @@ struct LinkWidgetViewContainer<Content, MenuContent>: View where Content: View, 
                 AnytypeText(title, style: .subheading, color: .Text.primary)
                     .lineLimit(1)
                     .layoutPriority(-1)
-                descriptionView
+                Spacer.fixedWidth(16)
                 Spacer()
             }
             menuButton
@@ -84,16 +81,6 @@ struct LinkWidgetViewContainer<Content, MenuContent>: View where Content: View, 
             Spacer.fixedWidth(12)
         }
         .frame(height: 40)
-    }
-    
-    @ViewBuilder
-    private var descriptionView: some View {
-        // TODO: Waiting designer. Fix description style and spacer after title.
-        if let description {
-            Spacer.fixedWidth(8)
-            AnytypeText(description, style: .body, color: .Text.secondary)
-                .lineLimit(1)
-        }
     }
     
     @ViewBuilder
@@ -146,7 +133,6 @@ struct LinkWidgetViewContainer_Previews: PreviewProvider {
             VStack {
                 LinkWidgetViewContainer(
                     title: "Name",
-                    description: nil,
                     isExpanded: .constant(true),
                     isEditalbeMode: false,
                     headerAction: {}
@@ -156,7 +142,6 @@ struct LinkWidgetViewContainer_Previews: PreviewProvider {
                 Spacer.fixedHeight(10)
                 LinkWidgetViewContainer(
                     title: "Name",
-                    description: "1",
                     isExpanded: .constant(false),
                     isEditalbeMode: false,
                     headerAction: {}
@@ -166,7 +151,6 @@ struct LinkWidgetViewContainer_Previews: PreviewProvider {
                 Spacer.fixedHeight(10)
                 LinkWidgetViewContainer(
                     title: "Very long text very long text very long text very long text",
-                    description: nil,
                     isExpanded: .constant(false),
                     isEditalbeMode: false,
                     headerAction: {}
@@ -176,7 +160,6 @@ struct LinkWidgetViewContainer_Previews: PreviewProvider {
                 Spacer.fixedHeight(10)
                 LinkWidgetViewContainer(
                     title: "Very long text very long text very long text very long text very long text",
-                    description: "1 111",
                     isExpanded: .constant(true),
                     isEditalbeMode: true,
                     headerAction: {}

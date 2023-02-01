@@ -17,7 +17,6 @@ struct WidgetContainerView<Content: View, ContentVM: WidgetContainerContentViewM
     var body: some View {
         LinkWidgetViewContainer(
             title: contentModel.name,
-            description: contentModel.count,
             isExpanded: $model.isExpanded,
             isEditalbeMode: model.isEditState,
             allowMenuContent: contentModel.menuItems.isNotEmpty,

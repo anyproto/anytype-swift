@@ -22,12 +22,21 @@ extension BundledRelationsValueProvider {
 
         switch layoutValue {
         case .note:
-            title = snippet
+            title = firstLineSnippet
         default:
             title = name
         }
 
         return title.isEmpty ? Loc.untitled : title
+    }
+    
+    var subtitle: String {
+        switch layoutValue {
+        case .note:
+            return description
+        default:
+            return description.isNotEmpty ? description : firstLineSnippet
+        }
     }
     
     var homeLayout: HomeCellData.TitleLayout {
@@ -41,5 +50,9 @@ extension BundledRelationsValueProvider {
     
     var mentionTitle: String {
         String(title.prefix(30)).replacingOccurrences(of: "\n", with: " ")
+    }
+    
+    private var firstLineSnippet: String {
+        return snippet.components(separatedBy: CharacterSet.newlines).first ?? snippet
     }
 }

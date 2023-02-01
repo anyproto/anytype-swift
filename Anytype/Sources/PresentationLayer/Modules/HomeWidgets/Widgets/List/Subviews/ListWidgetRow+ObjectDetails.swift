@@ -8,7 +8,7 @@ extension ListWidgetRow.Model {
             objectId: details.id,
             icon: details.objectIconImage,
             title: details.title,
-            description: details.description,
+            description: details.subtitle,
             onTap: {
                 let data = EditorScreenData(pageId: details.id, type: details.editorViewType)
                 onTap(data)
