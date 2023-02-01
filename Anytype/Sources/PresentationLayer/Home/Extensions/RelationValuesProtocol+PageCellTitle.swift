@@ -31,8 +31,12 @@ extension BundledRelationsValueProvider {
     }
     
     var subtitle: String {
-        return (type == ObjectTypeId.BundledTypeId.note.rawValue || description.isNotEmpty)
-            ? description : firstLineSnippet
+        switch layoutValue {
+        case .note:
+            return description
+        default:
+            return description.isNotEmpty ? description : firstLineSnippet
+        }
     }
     
     var homeLayout: HomeCellData.TitleLayout {
