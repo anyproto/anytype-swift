@@ -33,6 +33,8 @@ final class HomeViewModel: ObservableObject {
     @Published private(set) var settingsViewModel: SettingsViewModel
     @Published private(set) var enableSpace: Bool = false
     
+    let libraryVersion: String?
+    
     let objectActionsService: ObjectActionsServiceProtocol = ServiceLocator.shared.objectActionsService()
     
     private let dashboardService: DashboardServiceProtocol = ServiceLocator.shared.dashboardService()
@@ -60,7 +62,8 @@ final class HomeViewModel: ObservableObject {
         profileSubsciptionDataBuilder: ProfileSubscriptionDataBuilderProtocol,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
         windowManager: WindowManager,
-        accountManager: AccountManagerProtocol
+        accountManager: AccountManagerProtocol,
+        middlewareConfigurationProvider: MiddlewareConfigurationProviderProtocol
     ) {
         document = BaseDocument(objectId: homeBlockId)
         self.editorBrowserAssembly = editorBrowserAssembly
@@ -72,6 +75,7 @@ final class HomeViewModel: ObservableObject {
             windowManager: windowManager
         )
         self.accountManager = accountManager
+        self.libraryVersion = middlewareConfigurationProvider.libraryVersion()
         setupSubscriptions()
         
         let data = UserDefaultsConfig.screenDataFromLastSession

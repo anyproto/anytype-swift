@@ -5,27 +5,33 @@ final class LoginStateService {
 
     private let seedService: SeedServiceProtocol
     private let objectTypeProvider: ObjectTypeProviderProtocol
+    private let middlewareConfigurationProvider: MiddlewareConfigurationProviderProtocol
     
-    init(seedService: SeedServiceProtocol, objectTypeProvider: ObjectTypeProviderProtocol) {
+    init(
+        seedService: SeedServiceProtocol,
+        objectTypeProvider: ObjectTypeProviderProtocol,
+        middlewareConfigurationProvider: MiddlewareConfigurationProviderProtocol
+    ) {
         self.seedService = seedService
         self.objectTypeProvider = objectTypeProvider
+        self.middlewareConfigurationProvider = middlewareConfigurationProvider
     }
     
     func setupStateAfterLoginOrAuth(account: AccountData) {
-        MiddlewareConfigurationProvider.shared.setupConfiguration(account: account)
+        middlewareConfigurationProvider.setupConfiguration(account: account)
         startSubscriptions()
     }
     
     func setupStateAfterRegistration(account: AccountData) {
         isFirstLaunchAfterRegistration = true
         UserDefaultsConfig.showKeychainAlert = true
-        MiddlewareConfigurationProvider.shared.setupConfiguration(account: account)
+        middlewareConfigurationProvider.setupConfiguration(account: account)
         startSubscriptions()
     }
     
     func cleanStateAfterLogout() {
         UserDefaultsConfig.cleanStateAfterLogout()
-        MiddlewareConfigurationProvider.shared.removeCachedConfiguration()
+        middlewareConfigurationProvider.removeCachedConfiguration()
         stopSubscriptions()
     }
     
