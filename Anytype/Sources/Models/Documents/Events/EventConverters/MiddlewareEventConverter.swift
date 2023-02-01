@@ -375,6 +375,7 @@ final class MiddlewareEventConverter {
             handleBlockDataviewViewUpdate(data)
             return .general
         case .blockSetRelation(let data):
+            guard FeatureFlags.fixUpdateRelationBlock else { return nil }
             infoContainer.update(blockId: data.id) { info in
                 return info.updated(content: .relation(BlockRelation(key: data.key.value)))
             }

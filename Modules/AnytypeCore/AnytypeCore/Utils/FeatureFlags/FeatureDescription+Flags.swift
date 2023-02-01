@@ -26,6 +26,13 @@ public extension FeatureDescription {
         debugValue: false
     )
     
+    static let fixUpdateRelationBlock = FeatureDescription(
+        title: "Fix relation block updates (IOS-801)",
+        author: "m@anytype.io",
+        releaseVersion: "0.22.0",
+        defaultValue: false
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(

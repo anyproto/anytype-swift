@@ -18,6 +18,10 @@ public extension FeatureFlags {
         value(for: .fullInlineSetImpl)
     }
 
+    static var fixUpdateRelationBlock: Bool {
+        value(for: .fixUpdateRelationBlock)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -39,6 +43,7 @@ public extension FeatureFlags {
         .setKanbanView,
         .homeWidgets,
         .fullInlineSetImpl,
+        .fixUpdateRelationBlock,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
