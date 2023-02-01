@@ -94,9 +94,12 @@ private func retrieveObjectDetails(objectId: BlockId) async -> ObjectDetails? {
 }
 
 private func createAttributedString(from objectDetails: ObjectDetails) async -> NSAttributedString {
+    let objectDetailsString = objectDetails.name.isNotEmpty ? objectDetails.name : objectDetails.snippet
+    let trimmedObjectDetailsString = objectDetailsString.trimmed(numberOfCharacters: 16)
+    
     guard let icon = objectDetails.icon else {
         return await NSAttributedString(
-            string: objectDetails.name.trimmed(numberOfCharacters: 16),
+            string: trimmedObjectDetailsString,
             attributes: ToastView.objectAttributes
         )
     }
@@ -112,7 +115,7 @@ private func createAttributedString(from objectDetails: ObjectDetails) async -> 
     
     return await NSAttributedString.imageFirstComposite(
         image: image,
-        text: objectDetails.name.trimmed(numberOfCharacters: 16),
+        text: trimmedObjectDetailsString,
         attributes: ToastView.objectAttributes
     )
 }
