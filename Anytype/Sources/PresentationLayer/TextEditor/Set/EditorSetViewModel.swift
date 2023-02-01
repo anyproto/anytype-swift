@@ -60,6 +60,10 @@ final class EditorSetViewModel: ObservableObject {
         setDocument.targetObjectID != nil
     }
     
+    var showSetEmptyState: Bool {
+        setDocument.details?.setOf.first { $0.isNotEmpty } == nil
+    }
+    
     func groupBackgroundColor(for groupId: String) -> BlockBackgroundColor {
         guard let groupOrder = setDocument.dataView.groupOrders.first(where: { [weak self] in $0.viewID == self?.activeView.id }),
             let viewGroup = groupOrder.viewGroups.first(where: { $0.groupID == groupId }),
@@ -139,10 +143,6 @@ final class EditorSetViewModel: ObservableObject {
                 try await self.setDocument.open()
                 self.loadingDocument = false
                 self.onDataviewUpdate()
-
-                if let details = self.setDocument.details, details.setOf.isEmpty {
-                    self.showSetOfTypeSelection()
-                }
             } catch {
                 self.router?.closeEditor()
             }
@@ -673,6 +673,15 @@ extension EditorSetViewModel {
         router?.showIconPicker()
     }
     
+    func showSetOfTypeSelection() {
+        router?.showQueries(selectedObjectId: setDocument.details?.setOf.first) { [weak self] typeObjectId in
+            guard let self else { return }
+            Task { @MainActor in
+                try? await self.objectActionsService.setSource(objectId: self.objectId, source: [typeObjectId])
+            }
+        }
+    }
+    
     private func dataviewGroupOrderUpdate(groupId: String, hidden: Bool, backgroundColor: BlockBackgroundColor?) {
         let updatedGroupOrder = updatedGroupOrder(groupId: groupId, hidden: hidden, backgroundColor: backgroundColor)
         Task { [weak self] in
@@ -707,15 +716,6 @@ extension EditorSetViewModel {
             viewGroups.append(viewGroup)
         }
         return groupOrder.updated(viewGroups: viewGroups)
-    }
-    
-    private func showSetOfTypeSelection() {
-        router?.showQueries(selectedObjectId: setDocument.details?.setOf.first) { [weak self] typeObjectId in
-            guard let self else { return }
-            Task { @MainActor in
-                try? await self.objectActionsService.setSource(objectId: self.objectId, source: [typeObjectId])
-            }
-        }
     }
     
     private func handleCreatedObjectId(_ objectId: String, type: String) {
