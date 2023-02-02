@@ -48,8 +48,10 @@ struct SetTableView: View {
     
     private var content: some View {
         Group {
-            if model.isEmpty {
+            if model.isEmptyViews {
                 EmptyView()
+            } else if model.isEmptyQuery {
+                emptyCompoundHeader
             } else {
                 Section(header: compoundHeader) {
                     ForEach(model.configurationsDict.keys, id: \.self) { groupId in
@@ -63,15 +65,6 @@ struct SetTableView: View {
             }
         }
     }
-    
-    private var pagination: some View {
-        EditorSetPaginationView(
-            paginationData: model.pagitationData(by: SubscriptionId.set.value),
-            groupId: SubscriptionId.set.value
-        )
-        .frame(width: tableHeaderSize.width)
-        .offset(x: xOffset, y: 0)
-    }
 
     private var xOffset: CGFloat {
         max(-offset.x, 0)
@@ -81,17 +74,53 @@ struct SetTableView: View {
         VStack(spacing: 0) {
             Spacer.fixedHeight(headerMinimizedSize.height)
             VStack {
-                HStack {
-                    SetHeaderSettings()
-                        .offset(x: xOffset, y: 0)
-                        .environmentObject(model)
-                        .frame(width: tableHeaderSize.width)
-                    Spacer()
-                }
+                headerSettingsView
                 SetTableViewHeader()
             }
         }
         .background(Color.Background.primary)
+    }
+    
+    private var emptyCompoundHeader: some View {
+        VStack(spacing: 0) {
+            Spacer.fixedHeight(headerMinimizedSize.height)
+            headerSettingsView
+            AnytypeDivider()
+            Spacer.fixedHeight(48)
+            EditorSetEmptyView(
+                model: EditorSetEmptyViewModel(
+                    mode: .set,
+                    onTap: model.showSetOfTypeSelection
+                )
+            )
+        }
+        .frame(maxWidth: .infinity)
+    }
+    
+    private var headerSettingsView: some View {
+        HStack {
+            SetHeaderSettingsView(
+                model: SetHeaderSettingsViewModel(
+                    setDocument: model.setDocument,
+                    isActive: !model.isEmptyQuery,
+                    onViewTap: model.showViewPicker,
+                    onSettingsTap: model.showSetSettings,
+                    onCreateTap: model.createObject
+                )
+            )
+            .offset(x: xOffset, y: 0)
+            .frame(width: tableHeaderSize.width)
+            Spacer()
+        }
+    }
+    
+    private var pagination: some View {
+        EditorSetPaginationView(
+            paginationData: model.pagitationData(by: SubscriptionId.set.value),
+            groupId: SubscriptionId.set.value
+        )
+        .frame(width: tableHeaderSize.width)
+        .offset(x: xOffset, y: 0)
     }
 }
 

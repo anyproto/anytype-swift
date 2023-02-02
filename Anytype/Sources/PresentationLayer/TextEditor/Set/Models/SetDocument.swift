@@ -20,6 +20,10 @@ class SetDocument: SetDocumentProtocol {
         }
     }
     
+    var detailsPublisher: AnyPublisher<ObjectDetails, Never> {
+        document.detailsPublisher
+    }
+    
     var updatePublisher: AnyPublisher<DocumentUpdate, Never> {
         document.updatePublisher
     }

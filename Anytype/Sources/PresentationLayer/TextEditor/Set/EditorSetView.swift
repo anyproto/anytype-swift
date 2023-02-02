@@ -30,11 +30,7 @@ struct EditorSetView: View {
         VStack(spacing: 0) {
             ZStack {
                 Group {
-                    if model.showSetEmptyState {
-                        emptySetView
-                    } else {
-                        contentTypeView
-                    }
+                    contentTypeView
                 }
                 .overlay(
                     SetFullHeader()
@@ -79,25 +75,5 @@ struct EditorSetView: View {
                 headerMinimizedSize: headerMinimizedSize
             )
         }
-    }
-    
-    private var emptySetView: some View {
-        VStack(spacing: 0) {
-            Spacer.fixedHeight(tableHeaderSize.height + 90)
-            
-            EditorSetEmptyView(
-                model: .init(
-                    title: Loc.Set.View.Empty.title,
-                    subtitle: Loc.Set.View.Empty.subtitle,
-                    buttonTitle: Loc.Set.View.Empty.Button.title,
-                    onTap: {
-                        model.showSetOfTypeSelection()
-                    }
-                )
-            )
-            
-            Spacer()
-        }
-        .frame(maxWidth: .infinity)
     }
 }

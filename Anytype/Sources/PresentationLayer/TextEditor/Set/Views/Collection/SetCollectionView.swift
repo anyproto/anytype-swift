@@ -49,8 +49,10 @@ struct SetCollectionView: View {
     
     private var galleryContent: some View {
         Group {
-            if model.isEmpty {
+            if model.isEmptyViews {
                 EmptyView()
+            } else if model.isEmptyQuery {
+                emptyCompoundHeader
             } else {
                 Section(header: compoundHeader) {
                     ForEach(model.configurationsDict.keys, id: \.self) { groupId in
@@ -81,8 +83,10 @@ struct SetCollectionView: View {
     
     private var listContent: some View {
         Group {
-            if model.isEmpty {
+            if model.isEmptyViews {
                 EmptyView()
+            } else if model.isEmptyQuery {
+                emptyCompoundHeader
             } else {
                 Section(header: compoundHeader) {
                     ForEach(model.configurationsDict.keys, id: \.self) { groupId in
@@ -113,19 +117,47 @@ struct SetCollectionView: View {
         VStack(spacing: 0) {
             Spacer.fixedHeight(headerMinimizedSize.height)
             VStack {
-                HStack {
-                    SetHeaderSettings()
-                        .environmentObject(model)
-                        .frame(width: tableHeaderSize.width)
-                        .offset(x: 4, y: 8)
-                    Spacer()
-                }
+                headerSettingsView
                 Spacer.fixedHeight(
                     viewType == .list ? 16 : 6
                 )
             }
         }
         .background(Color.Background.primary)
+    }
+    
+    private var emptyCompoundHeader: some View {
+        VStack(spacing: 0) {
+            Spacer.fixedHeight(headerMinimizedSize.height)
+            headerSettingsView
+            Spacer.fixedHeight(14)
+            AnytypeDivider()
+            Spacer.fixedHeight(48)
+            EditorSetEmptyView(
+                model: EditorSetEmptyViewModel(
+                    mode: .set,
+                    onTap: model.showSetOfTypeSelection
+                )
+            )
+        }
+        .frame(maxWidth: .infinity)
+    }
+    
+    private var headerSettingsView: some View {
+        HStack {
+            SetHeaderSettingsView(
+                model: SetHeaderSettingsViewModel(
+                    setDocument: model.setDocument,
+                    isActive: !model.isEmptyQuery,
+                    onViewTap: model.showViewPicker,
+                    onSettingsTap: model.showSetSettings,
+                    onCreateTap: model.createObject
+                )
+            )
+            .frame(width: tableHeaderSize.width)
+            .offset(x: model.isEmptyQuery && viewType == .gallery ? -10 : 4, y: 8)
+            Spacer()
+        }
     }
     
     private func columns() -> [GridItem] {

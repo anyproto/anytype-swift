@@ -756,6 +756,20 @@ internal enum Loc {
     /// Camera access required to scan QR code
     internal static let cameraPermissionTitle = Loc.tr("Localizable", "Auth.CameraPermissionTitle", fallback: "Camera access required to scan QR code")
   }
+  internal enum Collection {
+    internal enum View {
+      internal enum Empty {
+        /// Add objects or turn into set to aggregate objects with equal types or relations
+        internal static let subtitle = Loc.tr("Localizable", "Collection.View.Empty.Subtitle", fallback: "Add objects or turn into set to aggregate objects with equal types or relations")
+        /// No objects
+        internal static let title = Loc.tr("Localizable", "Collection.View.Empty.Title", fallback: "No objects")
+        internal enum Button {
+          /// Create object
+          internal static let title = Loc.tr("Localizable", "Collection.View.Empty.Button.Title", fallback: "Create object")
+        }
+      }
+    }
+  }
   internal enum Content {
     internal enum Audio {
       /// Upload audio
