@@ -15,6 +15,7 @@ protocol EditorBrowserViewInputProtocol: AnyObject {
 }
 
 protocol EditorPageOpenRouterProtocol: AnyObject {
+    // TODO: set main action with delete homeWidgets toggle
     func showPage(data: EditorScreenData)
 }
 
