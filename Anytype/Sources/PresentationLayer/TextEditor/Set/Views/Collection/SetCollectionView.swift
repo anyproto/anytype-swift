@@ -155,7 +155,7 @@ struct SetCollectionView: View {
                 )
             )
             .frame(width: tableHeaderSize.width)
-            .offset(x: model.isEmptyQuery && viewType == .gallery ? -10 : 4, y: 8)
+            .offset(x: xOffset(), y: 8)
             Spacer()
         }
     }
@@ -165,6 +165,10 @@ struct SetCollectionView: View {
             repeating: GridItem(.flexible(), spacing: SetCollectionView.interCellSpacing, alignment: .topLeading),
             count: model.isSmallItemSize ? 2 : 1
         )
+    }
+    
+    private func xOffset() -> CGFloat {
+        model.isEmptyQuery && viewType == .gallery ? -10 : 4
     }
 }
 
