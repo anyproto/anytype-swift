@@ -65,6 +65,15 @@ struct SetTableView: View {
             }
         }
     }
+    
+    private var pagination: some View {
+        EditorSetPaginationView(
+            paginationData: model.pagitationData(by: SubscriptionId.set.value),
+            groupId: SubscriptionId.set.value
+        )
+        .frame(width: tableHeaderSize.width)
+        .offset(x: xOffset, y: 0)
+    }
 
     private var xOffset: CGFloat {
         max(-offset.x, 0)
@@ -112,15 +121,6 @@ struct SetTableView: View {
             .frame(width: tableHeaderSize.width)
             Spacer()
         }
-    }
-    
-    private var pagination: some View {
-        EditorSetPaginationView(
-            paginationData: model.pagitationData(by: SubscriptionId.set.value),
-            groupId: SubscriptionId.set.value
-        )
-        .frame(width: tableHeaderSize.width)
-        .offset(x: xOffset, y: 0)
     }
 }
 
