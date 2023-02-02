@@ -43,7 +43,7 @@ final class EditorAssembly {
                 blockId: blockId,
                 targetObjectID: targetObjectID
             )
-        case .favorite, .recent, .sets:
+        case .favorites, .recent, .sets:
             return favoritesModule()
         }
     }
@@ -338,7 +338,6 @@ final class EditorAssembly {
     private func favoritesModule() -> (UIViewController, EditorPageOpenRouterProtocol?) {
         let moduleAssembly =  modulesDI.widgetObjectList()
         let module = moduleAssembly.makeFavorites()
-        let hosting = UIHostingController(rootView: module)
-        return (hosting, nil)
+        return (module, nil)
     }
 }

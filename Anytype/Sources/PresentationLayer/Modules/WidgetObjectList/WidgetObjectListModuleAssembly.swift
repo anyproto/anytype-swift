@@ -4,36 +4,37 @@ import SwiftUI
 protocol WidgetObjectListModuleAssemblyProtocol: AnyObject {
     
     // Common
-    func make() -> AnyView
+    func make() -> UIViewController
     
     // Specific
-    func makeFavorites() -> AnyView
-    func makeRecent() -> AnyView
-    func makeSets() -> AnyView
-    func makeBin() -> AnyView
+    func makeFavorites() -> UIViewController
+    func makeRecent() -> UIViewController
+    func makeSets() -> UIViewController
+    func makeBin() -> UIViewController
 }
 
 final class WidgetObjectListModuleAssembly: WidgetObjectListModuleAssemblyProtocol {
     
-    func makeFavorites() -> AnyView {
+    func makeFavorites() -> UIViewController {
         return make()
     }
     
-    func makeRecent() -> AnyView {
+    func makeRecent() -> UIViewController {
         return make()
     }
     
-    func makeSets() -> AnyView {
+    func makeSets() -> UIViewController {
         return make()
     }
     
-    func makeBin() -> AnyView {
+    func makeBin() -> UIViewController {
         return make()
     }
     
     // MARK: - Private
     
-    func make() -> AnyView {
-        return WidgetObjectListView().eraseToAnyView()
+    func make() -> UIViewController {
+        let view = WidgetObjectListView()
+        return WidgetObjectListHostingController(rootView: view)
     }
 }

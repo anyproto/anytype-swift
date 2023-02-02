@@ -184,9 +184,8 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
         
         UserDefaultsConfig.storeOpenedScreenData(detailsProvider.screenData)
         
-        let details = detailsProvider.details
-        let title = details?.title
-        let subtitle = details?.description
+        let title = detailsProvider.documentTitle
+        let subtitle = detailsProvider.documentDescription
         do {
             try stateManager.didShow(
                 page: BrowserPage(

@@ -16,7 +16,7 @@ struct EditorScreenData: Hashable {
 enum EditorViewType: Hashable {
     case page
     case set(blockId: BlockId? = nil, targetObjectID: String? = nil)
-    case favorite
+    case favorites
     case recent
     case sets
     
@@ -26,8 +26,8 @@ enum EditorViewType: Hashable {
             self = .page
         case "set":
             self = .set(blockId: blockId, targetObjectID: targetObjectID)
-        case "favorte":
-            self = .favorite
+        case "favorites":
+            self = .favorites
         case "recent":
             self = .recent
         case "sets":
@@ -41,7 +41,7 @@ enum EditorViewType: Hashable {
         switch self {
         case .page: return "page"
         case .set: return "set"
-        case .favorite: return "favorite"
+        case .favorites: return "favorites"
         case .recent: return "recent"
         case .sets: return "sets"
         }

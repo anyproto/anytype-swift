@@ -61,7 +61,7 @@ final class FavoriteWidgetViewModel: ListWidgetViewModelProtocol, WidgetContaine
     }
     
     func onHeaderTap() {
-        output?.onObjectSelected(screenData: EditorScreenData(pageId: "", type: .favorite))
+        output?.onObjectSelected(screenData: EditorScreenData(pageId: "", type: .favorites))
     }
     
     // MARK: - Private
