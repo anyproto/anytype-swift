@@ -8,7 +8,7 @@ protocol HomeWidgetsCoordinatorProtocol {
 
 @MainActor
 final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsModuleOutput,
-                                    CommonWidgetModuleOutput, HomeBottomPanelModuleOutput, FavoriteWidgetModuleOutput, EditorPageOpenRouterProtocol {
+                                    CommonWidgetModuleOutput, HomeBottomPanelModuleOutput, EditorPageOpenRouterProtocol {
     
     private let homeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol
     private let accountManager: AccountManagerProtocol
@@ -70,12 +70,6 @@ final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsM
         
     func onObjectSelected(screenData: EditorScreenData) {
         showPage(data: screenData)
-    }
-    
-    // MARK: - FavoriteWidgetModuleOutput
-    
-    func onFavoriteSelected() {
-        showPage(data: EditorScreenData(pageId: "", type: .favorite))
     }
     
     // MARK: - HomeBottomPanelModuleOutput

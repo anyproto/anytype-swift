@@ -54,7 +54,7 @@ final class SetsWidgetViewModel: ListWidgetViewModelProtocol, WidgetContainerCon
     }
     
     func onHeaderTap() {
-        // TODO: Open screen
+        output?.onObjectSelected(screenData: EditorScreenData(pageId: "", type: .sets))
     }
     
     // MARK: - Private
