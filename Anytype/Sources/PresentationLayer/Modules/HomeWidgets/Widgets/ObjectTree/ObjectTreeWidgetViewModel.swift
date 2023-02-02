@@ -180,6 +180,8 @@ private extension ObjectDetails {
             return links.isEmpty || !canBeExpanded ? .dot : .arrow(expanded: isExpanded)
         case .set:
             return .set
+        case .favorite, .recent, .sets:
+            return .dot
         }
     }
 }

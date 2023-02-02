@@ -8,7 +8,7 @@ protocol HomeWidgetsCoordinatorProtocol {
 
 @MainActor
 final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsModuleOutput,
-                                    CommonWidgetModuleOutput, HomeBottomPanelModuleOutput, FavoriteWidgetModuleOutput {
+                                    CommonWidgetModuleOutput, HomeBottomPanelModuleOutput, FavoriteWidgetModuleOutput, EditorPageOpenRouterProtocol {
     
     private let homeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol
     private let accountManager: AccountManagerProtocol
@@ -69,14 +69,13 @@ final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsM
     // MARK: - CommonWidgetModuleOutput
         
     func onObjectSelected(screenData: EditorScreenData) {
-        showPage(screenData: screenData)
+        showPage(data: screenData)
     }
     
     // MARK: - FavoriteWidgetModuleOutput
     
     func onFavoriteSelected() {
-        let module = widgetObjectListModuleAssembly.makeFavorites()
-        navigationContext.push(module)
+        showPage(data: EditorScreenData(pageId: "", type: .favorite))
     }
     
     // MARK: - HomeBottomPanelModuleOutput
@@ -85,13 +84,13 @@ final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsM
         createWidgetCoordinator.startFlow(widgetObjectId: accountManager.account.info.widgetsId)
     }
     
-    // MARK: - Private
+    // MARK: - EditorPageOpenRouterProtocol
     
-    private func showPage(screenData: EditorScreenData) {
+    func showPage(data: EditorScreenData) {
         if let browserController {
-            browserController.showPage(data: screenData)
+            browserController.showPage(data: data)
         } else {
-            let controller = editorBrowserAssembly.buildEditorBrowser(data: screenData)
+            let controller = editorBrowserAssembly.buildEditorBrowser(data: data, router: self)
             navigationContext.push(controller)
             browserController = controller
         }

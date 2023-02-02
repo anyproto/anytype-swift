@@ -72,7 +72,7 @@ extension UserDefaultsConfig {
         _lastOpenedPageId = data?.pageId
         
         switch data?.type {
-        case .page:
+        case .page, .favorite, .recent, .sets:
             _lastOpenedViewType = data?.type.rawValue
             _lastOpenedBlockId = nil
             _lastOpenedTargetObjectID = nil

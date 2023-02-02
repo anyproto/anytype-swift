@@ -21,7 +21,7 @@ protocol EditorPageOpenRouterProtocol: AnyObject {
 final class EditorBrowserController: UIViewController, UINavigationControllerDelegate, EditorBrowser, EditorBrowserViewInputProtocol {
         
     var childNavigation: UINavigationController!
-    var router: EditorPageOpenRouterProtocol!
+    weak var router: EditorPageOpenRouterProtocol!
 
     private lazy var navigationView: EditorBottomNavigationView = createNavigationView()
     private var navigationViewBottomConstaint: NSLayoutConstraint?
