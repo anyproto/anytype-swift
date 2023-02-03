@@ -16,7 +16,10 @@ final class EditorBrowserAssembly {
         EditorViewRepresentable(data: data, model: model, editorBrowserAssembly: self).eraseToAnyView()
     }
     
-    func buildEditorBrowser(data: EditorScreenData, router: EditorPageOpenRouterProtocol? = nil) -> EditorBrowserController {
+    func buildEditorBrowser(
+        data: EditorScreenData,
+        router: EditorPageOpenRouterProtocol? = nil
+    ) -> EditorBrowserController {
         let browser = EditorBrowserController(dashboardService: serviceLocator.dashboardService())
 
         let (page, moduleRouter) = coordinatorsDI.editor()

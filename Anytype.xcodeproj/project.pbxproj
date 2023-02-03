@@ -453,6 +453,9 @@
 		2A6E04A4298D00FB0023B33D /* WidgetObjectListEmptyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6E04A3298D00FB0023B33D /* WidgetObjectListEmptyViewModel.swift */; };
 		2A6E04A6298D05AF0023B33D /* DocumentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6E04A5298D05AF0023B33D /* DocumentService.swift */; };
 		2A6E04A8298D06430023B33D /* BlockActionServiceOpenStateStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6E04A7298D06430023B33D /* BlockActionServiceOpenStateStorage.swift */; };
+		2A6E04AB298D20480023B33D /* WidgetSearchListRowConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6E04AA298D20480023B33D /* WidgetSearchListRowConfiguration.swift */; };
+		2A6E04AD298D26E50023B33D /* WidgetListSearchData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6E04AC298D26E50023B33D /* WidgetListSearchData.swift */; };
+		2A6E04B1298D66DB0023B33D /* WidgetObjectListCommonModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6E04B0298D66DA0023B33D /* WidgetObjectListCommonModuleOutput.swift */; };
 		2A6ED166285B44DB00AAA21C /* AnytypeCore in Frameworks */ = {isa = PBXBuildFile; productRef = 2A6ED165285B44DB00AAA21C /* AnytypeCore */; };
 		2A6ED167285B44DB00AAA21C /* AnytypeCore in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 2A6ED165285B44DB00AAA21C /* AnytypeCore */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		2A6ED169285B44DB00AAA21C /* BlocksModels in Frameworks */ = {isa = PBXBuildFile; productRef = 2A6ED168285B44DB00AAA21C /* BlocksModels */; };
@@ -1827,6 +1830,9 @@
 		2A6E04A3298D00FB0023B33D /* WidgetObjectListEmptyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetObjectListEmptyViewModel.swift; sourceTree = "<group>"; };
 		2A6E04A5298D05AF0023B33D /* DocumentService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentService.swift; sourceTree = "<group>"; };
 		2A6E04A7298D06430023B33D /* BlockActionServiceOpenStateStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionServiceOpenStateStorage.swift; sourceTree = "<group>"; };
+		2A6E04AA298D20480023B33D /* WidgetSearchListRowConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSearchListRowConfiguration.swift; sourceTree = "<group>"; };
+		2A6E04AC298D26E50023B33D /* WidgetListSearchData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetListSearchData.swift; sourceTree = "<group>"; };
+		2A6E04B0298D66DA0023B33D /* WidgetObjectListCommonModuleOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetObjectListCommonModuleOutput.swift; sourceTree = "<group>"; };
 		2A6ED162285B448700AAA21C /* ProtobufMessages */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ProtobufMessages; path = Modules/ProtobufMessages; sourceTree = "<group>"; };
 		2A6ED163285B449000AAA21C /* BlocksModels */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = BlocksModels; path = Modules/BlocksModels; sourceTree = "<group>"; };
 		2A6ED164285B449700AAA21C /* AnytypeCore */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = AnytypeCore; path = Modules/AnytypeCore; sourceTree = "<group>"; };
@@ -4901,6 +4907,15 @@
 			path = Favorites;
 			sourceTree = "<group>";
 		};
+		2A6E04A9298D202E0023B33D /* Configurations */ = {
+			isa = PBXGroup;
+			children = (
+				2A6E04AA298D20480023B33D /* WidgetSearchListRowConfiguration.swift */,
+				2A6E04AC298D26E50023B33D /* WidgetListSearchData.swift */,
+			);
+			path = Configurations;
+			sourceTree = "<group>";
+		};
 		2A730A702940BB2400E51335 /* Rows */ = {
 			isa = PBXGroup;
 			children = (
@@ -5220,6 +5235,8 @@
 		2AE7EC9E298816F30079F12B /* WidgetObjectList */ = {
 			isa = PBXGroup;
 			children = (
+				2A6E04B0298D66DA0023B33D /* WidgetObjectListCommonModuleOutput.swift */,
+				2A6E04A9298D202E0023B33D /* Configurations */,
 				2A6E04A0298CFCC40023B33D /* Favorites */,
 				2AE7EC9F298816F30079F12B /* WidgetObjectListView.swift */,
 				2AE7ECA0298816F30079F12B /* WidgetObjectListViewModelProtocol.swift */,
@@ -8847,6 +8864,7 @@
 				3D7C08212684B68600E2168D /* BlockFileViewModel.swift in Sources */,
 				1247BCAC27FF3A0C005F2DB4 /* FeedbackGeneratorExample.swift in Sources */,
 				EA0261242625CE0800AE6D86 /* TextBlockRestrictions.swift in Sources */,
+				2A6E04B1298D66DB0023B33D /* WidgetObjectListCommonModuleOutput.swift in Sources */,
 				2AAF34412955AABF00921320 /* HomeWidgetsObject.swift in Sources */,
 				2ABA0E07283BC420008369DC /* BlockObjectsSearchInteractor.swift in Sources */,
 				12EEC36C26A0903F00C3C4B1 /* EmojiProvider.swift in Sources */,
@@ -9160,6 +9178,7 @@
 				C9A4268E28489D1F00F388FC /* SpreadsheetBlockView.swift in Sources */,
 				3DE0CFCD26F8591E003A606A /* SlashMenuCellData.swift in Sources */,
 				53C9F69226C166AF00209CA1 /* TitleBlockRestrictions.swift in Sources */,
+				2A6E04AD298D26E50023B33D /* WidgetListSearchData.swift in Sources */,
 				3D16841226DD672E008B9DFF /* BlockDividerConverter.swift in Sources */,
 				C9E9F5E427FC7E7F008163D9 /* InsetConstraints.swift in Sources */,
 				C91B81BA28E74222006AE9EB /* AnytypeWindow.swift in Sources */,
@@ -9688,6 +9707,7 @@
 				533856B0263B22B8005A06A9 /* MarkupViewController.swift in Sources */,
 				3D540C7B2625C9DE00A07BD8 /* EditorBrowserAssembly.swift in Sources */,
 				12B691D327F4CB5D00A0C336 /* ImageCornersGuideline.swift in Sources */,
+				2A6E04AB298D20480023B33D /* WidgetSearchListRowConfiguration.swift in Sources */,
 				12E05EEF2796A9C10037B667 /* AnytypePopup.swift in Sources */,
 				12450D4727A918A90026F004 /* AdaptiveTextRelationDetailsPopupLayout.swift in Sources */,
 				2ACEAE462984017100B467CE /* WidgetTypeViewModel.swift in Sources */,

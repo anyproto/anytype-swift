@@ -336,8 +336,8 @@ final class EditorAssembly {
     }
     
     private func favoritesModule() -> (UIViewController, EditorPageOpenRouterProtocol?) {
-        let moduleAssembly =  modulesDI.widgetObjectList()
-        let module = moduleAssembly.makeFavorites()
+        let moduleAssembly = modulesDI.widgetObjectList()
+        let module = moduleAssembly.makeFavorites(output: nil)
         return (module, nil)
     }
 }

@@ -16,9 +16,17 @@ final class WidgetObjectListFavoriesViewModel: ObservableObject, WidgetObjectLis
     private var searchText: String?
     private var homeDocument: BaseDocumentProtocol
     
-    init(favoriteSubscriptionService: FavoriteSubscriptionServiceProtocol, accountManager: AccountManagerProtocol, documentService: DocumentServiceProtocol) {
+    private weak var output: WidgetObjectListCommonModuleOutput?
+    
+    init(
+        favoriteSubscriptionService: FavoriteSubscriptionServiceProtocol,
+        accountManager: AccountManagerProtocol,
+        documentService: DocumentServiceProtocol,
+        output: WidgetObjectListCommonModuleOutput?
+    ) {
         self.favoriteSubscriptionService = favoriteSubscriptionService
         self.homeDocument = documentService.document(objectId: accountManager.account.info.homeObjectID)
+        self.output = output
     }
     
     func onAppear() {
@@ -51,8 +59,8 @@ final class WidgetObjectListFavoriesViewModel: ObservableObject, WidgetObjectLis
         rows = filteredDetails.map { details in
             ListRowConfiguration.widgetSearchConfiguration(
                 objectDetails: details,
-                onTap: {
-                    print("on tap")
+                onTap: { [weak self] screenData in
+                    self?.output?.onObjectSelected(screenData: screenData)
                 }
             )
         }

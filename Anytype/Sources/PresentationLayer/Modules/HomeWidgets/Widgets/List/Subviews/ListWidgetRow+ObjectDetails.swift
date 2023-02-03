@@ -3,7 +3,7 @@ import BlocksModels
 
 extension ListWidgetRow.Model {
     
-    init(details: ObjectDetails, showType = false, onTap: @escaping (EditorScreenData) -> Void) {
+    init(details: ObjectDetails, showType: Bool = false, onTap: @escaping (EditorScreenData) -> Void) {
         self = ListWidgetRow.Model(
             objectId: details.id,
             icon: details.objectIconImage,

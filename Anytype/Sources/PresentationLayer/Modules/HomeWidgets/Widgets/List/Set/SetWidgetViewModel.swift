@@ -88,9 +88,9 @@ final class SetWidgetViewModel: ListWidgetViewModelProtocol, WidgetContainerCont
         ]
         
         rows = [
-            ListWidgetRow.Model(objectId: "1", icon: .placeholder("A"), title: "Object title", description: "Object description description description description description description ", onTap: {}),
-            ListWidgetRow.Model(objectId: "2", icon: .placeholder("A"), title: "Object title title title title title title title title title", description: nil, onTap: {}),
-            ListWidgetRow.Model(objectId: "3", icon: nil, title: "Object title", description: "Object description", onTap: {})
+            ListWidgetRow.Model(objectId: "1", icon: .placeholder("A"), title: "Object title", description: "Object description description description description description description ", type: nil, onTap: {}),
+            ListWidgetRow.Model(objectId: "2", icon: .placeholder("A"), title: "Object title title title title title title title title title", description: nil, type: nil, onTap: {}),
+            ListWidgetRow.Model(objectId: "3", icon: nil, title: "Object title", description: "Object description", type: nil, onTap: {})
         ]
     }
 }

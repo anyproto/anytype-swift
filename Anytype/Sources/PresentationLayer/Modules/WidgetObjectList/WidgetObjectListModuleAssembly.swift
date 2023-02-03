@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 
 protocol WidgetObjectListModuleAssemblyProtocol: AnyObject {
-    func makeFavorites() -> UIViewController
+    func makeFavorites(output: WidgetObjectListCommonModuleOutput?) -> UIViewController
     func makeRecent() -> UIViewController
     func makeSets() -> UIViewController
     func makeBin() -> UIViewController
@@ -18,11 +18,12 @@ final class WidgetObjectListModuleAssembly: WidgetObjectListModuleAssemblyProtoc
     
     // MARK: - WidgetObjectListModuleAssemblyProtocol
     
-    func makeFavorites() -> UIViewController {
+    func makeFavorites(output: WidgetObjectListCommonModuleOutput?) -> UIViewController {
         let model = WidgetObjectListFavoriesViewModel(
             favoriteSubscriptionService: serviceLocator.favoriteSubscriptionService(),
             accountManager: serviceLocator.accountManager(),
-            documentService: serviceLocator.documentService()
+            documentService: serviceLocator.documentService(),
+            output: output
         )
         return make(model: model)
     }
