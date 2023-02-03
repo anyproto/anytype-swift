@@ -16,14 +16,14 @@ final class EditorBrowserAssembly {
         EditorViewRepresentable(data: data, model: model, editorBrowserAssembly: self).eraseToAnyView()
     }
     
-    func buildEditorBrowser(data: EditorScreenData) -> EditorBrowserController {
+    func buildEditorBrowser(data: EditorScreenData, router: EditorPageOpenRouterProtocol? = nil) -> EditorBrowserController {
         let browser = EditorBrowserController(dashboardService: serviceLocator.dashboardService())
 
-        let (page, router) = coordinatorsDI.editor()
+        let (page, moduleRouter) = coordinatorsDI.editor()
             .buildEditorModule(browser: browser, data: data)
         
         browser.childNavigation = navigationStack(rootPage: page)
-        browser.router = router
+        browser.router = router ?? moduleRouter
         
         browser.setup()
         

@@ -9,6 +9,7 @@ protocol CoordinatorsDIProtocol: AnyObject {
     func addNewRelation() -> AddNewRelationCoordinatorAssemblyProtocol
     func homeWidgets() -> HomeWidgetsCoordinatorAssemblyProtocol
     func createWidget() -> CreateWidgetCoordinatorAssemblyProtocol
+    func editorBrowser() -> EditorBrowserCoordinatorAssemblyProtocol
     
     // Rename
     @MainActor

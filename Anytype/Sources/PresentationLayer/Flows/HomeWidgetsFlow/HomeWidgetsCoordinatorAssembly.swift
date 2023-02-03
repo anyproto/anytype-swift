@@ -36,8 +36,8 @@ final class HomeWidgetsCoordinatorAssembly: HomeWidgetsCoordinatorAssemblyProtoc
             windowManager: coordinatorsID.windowManager(),
             createWidgetCoordinator: coordinatorsID.createWidget().make(),
             objectIconPickerModuleAssembly: modulesDI.objectIconPicker(),
-            editorBrowserAssembly: coordinatorsID.browser(),
-            widgetObjectListModuleAssembly: modulesDI.widgetObjectList()
+            widgetObjectListModuleAssembly: modulesDI.widgetObjectList(),
+            editorBrowserCoordinator: coordinatorsID.editorBrowser().make()
         )
     }
 }

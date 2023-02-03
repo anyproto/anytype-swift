@@ -15,13 +15,14 @@ protocol EditorBrowserViewInputProtocol: AnyObject {
 }
 
 protocol EditorPageOpenRouterProtocol: AnyObject {
+    // TODO: set main action with delete homeWidgets toggle
     func showPage(data: EditorScreenData)
 }
 
 final class EditorBrowserController: UIViewController, UINavigationControllerDelegate, EditorBrowser, EditorBrowserViewInputProtocol {
         
     var childNavigation: UINavigationController!
-    var router: EditorPageOpenRouterProtocol!
+    weak var router: EditorPageOpenRouterProtocol!
 
     private lazy var navigationView: EditorBottomNavigationView = createNavigationView()
     private var navigationViewBottomConstaint: NSLayoutConstraint?
@@ -183,9 +184,8 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
         
         UserDefaultsConfig.storeOpenedScreenData(detailsProvider.screenData)
         
-        let details = detailsProvider.details
-        let title = details?.title
-        let subtitle = details?.description
+        let title = detailsProvider.documentTitle
+        let subtitle = detailsProvider.documentDescription
         do {
             try stateManager.didShow(
                 page: BrowserPage(

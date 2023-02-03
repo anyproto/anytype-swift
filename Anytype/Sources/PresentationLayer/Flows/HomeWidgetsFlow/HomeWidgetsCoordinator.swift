@@ -8,7 +8,9 @@ protocol HomeWidgetsCoordinatorProtocol {
 
 @MainActor
 final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsModuleOutput,
-                                    CommonWidgetModuleOutput, HomeBottomPanelModuleOutput, FavoriteWidgetModuleOutput {
+                                    CommonWidgetModuleOutput, HomeBottomPanelModuleOutput {
+    
+    // MARK: - DI
     
     private let homeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol
     private let accountManager: AccountManagerProtocol
@@ -16,10 +18,8 @@ final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsM
     private let windowManager: WindowManager
     private let createWidgetCoordinator: CreateWidgetCoordinatorProtocol
     private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
-    private let editorBrowserAssembly: EditorBrowserAssembly
     private let widgetObjectListModuleAssembly: WidgetObjectListModuleAssemblyProtocol
-    
-    private weak var browserController: EditorBrowserController?
+    private let editorBrowserCoordinator: EditorBrowserCoordinatorProtocol
     
     init(
         homeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol,
@@ -28,8 +28,8 @@ final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsM
         windowManager: WindowManager,
         createWidgetCoordinator: CreateWidgetCoordinatorProtocol,
         objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
-        editorBrowserAssembly: EditorBrowserAssembly,
-        widgetObjectListModuleAssembly: WidgetObjectListModuleAssemblyProtocol
+        widgetObjectListModuleAssembly: WidgetObjectListModuleAssemblyProtocol,
+        editorBrowserCoordinator: EditorBrowserCoordinatorProtocol
     ) {
         self.homeWidgetsModuleAssembly = homeWidgetsModuleAssembly
         self.accountManager = accountManager
@@ -37,8 +37,8 @@ final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsM
         self.windowManager = windowManager
         self.createWidgetCoordinator = createWidgetCoordinator
         self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
-        self.editorBrowserAssembly = editorBrowserAssembly
         self.widgetObjectListModuleAssembly = widgetObjectListModuleAssembly
+        self.editorBrowserCoordinator = editorBrowserCoordinator
     }
     
     func startFlow() -> AnyView {
@@ -69,14 +69,7 @@ final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsM
     // MARK: - CommonWidgetModuleOutput
         
     func onObjectSelected(screenData: EditorScreenData) {
-        showPage(screenData: screenData)
-    }
-    
-    // MARK: - FavoriteWidgetModuleOutput
-    
-    func onFavoriteSelected() {
-        let module = widgetObjectListModuleAssembly.makeFavorites()
-        navigationContext.push(module)
+        editorBrowserCoordinator.startFlow(data: screenData)
     }
     
     // MARK: - HomeBottomPanelModuleOutput
@@ -84,17 +77,4 @@ final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsM
     func onCreateWidgetSelected() {
         createWidgetCoordinator.startFlow(widgetObjectId: accountManager.account.info.widgetsId)
     }
-    
-    // MARK: - Private
-    
-    private func showPage(screenData: EditorScreenData) {
-        if let browserController {
-            browserController.showPage(data: screenData)
-        } else {
-            let controller = editorBrowserAssembly.buildEditorBrowser(data: screenData)
-            navigationContext.push(controller)
-            browserController = controller
-        }
-    }
-    
 }

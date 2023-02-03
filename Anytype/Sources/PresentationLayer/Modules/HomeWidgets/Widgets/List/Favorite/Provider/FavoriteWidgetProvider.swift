@@ -9,14 +9,14 @@ final class FavoriteWidgetProvider: HomeWidgetProviderProtocol {
     private let widgetObject: HomeWidgetsObjectProtocol
     private let favoriteWidgetModuleAssembly: FavoriteWidgetModuleAssemblyProtocol
     private let stateManager: HomeWidgetsStateManagerProtocol
-    private weak var output: FavoriteWidgetModuleOutput?
+    private weak var output: CommonWidgetModuleOutput?
     
     init(
         widgetBlockId: String,
         widgetObject: HomeWidgetsObjectProtocol,
         favoriteWidgetModuleAssembly: FavoriteWidgetModuleAssemblyProtocol,
         stateManager: HomeWidgetsStateManagerProtocol,
-        output: FavoriteWidgetModuleOutput?
+        output: CommonWidgetModuleOutput?
     ) {
         self.widgetBlockId = widgetBlockId
         self.widgetObject = widgetObject

@@ -53,7 +53,7 @@ final class RecentWidgetViewModel: ListWidgetViewModelProtocol, WidgetContainerC
     }
     
     func onHeaderTap() {
-        // TODO: Open screen
+        output?.onObjectSelected(screenData: EditorScreenData(pageId: "", type: .recent))
     }
     
     // MARK: - Private

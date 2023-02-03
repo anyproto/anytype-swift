@@ -68,6 +68,8 @@ private extension ObjectDetails {
            return [.tree, .link]
         case .set:
             return [.list, .link]
+        case .favorites, .recent, .sets:
+            return [.list, .tree]
         }
     }
 }

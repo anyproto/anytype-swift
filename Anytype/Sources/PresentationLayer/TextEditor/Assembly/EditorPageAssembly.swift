@@ -1,6 +1,7 @@
 import BlocksModels
 import UIKit
 import AnytypeCore
+import SwiftUI
 
 final class EditorAssembly {
     
@@ -31,7 +32,7 @@ final class EditorAssembly {
     func buildEditorModule(
         browser: EditorBrowserController?,
         data: EditorScreenData
-    ) -> (vc: UIViewController, router: EditorPageOpenRouterProtocol) {
+    ) -> (vc: UIViewController, router: EditorPageOpenRouterProtocol?) {
         switch data.type {
         case .page:
             return buildPageModule(browser: browser, data: data)
@@ -42,6 +43,8 @@ final class EditorAssembly {
                 blockId: blockId,
                 targetObjectID: targetObjectID
             )
+        case .favorites, .recent, .sets:
+            return favoritesModule()
         }
     }
     
@@ -330,5 +333,11 @@ final class EditorAssembly {
             blocksOptionView: blocksOptionView,
             simpleTablesOptionView: SimpleTableMenuView(viewModel: simleTableMenuViewModel)
         )
+    }
+    
+    private func favoritesModule() -> (UIViewController, EditorPageOpenRouterProtocol?) {
+        let moduleAssembly =  modulesDI.widgetObjectList()
+        let module = moduleAssembly.makeFavorites()
+        return (module, nil)
     }
 }

@@ -431,6 +431,9 @@
 		2A2C33212892BA36008BC326 /* RelationValueViewModelOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2C33202892BA36008BC326 /* RelationValueViewModelOutput.swift */; };
 		2A2C33232892C63B008BC326 /* RelationValueCoordinatorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2C33222892C63B008BC326 /* RelationValueCoordinatorOutput.swift */; };
 		2A2D4A2B283CCE47005E70E4 /* HomeContextMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2D4A2A283CCE47005E70E4 /* HomeContextMenuView.swift */; };
+		2A2F147C298BF16B00C0C0A0 /* EditorBrowserCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2F147B298BF16B00C0C0A0 /* EditorBrowserCoordinator.swift */; };
+		2A2F147E298BF38600C0C0A0 /* EditorBrowserCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2F147D298BF38600C0C0A0 /* EditorBrowserCoordinatorAssembly.swift */; };
+		2A2F1480298BF65D00C0C0A0 /* WidgetObjectListView+DetailsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2F147F298BF65D00C0C0A0 /* WidgetObjectListView+DetailsProvider.swift */; };
 		2A30734928ACEF58003673DF /* AlertOpener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A30734828ACEF58003673DF /* AlertOpener.swift */; };
 		2A30735128AD04D7003673DF /* TopAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A30735028AD04D7003673DF /* TopAlertView.swift */; };
 		2A3629A7292E2BB200C02EC3 /* ObjectSettingsCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3629A6292E2BB200C02EC3 /* ObjectSettingsCoordinatorAssembly.swift */; };
@@ -1799,6 +1802,9 @@
 		2A2C33202892BA36008BC326 /* RelationValueViewModelOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationValueViewModelOutput.swift; sourceTree = "<group>"; };
 		2A2C33222892C63B008BC326 /* RelationValueCoordinatorOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationValueCoordinatorOutput.swift; sourceTree = "<group>"; };
 		2A2D4A2A283CCE47005E70E4 /* HomeContextMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeContextMenuView.swift; sourceTree = "<group>"; };
+		2A2F147B298BF16B00C0C0A0 /* EditorBrowserCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorBrowserCoordinator.swift; sourceTree = "<group>"; };
+		2A2F147D298BF38600C0C0A0 /* EditorBrowserCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorBrowserCoordinatorAssembly.swift; sourceTree = "<group>"; };
+		2A2F147F298BF65D00C0C0A0 /* WidgetObjectListView+DetailsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WidgetObjectListView+DetailsProvider.swift"; sourceTree = "<group>"; };
 		2A30734828ACEF58003673DF /* AlertOpener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertOpener.swift; sourceTree = "<group>"; };
 		2A30735028AD04D7003673DF /* TopAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopAlertView.swift; sourceTree = "<group>"; };
 		2A3629A6292E2BB200C02EC3 /* ObjectSettingsCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectSettingsCoordinatorAssembly.swift; sourceTree = "<group>"; };
@@ -5199,6 +5205,7 @@
 				2AE7EC9F298816F30079F12B /* WidgetObjectListView.swift */,
 				2AE7ECA0298816F30079F12B /* WidgetObjectListViewModel.swift */,
 				2AE7ECA1298816F30079F12B /* WidgetObjectListModuleAssembly.swift */,
+				2A2F147F298BF65D00C0C0A0 /* WidgetObjectListView+DetailsProvider.swift */,
 			);
 			path = WidgetObjectList;
 			sourceTree = "<group>";
@@ -6543,6 +6550,7 @@
 				3D540C7A2625C9DE00A07BD8 /* EditorBrowserAssembly.swift */,
 				3D8D41BD2743D32000F8EBF3 /* EditorScreenData.swift */,
 				2AFE04BA28F94C52008647E0 /* EditorPageCoordinatorAssembly.swift */,
+				2A2F147D298BF38600C0C0A0 /* EditorBrowserCoordinatorAssembly.swift */,
 			);
 			path = Assembly;
 			sourceTree = "<group>";
@@ -6675,6 +6683,7 @@
 				3D93D55C270AFE1400614E29 /* EditorBrowserController.swift */,
 				3D93D579270CBF7100614E29 /* BrowserNavigationManager.swift */,
 				2AA22F67289BF27500BBA174 /* EditorBrowserView.swift */,
+				2A2F147B298BF16B00C0C0A0 /* EditorBrowserCoordinator.swift */,
 			);
 			path = EditorBrowser;
 			sourceTree = "<group>";
@@ -8845,6 +8854,7 @@
 				3D93854C26FC3BB3001C137F /* UserDefaultsConfig.swift in Sources */,
 				1211AF7927F4A79800BACB88 /* ImageCornersGuidelineRadius.swift in Sources */,
 				120E818726A0546F006FE84E /* ObjectCoverPickerViewModel.swift in Sources */,
+				2A2F147E298BF38600C0C0A0 /* EditorBrowserCoordinatorAssembly.swift in Sources */,
 				534785642743D4EC0097CA30 /* ParsedRelations.swift in Sources */,
 				3D30417227EA689F00FFE0EB /* SetContentViewDataBuilder.swift in Sources */,
 				53F7441727F4A09B005C9BB0 /* ObjectPreviewModel.swift in Sources */,
@@ -8867,6 +8877,7 @@
 				125B6EC426F235F400BCD7D6 /* MentionSection.swift in Sources */,
 				125B6ED226F235F400BCD7D6 /* SlashMenuViewModel.swift in Sources */,
 				3DB92F85264BF69900E83276 /* View+CornerRadius.swift in Sources */,
+				2A2F147C298BF16B00C0C0A0 /* EditorBrowserCoordinator.swift in Sources */,
 				530A542A269FB8FF009016AE /* AnalyticsConstants.swift in Sources */,
 				3D513F0F27956E2B007850D5 /* EditorSetViewPicker.swift in Sources */,
 				12A7B6C426C3E47200544037 /* CoverGradient.swift in Sources */,
@@ -8934,6 +8945,7 @@
 				3D93D56F270C9E4E00614E29 /* EditorMainItemModelsHolder.swift in Sources */,
 				C97B5D6227F498C600EA7E33 /* EditorContentView.swift in Sources */,
 				2A94865B2950A590007A5586 /* HomeWidgetsCoordinator.swift in Sources */,
+				2A2F1480298BF65D00C0C0A0 /* WidgetObjectListView+DetailsProvider.swift in Sources */,
 				530F503426F0ECC400F76D03 /* AudioBlockContentView.swift in Sources */,
 				2EC9424F28F97F4D00DE91E4 /* GroupsSubscribeService.swift in Sources */,
 				3D44985C26D57773005A3E06 /* DismissHandler.swift in Sources */,
