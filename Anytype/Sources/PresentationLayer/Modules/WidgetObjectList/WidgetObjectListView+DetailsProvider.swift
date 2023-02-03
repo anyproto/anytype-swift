@@ -1,7 +1,8 @@
 import Foundation
 import SwiftUI
 
-final class WidgetObjectListHostingController: UIHostingController<WidgetObjectListView>, DocumentDetaisProvider {
+final class WidgetObjectListHostingController<Model: WidgetObjectListViewModelProtocol>:
+    UIHostingController<WidgetObjectListView<Model>>, DocumentDetaisProvider {
     
     // MARK: - DocumentDetaisProvider
     

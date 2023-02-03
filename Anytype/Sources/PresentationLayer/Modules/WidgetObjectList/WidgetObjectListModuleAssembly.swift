@@ -2,11 +2,6 @@ import Foundation
 import SwiftUI
 
 protocol WidgetObjectListModuleAssemblyProtocol: AnyObject {
-    
-    // Common
-    func make() -> UIViewController
-    
-    // Specific
     func makeFavorites() -> UIViewController
     func makeRecent() -> UIViewController
     func makeSets() -> UIViewController
@@ -15,26 +10,41 @@ protocol WidgetObjectListModuleAssemblyProtocol: AnyObject {
 
 final class WidgetObjectListModuleAssembly: WidgetObjectListModuleAssemblyProtocol {
     
+    private let serviceLocator: ServiceLocator
+    
+    init(serviceLocator: ServiceLocator) {
+        self.serviceLocator = serviceLocator
+    }
+    
+    // MARK: - WidgetObjectListModuleAssemblyProtocol
+    
     func makeFavorites() -> UIViewController {
-        return make()
+        let model = WidgetObjectListFavoriesViewModel(
+            favoriteSubscriptionService: serviceLocator.favoriteSubscriptionService(),
+            accountManager: serviceLocator.accountManager()
+        )
+        return make(model: model)
     }
     
     func makeRecent() -> UIViewController {
-        return make()
+        let model = WidgetObjectListEmptyViewModel()
+        return make(model: model)
     }
     
     func makeSets() -> UIViewController {
-        return make()
+        let model = WidgetObjectListEmptyViewModel()
+        return make(model: model)
     }
     
     func makeBin() -> UIViewController {
-        return make()
+        let model = WidgetObjectListEmptyViewModel()
+        return make(model: model)
     }
     
     // MARK: - Private
     
-    func make() -> UIViewController {
-        let view = WidgetObjectListView()
+    private func make<Model: WidgetObjectListViewModelProtocol>(model: Model) -> UIViewController {
+        let view = WidgetObjectListView(model: model)
         return WidgetObjectListHostingController(rootView: view)
     }
 }

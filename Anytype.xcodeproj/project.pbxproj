@@ -449,6 +449,10 @@
 		2A4FFBC2289D1C7E004938DF /* Logger in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 2A4FFBC0289D1C7E004938DF /* Logger */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		2A4FFBC4289D4B55004938DF /* InvocationMesagesHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4FFBC3289D4B55004938DF /* InvocationMesagesHandler.swift */; };
 		2A67D5AB2948D86800CBFAEF /* NewRelationModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A67D5AA2948D86800CBFAEF /* NewRelationModuleAssembly.swift */; };
+		2A6E04A2298CFCDA0023B33D /* WidgetObjectListFavoriesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6E04A1298CFCDA0023B33D /* WidgetObjectListFavoriesViewModel.swift */; };
+		2A6E04A4298D00FB0023B33D /* WidgetObjectListEmptyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6E04A3298D00FB0023B33D /* WidgetObjectListEmptyViewModel.swift */; };
+		2A6E04A6298D05AF0023B33D /* DocumentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6E04A5298D05AF0023B33D /* DocumentService.swift */; };
+		2A6E04A8298D06430023B33D /* BlockActionServiceOpenStateStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6E04A7298D06430023B33D /* BlockActionServiceOpenStateStorage.swift */; };
 		2A6ED166285B44DB00AAA21C /* AnytypeCore in Frameworks */ = {isa = PBXBuildFile; productRef = 2A6ED165285B44DB00AAA21C /* AnytypeCore */; };
 		2A6ED167285B44DB00AAA21C /* AnytypeCore in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 2A6ED165285B44DB00AAA21C /* AnytypeCore */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		2A6ED169285B44DB00AAA21C /* BlocksModels in Frameworks */ = {isa = PBXBuildFile; productRef = 2A6ED168285B44DB00AAA21C /* BlocksModels */; };
@@ -558,7 +562,7 @@
 		2AE671DE2901896400118F56 /* UIView+DynamicBorderColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE671DD2901896400118F56 /* UIView+DynamicBorderColor.swift */; };
 		2AE671E129018B0300118F56 /* TraitCollectionDidChangeNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE671E029018B0300118F56 /* TraitCollectionDidChangeNotification.swift */; };
 		2AE7ECA2298816F30079F12B /* WidgetObjectListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE7EC9F298816F30079F12B /* WidgetObjectListView.swift */; };
-		2AE7ECA3298816F30079F12B /* WidgetObjectListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE7ECA0298816F30079F12B /* WidgetObjectListViewModel.swift */; };
+		2AE7ECA3298816F30079F12B /* WidgetObjectListViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE7ECA0298816F30079F12B /* WidgetObjectListViewModelProtocol.swift */; };
 		2AE7ECA4298816F30079F12B /* WidgetObjectListModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE7ECA1298816F30079F12B /* WidgetObjectListModuleAssembly.swift */; };
 		2AE906E9296FFE820044A10A /* TextIconPickerModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE906E8296FFE820044A10A /* TextIconPickerModuleAssembly.swift */; };
 		2AE906F1297043A60044A10A /* EditorSetRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE906F0297043A60044A10A /* EditorSetRouter.swift */; };
@@ -1819,6 +1823,10 @@
 		2A4FFBBF289D1C61004938DF /* Logger */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Logger; path = Modules/Logger; sourceTree = "<group>"; };
 		2A4FFBC3289D4B55004938DF /* InvocationMesagesHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvocationMesagesHandler.swift; sourceTree = "<group>"; };
 		2A67D5AA2948D86800CBFAEF /* NewRelationModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRelationModuleAssembly.swift; sourceTree = "<group>"; };
+		2A6E04A1298CFCDA0023B33D /* WidgetObjectListFavoriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetObjectListFavoriesViewModel.swift; sourceTree = "<group>"; };
+		2A6E04A3298D00FB0023B33D /* WidgetObjectListEmptyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetObjectListEmptyViewModel.swift; sourceTree = "<group>"; };
+		2A6E04A5298D05AF0023B33D /* DocumentService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentService.swift; sourceTree = "<group>"; };
+		2A6E04A7298D06430023B33D /* BlockActionServiceOpenStateStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionServiceOpenStateStorage.swift; sourceTree = "<group>"; };
 		2A6ED162285B448700AAA21C /* ProtobufMessages */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ProtobufMessages; path = Modules/ProtobufMessages; sourceTree = "<group>"; };
 		2A6ED163285B449000AAA21C /* BlocksModels */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = BlocksModels; path = Modules/BlocksModels; sourceTree = "<group>"; };
 		2A6ED164285B449700AAA21C /* AnytypeCore */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = AnytypeCore; path = Modules/AnytypeCore; sourceTree = "<group>"; };
@@ -1917,7 +1925,7 @@
 		2AE671DD2901896400118F56 /* UIView+DynamicBorderColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+DynamicBorderColor.swift"; sourceTree = "<group>"; };
 		2AE671E029018B0300118F56 /* TraitCollectionDidChangeNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraitCollectionDidChangeNotification.swift; sourceTree = "<group>"; };
 		2AE7EC9F298816F30079F12B /* WidgetObjectListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetObjectListView.swift; sourceTree = "<group>"; };
-		2AE7ECA0298816F30079F12B /* WidgetObjectListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetObjectListViewModel.swift; sourceTree = "<group>"; };
+		2AE7ECA0298816F30079F12B /* WidgetObjectListViewModelProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetObjectListViewModelProtocol.swift; sourceTree = "<group>"; };
 		2AE7ECA1298816F30079F12B /* WidgetObjectListModuleAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetObjectListModuleAssembly.swift; sourceTree = "<group>"; };
 		2AE906E8296FFE820044A10A /* TextIconPickerModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextIconPickerModuleAssembly.swift; sourceTree = "<group>"; };
 		2AE906F0297043A60044A10A /* EditorSetRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorSetRouter.swift; sourceTree = "<group>"; };
@@ -4694,6 +4702,7 @@
 				2A1F949A297961A300E25782 /* BundledRelationKey+CommonKeys.swift */,
 				2A971C05297E75D300D3D786 /* RecentSubscriptionService.swift */,
 				2A28D03C297E8C4C00E55E15 /* SetsSubscriptionService.swift */,
+				2A6E04A5298D05AF0023B33D /* DocumentService.swift */,
 			);
 			path = Subscriptions;
 			sourceTree = "<group>";
@@ -4881,6 +4890,15 @@
 				2A4FFBBF289D1C61004938DF /* Logger */,
 			);
 			name = Packages;
+			sourceTree = "<group>";
+		};
+		2A6E04A0298CFCC40023B33D /* Favorites */ = {
+			isa = PBXGroup;
+			children = (
+				2A6E04A1298CFCDA0023B33D /* WidgetObjectListFavoriesViewModel.swift */,
+				2A6E04A3298D00FB0023B33D /* WidgetObjectListEmptyViewModel.swift */,
+			);
+			path = Favorites;
 			sourceTree = "<group>";
 		};
 		2A730A702940BB2400E51335 /* Rows */ = {
@@ -5202,8 +5220,9 @@
 		2AE7EC9E298816F30079F12B /* WidgetObjectList */ = {
 			isa = PBXGroup;
 			children = (
+				2A6E04A0298CFCC40023B33D /* Favorites */,
 				2AE7EC9F298816F30079F12B /* WidgetObjectListView.swift */,
-				2AE7ECA0298816F30079F12B /* WidgetObjectListViewModel.swift */,
+				2AE7ECA0298816F30079F12B /* WidgetObjectListViewModelProtocol.swift */,
 				2AE7ECA1298816F30079F12B /* WidgetObjectListModuleAssembly.swift */,
 				2A2F147F298BF65D00C0C0A0 /* WidgetObjectListView+DetailsProvider.swift */,
 			);
@@ -6701,6 +6720,7 @@
 			children = (
 				0A83081425D572630067EEC9 /* BlockActionsServiceSingle.swift */,
 				0A2ADCE32496C09A00FA135D /* BlockActionsServiceSingleProtocol.swift */,
+				2A6E04A7298D06430023B33D /* BlockActionServiceOpenStateStorage.swift */,
 			);
 			path = Single;
 			sourceTree = "<group>";
@@ -8609,6 +8629,7 @@
 				037AA83422E34601002CB09F /* ApplicationCoordinator.swift in Sources */,
 				3DDD3D0F26AEB55700B5673A /* BlockFile+MediaData.swift in Sources */,
 				3DB1CA0B27293156000D2779 /* MiddlewareConfiguration.swift in Sources */,
+				2A6E04A4298D00FB0023B33D /* WidgetObjectListEmptyViewModel.swift in Sources */,
 				2E7C4471289842E10062287C /* DataviewFilter+Update.swift in Sources */,
 				3DCC549026D3B4B9002517AC /* BlockBookmarkInfoView.swift in Sources */,
 				3D44985A26D57456005A3E06 /* ObjectIconPicker.swift in Sources */,
@@ -8822,6 +8843,7 @@
 				EAC5728D2621D38A00F25949 /* UIApplicationExtension.swift in Sources */,
 				1289F59C2733622C00656EC2 /* RelationsListRowView.swift in Sources */,
 				3D24913327BD271900821595 /* SubscriptionsServiceProtocol.swift in Sources */,
+				2A6E04A8298D06430023B33D /* BlockActionServiceOpenStateStorage.swift in Sources */,
 				3D7C08212684B68600E2168D /* BlockFileViewModel.swift in Sources */,
 				1247BCAC27FF3A0C005F2DB4 /* FeedbackGeneratorExample.swift in Sources */,
 				EA0261242625CE0800AE6D86 /* TextBlockRestrictions.swift in Sources */,
@@ -8969,6 +8991,7 @@
 				3DB1C9CA2726A6E7000D2779 /* BlockLinkState+Text.swift in Sources */,
 				C99A53AE28A1411B00B3E5F4 /* ObjectHeaderEmptyData.swift in Sources */,
 				3DCC549226D3B568002517AC /* BlockBookmarkOnlyUrlConfiguration.swift in Sources */,
+				2A6E04A6298D05AF0023B33D /* DocumentService.swift in Sources */,
 				2E0DAF2928A2767B00F43320 /* SetViewSettingsImagePreviewRowConfiguration.swift in Sources */,
 				129C54D227FC7A2800C390C7 /* RelationFormatsListViewModel.swift in Sources */,
 				125B6ED026F235F400BCD7D6 /* SlashMenuAssembly.swift in Sources */,
@@ -9392,6 +9415,7 @@
 				2E7C44672892CFCA0062287C /* SetFiltersDateRowView.swift in Sources */,
 				2A7DCDE0292E4AC5001919B4 /* RelationsListModuleOutput.swift in Sources */,
 				3D180231264E9C9F00224815 /* EditorViewRepresentable.swift in Sources */,
+				2A6E04A2298CFCDA0023B33D /* WidgetObjectListFavoriesViewModel.swift in Sources */,
 				3D568FC4266A714900DC7881 /* UIColor+Convenience.swift in Sources */,
 				53F8215B2655C871003FEB0B /* BottomSheetsFactory.swift in Sources */,
 				120EB4E126E8EE2E003A0C2B /* ObjectHeaderCoverView.swift in Sources */,
@@ -9472,7 +9496,7 @@
 				3D9384F826F9F421001C137F /* MentionImageProcessor.swift in Sources */,
 				539E019C2758423D00067A24 /* SlashMenuRealtionContentConfiguration.swift in Sources */,
 				1247BC7B27FDD7D8005F2DB4 /* ObjectTypesSearchInteractor.swift in Sources */,
-				2AE7ECA3298816F30079F12B /* WidgetObjectListViewModel.swift in Sources */,
+				2AE7ECA3298816F30079F12B /* WidgetObjectListViewModelProtocol.swift in Sources */,
 				12136D2C2796C5EC00262FE7 /* RelationOptionsPopupLayout.swift in Sources */,
 				12636CF3276A0CF00084D35D /* ListSectionHeaderView.swift in Sources */,
 				120E818426A04A31006FE84E /* DetailsService.swift in Sources */,

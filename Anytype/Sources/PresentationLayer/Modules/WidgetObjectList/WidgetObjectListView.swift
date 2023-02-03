@@ -1,13 +1,22 @@
 import SwiftUI
 
-struct WidgetObjectListView: View {
+struct WidgetObjectListView<Model: WidgetObjectListViewModelProtocol>: View {
+    
+    @ObservedObject var model: Model
+    
     var body: some View {
-        Text("Empty module for favories, recent, sets, bin")
-    }
-}
-
-struct WidgetObjectListView_Previews: PreviewProvider {
-    static var previews: some View {
-        WidgetObjectListView()
+        ScrollView {
+            LazyVStack(spacing: 0) {
+                ForEach(model.rows, id: \.objectId) {
+                    ListWidgetRow(model: $0)
+                }
+            }
+        }
+        .onAppear {
+            model.onAppear()
+        }
+        .onDisappear() {
+            model.onDisappear()
+        }
     }
 }
