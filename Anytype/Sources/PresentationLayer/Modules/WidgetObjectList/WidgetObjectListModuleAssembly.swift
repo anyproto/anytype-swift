@@ -45,6 +45,6 @@ final class WidgetObjectListModuleAssembly: WidgetObjectListModuleAssemblyProtoc
     
     private func make<Model: WidgetObjectListViewModelProtocol>(model: Model) -> UIViewController {
         let view = WidgetObjectListView(model: model)
-        return WidgetObjectListHostingController(rootView: view)
+        return WidgetObjectListHostingController(model: model, rootView: view)
     }
 }

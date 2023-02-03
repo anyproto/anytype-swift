@@ -10,6 +10,8 @@ final class WidgetObjectListFavoriesViewModel: ObservableObject, WidgetObjectLis
     
     // MARK: - State
     
+    var title = Loc.favorites
+    var editorViewType: EditorViewType = .favorites
     @Published private(set) var rows: [ListWidgetRow.Model] = []
     private var homeDocument: BaseDocumentProtocol
     
