@@ -41,8 +41,6 @@ struct SetKanbanView: View {
         Group {
             if model.isEmptyViews {
                 EmptyView()
-            } else if model.isEmptyQuery {
-                emptyCompoundHeader
             } else {
                 Section(header: compoundHeader) {
                     boardContent
@@ -88,23 +86,6 @@ struct SetKanbanView: View {
             }
         }
         .background(Color.Background.primary)
-    }
-    
-    private var emptyCompoundHeader: some View {
-        VStack(spacing: 0) {
-            Spacer.fixedHeight(headerMinimizedSize.height)
-            headerSettingsView
-            Spacer.fixedHeight(14)
-            AnytypeDivider()
-            Spacer.fixedHeight(48)
-            EditorSetEmptyView(
-                model: EditorSetEmptyViewModel(
-                    mode: .set,
-                    onTap: model.showSetOfTypeSelection
-                )
-            )
-        }
-        .frame(maxWidth: .infinity)
     }
     
     private var headerSettingsView: some View {

@@ -50,8 +50,6 @@ struct SetTableView: View {
         Group {
             if model.isEmptyViews {
                 EmptyView()
-            } else if model.isEmptyQuery {
-                emptyCompoundHeader
             } else {
                 Section(header: compoundHeader) {
                     ForEach(model.configurationsDict.keys, id: \.self) { groupId in
@@ -88,22 +86,6 @@ struct SetTableView: View {
             }
         }
         .background(Color.Background.primary)
-    }
-    
-    private var emptyCompoundHeader: some View {
-        VStack(spacing: 0) {
-            Spacer.fixedHeight(headerMinimizedSize.height)
-            headerSettingsView
-            AnytypeDivider()
-            Spacer.fixedHeight(48)
-            EditorSetEmptyView(
-                model: EditorSetEmptyViewModel(
-                    mode: .set,
-                    onTap: model.showSetOfTypeSelection
-                )
-            )
-        }
-        .frame(maxWidth: .infinity)
     }
     
     private var headerSettingsView: some View {

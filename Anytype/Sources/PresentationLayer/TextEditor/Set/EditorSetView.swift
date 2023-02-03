@@ -30,7 +30,11 @@ struct EditorSetView: View {
         VStack(spacing: 0) {
             ZStack {
                 Group {
-                    contentTypeView
+                    if model.isEmptyQuery {
+                        emptyCompoundHeader
+                    } else {
+                        contentTypeView
+                    }
                 }
                 .overlay(
                     SetFullHeader()
@@ -75,5 +79,34 @@ struct EditorSetView: View {
                 headerMinimizedSize: headerMinimizedSize
             )
         }
+    }
+    
+    private var emptyCompoundHeader: some View {
+        VStack(spacing: 0) {
+            Spacer.fixedHeight(tableHeaderSize.height + 8)
+            inactiveHeaderSettingsView
+            AnytypeDivider()
+            Spacer.fixedHeight(48)
+            EditorSetEmptyView(
+                model: EditorSetEmptyViewModel(
+                    mode: .set,
+                    onTap: model.showSetOfTypeSelection
+                )
+            )
+            .frame(width: tableHeaderSize.width)
+        }
+    }
+    
+    private var inactiveHeaderSettingsView: some View {
+        SetHeaderSettingsView(
+            model: SetHeaderSettingsViewModel(
+                setDocument: model.setDocument,
+                isActive: false,
+                onViewTap: {},
+                onSettingsTap: {},
+                onCreateTap: {}
+            )
+        )
+        .frame(width: tableHeaderSize.width)
     }
 }

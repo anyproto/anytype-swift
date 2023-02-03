@@ -51,8 +51,6 @@ struct SetCollectionView: View {
         Group {
             if model.isEmptyViews {
                 EmptyView()
-            } else if model.isEmptyQuery {
-                emptyCompoundHeader
             } else {
                 Section(header: compoundHeader) {
                     ForEach(model.configurationsDict.keys, id: \.self) { groupId in
@@ -85,8 +83,6 @@ struct SetCollectionView: View {
         Group {
             if model.isEmptyViews {
                 EmptyView()
-            } else if model.isEmptyQuery {
-                emptyCompoundHeader
             } else {
                 Section(header: compoundHeader) {
                     ForEach(model.configurationsDict.keys, id: \.self) { groupId in
@@ -126,21 +122,11 @@ struct SetCollectionView: View {
         .background(Color.Background.primary)
     }
     
-    private var emptyCompoundHeader: some View {
-        VStack(spacing: 0) {
-            Spacer.fixedHeight(headerMinimizedSize.height)
-            headerSettingsView
-            Spacer.fixedHeight(14)
-            AnytypeDivider()
-            Spacer.fixedHeight(48)
-            EditorSetEmptyView(
-                model: EditorSetEmptyViewModel(
-                    mode: .set,
-                    onTap: model.showSetOfTypeSelection
-                )
-            )
-        }
-        .frame(maxWidth: .infinity)
+    private func columns() -> [GridItem] {
+        Array(
+            repeating: GridItem(.flexible(), spacing: SetCollectionView.interCellSpacing, alignment: .topLeading),
+            count: model.isSmallItemSize ? 2 : 1
+        )
     }
     
     private var headerSettingsView: some View {
@@ -155,20 +141,9 @@ struct SetCollectionView: View {
                 )
             )
             .frame(width: tableHeaderSize.width)
-            .offset(x: xOffset(), y: 8)
+            .offset(x: 4, y: 8)
             Spacer()
         }
-    }
-    
-    private func columns() -> [GridItem] {
-        Array(
-            repeating: GridItem(.flexible(), spacing: SetCollectionView.interCellSpacing, alignment: .topLeading),
-            count: model.isSmallItemSize ? 2 : 1
-        )
-    }
-    
-    private func xOffset() -> CGFloat {
-        model.isEmptyQuery && viewType == .gallery ? -10 : 4
     }
 }
 
