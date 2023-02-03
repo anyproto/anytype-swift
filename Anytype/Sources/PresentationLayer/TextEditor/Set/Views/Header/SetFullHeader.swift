@@ -169,7 +169,10 @@ extension SetFullHeader {
             Button(Loc.Set.TypeRelation.ContextMenu.turnIntoCollection) {
                 // turn into collection
             }
-            Button(Loc.Set.TypeRelation.ContextMenu.changeQuery) {
+            Button(
+                model.showSetEmptyState ?
+                Loc.Set.View.Empty.Button.title : Loc.Set.TypeRelation.ContextMenu.changeQuery
+            ) {
                 model.showSetOfTypeSelection()
             }
         } label: {
