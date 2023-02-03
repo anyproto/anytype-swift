@@ -22,6 +22,10 @@ public extension FeatureFlags {
         value(for: .fixUpdateRelationBlock)
     }
 
+    static var setTypeContextMenu: Bool {
+        value(for: .setTypeContextMenu)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -44,6 +48,7 @@ public extension FeatureFlags {
         .homeWidgets,
         .fullInlineSetImpl,
         .fixUpdateRelationBlock,
+        .setTypeContextMenu,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

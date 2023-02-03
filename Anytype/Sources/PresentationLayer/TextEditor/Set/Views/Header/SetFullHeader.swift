@@ -1,5 +1,6 @@
 import SwiftUI
 import Kingfisher
+import AnytypeCore
 
 struct SetFullHeader: View {
     @State private var width: CGFloat = .zero
@@ -142,7 +143,7 @@ extension SetFullHeader {
     
     @ViewBuilder
     private func relationContent(for relation: Relation) -> some View {
-        if model.shouldShowTypeContextMenu(for: relation) {
+        if FeatureFlags.setTypeContextMenu, model.shouldShowTypeContextMenu(for: relation) {
             contextMenu(for: relation)
         } else {
             let item = RelationItemModel(relation: relation)
