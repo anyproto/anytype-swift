@@ -131,28 +131,63 @@ extension SetFullHeader {
             spacing: .init(width: 6, height: 4),
             cell: { item, index in
                 HStack(spacing: 0) {
-                    let relation = RelationItemModel(relation: item)
-                    RelationValueView(
-                        relation: relation,
-                        style: .featuredRelationBlock(
-                            FeaturedRelationSettings(
-                                allowMultiLine: false,
-                                prefix: item.setOfPrefix,
-                                showIcon: item.showIcon,
-                                error: relation.isErrorState
-                            )
-                        )
-                    ) { [weak model] in
-                        UIApplication.shared.hideKeyboard()
-                        model?.onRelationTap(relation: item)
-                    }
-
+                    relationContent(for: item)
                     if model.featuredRelations.count - 1 > index {
                         dotImage
                     }
                 }
             }
         )
+    }
+    
+    @ViewBuilder
+    private func relationContent(for relation: Relation) -> some View {
+        if model.shouldShowTypeContextMenu(for: relation) {
+            contextMenu(for: relation)
+        } else {
+            let item = RelationItemModel(relation: relation)
+            RelationValueView(
+                relation: item,
+                style: .featuredRelationBlock(
+                    FeaturedRelationSettings(
+                        allowMultiLine: false,
+                        prefix: relation.setOfPrefix,
+                        showIcon: relation.showIcon,
+                        error: item.isErrorState
+                    )
+                )
+            ) { [weak model] in
+                UIApplication.shared.hideKeyboard()
+                model?.onRelationTap(relation: relation)
+            }
+        }
+    }
+    
+    private func contextMenu(for relation: Relation) -> some View {
+        Menu {
+            Button(Loc.Set.TypeRelation.ContextMenu.turnIntoCollection) {
+                // turn into collection
+            }
+            Button(Loc.Set.TypeRelation.ContextMenu.changeQuery) {
+                model.showSetOfTypeSelection()
+            }
+        } label: {
+            AnytypeText(
+                textValue(from: relation) ?? "",
+                style: .relation2Regular,
+                color: .Text.secondary
+            )
+            Spacer.fixedWidth(8)
+        }
+    }
+    
+    private func textValue(from relation: Relation) -> String? {
+        switch relation {
+        case .text(let text):
+            return text.value
+        default:
+            return nil
+        }
     }
 
     private var dotImage: some View {

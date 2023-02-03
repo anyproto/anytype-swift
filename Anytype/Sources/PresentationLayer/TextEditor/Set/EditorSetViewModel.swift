@@ -78,6 +78,10 @@ final class EditorSetViewModel: ObservableObject {
         return group.header(with: activeView.groupRelationKey)
     }
     
+    func shouldShowTypeContextMenu(for relation: Relation) -> Bool {
+        relation.key == BundledRelationKey.type.rawValue
+    }
+    
     private func groupFirstOptionBackgroundColor(for groupId: String) -> BlockBackgroundColor {
         guard let backgroundColor = groups.first(where: { $0.id == groupId })?.backgroundColor else {
             return BlockBackgroundColor.gray
@@ -562,12 +566,10 @@ extension EditorSetViewModel {
     func showRelationValueEditingView(key: String) {
         if key == BundledRelationKey.setOf.rawValue {
             showSetOfTypeSelection()
-            
             return
         }
 
         AnytypeAnalytics.instance().logChangeRelationValue(type: .set)
-
         router?.showRelationValueEditingView(key: key)
     }
     

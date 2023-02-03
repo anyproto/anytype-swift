@@ -15,7 +15,7 @@ extension BaseDocumentProtocol {
                 key: BundledRelationKey.type.rawValue,
                 name: "",
                 isFeatured: false,
-                isEditable: !objectRestriction.contains(.typechange),
+                isEditable: true, // temp, should be sended from middle
                 isSystem: true,
                 isDeleted: false,
                 isDeletedValue: type.isDeleted,

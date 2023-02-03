@@ -1209,6 +1209,14 @@ internal enum Loc {
         }
       }
     }
+    internal enum TypeRelation {
+      internal enum ContextMenu {
+        /// Change query
+        internal static let changeQuery = Loc.tr("Localizable", "Set.TypeRelation.ContextMenu.ChangeQuery", fallback: "Change query")
+        /// Turn into collection
+        internal static let turnIntoCollection = Loc.tr("Localizable", "Set.TypeRelation.ContextMenu.TurnIntoCollection", fallback: "Turn into collection")
+      }
+    }
     internal enum View {
       internal enum Empty {
         /// All objects satisfying your query will be displayed in Set
