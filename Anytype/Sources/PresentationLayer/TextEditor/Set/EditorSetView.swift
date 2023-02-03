@@ -31,7 +31,7 @@ struct EditorSetView: View {
             ZStack {
                 Group {
                     if model.isEmptyQuery {
-                        emptyCompoundHeader
+                        emptyStateView
                     } else {
                         contentTypeView
                     }
@@ -81,7 +81,7 @@ struct EditorSetView: View {
         }
     }
     
-    private var emptyCompoundHeader: some View {
+    private var emptyStateView: some View {
         VStack(spacing: 0) {
             Spacer.fixedHeight(tableHeaderSize.height + 8)
             inactiveHeaderSettingsView

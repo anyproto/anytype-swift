@@ -2,7 +2,6 @@ import SwiftUI
 import AnytypeCore
 
 struct SetHeaderSettingsView: View {
-    private let settingsHeight: CGFloat = 56
     
     @ObservedObject var model: SetHeaderSettingsViewModel
     
@@ -16,7 +15,7 @@ struct SetHeaderSettingsView: View {
             createObjectButton
         }
         .padding(.horizontal, 20)
-        .frame(height: settingsHeight)
+        .frame(height: 56)
     }
     
     private var settingButton: some View {
