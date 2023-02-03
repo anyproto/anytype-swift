@@ -9,8 +9,6 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
     private let contextId: BlockId
     private var subscriptions: [AnyCancellable] = []
     
-    private var uuid = UUID().uuidString
-    
     init(contextId: BlockId) {
         self.contextId = contextId
     }

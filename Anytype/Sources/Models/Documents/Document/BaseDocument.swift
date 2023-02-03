@@ -23,8 +23,7 @@ final class BaseDocument: BaseDocumentProtocol {
 
     private var subscriptions = [AnyCancellable]()
     
-    @Published var sync: Void?
-    
+    @Published private var sync: Void?
     var syncPublisher: AnyPublisher<Void, Never> {
         return $sync.compactMap { $0 }
             .eraseToAnyPublisher()
