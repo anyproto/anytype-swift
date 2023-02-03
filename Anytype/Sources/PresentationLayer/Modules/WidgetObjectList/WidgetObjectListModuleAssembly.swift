@@ -21,7 +21,8 @@ final class WidgetObjectListModuleAssembly: WidgetObjectListModuleAssemblyProtoc
     func makeFavorites() -> UIViewController {
         let model = WidgetObjectListFavoriesViewModel(
             favoriteSubscriptionService: serviceLocator.favoriteSubscriptionService(),
-            accountManager: serviceLocator.accountManager()
+            accountManager: serviceLocator.accountManager(),
+            documentService: serviceLocator.documentService()
         )
         return make(model: model)
     }

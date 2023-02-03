@@ -37,6 +37,7 @@ final class FavoriteWidgetViewModel: ListWidgetViewModelProtocol, WidgetContaine
         widgetObject: HomeWidgetsObjectProtocol,
         accountManager: AccountManagerProtocol,
         favoriteSubscriptionService: FavoriteSubscriptionServiceProtocol,
+        documentService: DocumentServiceProtocol,
         output: CommonWidgetModuleOutput?
     ) {
         self.widgetBlockId = widgetBlockId
@@ -44,7 +45,7 @@ final class FavoriteWidgetViewModel: ListWidgetViewModelProtocol, WidgetContaine
         self.accountManager = accountManager
         self.favoriteSubscriptionService = favoriteSubscriptionService
         self.output = output
-        self.document = BaseDocument(objectId: accountManager.account.info.homeObjectID)
+        self.document = documentService.document(objectId: accountManager.account.info.homeObjectID)
     }
     
     // MARK: - ListWidgetViewModelProtocol
@@ -54,10 +55,7 @@ final class FavoriteWidgetViewModel: ListWidgetViewModelProtocol, WidgetContaine
     }
 
     func onDisappear() {
-        Task { @MainActor [weak self] in
-            try? await self?.document.close()
-            self?.favoriteSubscriptionService.stopSubscription()
-        }
+        favoriteSubscriptionService.stopSubscription()
     }
     
     func onHeaderTap() {
@@ -67,17 +65,14 @@ final class FavoriteWidgetViewModel: ListWidgetViewModelProtocol, WidgetContaine
     // MARK: - Private
     
     private func setupAllSubscriptions() {
-        Task { @MainActor [weak self, document] in
-            try? await document.open()
-            self?.favoriteSubscriptionService.startSubscription(
-                homeDocument: document,
-                objectLimit: Constants.maxItems,
-                update: { details in
-                    self?.rowDetails = details
-                    self?.updateViewState()
-                }
-            )
-        }
+        favoriteSubscriptionService.startSubscription(
+            homeDocument: document,
+            objectLimit: Constants.maxItems,
+            update: { [weak self] details in
+                self?.rowDetails = details
+                self?.updateViewState()
+            }
+        )
     }
     
     private func updateViewState() {

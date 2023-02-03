@@ -1,15 +1,15 @@
 import Foundation
 
 protocol DocumentServiceProtocol: AnyObject {
-    func getDocument(objectId: String) -> BaseDocumentProtocol
+    func document(objectId: String) -> BaseDocumentProtocol
 }
 
 final class DocumentService: DocumentServiceProtocol {
     
     private var cache = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
     
-    func getDocument(objectId: String) -> BaseDocumentProtocol {
-        if let value = cache.value(forKey: objectId) as? BaseDocumentProtocol {
+    func document(objectId: String) -> BaseDocumentProtocol {
+        if let value = cache.object(forKey: objectId as NSString) as? BaseDocumentProtocol {
             return value
         }
         
@@ -17,6 +17,9 @@ final class DocumentService: DocumentServiceProtocol {
         Task { @MainActor in
             try? await document.open()
         }
+        
+        cache.setObject(document, forKey: objectId as NSString)
+        
         return document
     }
 }

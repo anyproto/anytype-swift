@@ -11,8 +11,8 @@ struct WidgetObjectListView<Model: WidgetObjectListViewModelProtocol>: View {
             SearchBar(text: $searchText, focused: false, placeholder: Loc.search)
             ScrollView {
                 LazyVStack(spacing: 0) {
-                    ForEach(model.rows, id: \.objectId) {
-                        ListWidgetRow(model: $0)
+                    ForEach(model.rows) { row in
+                        row.makeView()
                     }
                 }
             }
@@ -23,6 +23,7 @@ struct WidgetObjectListView<Model: WidgetObjectListViewModelProtocol>: View {
         .onDisappear() {
             model.onDisappear()
         }
+        .onChange(of: searchText) { model.didAskToSearch(text: $0) }
         .navigationBarTitle("")
         .navigationBarHidden(true)
     }

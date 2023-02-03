@@ -34,12 +34,9 @@ final class FavoriteSubscriptionService: FavoriteSubscriptionServiceProtocol {
             return
         }
         
-        // TODO: Discuss about publisher and maybe delete it
-        updateSubscription(children: homeDocument.children, objectLimit: objectLimit, update: update)
-        
-        homeDocument.updatePublisher
+        homeDocument.syncPublisher
             .receiveOnMain()
-            .sink { [weak self, homeDocument] links in
+            .sink { [weak self, homeDocument] in
                 self?.updateSubscription(children: homeDocument.children, objectLimit: objectLimit, update: update)
             }
             .store(in: &subscriptions)

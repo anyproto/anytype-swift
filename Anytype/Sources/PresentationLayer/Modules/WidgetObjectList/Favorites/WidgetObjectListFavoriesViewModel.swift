@@ -6,46 +6,53 @@ final class WidgetObjectListFavoriesViewModel: ObservableObject, WidgetObjectLis
     // MARK: - DI
     
     private let favoriteSubscriptionService: FavoriteSubscriptionServiceProtocol
-    private let accountManager: AccountManagerProtocol
     
     // MARK: - State
     
     var title = Loc.favorites
     var editorViewType: EditorViewType = .favorites
-    @Published private(set) var rows: [ListWidgetRow.Model] = []
+    @Published private(set) var rows: [ListRowConfiguration] = []
+    private var rowDetails: [ObjectDetails] = []
+    private var searchText: String?
     private var homeDocument: BaseDocumentProtocol
     
-    init(favoriteSubscriptionService: FavoriteSubscriptionServiceProtocol, accountManager: AccountManagerProtocol) {
+    init(favoriteSubscriptionService: FavoriteSubscriptionServiceProtocol, accountManager: AccountManagerProtocol, documentService: DocumentServiceProtocol) {
         self.favoriteSubscriptionService = favoriteSubscriptionService
-        self.accountManager = accountManager
-        self.homeDocument = BaseDocument(objectId: accountManager.account.info.homeObjectID)
+        self.homeDocument = documentService.document(objectId: accountManager.account.info.homeObjectID)
     }
     
     func onAppear() {
-        Task { @MainActor [weak self, homeDocument] in
-            try? await homeDocument.open()
-            self?.favoriteSubscriptionService.startSubscription(homeDocument: homeDocument, objectLimit: nil, update: { details in
-                self?.prepareRows(rowDetails: details)
-            })
-        }
+        favoriteSubscriptionService.startSubscription(homeDocument: homeDocument, objectLimit: nil, update: { [weak self] details in
+            self?.rowDetails = details
+            self?.updateRows()
+        })
     }
     
     func onDisappear() {
-        Task { @MainActor [weak self, homeDocument] in
-            try? await homeDocument.close()
-            self?.favoriteSubscriptionService.stopSubscription()
-        }
+        favoriteSubscriptionService.stopSubscription()
+    }
+    
+    func didAskToSearch(text: String) {
+        searchText = text
+        updateRows()
     }
     
     // MARK: - Private
     
-    func prepareRows(rowDetails: [ObjectDetails]) {
-        rows = rowDetails.map { details in
-            ListWidgetRow.Model(
-                details: details,
-                onTap: { [weak self] _ in
+    private func updateRows() {
+        
+        var filteredDetails: [ObjectDetails]
+        if let searchText = searchText?.lowercased(), searchText.isNotEmpty {
+            filteredDetails = rowDetails.filter { $0.title.lowercased().contains(searchText) }
+        } else {
+            filteredDetails = rowDetails
+        }
+        
+        rows = filteredDetails.map { details in
+            ListRowConfiguration.widgetSearchConfiguration(
+                objectDetails: details,
+                onTap: {
                     print("on tap")
-//                    self?.output?.onObjectSelected(screenData: $0)
                 }
             )
         }

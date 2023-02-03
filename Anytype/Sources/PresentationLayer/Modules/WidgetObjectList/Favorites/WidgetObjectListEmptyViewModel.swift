@@ -5,11 +5,14 @@ final class WidgetObjectListEmptyViewModel: ObservableObject, WidgetObjectListVi
     
     var title = "Empty Screen"
     var editorViewType: EditorViewType = .favorites
-    var rows: [ListWidgetRow.Model] = []
+    var rows: [ListRowConfiguration] = []
     
     func onAppear() {
     }
     
     func onDisappear() {
+    }
+    
+    func didAskToSearch(text: String) {
     }
 }

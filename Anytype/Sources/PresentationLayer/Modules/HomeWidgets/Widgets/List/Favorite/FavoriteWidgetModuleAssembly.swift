@@ -36,6 +36,7 @@ final class FavoriteWidgetModuleAssembly: FavoriteWidgetModuleAssemblyProtocol {
             widgetObject: widgetObject,
             accountManager: serviceLocator.accountManager(),
             favoriteSubscriptionService: serviceLocator.favoriteSubscriptionService(),
+            documentService: serviceLocator.documentService(),
             output: output
         )
         let contentView = ListWidgetView(model: contentModel)
