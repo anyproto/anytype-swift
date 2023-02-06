@@ -2,12 +2,7 @@ import Foundation
 import SwiftUI
 
 protocol WidgetObjectListModuleAssemblyProtocol: AnyObject {
-    
-    // Common
-    func make() -> UIViewController
-    
-    // Specific
-    func makeFavorites() -> UIViewController
+    func makeFavorites(output: WidgetObjectListCommonModuleOutput?) -> UIViewController
     func makeRecent() -> UIViewController
     func makeSets() -> UIViewController
     func makeBin() -> UIViewController
@@ -15,26 +10,43 @@ protocol WidgetObjectListModuleAssemblyProtocol: AnyObject {
 
 final class WidgetObjectListModuleAssembly: WidgetObjectListModuleAssemblyProtocol {
     
-    func makeFavorites() -> UIViewController {
-        return make()
+    private let serviceLocator: ServiceLocator
+    
+    init(serviceLocator: ServiceLocator) {
+        self.serviceLocator = serviceLocator
+    }
+    
+    // MARK: - WidgetObjectListModuleAssemblyProtocol
+    
+    func makeFavorites(output: WidgetObjectListCommonModuleOutput?) -> UIViewController {
+        let model = WidgetObjectListFavoriesViewModel(
+            favoriteSubscriptionService: serviceLocator.favoriteSubscriptionService(),
+            accountManager: serviceLocator.accountManager(),
+            documentService: serviceLocator.documentService(),
+            output: output
+        )
+        return make(model: model)
     }
     
     func makeRecent() -> UIViewController {
-        return make()
+        let model = WidgetObjectListEmptyViewModel()
+        return make(model: model)
     }
     
     func makeSets() -> UIViewController {
-        return make()
+        let model = WidgetObjectListEmptyViewModel()
+        return make(model: model)
     }
     
     func makeBin() -> UIViewController {
-        return make()
+        let model = WidgetObjectListEmptyViewModel()
+        return make(model: model)
     }
     
     // MARK: - Private
     
-    func make() -> UIViewController {
-        let view = WidgetObjectListView()
-        return WidgetObjectListHostingController(rootView: view)
+    private func make<Model: WidgetObjectListViewModelProtocol>(model: Model) -> UIViewController {
+        let view = WidgetObjectListView(model: model)
+        return WidgetObjectListHostingController(model: model, rootView: view)
     }
 }

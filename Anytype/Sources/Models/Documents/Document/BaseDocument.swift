@@ -23,6 +23,12 @@ final class BaseDocument: BaseDocumentProtocol {
 
     private var subscriptions = [AnyCancellable]()
     
+    @Published private var sync: Void?
+    var syncPublisher: AnyPublisher<Void, Never> {
+        return $sync.compactMap { $0 }
+            .eraseToAnyPublisher()
+    }
+    
     // MARK: - State
     private var parsedRelationsSubject = CurrentValueSubject<ParsedRelations, Never>(.empty)
     var parsedRelationsPublisher: AnyPublisher<ParsedRelations, Never> {
@@ -81,6 +87,7 @@ final class BaseDocument: BaseDocumentProtocol {
     @MainActor
     func open() async throws {
         try await blockActionsService.open()
+        triggerSync()
         isOpened = true
     }
     
@@ -123,6 +130,7 @@ final class BaseDocument: BaseDocumentProtocol {
             DispatchQueue.main.async { [weak self] in
                 self?.updateSubject.send(update)
             }
+            self.triggerSync()
         }
         eventsListener.startListening()
                 
@@ -160,5 +168,9 @@ final class BaseDocument: BaseDocumentProtocol {
                 }
             }
             .store(in: &subscriptions)
+    }
+    
+    private func triggerSync() {
+        sync = ()
     }
 }

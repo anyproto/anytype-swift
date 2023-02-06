@@ -8,6 +8,7 @@ struct ListWidgetRow: View {
         let icon: ObjectIconImage?
         let title: String
         let description: String?
+        let type: String?
         let onTap: () -> Void
     }
     
@@ -25,11 +26,17 @@ struct ListWidgetRow: View {
                         usecase: .widgetList
                     ).frame(width: 48, height: 48)
                 }
-                VStack(alignment: .leading, spacing: 1) {
+                VStack(alignment: .leading, spacing: 0) {
                     AnytypeText(model.title, style: .previewTitle2Medium, color: .Text.primary)
                         .lineLimit(1)
                     if let description = model.description, description.isNotEmpty {
-                        AnytypeText(description, style: .relation3Regular, color: .Text.secondary)
+                        Spacer.fixedHeight(1)
+                        AnytypeText(description, style: .relation3Regular, color: descriptionColor)
+                            .lineLimit(1)
+                    }
+                    if let type = model.type, type.isNotEmpty {
+                        Spacer.fixedHeight(2)
+                        AnytypeText(type, style: .relation3Regular, color: .Text.secondary)
                             .lineLimit(1)
                     }
                 }
@@ -39,5 +46,9 @@ struct ListWidgetRow: View {
         .padding(.horizontal, 16)
         .frame(height: ListWidgetRow.height)
         .newDivider(leadingPadding: 16, trailingPadding: 16)
+    }
+    
+    private var descriptionColor: Color {
+        return (model.type?.isEmpty ?? true) ? .Text.secondary : .Text.primary
     }
 }
