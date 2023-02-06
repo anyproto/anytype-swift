@@ -395,10 +395,9 @@
 // MARK: - Sets: empty view
 "Set.View.Empty.Title" = "No query selected";
 "Set.View.Empty.Subtitle" = "All objects satisfying your query will be displayed in Set";
-"Set.View.Empty.Button.Title" = "Select query";
 
 // MARK: - Set source type
-"Set.SourceType.SelectQuery" = "Select Query";
+"Set.SourceType.SelectQuery" = "Select query";
 "Set.SourceType.Cancel.Toast.Title" = "This query can be changed on desktop only";
 
 // MARK: Slash Menu
