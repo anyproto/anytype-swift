@@ -10,8 +10,8 @@ final class WidgetObjectListRecentViewModel: ObservableObject, WidgetObjectListI
     
     // MARK: - State
     
-    var title = Loc.recent
-    var editorViewType: EditorViewType = .recent
+    let title = Loc.recent
+    let editorViewType: EditorViewType = .recent
     var rowDetailsPublisher: AnyPublisher<[ObjectDetails], Never> {
         $rowDetails.eraseToAnyPublisher()
     }
