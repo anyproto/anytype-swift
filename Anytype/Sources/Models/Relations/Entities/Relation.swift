@@ -187,4 +187,21 @@ extension Relation: RelationProtocol {
             return nil
         }
     }
+    
+    var textValue: String? {
+        switch self {
+        case .text(let text):
+            return text.value
+        case .number(let text):
+            return text.value
+        case .url(let text):
+            return text.value
+        case .email(let text):
+            return text.value
+        case .phone(let text):
+            return text.value
+        default:
+            return nil
+        }
+    }
 }

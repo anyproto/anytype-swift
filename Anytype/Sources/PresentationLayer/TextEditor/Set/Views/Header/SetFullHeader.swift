@@ -167,30 +167,21 @@ extension SetFullHeader {
     private func contextMenu(for relation: Relation) -> some View {
         Menu {
             Button(Loc.Set.TypeRelation.ContextMenu.turnIntoCollection) {
-                // turn into collection
+                // will be implemented later
             }
             Button(
                 model.showSetEmptyState ?
-                Loc.Set.View.Empty.Button.title : Loc.Set.TypeRelation.ContextMenu.changeQuery
+                Loc.Set.SourceType.selectQuery : Loc.Set.TypeRelation.ContextMenu.changeQuery
             ) {
                 model.showSetOfTypeSelection()
             }
         } label: {
             AnytypeText(
-                textValue(from: relation) ?? "",
+                relation.textValue ?? "",
                 style: .relation2Regular,
                 color: .Text.secondary
             )
             Spacer.fixedWidth(8)
-        }
-    }
-    
-    private func textValue(from relation: Relation) -> String? {
-        switch relation {
-        case .text(let text):
-            return text.value
-        default:
-            return nil
         }
     }
 
