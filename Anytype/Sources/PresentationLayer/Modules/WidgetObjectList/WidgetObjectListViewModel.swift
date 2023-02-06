@@ -2,9 +2,9 @@ import Foundation
 import Combine
 import BlocksModels
 
-final class WidgetObjectListViewModel<InternalModel: WidgetObjectListInternalViewModelProtocol>: ObservableObject {
+final class WidgetObjectListViewModel: ObservableObject {
     
-    private let internalModel: InternalModel
+    private let internalModel: WidgetObjectListInternalViewModelProtocol
     private weak var output: WidgetObjectListCommonModuleOutput?
     
     var title: String { internalModel.title }
@@ -15,7 +15,7 @@ final class WidgetObjectListViewModel<InternalModel: WidgetObjectListInternalVie
     private var searchText: String?
     private var subscriptions = [AnyCancellable]()
     
-    init(internalModel: InternalModel, output: WidgetObjectListCommonModuleOutput?) {
+    init(internalModel: WidgetObjectListInternalViewModelProtocol, output: WidgetObjectListCommonModuleOutput?) {
         self.internalModel = internalModel
         self.output = output
         internalModel.rowDetailsPublisher.sink { [weak self] data in

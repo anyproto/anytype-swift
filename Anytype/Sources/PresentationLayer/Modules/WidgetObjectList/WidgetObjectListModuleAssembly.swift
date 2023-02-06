@@ -46,7 +46,7 @@ final class WidgetObjectListModuleAssembly: WidgetObjectListModuleAssemblyProtoc
     
     // MARK: - Private
     
-    private func make<Model: WidgetObjectListInternalViewModelProtocol>(internalModel: Model, output: WidgetObjectListCommonModuleOutput?) -> UIViewController {
+    private func make(internalModel: WidgetObjectListInternalViewModelProtocol, output: WidgetObjectListCommonModuleOutput?) -> UIViewController {
         let model = WidgetObjectListViewModel(internalModel: internalModel, output: output)
         let view = WidgetObjectListView(model: model)
         return WidgetObjectListHostingController(model: model, rootView: view)

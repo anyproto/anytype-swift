@@ -4903,6 +4903,7 @@
 		2A6E04A0298CFCC40023B33D /* Internal */ = {
 			isa = PBXGroup;
 			children = (
+				2AE7ECA0298816F30079F12B /* WidgetObjectListInternalViewModelProtocol.swift */,
 				2A6E04A1298CFCDA0023B33D /* WidgetObjectListFavoriesViewModel.swift */,
 				2A6E04A3298D00FB0023B33D /* WidgetObjectListEmptyViewModel.swift */,
 				2AD37D5729911FA50012409E /* WidgetObjectListSetsViewModel.swift */,
@@ -5241,7 +5242,6 @@
 				2A6E04A9298D202E0023B33D /* Configurations */,
 				2A6E04A0298CFCC40023B33D /* Internal */,
 				2AE7EC9F298816F30079F12B /* WidgetObjectListView.swift */,
-				2AE7ECA0298816F30079F12B /* WidgetObjectListInternalViewModelProtocol.swift */,
 				2AE7ECA1298816F30079F12B /* WidgetObjectListModuleAssembly.swift */,
 				2A2F147F298BF65D00C0C0A0 /* WidgetObjectListView+DetailsProvider.swift */,
 				2AD37D59299121D30012409E /* WidgetObjectListViewModel.swift */,
