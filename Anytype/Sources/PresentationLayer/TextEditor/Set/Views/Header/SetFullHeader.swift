@@ -131,28 +131,43 @@ extension SetFullHeader {
             spacing: .init(width: 6, height: 4),
             cell: { item, index in
                 HStack(spacing: 0) {
-                    let relation = RelationItemModel(relation: item)
-                    RelationValueView(
-                        relation: relation,
-                        style: .featuredRelationBlock(
-                            FeaturedRelationSettings(
-                                allowMultiLine: false,
-                                prefix: item.setOfPrefix,
-                                showIcon: item.showIcon,
-                                error: relation.isErrorState
-                            )
-                        )
-                    ) { [weak model] in
-                        UIApplication.shared.hideKeyboard()
-                        model?.onRelationTap(relation: item)
-                    }
-
+                    relationContent(for: item)
                     if model.featuredRelations.count - 1 > index {
                         dotImage
                     }
                 }
             }
         )
+    }
+    
+    @ViewBuilder
+    private func relationContent(for relation: Relation) -> some View {
+        let item = RelationItemModel(relation: relation)
+        let style = RelationStyle.featuredRelationBlock(
+            FeaturedRelationSettings(
+                allowMultiLine: false,
+                prefix: relation.setOfPrefix,
+                showIcon: relation.showIcon,
+                error: item.isErrorState
+            )
+        )
+        let contextMenuItems = model.contextMenuItems(for: relation)
+        if contextMenuItems.isNotEmpty {
+            RelationValueView(
+                relation: item,
+                style: style,
+                mode: .contextMenu(contextMenuItems)
+            )
+        } else {
+            RelationValueView(
+                relation: item,
+                style: style,
+                mode: .button(action: { [weak model] in
+                    UIApplication.shared.hideKeyboard()
+                    model?.onRelationTap(relation: relation)
+                })
+            )
+        }
     }
 
     private var dotImage: some View {
