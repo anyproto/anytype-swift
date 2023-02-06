@@ -46,9 +46,7 @@ final class SetsSubscriptionService: SetsSubscriptionServiceProtocol {
             SearchHelper.notHiddenFilter(),
             SearchHelper.isArchivedFilter(isArchived: false),
             SearchHelper.workspaceId(accountManager.account.info.accountSpaceId),
-            SearchHelper.typeFilter(typeIds: objectTypeProvider.objectTypes(smartblockTypes: [.set]).map { $0.id }),
-            SearchHelper.lastOpenedDateNotNilFilter()
-            
+            SearchHelper.typeFilter(typeIds: objectTypeProvider.objectTypes(smartblockTypes: [.set]).map { $0.id })
         ]
         
         let searchData: SubscriptionData = .search(
