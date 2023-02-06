@@ -43,7 +43,8 @@ final class RecentWidgetModuleAssembly: RecentWidgetModuleAssemblyProtocol {
             widgetBlockId: widgetBlockId,
             widgetObject: widgetObject,
             blockWidgetService: serviceLocator.blockWidgetService(),
-            stateManager: stateManager
+            stateManager: stateManager,
+            blockWidgetExpandedService: serviceLocator.blockWidgetExpandedService()
         )
         let containterView = WidgetContainerView(
             model: containerModel,
