@@ -37,10 +37,11 @@ final class EditorBrowserCoordinator: EditorBrowserCoordinatorProtocol, EditorPa
         if browserController != nil {
             editorPageCoordinator?.startFlow(data: data, replaceCurrentPage: false)
         } else {
-            let controller = editorBrowserAssembly.buildEditorBrowser(data: data, router: self)
+            let controller = editorBrowserAssembly.buildEditorBrowser(data: data, router: self, addRoot: false)
             navigationContext.push(controller)
             browserController = controller
             editorPageCoordinator = editorPageCoordinatorAssembly.make(browserController: browserController)
+            editorPageCoordinator?.startFlow(data: data, replaceCurrentPage: true)
         }
     }
 }

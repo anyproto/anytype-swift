@@ -32,7 +32,7 @@ final class EditorSetViewModel: ObservableObject {
         setDocument.activeView
     }
     
-    var isEmpty: Bool {
+    var isEmptyViews: Bool {
         setDocument.dataView.views.isEmpty
     }
     
@@ -60,7 +60,7 @@ final class EditorSetViewModel: ObservableObject {
         setDocument.targetObjectID != nil
     }
     
-    var showSetEmptyState: Bool {
+    var isEmptyQuery: Bool {
         setDocument.details?.setOf.first { $0.isNotEmpty } == nil
     }
     
@@ -89,10 +89,10 @@ final class EditorSetViewModel: ObservableObject {
         return backgroundColor
     }
     
-    private let setDocument: SetDocumentProtocol
-    private var router: EditorSetRouterProtocol?
-    
+    let setDocument: SetDocumentProtocol
     let paginationHelper = EditorSetPaginationHelper()
+    
+    private var router: EditorSetRouterProtocol?
     private let subscriptionService: SubscriptionsServiceProtocol
     private let dataBuilder = SetContentViewDataBuilder()
     private let dataviewService: DataviewServiceProtocol
@@ -179,7 +179,7 @@ final class EditorSetViewModel: ObservableObject {
     }
 
     func startSubscriptionIfNeeded(forceUpdate: Bool = false) {
-        guard !isEmpty else {
+        guard !isEmptyViews else {
             subscriptionService.stopAllSubscriptions()
             return
         }

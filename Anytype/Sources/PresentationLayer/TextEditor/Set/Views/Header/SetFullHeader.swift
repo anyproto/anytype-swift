@@ -170,7 +170,7 @@ extension SetFullHeader {
                 // will be implemented later
             }
             Button(
-                model.showSetEmptyState ?
+                model.isEmptyQuery ?
                 Loc.Set.SourceType.selectQuery : Loc.Set.TypeRelation.ContextMenu.changeQuery
             ) {
                 model.showSetOfTypeSelection()

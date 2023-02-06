@@ -24,14 +24,16 @@ final class EditorAssembly {
     
     func buildEditorController(
         browser: EditorBrowserController?,
-        data: EditorScreenData
+        data: EditorScreenData,
+        widgetListOutput: WidgetObjectListCommonModuleOutput? = nil
     ) -> UIViewController {
-        buildEditorModule(browser: browser, data: data).vc
+        buildEditorModule(browser: browser, data: data, widgetListOutput: widgetListOutput).vc
     }
 
     func buildEditorModule(
         browser: EditorBrowserController?,
-        data: EditorScreenData
+        data: EditorScreenData,
+        widgetListOutput: WidgetObjectListCommonModuleOutput? = nil
     ) -> (vc: UIViewController, router: EditorPageOpenRouterProtocol?) {
         switch data.type {
         case .page:
@@ -43,8 +45,12 @@ final class EditorAssembly {
                 blockId: blockId,
                 targetObjectID: targetObjectID
             )
-        case .favorites, .recent, .sets:
-            return favoritesModule()
+        case .favorites:
+            return favoritesModule(output: widgetListOutput)
+        case .recent:
+            return recentModule(output: widgetListOutput)
+        case .sets:
+            return setsModule(output: widgetListOutput)
         }
     }
     
@@ -335,9 +341,22 @@ final class EditorAssembly {
         )
     }
     
-    private func favoritesModule() -> (UIViewController, EditorPageOpenRouterProtocol?) {
-        let moduleAssembly =  modulesDI.widgetObjectList()
-        let module = moduleAssembly.makeFavorites()
+    private func favoritesModule(output: WidgetObjectListCommonModuleOutput?) -> (UIViewController, EditorPageOpenRouterProtocol?) {
+        let moduleAssembly = modulesDI.widgetObjectList()
+        let module = moduleAssembly.makeFavorites(output: output)
         return (module, nil)
     }
+    
+    private func recentModule(output: WidgetObjectListCommonModuleOutput?) -> (UIViewController, EditorPageOpenRouterProtocol?) {
+        let moduleAssembly = modulesDI.widgetObjectList()
+        let module = moduleAssembly.makeRecent()
+        return (module, nil)
+    }
+
+    private func setsModule(output: WidgetObjectListCommonModuleOutput?) -> (UIViewController, EditorPageOpenRouterProtocol?) {
+        let moduleAssembly = modulesDI.widgetObjectList()
+        let module = moduleAssembly.makeSets()
+        return (module, nil)
+    }
+
 }

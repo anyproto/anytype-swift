@@ -34,13 +34,12 @@ final class FavoriteSubscriptionService: FavoriteSubscriptionServiceProtocol {
             return
         }
         
-        // TODO: Discuss about publisher and maybe delete it
-        updateSubscription(children: homeDocument.children, objectLimit: objectLimit, update: update)
-        
-        homeDocument.updatePublisher
+        homeDocument.syncPublisher
+            .map { [weak self, homeDocument] in self?.createChildren(children: homeDocument.children, objectLimit: objectLimit) ?? [] }
+            .removeDuplicates()
             .receiveOnMain()
-            .sink { [weak self, homeDocument] links in
-                self?.updateSubscription(children: homeDocument.children, objectLimit: objectLimit, update: update)
+            .sink { result in
+                update(result)
             }
             .store(in: &subscriptions)
     }
@@ -49,8 +48,7 @@ final class FavoriteSubscriptionService: FavoriteSubscriptionServiceProtocol {
         subscriptions.removeAll()
     }
     
-    private func updateSubscription(children: [BlockInformation], objectLimit: Int?, update: @escaping (_ details: [ObjectDetails]) -> Void) {
-        
+    private func createChildren(children: [BlockInformation], objectLimit: Int?) -> [ObjectDetails] {
         var details: [ObjectDetails] = []
         details.reserveCapacity(objectLimit ?? children.count)
         
@@ -74,7 +72,6 @@ final class FavoriteSubscriptionService: FavoriteSubscriptionServiceProtocol {
 
             details.append(childDetails)
         }
-        
-        update(details)
+        return details
     }
 }

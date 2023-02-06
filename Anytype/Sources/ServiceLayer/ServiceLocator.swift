@@ -165,6 +165,11 @@ final class ServiceLocator {
         return _middlewareConfigurationProvider
     }
     
+    private lazy var _documentService = DocumentService()
+    func documentService() -> DocumentServiceProtocol {
+        return _documentService
+    }
+    
     // MARK: - Private
     
     private func subscriptionToggler() -> SubscriptionTogglerProtocol {
