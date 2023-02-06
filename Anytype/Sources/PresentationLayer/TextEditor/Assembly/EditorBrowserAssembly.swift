@@ -16,24 +16,31 @@ final class EditorBrowserAssembly {
         EditorViewRepresentable(data: data, model: model, editorBrowserAssembly: self).eraseToAnyView()
     }
     
-    func buildEditorBrowser(data: EditorScreenData, router: EditorPageOpenRouterProtocol? = nil) -> EditorBrowserController {
+    func buildEditorBrowser(
+        data: EditorScreenData,
+        router: EditorPageOpenRouterProtocol? = nil,
+        addRoot: Bool = false
+    ) -> EditorBrowserController {
         let browser = EditorBrowserController(dashboardService: serviceLocator.dashboardService())
 
-        let (page, moduleRouter) = coordinatorsDI.editor()
-            .buildEditorModule(browser: browser, data: data)
-        
-        browser.childNavigation = navigationStack(rootPage: page)
-        browser.router = router ?? moduleRouter
+        if addRoot {
+            let (page, moduleRouter) = coordinatorsDI.editor()
+                .buildEditorModule(browser: browser, data: data, widgetListOutput: nil)
+            
+            browser.childNavigation = navigationStack(rootPage: page)
+            browser.router = router ?? moduleRouter
+        } else {
+            browser.childNavigation = navigationStack(rootPage: nil)
+            browser.router = router
+        }
         
         browser.setup()
         
         return browser
     }
     
-    private func navigationStack(rootPage: UIViewController) -> UINavigationController {
-        let navigationController = UINavigationController(
-            rootViewController: rootPage
-        )
+    private func navigationStack(rootPage: UIViewController?) -> UINavigationController {
+        let navigationController = rootPage.map { UINavigationController(rootViewController: $0) } ?? UINavigationController()
 
         let navBarAppearance = UINavigationBarAppearance()
         navBarAppearance.configureWithTransparentBackground()
