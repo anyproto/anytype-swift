@@ -355,7 +355,7 @@ final class EditorAssembly {
 
     private func setsModule(output: WidgetObjectListCommonModuleOutput?) -> (UIViewController, EditorPageOpenRouterProtocol?) {
         let moduleAssembly = modulesDI.widgetObjectList()
-        let module = moduleAssembly.makeSets()
+        let module = moduleAssembly.makeSets(output: output)
         return (module, nil)
     }
 
