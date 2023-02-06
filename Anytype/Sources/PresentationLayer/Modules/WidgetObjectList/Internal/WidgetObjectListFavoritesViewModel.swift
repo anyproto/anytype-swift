@@ -10,8 +10,8 @@ final class WidgetObjectListFavoritesViewModel: ObservableObject, WidgetObjectLi
     
     // MARK: - State
     
-    var title = Loc.favorites
-    var editorViewType: EditorViewType = .favorites
+    let title = Loc.favorites
+    let editorViewType: EditorViewType = .favorites
     var rowDetailsPublisher: AnyPublisher<[ObjectDetails], Never> {
         $rowDetails.eraseToAnyPublisher()
     }
