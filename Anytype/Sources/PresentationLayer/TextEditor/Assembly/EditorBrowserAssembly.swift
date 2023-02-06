@@ -19,11 +19,12 @@ final class EditorBrowserAssembly {
     func buildEditorBrowser(
         data: EditorScreenData,
         router: EditorPageOpenRouterProtocol? = nil,
-        addRoot: Bool = false
+        addRoot: Bool = true
     ) -> EditorBrowserController {
         let browser = EditorBrowserController(dashboardService: serviceLocator.dashboardService())
 
         if addRoot {
+            // Legacy logic. Delete with homeWidgets toggle
             let (page, moduleRouter) = coordinatorsDI.editor()
                 .buildEditorModule(browser: browser, data: data, widgetListOutput: nil)
             
