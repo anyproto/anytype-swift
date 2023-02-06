@@ -1,6 +1,5 @@
 import SwiftUI
 import Kingfisher
-import AnytypeCore
 
 struct SetFullHeader: View {
     @State private var width: CGFloat = .zero

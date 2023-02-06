@@ -86,7 +86,7 @@ final class EditorSetViewModel: ObservableObject {
             RelationValueView.MenuItem(
                 title: Loc.Set.TypeRelation.ContextMenu.turnIntoCollection,
                 action: {
-                    // will be implemented later
+                    // @joe_pusya: will be implemented later
                 }
             ),
             RelationValueView.MenuItem(

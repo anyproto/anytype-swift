@@ -86,7 +86,7 @@ struct SetGalleryViewCell: View {
         RelationValueView(
             relation: RelationItemModel(relation: relation),
             style: .setCollection,
-            mode: .button(action: {})
+            mode: .button(action: nil)
         )
     }
 }
