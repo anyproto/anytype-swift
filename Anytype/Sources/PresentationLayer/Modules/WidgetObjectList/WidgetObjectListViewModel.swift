@@ -44,7 +44,7 @@ final class WidgetObjectListViewModel: ObservableObject {
         
         var filteredDetails: [ObjectDetails]
         if let searchText = searchText?.lowercased(), searchText.isNotEmpty {
-            filteredDetails = rowDetails.filter { $0.title.lowercased().contains(searchText) }
+            filteredDetails = rowDetails.filter { $0.title.range(of: searchText, options: .caseInsensitive) != nil }
         } else {
             filteredDetails = rowDetails
         }

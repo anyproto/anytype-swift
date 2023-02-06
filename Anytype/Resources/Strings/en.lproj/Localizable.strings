@@ -401,6 +401,11 @@
 "Set.SourceType.SelectQuery" = "Select Query";
 "Set.SourceType.Cancel.Toast.Title" = "This query can be changed on desktop only";
 
+// MARK: - Collection: empty view
+"Collection.View.Empty.Title" = "No objects";
+"Collection.View.Empty.Subtitle" = "Add objects or turn into set to aggregate objects with equal types or relations";
+"Collection.View.Empty.Button.Title" = "Create object";
+
 // MARK: Slash Menu
 "SlashMenu.DotsDivider" = "Dots divider";
 "SlashMenu.LineDivider" = "Line divider";
