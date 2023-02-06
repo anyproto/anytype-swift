@@ -89,7 +89,7 @@ struct EditorSetView: View {
                 model: .init(
                     title: Loc.Set.View.Empty.title,
                     subtitle: Loc.Set.View.Empty.subtitle,
-                    buttonTitle: Loc.Set.View.Empty.Button.title,
+                    buttonTitle: Loc.Set.SourceType.selectQuery,
                     onTap: {
                         model.showSetOfTypeSelection()
                     }

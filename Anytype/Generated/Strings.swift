@@ -1200,8 +1200,8 @@ internal enum Loc {
       internal static let type = Loc.tr("Localizable", "Set.FeaturedRelations.Type", fallback: "Type:")
     }
     internal enum SourceType {
-      /// Select Query
-      internal static let selectQuery = Loc.tr("Localizable", "Set.SourceType.SelectQuery", fallback: "Select Query")
+      /// Select query
+      internal static let selectQuery = Loc.tr("Localizable", "Set.SourceType.SelectQuery", fallback: "Select query")
       internal enum Cancel {
         internal enum Toast {
           /// This query can be changed on desktop only
@@ -1215,10 +1215,6 @@ internal enum Loc {
         internal static let subtitle = Loc.tr("Localizable", "Set.View.Empty.Subtitle", fallback: "All objects satisfying your query will be displayed in Set")
         /// No query selected
         internal static let title = Loc.tr("Localizable", "Set.View.Empty.Title", fallback: "No query selected")
-        internal enum Button {
-          /// Select query
-          internal static let title = Loc.tr("Localizable", "Set.View.Empty.Button.Title", fallback: "Select query")
-        }
       }
       internal enum Kanban {
         internal enum Column {
