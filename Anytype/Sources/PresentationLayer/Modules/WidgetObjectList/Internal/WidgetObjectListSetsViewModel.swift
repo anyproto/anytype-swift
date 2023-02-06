@@ -7,7 +7,6 @@ final class WidgetObjectListSetsViewModel: ObservableObject, WidgetObjectListInt
     // MARK: - DI
     
     private let setsSubscriptionService: SetsSubscriptionServiceProtocol
-    private weak var output: WidgetObjectListCommonModuleOutput?
     
     // MARK: - State
     
@@ -20,9 +19,7 @@ final class WidgetObjectListSetsViewModel: ObservableObject, WidgetObjectListInt
     
     @Published private var rowDetails: [ObjectDetails] = []
     
-    init(
-        setsSubscriptionService: SetsSubscriptionServiceProtocol
-    ) {
+    init(setsSubscriptionService: SetsSubscriptionServiceProtocol) {
         self.setsSubscriptionService = setsSubscriptionService
     }
     
