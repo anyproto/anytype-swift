@@ -2,7 +2,7 @@ import Foundation
 import BlocksModels
 import Combine
 
-final class WidgetObjectListFavoriesViewModel: ObservableObject, WidgetObjectListInternalViewModelProtocol {
+final class WidgetObjectListFavoritesViewModel: ObservableObject, WidgetObjectListInternalViewModelProtocol {
     
     // MARK: - DI
     

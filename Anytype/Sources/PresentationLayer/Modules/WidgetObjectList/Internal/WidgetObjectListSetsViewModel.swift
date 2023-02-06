@@ -12,7 +12,7 @@ final class WidgetObjectListSetsViewModel: ObservableObject, WidgetObjectListInt
     
     var title = Loc.sets
     var editorViewType: EditorViewType = .sets
-    var showType: Bool = false
+    let showType: Bool = false
     var rowDetailsPublisher: AnyPublisher<[ObjectDetails], Never> {
         $rowDetails.eraseToAnyPublisher()
     }

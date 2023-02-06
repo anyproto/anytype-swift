@@ -19,7 +19,7 @@ final class WidgetObjectListModuleAssembly: WidgetObjectListModuleAssemblyProtoc
     // MARK: - WidgetObjectListModuleAssemblyProtocol
     
     func makeFavorites(output: WidgetObjectListCommonModuleOutput?) -> UIViewController {
-        let model = WidgetObjectListFavoriesViewModel(
+        let model = WidgetObjectListFavoritesViewModel(
             favoriteSubscriptionService: serviceLocator.favoriteSubscriptionService(),
             accountManager: serviceLocator.accountManager(),
             documentService: serviceLocator.documentService()

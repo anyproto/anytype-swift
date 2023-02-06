@@ -449,7 +449,7 @@
 		2A4FFBC2289D1C7E004938DF /* Logger in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 2A4FFBC0289D1C7E004938DF /* Logger */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		2A4FFBC4289D4B55004938DF /* InvocationMesagesHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4FFBC3289D4B55004938DF /* InvocationMesagesHandler.swift */; };
 		2A67D5AB2948D86800CBFAEF /* NewRelationModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A67D5AA2948D86800CBFAEF /* NewRelationModuleAssembly.swift */; };
-		2A6E04A2298CFCDA0023B33D /* WidgetObjectListFavoriesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6E04A1298CFCDA0023B33D /* WidgetObjectListFavoriesViewModel.swift */; };
+		2A6E04A2298CFCDA0023B33D /* WidgetObjectListFavoritesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6E04A1298CFCDA0023B33D /* WidgetObjectListFavoritesViewModel.swift */; };
 		2A6E04A4298D00FB0023B33D /* WidgetObjectListEmptyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6E04A3298D00FB0023B33D /* WidgetObjectListEmptyViewModel.swift */; };
 		2A6E04A6298D05AF0023B33D /* DocumentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6E04A5298D05AF0023B33D /* DocumentService.swift */; };
 		2A6E04A8298D06430023B33D /* BlockActionServiceOpenStateStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6E04A7298D06430023B33D /* BlockActionServiceOpenStateStorage.swift */; };
@@ -1827,7 +1827,7 @@
 		2A4FFBBF289D1C61004938DF /* Logger */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Logger; path = Modules/Logger; sourceTree = "<group>"; };
 		2A4FFBC3289D4B55004938DF /* InvocationMesagesHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvocationMesagesHandler.swift; sourceTree = "<group>"; };
 		2A67D5AA2948D86800CBFAEF /* NewRelationModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRelationModuleAssembly.swift; sourceTree = "<group>"; };
-		2A6E04A1298CFCDA0023B33D /* WidgetObjectListFavoriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetObjectListFavoriesViewModel.swift; sourceTree = "<group>"; };
+		2A6E04A1298CFCDA0023B33D /* WidgetObjectListFavoritesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetObjectListFavoritesViewModel.swift; sourceTree = "<group>"; };
 		2A6E04A3298D00FB0023B33D /* WidgetObjectListEmptyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetObjectListEmptyViewModel.swift; sourceTree = "<group>"; };
 		2A6E04A5298D05AF0023B33D /* DocumentService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentService.swift; sourceTree = "<group>"; };
 		2A6E04A7298D06430023B33D /* BlockActionServiceOpenStateStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionServiceOpenStateStorage.swift; sourceTree = "<group>"; };
@@ -4904,7 +4904,7 @@
 			isa = PBXGroup;
 			children = (
 				2AE7ECA0298816F30079F12B /* WidgetObjectListInternalViewModelProtocol.swift */,
-				2A6E04A1298CFCDA0023B33D /* WidgetObjectListFavoriesViewModel.swift */,
+				2A6E04A1298CFCDA0023B33D /* WidgetObjectListFavoritesViewModel.swift */,
 				2A6E04A3298D00FB0023B33D /* WidgetObjectListEmptyViewModel.swift */,
 				2AD37D5729911FA50012409E /* WidgetObjectListSetsViewModel.swift */,
 			);
@@ -9438,7 +9438,7 @@
 				2E7C44672892CFCA0062287C /* SetFiltersDateRowView.swift in Sources */,
 				2A7DCDE0292E4AC5001919B4 /* RelationsListModuleOutput.swift in Sources */,
 				3D180231264E9C9F00224815 /* EditorViewRepresentable.swift in Sources */,
-				2A6E04A2298CFCDA0023B33D /* WidgetObjectListFavoriesViewModel.swift in Sources */,
+				2A6E04A2298CFCDA0023B33D /* WidgetObjectListFavoritesViewModel.swift in Sources */,
 				3D568FC4266A714900DC7881 /* UIColor+Convenience.swift in Sources */,
 				53F8215B2655C871003FEB0B /* BottomSheetsFactory.swift in Sources */,
 				120EB4E126E8EE2E003A0C2B /* ObjectHeaderCoverView.swift in Sources */,
