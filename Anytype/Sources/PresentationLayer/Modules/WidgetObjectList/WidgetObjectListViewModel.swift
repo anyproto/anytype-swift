@@ -52,6 +52,7 @@ final class WidgetObjectListViewModel: ObservableObject {
         rows = filteredDetails.map { details in
             ListRowConfiguration.widgetSearchConfiguration(
                 objectDetails: details,
+                showType: internalModel.showType,
                 onTap: { [weak self] screenData in
                     self?.output?.onObjectSelected(screenData: screenData)
                 }
