@@ -4,12 +4,39 @@ import AnytypeCore
 struct RelationValueView: View {
     let relation: RelationItemModel
     let style: RelationStyle
-    let action: (() -> Void)?
+    let mode: Mode
 
     var body: some View {
+        switch mode {
+        case .button(let action):
+            buttonView(with: action)
+        case .contextMenu(let items):
+            contextMenuView(from: items)
+        }
+    }
+    
+    @ViewBuilder
+    private func buttonView(with action: (() -> Void)?) -> some View {
         if action.isNotNil && relation.isEditable {
             Button {
                 action?()
+            } label: {
+                relationView
+            }
+        } else {
+            relationView
+        }
+    }
+    
+    @ViewBuilder
+    private func contextMenuView(from items: [MenuItem]) -> some View {
+        if items.isNotEmpty {
+            Menu {
+                ForEach(items, id: \.title) { item in
+                    Button(item.title) {
+                        item.action()
+                    }
+                }
             } label: {
                 relationView
             }
@@ -48,5 +75,17 @@ struct RelationValueView: View {
             }
             Spacer()
         }
+    }
+}
+
+extension RelationValueView {
+    enum Mode {
+        case button(action: (() -> Void)?)
+        case contextMenu([MenuItem])
+    }
+    
+    struct MenuItem {
+        let title: String
+        let action: () -> Void
     }
 }

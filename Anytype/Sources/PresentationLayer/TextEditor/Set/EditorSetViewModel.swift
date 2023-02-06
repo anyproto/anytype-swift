@@ -78,8 +78,23 @@ final class EditorSetViewModel: ObservableObject {
         return group.header(with: activeView.groupRelationKey)
     }
     
-    func shouldShowTypeContextMenu(for relation: Relation) -> Bool {
-        relation.key == BundledRelationKey.type.rawValue
+    func contextMenuItems(for relation: Relation) -> [RelationValueView.MenuItem] {
+        guard FeatureFlags.setTypeContextMenu, relation.key == BundledRelationKey.type.rawValue else {
+            return []
+        }
+        return [
+            RelationValueView.MenuItem(
+                title: Loc.Set.TypeRelation.ContextMenu.turnIntoCollection,
+                action: {
+                    // will be implemented later
+                }
+            ),
+            RelationValueView.MenuItem(
+                title: isEmptyQuery ?
+                Loc.Set.SourceType.selectQuery : Loc.Set.TypeRelation.ContextMenu.changeQuery,
+                action: showSetOfTypeSelection
+            )
+        ]
     }
     
     private func groupFirstOptionBackgroundColor(for groupId: String) -> BlockBackgroundColor {

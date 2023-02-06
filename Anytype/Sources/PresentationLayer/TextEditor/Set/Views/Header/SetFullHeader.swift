@@ -143,45 +143,31 @@ extension SetFullHeader {
     
     @ViewBuilder
     private func relationContent(for relation: Relation) -> some View {
-        if FeatureFlags.setTypeContextMenu, model.shouldShowTypeContextMenu(for: relation) {
-            contextMenu(for: relation)
-        } else {
-            let item = RelationItemModel(relation: relation)
+        let item = RelationItemModel(relation: relation)
+        let style = RelationStyle.featuredRelationBlock(
+            FeaturedRelationSettings(
+                allowMultiLine: false,
+                prefix: relation.setOfPrefix,
+                showIcon: relation.showIcon,
+                error: item.isErrorState
+            )
+        )
+        let contextMenuItems = model.contextMenuItems(for: relation)
+        if contextMenuItems.isNotEmpty {
             RelationValueView(
                 relation: item,
-                style: .featuredRelationBlock(
-                    FeaturedRelationSettings(
-                        allowMultiLine: false,
-                        prefix: relation.setOfPrefix,
-                        showIcon: relation.showIcon,
-                        error: item.isErrorState
-                    )
-                )
-            ) { [weak model] in
-                UIApplication.shared.hideKeyboard()
-                model?.onRelationTap(relation: relation)
-            }
-        }
-    }
-    
-    private func contextMenu(for relation: Relation) -> some View {
-        Menu {
-            Button(Loc.Set.TypeRelation.ContextMenu.turnIntoCollection) {
-                // will be implemented later
-            }
-            Button(
-                model.isEmptyQuery ?
-                Loc.Set.SourceType.selectQuery : Loc.Set.TypeRelation.ContextMenu.changeQuery
-            ) {
-                model.showSetOfTypeSelection()
-            }
-        } label: {
-            AnytypeText(
-                relation.textValue ?? "",
-                style: .relation2Regular,
-                color: .Text.secondary
+                style: style,
+                mode: .contextMenu(contextMenuItems)
             )
-            Spacer.fixedWidth(8)
+        } else {
+            RelationValueView(
+                relation: item,
+                style: style,
+                mode: .button(action: { [weak model] in
+                    UIApplication.shared.hideKeyboard()
+                    model?.onRelationTap(relation: relation)
+                })
+            )
         }
     }
 
