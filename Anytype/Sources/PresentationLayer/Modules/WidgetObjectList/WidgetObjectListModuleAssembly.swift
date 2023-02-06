@@ -4,7 +4,7 @@ import SwiftUI
 protocol WidgetObjectListModuleAssemblyProtocol: AnyObject {
     func makeFavorites(output: WidgetObjectListCommonModuleOutput?) -> UIViewController
     func makeRecent() -> UIViewController
-    func makeSets() -> UIViewController
+    func makeSets(output: WidgetObjectListCommonModuleOutput?) -> UIViewController
     func makeBin() -> UIViewController
 }
 
@@ -22,30 +22,32 @@ final class WidgetObjectListModuleAssembly: WidgetObjectListModuleAssemblyProtoc
         let model = WidgetObjectListFavoriesViewModel(
             favoriteSubscriptionService: serviceLocator.favoriteSubscriptionService(),
             accountManager: serviceLocator.accountManager(),
-            documentService: serviceLocator.documentService(),
-            output: output
+            documentService: serviceLocator.documentService()
         )
-        return make(model: model)
+        return make(internalModel: model, output: output)
     }
     
     func makeRecent() -> UIViewController {
         let model = WidgetObjectListEmptyViewModel()
-        return make(model: model)
+        return make(internalModel: model, output: nil)
     }
     
-    func makeSets() -> UIViewController {
-        let model = WidgetObjectListEmptyViewModel()
-        return make(model: model)
+    func makeSets(output: WidgetObjectListCommonModuleOutput?) -> UIViewController {
+        let model = WidgetObjectListSetsViewModel(
+            setsSubscriptionService: serviceLocator.setsSubscriptionService()
+        )
+        return make(internalModel: model, output: output)
     }
     
     func makeBin() -> UIViewController {
         let model = WidgetObjectListEmptyViewModel()
-        return make(model: model)
+        return make(internalModel: model, output: nil)
     }
     
     // MARK: - Private
     
-    private func make<Model: WidgetObjectListViewModelProtocol>(model: Model) -> UIViewController {
+    private func make<Model: WidgetObjectListInternalViewModelProtocol>(internalModel: Model, output: WidgetObjectListCommonModuleOutput?) -> UIViewController {
+        let model = WidgetObjectListViewModel(internalModel: internalModel, output: output)
         let view = WidgetObjectListView(model: model)
         return WidgetObjectListHostingController(model: model, rootView: view)
     }

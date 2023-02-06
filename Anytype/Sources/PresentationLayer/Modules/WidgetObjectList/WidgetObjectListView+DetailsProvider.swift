@@ -2,11 +2,11 @@ import Foundation
 import SwiftUI
 
 final class WidgetObjectListHostingController<Model>: UIHostingController<WidgetObjectListView<Model>>, DocumentDetaisProvider
-                                                      where Model: WidgetObjectListViewModelProtocol {
+                                                      where Model: WidgetObjectListInternalViewModelProtocol {
     
-    private let model: Model
+    private let model: WidgetObjectListViewModel<Model>
     
-    init(model: Model, rootView: WidgetObjectListView<Model>) {
+    init(model: WidgetObjectListViewModel<Model>, rootView: WidgetObjectListView<Model>) {
         self.model = model
         super.init(rootView: rootView)
     }

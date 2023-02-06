@@ -1,8 +1,8 @@
 import SwiftUI
 
-struct WidgetObjectListView<Model: WidgetObjectListViewModelProtocol>: View {
+struct WidgetObjectListView<InternalModel: WidgetObjectListInternalViewModelProtocol>: View {
     
-    @ObservedObject var model: Model
+    @ObservedObject var model: WidgetObjectListViewModel<InternalModel>
     @State var searchText: String = ""
     
     var body: some View {
