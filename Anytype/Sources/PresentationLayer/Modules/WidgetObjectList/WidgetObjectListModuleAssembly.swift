@@ -28,7 +28,9 @@ final class WidgetObjectListModuleAssembly: WidgetObjectListModuleAssemblyProtoc
     }
     
     func makeRecent() -> UIViewController {
-        let model = WidgetObjectListEmptyViewModel()
+        let model = WidgetObjectListRecentViewModel(
+            recentSubscriptionService: serviceLocator.recentSubscriptionService()
+        )
         return make(internalModel: model, output: nil)
     }
     
