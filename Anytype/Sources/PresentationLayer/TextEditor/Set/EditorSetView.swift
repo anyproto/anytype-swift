@@ -30,8 +30,8 @@ struct EditorSetView: View {
         VStack(spacing: 0) {
             ZStack {
                 Group {
-                    if model.showSetEmptyState {
-                        emptySetView
+                    if model.isEmptyQuery {
+                        emptyStateView
                     } else {
                         contentTypeView
                     }
@@ -81,23 +81,32 @@ struct EditorSetView: View {
         }
     }
     
-    private var emptySetView: some View {
+    private var emptyStateView: some View {
         VStack(spacing: 0) {
-            Spacer.fixedHeight(tableHeaderSize.height + 90)
-            
+            Spacer.fixedHeight(tableHeaderSize.height + 8)
+            inactiveHeaderSettingsView
+            AnytypeDivider()
+            Spacer.fixedHeight(48)
             EditorSetEmptyView(
-                model: .init(
-                    title: Loc.Set.View.Empty.title,
-                    subtitle: Loc.Set.View.Empty.subtitle,
-                    buttonTitle: Loc.Set.View.Empty.Button.title,
-                    onTap: {
-                        model.showSetOfTypeSelection()
-                    }
+                model: EditorSetEmptyViewModel(
+                    mode: .set,
+                    onTap: model.showSetOfTypeSelection
                 )
             )
-            
-            Spacer()
+            .frame(width: tableHeaderSize.width)
         }
-        .frame(maxWidth: .infinity)
+    }
+    
+    private var inactiveHeaderSettingsView: some View {
+        SetHeaderSettingsView(
+            model: SetHeaderSettingsViewModel(
+                setDocument: model.setDocument,
+                isActive: false,
+                onViewTap: {},
+                onSettingsTap: {},
+                onCreateTap: {}
+            )
+        )
+        .frame(width: tableHeaderSize.width)
     }
 }

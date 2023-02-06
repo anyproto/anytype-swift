@@ -5,6 +5,7 @@ struct SmallButton: View {
     
     let icon: ImageAsset
     let text: String
+    let isActive: Bool
     let action: () -> Void
     
     var body: some View {
@@ -17,9 +18,10 @@ struct SmallButton: View {
                 Spacer.fixedWidth(8)
             }
             .frame(height: 28)
-            .background(Color.System.amber100)
+            .background(isActive ? Color.System.amber100 : Color.Button.inactive)
             .cornerRadius(6)
         }
         .buttonStyle(ShrinkingButtonStyle())
+        .disabled(!isActive)
     }
 }
