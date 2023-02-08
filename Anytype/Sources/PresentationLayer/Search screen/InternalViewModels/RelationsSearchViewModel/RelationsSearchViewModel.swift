@@ -88,8 +88,10 @@ final class RelationsSearchViewModel: NewInternalSearchViewModelProtocol {
                 anytypeAssertionFailure("Relation not added to document. Relation id \(relation.id)", domain: .relationSearch)
             }
         case .dataview(let activeViewId):
-            interactor.addRelationToDataview(relation: relation, activeViewId: activeViewId)
-            onSelect(relation)
+            Task { [weak self] in
+                try await self?.interactor.addRelationToDataview(relation: relation, activeViewId: activeViewId)
+                self?.onSelect(relation)
+            }
         }
     }
     

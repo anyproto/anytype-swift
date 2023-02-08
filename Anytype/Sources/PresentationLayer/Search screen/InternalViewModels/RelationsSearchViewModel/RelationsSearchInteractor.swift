@@ -37,13 +37,10 @@ final class RelationsSearchInteractor {
         return relationsService.addRelations(relationsDetails: [relation])
     }
     
-    func addRelationToDataview(relation: RelationDetails, activeViewId: String) {
-        Task { [weak self] in
-            guard let self else { return }
-            if try await self.dataviewService.addRelation(relation) {
-                let newOption = DataviewRelationOption(key: relation.key, isVisible: true)
-                try await self.dataviewService.addViewRelation(newOption.asMiddleware, viewId: activeViewId)
-            }
+    func addRelationToDataview(relation: RelationDetails, activeViewId: String) async throws {
+        if try await dataviewService.addRelation(relation) {
+            let newOption = DataviewRelationOption(key: relation.key, isVisible: true)
+            try await dataviewService.addViewRelation(newOption.asMiddleware, viewId: activeViewId)
         }
     }
 }
