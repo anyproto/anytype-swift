@@ -70,7 +70,7 @@ final class HomeBottomPanelViewModel: ObservableObject {
         } else {
             buttonState = .normal([
                 ImageButton(image: .imageAsset(.Widget.search), onTap: { [weak self] in
-                    self?.toastPresenter.show(message: "On tap search")
+                    self?.output?.onSearchSelected()
                 }),
                 ImageButton(image: .imageAsset(.Widget.add), onTap: { [weak self] in
                     self?.toastPresenter.show(message: "On tap create object")
