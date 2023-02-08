@@ -6,15 +6,18 @@ final class LoginStateService {
     private let seedService: SeedServiceProtocol
     private let objectTypeProvider: ObjectTypeProviderProtocol
     private let middlewareConfigurationProvider: MiddlewareConfigurationProviderProtocol
+    private let blockWidgetExpandedService: BlockWidgetExpandedServiceProtocol
     
     init(
         seedService: SeedServiceProtocol,
         objectTypeProvider: ObjectTypeProviderProtocol,
-        middlewareConfigurationProvider: MiddlewareConfigurationProviderProtocol
+        middlewareConfigurationProvider: MiddlewareConfigurationProviderProtocol,
+        blockWidgetExpandedService: BlockWidgetExpandedServiceProtocol
     ) {
         self.seedService = seedService
         self.objectTypeProvider = objectTypeProvider
         self.middlewareConfigurationProvider = middlewareConfigurationProvider
+        self.blockWidgetExpandedService = blockWidgetExpandedService
     }
     
     func setupStateAfterLoginOrAuth(account: AccountData) {
@@ -31,6 +34,7 @@ final class LoginStateService {
     
     func cleanStateAfterLogout() {
         UserDefaultsConfig.cleanStateAfterLogout()
+        blockWidgetExpandedService.clearData()
         middlewareConfigurationProvider.removeCachedConfiguration()
         stopSubscriptions()
     }

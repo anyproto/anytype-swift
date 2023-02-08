@@ -3,7 +3,7 @@ import SwiftUI
 
 protocol WidgetObjectListModuleAssemblyProtocol: AnyObject {
     func makeFavorites(output: WidgetObjectListCommonModuleOutput?) -> UIViewController
-    func makeRecent() -> UIViewController
+    func makeRecent(output: WidgetObjectListCommonModuleOutput?) -> UIViewController
     func makeSets(output: WidgetObjectListCommonModuleOutput?) -> UIViewController
     func makeBin() -> UIViewController
 }
@@ -27,9 +27,11 @@ final class WidgetObjectListModuleAssembly: WidgetObjectListModuleAssemblyProtoc
         return make(internalModel: model, output: output)
     }
     
-    func makeRecent() -> UIViewController {
-        let model = WidgetObjectListEmptyViewModel()
-        return make(internalModel: model, output: nil)
+    func makeRecent(output: WidgetObjectListCommonModuleOutput?) -> UIViewController {
+        let model = WidgetObjectListRecentViewModel(
+            recentSubscriptionService: serviceLocator.recentSubscriptionService()
+        )
+        return make(internalModel: model, output: output)
     }
     
     func makeSets(output: WidgetObjectListCommonModuleOutput?) -> UIViewController {

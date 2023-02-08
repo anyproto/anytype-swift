@@ -33,7 +33,8 @@ final class ServiceLocator {
         LoginStateService(
             seedService: seedService(),
             objectTypeProvider: objectTypeProvider(),
-            middlewareConfigurationProvider: middlewareConfigurationProvider()
+            middlewareConfigurationProvider: middlewareConfigurationProvider(),
+            blockWidgetExpandedService: blockWidgetExpandedService()
         )
     }
     
@@ -168,6 +169,11 @@ final class ServiceLocator {
     private lazy var _documentService = DocumentService()
     func documentService() -> DocumentServiceProtocol {
         return _documentService
+    }
+    
+    private lazy var _blockWidgetExpandedService = BlockWidgetExpandedService()
+    func blockWidgetExpandedService() -> BlockWidgetExpandedServiceProtocol {
+        return _blockWidgetExpandedService
     }
     
     // MARK: - Private
