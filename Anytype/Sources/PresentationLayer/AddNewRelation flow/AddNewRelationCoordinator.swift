@@ -6,6 +6,7 @@ import SwiftUI
 protocol AddNewRelationCoordinatorProtocol {
     func showAddNewRelationView(
         excludedRelationsIds: [String],
+        mode: RelationsSearchMode,
         onCompletion: ((_ newRelationDetails: RelationDetails, _ isNew: Bool) -> Void)?
     )
 }
@@ -41,6 +42,7 @@ extension AddNewRelationCoordinator: AddNewRelationCoordinatorProtocol {
     
     func showAddNewRelationView(
         excludedRelationsIds: [String],
+        mode: RelationsSearchMode,
         onCompletion: ((_ newRelationDetails: RelationDetails, _ isNew: Bool) -> Void)?
     ) {
         self.onCompletion = onCompletion
@@ -48,6 +50,7 @@ extension AddNewRelationCoordinator: AddNewRelationCoordinatorProtocol {
         let view = newSearchModuleAssembly.relationsSearchModule(
             document: document,
             excludedRelationsIds: excludedRelationsIds,
+            mode: mode,
             output: self
         )
         

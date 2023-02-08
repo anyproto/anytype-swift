@@ -17,17 +17,20 @@ final class RelationsSearchViewModel: NewInternalSearchViewModelProtocol {
     private var marketplaceObjects: [RelationDetails] = []
     
     private let excludedRelationsIds: [String]
+    private let mode: RelationsSearchMode
     private let interactor: RelationsSearchInteractor
     private let toastPresenter: ToastPresenterProtocol
     private let onSelect: (_ relation: RelationDetails) -> Void
     
     init(
         excludedRelationsIds: [String],
+        mode: RelationsSearchMode,
         interactor: RelationsSearchInteractor,
         toastPresenter: ToastPresenterProtocol,
         onSelect: @escaping (_ relation: RelationDetails) -> Void
     ) {
         self.excludedRelationsIds = excludedRelationsIds
+        self.mode = mode
         self.interactor = interactor
         self.toastPresenter = toastPresenter
         self.onSelect = onSelect
@@ -77,11 +80,17 @@ final class RelationsSearchViewModel: NewInternalSearchViewModelProtocol {
     // MARK: - Private
     
     private func addRelation(relation: RelationDetails) {
-        guard interactor.addRelationToObject(relation: relation) else {
-            anytypeAssertionFailure("Relation not added to document. Relation id \(relation.id)", domain: .relationSearch)
-            return
+        switch mode {
+        case .object:
+            if interactor.addRelationToObject(relation: relation) {
+                onSelect(relation)
+            } else {
+                anytypeAssertionFailure("Relation not added to document. Relation id \(relation.id)", domain: .relationSearch)
+            }
+        case .dataview(let activeViewId):
+            interactor.addRelationToDataview(relation: relation, activeViewId: activeViewId)
+            onSelect(relation)
         }
-        onSelect(relation)
     }
     
     private func handleSearchResults(objects: [RelationDetails], marketplaceObjects: [RelationDetails]) {

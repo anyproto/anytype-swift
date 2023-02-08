@@ -138,15 +138,7 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
     }
     
     func showAddNewRelationView() {
-        router.showAddNewRelationView { [weak self] relation, isNew in
-            guard let self = self else { return }
-            
-            Task {
-                if try await self.dataviewService.addRelation(relation) {
-                    let newOption = DataviewRelationOption(key: relation.key, isVisible: true)
-                    try await self.dataviewService.addViewRelation(newOption.asMiddleware, viewId: self.setDocument.activeView.id)
-                }
-            }
+        router.showAddNewRelationView { relation, isNew in
             AnytypeAnalytics.instance().logAddRelation(format: relation.format, isNew: isNew, type: .set)
         }
     }
