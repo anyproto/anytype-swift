@@ -63,14 +63,18 @@ struct SetTableViewRow: View {
     }
     
     private func cell(_ relation: Relation) -> some View {
-        RelationValueView(relation: RelationItemModel(relation: relation), style: .set) {
-            AnytypeAnalytics.instance().logChangeRelationValue(type: .set)
+        RelationValueView(
+            relation: RelationItemModel(relation: relation),
+            style: .set,
+            mode: .button(action: {
+                AnytypeAnalytics.instance().logChangeRelationValue(type: .set)
 
-            model.showRelationValueEditingView(
-                objectId: configuration.id,
-                relation: relation
-            )
-        }
+                model.showRelationValueEditingView(
+                    objectId: configuration.id,
+                    relation: relation
+                )
+            })
+        )
         .frame(width: 128)
     }
 }

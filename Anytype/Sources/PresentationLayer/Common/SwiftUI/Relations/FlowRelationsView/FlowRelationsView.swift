@@ -60,11 +60,11 @@ struct FlowRelationsView: View {
                         HStack(spacing: 0) {
                             RelationValueView(
                                 relation: RelationItemModel(relation: item),
-                                style: .setCollection
-                            ) {
-                                viewModel.onRelationTap(item)
-                            }
-
+                                style: .setCollection,
+                                mode: .button(action: {
+                                    viewModel.onRelationTap(item)
+                                })
+                            )
                             if viewModel.relations.count - 1 > index {
                                 dotImage
                             }

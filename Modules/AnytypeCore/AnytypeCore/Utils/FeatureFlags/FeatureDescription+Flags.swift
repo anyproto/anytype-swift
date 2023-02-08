@@ -21,7 +21,7 @@ public extension FeatureDescription {
     static let fullInlineSetImpl = FeatureDescription(
         title: "Full inline set impl (IOS-790)",
         author: "joe_pusya@anytype.io",
-        releaseVersion: "0.22.0",
+        releaseVersion: "0.?.0",
         defaultValue: false,
         debugValue: false
     )
@@ -31,6 +31,14 @@ public extension FeatureDescription {
         author: "m@anytype.io",
         releaseVersion: "0.22.0",
         defaultValue: false
+    )
+    
+    static let setTypeContextMenu = FeatureDescription(
+        title: "Set type context menu (IOS-917)",
+        author: "joe_pusya@anytype.io",
+        releaseVersion: "0.23.0",
+        defaultValue: false,
+        debugValue: false
     )
     
     // MARK: - Debug

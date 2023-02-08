@@ -1,43 +1,36 @@
 import Foundation
+import Combine
 import BlocksModels
 
-final class WidgetObjectListFavoriesViewModel: ObservableObject, WidgetObjectListViewModelProtocol {
+final class WidgetObjectListViewModel: ObservableObject {
     
-    // MARK: - DI
-    
-    private let favoriteSubscriptionService: FavoriteSubscriptionServiceProtocol
-    
-    // MARK: - State
-    
-    var title = Loc.favorites
-    var editorViewType: EditorViewType = .favorites
-    @Published private(set) var rows: [ListRowConfiguration] = []
-    private var rowDetails: [ObjectDetails] = []
-    private var searchText: String?
-    private var homeDocument: BaseDocumentProtocol
-    
+    private let internalModel: WidgetObjectListInternalViewModelProtocol
     private weak var output: WidgetObjectListCommonModuleOutput?
     
-    init(
-        favoriteSubscriptionService: FavoriteSubscriptionServiceProtocol,
-        accountManager: AccountManagerProtocol,
-        documentService: DocumentServiceProtocol,
-        output: WidgetObjectListCommonModuleOutput?
-    ) {
-        self.favoriteSubscriptionService = favoriteSubscriptionService
-        self.homeDocument = documentService.document(objectId: accountManager.account.info.homeObjectID)
+    var title: String { internalModel.title }
+    var editorViewType: EditorViewType { internalModel.editorViewType }
+    @Published private(set) var rows: [ListRowConfiguration] = []
+    
+    private var rowDetails: [ObjectDetails] = []
+    private var searchText: String?
+    private var subscriptions = [AnyCancellable]()
+    
+    init(internalModel: WidgetObjectListInternalViewModelProtocol, output: WidgetObjectListCommonModuleOutput?) {
+        self.internalModel = internalModel
         self.output = output
+        internalModel.rowDetailsPublisher.sink { [weak self] data in
+            self?.rowDetails = data
+            self?.updateRows()
+        }
+        .store(in: &subscriptions)
     }
     
     func onAppear() {
-        favoriteSubscriptionService.startSubscription(homeDocument: homeDocument, objectLimit: nil, update: { [weak self] details in
-            self?.rowDetails = details
-            self?.updateRows()
-        })
+        internalModel.onAppear()
     }
     
     func onDisappear() {
-        favoriteSubscriptionService.stopSubscription()
+        internalModel.onDisappear()
     }
     
     func didAskToSearch(text: String) {
@@ -59,6 +52,7 @@ final class WidgetObjectListFavoriesViewModel: ObservableObject, WidgetObjectLis
         rows = filteredDetails.map { details in
             ListRowConfiguration.widgetSearchConfiguration(
                 objectDetails: details,
+                showType: internalModel.showType,
                 onTap: { [weak self] screenData in
                     self?.output?.onObjectSelected(screenData: screenData)
                 }
