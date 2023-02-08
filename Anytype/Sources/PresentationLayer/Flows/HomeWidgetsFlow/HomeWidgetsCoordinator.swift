@@ -90,6 +90,10 @@ final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsM
         navigationContext.present(module)
     }
     
+    func onCreateObjectSelected(screenData: EditorScreenData) {
+        openObject(screenData: screenData)
+    }
+    
     // MARK: - Private
     
     private func openObject(screenData: EditorScreenData) {
