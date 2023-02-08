@@ -349,7 +349,7 @@ final class EditorAssembly {
     
     private func recentModule(output: WidgetObjectListCommonModuleOutput?) -> (UIViewController, EditorPageOpenRouterProtocol?) {
         let moduleAssembly = modulesDI.widgetObjectList()
-        let module = moduleAssembly.makeRecent()
+        let module = moduleAssembly.makeRecent(output: output)
         return (module, nil)
     }
 
