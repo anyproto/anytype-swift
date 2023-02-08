@@ -4,4 +4,5 @@ import Foundation
 protocol HomeBottomPanelModuleOutput: AnyObject {
     func onCreateWidgetSelected()
     func onSearchSelected()
+    func onCreateObjectSelected(screenData: EditorScreenData)
 }
