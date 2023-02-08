@@ -3,6 +3,7 @@ import SwiftUI
 struct LinkWidgetViewContainer<Content, MenuContent>: View where Content: View, MenuContent: View {
     
     let title: String
+    let icon: ImageAsset?
     @Binding var isExpanded: Bool
     let isEditalbeMode: Bool
     let allowMenuContent: Bool
@@ -14,6 +15,7 @@ struct LinkWidgetViewContainer<Content, MenuContent>: View where Content: View, 
     
     init(
         title: String,
+        icon: ImageAsset?,
         isExpanded: Binding<Bool>,
         isEditalbeMode: Bool = false,
         allowMenuContent: Bool = false,
@@ -24,6 +26,7 @@ struct LinkWidgetViewContainer<Content, MenuContent>: View where Content: View, 
         @ViewBuilder content: @escaping () -> Content
     ) {
         self.title = title
+        self.icon = icon
         self._isExpanded = isExpanded
         self.isEditalbeMode = isEditalbeMode
         self.allowMenuContent = allowMenuContent
@@ -69,7 +72,14 @@ struct LinkWidgetViewContainer<Content, MenuContent>: View where Content: View, 
             Button {
                 headerAction()
             } label: {
-                Spacer.fixedWidth(16)
+                if let icon {
+                    Spacer.fixedWidth(14)
+                    Image(asset: icon)
+                        .frame(width: 20, height: 20)
+                    Spacer.fixedWidth(8)
+                } else {
+                    Spacer.fixedWidth(16)
+                }
                 AnytypeText(title, style: .subheading, color: .Text.primary)
                     .lineLimit(1)
                     .layoutPriority(-1)
@@ -133,6 +143,7 @@ struct LinkWidgetViewContainer_Previews: PreviewProvider {
             VStack {
                 LinkWidgetViewContainer(
                     title: "Name",
+                    icon: nil,
                     isExpanded: .constant(true),
                     isEditalbeMode: false,
                     headerAction: {}
@@ -142,6 +153,7 @@ struct LinkWidgetViewContainer_Previews: PreviewProvider {
                 Spacer.fixedHeight(10)
                 LinkWidgetViewContainer(
                     title: "Name",
+                    icon: ImageAsset.Widget.bin,
                     isExpanded: .constant(false),
                     isEditalbeMode: false,
                     headerAction: {}
@@ -151,6 +163,7 @@ struct LinkWidgetViewContainer_Previews: PreviewProvider {
                 Spacer.fixedHeight(10)
                 LinkWidgetViewContainer(
                     title: "Very long text very long text very long text very long text",
+                    icon: nil,
                     isExpanded: .constant(false),
                     isEditalbeMode: false,
                     headerAction: {}
@@ -160,6 +173,7 @@ struct LinkWidgetViewContainer_Previews: PreviewProvider {
                 Spacer.fixedHeight(10)
                 LinkWidgetViewContainer(
                     title: "Very long text very long text very long text very long text very long text",
+                    icon: nil,
                     isExpanded: .constant(true),
                     isEditalbeMode: true,
                     headerAction: {}

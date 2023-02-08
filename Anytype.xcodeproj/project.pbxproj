@@ -545,20 +545,23 @@
 		2AD06B8328572A520006C255 /* TableOfContentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD06B8228572A520006C255 /* TableOfContentsView.swift */; };
 		2AD06B8B28573D5B0006C255 /* TableOfContentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD06B8A28573D5B0006C255 /* TableOfContentData.swift */; };
 		2AD06B9928576E890006C255 /* TableOfContentsRestrictions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD06B9828576E890006C255 /* TableOfContentsRestrictions.swift */; };
-		2AD37D5E29914B190012409E /* BlockWidgetExpandedService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD37D5D29914B190012409E /* BlockWidgetExpandedService.swift */; };
 		2AD37D5829911FA50012409E /* WidgetObjectListSetsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD37D5729911FA50012409E /* WidgetObjectListSetsViewModel.swift */; };
 		2AD37D5A299121D30012409E /* WidgetObjectListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD37D59299121D30012409E /* WidgetObjectListViewModel.swift */; };
 		2AD37D5C299145370012409E /* WidgetObjectListRecentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD37D5B299145370012409E /* WidgetObjectListRecentViewModel.swift */; };
+		2AD37D5E29914B190012409E /* BlockWidgetExpandedService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD37D5D29914B190012409E /* BlockWidgetExpandedService.swift */; };
 		2AD3C441287F004F008B85B1 /* Invocation+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD3C440287F004F008B85B1 /* Invocation+Extensions.swift */; };
 		2AD409DF292B6C6B00D96C89 /* AsyncExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD409DE292B6C6B00D96C89 /* AsyncExtensions.swift */; };
 		2AD6792C29812EE600339624 /* HomeBottomPanelModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD6792B29812EE600339624 /* HomeBottomPanelModuleOutput.swift */; };
+		2AD741262993DB27004BD223 /* BinLinkWidgetProviderAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD741212993DB27004BD223 /* BinLinkWidgetProviderAssembly.swift */; };
+		2AD741272993DB27004BD223 /* BinLinkWidgetProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD741222993DB27004BD223 /* BinLinkWidgetProvider.swift */; };
+		2AD741292993DB27004BD223 /* BinLinkWidgetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD741242993DB27004BD223 /* BinLinkWidgetViewModel.swift */; };
+		2AD7412A2993DB27004BD223 /* BinLinkWidgetModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD741252993DB27004BD223 /* BinLinkWidgetModuleAssembly.swift */; };
 		2AD8592D283CE60C008BCE4B /* HomeView+ContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD8592C283CE60C008BCE4B /* HomeView+ContextMenu.swift */; };
 		2AD98618289AA23900F5DF73 /* SelectionOptionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD98617289AA23900F5DF73 /* SelectionOptionsViewModel.swift */; };
 		2ADA5EEA28A292D000CD82A4 /* FeatureFlagViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADA5EE928A292D000CD82A4 /* FeatureFlagViewModel.swift */; };
 		2ADD1EAF28FD795E00F41DE1 /* LinkToObjectCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADD1EAD28FD795E00F41DE1 /* LinkToObjectCoordinatorAssembly.swift */; };
 		2ADD1EB028FD795E00F41DE1 /* LinkToObjecttCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADD1EAE28FD795E00F41DE1 /* LinkToObjecttCoordinator.swift */; };
 		2ADD556E2987CDDE009AFCB1 /* LinkWidgetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADD556D2987CDDE009AFCB1 /* LinkWidgetViewModel.swift */; };
-		2ADD55722987CE55009AFCB1 /* LinkWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADD55712987CE55009AFCB1 /* LinkWidgetView.swift */; };
 		2ADD55742987CE65009AFCB1 /* LinkWidgetModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADD55732987CE65009AFCB1 /* LinkWidgetModuleAssembly.swift */; };
 		2ADD55782987CEFE009AFCB1 /* LinkWidgetProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADD55762987CEFE009AFCB1 /* LinkWidgetProvider.swift */; };
 		2ADD55792987CEFE009AFCB1 /* LinkWidgetProviderAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADD55772987CEFE009AFCB1 /* LinkWidgetProviderAssembly.swift */; };
@@ -1916,20 +1919,23 @@
 		2AD06B8228572A520006C255 /* TableOfContentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableOfContentsView.swift; sourceTree = "<group>"; };
 		2AD06B8A28573D5B0006C255 /* TableOfContentData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableOfContentData.swift; sourceTree = "<group>"; };
 		2AD06B9828576E890006C255 /* TableOfContentsRestrictions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableOfContentsRestrictions.swift; sourceTree = "<group>"; };
-		2AD37D5D29914B190012409E /* BlockWidgetExpandedService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockWidgetExpandedService.swift; sourceTree = "<group>"; };
 		2AD37D5729911FA50012409E /* WidgetObjectListSetsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetObjectListSetsViewModel.swift; sourceTree = "<group>"; };
 		2AD37D59299121D30012409E /* WidgetObjectListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetObjectListViewModel.swift; sourceTree = "<group>"; };
 		2AD37D5B299145370012409E /* WidgetObjectListRecentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetObjectListRecentViewModel.swift; sourceTree = "<group>"; };
+		2AD37D5D29914B190012409E /* BlockWidgetExpandedService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockWidgetExpandedService.swift; sourceTree = "<group>"; };
 		2AD3C440287F004F008B85B1 /* Invocation+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Invocation+Extensions.swift"; sourceTree = "<group>"; };
 		2AD409DE292B6C6B00D96C89 /* AsyncExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncExtensions.swift; sourceTree = "<group>"; };
 		2AD6792B29812EE600339624 /* HomeBottomPanelModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBottomPanelModuleOutput.swift; sourceTree = "<group>"; };
+		2AD741212993DB27004BD223 /* BinLinkWidgetProviderAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BinLinkWidgetProviderAssembly.swift; sourceTree = "<group>"; };
+		2AD741222993DB27004BD223 /* BinLinkWidgetProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BinLinkWidgetProvider.swift; sourceTree = "<group>"; };
+		2AD741242993DB27004BD223 /* BinLinkWidgetViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BinLinkWidgetViewModel.swift; sourceTree = "<group>"; };
+		2AD741252993DB27004BD223 /* BinLinkWidgetModuleAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BinLinkWidgetModuleAssembly.swift; sourceTree = "<group>"; };
 		2AD8592C283CE60C008BCE4B /* HomeView+ContextMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeView+ContextMenu.swift"; sourceTree = "<group>"; };
 		2AD98617289AA23900F5DF73 /* SelectionOptionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionOptionsViewModel.swift; sourceTree = "<group>"; };
 		2ADA5EE928A292D000CD82A4 /* FeatureFlagViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureFlagViewModel.swift; sourceTree = "<group>"; };
 		2ADD1EAD28FD795E00F41DE1 /* LinkToObjectCoordinatorAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkToObjectCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		2ADD1EAE28FD795E00F41DE1 /* LinkToObjecttCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkToObjecttCoordinator.swift; sourceTree = "<group>"; };
 		2ADD556D2987CDDE009AFCB1 /* LinkWidgetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkWidgetViewModel.swift; sourceTree = "<group>"; };
-		2ADD55712987CE55009AFCB1 /* LinkWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkWidgetView.swift; sourceTree = "<group>"; };
 		2ADD55732987CE65009AFCB1 /* LinkWidgetModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkWidgetModuleAssembly.swift; sourceTree = "<group>"; };
 		2ADD55762987CEFE009AFCB1 /* LinkWidgetProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkWidgetProvider.swift; sourceTree = "<group>"; };
 		2ADD55772987CEFE009AFCB1 /* LinkWidgetProviderAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkWidgetProviderAssembly.swift; sourceTree = "<group>"; };
@@ -4847,6 +4853,7 @@
 		2A4919A629530AD200FCEAC9 /* Widgets */ = {
 			isa = PBXGroup;
 			children = (
+				2AD7411F2993DB27004BD223 /* BinLink */,
 				2ADD556C2987CDCF009AFCB1 /* Link */,
 				2A28D04E297FCFCB00E55E15 /* Container */,
 				2A1F946C2978207F00E25782 /* List */,
@@ -5209,12 +5216,30 @@
 			path = WidgetType;
 			sourceTree = "<group>";
 		};
+		2AD7411F2993DB27004BD223 /* BinLink */ = {
+			isa = PBXGroup;
+			children = (
+				2AD741202993DB27004BD223 /* Provider */,
+				2AD741242993DB27004BD223 /* BinLinkWidgetViewModel.swift */,
+				2AD741252993DB27004BD223 /* BinLinkWidgetModuleAssembly.swift */,
+			);
+			path = BinLink;
+			sourceTree = "<group>";
+		};
+		2AD741202993DB27004BD223 /* Provider */ = {
+			isa = PBXGroup;
+			children = (
+				2AD741212993DB27004BD223 /* BinLinkWidgetProviderAssembly.swift */,
+				2AD741222993DB27004BD223 /* BinLinkWidgetProvider.swift */,
+			);
+			path = Provider;
+			sourceTree = "<group>";
+		};
 		2ADD556C2987CDCF009AFCB1 /* Link */ = {
 			isa = PBXGroup;
 			children = (
 				2ADD55752987CEFE009AFCB1 /* Provider */,
 				2ADD556D2987CDDE009AFCB1 /* LinkWidgetViewModel.swift */,
-				2ADD55712987CE55009AFCB1 /* LinkWidgetView.swift */,
 				2ADD55732987CE65009AFCB1 /* LinkWidgetModuleAssembly.swift */,
 			);
 			path = Link;
@@ -8499,6 +8524,7 @@
 				3D34F20A27BE3B5300990C49 /* SettingsAppearanceView.swift in Sources */,
 				C93E25BD292BA25700CBBF30 /* AnytypeIconDownloader.swift in Sources */,
 				EAADB1B32678EB52004B0AF2 /* MarkStyleModifier.swift in Sources */,
+				2AD741262993DB27004BD223 /* BinLinkWidgetProviderAssembly.swift in Sources */,
 				2ABAF2BB2938E5FA003C4730 /* CodeLanguageModuleAssembly.swift in Sources */,
 				2A4373722906808700A1C4D6 /* InlineMarkdownListener.swift in Sources */,
 				3DAE1CB0273EA208009A72F3 /* EditorSetView.swift in Sources */,
@@ -8997,6 +9023,7 @@
 				125683F627E09380003A8251 /* SelectionIndicatorViewModelBuilder.swift in Sources */,
 				12C2A5652754E13D00311854 /* DateRelationDetailsViewModel.swift in Sources */,
 				3D34F20F27BE4B2300990C49 /* SettingsAccountView.swift in Sources */,
+				2AD7412A2993DB27004BD223 /* BinLinkWidgetModuleAssembly.swift in Sources */,
 				0AD7695025D5854700669F8C /* BlockListService.swift in Sources */,
 				2ECD122B28AFE58E00BD464A /* TitleWithIconView.swift in Sources */,
 				3D6E9A34270D9A1E001B0A07 /* HomeBottomSheetViewConfiguration.swift in Sources */,
@@ -9203,6 +9230,7 @@
 				C9892C3D284E22E2006E3BE3 /* SpreadsheetLayout.swift in Sources */,
 				2A28D047297E8CAD00E55E15 /* SetsWidgetViewModel.swift in Sources */,
 				2E975EF0287C23DA004DE574 /* SetSortsListViewModel.swift in Sources */,
+				2AD741272993DB27004BD223 /* BinLinkWidgetProvider.swift in Sources */,
 				2ADD556E2987CDDE009AFCB1 /* LinkWidgetViewModel.swift in Sources */,
 				2E0DAF2528A2723C00F43320 /* SetViewSettingsImagePreviewView.swift in Sources */,
 				C98282382850B3CF00C4E1D4 /* SpreadsheetInvalidationContext.swift in Sources */,
@@ -9348,7 +9376,6 @@
 				EA6279AB26317CCA00670715 /* UIScreen+Convenience.swift in Sources */,
 				3D2D4C6527BAA2EF0070A4C6 /* SetConstants.swift in Sources */,
 				2A2C330528928A7C008BC326 /* RelationValueCoordinatorAssembly.swift in Sources */,
-				2ADD55722987CE55009AFCB1 /* LinkWidgetView.swift in Sources */,
 				3D16840926DD671D008B9DFF /* BlockInformationConverter.swift in Sources */,
 				0ABB73A92549975800F32C6F /* FirebaseConfigurator.swift in Sources */,
 				535E02A8274FE5A600E1AF8C /* RelationBlockContentConfiguration.swift in Sources */,
@@ -9413,6 +9440,7 @@
 				125BD57327CF4C95006D8227 /* CreateAccountServiceError.swift in Sources */,
 				53FF7C5026F7DB7B00A5A592 /* AnytypeAudioPlayerProtocol.swift in Sources */,
 				3D1CEC2F27F4D9F7000D36BA /* CalendarExtension.swift in Sources */,
+				2AD741292993DB27004BD223 /* BinLinkWidgetViewModel.swift in Sources */,
 				2AE906F1297043A60044A10A /* EditorSetRouter.swift in Sources */,
 				3D1D840F26F4AC330091A78A /* TextTriggerSymbols.swift in Sources */,
 				12FD9D2B2767180A00991886 /* RelationUnknown.swift in Sources */,
