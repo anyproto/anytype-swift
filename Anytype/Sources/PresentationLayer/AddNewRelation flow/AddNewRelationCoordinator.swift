@@ -4,7 +4,10 @@ import BlocksModels
 import SwiftUI
 
 protocol AddNewRelationCoordinatorProtocol {
-    func showAddNewRelationView(onCompletion: ((_ newRelationDetails: RelationDetails, _ isNew: Bool) -> Void)?)
+    func showAddNewRelationView(
+        excludedRelationsIds: [String],
+        onCompletion: ((_ newRelationDetails: RelationDetails, _ isNew: Bool) -> Void)?
+    )
 }
 
 final class AddNewRelationCoordinator {
@@ -36,11 +39,15 @@ final class AddNewRelationCoordinator {
 
 extension AddNewRelationCoordinator: AddNewRelationCoordinatorProtocol {
     
-    func showAddNewRelationView(onCompletion: ((_ newRelationDetails: RelationDetails, _ isNew: Bool) -> Void)?) {
+    func showAddNewRelationView(
+        excludedRelationsIds: [String],
+        onCompletion: ((_ newRelationDetails: RelationDetails, _ isNew: Bool) -> Void)?
+    ) {
         self.onCompletion = onCompletion
 
         let view = newSearchModuleAssembly.relationsSearchModule(
             document: document,
+            excludedRelationsIds: excludedRelationsIds,
             output: self
         )
         

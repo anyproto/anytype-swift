@@ -16,18 +16,18 @@ final class RelationsSearchViewModel: NewInternalSearchViewModelProtocol {
     private var objects: [RelationDetails] = []
     private var marketplaceObjects: [RelationDetails] = []
     
-    private let selectedRelations: ParsedRelations
+    private let excludedRelationsIds: [String]
     private let interactor: RelationsSearchInteractor
     private let toastPresenter: ToastPresenterProtocol
     private let onSelect: (_ relation: RelationDetails) -> Void
     
     init(
-        selectedRelations: ParsedRelations,
+        excludedRelationsIds: [String],
         interactor: RelationsSearchInteractor,
         toastPresenter: ToastPresenterProtocol,
         onSelect: @escaping (_ relation: RelationDetails) -> Void
     ) {
-        self.selectedRelations = selectedRelations
+        self.excludedRelationsIds = excludedRelationsIds
         self.interactor = interactor
         self.toastPresenter = toastPresenter
         self.onSelect = onSelect
@@ -36,7 +36,7 @@ final class RelationsSearchViewModel: NewInternalSearchViewModelProtocol {
     // MARK: - NewInternalSearchViewModelProtocol
     
     func search(text: String) {
-        let objects = interactor.search(text: text, excludedIds: selectedRelations.installed.map(\.id))
+        let objects = interactor.search(text: text, excludedIds: excludedRelationsIds)
         let marketplaceObjects = interactor.searchInMarketplace(text: text)
         
         handleSearchResults(objects: objects, marketplaceObjects: marketplaceObjects)

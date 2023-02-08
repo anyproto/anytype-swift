@@ -443,7 +443,10 @@ final class EditorSetRouter: EditorSetRouterProtocol {
     }
     
     func showAddNewRelationView(onSelect: ((RelationDetails, _ isNew: Bool) -> Void)?) {
-        addNewRelationCoordinator.showAddNewRelationView(onCompletion: onSelect)
+        addNewRelationCoordinator.showAddNewRelationView(
+            excludedRelationsIds: setDocument.sortedRelations.map(\.id),
+            onCompletion: onSelect
+        )
     }
     
     func showPage(data: EditorScreenData) {
