@@ -20,6 +20,7 @@ final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsM
     private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
     private let widgetObjectListModuleAssembly: WidgetObjectListModuleAssemblyProtocol
     private let editorBrowserCoordinator: EditorBrowserCoordinatorProtocol
+    private let searchModuleAssembly: SearchModuleAssemblyProtocol
     
     init(
         homeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol,
@@ -29,7 +30,8 @@ final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsM
         createWidgetCoordinator: CreateWidgetCoordinatorProtocol,
         objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
         widgetObjectListModuleAssembly: WidgetObjectListModuleAssemblyProtocol,
-        editorBrowserCoordinator: EditorBrowserCoordinatorProtocol
+        editorBrowserCoordinator: EditorBrowserCoordinatorProtocol,
+        searchModuleAssembly: SearchModuleAssemblyProtocol
     ) {
         self.homeWidgetsModuleAssembly = homeWidgetsModuleAssembly
         self.accountManager = accountManager
@@ -39,6 +41,7 @@ final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsM
         self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
         self.widgetObjectListModuleAssembly = widgetObjectListModuleAssembly
         self.editorBrowserCoordinator = editorBrowserCoordinator
+        self.searchModuleAssembly = searchModuleAssembly
     }
     
     func startFlow() -> AnyView {
@@ -69,12 +72,27 @@ final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsM
     // MARK: - CommonWidgetModuleOutput
         
     func onObjectSelected(screenData: EditorScreenData) {
-        editorBrowserCoordinator.startFlow(data: screenData)
+        openObject(screenData: screenData)
     }
     
     // MARK: - HomeBottomPanelModuleOutput
     
     func onCreateWidgetSelected() {
         createWidgetCoordinator.startFlow(widgetObjectId: accountManager.account.info.widgetsId)
+    }
+    
+    func onSearchSelected() {
+        let module = searchModuleAssembly.makeObjectSearch(title: nil, context: .general, onSelect: { [weak self] data in
+            let screenData = EditorScreenData(pageId: data.blockId, type: data.viewType)
+            self?.navigationContext.dismissAllPresented()
+            self?.openObject(screenData: screenData)
+        })
+        navigationContext.present(module)
+    }
+    
+    // MARK: - Private
+    
+    private func openObject(screenData: EditorScreenData) {
+        editorBrowserCoordinator.startFlow(data: screenData)
     }
 }
