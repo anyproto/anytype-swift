@@ -618,7 +618,7 @@
 		2E412D152847B15C00C973FF /* SetSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E412D142847B15C00C973FF /* SetSort.swift */; };
 		2E48D74328CF461400CEE69D /* TertiaryPressedBackgroundButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E48D74228CF461400CEE69D /* TertiaryPressedBackgroundButtonStyle.swift */; };
 		2E5E066029897CDE004A98CE /* EditorSetEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E5E065F29897CDE004A98CE /* EditorSetEmptyView.swift */; };
-		2E5E066629943E20004A98CE /* RelationsSearchMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E5E066529943E20004A98CE /* RelationsSearchMode.swift */; };
+		2E5E066629943E20004A98CE /* RelationsSearchTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E5E066529943E20004A98CE /* RelationsSearchTarget.swift */; };
 		2E61D470286C63FC004BC2E7 /* BlockBookmarkStateConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E61D46F286C63FC004BC2E7 /* BlockBookmarkStateConverter.swift */; };
 		2E63047728A54F1900BEF2E9 /* SetContentViewType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E63047628A54F1900BEF2E9 /* SetContentViewType.swift */; };
 		2E63047928A55D2000BEF2E9 /* SetGalleryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E63047828A55D2000BEF2E9 /* SetGalleryViewCell.swift */; };
@@ -1961,7 +1961,7 @@
 		2E412D142847B15C00C973FF /* SetSort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetSort.swift; sourceTree = "<group>"; };
 		2E48D74228CF461400CEE69D /* TertiaryPressedBackgroundButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TertiaryPressedBackgroundButtonStyle.swift; sourceTree = "<group>"; };
 		2E5E065F29897CDE004A98CE /* EditorSetEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetEmptyView.swift; sourceTree = "<group>"; };
-		2E5E066529943E20004A98CE /* RelationsSearchMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationsSearchMode.swift; sourceTree = "<group>"; };
+		2E5E066529943E20004A98CE /* RelationsSearchTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationsSearchTarget.swift; sourceTree = "<group>"; };
 		2E61D46F286C63FC004BC2E7 /* BlockBookmarkStateConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockBookmarkStateConverter.swift; sourceTree = "<group>"; };
 		2E63047628A54F1900BEF2E9 /* SetContentViewType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetContentViewType.swift; sourceTree = "<group>"; };
 		2E63047828A55D2000BEF2E9 /* SetGalleryViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetGalleryViewCell.swift; sourceTree = "<group>"; };
@@ -4880,7 +4880,7 @@
 				1247BC6327FD9637005F2DB4 /* SearchNewRelationModuleOutput.swift */,
 				2A733A8A294080B300B7D27C /* RelationsSearchViewModel.swift */,
 				2A733A8C294082C200B7D27C /* RelationsSearchInteractor.swift */,
-				2E5E066529943E20004A98CE /* RelationsSearchMode.swift */,
+				2E5E066529943E20004A98CE /* RelationsSearchTarget.swift */,
 			);
 			path = RelationsSearchViewModel;
 			sourceTree = "<group>";
@@ -8542,7 +8542,7 @@
 				2E412D152847B15C00C973FF /* SetSort.swift in Sources */,
 				3D3D894D2678D08E008C2B26 /* ViewModifiers.swift in Sources */,
 				3DB1CA0927293041000D2779 /* AnytypeAnalytics+Events.swift in Sources */,
-				2E5E066629943E20004A98CE /* RelationsSearchMode.swift in Sources */,
+				2E5E066629943E20004A98CE /* RelationsSearchTarget.swift in Sources */,
 				2A1F948E297953B600E25782 /* FavoriteWidgetProvider.swift in Sources */,
 				0A2C0D56247144F4008ADD86 /* TextViewWithPlaceholder.swift in Sources */,
 				126F3D8C273E4E6A00AEF39A /* RelationsServiceProtocol.swift in Sources */,

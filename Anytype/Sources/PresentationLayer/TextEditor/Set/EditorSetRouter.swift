@@ -445,7 +445,7 @@ final class EditorSetRouter: EditorSetRouterProtocol {
     func showAddNewRelationView(onSelect: ((RelationDetails, _ isNew: Bool) -> Void)?) {
         addNewRelationCoordinator.showAddNewRelationView(
             excludedRelationsIds: setDocument.sortedRelations.map(\.id),
-            mode: .dataview(activeViewId: setDocument.activeView.id),
+            target: .dataview(activeViewId: setDocument.activeView.id),
             onCompletion: onSelect
         )
     }

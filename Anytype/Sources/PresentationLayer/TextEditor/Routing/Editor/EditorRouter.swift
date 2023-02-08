@@ -483,7 +483,7 @@ extension EditorRouter {
     func showAddNewRelationView(onSelect: ((RelationDetails, _ isNew: Bool) -> Void)?) {
         addNewRelationCoordinator.showAddNewRelationView(
             excludedRelationsIds: document.parsedRelations.installed.map(\.id),
-            mode: .object,
+            target: .object,
             onCompletion: onSelect
         )
     }

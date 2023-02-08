@@ -17,20 +17,20 @@ final class RelationsSearchViewModel: NewInternalSearchViewModelProtocol {
     private var marketplaceObjects: [RelationDetails] = []
     
     private let excludedRelationsIds: [String]
-    private let mode: RelationsSearchMode
+    private let target: RelationsSearchTarget
     private let interactor: RelationsSearchInteractor
     private let toastPresenter: ToastPresenterProtocol
     private let onSelect: (_ relation: RelationDetails) -> Void
     
     init(
         excludedRelationsIds: [String],
-        mode: RelationsSearchMode,
+        target: RelationsSearchTarget,
         interactor: RelationsSearchInteractor,
         toastPresenter: ToastPresenterProtocol,
         onSelect: @escaping (_ relation: RelationDetails) -> Void
     ) {
         self.excludedRelationsIds = excludedRelationsIds
-        self.mode = mode
+        self.target = target
         self.interactor = interactor
         self.toastPresenter = toastPresenter
         self.onSelect = onSelect
@@ -80,7 +80,7 @@ final class RelationsSearchViewModel: NewInternalSearchViewModelProtocol {
     // MARK: - Private
     
     private func addRelation(relation: RelationDetails) {
-        switch mode {
+        switch target {
         case .object:
             if interactor.addRelationToObject(relation: relation) {
                 onSelect(relation)

@@ -244,7 +244,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
     func relationsSearchModule(
         document: BaseDocumentProtocol,
         excludedRelationsIds: [String],
-        mode: RelationsSearchMode,
+        target: RelationsSearchTarget,
         output: RelationSearchModuleOutput
     ) -> NewSearchView {
         
@@ -261,7 +261,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         
         let internalViewModel = RelationsSearchViewModel(
             excludedRelationsIds: excludedRelationsIds,
-            mode: mode,
+            target: target,
             interactor: interactor,
             toastPresenter: uiHelpersDI.toastPresenter(),
             onSelect: { result in
