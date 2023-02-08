@@ -29,7 +29,7 @@ final class ServiceLocator {
         )
     }
     
-    func loginStateService() -> LoginStateService {
+    func loginStateService() -> LoginStateServiceProtocol {
         LoginStateService(
             seedService: seedService(),
             objectTypeProvider: objectTypeProvider(),
