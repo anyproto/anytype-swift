@@ -1,6 +1,13 @@
 import AnytypeCore
 
-final class LoginStateService {
+protocol LoginStateServiceProtocol: AnyObject {
+    var isFirstLaunchAfterRegistration: Bool { get }
+    func setupStateAfterLoginOrAuth(account: AccountData)
+    func setupStateAfterRegistration(account: AccountData)
+    func cleanStateAfterLogout()
+}
+
+final class LoginStateService: LoginStateServiceProtocol {
     var isFirstLaunchAfterRegistration: Bool = false
 
     private let seedService: SeedServiceProtocol
@@ -19,6 +26,8 @@ final class LoginStateService {
         self.middlewareConfigurationProvider = middlewareConfigurationProvider
         self.blockWidgetExpandedService = blockWidgetExpandedService
     }
+    
+    // MARK: - LoginStateServiceProtocol
     
     func setupStateAfterLoginOrAuth(account: AccountData) {
         middlewareConfigurationProvider.setupConfiguration(account: account)
