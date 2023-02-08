@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-protocol HomeWidgetProviderProtocol: AnyObject {
+protocol HomeSubmoduleProviderProtocol: AnyObject {
     @MainActor
     var view: AnyView { get }
     var componentId: String { get }

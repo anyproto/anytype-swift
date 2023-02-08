@@ -1,15 +1,7 @@
 import Foundation
 import SwiftUI
 
-protocol BinLinkWidgetModuleAssemblyProtocol {
-    @MainActor
-    func make(
-        widgetBlockId: String,
-        widgetObject: HomeWidgetsObjectProtocol,
-        stateManager: HomeWidgetsStateManagerProtocol,
-        output: CommonWidgetModuleOutput?
-    ) -> AnyView
-}
+protocol BinLinkWidgetModuleAssemblyProtocol: HomeWidgetCommonAssemblyProtocol {}
 
 final class BinLinkWidgetModuleAssembly: BinLinkWidgetModuleAssemblyProtocol {
     

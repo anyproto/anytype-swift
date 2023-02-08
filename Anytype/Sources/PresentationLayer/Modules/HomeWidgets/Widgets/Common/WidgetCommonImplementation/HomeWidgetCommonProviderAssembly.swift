@@ -1,12 +1,12 @@
 import Foundation
 
-final class SetsWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol {
+final class HomeWidgetCommonProviderAssembly: HomeWidgetProviderAssemblyProtocol {
     
-    private let widgetsDI: WidgetsDIProtocol
+    private let widgetAssembly: HomeWidgetCommonAssemblyProtocol
     private weak var output: CommonWidgetModuleOutput?
     
-    init(widgetsDI: WidgetsDIProtocol, output: CommonWidgetModuleOutput?) {
-        self.widgetsDI = widgetsDI
+    init(widgetAssembly: HomeWidgetCommonAssemblyProtocol, output: CommonWidgetModuleOutput?) {
+        self.widgetAssembly = widgetAssembly
         self.output = output
     }
     
@@ -16,11 +16,11 @@ final class SetsWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol {
         widgetBlockId: String,
         widgetObject: HomeWidgetsObjectProtocol,
         stateManager: HomeWidgetsStateManagerProtocol
-    ) -> HomeWidgetProviderProtocol {
-        return SetsWidgetProvider(
+    ) -> HomeSubmoduleProviderProtocol {
+        return HomeWidgetCommonProvider(
             widgetBlockId: widgetBlockId,
             widgetObject: widgetObject,
-            setsWidgetModuleAssembly: widgetsDI.setsWidgetModuleAssembly(),
+            widgetAssembly: widgetAssembly,
             stateManager: stateManager,
             output: output
         )

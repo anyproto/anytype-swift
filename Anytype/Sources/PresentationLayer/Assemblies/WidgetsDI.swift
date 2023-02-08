@@ -33,13 +33,34 @@ final class WidgetsDI: WidgetsDIProtocol {
         widgetOutput: CommonWidgetModuleOutput?
     ) -> HomeWidgetsRegistryProtocol {
         return HomeWidgetsRegistry(
-            treeWidgetProviderAssembly: ObjectTreeWidgetProviderAssembly(widgetsDI: self, output: widgetOutput),
-            setWidgetProviderAssembly: SetWidgetProviderAssembly(widgetsDI: self, output: widgetOutput),
-            favoriteWidgetProviderAssembly: FavoriteWidgetProviderAssembly(widgetsDI: self, output: widgetOutput),
-            recentWidgetProviderAssembly: RecentWidgetProviderAssembly(widgetsDI: self, output: widgetOutput),
-            setsWidgetProviderAssembly: SetsWidgetProviderAssembly(widgetsDI: self, output: widgetOutput),
-            linkWidgetProviderAssembly: LinkWidgetProviderAssembly(widgetsDI: self, output: widgetOutput),
-            binLinkWidgetProviderAssembly: BinLinkWidgetProviderAssembly(widgetsDI: self, output: widgetOutput),
+            treeWidgetProviderAssembly: HomeWidgetCommonProviderAssembly(
+                widgetAssembly: objectTreeWidgetModuleAssembly(),
+                output: widgetOutput
+            ),
+            setWidgetProviderAssembly: HomeWidgetCommonProviderAssembly(
+                widgetAssembly: setWidgetModuleAssembly(),
+                output: widgetOutput
+            ),
+            favoriteWidgetProviderAssembly: HomeWidgetCommonProviderAssembly(
+                widgetAssembly: favoriteWidgetModuleAssembly(),
+                output: widgetOutput
+            ),
+            recentWidgetProviderAssembly: HomeWidgetCommonProviderAssembly(
+                widgetAssembly: recentWidgetModuleAssembly(),
+                output: widgetOutput
+            ),
+            setsWidgetProviderAssembly: HomeWidgetCommonProviderAssembly(
+                widgetAssembly: setsWidgetModuleAssembly(),
+                output: widgetOutput
+            ),
+            linkWidgetProviderAssembly: HomeWidgetCommonProviderAssembly(
+                widgetAssembly: linkWidgetModuleAssembly(),
+                output: widgetOutput
+            ),
+            binLinkWidgetProviderAssembly: HomeWidgetCommonProviderAssembly(
+                widgetAssembly: binLinkWidgetModuleAssembly(),
+                output: widgetOutput
+            ),
             stateManager: stateManager,
             objectDetailsStorage: serviceLocator.objectDetailsStorage()
         )
