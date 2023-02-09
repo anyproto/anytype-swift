@@ -86,6 +86,7 @@ struct LinkWidgetViewContainer<Content, MenuContent>: View where Content: View, 
                 Spacer.fixedWidth(16)
                 Spacer()
             }
+            .allowsHitTesting(!isEditalbeMode)
             menuButton
             arrowButton
             Spacer.fixedWidth(12)
