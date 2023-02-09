@@ -10,6 +10,7 @@ protocol ApplicationCoordinatorProtocol: AnyObject {
     func handleDeeplink(url: URL)
 }
 
+@MainActor
 final class ApplicationCoordinator: ApplicationCoordinatorProtocol {
     
     private let windowManager: WindowManager
