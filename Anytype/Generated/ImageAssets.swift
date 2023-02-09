@@ -251,6 +251,7 @@ internal extension ImageAsset {
       static let tree = ImageAsset.bundle(name: "Widget/Preview/tree")
     }
     static let add = ImageAsset.bundle(name: "Widget/add")
+    static let bin = ImageAsset.bundle(name: "Widget/bin")
     static let collapse = ImageAsset.bundle(name: "Widget/collapse")
     static let dot = ImageAsset.bundle(name: "Widget/dot")
     static let remove = ImageAsset.bundle(name: "Widget/remove")

@@ -11,6 +11,7 @@ protocol WidgetsDIProtocol {
     func recentWidgetModuleAssembly() -> RecentWidgetModuleAssemblyProtocol
     func setsWidgetModuleAssembly() -> SetsWidgetModuleAssemblyProtocol
     func linkWidgetModuleAssembly() -> LinkWidgetModuleAssemblyProtocol
+    func binLinkWidgetModuleAssembly() -> BinLinkWidgetModuleAssemblyProtocol
     func bottomPanelProviderAssembly(output: HomeBottomPanelModuleOutput?) -> HomeBottomPanelProviderAssemblyProtocol
     func bottomPanelModuleAssembly() -> HomeBottomPanelModuleAssemblyProtocol
 }
@@ -38,6 +39,7 @@ final class WidgetsDI: WidgetsDIProtocol {
             recentWidgetProviderAssembly: RecentWidgetProviderAssembly(widgetsDI: self, output: widgetOutput),
             setsWidgetProviderAssembly: SetsWidgetProviderAssembly(widgetsDI: self, output: widgetOutput),
             linkWidgetProviderAssembly: LinkWidgetProviderAssembly(widgetsDI: self, output: widgetOutput),
+            binLinkWidgetProviderAssembly: BinLinkWidgetProviderAssembly(widgetsDI: self, output: widgetOutput),
             stateManager: stateManager,
             objectDetailsStorage: serviceLocator.objectDetailsStorage()
         )
@@ -65,6 +67,10 @@ final class WidgetsDI: WidgetsDIProtocol {
     
     func linkWidgetModuleAssembly() -> LinkWidgetModuleAssemblyProtocol {
         return LinkWidgetModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
+    }
+    
+    func binLinkWidgetModuleAssembly() -> BinLinkWidgetModuleAssemblyProtocol {
+        return BinLinkWidgetModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
     }
     
     func bottomPanelProviderAssembly(output: HomeBottomPanelModuleOutput?) -> HomeBottomPanelProviderAssemblyProtocol {

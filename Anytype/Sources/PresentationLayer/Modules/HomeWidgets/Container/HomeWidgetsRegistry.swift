@@ -18,6 +18,7 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
         static let favoriteWidgetId = "FavoriteWidgetId"
         static let recentWidgetId = "RecentWidgetId"
         static let setsWidgetId = "SetsWidgetId"
+        static let binWidgetId = "BinWidgetId"
     }
     
     private let treeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
@@ -26,6 +27,7 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
     private let recentWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     private let setsWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     private let linkWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
+    private let binLinkWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     private let stateManager: HomeWidgetsStateManagerProtocol
     private let objectDetailsStorage: ObjectDetailsStorage
     private var providersCache: [ProviderCache] = []
@@ -37,6 +39,7 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
         recentWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         setsWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         linkWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
+        binLinkWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         stateManager: HomeWidgetsStateManagerProtocol,
         objectDetailsStorage: ObjectDetailsStorage
     ) {
@@ -46,6 +49,7 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
         self.recentWidgetProviderAssembly = recentWidgetProviderAssembly
         self.setsWidgetProviderAssembly = setsWidgetProviderAssembly
         self.linkWidgetProviderAssembly = linkWidgetProviderAssembly
+        self.binLinkWidgetProviderAssembly = binLinkWidgetProviderAssembly
         self.stateManager = stateManager
         self.objectDetailsStorage = objectDetailsStorage
     }
@@ -110,6 +114,14 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
             createProviderCache(
                 source: setsWidgetProviderAssembly,
                 widgetBlockId: Constants.setsWidgetId,
+                widgetObject: widgetObject
+            )
+        )
+        
+        newProvidersCache.append(
+            createProviderCache(
+                source: binLinkWidgetProviderAssembly,
+                widgetBlockId: Constants.binWidgetId,
                 widgetObject: widgetObject
             )
         )
