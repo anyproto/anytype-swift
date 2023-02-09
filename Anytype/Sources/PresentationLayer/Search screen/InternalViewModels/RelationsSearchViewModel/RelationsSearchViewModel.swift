@@ -16,18 +16,21 @@ final class RelationsSearchViewModel: NewInternalSearchViewModelProtocol {
     private var objects: [RelationDetails] = []
     private var marketplaceObjects: [RelationDetails] = []
     
-    private let selectedRelations: ParsedRelations
+    private let excludedRelationsIds: [String]
+    private let target: RelationsSearchTarget
     private let interactor: RelationsSearchInteractor
     private let toastPresenter: ToastPresenterProtocol
     private let onSelect: (_ relation: RelationDetails) -> Void
     
     init(
-        selectedRelations: ParsedRelations,
+        excludedRelationsIds: [String],
+        target: RelationsSearchTarget,
         interactor: RelationsSearchInteractor,
         toastPresenter: ToastPresenterProtocol,
         onSelect: @escaping (_ relation: RelationDetails) -> Void
     ) {
-        self.selectedRelations = selectedRelations
+        self.excludedRelationsIds = excludedRelationsIds
+        self.target = target
         self.interactor = interactor
         self.toastPresenter = toastPresenter
         self.onSelect = onSelect
@@ -36,7 +39,7 @@ final class RelationsSearchViewModel: NewInternalSearchViewModelProtocol {
     // MARK: - NewInternalSearchViewModelProtocol
     
     func search(text: String) {
-        let objects = interactor.search(text: text, excludedIds: selectedRelations.installed.map(\.id))
+        let objects = interactor.search(text: text, excludedIds: excludedRelationsIds)
         let marketplaceObjects = interactor.searchInMarketplace(text: text)
         
         handleSearchResults(objects: objects, marketplaceObjects: marketplaceObjects)
@@ -77,11 +80,19 @@ final class RelationsSearchViewModel: NewInternalSearchViewModelProtocol {
     // MARK: - Private
     
     private func addRelation(relation: RelationDetails) {
-        guard interactor.addRelationToObject(relation: relation) else {
-            anytypeAssertionFailure("Relation not added to document. Relation id \(relation.id)", domain: .relationSearch)
-            return
+        switch target {
+        case .object:
+            if interactor.addRelationToObject(relation: relation) {
+                onSelect(relation)
+            } else {
+                anytypeAssertionFailure("Relation not added to document. Relation id \(relation.id)", domain: .relationSearch)
+            }
+        case .dataview(let activeViewId):
+            Task { [weak self] in
+                try await self?.interactor.addRelationToDataview(relation: relation, activeViewId: activeViewId)
+                self?.onSelect(relation)
+            }
         }
-        onSelect(relation)
     }
     
     private func handleSearchResults(objects: [RelationDetails], marketplaceObjects: [RelationDetails]) {

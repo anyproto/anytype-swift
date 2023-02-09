@@ -243,17 +243,25 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
     
     func relationsSearchModule(
         document: BaseDocumentProtocol,
+        excludedRelationsIds: [String],
+        target: RelationsSearchTarget,
         output: RelationSearchModuleOutput
     ) -> NewSearchView {
         
         let interactor = RelationsSearchInteractor(
             searchService: serviceLocator.searchService(),
             workspaceService: serviceLocator.workspaceService(),
-            relationsService: RelationsService(objectId: document.objectId)
+            relationsService: RelationsService(objectId: document.objectId),
+            dataviewService: DataviewService(
+                objectId: document.objectId,
+                blockId: nil,
+                prefilledFieldsBuilder: SetPrefilledFieldsBuilder()
+            )
         )
         
         let internalViewModel = RelationsSearchViewModel(
-            selectedRelations: document.parsedRelations,
+            excludedRelationsIds: excludedRelationsIds,
+            target: target,
             interactor: interactor,
             toastPresenter: uiHelpersDI.toastPresenter(),
             onSelect: { result in

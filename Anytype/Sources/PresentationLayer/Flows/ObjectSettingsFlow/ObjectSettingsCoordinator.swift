@@ -113,9 +113,13 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
     // MARK: - RelationsListModuleOutput
     
     func addNewRelationAction() {
-        addNewRelationCoordinator.showAddNewRelationView { relation, isNew in
-            AnytypeAnalytics.instance().logAddRelation(format: relation.format, isNew: isNew, type: .menu)
-        }
+        addNewRelationCoordinator.showAddNewRelationView(
+            excludedRelationsIds: document.parsedRelations.installed.map(\.id),
+            target: .object,
+            onCompletion: { relation, isNew in
+                AnytypeAnalytics.instance().logAddRelation(format: relation.format, isNew: isNew, type: .menu)
+            }
+        )
     }
     
     func editRelationValueAction(relationKey: String) {
