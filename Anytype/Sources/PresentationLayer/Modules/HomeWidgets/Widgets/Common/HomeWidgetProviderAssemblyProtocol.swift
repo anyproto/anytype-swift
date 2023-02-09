@@ -5,5 +5,5 @@ protocol HomeWidgetProviderAssemblyProtocol: AnyObject {
         widgetBlockId: String,
         widgetObject: HomeWidgetsObjectProtocol,
         stateManager: HomeWidgetsStateManagerProtocol
-    ) -> HomeWidgetProviderProtocol
+    ) -> HomeSubmoduleProviderProtocol
 }

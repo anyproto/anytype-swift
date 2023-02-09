@@ -2,7 +2,7 @@ import Foundation
 import BlocksModels
 
 protocol HomeWidgetsRegistryProtocol {
-    func providers(blocks: [BlockInformation], widgetObject: HomeWidgetsObjectProtocol) -> [HomeWidgetProviderProtocol]
+    func providers(blocks: [BlockInformation], widgetObject: HomeWidgetsObjectProtocol) -> [HomeSubmoduleProviderProtocol]
 }
 
 final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
@@ -10,7 +10,7 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
     private struct ProviderCache {
         let widgetBlockId: String
         let widgetObjectId: String
-        let provider: HomeWidgetProviderProtocol
+        let provider: HomeSubmoduleProviderProtocol
         let source: HomeWidgetProviderAssemblyProtocol
     }
     
@@ -59,7 +59,7 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
     func providers(
         blocks: [BlockInformation],
         widgetObject: HomeWidgetsObjectProtocol
-    ) -> [HomeWidgetProviderProtocol] {
+    ) -> [HomeSubmoduleProviderProtocol] {
         
         var newProvidersCache: [ProviderCache] = blocks.compactMap { block in
             guard case let .widget(widget) = block.content else { return nil }
