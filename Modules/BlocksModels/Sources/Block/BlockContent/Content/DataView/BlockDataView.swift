@@ -37,6 +37,17 @@ public struct BlockDataview: Hashable {
             targetObjectID: ""
         )
     }
+    
+    public var asMiddleware: Anytype_Model_Block.Content.Dataview {
+        Anytype_Model_Block.Content.Dataview(
+            views: views.map { $0.asMiddleware },
+            activeView: activeViewId,
+            groupOrders: groupOrders,
+            objectOrders: objectOrders,
+            relationLinks: relationLinks.map { $0.asMiddleware },
+            targetObjectID: targetObjectID
+        )
+    }
 }
 
 public extension MiddlewareDataview {

@@ -44,12 +44,8 @@ enum BlocksModelsConverter {
                 domain: .blocksConverter
             )
             return nil
-        case .dataView:
-            anytypeAssertionFailure(
-                "Not suppoted converter from dataview to middleware",
-                domain: .blocksConverter
-            )
-            return nil
+        case .dataView(let data):
+            return .dataview(data.asMiddleware)
         case .unsupported:
             anytypeAssertionFailure(
                 "Not suppoted converter from unsupported to middleware",
