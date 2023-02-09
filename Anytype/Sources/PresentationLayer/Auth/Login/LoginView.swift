@@ -136,6 +136,6 @@ struct LoginView: View {
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView(viewModel: LoginViewModel(windowManager: DI.preview.coordinatorsDI.windowManager()))
+        LoginView(viewModel: LoginViewModel(applicationStateService: DI.preview.serviceLocator.applicationStateService()))
     }
 }

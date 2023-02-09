@@ -4,22 +4,29 @@ import AnytypeCore
 
 final class WindowManager {
     
+    // MARK: - DI
+    
     private let viewControllerProvider: ViewControllerProviderProtocol
     private let homeViewAssembly: HomeViewAssembly
     private let homeWidgetsCoordinatorAssembly: HomeWidgetsCoordinatorAssemblyProtocol
+    private let applicationStateService: ApplicationStateServiceProtocol
+    
+    // MARK: - State
+    
+    private var homeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol?
+    private weak var lastHomeViewModel: HomeViewModel?
     
     init(
         viewControllerProvider: ViewControllerProviderProtocol,
         homeViewAssembly: HomeViewAssembly,
-        homeWidgetsCoordinatorAssembly: HomeWidgetsCoordinatorAssemblyProtocol
+        homeWidgetsCoordinatorAssembly: HomeWidgetsCoordinatorAssemblyProtocol,
+        applicationStateService: ApplicationStateServiceProtocol
     ) {
         self.viewControllerProvider = viewControllerProvider
         self.homeViewAssembly = homeViewAssembly
         self.homeWidgetsCoordinatorAssembly = homeWidgetsCoordinatorAssembly
+        self.applicationStateService = applicationStateService
     }
-
-    private var homeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol?
-    private weak var lastHomeViewModel: HomeViewModel?
 
     @MainActor
     func showHomeWindow() {
@@ -37,7 +44,7 @@ final class WindowManager {
     }
     
     func showAuthWindow() {
-        startNewRootView(MainAuthView(viewModel: MainAuthViewModel(windowManager: self)))
+        startNewRootView(MainAuthView(viewModel: MainAuthViewModel(applicationStateService: applicationStateService)))
     }
     
     func showLaunchWindow() {
@@ -57,7 +64,7 @@ final class WindowManager {
     func showDeletedAccountWindow(deadline: Date) {
         startNewRootView(
             DeletedAccountView(
-                viewModel: DeletedAccountViewModel(deadline: deadline, windowManager: self)
+                viewModel: DeletedAccountViewModel(deadline: deadline, applicationStateService: applicationStateService)
             )
         )
     }
