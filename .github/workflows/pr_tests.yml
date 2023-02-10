@@ -1,10 +1,14 @@
-name: iOS starter workflow
+name: Run tests on PR
 
 on:
-  push:
-    branches: [ "develop" ]
-  pull_request:
-    branches: [ "develop" ]
+  # pull_request:
+  #  branches: [ "develop" ]
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch'     
+        required: false
+        default: 'develop'
 
 jobs:
   build:
