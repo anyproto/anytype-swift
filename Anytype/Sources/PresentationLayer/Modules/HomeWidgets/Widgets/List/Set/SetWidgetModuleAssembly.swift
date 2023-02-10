@@ -31,6 +31,7 @@ final class SetWidgetModuleAssembly: SetWidgetModuleAssemblyProtocol {
             setSubscriptionDataBuilder: SetSubscriptionDataBuilder(
                 accountManager: serviceLocator.accountManager()
             ),
+            documentService: serviceLocator.documentService(),
             output: output
         )
         let contentView = ListWidgetView(model: contentModel)

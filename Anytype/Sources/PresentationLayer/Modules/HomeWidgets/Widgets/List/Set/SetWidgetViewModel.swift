@@ -21,6 +21,7 @@ final class SetWidgetViewModel: ListWidgetViewModelProtocol, WidgetContainerCont
     private let widgetObject: HomeWidgetsObjectProtocol
     private let subscriptionService: SubscriptionsServiceProtocol
     private let setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol
+    private let documentService: DocumentServiceProtocol
     private weak var output: CommonWidgetModuleOutput?
     
     // MARK: - State
@@ -46,26 +47,18 @@ final class SetWidgetViewModel: ListWidgetViewModelProtocol, WidgetContainerCont
         relationDetailsStorage: RelationDetailsStorageProtocol,
         subscriptionService: SubscriptionsServiceProtocol,
         setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol,
+        documentService: DocumentServiceProtocol,
         output: CommonWidgetModuleOutput?
     ) {
         self.widgetBlockId = widgetBlockId
         self.widgetObject = widgetObject
         self.subscriptionService = subscriptionService
         self.setSubscriptionDataBuilder = setSubscriptionDataBuilder
+        self.documentService = documentService
         self.output = output
         
         if let tagetObjectId = widgetObject.targetObjectIdByLinkFor(widgetBlockId: widgetBlockId) {
-            let document = BaseDocument(objectId: tagetObjectId)
-            self.setDocument = SetDocument(
-                document: document,
-                blockId: nil,
-                targetObjectID: nil,
-                relationDetailsStorage: relationDetailsStorage
-            )
-            
-            Task { @MainActor in
-                try? await setDocument?.openForPreview()
-            }
+            setDocument = documentService.setDocument(objectId: tagetObjectId, forPreview: true)
         }
     }
     
