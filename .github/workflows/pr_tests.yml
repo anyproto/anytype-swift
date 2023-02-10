@@ -34,8 +34,7 @@ jobs:
         run: ruby ./Scripts/middleware.rb --token ${{ secrets.ANYTYPE_MIDDLEWARE_ACCESS_TOKEN }} -d
 
       - name: Run unit tests
-        run: bundle exec fastlane tests
-        continue-on-error: true
+        run: bundle exec fastlane tests skip_notify:true
         env:
           FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT: 900
           FASTLANE_XCODE_LIST_TIMEOUT: 900
