@@ -43,7 +43,7 @@ jobs:
           xcode-version: '14.2'
 
       - name: Download Middleware
-        run: ruby ./Scripts/middleware.rb --token ${{ secrets.ANYTYPE_MIDDLEWARE_ACCESS_TOKEN }}
+        run: ruby ./Scripts/middleware.rb --token ${{ secrets.ANYTYPE_MIDDLEWARE_ACCESS_TOKEN }} -d
 
       - name: Build 
         run: |

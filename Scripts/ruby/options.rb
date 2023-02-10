@@ -14,6 +14,7 @@ class Options
       opts.on('-c', '--codegen-only', 'Run only codegen') {|v| options[:codegenOnly] = true }
       opts.on('-l', '--latest', 'Update to the latest version') {|v| options[:latest] = true }
       opts.on('--artifacts-path [PATH]', 'Custom artifacts: protobuf and xcframework') {|v| options[:artifactsPath] = v }
+      opts.on('-d', '--download-only', 'Run only download') {|v| options[:downloadOnly] = true }
 
       opts.on('--token', '--token [TOKEN]', 'Token to access repository') {|v| options[:token] = v}
 
