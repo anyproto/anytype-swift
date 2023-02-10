@@ -1,15 +1,7 @@
 import Foundation
 import SwiftUI
 
-protocol LinkWidgetModuleAssemblyProtocol {
-    @MainActor
-    func make(
-        widgetBlockId: String,
-        widgetObject: HomeWidgetsObjectProtocol,
-        stateManager: HomeWidgetsStateManagerProtocol,
-        output: CommonWidgetModuleOutput?
-    ) -> AnyView
-}
+protocol LinkWidgetModuleAssemblyProtocol: HomeWidgetCommonAssemblyProtocol {}
 
 final class LinkWidgetModuleAssembly: LinkWidgetModuleAssemblyProtocol {
     

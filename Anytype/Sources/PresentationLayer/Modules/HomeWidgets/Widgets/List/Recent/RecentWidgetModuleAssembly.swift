@@ -1,15 +1,7 @@
 import Foundation
 import SwiftUI
 
-protocol RecentWidgetModuleAssemblyProtocol: AnyObject {
-    @MainActor
-    func make(
-        widgetBlockId: String,
-        widgetObject: HomeWidgetsObjectProtocol,
-        stateManager: HomeWidgetsStateManagerProtocol,
-        output: CommonWidgetModuleOutput?
-    ) -> AnyView
-}
+protocol RecentWidgetModuleAssemblyProtocol: HomeWidgetCommonAssemblyProtocol {}
 
 final class RecentWidgetModuleAssembly: RecentWidgetModuleAssemblyProtocol {
     

@@ -13,8 +13,8 @@ final class HomeWidgetsViewModel: ObservableObject {
     private let stateManager: HomeWidgetsStateManagerProtocol
     private weak var output: HomeWidgetsModuleOutput?
     
-    @Published var models: [HomeWidgetProviderProtocol] = []
-    @Published var bottomPanelProvider: HomeWidgetProviderProtocol
+    @Published var models: [HomeSubmoduleProviderProtocol] = []
+    @Published var bottomPanelProvider: HomeSubmoduleProviderProtocol
     @Published var hideEditButton: Bool = false
     
     init(
