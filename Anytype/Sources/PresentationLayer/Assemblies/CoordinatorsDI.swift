@@ -86,21 +86,7 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
         return EditorBrowserCoordinatorAssembly(uiHelpersDI: uiHelpersDI, coordinatorsID: self)
     }
     
-    @MainActor
-    func application() -> ApplicationCoordinator {
-        return ApplicationCoordinator(
-            windowManager: windowManager(),
-            authService: serviceLocator.authService(),
-            accountEventHandler: serviceLocator.accountEventHandler()
-        )
-    }
-    
-    @MainActor
-    func windowManager() -> WindowManager {
-        WindowManager(
-            viewControllerProvider: uiHelpersDI.viewControllerProvider(),
-            homeViewAssembly: homeViewAssemby(),
-            homeWidgetsCoordinatorAssembly: homeWidgets()
-        )
+    func application() -> ApplicationCoordinatorAssemblyProtocol {
+        return ApplicationCoordinatorAssembly(serviceLocator: serviceLocator, coordinatorsDI: self, uiHelpersDI: uiHelpersDI)
     }
 }

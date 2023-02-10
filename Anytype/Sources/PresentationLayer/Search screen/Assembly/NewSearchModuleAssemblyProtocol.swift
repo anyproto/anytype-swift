@@ -112,7 +112,7 @@ extension NewSearchModuleAssemblyProtocol {
         selectionMode: NewSearchViewModel.SelectionMode = .multipleItems(),
         excludedObjectIds: [String],
         limitedObjectType: [String],
-        onSelect: @escaping (_ ids: [String]) -> Void
+        onSelect: @escaping (_ details: [ObjectDetails]) -> Void
     ) -> NewSearchView {
         return objectsSearchModule(
             title: title,

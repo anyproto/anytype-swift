@@ -10,13 +10,7 @@ protocol CoordinatorsDIProtocol: AnyObject {
     func homeWidgets() -> HomeWidgetsCoordinatorAssemblyProtocol
     func createWidget() -> CreateWidgetCoordinatorAssemblyProtocol
     func editorBrowser() -> EditorBrowserCoordinatorAssemblyProtocol
-    
-    // Rename
-    @MainActor
-    func application() -> ApplicationCoordinator
-    // Split to modules
-    @MainActor
-    func windowManager() -> WindowManager
+    func application() -> ApplicationCoordinatorAssemblyProtocol
     
     // Now like a coordinator. Migrate to isolated modules
     func browser() -> EditorBrowserAssembly

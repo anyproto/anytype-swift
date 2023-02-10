@@ -15,7 +15,7 @@ final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsM
     private let homeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol
     private let accountManager: AccountManagerProtocol
     private let navigationContext: NavigationContextProtocol
-    private let windowManager: WindowManager
+    private let applicationStateService: ApplicationStateServiceProtocol
     private let createWidgetCoordinator: CreateWidgetCoordinatorProtocol
     private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
     private let widgetObjectListModuleAssembly: WidgetObjectListModuleAssemblyProtocol
@@ -26,22 +26,22 @@ final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsM
         homeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol,
         accountManager: AccountManagerProtocol,
         navigationContext: NavigationContextProtocol,
-        windowManager: WindowManager,
         createWidgetCoordinator: CreateWidgetCoordinatorProtocol,
         objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
         widgetObjectListModuleAssembly: WidgetObjectListModuleAssemblyProtocol,
         editorBrowserCoordinator: EditorBrowserCoordinatorProtocol,
-        searchModuleAssembly: SearchModuleAssemblyProtocol
+        searchModuleAssembly: SearchModuleAssemblyProtocol,
+        applicationStateService: ApplicationStateServiceProtocol
     ) {
         self.homeWidgetsModuleAssembly = homeWidgetsModuleAssembly
         self.accountManager = accountManager
         self.navigationContext = navigationContext
-        self.windowManager = windowManager
         self.createWidgetCoordinator = createWidgetCoordinator
         self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
         self.widgetObjectListModuleAssembly = widgetObjectListModuleAssembly
         self.editorBrowserCoordinator = editorBrowserCoordinator
         self.searchModuleAssembly = searchModuleAssembly
+        self.applicationStateService = applicationStateService
     }
     
     func startFlow() -> AnyView {
@@ -56,7 +56,7 @@ final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsM
     // MARK: - HomeWidgetsModuleOutput
     
     func onOldHomeSelected() {
-        windowManager.showHomeWindow()
+        applicationStateService.state = .initial
     }
     
     // TODO: Delete it. Temporary.

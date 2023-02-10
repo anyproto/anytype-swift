@@ -1,0 +1,20 @@
+name: Run tests on PR
+
+on:
+  # pull_request:
+  #  branches: [ "develop" ]
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch'     
+        required: false
+        default: 'develop'
+
+jobs:
+  build:
+    name: Build and Test default scheme using any available iPhone simulator
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
