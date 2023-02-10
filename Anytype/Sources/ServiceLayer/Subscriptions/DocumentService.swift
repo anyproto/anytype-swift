@@ -30,9 +30,9 @@ final class DocumentService: DocumentServiceProtocol {
     private var documentCache = NSMapTable<CacheKey, AnyObject>.strongToWeakObjects()
     private var setDocumentCache = NSMapTable<CacheKey, AnyObject>.strongToWeakObjects()
     
-    private let relationDetailsStorage: RelationDetailsStorageProtocol
-    
     // MARK: - DI
+    
+    private let relationDetailsStorage: RelationDetailsStorageProtocol
     
     init(relationDetailsStorage: RelationDetailsStorageProtocol) {
         self.relationDetailsStorage = relationDetailsStorage
@@ -51,8 +51,12 @@ final class DocumentService: DocumentServiceProtocol {
         }
         
         let document = internalDocument(objectId: objectId, forPreview: forPreview, open: false)
-        let setDocument = SetDocument(document: document, blockId: nil, targetObjectID: nil, relationDetailsStorage: relationDetailsStorage)
-        
+        let setDocument = SetDocument(
+            document: document,
+            blockId: nil,
+            targetObjectID: nil,
+            relationDetailsStorage: relationDetailsStorage
+        )
         setDocumentCache.setObject(document, forKey: key)
         
         Task { @MainActor in
@@ -71,7 +75,6 @@ final class DocumentService: DocumentServiceProtocol {
         }
         
         let document = BaseDocument(objectId: objectId)
-    
         documentCache.setObject(document, forKey: key)
         
         if open {

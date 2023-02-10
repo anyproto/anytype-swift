@@ -3018,7 +3018,6 @@
 		038FB5C822D8F321002B90B8 /* ServiceLayer */ = {
 			isa = PBXGroup;
 			children = (
-				2AD7413829965927004BD223 /* Document */,
 				2A1F949629795FB300E25782 /* Subscriptions */,
 				2AFFFB9D2927B02500A487E1 /* Account */,
 				2A03039D28ABD480002EFC46 /* URL */,
@@ -4679,6 +4678,7 @@
 		2A1F949629795FB300E25782 /* Subscriptions */ = {
 			isa = PBXGroup;
 			children = (
+				2A6E04A5298D05AF0023B33D /* DocumentService.swift */,
 				2A1F949829795FEB00E25782 /* FavoriteSubscriptionService.swift */,
 				2A1F949A297961A300E25782 /* BundledRelationKey+CommonKeys.swift */,
 				2A971C05297E75D300D3D786 /* RecentSubscriptionService.swift */,
@@ -5171,14 +5171,6 @@
 				2AD741302993E28F004BD223 /* HomeWidgetCommonAssemblyProtocol.swift */,
 			);
 			path = WidgetCommonImplementation;
-			sourceTree = "<group>";
-		};
-		2AD7413829965927004BD223 /* Document */ = {
-			isa = PBXGroup;
-			children = (
-				2A6E04A5298D05AF0023B33D /* DocumentService.swift */,
-			);
-			path = Document;
 			sourceTree = "<group>";
 		};
 		2ADD556C2987CDCF009AFCB1 /* Link */ = {
