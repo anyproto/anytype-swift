@@ -14,14 +14,14 @@ jobs:
     timeout-minutes: 35
 
     steps:
-      # - uses: actions/checkout@v2.4.0
-      #   with:
-      #     ref: ${{ github.event.inputs.branch }}
-
       - name: Install SSH key for access to repository.
         uses: webfactory/ssh-agent@v0.5.4
         with:
           ssh-private-key: ${{ secrets.SSH_KEY_FASTLANE_COMMIT }}
+
+      - uses: actions/checkout@v2.4.0
+        with:
+          ref: ${{ github.event.inputs.branch }}
 
       - name: Bundle Install
         run: bundle install
