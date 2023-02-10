@@ -61,7 +61,7 @@ final class HomeViewModel: ObservableObject {
         tabsSubsciptionDataBuilder: TabsSubscriptionDataBuilderProtocol,
         profileSubsciptionDataBuilder: ProfileSubscriptionDataBuilderProtocol,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
-        windowManager: WindowManager,
+        applicationStateService: ApplicationStateServiceProtocol,
         accountManager: AccountManagerProtocol,
         middlewareConfigurationProvider: MiddlewareConfigurationProviderProtocol
     ) {
@@ -72,7 +72,7 @@ final class HomeViewModel: ObservableObject {
         self.newSearchModuleAssembly = newSearchModuleAssembly
         self.settingsViewModel = SettingsViewModel(
             authService: ServiceLocator.shared.authService(),
-            windowManager: windowManager
+            applicationStateService: applicationStateService
         )
         self.accountManager = accountManager
         self.libraryVersion = middlewareConfigurationProvider.libraryVersion()

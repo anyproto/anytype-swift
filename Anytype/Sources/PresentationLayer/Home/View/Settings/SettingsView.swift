@@ -25,7 +25,7 @@ struct SettingsView_Previews: PreviewProvider {
                 .environmentObject(
                     SettingsViewModel(
                         authService: DI.preview.serviceLocator.authService(),
-                        windowManager: DI.preview.coordinatorsDI.windowManager()
+                        applicationStateService: DI.preview.serviceLocator.applicationStateService()
                     )
                 )
                 .previewLayout(.fixed(width: 360, height: 276))

@@ -22,7 +22,7 @@ final class HomeViewAssembly {
             tabsSubsciptionDataBuilder: TabsSubscriptionDataBuilder(accountManager: serviceLocator.accountManager()),
             profileSubsciptionDataBuilder: ProfileSubscriptionDataBuilder(),
             newSearchModuleAssembly: modulesDI.newSearch(),
-            windowManager: coordinatorsDI.windowManager(),
+            applicationStateService: serviceLocator.applicationStateService(),
             accountManager: serviceLocator.accountManager(),
             middlewareConfigurationProvider: serviceLocator.middlewareConfigurationProvider()
         )

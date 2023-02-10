@@ -544,6 +544,8 @@
 		2AD6792C29812EE600339624 /* HomeBottomPanelModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD6792B29812EE600339624 /* HomeBottomPanelModuleOutput.swift */; };
 		2AD741292993DB27004BD223 /* BinLinkWidgetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD741242993DB27004BD223 /* BinLinkWidgetViewModel.swift */; };
 		2AD7412A2993DB27004BD223 /* BinLinkWidgetModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD741252993DB27004BD223 /* BinLinkWidgetModuleAssembly.swift */; };
+		2AD741352994F19B004BD223 /* ApplicationStateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD741342994F19B004BD223 /* ApplicationStateService.swift */; };
+		2AD7413729951C43004BD223 /* ApplicationCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD7413629951C43004BD223 /* ApplicationCoordinatorAssembly.swift */; };
 		2AD7412C2993E1C9004BD223 /* HomeWidgetCommonProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD7412B2993E1C9004BD223 /* HomeWidgetCommonProvider.swift */; };
 		2AD7412E2993E1EF004BD223 /* HomeWidgetCommonProviderAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD7412D2993E1EF004BD223 /* HomeWidgetCommonProviderAssembly.swift */; };
 		2AD741312993E28F004BD223 /* HomeWidgetCommonAssemblyProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD741302993E28F004BD223 /* HomeWidgetCommonAssemblyProtocol.swift */; };
@@ -1907,6 +1909,8 @@
 		2AD6792B29812EE600339624 /* HomeBottomPanelModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBottomPanelModuleOutput.swift; sourceTree = "<group>"; };
 		2AD741242993DB27004BD223 /* BinLinkWidgetViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BinLinkWidgetViewModel.swift; sourceTree = "<group>"; };
 		2AD741252993DB27004BD223 /* BinLinkWidgetModuleAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BinLinkWidgetModuleAssembly.swift; sourceTree = "<group>"; };
+		2AD741342994F19B004BD223 /* ApplicationStateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationStateService.swift; sourceTree = "<group>"; };
+		2AD7413629951C43004BD223 /* ApplicationCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		2AD7412B2993E1C9004BD223 /* HomeWidgetCommonProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWidgetCommonProvider.swift; sourceTree = "<group>"; };
 		2AD7412D2993E1EF004BD223 /* HomeWidgetCommonProviderAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWidgetCommonProviderAssembly.swift; sourceTree = "<group>"; };
 		2AD741302993E28F004BD223 /* HomeWidgetCommonAssemblyProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWidgetCommonAssemblyProtocol.swift; sourceTree = "<group>"; };
@@ -3018,6 +3022,7 @@
 		038FB5C822D8F321002B90B8 /* ServiceLayer */ = {
 			isa = PBXGroup;
 			children = (
+				2AD741322994F17F004BD223 /* ApplicationState */,
 				2A1F949629795FB300E25782 /* Subscriptions */,
 				2AFFFB9D2927B02500A487E1 /* Account */,
 				2A03039D28ABD480002EFC46 /* URL */,
@@ -5173,6 +5178,14 @@
 			path = WidgetCommonImplementation;
 			sourceTree = "<group>";
 		};
+		2AD741322994F17F004BD223 /* ApplicationState */ = {
+			isa = PBXGroup;
+			children = (
+				2AD741342994F19B004BD223 /* ApplicationStateService.swift */,
+			);
+			path = ApplicationState;
+			sourceTree = "<group>";
+		};
 		2ADD556C2987CDCF009AFCB1 /* Link */ = {
 			isa = PBXGroup;
 			children = (
@@ -5791,6 +5804,7 @@
 			children = (
 				037AA83322E34601002CB09F /* ApplicationCoordinator.swift */,
 				3D1CEC3327F5D174000D36BA /* WindowManager.swift */,
+				2AD7413629951C43004BD223 /* ApplicationCoordinatorAssembly.swift */,
 			);
 			path = AppCoordinator;
 			sourceTree = "<group>";
@@ -8697,6 +8711,7 @@
 				531629372632BD0B000D6780 /* StylePanelLayout.swift in Sources */,
 				C9A7528328E3297000235BDE /* URLConstants.swift in Sources */,
 				12D15D2027F5F78500D22086 /* TagsOptionsSearchModuleBuilder.swift in Sources */,
+				2AD741352994F19B004BD223 /* ApplicationStateService.swift in Sources */,
 				03B1619E239F3A2000BF27D1 /* WaitingOnCreatAccountView.swift in Sources */,
 				12DE405E264AE455007B5074 /* LayoutAnchor.swift in Sources */,
 				53EA4A782637637200968B8E /* StyleColorCellView.swift in Sources */,
@@ -9356,6 +9371,7 @@
 				12FD9D2B2767180A00991886 /* RelationUnknown.swift in Sources */,
 				C97B5D6427F499D200EA7E33 /* IndentationSettings.swift in Sources */,
 				C91FAF5F2812C2510055BC4A /* AlertModel.swift in Sources */,
+				2AD7413729951C43004BD223 /* ApplicationCoordinatorAssembly.swift in Sources */,
 				C9A4268C28489CC800F388FC /* SimpleTableBlockContentConfiguration.swift in Sources */,
 				2E9221A1294B8D4900968750 /* DataViewBlockView.swift in Sources */,
 				12EE02D02840E35F00223EB5 /* SceneLifecycleStateService.swift in Sources */,

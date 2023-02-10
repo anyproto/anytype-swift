@@ -34,11 +34,11 @@ final class SettingsViewModel: ObservableObject {
     }
         
     private let authService: AuthServiceProtocol
-    private let windowManager: WindowManager
+    private let applicationStateService: ApplicationStateServiceProtocol
     
-    init(authService: AuthServiceProtocol, windowManager: WindowManager) {
+    init(authService: AuthServiceProtocol, applicationStateService: ApplicationStateServiceProtocol) {
         self.authService = authService
-        self.windowManager = windowManager
+        self.applicationStateService = applicationStateService
     }
 
     func logout(removeData: Bool) {
@@ -56,7 +56,7 @@ final class SettingsViewModel: ObservableObject {
             }
             
             UINotificationFeedbackGenerator().notificationOccurred(.success)
-            self?.windowManager.showAuthWindow()
+            self?.applicationStateService.state = .auth
         }
     }
     
@@ -71,9 +71,9 @@ final class SettingsViewModel: ObservableObject {
         case .active:
             UINotificationFeedbackGenerator().notificationOccurred(.error)
             return
-        case .pendingDeletion(let deadline):
+        case .pendingDeletion:
             UINotificationFeedbackGenerator().notificationOccurred(.success)
-            windowManager.showDeletedAccountWindow(deadline: deadline)
+            applicationStateService.state = .delete
         case .deleted:
             logout(removeData: true)
         }

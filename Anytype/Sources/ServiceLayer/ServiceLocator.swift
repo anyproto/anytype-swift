@@ -176,6 +176,11 @@ final class ServiceLocator {
         return _blockWidgetExpandedService
     }
     
+    private lazy var _applicationStateService = ApplicationStateService()
+    func applicationStateService() -> ApplicationStateServiceProtocol {
+        _applicationStateService
+    }
+    
     // MARK: - Private
     
     private func subscriptionToggler() -> SubscriptionTogglerProtocol {
