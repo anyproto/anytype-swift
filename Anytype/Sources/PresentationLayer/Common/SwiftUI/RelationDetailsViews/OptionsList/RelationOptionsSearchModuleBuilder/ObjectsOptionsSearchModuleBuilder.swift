@@ -20,7 +20,7 @@ class ObjectsOptionsSearchModuleBuilder: RelationOptionsSearchModuleBuilderProto
         newSearcModuleAssembly.objectsSearchModule(
             excludedObjectIds: excludedOptionIds,
             limitedObjectType: limitedObjectType,
-            onSelect: onSelect
+            onSelect: { details in onSelect(details.map(\.id)) }
         )
     }
     
