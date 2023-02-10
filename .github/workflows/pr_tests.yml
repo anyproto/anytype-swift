@@ -1,8 +1,8 @@
 name: Run tests on PR
 
 on:
-  # pull_request:
-  #  branches: [ "develop" ]
+  pull_request:
+    branches: [ "develop" ]
   workflow_dispatch:
     inputs:
       branch:
@@ -11,10 +11,31 @@ on:
         default: 'develop'
 
 jobs:
-  build:
-    name: Build and Test default scheme using any available iPhone simulator
-    runs-on: macos-latest
+  main:
+    runs-on: ${{ vars.RUNNER_DEV }}
+    timeout-minutes: 35
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      - name: Install SSH key for access to repository
+        uses: webfactory/ssh-agent@v0.6.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_KEY_FASTLANE_COMMIT }}
+      
+      - uses: actions/checkout@v3
+
+      - name: Update git config
+        uses: ./.github/actions/update-git-config
+
+      - uses: maxim-lobanov/setup-xcode@v1.5.1
+        with:
+          xcode-version: ${{ vars.XCODE_VERSION_DEV }}
+
+      - name: Download Middleware
+        run: ruby ./Scripts/middleware.rb --token ${{ secrets.ANYTYPE_MIDDLEWARE_ACCESS_TOKEN }} -d
+
+      - name: Run unit tests
+        run: bundle exec fastlane tests
+        continue-on-error: true
+        env:
+          FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT: 900
+          FASTLANE_XCODE_LIST_TIMEOUT: 900
