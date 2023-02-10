@@ -3,12 +3,8 @@ name: Run tests on PR
 # on: [pull_request]
 
 on:
-  workflow_dispatch:
-    inputs:
-      branch:
-        description: 'Branch'     
-        required: false
-        default: 'develop'
+  pull_request:
+    branches: [ "develop" ]
 
 jobs:
   main:
