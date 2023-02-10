@@ -44,11 +44,15 @@ final class RecentWidgetViewModel: ListWidgetViewModelProtocol, WidgetContainerC
     
     // MARK: - ListWidgetViewModelProtocol
     
-    func onAppear() {
+    func onAppear() {}
+
+    func onDisappear() {}
+    
+    func onAppearContent() {
         setupAllSubscriptions()
     }
-
-    func onDisappear() {
+    
+    func onDisappearContent() {
         recentSubscriptionService.stopSubscription()
     }
     

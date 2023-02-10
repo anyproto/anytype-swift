@@ -2,6 +2,12 @@ import Foundation
 import BlocksModels
 import Combine
 
+fileprivate extension SubscriptionId {
+    static func setWidgetId(_ widgetId: String) -> SubscriptionId {
+        SubscriptionId(value: "SetWidget-\(widgetId)")
+    }
+}
+
 @MainActor
 final class SetWidgetViewModel: ListWidgetViewModelProtocol, WidgetContainerContentViewModelProtocol, ObservableObject {
         
@@ -13,13 +19,16 @@ final class SetWidgetViewModel: ListWidgetViewModelProtocol, WidgetContainerCont
     
     private let widgetBlockId: BlockId
     private let widgetObject: HomeWidgetsObjectProtocol
-    private let objectDetailsStorage: ObjectDetailsStorage
+    private let subscriptionService: SubscriptionsServiceProtocol
+    private let setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol
     private weak var output: CommonWidgetModuleOutput?
     
     // MARK: - State
     
     private var subscriptions = [AnyCancellable]()
-    private var linkedObjectDetails: ObjectDetails?
+    private var contentSubscriptions = [AnyCancellable]()
+    private var setDocument: SetDocumentProtocol?
+    private var rowDetails: [ObjectDetails] = []
     
     // MARK: - WidgetContainerContentViewModelProtocol
     
@@ -34,63 +43,122 @@ final class SetWidgetViewModel: ListWidgetViewModelProtocol, WidgetContainerCont
     init(
         widgetBlockId: BlockId,
         widgetObject: HomeWidgetsObjectProtocol,
-        objectDetailsStorage: ObjectDetailsStorage,
+        relationDetailsStorage: RelationDetailsStorageProtocol,
+        subscriptionService: SubscriptionsServiceProtocol,
+        setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol,
         output: CommonWidgetModuleOutput?
     ) {
         self.widgetBlockId = widgetBlockId
         self.widgetObject = widgetObject
-        self.objectDetailsStorage = objectDetailsStorage
+        self.subscriptionService = subscriptionService
+        self.setSubscriptionDataBuilder = setSubscriptionDataBuilder
         self.output = output
+        
+        if let tagetObjectId = widgetObject.targetObjectIdByLinkFor(widgetBlockId: widgetBlockId) {
+            let document = BaseDocument(objectId: tagetObjectId)
+            self.setDocument = SetDocument(
+                document: document,
+                blockId: nil,
+                targetObjectID: nil,
+                relationDetailsStorage: relationDetailsStorage
+            )
+            
+            Task { @MainActor in
+                try? await setDocument?.openForPreview()
+            }
+        }
     }
     
     // MARK: - ListWidgetViewModelProtocol
     
     func onAppear() {
-        setupAllSubscriptions()
+        setupSubscriptions()
     }
 
     func onDisappear() {
         subscriptions.removeAll()
     }
     
+    func onAppearContent() {
+        setupContentSubscriptions()
+    }
+    
+    func onDisappearContent() {
+        contentSubscriptions.removeAll()
+    }
+    
     func onHeaderTap() {
-        guard let linkedObjectDetails else { return }
-        output?.onObjectSelected(screenData: EditorScreenData(pageId: linkedObjectDetails.id, type: linkedObjectDetails.editorViewType))
+        guard let details = setDocument?.details else { return }
+        output?.onObjectSelected(screenData: EditorScreenData(pageId: details.id, type: details.editorViewType))
     }
     
     // MARK: - Private
     
-    private func setupAllSubscriptions() {
-        
-        guard let tagetObjectId = widgetObject.targetObjectIdByLinkFor(widgetBlockId: widgetBlockId)
-            else { return }
-        
-        objectDetailsStorage.publisherFor(id: tagetObjectId)
-            .compactMap { $0 }
-            .receiveOnMain()
-            .sink { [weak self] details in
-                self?.linkedObjectDetails = details
-                self?.name = details.title
-                self?.updateViewState()
-            }
-            .store(in: &subscriptions)
+    private func setupSubscriptions() {
+        setDocument?.document.syncPublisher.sink { [weak self] in
+            self?.name = self?.setDocument?.details?.title ?? ""
+        }
+        .store(in: &subscriptions)
     }
     
-    private func updateViewState() {
-        headerItems = [
-            ListWidgetHeaderItem.Model(dataviewId: "1", title: "Last Edited", onTap: {}, isSelected: false),
-            ListWidgetHeaderItem.Model(dataviewId: "2", title: "New movies", onTap: {}, isSelected: true),
-            ListWidgetHeaderItem.Model(dataviewId: "3", title: "To watch", onTap: {}, isSelected: false),
-            ListWidgetHeaderItem.Model(dataviewId: "4", title: "To watch", onTap: {}, isSelected: false),
-            ListWidgetHeaderItem.Model(dataviewId: "5", title: "My Collection", onTap: {}, isSelected: false),
-            ListWidgetHeaderItem.Model(dataviewId: "6", title: "My Collection 2", onTap: {}, isSelected: false),
-            ListWidgetHeaderItem.Model(dataviewId: "7", title: "My Collection 3", onTap: {}, isSelected: false)
-        ]
+    private func setupContentSubscriptions() {
+        setDocument?.dataviewPublisher.sink { [weak self] in
+            self?.updateViewState(blockDataView: $0)
+        }
+        .store(in: &contentSubscriptions)
         
-        rows = [
-            ListWidgetRow.Model(objectId: "1", icon: .placeholder("A"), title: "Object title", description: "Object description description description description description description ", type: nil, onTap: {}),
-            ListWidgetRow.Model(objectId: "2", icon: .placeholder("A"), title: "Object title title title title title title title title title", description: nil, type: nil, onTap: {}),
-            ListWidgetRow.Model(objectId: "3", icon: nil, title: "Object title", description: "Object description", type: nil, onTap: {})
-        ]
+        setDocument?.setUpdatePublisher.sink { [weak self] _ in
+            self?.updateViewSubscription()
+        }.store(in: &contentSubscriptions)
+    }
+    
+    private func updateViewSubscription() {
+        guard let setDocument else { return }
+        
+        guard let source = setDocument.details?.setOf, source.isNotEmpty else { return }
+        
+        let subscriptionData = setSubscriptionDataBuilder.set(
+            SetSubsriptionData(
+                identifier: SubscriptionId.setWidgetId(widgetBlockId),
+                source: source,
+                view: setDocument.activeView,
+                groupFilter: nil,
+                currentPage: 0,
+                numberOfRowsPerPage: Constants.maxItems
+            )
+        )
+        
+        if subscriptionService.hasSubscriptionDataDiff(with: subscriptionData) {
+            subscriptionService.stopAllSubscriptions()
+            subscriptionService.startSubscription(data: subscriptionData) { [weak self] in
+                self?.rowDetails.applySubscriptionUpdate($1)
+                self?.updateRows()
+            }
+        }
+    }
+    
+    private func updateViewState(blockDataView: BlockDataview) {
+        
+        headerItems = blockDataView.views.map { dataView in
+            ListWidgetHeaderItem.Model(
+                dataviewId: dataView.id,
+                title: dataView.name,
+                isSelected: dataView.id == blockDataView.activeViewId,
+                onTap: { [weak self] in
+                    self?.setDocument?.updateActiveViewId(dataView.id)
+                }
+            )
+        }
+    }
+    
+    private func updateRows() {
+        rows = rowDetails.map { details in
+            ListWidgetRow.Model(
+                details: details,
+                onTap: { [weak self] in
+                    self?.output?.onObjectSelected(screenData: $0)
+                }
+            )
+        }
     }
 }

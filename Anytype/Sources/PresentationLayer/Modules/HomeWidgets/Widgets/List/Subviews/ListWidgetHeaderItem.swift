@@ -6,8 +6,8 @@ struct ListWidgetHeaderItem: View {
     struct Model {
         let dataviewId: String
         let title: String
-        let onTap: () -> Void
         let isSelected: Bool
+        let onTap: () -> Void
     }
     
     let model: Model
