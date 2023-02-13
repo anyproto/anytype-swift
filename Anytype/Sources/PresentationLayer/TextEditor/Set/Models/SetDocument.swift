@@ -128,6 +128,12 @@ class SetDocument: SetDocumentProtocol {
         updateData()
     }
     
+    @MainActor
+    func openForPreview() async throws {
+        try await document.openForPreview()
+        updateData()
+    }
+    
     // MARK: - Private
     
     private func setup() {

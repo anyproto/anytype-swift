@@ -26,7 +26,12 @@ final class SetWidgetModuleAssembly: SetWidgetModuleAssemblyProtocol {
         let contentModel = SetWidgetViewModel(
             widgetBlockId: widgetBlockId,
             widgetObject: widgetObject,
-            objectDetailsStorage: serviceLocator.objectDetailsStorage(),
+            relationDetailsStorage: serviceLocator.relationDetailsStorage(),
+            subscriptionService: serviceLocator.subscriptionService(),
+            setSubscriptionDataBuilder: SetSubscriptionDataBuilder(
+                accountManager: serviceLocator.accountManager()
+            ),
+            documentService: serviceLocator.documentService(),
             output: output
         )
         let contentView = ListWidgetView(model: contentModel)

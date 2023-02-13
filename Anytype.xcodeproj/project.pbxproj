@@ -4683,11 +4683,11 @@
 		2A1F949629795FB300E25782 /* Subscriptions */ = {
 			isa = PBXGroup;
 			children = (
+				2A6E04A5298D05AF0023B33D /* DocumentService.swift */,
 				2A1F949829795FEB00E25782 /* FavoriteSubscriptionService.swift */,
 				2A1F949A297961A300E25782 /* BundledRelationKey+CommonKeys.swift */,
 				2A971C05297E75D300D3D786 /* RecentSubscriptionService.swift */,
 				2A28D03C297E8C4C00E55E15 /* SetsSubscriptionService.swift */,
-				2A6E04A5298D05AF0023B33D /* DocumentService.swift */,
 			);
 			path = Subscriptions;
 			sourceTree = "<group>";

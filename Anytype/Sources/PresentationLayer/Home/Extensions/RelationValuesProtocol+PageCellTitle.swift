@@ -22,7 +22,7 @@ extension BundledRelationsValueProvider {
 
         switch layoutValue {
         case .note:
-            title = firstLineSnippet
+            title = snippet.replacedNewlinesWithSpaces
         default:
             title = name
         }
@@ -35,7 +35,7 @@ extension BundledRelationsValueProvider {
         case .note:
             return description
         default:
-            return description.isNotEmpty ? description : firstLineSnippet
+            return description.isNotEmpty ? description : snippet.replacedNewlinesWithSpaces
         }
     }
     
@@ -50,9 +50,5 @@ extension BundledRelationsValueProvider {
     
     var mentionTitle: String {
         String(title.prefix(30)).replacingOccurrences(of: "\n", with: " ")
-    }
-    
-    private var firstLineSnippet: String {
-        return snippet.components(separatedBy: CharacterSet.newlines).first ?? snippet
     }
 }

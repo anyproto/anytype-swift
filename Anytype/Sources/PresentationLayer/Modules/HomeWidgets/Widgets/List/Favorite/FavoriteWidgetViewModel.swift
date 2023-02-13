@@ -50,11 +50,15 @@ final class FavoriteWidgetViewModel: ListWidgetViewModelProtocol, WidgetContaine
     
     // MARK: - ListWidgetViewModelProtocol
     
-    func onAppear() {
+    func onAppear() {}
+
+    func onDisappear() {}
+    
+    func onAppearContent() {
         setupAllSubscriptions()
     }
-
-    func onDisappear() {
+    
+    func onDisappearContent() {
         favoriteSubscriptionService.stopSubscription()
     }
     
