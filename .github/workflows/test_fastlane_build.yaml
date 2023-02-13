@@ -23,14 +23,8 @@ jobs:
         with:
           ref: ${{ github.event.inputs.branch }}
 
-      - name: Bundle Install
-        run: bundle install
-         
-#      - name: Setup ruby
-#        uses: ruby/setup-ruby@v1.100.0
-#        with:
-#          ruby-version: 2.7.2
-#          bundler-cache: true
+      - name: Prepare deps
+        uses: ./.github/actions/prepare-deps
 
       - name: Update git config
         run: |
