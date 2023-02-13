@@ -2761,15 +2761,6 @@ public struct Anytype_Model_Account {
     /// profile block id
     public var profileObjectID: String = String()
 
-    /// deprecated, to be removed
-    public var marketplaceTypeObjectID: String = String()
-
-    /// deprecated, to be removed
-    public var marketplaceRelationObjectID: String = String()
-
-    /// deprecated, to be removed
-    public var marketplaceTemplateObjectID: String = String()
-
     /// marketplace workspace id
     public var marketplaceWorkspaceID: String = String()
 
@@ -6429,9 +6420,6 @@ extension Anytype_Model_Account.Info: SwiftProtobuf.Message, SwiftProtobuf._Mess
     2: .same(proto: "homeObjectId"),
     3: .same(proto: "archiveObjectId"),
     4: .same(proto: "profileObjectId"),
-    5: .same(proto: "marketplaceTypeObjectId"),
-    6: .same(proto: "marketplaceRelationObjectId"),
-    7: .same(proto: "marketplaceTemplateObjectId"),
     11: .same(proto: "marketplaceWorkspaceId"),
     8: .same(proto: "deviceId"),
     9: .same(proto: "accountSpaceId"),
@@ -6450,9 +6438,6 @@ extension Anytype_Model_Account.Info: SwiftProtobuf.Message, SwiftProtobuf._Mess
       case 2: try { try decoder.decodeSingularStringField(value: &self.homeObjectID) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self.archiveObjectID) }()
       case 4: try { try decoder.decodeSingularStringField(value: &self.profileObjectID) }()
-      case 5: try { try decoder.decodeSingularStringField(value: &self.marketplaceTypeObjectID) }()
-      case 6: try { try decoder.decodeSingularStringField(value: &self.marketplaceRelationObjectID) }()
-      case 7: try { try decoder.decodeSingularStringField(value: &self.marketplaceTemplateObjectID) }()
       case 8: try { try decoder.decodeSingularStringField(value: &self.deviceID) }()
       case 9: try { try decoder.decodeSingularStringField(value: &self.accountSpaceID) }()
       case 10: try { try decoder.decodeSingularStringField(value: &self.widgetsID) }()
@@ -6474,15 +6459,6 @@ extension Anytype_Model_Account.Info: SwiftProtobuf.Message, SwiftProtobuf._Mess
     }
     if !self.profileObjectID.isEmpty {
       try visitor.visitSingularStringField(value: self.profileObjectID, fieldNumber: 4)
-    }
-    if !self.marketplaceTypeObjectID.isEmpty {
-      try visitor.visitSingularStringField(value: self.marketplaceTypeObjectID, fieldNumber: 5)
-    }
-    if !self.marketplaceRelationObjectID.isEmpty {
-      try visitor.visitSingularStringField(value: self.marketplaceRelationObjectID, fieldNumber: 6)
-    }
-    if !self.marketplaceTemplateObjectID.isEmpty {
-      try visitor.visitSingularStringField(value: self.marketplaceTemplateObjectID, fieldNumber: 7)
     }
     if !self.deviceID.isEmpty {
       try visitor.visitSingularStringField(value: self.deviceID, fieldNumber: 8)
@@ -6512,9 +6488,6 @@ extension Anytype_Model_Account.Info: SwiftProtobuf.Message, SwiftProtobuf._Mess
     if lhs.homeObjectID != rhs.homeObjectID {return false}
     if lhs.archiveObjectID != rhs.archiveObjectID {return false}
     if lhs.profileObjectID != rhs.profileObjectID {return false}
-    if lhs.marketplaceTypeObjectID != rhs.marketplaceTypeObjectID {return false}
-    if lhs.marketplaceRelationObjectID != rhs.marketplaceRelationObjectID {return false}
-    if lhs.marketplaceTemplateObjectID != rhs.marketplaceTemplateObjectID {return false}
     if lhs.marketplaceWorkspaceID != rhs.marketplaceWorkspaceID {return false}
     if lhs.deviceID != rhs.deviceID {return false}
     if lhs.accountSpaceID != rhs.accountSpaceID {return false}
