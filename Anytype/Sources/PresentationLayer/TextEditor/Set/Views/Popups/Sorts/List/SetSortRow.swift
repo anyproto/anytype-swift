@@ -6,11 +6,10 @@ struct SetSortRow: View {
     @Environment(\.editMode) var editMode
     
     let configuration: SetSortRowConfiguration
-    let onTap: () -> Void
     
     var body: some View {
         Button {
-            onTap()
+            configuration.onTap()
         } label: {
             content
         }
@@ -21,7 +20,7 @@ struct SetSortRow: View {
         HStack {
             ZStack(alignment: .center) {
                 RoundedRectangle(cornerRadius: 10)
-                    .foregroundColor(Color.backgroundSelected)
+                    .foregroundColor(Color.Background.highlightedOfSelected)
                 Image(asset: configuration.iconAsset)
             }
             .frame(width: 48, height: 48)
@@ -29,8 +28,8 @@ struct SetSortRow: View {
             Spacer.fixedWidth(12)
             
             VStack(alignment: .leading, spacing: 2) {
-                AnytypeText(configuration.title, style: .uxTitle2Medium, color: .textPrimary)
-                AnytypeText(configuration.subtitle, style: .relation1Regular, color: .textSecondary)
+                AnytypeText(configuration.title, style: .uxTitle2Medium, color: .Text.primary)
+                AnytypeText(configuration.subtitle, style: .relation1Regular, color: .Text.secondary)
             }
             
             Spacer()

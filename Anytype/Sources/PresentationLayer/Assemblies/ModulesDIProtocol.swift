@@ -1,18 +1,18 @@
 import Foundation
 
 protocol ModulesDIProtocol: AnyObject {
-    var relationValue: RelationValueModuleAssemblyProtocol { get }
-    var relationsList: RelationsListModuleAssemblyProtocol { get }
-    var undoRedo: UndoRedoModuleAssemblyProtocol { get }
-    var objectLayoutPicker: ObjectLayoutPickerModuleAssemblyProtocol { get }
-    var objectCoverPicker: ObjectCoverPickerModuleAssemblyProtocol { get }
-    var objectIconPicker: ObjectIconPickerModuleAssemblyProtocol { get }
-    var objectSetting: ObjectSettingModuleAssemblyProtocol { get }
-    var search: SearchModuleAssemblyProtocol { get }
-    var createObject: CreateObjectModuleAssemblyProtocol { get }
-    var codeLanguageList: CodeLanguageListModuleAssemblyProtocol { get }
-    var newSearch: NewSearchModuleAssemblyProtocol { get }
-    var newRelation: NewRelationModuleAssemblyProtocol { get }
-    @MainActor
-    var homeWidgets: HomeWidgetsModuleAssemblyProtocol { get }
+    func relationValue() -> RelationValueModuleAssemblyProtocol
+    func relationsList() -> RelationsListModuleAssemblyProtocol
+    func undoRedo() -> UndoRedoModuleAssemblyProtocol
+    func objectLayoutPicker() -> ObjectLayoutPickerModuleAssemblyProtocol
+    func objectCoverPicker() -> ObjectCoverPickerModuleAssemblyProtocol
+    func objectIconPicker() -> ObjectIconPickerModuleAssemblyProtocol
+    func objectSetting() -> ObjectSettingModuleAssemblyProtocol
+    func search() -> SearchModuleAssemblyProtocol
+    func createObject() -> CreateObjectModuleAssemblyProtocol
+    func codeLanguageList() -> CodeLanguageListModuleAssemblyProtocol
+    func newSearch() -> NewSearchModuleAssemblyProtocol
+    func newRelation() -> NewRelationModuleAssemblyProtocol
+    func homeWidgets() -> HomeWidgetsModuleAssemblyProtocol
+    func textIconPicker() -> TextIconPickerModuleAssemblyProtocol
 }

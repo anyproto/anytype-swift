@@ -180,6 +180,31 @@ extension Anytype_Rpc.BlockDataview.CreateBookmark.Response.Error: ResponseError
     public var isNull: Bool { code == .null }
 }
 
+extension Anytype_Rpc.BlockDataview.CreateFromExistingObject.Response: ResultWithError {}
+extension Anytype_Rpc.BlockDataview.CreateFromExistingObject.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null }
+}
+
+extension Anytype_Rpc.BlockDataview.Filter.Add.Response: ResultWithError {}
+extension Anytype_Rpc.BlockDataview.Filter.Add.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null }
+}
+
+extension Anytype_Rpc.BlockDataview.Filter.Remove.Response: ResultWithError {}
+extension Anytype_Rpc.BlockDataview.Filter.Remove.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null }
+}
+
+extension Anytype_Rpc.BlockDataview.Filter.Replace.Response: ResultWithError {}
+extension Anytype_Rpc.BlockDataview.Filter.Replace.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null }
+}
+
+extension Anytype_Rpc.BlockDataview.Filter.Sort.Response: ResultWithError {}
+extension Anytype_Rpc.BlockDataview.Filter.Sort.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null }
+}
+
 extension Anytype_Rpc.BlockDataview.GroupOrder.Update.Response: ResultWithError {}
 extension Anytype_Rpc.BlockDataview.GroupOrder.Update.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }
@@ -210,6 +235,26 @@ extension Anytype_Rpc.BlockDataview.SetSource.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }
 }
 
+extension Anytype_Rpc.BlockDataview.Sort.Add.Response: ResultWithError {}
+extension Anytype_Rpc.BlockDataview.Sort.Add.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null }
+}
+
+extension Anytype_Rpc.BlockDataview.Sort.Remove.Response: ResultWithError {}
+extension Anytype_Rpc.BlockDataview.Sort.Remove.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null }
+}
+
+extension Anytype_Rpc.BlockDataview.Sort.Replace.Response: ResultWithError {}
+extension Anytype_Rpc.BlockDataview.Sort.Replace.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null }
+}
+
+extension Anytype_Rpc.BlockDataview.Sort.Sort.Response: ResultWithError {}
+extension Anytype_Rpc.BlockDataview.Sort.Sort.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null }
+}
+
 extension Anytype_Rpc.BlockDataview.View.Create.Response: ResultWithError {}
 extension Anytype_Rpc.BlockDataview.View.Create.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }
@@ -232,6 +277,26 @@ extension Anytype_Rpc.BlockDataview.View.SetPosition.Response.Error: ResponseErr
 
 extension Anytype_Rpc.BlockDataview.View.Update.Response: ResultWithError {}
 extension Anytype_Rpc.BlockDataview.View.Update.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null }
+}
+
+extension Anytype_Rpc.BlockDataview.ViewRelation.Add.Response: ResultWithError {}
+extension Anytype_Rpc.BlockDataview.ViewRelation.Add.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null }
+}
+
+extension Anytype_Rpc.BlockDataview.ViewRelation.Remove.Response: ResultWithError {}
+extension Anytype_Rpc.BlockDataview.ViewRelation.Remove.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null }
+}
+
+extension Anytype_Rpc.BlockDataview.ViewRelation.Replace.Response: ResultWithError {}
+extension Anytype_Rpc.BlockDataview.ViewRelation.Replace.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null }
+}
+
+extension Anytype_Rpc.BlockDataview.ViewRelation.Sort.Response: ResultWithError {}
+extension Anytype_Rpc.BlockDataview.ViewRelation.Sort.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }
 }
 
@@ -686,6 +751,11 @@ extension Anytype_Rpc.Object.SetLayout.Response.Error: ResponseError {
 
 extension Anytype_Rpc.Object.SetObjectType.Response: ResultWithError {}
 extension Anytype_Rpc.Object.SetObjectType.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null }
+}
+
+extension Anytype_Rpc.Object.SetSource.Response: ResultWithError {}
+extension Anytype_Rpc.Object.SetSource.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }
 }
 

@@ -4,64 +4,73 @@ final class ModulesDI: ModulesDIProtocol {
     
     private let serviceLocator: ServiceLocator
     private let uiHelpersDI: UIHelpersDIProtocol
+    private let widgetsDI: WidgetsDIProtocol
     
-    init(serviceLocator: ServiceLocator, uiHelpersDI: UIHelpersDIProtocol) {
+    init(serviceLocator: ServiceLocator, uiHelpersDI: UIHelpersDIProtocol, widgetsDI: WidgetsDIProtocol) {
         self.serviceLocator = serviceLocator
         self.uiHelpersDI = uiHelpersDI
+        self.widgetsDI = widgetsDI
     }
     
     // MARK: - ModulesDIProtocol
     
-    var relationValue: RelationValueModuleAssemblyProtocol {
+    func relationValue() -> RelationValueModuleAssemblyProtocol {
         return RelationValueModuleAssembly(modulesDI: self, serviceLocator: serviceLocator)
     }
     
-    var relationsList: RelationsListModuleAssemblyProtocol {
+    func relationsList() -> RelationsListModuleAssemblyProtocol {
         return RelationsListModuleAssembly()
     }
     
-    var undoRedo: UndoRedoModuleAssemblyProtocol {
+    func undoRedo() -> UndoRedoModuleAssemblyProtocol {
         return UndoRedoModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
     }
     
-    var objectLayoutPicker: ObjectLayoutPickerModuleAssemblyProtocol {
+    func objectLayoutPicker() -> ObjectLayoutPickerModuleAssemblyProtocol {
         return ObjectLayoutPickerModuleAssembly(serviceLocator: serviceLocator)
     }
     
-    var objectCoverPicker: ObjectCoverPickerModuleAssemblyProtocol {
+    func objectCoverPicker() -> ObjectCoverPickerModuleAssemblyProtocol {
         return ObjectCoverPickerModuleAssembly(serviceLocator: serviceLocator)
     }
     
-    var objectIconPicker: ObjectIconPickerModuleAssemblyProtocol {
+    func objectIconPicker() -> ObjectIconPickerModuleAssemblyProtocol {
         return ObjectIconPickerModuleAssembly(serviceLocator: serviceLocator)
     }
     
-    var objectSetting: ObjectSettingModuleAssemblyProtocol {
+    func objectSetting() -> ObjectSettingModuleAssemblyProtocol {
         return ObjectSettingModuleAssembly(serviceLocator: serviceLocator)
     }
     
-    var search: SearchModuleAssemblyProtocol {
+    func search() -> SearchModuleAssemblyProtocol {
         return SearchModuleAssembly(serviceLocator: serviceLocator)
     }
     
-    var createObject: CreateObjectModuleAssemblyProtocol {
+    func createObject() -> CreateObjectModuleAssemblyProtocol {
         return CreateObjectModuleAssembly(serviceLocator: serviceLocator)
     }
 
-    var codeLanguageList: CodeLanguageListModuleAssemblyProtocol {
+    func codeLanguageList() -> CodeLanguageListModuleAssemblyProtocol {
         return CodeLanguageListModuleAssembly(serviceLocator: serviceLocator)
     }
     
-    var newSearch: NewSearchModuleAssemblyProtocol {
-        return NewSearchModuleAssembly(uiHelpersDI: uiHelpersDI)
+    func newSearch() -> NewSearchModuleAssemblyProtocol {
+        return NewSearchModuleAssembly(uiHelpersDI: uiHelpersDI, serviceLocator: serviceLocator)
     }
     
-    var newRelation: NewRelationModuleAssemblyProtocol {
+    func newRelation() -> NewRelationModuleAssemblyProtocol {
         return NewRelationModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
     }
     
-    @MainActor
-    var homeWidgets: HomeWidgetsModuleAssemblyProtocol {
-        return HomeWidgetsModuleAssembly(uiHelpersDI: uiHelpersDI)
+    func homeWidgets() -> HomeWidgetsModuleAssemblyProtocol {
+        return HomeWidgetsModuleAssembly(
+            serviceLocator: serviceLocator,
+            uiHelpersDI: uiHelpersDI,
+            widgetsDI:  widgetsDI
+        )
+    }
+    
+    func textIconPicker() -> TextIconPickerModuleAssemblyProtocol {
+        return TextIconPickerModuleAssembly(serviceLocator: serviceLocator)
     }
 }

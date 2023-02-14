@@ -9,16 +9,16 @@ final class SetSortsListViewModel: ObservableObject {
     private let setDocument: SetDocumentProtocol
     private var cancellable: Cancellable?
     
-    private let service: DataviewServiceProtocol
-    private let router: EditorRouterProtocol
+    private let dataviewService: DataviewServiceProtocol
+    private let router: EditorSetRouterProtocol
     
     init(
         setDocument: SetDocumentProtocol,
-        service: DataviewServiceProtocol,
-        router: EditorRouterProtocol)
+        dataviewService: DataviewServiceProtocol,
+        router: EditorSetRouterProtocol)
     {
         self.setDocument = setDocument
-        self.service = service
+        self.dataviewService = dataviewService
         self.router = router
         self.setup()
     }
@@ -38,50 +38,47 @@ extension SetSortsListViewModel {
         }
     }
     
-    func rowTapped(_ id: String) {
-        guard let setSort = setDocument.sorts.first(where: { $0.id == id }) else {
+    func rowTapped(_ id: String, index: Int) {
+        guard let setSort = setDocument.sorts[safe: index], setSort.id == id  else {
             return
         }
-        let view = CheckPopupView(viewModel: SetSortTypesListViewModel(
-            sort: setSort,
-            onSelect: { [weak self] sort in
-                let newSetSort = SetSort(
-                    relationDetails: setSort.relationDetails,
-                    sort: sort
-                )
+        router.showSortTypesList(
+            setSort: setSort,
+            onSelect: { [weak self] newSetSort in
                 self?.updateSorts(with: newSetSort)
-            })
-        )
-        router.presentSheet(
-            AnytypePopup(
-                contentView: view
-            )
+            }
         )
     }
     
     // MARK: - Actions
     
     func delete(_ indexSet: IndexSet) {
-        var sorts = setDocument.sorts
-        sorts.remove(atOffsets: indexSet)
-        updateView(with: sorts)
+        indexSet.forEach { [weak self] deleteIndex in
+            guard let self, deleteIndex < self.setDocument.sorts.count else { return }
+            let sort = self.setDocument.sorts[deleteIndex]
+            Task {
+                try await dataviewService.removeSorts([sort.sort.id], viewId: self.setDocument.activeView.id)
+            }
+        }
     }
     
     func move(from: IndexSet, to: Int) {
-        var sorts = setDocument.sorts
-        sorts.move(fromOffsets: from, toOffset: to)
-        updateView(with: sorts)
+        Task {
+            var sorts = setDocument.sorts
+            sorts.move(fromOffsets: from, toOffset: to)
+            let sortIds = sorts.map { $0.sort.id }
+            try await dataviewService.sortSorts(sortIds, viewId: setDocument.activeView.id)
+        }
     }
     
     func addNewSort(with relation: RelationDetails) {
-        var dataviewSorts = setDocument.sorts.map { $0.sort }
-        dataviewSorts.append(
-            DataviewSort(
-                relationKey: relation.key,
-                type: .asc
-            )
+        let newSort = DataviewSort(
+            relationKey: relation.key,
+            type: .asc
         )
-        updateView(with: dataviewSorts)
+        Task {
+            try await dataviewService.addSort(newSort, viewId: setDocument.activeView.id)
+        }
     }
     
     private func setup() {
@@ -91,36 +88,26 @@ extension SetSortsListViewModel {
     }
     
     private func updateRows(with sorts: [SetSort]) {
-        rows = sorts.map {
+        rows = sorts.enumerated().map { index, sort in
             SetSortRowConfiguration(
-                id: $0.id,
-                title: $0.relationDetails.name,
-                subtitle: $0.typeTitle(),
-                iconAsset: $0.relationDetails.format.iconAsset
+                id: "\(sort.relationDetails.id)_\(index)",
+                title: sort.relationDetails.name,
+                subtitle: sort.typeTitle(),
+                iconAsset: sort.relationDetails.format.iconAsset,
+                onTap: { [weak self] in
+                    self?.rowTapped(sort.relationDetails.id, index: index)
+                }
             )
         }
     }
     
     private func updateSorts(with setSort: SetSort) {
-        let sorts: [SetSort] = setDocument.sorts.map { sort in
-            if sort.relationDetails.key == setSort.relationDetails.key {
-                return setSort
-            } else {
-                return sort
-            }
-        }
-        updateView(with: sorts)
-    }
-    
-    private func updateView(with sorts: [SetSort]) {
-        let dataviewSorts = sorts.map { $0.sort }
-        updateView(with: dataviewSorts)
-    }
-    
-    private func updateView(with dataviewSorts: [DataviewSort]) {
-        let newView = setDocument.activeView.updated(sorts: dataviewSorts)
         Task {
-            try await service.updateView(newView)
+            try await dataviewService.replaceSort(
+                setSort.sort.id,
+                with: setSort.sort,
+                viewId: setDocument.activeView.id
+            )
         }
     }
 }

@@ -1,5 +1,6 @@
 import Foundation
 import UIKit
+import AnytypeCore
 
 final class DI: DIProtocol {
     
@@ -9,12 +10,14 @@ final class DI: DIProtocol {
         self.viewControllerProvider = viewControllerProvider
     }
     
+    // MARK: - DIProtocol
+    
     lazy var coordinatorsDI: CoordinatorsDIProtocol = {
         return CoordinatorsDI(serviceLocator: serviceLocator, modulesDI: modulesDI, uiHelpersDI: uihelpersDI)
     }()
     
     lazy var modulesDI: ModulesDIProtocol = {
-        return ModulesDI(serviceLocator: serviceLocator, uiHelpersDI: uihelpersDI)
+        return ModulesDI(serviceLocator: serviceLocator, uiHelpersDI: uihelpersDI, widgetsDI: widgetsDI)
     }()
     
     lazy var uihelpersDI: UIHelpersDIProtocol = {
@@ -24,11 +27,22 @@ final class DI: DIProtocol {
     var serviceLocator: ServiceLocator {
         return ServiceLocator.shared
     }
+    
+    lazy var widgetsDI: WidgetsDIProtocol = {
+        return WidgetsDI(serviceLocator: serviceLocator, uiHelpersDI: uihelpersDI)
+    }()
 }
 
 
 extension DI {
-    static func makeForPreview() -> DIProtocol {
+    static var preview: DIProtocol {
+        if !isPreview {
+            anytypeAssertionFailure("Preview DI available only in debug", domain: .debug)
+        }
         return DI(viewControllerProvider: ViewControllerProvider(sceneWindow: UIWindow()))
+    }
+    
+    private static var isPreview: Bool {
+        return ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] == "1"
     }
 }

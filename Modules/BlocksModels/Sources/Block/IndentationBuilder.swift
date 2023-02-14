@@ -14,7 +14,7 @@ public enum IndentationBuilder {
             var updatedBlockNumber = 0
 
             parent.childrenIds.forEach { childrenId in
-                guard var child = container.get(id: childrenId) else { return }
+                guard let child = container.get(id: childrenId) else { return }
 
                 let indentationStyles = parentIndentationStyles(
                     child: child,
@@ -28,7 +28,7 @@ public enum IndentationBuilder {
                     indentationRecursion: indentationRecursionData
                 )
 
-                child = child.updated(
+                let updatedMetadataChild = child.updated(
                     metadata: BlockInformationMetadata(
                         parentId: parent.id,
                         parentBackgroundColors: parentBackgroundColors(child: child, parent: parent),
@@ -42,11 +42,13 @@ public enum IndentationBuilder {
 
                 let updatedChild = updatedNumberedValueIfNeeded(
                     container: container,
-                    child: child,
+                    child: updatedMetadataChild,
                     numberValue: &updatedBlockNumber
                 )
 
-                container.add(updatedChild)
+                if child != updatedChild {
+                    container.add(updatedChild)
+                }
 
                 privateBuild(
                     container: container,

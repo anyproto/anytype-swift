@@ -72,6 +72,8 @@ internal enum Loc {
   internal static let analyticsConstentText = Loc.tr("Localizable", "Analytics constent text", fallback: "Understanding how people use Anytype helps us improve the product. This version of Anytype includes the analytics code that protects your privacy.\nIt doesn't record the actual document's content but still allows us to understand how you use Anytype.\nStay subscribed to our mailing list, as we will soon announce a new release that enables you to opt-out.")
   /// Anytype info
   internal static let anytypeInfo = Loc.tr("Localizable", "Anytype info", fallback: "Anytype info")
+  /// Anytype Library
+  internal static let anytypeLibrary = Loc.tr("Localizable", "Anytype Library", fallback: "Anytype Library")
   /// Anytype node is not connected
   internal static let anytypeNodeIsNotConnected = Loc.tr("Localizable", "Anytype node is not connected", fallback: "Anytype node is not connected")
   /// Appearance
@@ -195,6 +197,8 @@ internal enum Loc {
   internal static let cover = Loc.tr("Localizable", "Cover", fallback: "Cover")
   /// Create
   internal static let create = Loc.tr("Localizable", "Create", fallback: "Create")
+  /// Create a new one or search for something else
+  internal static let createANewOneOrSearchForSomethingElse = Loc.tr("Localizable", "Create a new one or search for something else", fallback: "Create a new one or search for something else")
   /// The pin code will protect your secret phrase. As we do not store your secret phrase or pin code and not ask your e-mail or phone number, there is no id recovery without your pin code or secret phrase. So, please, remember your pin code
   internal static let createAPinCodeDescription = Loc.tr("Localizable", "Create a pin code description", fallback: "The pin code will protect your secret phrase. As we do not store your secret phrase or pin code and not ask your e-mail or phone number, there is no id recovery without your pin code or secret phrase. So, please, remember your pin code")
   /// Create from scratch
@@ -203,9 +207,9 @@ internal enum Loc {
   internal static let createNewObject = Loc.tr("Localizable", "Create new object", fallback: "Create new object")
   /// Create object
   internal static let createObject = Loc.tr("Localizable", "Create object", fallback: "Create object")
-  /// Create option ‘%s’
-  internal static func createOption(_ p1: UnsafePointer<CChar>) -> String {
-    return Loc.tr("Localizable", "Create option", p1, fallback: "Create option ‘%s’")
+  /// Create option ‘%@’
+  internal static func createOption(_ p1: Any) -> String {
+    return Loc.tr("Localizable", "Create option", String(describing: p1), fallback: "Create option ‘%@’")
   }
   /// Create pin code
   internal static let createPinCode = Loc.tr("Localizable", "Create pin code", fallback: "Create pin code")
@@ -395,8 +399,6 @@ internal enum Loc {
   internal static let logoutAndClearData = Loc.tr("Localizable", "Logout and clear data", fallback: "Logout and clear data")
   /// Logout error
   internal static let logoutError = Loc.tr("Localizable", "Logout error", fallback: "Logout error")
-  /// Marketplace
-  internal static let marketplace = Loc.tr("Localizable", "Marketplace", fallback: "Marketplace")
   /// Media
   internal static let media = Loc.tr("Localizable", "Media", fallback: "Media")
   /// Medium
@@ -463,6 +465,8 @@ internal enum Loc {
   internal static let onAnalytics = Loc.tr("Localizable", "On analytics", fallback: "On analytics")
   /// Open object
   internal static let openObject = Loc.tr("Localizable", "Open object", fallback: "Open object")
+  /// Open source
+  internal static let openSource = Loc.tr("Localizable", "Open source", fallback: "Open source")
   /// or type your recovery phrase
   internal static let orTypeYourRecoveryPhrase = Loc.tr("Localizable", "or type your recovery phrase", fallback: "or type your recovery phrase")
   /// With Anytype you can write notes and documents, manage tasks and save important content from the web.
@@ -636,6 +640,10 @@ internal enum Loc {
   internal static func thereIsNoRelationNamed(_ p1: Any) -> String {
     return Loc.tr("Localizable", "There is no relation named", String(describing: p1), fallback: "There is no relation named %@")
   }
+  /// There is no type named %@
+  internal static func thereIsNoTypeNamed(_ p1: Any) -> String {
+    return Loc.tr("Localizable", "There is no type named", String(describing: p1), fallback: "There is no type named %@")
+  }
   /// These objects will be deleted irrevocably. You can’t undo this action.
   internal static let theseObjectsWillBeDeletedIrrevocably = Loc.tr("Localizable", "These objects will be deleted irrevocably", fallback: "These objects will be deleted irrevocably. You can’t undo this action.")
   /// This object doesn't exist
@@ -656,8 +664,6 @@ internal enum Loc {
   internal static let toggleBlockSubtitle = Loc.tr("Localizable", "Toggle block subtitle", fallback: "Hide and show content inside")
   /// Tomorrow
   internal static let tomorrow = Loc.tr("Localizable", "Tomorrow", fallback: "Tomorrow")
-  /// Try to create a new one or search for something else
-  internal static let tryToCreateANewOneOrSearchForSomethingElse = Loc.tr("Localizable", "Try to create a new one or search for something else", fallback: "Try to create a new one or search for something else")
   /// Try to find a new one or upload your image
   internal static let tryToFindANewOneOrUploadYourImage = Loc.tr("Localizable", "Try to find a new one or upload your image", fallback: "Try to find a new one or upload your image")
   /// Turn into
@@ -766,6 +772,22 @@ internal enum Loc {
       internal static let error = Loc.tr("Localizable", "Content.Common.Error", fallback: "Something went wrong, try again")
       /// Uploading...
       internal static let uploading = Loc.tr("Localizable", "Content.Common.Uploading", fallback: "Uploading...")
+    }
+    internal enum DataView {
+      internal enum InlineSet {
+        /// No data
+        internal static let noData = Loc.tr("Localizable", "Content.DataView.InlineSet.NoData", fallback: "No data")
+        /// No source
+        internal static let noSource = Loc.tr("Localizable", "Content.DataView.InlineSet.NoSource", fallback: "No source")
+        /// Inline set
+        internal static let subtitle = Loc.tr("Localizable", "Content.DataView.InlineSet.Subtitle", fallback: "Inline set")
+        /// Untitled set
+        internal static let untitled = Loc.tr("Localizable", "Content.DataView.InlineSet.Untitled", fallback: "Untitled set")
+        internal enum Toast {
+          /// This inline set doesn’t have a source
+          internal static let failure = Loc.tr("Localizable", "Content.DataView.InlineSet.Toast.Failure", fallback: "This inline set doesn’t have a source")
+        }
+      }
     }
     internal enum File {
       /// Upload a file
@@ -1168,26 +1190,32 @@ internal enum Loc {
       }
     }
     internal enum FeaturedRelations {
+      /// Query
+      internal static let query = Loc.tr("Localizable", "Set.FeaturedRelations.Query", fallback: "Query")
       /// Relation:
       internal static let relation = Loc.tr("Localizable", "Set.FeaturedRelations.Relation", fallback: "Relation:")
       /// Relations:
       internal static let relationsList = Loc.tr("Localizable", "Set.FeaturedRelations.RelationsList", fallback: "Relations:")
-      /// Source
-      internal static let source = Loc.tr("Localizable", "Set.FeaturedRelations.Source", fallback: "Source")
       /// Type:
       internal static let type = Loc.tr("Localizable", "Set.FeaturedRelations.Type", fallback: "Type:")
     }
     internal enum SourceType {
-      /// Select source
-      internal static let selectSource = Loc.tr("Localizable", "Set.SourceType.SelectSource", fallback: "Select source")
+      /// Select query
+      internal static let selectQuery = Loc.tr("Localizable", "Set.SourceType.SelectQuery", fallback: "Select query")
       internal enum Cancel {
         internal enum Toast {
-          /// This source can be changed on desktop only
-          internal static let title = Loc.tr("Localizable", "Set.SourceType.Cancel.Toast.Title", fallback: "This source can be changed on desktop only")
+          /// This query can be changed on desktop only
+          internal static let title = Loc.tr("Localizable", "Set.SourceType.Cancel.Toast.Title", fallback: "This query can be changed on desktop only")
         }
       }
     }
     internal enum View {
+      internal enum Empty {
+        /// All objects satisfying your query will be displayed in Set
+        internal static let subtitle = Loc.tr("Localizable", "Set.View.Empty.Subtitle", fallback: "All objects satisfying your query will be displayed in Set")
+        /// No query selected
+        internal static let title = Loc.tr("Localizable", "Set.View.Empty.Title", fallback: "No query selected")
+      }
       internal enum Kanban {
         internal enum Column {
           internal enum Paging {
@@ -1370,6 +1398,20 @@ internal enum Loc {
       internal static let description = Loc.tr("Localizable", "WidgetExtension.LockScreen.Description", fallback: "Create a new object on the fly")
       /// New object
       internal static let title = Loc.tr("Localizable", "WidgetExtension.LockScreen.Title", fallback: "New object")
+    }
+  }
+  internal enum Widgets {
+    /// Widget source
+    internal static let sourceSearch = Loc.tr("Localizable", "Widgets.SourceSearch", fallback: "Widget source")
+    internal enum Actions {
+      /// Change source
+      internal static let changeSource = Loc.tr("Localizable", "Widgets.Actions.ChangeSource", fallback: "Change source")
+      /// Change widget type
+      internal static let changeWidgetType = Loc.tr("Localizable", "Widgets.Actions.ChangeWidgetType", fallback: "Change widget type")
+      /// Edit widgets
+      internal static let editWidgets = Loc.tr("Localizable", "Widgets.Actions.EditWidgets", fallback: "Edit widgets")
+      /// Remove widget
+      internal static let removeWidget = Loc.tr("Localizable", "Widgets.Actions.RemoveWidget", fallback: "Remove widget")
     }
   }
 }

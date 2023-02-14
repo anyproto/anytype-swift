@@ -1,24 +1,24 @@
 import Foundation
 
 protocol CoordinatorsDIProtocol: AnyObject {
-    var relationValue: RelationValueCoordinatorAssemblyProtocol { get }
-    var templates: TemplatesCoordinatorAssemblyProtocol { get }
-    var editorPage: EditorPageCoordinatorAssemblyProtocol { get }
-    var linkToObject: LinkToObjectCoordinatorAssemblyProtocol { get }
-    var objectSettings: ObjectSettingsCoordinatorAssemblyProtocol { get }
-    var addNewRelation: AddNewRelationCoordinatorAssemblyProtocol { get }
-    @MainActor
-    var homeWidgets: HomeWidgetsCoordinatorAssemblyProtocol { get }
+    func relationValue() -> RelationValueCoordinatorAssemblyProtocol
+    func templates() -> TemplatesCoordinatorAssemblyProtocol
+    func editorPage() -> EditorPageCoordinatorAssemblyProtocol
+    func linkToObject() -> LinkToObjectCoordinatorAssemblyProtocol
+    func objectSettings() -> ObjectSettingsCoordinatorAssemblyProtocol
+    func addNewRelation() -> AddNewRelationCoordinatorAssemblyProtocol
+    func homeWidgets() -> HomeWidgetsCoordinatorAssemblyProtocol
+    func createWidget() -> CreateWidgetCoordinatorAssemblyProtocol
     
     // Rename
     @MainActor
-    var application: ApplicationCoordinator { get }
+    func application() -> ApplicationCoordinator
     // Split to modules
     @MainActor
-    var windowManager: WindowManager { get }
+    func windowManager() -> WindowManager
     
     // Now like a coordinator. Migrate to isolated modules
-    var browser: EditorBrowserAssembly { get }
-    var editor: EditorAssembly { get }
-    var homeViewAssemby: HomeViewAssembly { get }
+    func browser() -> EditorBrowserAssembly
+    func editor() -> EditorAssembly
+    func homeViewAssemby() -> HomeViewAssembly
 }

@@ -29,7 +29,7 @@ struct ObjectProfileIconPicker: View {
             viewModel.removeIcon()
             dismiss()
         } label: {
-            AnytypeText(Loc.removePhoto, style: .uxBodyRegular, color: viewModel.isRemoveEnabled ? Color.System.red : .buttonInactive)
+            AnytypeText(Loc.removePhoto, style: .uxBodyRegular, color: viewModel.isRemoveEnabled ? Color.System.red : .Button.inactive)
         }
         .disabled(!viewModel.isRemoveEnabled)
         .frame(height: 48)

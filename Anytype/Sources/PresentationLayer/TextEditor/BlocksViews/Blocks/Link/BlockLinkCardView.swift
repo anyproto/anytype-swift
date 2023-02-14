@@ -136,8 +136,8 @@ final class BlockLinkCardView: UIView, BlockContentView {
 
         layer.cornerRadius = 12
         layer.masksToBounds = true
-        layer.borderColor = UIColor.strokeTransperent.cgColor
-        layer.borderWidth = 1.0
+        layer.borderWidth = 0.5
+        dynamicBorderColor = UIColor.Stroke.primary
 
         titleLabel.numberOfLines = 2
         titleLabel.setLineBreakMode(.byTruncatingTail)
@@ -145,7 +145,7 @@ final class BlockLinkCardView: UIView, BlockContentView {
         descriptionLabel.numberOfLines = 2
         objectTypeLabel.numberOfLines = 1
 
-        objectTypeLabel.textColor = .textSecondary
+        objectTypeLabel.textColor = .Text.secondary
     }
 
     private func setupLayout() {
@@ -231,7 +231,7 @@ private final class BlockLinkCoverView: UIView {
     }
 
     private func setupView() {
-        backgroundColor = .backgroundPrimary
+        backgroundColor = .Background.primary
 
         setupLayout()
 

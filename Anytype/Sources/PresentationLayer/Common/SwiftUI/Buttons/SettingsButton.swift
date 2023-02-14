@@ -23,6 +23,6 @@ struct SettingsButton: View {
 
 struct SettingsButton_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsButton(text: "Foo", textColor: .textPrimary, action: {})
+        SettingsButton(text: "Foo", textColor: .Text.primary, action: {})
     }
 }

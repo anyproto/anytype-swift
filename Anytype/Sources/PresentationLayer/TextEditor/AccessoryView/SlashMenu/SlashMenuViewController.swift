@@ -40,7 +40,7 @@ final class SlashMenuViewController: UIViewController {
     
     private func setup() {
         self.title = topBarTitle
-        view.backgroundColor = .backgroundPrimary
+        view.backgroundColor = .Background.primary
         
         view.addSubview(tableView) {
             $0.pinToSuperview()
@@ -75,7 +75,7 @@ final class SlashMenuViewController: UIViewController {
     private let noItemsLabel: UILabel = {
         let label = UILabel()
         label.font = .uxCalloutRegular
-        label.textColor = .textSecondary
+        label.textColor = .Text.secondary
         label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 0
         label.text = Loc.noItemsMatchFilter

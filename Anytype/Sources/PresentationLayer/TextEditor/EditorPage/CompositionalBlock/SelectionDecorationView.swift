@@ -95,7 +95,7 @@ final class DrawingView: UIView {
 
             c.addPath(gourdInverse.cgPath)
             c.setLineWidth(3)
-            c.setStrokeColor(UIColor.System.amber.cgColor)
+            c.setStrokeColor(UIColor.System.amber100.cgColor)
             c.strokePath()
 
             c.beginPath()

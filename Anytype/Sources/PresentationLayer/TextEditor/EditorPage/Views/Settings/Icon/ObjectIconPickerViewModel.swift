@@ -31,7 +31,8 @@ final class ObjectIconPickerViewModel: ObservableObject, ObjectIconPickerViewMod
 
     // MARK: - Private variables
     
-    private let document: BaseDocumentProtocol
+    private let document: BaseDocumentGeneralProtocol
+    private let objectId: String
     private let imageUploadingDemon = MediaFileUploadingDemon.shared
     private let fileService: FileActionsServiceProtocol
     private let detailsService: DetailsServiceProtocol
@@ -41,11 +42,13 @@ final class ObjectIconPickerViewModel: ObservableObject, ObjectIconPickerViewMod
     // MARK: - Initializer
     
     init(
-        document: BaseDocumentProtocol,
+        document: BaseDocumentGeneralProtocol,
+        objectId: String,
         fileService: FileActionsServiceProtocol,
         detailsService: DetailsServiceProtocol
     ) {
         self.document = document
+        self.objectId = objectId
         self.fileService = fileService
         self.detailsService = detailsService
     }
@@ -69,7 +72,7 @@ extension ObjectIconPickerViewModel {
         let operation = MediaFileUploadingOperation(
             uploadingSource: .itemProvider(itemProvider),
             worker: ObjectHeaderImageUploadingWorker(
-                objectId: document.objectId,
+                objectId: objectId,
                 detailsService: detailsService,
                 usecase: .icon
             )

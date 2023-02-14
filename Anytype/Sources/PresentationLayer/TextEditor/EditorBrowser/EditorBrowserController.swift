@@ -14,20 +14,25 @@ protocol EditorBrowserViewInputProtocol: AnyObject {
     func didShow(collectionView: UICollectionView)
 }
 
+protocol EditorPageOpenRouterProtocol: AnyObject {
+    func showPage(data: EditorScreenData)
+}
+
 final class EditorBrowserController: UIViewController, UINavigationControllerDelegate, EditorBrowser, EditorBrowserViewInputProtocol {
         
     var childNavigation: UINavigationController!
-    var router: EditorRouterProtocol!
+    var router: EditorPageOpenRouterProtocol!
 
     private lazy var navigationView: EditorBottomNavigationView = createNavigationView()
     private var navigationViewBottomConstaint: NSLayoutConstraint?
     
-    private let dashboardService = ServiceLocator.shared.dashboardService()
+    private let dashboardService: DashboardServiceProtocol
     private let stateManager = BrowserNavigationManager()
     private let browserView = EditorBrowserView()
     private var isNavigationViewHidden = false
     
-    init() {
+    init(dashboardService: DashboardServiceProtocol) {
+        self.dashboardService = dashboardService
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -36,7 +41,7 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
     }
     
     func setup() {
-        view.backgroundColor = .backgroundPrimary
+        view.backgroundColor = .Background.primary
         childNavigation.delegate = self
         
         view.addSubview(navigationView) {

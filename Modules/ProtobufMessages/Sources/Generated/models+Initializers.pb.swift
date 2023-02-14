@@ -37,13 +37,10 @@ extension Anytype_Model_Account.Config {
 }
 
 extension Anytype_Model_Account.Info {
-    public init(homeObjectID: String = String(), archiveObjectID: String = String(), profileObjectID: String = String(), marketplaceTypeObjectID: String = String(), marketplaceRelationObjectID: String = String(), marketplaceTemplateObjectID: String = String(), marketplaceWorkspaceID: String = String(), deviceID: String = String(), accountSpaceID: String = String(), widgetsID: String = String(), gatewayURL: String = String(), localStoragePath: String = String(), timeZone: String = String()) {
+    public init(homeObjectID: String = String(), archiveObjectID: String = String(), profileObjectID: String = String(), marketplaceWorkspaceID: String = String(), deviceID: String = String(), accountSpaceID: String = String(), widgetsID: String = String(), gatewayURL: String = String(), localStoragePath: String = String(), timeZone: String = String()) {
         self.homeObjectID = homeObjectID
         self.archiveObjectID = archiveObjectID
         self.profileObjectID = profileObjectID
-        self.marketplaceTypeObjectID = marketplaceTypeObjectID
-        self.marketplaceRelationObjectID = marketplaceRelationObjectID
-        self.marketplaceTemplateObjectID = marketplaceTemplateObjectID
         self.marketplaceWorkspaceID = marketplaceWorkspaceID
         self.deviceID = deviceID
         self.accountSpaceID = accountSpaceID
@@ -88,7 +85,7 @@ extension Anytype_Model_Block.Content.Bookmark {
 }
 
 extension Anytype_Model_Block.Content.Dataview {
-    public init(source: [String] = [], views: [Anytype_Model_Block.Content.Dataview.View] = [], relations: [Anytype_Model_Relation] = [], activeView: String = String(), groupOrders: [Anytype_Model_Block.Content.Dataview.GroupOrder] = [], objectOrders: [Anytype_Model_Block.Content.Dataview.ObjectOrder] = [], relationLinks: [Anytype_Model_RelationLink] = []) {
+    public init(source: [String] = [], views: [Anytype_Model_Block.Content.Dataview.View] = [], relations: [Anytype_Model_Relation] = [], activeView: String = String(), groupOrders: [Anytype_Model_Block.Content.Dataview.GroupOrder] = [], objectOrders: [Anytype_Model_Block.Content.Dataview.ObjectOrder] = [], relationLinks: [Anytype_Model_RelationLink] = [], targetObjectID: String = String()) {
         self.source = source
         self.views = views
         self.relations = relations
@@ -96,6 +93,7 @@ extension Anytype_Model_Block.Content.Dataview {
         self.groupOrders = groupOrders
         self.objectOrders = objectOrders
         self.relationLinks = relationLinks
+        self.targetObjectID = targetObjectID
     }
 }
 
@@ -106,7 +104,8 @@ extension Anytype_Model_Block.Content.Dataview.Checkbox {
 }
 
 extension Anytype_Model_Block.Content.Dataview.Filter {
-    public init(`operator`: Anytype_Model_Block.Content.Dataview.Filter.Operator = .and, relationKey: String = String(), relationProperty: String = String(), condition: Anytype_Model_Block.Content.Dataview.Filter.Condition = .none, value: SwiftProtobuf.Google_Protobuf_Value, quickOption: Anytype_Model_Block.Content.Dataview.Filter.QuickOption = .exactDate, format: Anytype_Model_RelationFormat = .longtext, includeTime: Bool = false) {
+    public init(id: String = String(), `operator`: Anytype_Model_Block.Content.Dataview.Filter.Operator = .and, relationKey: String = String(), relationProperty: String = String(), condition: Anytype_Model_Block.Content.Dataview.Filter.Condition = .none, value: SwiftProtobuf.Google_Protobuf_Value, quickOption: Anytype_Model_Block.Content.Dataview.Filter.QuickOption = .exactDate, format: Anytype_Model_RelationFormat = .longtext, includeTime: Bool = false) {
+        self.id = id
         self.`operator` = `operator`
         self.relationKey = relationKey
         self.relationProperty = relationProperty
@@ -152,10 +151,13 @@ extension Anytype_Model_Block.Content.Dataview.Relation {
 }
 
 extension Anytype_Model_Block.Content.Dataview.Sort {
-    public init(relationKey: String = String(), type: Anytype_Model_Block.Content.Dataview.Sort.TypeEnum = .asc, customOrder: [SwiftProtobuf.Google_Protobuf_Value] = []) {
+    public init(id: String = String(), relationKey: String = String(), type: Anytype_Model_Block.Content.Dataview.Sort.TypeEnum = .asc, customOrder: [SwiftProtobuf.Google_Protobuf_Value] = [], format: Anytype_Model_RelationFormat = .longtext, includeTime: Bool = false) {
+        self.id = id
         self.relationKey = relationKey
         self.type = type
         self.customOrder = customOrder
+        self.format = format
+        self.includeTime = includeTime
     }
 }
 
@@ -172,7 +174,7 @@ extension Anytype_Model_Block.Content.Dataview.Tag {
 }
 
 extension Anytype_Model_Block.Content.Dataview.View {
-    public init(id: String = String(), type: Anytype_Model_Block.Content.Dataview.View.TypeEnum = .table, name: String = String(), sorts: [Anytype_Model_Block.Content.Dataview.Sort] = [], filters: [Anytype_Model_Block.Content.Dataview.Filter] = [], relations: [Anytype_Model_Block.Content.Dataview.Relation] = [], coverRelationKey: String = String(), hideIcon: Bool = false, cardSize: Anytype_Model_Block.Content.Dataview.View.Size = .small, coverFit: Bool = false, groupRelationKey: String = String(), groupBackgroundColors: Bool = false) {
+    public init(id: String = String(), type: Anytype_Model_Block.Content.Dataview.View.TypeEnum = .table, name: String = String(), sorts: [Anytype_Model_Block.Content.Dataview.Sort] = [], filters: [Anytype_Model_Block.Content.Dataview.Filter] = [], relations: [Anytype_Model_Block.Content.Dataview.Relation] = [], coverRelationKey: String = String(), hideIcon: Bool = false, cardSize: Anytype_Model_Block.Content.Dataview.View.Size = .small, coverFit: Bool = false, groupRelationKey: String = String(), groupBackgroundColors: Bool = false, pageLimit: Int32 = 0) {
         self.id = id
         self.type = type
         self.name = name
@@ -185,6 +187,7 @@ extension Anytype_Model_Block.Content.Dataview.View {
         self.coverFit = coverFit
         self.groupRelationKey = groupRelationKey
         self.groupBackgroundColors = groupBackgroundColors
+        self.pageLimit = pageLimit
     }
 }
 

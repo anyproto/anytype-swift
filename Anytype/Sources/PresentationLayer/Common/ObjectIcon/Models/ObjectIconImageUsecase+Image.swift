@@ -81,7 +81,7 @@ extension ObjectIconImageUsecase {
                 staticImageGuideline: nil,
                 bookmarkImageGuideline: nil
             )
-        case .dashboardSearch:
+        case .dashboardSearch, .homeSetWidget:
             return ObjectIconImageGuidelineSet(
                 basicImageGuideline: BasicIconImageGuideline.x48,
                 profileImageGuideline: ProfileIconImageGuideline.x48,
@@ -132,6 +132,36 @@ extension ObjectIconImageUsecase {
                 placeholderImageGuideline: nil,
                 staticImageGuideline: StaticImageGuideline.x18,
                 bookmarkImageGuideline: BookmarkIconImageGuideline.x18
+            )
+        case .widgetTree:
+            return ObjectIconImageGuidelineSet(
+                basicImageGuideline: BasicIconImageGuideline.x18,
+                profileImageGuideline: ProfileIconImageGuideline.x18,
+                emojiImageGuideline: EmojiIconImageGuideline.x18,
+                todoImageGuideline: TodoIconImageGuideline.x18,
+                placeholderImageGuideline: nil,
+                staticImageGuideline: StaticImageGuideline.x18,
+                bookmarkImageGuideline: BookmarkIconImageGuideline.x18
+            )
+        case .homeBottomPanel:
+            return ObjectIconImageGuidelineSet(
+                basicImageGuideline: BasicIconImageGuideline.x24,
+                profileImageGuideline: ProfileIconImageGuideline.x24,
+                emojiImageGuideline: EmojiIconImageGuideline.x24,
+                todoImageGuideline: TodoIconImageGuideline.x24,
+                placeholderImageGuideline: nil,
+                staticImageGuideline: StaticImageGuideline.x24,
+                bookmarkImageGuideline: BookmarkIconImageGuideline.x24
+            )
+        case .inlineSetHeader:
+            return ObjectIconImageGuidelineSet(
+                basicImageGuideline: BasicIconImageGuideline.x32,
+                profileImageGuideline: ProfileIconImageGuideline.x32,
+                emojiImageGuideline: EmojiIconImageGuideline.x32,
+                todoImageGuideline: TodoIconImageGuideline.x28,
+                placeholderImageGuideline: nil,
+                staticImageGuideline: StaticImageGuideline.x32,
+                bookmarkImageGuideline: BookmarkIconImageGuideline.x28
             )
         }
     }

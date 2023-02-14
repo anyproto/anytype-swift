@@ -55,8 +55,6 @@ final class SlashMenuViewModel {
         mutableText.replaceCharacters(in: range, with: "")
         handler.changeText(mutableText, info: info)
         textView.attributedText = mutableText
-        if FeatureFlags.cursorPosition {
-            textView.selectedRange = NSRange(location: selectedRange.location, length: 0)
-        }
+        textView.selectedRange = NSRange(location: selectedRange.location, length: 0)
     }
 }

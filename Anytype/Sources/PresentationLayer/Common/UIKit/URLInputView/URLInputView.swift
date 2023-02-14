@@ -16,7 +16,7 @@ final class URLInputView: UIView {
             string: Loc.pasteOrTypeURL,
             attributes: [
                 .font: UIFont.uxBodyRegular,
-                .foregroundColor: UIColor.textSecondary
+                .foregroundColor: UIColor.Text.secondary
             ]
         )
         return textField
@@ -28,12 +28,12 @@ final class URLInputView: UIView {
         button.setAttributedTitle(NSAttributedString(
                                     string: Loc.done,
                                     attributes: [.font: UIFont.uxBodyRegular,
-                                                 .foregroundColor: UIColor.System.amber]),
+                                                 .foregroundColor: UIColor.System.amber100]),
                                   for: .normal)
         button.setAttributedTitle(NSAttributedString(
                                     string: Loc.done,
                                     attributes: [.font: UIFont.uxBodyRegular,
-                                                 .foregroundColor: UIColor.Background.amber]),
+                                                 .foregroundColor: UIColor.VeryLight.amber]),
                                   for: .disabled)
         button.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         button.setContentCompressionResistancePriority(.required, for: .horizontal)
@@ -112,7 +112,7 @@ final class URLInputView: UIView {
     private func addTopLine() {
         let line = UIView()
         line.translatesAutoresizingMaskIntoConstraints = false
-        line.backgroundColor = .strokeTertiary
+        line.backgroundColor = .Stroke.tertiary
         addSubview(line)
         line.layoutUsing.anchors {
             $0.top.equal(to: topAnchor)

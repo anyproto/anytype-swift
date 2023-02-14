@@ -45,7 +45,7 @@ extension HorizontalListItem {
             imageSize: .init(width: 24, height: 24),
             cornerRadius: 12,
             side: 48,
-            backgroundColor: .strokeTertiary
+            backgroundColor: .Stroke.tertiary
         )
 
         return .init(

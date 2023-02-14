@@ -25,13 +25,15 @@ struct SetMinimizedHeader: View {
                 Spacer.fixedWidth(14)
                 title
                 Spacer()
-                settingsButton
+                if !model.hasTargetObjectId {
+                    settingsButton
+                }
             }
             .padding(.leading, 10)
-            .padding(.trailing, 2)
+            .padding(.trailing, model.hasTargetObjectId ? 46 : 2)
         }
         .frame(height: minimizedHeaderHeight)
-        .background(Color.backgroundPrimary.opacity(opacity))
+        .background(Color.Background.primary.opacity(opacity))
         .readSize { headerMinimizedSize = $0 }
     }
     
@@ -42,7 +44,7 @@ struct SetMinimizedHeader: View {
                     .frame(width: 18, height: 18)
             }
             model.details.flatMap {
-                AnytypeText($0.title, style: .body, color: .textPrimary)
+                AnytypeText($0.title, style: .body, color: .Text.primary)
                     .lineLimit(1)
             }
         }
@@ -54,7 +56,7 @@ struct SetMinimizedHeader: View {
         SwiftUIEditorSyncStatusItem(
             status: model.syncStatus,
             state: EditorBarItemState(
-                haveBackground: model.details?.documentCover.isNotNil ?? false,
+                haveBackground: model.hasTargetObjectId ? false : model.details?.documentCover.isNotNil ?? false,
                 opacity: syncStatusItemOpacity
             )
         )

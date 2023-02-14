@@ -23,7 +23,7 @@ struct FeedbackGeneratorExamplesView: View {
                     Button {
                         handleTapOnExample(example)
                     } label: {
-                        AnytypeText(example.title, style: .uxBodyRegular, color: .textPrimary)
+                        AnytypeText(example.title, style: .uxBodyRegular, color: .Text.primary)
                     }
                 }
             }

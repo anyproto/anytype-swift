@@ -54,7 +54,7 @@ struct SetSortsListView: View {
             AnytypeText(
                 Loc.EditSet.Popup.Sorts.EmptyView.title,
                 style: .uxCalloutRegular,
-                color: .textSecondary
+                color: .Text.secondary
             )
                 .frame(height: 68)
             Spacer()
@@ -85,13 +85,13 @@ struct SetSortsListView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 EditButton()
-                    .foregroundColor(Color.buttonActive)
+                    .foregroundColor(Color.Button.active)
             }
         }
     }
     
     private func row(with configuration: SetSortRowConfiguration) -> some View {
-        SetSortRow(configuration: configuration, onTap: { viewModel.rowTapped(configuration.id) })
+        SetSortRow(configuration: configuration)
             .environment(\.editMode, $editMode)
     }
     

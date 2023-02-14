@@ -9,8 +9,8 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
     @Published var contentViewType: SetContentViewType = .table
     
     private let setDocument: SetDocumentProtocol
-    private let service: DataviewServiceProtocol
-    private let router: EditorRouterProtocol
+    private let dataviewService: DataviewServiceProtocol
+    private let router: EditorSetRouterProtocol
     
     private var cancellable: Cancellable?
 
@@ -89,9 +89,9 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
         }
     }
     
-    init(setDocument: SetDocumentProtocol, service: DataviewServiceProtocol, router: EditorRouterProtocol) {
+    init(setDocument: SetDocumentProtocol, dataviewService: DataviewServiceProtocol, router: EditorSetRouterProtocol) {
         self.setDocument = setDocument
-        self.service = service
+        self.dataviewService = dataviewService
         self.router = router
         self.setup()
     }
@@ -103,7 +103,9 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
                 return
             }
             Task {
-                try await service.deleteRelation(relationKey: relation.relationDetails.key)
+                let key = relation.relationDetails.key
+                try await dataviewService.deleteRelation(relationKey: key)
+                try await dataviewService.removeViewRelations([key], viewId: setDocument.activeView.id)
             }
         }
     }
@@ -128,22 +130,15 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
             
             var newOptions = setDocument.activeView.options
             newOptions.moveElement(from: indexFrom, to: indexTo)
-            let newView = setDocument.activeView.updated(options: newOptions)
-            self.updateView(newView)
+            let keys = newOptions.map { $0.key }
+            Task {
+                try await self.dataviewService.sortViewRelations(keys, viewId: setDocument.activeView.id)
+            }
         }
     }
     
     func showAddNewRelationView() {
-        router.showAddNewRelationView { [weak self] relation, isNew in
-            guard let self = self else { return }
-            
-            Task {
-                if try await self.service.addRelation(relation) {
-                    let newOption = DataviewRelationOption(key: relation.key, isVisible: true)
-                    let newView = self.setDocument.activeView.updated(option: newOption)
-                    self.updateView(newView)
-                }
-            }
+        router.showAddNewRelationView { relation, isNew in
             AnytypeAnalytics.instance().logAddRelation(format: relation.format, isNew: isNew, type: .set)
         }
     }
@@ -155,9 +150,14 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
     }
     
     private func onRelationVisibleChange(_ relation: SetRelation, isVisible: Bool) {
-        let newOption = relation.option.updated(isVisible: isVisible)
-        let newView = setDocument.activeView.updated(option: newOption)
-        updateView(newView)
+        Task {
+            let newOption = relation.option.updated(isVisible: isVisible).asMiddleware
+            try await dataviewService.replaceViewRelation(
+                relation.option.key,
+                with: newOption,
+                viewId: setDocument.activeView.id
+            )
+        }
     }
     
     private func onShowIconChange(_ show: Bool) {
@@ -192,7 +192,7 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
     
     private func updateView(_ view: DataviewView) {
         Task {
-            try await service.updateView(view)
+            try await dataviewService.updateView(view)
         }
     }
     

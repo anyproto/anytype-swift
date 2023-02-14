@@ -19,20 +19,31 @@ internal typealias AssetColorTypeAlias = ColorAsset.Color
 
 // swiftlint:disable identifier_name line_length nesting type_body_length type_name
 internal enum Asset {
-  internal enum Background {
-    static let amber = ColorAsset(name: "Background/amber")
-    static let blue = ColorAsset(name: "Background/blue")
-    static let green = ColorAsset(name: "Background/green")
-    static let grey = ColorAsset(name: "Background/grey")
-    static let pink = ColorAsset(name: "Background/pink")
-    static let purple = ColorAsset(name: "Background/purple")
-    static let red = ColorAsset(name: "Background/red")
-    static let sky = ColorAsset(name: "Background/sky")
-    static let teal = ColorAsset(name: "Background/teal")
-    static let yellow = ColorAsset(name: "Background/yellow")
+  internal enum Dark {
+    static let amber = ColorAsset(name: "Dark/amber")
+    static let blue = ColorAsset(name: "Dark/blue")
+    static let green = ColorAsset(name: "Dark/green")
+    static let grey = ColorAsset(name: "Dark/grey")
+    static let pink = ColorAsset(name: "Dark/pink")
+    static let purple = ColorAsset(name: "Dark/purple")
+    static let red = ColorAsset(name: "Dark/red")
+    static let sky = ColorAsset(name: "Dark/sky")
+    static let teal = ColorAsset(name: "Dark/teal")
+    static let yellow = ColorAsset(name: "Dark/yellow")
+  }
+  internal enum Light {
+    static let amber = ColorAsset(name: "Light/amber")
+    static let blue = ColorAsset(name: "Light/blue")
+    static let green = ColorAsset(name: "Light/green")
+    static let grey = ColorAsset(name: "Light/grey")
+    static let pink = ColorAsset(name: "Light/pink")
+    static let purple = ColorAsset(name: "Light/purple")
+    static let red = ColorAsset(name: "Light/red")
+    static let sky = ColorAsset(name: "Light/sky")
+    static let teal = ColorAsset(name: "Light/teal")
+    static let yellow = ColorAsset(name: "Light/yellow")
   }
   internal enum System {
-    static let amber = ColorAsset(name: "System/amber")
     static let amber100 = ColorAsset(name: "System/amber100")
     static let amber125 = ColorAsset(name: "System/amber125")
     static let amber25 = ColorAsset(name: "System/amber25")
@@ -48,62 +59,53 @@ internal enum Asset {
     static let teal = ColorAsset(name: "System/teal")
     static let yellow = ColorAsset(name: "System/yellow")
   }
-  internal enum TagBackground {
-    static let amber = ColorAsset(name: "TagBackground/amber")
-    static let blue = ColorAsset(name: "TagBackground/blue")
-    static let green = ColorAsset(name: "TagBackground/green")
-    static let grey = ColorAsset(name: "TagBackground/grey")
-    static let pink = ColorAsset(name: "TagBackground/pink")
-    static let purple = ColorAsset(name: "TagBackground/purple")
-    static let red = ColorAsset(name: "TagBackground/red")
-    static let sky = ColorAsset(name: "TagBackground/sky")
-    static let teal = ColorAsset(name: "TagBackground/teal")
-    static let yellow = ColorAsset(name: "TagBackground/yellow")
-  }
-  internal enum Text {
-    static let amber = ColorAsset(name: "Text/amber")
-    static let blue = ColorAsset(name: "Text/blue")
-    static let green = ColorAsset(name: "Text/green")
-    static let grey = ColorAsset(name: "Text/grey")
-    static let pink = ColorAsset(name: "Text/pink")
-    static let purple = ColorAsset(name: "Text/purple")
-    static let red = ColorAsset(name: "Text/red")
-    static let sky = ColorAsset(name: "Text/sky")
-    static let teal = ColorAsset(name: "Text/teal")
-    static let yellow = ColorAsset(name: "Text/yellow")
+  internal enum VeryLight {
+    static let amber = ColorAsset(name: "VeryLight/amber")
+    static let blue = ColorAsset(name: "VeryLight/blue")
+    static let green = ColorAsset(name: "VeryLight/green")
+    static let grey = ColorAsset(name: "VeryLight/grey")
+    static let pink = ColorAsset(name: "VeryLight/pink")
+    static let purple = ColorAsset(name: "VeryLight/purple")
+    static let red = ColorAsset(name: "VeryLight/red")
+    static let sky = ColorAsset(name: "VeryLight/sky")
+    static let teal = ColorAsset(name: "VeryLight/teal")
+    static let yellow = ColorAsset(name: "VeryLight/yellow")
   }
 
   // MARK: - Additional
   static let shimmering = ColorAsset(name: "shimmering")
-
-  // MARK: - Backgound
-  static let backgroundBlack = ColorAsset(name: "backgroundBlack")
-  static let backgroundDashboard = ColorAsset(name: "backgroundDashboard")
-  static let backgroundPrimary = ColorAsset(name: "backgroundPrimary")
-  static let backgroundSecondary = ColorAsset(name: "backgroundSecondary")
-  static let backgroundSelected = ColorAsset(name: "backgroundSelected")
-
-  // MARK: - Button
-  static let buttonAccent = ColorAsset(name: "buttonAccent")
-  static let buttonActive = ColorAsset(name: "buttonActive")
-  static let buttonInactive = ColorAsset(name: "buttonInactive")
-  static let buttonSelected = ColorAsset(name: "buttonSelected")
-  static let buttonWhite = ColorAsset(name: "buttonWhite")
-
-  // MARK: - Shadow
-  static let shadowPrimary = ColorAsset(name: "shadowPrimary")
-
-  // MARK: - Stroke
-  static let strokePrimary = ColorAsset(name: "strokePrimary")
-  static let strokeSecondary = ColorAsset(name: "strokeSecondary")
-  static let strokeTertiary = ColorAsset(name: "strokeTertiary")
-  static let strokeTransperent = ColorAsset(name: "strokeTransperent")
-
-  // MARK: - Text
-  static let textPrimary = ColorAsset(name: "textPrimary")
-  static let textSecondary = ColorAsset(name: "textSecondary")
-  static let textTertiary = ColorAsset(name: "textTertiary")
-  static let textWhite = ColorAsset(name: "textWhite")
+  internal enum Background {
+    static let black = ColorAsset(name: "Background/black")
+    static let highlightedOfSelected = ColorAsset(name: "Background/highlightedOfSelected")
+    static let material = ColorAsset(name: "Background/material")
+    static let primary = ColorAsset(name: "Background/primary")
+    static let secondary = ColorAsset(name: "Background/secondary")
+  }
+  internal enum Button {
+    static let accent = ColorAsset(name: "Button/accent")
+    static let active = ColorAsset(name: "Button/active")
+    static let inactive = ColorAsset(name: "Button/inactive")
+    static let selected = ColorAsset(name: "Button/selected")
+    static let white = ColorAsset(name: "Button/white")
+  }
+  internal enum Dashboard {
+    static let card = ColorAsset(name: "Dashboard/card")
+  }
+  internal enum Shadow {
+    static let primary = ColorAsset(name: "Shadow/primary")
+  }
+  internal enum Stroke {
+    static let primary = ColorAsset(name: "Stroke/primary")
+    static let secondary = ColorAsset(name: "Stroke/secondary")
+    static let tertiary = ColorAsset(name: "Stroke/tertiary")
+    static let transperent = ColorAsset(name: "Stroke/transperent")
+  }
+  internal enum Text {
+    static let primary = ColorAsset(name: "Text/primary")
+    static let secondary = ColorAsset(name: "Text/secondary")
+    static let tertiary = ColorAsset(name: "Text/tertiary")
+    static let white = ColorAsset(name: "Text/white")
+  }
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name
 

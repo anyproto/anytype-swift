@@ -13,20 +13,20 @@ struct HomeTabsSelectionHeader: View {
                     AnytypeText(
                         model.isAllSelected ? Loc.deselectAll : Loc.selectAll,
                         style: .uxBodyRegular,
-                        color: .textPrimary
+                        color: .Text.primary
                     )
                 }
             )
             Spacer()
             
-            AnytypeText(Loc.objectSelected(model.numberOfSelectedPages), style: .uxTitle1Semibold, color: .textPrimary)
+            AnytypeText(Loc.objectSelected(model.numberOfSelectedPages), style: .uxTitle1Semibold, color: .Text.primary)
             Spacer()
             Button(
                 action: {
                     model.selectAll(false)
                     UISelectionFeedbackGenerator().selectionChanged()
                 }, label: {
-                    AnytypeText(Loc.cancel, style: .uxBodyRegular, color: .textPrimary)
+                    AnytypeText(Loc.cancel, style: .uxBodyRegular, color: .Text.primary)
                 }
             )
         }

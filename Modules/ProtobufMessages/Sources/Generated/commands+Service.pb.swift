@@ -1088,6 +1088,28 @@ extension Anytype_Rpc.Object.SetIsArchived {
   }
 }
 
+extension Anytype_Rpc.Object.SetSource {
+  public enum Service {
+    public static func invoke(contextID: String = String(), source: [String] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(contextID: contextID, source: source).invoke(on: queue)
+    }
+    public static func invoke(contextID: String = String(), source: [String] = []) -> Result<Response, Error> {
+        return invocation(contextID: contextID, source: source).invoke()
+    }
+    public static func invocation(contextID: String = String(), source: [String] = []) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, source: source)
+        return Invocation<Request,Response>(messageName: "ObjectSetSource", request: request) { request in
+            return self.invoke(request)
+        }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+        return Lib.ServiceObjectSetSource(try? request.serializedData()).flatMap {
+            try? Response(serializedData: $0)
+        }
+    }
+  }
+}
+
 extension Anytype_Rpc.Object.SetObjectType {
   public enum Service {
     public static func invoke(contextID: String = String(), objectTypeURL: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
@@ -3290,14 +3312,14 @@ extension Anytype_Rpc.BlockDiv.ListSetStyle {
 
 extension Anytype_Rpc.BlockDataview.View.Create {
   public enum Service {
-    public static func invoke(contextID: String = String(), blockID: String = String(), view: Anytype_Model_Block.Content.Dataview.View, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-        return invocation(contextID: contextID, blockID: blockID, view: view).invoke(on: queue)
+    public static func invoke(contextID: String = String(), blockID: String = String(), view: Anytype_Model_Block.Content.Dataview.View, source: [String] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(contextID: contextID, blockID: blockID, view: view, source: source).invoke(on: queue)
     }
-    public static func invoke(contextID: String = String(), blockID: String = String(), view: Anytype_Model_Block.Content.Dataview.View) -> Result<Response, Error> {
-        return invocation(contextID: contextID, blockID: blockID, view: view).invoke()
+    public static func invoke(contextID: String = String(), blockID: String = String(), view: Anytype_Model_Block.Content.Dataview.View, source: [String] = []) -> Result<Response, Error> {
+        return invocation(contextID: contextID, blockID: blockID, view: view, source: source).invoke()
     }
-    public static func invocation(contextID: String = String(), blockID: String = String(), view: Anytype_Model_Block.Content.Dataview.View) -> ProtobufMessages.Invocation<Request, Response> {
-        let request = Request(contextID: contextID, blockID: blockID, view: view)
+    public static func invocation(contextID: String = String(), blockID: String = String(), view: Anytype_Model_Block.Content.Dataview.View, source: [String] = []) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockID: blockID, view: view, source: source)
         return Invocation<Request,Response>(messageName: "BlockDataviewViewCreate", request: request) { request in
             return self.invoke(request)
         }
@@ -3524,6 +3546,292 @@ extension Anytype_Rpc.BlockDataview.ObjectOrder.Update {
     }
     private static func invoke(_ request: Request) -> Response? {
         return Lib.ServiceBlockDataviewObjectOrderUpdate(try? request.serializedData()).flatMap {
+            try? Response(serializedData: $0)
+        }
+    }
+  }
+}
+
+extension Anytype_Rpc.BlockDataview.CreateFromExistingObject {
+  public enum Service {
+    public static func invoke(contextID: String = String(), blockID: String = String(), targetObjectID: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(contextID: contextID, blockID: blockID, targetObjectID: targetObjectID).invoke(on: queue)
+    }
+    public static func invoke(contextID: String = String(), blockID: String = String(), targetObjectID: String = String()) -> Result<Response, Error> {
+        return invocation(contextID: contextID, blockID: blockID, targetObjectID: targetObjectID).invoke()
+    }
+    public static func invocation(contextID: String = String(), blockID: String = String(), targetObjectID: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockID: blockID, targetObjectID: targetObjectID)
+        return Invocation<Request,Response>(messageName: "BlockDataviewCreateFromExistingObject", request: request) { request in
+            return self.invoke(request)
+        }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+        return Lib.ServiceBlockDataviewCreateFromExistingObject(try? request.serializedData()).flatMap {
+            try? Response(serializedData: $0)
+        }
+    }
+  }
+}
+
+extension Anytype_Rpc.BlockDataview.Filter.Add {
+  public enum Service {
+    public static func invoke(contextID: String = String(), blockID: String = String(), viewID: String = String(), filter: Anytype_Model_Block.Content.Dataview.Filter, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(contextID: contextID, blockID: blockID, viewID: viewID, filter: filter).invoke(on: queue)
+    }
+    public static func invoke(contextID: String = String(), blockID: String = String(), viewID: String = String(), filter: Anytype_Model_Block.Content.Dataview.Filter) -> Result<Response, Error> {
+        return invocation(contextID: contextID, blockID: blockID, viewID: viewID, filter: filter).invoke()
+    }
+    public static func invocation(contextID: String = String(), blockID: String = String(), viewID: String = String(), filter: Anytype_Model_Block.Content.Dataview.Filter) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockID: blockID, viewID: viewID, filter: filter)
+        return Invocation<Request,Response>(messageName: "BlockDataviewFilterAdd", request: request) { request in
+            return self.invoke(request)
+        }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+        return Lib.ServiceBlockDataviewFilterAdd(try? request.serializedData()).flatMap {
+            try? Response(serializedData: $0)
+        }
+    }
+  }
+}
+
+extension Anytype_Rpc.BlockDataview.Filter.Remove {
+  public enum Service {
+    public static func invoke(contextID: String = String(), blockID: String = String(), viewID: String = String(), ids: [String] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(contextID: contextID, blockID: blockID, viewID: viewID, ids: ids).invoke(on: queue)
+    }
+    public static func invoke(contextID: String = String(), blockID: String = String(), viewID: String = String(), ids: [String] = []) -> Result<Response, Error> {
+        return invocation(contextID: contextID, blockID: blockID, viewID: viewID, ids: ids).invoke()
+    }
+    public static func invocation(contextID: String = String(), blockID: String = String(), viewID: String = String(), ids: [String] = []) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockID: blockID, viewID: viewID, ids: ids)
+        return Invocation<Request,Response>(messageName: "BlockDataviewFilterRemove", request: request) { request in
+            return self.invoke(request)
+        }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+        return Lib.ServiceBlockDataviewFilterRemove(try? request.serializedData()).flatMap {
+            try? Response(serializedData: $0)
+        }
+    }
+  }
+}
+
+extension Anytype_Rpc.BlockDataview.Filter.Replace {
+  public enum Service {
+    public static func invoke(contextID: String = String(), blockID: String = String(), viewID: String = String(), id: String = String(), filter: Anytype_Model_Block.Content.Dataview.Filter, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(contextID: contextID, blockID: blockID, viewID: viewID, id: id, filter: filter).invoke(on: queue)
+    }
+    public static func invoke(contextID: String = String(), blockID: String = String(), viewID: String = String(), id: String = String(), filter: Anytype_Model_Block.Content.Dataview.Filter) -> Result<Response, Error> {
+        return invocation(contextID: contextID, blockID: blockID, viewID: viewID, id: id, filter: filter).invoke()
+    }
+    public static func invocation(contextID: String = String(), blockID: String = String(), viewID: String = String(), id: String = String(), filter: Anytype_Model_Block.Content.Dataview.Filter) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockID: blockID, viewID: viewID, id: id, filter: filter)
+        return Invocation<Request,Response>(messageName: "BlockDataviewFilterReplace", request: request) { request in
+            return self.invoke(request)
+        }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+        return Lib.ServiceBlockDataviewFilterReplace(try? request.serializedData()).flatMap {
+            try? Response(serializedData: $0)
+        }
+    }
+  }
+}
+
+extension Anytype_Rpc.BlockDataview.Filter.Sort {
+  public enum Service {
+    public static func invoke(contextID: String = String(), blockID: String = String(), viewID: String = String(), ids: [String] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(contextID: contextID, blockID: blockID, viewID: viewID, ids: ids).invoke(on: queue)
+    }
+    public static func invoke(contextID: String = String(), blockID: String = String(), viewID: String = String(), ids: [String] = []) -> Result<Response, Error> {
+        return invocation(contextID: contextID, blockID: blockID, viewID: viewID, ids: ids).invoke()
+    }
+    public static func invocation(contextID: String = String(), blockID: String = String(), viewID: String = String(), ids: [String] = []) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockID: blockID, viewID: viewID, ids: ids)
+        return Invocation<Request,Response>(messageName: "BlockDataviewFilterSort", request: request) { request in
+            return self.invoke(request)
+        }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+        return Lib.ServiceBlockDataviewFilterSort(try? request.serializedData()).flatMap {
+            try? Response(serializedData: $0)
+        }
+    }
+  }
+}
+
+extension Anytype_Rpc.BlockDataview.Sort.Add {
+  public enum Service {
+    public static func invoke(contextID: String = String(), blockID: String = String(), viewID: String = String(), sort: Anytype_Model_Block.Content.Dataview.Sort, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(contextID: contextID, blockID: blockID, viewID: viewID, sort: sort).invoke(on: queue)
+    }
+    public static func invoke(contextID: String = String(), blockID: String = String(), viewID: String = String(), sort: Anytype_Model_Block.Content.Dataview.Sort) -> Result<Response, Error> {
+        return invocation(contextID: contextID, blockID: blockID, viewID: viewID, sort: sort).invoke()
+    }
+    public static func invocation(contextID: String = String(), blockID: String = String(), viewID: String = String(), sort: Anytype_Model_Block.Content.Dataview.Sort) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockID: blockID, viewID: viewID, sort: sort)
+        return Invocation<Request,Response>(messageName: "BlockDataviewSortAdd", request: request) { request in
+            return self.invoke(request)
+        }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+        return Lib.ServiceBlockDataviewSortAdd(try? request.serializedData()).flatMap {
+            try? Response(serializedData: $0)
+        }
+    }
+  }
+}
+
+extension Anytype_Rpc.BlockDataview.Sort.Remove {
+  public enum Service {
+    public static func invoke(contextID: String = String(), blockID: String = String(), viewID: String = String(), ids: [String] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(contextID: contextID, blockID: blockID, viewID: viewID, ids: ids).invoke(on: queue)
+    }
+    public static func invoke(contextID: String = String(), blockID: String = String(), viewID: String = String(), ids: [String] = []) -> Result<Response, Error> {
+        return invocation(contextID: contextID, blockID: blockID, viewID: viewID, ids: ids).invoke()
+    }
+    public static func invocation(contextID: String = String(), blockID: String = String(), viewID: String = String(), ids: [String] = []) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockID: blockID, viewID: viewID, ids: ids)
+        return Invocation<Request,Response>(messageName: "BlockDataviewSortRemove", request: request) { request in
+            return self.invoke(request)
+        }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+        return Lib.ServiceBlockDataviewSortRemove(try? request.serializedData()).flatMap {
+            try? Response(serializedData: $0)
+        }
+    }
+  }
+}
+
+extension Anytype_Rpc.BlockDataview.Sort.Replace {
+  public enum Service {
+    public static func invoke(contextID: String = String(), blockID: String = String(), viewID: String = String(), id: String = String(), sort: Anytype_Model_Block.Content.Dataview.Sort, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(contextID: contextID, blockID: blockID, viewID: viewID, id: id, sort: sort).invoke(on: queue)
+    }
+    public static func invoke(contextID: String = String(), blockID: String = String(), viewID: String = String(), id: String = String(), sort: Anytype_Model_Block.Content.Dataview.Sort) -> Result<Response, Error> {
+        return invocation(contextID: contextID, blockID: blockID, viewID: viewID, id: id, sort: sort).invoke()
+    }
+    public static func invocation(contextID: String = String(), blockID: String = String(), viewID: String = String(), id: String = String(), sort: Anytype_Model_Block.Content.Dataview.Sort) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockID: blockID, viewID: viewID, id: id, sort: sort)
+        return Invocation<Request,Response>(messageName: "BlockDataviewSortReplace", request: request) { request in
+            return self.invoke(request)
+        }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+        return Lib.ServiceBlockDataviewSortReplace(try? request.serializedData()).flatMap {
+            try? Response(serializedData: $0)
+        }
+    }
+  }
+}
+
+extension Anytype_Rpc.BlockDataview.Sort.Sort {
+  public enum Service {
+    public static func invoke(contextID: String = String(), blockID: String = String(), viewID: String = String(), ids: [String] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(contextID: contextID, blockID: blockID, viewID: viewID, ids: ids).invoke(on: queue)
+    }
+    public static func invoke(contextID: String = String(), blockID: String = String(), viewID: String = String(), ids: [String] = []) -> Result<Response, Error> {
+        return invocation(contextID: contextID, blockID: blockID, viewID: viewID, ids: ids).invoke()
+    }
+    public static func invocation(contextID: String = String(), blockID: String = String(), viewID: String = String(), ids: [String] = []) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockID: blockID, viewID: viewID, ids: ids)
+        return Invocation<Request,Response>(messageName: "BlockDataviewSortSort", request: request) { request in
+            return self.invoke(request)
+        }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+        return Lib.ServiceBlockDataviewSortSort(try? request.serializedData()).flatMap {
+            try? Response(serializedData: $0)
+        }
+    }
+  }
+}
+
+extension Anytype_Rpc.BlockDataview.ViewRelation.Add {
+  public enum Service {
+    public static func invoke(contextID: String = String(), blockID: String = String(), viewID: String = String(), relation: Anytype_Model_Block.Content.Dataview.Relation, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(contextID: contextID, blockID: blockID, viewID: viewID, relation: relation).invoke(on: queue)
+    }
+    public static func invoke(contextID: String = String(), blockID: String = String(), viewID: String = String(), relation: Anytype_Model_Block.Content.Dataview.Relation) -> Result<Response, Error> {
+        return invocation(contextID: contextID, blockID: blockID, viewID: viewID, relation: relation).invoke()
+    }
+    public static func invocation(contextID: String = String(), blockID: String = String(), viewID: String = String(), relation: Anytype_Model_Block.Content.Dataview.Relation) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockID: blockID, viewID: viewID, relation: relation)
+        return Invocation<Request,Response>(messageName: "BlockDataviewViewRelationAdd", request: request) { request in
+            return self.invoke(request)
+        }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+        return Lib.ServiceBlockDataviewViewRelationAdd(try? request.serializedData()).flatMap {
+            try? Response(serializedData: $0)
+        }
+    }
+  }
+}
+
+extension Anytype_Rpc.BlockDataview.ViewRelation.Remove {
+  public enum Service {
+    public static func invoke(contextID: String = String(), blockID: String = String(), viewID: String = String(), relationKeys: [String] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(contextID: contextID, blockID: blockID, viewID: viewID, relationKeys: relationKeys).invoke(on: queue)
+    }
+    public static func invoke(contextID: String = String(), blockID: String = String(), viewID: String = String(), relationKeys: [String] = []) -> Result<Response, Error> {
+        return invocation(contextID: contextID, blockID: blockID, viewID: viewID, relationKeys: relationKeys).invoke()
+    }
+    public static func invocation(contextID: String = String(), blockID: String = String(), viewID: String = String(), relationKeys: [String] = []) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockID: blockID, viewID: viewID, relationKeys: relationKeys)
+        return Invocation<Request,Response>(messageName: "BlockDataviewViewRelationRemove", request: request) { request in
+            return self.invoke(request)
+        }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+        return Lib.ServiceBlockDataviewViewRelationRemove(try? request.serializedData()).flatMap {
+            try? Response(serializedData: $0)
+        }
+    }
+  }
+}
+
+extension Anytype_Rpc.BlockDataview.ViewRelation.Replace {
+  public enum Service {
+    public static func invoke(contextID: String = String(), blockID: String = String(), viewID: String = String(), relationKey: String = String(), relation: Anytype_Model_Block.Content.Dataview.Relation, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(contextID: contextID, blockID: blockID, viewID: viewID, relationKey: relationKey, relation: relation).invoke(on: queue)
+    }
+    public static func invoke(contextID: String = String(), blockID: String = String(), viewID: String = String(), relationKey: String = String(), relation: Anytype_Model_Block.Content.Dataview.Relation) -> Result<Response, Error> {
+        return invocation(contextID: contextID, blockID: blockID, viewID: viewID, relationKey: relationKey, relation: relation).invoke()
+    }
+    public static func invocation(contextID: String = String(), blockID: String = String(), viewID: String = String(), relationKey: String = String(), relation: Anytype_Model_Block.Content.Dataview.Relation) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockID: blockID, viewID: viewID, relationKey: relationKey, relation: relation)
+        return Invocation<Request,Response>(messageName: "BlockDataviewViewRelationReplace", request: request) { request in
+            return self.invoke(request)
+        }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+        return Lib.ServiceBlockDataviewViewRelationReplace(try? request.serializedData()).flatMap {
+            try? Response(serializedData: $0)
+        }
+    }
+  }
+}
+
+extension Anytype_Rpc.BlockDataview.ViewRelation.Sort {
+  public enum Service {
+    public static func invoke(contextID: String = String(), blockID: String = String(), viewID: String = String(), relationKeys: [String] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(contextID: contextID, blockID: blockID, viewID: viewID, relationKeys: relationKeys).invoke(on: queue)
+    }
+    public static func invoke(contextID: String = String(), blockID: String = String(), viewID: String = String(), relationKeys: [String] = []) -> Result<Response, Error> {
+        return invocation(contextID: contextID, blockID: blockID, viewID: viewID, relationKeys: relationKeys).invoke()
+    }
+    public static func invocation(contextID: String = String(), blockID: String = String(), viewID: String = String(), relationKeys: [String] = []) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockID: blockID, viewID: viewID, relationKeys: relationKeys)
+        return Invocation<Request,Response>(messageName: "BlockDataviewViewRelationSort", request: request) { request in
+            return self.invoke(request)
+        }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+        return Lib.ServiceBlockDataviewViewRelationSort(try? request.serializedData()).flatMap {
             try? Response(serializedData: $0)
         }
     }

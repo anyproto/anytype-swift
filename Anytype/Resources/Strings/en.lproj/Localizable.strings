@@ -99,7 +99,7 @@
 "Name" = "Name";
 "Description" = "Description";
 "Paste processing..." = "Paste processing...";
-"Marketplace" = "Marketplace";
+"Anytype Library" = "Anytype Library";
 "Copied" = "Copied";
 
 // Home
@@ -241,7 +241,8 @@
 
 // MARK: - Main search
 "There is no object named" = "There is no object named %@";
-"Try to create a new one or search for something else" = "Try to create a new one or search for something else";
+"There is no type named" = "There is no type named %@";
+"Create a new one or search for something else" = "Create a new one or search for something else";
 
 // MARK: - Home
 
@@ -361,7 +362,7 @@
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ days from now";
 
 // MARK: - Sets: Featured relations
-"Set.FeaturedRelations.Source" = "Source";
+"Set.FeaturedRelations.Query" = "Query";
 "Set.FeaturedRelations.RelationsList" = "Relations:";
 "Set.FeaturedRelations.Relation" = "Relation:";
 "Set.FeaturedRelations.Type" = "Type:";
@@ -391,9 +392,13 @@
 "Set.View.Kanban.Column.Settings.Color.Title" = "Column color";
 "Set.View.Kanban.Column.Settings.Hide.Column.Title" = "Hide column";
 
+// MARK: - Sets: empty view
+"Set.View.Empty.Title" = "No query selected";
+"Set.View.Empty.Subtitle" = "All objects satisfying your query will be displayed in Set";
+
 // MARK: - Set source type
-"Set.SourceType.SelectSource" = "Select source";
-"Set.SourceType.Cancel.Toast.Title" = "This source can be changed on desktop only";
+"Set.SourceType.SelectQuery" = "Select query";
+"Set.SourceType.Cancel.Toast.Title" = "This query can be changed on desktop only";
 
 // MARK: Slash Menu
 "SlashMenu.DotsDivider" = "Dots divider";
@@ -499,6 +504,7 @@
 "Deleted" = "Deleted";
 "Download" = "Download";
 "Open object" = "Open object";
+"Open source" = "Open source";
 "Turn into" = "Turn into";
 "Into object" = "Into object";
 "Add below" = "Add below";
@@ -534,7 +540,7 @@
 "Today" = "Today";
 "No date" = "No date";
 "Clear" = "Clear";
-"Create option" = "Create option ‘%s’";
+"Create option" = "Create option ‘%@’";
 "Add URL" = "Add URL";
 "Add email" = "Add email";
 "Add phone number" = "Add phone number";
@@ -646,6 +652,11 @@
 "Content.Common.Error" = "Something went wrong, try again";
 "Content.Bookmark.Add" = "Add a web bookmark";
 "Content.Bookmark.Loading" = "Loading, please wait...";
+"Content.DataView.InlineSet.Subtitle" = "Inline set";
+"Content.DataView.InlineSet.NoSource" = "No source";
+"Content.DataView.InlineSet.NoData" = "No data";
+"Content.DataView.InlineSet.Untitled" = "Untitled set";
+"Content.DataView.InlineSet.Toast.Failure" = "This inline set doesn’t have a source";
 
 // MARK: - Widget extension
 "WidgetExtension.LockScreen.Title" = "New object";
@@ -657,3 +668,10 @@
 
 // MARK: - Scanner
 "Scanner.Error.Scanning not supported" = "Scanning not supported";
+
+// MARK: - Widgets
+"Widgets.SourceSearch" = "Widget source";
+"Widgets.Actions.ChangeSource" = "Change source";
+"Widgets.Actions.ChangeWidgetType" = "Change widget type";
+"Widgets.Actions.RemoveWidget" = "Remove widget";
+"Widgets.Actions.EditWidgets" = "Edit widgets";

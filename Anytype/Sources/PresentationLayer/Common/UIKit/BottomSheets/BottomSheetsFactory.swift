@@ -19,12 +19,12 @@ final class BottomSheetsFactory {
         let askColor: () -> UIColor? = {
             guard case let .text(textContent) = info.content else { return nil }
             return textContent.color.map {
-                UIColor.Text.uiColor(from: $0)
+                UIColor.Dark.uiColor(from: $0)
             }
         }
         let askBackgroundColor: () -> UIColor? = {
             return info.backgroundColor.map {
-                UIColor.Background.uiColor(from: $0)
+                UIColor.VeryLight.uiColor(from: $0)
             }
         }
         
@@ -41,7 +41,7 @@ final class BottomSheetsFactory {
 
         let popup = AnytypePopup(
             contentView: styleView,
-            popupLayout: FeatureFlags.hideBottomViewForStyleMenu ? .intrinsic : .alert(height: 0),
+            popupLayout: .intrinsic,
             floatingPanelStyle: true,
             configuration: .init(
                 isGrabberVisible: true,

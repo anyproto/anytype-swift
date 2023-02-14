@@ -328,7 +328,10 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
     }
 
     private func handleBlocksOptionItemSelection(_ item: BlocksOptionItem) {
-        let elements = selectedBlocksIndexPaths.compactMap { modelsHolder.blockViewModel(at: $0.row) }
+        let sortedElements: [IndexPath] = selectedBlocksIndexPaths.sorted()
+        let elements = sortedElements.compactMap {
+            modelsHolder.blockViewModel(at: $0.row)
+        }
         AnytypeAnalytics.instance().logEvent(
             AnalyticsEventsName.blockAction,
             withEventProperties: ["type": item.analyticsEventValue]
@@ -400,6 +403,16 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
             guard case let .bookmark(bookmark) = elements.first?.content else { return }
             AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.openAsObject)
             let screenData = EditorScreenData(pageId: bookmark.targetObjectID, type: .page)
+            router.showPage(data: screenData)
+        case .openSource:
+            anytypeAssert(
+                elements.count == 1,
+                "Number of elements should be 1",
+                domain: .editorPage
+            )
+            guard case let .dataView(data) = elements.first?.content else { return }
+            AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.openAsSource)
+            let screenData = EditorScreenData(pageId: data.targetObjectID, type: .set())
             router.showPage(data: screenData)
         case .style:
             editingState = .editing

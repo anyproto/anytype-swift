@@ -5,7 +5,7 @@ struct LaunchView: View {
     
     var body: some View {
         ZStack {
-            Color.backgroundPrimary
+            Color.Background.primary
             Image(asset: .splashLogo)
         }.ignoresSafeArea()
     }

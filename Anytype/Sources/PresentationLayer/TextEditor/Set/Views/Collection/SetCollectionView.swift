@@ -125,7 +125,7 @@ struct SetCollectionView: View {
                 )
             }
         }
-        .background(Color.backgroundPrimary)
+        .background(Color.Background.primary)
     }
     
     private func columns() -> [GridItem] {
@@ -143,7 +143,7 @@ extension SetCollectionView {
 struct SetCollectionView_Previews: PreviewProvider {
     static var previews: some View {
         SetCollectionView(
-            model: EditorSetViewModel.empty,
+            model: EditorSetViewModel.emptyPreview,
             tableHeaderSize: .constant(.zero),
             offset: .constant(.zero),
             headerMinimizedSize: .zero,

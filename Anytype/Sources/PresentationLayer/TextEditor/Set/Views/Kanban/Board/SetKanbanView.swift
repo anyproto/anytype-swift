@@ -91,6 +91,6 @@ struct SetKanbanView: View {
                 Spacer.fixedHeight(16)
             }
         }
-        .background(Color.backgroundPrimary)
+        .background(Color.Background.primary)
     }
 }

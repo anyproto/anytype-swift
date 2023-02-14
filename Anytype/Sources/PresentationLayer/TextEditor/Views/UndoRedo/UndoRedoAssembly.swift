@@ -29,7 +29,7 @@ final class UndoRedoModuleAssembly: UndoRedoModuleAssemblyProtocol {
         popupViewController.backdropView.backgroundColor = .clear
         
         viewModel.onErrorHandler = { [weak self] errorMessage in
-            self?.uiHelpersDI.toastPresenter.show(message: errorMessage, mode: .aboveView(popupViewController.surfaceView))
+            self?.uiHelpersDI.toastPresenter().show(message: errorMessage, mode: .aboveView(popupViewController.surfaceView))
         }
         
 

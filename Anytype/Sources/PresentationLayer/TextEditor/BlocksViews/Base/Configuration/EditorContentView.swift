@@ -109,7 +109,7 @@ final class EditorContentView<View: BlockContentView>: UIView & UIContentView, U
         isUserInteractionEnabled = state.isEditing
         viewDragInteraction.isEnabled = !state.isLocked
         if state.isMoving {
-            backgroundColor = UIColor.Background.blue
+            backgroundColor = UIColor.VeryLight.blue
         } else {
             backgroundColor = .clear
         }

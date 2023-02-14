@@ -814,6 +814,124 @@ extension Anytype_Rpc.BlockDataview.CreateBookmark.Response.Error {
     }
 }
 
+extension Anytype_Rpc.BlockDataview.CreateFromExistingObject.Request {
+    public init(contextID: String = String(), blockID: String = String(), targetObjectID: String = String()) {
+        self.contextID = contextID
+        self.blockID = blockID
+        self.targetObjectID = targetObjectID
+    }
+}
+
+extension Anytype_Rpc.BlockDataview.CreateFromExistingObject.Response {
+    public init(error: Anytype_Rpc.BlockDataview.CreateFromExistingObject.Response.Error, blockID: String = String(), targetObjectID: String = String(), view: [Anytype_Model_Block.Content.Dataview.View] = [], event: Anytype_ResponseEvent) {
+        self.error = error
+        self.blockID = blockID
+        self.targetObjectID = targetObjectID
+        self.view = view
+        self.event = event
+    }
+}
+
+extension Anytype_Rpc.BlockDataview.CreateFromExistingObject.Response.Error {
+    public init(code: Anytype_Rpc.BlockDataview.CreateFromExistingObject.Response.Error.Code = .null, description_p: String = String()) {
+        self.code = code
+        self.description_p = description_p
+    }
+}
+
+extension Anytype_Rpc.BlockDataview.Filter.Add.Request {
+    public init(contextID: String = String(), blockID: String = String(), viewID: String = String(), filter: Anytype_Model_Block.Content.Dataview.Filter) {
+        self.contextID = contextID
+        self.blockID = blockID
+        self.viewID = viewID
+        self.filter = filter
+    }
+}
+
+extension Anytype_Rpc.BlockDataview.Filter.Add.Response {
+    public init(error: Anytype_Rpc.BlockDataview.Filter.Add.Response.Error, event: Anytype_ResponseEvent) {
+        self.error = error
+        self.event = event
+    }
+}
+
+extension Anytype_Rpc.BlockDataview.Filter.Add.Response.Error {
+    public init(code: Anytype_Rpc.BlockDataview.Filter.Add.Response.Error.Code = .null, description_p: String = String()) {
+        self.code = code
+        self.description_p = description_p
+    }
+}
+
+extension Anytype_Rpc.BlockDataview.Filter.Remove.Request {
+    public init(contextID: String = String(), blockID: String = String(), viewID: String = String(), ids: [String] = []) {
+        self.contextID = contextID
+        self.blockID = blockID
+        self.viewID = viewID
+        self.ids = ids
+    }
+}
+
+extension Anytype_Rpc.BlockDataview.Filter.Remove.Response {
+    public init(error: Anytype_Rpc.BlockDataview.Filter.Remove.Response.Error, event: Anytype_ResponseEvent) {
+        self.error = error
+        self.event = event
+    }
+}
+
+extension Anytype_Rpc.BlockDataview.Filter.Remove.Response.Error {
+    public init(code: Anytype_Rpc.BlockDataview.Filter.Remove.Response.Error.Code = .null, description_p: String = String()) {
+        self.code = code
+        self.description_p = description_p
+    }
+}
+
+extension Anytype_Rpc.BlockDataview.Filter.Replace.Request {
+    public init(contextID: String = String(), blockID: String = String(), viewID: String = String(), id: String = String(), filter: Anytype_Model_Block.Content.Dataview.Filter) {
+        self.contextID = contextID
+        self.blockID = blockID
+        self.viewID = viewID
+        self.id = id
+        self.filter = filter
+    }
+}
+
+extension Anytype_Rpc.BlockDataview.Filter.Replace.Response {
+    public init(error: Anytype_Rpc.BlockDataview.Filter.Replace.Response.Error, event: Anytype_ResponseEvent) {
+        self.error = error
+        self.event = event
+    }
+}
+
+extension Anytype_Rpc.BlockDataview.Filter.Replace.Response.Error {
+    public init(code: Anytype_Rpc.BlockDataview.Filter.Replace.Response.Error.Code = .null, description_p: String = String()) {
+        self.code = code
+        self.description_p = description_p
+    }
+}
+
+extension Anytype_Rpc.BlockDataview.Filter.Sort.Request {
+    public init(contextID: String = String(), blockID: String = String(), viewID: String = String(), ids: [String] = []) {
+        self.contextID = contextID
+        self.blockID = blockID
+        self.viewID = viewID
+        self.ids = ids
+    }
+}
+
+extension Anytype_Rpc.BlockDataview.Filter.Sort.Response {
+    public init(error: Anytype_Rpc.BlockDataview.Filter.Sort.Response.Error, event: Anytype_ResponseEvent) {
+        self.error = error
+        self.event = event
+    }
+}
+
+extension Anytype_Rpc.BlockDataview.Filter.Sort.Response.Error {
+    public init(code: Anytype_Rpc.BlockDataview.Filter.Sort.Response.Error.Code = .null, description_p: String = String()) {
+        self.code = code
+        self.description_p = description_p
+    }
+}
+
 extension Anytype_Rpc.BlockDataview.GroupOrder.Update.Request {
     public init(contextID: String = String(), blockID: String = String(), groupOrder: Anytype_Model_Block.Content.Dataview.GroupOrder) {
         self.contextID = contextID
@@ -945,11 +1063,105 @@ extension Anytype_Rpc.BlockDataview.SetSource.Response.Error {
     }
 }
 
+extension Anytype_Rpc.BlockDataview.Sort.Add.Request {
+    public init(contextID: String = String(), blockID: String = String(), viewID: String = String(), sort: Anytype_Model_Block.Content.Dataview.Sort) {
+        self.contextID = contextID
+        self.blockID = blockID
+        self.viewID = viewID
+        self.sort = sort
+    }
+}
+
+extension Anytype_Rpc.BlockDataview.Sort.Add.Response {
+    public init(error: Anytype_Rpc.BlockDataview.Sort.Add.Response.Error, event: Anytype_ResponseEvent) {
+        self.error = error
+        self.event = event
+    }
+}
+
+extension Anytype_Rpc.BlockDataview.Sort.Add.Response.Error {
+    public init(code: Anytype_Rpc.BlockDataview.Sort.Add.Response.Error.Code = .null, description_p: String = String()) {
+        self.code = code
+        self.description_p = description_p
+    }
+}
+
+extension Anytype_Rpc.BlockDataview.Sort.Remove.Request {
+    public init(contextID: String = String(), blockID: String = String(), viewID: String = String(), ids: [String] = []) {
+        self.contextID = contextID
+        self.blockID = blockID
+        self.viewID = viewID
+        self.ids = ids
+    }
+}
+
+extension Anytype_Rpc.BlockDataview.Sort.Remove.Response {
+    public init(error: Anytype_Rpc.BlockDataview.Sort.Remove.Response.Error, event: Anytype_ResponseEvent) {
+        self.error = error
+        self.event = event
+    }
+}
+
+extension Anytype_Rpc.BlockDataview.Sort.Remove.Response.Error {
+    public init(code: Anytype_Rpc.BlockDataview.Sort.Remove.Response.Error.Code = .null, description_p: String = String()) {
+        self.code = code
+        self.description_p = description_p
+    }
+}
+
+extension Anytype_Rpc.BlockDataview.Sort.Replace.Request {
+    public init(contextID: String = String(), blockID: String = String(), viewID: String = String(), id: String = String(), sort: Anytype_Model_Block.Content.Dataview.Sort) {
+        self.contextID = contextID
+        self.blockID = blockID
+        self.viewID = viewID
+        self.id = id
+        self.sort = sort
+    }
+}
+
+extension Anytype_Rpc.BlockDataview.Sort.Replace.Response {
+    public init(error: Anytype_Rpc.BlockDataview.Sort.Replace.Response.Error, event: Anytype_ResponseEvent) {
+        self.error = error
+        self.event = event
+    }
+}
+
+extension Anytype_Rpc.BlockDataview.Sort.Replace.Response.Error {
+    public init(code: Anytype_Rpc.BlockDataview.Sort.Replace.Response.Error.Code = .null, description_p: String = String()) {
+        self.code = code
+        self.description_p = description_p
+    }
+}
+
+extension Anytype_Rpc.BlockDataview.Sort.Sort.Request {
+    public init(contextID: String = String(), blockID: String = String(), viewID: String = String(), ids: [String] = []) {
+        self.contextID = contextID
+        self.blockID = blockID
+        self.viewID = viewID
+        self.ids = ids
+    }
+}
+
+extension Anytype_Rpc.BlockDataview.Sort.Sort.Response {
+    public init(error: Anytype_Rpc.BlockDataview.Sort.Sort.Response.Error, event: Anytype_ResponseEvent) {
+        self.error = error
+        self.event = event
+    }
+}
+
+extension Anytype_Rpc.BlockDataview.Sort.Sort.Response.Error {
+    public init(code: Anytype_Rpc.BlockDataview.Sort.Sort.Response.Error.Code = .null, description_p: String = String()) {
+        self.code = code
+        self.description_p = description_p
+    }
+}
+
 extension Anytype_Rpc.BlockDataview.View.Create.Request {
-    public init(contextID: String = String(), blockID: String = String(), view: Anytype_Model_Block.Content.Dataview.View) {
+    public init(contextID: String = String(), blockID: String = String(), view: Anytype_Model_Block.Content.Dataview.View, source: [String] = []) {
         self.contextID = contextID
         self.blockID = blockID
         self.view = view
+        self.source = source
     }
 }
 
@@ -1055,6 +1267,99 @@ extension Anytype_Rpc.BlockDataview.View.Update.Response {
 
 extension Anytype_Rpc.BlockDataview.View.Update.Response.Error {
     public init(code: Anytype_Rpc.BlockDataview.View.Update.Response.Error.Code = .null, description_p: String = String()) {
+        self.code = code
+        self.description_p = description_p
+    }
+}
+
+extension Anytype_Rpc.BlockDataview.ViewRelation.Add.Request {
+    public init(contextID: String = String(), blockID: String = String(), viewID: String = String(), relation: Anytype_Model_Block.Content.Dataview.Relation) {
+        self.contextID = contextID
+        self.blockID = blockID
+        self.viewID = viewID
+        self.relation = relation
+    }
+}
+
+extension Anytype_Rpc.BlockDataview.ViewRelation.Add.Response {
+    public init(error: Anytype_Rpc.BlockDataview.ViewRelation.Add.Response.Error, event: Anytype_ResponseEvent) {
+        self.error = error
+        self.event = event
+    }
+}
+
+extension Anytype_Rpc.BlockDataview.ViewRelation.Add.Response.Error {
+    public init(code: Anytype_Rpc.BlockDataview.ViewRelation.Add.Response.Error.Code = .null, description_p: String = String()) {
+        self.code = code
+        self.description_p = description_p
+    }
+}
+
+extension Anytype_Rpc.BlockDataview.ViewRelation.Remove.Request {
+    public init(contextID: String = String(), blockID: String = String(), viewID: String = String(), relationKeys: [String] = []) {
+        self.contextID = contextID
+        self.blockID = blockID
+        self.viewID = viewID
+        self.relationKeys = relationKeys
+    }
+}
+
+extension Anytype_Rpc.BlockDataview.ViewRelation.Remove.Response {
+    public init(error: Anytype_Rpc.BlockDataview.ViewRelation.Remove.Response.Error, event: Anytype_ResponseEvent) {
+        self.error = error
+        self.event = event
+    }
+}
+
+extension Anytype_Rpc.BlockDataview.ViewRelation.Remove.Response.Error {
+    public init(code: Anytype_Rpc.BlockDataview.ViewRelation.Remove.Response.Error.Code = .null, description_p: String = String()) {
+        self.code = code
+        self.description_p = description_p
+    }
+}
+
+extension Anytype_Rpc.BlockDataview.ViewRelation.Replace.Request {
+    public init(contextID: String = String(), blockID: String = String(), viewID: String = String(), relationKey: String = String(), relation: Anytype_Model_Block.Content.Dataview.Relation) {
+        self.contextID = contextID
+        self.blockID = blockID
+        self.viewID = viewID
+        self.relationKey = relationKey
+        self.relation = relation
+    }
+}
+
+extension Anytype_Rpc.BlockDataview.ViewRelation.Replace.Response {
+    public init(error: Anytype_Rpc.BlockDataview.ViewRelation.Replace.Response.Error, event: Anytype_ResponseEvent) {
+        self.error = error
+        self.event = event
+    }
+}
+
+extension Anytype_Rpc.BlockDataview.ViewRelation.Replace.Response.Error {
+    public init(code: Anytype_Rpc.BlockDataview.ViewRelation.Replace.Response.Error.Code = .null, description_p: String = String()) {
+        self.code = code
+        self.description_p = description_p
+    }
+}
+
+extension Anytype_Rpc.BlockDataview.ViewRelation.Sort.Request {
+    public init(contextID: String = String(), blockID: String = String(), viewID: String = String(), relationKeys: [String] = []) {
+        self.contextID = contextID
+        self.blockID = blockID
+        self.viewID = viewID
+        self.relationKeys = relationKeys
+    }
+}
+
+extension Anytype_Rpc.BlockDataview.ViewRelation.Sort.Response {
+    public init(error: Anytype_Rpc.BlockDataview.ViewRelation.Sort.Response.Error, event: Anytype_ResponseEvent) {
+        self.error = error
+        self.event = event
+    }
+}
+
+extension Anytype_Rpc.BlockDataview.ViewRelation.Sort.Response.Error {
+    public init(code: Anytype_Rpc.BlockDataview.ViewRelation.Sort.Response.Error.Code = .null, description_p: String = String()) {
         self.code = code
         self.description_p = description_p
     }
@@ -3147,6 +3452,27 @@ extension Anytype_Rpc.Object.SetObjectType.Response {
 
 extension Anytype_Rpc.Object.SetObjectType.Response.Error {
     public init(code: Anytype_Rpc.Object.SetObjectType.Response.Error.Code = .null, description_p: String = String()) {
+        self.code = code
+        self.description_p = description_p
+    }
+}
+
+extension Anytype_Rpc.Object.SetSource.Request {
+    public init(contextID: String = String(), source: [String] = []) {
+        self.contextID = contextID
+        self.source = source
+    }
+}
+
+extension Anytype_Rpc.Object.SetSource.Response {
+    public init(error: Anytype_Rpc.Object.SetSource.Response.Error, event: Anytype_ResponseEvent) {
+        self.error = error
+        self.event = event
+    }
+}
+
+extension Anytype_Rpc.Object.SetSource.Response.Error {
+    public init(code: Anytype_Rpc.Object.SetSource.Response.Error.Code = .null, description_p: String = String()) {
         self.code = code
         self.description_p = description_p
     }

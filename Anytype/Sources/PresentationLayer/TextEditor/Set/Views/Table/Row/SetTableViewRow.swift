@@ -44,7 +44,7 @@ struct SetTableViewRow: View {
         Button {
             configuration.onItemTap()
         } label: {
-            AnytypeText(configuration.title, style: .previewTitle2Medium, color: .textPrimary)
+            AnytypeText(configuration.title, style: .previewTitle2Medium, color: .Text.primary)
                 .lineLimit(1)
         }
     }
@@ -56,7 +56,7 @@ struct SetTableViewRow: View {
                 cell(colum)
                 Rectangle()
                     .frame(width: 0.5, height: 18)
-                    .foregroundColor(.strokePrimary)
+                    .foregroundColor(.Stroke.primary)
             }
         }
         .frame(height: 18)
@@ -68,7 +68,6 @@ struct SetTableViewRow: View {
 
             model.showRelationValueEditingView(
                 objectId: configuration.id,
-                source: .dataview(contextId: model.objectId),
                 relation: relation
             )
         }

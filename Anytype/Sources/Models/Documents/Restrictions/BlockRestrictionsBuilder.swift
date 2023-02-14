@@ -24,7 +24,7 @@ struct BlockRestrictionsBuilder {
             return PageBlockRestrictions()
         case .bookmark:
             return BookmarkBlockRestrictions()
-        case .smartblock, .layout, .featuredRelations, .dataView, .table, .tableRow, .tableColumn:
+        case .smartblock, .layout, .featuredRelations, .dataView, .table, .tableRow, .tableColumn, .widget:
             return DummyRestrictions()
         case .relation:
             return RelationBlockRestrictions()

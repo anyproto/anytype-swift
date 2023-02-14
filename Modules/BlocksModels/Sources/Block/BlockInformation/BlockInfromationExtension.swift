@@ -16,7 +16,7 @@ public extension BlockInformation {
         case .smartblock, .layout, .tableRow, .tableColumn:
             return .meta
         case .text, .file, .divider, .bookmark, .link, .featuredRelations, .relation, .dataView, .table,
-                .tableOfContents, .unsupported:
+                .tableOfContents, .widget, .unsupported:
             return .block
         }
     }
@@ -47,6 +47,15 @@ public extension BlockInformation {
     var isFeaturedRelations: Bool {
         switch content {
         case .featuredRelations:
+            return true
+        default:
+            return false
+        }
+    }
+    
+    var isWidget: Bool {
+        switch content {
+        case .widget:
             return true
         default:
             return false

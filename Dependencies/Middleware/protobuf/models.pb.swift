@@ -1483,6 +1483,8 @@ public struct Anytype_Model_Block {
 
       public var relationLinks: [Anytype_Model_RelationLink] = []
 
+      public var targetObjectID: String = String()
+
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
       public struct View {
@@ -1520,6 +1522,8 @@ public struct Anytype_Model_Block {
 
         /// Enable backgrounds in groups
         public var groupBackgroundColors: Bool = false
+
+        public var pageLimit: Int32 = 0
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -1694,11 +1698,17 @@ public struct Anytype_Model_Block {
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
+        public var id: String = String()
+
         public var relationKey: String = String()
 
         public var type: Anytype_Model_Block.Content.Dataview.Sort.TypeEnum = .asc
 
         public var customOrder: [SwiftProtobuf.Google_Protobuf_Value] = []
+
+        public var format: Anytype_Model_RelationFormat = .longtext
+
+        public var includeTime: Bool = false
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -1740,6 +1750,8 @@ public struct Anytype_Model_Block {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
+
+        public var id: String = String()
 
         /// looks not applicable?
         public var `operator`: Anytype_Model_Block.Content.Dataview.Filter.Operator = .and
@@ -2748,15 +2760,6 @@ public struct Anytype_Model_Account {
 
     /// profile block id
     public var profileObjectID: String = String()
-
-    /// deprecated, to be removed
-    public var marketplaceTypeObjectID: String = String()
-
-    /// deprecated, to be removed
-    public var marketplaceRelationObjectID: String = String()
-
-    /// deprecated, to be removed
-    public var marketplaceTemplateObjectID: String = String()
 
     /// marketplace workspace id
     public var marketplaceWorkspaceID: String = String()
@@ -5036,6 +5039,7 @@ extension Anytype_Model_Block.Content.Dataview: SwiftProtobuf.Message, SwiftProt
     12: .same(proto: "groupOrders"),
     13: .same(proto: "objectOrders"),
     5: .same(proto: "relationLinks"),
+    6: .same(proto: "TargetObjectId"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -5049,6 +5053,7 @@ extension Anytype_Model_Block.Content.Dataview: SwiftProtobuf.Message, SwiftProt
       case 3: try { try decoder.decodeSingularStringField(value: &self.activeView) }()
       case 4: try { try decoder.decodeRepeatedMessageField(value: &self.relations) }()
       case 5: try { try decoder.decodeRepeatedMessageField(value: &self.relationLinks) }()
+      case 6: try { try decoder.decodeSingularStringField(value: &self.targetObjectID) }()
       case 12: try { try decoder.decodeRepeatedMessageField(value: &self.groupOrders) }()
       case 13: try { try decoder.decodeRepeatedMessageField(value: &self.objectOrders) }()
       default: break
@@ -5072,6 +5077,9 @@ extension Anytype_Model_Block.Content.Dataview: SwiftProtobuf.Message, SwiftProt
     if !self.relationLinks.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.relationLinks, fieldNumber: 5)
     }
+    if !self.targetObjectID.isEmpty {
+      try visitor.visitSingularStringField(value: self.targetObjectID, fieldNumber: 6)
+    }
     if !self.groupOrders.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.groupOrders, fieldNumber: 12)
     }
@@ -5089,6 +5097,7 @@ extension Anytype_Model_Block.Content.Dataview: SwiftProtobuf.Message, SwiftProt
     if lhs.groupOrders != rhs.groupOrders {return false}
     if lhs.objectOrders != rhs.objectOrders {return false}
     if lhs.relationLinks != rhs.relationLinks {return false}
+    if lhs.targetObjectID != rhs.targetObjectID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -5109,6 +5118,7 @@ extension Anytype_Model_Block.Content.Dataview.View: SwiftProtobuf.Message, Swif
     10: .same(proto: "coverFit"),
     11: .same(proto: "groupRelationKey"),
     12: .same(proto: "groupBackgroundColors"),
+    13: .same(proto: "pageLimit"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -5129,6 +5139,7 @@ extension Anytype_Model_Block.Content.Dataview.View: SwiftProtobuf.Message, Swif
       case 10: try { try decoder.decodeSingularBoolField(value: &self.coverFit) }()
       case 11: try { try decoder.decodeSingularStringField(value: &self.groupRelationKey) }()
       case 12: try { try decoder.decodeSingularBoolField(value: &self.groupBackgroundColors) }()
+      case 13: try { try decoder.decodeSingularInt32Field(value: &self.pageLimit) }()
       default: break
       }
     }
@@ -5171,6 +5182,9 @@ extension Anytype_Model_Block.Content.Dataview.View: SwiftProtobuf.Message, Swif
     if self.groupBackgroundColors != false {
       try visitor.visitSingularBoolField(value: self.groupBackgroundColors, fieldNumber: 12)
     }
+    if self.pageLimit != 0 {
+      try visitor.visitSingularInt32Field(value: self.pageLimit, fieldNumber: 13)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -5187,6 +5201,7 @@ extension Anytype_Model_Block.Content.Dataview.View: SwiftProtobuf.Message, Swif
     if lhs.coverFit != rhs.coverFit {return false}
     if lhs.groupRelationKey != rhs.groupRelationKey {return false}
     if lhs.groupBackgroundColors != rhs.groupBackgroundColors {return false}
+    if lhs.pageLimit != rhs.pageLimit {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -5291,9 +5306,12 @@ extension Anytype_Model_Block.Content.Dataview.Relation.TimeFormat: SwiftProtobu
 extension Anytype_Model_Block.Content.Dataview.Sort: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Model_Block.Content.Dataview.protoMessageName + ".Sort"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    6: .same(proto: "id"),
     1: .same(proto: "RelationKey"),
     2: .same(proto: "type"),
     3: .same(proto: "customOrder"),
+    4: .same(proto: "format"),
+    5: .same(proto: "includeTime"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -5305,6 +5323,9 @@ extension Anytype_Model_Block.Content.Dataview.Sort: SwiftProtobuf.Message, Swif
       case 1: try { try decoder.decodeSingularStringField(value: &self.relationKey) }()
       case 2: try { try decoder.decodeSingularEnumField(value: &self.type) }()
       case 3: try { try decoder.decodeRepeatedMessageField(value: &self.customOrder) }()
+      case 4: try { try decoder.decodeSingularEnumField(value: &self.format) }()
+      case 5: try { try decoder.decodeSingularBoolField(value: &self.includeTime) }()
+      case 6: try { try decoder.decodeSingularStringField(value: &self.id) }()
       default: break
       }
     }
@@ -5320,13 +5341,25 @@ extension Anytype_Model_Block.Content.Dataview.Sort: SwiftProtobuf.Message, Swif
     if !self.customOrder.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.customOrder, fieldNumber: 3)
     }
+    if self.format != .longtext {
+      try visitor.visitSingularEnumField(value: self.format, fieldNumber: 4)
+    }
+    if self.includeTime != false {
+      try visitor.visitSingularBoolField(value: self.includeTime, fieldNumber: 5)
+    }
+    if !self.id.isEmpty {
+      try visitor.visitSingularStringField(value: self.id, fieldNumber: 6)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Model_Block.Content.Dataview.Sort, rhs: Anytype_Model_Block.Content.Dataview.Sort) -> Bool {
+    if lhs.id != rhs.id {return false}
     if lhs.relationKey != rhs.relationKey {return false}
     if lhs.type != rhs.type {return false}
     if lhs.customOrder != rhs.customOrder {return false}
+    if lhs.format != rhs.format {return false}
+    if lhs.includeTime != rhs.includeTime {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -5343,6 +5376,7 @@ extension Anytype_Model_Block.Content.Dataview.Sort.TypeEnum: SwiftProtobuf._Pro
 extension Anytype_Model_Block.Content.Dataview.Filter: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Model_Block.Content.Dataview.protoMessageName + ".Filter"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    9: .same(proto: "id"),
     1: .same(proto: "operator"),
     2: .same(proto: "RelationKey"),
     5: .same(proto: "relationProperty"),
@@ -5367,6 +5401,7 @@ extension Anytype_Model_Block.Content.Dataview.Filter: SwiftProtobuf.Message, Sw
       case 6: try { try decoder.decodeSingularEnumField(value: &self.quickOption) }()
       case 7: try { try decoder.decodeSingularEnumField(value: &self.format) }()
       case 8: try { try decoder.decodeSingularBoolField(value: &self.includeTime) }()
+      case 9: try { try decoder.decodeSingularStringField(value: &self.id) }()
       default: break
       }
     }
@@ -5401,10 +5436,14 @@ extension Anytype_Model_Block.Content.Dataview.Filter: SwiftProtobuf.Message, Sw
     if self.includeTime != false {
       try visitor.visitSingularBoolField(value: self.includeTime, fieldNumber: 8)
     }
+    if !self.id.isEmpty {
+      try visitor.visitSingularStringField(value: self.id, fieldNumber: 9)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Model_Block.Content.Dataview.Filter, rhs: Anytype_Model_Block.Content.Dataview.Filter) -> Bool {
+    if lhs.id != rhs.id {return false}
     if lhs.`operator` != rhs.`operator` {return false}
     if lhs.relationKey != rhs.relationKey {return false}
     if lhs.relationProperty != rhs.relationProperty {return false}
@@ -6381,9 +6420,6 @@ extension Anytype_Model_Account.Info: SwiftProtobuf.Message, SwiftProtobuf._Mess
     2: .same(proto: "homeObjectId"),
     3: .same(proto: "archiveObjectId"),
     4: .same(proto: "profileObjectId"),
-    5: .same(proto: "marketplaceTypeObjectId"),
-    6: .same(proto: "marketplaceRelationObjectId"),
-    7: .same(proto: "marketplaceTemplateObjectId"),
     11: .same(proto: "marketplaceWorkspaceId"),
     8: .same(proto: "deviceId"),
     9: .same(proto: "accountSpaceId"),
@@ -6402,9 +6438,6 @@ extension Anytype_Model_Account.Info: SwiftProtobuf.Message, SwiftProtobuf._Mess
       case 2: try { try decoder.decodeSingularStringField(value: &self.homeObjectID) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self.archiveObjectID) }()
       case 4: try { try decoder.decodeSingularStringField(value: &self.profileObjectID) }()
-      case 5: try { try decoder.decodeSingularStringField(value: &self.marketplaceTypeObjectID) }()
-      case 6: try { try decoder.decodeSingularStringField(value: &self.marketplaceRelationObjectID) }()
-      case 7: try { try decoder.decodeSingularStringField(value: &self.marketplaceTemplateObjectID) }()
       case 8: try { try decoder.decodeSingularStringField(value: &self.deviceID) }()
       case 9: try { try decoder.decodeSingularStringField(value: &self.accountSpaceID) }()
       case 10: try { try decoder.decodeSingularStringField(value: &self.widgetsID) }()
@@ -6426,15 +6459,6 @@ extension Anytype_Model_Account.Info: SwiftProtobuf.Message, SwiftProtobuf._Mess
     }
     if !self.profileObjectID.isEmpty {
       try visitor.visitSingularStringField(value: self.profileObjectID, fieldNumber: 4)
-    }
-    if !self.marketplaceTypeObjectID.isEmpty {
-      try visitor.visitSingularStringField(value: self.marketplaceTypeObjectID, fieldNumber: 5)
-    }
-    if !self.marketplaceRelationObjectID.isEmpty {
-      try visitor.visitSingularStringField(value: self.marketplaceRelationObjectID, fieldNumber: 6)
-    }
-    if !self.marketplaceTemplateObjectID.isEmpty {
-      try visitor.visitSingularStringField(value: self.marketplaceTemplateObjectID, fieldNumber: 7)
     }
     if !self.deviceID.isEmpty {
       try visitor.visitSingularStringField(value: self.deviceID, fieldNumber: 8)
@@ -6464,9 +6488,6 @@ extension Anytype_Model_Account.Info: SwiftProtobuf.Message, SwiftProtobuf._Mess
     if lhs.homeObjectID != rhs.homeObjectID {return false}
     if lhs.archiveObjectID != rhs.archiveObjectID {return false}
     if lhs.profileObjectID != rhs.profileObjectID {return false}
-    if lhs.marketplaceTypeObjectID != rhs.marketplaceTypeObjectID {return false}
-    if lhs.marketplaceRelationObjectID != rhs.marketplaceRelationObjectID {return false}
-    if lhs.marketplaceTemplateObjectID != rhs.marketplaceTemplateObjectID {return false}
     if lhs.marketplaceWorkspaceID != rhs.marketplaceWorkspaceID {return false}
     if lhs.deviceID != rhs.deviceID {return false}
     if lhs.accountSpaceID != rhs.accountSpaceID {return false}

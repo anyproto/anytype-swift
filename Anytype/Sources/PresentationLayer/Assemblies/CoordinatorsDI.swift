@@ -15,7 +15,7 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     
     // MARK: - CoordinatorsDIProtocol
     
-    var relationValue: RelationValueCoordinatorAssemblyProtocol {
+    func relationValue() -> RelationValueCoordinatorAssemblyProtocol {
         return RelationValueCoordinatorAssembly(
             serviceLocator: serviceLocator,
             modulesDI: modulesDI,
@@ -23,11 +23,11 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
         )
     }
     
-    var templates: TemplatesCoordinatorAssemblyProtocol {
+    func templates() -> TemplatesCoordinatorAssemblyProtocol {
         return TemplatesCoordinatorAssembly(serviceLocator: serviceLocator, coordinatorsDI: self)
     }
     
-    var editorPage: EditorPageCoordinatorAssemblyProtocol {
+    func editorPage() -> EditorPageCoordinatorAssemblyProtocol {
         return EditorPageCoordinatorAssembly(
             serviceLocator: serviceLocator,
             modulesDI: modulesDI,
@@ -35,7 +35,7 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
         )
     }
     
-    var linkToObject: LinkToObjectCoordinatorAssemblyProtocol {
+    func linkToObject() -> LinkToObjectCoordinatorAssemblyProtocol {
         return LinkToObjectCoordinatorAssembly(
             serviceLocator: serviceLocator,
             modulesDI: modulesDI,
@@ -44,16 +44,16 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
         )
     }
     
-    var objectSettings: ObjectSettingsCoordinatorAssemblyProtocol {
+    func objectSettings() -> ObjectSettingsCoordinatorAssemblyProtocol {
         return ObjectSettingsCoordinatorAssembly(modulesDI: modulesDI, uiHelpersDI: uiHelpersDI, coordinatorsDI: self)
     }
     
-    var addNewRelation: AddNewRelationCoordinatorAssemblyProtocol {
+    func addNewRelation() -> AddNewRelationCoordinatorAssemblyProtocol {
         return AddNewRelationCoordinatorAssembly(uiHelpersDI: uiHelpersDI, modulesDI: modulesDI)
     }
     
     @MainActor
-    var homeWidgets: HomeWidgetsCoordinatorAssemblyProtocol {
+    func homeWidgets() -> HomeWidgetsCoordinatorAssemblyProtocol {
         return HomeWidgetsCoordinatorAssembly(
             coordinatorsID: self,
             modulesDI: modulesDI,
@@ -62,33 +62,41 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
         )
     }
     
-    var browser: EditorBrowserAssembly {
-        return EditorBrowserAssembly(coordinatorsDI: self)
+    func createWidget() -> CreateWidgetCoordinatorAssemblyProtocol {
+        return CreateWidgetCoordinatorAssembly(
+            modulesDI: modulesDI,
+            serviceLocator: serviceLocator,
+            uiHelpersDI: uiHelpersDI
+        )
     }
     
-    var editor: EditorAssembly {
+    func browser() -> EditorBrowserAssembly {
+        return EditorBrowserAssembly(coordinatorsDI: self, serviceLocator: serviceLocator)
+    }
+    
+    func editor() -> EditorAssembly {
         return EditorAssembly(serviceLocator: serviceLocator, coordinatorsDI: self, modulesDI: modulesDI, uiHelpersDI: uiHelpersDI)
     }
     
-    var homeViewAssemby: HomeViewAssembly {
+    func homeViewAssemby() -> HomeViewAssembly {
         return HomeViewAssembly(coordinatorsDI: self, modulesDI: modulesDI)
     }
     
     @MainActor
-    var application: ApplicationCoordinator {
+    func application() -> ApplicationCoordinator {
         return ApplicationCoordinator(
-            windowManager: windowManager,
+            windowManager: windowManager(),
             authService: serviceLocator.authService(),
             accountEventHandler: serviceLocator.accountEventHandler()
         )
     }
     
     @MainActor
-    var windowManager: WindowManager {
+    func windowManager() -> WindowManager {
         WindowManager(
-            viewControllerProvider: uiHelpersDI.viewControllerProvider,
-            homeViewAssembly: homeViewAssemby,
-            homeWidgetsCoordinatorAssembly: homeWidgets
+            viewControllerProvider: uiHelpersDI.viewControllerProvider(),
+            homeViewAssembly: homeViewAssemby(),
+            homeWidgetsCoordinatorAssembly: homeWidgets()
         )
     }
 }

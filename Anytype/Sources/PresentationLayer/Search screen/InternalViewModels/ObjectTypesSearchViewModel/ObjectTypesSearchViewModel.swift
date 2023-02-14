@@ -75,7 +75,7 @@ extension ObjectTypesSearchViewModel: NewInternalSearchViewModelProtocol {
 private extension ObjectTypesSearchViewModel {
     
     func handleError(for text: String) {
-        viewStateSubject.send(.error(.noObjectError(searchText: text)))
+        viewStateSubject.send(.error(.noTypeError(searchText: text)))
     }
     
     func handleSearchResults(objects: [ObjectDetails], marketplaceObjects: [ObjectDetails]) {
@@ -92,7 +92,7 @@ private extension ObjectTypesSearchViewModel {
                     if marketplaceObjects.isNotEmpty {
                         ListSectionConfiguration(
                             id: Constants.marketplaceSectionId,
-                            title: Loc.marketplace,
+                            title: Loc.anytypeLibrary,
                             rows:  marketplaceObjects.asRowConfigurations(selectedId: selectedObjectId)
                         )
                     }

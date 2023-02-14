@@ -2,36 +2,40 @@ import Foundation
 import UIKit
 
 protocol UIHelpersDIProtocol {
-    var toastPresenter: ToastPresenterProtocol { get }
-    var viewControllerProvider: ViewControllerProviderProtocol { get }
-    var commonNavigationContext: NavigationContextProtocol { get }
-    
+    func toastPresenter() -> ToastPresenterProtocol
     func toastPresenter(using containerViewController: UIViewController?) -> ToastPresenterProtocol
+    func viewControllerProvider() -> ViewControllerProviderProtocol
+    func commonNavigationContext() -> NavigationContextProtocol
+    
 }
 
 final class UIHelpersDI: UIHelpersDIProtocol {
-        
+    
+    private let _viewControllerProvider: ViewControllerProviderProtocol
+    
     init(viewControllerProvider: ViewControllerProviderProtocol) {
-        self.viewControllerProvider = viewControllerProvider
+        self._viewControllerProvider = viewControllerProvider
     }
     
     // MARK: - UIHelpersDIProtocol
     
-    let viewControllerProvider: ViewControllerProviderProtocol
-    
-    var toastPresenter: ToastPresenterProtocol {
+    func toastPresenter() -> ToastPresenterProtocol {
         toastPresenter(using: nil)
-    }
-    
-    var commonNavigationContext: NavigationContextProtocol {
-        NavigationContext(window: viewControllerProvider.window)
     }
     
     func toastPresenter(using containerViewController: UIViewController?) -> ToastPresenterProtocol {
         ToastPresenter(
-            viewControllerProvider: viewControllerProvider,
+            viewControllerProvider: viewControllerProvider(),
             containerViewController: containerViewController,
             keyboardHeightListener: KeyboardHeightListener()
         )
+    }
+    
+    func viewControllerProvider() -> ViewControllerProviderProtocol {
+        return _viewControllerProvider
+    }
+    
+    func commonNavigationContext() -> NavigationContextProtocol {
+        NavigationContext(window: viewControllerProvider().window)
     }
 }

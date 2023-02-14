@@ -19,18 +19,18 @@ protocol ComponentColor {
 }
 
 extension ComponentColor where T: UIColor {
-    static var `default`: UIColor { UIColor.backgroundPrimary }
+    static var `default`: UIColor { UIColor.Background.primary }
 }
 
 extension ComponentColor where T == Color {
-    static var `default`: Color { Color.backgroundPrimary }
+    static var `default`: Color { Color.Background.primary }
 }
 
-extension Color.Text {
-    static var `default`: Color { Color.textPrimary }
+extension Color.Dark {
+    static var `default`: Color { Color.Text.primary }
 }
 
-extension UIColor.Text {
-    static var `default`: UIColor { UIColor.textPrimary }
+extension UIColor.Dark {
+    static var `default`: UIColor { UIColor.Text.primary }
 }
 

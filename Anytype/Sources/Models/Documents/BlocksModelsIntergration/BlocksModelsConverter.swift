@@ -21,7 +21,8 @@ enum BlocksModelsConverter {
         case .table: return BlockContent.table
         case .tableColumn: return BlockContent.tableColumn
         case .tableRow(let data): return data.blockContent
-        case .icon, .latex, .widget:
+        case .widget(let data): return data.blockContent
+        case .icon, .latex:
             return .unsupported
         }
     }
@@ -43,12 +44,8 @@ enum BlocksModelsConverter {
                 domain: .blocksConverter
             )
             return nil
-        case .dataView:
-            anytypeAssertionFailure(
-                "Not suppoted converter from dataview to middleware",
-                domain: .blocksConverter
-            )
-            return nil
+        case .dataView(let data):
+            return .dataview(data.asMiddleware)
         case .unsupported:
             anytypeAssertionFailure(
                 "Not suppoted converter from unsupported to middleware",
@@ -61,6 +58,13 @@ enum BlocksModelsConverter {
             return .tableRow(.init(isHeader: data.isHeader))
         case .tableColumn:
             return .tableColumn(.init())
+        case .widget:
+            anytypeAssertionFailure(
+                "Not suppoted converter from widget to middleware",
+                domain: .blocksConverter
+            )
+            return nil
+            
         }
     }
 }

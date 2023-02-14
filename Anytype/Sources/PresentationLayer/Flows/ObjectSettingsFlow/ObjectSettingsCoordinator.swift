@@ -77,12 +77,12 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
     }
     
     func coverPickerAction() {
-        let moduleViewController = objectCoverPickerModuleAssembly.make(document: document)
+        let moduleViewController = objectCoverPickerModuleAssembly.make(document: document, objectId: document.objectId)
         navigationContext.present(moduleViewController)
     }
     
     func iconPickerAction() {
-        let moduleViewController = objectIconPickerModuleAssembly.make(document: document)
+        let moduleViewController = objectIconPickerModuleAssembly.make(document: document, objectId: document.objectId)
         navigationContext.present(moduleViewController)
     }
     
@@ -113,9 +113,13 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
     // MARK: - RelationsListModuleOutput
     
     func addNewRelationAction() {
-        addNewRelationCoordinator.showAddNewRelationView { relation, isNew in
-            AnytypeAnalytics.instance().logAddRelation(format: relation.format, isNew: isNew, type: .menu)
-        }
+        addNewRelationCoordinator.showAddNewRelationView(
+            excludedRelationsIds: document.parsedRelations.installed.map(\.id),
+            target: .object,
+            onCompletion: { relation, isNew in
+                AnytypeAnalytics.instance().logAddRelation(format: relation.format, isNew: isNew, type: .menu)
+            }
+        )
     }
     
     func editRelationValueAction(relationKey: String) {
@@ -124,7 +128,6 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
         
         relationValueCoordinator.startFlow(
             objectId: document.objectId,
-            source: .object,
             relation: relation,
             output: self
         )

@@ -445,13 +445,7 @@ extension EditorPageController: EditorPageViewInput {
 
         switch item {
         case let .block(block):
-            if FeatureFlags.cursorPosition {
-                viewModel.cursorFocus(blockId: block.blockId)
-            } else {
-                if let blockViewModel = block as? TextBlockViewModel {
-                    blockViewModel.set(focus: .end)
-                }
-            }
+            viewModel.cursorFocus(blockId: block.blockId)
         case .header, .system:
             return
         }
@@ -465,7 +459,7 @@ extension EditorPageController: EditorPageViewInput {
 private extension EditorPageController {
     
     func setupView() {
-        view.backgroundColor = .backgroundPrimary
+        view.backgroundColor = .Background.primary
         
         setupCollectionView()
         

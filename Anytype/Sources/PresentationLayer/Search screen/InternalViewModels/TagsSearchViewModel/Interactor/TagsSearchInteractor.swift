@@ -7,16 +7,18 @@ final class TagsSearchInteractor {
     private let relationKey: String
     private let selectedTagIds: [String]
     private let isPreselectModeAvailable: Bool
-    private let searchService = ServiceLocator.shared.searchService()
+    private let searchService: SearchServiceProtocol
     
     init(
         relationKey: String,
         selectedTagIds: [String],
-        isPreselectModeAvailable: Bool = false
+        isPreselectModeAvailable: Bool = false,
+        searchService: SearchServiceProtocol
     ) {
         self.relationKey = relationKey
         self.selectedTagIds = selectedTagIds
         self.isPreselectModeAvailable = isPreselectModeAvailable
+        self.searchService = searchService
     }
     
 }

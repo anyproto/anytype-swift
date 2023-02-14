@@ -55,7 +55,7 @@ extension MultiselectObjectTypesSearchViewModel: NewInternalSearchViewModelProto
 private extension MultiselectObjectTypesSearchViewModel {
     
     func handleError(for text: String) {
-        viewStateSubject.send(.error(.noObjectError(searchText: text)))
+        viewStateSubject.send(.error(.noTypeError(searchText: text)))
     }
     
     func handleSearchResults(_ objects: [ObjectDetails]) {

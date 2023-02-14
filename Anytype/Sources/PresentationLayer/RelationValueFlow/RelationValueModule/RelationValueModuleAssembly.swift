@@ -16,7 +16,6 @@ final class RelationValueModuleAssembly: RelationValueModuleAssemblyProtocol {
     
     func make(
         objectId: BlockId,
-        source: RelationSource,
         relation: Relation,
         delegate: TextRelationActionButtonViewModelDelegate,
         output: RelationValueViewModelOutput
@@ -24,11 +23,13 @@ final class RelationValueModuleAssembly: RelationValueModuleAssemblyProtocol {
         
         let contentViewModel = RelationEditingViewModelBuilder(
             delegate: delegate,
-            newSearchModuleAssembly: modulesDI.newSearch,
-            searchService: serviceLocator.searchService()
+            newSearchModuleAssembly: modulesDI.newSearch(),
+            searchService: serviceLocator.searchService(),
+            systemURLService: serviceLocator.systemURLService(),
+            alertOpener: serviceLocator.alertOpener(),
+            bookmarkService: serviceLocator.bookmarkService()
         )
             .buildViewModel(
-                source: source,
                 objectId: objectId,
                 relation: relation,
                 onTap: { [weak output] pageId, viewType in

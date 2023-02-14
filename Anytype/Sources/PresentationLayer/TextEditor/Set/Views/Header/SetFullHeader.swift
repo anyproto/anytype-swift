@@ -9,7 +9,13 @@ struct SetFullHeader: View {
     private let minimizedHeaderHeight = ObjectHeaderConstants.minimizedHeaderHeight + UIApplication.shared.mainWindowInsets.top
     
     var body: some View {
-        header
+        Group {
+            if model.hasTargetObjectId {
+                inlineHeader
+            } else {
+                header
+            }
+        }
     }
     
     private var header: some View {
@@ -25,13 +31,24 @@ struct SetFullHeader: View {
         .readSize { width = $0.width }
     }
     
+    private var inlineHeader: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            emptyCover
+            VStack(alignment: .leading, spacing: 8) {
+                iconWithTitle
+                flowRelations
+            }
+            .padding([.leading], 20)
+        }
+        .readSize { width = $0.width }
+    }
+    
     private var cover: some View {
         Group {
             switch model.headerModel.header {
             case .empty(let data, _):
                 Button(action: data.onTap) {
-                    Color.backgroundPrimary
-                        .frame(height: ObjectHeaderConstants.emptyViewHeight)
+                    emptyCover
                 }
             case .filled(let state, _):
                 ObjectHeaderFilledContentSwitfUIView(
@@ -47,6 +64,11 @@ struct SetFullHeader: View {
             }
         }
     }
+    
+    private var emptyCover: some View {
+        Color.Background.primary
+            .frame(height: ObjectHeaderConstants.emptyViewHeight)
+    }
 }
 
 extension SetFullHeader {
@@ -56,11 +78,36 @@ extension SetFullHeader {
                 AnytypeText(
                     description,
                     style: .relation2Regular,
-                    color: .textPrimary
+                    color: .Text.primary
                 )
                 .fixedSize(horizontal: false, vertical: true)
             } else {
                 EmptyView()
+            }
+        }
+    }
+    
+    private var iconWithTitle: some View {
+        HStack(spacing: 8) {
+            iconView
+            titleView
+        }
+    }
+    
+    private var iconView: some View {
+        Group {
+            if model.hasTargetObjectId, let iconImage = model.details?.objectIconImage {
+                SwiftUIObjectIconImageView(
+                    iconImage: iconImage,
+                    usecase: .inlineSetHeader)
+                .frame(
+                    width: 32,
+                    height: 32
+                )
+                .padding(.top, 1)
+                .onTapGesture {
+                    model.showIconPicker()
+                }
             }
         }
     }
@@ -111,7 +158,7 @@ extension SetFullHeader {
     private var dotImage: some View {
         Image(systemName: "circle.fill")
             .resizable()
-            .foregroundColor(.textSecondary)
+            .foregroundColor(.Text.secondary)
             .frame(width: 3, height: 3)
     }
 }

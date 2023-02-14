@@ -231,7 +231,7 @@ final class BlockViewModelBuilder {
                     )
                 } else {
                     AnytypeAnalytics.instance().logChangeRelationValue(type: .block)
-                    self.router.showRelationValueEditingView(key: relation.key, source: .object)
+                    self.router.showRelationValueEditingView(key: relation.key)
                 }
             }
         case let .relation(content):
@@ -248,7 +248,7 @@ final class BlockViewModelBuilder {
                 relation: relation
             ) { [weak self] in
                 AnytypeAnalytics.instance().logChangeRelationValue(type: .block)
-                self?.router.showRelationValueEditingView(key: relation.key, source: .object)
+                self?.router.showRelationValueEditingView(key: relation.key)
             }
         case .tableOfContents:
             return TableOfContentsViewModel(
@@ -261,11 +261,27 @@ final class BlockViewModelBuilder {
                     self?.delegate.textBlockSetNeedsLayout()
                 }
             )
-        case .smartblock, .layout, .dataView, .tableRow, .tableColumn: return nil
+        case .smartblock, .layout, .tableRow, .tableColumn, .widget: return nil
         case .table:
             return SimpleTableBlockViewModel(
                 info: info,
                 simpleTableDependenciesBuilder: simpleTableDependenciesBuilder
+            )
+        case let .dataView(data):
+            let details = ObjectDetailsStorage.shared.get(id: data.targetObjectID)
+            
+            if details?.isDeleted ?? false {
+                return NonExistentBlockViewModel(info: info)
+            }
+            return DataViewBlockViewModel(
+                info: info,
+                objectDetails: details,
+                showFailureToast: { [weak self] message in
+                    self?.router.showFailureToast(message: message)
+                },
+                openSet: { [weak self] data in
+                    self?.router.showPage(data: data)
+                }
             )
         case .unsupported:
             guard let parentId = info.configurationData.parentId,

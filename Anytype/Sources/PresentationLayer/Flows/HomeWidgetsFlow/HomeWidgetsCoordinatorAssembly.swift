@@ -1,12 +1,11 @@
 import Foundation
 import SwiftUI
 
-@MainActor
 protocol HomeWidgetsCoordinatorAssemblyProtocol {
+    @MainActor
     func make() -> HomeWidgetsCoordinatorProtocol
 }
 
-@MainActor
 final class HomeWidgetsCoordinatorAssembly: HomeWidgetsCoordinatorAssemblyProtocol {
     
     private let coordinatorsID: CoordinatorsDIProtocol
@@ -28,12 +27,16 @@ final class HomeWidgetsCoordinatorAssembly: HomeWidgetsCoordinatorAssemblyProtoc
     
     // MARK: - HomeWidgetsCoordinatorAssemblyProtocol
     
+    @MainActor
     func make() -> HomeWidgetsCoordinatorProtocol {
         return HomeWidgetsCoordinator(
-            homeWidgetsModuleAssembly: modulesDI.homeWidgets,
+            homeWidgetsModuleAssembly: modulesDI.homeWidgets(),
             accountManager: serviceLocator.accountManager(),
-            navigationContext: uiHelpersDI.commonNavigationContext,
-            windowManager: coordinatorsID.windowManager
+            navigationContext: uiHelpersDI.commonNavigationContext(),
+            windowManager: coordinatorsID.windowManager(),
+            createWidgetCoordinator: coordinatorsID.createWidget().make(),
+            objectIconPickerModuleAssembly: modulesDI.objectIconPicker(),
+            editorBrowserAssembly: coordinatorsID.browser()
         )
     }
 }

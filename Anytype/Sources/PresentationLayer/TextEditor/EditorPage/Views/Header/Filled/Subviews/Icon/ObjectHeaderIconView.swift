@@ -164,11 +164,11 @@ private extension ObjectHeaderIconView {
     }
     
     func setupBackgroundColor() {
-        backgroundColor = .backgroundPrimary
+        backgroundColor = .Background.primary
         
-        containerView.backgroundColor = .backgroundPrimary
-        iconImageView.backgroundColor = .backgroundPrimary
-        previewImageView.backgroundColor = .backgroundPrimary
+        containerView.backgroundColor = .Background.primary
+        iconImageView.backgroundColor = .Background.primary
+        previewImageView.backgroundColor = .Background.primary
     }
     
     func setupLayout() {

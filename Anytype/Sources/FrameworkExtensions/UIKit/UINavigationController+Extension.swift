@@ -10,8 +10,8 @@ extension UINavigationController {
         if #available(iOS 15.0, *) {
             navigationBar.compactScrollEdgeAppearance = appearance
         }
-        navigationBar.barTintColor = UIColor.backgroundPrimary
-        navigationBar.tintColor = UIColor.backgroundPrimary
+        navigationBar.barTintColor = UIColor.Background.primary
+        navigationBar.tintColor = UIColor.Background.primary
     }
 
     func replaceLastViewController(_ viewController: UIViewController, animated: Bool) {

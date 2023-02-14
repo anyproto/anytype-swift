@@ -387,6 +387,22 @@ public struct Anytype_Event {
       set {value = .blockDataviewRelationSet(newValue)}
     }
 
+    public var blockDataviewViewUpdate: Anytype_Event.Block.Dataview.ViewUpdate {
+      get {
+        if case .blockDataviewViewUpdate(let v)? = value {return v}
+        return Anytype_Event.Block.Dataview.ViewUpdate()
+      }
+      set {value = .blockDataviewViewUpdate(newValue)}
+    }
+
+    public var blockDataviewTargetObjectIDSet: Anytype_Event.Block.Dataview.TargetObjectIdSet {
+      get {
+        if case .blockDataviewTargetObjectIDSet(let v)? = value {return v}
+        return Anytype_Event.Block.Dataview.TargetObjectIdSet()
+      }
+      set {value = .blockDataviewTargetObjectIDSet(newValue)}
+    }
+
     /// deprecated
     public var blockDataviewOldRelationDelete: Anytype_Event.Block.Dataview.OldRelationDelete {
       get {
@@ -522,6 +538,8 @@ public struct Anytype_Event {
       case blockDataViewObjectOrderUpdate(Anytype_Event.Block.Dataview.ObjectOrderUpdate)
       case blockDataviewRelationDelete(Anytype_Event.Block.Dataview.RelationDelete)
       case blockDataviewRelationSet(Anytype_Event.Block.Dataview.RelationSet)
+      case blockDataviewViewUpdate(Anytype_Event.Block.Dataview.ViewUpdate)
+      case blockDataviewTargetObjectIDSet(Anytype_Event.Block.Dataview.TargetObjectIdSet)
       /// deprecated
       case blockDataviewOldRelationDelete(Anytype_Event.Block.Dataview.OldRelationDelete)
       /// deprecated
@@ -708,6 +726,14 @@ public struct Anytype_Event {
         }()
         case (.blockDataviewRelationSet, .blockDataviewRelationSet): return {
           guard case .blockDataviewRelationSet(let l) = lhs, case .blockDataviewRelationSet(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.blockDataviewViewUpdate, .blockDataviewViewUpdate): return {
+          guard case .blockDataviewViewUpdate(let l) = lhs, case .blockDataviewViewUpdate(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.blockDataviewTargetObjectIDSet, .blockDataviewTargetObjectIDSet): return {
+          guard case .blockDataviewTargetObjectIDSet(let l) = lhs, case .blockDataviewTargetObjectIDSet(let r) = rhs else { preconditionFailure() }
           return l == r
         }()
         case (.blockDataviewOldRelationDelete, .blockDataviewOldRelationDelete): return {
@@ -3087,6 +3113,494 @@ public struct Anytype_Event {
         fileprivate var _view: Anytype_Model_Block.Content.Dataview.View? = nil
       }
 
+      public struct ViewUpdate {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var id: String = String()
+
+        public var viewID: String = String()
+
+        public var filter: [Anytype_Event.Block.Dataview.ViewUpdate.Filter] = []
+
+        public var relation: [Anytype_Event.Block.Dataview.ViewUpdate.Relation] = []
+
+        public var sort: [Anytype_Event.Block.Dataview.ViewUpdate.Sort] = []
+
+        public var fields: Anytype_Event.Block.Dataview.ViewUpdate.Fields {
+          get {return _fields ?? Anytype_Event.Block.Dataview.ViewUpdate.Fields()}
+          set {_fields = newValue}
+        }
+        /// Returns true if `fields` has been explicitly set.
+        public var hasFields: Bool {return self._fields != nil}
+        /// Clears the value of `fields`. Subsequent reads from it will return its default value.
+        public mutating func clearFields() {self._fields = nil}
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public struct Fields {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          public var type: Anytype_Model_Block.Content.Dataview.View.TypeEnum = .table
+
+          public var name: String = String()
+
+          /// Relation used for cover in gallery
+          public var coverRelationKey: String = String()
+
+          /// Hide icon near name
+          public var hideIcon: Bool = false
+
+          /// Gallery card size
+          public var cardSize: Anytype_Model_Block.Content.Dataview.View.Size = .small
+
+          /// Image fits container
+          public var coverFit: Bool = false
+
+          /// Group view by this relationKey
+          public var groupRelationKey: String = String()
+
+          /// Enable backgrounds in groups
+          public var groupBackgroundColors: Bool = false
+
+          public var pageLimit: Int32 = 0
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public init() {}
+        }
+
+        public struct Filter {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          public var operation: Anytype_Event.Block.Dataview.ViewUpdate.Filter.OneOf_Operation? = nil
+
+          public var add: Anytype_Event.Block.Dataview.ViewUpdate.Filter.Add {
+            get {
+              if case .add(let v)? = operation {return v}
+              return Anytype_Event.Block.Dataview.ViewUpdate.Filter.Add()
+            }
+            set {operation = .add(newValue)}
+          }
+
+          public var remove: Anytype_Event.Block.Dataview.ViewUpdate.Filter.Remove {
+            get {
+              if case .remove(let v)? = operation {return v}
+              return Anytype_Event.Block.Dataview.ViewUpdate.Filter.Remove()
+            }
+            set {operation = .remove(newValue)}
+          }
+
+          public var update: Anytype_Event.Block.Dataview.ViewUpdate.Filter.Update {
+            get {
+              if case .update(let v)? = operation {return v}
+              return Anytype_Event.Block.Dataview.ViewUpdate.Filter.Update()
+            }
+            set {operation = .update(newValue)}
+          }
+
+          public var move: Anytype_Event.Block.Dataview.ViewUpdate.Filter.Move {
+            get {
+              if case .move(let v)? = operation {return v}
+              return Anytype_Event.Block.Dataview.ViewUpdate.Filter.Move()
+            }
+            set {operation = .move(newValue)}
+          }
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public enum OneOf_Operation: Equatable {
+            case add(Anytype_Event.Block.Dataview.ViewUpdate.Filter.Add)
+            case remove(Anytype_Event.Block.Dataview.ViewUpdate.Filter.Remove)
+            case update(Anytype_Event.Block.Dataview.ViewUpdate.Filter.Update)
+            case move(Anytype_Event.Block.Dataview.ViewUpdate.Filter.Move)
+
+          #if !swift(>=4.1)
+            public static func ==(lhs: Anytype_Event.Block.Dataview.ViewUpdate.Filter.OneOf_Operation, rhs: Anytype_Event.Block.Dataview.ViewUpdate.Filter.OneOf_Operation) -> Bool {
+              // The use of inline closures is to circumvent an issue where the compiler
+              // allocates stack space for every case branch when no optimizations are
+              // enabled. https://github.com/apple/swift-protobuf/issues/1034
+              switch (lhs, rhs) {
+              case (.add, .add): return {
+                guard case .add(let l) = lhs, case .add(let r) = rhs else { preconditionFailure() }
+                return l == r
+              }()
+              case (.remove, .remove): return {
+                guard case .remove(let l) = lhs, case .remove(let r) = rhs else { preconditionFailure() }
+                return l == r
+              }()
+              case (.update, .update): return {
+                guard case .update(let l) = lhs, case .update(let r) = rhs else { preconditionFailure() }
+                return l == r
+              }()
+              case (.move, .move): return {
+                guard case .move(let l) = lhs, case .move(let r) = rhs else { preconditionFailure() }
+                return l == r
+              }()
+              default: return false
+              }
+            }
+          #endif
+          }
+
+          public struct Add {
+            // SwiftProtobuf.Message conformance is added in an extension below. See the
+            // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+            // methods supported on all messages.
+
+            public var afterID: String = String()
+
+            public var items: [Anytype_Model_Block.Content.Dataview.Filter] = []
+
+            public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+            public init() {}
+          }
+
+          public struct Remove {
+            // SwiftProtobuf.Message conformance is added in an extension below. See the
+            // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+            // methods supported on all messages.
+
+            public var ids: [String] = []
+
+            public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+            public init() {}
+          }
+
+          public struct Update {
+            // SwiftProtobuf.Message conformance is added in an extension below. See the
+            // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+            // methods supported on all messages.
+
+            public var id: String = String()
+
+            public var item: Anytype_Model_Block.Content.Dataview.Filter {
+              get {return _item ?? Anytype_Model_Block.Content.Dataview.Filter()}
+              set {_item = newValue}
+            }
+            /// Returns true if `item` has been explicitly set.
+            public var hasItem: Bool {return self._item != nil}
+            /// Clears the value of `item`. Subsequent reads from it will return its default value.
+            public mutating func clearItem() {self._item = nil}
+
+            public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+            public init() {}
+
+            fileprivate var _item: Anytype_Model_Block.Content.Dataview.Filter? = nil
+          }
+
+          public struct Move {
+            // SwiftProtobuf.Message conformance is added in an extension below. See the
+            // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+            // methods supported on all messages.
+
+            public var afterID: String = String()
+
+            public var ids: [String] = []
+
+            public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+            public init() {}
+          }
+
+          public init() {}
+        }
+
+        public struct Relation {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          public var operation: Anytype_Event.Block.Dataview.ViewUpdate.Relation.OneOf_Operation? = nil
+
+          public var add: Anytype_Event.Block.Dataview.ViewUpdate.Relation.Add {
+            get {
+              if case .add(let v)? = operation {return v}
+              return Anytype_Event.Block.Dataview.ViewUpdate.Relation.Add()
+            }
+            set {operation = .add(newValue)}
+          }
+
+          public var remove: Anytype_Event.Block.Dataview.ViewUpdate.Relation.Remove {
+            get {
+              if case .remove(let v)? = operation {return v}
+              return Anytype_Event.Block.Dataview.ViewUpdate.Relation.Remove()
+            }
+            set {operation = .remove(newValue)}
+          }
+
+          public var update: Anytype_Event.Block.Dataview.ViewUpdate.Relation.Update {
+            get {
+              if case .update(let v)? = operation {return v}
+              return Anytype_Event.Block.Dataview.ViewUpdate.Relation.Update()
+            }
+            set {operation = .update(newValue)}
+          }
+
+          public var move: Anytype_Event.Block.Dataview.ViewUpdate.Relation.Move {
+            get {
+              if case .move(let v)? = operation {return v}
+              return Anytype_Event.Block.Dataview.ViewUpdate.Relation.Move()
+            }
+            set {operation = .move(newValue)}
+          }
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public enum OneOf_Operation: Equatable {
+            case add(Anytype_Event.Block.Dataview.ViewUpdate.Relation.Add)
+            case remove(Anytype_Event.Block.Dataview.ViewUpdate.Relation.Remove)
+            case update(Anytype_Event.Block.Dataview.ViewUpdate.Relation.Update)
+            case move(Anytype_Event.Block.Dataview.ViewUpdate.Relation.Move)
+
+          #if !swift(>=4.1)
+            public static func ==(lhs: Anytype_Event.Block.Dataview.ViewUpdate.Relation.OneOf_Operation, rhs: Anytype_Event.Block.Dataview.ViewUpdate.Relation.OneOf_Operation) -> Bool {
+              // The use of inline closures is to circumvent an issue where the compiler
+              // allocates stack space for every case branch when no optimizations are
+              // enabled. https://github.com/apple/swift-protobuf/issues/1034
+              switch (lhs, rhs) {
+              case (.add, .add): return {
+                guard case .add(let l) = lhs, case .add(let r) = rhs else { preconditionFailure() }
+                return l == r
+              }()
+              case (.remove, .remove): return {
+                guard case .remove(let l) = lhs, case .remove(let r) = rhs else { preconditionFailure() }
+                return l == r
+              }()
+              case (.update, .update): return {
+                guard case .update(let l) = lhs, case .update(let r) = rhs else { preconditionFailure() }
+                return l == r
+              }()
+              case (.move, .move): return {
+                guard case .move(let l) = lhs, case .move(let r) = rhs else { preconditionFailure() }
+                return l == r
+              }()
+              default: return false
+              }
+            }
+          #endif
+          }
+
+          public struct Add {
+            // SwiftProtobuf.Message conformance is added in an extension below. See the
+            // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+            // methods supported on all messages.
+
+            public var afterID: String = String()
+
+            public var items: [Anytype_Model_Block.Content.Dataview.Relation] = []
+
+            public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+            public init() {}
+          }
+
+          public struct Remove {
+            // SwiftProtobuf.Message conformance is added in an extension below. See the
+            // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+            // methods supported on all messages.
+
+            public var ids: [String] = []
+
+            public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+            public init() {}
+          }
+
+          public struct Update {
+            // SwiftProtobuf.Message conformance is added in an extension below. See the
+            // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+            // methods supported on all messages.
+
+            public var id: String = String()
+
+            public var item: Anytype_Model_Block.Content.Dataview.Relation {
+              get {return _item ?? Anytype_Model_Block.Content.Dataview.Relation()}
+              set {_item = newValue}
+            }
+            /// Returns true if `item` has been explicitly set.
+            public var hasItem: Bool {return self._item != nil}
+            /// Clears the value of `item`. Subsequent reads from it will return its default value.
+            public mutating func clearItem() {self._item = nil}
+
+            public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+            public init() {}
+
+            fileprivate var _item: Anytype_Model_Block.Content.Dataview.Relation? = nil
+          }
+
+          public struct Move {
+            // SwiftProtobuf.Message conformance is added in an extension below. See the
+            // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+            // methods supported on all messages.
+
+            public var afterID: String = String()
+
+            public var ids: [String] = []
+
+            public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+            public init() {}
+          }
+
+          public init() {}
+        }
+
+        public struct Sort {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          public var operation: Anytype_Event.Block.Dataview.ViewUpdate.Sort.OneOf_Operation? = nil
+
+          public var add: Anytype_Event.Block.Dataview.ViewUpdate.Sort.Add {
+            get {
+              if case .add(let v)? = operation {return v}
+              return Anytype_Event.Block.Dataview.ViewUpdate.Sort.Add()
+            }
+            set {operation = .add(newValue)}
+          }
+
+          public var remove: Anytype_Event.Block.Dataview.ViewUpdate.Sort.Remove {
+            get {
+              if case .remove(let v)? = operation {return v}
+              return Anytype_Event.Block.Dataview.ViewUpdate.Sort.Remove()
+            }
+            set {operation = .remove(newValue)}
+          }
+
+          public var update: Anytype_Event.Block.Dataview.ViewUpdate.Sort.Update {
+            get {
+              if case .update(let v)? = operation {return v}
+              return Anytype_Event.Block.Dataview.ViewUpdate.Sort.Update()
+            }
+            set {operation = .update(newValue)}
+          }
+
+          public var move: Anytype_Event.Block.Dataview.ViewUpdate.Sort.Move {
+            get {
+              if case .move(let v)? = operation {return v}
+              return Anytype_Event.Block.Dataview.ViewUpdate.Sort.Move()
+            }
+            set {operation = .move(newValue)}
+          }
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public enum OneOf_Operation: Equatable {
+            case add(Anytype_Event.Block.Dataview.ViewUpdate.Sort.Add)
+            case remove(Anytype_Event.Block.Dataview.ViewUpdate.Sort.Remove)
+            case update(Anytype_Event.Block.Dataview.ViewUpdate.Sort.Update)
+            case move(Anytype_Event.Block.Dataview.ViewUpdate.Sort.Move)
+
+          #if !swift(>=4.1)
+            public static func ==(lhs: Anytype_Event.Block.Dataview.ViewUpdate.Sort.OneOf_Operation, rhs: Anytype_Event.Block.Dataview.ViewUpdate.Sort.OneOf_Operation) -> Bool {
+              // The use of inline closures is to circumvent an issue where the compiler
+              // allocates stack space for every case branch when no optimizations are
+              // enabled. https://github.com/apple/swift-protobuf/issues/1034
+              switch (lhs, rhs) {
+              case (.add, .add): return {
+                guard case .add(let l) = lhs, case .add(let r) = rhs else { preconditionFailure() }
+                return l == r
+              }()
+              case (.remove, .remove): return {
+                guard case .remove(let l) = lhs, case .remove(let r) = rhs else { preconditionFailure() }
+                return l == r
+              }()
+              case (.update, .update): return {
+                guard case .update(let l) = lhs, case .update(let r) = rhs else { preconditionFailure() }
+                return l == r
+              }()
+              case (.move, .move): return {
+                guard case .move(let l) = lhs, case .move(let r) = rhs else { preconditionFailure() }
+                return l == r
+              }()
+              default: return false
+              }
+            }
+          #endif
+          }
+
+          public struct Add {
+            // SwiftProtobuf.Message conformance is added in an extension below. See the
+            // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+            // methods supported on all messages.
+
+            public var afterID: String = String()
+
+            public var items: [Anytype_Model_Block.Content.Dataview.Sort] = []
+
+            public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+            public init() {}
+          }
+
+          public struct Remove {
+            // SwiftProtobuf.Message conformance is added in an extension below. See the
+            // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+            // methods supported on all messages.
+
+            public var ids: [String] = []
+
+            public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+            public init() {}
+          }
+
+          public struct Update {
+            // SwiftProtobuf.Message conformance is added in an extension below. See the
+            // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+            // methods supported on all messages.
+
+            public var id: String = String()
+
+            public var item: Anytype_Model_Block.Content.Dataview.Sort {
+              get {return _item ?? Anytype_Model_Block.Content.Dataview.Sort()}
+              set {_item = newValue}
+            }
+            /// Returns true if `item` has been explicitly set.
+            public var hasItem: Bool {return self._item != nil}
+            /// Clears the value of `item`. Subsequent reads from it will return its default value.
+            public mutating func clearItem() {self._item = nil}
+
+            public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+            public init() {}
+
+            fileprivate var _item: Anytype_Model_Block.Content.Dataview.Sort? = nil
+          }
+
+          public struct Move {
+            // SwiftProtobuf.Message conformance is added in an extension below. See the
+            // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+            // methods supported on all messages.
+
+            public var afterID: String = String()
+
+            public var ids: [String] = []
+
+            public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+            public init() {}
+          }
+
+          public init() {}
+        }
+
+        public init() {}
+
+        fileprivate var _fields: Anytype_Event.Block.Dataview.ViewUpdate.Fields? = nil
+      }
+
       public struct ViewDelete {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -3270,6 +3784,21 @@ public struct Anytype_Event {
         public var ids: [String] = []
 
         public var afterID: String = String()
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public init() {}
+      }
+
+      public struct TargetObjectIdSet {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        /// dataview block's id
+        public var id: String = String()
+
+        public var targetObjectID: String = String()
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -4014,6 +4543,26 @@ extension Anytype_Event.Block.Fill.Bookmark.TargetObjectId: @unchecked Sendable 
 extension Anytype_Event.Block.Dataview: @unchecked Sendable {}
 extension Anytype_Event.Block.Dataview.SliceOperation: @unchecked Sendable {}
 extension Anytype_Event.Block.Dataview.ViewSet: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.ViewUpdate: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.ViewUpdate.Fields: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.ViewUpdate.Filter: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.ViewUpdate.Filter.OneOf_Operation: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.ViewUpdate.Filter.Add: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.ViewUpdate.Filter.Remove: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.ViewUpdate.Filter.Update: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.ViewUpdate.Filter.Move: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.ViewUpdate.Relation: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.ViewUpdate.Relation.OneOf_Operation: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.ViewUpdate.Relation.Add: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.ViewUpdate.Relation.Remove: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.ViewUpdate.Relation.Update: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.ViewUpdate.Relation.Move: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.ViewUpdate.Sort: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.ViewUpdate.Sort.OneOf_Operation: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.ViewUpdate.Sort.Add: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.ViewUpdate.Sort.Remove: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.ViewUpdate.Sort.Update: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.ViewUpdate.Sort.Move: @unchecked Sendable {}
 extension Anytype_Event.Block.Dataview.ViewDelete: @unchecked Sendable {}
 extension Anytype_Event.Block.Dataview.ViewOrder: @unchecked Sendable {}
 extension Anytype_Event.Block.Dataview.SourceSet: @unchecked Sendable {}
@@ -4024,6 +4573,7 @@ extension Anytype_Event.Block.Dataview.RelationSet: @unchecked Sendable {}
 extension Anytype_Event.Block.Dataview.GroupOrderUpdate: @unchecked Sendable {}
 extension Anytype_Event.Block.Dataview.ObjectOrderUpdate: @unchecked Sendable {}
 extension Anytype_Event.Block.Dataview.SliceChange: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.TargetObjectIdSet: @unchecked Sendable {}
 extension Anytype_Event.User: @unchecked Sendable {}
 extension Anytype_Event.User.Block: @unchecked Sendable {}
 extension Anytype_Event.User.Block.Join: @unchecked Sendable {}
@@ -4154,6 +4704,8 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     39: .same(proto: "blockDataViewObjectOrderUpdate"),
     124: .same(proto: "blockDataviewRelationDelete"),
     123: .same(proto: "blockDataviewRelationSet"),
+    125: .same(proto: "blockDataviewViewUpdate"),
+    126: .same(proto: "blockDataviewTargetObjectIdSet"),
     24: .same(proto: "blockDataviewOldRelationDelete"),
     23: .same(proto: "blockDataviewOldRelationSet"),
     31: .same(proto: "userBlockJoin"),
@@ -4823,6 +5375,32 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
           self.value = .blockDataviewRelationDelete(v)
         }
       }()
+      case 125: try {
+        var v: Anytype_Event.Block.Dataview.ViewUpdate?
+        var hadOneofValue = false
+        if let current = self.value {
+          hadOneofValue = true
+          if case .blockDataviewViewUpdate(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.value = .blockDataviewViewUpdate(v)
+        }
+      }()
+      case 126: try {
+        var v: Anytype_Event.Block.Dataview.TargetObjectIdSet?
+        var hadOneofValue = false
+        if let current = self.value {
+          hadOneofValue = true
+          if case .blockDataviewTargetObjectIDSet(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.value = .blockDataviewTargetObjectIDSet(v)
+        }
+      }()
       case 201: try {
         var v: Anytype_Event.Account.Details?
         var hadOneofValue = false
@@ -5072,6 +5650,14 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     case .blockDataviewRelationDelete?: try {
       guard case .blockDataviewRelationDelete(let v)? = self.value else { preconditionFailure() }
       try visitor.visitSingularMessageField(value: v, fieldNumber: 124)
+    }()
+    case .blockDataviewViewUpdate?: try {
+      guard case .blockDataviewViewUpdate(let v)? = self.value else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 125)
+    }()
+    case .blockDataviewTargetObjectIDSet?: try {
+      guard case .blockDataviewTargetObjectIDSet(let v)? = self.value else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 126)
     }()
     case .accountDetails?: try {
       guard case .accountDetails(let v)? = self.value else { preconditionFailure() }
@@ -9463,6 +10049,920 @@ extension Anytype_Event.Block.Dataview.ViewSet: SwiftProtobuf.Message, SwiftProt
   }
 }
 
+extension Anytype_Event.Block.Dataview.ViewUpdate: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Block.Dataview.protoMessageName + ".ViewUpdate"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "id"),
+    2: .same(proto: "viewId"),
+    3: .same(proto: "filter"),
+    4: .same(proto: "relation"),
+    5: .same(proto: "sort"),
+    6: .same(proto: "fields"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.viewID) }()
+      case 3: try { try decoder.decodeRepeatedMessageField(value: &self.filter) }()
+      case 4: try { try decoder.decodeRepeatedMessageField(value: &self.relation) }()
+      case 5: try { try decoder.decodeRepeatedMessageField(value: &self.sort) }()
+      case 6: try { try decoder.decodeSingularMessageField(value: &self._fields) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if !self.id.isEmpty {
+      try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
+    }
+    if !self.viewID.isEmpty {
+      try visitor.visitSingularStringField(value: self.viewID, fieldNumber: 2)
+    }
+    if !self.filter.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.filter, fieldNumber: 3)
+    }
+    if !self.relation.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.relation, fieldNumber: 4)
+    }
+    if !self.sort.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.sort, fieldNumber: 5)
+    }
+    try { if let v = self._fields {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Block.Dataview.ViewUpdate, rhs: Anytype_Event.Block.Dataview.ViewUpdate) -> Bool {
+    if lhs.id != rhs.id {return false}
+    if lhs.viewID != rhs.viewID {return false}
+    if lhs.filter != rhs.filter {return false}
+    if lhs.relation != rhs.relation {return false}
+    if lhs.sort != rhs.sort {return false}
+    if lhs._fields != rhs._fields {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Block.Dataview.ViewUpdate.Fields: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Block.Dataview.ViewUpdate.protoMessageName + ".Fields"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "type"),
+    2: .same(proto: "name"),
+    3: .same(proto: "coverRelationKey"),
+    4: .same(proto: "hideIcon"),
+    5: .same(proto: "cardSize"),
+    6: .same(proto: "coverFit"),
+    7: .same(proto: "groupRelationKey"),
+    8: .same(proto: "groupBackgroundColors"),
+    9: .same(proto: "pageLimit"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.type) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.name) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.coverRelationKey) }()
+      case 4: try { try decoder.decodeSingularBoolField(value: &self.hideIcon) }()
+      case 5: try { try decoder.decodeSingularEnumField(value: &self.cardSize) }()
+      case 6: try { try decoder.decodeSingularBoolField(value: &self.coverFit) }()
+      case 7: try { try decoder.decodeSingularStringField(value: &self.groupRelationKey) }()
+      case 8: try { try decoder.decodeSingularBoolField(value: &self.groupBackgroundColors) }()
+      case 9: try { try decoder.decodeSingularInt32Field(value: &self.pageLimit) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.type != .table {
+      try visitor.visitSingularEnumField(value: self.type, fieldNumber: 1)
+    }
+    if !self.name.isEmpty {
+      try visitor.visitSingularStringField(value: self.name, fieldNumber: 2)
+    }
+    if !self.coverRelationKey.isEmpty {
+      try visitor.visitSingularStringField(value: self.coverRelationKey, fieldNumber: 3)
+    }
+    if self.hideIcon != false {
+      try visitor.visitSingularBoolField(value: self.hideIcon, fieldNumber: 4)
+    }
+    if self.cardSize != .small {
+      try visitor.visitSingularEnumField(value: self.cardSize, fieldNumber: 5)
+    }
+    if self.coverFit != false {
+      try visitor.visitSingularBoolField(value: self.coverFit, fieldNumber: 6)
+    }
+    if !self.groupRelationKey.isEmpty {
+      try visitor.visitSingularStringField(value: self.groupRelationKey, fieldNumber: 7)
+    }
+    if self.groupBackgroundColors != false {
+      try visitor.visitSingularBoolField(value: self.groupBackgroundColors, fieldNumber: 8)
+    }
+    if self.pageLimit != 0 {
+      try visitor.visitSingularInt32Field(value: self.pageLimit, fieldNumber: 9)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Block.Dataview.ViewUpdate.Fields, rhs: Anytype_Event.Block.Dataview.ViewUpdate.Fields) -> Bool {
+    if lhs.type != rhs.type {return false}
+    if lhs.name != rhs.name {return false}
+    if lhs.coverRelationKey != rhs.coverRelationKey {return false}
+    if lhs.hideIcon != rhs.hideIcon {return false}
+    if lhs.cardSize != rhs.cardSize {return false}
+    if lhs.coverFit != rhs.coverFit {return false}
+    if lhs.groupRelationKey != rhs.groupRelationKey {return false}
+    if lhs.groupBackgroundColors != rhs.groupBackgroundColors {return false}
+    if lhs.pageLimit != rhs.pageLimit {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Block.Dataview.ViewUpdate.Filter: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Block.Dataview.ViewUpdate.protoMessageName + ".Filter"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "add"),
+    2: .same(proto: "remove"),
+    3: .same(proto: "update"),
+    4: .same(proto: "move"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try {
+        var v: Anytype_Event.Block.Dataview.ViewUpdate.Filter.Add?
+        var hadOneofValue = false
+        if let current = self.operation {
+          hadOneofValue = true
+          if case .add(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.operation = .add(v)
+        }
+      }()
+      case 2: try {
+        var v: Anytype_Event.Block.Dataview.ViewUpdate.Filter.Remove?
+        var hadOneofValue = false
+        if let current = self.operation {
+          hadOneofValue = true
+          if case .remove(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.operation = .remove(v)
+        }
+      }()
+      case 3: try {
+        var v: Anytype_Event.Block.Dataview.ViewUpdate.Filter.Update?
+        var hadOneofValue = false
+        if let current = self.operation {
+          hadOneofValue = true
+          if case .update(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.operation = .update(v)
+        }
+      }()
+      case 4: try {
+        var v: Anytype_Event.Block.Dataview.ViewUpdate.Filter.Move?
+        var hadOneofValue = false
+        if let current = self.operation {
+          hadOneofValue = true
+          if case .move(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.operation = .move(v)
+        }
+      }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    switch self.operation {
+    case .add?: try {
+      guard case .add(let v)? = self.operation else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    }()
+    case .remove?: try {
+      guard case .remove(let v)? = self.operation else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    }()
+    case .update?: try {
+      guard case .update(let v)? = self.operation else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    }()
+    case .move?: try {
+      guard case .move(let v)? = self.operation else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+    }()
+    case nil: break
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Block.Dataview.ViewUpdate.Filter, rhs: Anytype_Event.Block.Dataview.ViewUpdate.Filter) -> Bool {
+    if lhs.operation != rhs.operation {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Block.Dataview.ViewUpdate.Filter.Add: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Block.Dataview.ViewUpdate.Filter.protoMessageName + ".Add"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "afterId"),
+    2: .same(proto: "items"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.afterID) }()
+      case 2: try { try decoder.decodeRepeatedMessageField(value: &self.items) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.afterID.isEmpty {
+      try visitor.visitSingularStringField(value: self.afterID, fieldNumber: 1)
+    }
+    if !self.items.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.items, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Block.Dataview.ViewUpdate.Filter.Add, rhs: Anytype_Event.Block.Dataview.ViewUpdate.Filter.Add) -> Bool {
+    if lhs.afterID != rhs.afterID {return false}
+    if lhs.items != rhs.items {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Block.Dataview.ViewUpdate.Filter.Remove: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Block.Dataview.ViewUpdate.Filter.protoMessageName + ".Remove"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "ids"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeRepeatedStringField(value: &self.ids) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.ids.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.ids, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Block.Dataview.ViewUpdate.Filter.Remove, rhs: Anytype_Event.Block.Dataview.ViewUpdate.Filter.Remove) -> Bool {
+    if lhs.ids != rhs.ids {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Block.Dataview.ViewUpdate.Filter.Update: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Block.Dataview.ViewUpdate.Filter.protoMessageName + ".Update"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "id"),
+    2: .same(proto: "item"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._item) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if !self.id.isEmpty {
+      try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
+    }
+    try { if let v = self._item {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Block.Dataview.ViewUpdate.Filter.Update, rhs: Anytype_Event.Block.Dataview.ViewUpdate.Filter.Update) -> Bool {
+    if lhs.id != rhs.id {return false}
+    if lhs._item != rhs._item {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Block.Dataview.ViewUpdate.Filter.Move: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Block.Dataview.ViewUpdate.Filter.protoMessageName + ".Move"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "afterId"),
+    2: .same(proto: "ids"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.afterID) }()
+      case 2: try { try decoder.decodeRepeatedStringField(value: &self.ids) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.afterID.isEmpty {
+      try visitor.visitSingularStringField(value: self.afterID, fieldNumber: 1)
+    }
+    if !self.ids.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.ids, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Block.Dataview.ViewUpdate.Filter.Move, rhs: Anytype_Event.Block.Dataview.ViewUpdate.Filter.Move) -> Bool {
+    if lhs.afterID != rhs.afterID {return false}
+    if lhs.ids != rhs.ids {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Block.Dataview.ViewUpdate.Relation: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Block.Dataview.ViewUpdate.protoMessageName + ".Relation"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "add"),
+    2: .same(proto: "remove"),
+    3: .same(proto: "update"),
+    4: .same(proto: "move"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try {
+        var v: Anytype_Event.Block.Dataview.ViewUpdate.Relation.Add?
+        var hadOneofValue = false
+        if let current = self.operation {
+          hadOneofValue = true
+          if case .add(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.operation = .add(v)
+        }
+      }()
+      case 2: try {
+        var v: Anytype_Event.Block.Dataview.ViewUpdate.Relation.Remove?
+        var hadOneofValue = false
+        if let current = self.operation {
+          hadOneofValue = true
+          if case .remove(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.operation = .remove(v)
+        }
+      }()
+      case 3: try {
+        var v: Anytype_Event.Block.Dataview.ViewUpdate.Relation.Update?
+        var hadOneofValue = false
+        if let current = self.operation {
+          hadOneofValue = true
+          if case .update(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.operation = .update(v)
+        }
+      }()
+      case 4: try {
+        var v: Anytype_Event.Block.Dataview.ViewUpdate.Relation.Move?
+        var hadOneofValue = false
+        if let current = self.operation {
+          hadOneofValue = true
+          if case .move(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.operation = .move(v)
+        }
+      }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    switch self.operation {
+    case .add?: try {
+      guard case .add(let v)? = self.operation else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    }()
+    case .remove?: try {
+      guard case .remove(let v)? = self.operation else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    }()
+    case .update?: try {
+      guard case .update(let v)? = self.operation else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    }()
+    case .move?: try {
+      guard case .move(let v)? = self.operation else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+    }()
+    case nil: break
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Block.Dataview.ViewUpdate.Relation, rhs: Anytype_Event.Block.Dataview.ViewUpdate.Relation) -> Bool {
+    if lhs.operation != rhs.operation {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Block.Dataview.ViewUpdate.Relation.Add: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Block.Dataview.ViewUpdate.Relation.protoMessageName + ".Add"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "afterId"),
+    2: .same(proto: "items"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.afterID) }()
+      case 2: try { try decoder.decodeRepeatedMessageField(value: &self.items) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.afterID.isEmpty {
+      try visitor.visitSingularStringField(value: self.afterID, fieldNumber: 1)
+    }
+    if !self.items.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.items, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Block.Dataview.ViewUpdate.Relation.Add, rhs: Anytype_Event.Block.Dataview.ViewUpdate.Relation.Add) -> Bool {
+    if lhs.afterID != rhs.afterID {return false}
+    if lhs.items != rhs.items {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Block.Dataview.ViewUpdate.Relation.Remove: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Block.Dataview.ViewUpdate.Relation.protoMessageName + ".Remove"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "ids"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeRepeatedStringField(value: &self.ids) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.ids.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.ids, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Block.Dataview.ViewUpdate.Relation.Remove, rhs: Anytype_Event.Block.Dataview.ViewUpdate.Relation.Remove) -> Bool {
+    if lhs.ids != rhs.ids {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Block.Dataview.ViewUpdate.Relation.Update: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Block.Dataview.ViewUpdate.Relation.protoMessageName + ".Update"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "id"),
+    2: .same(proto: "item"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._item) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if !self.id.isEmpty {
+      try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
+    }
+    try { if let v = self._item {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Block.Dataview.ViewUpdate.Relation.Update, rhs: Anytype_Event.Block.Dataview.ViewUpdate.Relation.Update) -> Bool {
+    if lhs.id != rhs.id {return false}
+    if lhs._item != rhs._item {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Block.Dataview.ViewUpdate.Relation.Move: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Block.Dataview.ViewUpdate.Relation.protoMessageName + ".Move"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "afterId"),
+    2: .same(proto: "ids"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.afterID) }()
+      case 2: try { try decoder.decodeRepeatedStringField(value: &self.ids) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.afterID.isEmpty {
+      try visitor.visitSingularStringField(value: self.afterID, fieldNumber: 1)
+    }
+    if !self.ids.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.ids, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Block.Dataview.ViewUpdate.Relation.Move, rhs: Anytype_Event.Block.Dataview.ViewUpdate.Relation.Move) -> Bool {
+    if lhs.afterID != rhs.afterID {return false}
+    if lhs.ids != rhs.ids {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Block.Dataview.ViewUpdate.Sort: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Block.Dataview.ViewUpdate.protoMessageName + ".Sort"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "add"),
+    2: .same(proto: "remove"),
+    3: .same(proto: "update"),
+    4: .same(proto: "move"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try {
+        var v: Anytype_Event.Block.Dataview.ViewUpdate.Sort.Add?
+        var hadOneofValue = false
+        if let current = self.operation {
+          hadOneofValue = true
+          if case .add(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.operation = .add(v)
+        }
+      }()
+      case 2: try {
+        var v: Anytype_Event.Block.Dataview.ViewUpdate.Sort.Remove?
+        var hadOneofValue = false
+        if let current = self.operation {
+          hadOneofValue = true
+          if case .remove(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.operation = .remove(v)
+        }
+      }()
+      case 3: try {
+        var v: Anytype_Event.Block.Dataview.ViewUpdate.Sort.Update?
+        var hadOneofValue = false
+        if let current = self.operation {
+          hadOneofValue = true
+          if case .update(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.operation = .update(v)
+        }
+      }()
+      case 4: try {
+        var v: Anytype_Event.Block.Dataview.ViewUpdate.Sort.Move?
+        var hadOneofValue = false
+        if let current = self.operation {
+          hadOneofValue = true
+          if case .move(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.operation = .move(v)
+        }
+      }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    switch self.operation {
+    case .add?: try {
+      guard case .add(let v)? = self.operation else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    }()
+    case .remove?: try {
+      guard case .remove(let v)? = self.operation else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    }()
+    case .update?: try {
+      guard case .update(let v)? = self.operation else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    }()
+    case .move?: try {
+      guard case .move(let v)? = self.operation else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+    }()
+    case nil: break
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Block.Dataview.ViewUpdate.Sort, rhs: Anytype_Event.Block.Dataview.ViewUpdate.Sort) -> Bool {
+    if lhs.operation != rhs.operation {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Block.Dataview.ViewUpdate.Sort.Add: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Block.Dataview.ViewUpdate.Sort.protoMessageName + ".Add"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "afterId"),
+    2: .same(proto: "items"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.afterID) }()
+      case 2: try { try decoder.decodeRepeatedMessageField(value: &self.items) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.afterID.isEmpty {
+      try visitor.visitSingularStringField(value: self.afterID, fieldNumber: 1)
+    }
+    if !self.items.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.items, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Block.Dataview.ViewUpdate.Sort.Add, rhs: Anytype_Event.Block.Dataview.ViewUpdate.Sort.Add) -> Bool {
+    if lhs.afterID != rhs.afterID {return false}
+    if lhs.items != rhs.items {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Block.Dataview.ViewUpdate.Sort.Remove: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Block.Dataview.ViewUpdate.Sort.protoMessageName + ".Remove"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "ids"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeRepeatedStringField(value: &self.ids) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.ids.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.ids, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Block.Dataview.ViewUpdate.Sort.Remove, rhs: Anytype_Event.Block.Dataview.ViewUpdate.Sort.Remove) -> Bool {
+    if lhs.ids != rhs.ids {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Block.Dataview.ViewUpdate.Sort.Update: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Block.Dataview.ViewUpdate.Sort.protoMessageName + ".Update"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "id"),
+    2: .same(proto: "item"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._item) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if !self.id.isEmpty {
+      try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
+    }
+    try { if let v = self._item {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Block.Dataview.ViewUpdate.Sort.Update, rhs: Anytype_Event.Block.Dataview.ViewUpdate.Sort.Update) -> Bool {
+    if lhs.id != rhs.id {return false}
+    if lhs._item != rhs._item {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Block.Dataview.ViewUpdate.Sort.Move: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Block.Dataview.ViewUpdate.Sort.protoMessageName + ".Move"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "afterId"),
+    2: .same(proto: "ids"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.afterID) }()
+      case 2: try { try decoder.decodeRepeatedStringField(value: &self.ids) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.afterID.isEmpty {
+      try visitor.visitSingularStringField(value: self.afterID, fieldNumber: 1)
+    }
+    if !self.ids.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.ids, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Block.Dataview.ViewUpdate.Sort.Move, rhs: Anytype_Event.Block.Dataview.ViewUpdate.Sort.Move) -> Bool {
+    if lhs.afterID != rhs.afterID {return false}
+    if lhs.ids != rhs.ids {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
 extension Anytype_Event.Block.Dataview.ViewDelete: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Event.Block.Dataview.protoMessageName + ".ViewDelete"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -9906,6 +11406,44 @@ extension Anytype_Event.Block.Dataview.SliceChange: SwiftProtobuf.Message, Swift
     if lhs.op != rhs.op {return false}
     if lhs.ids != rhs.ids {return false}
     if lhs.afterID != rhs.afterID {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Block.Dataview.TargetObjectIdSet: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Block.Dataview.protoMessageName + ".TargetObjectIdSet"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "id"),
+    2: .same(proto: "targetObjectId"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.targetObjectID) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.id.isEmpty {
+      try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
+    }
+    if !self.targetObjectID.isEmpty {
+      try visitor.visitSingularStringField(value: self.targetObjectID, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Block.Dataview.TargetObjectIdSet, rhs: Anytype_Event.Block.Dataview.TargetObjectIdSet) -> Bool {
+    if lhs.id != rhs.id {return false}
+    if lhs.targetObjectID != rhs.targetObjectID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

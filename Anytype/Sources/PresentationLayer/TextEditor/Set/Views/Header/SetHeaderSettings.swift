@@ -12,13 +12,8 @@ struct SetHeaderSettings: View {
             Spacer()
             settingButton
 
-            if FeatureFlags.redesignNewButton {
-                Spacer.fixedWidth(16)
-                createObjectButton
-            } else {
-                Spacer.fixedWidth(24)
-                createObjectButtonOld
-            }
+            Spacer.fixedWidth(16)
+            createObjectButton
         }
         .padding(.horizontal, 20)
         .frame(height: settingsHeight)
@@ -30,15 +25,6 @@ struct SetHeaderSettings: View {
             model.showSetSettings()
         }) {
             Image(asset: .setSettings)
-        }
-    }
-
-    private var createObjectButtonOld: some View {
-        Button(action: {
-            UISelectionFeedbackGenerator().selectionChanged()
-            model.createObject()
-        }) {
-            Image(asset: .plus)
         }
     }
     
@@ -57,9 +43,9 @@ struct SetHeaderSettings: View {
             }
         }) {
             HStack(alignment: .center, spacing: 0) {
-                AnytypeText(model.activeView.name, style: .subheading, color: .textPrimary)
+                AnytypeText(model.activeView.name, style: .subheading, color: .Text.primary)
                 Spacer.fixedWidth(4)
-                Image(asset: .arrowDown).foregroundColor(.textPrimary)
+                Image(asset: .arrowDown).foregroundColor(.Text.primary)
             }
         }
     }

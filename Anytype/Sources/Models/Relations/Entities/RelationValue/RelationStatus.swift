@@ -39,7 +39,7 @@ extension Relation.Status.Option {
         
         self.id = option.id
         self.text = option.text
-        self.color = middlewareColor.map { UIColor.Text.uiColor(from: $0) } ?? UIColor.Text.default
+        self.color = middlewareColor.map { UIColor.Dark.uiColor(from: $0) } ?? UIColor.Dark.default
     }
     
 }
