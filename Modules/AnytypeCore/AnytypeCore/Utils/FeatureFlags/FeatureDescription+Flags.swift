@@ -41,6 +41,14 @@ public extension FeatureDescription {
         debugValue: false
     )
     
+    static let styleViewFixColor = FeatureDescription(
+        title: "Style view - fix color (IOS-234)",
+        author: "m@anytype.io",
+        releaseVersion: "0.23.0",
+        defaultValue: false,
+        debugValue: false
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(

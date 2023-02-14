@@ -26,6 +26,10 @@ public extension FeatureFlags {
         value(for: .setTypeContextMenu)
     }
 
+    static var styleViewFixColor: Bool {
+        value(for: .styleViewFixColor)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -49,6 +53,7 @@ public extension FeatureFlags {
         .fullInlineSetImpl,
         .fixUpdateRelationBlock,
         .setTypeContextMenu,
+        .styleViewFixColor,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
