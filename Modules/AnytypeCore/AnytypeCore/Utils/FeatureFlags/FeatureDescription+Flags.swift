@@ -21,7 +21,30 @@ public extension FeatureDescription {
     static let fullInlineSetImpl = FeatureDescription(
         title: "Full inline set impl (IOS-790)",
         author: "joe_pusya@anytype.io",
+        releaseVersion: "0.?.0",
+        defaultValue: false,
+        debugValue: false
+    )
+    
+    static let fixUpdateRelationBlock = FeatureDescription(
+        title: "Fix relation block updates (IOS-801)",
+        author: "m@anytype.io",
         releaseVersion: "0.22.0",
+        defaultValue: false
+    )
+    
+    static let setTypeContextMenu = FeatureDescription(
+        title: "Set type context menu (IOS-917)",
+        author: "joe_pusya@anytype.io",
+        releaseVersion: "0.23.0",
+        defaultValue: false,
+        debugValue: false
+    )
+    
+    static let styleViewFixColor = FeatureDescription(
+        title: "Style view - fix color (IOS-234)",
+        author: "m@anytype.io",
+        releaseVersion: "0.23.0",
         defaultValue: false,
         debugValue: false
     )

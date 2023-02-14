@@ -19,12 +19,12 @@ final class SetsSubscriptionService: SetsSubscriptionServiceProtocol {
     
     private let subscriptionService: SubscriptionsServiceProtocol
     private let objectTypeProvider: ObjectTypeProviderProtocol
-    private let accountManager: AccountManager
+    private let accountManager: AccountManagerProtocol
     private let subscriptionId = SubscriptionId(value: "Sets-\(UUID().uuidString)")
     
     init(
         subscriptionService: SubscriptionsServiceProtocol,
-        accountManager: AccountManager,
+        accountManager: AccountManagerProtocol,
         objectTypeProvider: ObjectTypeProviderProtocol
     ) {
         self.subscriptionService = subscriptionService
@@ -46,9 +46,7 @@ final class SetsSubscriptionService: SetsSubscriptionServiceProtocol {
             SearchHelper.notHiddenFilter(),
             SearchHelper.isArchivedFilter(isArchived: false),
             SearchHelper.workspaceId(accountManager.account.info.accountSpaceId),
-            SearchHelper.typeFilter(typeIds: objectTypeProvider.objectTypes(smartblockTypes: [.set]).map { $0.id }),
-            SearchHelper.lastOpenedDateNotNilFilter()
-            
+            SearchHelper.typeFilter(typeIds: objectTypeProvider.objectTypes(smartblockTypes: [.set]).map { $0.id })
         ]
         
         let searchData: SubscriptionData = .search(
@@ -58,7 +56,7 @@ final class SetsSubscriptionService: SetsSubscriptionServiceProtocol {
                 filters: filters,
                 limit: objectLimit ?? Constants.limit,
                 offset: 0,
-                keys: BundledRelationKey.objectListKeys
+                keys: BundledRelationKey.objectListKeys.map { $0.rawValue }
             )
         )
         

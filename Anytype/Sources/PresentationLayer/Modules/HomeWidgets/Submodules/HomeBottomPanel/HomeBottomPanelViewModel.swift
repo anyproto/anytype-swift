@@ -23,10 +23,11 @@ final class HomeBottomPanelViewModel: ObservableObject {
     // MARK: - Private properties
     
     private let toastPresenter: ToastPresenterProtocol
-    private let accountManager: AccountManager
+    private let accountManager: AccountManagerProtocol
     private let subscriptionService: SubscriptionsServiceProtocol
     private let subscriotionBuilder: HomeBottomPanelSubscriptionDataBuilderProtocol
     private let stateManager: HomeWidgetsStateManagerProtocol
+    private let dashboardService: DashboardServiceProtocol
     private weak var output: HomeBottomPanelModuleOutput?
     
     // MARK: - State
@@ -40,10 +41,11 @@ final class HomeBottomPanelViewModel: ObservableObject {
     
     init(
         toastPresenter: ToastPresenterProtocol,
-        accountManager: AccountManager,
+        accountManager: AccountManagerProtocol,
         subscriptionService: SubscriptionsServiceProtocol,
         subscriotionBuilder: HomeBottomPanelSubscriptionDataBuilderProtocol,
         stateManager: HomeWidgetsStateManagerProtocol,
+        dashboardService: DashboardServiceProtocol,
         output: HomeBottomPanelModuleOutput?
     ) {
         self.toastPresenter = toastPresenter
@@ -51,6 +53,7 @@ final class HomeBottomPanelViewModel: ObservableObject {
         self.subscriptionService = subscriptionService
         self.subscriotionBuilder = subscriotionBuilder
         self.stateManager = stateManager
+        self.dashboardService = dashboardService
         self.output = output
         setupSubscription()
     }
@@ -70,12 +73,12 @@ final class HomeBottomPanelViewModel: ObservableObject {
         } else {
             buttonState = .normal([
                 ImageButton(image: .imageAsset(.Widget.search), onTap: { [weak self] in
-                    self?.toastPresenter.show(message: "On tap search")
+                    self?.output?.onSearchSelected()
                 }),
                 ImageButton(image: .imageAsset(.Widget.add), onTap: { [weak self] in
-                    self?.toastPresenter.show(message: "On tap create object")
+                    self?.handleCreateObject()
                 }),
-                ImageButton(image: subscriptionData.first?.objectIconImage ?? .placeholder(nil), onTap: { [weak self] in
+                ImageButton(image: subscriptionData.first?.objectIconImage ?? .imageAsset(.Widget.spacePlaceholder), onTap: { [weak self] in
                     self?.toastPresenter.show(message: "On tap space")
                 })
             ])
@@ -94,5 +97,12 @@ final class HomeBottomPanelViewModel: ObservableObject {
     private func handleEvent(update: SubscriptionUpdate) {
         subscriptionData.applySubscriptionUpdate(update)
         updateModels(isEditState: stateManager.isEditState)
+    }
+    
+    private func handleCreateObject() {
+        guard let id = dashboardService.createNewPage() else { return }
+        
+        let screenData = EditorScreenData(pageId: id, type: .page)
+        output?.onCreateObjectSelected(screenData: screenData)
     }
 }

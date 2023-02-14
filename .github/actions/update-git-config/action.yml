@@ -1,0 +1,10 @@
+name: Update git config
+runs:
+  using: "composite"
+  steps:
+    - name: Update git config
+      shell: bash
+      run: |
+        git config --global url.ssh://git@github.com/.insteadOf https://github.com/
+        git config --global user.name "William Blake"
+        git config --global user.email "iosteam@anytype.io"

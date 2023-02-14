@@ -29,8 +29,13 @@ final class ServiceLocator {
         )
     }
     
-    func loginStateService() -> LoginStateService {
-        LoginStateService(seedService: seedService(), objectTypeProvider: objectTypeProvider())
+    func loginStateService() -> LoginStateServiceProtocol {
+        LoginStateService(
+            seedService: seedService(),
+            objectTypeProvider: objectTypeProvider(),
+            middlewareConfigurationProvider: middlewareConfigurationProvider(),
+            blockWidgetExpandedService: blockWidgetExpandedService()
+        )
     }
     
     func dashboardService() -> DashboardServiceProtocol {
@@ -80,8 +85,9 @@ final class ServiceLocator {
         AlertOpener()
     }
     
-    func accountManager() -> AccountManager {
-        return AccountManager.shared
+    private lazy var _accountManager = AccountManager()
+    func accountManager() -> AccountManagerProtocol {
+        return _accountManager
     }
     
     func objectTypeProvider() -> ObjectTypeProviderProtocol {
@@ -153,6 +159,26 @@ final class ServiceLocator {
             accountManager: accountManager(),
             objectTypeProvider: objectTypeProvider()
         )
+    }
+    
+    private lazy var _middlewareConfigurationProvider = MiddlewareConfigurationProvider()
+    func middlewareConfigurationProvider() -> MiddlewareConfigurationProviderProtocol {
+        return _middlewareConfigurationProvider
+    }
+    
+    private lazy var _documentService = DocumentService(relationDetailsStorage: relationDetailsStorage())
+    func documentService() -> DocumentServiceProtocol {
+        return _documentService
+    }
+    
+    private lazy var _blockWidgetExpandedService = BlockWidgetExpandedService()
+    func blockWidgetExpandedService() -> BlockWidgetExpandedServiceProtocol {
+        return _blockWidgetExpandedService
+    }
+    
+    private lazy var _applicationStateService = ApplicationStateService()
+    func applicationStateService() -> ApplicationStateServiceProtocol {
+        _applicationStateService
     }
     
     // MARK: - Private

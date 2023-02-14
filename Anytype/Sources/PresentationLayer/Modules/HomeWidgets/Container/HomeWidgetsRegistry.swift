@@ -2,7 +2,7 @@ import Foundation
 import BlocksModels
 
 protocol HomeWidgetsRegistryProtocol {
-    func providers(blocks: [BlockInformation], widgetObject: HomeWidgetsObjectProtocol) -> [HomeWidgetProviderProtocol]
+    func providers(blocks: [BlockInformation], widgetObject: HomeWidgetsObjectProtocol) -> [HomeSubmoduleProviderProtocol]
 }
 
 final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
@@ -10,7 +10,7 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
     private struct ProviderCache {
         let widgetBlockId: String
         let widgetObjectId: String
-        let provider: HomeWidgetProviderProtocol
+        let provider: HomeSubmoduleProviderProtocol
         let source: HomeWidgetProviderAssemblyProtocol
     }
     
@@ -18,6 +18,7 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
         static let favoriteWidgetId = "FavoriteWidgetId"
         static let recentWidgetId = "RecentWidgetId"
         static let setsWidgetId = "SetsWidgetId"
+        static let binWidgetId = "BinWidgetId"
     }
     
     private let treeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
@@ -25,6 +26,8 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
     private let favoriteWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     private let recentWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     private let setsWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
+    private let linkWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
+    private let binLinkWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     private let stateManager: HomeWidgetsStateManagerProtocol
     private let objectDetailsStorage: ObjectDetailsStorage
     private var providersCache: [ProviderCache] = []
@@ -35,6 +38,8 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
         favoriteWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         recentWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         setsWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
+        linkWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
+        binLinkWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         stateManager: HomeWidgetsStateManagerProtocol,
         objectDetailsStorage: ObjectDetailsStorage
     ) {
@@ -43,6 +48,8 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
         self.favoriteWidgetProviderAssembly = favoriteWidgetProviderAssembly
         self.recentWidgetProviderAssembly = recentWidgetProviderAssembly
         self.setsWidgetProviderAssembly = setsWidgetProviderAssembly
+        self.linkWidgetProviderAssembly = linkWidgetProviderAssembly
+        self.binLinkWidgetProviderAssembly = binLinkWidgetProviderAssembly
         self.stateManager = stateManager
         self.objectDetailsStorage = objectDetailsStorage
     }
@@ -52,7 +59,7 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
     func providers(
         blocks: [BlockInformation],
         widgetObject: HomeWidgetsObjectProtocol
-    ) -> [HomeWidgetProviderProtocol] {
+    ) -> [HomeSubmoduleProviderProtocol] {
         
         var newProvidersCache: [ProviderCache] = blocks.compactMap { block in
             guard case let .widget(widget) = block.content else { return nil }
@@ -62,35 +69,25 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
             
             switch widget.layout {
             case .link:
-                switch contentDetails.editorViewType {
-                case .page:
-                    return createProviderCache(
-                        source: treeWidgetProviderAssembly,
-                        widgetBlockId: block.id,
-                        widgetObject: widgetObject
-                    )
-                case .set:
-                    return createProviderCache(
-                        source: setWidgetProviderAssembly,
-                        widgetBlockId: block.id,
-                        widgetObject: widgetObject
-                    )
-                }
+                return createProviderCache(
+                    source: linkWidgetProviderAssembly,
+                    widgetBlockId: block.id,
+                    widgetObject: widgetObject
+                )
             case .tree:
-                switch contentDetails.editorViewType {
-                case .page:
-                    return createProviderCache(
-                        source: treeWidgetProviderAssembly,
-                        widgetBlockId: block.id,
-                        widgetObject: widgetObject
-                    )
-                case .set:
-                    return createProviderCache(
-                        source: setWidgetProviderAssembly,
-                        widgetBlockId: block.id,
-                        widgetObject: widgetObject
-                    )
-                }
+                guard contentDetails.editorViewType == .page else { return nil }
+                return createProviderCache(
+                    source: treeWidgetProviderAssembly,
+                    widgetBlockId: block.id,
+                    widgetObject: widgetObject
+                )
+            case .list:
+                guard contentDetails.editorViewType == .set() else { return nil }
+                return createProviderCache(
+                    source: setWidgetProviderAssembly,
+                    widgetBlockId: block.id,
+                    widgetObject: widgetObject
+                )
             }
         }
         
@@ -117,6 +114,14 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
             createProviderCache(
                 source: setsWidgetProviderAssembly,
                 widgetBlockId: Constants.setsWidgetId,
+                widgetObject: widgetObject
+            )
+        )
+        
+        newProvidersCache.append(
+            createProviderCache(
+                source: binLinkWidgetProviderAssembly,
+                widgetBlockId: Constants.binWidgetId,
                 widgetObject: widgetObject
             )
         )

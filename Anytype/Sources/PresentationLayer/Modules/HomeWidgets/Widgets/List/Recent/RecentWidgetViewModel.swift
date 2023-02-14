@@ -44,16 +44,20 @@ final class RecentWidgetViewModel: ListWidgetViewModelProtocol, WidgetContainerC
     
     // MARK: - ListWidgetViewModelProtocol
     
-    func onAppear() {
+    func onAppear() {}
+
+    func onDisappear() {}
+    
+    func onAppearContent() {
         setupAllSubscriptions()
     }
-
-    func onDisappear() {
+    
+    func onDisappearContent() {
         recentSubscriptionService.stopSubscription()
     }
     
-    func onDeleteWidgetTap() {
-       // TODO: Add configuration for context menu
+    func onHeaderTap() {
+        output?.onObjectSelected(screenData: EditorScreenData(pageId: "", type: .recent))
     }
     
     // MARK: - Private

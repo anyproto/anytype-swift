@@ -17,17 +17,21 @@ struct WidgetContainerView<Content: View, ContentVM: WidgetContainerContentViewM
     var body: some View {
         LinkWidgetViewContainer(
             title: contentModel.name,
-            description: contentModel.count,
+            icon: contentModel.icon,
             isExpanded: $model.isExpanded,
             isEditalbeMode: model.isEditState,
             allowMenuContent: contentModel.menuItems.isNotEmpty,
+            allowContent: contentModel.allowContent,
+            headerAction: {
+                contentModel.onHeaderTap()
+            },
+            removeAction: removeAction(),
             menu: {
                 menuItems
             },
             content: {
                 content
-            },
-            removeAction: removeAction()
+            }
         )
         .onAppear {
             contentModel.onAppear()
@@ -87,7 +91,7 @@ struct WidgetContainerView<Content: View, ContentVM: WidgetContainerContentViewM
             
     private func removeAction() -> (() -> Void)? {
         
-        guard contentModel.menuItems.contains(.remove) else { return nil}
+        guard contentModel.menuItems.contains(.remove) else { return nil }
         
         return {
             model.onDeleteWidgetTap()

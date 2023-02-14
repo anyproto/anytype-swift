@@ -10,6 +10,12 @@ struct ListWidgetView<Model: ListWidgetViewModelProtocol>: View {
             header
             content
         }
+        .onAppear {
+            model.onAppearContent()
+        }
+        .onDisappear {
+            model.onDisappearContent()
+        }
     }
     
     private var header: some View {

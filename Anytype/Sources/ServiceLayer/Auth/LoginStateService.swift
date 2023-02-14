@@ -1,31 +1,50 @@
 import AnytypeCore
 
-final class LoginStateService {
+protocol LoginStateServiceProtocol: AnyObject {
+    var isFirstLaunchAfterRegistration: Bool { get }
+    func setupStateAfterLoginOrAuth(account: AccountData)
+    func setupStateAfterRegistration(account: AccountData)
+    func cleanStateAfterLogout()
+}
+
+final class LoginStateService: LoginStateServiceProtocol {
     var isFirstLaunchAfterRegistration: Bool = false
 
     private let seedService: SeedServiceProtocol
     private let objectTypeProvider: ObjectTypeProviderProtocol
+    private let middlewareConfigurationProvider: MiddlewareConfigurationProviderProtocol
+    private let blockWidgetExpandedService: BlockWidgetExpandedServiceProtocol
     
-    init(seedService: SeedServiceProtocol, objectTypeProvider: ObjectTypeProviderProtocol) {
+    init(
+        seedService: SeedServiceProtocol,
+        objectTypeProvider: ObjectTypeProviderProtocol,
+        middlewareConfigurationProvider: MiddlewareConfigurationProviderProtocol,
+        blockWidgetExpandedService: BlockWidgetExpandedServiceProtocol
+    ) {
         self.seedService = seedService
         self.objectTypeProvider = objectTypeProvider
+        self.middlewareConfigurationProvider = middlewareConfigurationProvider
+        self.blockWidgetExpandedService = blockWidgetExpandedService
     }
     
+    // MARK: - LoginStateServiceProtocol
+    
     func setupStateAfterLoginOrAuth(account: AccountData) {
-        MiddlewareConfigurationProvider.shared.setupConfiguration(account: account)
+        middlewareConfigurationProvider.setupConfiguration(account: account)
         startSubscriptions()
     }
     
     func setupStateAfterRegistration(account: AccountData) {
         isFirstLaunchAfterRegistration = true
         UserDefaultsConfig.showKeychainAlert = true
-        MiddlewareConfigurationProvider.shared.setupConfiguration(account: account)
+        middlewareConfigurationProvider.setupConfiguration(account: account)
         startSubscriptions()
     }
     
     func cleanStateAfterLogout() {
         UserDefaultsConfig.cleanStateAfterLogout()
-        MiddlewareConfigurationProvider.shared.removeCachedConfiguration()
+        blockWidgetExpandedService.clearData()
+        middlewareConfigurationProvider.removeCachedConfiguration()
         stopSubscriptions()
     }
     

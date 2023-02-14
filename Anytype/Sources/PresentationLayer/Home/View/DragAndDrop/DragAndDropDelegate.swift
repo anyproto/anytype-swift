@@ -33,7 +33,7 @@ extension HomeViewModel: DragAndDropDelegate {
     }
     
     func onDrop(from: HomeCellData, to: HomeCellData, direction: DropData.Direction) -> Bool {
-        let homeObjectId = AccountManager.shared.account.info.homeObjectID
+        let homeObjectId = accountManager.account.info.homeObjectID
         
         objectActionsService.move(
             dashboadId: homeObjectId,

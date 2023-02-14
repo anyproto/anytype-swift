@@ -21,10 +21,10 @@ final class SelectProfileViewModel: ObservableObject {
     
     private var isAccountRecovering = false
     
-    let windowManager: WindowManager
+    private let applicationStateService: ApplicationStateServiceProtocol
     
-    init(windowManager: WindowManager) {
-        self.windowManager = windowManager
+    init(applicationStateService: ApplicationStateServiceProtocol) {
+        self.applicationStateService = applicationStateService
     }
     
     func accountRecover() {
@@ -67,9 +67,9 @@ private extension SelectProfileViewModel {
             
             switch status {
             case .active:
-                self.windowManager.showHomeWindow()
-            case .pendingDeletion(let deadline):
-                self.windowManager.showDeletedAccountWindow(deadline: deadline)
+                self.applicationStateService.state = .home
+            case .pendingDeletion:
+                self.applicationStateService.state = .delete
             case .deleted:
                 self.errorText = Loc.accountDeleted
             case .none:

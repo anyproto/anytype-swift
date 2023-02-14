@@ -16,7 +16,7 @@ final class SignUpData: ObservableObject {
 }
 
 final class WaitingOnCreatAccountViewModel: ObservableObject {
-    private let windowManager: WindowManager
+    private let applicationStateService: ApplicationStateServiceProtocol
     private let authService: AuthServiceProtocol
     private let seedService: SeedServiceProtocol
     
@@ -32,13 +32,13 @@ final class WaitingOnCreatAccountViewModel: ObservableObject {
     init(
         signUpData: SignUpData,
         showWaitingView: Binding<Bool>,
-        windowManager: WindowManager,
+        applicationStateService: ApplicationStateServiceProtocol,
         authService: AuthServiceProtocol,
         seedService: SeedServiceProtocol
     ) {
         self.signUpData = signUpData
         self._showWaitingView = showWaitingView
-        self.windowManager = windowManager
+        self.applicationStateService = applicationStateService
         self.authService = authService
         self.seedService = seedService
 
@@ -65,7 +65,7 @@ final class WaitingOnCreatAccountViewModel: ObservableObject {
                 case .success:
                     try? self.seedService.saveSeed(self.signUpData.mnemonic)
 
-                    self.windowManager.showHomeWindow()
+                    self.applicationStateService.state = .home
                 }
             }
         }

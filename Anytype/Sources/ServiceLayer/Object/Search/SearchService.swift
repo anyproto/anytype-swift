@@ -33,12 +33,12 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         static let defaultLimit = 100
     }
     
-    private let accountManager: AccountManager
+    private let accountManager: AccountManagerProtocol
     private let objectTypeProvider: ObjectTypeProviderProtocol
     private let relationDetailsStorage: RelationDetailsStorageProtocol
     
     init(
-        accountManager: AccountManager,
+        accountManager: AccountManagerProtocol,
         objectTypeProvider: ObjectTypeProviderProtocol,
         relationDetailsStorage: RelationDetailsStorageProtocol
     ) {

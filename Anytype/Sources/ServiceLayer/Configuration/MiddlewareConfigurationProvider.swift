@@ -3,17 +3,21 @@ import Combine
 import ProtobufMessages
 import AnytypeCore
 
+protocol MiddlewareConfigurationProviderProtocol: AnyObject {
+    var configuration: MiddlewareConfiguration { get }
+    func removeCachedConfiguration()
+    func setupConfiguration(account: AccountData)
+    func libraryVersion() -> String?
+}
+
 /// Service that handles middleware config
 final class MiddlewareConfigurationProvider {
-    
-    // MARK: - Initializer
-    static let shared = MiddlewareConfigurationProvider()
     
     // MARK: - Private variables
     private var cachedConfiguration: MiddlewareConfiguration?
 }
 
-extension MiddlewareConfigurationProvider {
+extension MiddlewareConfigurationProvider: MiddlewareConfigurationProviderProtocol {
     
     var configuration: MiddlewareConfiguration {
         if let configuration = cachedConfiguration {

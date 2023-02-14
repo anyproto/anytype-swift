@@ -45,16 +45,20 @@ final class SetsWidgetViewModel: ListWidgetViewModelProtocol, WidgetContainerCon
     
     // MARK: - ListWidgetViewModelProtocol
     
-    func onAppear() {
+    func onAppear() {}
+    
+    func onDisappear() {}
+    
+    func onAppearContent() {
         setupAllSubscriptions()
     }
-
-    func onDisappear() {
+    
+    func onDisappearContent() {
         setsSubscriptionService.stopSubscription()
     }
     
-    func onDeleteWidgetTap() {
-       // TODO: Add configuration for context menu
+    func onHeaderTap() {
+        output?.onObjectSelected(screenData: EditorScreenData(pageId: "", type: .sets))
     }
     
     // MARK: - Private

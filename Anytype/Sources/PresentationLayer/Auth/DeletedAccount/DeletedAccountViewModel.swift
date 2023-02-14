@@ -6,13 +6,13 @@ final class DeletedAccountViewModel: ObservableObject {
     
     private let service = ServiceLocator.shared.authService()
     private let deadline: Date
-    private let windowManager: WindowManager
+    private let applicationStateService: ApplicationStateServiceProtocol
     
     // MARK: - Initializer
     
-    init(deadline: Date, windowManager: WindowManager) {
+    init(deadline: Date, applicationStateService: ApplicationStateServiceProtocol) {
         self.deadline = deadline
-        self.windowManager = windowManager
+        self.applicationStateService = applicationStateService
     }
     
     // MARK: - Internal var
@@ -44,7 +44,7 @@ final class DeletedAccountViewModel: ObservableObject {
                 return
             }
             
-            self?.windowManager.showAuthWindow()
+            self?.applicationStateService.state = .auth
         }
     }
     
@@ -56,7 +56,7 @@ final class DeletedAccountViewModel: ObservableObject {
         }
         
         if case .active = status {
-            windowManager.showHomeWindow()
+            applicationStateService.state = .home
         } else {
             UINotificationFeedbackGenerator().notificationOccurred(.error)
             return

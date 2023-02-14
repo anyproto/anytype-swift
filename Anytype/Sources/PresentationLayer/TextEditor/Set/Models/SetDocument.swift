@@ -20,6 +20,10 @@ class SetDocument: SetDocumentProtocol {
         }
     }
     
+    var detailsPublisher: AnyPublisher<ObjectDetails, Never> {
+        document.detailsPublisher
+    }
+    
     var updatePublisher: AnyPublisher<DocumentUpdate, Never> {
         document.updatePublisher
     }
@@ -121,6 +125,12 @@ class SetDocument: SetDocumentProtocol {
     @MainActor
     func open() async throws {
         try await document.open()
+        updateData()
+    }
+    
+    @MainActor
+    func openForPreview() async throws {
+        try await document.openForPreview()
         updateData()
     }
     

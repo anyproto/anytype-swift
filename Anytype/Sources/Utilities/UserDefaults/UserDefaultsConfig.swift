@@ -72,7 +72,7 @@ extension UserDefaultsConfig {
         _lastOpenedPageId = data?.pageId
         
         switch data?.type {
-        case .page:
+        case .page, .favorites, .recent, .sets:
             _lastOpenedViewType = data?.type.rawValue
             _lastOpenedBlockId = nil
             _lastOpenedTargetObjectID = nil
@@ -117,7 +117,7 @@ extension UserDefaultsConfig {
         get {
             let tab = _selectedTab.flatMap { HomeTabsView.Tab(rawValue: $0) } ?? .favourites
             
-            if tab == .shared && !AccountManager.shared.account.config.enableSpaces {
+            if tab == .shared && !ServiceLocator.shared.accountManager().account.config.enableSpaces {
                 return .favourites
             }
             

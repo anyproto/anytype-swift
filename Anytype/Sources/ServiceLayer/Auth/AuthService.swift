@@ -7,15 +7,15 @@ import BlocksModels
 
 final class AuthService: AuthServiceProtocol {
     private let rootPath: String
-    private let loginStateService: LoginStateService
-    private let accountManager: AccountManager
+    private let loginStateService: LoginStateServiceProtocol
+    private let accountManager: AccountManagerProtocol
     
     private var subscriptions: [AnyCancellable] = []
     
     init(
         localRepoService: LocalRepoServiceProtocol,
-        loginStateService: LoginStateService,
-        accountManager: AccountManager
+        loginStateService: LoginStateServiceProtocol,
+        accountManager: AccountManagerProtocol
     ) {
         self.rootPath = localRepoService.middlewareRepoPath
         self.loginStateService = loginStateService

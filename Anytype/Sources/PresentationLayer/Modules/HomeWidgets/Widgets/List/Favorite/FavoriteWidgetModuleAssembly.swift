@@ -1,15 +1,7 @@
 import Foundation
 import SwiftUI
 
-protocol FavoriteWidgetModuleAssemblyProtocol: AnyObject {
-    @MainActor
-    func make(
-        widgetBlockId: String,
-        widgetObject: HomeWidgetsObjectProtocol,
-        stateManager: HomeWidgetsStateManagerProtocol,
-        output: CommonWidgetModuleOutput?
-    ) -> AnyView
-}
+protocol FavoriteWidgetModuleAssemblyProtocol: HomeWidgetCommonAssemblyProtocol {}
 
 final class FavoriteWidgetModuleAssembly: FavoriteWidgetModuleAssemblyProtocol {
     
@@ -36,6 +28,7 @@ final class FavoriteWidgetModuleAssembly: FavoriteWidgetModuleAssemblyProtocol {
             widgetObject: widgetObject,
             accountManager: serviceLocator.accountManager(),
             favoriteSubscriptionService: serviceLocator.favoriteSubscriptionService(),
+            documentService: serviceLocator.documentService(),
             output: output
         )
         let contentView = ListWidgetView(model: contentModel)
@@ -44,7 +37,8 @@ final class FavoriteWidgetModuleAssembly: FavoriteWidgetModuleAssemblyProtocol {
             widgetBlockId: widgetBlockId,
             widgetObject: widgetObject,
             blockWidgetService: serviceLocator.blockWidgetService(),
-            stateManager: stateManager
+            stateManager: stateManager,
+            blockWidgetExpandedService: serviceLocator.blockWidgetExpandedService()
         )
         let containterView = WidgetContainerView(
             model: containerModel,

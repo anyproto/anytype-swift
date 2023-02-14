@@ -19,12 +19,12 @@ final class RecentSubscriptionService: RecentSubscriptionServiceProtocol {
     
     private let subscriptionService: SubscriptionsServiceProtocol
     private let objectTypeProvider: ObjectTypeProviderProtocol
-    private let accountManager: AccountManager
+    private let accountManager: AccountManagerProtocol
     private let subscriptionId = SubscriptionId(value: "Recent-\(UUID().uuidString)")
     
     init(
         subscriptionService: SubscriptionsServiceProtocol,
-        accountManager: AccountManager,
+        accountManager: AccountManagerProtocol,
         objectTypeProvider: ObjectTypeProviderProtocol
     ) {
         self.subscriptionService = subscriptionService
@@ -58,7 +58,7 @@ final class RecentSubscriptionService: RecentSubscriptionServiceProtocol {
                 filters: filters,
                 limit: objectLimit ?? Constants.limit,
                 offset: 0,
-                keys: BundledRelationKey.objectListKeys
+                keys: BundledRelationKey.objectListKeys.map { $0.rawValue }
             )
         )
         
