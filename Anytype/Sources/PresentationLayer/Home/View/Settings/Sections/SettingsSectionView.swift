@@ -53,8 +53,8 @@ struct SettingsSectionView_Previews: PreviewProvider {
         SettingsSectionView()
             .environmentObject(
                 SettingsViewModel(
-                    authService: DI.preview.serviceLocator.authService(),
-                    applicationStateService: DI.preview.serviceLocator.applicationStateService()
+                    authService: ServiceLocator.shared.authService(),
+                    windowManager: DI.preview.coordinatorsDI.windowManager()
                 )
             )
             .previewLayout(.sizeThatFits)

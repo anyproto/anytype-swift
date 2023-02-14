@@ -10,38 +10,32 @@ protocol HomeWidgetsCoordinatorProtocol {
 final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsModuleOutput,
                                     CommonWidgetModuleOutput, HomeBottomPanelModuleOutput {
     
-    // MARK: - DI
-    
     private let homeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol
-    private let accountManager: AccountManagerProtocol
+    private let accountManager: AccountManager
     private let navigationContext: NavigationContextProtocol
-    private let applicationStateService: ApplicationStateServiceProtocol
+    private let windowManager: WindowManager
     private let createWidgetCoordinator: CreateWidgetCoordinatorProtocol
     private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
-    private let widgetObjectListModuleAssembly: WidgetObjectListModuleAssemblyProtocol
-    private let editorBrowserCoordinator: EditorBrowserCoordinatorProtocol
-    private let searchModuleAssembly: SearchModuleAssemblyProtocol
+    private let editorBrowserAssembly: EditorBrowserAssembly
+    
+    private weak var browserController: EditorBrowserController?
     
     init(
         homeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol,
-        accountManager: AccountManagerProtocol,
+        accountManager: AccountManager,
         navigationContext: NavigationContextProtocol,
+        windowManager: WindowManager,
         createWidgetCoordinator: CreateWidgetCoordinatorProtocol,
         objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
-        widgetObjectListModuleAssembly: WidgetObjectListModuleAssemblyProtocol,
-        editorBrowserCoordinator: EditorBrowserCoordinatorProtocol,
-        searchModuleAssembly: SearchModuleAssemblyProtocol,
-        applicationStateService: ApplicationStateServiceProtocol
+        editorBrowserAssembly: EditorBrowserAssembly
     ) {
         self.homeWidgetsModuleAssembly = homeWidgetsModuleAssembly
         self.accountManager = accountManager
         self.navigationContext = navigationContext
+        self.windowManager = windowManager
         self.createWidgetCoordinator = createWidgetCoordinator
         self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
-        self.widgetObjectListModuleAssembly = widgetObjectListModuleAssembly
-        self.editorBrowserCoordinator = editorBrowserCoordinator
-        self.searchModuleAssembly = searchModuleAssembly
-        self.applicationStateService = applicationStateService
+        self.editorBrowserAssembly = editorBrowserAssembly
     }
     
     func startFlow() -> AnyView {
@@ -56,7 +50,7 @@ final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsM
     // MARK: - HomeWidgetsModuleOutput
     
     func onOldHomeSelected() {
-        applicationStateService.state = .initial
+        windowManager.showHomeWindow()
     }
     
     // TODO: Delete it. Temporary.
@@ -72,7 +66,7 @@ final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsM
     // MARK: - CommonWidgetModuleOutput
         
     func onObjectSelected(screenData: EditorScreenData) {
-        openObject(screenData: screenData)
+        showPage(screenData: screenData)
     }
     
     // MARK: - HomeBottomPanelModuleOutput
@@ -81,22 +75,15 @@ final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsM
         createWidgetCoordinator.startFlow(widgetObjectId: accountManager.account.info.widgetsId)
     }
     
-    func onSearchSelected() {
-        let module = searchModuleAssembly.makeObjectSearch(title: nil, context: .general, onSelect: { [weak self] data in
-            let screenData = EditorScreenData(pageId: data.blockId, type: data.viewType)
-            self?.navigationContext.dismissAllPresented()
-            self?.openObject(screenData: screenData)
-        })
-        navigationContext.present(module)
-    }
-    
-    func onCreateObjectSelected(screenData: EditorScreenData) {
-        openObject(screenData: screenData)
-    }
-    
     // MARK: - Private
     
-    private func openObject(screenData: EditorScreenData) {
-        editorBrowserCoordinator.startFlow(data: screenData)
+    func showPage(screenData: EditorScreenData) {
+        if let browserController {
+            browserController.showPage(data: screenData)
+        } else {
+            let controller = editorBrowserAssembly.buildEditorBrowser(data: screenData)
+            navigationContext.push(controller)
+            browserController = controller
+        }
     }
 }

@@ -7,9 +7,9 @@ extension SubscriptionId {
 
 final class RelationSubscriptionDataBuilder: RelationSubscriptionDataBuilderProtocol {
     
-    private let accountManager: AccountManagerProtocol
+    private let accountManager: AccountManager
     
-    init(accountManager: AccountManagerProtocol) {
+    init(accountManager: AccountManager) {
         self.accountManager = accountManager
     }
     

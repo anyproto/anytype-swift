@@ -49,7 +49,7 @@ struct SetCollectionView: View {
     
     private var galleryContent: some View {
         Group {
-            if model.isEmptyViews {
+            if model.isEmpty {
                 EmptyView()
             } else {
                 Section(header: compoundHeader) {
@@ -81,7 +81,7 @@ struct SetCollectionView: View {
     
     private var listContent: some View {
         Group {
-            if model.isEmptyViews {
+            if model.isEmpty {
                 EmptyView()
             } else {
                 Section(header: compoundHeader) {
@@ -113,7 +113,13 @@ struct SetCollectionView: View {
         VStack(spacing: 0) {
             Spacer.fixedHeight(headerMinimizedSize.height)
             VStack {
-                headerSettingsView
+                HStack {
+                    SetHeaderSettings()
+                        .environmentObject(model)
+                        .frame(width: tableHeaderSize.width)
+                        .offset(x: 4, y: 8)
+                    Spacer()
+                }
                 Spacer.fixedHeight(
                     viewType == .list ? 16 : 6
                 )
@@ -127,23 +133,6 @@ struct SetCollectionView: View {
             repeating: GridItem(.flexible(), spacing: SetCollectionView.interCellSpacing, alignment: .topLeading),
             count: model.isSmallItemSize ? 2 : 1
         )
-    }
-    
-    private var headerSettingsView: some View {
-        HStack {
-            SetHeaderSettingsView(
-                model: SetHeaderSettingsViewModel(
-                    setDocument: model.setDocument,
-                    isActive: !model.isEmptyQuery,
-                    onViewTap: model.showViewPicker,
-                    onSettingsTap: model.showSetSettings,
-                    onCreateTap: model.createObject
-                )
-            )
-            .frame(width: tableHeaderSize.width)
-            .offset(x: 4, y: 8)
-            Spacer()
-        }
     }
 }
 

@@ -31,9 +31,6 @@ final class HomeViewModel: ObservableObject {
     
     @Published private(set) var profileData: HomeProfileData?
     @Published private(set) var settingsViewModel: SettingsViewModel
-    @Published private(set) var enableSpace: Bool = false
-    
-    let libraryVersion: String?
     
     let objectActionsService: ObjectActionsServiceProtocol = ServiceLocator.shared.objectActionsService()
     
@@ -53,7 +50,6 @@ final class HomeViewModel: ObservableObject {
     
     private let editorBrowserAssembly: EditorBrowserAssembly
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
-    let accountManager: AccountManagerProtocol
     
     init(
         homeBlockId: BlockId,
@@ -61,9 +57,7 @@ final class HomeViewModel: ObservableObject {
         tabsSubsciptionDataBuilder: TabsSubscriptionDataBuilderProtocol,
         profileSubsciptionDataBuilder: ProfileSubscriptionDataBuilderProtocol,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
-        applicationStateService: ApplicationStateServiceProtocol,
-        accountManager: AccountManagerProtocol,
-        middlewareConfigurationProvider: MiddlewareConfigurationProviderProtocol
+        windowManager: WindowManager
     ) {
         document = BaseDocument(objectId: homeBlockId)
         self.editorBrowserAssembly = editorBrowserAssembly
@@ -72,10 +66,8 @@ final class HomeViewModel: ObservableObject {
         self.newSearchModuleAssembly = newSearchModuleAssembly
         self.settingsViewModel = SettingsViewModel(
             authService: ServiceLocator.shared.authService(),
-            applicationStateService: applicationStateService
+            windowManager: windowManager
         )
-        self.accountManager = accountManager
-        self.libraryVersion = middlewareConfigurationProvider.libraryVersion()
         setupSubscriptions()
         
         let data = UserDefaultsConfig.screenDataFromLastSession
@@ -170,10 +162,6 @@ final class HomeViewModel: ObservableObject {
             }
             .store(in: &cancellables)
         
-        accountManager.accountPublisher
-            .map { $0.config.enableSpaces }
-            .assign(to: &$enableSpace)
-        
         // visual delay on application launch
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
             self?.quickActionsSubscription = QuickActionsStorage.shared.$action.sink { action in
@@ -194,7 +182,7 @@ final class HomeViewModel: ObservableObject {
     
     private func setupProfileSubscriptions() {
         subscriptionService.startSubscription(
-            data: profileSubsciptionDataBuilder.profile(id: accountManager.account.info.profileObjectID)
+            data: profileSubsciptionDataBuilder.profile(id: AccountManager.shared.account.info.profileObjectID)
         ) { [weak self] id, update in
             withAnimation {
                 self?.onProfileUpdate(update: update)

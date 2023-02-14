@@ -22,21 +22,12 @@ extension BundledRelationsValueProvider {
 
         switch layoutValue {
         case .note:
-            title = snippet.replacedNewlinesWithSpaces
+            title = snippet
         default:
             title = name
         }
 
         return title.isEmpty ? Loc.untitled : title
-    }
-    
-    var subtitle: String {
-        switch layoutValue {
-        case .note:
-            return description
-        default:
-            return description.isNotEmpty ? description : snippet.replacedNewlinesWithSpaces
-        }
     }
     
     var homeLayout: HomeCellData.TitleLayout {

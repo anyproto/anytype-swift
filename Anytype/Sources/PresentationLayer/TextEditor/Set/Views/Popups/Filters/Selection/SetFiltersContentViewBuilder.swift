@@ -89,7 +89,7 @@ final class SetFiltersContentViewBuilder {
             selectionMode: .multipleItems(preselectedIds: selectedObjectsIds),
             excludedObjectIds: [],
             limitedObjectType: filter.relationDetails.objectTypes,
-            onSelect: { details in onSelect(details.map(\.id)) }
+            onSelect: onSelect
         )
     }
     

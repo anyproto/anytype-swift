@@ -26,7 +26,6 @@ final class HomeBottomPanelModuleAssembly: HomeBottomPanelModuleAssemblyProtocol
             subscriptionService: serviceLocator.subscriptionService(),
             subscriotionBuilder: HomeBottomPanelSubscriptionDataBuilder(),
             stateManager: stateManager,
-            dashboardService: serviceLocator.dashboardService(),
             output: output
         )
         return HomeBottomPanelView(model: model).eraseToAnyView()

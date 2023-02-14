@@ -374,12 +374,6 @@ final class MiddlewareEventConverter {
         case .blockDataviewViewUpdate(let data):
             handleBlockDataviewViewUpdate(data)
             return .general
-        case .blockSetRelation(let data):
-            guard FeatureFlags.fixUpdateRelationBlock else { return nil }
-            infoContainer.update(blockId: data.id) { info in
-                return info.updated(content: .relation(BlockRelation(key: data.key.value)))
-            }
-            return .general // Relace to `.blocks(blockIds: [data.id])` after implment task https://linear.app/anytype/issue/IOS-914
         case .accountShow,
                 .accountUpdate, // Event not working on middleware. See AccountManager.
                 .accountDetails, // Skipped
@@ -394,6 +388,7 @@ final class MiddlewareEventConverter {
                 .filesUpload,
                 .marksInfo,
                 .blockSetRestrictions,
+                .blockSetRelation,
                 .blockSetLatex,
                 .blockSetVerticalAlign,
                 .blockSetTableRow,

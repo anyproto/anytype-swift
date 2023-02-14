@@ -24,7 +24,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     private let blockBuilder: BlockViewModelBuilder
     private let headerModel: ObjectHeaderViewModel
     private let editorPageTemplatesHandler: EditorPageTemplatesHandlerProtocol
-    private let accountManager: AccountManagerProtocol
     private let isOpenedForPreview: Bool
     @Published private var isAppear: Bool = false
     
@@ -33,10 +32,10 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     private let blockActionsService: BlockActionsServiceSingleProtocol
 
     deinit {
-        Task.detached(priority: .userInitiated) { [document, blockActionsService, accountManager] in
+        Task.detached(priority: .userInitiated) { [document, blockActionsService] in
             try await blockActionsService.close()
             EventsBunch(
-                contextId: accountManager.account.info.homeObjectID,
+                contextId: AccountManager.shared.account.info.homeObjectID,
                 localEvents: [.documentClosed(blockId: document.objectId)]
             ).send()
         }
@@ -58,7 +57,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         objectActionsService: ObjectActionsServiceProtocol,
         searchService: SearchServiceProtocol,
         editorPageTemplatesHandler: EditorPageTemplatesHandlerProtocol,
-        accountManager: AccountManagerProtocol,
         isOpenedForPreview: Bool
     ) {
         self.viewInput = viewInput
@@ -75,7 +73,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         self.objectActionsService = objectActionsService
         self.searchService = searchService
         self.editorPageTemplatesHandler = editorPageTemplatesHandler
-        self.accountManager = accountManager
         self.isOpenedForPreview = isOpenedForPreview
 
         setupLoadingState()

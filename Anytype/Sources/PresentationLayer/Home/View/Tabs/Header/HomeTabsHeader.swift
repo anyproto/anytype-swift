@@ -30,7 +30,7 @@ struct HomeTabsHeader: View {
             tabButton(text: Loc.favorites, tab: .favourites)
             tabButton(text: Loc.recent, tab: .recent)
             tabButton(text: Loc.sets, tab: .sets)
-            if model.enableSpace {
+            if AccountManager.shared.account.config.enableSpaces {
                 tabButton(text: Loc.shared, tab: .shared)
             }
             tabButton(text: Loc.bin, tab: .bin)

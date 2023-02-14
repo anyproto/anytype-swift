@@ -400,15 +400,6 @@
 "Set.SourceType.SelectQuery" = "Select query";
 "Set.SourceType.Cancel.Toast.Title" = "This query can be changed on desktop only";
 
-// MARK: - Set: Type context menu
-"Set.TypeRelation.ContextMenu.TurnIntoCollection" = "Turn into collection";
-"Set.TypeRelation.ContextMenu.ChangeQuery" = "Change query";
-
-// MARK: - Collection: empty view
-"Collection.View.Empty.Title" = "No objects";
-"Collection.View.Empty.Subtitle" = "Add objects or turn into set to aggregate objects with equal types or relations";
-"Collection.View.Empty.Button.Title" = "Create object";
-
 // MARK: Slash Menu
 "SlashMenu.DotsDivider" = "Dots divider";
 "SlashMenu.LineDivider" = "Line divider";
@@ -684,10 +675,3 @@
 "Widgets.Actions.ChangeWidgetType" = "Change widget type";
 "Widgets.Actions.RemoveWidget" = "Remove widget";
 "Widgets.Actions.EditWidgets" = "Edit widgets";
-"Widgets.Layout.Screen.Title" = "Widget type";
-"Widgets.Layout.Link.Title" = "Link";
-"Widgets.Layout.Tree.Title" = "Tree";
-"Widgets.Layout.List.Title" = "List";
-"Widgets.Layout.Link.Description" = "Сompact version of the object";
-"Widgets.Layout.Tree.Description" = "Hierarchical structure of objects";
-"Widgets.Layout.List.Description" = "Widget with list view of set object";

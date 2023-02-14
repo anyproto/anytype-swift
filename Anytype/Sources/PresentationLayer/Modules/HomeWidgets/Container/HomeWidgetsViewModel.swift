@@ -8,20 +8,20 @@ final class HomeWidgetsViewModel: ObservableObject {
     private let widgetObject: HomeWidgetsObjectProtocol
     private let registry: HomeWidgetsRegistryProtocol
     private let blockWidgetService: BlockWidgetServiceProtocol
-    private let accountManager: AccountManagerProtocol
+    private let accountManager: AccountManager
     private let toastPresenter: ToastPresenterProtocol
     private let stateManager: HomeWidgetsStateManagerProtocol
     private weak var output: HomeWidgetsModuleOutput?
     
-    @Published var models: [HomeSubmoduleProviderProtocol] = []
-    @Published var bottomPanelProvider: HomeSubmoduleProviderProtocol
+    @Published var models: [HomeWidgetProviderProtocol] = []
+    @Published var bottomPanelProvider: HomeWidgetProviderProtocol
     @Published var hideEditButton: Bool = false
     
     init(
         widgetObject: HomeWidgetsObjectProtocol,
         registry: HomeWidgetsRegistryProtocol,
         blockWidgetService: BlockWidgetServiceProtocol,
-        accountManager: AccountManagerProtocol,
+        accountManager: AccountManager,
         bottomPanelProviderAssembly: HomeBottomPanelProviderAssemblyProtocol,
         toastPresenter: ToastPresenterProtocol,
         stateManager: HomeWidgetsStateManagerProtocol,

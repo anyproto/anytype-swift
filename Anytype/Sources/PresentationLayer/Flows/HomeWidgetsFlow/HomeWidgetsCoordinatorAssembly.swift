@@ -33,12 +33,10 @@ final class HomeWidgetsCoordinatorAssembly: HomeWidgetsCoordinatorAssemblyProtoc
             homeWidgetsModuleAssembly: modulesDI.homeWidgets(),
             accountManager: serviceLocator.accountManager(),
             navigationContext: uiHelpersDI.commonNavigationContext(),
+            windowManager: coordinatorsID.windowManager(),
             createWidgetCoordinator: coordinatorsID.createWidget().make(),
             objectIconPickerModuleAssembly: modulesDI.objectIconPicker(),
-            widgetObjectListModuleAssembly: modulesDI.widgetObjectList(),
-            editorBrowserCoordinator: coordinatorsID.editorBrowser().make(),
-            searchModuleAssembly: modulesDI.search(),
-            applicationStateService: serviceLocator.applicationStateService()
+            editorBrowserAssembly: coordinatorsID.browser()
         )
     }
 }

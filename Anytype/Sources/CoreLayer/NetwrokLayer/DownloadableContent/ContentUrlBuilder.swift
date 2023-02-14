@@ -3,18 +3,14 @@ import AnytypeCore
 import UIKit
 
 final class ContentUrlBuilder {
-    
-    private static var middlewareConfigurationProvider: MiddlewareConfigurationProviderProtocol {
-        return ServiceLocator.shared.middlewareConfigurationProvider()
-    }
-    
+       
     static func fileUrl(fileId: String) -> URL? {
         guard fileId.isNotEmpty else {
             anytypeAssertionFailure("File id is empty", domain: .contentUrlBuilder)
             return nil
         }
         
-        let gatewayUrl = middlewareConfigurationProvider.configuration.gatewayURL
+        let gatewayUrl = MiddlewareConfigurationProvider.shared.configuration.gatewayURL
         guard let components = URLComponents(string: gatewayUrl) else {
             anytypeAssertionFailure("File url components is nil. GatewayUrl: \(gatewayUrl)", domain: .contentUrlBuilder)
             return nil
@@ -29,7 +25,7 @@ final class ContentUrlBuilder {
             return nil
         }
         
-        let gatewayUrl = middlewareConfigurationProvider.configuration.gatewayURL
+        let gatewayUrl = MiddlewareConfigurationProvider.shared.configuration.gatewayURL
         guard let components = URLComponents(string: gatewayUrl) else {
             anytypeAssertionFailure("Image url components is nil. GatewayUrl: \(gatewayUrl)", domain: .contentUrlBuilder)
             return nil

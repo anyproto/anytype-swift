@@ -756,20 +756,6 @@ internal enum Loc {
     /// Camera access required to scan QR code
     internal static let cameraPermissionTitle = Loc.tr("Localizable", "Auth.CameraPermissionTitle", fallback: "Camera access required to scan QR code")
   }
-  internal enum Collection {
-    internal enum View {
-      internal enum Empty {
-        /// Add objects or turn into set to aggregate objects with equal types or relations
-        internal static let subtitle = Loc.tr("Localizable", "Collection.View.Empty.Subtitle", fallback: "Add objects or turn into set to aggregate objects with equal types or relations")
-        /// No objects
-        internal static let title = Loc.tr("Localizable", "Collection.View.Empty.Title", fallback: "No objects")
-        internal enum Button {
-          /// Create object
-          internal static let title = Loc.tr("Localizable", "Collection.View.Empty.Button.Title", fallback: "Create object")
-        }
-      }
-    }
-  }
   internal enum Content {
     internal enum Audio {
       /// Upload audio
@@ -1223,14 +1209,6 @@ internal enum Loc {
         }
       }
     }
-    internal enum TypeRelation {
-      internal enum ContextMenu {
-        /// Change query
-        internal static let changeQuery = Loc.tr("Localizable", "Set.TypeRelation.ContextMenu.ChangeQuery", fallback: "Change query")
-        /// Turn into collection
-        internal static let turnIntoCollection = Loc.tr("Localizable", "Set.TypeRelation.ContextMenu.TurnIntoCollection", fallback: "Turn into collection")
-      }
-    }
     internal enum View {
       internal enum Empty {
         /// All objects satisfying your query will be displayed in Set
@@ -1434,30 +1412,6 @@ internal enum Loc {
       internal static let editWidgets = Loc.tr("Localizable", "Widgets.Actions.EditWidgets", fallback: "Edit widgets")
       /// Remove widget
       internal static let removeWidget = Loc.tr("Localizable", "Widgets.Actions.RemoveWidget", fallback: "Remove widget")
-    }
-    internal enum Layout {
-      internal enum Link {
-        /// Сompact version of the object
-        internal static let description = Loc.tr("Localizable", "Widgets.Layout.Link.Description", fallback: "Сompact version of the object")
-        /// Link
-        internal static let title = Loc.tr("Localizable", "Widgets.Layout.Link.Title", fallback: "Link")
-      }
-      internal enum List {
-        /// Widget with list view of set object
-        internal static let description = Loc.tr("Localizable", "Widgets.Layout.List.Description", fallback: "Widget with list view of set object")
-        /// List
-        internal static let title = Loc.tr("Localizable", "Widgets.Layout.List.Title", fallback: "List")
-      }
-      internal enum Screen {
-        /// Widget type
-        internal static let title = Loc.tr("Localizable", "Widgets.Layout.Screen.Title", fallback: "Widget type")
-      }
-      internal enum Tree {
-        /// Hierarchical structure of objects
-        internal static let description = Loc.tr("Localizable", "Widgets.Layout.Tree.Description", fallback: "Hierarchical structure of objects")
-        /// Tree
-        internal static let title = Loc.tr("Localizable", "Widgets.Layout.Tree.Title", fallback: "Tree")
-      }
     }
   }
 }

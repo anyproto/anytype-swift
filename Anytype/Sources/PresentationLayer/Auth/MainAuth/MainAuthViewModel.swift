@@ -3,10 +3,10 @@ import SwiftUI
 
 class MainAuthViewModel: ObservableObject {
     private let authService = ServiceLocator.shared.authService()
-    private let applicationStateService: ApplicationStateServiceProtocol
+    private let windowManager: WindowManager
     
-    init(applicationStateService: ApplicationStateServiceProtocol) {
-        self.applicationStateService = applicationStateService
+    init(windowManager: WindowManager) {
+        self.windowManager = windowManager
     }
     
     var error: String = "" {
@@ -34,11 +34,11 @@ class MainAuthViewModel: ObservableObject {
     
     // MARK: - Coordinator
     func signUpFlow() -> some View {
-        return AlphaInviteCodeView(signUpData: SignUpData(mnemonic: self.enteredMnemonic), applicationStateService: applicationStateService)
+        return AlphaInviteCodeView(signUpData: SignUpData(mnemonic: self.enteredMnemonic), windowManager: windowManager)
     }
     
     func loginView() -> some View {
-        let viewModel = LoginViewModel(applicationStateService: applicationStateService)
+        let viewModel = LoginViewModel(windowManager: windowManager)
         return LoginView(viewModel: viewModel)
     }
 

@@ -6,7 +6,7 @@ protocol EditorPageCoordinatorProtocol: AnyObject {
     func startFlow(data: EditorScreenData, replaceCurrentPage: Bool)
 }
 
-final class EditorPageCoordinator: EditorPageCoordinatorProtocol, WidgetObjectListCommonModuleOutput {
+final class EditorPageCoordinator: EditorPageCoordinatorProtocol {
     
     private weak var browserController: EditorBrowserController?
     private let editorAssembly: EditorAssembly
@@ -33,8 +33,7 @@ final class EditorPageCoordinator: EditorPageCoordinatorProtocol, WidgetObjectLi
         
         let controller = editorAssembly.buildEditorController(
             browser: browserController,
-            data: data,
-            widgetListOutput: self
+            data: data
         )
         
         if replaceCurrentPage {
@@ -42,12 +41,6 @@ final class EditorPageCoordinator: EditorPageCoordinatorProtocol, WidgetObjectLi
         } else {
             browserController?.childNavigation?.pushViewController(controller, animated: true)
         }
-    }
-    
-    // MARK: - WidgetObjectListCommonModuleOutput
-    
-    func onObjectSelected(screenData: EditorScreenData) {
-        startFlow(data: screenData, replaceCurrentPage: false)
     }
     
     // MARK: - Private

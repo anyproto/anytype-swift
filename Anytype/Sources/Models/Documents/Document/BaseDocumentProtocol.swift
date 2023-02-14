@@ -4,7 +4,6 @@ import AnytypeCore
 
 protocol BaseDocumentGeneralProtocol: AnyObject {
     var details: ObjectDetails? { get }
-    var detailsPublisher: AnyPublisher<ObjectDetails, Never> { get }
     var updatePublisher: AnyPublisher<DocumentUpdate, Never> { get }
 }
 
@@ -20,8 +19,7 @@ protocol BaseDocumentProtocol: AnyObject, BaseDocumentGeneralProtocol {
     
     var parsedRelationsPublisher: AnyPublisher<ParsedRelations, Never> { get }
     var isLockedPublisher: AnyPublisher<Bool, Never> { get }
-    
-    var syncPublisher: AnyPublisher<Void, Never> { get }
+    var detailsPublisher: AnyPublisher<ObjectDetails, Never> { get }
     
     @MainActor
     func open() async throws

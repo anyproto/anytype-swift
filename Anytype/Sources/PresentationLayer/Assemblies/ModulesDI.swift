@@ -73,12 +73,4 @@ final class ModulesDI: ModulesDIProtocol {
     func textIconPicker() -> TextIconPickerModuleAssemblyProtocol {
         return TextIconPickerModuleAssembly(serviceLocator: serviceLocator)
     }
-    
-    func widgetType() -> WidgetTypeModuleAssemblyProtocol {
-        return WidgetTypeModuleAssembly(serviceLocator: serviceLocator)
-    }
-    
-    func widgetObjectList() -> WidgetObjectListModuleAssemblyProtocol {
-        return WidgetObjectListModuleAssembly(serviceLocator: serviceLocator)
-    }
 }

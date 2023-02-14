@@ -9,7 +9,7 @@
 import SwiftUI
 import BlocksModels
 import Combine
-import AnytypeCore
+
 
 /// https://www.figma.com/file/TupCOWb8sC9NcjtSToWIkS/Mobile---main?node-id=5172%3A1931
 final class MarkupAccessoryView: UIView {
@@ -28,7 +28,6 @@ final class MarkupAccessoryView: UIView {
         self.colorView = createColorView(viewModel: viewModel)
         setupViews(viewModel: viewModel)
         bindViewModel(viewModel: viewModel)
-        updateColorViewStyle()
     }
 
     private func createColorView(viewModel: MarkupAccessoryViewModel) -> ColorView {
@@ -98,11 +97,6 @@ final class MarkupAccessoryView: UIView {
     func update(info: BlockInformation, textView: UITextView) {
         viewModel?.selectBlock(info, text: textView.attributedText, range: textView.selectedRange)
     }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        updateColorViewStyle()
-    }
 
     // MARK: - Unavailable
 
@@ -110,16 +104,6 @@ final class MarkupAccessoryView: UIView {
     required init?(coder aDecoder: NSCoder) { fatalError("Not been implemented") }
     @available(*, unavailable)
     override init(frame: CGRect) { fatalError("Not been implemented") }
-    
-    // MARK: - Private
-    
-    private func updateColorViewStyle() {
-        guard FeatureFlags.styleViewFixColor else { return }
-        // Presented window - is not application window. This is the system window.
-        // We should to set custom UserInterfaceStyle for sync with application.
-        colorView.overrideUserInterfaceStyle = traitCollection.userInterfaceStyle
-        colorView.containerView.overrideUserInterfaceStyle = traitCollection.userInterfaceStyle
-    }
 }
 
 struct MarkupAccessoryContentView: View {

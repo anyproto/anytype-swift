@@ -112,7 +112,7 @@ struct CreateNewProfileView_Previews: PreviewProvider {
     static var previews: some View {
         CreateNewProfileView(
             viewModel: CreateNewProfileViewModel(
-                applicationStateService: DI.preview.serviceLocator.applicationStateService(),
+                windowManager: DI.preview.coordinatorsDI.windowManager(),
                 authService: DI.preview.serviceLocator.authService(),
                 seedService: DI.preview.serviceLocator.seedService()
             ),

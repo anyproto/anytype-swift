@@ -3,16 +3,16 @@ import SwiftUI
 
 class CreateNewProfileViewModel: ObservableObject {
     
-    private let applicationStateService: ApplicationStateServiceProtocol
+    private let windowManager: WindowManager
     private let authService: AuthServiceProtocol
     private let seedService: SeedServiceProtocol
 
     init(
-        applicationStateService: ApplicationStateServiceProtocol,
+        windowManager: WindowManager,
         authService: AuthServiceProtocol,
         seedService: SeedServiceProtocol
     ) {
-        self.applicationStateService = applicationStateService
+        self.windowManager = windowManager
         self.authService = authService
         self.seedService = seedService
     }
@@ -21,7 +21,7 @@ class CreateNewProfileViewModel: ObservableObject {
         let viewModel = WaitingOnCreatAccountViewModel(
             signUpData: signUpData,
             showWaitingView: showWaitingView,
-            applicationStateService: applicationStateService,
+            windowManager: windowManager,
             authService: authService,
             seedService: seedService
         )

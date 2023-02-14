@@ -1,7 +1,15 @@
 import Foundation
 import SwiftUI
 
-protocol SetWidgetModuleAssemblyProtocol: HomeWidgetCommonAssemblyProtocol {}
+protocol SetWidgetModuleAssemblyProtocol {
+    @MainActor
+    func make(
+        widgetBlockId: String,
+        widgetObject: HomeWidgetsObjectProtocol,
+        stateManager: HomeWidgetsStateManagerProtocol,
+        output: CommonWidgetModuleOutput?
+    ) -> AnyView
+}
 
 final class SetWidgetModuleAssembly: SetWidgetModuleAssemblyProtocol {
     
@@ -26,12 +34,8 @@ final class SetWidgetModuleAssembly: SetWidgetModuleAssemblyProtocol {
         let contentModel = SetWidgetViewModel(
             widgetBlockId: widgetBlockId,
             widgetObject: widgetObject,
-            relationDetailsStorage: serviceLocator.relationDetailsStorage(),
-            subscriptionService: serviceLocator.subscriptionService(),
-            setSubscriptionDataBuilder: SetSubscriptionDataBuilder(
-                accountManager: serviceLocator.accountManager()
-            ),
-            documentService: serviceLocator.documentService(),
+            objectDetailsStorage: serviceLocator.objectDetailsStorage(),
+            blockWidgetService: serviceLocator.blockWidgetService(),
             output: output
         )
         let contentView = ListWidgetView(model: contentModel)
@@ -40,8 +44,7 @@ final class SetWidgetModuleAssembly: SetWidgetModuleAssemblyProtocol {
             widgetBlockId: widgetBlockId,
             widgetObject: widgetObject,
             blockWidgetService: serviceLocator.blockWidgetService(),
-            stateManager: stateManager,
-            blockWidgetExpandedService: serviceLocator.blockWidgetExpandedService()
+            stateManager: stateManager
         )
         let containterView = WidgetContainerView(
             model: containerModel,

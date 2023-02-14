@@ -15,6 +15,4 @@ protocol ModulesDIProtocol: AnyObject {
     func newRelation() -> NewRelationModuleAssemblyProtocol
     func homeWidgets() -> HomeWidgetsModuleAssemblyProtocol
     func textIconPicker() -> TextIconPickerModuleAssemblyProtocol
-    func widgetType() -> WidgetTypeModuleAssemblyProtocol
-    func widgetObjectList() -> WidgetObjectListModuleAssemblyProtocol
 }

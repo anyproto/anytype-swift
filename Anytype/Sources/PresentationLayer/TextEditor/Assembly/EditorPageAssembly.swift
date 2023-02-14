@@ -1,7 +1,6 @@
 import BlocksModels
 import UIKit
 import AnytypeCore
-import SwiftUI
 
 final class EditorAssembly {
     
@@ -24,17 +23,15 @@ final class EditorAssembly {
     
     func buildEditorController(
         browser: EditorBrowserController?,
-        data: EditorScreenData,
-        widgetListOutput: WidgetObjectListCommonModuleOutput? = nil
+        data: EditorScreenData
     ) -> UIViewController {
-        buildEditorModule(browser: browser, data: data, widgetListOutput: widgetListOutput).vc
+        buildEditorModule(browser: browser, data: data).vc
     }
 
     func buildEditorModule(
         browser: EditorBrowserController?,
-        data: EditorScreenData,
-        widgetListOutput: WidgetObjectListCommonModuleOutput? = nil
-    ) -> (vc: UIViewController, router: EditorPageOpenRouterProtocol?) {
+        data: EditorScreenData
+    ) -> (vc: UIViewController, router: EditorPageOpenRouterProtocol) {
         switch data.type {
         case .page:
             return buildPageModule(browser: browser, data: data)
@@ -45,12 +42,6 @@ final class EditorAssembly {
                 blockId: blockId,
                 targetObjectID: targetObjectID
             )
-        case .favorites:
-            return favoritesModule(output: widgetListOutput)
-        case .recent:
-            return recentModule(output: widgetListOutput)
-        case .sets:
-            return setsModule(output: widgetListOutput)
         }
     }
     
@@ -84,7 +75,7 @@ final class EditorAssembly {
             objectActionsService: serviceLocator.objectActionsService(),
             textService: serviceLocator.textService,
             groupsSubscriptionsHandler: serviceLocator.groupsSubscriptionsHandler(),
-            setSubscriptionDataBuilder: SetSubscriptionDataBuilder(accountManager: serviceLocator.accountManager())
+            setSubscriptionDataBuilder: SetSubscriptionDataBuilder()
         )
         let controller = EditorSetHostingController(objectId: data.pageId, model: model)
 
@@ -322,7 +313,6 @@ final class EditorAssembly {
             objectActionsService: serviceLocator.objectActionsService(),
             searchService: serviceLocator.searchService(),
             editorPageTemplatesHandler: editorPageTemplatesHandler,
-            accountManager: serviceLocator.accountManager(),
             isOpenedForPreview: isOpenedForPreview
         )
     }
@@ -340,23 +330,4 @@ final class EditorAssembly {
             simpleTablesOptionView: SimpleTableMenuView(viewModel: simleTableMenuViewModel)
         )
     }
-    
-    private func favoritesModule(output: WidgetObjectListCommonModuleOutput?) -> (UIViewController, EditorPageOpenRouterProtocol?) {
-        let moduleAssembly = modulesDI.widgetObjectList()
-        let module = moduleAssembly.makeFavorites(output: output)
-        return (module, nil)
-    }
-    
-    private func recentModule(output: WidgetObjectListCommonModuleOutput?) -> (UIViewController, EditorPageOpenRouterProtocol?) {
-        let moduleAssembly = modulesDI.widgetObjectList()
-        let module = moduleAssembly.makeRecent(output: output)
-        return (module, nil)
-    }
-
-    private func setsModule(output: WidgetObjectListCommonModuleOutput?) -> (UIViewController, EditorPageOpenRouterProtocol?) {
-        let moduleAssembly = modulesDI.widgetObjectList()
-        let module = moduleAssembly.makeSets(output: output)
-        return (module, nil)
-    }
-
 }

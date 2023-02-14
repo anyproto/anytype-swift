@@ -66,7 +66,7 @@ struct SetFilterRow: View {
                 RelationValueView(
                     relation: RelationItemModel(relation: relation),
                     style: .filter(hasValues: configuration.hasValues),
-                    mode: .button(action: nil)
+                    action: nil
                 )
             } else {
                 EmptyView()

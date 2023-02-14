@@ -7,7 +7,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
     private var di: DIProtocol?
     private let sceneDelegates: [UIWindowSceneDelegate] = [LifecycleStateTransitionSceneDelegate()]
-    private var applicationCoordinator: ApplicationCoordinatorProtocol?
+    private var applicationCoordinator: ApplicationCoordinator?
     
     // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
     // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
@@ -25,7 +25,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let di: DIProtocol = DI(viewControllerProvider: viewControllerProvider)
         self.di = di
         
-        let applicationCoordinator = di.coordinatorsDI.application().make()
+        let applicationCoordinator = di.coordinatorsDI.application()
         self.applicationCoordinator = applicationCoordinator
         
         applicationCoordinator.start(connectionOptions: connectionOptions)

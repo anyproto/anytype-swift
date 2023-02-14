@@ -9,8 +9,13 @@ protocol CoordinatorsDIProtocol: AnyObject {
     func addNewRelation() -> AddNewRelationCoordinatorAssemblyProtocol
     func homeWidgets() -> HomeWidgetsCoordinatorAssemblyProtocol
     func createWidget() -> CreateWidgetCoordinatorAssemblyProtocol
-    func editorBrowser() -> EditorBrowserCoordinatorAssemblyProtocol
-    func application() -> ApplicationCoordinatorAssemblyProtocol
+    
+    // Rename
+    @MainActor
+    func application() -> ApplicationCoordinator
+    // Split to modules
+    @MainActor
+    func windowManager() -> WindowManager
     
     // Now like a coordinator. Migrate to isolated modules
     func browser() -> EditorBrowserAssembly

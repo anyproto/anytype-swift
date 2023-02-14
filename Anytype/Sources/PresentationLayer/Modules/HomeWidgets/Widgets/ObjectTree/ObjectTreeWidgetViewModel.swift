@@ -67,11 +67,6 @@ final class ObjectTreeWidgetViewModel: ObservableObject, WidgetContainerContentV
         subscriptionManager.stopAllSubscriptions()
     }
     
-    func onHeaderTap() {
-        guard let linkedObjectDetails else { return }
-        output?.onObjectSelected(screenData: EditorScreenData(pageId: linkedObjectDetails.id, type: linkedObjectDetails.editorViewType))
-    }
-    
     // MARK: - Private
     
     private func onTapExpand(model: ObjectTreeWidgetRowViewModel) {
@@ -180,8 +175,6 @@ private extension ObjectDetails {
             return links.isEmpty || !canBeExpanded ? .dot : .arrow(expanded: isExpanded)
         case .set:
             return .set
-        case .favorites, .recent, .sets:
-            return .dot
         }
     }
 }

@@ -31,11 +31,6 @@ extension NavigationContextProtocol {
     func push(_ viewControllerToPresent: UIViewController) {
         push(viewControllerToPresent, animated: true)
     }
-    
-    func push<Content: View>(_ view: Content) {
-        let controller = UIHostingController(rootView: view)
-        push(controller, animated: true)
-    }
 }
 
 final class NavigationContext: NavigationContextProtocol {

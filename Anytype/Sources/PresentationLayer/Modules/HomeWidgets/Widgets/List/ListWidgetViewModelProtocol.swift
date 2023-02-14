@@ -8,8 +8,7 @@ protocol ListWidgetViewModelProtocol: ObservableObject {
     var rows: [ListWidgetRow.Model] { get }
     var minimimRowsCount: Int { get }
     
-    func onAppearContent()
-    func onDisappearContent()
+    func onDeleteWidgetTap()
 }
 
 // Default implementation

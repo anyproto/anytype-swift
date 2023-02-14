@@ -15,9 +15,6 @@ extension Anytype_Model_Block.Content.Widget.Layout {
             return .link
         case .tree:
             return .tree
-        // TODO: Fix to list enum after middleware updates
-        case .UNRECOGNIZED(2):
-            return .list
         case .UNRECOGNIZED:
             return nil
         }
@@ -31,9 +28,6 @@ extension BlockWidget.Layout {
             return .link
         case .tree:
             return .tree
-        case .list:
-            // TODO: Fix to list enum after middleware updates
-            return .UNRECOGNIZED(2)
         }
     }
 }

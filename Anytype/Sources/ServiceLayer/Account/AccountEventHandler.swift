@@ -13,12 +13,12 @@ protocol AccountEventHandlerProtocol {
 final class AccountEventHandler: AccountEventHandlerProtocol {
     
     private var cancellable: AnyCancellable?
-    private var accountManager: AccountManagerProtocol
+    private var accountManager: AccountManager
     
     private let accountShowSubject = PassthroughSubject<String, Never>()
     private let accountStatusSubject = PassthroughSubject<AccountStatus, Never>()
     
-    init(accountManager: AccountManagerProtocol) {
+    init(accountManager: AccountManager) {
         self.accountManager = accountManager
     }
     

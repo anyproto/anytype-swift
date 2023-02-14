@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-final class HomeBottomPanelProvider: HomeSubmoduleProviderProtocol {
+final class HomeBottomPanelProvider: HomeWidgetProviderProtocol {
     
     private let bottomPanelModuleAssembly: HomeBottomPanelModuleAssemblyProtocol
     private let stateManager: HomeWidgetsStateManagerProtocol
@@ -17,7 +17,7 @@ final class HomeBottomPanelProvider: HomeSubmoduleProviderProtocol {
         self.output = output
     }
     
-    // MARK: - HomeSubmoduleProviderProtocol
+    // MARK: - HomeWidgetProviderProtocol
     
     @MainActor
     lazy var view: AnyView = {

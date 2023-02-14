@@ -19,7 +19,7 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
         
     static let shared: ObjectTypeProviderProtocol = ObjectTypeProvider(
         subscriptionsService: ServiceLocator.shared.subscriptionService(),
-        subscriptionBuilder: ObjectTypeSubscriptionDataBuilder(accountManager: ServiceLocator.shared.accountManager())
+        subscriptionBuilder: ObjectTypeSubscriptionDataBuilder(accountManager: AccountManager.shared)
     )
     
     // MARK: - Private variables

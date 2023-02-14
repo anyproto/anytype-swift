@@ -2,7 +2,7 @@ import SwiftUI
 
 struct AlphaInviteCodeView: View {
     @StateObject var signUpData: SignUpData
-    let applicationStateService: ApplicationStateServiceProtocol
+    let windowManager: WindowManager
     @State private var showCreateNewProfile = false
     
     @Environment(\.presentationMode) var presentationMode
@@ -67,7 +67,7 @@ struct AlphaInviteCodeView: View {
             NavigationLink(
                 destination: CreateNewProfileView(
                     viewModel: CreateNewProfileViewModel(
-                        applicationStateService: applicationStateService,
+                        windowManager: windowManager,
                         authService: ServiceLocator.shared.authService(),
                         seedService: ServiceLocator.shared.seedService()
                     ),
@@ -87,7 +87,7 @@ struct AlphaInviteCodeView_Previews: PreviewProvider {
     static var previews: some View {
         AlphaInviteCodeView(
             signUpData: SignUpData(mnemonic: UUID().uuidString),
-            applicationStateService: DI.preview.serviceLocator.applicationStateService()
+            windowManager: DI.preview.coordinatorsDI.windowManager()
         )
     }
 }

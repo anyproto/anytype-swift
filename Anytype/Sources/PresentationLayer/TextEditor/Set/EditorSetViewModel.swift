@@ -32,7 +32,7 @@ final class EditorSetViewModel: ObservableObject {
         setDocument.activeView
     }
     
-    var isEmptyViews: Bool {
+    var isEmpty: Bool {
         setDocument.dataView.views.isEmpty
     }
     
@@ -60,7 +60,7 @@ final class EditorSetViewModel: ObservableObject {
         setDocument.targetObjectID != nil
     }
     
-    var isEmptyQuery: Bool {
+    var showSetEmptyState: Bool {
         setDocument.details?.setOf.first { $0.isNotEmpty } == nil
     }
     
@@ -78,25 +78,6 @@ final class EditorSetViewModel: ObservableObject {
         return group.header(with: activeView.groupRelationKey)
     }
     
-    func contextMenuItems(for relation: Relation) -> [RelationValueView.MenuItem] {
-        guard FeatureFlags.setTypeContextMenu, relation.key == BundledRelationKey.type.rawValue else {
-            return []
-        }
-        return [
-            RelationValueView.MenuItem(
-                title: Loc.Set.TypeRelation.ContextMenu.turnIntoCollection,
-                action: {
-                    // @joe_pusya: will be implemented later
-                }
-            ),
-            RelationValueView.MenuItem(
-                title: isEmptyQuery ?
-                Loc.Set.SourceType.selectQuery : Loc.Set.TypeRelation.ContextMenu.changeQuery,
-                action: showSetOfTypeSelection
-            )
-        ]
-    }
-    
     private func groupFirstOptionBackgroundColor(for groupId: String) -> BlockBackgroundColor {
         guard let backgroundColor = groups.first(where: { $0.id == groupId })?.backgroundColor else {
             return BlockBackgroundColor.gray
@@ -104,10 +85,10 @@ final class EditorSetViewModel: ObservableObject {
         return backgroundColor
     }
     
-    let setDocument: SetDocumentProtocol
-    let paginationHelper = EditorSetPaginationHelper()
-    
+    private let setDocument: SetDocumentProtocol
     private var router: EditorSetRouterProtocol?
+    
+    let paginationHelper = EditorSetPaginationHelper()
     private let subscriptionService: SubscriptionsServiceProtocol
     private let dataBuilder = SetContentViewDataBuilder()
     private let dataviewService: DataviewServiceProtocol
@@ -194,7 +175,7 @@ final class EditorSetViewModel: ObservableObject {
     }
 
     func startSubscriptionIfNeeded(forceUpdate: Bool = false) {
-        guard !isEmptyViews else {
+        guard !isEmpty else {
             subscriptionService.stopAllSubscriptions()
             return
         }
@@ -581,10 +562,12 @@ extension EditorSetViewModel {
     func showRelationValueEditingView(key: String) {
         if key == BundledRelationKey.setOf.rawValue {
             showSetOfTypeSelection()
+            
             return
         }
 
         AnytypeAnalytics.instance().logChangeRelationValue(type: .set)
+
         router?.showRelationValueEditingView(key: key)
     }
     
@@ -768,6 +751,6 @@ extension EditorSetViewModel {
         objectActionsService: DI.preview.serviceLocator.objectActionsService(),
         textService: TextService(),
         groupsSubscriptionsHandler: DI.preview.serviceLocator.groupsSubscriptionsHandler(),
-        setSubscriptionDataBuilder: SetSubscriptionDataBuilder(accountManager: DI.preview.serviceLocator.accountManager())
+        setSubscriptionDataBuilder: SetSubscriptionDataBuilder()
     )
 }

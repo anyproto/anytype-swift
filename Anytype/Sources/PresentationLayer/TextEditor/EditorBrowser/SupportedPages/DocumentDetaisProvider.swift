@@ -3,24 +3,26 @@ import AnytypeCore
 
 protocol DocumentDetaisProvider {
     
+    var objectId: BlockId { get }
     var screenData: EditorScreenData { get }
-    var documentTitle: String? { get }
-    var documentDescription: String? { get }
+    var details: ObjectDetails? { get }
+    
 }
 
 extension EditorPageController: DocumentDetaisProvider {
     
+    var objectId: BlockId {
+        viewModel.document.objectId
+    }
+    
     var screenData: EditorScreenData {
-        EditorScreenData(pageId: viewModel.document.objectId, type: .page)
+        EditorScreenData(pageId: objectId, type: .page)
     }
     
-    var documentTitle: String? {
-        viewModel.document.details?.title
+    var details: ObjectDetails? {
+        viewModel.document.details
     }
     
-    var documentDescription: String? {
-        viewModel?.document.details?.description
-    }
 }
 
 extension EditorSetHostingController: DocumentDetaisProvider {
@@ -29,11 +31,8 @@ extension EditorSetHostingController: DocumentDetaisProvider {
         EditorScreenData(pageId: objectId, type: .set())
     }
     
-    var documentTitle: String? {
-        model.details?.title
+    var details: ObjectDetails? {
+        model.details
     }
     
-    var documentDescription: String? {
-        model.details?.description
-    }
 }

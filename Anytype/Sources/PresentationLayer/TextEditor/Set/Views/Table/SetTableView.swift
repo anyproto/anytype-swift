@@ -48,7 +48,7 @@ struct SetTableView: View {
     
     private var content: some View {
         Group {
-            if model.isEmptyViews {
+            if model.isEmpty {
                 EmptyView()
             } else {
                 Section(header: compoundHeader) {
@@ -81,28 +81,17 @@ struct SetTableView: View {
         VStack(spacing: 0) {
             Spacer.fixedHeight(headerMinimizedSize.height)
             VStack {
-                headerSettingsView
+                HStack {
+                    SetHeaderSettings()
+                        .offset(x: xOffset, y: 0)
+                        .environmentObject(model)
+                        .frame(width: tableHeaderSize.width)
+                    Spacer()
+                }
                 SetTableViewHeader()
             }
         }
         .background(Color.Background.primary)
-    }
-    
-    private var headerSettingsView: some View {
-        HStack {
-            SetHeaderSettingsView(
-                model: SetHeaderSettingsViewModel(
-                    setDocument: model.setDocument,
-                    isActive: !model.isEmptyQuery,
-                    onViewTap: model.showViewPicker,
-                    onSettingsTap: model.showSetSettings,
-                    onCreateTap: model.createObject
-                )
-            )
-            .offset(x: xOffset, y: 0)
-            .frame(width: tableHeaderSize.width)
-            Spacer()
-        }
     }
 }
 

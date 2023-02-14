@@ -1,22 +1,22 @@
 import SwiftUI
 
 struct EditorSetEmptyView: View {
-    let model: EditorSetEmptyViewModel
+    struct Model {
+        let title: String
+        let subtitle: String
+        let buttonTitle: String
+        let onTap: () -> Void
+    }
+
+    let model: Model
     
     var body: some View {
-        VStack(spacing: 0) {
-            content
-            Spacer()
-        }
-    }
-    
-    var content: some View {
-        VStack(spacing: 0) {
-            AnytypeText(model.mode.title, style: .uxCalloutRegular, color: .Text.secondary)
+        VStack(spacing: 0) {            
+            AnytypeText(model.title, style: .uxCalloutRegular, color: .Text.secondary)
             
             Spacer.fixedHeight(4)
             
-            AnytypeText(model.mode.subtitle, style: .caption1Regular, color: .Text.secondary)
+            AnytypeText(model.subtitle, style: .caption1Regular, color: .Text.secondary)
                 .multilineTextAlignment(.center)
             
             Spacer.fixedHeight(16)
@@ -24,7 +24,7 @@ struct EditorSetEmptyView: View {
             Button {
                 model.onTap()
             } label: {
-                AnytypeText(model.mode.buttonTitle, style: .caption1Regular, color: .Text.primary)
+                AnytypeText(model.buttonTitle, style: .caption1Regular, color: .Text.primary)
                     .padding(EdgeInsets(top: 9, leading: 12, bottom: 9, trailing: 12))
                     .overlay(
                         RoundedRectangle(cornerRadius: 8)
@@ -38,8 +38,10 @@ struct EditorSetEmptyView: View {
 struct EditorSetEmptyView_Previews: PreviewProvider {
     static var previews: some View {
         EditorSetEmptyView(
-            model: EditorSetEmptyViewModel(
-                mode: .set,
+            model: .init(
+                title: "No query selected",
+                subtitle: "All objects satisfying your query will be displayed in Set",
+                buttonTitle: "Select query",
                 onTap: {}
             )
         )

@@ -39,7 +39,7 @@ struct SetKanbanView: View {
     
     private var boardView: some View {
         Group {
-            if model.isEmptyViews {
+            if model.isEmpty {
                 EmptyView()
             } else {
                 Section(header: compoundHeader) {
@@ -81,27 +81,16 @@ struct SetKanbanView: View {
         VStack(spacing: 0) {
             Spacer.fixedHeight(headerMinimizedSize.height)
             VStack {
-                headerSettingsView
+                HStack {
+                    SetHeaderSettings()
+                        .environmentObject(model)
+                        .frame(width: tableHeaderSize.width)
+                        .offset(x: 4, y: 8)
+                    Spacer()
+                }
                 Spacer.fixedHeight(16)
             }
         }
         .background(Color.Background.primary)
-    }
-    
-    private var headerSettingsView: some View {
-        HStack {
-            SetHeaderSettingsView(
-                model: SetHeaderSettingsViewModel(
-                    setDocument: model.setDocument,
-                    isActive: !model.isEmptyQuery,
-                    onViewTap: model.showViewPicker,
-                    onSettingsTap: model.showSetSettings,
-                    onCreateTap: model.createObject
-                )
-            )
-            .frame(width: tableHeaderSize.width)
-            .offset(x: 4, y: 8)
-            Spacer()
-        }
     }
 }

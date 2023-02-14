@@ -1,7 +1,15 @@
 import Foundation
 import SwiftUI
 
-protocol RecentWidgetModuleAssemblyProtocol: HomeWidgetCommonAssemblyProtocol {}
+protocol RecentWidgetModuleAssemblyProtocol: AnyObject {
+    @MainActor
+    func make(
+        widgetBlockId: String,
+        widgetObject: HomeWidgetsObjectProtocol,
+        stateManager: HomeWidgetsStateManagerProtocol,
+        output: CommonWidgetModuleOutput?
+    ) -> AnyView
+}
 
 final class RecentWidgetModuleAssembly: RecentWidgetModuleAssemblyProtocol {
     
@@ -35,8 +43,7 @@ final class RecentWidgetModuleAssembly: RecentWidgetModuleAssemblyProtocol {
             widgetBlockId: widgetBlockId,
             widgetObject: widgetObject,
             blockWidgetService: serviceLocator.blockWidgetService(),
-            stateManager: stateManager,
-            blockWidgetExpandedService: serviceLocator.blockWidgetExpandedService()
+            stateManager: stateManager
         )
         let containterView = WidgetContainerView(
             model: containerModel,

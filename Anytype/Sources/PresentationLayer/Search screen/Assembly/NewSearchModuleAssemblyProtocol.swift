@@ -27,7 +27,7 @@ protocol NewSearchModuleAssemblyProtocol {
         selectionMode: NewSearchViewModel.SelectionMode,
         excludedObjectIds: [String],
         limitedObjectType: [String],
-        onSelect: @escaping (_ details: [ObjectDetails]) -> Void
+        onSelect: @escaping (_ ids: [String]) -> Void
     ) -> NewSearchView
     
     func filesSearchModule(
@@ -114,7 +114,7 @@ extension NewSearchModuleAssemblyProtocol {
         selectionMode: NewSearchViewModel.SelectionMode = .multipleItems(),
         excludedObjectIds: [String],
         limitedObjectType: [String],
-        onSelect: @escaping (_ details: [ObjectDetails]) -> Void
+        onSelect: @escaping (_ ids: [String]) -> Void
     ) -> NewSearchView {
         return objectsSearchModule(
             title: title,

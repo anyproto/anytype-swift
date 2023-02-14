@@ -37,11 +37,7 @@ class PipelineStarter
     actifacts_dir = DownloadMiddlewarePipeline.work(version, options)
     
     CopyArtifactsPipeline.work(actifacts_dir)
-
-    unless options[:downloadOnly]
-      CodegenPipeline.work()
-    end
-
+    CodegenPipeline.work()
     LibraryFile.set(version)
     
     cleanup(actifacts_dir)
@@ -53,9 +49,7 @@ class PipelineStarter
     actifacts_dir = DownloadMiddlewarePipeline.work(version, options)
     
     CopyArtifactsPipeline.work(actifacts_dir)
-    unless options[:downloadOnly]
-      CodegenPipeline.work()
-    end
+    CodegenPipeline.work()
 
     cleanup(actifacts_dir)
     done()

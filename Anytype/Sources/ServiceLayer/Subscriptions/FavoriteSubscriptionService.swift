@@ -7,7 +7,7 @@ protocol FavoriteSubscriptionServiceProtocol: AnyObject {
     func startSubscription(
         homeDocument: BaseDocumentProtocol,
         objectLimit: Int?,
-        update: @escaping (_ details: [ObjectDetails]) -> Void
+        update: @escaping (_ details: [ObjectDetails], _ count: Int) -> Void
     )
     func stopSubscription()
 }
@@ -26,7 +26,7 @@ final class FavoriteSubscriptionService: FavoriteSubscriptionServiceProtocol {
     func startSubscription(
         homeDocument: BaseDocumentProtocol,
         objectLimit: Int?,
-        update: @escaping (_ details: [ObjectDetails]) -> Void
+        update: @escaping (_ details: [ObjectDetails], _ count: Int) -> Void
     ) {
         
         guard subscriptions.isEmpty else {
@@ -34,12 +34,13 @@ final class FavoriteSubscriptionService: FavoriteSubscriptionServiceProtocol {
             return
         }
         
-        homeDocument.syncPublisher
-            .map { [weak self, homeDocument] in self?.createChildren(children: homeDocument.children, objectLimit: objectLimit) ?? [] }
-            .removeDuplicates()
+        // TODO: Discuss about publisher and maybe delete it
+        updateSubscription(children: homeDocument.children, objectLimit: objectLimit, update: update)
+        
+        homeDocument.updatePublisher
             .receiveOnMain()
-            .sink { result in
-                update(result)
+            .sink { [weak self, homeDocument] links in
+                self?.updateSubscription(children: homeDocument.children, objectLimit: objectLimit, update: update)
             }
             .store(in: &subscriptions)
     }
@@ -48,30 +49,25 @@ final class FavoriteSubscriptionService: FavoriteSubscriptionServiceProtocol {
         subscriptions.removeAll()
     }
     
-    private func createChildren(children: [BlockInformation], objectLimit: Int?) -> [ObjectDetails] {
-        var details: [ObjectDetails] = []
-        details.reserveCapacity(objectLimit ?? children.count)
+    private func updateSubscription(children: [BlockInformation], objectLimit: Int?, update: @escaping (_ details: [ObjectDetails], _ count: Int) -> Void) {
         
-        for info in children {
-            
-            if let objectLimit, details.count >= objectLimit {
-                break
-            }
+        let details: [ObjectDetails] = children.compactMap { info in
             
             guard case .link(let link) = info.content else {
                 anytypeAssertionFailure(
                     "Not link type in home screen dashboard: \(info.content)",
                     domain: .homeView
                 )
-                continue
+                return nil
             }
         
-            guard let childDetails = objectDetailsStorage.get(id: link.targetBlockID),
-                  childDetails.isFavorite, !childDetails.isArchived, !childDetails.isDeleted,
-                  objectTypeProvider.isSupportedForEdit(typeId: childDetails.type) else { continue }
-
-            details.append(childDetails)
+            guard let details = objectDetailsStorage.get(id: link.targetBlockID),
+                  details.isFavorite, !details.isArchived, !details.isDeleted,
+                  objectTypeProvider.isSupportedForEdit(typeId: details.type) else { return nil }
+            return details
         }
-        return details
+        
+        let visibleDetails = objectLimit.map { Array(details.prefix($0)) } ?? details
+        update(visibleDetails, details.count)
     }
 }

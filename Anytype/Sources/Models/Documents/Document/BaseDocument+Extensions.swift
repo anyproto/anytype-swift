@@ -1,6 +1,5 @@
 import Foundation
 import BlocksModels
-import AnytypeCore
 
 extension BaseDocumentProtocol {
     // without description, type and editable setOf if needed
@@ -16,8 +15,7 @@ extension BaseDocumentProtocol {
                 key: BundledRelationKey.type.rawValue,
                 name: "",
                 isFeatured: false,
-                // @joe_pusya: temp, will be handled by the middle
-                isEditable: FeatureFlags.setTypeContextMenu ? true : !objectRestriction.contains(.typechange),
+                isEditable: !objectRestriction.contains(.typechange),
                 isSystem: true,
                 isDeleted: false,
                 isDeletedValue: type.isDeleted,

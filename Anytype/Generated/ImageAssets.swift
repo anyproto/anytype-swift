@@ -245,20 +245,13 @@ internal extension ImageAsset {
   static let toastFailure = ImageAsset.bundle(name: "toast_failure")
   static let toastTick = ImageAsset.bundle(name: "toast_tick")
   enum Widget {
-    enum Preview {
-      static let link = ImageAsset.bundle(name: "Widget/Preview/link")
-      static let list = ImageAsset.bundle(name: "Widget/Preview/list")
-      static let tree = ImageAsset.bundle(name: "Widget/Preview/tree")
-    }
     static let add = ImageAsset.bundle(name: "Widget/add")
-    static let bin = ImageAsset.bundle(name: "Widget/bin")
     static let collapse = ImageAsset.bundle(name: "Widget/collapse")
     static let dot = ImageAsset.bundle(name: "Widget/dot")
     static let remove = ImageAsset.bundle(name: "Widget/remove")
     static let search = ImageAsset.bundle(name: "Widget/search")
     static let `set` = ImageAsset.bundle(name: "Widget/set")
     static let settings = ImageAsset.bundle(name: "Widget/settings")
-    static let spacePlaceholder = ImageAsset.bundle(name: "Widget/spacePlaceholder")
   }
   static let splashLogo = ImageAsset.bundle(name: "splash_logo")
 }

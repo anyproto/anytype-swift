@@ -75,8 +75,7 @@ struct RelationsListRowView: View {
     private var valueView: some View {
         RelationValueView(
             relation: RelationItemModel(relation: relation),
-            style: .regular(allowMultiLine: false),
-            mode: .button(action: nil)
+            style: .regular(allowMultiLine: false), action: nil
         )
     }
     

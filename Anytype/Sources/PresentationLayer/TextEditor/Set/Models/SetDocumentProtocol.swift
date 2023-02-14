@@ -39,7 +39,4 @@ protocol SetDocumentProtocol: BaseDocumentGeneralProtocol {
     
     @MainActor
     func open() async throws
-    
-    @MainActor
-    func openForPreview() async throws
 }

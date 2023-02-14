@@ -79,14 +79,24 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     }
     
     func homeViewAssemby() -> HomeViewAssembly {
-        return HomeViewAssembly(coordinatorsDI: self, modulesDI: modulesDI, serviceLocator: serviceLocator)
+        return HomeViewAssembly(coordinatorsDI: self, modulesDI: modulesDI)
     }
     
-    func editorBrowser() -> EditorBrowserCoordinatorAssemblyProtocol {
-        return EditorBrowserCoordinatorAssembly(uiHelpersDI: uiHelpersDI, coordinatorsID: self)
+    @MainActor
+    func application() -> ApplicationCoordinator {
+        return ApplicationCoordinator(
+            windowManager: windowManager(),
+            authService: serviceLocator.authService(),
+            accountEventHandler: serviceLocator.accountEventHandler()
+        )
     }
     
-    func application() -> ApplicationCoordinatorAssemblyProtocol {
-        return ApplicationCoordinatorAssembly(serviceLocator: serviceLocator, coordinatorsDI: self, uiHelpersDI: uiHelpersDI)
+    @MainActor
+    func windowManager() -> WindowManager {
+        WindowManager(
+            viewControllerProvider: uiHelpersDI.viewControllerProvider(),
+            homeViewAssembly: homeViewAssemby(),
+            homeWidgetsCoordinatorAssembly: homeWidgets()
+        )
     }
 }
