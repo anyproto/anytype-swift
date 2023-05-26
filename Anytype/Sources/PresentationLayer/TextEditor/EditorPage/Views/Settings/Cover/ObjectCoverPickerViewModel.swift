@@ -1,5 +1,5 @@
 import Foundation
-import BlocksModels
+import Services
 import Combine
 
 final class ObjectCoverPickerViewModel: ObservableObject {
@@ -11,12 +11,9 @@ final class ObjectCoverPickerViewModel: ObservableObject {
     // MARK: - Private variables
     private let document: BaseDocumentGeneralProtocol
     private let objectId: String
-    private let imageUploadingDemon = MediaFileUploadingDemon.shared
     private let fileService: FileActionsServiceProtocol
     private let detailsService: DetailsServiceProtocol
     private let unsplashDownloadService: UnslpashItemDownloader
-
-    private var cancellables = [AnyCancellable]()
         
     // MARK: - Initializer
     
@@ -51,25 +48,11 @@ extension ObjectCoverPickerViewModel {
         )
     }
 
-    func setUnsplash(_ imageId: String) {
-        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.setCover)
-        detailsService.updateBundledDetails(
-            ObjectHeaderImageUsecase.cover.updatedDetails(with: .init(imageId)!)
-        )
-    }
-    
-    
     func uploadImage(from itemProvider: NSItemProvider) {
         AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.setCover)
-        let operation = MediaFileUploadingOperation(
-            uploadingSource: .itemProvider(itemProvider),
-            worker: ObjectHeaderImageUploadingWorker(
-                objectId: objectId,
-                detailsService: detailsService,
-                usecase: .cover
-            )
-        )
-        imageUploadingDemon.addOperation(operation)
+        Task {
+            try await detailsService.setCover(source: .itemProvider(itemProvider))
+        }
     }
 
     func uploadUnplashCover(unsplashItem: UnsplashItem) {
@@ -79,13 +62,10 @@ extension ObjectCoverPickerViewModel {
             localEvents: [unsplashItem.updateEvent]
         ).send()
 
-        unsplashDownloadService
-            .downloadImage(id: unsplashItem.id)
-            .receiveOnMain()
-            .sinkWithResult { result in
-                let imageHash = result.getValue(domain: .unsplash)
-                imageHash.map(self.setUnsplash)
-            }.store(in: &cancellables)
+        Task { @MainActor in
+            let imageHash = try await unsplashDownloadService.downloadImage(id: unsplashItem.id)
+            try await detailsService.setCover(imageHash: imageHash)
+        }
     }
     
     func removeCover() {

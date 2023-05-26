@@ -7,10 +7,12 @@ protocol MentionViewDelegate: AnyObject {
 
 final class MentionView: DismissableInputAccessoryView {
 
+    private let documentId: String
     private weak var mentionsController: MentionsViewController?
     weak var delegate: MentionViewDelegate?
     
-    override init(frame: CGRect) {
+    init(documentId: String, frame: CGRect) {
+        self.documentId = documentId
         super.init(frame: frame)
     }
     
@@ -23,6 +25,7 @@ final class MentionView: DismissableInputAccessoryView {
 
     private func addMentionsController(to controller: UIViewController) {
         let mentionsController = MentionAssembly().controller(
+            documentId: documentId,
             onMentionSelect: { [weak self] mentionObject in
                 self?.delegate?.selectMention(mentionObject)
             },

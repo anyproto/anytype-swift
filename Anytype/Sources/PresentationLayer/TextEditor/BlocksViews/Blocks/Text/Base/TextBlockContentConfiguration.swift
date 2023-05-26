@@ -1,5 +1,5 @@
 import Combine
-import BlocksModels
+import Services
 import UIKit
 
 struct TextBlockContentConfiguration: BlockConfiguration {

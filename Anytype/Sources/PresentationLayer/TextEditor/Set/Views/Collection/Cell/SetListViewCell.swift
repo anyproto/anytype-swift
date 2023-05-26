@@ -1,5 +1,5 @@
 import SwiftUI
-import BlocksModels
+import Services
 
 struct SetListViewCell: View {
     let configuration: SetContentViewItemConfiguration
@@ -31,6 +31,6 @@ struct SetListViewCell: View {
         .frame(maxWidth: .infinity, alignment: .topLeading)
         .padding(.vertical, 20)
         .clipped()
-        .contentShape(Rectangle())
+        .fixTappableArea()
     }
 }

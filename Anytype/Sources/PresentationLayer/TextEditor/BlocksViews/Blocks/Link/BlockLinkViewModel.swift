@@ -1,7 +1,7 @@
 
 import UIKit
 import Combine
-import BlocksModels
+import Services
 
 struct BlockLinkViewModel: BlockViewModelProtocol {    
     var hashable: AnyHashable {
@@ -67,7 +67,7 @@ struct BlockLinkViewModel: BlockViewModelProtocol {
         detailsService.updateDetails(
             contextId: content.targetBlockID,
             relationKey: BundledRelationKey.done.rawValue,
-            value: .checkbox(.init(checked: !isChecked))
+            value: .checkbox(.with { $0.checked = !isChecked })
         )
     }
 }

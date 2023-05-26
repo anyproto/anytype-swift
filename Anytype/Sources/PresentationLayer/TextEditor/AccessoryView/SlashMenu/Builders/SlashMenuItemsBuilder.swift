@@ -1,4 +1,4 @@
-import BlocksModels
+import Services
 import AnytypeCore
 
 struct SlashMenuItemsBuilder {
@@ -64,6 +64,7 @@ struct SlashMenuItemsBuilder {
             text: "",
             filteringTypeId: nil,
             shouldIncludeSets: false,
+            shouldIncludeCollections: false,
             shouldIncludeBookmark: false
         ) ?? []
 

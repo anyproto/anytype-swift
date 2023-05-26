@@ -1,6 +1,7 @@
 import Foundation
 import Logger
 import ProtobufMessages
+import AnytypeCore
 
 final class InvocationMesagesHandler: InvocationMesagesHandlerProtocol {
     
@@ -19,6 +20,14 @@ final class InvocationMesagesHandler: InvocationMesagesHandlerProtocol {
             responseData: responseJsonData,
             responseError: message.responseError
         )
+    }
+    
+    func handle(event: Anytype_ResponseEvent) {
+        EventsBunch(event: event).send()
+    }
+    
+    func assertationHandler(message: String, info: [String: String]) {
+        anytypeAssertionFailure(message, domain: .middlewareEvents, info: info)
     }
 }
 

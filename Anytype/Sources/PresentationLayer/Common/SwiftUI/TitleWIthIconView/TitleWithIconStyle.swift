@@ -16,7 +16,7 @@ enum TitleWithIconStyle {
     var lineLimit: Int? {
         switch self {
         case .header: return nil
-        case .gallery, .list: return 3
+        case .gallery, .list: return 2
         }
     }
     

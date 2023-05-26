@@ -1,6 +1,6 @@
 import Foundation
 import UIKit
-import BlocksModels
+import Services
 import AnytypeCore
 
 final class BeginingOfTextMarkdownListener: MarkdownListener {

@@ -1,5 +1,5 @@
 import UIKit
-import BlocksModels
+import Services
 import AnytypeCore
 
 struct AccessoryViewBuilder {
@@ -13,7 +13,7 @@ struct AccessoryViewBuilder {
         pageService: PageServiceProtocol,
         linkToObjectCoordinator: LinkToObjectCoordinatorProtocol
     ) -> AccessoryViewStateManager {
-        let mentionsView = MentionView(frame: CGRect(origin: .zero, size: menuActionsViewSize))
+        let mentionsView = MentionView(documentId: document.objectId, frame: CGRect(origin: .zero, size: menuActionsViewSize))
         
         let cursorModeAccessoryViewModel = CursorModeAccessoryViewModel(
             handler: actionHandler,

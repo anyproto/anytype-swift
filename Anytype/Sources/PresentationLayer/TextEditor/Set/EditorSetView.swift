@@ -1,4 +1,5 @@
 import SwiftUI
+import AnytypeCore
 
 struct EditorSetView: View {
     @ObservedObject var model: EditorSetViewModel
@@ -27,30 +28,34 @@ struct EditorSetView: View {
     }
     
     private var content: some View {
-        VStack(spacing: 0) {
-            ZStack {
-                Group {
-                    if model.showSetEmptyState {
-                        emptySetView
-                    } else {
-                        contentTypeView
-                    }
-                }
-                .overlay(
+        contentView
+            .overlay(
+                ZStack(alignment: .topLeading, content: {
                     SetFullHeader()
                         .readSize { tableHeaderSize = $0 }
                         .offset(x: 0, y: offset.y)
-                    , alignment: .topLeading
-                )
-                SetMinimizedHeader(
-                    headerSize: tableHeaderSize,
-                    tableViewOffset: offset,
-                    headerMinimizedSize: $headerMinimizedSize
-                )
+                    SetMinimizedHeader(
+                        headerSize: tableHeaderSize,
+                        tableViewOffset: offset,
+                        headerMinimizedSize: $headerMinimizedSize
+                    )
+                })
+                , alignment: .topLeading
+            )
+            .ignoresSafeArea(edges: .top)
+            .keyboardToolbar()
+    }
+    
+    @ViewBuilder
+    private var contentView: some View {
+        if model.showEmptyState {
+            emptyStateView
+        } else {
+            VStack(spacing: 0) {
+                Spacer.fixedHeight(headerMinimizedSize.height)
+                contentTypeView
             }
-            Rectangle().frame(height: 40).foregroundColor(.Background.primary) // Navigation view stub
         }
-        .ignoresSafeArea(edges: .top)
     }
     
     @ViewBuilder
@@ -81,23 +86,32 @@ struct EditorSetView: View {
         }
     }
     
-    private var emptySetView: some View {
+    private var emptyStateView: some View {
         VStack(spacing: 0) {
-            Spacer.fixedHeight(tableHeaderSize.height + 90)
-            
+            Spacer.fixedHeight(tableHeaderSize.height + 8)
+            headerSettingsView
+            AnytypeDivider()
+            Spacer.fixedHeight(48)
             EditorSetEmptyView(
-                model: .init(
-                    title: Loc.Set.View.Empty.title,
-                    subtitle: Loc.Set.View.Empty.subtitle,
-                    buttonTitle: Loc.Set.SourceType.selectQuery,
-                    onTap: {
-                        model.showSetOfTypeSelection()
-                    }
+                model: EditorSetEmptyViewModel(
+                    mode: model.setDocument.isCollection() ? .collection : .set,
+                    onTap: model.onEmptyStateButtonTap
                 )
             )
-            
-            Spacer()
+            .frame(width: tableHeaderSize.width)
         }
-        .frame(maxWidth: .infinity)
+    }
+    
+    private var headerSettingsView: some View {
+        SetHeaderSettingsView(
+            model: SetHeaderSettingsViewModel(
+                setDocument: model.setDocument,
+                isActive: model.isActiveHeader,
+                onViewTap: model.showViewPicker,
+                onSettingsTap: model.showSetSettings,
+                onCreateTap: model.createObject
+            )
+        )
+        .frame(width: tableHeaderSize.width)
     }
 }

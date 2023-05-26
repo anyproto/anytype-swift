@@ -1,5 +1,5 @@
 import Foundation
-import BlocksModels
+import Services
 import SwiftProtobuf
 import UIKit
 
@@ -32,6 +32,7 @@ final class RelationsBuilder {
     
     func parsedRelations(
         relationsDetails: [RelationDetails],
+        typeRelationsDetails: [RelationDetails],
         objectId: BlockId,
         isObjectLocked: Bool
     ) -> ParsedRelations {
@@ -65,7 +66,23 @@ final class RelationsBuilder {
             }
         }
         
-        return ParsedRelations(featuredRelations: featuredRelations, deletedRelations: deletedRelations, otherRelations: otherRelations)
+        let typeRelations: [Relation] = typeRelationsDetails.compactMap { relationDetails in
+            guard !relationDetails.isHidden,
+                    relationDetails.key != BundledRelationKey.type.rawValue
+            else { return nil }
+            return relation(
+                relationDetails: relationDetails,
+                details: objectDetails,
+                isObjectLocked: isObjectLocked
+            )
+        }
+        
+        return ParsedRelations(
+            featuredRelations: featuredRelations,
+            deletedRelations: deletedRelations,
+            typeRelations: typeRelations,
+            otherRelations: otherRelations
+        )
     }
     
 }
@@ -399,20 +416,11 @@ private extension RelationsBuilder {
                         editorViewType: .page
                     )
                 }
-                        
-                let name = objectDetail.title
-                let icon: ObjectIconImage = {
-                    if let objectIcon = objectDetail.objectIconImage {
-                        return objectIcon
-                    }
-                    
-                    return .placeholder(name.first)
-                }()
                 
                 return Relation.Object.Option(
                     id: objectDetail.id,
-                    icon: icon,
-                    title: name,
+                    icon: objectDetail.objectIconImageWithPlaceholder,
+                    title: objectDetail.title,
                     type: objectDetail.objectType.name,
                     isArchived: objectDetail.isArchived,
                     isDeleted: objectDetail.isDeleted,
@@ -450,36 +458,11 @@ private extension RelationsBuilder {
                 return storage.get(id: $0)
             }
 
-            let objectOptions: [Relation.File.Option] = objectDetails.map { objectDetail in
-                let fileName: String = {
-                    let name = objectDetail.name
-                    let fileExt = objectDetail.fileExt
-                    
-                    guard fileExt.isNotEmpty
-                    else { return name }
-                    
-                    return "\(name).\(fileExt)"
-                }()
-                
-                let icon: ObjectIconImage = {
-                    if let objectIconType = objectDetail.icon {
-                        return .icon(objectIconType)
-                    }
-                    
-                    let fileMimeType = objectDetail.fileMimeType
-                    let fileName = objectDetail.name
-
-                    guard fileMimeType.isNotEmpty, fileName.isNotEmpty else {
-                        return .imageAsset(FileIconConstants.other)
-                    }
-                    
-                    return .imageAsset(BlockFileIconBuilder.convert(mime: fileMimeType, fileName: fileName))
-                }()
-                
+            let objectOptions: [Relation.File.Option] = objectDetails.map { objectDetail in      
                 return Relation.File.Option(
                     id: objectDetail.id,
-                    icon: icon,
-                    title: fileName
+                    icon: objectDetail.objectIconImageWithPlaceholder,
+                    title: objectDetail.title
                 )
             }
             

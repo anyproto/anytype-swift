@@ -54,7 +54,7 @@ enum SlashAction {
             case .objectType(let objectType):
                 return .titleSubtitleDisplayData(
                     SlashMenuItemDisplayData(
-                        iconData: objectType.icon.flatMap { .icon($0) } ?? .placeholder(objectType.name.first),
+                        iconData: objectType.objectIconImageWithPlaceholder,
                         title: objectType.name,
                         subtitle: objectType.description
                     )

@@ -1,4 +1,4 @@
-import BlocksModels
+import Services
 
 final class ObjectSettingBuilder {
     func build(details: ObjectDetails, restrictions: ObjectRestrictions, isLocked: Bool) -> [ObjectSetting] {
@@ -14,18 +14,14 @@ final class ObjectSettingBuilder {
         if isLocked { return ObjectSetting.lockedEditingCases }
 
         switch details.layoutValue {
-        case .basic:
+        case .basic, .profile, .set, .collection, .space, .file, .image:
             return ObjectSetting.allCases
-        case .profile:
-            return ObjectSetting.allCases
-        case .todo:
-            return ObjectSetting.allCases.filter { $0 != .icon }
         case .note:
             return [.layout, .relations]
-        case .set:
-            return ObjectSetting.allCases
-        case .bookmark:
+        case .bookmark, .todo:
             return ObjectSetting.allCases.filter { $0 != .icon }
+        case .objectType, .unknown, .relation, .relationOption:
+            return []
         }
     }
 }

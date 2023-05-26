@@ -1,4 +1,4 @@
-import BlocksModels
+import Services
 import AnytypeCore
 
 final class CreateBookmarkViewModel: CreateObjectViewModelProtocol {
@@ -28,11 +28,7 @@ final class CreateBookmarkViewModel: CreateObjectViewModelProtocol {
     }
     
     private func createBookmarkObject(with url: String) {
-        bookmarkService.createBookmarkObject(
-            url: currentText,
-            completion: { [weak self] withError in
-                self?.closeAction(withError)
-            }
-        )
+        let success = bookmarkService.createBookmarkObject(url: currentText)
+        closeAction(!success)        
     }
 }

@@ -1,4 +1,4 @@
-import BlocksModels
+import Services
 
 typealias GroupsSubscriptionCallback = (_ group: DataviewGroup, _ remove: Bool) -> ()
 

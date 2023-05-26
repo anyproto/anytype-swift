@@ -1,5 +1,5 @@
 import Combine
-import BlocksModels
+import Services
 import AnytypeCore
 import SwiftUI
 import OrderedCollections
@@ -24,7 +24,7 @@ final class EditorSetViewModel: ObservableObject {
     
     var isUpdating = false
 
-    var objectId: BlocksModels.BlockId {
+    var objectId: Services.BlockId {
         setDocument.objectId
     }
     
@@ -32,7 +32,7 @@ final class EditorSetViewModel: ObservableObject {
         setDocument.activeView
     }
     
-    var isEmpty: Bool {
+    var isEmptyViews: Bool {
         setDocument.dataView.views.isEmpty
     }
     
@@ -60,8 +60,17 @@ final class EditorSetViewModel: ObservableObject {
         setDocument.targetObjectID != nil
     }
     
-    var showSetEmptyState: Bool {
+    var isEmptyQuery: Bool {
         setDocument.details?.setOf.first { $0.isNotEmpty } == nil
+    }
+    
+    var isActiveHeader: Bool {
+        !isEmptyQuery || setDocument.isCollection()
+    }
+    
+    var showEmptyState: Bool {
+        (isEmptyQuery && !setDocument.isCollection()) ||
+        (setDocument.isCollection() && recordsDict.values.first { $0.isNotEmpty } == nil && setDocument.filters.isEmpty)
     }
     
     func groupBackgroundColor(for groupId: String) -> BlockBackgroundColor {
@@ -78,6 +87,23 @@ final class EditorSetViewModel: ObservableObject {
         return group.header(with: activeView.groupRelationKey)
     }
     
+    func contextMenuItems(for relation: Relation) -> [RelationValueView.MenuItem] {
+        guard !setDocument.isCollection(), relation.key == BundledRelationKey.type.rawValue else {
+            return []
+        }
+        return [
+            RelationValueView.MenuItem(
+                title: Loc.Set.TypeRelation.ContextMenu.turnIntoCollection,
+                action: turnSetIntoCollection
+            ),
+            RelationValueView.MenuItem(
+                title: isEmptyQuery ?
+                Loc.Set.SourceType.selectQuery : Loc.Set.TypeRelation.ContextMenu.changeQuery,
+                action: showSetOfTypeSelection
+            )
+        ]
+    }
+    
     private func groupFirstOptionBackgroundColor(for groupId: String) -> BlockBackgroundColor {
         guard let backgroundColor = groups.first(where: { $0.id == groupId })?.backgroundColor else {
             return BlockBackgroundColor.gray
@@ -85,10 +111,10 @@ final class EditorSetViewModel: ObservableObject {
         return backgroundColor
     }
     
-    private let setDocument: SetDocumentProtocol
-    private var router: EditorSetRouterProtocol?
-    
+    let setDocument: SetDocumentProtocol
     let paginationHelper = EditorSetPaginationHelper()
+    
+    private var router: EditorSetRouterProtocol?
     private let subscriptionService: SubscriptionsServiceProtocol
     private let dataBuilder = SetContentViewDataBuilder()
     private let dataviewService: DataviewServiceProtocol
@@ -98,6 +124,7 @@ final class EditorSetViewModel: ObservableObject {
     private let textService: TextServiceProtocol
     private let groupsSubscriptionsHandler: GroupsSubscriptionsHandlerProtocol
     private let setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol
+    private let objectTypeProvider: ObjectTypeProviderProtocol
     private var subscriptions = [AnyCancellable]()
     private var titleSubscription: AnyCancellable?
 
@@ -110,7 +137,8 @@ final class EditorSetViewModel: ObservableObject {
         objectActionsService: ObjectActionsServiceProtocol,
         textService: TextServiceProtocol,
         groupsSubscriptionsHandler: GroupsSubscriptionsHandlerProtocol,
-        setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol
+        setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol,
+        objectTypeProvider: ObjectTypeProviderProtocol
     ) {
         self.setDocument = setDocument
         self.subscriptionService = subscriptionService
@@ -121,6 +149,7 @@ final class EditorSetViewModel: ObservableObject {
         self.textService = textService
         self.groupsSubscriptionsHandler = groupsSubscriptionsHandler
         self.setSubscriptionDataBuilder = setSubscriptionDataBuilder
+        self.objectTypeProvider = objectTypeProvider
 
         self.titleString = setDocument.details?.pageCellTitle ?? ""
     }
@@ -143,9 +172,18 @@ final class EditorSetViewModel: ObservableObject {
                 try await self.setDocument.open()
                 self.loadingDocument = false
                 self.onDataviewUpdate()
+                self.logModuleScreen()
             } catch {
                 self.router?.closeEditor()
             }
+        }
+    }
+    
+    func logModuleScreen() {
+        if self.setDocument.isCollection() {
+            AnytypeAnalytics.instance().logScreenCollection()
+        } else {
+            AnytypeAnalytics.instance().logScreenSet()
         }
     }
     
@@ -169,13 +207,12 @@ final class EditorSetViewModel: ObservableObject {
         if relation.hasSelectedObjectsRelationType {
             router?.showFailureToast(message: Loc.Set.SourceType.Cancel.Toast.title)
         } else {
-            AnytypeAnalytics.instance().logChangeRelationValue(type: .set)
             showRelationValueEditingView(key: relation.key)
         }
     }
 
     func startSubscriptionIfNeeded(forceUpdate: Bool = false) {
-        guard !isEmpty else {
+        guard setDocument.dataView.activeViewId.isNotEmpty else {
             subscriptionService.stopAllSubscriptions()
             return
         }
@@ -267,12 +304,13 @@ final class EditorSetViewModel: ObservableObject {
     
     private func setupGroupsSubscription(forceUpdate: Bool) {
         Task { @MainActor [weak self] in
-            guard let self, let source = self.details?.setOf, source.isNotEmpty else { return }
+            guard let self else { return }
             let data = GroupsSubscription(
                 identifier: SubscriptionId.setGroups,
                 relationKey: self.activeView.groupRelationKey,
                 filters: self.activeView.filters,
-                source: source
+                source: self.details?.setOf,
+                collectionId: self.setDocument.isCollection() ? objectId : nil
             )
             if self.groupsSubscriptionsHandler.hasGroupsSubscriptionDataDiff(with: data) {
                 self.groupsSubscriptionsHandler.stopAllSubscriptions()
@@ -342,29 +380,27 @@ final class EditorSetViewModel: ObservableObject {
             currentPage = max(pagitationData.selectedPage, 1)
         }
         
-        guard let source = details?.setOf, source.isNotEmpty else { return }
+        guard setDocument.canStartSubscription() else { return }
         
         let data = setSubscriptionDataBuilder.set(
             .init(
                 identifier: subscriptionId,
-                source: source,
+                source: setDocument.details?.setOf,
                 view: activeView,
                 groupFilter: groupFilter,
                 currentPage: currentPage, // show first page for empty request
-                numberOfRowsPerPage: numberOfRowsPerPage
+                numberOfRowsPerPage: numberOfRowsPerPage,
+                collectionId: setDocument.isCollection() ? objectId : nil,
+                objectOrderIds: setDocument.objectOrderIds(for: subscriptionId.value)
             )
         )
         
         if subscriptionService.hasSubscriptionDataDiff(with: data) || recordsDict.keys.isEmpty {
-            restartSubscription(with: data)
-        }
-    }
-    
-    private func restartSubscription(with data: SubscriptionData) {
-        subscriptionService.stopSubscription(id: data.identifier)
-        subscriptionService.startSubscription(data: data) { subId, update in
-            DispatchQueue.main.async { [weak self] in
-                self?.updateData(with: subId.value, update: update)
+            subscriptionService.stopSubscription(id: data.identifier)
+            subscriptionService.startSubscription(data: data) { subId, update in
+                DispatchQueue.main.async { [weak self] in
+                    self?.updateData(with: subId.value, update: update)
+                }
             }
         }
     }
@@ -410,17 +446,10 @@ final class EditorSetViewModel: ObservableObject {
     private func sortedConfigurationsDict(
         with dict: OrderedDictionary<String, [SetContentViewItemConfiguration]>
     ) -> OrderedDictionary<String, [SetContentViewItemConfiguration]> {
-        let sortedViewGroups = sortedViewGroups()
-        guard sortedViewGroups.isNotEmpty else { return dict }
+        let sortedViewGroupsIds = sortedViewGroups().map(\.groupID)
+        guard sortedViewGroupsIds.isNotEmpty else { return dict }
         
-        let groupIds = Array(dict.keys).sorted { (a, b) -> Bool in
-            let first = sortedViewGroups.firstIndex { $0.groupID == a }
-            let second = sortedViewGroups.firstIndex { $0.groupID == b }
-            if let first, let second {
-                return first < second
-            }
-            return false
-        }
+        let groupIds = Array(dict.keys).reorderedStable(by: sortedViewGroupsIds, transform: { $0 })
         
         var sortedConfigurationsDict: OrderedDictionary<String, [SetContentViewItemConfiguration]> = [:]
         groupIds.forEach { subId in
@@ -450,42 +479,30 @@ final class EditorSetViewModel: ObservableObject {
     private func sortedVisibleGroups() -> [DataviewGroup] {
         let sortedViewGroups = sortedViewGroups()
         guard sortedViewGroups.isNotEmpty else { return groups }
-        let hiddenSortedViewGroupsIds = sortedViewGroups.filter { $0.hidden }.map { $0.groupID }
+        let hiddenSortedViewGroupsIds = sortedViewGroups.filter { $0.hidden }.map(\.groupID)
         let visibleGroups = groups.filter { !hiddenSortedViewGroupsIds.contains($0.id) }
         
-        return visibleGroups.sorted { (a, b) -> Bool in
-            let first = sortedViewGroups.firstIndex { $0.groupID == a.id }
-            let second = sortedViewGroups.firstIndex { $0.groupID == b.id }
-            if let first, let second {
-                return first < second
-            }
-            return second == nil
-        }
+        return visibleGroups.reordered(
+            by: sortedViewGroups.map(\.groupID),
+            transform: { $0.id }
+        )
     }
     
     private func sortedRecords(with groupId: String) -> [ObjectDetails]? {
-        let neededObjectOrder = setDocument.dataView.objectOrders.first { [weak self] objectOrder in
-            objectOrder.viewID == self?.activeView.id && objectOrder.groupID == groupId
-        }
-        guard let neededObjectOrder,
-                neededObjectOrder.objectIds.isNotEmpty,
+        let objectOrderIds = setDocument.objectOrderIds(for: groupId)
+        guard objectOrderIds.isNotEmpty,
               let records = recordsDict[groupId] else {
             return recordsDict[groupId]
         }
-        
-        return records.sorted { (a, b) -> Bool in
-            if let first = neededObjectOrder.objectIds.firstIndex(of: a.id),
-               let second = neededObjectOrder.objectIds.firstIndex(of: b.id)
-            {
-                return first < second
-            }
-            return false
-        }
+        return records.reorderedStable(by: objectOrderIds, transform: { $0.id })
     }
     
     private func handleDetails(details: ObjectDetails, isAppear: Bool) {
         if details.isArchived && isAppear {
-            router?.closeEditor()
+            // Waiting for the first responder automatic restoration and then close the screen
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) { [router] in
+                router?.closeEditor()
+            }
         }
     }
     
@@ -493,7 +510,7 @@ final class EditorSetViewModel: ObservableObject {
         guard details.layoutValue == .todo else { return }
         detailsService.updateBundledDetails(
             contextID: details.id,
-            bundledDpdates: [.done(!details.isDone)]
+            bundledDetails: [.done(!details.isDone)]
         )
     }
     
@@ -511,7 +528,23 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     func createObject() {
-        if setDocument.isBookmarksSet() {
+        if setDocument.isCollection() {
+            createObject(
+                with: objectTypeProvider.defaultObjectType.id,
+                shouldSelectType: true,
+                relationsDetails: [],
+                completion: { objectId, _ in
+                    Task { @MainActor [weak self] in
+                        guard let self else { return }
+                        try await self.objectActionsService.addObjectsToCollection(
+                            contextId: self.setDocument.objectId,
+                            objectIds: [objectId]
+                        )
+                        self.openObject(pageId: objectId, type: .page)
+                    }
+                }
+            )
+        } else if setDocument.isBookmarksSet() {
             createBookmarkObject()
         } else if setDocument.isRelationsSet() {
             let relationsDetails = setDocument.dataViewRelationsDetails.filter { [weak self] detail in
@@ -519,18 +552,40 @@ final class EditorSetViewModel: ObservableObject {
                 return source.contains(detail.id)
             }
             createObject(
-                with: ObjectTypeProvider.shared.defaultObjectType.id,
-                relationsDetails: relationsDetails
+                with: objectTypeProvider.defaultObjectType.id,
+                shouldSelectType: true,
+                relationsDetails: relationsDetails,
+                completion: { [weak self] objectId, _ in
+                    self?.openObject(pageId: objectId, type: .page)
+                }
             )
         } else {
+            let type = details?.setOf.first ?? ""
             createObject(
-                with: details?.setOf.first ?? "",
-                relationsDetails: []
+                with: type,
+                shouldSelectType: type.isEmpty,
+                relationsDetails: [],
+                completion: { [weak self] objectId, type in
+                    self?.handleCreatedObjectId(objectId, type: type)
+                }
             )
         }
     }
     
-    private func createObject(with type: String, relationsDetails: [RelationDetails]) {
+    func onEmptyStateButtonTap() {
+        if setDocument.isCollection() {
+            createObject()
+        } else {
+            showSetOfTypeSelection()
+        }
+    }
+    
+    private func createObject(
+        with type: String,
+        shouldSelectType: Bool,
+        relationsDetails: [RelationDetails],
+        completion: ((_ objectId: String, _ type: String) -> Void)?
+    ) {
         let templateId: String
         if type.isNotEmpty {
             let availableTemplates = searchService.searchTemplates(
@@ -546,12 +601,12 @@ final class EditorSetViewModel: ObservableObject {
             guard let self else { return }
             let objectId = try await self.dataviewService.addRecord(
                 objectType: type,
+                shouldSelectType: shouldSelectType,
                 templateId: templateId,
                 setFilters: self.setDocument.filters,
                 relationsDetails: relationsDetails
             )
-            
-            self.handleCreatedObjectId(objectId, type: type)
+            completion?(objectId, type)
         }
     }
 }
@@ -562,11 +617,8 @@ extension EditorSetViewModel {
     func showRelationValueEditingView(key: String) {
         if key == BundledRelationKey.setOf.rawValue {
             showSetOfTypeSelection()
-            
             return
         }
-
-        AnytypeAnalytics.instance().logChangeRelationValue(type: .set)
 
         router?.showRelationValueEditingView(key: key)
     }
@@ -575,8 +627,6 @@ extension EditorSetViewModel {
         objectId: BlockId,
         relation: Relation
     ) {
-        AnytypeAnalytics.instance().logChangeRelationValue(type: .set)
-        
         router?.showRelationValueEditingView(
             objectId: objectId,
             relation: relation
@@ -610,9 +660,8 @@ extension EditorSetViewModel {
     
     func showViewTypes(with activeView: DataviewView?) {
         router?.showViewTypes(
-            dataView: setDocument.dataView,
+            setDocument: setDocument,
             activeView: activeView,
-            source: details?.setOf ?? [],
             dataviewService: dataviewService
         )
     }
@@ -679,7 +728,17 @@ extension EditorSetViewModel {
             Task { @MainActor in
                 try? await self.objectActionsService.setSource(objectId: self.objectId, source: [typeObjectId])
             }
+            AnytypeAnalytics.instance().logSetSelectQuery()
         }
+    }
+    
+    private func turnSetIntoCollection() {
+        Task { @MainActor in
+            try await objectActionsService.setObjectCollectionType(objectId: objectId)
+            try await setDocument.close()
+            router?.replaceCurrentPage(with: .init(pageId: objectId, type: .set()))
+        }
+        AnytypeAnalytics.instance().logSetTurnIntoCollection()
     }
     
     private func dataviewGroupOrderUpdate(groupId: String, hidden: Bool, backgroundColor: BlockBackgroundColor?) {
@@ -747,10 +806,15 @@ extension EditorSetViewModel {
         subscriptionService: DI.preview.serviceLocator.subscriptionService(),
         dataviewService: DataviewService(objectId: "objectId", blockId: "blockId", prefilledFieldsBuilder: SetPrefilledFieldsBuilder()),
         searchService: DI.preview.serviceLocator.searchService(),
-        detailsService: DetailsService(objectId: "objectId", service: ObjectActionsService()),
+        detailsService: DetailsService(
+            objectId: "objectId",
+            service: DI.preview.serviceLocator.objectActionsService(),
+            fileService: DI.preview.serviceLocator.fileService()
+        ),
         objectActionsService: DI.preview.serviceLocator.objectActionsService(),
         textService: TextService(),
         groupsSubscriptionsHandler: DI.preview.serviceLocator.groupsSubscriptionsHandler(),
-        setSubscriptionDataBuilder: SetSubscriptionDataBuilder()
+        setSubscriptionDataBuilder: SetSubscriptionDataBuilder(accountManager: DI.preview.serviceLocator.accountManager()),
+        objectTypeProvider: DI.preview.serviceLocator.objectTypeProvider()
     )
 }

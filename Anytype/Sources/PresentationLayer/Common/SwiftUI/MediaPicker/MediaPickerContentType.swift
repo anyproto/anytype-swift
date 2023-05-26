@@ -1,5 +1,5 @@
 import PhotosUI
-import BlocksModels
+import Services
 
 /// Content type to display in picker from gallery
 ///
@@ -32,37 +32,4 @@ enum MediaPickerContentType {
             return .audio
         }
     }
-    
-    var supportedTypeIdentifiers: [String] {
-        switch self {
-        case .images:
-            return [
-                UTType.image,
-                UTType.ico,
-                UTType.icns,
-                UTType.png,
-                UTType.jpeg,
-                UTType.webP,
-                UTType.tiff,
-                UTType.bmp,
-                UTType.svg,
-                UTType.rawImage
-            ].map { $0.identifier }
-        case .videos:
-            return [
-                UTType.movie,
-                UTType.video,
-                UTType.quickTimeMovie,
-                UTType.mpeg,
-                UTType.mpeg2Video,
-                UTType.mpeg2TransportStream,
-                UTType.mpeg4Movie,
-                UTType.appleProtectedMPEG4Video,
-                UTType.avi
-            ].map { $0.identifier }
-        case .audio:
-            return [UTType.audio].map(\.identifier)
-        }
-    }
-    
 }

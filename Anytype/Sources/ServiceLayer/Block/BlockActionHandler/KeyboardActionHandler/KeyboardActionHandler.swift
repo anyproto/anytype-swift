@@ -1,4 +1,4 @@
-import BlocksModels
+import Services
 import Combine
 import AnytypeCore
 import Foundation
@@ -10,6 +10,7 @@ protocol KeyboardActionHandlerProtocol {
 
 final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
     
+    private let documentId: String
     private let service: BlockActionServiceProtocol
     private let listService: BlockListServiceProtocol
     private let toggleStorage: ToggleStorage
@@ -17,12 +18,14 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
     private weak var modelsHolder: EditorMainItemModelsHolder?
     
     init(
+        documentId: String,
         service: BlockActionServiceProtocol,
         listService: BlockListServiceProtocol,
         toggleStorage: ToggleStorage,
         container: InfoContainerProtocol,
         modelsHolder: EditorMainItemModelsHolder
     ) {
+        self.documentId = documentId
         self.service = service
         self.listService = listService
         self.toggleStorage = toggleStorage
@@ -101,7 +104,7 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
         if isLastChildOfBlock(info: info, container: container, parent: parent)
         {
             // on delete of last child of block - move child to parent level
-            listService.move(blockId: info.id, targetId: parent.id, position: .bottom)
+            listService.move(objectId: documentId, blockId: info.id, targetId: parent.id, position: .bottom)
             return
         }
         

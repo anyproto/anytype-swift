@@ -9,4 +9,6 @@ public struct InvocationMessage {
 
 public protocol InvocationMesagesHandlerProtocol: AnyObject {
     func handle(message: InvocationMessage)
+    func handle(event: Anytype_ResponseEvent)
+    func assertationHandler(message: String, info: [String: String])
 }

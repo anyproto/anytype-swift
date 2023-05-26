@@ -1,6 +1,6 @@
 import Foundation
 import SwiftUI
-import BlocksModels
+import Services
 import FloatingPanel
 import Combine
 
@@ -47,6 +47,7 @@ extension SetFiltersListViewModel {
             let filter = self.setDocument.filters[deleteIndex]
             Task {
                 try await dataviewService.removeFilters([filter.filter.id], viewId: self.setDocument.activeView.id)
+                AnytypeAnalytics.instance().logFilterRemove(objectType: self.setDocument.analyticsType)
             }
         }
     }
@@ -126,10 +127,20 @@ extension SetFiltersListViewModel {
                         with: updatedFilter.filter,
                         viewId: self.setDocument.activeView.id
                     )
+                    if filter.filter.condition != updatedFilter.filter.condition {
+                        AnytypeAnalytics.instance().logChangeFilterValue(
+                            condition: updatedFilter.filter.condition.stringValue,
+                            objectType: self.setDocument.analyticsType
+                        )
+                    }
                 } else {
                     try await self.dataviewService.addFilter(
                         updatedFilter.filter,
                         viewId: self.setDocument.activeView.id
+                    )
+                    AnytypeAnalytics.instance().logAddFilter(
+                        condition: updatedFilter.filter.condition.stringValue,
+                        objectType: self.setDocument.analyticsType
                     )
                 }
             }

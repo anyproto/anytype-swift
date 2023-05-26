@@ -99,11 +99,6 @@ extension BlockToolbarBookmark.InputView {
             )
         }
     }
-    struct FlexibleWidthViewModifier: ViewModifier {
-        func body(content: Content) -> some View {
-            content.frame(minWidth: 10, idealWidth: 10, maxWidth: nil, alignment: .center)
-        }
-    }
 }
 
 import WebKit
@@ -218,7 +213,6 @@ extension BlockToolbarBookmark.WebView {
     class ViewModel: ObservableObject {
         var webViewNavigationPublisher = PassthroughSubject<WebViewNavigation, Never>()
         var showLoader = PassthroughSubject<Bool, Never>()
-        var valuePublisher = PassthroughSubject<String, Never>()
         @Published var url: String?
     }
 

@@ -4,5 +4,5 @@
 https://anytype.io/
 
 # iOS Docs
-### https://app.clickup.com/2535380/v/dc/2dbym-4593/2dbym-365
+### https://wiki.anytype.io/share/ed1270dd-cb3d-4578-b80e-a453adc4c120
 

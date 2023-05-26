@@ -1,5 +1,5 @@
 import Foundation
-import BlocksModels
+import Services
 import UIKit
 import AnytypeCore
 
@@ -27,6 +27,7 @@ final class RelationValueCoordinator: RelationValueCoordinatorProtocol,
     func startFlow(
         objectId: BlockId,
         relation: Relation,
+        analyticsType: AnalyticsEventsRelationType,
         output: RelationValueCoordinatorOutput
     ) {
         self.output = output
@@ -34,14 +35,17 @@ final class RelationValueCoordinator: RelationValueCoordinatorProtocol,
         guard relation.isEditable || relation.hasDetails else { return }
         
         if case .checkbox(let checkbox) = relation {
+            let newValue = !checkbox.value
+            AnytypeAnalytics.instance().logChangeRelationValue(isEmpty: !newValue, type: analyticsType)
             let relationsService = RelationsService(objectId: objectId)
-            relationsService.updateRelation(relationKey: checkbox.key, value: (!checkbox.value).protobufValue)
+            relationsService.updateRelation(relationKey: checkbox.key, value: newValue.protobufValue)
             return
         }
         
         guard let moduleViewController = relationValueModuleAssembly.make(
             objectId: objectId,
             relation: relation,
+            analyticsType: analyticsType,
             delegate: self,
             output: self
         ) else { return }

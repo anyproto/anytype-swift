@@ -13,9 +13,9 @@ enum AnytypeFont: CaseIterable {
     case previewTitle2Regular
     case previewTitle2Medium
 
-    case body
-
-    case callout
+    case bodyRegular
+    
+    case calloutRegular
 
     case relation1Regular
     case relation2Regular
@@ -39,7 +39,12 @@ enum AnytypeFont: CaseIterable {
     case caption2Medium
 
     case button1Regular
-    case button1Semibold
+    case button1Medium
+    
+    case authTitle
+    case authBody
+    case authCaption
+    case authInput
 
     enum Weight {
         case regular
@@ -51,12 +56,15 @@ enum AnytypeFont: CaseIterable {
     enum FontName: String {
         case plex = "IBMPlexMono"
         case inter = "Inter"
+        case riccione = "Riccione-Xlight"
     }
 
     var fontName: FontName {
         switch self {
         case .codeBlock:
             return .plex
+        case .authTitle:
+            return .riccione
         default:
             return .inter
         }
@@ -68,16 +76,20 @@ enum AnytypeFont: CaseIterable {
             return 28
         case .heading:
             return 22
-        case .subheading, .previewTitle1Medium, .body, .uxTitle1Semibold,. uxBodyRegular, .button1Regular, .button1Semibold:
+        case .subheading, .previewTitle1Medium, .bodyRegular, .uxTitle1Semibold,. uxBodyRegular, .button1Regular, .button1Medium, .authInput:
             return 17
-        case .codeBlock, .previewTitle2Medium, .previewTitle2Regular, .callout, .relation1Regular, .uxTitle2Regular, .uxCalloutMedium, .uxCalloutRegular, .uxTitle2Medium:
+        case .codeBlock, .previewTitle2Medium, .previewTitle2Regular, .calloutRegular, .relation1Regular, .uxTitle2Regular, .uxCalloutMedium, .uxCalloutRegular, .uxTitle2Medium:
             return 15
         case .relation2Regular, .caption1Regular, .caption1Medium:
             return 13
-        case .relation3Regular:
+        case .relation3Regular, .authCaption:
             return 12
         case .caption2Regular, .caption2Medium:
             return 11
+        case .authTitle:
+            return 60
+        case .authBody:
+            return 14
         }
     }
 
@@ -85,33 +97,35 @@ enum AnytypeFont: CaseIterable {
         switch self {
         case .title, .heading, .subheading:
             return .bold
-        case .previewTitle2Regular, .body, .relation1Regular, .callout, .relation2Regular, .relation3Regular, .codeBlock, .uxBodyRegular, .uxTitle2Regular, .uxCalloutRegular, .caption1Regular, .caption2Regular, .button1Regular:
+        case .previewTitle2Regular, .bodyRegular, .relation1Regular, .calloutRegular, .relation2Regular, .relation3Regular, .codeBlock, .uxBodyRegular, .uxTitle2Regular, .uxCalloutRegular, .caption1Regular, .caption2Regular, .button1Regular, .authTitle, .authBody, .authCaption, .authInput:
             return .regular
-        case .previewTitle1Medium, .previewTitle2Medium, .uxCalloutMedium, .caption2Medium, .caption1Medium, .uxTitle2Medium:
+        case .previewTitle1Medium, .previewTitle2Medium, .uxCalloutMedium, .caption2Medium, .caption1Medium, .uxTitle2Medium, .button1Medium:
             return .medium
-        case .uxTitle1Semibold, .button1Semibold:
+        case .uxTitle1Semibold:
             return .semibold
         }
     }
 
     var lineHeight: CGFloat {
         switch self {
-        case .title:
+        case .title, .authInput:
             return 32
         case .heading:
             return 26
-        case .subheading, .body, .uxTitle1Semibold, .uxBodyRegular, .button1Regular, .button1Semibold:
+        case .subheading, .bodyRegular, .uxTitle1Semibold, .uxBodyRegular, .button1Regular, .button1Medium:
             return 24
-        case .codeBlock, .previewTitle1Medium, .callout, .uxCalloutMedium, .uxCalloutRegular:
+        case .codeBlock, .previewTitle1Medium, .calloutRegular, .uxCalloutMedium, .uxCalloutRegular, .authBody:
             return 22
         case .previewTitle2Regular, .previewTitle2Medium, .uxTitle2Regular, .uxTitle2Medium, .relation1Regular:
             return 20
-        case .caption1Medium, .relation2Regular, .caption1Regular:
+        case .caption1Medium, .relation2Regular, .caption1Regular, .authCaption:
             return 18
         case .relation3Regular:
             return 15
         case .caption2Regular, .caption2Medium:
             return 14
+        case .authTitle:
+            return 60
         }
     }
 
@@ -124,16 +138,18 @@ enum AnytypeFont: CaseIterable {
             return -0.36
         case .subheading:
             return -0.28
-        case .previewTitle1Medium, .body, .uxTitle1Semibold, .uxBodyRegular, .button1Regular, .button1Semibold:
+        case .previewTitle1Medium, .bodyRegular, .uxTitle1Semibold, .uxBodyRegular, .button1Regular, .button1Medium:
             return -0.41
-        case .previewTitle2Regular, .previewTitle2Medium, .callout, .relation1Regular, .codeBlock, .uxTitle2Regular, .uxTitle2Medium, .uxCalloutMedium, .uxCalloutRegular:
+        case .previewTitle2Regular, .previewTitle2Medium, .calloutRegular, .relation1Regular, .codeBlock, .uxTitle2Regular, .uxTitle2Medium, .uxCalloutMedium, .uxCalloutRegular, .authBody, .authInput:
             return -0.24
-        case .caption1Medium, .relation2Regular, .caption1Regular:
+        case .caption1Medium, .relation2Regular, .caption1Regular, .authCaption:
             return -0.08
         case .caption2Regular, .caption2Medium:
             return -0.07
         case .relation3Regular:
             return 0
+        case .authTitle:
+            return -0.3
         }
     }
 

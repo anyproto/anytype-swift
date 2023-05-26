@@ -1,6 +1,6 @@
 import Combine
 import Foundation
-import BlocksModels
+import Services
 import UIKit
 import AnytypeCore
 

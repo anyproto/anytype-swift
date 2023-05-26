@@ -1,4 +1,4 @@
-import BlocksModels
+import Services
 
 struct DividerBlockContentConfiguration: BlockConfiguration {
     typealias View = DividerBlockContentView

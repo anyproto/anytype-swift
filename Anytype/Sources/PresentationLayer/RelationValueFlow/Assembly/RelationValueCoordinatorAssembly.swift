@@ -20,7 +20,7 @@ final class RelationValueCoordinatorAssembly: RelationValueCoordinatorAssemblyPr
         let coordinator = RelationValueCoordinator(
             navigationContext: uiHelpersDI.commonNavigationContext(),
             relationValueModuleAssembly: modulesDI.relationValue(),
-            urlOpener: URLOpener(viewController: uiHelpersDI.viewControllerProvider().rootViewController)
+            urlOpener: uiHelpersDI.urlOpener()
         )
         
         return coordinator

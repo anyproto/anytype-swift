@@ -1,5 +1,5 @@
 import AnytypeCore
-import BlocksModels
+import Services
 import ProtobufMessages
 
 /// Entity to create BlockInformation from middle events
@@ -40,15 +40,15 @@ struct BlockInformationCreator {
         let iconEmoji = newData.hasIconEmoji ? newData.iconEmoji.value : oldText.iconEmoji
         let iconImage = newData.hasIconImage ? newData.iconImage.value : oldText.iconImage
         
-        let middleContent = Anytype_Model_Block.Content.Text(
-            text: text,
-            style: style,
-            marks: marks,
-            checked: checked,
-            color: color ?? "",
-            iconEmoji: iconEmoji,
-            iconImage: iconImage
-        )
+        let middleContent = Anytype_Model_Block.Content.Text.with {
+            $0.text = text
+            $0.style = style
+            $0.marks = marks
+            $0.checked = checked
+            $0.color = color ?? ""
+            $0.iconEmoji = iconEmoji
+            $0.iconImage = iconImage
+        }
         
         guard var textContent = middleContent.textContent else {
             anytypeAssertionFailure("We cannot block content from: \(middleContent)", domain: .blockInformationCreator)

@@ -1,5 +1,5 @@
 import SwiftUI
-import BlocksModels
+import Services
 
 struct SetViewTypesPicker: View {
     @ObservedObject var viewModel: SetViewTypesPickerViewModel
@@ -136,13 +136,13 @@ struct SetViewTypesPicker: View {
             }
             if configuration.isSelected && configuration.isSupported {
                 Image(asset: .optionChecked)
-                    .foregroundColor(.Button.selected)
+                    .foregroundColor(.Button.button)
             }
         }
     }
     
     private var button: some View {
-        StandardButton(disabled: false, text: Loc.done, style: .primary) {
+        StandardButton(Loc.done, style: .primaryLarge) {
             presentationMode.wrappedValue.dismiss()
             viewModel.buttonTapped()
         }
@@ -154,9 +154,13 @@ struct SetViewTypesPicker_Previews: PreviewProvider {
     static var previews: some View {
         SetViewTypesPicker(
             viewModel: SetViewTypesPickerViewModel(
-                dataView: BlockDataview.empty,
+                setDocument: SetDocument(
+                    document: BaseDocument(objectId: "blockId"),
+                    blockId: nil,
+                    targetObjectID: nil,
+                    relationDetailsStorage: DI.preview.serviceLocator.relationDetailsStorage()
+                ),
                 activeView: DataviewView.empty,
-                source: [],
                 dataviewService: DataviewService(
                     objectId: "objectId",
                     blockId: "blockId",

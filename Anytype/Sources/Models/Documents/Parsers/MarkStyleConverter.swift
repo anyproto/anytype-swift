@@ -1,4 +1,4 @@
-import BlocksModels
+import Services
 import ProtobufMessages
 import AnytypeCore
 import UIKit
@@ -18,7 +18,8 @@ enum MarkStyleActionConverter {
         case .underscored:
             return .underscored
         case .link:
-            return .link(URL(string: tuple.value))
+            let urlString = tuple.value.trimmingCharacters(in: .whitespacesAndNewlines)
+            return .link(URL(string: urlString))
 
         case .textColor:
             guard let middlewareColor = MiddlewareColor(rawValue: tuple.value) else {

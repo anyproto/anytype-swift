@@ -11,7 +11,8 @@ import Amplitude
 final class AnytypeAnalytics: AnytypeAnalyticsProtocol {
 
     var isEnabled: Bool = true
-
+    var eventHandler: ((_ eventType: String, _ eventProperties: [AnyHashable : Any]?) -> Void)?
+    
     private static var anytypeAnalytics: AnytypeAnalytics = {
         let anytypeAnalytics = AnytypeAnalytics()
         return anytypeAnalytics
@@ -20,7 +21,7 @@ final class AnytypeAnalytics: AnytypeAnalyticsProtocol {
     private var eventsConfiguration: [String: EventConfigurtion] = [:]
     private var lastEvents: String = .empty
 
-    init() {
+    private init() {
         // Disable IDFA for Amplitude
         if let trackingOptions = AMPTrackingOptions().disableIDFA() {
             Amplitude.instance().setTrackingOptions(trackingOptions)
@@ -47,7 +48,6 @@ final class AnytypeAnalytics: AnytypeAnalyticsProtocol {
     }
 
     func logEvent(_ eventType: String, withEventProperties eventProperties: [AnyHashable : Any]?) {
-        guard isEnabled else { return }
         
         let eventConfiguration = eventsConfiguration[eventType]
 
@@ -56,6 +56,10 @@ final class AnytypeAnalytics: AnytypeAnalyticsProtocol {
         }
 
         lastEvents = eventType
+        
+        eventHandler?(eventType, eventProperties)
+        
+        guard isEnabled else { return }
         Amplitude.instance().logEvent(eventType, withEventProperties: eventProperties)
     }
 

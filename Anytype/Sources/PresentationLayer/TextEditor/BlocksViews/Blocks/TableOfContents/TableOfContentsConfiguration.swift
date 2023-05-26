@@ -1,5 +1,5 @@
 import Foundation
-import BlocksModels
+import Services
 
 struct TableOfContentsConfiguration: BlockConfiguration {
     typealias View = TableOfContentsView

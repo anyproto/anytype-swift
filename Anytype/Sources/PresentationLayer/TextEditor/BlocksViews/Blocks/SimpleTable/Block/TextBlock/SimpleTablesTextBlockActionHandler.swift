@@ -1,4 +1,4 @@
-import BlocksModels
+import Services
 import Combine
 import UIKit
 
@@ -247,10 +247,5 @@ struct SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
 
     private func toggleCheckBox() {
         actionHandler.checkbox(selected: !content.checked, blockId: info.id)
-    }
-
-    private func toggleDropdownView() {
-        info.toggle()
-        actionHandler.toggle(blockId: info.id)
     }
 }

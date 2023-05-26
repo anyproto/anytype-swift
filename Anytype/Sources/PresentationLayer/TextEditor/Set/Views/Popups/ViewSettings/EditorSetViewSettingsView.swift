@@ -14,13 +14,8 @@ struct EditorSetViewSettingsView: View {
     }
     
     private var content: some View {
-        List {
-            if #available(iOS 15.0, *) {
-                listContent
-                .listRowSeparator(.hidden)
-            } else {
-                listContent
-            }
+        PlainList {
+            listContent
         }
         .environment(\.editMode, $editMode)
         
@@ -36,6 +31,9 @@ struct EditorSetViewSettingsView: View {
                     .foregroundColor(Color.Button.active)
                     .environment(\.editMode, $editMode)
             }
+            ToolbarItem(placement: .principal) {
+                AnytypeText(Loc.settings, style: .uxTitle1Semibold, color: .Text.primary)
+            }
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: {
                     withAnimation { editMode = .inactive }
@@ -50,9 +48,8 @@ struct EditorSetViewSettingsView: View {
     private var listContent: some View {
         Group {
             VStack(spacing: 0) {
-                settingsHeader
                 settingsSection
-                relationsHeader
+                ListSectionHeaderView(title: Loc.relations)
             }
             relationsSection
         }
@@ -79,12 +76,6 @@ struct EditorSetViewSettingsView: View {
                 toggleSettings(with: model.iconSetting)
             }
         }
-    }
-    
-    private var settingsHeader: some View {
-        AnytypeText(Loc.settings, style: .uxTitle1Semibold, color: .Text.primary)
-            .frame(height: 52)
-            .divider()
     }
     
     private func valueSetting(with model: EditorSetViewSettingsValueItem) -> some View {
@@ -114,12 +105,6 @@ struct EditorSetViewSettingsView: View {
         }
         .frame(height: 52)
         .divider()
-    }
-    
-    private var relationsHeader: some View {
-        AnytypeText(Loc.relations, style: .uxTitle1Semibold, color: .Text.primary)
-            .frame(height: 52)
-            .divider()
     }
     
     private var relationsSection: some View {

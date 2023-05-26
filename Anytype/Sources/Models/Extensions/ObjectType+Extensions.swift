@@ -1,5 +1,5 @@
 import Foundation
-import BlocksModels
+import Services
 
 extension ObjectType {
     
@@ -13,7 +13,7 @@ extension ObjectType {
         isArchived: false,
         isDeleted: false,
         sourceObject: "",
-        smartBlockTypes: [.page]
+        recommendedRelations: []
     )
     
 }

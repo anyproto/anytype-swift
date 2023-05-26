@@ -1,4 +1,4 @@
-import BlocksModels
+import Services
 import SwiftUI
 
 final class RelationEditingViewModelBuilder {
@@ -34,6 +34,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
     func buildViewModel(
         objectId: BlockId,
         relation: Relation,
+        analyticsType: AnalyticsEventsRelationType,
         onTap: @escaping (_ id: BlockId, _ viewType: EditorViewType) -> Void
     ) -> AnytypePopupViewModelProtocol? {
         switch relation {
@@ -42,14 +43,16 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                 value: text.value ?? "",
                 type: .text,
                 relation: relation,
-                service: TextRelationDetailsService(service: RelationsService(objectId: objectId))
+                service: TextRelationDetailsService(service: RelationsService(objectId: objectId)),
+                analyticsType: analyticsType
             )
         case .number(let number):
             return TextRelationDetailsViewModel(
                 value: number.value ?? "",
                 type: .number,
                 relation: relation,
-                service: TextRelationDetailsService(service: RelationsService(objectId: objectId))
+                service: TextRelationDetailsService(service: RelationsService(objectId: objectId)),
+                analyticsType: analyticsType
             )
         case .phone(let phone):
             return TextRelationDetailsViewModel(
@@ -57,6 +60,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                 type: .phone,
                 relation: relation,
                 service: TextRelationDetailsService(service: RelationsService(objectId: objectId)),
+                analyticsType: analyticsType,
                 actionsViewModel: [
                     TextRelationURLActionViewModel(
                         type: .phone,
@@ -76,6 +80,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                 type: .email,
                 relation: relation,
                 service: TextRelationDetailsService(service: RelationsService(objectId: objectId)),
+                analyticsType: analyticsType,
                 actionsViewModel: [
                     TextRelationURLActionViewModel(
                         type: .email,
@@ -113,13 +118,15 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                 type: .url,
                 relation: relation,
                 service: TextRelationDetailsService(service: RelationsService(objectId: objectId)),
+                analyticsType: analyticsType,
                 actionsViewModel: actions.compactMap { $0 }
             )
         case .date(let value):
             return DateRelationDetailsViewModel(
                 value: value.value,
                 relation: relation,
-                service: RelationsService(objectId: objectId)
+                service: RelationsService(objectId: objectId),
+                analyticsType: analyticsType
             )
         case .status(let status):
             return StatusRelationDetailsViewModel(
@@ -127,7 +134,8 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                 relation: relation,
                 service: RelationsService(objectId: objectId),
                 newSearchModuleAssembly: newSearchModuleAssembly,
-                searchService: searchService
+                searchService: searchService,
+                analyticsType: analyticsType
             )
         case .tag(let tag):
             return RelationOptionsListViewModel(
@@ -147,7 +155,8 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                     relationKey: relation.key,
                     newSearcModuleAssembly: newSearchModuleAssembly
                 ),
-                service: RelationsService(objectId: objectId)
+                service: RelationsService(objectId: objectId),
+                analyticsType: analyticsType
             )
         case .object(let object):
             return RelationOptionsListViewModel(
@@ -168,7 +177,8 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                     limitedObjectType: object.limitedObjectTypes,
                     newSearcModuleAssembly: newSearchModuleAssembly
                 ),
-                service: RelationsService(objectId: objectId)
+                service: RelationsService(objectId: objectId),
+                analyticsType: analyticsType
             )
         case .file(let file):
             return RelationOptionsListViewModel(
@@ -186,7 +196,8 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                 emptyOptionsPlaceholder: Constants.tagsOrFilesOptionsPlaceholder,
                 relation: relation,
                 searchModuleBuilder: FilesOptionsSearchModuleBuilder(newSearcModuleAssembly: newSearchModuleAssembly),
-                service: RelationsService(objectId: objectId)
+                service: RelationsService(objectId: objectId),
+                analyticsType: analyticsType
             )
         default:
             return nil

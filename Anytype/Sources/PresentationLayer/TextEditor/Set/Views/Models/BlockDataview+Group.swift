@@ -1,4 +1,4 @@
-import BlocksModels
+import Services
 
 extension BlockDataview {
     func groupByRelations(for activeView: DataviewView, dataViewRelationsDetails: [RelationDetails]) -> [RelationDetails] {

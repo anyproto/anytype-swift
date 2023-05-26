@@ -23,7 +23,7 @@ struct SelectProfileView: View {
         .navigationBarHidden(true)
         .navigationBarBackButtonHidden(true)
         .onAppear {
-            viewModel.accountRecover()
+            viewModel.onAppear()
         }
     }
 
@@ -31,7 +31,10 @@ struct SelectProfileView: View {
 
 struct SelectProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        let viewModel =  SelectProfileViewModel(windowManager: DI.preview.coordinatorsDI.windowManager())
+        let viewModel =  SelectProfileViewModel(
+            applicationStateService: DI.preview.serviceLocator.applicationStateService(),
+            onShowMigrationGuide: {}
+        )
         return SelectProfileView(viewModel: viewModel)
     }
 }

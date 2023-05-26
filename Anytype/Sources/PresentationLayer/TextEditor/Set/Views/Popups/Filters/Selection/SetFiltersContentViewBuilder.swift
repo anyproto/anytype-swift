@@ -1,5 +1,5 @@
 import Foundation
-import BlocksModels
+import Services
 import SwiftProtobuf
 import UIKit
 import SwiftUI
@@ -89,7 +89,7 @@ final class SetFiltersContentViewBuilder {
             selectionMode: .multipleItems(preselectedIds: selectedObjectsIds),
             excludedObjectIds: [],
             limitedObjectType: filter.relationDetails.objectTypes,
-            onSelect: onSelect
+            onSelect: { details in onSelect(details.map(\.id)) }
         )
     }
     

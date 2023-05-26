@@ -1,4 +1,4 @@
-import BlocksModels
+import Services
 
 struct BlockLinkState: Hashable, Equatable {
     let title: String
@@ -42,7 +42,7 @@ struct BlockLinkState: Hashable, Equatable {
             cardStyle: blockLink.appearance.cardStyle,
             description: description,
             style: Style(details: details),
-            typeId: details.type,
+            type: details.objectType,
             viewType: details.editorViewType,
             archived: details.isArchived,
             deleted: details.isDeleted,
@@ -58,7 +58,7 @@ struct BlockLinkState: Hashable, Equatable {
          cardStyle: BlockLink.CardStyle,
          description: String,
          style: Style,
-         typeId: String,
+         type: ObjectType?,
          viewType: EditorViewType,
          archived: Bool,
          deleted: Bool,
@@ -71,7 +71,7 @@ struct BlockLinkState: Hashable, Equatable {
         self.title = title
         self.cardStyle = cardStyle
         self.style = style
-        self.type = ObjectTypeProvider.shared.objectType(id: typeId)
+        self.type = type
         self.viewType = viewType
         self.archived = archived
         self.deleted = deleted

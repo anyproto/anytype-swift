@@ -1,5 +1,5 @@
 import Foundation
-import BlocksModels
+import Services
 import SwiftUI
 import Combine
 import FloatingPanel
@@ -31,11 +31,11 @@ final class TextRelationDetailsViewModel: ObservableObject, TextRelationDetailsV
     
     private let relation: Relation
     private let service: TextRelationDetailsServiceProtocol
-        
+    private let analyticsType: AnalyticsEventsRelationType
     private var cancellable: AnyCancellable?
     
     private var keyboardListener: KeyboardEventsListnerHelper?
-
+    
     // MARK: - Initializers
     
     init(
@@ -43,12 +43,14 @@ final class TextRelationDetailsViewModel: ObservableObject, TextRelationDetailsV
         type: TextRelationDetailsViewType,
         relation: Relation,
         service: TextRelationDetailsServiceProtocol,
+        analyticsType: AnalyticsEventsRelationType,
         actionsViewModel: [TextRelationActionViewModelProtocol] = []
     ) {
         self.value = value
         self.type = type
         self.relation = relation
         self.service = service
+        self.analyticsType = analyticsType
         self.actionsViewModel = actionsViewModel
         
         cancellable = self.$value
@@ -64,6 +66,11 @@ final class TextRelationDetailsViewModel: ObservableObject, TextRelationDetailsV
     func updateValue(_ text: String) {
         value = text
         handleValueUpdate(value: value)
+    }
+    
+    func onWillDisappear() {
+        guard isEditable else { return }
+        AnytypeAnalytics.instance().logChangeRelationValue(isEmpty: value.isEmpty, type: analyticsType)
     }
 }
 

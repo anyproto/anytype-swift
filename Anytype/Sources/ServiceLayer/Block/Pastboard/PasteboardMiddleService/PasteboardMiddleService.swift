@@ -1,4 +1,4 @@
-import BlocksModels
+import Services
 import ProtobufMessages
 import AnytypeCore
 import Foundation
@@ -50,7 +50,12 @@ final class PasteboardMiddleService: PasteboardMiddlewareServiceProtocol {
     }
 
     func pasteFile(localPath: String, name: String, context: PasteboardActionContext)  -> PasteboardPasteResult? {
-        paste(contextId: document.objectId,
+        let fileSlot = Anytype_Rpc.Block.Paste.Request.File.with {
+            $0.name = name
+            $0.data = Data()
+            $0.localPath = localPath
+        }
+        return paste(contextId: document.objectId,
               focusedBlockId: context.focusedBlockId,
               selectedTextRange: context.selectedRange,
               selectedBlockIds: context.selectedBlocksIds,
@@ -58,7 +63,7 @@ final class PasteboardMiddleService: PasteboardMiddlewareServiceProtocol {
               textSlot: "",
               htmlSlot: "",
               anySlots:  [],
-              fileSlots: [Anytype_Rpc.Block.Paste.Request.File(name: name, data: Data(), localPath: localPath)])
+              fileSlots: [fileSlot])
     }
 
     func copy(blocksIds: [BlockId], selectedTextRange: NSRange) -> PasteboardCopyResult? {
@@ -66,12 +71,11 @@ final class PasteboardMiddleService: PasteboardMiddlewareServiceProtocol {
             guard let info = document.infoContainer.get(id: $0) else { return nil }
             return BlockInformationConverter.convert(information: info)
         }
-        let result = Anytype_Rpc.Block.Copy.Service.invoke(
-            contextID: document.objectId,
-            blocks: blocks,
-            selectedTextRange: selectedTextRange.asMiddleware
-        )
-            .getValue(domain: .blockActionsService)
+        let result = try? ClientCommands.blockCopy(.with {
+            $0.contextID = document.objectId
+            $0.blocks = blocks
+            $0.selectedTextRange = selectedTextRange.asMiddleware
+        }).invoke(errorDomain: .blockActionsService)
 
         if let result = result {
             let blocksSlots = result.anySlot.compactMap { modelBlock in
@@ -97,23 +101,17 @@ private extension PasteboardMiddleService {
                        anySlots:  [Anytype_Model_Block],
                        fileSlots: [Anytype_Rpc.Block.Paste.Request.File]) -> PasteboardPasteResult? {
 
-        let result = Anytype_Rpc.Block.Paste.Service.invoke(
-            contextID: contextId,
-            focusedBlockID: focusedBlockId,
-            selectedTextRange: selectedTextRange.asMiddleware,
-            selectedBlockIds: selectedBlockIds,
-            isPartOfBlock: isPartOfBlock,
-            textSlot: textSlot,
-            htmlSlot: htmlSlot,
-            anySlot: anySlots,
-            fileSlot: fileSlots
-        )
-            .getValue(domain: .blockActionsService)
-
-        let events = result.map {
-            EventsBunch(event: $0.event)
-        }
-        events?.send()
+        let result = try? ClientCommands.blockPaste(.with {
+            $0.contextID = contextId
+            $0.focusedBlockID = focusedBlockId
+            $0.selectedTextRange = selectedTextRange.asMiddleware
+            $0.selectedBlockIds = selectedBlockIds
+            $0.isPartOfBlock = isPartOfBlock
+            $0.textSlot = textSlot
+            $0.htmlSlot = htmlSlot
+            $0.anySlot = anySlots
+            $0.fileSlot = fileSlots
+        }).invoke(errorDomain: .blockActionsService)
 
         guard let result = result else {
             return nil

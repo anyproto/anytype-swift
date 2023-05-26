@@ -9,15 +9,16 @@ platform :ios do
     match(readonly: true)
 
     desc "Runs all the tests"
+    
     build_app(
-      scheme: "Anytype", 
-      configuration: "Debug-Nightly",
-      use_system_scm: true,
-      output_directory: "./tests_bild",
-      skip_package_ipa: false,
+      scheme: ENV["APP_TARGET"], 
+      configuration: ENV["APP_CONF_DEVELOP"],
       include_symbols: true,
-      include_bitcode: false,
-      xcargs: ENV['BUILD_OPTIONS']
+      use_system_scm: true,
+      archive_path: "./build/archive",
+      output_directory: "./build/result",
+      xcargs: ENV['BUILD_OPTIONS'],
+      cloned_source_packages_path: ENV['SPM_DERIVED_DATA']
     )
 
   end

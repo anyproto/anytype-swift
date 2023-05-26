@@ -1,5 +1,6 @@
 import SwiftUI
 import Combine
+import AnytypeCore
 
 @MainActor
 final class SelectProfileViewModel: ObservableObject {
@@ -21,13 +22,15 @@ final class SelectProfileViewModel: ObservableObject {
     
     private var isAccountRecovering = false
     
-    let windowManager: WindowManager
+    private let applicationStateService: ApplicationStateServiceProtocol
+    private let onShowMigrationGuide: () -> Void
     
-    init(windowManager: WindowManager) {
-        self.windowManager = windowManager
+    init(applicationStateService: ApplicationStateServiceProtocol, onShowMigrationGuide: @escaping () -> Void) {
+        self.applicationStateService = applicationStateService
+        self.onShowMigrationGuide = onShowMigrationGuide
     }
     
-    func accountRecover() {
+    func onAppear() {
         handleAccountShowEvent()
         
         isAccountRecovering = true
@@ -60,20 +63,28 @@ private extension SelectProfileViewModel {
     }
     
     func selectProfile(id: String) {
-        authService.selectAccount(id: id) { [weak self] status in
-            guard let self = self else { return }
-            self.isAccountRecovering = false
-            self.snackBarData = .empty
-            
-            switch status {
-            case .active:
-                self.windowManager.showHomeWindow()
-            case .pendingDeletion(let deadline):
-                self.windowManager.showDeletedAccountWindow(deadline: deadline)
-            case .deleted:
-                self.errorText = Loc.accountDeleted
-            case .none:
-                self.errorText = Loc.selectAccountError
+        Task { @MainActor in
+            do {
+                let status = try await authService.selectAccount(id: id)
+                isAccountRecovering = false
+                snackBarData = .empty
+                
+                switch status {
+                case .active:
+                    applicationStateService.state = .home
+                case .pendingDeletion:
+                    applicationStateService.state = .delete
+                case .deleted:
+                    errorText = Loc.accountDeleted
+                }
+            } catch SelectAccountError.failedToFindAccountInfo {
+                if FeatureFlags.migrationGuide {
+                    onShowMigrationGuide()
+                } else {
+                    errorText = Loc.selectAccountError
+                }
+            } catch {
+                errorText = Loc.selectAccountError
             }
         }
     }

@@ -9,7 +9,8 @@ extension ObjectIconImageUsecase {
                 todoImageGuideline: TodoIconImageGuideline.x28,
                 placeholderImageGuideline: PlaceholderIconImageGuideline.x48,
                 staticImageGuideline: StaticImageGuideline.x80,
-                bookmarkImageGuideline: nil
+                bookmarkImageGuideline: nil,
+                spaceImageGuideline: nil
             )
         case .openedObjectNavigationBar:
             return ObjectIconImageGuidelineSet(
@@ -19,7 +20,8 @@ extension ObjectIconImageUsecase {
                 todoImageGuideline: TodoIconImageGuideline.x18,
                 placeholderImageGuideline: nil,
                 staticImageGuideline: nil,
-                bookmarkImageGuideline: BookmarkIconImageGuideline.x18
+                bookmarkImageGuideline: BookmarkIconImageGuideline.x18,
+                spaceImageGuideline: nil
             )
         case .editorSearch:
             return ObjectIconImageGuidelineSet(
@@ -29,7 +31,8 @@ extension ObjectIconImageUsecase {
                 todoImageGuideline: TodoIconImageGuideline.x24,
                 placeholderImageGuideline: PlaceholderIconImageGuideline.x40,
                 staticImageGuideline: StaticImageGuideline.x24,
-                bookmarkImageGuideline: BookmarkIconImageGuideline.x24
+                bookmarkImageGuideline: BookmarkIconImageGuideline.x24,
+                spaceImageGuideline: nil
             )
         case .editorSearchExpandedIcons:
             return ObjectIconImageGuidelineSet(
@@ -39,7 +42,8 @@ extension ObjectIconImageUsecase {
                 todoImageGuideline: TodoIconImageGuideline.x24,
                 placeholderImageGuideline: PlaceholderIconImageGuideline.x40,
                 staticImageGuideline: StaticImageGuideline.x40,
-                bookmarkImageGuideline: BookmarkIconImageGuideline.x24
+                bookmarkImageGuideline: BookmarkIconImageGuideline.x24,
+                spaceImageGuideline: nil
             )
         case .editorCalloutBlock:
             return ObjectIconImageGuidelineSet(
@@ -49,7 +53,8 @@ extension ObjectIconImageUsecase {
                 todoImageGuideline: TodoIconImageGuideline.x20,
                 placeholderImageGuideline: PlaceholderIconImageGuideline.x40,
                 staticImageGuideline: StaticImageGuideline.x20,
-                bookmarkImageGuideline: BookmarkIconImageGuideline.x20
+                bookmarkImageGuideline: BookmarkIconImageGuideline.x20,
+                spaceImageGuideline: nil
             )
         case .linkToObject:
             return ObjectIconImageGuidelineSet(
@@ -59,7 +64,8 @@ extension ObjectIconImageUsecase {
                 todoImageGuideline: nil,
                 placeholderImageGuideline: PlaceholderIconImageGuideline.x48,
                 staticImageGuideline: BasicIconImageGuideline.x48,
-                bookmarkImageGuideline: nil
+                bookmarkImageGuideline: nil,
+                spaceImageGuideline: nil
             )
         case .dashboardList:
             return ObjectIconImageGuidelineSet(
@@ -69,7 +75,8 @@ extension ObjectIconImageUsecase {
                 todoImageGuideline: TodoIconImageGuideline.x18,
                 placeholderImageGuideline: nil,
                 staticImageGuideline: nil,
-                bookmarkImageGuideline: BookmarkIconImageGuideline.x18
+                bookmarkImageGuideline: BookmarkIconImageGuideline.x18,
+                spaceImageGuideline: nil
             )
         case .dashboardProfile:
             return ObjectIconImageGuidelineSet(
@@ -79,9 +86,10 @@ extension ObjectIconImageUsecase {
                 todoImageGuideline: nil,
                 placeholderImageGuideline: nil,
                 staticImageGuideline: nil,
-                bookmarkImageGuideline: nil
+                bookmarkImageGuideline: nil,
+                spaceImageGuideline: nil
             )
-        case .dashboardSearch, .homeSetWidget:
+        case .dashboardSearch, .widgetList, .fileStorage:
             return ObjectIconImageGuidelineSet(
                 basicImageGuideline: BasicIconImageGuideline.x48,
                 profileImageGuideline: ProfileIconImageGuideline.x48,
@@ -89,7 +97,8 @@ extension ObjectIconImageUsecase {
                 todoImageGuideline: TodoIconImageGuideline.x18,
                 placeholderImageGuideline: PlaceholderIconImageGuideline.x48,
                 staticImageGuideline: StaticImageGuideline.x24,
-                bookmarkImageGuideline: BookmarkIconImageGuideline.x24
+                bookmarkImageGuideline: BookmarkIconImageGuideline.x24,
+                spaceImageGuideline: SpaceIconImageGuideline.x48
             )
         case let .mention(type):
             return mentionImageGuidelineSet(for: type)
@@ -97,11 +106,12 @@ extension ObjectIconImageUsecase {
             return ObjectIconImageGuidelineSet(
                 basicImageGuideline: nil,
                 profileImageGuideline: nil,
-                emojiImageGuideline: EmojiIconImageGuideline.x48,
+                emojiImageGuideline: EmojiIconImageGuideline.x52,
                 todoImageGuideline: nil,
                 placeholderImageGuideline: nil,
                 staticImageGuideline: nil,
-                bookmarkImageGuideline: nil
+                bookmarkImageGuideline: nil,
+                spaceImageGuideline: nil
             )
         case .setRow:
             return ObjectIconImageGuidelineSet(
@@ -111,7 +121,8 @@ extension ObjectIconImageUsecase {
                 todoImageGuideline: TodoIconImageGuideline.x18,
                 placeholderImageGuideline: nil,
                 staticImageGuideline: nil,
-                bookmarkImageGuideline: BookmarkIconImageGuideline.x18
+                bookmarkImageGuideline: BookmarkIconImageGuideline.x18,
+                spaceImageGuideline: nil
             )
         case .setCollection:
             return ObjectIconImageGuidelineSet(
@@ -121,7 +132,8 @@ extension ObjectIconImageUsecase {
                 todoImageGuideline: TodoIconImageGuideline.x16,
                 placeholderImageGuideline: nil,
                 staticImageGuideline: nil,
-                bookmarkImageGuideline: BookmarkIconImageGuideline.x16
+                bookmarkImageGuideline: BookmarkIconImageGuideline.x16,
+                spaceImageGuideline: nil
             )
         case .featuredRelationsBlock:
             return ObjectIconImageGuidelineSet(
@@ -131,7 +143,8 @@ extension ObjectIconImageUsecase {
                 todoImageGuideline: TodoIconImageGuideline.x18,
                 placeholderImageGuideline: nil,
                 staticImageGuideline: StaticImageGuideline.x18,
-                bookmarkImageGuideline: BookmarkIconImageGuideline.x18
+                bookmarkImageGuideline: BookmarkIconImageGuideline.x18,
+                spaceImageGuideline: nil
             )
         case .widgetTree:
             return ObjectIconImageGuidelineSet(
@@ -141,7 +154,8 @@ extension ObjectIconImageUsecase {
                 todoImageGuideline: TodoIconImageGuideline.x18,
                 placeholderImageGuideline: nil,
                 staticImageGuideline: StaticImageGuideline.x18,
-                bookmarkImageGuideline: BookmarkIconImageGuideline.x18
+                bookmarkImageGuideline: BookmarkIconImageGuideline.x18,
+                spaceImageGuideline: nil
             )
         case .homeBottomPanel:
             return ObjectIconImageGuidelineSet(
@@ -150,8 +164,9 @@ extension ObjectIconImageUsecase {
                 emojiImageGuideline: EmojiIconImageGuideline.x24,
                 todoImageGuideline: TodoIconImageGuideline.x24,
                 placeholderImageGuideline: nil,
-                staticImageGuideline: StaticImageGuideline.x24,
-                bookmarkImageGuideline: BookmarkIconImageGuideline.x24
+                staticImageGuideline: StaticImageGuideline.x32,
+                bookmarkImageGuideline: BookmarkIconImageGuideline.x24,
+                spaceImageGuideline: SpaceIconImageGuideline.x24
             )
         case .inlineSetHeader:
             return ObjectIconImageGuidelineSet(
@@ -161,7 +176,30 @@ extension ObjectIconImageUsecase {
                 todoImageGuideline: TodoIconImageGuideline.x28,
                 placeholderImageGuideline: nil,
                 staticImageGuideline: StaticImageGuideline.x32,
-                bookmarkImageGuideline: BookmarkIconImageGuideline.x28
+                bookmarkImageGuideline: BookmarkIconImageGuideline.x28,
+                spaceImageGuideline: nil
+            )
+        case .settingsHeader:
+            return ObjectIconImageGuidelineSet(
+                basicImageGuideline: BasicIconImageGuideline.x96,
+                profileImageGuideline: ProfileIconImageGuideline.x96,
+                emojiImageGuideline: EmojiIconImageGuideline.x96,
+                todoImageGuideline: nil,
+                placeholderImageGuideline: nil,
+                staticImageGuideline: StaticImageGuideline.x96,
+                bookmarkImageGuideline: nil,
+                spaceImageGuideline: SpaceIconImageGuideline.x96
+            )
+        case .settingsSection:
+            return ObjectIconImageGuidelineSet(
+                basicImageGuideline: BasicIconImageGuideline.x28,
+                profileImageGuideline: ProfileIconImageGuideline.x28,
+                emojiImageGuideline: EmojiIconImageGuideline.x28,
+                todoImageGuideline: TodoIconImageGuideline.x28,
+                placeholderImageGuideline: nil,
+                staticImageGuideline: StaticImageGuideline.x28,
+                bookmarkImageGuideline: BookmarkIconImageGuideline.x28,
+                spaceImageGuideline: nil
             )
         }
     }
@@ -176,7 +214,8 @@ extension ObjectIconImageUsecase {
                 todoImageGuideline: TodoIconImageGuideline.x28,
                 placeholderImageGuideline: nil,
                 staticImageGuideline: StaticImageGuideline.x28,
-                bookmarkImageGuideline: BookmarkIconImageGuideline.x28
+                bookmarkImageGuideline: BookmarkIconImageGuideline.x28,
+                spaceImageGuideline: nil
             )
         case .heading:
             return ObjectIconImageGuidelineSet(
@@ -186,7 +225,8 @@ extension ObjectIconImageUsecase {
                 todoImageGuideline: TodoIconImageGuideline.x24,
                 placeholderImageGuideline: nil,
                 staticImageGuideline: StaticImageGuideline.x24,
-                bookmarkImageGuideline: BookmarkIconImageGuideline.x24
+                bookmarkImageGuideline: BookmarkIconImageGuideline.x24,
+                spaceImageGuideline: nil
             )
         case .subheading, .body:
             return ObjectIconImageGuidelineSet(
@@ -196,7 +236,8 @@ extension ObjectIconImageUsecase {
                 todoImageGuideline: TodoIconImageGuideline.x20,
                 placeholderImageGuideline: nil,
                 staticImageGuideline: StaticImageGuideline.x20,
-                bookmarkImageGuideline: BookmarkIconImageGuideline.x20
+                bookmarkImageGuideline: BookmarkIconImageGuideline.x20,
+                spaceImageGuideline: nil
             )
         case .callout:
             return ObjectIconImageGuidelineSet(
@@ -206,7 +247,8 @@ extension ObjectIconImageUsecase {
                 todoImageGuideline: TodoIconImageGuideline.x18,
                 placeholderImageGuideline: nil,
                 staticImageGuideline: StaticImageGuideline.x18,
-                bookmarkImageGuideline: BookmarkIconImageGuideline.x18
+                bookmarkImageGuideline: BookmarkIconImageGuideline.x18,
+                spaceImageGuideline: nil
             )
         }
     }

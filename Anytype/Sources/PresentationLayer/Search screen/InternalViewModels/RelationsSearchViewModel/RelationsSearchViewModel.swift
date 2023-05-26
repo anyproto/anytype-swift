@@ -1,6 +1,6 @@
 import Foundation
 import Combine
-import BlocksModels
+import Services
 import AnytypeCore
 
 final class RelationsSearchViewModel: NewInternalSearchViewModelProtocol {
@@ -88,7 +88,7 @@ final class RelationsSearchViewModel: NewInternalSearchViewModelProtocol {
                 anytypeAssertionFailure("Relation not added to document. Relation id \(relation.id)", domain: .relationSearch)
             }
         case .dataview(let activeViewId):
-            Task { [weak self] in
+            Task { @MainActor [weak self] in
                 try await self?.interactor.addRelationToDataview(relation: relation, activeViewId: activeViewId)
                 self?.onSelect(relation)
             }
@@ -101,14 +101,14 @@ final class RelationsSearchViewModel: NewInternalSearchViewModelProtocol {
             .resultsList(
                 .sectioned(sectinos: .builder {
                     if objects.isNotEmpty {
-                        ListSectionConfiguration(
+                        ListSectionConfiguration.smallHeader(
                             id: Constants.installedSectionId,
                             title: Loc.Relation.myRelations,
                             rows:  objects.asRowConfigurations()
                         )
                     }
                     if marketplaceObjects.isNotEmpty {
-                        ListSectionConfiguration(
+                        ListSectionConfiguration.smallHeader(
                             id: Constants.marketplaceSectionId,
                             title: Loc.anytypeLibrary,
                             rows:  marketplaceObjects.asRowConfigurations()

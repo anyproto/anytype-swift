@@ -89,6 +89,7 @@ class ChangeTypeAccessoryView: UIView {
 
             UIView.animate(withDuration: 0.2) {
                 self?.changeTypeView.isHidden = !isVisible
+                self?.changeButton.imageView?.transform = isVisible ? .identity : CGAffineTransform(rotationAngle: Double.pi)
                 self?.stackView.layoutIfNeeded()
             }
         }.store(in: &cancellables)
@@ -137,18 +138,6 @@ private final class ChangeButton: UIButton {
         setTitleColor(.Button.active, for: .normal)
         setTitleColor(.Text.primary, for: .highlighted)
 
-        addTarget(self, action: #selector(didTap), for: .touchUpInside)
-
         imageEdgeInsets = .init(top: 0, left: -9, bottom: 0, right: 0)
-    }
-
-    @objc func didTap() {
-        guard let transform = imageView?.transform.rotated(by: Double.pi) else {
-            return
-        }
-
-        UIView.animate(withDuration: 0.4) { [weak self] in
-            self?.imageView?.transform = transform
-        }
     }
 }

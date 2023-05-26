@@ -1,6 +1,6 @@
 import Foundation
 import UIKit
-import BlocksModels
+import Services
 
 final class EditorNavigationBarHelper {
     
@@ -23,7 +23,6 @@ final class EditorNavigationBarHelper {
     private var startAppearingOffset: CGFloat = 0.0
     private var endAppearingOffset: CGFloat = 0.0
     private var currentScrollViewOffset: CGFloat = 0.0
-    var canChangeSyncStatusAppearance = true
 
     private var currentEditorState: EditorEditingState?
     private var lastTitleModel: EditorNavigationBarTitleView.Mode.TitleModel?

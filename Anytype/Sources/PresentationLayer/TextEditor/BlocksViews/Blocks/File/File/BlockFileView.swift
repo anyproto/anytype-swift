@@ -9,8 +9,6 @@ struct BlockFileMediaData: Hashable {
 
 final class BlockFileView: UIView, BlockContentView {
 
-    private let dividerView = DividerBlockView()
-
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()

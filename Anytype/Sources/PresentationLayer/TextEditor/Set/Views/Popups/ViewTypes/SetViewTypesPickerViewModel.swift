@@ -1,5 +1,5 @@
 import SwiftUI
-import BlocksModels
+import Services
 
 final class SetViewTypesPickerViewModel: ObservableObject {
     @Published var name = ""
@@ -10,7 +10,7 @@ final class SetViewTypesPickerViewModel: ObservableObject {
         activeView.isNotNil
     }
     
-    private let dataView: BlockDataview
+    private let setDocument: SetDocumentProtocol
     private let activeView: DataviewView?
     private var selectedType: DataviewViewType = .table
     private let source: [String]
@@ -18,18 +18,17 @@ final class SetViewTypesPickerViewModel: ObservableObject {
     private let relationDetailsStorage: RelationDetailsStorageProtocol
     
     init(
-        dataView: BlockDataview,
+        setDocument: SetDocumentProtocol,
         activeView: DataviewView?,
-        source: [String],
         dataviewService: DataviewServiceProtocol,
         relationDetailsStorage: RelationDetailsStorageProtocol)
     {
-        self.dataView = dataView
+        self.setDocument = setDocument
         self.name = activeView?.name ?? ""
         self.activeView = activeView
-        self.canDelete = dataView.views.count > 1
+        self.canDelete = setDocument.dataView.views.count > 1
         self.selectedType = activeView?.type ?? .table
-        self.source = source
+        self.source = setDocument.details?.setOf ?? []
         self.dataviewService = dataviewService
         self.relationDetailsStorage = relationDetailsStorage
         self.updateTypes()
@@ -47,6 +46,7 @@ final class SetViewTypesPickerViewModel: ObservableObject {
         guard let activeView = activeView else { return }
         Task {
             try await dataviewService.deleteView(activeView.id)
+            AnytypeAnalytics.instance().logRemoveView(objectType: setDocument.analyticsType)
         }
     }
     
@@ -54,6 +54,10 @@ final class SetViewTypesPickerViewModel: ObservableObject {
         guard let activeView = activeView else { return }
         Task {
             try await dataviewService.createView(activeView, source: source)
+            AnytypeAnalytics.instance().logDuplicateView(
+                type: activeView.type.stringValue,
+                objectType: setDocument.analyticsType
+            )
         }
     }
     
@@ -76,15 +80,18 @@ final class SetViewTypesPickerViewModel: ObservableObject {
         guard activeView.type != selectedType || activeView.name != name else {
             return
         }
-        let dataViewRelationsDetails = relationDetailsStorage.relationsDetails(for: dataView.relationLinks)
+        let dataViewRelationsDetails = relationDetailsStorage.relationsDetails(for: setDocument.dataView.relationLinks)
         let groupRelationKey = activeView.groupRelationKey.isEmpty ?
-        dataView.groupByRelations(for: activeView, dataViewRelationsDetails: dataViewRelationsDetails).first?.key ?? "" :
+        setDocument.dataView.groupByRelations(for: activeView, dataViewRelationsDetails: dataViewRelationsDetails).first?.key ?? "" :
         activeView.groupRelationKey
         let newView = activeView.updated(
             name: name,
             type: selectedType,
             groupRelationKey: groupRelationKey
         )
+        if activeView.type != selectedType {
+            AnytypeAnalytics.instance().logChangeViewType(type: selectedType.stringValue, objectType: setDocument.analyticsType)
+        }
         Task {
             try await dataviewService.updateView(newView)
         }
@@ -97,6 +104,7 @@ final class SetViewTypesPickerViewModel: ObservableObject {
                 DataviewView.created(with: name, type: selectedType),
                 source: source
             )
+            AnytypeAnalytics.instance().logAddView(type: selectedType.stringValue, objectType: setDocument.analyticsType)
         }
     }
     

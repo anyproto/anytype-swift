@@ -1,4 +1,4 @@
-import BlocksModels
+import Services
 import UIKit
 import AnytypeCore
 
@@ -8,39 +8,61 @@ extension BundledRelationsValueProvider {
     
     var icon: ObjectIconType? {
         switch layoutValue {
-        case .basic, .set:
+        case .basic, .set, .collection, .image, .objectType:
             return basicIcon
         case .profile:
-            return profileIcon.flatMap { ObjectIconType.profile($0) }
+            return profileIcon
         case .bookmark:
             return bookmarkIcon
-        case .todo, .note:
+        case .todo, .note, .file, .unknown, .relation, .relationOption:
             return nil
+        case .space:
+            return spaceIcon
         }
     }
     
     private var basicIcon: ObjectIconType? {
         if let iconImageHash = self.iconImage {
-            return ObjectIconType.basic(iconImageHash.value)
+            return .basic(iconImageHash.value)
         }
         
         if let iconEmoji = self.iconEmoji {
-            return ObjectIconType.emoji(iconEmoji)
+            return .emoji(iconEmoji)
         }
         
         return nil
     }
     
-    private var profileIcon: ObjectIconType.Profile? {
+    private var profileIcon: ObjectIconType? {
         if let iconImageHash = self.iconImage {
-            return ObjectIconType.Profile.imageId(iconImageHash.value)
+            return .profile(.imageId(iconImageHash.value))
         }
         
-        return title.first.flatMap { ObjectIconType.Profile.character($0) }
+        if let iconOption, let gradiendId = GradientId(iconOption) {
+            return .profile(.gradient(gradiendId))
+        }
+        
+        return title.first.flatMap { .profile(.character($0)) }
     }
     
     private var bookmarkIcon: ObjectIconType? {
-        return iconImage.map { ObjectIconType.bookmark($0.value) }
+        return iconImage.map { .bookmark($0.value) }
+    }
+    
+    private var spaceIcon: ObjectIconType? {
+        if let basicIcon {
+            return basicIcon
+        }
+        
+        if let iconOption, let gradiendId = GradientId(iconOption) {
+            return .space(.gradient(gradiendId))
+        }
+        
+        return title.first.flatMap { .space(ObjectIconType.Space.character($0)) }
+    }
+    
+    private var fileIcon: ObjectIconImage {
+        return .imageAsset(FileIconBuilder.convert(mime: fileMimeType, fileName: name))
     }
     
     // MARK: - Cover
@@ -68,11 +90,15 @@ extension BundledRelationsValueProvider {
     
     var objectIconImage: ObjectIconImage? {
         guard !isDeleted else {
-            return ObjectIconImage.imageAsset(.ghost)
+            return .imageAsset(.ghost)
         }
         
         if let icon = icon {
             return .icon(icon)
+        }
+        
+        if layoutValue == .file {
+            return fileIcon
         }
         
         if layoutValue == .todo {
@@ -80,6 +106,10 @@ extension BundledRelationsValueProvider {
         }
         
         return nil
+    }
+    
+    var objectIconImageWithPlaceholder: ObjectIconImage {
+        return objectIconImage ?? .placeholder(title.first)
     }
     
     var objectType: ObjectType {
@@ -93,10 +123,22 @@ extension BundledRelationsValueProvider {
     
     var editorViewType: EditorViewType {
         switch layoutValue {
-        case .basic, .profile, .todo, .note, .bookmark:
+        case .basic, .profile, .todo, .note, .bookmark, .space, .file, .image, .objectType, .unknown, .relation, .relationOption:
             return .page
-        case .set:
+        case .set, .collection:
             return .set()
         }
+    }
+    
+    var isCollection: Bool {
+        return layoutValue == .collection
+    }
+    
+    var isSupportedForEdit: Bool {
+        return DetailsLayout.supportedForEditLayouts.contains(layoutValue)
+    }
+    
+    var isVisibleForEdit: Bool {
+        return !isDeleted && !isArchived && DetailsLayout.visibleLayouts.contains(layoutValue)
     }
 }

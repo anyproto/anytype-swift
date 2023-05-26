@@ -1,9 +1,3 @@
-private extension SeedService {
-    enum Constants {
-        static let serviceName = "com.AnyType.seed"
-        static let defaultName = "AnyTypeSeed"
-    }
-}
 
 final class SeedService: SeedServiceProtocol {
     private let keychainStore: KeychainStoreProtocol
@@ -25,9 +19,15 @@ final class SeedService: SeedServiceProtocol {
     
     private func query() -> GenericPasswordQueryable {
         GenericPasswordQueryable(
-            account: Constants.defaultName,
-            service: Constants.serviceName,
-            keyChainPassword: .none
+            account: Constants.secAttrAccount,
+            service: Constants.secAttrService
         )
+    }
+}
+
+private extension SeedService {
+    enum Constants {
+        static let secAttrService = "com.anytype.seedPhrase"
+        static let secAttrAccount = "AnytypeSeedPhrase"
     }
 }

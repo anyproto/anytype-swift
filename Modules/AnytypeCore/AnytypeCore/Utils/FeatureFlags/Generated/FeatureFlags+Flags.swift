@@ -10,12 +10,28 @@ public extension FeatureFlags {
         value(for: .setKanbanView)
     }
 
-    static var homeWidgets: Bool {
-        value(for: .homeWidgets)
-    }
-
     static var fullInlineSetImpl: Bool {
         value(for: .fullInlineSetImpl)
+    }
+
+    static var dndOnCollectionsAndSets: Bool {
+        value(for: .dndOnCollectionsAndSets)
+    }
+
+    static var migrationGuide: Bool {
+        value(for: .migrationGuide)
+    }
+
+    static var fileStorage: Bool {
+        value(for: .fileStorage)
+    }
+
+    static var newAuthorization: Bool {
+        value(for: .newAuthorization)
+    }
+
+    static var redesignAbout: Bool {
+        value(for: .redesignAbout)
     }
 
     static var rainbowViews: Bool {
@@ -30,18 +46,22 @@ public extension FeatureFlags {
         value(for: .analytics)
     }
 
-    static var middlewareLogs: Bool {
-        value(for: .middlewareLogs)
+    static var analyticsAlerts: Bool {
+        value(for: .analyticsAlerts)
     }
 
     // All toggles
     static let features: [FeatureDescription] = [
         .setKanbanView,
-        .homeWidgets,
         .fullInlineSetImpl,
+        .dndOnCollectionsAndSets,
+        .migrationGuide,
+        .fileStorage,
+        .newAuthorization,
+        .redesignAbout,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
-        .middlewareLogs
+        .analyticsAlerts
     ]
 }

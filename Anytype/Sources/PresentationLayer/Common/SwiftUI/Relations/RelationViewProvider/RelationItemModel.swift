@@ -1,4 +1,4 @@
-import BlocksModels
+import Services
 
 enum RelationItemModel: Hashable {
     case text(Relation.Text)

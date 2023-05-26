@@ -1,5 +1,5 @@
 import ProtobufMessages
-import BlocksModels
+import Services
 
 extension Anytype_Model_Block.Content.File {
     var blockContent: BlockContent? {
@@ -19,19 +19,16 @@ extension Anytype_Model_Block.Content.File {
 
 extension BlockFile {
     var asMiddleware: Anytype_Model_Block.OneOf_Content {
-        .file(
-            .init(
-                hash: metadata.hash,
-                name: metadata.name,
-                type: contentType.asMiddleware,
-                mime: metadata.mime,
-                size: metadata.size,
-                addedAt: 0,
-                state: state.asMiddleware,
-                style: .auto
-            )
-        )
+        .file(.with {
+            $0.hash = metadata.hash
+            $0.name = metadata.name
+            $0.type = contentType.asMiddleware
+            $0.mime = metadata.mime
+            $0.size = metadata.size
+            $0.addedAt = 0
+            $0.state = state.asMiddleware
+            $0.style = .auto
+        })
     }
-  
 }
 

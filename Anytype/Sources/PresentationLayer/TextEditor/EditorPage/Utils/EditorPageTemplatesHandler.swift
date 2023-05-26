@@ -1,4 +1,4 @@
-import BlocksModels
+import Services
 
 protocol EditorPageTemplatesHandlerProtocol {
     func didAppeared(with type: String?)

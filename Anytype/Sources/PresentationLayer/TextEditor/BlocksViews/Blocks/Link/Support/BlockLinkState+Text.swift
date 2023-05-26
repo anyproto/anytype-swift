@@ -1,5 +1,5 @@
 import UIKit
-import BlocksModels
+import Services
 
 extension BlockLinkState {
     var titleText: String {
@@ -11,7 +11,6 @@ extension BlockLinkState {
     }
 
     var textTitleFont: AnytypeFont { .previewTitle1Medium }
-    var cardTitleFont: AnytypeFont { .uxTitle2Medium }
 
     var titleColor: UIColor {
         if case let .checkmark(value) = style, value {
@@ -50,21 +49,6 @@ extension BlockLinkState {
                 .foregroundColor: UIColor.Text.secondary,
             ]
         )
-    }
-    
-    private var disabledAttributes: [NSAttributedString.Key : Any] {
-        [
-            .font: UIFont.bodyRegular,
-            .foregroundColor: UIColor.Button.active
-        ]
-    }
-    
-    private var enabledAttributes: [NSAttributedString.Key : Any] {
-
-        return [
-            .font: UIFont.bodyRegular,
-            .foregroundColor: UIColor.Text.primary
-        ]
     }
 
     private var disabledDescriptionAttributes: [NSAttributedString.Key : Any] {

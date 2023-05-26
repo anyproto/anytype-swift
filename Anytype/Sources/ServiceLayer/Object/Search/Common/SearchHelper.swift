@@ -1,12 +1,20 @@
 import ProtobufMessages
 import SwiftProtobuf
-import BlocksModels
+import Services
 
 class SearchHelper {
     static func sort(relation: BundledRelationKey, type: DataviewSort.TypeEnum) -> DataviewSort {
         var sort = DataviewSort()
         sort.relationKey = relation.rawValue
         sort.type = type
+        
+        return sort
+    }
+    
+    static func customSort(ids: [String]) -> DataviewSort {
+        var sort = DataviewSort()
+        sort.type = .custom
+        sort.customOrder = ids.map { $0.protobufValue }
         
         return sort
     }
@@ -71,16 +79,6 @@ class SearchHelper {
         return filter
     }
     
-    static func smartblockTypesFilter(types: [SmartBlockType]) -> DataviewFilter {
-        var filter = DataviewFilter()
-        filter.condition = .in
-        filter.value = types.map { $0.asMiddleware.rawValue }.protobufValue
-        filter.relationKey = BundledRelationKey.smartblockTypes.rawValue
-        filter.operator = .and
-        
-        return filter
-    }
-    
     static func excludedTypeFilter(_ typeIds: [String]) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .notIn
@@ -91,11 +89,21 @@ class SearchHelper {
         return filter
     }
     
-    static func layoutFilter(layouts: [Int]) -> DataviewFilter {
+    static func layoutFilter(_ layouts: [DetailsLayout]) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .in
-        filter.value = layouts.protobufValue
+        filter.value = layouts.map(\.rawValue).protobufValue
         filter.relationKey = BundledRelationKey.layout.rawValue
+        filter.operator = .and
+        
+        return filter
+    }
+    
+    static func recomendedLayoutFilter(_ layouts: [DetailsLayout]) -> DataviewFilter {
+        var filter = DataviewFilter()
+        filter.condition = .in
+        filter.value = layouts.map(\.rawValue).protobufValue
+        filter.relationKey = BundledRelationKey.recommendedLayout.rawValue
         filter.operator = .and
         
         return filter
@@ -128,17 +136,6 @@ class SearchHelper {
             workspaceFilter,
             highlightedFilter
         ]
-    }
-    
-    static func excludedIdFilter(_ typeUrl: String) -> DataviewFilter {
-        var filter = DataviewFilter()
-        filter.condition = .notEqual
-        filter.value = typeUrl.protobufValue
-        
-        filter.relationKey = BundledRelationKey.id.rawValue
-        filter.operator = .and
-        
-        return filter
     }
     
     static func excludedIdsFilter(_ ids: [String]) -> DataviewFilter {
@@ -204,6 +201,18 @@ class SearchHelper {
         
         return filter
     }
+    
+    static func fileSyncStatus(_ status: FileSyncStatus) -> DataviewFilter {
+        var filter = DataviewFilter()
+        filter.condition = .equal
+        filter.value = status.rawValue.protobufValue
+        filter.relationKey = BundledRelationKey.fileSyncStatus.rawValue
+        filter.operator = .and
+        
+        return filter
+    }
+    
+    // MARK: - Private
 
     private static func templateTypeFilter(type: String) -> DataviewFilter {
         var filter = DataviewFilter()

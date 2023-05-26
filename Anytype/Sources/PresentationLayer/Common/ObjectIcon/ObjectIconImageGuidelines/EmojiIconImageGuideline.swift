@@ -3,9 +3,19 @@ import UIKit
 
 enum EmojiIconImageGuideline {
     
+    static let x96 = ImageGuideline(
+        size: CGSize(width: 96, height: 96),
+        radius: .point(18)
+    )
+    
     static let x80 = ImageGuideline(
         size: CGSize(width: 80, height: 80),
         radius: .point(18)
+    )
+    
+    static let x52 = ImageGuideline(
+        size: CGSize(width: 52, height: 52),
+        radius: .point(12)
     )
     
     static let x48 = ImageGuideline(

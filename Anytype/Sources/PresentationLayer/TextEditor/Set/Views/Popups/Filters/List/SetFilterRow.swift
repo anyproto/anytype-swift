@@ -1,5 +1,5 @@
 import SwiftUI
-import BlocksModels
+import Services
 
 struct SetFilterRow: View {
     
@@ -66,7 +66,7 @@ struct SetFilterRow: View {
                 RelationValueView(
                     relation: RelationItemModel(relation: relation),
                     style: .filter(hasValues: configuration.hasValues),
-                    action: nil
+                    mode: .button(action: nil)
                 )
             } else {
                 EmptyView()

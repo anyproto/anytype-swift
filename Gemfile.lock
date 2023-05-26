@@ -111,6 +111,8 @@ GEM
       xcpretty-travis-formatter (>= 0.0.3)
     fastlane-plugin-badge (1.5.0)
       badge (~> 0.13.0)
+    fastlane-plugin-sentry (1.15.0)
+      os (~> 1.1, >= 1.1.4)
     gh_inspector (1.1.3)
     google-apis-androidpublisher_v3 (0.28.0)
       google-apis-core (>= 0.9.0, < 2.a)
@@ -157,6 +159,13 @@ GEM
     jmespath (1.6.1)
     json (2.6.2)
     jwt (2.5.0)
+    license_finder (7.1.0)
+      bundler
+      rubyzip (>= 1, < 3)
+      thor (~> 1.2)
+      tomlrb (>= 1.3, < 2.1)
+      with_env (= 1.1.0)
+      xml-simple (~> 1.1.9)
     memoist (0.16.2)
     mini_magick (4.11.0)
     mini_mime (1.1.2)
@@ -190,6 +199,8 @@ GEM
     terminal-notifier (2.0.0)
     terminal-table (1.8.0)
       unicode-display_width (~> 1.1, >= 1.1.1)
+    thor (1.2.1)
+    tomlrb (2.0.3)
     trailblazer-option (0.1.2)
     tty-cursor (0.7.1)
     tty-screen (0.8.1)
@@ -201,6 +212,7 @@ GEM
     unf_ext (0.0.8.2)
     unicode-display_width (1.8.0)
     webrick (1.7.0)
+    with_env (1.1.0)
     word_wrap (1.0.0)
     xcodeproj (1.22.0)
       CFPropertyList (>= 2.3.3, < 4.0)
@@ -213,6 +225,8 @@ GEM
       rouge (~> 2.0.7)
     xcpretty-travis-formatter (1.0.1)
       xcpretty (~> 0.2, >= 0.0.7)
+    xml-simple (1.1.9)
+      rexml
 
 PLATFORMS
   arm64-darwin-20
@@ -222,6 +236,8 @@ PLATFORMS
 DEPENDENCIES
   fastlane (~> 2.210.1)
   fastlane-plugin-badge
+  fastlane-plugin-sentry (= 1.15.0)
+  license_finder
 
 RUBY VERSION
    ruby 2.7.2p137

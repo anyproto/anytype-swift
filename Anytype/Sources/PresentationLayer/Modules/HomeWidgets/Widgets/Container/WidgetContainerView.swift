@@ -3,41 +3,55 @@ import SwiftUI
 import AnytypeCore
 
 enum WidgetMenuItem: String {
+    case addBelow
     case changeSource
     case changeType
     case remove
+    case emptyBin
 }
 
 struct WidgetContainerView<Content: View, ContentVM: WidgetContainerContentViewModelProtocol>: View {
     
-    @ObservedObject var model: WidgetContainerViewModel
+    @ObservedObject var model: WidgetContainerViewModel<ContentVM>
     @ObservedObject var contentModel: ContentVM
     var content: Content
         
     var body: some View {
         LinkWidgetViewContainer(
             title: contentModel.name,
-            description: contentModel.count,
+            icon: contentModel.icon,
             isExpanded: $model.isExpanded,
+            dragId: contentModel.dragId,
             isEditalbeMode: model.isEditState,
             allowMenuContent: contentModel.menuItems.isNotEmpty,
+            allowContent: contentModel.allowContent,
+            headerAction: {
+                contentModel.onHeaderTap()
+            },
+            removeAction: removeAction(),
             menu: {
                 menuItems
             },
             content: {
                 content
-            },
-            removeAction: removeAction()
+                    .onAppear {
+                        model.onAppearContent()
+                    }
+                    .onDisappear {
+                        model.onDisappearContent()
+                    }
+            }
         )
         .onAppear {
-            contentModel.onAppear()
+            model.onAppear()
         }
         .onDisappear {
-            contentModel.onDisappear()
+            model.onDisappear()
         }
         .contextMenu {
             contextMenuItems
         }
+        .snackbar(toastBarData: $model.toastData)
     }
     
     @ViewBuilder
@@ -65,21 +79,43 @@ struct WidgetContainerView<Content: View, ContentVM: WidgetContainerContentViewM
     @ViewBuilder
     private func menuItemToView(item: WidgetMenuItem) -> some View {
         switch item {
+        case .addBelow:
+            Button(Loc.Widgets.Actions.addBelow) {
+                model.onAddBelowTap()
+            }
         case .changeSource:
             Button(Loc.Widgets.Actions.changeSource) {
-                print("on tap")
+                model.onChangeSourceTap()
             }
         case .changeType:
             Button(Loc.Widgets.Actions.changeWidgetType) {
-                print("on tap")
+                model.onChangeTypeTap()
             }
         case .remove:
-            Button(Loc.Widgets.Actions.removeWidget) {
-                // Fix anumation glytch.
-                // We should to finalize context menu transition to list and then delete object
-                // If we find how customize context menu transition, this 🩼 can be delete it
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
-                    model.onDeleteWidgetTap()
+            if #available(iOS 15.0, *) {
+                Button(Loc.Widgets.Actions.removeWidget, role: .destructive) {
+                    // Fix anumation glytch.
+                    // We should to finalize context menu transition to list and then delete object
+                    // If we find how customize context menu transition, this 🩼 can be delete it
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+                        model.onDeleteWidgetTap()
+                    }
+                }
+            } else {
+                Button(Loc.Widgets.Actions.removeWidget) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+                        model.onDeleteWidgetTap()
+                    }
+                }
+            }
+        case .emptyBin:
+            if #available(iOS 15.0, *) {
+                Button(Loc.Widgets.Actions.emptyBin, role: .destructive) {
+                    model.onEmptyBinTap()
+                }
+            } else {
+                Button(Loc.Widgets.Actions.emptyBin) {
+                    model.onEmptyBinTap()
                 }
             }
         }
@@ -87,7 +123,7 @@ struct WidgetContainerView<Content: View, ContentVM: WidgetContainerContentViewM
             
     private func removeAction() -> (() -> Void)? {
         
-        guard contentModel.menuItems.contains(.remove) else { return nil}
+        guard contentModel.menuItems.contains(.remove) else { return nil }
         
         return {
             model.onDeleteWidgetTap()

@@ -1,5 +1,5 @@
 import Foundation
-import BlocksModels
+import Services
 
 enum MarupViewAction {
     case toggleMarkup(MarkupViewType)
@@ -17,12 +17,6 @@ enum MarkupViewType {
     case keyboard
     case strikethrough
     case link
-}
-
-enum MarkupViewLayoutAlignmentType {
-    case left
-    case center
-    case right
 }
 
 extension MarkupType {

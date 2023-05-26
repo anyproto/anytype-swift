@@ -2,7 +2,7 @@
 import AVKit
 import Combine
 import UIKit
-import BlocksModels
+import Services
 import AnytypeCore
 
 final class VideoBlockContentView: UIView, BlockContentView {

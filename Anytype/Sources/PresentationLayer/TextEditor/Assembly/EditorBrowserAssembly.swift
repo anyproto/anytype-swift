@@ -1,5 +1,5 @@
 import SwiftUI
-import BlocksModels
+import Services
 import Combine
 
 final class EditorBrowserAssembly {
@@ -12,28 +12,32 @@ final class EditorBrowserAssembly {
         self.serviceLocator = serviceLocator
     }
     
-    func editor(data: EditorScreenData, model: HomeViewModel) -> some View {
-        EditorViewRepresentable(data: data, model: model, editorBrowserAssembly: self).eraseToAnyView()
-    }
-    
-    func buildEditorBrowser(data: EditorScreenData) -> EditorBrowserController {
+    func buildEditorBrowser(
+        data: EditorScreenData,
+        router: EditorPageOpenRouterProtocol? = nil,
+        addRoot: Bool = true
+    ) -> EditorBrowserController {
         let browser = EditorBrowserController(dashboardService: serviceLocator.dashboardService())
 
-        let (page, router) = coordinatorsDI.editor()
-            .buildEditorModule(browser: browser, data: data)
-        
-        browser.childNavigation = navigationStack(rootPage: page)
-        browser.router = router
+        if addRoot {
+            // Legacy logic. Delete with homeWidgets toggle
+            let (page, moduleRouter) = coordinatorsDI.editor()
+                .buildEditorModule(browser: browser, data: data, widgetListOutput: nil)
+            
+            browser.childNavigation = navigationStack(rootPage: page)
+            browser.router = router ?? moduleRouter
+        } else {
+            browser.childNavigation = navigationStack(rootPage: nil)
+            browser.router = router
+        }
         
         browser.setup()
         
         return browser
     }
     
-    private func navigationStack(rootPage: UIViewController) -> UINavigationController {
-        let navigationController = UINavigationController(
-            rootViewController: rootPage
-        )
+    private func navigationStack(rootPage: UIViewController?) -> UINavigationController {
+        let navigationController = rootPage.map { UINavigationController(rootViewController: $0) } ?? UINavigationController()
 
         let navBarAppearance = UINavigationBarAppearance()
         navBarAppearance.configureWithTransparentBackground()

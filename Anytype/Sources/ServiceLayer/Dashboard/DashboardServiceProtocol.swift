@@ -1,7 +1,7 @@
 import AnytypeCore
-import BlocksModels
+import Services
 
 protocol DashboardServiceProtocol {
     
-    func createNewPage() -> BlockId?
+    func createNewPage() -> ObjectDetails?
 }

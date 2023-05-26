@@ -1,6 +1,6 @@
 import UIKit
 import Combine
-import BlocksModels
+import Services
 import Kingfisher
 import AnytypeCore
 
@@ -79,16 +79,4 @@ private extension BlockImageContentView {
         static let imageContentViewDefaultHeight: CGFloat = 250
         static let imageViewInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
     }
-}
-
-private extension LayoutAlignment {
-    
-    var asContentMode: UIView.ContentMode {
-        switch self {
-        case .left: return .left
-        case .center: return .center
-        case .right: return .right
-        }
-    }
-    
 }

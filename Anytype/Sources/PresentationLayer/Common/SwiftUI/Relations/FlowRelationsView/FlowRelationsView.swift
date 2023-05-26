@@ -5,32 +5,21 @@ struct FlowRelationsView: View {
     let viewModel: FlowRelationsViewModel
 
     var body: some View {
-        VStack(
-            alignment: .leading,
-            spacing: 4
-        ) {
+        VStack(alignment: .leading, spacing: 4) {
             header
-            content
-        }
-    }
-
-    private var content: some View {
-        VStack(alignment: .leading, spacing: 2) {
             description
             flowRelations
         }
     }
 
     private var header: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            TitleWithIconView(
-                icon: viewModel.icon,
-                showIcon: viewModel.showIcon,
-                title: viewModel.title,
-                style: .list,
-                onIconTap: viewModel.onIconTap
-            )
-        }
+        TitleWithIconView(
+            icon: viewModel.icon,
+            showIcon: viewModel.showIcon,
+            title: viewModel.title,
+            style: .list,
+            onIconTap: viewModel.onIconTap
+        )
     }
 
     private var description: some View {
@@ -49,31 +38,30 @@ struct FlowRelationsView: View {
         }
     }
 
+    @ViewBuilder
     private var flowRelations: some View {
-        Group {
-            if viewModel.relations.isNotEmpty {
-                FlowLayout(
-                    items: viewModel.relations,
-                    alignment: .leading,
-                    spacing: .init(width: 6, height: 2),
-                    cell: { item, index in
-                        HStack(spacing: 0) {
-                            RelationValueView(
-                                relation: RelationItemModel(relation: item),
-                                style: .setCollection
-                            ) {
+        if viewModel.relations.isNotEmpty {
+            FlowLayout(
+                items: viewModel.relations,
+                alignment: .leading,
+                spacing: .init(width: 6, height: 4),
+                cell: { item, index in
+                    HStack(spacing: 0) {
+                        RelationValueView(
+                            relation: RelationItemModel(relation: item),
+                            style: .setCollection,
+                            mode: .button(action: {
                                 viewModel.onRelationTap(item)
-                            }
-
-                            if viewModel.relations.count - 1 > index {
-                                dotImage
-                            }
+                            })
+                        )
+                        if viewModel.relations.count - 1 > index {
+                            dotImage
                         }
                     }
-                )
-            } else {
-                EmptyView()
-            }
+                }
+            )
+        } else {
+            EmptyView()
         }
     }
 

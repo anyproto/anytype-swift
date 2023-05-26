@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import BlocksModels
+import Services
 
 struct PasteboardPasteResult {
     let caretPosition: Int

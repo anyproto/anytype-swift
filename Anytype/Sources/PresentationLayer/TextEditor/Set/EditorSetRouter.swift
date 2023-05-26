@@ -1,6 +1,6 @@
 import Foundation
 import AnytypeCore
-import BlocksModels
+import Services
 import UIKit
 import SwiftUI
 
@@ -25,9 +25,8 @@ protocol EditorSetRouterProtocol:
     
     func showRelationSearch(relationsDetails: [RelationDetails], onSelect: @escaping (RelationDetails) -> Void)
     func showViewTypes(
-        dataView: BlockDataview,
+        setDocument: SetDocumentProtocol,
         activeView: DataviewView?,
-        source: [String],
         dataviewService: DataviewServiceProtocol
     )
     
@@ -60,6 +59,7 @@ protocol EditorSetRouterProtocol:
     
     func closeEditor()
     func showPage(data: EditorScreenData)
+    func replaceCurrentPage(with data: EditorScreenData)
     
     func showRelationValueEditingView(key: String)
     func showRelationValueEditingView(objectId: BlockId, relation: Relation)
@@ -209,15 +209,13 @@ final class EditorSetRouter: EditorSetRouterProtocol {
     }
     
     func showViewTypes(
-        dataView: BlockDataview,
+        setDocument: SetDocumentProtocol,
         activeView: DataviewView?,
-        source: [String],
         dataviewService: DataviewServiceProtocol
     ) {
         let viewModel = SetViewTypesPickerViewModel(
-            dataView: dataView,
+            setDocument: setDocument,
             activeView: activeView,
-            source: source,
             dataviewService: dataviewService,
             relationDetailsStorage: ServiceLocator.shared.relationDetailsStorage()
         )
@@ -421,7 +419,7 @@ final class EditorSetRouter: EditorSetRouterProtocol {
             title: Loc.Set.SourceType.selectQuery,
             selectedObjectId: selectedObjectId,
             showBookmark: true,
-            showSet: false,
+            showSetAndCollection: false,
             onSelect: onSelect
         )
     }
@@ -439,7 +437,7 @@ final class EditorSetRouter: EditorSetRouterProtocol {
     }
     
     func showRelationValueEditingView(objectId: BlockId, relation: Relation) {
-        relationValueCoordinator.startFlow(objectId: objectId, relation: relation, output: self)
+        relationValueCoordinator.startFlow(objectId: objectId, relation: relation, analyticsType: .dataview, output: self)
     }
     
     func showAddNewRelationView(onSelect: ((RelationDetails, _ isNew: Bool) -> Void)?) {
@@ -454,6 +452,10 @@ final class EditorSetRouter: EditorSetRouterProtocol {
         editorPageCoordinator.startFlow(data: data, replaceCurrentPage: false)
     }
     
+    func replaceCurrentPage(with data: EditorScreenData) {
+        editorPageCoordinator.startFlow(data: data, replaceCurrentPage: true)
+    }
+    
     func showFailureToast(message: String) {
         toastPresenter.showFailureAlert(message: message)
     }
@@ -464,7 +466,7 @@ final class EditorSetRouter: EditorSetRouterProtocol {
         title: String,
         selectedObjectId: BlockId?,
         showBookmark: Bool,
-        showSet: Bool,
+        showSetAndCollection: Bool,
         onSelect: @escaping (BlockId) -> ()
     ) {
         let view = newSearchModuleAssembly.objectTypeSearchModule(
@@ -472,7 +474,7 @@ final class EditorSetRouter: EditorSetRouterProtocol {
             selectedObjectId: selectedObjectId,
             excludedObjectTypeId: setDocument.details?.type,
             showBookmark: showBookmark,
-            showSet: showSet,
+            showSetAndCollection: showSetAndCollection,
             browser: rootController
         ) { [weak self] type in
             self?.navigationContext.dismissTopPresented()
@@ -515,10 +517,10 @@ extension EditorSetRouter: RelationValueCoordinatorOutput {
 }
 
 extension EditorSetRouter: ObjectSettingsModuleDelegate {
-    func didCreateLinkToItself(selfName: String, in objectId: BlockId) {
+    func didCreateLinkToItself(selfName: String, data: EditorScreenData) {
         UIApplication.shared.hideKeyboard()
-        toastPresenter.showObjectName(selfName, middleAction: Loc.Editor.Toast.linkedTo, secondObjectId: objectId) { [weak self] in
-            self?.showPage(data: .init(pageId: objectId, type: .page))
+        toastPresenter.showObjectName(selfName, middleAction: Loc.Editor.Toast.linkedTo, secondObjectId: data.pageId) { [weak self] in
+            self?.showPage(data: data)
         }
     }
 }

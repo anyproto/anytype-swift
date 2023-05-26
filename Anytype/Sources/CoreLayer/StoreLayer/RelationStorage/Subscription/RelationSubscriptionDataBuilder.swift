@@ -1,5 +1,5 @@
 import Foundation
-import BlocksModels
+import Services
 
 extension SubscriptionId {
     static var relation = SubscriptionId(value: "SubscriptionId.Relation")
@@ -7,9 +7,9 @@ extension SubscriptionId {
 
 final class RelationSubscriptionDataBuilder: RelationSubscriptionDataBuilderProtocol {
     
-    private let accountManager: AccountManager
+    private let accountManager: AccountManagerProtocol
     
-    init(accountManager: AccountManager) {
+    init(accountManager: AccountManagerProtocol) {
         self.accountManager = accountManager
     }
     

@@ -1,4 +1,4 @@
-import BlocksModels
+import Services
 
 enum SubscriptionUpdate {
     case initialData([ObjectDetails])
@@ -24,9 +24,10 @@ protocol SubscriptionsServiceProtocol {
     
     func startSubscriptions(data: [SubscriptionData], update: @escaping SubscriptionCallback)
     func startSubscription(data: SubscriptionData, update: @escaping SubscriptionCallback)
+    // Wait until subscription started and received initial data
+    func startSubscriptionAsync(data: SubscriptionData, update: @escaping SubscriptionCallback) async
     
     func stopSubscriptions(ids: [SubscriptionId])
     func stopSubscription(id: SubscriptionId)
     func stopAllSubscriptions()
 }
-

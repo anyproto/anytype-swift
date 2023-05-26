@@ -1,4 +1,4 @@
-import BlocksModels
+import Services
 import ProtobufMessages
 
 final class GroupsSubscribeService: GroupsSubscribeServiceProtocol {
@@ -7,20 +7,22 @@ final class GroupsSubscribeService: GroupsSubscribeServiceProtocol {
         id: SubscriptionId,
         relationKey: String,
         filters: [DataviewFilter],
-        source: [String]
+        source: [String]?,
+        collectionId: String?
     ) async throws -> GroupsSubscribeResult {
-        let response = try await Anytype_Rpc.Object.GroupsSubscribe.Service
-            .invocation(
-                subID: id.value,
-                relationKey: relationKey,
-                filters: filters,
-                source: source
-            )
-            .invoke(errorDomain: .groupsSubscribeService)
+        let response = try await ClientCommands.objectGroupsSubscribe(.with {
+            $0.subID = id.value
+            $0.relationKey = relationKey
+            $0.filters = filters
+            $0.source = source ?? []
+            $0.collectionID = collectionId ?? ""
+        }).invoke(errorDomain: .groupsSubscribeService)
         return GroupsSubscribeResult(subscriptionId: response.subID, groups: response.groups)
     }
     
     func stopSubscription(id: SubscriptionId) {
-        _ = Anytype_Rpc.Object.SearchUnsubscribe.Service.invoke(subIds: [id.value])
+        _ = try? ClientCommands.objectSearchUnsubscribe(.with {
+            $0.subIds = [id.value]
+        }).invoke(errorDomain: .groupsSubscribeService)
     }
 }

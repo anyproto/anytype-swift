@@ -1,12 +1,11 @@
 import Combine
 import UIKit
-import BlocksModels
+import Services
     
 final class FileDownloadingCoordinator {
     
     private(set) var type: FileContentType?
     
-    private let fileLoader = FileLoader()
     private weak var viewController: UIViewController?
     
     init(viewController: UIViewController?) {

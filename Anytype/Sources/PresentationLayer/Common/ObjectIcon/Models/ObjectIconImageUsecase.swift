@@ -23,11 +23,13 @@ enum ObjectIconImageUsecase: Equatable, Hashable {
     case setCollection
     
     case widgetTree
-    
+    case widgetList
     case homeBottomPanel
-    case homeSetWidget
+    case settingsHeader
+    case settingsSection
 
     case inlineSetHeader
+    case fileStorage
 }
 
 extension ObjectIconImageUsecase {
@@ -38,13 +40,18 @@ extension ObjectIconImageUsecase {
         }
     }
     
+    var spaceBackgroundColor: UIColor {
+        .Stroke.secondary
+    }
+    
     var placeholderBackgroundColor: UIColor {
         .Stroke.transperent
     }
     
     var emojiBackgroundColor: UIColor {
         switch self {
-        case .openedObjectNavigationBar, .mention, .setRow, .featuredRelationsBlock, .editorCalloutBlock, .inlineSetHeader:
+        case .openedObjectNavigationBar, .mention, .setRow, .featuredRelationsBlock, .editorCalloutBlock,
+                .inlineSetHeader, .widgetTree, .homeBottomPanel:
             return .clear
         default:
             return .Stroke.transperent

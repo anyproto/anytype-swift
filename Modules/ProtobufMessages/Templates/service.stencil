@@ -1,0 +1,25 @@
+import Lib
+import SwiftProtobuf
+import Combine
+
+{% for service in services %}
+public struct {{service.name}} {
+
+    {% for rpc in service.rpc where rpc.response|hasPrefix:"stream " == false %}
+    
+    {% set request rpc.request|replace:"anytype.","Anytype_" %}
+    {% set response rpc.response|replace:"anytype.","Anytype_" %}
+    
+    public static func {{rpc.name|lowerFirstLetter}}(
+        _ request: {{request}} = .init()
+    ) -> Invocation<{{request}}, {{response}}> {
+        return Invocation(messageName: "{{rpc.name}}", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.Service{{rpc.name}}(requestData) ?? Data()
+            return try {{response}}(serializedData: responseData)
+        }
+    }
+
+    {% endfor %}
+}
+{% endfor %}

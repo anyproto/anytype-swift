@@ -26,6 +26,6 @@ extension AccessoryViewStateManagerImpl: MentionViewDelegate {
         textView.selectedRange = newCaretPosition
         handler.changeTextForced(newText, blockId: info.id)
 
-        AnytypeAnalytics.instance().logSetMarkup(.mention(MentionData.noDetails(blockId: "")))
+        AnytypeAnalytics.instance().logChangeTextStyle(.mention(MentionData.noDetails(blockId: "")))
     }
 }

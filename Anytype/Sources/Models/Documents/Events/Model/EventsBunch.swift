@@ -1,5 +1,5 @@
 import ProtobufMessages
-import BlocksModels
+import Services
 import Foundation
 
 struct EventsBunch {
@@ -46,5 +46,3 @@ extension EventsBunch {
         )
     }
 }
-
-

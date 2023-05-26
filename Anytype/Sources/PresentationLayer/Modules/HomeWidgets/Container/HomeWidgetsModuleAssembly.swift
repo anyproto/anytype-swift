@@ -15,12 +15,12 @@ final class HomeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol {
     
     private let serviceLocator: ServiceLocator
     private let uiHelpersDI: UIHelpersDIProtocol
-    private let widgetsDI: WidgetsDIProtocol
+    private let widgetsSubmoduleDI: WidgetsSubmoduleDIProtocol
     
-    init(serviceLocator: ServiceLocator, uiHelpersDI: UIHelpersDIProtocol, widgetsDI: WidgetsDIProtocol) {
+    init(serviceLocator: ServiceLocator, uiHelpersDI: UIHelpersDIProtocol, widgetsSubmoduleDI: WidgetsSubmoduleDIProtocol) {
         self.serviceLocator = serviceLocator
         self.uiHelpersDI = uiHelpersDI
-        self.widgetsDI = widgetsDI
+        self.widgetsSubmoduleDI = widgetsSubmoduleDI
     }
     
     // MARK: - HomeWidgetsModuleAssemblyProtocol
@@ -33,18 +33,20 @@ final class HomeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol {
     ) -> AnyView {
         
         let stateManager = HomeWidgetsStateManager()
+        let recentStateManagerProtocol = HomeWidgetsRecentStateManager(
+            loginStateService: serviceLocator.loginStateService(),
+            expandedService: serviceLocator.blockWidgetExpandedService()
+        )
         
         let model = HomeWidgetsViewModel(
-            widgetObject: HomeWidgetsObject(
-                objectId: widgetObjectId,
-                objectDetailsStorage: serviceLocator.objectDetailsStorage()
-            ),
-            registry: widgetsDI.homeWidgetsRegistry(stateManager: stateManager, widgetOutput: widgetOutput),
+            widgetObjectId: widgetObjectId,
+            registry: widgetsSubmoduleDI.homeWidgetsRegistry(stateManager: stateManager, widgetOutput: widgetOutput),
             blockWidgetService: serviceLocator.blockWidgetService(),
-            accountManager: serviceLocator.accountManager(),
-            bottomPanelProviderAssembly: widgetsDI.bottomPanelProviderAssembly(output: bottomPanelOutput),
-            toastPresenter: uiHelpersDI.toastPresenter(),
+            bottomPanelProviderAssembly: widgetsSubmoduleDI.bottomPanelProviderAssembly(output: bottomPanelOutput),
             stateManager: stateManager,
+            objectActionService: serviceLocator.objectActionsService(),
+            recentStateManagerProtocol: recentStateManagerProtocol,
+            documentService: serviceLocator.documentService(),
             output: output
         )
         let view = HomeWidgetsView(model: model)

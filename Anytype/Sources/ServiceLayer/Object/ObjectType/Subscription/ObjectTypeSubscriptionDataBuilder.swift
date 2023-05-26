@@ -1,5 +1,5 @@
 import Foundation
-import BlocksModels
+import Services
 
 extension SubscriptionId {
     static var objectType = SubscriptionId(value: "SubscriptionId.ObjectType")
@@ -11,9 +11,9 @@ protocol ObjectTypeSubscriptionDataBuilderProtocol: AnyObject {
 
 final class ObjectTypeSubscriptionDataBuilder: ObjectTypeSubscriptionDataBuilderProtocol {
     
-    private let accountManager: AccountManager
+    private let accountManager: AccountManagerProtocol
     
-    init(accountManager: AccountManager) {
+    init(accountManager: AccountManagerProtocol) {
         self.accountManager = accountManager
     }
     
@@ -25,7 +25,7 @@ final class ObjectTypeSubscriptionDataBuilder: ObjectTypeSubscriptionDataBuilder
             type: .asc
         )
         let filters = [
-            SearchHelper.typeFilter(typeIds: [ObjectTypeId.bundled(.objectType).rawValue]),
+            SearchHelper.layoutFilter([DetailsLayout.objectType]),
             SearchHelper.workspaceId(accountManager.account.info.accountSpaceId)
         ]
         
@@ -38,7 +38,8 @@ final class ObjectTypeSubscriptionDataBuilder: ObjectTypeSubscriptionDataBuilder
             BundledRelationKey.isReadonly.rawValue,
             BundledRelationKey.isArchived.rawValue,
             BundledRelationKey.smartblockTypes.rawValue,
-            BundledRelationKey.sourceObject.rawValue
+            BundledRelationKey.sourceObject.rawValue,
+            BundledRelationKey.recommendedRelations.rawValue
         ]
 
         return .search(

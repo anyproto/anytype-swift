@@ -1,5 +1,5 @@
 import ProtobufMessages
-import BlocksModels
+import Services
 
 extension Anytype_Model_Block.Content.Relation {
     var blockContent: BlockContent {
@@ -11,8 +11,8 @@ extension Anytype_Model_Block.Content.Relation {
 
 extension BlockRelation {
     var asMiddleware: Anytype_Model_Block.OneOf_Content {
-        .relation(
-            .init(key: key)
-        )
+        .relation(.with {
+            $0.key = key
+        })
     }
 }

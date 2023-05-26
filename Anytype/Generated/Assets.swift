@@ -71,9 +71,17 @@ internal enum Asset {
     static let teal = ColorAsset(name: "VeryLight/teal")
     static let yellow = ColorAsset(name: "VeryLight/yellow")
   }
-
-  // MARK: - Additional
-  static let shimmering = ColorAsset(name: "shimmering")
+  internal enum Additional {
+    static let space = ColorAsset(name: "Additional/space")
+  }
+  internal enum Auth {
+    static let body = ColorAsset(name: "Auth/body")
+    static let caption = ColorAsset(name: "Auth/caption")
+    static let dot = ColorAsset(name: "Auth/dot")
+    static let dotSelected = ColorAsset(name: "Auth/dotSelected")
+    static let input = ColorAsset(name: "Auth/input")
+    static let inputText = ColorAsset(name: "Auth/inputText")
+  }
   internal enum Background {
     static let black = ColorAsset(name: "Background/black")
     static let highlightedOfSelected = ColorAsset(name: "Background/highlightedOfSelected")
@@ -84,8 +92,8 @@ internal enum Asset {
   internal enum Button {
     static let accent = ColorAsset(name: "Button/accent")
     static let active = ColorAsset(name: "Button/active")
+    static let button = ColorAsset(name: "Button/button")
     static let inactive = ColorAsset(name: "Button/inactive")
-    static let selected = ColorAsset(name: "Button/selected")
     static let white = ColorAsset(name: "Button/white")
   }
   internal enum Dashboard {
@@ -101,6 +109,7 @@ internal enum Asset {
     static let transperent = ColorAsset(name: "Stroke/transperent")
   }
   internal enum Text {
+    static let labelInversion = ColorAsset(name: "Text/labelInversion")
     static let primary = ColorAsset(name: "Text/primary")
     static let secondary = ColorAsset(name: "Text/secondary")
     static let tertiary = ColorAsset(name: "Text/tertiary")

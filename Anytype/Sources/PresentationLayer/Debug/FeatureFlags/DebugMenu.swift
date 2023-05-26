@@ -3,20 +3,27 @@ import AnytypeCore
 import Logger
 
 struct DebugMenu: View {
-    @State private var flags = FeatureFlags.features.sorted { $0.title < $1.title }
-        .map { FeatureFlagViewModel(description: $0, value: FeatureFlags.value(for: $0)) }
+    @StateObject private var model = DebugMenuViewModel()
     @State private var showLogs = false
     @State private var showTypography = false
     @State private var showFeedbackGenerators = false
+    @State private var showGradientIcons = false
+    @State private var showControls = false
+    @State private var showColors = false
     
     var body: some View {
         VStack {
             DragIndicator()
             AnytypeText("Debug menu 👻", style: .title, color: .Text.primary)
-            buttons
-            setPageCounter
-            toggles
+            ScrollView {
+                VStack(spacing: 0) {
+                    buttons
+                    setPageCounter
+                    toggles
+                }
+            }
         }
+        .background(Color.Background.primary)
         .navigationBarHidden(true)
         .embedInNavigation()
     }
@@ -24,7 +31,7 @@ struct DebugMenu: View {
     @State var rowsPerPageInSet = "\(UserDefaultsConfig.rowsPerPageInSet)"
     private var setPageCounter: some View {
         HStack {
-            AnytypeText("Number of rows per page in set", style: .body, color: .Text.primary)
+            AnytypeText("Number of rows per page in set", style: .bodyRegular, color: .Text.primary)
                 .frame(maxWidth: .infinity)
             TextField("Pages", text: $rowsPerPageInSet)
                 .textFieldStyle(.roundedBorder)
@@ -40,70 +47,78 @@ struct DebugMenu: View {
     private var buttons: some View {
         VStack {
             HStack {
-                StandardButton(text: "Logs 🧻", style: .secondary) {
+                StandardButton("Logs 🧻", style: .secondaryLarge) {
                     showLogs.toggle()
                 }
-                StandardButton(text: "Typography 🦭", style: .secondary) {
+                StandardButton("Typography 🦭", style: .secondaryLarge) {
                     showTypography.toggle()
                 }
             }
             HStack {
-                StandardButton(text: "Crash 🔥", style: .primary) {
+                StandardButton("Crash 🔥", style: .primaryLarge) {
                     let crash: [Int] = []
                     _ = crash[1]
                 }
-                StandardButton(text: "Assert 🥲", style: .secondary) {
+                StandardButton("Assert 🥲", style: .secondaryLarge) {
                     anytypeAssertionFailure("Test assert", domain: .debug)
                 }
             }
             
             HStack {
-                StandardButton(text: "Feedback Generators 🃏", style: .secondary) {
+                StandardButton("Controls 🎛️", style: .secondaryLarge) {
                     UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
-                    showFeedbackGenerators.toggle()
+                    showControls.toggle()
                 }
+                StandardButton("Icons 🟣", style: .secondaryLarge) {
+                    UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+                    showGradientIcons.toggle()
+                }
+            }
+            
+            StandardButton("Colors 🌈", style: .secondaryLarge) {
+                UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+                showColors.toggle()
+            }
+
+            StandardButton("Feedback Generator 🃏", style: .secondaryLarge) {
+                UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+                showFeedbackGenerators.toggle()
+            }
+
+            StandardButton(
+                "Remove Recovery Phrase from device",
+                inProgress: model.isRemovingRecoveryPhraseInProgress,
+                style: .warningLarge
+            ) {
+                model.removeRecoveryPhraseFromDevice()
             }
         }
         .padding(.horizontal)
         .padding()
         .sheet(isPresented: $showLogs) { LoggerUI.makeView() }
         .sheet(isPresented: $showTypography) { TypographyExample() }
-        .sheet(isPresented: $showFeedbackGenerators) {
-            FeedbackGeneratorExamplesView()
-        }
+        .sheet(isPresented: $showFeedbackGenerators) { FeedbackGeneratorExamplesView() }
+        .sheet(isPresented: $showGradientIcons) { GradientIconsExamples() }
+        .sheet(isPresented: $showControls) { ControlsExample() }
+        .sheet(isPresented: $showColors) { ColorsExample() } 
     }
     
     var toggles: some View {
-        List(Array(flags.enumerated()), id:\.offset) { index, flag in
-            VStack(alignment: .leading) {
-                Toggle(
-                    isOn: $flags[index].value.onChange {
-                        FeatureFlags.update(key: flag.description, value: $0)
-                    }
-                ) {
-                    VStack(alignment: .leading) {
-                        Text(flag.description.title)
-                            .font(AnytypeFontBuilder.font(anytypeFont: .body))
-                            .foregroundColor(.Text.primary)
-                        Text(Loc.DebugMenu.toggleAuthor(flag.description.releaseVersion, flag.description.author))
-                            .font(AnytypeFontBuilder.font(anytypeFont: .callout))
-                            .foregroundColor(.Text.secondary)
-                        
-                        // See AnytypeText padding comment
-//                        AnytypeText(flag.description.title, style: .body, color: .Text.primary)
-//                        AnytypeText("Release: \(flag.description.releaseVersion), \(flag.description.author)", style: .callout, color: .Text.secondary)
+        VStack(alignment: .leading, spacing: 0) {
+            ForEach(model.flags, id: \.title) { section in
+                AnytypeText(section.title, style: .heading, color: .Text.primary)
+                    .padding()
+                VStack(spacing: 0) {
+                    ForEach(section.rows, id: \.description.title) { row in
+                        FeatureFlagView(model: row)
                     }
                 }
+                .padding(.horizontal)
+                .background(UIColor.secondarySystemGroupedBackground.suColor)
+                .cornerRadius(20, style: .continuous)
             }
-            .padding()
         }
+        .padding(.horizontal, 20)
+        .background(UIColor.systemGroupedBackground.suColor)
     }
 }
-
-
-struct FeatureFlagsView_Previews: PreviewProvider {
-    static var previews: some View {
-        DebugMenu()
-    }
-}
-

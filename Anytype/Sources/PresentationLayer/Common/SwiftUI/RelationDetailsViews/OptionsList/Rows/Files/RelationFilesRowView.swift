@@ -11,7 +11,7 @@ struct RelationFilesRowView: View {
                 iconImage: file.icon,
                 usecase: .dashboardSearch
             )
-                .frame(width: 18, height: 18)
+            .frame(width: 48, height: 48)
             
             AnytypeText(file.title, style: .previewTitle2Medium, color: .Text.primary)
                 .lineLimit(1)

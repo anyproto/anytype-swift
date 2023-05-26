@@ -1,8 +1,8 @@
-import BlocksModels
+import Services
 import UIKit
 
 protocol ObjectSettingsModuleDelegate: AnyObject {
-    func didCreateLinkToItself(selfName: String, in objectId: BlockId)
+    func didCreateLinkToItself(selfName: String, data: EditorScreenData)
 }
 
 protocol ObjectSettingModuleAssemblyProtocol {
@@ -31,6 +31,8 @@ final class ObjectSettingModuleAssembly: ObjectSettingModuleAssemblyProtocol {
         let viewModel = ObjectSettingsViewModel(
             document: document,
             objectDetailsService: serviceLocator.detailsService(objectId: document.objectId),
+            objectActionsService: serviceLocator.objectActionsService(),
+            blockActionsService: serviceLocator.blockActionsServiceSingle(),
             output: output,
             delegate: delegate
         )

@@ -1,18 +1,19 @@
-import BlocksModels
+import Services
 
 protocol AuthServiceProtocol {
-    func createWallet() -> Result<String, AuthServiceError>
-    func createAccount(name: String, imagePath: String, alphaInviteCode: String) -> Result<Void, CreateAccountServiceError>
-    func walletRecovery(mnemonic: String) -> Result<Void, AuthServiceError>
+    func createWallet() async throws -> String
+    func createWallet() throws -> String
+    func createAccount(name: String, imagePath: String, alphaInviteCode: String) async throws
+    func walletRecovery(mnemonic: String) throws
+    func walletRecovery(mnemonic: String) async throws
     
     /// Recover account, called after wallet recovery. As soon as this func complete middleware send Event.Account.Show event.
     func accountRecover(onCompletion: @escaping (AuthServiceError?) -> ())
    
-    func selectAccount(id: String) -> AccountStatus?
-    func selectAccount(id: String, onCompletion: @escaping (AccountStatus?) -> ())
+    func selectAccount(id: String) async throws -> AccountStatus
     
     /// Get mnemonic (recovery phrase) by entropy from qr code
-    func mnemonicByEntropy(_ entropy: String) -> Result<String, Error>
+    func mnemonicByEntropy(_ entropy: String) throws -> String
 
     func logout(removeData: Bool, onCompletion: @escaping (Bool) -> ())
     func deleteAccount() -> AccountStatus?

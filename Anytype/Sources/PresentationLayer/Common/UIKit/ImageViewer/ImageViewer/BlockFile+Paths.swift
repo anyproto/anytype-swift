@@ -1,4 +1,4 @@
-import BlocksModels
+import Services
 import Foundation
 
 extension BlockFile {
@@ -17,11 +17,5 @@ extension BlockFile {
             .appendingPathComponent(blockId)
             .appendingPathComponent("preview")
             .appendingPathComponent(metadata.name)
-    }
-}
-
-private extension String {
-    func fileExtension() -> String {
-        return URL(fileURLWithPath: self).pathExtension
     }
 }

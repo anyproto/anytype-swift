@@ -1,4 +1,4 @@
-import BlocksModels
+import Services
 import Foundation
 import AnytypeCore
 import SwiftProtobuf
@@ -53,10 +53,51 @@ final class SetContentViewDataBuilder {
             view: activeView
         ).filter { $0.option.isVisible }.map(\.relationDetails)
 
-        return details.compactMap { details in
+        let items = items(
+            details: details,
+            relationsDetails: relationsDetails,
+            dataView: dataView,
+            activeView: activeView,
+            isObjectLocked: isObjectLocked
+        )
+        let minHeight = calculateMinHeight(activeView: activeView, items: items)
+        let hasCover = activeView.coverRelationKey.isNotEmpty && activeView.type != .kanban
+        
+        return items.map { item in
+            return SetContentViewItemConfiguration(
+                id: item.details.id,
+                title: item.details.title,
+                description: item.details.description,
+                icon: item.details.objectIconImage,
+                relations: item.relations,
+                showIcon: !activeView.hideIcon,
+                smallItemSize: activeView.cardSize == .small,
+                hasCover: hasCover,
+                coverFit: activeView.coverFit,
+                coverType: coverType(item.details, dataView: dataView, activeView: activeView),
+                minHeight: minHeight,
+                onIconTap: {
+                    onIconTap(item.details)
+                },
+                onItemTap: {
+                    onItemTap(item.details)
+                }
+            )
+        }
+    }
+    
+    private func items(
+        details: [ObjectDetails],
+        relationsDetails: [RelationDetails],
+        dataView: BlockDataview,
+        activeView: DataviewView,
+        isObjectLocked: Bool
+    ) -> [SetContentViewItem] {
+        details.map { details in
             let parsedRelations = relationsBuilder
                 .parsedRelations(
                     relationsDetails: relationsDetails,
+                    typeRelationsDetails: [],
                     objectId: details.id,
                     isObjectLocked: isObjectLocked
                 )
@@ -73,26 +114,11 @@ final class SetContentViewDataBuilder {
                 
                 return relation
             }
-            
-            let hasCover = activeView.coverRelationKey.isNotEmpty && activeView.type != .kanban
-            
-            return SetContentViewItemConfiguration(
-                id: details.id,
-                title: details.title,
-                description: details.description,
-                icon: details.objectIconImage,
+            let coverType = coverType(details, dataView: dataView, activeView: activeView)
+            return SetContentViewItem(
+                details: details,
                 relations: relations,
-                showIcon: !activeView.hideIcon,
-                smallItemSize: activeView.cardSize == .small,
-                hasCover: hasCover,
-                coverFit: activeView.coverFit,
-                coverType: coverType(details, dataView: dataView, activeView: activeView),
-                onIconTap: {
-                    onIconTap(details)
-                },
-                onItemTap: {
-                    onItemTap(details)
-                }
+                coverType: coverType
             )
         }
     }
@@ -150,6 +176,30 @@ final class SetContentViewDataBuilder {
         return !relationDetails.isHidden &&
         relationDetails.format != .file &&
         relationDetails.format != .unrecognized
+    }
+    
+    private func calculateMinHeight(activeView: DataviewView, items: [SetContentViewItem]) -> CGFloat? {
+        guard activeView.type == .gallery, activeView.cardSize == .small else {
+            return nil
+        }
+
+        var maxHeight: CGFloat = .zero
+        items.forEach { item in
+            let relationsWithValueCount = CGFloat(item.relations.filter { $0.hasValue }.count)
+            let hasCoverOnce = activeView.coverRelationKey.isNotEmpty && item.coverType.isNotNil
+            
+            let titleHeight = SetGalleryViewCell.Constants.maxTitleHeight
+            let verticalPaddings = SetGalleryViewCell.Constants.contentPadding * (hasCoverOnce ? 1 : 2)
+            
+            let totalCoverHeight = hasCoverOnce ? SetGalleryViewCell.Constants.smallItemHeight + SetGalleryViewCell.Constants.bottomCoverSpacing : 0
+            
+            let relationsHeight = (SetGalleryViewCell.Constants.relationHeight + SetGalleryViewCell.Constants.relationSpacing) * relationsWithValueCount
+            
+            let total = titleHeight + verticalPaddings + totalCoverHeight + relationsHeight
+            maxHeight = max(maxHeight, total)
+        }
+        
+        return maxHeight
     }
 }
 

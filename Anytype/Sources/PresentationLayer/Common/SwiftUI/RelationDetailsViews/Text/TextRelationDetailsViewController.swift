@@ -56,6 +56,11 @@ final class TextRelationDetailsViewController: UIViewController {
         _ = textView.becomeFirstResponder()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        viewModel.onWillDisappear()
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
@@ -230,9 +235,6 @@ private extension TextRelationDetailsViewController {
         static let titleLabelHeight: CGFloat = 48
         static let textViewMinHeight: CGFloat = 48
         static let textViewBottomInset: CGFloat = 20
-        static let actionButtonSize: CGSize = CGSize(width: 36, height: 36)
-        static let actionButtonRightInset: CGFloat = 20
-        static let actionButtonTopInset: CGFloat = 6
         static let actionButtonTitleInset: CGFloat = 8
     }
     

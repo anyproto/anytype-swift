@@ -24,7 +24,7 @@ struct SetFiltersSelectionView<Content: View>: View {
     }
     
     private var button: some View {
-        StandardButton(disabled: false, text: Loc.Set.Button.Title.apply, style: .primary) {
+        StandardButton(Loc.Set.Button.Title.apply, style: .primaryLarge) {
             viewModel.handleEmptyValue()
         }
         .padding(.horizontal, 20)

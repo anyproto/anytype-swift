@@ -1,5 +1,5 @@
 import UIKit
-import BlocksModels
+import Services
 import Foundation
 
 enum SimpleTableOptionType {
@@ -14,7 +14,6 @@ final class SimpleTableSelectionOptionHandler {
     var selectedBlocksIndexPaths = [IndexPath]()
 
     private let router: EditorRouterProtocol
-    private let listService: BlockListServiceProtocol
     private let tableService: BlockTableServiceProtocol
     private let document: BaseDocumentProtocol
     private let tableBlockInformation: BlockInformation
@@ -24,14 +23,12 @@ final class SimpleTableSelectionOptionHandler {
 
     init(
         router: EditorRouterProtocol,
-        listService: BlockListServiceProtocol,
         tableService: BlockTableServiceProtocol,
         document: BaseDocumentProtocol,
         tableBlockInformation: BlockInformation,
         actionHandler: BlockActionHandlerProtocol
     ) {
         self.router = router
-        self.listService = listService
         self.tableService = tableService
         self.document = document
         self.tableBlockInformation = tableBlockInformation

@@ -1,6 +1,6 @@
 import AnytypeCore
 import FloatingPanel
-import BlocksModels
+import Services
 import UIKit
 
 final class BottomSheetsFactory {

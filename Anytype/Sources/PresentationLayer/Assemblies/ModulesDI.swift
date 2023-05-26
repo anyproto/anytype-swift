@@ -4,18 +4,18 @@ final class ModulesDI: ModulesDIProtocol {
     
     private let serviceLocator: ServiceLocator
     private let uiHelpersDI: UIHelpersDIProtocol
-    private let widgetsDI: WidgetsDIProtocol
+    private let widgetsSubmoduleDI: WidgetsSubmoduleDIProtocol
     
-    init(serviceLocator: ServiceLocator, uiHelpersDI: UIHelpersDIProtocol, widgetsDI: WidgetsDIProtocol) {
+    init(serviceLocator: ServiceLocator, uiHelpersDI: UIHelpersDIProtocol, widgetsSubmoduleDI: WidgetsSubmoduleDIProtocol) {
         self.serviceLocator = serviceLocator
         self.uiHelpersDI = uiHelpersDI
-        self.widgetsDI = widgetsDI
+        self.widgetsSubmoduleDI = widgetsSubmoduleDI
     }
     
     // MARK: - ModulesDIProtocol
     
     func relationValue() -> RelationValueModuleAssemblyProtocol {
-        return RelationValueModuleAssembly(modulesDI: self, serviceLocator: serviceLocator)
+        return RelationValueModuleAssembly(modulesDI: self, serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
     }
     
     func relationsList() -> RelationsListModuleAssemblyProtocol {
@@ -66,11 +66,84 @@ final class ModulesDI: ModulesDIProtocol {
         return HomeWidgetsModuleAssembly(
             serviceLocator: serviceLocator,
             uiHelpersDI: uiHelpersDI,
-            widgetsDI:  widgetsDI
+            widgetsSubmoduleDI:  widgetsSubmoduleDI
         )
     }
     
     func textIconPicker() -> TextIconPickerModuleAssemblyProtocol {
         return TextIconPickerModuleAssembly(serviceLocator: serviceLocator)
+    }
+    
+    func widgetType() -> WidgetTypeModuleAssemblyProtocol {
+        return WidgetTypeModuleAssembly(serviceLocator: serviceLocator)
+    }
+    
+    func widgetObjectList() -> WidgetObjectListModuleAssemblyProtocol {
+        return WidgetObjectListModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
+    }
+    
+    func settingsAppearance() -> SettingsAppearanceModuleAssemblyProtocol {
+        return SettingsAppearanceModuleAssembly(uiHelpersDI: uiHelpersDI)
+    }
+    
+    func wallpaperPicker() -> WallpaperPickerModuleAssemblyProtocol {
+        return WallpaperPickerModuleAssembly()
+    }
+    
+    func about() -> AboutModuleAssemblyProtocol {
+        return AboutModuleAssembly(serviceLocator: serviceLocator)
+    }
+    
+    func personalization() -> PersonalizationModuleAssemblyProtocol {
+        return PersonalizationModuleAssembly(serviceLocator: serviceLocator)
+    }
+    
+    func keychainPhrase() -> KeychainPhraseModuleAssemblyProtocol {
+        return KeychainPhraseModuleAssembly(serviceLocator: serviceLocator)
+    }
+    
+    func dashboardAlerts() -> DashboardAlertsAssemblyProtocol {
+        return DashboardAlertsAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
+    }
+    
+    func settings() -> SettingsModuleAssemblyProtocol {
+        return SettingsModuleAssembly(serviceLocator: serviceLocator)
+    }
+    
+    func debugMenu() -> DebugMenuModuleAssemblyProtocol {
+        return DebugMenuModuleAssembly()
+    }
+    
+    func settingsAccount() -> SettingsAccountModuleAssemblyProtocol {
+        return SettingsAccountModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
+    }
+    
+    func fileStorage() -> FileStorageModuleAssemblyProtocol {
+        return FileStorageModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
+    }
+    
+    func authorization() -> AuthModuleAssemblyProtocol {
+        return AuthModuleAssembly(uiHelpersDI: uiHelpersDI)
+    }
+    
+    func joinFlow() -> JoinFlowModuleAssemblyProtocol {
+        return JoinFlowModuleAssembly(serviceLocator: serviceLocator)
+    }
+    
+    // @joe_pusya: will be moved to separate modulesDI
+    func authInviteCode() -> InviteCodeViewModuleAssemblyProtocol {
+        return InviteCodeViewModuleAssembly(serviceLocator: serviceLocator)
+    }
+    
+    func authVoid() -> VoidViewModuleAssemblyProtocol {
+        return VoidViewModuleAssembly()
+    }
+    
+    func authKey() -> KeyPhraseViewModuleAssemblyProtocol {
+        return KeyPhraseViewModuleAssembly(uiHelpersDI: uiHelpersDI, serviceLocator: serviceLocator)
+    }
+    
+    func authSoul() -> SoulViewModuleAssemblyProtocol {
+        return SoulViewModuleAssembly(serviceLocator: serviceLocator)
     }
 }

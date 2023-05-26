@@ -34,43 +34,6 @@ extension NSAttributedString {
         return result
     }
     
-    /// Add plain string to attributed string and apply all attributes in range of all current string to plain string
-    ///
-    /// - Parameters:
-    ///  - string: String to append
-    ///  - index: Index where to insert string
-    ///  - attachmentAttributes: attributes to use in case we insert new string at index with attachment
-    ///
-    /// - Returns: New attributed string
-    func attributedStringByInserting(_ string: String,
-                                     at index: Int,
-                                     attachmentAttributes: [NSAttributedString.Key: Any] = [:]) -> NSAttributedString {
-        guard length != 0 else {
-            return NSAttributedString(string: string)
-        }
-        guard !string.isEmpty, index <= length else {
-            return self
-        }
-        let attributesIndex = index == length ? index - 1 : index
-        var attributesAtIndex = attributes(at: attributesIndex,
-                                           effectiveRange: nil)
-        if attributesAtIndex.keys.contains(.attachment) {
-            attributesAtIndex = attachmentAttributes
-        }
-        let stringToInsert = NSAttributedString(string: string,
-                                                attributes: attributesAtIndex)
-        let mutableString = NSMutableAttributedString(attributedString: self)
-        mutableString.insert(stringToInsert, at: index)
-        return NSAttributedString(attributedString: mutableString)
-    }
-    
-    /// Prefer this function over standard 'string'
-    func clearedFromMentionAtachmentsString() -> String {
-        let mutableCopy = NSMutableAttributedString(attributedString: self)
-        mutableCopy.removeAllMentionAttachmets()
-        return mutableCopy.string
-    }
-    
     func isCodeFontInWhole(range: NSRange) -> Bool {
         guard isRangeValid(range) else { return false }
         var result = true

@@ -10,7 +10,7 @@ protocol KeychainStoreProtocol {
 }
 
 /// Wrapper for keychain store
-class KeychainStore: KeychainStoreProtocol {
+final class KeychainStore: KeychainStoreProtocol {
     
     // MARK: - Public methods
     
@@ -27,7 +27,9 @@ class KeychainStore: KeychainStoreProtocol {
         let attributes: [String: Any] = [
             (kSecValueData as String): dataItem
         ]
+        
         var query = queryable.query
+        query[String(kSecAttrAccessible)] = kSecAttrAccessibleWhenUnlockedThisDeviceOnly
 
         var status = SecItemUpdate(query as CFDictionary, attributes as CFDictionary)
         
@@ -80,7 +82,7 @@ class KeychainStore: KeychainStoreProtocol {
         // specify kSecUseAuthenticationUIFail so that the error
         // errSecInteractionNotAllowed will be returned if an item needs
         // to authenticate with UI and the authentication UI will not be presented.
-        let context = LAContext.init()
+        let context = LAContext()
         context.interactionNotAllowed = true
         query[String(kSecUseAuthenticationContext)] = context
         

@@ -8,7 +8,7 @@
 
 import Foundation
 import AnytypeCore
-import BlocksModels
+import Services
 import ProtobufMessages
 import SwiftProtobuf
 

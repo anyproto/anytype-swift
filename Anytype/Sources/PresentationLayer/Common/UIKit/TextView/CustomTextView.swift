@@ -1,6 +1,6 @@
 import Combine
 import UIKit
-import BlocksModels
+import Services
 
 final class CustomTextView: UIView {
     
@@ -15,7 +15,6 @@ final class CustomTextView: UIView {
     // MARK: - Private variables
     
     private(set) lazy var textView = createTextView()
-    private var firstResponderSubscription: AnyCancellable?
     
     // MARK: - Initializers
     

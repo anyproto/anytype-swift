@@ -1,6 +1,6 @@
 import UIKit
 import Combine
-import BlocksModels
+import Services
 import SwiftUI
 import AnytypeCore
 
@@ -44,7 +44,7 @@ extension HorizontalListItem {
         let image = (UIImage(asset: .search) ?? UIImage()).image(
             imageSize: .init(width: 24, height: 24),
             cornerRadius: 12,
-            side: 48,
+            side: 52,
             backgroundColor: .Stroke.tertiary
         )
 

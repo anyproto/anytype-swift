@@ -1,4 +1,4 @@
-import BlocksModels
+import Services
 import Combine
 import UIKit
 import AnytypeCore
@@ -7,6 +7,7 @@ struct DataViewBlockViewModel: BlockViewModelProtocol {
 
     let info: BlockInformation
     let objectDetails: ObjectDetails?
+    let isCollection: Bool
     
     private let showFailureToast: (_ message: String) -> ()
     private let openSet: (EditorScreenData) -> ()
@@ -21,26 +22,35 @@ struct DataViewBlockViewModel: BlockViewModelProtocol {
     init(
         info: BlockInformation,
         objectDetails: ObjectDetails?,
+        isCollection: Bool,
         showFailureToast: @escaping (_ message: String) -> (),
         openSet: @escaping (EditorScreenData) -> ()
     ) {
         self.info = info
         self.objectDetails = objectDetails
+        self.isCollection = isCollection
         self.showFailureToast = showFailureToast
         self.openSet = openSet
     }
 
     func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration {
         let content: DataViewBlockContent
+        let subtitle = isCollection ? Loc.Content.DataView.InlineCollection.subtitle : Loc.Content.DataView.InlineSet.subtitle
+        let placeholder = isCollection ? Loc.Content.DataView.InlineCollection.untitled : Loc.Content.DataView.InlineSet.untitled
         if let objectDetails {
+            let setOfIsNotEmpty = objectDetails.setOf.first { $0.isNotEmpty } != nil
             content = DataViewBlockContent(
                 title: objectDetails.title,
+                placeholder: placeholder,
+                subtitle: subtitle,
                 iconImage: objectDetails.objectIconImage,
-                badgeTitle: objectDetails.setOf.isEmpty ? Loc.Content.DataView.InlineSet.noData : nil
+                badgeTitle: !setOfIsNotEmpty && !isCollection ? Loc.Content.DataView.InlineSet.noData : nil
             )
         } else {
             content = DataViewBlockContent(
                 title: nil,
+                placeholder: placeholder,
+                subtitle: subtitle,
                 iconImage: nil,
                 badgeTitle: Loc.Content.DataView.InlineSet.noSource
             )

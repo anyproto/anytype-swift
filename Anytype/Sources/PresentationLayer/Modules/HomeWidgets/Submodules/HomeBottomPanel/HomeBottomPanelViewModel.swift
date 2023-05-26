@@ -1,12 +1,16 @@
 import Foundation
-import BlocksModels
+import Services
 import Combine
 
 @MainActor
 final class HomeBottomPanelViewModel: ObservableObject {
     
+    private enum Constants {
+        static let subId = "HomeBottomSpace"
+    }
+    
     struct ImageButton: Hashable, Equatable {
-        let image: ObjectIconImage
+        let image: ObjectIconImage?
         @EquatableNoop var onTap: () -> Void
     }
     
@@ -22,16 +26,15 @@ final class HomeBottomPanelViewModel: ObservableObject {
     
     // MARK: - Private properties
     
-    private let toastPresenter: ToastPresenterProtocol
-    private let accountManager: AccountManager
-    private let subscriptionService: SubscriptionsServiceProtocol
-    private let subscriotionBuilder: HomeBottomPanelSubscriptionDataBuilderProtocol
+    private let accountManager: AccountManagerProtocol
+    private let subscriptionService: SingleObjectSubscriptionServiceProtocol
     private let stateManager: HomeWidgetsStateManagerProtocol
+    private let dashboardService: DashboardServiceProtocol
     private weak var output: HomeBottomPanelModuleOutput?
     
     // MARK: - State
     
-    private var subscriptionData: [ObjectDetails] = []
+    private var spaceDetails: ObjectDetails?
     private var subscriptions: [AnyCancellable] = []
     
     // MARK: - Public properties
@@ -39,18 +42,16 @@ final class HomeBottomPanelViewModel: ObservableObject {
     @Published var buttonState: ButtonState = .normal([])
     
     init(
-        toastPresenter: ToastPresenterProtocol,
-        accountManager: AccountManager,
-        subscriptionService: SubscriptionsServiceProtocol,
-        subscriotionBuilder: HomeBottomPanelSubscriptionDataBuilderProtocol,
+        accountManager: AccountManagerProtocol,
+        subscriptionService: SingleObjectSubscriptionServiceProtocol,
         stateManager: HomeWidgetsStateManagerProtocol,
+        dashboardService: DashboardServiceProtocol,
         output: HomeBottomPanelModuleOutput?
     ) {
-        self.toastPresenter = toastPresenter
         self.accountManager = accountManager
         self.subscriptionService = subscriptionService
-        self.subscriotionBuilder = subscriotionBuilder
         self.stateManager = stateManager
+        self.dashboardService = dashboardService
         self.output = output
         setupSubscription()
     }
@@ -61,7 +62,8 @@ final class HomeBottomPanelViewModel: ObservableObject {
         if isEditState {
             buttonState = .edit([
                 TexButton(text: Loc.add, onTap: { [weak self] in
-                    self?.output?.onCreateWidgetSelected()
+                    AnytypeAnalytics.instance().logAddWidget(context: .editor)
+                    self?.output?.onCreateWidgetSelected(context: .editor)
                 }),
                 TexButton(text: Loc.done, onTap: { [weak self] in
                     self?.stateManager.setEditState(false)
@@ -70,29 +72,42 @@ final class HomeBottomPanelViewModel: ObservableObject {
         } else {
             buttonState = .normal([
                 ImageButton(image: .imageAsset(.Widget.search), onTap: { [weak self] in
-                    self?.toastPresenter.show(message: "On tap search")
+                    self?.output?.onSearchSelected()
                 }),
                 ImageButton(image: .imageAsset(.Widget.add), onTap: { [weak self] in
-                    self?.toastPresenter.show(message: "On tap create object")
+                    self?.handleCreateObject()
                 }),
-                ImageButton(image: subscriptionData.first?.objectIconImage ?? .placeholder(nil), onTap: { [weak self] in
-                    self?.toastPresenter.show(message: "On tap space")
+                ImageButton(image: spaceDetails?.objectIconImage, onTap: { [weak self] in
+                    self?.output?.onSettingsSelected()
                 })
             ])
         }
     }
     
     private func setupSubscription() {
-        let data = subscriotionBuilder.build(objectId: accountManager.account.info.accountSpaceId)
-        subscriptionService.startSubscription(data: data, update: { [weak self] in self?.handleEvent(update: $1) })
+        subscriptionService.startSubscription(
+            subIdPrefix: Constants.subId,
+            objectId: accountManager.account.info.accountSpaceId
+        ) { [weak self] details in
+            self?.handleSpaceDetails(details: details)
+        }
         
         stateManager.isEditStatePublisher
             .sink { [weak self] in self?.updateModels(isEditState: $0) }
             .store(in: &subscriptions)
     }
     
-    private func handleEvent(update: SubscriptionUpdate) {
-        subscriptionData.applySubscriptionUpdate(update)
+    private func handleSpaceDetails(details: ObjectDetails) {
+        spaceDetails = details
         updateModels(isEditState: stateManager.isEditState)
+    }
+    
+    private func handleCreateObject() {
+        guard let details = dashboardService.createNewPage() else { return }
+        
+        AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: .home)
+        
+        let screenData = EditorScreenData(pageId: details.id, type: details.editorViewType)
+        output?.onCreateObjectSelected(screenData: screenData)
     }
 }

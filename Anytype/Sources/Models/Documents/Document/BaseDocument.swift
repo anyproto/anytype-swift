@@ -1,4 +1,4 @@
-import BlocksModels
+import Services
 import Combine
 import AnytypeCore
 import Foundation
@@ -11,17 +11,24 @@ final class BaseDocument: BaseDocumentProtocol {
     let infoContainer: InfoContainerProtocol = InfoContainer()
     let relationLinksStorage: RelationLinksStorageProtocol = RelationLinksStorage()
     let restrictionsContainer: ObjectRestrictionsContainer = ObjectRestrictionsContainer()
+    let detailsStorage = ObjectDetailsStorage.shared
     
     var objectRestrictions: ObjectRestrictions { restrictionsContainer.restrinctions }
 
     private let blockActionsService: BlockActionsServiceSingleProtocol
-    private let eventsListener: EventsListener
+    private let eventsListener: EventsListenerProtocol
     private let updateSubject = PassthroughSubject<DocumentUpdate, Never>()
     private let relationBuilder = RelationsBuilder()
-    private let detailsStorage = ObjectDetailsStorage.shared
     private let relationDetailsStorage = ServiceLocator.shared.relationDetailsStorage()
-
+    private let viewModelSetter: DocumentViewModelSetterProtocol
+    private let forPreview: Bool
+    
     private var subscriptions = [AnyCancellable]()
+    
+    @Published private var sync: Void?
+    var syncPublisher: AnyPublisher<Void, Never> {
+        return $sync.compactMap { $0 }.eraseToAnyPublisher()
+    }
     
     // MARK: - State
     private var parsedRelationsSubject = CurrentValueSubject<ParsedRelations, Never>(.empty)
@@ -30,10 +37,14 @@ final class BaseDocument: BaseDocumentProtocol {
     }
     // All places, where parsedRelations used, should be subscribe on parsedRelationsPublisher.
     var parsedRelations: ParsedRelations {
+        let objectRelationsDetails = relationDetailsStorage.relationsDetails(
+            for: relationLinksStorage.relationLinks
+        )
+        let recommendedRelations = relationDetailsStorage.relationsDetails(for: details?.objectType.recommendedRelations ?? [])
+        let typeRelationsDetails = recommendedRelations.filter { !objectRelationsDetails.contains($0) }
         return relationBuilder.parsedRelations(
-            relationsDetails: relationDetailsStorage.relationsDetails(
-                for: relationLinksStorage.relationLinks
-            ),
+            relationsDetails: objectRelationsDetails,
+            typeRelationsDetails: typeRelationsDetails,
             objectId: objectId,
             isObjectLocked: isLocked
         )
@@ -55,9 +66,10 @@ final class BaseDocument: BaseDocumentProtocol {
             .eraseToAnyPublisher()
     }
     
-    init(objectId: BlockId) {
+    init(objectId: BlockId, forPreview: Bool = false) {
         self.objectId = objectId
-        
+        self.forPreview = forPreview
+       
         self.eventsListener = EventsListener(
             objectId: objectId,
             infoContainer: infoContainer,
@@ -65,14 +77,22 @@ final class BaseDocument: BaseDocumentProtocol {
             restrictionsContainer: restrictionsContainer
         )
         
-        self.blockActionsService = ServiceLocator.shared.blockActionsServiceSingle(contextId: objectId)
+        self.viewModelSetter = DocumentViewModelSetter(
+            detailsStorage: detailsStorage,
+            relationLinksStorage: relationLinksStorage,
+            restrictionsContainer: restrictionsContainer,
+            infoContainer: infoContainer
+        )
+        
+        self.blockActionsService = ServiceLocator.shared.blockActionsServiceSingle()
         
         setup()
     }
     
     deinit {
-        Task.detached(priority: .userInitiated) { [blockActionsService] in
-            try await blockActionsService.close()
+        guard !forPreview, isOpened else { return }
+        Task.detached(priority: .userInitiated) { [blockActionsService, objectId] in
+            try await blockActionsService.close(contextId: objectId)
         }
     }
 
@@ -80,20 +100,38 @@ final class BaseDocument: BaseDocumentProtocol {
     
     @MainActor
     func open() async throws {
-        try await blockActionsService.open()
-        isOpened = true
+        guard !isOpened else {
+            anytypeAssertionFailure("Try object open multiple times", domain: .baseDocument)
+            return
+        }
+        guard !forPreview else {
+            anytypeAssertionFailure("Document created for preview. You should use openForPreview() method.", domain: .baseDocument)
+            return
+        }
+        let model = try await blockActionsService.open(contextId: objectId)
+        setupView(model)
     }
     
     @MainActor
     func openForPreview() async throws {
-        try await blockActionsService.openForPreview()
-        isOpened = true
+        guard forPreview else {
+            anytypeAssertionFailure("Document created for handling. You should use open() method.", domain: .baseDocument)
+            return
+        }
+        let model = try await blockActionsService.openForPreview(contextId: objectId)
+        setupView(model)
     }
     
     @MainActor
     func close() async throws {
-        try await blockActionsService.close()
+        guard !forPreview, isOpened else { return }
+        try await blockActionsService.close(contextId: objectId)
         isOpened = false
+    }
+    
+    func resetSubscriptions() {
+        subscriptions = []
+        eventsListener.stopListening()
     }
     
     var children: [BlockInformation] {
@@ -122,9 +160,12 @@ final class BaseDocument: BaseDocumentProtocol {
             
             DispatchQueue.main.async { [weak self] in
                 self?.updateSubject.send(update)
+                self?.triggerSync()
             }
         }
-        eventsListener.startListening()
+        if !forPreview {
+            eventsListener.startListening()
+        }
                 
         infoContainer.publisherFor(id: objectId)
             .compactMap { $0?.isLocked }
@@ -139,22 +180,28 @@ final class BaseDocument: BaseDocumentProtocol {
                 // Subscriptions for each object will be complicated. Subscribes to any document updates.
                 updatePublisher
             )
-            .map { [weak self] _ in
+            .map { [weak self] _ -> ParsedRelations in
                 guard let self = self else { return .empty }
-                let data = self.relationBuilder.parsedRelations(
-                    relationsDetails: self.relationDetailsStorage.relationsDetails(
-                        for: self.relationLinksStorage.relationLinks
-                    ),
-                    objectId: self.objectId,
-                    isObjectLocked: self.isLocked
-                )
-                return data
+                return self.parsedRelations
             }
             .removeDuplicates()
             .receiveOnMain()
             .sink { [weak self] in
                 self?.parsedRelationsSubject.send($0)
+                // Update block relation when relation is deleted or installed
+                self?.updateSubject.send(.general)
             }
             .store(in: &subscriptions)
+    }
+    
+    private func triggerSync() {
+        sync = ()
+    }
+    
+    private func setupView(_ model: ObjectViewModel) {
+        viewModelSetter.objectViewUpdate(model)
+        isOpened = true
+        updateSubject.send(.general)
+        triggerSync()
     }
 }

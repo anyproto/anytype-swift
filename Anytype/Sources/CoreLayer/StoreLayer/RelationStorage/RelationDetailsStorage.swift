@@ -1,5 +1,5 @@
 import Foundation
-import BlocksModels
+import Services
 import AnytypeCore
 import Combine
 
@@ -31,12 +31,18 @@ final class RelationDetailsStorage: RelationDetailsStorageProtocol {
         return links.map { searchDetailsByKey[$0.key] ?? createDeletedRelation(link: $0) }
     }
     
+    func relationsDetails(for ids: [ObjectId]) -> [RelationDetails] {
+        return ids.compactMap { id in
+            return details.first { $0.id == id }
+        }
+    }
+    
     func relationsDetails() -> [RelationDetails] {
         return details
     }
     
-    func startSubscription() {
-        subscriptionsService.startSubscription(data: subscriptionDataBuilder.build()) { [weak self] subId, update in
+    func startSubscription() async {
+        await subscriptionsService.startSubscriptionAsync(data: subscriptionDataBuilder.build()) { [weak self] subId, update in
             self?.handleEvent(update: update)
         }
     }

@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import BlocksModels
+import Services
 
 struct ObjectLayoutRow: View {
     
@@ -45,7 +45,7 @@ struct ObjectLayoutRow: View {
                     Spacer(minLength: 12)
                     
                     if isSelected {
-                        Image(asset: .optionChecked).frame(width: 24, height: 24).foregroundColor(.Button.selected)
+                        Image(asset: .optionChecked).frame(width: 24, height: 24).foregroundColor(.Button.button)
                     }
                 }
                 
@@ -71,9 +71,7 @@ private extension DetailsLayout {
             return .layoutSettingsTodo
         case .note:
             return .layoutSettingsNote
-        case .set:
-            return .noImage
-        case .bookmark:
+        case .set, .collection, .bookmark, .space, .file, .image, .objectType, .unknown, .relation, .relationOption:
             return .noImage
         }
     }
@@ -90,7 +88,9 @@ private extension DetailsLayout {
             return Loc.note
         case .set:
             return Loc.set
-        case .bookmark:
+        case .collection:
+            return Loc.collection
+        case .bookmark, .space, .file, .image, .objectType, .unknown, .relation, .relationOption:
             return ""
         }
     }
@@ -105,9 +105,9 @@ private extension DetailsLayout {
             return Loc.actionFocusedLayoutWithACheckbox
         case .note:
             return Loc.designedToCaptureThoughtsQuickly
-        case .set:
+        case .set, .collection:
             return Loc.collectionOfObjects
-        case .bookmark:
+        case .bookmark, .space, .file, .image, .objectType, .unknown, .relation, .relationOption:
             return ""
         }
     }

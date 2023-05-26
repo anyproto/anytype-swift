@@ -1,5 +1,4 @@
 import SwiftUI
-import UniformTypeIdentifiers
 
 struct SetKanbanColumn: View {
     let groupId: String
@@ -9,8 +8,8 @@ struct SetKanbanColumn: View {
     let backgroundColor: BlockBackgroundColor
     let showPagingView: Bool
     
-    let dragAndDropDelegate: KanbanDragAndDropDelegate
-    @Binding var dropData: KanbanCardDropData
+    let dragAndDropDelegate: SetDragAndDropDelegate
+    @Binding var dropData: SetCardDropData
     
     let onShowMoreTap: () -> Void
     let onSettingsTap: () -> Void
@@ -43,23 +42,15 @@ struct SetKanbanColumn: View {
     private var column: some View {
         VStack(spacing: 8) {
             ForEach(configurations) { configuration in
-                SetGalleryViewCell(configuration: configuration)
-                    .onDrag {
-                        UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
-                        dropData.draggingCard = configuration
-                        dropData.initialFromGroupId = groupId
-                        dropData.fromGroupId = groupId
-                        return NSItemProvider(object: configuration.id as NSString)
+                SetDragAndDropView(
+                    dropData: $dropData,
+                    configuration: configuration,
+                    groupId: groupId,
+                    dragAndDropDelegate: dragAndDropDelegate,
+                    content: {
+                        SetGalleryViewCell(configuration: configuration)
                     }
-                    .onDrop(
-                        of: [UTType.text],
-                        delegate: KanbanCardDropInsideDelegate(
-                            dragAndDropDelegate: dragAndDropDelegate,
-                            droppingCard: configuration,
-                            toGroupId: groupId,
-                            data: $dropData
-                        )
-                    )
+                )
             }
             if showPagingView {
                 pagingView
@@ -73,7 +64,7 @@ struct SetKanbanColumn: View {
             onSettingsTap()
         } label: {
             headerContent
-                .contentShape(Rectangle())
+                .fixTappableArea()
         }
         .frame(height: 44)
         .buttonStyle(LightDimmingButtonStyle())
@@ -142,17 +133,16 @@ struct SetKanbanColumn: View {
     }
     
     private var emptyDroppableArea: some View {
-        Rectangle()
-            .fill(Color.Background.primary)
-            .frame(height: 44)
-            .onDrop(
-                of: [UTType.text],
-                delegate: KanbanCardDropInsideDelegate(
-                    dragAndDropDelegate: dragAndDropDelegate,
-                    droppingCard: nil,
-                    toGroupId: groupId,
-                    data: $dropData
-                )
-            )
+        SetDragAndDropView(
+            dropData: $dropData,
+            configuration: nil,
+            groupId: groupId,
+            dragAndDropDelegate: dragAndDropDelegate,
+            content: {
+                Rectangle()
+                    .fill(Color.Background.primary)
+                    .frame(height: 44)
+            }
+        )
     }
 }

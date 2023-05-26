@@ -1,5 +1,5 @@
 import UIKit
-import BlocksModels
+import Services
 import SafariServices
 import SwiftUI
 import FloatingPanel
@@ -196,7 +196,11 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         
         let moveToView = newSearchModuleAssembly.blockObjectsSearchModule(
             title: Loc.moveTo,
-            excludedObjectIds: [document.objectId]
+            excludedObjectIds: [document.objectId],
+            excludedTypeIds: [
+                ObjectTypeId.bundled(.set).rawValue,
+                ObjectTypeId.bundled(.collection).rawValue
+            ]
         ) { [weak self] details in
             onSelect(details.id)
             self?.navigationContext.dismissTopPresented()
@@ -208,7 +212,8 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     func showLinkTo(onSelect: @escaping (ObjectDetails) -> ()) {
         let moduleView = newSearchModuleAssembly.blockObjectsSearchModule(
             title: Loc.linkTo,
-            excludedObjectIds: [document.objectId]
+            excludedObjectIds: [document.objectId],
+            excludedTypeIds: []
         ) { [weak self] details in
             onSelect(details)
             self?.navigationContext.dismissTopPresented()
@@ -230,7 +235,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     }
     
     func showSearch(onSelect: @escaping (EditorScreenData) -> ()) {
-        let module = searchModuleAssembly.makeObjectSearch(title: nil, context: .menuSearch) { data in
+        let module = searchModuleAssembly.makeObjectSearch(title: nil) { data in
             onSelect(EditorScreenData(pageId: data.blockId, type: data.viewType))
         }
         navigationContext.present(module)
@@ -241,7 +246,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
             title: Loc.changeType,
             selectedObjectId: selectedObjectId,
             showBookmark: false,
-            showSet: false,
+            showSetAndCollection: false,
             onSelect: onSelect
         )
     }
@@ -254,7 +259,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
             title: Loc.changeType,
             selectedObjectId: selectedObjectId,
             showBookmark: false,
-            showSet: true,
+            showSetAndCollection: true,
             onSelect: onSelect
         )
     }
@@ -411,20 +416,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     
     // MARK: - Private
     
-    private func presentOverCurrentContextSwuftUIView<Content: View>(view: Content, model: Dismissible) {
-        let controller = UIHostingController(rootView: view)
-        controller.modalPresentationStyle = .overCurrentContext
-        
-        controller.view.backgroundColor = .clear
-        controller.view.isOpaque = false
-        
-        model.onDismiss = { [weak controller] in
-            controller?.dismiss(animated: false)
-        }
-        
-        navigationContext.present(controller, animated: false)
-    }
-    
     private func showURLInputViewController(
         url: AnytypeURL? = nil,
         completion: @escaping(AnytypeURL?) -> Void
@@ -438,7 +429,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         title: String,
         selectedObjectId: BlockId?,
         showBookmark: Bool,
-        showSet: Bool,
+        showSetAndCollection: Bool,
         onSelect: @escaping (BlockId) -> ()
     ) {
         let view = newSearchModuleAssembly.objectTypeSearchModule(
@@ -446,7 +437,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
             selectedObjectId: selectedObjectId,
             excludedObjectTypeId: document.details?.type,
             showBookmark: showBookmark,
-            showSet: showSet,
+            showSetAndCollection: showSetAndCollection,
             browser: rootController
         ) { [weak self] type in
             self?.navigationContext.dismissTopPresented()
@@ -477,7 +468,7 @@ extension EditorRouter {
     }
     
     func showRelationValueEditingView(objectId: BlockId, relation: Relation) {
-        relationValueCoordinator.startFlow(objectId: objectId, relation: relation, output: self)
+        relationValueCoordinator.startFlow(objectId: objectId, relation: relation, analyticsType: .block, output: self)
     }
 
     func showAddNewRelationView(onSelect: ((RelationDetails, _ isNew: Bool) -> Void)?) {
@@ -497,10 +488,10 @@ extension EditorRouter: RelationValueCoordinatorOutput {
 }
 
 extension EditorRouter: ObjectSettingsModuleDelegate {
-    func didCreateLinkToItself(selfName: String, in objectId: BlockId) {
+    func didCreateLinkToItself(selfName: String, data: EditorScreenData) {
         UIApplication.shared.hideKeyboard()
-        toastPresenter.showObjectName(selfName, middleAction: Loc.Editor.Toast.linkedTo, secondObjectId: objectId) { [weak self] in
-            self?.showPage(data: .init(pageId: objectId, type: .page))
+        toastPresenter.showObjectName(selfName, middleAction: Loc.Editor.Toast.linkedTo, secondObjectId: data.pageId) { [weak self] in
+            self?.showPage(data: data)
         }
     }
 }

@@ -1,6 +1,6 @@
 import XCTest
 @testable import Anytype
-@testable import BlocksModels
+@testable import Services
 
 class BeginingOfTextMarkdownListenerTests: XCTestCase {
 
@@ -90,7 +90,7 @@ class BeginingOfTextMarkdownListenerTests: XCTestCase {
         textView.text = text
         textView.selectedRange = NSRange(location: carretPosition, length: 0)
         
-        let text = UIKitAnytypeText(text: text, style: .body, lineBreakModel: .byWordWrapping)
+        let text = UIKitAnytypeText(text: text, style: .bodyRegular, lineBreakModel: .byWordWrapping)
         
         return TextBlockDelegateData(textView: textView, info: .emptyText, text: text, usecase: .editor)
     }

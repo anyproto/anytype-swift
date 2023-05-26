@@ -1,6 +1,6 @@
 import Foundation
 import SwiftUI
-import BlocksModels
+import Services
 import FloatingPanel
 
 final class StatusRelationDetailsViewModel: ObservableObject {
@@ -22,6 +22,7 @@ final class StatusRelationDetailsViewModel: ObservableObject {
     private let service: RelationsServiceProtocol
     private let searchService: SearchServiceProtocol
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
+    private let analyticsType: AnalyticsEventsRelationType
     private weak var popup: AnytypePopupProxy?
     
     init(
@@ -29,7 +30,8 @@ final class StatusRelationDetailsViewModel: ObservableObject {
         relation: Relation,
         service: RelationsServiceProtocol,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
-        searchService: SearchServiceProtocol
+        searchService: SearchServiceProtocol,
+        analyticsType: AnalyticsEventsRelationType
     ) {        
         self.selectedStatus = selectedStatus
         
@@ -37,6 +39,7 @@ final class StatusRelationDetailsViewModel: ObservableObject {
         self.service = service
         self.searchService = searchService
         self.newSearchModuleAssembly = newSearchModuleAssembly
+        self.analyticsType = analyticsType
         
         updateSelectedStatusViewModel()
     }
@@ -52,6 +55,7 @@ extension StatusRelationDetailsViewModel {
     func didTapClearButton() {
         selectedStatus = nil
         service.updateRelation(relationKey: relation.key, value: nil)
+        logChanges()
     }
     
     @ViewBuilder
@@ -94,6 +98,7 @@ private extension StatusRelationDetailsViewModel {
         }
         
         selectedStatus = newStatus
+        logChanges()
     }
     
     func handleCreateOption(title: String) {
@@ -105,6 +110,9 @@ private extension StatusRelationDetailsViewModel {
         handleSelectedOptionIds([optionId])
     }
     
+    func logChanges() {
+        AnytypeAnalytics.instance().logChangeRelationValue(isEmpty: selectedStatus.isNil, type: analyticsType)
+    }
 }
 
 extension StatusRelationDetailsViewModel: AnytypePopupViewModelProtocol {

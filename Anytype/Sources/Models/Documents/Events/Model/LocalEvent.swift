@@ -1,4 +1,4 @@
-import BlocksModels
+import Services
 import AnytypeCore
 
 enum LocalEvent {
@@ -8,7 +8,5 @@ enum LocalEvent {
     case setText(blockId: BlockId, text: MiddlewareString)
     case setLoadingState(blockId: BlockId)
     case reload(blockId: BlockId)
-    case documentClosed(blockId: BlockId)
     case header(ObjectHeaderUpdate)
-    case objectShow(ObjectViewModel)
 }

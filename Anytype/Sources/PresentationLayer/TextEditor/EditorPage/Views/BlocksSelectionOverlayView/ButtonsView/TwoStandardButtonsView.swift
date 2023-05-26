@@ -19,16 +19,15 @@ struct TwoStandardButtonsView_Previews: PreviewProvider {
         TwoStandardButtonsView(
             leftButtonData: .init(
                 text: "Cancel",
-                style: .secondary,
+                style: .secondaryLarge,
                 action: {}
             ),
-            rightButtonData:
-                    .init(
-                        text: "Move",
-                        style: .primary,
-                        action: {}
-                    )
+            rightButtonData: .init(
+                text: "Move",
+                style: .primaryLarge,
+                action: {}
+            )
         )
-            .previewLayout(.fixed(width: 340, height: 68))
+        .previewLayout(.fixed(width: 340, height: 68))
     }
 }

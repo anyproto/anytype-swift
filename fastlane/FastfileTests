@@ -2,15 +2,17 @@ default_platform(:ios)
 
 platform :ios do
 
-  lane :tests do 
+  lane :tests do |options|
   desc "Runs all the tests"
     scan(
-      devices: ["iPhone 8"], 
+      devices: ["iPhone 14"], 
       scheme: "AnytypeTests",
-      slack_url: "https://hooks.slack.com/services/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",
+      slack_url: ENV['SLACK_URL_BUILD_TESTS'],
+      skip_slack: options[:skip_notify] || false,
       slack_only_on_failure: true,
       fail_build: false,
-      xcargs: ENV['BUILD_OPTIONS']
+      xcargs: ENV['BUILD_OPTIONS'],
+      cloned_source_packages_path: ENV['SPM_DERIVED_DATA']
     )
   end
   

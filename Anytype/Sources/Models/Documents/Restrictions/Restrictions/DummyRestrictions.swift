@@ -1,4 +1,4 @@
-import BlocksModels
+import Services
 
 struct DummyRestrictions: BlockRestrictions {
     let canApplyBold = false

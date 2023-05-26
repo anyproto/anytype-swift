@@ -47,13 +47,12 @@ struct TemplatePickerView: View {
 
     var buttons: some View {
         HStack(spacing: 10) {
-            StandardButton(text: Loc.TemplatePicker.Buttons.skip, style: .secondary) { [weak viewModel] in
+            StandardButton(Loc.TemplatePicker.Buttons.skip, style: .secondaryLarge) { [weak viewModel] in
                 viewModel?.onSkipButton()
             }
-            StandardButton(text: Loc.TemplatePicker.Buttons.useTemplate, style: .primary) { [weak viewModel] in
+            StandardButton(Loc.TemplatePicker.Buttons.useTemplate, style: .primaryLarge) { [weak viewModel] in
                 viewModel?.onApplyButton()
             }
-            .buttonStyle(ShrinkingButtonStyle())
         }
         .padding([.horizontal], 19)
         .padding([.bottom], 16)

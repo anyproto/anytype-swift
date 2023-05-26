@@ -13,13 +13,12 @@ final class SearchModuleAssembly: SearchModuleAssemblyProtocol {
     
     func makeObjectSearch(
         title: String?,
-        context: AnalyticsEventsSearchContext,
         onSelect: @escaping (ObjectSearchData) -> ()
     ) -> SwiftUIModule {
         let viewModel = ObjectSearchViewModel(searchService: serviceLocator.searchService()) { data in
             onSelect(data)
         }
-        let searchView = SearchView(title: title, context: context, viewModel: viewModel)
+        let searchView = SearchView(title: title, viewModel: viewModel)
         return SwiftUIModule(view: searchView, model: viewModel)
     }
 }

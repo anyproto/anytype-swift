@@ -479,13 +479,14 @@ extension View {
 }
 
 extension View {
-    public func frameGetter(_ frame: Binding<CGRect>, _ safeArea: Binding<EdgeInsets>) -> some View {
-        modifier(FrameGetter(frame: frame, safeArea: safeArea))
+    public func frameGetter(space: CoordinateSpace = .global, _ frame: Binding<CGRect>, _ safeArea: Binding<EdgeInsets>) -> some View {
+        modifier(FrameGetter(space: space, frame: frame, safeArea: safeArea))
     }
 }
 
 struct FrameGetter: ViewModifier {
 
+    let space: CoordinateSpace
     @Binding var frame: CGRect
     @Binding var safeArea: EdgeInsets
 
@@ -493,7 +494,7 @@ struct FrameGetter: ViewModifier {
         content
             .background(
                 GeometryReader { proxy -> AnyView in
-                    let rect = proxy.frame(in: .global)
+                    let rect = proxy.frame(in: space)
                     // This avoids an infinite layout loop
                     if rect.integral != self.frame.integral {
                         DispatchQueue.main.async {

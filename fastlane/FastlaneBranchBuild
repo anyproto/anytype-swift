@@ -1,0 +1,49 @@
+default_platform(:ios)
+
+platform :ios do
+
+  # Build from branch (only for local)
+
+  lane :branch_build do |options| 
+
+    ensure_git_status_clean(
+      show_uncommitted_changes: true
+    )
+
+    xcodeproj = ENV["APP_PROJECT"]
+    
+    match(readonly: true)
+    
+    version = "0.0.1"
+
+    last_build = latest_testflight_build_number(version: version)
+    increment_version_number(version_number: version)
+    build_number = last_build + 1
+    increment_build_number(build_number: build_number, xcodeproj: xcodeproj)
+
+    add_badge(
+      shield: "#{version}-#{build_number}-blue",
+      no_badge: true
+    )
+
+    build_app(
+      scheme: ENV["APP_TARGET"], 
+      configuration: ENV["APP_CONF_DEVELOP"],
+      include_symbols: true,
+      use_system_scm: true,
+      archive_path: "./build/archive",
+      output_directory: "./build/result",
+      output_name: "Anytype.ipa",
+      xcargs: ENV['BUILD_OPTIONS']
+    )
+
+    upload_to_testflight(
+      skip_waiting_for_build_processing: true,
+      ipa: "./build/result/Anytype.ipa"
+    )
+
+    reset_git_repo(skip_clean: true)
+
+  end
+
+end

@@ -1,6 +1,6 @@
 import Combine
 import UIKit
-import BlocksModels
+import Services
 import AnytypeCore
 
 struct TextBlockURLInputParameters {
@@ -237,6 +237,7 @@ struct TextBlockActionHandler: TextBlockActionHandlerProtocol {
     }
 
     private func copy(range: NSRange) {
+        AnytypeAnalytics.instance().logCopyBlock()
         pasteboardService.copy(blocksIds: [info.id], selectedTextRange: range)
     }
 

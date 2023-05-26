@@ -14,32 +14,29 @@ enum CreateAccountServiceError: Error {
 
 }
 
-extension CreateAccountServiceError {
-    
-    init?(code: Anytype_Rpc.Account.Create.Response.Error.Code) {
+extension Anytype_Rpc.Account.Create.Response.Error {
+    var asError: CreateAccountServiceError? {
         switch code {
         case .null: return nil
         case .badInviteCode:
-            self = .badInviteCode
+            return .badInviteCode
         case .netError:
-            self = .networkError
+            return .networkError
         case .netConnectionRefused:
-            self = .networkConnectionRefused
+            return .networkConnectionRefused
         case .netOffline:
-            self = .networkOffline
-            
+            return .networkOffline
         case .unknownError, .badInput, .accountCreatedButFailedToStartNode , .accountCreatedButFailedToSetName,
                 .accountCreatedButFailedToSetAvatar, .failedToStopRunningNode, .UNRECOGNIZED,
                 .failedToWriteConfig, .failedToCreateLocalRepo:
-            self = .unknownError
+            return .unknownError
         }
     }
-    
 }
 
-extension CreateAccountServiceError {
+extension CreateAccountServiceError: LocalizedError {
     
-    var localizedDescription: String {
+    var errorDescription: String? {
         switch self {
         case .unknownError: return Loc.unknownError
         case .badInviteCode: return Loc.invalidInvitationCode

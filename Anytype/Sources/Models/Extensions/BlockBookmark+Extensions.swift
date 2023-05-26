@@ -1,11 +1,7 @@
 import Foundation
-import BlocksModels
+import Services
 
 extension BlockBookmark {
-    
-    private enum Constants {
-        static let pictureRelationKey = "picture"
-    }
     
     init(objectDetails: ObjectDetails) {
         self.init(

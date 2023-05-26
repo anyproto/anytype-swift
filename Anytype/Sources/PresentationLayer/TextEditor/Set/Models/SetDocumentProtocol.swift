@@ -1,4 +1,4 @@
-import BlocksModels
+import Services
 import Combine
 
 enum SetDocumentUpdate {
@@ -14,6 +14,7 @@ protocol SetDocumentProtocol: BaseDocumentGeneralProtocol {
     var dataViewRelationsDetails: [RelationDetails] { get }
     var sortedRelations: [SetRelation] { get }
     var isObjectLocked: Bool { get }
+    var analyticsType: AnalyticsObjectType { get }
     
     var featuredRelationsForEditor: [Relation] { get }
     var parsedRelations: ParsedRelations { get }
@@ -32,11 +33,22 @@ protocol SetDocumentProtocol: BaseDocumentGeneralProtocol {
     var filters: [SetFilter] { get }
     var filtersPublisher: AnyPublisher<[SetFilter], Never> { get }
     
+    func canStartSubscription() -> Bool
     func activeViewRelations(excludeRelations: [RelationDetails]) -> [RelationDetails]
+    func objectOrderIds(for groupId: String) -> [String]
     func updateActiveViewId(_ id: BlockId)
     func isRelationsSet() -> Bool
     func isBookmarksSet() -> Bool
+    func isCollection() -> Bool
+    
+    var syncPublisher: AnyPublisher<Void, Never> { get }
     
     @MainActor
     func open() async throws
+    
+    @MainActor
+    func openForPreview() async throws
+    
+    @MainActor
+    func close() async throws
 }

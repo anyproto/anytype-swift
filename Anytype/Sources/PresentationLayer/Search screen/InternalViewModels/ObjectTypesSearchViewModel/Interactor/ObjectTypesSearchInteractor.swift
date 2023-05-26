@@ -1,5 +1,5 @@
 import Foundation
-import BlocksModels
+import Services
 import AnytypeCore
 
 final class ObjectTypesSearchInteractor {
@@ -8,20 +8,20 @@ final class ObjectTypesSearchInteractor {
     private let workspaceService: WorkspaceServiceProtocol
     private let excludedObjectTypeId: String?
     private let showBookmark: Bool
-    private let showSet: Bool
+    private let showSetAndCollection: Bool
     
     init(
         searchService: SearchServiceProtocol,
         workspaceService: WorkspaceServiceProtocol,
         excludedObjectTypeId: String?,
         showBookmark: Bool,
-        showSet: Bool
+        showSetAndCollection: Bool
     ) {
         self.searchService = searchService
         self.workspaceService = workspaceService
         self.excludedObjectTypeId = excludedObjectTypeId
         self.showBookmark = showBookmark
-        self.showSet = showSet
+        self.showSetAndCollection = showSetAndCollection
     }
     
 }
@@ -32,7 +32,8 @@ extension ObjectTypesSearchInteractor {
         searchService.searchObjectTypes(
             text: text,
             filteringTypeId: excludedObjectTypeId,
-            shouldIncludeSets: showSet,
+            shouldIncludeSets: showSetAndCollection,
+            shouldIncludeCollections: showSetAndCollection,
             shouldIncludeBookmark: showBookmark
         ) ?? []
     }

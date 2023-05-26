@@ -17,8 +17,6 @@ final class BlocksSelectionOverlayView: UIView {
     private lazy var movingButtonsUIView: UIView = movingButtonsView.asUIView()
     private lazy var statusBarOverlayView = UIView()
 
-    private var blockOptionsViewBottonConstraint: NSLayoutConstraint?
-
     private var cancellables = [AnyCancellable]()
 
     init(
@@ -68,12 +66,14 @@ final class BlocksSelectionOverlayView: UIView {
         statusBarOverlayView.backgroundColor = .Background.primary
 
         addSubview(shadowedBlocksOptionView) {
-            $0.pinToSuperview(excluding: [.top], insets: .init(top: 0, left: 10, bottom: 10, right: 10))
+            $0.pinToSuperview(excluding: [.top, .bottom], insets: .init(top: 0, left: 10, bottom: 0, right: 10))
+            $0.bottom.equal(to: safeAreaLayoutGuide.bottomAnchor, constant: -10)
             $0.height.equal(to: 100)
         }
 
         addSubview(shadowedSimpleTablesOptionView) {
-            $0.pinToSuperview(excluding: [.top], insets: .init(top: 0, left: 10, bottom: 20, right: 10))
+            $0.pinToSuperview(excluding: [.top, .bottom], insets: .init(top: 0, left: 10, bottom: 0, right: 10))
+            $0.bottom.equal(to: safeAreaLayoutGuide.bottomAnchor, constant: -20)
             $0.height.equal(to: 174)
         }
 
@@ -97,14 +97,14 @@ final class BlocksSelectionOverlayView: UIView {
         TwoStandardButtonsView(
             leftButtonData: StandardButtonModel(
                 text: Loc.cancel,
-                style: .secondary,
+                style: .secondaryLarge,
                 action: { [weak viewModel] in
                     viewModel?.cancelButtonHandler?()
                 }
             ),
             rightButtonData: StandardButtonModel(
                 text: Loc.move,
-                style: .primary,
+                style: .primaryLarge,
                 action: { [weak viewModel] in
                     viewModel?.moveButtonHandler?()
                 }

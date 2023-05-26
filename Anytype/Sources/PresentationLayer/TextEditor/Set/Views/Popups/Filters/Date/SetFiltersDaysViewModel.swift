@@ -1,5 +1,5 @@
 import Foundation
-import BlocksModels
+import Services
 import SwiftUI
 import Combine
 import FloatingPanel
@@ -37,6 +37,8 @@ final class SetFiltersDaysViewModel: TextRelationDetailsViewModelProtocol {
     func updateValue(_ text: String) {
         onValueChanged(text)
     }
+    
+    func onWillDisappear() {}
 }
 
 extension SetFiltersDaysViewModel: AnytypePopupViewModelProtocol {

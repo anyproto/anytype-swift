@@ -1,5 +1,5 @@
 import SwiftUI
-import BlocksModels
+import Services
 import AnytypeCore
 
 final class EditorSetHostingController: UIHostingController<EditorSetView> {

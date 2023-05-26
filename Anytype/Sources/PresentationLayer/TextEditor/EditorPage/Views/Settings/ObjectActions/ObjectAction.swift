@@ -1,4 +1,4 @@
-import BlocksModels
+import Services
 import AnytypeCore
 
 enum ObjectAction: Hashable, Identifiable {
@@ -29,7 +29,9 @@ enum ObjectAction: Hashable, Identifiable {
             allCases.append(.duplicate)
         }
 
-        if details.objectType.id != ObjectTypeId.bundled(.set).rawValue {
+        if details.objectType.id != ObjectTypeId.bundled(.set).rawValue &&
+            details.objectType.id != ObjectTypeId.bundled(.collection).rawValue
+        {
             allCases.append(.undoRedo)
             allCases.append(.linkItself)
             allCases.append(.locked(isLocked: isLocked))

@@ -4,7 +4,7 @@
 
 # Middleware
 
-Lib.xcframework/
+Dependencies/Middleware/*
 
 # MacOS
 .DS_Store

@@ -1,4 +1,4 @@
-import BlocksModels
+import Services
 
 struct SubscriptionTogglerResult {
     let records: [ObjectDetails]

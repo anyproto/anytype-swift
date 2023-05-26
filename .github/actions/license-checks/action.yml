@@ -1,0 +1,19 @@
+name: License Checks
+runs:
+  using: "composite"
+  steps:
+    - name: Setup license repository
+      uses: actions/checkout@master
+      with:
+        repository: anytypeio/open
+        ref: refs/heads/main
+        path: ./build/open
+
+    - name: Test license checks
+      shell: bash
+      run: |
+        cd ./build/open
+        python3 tools/generate.py --platform ios
+        cd ../..
+        bundle exec license_finder inherited_decisions add build/open/decisions.yml
+        bundle exec fastlane check_lisence

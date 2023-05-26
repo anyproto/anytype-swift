@@ -1,5 +1,5 @@
 import ProtobufMessages
-import BlocksModels
+import Services
 
 extension Anytype_Model_Block.Content.Div {
     var blockContent: BlockContent? {
@@ -9,6 +9,8 @@ extension Anytype_Model_Block.Content.Div {
 
 extension BlockDivider {
     var asMiddleware: Anytype_Model_Block.OneOf_Content {
-        .div(.init(style: style.asMiddleware))
+        .div(.with {
+            $0.style = style.asMiddleware
+        })
     }
 }

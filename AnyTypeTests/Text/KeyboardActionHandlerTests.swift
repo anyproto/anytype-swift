@@ -1,6 +1,6 @@
 import XCTest
 @testable import Anytype
-@testable import BlocksModels
+@testable import Services
 @testable import AnytypeCore
 
 class KeyboardActionHandlerTests: XCTestCase {
@@ -16,6 +16,7 @@ class KeyboardActionHandlerTests: XCTestCase {
         listService = BlockListServiceMock()
         infoContainer = InfoContainerMock()
         handler = KeyboardActionHandler(
+            documentId: "",
             service: service,
             listService: listService,
             toggleStorage: toggleStorage,

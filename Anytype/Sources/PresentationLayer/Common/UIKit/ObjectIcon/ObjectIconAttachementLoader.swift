@@ -72,6 +72,8 @@ extension ObjectIconAttachementLoader {
                     backgroundColor: model.usecase.profileBackgroundColor
                 )
                 setImage(image: image, processor: customProcessor)
+            case .gradient(let gradientId):
+                gradientIcon(gradientId: gradientId, model: model)
             }
         case .emoji(let iconEmoji):
             let image = stringIconImage(
@@ -81,6 +83,8 @@ extension ObjectIconAttachementLoader {
                 backgroundColor: model.usecase.emojiBackgroundColor
             )
             setImage(image: image, processor: customProcessor)
+        case .space(let space):
+            spaceIcon(space: space, model: model)
         }
     }
     
@@ -136,4 +140,17 @@ extension ObjectIconAttachementLoader {
         attachement?.image = processor.process(item: .image(image), options: .init(nil))
     }
     
+    private func gradientIcon(gradientId: GradientId, model: ObjectIconImageModel) {
+        Task { @MainActor in
+            let image = await painter.gradientImage(gradientId: gradientId, model: model)
+            attachement?.image = image
+        }
+    }
+    
+    private func spaceIcon(space: ObjectIconType.Space, model: ObjectIconImageModel) {
+        Task { @MainActor in
+            let image = await painter.spaceImage(space: space, model: model)
+            attachement?.image = image
+        }
+    }
 }

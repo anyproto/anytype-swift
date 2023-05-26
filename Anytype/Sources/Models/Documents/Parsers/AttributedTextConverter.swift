@@ -1,4 +1,4 @@
-import BlocksModels
+import Services
 import UIKit
 import ProtobufMessages
 import AnytypeCore
@@ -132,16 +132,17 @@ enum AttributedTextConverter {
         let middlewareMarks = marksTuples.compactMap { (markup, ranges) -> [Anytype_Model_Block.Content.Text.Mark]? in
 
             ranges.map { range in
-                let middleRange = Anytype_Model_Range(from: Int32(range.lowerBound), to: Int32(range.upperBound))
-                return Anytype_Model_Block.Content.Text.Mark(
-                    range: middleRange,
-                    type: markup.attribute,
-                    param: markup.value
-                )
+                return Anytype_Model_Block.Content.Text.Mark.with {
+                    $0.range = range.asMiddleware
+                    $0.type = markup.attribute
+                    $0.param = markup.value
+                }
             }
         }.flatMap { $0 }
         
-        let wholeMarks = Anytype_Model_Block.Content.Text.Marks(marks: middlewareMarks)
+        let wholeMarks = Anytype_Model_Block.Content.Text.Marks.with {
+            $0.marks = middlewareMarks
+        }
         return MiddlewareString(text: wholeText, marks: wholeMarks)
     }
     

@@ -1,4 +1,4 @@
-import BlocksModels
+import Services
 
 struct FileBlockRestrictions: BlockRestrictions {
     let canApplyBold = false

@@ -1,4 +1,4 @@
-import BlocksModels
+import Services
 import AnytypeCore
 
 struct BlockBookmarkPayload: Hashable, Equatable {
@@ -11,10 +11,6 @@ struct BlockBookmarkPayload: Hashable, Equatable {
 }
 
 extension BlockBookmarkPayload {
-    
-    private enum Constants {
-        static let pictureRelationKey = "picture"
-    }
     
     init(bookmarkData: BlockBookmark, objectDetails: ObjectDetails?) {
         self = objectDetails.map { BlockBookmarkPayload(objectDetails: $0) }

@@ -1,5 +1,5 @@
 import Foundation
-import BlocksModels
+import Services
 
 extension RelationDetails {
     var isSystem: Bool {

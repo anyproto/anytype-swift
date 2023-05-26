@@ -1,5 +1,5 @@
 import Combine
-import BlocksModels
+import Services
 
 final class SetSortsSearchViewModel {
     

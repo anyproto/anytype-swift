@@ -1,17 +1,17 @@
 import SwiftUI
 
-struct KanbanDragAndDropConfiguration {
+struct SetDragAndDropConfiguration {
     let groupId: String
     let configurationId: String?
 }
 
-protocol KanbanDragAndDropDelegate {
-    func onDrag(from: KanbanDragAndDropConfiguration, to: KanbanDragAndDropConfiguration)
+protocol SetDragAndDropDelegate {
+    func onDrag(from: SetDragAndDropConfiguration, to: SetDragAndDropConfiguration)
     func onDrop(configurationId: String, fromGroupId: String, toGroupId: String) -> Bool
 }
 
-extension EditorSetViewModel: KanbanDragAndDropDelegate {
-    func onDrag(from: KanbanDragAndDropConfiguration, to: KanbanDragAndDropConfiguration) {
+extension EditorSetViewModel: SetDragAndDropDelegate {
+    func onDrag(from: SetDragAndDropConfiguration, to: SetDragAndDropConfiguration) {
         guard from.configurationId != to.configurationId else {
             return
         }
@@ -69,7 +69,7 @@ extension EditorSetViewModel: KanbanDragAndDropDelegate {
             return
         }
 
-        withAnimation(.spring()) {
+        withAnimation(.slowIteractiveSpring) {
             let dropAfter = toIndex > fromIndex
             configurations.move(
                 fromOffsets: IndexSet(integer: fromIndex),
@@ -79,7 +79,7 @@ extension EditorSetViewModel: KanbanDragAndDropDelegate {
         }
     }
     
-    private func swipeItemsInDifferentColumns(from: KanbanDragAndDropConfiguration, to: KanbanDragAndDropConfiguration) {
+    private func swipeItemsInDifferentColumns(from: SetDragAndDropConfiguration, to: SetDragAndDropConfiguration) {
         guard var fromConfigurations = configurationsDict[from.groupId],
               var toConfigurations = configurationsDict[to.groupId],
               let fromConfigurationId = from.configurationId,
@@ -92,7 +92,7 @@ extension EditorSetViewModel: KanbanDragAndDropDelegate {
             toIndex = toConfigurations.index(id: toConfigurationId) ?? 0
         }
 
-        withAnimation(.spring()) {
+        withAnimation(.slowIteractiveSpring) {
             let fromConfiguration = fromConfigurations[fromIndex]
             fromConfigurations.remove(at: fromIndex)
 

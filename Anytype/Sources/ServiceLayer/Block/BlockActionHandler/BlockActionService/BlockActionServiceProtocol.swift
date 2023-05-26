@@ -1,11 +1,11 @@
-import BlocksModels
+import Services
 import UIKit
 import ProtobufMessages
 import AnytypeCore
 
 protocol BlockActionServiceProtocol {
 
-    func upload(blockId: BlockId, filePath: String)
+    func upload(blockId: BlockId, filePath: String) async throws
     
     func turnInto(_ style: BlockText.Style, blockId: BlockId)
     func turnIntoPage(blockId: BlockId) -> BlockId?
@@ -35,12 +35,12 @@ protocol BlockActionServiceProtocol {
     func duplicate(blockId: BlockId)
     
     func setText(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString)
-    @discardableResult
-    func setTextForced(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) -> Bool
+    func setTextForced(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString)
     func merge(secondBlockId: BlockId)
     
     func setObjectTypeId(_ objectTypeId: String)
-    func setObjectSetType() -> BlockId
+    func setObjectSetType() async throws
+    func setObjectCollectionType() async throws
     func createAndFetchBookmark(
         contextID: BlockId,
         targetID: BlockId,

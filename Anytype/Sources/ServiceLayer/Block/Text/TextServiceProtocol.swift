@@ -1,7 +1,7 @@
 import Foundation
 import Combine
 import UIKit
-import BlocksModels
+import Services
 import ProtobufMessages
 
 protocol TextServiceProtocol {
@@ -15,8 +15,7 @@ protocol TextServiceProtocol {
 
     func setText(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString)
 
-    @discardableResult
-    func setTextForced(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) -> Bool
+    func setTextForced(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString)
     func setTextIcon(
         contextId: BlockId,
         blockId: BlockId,

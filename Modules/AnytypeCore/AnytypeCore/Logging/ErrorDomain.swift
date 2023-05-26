@@ -5,6 +5,7 @@ public enum ErrorDomain: String {
     case quickAction
     case userDefaults
     case debug
+    case middlewareEvents
     
     case middlewareConfigurationProvider
     case anytypeImageDownloader
@@ -17,7 +18,6 @@ public enum ErrorDomain: String {
     case fileLoader
     case diskStorage
     case camera
-    case clearCache
     
     case blockBuilder
     case localEventConverter
@@ -80,6 +80,7 @@ public enum ErrorDomain: String {
     case groupsSubscribeService
     case workspaceService
     case blockWidgetService
+    case fileService
     
     case homeView
     case baseDocument
@@ -107,10 +108,11 @@ extension AssertionLogger {
     public func log(
         _ message: String,
         domain: ErrorDomain,
+        info: [String: String] = [:],
         file: String = #file,
         function: String = #function,
         line: UInt = #line
     ) {
-        log(message, domain: domain.rawValue, file: file, function: function, line: line)
+        log(message, domain: domain.rawValue, info: info, file: file, function: function, line: line)
     }
 }

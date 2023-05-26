@@ -9,7 +9,9 @@ struct FileSizeConverter {
        return formatter
     }()
     
-    static func convert(size: Int) -> String {
-        self.formatter.string(fromByteCount: Int64(size))
+    private init() {}
+    
+    static func convert(size: Int64) -> String {
+        self.formatter.string(fromByteCount: size)
     }
 }

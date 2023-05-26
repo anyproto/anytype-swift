@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import BlocksModels
+import Services
 
 struct ObjectPreviewView: View {
     @ObservedObject var viewModel: ObjectPreviewViewModel

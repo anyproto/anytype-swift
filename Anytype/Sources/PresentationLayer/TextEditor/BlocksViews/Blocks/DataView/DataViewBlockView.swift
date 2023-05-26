@@ -1,6 +1,6 @@
 import Combine
 import UIKit
-import BlocksModels
+import Services
 import AnytypeCore
 
 final class DataViewBlockView: UIView, BlockContentView {
@@ -15,7 +15,6 @@ final class DataViewBlockView: UIView, BlockContentView {
     private let subtitleLabel: AnytypeLabel = {
         let subtitleLabel = AnytypeLabel(style: .relation3Regular)
         subtitleLabel.textColor = .Text.secondary
-        subtitleLabel.setText(Loc.Content.DataView.InlineSet.subtitle)
         return subtitleLabel
     }()
     
@@ -68,7 +67,7 @@ final class DataViewBlockView: UIView, BlockContentView {
             titleLabel.setText(title)
             titleLabel.textColor = .Text.primary
         } else {
-            titleLabel.setText(Loc.Content.DataView.InlineSet.untitled)
+            titleLabel.setText(configuration.content.placeholder)
             titleLabel.textColor = .Text.tertiary
         }
         if let badgeTitle = configuration.content.badgeTitle, badgeTitle.isNotEmpty {
@@ -78,6 +77,8 @@ final class DataViewBlockView: UIView, BlockContentView {
         } else {
             badgeContainerView.isHidden = true
         }
+        
+        subtitleLabel.setText(configuration.content.subtitle)
     }
 
     private func setup() {

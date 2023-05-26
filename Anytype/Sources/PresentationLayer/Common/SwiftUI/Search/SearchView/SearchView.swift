@@ -1,11 +1,10 @@
 import SwiftUI
-import BlocksModels
+import Services
 
 struct SearchView<SearchViewModel: SearchViewModelProtocol>: View {
     @Environment(\.presentationMode) var presentationMode
 
     let title: String?
-    let context: AnalyticsEventsSearchContext
 
     @State private var searchText = ""
     @StateObject var viewModel: SearchViewModel
@@ -20,8 +19,6 @@ struct SearchView<SearchViewModel: SearchViewModelProtocol>: View {
         .background(Color.Background.secondary)
         .onChange(of: searchText) {
             search(text: $0)
-
-            AnytypeAnalytics.instance().logSearchQuery(context, length: searchText.count)
         }
         .onAppear { search(text: searchText) }
     }
@@ -41,14 +38,12 @@ struct SearchView<SearchViewModel: SearchViewModelProtocol>: View {
             LazyVStack(spacing: 0) {
                 ForEach(viewModel.searchData) { section in
                     Section(content: {
-                        ForEach(Array(section.searchData.enumerated()), id:\.offset) { index, searchData in
+                        ForEach(section.searchData) { searchData in
                             Button(
                                 action: {
                                     presentationMode.wrappedValue.dismiss()
                                     viewModel.onDismiss()
                                     viewModel.onSelect(searchData)
-
-                                    AnytypeAnalytics.instance().logSearchResult(index: index + 1, length: searchText.count)
                                 }
                             ) {
                                 SearchCell(data: searchData)
@@ -100,7 +95,6 @@ struct HomeSearchView_Previews: PreviewProvider {
     static var previews: some View {
         SearchView(
             title: "FOoo",
-            context: .general,
             viewModel: ObjectSearchViewModel(searchService: DI.preview.serviceLocator.searchService()) { _ in }
         )
     }

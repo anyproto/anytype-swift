@@ -1,5 +1,5 @@
 import UIKit
-import BlocksModels
+import Services
 
 struct BlockIndentationSettings: Equatable {
     let color: UIColor?

@@ -41,7 +41,7 @@ struct WaitingView: View {
                     .padding(.horizontal)
                 Spacer.fixedHeight(19)
                 if showError {
-                    StandardButton(disabled: false, text: "Dismiss", style: .secondary) {
+                    StandardButton("Dismiss", style: .secondaryLarge) {
                         presentationMode.wrappedValue.dismiss()
                         onErrorTap()
                     }

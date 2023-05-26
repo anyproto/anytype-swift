@@ -1,5 +1,5 @@
 import UIKit
-import BlocksModels
+import Services
 
 enum TextBlockLayout {
     static func contentInset(textBlockStyle: BlockText.Style) -> NSDirectionalEdgeInsets {

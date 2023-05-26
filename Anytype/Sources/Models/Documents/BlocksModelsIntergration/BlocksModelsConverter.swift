@@ -1,5 +1,5 @@
 import ProtobufMessages
-import BlocksModels
+import Services
 import AnytypeCore
 
 enum BlocksModelsConverter {
@@ -55,7 +55,7 @@ enum BlocksModelsConverter {
         case .table:
             return .table(Anytype_Model_Block.Content.Table())
         case .tableRow(let data):
-            return .tableRow(.init(isHeader: data.isHeader))
+            return .tableRow(.with { $0.isHeader = data.isHeader })
         case .tableColumn:
             return .tableColumn(.init())
         case .widget:

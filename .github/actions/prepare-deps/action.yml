@@ -1,0 +1,12 @@
+name: Prepare deps
+runs:
+  using: "composite"
+  steps:
+    - if: runner.arch != 'arm64'
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 2.7.2
+        bundler-cache: true
+    - if: runner.arch == 'arm64'
+      shell: bash
+      run: rbenv global 2.7.2 && bundle install

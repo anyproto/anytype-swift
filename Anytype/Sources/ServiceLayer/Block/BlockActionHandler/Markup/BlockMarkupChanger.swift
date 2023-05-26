@@ -1,5 +1,5 @@
 import AnytypeCore
-import BlocksModels
+import Services
 import Foundation
 
 final class BlockMarkupChanger: BlockMarkupChangerProtocol {

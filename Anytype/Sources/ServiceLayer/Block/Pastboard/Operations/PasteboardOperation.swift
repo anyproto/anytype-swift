@@ -52,7 +52,9 @@ final class PasteboardOperation: AsyncOperation {
 
     private func performPaste(context: PasteboardActionContext, completion: @escaping (_ result: PasteboardPasteResult?) -> Void) {
         guard pasteboardHelper.hasSlots else { return completion(nil) }
-
+        
+        AnytypeAnalytics.instance().logPasteBlock()
+        
         // Find first item to paste with follow order anySlots (blocks slots), htmlSlot, textSlot, filesSlots
         // blocks slots
         if let blocksSlots = pasteboardHelper.obtainBlocksSlots() {

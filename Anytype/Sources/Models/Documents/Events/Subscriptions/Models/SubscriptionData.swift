@@ -1,5 +1,5 @@
 import Foundation
-import BlocksModels
+import Services
 
 enum SubscriptionData {
     
@@ -36,9 +36,10 @@ extension SubscriptionData {
         let keys: [String]
         let afterID: String?
         let beforeID: String?
-        let source: [String]
+        let source: [String]?
         let ignoreWorkspace: String?
         let noDepSubscription: Bool
+        let collectionId: String?
         
         init(
             identifier: SubscriptionId,
@@ -49,9 +50,10 @@ extension SubscriptionData {
             keys: [String],
             afterID: String? = nil,
             beforeID: String? = nil,
-            source: [String] = [],
+            source: [String]? = nil,
             ignoreWorkspace: String? = nil,
-            noDepSubscription: Bool = false
+            noDepSubscription: Bool = false,
+            collectionId: String? = nil
         ) {
             self.identifier = identifier
             self.sorts = sorts
@@ -64,6 +66,7 @@ extension SubscriptionData {
             self.source = source
             self.ignoreWorkspace = ignoreWorkspace
             self.noDepSubscription = noDepSubscription
+            self.collectionId = collectionId
         }
     }
 

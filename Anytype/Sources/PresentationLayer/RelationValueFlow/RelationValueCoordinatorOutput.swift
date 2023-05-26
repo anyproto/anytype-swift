@@ -1,5 +1,5 @@
 import Foundation
-import BlocksModels
+import Services
 
 protocol RelationValueCoordinatorOutput: AnyObject {
     func openObject(pageId: BlockId, viewType: EditorViewType)

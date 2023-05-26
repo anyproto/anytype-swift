@@ -1,4 +1,4 @@
-import BlocksModels
+import Services
 import Combine
 import AnytypeCore
 import NotificationCenter
@@ -36,7 +36,8 @@ final class GroupsSubscriptionsHandler: GroupsSubscriptionsHandlerProtocol {
             id: data.identifier,
             relationKey: data.relationKey,
             filters: data.filters,
-            source: data.source
+            source: data.source,
+            collectionId: data.collectionId
         ).groups
     }
     

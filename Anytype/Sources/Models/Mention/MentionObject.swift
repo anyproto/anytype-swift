@@ -1,4 +1,4 @@
-import BlocksModels
+import Services
 import AnytypeCore
 
 struct MentionObject {
@@ -25,7 +25,7 @@ struct MentionObject {
     init(details: ObjectDetails) {
         self.init(
             id: details.id,
-            objectIcon: details.objectIcon,
+            objectIcon: details.objectIconImageWithPlaceholder,
             name: details.mentionTitle,
             description: details.description,
             type: details.objectType
@@ -45,14 +45,3 @@ extension MentionObject: Hashable {
     
 }
 
-private extension ObjectDetails {
-    
-    var objectIcon: ObjectIconImage {
-        if let objectIcon = objectIconImage {
-            return objectIcon
-        }
-        
-        return .placeholder(title.first)
-    }
-    
-}

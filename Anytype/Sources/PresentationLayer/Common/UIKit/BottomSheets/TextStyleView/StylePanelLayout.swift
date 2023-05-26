@@ -23,7 +23,7 @@ final class StylePanelLayout: FloatingPanelLayout {
 
     var anchors: [FloatingPanelState: FloatingPanelLayoutAnchoring] {
         return [
-            .full: FloatingPanelAdaptiveLayoutAnchor(absoluteOffset: 0, contentLayout: layoutGuide),
+            .full: FloatingPanelAdaptiveLayoutAnchor(absoluteOffset: 0, contentLayout: layoutGuide, referenceGuide: .safeArea),
         ]
     }
 }

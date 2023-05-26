@@ -1,6 +1,6 @@
 import Foundation
 import UIKit
-import BlocksModels
+import Services
 
 protocol CodeLanguageListModuleAssemblyProtocol {
     func make(document: BaseDocumentProtocol, blockId: BlockId) -> UIViewController
@@ -20,7 +20,7 @@ final class CodeLanguageListModuleAssembly: CodeLanguageListModuleAssemblyProtoc
         let viewModel = CodeLanguageListViewModel(
             document: document,
             blockId: blockId,
-            blockListService: serviceLocator.blockListService(documentId: document.objectId)
+            blockListService: serviceLocator.blockListService()
         )
         return CodeLanguageListViewController(viewModel: viewModel)
     }

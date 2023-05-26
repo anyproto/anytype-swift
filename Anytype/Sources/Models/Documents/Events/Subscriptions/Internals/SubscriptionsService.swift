@@ -1,4 +1,4 @@
-import BlocksModels
+import Services
 import Combine
 import AnytypeCore
 import NotificationCenter
@@ -15,6 +15,7 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
     private let storage: ObjectDetailsStorage
     
     private var subscribers = [SubscriptionId: Subscriber]()
+    private var stopTask: Task<Void, Never>?
     
     init(toggler: SubscriptionTogglerProtocol, storage: ObjectDetailsStorage) {
         self.toggler = toggler
@@ -24,22 +25,34 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
     }
     
     deinit {
-        stopAllSubscriptions()
+        let ids = Array(subscribers.keys)
+        guard ids.isNotEmpty else { return }
+        Task { [ids, toggler] in
+            try? await toggler.stopSubscriptions(ids: ids)
+        }
     }
     
     func stopAllSubscriptions() {
-        subscribers.keys.forEach { stopSubscription(id: $0) }
+        let ids = Array(subscribers.keys)
+        stopSubscriptions(ids: ids)
     }
     
     func stopSubscriptions(ids: [SubscriptionId]) {
-        ids.forEach { stopSubscription(id: $0) }
+        let idsToDelete = subscribers.keys.filter { ids.contains($0) }
+        guard idsToDelete.isNotEmpty else { return }
+        
+        let oldStopTask = stopTask
+        stopTask = Task {
+            await oldStopTask?.value
+            try? await toggler.stopSubscriptions(ids: idsToDelete)
+            for id in idsToDelete {
+                subscribers[id] = nil
+            }
+        }
     }
     
     func stopSubscription(id: SubscriptionId) {
-        guard subscribers[id].isNotNil else { return }
-
-        _ = toggler.stopSubscription(id: id)
-        subscribers[id] = nil
+        stopSubscriptions(ids: [id])
     }
     
     func startSubscriptions(data: [SubscriptionData], update: @escaping SubscriptionCallback) {
@@ -47,20 +60,25 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
     }
     
     func startSubscription(data: SubscriptionData, update: @escaping SubscriptionCallback) {
-        guard subscribers[data.identifier].isNil else {
-            anytypeAssertionFailure("Subscription: \(data) started on second time", domain: .subscriptionStorage)
-            return
+        Task { @MainActor in
+            await startSubscriptionAsync(data: data, update: update)
         }
+    }
+    
+    func startSubscriptionAsync(data: SubscriptionData, update: @escaping SubscriptionCallback) async {
+        await stopTask?.value
+        
+        guard let result = try? await toggler.startSubscription(data: data) else { return }
         
         subscribers[data.identifier] = Subscriber(data: data, callback: update)
-        
-        guard let result = toggler.startSubscription(data: data) else { return }
         
         result.records.forEach { storage.amend(details: $0) }
         result.dependencies.forEach { storage.amend(details: $0) }
         
-        update(data.identifier, .initialData(result.records))
-        update(data.identifier, .pageCount(numberOfPagesFromTotalCount(result.count, numberOfRowsPerPage: data.rowsPerPage)))
+        await MainActor.run {
+            update(data.identifier, .initialData(result.records))
+            update(data.identifier, .pageCount(numberOfPagesFromTotalCount(result.count, numberOfRowsPerPage: data.rowsPerPage)))
+        }
     }
     
     func hasSubscriptionDataDiff(with data: SubscriptionData) -> Bool {
@@ -126,10 +144,8 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
                     )),
                     subId: data.subID
                 )
-            case .accountConfigUpdate, .accountUpdate, .accountDetails, .accountShow, .subscriptionGroups:
-                break
             default:
-                anytypeAssertionFailure("Unsupported event \(event)", domain: .subscriptionStorage)
+                break
             }
         }
     }

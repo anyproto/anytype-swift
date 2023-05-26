@@ -1,4 +1,4 @@
 "NSFaceIDUsageDescription" = "To login via Face ID";
-"NSCameraUsageDescription" = "To read qr code";
+"NSCameraUsageDescription" = "We need access to your camera to scan QR code for a secure and convenient login to your account";
 "NSLocalNetworkUsageDescription" = "To connect with other Anytype devices";
 "NSPhotoLibraryAddUsageDescription" = "To save selected image to your library";

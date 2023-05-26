@@ -1,5 +1,5 @@
 import Foundation
-import BlocksModels
+import Services
 import UIKit
 
 protocol RelationValueModuleAssemblyProtocol: AnyObject {
@@ -7,6 +7,7 @@ protocol RelationValueModuleAssemblyProtocol: AnyObject {
     func make(
         objectId: BlockId,
         relation: Relation,
+        analyticsType: AnalyticsEventsRelationType,
         delegate: TextRelationActionButtonViewModelDelegate,
         output: RelationValueViewModelOutput
     ) -> UIViewController?

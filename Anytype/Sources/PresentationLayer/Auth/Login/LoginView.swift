@@ -25,6 +25,15 @@ struct LoginView: View {
         .onAppear {
             AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.loginScreenShow)
         }
+        .if(UIDevice.isPad, if: {
+            $0.sheet(isPresented: $viewModel.showMigrationGuide) {
+                viewModel.migrationGuideFlow()
+            }
+         }, else: {
+            $0.fullScreenCover(isPresented: $viewModel.showMigrationGuide) {
+                viewModel.migrationGuideFlow()
+            }
+         })
     }
     
     private var bottomSheet: some View {
@@ -56,13 +65,14 @@ struct LoginView: View {
     
     private var buttons: some View {
         HStack(spacing: 12) {
-            StandardButton(text: Loc.back, style: .secondary) {
+            StandardButton(Loc.back, style: .secondaryLarge) {
                 self.presentationMode.wrappedValue.dismiss()
             }
 
-            StandardButton(disabled: viewModel.seed.isEmpty, text: Loc.login, style: .primary) {
+            StandardButton(Loc.login, style: .primaryLarge) {
                 self.viewModel.recoverWallet()
             }
+            .disabled(viewModel.seed.isEmpty)
         }
     }
     
@@ -75,7 +85,9 @@ struct LoginView: View {
                     .padding(.top, 17)
             }
             
-            AutofocusedTextEditor(text: $viewModel.seed).lineLimit(3)
+            TextEditor(text: $viewModel.seed)
+                .focusedLefacy($viewModel.focusOnTextField)
+                .lineLimit(3)
                 .font(AnytypeFontBuilder.font(anytypeFont: .codeBlock))
                 .lineSpacing(AnytypeFont.codeBlock.lineSpacing)
                 .foregroundColor(.Text.primary)
@@ -136,6 +148,6 @@ struct LoginView: View {
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView(viewModel: LoginViewModel(windowManager: DI.preview.coordinatorsDI.windowManager()))
+        LoginView(viewModel: LoginViewModel(applicationStateService: DI.preview.serviceLocator.applicationStateService()))
     }
 }

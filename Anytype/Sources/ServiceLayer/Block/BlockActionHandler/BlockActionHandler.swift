@@ -1,5 +1,5 @@
 import UIKit
-import BlocksModels
+import Services
 import Combine
 import AnytypeCore
 import ProtobufMessages
@@ -13,8 +13,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     private let markupChanger: BlockMarkupChangerProtocol
     private let keyboardHandler: KeyboardActionHandlerProtocol
     private let blockTableService: BlockTableServiceProtocol
-    
-    private let fileUploadingDemon = MediaFileUploadingDemon.shared
+    private let fileService: FileActionsServiceProtocol
     
     init(
         document: BaseDocumentProtocol,
@@ -22,7 +21,8 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         service: BlockActionServiceProtocol,
         listService: BlockListServiceProtocol,
         keyboardHandler: KeyboardActionHandlerProtocol,
-        blockTableService: BlockTableServiceProtocol
+        blockTableService: BlockTableServiceProtocol,
+        fileService: FileActionsServiceProtocol
     ) {
         self.document = document
         self.markupChanger = markupChanger
@@ -30,6 +30,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         self.listService = listService
         self.keyboardHandler = keyboardHandler
         self.blockTableService = blockTableService
+        self.fileService = fileService
     }
 
     // MARK: - Service proxy
@@ -42,20 +43,24 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         service.turnInto(style, blockId: blockId)
     }
     
-    func upload(blockId: BlockId, filePath: String) {
-        service.upload(blockId: blockId, filePath: filePath)
+    func upload(blockId: BlockId, filePath: String) async throws {
+        try await service.upload(blockId: blockId, filePath: filePath)
     }
     
     func setObjectTypeId(_ objectTypeId: String) {
         service.setObjectTypeId(objectTypeId)
     }
 
-    func setObjectSetType() -> BlockId {
-        service.setObjectSetType()
+    func setObjectSetType() async throws {
+        try await service.setObjectSetType()
+    }
+    
+    func setObjectCollectionType() async throws {
+        try await service.setObjectCollectionType()
     }
     
     func setTextColor(_ color: BlockColor, blockIds: [BlockId]) {
-        listService.setBlockColor(blockIds: blockIds, color: color.middleware)
+        listService.setBlockColor(objectId: document.objectId, blockIds: blockIds, color: color.middleware)
     }
     
     func setBackgroundColor(_ color: BlockBackgroundColor, blockIds: [BlockId]) {
@@ -80,7 +85,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     }
     
     func setAlignment(_ alignment: LayoutAlignment, blockIds: [BlockId]) {
-        listService.setAlign(blockIds: blockIds, alignment: alignment)
+        listService.setAlign(objectId: document.objectId, blockIds: blockIds, alignment: alignment)
     }
     
     func delete(blockIds: [BlockId]) {
@@ -88,7 +93,8 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     }
     
     func moveToPage(blockId: BlockId, pageId: BlockId) {
-        listService.moveToPage(blockId: blockId, pageId: pageId)
+        AnytypeAnalytics.instance().logMoveBlock()
+        listService.moveToPage(objectId: document.objectId, blockId: blockId, pageId: pageId)
     }
     
     func createEmptyBlock(parentId: BlockId) {
@@ -105,7 +111,8 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     }
     
     func changeMarkup(blockIds: [BlockId], markType: MarkupType) {
-        listService.changeMarkup(blockIds: blockIds, markType: markType)
+        AnytypeAnalytics.instance().logChangeBlockStyle(markType)
+        listService.changeMarkup(objectId: document.objectId, blockIds: blockIds, markType: markType)
     }
     
     // MARK: - Markup changer proxy
@@ -118,7 +125,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     func changeTextStyle(_ attribute: MarkupType, range: NSRange, blockId: BlockId) {
         guard let newText = markupChanger.toggleMarkup(attribute, blockId: blockId, range: range) else { return }
 
-        AnytypeAnalytics.instance().logSetMarkup(attribute)
+        AnytypeAnalytics.instance().logChangeTextStyle(attribute)
 
         changeTextForced(newText, blockId: blockId)
     }
@@ -127,15 +134,15 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         guard let newText = markupChanger.setMarkup(attribute, blockId: blockId, range: range, currentText: currentText)
             else { return }
 
-        AnytypeAnalytics.instance().logSetMarkup(attribute)
+        AnytypeAnalytics.instance().logChangeTextStyle(attribute)
 
         changeTextForced(newText, blockId: blockId)
     }
     
     func setLink(url: URL?, range: NSRange, blockId: BlockId) {
         let newText: NSAttributedString?
+        AnytypeAnalytics.instance().logChangeTextStyle(MarkupType.link(url))
         if let url = url {
-            AnytypeAnalytics.instance().logSetMarkup(MarkupType.link(url))
             newText = markupChanger.setMarkup(.link(url), blockId: blockId, range: range)
         } else {
             newText = markupChanger.removeMarkup(.link(nil), blockId: blockId, range: range)
@@ -147,8 +154,8 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     
     func setLinkToObject(linkBlockId: BlockId?, range: NSRange, blockId: BlockId) {
         let newText: NSAttributedString?
+        AnytypeAnalytics.instance().logChangeTextStyle(MarkupType.linkToObject(linkBlockId))
         if let linkBlockId = linkBlockId {
-            AnytypeAnalytics.instance().logSetMarkup(MarkupType.linkToObject(blockId))
             newText = markupChanger.setMarkup(.linkToObject(linkBlockId), blockId: blockId, range: range)
         } else {
             newText = markupChanger.removeMarkup(.linkToObject(nil), blockId: blockId, range: range)
@@ -195,21 +202,15 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     }
     
     // MARK: - Public methods
-    func uploadMediaFile(uploadingSource: MediaFileUploadingSource, type: MediaPickerContentType, blockId: BlockId) {
+    func uploadMediaFile(uploadingSource: FileUploadingSource, type: MediaPickerContentType, blockId: BlockId) {
         EventsBunch(
             contextId: document.objectId,
             localEvents: [.setLoadingState(blockId: blockId)]
         ).send()
         
-        let operation = MediaFileUploadingOperation(
-            uploadingSource: uploadingSource,
-            worker: BlockMediaUploadingWorker(
-                objectId: document.objectId,
-                blockId: blockId,
-                contentType: type
-            )
-        )
-        fileUploadingDemon.addOperation(operation)
+        Task {
+            try await fileService.uploadDataAt(source: uploadingSource, contextID: document.objectId, blockID: blockId)
+        }
 
         AnytypeAnalytics.instance().logUploadMedia(type: type.asFileBlockContentType)
     }
@@ -222,7 +223,9 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
             localEvents: [.setLoadingState(blockId: blockId)]
         ).send()
         
-        upload(blockId: blockId, filePath: localPath)
+        Task {
+            try await upload(blockId: blockId, filePath: localPath)
+        }
     }
     
     func createPage(targetId: BlockId, type: ObjectTypeId) -> BlockId? {
@@ -293,6 +296,6 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     }
 
     func setAppearance(blockId: BlockId, appearance: BlockLink.Appearance) {
-        listService.setLinkAppearance(blockIds: [blockId], appearance: appearance)
+        listService.setLinkAppearance(objectId: document.objectId, blockIds: [blockId], appearance: appearance)
     }
 }

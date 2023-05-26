@@ -13,4 +13,18 @@ extension Color {
         )
     }
     
+    
+    init(light: Color, dark: Color) {
+        let color = UIColor(dynamicProvider: {
+            switch $0.userInterfaceStyle {
+            case .light, .unspecified:
+                return UIColor(light)
+            case .dark:
+                return UIColor(dark)
+            @unknown default:
+                return UIColor(light)
+            }
+        })
+        self.init(color)
+    }
 }

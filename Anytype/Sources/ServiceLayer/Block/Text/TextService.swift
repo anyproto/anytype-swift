@@ -1,47 +1,39 @@
 import Foundation
 import ProtobufMessages
-import BlocksModels
+import Services
 import AnytypeCore
 
 final class TextService: TextServiceProtocol {    
     func setText(contextId: String, blockId: String, middlewareString: MiddlewareString) {
-        Anytype_Rpc.BlockText.SetText.Service.invoke(
-            contextID: contextId,
-            blockID: blockId,
-            text: middlewareString.text,
-            marks: middlewareString.marks
-        )
-            .map { EventsBunch(event: $0.event) }
-            .getValue(domain: .textService)?
-            .send()
+        _ = try? ClientCommands.blockTextSetText(.with {
+            $0.contextID = contextId
+            $0.blockID = blockId
+            $0.text = middlewareString.text
+            $0.marks = middlewareString.marks
+        }).invoke(errorDomain: .textService)
     }
 
-    @discardableResult
-    func setTextForced(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) -> Bool {
-        let event = Anytype_Rpc.BlockText.SetText.Service
-            .invoke(contextID: contextId, blockID: blockId, text: middlewareString.text, marks: middlewareString.marks)
-            .map { EventsBunch(event: $0.event) }
-            .getValue(domain: .textService)
-        guard let event = event else {
-            return false
-        }
-
-        event.send()
-        return true
+    func setTextForced(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) {
+        _ = try? ClientCommands.blockTextSetText(.with {
+            $0.contextID = contextId
+            $0.blockID = blockId
+            $0.text = middlewareString.text
+            $0.marks = middlewareString.marks
+        }).invoke(errorDomain: .textService)
     }
     
     func setStyle(contextId: BlockId, blockId: BlockId, style: Style) {
-        AnytypeAnalytics.instance().logSetStyle(style)
-        let event = Anytype_Rpc.BlockText.SetStyle.Service
-            .invoke(contextID: contextId, blockID: blockId, style: style.asMiddleware)
-            .map { EventsBunch(event: $0.event) }
-            .getValue(domain: .textService)
-
+        AnytypeAnalytics.instance().logChangeBlockStyle(style)
+        
+        _ = try? ClientCommands.blockTextSetStyle(.with {
+            $0.contextID = contextId
+            $0.blockID = blockId
+            $0.style = style.asMiddleware
+        }).invoke(errorDomain: .textService)
+        
         EventsBunch(
             contextId: contextId,
-            middlewareEvents: event?.middlewareEvents ?? [],
-            localEvents: [.setStyle(blockId: blockId)],
-            dataSourceEvents: []
+            localEvents: [.setStyle(blockId: blockId)]
         ).send()
     }
     
@@ -49,41 +41,40 @@ final class TextService: TextServiceProtocol {
         let textContentType = BlockContent.text(.empty(contentType: style)).description
         AnytypeAnalytics.instance().logCreateBlock(type: textContentType, style: String(describing: style))
 
-        let response = Anytype_Rpc.Block.Split.Service
-            .invoke(contextID: contextId, blockID: blockId, range: range.asMiddleware, style: style.asMiddleware, mode: mode)
-            .getValue(domain: .textService)
-        
-        guard let response = response else {
-            return nil
-        }
+        let response = try? ClientCommands.blockSplit(.with {
+            $0.contextID = contextId
+            $0.blockID = blockId
+            $0.range = range.asMiddleware
+            $0.style = style.asMiddleware
+            $0.mode = mode
+        }).invoke(errorDomain: .textService)
 
+        guard let response else { return nil }
+        
         EventsBunch(
             contextId: contextId,
-            middlewareEvents: response.event.messages,
-            localEvents: [.general],
-            dataSourceEvents: []
+            localEvents: [.general]
         ).send()
 
         return response.blockID
     }
 
     func merge(contextId: BlockId, firstBlockId: BlockId, secondBlockId: BlockId) -> Bool {
-        let events = Anytype_Rpc.Block.Merge.Service
-            .invoke(contextID: contextId, firstBlockID: firstBlockId, secondBlockID: secondBlockId)
-            .map { EventsBunch(event: $0.event) }
-            .getValue(domain: .textService)
-            
-        guard let events = events else { return false }
-        events.send()
-        return true
+        let response = try? ClientCommands.blockMerge(.with {
+            $0.contextID = contextId
+            $0.firstBlockID = firstBlockId
+            $0.secondBlockID = secondBlockId
+        }).invoke(errorDomain: .textService)
+        
+        return response.isNotNil
     }
     
     func checked(contextId: BlockId, blockId: BlockId, newValue: Bool) {
-        Anytype_Rpc.BlockText.SetChecked.Service
-            .invoke(contextID: contextId, blockID: blockId, checked: newValue)
-            .map { EventsBunch(event: $0.event) }
-            .getValue(domain: .textService)?
-            .send()
+        _ = try? ClientCommands.blockTextSetChecked(.with {
+            $0.contextID = contextId
+            $0.blockID = blockId
+            $0.checked = newValue
+        }).invoke(errorDomain: .textService)
     }
 
     func setTextIcon(
@@ -92,16 +83,12 @@ final class TextService: TextServiceProtocol {
         imageHash: String,
         emojiUnicode: String
     ) {
-        Anytype_Rpc.BlockText.SetIcon.Service.invoke(
-            contextID: contextId,
-            blockID: blockId,
-            iconImage: imageHash,
-            iconEmoji: emojiUnicode
-        )
-            .getValue(domain: .textService)
-            .map(\.event)
-            .map(EventsBunch.init)?
-            .send()
+        _ = try? ClientCommands.blockTextSetIcon(.with {
+            $0.contextID = contextId
+            $0.blockID = blockId
+            $0.iconImage = imageHash
+            $0.iconEmoji = emojiUnicode
+        }).invoke(errorDomain: .textService)
     }
     
 }

@@ -1,12 +1,12 @@
 import Foundation
-import BlocksModels
+import Services
 import Combine
 import AnytypeCore
 
 class SetDocument: SetDocumentProtocol {
     let document: BaseDocumentProtocol
     
-    var objectId: BlocksModels.BlockId {
+    var objectId: Services.BlockId {
         document.objectId
     }
     
@@ -18,6 +18,10 @@ class SetDocument: SetDocumentProtocol {
         } else {
             return document.details
         }
+    }
+    
+    var detailsPublisher: AnyPublisher<ObjectDetails, Never> {
+        document.detailsPublisher
     }
     
     var updatePublisher: AnyPublisher<DocumentUpdate, Never> {
@@ -48,6 +52,10 @@ class SetDocument: SetDocumentProtocol {
         activeView.type == .gallery ||
         activeView.type == .list ||
         (FeatureFlags.setKanbanView && activeView.type == .kanban)
+    }
+    
+    var analyticsType: AnalyticsObjectType {
+        details?.analyticsType ?? .object(typeId: "")
     }
     
     var featuredRelationsForEditor: [Relation] {
@@ -92,12 +100,22 @@ class SetDocument: SetDocumentProtocol {
         self.setup()
     }
     
+    func canStartSubscription() -> Bool {
+        (details?.setOf.isNotEmpty ?? false) || isCollection()
+    }
+    
     func activeViewRelations(excludeRelations: [RelationDetails]) -> [RelationDetails] {
         dataBuilder.activeViewRelations(
             dataViewRelationsDetails: dataViewRelationsDetails,
             view: activeView,
             excludeRelations: excludeRelations
         )
+    }
+    
+    func objectOrderIds(for groupId: String) -> [String] {
+        dataView.objectOrders.first { [weak self] objectOrder in
+            objectOrder.viewID == self?.activeView.id && objectOrder.groupID == groupId
+        }?.objectIds ?? []
     }
     
     func updateActiveViewId(_ id: BlockId) {
@@ -118,19 +136,35 @@ class SetDocument: SetDocumentProtocol {
         }
     }
     
+    func isCollection() -> Bool {
+        details?.isCollection ?? false
+    }
+    
     @MainActor
     func open() async throws {
         try await document.open()
-        updateData()
+    }
+    
+    @MainActor
+    func openForPreview() async throws {
+        try await document.openForPreview()
+    }
+    
+    @MainActor
+    func close() async throws {
+        try await document.close()
+    }
+    
+    @Published private var sync: Void?
+    var syncPublisher: AnyPublisher<Void, Never> {
+        $sync.compactMap { $0 }.eraseToAnyPublisher()
     }
     
     // MARK: - Private
     
     private func setup() {
         document.updatePublisher.sink { [weak self] update in
-            DispatchQueue.main.async {
-                self?.onDocumentUpdate(update)
-            }
+            self?.onDocumentUpdate(update)
         }
         .store(in: &subscriptions)
     }
@@ -151,14 +185,16 @@ class SetDocument: SetDocumentProtocol {
         updateDataViewRelations()
         
         let prevActiveView = activeView
-        activeView = dataView.views.first { $0.id == dataView.activeViewId } ?? .empty
         
         updateActiveViewId()
+        activeView = dataView.views.first { $0.id == dataView.activeViewId } ?? .empty
+        
         updateSorts()
         updateFilters()
         
         let shouldClearState = shouldClearState(prevActiveView: prevActiveView)
         updateSubject.send(.dataviewUpdated(clearState: shouldClearState))
+        sync = ()
     }
     
     private func updateDataViewRelations() {

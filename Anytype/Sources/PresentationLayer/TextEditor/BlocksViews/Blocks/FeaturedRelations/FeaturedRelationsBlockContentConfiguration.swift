@@ -1,5 +1,5 @@
 import UIKit
-import BlocksModels
+import Services
 
 struct FeaturedRelationsBlockContentConfiguration: BlockConfiguration {
     typealias View = FeaturedRelationBlockView

@@ -3,6 +3,7 @@ import SwiftUI
 
 /// Adopt for ios 14
 
+@available(iOS, deprecated: 15)
 enum LegacyMaterial {
     /// A material that's somewhat translucent.
     case regularMaterial
@@ -20,6 +21,7 @@ enum LegacyMaterial {
     case ultraThickMaterial
 }
 
+@available(iOS, deprecated: 15)
 extension View {
     // Replace to .background(.LegacyMaterial) from ios 15
     func backgroundMaterial(_ style: LegacyMaterial) -> some View {
@@ -42,6 +44,7 @@ extension View {
     }
 }
 
+@available(iOS, deprecated: 15)
 enum LegacyVerticalEdge {
     
     /// The top edge.
@@ -59,11 +62,19 @@ enum LegacyVerticalEdge {
             return .bottom
         }
     }
+    
+    func toSystemAlignment() -> Alignment {
+        switch self {
+        case .top:
+            return .top
+        case .bottom:
+            return .bottom
+        }
+    }
 }
 
+@available(iOS, deprecated: 15)
 extension View {
-    
-    // Replace to .safeAreaInset(...) from ios 15
     func safeAreaInsetLegacy<V>(
         edge: LegacyVerticalEdge,
         alignment: HorizontalAlignment = .center,
@@ -78,11 +89,12 @@ extension View {
                 content: content
             ).eraseToAnyView()
         } else {
-            return self.overlay(content(), alignment: .bottom).eraseToAnyView()
+            return self.overlay(content(), alignment: edge.toSystemAlignment()).eraseToAnyView()
         }
     }
 }
 
+@available(iOS, deprecated: 15)
 enum ContentShapeKindsLegacy {
     case interaction
     case dragPreview
@@ -104,10 +116,30 @@ enum ContentShapeKindsLegacy {
     }
 }
 
+@available(iOS, deprecated: 15)
 extension View {
     func contentShapeLegacy<S>(_ kind: ContentShapeKindsLegacy, _ shape: S, eoFill: Bool = false) -> some View where S : Shape {
         if #available(iOS 15.0, *) {
             return self.contentShape(kind.toiOSKind(), shape, eoFill: eoFill)
+        } else {
+            return self
+        }
+    }
+}
+
+@available(iOS, deprecated: 16)
+extension View {
+    func hideScrollIndicatorLegacy() -> some View {
+        if #available(iOS 16.0, *) {
+            return self.scrollIndicators(.never)
+        } else {
+            return self
+        }
+    }
+    
+    func hideKeyboardOnScrollLegacy() -> some View {
+        if #available(iOS 16.0, *) {
+            return self.scrollDismissesKeyboard(.immediately)
         } else {
             return self
         }

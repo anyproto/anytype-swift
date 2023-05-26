@@ -1,5 +1,5 @@
 @testable import Anytype
-import BlocksModels
+import Services
 import Foundation
 import AnytypeCore
 
@@ -68,9 +68,12 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
-    func setObjectSetType() -> BlockId {
+    func setObjectSetType() async throws {
         assertionFailure()
-        return ""
+    }
+    
+    func setObjectCollectionType() async throws {
+        assertionFailure()
     }
     
     func delete(blockIds: [BlockId]) {
@@ -154,7 +157,7 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
-    func setTextStyle(_ attribute: Anytype.MarkupType, range: NSRange, blockId: BlocksModels.BlockId, currentText: NSAttributedString?) {
+    func setTextStyle(_ attribute: Anytype.MarkupType, range: NSRange, blockId: Services.BlockId, currentText: NSAttributedString?) {
         assertionFailure()
     }
     
@@ -190,11 +193,11 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
-    func uploadMediaFile(uploadingSource: Anytype.MediaFileUploadingSource, type: Anytype.MediaPickerContentType, blockId: BlocksModels.BlockId) {
+    func uploadMediaFile(uploadingSource: FileUploadingSource, type: MediaPickerContentType, blockId: BlockId) {
         assertionFailure()
     }
     
-    func changeMarkup(blockIds: [BlocksModels.BlockId], markType: Anytype.MarkupType) {
+    func changeMarkup(blockIds: [Services.BlockId], markType: Anytype.MarkupType) {
         assertionFailure()
     }
 }

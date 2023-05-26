@@ -3,6 +3,11 @@ import UIKit
 
 enum PlaceholderIconImageGuideline {
     
+    static let x96 = ImageGuideline(
+        size: CGSize(width: 96, height: 96),
+        radius: .point(10)
+    )
+    
     static let x48 = ImageGuideline(
         size: CGSize(width: 48, height: 48),
         radius: .point(10)

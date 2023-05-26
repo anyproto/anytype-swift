@@ -1,42 +1,66 @@
 import Foundation
 import SwiftUI
+import Combine
 
 @MainActor
 protocol HomeWidgetsCoordinatorProtocol {
     func startFlow() -> AnyView
+    func flowStarted()
+    func createAndShowNewPage()
 }
 
 @MainActor
 final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsModuleOutput,
                                     CommonWidgetModuleOutput, HomeBottomPanelModuleOutput {
     
-    private let homeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol
-    private let accountManager: AccountManager
-    private let navigationContext: NavigationContextProtocol
-    private let windowManager: WindowManager
-    private let createWidgetCoordinator: CreateWidgetCoordinatorProtocol
-    private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
-    private let editorBrowserAssembly: EditorBrowserAssembly
+    // MARK: - DI
     
-    private weak var browserController: EditorBrowserController?
+    private let homeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol
+    private let accountManager: AccountManagerProtocol
+    private let navigationContext: NavigationContextProtocol
+    private let createWidgetCoordinator: CreateWidgetCoordinatorProtocol
+    private let editorBrowserCoordinator: EditorBrowserCoordinatorProtocol
+    private let searchModuleAssembly: SearchModuleAssemblyProtocol
+    private let settingsCoordinator: SettingsCoordinatorProtocol
+    private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
+    private let dashboardService: DashboardServiceProtocol
+    private let dashboardAlertsAssembly: DashboardAlertsAssemblyProtocol
+    private let quickActionsStorage: QuickActionsStorage
+    private let widgetTypeModuleAssembly: WidgetTypeModuleAssemblyProtocol
+    
+    // MARK: - State
+    
+    private var subscriptions = [AnyCancellable]()
     
     init(
         homeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol,
-        accountManager: AccountManager,
+        accountManager: AccountManagerProtocol,
         navigationContext: NavigationContextProtocol,
-        windowManager: WindowManager,
         createWidgetCoordinator: CreateWidgetCoordinatorProtocol,
-        objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
-        editorBrowserAssembly: EditorBrowserAssembly
+        editorBrowserCoordinator: EditorBrowserCoordinatorProtocol,
+        searchModuleAssembly: SearchModuleAssemblyProtocol,
+        settingsCoordinator: SettingsCoordinatorProtocol,
+        newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
+        dashboardService: DashboardServiceProtocol,
+        dashboardAlertsAssembly: DashboardAlertsAssemblyProtocol,
+        quickActionsStorage: QuickActionsStorage,
+        widgetTypeModuleAssembly: WidgetTypeModuleAssemblyProtocol
     ) {
         self.homeWidgetsModuleAssembly = homeWidgetsModuleAssembly
         self.accountManager = accountManager
         self.navigationContext = navigationContext
-        self.windowManager = windowManager
         self.createWidgetCoordinator = createWidgetCoordinator
-        self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
-        self.editorBrowserAssembly = editorBrowserAssembly
+        self.editorBrowserCoordinator = editorBrowserCoordinator
+        self.searchModuleAssembly = searchModuleAssembly
+        self.settingsCoordinator = settingsCoordinator
+        self.newSearchModuleAssembly = newSearchModuleAssembly
+        self.dashboardService = dashboardService
+        self.dashboardAlertsAssembly = dashboardAlertsAssembly
+        self.quickActionsStorage = quickActionsStorage
+        self.widgetTypeModuleAssembly = widgetTypeModuleAssembly
     }
+    
+    // MARK: - HomeWidgetsCoordinatorProtocol
     
     func startFlow() -> AnyView {
         return homeWidgetsModuleAssembly.make(
@@ -47,43 +71,101 @@ final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsM
         )
     }
     
-    // MARK: - HomeWidgetsModuleOutput
-    
-    func onOldHomeSelected() {
-        windowManager.showHomeWindow()
-    }
-    
-    // TODO: Delete it. Temporary.
-    func onSpaceIconChangeSelected(objectId: String) {
-        Task { @MainActor in
-            let document = BaseDocument(objectId: objectId)
-            try? await document.open()
-            let module = objectIconPickerModuleAssembly.make(document: document, objectId: document.objectId)
+    func flowStarted() {
+        
+        subscriptions.removeAll()
+        quickActionsStorage.$action.sink { [weak self] action in
+            switch action {
+            case .newNote:
+                self?.createAndShowNewPage()
+                self?.quickActionsStorage.action = nil
+            case .none:
+                break
+            }
+        }
+        .store(in: &subscriptions)
+        
+        if let data = UserDefaultsConfig.screenDataFromLastSession {
+            UserDefaultsConfig.storeOpenedScreenData(nil)
+            openObject(screenData: data)
+            return
+        }
+        
+        if UserDefaultsConfig.showKeychainAlert {
+            UserDefaultsConfig.showKeychainAlert = false
+            let module = dashboardAlertsAssembly.makeKeychainRemind(context: .signup)
             navigationContext.present(module)
         }
     }
     
+    func createAndShowNewPage() {
+        guard let details = dashboardService.createNewPage() else { return }
+        AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: .home)
+        openObject(screenData: EditorScreenData(pageId: details.id, type: details.editorViewType))
+    }
+    
+    // MARK: - HomeWidgetsModuleOutput
+    
     // MARK: - CommonWidgetModuleOutput
         
     func onObjectSelected(screenData: EditorScreenData) {
-        showPage(screenData: screenData)
+        openObject(screenData: screenData)
+    }
+    
+    func onChangeSource(widgetId: String, context: AnalyticsWidgetContext) {
+        let module = newSearchModuleAssembly.widgetChangeSourceSearchModule(
+            widgetObjectId: accountManager.account.info.widgetsId,
+            widgetId: widgetId,
+            context: context
+        ) { [weak self] in
+            self?.navigationContext.dismissAllPresented()
+        }
+        navigationContext.present(module)
+    }
+
+    func onChangeWidgetType(widgetId: String, context: AnalyticsWidgetContext) {
+        let module = widgetTypeModuleAssembly.makeChangeType(
+            widgetObjectId: accountManager.account.info.widgetsId,
+            widgetId: widgetId,
+            context: context
+        ) { [weak self] in
+            self?.navigationContext.dismissAllPresented()
+        }
+        navigationContext.present(module)
+    }
+    
+    func onAddBelowWidget(widgetId: String, context: AnalyticsWidgetContext) {
+        createWidgetCoordinator.startFlow(widgetObjectId: accountManager.account.info.widgetsId, position: .below(widgetId: widgetId), context: context)
     }
     
     // MARK: - HomeBottomPanelModuleOutput
     
-    func onCreateWidgetSelected() {
-        createWidgetCoordinator.startFlow(widgetObjectId: accountManager.account.info.widgetsId)
+    func onCreateWidgetSelected(context: AnalyticsWidgetContext) {
+        createWidgetCoordinator.startFlow(widgetObjectId: accountManager.account.info.widgetsId, position: .end, context: context)
+    }
+    
+    func onSearchSelected() {
+        AnytypeAnalytics.instance().logScreenSearch()
+        let module = searchModuleAssembly.makeObjectSearch(title: nil, onSelect: { [weak self] data in
+            AnytypeAnalytics.instance().logSearchResult()
+            let screenData = EditorScreenData(pageId: data.blockId, type: data.viewType)
+            self?.navigationContext.dismissAllPresented()
+            self?.openObject(screenData: screenData)
+        })
+        navigationContext.present(module)
+    }
+    
+    func onCreateObjectSelected(screenData: EditorScreenData) {
+        openObject(screenData: screenData)
+    }
+    
+    func onSettingsSelected() {
+        settingsCoordinator.startFlow()
     }
     
     // MARK: - Private
     
-    func showPage(screenData: EditorScreenData) {
-        if let browserController {
-            browserController.showPage(data: screenData)
-        } else {
-            let controller = editorBrowserAssembly.buildEditorBrowser(data: screenData)
-            navigationContext.push(controller)
-            browserController = controller
-        }
+    private func openObject(screenData: EditorScreenData) {
+        editorBrowserCoordinator.startFlow(data: screenData)
     }
 }

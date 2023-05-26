@@ -3,7 +3,7 @@ import Foundation
 protocol HomeWidgetProviderAssemblyProtocol: AnyObject {
     func make(
         widgetBlockId: String,
-        widgetObject: HomeWidgetsObjectProtocol,
+        widgetObject: BaseDocumentProtocol,
         stateManager: HomeWidgetsStateManagerProtocol
-    ) -> HomeWidgetProviderProtocol
+    ) -> HomeSubmoduleProviderProtocol
 }

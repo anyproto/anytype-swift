@@ -1,9 +1,9 @@
 import Foundation
-import BlocksModels
+import Services
 
 @MainActor
 protocol CreateWidgetCoordinatorProtocol {
-    func startFlow(widgetObjectId: String)
+    func startFlow(widgetObjectId: String, position: WidgetPosition, context: AnalyticsWidgetContext)
 }
 
 @MainActor
@@ -11,46 +11,38 @@ final class CreateWidgetCoordinator: CreateWidgetCoordinatorProtocol {
     
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     private let navigationContext: NavigationContextProtocol
-    private let blockWidgetService: BlockWidgetServiceProtocol
+    private let widgetTypeModuleAssembly: WidgetTypeModuleAssemblyProtocol
     
     init(
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
         navigationContext: NavigationContextProtocol,
-        blockWidgetService: BlockWidgetServiceProtocol
+        widgetTypeModuleAssembly: WidgetTypeModuleAssemblyProtocol
     ) {
         self.newSearchModuleAssembly = newSearchModuleAssembly
         self.navigationContext = navigationContext
-        self.blockWidgetService = blockWidgetService
+        self.widgetTypeModuleAssembly = widgetTypeModuleAssembly
     }
     
     // MARK: - CreateWidgetCoordinatorProtocol
     
-    func startFlow(widgetObjectId: String) {
-        let searchView = newSearchModuleAssembly.objectsSearchModule(
-            title: Loc.Widgets.sourceSearch,
-            style: .default,
-            selectionMode: .singleItem,
-            excludedObjectIds: [],
-            limitedObjectType: [],
-            onSelect: { ids in
-                guard let id = ids.first else { return }
-                Task { [weak self] in
-                    await self?.createWidget(widgetObjectId:widgetObjectId, linkObjectId: id)
-                }
-            }
-        )
-        navigationContext.presentSwiftUIView(view: searchView)
+    func startFlow(widgetObjectId: String, position: WidgetPosition, context: AnalyticsWidgetContext) {
+        let searchView = newSearchModuleAssembly.widgetSourceSearchModule(context: context) { [weak self] source in
+            self?.showSelectWidgetType(widgetObjectId: widgetObjectId, source: source, position: position, context: context)
+        }
+        navigationContext.present(searchView)
     }
     
     // MARK: - Private
     
-    private func createWidget(widgetObjectId: String, linkObjectId: String) async {
-        let info = BlockInformation.empty(content: .link(.empty(targetBlockID: linkObjectId)))
-        try? await blockWidgetService.createWidgetBlock(
-            contextId: widgetObjectId,
-            info: info,
-            layout: .tree
-        )
-        navigationContext.dismissAllPresented()
+    private func showSelectWidgetType(widgetObjectId: String, source: WidgetSource, position: WidgetPosition, context: AnalyticsWidgetContext) {
+        let module = widgetTypeModuleAssembly.makeCreateWidget(
+            widgetObjectId: widgetObjectId,
+            source: source,
+            position: position,
+            context: context
+        ) { [weak self] in
+            self?.navigationContext.dismissAllPresented()
+        }
+        navigationContext.present(module)
     }
 }

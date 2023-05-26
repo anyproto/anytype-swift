@@ -1,5 +1,5 @@
 import Foundation
-import BlocksModels
+import Services
 import Combine
 import SwiftUI
 
@@ -115,13 +115,7 @@ private extension SearchObjectRowView.Model {
     
     init(details: ObjectDetails) {
         let title = details.title
-        self.icon = {
-            if details.layoutValue == .todo {
-                return .todo(details.isDone)
-            } else {
-                return details.icon.flatMap { .icon($0) } ?? .placeholder(title.first)
-            }
-        }()
+        self.icon = details.objectIconImageWithPlaceholder
         self.title = title
         self.subtitle = details.objectType.name
         self.style = .default

@@ -1,6 +1,6 @@
 import Foundation
 import SwiftUI
-import BlocksModels
+import Services
 import Combine
 
 final class NewRelationViewModel: ObservableObject {
@@ -23,16 +23,19 @@ final class NewRelationViewModel: ObservableObject {
     
     private let service: RelationsServiceProtocol
     private let toastPresenter: ToastPresenterProtocol
+    private let objectTypeProvider: ObjectTypeProviderProtocol
     private weak var output: NewRelationModuleOutput?
     
     init(
         name: String,
         service: RelationsServiceProtocol,
         toastPresenter: ToastPresenterProtocol,
+        objectTypeProvider: ObjectTypeProviderProtocol,
         output: NewRelationModuleOutput?
     ) {
         self.service = service
         self.toastPresenter = toastPresenter
+        self.objectTypeProvider = objectTypeProvider
         self.output = output
         
         self.name = name
@@ -88,7 +91,7 @@ extension NewRelationViewModel: NewRelationModuleInput {
     
     func updateTypesRestriction(objectTypeIds: [String]) {
         objectTypes = objectTypeIds.compactMap {
-            ObjectTypeProvider.shared.objectType(id: $0)
+            objectTypeProvider.objectType(id: $0)
         }
     }
     
@@ -131,23 +134,6 @@ private extension SupportedRelationFormat {
         case .phone: return .phone
         }
     }
-    
-    var isMulti: Bool {
-        switch self {
-        case .text: return false
-        case .tag: return true
-        case .status: return true
-        case .number: return false
-        case .date: return false
-        case .file: return true
-        case .object: return true
-        case .checkbox: return false
-        case .url: return false
-        case .email: return false
-        case .phone: return false
-        }
-    }
-    
 }
 
 // MARK: - Array private extension

@@ -4,40 +4,54 @@ import AnytypeCore
 
 final class WindowManager {
     
+    // MARK: - DI
+    
     private let viewControllerProvider: ViewControllerProviderProtocol
-    private let homeViewAssembly: HomeViewAssembly
+    private let authCoordinatorAssembly: AuthCoordinatorAssemblyProtocol
+    private let legacyAuthViewAssembly: LegacyAuthViewAssembly
     private let homeWidgetsCoordinatorAssembly: HomeWidgetsCoordinatorAssemblyProtocol
+    private let applicationStateService: ApplicationStateServiceProtocol
+    
+    // MARK: - State
+    
+    private var homeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol?
+    
+    private var authCoordinator: AuthCoordinatorProtocol?
     
     init(
         viewControllerProvider: ViewControllerProviderProtocol,
-        homeViewAssembly: HomeViewAssembly,
-        homeWidgetsCoordinatorAssembly: HomeWidgetsCoordinatorAssemblyProtocol
+        authCoordinatorAssembly: AuthCoordinatorAssemblyProtocol,
+        legacyAuthViewAssembly: LegacyAuthViewAssembly,
+        homeWidgetsCoordinatorAssembly: HomeWidgetsCoordinatorAssemblyProtocol,
+        applicationStateService: ApplicationStateServiceProtocol
     ) {
         self.viewControllerProvider = viewControllerProvider
-        self.homeViewAssembly = homeViewAssembly
+        self.authCoordinatorAssembly = authCoordinatorAssembly
+        self.legacyAuthViewAssembly = legacyAuthViewAssembly
         self.homeWidgetsCoordinatorAssembly = homeWidgetsCoordinatorAssembly
+        self.applicationStateService = applicationStateService
     }
-
-    private var homeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol?
-    private weak var lastHomeViewModel: HomeViewModel?
 
     @MainActor
     func showHomeWindow() {
-        if FeatureFlags.homeWidgets {
-            let coordinator = homeWidgetsCoordinatorAssembly.make()
-            self.homeWidgetsCoordinator = coordinator
-            let homeView = coordinator.startFlow()
-            startNewRootView(homeView)
-        } else {
-            let homeView = homeViewAssembly.createHomeView()
-            
-            self.lastHomeViewModel = homeView?.model
-            startNewRootView(homeView)
-        }
+        let coordinator = homeWidgetsCoordinatorAssembly.make()
+        self.homeWidgetsCoordinator = coordinator
+        let homeView = coordinator.startFlow()
+        startNewRootView(homeView)
+        coordinator.flowStarted()
     }
     
+    @MainActor
     func showAuthWindow() {
-        startNewRootView(MainAuthView(viewModel: MainAuthViewModel(windowManager: self)))
+        if FeatureFlags.newAuthorization {
+            let coordinator = authCoordinatorAssembly.make()
+            self.authCoordinator = coordinator
+            let authView = coordinator.startFlow()
+            startNewRootView(authView)
+        } else {
+            let legacyAuthView = legacyAuthViewAssembly.createAuthView()
+            startNewRootView(legacyAuthView)
+        }
     }
     
     func showLaunchWindow() {
@@ -46,18 +60,14 @@ final class WindowManager {
 
     @MainActor
     func createAndShowNewObject() {
-        if FeatureFlags.homeWidgets {
-            // TODO: IOS-746
-        } else {
-            lastHomeViewModel?.createAndShowNewPage()
-        }
+        homeWidgetsCoordinator?.createAndShowNewPage()
     }
     
     @MainActor
     func showDeletedAccountWindow(deadline: Date) {
         startNewRootView(
             DeletedAccountView(
-                viewModel: DeletedAccountViewModel(deadline: deadline, windowManager: self)
+                viewModel: DeletedAccountViewModel(deadline: deadline, applicationStateService: applicationStateService)
             )
         )
     }
@@ -65,9 +75,8 @@ final class WindowManager {
     // MARK: - Private
     
     private func startNewRootView<ViewType: View>(_ view: ViewType) {
-        let controller = NavigationControllerWithSwiftUIContent(
-            rootViewController: UIHostingController(rootView: view)
-        )
+        
+        let controller = UINavigationController(rootViewController: AnytypeHostingController(rootView: view))
         
         let navBarAppearance = UINavigationBarAppearance()
         navBarAppearance.configureWithTransparentBackground()

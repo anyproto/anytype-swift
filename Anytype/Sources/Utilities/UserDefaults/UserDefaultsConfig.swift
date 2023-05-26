@@ -1,17 +1,12 @@
 import AnytypeCore
-import BlocksModels
+import Services
 import Combine
-import Firebase
 import SwiftUI
 
 struct UserDefaultsConfig {
     
     @UserDefault("userId", defaultValue: "")
-    public static var usersId: String {
-        didSet {
-            Crashlytics.crashlytics().setUserID(usersId)
-        }
-    }
+    public static var usersId: String
 
     @UserDefault("App.InstalledAtDate", defaultValue: nil)
     public static var installedAtDate: Date?
@@ -22,7 +17,7 @@ struct UserDefaultsConfig {
     @UserDefault("UserData.DefaultObjectType", defaultValue: ObjectType.fallbackType)
     static var defaultObjectType: ObjectType {
         didSet {
-            AnytypeAnalytics.instance().logDefaultObjectTypeChange(defaultObjectType.id)
+            AnytypeAnalytics.instance().logDefaultObjectTypeChange(defaultObjectType.analyticsType)
         }
     }
     
@@ -72,7 +67,7 @@ extension UserDefaultsConfig {
         _lastOpenedPageId = data?.pageId
         
         switch data?.type {
-        case .page:
+        case .page, .favorites, .recent, .sets, .collections, .bin:
             _lastOpenedViewType = data?.type.rawValue
             _lastOpenedBlockId = nil
             _lastOpenedTargetObjectID = nil
@@ -106,36 +101,15 @@ extension UserDefaultsConfig {
     
 }
 
-// MARK: - Selected Tab
-
-extension UserDefaultsConfig {
-    
-    @UserDefault("UserData.SelectedTab", defaultValue: nil)
-    private static var _selectedTab: String?
-    
-    static var selectedTab: HomeTabsView.Tab {
-        get {
-            let tab = _selectedTab.flatMap { HomeTabsView.Tab(rawValue: $0) } ?? .favourites
-            
-            if tab == .shared && !AccountManager.shared.account.config.enableSpaces {
-                return .favourites
-            }
-            
-            return tab
-        }
-        set {
-            _selectedTab = newValue.rawValue
-        }
-    }
-    
-}
-
 // MARK: - Wallpaper
 
 extension UserDefaultsConfig {
     
     @UserDefault("UserData.Wallpaper", defaultValue: nil)
     private static var _wallpaper: Data?
+    
+    private static var wallpaperSubject = CurrentValueSubject<BackgroundType, Never>(wallpaper)
+    static var wallpaperPublisher: AnyPublisher<BackgroundType, Never> { wallpaperSubject.eraseToAnyPublisher() }
     
     static var wallpaper: BackgroundType {
         get {
@@ -152,6 +126,7 @@ extension UserDefaultsConfig {
                 return
             }
             _wallpaper = encoded
+            wallpaperSubject.send(newValue)
         }
     }
     

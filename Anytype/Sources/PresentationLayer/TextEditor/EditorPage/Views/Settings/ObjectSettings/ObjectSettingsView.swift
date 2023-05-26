@@ -1,5 +1,5 @@
 import SwiftUI
-import BlocksModels
+import Services
 
 struct ObjectSettingsView: View {
     

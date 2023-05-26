@@ -1,5 +1,5 @@
 import SwiftProtobuf
-import BlocksModels
+import Services
 
 protocol SetFiltersContentHandlerProtocol {
     func handleSelectedIds(_ ids: [String])

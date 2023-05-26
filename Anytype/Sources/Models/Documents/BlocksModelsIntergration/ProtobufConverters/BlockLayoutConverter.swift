@@ -1,5 +1,5 @@
 import ProtobufMessages
-import BlocksModels
+import Services
 
 extension Anytype_Model_Block.Content.Layout {
     var blockContent: BlockContent? {
@@ -9,6 +9,8 @@ extension Anytype_Model_Block.Content.Layout {
 
 extension BlockLayout {
     var asMiddleware: Anytype_Model_Block.OneOf_Content {
-        .layout(.init(style: style.asMiddleware))
+        .layout(.with {
+            $0.style = style.asMiddleware
+        })
     }
 }

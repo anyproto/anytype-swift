@@ -2,7 +2,7 @@ import SwiftUI
 
 struct AlphaInviteCodeView: View {
     @StateObject var signUpData: SignUpData
-    let windowManager: WindowManager
+    let applicationStateService: ApplicationStateServiceProtocol
     @State private var showCreateNewProfile = false
     
     @Environment(\.presentationMode) var presentationMode
@@ -60,25 +60,26 @@ struct AlphaInviteCodeView: View {
     
     private var buttons: some View {
         HStack(spacing: 10) {
-            StandardButton(text: Loc.back, style: .secondary) {
+            
+            StandardButton(Loc.back, style: .secondaryLarge) {
                 presentationMode.wrappedValue.dismiss()
             }
             
-            NavigationLink(
+            StandardButton("Confirm", style: .primaryLarge) {
+                showCreateNewProfile.toggle()
+            }
+            .addEmptyNavigationLink(
                 destination: CreateNewProfileView(
                     viewModel: CreateNewProfileViewModel(
-                        windowManager: windowManager,
+                        applicationStateService: applicationStateService,
                         authService: ServiceLocator.shared.authService(),
                         seedService: ServiceLocator.shared.seedService()
                     ),
                     showCreateNewProfile: $showCreateNewProfile
                 ).environmentObject(signUpData),
                 isActive: $showCreateNewProfile
-            ) {
-                StandardButtonView(disabled: signUpData.inviteCode.isEmpty, text: "Confirm", style: .primary)
-            }
+            )
             .disabled(signUpData.inviteCode.isEmpty)
-            .buttonStyle(ShrinkingButtonStyle())
         }
     }
 }
@@ -87,7 +88,7 @@ struct AlphaInviteCodeView_Previews: PreviewProvider {
     static var previews: some View {
         AlphaInviteCodeView(
             signUpData: SignUpData(mnemonic: UUID().uuidString),
-            windowManager: DI.preview.coordinatorsDI.windowManager()
+            applicationStateService: DI.preview.serviceLocator.applicationStateService()
         )
     }
 }

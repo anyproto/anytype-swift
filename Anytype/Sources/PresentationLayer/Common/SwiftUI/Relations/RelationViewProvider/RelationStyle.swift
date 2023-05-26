@@ -102,7 +102,7 @@ extension RelationStyle {
     var hintFont: AnytypeFont {
         switch self {
         case .regular, .set, .setCollection:
-            return .callout
+            return .calloutRegular
         case .featuredRelationBlock, .kanbanHeader:
             return .relation2Regular
         case .filter:

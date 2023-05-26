@@ -6,7 +6,8 @@ class LoginViewModel: ObservableObject {
     private let authService = ServiceLocator.shared.authService()
     private lazy var cameraPermissionVerifier = CameraPermissionVerifier()
     private let seedService: SeedServiceProtocol
-    private let windowManager: WindowManager
+    private let applicationStateService: ApplicationStateServiceProtocol
+    private let localAuthService: LocalAuthServiceProtocol
     
     @Published var seed: String = ""
     @Published var showQrCodeView: Bool = false
@@ -28,24 +29,31 @@ class LoginViewModel: ObservableObject {
         }
     }
     @Published var showSelectProfile = false
+    @Published var showMigrationGuide = false
+    @Published var focusOnTextField = true
+    
     let canRestoreFromKeychain: Bool
 
     private var subscriptions = [AnyCancellable]()
 
-    init(seedService: SeedServiceProtocol = ServiceLocator.shared.seedService(), windowManager: WindowManager) {
+    init(
+        seedService: SeedServiceProtocol = ServiceLocator.shared.seedService(),
+        applicationStateService: ApplicationStateServiceProtocol,
+        localAuthService: LocalAuthServiceProtocol = ServiceLocator.shared.localAuthService()
+    ) {
         self.canRestoreFromKeychain = (try? seedService.obtainSeed()).isNotNil
         self.seedService = seedService
-        self.windowManager = windowManager
+        self.applicationStateService = applicationStateService
+        self.localAuthService = localAuthService
     }
     
     func onEntropySet() {
-        let result = authService.mnemonicByEntropy(entropy)
-        switch result {
-        case .failure(let error):
-            self.error = error.localizedDescription
-        case .success(let seed):
+        do {
+            let seed = try authService.mnemonicByEntropy(entropy)
             self.seed = seed
             recoverWallet()
+        } catch {
+            self.error = error.localizedDescription
         }
     }
     
@@ -67,32 +75,40 @@ class LoginViewModel: ObservableObject {
     }
 
     func restoreFromkeychain() {
-        LocalAuth.auth(reason: Loc.restoreSecretPhraseFromKeychain) { [unowned self] didComplete in
+        localAuthService.auth(reason: Loc.restoreSecretPhraseFromKeychain) { [unowned self] didComplete in
             guard didComplete,
                   let phrase = try? seedService.obtainSeed() else {
                 return
             }
 
-            recoverWallet(with: phrase)            
+            recoverWallet(with: phrase)
         }
     }
     
     @MainActor
     func selectProfileFlow() -> some View {
-        let viewModel = SelectProfileViewModel(windowManager: windowManager)
+        let viewModel = SelectProfileViewModel(applicationStateService: applicationStateService, onShowMigrationGuide: { [weak self] in
+            self?.focusOnTextField = false
+            self?.showSelectProfile = false
+            self?.showMigrationGuide = true
+        })
         return SelectProfileView(viewModel: viewModel)
+    }
+    
+    func migrationGuideFlow() -> some View {
+        return MigrationGuideView()
+            .onDisappear { [weak self] in
+                self?.focusOnTextField = true
+            }
     }
 
     private func recoverWallet(with string: String) {
-        let result = authService.walletRecovery(mnemonic: string.trimmingCharacters(in: .whitespacesAndNewlines))
-        DispatchQueue.main.async { [weak self] in
-            switch result {
-            case .failure(let error):
-                self?.error = error.localizedDescription
-            case .success:
-                try? self?.seedService.saveSeed(string)
-                self?.showSelectProfile = true
-            }
+        do {
+            try authService.walletRecovery(mnemonic: string.trimmingCharacters(in: .whitespacesAndNewlines))
+            try seedService.saveSeed(string)
+            showSelectProfile = true
+        } catch {
+            self.error = error.localizedDescription
         }
     }
 }

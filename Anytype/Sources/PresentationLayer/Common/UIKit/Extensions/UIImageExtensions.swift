@@ -5,17 +5,29 @@ import AnytypeCore
 extension UIImage {
     
     static func dynamicImage(light: UIImage, dark: UIImage) -> UIImage {
-        let imageAsset = UIImageAsset()
-            
-        let lightMode = UITraitCollection(traitsFrom: [.init(userInterfaceStyle: .light), .init(displayScale: light.scale)])
-        imageAsset.register(light, with: lightMode)
-        
-        let darkMode = UITraitCollection(traitsFrom: [.init(userInterfaceStyle: .dark), .init(displayScale: light.scale)])
-        imageAsset.register(dark, with: darkMode)
-        
-        return imageAsset.image(with: .current)
+        let config = UITraitCollection(traitsFrom: [.current, .init(userInterfaceStyle: .dark)])
+        light.imageAsset?.register(dark, with: config)
+        return light
    }
-
+    
+    static func generateDynamicImage(builder: () -> UIImage) -> UIImage {
+        
+        let lightTC = UITraitCollection(traitsFrom: [.current, .init(userInterfaceStyle: .light)])
+        let darkTC = UITraitCollection(traitsFrom: [.current, .init(userInterfaceStyle: .dark)])
+        
+        var lightImage = UIImage()
+        var darkImage = UIImage()
+        
+        lightTC.performAsCurrent {
+            lightImage = builder()
+        }
+        darkTC.performAsCurrent {
+            darkImage = builder()
+        }
+        
+        return UIImage.dynamicImage(light: lightImage, dark: darkImage)
+    }
+    
     func circleImage(width: CGFloat, opaque: Bool = false, backgroundColor: CGColor? = nil) -> UIImage {
         cropToSquare()
         .scaled(to: CGSize(width: width, height: width))
@@ -33,6 +45,8 @@ extension UIImage {
     /// transparent pixels
     /// - Returns: Rounded image.
     func rounded(radius: CGFloat, opaque: Bool = false, backgroundColor: CGColor? = nil) -> UIImage {
+        guard radius > 0 else { return self }
+        
         let rect = CGRect(origin: .zero, size: self.size)
 
         UIGraphicsBeginImageContextWithOptions(rect.size, opaque, UIScreen.main.scale)
@@ -76,7 +90,7 @@ extension UIImage {
         return roundedImage ?? self
     }
     
-    static func gradient(size: CGSize,
+    static func linearGradient(size: CGSize,
                          startColor: UIColor,
                          endColor: UIColor,
                          startPoint: CGPoint,
@@ -96,6 +110,83 @@ extension UIImage {
             gradient.locations = [0, 1]
 
             gradient.render(in: ctx.cgContext)
+        }
+    }
+    
+    static func circleGradient(
+        size: CGSize,
+        centerColor: UIColor,
+        roundColor: UIColor,
+        centerLocation: CGFloat = 0,
+        roundLocation: CGFloat = 1,
+        backgroundColor: UIColor? = nil,
+        cornerRadius: CGFloat = 0
+    ) -> UIImage {
+        let light = circleGradient(
+            size: size,
+            centerColor: centerColor.light.cgColor,
+            roundColor: roundColor.light.cgColor,
+            centerLocation: centerLocation,
+            roundLocation: roundLocation,
+            backgroundColor: backgroundColor?.light.cgColor,
+            cornerRadius: cornerRadius
+        )
+        let dark = circleGradient(
+            size: size,
+            centerColor: centerColor.dark.cgColor,
+            roundColor: roundColor.dark.cgColor,
+            centerLocation: centerLocation,
+            roundLocation: roundLocation,
+            backgroundColor: backgroundColor?.dark.cgColor,
+            cornerRadius: cornerRadius
+        )
+        return UIImage.dynamicImage(light: light, dark: dark)
+    }
+    
+    static func circleGradient(
+        size: CGSize,
+        centerColor: CGColor,
+        roundColor: CGColor,
+        centerLocation: CGFloat = 0,
+        roundLocation: CGFloat = 1,
+        backgroundColor: CGColor? = nil,
+        cornerRadius: CGFloat = 0
+    ) -> UIImage {
+        let format = UIGraphicsImageRendererFormat()
+        format.scale = UIScreen.main.scale
+        format.opaque = false
+
+        let renderer = UIGraphicsImageRenderer(size: size, format: format)
+        
+        return renderer.image { ctx in
+            
+            let gradientBounds = backgroundColor != nil
+                ? CGRect(x: 0, y: 0, width: ctx.format.bounds.size.width * 0.75, height: ctx.format.bounds.size.height * 0.75)
+                : ctx.format.bounds
+            
+            let mask = CAShapeLayer()
+            mask.bounds = gradientBounds
+            mask.path = CGPath(ellipseIn: mask.bounds, transform: nil)
+            mask.fillColor = UIColor.black.cgColor
+            mask.position = CGPoint(x: mask.bounds.size.width / 2, y: mask.bounds.size.height / 2)
+            
+            let gradient = CAGradientLayer()
+            gradient.type = .radial
+            gradient.startPoint = CGPoint(x: 0.5, y: 0.5)
+            gradient.endPoint = CGPoint(x: 1, y: 1)
+            gradient.bounds = gradientBounds
+            gradient.colors = [centerColor, roundColor]
+            gradient.locations = [NSNumber(value: centerLocation), NSNumber(value: roundLocation)]
+            gradient.mask = mask
+            gradient.position = CGPoint(x: ctx.format.bounds.midX, y: ctx.format.bounds.midY)
+            
+            let background = CALayer()
+            background.backgroundColor = backgroundColor
+            background.bounds = ctx.format.bounds
+            background.addSublayer(gradient)
+            background.cornerRadius = cornerRadius
+            
+            background.render(in: ctx.cgContext)
         }
     }
     

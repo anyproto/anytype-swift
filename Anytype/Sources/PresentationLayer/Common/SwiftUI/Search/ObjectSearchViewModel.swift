@@ -1,5 +1,5 @@
 import SwiftUI
-import BlocksModels
+import Services
 
 /// https://www.figma.com/file/TupCOWb8sC9NcjtSToWIkS/Mobile---main?node-id=6455%3A4097
 final class ObjectSearchViewModel: SearchViewModelProtocol {

@@ -1,7 +1,7 @@
 import FloatingPanel
 import SwiftUI
 import ProtobufMessages
-import BlocksModels
+import Services
 import AnytypeCore
 import Combine
 
@@ -139,7 +139,7 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
     
     func showAddNewRelationView() {
         router.showAddNewRelationView { relation, isNew in
-            AnytypeAnalytics.instance().logAddRelation(format: relation.format, isNew: isNew, type: .set)
+            AnytypeAnalytics.instance().logAddRelation(format: relation.format, isNew: isNew, type: .dataview)
         }
     }
     

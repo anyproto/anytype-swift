@@ -16,8 +16,6 @@ enum ToastPresenterMode {
 
 class ToastPresenter: ToastPresenterProtocol {
     static var shared: ToastPresenter? // Used only for SwiftUI
-    
-    private var isShowing: Bool = false
 
     private let viewControllerProvider: ViewControllerProviderProtocol
     private weak var containerViewController: UIViewController?
@@ -65,7 +63,8 @@ class ToastPresenter: ToastPresenterProtocol {
         attributes.position = .bottom
         attributes.shadow = .active(with: .init(color: .black, opacity: 0.2, radius: 5, offset: .zero))
         attributes.statusBar = .currentStatusBar
-
+        attributes.precedence = .enqueue(priority: .normal)
+        
         SwiftEntryKit.display(entry: toastView, using: attributes)
     }
     
@@ -82,7 +81,7 @@ class ToastPresenter: ToastPresenterProtocol {
        
         switch mode {
         case .aboveKeyboard:
-            let containerViewController = containerViewController ?? viewControllerProvider.rootViewController
+            let containerViewController = containerViewController ?? viewControllerProvider.topVisibleController
         
             bottomModeOffset = containerViewController?.bottomToastOffset ?? 0
             

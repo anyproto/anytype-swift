@@ -1,5 +1,5 @@
 import Foundation
-import BlocksModels
+import Services
 import AnytypeCore
 
 protocol BlockSelectionHandler: AnyObject {
@@ -30,11 +30,12 @@ protocol BlockActionHandlerProtocol: AnyObject {
     func changeMarkup(blockIds: [BlockId], markType: MarkupType)
     func addBlock(_ type: BlockContentType, blockId: BlockId, blockText: NSAttributedString?, position: BlockPosition?)
     func toggleWholeBlockMarkup(_ markup: MarkupType, blockId: BlockId)
-    func upload(blockId: BlockId, filePath: String)
+    func upload(blockId: BlockId, filePath: String) async throws
     func createPage(targetId: BlockId, type: ObjectTypeId) -> BlockId?
 
     func setObjectTypeId(_ objectTypeId: String)
-    func setObjectSetType() -> BlockId
+    func setObjectSetType() async throws
+    func setObjectCollectionType() async throws
     func changeTextForced(_ text: NSAttributedString, blockId: BlockId)
     func changeText(_ text: NSAttributedString, info: BlockInformation)
     func handleKeyboardAction(
@@ -44,7 +45,7 @@ protocol BlockActionHandlerProtocol: AnyObject {
     )
     func changeTextStyle(_ attribute: MarkupType, range: NSRange, blockId: BlockId)
     func setTextStyle(_ attribute: MarkupType, range: NSRange, blockId: BlockId, currentText: NSAttributedString?)
-    func uploadMediaFile(uploadingSource: MediaFileUploadingSource, type: MediaPickerContentType, blockId: BlockId)
+    func uploadMediaFile(uploadingSource: FileUploadingSource, type: MediaPickerContentType, blockId: BlockId)
     func uploadFileAt(localPath: String, blockId: BlockId)
     func selectBlock(info: BlockInformation)
     func createAndFetchBookmark(

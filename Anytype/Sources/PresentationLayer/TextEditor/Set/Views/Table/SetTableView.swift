@@ -6,6 +6,8 @@ struct SetTableView: View {
     @Binding var tableHeaderSize: CGSize
     @Binding var offset: CGPoint
     var headerMinimizedSize: CGSize
+    
+    @State private var dropData = SetCardDropData()
 
     var body: some View {
         if #available(iOS 15.0, *) {
@@ -46,17 +48,24 @@ struct SetTableView: View {
         }
     }
     
+    @ViewBuilder
     private var content: some View {
-        Group {
-            if model.isEmpty {
-                EmptyView()
-            } else {
-                Section(header: compoundHeader) {
-                    ForEach(model.configurationsDict.keys, id: \.self) { groupId in
-                        if let configurations = model.configurationsDict[groupId] {
-                            ForEach(configurations) { configuration in
-                                SetTableViewRow(configuration: configuration, xOffset: xOffset)
-                            }
+        if model.isEmptyViews {
+            EmptyView()
+        } else {
+            Section(header: compoundHeader) {
+                ForEach(model.configurationsDict.keys, id: \.self) { groupId in
+                    if let configurations = model.configurationsDict[groupId] {
+                        ForEach(configurations) { configuration in
+                            SetDragAndDropView(
+                                dropData: $dropData,
+                                configuration: configuration,
+                                groupId: groupId,
+                                dragAndDropDelegate: model,
+                                content: {
+                                    SetTableViewRow(configuration: configuration, xOffset: xOffset)
+                                }
+                            )
                         }
                     }
                 }
@@ -79,22 +88,29 @@ struct SetTableView: View {
 
     private var compoundHeader: some View {
         VStack(spacing: 0) {
-            Spacer.fixedHeight(headerMinimizedSize.height)
-            VStack {
-                HStack {
-                    SetHeaderSettings()
-                        .offset(x: xOffset, y: 0)
-                        .environmentObject(model)
-                        .frame(width: tableHeaderSize.width)
-                    Spacer()
-                }
-                SetTableViewHeader()
-            }
+            headerSettingsView
+            SetTableViewHeader()
         }
         .background(Color.Background.primary)
     }
+    
+    private var headerSettingsView: some View {
+        HStack {
+            SetHeaderSettingsView(
+                model: SetHeaderSettingsViewModel(
+                    setDocument: model.setDocument,
+                    isActive: model.isActiveHeader,
+                    onViewTap: model.showViewPicker,
+                    onSettingsTap: model.showSetSettings,
+                    onCreateTap: model.createObject
+                )
+            )
+            .offset(x: xOffset, y: 0)
+            .frame(width: tableHeaderSize.width)
+            Spacer()
+        }
+    }
 }
-
 
 struct SetTableView_Previews: PreviewProvider {
     static var previews: some View {

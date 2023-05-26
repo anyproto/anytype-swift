@@ -9,9 +9,9 @@ extension AnytypeFont {
             return .heading
         case .subheading:
             return .subheading
-        case .body:
+        case .bodyRegular:
             return .body
-        case .callout:
+        case .calloutRegular:
             return .callout
         default:
             anytypeAssertionFailure("Not supported mention for forn \(self)", domain: .anytypeText)

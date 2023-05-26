@@ -8,7 +8,7 @@ struct ObjectIconPicker: View {
     var body: some View {
         Group {
             switch viewModel.detailsLayout {
-            case .basic, .set:
+            case .basic, .set, .collection, .space, .file, .image, .objectType:
                 ObjectBasicIconPicker(
                     viewModel: viewModel,
                     onDismiss: dismissHandler.onDismiss
@@ -17,7 +17,7 @@ struct ObjectIconPicker: View {
             case .profile:
                 ObjectProfileIconPicker(onDismiss: dismissHandler.onDismiss)
                     .environmentObject(viewModel)
-            case .todo, .note, .bookmark:
+            case .todo, .note, .bookmark, .unknown, .relation, .relationOption:
                 EmptyView()
                     .onAppear {
                         anytypeAssertionFailure("Not supported layout", domain: .iconPicker)

@@ -1,7 +1,7 @@
 import UIKit
 import SwiftUI
 import Combine
-import BlocksModels
+import Services
 import AnytypeCore
 
 final class TemplatesCoordinator {
@@ -16,7 +16,6 @@ final class TemplatesCoordinator {
     private let objectsService: ObjectActionsServiceProtocol
 
     private let keyboardHeightListener: KeyboardHeightListener
-    private var keyboardHeightSubscription: AnyCancellable?
     private weak var currentPopup: AnytypePopup?
 
     init(

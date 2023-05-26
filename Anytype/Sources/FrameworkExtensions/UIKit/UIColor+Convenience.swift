@@ -20,7 +20,7 @@ extension UIColor {
 
         let rgb:Int = (Int)(r*0xff)<<16 | (Int)(g*0xff)<<8 | (Int)(b*0xff)<<0
 
-        return String(format:"#%06x", rgb)
+        return String(format:"#%06X", rgb)
     }
     
     convenience init(hexString: String, alpha: CGFloat = 1) {

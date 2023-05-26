@@ -224,13 +224,8 @@ private extension TextBlockIconView {
     private enum Constants {
         static let size = CGSize(width: 24, height: 24)
 
-        enum Quote {
-            static let viewWidth: CGFloat = 14
-        }
-
         enum Bulleted {
             static let size: CGFloat = 6
-            static let dotTopOffset: CGFloat = 11
         }
 
         enum TitleCheckbox {

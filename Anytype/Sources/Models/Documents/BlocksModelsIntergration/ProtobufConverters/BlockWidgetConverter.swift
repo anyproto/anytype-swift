@@ -1,5 +1,5 @@
 import Foundation
-import BlocksModels
+import Services
 import ProtobufMessages
 
 extension Anytype_Model_Block.Content.Widget {
@@ -15,7 +15,9 @@ extension Anytype_Model_Block.Content.Widget.Layout {
             return .link
         case .tree:
             return .tree
-        case .UNRECOGNIZED:
+        case .list:
+            return .list
+        case .UNRECOGNIZED, .compactList:
             return nil
         }
     }
@@ -28,6 +30,8 @@ extension BlockWidget.Layout {
             return .link
         case .tree:
             return .tree
+        case .list:
+            return .list
         }
     }
 }

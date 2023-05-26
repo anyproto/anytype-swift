@@ -1,6 +1,6 @@
 import Foundation
 import Combine
-import BlocksModels
+import Services
 
 protocol BookmarkServiceProtocol {
     func fetchBookmark(contextID: BlockId, blockID: BlockId, url: String)
@@ -10,6 +10,6 @@ protocol BookmarkServiceProtocol {
         position: BlockPosition,
         url: String
     )
-    func createBookmarkObject(url: String, completion: @escaping (_ withError: Bool) -> Void)
+    func createBookmarkObject(url: String) -> Bool
     func fetchBookmarkContent(bookmarkId: BlockId, url: String)
 }

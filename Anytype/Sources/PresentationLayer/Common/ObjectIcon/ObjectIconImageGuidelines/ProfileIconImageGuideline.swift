@@ -8,6 +8,11 @@ enum ProfileIconImageGuideline {
         radius: .widthFraction(0.5)
     )
     
+    static let x96 = ImageGuideline(
+        size: CGSize(width: 96, height: 96),
+        radius: .widthFraction(0.5)
+    )
+    
     static let x80 = ImageGuideline(
         size: CGSize(width: 80, height: 80),
         radius: .widthFraction(0.5)
