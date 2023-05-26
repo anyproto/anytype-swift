@@ -62,12 +62,12 @@ final class SetViewTypesPickerViewModel: ObservableObject {
     }
     
     private func updateTypes() {
-        types = DataviewViewType.allCases.map { viewType in
-            SetViewTypeConfiguration(
+        types = DataviewViewType.allCases.compactMap { viewType in
+            guard viewType.isSupported else { return nil }
+            return SetViewTypeConfiguration(
                 id: viewType.name,
                 icon: viewType.icon,
                 name: viewType.name,
-                isSupported: viewType.isSupported,
                 isSelected: viewType == selectedType,
                 onTap: { [weak self] in
                     self?.handleTap(with: viewType)

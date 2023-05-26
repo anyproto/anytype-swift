@@ -45,7 +45,7 @@ struct EditorSetViewRow: View {
             } else {
                 if editMode?.wrappedValue == .inactive {
                     AnytypeText(
-                        Loc.EditorSetViewPicker.View.Available.soon(configuration.typeName),
+                        Loc.EditorSetViewPicker.View.Not.Supported.title,
                         style: .uxBodyRegular,
                         color: .Text.secondary
                     )
