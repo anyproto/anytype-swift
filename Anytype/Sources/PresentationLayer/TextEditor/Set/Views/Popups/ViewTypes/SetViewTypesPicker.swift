@@ -114,7 +114,6 @@ struct SetViewTypesPicker: View {
             viewTypeContent(configuration)
         }
         .frame(height: 52, alignment: .leading)
-        .disabled(!configuration.isSupported)
         .divider()
     }
     
@@ -122,19 +121,14 @@ struct SetViewTypesPicker: View {
         HStack(spacing: 10) {
             Image(asset: configuration.icon)
                 .renderingMode(.template)
-                .foregroundColor(
-                    configuration.isSupported ? .Button.active : .Button.inactive
-                )
+                .foregroundColor(.Button.active)
             AnytypeText(
                 configuration.name,
                 style: .uxBodyRegular,
-                color: configuration.isSupported ? .Text.primary : .Text.tertiary
+                color: .Text.primary
             )
             Spacer()
-            if !configuration.isSupported {
-                AnytypeText(Loc.soon, style: .caption1Regular, color: .Text.tertiary)
-            }
-            if configuration.isSelected && configuration.isSupported {
+            if configuration.isSelected {
                 Image(asset: .optionChecked)
                     .foregroundColor(.Button.button)
             }

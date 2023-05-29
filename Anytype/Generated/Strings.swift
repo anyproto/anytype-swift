@@ -532,8 +532,6 @@ internal enum Loc {
   internal static let small = Loc.tr("Localizable", "Small", fallback: "Small")
   /// Solid colors
   internal static let solidColors = Loc.tr("Localizable", "Solid colors", fallback: "Solid colors")
-  /// Soon
-  internal static let soon = Loc.tr("Localizable", "Soon", fallback: "Soon")
   /// Sort
   internal static let sort = Loc.tr("Localizable", "Sort", fallback: "Sort")
   /// Spotlight, that needs special attention
@@ -1099,10 +1097,10 @@ internal enum Loc {
   }
   internal enum EditorSetViewPicker {
     internal enum View {
-      internal enum Available {
-        /// %@ view soon
-        internal static func soon(_ p1: Any) -> String {
-          return Loc.tr("Localizable", "EditorSetViewPicker.View.Available.Soon", String(describing: p1), fallback: "%@ view soon")
+      internal enum Not {
+        internal enum Supported {
+          /// not supported
+          internal static let title = Loc.tr("Localizable", "EditorSetViewPicker.View.Not.Supported.Title", fallback: "not supported")
         }
       }
     }

@@ -96,7 +96,6 @@
 // Settings
 "Wallpaper" = "Wallpaper";
 "Log out" = "Log out";
-"Soon" = "Soon";
 "Clear cache description" = "All media files will be deleted from your current device.\nThey can be downloaded again from a backup node or another device";
 
 // Action
@@ -631,7 +630,7 @@
 "SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Untitled";
 
 // MARK: Select view picker
-"EditorSetViewPicker.View.Available.Soon" = "%@ view soon";
+"EditorSetViewPicker.View.Not.Supported.Title" = "not supported";
 
 // BlockContent
 "Content.File.Upload" = "Upload a file";
