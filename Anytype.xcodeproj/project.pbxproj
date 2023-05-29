@@ -10442,7 +10442,7 @@
 				);
 				MARKETING_VERSION = 0.6.0;
 				OTHER_LDFLAGS = "-ObjC";
-				OTHER_SWIFT_FLAGS = "-Xfrontend -warn-long-expression-type-checking=30 -Xfrontend -warn-long-function-bodies=100 -Xfrontend -debug-time-function-bodies";
+				OTHER_SWIFT_FLAGS = "-Xfrontend -warn-long-expression-type-checking=30 -Xfrontend -warn-long-function-bodies=100 -Xfrontend -debug-time-function-bodies -enable-upcoming-feature ConciseMagicFile";
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match Development io.anytype.app.dev";
@@ -10484,7 +10484,7 @@
 				);
 				MARKETING_VERSION = 0.6.0;
 				OTHER_LDFLAGS = "-ObjC";
-				OTHER_SWIFT_FLAGS = "-Xfrontend -warn-long-expression-type-checking=30 -Xfrontend -warn-long-function-bodies=100 -Xfrontend -debug-time-function-bodies";
+				OTHER_SWIFT_FLAGS = "-Xfrontend -warn-long-expression-type-checking=30 -Xfrontend -warn-long-function-bodies=100 -Xfrontend -debug-time-function-bodies -enable-upcoming-feature ConciseMagicFile";
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore io.anytype.app";
@@ -10630,7 +10630,7 @@
 				);
 				MARKETING_VERSION = 0.6.0;
 				OTHER_LDFLAGS = "-ObjC";
-				OTHER_SWIFT_FLAGS = "-Xfrontend -warn-long-expression-type-checking=30 -Xfrontend -warn-long-function-bodies=100 -Xfrontend -debug-time-function-bodies";
+				OTHER_SWIFT_FLAGS = "-Xfrontend -warn-long-expression-type-checking=30 -Xfrontend -warn-long-function-bodies=100 -Xfrontend -debug-time-function-bodies -enable-upcoming-feature ConciseMagicFile";
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.dev;
 				PRODUCT_NAME = "Anytype Dev";
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore io.anytype.app.dev";
