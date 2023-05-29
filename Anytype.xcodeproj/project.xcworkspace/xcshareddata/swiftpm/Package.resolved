@@ -21,7 +21,7 @@
     {
       "identity" : "anytype-swift-codegen",
       "kind" : "remoteSourceControl",
-      "location" : "git@github.com:anytypeio/anytype-swift-codegen.git",
+      "location" : "git@github.com:anyproto/anytype-swift-codegen.git",
       "state" : {
         "branch" : "0.0.11",
         "revision" : "b3e9ba26804373951cb20f2b2455abc01d8d6c35"
