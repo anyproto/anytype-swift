@@ -18,10 +18,6 @@ public extension FeatureFlags {
         value(for: .dndOnCollectionsAndSets)
     }
 
-    static var migrationGuide: Bool {
-        value(for: .migrationGuide)
-    }
-
     static var fileStorage: Bool {
         value(for: .fileStorage)
     }
@@ -55,7 +51,6 @@ public extension FeatureFlags {
         .setKanbanView,
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
-        .migrationGuide,
         .fileStorage,
         .newAuthorization,
         .redesignAbout,

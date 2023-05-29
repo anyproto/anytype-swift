@@ -22,12 +22,6 @@ public extension FeatureDescription {
         defaultValue: false
     )
     
-    static let migrationGuide = FeatureDescription(
-        title: "Migration guide",
-        type: .feature(author: "m@anytype.io", releaseVersion: "0.22.0"),
-        defaultValue: true
-    )
-    
     static let fileStorage = FeatureDescription(
         title: "File storage",
         type: .feature(author: "m@anytype.io", releaseVersion: "0.23.0"),

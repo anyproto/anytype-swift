@@ -78,11 +78,7 @@ private extension SelectProfileViewModel {
                     errorText = Loc.accountDeleted
                 }
             } catch SelectAccountError.failedToFindAccountInfo {
-                if FeatureFlags.migrationGuide {
-                    onShowMigrationGuide()
-                } else {
-                    errorText = Loc.selectAccountError
-                }
+                onShowMigrationGuide()
             } catch {
                 errorText = Loc.selectAccountError
             }
