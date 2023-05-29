@@ -99,15 +99,6 @@ platform :ios do
       dsym_paths = Dir["./build/result/*.dSYM.zip"]
     end
 
-
-    set_github_release(
-      repository_name: "anytypeio/ios-anytype",
-      api_token: ENV['PERSONAL_TOKEN_FOR_GITHUB_RELEASE'],
-      tag_name: tag_name,
-      name: "#{build_name} #{version}(#{build_number})",
-      upload_assets: dsym_paths
-    )
-
   end
 
   private_lane :upload_build_to_testflight do 
