@@ -1243,8 +1243,8 @@ internal enum Loc {
       internal static let title = Loc.tr("Localizable", "MigrationGuide.Completed.Title", fallback: "I completed migration")
     }
     internal enum DidntComplete {
-      /// Download the desktop app *here*
-      internal static let step1 = Loc.tr("Localizable", "MigrationGuide.DidntComplete.Step1", fallback: "Download the desktop app *here*")
+      /// Download the desktop app **here**
+      internal static let step1 = Loc.tr("Localizable", "MigrationGuide.DidntComplete.Step1", fallback: "Download the desktop app **here**")
       /// Log in and update it to the latest version
       internal static let step2 = Loc.tr("Localizable", "MigrationGuide.DidntComplete.Step2", fallback: "Log in and update it to the latest version")
       /// Follow the migration instructions
