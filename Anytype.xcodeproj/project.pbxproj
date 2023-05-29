@@ -605,7 +605,6 @@
 		2AD53F5529DEEF7600460CF3 /* MigrationGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD53F5429DEEF7600460CF3 /* MigrationGuideView.swift */; };
 		2AD53F5729DEEF8F00460CF3 /* InstructionBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD53F5629DEEF8F00460CF3 /* InstructionBlockView.swift */; };
 		2AD53F5929DEF6E000460CF3 /* InstructionNumericContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD53F5829DEF6E000460CF3 /* InstructionNumericContentView.swift */; };
-		2AD53F5B29DF06EF00460CF3 /* RichTextElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD53F5A29DF06EE00460CF3 /* RichTextElement.swift */; };
 		2AD6792C29812EE600339624 /* HomeBottomPanelModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD6792B29812EE600339624 /* HomeBottomPanelModuleOutput.swift */; };
 		2AD741292993DB27004BD223 /* BinLinkWidgetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD741242993DB27004BD223 /* BinLinkWidgetViewModel.swift */; };
 		2AD7412A2993DB27004BD223 /* BinLinkWidgetModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD741252993DB27004BD223 /* BinLinkWidgetModuleAssembly.swift */; };
@@ -2074,7 +2073,6 @@
 		2AD53F5429DEEF7600460CF3 /* MigrationGuideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MigrationGuideView.swift; sourceTree = "<group>"; };
 		2AD53F5629DEEF8F00460CF3 /* InstructionBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionBlockView.swift; sourceTree = "<group>"; };
 		2AD53F5829DEF6E000460CF3 /* InstructionNumericContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionNumericContentView.swift; sourceTree = "<group>"; };
-		2AD53F5A29DF06EE00460CF3 /* RichTextElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RichTextElement.swift; sourceTree = "<group>"; };
 		2AD6792B29812EE600339624 /* HomeBottomPanelModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBottomPanelModuleOutput.swift; sourceTree = "<group>"; };
 		2AD741242993DB27004BD223 /* BinLinkWidgetViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BinLinkWidgetViewModel.swift; sourceTree = "<group>"; };
 		2AD741252993DB27004BD223 /* BinLinkWidgetModuleAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BinLinkWidgetModuleAssembly.swift; sourceTree = "<group>"; };
@@ -7847,7 +7845,6 @@
 				533AED9C26CC44920018E33C /* UIKitFont.swift */,
 				533AED8B26CC421F0018E33C /* SwiftUIFont.swift */,
 				3DAA6C8F264A918F0029CD39 /* AnytypeText.swift */,
-				2AD53F5A29DF06EE00460CF3 /* RichTextElement.swift */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -9380,7 +9377,6 @@
 				2AE5C71D29B7299F00A92C12 /* WidgetSourceSearchViewModel.swift in Sources */,
 				EA45749725F8D2EB007D6C83 /* TextBlockContentView.swift in Sources */,
 				12EB9AF62771F0E900BA732F /* RelationOptionsListView.swift in Sources */,
-				2AD53F5B29DF06EF00460CF3 /* RichTextElement.swift in Sources */,
 				3DFD1B3B26EA5B3E00F893FC /* ObjectIconAttachementLoader.swift in Sources */,
 				3DDD3D0E26AEB55700B5673A /* BlockFileView.swift in Sources */,
 				C96AFFD1284A385D0048B8EB /* SeparatorItemView.swift in Sources */,
@@ -10345,7 +10341,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -10403,7 +10399,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				OTHER_SWIFT_FLAGS = "-Xfrontend -warn-long-expression-type-checking=100 -Xfrontend -warn-long-function-bodies=100";
@@ -10435,7 +10431,7 @@
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "Anytype/Supporting files/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -10477,7 +10473,7 @@
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "Anytype/Supporting files/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -10506,6 +10502,7 @@
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = AnytypeTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -10528,6 +10525,7 @@
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = AnytypeTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -10590,7 +10588,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				OTHER_SWIFT_FLAGS = "-Xfrontend -warn-long-expression-type-checking=100 -Xfrontend -warn-long-function-bodies=100";
@@ -10623,7 +10621,7 @@
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "Anytype/Supporting files/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -10652,6 +10650,7 @@
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = AnytypeTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

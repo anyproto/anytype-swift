@@ -20,7 +20,7 @@ struct InstructionNumericContentView: View {
     private func numericLine(number: Int, message: Message) -> some View {
         HStack(alignment: .top, spacing: 0) {
             AnytypeText("\(number). ", style: .uxCalloutRegular, color: .Text.primary)
-            AnytypeText(message.text, style: .uxCalloutRegular, color: .Text.primary, isRich: true)
+            AnytypeText(message.text, style: .uxCalloutRegular, color: .Text.primary)
                 .ifLet(message.onTap) { view, onTap in
                     view.onTapGesture {
                         onTap()

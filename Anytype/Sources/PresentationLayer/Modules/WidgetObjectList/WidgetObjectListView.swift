@@ -23,7 +23,7 @@ struct WidgetObjectListView: View {
                 SearchBar(text: $searchText, focused: false, placeholder: Loc.search)
                 content
             }
-            .safeAreaInsetLegacy(edge: .bottom, content: {
+            .safeAreaInset(edge: .bottom, content: {
                 Spacer.fixedHeight(EditorBottomNavigationView.Constants.height) // Navigation bottom panel offset
             })
             optionsView

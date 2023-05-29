@@ -93,7 +93,7 @@
     {
       "identity" : "sourcerygenplugin",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/anytypeio/SourceryGenPlugin.git",
+      "location" : "https://github.com/anyproto/SourceryGenPlugin.git",
       "state" : {
         "branch" : "1.9.2",
         "revision" : "ed24fc9e7512ef3e2aa7642a6e4c1f5328b8603d"
