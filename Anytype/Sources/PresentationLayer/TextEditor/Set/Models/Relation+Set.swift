@@ -1,4 +1,4 @@
-import Services
+import BlocksModels
 
 extension Relation {
     var hasSelectedObjectsRelationType: Bool {

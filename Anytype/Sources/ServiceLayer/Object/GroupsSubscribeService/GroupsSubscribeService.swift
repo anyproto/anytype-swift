@@ -1,4 +1,4 @@
-import Services
+import BlocksModels
 import ProtobufMessages
 
 final class GroupsSubscribeService: GroupsSubscribeServiceProtocol {

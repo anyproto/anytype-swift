@@ -1,6 +1,6 @@
 import Foundation
 import UIKit
-import Services
+import BlocksModels
 import SwiftUI
 
 protocol AddNewRelationCoordinatorProtocol {

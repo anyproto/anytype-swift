@@ -1,6 +1,6 @@
 import AnytypeCore
 import UIKit
-import Services
+import BlocksModels
 
 extension NSAttributedString {
     

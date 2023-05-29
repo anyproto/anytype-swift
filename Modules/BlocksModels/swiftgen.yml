@@ -1,0 +1,19 @@
+input_dir: ../../
+
+json:
+  - inputs: Dependencies/Middleware/json/relations.json
+    outputs:
+      - templatePath: ./Templates/relation-keys.stencil
+        output: ./Sources/Relations/Provider/Bundled/Generated/BundledRelationKey.swift
+      - templatePath: ./Templates/relation-value-provider.stencil
+        output: ./Sources/Relations/Provider/Bundled/Generated/BundledRelationsValueProvider.swift
+  - inputs: Dependencies/Middleware/json/systemRelations.json
+    outputs:
+      templatePath: ./Templates/relation-list-keys.stencil
+      output: ./Sources/Relations/Provider/Bundled/Generated/BundledRelationKey+SystemKeys.swift
+      params:
+        varName: systemKeys
+  - inputs: Dependencies/Middleware/json/systemTypes.json
+    outputs:
+      templatePath: ./Templates/type-bundled.stencil
+      output: ./Sources/Relations/Provider/Bundled/Generated/BundledTypeId.swift

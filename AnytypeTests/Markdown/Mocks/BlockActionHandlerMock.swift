@@ -1,5 +1,5 @@
 @testable import Anytype
-import Services
+import BlocksModels
 import Foundation
 import AnytypeCore
 
@@ -157,7 +157,7 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
-    func setTextStyle(_ attribute: Anytype.MarkupType, range: NSRange, blockId: Services.BlockId, currentText: NSAttributedString?) {
+    func setTextStyle(_ attribute: Anytype.MarkupType, range: NSRange, blockId: BlocksModels.BlockId, currentText: NSAttributedString?) {
         assertionFailure()
     }
     
@@ -197,7 +197,7 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
-    func changeMarkup(blockIds: [Services.BlockId], markType: Anytype.MarkupType) {
+    func changeMarkup(blockIds: [BlocksModels.BlockId], markType: Anytype.MarkupType) {
         assertionFailure()
     }
 }

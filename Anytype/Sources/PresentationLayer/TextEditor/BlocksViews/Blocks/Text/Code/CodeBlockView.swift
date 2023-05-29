@@ -1,7 +1,7 @@
 import Combine
 import UIKit
 import Highlightr
-import Services
+import BlocksModels
 
 final class CodeBlockView: UIView, BlockContentView {
     private var actionHandler: CodeBlockContentConfiguration.Actions?

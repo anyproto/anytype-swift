@@ -1,5 +1,5 @@
 import Combine
-import Services
+import BlocksModels
 import AnytypeCore
 import UIKit
 

@@ -6,7 +6,7 @@
 //  Copyright © 2022 Anytype. All rights reserved.
 //
 
-import Services
+import BlocksModels
 import SwiftUI
 import FloatingPanel
 

@@ -1,6 +1,6 @@
 
 import UIKit
-import Services
+import BlocksModels
 import SwiftUI
 
 enum BlockBackgroundColor: String, CaseIterable {

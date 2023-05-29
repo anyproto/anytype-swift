@@ -1,5 +1,5 @@
 import ProtobufMessages
-import Services
+import BlocksModels
 import Foundation
 
 struct EventsBunch {

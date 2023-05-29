@@ -1,5 +1,5 @@
 import Foundation
-import Services
+import BlocksModels
 
 extension WidgetSource {
     var analyticsSource: AnalyticsWidgetSource {

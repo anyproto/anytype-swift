@@ -1,6 +1,6 @@
 import Foundation
 import Combine
-import Services
+import BlocksModels
 
 final class TableOfContentsContentProvider {
     

@@ -1,4 +1,4 @@
-import Services
+import BlocksModels
 
 enum SlashActionMedia: CaseIterable {
     case file

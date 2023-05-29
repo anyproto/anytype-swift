@@ -7,7 +7,6 @@ class LoginViewModel: ObservableObject {
     private lazy var cameraPermissionVerifier = CameraPermissionVerifier()
     private let seedService: SeedServiceProtocol
     private let applicationStateService: ApplicationStateServiceProtocol
-    private let localAuthService: LocalAuthServiceProtocol
     
     @Published var seed: String = ""
     @Published var showQrCodeView: Bool = false
@@ -36,15 +35,10 @@ class LoginViewModel: ObservableObject {
 
     private var subscriptions = [AnyCancellable]()
 
-    init(
-        seedService: SeedServiceProtocol = ServiceLocator.shared.seedService(),
-        applicationStateService: ApplicationStateServiceProtocol,
-        localAuthService: LocalAuthServiceProtocol = ServiceLocator.shared.localAuthService()
-    ) {
+    init(seedService: SeedServiceProtocol = ServiceLocator.shared.seedService(), applicationStateService: ApplicationStateServiceProtocol) {
         self.canRestoreFromKeychain = (try? seedService.obtainSeed()).isNotNil
         self.seedService = seedService
         self.applicationStateService = applicationStateService
-        self.localAuthService = localAuthService
     }
     
     func onEntropySet() {
@@ -75,13 +69,13 @@ class LoginViewModel: ObservableObject {
     }
 
     func restoreFromkeychain() {
-        localAuthService.auth(reason: Loc.restoreSecretPhraseFromKeychain) { [unowned self] didComplete in
+        LocalAuth.auth(reason: Loc.restoreSecretPhraseFromKeychain) { [unowned self] didComplete in
             guard didComplete,
                   let phrase = try? seedService.obtainSeed() else {
                 return
             }
 
-            recoverWallet(with: phrase)
+            recoverWallet(with: phrase)            
         }
     }
     

@@ -1,6 +1,6 @@
 import Foundation
 import UIKit
-import Services
+import BlocksModels
 
 protocol EditorPageCoordinatorProtocol: AnyObject {
     func startFlow(data: EditorScreenData, replaceCurrentPage: Bool)

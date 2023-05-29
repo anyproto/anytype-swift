@@ -1,6 +1,6 @@
 import Foundation
 import Combine
-import Services
+import BlocksModels
 import ProtobufMessages
 
 protocol BlockActionsServiceSingleProtocol: AnyObject {

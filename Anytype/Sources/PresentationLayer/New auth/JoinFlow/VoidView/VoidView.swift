@@ -25,7 +25,7 @@ struct VoidView: View {
         VStack(spacing: 12) {
             AnytypeText(Loc.Auth.JoinFlow.Void.title, style: .uxTitle1Semibold, color: .Text.primary)
                 .opacity(0.9)
-            AnytypeText(Loc.Auth.JoinFlow.Void.description, style: .authBody, color: .Auth.body)
+            AnytypeText(Loc.Auth.JoinFlow.Void.description, style: .authBoby, color: .Auth.body)
                 .multilineTextAlignment(.center)
             Spacer.fixedHeight(100)
         }

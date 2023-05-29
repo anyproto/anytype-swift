@@ -1,5 +1,5 @@
 import SwiftUI
-import Services
+import BlocksModels
 import Combine
 import SwiftProtobuf
 

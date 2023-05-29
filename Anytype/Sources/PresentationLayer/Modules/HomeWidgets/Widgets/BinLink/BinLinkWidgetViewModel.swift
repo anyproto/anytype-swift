@@ -1,6 +1,6 @@
 import Foundation
 import Combine
-import Services
+import BlocksModels
 
 @MainActor
 final class BinLinkWidgetViewModel: ObservableObject, WidgetContainerContentViewModelProtocol {

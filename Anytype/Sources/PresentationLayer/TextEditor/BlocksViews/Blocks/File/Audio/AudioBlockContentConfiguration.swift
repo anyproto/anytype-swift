@@ -6,7 +6,7 @@
 //  Copyright © 2021 Anytype. All rights reserved.
 //
 
-import Services
+import BlocksModels
 import UIKit
 import AVFoundation
 

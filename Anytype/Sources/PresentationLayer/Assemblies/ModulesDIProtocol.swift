@@ -33,5 +33,4 @@ protocol ModulesDIProtocol: AnyObject {
     func authInviteCode() -> InviteCodeViewModuleAssemblyProtocol
     func authVoid() -> VoidViewModuleAssemblyProtocol
     func authKey() -> KeyPhraseViewModuleAssemblyProtocol
-    func authSoul() -> SoulViewModuleAssemblyProtocol
 }

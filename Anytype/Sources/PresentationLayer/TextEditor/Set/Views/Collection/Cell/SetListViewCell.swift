@@ -1,5 +1,5 @@
 import SwiftUI
-import Services
+import BlocksModels
 
 struct SetListViewCell: View {
     let configuration: SetContentViewItemConfiguration

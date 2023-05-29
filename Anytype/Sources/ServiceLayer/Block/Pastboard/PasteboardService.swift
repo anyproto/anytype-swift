@@ -1,4 +1,4 @@
-import Services
+import BlocksModels
 import Foundation
 
 final class PasteboardService: PasteboardServiceProtocol {

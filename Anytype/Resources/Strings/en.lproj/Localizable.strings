@@ -92,6 +92,8 @@
 "Favorites" = "Favorites";
 "Recent" = "Recent";
 "Bin" = "Bin";
+"Files" = "Files";
+"The future will be the one you build" = "The future will be the one you build";
 
 // Settings
 "Wallpaper" = "Wallpaper";
@@ -162,17 +164,11 @@
 "Auth.JoinFlow.Void.Description" = "Everything you create will be stored here. It is a special encrypted place, which exist on your machine and is backed up to the network.";
 
 "Auth.JoinFlow.Key.Title" = "Your Void is encrypted by the Key";
-"Auth.JoinFlow.Key.Hidden.Description" = "The Key is a set of 12 words  in a specific order. It is unique for the Void and can’t be changed. You are the only one person who knows the Key.";
-"Auth.JoinFlow.Key.Shown.Description" = "If you lose the key, no one, including us, can help restore your Void. Write it down on a sheet of paper and store it securely.";
+"Auth.JoinFlow.Key.Description" = "The Key is a set of 12 words  in a specific order. It is unique for the Void and can’t be changed. You are the only one person who knows the Key.";
 "Auth.JoinFlow.Key.TextField.Placeholder" = "Type your recovery phrase";
 "Auth.JoinFlow.Key.Button.Show.Title" = "Show me the key";
-"Auth.JoinFlow.Key.Button.Saved.Title" = "I saved my key";
 "Auth.JoinFlow.Key.Button.Later.Title" = "Check later";
-"Auth.JoinFlow.Key.Button.Copy.Title" = "Copy to clipboard";
 
-"Auth.JoinFlow.Soul.Title" = "Create your Soul";
-"Auth.JoinFlow.Soul.Description" = "Think of it like an identity, or a profile within Anytype.";
-"Auth.JoinFlow.Soul.Placeholder" = "Call it whatever you want";
 
 // Object settings
 
@@ -679,28 +675,10 @@
 "Widgets.Empty.Title" = "This data view contains no objects";
 
 // MARK: - About
-"About.AppVersionLegacy" = "App version";
-"About.BuildNumberLegacy" = "Build number";
-"About.LibraryLegacy" = "Library";
-"About.analyticsIdLegacy" = "Analytics ID";
-"About.AppVersion" = "App version: %@";
-"About.BuildNumber" = "Build number: %@";
-"About.Library" = "Library version: %@";
-"About.accountId" = "Account ID: %@";
-"About.analyticsId" = "Analytics ID: %@";
-"About.Device" = "Device: %@";
-"About.OSVersion" = "OS version: %@";
-"About.HelpCommunity" = "Help & Community";
-"About.WhatsNew" = "What’s New";
-"About.AnytypeCommunity" = "Anytype Community";
-"About.HelpTutorials" = "Help & Tutorials";
-"About.ContactUs" = "Contact Us";
-"About.Legal" = "Legal";
-"About.TermsOfUse" = "Terms of Use";
-"About.PrivacyPolicy" = "Privacy Policy";
-"About.TechInfo" = "Tech Info";
-"About.Mail.Subject" = "Support request, Account ID %@";
-"About.Mail.Body" = "\n\nTechnical information\n%@";
+"About.AppVersion" = "App version";
+"About.BuildNumber" = "Build number";
+"About.Library" = "Library";
+"About.analyticsId" = "Analytics ID";
 
 // MARK: - Cache
 "ClearCache.Success" = "Cache sucessfully cleared";
@@ -723,21 +701,10 @@
 
 // MARK: - File Storage
 "FileStorage.Title" = "File storage";
-"FileStorage.Space.Title" = "Remote storage";
-"FileStorage.Space.Instruction" = "You can store up to %@ of your files on our encrypted backup node for free. If you reach the limit, files will be stored only locally.";
+"FileStorage.Space.Instruction" = "You can store up to %@ of your files on our encrypted backup node for free. If you reach the limit, remove some files.";
 "FileStorage.Space.Used" = "%@ of %@ used";
 "FileStorage.Local.Title" = "Local storage";
-"FileStorage.Local.Instruction" = "In order to save space on your local device, you can offload all your files to our encrypted backup node. The files will be loaded back when you open them.";
+"FileStorage.Local.Instruction" = "In order to save your local space, you can offload all your Anytype files to our encrypted backup node.";
 "FileStorage.Local.Used" = "%@ used";
 "FileStorage.OffloadTitle" = "Offload files";
-"FileStorage.ManageFiles" = "Manage files";
-"FileStorage.LimitError" = "You exceeded file limit upload";
-
-// MARK: - Files List
-"FilesList.Title" = "Synced files";
-"FilesList.ForceDelete.Title" = "Are you sure you want to permanently delete the files?";
-
-// MARK: - Widget object list
-"WidgetObjectList.ForceDelete.Message" = "You can’t undo this action.";
-
-
+"FileStorage.ManageFiles" = "Manage Files";

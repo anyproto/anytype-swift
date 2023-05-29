@@ -1,5 +1,5 @@
 import Foundation
-import Services
+import BlocksModels
 import ProtobufMessages
 
 extension Anytype_Model_Block.Content.File.State {

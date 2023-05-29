@@ -1,6 +1,6 @@
 import QuickLook
 import Combine
-import Services
+import BlocksModels
 
 final class FilePreviewMedia: NSObject, PreviewRemoteItem {
     // MARK: - PreviewRemoteItem

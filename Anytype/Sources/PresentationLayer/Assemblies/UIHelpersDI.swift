@@ -7,7 +7,7 @@ protocol UIHelpersDIProtocol {
     func viewControllerProvider() -> ViewControllerProviderProtocol
     func commonNavigationContext() -> NavigationContextProtocol
     func alertOpener() -> AlertOpenerProtocol
-    func urlOpener() -> URLOpenerProtocol
+    
 }
 
 final class UIHelpersDI: UIHelpersDIProtocol {
@@ -42,9 +42,5 @@ final class UIHelpersDI: UIHelpersDIProtocol {
     
     func alertOpener() -> AlertOpenerProtocol {
         AlertOpener(navigationContext: commonNavigationContext())
-    }
-    
-    func urlOpener() -> URLOpenerProtocol {
-        URLOpener(navigationContext: commonNavigationContext())
     }
 }

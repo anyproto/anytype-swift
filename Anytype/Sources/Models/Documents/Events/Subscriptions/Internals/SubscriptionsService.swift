@@ -1,4 +1,4 @@
-import Services
+import BlocksModels
 import Combine
 import AnytypeCore
 import NotificationCenter
@@ -144,8 +144,10 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
                     )),
                     subId: data.subID
                 )
-            default:
+            case .accountConfigUpdate, .accountUpdate, .accountDetails, .accountShow, .subscriptionGroups:
                 break
+            default:
+                anytypeAssertionFailure("Unsupported event \(event)", domain: .subscriptionStorage)
             }
         }
     }

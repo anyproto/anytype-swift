@@ -43,7 +43,9 @@ struct EditorSetView: View {
                 , alignment: .topLeading
             )
             .ignoresSafeArea(edges: .top)
-            .keyboardToolbar()
+            .if(FeatureFlags.keyboardToolbarInSets) {
+                $0.keyboardToolbar()
+            }
     }
     
     @ViewBuilder

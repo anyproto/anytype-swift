@@ -78,6 +78,10 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
         return EditorAssembly(serviceLocator: serviceLocator, coordinatorsDI: self, modulesDI: modulesDI, uiHelpersDI: uiHelpersDI)
     }
     
+    func homeViewAssemby() -> HomeViewAssembly {
+        return HomeViewAssembly(coordinatorsDI: self, modulesDI: modulesDI, serviceLocator: serviceLocator)
+    }
+    
     func editorBrowser() -> EditorBrowserCoordinatorAssemblyProtocol {
         return EditorBrowserCoordinatorAssembly(uiHelpersDI: uiHelpersDI, coordinatorsID: self)
     }

@@ -1,4 +1,4 @@
-import Services
+import BlocksModels
 
 struct ImageBlockRestrictions: BlockRestrictions {
     let canApplyBold = false

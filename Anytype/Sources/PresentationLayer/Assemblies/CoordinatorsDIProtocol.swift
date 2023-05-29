@@ -18,5 +18,6 @@ protocol CoordinatorsDIProtocol: AnyObject {
     // Now like a coordinator. Migrate to isolated modules
     func browser() -> EditorBrowserAssembly
     func editor() -> EditorAssembly
+    func homeViewAssemby() -> HomeViewAssembly
     func legacyAuthViewAssembly() -> LegacyAuthViewAssembly
 }

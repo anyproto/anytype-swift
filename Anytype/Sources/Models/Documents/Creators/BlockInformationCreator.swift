@@ -1,5 +1,5 @@
 import AnytypeCore
-import Services
+import BlocksModels
 import ProtobufMessages
 
 /// Entity to create BlockInformation from middle events

@@ -1,6 +1,6 @@
 import UIKit
 import Combine
-import Services
+import BlocksModels
 
 class DividerBlockContentView: UIView, BlockContentView {
     

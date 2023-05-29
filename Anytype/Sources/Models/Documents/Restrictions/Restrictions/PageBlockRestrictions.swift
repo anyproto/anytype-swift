@@ -1,5 +1,5 @@
 
-import Services
+import BlocksModels
 
 struct PageBlockRestrictions: BlockRestrictions {
     

@@ -289,6 +289,8 @@ internal enum Loc {
   internal static let fileMedia = Loc.tr("Localizable", "File & Media", fallback: "File & Media")
   /// Store file in original state
   internal static let fileBlockSubtitle = Loc.tr("Localizable", "File block subtitle", fallback: "Store file in original state")
+  /// Files
+  internal static let files = Loc.tr("Localizable", "Files", fallback: "Files")
   /// Filter
   internal static let filter = Loc.tr("Localizable", "Filter", fallback: "Filter")
   /// Gallery
@@ -568,6 +570,8 @@ internal enum Loc {
   internal static let text = Loc.tr("Localizable", "Text", fallback: "Text")
   /// Just start writing with a plain text
   internal static let textBlockSubtitle = Loc.tr("Localizable", "Text block subtitle", fallback: "Just start writing with a plain text")
+  /// The future will be the one you build
+  internal static let theFutureWillBeTheOneYouBuild = Loc.tr("Localizable", "The future will be the one you build", fallback: "The future will be the one you build")
   /// There is no emoji named
   internal static let thereIsNoEmojiNamed = Loc.tr("Localizable", "There is no emoji named", fallback: "There is no emoji named")
   /// There is no object named %@
@@ -655,73 +659,14 @@ internal enum Loc {
   /// Your device seems to be offline. Please, check your connection and try again
   internal static let yourDeviceSeemsToBeOffline = Loc.tr("Localizable", "Your device seems to be offline", fallback: "Your device seems to be offline. Please, check your connection and try again")
   internal enum About {
-    /// Account ID: %@
-    internal static func accountId(_ p1: Any) -> String {
-      return Loc.tr("Localizable", "About.accountId", String(describing: p1), fallback: "Account ID: %@")
-    }
-    /// Analytics ID: %@
-    internal static func analyticsId(_ p1: Any) -> String {
-      return Loc.tr("Localizable", "About.analyticsId", String(describing: p1), fallback: "Analytics ID: %@")
-    }
     /// Analytics ID
-    internal static let analyticsIdLegacy = Loc.tr("Localizable", "About.analyticsIdLegacy", fallback: "Analytics ID")
-    /// Anytype Community
-    internal static let anytypeCommunity = Loc.tr("Localizable", "About.AnytypeCommunity", fallback: "Anytype Community")
-    /// App version: %@
-    internal static func appVersion(_ p1: Any) -> String {
-      return Loc.tr("Localizable", "About.AppVersion", String(describing: p1), fallback: "App version: %@")
-    }
+    internal static let analyticsId = Loc.tr("Localizable", "About.analyticsId", fallback: "Analytics ID")
     /// App version
-    internal static let appVersionLegacy = Loc.tr("Localizable", "About.AppVersionLegacy", fallback: "App version")
-    /// Build number: %@
-    internal static func buildNumber(_ p1: Any) -> String {
-      return Loc.tr("Localizable", "About.BuildNumber", String(describing: p1), fallback: "Build number: %@")
-    }
+    internal static let appVersion = Loc.tr("Localizable", "About.AppVersion", fallback: "App version")
     /// Build number
-    internal static let buildNumberLegacy = Loc.tr("Localizable", "About.BuildNumberLegacy", fallback: "Build number")
-    /// Contact Us
-    internal static let contactUs = Loc.tr("Localizable", "About.ContactUs", fallback: "Contact Us")
-    /// Device: %@
-    internal static func device(_ p1: Any) -> String {
-      return Loc.tr("Localizable", "About.Device", String(describing: p1), fallback: "Device: %@")
-    }
-    /// Help & Community
-    internal static let helpCommunity = Loc.tr("Localizable", "About.HelpCommunity", fallback: "Help & Community")
-    /// Help & Tutorials
-    internal static let helpTutorials = Loc.tr("Localizable", "About.HelpTutorials", fallback: "Help & Tutorials")
-    /// Legal
-    internal static let legal = Loc.tr("Localizable", "About.Legal", fallback: "Legal")
-    /// Library version: %@
-    internal static func library(_ p1: Any) -> String {
-      return Loc.tr("Localizable", "About.Library", String(describing: p1), fallback: "Library version: %@")
-    }
+    internal static let buildNumber = Loc.tr("Localizable", "About.BuildNumber", fallback: "Build number")
     /// Library
-    internal static let libraryLegacy = Loc.tr("Localizable", "About.LibraryLegacy", fallback: "Library")
-    /// OS version: %@
-    internal static func osVersion(_ p1: Any) -> String {
-      return Loc.tr("Localizable", "About.OSVersion", String(describing: p1), fallback: "OS version: %@")
-    }
-    /// Privacy Policy
-    internal static let privacyPolicy = Loc.tr("Localizable", "About.PrivacyPolicy", fallback: "Privacy Policy")
-    /// Tech Info
-    internal static let techInfo = Loc.tr("Localizable", "About.TechInfo", fallback: "Tech Info")
-    /// Terms of Use
-    internal static let termsOfUse = Loc.tr("Localizable", "About.TermsOfUse", fallback: "Terms of Use")
-    /// What’s New
-    internal static let whatsNew = Loc.tr("Localizable", "About.WhatsNew", fallback: "What’s New")
-    internal enum Mail {
-      /// 
-      /// 
-      /// Technical information
-      /// %@
-      internal static func body(_ p1: Any) -> String {
-        return Loc.tr("Localizable", "About.Mail.Body", String(describing: p1), fallback: "\n\nTechnical information\n%@")
-      }
-      /// Support request, Account ID %@
-      internal static func subject(_ p1: Any) -> String {
-        return Loc.tr("Localizable", "About.Mail.Subject", String(describing: p1), fallback: "Support request, Account ID %@")
-      }
-    }
+    internal static let library = Loc.tr("Localizable", "About.Library", fallback: "Library")
   }
   internal enum Actions {
     /// Link to
@@ -770,46 +715,24 @@ internal enum Loc {
         internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.InterCode.Title", fallback: "Enter your invite code")
       }
       internal enum Key {
+        /// The Key is a set of 12 words  in a specific order. It is unique for the Void and can’t be changed. You are the only one person who knows the Key.
+        internal static let description = Loc.tr("Localizable", "Auth.JoinFlow.Key.Description", fallback: "The Key is a set of 12 words  in a specific order. It is unique for the Void and can’t be changed. You are the only one person who knows the Key.")
         /// Your Void is encrypted by the Key
         internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.Title", fallback: "Your Void is encrypted by the Key")
         internal enum Button {
-          internal enum Copy {
-            /// Copy to clipboard
-            internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.Button.Copy.Title", fallback: "Copy to clipboard")
-          }
           internal enum Later {
             /// Check later
             internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.Button.Later.Title", fallback: "Check later")
-          }
-          internal enum Saved {
-            /// I saved my key
-            internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.Button.Saved.Title", fallback: "I saved my key")
           }
           internal enum Show {
             /// Show me the key
             internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.Button.Show.Title", fallback: "Show me the key")
           }
         }
-        internal enum Hidden {
-          /// The Key is a set of 12 words  in a specific order. It is unique for the Void and can’t be changed. You are the only one person who knows the Key.
-          internal static let description = Loc.tr("Localizable", "Auth.JoinFlow.Key.Hidden.Description", fallback: "The Key is a set of 12 words  in a specific order. It is unique for the Void and can’t be changed. You are the only one person who knows the Key.")
-        }
-        internal enum Shown {
-          /// If you lose the key, no one, including us, can help restore your Void. Write it down on a sheet of paper and store it securely.
-          internal static let description = Loc.tr("Localizable", "Auth.JoinFlow.Key.Shown.Description", fallback: "If you lose the key, no one, including us, can help restore your Void. Write it down on a sheet of paper and store it securely.")
-        }
         internal enum TextField {
           /// Type your recovery phrase
           internal static let placeholder = Loc.tr("Localizable", "Auth.JoinFlow.Key.TextField.Placeholder", fallback: "Type your recovery phrase")
         }
-      }
-      internal enum Soul {
-        /// Think of it like an identity, or a profile within Anytype.
-        internal static let description = Loc.tr("Localizable", "Auth.JoinFlow.Soul.Description", fallback: "Think of it like an identity, or a profile within Anytype.")
-        /// Call it whatever you want
-        internal static let placeholder = Loc.tr("Localizable", "Auth.JoinFlow.Soul.Placeholder", fallback: "Call it whatever you want")
-        /// Create your Soul
-        internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Soul.Title", fallback: "Create your Soul")
       }
       internal enum Void {
         /// Everything you create will be stored here. It is a special encrypted place, which exist on your machine and is backed up to the network.
@@ -1112,17 +1035,15 @@ internal enum Loc {
     internal static let pleaseTryAgain = Loc.tr("Localizable", "Error occurred. Please try again", fallback: "Error occurred. Please try again")
   }
   internal enum FileStorage {
-    /// You exceeded file limit upload
-    internal static let limitError = Loc.tr("Localizable", "FileStorage.LimitError", fallback: "You exceeded file limit upload")
-    /// Manage files
-    internal static let manageFiles = Loc.tr("Localizable", "FileStorage.ManageFiles", fallback: "Manage files")
+    /// Manage Files
+    internal static let manageFiles = Loc.tr("Localizable", "FileStorage.ManageFiles", fallback: "Manage Files")
     /// Offload files
     internal static let offloadTitle = Loc.tr("Localizable", "FileStorage.OffloadTitle", fallback: "Offload files")
     /// File storage
     internal static let title = Loc.tr("Localizable", "FileStorage.Title", fallback: "File storage")
     internal enum Local {
-      /// In order to save space on your local device, you can offload all your files to our encrypted backup node. The files will be loaded back when you open them.
-      internal static let instruction = Loc.tr("Localizable", "FileStorage.Local.Instruction", fallback: "In order to save space on your local device, you can offload all your files to our encrypted backup node. The files will be loaded back when you open them.")
+      /// In order to save your local space, you can offload all your Anytype files to our encrypted backup node.
+      internal static let instruction = Loc.tr("Localizable", "FileStorage.Local.Instruction", fallback: "In order to save your local space, you can offload all your Anytype files to our encrypted backup node.")
       /// Local storage
       internal static let title = Loc.tr("Localizable", "FileStorage.Local.Title", fallback: "Local storage")
       /// %@ used
@@ -1131,24 +1052,14 @@ internal enum Loc {
       }
     }
     internal enum Space {
-      /// You can store up to %@ of your files on our encrypted backup node for free. If you reach the limit, files will be stored only locally.
+      /// You can store up to %@ of your files on our encrypted backup node for free. If you reach the limit, remove some files.
       internal static func instruction(_ p1: Any) -> String {
-        return Loc.tr("Localizable", "FileStorage.Space.Instruction", String(describing: p1), fallback: "You can store up to %@ of your files on our encrypted backup node for free. If you reach the limit, files will be stored only locally.")
+        return Loc.tr("Localizable", "FileStorage.Space.Instruction", String(describing: p1), fallback: "You can store up to %@ of your files on our encrypted backup node for free. If you reach the limit, remove some files.")
       }
-      /// Remote storage
-      internal static let title = Loc.tr("Localizable", "FileStorage.Space.Title", fallback: "Remote storage")
       /// %@ of %@ used
       internal static func used(_ p1: Any, _ p2: Any) -> String {
         return Loc.tr("Localizable", "FileStorage.Space.Used", String(describing: p1), String(describing: p2), fallback: "%@ of %@ used")
       }
-    }
-  }
-  internal enum FilesList {
-    /// Synced files
-    internal static let title = Loc.tr("Localizable", "FilesList.Title", fallback: "Synced files")
-    internal enum ForceDelete {
-      /// Are you sure you want to permanently delete the files?
-      internal static let title = Loc.tr("Localizable", "FilesList.ForceDelete.Title", fallback: "Are you sure you want to permanently delete the files?")
     }
   }
   internal enum Home {
@@ -1559,12 +1470,6 @@ internal enum Loc {
       internal static let description = Loc.tr("Localizable", "WidgetExtension.LockScreen.Description", fallback: "Create a new object on the fly")
       /// New object
       internal static let title = Loc.tr("Localizable", "WidgetExtension.LockScreen.Title", fallback: "New object")
-    }
-  }
-  internal enum WidgetObjectList {
-    internal enum ForceDelete {
-      /// You can’t undo this action.
-      internal static let message = Loc.tr("Localizable", "WidgetObjectList.ForceDelete.Message", fallback: "You can’t undo this action.")
     }
   }
   internal enum Widgets {

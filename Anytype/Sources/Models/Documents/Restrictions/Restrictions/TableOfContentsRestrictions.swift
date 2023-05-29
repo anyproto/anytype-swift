@@ -1,4 +1,4 @@
-import Services
+import BlocksModels
 
 struct TableOfContentsRestrictions: BlockRestrictions {
     let canApplyBold = false

@@ -1,5 +1,5 @@
 import Combine
-import Services
+import BlocksModels
 import AnytypeCore
 import SwiftUI
 import OrderedCollections
@@ -24,7 +24,7 @@ final class EditorSetViewModel: ObservableObject {
     
     var isUpdating = false
 
-    var objectId: Services.BlockId {
+    var objectId: BlocksModels.BlockId {
         setDocument.objectId
     }
     

@@ -1,4 +1,4 @@
-import Services
+import BlocksModels
 import SwiftUI
 
 struct SetRelation: Identifiable, Equatable, Hashable {

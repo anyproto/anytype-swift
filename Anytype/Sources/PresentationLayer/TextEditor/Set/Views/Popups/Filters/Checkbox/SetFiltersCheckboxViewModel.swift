@@ -1,5 +1,5 @@
 import SwiftUI
-import Services
+import BlocksModels
 
 final class SetFiltersCheckboxViewModel: ObservableObject {
     @Published var value: SetFiltersCheckboxValue = .checked

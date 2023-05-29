@@ -1,6 +1,6 @@
 import Foundation
 import Combine
-import Services
+import BlocksModels
 import UIKit
 
 @MainActor
@@ -102,7 +102,7 @@ final class WidgetContainerViewModel<ContentVM: WidgetContainerContentViewModelP
     func onEmptyBinTap() {
         Task {
             let binIds = try await searchService.searchArchiveObjectIds()
-            try await objectActionsService.delete(objectIds: binIds, route: .bin)
+            try await objectActionsService.delete(objectIds: binIds)
             toastData = ToastBarData(text: Loc.Widgets.Actions.binConfirm(binIds.count), showSnackBar: true)
         }
         UISelectionFeedbackGenerator().selectionChanged()

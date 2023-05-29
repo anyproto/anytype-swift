@@ -1,4 +1,4 @@
-import Services
+import BlocksModels
 
 final class SetSortsSearchInteractor {
     

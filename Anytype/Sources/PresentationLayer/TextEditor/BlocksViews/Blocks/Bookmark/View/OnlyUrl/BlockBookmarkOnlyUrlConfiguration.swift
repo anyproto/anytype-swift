@@ -1,5 +1,5 @@
 import UIKit
-import Services
+import BlocksModels
 
 struct BlockBookmarkOnlyUrlConfiguration: BlockConfiguration {
     typealias View = BlockBookmarkOnlyUrlView

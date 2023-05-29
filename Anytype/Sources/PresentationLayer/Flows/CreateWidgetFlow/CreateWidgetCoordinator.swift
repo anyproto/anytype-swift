@@ -1,5 +1,5 @@
 import Foundation
-import Services
+import BlocksModels
 
 @MainActor
 protocol CreateWidgetCoordinatorProtocol {

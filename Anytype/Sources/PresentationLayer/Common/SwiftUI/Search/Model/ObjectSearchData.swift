@@ -1,4 +1,4 @@
-import Services
+import BlocksModels
 import SwiftUI
 
 struct ObjectSearchData: SearchDataProtocol {

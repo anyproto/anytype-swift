@@ -1,4 +1,4 @@
-import Services
+import BlocksModels
 import UIKit
 import AnytypeCore
 import SwiftUI
@@ -143,7 +143,7 @@ final class EditorAssembly {
             document: document,
             addNewRelationCoordinator: coordinatorsDI.addNewRelation().make(document: document),
             templatesCoordinator: coordinatorsDI.templates().make(viewController: controller),
-            urlOpener: uiHelpersDI.urlOpener(),
+            urlOpener: URLOpener(viewController: browser),
             relationValueCoordinator: coordinatorsDI.relationValue().make(),
             editorPageCoordinator: coordinatorsDI.editorPage().make(browserController: browser),
             linkToObjectCoordinator: coordinatorsDI.linkToObject().make(browserController: browser),

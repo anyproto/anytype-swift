@@ -1,6 +1,6 @@
 import SwiftUI
 import AnytypeCore
-import Services
+import BlocksModels
 
 extension ImageAsset {
     static let multiplyCircleFill = ImageAsset.system(name: "multiply.circle.fill")

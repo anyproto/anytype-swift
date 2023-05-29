@@ -1,4 +1,4 @@
-import Services
+import BlocksModels
 
 struct MentionData: Equatable, Hashable {
     let image: ObjectIconImage?

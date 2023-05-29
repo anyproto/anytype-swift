@@ -1,5 +1,5 @@
 import SwiftUI
-import Services
+import BlocksModels
 
 struct EditorSetViewRow: View {
     @Environment(\.editMode) var editMode

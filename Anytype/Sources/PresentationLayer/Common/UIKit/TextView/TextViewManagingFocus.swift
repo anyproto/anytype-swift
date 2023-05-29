@@ -1,4 +1,4 @@
-import Services
+import BlocksModels
 
 protocol TextViewManagingFocus: AnyObject {
     func shouldResignFirstResponder()

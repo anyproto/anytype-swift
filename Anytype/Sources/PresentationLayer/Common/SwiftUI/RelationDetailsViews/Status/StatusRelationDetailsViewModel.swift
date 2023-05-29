@@ -1,6 +1,6 @@
 import Foundation
 import SwiftUI
-import Services
+import BlocksModels
 import FloatingPanel
 
 final class StatusRelationDetailsViewModel: ObservableObject {

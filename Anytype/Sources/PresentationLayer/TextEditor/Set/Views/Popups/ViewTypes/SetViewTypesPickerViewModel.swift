@@ -1,5 +1,5 @@
 import SwiftUI
-import Services
+import BlocksModels
 
 final class SetViewTypesPickerViewModel: ObservableObject {
     @Published var name = ""

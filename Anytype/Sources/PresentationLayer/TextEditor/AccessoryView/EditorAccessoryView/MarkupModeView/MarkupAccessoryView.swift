@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import Services
+import BlocksModels
 import Combine
 import AnytypeCore
 
@@ -114,6 +114,7 @@ final class MarkupAccessoryView: UIView {
     // MARK: - Private
     
     private func updateColorViewStyle() {
+        guard FeatureFlags.styleViewFixColor else { return }
         // Presented window - is not application window. This is the system window.
         // We should to set custom UserInterfaceStyle for sync with application.
         colorView.overrideUserInterfaceStyle = traitCollection.userInterfaceStyle

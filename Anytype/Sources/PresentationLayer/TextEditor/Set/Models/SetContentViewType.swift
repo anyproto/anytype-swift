@@ -1,4 +1,4 @@
-import Services
+import BlocksModels
 
 enum SetContentViewType {
     case collection(CollectionType)

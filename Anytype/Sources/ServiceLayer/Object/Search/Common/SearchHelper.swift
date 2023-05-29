@@ -1,6 +1,6 @@
 import ProtobufMessages
 import SwiftProtobuf
-import Services
+import BlocksModels
 
 class SearchHelper {
     static func sort(relation: BundledRelationKey, type: DataviewSort.TypeEnum) -> DataviewSort {
@@ -201,18 +201,6 @@ class SearchHelper {
         
         return filter
     }
-    
-    static func fileSyncStatus(_ status: FileSyncStatus) -> DataviewFilter {
-        var filter = DataviewFilter()
-        filter.condition = .equal
-        filter.value = status.rawValue.protobufValue
-        filter.relationKey = BundledRelationKey.fileSyncStatus.rawValue
-        filter.operator = .and
-        
-        return filter
-    }
-    
-    // MARK: - Private
 
     private static func templateTypeFilter(type: String) -> DataviewFilter {
         var filter = DataviewFilter()

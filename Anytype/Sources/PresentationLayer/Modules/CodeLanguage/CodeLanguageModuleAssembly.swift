@@ -1,6 +1,6 @@
 import Foundation
 import UIKit
-import Services
+import BlocksModels
 
 protocol CodeLanguageListModuleAssemblyProtocol {
     func make(document: BaseDocumentProtocol, blockId: BlockId) -> UIViewController

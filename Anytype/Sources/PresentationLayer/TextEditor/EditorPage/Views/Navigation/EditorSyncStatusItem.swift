@@ -1,5 +1,5 @@
 import UIKit
-import Services
+import BlocksModels
 
 final class EditorSyncStatusItem: UIView {
     private let backgroundView = UIView()

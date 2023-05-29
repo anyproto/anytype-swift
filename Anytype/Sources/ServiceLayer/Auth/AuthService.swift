@@ -3,7 +3,7 @@ import Combine
 import SwiftUI
 import ProtobufMessages
 import AnytypeCore
-import Services
+import BlocksModels
 
 final class AuthService: AuthServiceProtocol {
     
@@ -55,13 +55,6 @@ final class AuthService: AuthServiceProtocol {
         } catch {
             throw AuthServiceError.createWalletError
         }
-    }
-    
-    func createWallet() async throws -> String {
-        let result = try await ClientCommands.walletCreate(.with {
-            $0.rootPath = rootPath
-        }).invoke()
-        return result.mnemonic
     }
 
     func createAccount(name: String, imagePath: String, alphaInviteCode: String) async throws {

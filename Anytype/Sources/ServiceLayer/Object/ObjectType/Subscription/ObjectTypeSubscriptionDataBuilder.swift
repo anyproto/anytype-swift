@@ -1,5 +1,5 @@
 import Foundation
-import Services
+import BlocksModels
 
 extension SubscriptionId {
     static var objectType = SubscriptionId(value: "SubscriptionId.ObjectType")

@@ -1,5 +1,5 @@
 import Foundation
-import Services
+import BlocksModels
 
 public extension LayoutAlignment {
     var analyticsValue: String {

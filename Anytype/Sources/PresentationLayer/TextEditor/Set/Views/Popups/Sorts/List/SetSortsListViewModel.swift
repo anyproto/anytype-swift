@@ -1,6 +1,6 @@
 import Foundation
 import SwiftUI
-import Services
+import BlocksModels
 import Combine
 
 final class SetSortsListViewModel: ObservableObject {

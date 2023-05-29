@@ -1,5 +1,5 @@
 import Foundation
-import Services
+import BlocksModels
 
 protocol WidgetObjectListMenuBuilderProtocol: AnyObject {
     func buildOptionsMenu(
@@ -88,21 +88,15 @@ final class WidgetObjectListMenuBuilder: WidgetObjectListMenuBuilderProtocol {
                 })
             }
             
-            if allowOptions.contains(.delete), isArchivedIds.isNotEmpty {
+            if allowOptions.contains(.delete) {
                 Action(optionTitle: Loc.delete, optionImage: .delete, menuTitle: Loc.delete, negative: true, action: { [weak output] in
-                    output?.delete(objectIds: isArchivedIds)
+                    output?.delete(objectIds: allIds)
                 })
             }
             
             if allowOptions.contains(.restore), isArchivedIds.isNotEmpty {
                 Action(optionTitle: Loc.restore, optionImage: .restore, menuTitle: Loc.restore, negative: false, action: { [weak output] in
                     output?.setArchive(objectIds: isArchivedIds, false)
-                })
-            }
-            
-            if allowOptions.contains(.forceDelete) {
-                Action(optionTitle: Loc.delete, optionImage: .delete, menuTitle: Loc.delete, negative: true, action: { [weak output] in
-                    output?.forceDelete(objectIds: allIds)
                 })
             }
         }

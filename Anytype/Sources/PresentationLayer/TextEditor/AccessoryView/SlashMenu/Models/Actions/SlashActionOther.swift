@@ -1,4 +1,4 @@
-import Services
+import BlocksModels
 import AnytypeCore
 
 enum SlashActionOther: CaseIterable, Equatable {

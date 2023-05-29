@@ -28,15 +28,6 @@
       }
     },
     {
-      "identity" : "devicekit",
-      "kind" : "remoteSourceControl",
-      "location" : "git@github.com:devicekit/DeviceKit.git",
-      "state" : {
-        "revision" : "691fe8112cca20ebf0020a1709d4e0205400311c",
-        "version" : "5.0.0"
-      }
-    },
-    {
       "identity" : "floatingpanel",
       "kind" : "remoteSourceControl",
       "location" : "git@github.com:scenee/FloatingPanel.git",

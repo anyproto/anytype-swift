@@ -1,7 +1,7 @@
 import UIKit
 import SwiftUI
 import Combine
-import Services
+import BlocksModels
 import AnytypeCore
 
 final class TemplatesCoordinator {

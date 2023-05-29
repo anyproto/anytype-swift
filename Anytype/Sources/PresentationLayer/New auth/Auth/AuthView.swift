@@ -34,7 +34,6 @@ struct AuthView: View {
             }
             Spacer.fixedHeight(14)
         }
-        .padding(.horizontal, 30)
     }
     
     private var greetings: some View {
@@ -45,10 +44,10 @@ struct AuthView: View {
             
             Spacer.fixedHeight(30)
             
-            AnytypeText(Loc.Auth.Welcome.subtitle, style: .authBody, color: .Auth.body)
+            AnytypeText(Loc.Auth.Welcome.subtitle, style: .authBoby, color: .Auth.body)
                 .multilineTextAlignment(.center)
-                .padding(.horizontal, 28)
         }
+        .padding(.horizontal, 58)
     }
 
     private var buttons: some View {
@@ -69,6 +68,7 @@ struct AuthView: View {
                 action: {}
             )
         }
+        .padding(.horizontal, 30)
     }
     
     @available(iOS 15.0, *)
@@ -79,7 +79,7 @@ struct AuthView: View {
             color: .Auth.caption
         )
         .multilineTextAlignment(.center)
-        .padding(.horizontal, 28)
+        .padding(.horizontal, 58)
         .accentColor(.Text.secondary)
         .environment(\.openURL, OpenURLAction { url in
             model.onUrlTapAction(url)

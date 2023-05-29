@@ -75,7 +75,6 @@ extension UIColor {
       internal static let dot = UIColor(asset: Asset.Auth.dot)
       internal static let dotSelected = UIColor(asset: Asset.Auth.dotSelected)
       internal static let input = UIColor(asset: Asset.Auth.input)
-      internal static let inputText = UIColor(asset: Asset.Auth.inputText)
     }
     
     // MARK: - Background

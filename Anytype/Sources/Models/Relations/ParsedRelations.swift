@@ -1,5 +1,5 @@
 import AnytypeCore
-import Services
+import BlocksModels
 
 struct ParsedRelations: Equatable {
 

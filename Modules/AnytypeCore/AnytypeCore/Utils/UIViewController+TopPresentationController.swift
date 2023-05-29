@@ -13,12 +13,4 @@ public extension UIViewController {
         }
         return topPresentedController
     }
-    
-    var topVisibleController: UIViewController {
-        let topController = topPresentedController
-        if let navigationController = topController as? UINavigationController {
-            return navigationController.topViewController ?? topController
-        }
-        return topController
-    }
 }

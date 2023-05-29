@@ -4,10 +4,15 @@ platform :ios do
   
   lane :check_lisence do |options|
     
-    Dir.chdir("..") do
-        sh("xcodebuild -resolvePackageDependencies -clonedSourcePackagesDirPath #{ENV['SPM_DERIVED_DATA']} -scheme #{ENV["APP_TARGET"]} -project ./#{ENV["APP_PROJECT"]}")
-        sh("bundle exec license_finder --enabled-package-managers spm --decisions-file ./build/open/decisions.yml")
+    Dir.chdir("../build/open") do
+      sh("python3 tools/generate.py --platform ios")
     end
+
+    Dir.chdir("..") do
+      sh("xcodebuild -resolvePackageDependencies -clonedSourcePackagesDirPath #{ENV['SPM_DERIVED_DATA']} -scheme #{ENV["APP_TARGET"]} -project ./#{ENV["APP_PROJECT"]}")
+      sh("bundle exec license_finder --enabled-package-managers spm --decisions-file ./build/open/decisions.yml")
+    end
+    
   end
 
 end

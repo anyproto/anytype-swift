@@ -1,4 +1,4 @@
-import Services
+import BlocksModels
 
 enum SubscriptionUpdate {
     case initialData([ObjectDetails])

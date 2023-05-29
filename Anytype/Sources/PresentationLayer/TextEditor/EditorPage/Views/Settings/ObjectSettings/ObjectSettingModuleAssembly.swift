@@ -1,4 +1,4 @@
-import Services
+import BlocksModels
 import UIKit
 
 protocol ObjectSettingsModuleDelegate: AnyObject {

@@ -5,10 +5,6 @@ class VersionProvider
   def self.version_from_library_file(token)
     version = LibraryFile.get()
 
-    return specific_version(version, token)
-  end
-
-  def self.specific_version(version, token)
     information = GetRemoteInformationWorker.new(token).work
     versions = GetRemoteAvailableVersionsWorker.new(information).work
 

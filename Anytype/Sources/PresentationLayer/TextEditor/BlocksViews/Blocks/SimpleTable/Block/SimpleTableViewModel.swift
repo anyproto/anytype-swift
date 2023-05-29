@@ -1,6 +1,6 @@
 import UIKit
 import Combine
-import Services
+import BlocksModels
 
 final class SimpleTableViewModel {
     let stateManager: SimpleTableStateManagerProtocol

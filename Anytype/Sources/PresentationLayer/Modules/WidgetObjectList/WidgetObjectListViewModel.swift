@@ -1,6 +1,6 @@
 import Foundation
 import Combine
-import Services
+import BlocksModels
 import UIKit
 
 enum WidgetObjectListData {
@@ -16,7 +16,6 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
     private let bottomPanelManager: BrowserBottomPanelManagerProtocol?
     private let objectActionService: ObjectActionsServiceProtocol
     private let menuBuilder: WidgetObjectListMenuBuilderProtocol
-    private let alertOpener: AlertOpenerProtocol
     private weak var output: WidgetObjectListCommonModuleOutput?
     
     // MARK: - State
@@ -47,7 +46,6 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
         bottomPanelManager: BrowserBottomPanelManagerProtocol?,
         objectActionService: ObjectActionsServiceProtocol,
         menuBuilder: WidgetObjectListMenuBuilderProtocol,
-        alertOpener: AlertOpenerProtocol,
         output: WidgetObjectListCommonModuleOutput?,
         isSheet: Bool = false
     ) {
@@ -55,7 +53,6 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
         self.bottomPanelManager = bottomPanelManager
         self.objectActionService = objectActionService
         self.menuBuilder = menuBuilder
-        self.alertOpener = alertOpener
         self.output = output
         self.isSheet = isSheet
         internalModel.rowDetailsPublisher.sink { [weak self] data in
@@ -105,33 +102,11 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
     }
     
     func delete(objectIds: [BlockId]) {
-        Task { try? await objectActionService.delete(objectIds: objectIds, route: .bin) }
+        Task { try? await objectActionService.delete(objectIds: objectIds) }
         UISelectionFeedbackGenerator().selectionChanged()
-    }
-    
-    func forceDelete(objectIds: [BlockId]) {
-        var dismissAlert: AnytypeDismiss?
-        let alert = BottomAlert(
-            title: internalModel.forceDeleteTitle,
-            message: Loc.WidgetObjectList.ForceDelete.message,
-            leftButton: BottomAlertButton(title: Loc.cancel, isDistructive: false, action: { dismissAlert?() }),
-            rightButton: BottomAlertButton(title: Loc.delete, isDistructive: true, action: { [weak self] in
-                dismissAlert?()
-                self?.forceDeleteConfirmed(objectIds: objectIds)
-            })
-        )
-        dismissAlert = alertOpener.showFloatAlert(model: alert)
     }
     
     // MARK: - Private
-    
-    private func forceDeleteConfirmed(objectIds: [BlockId]) {
-        Task {
-            try await objectActionService.setArchive(objectIds: objectIds, true)
-            try await objectActionService.delete(objectIds: objectIds, route: .settings)
-        }
-        UISelectionFeedbackGenerator().selectionChanged()
-    }
     
     private func updateRows() {
         

@@ -1,5 +1,5 @@
 import Combine
-import Services
+import BlocksModels
 
 final class SetViewSettingsImagePreviewViewModel: ObservableObject {
     let title = Loc.Set.View.Settings.ImagePreview.title

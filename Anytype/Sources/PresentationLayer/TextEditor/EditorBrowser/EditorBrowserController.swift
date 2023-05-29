@@ -1,5 +1,5 @@
 import UIKit
-import Services
+import BlocksModels
 import AnytypeCore
 
 protocol EditorBrowser: AnyObject {
@@ -61,14 +61,31 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: false)
+        
+        if FeatureFlags.homeWidgets {
+            navigationController?.setNavigationBarHidden(true, animated: false)
+        } else {
+            if let navigationController = navigationController as? NavigationControllerWithSwiftUIContent {
+                navigationController.anytype_setNavigationBarHidden(true, animated: false)
+            } else {
+                navigationController?.setNavigationBarHidden(true, animated: false)
+            }
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        if let navigationController, !navigationController.viewControllers.contains(where: { $0 == self}) {
-            UserDefaultsConfig.storeOpenedScreenData(nil)
+        if !FeatureFlags.homeWidgets {
+            if let navigationController = navigationController as? NavigationControllerWithSwiftUIContent {
+                navigationController.anytype_setNavigationBarHidden(false, animated: false)
+            }
+        }
+        
+        if FeatureFlags.homeWidgets {
+            if let navigationController, !navigationController.viewControllers.contains(where: { $0 == self}) {
+                UserDefaultsConfig.storeOpenedScreenData(nil)
+            }
         }
     }
     
@@ -109,7 +126,9 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
                 self.router.showPage(data: page.pageData)
             },
             onHomeTap: { [weak self] in
-                AnytypeAnalytics.instance().logShowHome(view: .widget)
+                if FeatureFlags.homeWidgets {
+                    AnytypeAnalytics.instance().logShowHome(view: .widget)
+                }
                 self?.goToHome(animated: true)
             },
             onCreateObjectTap: { [weak self] in

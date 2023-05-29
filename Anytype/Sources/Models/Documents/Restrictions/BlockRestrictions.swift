@@ -1,4 +1,4 @@
-import Services
+import BlocksModels
 
 protocol BlockRestrictions {
     var canApplyBold: Bool { get }

@@ -1,4 +1,4 @@
-import Services
+import BlocksModels
 import Foundation
 import AnytypeCore
 import SwiftProtobuf

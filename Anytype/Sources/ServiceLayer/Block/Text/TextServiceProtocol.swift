@@ -1,7 +1,7 @@
 import Foundation
 import Combine
 import UIKit
-import Services
+import BlocksModels
 import ProtobufMessages
 
 protocol TextServiceProtocol {

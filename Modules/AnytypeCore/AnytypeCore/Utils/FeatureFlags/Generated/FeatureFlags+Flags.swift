@@ -10,8 +10,20 @@ public extension FeatureFlags {
         value(for: .setKanbanView)
     }
 
+    static var homeWidgets: Bool {
+        value(for: .homeWidgets)
+    }
+
     static var fullInlineSetImpl: Bool {
         value(for: .fullInlineSetImpl)
+    }
+
+    static var fixUpdateRelationBlock: Bool {
+        value(for: .fixUpdateRelationBlock)
+    }
+
+    static var styleViewFixColor: Bool {
+        value(for: .styleViewFixColor)
     }
 
     static var dndOnCollectionsAndSets: Bool {
@@ -22,16 +34,16 @@ public extension FeatureFlags {
         value(for: .migrationGuide)
     }
 
+    static var keyboardToolbarInSets: Bool {
+        value(for: .keyboardToolbarInSets)
+    }
+
     static var fileStorage: Bool {
         value(for: .fileStorage)
     }
 
     static var newAuthorization: Bool {
         value(for: .newAuthorization)
-    }
-
-    static var redesignAbout: Bool {
-        value(for: .redesignAbout)
     }
 
     static var rainbowViews: Bool {
@@ -53,12 +65,15 @@ public extension FeatureFlags {
     // All toggles
     static let features: [FeatureDescription] = [
         .setKanbanView,
+        .homeWidgets,
         .fullInlineSetImpl,
+        .fixUpdateRelationBlock,
+        .styleViewFixColor,
         .dndOnCollectionsAndSets,
         .migrationGuide,
+        .keyboardToolbarInSets,
         .fileStorage,
         .newAuthorization,
-        .redesignAbout,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

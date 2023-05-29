@@ -1,6 +1,6 @@
 import Foundation
 import SwiftUI
-import Services
+import BlocksModels
 
 protocol WidgetTypeModuleAssemblyProtocol: AnyObject {
     

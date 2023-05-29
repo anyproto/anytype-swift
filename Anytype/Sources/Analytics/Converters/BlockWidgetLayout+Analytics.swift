@@ -1,5 +1,5 @@
 import Foundation
-import Services
+import BlocksModels
 
 extension BlockWidget.Layout {
     var analyticsValue: String {

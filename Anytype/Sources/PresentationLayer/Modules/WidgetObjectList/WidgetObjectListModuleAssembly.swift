@@ -13,11 +13,9 @@ protocol WidgetObjectListModuleAssemblyProtocol: AnyObject {
 final class WidgetObjectListModuleAssembly: WidgetObjectListModuleAssemblyProtocol {
     
     private let serviceLocator: ServiceLocator
-    private let uiHelpersDI: UIHelpersDIProtocol
     
-    init(serviceLocator: ServiceLocator, uiHelpersDI: UIHelpersDIProtocol) {
+    init(serviceLocator: ServiceLocator) {
         self.serviceLocator = serviceLocator
-        self.uiHelpersDI = uiHelpersDI
     }
     
     // MARK: - WidgetObjectListModuleAssemblyProtocol
@@ -71,7 +69,6 @@ final class WidgetObjectListModuleAssembly: WidgetObjectListModuleAssemblyProtoc
             bottomPanelManager: bottomPanelManager,
             objectActionService: serviceLocator.objectActionsService(),
             menuBuilder: WidgetObjectListMenuBuilder(),
-            alertOpener: uiHelpersDI.alertOpener(),
             output: output,
             isSheet: isSheet
         )

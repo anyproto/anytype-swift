@@ -14,20 +14,17 @@ final class JoinFlowCoordinator: JoinFlowCoordinatorProtocol, JoinFlowOutput {
     private let inviteCodeViewModuleAssembly: InviteCodeViewModuleAssemblyProtocol
     private let voidViewModuleAssembly: VoidViewModuleAssemblyProtocol
     private let keyViewModuleAssembly: KeyPhraseViewModuleAssemblyProtocol
-    private let soulViewModuleAssembly: SoulViewModuleAssemblyProtocol
     
     init(
         joinFlowModuleAssembly: JoinFlowModuleAssemblyProtocol,
         inviteCodeViewModuleAssembly: InviteCodeViewModuleAssemblyProtocol,
         voidViewModuleAssembly: VoidViewModuleAssemblyProtocol,
-        keyViewModuleAssembly: KeyPhraseViewModuleAssemblyProtocol,
-        soulViewModuleAssembly: SoulViewModuleAssemblyProtocol
+        keyViewModuleAssembly: KeyPhraseViewModuleAssemblyProtocol
     ) {
         self.joinFlowModuleAssembly = joinFlowModuleAssembly
         self.inviteCodeViewModuleAssembly = inviteCodeViewModuleAssembly
         self.voidViewModuleAssembly = voidViewModuleAssembly
         self.keyViewModuleAssembly = keyViewModuleAssembly
-        self.soulViewModuleAssembly = soulViewModuleAssembly
     }
     
     // MARK: - JoinFlowCoordinatorProtocol
@@ -38,16 +35,14 @@ final class JoinFlowCoordinator: JoinFlowCoordinatorProtocol, JoinFlowOutput {
     
     // MARK: - JoinFlowOutput
     
-    func onStepChanged(_ step: JoinFlowStep, state: JoinFlowState, output: JoinFlowStepOutput) -> AnyView {
+    func onStepChanged(_ step: JoinFlowStep, output: JoinFlowStepOutput) -> AnyView {
         switch step {
         case .code:
-            return inviteCodeViewModuleAssembly.make(state: state, output: output)
+            return inviteCodeViewModuleAssembly.make(output: output)
         case .void:
             return voidViewModuleAssembly.make(output: output)
         case .key:
-            return keyViewModuleAssembly.make(state: state, output: output)
-        case .soul:
-            return soulViewModuleAssembly.make(state: state, output: output)
+            return keyViewModuleAssembly.make(output: output)
         }
     }
 }

@@ -1,6 +1,6 @@
 import QuickLook
 import Combine
-import Services
+import BlocksModels
 import AnytypeCore
 
 final class AnytypePreviewController: QLPreviewController {

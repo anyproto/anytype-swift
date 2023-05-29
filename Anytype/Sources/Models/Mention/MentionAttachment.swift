@@ -1,7 +1,7 @@
 import UIKit
 import Kingfisher
 import AnytypeCore
-import Services
+import BlocksModels
 
 final class MentionAttachment: NSTextAttachment {    
     private let icon: ObjectIconImage?

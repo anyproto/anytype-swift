@@ -79,7 +79,7 @@ final class ModulesDI: ModulesDIProtocol {
     }
     
     func widgetObjectList() -> WidgetObjectListModuleAssemblyProtocol {
-        return WidgetObjectListModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
+        return WidgetObjectListModuleAssembly(serviceLocator: serviceLocator)
     }
     
     func settingsAppearance() -> SettingsAppearanceModuleAssemblyProtocol {
@@ -127,12 +127,12 @@ final class ModulesDI: ModulesDIProtocol {
     }
     
     func joinFlow() -> JoinFlowModuleAssemblyProtocol {
-        return JoinFlowModuleAssembly(serviceLocator: serviceLocator)
+        return JoinFlowModuleAssembly()
     }
     
     // @joe_pusya: will be moved to separate modulesDI
     func authInviteCode() -> InviteCodeViewModuleAssemblyProtocol {
-        return InviteCodeViewModuleAssembly(serviceLocator: serviceLocator)
+        return InviteCodeViewModuleAssembly()
     }
     
     func authVoid() -> VoidViewModuleAssemblyProtocol {
@@ -140,10 +140,6 @@ final class ModulesDI: ModulesDIProtocol {
     }
     
     func authKey() -> KeyPhraseViewModuleAssemblyProtocol {
-        return KeyPhraseViewModuleAssembly(uiHelpersDI: uiHelpersDI, serviceLocator: serviceLocator)
-    }
-    
-    func authSoul() -> SoulViewModuleAssemblyProtocol {
-        return SoulViewModuleAssembly(serviceLocator: serviceLocator)
+        return KeyPhraseViewModuleAssembly()
     }
 }

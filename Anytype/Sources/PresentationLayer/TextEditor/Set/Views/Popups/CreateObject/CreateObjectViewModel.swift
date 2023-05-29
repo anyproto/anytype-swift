@@ -1,4 +1,4 @@
-import Services
+import BlocksModels
 import AnytypeCore
 
 final class CreateObjectViewModel: CreateObjectViewModelProtocol {

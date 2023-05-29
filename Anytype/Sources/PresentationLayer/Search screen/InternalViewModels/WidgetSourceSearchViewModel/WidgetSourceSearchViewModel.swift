@@ -1,5 +1,5 @@
 import Foundation
-import Services
+import BlocksModels
 import Combine
 import SwiftUI
 import AnytypeCore

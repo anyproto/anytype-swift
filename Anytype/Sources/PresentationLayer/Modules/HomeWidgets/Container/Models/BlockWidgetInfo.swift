@@ -1,5 +1,5 @@
 import Foundation
-import Services
+import BlocksModels
 
 struct BlockWidgetInfo {
     let block: BlockWidget

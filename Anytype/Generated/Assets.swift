@@ -80,7 +80,6 @@ internal enum Asset {
     static let dot = ColorAsset(name: "Auth/dot")
     static let dotSelected = ColorAsset(name: "Auth/dotSelected")
     static let input = ColorAsset(name: "Auth/input")
-    static let inputText = ColorAsset(name: "Auth/inputText")
   }
   internal enum Background {
     static let black = ColorAsset(name: "Background/black")

@@ -1,4 +1,4 @@
-import Services
+import BlocksModels
 
 extension DataviewFilter.Condition {
     var hasValues: Bool {

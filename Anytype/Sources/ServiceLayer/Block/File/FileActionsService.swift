@@ -1,6 +1,6 @@
 import Foundation
 import Combine
-import Services
+import BlocksModels
 import ProtobufMessages
 import AnytypeCore
 import UniformTypeIdentifiers
@@ -109,18 +109,6 @@ final class FileActionsService: FileActionsServiceProtocol {
         try await ClientCommands.fileListOffload(.with {
             $0.includeNotPinned = false
         }).invoke(errorDomain: .fileService)
-    }
-    
-    func spaceUsage() async throws -> FileLimits {
-        let result = try await ClientCommands.fileSpaceUsage().invoke(errorDomain: .fileService)
-        return FileLimits(
-            filesCount: Int64(result.usage.filesCount),
-            cidsCount: Int64(result.usage.cidsCount),
-            bytesUsage: Int64(result.usage.bytesUsage),
-            bytesLeft: Int64(result.usage.bytesLeft),
-            bytesLimit: Int64(result.usage.bytesLimit),
-            localBytesUsage: Int64(result.usage.localBytesUsage)
-        )
     }
     
     // MARK: - Private

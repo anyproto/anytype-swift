@@ -1,4 +1,4 @@
-import Services
+import BlocksModels
 
 struct SetSort: Identifiable, Equatable, Hashable {
     let relationDetails: RelationDetails

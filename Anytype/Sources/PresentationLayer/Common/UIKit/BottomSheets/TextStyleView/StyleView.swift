@@ -1,6 +1,6 @@
 import UIKit
 import FloatingPanel
-import Services
+import BlocksModels
 
 
 // MARK: - Cell model

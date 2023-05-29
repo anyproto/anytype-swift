@@ -1,6 +1,6 @@
 import ProtobufMessages
 import Combine
-import Services
+import BlocksModels
 import AnytypeCore
 
 protocol SearchServiceProtocol: AnyObject {

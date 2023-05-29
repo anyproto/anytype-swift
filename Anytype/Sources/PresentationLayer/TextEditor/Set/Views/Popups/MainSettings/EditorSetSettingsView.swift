@@ -1,5 +1,5 @@
 import SwiftUI
-import Services
+import BlocksModels
 
 struct EditorSetSettingsView: View {
     @EnvironmentObject private var model: EditorSetSettingsViewModel

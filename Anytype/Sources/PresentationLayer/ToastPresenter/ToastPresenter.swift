@@ -81,7 +81,7 @@ class ToastPresenter: ToastPresenterProtocol {
        
         switch mode {
         case .aboveKeyboard:
-            let containerViewController = containerViewController ?? viewControllerProvider.topVisibleController
+            let containerViewController = containerViewController ?? viewControllerProvider.rootViewController
         
             bottomModeOffset = containerViewController?.bottomToastOffset ?? 0
             

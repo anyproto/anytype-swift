@@ -8,7 +8,7 @@
 
 import ProtobufMessages
 import SwiftProtobuf
-import Services
+import BlocksModels
 
 extension CodeBlockFields: FieldsConvertibleProtocol {
 

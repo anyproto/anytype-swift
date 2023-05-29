@@ -1,5 +1,5 @@
 import Foundation
-import Services
+import BlocksModels
 
 enum TableOfContentData: Equatable {
     case items([TableOfContentItem])

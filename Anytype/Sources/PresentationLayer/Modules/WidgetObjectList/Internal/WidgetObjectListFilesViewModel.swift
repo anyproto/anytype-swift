@@ -1,5 +1,5 @@
 import Foundation
-import Services
+import BlocksModels
 import Combine
 
 final class WidgetObjectListFilesViewModel: WidgetObjectListInternalViewModelProtocol {
@@ -10,12 +10,11 @@ final class WidgetObjectListFilesViewModel: WidgetObjectListInternalViewModelPro
     
     // MARK: - State
     
-    let title = Loc.FilesList.title
+    let title = Loc.files
     let editorViewType: EditorViewType = .page
     var rowDetailsPublisher: AnyPublisher<[WidgetObjectListDetailsData], Never> { $rowDetails.eraseToAnyPublisher()}
     let editMode: WidgetObjectListEditMode = .editOnly
-    let availableMenuItems: [WidgetObjectListMenuItem] = [.forceDelete]
-    let forceDeleteTitle: String = Loc.FilesList.ForceDelete.title
+    let availableMenuItems: [WidgetObjectListMenuItem] = [.delete]
     
     private var details: [ObjectDetails] = [] {
         didSet { rowDetails = [WidgetObjectListDetailsData(details: details)] }
@@ -29,8 +28,7 @@ final class WidgetObjectListFilesViewModel: WidgetObjectListInternalViewModelPro
     // MARK: - WidgetObjectListInternalViewModelProtocol
     
     func onAppear() {
-        AnytypeAnalytics.instance().logScreenSettingsStorageManager()
-        subscriptionService.startSubscription(syncStatus: .synced, objectLimit: nil, update: { [weak self] _, update in
+        subscriptionService.startSubscription(objectLimit: nil, update: { [weak self] _, update in
             self?.details.applySubscriptionUpdate(update)
         })
     }

@@ -1,4 +1,4 @@
-import Services
+import BlocksModels
 import ProtobufMessages
 
 protocol BlockListServiceProtocol: AnyObject {

@@ -1,6 +1,6 @@
 import Foundation
 import ProtobufMessages
-import Services
+import BlocksModels
 import AnytypeCore
 
 protocol BlockWidgetServiceProtocol {

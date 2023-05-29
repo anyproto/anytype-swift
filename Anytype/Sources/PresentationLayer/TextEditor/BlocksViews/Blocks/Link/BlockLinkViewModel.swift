@@ -1,7 +1,7 @@
 
 import UIKit
 import Combine
-import Services
+import BlocksModels
 
 struct BlockLinkViewModel: BlockViewModelProtocol {    
     var hashable: AnyHashable {

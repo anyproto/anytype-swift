@@ -1,5 +1,5 @@
 import Foundation
-import Services
+import BlocksModels
 
 enum MarupViewAction {
     case toggleMarkup(MarkupViewType)

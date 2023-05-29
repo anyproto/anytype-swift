@@ -1,4 +1,4 @@
-import Services
+import BlocksModels
 
 extension BlockFile {
     var mediaData: BlockFileMediaData {

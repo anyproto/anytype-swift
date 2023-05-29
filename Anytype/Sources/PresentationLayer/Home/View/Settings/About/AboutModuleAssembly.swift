@@ -1,0 +1,29 @@
+import Foundation
+import SwiftUI
+
+protocol AboutModuleAssemblyProtocol: AnyObject {
+    @MainActor
+    func make(output: AboutModuleOutput?) -> UIViewController
+}
+
+final class AboutModuleAssembly: AboutModuleAssemblyProtocol {
+    
+    private let serviceLocator: ServiceLocator
+    
+    init(serviceLocator: ServiceLocator) {
+        self.serviceLocator = serviceLocator
+    }
+    
+    // MARK: - AboutModuleAssemblyProtocol
+    
+    @MainActor
+    func make(output: AboutModuleOutput?) -> UIViewController {
+        let model = AboutViewModel(
+            middlewareConfigurationProvider: serviceLocator.middlewareConfigurationProvider(),
+            accountManager: serviceLocator.accountManager(),
+            output: output
+        )
+        let view = AboutView(model: model)
+        return AnytypePopup(contentView: view)
+    }
+}

@@ -1,4 +1,4 @@
-import Services
+import BlocksModels
 
 struct HighlightedBlockRestrictions: BlockRestrictions {
     let canApplyBold = true

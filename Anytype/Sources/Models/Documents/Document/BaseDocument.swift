@@ -1,4 +1,4 @@
-import Services
+import BlocksModels
 import Combine
 import AnytypeCore
 import Foundation
@@ -188,8 +188,10 @@ final class BaseDocument: BaseDocumentProtocol {
             .receiveOnMain()
             .sink { [weak self] in
                 self?.parsedRelationsSubject.send($0)
-                // Update block relation when relation is deleted or installed
-                self?.updateSubject.send(.general)
+                if FeatureFlags.fixUpdateRelationBlock {
+                    // Update block relation when relation is deleted or installed
+                    self?.updateSubject.send(.general)
+                }
             }
             .store(in: &subscriptions)
     }

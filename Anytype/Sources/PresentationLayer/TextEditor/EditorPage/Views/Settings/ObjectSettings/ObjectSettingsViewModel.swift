@@ -1,6 +1,6 @@
 import Foundation
 import Combine
-import Services
+import BlocksModels
 import UIKit
 import FloatingPanel
 import SwiftUI

@@ -1,7 +1,7 @@
 import Foundation
 import Combine
 import SwiftProtobuf
-import Services
+import BlocksModels
 import ProtobufMessages
 import AnytypeCore
 
@@ -28,8 +28,8 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         self.objectTypeProvider = objectTypeProvider
     }
     
-    func delete(objectIds: [BlockId], route: RemoveCompletelyRoute) async throws {
-        AnytypeAnalytics.instance().logDeletion(count: objectIds.count, route: route)
+    func delete(objectIds: [BlockId]) async throws {
+        AnytypeAnalytics.instance().logDeletion(count: objectIds.count)
         
         try await ClientCommands.objectListDelete(.with {
             $0.objectIds = objectIds

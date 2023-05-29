@@ -1,6 +1,6 @@
 import Combine
 import UIKit
-import Services
+import BlocksModels
     
 final class BlockBookmarkOnlyUrlView: UIView, BlockContentView {
     override init(frame: CGRect) {

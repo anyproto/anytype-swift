@@ -1,5 +1,5 @@
 import AnytypeCore
-import Services
+import BlocksModels
 import Combine
 import SwiftUI
 
@@ -97,6 +97,30 @@ extension UserDefaultsConfig {
         guard let pageId = _lastOpenedPageId else { return }
                 
         _screenDataFromLastSession = EditorScreenData(pageId: pageId, type: type)
+    }
+    
+}
+
+// MARK: - Selected Tab
+
+extension UserDefaultsConfig {
+    
+    @UserDefault("UserData.SelectedTab", defaultValue: nil)
+    private static var _selectedTab: String?
+    
+    static var selectedTab: HomeTabsView.Tab {
+        get {
+            let tab = _selectedTab.flatMap { HomeTabsView.Tab(rawValue: $0) } ?? .favourites
+            
+            if tab == .shared && !ServiceLocator.shared.accountManager().account.config.enableSpaces {
+                return .favourites
+            }
+            
+            return tab
+        }
+        set {
+            _selectedTab = newValue.rawValue
+        }
     }
     
 }

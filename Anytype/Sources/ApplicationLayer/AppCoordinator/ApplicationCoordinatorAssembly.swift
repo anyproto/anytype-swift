@@ -30,6 +30,7 @@ final class ApplicationCoordinatorAssembly: ApplicationCoordinatorAssemblyProtoc
             viewControllerProvider: uiHelpersDI.viewControllerProvider(),
             authCoordinatorAssembly: coordinatorsDI.authorization(),
             legacyAuthViewAssembly: coordinatorsDI.legacyAuthViewAssembly(),
+            homeViewAssembly: coordinatorsDI.homeViewAssemby(),
             homeWidgetsCoordinatorAssembly: coordinatorsDI.homeWidgets(),
             applicationStateService: serviceLocator.applicationStateService()
         )
@@ -40,9 +41,7 @@ final class ApplicationCoordinatorAssembly: ApplicationCoordinatorAssemblyProtoc
             accountEventHandler: serviceLocator.accountEventHandler(),
             applicationStateService: serviceLocator.applicationStateService(),
             accountManager: serviceLocator.accountManager(),
-            seedService: serviceLocator.seedService(),
-            fileErrorEventHandler: serviceLocator.fileErrorEventHandler(),
-            toastPresenter: uiHelpersDI.toastPresenter()
+            seedService: serviceLocator.seedService()
         )
     }
 }

@@ -1,12 +1,12 @@
 import Foundation
-import Services
+import BlocksModels
 import Combine
 import AnytypeCore
 
 class SetDocument: SetDocumentProtocol {
     let document: BaseDocumentProtocol
     
-    var objectId: Services.BlockId {
+    var objectId: BlocksModels.BlockId {
         document.objectId
     }
     

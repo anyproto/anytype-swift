@@ -6,68 +6,43 @@ struct KeyPhraseView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            content
+            AnytypeText(Loc.Auth.JoinFlow.Key.title, style: .uxTitle1Semibold, color: .Text.primary)
+                .opacity(0.9)
+            
+            Spacer.fixedHeight(16)
+            
+           // MultilineTextField
+            
+            Spacer.fixedHeight(16)
+            
+            AnytypeText(Loc.Auth.JoinFlow.Key.description, style: .authBoby, color: .Auth.body)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, 24)
+            
             Spacer()
+            
             buttons
         }
     }
     
-    private var content: some View {
-        VStack(spacing: 16) {
-            AnytypeText(Loc.Auth.JoinFlow.Key.title, style: .uxTitle1Semibold, color: .Text.primary)
-                .opacity(0.9)
-            
-            authMultilineTextField
-            
-            if model.keyShown {
-                StandardButton(
-                    Loc.Auth.JoinFlow.Key.Button.Copy.title,
-                    style: .secondarySmall,
-                    action: {
-                        model.onCopyButtonTap()
-                    }
-                )
-            }
-            
-            AnytypeText(
-                model.keyShown ? Loc.Auth.JoinFlow.Key.Shown.description : Loc.Auth.JoinFlow.Key.Hidden.description,
-                style: .authBody,
-                color: .Auth.body
-            )
-                .multilineTextAlignment(.center)
-                .padding(.horizontal, 24)
-        }
-    }
-    
-    private var authMultilineTextField: some View {
-        AuthMultilineTextField(
-            text: $model.key,
-            autofocus: $model.autofocus,
-            blured: $model.keyShown
-        )
-        .disabled(true)
-    }
-    
     private var buttons: some View {
-        VStack(spacing: 12) {
+        VStack(spacing: 0) {
             StandardButton(
-                model.keyShown ? Loc.Auth.JoinFlow.Key.Button.Saved.title : Loc.Auth.JoinFlow.Key.Button.Show.title,
+                Loc.Auth.JoinFlow.Key.Button.Show.title,
                 style: .primaryLarge,
-                action: {
-                    model.onPrimaryButtonTap()
-                }
+                action: {}
             )
             .colorScheme(.light)
             
-            if !model.keyShown {
-                StandardButton(
-                    Loc.Auth.JoinFlow.Key.Button.Later.title,
-                    style: .secondaryLarge,
-                    action: {
-                        model.onSecondaryButtonTap()
-                    }
-                )
-            }
+            Spacer.fixedHeight(12)
+            
+            StandardButton(
+                Loc.Auth.JoinFlow.Key.Button.Later.title,
+                style: .secondaryLarge,
+                action: {
+                    model.onNextButtonTap()
+                }
+            )
         }
     }
 }
@@ -75,13 +50,6 @@ struct KeyPhraseView: View {
 
 struct KeyView_Previews : PreviewProvider {
     static var previews: some View {
-        KeyPhraseView(
-            model: KeyPhraseViewModel(
-                state: JoinFlowState(),
-                output: nil,
-                alertOpener: DI.preview.uihelpersDI.alertOpener(),
-                localAuthService: DI.preview.serviceLocator.localAuthService()
-            )
-        )
+        KeyPhraseView(model: KeyPhraseViewModel(output: nil))
     }
 }

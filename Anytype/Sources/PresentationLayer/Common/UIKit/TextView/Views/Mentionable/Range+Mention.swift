@@ -1,5 +1,5 @@
 import Foundation
-import Services
+import BlocksModels
 
 extension NSAttributedString {
     func rangeWithoutMention(_ initialRange: NSRange) -> NSRange {

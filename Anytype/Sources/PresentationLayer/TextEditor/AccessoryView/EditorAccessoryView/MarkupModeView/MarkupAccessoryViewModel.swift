@@ -1,4 +1,4 @@
-import Services
+import BlocksModels
 import SwiftUI
 import Combine
 import AnytypeCore

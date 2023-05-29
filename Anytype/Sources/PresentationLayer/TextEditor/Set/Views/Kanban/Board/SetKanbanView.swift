@@ -1,5 +1,5 @@
 import SwiftUI
-import Services
+import BlocksModels
 
 struct SetKanbanView: View {
     @ObservedObject var model: EditorSetViewModel

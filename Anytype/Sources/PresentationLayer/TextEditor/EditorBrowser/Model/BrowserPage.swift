@@ -1,4 +1,4 @@
-import Services
+import BlocksModels
 import UIKit
 
 final class BrowserPage: Equatable, CustomStringConvertible {

@@ -1,6 +1,6 @@
 import Foundation
 import AnytypeCore
-import Services
+import BlocksModels
 
 @MainActor
 final class HomeWidgetsViewModel: ObservableObject {

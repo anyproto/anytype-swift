@@ -1,4 +1,4 @@
-import Services
+import BlocksModels
 
 struct SimpleTableTextCellRestrictions: BlockRestrictions {
     let canApplyBold = true

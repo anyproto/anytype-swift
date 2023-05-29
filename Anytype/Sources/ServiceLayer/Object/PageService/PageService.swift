@@ -1,6 +1,6 @@
 import ProtobufMessages
 import SwiftProtobuf
-import Services
+import BlocksModels
 
 protocol PageServiceProtocol: AnyObject {
     func createPage(

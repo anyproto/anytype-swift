@@ -1,4 +1,4 @@
-import Services
+import BlocksModels
 
 protocol GroupsSubscribeServiceProtocol {
     func startSubscription(

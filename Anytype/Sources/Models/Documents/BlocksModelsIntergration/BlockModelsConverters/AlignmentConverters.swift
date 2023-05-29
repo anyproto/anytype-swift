@@ -1,7 +1,7 @@
 import Foundation
 import UIKit
 import SwiftUI
-import Services
+import BlocksModels
 import ProtobufMessages
 
 extension Anytype_Model_Block.Align {

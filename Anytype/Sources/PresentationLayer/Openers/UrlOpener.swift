@@ -2,28 +2,17 @@ import Foundation
 import UIKit
 import SafariServices
 
-enum URLOpenerPresentationStyle {
-    case `default`
-    case popover
-}
-
 protocol URLOpenerProtocol: AnyObject {
     func canOpenUrl(_ url: URL) -> Bool
-    func openUrl(_ url: URL, presentationStyle: URLOpenerPresentationStyle)
-}
-
-extension URLOpenerProtocol {
-    func openUrl(_ url: URL) {
-        openUrl(url, presentationStyle: .default)
-    }
+    func openUrl(_ url: URL)
 }
 
 final class URLOpener: URLOpenerProtocol {
     
-    private var navigationContext: NavigationContextProtocol
+    private weak var viewController: UIViewController?
     
-    init(navigationContext: NavigationContextProtocol) {
-        self.navigationContext = navigationContext
+    init(viewController: UIViewController?) {
+        self.viewController = viewController
     }
     
     // MARK: - URLOpenerProtocol
@@ -32,18 +21,11 @@ final class URLOpener: URLOpenerProtocol {
         UIApplication.shared.canOpenURL(url.urlByAddingHttpIfSchemeIsEmpty())
     }
     
-    func openUrl(_ url: URL, presentationStyle: URLOpenerPresentationStyle) {
+    func openUrl(_ url: URL) {
         let url = url.urlByAddingHttpIfSchemeIsEmpty()
         if url.containsHttpProtocol {
             let safariController = SFSafariViewController(url: url)
-            switch presentationStyle {
-            case .default:
-                break
-            case .popover:
-                safariController.modalPresentationStyle = .popover
-            }
-            
-            navigationContext.present(safariController, animated: true)
+            viewController?.topPresentedController.present(safariController, animated: true)
             return
         }
         if UIApplication.shared.canOpenURL(url) {

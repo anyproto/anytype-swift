@@ -1,5 +1,5 @@
 import Foundation
-import Services
+import BlocksModels
 import AnytypeCore
 
 final class DetailsService {

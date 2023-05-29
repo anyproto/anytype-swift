@@ -1,6 +1,6 @@
 import Combine
 import UIKit
-import Services
+import BlocksModels
 
 final class CustomTextView: UIView {
     

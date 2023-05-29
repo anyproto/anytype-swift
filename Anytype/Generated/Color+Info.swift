@@ -131,8 +131,7 @@ extension UIColor.Auth {
             ColorInfo(name: "caption", color: UIColor.Auth.caption), 
             ColorInfo(name: "dot", color: UIColor.Auth.dot), 
             ColorInfo(name: "dotSelected", color: UIColor.Auth.dotSelected), 
-            ColorInfo(name: "input", color: UIColor.Auth.input), 
-            ColorInfo(name: "inputText", color: UIColor.Auth.inputText)
+            ColorInfo(name: "input", color: UIColor.Auth.input)
         ]
     )
 }

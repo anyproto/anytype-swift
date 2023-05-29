@@ -1,4 +1,4 @@
-import Services
+import BlocksModels
 
 extension DetailsLayout {
     static var visibleLayouts: [DetailsLayout] = [.basic, .bookmark, .collection, .note, .profile, .set, .todo]

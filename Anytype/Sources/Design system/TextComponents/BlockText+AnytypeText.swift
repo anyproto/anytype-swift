@@ -1,4 +1,4 @@
-import Services
+import BlocksModels
 
 extension BlockText {
     var anytypeText: UIKitAnytypeText {

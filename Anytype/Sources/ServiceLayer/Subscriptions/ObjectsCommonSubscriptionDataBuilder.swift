@@ -1,5 +1,5 @@
 import Foundation
-import Services
+import BlocksModels
 
 protocol ObjectsCommonSubscriptionDataBuilderProtocol: AnyObject {
     func build(subIdPrefix: String, objectIds: [String]) -> SubscriptionData

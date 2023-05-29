@@ -1,5 +1,5 @@
 import UIKit
-import Services
+import BlocksModels
 import AnytypeCore
 
 enum CursorModeAccessoryViewAction {

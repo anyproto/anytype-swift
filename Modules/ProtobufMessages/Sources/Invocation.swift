@@ -2,6 +2,13 @@ import Foundation
 import Combine
 import SwiftProtobuf
 
+private extension DispatchQueue {
+    static let invocationQueue = DispatchQueue(
+        label: "com.middlewate-invocation",
+        qos: .userInitiated
+    )
+}
+
 public struct Invocation<Request, Response> where Request: Message,
                                             Response: ResultWithError,
                                             Response: Message {
@@ -17,9 +24,17 @@ public struct Invocation<Request, Response> where Request: Message,
     }
     
     public func invoke() async throws -> Response {
-        return try await Task {
-            try self.syncInvoke()
-        }.value
+        typealias Continuation = CheckedContinuation<Response, Error>
+        return try await withCheckedThrowingContinuation { (continuation: Continuation) in
+            DispatchQueue.invocationQueue.async {
+                do {
+                    let data = try self.syncInvoke()
+                    continuation.resume(returning: data)
+                } catch {
+                    continuation.resume(throwing: error)
+                }
+            }
+        }
     }
     
     public func invoke() throws -> Response {

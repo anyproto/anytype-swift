@@ -1,6 +1,6 @@
 import UIKit
 import Combine
-import Services
+import BlocksModels
 
 
 final class TextBlockContentView: UIView, BlockContentView, DynamicHeightView, FirstResponder {

@@ -1,5 +1,5 @@
 
-import Services
+import BlocksModels
 
 enum SlashActionAlignment: CaseIterable {
     case right

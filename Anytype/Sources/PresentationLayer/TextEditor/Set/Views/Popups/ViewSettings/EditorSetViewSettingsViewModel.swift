@@ -1,7 +1,7 @@
 import FloatingPanel
 import SwiftUI
 import ProtobufMessages
-import Services
+import BlocksModels
 import AnytypeCore
 import Combine
 

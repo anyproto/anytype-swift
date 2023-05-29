@@ -6,7 +6,7 @@
 //  Copyright © 2022 Anytype. All rights reserved.
 //
 
-import Services
+import BlocksModels
 
 struct ObjectPreviewModel {
     var cardStyle: BlockLink.CardStyle

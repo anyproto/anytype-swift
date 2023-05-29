@@ -1,5 +1,5 @@
 import UIKit
-import Services
+import BlocksModels
 
 final class StyleColorViewController: UIViewController {
     // MARK: - Viwes

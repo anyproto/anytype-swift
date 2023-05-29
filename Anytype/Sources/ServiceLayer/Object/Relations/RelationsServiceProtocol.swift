@@ -1,5 +1,5 @@
 import Foundation
-import Services
+import BlocksModels
 import SwiftProtobuf
 
 protocol RelationsServiceProtocol: AnyObject {

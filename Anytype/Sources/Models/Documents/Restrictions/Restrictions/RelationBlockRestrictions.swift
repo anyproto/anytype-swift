@@ -1,4 +1,4 @@
-import Services
+import BlocksModels
 
 struct RelationBlockRestrictions: BlockRestrictions {
     let canApplyBold = false

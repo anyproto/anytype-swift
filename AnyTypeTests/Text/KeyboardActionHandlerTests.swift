@@ -1,6 +1,6 @@
 import XCTest
 @testable import Anytype
-@testable import Services
+@testable import BlocksModels
 @testable import AnytypeCore
 
 class KeyboardActionHandlerTests: XCTestCase {

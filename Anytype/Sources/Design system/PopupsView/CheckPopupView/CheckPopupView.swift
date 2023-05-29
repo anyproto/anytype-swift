@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import Services
+import BlocksModels
 
 struct CheckPopupView<ViewModel: CheckPopupViewViewModelProtocol>: View {
     @Environment(\.presentationMode) var presentationMode

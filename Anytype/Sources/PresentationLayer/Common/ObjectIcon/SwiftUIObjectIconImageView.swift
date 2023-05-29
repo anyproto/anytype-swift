@@ -5,20 +5,15 @@ import AnytypeCore
 // Needs refactoring - https://linear.app/anytype/issue/IOS-978
 struct SwiftUIObjectIconImageView: View {
     
-    @ObservedObject private var model = SwiftUIObjectIconImageViewModel()
-    
     let iconImage: ObjectIconImage
     let usecase: ObjectIconImageUsecase
     
-    init(iconImage: ObjectIconImage, usecase: ObjectIconImageUsecase) {
-        self.iconImage = iconImage
-        self.usecase = usecase
-        
-        model.update(iconImage: iconImage, usecase: usecase)
-    }
-    
     var body: some View {
-        Image(uiImage: model.image)
+        if FeatureFlags.homeWidgets {
+            NewSwiftUIObjectIconImageView(iconImage: iconImage, usecase: usecase)
+        } else {
+            LegacySwiftUIObjectIconImageView(iconImage: iconImage, usecase: usecase)
+        }
     }
 }
 
@@ -36,6 +31,37 @@ final class SwiftUIObjectIconImageViewModel: ObservableObject {
     }
     
     func update(iconImage: ObjectIconImage, usecase: ObjectIconImageUsecase) {
+        uiView.configure(
+            model: ObjectIconImageView.Model(
+                iconImage: iconImage,
+                usecase: usecase
+            )
+        )
+    }
+}
+
+struct NewSwiftUIObjectIconImageView: View {
+    
+    @ObservedObject private var model = SwiftUIObjectIconImageViewModel()
+    
+    init(iconImage: ObjectIconImage, usecase: ObjectIconImageUsecase) {
+        model.update(iconImage: iconImage, usecase: usecase)
+    }
+    
+    var body: some View {
+        Image(uiImage: model.image)
+    }
+}
+
+struct LegacySwiftUIObjectIconImageView: UIViewRepresentable {
+    let iconImage: ObjectIconImage
+    let usecase: ObjectIconImageUsecase
+    
+    func makeUIView(context: Context) -> ObjectIconImageView {
+        ObjectIconImageView()
+    }
+
+    func updateUIView(_ uiView: ObjectIconImageView, context: Context) {
         uiView.configure(
             model: ObjectIconImageView.Model(
                 iconImage: iconImage,

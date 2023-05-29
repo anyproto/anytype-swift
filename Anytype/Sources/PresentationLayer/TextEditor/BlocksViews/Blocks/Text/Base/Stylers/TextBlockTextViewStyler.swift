@@ -1,5 +1,5 @@
 import UIKit
-import Services
+import BlocksModels
 
 final class TextBlockTextViewStyler {
     static func applyStyle(textView: CustomTextView, configuration: TextBlockContentConfiguration, restrictions: BlockRestrictions) {

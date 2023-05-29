@@ -1,4 +1,4 @@
-import Services
+import BlocksModels
 
 struct HeaderBlockRestrictions: BlockRestrictions {
     let canApplyBold = false

@@ -1,4 +1,4 @@
-import Services
+import BlocksModels
 import Combine
 
 final class SetViewSettingsCardSizeViewModel: CheckPopupViewViewModelProtocol {

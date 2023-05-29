@@ -8,7 +8,7 @@
 
 import Combine
 import UIKit
-import Services
+import BlocksModels
 import AnytypeCore
 
 
