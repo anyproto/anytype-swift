@@ -84,7 +84,7 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
                 do {
                     try self.stateManager.moveBack(page: page)
                 } catch let error {
-                    anytypeAssertionFailure(error.localizedDescription, domain: .editorBrowser)
+                    anytypeAssertionFailure(error.localizedDescription)
                     self.navigationController?.popViewController(animated: true)
                 }
 
@@ -102,7 +102,7 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
                 do {
                     try self.stateManager.moveForward(page: page)
                 } catch let error {
-                    anytypeAssertionFailure(error.localizedDescription, domain: .editorBrowser)
+                    anytypeAssertionFailure(error.localizedDescription)
                     self.navigationController?.popViewController(animated: true)
                 }
                 
@@ -172,7 +172,7 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
         
     func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
         guard let detailsProvider = viewController as? DocumentDetaisProvider else {
-            anytypeAssertionFailure("Not supported browser controller: \(viewController)", domain: .editorBrowser)
+            anytypeAssertionFailure("Not supported browser controller: \(viewController)")
             return
         }
         
@@ -191,7 +191,7 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
                 childernCount: childNavigation.children.count
             )
         } catch let error {
-            anytypeAssertionFailure(error.localizedDescription, domain: .editorBrowser)
+            anytypeAssertionFailure(error.localizedDescription)
             self.navigationController?.popViewController(animated: true)
         }
         

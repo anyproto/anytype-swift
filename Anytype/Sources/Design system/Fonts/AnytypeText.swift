@@ -32,8 +32,7 @@ struct AnytypeText: View {
     ) {
         anytypeAssert(
             name != .plex,
-            "Custom plex font requires custom line spacing implementation",
-            domain: .anytypeText
+            "Custom plex font requires custom line spacing implementation"
         )
         let font = AnytypeFontBuilder.font(name: name, size: size, weight: weight)
         

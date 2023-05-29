@@ -16,17 +16,17 @@ public struct Invocation<Request, Response> where Request: Message,
         self.invokeTask = invokeTask
     }
     
-    public func invoke() async throws -> Response {
+    public func invoke(file: StaticString) async throws -> Response {
         return try await Task {
-            try self.syncInvoke()
+            try self.syncInvoke(file: file)
         }.value
     }
     
-    public func invoke() throws -> Response {
-        return try syncInvoke()
+    public func invoke(file: StaticString) throws -> Response {
+        return try syncInvoke(file: file)
     }
     
-    private func syncInvoke() throws -> Response {
+    private func syncInvoke(file: StaticString) throws -> Response {
         
         let start = DispatchTime.now()
 
@@ -35,7 +35,7 @@ public struct Invocation<Request, Response> where Request: Message,
                 let end = DispatchTime.now()
                 let timeMs = (end.uptimeNanoseconds - start.uptimeNanoseconds) / 1_000_000
                 if timeMs > 5 {
-                    InvocationSettings.handler?.assertationHandler(message: "Method \(messageName) called on main thread", info: ["Time ms": "\(timeMs)"])
+                    InvocationSettings.handler?.assertationHandler(message: "Method \(messageName) called on main thread", info: ["Time ms": "\(timeMs)"], file: file)
                 }
             }
         }

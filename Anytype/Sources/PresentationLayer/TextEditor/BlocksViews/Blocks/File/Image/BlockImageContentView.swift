@@ -47,8 +47,7 @@ final class BlockImageContentView: UIView, BlockContentView {
     private func handleFile(configuration: BlockImageConfiguration) {
         anytypeAssert(
             configuration.fileData.state == .done,
-            "Wrong state \(configuration.fileData.state) for block image",
-            domain: .blockImage
+            "Wrong state \(configuration.fileData.state) for block image"
         )
         setupImage(with: configuration)
     }

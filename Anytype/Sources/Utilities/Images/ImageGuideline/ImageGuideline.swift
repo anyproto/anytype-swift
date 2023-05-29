@@ -10,7 +10,7 @@ struct ImageGuideline {
     
     init(size: CGSize, cornersGuideline: ImageCornersGuideline? = nil) {
         if size.isZero {
-            anytypeAssertionFailure("Size should not be `zero`", domain: .imageGuideline)
+            anytypeAssertionFailure("Size should not be `zero`")
         }
         
         self.size = size
@@ -19,7 +19,7 @@ struct ImageGuideline {
     
     init(size: CGSize, radius: ImageCornersGuideline.Radius, backgroundColor: UIColor? = nil) {
         if size.isZero {
-            anytypeAssertionFailure("Size should not be `zero`", domain: .imageGuideline)
+            anytypeAssertionFailure("Size should not be `zero`")
         }
         
         self.size = size

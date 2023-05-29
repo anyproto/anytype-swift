@@ -29,7 +29,7 @@ final class DocumentViewModelSetter: DocumentViewModelSetterProtocol {
     
     func objectViewUpdate(_ data: ObjectViewModel) {
         guard data.rootID.isNotEmpty else {
-            anytypeAssertionFailure("Empty root id", domain: .middlewareEventConverter)
+            anytypeAssertionFailure("Empty root id")
             return
         }
         
@@ -61,15 +61,14 @@ final class DocumentViewModelSetter: DocumentViewModelSetterProtocol {
         let roots = information.filter { $0.id == rootId }
 
         guard roots.count != 0 else {
-            anytypeAssertionFailure("Unknown situation. We can't have zero roots.", domain: .middlewareEventConverter)
+            anytypeAssertionFailure("Unknown situation. We can't have zero roots.")
             return
         }
 
         if roots.count != 1 {
             // this situation is not possible, but, let handle it.
             anytypeAssertionFailure(
-                "We have several roots for our rootId. Not possible, but let us handle it.",
-                domain: .middlewareEventConverter
+                "We have several roots for our rootId. Not possible, but let us handle it."
             )
         }
 

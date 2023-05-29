@@ -99,7 +99,7 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
     func deleteRelations(indexes: IndexSet) {
         indexes.forEach { index in
             guard let relation = setDocument.sortedRelations[safe: index] else {
-                anytypeAssertionFailure("No relation to delete at index: \(index)", domain: .dataviewService)
+                anytypeAssertionFailure("No relation to delete at index: \(index)")
                 return
             }
             Task {
@@ -120,11 +120,11 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
             
             // index in all options array (includes hidden options)
             guard let indexFrom = setDocument.activeView.options.index(of: relationFrom) else {
-                anytypeAssertionFailure("No relation for move: \(relationFrom)", domain: .dataviewService)
+                anytypeAssertionFailure("No relation for move: \(relationFrom)")
                 return
             }
             guard let indexTo = setDocument.activeView.options.index(of: relationTo) else {
-                anytypeAssertionFailure("No relation for move: \(relationTo)", domain: .dataviewService)
+                anytypeAssertionFailure("No relation for move: \(relationTo)")
                 return
             }
             

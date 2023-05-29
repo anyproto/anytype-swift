@@ -26,7 +26,7 @@ extension MiddlewareConfigurationProvider: MiddlewareConfigurationProviderProtoc
             return configuration
         }
         
-        anytypeAssertionFailure("Middleware configurations is empty", domain: .middlewareConfigurationProvider)
+        anytypeAssertionFailure("Middleware configurations is empty")
         
         return MiddlewareConfiguration.empty
     }
@@ -44,6 +44,6 @@ extension MiddlewareConfigurationProvider: MiddlewareConfigurationProviderProtoc
     }
     
     func libraryVersion() async throws -> String {
-        return try await ClientCommands.appGetVersion().invoke(errorDomain: .middlewareConfigurationProvider).version
+        return try await ClientCommands.appGetVersion().invoke().version
     }
 }

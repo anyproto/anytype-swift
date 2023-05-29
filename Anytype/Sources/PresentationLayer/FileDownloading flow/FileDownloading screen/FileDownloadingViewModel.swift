@@ -112,7 +112,7 @@ private extension FileDownloadingViewModel {
             UINotificationFeedbackGenerator().notificationOccurred(.success)
         } catch {
             handleError(message: error.localizedDescription)
-            anytypeAssertionFailure(error.localizedDescription, domain: .fileLoader)
+            anytypeAssertionFailure(error.localizedDescription)
         }
     }
     

@@ -15,7 +15,7 @@ final class AppIconManager {
         
         UIApplication.shared.setAlternateIconName(appIcon.name) { error in
             if let error = error {
-                anytypeAssertionFailure("Error setting alternate icon \(appIcon.name ?? ""): \(error.localizedDescription)", domain: .appIcon)
+                anytypeAssertionFailure("Error setting alternate icon \(appIcon.name ?? ""): \(error.localizedDescription)")
             }
             completion?(error != nil)
         }

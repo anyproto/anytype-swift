@@ -13,7 +13,7 @@ class BlockListService: BlockListServiceProtocol {
             $0.contextID = objectId
             $0.blockIds = blockIds
             $0.color = color.rawValue
-        }).invoke(errorDomain: .blockListService)
+        }).invoke()
     }
     
     func setFields(objectId: BlockId, blockId: BlockId, fields: BlockFields) {
@@ -26,7 +26,7 @@ class BlockListService: BlockListServiceProtocol {
         _ = try? ClientCommands.blockListSetFields(.with {
             $0.contextID = objectId
             $0.blockFields = [fieldsRequest]
-        }).invoke(errorDomain: .blockListService)
+        }).invoke()
     }
 
     func changeMarkup(
@@ -39,7 +39,7 @@ class BlockListService: BlockListServiceProtocol {
             $0.contextID = objectId
             $0.blockIds = blockIds
             $0.mark = mark
-        }).invoke(errorDomain: .blockListService)
+        }).invoke()
     }
 
     func setBackgroundColor(objectId: BlockId, blockIds: [BlockId], color: MiddlewareColor) {
@@ -49,7 +49,7 @@ class BlockListService: BlockListServiceProtocol {
             $0.contextID = objectId
             $0.blockIds = blockIds
             $0.color = color.rawValue
-        }).invoke(errorDomain: .blockListService)
+        }).invoke()
     }
 
     func setAlign(objectId: BlockId, blockIds: [BlockId], alignment: LayoutAlignment) {
@@ -59,7 +59,7 @@ class BlockListService: BlockListServiceProtocol {
             $0.contextID = objectId
             $0.blockIds = blockIds
             $0.align = alignment.asMiddleware
-        }).invoke(errorDomain: .blockListService)
+        }).invoke()
     }
 
     func replace(objectId: BlockId, blockIds: [BlockId], targetId: BlockId) {
@@ -69,7 +69,7 @@ class BlockListService: BlockListServiceProtocol {
             $0.targetContextID = objectId
             $0.dropTargetID = targetId
             $0.position = .replace
-        }).invoke(errorDomain: .blockListService)
+        }).invoke()
     }
     
     func move(objectId: BlockId, blockId: BlockId, targetId: BlockId, position: Anytype_Model_Block.Position) {
@@ -79,7 +79,7 @@ class BlockListService: BlockListServiceProtocol {
             $0.targetContextID = objectId
             $0.dropTargetID = targetId
             $0.position = position
-        }).invoke(errorDomain: .blockListService)
+        }).invoke()
     }
     
     func moveToPage(objectId: BlockId, blockId: BlockId, pageId: BlockId) {
@@ -89,7 +89,7 @@ class BlockListService: BlockListServiceProtocol {
             $0.targetContextID = pageId
             $0.dropTargetID = ""
             $0.position = .bottom
-        }).invoke(errorDomain: .blockListService)
+        }).invoke()
     }
 
     func setLinkAppearance(objectId: BlockId, blockIds: [BlockId], appearance: BlockLink.Appearance) {
@@ -100,7 +100,7 @@ class BlockListService: BlockListServiceProtocol {
             $0.cardStyle = appearance.cardStyle.asMiddleware
             $0.description_p = appearance.description.asMiddleware
             $0.relations = appearance.relations.map(\.rawValue)
-        }).invoke(errorDomain: .blockListService)
+        }).invoke()
     }
 }
 

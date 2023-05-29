@@ -18,11 +18,11 @@ final class LocalEventConverter {
             return blockSetTextUpdate(blockId: blockId, text: text)
         case .setLoadingState(blockId: let blockId):
             guard var info = infoContainer.get(id: blockId) else {
-                anytypeAssertionFailure("setLoadingState. Can't find model by id \(blockId)", domain: .localEventConverter)
+                anytypeAssertionFailure("setLoadingState. Can't find model by id \(blockId)")
                 return nil
             }
             guard case var .file(content) = info.content else {
-                anytypeAssertionFailure("Not file content of block \(blockId) for setLoading action", domain: .localEventConverter)
+                anytypeAssertionFailure("Not file content of block \(blockId) for setLoading action")
                 return nil
             }
             
@@ -42,11 +42,11 @@ final class LocalEventConverter {
     // only text is changed
     private func blockSetTextUpdate(blockId: BlockId, text: MiddlewareString) -> DocumentUpdate {
         guard var info = infoContainer.get(id: blockId) else {
-            anytypeAssertionFailure("Block model with id \(blockId) not found in container", domain: .localEventConverter)
+            anytypeAssertionFailure("Block model with id \(blockId) not found in container")
             return .general
         }
         guard case let .text(oldText) = info.content else {
-            anytypeAssertionFailure("Block model doesn't support text:\n \(info)", domain: .localEventConverter)
+            anytypeAssertionFailure("Block model doesn't support text:\n \(info)")
             return .general
         }
         
@@ -61,7 +61,7 @@ final class LocalEventConverter {
         }
         
         guard var textContent = middleContent.textContent else {
-            anytypeAssertionFailure("We cannot block content from: \(middleContent)", domain: .localEventConverter)
+            anytypeAssertionFailure("We cannot block content from: \(middleContent)")
             return .general
         }
 

@@ -39,18 +39,12 @@ enum BlocksModelsConverter {
         case .relation(let data): return data.asMiddleware
         case .tableOfContents: return .tableOfContents(Anytype_Model_Block.Content.TableOfContents())
         case .featuredRelations:
-            anytypeAssertionFailure(
-                "Not suppoted converter from featuredRelations to middleware",
-                domain: .blocksConverter
-            )
+            anytypeAssertionFailure("Not suppoted converter from featuredRelations to middleware")
             return nil
         case .dataView(let data):
             return .dataview(data.asMiddleware)
         case .unsupported:
-            anytypeAssertionFailure(
-                "Not suppoted converter from unsupported to middleware",
-                domain: .blocksConverter
-            )
+            anytypeAssertionFailure("Not suppoted converter from unsupported to middleware")
             return nil
         case .table:
             return .table(Anytype_Model_Block.Content.Table())
@@ -59,10 +53,7 @@ enum BlocksModelsConverter {
         case .tableColumn:
             return .tableColumn(.init())
         case .widget:
-            anytypeAssertionFailure(
-                "Not suppoted converter from widget to middleware",
-                domain: .blocksConverter
-            )
+            anytypeAssertionFailure("Not suppoted converter from widget to middleware")
             return nil
             
         }

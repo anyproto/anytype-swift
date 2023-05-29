@@ -68,7 +68,7 @@ extension ObjectTypesSearchViewModel: NewInternalSearchViewModelProtocol {
             return
         }
        
-        anytypeAssertionFailure("Type not found", domain: .objectTypeSearch)
+        anytypeAssertionFailure("Type not found")
     }
 }
 

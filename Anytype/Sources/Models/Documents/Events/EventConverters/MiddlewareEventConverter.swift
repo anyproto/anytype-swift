@@ -76,10 +76,7 @@ final class MiddlewareEventConverter {
             let blockId = value.id
             let alignment = value.align
             guard let modelAlignment = alignment.asBlockModel else {
-                anytypeAssertionFailure(
-                    "We cannot parse alignment: \(value)",
-                    domain: .middlewareEventConverter
-                )
+                anytypeAssertionFailure("We cannot parse alignment: \(value)")
                 return .general
             }
             
@@ -181,7 +178,7 @@ final class MiddlewareEventConverter {
                     
                     return info.updated(content: .file(fileData))
                 default:
-                    anytypeAssertionFailure("Wrong content: \(info.content) in blockSetFile", domain: .middlewareEventConverter)
+                    anytypeAssertionFailure("Wrong content: \(info.content) in blockSetFile")
                     return nil
                 }
             })
@@ -232,7 +229,7 @@ final class MiddlewareEventConverter {
                     return info.updated(content: .bookmark(bookmark))
 
                 default:
-                    anytypeAssertionFailure("Wrong content \(info.content) in blockSetBookmark", domain: .middlewareEventConverter)
+                    anytypeAssertionFailure("Wrong content \(info.content) in blockSetBookmark")
                     return nil
                 }
             })
@@ -257,7 +254,7 @@ final class MiddlewareEventConverter {
                     return info.updated(content: .divider(divider))
                     
                 default:
-                    anytypeAssertionFailure("Wrong content \(info.content) in blockSetDiv", domain: .middlewareEventConverter)
+                    anytypeAssertionFailure("Wrong content \(info.content) in blockSetDiv")
                     return nil
                 }
             })
@@ -292,7 +289,7 @@ final class MiddlewareEventConverter {
                     return info.updated(content: .link(blockLink))
 
                 default:
-                    anytypeAssertionFailure("Wrong content \(info.content) in blockSetLink", domain: .middlewareEventConverter)
+                    anytypeAssertionFailure("Wrong content \(info.content) in blockSetLink")
                     return nil
                 }
             }
@@ -318,7 +315,7 @@ final class MiddlewareEventConverter {
             infoContainer.updateDataview(blockId: data.id) { dataView in
                 let newViews = data.viewIds.compactMap { id -> DataviewView? in
                     guard let view = dataView.views.first(where: { $0.id == id }) else {
-                        anytypeAssertionFailure("Not found view in order with id: \(id)", domain: .middlewareEventConverter)
+                        anytypeAssertionFailure("Not found view in order with id: \(id)")
                         return nil
                     }
                     return view
@@ -330,7 +327,7 @@ final class MiddlewareEventConverter {
         case .blockDataviewViewDelete(let data):
             infoContainer.updateDataview(blockId: data.id) { dataView in
                 guard let index = dataView.views.firstIndex(where: { $0.id == data.viewID }) else {
-                    anytypeAssertionFailure("Not found view in delete with id: \(data.viewID)", domain: .middlewareEventConverter)
+                    anytypeAssertionFailure("Not found view in delete with id: \(data.viewID)")
                     return dataView
                 }
                 
@@ -424,17 +421,11 @@ final class MiddlewareEventConverter {
     
     private func blockSetTextUpdate(_ newData: Anytype_Event.Block.Set.Text) -> DocumentUpdate {
         guard let info = infoContainer.get(id: newData.id) else {
-            anytypeAssertionFailure(
-                "Block model with id \(newData.id) not found in container",
-                domain: .middlewareEventConverter
-            )
+            anytypeAssertionFailure("Block model with id \(newData.id) not found in container")
             return .general
         }
         guard case let .text(oldText) = info.content else {
-            anytypeAssertionFailure(
-                "Block model doesn't support text:\n \(info)",
-                domain: .middlewareEventConverter
-            )
+            anytypeAssertionFailure("Block model doesn't support text:\n \(info)")
             return .general
         }
         

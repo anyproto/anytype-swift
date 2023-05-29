@@ -35,7 +35,7 @@ final class AuthService: AuthServiceProtocol {
             do {
                 try await ClientCommands.accountStop(.with {
                     $0.removeData = removeData
-                }).invoke(errorDomain: .authService)
+                }).invoke()
                 self?.loginStateService.cleanStateAfterLogout()
                 onCompletion(true)
             } catch {
@@ -103,7 +103,7 @@ final class AuthService: AuthServiceProtocol {
         try await ClientCommands.walletRecover(.with {
             $0.rootPath = rootPath
             $0.mnemonic = mnemonic
-        }).invoke(errorDomain: .authService)
+        }).invoke()
     }
 
     func accountRecover(onCompletion: @escaping (AuthServiceError?) -> ()) {
@@ -151,14 +151,14 @@ final class AuthService: AuthServiceProtocol {
     func deleteAccount() -> AccountStatus? {
         let result = try? ClientCommands.accountDelete(.with {
             $0.revert = false
-        }).invoke(errorDomain: .authService)
+        }).invoke()
         return result?.status.asModel
     }
     
     func restoreAccount() -> AccountStatus? {
         let result = try? ClientCommands.accountDelete(.with {
             $0.revert = true
-        }).invoke(errorDomain: .authService)
+        }).invoke()
         return result?.status.asModel
     }
     

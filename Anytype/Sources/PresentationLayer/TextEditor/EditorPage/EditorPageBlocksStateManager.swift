@@ -299,12 +299,12 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
                 position = .bottom
                 dropTargetId = targetBlock.blockId
             } else {
-                anytypeAssertionFailure("Unxpected case", domain: .editorPage)
+                anytypeAssertionFailure("Unxpected case")
                 return
             }
             move(position: position, targetId: document.objectId, dropTargetId: dropTargetId)
         case .none:
-            anytypeAssertionFailure("Unxpected case", domain: .editorPage)
+            anytypeAssertionFailure("Unxpected case")
             return
         }
     }
@@ -389,8 +389,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         case .download:
             anytypeAssert(
                 elements.count == 1,
-                "Number of elements should be 1",
-                domain: .editorPage
+                "Number of elements should be 1"
             )
 
             if case let .file(blockFile) = elements.first?.content,
@@ -400,8 +399,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         case .openObject:
             anytypeAssert(
                 elements.count == 1,
-                "Number of elements should be 1",
-                domain: .editorPage
+                "Number of elements should be 1"
             )
             guard case let .bookmark(bookmark) = elements.first?.content else { return }
             AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.openAsObject)
@@ -410,8 +408,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         case .openSource:
             anytypeAssert(
                 elements.count == 1,
-                "Number of elements should be 1",
-                domain: .editorPage
+                "Number of elements should be 1"
             )
             guard case let .dataView(data) = elements.first?.content else { return }
             AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.openAsSource)
