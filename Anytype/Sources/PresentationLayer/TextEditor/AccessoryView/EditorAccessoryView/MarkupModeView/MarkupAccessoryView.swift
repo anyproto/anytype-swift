@@ -63,8 +63,8 @@ final class MarkupAccessoryView: UIView {
             guard let self = self else {  return }
 
             if shouldShowColorView {
-                guard let viewModel = self.viewModel else { return }
-                let view = UIApplication.shared.windows[UIApplication.shared.windows.count - 1]
+                guard let viewModel = self.viewModel,
+                      let view = UIApplication.shared.keyWindow else { return }
                 let topAnchorConstant = viewModel.colorButtonFrame?.minY ?? 0
 
                 view.addSubview(self.colorView) {

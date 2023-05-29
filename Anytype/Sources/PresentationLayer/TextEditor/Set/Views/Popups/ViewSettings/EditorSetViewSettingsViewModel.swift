@@ -111,8 +111,8 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
     }
     
     func moveRelation(from: IndexSet, to: Int) {
-        from.forEach { [weak self] sortedRelationsFromIndex in
-            guard let self = self, sortedRelationsFromIndex != to else { return }
+        from.forEach { sortedRelationsFromIndex in
+            guard sortedRelationsFromIndex != to else { return }
             
             let relationFrom = setDocument.sortedRelations[sortedRelationsFromIndex]
             let sortedRelationsToIndex = to > sortedRelationsFromIndex ? to - 1 : to // map insert index to item index
@@ -132,7 +132,7 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
             newOptions.moveElement(from: indexFrom, to: indexTo)
             let keys = newOptions.map { $0.key }
             Task {
-                try await self.dataviewService.sortViewRelations(keys, viewId: setDocument.activeView.id)
+                try await dataviewService.sortViewRelations(keys, viewId: setDocument.activeView.id)
             }
         }
     }
@@ -201,16 +201,14 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
     }
     
     private func imagePreviewValueFromCovers() -> String? {
-        SetViewSettingsImagePreviewCover.allCases.first { [weak self] cover in
-            guard let self = self else { return false }
-            return cover.rawValue == self.setDocument.activeView.coverRelationKey
+        SetViewSettingsImagePreviewCover.allCases.first { cover in
+            return cover.rawValue == setDocument.activeView.coverRelationKey
         }?.title
     }
     
     private func imagePreviewValueFromRelations() -> String? {
-        setDocument.dataViewRelationsDetails.first { [weak self] relationDetails in
-            guard let self = self else { return false }
-            return relationDetails.key == self.setDocument.activeView.coverRelationKey
+        setDocument.dataViewRelationsDetails.first { relationDetails in
+            return relationDetails.key == setDocument.activeView.coverRelationKey
         }?.name
     }
     

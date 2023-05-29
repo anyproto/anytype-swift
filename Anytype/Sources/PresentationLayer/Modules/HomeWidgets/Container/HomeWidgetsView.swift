@@ -33,7 +33,7 @@ struct HomeWidgetsView: View {
             }
             .animation(.default, value: model.models.count)
         }
-        .safeAreaInsetLegacy(edge: .bottom, spacing: 20) {
+        .safeAreaInset(edge: .bottom, spacing: 20) {
             model.bottomPanelProvider.view
                 .fitIPadToReadableContentGuide()
         }

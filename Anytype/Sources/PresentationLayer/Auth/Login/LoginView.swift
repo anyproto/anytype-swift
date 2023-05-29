@@ -86,7 +86,7 @@ struct LoginView: View {
             }
             
             TextEditor(text: $viewModel.seed)
-                .focusedLefacy($viewModel.focusOnTextField)
+                .focused($viewModel.focusOnTextField)
                 .lineLimit(3)
                 .font(AnytypeFontBuilder.font(anytypeFont: .codeBlock))
                 .lineSpacing(AnytypeFont.codeBlock.lineSpacing)
