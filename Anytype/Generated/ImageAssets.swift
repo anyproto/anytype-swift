@@ -19,10 +19,6 @@ internal extension ImageAsset {
   static let noImage = ImageAsset.bundle(name: "no_image")
   static let optionChecked = ImageAsset.bundle(name: "option_checked")
   static let plus = ImageAsset.bundle(name: "plus")
-  static let mainSearch = ImageAsset.bundle(name: "main_search")
-  static let mainSettings = ImageAsset.bundle(name: "main_settings")
-  static let marketplace = ImageAsset.bundle(name: "marketplace")
-  static let selection = ImageAsset.bundle(name: "selection")
   enum EditingToolbar {
     static let move = ImageAsset.bundle(name: "EditingToolbar/move")
     static let style = ImageAsset.bundle(name: "EditingToolbar/style")
