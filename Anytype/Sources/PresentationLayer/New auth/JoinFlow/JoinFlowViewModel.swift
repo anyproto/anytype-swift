@@ -4,6 +4,7 @@ import SwiftUI
 final class JoinFlowViewModel: ObservableObject, JoinFlowStepOutput {
     
     @Published var step: JoinFlowStep = JoinFlowStep.firstStep
+    @Published var showNavigation = true
     @Published var forward = true {
         didSet {
             UIApplication.shared.hideKeyboard()
@@ -14,7 +15,7 @@ final class JoinFlowViewModel: ObservableObject, JoinFlowStepOutput {
     let progressBarConfiguration = LineProgressBarConfiguration.joinFlow
     
     var counter: String {
-        "\(step.rawValue) / \(JoinFlowStep.allCases.count)"
+        "\(step.rawValue) / \(JoinFlowStep.totalCount)"
     }
     
     private let state = JoinFlowState()
@@ -45,6 +46,7 @@ final class JoinFlowViewModel: ObservableObject, JoinFlowStepOutput {
         withAnimation {
             updatePercent(nextStep)
             step = nextStep
+            showNavigation = !nextStep.isLast
         }
     }
     
@@ -59,7 +61,7 @@ final class JoinFlowViewModel: ObservableObject, JoinFlowStepOutput {
     }
     
     private func updatePercent(_ step: JoinFlowStep) {
-        percent = CGFloat(step.rawValue) / CGFloat(JoinFlowStep.allCases.count)
+        percent = CGFloat(step.rawValue) / CGFloat(JoinFlowStep.totalCount)
     }
     
     private func finishFlow() {

@@ -761,6 +761,12 @@ internal enum Loc {
     internal enum JoinFlow {
       /// Next
       internal static let next = Loc.tr("Localizable", "Auth.JoinFlow.Next", fallback: "Next")
+      internal enum Creating {
+        internal enum Soul {
+          /// Creating your Soul
+          internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Creating.Soul.Title", fallback: "Creating your Soul")
+        }
+      }
       internal enum InterCode {
         /// If you don't have one just go to anytype.io and sign up to the waiting list.
         internal static let description = Loc.tr("Localizable", "Auth.JoinFlow.InterCode.Description", fallback: "If you don't have one just go to anytype.io and sign up to the waiting list.")
@@ -799,6 +805,18 @@ internal enum Loc {
         internal enum TextField {
           /// Type your recovery phrase
           internal static let placeholder = Loc.tr("Localizable", "Auth.JoinFlow.Key.TextField.Placeholder", fallback: "Type your recovery phrase")
+        }
+      }
+      internal enum Personal {
+        internal enum Space {
+          /// Personal Space
+          internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Personal.Space.Title", fallback: "Personal Space")
+        }
+      }
+      internal enum Setting {
+        internal enum Space {
+          /// Setting up your Personal Space
+          internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Setting.Space.Title", fallback: "Setting up your Personal Space")
         }
       }
       internal enum Soul {
