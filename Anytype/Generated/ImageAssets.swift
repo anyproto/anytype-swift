@@ -186,16 +186,18 @@ internal extension ImageAsset {
     static let numbered = ImageAsset.bundle(name: "StyleBottomSheet/numbered")
     static let toggle = ImageAsset.bundle(name: "StyleBottomSheet/toggle")
   }
-  enum TextAttributes {
-    static let alignCenter = ImageAsset.bundle(name: "TextAttributes/align_center")
-    static let alignLeft = ImageAsset.bundle(name: "TextAttributes/align_left")
-    static let alignRight = ImageAsset.bundle(name: "TextAttributes/align_right")
-    static let bold = ImageAsset.bundle(name: "TextAttributes/bold")
-    static let code = ImageAsset.bundle(name: "TextAttributes/code")
-    static let italic = ImageAsset.bundle(name: "TextAttributes/italic")
-    static let strikethrough = ImageAsset.bundle(name: "TextAttributes/strikethrough")
-    static let underline = ImageAsset.bundle(name: "TextAttributes/underline")
-    static let url = ImageAsset.bundle(name: "TextAttributes/url")
+  enum TextStyles {
+    enum Align {
+      static let center = ImageAsset.bundle(name: "Text Styles/Align/Center")
+      static let `left` = ImageAsset.bundle(name: "Text Styles/Align/Left")
+      static let `right` = ImageAsset.bundle(name: "Text Styles/Align/Right")
+    }
+    static let bold = ImageAsset.bundle(name: "Text Styles/Bold")
+    static let code = ImageAsset.bundle(name: "Text Styles/Code")
+    static let embed = ImageAsset.bundle(name: "Text Styles/Embed")
+    static let italic = ImageAsset.bundle(name: "Text Styles/Italic")
+    static let strikethrough = ImageAsset.bundle(name: "Text Styles/Strikethrough")
+    static let underline = ImageAsset.bundle(name: "Text Styles/Underline")
   }
   enum TextEditor {
     enum BlockFile {
@@ -265,6 +267,53 @@ internal extension ImageAsset {
     static let tick = ImageAsset.bundle(name: "Widget/tick")
   }
   static let splashLogo = ImageAsset.bundle(name: "splash_logo")
+  enum X24 {
+    static let add = ImageAsset.bundle(name: "x24/Add")
+    enum Arrow {
+      static let down = ImageAsset.bundle(name: "x24/Arrow/Down")
+      static let `left` = ImageAsset.bundle(name: "x24/Arrow/Left")
+      static let `right` = ImageAsset.bundle(name: "x24/Arrow/Right")
+      static let up = ImageAsset.bundle(name: "x24/Arrow/Up")
+    }
+    static let attachment = ImageAsset.bundle(name: "x24/Attachment")
+    static let checkbox = ImageAsset.bundle(name: "x24/Checkbox")
+    static let close = ImageAsset.bundle(name: "x24/Close")
+    static let copy = ImageAsset.bundle(name: "x24/Copy")
+    static let customizeView = ImageAsset.bundle(name: "x24/Customize View")
+    static let database = ImageAsset.bundle(name: "x24/Database")
+    static let date = ImageAsset.bundle(name: "x24/Date")
+    static let email = ImageAsset.bundle(name: "x24/Email")
+    static let embed = ImageAsset.bundle(name: "x24/Embed")
+    static let empty = ImageAsset.bundle(name: "x24/Empty")
+    enum Favorite {
+      static let favorite = ImageAsset.bundle(name: "x24/Favorite/Favorite")
+      static let unfavorite = ImageAsset.bundle(name: "x24/Favorite/Unfavorite")
+    }
+    static let folder = ImageAsset.bundle(name: "x24/Folder")
+    static let more = ImageAsset.bundle(name: "x24/More")
+    static let name = ImageAsset.bundle(name: "x24/Name")
+    static let number = ImageAsset.bundle(name: "x24/Number")
+    static let object = ImageAsset.bundle(name: "x24/Object")
+    static let openToEdit = ImageAsset.bundle(name: "x24/Open to Edit")
+    static let `open` = ImageAsset.bundle(name: "x24/Open")
+    static let phoneNumber = ImageAsset.bundle(name: "x24/Phone Number")
+    static let plus = ImageAsset.bundle(name: "x24/Plus")
+    static let relations = ImageAsset.bundle(name: "x24/Relations")
+    static let removeRed = ImageAsset.bundle(name: "x24/Remove Red")
+    static let replace = ImageAsset.bundle(name: "x24/Replace")
+    static let simpleTables = ImageAsset.bundle(name: "x24/Simple Tables")
+    static let status = ImageAsset.bundle(name: "x24/Status")
+    static let tag = ImageAsset.bundle(name: "x24/Tag")
+    static let text = ImageAsset.bundle(name: "x24/Text")
+    static let tick = ImageAsset.bundle(name: "x24/Tick")
+    static let url = ImageAsset.bundle(name: "x24/Url")
+    enum View {
+      static let gallery = ImageAsset.bundle(name: "x24/View/Gallery")
+      static let kanban = ImageAsset.bundle(name: "x24/View/Kanban")
+      static let list = ImageAsset.bundle(name: "x24/View/List")
+      static let table = ImageAsset.bundle(name: "x24/View/Table")
+    }
+  }
   enum X32 {
     static let actions = ImageAsset.bundle(name: "x32/Actions")
     static let actions2 = ImageAsset.bundle(name: "x32/Actions2")

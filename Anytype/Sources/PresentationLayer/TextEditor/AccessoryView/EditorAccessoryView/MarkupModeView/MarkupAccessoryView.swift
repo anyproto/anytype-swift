@@ -131,6 +131,7 @@ struct MarkupAccessoryContentView: View {
                     viewModel?.action(item.markupItem)
                 } label: {
                     Group {
+                        // TODO: Refactoring with IOS-1317
                         if case .color = item.markupItem {
                             Image(asset: item.markupItem.iconAsset)
                                 .background(GeometryReader { [weak viewModel] gp -> Color in
@@ -139,7 +140,6 @@ struct MarkupAccessoryContentView: View {
                                 })
                         } else {
                             Image(asset: item.markupItem.iconAsset)
-                                .renderingMode(.template)
                                 .foregroundColor(viewModel.iconColor(for: item.markupItem))
                         }
                     }
