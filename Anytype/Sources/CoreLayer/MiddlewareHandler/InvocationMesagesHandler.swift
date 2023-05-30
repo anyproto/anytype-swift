@@ -5,7 +5,11 @@ import AnytypeCore
 
 final class InvocationMesagesHandler: InvocationMesagesHandlerProtocol {
     
-    func handle(message: InvocationMessage) {
+    var enableLogger: Bool = false
+    
+    func logHandler(message: InvocationMessage) {
+        
+        guard enableLogger else { return }
         
         // Delete emoji. Pulse crash issue https://github.com/kean/PulsePro/issues/22
         let stringWithoutCombinedEmoji = message.responseJsonData
@@ -22,7 +26,7 @@ final class InvocationMesagesHandler: InvocationMesagesHandlerProtocol {
         )
     }
     
-    func handle(event: Anytype_ResponseEvent) {
+    func eventHandler(event: Anytype_ResponseEvent) {
         EventsBunch(event: event).send()
     }
     
