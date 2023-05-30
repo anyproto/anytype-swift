@@ -20,7 +20,7 @@ struct ObjectIconPicker: View {
             case .todo, .note, .bookmark, .unknown, .relation, .relationOption:
                 EmptyView()
                     .onAppear {
-                        anytypeAssertionFailure("Not supported layout", domain: .iconPicker)
+                        anytypeAssertionFailure("Not supported layout")
                     }
             }
         }

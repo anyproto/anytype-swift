@@ -10,7 +10,7 @@ final class TextService: TextServiceProtocol {
             $0.blockID = blockId
             $0.text = middlewareString.text
             $0.marks = middlewareString.marks
-        }).invoke(errorDomain: .textService)
+        }).invoke()
     }
 
     func setTextForced(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) {
@@ -19,7 +19,7 @@ final class TextService: TextServiceProtocol {
             $0.blockID = blockId
             $0.text = middlewareString.text
             $0.marks = middlewareString.marks
-        }).invoke(errorDomain: .textService)
+        }).invoke()
     }
     
     func setStyle(contextId: BlockId, blockId: BlockId, style: Style) {
@@ -29,7 +29,7 @@ final class TextService: TextServiceProtocol {
             $0.contextID = contextId
             $0.blockID = blockId
             $0.style = style.asMiddleware
-        }).invoke(errorDomain: .textService)
+        }).invoke()
         
         EventsBunch(
             contextId: contextId,
@@ -47,7 +47,7 @@ final class TextService: TextServiceProtocol {
             $0.range = range.asMiddleware
             $0.style = style.asMiddleware
             $0.mode = mode
-        }).invoke(errorDomain: .textService)
+        }).invoke()
 
         guard let response else { return nil }
         
@@ -64,7 +64,7 @@ final class TextService: TextServiceProtocol {
             $0.contextID = contextId
             $0.firstBlockID = firstBlockId
             $0.secondBlockID = secondBlockId
-        }).invoke(errorDomain: .textService)
+        }).invoke()
         
         return response.isNotNil
     }
@@ -74,7 +74,7 @@ final class TextService: TextServiceProtocol {
             $0.contextID = contextId
             $0.blockID = blockId
             $0.checked = newValue
-        }).invoke(errorDomain: .textService)
+        }).invoke()
     }
 
     func setTextIcon(
@@ -88,7 +88,7 @@ final class TextService: TextServiceProtocol {
             $0.blockID = blockId
             $0.iconImage = imageHash
             $0.iconEmoji = emojiUnicode
-        }).invoke(errorDomain: .textService)
+        }).invoke()
     }
     
 }

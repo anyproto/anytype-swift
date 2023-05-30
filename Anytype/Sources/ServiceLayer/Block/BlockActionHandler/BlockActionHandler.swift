@@ -264,7 +264,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
 
     func addBlock(_ type: BlockContentType, blockId: BlockId, blockText: NSAttributedString?, position: BlockPosition?) {
         guard type != .smartblock(.page) else {
-            anytypeAssertionFailure("Use createPage func instead", domain: .blockActionsService)
+            anytypeAssertionFailure("Use createPage func instead")
             return
         }
             

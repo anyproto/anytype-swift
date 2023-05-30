@@ -103,11 +103,11 @@ final class BlockMarkupChanger: BlockMarkupChangerProtocol {
     
     private func blockData(blockId: BlockId) -> BlockText? {
         guard let info = infoContainer.get(id: blockId) else {
-            anytypeAssertionFailure("Can't find block with id: \(blockId)", domain: .blockMarkupChanger)
+            anytypeAssertionFailure("Can't find block with id: \(blockId)")
             return nil
         }
         guard case let .text(content) = info.content else {
-            anytypeAssertionFailure("Unexpected block type \(info.content)", domain: .blockMarkupChanger)
+            anytypeAssertionFailure("Unexpected block type \(info.content)")
             return nil
         }
         return content

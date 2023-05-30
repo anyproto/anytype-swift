@@ -15,7 +15,7 @@ final class AnytypeImageDownloader {
             case .success(let imageResult):
                 completionHandler(imageResult.image)
             case .failure(let error):
-                anytypeAssertionFailure(error.localizedDescription, domain: .anytypeImageDownloader)
+                anytypeAssertionFailure(error.localizedDescription)
                 completionHandler(nil)
             }
         }

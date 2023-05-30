@@ -26,7 +26,7 @@ final class SceneLifecycleStateService {
         
         _ = try? ClientCommands.appSetDeviceState(.with {
             $0.deviceState = deviceState
-        }).invoke(errorDomain: .sceneLifecycleStateService)
+        }).invoke()
     }
     
 }

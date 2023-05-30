@@ -37,7 +37,7 @@ final class DI: DIProtocol {
 extension DI {
     static var preview: DIProtocol {
         if !isPreview {
-            anytypeAssertionFailure("Preview DI available only in debug", domain: .debug)
+            anytypeAssertionFailure("Preview DI available only in debug")
         }
         return DI(viewControllerProvider: ViewControllerProvider(sceneWindow: UIWindow()))
     }

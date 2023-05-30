@@ -30,7 +30,7 @@ final class FileLoader: NSObject {
                 progressSubject.send(.loaded(localURL))
                 progressSubject.send(completion: .finished)
             } catch {
-                anytypeAssertionFailure(error.localizedDescription, domain: .fileLoader)
+                anytypeAssertionFailure(error.localizedDescription)
                 progressSubject.send(completion: .failure(error))
             }
         }

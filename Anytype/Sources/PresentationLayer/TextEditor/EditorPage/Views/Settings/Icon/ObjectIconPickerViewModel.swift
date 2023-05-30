@@ -22,8 +22,7 @@ final class ObjectIconPickerViewModel: ObservableObject, ObjectIconPickerViewMod
             return details.iconImage.isNotNil
         default:
             anytypeAssertionFailure(
-                "`ObjectIconPickerViewModel` unavailable in \(detailsLayout)",
-                domain: .iconPicker
+                "`ObjectIconPickerViewModel` unavailable in \(detailsLayout)"
             )
             return true
         }

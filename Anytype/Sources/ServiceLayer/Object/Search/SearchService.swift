@@ -288,7 +288,7 @@ private extension SearchService {
             $0.sorts = sorts
             $0.fullText = fullText
             $0.limit = Int32(limit)
-        }).invoke(errorDomain: .searchService)
+        }).invoke()
        
         return response?.records.asDetais
     }
@@ -307,7 +307,7 @@ private extension SearchService {
             $0.fullText = fullText
             $0.limit = Int32(limit)
             $0.keys = keys
-        }).invoke(errorDomain: .searchService)
+        }).invoke()
         
         return response.records.asDetais
     }

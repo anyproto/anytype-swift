@@ -69,7 +69,7 @@ final class PageService: PageServiceProtocol {
             $0.details = details
             $0.internalFlags = internalFlags
             $0.templateID = templateId ?? ""
-        }).invoke(errorDomain: .pageService)
+        }).invoke()
         
         return response?.details.asDetails
     }

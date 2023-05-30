@@ -24,12 +24,12 @@ public final class ObjectDetailsStorage {
     
     public func set(data: Anytype_Event.Object.Details.Set) -> ObjectDetails? {
         guard data.hasDetails else {
-            anytypeAssertionFailure("No details in Object.Details.Set", domain: .detailsStorage)
+            anytypeAssertionFailure("No details in Object.Details.Set")
             return nil
         }
         let id = data.id
         guard id.isValidId else {
-            anytypeAssertionFailure("Id is empty in details \(data.details)", domain: .detailsStorage)
+            anytypeAssertionFailure("Id is empty in details \(data.details)")
             return nil
         }
         
@@ -44,7 +44,7 @@ public final class ObjectDetailsStorage {
     public func unset(data: Anytype_Event.Object.Details.Unset) -> ObjectDetails? {
         let id = data.id
         guard id.isValidId else {
-            anytypeAssertionFailure("Id is empty in details \(data)", domain: .detailsStorage)
+            anytypeAssertionFailure("Id is empty in details \(data)")
             return nil
         }
         

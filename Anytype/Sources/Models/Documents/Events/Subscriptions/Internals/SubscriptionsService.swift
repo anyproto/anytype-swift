@@ -106,7 +106,7 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
     }
     
     private func handle(events: EventsBunch) {
-        anytypeAssert(events.localEvents.isEmpty, "Local events with emplty objectId: \(events)", domain: .subscriptionStorage)
+        anytypeAssert(events.localEvents.isEmpty, "Local events with emplty objectId: \(events)")
         
         for event in events.middlewareEvents {
             switch event.value {
@@ -126,7 +126,7 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
                 guard
                     let details = storage.get(id: data.id)
                 else {
-                    anytypeAssertionFailure("No details found for id \(data.id)", domain: .subscriptionStorage)
+                    anytypeAssertionFailure("No details found for id \(data.id)")
                     return
                 }
                 

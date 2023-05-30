@@ -18,17 +18,11 @@ struct BlockInformationCreator {
     
     func createBlockInformation(from newData: Anytype_Event.Block.Set.Text) -> BlockInformation? {
         guard let info = infoContainer.get(id: newData.id) else {
-            anytypeAssertionFailure(
-                "Block model with id \(newData.id) not found in container",
-                domain: .blockInformationCreator
-            )
+            anytypeAssertionFailure("Block model with id \(newData.id) not found in container")
             return nil
         }
         guard case let .text(oldText) = info.content else {
-            anytypeAssertionFailure(
-                "Block model doesn't support text:\n \(info)",
-                domain: .blockInformationCreator
-            )
+            anytypeAssertionFailure("Block model doesn't support text:\n \(info)")
             return nil
         }
 
@@ -51,7 +45,7 @@ struct BlockInformationCreator {
         }
         
         guard var textContent = middleContent.textContent else {
-            anytypeAssertionFailure("We cannot block content from: \(middleContent)", domain: .blockInformationCreator)
+            anytypeAssertionFailure("We cannot block content from: \(middleContent)")
             return nil
         }
 
@@ -66,10 +60,7 @@ struct BlockInformationCreator {
     
     func createBlockInformation(newAlignmentData: Anytype_Event.Block.Set.Align) -> BlockInformation? {
         guard let info = infoContainer.get(id: newAlignmentData.id) else {
-            anytypeAssertionFailure(
-                "Block model with id \(newAlignmentData.id) not found in container",
-                domain: .blockInformationCreator
-            )
+            anytypeAssertionFailure("Block model with id \(newAlignmentData.id) not found in container")
             return nil
         }
         guard let horizontalAlignment = newAlignmentData.align.asBlockModel else { return nil }

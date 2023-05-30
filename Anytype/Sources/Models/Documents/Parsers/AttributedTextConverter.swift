@@ -44,7 +44,7 @@ enum AttributedTextConverter {
                 mark range to: \(mark.range.to),
                 mark type: \(mark.type)
                 """
-                anytypeAssertionFailure(message, domain: .textConverter)
+                anytypeAssertionFailure(message)
                 return nil
             }
 
