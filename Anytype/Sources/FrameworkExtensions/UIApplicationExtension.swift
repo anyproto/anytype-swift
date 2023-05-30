@@ -7,6 +7,8 @@ extension UIApplication: ApplicationWindowInsetsProvider {
     }
 
     var keyWindow: UIWindow? {
-        windows.filter {$0.isKeyWindow}.first
+        return UIApplication.shared.connectedScenes
+            .first { $0.activationState == .foregroundActive }
+            .flatMap { $0 as? UIWindowScene }?.keyWindow
     }
 }

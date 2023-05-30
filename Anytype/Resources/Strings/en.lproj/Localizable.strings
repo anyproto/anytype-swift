@@ -713,7 +713,7 @@
 "MigrationGuide.Title" = "Almost there!";
 "MigrationGuide.Subtitle" = "To use this version of the app, please choose the correct option below to migrate your account.";
 "MigrationGuide.DidntComplete.Title" = "I didn’t complete migration";
-"MigrationGuide.DidntComplete.Step1" = "Download the desktop app *here*";
+"MigrationGuide.DidntComplete.Step1" = "Download the desktop app **here**";
 "MigrationGuide.DidntComplete.Step2" = "Log in and update it to the latest version";
 "MigrationGuide.DidntComplete.Step3" = "Follow the migration instructions";
 "MigrationGuide.Completed.Title" = "I completed migration";

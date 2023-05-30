@@ -11,7 +11,7 @@ struct SetFiltersTextView: View {
             button
         }
         .padding(.horizontal, 20)
-        .animation(.easeOut.speed(1.5))
+        .animation(.easeOut.speed(1.5), value: UUID())
     }
     
     var textField: some View {

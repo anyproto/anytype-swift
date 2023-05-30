@@ -4,7 +4,7 @@ import PackageDescription
 let package = Package(
     name: "ProtobufMessages",
     platforms: [
-        .iOS(.v14),
+        .iOS(.v15),
     ],
     products: [
         .library(
@@ -14,8 +14,8 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-protobuf", revision: "1.21.0"),
-        .package(url: "git@github.com:anytypeio/anytype-swift-codegen.git", revision: "0.0.11"),
-        .package(url: "https://github.com/anytypeio/SourceryGenPlugin.git", revision: "1.9.2")
+        .package(url: "git@github.com:anyproto/anytype-swift-codegen.git", revision: "0.0.11"),
+        .package(url: "https://github.com/anyproto/SourceryGenPlugin.git", revision: "1.9.2")
     ],
     targets: [
         .target(

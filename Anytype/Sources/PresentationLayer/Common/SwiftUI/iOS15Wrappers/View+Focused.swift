@@ -24,13 +24,8 @@ struct FocusedModifier: ViewModifier {
 }
 
 
-@available(iOS, deprecated: 15)
 extension View {
-    func focusedLefacy(_ focused: Binding<Bool>) -> some View {
-        if #available(iOS 15.0, *) {
-            return self.modifier(FocusedModifier(focused: focused))
-        } else {
-            return self
-        }
+    func focused(_ focused: Binding<Bool>) -> some View {
+        return self.modifier(FocusedModifier(focused: focused))
     }
 }

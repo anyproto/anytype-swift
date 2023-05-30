@@ -276,7 +276,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
                 Task { @MainActor [weak self] in
                     try? await targetDocument.open()
                     guard let id = targetDocument.children.last?.id else { return }
-                    move(position: .bottom, targetId: targetDocument.objectId, dropTargetId: id)
+                    self?.move(position: .bottom, targetId: targetDocument.objectId, dropTargetId: id)
                     
                     self?.toastPresenter.showObjectCompositeAlert(
                         prefixText: Loc.Editor.Toast.movedTo,

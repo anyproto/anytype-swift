@@ -47,7 +47,11 @@ public func anytypeAssert(
 // MARK:- Private
 private func showAssertionAlert(_ message: String) {
     
-    guard let keyWindow = UIApplication.shared.windows.filter({$0.isKeyWindow}).first else {
+    let keyWindow = UIApplication.shared.connectedScenes
+        .first { $0.activationState == .foregroundActive }
+        .flatMap { $0 as? UIWindowScene }?.keyWindow
+    
+    guard let keyWindow else {
         return
     }
     
