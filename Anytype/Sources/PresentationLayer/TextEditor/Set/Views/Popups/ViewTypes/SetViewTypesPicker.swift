@@ -129,7 +129,7 @@ struct SetViewTypesPicker: View {
             )
             Spacer()
             if configuration.isSelected {
-                Image(asset: .optionChecked)
+                Image(asset: .X24.tick)
                     .foregroundColor(.Button.button)
             }
         }

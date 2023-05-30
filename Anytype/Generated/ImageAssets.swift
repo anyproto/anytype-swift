@@ -15,7 +15,6 @@ internal extension ImageAsset {
   static let ghost = ImageAsset.bundle(name: "ghost")
   static let logo = ImageAsset.bundle(name: "logo")
   static let noImage = ImageAsset.bundle(name: "no_image")
-  static let optionChecked = ImageAsset.bundle(name: "option_checked")
   enum FileTypes {
     static let archive = ImageAsset.bundle(name: "FileTypes/Archive")
     static let audio = ImageAsset.bundle(name: "FileTypes/Audio")

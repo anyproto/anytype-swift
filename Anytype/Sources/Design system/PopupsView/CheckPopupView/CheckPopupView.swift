@@ -53,7 +53,7 @@ struct CheckPopupView<ViewModel: CheckPopupViewViewModelProtocol>: View {
             Spacer()
 
             if item.isSelected {
-                Image(asset: .optionChecked).frame(width: 24, height: 24).foregroundColor(.Button.button)
+                Image(asset: .X24.tick).foregroundColor(.Button.button)
             }
         }
         .frame(height: 52)
