@@ -21,7 +21,7 @@ class KeyboardEventsListnerHelper {
     ) {
 
         guard ![didHideAction, willChangeFrame, didChangeFrame, willHideAction, didHideAction].compactMap({ $0 }).isEmpty else {
-            anytypeAssertionFailure("No arguments passed", domain: .keyboardListner)
+            anytypeAssertionFailure("No arguments passed")
             return nil
         }
 

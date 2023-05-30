@@ -33,7 +33,7 @@ final class FavoriteSubscriptionService: FavoriteSubscriptionServiceProtocol {
     ) {
         
         guard subscriptions.isEmpty else {
-            anytypeAssertionFailure("Favorite subscription already started", domain: .subscriptionService)
+            anytypeAssertionFailure("Favorite subscription already started")
             return
         }
         
@@ -62,10 +62,7 @@ final class FavoriteSubscriptionService: FavoriteSubscriptionServiceProtocol {
             }
             
             guard case .link(let link) = info.content else {
-                anytypeAssertionFailure(
-                    "Not link type in home screen dashboard: \(info.content)",
-                    domain: .homeView
-                )
+                anytypeAssertionFailure("Not link type in home screen dashboard: \(info.content)")
                 continue
             }
         

@@ -75,7 +75,7 @@ private extension EmojiProvider{
         
         let majorVersion = emoji.unicode_version.split(separator: ".").first.flatMap { String($0) } ?? emoji.unicode_version
         guard let intVersion = Int(majorVersion) else {
-            anytypeAssertionFailure("Cannot parse emoji version:\(emoji.unicode_version)", domain: .iconEmoji)
+            anytypeAssertionFailure("Cannot parse emoji version:\(emoji.unicode_version)")
             return false
         }
         

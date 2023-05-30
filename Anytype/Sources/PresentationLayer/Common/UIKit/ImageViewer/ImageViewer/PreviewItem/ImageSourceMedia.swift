@@ -75,7 +75,7 @@ final class ImagePreviewMedia: NSObject, PreviewRemoteItem {
                     self.didUpdateContentSubject.send(())
                 }
             } catch {
-                anytypeAssertionFailure("Failed to write into temporary directory", domain: .anytypeImageDownloader)
+                anytypeAssertionFailure("Failed to write into temporary directory")
             }
 
             self.semaphore.signal()

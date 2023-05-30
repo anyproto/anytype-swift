@@ -61,7 +61,7 @@ final class RelationsSearchViewModel: NewInternalSearchViewModelProtocol {
         
         if let marketplaceRelation = marketplaceObjects.first(where: { $0.id == id}) {
             guard let installedRelation = interactor.installRelation(objectId: marketplaceRelation.id) else {
-                anytypeAssertionFailure("Relation not installed. Relation id \(marketplaceRelation.id)", domain: .relationSearch)
+                anytypeAssertionFailure("Relation not installed. Relation id \(marketplaceRelation.id)")
                 return
             }
             toastPresenter.show(message: Loc.Relation.addedToLibrary(installedRelation.name))
@@ -74,7 +74,7 @@ final class RelationsSearchViewModel: NewInternalSearchViewModelProtocol {
             return
         }
     
-        anytypeAssertionFailure("Relation not found", domain: .relationSearch)
+        anytypeAssertionFailure("Relation not found")
     }
     
     // MARK: - Private
@@ -85,7 +85,7 @@ final class RelationsSearchViewModel: NewInternalSearchViewModelProtocol {
             if interactor.addRelationToObject(relation: relation) {
                 onSelect(relation)
             } else {
-                anytypeAssertionFailure("Relation not added to document. Relation id \(relation.id)", domain: .relationSearch)
+                anytypeAssertionFailure("Relation not added to document. Relation id \(relation.id)")
             }
         case .dataview(let activeViewId):
             Task { @MainActor [weak self] in

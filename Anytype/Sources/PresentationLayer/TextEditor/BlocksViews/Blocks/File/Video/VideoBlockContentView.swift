@@ -31,8 +31,7 @@ final class VideoBlockContentView: UIView, BlockContentView {
     private func apply(configuration: VideoBlockConfiguration) {
         anytypeAssert(
             configuration.file.state == .done,
-            "Wrong state \(configuration.file.state) for block file",
-            domain: .blockVideo
+            "Wrong state \(configuration.file.state) for block file"
         )
         
         guard let url = configuration.file.metadata.contentUrl else { return }

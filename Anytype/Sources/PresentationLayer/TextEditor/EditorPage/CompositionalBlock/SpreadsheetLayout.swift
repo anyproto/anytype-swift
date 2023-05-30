@@ -162,10 +162,7 @@ final class SpreadsheetLayout: UICollectionViewLayout {
         var originY: CGFloat = 2
         for sectionIndex in 0..<dataSource.allModels.count {
             guard let maxSectionHeight = cachedSectionHeights[sectionIndex] else {
-                        anytypeAssertionFailure(
-                            "Reload attributes cache broken logic",
-                            domain: .simpleTables
-                        )
+                        anytypeAssertionFailure("Reload attributes cache broken logic")
                         return
                     }
 

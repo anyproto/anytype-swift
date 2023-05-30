@@ -35,13 +35,13 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
 
     func handle(info: BlockInformation, currentString: NSAttributedString, action: CustomTextView.KeyboardAction) {
         guard case let .text(text) = info.content else {
-            anytypeAssertionFailure("Only text block may send keyboard action", domain: .keyboardActionHandler)
+            anytypeAssertionFailure("Only text block may send keyboard action")
             return
         }
         guard let parentId = info.configurationData.parentId,
               let parent = container.get(id: parentId)
         else {
-            anytypeAssertionFailure("No parent in \(text)", domain: .keyboardActionHandler)
+            anytypeAssertionFailure("No parent in \(text)")
             return
         }
         
@@ -74,7 +74,7 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
 
         case let .enterAtTheEnd(string, range):
             guard string.string.isNotEmpty else {
-                anytypeAssertionFailure("Empty sting in enterAtTheEnd", domain: .keyboardActionHandler)
+                anytypeAssertionFailure("Empty sting in enterAtTheEnd")
                 enterForEmpty(text: text, info: info)
                 return
             }

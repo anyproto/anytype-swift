@@ -17,7 +17,7 @@ final class UnsplashService: UnsplashServiceProtocol {
         let result = try await ClientCommands.unsplashSearch(.with {
             $0.query = query
             $0.limit = 36
-        }).invoke(errorDomain: .unsplash)
+        }).invoke()
         
         return result.pictures.compactMap(UnsplashItem.init)
     }
@@ -25,7 +25,7 @@ final class UnsplashService: UnsplashServiceProtocol {
     func downloadImage(id: String) async throws -> Hash {
         let result = try await ClientCommands.unsplashDownload(.with {
             $0.pictureID = id
-        }).invoke(errorDomain: .unsplash)
+        }).invoke()
         return try Hash(safeValue: result.hash)
     }
 }

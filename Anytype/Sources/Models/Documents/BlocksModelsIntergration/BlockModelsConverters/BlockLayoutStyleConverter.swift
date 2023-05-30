@@ -13,10 +13,7 @@ extension Anytype_Model_Block.Content.Layout.Style {
         case .tableColumns: return .tableColumns
         case .tableRows: return .tableRows
         case .UNRECOGNIZED:
-            anytypeAssertionFailure(
-                "UNRECOGNIZED block layout style",
-                domain: .unsupportedBlock
-            )
+            anytypeAssertionFailure("UNRECOGNIZED block layout style")
             return nil
         }
     }

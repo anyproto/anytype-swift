@@ -101,11 +101,11 @@ final class BaseDocument: BaseDocumentProtocol {
     @MainActor
     func open() async throws {
         guard !isOpened else {
-            anytypeAssertionFailure("Try object open multiple times", domain: .baseDocument)
+            anytypeAssertionFailure("Try object open multiple times")
             return
         }
         guard !forPreview else {
-            anytypeAssertionFailure("Document created for preview. You should use openForPreview() method.", domain: .baseDocument)
+            anytypeAssertionFailure("Document created for preview. You should use openForPreview() method.")
             return
         }
         let model = try await blockActionsService.open(contextId: objectId)
@@ -115,7 +115,7 @@ final class BaseDocument: BaseDocumentProtocol {
     @MainActor
     func openForPreview() async throws {
         guard forPreview else {
-            anytypeAssertionFailure("Document created for handling. You should use open() method.", domain: .baseDocument)
+            anytypeAssertionFailure("Document created for handling. You should use open() method.")
             return
         }
         let model = try await blockActionsService.openForPreview(contextId: objectId)

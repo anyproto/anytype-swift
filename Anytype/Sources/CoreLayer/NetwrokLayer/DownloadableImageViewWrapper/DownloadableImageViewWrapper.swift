@@ -52,18 +52,18 @@ extension DownloadableImageViewWrapper: DownloadableImageViewWrapperProtocol {
         imageView.kf.cancelDownloadTask()
         
         guard id.isNotEmpty else {
-            anytypeAssertionFailure("Empty image id", domain: .imageViewWrapper)
+            anytypeAssertionFailure("Empty image id")
             return
         }
              
         guard let imageGuideline = imageGuideline else {
-            anytypeAssertionFailure("ImageGuideline is nil", domain: .imageViewWrapper)
+            anytypeAssertionFailure("ImageGuideline is nil")
             return
         }
         
         let imageMetadata = ImageMetadata(id: id, width: imageGuideline.size.width)
         guard let url = imageMetadata.contentUrl else {
-            anytypeAssertionFailure("Url is nil", domain: .imageViewWrapper)
+            anytypeAssertionFailure("Url is nil")
             return
         }
         
@@ -74,7 +74,7 @@ extension DownloadableImageViewWrapper: DownloadableImageViewWrapperProtocol {
         imageView.kf.cancelDownloadTask()
         
         guard let imageGuideline = imageGuideline else {
-            anytypeAssertionFailure("ImageGuideline is nil", domain: .imageViewWrapper)
+            anytypeAssertionFailure("ImageGuideline is nil")
             return
         }
         
@@ -89,7 +89,7 @@ extension DownloadableImageViewWrapper: DownloadableImageViewWrapperProtocol {
                 !error.isImageSettingError
             else { return }
  
-            anytypeAssertionFailure(error.localizedDescription, domain: .imageViewWrapper)
+            anytypeAssertionFailure(error.localizedDescription)
         }
     }
     

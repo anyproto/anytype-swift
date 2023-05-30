@@ -20,8 +20,7 @@ protocol ContentConfigurationProvider: HashableProvier, BlockFocusing {
 extension ContentConfigurationProvider {
     func makeSpreadsheetConfiguration() -> UIContentConfiguration {
         anytypeAssertionFailure(
-            "This content configuration doesn't support spreadsheet",
-            domain: .simpleTables
+            "This content configuration doesn't support spreadsheet"
         )
         return EmptyRowConfiguration(id: "", action: {} )
             .spreadsheetConfiguration(

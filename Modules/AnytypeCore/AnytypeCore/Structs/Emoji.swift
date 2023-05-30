@@ -11,7 +11,7 @@ public struct Emoji: Hashable, Codable {
         
         let emoji = value.first { $0.isEmoji }
         guard let emoji = emoji else {
-            anytypeAssertionFailure("Not an emoji: \(value)", domain: .iconEmoji)
+            anytypeAssertionFailure("Not an emoji: \(value)")
             return nil
         }
         
