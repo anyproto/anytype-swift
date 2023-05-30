@@ -29,7 +29,7 @@ struct SetViewTypesPicker: View {
             }
             duplicateButton
         } label: {
-            Image(asset: .more)
+            Image(asset: .X24.more)
                 .foregroundColor(.Button.active)
                 .frame(width: 24, height: 24)
         }

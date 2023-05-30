@@ -8,23 +8,16 @@
 
 // swiftlint:disable identifier_name line_length nesting type_body_length type_name
 internal extension ImageAsset {
-  static let play = ImageAsset.bundle(name: "play")
   static let authPhotoIcon = ImageAsset.bundle(name: "auth_photo_icon")
   static let arrowDown = ImageAsset.bundle(name: "arrowDown")
   static let arrowForward = ImageAsset.bundle(name: "arrowForward")
   static let backArrow = ImageAsset.bundle(name: "backArrow")
   static let ghost = ImageAsset.bundle(name: "ghost")
   static let logo = ImageAsset.bundle(name: "logo")
-  static let more = ImageAsset.bundle(name: "more")
   static let noImage = ImageAsset.bundle(name: "no_image")
+  static let oldMore = ImageAsset.bundle(name: "old_more")
   static let optionChecked = ImageAsset.bundle(name: "option_checked")
   static let plus = ImageAsset.bundle(name: "plus")
-  enum EditingToolbar {
-    static let move = ImageAsset.bundle(name: "EditingToolbar/move")
-    static let style = ImageAsset.bundle(name: "EditingToolbar/style")
-  }
-  enum Emoji {
-    }
   enum FileTypes {
     static let archive = ImageAsset.bundle(name: "FileTypes/Archive")
     static let audio = ImageAsset.bundle(name: "FileTypes/Audio")
@@ -36,6 +29,159 @@ internal extension ImageAsset {
     static let text = ImageAsset.bundle(name: "FileTypes/Text")
     static let video = ImageAsset.bundle(name: "FileTypes/Video")
   }
+  enum TextStyles {
+    enum Align {
+      static let center = ImageAsset.bundle(name: "TextStyles/Align/Center")
+      static let `left` = ImageAsset.bundle(name: "TextStyles/Align/Left")
+      static let `right` = ImageAsset.bundle(name: "TextStyles/Align/Right")
+    }
+    static let bold = ImageAsset.bundle(name: "TextStyles/Bold")
+    static let code = ImageAsset.bundle(name: "TextStyles/Code")
+    static let embed = ImageAsset.bundle(name: "TextStyles/Embed")
+    static let italic = ImageAsset.bundle(name: "TextStyles/Italic")
+    static let strikethrough = ImageAsset.bundle(name: "TextStyles/Strikethrough")
+    static let underline = ImageAsset.bundle(name: "TextStyles/Underline")
+  }
+  enum X24 {
+    static let add = ImageAsset.bundle(name: "x24/Add")
+    enum Arrow {
+      static let down = ImageAsset.bundle(name: "x24/Arrow/Down")
+      static let `left` = ImageAsset.bundle(name: "x24/Arrow/Left")
+      static let `right` = ImageAsset.bundle(name: "x24/Arrow/Right")
+      static let up = ImageAsset.bundle(name: "x24/Arrow/Up")
+    }
+    static let attachment = ImageAsset.bundle(name: "x24/Attachment")
+    static let checkbox = ImageAsset.bundle(name: "x24/Checkbox")
+    static let close = ImageAsset.bundle(name: "x24/Close")
+    static let copy = ImageAsset.bundle(name: "x24/Copy")
+    static let customizeView = ImageAsset.bundle(name: "x24/Customize View")
+    static let database = ImageAsset.bundle(name: "x24/Database")
+    static let date = ImageAsset.bundle(name: "x24/Date")
+    static let email = ImageAsset.bundle(name: "x24/Email")
+    static let embed = ImageAsset.bundle(name: "x24/Embed")
+    static let empty = ImageAsset.bundle(name: "x24/Empty")
+    enum Favorite {
+      static let favorite = ImageAsset.bundle(name: "x24/Favorite/Favorite")
+      static let unfavorite = ImageAsset.bundle(name: "x24/Favorite/Unfavorite")
+    }
+    static let folder = ImageAsset.bundle(name: "x24/Folder")
+    static let more = ImageAsset.bundle(name: "x24/More")
+    static let name = ImageAsset.bundle(name: "x24/Name")
+    static let number = ImageAsset.bundle(name: "x24/Number")
+    static let object = ImageAsset.bundle(name: "x24/Object")
+    static let openToEdit = ImageAsset.bundle(name: "x24/Open to Edit")
+    static let `open` = ImageAsset.bundle(name: "x24/Open")
+    static let phoneNumber = ImageAsset.bundle(name: "x24/Phone Number")
+    static let plus = ImageAsset.bundle(name: "x24/Plus")
+    static let relations = ImageAsset.bundle(name: "x24/Relations")
+    static let removeRed = ImageAsset.bundle(name: "x24/Remove Red")
+    static let replace = ImageAsset.bundle(name: "x24/Replace")
+    static let simpleTables = ImageAsset.bundle(name: "x24/Simple Tables")
+    static let status = ImageAsset.bundle(name: "x24/Status")
+    static let tag = ImageAsset.bundle(name: "x24/Tag")
+    static let text = ImageAsset.bundle(name: "x24/Text")
+    static let tick = ImageAsset.bundle(name: "x24/Tick")
+    static let url = ImageAsset.bundle(name: "x24/Url")
+    enum View {
+      static let gallery = ImageAsset.bundle(name: "x24/View/Gallery")
+      static let kanban = ImageAsset.bundle(name: "x24/View/Kanban")
+      static let list = ImageAsset.bundle(name: "x24/View/List")
+      static let table = ImageAsset.bundle(name: "x24/View/Table")
+    }
+  }
+  enum X32 {
+    static let actions = ImageAsset.bundle(name: "x32/Actions")
+    static let actions2 = ImageAsset.bundle(name: "x32/Actions2")
+    static let addBelow = ImageAsset.bundle(name: "x32/Add Below")
+    enum AddColumn {
+      static let above = ImageAsset.bundle(name: "x32/Add Column/Above")
+      static let below = ImageAsset.bundle(name: "x32/Add Column/Below")
+      static let `left` = ImageAsset.bundle(name: "x32/Add Column/Left")
+      static let `right` = ImageAsset.bundle(name: "x32/Add Column/Right")
+    }
+    static let addNew = ImageAsset.bundle(name: "x32/Add New")
+    enum Align {
+      static let center = ImageAsset.bundle(name: "x32/Align/Center")
+      static let `left` = ImageAsset.bundle(name: "x32/Align/Left")
+      static let `right` = ImageAsset.bundle(name: "x32/Align/Right")
+    }
+    enum Arrow {
+      static let down = ImageAsset.bundle(name: "x32/Arrow/Down")
+      static let `left` = ImageAsset.bundle(name: "x32/Arrow/Left")
+      static let `right` = ImageAsset.bundle(name: "x32/Arrow/Right")
+      static let up = ImageAsset.bundle(name: "x32/Arrow/Up")
+    }
+    static let audo = ImageAsset.bundle(name: "x32/Audo")
+    static let bookmark = ImageAsset.bundle(name: "x32/Bookmark")
+    static let clear = ImageAsset.bundle(name: "x32/Clear")
+    static let color = ImageAsset.bundle(name: "x32/Color")
+    static let copy = ImageAsset.bundle(name: "x32/Copy")
+    static let dashboard = ImageAsset.bundle(name: "x32/Dashboard")
+    static let delete = ImageAsset.bundle(name: "x32/Delete")
+    static let download = ImageAsset.bundle(name: "x32/Download")
+    static let dragDrop = ImageAsset.bundle(name: "x32/Drag & Drop")
+    static let duplicate = ImageAsset.bundle(name: "x32/Duplicate")
+    static let edit = ImageAsset.bundle(name: "x32/Edit")
+    static let empty = ImageAsset.bundle(name: "x32/Empty")
+    static let export = ImageAsset.bundle(name: "x32/Export")
+    enum Favorite {
+      static let favorite = ImageAsset.bundle(name: "x32/Favorite/Favorite")
+      static let unfavorite = ImageAsset.bundle(name: "x32/Favorite/Unfavorite")
+    }
+    static let file = ImageAsset.bundle(name: "x32/File")
+    static let filter = ImageAsset.bundle(name: "x32/Filter")
+    static let group = ImageAsset.bundle(name: "x32/Group")
+    static let image = ImageAsset.bundle(name: "x32/Image")
+    enum Insert {
+      static let `left` = ImageAsset.bundle(name: "x32/Insert/Left")
+      static let `right` = ImageAsset.bundle(name: "x32/Insert/Right")
+    }
+    enum Lock {
+      static let lock = ImageAsset.bundle(name: "x32/Lock/Lock")
+      static let unlock = ImageAsset.bundle(name: "x32/Lock/Unlock")
+    }
+    static let mention = ImageAsset.bundle(name: "x32/Mention")
+    enum MoveColumn {
+      static let down = ImageAsset.bundle(name: "x32/Move Column/Down")
+      static let `left` = ImageAsset.bundle(name: "x32/Move Column/Left")
+      static let `right` = ImageAsset.bundle(name: "x32/Move Column/Right")
+      static let up = ImageAsset.bundle(name: "x32/Move Column/Up")
+    }
+    static let moveTo = ImageAsset.bundle(name: "x32/Move To")
+    static let move = ImageAsset.bundle(name: "x32/Move")
+    static let navigation = ImageAsset.bundle(name: "x32/Navigation")
+    static let openAsObject = ImageAsset.bundle(name: "x32/Open as Object")
+    static let paste = ImageAsset.bundle(name: "x32/Paste")
+    static let plus = ImageAsset.bundle(name: "x32/Plus")
+    static let properties = ImageAsset.bundle(name: "x32/Properties")
+    static let remove = ImageAsset.bundle(name: "x32/Remove")
+    static let rename = ImageAsset.bundle(name: "x32/Rename")
+    static let replace = ImageAsset.bundle(name: "x32/Replace")
+    static let restore = ImageAsset.bundle(name: "x32/Restore")
+    static let search = ImageAsset.bundle(name: "x32/Search")
+    static let slashMenu = ImageAsset.bundle(name: "x32/Slash Menu")
+    static let sort = ImageAsset.bundle(name: "x32/Sort")
+    static let style = ImageAsset.bundle(name: "x32/Style")
+    static let tableOfContents = ImageAsset.bundle(name: "x32/Table of Contents")
+    static let turnIntoObject = ImageAsset.bundle(name: "x32/Turn Into Object")
+    enum Undo {
+      static let redo = ImageAsset.bundle(name: "x32/Undo/Redo")
+      static let undo = ImageAsset.bundle(name: "x32/Undo/Undo")
+    }
+    static let undoRedo = ImageAsset.bundle(name: "x32/UndoRedo")
+    static let video = ImageAsset.bundle(name: "x32/Video")
+    enum View {
+      static let hide = ImageAsset.bundle(name: "x32/View/Hide")
+      static let view = ImageAsset.bundle(name: "x32/View/View")
+    }
+    static let view = ImageAsset.bundle(name: "x32/View")
+  }
+  enum EditingToolbar {
+    static let move = ImageAsset.bundle(name: "EditingToolbar/move")
+    static let style = ImageAsset.bundle(name: "EditingToolbar/style")
+  }
+  enum Emoji {
+    }
   static let createNewObject = ImageAsset.bundle(name: "createNewObject")
   enum Migration {
     static let close = ImageAsset.bundle(name: "Migration/Close")
@@ -182,19 +328,6 @@ internal extension ImageAsset {
     static let numbered = ImageAsset.bundle(name: "StyleBottomSheet/numbered")
     static let toggle = ImageAsset.bundle(name: "StyleBottomSheet/toggle")
   }
-  enum TextStyles {
-    enum Align {
-      static let center = ImageAsset.bundle(name: "Text Styles/Align/Center")
-      static let `left` = ImageAsset.bundle(name: "Text Styles/Align/Left")
-      static let `right` = ImageAsset.bundle(name: "Text Styles/Align/Right")
-    }
-    static let bold = ImageAsset.bundle(name: "Text Styles/Bold")
-    static let code = ImageAsset.bundle(name: "Text Styles/Code")
-    static let embed = ImageAsset.bundle(name: "Text Styles/Embed")
-    static let italic = ImageAsset.bundle(name: "Text Styles/Italic")
-    static let strikethrough = ImageAsset.bundle(name: "Text Styles/Strikethrough")
-    static let underline = ImageAsset.bundle(name: "Text Styles/Underline")
-  }
   enum TextEditor {
     enum BlockFile {
       enum Empty {
@@ -263,140 +396,6 @@ internal extension ImageAsset {
     static let tick = ImageAsset.bundle(name: "Widget/tick")
   }
   static let splashLogo = ImageAsset.bundle(name: "splash_logo")
-  enum X24 {
-    static let add = ImageAsset.bundle(name: "x24/Add")
-    enum Arrow {
-      static let down = ImageAsset.bundle(name: "x24/Arrow/Down")
-      static let `left` = ImageAsset.bundle(name: "x24/Arrow/Left")
-      static let `right` = ImageAsset.bundle(name: "x24/Arrow/Right")
-      static let up = ImageAsset.bundle(name: "x24/Arrow/Up")
-    }
-    static let attachment = ImageAsset.bundle(name: "x24/Attachment")
-    static let checkbox = ImageAsset.bundle(name: "x24/Checkbox")
-    static let close = ImageAsset.bundle(name: "x24/Close")
-    static let copy = ImageAsset.bundle(name: "x24/Copy")
-    static let customizeView = ImageAsset.bundle(name: "x24/Customize View")
-    static let database = ImageAsset.bundle(name: "x24/Database")
-    static let date = ImageAsset.bundle(name: "x24/Date")
-    static let email = ImageAsset.bundle(name: "x24/Email")
-    static let embed = ImageAsset.bundle(name: "x24/Embed")
-    static let empty = ImageAsset.bundle(name: "x24/Empty")
-    enum Favorite {
-      static let favorite = ImageAsset.bundle(name: "x24/Favorite/Favorite")
-      static let unfavorite = ImageAsset.bundle(name: "x24/Favorite/Unfavorite")
-    }
-    static let folder = ImageAsset.bundle(name: "x24/Folder")
-    static let more = ImageAsset.bundle(name: "x24/More")
-    static let name = ImageAsset.bundle(name: "x24/Name")
-    static let number = ImageAsset.bundle(name: "x24/Number")
-    static let object = ImageAsset.bundle(name: "x24/Object")
-    static let openToEdit = ImageAsset.bundle(name: "x24/Open to Edit")
-    static let `open` = ImageAsset.bundle(name: "x24/Open")
-    static let phoneNumber = ImageAsset.bundle(name: "x24/Phone Number")
-    static let plus = ImageAsset.bundle(name: "x24/Plus")
-    static let relations = ImageAsset.bundle(name: "x24/Relations")
-    static let removeRed = ImageAsset.bundle(name: "x24/Remove Red")
-    static let replace = ImageAsset.bundle(name: "x24/Replace")
-    static let simpleTables = ImageAsset.bundle(name: "x24/Simple Tables")
-    static let status = ImageAsset.bundle(name: "x24/Status")
-    static let tag = ImageAsset.bundle(name: "x24/Tag")
-    static let text = ImageAsset.bundle(name: "x24/Text")
-    static let tick = ImageAsset.bundle(name: "x24/Tick")
-    static let url = ImageAsset.bundle(name: "x24/Url")
-    enum View {
-      static let gallery = ImageAsset.bundle(name: "x24/View/Gallery")
-      static let kanban = ImageAsset.bundle(name: "x24/View/Kanban")
-      static let list = ImageAsset.bundle(name: "x24/View/List")
-      static let table = ImageAsset.bundle(name: "x24/View/Table")
-    }
-  }
-  enum X32 {
-    static let actions = ImageAsset.bundle(name: "x32/Actions")
-    static let actions2 = ImageAsset.bundle(name: "x32/Actions2")
-    static let addBelow = ImageAsset.bundle(name: "x32/Add Below")
-    enum AddColumn {
-      static let above = ImageAsset.bundle(name: "x32/Add Column/Above")
-      static let below = ImageAsset.bundle(name: "x32/Add Column/Below")
-      static let `left` = ImageAsset.bundle(name: "x32/Add Column/Left")
-      static let `right` = ImageAsset.bundle(name: "x32/Add Column/Right")
-    }
-    static let addNew = ImageAsset.bundle(name: "x32/Add New")
-    enum Align {
-      static let center = ImageAsset.bundle(name: "x32/Align/Center")
-      static let `left` = ImageAsset.bundle(name: "x32/Align/Left")
-      static let `right` = ImageAsset.bundle(name: "x32/Align/Right")
-    }
-    enum Arrow {
-      static let down = ImageAsset.bundle(name: "x32/Arrow/Down")
-      static let `left` = ImageAsset.bundle(name: "x32/Arrow/Left")
-      static let `right` = ImageAsset.bundle(name: "x32/Arrow/Right")
-      static let up = ImageAsset.bundle(name: "x32/Arrow/Up")
-    }
-    static let audo = ImageAsset.bundle(name: "x32/Audo")
-    static let bookmark = ImageAsset.bundle(name: "x32/Bookmark")
-    static let clear = ImageAsset.bundle(name: "x32/Clear")
-    static let color = ImageAsset.bundle(name: "x32/Color")
-    static let copy = ImageAsset.bundle(name: "x32/Copy")
-    static let dashboard = ImageAsset.bundle(name: "x32/Dashboard")
-    static let delete = ImageAsset.bundle(name: "x32/Delete")
-    static let download = ImageAsset.bundle(name: "x32/Download")
-    static let dragDrop = ImageAsset.bundle(name: "x32/Drag & Drop")
-    static let duplicate = ImageAsset.bundle(name: "x32/Duplicate")
-    static let edit = ImageAsset.bundle(name: "x32/Edit")
-    static let empty = ImageAsset.bundle(name: "x32/Empty")
-    static let export = ImageAsset.bundle(name: "x32/Export")
-    enum Favorite {
-      static let favorite = ImageAsset.bundle(name: "x32/Favorite/Favorite")
-      static let unfavorite = ImageAsset.bundle(name: "x32/Favorite/Unfavorite")
-    }
-    static let file = ImageAsset.bundle(name: "x32/File")
-    static let filter = ImageAsset.bundle(name: "x32/Filter")
-    static let group = ImageAsset.bundle(name: "x32/Group")
-    static let image = ImageAsset.bundle(name: "x32/Image")
-    enum Insert {
-      static let `left` = ImageAsset.bundle(name: "x32/Insert/Left")
-      static let `right` = ImageAsset.bundle(name: "x32/Insert/Right")
-    }
-    enum Lock {
-      static let lock = ImageAsset.bundle(name: "x32/Lock/Lock")
-      static let unlock = ImageAsset.bundle(name: "x32/Lock/Unlock")
-    }
-    static let mention = ImageAsset.bundle(name: "x32/Mention")
-    enum MoveColumn {
-      static let down = ImageAsset.bundle(name: "x32/Move Column/Down")
-      static let `left` = ImageAsset.bundle(name: "x32/Move Column/Left")
-      static let `right` = ImageAsset.bundle(name: "x32/Move Column/Right")
-      static let up = ImageAsset.bundle(name: "x32/Move Column/Up")
-    }
-    static let moveTo = ImageAsset.bundle(name: "x32/Move To")
-    static let move = ImageAsset.bundle(name: "x32/Move")
-    static let navigation = ImageAsset.bundle(name: "x32/Navigation")
-    static let openAsObject = ImageAsset.bundle(name: "x32/Open as Object")
-    static let paste = ImageAsset.bundle(name: "x32/Paste")
-    static let plus = ImageAsset.bundle(name: "x32/Plus")
-    static let properties = ImageAsset.bundle(name: "x32/Properties")
-    static let remove = ImageAsset.bundle(name: "x32/Remove")
-    static let rename = ImageAsset.bundle(name: "x32/Rename")
-    static let replace = ImageAsset.bundle(name: "x32/Replace")
-    static let restore = ImageAsset.bundle(name: "x32/Restore")
-    static let search = ImageAsset.bundle(name: "x32/Search")
-    static let slashMenu = ImageAsset.bundle(name: "x32/Slash Menu")
-    static let sort = ImageAsset.bundle(name: "x32/Sort")
-    static let style = ImageAsset.bundle(name: "x32/Style")
-    static let tableOfContents = ImageAsset.bundle(name: "x32/Table of Contents")
-    static let turnIntoObject = ImageAsset.bundle(name: "x32/Turn Into Object")
-    enum Undo {
-      static let redo = ImageAsset.bundle(name: "x32/Undo/Redo")
-      static let undo = ImageAsset.bundle(name: "x32/Undo/Undo")
-    }
-    static let undoRedo = ImageAsset.bundle(name: "x32/UndoRedo")
-    static let video = ImageAsset.bundle(name: "x32/Video")
-    enum View {
-      static let hide = ImageAsset.bundle(name: "x32/View/Hide")
-      static let view = ImageAsset.bundle(name: "x32/View/View")
-    }
-    static let view = ImageAsset.bundle(name: "x32/View")
-  }
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name
 
