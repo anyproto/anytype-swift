@@ -19,7 +19,6 @@ internal extension ImageAsset {
   static let noImage = ImageAsset.bundle(name: "no_image")
   static let optionChecked = ImageAsset.bundle(name: "option_checked")
   static let plus = ImageAsset.bundle(name: "plus")
-  static let draft = ImageAsset.bundle(name: "draft")
   static let mainSearch = ImageAsset.bundle(name: "main_search")
   static let mainSettings = ImageAsset.bundle(name: "main_settings")
   static let marketplace = ImageAsset.bundle(name: "marketplace")
@@ -236,9 +235,6 @@ internal extension ImageAsset {
     enum Divider {
       static let dots = ImageAsset.bundle(name: "TextEditor/Divider/Dots")
     }
-    static let backArrow = ImageAsset.bundle(name: "TextEditor/backArrow")
-    static let forwardArrow = ImageAsset.bundle(name: "TextEditor/forwardArrow")
-    static let home = ImageAsset.bundle(name: "TextEditor/home")
     static let lockedObject = ImageAsset.bundle(name: "TextEditor/locked_object")
     static let search = ImageAsset.bundle(name: "TextEditor/search")
     static let shimmering = ImageAsset.bundle(name: "TextEditor/shimmering")
