@@ -2,13 +2,15 @@ import Foundation
 import Logger
 import ProtobufMessages
 
-final class LoggerConfigurator: AppConfiguratorProtocol {
+final class MiddlewareHandlerConfigurator: AppConfiguratorProtocol {
     
     private let invocationHandler = InvocationMesagesHandler()
     
     func configure() {
+        InvocationSettings.handler = invocationHandler
+        
         #if DEBUG
-            InvocationSettings.handler = invocationHandler
+            invocationHandler.enableLogger = true
             EventLogger.setupLgger()
         #else
             EventLogger.disableRemoteLogger()
