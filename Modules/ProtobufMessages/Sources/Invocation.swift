@@ -71,7 +71,7 @@ public struct Invocation<Request, Response> where Request: Message,
         }
         
         if result.hasEvent {
-            InvocationSettings.handler?.handle(event: result.event)
+            InvocationSettings.handler?.eventHandler(event: result.event)
         }
         
         return result
@@ -84,6 +84,6 @@ public struct Invocation<Request, Response> where Request: Message,
             responseJsonData: try? respose?.jsonUTF8Data(),
             responseError: error
         )
-        InvocationSettings.handler?.handle(message: message)
+        InvocationSettings.handler?.logHandler(message: message)
     }
 }

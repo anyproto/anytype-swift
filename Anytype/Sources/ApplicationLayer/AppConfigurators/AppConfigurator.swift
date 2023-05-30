@@ -12,7 +12,7 @@ final class AppConfigurator {
     
     private let configurators: [AppConfiguratorProtocol] = [
         EnvironmentConfiguration(),
-        LoggerConfigurator(),
+        MiddlewareHandlerConfigurator(),
         SentryConfigurator(),
         AnalyticsConfigurator(),
         KingfisherConfigurator(),
