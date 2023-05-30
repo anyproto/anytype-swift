@@ -78,6 +78,10 @@ class CursorModeAccessoryView: UIView {
         let primaryAction = UIAction(handler: action)
         let button = UIButton()
         button.setImage(image, for: .normal)
+        // TODO: Refactoring with IOS-1317
+        if image.isNotNil {
+            button.tintColor = .Button.active
+        }
         button.setTitle(title, for: .normal)
         button.setTitleColor(UIColor.System.amber100, for: .normal)
         button.addAction(primaryAction, for: .touchUpInside)
