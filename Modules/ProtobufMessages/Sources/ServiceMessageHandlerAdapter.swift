@@ -69,7 +69,7 @@ extension ServiceMessageHandlerAdapter: ServiceMessageHandlerProtocol {
             responseJsonData: try? event.jsonUTF8Data(),
             responseError: nil
         )
-        InvocationSettings.handler?.handle(message: message)
+        InvocationSettings.handler?.logHandler(message: message)
     }
 }
 

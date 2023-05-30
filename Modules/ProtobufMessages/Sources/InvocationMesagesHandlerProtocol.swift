@@ -8,7 +8,7 @@ public struct InvocationMessage {
 }
 
 public protocol InvocationMesagesHandlerProtocol: AnyObject {
-    func handle(message: InvocationMessage)
-    func handle(event: Anytype_ResponseEvent)
+    func logHandler(message: InvocationMessage)
+    func eventHandler(event: Anytype_ResponseEvent)
     func assertationHandler(message: String, info: [String: String], file: StaticString)
 }
