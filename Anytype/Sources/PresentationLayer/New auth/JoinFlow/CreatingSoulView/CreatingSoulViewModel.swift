@@ -36,10 +36,10 @@ final class CreatingSoulViewModel: ObservableObject {
     
     func startAnimation() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
-                self?.showProfile = true
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
-                    self?.showSpace = true
-                }
+            self?.showProfile = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+                self?.showSpace = true
+            }
         }
     }
     
