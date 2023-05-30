@@ -11,9 +11,4 @@ runs:
 
     - name: Test license checks
       shell: bash
-      run: |
-        cd ./build/open
-        python3 tools/generate.py --platform ios
-        cd ../..
-        bundle exec license_finder inherited_decisions add build/open/decisions.yml
-        bundle exec fastlane check_lisence
+      run: bundle exec fastlane check_lisence
