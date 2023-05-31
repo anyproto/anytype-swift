@@ -15,10 +15,13 @@ final class BottomSheetsFactory {
         // NOTE: This will be moved to coordinator in next pr
         // :(
         
-        // For now, multiple style editing allowed only for text blocks because
-        // multiple style editing for any kind of blocks reqires UI updates.
-        let notTextInfos = infos.filter { !$0.isText }
-        guard infos.isNotEmpty, notTextInfos.isEmpty else { return nil }
+        // For now, multiple style editing is only allowed for text blocks
+        // because multiple style editing for any kind of blocks requires UI updates
+        let isOnlyTextInfos = infos.map { $0.content.type }.allSatisfy { contentType in
+            guard case .text = contentType else { return false }
+            return true
+        }
+        guard isOnlyTextInfos else { return nil }
         
         let askStyle: () -> BlockText.Style? = {
             let uniquedStyles: [BlockText.Style] = infos.compactMap {
