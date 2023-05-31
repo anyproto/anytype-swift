@@ -173,10 +173,6 @@ internal extension ImageAsset {
     }
     static let view = ImageAsset.bundle(name: "x32/View")
   }
-  enum EditingToolbar {
-    static let move = ImageAsset.bundle(name: "EditingToolbar/move")
-    static let style = ImageAsset.bundle(name: "EditingToolbar/style")
-  }
   enum Emoji {
     }
   static let createNewObject = ImageAsset.bundle(name: "createNewObject")
@@ -335,29 +331,8 @@ internal extension ImageAsset {
       }
     }
     enum BlocksOption {
-      static let addBelow = ImageAsset.bundle(name: "TextEditor/BlocksOption/add_below")
-      static let cellMenuClearContents = ImageAsset.bundle(name: "TextEditor/BlocksOption/cell_menu_clear_contents")
-      static let cellMenuClearStyle = ImageAsset.bundle(name: "TextEditor/BlocksOption/cell_menu_clear_style")
-      static let cellMenuColor = ImageAsset.bundle(name: "TextEditor/BlocksOption/cell_menu_color")
-      static let columnInsertLeft = ImageAsset.bundle(name: "TextEditor/BlocksOption/column_insert_left")
-      static let columnInsertRight = ImageAsset.bundle(name: "TextEditor/BlocksOption/column_insert_right")
-      static let columnMoveLeft = ImageAsset.bundle(name: "TextEditor/BlocksOption/column_move_left")
-      static let columnMoveRight = ImageAsset.bundle(name: "TextEditor/BlocksOption/column_move_right")
-      static let columnSort = ImageAsset.bundle(name: "TextEditor/BlocksOption/column_sort")
       static let copy = ImageAsset.bundle(name: "TextEditor/BlocksOption/copy")
       static let delete = ImageAsset.bundle(name: "TextEditor/BlocksOption/delete")
-      static let download = ImageAsset.bundle(name: "TextEditor/BlocksOption/download")
-      static let duplicate = ImageAsset.bundle(name: "TextEditor/BlocksOption/duplicate")
-      static let move = ImageAsset.bundle(name: "TextEditor/BlocksOption/move")
-      static let moveTo = ImageAsset.bundle(name: "TextEditor/BlocksOption/move_to")
-      static let openToEdit = ImageAsset.bundle(name: "TextEditor/BlocksOption/open_to_edit")
-      static let paste = ImageAsset.bundle(name: "TextEditor/BlocksOption/paste")
-      static let rowInsertAbove = ImageAsset.bundle(name: "TextEditor/BlocksOption/row_insert_above")
-      static let rowInsertBelow = ImageAsset.bundle(name: "TextEditor/BlocksOption/row_insert_below")
-      static let rowMoveDown = ImageAsset.bundle(name: "TextEditor/BlocksOption/row_move_down")
-      static let rowMoveUp = ImageAsset.bundle(name: "TextEditor/BlocksOption/row_move_up")
-      static let turnIntoObject = ImageAsset.bundle(name: "TextEditor/BlocksOption/turn_into_object")
-      static let view = ImageAsset.bundle(name: "TextEditor/BlocksOption/view")
     }
     static let turnIntoArrow = ImageAsset.bundle(name: "TextEditor/turn_into_arrow")
     enum Divider {
