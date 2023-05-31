@@ -32,22 +32,20 @@ struct CreatingSoulView: View {
         ZStack(alignment: .top) {
             VStack(spacing: 0) {
                 Spacer.fixedHeight(24)
-                Rectangle().foregroundColor(.Auth.inputText)
+                Rectangle().foregroundColor(.Auth.body)
                     .frame(
                         width: model.showSpace ? width / 2 : 0,
                         height: 2
                     )
+                    .opacity(model.showSpace ? 1 : 0)
+                    .padding(.trailing, 48)
             }
             if model.showProfile {
-                Group {
-                    HStack(spacing: 0) {
-                        soul
-                        if model.showSpace {
-                            Spacer.fixedWidth(width / 2 - 110)
-                            space
-                        }
-                    }
-                }
+                space
+                    .offset(x: model.showSpace ? width / 4 : 0)
+                    .opacity(model.showSpace ? 1 : 0)
+                soul
+                    .offset(x: model.showSpace ? -width / 4 : 0)
             }
         }
         .animation(.easeInOut.speed(0.5), value: UUID())
