@@ -200,18 +200,12 @@ internal extension ImageAsset {
   static let todoCheckmark = ImageAsset.bundle(name: "todo_checkmark")
   static let card = ImageAsset.bundle(name: "card")
   static let text = ImageAsset.bundle(name: "text")
-  static let addNew = ImageAsset.bundle(name: "addNew")
-  static let addToFavorites = ImageAsset.bundle(name: "addToFavorites")
   static let delete = ImageAsset.bundle(name: "delete")
-  static let duplicate = ImageAsset.bundle(name: "duplicate")
   static let linkToItself = ImageAsset.bundle(name: "link_to_itself")
-  static let lock = ImageAsset.bundle(name: "lock")
-  static let moveTo = ImageAsset.bundle(name: "moveTo")
-  static let restore = ImageAsset.bundle(name: "restore")
+  static let oldLock = ImageAsset.bundle(name: "old_lock")
+  static let oldUnlock = ImageAsset.bundle(name: "old_unlock")
   static let search = ImageAsset.bundle(name: "search")
   static let undoredo = ImageAsset.bundle(name: "undoredo")
-  static let unfavorite = ImageAsset.bundle(name: "unfavorite")
-  static let unlock = ImageAsset.bundle(name: "unlock")
   static let layoutSettingsBasic = ImageAsset.bundle(name: "layout_settings_basic")
   static let layoutSettingsNote = ImageAsset.bundle(name: "layout_settings_note")
   static let layoutSettingsProfile = ImageAsset.bundle(name: "layout_settings_profile")
@@ -353,14 +347,6 @@ internal extension ImageAsset {
       static let unchecked = ImageAsset.bundle(name: "TextEditor/Text/unchecked")
     }
     static let bigGhost = ImageAsset.bundle(name: "TextEditor/bigGhost")
-    enum OldBlockFile {
-      enum Empty {
-        static let bookmark = ImageAsset.bundle(name: "TextEditor/old_BlockFile/Empty/Bookmark")
-        static let file = ImageAsset.bundle(name: "TextEditor/old_BlockFile/Empty/File")
-        static let image = ImageAsset.bundle(name: "TextEditor/old_BlockFile/Empty/Image")
-        static let video = ImageAsset.bundle(name: "TextEditor/old_BlockFile/Empty/Video")
-      }
-    }
     static let questionMark = ImageAsset.bundle(name: "TextEditor/questionMark")
   }
   static let toastFailure = ImageAsset.bundle(name: "toast_failure")

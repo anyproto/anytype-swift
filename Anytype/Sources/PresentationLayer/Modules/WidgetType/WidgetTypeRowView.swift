@@ -53,7 +53,7 @@ struct WidgetTypeRowView: View {
 struct WidgetTypeRowView_Previews: PreviewProvider {
     static var previews: some View {
         WidgetTypeRowView(
-            model: WidgetTypeRowView.Model(title: "List", description: "Widget with list view of set object", image: .addNew, isSelected: true, onTap: {})
+            model: WidgetTypeRowView.Model(title: "List", description: "Widget with list view of set object", image: .X32.addNew, isSelected: true, onTap: {})
         )
     }
 }
