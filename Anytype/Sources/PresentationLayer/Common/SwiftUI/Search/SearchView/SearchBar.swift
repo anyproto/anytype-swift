@@ -28,12 +28,9 @@ struct SearchBar: View {
     
     private var overlay: some View {
         HStack() {
-            Image(asset: .searchTextFieldIcon)
-                .renderingMode(.template)
-                .aspectRatio(contentMode: .fit)
+            Image(asset: .X18.search)
                 .foregroundColor(.Button.active)
-                .frame(width: 14, height: 14)
-                .padding(.leading, 11)
+                .padding(.leading, 9)
             
             Spacer()
             

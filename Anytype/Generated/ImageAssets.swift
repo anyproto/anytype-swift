@@ -39,6 +39,21 @@ internal extension ImageAsset {
     static let strikethrough = ImageAsset.bundle(name: "TextStyles/Strikethrough")
     static let underline = ImageAsset.bundle(name: "TextStyles/Underline")
   }
+  enum X18 {
+    static let attention = ImageAsset.bundle(name: "x18/Attention")
+    static let clear = ImageAsset.bundle(name: "x18/Clear")
+    enum Disclosure {
+      static let down = ImageAsset.bundle(name: "x18/Disclosure/Down")
+      static let `left` = ImageAsset.bundle(name: "x18/Disclosure/Left")
+      static let `right` = ImageAsset.bundle(name: "x18/Disclosure/Right")
+      static let up = ImageAsset.bundle(name: "x18/Disclosure/Up")
+    }
+    static let help = ImageAsset.bundle(name: "x18/Help")
+    static let listArrow = ImageAsset.bundle(name: "x18/List Arrow")
+    static let lock = ImageAsset.bundle(name: "x18/Lock")
+    static let search = ImageAsset.bundle(name: "x18/Search")
+    static let slashMenuArrow = ImageAsset.bundle(name: "x18/Slash Menu Arrow")
+  }
   enum X24 {
     static let add = ImageAsset.bundle(name: "x24/Add")
     enum Arrow {
@@ -224,7 +239,6 @@ internal extension ImageAsset {
     static let checkboxUnchecked = ImageAsset.bundle(name: "PageBlock/checkbox_unchecked")
   }
   static let webPage = ImageAsset.bundle(name: "web_page")
-  static let searchTextFieldIcon = ImageAsset.bundle(name: "searchTextFieldIcon")
   static let setGalleryView = ImageAsset.bundle(name: "set_gallery_view")
   static let setGridView = ImageAsset.bundle(name: "set_grid_view")
   static let setImagePlaceholder = ImageAsset.bundle(name: "set_image_placeholder")
