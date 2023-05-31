@@ -30,17 +30,26 @@ final class CreatingSoulViewModel: ObservableObject {
         setupSubscription()
     }
     
-    func onFinish() {
-        output?.onNext()
-    }
-    
-    func startAnimation() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+    func animateCreation() {
+        guard profileIcon != nil, spaceIcon != nil else { return }
+        
+        let animationTime = 0.5
+        let finishAnimationTime = 2.0
+
+        withAnimation(.easeInOut(duration: animationTime).delay(animationTime)) { [weak self] in
             self?.showProfile = true
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
-                self?.showSpace = true
-            }
         }
+
+        withAnimation(.easeInOut(duration: animationTime).speed(0.5).delay(animationTime * 2)) { [weak self] in
+            self?.showSpace = true
+        }
+        
+        let totalTime = animationTime * 3 + finishAnimationTime
+        DispatchQueue.main.asyncAfter(deadline: .now() + totalTime) { [weak self] in
+            withAnimation {
+                self?.output?.onNext()
+            }
+       }
     }
     
     private func setupSubscription() {
@@ -49,7 +58,7 @@ final class CreatingSoulViewModel: ObservableObject {
             objectId: accountManager.account.info.profileObjectID
         ) { [weak self] details in
             self?.profileIcon = details.objectIconImage
-            self?.startAnimation()
+            self?.animateCreation()
         }
         
         subscriptionService.startSubscription(
@@ -57,6 +66,7 @@ final class CreatingSoulViewModel: ObservableObject {
             objectId: accountManager.account.info.accountSpaceId
         ) { [weak self] details in
             self?.spaceIcon = details.objectIconImage
+            self?.animateCreation()
         }
     }
 }

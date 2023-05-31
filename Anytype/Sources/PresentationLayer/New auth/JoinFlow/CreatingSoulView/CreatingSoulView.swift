@@ -18,7 +18,6 @@ struct CreatingSoulView: View {
                 color: .Text.primary
             )
             .opacity(0.9)
-            .animation(.easeInOut, value: model.showSpace)
             
             Spacer.fixedHeight(64)
 
@@ -48,7 +47,6 @@ struct CreatingSoulView: View {
                     .offset(x: model.showSpace ? -width / 4 : 0)
             }
         }
-        .animation(.easeInOut.speed(0.5), value: UUID())
     }
     
     private var soul: some View {
