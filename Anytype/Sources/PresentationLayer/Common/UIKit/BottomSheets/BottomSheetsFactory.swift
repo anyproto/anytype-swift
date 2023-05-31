@@ -20,9 +20,17 @@ final class BottomSheetsFactory {
         let notTextInfos = infos.filter { !$0.isText }
         guard infos.isNotEmpty, notTextInfos.isEmpty else { return nil }
         
-        // TODO: - implement
         let askStyle: () -> BlockText.Style? = {
-            return nil
+            let uniquedStyles: [BlockText.Style] = infos.compactMap {
+                guard case let .text(textContentType) = $0.content.type else { return nil }
+                return textContentType
+            }.uniqued()
+            
+            if uniquedStyles.count == 1 {
+                return uniquedStyles.first
+            } else {
+                return nil
+            }
         }
         
         let askColor: () -> UIColor? = {
