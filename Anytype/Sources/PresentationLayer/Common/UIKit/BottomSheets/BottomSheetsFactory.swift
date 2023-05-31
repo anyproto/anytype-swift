@@ -26,34 +26,30 @@ final class BottomSheetsFactory {
         }
         
         let askColor: () -> UIColor? = {
-            let colors: [UIColor] = infos.map { $0.content }.compactMap {
-                guard case let .text(textContent) = $0 else { return nil }
-                
-                return textContent.color.map {
-                    UIColor.Dark.uiColor(from: $0)
-                }
-            }
-            
-            let uniquedColors = colors.uniqued()
+            let uniquedColors: [MiddlewareColor] = infos.compactMap {
+                guard case let .text(textContent) = $0.content else { return nil }
+                // if we never change block's text color `textContent.color` will be `nil`
+                // but in UI we draw it like its `MiddlewareColor.default`
+                return textContent.color ?? MiddlewareColor.default
+            }.uniqued()
             
             if uniquedColors.count == 1 {
-                return uniquedColors.first
+                return UIColor.Dark.uiColor(from: uniquedColors.first!)
             } else {
                 return nil
             }
         }
         
-        // TODO - fix. does not work
+        
         let askBackgroundColor: () -> UIColor? = {
-            let colors: [UIColor] = infos.compactMap {
-                return $0.backgroundColor.map {
-                    UIColor.VeryLight.uiColor(from: $0)
-                }
-            }
-            let uniquedColors = colors.uniqued()
-
-            if uniquedColors.count == 1 {
-                return uniquedColors.first
+            let uniquedBackgroundColors: [MiddlewareColor] = infos.map {
+                // if we never change block's background color `backgroundColor` will be `nil`
+                // but in UI we draw it like its `MiddlewareColor.default`
+                $0.backgroundColor ?? MiddlewareColor.default
+            }.uniqued()
+            
+            if uniquedBackgroundColors.count == 1 {
+                return UIColor.VeryLight.uiColor(from: uniquedBackgroundColors.first!)
             } else {
                 return nil
             }

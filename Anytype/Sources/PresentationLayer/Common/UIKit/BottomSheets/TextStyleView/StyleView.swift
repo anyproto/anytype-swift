@@ -377,12 +377,9 @@ final class StyleView: UIView {
 
         button.isSelected = true
 
-        let color = askColor() ?? .Text.primary
-        let backgroundColor = askBackgroundColor() ?? .Background.primary
-
         let contentVC = StyleColorViewController(
-            selectedColor: color,
-            selectedBackgroundColor: backgroundColor,
+            selectedColor: askColor(),
+            selectedBackgroundColor: askBackgroundColor(),
             onColorSelection: { [weak self] colorItem in
                 guard let blockIds = self?.blockIds else { return }
                 switch colorItem {

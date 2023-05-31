@@ -22,7 +22,7 @@ extension ColorView {
         var color: UIColor {
             switch self {
             case .background(let color):
-                return color.tagColor
+                return color.color
             case .text(let color):
                 return color.color
             }
