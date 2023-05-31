@@ -62,7 +62,7 @@ struct BlockImageViewModel: BlockViewModelProtocol {
         
     private func emptyViewConfiguration(text: String, state: BlocksFileEmptyViewState) -> UIContentConfiguration {
         BlocksFileEmptyViewConfiguration(
-            imageAsset: .TextEditor.BlockFile.Empty.image,
+            imageAsset: .X32.image,
             text: text,
             state: state
         ).cellBlockConfiguration(

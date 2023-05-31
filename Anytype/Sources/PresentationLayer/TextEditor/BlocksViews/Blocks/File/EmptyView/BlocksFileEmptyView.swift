@@ -29,9 +29,9 @@ class BlocksFileEmptyView: UIView, BlockContentView {
         } builder: {
             $0.hStack(
                 icon,
-                $0.hGap(fixed: Layout.labelSpacing),
+                $0.hGap(fixed: Layout.labelLeftSpacing),
                 label,
-                $0.hGap(fixed: Layout.labelSpacing),
+                $0.hGap(fixed: Layout.labelRighSpacing),
                 activityIndicator
             )
         }
@@ -44,7 +44,7 @@ class BlocksFileEmptyView: UIView, BlockContentView {
     
     // MARK: - New configuration
     func apply(configuration: BlocksFileEmptyViewConfiguration) {
-        icon.image = UIImage(asset: configuration.imageAsset)?.withRenderingMode(.alwaysTemplate)
+        icon.image = UIImage(asset: configuration.imageAsset)
         label.text = configuration.text
         
         switch configuration.state {
@@ -95,8 +95,9 @@ class BlocksFileEmptyView: UIView, BlockContentView {
 
 extension BlocksFileEmptyView {
     private enum Layout {
-        static let contentInsets = UIEdgeInsets(top: 15, left: 16, bottom: 15, right: 18)
-        static let labelSpacing: CGFloat = 10
-        static let iconWidth: CGFloat =  22
+        static let contentInsets = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 16)
+        static let labelLeftSpacing: CGFloat = 4
+        static let labelRighSpacing: CGFloat = 8
+        static let iconWidth: CGFloat = 32
     }
 }

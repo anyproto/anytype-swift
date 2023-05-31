@@ -336,14 +336,6 @@ internal extension ImageAsset {
     static let toggle = ImageAsset.bundle(name: "StyleBottomSheet/toggle")
   }
   enum TextEditor {
-    enum BlockFile {
-      enum Empty {
-        static let bookmark = ImageAsset.bundle(name: "TextEditor/BlockFile/Empty/Bookmark")
-        static let file = ImageAsset.bundle(name: "TextEditor/BlockFile/Empty/File")
-        static let image = ImageAsset.bundle(name: "TextEditor/BlockFile/Empty/Image")
-        static let video = ImageAsset.bundle(name: "TextEditor/BlockFile/Empty/Video")
-      }
-    }
     enum BlocksOption {
       static let copy = ImageAsset.bundle(name: "TextEditor/BlocksOption/copy")
       static let delete = ImageAsset.bundle(name: "TextEditor/BlocksOption/delete")
@@ -361,6 +353,14 @@ internal extension ImageAsset {
       static let unchecked = ImageAsset.bundle(name: "TextEditor/Text/unchecked")
     }
     static let bigGhost = ImageAsset.bundle(name: "TextEditor/bigGhost")
+    enum OldBlockFile {
+      enum Empty {
+        static let bookmark = ImageAsset.bundle(name: "TextEditor/old_BlockFile/Empty/Bookmark")
+        static let file = ImageAsset.bundle(name: "TextEditor/old_BlockFile/Empty/File")
+        static let image = ImageAsset.bundle(name: "TextEditor/old_BlockFile/Empty/Image")
+        static let video = ImageAsset.bundle(name: "TextEditor/old_BlockFile/Empty/Video")
+      }
+    }
     static let questionMark = ImageAsset.bundle(name: "TextEditor/questionMark")
   }
   static let toastFailure = ImageAsset.bundle(name: "toast_failure")
