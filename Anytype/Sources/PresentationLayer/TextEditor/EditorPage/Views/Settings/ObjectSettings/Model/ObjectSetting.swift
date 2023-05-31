@@ -40,13 +40,13 @@ extension ObjectSetting {
     var imageAsset: ImageAsset {
         switch self {
         case .icon:
-            return .objectSettingsIcon
+            return .ObjectSettings.icon
         case .cover:
-            return .objectSettingsCover
+            return .ObjectSettings.cover
         case .layout:
-            return .objectSettingsLayout
+            return .ObjectSettings.layout
         case .relations:
-            return .objectSettingsRelations
+            return .ObjectSettings.relations
         }
     }
 }

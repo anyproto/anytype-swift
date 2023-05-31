@@ -26,6 +26,19 @@ internal extension ImageAsset {
     static let text = ImageAsset.bundle(name: "FileTypes/Text")
     static let video = ImageAsset.bundle(name: "FileTypes/Video")
   }
+  enum Layout {
+    static let basic = ImageAsset.bundle(name: "Layout/Basic")
+    static let note = ImageAsset.bundle(name: "Layout/Note")
+    static let profile = ImageAsset.bundle(name: "Layout/Profile")
+    static let task = ImageAsset.bundle(name: "Layout/Task")
+  }
+  enum ObjectSettings {
+    static let cover = ImageAsset.bundle(name: "ObjectSettings/Cover")
+    static let history = ImageAsset.bundle(name: "ObjectSettings/History")
+    static let icon = ImageAsset.bundle(name: "ObjectSettings/Icon")
+    static let layout = ImageAsset.bundle(name: "ObjectSettings/Layout")
+    static let relations = ImageAsset.bundle(name: "ObjectSettings/Relations")
+  }
   enum TextStyles {
     enum Align {
       static let center = ImageAsset.bundle(name: "TextStyles/Align/Center")
@@ -202,11 +215,7 @@ internal extension ImageAsset {
   static let text = ImageAsset.bundle(name: "text")
   static let delete = ImageAsset.bundle(name: "delete")
   static let linkToItself = ImageAsset.bundle(name: "link_to_itself")
-  static let layoutSettingsBasic = ImageAsset.bundle(name: "layout_settings_basic")
-  static let layoutSettingsNote = ImageAsset.bundle(name: "layout_settings_note")
-  static let layoutSettingsProfile = ImageAsset.bundle(name: "layout_settings_profile")
-  static let layoutSettingsTodo = ImageAsset.bundle(name: "layout_settings_todo")
-  static let relationSmallCopy = ImageAsset.bundle(name: "relation_small_copy")
+  static let oldRelationSmallCopy = ImageAsset.bundle(name: "old_relation_small_copy")
   static let relationSmallEmailIcon = ImageAsset.bundle(name: "relation_small_email_icon")
   static let relationSmallOpenLink = ImageAsset.bundle(name: "relation_small_open_link")
   static let relationSmallPhoneIcon = ImageAsset.bundle(name: "relation_small_phone_icon")
@@ -218,12 +227,6 @@ internal extension ImageAsset {
   static let relationLockedSmall = ImageAsset.bundle(name: "relation_locked_small")
   static let relationNew = ImageAsset.bundle(name: "relation_new")
   static let relationRemoveFromFeatured = ImageAsset.bundle(name: "relation_remove_from_featured")
-  static let redo = ImageAsset.bundle(name: "redo")
-  static let undo = ImageAsset.bundle(name: "undo")
-  static let objectSettingsCover = ImageAsset.bundle(name: "object_settings_cover")
-  static let objectSettingsIcon = ImageAsset.bundle(name: "object_settings_icon")
-  static let objectSettingsLayout = ImageAsset.bundle(name: "object_settings_layout")
-  static let objectSettingsRelations = ImageAsset.bundle(name: "object_settings_relations")
   enum PageBlock {
     static let checkboxChecked = ImageAsset.bundle(name: "PageBlock/checkbox_checked")
     static let checkboxUnchecked = ImageAsset.bundle(name: "PageBlock/checkbox_unchecked")
