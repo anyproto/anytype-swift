@@ -62,6 +62,7 @@ final class ObjectHeaderViewModel: ObservableObject {
             imageSize: imageSize,
             cornerRadius: 0,
             side: imageSize.height,
+            foregroundColor: nil,
             backgroundColor: .Stroke.tertiary
         )
         return .filled(
