@@ -29,7 +29,7 @@ struct SetViewTypesPicker: View {
             }
             duplicateButton
         } label: {
-            Image(asset: .more)
+            Image(asset: .X24.more)
                 .foregroundColor(.Button.active)
                 .frame(width: 24, height: 24)
         }
@@ -129,7 +129,7 @@ struct SetViewTypesPicker: View {
             )
             Spacer()
             if configuration.isSelected {
-                Image(asset: .optionChecked)
+                Image(asset: .X24.tick)
                     .foregroundColor(.Button.button)
             }
         }

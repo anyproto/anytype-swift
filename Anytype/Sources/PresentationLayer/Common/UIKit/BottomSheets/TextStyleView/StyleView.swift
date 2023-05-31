@@ -248,10 +248,10 @@ final class StyleView: UIView {
         colorButton.setBackgroundColor(.Background.highlightedOfSelected, state: .selected)
         colorButton.addTarget(self, action: #selector(colorActionHandler), for: .touchUpInside)
 
-        let image = UIImage(asset: .more)?.withTintColor(.Text.secondary)
-        let moreButton = ButtonsFactory.roundedBorderуButton(image: image)
+        let moreButton = ButtonsFactory.roundedBorderуButton(image: UIImage(asset: .X24.more))
         moreButton.layer.borderWidth = 0
         moreButton.layer.cornerRadius = smallButtonSize.height / 2
+        moreButton.tintColor = .Text.secondary
         moreButton.setBackgroundColor(.Background.highlightedOfSelected, state: .selected)
         
         moreButton.addAction(UIAction(handler: { [weak self, weak moreButton] _ in

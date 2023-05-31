@@ -10,13 +10,13 @@ extension CursorModeAccessoryView {
         var image: UIImage? {
             switch self {
             case .mention:
-                return UIImage(asset: .EditingToolbar.mention)
+                return UIImage(asset: .X32.mention)
             case .slash:
-                return UIImage(asset: .EditingToolbar.addNew)
+                return UIImage(asset: .X32.slashMenu)
             case .style:
-                return UIImage(asset: .EditingToolbar.style)
+                return UIImage(asset: .X32.style)
             case .actions:
-                return UIImage(asset: .EditingToolbar.actions)
+                return UIImage(asset: .X32.actions)
             }
         }
 

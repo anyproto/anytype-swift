@@ -39,7 +39,7 @@ struct EditorSetViewRow: View {
         Group {
             if configuration.isSupported {
                 if configuration.isActive, editMode?.wrappedValue == .inactive {
-                    Image(asset: .optionChecked)
+                    Image(asset: .X24.tick)
                         .foregroundColor(.Button.button)
                 }
             } else {

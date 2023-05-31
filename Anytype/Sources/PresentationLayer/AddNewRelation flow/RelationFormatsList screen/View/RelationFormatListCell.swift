@@ -16,7 +16,7 @@ struct RelationFormatListCell: View {
             Spacer()
 
             if model.isSelected {
-                Image(asset: .optionChecked).frame(width: 24, height: 24).foregroundColor(.Text.primary)
+                Image(asset: .X24.tick).foregroundColor(.Text.primary)
             }
         }
         .frame(height: 52)
