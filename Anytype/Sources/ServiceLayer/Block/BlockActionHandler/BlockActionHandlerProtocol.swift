@@ -4,7 +4,7 @@ import AnytypeCore
 
 protocol BlockSelectionHandler: AnyObject {
     func didSelectEditingState(info: BlockInformation)
-    func didSelectStyleSelection(info: BlockInformation)
+    func didSelectStyleSelection(infos: [BlockInformation])
 }
 
 protocol BlockActionHandlerProtocol: AnyObject {

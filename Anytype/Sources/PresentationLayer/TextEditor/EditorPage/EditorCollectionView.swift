@@ -53,8 +53,8 @@ class EditorCollectionView: UICollectionView {
     }
 
     func adjustContentOffsetForSelectedItem(relatively relativeView: UIView) {
-        guard let firstSelectedItem = indexPathsForSelectedItems?.first else { return }
-        guard let itemAttributes = layoutAttributesForItem(at: firstSelectedItem)  else { return }
+        guard let lastSelectedItem = indexPathsForSelectedItems?.last else { return }
+        guard let itemAttributes = layoutAttributesForItem(at: lastSelectedItem)  else { return }
 
 
         let viewRectInCollection = relativeView.convert(relativeView.bounds, to: self)

@@ -250,7 +250,7 @@ final class EditorAssembly {
             router: router,
             pasteboardService: pasteboardService,
             document: document,
-            onShowStyleMenu: blocksStateManager.didSelectStyleSelection(info:),
+            onShowStyleMenu: blocksStateManager.didSelectStyleSelection(infos:),
             onBlockSelection: actionHandler.selectBlock(info:),
             pageService: serviceLocator.pageService(),
             linkToObjectCoordinator: coordinatorsDI.linkToObject().make(browserController: browser)

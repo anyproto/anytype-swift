@@ -147,14 +147,17 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     }
     
     func showStyleMenu(
-        information: BlockInformation,
+        informations: [BlockInformation],
         restrictions: BlockRestrictions,
         didShow: @escaping (UIView) -> Void,
         onDismiss: @escaping () -> Void
     ) {
-        guard let controller = viewController,
-              let rootController = rootController,
-              let info = document.infoContainer.get(id: information.id) else { return }
+        let infos = informations.compactMap { document.infoContainer.get(id: $0.id) }
+        guard
+            let controller = viewController,
+            let rootController = rootController,
+            infos.isNotEmpty
+        else { return }
         guard let controller = controller as? EditorPageController else {
             anytypeAssertionFailure("Not supported type of controller: \(controller)")
             return
@@ -162,7 +165,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
 
         let popup = BottomSheetsFactory.createStyleBottomSheet(
             parentViewController: rootController,
-            info: info,
+            infos: infos,
             actionHandler: controller.viewModel.actionHandler,
             restrictions: restrictions,
             showMarkupMenu: { [weak controller, weak rootController, weak self] styleView, viewDidClose in
@@ -174,7 +177,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
                     parentViewController: rootController,
                     styleView: styleView,
                     document: self.document,
-                    blockId: info.id,
+                    blockIds: infos.map { $0.id },
                     actionHandler: controller.viewModel.actionHandler,
                     linkToObjectCoordinator: self.linkToObjectCoordinator,
                     viewDidClose: viewDidClose

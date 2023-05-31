@@ -22,14 +22,14 @@ final class CursorModeAccessoryViewModel {
     weak var textView: UITextView?
     weak var delegate: CursorModeAccessoryViewDelegate?
 
-    private let onShowStyleMenu: RoutingAction<BlockInformation>
+    private let onShowStyleMenu: RoutingAction<[BlockInformation]>
     private let onBlockSelection: RoutingAction<BlockInformation>
     
     private let handler: BlockActionHandlerProtocol
 
     init(
         handler: BlockActionHandlerProtocol,
-        onShowStyleMenu: @escaping RoutingAction<BlockInformation>,
+        onShowStyleMenu: @escaping RoutingAction<[BlockInformation]>,
         onBlockSelection: @escaping RoutingAction<BlockInformation>
     ) {
         self.handler = handler
@@ -46,7 +46,7 @@ final class CursorModeAccessoryViewModel {
 
         switch action {
         case .showStyleMenu:
-            onShowStyleMenu(info)
+            onShowStyleMenu([info])
         case .keyboardDismiss:
             UIApplication.shared.hideKeyboard()
         case .mention:

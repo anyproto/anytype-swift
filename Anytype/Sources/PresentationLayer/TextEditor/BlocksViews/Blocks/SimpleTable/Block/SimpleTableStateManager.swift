@@ -260,23 +260,27 @@ extension SimpleTableStateManager: BlockSelectionHandler {
         updateMenuItems(for: [selectedIndexPath])
     }
 
-    func didSelectStyleSelection(info: BlockInformation) {
-        guard let computedTable = ComputedTable(blockInformation: tableBlockInformation, infoContainer: document.infoContainer),
-              let selectedIndexPath = computedTable.cells.indexPaths(for: info) else {
+    func didSelectStyleSelection(infos: [BlockInformation]) {
+        guard
+            // TODO
+            let firstInfo = infos.first,
+            let computedTable = ComputedTable(blockInformation: tableBlockInformation, infoContainer: document.infoContainer),
+              let selectedIndexPath = computedTable.cells.indexPaths(for: firstInfo) else {
             return
         }
 
-        editingState = .selecting(blocks: [info.id])
+        editingState = .selecting(blocks: [firstInfo.id])
 
+        // TODO: - fix multiple style changes in table
         router.showStyleMenu(
-            information: info,
+            informations: [firstInfo],
             restrictions: SimpleTableTextCellRestrictions(),
             didShow: { presentedView in
                 //
             },
             onDismiss: { [weak self] in
                 self?.editingState = .editing
-                self?.cursorManager.restoreLastFocus(at: info.id)
+                self?.cursorManager.restoreLastFocus(at: firstInfo.id)
             }
         )
 

@@ -70,7 +70,7 @@ extension Array where Element == BlockInformation {
             mergedItems.remove(.download)
         }
 
-        if !isStyleAvailable || count > 1 {
+        if !isStyleAvailable {
             mergedItems.remove(.style)
         }
 

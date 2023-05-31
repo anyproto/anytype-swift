@@ -17,7 +17,7 @@ private extension StyleView {
 
         private let identifier = UUID()
 
-        static func all(selectedStyle: BlockText.Style) -> [Item] {
+        static func all(selectedStyle: BlockText.Style?) -> [Item] {
             let title: BlockText.Style = selectedStyle == .title ? .title : .header
 
             return [
@@ -114,12 +114,12 @@ final class StyleView: UIView {
     // MARK: - Other properties
 
     private weak var viewControllerForPresenting: UIViewController?
-    private let blockId: BlockId
+    private let blockIds: [BlockId]
     private let actionHandler: BlockActionHandlerProtocol
     private var askColor: () -> UIColor?
     private var askBackgroundColor: () -> UIColor?
     private var didTapMarkupButton: (_ styleView: UIView, _ viewDidClose: @escaping () -> Void) -> Void
-    private var style: BlockText.Style
+    private var style: BlockText.Style?
     private var restrictions: BlockRestrictions
     // deselect action will be performed on new selection
     private var currentDeselectAction: (() -> Void)?
@@ -131,16 +131,16 @@ final class StyleView: UIView {
     /// - Parameter actionHandler: Handle bottom sheet  actions, see `StyleViewController.ActionType`
     /// - important: Use weak self inside `ActionHandler`
     init(
-        blockId: BlockId,
+        blockIds: [BlockId],
         viewControllerForPresenting: UIViewController,
-        style: BlockText.Style,
+        style: BlockText.Style?,
         restrictions: BlockRestrictions,
         askColor: @escaping () -> UIColor?,
         askBackgroundColor: @escaping () -> UIColor?,
         didTapMarkupButton: @escaping (_ styleView: UIView, _ viewDidClose: @escaping () -> Void) -> Void,
         actionHandler: BlockActionHandlerProtocol
     ) {
-        self.blockId = blockId
+        self.blockIds = blockIds
         self.viewControllerForPresenting = viewControllerForPresenting
         self.style = style
         self.askColor = askColor
@@ -362,9 +362,13 @@ final class StyleView: UIView {
         currentDeselectAction?()
         currentDeselectAction = deselectAction
         if style == .code {
-            actionHandler.toggleWholeBlockMarkup(.keyboard, blockId: blockId)
+            blockIds.forEach {
+                actionHandler.toggleWholeBlockMarkup(.keyboard, blockId: $0)
+            }
         } else {
-            actionHandler.turnInto(style, blockId: blockId)
+            blockIds.forEach {
+                actionHandler.turnInto(style, blockId: $0)
+            }
         }
     }
 
@@ -380,12 +384,12 @@ final class StyleView: UIView {
             selectedColor: color,
             selectedBackgroundColor: backgroundColor,
             onColorSelection: { [weak self] colorItem in
-                guard let blockId = self?.blockId else { return }
+                guard let blockIds = self?.blockIds else { return }
                 switch colorItem {
                 case .text(let blockColor):
-                    self?.actionHandler.setTextColor(blockColor, blockIds: [blockId])
+                    self?.actionHandler.setTextColor(blockColor, blockIds: blockIds)
                 case .background(let blockBackgroundColor):
-                    self?.actionHandler.setBackgroundColor(blockBackgroundColor, blockIds: [blockId])
+                    self?.actionHandler.setBackgroundColor(blockBackgroundColor, blockIds: blockIds)
                 }
             },
             viewDidClose: { _ in

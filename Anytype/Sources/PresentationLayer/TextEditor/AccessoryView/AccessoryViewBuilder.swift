@@ -8,7 +8,7 @@ struct AccessoryViewBuilder {
         router: EditorRouterProtocol,
         pasteboardService: PasteboardServiceProtocol,
         document: BaseDocumentProtocol,
-        onShowStyleMenu: @escaping RoutingAction<BlockInformation>,
+        onShowStyleMenu: @escaping RoutingAction<[BlockInformation]>,
         onBlockSelection: @escaping RoutingAction<BlockInformation>,
         pageService: PageServiceProtocol,
         linkToObjectCoordinator: LinkToObjectCoordinatorProtocol

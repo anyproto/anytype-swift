@@ -416,7 +416,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
             router.showPage(data: screenData)
         case .style:
             editingState = .editing
-            elements.first.map { didSelectStyleSelection(info: $0.info) }
+            didSelectStyleSelection(infos: elements.map { $0.info })
 
             return
         case .paste:
@@ -500,13 +500,14 @@ extension EditorPageBlocksStateManager: BlockSelectionHandler {
         updateSelectionBarActions(selectedBlocks: [info])
     }
 
-    func didSelectStyleSelection(info: BlockInformation) {
+    func didSelectStyleSelection(infos: [BlockInformation]) {
         viewInput?.endEditing()
         bottomNavigationManager.styleViewActive(true)
-        selectedBlocks = [info.id]
+        selectedBlocks = infos.map { $0.id }
 
-        let restrictions = BlockRestrictionsBuilder.build(content: info.content)
-        router.showStyleMenu(information: info, restrictions: restrictions) { [weak self] presentedView in
+        // TODO: - fix restrictions
+        let restrictions = BlockRestrictionsBuilder.build(content: infos.first!.content)
+        router.showStyleMenu(informations: infos, restrictions: restrictions) { [weak self] presentedView in
             self?.viewInput?.adjustContentOffset(relatively: presentedView)
         } onDismiss: { [weak self] in
             self?.bottomNavigationManager.styleViewActive(false)

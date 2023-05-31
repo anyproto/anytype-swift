@@ -6,7 +6,7 @@ import UIKit
 final class BottomSheetsFactory {
     static func createStyleBottomSheet(
         parentViewController: UIViewController,
-        info: BlockInformation,
+        infos: [BlockInformation],
         actionHandler: BlockActionHandlerProtocol,
         restrictions: BlockRestrictions,
         showMarkupMenu: @escaping (_ styleView: UIView, _ viewDidClose: @escaping () -> Void) -> Void,
@@ -14,24 +14,55 @@ final class BottomSheetsFactory {
     ) -> AnytypePopup? {
         // NOTE: This will be moved to coordinator in next pr
         // :(
-        guard case let .text(textContentType) = info.content.type else { return nil }
-
+        
+        // For now, multiple style editing allowed only for text blocks because
+        // multiple style editing for any kind of blocks reqires UI updates.
+        let notTextInfos = infos.filter { !$0.isText }
+        guard infos.isNotEmpty, notTextInfos.isEmpty else { return nil }
+        
+        // TODO: - implement
+        let askStyle: () -> BlockText.Style? = {
+            return nil
+        }
+        
         let askColor: () -> UIColor? = {
-            guard case let .text(textContent) = info.content else { return nil }
-            return textContent.color.map {
-                UIColor.Dark.uiColor(from: $0)
+            let colors: [UIColor] = infos.map { $0.content }.compactMap {
+                guard case let .text(textContent) = $0 else { return nil }
+                
+                return textContent.color.map {
+                    UIColor.Dark.uiColor(from: $0)
+                }
+            }
+            
+            let uniquedColors = colors.uniqued()
+            
+            if uniquedColors.count == 1 {
+                return uniquedColors.first
+            } else {
+                return nil
             }
         }
+        
+        // TODO - fix. does not work
         let askBackgroundColor: () -> UIColor? = {
-            return info.backgroundColor.map {
-                UIColor.VeryLight.uiColor(from: $0)
+            let colors: [UIColor] = infos.compactMap {
+                return $0.backgroundColor.map {
+                    UIColor.VeryLight.uiColor(from: $0)
+                }
+            }
+            let uniquedColors = colors.uniqued()
+
+            if uniquedColors.count == 1 {
+                return uniquedColors.first
+            } else {
+                return nil
             }
         }
         
         let styleView = StyleView(
-            blockId: info.id,
+            blockIds: infos.map { $0.id },
             viewControllerForPresenting: parentViewController,
-            style: textContentType,
+            style: askStyle(),
             restrictions: restrictions,
             askColor: askColor,
             askBackgroundColor: askBackgroundColor,
@@ -60,14 +91,14 @@ final class BottomSheetsFactory {
         parentViewController: UIViewController,
         styleView: UIView,
         document: BaseDocumentProtocol,
-        blockId: BlockId,
+        blockIds: [BlockId],
         actionHandler: BlockActionHandlerProtocol,
         linkToObjectCoordinator: LinkToObjectCoordinatorProtocol,
         viewDidClose: @escaping () -> Void
     ) {
         let viewModel = MarkupViewModel(
             document: document,
-            blockIds: [blockId],
+            blockIds: blockIds,
             actionHandler: actionHandler,
             linkToObjectCoordinator: linkToObjectCoordinator
         )
