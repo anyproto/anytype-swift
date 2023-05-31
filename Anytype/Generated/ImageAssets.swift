@@ -39,6 +39,15 @@ internal extension ImageAsset {
     static let layout = ImageAsset.bundle(name: "ObjectSettings/Layout")
     static let relations = ImageAsset.bundle(name: "ObjectSettings/Relations")
   }
+  enum Settings {
+    static let about = ImageAsset.bundle(name: "Settings/About")
+    static let appearance = ImageAsset.bundle(name: "Settings/Appearance")
+    static let debug = ImageAsset.bundle(name: "Settings/Debug")
+    static let fileStorage = ImageAsset.bundle(name: "Settings/FileStorage")
+    static let keychainPhrase = ImageAsset.bundle(name: "Settings/KeychainPhrase")
+    static let personalization = ImageAsset.bundle(name: "Settings/Personalization")
+    static let pinCode = ImageAsset.bundle(name: "Settings/PinCode")
+  }
   enum TextStyles {
     enum Align {
       static let center = ImageAsset.bundle(name: "TextStyles/Align/Center")
@@ -227,27 +236,19 @@ internal extension ImageAsset {
     static let checkboxUnchecked = ImageAsset.bundle(name: "PageBlock/checkbox_unchecked")
   }
   static let webPage = ImageAsset.bundle(name: "web_page")
-  static let oldSetSettinsGroup = ImageAsset.bundle(name: "old_set_settins_group")
   static let setImagePlaceholder = ImageAsset.bundle(name: "set_image_placeholder")
   static let setOpenToEdit = ImageAsset.bundle(name: "set_open_to_edit")
   static let setPaginationArrowBackward = ImageAsset.bundle(name: "set_pagination_arrow_backward")
   static let setPaginationArrowForward = ImageAsset.bundle(name: "set_pagination_arrow_forward")
   static let setPenEdit = ImageAsset.bundle(name: "set_pen_edit")
-  enum Settings {
+  enum SettingsOld {
     enum Theme {
-      static let dark = ImageAsset.bundle(name: "Settings/Theme/dark")
-      static let light = ImageAsset.bundle(name: "Settings/Theme/light")
-      static let system = ImageAsset.bundle(name: "Settings/Theme/system")
+      static let dark = ImageAsset.bundle(name: "SettingsOld/Theme/dark")
+      static let light = ImageAsset.bundle(name: "SettingsOld/Theme/light")
+      static let system = ImageAsset.bundle(name: "SettingsOld/Theme/system")
     }
-    static let about = ImageAsset.bundle(name: "Settings/about")
-    static let accountAndData = ImageAsset.bundle(name: "Settings/account_and_data")
-    static let appearance = ImageAsset.bundle(name: "Settings/appearance")
-    static let debug = ImageAsset.bundle(name: "Settings/debug")
-    static let fileStorage = ImageAsset.bundle(name: "Settings/fileStorage")
-    static let personalization = ImageAsset.bundle(name: "Settings/personalization")
-    static let setKeychainPhrase = ImageAsset.bundle(name: "Settings/set_keychain_phrase")
-    static let setPinCode = ImageAsset.bundle(name: "Settings/set_pin_code")
-    static let setWallpaper = ImageAsset.bundle(name: "Settings/set_wallpaper")
+    static let accountAndData = ImageAsset.bundle(name: "SettingsOld/account_and_data")
+    static let setWallpaper = ImageAsset.bundle(name: "SettingsOld/set_wallpaper")
   }
   static let slashMenuActionClear = ImageAsset.bundle(name: "slash_menu_action_clear")
   static let slashMenuActionCopy = ImageAsset.bundle(name: "slash_menu_action_copy")

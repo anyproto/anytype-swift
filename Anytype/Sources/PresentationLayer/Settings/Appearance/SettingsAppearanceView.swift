@@ -29,7 +29,7 @@ struct SettingsAppearanceView: View {
     private var wallpaper: some View {
         SettingsSectionItemView(
             name: Loc.wallpaper,
-            imageAsset: .Settings.setWallpaper,
+            imageAsset: .SettingsOld.setWallpaper,
             onTap: { model.onWallpaperChangeTap() }
         )
         .padding(.horizontal, 20)

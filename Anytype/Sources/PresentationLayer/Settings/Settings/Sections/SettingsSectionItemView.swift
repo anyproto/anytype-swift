@@ -45,6 +45,6 @@ struct SettingsSectionItemView: View {
 
 struct SettingsSectionItemView_Preview: PreviewProvider {
     static var previews: some View {
-        SettingsSectionItemView(name: "keychain", imageAsset: .Settings.setPinCode, onTap: {})
+        SettingsSectionItemView(name: "keychain", imageAsset: .Settings.pinCode, onTap: {})
     }
 }
