@@ -17,7 +17,7 @@ struct SearchObjectRowView: View {
             Spacer.fixedWidth(12)
             content
             if viewModel.isChecked {
-                Image(asset: .optionChecked)
+                Image(asset: .X24.tick)
                     .accentColor(.Text.primary)
             }
         }
