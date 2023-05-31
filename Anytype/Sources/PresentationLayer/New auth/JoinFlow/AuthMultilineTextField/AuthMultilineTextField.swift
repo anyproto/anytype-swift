@@ -15,15 +15,12 @@ struct AuthMultilineTextField: View {
         Group {
             if #available(iOS 16.0, *) {
                 TextField("", text: $text,  axis: .vertical)
-                    .lineSpacing(AnytypeFont.authInput.lineSpacing)
-                    .lineLimit(3...4)
                     .padding(Constants.edgeInsets)
                     .background(Color.Auth.input)
                     .blur(radius: blured ? 0 : Constants.blurRadius)
                     .cornerRadius(Constants.cornerRadius, style: .continuous)
             } else {
                 TextEditor(text: $text)
-                    .lineSpacing(AnytypeFont.authInput.lineSpacing)
                     .frame(height: 105)
                     .padding(Constants.edgeInsets)
                     .blur(radius: blured ? 0 : Constants.blurRadius)
@@ -40,6 +37,7 @@ struct AuthMultilineTextField: View {
         .font(AnytypeFontBuilder.font(anytypeFont: .authInput))
         .foregroundColor(.Auth.inputText)
         .accentColor(.Auth.inputText)
+        .lineSpacing(AnytypeFont.authInput.lineSpacing)
     }
 }
 
