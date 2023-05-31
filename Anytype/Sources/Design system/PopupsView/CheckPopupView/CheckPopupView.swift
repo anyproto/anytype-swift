@@ -40,6 +40,7 @@ struct CheckPopupView<ViewModel: CheckPopupViewViewModelProtocol>: View {
         HStack(spacing: 0) {
             if let iconAsset = item.iconAsset {
                 Image(asset: iconAsset)
+                    .foregroundColor(.Button.active)
                 Spacer.fixedWidth(12)
             }
 
@@ -68,8 +69,8 @@ struct CheckPopupView_Previews: PreviewProvider {
         }
 
         var items: [CheckPopupItem] = [
-            .init(id: "1", iconAsset: .text, title: "Some title", subtitle: "Long subtitle", isSelected: true, onTap: {}),
-            .init(id: "2", iconAsset: .text, title: "Other title", subtitle: "Long subtitle", isSelected: false, onTap: {})
+            .init(id: "1", iconAsset: .Preview.text, title: "Some title", subtitle: "Long subtitle", isSelected: true, onTap: {}),
+            .init(id: "2", iconAsset: .Preview.text, title: "Other title", subtitle: "Long subtitle", isSelected: false, onTap: {})
         ]
     }
 

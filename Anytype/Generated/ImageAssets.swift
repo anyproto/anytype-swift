@@ -39,6 +39,17 @@ internal extension ImageAsset {
     static let layout = ImageAsset.bundle(name: "ObjectSettings/Layout")
     static let relations = ImageAsset.bundle(name: "ObjectSettings/Relations")
   }
+  enum PageBlock {
+    enum Checkbox {
+      static let empty = ImageAsset.bundle(name: "PageBlock/Checkbox/Empty")
+      static let marked = ImageAsset.bundle(name: "PageBlock/Checkbox/Marked")
+    }
+  }
+  enum Preview {
+    static let card = ImageAsset.bundle(name: "Preview/Card")
+    static let inline = ImageAsset.bundle(name: "Preview/Inline")
+    static let text = ImageAsset.bundle(name: "Preview/Text")
+  }
   enum Settings {
     static let about = ImageAsset.bundle(name: "Settings/About")
     static let appearance = ImageAsset.bundle(name: "Settings/Appearance")
@@ -220,8 +231,6 @@ internal extension ImageAsset {
   static let taskUnchecked = ImageAsset.bundle(name: "task_unchecked")
   static let todoCheckbox = ImageAsset.bundle(name: "todo_checkbox")
   static let todoCheckmark = ImageAsset.bundle(name: "todo_checkmark")
-  static let card = ImageAsset.bundle(name: "card")
-  static let text = ImageAsset.bundle(name: "text")
   static let delete = ImageAsset.bundle(name: "delete")
   static let linkToItself = ImageAsset.bundle(name: "link_to_itself")
   static let relationAddToFeatured = ImageAsset.bundle(name: "relation_add_to_featured")
@@ -231,15 +240,9 @@ internal extension ImageAsset {
   static let relationLockedSmall = ImageAsset.bundle(name: "relation_locked_small")
   static let relationNew = ImageAsset.bundle(name: "relation_new")
   static let relationRemoveFromFeatured = ImageAsset.bundle(name: "relation_remove_from_featured")
-  enum PageBlock {
-    static let checkboxChecked = ImageAsset.bundle(name: "PageBlock/checkbox_checked")
-    static let checkboxUnchecked = ImageAsset.bundle(name: "PageBlock/checkbox_unchecked")
-  }
   static let webPage = ImageAsset.bundle(name: "web_page")
   static let setImagePlaceholder = ImageAsset.bundle(name: "set_image_placeholder")
   static let setOpenToEdit = ImageAsset.bundle(name: "set_open_to_edit")
-  static let setPaginationArrowBackward = ImageAsset.bundle(name: "set_pagination_arrow_backward")
-  static let setPaginationArrowForward = ImageAsset.bundle(name: "set_pagination_arrow_forward")
   static let setPenEdit = ImageAsset.bundle(name: "set_pen_edit")
   enum SettingsOld {
     enum Theme {
@@ -333,7 +336,6 @@ internal extension ImageAsset {
       static let unchecked = ImageAsset.bundle(name: "TextEditor/Text/unchecked")
     }
     static let bigGhost = ImageAsset.bundle(name: "TextEditor/bigGhost")
-    static let questionMark = ImageAsset.bundle(name: "TextEditor/questionMark")
   }
   static let toastFailure = ImageAsset.bundle(name: "toast_failure")
   static let toastTick = ImageAsset.bundle(name: "toast_tick")
