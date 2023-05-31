@@ -505,8 +505,7 @@ extension EditorPageBlocksStateManager: BlockSelectionHandler {
         bottomNavigationManager.styleViewActive(true)
         selectedBlocks = infos.map { $0.id }
 
-        // TODO: - fix restrictions
-        let restrictions = BlockRestrictionsBuilder.build(content: infos.first!.content)
+        let restrictions = BlockRestrictionsBuilder.build(contents: infos.map { $0.content })
         router.showStyleMenu(informations: infos, restrictions: restrictions) { [weak self] presentedView in
             self?.viewInput?.adjustContentOffset(relatively: presentedView)
         } onDismiss: { [weak self] in

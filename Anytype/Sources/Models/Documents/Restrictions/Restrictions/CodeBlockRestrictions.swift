@@ -1,7 +1,6 @@
 import Services
 
 struct CodeBlockRestrictions: BlockRestrictions {
-    
     let canApplyBold = false
     let canApplyItalic = false
     let canApplyOtherMarkup = false
@@ -12,8 +11,16 @@ struct CodeBlockRestrictions: BlockRestrictions {
     let canDeleteOrDuplicate = true
     let availableAlignments = [LayoutAlignment]()
     let turnIntoStyles: [BlockContentType] = [
-        .text(.text), .text(.header), .text(.header2), .text(.header3), .text(.quote), .text(.code),
-        .text(.checkbox), .text(.bulleted), .text(.numbered), .text(.toggle),
+        .text(.text),
+        .text(.header),
+        .text(.header2),
+        .text(.header3),
+        .text(.quote),
+        .text(.code),
+        .text(.checkbox),
+        .text(.bulleted),
+        .text(.numbered),
+        .text(.toggle),
         .smartblock(.page)
     ]
 }
