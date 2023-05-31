@@ -262,7 +262,6 @@ extension SimpleTableStateManager: BlockSelectionHandler {
 
     func didSelectStyleSelection(infos: [BlockInformation]) {
         guard
-            // TODO
             let firstInfo = infos.first,
             let computedTable = ComputedTable(blockInformation: tableBlockInformation, infoContainer: document.infoContainer),
               let selectedIndexPath = computedTable.cells.indexPaths(for: firstInfo) else {
@@ -271,7 +270,6 @@ extension SimpleTableStateManager: BlockSelectionHandler {
 
         editingState = .selecting(blocks: [firstInfo.id])
 
-        // TODO: - fix multiple style changes in table
         router.showStyleMenu(
             informations: [firstInfo],
             restrictions: SimpleTableTextCellRestrictions(),
