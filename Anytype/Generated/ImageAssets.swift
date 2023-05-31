@@ -215,12 +215,12 @@ internal extension ImageAsset {
   static let text = ImageAsset.bundle(name: "text")
   static let delete = ImageAsset.bundle(name: "delete")
   static let linkToItself = ImageAsset.bundle(name: "link_to_itself")
+  static let oldRelationNew = ImageAsset.bundle(name: "old_relation_new")
   static let relationAddToFeatured = ImageAsset.bundle(name: "relation_add_to_featured")
   static let relationCheckboxChecked = ImageAsset.bundle(name: "relation_checkbox_checked")
   static let relationCheckboxUnchecked = ImageAsset.bundle(name: "relation_checkbox_unchecked")
   static let relationLocked = ImageAsset.bundle(name: "relation_locked")
   static let relationLockedSmall = ImageAsset.bundle(name: "relation_locked_small")
-  static let relationNew = ImageAsset.bundle(name: "relation_new")
   static let relationRemoveFromFeatured = ImageAsset.bundle(name: "relation_remove_from_featured")
   enum PageBlock {
     static let checkboxChecked = ImageAsset.bundle(name: "PageBlock/checkbox_checked")

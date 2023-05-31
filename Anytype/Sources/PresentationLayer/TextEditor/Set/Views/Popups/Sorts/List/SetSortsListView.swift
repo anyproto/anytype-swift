@@ -27,7 +27,7 @@ struct SetSortsListView: View {
                 Button {
                     viewModel.addButtonTapped()
                 } label: {
-                    Image(asset: .relationNew).frame(width: 24, height: 24)
+                    Image(asset: .X32.plus)
                 }
             }
         }
