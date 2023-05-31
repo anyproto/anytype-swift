@@ -30,21 +30,21 @@ struct CreatingSoulView: View {
     private func personalContent(width: CGFloat) -> some View {
         ZStack(alignment: .top) {
             VStack(spacing: 0) {
-                Spacer.fixedHeight(24)
+                Spacer.fixedHeight(Constants.imageDimension / 2)
                 Rectangle().foregroundColor(.Auth.body)
                     .frame(
-                        width: model.showSpace ? width / 2 : 0,
+                        width: model.showSpace ? width / Constants.scaleFactor : 0,
                         height: 2
                     )
                     .opacity(model.showSpace ? 1 : 0)
-                    .padding(.trailing, 48)
+                    .padding(.trailing, Constants.imageDimension)
             }
             if model.showProfile {
                 space
-                    .offset(x: model.showSpace ? width / 4 : 0)
+                    .offset(x: model.showSpace ? width / (Constants.scaleFactor * 2) : 0)
                     .opacity(model.showSpace ? 1 : 0)
                 soul
-                    .offset(x: model.showSpace ? -width / 4 : 0)
+                    .offset(x: model.showSpace ? -width / (Constants.scaleFactor * 2) : 0)
             }
         }
     }
@@ -52,20 +52,28 @@ struct CreatingSoulView: View {
     private var soul: some View {
         VStack(spacing: 8) {
             SwiftUIObjectIconImageViewWithPlaceholder(iconImage: model.profileIcon, usecase: .dashboardSearch)
-            .frame(width: 48, height: 48)
+                .frame(width: Constants.imageDimension, height: Constants.imageDimension)
             AnytypeText(model.state.soul, style: .previewTitle2Medium, color: .Text.primary)
                 .lineLimit(1)
         }
-        .frame(width: 110)
+        .frame(width: Constants.itemWidth)
     }
     
     private var space: some View {
         VStack(spacing: 8) {
             SwiftUIObjectIconImageViewWithPlaceholder(iconImage: model.spaceIcon, usecase: .dashboardSearch)
-            .frame(width: 48, height: 48)
+                .frame(width: Constants.imageDimension, height: Constants.imageDimension)
             AnytypeText(Loc.Auth.JoinFlow.Personal.Space.title, style: .previewTitle2Medium, color: .Text.primary)
         }
-        .frame(width: 110)
+        .frame(width: Constants.itemWidth)
+    }
+}
+
+private extension CreatingSoulView {
+    enum Constants {
+        static let imageDimension: CGFloat = 48
+        static let scaleFactor: CGFloat = 2
+        static let itemWidth: CGFloat = 110
     }
 }
 
