@@ -39,10 +39,14 @@ final class EditorBrowserButton: UIView, CustomizableHitTestAreaView {
     }
     
     private func setupButton(imageAsset: ImageAsset, action: @escaping () -> Void) {
-        let image = UIImage(asset: imageAsset)
-        button.setImage(image?.withRenderingMode(.alwaysTemplate), for: .normal)
-        button.adjustsImageWhenHighlighted = false
-        
+        // TODO: Refactoring with IOS-1317
+        var config = UIButton.Configuration.plain()
+        config.image = UIImage(asset: imageAsset)
+        config.imageColorTransformer = UIConfigurationColorTransformer { [weak button] _ in
+            return (button?.isEnabled ?? true) ? .Button.active : .Button.inactive
+        }
+        button.configuration = config
+
         button.addAction(
             UIAction(
                 handler: {_ in
@@ -55,7 +59,7 @@ final class EditorBrowserButton: UIView, CustomizableHitTestAreaView {
     
     private func setupLayout() {
         layoutUsing.anchors {
-            $0.size(CGSize(width: 24, height: 24))
+            $0.size(CGSize(width: 32, height: 32))
         }
         
         addSubview(button) {

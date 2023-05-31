@@ -39,19 +39,19 @@ extension MarkupAccessoryViewModel.MarkupKind {
     var iconAsset: ImageAsset {
         switch self {
         case .fontStyle(.bold):
-            return .TextAttributes.bold
+            return .TextStyles.bold
         case .fontStyle(.italic):
-            return .TextAttributes.italic
+            return .TextStyles.italic
         case .fontStyle(.strikethrough):
-            return .TextAttributes.strikethrough
+            return .TextStyles.strikethrough
         case .fontStyle(.underscored):
-            return .TextAttributes.underline
+            return .TextStyles.underline
         case .fontStyle(.keyboard):
-            return .TextAttributes.code
+            return .TextStyles.code
         case .link:
-            return .TextAttributes.url
+            return .TextStyles.embed
         case .color:
-            return .StyleBottomSheet.color
+            return .X32.color
         }
     }
 

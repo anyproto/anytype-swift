@@ -139,7 +139,6 @@ struct MarkupAccessoryContentView: View {
                                 })
                         } else {
                             Image(asset: item.markupItem.iconAsset)
-                                .renderingMode(.template)
                                 .foregroundColor(viewModel.iconColor(for: item.markupItem))
                         }
                     }

@@ -47,8 +47,7 @@ private extension UIEditorBarButtonItem {
     }
     
     func setupButton(imageAsset: ImageAsset, action: @escaping () -> Void) {
-        button.adjustsImageWhenHighlighted = false
-        button.setImage(UIImage(asset: imageAsset)?.withRenderingMode(.alwaysTemplate), for: .normal)
+        button.setImage(UIImage(asset: imageAsset), for: .normal)
         button.addAction(
             UIAction(handler: { _ in action() } ),
             for: .touchUpInside

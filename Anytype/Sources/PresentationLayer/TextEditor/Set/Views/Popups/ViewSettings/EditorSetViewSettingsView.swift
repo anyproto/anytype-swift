@@ -39,7 +39,7 @@ struct EditorSetViewSettingsView: View {
                     withAnimation { editMode = .inactive }
                     model.showAddNewRelationView()
                 }) {
-                    Image(asset: .plus)
+                    Image(asset: .X32.plus).foregroundColor(.Button.active)
                 }
             }
         }

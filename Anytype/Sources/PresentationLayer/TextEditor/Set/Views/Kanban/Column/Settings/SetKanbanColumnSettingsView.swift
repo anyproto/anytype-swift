@@ -56,8 +56,7 @@ struct SetKanbanColumnSettingsView: View {
                 .frame(width: 48, height: 48)
                 .clipShape(Circle())
             if viewModel.selectedColor == backgroundColor {
-                Image(asset: .optionChecked)
-                    .frame(width: 24, height: 24)
+                Image(asset: .X24.tick)
                     .foregroundColor(.Text.primary)
             }
         }

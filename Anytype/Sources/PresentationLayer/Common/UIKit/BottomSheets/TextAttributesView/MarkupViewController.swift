@@ -38,15 +38,15 @@ final class MarkupsViewController: UIViewController {
         return leftStackView
     }()
     
-    private lazy var boldButton = makeButton(image: UIImage(asset: .TextAttributes.bold)) { [weak self] in
+    private lazy var boldButton = makeButton(image: UIImage(asset: .TextStyles.bold)) { [weak self] in
         self?.viewModel.handle(action: .toggleMarkup(.bold))
     }.addBorders(edges: [.right, .bottom], width: 1, color: .Stroke.primary)
 
-    private lazy var italicButton = makeButton(image: UIImage(asset: .TextAttributes.italic)) { [weak self] in
+    private lazy var italicButton = makeButton(image: UIImage(asset: .TextStyles.italic)) { [weak self] in
         self?.viewModel.handle(action: .toggleMarkup(.italic))
     }.addBorders(edges: [.right, .bottom], width: 1, color: .Stroke.primary)
 
-    private lazy var strikethroughButton = makeButton(image: UIImage(asset: .TextAttributes.strikethrough)) { [weak self] in
+    private lazy var strikethroughButton = makeButton(image: UIImage(asset: .TextStyles.strikethrough)) { [weak self] in
         self?.viewModel.handle(action: .toggleMarkup(.strikethrough))
     }.addBorders(edges: [.bottom], width: 1, color: .Stroke.primary)
 
@@ -59,7 +59,7 @@ final class MarkupsViewController: UIViewController {
     }.addBorders(edges: [.bottom], width: 1, color: .Stroke.primary)
 
     private lazy var leftAlignButton: ButtonWithImage = {
-        let button = ButtonsFactory.makeButton(image: UIImage(asset: .TextAttributes.alignLeft))
+        let button = ButtonsFactory.makeButton(image: UIImage(asset: .TextStyles.Align.left))
         button.addAction(UIAction(handler: { [weak self] _ in
             self?.viewModel.handle(action: .selectAlignment(.left))
             UISelectionFeedbackGenerator().selectionChanged()
@@ -67,7 +67,7 @@ final class MarkupsViewController: UIViewController {
         return button
     }()
     private lazy var centerAlignButton: ButtonWithImage = {
-        let button = ButtonsFactory.makeButton(image: UIImage(asset: .TextAttributes.alignCenter))
+        let button = ButtonsFactory.makeButton(image: UIImage(asset: .TextStyles.Align.center))
         button.addAction(UIAction(handler: { [weak self] _ in
             self?.viewModel.handle(action: .selectAlignment(.center))
             UISelectionFeedbackGenerator().selectionChanged()
@@ -75,7 +75,7 @@ final class MarkupsViewController: UIViewController {
         return button
     }()
     private lazy var rightAlignButton: ButtonWithImage = {
-        let button = ButtonsFactory.makeButton(image: UIImage(asset: .TextAttributes.alignRight))
+        let button = ButtonsFactory.makeButton(image: UIImage(asset: .TextStyles.Align.right))
         button.addAction(UIAction(handler: { [weak self] _ in
             self?.viewModel.handle(action: .selectAlignment(.right))
             UISelectionFeedbackGenerator().selectionChanged()
