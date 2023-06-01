@@ -124,7 +124,7 @@ struct EditorSetViewSettingsView: View {
     private func relationRow(_ relation: EditorSetViewSettingsRelation) -> some View {
         HStack(spacing: 0) {
             Image(asset: relation.image)
-                .frame(width: 24, height: 24)
+                .foregroundColor(.Button.active)
             Spacer.fixedWidth(10)
             AnytypeToggle(
                 title: relation.title,

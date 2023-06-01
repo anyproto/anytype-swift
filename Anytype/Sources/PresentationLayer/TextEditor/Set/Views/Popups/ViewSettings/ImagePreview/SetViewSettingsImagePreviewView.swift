@@ -70,6 +70,7 @@ struct SetViewSettingsImagePreviewView: View {
         HStack(spacing: 0) {
             if let iconAsset = configuration.iconAsset {
                 Image(asset: iconAsset)
+                    .foregroundColor(.Button.active)
                 Spacer.fixedWidth(12)
             }
             AnytypeText(configuration.title, style: .uxBodyRegular, color: .Text.primary)
