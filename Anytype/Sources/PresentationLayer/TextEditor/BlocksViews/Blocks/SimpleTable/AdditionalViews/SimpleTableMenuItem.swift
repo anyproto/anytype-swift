@@ -1,7 +1,6 @@
 import UIKit
 
 private typealias L10n = Loc.SimpleTableMenu.Item
-private typealias BlockOptionImage = ImageAsset.TextEditor.BlocksOption
 
 enum SimpleTableCellMenuItem: CaseIterable {
     case clearContents
@@ -25,13 +24,13 @@ enum SimpleTableCellMenuItem: CaseIterable {
     var imageAsset: ImageAsset {
         switch self {
         case .clearContents:
-            return BlockOptionImage.cellMenuClearContents
+            return .X32.remove
         case .color:
-            return BlockOptionImage.cellMenuColor
+            return .X32.color
         case .style:
-            return .EditingToolbar.style
+            return .X32.style
         case .clearStyle:
-            return BlockOptionImage.cellMenuClearStyle
+            return .X32.clear
         }
     }
 }
@@ -78,25 +77,25 @@ enum SimpleTableColumnMenuItem: CaseIterable {
     var imageAsset: ImageAsset {
         switch self {
         case .insertLeft:
-            return BlockOptionImage.columnInsertLeft
+            return .X32.AddColumn.left
         case .insertRight:
-            return BlockOptionImage.columnInsertRight
+            return .X32.AddColumn.right
         case .moveLeft:
-            return BlockOptionImage.columnMoveLeft
+            return .X32.MoveColumn.left
         case .moveRight:
-            return BlockOptionImage.columnMoveRight
+            return .X32.MoveColumn.right
         case .duplicate:
-            return BlockOptionImage.duplicate
+            return .X32.duplicate
         case .delete:
-            return BlockOptionImage.delete
+            return .X32.delete
         case .clearContents:
-            return BlockOptionImage.cellMenuClearContents
+            return .X32.remove
         case .sort:
-            return BlockOptionImage.columnSort
+            return .X32.sort
         case .color:
-            return BlockOptionImage.cellMenuColor
+            return .X32.color
         case .style:
-            return .EditingToolbar.style
+            return .X32.style
         }
     }
 }
@@ -140,23 +139,23 @@ enum SimpleTableRowMenuItem: CaseIterable {
     var imageAsset: ImageAsset {
         switch self {
         case .insertAbove:
-            return BlockOptionImage.rowInsertAbove
+            return .X32.AddColumn.above
         case .insertBelow:
-            return BlockOptionImage.rowInsertBelow
+            return .X32.AddColumn.below
         case .moveUp:
-            return BlockOptionImage.rowMoveUp
+            return .X32.MoveColumn.up
         case .moveDown:
-            return BlockOptionImage.rowMoveDown
+            return .X32.MoveColumn.down
         case .duplicate:
-            return BlockOptionImage.duplicate
+            return .X32.duplicate
         case .delete:
-            return BlockOptionImage.delete
+            return .X32.delete
         case .clearContents:
-            return BlockOptionImage.cellMenuClearContents
+            return .X32.remove
         case .color:
-            return BlockOptionImage.cellMenuColor
+            return .X32.color
         case .style:
-            return .EditingToolbar.style
+            return .X32.style
         }
     }
 }

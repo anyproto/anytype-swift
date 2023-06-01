@@ -55,7 +55,7 @@ struct BlockBookmarkViewModel: BlockViewModelProtocol {
     
     private func emptyViewConfiguration(text: String, state: BlocksFileEmptyViewState) -> UIContentConfiguration {
         BlocksFileEmptyViewConfiguration(
-            imageAsset: .TextEditor.BlockFile.Empty.bookmark,
+            imageAsset: .X32.bookmark,
             text: text,
             state: state
         ).cellBlockConfiguration(

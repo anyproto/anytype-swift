@@ -175,7 +175,7 @@ private extension TextRelationDetailsViewController {
         }
         for actionViewModel in viewModel.actionsViewModel {
             let actionButton = UIButton(type: .custom)
-            let image = UIImage(asset: actionViewModel.iconAsset)?.withRenderingMode(.alwaysTemplate)
+            let image = UIImage(asset: actionViewModel.iconAsset)
             actionButton.setImage(image, for: .normal)
             actionButton.tintColor = .Button.active
             let text = NSAttributedString(

@@ -73,9 +73,9 @@ final class TextRelationURLActionViewModel: TextRelationActionViewModelProtocol 
 private extension TextRelationURLActionViewModel.SupportedTextType {
     var iconAsset: ImageAsset {
         switch self {
-        case .phone: return .relationSmallPhoneIcon
-        case .email: return .relationSmallEmailIcon
-        case .url: return  .relationSmallOpenLink
+        case .phone: return .X24.phoneNumber
+        case .email: return .X24.email
+        case .url: return  .X24.open
         }
     }
     

@@ -11,7 +11,7 @@ final class TextRelationReloadContentActionViewModel: TextRelationActionViewMode
     
     var inputText: String = ""
     let title: String = Loc.RelationAction.reloadContent
-    let iconAsset = ImageAsset.relationSmallReload
+    let iconAsset = ImageAsset.X24.replace
     
     init?(
         objectId: BlockId,

@@ -26,7 +26,7 @@ final class SettingsViewModel: ObservableObject {
     
     @Published var spaceName: String = ""
     @Published var spaceIcon: ObjectIconImage?
-    @Published var profileIcon: ObjectIconImage = .imageAsset(.Settings.accountAndData)
+    @Published var profileIcon: ObjectIconImage = .imageAsset(.SettingsOld.accountAndData)
     
     init(
         accountManager: AccountManagerProtocol,
@@ -108,7 +108,7 @@ final class SettingsViewModel: ObservableObject {
     }
     
     private func handleProfileDetails(details: ObjectDetails) {
-        profileIcon = details.objectIconImage ?? .imageAsset(.Settings.accountAndData)
+        profileIcon = details.objectIconImage ?? .imageAsset(.SettingsOld.accountAndData)
     }
     
     private func updateSpaceName(name: String) {

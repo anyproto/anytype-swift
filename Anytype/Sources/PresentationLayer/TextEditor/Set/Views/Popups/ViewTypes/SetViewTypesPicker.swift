@@ -120,7 +120,6 @@ struct SetViewTypesPicker: View {
     private func viewTypeContent(_ configuration: SetViewTypeConfiguration) -> some View {
         HStack(spacing: 10) {
             Image(asset: configuration.icon)
-                .renderingMode(.template)
                 .foregroundColor(.Button.active)
             AnytypeText(
                 configuration.name,

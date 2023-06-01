@@ -22,13 +22,13 @@ extension UIUserInterfaceStyle: Identifiable {
     var imageAsset: ImageAsset {
         switch self {
         case .light:
-            return .Settings.Theme.light
+            return .SettingsOld.Theme.light
         case .dark:
-            return .Settings.Theme.dark
+            return .SettingsOld.Theme.dark
         case .unspecified:
             fallthrough
         @unknown default:
-            return .Settings.Theme.system
+            return .SettingsOld.Theme.system
         }
     }
 }

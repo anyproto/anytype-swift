@@ -26,6 +26,39 @@ internal extension ImageAsset {
     static let text = ImageAsset.bundle(name: "FileTypes/Text")
     static let video = ImageAsset.bundle(name: "FileTypes/Video")
   }
+  enum Layout {
+    static let basic = ImageAsset.bundle(name: "Layout/Basic")
+    static let note = ImageAsset.bundle(name: "Layout/Note")
+    static let profile = ImageAsset.bundle(name: "Layout/Profile")
+    static let task = ImageAsset.bundle(name: "Layout/Task")
+  }
+  enum ObjectSettings {
+    static let cover = ImageAsset.bundle(name: "ObjectSettings/Cover")
+    static let history = ImageAsset.bundle(name: "ObjectSettings/History")
+    static let icon = ImageAsset.bundle(name: "ObjectSettings/Icon")
+    static let layout = ImageAsset.bundle(name: "ObjectSettings/Layout")
+    static let relations = ImageAsset.bundle(name: "ObjectSettings/Relations")
+  }
+  enum PageBlock {
+    enum Checkbox {
+      static let empty = ImageAsset.bundle(name: "PageBlock/Checkbox/Empty")
+      static let marked = ImageAsset.bundle(name: "PageBlock/Checkbox/Marked")
+    }
+  }
+  enum Preview {
+    static let card = ImageAsset.bundle(name: "Preview/Card")
+    static let inline = ImageAsset.bundle(name: "Preview/Inline")
+    static let text = ImageAsset.bundle(name: "Preview/Text")
+  }
+  enum Settings {
+    static let about = ImageAsset.bundle(name: "Settings/About")
+    static let appearance = ImageAsset.bundle(name: "Settings/Appearance")
+    static let debug = ImageAsset.bundle(name: "Settings/Debug")
+    static let fileStorage = ImageAsset.bundle(name: "Settings/FileStorage")
+    static let keychainPhrase = ImageAsset.bundle(name: "Settings/KeychainPhrase")
+    static let personalization = ImageAsset.bundle(name: "Settings/Personalization")
+    static let pinCode = ImageAsset.bundle(name: "Settings/PinCode")
+  }
   enum TextStyles {
     enum Align {
       static let center = ImageAsset.bundle(name: "TextStyles/Align/Center")
@@ -38,6 +71,21 @@ internal extension ImageAsset {
     static let italic = ImageAsset.bundle(name: "TextStyles/Italic")
     static let strikethrough = ImageAsset.bundle(name: "TextStyles/Strikethrough")
     static let underline = ImageAsset.bundle(name: "TextStyles/Underline")
+  }
+  enum X18 {
+    static let attention = ImageAsset.bundle(name: "x18/Attention")
+    static let clear = ImageAsset.bundle(name: "x18/Clear")
+    enum Disclosure {
+      static let down = ImageAsset.bundle(name: "x18/Disclosure/Down")
+      static let `left` = ImageAsset.bundle(name: "x18/Disclosure/Left")
+      static let `right` = ImageAsset.bundle(name: "x18/Disclosure/Right")
+      static let up = ImageAsset.bundle(name: "x18/Disclosure/Up")
+    }
+    static let help = ImageAsset.bundle(name: "x18/Help")
+    static let listArrow = ImageAsset.bundle(name: "x18/List Arrow")
+    static let lock = ImageAsset.bundle(name: "x18/Lock")
+    static let search = ImageAsset.bundle(name: "x18/Search")
+    static let slashMenuArrow = ImageAsset.bundle(name: "x18/Slash Menu Arrow")
   }
   enum X24 {
     static let add = ImageAsset.bundle(name: "x24/Add")
@@ -173,10 +221,6 @@ internal extension ImageAsset {
     }
     static let view = ImageAsset.bundle(name: "x32/View")
   }
-  enum EditingToolbar {
-    static let move = ImageAsset.bundle(name: "EditingToolbar/move")
-    static let style = ImageAsset.bundle(name: "EditingToolbar/style")
-  }
   enum Emoji {
     }
   static let createNewObject = ImageAsset.bundle(name: "createNewObject")
@@ -187,29 +231,8 @@ internal extension ImageAsset {
   static let taskUnchecked = ImageAsset.bundle(name: "task_unchecked")
   static let todoCheckbox = ImageAsset.bundle(name: "todo_checkbox")
   static let todoCheckmark = ImageAsset.bundle(name: "todo_checkmark")
-  static let card = ImageAsset.bundle(name: "card")
-  static let text = ImageAsset.bundle(name: "text")
-  static let addNew = ImageAsset.bundle(name: "addNew")
-  static let addToFavorites = ImageAsset.bundle(name: "addToFavorites")
   static let delete = ImageAsset.bundle(name: "delete")
-  static let duplicate = ImageAsset.bundle(name: "duplicate")
   static let linkToItself = ImageAsset.bundle(name: "link_to_itself")
-  static let lock = ImageAsset.bundle(name: "lock")
-  static let moveTo = ImageAsset.bundle(name: "moveTo")
-  static let restore = ImageAsset.bundle(name: "restore")
-  static let search = ImageAsset.bundle(name: "search")
-  static let undoredo = ImageAsset.bundle(name: "undoredo")
-  static let unfavorite = ImageAsset.bundle(name: "unfavorite")
-  static let unlock = ImageAsset.bundle(name: "unlock")
-  static let layoutSettingsBasic = ImageAsset.bundle(name: "layout_settings_basic")
-  static let layoutSettingsNote = ImageAsset.bundle(name: "layout_settings_note")
-  static let layoutSettingsProfile = ImageAsset.bundle(name: "layout_settings_profile")
-  static let layoutSettingsTodo = ImageAsset.bundle(name: "layout_settings_todo")
-  static let relationSmallCopy = ImageAsset.bundle(name: "relation_small_copy")
-  static let relationSmallEmailIcon = ImageAsset.bundle(name: "relation_small_email_icon")
-  static let relationSmallOpenLink = ImageAsset.bundle(name: "relation_small_open_link")
-  static let relationSmallPhoneIcon = ImageAsset.bundle(name: "relation_small_phone_icon")
-  static let relationSmallReload = ImageAsset.bundle(name: "relation_small_reload")
   static let relationAddToFeatured = ImageAsset.bundle(name: "relation_add_to_featured")
   static let relationCheckboxChecked = ImageAsset.bundle(name: "relation_checkbox_checked")
   static let relationCheckboxUnchecked = ImageAsset.bundle(name: "relation_checkbox_unchecked")
@@ -217,48 +240,18 @@ internal extension ImageAsset {
   static let relationLockedSmall = ImageAsset.bundle(name: "relation_locked_small")
   static let relationNew = ImageAsset.bundle(name: "relation_new")
   static let relationRemoveFromFeatured = ImageAsset.bundle(name: "relation_remove_from_featured")
-  static let redo = ImageAsset.bundle(name: "redo")
-  static let undo = ImageAsset.bundle(name: "undo")
-  static let objectSettingsCover = ImageAsset.bundle(name: "object_settings_cover")
-  static let objectSettingsIcon = ImageAsset.bundle(name: "object_settings_icon")
-  static let objectSettingsLayout = ImageAsset.bundle(name: "object_settings_layout")
-  static let objectSettingsRelations = ImageAsset.bundle(name: "object_settings_relations")
-  enum PageBlock {
-    static let checkboxChecked = ImageAsset.bundle(name: "PageBlock/checkbox_checked")
-    static let checkboxUnchecked = ImageAsset.bundle(name: "PageBlock/checkbox_unchecked")
-  }
   static let webPage = ImageAsset.bundle(name: "web_page")
-  static let searchTextFieldIcon = ImageAsset.bundle(name: "searchTextFieldIcon")
-  static let setGalleryView = ImageAsset.bundle(name: "set_gallery_view")
-  static let setGridView = ImageAsset.bundle(name: "set_grid_view")
   static let setImagePlaceholder = ImageAsset.bundle(name: "set_image_placeholder")
-  static let setKanbanView = ImageAsset.bundle(name: "set_kanban_view")
-  static let setListView = ImageAsset.bundle(name: "set_list_view")
   static let setOpenToEdit = ImageAsset.bundle(name: "set_open_to_edit")
-  static let setPaginationArrowBackward = ImageAsset.bundle(name: "set_pagination_arrow_backward")
-  static let setPaginationArrowForward = ImageAsset.bundle(name: "set_pagination_arrow_forward")
   static let setPenEdit = ImageAsset.bundle(name: "set_pen_edit")
-  static let setSettings = ImageAsset.bundle(name: "set_settings")
-  static let setSettingsSettings = ImageAsset.bundle(name: "set_settings_settings")
-  static let setSettinsFilter = ImageAsset.bundle(name: "set_settins_filter")
-  static let setSettinsGroup = ImageAsset.bundle(name: "set_settins_group")
-  static let setSettinsSort = ImageAsset.bundle(name: "set_settins_sort")
-  static let setSettinsView = ImageAsset.bundle(name: "set_settins_view")
-  enum Settings {
+  enum SettingsOld {
     enum Theme {
-      static let dark = ImageAsset.bundle(name: "Settings/Theme/dark")
-      static let light = ImageAsset.bundle(name: "Settings/Theme/light")
-      static let system = ImageAsset.bundle(name: "Settings/Theme/system")
+      static let dark = ImageAsset.bundle(name: "SettingsOld/Theme/dark")
+      static let light = ImageAsset.bundle(name: "SettingsOld/Theme/light")
+      static let system = ImageAsset.bundle(name: "SettingsOld/Theme/system")
     }
-    static let about = ImageAsset.bundle(name: "Settings/about")
-    static let accountAndData = ImageAsset.bundle(name: "Settings/account_and_data")
-    static let appearance = ImageAsset.bundle(name: "Settings/appearance")
-    static let debug = ImageAsset.bundle(name: "Settings/debug")
-    static let fileStorage = ImageAsset.bundle(name: "Settings/fileStorage")
-    static let personalization = ImageAsset.bundle(name: "Settings/personalization")
-    static let setKeychainPhrase = ImageAsset.bundle(name: "Settings/set_keychain_phrase")
-    static let setPinCode = ImageAsset.bundle(name: "Settings/set_pin_code")
-    static let setWallpaper = ImageAsset.bundle(name: "Settings/set_wallpaper")
+    static let accountAndData = ImageAsset.bundle(name: "SettingsOld/account_and_data")
+    static let setWallpaper = ImageAsset.bundle(name: "SettingsOld/set_wallpaper")
   }
   static let slashMenuActionClear = ImageAsset.bundle(name: "slash_menu_action_clear")
   static let slashMenuActionCopy = ImageAsset.bundle(name: "slash_menu_action_copy")
@@ -326,38 +319,9 @@ internal extension ImageAsset {
     static let toggle = ImageAsset.bundle(name: "StyleBottomSheet/toggle")
   }
   enum TextEditor {
-    enum BlockFile {
-      enum Empty {
-        static let bookmark = ImageAsset.bundle(name: "TextEditor/BlockFile/Empty/Bookmark")
-        static let file = ImageAsset.bundle(name: "TextEditor/BlockFile/Empty/File")
-        static let image = ImageAsset.bundle(name: "TextEditor/BlockFile/Empty/Image")
-        static let video = ImageAsset.bundle(name: "TextEditor/BlockFile/Empty/Video")
-      }
-    }
     enum BlocksOption {
-      static let addBelow = ImageAsset.bundle(name: "TextEditor/BlocksOption/add_below")
-      static let cellMenuClearContents = ImageAsset.bundle(name: "TextEditor/BlocksOption/cell_menu_clear_contents")
-      static let cellMenuClearStyle = ImageAsset.bundle(name: "TextEditor/BlocksOption/cell_menu_clear_style")
-      static let cellMenuColor = ImageAsset.bundle(name: "TextEditor/BlocksOption/cell_menu_color")
-      static let columnInsertLeft = ImageAsset.bundle(name: "TextEditor/BlocksOption/column_insert_left")
-      static let columnInsertRight = ImageAsset.bundle(name: "TextEditor/BlocksOption/column_insert_right")
-      static let columnMoveLeft = ImageAsset.bundle(name: "TextEditor/BlocksOption/column_move_left")
-      static let columnMoveRight = ImageAsset.bundle(name: "TextEditor/BlocksOption/column_move_right")
-      static let columnSort = ImageAsset.bundle(name: "TextEditor/BlocksOption/column_sort")
       static let copy = ImageAsset.bundle(name: "TextEditor/BlocksOption/copy")
       static let delete = ImageAsset.bundle(name: "TextEditor/BlocksOption/delete")
-      static let download = ImageAsset.bundle(name: "TextEditor/BlocksOption/download")
-      static let duplicate = ImageAsset.bundle(name: "TextEditor/BlocksOption/duplicate")
-      static let move = ImageAsset.bundle(name: "TextEditor/BlocksOption/move")
-      static let moveTo = ImageAsset.bundle(name: "TextEditor/BlocksOption/move_to")
-      static let openToEdit = ImageAsset.bundle(name: "TextEditor/BlocksOption/open_to_edit")
-      static let paste = ImageAsset.bundle(name: "TextEditor/BlocksOption/paste")
-      static let rowInsertAbove = ImageAsset.bundle(name: "TextEditor/BlocksOption/row_insert_above")
-      static let rowInsertBelow = ImageAsset.bundle(name: "TextEditor/BlocksOption/row_insert_below")
-      static let rowMoveDown = ImageAsset.bundle(name: "TextEditor/BlocksOption/row_move_down")
-      static let rowMoveUp = ImageAsset.bundle(name: "TextEditor/BlocksOption/row_move_up")
-      static let turnIntoObject = ImageAsset.bundle(name: "TextEditor/BlocksOption/turn_into_object")
-      static let view = ImageAsset.bundle(name: "TextEditor/BlocksOption/view")
     }
     static let turnIntoArrow = ImageAsset.bundle(name: "TextEditor/turn_into_arrow")
     enum Divider {
@@ -372,7 +336,6 @@ internal extension ImageAsset {
       static let unchecked = ImageAsset.bundle(name: "TextEditor/Text/unchecked")
     }
     static let bigGhost = ImageAsset.bundle(name: "TextEditor/bigGhost")
-    static let questionMark = ImageAsset.bundle(name: "TextEditor/questionMark")
   }
   static let toastFailure = ImageAsset.bundle(name: "toast_failure")
   static let toastTick = ImageAsset.bundle(name: "toast_tick")

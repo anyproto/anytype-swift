@@ -27,7 +27,9 @@ struct ObjectLayoutRow: View {
     
     private var row: some View {
         HStack(spacing: 0) {
-            Image(asset: layout.iconAsset).frame(width: 44, height: 44)
+            Image(asset: layout.iconAsset)
+                .frame(width: 44, height: 44)
+                .border(8, color: .Button.active.opacity(0.4))
             
             Spacer.fixedWidth(12)
             
@@ -64,13 +66,13 @@ private extension DetailsLayout {
     var iconAsset: ImageAsset {
         switch self {
         case .basic:
-            return .layoutSettingsBasic
+            return .Layout.basic
         case .profile:
-            return .layoutSettingsProfile
+            return .Layout.profile
         case .todo:
-            return .layoutSettingsTodo
+            return .Layout.task
         case .note:
-            return .layoutSettingsNote
+            return .Layout.note
         case .set, .collection, .bookmark, .space, .file, .image, .objectType, .unknown, .relation, .relationOption:
             return .noImage
         }

@@ -42,7 +42,7 @@ struct SettingsAccountView: View {
         SectionHeaderView(title: Loc.access)
         SettingsSectionItemView(
             name: Loc.Keychain.recoveryPhrase,
-            imageAsset: .Settings.setKeychainPhrase,
+            imageAsset: .Settings.keychainPhrase,
             onTap: { model.onRecoveryPhraseTap() }
         )
     }
