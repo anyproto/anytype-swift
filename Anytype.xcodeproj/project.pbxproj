@@ -486,6 +486,7 @@
 		2A8C00F729C4AAF200309C14 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8C00F629C4AAF200309C14 /* SettingsView.swift */; };
 		2A8C00FB29C4ADE500309C14 /* SettingsTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8C00FA29C4ADE500309C14 /* SettingsTextField.swift */; };
 		2A8C00FD29C4C61300309C14 /* SectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8C00FC29C4C61300309C14 /* SectionHeaderView.swift */; };
+		2A8CD40E2A28EBE400E3D1EB /* AsyncQueue in Frameworks */ = {isa = PBXBuildFile; productRef = 2A8CD40D2A28EBE400E3D1EB /* AsyncQueue */; };
 		2A8DCAD228C635CE0029B914 /* RelationDetailsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8DCAD128C635CE0029B914 /* RelationDetailsStorage.swift */; };
 		2A90C466285B5A9100B6B44E /* AnytypeCore in Frameworks */ = {isa = PBXBuildFile; productRef = 2A90C465285B5A9100B6B44E /* AnytypeCore */; };
 		2A90C468285B5A9100B6B44E /* AnytypeCore in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 2A90C465285B5A9100B6B44E /* AnytypeCore */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -2914,6 +2915,7 @@
 				2A6ED170285B452600AAA21C /* SwiftProtobuf in Frameworks */,
 				2A01A4F92A1FB507002042FB /* DeviceKit in Frameworks */,
 				03C5C53B22DF785000DD91DE /* Security.framework in Frameworks */,
+				2A8CD40E2A28EBE400E3D1EB /* AsyncQueue in Frameworks */,
 				0318D576230186CA000527B1 /* LocalAuthentication.framework in Frameworks */,
 				1259301126F3A6EC00B115CD /* SwiftUIVisualEffects in Frameworks */,
 			);
@@ -8670,6 +8672,7 @@
 				C9433E53293EA5EF001662EA /* SwiftEntryKit */,
 				2A94B5D229B88E95009AE2A7 /* Sentry */,
 				2A01A4F82A1FB507002042FB /* DeviceKit */,
+				2A8CD40D2A28EBE400E3D1EB /* AsyncQueue */,
 			);
 			productName = Anytype;
 			productReference = 0303ECFB22D8EDAA005C552B /* Anytype.app */;
@@ -8760,6 +8763,7 @@
 				C9433E52293EA5EF001662EA /* XCRemoteSwiftPackageReference "SwiftEntryKit" */,
 				2A94B5D129B88E95009AE2A7 /* XCRemoteSwiftPackageReference "sentry-cocoa" */,
 				2A01A4F72A1FB4B7002042FB /* XCRemoteSwiftPackageReference "DeviceKit" */,
+				2A8CD40C2A28EBE400E3D1EB /* XCRemoteSwiftPackageReference "swift-async-queue" */,
 			);
 			productRefGroup = 0303ECFC22D8EDAA005C552B /* Products */;
 			projectDirPath = "";
@@ -10878,6 +10882,15 @@
 				version = 1.21.0;
 			};
 		};
+		2A8CD40C2A28EBE400E3D1EB /* XCRemoteSwiftPackageReference "swift-async-queue" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:dfed/swift-async-queue.git";
+			requirement = {
+				kind = versionRange;
+				maximumVersion = 1.0.0;
+				minimumVersion = 0.4.0;
+			};
+		};
 		2A94B5D129B88E95009AE2A7 /* XCRemoteSwiftPackageReference "sentry-cocoa" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/getsentry/sentry-cocoa.git";
@@ -10966,6 +10979,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2A6ED16E285B452600AAA21C /* XCRemoteSwiftPackageReference "swift-protobuf" */;
 			productName = SwiftProtobuf;
+		};
+		2A8CD40D2A28EBE400E3D1EB /* AsyncQueue */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2A8CD40C2A28EBE400E3D1EB /* XCRemoteSwiftPackageReference "swift-async-queue" */;
+			productName = AsyncQueue;
 		};
 		2A90C465285B5A9100B6B44E /* AnytypeCore */ = {
 			isa = XCSwiftPackageProductDependency;
