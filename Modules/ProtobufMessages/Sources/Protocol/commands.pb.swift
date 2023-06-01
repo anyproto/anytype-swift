@@ -924,6 +924,7 @@ public struct Anytype_Rpc {
         /// Option of pre-installed icon
         public var icon: Int64 = 0
 
+        /// DEPRECATED
         public var alphaInviteCode: String = String()
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -7496,6 +7497,8 @@ public struct Anytype_Rpc {
             case unknownError // = 2
             case badInput // = 3
             case accountIsNotRunning // = 4
+            case noObjectsToImport // = 5
+            case importIsCanceled // = 6
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -7509,6 +7512,8 @@ public struct Anytype_Rpc {
               case 2: self = .unknownError
               case 3: self = .badInput
               case 4: self = .accountIsNotRunning
+              case 5: self = .noObjectsToImport
+              case 6: self = .importIsCanceled
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -7520,6 +7525,8 @@ public struct Anytype_Rpc {
               case .unknownError: return 2
               case .badInput: return 3
               case .accountIsNotRunning: return 4
+              case .noObjectsToImport: return 5
+              case .importIsCanceled: return 6
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -22800,6 +22807,8 @@ extension Anytype_Rpc.Object.Import.Response.Error.Code: CaseIterable {
     .unknownError,
     .badInput,
     .accountIsNotRunning,
+    .noObjectsToImport,
+    .importIsCanceled,
   ]
 }
 
@@ -35712,6 +35721,8 @@ extension Anytype_Rpc.Object.Import.Response.Error.Code: SwiftProtobuf._ProtoNam
     2: .same(proto: "UNKNOWN_ERROR"),
     3: .same(proto: "BAD_INPUT"),
     4: .same(proto: "ACCOUNT_IS_NOT_RUNNING"),
+    5: .same(proto: "NO_OBJECTS_TO_IMPORT"),
+    6: .same(proto: "IMPORT_IS_CANCELED"),
   ]
 }
 
