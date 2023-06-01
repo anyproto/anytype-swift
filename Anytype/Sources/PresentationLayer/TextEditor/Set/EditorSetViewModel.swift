@@ -395,12 +395,9 @@ final class EditorSetViewModel: ObservableObject {
             )
         )
         
-        if subscriptionService.hasSubscriptionDataDiff(with: data) || recordsDict.keys.isEmpty {
-            subscriptionService.stopSubscription(id: data.identifier)
-            subscriptionService.startSubscription(data: data) { subId, update in
-                DispatchQueue.main.async { [weak self] in
-                    self?.updateData(with: subId.value, update: update)
-                }
+        subscriptionService.updateSubscription(data: data, required: recordsDict.keys.isEmpty) { subId, update in
+            DispatchQueue.main.async { [weak self] in
+                self?.updateData(with: subId.value, update: update)
             }
         }
     }
