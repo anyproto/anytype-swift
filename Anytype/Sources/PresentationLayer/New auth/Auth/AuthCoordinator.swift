@@ -13,6 +13,10 @@ final class AuthCoordinator: AuthCoordinatorProtocol, AuthViewModelOutput {
     private let authModuleAssembly: AuthModuleAssemblyProtocol
     private let joinFlowCoordinator: JoinFlowCoordinatorProtocol
     
+    // MARK: - State
+    
+    private let state = JoinFlowState()
+    
     init(authModuleAssembly: AuthModuleAssemblyProtocol, joinFlowCoordinator: JoinFlowCoordinatorProtocol) {
         self.authModuleAssembly = authModuleAssembly
         self.joinFlowCoordinator = joinFlowCoordinator
@@ -21,13 +25,13 @@ final class AuthCoordinator: AuthCoordinatorProtocol, AuthViewModelOutput {
     // MARK: - AuthCoordinatorProtocol
     
     func startFlow() -> AnyView {
-        return authModuleAssembly.make(output: self)
+        return authModuleAssembly.make(state: state, output: self)
     }
     
     // MARK: - AuthViewModelOutput
     
     func onJoinAction() -> AnyView {
-        joinFlowCoordinator.startFlow()
+        joinFlowCoordinator.startFlow(with: state)
     }
     
 }

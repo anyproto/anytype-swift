@@ -2,7 +2,7 @@ import SwiftUI
 
 @MainActor
 protocol JoinFlowCoordinatorProtocol {
-    func startFlow() -> AnyView
+    func startFlow(with state: JoinFlowState) -> AnyView
 }
 
 @MainActor
@@ -35,8 +35,8 @@ final class JoinFlowCoordinator: JoinFlowCoordinatorProtocol, JoinFlowOutput {
     
     // MARK: - JoinFlowCoordinatorProtocol
     
-    func startFlow() -> AnyView {
-        joinFlowModuleAssembly.make(output: self)
+    func startFlow(with state: JoinFlowState) -> AnyView {
+        joinFlowModuleAssembly.make(state: state, output: self)
     }
     
     // MARK: - JoinFlowOutput
