@@ -27,10 +27,9 @@ protocol ModulesDIProtocol: AnyObject {
     func debugMenu() -> DebugMenuModuleAssemblyProtocol
     func settingsAccount() -> SettingsAccountModuleAssemblyProtocol
     func fileStorage() -> FileStorageModuleAssemblyProtocol
+    
     func authorization() -> AuthModuleAssemblyProtocol
     func joinFlow() -> JoinFlowModuleAssemblyProtocol
-    
-    func authInviteCode() -> InviteCodeViewModuleAssemblyProtocol
     func authVoid() -> VoidViewModuleAssemblyProtocol
     func authKey() -> KeyPhraseViewModuleAssemblyProtocol
     func authSoul() -> SoulViewModuleAssemblyProtocol

@@ -1,6 +1,5 @@
 enum JoinFlowStep: Int, CaseIterable {
-    case code = 1
-    case void
+    case void = 1
     case key
     case soul
     case creatingSoul
@@ -41,7 +40,7 @@ enum JoinFlowStep: Int, CaseIterable {
         switch self {
         case .creatingSoul:
             return false
-        case .code, .void, .key, .soul:
+        case .void, .key, .soul:
             return true
         }
     }

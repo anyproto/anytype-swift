@@ -131,9 +131,6 @@ final class ModulesDI: ModulesDIProtocol {
     }
     
     // @joe_pusya: will be moved to separate modulesDI
-    func authInviteCode() -> InviteCodeViewModuleAssemblyProtocol {
-        return InviteCodeViewModuleAssembly(serviceLocator: serviceLocator)
-    }
     
     func authVoid() -> VoidViewModuleAssemblyProtocol {
         return VoidViewModuleAssembly()
