@@ -273,7 +273,7 @@ extension UIImage {
                 let y = (size.height - imageSize.height) / 2
                 
                 
-                changeForegroundColor(color: foregroundColor)
+                applyTint(color: foregroundColor)
                     .scaled(to: imageSize)
                     .draw(
                         at: .init(x: x, y: y),
@@ -408,8 +408,8 @@ extension UIImage {
         return nil
     }
     
-    private func changeForegroundColor(color: UIColor?) -> UIImage {
-        if let color {
+    func applyTint(color: UIColor?) -> UIImage {
+        if let color, renderingMode == .alwaysTemplate {
             return withTintColor(color)
         }
         return self

@@ -28,6 +28,7 @@ struct SetSortsListView: View {
                     viewModel.addButtonTapped()
                 } label: {
                     Image(asset: .X32.plus)
+                        .foregroundColor(.Button.active)
                 }
             }
         }

@@ -18,24 +18,26 @@ extension ObjectIconImagePainter: ObjectIconImagePainterProtocol {
         return draw(hash: hash, image: image, imageGuideline: imageGuideline)
     }
     
-    func staticImage(imageAsset: ImageAsset, imageGuideline: ImageGuideline) -> UIImage {
+    func staticImage(imageAsset: ImageAsset, imageGuideline: ImageGuideline, tintColor: UIColor?) -> UIImage {
         let hash = "staticImage.\(imageAsset.identifier).\(imageGuideline.identifier)"
         let image = UIImage(asset: imageAsset) ?? UIImage()
-        return draw(hash: hash, image: image, imageGuideline: imageGuideline)
+        return draw(hash: hash, image: image, imageGuideline: imageGuideline, tintColor: tintColor)
     }
     
-    private func draw(hash: String, image: UIImage, imageGuideline: ImageGuideline) -> UIImage {
+    private func draw(hash: String, image: UIImage, imageGuideline: ImageGuideline, tintColor: UIColor? = nil) -> UIImage {
         if let image = imageStorage.image(forKey: hash) {
             return image
         }
 
-        let modifiedImage = image
-            .scaled(to: imageGuideline.size)
-            .rounded(
-                radius: imageGuideline.cornerRadius,
-                backgroundColor: imageGuideline.cornersGuideline?.backgroundColor?.cgColor
-            )
-        
+        let modifiedImage = UIImage.generateDynamicImage {
+            image
+                .applyTint(color: tintColor)
+                .scaled(to: imageGuideline.size)
+                .rounded(
+                    radius: imageGuideline.cornerRadius,
+                    backgroundColor: imageGuideline.cornersGuideline?.backgroundColor?.cgColor
+                )
+        }
         imageStorage.saveImage(modifiedImage, forKey: hash)
         
         return modifiedImage
