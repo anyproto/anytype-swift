@@ -1,6 +1,5 @@
 import Services
 
-
 struct TitleBlockRestrictions: BlockRestrictions {
     let canApplyBold = false
     let canApplyItalic = false

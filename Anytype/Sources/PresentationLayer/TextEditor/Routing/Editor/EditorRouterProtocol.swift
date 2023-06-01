@@ -28,7 +28,7 @@ protocol EditorRouterProtocol:
     func showCodeLanguage(blockId: BlockId)
     
     func showStyleMenu(
-        information: BlockInformation,
+        informations: [BlockInformation],
         restrictions: BlockRestrictions,
         didShow: @escaping (UIView) -> Void,
         onDismiss: @escaping () -> Void

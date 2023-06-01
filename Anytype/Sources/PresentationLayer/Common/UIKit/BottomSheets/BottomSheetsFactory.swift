@@ -6,7 +6,7 @@ import UIKit
 final class BottomSheetsFactory {
     static func createStyleBottomSheet(
         parentViewController: UIViewController,
-        info: BlockInformation,
+        infos: [BlockInformation],
         actionHandler: BlockActionHandlerProtocol,
         restrictions: BlockRestrictions,
         showMarkupMenu: @escaping (_ styleView: UIView, _ viewDidClose: @escaping () -> Void) -> Void,
@@ -14,24 +14,62 @@ final class BottomSheetsFactory {
     ) -> AnytypePopup? {
         // NOTE: This will be moved to coordinator in next pr
         // :(
-        guard case let .text(textContentType) = info.content.type else { return nil }
-
-        let askColor: () -> UIColor? = {
-            guard case let .text(textContent) = info.content else { return nil }
-            return textContent.color.map {
-                UIColor.Dark.uiColor(from: $0)
+        
+        // For now, multiple style editing is only allowed for text blocks
+        // because multiple style editing for any kind of blocks requires UI updates
+        let isOnlyTextInfos = infos.map { $0.content.type }.allSatisfy { contentType in
+            guard case .text = contentType else { return false }
+            return true
+        }
+        guard isOnlyTextInfos else { return nil }
+        
+        let askStyle: () -> BlockText.Style? = {
+            let uniquedStyles: [BlockText.Style] = infos.compactMap {
+                guard case let .text(textContentType) = $0.content.type else { return nil }
+                return textContentType
+            }.uniqued()
+            
+            if uniquedStyles.count == 1 {
+                return uniquedStyles.first
+            } else {
+                return nil
             }
         }
+        
+        let askColor: () -> UIColor? = {
+            let uniquedColors: [MiddlewareColor] = infos.compactMap {
+                guard case let .text(textContent) = $0.content else { return nil }
+                // if we never change block's text color `textContent.color` will be `nil`
+                // but in UI we draw it like its `MiddlewareColor.default`
+                return textContent.color ?? MiddlewareColor.default
+            }.uniqued()
+            
+            if uniquedColors.count == 1 {
+                return UIColor.Dark.uiColor(from: uniquedColors.first!)
+            } else {
+                return nil
+            }
+        }
+        
+        
         let askBackgroundColor: () -> UIColor? = {
-            return info.backgroundColor.map {
-                UIColor.VeryLight.uiColor(from: $0)
+            let uniquedBackgroundColors: [MiddlewareColor] = infos.map {
+                // if we never change block's background color `backgroundColor` will be `nil`
+                // but in UI we draw it like its `MiddlewareColor.default`
+                $0.backgroundColor ?? MiddlewareColor.default
+            }.uniqued()
+            
+            if uniquedBackgroundColors.count == 1 {
+                return UIColor.VeryLight.uiColor(from: uniquedBackgroundColors.first!)
+            } else {
+                return nil
             }
         }
         
         let styleView = StyleView(
-            blockId: info.id,
+            blockIds: infos.map { $0.id },
             viewControllerForPresenting: parentViewController,
-            style: textContentType,
+            style: askStyle(),
             restrictions: restrictions,
             askColor: askColor,
             askBackgroundColor: askBackgroundColor,
@@ -60,14 +98,14 @@ final class BottomSheetsFactory {
         parentViewController: UIViewController,
         styleView: UIView,
         document: BaseDocumentProtocol,
-        blockId: BlockId,
+        blockIds: [BlockId],
         actionHandler: BlockActionHandlerProtocol,
         linkToObjectCoordinator: LinkToObjectCoordinatorProtocol,
         viewDidClose: @escaping () -> Void
     ) {
         let viewModel = MarkupViewModel(
             document: document,
-            blockIds: [blockId],
+            blockIds: blockIds,
             actionHandler: actionHandler,
             linkToObjectCoordinator: linkToObjectCoordinator
         )
