@@ -24,7 +24,8 @@ final class JoinFlowCoordinatorAssembly: JoinFlowCoordinatorAssemblyProtocol {
             inviteCodeViewModuleAssembly: modulesDI.authInviteCode(),
             voidViewModuleAssembly: modulesDI.authVoid(),
             keyViewModuleAssembly: modulesDI.authKey(),
-            soulViewModuleAssembly: modulesDI.authSoul()
+            soulViewModuleAssembly: modulesDI.authSoul(),
+            creatingSoulViewModuleAssembly: modulesDI.authCreatingSoul()
         )
     }
 }

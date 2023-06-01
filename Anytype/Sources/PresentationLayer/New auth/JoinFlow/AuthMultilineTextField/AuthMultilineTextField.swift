@@ -21,8 +21,7 @@ struct AuthMultilineTextField: View {
                     .cornerRadius(Constants.cornerRadius, style: .continuous)
             } else {
                 TextEditor(text: $text)
-                    .autofocus($autofocus)
-                    .frame(height: 100)
+                    .frame(height: 105)
                     .padding(Constants.edgeInsets)
                     .blur(radius: blured ? 0 : Constants.blurRadius)
                     .overlay(

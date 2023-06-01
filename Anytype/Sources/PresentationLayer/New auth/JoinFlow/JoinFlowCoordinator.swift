@@ -15,19 +15,22 @@ final class JoinFlowCoordinator: JoinFlowCoordinatorProtocol, JoinFlowOutput {
     private let voidViewModuleAssembly: VoidViewModuleAssemblyProtocol
     private let keyViewModuleAssembly: KeyPhraseViewModuleAssemblyProtocol
     private let soulViewModuleAssembly: SoulViewModuleAssemblyProtocol
+    private let creatingSoulViewModuleAssembly: CreatingSoulViewModuleAssemblyProtocol
     
     init(
         joinFlowModuleAssembly: JoinFlowModuleAssemblyProtocol,
         inviteCodeViewModuleAssembly: InviteCodeViewModuleAssemblyProtocol,
         voidViewModuleAssembly: VoidViewModuleAssemblyProtocol,
         keyViewModuleAssembly: KeyPhraseViewModuleAssemblyProtocol,
-        soulViewModuleAssembly: SoulViewModuleAssemblyProtocol
+        soulViewModuleAssembly: SoulViewModuleAssemblyProtocol,
+        creatingSoulViewModuleAssembly: CreatingSoulViewModuleAssemblyProtocol
     ) {
         self.joinFlowModuleAssembly = joinFlowModuleAssembly
         self.inviteCodeViewModuleAssembly = inviteCodeViewModuleAssembly
         self.voidViewModuleAssembly = voidViewModuleAssembly
         self.keyViewModuleAssembly = keyViewModuleAssembly
         self.soulViewModuleAssembly = soulViewModuleAssembly
+        self.creatingSoulViewModuleAssembly = creatingSoulViewModuleAssembly
     }
     
     // MARK: - JoinFlowCoordinatorProtocol
@@ -48,6 +51,8 @@ final class JoinFlowCoordinator: JoinFlowCoordinatorProtocol, JoinFlowOutput {
             return keyViewModuleAssembly.make(state: state, output: output)
         case .soul:
             return soulViewModuleAssembly.make(state: state, output: output)
+        case .creatingSoul:
+            return creatingSoulViewModuleAssembly.make(state: state, output: output)
         }
     }
 }

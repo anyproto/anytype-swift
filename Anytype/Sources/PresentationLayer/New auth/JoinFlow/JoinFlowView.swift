@@ -6,10 +6,16 @@ struct JoinFlowView: View {
     @Environment(\.presentationMode) @Binding private var presentationMode
     
     var body: some View {
+        GeometryReader { geo in
+            content(height: geo.size.height)
+        }
+    }
+    
+    private func content(height: CGFloat) -> some View {
         VStack(spacing: 0) {
             navigationBar
             
-            Spacer.fixedHeight(180)
+            Spacer.fixedHeight(height / 4)
             
             model.content()
                 .transition(model.forward ? .moveAndFadeForward: .moveAndFadeBack)
@@ -33,11 +39,12 @@ struct JoinFlowView: View {
                 counter
             }
         }
+        .opacity(model.showNavigation ? 1 : 0)
     }
     
     private var backButton : some View {
         Button(action: {
-            if model.step.first {
+            if model.step.isFirst {
                 presentationMode.dismiss()
             } else {
                 model.onBack()

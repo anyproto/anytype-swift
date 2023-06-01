@@ -173,6 +173,10 @@
 "Auth.JoinFlow.Soul.Description" = "Think of it like an identity, or a profile within Anytype.";
 "Auth.JoinFlow.Soul.Placeholder" = "Call it whatever you want";
 
+"Auth.JoinFlow.Creating.Soul.Title" = "Creating your Soul";
+"Auth.JoinFlow.Setting.Space.Title" = "Setting up your Personal Space";
+"Auth.JoinFlow.Personal.Space.Title" = "Personal Space";
+
 // Object settings
 
 "Icon" = "Icon";
