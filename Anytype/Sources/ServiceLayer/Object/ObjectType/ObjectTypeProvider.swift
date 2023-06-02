@@ -86,7 +86,7 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
         searchTypesById.removeAll()
         objectTypes.forEach {
             if searchTypesById[$0.id] != nil {
-                anytypeAssertionFailure("Dublicate object type found for id: \($0.id), name: \($0.name)")
+                anytypeAssertionFailure("Dublicate object type found", info: ["id": $0.id, "name": $0.name])
             }
             searchTypesById[$0.id] = $0
         }

@@ -8,7 +8,7 @@ extension Calendar {
         let numberOfDays = dateComponents([.day], from: fromDate, to: toDate)
         
         guard let days = numberOfDays.day else {
-            anytypeAssertionFailure("No days in \(numberOfDays)")
+            anytypeAssertionFailure("No days", info: ["numberOfDays": "\(numberOfDays)"])
             return 0
         }
         

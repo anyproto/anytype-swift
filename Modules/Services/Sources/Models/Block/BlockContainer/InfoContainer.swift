@@ -46,7 +46,7 @@ public final class InfoContainer: InfoContainerProtocol {
 
     public func setChildren(ids: [BlockId], parentId: BlockId) {
         guard let parent = get(id: parentId) else {
-            anytypeAssertionFailure("I can't find entry with id: \(parentId)")
+            anytypeAssertionFailure("I can't find entry", info: ["parentId": parentId])
             return
         }
         
@@ -55,7 +55,7 @@ public final class InfoContainer: InfoContainerProtocol {
     
     public func update(blockId: BlockId, update updateAction: @escaping (BlockInformation) -> (BlockInformation?)) {
         guard let entry = get(id: blockId) else {
-            anytypeAssertionFailure("No block with id \(blockId)")
+            anytypeAssertionFailure("No block", info: ["blockId": blockId])
             return
         }
         
@@ -65,7 +65,7 @@ public final class InfoContainer: InfoContainerProtocol {
     public func updateDataview(blockId: BlockId, update updateAction: @escaping (BlockDataview) -> (BlockDataview)) {
         update(blockId: blockId) { info in
             guard case let .dataView(dataView) = info.content else {
-                anytypeAssertionFailure("\(info.content) not a dataview in \(info)")
+                anytypeAssertionFailure("Not a dataview", info: ["infoId": info.id])
                 return nil
             }
             

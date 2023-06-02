@@ -29,7 +29,7 @@ public final class ObjectDetailsStorage {
         }
         let id = data.id
         guard id.isValidId else {
-            anytypeAssertionFailure("Id is empty in details \(data.details)")
+            anytypeAssertionFailure("Id is empty in details", info: ["id": id])
             return nil
         }
         
@@ -44,7 +44,7 @@ public final class ObjectDetailsStorage {
     public func unset(data: Anytype_Event.Object.Details.Unset) -> ObjectDetails? {
         let id = data.id
         guard id.isValidId else {
-            anytypeAssertionFailure("Id is empty in details \(data)")
+            anytypeAssertionFailure("Id is empty in details", info: ["id": id])
             return nil
         }
         

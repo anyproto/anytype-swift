@@ -90,7 +90,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     private func handleQuickAction(_ item: UIApplicationShortcutItem) -> Bool {
         guard let action = QuickAction(rawValue: item.type) else {
-            anytypeAssertionFailure("Not supported action: \(item.type)")
+            anytypeAssertionFailure("Not supported action", info: ["action": item.type])
             return false
         }
         

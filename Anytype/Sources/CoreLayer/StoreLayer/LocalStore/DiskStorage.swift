@@ -17,7 +17,7 @@ class DiskStorage {
             do {
                 try FileManager.default.removeItem(atPath: fileURL.path)
             } catch let removeError {
-                anytypeAssertionFailure("Couldn't remove file at path \(fileURL.path) with error \(removeError)")
+                anytypeAssertionFailure("Couldn't remove file: \(removeError.localizedDescription)", info: ["path": fileURL.path])
             }
             
         }
@@ -26,7 +26,7 @@ class DiskStorage {
             try data.write(to: fileURL)
             return fileURL.path
         } catch let error {
-            anytypeAssertionFailure("Error saving file: \(error)")
+            anytypeAssertionFailure("Error saving file: \(error.localizedDescription)")
         }
         return nil
     }

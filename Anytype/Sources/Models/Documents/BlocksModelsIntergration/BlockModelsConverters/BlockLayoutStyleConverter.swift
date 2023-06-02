@@ -12,8 +12,8 @@ extension Anytype_Model_Block.Content.Layout.Style {
         case .header: return .header
         case .tableColumns: return .tableColumns
         case .tableRows: return .tableRows
-        case .UNRECOGNIZED:
-            anytypeAssertionFailure("UNRECOGNIZED block layout style")
+        case .UNRECOGNIZED(let value):
+            anytypeAssertionFailure("UNRECOGNIZED block layout style", info: ["value": "\(value)"])
             return nil
         }
     }
