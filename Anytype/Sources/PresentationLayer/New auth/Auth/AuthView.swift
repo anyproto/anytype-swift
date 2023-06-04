@@ -55,6 +55,7 @@ struct AuthView: View {
         HStack(spacing: 13) {
             StandardButton(
                 Loc.Auth.join,
+                inProgress: model.creatingAccountInProgress,
                 style: .primaryLarge,
                 action: {
                     model.onJoinButtonTap()
@@ -100,8 +101,11 @@ struct AuthView_Previews : PreviewProvider {
     static var previews: some View {
         AuthView(
             model: AuthViewModel(
+                state: JoinFlowState(),
                 viewControllerProvider: DI.preview.uihelpersDI.viewControllerProvider(),
-                output: nil
+                output: nil,
+                authService: DI.preview.serviceLocator.authService(),
+                seedService: DI.preview.serviceLocator.seedService()
             )
         )
     }

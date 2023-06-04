@@ -767,12 +767,6 @@ internal enum Loc {
           internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Creating.Soul.Title", fallback: "Creating your Soul")
         }
       }
-      internal enum InterCode {
-        /// If you don't have one just go to anytype.io and sign up to the waiting list.
-        internal static let description = Loc.tr("Localizable", "Auth.JoinFlow.InterCode.Description", fallback: "If you don't have one just go to anytype.io and sign up to the waiting list.")
-        /// Enter your invite code
-        internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.InterCode.Title", fallback: "Enter your invite code")
-      }
       internal enum Key {
         /// Your Void is encrypted by the Key
         internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.Title", fallback: "Your Void is encrypted by the Key")

@@ -6,20 +6,30 @@ final class AuthViewModel: ObservableObject {
     @Published var showJoinFlow: Bool = false
     @Published var showSafari: Bool = false
     @Published var opacity: Double = 1
+    @Published var creatingAccountInProgress = false
     
     var currentUrl: URL?
     
     // MARK: - Private
     
+    private let state: JoinFlowState
     private let viewControllerProvider: ViewControllerProviderProtocol
     private weak var output: AuthViewModelOutput?
+    private let authService: AuthServiceProtocol
+    private let seedService: SeedServiceProtocol
     
     init(
+        state: JoinFlowState,
         viewControllerProvider: ViewControllerProviderProtocol,
-        output: AuthViewModelOutput?
+        output: AuthViewModelOutput?,
+        authService: AuthServiceProtocol,
+        seedService: SeedServiceProtocol
     ) {
+        self.state = state
         self.viewControllerProvider = viewControllerProvider
         self.output = output
+        self.authService = authService
+        self.seedService = seedService
     }
     
     // MARK: - Public
@@ -37,8 +47,7 @@ final class AuthViewModel: ObservableObject {
     }
     
     func onJoinButtonTap() {
-        showJoinFlow.toggle()
-        changeContentOpacity(true)
+        createAccount()
     }
     
     func onJoinAction() -> AnyView? {
@@ -48,6 +57,36 @@ final class AuthViewModel: ObservableObject {
     func onUrlTapAction(_ url: URL) {
         currentUrl = url
         showSafari.toggle()
+    }
+    
+    private func createAccount() {
+        Task { @MainActor in
+            do {
+                creatingAccountInProgress = true
+                
+                state.mnemonic = try await authService.createWallet()
+                try await authService.createAccount(
+                    name: "",
+                    imagePath: "",
+                    alphaInviteCode: state.inviteCode
+                )
+                try? seedService.saveSeed(state.mnemonic)
+                
+                createAccountSuccess()
+            } catch {
+                createAccountError()
+            }
+        }
+    }
+    
+    private func createAccountSuccess() {
+        creatingAccountInProgress = false
+        showJoinFlow.toggle()
+        changeContentOpacity(true)
+    }
+    
+    private func createAccountError() {
+        creatingAccountInProgress = false
     }
     
     private func changeContentOpacity(_ hide: Bool) {

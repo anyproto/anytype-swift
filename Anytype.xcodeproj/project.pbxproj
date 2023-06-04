@@ -830,8 +830,6 @@
 		2EB97A1B28B64CDC002BBB39 /* SetListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB97A1A28B64CDC002BBB39 /* SetListViewCell.swift */; };
 		2EC669212A166FD1001F71BC /* JoinFlowStepOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC669202A166FD1001F71BC /* JoinFlowStepOutput.swift */; };
 		2EC669242A16755A001F71BC /* AuthCustomTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC669232A16755A001F71BC /* AuthCustomTransition.swift */; };
-		2EC669322A1791A1001F71BC /* InviteCodeViewModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC6692F2A1791A1001F71BC /* InviteCodeViewModuleAssembly.swift */; };
-		2EC669332A1791A1001F71BC /* InviteCodeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC669302A1791A1001F71BC /* InviteCodeViewModel.swift */; };
 		2EC9424F28F97F4D00DE91E4 /* GroupsSubscribeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC9424E28F97F4D00DE91E4 /* GroupsSubscribeService.swift */; };
 		2EC9425128F97F5E00DE91E4 /* GroupsSubscribeServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC9425028F97F5E00DE91E4 /* GroupsSubscribeServiceProtocol.swift */; };
 		2EC9425F2900351C00DE91E4 /* DataviewGroup+Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC9425E2900351C00DE91E4 /* DataviewGroup+Filter.swift */; };
@@ -2300,8 +2298,6 @@
 		2EB97A1A28B64CDC002BBB39 /* SetListViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetListViewCell.swift; sourceTree = "<group>"; };
 		2EC669202A166FD1001F71BC /* JoinFlowStepOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinFlowStepOutput.swift; sourceTree = "<group>"; };
 		2EC669232A16755A001F71BC /* AuthCustomTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCustomTransition.swift; sourceTree = "<group>"; };
-		2EC6692F2A1791A1001F71BC /* InviteCodeViewModuleAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InviteCodeViewModuleAssembly.swift; sourceTree = "<group>"; };
-		2EC669302A1791A1001F71BC /* InviteCodeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InviteCodeViewModel.swift; sourceTree = "<group>"; };
 		2EC9424E28F97F4D00DE91E4 /* GroupsSubscribeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsSubscribeService.swift; sourceTree = "<group>"; };
 		2EC9425028F97F5E00DE91E4 /* GroupsSubscribeServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsSubscribeServiceProtocol.swift; sourceTree = "<group>"; };
 		2EC9425E2900351C00DE91E4 /* DataviewGroup+Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataviewGroup+Filter.swift"; sourceTree = "<group>"; };
@@ -5711,7 +5707,6 @@
 				2E9B40612A1FAA8B00A7D74E /* AuthMultilineTextField */,
 				2E52DE6F2A1CEAEB00F16815 /* JoinFlowInputView */,
 				2E52DE6A2A1CE74500F16815 /* SoulView */,
-				2EC6692E2A1791A1001F71BC /* InviteCodeView */,
 				2EDC2B022A13E48F0065E009 /* KeyPhraseView */,
 				2EDC2AF52A1251C90065E009 /* VoidView */,
 				2E0797B12A0940F8006F0FD7 /* JoinFlowView.swift */,
@@ -6044,15 +6039,6 @@
 				2EC669232A16755A001F71BC /* AuthCustomTransition.swift */,
 			);
 			path = Transition;
-			sourceTree = "<group>";
-		};
-		2EC6692E2A1791A1001F71BC /* InviteCodeView */ = {
-			isa = PBXGroup;
-			children = (
-				2EC6692F2A1791A1001F71BC /* InviteCodeViewModuleAssembly.swift */,
-				2EC669302A1791A1001F71BC /* InviteCodeViewModel.swift */,
-			);
-			path = InviteCodeView;
 			sourceTree = "<group>";
 		};
 		2EC9424928F97F2A00DE91E4 /* GroupsSubscribeService */ = {
@@ -9191,7 +9177,6 @@
 				2AEABE0728C7559500BDE3AC /* RelationEventConverter.swift in Sources */,
 				2E975EEC287C23DA004DE574 /* SetSortsSearchInteractor.swift in Sources */,
 				2E7C445F2891755A0062287C /* SetFiltersDateViewModel.swift in Sources */,
-				2EC669332A1791A1001F71BC /* InviteCodeViewModel.swift in Sources */,
 				12B0FF71274FD6D700CA35FE /* AppIconManager.swift in Sources */,
 				2A03632029FBEEC200CE3116 /* FileStorageModuleAssembly.swift in Sources */,
 				3D16841426DD672E008B9DFF /* BlockSmartblockConverter.swift in Sources */,
@@ -9465,7 +9450,6 @@
 				125B6ECF26F235F400BCD7D6 /* SlashMenuViewController.swift in Sources */,
 				2A03039F28ABD4BD002EFC46 /* SystemURLService.swift in Sources */,
 				2AC906DF29B6289A00209E39 /* RecentListWidgetModuleAssembly.swift in Sources */,
-				2EC669322A1791A1001F71BC /* InviteCodeViewModuleAssembly.swift in Sources */,
 				2A1F949B297961A300E25782 /* BundledRelationKey+CommonKeys.swift in Sources */,
 				2AFD69D72987BC240006D792 /* WidgetTypeInternalViewModelProtocol.swift in Sources */,
 				2E2D256128880C8D00E3DFD1 /* SetFiltersSelectionViewState.swift in Sources */,
