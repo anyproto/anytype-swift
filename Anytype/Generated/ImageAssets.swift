@@ -59,6 +59,10 @@ internal extension ImageAsset {
     static let personalization = ImageAsset.bundle(name: "Settings/Personalization")
     static let pinCode = ImageAsset.bundle(name: "Settings/PinCode")
   }
+  enum TaskLayout {
+    static let done = ImageAsset.bundle(name: "TaskLayout/Done")
+    static let empty = ImageAsset.bundle(name: "TaskLayout/Empty")
+  }
   enum TextStyles {
     enum Align {
       static let center = ImageAsset.bundle(name: "TextStyles/Align/Center")
@@ -229,8 +233,6 @@ internal extension ImageAsset {
   }
   static let taskChecked = ImageAsset.bundle(name: "task_checked")
   static let taskUnchecked = ImageAsset.bundle(name: "task_unchecked")
-  static let todoCheckbox = ImageAsset.bundle(name: "todo_checkbox")
-  static let todoCheckmark = ImageAsset.bundle(name: "todo_checkmark")
   static let delete = ImageAsset.bundle(name: "delete")
   static let linkToItself = ImageAsset.bundle(name: "link_to_itself")
   static let relationAddToFeatured = ImageAsset.bundle(name: "relation_add_to_featured")
