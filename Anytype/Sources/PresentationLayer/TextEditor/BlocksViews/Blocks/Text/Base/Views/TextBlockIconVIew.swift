@@ -60,12 +60,8 @@ final class TextBlockIconView: UIView {
         case let .checkbox(isSelected):
             currentView = createCheckboxView(
                 isSelected: isSelected,
-                uncheckedImage: UIImage(
-                    imageLiteralResourceName: Constants.Checkbox.uncheckedImageName
-                ),
-                checkedImage: UIImage(
-                    imageLiteralResourceName: Constants.Checkbox.checkedImageName
-                ),
+                uncheckedImage: UIImage(asset: .TextEditor.Text.unchecked),
+                checkedImage: UIImage(asset: .TextEditor.Text.checked),
                 viewSize: Constants.size,
                 imageSize: Constants.Checkbox.imageSize
             )
@@ -99,11 +95,9 @@ extension TextBlockIconView {
     private func createToggleView() -> UIButton {
         let toggleButton = UIButton(type: .custom)
 
-        let originalImage = UIImage(
-            imageLiteralResourceName: Constants.Toggle.foldedImageName
-        ).withTintColor(.Text.primary)
+        let originalImage = UIImage(asset: .TextEditor.Text.folded)?.withTintColor(.Text.primary)
 
-        let transformedImage = originalImage
+        let transformedImage = originalImage?
             .rotate(radians: .pi/2)
             .withTintColor(.Text.primary)
 
@@ -143,6 +137,7 @@ extension TextBlockIconView {
             ),
             for: .touchUpInside
         )
+        checkboxView.tintColor = .Button.active
 
         addSubview(checkboxView) {
             $0.width.equal(to: viewSize.width)
@@ -233,17 +228,11 @@ private extension TextBlockIconView {
             static let viewSize = CGSize(width: 28, height: 32) // height is equel to height of 1 line in text view
         }
         enum Checkbox {
-            static let checkedImageName = "TextEditor/Text/checked"
-            static let uncheckedImageName = "TextEditor/Text/unchecked"
             static let imageSize = CGSize(width: 18, height: 18)
         }
 
         enum Numbered {
             static let numberToPlaceTextLeft: Int = 20
-        }
-
-        enum Toggle {
-            static let foldedImageName = "TextEditor/Text/folded"
         }
     }
 }
