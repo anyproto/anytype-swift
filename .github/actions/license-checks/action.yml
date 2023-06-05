@@ -5,7 +5,7 @@ runs:
     - name: Setup license repository
       uses: actions/checkout@master
       with:
-        repository: anytypeio/open
+        repository: anyproto/open
         ref: refs/heads/main
         path: ./build/open
 
