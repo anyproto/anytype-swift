@@ -58,7 +58,8 @@ final class BeginingOfTextMarkdownListener: MarkdownListener {
         
         anytypeAssert(
             shortcutLength <= text.string.count,
-            "Shortcut length: \(shortcutLength) for type: \(type) is bigger then  string length: \(text.string)"
+            "Shortcut length is bigger then string length",
+            info: ["shortcutLength": "\(shortcutLength)", "type": "\(type)", "string": text.string]
         )
         
         text.mutableString.deleteCharacters(
@@ -71,7 +72,7 @@ final class BeginingOfTextMarkdownListener: MarkdownListener {
         case .divider:
             return .addBlock(type: type, text: text)
         default:
-            anytypeAssertionFailure("Markdown change not supported. Type: \(type)")
+            anytypeAssertionFailure("Markdown change not supported", info: ["type": "\(type)"])
             return .turnInto(.text, text: string)
         }
     }

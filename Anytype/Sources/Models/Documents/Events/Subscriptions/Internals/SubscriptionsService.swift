@@ -126,7 +126,7 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
                 guard
                     let details = storage.get(id: data.id)
                 else {
-                    anytypeAssertionFailure("No details found for id \(data.id)")
+                    anytypeAssertionFailure("No details found", info: ["id": data.id])
                     return
                 }
                 

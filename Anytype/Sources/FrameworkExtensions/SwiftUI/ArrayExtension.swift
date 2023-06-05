@@ -38,7 +38,7 @@ extension Array {
     
     mutating func moveElement(from: Index, to: Index) {
         guard from <= count else {
-            anytypeAssertionFailure("Move element \(from) bigger then \(count)")
+            anytypeAssertionFailure("Move element bigger", info: ["from": "\(from)", "count": "\(count)"])
             return
         }
         

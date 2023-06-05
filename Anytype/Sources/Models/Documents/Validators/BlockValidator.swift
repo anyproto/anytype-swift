@@ -57,7 +57,7 @@ struct BlockValidator {
             case .emoji:
                 return restrictions.canApplyEmoji
             case .UNRECOGNIZED:
-                anytypeAssertionFailure("Unsuppored mark \(mark)")
+                anytypeAssertionFailure("Unsuppored mark", info: ["mark": "\(mark)"])
                 return false
             }
         }

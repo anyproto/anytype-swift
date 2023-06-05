@@ -18,11 +18,11 @@ final class LocalEventConverter {
             return blockSetTextUpdate(blockId: blockId, text: text)
         case .setLoadingState(blockId: let blockId):
             guard var info = infoContainer.get(id: blockId) else {
-                anytypeAssertionFailure("setLoadingState. Can't find model by id \(blockId)")
+                anytypeAssertionFailure("setLoadingState. Can't find model", info: ["blockId": "\(blockId)"])
                 return nil
             }
             guard case var .file(content) = info.content else {
-                anytypeAssertionFailure("Not file content of block \(blockId) for setLoading action")
+                anytypeAssertionFailure("Not file content of block for setLoading action", info: ["blockId": "\(blockId)"])
                 return nil
             }
             
@@ -42,11 +42,11 @@ final class LocalEventConverter {
     // only text is changed
     private func blockSetTextUpdate(blockId: BlockId, text: MiddlewareString) -> DocumentUpdate {
         guard var info = infoContainer.get(id: blockId) else {
-            anytypeAssertionFailure("Block model with id \(blockId) not found in container")
+            anytypeAssertionFailure("Block model not found in container", info: ["blockId": "\(blockId)"])
             return .general
         }
         guard case let .text(oldText) = info.content else {
-            anytypeAssertionFailure("Block model doesn't support text:\n \(info)")
+            anytypeAssertionFailure("Block model doesn't support text", info: ["contentType": "\(info.content.type)"])
             return .general
         }
         
@@ -61,7 +61,7 @@ final class LocalEventConverter {
         }
         
         guard var textContent = middleContent.textContent else {
-            anytypeAssertionFailure("We cannot block content from: \(middleContent)")
+            anytypeAssertionFailure("We cannot block content")
             return .general
         }
 
