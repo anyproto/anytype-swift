@@ -497,6 +497,21 @@ extension Anytype_Rpc.BlockVideo.SetWidth.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }
 }
 
+extension Anytype_Rpc.BlockWidget.SetLayout.Response: ResultWithError {}
+extension Anytype_Rpc.BlockWidget.SetLayout.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null }
+}
+
+extension Anytype_Rpc.BlockWidget.SetLimit.Response: ResultWithError {}
+extension Anytype_Rpc.BlockWidget.SetLimit.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null }
+}
+
+extension Anytype_Rpc.BlockWidget.SetTargetId.Response: ResultWithError {}
+extension Anytype_Rpc.BlockWidget.SetTargetId.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null }
+}
+
 extension Anytype_Rpc.Debug.ExportLocalstore.Response: ResultWithError {}
 extension Anytype_Rpc.Debug.ExportLocalstore.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }
