@@ -91,6 +91,15 @@
       }
     },
     {
+      "identity" : "swift-async-queue",
+      "kind" : "remoteSourceControl",
+      "location" : "git@github.com:dfed/swift-async-queue.git",
+      "state" : {
+        "revision" : "63c36d76e66940de6ae0b20c7cc162bec6e4d8c1",
+        "version" : "0.3.1"
+      }
+    },
+    {
       "identity" : "swift-collections",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-collections.git",
