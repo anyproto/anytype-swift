@@ -48,7 +48,7 @@ public extension FeatureDescription {
         debugValue: true
     )
     
-    static let sortIncludeType = FeatureDescription(
+    static let sortIncludeTime = FeatureDescription(
         title: "Sort include time",
         type: .feature(author: "m@anytype.io", releaseVersion: "0.23.0"),
         defaultValue: false

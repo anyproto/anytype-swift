@@ -34,8 +34,8 @@ public extension FeatureFlags {
         value(for: .redesignAbout)
     }
 
-    static var sortIncludeType: Bool {
-        value(for: .sortIncludeType)
+    static var sortIncludeTime: Bool {
+        value(for: .sortIncludeTime)
     }
 
     static var rainbowViews: Bool {
@@ -63,7 +63,7 @@ public extension FeatureFlags {
         .fileStorage,
         .newAuthorization,
         .redesignAbout,
-        .sortIncludeType,
+        .sortIncludeTime,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
