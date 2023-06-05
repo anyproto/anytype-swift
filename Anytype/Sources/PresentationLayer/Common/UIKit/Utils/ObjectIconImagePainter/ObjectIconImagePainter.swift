@@ -12,10 +12,10 @@ final class ObjectIconImagePainter {
 
 extension ObjectIconImagePainter: ObjectIconImagePainterProtocol {
     
-    func todoImage(isChecked: Bool, imageGuideline: ImageGuideline) -> UIImage {
+    func todoImage(isChecked: Bool, imageGuideline: ImageGuideline, tintColor: UIColor) -> UIImage {
         let hash = "todo.\(isChecked).\(imageGuideline.identifier)"
         let image = UIImage(asset: isChecked ? .todoCheckmark : .todoCheckbox) ?? UIImage()
-        return draw(hash: hash, image: image, imageGuideline: imageGuideline)
+        return draw(hash: hash, image: image, imageGuideline: imageGuideline, tintColor: tintColor)
     }
     
     func staticImage(imageAsset: ImageAsset, imageGuideline: ImageGuideline, tintColor: UIColor?) -> UIImage {

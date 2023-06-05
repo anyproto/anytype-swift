@@ -44,10 +44,10 @@ final class TextBlockIconView: UIView {
             let imageGuideline = ObjectIconImageUsecase.openedObject.objectIconImageGuidelineSet.todoImageGuideline
             
             let uncheckedImage: UIImage? = imageGuideline.flatMap {
-                painer.todoImage(isChecked: false, imageGuideline: $0)
+                painer.todoImage(isChecked: false, imageGuideline: $0, tintColor: .Button.active)
             }
             let checkedImage: UIImage? = imageGuideline.flatMap {
-                painer.todoImage(isChecked: true, imageGuideline: $0)
+                painer.todoImage(isChecked: true, imageGuideline: $0, tintColor: .Button.active)
             }
             
             currentView = createCheckboxView(

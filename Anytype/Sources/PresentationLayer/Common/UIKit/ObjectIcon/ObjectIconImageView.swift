@@ -40,7 +40,7 @@ extension ObjectIconImageView: ConfigurableView {
             handleObjectIconType(objectIconType, model: model)
         case .todo(let isChecked):
             let image: UIImage? = model.imageGuideline.flatMap {
-                painter.todoImage(isChecked: isChecked, imageGuideline: $0)
+                painter.todoImage(isChecked: isChecked, imageGuideline: $0, tintColor: .Button.active)
             }
             imageView.wrapper.setImage(image)
         case .placeholder(let character):
