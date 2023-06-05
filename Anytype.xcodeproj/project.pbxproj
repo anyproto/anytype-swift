@@ -10886,9 +10886,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "git@github.com:dfed/swift-async-queue.git";
 			requirement = {
-				kind = versionRange;
-				maximumVersion = 1.0.0;
-				minimumVersion = 0.4.0;
+				kind = exactVersion;
+				version = 0.4.0;
 			};
 		};
 		2A94B5D129B88E95009AE2A7 /* XCRemoteSwiftPackageReference "sentry-cocoa" */ = {
