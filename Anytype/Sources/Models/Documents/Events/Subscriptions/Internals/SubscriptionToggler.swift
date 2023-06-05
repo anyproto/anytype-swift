@@ -35,7 +35,7 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
         let result = try await ClientCommands.objectSearchSubscribe(.with {
             $0.subID = data.identifier.value
             $0.filters = data.filters
-            $0.sorts = data.sorts
+            $0.sorts = data.sorts.map { $0.fixIncludeTime() }
             $0.limit = Int64(data.limit)
             $0.offset = Int64(data.offset)
             $0.keys = data.keys

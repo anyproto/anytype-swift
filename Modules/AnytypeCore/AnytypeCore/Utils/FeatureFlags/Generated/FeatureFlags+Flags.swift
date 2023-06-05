@@ -34,6 +34,10 @@ public extension FeatureFlags {
         value(for: .redesignAbout)
     }
 
+    static var sortIncludeType: Bool {
+        value(for: .sortIncludeType)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -59,6 +63,7 @@ public extension FeatureFlags {
         .fileStorage,
         .newAuthorization,
         .redesignAbout,
+        .sortIncludeType,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
