@@ -245,7 +245,6 @@ internal extension ImageAsset {
   static let webPage = ImageAsset.bundle(name: "web_page")
   static let setImagePlaceholder = ImageAsset.bundle(name: "set_image_placeholder")
   static let setOpenToEdit = ImageAsset.bundle(name: "set_open_to_edit")
-  static let setPenEdit = ImageAsset.bundle(name: "set_pen_edit")
   enum SettingsOld {
     enum Theme {
       static let dark = ImageAsset.bundle(name: "SettingsOld/Theme/dark")
