@@ -38,10 +38,10 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
         taskQueue.enqueue { [weak self] in
             guard let self = self else { return }
             
-            guard required || hasSubscriptionDataDiff(with: data) else { return }
+            guard required || self.hasSubscriptionDataDiff(with: data) else { return }
             
-            await unsafeStopSubscriptions(ids: [data.identifier])
-            await unsafeStartSubscription(data: data, update: update)
+            await self.unsafeStopSubscriptions(ids: [data.identifier])
+            await self.unsafeStartSubscription(data: data, update: update)
         }
     }
     
@@ -49,8 +49,8 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
         taskQueue.enqueue { [weak self] in
             guard let self = self else { return }
             
-            let ids = Array(subscribers.keys)
-            stopSubscriptions(ids: ids)
+            let ids = Array(self.subscribers.keys)
+            self.stopSubscriptions(ids: ids)
         }
     }
     
@@ -58,12 +58,12 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
         taskQueue.enqueue { [weak self] in
             guard let self = self else { return }
             
-            let idsToDelete = subscribers.keys.filter { ids.contains($0) }
+            let idsToDelete = self.subscribers.keys.filter { ids.contains($0) }
             guard idsToDelete.isNotEmpty else { return }
             
-            try? await toggler.stopSubscriptions(ids: idsToDelete)
+            try? await self.toggler.stopSubscriptions(ids: idsToDelete)
             for id in idsToDelete {
-                subscribers[id] = nil
+                self.subscribers[id] = nil
             }
         }
     }
