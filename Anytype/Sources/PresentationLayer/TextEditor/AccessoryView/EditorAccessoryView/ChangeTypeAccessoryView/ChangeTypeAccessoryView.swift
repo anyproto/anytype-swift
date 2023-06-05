@@ -15,7 +15,8 @@ class ChangeTypeAccessoryView: UIView {
     let viewModel: ChangeTypeAccessoryViewModel
 
     private let topView = UIView(frame: .zero)
-    private let changeTypeView: UIView
+    private let changeTypeViewSource: UIView
+    private let changeTypeView = UIView()
     private lazy var stackView = UIStackView()
     private var cancellables = [AnyCancellable]()
 
@@ -25,7 +26,7 @@ class ChangeTypeAccessoryView: UIView {
 
     init(viewModel: ChangeTypeAccessoryViewModel, changeTypeView: UIView) {
         self.viewModel = viewModel
-        self.changeTypeView = changeTypeView
+        self.changeTypeViewSource = changeTypeView
 
         super.init(frame: .zero)
 
@@ -37,7 +38,7 @@ class ChangeTypeAccessoryView: UIView {
         backgroundColor = .Background.primary
 
         addSubview(stackView) {
-            $0.pinToSuperviewPreservingReadability() 
+            $0.pinToSuperviewPreservingReadability(excluding: [.bottom])
         }
 
         topView.addSubview(doneButton) {
@@ -64,6 +65,11 @@ class ChangeTypeAccessoryView: UIView {
         stackView.addArrangedSubview(dividerView)
         stackView.addArrangedSubview(changeTypeView)
 
+        // Fix swiftui animation
+        changeTypeView.addSubview(changeTypeViewSource) {
+            $0.pinToSuperview(excluding: [.bottom])
+        }
+        
         let changeTypeViewHeightConstraint = changeTypeView.heightAnchor.constraint(equalToConstant: 96)
         changeTypeViewHeightConstraint.isActive = true
         changeTypeViewHeightConstraint.priority = .init(rawValue: 999)
