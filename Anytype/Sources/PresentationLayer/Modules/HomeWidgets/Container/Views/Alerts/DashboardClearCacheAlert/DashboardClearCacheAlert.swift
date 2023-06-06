@@ -1,4 +1,5 @@
 import SwiftUI
+import AnytypeCore
 
 struct DashboardClearCacheAlert: View {
     @ObservedObject var model: DashboardClearCacheAlertModel
@@ -6,12 +7,12 @@ struct DashboardClearCacheAlert: View {
     
     var body: some View {
         FloaterAlertView(
-            title: Loc.clearCache,
-            description: Loc.clearCacheDescription,
+            title: FeatureFlags.fileStorage ? Loc.ClearCacheAlert.title : Loc.clearCache,
+            description: FeatureFlags.fileStorage ? Loc.ClearCacheAlert.description : Loc.clearCacheDescription,
             leftButtonData: StandardButtonModel(text: Loc.cancel, style: .secondaryLarge) {
                 presentationMode.wrappedValue.dismiss()
             },
-            rightButtonData: StandardButtonModel(text: Loc.clear, style: .warningLarge) {
+            rightButtonData: StandardButtonModel(text: FeatureFlags.fileStorage ? Loc.delete : Loc.clear, style: .warningLarge) {
                 model.runClear {
                     presentationMode.wrappedValue.dismiss()
                 }
