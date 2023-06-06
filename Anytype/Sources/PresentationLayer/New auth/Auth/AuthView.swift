@@ -19,6 +19,7 @@ struct AuthView: View {
                     }
                 }
                 .background(TransparentBackground())
+                .fitIPadToReadableContentGuide()
         }
     }
     

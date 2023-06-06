@@ -9,13 +9,14 @@ struct JoinFlowView: View {
         GeometryReader { geo in
             content(height: geo.size.height)
         }
+        .fitIPadToReadableContentGuide()
     }
     
     private func content(height: CGFloat) -> some View {
         VStack(spacing: 0) {
             navigationBar
             
-            Spacer.fixedHeight(height / 4)
+            Spacer.fixedHeight(height / Constants.offsetFactor)
             
             model.content()
                 .transition(model.forward ? .moveAndFadeForward: .moveAndFadeBack)
@@ -72,5 +73,11 @@ struct JoinFlowView_Previews : PreviewProvider {
                 applicationStateService: DI.preview.serviceLocator.applicationStateService()
             )
         )
+    }
+}
+
+extension JoinFlowView {
+    enum Constants {
+        static let offsetFactor = UIDevice.isPad ? 3.0 : 4.0
     }
 }
