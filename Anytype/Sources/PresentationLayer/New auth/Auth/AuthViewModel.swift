@@ -8,8 +8,6 @@ final class AuthViewModel: ObservableObject {
     @Published var opacity: Double = 1
     @Published var creatingAccountInProgress = false
     
-    var currentUrl: URL?
-    
     // MARK: - Private
     
     private let state: JoinFlowState
@@ -55,8 +53,7 @@ final class AuthViewModel: ObservableObject {
     }
     
     func onUrlTapAction(_ url: URL) {
-        currentUrl = url
-        showSafari.toggle()
+        output?.onUrlAction(url)
     }
     
     private func createAccount() {

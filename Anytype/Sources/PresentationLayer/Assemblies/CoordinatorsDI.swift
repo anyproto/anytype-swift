@@ -91,7 +91,7 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     }
     
     func authorization() -> AuthCoordinatorAssemblyProtocol {
-        return AuthCoordinatorAssembly(modulesDI: modulesDI, coordinatorsID: self)
+        return AuthCoordinatorAssembly(modulesDI: modulesDI, coordinatorsID: self, uiHelpersDI: uiHelpersDI)
     }
     
     func joinFlow() -> JoinFlowCoordinatorAssemblyProtocol {

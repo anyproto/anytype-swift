@@ -11,10 +11,16 @@ final class AuthCoordinatorAssembly: AuthCoordinatorAssemblyProtocol {
     
     private let modulesDI: ModulesDIProtocol
     private let coordinatorsID: CoordinatorsDIProtocol
+    private let uiHelpersDI: UIHelpersDIProtocol
     
-    init(modulesDI: ModulesDIProtocol, coordinatorsID: CoordinatorsDIProtocol) {
+    init(
+        modulesDI: ModulesDIProtocol,
+        coordinatorsID: CoordinatorsDIProtocol,
+        uiHelpersDI: UIHelpersDIProtocol
+    ) {
         self.modulesDI = modulesDI
         self.coordinatorsID = coordinatorsID
+        self.uiHelpersDI = uiHelpersDI
     }
     
     // MARK: - HomeWidgetsCoordinatorAssemblyProtocol
@@ -23,7 +29,8 @@ final class AuthCoordinatorAssembly: AuthCoordinatorAssemblyProtocol {
     func make() -> AuthCoordinatorProtocol {
         return AuthCoordinator(
             authModuleAssembly: modulesDI.authorization(),
-            joinFlowCoordinator: coordinatorsID.joinFlow().make()
+            joinFlowCoordinator: coordinatorsID.joinFlow().make(),
+            urlOpener: uiHelpersDI.urlOpener()
         )
     }
 }

@@ -13,11 +13,6 @@ struct AuthView: View {
                 .onAppear {
                     model.onViewAppear()
                 }
-                .sheet(isPresented: $model.showSafari) {
-                    if let currentUrl = model.currentUrl {
-                        SafariView(url: currentUrl)
-                    }
-                }
                 .background(TransparentBackground())
                 .fitIPadToReadableContentGuide()
         }
@@ -30,9 +25,7 @@ struct AuthView: View {
             Spacer()
             buttons
             Spacer.fixedHeight(16)
-            if #available(iOS 15.0, *) {
-                privacyPolicy
-            }
+            privacyPolicy
             Spacer.fixedHeight(14)
         }
         .padding(.horizontal, 30)
@@ -73,7 +66,6 @@ struct AuthView: View {
         }
     }
     
-    @available(iOS 15.0, *)
     private var privacyPolicy: some View {
         AnytypeText(
             Loc.Auth.Caption.Privacy.text(AboutApp.termsLink, AboutApp.privacyLink),

@@ -12,14 +12,20 @@ final class AuthCoordinator: AuthCoordinatorProtocol, AuthViewModelOutput {
     
     private let authModuleAssembly: AuthModuleAssemblyProtocol
     private let joinFlowCoordinator: JoinFlowCoordinatorProtocol
+    private let urlOpener: URLOpenerProtocol
     
     // MARK: - State
     
     private let state = JoinFlowState()
     
-    init(authModuleAssembly: AuthModuleAssemblyProtocol, joinFlowCoordinator: JoinFlowCoordinatorProtocol) {
+    init(
+        authModuleAssembly: AuthModuleAssemblyProtocol,
+        joinFlowCoordinator: JoinFlowCoordinatorProtocol,
+        urlOpener: URLOpenerProtocol
+    ) {
         self.authModuleAssembly = authModuleAssembly
         self.joinFlowCoordinator = joinFlowCoordinator
+        self.urlOpener = urlOpener
     }
     
     // MARK: - AuthCoordinatorProtocol
@@ -34,4 +40,7 @@ final class AuthCoordinator: AuthCoordinatorProtocol, AuthViewModelOutput {
         joinFlowCoordinator.startFlow(with: state)
     }
     
+    func onUrlAction(_ url: URL) {
+        urlOpener.openUrl(url, presentationStyle: .popover)
+    }
 }
