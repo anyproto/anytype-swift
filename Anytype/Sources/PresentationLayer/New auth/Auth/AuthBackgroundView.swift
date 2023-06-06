@@ -9,7 +9,7 @@ struct AuthBackgroundView<Content>: View where Content: View {
 
     var body: some View {
         GeometryReader { geo in
-            let topOffset = geo.size.height / 6
+            let topOffset = geo.size.height / 6.5
             let bottomOffset = geo.size.height / 4
             let height = geo.size.height - topOffset - bottomOffset
             backgroundView(
@@ -55,7 +55,7 @@ struct AuthBackgroundView<Content>: View where Content: View {
     private func playerView(width: CGFloat, height: CGFloat) -> some View {
         if let url {
             LoopingPlayerView(url: url)
-                .aspectRatio(UIDevice.isPad ? 0.7 : 0.5, contentMode: .fill)
+                .aspectRatio(UIDevice.isPad ? 0.7 : 0.53, contentMode: .fill)
                 .frame(width: width, height: height)
         }
     }
