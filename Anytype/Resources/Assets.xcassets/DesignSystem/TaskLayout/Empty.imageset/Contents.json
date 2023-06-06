@@ -1,12 +1,15 @@
 {
   "images" : [
     {
-      "filename" : "set_pen_edit.pdf",
+      "filename" : "task 0_h1.pdf",
       "idiom" : "universal"
     }
   ],
   "info" : {
     "author" : "xcode",
     "version" : 1
+  },
+  "properties" : {
+    "template-rendering-intent" : "template"
   }
 }
