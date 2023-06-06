@@ -14,6 +14,8 @@ struct JoinFlowView: View {
     
     private func content(height: CGFloat) -> some View {
         VStack(spacing: 0) {
+            Spacer.fixedHeight(14)
+            
             navigationBar
             
             Spacer.fixedHeight(height / Constants.offsetFactor)
@@ -29,13 +31,11 @@ struct JoinFlowView: View {
     }
     
     private var navigationBar : some View {
-        VStack {
-            Spacer.fixedHeight(13)
+        VStack(spacing: 13) {
             LineProgressBar(
                 percent: model.percent,
                 configuration: model.progressBarConfiguration
             )
-            Spacer.fixedHeight(13)
             HStack {
                 backButton
                 Spacer()

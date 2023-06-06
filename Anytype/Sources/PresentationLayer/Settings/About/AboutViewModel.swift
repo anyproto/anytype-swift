@@ -7,15 +7,6 @@ import AudioToolbox
 @MainActor
 final class AboutViewModel: ObservableObject {
     
-    private enum Constants {
-        static let whatsNewLink = "https://anytype.io/release-notes/ios"
-        static let communityLink = "https://community.anytype.io"
-        static let helpLink = "https://doc.anytype.io/"
-        static let termsLink = "https://anytype.io/terms.pdf"
-        static let privacyLink = "https://anytype.io/Anytype_Privacy_Statement.pdf"
-        static let mailTo = "support@anytype.io"
-    }
-    
     // MARK: - DI
     
     private let middlewareConfigurationProvider: MiddlewareConfigurationProviderProtocol
@@ -47,23 +38,23 @@ final class AboutViewModel: ObservableObject {
     
     func onWhatsNewTap() {
         AnytypeAnalytics.instance().logHelpAndCommunity(type: .whatIsNew)
-        handleUrl(string: Constants.whatsNewLink)
+        handleUrl(string: AboutApp.whatsNewLink)
     }
     
     func onCommunityTap() {
         AnytypeAnalytics.instance().logHelpAndCommunity(type: .anytypeCommunity)
-        handleUrl(string: Constants.communityLink)
+        handleUrl(string: AboutApp.communityLink)
     }
     
     func onHelpTap() {
         AnytypeAnalytics.instance().logHelpAndCommunity(type: .helpAndTutorials)
-        handleUrl(string: Constants.helpLink)
+        handleUrl(string: AboutApp.helpLink)
     }
     
     func onContactTap() {
         AnytypeAnalytics.instance().logHelpAndCommunity(type: .contactUs)
         let mailLink = MailUrl(
-            to: Constants.mailTo,
+            to: AboutApp.mailTo,
             subject: Loc.About.Mail.subject(accountManager.account.id),
             body: Loc.About.Mail.body(fullInfo())
         )
@@ -73,12 +64,12 @@ final class AboutViewModel: ObservableObject {
     
     func onTermOfUseTap() {
         AnytypeAnalytics.instance().logLegal(type: .termsOfUse)
-        handleUrl(string: Constants.termsLink)
+        handleUrl(string: AboutApp.termsLink)
     }
     
     func onPrivacyPolicyTap() {
         AnytypeAnalytics.instance().logLegal(type: .privacyPolicy)
-        handleUrl(string: Constants.privacyLink)
+        handleUrl(string: AboutApp.privacyLink)
     }
     
     func onInfoTap() {

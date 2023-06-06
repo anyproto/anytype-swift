@@ -76,7 +76,7 @@ struct AuthView: View {
     @available(iOS 15.0, *)
     private var privacyPolicy: some View {
         AnytypeText(
-            Loc.Auth.Caption.Privacy.text(Constants.termsOfUseUrl, Constants.privacyPolicy),
+            Loc.Auth.Caption.Privacy.text(AboutApp.termsLink, AboutApp.privacyLink),
             style: .authCaption,
             color: .Auth.caption
         )
@@ -89,14 +89,6 @@ struct AuthView: View {
         })
     }
 }
-
-extension AuthView {
-    enum Constants {
-        static let termsOfUseUrl = "https://anytype.io/en"
-        static let privacyPolicy = "https://anytype.io/en/manifesto"
-    }
-}
-
 
 struct AuthView_Previews : PreviewProvider {
     static var previews: some View {
