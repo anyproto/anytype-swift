@@ -27,13 +27,13 @@ enum SlashActionOther: CaseIterable, Equatable {
     var iconAsset: ImageAsset {
         switch self {
         case .dotsDivider:
-            return .slashMenuDotsDivider
+            return .X40.Divider.dots
         case .lineDivider:
-            return .slashMenuLineDivider
+            return .X40.Divider.line
         case .tableOfContents:
-            return .slashMenuTableOfContents
+            return .X32.tableOfContents
         case .table:
-            return .slashMenuTable
+            return .X40.simpleTables
         }
     }
     

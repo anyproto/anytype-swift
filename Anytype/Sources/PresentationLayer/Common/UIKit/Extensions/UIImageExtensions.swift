@@ -410,7 +410,7 @@ extension UIImage {
     
     func applyTint(color: UIColor?) -> UIImage {
         if let color, renderingMode == .alwaysTemplate {
-            return withTintColor(color)
+            return self.withTintColor(color).withRenderingMode(.alwaysOriginal)
         }
         return self
     }
