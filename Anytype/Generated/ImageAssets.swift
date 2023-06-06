@@ -225,6 +225,47 @@ internal extension ImageAsset {
     }
     static let view = ImageAsset.bundle(name: "x32/View")
   }
+  enum X40 {
+    static let actions = ImageAsset.bundle(name: "x40/Actions")
+    static let attachment = ImageAsset.bundle(name: "x40/Attachment")
+    static let audio = ImageAsset.bundle(name: "x40/Audio")
+    static let bold = ImageAsset.bundle(name: "x40/Bold")
+    static let bookmark = ImageAsset.bundle(name: "x40/Bookmark")
+    static let bulleted = ImageAsset.bundle(name: "x40/Bulleted")
+    static let callout = ImageAsset.bundle(name: "x40/Callout")
+    static let checkbox = ImageAsset.bundle(name: "x40/Checkbox")
+    static let codeSnippet = ImageAsset.bundle(name: "x40/Code Snippet")
+    static let code = ImageAsset.bundle(name: "x40/Code")
+    enum Divider {
+      static let dots = ImageAsset.bundle(name: "x40/Divider/Dots")
+      static let line = ImageAsset.bundle(name: "x40/Divider/Line")
+    }
+    static let heading = ImageAsset.bundle(name: "x40/Heading")
+    static let highlighted = ImageAsset.bundle(name: "x40/Highlighted")
+    static let italic = ImageAsset.bundle(name: "x40/Italic")
+    static let linkToExistingObject = ImageAsset.bundle(name: "x40/Link to Existing Object")
+    static let link = ImageAsset.bundle(name: "x40/Link")
+    static let media = ImageAsset.bundle(name: "x40/Media")
+    static let numbered = ImageAsset.bundle(name: "x40/Numbered")
+    static let objects = ImageAsset.bundle(name: "x40/Objects")
+    static let other = ImageAsset.bundle(name: "x40/Other")
+    static let picture = ImageAsset.bundle(name: "x40/Picture")
+    static let relations = ImageAsset.bundle(name: "x40/Relations")
+    static let strikethrough = ImageAsset.bundle(name: "x40/Strikethrough")
+    enum Style {
+      static let bullet = ImageAsset.bundle(name: "x40/Style/Bullet")
+      static let checkbox = ImageAsset.bundle(name: "x40/Style/Checkbox")
+      static let numbered = ImageAsset.bundle(name: "x40/Style/Numbered")
+      static let toggle = ImageAsset.bundle(name: "x40/Style/Toggle")
+    }
+    static let style = ImageAsset.bundle(name: "x40/Style")
+    static let subheading = ImageAsset.bundle(name: "x40/Subheading")
+    static let text = ImageAsset.bundle(name: "x40/Text")
+    static let title = ImageAsset.bundle(name: "x40/Title")
+    static let toggle = ImageAsset.bundle(name: "x40/Toggle")
+    static let underline = ImageAsset.bundle(name: "x40/Underline")
+    static let video = ImageAsset.bundle(name: "x40/Video")
+  }
   enum Emoji {
     }
   static let createNewObject = ImageAsset.bundle(name: "createNewObject")
