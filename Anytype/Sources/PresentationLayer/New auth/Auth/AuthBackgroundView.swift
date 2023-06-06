@@ -31,7 +31,6 @@ struct AuthBackgroundView<Content>: View where Content: View {
         VStack(spacing: 0) {
             Spacer.fixedHeight(topOffset)
             playerView(width: width, height: height)
-                .border(2, color: .green)
             Spacer.fixedHeight(bottomOffset)
         }
         .fullScreenCover(isPresented: $showContent) {
