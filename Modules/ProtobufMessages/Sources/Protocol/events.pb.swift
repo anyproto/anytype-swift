@@ -2356,6 +2356,15 @@ public struct Anytype_Event {
         /// Clears the value of `layout`. Subsequent reads from it will return its default value.
         public mutating func clearLayout() {self._layout = nil}
 
+        public var limit: Anytype_Event.Block.Set.Widget.Limit {
+          get {return _limit ?? Anytype_Event.Block.Set.Widget.Limit()}
+          set {_limit = newValue}
+        }
+        /// Returns true if `limit` has been explicitly set.
+        public var hasLimit: Bool {return self._limit != nil}
+        /// Clears the value of `limit`. Subsequent reads from it will return its default value.
+        public mutating func clearLimit() {self._limit = nil}
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public struct Layout {
@@ -2370,9 +2379,22 @@ public struct Anytype_Event {
           public init() {}
         }
 
+        public struct Limit {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          public var value: Int32 = 0
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public init() {}
+        }
+
         public init() {}
 
         fileprivate var _layout: Anytype_Event.Block.Set.Widget.Layout? = nil
+        fileprivate var _limit: Anytype_Event.Block.Set.Widget.Limit? = nil
       }
 
       public init() {}
@@ -4646,6 +4668,7 @@ extension Anytype_Event.Block.Set.TableRow: @unchecked Sendable {}
 extension Anytype_Event.Block.Set.TableRow.IsHeader: @unchecked Sendable {}
 extension Anytype_Event.Block.Set.Widget: @unchecked Sendable {}
 extension Anytype_Event.Block.Set.Widget.Layout: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Widget.Limit: @unchecked Sendable {}
 extension Anytype_Event.Block.Fill: @unchecked Sendable {}
 extension Anytype_Event.Block.Fill.Details: @unchecked Sendable {}
 extension Anytype_Event.Block.Fill.DatabaseRecords: @unchecked Sendable {}
@@ -8769,6 +8792,7 @@ extension Anytype_Event.Block.Set.Widget: SwiftProtobuf.Message, SwiftProtobuf._
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "id"),
     2: .same(proto: "layout"),
+    3: .same(proto: "limit"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -8779,6 +8803,7 @@ extension Anytype_Event.Block.Set.Widget: SwiftProtobuf.Message, SwiftProtobuf._
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
       case 2: try { try decoder.decodeSingularMessageField(value: &self._layout) }()
+      case 3: try { try decoder.decodeSingularMessageField(value: &self._limit) }()
       default: break
       }
     }
@@ -8795,12 +8820,16 @@ extension Anytype_Event.Block.Set.Widget: SwiftProtobuf.Message, SwiftProtobuf._
     try { if let v = self._layout {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
     } }()
+    try { if let v = self._limit {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Event.Block.Set.Widget, rhs: Anytype_Event.Block.Set.Widget) -> Bool {
     if lhs.id != rhs.id {return false}
     if lhs._layout != rhs._layout {return false}
+    if lhs._limit != rhs._limit {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -8832,6 +8861,38 @@ extension Anytype_Event.Block.Set.Widget.Layout: SwiftProtobuf.Message, SwiftPro
   }
 
   public static func ==(lhs: Anytype_Event.Block.Set.Widget.Layout, rhs: Anytype_Event.Block.Set.Widget.Layout) -> Bool {
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Block.Set.Widget.Limit: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Block.Set.Widget.protoMessageName + ".Limit"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "value"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt32Field(value: &self.value) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.value != 0 {
+      try visitor.visitSingularInt32Field(value: self.value, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Block.Set.Widget.Limit, rhs: Anytype_Event.Block.Set.Widget.Limit) -> Bool {
     if lhs.value != rhs.value {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
