@@ -55,7 +55,7 @@ extension ObjectIconImageView: ConfigurableView {
             let image: UIImage? = model.imageGuideline.flatMap {
                 // TODO: Refactoring with IOS-1317
                 painter.staticImage(imageAsset: imageAsset, imageGuideline: $0, tintColor: .Button.active)
-            } ?? UIImage(asset: imageAsset)
+            } ?? UIImage(asset: imageAsset)?.applyTint(color: .Button.active)
             imageView.wrapper.setImage(image)
         case .image(let image):
             imageView.wrapper.setImage(image)

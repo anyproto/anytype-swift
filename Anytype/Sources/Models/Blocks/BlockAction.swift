@@ -27,17 +27,17 @@ enum BlockAction: CaseIterable {
     var iconAsset: ImageAsset {
         switch self {
         case .delete:
-            return .delete
+            return .X32.delete
         case .duplicate:
-            return .slashMenuActionDuplicate
+            return .X32.duplicate
         case .copy:
-            return .slashMenuActionCopy
+            return .X32.copy
         case .paste:
-            return .slashMenuActionPaste
+            return .X32.paste
 //        case .move:
 //            return ImageName.slashMenu.actions.move
         case .moveTo:
-            return .slashMenuActionMoveTo
+            return .X32.moveTo
         }
     }
 }

@@ -28,17 +28,17 @@ enum SlashActionMedia: CaseIterable {
     var iconAsset: ImageAsset {
         switch self {
         case .file:
-            return .slashMenuMediaFile
+            return .X40.attachment
         case .pictre:
-            return .slashMenuMediaPicture
+            return .X40.picture
         case .video:
-            return .slashMenuMediaVideo
+            return .X40.video
         case .audio:
-            return .slashMenuMediaAudio
+            return .X40.audio
         case .bookmark:
-            return .slashMenuMediaBookmark
+            return .X40.bookmark
         case .codeSnippet:
-            return .slashMenuMediaCode
+            return .X40.codeSnippet
         }
     }
     
