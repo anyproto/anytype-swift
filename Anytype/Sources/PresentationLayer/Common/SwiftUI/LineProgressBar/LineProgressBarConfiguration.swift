@@ -11,8 +11,8 @@ struct LineProgressBarConfiguration {
         height: 6,
         cornerRadius: 3,
         innerCornerRadius: nil,
-        foregroundColor: .Stroke.tertiary,
-        innerForegroundColor: .Button.button
+        foregroundColor: .Stroke.secondary,
+        innerForegroundColor: .Text.primary
     )
     
     static let joinFlow = LineProgressBarConfiguration(
