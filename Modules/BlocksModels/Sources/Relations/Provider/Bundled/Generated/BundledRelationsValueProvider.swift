@@ -146,6 +146,7 @@ public protocol BundledRelationsValueProvider {
     var spaceAccessibility: Int? { get }
     var sourceFilePath: String { get }
     var fileSyncStatus: Int? { get }
+    var lastChangeId: String { get }
 } 
 
 public extension BundledRelationsValueProvider where Self: RelationValueProvider {
@@ -632,5 +633,9 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     /// File sync status
     var fileSyncStatus: Int? {
         return value(for: BundledRelationKey.fileSyncStatus.rawValue)
+    }
+    /// Last change ID
+    var lastChangeId: String {
+        return value(for: BundledRelationKey.lastChangeId.rawValue)
     }
 }
