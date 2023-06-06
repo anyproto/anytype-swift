@@ -8,7 +8,6 @@ struct AuthView: View {
         AuthBackgroundView(url: model.videoUrl()) {
             content
                 .navigationBarHidden(true)
-                .modifier(LogoOverlay())
                 .opacity(model.opacity)
                 .onAppear {
                     model.onViewAppear()
@@ -36,6 +35,9 @@ struct AuthView: View {
             AnytypeText(Loc.Auth.Welcome.title, style: .authTitle, color: .Text.primary)
                 .multilineTextAlignment(.center)
                 .opacity(0.9)
+                .secretGestureSheet {
+                    model.onDebugMenuAction()
+                }
             
             Spacer.fixedHeight(30)
             

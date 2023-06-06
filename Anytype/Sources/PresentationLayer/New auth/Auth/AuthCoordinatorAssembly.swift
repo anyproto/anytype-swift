@@ -29,6 +29,7 @@ final class AuthCoordinatorAssembly: AuthCoordinatorAssemblyProtocol {
     func make() -> AuthCoordinatorProtocol {
         return AuthCoordinator(
             authModuleAssembly: modulesDI.authorization(),
+            debugMenuModuleAssembly: modulesDI.debugMenu(),
             joinFlowCoordinator: coordinatorsID.joinFlow().make(),
             urlOpener: uiHelpersDI.urlOpener()
         )
