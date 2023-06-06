@@ -35,7 +35,10 @@ struct AuthView: View {
             AnytypeText(Loc.Auth.Welcome.title, style: .authTitle, color: .Text.primary)
                 .multilineTextAlignment(.center)
                 .opacity(0.9)
-                .secretGestureSheet {
+                .onTapGesture(count: 10) {
+                    model.showDebugMenu.toggle()
+                }
+                .sheet(isPresented: $model.showDebugMenu) {
                     model.onDebugMenuAction()
                 }
             
