@@ -52,17 +52,14 @@ struct WidgetObjectListView: View {
     }
     
     @ViewBuilder
-    private func dataList(sections: [ListSectionData<String?, WidgetObjectListRow>]) -> some View {
+    private func dataList(sections: [ListSectionData<String?, WidgetObjectListRowModel>]) -> some View {
         PlainList {
             ForEach(sections) { section in
                 if let title = section.data, title.isNotEmpty {
                     ListSectionBigHeaderView(title: title)
                 }
-                ForEach(section.rows, id: \.data.id) { row in
-                    ListWidgetRow(model: row.data)
-                        .contextMenu {
-                            contextMenu(row: row)
-                        }
+                ForEach(section.rows, id: \.id) { row in
+                    WidgetObjectListRowView(model: row)
                 }
                 .if(allowDnd) {
                     $0.onMove { from, to in
@@ -102,19 +99,6 @@ struct WidgetObjectListView: View {
                 .shadow(radius: 16)
                 .padding(.horizontal, 16)
                 .padding(.bottom, 16)
-        }
-    }
-    
-    @ViewBuilder
-    private func contextMenu(row: WidgetObjectListRow) -> some View {
-        if editMode == .inactive {
-            ForEach(row.menu) { menu in
-                if #available(iOS 15.0, *) {
-                    Button(menu.title, role: menu.negative ? .destructive : nil, action: menu.onTap)
-                } else {
-                    Button(menu.title, action: menu.onTap)
-                }
-            }
         }
     }
     
