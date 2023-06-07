@@ -54,6 +54,12 @@ public extension FeatureDescription {
         defaultValue: false
     )
     
+    static let binConfirmAlert = FeatureDescription(
+        title: "Bin confirm alert",
+        type: .feature(author: "m@anytype.io", releaseVersion: "0.23.0"),
+        defaultValue: false
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(

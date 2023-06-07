@@ -2,7 +2,8 @@ import Foundation
 
 struct BottomAlertButton {
     let title: String
-    let isDistructive: Bool
+    var isDistructive: Bool = false
+    var autoDismiss: Bool = true
     let action: () -> Void
 }
 
@@ -21,7 +22,9 @@ extension FloaterAlertView {
             title: bottomAlert.title,
             description: bottomAlert.message,
             leftButtonData: StandardButtonModel(bottomAlertButton: bottomAlert.leftButton),
-            rightButtonData: StandardButtonModel(bottomAlertButton: bottomAlert.rightButton)
+            rightButtonData: StandardButtonModel(bottomAlertButton: bottomAlert.rightButton),
+            dismissAfterLeftTap: bottomAlert.leftButton.autoDismiss,
+            dismissAfterRightTap: bottomAlert.rightButton.autoDismiss
         )
     }
 }
