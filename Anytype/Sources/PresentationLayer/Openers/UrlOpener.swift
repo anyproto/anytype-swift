@@ -9,12 +9,16 @@ enum URLOpenerPresentationStyle {
 
 protocol URLOpenerProtocol: AnyObject {
     func canOpenUrl(_ url: URL) -> Bool
-    func openUrl(_ url: URL, presentationStyle: URLOpenerPresentationStyle)
+    func openUrl(_ url: URL, presentationStyle: URLOpenerPresentationStyle, customInterfaceStyle: UIUserInterfaceStyle?)
 }
 
 extension URLOpenerProtocol {
     func openUrl(_ url: URL) {
-        openUrl(url, presentationStyle: .default)
+        openUrl(url, presentationStyle: .default, customInterfaceStyle: nil)
+    }
+    
+    func openUrl(_ url: URL, presentationStyle: URLOpenerPresentationStyle) {
+        openUrl(url, presentationStyle: presentationStyle, customInterfaceStyle: nil)
     }
 }
 
@@ -32,7 +36,7 @@ final class URLOpener: URLOpenerProtocol {
         UIApplication.shared.canOpenURL(url.urlByAddingHttpIfSchemeIsEmpty())
     }
     
-    func openUrl(_ url: URL, presentationStyle: URLOpenerPresentationStyle) {
+    func openUrl(_ url: URL, presentationStyle: URLOpenerPresentationStyle, customInterfaceStyle: UIUserInterfaceStyle?) {
         let url = url.urlByAddingHttpIfSchemeIsEmpty()
         if url.containsHttpProtocol {
             let safariController = SFSafariViewController(url: url)
@@ -41,6 +45,10 @@ final class URLOpener: URLOpenerProtocol {
                 break
             case .popover:
                 safariController.modalPresentationStyle = .popover
+            }
+            
+            if let customInterfaceStyle {
+                safariController.overrideUserInterfaceStyle = customInterfaceStyle
             }
             
             navigationContext.present(safariController, animated: true)

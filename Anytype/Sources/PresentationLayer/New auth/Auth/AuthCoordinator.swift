@@ -44,7 +44,7 @@ final class AuthCoordinator: AuthCoordinatorProtocol, AuthViewModelOutput {
     }
     
     func onUrlAction(_ url: URL) {
-        urlOpener.openUrl(url, presentationStyle: .popover)
+        urlOpener.openUrl(url, presentationStyle: .popover, customInterfaceStyle: .dark)
     }
     
     func onDebugMenuAction() -> AnyView {

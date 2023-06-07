@@ -14,6 +14,7 @@ struct AuthView: View {
                 }
                 .background(TransparentBackground())
                 .fitIPadToReadableContentGuide()
+                .preferredColorScheme(.dark)
         }
     }
     
@@ -92,7 +93,6 @@ struct AuthView_Previews : PreviewProvider {
         AuthView(
             model: AuthViewModel(
                 state: JoinFlowState(),
-                viewControllerProvider: DI.preview.uihelpersDI.viewControllerProvider(),
                 output: nil,
                 authService: DI.preview.serviceLocator.authService(),
                 seedService: DI.preview.serviceLocator.seedService()

@@ -47,7 +47,7 @@ final class WindowManager {
             let coordinator = authCoordinatorAssembly.make()
             self.authCoordinator = coordinator
             let authView = coordinator.startFlow()
-            startNewRootView(authView)
+            startNewRootView(authView, customInterfaceStyle: .dark)
         } else {
             let legacyAuthView = legacyAuthViewAssembly.createAuthView()
             startNewRootView(legacyAuthView)
@@ -74,9 +74,12 @@ final class WindowManager {
     
     // MARK: - Private
     
-    private func startNewRootView<ViewType: View>(_ view: ViewType) {
+    private func startNewRootView<ViewType: View>(_ view: ViewType, customInterfaceStyle: UIUserInterfaceStyle? = nil) {
         
         let controller = UINavigationController(rootViewController: AnytypeHostingController(rootView: view))
+        if let customInterfaceStyle {
+            controller.overrideUserInterfaceStyle = customInterfaceStyle
+        }
         
         let navBarAppearance = UINavigationBarAppearance()
         navBarAppearance.configureWithTransparentBackground()
