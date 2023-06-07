@@ -57,7 +57,7 @@ private extension ObjectAction {
         case let .archive(isArchived):
             return isArchived ? .X32.restore : .X32.delete
         case let .favorite(isFavorite):
-            return isFavorite ? .X32.Favorite.favorite : .X32.Favorite.unfavorite
+            return isFavorite ? .X32.Favorite.unfavorite : .X32.Favorite.favorite
         case let .locked(isLocked):
             return isLocked ? .X32.Lock.unlock : .X32.Lock.lock
         case .duplicate:
