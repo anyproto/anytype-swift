@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-final class CollectionsListWidgetModuleAssembly: HomeWidgetCommonAssemblyProtocol {
+final class FavoriteListWidgetModuleAssembly: HomeWidgetCommonAssemblyProtocol {
     
     private let serviceLocator: ServiceLocator
     private let widgetsSubmoduleDI: WidgetsSubmoduleDIProtocol
@@ -21,9 +21,14 @@ final class CollectionsListWidgetModuleAssembly: HomeWidgetCommonAssemblyProtoco
         output: CommonWidgetModuleOutput?
     ) -> AnyView {
         
-        let model = CollectionsWidgetInternalViewModel(subscriptionService: serviceLocator.collectionsSubscriptionService(), context: .list)
+        let model = FavoriteWidgetInternalViewModel(
+            favoriteSubscriptionService: serviceLocator.favoriteSubscriptionService(),
+            accountManager: serviceLocator.accountManager(),
+            documentService: serviceLocator.documentService(),
+            context: .list
+        )
      
-        return widgetsSubmoduleDI.listWithoutHeaderWidgetModuleAssembly().make(
+        return widgetsSubmoduleDI.listWidgetModuleAssembly().make(
             widgetBlockId: widgetBlockId,
             widgetObject: widgetObject,
             stateManager: stateManager,

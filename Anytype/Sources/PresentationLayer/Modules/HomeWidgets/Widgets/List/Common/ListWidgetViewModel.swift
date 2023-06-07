@@ -4,13 +4,14 @@ import Combine
 import SwiftUI
 
 @MainActor
-final class ListWithoutHeaderWidgetViewModel: ListWidgetViewModelProtocol, WidgetContainerContentViewModelProtocol, ObservableObject {
+final class ListWidgetViewModel: WidgetContainerContentViewModelProtocol, ObservableObject {
     
     // MARK: - DI
     
     private let widgetBlockId: BlockId
     private let widgetObject: BaseDocumentProtocol
     private let internalModel: any WidgetInternalViewModelProtocol
+    private let internalHeaderModel: (any WidgetDataviewInternalViewModelProtocol)?
     private weak var output: CommonWidgetModuleOutput?
     
     // MARK: - State
@@ -25,7 +26,7 @@ final class ListWithoutHeaderWidgetViewModel: ListWidgetViewModelProtocol, Widge
     
     // MARK: - ListWidgetViewModelProtocol
     
-    let headerItems: [ListWidgetHeaderItem.Model] = []
+    @Published private(set) var headerItems: [ListWidgetHeaderItem.Model] = []
     @Published private(set) var rows: [ListWidgetRow.Model]?
     let emptyTitle = Loc.Widgets.Empty.title
     
@@ -33,11 +34,13 @@ final class ListWithoutHeaderWidgetViewModel: ListWidgetViewModelProtocol, Widge
         widgetBlockId: BlockId,
         widgetObject: BaseDocumentProtocol,
         internalModel: any WidgetInternalViewModelProtocol,
+        internalHeaderModel: (any WidgetDataviewInternalViewModelProtocol)?,
         output: CommonWidgetModuleOutput?
     ) {
         self.widgetBlockId = widgetBlockId
         self.widgetObject = widgetObject
         self.internalModel = internalModel
+        self.internalHeaderModel = internalHeaderModel
         self.output = output
     }
     
@@ -82,6 +85,14 @@ final class ListWithoutHeaderWidgetViewModel: ListWidgetViewModelProtocol, Widge
                 self?.updateViewState()
             }
             .store(in: &subscriptions)
+        
+        internalHeaderModel?.dataviewPublisher
+            .compactMap { $0 }
+            .receiveOnMain()
+            .sink { [weak self] dataview in
+                self?.updateHeader(dataviewState: dataview)
+            }
+            .store(in: &subscriptions)
     }
     
     private func updateViewState() {
@@ -91,6 +102,21 @@ final class ListWithoutHeaderWidgetViewModel: ListWidgetViewModelProtocol, Widge
                     details: details,
                     onTap: { [weak self] in
                         self?.output?.onObjectSelected(screenData: $0)
+                    }
+                )
+            }
+        }
+    }
+    
+    private func updateHeader(dataviewState: WidgetDataviewState) {
+        withAnimation {
+            headerItems = dataviewState.dataview.map { dataView in
+                ListWidgetHeaderItem.Model(
+                    dataviewId: dataView.id,
+                    title: dataView.name,
+                    isSelected: dataView.id == dataviewState.activeViewId,
+                    onTap: { [weak self] in
+                        self?.internalHeaderModel?.onActiveViewTap(dataView.id)
                     }
                 )
             }
