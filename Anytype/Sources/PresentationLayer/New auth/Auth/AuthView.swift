@@ -8,17 +8,12 @@ struct AuthView: View {
         AuthBackgroundView(url: model.videoUrl()) {
             content
                 .navigationBarHidden(true)
-                .modifier(LogoOverlay())
                 .opacity(model.opacity)
                 .onAppear {
                     model.onViewAppear()
                 }
-                .sheet(isPresented: $model.showSafari) {
-                    if let currentUrl = model.currentUrl {
-                        SafariView(url: currentUrl)
-                    }
-                }
                 .background(TransparentBackground())
+                .fitIPadToReadableContentGuide()
         }
     }
     
@@ -29,9 +24,7 @@ struct AuthView: View {
             Spacer()
             buttons
             Spacer.fixedHeight(16)
-            if #available(iOS 15.0, *) {
-                privacyPolicy
-            }
+            privacyPolicy
             Spacer.fixedHeight(14)
         }
         .padding(.horizontal, 30)
@@ -42,6 +35,12 @@ struct AuthView: View {
             AnytypeText(Loc.Auth.Welcome.title, style: .authTitle, color: .Text.primary)
                 .multilineTextAlignment(.center)
                 .opacity(0.9)
+                .onTapGesture(count: 10) {
+                    model.showDebugMenu.toggle()
+                }
+                .sheet(isPresented: $model.showDebugMenu) {
+                    model.onDebugMenuAction()
+                }
             
             Spacer.fixedHeight(30)
             
@@ -72,10 +71,9 @@ struct AuthView: View {
         }
     }
     
-    @available(iOS 15.0, *)
     private var privacyPolicy: some View {
         AnytypeText(
-            Loc.Auth.Caption.Privacy.text(Constants.termsOfUseUrl, Constants.privacyPolicy),
+            Loc.Auth.Caption.Privacy.text(AboutApp.termsLink, AboutApp.privacyLink),
             style: .authCaption,
             color: .Auth.caption
         )
@@ -88,14 +86,6 @@ struct AuthView: View {
         })
     }
 }
-
-extension AuthView {
-    enum Constants {
-        static let termsOfUseUrl = "https://anytype.io/en"
-        static let privacyPolicy = "https://anytype.io/en/manifesto"
-    }
-}
-
 
 struct AuthView_Previews : PreviewProvider {
     static var previews: some View {

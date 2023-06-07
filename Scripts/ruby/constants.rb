@@ -1,5 +1,5 @@
 class Constants 
-	REPOSITORY_URL = "https://api.github.com/repos/anytypeio/go-anytype-middleware/releases"
+	REPOSITORY_URL = "https://api.github.com/repos/anyproto/anytype-heart/releases"
 	PROTOBUF_DIRECTORY_NAME = "protobuf"
 
   	LIBRARY_FILE_PATH = File.expand_path("#{__dir__}/../../Libraryfile")

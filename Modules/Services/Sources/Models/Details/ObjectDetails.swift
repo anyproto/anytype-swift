@@ -53,7 +53,7 @@ public extension ObjectDetails {
         let fields = protobufStruct.fields
         
         guard let id = fields["id"]?.stringValue, id.isValidId else {
-            anytypeAssertionFailure("Empty id in subscription data \(fields)")
+            anytypeAssertionFailure("Empty id in subscription data")
             return nil
         }
         

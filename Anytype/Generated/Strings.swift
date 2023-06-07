@@ -839,6 +839,12 @@ internal enum Loc {
     /// Cache sucessfully cleared
     internal static let success = Loc.tr("Localizable", "ClearCache.Success", fallback: "Cache sucessfully cleared")
   }
+  internal enum ClearCacheAlert {
+    /// All media files stored in Anytype will be deleted from your current device. They can be downloaded again from a backup node or another device.
+    internal static let description = Loc.tr("Localizable", "ClearCacheAlert.Description", fallback: "All media files stored in Anytype will be deleted from your current device. They can be downloaded again from a backup node or another device.")
+    /// Are you sure?
+    internal static let title = Loc.tr("Localizable", "ClearCacheAlert.Title", fallback: "Are you sure?")
+  }
   internal enum Collection {
     internal enum View {
       internal enum Empty {

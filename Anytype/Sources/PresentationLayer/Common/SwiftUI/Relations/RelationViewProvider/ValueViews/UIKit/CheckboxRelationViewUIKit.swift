@@ -50,7 +50,8 @@ final class CheckboxRelationViewUIKit: UIView {
         checkboxView.setImage(UIImage(asset: .relationCheckboxChecked), for: .selected)
         checkboxView.contentMode = .center
         checkboxView.isSelected = isChecked
-
+        checkboxView.tintColor = .Button.active
+        
         return checkboxView
     }
 }

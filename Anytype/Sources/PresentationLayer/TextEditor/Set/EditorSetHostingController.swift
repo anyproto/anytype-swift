@@ -25,7 +25,7 @@ final class EditorSetHostingController: UIHostingController<EditorSetView> {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        super.viewWillDisappear(animated)
         model.onWillDisappear()
         navigationController?.setNavigationBarHidden(false, animated: false)
     }

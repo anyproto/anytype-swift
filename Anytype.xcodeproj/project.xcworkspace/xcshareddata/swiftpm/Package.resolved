@@ -95,8 +95,17 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/anyproto/SourceryGenPlugin.git",
       "state" : {
-        "branch" : "1.9.2",
-        "revision" : "ed24fc9e7512ef3e2aa7642a6e4c1f5328b8603d"
+        "branch" : "1.9.3",
+        "revision" : "97163be62fb7bb21bc150f4e6d26269dd73b9534"
+      }
+    },
+    {
+      "identity" : "swift-async-queue",
+      "kind" : "remoteSourceControl",
+      "location" : "git@github.com:dfed/swift-async-queue.git",
+      "state" : {
+        "revision" : "a232ddbfb776a3d3e380dce30e7d5f617cffcf82",
+        "version" : "0.4.0"
       }
     },
     {

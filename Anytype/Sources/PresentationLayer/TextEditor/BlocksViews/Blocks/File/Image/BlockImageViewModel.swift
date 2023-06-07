@@ -25,7 +25,7 @@ struct BlockImageViewModel: BlockViewModelProtocol {
     ) {
         guard fileData.contentType == .image else {
             anytypeAssertionFailure(
-                "Wrong content type of \(fileData), image expected"
+                "Wrong content type, image expected", info: ["contentType": "\(fileData.contentType)"]
             )
             return nil
         }

@@ -159,7 +159,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
             infos.isNotEmpty
         else { return }
         guard let controller = controller as? EditorPageController else {
-            anytypeAssertionFailure("Not supported type of controller: \(controller)")
+            anytypeAssertionFailure("Not supported type of controller", info: ["controller": "\(controller)"])
             return
         }
 
@@ -385,7 +385,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         guard let controller = viewController,
             let rootController = rootController else { return }
         guard let controller = controller as? EditorPageController else {
-            anytypeAssertionFailure("Not supported type of controller: \(controller)")
+            anytypeAssertionFailure("Not supported type of controller", info: ["controller": "\(controller)"])
             return
         }
         

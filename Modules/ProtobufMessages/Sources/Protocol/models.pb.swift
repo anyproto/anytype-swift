@@ -2170,6 +2170,10 @@ public struct Anytype_Model_Block {
 
       public var layout: Anytype_Model_Block.Content.Widget.Layout = .link
 
+      public var limit: Int32 = 0
+
+      public var viewID: String = String()
+
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
       public enum Layout: SwiftProtobuf.Enum {
@@ -6035,6 +6039,8 @@ extension Anytype_Model_Block.Content.Widget: SwiftProtobuf.Message, SwiftProtob
   public static let protoMessageName: String = Anytype_Model_Block.Content.protoMessageName + ".Widget"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "layout"),
+    2: .same(proto: "limit"),
+    3: .same(proto: "viewId"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -6044,6 +6050,8 @@ extension Anytype_Model_Block.Content.Widget: SwiftProtobuf.Message, SwiftProtob
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularEnumField(value: &self.layout) }()
+      case 2: try { try decoder.decodeSingularInt32Field(value: &self.limit) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.viewID) }()
       default: break
       }
     }
@@ -6053,11 +6061,19 @@ extension Anytype_Model_Block.Content.Widget: SwiftProtobuf.Message, SwiftProtob
     if self.layout != .link {
       try visitor.visitSingularEnumField(value: self.layout, fieldNumber: 1)
     }
+    if self.limit != 0 {
+      try visitor.visitSingularInt32Field(value: self.limit, fieldNumber: 2)
+    }
+    if !self.viewID.isEmpty {
+      try visitor.visitSingularStringField(value: self.viewID, fieldNumber: 3)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Model_Block.Content.Widget, rhs: Anytype_Model_Block.Content.Widget) -> Bool {
     if lhs.layout != rhs.layout {return false}
+    if lhs.limit != rhs.limit {return false}
+    if lhs.viewID != rhs.viewID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

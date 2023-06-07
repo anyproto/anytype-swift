@@ -172,7 +172,7 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
         
     func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
         guard let detailsProvider = viewController as? DocumentDetaisProvider else {
-            anytypeAssertionFailure("Not supported browser controller: \(viewController)")
+            anytypeAssertionFailure("Not supported browser controller", info: ["controller": "\(viewController)"])
             return
         }
         

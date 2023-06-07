@@ -16,7 +16,7 @@ let package = Package(
         .package(url: "https://github.com/apple/swift-protobuf", revision: "1.21.0"),
         .package(path: "../Logger"),
         // Waiting issue - https://github.com/krzysztofzablocki/Sourcery/issues/1090
-        .package(url: "https://github.com/anyproto/SourceryGenPlugin.git", revision: "1.9.2")
+        .package(url: "https://github.com/anyproto/SourceryGenPlugin.git", revision: "1.9.3")
     ],
     targets: [
         .target(

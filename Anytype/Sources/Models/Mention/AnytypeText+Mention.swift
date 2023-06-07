@@ -14,7 +14,7 @@ extension AnytypeFont {
         case .calloutRegular:
             return .callout
         default:
-            anytypeAssertionFailure("Not supported mention for forn \(self)")
+            anytypeAssertionFailure("Not supported mention", info: ["font": "\(self)"])
             return .body
         }
     }

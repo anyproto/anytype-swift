@@ -1704,6 +1704,56 @@ public struct ClientCommands {
         }
     }
 
+    public static func blockCreateWidget(
+        _ request: Anytype_Rpc.Block.CreateWidget.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Block.CreateWidget.Request, Anytype_Rpc.Block.CreateWidget.Response> {
+        return Invocation(messageName: "BlockCreateWidget", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceBlockCreateWidget(requestData) ?? Data()
+            return try Anytype_Rpc.Block.CreateWidget.Response(serializedData: responseData)
+        }
+    }
+
+    public static func blockWidgetSetTargetId(
+        _ request: Anytype_Rpc.BlockWidget.SetTargetId.Request = .init()
+    ) -> Invocation<Anytype_Rpc.BlockWidget.SetTargetId.Request, Anytype_Rpc.BlockWidget.SetTargetId.Response> {
+        return Invocation(messageName: "BlockWidgetSetTargetId", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceBlockWidgetSetTargetId(requestData) ?? Data()
+            return try Anytype_Rpc.BlockWidget.SetTargetId.Response(serializedData: responseData)
+        }
+    }
+
+    public static func blockWidgetSetLayout(
+        _ request: Anytype_Rpc.BlockWidget.SetLayout.Request = .init()
+    ) -> Invocation<Anytype_Rpc.BlockWidget.SetLayout.Request, Anytype_Rpc.BlockWidget.SetLayout.Response> {
+        return Invocation(messageName: "BlockWidgetSetLayout", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceBlockWidgetSetLayout(requestData) ?? Data()
+            return try Anytype_Rpc.BlockWidget.SetLayout.Response(serializedData: responseData)
+        }
+    }
+
+    public static func blockWidgetSetLimit(
+        _ request: Anytype_Rpc.BlockWidget.SetLimit.Request = .init()
+    ) -> Invocation<Anytype_Rpc.BlockWidget.SetLimit.Request, Anytype_Rpc.BlockWidget.SetLimit.Response> {
+        return Invocation(messageName: "BlockWidgetSetLimit", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceBlockWidgetSetLimit(requestData) ?? Data()
+            return try Anytype_Rpc.BlockWidget.SetLimit.Response(serializedData: responseData)
+        }
+    }
+
+    public static func blockWidgetSetViewId(
+        _ request: Anytype_Rpc.BlockWidget.SetViewId.Request = .init()
+    ) -> Invocation<Anytype_Rpc.BlockWidget.SetViewId.Request, Anytype_Rpc.BlockWidget.SetViewId.Response> {
+        return Invocation(messageName: "BlockWidgetSetViewId", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceBlockWidgetSetViewId(requestData) ?? Data()
+            return try Anytype_Rpc.BlockWidget.SetViewId.Response(serializedData: responseData)
+        }
+    }
+
     public static func blockLinkCreateWithObject(
         _ request: Anytype_Rpc.BlockLink.CreateWithObject.Request = .init()
     ) -> Invocation<Anytype_Rpc.BlockLink.CreateWithObject.Request, Anytype_Rpc.BlockLink.CreateWithObject.Response> {
@@ -1781,16 +1831,6 @@ public struct ClientCommands {
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockLatexSetText(requestData) ?? Data()
             return try Anytype_Rpc.BlockLatex.SetText.Response(serializedData: responseData)
-        }
-    }
-
-    public static func blockCreateWidget(
-        _ request: Anytype_Rpc.Block.CreateWidget.Request = .init()
-    ) -> Invocation<Anytype_Rpc.Block.CreateWidget.Request, Anytype_Rpc.Block.CreateWidget.Response> {
-        return Invocation(messageName: "BlockCreateWidget", request: request) { request in
-            let requestData = try request.serializedData()
-            let responseData = Lib.ServiceBlockCreateWidget(requestData) ?? Data()
-            return try Anytype_Rpc.Block.CreateWidget.Response(serializedData: responseData)
         }
     }
 

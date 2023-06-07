@@ -40,7 +40,7 @@ extension ObjectIconImageView: ConfigurableView {
             handleObjectIconType(objectIconType, model: model)
         case .todo(let isChecked):
             let image: UIImage? = model.imageGuideline.flatMap {
-                painter.todoImage(isChecked: isChecked, imageGuideline: $0)
+                painter.todoImage(isChecked: isChecked, imageGuideline: $0, tintColor: .Button.active)
             }
             imageView.wrapper.setImage(image)
         case .placeholder(let character):
@@ -55,7 +55,7 @@ extension ObjectIconImageView: ConfigurableView {
             let image: UIImage? = model.imageGuideline.flatMap {
                 // TODO: Refactoring with IOS-1317
                 painter.staticImage(imageAsset: imageAsset, imageGuideline: $0, tintColor: .Button.active)
-            } ?? UIImage(asset: imageAsset)
+            } ?? UIImage(asset: imageAsset)?.applyTint(color: .Button.active)
             imageView.wrapper.setImage(image)
         case .image(let image):
             imageView.wrapper.setImage(image)

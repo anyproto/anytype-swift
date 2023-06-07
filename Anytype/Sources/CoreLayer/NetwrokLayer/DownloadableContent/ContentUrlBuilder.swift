@@ -16,7 +16,7 @@ final class ContentUrlBuilder {
         
         let gatewayUrl = middlewareConfigurationProvider.configuration.gatewayURL
         guard let components = URLComponents(string: gatewayUrl) else {
-            anytypeAssertionFailure("File url components is nil. GatewayUrl: \(gatewayUrl)")
+            anytypeAssertionFailure("File url components is nil", info: ["gatewayUrl": gatewayUrl])
             return nil
         }
         
@@ -31,7 +31,7 @@ final class ContentUrlBuilder {
         
         let gatewayUrl = middlewareConfigurationProvider.configuration.gatewayURL
         guard let components = URLComponents(string: gatewayUrl) else {
-            anytypeAssertionFailure("Image url components is nil. GatewayUrl: \(gatewayUrl)")
+            anytypeAssertionFailure("Image url components is nil", info: ["gatewayUrl": gatewayUrl])
             return nil
         }
         

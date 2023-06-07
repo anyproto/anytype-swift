@@ -140,12 +140,9 @@ final class SetListWidgetViewModel: ListWidgetViewModelProtocol, WidgetContainer
             )
         )
         
-        if subscriptionService.hasSubscriptionDataDiff(with: subscriptionData) {
-            subscriptionService.stopAllSubscriptions()
-            subscriptionService.startSubscription(data: subscriptionData) { [weak self] in
-                self?.rowDetails.applySubscriptionUpdate($1)
-                self?.updateRows()
-            }
+        subscriptionService.updateSubscription(data: subscriptionData, required: false) { [weak self] in
+            self?.rowDetails.applySubscriptionUpdate($1)
+            self?.updateRows()
         }
     }
     

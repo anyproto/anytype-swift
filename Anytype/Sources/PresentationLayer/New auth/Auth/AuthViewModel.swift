@@ -1,14 +1,13 @@
 import SwiftUI
+import AudioToolbox
 
 @MainActor
 final class AuthViewModel: ObservableObject {
     
     @Published var showJoinFlow: Bool = false
-    @Published var showSafari: Bool = false
+    @Published var showDebugMenu: Bool = false
     @Published var opacity: Double = 1
     @Published var creatingAccountInProgress = false
-    
-    var currentUrl: URL?
     
     // MARK: - Private
     
@@ -55,8 +54,12 @@ final class AuthViewModel: ObservableObject {
     }
     
     func onUrlTapAction(_ url: URL) {
-        currentUrl = url
-        showSafari.toggle()
+        output?.onUrlAction(url)
+    }
+    
+    func onDebugMenuAction() -> AnyView? {
+        AudioServicesPlaySystemSound(1109)
+        return output?.onDebugMenuAction()
     }
     
     private func createAccount() {

@@ -44,13 +44,13 @@ enum MarkStyleActionConverter {
 
         case .emoji:
             guard let emoji = Emoji(tuple.value) else {
-                anytypeAssertionFailure("Unrecognized emoji \(tuple.value)")
+                anytypeAssertionFailure("Unrecognized emoji", info: ["value": "\(tuple.value)"])
                 return nil
             }
             return .emoji(emoji)
 
         case .UNRECOGNIZED(let value):
-            anytypeAssertionFailure("Unrecognized markup \(value)")
+            anytypeAssertionFailure("Unrecognized markup", info: ["value": "\(value)"])
             return nil
         }
     }

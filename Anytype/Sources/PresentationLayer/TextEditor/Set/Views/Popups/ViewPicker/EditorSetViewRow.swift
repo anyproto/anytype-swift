@@ -60,8 +60,8 @@ struct EditorSetViewRow: View {
                 Button(action: {
                     configuration.onEditTap()
                 }) {
-                    Image(asset: .setPenEdit)
-                        .foregroundColor(.Button.button)
+                    Image(asset: .X32.edit)
+                        .foregroundColor(.Button.active)
                 }
             }
         }

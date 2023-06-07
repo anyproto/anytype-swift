@@ -738,4 +738,6 @@
 // MARK: - Widget object list
 "WidgetObjectList.ForceDelete.Message" = "You can’t undo this action.";
 
-
+// MARK: - Cpear cache alert
+"ClearCacheAlert.Title" = "Are you sure?";
+"ClearCacheAlert.Description" = "All media files stored in Anytype will be deleted from your current device. They can be downloaded again from a backup node or another device.";

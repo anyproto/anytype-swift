@@ -2356,6 +2356,24 @@ public struct Anytype_Event {
         /// Clears the value of `layout`. Subsequent reads from it will return its default value.
         public mutating func clearLayout() {self._layout = nil}
 
+        public var limit: Anytype_Event.Block.Set.Widget.Limit {
+          get {return _limit ?? Anytype_Event.Block.Set.Widget.Limit()}
+          set {_limit = newValue}
+        }
+        /// Returns true if `limit` has been explicitly set.
+        public var hasLimit: Bool {return self._limit != nil}
+        /// Clears the value of `limit`. Subsequent reads from it will return its default value.
+        public mutating func clearLimit() {self._limit = nil}
+
+        public var viewID: Anytype_Event.Block.Set.Widget.ViewId {
+          get {return _viewID ?? Anytype_Event.Block.Set.Widget.ViewId()}
+          set {_viewID = newValue}
+        }
+        /// Returns true if `viewID` has been explicitly set.
+        public var hasViewID: Bool {return self._viewID != nil}
+        /// Clears the value of `viewID`. Subsequent reads from it will return its default value.
+        public mutating func clearViewID() {self._viewID = nil}
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public struct Layout {
@@ -2370,9 +2388,35 @@ public struct Anytype_Event {
           public init() {}
         }
 
+        public struct Limit {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          public var value: Int32 = 0
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public init() {}
+        }
+
+        public struct ViewId {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          public var value: String = String()
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public init() {}
+        }
+
         public init() {}
 
         fileprivate var _layout: Anytype_Event.Block.Set.Widget.Layout? = nil
+        fileprivate var _limit: Anytype_Event.Block.Set.Widget.Limit? = nil
+        fileprivate var _viewID: Anytype_Event.Block.Set.Widget.ViewId? = nil
       }
 
       public init() {}
@@ -4172,6 +4216,7 @@ public struct Anytype_Event {
         case syncing // = 2
         case synced // = 3
         case failed // = 4
+        case incompatibleVersion // = 5
         case UNRECOGNIZED(Int)
 
         public init() {
@@ -4185,6 +4230,7 @@ public struct Anytype_Event {
           case 2: self = .syncing
           case 3: self = .synced
           case 4: self = .failed
+          case 5: self = .incompatibleVersion
           default: self = .UNRECOGNIZED(rawValue)
           }
         }
@@ -4196,6 +4242,7 @@ public struct Anytype_Event {
           case .syncing: return 2
           case .synced: return 3
           case .failed: return 4
+          case .incompatibleVersion: return 5
           case .UNRECOGNIZED(let i): return i
           }
         }
@@ -4384,6 +4431,7 @@ extension Anytype_Event.Status.Thread.SyncStatus: CaseIterable {
     .syncing,
     .synced,
     .failed,
+    .incompatibleVersion,
   ]
 }
 
@@ -4646,6 +4694,8 @@ extension Anytype_Event.Block.Set.TableRow: @unchecked Sendable {}
 extension Anytype_Event.Block.Set.TableRow.IsHeader: @unchecked Sendable {}
 extension Anytype_Event.Block.Set.Widget: @unchecked Sendable {}
 extension Anytype_Event.Block.Set.Widget.Layout: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Widget.Limit: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Widget.ViewId: @unchecked Sendable {}
 extension Anytype_Event.Block.Fill: @unchecked Sendable {}
 extension Anytype_Event.Block.Fill.Details: @unchecked Sendable {}
 extension Anytype_Event.Block.Fill.DatabaseRecords: @unchecked Sendable {}
@@ -8769,6 +8819,8 @@ extension Anytype_Event.Block.Set.Widget: SwiftProtobuf.Message, SwiftProtobuf._
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "id"),
     2: .same(proto: "layout"),
+    3: .same(proto: "limit"),
+    4: .same(proto: "viewId"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -8779,6 +8831,8 @@ extension Anytype_Event.Block.Set.Widget: SwiftProtobuf.Message, SwiftProtobuf._
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
       case 2: try { try decoder.decodeSingularMessageField(value: &self._layout) }()
+      case 3: try { try decoder.decodeSingularMessageField(value: &self._limit) }()
+      case 4: try { try decoder.decodeSingularMessageField(value: &self._viewID) }()
       default: break
       }
     }
@@ -8795,12 +8849,20 @@ extension Anytype_Event.Block.Set.Widget: SwiftProtobuf.Message, SwiftProtobuf._
     try { if let v = self._layout {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
     } }()
+    try { if let v = self._limit {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    } }()
+    try { if let v = self._viewID {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Event.Block.Set.Widget, rhs: Anytype_Event.Block.Set.Widget) -> Bool {
     if lhs.id != rhs.id {return false}
     if lhs._layout != rhs._layout {return false}
+    if lhs._limit != rhs._limit {return false}
+    if lhs._viewID != rhs._viewID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -8832,6 +8894,70 @@ extension Anytype_Event.Block.Set.Widget.Layout: SwiftProtobuf.Message, SwiftPro
   }
 
   public static func ==(lhs: Anytype_Event.Block.Set.Widget.Layout, rhs: Anytype_Event.Block.Set.Widget.Layout) -> Bool {
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Block.Set.Widget.Limit: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Block.Set.Widget.protoMessageName + ".Limit"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "value"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt32Field(value: &self.value) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.value != 0 {
+      try visitor.visitSingularInt32Field(value: self.value, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Block.Set.Widget.Limit, rhs: Anytype_Event.Block.Set.Widget.Limit) -> Bool {
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Block.Set.Widget.ViewId: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Block.Set.Widget.protoMessageName + ".ViewId"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "value"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.value) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.value.isEmpty {
+      try visitor.visitSingularStringField(value: self.value, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Block.Set.Widget.ViewId, rhs: Anytype_Event.Block.Set.Widget.ViewId) -> Bool {
     if lhs.value != rhs.value {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
@@ -12177,6 +12303,7 @@ extension Anytype_Event.Status.Thread.SyncStatus: SwiftProtobuf._ProtoNameProvid
     2: .same(proto: "Syncing"),
     3: .same(proto: "Synced"),
     4: .same(proto: "Failed"),
+    5: .same(proto: "IncompatibleVersion"),
   ]
 }
 

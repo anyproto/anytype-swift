@@ -29,7 +29,8 @@ extension ObjectIconAttachementLoader {
             let image = model.imageGuideline.flatMap {
                 painter.todoImage(
                     isChecked: isChecked,
-                    imageGuideline: $0
+                    imageGuideline: $0,
+                    tintColor: .Button.active
                 )
             }
             setImage(image: image, processor: processor)

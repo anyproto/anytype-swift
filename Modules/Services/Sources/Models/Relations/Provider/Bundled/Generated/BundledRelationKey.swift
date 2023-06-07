@@ -351,4 +351,7 @@ public enum BundledRelationKey: String {
 
     /// File sync status
     case fileSyncStatus = "fileSyncStatus"
+
+    /// Last change ID
+    case lastChangeId = "lastChangeId"
 }

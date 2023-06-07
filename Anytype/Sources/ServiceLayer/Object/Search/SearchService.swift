@@ -285,7 +285,7 @@ private extension SearchService {
         
         let response = try? ClientCommands.objectSearch(.with {
             $0.filters = filters
-            $0.sorts = sorts
+            $0.sorts = sorts.map { $0.fixIncludeTime() }
             $0.fullText = fullText
             $0.limit = Int32(limit)
         }).invoke()
@@ -303,7 +303,7 @@ private extension SearchService {
                 
         let response = try await ClientCommands.objectSearch(.with {
             $0.filters = filters
-            $0.sorts = sorts
+            $0.sorts = sorts.map { $0.fixIncludeTime() }
             $0.fullText = fullText
             $0.limit = Int32(limit)
             $0.keys = keys

@@ -59,12 +59,12 @@ struct SettingsAccountView: View {
     private var accountBlock: some View {
         SectionHeaderView(title: Loc.account)
         
-        SettingsButton(text: Loc.logOut, textColor: .Text.primary) {
-            model.onLogOutTap()
+        SettingsButton(text: Loc.deleteAccount, textColor: .Text.primary) {
+            model.onDeleteAccountTap()
         }
         
-        SettingsButton(text: Loc.deleteAccount, textColor: .System.red) {
-            model.onDeleteAccountTap()
+        SettingsButton(text: Loc.logOut, textColor: .System.red) {
+            model.onLogOutTap()
         }
     }
 }
