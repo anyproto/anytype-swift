@@ -402,6 +402,7 @@
 "Failed to create your account due to a network error" = "Failed to create your account due to a network error";
 "Invalid invitation code" = "Invalid invitation code";
 "Unknown error" = "Unknown error";
+"Account is deleted" = "Account is deleted";
 "Nothing to redo" = "Nothing to redo";
 "Nothing to undo" = "Nothing to undo";
 "Progress..." = "Progress...";

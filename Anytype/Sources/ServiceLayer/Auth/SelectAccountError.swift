@@ -3,6 +3,7 @@ import ProtobufMessages
 
 enum SelectAccountError: Error {
     case failedToFindAccountInfo
+    case accountIsDeleted
 }
 
 extension Anytype_Rpc.Account.Select.Response.Error {
@@ -10,6 +11,8 @@ extension Anytype_Rpc.Account.Select.Response.Error {
         switch code {
         case .failedToFindAccountInfo:
             return .failedToFindAccountInfo
+        case .accountIsDeleted:
+            return .accountIsDeleted
         default:
             return nil
         }
