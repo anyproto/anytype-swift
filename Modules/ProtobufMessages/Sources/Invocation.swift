@@ -45,11 +45,11 @@ public struct Invocation<Request, Response> where Request: Message,
         do {
             result = try invokeTask(request)
         } catch {
-            log(message: messageName, rquest: request, respose: nil, error: error)
+            log(message: messageName, rquest: request, response: nil, error: error)
             throw error
         }
         
-        log(message: messageName, rquest: request, respose: result, error: result.error.isNull ? nil : result.error)
+        log(message: messageName, rquest: request, response: result, error: result.error.isNull ? nil : result.error)
         
         if !result.error.isNull {
             throw result.error
@@ -62,11 +62,20 @@ public struct Invocation<Request, Response> where Request: Message,
         return result
     }
     
-    private func log(message: String, rquest: Request, respose: Response?, error: Error?) {
+    private func log(message: String, rquest: Request, response: Response?, error: Error?) {
+        
+        let name: String
+        if let response, !response.event.messages.isEmpty {
+            let messageNames = (try? response.event.jsonUTF8Data())?.parseMessages() ?? ""
+            name = "\(message),Events:\(messageNames)"
+        } else {
+            name = message
+        }
+        
         let message = InvocationMessage(
-            name: message,
+            name: name,
             requestJsonData: try? request.jsonUTF8Data(),
-            responseJsonData: try? respose?.jsonUTF8Data(),
+            responseJsonData: try? response?.jsonUTF8Data(),
             responseError: error
         )
         InvocationSettings.handler?.logHandler(message: message)
