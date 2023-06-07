@@ -924,6 +924,7 @@ public struct Anytype_Rpc {
         /// Option of pre-installed icon
         public var icon: Int64 = 0
 
+        /// DEPRECATED
         public var alphaInviteCode: String = String()
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
