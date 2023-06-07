@@ -17,7 +17,7 @@ public enum SyncStatus {
             self = .syncing
         case .synced:
             self = .synced
-        case .failed:
+        case .failed, .incompatibleVersion:
             self = .failed
         case .UNRECOGNIZED:
             return nil

@@ -1744,6 +1744,16 @@ public struct ClientCommands {
         }
     }
 
+    public static func blockWidgetSetViewId(
+        _ request: Anytype_Rpc.BlockWidget.SetViewId.Request = .init()
+    ) -> Invocation<Anytype_Rpc.BlockWidget.SetViewId.Request, Anytype_Rpc.BlockWidget.SetViewId.Response> {
+        return Invocation(messageName: "BlockWidgetSetViewId", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceBlockWidgetSetViewId(requestData) ?? Data()
+            return try Anytype_Rpc.BlockWidget.SetViewId.Response(serializedData: responseData)
+        }
+    }
+
     public static func blockLinkCreateWithObject(
         _ request: Anytype_Rpc.BlockLink.CreateWithObject.Request = .init()
     ) -> Invocation<Anytype_Rpc.BlockLink.CreateWithObject.Request, Anytype_Rpc.BlockLink.CreateWithObject.Response> {

@@ -83,6 +83,8 @@ private extension SelectProfileViewModel {
                 } else {
                     errorText = Loc.selectAccountError
                 }
+            } catch SelectAccountError.accountIsDeleted {
+                errorText = Loc.accountDeleted
             } catch {
                 errorText = Loc.selectAccountError
             }

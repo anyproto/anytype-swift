@@ -512,6 +512,11 @@ extension Anytype_Rpc.BlockWidget.SetTargetId.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }
 }
 
+extension Anytype_Rpc.BlockWidget.SetViewId.Response: ResultWithError {}
+extension Anytype_Rpc.BlockWidget.SetViewId.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null }
+}
+
 extension Anytype_Rpc.Debug.ExportLocalstore.Response: ResultWithError {}
 extension Anytype_Rpc.Debug.ExportLocalstore.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }
