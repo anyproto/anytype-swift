@@ -24,8 +24,6 @@ internal enum Loc {
   internal static let accountData = Loc.tr("Localizable", "Account & data", fallback: "Account & data")
   /// Account deleted
   internal static let accountDeleted = Loc.tr("Localizable", "Account deleted", fallback: "Account deleted")
-  /// Account is deleted
-  internal static let accountIsDeleted = Loc.tr("Localizable", "Account is deleted", fallback: "Account is deleted")
   /// Account recover error, try again
   internal static let accountRecoverError = Loc.tr("Localizable", "Account recover error", fallback: "Account recover error, try again")
   /// Account recover error, probably no internet connection
