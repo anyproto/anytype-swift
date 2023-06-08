@@ -30,7 +30,7 @@ public extension FeatureDescription {
     
     static let fileStorage = FeatureDescription(
         title: "File storage",
-        type: .feature(author: "m@anytype.io", releaseVersion: "0.23.0"),
+        type: .feature(author: "m@anytype.io", releaseVersion: "0.22.0"),
         defaultValue: true
     )
     
@@ -43,19 +43,19 @@ public extension FeatureDescription {
     
     static let redesignAbout = FeatureDescription(
         title: "Redesign about",
-        type: .feature(author: "m@anytype.io", releaseVersion: "0.23.0"),
+        type: .feature(author: "m@anytype.io", releaseVersion: "0.22.0"),
         defaultValue: true
     )
     
     static let sortIncludeTime = FeatureDescription(
         title: "Sort include time",
-        type: .feature(author: "m@anytype.io", releaseVersion: "0.23.0"),
+        type: .feature(author: "m@anytype.io", releaseVersion: "0.22.0"),
         defaultValue: true
     )
     
     static let binConfirmAlert = FeatureDescription(
         title: "Bin confirm alert",
-        type: .feature(author: "m@anytype.io", releaseVersion: "0.23.0"),
+        type: .feature(author: "m@anytype.io", releaseVersion: "0.22.0"),
         defaultValue: true
     )
     
