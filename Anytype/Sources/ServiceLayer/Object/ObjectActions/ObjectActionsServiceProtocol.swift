@@ -8,7 +8,6 @@ protocol ObjectActionsServiceProtocol {
     
     func setArchive(objectIds: [BlockId], _ isArchived: Bool)
     func setArchive(objectIds: [BlockId], _ isArchived: Bool) async throws
-    func setFavorite(objectIds: [BlockId], _ isFavorite: Bool)
     func setFavorite(objectIds: [BlockId], _ isFavorite: Bool) async throws
     func convertChildrenToPages(contextID: BlockId, blocksIds: [BlockId], typeId: String) -> [BlockId]?
     func updateBundledDetails(contextID: BlockId, details: [BundledDetails])

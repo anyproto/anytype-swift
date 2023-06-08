@@ -54,15 +54,6 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         AnytypeAnalytics.instance().logMoveToBin(isArchived)
     }
     
-    func setFavorite(objectIds: [BlockId], _ isFavorite: Bool) {
-        _ = try? ClientCommands.objectListSetIsFavorite(.with {
-            $0.objectIds = objectIds
-            $0.isFavorite = isFavorite
-        }).invoke()
-        
-        AnytypeAnalytics.instance().logAddToFavorites(isFavorite)
-    }
-    
     func setFavorite(objectIds: [BlockId], _ isFavorite: Bool) async throws {
         try await ClientCommands.objectListSetIsFavorite(.with {
             $0.objectIds = objectIds

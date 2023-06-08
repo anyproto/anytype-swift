@@ -57,8 +57,9 @@ final class ObjectActionsViewModel: ObservableObject {
 
     func changeFavoriteSate() {
         guard let details = details else { return }
-
-        service.setFavorite(objectIds: [objectId], !details.isFavorite)
+        Task {
+            try await service.setFavorite(objectIds: [objectId], !details.isFavorite)
+        }
     }
 
     func changeLockState() {
