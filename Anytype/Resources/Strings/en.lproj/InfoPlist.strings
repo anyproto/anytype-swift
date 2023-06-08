@@ -1,4 +1,4 @@
-"NSFaceIDUsageDescription" = "To login via Face ID";
-"NSCameraUsageDescription" = "We need access to your camera to scan QR code for a secure and convenient login to your account";
-"NSLocalNetworkUsageDescription" = "To connect with other Anytype devices";
-"NSPhotoLibraryAddUsageDescription" = "To save selected image to your library";
+"NSFaceIDUsageDescription" = "Face ID is used to retrieve your Recovery Phrase securely stored in the keychain";
+"NSCameraUsageDescription" = "Camera is used to scan QR codes for a secure and convenient login experience";
+"NSLocalNetworkUsageDescription" = "Local network access is used to synchronize data directly between your nearby devices";
+"NSPhotoLibraryAddUsageDescription" = "Access is needed to save selected images to your library";
