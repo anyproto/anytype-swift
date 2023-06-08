@@ -3,7 +3,6 @@ import BlocksModels
 
 final class TagsSearchInteractor {
     
-    private let allTags: [Relation.Tag.Option] = []
     private let relationKey: String
     private let selectedTagIds: [String]
     private let isPreselectModeAvailable: Bool

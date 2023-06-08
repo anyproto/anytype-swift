@@ -4,7 +4,8 @@ import SwiftUI
 struct MainAuthView: View {
     @ObservedObject var viewModel: MainAuthViewModel
     @State private var userAnalyticsConsent: Bool = UserDefaultsConfig.analyticsUserConsent
-
+    @State private var showLogInView: Bool = false
+    
     var body: some View {
         ZStack {
             navigation
@@ -57,7 +58,7 @@ struct MainAuthView: View {
             AnytypeText(Loc.analyticsConstentText, style: .uxCalloutRegular, color: .Text.primary)
                 .padding(.trailing, 5)
             Spacer.fixedHeight(18)
-            StandardButton(text: Loc.start, style: .primary) {
+            StandardButton(Loc.start, style: .primaryLarge) {
                 UISelectionFeedbackGenerator().selectionChanged()
                 withAnimation(.fastSpring) {
                     userAnalyticsConsent = true
@@ -81,14 +82,14 @@ struct MainAuthView: View {
     
     private var buttons: some View {
         HStack(spacing: 10) {
-            StandardButton(text: Loc.signUp, style: .secondary) {
+            StandardButton(Loc.signUp, style: .secondaryLarge) {
                 viewModel.singUp()
             }
             
-            NavigationLink(destination: viewModel.loginView()) {
-                StandardButtonView(text: Loc.login, style: .primary)
+            StandardButton(Loc.login, style: .primaryLarge) {
+                showLogInView.toggle()
             }
-            .buttonStyle(ShrinkingButtonStyle())
+            .addEmptyNavigationLink(destination: viewModel.loginView(), isActive: $showLogInView)
         }
     }
     
@@ -106,6 +107,6 @@ struct MainAuthView: View {
 
 struct MainAuthView_Previews : PreviewProvider {
     static var previews: some View {
-        MainAuthView(viewModel: MainAuthViewModel(windowManager: DI.preview.coordinatorsDI.windowManager()))
+        MainAuthView(viewModel: MainAuthViewModel(applicationStateService: DI.preview.serviceLocator.applicationStateService()))
     }
 }

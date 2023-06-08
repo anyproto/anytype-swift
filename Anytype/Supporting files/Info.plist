@@ -63,7 +63,7 @@
 	<key>CFBundlePackageType</key>
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.21.0</string>
+	<string>0.22.0</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -78,7 +78,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>36</string>
+	<string>118</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LSRequiresIPhoneOS</key>
@@ -95,17 +95,19 @@
 		<string>_pulse._tcp</string>
 	</array>
 	<key>NSCameraUsageDescription</key>
-	<string>NSCameraUsageDescription</string>
+	<string>Camera access. Non-localized value</string>
 	<key>NSFaceIDUsageDescription</key>
-	<string>NSFaceIDUsageDescription</string>
+	<string>Face ID access. Non-localized value</string>
 	<key>NSLocalNetworkUsageDescription</key>
-	<string>NSLocalNetworkUsageDescription</string>
+	<string>Network access. Non-localized value</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>NSPhotoLibraryAddUsageDescription</string>
+	<string>Photo Library access. Non-localized value</string>
 	<key>NSUserActivityTypes</key>
 	<array>
 		<string>ConfigurationIntent</string>
 	</array>
+	<key>SentryEnv</key>
+	<string>$(SENTRY_ENV)</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>IBMPlexMono-Italic.ttf</string>
@@ -113,6 +115,7 @@
 		<string>IBMPlexMono-Bold.ttf</string>
 		<string>IBMPlexMono-Regular.ttf</string>
 		<string>Inter.ttf</string>
+		<string>Riccione-Xlight-Regular.ttf</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
@@ -197,5 +200,9 @@
 		<key>BuildConfigurationName</key>
 		<string>$(CONFIGURATION)</string>
 	</dict>
+	<key>AmplitudeApiKey</key>
+	<string></string>
+	<key>SentryDSN</key>
+	<string></string>
 </dict>
 </plist>

@@ -35,33 +35,6 @@ enum MarkupType: Equatable, Hashable, CaseIterable {
         }
     }
 
-    var description: String {
-        switch self {
-        case .bold:
-            return "bold"
-        case .italic:
-            return "italic"
-        case .keyboard:
-            return "keyboard"
-        case .strikethrough:
-            return "strikethrough"
-        case .underscored:
-            return "underscored"
-        case .textColor:
-            return "textColor"
-        case .backgroundColor:
-            return "backgroundColor"
-        case .link:
-            return "link"
-        case .linkToObject:
-            return "linkToObject"
-        case .mention:
-            return "mention"
-        case .emoji:
-            return "emoji"
-        }
-    }
-
     static var allCases: [MarkupType] {
         return [.bold, italic, .keyboard, .strikethrough, .underscored, .textColor(.Text.secondary), .backgroundColor(.Text.secondary), .link(nil), .linkToObject(nil), .mention(MentionData.noDetails(blockId: ""))]
     }

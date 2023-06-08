@@ -2,6 +2,7 @@ import BlocksModels
 import Combine
 import AnytypeCore
 import NotificationCenter
+import AsyncQueue
 
 final class SubscriptionsService: SubscriptionsServiceProtocol {
     
@@ -15,6 +16,7 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
     private let storage: ObjectDetailsStorage
     
     private var subscribers = [SubscriptionId: Subscriber]()
+    private let taskQueue = FIFOQueue()
     
     init(toggler: SubscriptionTogglerProtocol, storage: ObjectDetailsStorage) {
         self.toggler = toggler
@@ -24,53 +26,107 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
     }
     
     deinit {
-        stopAllSubscriptions()
+        // Without queue. Queue will be cancelled
+        let ids = Array(subscribers.keys)
+        guard ids.isNotEmpty else { return }
+        Task { [ids, toggler] in
+            try? await toggler.stopSubscriptions(ids: ids)
+        }
+    }
+    
+    func updateSubscription(data: SubscriptionData, required: Bool, update: @escaping SubscriptionCallback) {
+        taskQueue.enqueue { [weak self] in
+            guard let self = self else { return }
+            
+            guard required || self.hasSubscriptionDataDiff(with: data) else { return }
+            
+            await self.unsafeStopSubscriptions(ids: [data.identifier])
+            await self.unsafeStartSubscription(data: data, update: update)
+        }
     }
     
     func stopAllSubscriptions() {
-        subscribers.keys.forEach { stopSubscription(id: $0) }
+        taskQueue.enqueue { [weak self] in
+            guard let self = self else { return }
+            
+            let ids = Array(self.subscribers.keys)
+            self.stopSubscriptions(ids: ids)
+        }
     }
     
     func stopSubscriptions(ids: [SubscriptionId]) {
-        ids.forEach { stopSubscription(id: $0) }
+        taskQueue.enqueue { [weak self] in
+            guard let self = self else { return }
+            
+            let idsToDelete = self.subscribers.keys.filter { ids.contains($0) }
+            guard idsToDelete.isNotEmpty else { return }
+            
+            try? await self.toggler.stopSubscriptions(ids: idsToDelete)
+            for id in idsToDelete {
+                self.subscribers[id] = nil
+            }
+        }
     }
     
     func stopSubscription(id: SubscriptionId) {
-        guard subscribers[id].isNotNil else { return }
-
-        _ = toggler.stopSubscription(id: id)
-        subscribers[id] = nil
+        taskQueue.enqueue { [weak self] in
+            await self?.unsafeStopSubscriptions(ids: [id])
+        }
     }
     
     func startSubscriptions(data: [SubscriptionData], update: @escaping SubscriptionCallback) {
-        data.forEach { startSubscription(data: $0, update: update) }
+        taskQueue.enqueue { [weak self] in
+            for subData in data {
+                await self?.unsafeStartSubscription(data: subData, update: update)
+            }
+        }
     }
     
     func startSubscription(data: SubscriptionData, update: @escaping SubscriptionCallback) {
-        guard subscribers[data.identifier].isNil else {
-            anytypeAssertionFailure("Subscription: \(data) started on second time", domain: .subscriptionStorage)
-            return
+        taskQueue.enqueue { [weak self] in
+            await self?.unsafeStartSubscription(data: data, update: update)
         }
-        
-        subscribers[data.identifier] = Subscriber(data: data, callback: update)
-        
-        guard let result = toggler.startSubscription(data: data) else { return }
-        
-        result.records.forEach { storage.amend(details: $0) }
-        result.dependencies.forEach { storage.amend(details: $0) }
-        
-        update(data.identifier, .initialData(result.records))
-        update(data.identifier, .pageCount(numberOfPagesFromTotalCount(result.count, numberOfRowsPerPage: data.rowsPerPage)))
     }
     
-    func hasSubscriptionDataDiff(with data: SubscriptionData) -> Bool {
+    func startSubscriptionAsync(data: SubscriptionData, update: @escaping SubscriptionCallback) async {
+        await taskQueue.enqueueAndWait { [weak self] in
+            await self?.unsafeStartSubscription(data: data, update: update)
+        }
+    }
+ 
+    // MARK: - Private
+    
+    private func hasSubscriptionDataDiff(with data: SubscriptionData) -> Bool {
         guard let subscriber = subscribers[data.identifier] else {
             return true
         }
         return data != subscriber.data
     }
  
-    // MARK: - Private
+    func unsafeStartSubscription(data: SubscriptionData, update: @escaping SubscriptionCallback) async {
+        guard let result = try? await toggler.startSubscription(data: data) else { return }
+        
+        subscribers[data.identifier] = Subscriber(data: data, callback: update)
+        
+        result.records.forEach { storage.amend(details: $0) }
+        result.dependencies.forEach { storage.amend(details: $0) }
+        
+        await MainActor.run {
+            update(data.identifier, .initialData(result.records))
+            update(data.identifier, .pageCount(numberOfPagesFromTotalCount(result.count, numberOfRowsPerPage: data.rowsPerPage)))
+        }
+    }
+    
+    func unsafeStopSubscriptions(ids: [SubscriptionId]) async {
+        let idsToDelete = subscribers.keys.filter { ids.contains($0) }
+        guard idsToDelete.isNotEmpty else { return }
+        
+        try? await toggler.stopSubscriptions(ids: idsToDelete)
+        for id in idsToDelete {
+            subscribers[id] = nil
+        }
+    }
+    
     private let dependencySubscriptionSuffix = "/dep"
     
     private func setup() {

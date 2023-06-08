@@ -1,5 +1,6 @@
 import Foundation
 import BlocksModels
+import SwiftUI
 
 protocol NewSearchModuleAssemblyProtocol {
     
@@ -27,7 +28,7 @@ protocol NewSearchModuleAssemblyProtocol {
         selectionMode: NewSearchViewModel.SelectionMode,
         excludedObjectIds: [String],
         limitedObjectType: [String],
-        onSelect: @escaping (_ ids: [String]) -> Void
+        onSelect: @escaping (_ details: [ObjectDetails]) -> Void
     ) -> NewSearchView
     
     func filesSearchModule(
@@ -41,7 +42,7 @@ protocol NewSearchModuleAssemblyProtocol {
         selectedObjectId: BlockId?,
         excludedObjectTypeId: String?,
         showBookmark: Bool,
-        showSet: Bool,
+        showSetAndCollection: Bool,
         browser: EditorBrowserController?,
         onSelect: @escaping (_ type: ObjectType) -> Void
     ) -> NewSearchView
@@ -54,6 +55,7 @@ protocol NewSearchModuleAssemblyProtocol {
     func blockObjectsSearchModule(
         title: String,
         excludedObjectIds: [String],
+        excludedTypeIds: [String],
         onSelect: @escaping (_ details: ObjectDetails) -> Void
     ) -> NewSearchView
     
@@ -68,6 +70,15 @@ protocol NewSearchModuleAssemblyProtocol {
         target: RelationsSearchTarget,
         output: RelationSearchModuleOutput
     ) -> NewSearchView
+    
+    func widgetSourceSearchModule(context: AnalyticsWidgetContext, onSelect: @escaping (_ source: WidgetSource) -> Void) -> AnyView
+    
+    func widgetChangeSourceSearchModule(
+        widgetObjectId: String,
+        widgetId: String,
+        context: AnalyticsWidgetContext,
+        onFinish: @escaping () -> Void
+    ) -> AnyView
 }
 
 // Extension for specific Settings
@@ -114,7 +125,7 @@ extension NewSearchModuleAssemblyProtocol {
         selectionMode: NewSearchViewModel.SelectionMode = .multipleItems(),
         excludedObjectIds: [String],
         limitedObjectType: [String],
-        onSelect: @escaping (_ ids: [String]) -> Void
+        onSelect: @escaping (_ details: [ObjectDetails]) -> Void
     ) -> NewSearchView {
         return objectsSearchModule(
             title: title,
@@ -132,7 +143,7 @@ extension NewSearchModuleAssemblyProtocol {
         selectedObjectId: BlockId? = nil,
         excludedObjectTypeId: String? = nil,
         showBookmark: Bool = false,
-        showSet: Bool = false,
+        showSetAndCollection: Bool = false,
         browser: EditorBrowserController? = nil,
         onSelect: @escaping (_ type: ObjectType) -> Void
     ) -> NewSearchView {
@@ -142,7 +153,7 @@ extension NewSearchModuleAssemblyProtocol {
             selectedObjectId: selectedObjectId,
             excludedObjectTypeId: excludedObjectTypeId,
             showBookmark: showBookmark,
-            showSet: showSet,
+            showSetAndCollection: showSetAndCollection,
             browser: browser,
             onSelect: onSelect
         )

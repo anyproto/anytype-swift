@@ -34,6 +34,7 @@ final class EditorSetViewPickerViewModel: ObservableObject {
             let position = to > viewFromIndex ? to - 1 : to
             Task {
                 try await dataviewService.setPositionForView(view.id, position: position)
+                AnytypeAnalytics.instance().logRepositionView(objectType: setDocument.analyticsType)
             }
         }
     }
@@ -44,6 +45,7 @@ final class EditorSetViewPickerViewModel: ObservableObject {
             let view = setDocument.dataView.views[deleteIndex]
             Task {
                 try await dataviewService.deleteView(view.id)
+                AnytypeAnalytics.instance().logRemoveView(objectType: setDocument.analyticsType)
             }
         }
     }
@@ -63,7 +65,7 @@ final class EditorSetViewPickerViewModel: ObservableObject {
                 isSupported: view.type.isSupported,
                 isActive: view == dataView.views.first { $0.id == dataView.activeViewId },
                 onTap: { [weak self] in
-                    self?.handleTap(with: view.id)
+                    self?.handleTap(with: view)
                 },
                 onEditTap: { [weak self] in
                     self?.handleEditTap(with: view.id)
@@ -73,8 +75,12 @@ final class EditorSetViewPickerViewModel: ObservableObject {
         disableDeletion = rows.count < 2
     }
     
-    private func handleTap(with id: String) {
-        setDocument.updateActiveViewId(id)
+    private func handleTap(with view: DataviewView) {
+        setDocument.updateActiveViewId(view.id)
+        AnytypeAnalytics.instance().logSwitchView(
+            type: view.type.stringValue,
+            objectType: setDocument.analyticsType
+        )
     }
     
     private func handleEditTap(with id: String) {

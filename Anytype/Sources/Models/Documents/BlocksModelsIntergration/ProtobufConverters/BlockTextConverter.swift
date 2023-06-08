@@ -3,17 +3,15 @@ import ProtobufMessages
 
 extension BlockText {
     var asMiddleware: Anytype_Model_Block.OneOf_Content {
-        .text(
-            Anytype_Model_Block.Content.Text(
-                text: text,
-                style: contentType.asMiddleware,
-                marks: marks,
-                checked: checked,
-                color: color?.rawValue ?? "",
-                iconEmoji: iconEmoji,
-                iconImage: iconImage
-            )
-        )
+        .text(.with {
+            $0.text = text
+            $0.style = contentType.asMiddleware
+            $0.marks = marks
+            $0.checked = checked
+            $0.color = color?.rawValue ?? ""
+            $0.iconEmoji = iconEmoji
+            $0.iconImage = iconImage
+        })
     }
 }
 

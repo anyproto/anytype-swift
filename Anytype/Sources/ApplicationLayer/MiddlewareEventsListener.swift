@@ -17,12 +17,4 @@ extension MiddlewareEventsListener: ServiceEventsHandlerProtocol {
     func handle(_ event: Anytype_Event) {
         EventsBunch(event: event).send()
     }
-     
-    private func isNotNoise(_ event: Anytype_Event.Message) -> Bool {
-        guard let value = event.value else { return false }
-        switch value {
-        case .threadStatus: return false
-        default: return true
-        }
-    }
 }

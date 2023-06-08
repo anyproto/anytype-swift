@@ -8,7 +8,7 @@ struct SetMinimizedHeader: View {
 
     @EnvironmentObject private var model: EditorSetViewModel
 
-    private let minimizedHeaderHeight = ObjectHeaderConstants.minimizedHeaderHeight + UIApplication.shared.mainWindowInsets.top
+    private let height = ObjectHeaderConstants.minimizedHeaderHeight + UIApplication.shared.mainWindowInsets.top
 
     var body: some View {
         VStack {
@@ -32,7 +32,7 @@ struct SetMinimizedHeader: View {
             .padding(.leading, 10)
             .padding(.trailing, model.hasTargetObjectId ? 46 : 2)
         }
-        .frame(height: minimizedHeaderHeight)
+        .frame(height: height)
         .background(Color.Background.primary.opacity(opacity))
         .readSize { headerMinimizedSize = $0 }
     }
@@ -44,7 +44,7 @@ struct SetMinimizedHeader: View {
                     .frame(width: 18, height: 18)
             }
             model.details.flatMap {
-                AnytypeText($0.title, style: .body, color: .Text.primary)
+                AnytypeText($0.title, style: .bodyRegular, color: .Text.primary)
                     .lineLimit(1)
             }
         }
@@ -80,7 +80,7 @@ struct SetMinimizedHeader: View {
     private var opacity: Double {
         guard tableViewOffset.y < 0 else { return 0 }
 
-        let startingOpacityHeight = headerSize.height - minimizedHeaderHeight
+        let startingOpacityHeight = headerSize.height - height
         let opacity = abs(tableViewOffset.y) / startingOpacityHeight
         return min(opacity, 1)
     }

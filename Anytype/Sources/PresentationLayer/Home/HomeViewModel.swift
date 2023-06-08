@@ -30,14 +30,17 @@ final class HomeViewModel: ObservableObject {
     @Published var loadingDocument = true
     
     @Published private(set) var profileData: HomeProfileData?
-    @Published private(set) var settingsViewModel: SettingsViewModel
-    
+    @Published private(set) var enableSpace: Bool = false
+    @Published private(set) var isFirstLaunchAfterRegistration: Bool
+        
     let objectActionsService: ObjectActionsServiceProtocol = ServiceLocator.shared.objectActionsService()
     
     private let dashboardService: DashboardServiceProtocol = ServiceLocator.shared.dashboardService()
     private let subscriptionService: SubscriptionsServiceProtocol = ServiceLocator.shared.subscriptionService()
     private let tabsSubsciptionDataBuilder: TabsSubscriptionDataBuilderProtocol
     private let profileSubsciptionDataBuilder: ProfileSubscriptionDataBuilderProtocol
+    private let dashboardAlertsAssembly: DashboardAlertsAssemblyProtocol
+    private let settingsCoordinator: SettingsCoordinatorProtocol
     
     let document: BaseDocumentProtocol
     lazy var cellDataBuilder = HomeCellDataBuilder(document: document)
@@ -50,6 +53,7 @@ final class HomeViewModel: ObservableObject {
     
     private let editorBrowserAssembly: EditorBrowserAssembly
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
+    let accountManager: AccountManagerProtocol
     
     init(
         homeBlockId: BlockId,
@@ -57,17 +61,21 @@ final class HomeViewModel: ObservableObject {
         tabsSubsciptionDataBuilder: TabsSubscriptionDataBuilderProtocol,
         profileSubsciptionDataBuilder: ProfileSubscriptionDataBuilderProtocol,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
-        windowManager: WindowManager
+        applicationStateService: ApplicationStateServiceProtocol,
+        accountManager: AccountManagerProtocol,
+        dashboardAlertsAssembly: DashboardAlertsAssemblyProtocol,
+        loginStateService: LoginStateServiceProtocol,
+        settingsCoordinator: SettingsCoordinatorProtocol
     ) {
         document = BaseDocument(objectId: homeBlockId)
         self.editorBrowserAssembly = editorBrowserAssembly
         self.tabsSubsciptionDataBuilder = tabsSubsciptionDataBuilder
         self.profileSubsciptionDataBuilder = profileSubsciptionDataBuilder
         self.newSearchModuleAssembly = newSearchModuleAssembly
-        self.settingsViewModel = SettingsViewModel(
-            authService: ServiceLocator.shared.authService(),
-            windowManager: windowManager
-        )
+        self.accountManager = accountManager
+        self.dashboardAlertsAssembly = dashboardAlertsAssembly
+        self.isFirstLaunchAfterRegistration = loginStateService.isFirstLaunchAfterRegistration
+        self.settingsCoordinator = settingsCoordinator
         setupSubscriptions()
         
         let data = UserDefaultsConfig.screenDataFromLastSession
@@ -110,6 +118,18 @@ final class HomeViewModel: ObservableObject {
         
         AnytypeAnalytics.instance().logHomeTabSelection(tab)
     }
+    
+    // MARK: - Create submodules
+            
+    func makeKeychainAlert() -> AnyView {
+        dashboardAlertsAssembly.makeKeychainRemindView(context: isFirstLaunchAfterRegistration ? .signup : .settings)
+    }
+
+    func showSettings() {
+        settingsCoordinator.startFlow()
+    }
+    
+    // MARK: - Private
     
     private func onProfileUpdate(update: SubscriptionUpdate) {
         switch update {
@@ -162,6 +182,10 @@ final class HomeViewModel: ObservableObject {
             }
             .store(in: &cancellables)
         
+        accountManager.accountPublisher
+            .map { $0.config.enableSpaces }
+            .assign(to: &$enableSpace)
+        
         // visual delay on application launch
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
             self?.quickActionsSubscription = QuickActionsStorage.shared.$action.sink { action in
@@ -182,7 +206,7 @@ final class HomeViewModel: ObservableObject {
     
     private func setupProfileSubscriptions() {
         subscriptionService.startSubscription(
-            data: profileSubsciptionDataBuilder.profile(id: AccountManager.shared.account.info.profileObjectID)
+            data: profileSubsciptionDataBuilder.profile(id: accountManager.account.info.profileObjectID)
         ) { [weak self] id, update in
             withAnimation {
                 self?.onProfileUpdate(update: update)
@@ -200,14 +224,11 @@ extension HomeViewModel {
     }
     
     func createAndShowNewPage() {
-        guard let id = dashboardService.createNewPage() else { return }
+        guard let details = dashboardService.createNewPage() else { return }
         
-        AnytypeAnalytics.instance().logCreateObject(
-            objectType: ObjectTypeProvider.shared.defaultObjectType.id,
-            route: .home
-        )
+        AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: .home)
         
-        showPage(id: id, viewType: .page)
+        showPage(id: details.id, viewType: details.editorViewType)
     }
     
     func showProfile() {
@@ -230,9 +251,5 @@ extension HomeViewModel {
         editorBrowserAssembly.editor(data: data, model: self)
             .eraseToAnyView()
             .edgesIgnoringSafeArea(.all)
-    }
-    
-    func createPersonalizationView() -> some View {
-        return PersonalizationView(newSearchModuleAssembly: newSearchModuleAssembly)
     }
 }

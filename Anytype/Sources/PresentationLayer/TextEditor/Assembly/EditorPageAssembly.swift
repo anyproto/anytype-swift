@@ -1,6 +1,7 @@
 import BlocksModels
 import UIKit
 import AnytypeCore
+import SwiftUI
 
 final class EditorAssembly {
     
@@ -23,15 +24,17 @@ final class EditorAssembly {
     
     func buildEditorController(
         browser: EditorBrowserController?,
-        data: EditorScreenData
+        data: EditorScreenData,
+        widgetListOutput: WidgetObjectListCommonModuleOutput? = nil
     ) -> UIViewController {
-        buildEditorModule(browser: browser, data: data).vc
+        buildEditorModule(browser: browser, data: data, widgetListOutput: widgetListOutput).vc
     }
 
     func buildEditorModule(
         browser: EditorBrowserController?,
-        data: EditorScreenData
-    ) -> (vc: UIViewController, router: EditorPageOpenRouterProtocol) {
+        data: EditorScreenData,
+        widgetListOutput: WidgetObjectListCommonModuleOutput? = nil
+    ) -> (vc: UIViewController, router: EditorPageOpenRouterProtocol?) {
         switch data.type {
         case .page:
             return buildPageModule(browser: browser, data: data)
@@ -42,6 +45,16 @@ final class EditorAssembly {
                 blockId: blockId,
                 targetObjectID: targetObjectID
             )
+        case .favorites:
+            return favoritesModule(browser: browser, output: widgetListOutput)
+        case .recent:
+            return recentModule(browser: browser, output: widgetListOutput)
+        case .sets:
+            return setsModule(browser: browser, output: widgetListOutput)
+        case .collections:
+            return collectionsModule(browser: browser, output: widgetListOutput)
+        case .bin:
+            return binModule(browser: browser, output: widgetListOutput)
         }
     }
     
@@ -75,7 +88,8 @@ final class EditorAssembly {
             objectActionsService: serviceLocator.objectActionsService(),
             textService: serviceLocator.textService,
             groupsSubscriptionsHandler: serviceLocator.groupsSubscriptionsHandler(),
-            setSubscriptionDataBuilder: SetSubscriptionDataBuilder()
+            setSubscriptionDataBuilder: SetSubscriptionDataBuilder(accountManager: serviceLocator.accountManager()),
+            objectTypeProvider: serviceLocator.objectTypeProvider()
         )
         let controller = EditorSetHostingController(objectId: data.pageId, model: model)
 
@@ -181,18 +195,18 @@ final class EditorAssembly {
         let focusSubjectHolder = FocusSubjectsHolder()
 
         let cursorManager = EditorCursorManager(focusSubjectHolder: focusSubjectHolder)
-        let listService = serviceLocator.blockListService(documentId: document.objectId)
-        let singleService = serviceLocator.blockActionsServiceSingle(contextId: document.objectId)
+        let listService = serviceLocator.blockListService()
         let blockActionService = BlockActionService(
             documentId: document.objectId,
             listService: listService,
-            singleService: singleService,
+            singleService: serviceLocator.blockActionsServiceSingle(),
             objectActionService: serviceLocator.objectActionsService(),
             modelsHolder: modelsHolder,
             bookmarkService: serviceLocator.bookmarkService(),
             cursorManager: cursorManager
         )
         let keyboardHandler = KeyboardActionHandler(
+            documentId: document.objectId,
             service: blockActionService,
             listService: listService,
             toggleStorage: ToggleStorage.shared,
@@ -207,7 +221,8 @@ final class EditorAssembly {
             service: blockActionService,
             listService: listService,
             keyboardHandler: keyboardHandler,
-            blockTableService: blockTableService
+            blockTableService: blockTableService,
+            fileService: serviceLocator.fileService()
         )
 
         let pasteboardMiddlewareService = PasteboardMiddleService(document: document)
@@ -215,15 +230,12 @@ final class EditorAssembly {
         let pasteboardService = PasteboardService(document: document,
                                                   pasteboardHelper: pasteboardHelper,
                                                   pasteboardMiddlewareService: pasteboardMiddlewareService)
-
-        let blockActionsServiceSingle = serviceLocator
-            .blockActionsServiceSingle(contextId: document.objectId)
-
+        
         let blocksStateManager = EditorPageBlocksStateManager(
             document: document,
             modelsHolder: modelsHolder,
             blocksSelectionOverlayViewModel: blocksSelectionOverlayViewModel,
-            blockActionsServiceSingle: blockActionsServiceSingle,
+            blockActionsServiceSingle: serviceLocator.blockActionsServiceSingle(),
             toastPresenter: uiHelpersDI.toastPresenter(using: browser),
             actionHandler: actionHandler,
             pasteboardService: pasteboardService,
@@ -307,12 +319,13 @@ final class EditorAssembly {
             blockBuilder: blocksConverter,
             actionHandler: actionHandler,
             headerModel: headerModel,
-            blockActionsService: blockActionsServiceSingle,
+            blockActionsService: serviceLocator.blockActionsServiceSingle(),
             blocksStateManager: blocksStateManager,
             cursorManager: cursorManager,
             objectActionsService: serviceLocator.objectActionsService(),
             searchService: serviceLocator.searchService(),
             editorPageTemplatesHandler: editorPageTemplatesHandler,
+            accountManager: serviceLocator.accountManager(),
             isOpenedForPreview: isOpenedForPreview
         )
     }
@@ -329,5 +342,40 @@ final class EditorAssembly {
             blocksOptionView: blocksOptionView,
             simpleTablesOptionView: SimpleTableMenuView(viewModel: simleTableMenuViewModel)
         )
+    }
+    
+    private func favoritesModule(browser: EditorBrowserController?, output: WidgetObjectListCommonModuleOutput?) -> (UIViewController, EditorPageOpenRouterProtocol?) {
+        let moduleAssembly = modulesDI.widgetObjectList()
+        let bottomPanelManager = BrowserBottomPanelManager(browser: browser)
+        let module = moduleAssembly.makeFavorites(bottomPanelManager: bottomPanelManager, output: output)
+        return (module, nil)
+    }
+    
+    private func recentModule(browser: EditorBrowserController?, output: WidgetObjectListCommonModuleOutput?) -> (UIViewController, EditorPageOpenRouterProtocol?) {
+        let moduleAssembly = modulesDI.widgetObjectList()
+        let bottomPanelManager = BrowserBottomPanelManager(browser: browser)
+        let module = moduleAssembly.makeRecent(bottomPanelManager: bottomPanelManager, output: output)
+        return (module, nil)
+    }
+
+    private func setsModule(browser: EditorBrowserController?, output: WidgetObjectListCommonModuleOutput?) -> (UIViewController, EditorPageOpenRouterProtocol?) {
+        let moduleAssembly = modulesDI.widgetObjectList()
+        let bottomPanelManager = BrowserBottomPanelManager(browser: browser)
+        let module = moduleAssembly.makeSets(bottomPanelManager: bottomPanelManager, output: output)
+        return (module, nil)
+    }
+    
+    private func collectionsModule(browser: EditorBrowserController?, output: WidgetObjectListCommonModuleOutput?) -> (UIViewController, EditorPageOpenRouterProtocol?) {
+        let moduleAssembly = modulesDI.widgetObjectList()
+        let bottomPanelManager = BrowserBottomPanelManager(browser: browser)
+        let module = moduleAssembly.makeCollections(bottomPanelManager: bottomPanelManager, output: output)
+        return (module, nil)
+    }
+
+    private func binModule(browser: EditorBrowserController?, output: WidgetObjectListCommonModuleOutput?) -> (UIViewController, EditorPageOpenRouterProtocol?) {
+        let moduleAssembly = modulesDI.widgetObjectList()
+        let bottomPanelManager = BrowserBottomPanelManager(browser: browser)
+        let module = moduleAssembly.makeBin(bottomPanelManager: bottomPanelManager, output: output)
+        return (module, nil)
     }
 }

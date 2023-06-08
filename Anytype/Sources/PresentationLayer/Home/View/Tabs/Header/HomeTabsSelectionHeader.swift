@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct HomeTabsSelectionHeader: View {
-    @EnvironmentObject var model: HomeViewModel
+    @ObservedObject var model: HomeViewModel
     
     var body: some View {
         HStack(spacing: 0) {

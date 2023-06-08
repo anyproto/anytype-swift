@@ -46,5 +46,3 @@ extension EventsBunch {
         )
     }
 }
-
-

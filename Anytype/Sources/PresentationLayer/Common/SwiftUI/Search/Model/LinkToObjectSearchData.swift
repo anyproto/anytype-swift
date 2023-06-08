@@ -21,13 +21,7 @@ struct LinkToObjectSearchData: SearchDataProtocol {
         self.description = details.description
         self.callout = details.objectType.name
         self.typeId = details.objectType.id
-
-        if details.layoutValue == .todo {
-            self.iconImage = .todo(details.isDone)
-        } else {
-            self.iconImage = details.icon.flatMap { .icon($0) } ?? .placeholder(title.first)
-        }
-        
+        self.iconImage = details.objectIconImageWithPlaceholder
         self.viewType = details.editorViewType
     }
 
@@ -65,10 +59,6 @@ extension LinkToObjectSearchData {
         case .object: return callout.isNotEmpty
         case .web, .createObject, .openURL, .openObject, .removeLink, .copyLink: return false
         }
-    }
-    
-    var calloutFont: AnytypeFont {
-        .relation3Regular
     }
     
     var verticalInset: CGFloat {

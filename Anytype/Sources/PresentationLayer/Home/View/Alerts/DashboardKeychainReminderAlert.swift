@@ -1,9 +1,7 @@
 import SwiftUI
 
 struct DashboardKeychainReminderAlert: View {
-    var shownInContext: AnalyticsEventsKeychainContext
-    @EnvironmentObject private var model: HomeViewModel
-    @StateObject private var keychainModel = KeychainPhraseViewModel()
+    @ObservedObject var keychainViewModel: KeychainPhraseViewModel
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -12,16 +10,14 @@ struct DashboardKeychainReminderAlert: View {
             Spacer.fixedHeight(11)
             description
             Spacer.fixedHeight(18)
-            SeedPhraseView(model: keychainModel) {
-                model.snackBarData = .init(text: Loc.Keychain.recoveryPhraseCopiedToClipboard, showSnackBar: true)
-
-                AnytypeAnalytics.instance().logKeychainPhraseCopy(shownInContext)
-            }
+            SeedPhraseView(model: keychainViewModel)
             Spacer.fixedHeight(25)
         }
+        .fixedSize(horizontal: false, vertical: true)
         .padding(.horizontal, 20)
         .background(Color.Background.primary)
         .cornerRadius(16)
+        .snackbar(toastBarData: $keychainViewModel.toastBarData)
     }
     
     private var description: some View {
@@ -40,7 +36,7 @@ struct DashboardKeychainReminderAlert_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
             Color.blue
-            DashboardKeychainReminderAlert(shownInContext: .signup)
+            DashboardKeychainReminderAlert(keychainViewModel: KeychainPhraseViewModel.makeForPreview())
         }
     }
 }

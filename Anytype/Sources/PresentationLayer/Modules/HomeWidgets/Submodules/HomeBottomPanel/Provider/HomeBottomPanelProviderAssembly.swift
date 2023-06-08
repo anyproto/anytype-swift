@@ -1,24 +1,24 @@
 import Foundation
 
 protocol HomeBottomPanelProviderAssemblyProtocol: AnyObject {
-    func make(stateManager: HomeWidgetsStateManagerProtocol) -> HomeWidgetProviderProtocol
+    func make(stateManager: HomeWidgetsStateManagerProtocol) -> HomeSubmoduleProviderProtocol
 }
 
 final class HomeBottomPanelProviderAssembly: HomeBottomPanelProviderAssemblyProtocol {
     
-    private let widgetsDI: WidgetsDIProtocol
+    private let widgetsSubmoduleDI: WidgetsSubmoduleDIProtocol
     private weak var output: HomeBottomPanelModuleOutput?
     
-    init(widgetsDI: WidgetsDIProtocol, output: HomeBottomPanelModuleOutput?) {
-        self.widgetsDI = widgetsDI
+    init(widgetsSubmoduleDI: WidgetsSubmoduleDIProtocol, output: HomeBottomPanelModuleOutput?) {
+        self.widgetsSubmoduleDI = widgetsSubmoduleDI
         self.output = output
     }
     
     // MARK: - HomeBottomPanelProviderAssemblyProtocol
     
-    func make(stateManager: HomeWidgetsStateManagerProtocol) -> HomeWidgetProviderProtocol {
+    func make(stateManager: HomeWidgetsStateManagerProtocol) -> HomeSubmoduleProviderProtocol {
         return HomeBottomPanelProvider(
-            bottomPanelModuleAssembly: widgetsDI.bottomPanelModuleAssembly(),
+            bottomPanelModuleAssembly: widgetsSubmoduleDI.bottomPanelModuleAssembly(),
             stateManager: stateManager,
             output: output
         )

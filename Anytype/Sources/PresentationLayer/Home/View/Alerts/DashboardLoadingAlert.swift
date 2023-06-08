@@ -1,7 +1,6 @@
 import SwiftUI
 
 struct DashboardLoadingAlert: View {
-    @EnvironmentObject private var model: HomeViewModel
     
     let text: String
     
@@ -10,7 +9,7 @@ struct DashboardLoadingAlert: View {
             Spacer.fixedHeight(15)
             AnytypeText(text, style: .uxCalloutRegular, color: .Text.primary)
             Spacer.fixedHeight(13)
-            ProgressBar(showAnimation: model.loadingAlertData.showAlert)
+            ProgressBar(showAnimation: true)
             Spacer.fixedHeight(20)
         }
         .padding(.horizontal, 20)

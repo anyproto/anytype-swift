@@ -221,14 +221,6 @@ final class EditorPageController: UIViewController {
         collectionView.isEditing = editing
         bottomNavigationManager.multiselectActive(!editing)
     }
-    
-    private var controllerForNavigationItems: UIViewController? {
-        guard parent is UINavigationController else {
-            return parent
-        }
-        
-        return self
-    }
 
     override func motionBegan(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         super.motionBegan(motion, with: event)
@@ -411,6 +403,8 @@ extension EditorPageController: EditorPageViewInput {
         self.selectingRangeTextView = nil
         self.selectingRangeEditorItem = nil
 
+        viewModel.didFinishEditing(blockId: blockId)
+        
         guard let newItem = viewModel.modelsHolder.contentProvider(for: blockId) else { return }
 
         reloadCell(for: .block(newItem))
@@ -496,8 +490,7 @@ private extension EditorPageController {
         navigationBarHelper.addFakeNavigationBarBackgroundView(to: view)
 
         view.addSubview(blocksSelectionOverlayView) {
-            $0.pinToSuperview(excluding: [.bottom])
-            $0.bottom.equal(to: view.safeAreaLayoutGuide.bottomAnchor)
+            $0.pinToSuperview()
         }
 
         blocksSelectionOverlayView.isHidden = true

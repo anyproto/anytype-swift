@@ -5,22 +5,31 @@ final class HomeViewAssembly {
     
     private let coordinatorsDI: CoordinatorsDIProtocol
     private let modulesDI: ModulesDIProtocol
+    private let serviceLocator: ServiceLocator
     
-    init(coordinatorsDI: CoordinatorsDIProtocol, modulesDI: ModulesDIProtocol) {
+    init(coordinatorsDI: CoordinatorsDIProtocol, modulesDI: ModulesDIProtocol, serviceLocator: ServiceLocator) {
         self.coordinatorsDI = coordinatorsDI
         self.modulesDI = modulesDI
+        self.serviceLocator = serviceLocator
     }
     
     @MainActor
     func createHomeView() -> HomeView? {
-        let homeObjectId = AccountManager.shared.account.info.homeObjectID
+        let homeObjectId = serviceLocator.accountManager().account.info.homeObjectID
         let model = HomeViewModel(
             homeBlockId: homeObjectId,
             editorBrowserAssembly: coordinatorsDI.browser(),
-            tabsSubsciptionDataBuilder: TabsSubscriptionDataBuilder(),
+            tabsSubsciptionDataBuilder: TabsSubscriptionDataBuilder(
+                accountManager: serviceLocator.accountManager()
+            ),
             profileSubsciptionDataBuilder: ProfileSubscriptionDataBuilder(),
             newSearchModuleAssembly: modulesDI.newSearch(),
-            windowManager: coordinatorsDI.windowManager()
+            applicationStateService: serviceLocator.applicationStateService(),
+            accountManager: serviceLocator.accountManager(),
+            dashboardAlertsAssembly: modulesDI.dashboardAlerts(),
+            loginStateService: serviceLocator.loginStateService(),
+            settingsCoordinator: coordinatorsDI.settings().make()
+
         )
         return HomeView(model: model)
     }

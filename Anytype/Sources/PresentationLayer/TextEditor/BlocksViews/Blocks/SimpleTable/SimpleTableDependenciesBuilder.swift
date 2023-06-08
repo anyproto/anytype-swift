@@ -61,7 +61,6 @@ final class SimpleTableDependenciesBuilder {
 
         let selectionOptionHandler = SimpleTableSelectionOptionHandler(
             router: router,
-            listService: ServiceLocator.shared.blockListService(documentId: document.objectId),
             tableService: tableService,
             document: document,
             tableBlockInformation: blockInformation,

@@ -12,7 +12,7 @@ extension BundledRelationsValueProvider {
         guard
             let number = layout,
             let layout = DetailsLayout(rawValue: number)
-        else { return .basic }
+        else { return .unknown }
         
         return layout
     }
@@ -58,11 +58,5 @@ extension BundledRelationsValueProvider {
 
     var relationFormatValue: RelationFormat {
         relationFormat.map { RelationFormat(rawValue: $0) } ?? .unrecognized
-    }
-    
-    var smartblockTypesValue: [SmartBlockType] {
-        return smartblockTypes
-            .compactMap { Anytype_Model_SmartBlockType(rawValue: $0) }
-            .map { SmartBlockType(smartBlockType: $0) }
     }
 }

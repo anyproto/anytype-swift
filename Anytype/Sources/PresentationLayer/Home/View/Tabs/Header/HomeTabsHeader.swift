@@ -3,7 +3,7 @@ import SwiftUIVisualEffects
 import AnytypeCore
 
 struct HomeTabsHeader: View {
-    @EnvironmentObject var model: HomeViewModel
+    @ObservedObject var model: HomeViewModel
     @Binding var tabSelection: HomeTabsView.Tab
     
     var body: some View {
@@ -11,7 +11,7 @@ struct HomeTabsHeader: View {
         ScrollView([]) {
             Group {
                 if model.isSelectionMode {
-                    HomeTabsSelectionHeader()
+                    HomeTabsSelectionHeader(model: model)
                         .padding(.horizontal, 20)
                 } else {
                     defaultTabHeader
@@ -30,7 +30,7 @@ struct HomeTabsHeader: View {
             tabButton(text: Loc.favorites, tab: .favourites)
             tabButton(text: Loc.recent, tab: .recent)
             tabButton(text: Loc.sets, tab: .sets)
-            if AccountManager.shared.account.config.enableSpaces {
+            if model.enableSpace {
                 tabButton(text: Loc.shared, tab: .shared)
             }
             tabButton(text: Loc.bin, tab: .bin)

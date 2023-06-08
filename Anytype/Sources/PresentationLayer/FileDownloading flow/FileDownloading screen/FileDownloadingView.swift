@@ -24,7 +24,7 @@ struct FileDownloadingView: View {
     }
     
     private var errorView: some View {
-        AnytypeText(viewModel.errorMessage, style: .body, color: .Text.primary)
+        AnytypeText(viewModel.errorMessage, style: .bodyRegular, color: .Text.primary)
             .if(size.isNotZero) {
                 $0.frame(minHeight: size.height)
             }

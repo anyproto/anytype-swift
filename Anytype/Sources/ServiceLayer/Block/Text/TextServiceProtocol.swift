@@ -15,8 +15,7 @@ protocol TextServiceProtocol {
 
     func setText(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString)
 
-    @discardableResult
-    func setTextForced(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) -> Bool
+    func setTextForced(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString)
     func setTextIcon(
         contextId: BlockId,
         blockId: BlockId,

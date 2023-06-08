@@ -64,7 +64,18 @@ extension Color {
     }
   
     // MARK: - Additional
-    internal static let shimmering = Color(asset: Asset.shimmering)
+    enum Additional {
+      internal static let space = Color(asset: Asset.Additional.space)
+    }
+    
+    // MARK: - Auth
+    enum Auth {
+      internal static let body = Color(asset: Asset.Auth.body)
+      internal static let caption = Color(asset: Asset.Auth.caption)
+      internal static let dot = Color(asset: Asset.Auth.dot)
+      internal static let dotSelected = Color(asset: Asset.Auth.dotSelected)
+      internal static let input = Color(asset: Asset.Auth.input)
+    }
     
     // MARK: - Background
     enum Background {
@@ -79,8 +90,8 @@ extension Color {
     enum Button {
       internal static let accent = Color(asset: Asset.Button.accent)
       internal static let active = Color(asset: Asset.Button.active)
+      internal static let button = Color(asset: Asset.Button.button)
       internal static let inactive = Color(asset: Asset.Button.inactive)
-      internal static let selected = Color(asset: Asset.Button.selected)
       internal static let white = Color(asset: Asset.Button.white)
     }
     
@@ -104,6 +115,7 @@ extension Color {
     
     // MARK: - Text
     enum Text {
+      internal static let labelInversion = Color(asset: Asset.Text.labelInversion)
       internal static let primary = Color(asset: Asset.Text.primary)
       internal static let secondary = Color(asset: Asset.Text.secondary)
       internal static let tertiary = Color(asset: Asset.Text.tertiary)

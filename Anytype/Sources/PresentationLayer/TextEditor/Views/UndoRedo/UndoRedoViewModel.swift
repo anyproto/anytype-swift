@@ -18,13 +18,14 @@ final class UndoRedoViewModel: ObservableObject {
 
     init(
         objectId: String,
-        objectActionsService: ObjectActionsServiceProtocol = ObjectActionsService()
+        objectActionsService: ObjectActionsServiceProtocol
     ) {
         self.objectId = objectId
         self.objectActionsService = objectActionsService
     }
 
     func undo() {
+        AnytypeAnalytics.instance().logUndo()
         do {
             try objectActionsService.undo(objectId: objectId)
         } catch let error as ObjectActionsServiceError {
@@ -35,6 +36,7 @@ final class UndoRedoViewModel: ObservableObject {
     }
 
     func redo() {
+        AnytypeAnalytics.instance().logRedo()
         do {
             try objectActionsService.redo(objectId: objectId)
         } catch let error as ObjectActionsServiceError {

@@ -6,12 +6,12 @@ platform :ios do
   lane :bump_dev_build_number do
     ensure_git_status_clean
 
-    build_number = increment_build_number(xcodeproj: "Anytype.xcodeproj")
-    version = get_version_number(xcodeproj: "Anytype.xcodeproj", target: "Anytype")
+    build_number = increment_build_number(xcodeproj: ENV["APP_PROJECT"])
+    version = get_version_number(xcodeproj: ENV["APP_PROJECT"], target: ENV["APP_TARGET"])
 
     commit_version_bump(
       message: "Bump version #{version}(#{build_number})",
-      xcodeproj: "Anytype.xcodeproj",
+      xcodeproj: ENV["APP_PROJECT"],
       no_verify: true
     )
 

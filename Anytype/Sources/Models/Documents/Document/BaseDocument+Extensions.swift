@@ -1,5 +1,6 @@
 import Foundation
 import BlocksModels
+import AnytypeCore
 
 extension BaseDocumentProtocol {
     // without description, type and editable setOf if needed

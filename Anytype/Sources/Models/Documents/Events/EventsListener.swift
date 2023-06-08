@@ -45,8 +45,6 @@ final class EventsListener: EventsListenerProtocol {
             restrictionsContainer: restrictionsContainer
         )
         self.localConverter = LocalEventConverter(
-            relationLinksStorage: relationLinksStorage,
-            restrictionsContainer: restrictionsContainer,
             infoContainer: infoContainer
         )
         self.mentionMarkupEventProvider = MentionMarkupEventProvider(
@@ -61,6 +59,10 @@ final class EventsListener: EventsListenerProtocol {
     func startListening() {
         subscribeMiddlewareEvents()
         subscribeRelationEvents()
+    }
+    
+    func stopListening() {
+        subscriptions = []
     }
     
     private func subscribeMiddlewareEvents() {

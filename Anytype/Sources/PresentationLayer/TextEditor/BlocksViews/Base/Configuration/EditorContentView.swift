@@ -75,7 +75,6 @@ final class EditorContentView<View: BlockContentView>: UIView & UIContentView, U
     private var leadingViewWidthConstraint: NSLayoutConstraint?
     private var leadingViewBottomConstraint: NSLayoutConstraint?
     private var contentConstraints: InsetConstraints?
-    private lazy var calloutClosingView = UIView()
 
     private lazy var viewDragInteraction = UIDragInteraction(delegate: self)
 

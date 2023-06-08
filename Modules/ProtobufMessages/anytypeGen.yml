@@ -1,0 +1,6 @@
+source:
+  ../../Dependencies/Middleware/protobuf/protos/service.proto
+template:
+  Templates/service.stencil
+output:
+  Sources/Generated/service+invocation.swift

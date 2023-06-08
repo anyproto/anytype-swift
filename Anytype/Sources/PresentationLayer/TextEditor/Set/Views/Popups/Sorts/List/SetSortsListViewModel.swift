@@ -58,6 +58,7 @@ extension SetSortsListViewModel {
             let sort = self.setDocument.sorts[deleteIndex]
             Task {
                 try await dataviewService.removeSorts([sort.sort.id], viewId: self.setDocument.activeView.id)
+                AnytypeAnalytics.instance().logSortRemove(objectType: self.setDocument.analyticsType)
             }
         }
     }
@@ -68,6 +69,7 @@ extension SetSortsListViewModel {
             sorts.move(fromOffsets: from, toOffset: to)
             let sortIds = sorts.map { $0.sort.id }
             try await dataviewService.sortSorts(sortIds, viewId: setDocument.activeView.id)
+            AnytypeAnalytics.instance().logRepositionSort(objectType: setDocument.analyticsType)
         }
     }
     
@@ -78,6 +80,7 @@ extension SetSortsListViewModel {
         )
         Task {
             try await dataviewService.addSort(newSort, viewId: setDocument.activeView.id)
+            AnytypeAnalytics.instance().logAddSort(objectType: setDocument.analyticsType)
         }
     }
     
@@ -107,6 +110,10 @@ extension SetSortsListViewModel {
                 setSort.sort.id,
                 with: setSort.sort,
                 viewId: setDocument.activeView.id
+            )
+            AnytypeAnalytics.instance().logChangeSortValue(
+                type: setSort.sort.type.stringValue,
+                objectType: setDocument.analyticsType
             )
         }
     }

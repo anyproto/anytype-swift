@@ -1,3 +1,4 @@
+import CoreFoundation
 import BlocksModels
 import AnytypeCore
 
@@ -12,6 +13,7 @@ struct SetContentViewItemConfiguration: Identifiable, Hashable {
     let hasCover: Bool
     let coverFit: Bool
     let coverType: ObjectHeaderCoverType?
+    let minHeight: CGFloat?
     @EquatableNoop var onIconTap: () -> Void
     @EquatableNoop var onItemTap: () -> Void
     
@@ -26,6 +28,7 @@ struct SetContentViewItemConfiguration: Identifiable, Hashable {
         hasCover: Bool,
         coverFit: Bool,
         coverType: ObjectHeaderCoverType?,
+        minHeight: CGFloat?,
         onIconTap: @escaping () -> Void,
         onItemTap: @escaping () -> Void
     ) {
@@ -39,6 +42,7 @@ struct SetContentViewItemConfiguration: Identifiable, Hashable {
         self.hasCover = hasCover
         self.coverFit = coverFit
         self.coverType = coverType
+        self.minHeight = minHeight
         self.onIconTap = onIconTap
         self.onItemTap = onItemTap
     }

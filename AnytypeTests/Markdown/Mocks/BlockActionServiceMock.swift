@@ -14,6 +14,7 @@ struct SplitData {
 }
 
 final class BlockActionServiceMock: BlockActionServiceProtocol {
+    
     var splitStub = false
     var splitNumberOfCalls = 0
     var splitData: SplitData?
@@ -136,9 +137,12 @@ final class BlockActionServiceMock: BlockActionServiceProtocol {
         assertionFailure()
     }
     
-    func setObjectSetType() -> BlockId {
+    func setObjectSetType() async throws {
         assertionFailure()
-        return ""
+    }
+    
+    func setObjectCollectionType() async throws {
+        assertionFailure()
     }
     
     func setFields(blockFields: [BlockFields]) {
@@ -149,9 +153,8 @@ final class BlockActionServiceMock: BlockActionServiceProtocol {
         assertionFailure()
     }
     
-    func setTextForced(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) -> Bool {
+    func setTextForced(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) {
         assertionFailure()
-        return false
     }
     
     func setObjectTypeId(_ objectTypeId: String) {

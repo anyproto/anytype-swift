@@ -10,9 +10,9 @@ extension NSRange {
     }
     
     var asMiddleware: Anytype_Model_Range {
-        Anytype_Model_Range(
-            from: Int32(lowerBound),
-            to: Int32(lowerBound + length)
-        )
+        Anytype_Model_Range.with {
+            $0.from = Int32(lowerBound)
+            $0.to = Int32(lowerBound + length)
+        }
     }
 }

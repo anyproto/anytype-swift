@@ -230,7 +230,6 @@ final class BlockViewModelBuilder {
                         }
                     )
                 } else {
-                    AnytypeAnalytics.instance().logChangeRelationValue(type: .block)
                     self.router.showRelationValueEditingView(key: relation.key)
                 }
             }
@@ -247,7 +246,6 @@ final class BlockViewModelBuilder {
                 info: info,
                 relation: relation
             ) { [weak self] in
-                AnytypeAnalytics.instance().logChangeRelationValue(type: .block)
                 self?.router.showRelationValueEditingView(key: relation.key)
             }
         case .tableOfContents:
@@ -276,6 +274,7 @@ final class BlockViewModelBuilder {
             return DataViewBlockViewModel(
                 info: info,
                 objectDetails: details,
+                isCollection: data.isCollection,
                 showFailureToast: { [weak self] message in
                     self?.router.showFailureToast(message: message)
                 },

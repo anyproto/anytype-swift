@@ -12,10 +12,6 @@ struct BlockBookmarkPayload: Hashable, Equatable {
 
 extension BlockBookmarkPayload {
     
-    private enum Constants {
-        static let pictureRelationKey = "picture"
-    }
-    
     init(bookmarkData: BlockBookmark, objectDetails: ObjectDetails?) {
         self = objectDetails.map { BlockBookmarkPayload(objectDetails: $0) }
             ?? BlockBookmarkPayload(blockBookmark: bookmarkData)

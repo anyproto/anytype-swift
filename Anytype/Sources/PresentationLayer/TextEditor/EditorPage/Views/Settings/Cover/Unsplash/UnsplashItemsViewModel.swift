@@ -18,7 +18,6 @@ final class UnsplashViewModel: GridItemViewModelProtocol {
     }
     private let unsplashService: UnsplashServiceProtocol
     private(set) var isLoading: Bool = true
-    private var searchSubscription: AnyCancellable?
     private var searchTextChangedSubscription: AnyCancellable?
 
     @Published private var searchValue: String = ""
@@ -50,16 +49,13 @@ final class UnsplashViewModel: GridItemViewModelProtocol {
     private func searchImages(query: String) {
         isLoading = true
 
-        searchSubscription = unsplashService
-            .searchUnsplashImages(query: query)
-            .receiveOnMain()
-            .sinkWithResult { [weak self] result in
-                self?.isLoading = false
-                switch result {
-                case .success(let items): self?.unsplashItems = items
-                case .failure: break
-                }
+        Task { @MainActor [weak self] in
+            let items = try? await self?.unsplashService.searchUnsplashImages(query: query)
+            self?.isLoading = false
+            if let items {
+                self?.unsplashItems = items
             }
+        }
     }
 
     private func backgroundSections() -> [Section] {

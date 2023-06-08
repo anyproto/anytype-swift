@@ -440,7 +440,7 @@ private extension UIImage {
         let frame = CGRect(x: 0, y: 0, width: 70, height: 24)
         let nameLabel = UILabel(frame: frame)
         nameLabel.textAlignment = .right
-        nameLabel.textColor = .Button.selected
+        nameLabel.textColor = .Button.button
         nameLabel.font = AnytypeFont.uxCalloutRegular.uiKitFont
         nameLabel.text = Loc.highlight
 
@@ -448,7 +448,7 @@ private extension UIImage {
         backgroundView.addSubview(nameLabel)
 
         let quoteView = UIView(frame: .init(x: 0, y: 0, width: 1, height: frame.height))
-        quoteView.backgroundColor = .Button.selected
+        quoteView.backgroundColor = .Button.button
 
         backgroundView.addSubview(quoteView)
         UIGraphicsBeginImageContextWithOptions(frame.size, false, UIApplication.shared.keyWindow?.screen.scale ?? 0)

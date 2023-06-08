@@ -8,7 +8,6 @@ import AnytypeCore
 final class BlockActionService: BlockActionServiceProtocol {
     private let documentId: BlockId
 
-    private var subscriptions: [AnyCancellable] = []
     private let singleService: BlockActionsServiceSingleProtocol
     private let objectActionService: ObjectActionsServiceProtocol
     private let textService = TextService()
@@ -45,7 +44,7 @@ final class BlockActionService: BlockActionServiceProtocol {
 
     func add(info: BlockInformation, targetBlockId: BlockId, position: BlockPosition, setFocus: Bool) {
         guard let blockId = singleService
-                .add(targetId: targetBlockId, info: info, position: position) else { return }
+            .add(contextId: documentId, targetId: targetBlockId, info: info, position: position) else { return }
         
         if setFocus {
             cursorManager.blockFocus = .init(id: blockId, position: .beginning)
@@ -72,7 +71,7 @@ final class BlockActionService: BlockActionServiceProtocol {
 
     func duplicate(blockId: BlockId) {        
         singleService
-            .duplicate(targetId: blockId, blockIds: [blockId], position: .bottom)
+            .duplicate(contextId: documentId, targetId: blockId, blockIds: [blockId], position: .bottom)
     }
 
 
@@ -93,7 +92,7 @@ final class BlockActionService: BlockActionServiceProtocol {
     }
     
     func turnIntoPage(blockId: BlockId) -> BlockId? {
-        return objectActionService.convertChildrenToPages(contextID: documentId, blocksIds: [blockId], objectType: "")?.first
+        return objectActionService.convertChildrenToPages(contextID: documentId, blocksIds: [blockId], typeId: "")?.first
     }
     
     func checked(blockId: BlockId, newValue: Bool) {
@@ -118,15 +117,14 @@ final class BlockActionService: BlockActionServiceProtocol {
     }
     
     func delete(blockIds: [BlockId]) {
-        _ = singleService.delete(blockIds: blockIds)
+        _ = singleService.delete(contextId: documentId, blockIds: blockIds)
     }
     
     func setText(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) {
         textService.setText(contextId: contextId, blockId: blockId, middlewareString: middlewareString)
     }
 
-    @discardableResult
-    func setTextForced(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) -> Bool {
+    func setTextForced(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) {
         textService.setTextForced(contextId: contextId, blockId: blockId, middlewareString: middlewareString)
     }
     
@@ -134,21 +132,18 @@ final class BlockActionService: BlockActionServiceProtocol {
         objectActionService.setObjectType(objectId: documentId, objectTypeId: objectTypeId)
     }
 
-    func setObjectSetType() -> BlockId {
-        objectActionService.setObjectSetType(objectId: documentId)
+    func setObjectSetType() async throws {
+        try await objectActionService.setObjectSetType(objectId: documentId)
+    }
+    
+    func setObjectCollectionType() async throws {
+        try await objectActionService.setObjectCollectionType(objectId: documentId)
     }
 
     private func setFocus(model: BlockViewModelProtocol) {
         if case let .text(text) = model.info.content {
             model.set(focus: .at(text.endOfTextRangeWithMention))
         }
-    }
-}
-
-private extension BlockActionService {
-
-    func setDividerStyle(blockId: BlockId, style: BlockDivider.Style) {
-        listService.setDivStyle(blockIds: [blockId], style: style)
     }
 }
 
@@ -182,21 +177,14 @@ extension BlockActionService {
     }
     
     func setBackgroundColor(blockIds: [BlockId], color: MiddlewareColor) {
-        listService.setBackgroundColor(blockIds: blockIds, color: color)
+        listService.setBackgroundColor(objectId: documentId, blockIds: blockIds, color: color)
     }
 }
 
 // MARK: - UploadFile
 
 extension BlockActionService {
-    func upload(blockId: BlockId, filePath: String) {
-        fileService.asyncUploadDataAt(
-            filePath: filePath,
-            contextID: self.documentId,
-            blockID: blockId
-        )
-            .sinkWithDefaultCompletion("fileService.uploadDataAtFilePath", domain: .blockActionsService) { events in
-                events.send()
-        }.store(in: &self.subscriptions)
+    func upload(blockId: BlockId, filePath: String) async throws {
+        try await fileService.uploadDataAt(source: .path(filePath), contextID: documentId, blockID: blockId)
     }
 }

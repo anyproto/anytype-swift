@@ -16,16 +16,17 @@ final class RelationsSectionBuilder {
 
     // MARK: - Internal functions
 
-    func buildSections(from parsedRelations: ParsedRelations) -> [RelationsSection] {
+    func buildSections(from parsedRelations: ParsedRelations, objectTypeName: String) -> [RelationsSection] {
         let featuredRelations = parsedRelations.featuredRelations
         let otherRelations = parsedRelations.otherRelations
+        let typeRelations = parsedRelations.typeRelations
         
         var sections: [RelationsSection] = []
 
         if featuredRelations.isNotEmpty {
             sections.append(
                 RelationsSection(
-                    id: Constants.featuredRelationsSectionId,
+                    id: RelationsSection.Constants.featuredRelationsSectionId,
                     title: Loc.featuredRelations,
                     relations: featuredRelations
                 )
@@ -39,22 +40,23 @@ final class RelationsSectionBuilder {
 
             sections.append(
                 RelationsSection(
-                    id: Constants.otherRelationsSectionId,
+                    id: RelationsSection.Constants.otherRelationsSectionId,
                     title: otherRelationsSectionTitle,
                     relations: otherRelations
+                )
+            )
+        }
+        
+        if typeRelations.isNotEmpty {
+            sections.append(
+                RelationsSection(
+                    id: RelationsSection.Constants.typeRelationsSectionId,
+                    title: Loc.Relation.From.type(objectTypeName),
+                    relations: typeRelations
                 )
             )
         }
 
         return sections
     }
-}
-
-private extension RelationsSectionBuilder {
-
-    enum Constants {
-        static let featuredRelationsSectionId = "featuredRelationsSectionId"
-        static let otherRelationsSectionId = "otherRelationsSectionId"
-    }
-
 }

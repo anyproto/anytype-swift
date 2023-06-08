@@ -64,6 +64,7 @@ struct SlashMenuItemsBuilder {
             text: "",
             filteringTypeId: nil,
             shouldIncludeSets: false,
+            shouldIncludeCollections: false,
             shouldIncludeBookmark: false
         ) ?? []
 

@@ -9,7 +9,7 @@ protocol PageServiceProtocol: AnyObject {
         shouldSelectType: Bool,
         shouldSelectTemplate: Bool,
         templateId: String?
-    ) -> BlockId?
+    ) -> ObjectDetails?
 }
 
 // MARK: - Default argumentsf
@@ -20,7 +20,7 @@ extension PageServiceProtocol {
         shouldSelectType: Bool = false,
         shouldSelectTemplate: Bool = false,
         templateId: String? = nil
-    ) -> BlockId? {
+    ) -> ObjectDetails? {
         createPage(
             name: name,
             shouldDeleteEmptyObject: shouldDeleteEmptyObject,
@@ -32,42 +32,45 @@ extension PageServiceProtocol {
 }
 
 final class PageService: PageServiceProtocol {
+    
+    private let objectTypeProvider: ObjectTypeProviderProtocol
+    
+    init(objectTypeProvider: ObjectTypeProviderProtocol) {
+        self.objectTypeProvider = objectTypeProvider
+    }
+    
     func createPage(
         name: String,
         shouldDeleteEmptyObject: Bool,
         shouldSelectType: Bool,
         shouldSelectTemplate: Bool,
         templateId: String? = nil
-    ) -> BlockId? {
+    ) -> ObjectDetails? {
         let details = Google_Protobuf_Struct(
             fields: [
                 BundledRelationKey.name.rawValue: name.protobufValue,
-                BundledRelationKey.type.rawValue: ObjectTypeProvider.shared.defaultObjectType.id.protobufValue
+                BundledRelationKey.type.rawValue: objectTypeProvider.defaultObjectType.id.protobufValue
             ]
         )
         
         let internalFlags: [Anytype_Model_InternalFlag] = .builder {
             if shouldDeleteEmptyObject {
-                Anytype_Model_InternalFlag(value: .editorDeleteEmpty)
+                Anytype_Model_InternalFlag.with { $0.value = .editorDeleteEmpty }
             }
             if shouldSelectType {
-                Anytype_Model_InternalFlag(value: .editorSelectType)
+                Anytype_Model_InternalFlag.with { $0.value = .editorSelectType }
             }
             if shouldSelectTemplate {
-                Anytype_Model_InternalFlag(value: .editorSelectTemplate)
+                Anytype_Model_InternalFlag.with { $0.value = .editorSelectTemplate }
             }
         }
         
-        let response = Anytype_Rpc.Object.Create.Service
-            .invocation(details: details, internalFlags: internalFlags, templateID: templateId ?? "")
-            .invoke()
-            .getValue(domain: .pageService)
+        let response = try? ClientCommands.objectCreate(.with {
+            $0.details = details
+            $0.internalFlags = internalFlags
+            $0.templateID = templateId ?? ""
+        }).invoke(errorDomain: .pageService)
         
-        guard let response else {
-            return nil
-        }
-        
-        EventsBunch(event: response.event).send()
-        return response.objectID
+        return response?.details.asDetails
     }
 }

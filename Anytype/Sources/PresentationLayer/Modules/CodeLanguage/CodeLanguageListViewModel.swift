@@ -19,6 +19,6 @@ final class CodeLanguageListViewModel {
         guard let info = document.infoContainer.get(id: blockId) else { return }
         let fields = CodeBlockFields(language: language)
         let newInfo = info.addFields(fields.asMiddleware())
-        blockListService.setFields(blockId: blockId, fields: newInfo.fields)
+        blockListService.setFields(objectId: document.objectId, blockId: blockId, fields: newInfo.fields)
     }
 }

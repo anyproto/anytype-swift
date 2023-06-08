@@ -8,7 +8,7 @@ final class NewSearchSectionsBuilder {
         
         if options.isNotEmpty {
             sections.append(
-                ListSectionConfiguration(
+                ListSectionConfiguration.smallHeader(
                     id: "otherOptionsSectionID",
                     title: Loc.everywhere,
                     rows: rowsBuilder(options)

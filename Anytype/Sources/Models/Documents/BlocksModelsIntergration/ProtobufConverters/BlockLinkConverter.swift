@@ -25,15 +25,15 @@ extension BlockLink {
     var asMiddleware: Anytype_Model_Block.OneOf_Content {
         let relations = appearance.relations.map(\.rawValue)
 
-        return .link(
-            .init(targetBlockID: targetBlockID,
-                  style: .page, // deprecated
-                  fields: [:],
-                  iconSize: appearance.iconSize.asMiddleware,
-                  cardStyle: appearance.cardStyle.asMiddleware,
-                  description_p: appearance.description.asMiddleware,
-                  relations: relations)
-        )
+        return .link(.with {
+            $0.targetBlockID = targetBlockID
+            $0.style = .page // deprecated
+            $0.fields = [:]
+            $0.iconSize = appearance.iconSize.asMiddleware
+            $0.cardStyle = appearance.cardStyle.asMiddleware
+            $0.description_p = appearance.description.asMiddleware
+            $0.relations = relations
+        })
     }
 }
 

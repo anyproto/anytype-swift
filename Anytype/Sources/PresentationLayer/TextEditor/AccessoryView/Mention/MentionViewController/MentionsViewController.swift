@@ -42,7 +42,7 @@ final class MentionsViewController: UITableViewController {
         case .createNewObject:
             viewModel.didSelectCreateNewMention()
         case let .mention(mention):
-            viewModel.didSelectMention(mention, index: indexPath.row)
+            viewModel.didSelectMention(mention)
         }
     }
     

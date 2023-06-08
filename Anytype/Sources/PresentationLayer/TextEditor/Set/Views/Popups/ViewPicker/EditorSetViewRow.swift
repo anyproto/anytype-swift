@@ -40,7 +40,7 @@ struct EditorSetViewRow: View {
             if configuration.isSupported {
                 if configuration.isActive, editMode?.wrappedValue == .inactive {
                     Image(asset: .optionChecked)
-                        .foregroundColor(.Button.selected)
+                        .foregroundColor(.Button.button)
                 }
             } else {
                 if editMode?.wrappedValue == .inactive {
@@ -61,7 +61,7 @@ struct EditorSetViewRow: View {
                     configuration.onEditTap()
                 }) {
                     Image(asset: .setPenEdit)
-                        .foregroundColor(.Button.selected)
+                        .foregroundColor(.Button.button)
                 }
             }
         }

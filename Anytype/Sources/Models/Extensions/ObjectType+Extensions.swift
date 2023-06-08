@@ -13,7 +13,7 @@ extension ObjectType {
         isArchived: false,
         isDeleted: false,
         sourceObject: "",
-        smartBlockTypes: [.page]
+        recommendedRelations: []
     )
     
 }

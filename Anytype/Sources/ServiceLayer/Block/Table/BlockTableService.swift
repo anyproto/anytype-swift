@@ -42,187 +42,113 @@ final class BlockTableService: BlockTableServiceProtocol {
         columnsCount: Int
     ) {
         AnytypeAnalytics.instance().logCreateBlock(type: AnalyticsConstants.simpleTableBlock)
-        let eventsBunch = Anytype_Rpc.BlockTable.Create.Service.invoke(
-            contextID: contextId,
-            targetID: targetId,
-            position: position.asMiddleware,
-            rows: UInt32(rowsCount),
-            columns: UInt32(columnsCount),
-            withHeaderRow: false
-        )
-            .getValue(domain: .simpleTablesService)
-            .map { EventsBunch(event: $0.event) }
-
-        eventsBunch?.send()
+        _ = try? ClientCommands.blockTableCreate(.with {
+            $0.contextID = contextId
+            $0.targetID = targetId
+            $0.position = position.asMiddleware
+            $0.rows = UInt32(rowsCount)
+            $0.columns = UInt32(columnsCount)
+            $0.withHeaderRow = false
+        }).invoke(errorDomain: .simpleTablesService)
     }
 
     func rowListFill(
         contextId: BlockId,
         targetIds: [BlockId]
     ) {
-        let eventsBunch = Anytype_Rpc.BlockTable.RowListFill.Service.invoke(
-            contextID: contextId,
-            blockIds: targetIds
-        )
-            .getValue(domain: .simpleTablesService)
-            .map { EventsBunch(event: $0.event) }
-
-        eventsBunch?.send()
-    }
-
-    func columnCreate(contextId: BlockId, targetId: BlockId, position: BlockPosition) {
-        let eventsBunch = Anytype_Rpc.BlockTable.ColumnCreate.Service.invoke(
-            contextID: contextId,
-            targetID: targetId,
-            position: position.asMiddleware
-        )
-            .getValue(domain: .simpleTablesService)
-            .map { EventsBunch(event: $0.event) }
-
-        eventsBunch?.send()
-    }
-
-    func rowCreate(contextId: BlockId, targetId: BlockId, position: BlockPosition) {
-        let eventsBunch = Anytype_Rpc.BlockTable.RowCreate.Service.invoke(
-            contextID: contextId,
-            targetID: targetId,
-            position: position.asMiddleware
-        )
-            .getValue(domain: .simpleTablesService)
-            .map { EventsBunch(event: $0.event) }
-
-        eventsBunch?.send()
+        _ = try? ClientCommands.blockTableRowListFill(.with {
+            $0.contextID = contextId
+            $0.blockIds = targetIds
+        }).invoke(errorDomain: .simpleTablesService)
     }
 
     func insertRow(contextId: BlockId, targetId: BlockId, position: BlockPosition) {
-
-
-        let eventsBunch = Anytype_Rpc.BlockTable.RowCreate.Service.invoke(
-            contextID: contextId,
-            targetID: targetId,
-            position: position.asMiddleware
-        )
-            .getValue(domain: .simpleTablesService)
-            .map { EventsBunch(event: $0.event) }
-
-        eventsBunch?.send()
+        _ = try? ClientCommands.blockTableRowCreate(.with {
+            $0.contextID = contextId
+            $0.targetID = targetId
+            $0.position = position.asMiddleware
+        }).invoke(errorDomain: .simpleTablesService)
     }
 
     func insertColumn(contextId: BlockId, targetId: BlockId, position: BlockPosition) {
-        let eventsBunch = Anytype_Rpc.BlockTable.ColumnCreate.Service.invoke(
-            contextID: contextId,
-            targetID: targetId,
-            position: position.asMiddleware
-        )
-            .getValue(domain: .simpleTablesService)
-            .map { EventsBunch(event: $0.event) }
-
-        eventsBunch?.send()
+        _ = try? ClientCommands.blockTableColumnCreate(.with {
+            $0.contextID = contextId
+            $0.targetID = targetId
+            $0.position = position.asMiddleware
+        }).invoke(errorDomain: .simpleTablesService)
     }
 
     func deleteColumn(contextId: BlockId, targetId: BlockId) {
-        let eventsBunch = Anytype_Rpc.BlockTable.ColumnDelete.Service.invoke(
-            contextID: contextId,
-            targetID: targetId
-        )
-            .getValue(domain: .simpleTablesService)
-            .map { EventsBunch(event: $0.event) }
-
-        eventsBunch?.send()
+        _ = try? ClientCommands.blockTableColumnDelete(.with {
+            $0.contextID = contextId
+            $0.targetID = targetId
+        }).invoke(errorDomain: .simpleTablesService)
     }
 
     func columnDuplicate(contextId: BlockId, targetId: BlockId) {
-        let eventsBunch = Anytype_Rpc.BlockTable.ColumnDuplicate.Service.invoke(
-            contextID: contextId,
-            targetID: targetId,
-            blockID: targetId,
-            position: BlockPosition.left.asMiddleware
-        )
-            .getValue(domain: .simpleTablesService)
-            .map { EventsBunch(event: $0.event) }
-
-        eventsBunch?.send()
+        _ = try? ClientCommands.blockTableColumnDuplicate(.with {
+            $0.contextID = contextId
+            $0.targetID = targetId
+            $0.blockID = targetId
+            $0.position = BlockPosition.left.asMiddleware
+        }).invoke(errorDomain: .simpleTablesService)
     }
 
     func columnSort(contextId: BlockId, columnId: BlockId, blocksSortType: BlocksSortType) {
-        let eventsBunch = Anytype_Rpc.BlockTable.Sort.Service.invoke(contextID: contextId, columnID: columnId, type: blocksSortType.asMiddleware)
-            .getValue(domain: .simpleTablesService)
-            .map { EventsBunch(event: $0.event) }
-
-        eventsBunch?.send()
+        _ = try? ClientCommands.blockTableSort(.with {
+            $0.contextID = contextId
+            $0.columnID = columnId
+            $0.type = blocksSortType.asMiddleware
+        }).invoke(errorDomain: .simpleTablesService)
     }
 
     func columnMove(contextId: BlockId, targetId: BlockId, dropTargetID: BlockId, position: BlockPosition) {
-        let eventsBunch = Anytype_Rpc.BlockTable.ColumnMove.Service.invoke(
-            contextID: contextId,
-            targetID: targetId,
-            dropTargetID: dropTargetID,
-            position: position.asMiddleware
-        )
-            .getValue(domain: .simpleTablesService)
-            .map { EventsBunch(event: $0.event) }
-
-        eventsBunch?.send()
+        _ = try? ClientCommands.blockTableColumnMove(.with {
+            $0.contextID = contextId
+            $0.targetID = targetId
+            $0.dropTargetID = dropTargetID
+            $0.position = position.asMiddleware
+        }).invoke(errorDomain: .simpleTablesService)
     }
 
     func rowMove(contextId: BlockId, targetId: BlockId, dropTargetID: BlockId, position: BlockPosition) {
-        let eventsBunch = Anytype_Rpc.Block.ListMoveToExistingObject.Service.invoke(
-            contextID: contextId,
-            blockIds: [targetId],
-            targetContextID: contextId,
-            dropTargetID: dropTargetID,
-            position: position.asMiddleware
-        )
-            .getValue(domain: .simpleTablesService)
-            .map { EventsBunch(event: $0.event) }
-
-        eventsBunch?.send()
+        _ = try? ClientCommands.blockListMoveToExistingObject(.with {
+            $0.contextID = contextId
+            $0.blockIds = [targetId]
+            $0.targetContextID = contextId
+            $0.dropTargetID = dropTargetID
+            $0.position = position.asMiddleware
+        }).invoke(errorDomain: .simpleTablesService)
     }
 
     func deleteRow(contextId: BlockId, targetId: BlockId) {
-        let eventsBunch = Anytype_Rpc.BlockTable.RowDelete.Service.invoke(
-            contextID: contextId,
-            targetID: targetId
-        )
-            .getValue(domain: .simpleTablesService)
-            .map { EventsBunch(event: $0.event) }
-
-        eventsBunch?.send()
+        _ = try? ClientCommands.blockTableRowDelete(.with {
+            $0.contextID = contextId
+            $0.targetID = targetId
+        }).invoke(errorDomain: .simpleTablesService)
     }
 
     func rowDuplicate(contextId: BlockId, targetId: BlockId) {
-        let eventsBunch = Anytype_Rpc.BlockTable.RowDuplicate.Service.invoke(
-            contextID: contextId,
-            targetID: targetId,
-            blockID: targetId,
-            position: BlockPosition.bottom.asMiddleware
-        )
-            .getValue(domain: .simpleTablesService)
-            .map { EventsBunch(event: $0.event) }
-
-        eventsBunch?.send()
+        _ = try? ClientCommands.blockTableRowDuplicate(.with {
+            $0.contextID = contextId
+            $0.targetID = targetId
+            $0.blockID = targetId
+            $0.position = BlockPosition.bottom.asMiddleware
+        }).invoke(errorDomain: .simpleTablesService)
     }
 
     func clearContents(contextId: BlockId, blockIds: [BlockId]) {
-        let eventsBunch = Anytype_Rpc.BlockText.ListClearContent.Service.invoke(
-            contextID: contextId,
-            blockIds: blockIds
-        )
-            .getValue(domain: .simpleTablesService)
-            .map { EventsBunch(event: $0.event) }
-
-        eventsBunch?.send()
+        _ = try? ClientCommands.blockTextListClearContent(.with {
+            $0.contextID = contextId
+            $0.blockIds = blockIds
+        }).invoke(errorDomain: .simpleTablesService)
     }
 
     func clearStyle(contextId: BlockId, blocksIds: [BlockId]) {
-        let eventsBunch = Anytype_Rpc.BlockText.ListClearStyle.Service.invoke(
-            contextID: contextId,
-            blockIds: blocksIds
-        )
-            .getValue(domain: .simpleTablesService)
-            .map { EventsBunch(event: $0.event) }
-
-        eventsBunch?.send()
+        _ = try? ClientCommands.blockTextListClearStyle(.with {
+            $0.contextID = contextId
+            $0.blockIds = blocksIds
+        }).invoke(errorDomain: .simpleTablesService)
     }
 }
 

@@ -86,10 +86,7 @@ final class DividerCursorController {
         previousFrame.origin.y = newOrigin
         moveCursorView.frame = previousFrame
         moveCursorView.isHidden = false
-
-        if lastIndexPath != indexPath {
-            UIImpactFeedbackGenerator(style: .soft).impactOccurred()
-        }
+        
         lastIndexPath = indexPath
     }
 

@@ -18,7 +18,7 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .package(url: "https://github.com/kean/Pulse", revision: "2.1.3"),
+        .package(url: "https://github.com/kean/Pulse", revision: "3.5.5"),
         .package(url: "https://github.com/apple/swift-log.git", revision: "1.4.2")
     ],
     targets: [
@@ -29,7 +29,6 @@ let package = Package(
                 // https://github.com/apple/swift-evolution/blob/master/proposals/0273-swiftpm-conditional-target-dependencies.md
                 .product(name: "Pulse", package: "Pulse"),
                 .product(name: "PulseUI", package: "Pulse"),
-                .product(name: "PulseLogHandler", package: "Pulse"),
                 .product(name: "Logging", package: "swift-log")
             ],
             path: "Sources"

@@ -22,10 +22,11 @@ protocol DataviewServiceProtocol {
     
     func createView(_ view: DataviewView, source: [String]) async throws
     func deleteView(_ viewId: String) async throws
-    func addRelation(_ relationDetails: RelationDetails) async throws -> Bool
+    func addRelation(_ relationDetails: RelationDetails) async throws
     func deleteRelation(relationKey: String) async throws
     func addRecord(
         objectType: String,
+        shouldSelectType: Bool,
         templateId: BlockId,
         setFilters: [SetFilter],
         relationsDetails: [RelationDetails]

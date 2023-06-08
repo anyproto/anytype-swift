@@ -50,9 +50,9 @@ final class LinkToObjectCoordinator: LinkToObjectCoordinatorProtocol {
             case let .object(linkBlockId):
                 setLinkToObject(linkBlockId)
             case let .createObject(name):
-                if let linkBlockId = self?.pageService.createPage(name: name) {
-                    AnytypeAnalytics.instance().logCreateObject(objectType: ObjectTypeProvider.shared.defaultObjectType.id, route: .mention)
-                    setLinkToObject(linkBlockId)
+                if let linkBlockDetails = self?.pageService.createPage(name: name) {
+                    AnytypeAnalytics.instance().logCreateObject(objectType: linkBlockDetails.analyticsType, route: .mention)
+                    setLinkToObject(linkBlockDetails.id)
                 }
             case let .web(url):
                 setLinkToUrl(url)
@@ -83,7 +83,7 @@ final class LinkToObjectCoordinator: LinkToObjectCoordinatorProtocol {
         let viewModel = LinkToObjectSearchViewModel(currentLink: currentLink, searchService: searchService) { data in
             onSelect(data.searchKind)
         }
-        let linkToView = SearchView(title: Loc.linkTo, context: .menuSearch, viewModel: viewModel)
+        let linkToView = SearchView(title: Loc.linkTo, viewModel: viewModel)
 
         navigationContext.presentSwiftUIView(view: linkToView, model: viewModel)
     }

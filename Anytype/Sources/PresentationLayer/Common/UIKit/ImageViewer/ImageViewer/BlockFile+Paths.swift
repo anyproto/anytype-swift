@@ -19,9 +19,3 @@ extension BlockFile {
             .appendingPathComponent(metadata.name)
     }
 }
-
-private extension String {
-    func fileExtension() -> String {
-        return URL(fileURLWithPath: self).pathExtension
-    }
-}

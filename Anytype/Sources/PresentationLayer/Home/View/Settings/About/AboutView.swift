@@ -1,12 +1,11 @@
 import Foundation
 import Combine
 import SwiftUI
-import AnytypeCore
 import AudioToolbox
 
 struct AboutView: View {
-    @EnvironmentObject private var model: SettingsViewModel
-    @EnvironmentObject private var homeModel: HomeViewModel
+    
+    @ObservedObject var model: AboutViewModel
     
     var body: some View {
         contentView
@@ -17,24 +16,14 @@ struct AboutView: View {
     
     var contentView: some View {
         VStack(alignment: .center, spacing: 0) {
-            DragIndicator()
             
             Spacer.fixedHeight(12)
             title
             Spacer.fixedHeight(12)
             
             VStack(alignment: .leading, spacing: 0) {
-                if let version = MetadataProvider.appVersion, version.isNotEmpty {
-                    aboutRow(label: "App version", value: version)
-                }
-                if let buildNumber = MetadataProvider.buildNumber, buildNumber.isNotEmpty {
-                    aboutRow(label: "Build number", value: buildNumber)
-                }
-                if let libraryVersion = MiddlewareConfigurationProvider.shared.libraryVersion(), libraryVersion.isNotEmpty {
-                    aboutRow(label: "Library", value: libraryVersion)
-                }
-                if let userId = UserDefaultsConfig.usersId {
-                    aboutRow(label: "User ID", value: userId)
+                ForEach(model.rows) { row in
+                    rowView(model: row)
                 }
             }
             .padding(.horizontal, 20)
@@ -42,20 +31,20 @@ struct AboutView: View {
         }
         .background(Color.Background.secondary)
         .cornerRadius(12, corners: .top)
+        .snackbar(toastBarData: $model.snackBarData)
     }
     
-    func aboutRow(label: String, value: String) -> some View {
+    func rowView(model: AboutRowModel) -> some View {
         Button {
-            UISelectionFeedbackGenerator().selectionChanged()
-            UIPasteboard.general.string = value
-            homeModel.snackBarData = .init(text: Loc.copiedToClipboard(label), showSnackBar: true)
+            model.onTap()
         } label: {
             HStack(alignment: .top) {
-                AnytypeText(label, style: .uxBodyRegular, color: .Text.secondary)
+                AnytypeText(model.title, style: .uxBodyRegular, color: .Text.secondary)
                 Spacer.fixedWidth(50)
                 Spacer()
-                AnytypeText(value, style: .uxBodyRegular, color: .Text.primary)
+                AnytypeText(model.value, style: .uxBodyRegular, color: .Text.primary)
                     .multilineTextAlignment(.trailing)
+                    .fixedSize(horizontal: false, vertical: true)
             }
             .padding(.vertical, 14)
             .divider()
@@ -70,8 +59,7 @@ struct AboutView: View {
                 if titleTapCount == 10 {
                     titleTapCount = 0
                     AudioServicesPlaySystemSound(1109)
-                    model.about = false
-                    model.debugMenu = true
+                    model.onDebugMenuTap()
                 }
             }
     }
@@ -79,6 +67,10 @@ struct AboutView: View {
 
 struct AboutView_Previews: PreviewProvider {
     static var previews: some View {
-        AboutView()
+        AboutView(model: AboutViewModel(
+            middlewareConfigurationProvider: DI.preview.serviceLocator.middlewareConfigurationProvider(),
+            accountManager: DI.preview.serviceLocator.accountManager(),
+            output: nil
+        ))
     }
 }

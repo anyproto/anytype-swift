@@ -7,7 +7,7 @@ class AnytypeLabel: UIView {
 
     private lazy var anytypeText: UIKitAnytypeText = .init(text: "", style: style, lineBreakModel: .byTruncatingTail)
     private let label: UILabel = .init()
-    private var style: AnytypeFont = .body
+    private var style: AnytypeFont = .bodyRegular
 
     var textAlignment: NSTextAlignment {
         set {

@@ -12,6 +12,8 @@ public extension RelationLink {
     }
     
     var asMiddleware: Anytype_Model_RelationLink {
-        return Anytype_Model_RelationLink(key: key)
+        Anytype_Model_RelationLink.with {
+            $0.key = key
+        }
     }
 }

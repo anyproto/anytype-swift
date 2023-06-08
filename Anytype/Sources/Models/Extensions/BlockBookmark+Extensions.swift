@@ -3,10 +3,6 @@ import BlocksModels
 
 extension BlockBookmark {
     
-    private enum Constants {
-        static let pictureRelationKey = "picture"
-    }
-    
     init(objectDetails: ObjectDetails) {
         self.init(
             source: objectDetails.source,

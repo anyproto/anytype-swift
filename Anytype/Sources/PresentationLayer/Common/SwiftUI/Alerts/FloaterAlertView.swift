@@ -5,20 +5,25 @@ struct FloaterAlertView: View {
     let description: String
     let leftButtonData: StandardButtonModel
     let rightButtonData: StandardButtonModel
+    var showShadow: Bool = false
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             Spacer.fixedHeight(23)
             AnytypeText(title, style: .heading, color: .Text.primary)
+                .fixedSize(horizontal: false, vertical: true)
             Spacer.fixedHeight(11)
             AnytypeText(description, style: .uxCalloutRegular, color: .Text.primary)
+                .fixedSize(horizontal: false, vertical: true)
             Spacer.fixedHeight(8)
             buttons
         }
         .padding(.horizontal, 20)
         .background(Color.Background.secondary)
         .cornerRadius(16)
-        .shadow(color: Color.Shadow.primary, radius: 4)
+        .if(showShadow) {
+            $0.shadow(color: Color.Shadow.primary, radius: 4)
+        }
     }
     
     private var buttons: some View {
@@ -38,8 +43,8 @@ struct FloaterAlertView_Previews: PreviewProvider {
             FloaterAlertView(
                 title: "Are you sure you want to delete 3 objects?",
                 description: "These objects will be deleted irrevocably. You can’t undo this action.",
-                leftButtonData: StandardButtonModel(text: "Cancel", style: .secondary, action: {}),
-                rightButtonData: StandardButtonModel(text: "Delete", style: .destructive, action: {})
+                leftButtonData: StandardButtonModel(text: "Cancel", style: .secondaryLarge, action: {}),
+                rightButtonData: StandardButtonModel(text: "Delete", style: .warningLarge, action: {})
             )
         }
     }

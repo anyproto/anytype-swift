@@ -5,13 +5,16 @@ final class BlockObjectsSearchInteractor {
     
     private let searchService: SearchServiceProtocol
     private let excludedObjectIds: [String]
+    private let excludedTypeIds: [String]
                 
     init(
         searchService: SearchServiceProtocol,
-        excludedObjectIds: [String]
+        excludedObjectIds: [String],
+        excludedTypeIds: [String]
     ) {
         self.searchService = searchService
         self.excludedObjectIds = excludedObjectIds
+        self.excludedTypeIds = excludedTypeIds
     }
 }
 
@@ -21,9 +24,7 @@ extension BlockObjectsSearchInteractor: ObjectsSearchInteractorProtocol {
         let response = searchService.searchObjects(
             text: text,
             excludedObjectIds: excludedObjectIds,
-            excludedTypeIds: [
-                ObjectTypeId.bundled(.set).rawValue
-            ],
+            excludedTypeIds: excludedTypeIds,
             sortRelationKey: .lastModifiedDate
         )
         return response ?? []

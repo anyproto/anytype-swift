@@ -68,9 +68,12 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
-    func setObjectSetType() -> BlockId {
+    func setObjectSetType() async throws {
         assertionFailure()
-        return ""
+    }
+    
+    func setObjectCollectionType() async throws {
+        assertionFailure()
     }
     
     func delete(blockIds: [BlockId]) {
@@ -190,7 +193,7 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
-    func uploadMediaFile(uploadingSource: Anytype.MediaFileUploadingSource, type: Anytype.MediaPickerContentType, blockId: BlocksModels.BlockId) {
+    func uploadMediaFile(uploadingSource: FileUploadingSource, type: MediaPickerContentType, blockId: BlockId) {
         assertionFailure()
     }
     

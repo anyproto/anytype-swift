@@ -80,15 +80,3 @@ private extension BlockImageContentView {
         static let imageViewInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
     }
 }
-
-private extension LayoutAlignment {
-    
-    var asContentMode: UIView.ContentMode {
-        switch self {
-        case .left: return .left
-        case .center: return .center
-        case .right: return .right
-        }
-    }
-    
-}

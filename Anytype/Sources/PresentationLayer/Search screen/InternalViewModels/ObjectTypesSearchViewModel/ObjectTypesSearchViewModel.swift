@@ -83,14 +83,14 @@ private extension ObjectTypesSearchViewModel {
             .resultsList(
                 .sectioned(sectinos: .builder {
                     if objects.isNotEmpty {
-                        ListSectionConfiguration(
+                        ListSectionConfiguration.smallHeader(
                             id: Constants.installedSectionId,
                             title: Loc.ObjectType.myTypes,
                             rows:  objects.asRowConfigurations(selectedId: selectedObjectId)
                         )
                     }
                     if marketplaceObjects.isNotEmpty {
-                        ListSectionConfiguration(
+                        ListSectionConfiguration.smallHeader(
                             id: Constants.marketplaceSectionId,
                             title: Loc.anytypeLibrary,
                             rows:  marketplaceObjects.asRowConfigurations(selectedId: selectedObjectId)
@@ -127,13 +127,7 @@ private extension SearchObjectRowView.Model {
     
     init(details: ObjectDetails, isChecked: Bool) {
         let title = details.title
-        self.icon = {
-            if details.layoutValue == .todo {
-                return .todo(details.isDone)
-            } else {
-                return details.icon.flatMap { .icon($0) } ?? .placeholder(title.first)
-            }
-        }()
+        self.icon = details.objectIconImageWithPlaceholder
         self.title = title
         self.subtitle = details.description
         self.style = .default

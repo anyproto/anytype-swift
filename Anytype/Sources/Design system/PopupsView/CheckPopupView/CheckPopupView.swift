@@ -12,7 +12,6 @@ import BlocksModels
 struct CheckPopupView<ViewModel: CheckPopupViewViewModelProtocol>: View {
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var viewModel: ViewModel
-    @State private var scrollViewContentSize: CGSize = .zero
 
     var body: some View {
         VStack(spacing: 0) {
@@ -54,7 +53,7 @@ struct CheckPopupView<ViewModel: CheckPopupViewViewModelProtocol>: View {
             Spacer()
 
             if item.isSelected {
-                Image(asset: .optionChecked).frame(width: 24, height: 24).foregroundColor(.Button.selected)
+                Image(asset: .optionChecked).frame(width: 24, height: 24).foregroundColor(.Button.button)
             }
         }
         .frame(height: 52)

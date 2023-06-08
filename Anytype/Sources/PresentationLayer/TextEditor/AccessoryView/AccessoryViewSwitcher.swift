@@ -26,7 +26,6 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
     private let markupAccessoryView: MarkupAccessoryView
     
     private let document: BaseDocumentProtocol
-    private var documentUpdateSubscription: AnyCancellable?
     private var didChangeTypeDismissByUser = false
 
     init(

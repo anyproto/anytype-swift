@@ -21,57 +21,77 @@ enum ObjectActionsServiceError: Error {
 
 
 final class ObjectActionsService: ObjectActionsServiceProtocol {
-    private var deleteSubscription: AnyCancellable?
-
-    func delete(objectIds: [BlockId], completion: @escaping (Bool) -> ()) {
-        AnytypeAnalytics.instance().logDeletion(count: objectIds.count)
-        deleteSubscription = Anytype_Rpc.Object.ListDelete.Service
-            .invoke(objectIds: objectIds, queue: DispatchQueue.global(qos: .userInitiated))
-            .receiveOnMain()
-            .sinkWithResult { result in
-                switch result {
-                case .success:
-                    completion(true)
-                case .failure(let error):
-                    anytypeAssertionFailure("Deletion error: \(error)", domain: .objectActionsService)
-                    completion(false)
-                }
-            }
+    
+    private let objectTypeProvider: ObjectTypeProviderProtocol
+    
+    init(objectTypeProvider: ObjectTypeProviderProtocol) {
+        self.objectTypeProvider = objectTypeProvider
     }
     
-    func setArchive(objectId: BlockId, _ isArchived: Bool) {
-        setArchive(objectIds: [objectId], isArchived)
+    func delete(objectIds: [BlockId]) async throws {
+        AnytypeAnalytics.instance().logDeletion(count: objectIds.count)
+        
+        try await ClientCommands.objectListDelete(.with {
+            $0.objectIds = objectIds
+        }).invoke(errorDomain: .objectActionsService)
     }
     
     func setArchive(objectIds: [BlockId], _ isArchived: Bool) {
-        _ = Anytype_Rpc.Object.ListSetIsArchived.Service.invoke(objectIds: objectIds, isArchived: isArchived)
-
+        _ = try? ClientCommands.objectListSetIsArchived(.with {
+            $0.objectIds = objectIds
+            $0.isArchived = isArchived
+        }).invoke(errorDomain: .objectActionsService)
+        
         AnytypeAnalytics.instance().logMoveToBin(isArchived)
     }
-
-    func setFavorite(objectId: BlockId, _ isFavorite: Bool) {
-        _ = Anytype_Rpc.Object.SetIsFavorite.Service.invoke(contextID: objectId, isFavorite: isFavorite)
-
+    
+    func setArchive(objectIds: [BlockId], _ isArchived: Bool) async throws {
+        try await ClientCommands.objectListSetIsArchived(.with {
+            $0.objectIds = objectIds
+            $0.isArchived = isArchived
+        }).invoke(errorDomain: .objectActionsService)
+        
+        AnytypeAnalytics.instance().logMoveToBin(isArchived)
+    }
+    
+    func setFavorite(objectIds: [BlockId], _ isFavorite: Bool) {
+        _ = try? ClientCommands.objectListSetIsFavorite(.with {
+            $0.objectIds = objectIds
+            $0.isFavorite = isFavorite
+        }).invoke(errorDomain: .objectActionsService)
+        
+        AnytypeAnalytics.instance().logAddToFavorites(isFavorite)
+    }
+    
+    func setFavorite(objectIds: [BlockId], _ isFavorite: Bool) async throws {
+        try await ClientCommands.objectListSetIsFavorite(.with {
+            $0.objectIds = objectIds
+            $0.isFavorite = isFavorite
+        }).invoke(errorDomain: .objectActionsService)
+        
         AnytypeAnalytics.instance().logAddToFavorites(isFavorite)
     }
 
     func setLocked(_ isLocked: Bool, objectId: BlockId) {
+        if isLocked {
+            AnytypeAnalytics.instance().logLockPage()
+        } else {
+            AnytypeAnalytics.instance().logUnlockPage()
+        }
         typealias ProtobufDictionary = [String: Google_Protobuf_Value]
         var protoFields = ProtobufDictionary()
         protoFields[BlockFieldBundledKey.isLocked.rawValue] = isLocked.protobufValue
 
         let protobufStruct: Google_Protobuf_Struct = .init(fields: protoFields)
-        let blockField = Anytype_Rpc.Block.ListSetFields.Request.BlockField(
-            blockID: objectId,
-            fields: protobufStruct
-        )
+        let blockField = Anytype_Rpc.Block.ListSetFields.Request.BlockField.with {
+            $0.blockID = objectId
+            $0.fields = protobufStruct
+        }
 
-        _ = Anytype_Rpc.Block.ListSetFields.Service.invoke(
-            contextID: objectId,
-            blockFields: [blockField]
-        ).map { EventsBunch(event: $0.event) }
-        .getValue(domain: .objectActionsService)?
-        .send()
+        _ = try? ClientCommands.blockListSetFields(.with {
+            $0.contextID = objectId
+            $0.blockFields = [blockField]
+        }).invoke(errorDomain: .objectActionsService)
     }
     
     /// NOTE: `CreatePage` action will return block of type `.link(.page)`.
@@ -88,53 +108,61 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
             return result
         }
         let protobufStruct = Google_Protobuf_Struct(fields: protobufDetails)
-                
-        let response = Anytype_Rpc.BlockLink.CreateWithObject.Service
-            .invoke(
-                contextID: contextId, details: protobufStruct, templateID: templateId, internalFlags: [], targetID: targetId, position: position.asMiddleware, fields: .init()
-            )
-            .getValue(domain: .objectActionsService)
         
-        guard let response = response else { return nil }
-
-        EventsBunch(event: response.event).send()
-        return response.targetID
+        let response = try? ClientCommands.blockLinkCreateWithObject(.with {
+            $0.contextID = contextId
+            $0.details = protobufStruct
+            $0.templateID = templateId
+            $0.targetID = targetId
+            $0.position = position.asMiddleware
+        }).invoke(errorDomain: .objectActionsService)
+        
+        return response?.targetID
     }
 
     func updateLayout(contextID: BlockId, value: Int) {
         guard let selectedLayout = Anytype_Model_ObjectType.Layout(rawValue: value) else {
             return
         }
-        let _ = Anytype_Rpc.Object.SetLayout.Service.invoke(
-            contextID: contextID,
-            layout: selectedLayout
-        ).map { EventsBunch(event: $0.event) }
-            .getValue(domain: .objectActionsService)?
-            .send()
+        _ = try? ClientCommands.objectSetLayout(.with {
+            $0.contextID = contextID
+            $0.layout = selectedLayout
+        }).invoke(errorDomain: .objectActionsService)
     }
     
     func duplicate(objectId: BlockId) -> BlockId? {
-        let result = Anytype_Rpc.Object.Duplicate.Service
-            .invoke(contextID: objectId)
-            .getValue(domain: .objectActionsService)
+        AnytypeAnalytics.instance().logDuplicateObject()
+        let result = try? ClientCommands.objectDuplicate(.with {
+            $0.contextID = objectId
+        }).invoke(errorDomain: .objectActionsService)
+        
         return result?.id
     }
 
     // MARK: - ObjectActionsService / SetDetails
     
     func updateBundledDetails(contextID: BlockId, details: [BundledDetails]) {
-        Anytype_Rpc.Object.SetDetails.Service.invoke(
-            contextID: contextID,
-            details: details.map {
-                Anytype_Rpc.Object.SetDetails.Detail(
-                    key: $0.key,
-                    value: $0.value
-                )
+        _ = try? ClientCommands.objectSetDetails(.with {
+            $0.contextID = contextID
+            $0.details = details.map { details in
+                Anytype_Rpc.Object.SetDetails.Detail.with {
+                    $0.key = details.key
+                    $0.value = details.value
+                }
             }
-        )
-            .map { EventsBunch(event: $0.event) }
-            .getValue(domain: .objectActionsService)?
-            .send()
+        }).invoke(errorDomain: .objectActionsService)
+    }
+    
+    func updateBundledDetails(contextID: BlockId, details: [BundledDetails]) async throws {
+        try await ClientCommands.objectSetDetails(.with {
+            $0.contextID = contextID
+            $0.details = details.map { details in
+                Anytype_Rpc.Object.SetDetails.Detail.with {
+                    $0.key = details.key
+                    $0.value = details.value
+                }
+            }
+        }).invoke(errorDomain: .objectActionsService)
     }
     
     func updateDetails(contextId: String, relationKey: String, value: DataviewGroupValue) {
@@ -155,133 +183,121 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
             return
         }
         
-        Anytype_Rpc.Object.SetDetails.Service.invoke(
-            contextID: contextId,
-            details: [
-                Anytype_Rpc.Object.SetDetails.Detail(
-                    key: relationKey,
-                    value: protobufValue
-                )
+        _ = try? ClientCommands.objectSetDetails(.with {
+            $0.contextID = contextId
+            $0.details = [
+                Anytype_Rpc.Object.SetDetails.Detail.with {
+                    $0.key = relationKey
+                    $0.value = protobufValue
+                }
             ]
-        )
-            .map { EventsBunch(event: $0.event) }
-            .getValue(domain: .relationsService)?
-            .send()
+        }).invoke(errorDomain: .relationsService)
     }
 
-    func convertChildrenToPages(contextID: BlockId, blocksIds: [BlockId], objectType: String) -> [BlockId]? {
-        AnytypeAnalytics.instance().logCreateObject(objectType: objectType, route: .turnInto)
+    func convertChildrenToPages(contextID: BlockId, blocksIds: [BlockId], typeId: String) -> [BlockId]? {
+        let type = objectTypeProvider.objectType(id: typeId)?.analyticsType ?? .object(typeId: typeId)
+        AnytypeAnalytics.instance().logCreateObject(objectType: type, route: .turnInto)
 
-        let response = Anytype_Rpc.Block.ListConvertToObjects.Service
-            .invoke(
-                contextID: contextID,
-                blockIds: blocksIds,
-                objectType: objectType
-            )
-            .getValue(domain: .objectActionsService)
-
-        guard let response = response else { return nil }
-
-        EventsBunch(event: response.event).send()
-
-        return response.linkIds
+        let response = try? ClientCommands.blockListConvertToObjects(.with {
+            $0.contextID = contextID
+            $0.blockIds = blocksIds
+            $0.objectType = typeId
+        }).invoke(errorDomain: .objectActionsService)
+        
+        return response?.linkIds
     }
     
     func move(dashboadId: BlockId, blockId: BlockId, dropPositionblockId: BlockId, position: Anytype_Model_Block.Position) {
-        Anytype_Rpc.Block.ListMoveToExistingObject.Service
-            .invoke(
-                contextID: dashboadId, blockIds: [blockId], targetContextID: dashboadId,
-                dropTargetID: dropPositionblockId, position: position
-            )
-            .map { EventsBunch(event: $0.event) }
-            .getValue(domain: .objectActionsService)?
-            .send()
+        _ = try? ClientCommands.blockListMoveToExistingObject(.with {
+            $0.contextID = dashboadId
+            $0.blockIds = [blockId]
+            $0.targetContextID = dashboadId
+            $0.dropTargetID = dropPositionblockId
+            $0.position = position
+        }).invoke(errorDomain: .objectActionsService)
+    }
+    
+    func move(dashboadId: BlockId, blockId: BlockId, dropPositionblockId: BlockId, position: Anytype_Model_Block.Position) async throws {
+        try await ClientCommands.blockListMoveToExistingObject(.with {
+            $0.contextID = dashboadId
+            $0.blockIds = [blockId]
+            $0.targetContextID = dashboadId
+            $0.dropTargetID = dropPositionblockId
+            $0.position = position
+        }).invoke(errorDomain: .objectActionsService)
     }
     
     func setObjectType(objectId: BlockId, objectTypeId: String) {
-        let middlewareEvent = Anytype_Rpc.Object.SetObjectType.Service.invoke(
-            contextID: objectId,
-            objectTypeURL: objectTypeId
-        )
-            .map { (result) -> Anytype_ResponseEvent in
-                AnytypeAnalytics.instance().logObjectTypeChange(objectTypeId)
-                return result.event
-            }
-            .getValue(domain: .objectActionsService)
-
-
-        EventsBunch(
-            contextId: objectId,
-            middlewareEvents: middlewareEvent?.messages ?? [],
-            localEvents: [],
-            dataSourceEvents: []
-        ).send()
+        _ = try? ClientCommands.objectSetObjectType(.with {
+            $0.contextID = objectId
+            $0.objectTypeURL = objectTypeId
+        }).invoke(errorDomain: .objectActionsService)
+        
+        let objectType = objectTypeProvider.objectType(id: objectTypeId)?.analyticsType ?? .object(typeId: objectTypeId)
+        AnytypeAnalytics.instance().logObjectTypeChange(objectType)
     }
 
-    func setObjectSetType(objectId: BlockId) -> BlockId {
-        guard let response = Anytype_Rpc.Object.ToSet.Service.invoke(
-            contextID: objectId,
-            source: []
-        ).getValue(domain: .objectActionsService) else {
-            anytypeAssertionFailure("Cannot create set", domain: .objectActionsService)
-            return ""
-        }
-
-        return response.setID
+    func setObjectSetType(objectId: BlockId) async throws {
+        try await ClientCommands.objectToSet(.with {
+            $0.contextID = objectId
+        }).invoke(errorDomain: .objectActionsService)
+    }
+    
+    func addObjectsToCollection(contextId: BlockId, objectIds: [String]) async throws {
+        try await ClientCommands.objectCollectionAdd(.with {
+            $0.contextID = contextId
+            $0.objectIds = objectIds
+        }).invoke(errorDomain: .objectActionsService)
+    }
+    
+    func setObjectCollectionType(objectId: BlockId) async throws {
+        try await ClientCommands.objectToCollection(.with {
+            $0.contextID = objectId
+        }).invoke(errorDomain: .objectActionsService)
     }
 
     func applyTemplate(objectId: BlockId, templateId: BlockId) {
-        let _ = Anytype_Rpc.Object.ApplyTemplate.Service.invoke(
-            contextID: objectId,
-            templateID: templateId
-        )
+        _ = try? ClientCommands.objectApplyTemplate(.with {
+            $0.contextID = objectId
+            $0.templateID = templateId
+        }).invoke(errorDomain: .objectActionsService)
     }
     
     func setSource(objectId: BlockId, source: [String]) async throws {
-        let result = try await Anytype_Rpc.Object.SetSource.Service
-            .invocation(contextID: objectId, source: source)
-            .invoke(errorDomain: .objectActionsService)
-        let event = EventsBunch(event: result.event)
-        event.send()
+        try await ClientCommands.objectSetSource(.with {
+            $0.contextID = objectId
+            $0.source = source
+        }).invoke(errorDomain: .objectActionsService)
     }
 
     func undo(objectId: BlockId) throws {
-        let result = Anytype_Rpc.Object.Undo.Service
-            .invoke(contextID: objectId)
-            .map{ EventsBunch(event: $0.event).send() }
-
-        switch result {
-        case .success:
-            break
-        case .failure:
+        do {
+            _ = try ClientCommands.objectUndo(.with {
+                $0.contextID = objectId
+            }).invoke()
+        } catch {
             throw ObjectActionsServiceError.nothingToUndo
         }
     }
 
     func redo(objectId: BlockId) throws {
-        let result = Anytype_Rpc.Object.Redo.Service.invoke(contextID: objectId)
-            .map { EventsBunch(event: $0.event).send() }
-
-        switch result {
-        case .success:
-            break
-        case .failure:
+        do {
+            _ = try ClientCommands.objectRedo(.with {
+                $0.contextID = objectId
+            }).invoke()
+        } catch {
             throw ObjectActionsServiceError.nothingToRedo
         }
     }
     
     func setInternalFlags(contextId: BlockId, internalFlags: [Int]) async throws {
-        let flags: [Anytype_Model_InternalFlag] = internalFlags.compactMap {
-            guard let value = Anytype_Model_InternalFlag.Value(rawValue: $0) else { return nil }
-            return Anytype_Model_InternalFlag(value: value)
+        let flags: [Anytype_Model_InternalFlag] = internalFlags.compactMap { flag in
+            guard let value = Anytype_Model_InternalFlag.Value(rawValue: flag) else { return nil }
+            return Anytype_Model_InternalFlag.with { $0.value = value }
         }
-        let result = try await Anytype_Rpc.Object.SetInternalFlags.Service
-            .invocation(
-                contextID: contextId,
-                internalFlags: flags
-            )
-            .invoke(errorDomain: .objectActionsService)
-        let event = EventsBunch(event: result.event)
-        event.send()
+        try await ClientCommands.objectSetInternalFlags(.with {
+            $0.contextID = contextId
+            $0.internalFlags = flags
+        }).invoke(errorDomain: .objectActionsService)
     }
 }

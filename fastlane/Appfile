@@ -1,29 +1,26 @@
 # Developer Portal Team ID
-team_id("6SFR4648FW") 
+team_id("J3NXTX3T5S") 
 
 # App Store Connect Team ID
-itc_team_id("120897371") 
-
-apple_id("iosteam@anytype.io") 
+itc_team_id("126402070") 
 
 # Dev
 for_lane :dev do
-	app_identifier("com.anytypeio.anytype.dev") 
+	apple_id(ENV["APPLE_ID"]) 
+	app_identifier(ENV["APP_ID_DEVELOP"]) 
 end
 
 for_lane :test_build do
-	app_identifier("com.anytypeio.anytype.dev") 
+	apple_id(ENV["APPLE_ID"]) 
+	app_identifier(ENV["APP_ID_DEVELOP"]) 
 end
 
-for_lane :update_dev_symbols do
-	app_identifier("com.anytypeio.anytype.dev") 
+for_lane :branch_build do
+	app_identifier(ENV["APP_ID_DEVELOP"]) 
 end
 
 # Release
 for_lane :release do
-	app_identifier("com.anytypeio.anytype") 
-end
-
-for_lane :update_release_symbols do
-	app_identifier("com.anytypeio.anytype") 
+	apple_id(ENV["APPLE_ID"]) 
+	app_identifier(ENV["APP_ID_RELEASE"]) 
 end

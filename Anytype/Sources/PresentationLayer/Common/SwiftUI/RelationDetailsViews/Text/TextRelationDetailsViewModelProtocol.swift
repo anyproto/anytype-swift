@@ -9,4 +9,5 @@ protocol TextRelationDetailsViewModelProtocol {
     
     func updatePopupLayout(_ layoutGuide: UILayoutGuide)
     func updateValue(_ text: String)
+    func onWillDisappear()
 }

@@ -33,7 +33,6 @@ final class ObjectIconPickerViewModel: ObservableObject, ObjectIconPickerViewMod
     
     private let document: BaseDocumentGeneralProtocol
     private let objectId: String
-    private let imageUploadingDemon = MediaFileUploadingDemon.shared
     private let fileService: FileActionsServiceProtocol
     private let detailsService: DetailsServiceProtocol
     
@@ -52,12 +51,6 @@ final class ObjectIconPickerViewModel: ObservableObject, ObjectIconPickerViewMod
         self.fileService = fileService
         self.detailsService = detailsService
     }
-    
-    private func setupSubscription() {
-        subscription = document.updatePublisher.sink { [weak self] _ in
-            self?.objectWillChange.send()
-        }
-    }
 }
 
 extension ObjectIconPickerViewModel {
@@ -68,16 +61,11 @@ extension ObjectIconPickerViewModel {
     
     func uploadImage(from itemProvider: NSItemProvider) {
         AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.setIcon)
-
-        let operation = MediaFileUploadingOperation(
-            uploadingSource: .itemProvider(itemProvider),
-            worker: ObjectHeaderImageUploadingWorker(
-                objectId: objectId,
-                detailsService: detailsService,
-                usecase: .icon
-            )
-        )
-        imageUploadingDemon.addOperation(operation)
+        Task {
+            let data = try await fileService.createFileData(source: .itemProvider(itemProvider))
+            let imageHash = try await fileService.uploadImage(data: data)
+            try await detailsService.updateBundledDetails([.iconEmoji(""), .iconImageHash(imageHash)])
+        }
     }
     
     func removeIcon() {

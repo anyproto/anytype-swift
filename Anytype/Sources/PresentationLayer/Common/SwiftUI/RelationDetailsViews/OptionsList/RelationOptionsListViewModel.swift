@@ -23,13 +23,15 @@ final class RelationOptionsListViewModel: ObservableObject {
     private let relationKey: String
     private let searchModuleBuilder: RelationOptionsSearchModuleBuilderProtocol
     private let service: RelationsServiceProtocol
+    private let analyticsType: AnalyticsEventsRelationType
     
     init(
         selectedOptions: [ListRowConfiguration],
         emptyOptionsPlaceholder: String,
         relation: Relation,
         searchModuleBuilder: RelationOptionsSearchModuleBuilderProtocol,
-        service: RelationsServiceProtocol
+        service: RelationsServiceProtocol,
+        analyticsType: AnalyticsEventsRelationType
     ) {
         self.selectedOptions = selectedOptions
         self.title = relation.name
@@ -37,6 +39,7 @@ final class RelationOptionsListViewModel: ObservableObject {
         self.relationKey = relation.key
         self.searchModuleBuilder = searchModuleBuilder
         self.service = service
+        self.analyticsType = analyticsType
         self.isEditable = relation.isEditable
         
         updateLayout()
@@ -54,7 +57,7 @@ extension RelationOptionsListViewModel {
             relationKey: relationKey,
             value: selectedOptions.map { $0.id }.protobufValue
         )
-        
+        AnytypeAnalytics.instance().logChangeRelationValue(isEmpty: selectedOptions.isEmpty, type: analyticsType)
         updateLayout()
     }
     
@@ -64,6 +67,7 @@ extension RelationOptionsListViewModel {
             relationKey: relationKey,
             value: selectedOptions.map { $0.id }.protobufValue
         )
+        AnytypeAnalytics.instance().logChangeRelationValue(isEmpty: selectedOptions.isEmpty, type: analyticsType)
     }
     
     func didTapAddButton() {
@@ -94,6 +98,7 @@ private extension RelationOptionsListViewModel {
             value: newSelectedOptionsIds.protobufValue
         )
         isSearchPresented = false
+        AnytypeAnalytics.instance().logChangeRelationValue(isEmpty: newSelectedOptionsIds.isEmpty, type: analyticsType)
         popup?.close()
     }
     

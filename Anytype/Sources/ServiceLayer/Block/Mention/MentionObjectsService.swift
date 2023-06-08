@@ -1,14 +1,17 @@
-final class MentionObjectsService {
+protocol MentionObjectsServiceProtocol: AnyObject {
+    func searchMentions(text: String, excludedObjectIds: [String]) async throws -> [MentionObject]
+}
+
+final class MentionObjectsService: MentionObjectsServiceProtocol {
     
-    var filterString = ""
     private let searchService: SearchServiceProtocol
     
     init(searchService: SearchServiceProtocol) {
         self.searchService = searchService
     }
     
-    func loadMentions() -> [MentionObject]? {
-        return searchService.search(text: filterString)?
-            .map { MentionObject(details: $0) }
+    func searchMentions(text: String, excludedObjectIds: [String]) async throws -> [MentionObject] {
+        let details = try await searchService.search(text: text, excludedObjectIds: excludedObjectIds)
+        return details.map { MentionObject(details: $0) }
     }
 }

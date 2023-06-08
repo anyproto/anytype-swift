@@ -16,7 +16,7 @@ final class SignUpData: ObservableObject {
 }
 
 final class WaitingOnCreatAccountViewModel: ObservableObject {
-    private let windowManager: WindowManager
+    private let applicationStateService: ApplicationStateServiceProtocol
     private let authService: AuthServiceProtocol
     private let seedService: SeedServiceProtocol
     
@@ -32,41 +32,31 @@ final class WaitingOnCreatAccountViewModel: ObservableObject {
     init(
         signUpData: SignUpData,
         showWaitingView: Binding<Bool>,
-        windowManager: WindowManager,
+        applicationStateService: ApplicationStateServiceProtocol,
         authService: AuthServiceProtocol,
         seedService: SeedServiceProtocol
     ) {
         self.signUpData = signUpData
         self._showWaitingView = showWaitingView
-        self.windowManager = windowManager
+        self.applicationStateService = applicationStateService
         self.authService = authService
         self.seedService = seedService
 
     }
     
     func createAccount() {
-        DispatchQueue.global().async { [weak self] in
-            guard let self = self else { return }
-            
-            let result = self.authService.createAccount(
-                name: self.signUpData.userName,
-                imagePath: self.imagePath(),
-                alphaInviteCode: self.signUpData.inviteCode.trimmingCharacters(in: .whitespacesAndNewlines)
-            )
-            
-            DispatchQueue.main.async { [weak self] in
-                guard let self = self else { return }
-                
-                
-                switch result {
-                case .failure(let error):
-                    self.error = error.localizedDescription
-                    self.showError = true
-                case .success:
-                    try? self.seedService.saveSeed(self.signUpData.mnemonic)
-
-                    self.windowManager.showHomeWindow()
-                }
+        Task { @MainActor in
+            do {
+                try await authService.createAccount(
+                    name: signUpData.userName,
+                    imagePath: imagePath(),
+                    alphaInviteCode: signUpData.inviteCode.trimmingCharacters(in: .whitespacesAndNewlines)
+                )
+                try? seedService.saveSeed(signUpData.mnemonic)
+                applicationStateService.state = .home
+            } catch {
+                self.error = error.localizedDescription
+                showError = true
             }
         }
     }

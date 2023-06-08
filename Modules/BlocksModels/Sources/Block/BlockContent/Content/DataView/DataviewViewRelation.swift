@@ -7,14 +7,14 @@ public struct DataviewRelationOption: Hashable {
     public let dateFormat: DataviewDateFormat
     
     public var asMiddleware: MiddlewareRelation {
-        MiddlewareRelation(
-            key: key,
-            isVisible: isVisible,
-            width: width,
-            dateIncludeTime: dateIncludeTime,
-            timeFormat: timeFormat,
-            dateFormat: dateFormat
-        )
+        MiddlewareRelation.with {
+            $0.key = key
+            $0.isVisible = isVisible
+            $0.width = width
+            $0.dateIncludeTime = dateIncludeTime
+            $0.timeFormat = timeFormat
+            $0.dateFormat = dateFormat
+        }
     }
     
     public func updated(isVisible: Bool) -> DataviewRelationOption {

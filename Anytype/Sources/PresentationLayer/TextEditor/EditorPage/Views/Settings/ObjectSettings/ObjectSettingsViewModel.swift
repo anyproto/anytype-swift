@@ -38,7 +38,7 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
     private let settingsBuilder = ObjectSettingBuilder()
     
     private var subscription: AnyCancellable?
-    private var onLinkItselfToObjectHandler: ((BlockId) -> Void)?
+    private var onLinkItselfToObjectHandler: ((EditorScreenData) -> Void)?
     
     private weak var output: ObjectSettingswModelOutput?
     private weak var delegate: ObjectSettingsModuleDelegate?
@@ -46,6 +46,8 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
     init(
         document: BaseDocumentProtocol,
         objectDetailsService: DetailsServiceProtocol,
+        objectActionsService: ObjectActionsServiceProtocol,
+        blockActionsService: BlockActionsServiceSingleProtocol,
         output: ObjectSettingswModelOutput,
         delegate: ObjectSettingsModuleDelegate
     ) {
@@ -56,6 +58,8 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
         
         self.objectActionsViewModel = ObjectActionsViewModel(
             objectId: document.objectId,
+            service: objectActionsService,
+            blockActionsService: blockActionsService,
             undoRedoAction: { [weak output] in
                 output?.undoRedoAction()
             },
@@ -64,9 +68,9 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
             }
         )
         
-        objectActionsViewModel.onLinkItselfToObjectHandler = { [weak delegate] objectId in
+        objectActionsViewModel.onLinkItselfToObjectHandler = { [weak delegate] data in
             guard let documentName = document.details?.name else { return }
-            delegate?.didCreateLinkToItself(selfName: documentName, in: objectId)
+            delegate?.didCreateLinkToItself(selfName: documentName, data: data)
         }
 
         objectActionsViewModel.onLinkItselfAction = { [weak output] onSelect in

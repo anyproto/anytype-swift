@@ -25,24 +25,32 @@ final class ServiceLocator {
         return AuthService(
             localRepoService: localRepoService(),
             loginStateService: loginStateService(),
-            accountManager: accountManager()
+            accountManager: accountManager(),
+            appErrorLoggerConfiguration: appErrorLoggerConfiguration()
         )
     }
     
-    func loginStateService() -> LoginStateService {
-        LoginStateService(seedService: seedService(), objectTypeProvider: objectTypeProvider())
+    private lazy var _loginStateService = LoginStateService(
+        seedService: seedService(),
+        objectTypeProvider: objectTypeProvider(),
+        middlewareConfigurationProvider: middlewareConfigurationProvider(),
+        blockWidgetExpandedService: blockWidgetExpandedService(),
+        relationDetailsStorage: relationDetailsStorage()
+    )
+    func loginStateService() -> LoginStateServiceProtocol {
+        return _loginStateService
     }
     
     func dashboardService() -> DashboardServiceProtocol {
-        DashboardService(searchService: searchService(), pageService: pageService())
+        DashboardService(searchService: searchService(), pageService: pageService(), objectTypeProvider: objectTypeProvider())
     }
     
-    func blockActionsServiceSingle(contextId: BlockId) -> BlockActionsServiceSingleProtocol {
-        BlockActionsServiceSingle(contextId: contextId)
+    func blockActionsServiceSingle() -> BlockActionsServiceSingleProtocol {
+        BlockActionsServiceSingle()
     }
     
     func objectActionsService() -> ObjectActionsServiceProtocol {
-        ObjectActionsService()
+        ObjectActionsService(objectTypeProvider: objectTypeProvider())
     }
     
     func fileService() -> FileActionsServiceProtocol {
@@ -58,7 +66,7 @@ final class ServiceLocator {
     }
     
     func detailsService(objectId: BlockId) -> DetailsServiceProtocol {
-        DetailsService(objectId: objectId, service: objectActionsService())
+        DetailsService(objectId: objectId, service: objectActionsService(), fileService: fileService())
     }
     
     func subscriptionService() -> SubscriptionsServiceProtocol {
@@ -76,12 +84,9 @@ final class ServiceLocator {
         SystemURLService()
     }
     
-    func alertOpener() -> AlertOpenerProtocol {
-        AlertOpener()
-    }
-    
-    func accountManager() -> AccountManager {
-        return AccountManager.shared
+    private lazy var _accountManager = AccountManager()
+    func accountManager() -> AccountManagerProtocol {
+        return _accountManager
     }
     
     func objectTypeProvider() -> ObjectTypeProviderProtocol {
@@ -112,8 +117,8 @@ final class ServiceLocator {
         return _accountEventHandler
     }
     
-    func blockListService(documentId: String) -> BlockListServiceProtocol {
-        return BlockListService(contextId: documentId)
+    func blockListService() -> BlockListServiceProtocol {
+        return BlockListService()
     }
     
     func workspaceService() -> WorkspaceServiceProtocol {
@@ -121,7 +126,7 @@ final class ServiceLocator {
     }
     
     func pageService() -> PageServiceProtocol {
-        return PageService()
+        return PageService(objectTypeProvider: objectTypeProvider())
     }
     
     func objectDetailsStorage() -> ObjectDetailsStorage {
@@ -129,13 +134,12 @@ final class ServiceLocator {
     }
         
     func blockWidgetService() -> BlockWidgetServiceProtocol {
-        return BlockWidgetService()
+        return BlockWidgetService(blockWidgetExpandedService: blockWidgetExpandedService())
     }
     
     func favoriteSubscriptionService() -> FavoriteSubscriptionServiceProtocol {
         return FavoriteSubscriptionService(
-            objectDetailsStorage: objectDetailsStorage(),
-            objectTypeProvider: objectTypeProvider()
+            objectDetailsStorage: objectDetailsStorage()
         )
     }
     
@@ -153,6 +157,68 @@ final class ServiceLocator {
             accountManager: accountManager(),
             objectTypeProvider: objectTypeProvider()
         )
+    }
+    
+    func collectionsSubscriptionService() -> CollectionsSubscriptionServiceProtocol {
+        return CollectionsSubscriptionService(
+            subscriptionService: subscriptionService(),
+            accountManager: accountManager(),
+            objectTypeProvider: objectTypeProvider()
+        )
+    }
+    
+    func binSubscriptionService() -> BinSubscriptionServiceProtocol {
+        return BinSubscriptionService(
+            subscriptionService: subscriptionService(),
+            accountManager: accountManager()
+        )
+    }
+    
+    func treeSubscriptionManager() -> TreeSubscriptionManagerProtocol {
+        return TreeSubscriptionManager(
+            subscriptionDataBuilder: TreeSubscriptionDataBuilder(),
+            subscriptionService: subscriptionService()
+        )
+    }
+    
+    func filesSubscriptionManager() -> FilesSubscriptionServiceProtocol {
+        return FilesSubscriptionService(subscriptionService: subscriptionService(), accountManager: accountManager())
+    }
+    
+    private lazy var _middlewareConfigurationProvider = MiddlewareConfigurationProvider()
+    func middlewareConfigurationProvider() -> MiddlewareConfigurationProviderProtocol {
+        return _middlewareConfigurationProvider
+    }
+    
+    private lazy var _documentService = DocumentService(relationDetailsStorage: relationDetailsStorage())
+    func documentService() -> DocumentServiceProtocol {
+        return _documentService
+    }
+    
+    private lazy var _blockWidgetExpandedService = BlockWidgetExpandedService()
+    func blockWidgetExpandedService() -> BlockWidgetExpandedServiceProtocol {
+        return _blockWidgetExpandedService
+    }
+    
+    private lazy var _applicationStateService = ApplicationStateService()
+    func applicationStateService() -> ApplicationStateServiceProtocol {
+        _applicationStateService
+    }
+    
+    func quickActionStorage() -> QuickActionsStorage {
+        QuickActionsStorage.shared
+    }
+    
+    func objectsCommonSubscriptionDataBuilder() -> ObjectsCommonSubscriptionDataBuilderProtocol {
+        ObjectsCommonSubscriptionDataBuilder()
+    }
+    
+    func singleObjectSubscriptionService() -> SingleObjectSubscriptionServiceProtocol {
+        SingleObjectSubscriptionService(subscriptionService: subscriptionService(), subscriotionBuilder: objectsCommonSubscriptionDataBuilder())
+    }
+    
+    func appErrorLoggerConfiguration() -> AppErrorLoggerConfigurationProtocol {
+        AppErrorLoggerConfiguration()
     }
     
     // MARK: - Private

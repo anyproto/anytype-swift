@@ -31,6 +31,6 @@ struct SetListViewCell: View {
         .frame(maxWidth: .infinity, alignment: .topLeading)
         .padding(.vertical, 20)
         .clipped()
-        .contentShape(Rectangle())
+        .fixTappableArea()
     }
 }

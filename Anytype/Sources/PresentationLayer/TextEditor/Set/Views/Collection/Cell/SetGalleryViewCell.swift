@@ -15,10 +15,8 @@ struct SetGalleryViewCell: View {
     }
     
     private var content: some View {
-        VStack(alignment: .leading, spacing: 11) {
-            if configuration.hasCover {
-                coverContent
-            }
+        VStack(alignment: .leading, spacing: Constants.bottomCoverSpacing) {
+            coverContent
             VStack(alignment: .leading, spacing: 0) {
                  TitleWithIconView(
                     icon: configuration.icon,
@@ -27,14 +25,18 @@ struct SetGalleryViewCell: View {
                     style: .gallery,
                     onIconTap: configuration.onIconTap
                  )
-                Spacer.fixedHeight(4)
+                if configuration.minHeight.isNotNil {
+                    Spacer(minLength: 0)
+                } else {
+                    Spacer.fixedHeight(4)
+                }
                 relations
             }
-            .padding(.top, configuration.hasCover ? 0 : Constants.contentPadding)
+            .padding(.top, configuration.hasCover && configuration.coverType.isNotNil ? 0 : Constants.contentPadding )
             .padding([.leading, .trailing, .bottom], Constants.contentPadding)
         }
         .background(Color.Background.primary)
-        .frame(maxWidth: .infinity, alignment: .topLeading)
+        .frame(maxWidth: .infinity, minHeight: configuration.minHeight, alignment: .topLeading)
         .cornerRadius(Constants.cornerRadius)
         .overlay(
             RoundedRectangle(cornerRadius: Constants.cornerRadius).stroke(Color.Stroke.primary, lineWidth: 0.5)
@@ -42,38 +44,31 @@ struct SetGalleryViewCell: View {
         .readSize { width = $0.width }
     }
     
+    @ViewBuilder
     private var coverContent: some View {
-        ZStack {
-            coverPlaceholder
-            if let coverType = configuration.coverType {
-                SwiftUIObjectHeaderCoverView(
-                    objectCover: coverType,
-                    size: CGSize(
-                        width: width,
-                        height: configuration.smallItemSize ?
-                        Constants.smallItemHeight :
-                            Constants.largeItemHeight
-                    ),
-                    fitImage: configuration.coverFit
-                )
-            }
+        if configuration.hasCover, let coverType = configuration.coverType {
+            SwiftUIObjectHeaderCoverView(
+                objectCover: coverType,
+                size: CGSize(
+                    width: width,
+                    height: configuration.smallItemSize ?
+                    Constants.smallItemHeight :
+                        Constants.largeItemHeight
+                ),
+                fitImage: configuration.coverFit
+            )
+            .frame(
+                height: configuration.smallItemSize ?
+                Constants.smallItemHeight :
+                    Constants.largeItemHeight
+            )
+            .frame(maxWidth: .infinity)
+            .background(Color.Stroke.transperent)
         }
-        .frame(
-            height: configuration.smallItemSize ?
-            Constants.smallItemHeight :
-                Constants.largeItemHeight
-        )
-        .frame(maxWidth: .infinity)
-        .background(Color.Stroke.transperent)
-    }
-    
-    private var coverPlaceholder: some View {
-        Image(asset: .setImagePlaceholder)
-            .frame(width: 48, height: 48, alignment: .center)
     }
     
     private var relations: some View {
-        LazyVStack(spacing: 4) {
+        LazyVStack(spacing: Constants.relationSpacing) {
             ForEach(configuration.relations) { relation in
                 if relation.hasValue {
                     row(relation)
@@ -85,16 +80,21 @@ struct SetGalleryViewCell: View {
     private func row(_ relation: Relation) -> some View {
         RelationValueView(
             relation: RelationItemModel(relation: relation),
-            style: .setCollection, action: {}
+            style: .setCollection,
+            mode: .button(action: nil)
         )
     }
 }
 
 extension SetGalleryViewCell {
     enum Constants {
-        static let contentPadding: CGFloat = 12
-        static let cornerRadius: CGFloat = 16
+        static let contentPadding: CGFloat = 16
+        static let cornerRadius: CGFloat = 12
         static let smallItemHeight: CGFloat = 112
         static let largeItemHeight: CGFloat = 188
+        static let relationHeight: CGFloat = 16
+        static let relationSpacing: CGFloat = 4
+        static let bottomCoverSpacing: CGFloat = 12
+        static let maxTitleHeight: CGFloat = 40
     }
 }

@@ -37,6 +37,8 @@ final class SetFiltersDaysViewModel: TextRelationDetailsViewModelProtocol {
     func updateValue(_ text: String) {
         onValueChanged(text)
     }
+    
+    func onWillDisappear() {}
 }
 
 extension SetFiltersDaysViewModel: AnytypePopupViewModelProtocol {

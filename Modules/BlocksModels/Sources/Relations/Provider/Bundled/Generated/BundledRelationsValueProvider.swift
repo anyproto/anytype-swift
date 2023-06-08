@@ -8,11 +8,9 @@ public typealias ObjectId = String
 
 public protocol BundledRelationsValueProvider {
 
-    var meditation: Bool { get }
     var tag: [ObjectId] { get }
     var camera: String { get }
     var heightInPixels: Int? { get }
-    var location: String { get }
     var createdDate: Date? { get }
     var toBeDeletedDate: Date? { get }
     var relationFormatObjectTypes: [ObjectId] { get }
@@ -22,7 +20,6 @@ public protocol BundledRelationsValueProvider {
     var done: Bool { get }
     var mediaArtistURL: AnytypeURL? { get }
     var templateIsBundled: Bool { get }
-    var shipTo: String { get }
     var dateOfBirth: Date? { get }
     var restrictions: Int? { get }
     var isHighlighted: Bool { get }
@@ -32,42 +29,30 @@ public protocol BundledRelationsValueProvider {
     var tasks: [ObjectId] { get }
     var snippet: String { get }
     var hypothesisAssumptions: String { get }
-    var gratefulFor: String { get }
-    var founders: [ObjectId] { get }
-    var website: AnytypeURL? { get }
     var relationFormat: Int? { get }
     var relationReadonlyValue: Bool { get }
     var iconImage: Hash? { get }
     var ingredients: String { get }
-    var total: Int? { get }
-    var responsible: [ObjectId] { get }
     var genre: [ObjectId] { get }
     var solution: String { get }
     var releasedYear: Int? { get }
     var coverScale: Int? { get }
     var twitter: AnytypeURL? { get }
-    var resources: String { get }
     var userStories: String { get }
     var relationDefaultValue: String { get }
     var linkedProjects: [ObjectId] { get }
     var audioAlbum: String { get }
-    var participants: [ObjectId] { get }
     var problem: String { get }
     var layoutAlign: Int? { get }
     var `class`: [ObjectId] { get }
     var difficulty: Int? { get }
     var director: [ObjectId] { get }
     var status: ObjectId? { get }
-    var candidate: [ObjectId] { get }
-    var happenings: String { get }
-    var durationInSeconds: Int? { get }
-    var billToAddress: String { get }
     var logic: String { get }
     var alternative: String { get }
     var linkedContacts: [ObjectId] { get }
     var rottenTomatoesRating: Int? { get }
     var isHidden: Bool { get }
-    var subsidiaries: [ObjectId] { get }
     var additional: String { get }
     var budget: Int? { get }
     var mediaArtistName: String { get }
@@ -78,7 +63,6 @@ public protocol BundledRelationsValueProvider {
     var lastModifiedDate: Date? { get }
     var stakeholders: [ObjectId] { get }
     var measureOfSuccess: String { get }
-    var notes: String { get }
     var recommendedRelations: [ObjectId] { get }
     var creator: ObjectId { get }
     var recommendedLayout: Int? { get }
@@ -88,18 +72,14 @@ public protocol BundledRelationsValueProvider {
     var author: [ObjectId] { get }
     var artist: String { get }
     var dueDate: Date? { get }
-    var ceo: [ObjectId] { get }
     var records: String { get }
     var iconEmoji: Emoji? { get }
     var coverType: Int? { get }
-    var tickerSymbol: String { get }
     var coverY: Int? { get }
-    var story: String { get }
     var time: Int? { get }
     var sizeInBytes: Int? { get }
     var collectionOf: [ObjectId] { get }
     var events: [ObjectId] { get }
-    var owner: [ObjectId] { get }
     var timeframe: String { get }
     var isReadonly: Bool { get }
     var addedDate: Date? { get }
@@ -109,19 +89,12 @@ public protocol BundledRelationsValueProvider {
     var materials: String { get }
     var isFavorite: Bool { get }
     var stars: [ObjectId] { get }
-    var quote: String { get }
     var workspaceId: ObjectId { get }
-    var journaling: Bool { get }
-    var billTo: String { get }
     var audioGenre: String { get }
-    var intentions: String { get }
     var telegram: AnytypeURL? { get }
-    var isDraft: Bool { get }
     var trailer: [Hash] { get }
     var name: String { get }
     var mood: [ObjectId] { get }
-    var agenda: String { get }
-    var number: Int? { get }
     var audioLyrics: String { get }
     var instagram: AnytypeURL? { get }
     var classType: [ObjectId] { get }
@@ -130,7 +103,6 @@ public protocol BundledRelationsValueProvider {
     var priority: Int? { get }
     var fileMimeType: String { get }
     var type: ObjectId { get }
-    var numberOfEmployees: Int? { get }
     var layout: Int? { get }
     var audioAlbumTrackNumber: Int? { get }
     var placeOfBirth: String { get }
@@ -138,32 +110,23 @@ public protocol BundledRelationsValueProvider {
     var internalFlags: [Int] { get }
     var socialProfile: AnytypeURL? { get }
     var occupation: String { get }
-    var _7hourssleep: Bool { get }
     var coverX: Int? { get }
     var description: String { get }
     var facebook: AnytypeURL? { get }
-    var address: String { get }
     var picture: Hash? { get }
     var id: ObjectId { get }
-    var stockprice: Int? { get }
     var url: AnytypeURL? { get }
     var objectives: String { get }
     var cameraIso: Int? { get }
-    var healthyEating: Bool { get }
     var isDeleted: Bool { get }
     var links: [ObjectId] { get }
     var servings: Int? { get }
     var category: [ObjectId] { get }
-    var shipToAddress: String { get }
-    var founded: Date? { get }
     var coverId: String { get }
     var lastModifiedBy: ObjectId { get }
     var relationMaxCount: Int? { get }
     var questions: String { get }
-    var worriedAbout: String { get }
-    var headquarters: String { get }
     var widthInPixels: Int? { get }
-    var running: Bool { get }
     var progress: Int? { get }
     var setOf: [ObjectId] { get }
     var gender: ObjectId? { get }
@@ -171,19 +134,22 @@ public protocol BundledRelationsValueProvider {
     var fileExt: String { get }
     var scope: String { get }
     var job: String { get }
-    var mpAddedToLibrary: Bool { get }
     var featuredRelations: [ObjectId] { get }
     var phone: String? { get }
     var imdbRating: Int? { get }
     var smartblockTypes: [Int] { get }
     var source: AnytypeURL? { get }
     var sourceObject: ObjectId { get }
+    var oldAnytypeID: String { get }
+    var spaceDashboardId: ObjectId { get }
+    var iconOption: Int? { get }
+    var spaceAccessibility: Int? { get }
+    var sourceFilePath: String { get }
+    var fileSyncStatus: Int? { get }
+    var lastChangeId: String { get }
 } 
 
 public extension BundledRelationsValueProvider where Self: RelationValueProvider {
-    var meditation: Bool {
-        return value(for: BundledRelationKey.meditation.rawValue)
-    }
     var tag: [ObjectId] {
         return value(for: BundledRelationKey.tag.rawValue)
     }
@@ -194,9 +160,6 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     /// Height of image/video in pixels
     var heightInPixels: Int? {
         return value(for: BundledRelationKey.heightInPixels.rawValue)
-    }
-    var location: String {
-        return value(for: BundledRelationKey.location.rawValue)
     }
     /// Date when the object was initially created
     var createdDate: Date? {
@@ -233,9 +196,6 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     var templateIsBundled: Bool {
         return value(for: BundledRelationKey.templateIsBundled.rawValue)
     }
-    var shipTo: String {
-        return value(for: BundledRelationKey.shipTo.rawValue)
-    }
     var dateOfBirth: Date? {
         return value(for: BundledRelationKey.dateOfBirth.rawValue)
     }
@@ -268,15 +228,6 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     var hypothesisAssumptions: String {
         return value(for: BundledRelationKey.hypothesisAssumptions.rawValue)
     }
-    var gratefulFor: String {
-        return value(for: BundledRelationKey.gratefulFor.rawValue)
-    }
-    var founders: [ObjectId] {
-        return value(for: BundledRelationKey.founders.rawValue)
-    }
-    var website: AnytypeURL? {
-        return value(for: BundledRelationKey.website.rawValue)
-    }
     /// Type of the underlying value
     var relationFormat: Int? {
         return value(for: BundledRelationKey.relationFormat.rawValue)
@@ -291,12 +242,6 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     }
     var ingredients: String {
         return value(for: BundledRelationKey.ingredients.rawValue)
-    }
-    var total: Int? {
-        return value(for: BundledRelationKey.total.rawValue)
-    }
-    var responsible: [ObjectId] {
-        return value(for: BundledRelationKey.responsible.rawValue)
     }
     var genre: [ObjectId] {
         return value(for: BundledRelationKey.genre.rawValue)
@@ -315,9 +260,6 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     var twitter: AnytypeURL? {
         return value(for: BundledRelationKey.twitter.rawValue)
     }
-    var resources: String {
-        return value(for: BundledRelationKey.resources.rawValue)
-    }
     var userStories: String {
         return value(for: BundledRelationKey.userStories.rawValue)
     }
@@ -330,9 +272,6 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     /// Audio record's album name
     var audioAlbum: String {
         return value(for: BundledRelationKey.audioAlbum.rawValue)
-    }
-    var participants: [ObjectId] {
-        return value(for: BundledRelationKey.participants.rawValue)
     }
     var problem: String {
         return value(for: BundledRelationKey.problem.rawValue)
@@ -354,19 +293,6 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     var status: ObjectId? {
         return value(for: BundledRelationKey.status.rawValue)
     }
-    var candidate: [ObjectId] {
-        return value(for: BundledRelationKey.candidate.rawValue)
-    }
-    var happenings: String {
-        return value(for: BundledRelationKey.happenings.rawValue)
-    }
-    /// Duration of audio/video file in seconds
-    var durationInSeconds: Int? {
-        return value(for: BundledRelationKey.durationInSeconds.rawValue)
-    }
-    var billToAddress: String {
-        return value(for: BundledRelationKey.billToAddress.rawValue)
-    }
     var logic: String {
         return value(for: BundledRelationKey.logic.rawValue)
     }
@@ -382,10 +308,6 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     /// Specify if object is hidden
     var isHidden: Bool {
         return value(for: BundledRelationKey.isHidden.rawValue)
-    }
-    /// A subsidiary, subsidiary company or daughter company is a company owned or controlled by another company, which is called the parent company or holding company
-    var subsidiaries: [ObjectId] {
-        return value(for: BundledRelationKey.subsidiaries.rawValue)
     }
     var additional: String {
         return value(for: BundledRelationKey.additional.rawValue)
@@ -419,9 +341,6 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     var measureOfSuccess: String {
         return value(for: BundledRelationKey.measureOfSuccess.rawValue)
     }
-    var notes: String {
-        return value(for: BundledRelationKey.notes.rawValue)
-    }
     /// List of recommended relations
     var recommendedRelations: [ObjectId] {
         return value(for: BundledRelationKey.recommendedRelations.rawValue)
@@ -454,9 +373,6 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     var dueDate: Date? {
         return value(for: BundledRelationKey.dueDate.rawValue)
     }
-    var ceo: [ObjectId] {
-        return value(for: BundledRelationKey.ceo.rawValue)
-    }
     var records: String {
         return value(for: BundledRelationKey.records.rawValue)
     }
@@ -468,16 +384,9 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     var coverType: Int? {
         return value(for: BundledRelationKey.coverType.rawValue)
     }
-    /// A ticker symbol or stock symbol is an abbreviation used to uniquely identify publicly traded shares of a particular stock on a particular stock market
-    var tickerSymbol: String {
-        return value(for: BundledRelationKey.tickerSymbol.rawValue)
-    }
     /// Image y offset of the provided image
     var coverY: Int? {
         return value(for: BundledRelationKey.coverY.rawValue)
-    }
-    var story: String {
-        return value(for: BundledRelationKey.story.rawValue)
     }
     var time: Int? {
         return value(for: BundledRelationKey.time.rawValue)
@@ -492,9 +401,6 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     }
     var events: [ObjectId] {
         return value(for: BundledRelationKey.events.rawValue)
-    }
-    var owner: [ObjectId] {
-        return value(for: BundledRelationKey.owner.rawValue)
     }
     var timeframe: String {
         return value(for: BundledRelationKey.timeframe.rawValue)
@@ -528,33 +434,16 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     var stars: [ObjectId] {
         return value(for: BundledRelationKey.stars.rawValue)
     }
-    /// Repeat words that someone else has said or written
-    var quote: String {
-        return value(for: BundledRelationKey.quote.rawValue)
-    }
     /// Space object belongs to
     var workspaceId: ObjectId {
         return value(for: BundledRelationKey.workspaceId.rawValue)
-    }
-    var journaling: Bool {
-        return value(for: BundledRelationKey.journaling.rawValue)
-    }
-    var billTo: String {
-        return value(for: BundledRelationKey.billTo.rawValue)
     }
     /// Audio record's genre name
     var audioGenre: String {
         return value(for: BundledRelationKey.audioGenre.rawValue)
     }
-    var intentions: String {
-        return value(for: BundledRelationKey.intentions.rawValue)
-    }
     var telegram: AnytypeURL? {
         return value(for: BundledRelationKey.telegram.rawValue)
-    }
-    /// Relation that indicates document in draft state
-    var isDraft: Bool {
-        return value(for: BundledRelationKey.isDraft.rawValue)
     }
     var trailer: [Hash] {
         return value(for: BundledRelationKey.trailer.rawValue)
@@ -565,12 +454,6 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     }
     var mood: [ObjectId] {
         return value(for: BundledRelationKey.mood.rawValue)
-    }
-    var agenda: String {
-        return value(for: BundledRelationKey.agenda.rawValue)
-    }
-    var number: Int? {
-        return value(for: BundledRelationKey.number.rawValue)
     }
     /// The text lyrics of the music record
     var audioLyrics: String {
@@ -600,9 +483,6 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     var type: ObjectId {
         return value(for: BundledRelationKey.type.rawValue)
     }
-    var numberOfEmployees: Int? {
-        return value(for: BundledRelationKey.numberOfEmployees.rawValue)
-    }
     /// Anytype layout ID(from pb enum)
     var layout: Int? {
         return value(for: BundledRelationKey.layout.rawValue)
@@ -627,9 +507,6 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     var occupation: String {
         return value(for: BundledRelationKey.occupation.rawValue)
     }
-    var _7hourssleep: Bool {
-        return value(for: BundledRelationKey._7hourssleep.rawValue)
-    }
     /// Image x offset of the provided image
     var coverX: Int? {
         return value(for: BundledRelationKey.coverX.rawValue)
@@ -640,9 +517,6 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     var facebook: AnytypeURL? {
         return value(for: BundledRelationKey.facebook.rawValue)
     }
-    var address: String {
-        return value(for: BundledRelationKey.address.rawValue)
-    }
     /// An image is an artifact that depicts visual perception, such as a photograph or other two-dimensional picture
     var picture: Hash? {
         return value(for: BundledRelationKey.picture.rawValue)
@@ -650,9 +524,6 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     /// Link to itself. Used in databases
     var id: ObjectId {
         return value(for: BundledRelationKey.id.rawValue)
-    }
-    var stockprice: Int? {
-        return value(for: BundledRelationKey.stockprice.rawValue)
     }
     /// Web address, a reference to a web resource that specifies its location on a computer network and a mechanism for retrieving it
     var url: AnytypeURL? {
@@ -663,9 +534,6 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     }
     var cameraIso: Int? {
         return value(for: BundledRelationKey.cameraIso.rawValue)
-    }
-    var healthyEating: Bool {
-        return value(for: BundledRelationKey.healthyEating.rawValue)
     }
     /// Relation that indicates document has been deleted
     var isDeleted: Bool {
@@ -680,12 +548,6 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     }
     var category: [ObjectId] {
         return value(for: BundledRelationKey.category.rawValue)
-    }
-    var shipToAddress: String {
-        return value(for: BundledRelationKey.shipToAddress.rawValue)
-    }
-    var founded: Date? {
-        return value(for: BundledRelationKey.founded.rawValue)
     }
     /// Can contains image hash, color or prebuild bg id, depends on coverType relation
     var coverId: String {
@@ -702,18 +564,9 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     var questions: String {
         return value(for: BundledRelationKey.questions.rawValue)
     }
-    var worriedAbout: String {
-        return value(for: BundledRelationKey.worriedAbout.rawValue)
-    }
-    var headquarters: String {
-        return value(for: BundledRelationKey.headquarters.rawValue)
-    }
     /// Width of image/video in pixels
     var widthInPixels: Int? {
         return value(for: BundledRelationKey.widthInPixels.rawValue)
-    }
-    var running: Bool {
-        return value(for: BundledRelationKey.running.rawValue)
     }
     var progress: Int? {
         return value(for: BundledRelationKey.progress.rawValue)
@@ -738,10 +591,6 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     var job: String {
         return value(for: BundledRelationKey.job.rawValue)
     }
-    /// Have been added to library from marketplace
-    var mpAddedToLibrary: Bool {
-        return value(for: BundledRelationKey.mpAddedToLibrary.rawValue)
-    }
     /// Important relations that always appear at the top of the object
     var featuredRelations: [ObjectId] {
         return value(for: BundledRelationKey.featuredRelations.rawValue)
@@ -761,5 +610,32 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     }
     var sourceObject: ObjectId {
         return value(for: BundledRelationKey.sourceObject.rawValue)
+    }
+    var oldAnytypeID: String {
+        return value(for: BundledRelationKey.oldAnytypeID.rawValue)
+    }
+    /// Space Dashboard object ID
+    var spaceDashboardId: ObjectId {
+        return value(for: BundledRelationKey.spaceDashboardId.rawValue)
+    }
+    /// Choose one of our pre-installed icons during On-boarding
+    var iconOption: Int? {
+        return value(for: BundledRelationKey.iconOption.rawValue)
+    }
+    /// There are two options of accessibility of workspace - private (0) or public (1)
+    var spaceAccessibility: Int? {
+        return value(for: BundledRelationKey.spaceAccessibility.rawValue)
+    }
+    /// File path or url with original object
+    var sourceFilePath: String {
+        return value(for: BundledRelationKey.sourceFilePath.rawValue)
+    }
+    /// File sync status
+    var fileSyncStatus: Int? {
+        return value(for: BundledRelationKey.fileSyncStatus.rawValue)
+    }
+    /// Last change ID
+    var lastChangeId: String {
+        return value(for: BundledRelationKey.lastChangeId.rawValue)
     }
 }

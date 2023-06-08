@@ -4,11 +4,11 @@ import SwiftProtobuf
 
 class BookmarkService: BookmarkServiceProtocol {
     func fetchBookmark(contextID: BlockId, blockID: BlockId, url: String) {
-        Anytype_Rpc.BlockBookmark.Fetch.Service
-            .invoke(contextID: contextID, blockID: blockID, url: url)
-            .map { EventsBunch(event: $0.event) }
-            .getValue(domain: .bookmarkService)?
-            .send()
+        _ = try? ClientCommands.blockBookmarkFetch(.with {
+            $0.contextID = contextID
+            $0.blockID = blockID
+            $0.url = url
+        }).invoke(errorDomain: .bookmarkService)
     }
 
     func createAndFetchBookmark(
@@ -17,19 +17,15 @@ class BookmarkService: BookmarkServiceProtocol {
         position: BlockPosition,
         url: String
     ) {
-        Anytype_Rpc.BlockBookmark.CreateAndFetch.Service
-            .invoke(
-                contextID: contextID,
-                targetID: targetID,
-                position: position.asMiddleware,
-                url: url
-            )
-            .map { EventsBunch(event: $0.event) }
-            .getValue(domain: .bookmarkService)?
-            .send()
+        _ = try? ClientCommands.blockBookmarkCreateAndFetch(.with {
+            $0.contextID = contextID
+            $0.targetID = targetID
+            $0.position = position.asMiddleware
+            $0.url = url
+        }).invoke(errorDomain: .bookmarkService)
     }
     
-    func createBookmarkObject(url: String, completion: @escaping (_ withError: Bool) -> Void) {
+    func createBookmarkObject(url: String) -> Bool {
         
         let details = Google_Protobuf_Struct(
             fields: [
@@ -37,14 +33,16 @@ class BookmarkService: BookmarkServiceProtocol {
             ]
         )
         
-        let result = Anytype_Rpc.Object.CreateBookmark.Service.invocation(details: details)
-            .invoke()
-            .getValue(domain: .bookmarkService)
-
-        completion(result == nil)
+        let result = try? ClientCommands.objectCreateBookmark(.with {
+            $0.details = details
+        }).invoke(errorDomain: .bookmarkService)
+        return result.isNotNil
     }
     
     func fetchBookmarkContent(bookmarkId: BlockId, url: String) {
-        _ = Anytype_Rpc.Object.BookmarkFetch.Service.invocation(contextID: bookmarkId, url: url).invoke()
+        _ = try? ClientCommands.objectBookmarkFetch(.with {
+            $0.contextID = bookmarkId
+            $0.url = url
+        }).invoke(errorDomain: .bookmarkService)
     }
 }

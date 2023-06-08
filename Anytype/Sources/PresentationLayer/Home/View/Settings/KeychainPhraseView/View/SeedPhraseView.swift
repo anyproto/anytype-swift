@@ -3,10 +3,9 @@ import SwiftUI
 struct SeedPhraseView: View {
     
     @ObservedObject var model: KeychainPhraseViewModel
-    let onTap: () -> ()
     
     var body: some View {
-        Button(action: { model.onSeedViewTap(onTap: onTap) }) {
+        Button(action: { model.onSeedViewTap() }) {
             HStack {
                 AnytypeText(
                     model.recoveryPhrase ?? Loc.Keychain.seedPhrasePlaceholder,
@@ -29,7 +28,7 @@ struct SeedPhraseView: View {
 
 struct SeedPhraseView_Previews: PreviewProvider {
     static var previews: some View {
-        SeedPhraseView(model: KeychainPhraseViewModel(), onTap: {}).padding()
+        SeedPhraseView(model: KeychainPhraseViewModel.makeForPreview()).padding()
     }
 }
 

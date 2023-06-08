@@ -112,20 +112,20 @@ public struct DataviewView: Hashable, Identifiable {
     }
     
     public var asMiddleware: MiddlewareDataviewView {
-        MiddlewareDataviewView(
-            id: id,
-            type: type.asMiddleware,
-            name: name,
-            sorts: sorts,
-            filters: filters,
-            relations: options.map(\.asMiddleware),
-            coverRelationKey: coverRelationKey,
-            hideIcon: hideIcon,
-            cardSize: cardSize,
-            coverFit: coverFit,
-            groupRelationKey: groupRelationKey,
-            groupBackgroundColors: groupBackgroundColors
-        )
+        MiddlewareDataviewView.with {
+            $0.id = id
+            $0.type = type.asMiddleware
+            $0.name = name
+            $0.sorts = sorts
+            $0.filters = filters
+            $0.relations = options.map(\.asMiddleware)
+            $0.coverRelationKey = coverRelationKey
+            $0.hideIcon = hideIcon
+            $0.cardSize = cardSize
+            $0.coverFit = coverFit
+            $0.groupRelationKey = groupRelationKey
+            $0.groupBackgroundColors = groupBackgroundColors
+        }
     }
 }
 

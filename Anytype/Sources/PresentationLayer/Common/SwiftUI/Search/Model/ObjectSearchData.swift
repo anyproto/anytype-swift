@@ -53,12 +53,7 @@ extension ObjectSearchData {
     }
 
     var iconImage: ObjectIconImage {
-        let layout = details.layoutValue
-        if layout == .todo {
-            return .todo(details.isDone)
-        } else {
-            return details.icon.flatMap { .icon($0) } ?? .placeholder(title.first)
-        }
+        details.objectIconImageWithPlaceholder
     }
     
     var viewType: EditorViewType {

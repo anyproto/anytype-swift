@@ -6,7 +6,6 @@ final class FileDownloadingCoordinator {
     
     private(set) var type: FileContentType?
     
-    private let fileLoader = FileLoader()
     private weak var viewController: UIViewController?
     
     init(viewController: UIViewController?) {

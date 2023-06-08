@@ -1,7 +1,7 @@
 import Logging
 
 public protocol AssertionLoggerHandler: AnyObject {
-    func log(_ message: String, domain: String)
+    func log(_ message: String, domain: String, info: [String: Any])
 }
 
 public final class AssertionLogger {
@@ -13,22 +13,27 @@ public final class AssertionLogger {
     
     private init() {}
     
+    
     public func log(
         _ message: String,
         domain: String,
+        info: [String: String],
         file: String = #file,
         function: String = #function,
         line: UInt = #line
     ) {
+        var metadata = info
+        metadata["domain"] = domain
+        
         let fullMessage = "\(domain): \(message)"
         eventLogger.log(
             level: .critical,
             message: fullMessage,
-            metadata: ["domain": Logger.MetadataValue(stringLiteral: domain)],
+            metadata: metadata,
             file: file,
             function: function,
             line: line
         )
-        handler?.log(message, domain: domain)
+        handler?.log(message, domain: domain, info: info)
     }
 }

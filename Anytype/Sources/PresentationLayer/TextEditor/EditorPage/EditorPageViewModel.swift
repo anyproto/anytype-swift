@@ -24,22 +24,13 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     private let blockBuilder: BlockViewModelBuilder
     private let headerModel: ObjectHeaderViewModel
     private let editorPageTemplatesHandler: EditorPageTemplatesHandlerProtocol
+    private let accountManager: AccountManagerProtocol
     private let isOpenedForPreview: Bool
     @Published private var isAppear: Bool = false
     
     private lazy var subscriptions = [AnyCancellable]()
 
     private let blockActionsService: BlockActionsServiceSingleProtocol
-
-    deinit {
-        Task.detached(priority: .userInitiated) { [document, blockActionsService] in
-            try await blockActionsService.close()
-            EventsBunch(
-                contextId: AccountManager.shared.account.info.homeObjectID,
-                localEvents: [.documentClosed(blockId: document.objectId)]
-            ).send()
-        }
-    }
 
     // MARK: - Initialization
     init(
@@ -57,6 +48,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         objectActionsService: ObjectActionsServiceProtocol,
         searchService: SearchServiceProtocol,
         editorPageTemplatesHandler: EditorPageTemplatesHandlerProtocol,
+        accountManager: AccountManagerProtocol,
         isOpenedForPreview: Bool
     ) {
         self.viewInput = viewInput
@@ -73,6 +65,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         self.objectActionsService = objectActionsService
         self.searchService = searchService
         self.editorPageTemplatesHandler = editorPageTemplatesHandler
+        self.accountManager = accountManager
         self.isOpenedForPreview = isOpenedForPreview
 
         setupLoadingState()
@@ -171,7 +164,10 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     private func handleDeletionState(details: ObjectDetails, isAppear: Bool) {
         viewInput?.showDeletedScreen(details.isDeleted)
         if details.isArchived && isAppear {
-            router.closeEditor()
+            // Waiting for the first responder automatic restoration and then close the screen
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) { [router] in
+                router.closeEditor()
+            }
         }
     }
 
@@ -248,7 +244,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
 extension EditorPageViewModel {
     func viewDidLoad() {
         if let objectDetails = document.details {
-            AnytypeAnalytics.instance().logShowObject(type: objectDetails.type, layout: objectDetails.layoutValue)
+            AnytypeAnalytics.instance().logShowObject(type: objectDetails.analyticsType, layout: objectDetails.layoutValue)
         }
         
         blocksStateManager.checkOpenedState()
@@ -300,6 +296,12 @@ extension EditorPageViewModel {
     func didSelectBlock(at indexPath: IndexPath) {
         element(at: indexPath)?
             .didSelectRowInTableView(editorEditingState: blocksStateManager.editingState)
+    }
+    
+    func didFinishEditing(blockId: BlockId) {
+        if blockId == BundledRelationKey.description.rawValue {
+            AnytypeAnalytics.instance().logSetObjectDescription()
+        }
     }
 
     func element(at: IndexPath) -> BlockViewModelProtocol? {

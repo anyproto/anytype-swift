@@ -28,11 +28,18 @@ final class AnytypeIconDownloader {
         case .profile(let profile):
             return await image(with: profile, imageGuideline: imageGuideline)
         case .emoji(let emoji):
-            return ObjectIconImagePainter.shared.image(
+            return await ObjectIconImagePainter.shared.image(
                 with: emoji.value,
                 font: .systemFont(ofSize: imageGuideline.size.height/1.2),
                 textColor: .Text.primary,
                 imageGuideline: imageGuideline,
+                backgroundColor: .clear
+            )
+        case let .space(space):
+            return await ObjectIconImagePainter.shared.spaceImage(
+                space: space,
+                imageGuideline: imageGuideline,
+                font: .systemFont(ofSize: imageGuideline.size.height/1.2),
                 backgroundColor: .clear
             )
         }
@@ -57,6 +64,8 @@ final class AnytypeIconDownloader {
                 .setText(String(placeholder))
                 .setFont(UIFont.systemFont(ofSize: 17))
                 .build()
+        case let .gradient(gradientId):
+            return await ObjectIconImagePainter.shared.gradientImage(gradientId: gradientId, imageGuideline: imageGuideline)
         }
     }
 

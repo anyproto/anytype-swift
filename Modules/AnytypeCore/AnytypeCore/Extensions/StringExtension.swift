@@ -1,3 +1,5 @@
+import Foundation
+
 public extension String {
     var isNotEmpty: Bool {
         !isEmpty
@@ -23,5 +25,9 @@ public extension String {
         }
         
         return self
+    }
+    
+    func removing(in characterSet: CharacterSet) -> String {
+        return components(separatedBy: characterSet).joined()
     }
 }

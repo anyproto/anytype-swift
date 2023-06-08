@@ -21,7 +21,7 @@ final class GradientImageBuilder {
             return cachedImage
         }
 
-        let image = UIImage.gradient(
+        let image = UIImage.linearGradient(
             size: size,
             startColor: color.start,
             endColor: color.end,

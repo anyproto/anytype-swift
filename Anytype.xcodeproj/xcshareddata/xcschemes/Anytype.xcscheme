@@ -66,6 +66,11 @@
       </BuildableProductRunnable>
       <EnvironmentVariables>
          <EnvironmentVariable
+            key = "ANYTYPE_LOG_LEVEL"
+            value = "*=fatal;anytype*=error"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+         <EnvironmentVariable
             key = "ANYTYPE_LOG_NOGELF"
             value = "1"
             isEnabled = "NO">
@@ -98,7 +103,7 @@
       buildConfiguration = "Debug">
    </AnalyzeAction>
    <ArchiveAction
-      buildConfiguration = "Debug-Nightly"
+      buildConfiguration = "Release-Nightly"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>

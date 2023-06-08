@@ -25,17 +25,15 @@ extension Anytype_Model_Block.Content.Bookmark {
 
 extension BlockBookmark {
     var asMiddleware: Anytype_Model_Block.OneOf_Content {
-        .bookmark(
-            .init(
-                url: source?.absoluteString ?? "",
-                title: title,
-                description_p: theDescription,
-                imageHash: imageHash,
-                faviconHash: faviconHash,
-                type: type.asMiddleware,
-                targetObjectID: targetObjectID,
-                state: state.asMiddleware
-            )
-        )
+        .bookmark(.with {
+            $0.url = source?.absoluteString ?? ""
+            $0.title = title
+            $0.description_p = theDescription
+            $0.imageHash = imageHash
+            $0.faviconHash = faviconHash
+            $0.type = type.asMiddleware
+            $0.targetObjectID = targetObjectID
+            $0.state = state.asMiddleware
+        })
     }
 }

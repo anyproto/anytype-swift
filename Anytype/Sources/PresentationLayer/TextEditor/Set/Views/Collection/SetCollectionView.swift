@@ -6,6 +6,8 @@ struct SetCollectionView: View {
     @Binding var tableHeaderSize: CGSize
     @Binding var offset: CGPoint
     
+    @State private var dropData = SetCardDropData()
+    
     var headerMinimizedSize: CGSize
     let viewType: SetContentViewType.CollectionType
 
@@ -47,17 +49,24 @@ struct SetCollectionView: View {
         .padding(.horizontal, 10)
     }
     
+    @ViewBuilder
     private var galleryContent: some View {
-        Group {
-            if model.isEmpty {
-                EmptyView()
-            } else {
-                Section(header: compoundHeader) {
-                    ForEach(model.configurationsDict.keys, id: \.self) { groupId in
-                        if let configurations = model.configurationsDict[groupId] {
-                            ForEach(configurations) { configuration in
-                                SetGalleryViewCell(configuration: configuration)
-                            }
+        if model.isEmptyViews {
+            EmptyView()
+        } else {
+            Section(header: compoundHeader) {
+                ForEach(model.configurationsDict.keys, id: \.self) { groupId in
+                    if let configurations = model.configurationsDict[groupId] {
+                        ForEach(configurations) { configuration in
+                            SetDragAndDropView(
+                                dropData: $dropData,
+                                configuration: configuration,
+                                groupId: groupId,
+                                dragAndDropDelegate: model,
+                                content: {
+                                    SetGalleryViewCell(configuration: configuration)
+                                }
+                            )
                         }
                     }
                 }
@@ -79,21 +88,28 @@ struct SetCollectionView: View {
         .padding(.horizontal, 20)
     }
     
+    @ViewBuilder
     private var listContent: some View {
-        Group {
-            if model.isEmpty {
-                EmptyView()
-            } else {
-                Section(header: compoundHeader) {
-                    ForEach(model.configurationsDict.keys, id: \.self) { groupId in
-                        if let configurations = model.configurationsDict[groupId] {
-                            ForEach(configurations) { configuration in
-                                if configurations.first == configuration {
-                                    Divider()
-                                }
-                                SetListViewCell(configuration: configuration)
-                                    .divider()
+        if model.isEmptyViews {
+            EmptyView()
+        } else {
+            Section(header: compoundHeader) {
+                ForEach(model.configurationsDict.keys, id: \.self) { groupId in
+                    if let configurations = model.configurationsDict[groupId] {
+                        ForEach(configurations) { configuration in
+                            if configurations.first == configuration {
+                                Divider()
                             }
+                            SetDragAndDropView(
+                                dropData: $dropData,
+                                configuration: configuration,
+                                groupId: groupId,
+                                dragAndDropDelegate: model,
+                                content: {
+                                    SetListViewCell(configuration: configuration)
+                                        .divider()
+                                }
+                            )
                         }
                     }
                 }
@@ -111,19 +127,10 @@ struct SetCollectionView: View {
 
     private var compoundHeader: some View {
         VStack(spacing: 0) {
-            Spacer.fixedHeight(headerMinimizedSize.height)
-            VStack {
-                HStack {
-                    SetHeaderSettings()
-                        .environmentObject(model)
-                        .frame(width: tableHeaderSize.width)
-                        .offset(x: 4, y: 8)
-                    Spacer()
-                }
-                Spacer.fixedHeight(
-                    viewType == .list ? 16 : 6
-                )
-            }
+            headerSettingsView
+            Spacer.fixedHeight(
+                viewType == .list ? 16 : 6
+            )
         }
         .background(Color.Background.primary)
     }
@@ -133,6 +140,23 @@ struct SetCollectionView: View {
             repeating: GridItem(.flexible(), spacing: SetCollectionView.interCellSpacing, alignment: .topLeading),
             count: model.isSmallItemSize ? 2 : 1
         )
+    }
+    
+    private var headerSettingsView: some View {
+        HStack {
+            SetHeaderSettingsView(
+                model: SetHeaderSettingsViewModel(
+                    setDocument: model.setDocument,
+                    isActive: model.isActiveHeader,
+                    onViewTap: model.showViewPicker,
+                    onSettingsTap: model.showSetSettings,
+                    onCreateTap: model.createObject
+                )
+            )
+            .frame(width: tableHeaderSize.width)
+            .offset(x: 4, y: 8)
+            Spacer()
+        }
     }
 }
 

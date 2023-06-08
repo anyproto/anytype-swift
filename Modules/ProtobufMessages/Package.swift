@@ -13,7 +13,9 @@ let package = Package(
             targets: ["ProtobufMessages"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/apple/swift-protobuf", revision: "1.15.0")
+        .package(url: "https://github.com/apple/swift-protobuf", revision: "1.21.0"),
+        .package(url: "git@github.com:anyproto/anytype-swift-codegen.git", revision: "0.0.11"),
+        .package(url: "https://github.com/anyproto/SourceryGenPlugin.git", revision: "1.9.2")
     ],
     targets: [
         .target(
@@ -25,6 +27,10 @@ let package = Package(
             path: "Sources",
             linkerSettings: [
                 .linkedLibrary("c++")
+            ],
+            plugins: [
+                .plugin(name: "ServiceGenPlugin", package: "AnytypeSwiftCodegen"),
+                .plugin(name: "SourceryGenPlugin", package: "SourceryGenPlugin")
             ]
         ),
         .binaryTarget(name: "Lib", path: "../../Dependencies/Middleware/Lib.xcframework")

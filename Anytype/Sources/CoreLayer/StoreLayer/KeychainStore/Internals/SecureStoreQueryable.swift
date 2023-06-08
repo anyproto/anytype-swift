@@ -28,12 +28,6 @@
 
 import LocalAuthentication
 
-
-enum KeychainPasswordType {
-    case userPresence // access an item with either biometry or passcode
-    case appPassword(String)
-}
-
 protocol SecureStoreQueryable {
     var query: [String: Any] { get }
 }
@@ -42,27 +36,13 @@ struct GenericPasswordQueryable {
     let service: String
     let accessGroup: String?
     let account: String
-    let keychainPassword: KeychainPasswordType?
     
-    init(account: String, service: String, accessGroup: String? = nil, keyChainPassword: KeychainPasswordType? = nil) {
+    init(account: String, service: String, accessGroup: String? = nil) {
         self.service = service
         self.accessGroup = accessGroup
         self.account = account
-        self.keychainPassword = keyChainPassword
     }
     
-    private func getPwSecAccessControl() -> SecAccessControl {
-        var access: SecAccessControl?
-        var error: Unmanaged<CFError>?
-        
-        access = SecAccessControlCreateWithFlags(nil,
-            kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
-            [.userPresence],
-            &error)
-        precondition(access.isNotNil, "SecAccessControlCreateWithFlags failed")
-        
-        return access!
-    }
 }
 
 extension GenericPasswordQueryable: SecureStoreQueryable {
@@ -72,46 +52,12 @@ extension GenericPasswordQueryable: SecureStoreQueryable {
         query[String(kSecAttrService)] = service
         query[String(kSecAttrAccount)] = account
         
-        let context = LAContext()
-        switch keychainPassword {
-        case .none: break
-        case let .appPassword(pinCode):
-            context.setCredential(pinCode.data(using: .utf8), type: .applicationPassword)
-            fallthrough
-        case .userPresence:
-            query[String(kSecUseAuthenticationContext)] = context
-            query[String(kSecAttrAccessControl)] = getPwSecAccessControl()
-        }
-        
         // Access group if target environment is not simulator
         #if !targetEnvironment(simulator)
         if let accessGroup = accessGroup {
             query[String(kSecAttrAccessGroup)] = accessGroup
         }
         #endif
-        return query
-    }
-}
-
-struct InternetPasswordQueryable {
-    let server: String
-    let port: Int
-    let path: String
-    let securityDomain: String
-    let internetProtocol: InternetProtocol
-    let internetAuthenticationType: InternetAuthenticationType
-}
-
-extension InternetPasswordQueryable: SecureStoreQueryable {
-    public var query: [String: Any] {
-        var query: [String: Any] = [:]
-        query[String(kSecClass)] = kSecClassInternetPassword
-        query[String(kSecAttrPort)] = port
-        query[String(kSecAttrServer)] = server
-        query[String(kSecAttrSecurityDomain)] = securityDomain
-        query[String(kSecAttrPath)] = path
-        query[String(kSecAttrProtocol)] = internetProtocol.rawValue
-        query[String(kSecAttrAuthenticationType)] = internetAuthenticationType.rawValue
         return query
     }
 }

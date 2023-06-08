@@ -5,23 +5,14 @@ import AnytypeCore
 final class LocalEventConverter {
     private let infoContainer: InfoContainerProtocol
     private let blockValidator = BlockValidator()
-    private let detailsStorage = ObjectDetailsStorage.shared
-    private let relationLinksStorage: RelationLinksStorageProtocol
-    private let restrictionsContainer: ObjectRestrictionsContainer
     
-    init(
-        relationLinksStorage: RelationLinksStorageProtocol,
-        restrictionsContainer: ObjectRestrictionsContainer,
-        infoContainer: InfoContainerProtocol
-    ) {
-        self.relationLinksStorage = relationLinksStorage
-        self.restrictionsContainer = restrictionsContainer
+    init(infoContainer: InfoContainerProtocol) {
         self.infoContainer = infoContainer
     }
     
     func convert(_ event: LocalEvent) -> DocumentUpdate? {
         switch event {
-        case .setToggled, .documentClosed, .setStyle, .general:
+        case .setToggled, .setStyle, .general:
             return .general
         case let .setText(blockId: blockId, text: text):
             return blockSetTextUpdate(blockId: blockId, text: text)
@@ -43,34 +34,9 @@ final class LocalEventConverter {
             return .blocks(blockIds: [blockId])
         case .header(let data):
             return .header(data)
-        case .objectShow(let data):
-            guard data.rootID.isNotEmpty else {
-                anytypeAssertionFailure("Empty root id", domain: .middlewareEventConverter)
-                return nil
-            }
-
-            let parsedBlocks = data.blocks.compactMap {
-                BlockInformationConverter.convert(block: $0)
-            }
-            
-            let parsedDetails: [ObjectDetails] = data.details.compactMap {
-                ObjectDetails(id: $0.id, values: $0.details.fields)
-            }
-
-            buildBlocksTree(information: parsedBlocks, rootId: data.rootID, container: infoContainer)
-
-            parsedDetails.forEach { detailsStorage.add(details: $0) }
-    
-            let relationLinks = data.relationLinks.map { RelationLink(middlewareRelationLink: $0) }
-            relationLinksStorage.set(relationLinks: relationLinks)
-            
-            let restrinctions = MiddlewareObjectRestrictionsConverter.convertObjectRestrictions(middlewareRestrictions: data.restrictions)
-
-            restrictionsContainer.restrinctions = restrinctions
-            return .general
         }
     }
-    
+        
     // simplified version of inner converter method
     // func blockSetTextUpdate(_ newData: Anytype_Event.Block.Set.Text)
     // only text is changed
@@ -84,15 +50,15 @@ final class LocalEventConverter {
             return .general
         }
         
-        let middleContent = Anytype_Model_Block.Content.Text(
-            text: text.text,
-            style: oldText.contentType.asMiddleware,
-            marks: text.marks,
-            checked: oldText.checked,
-            color: oldText.color?.rawValue ?? "",
-            iconEmoji: oldText.iconEmoji,
-            iconImage: oldText.iconImage
-        )
+        let middleContent = Anytype_Model_Block.Content.Text.with {
+            $0.text = text.text
+            $0.style = oldText.contentType.asMiddleware
+            $0.marks = text.marks
+            $0.checked = oldText.checked
+            $0.color = oldText.color?.rawValue ?? ""
+            $0.iconEmoji = oldText.iconEmoji
+            $0.iconImage = oldText.iconImage
+        }
         
         guard var textContent = middleContent.textContent else {
             anytypeAssertionFailure("We cannot block content from: \(middleContent)", domain: .localEventConverter)
@@ -107,28 +73,5 @@ final class LocalEventConverter {
         infoContainer.add(info)
         
         return .blocks(blockIds: [blockId])
-    }
-    
-    private func buildBlocksTree(information: [BlockInformation], rootId: BlockId, container: InfoContainerProtocol) {
-        
-        information.forEach { container.add($0) }
-        let roots = information.filter { $0.id == rootId }
-
-        guard roots.count != 0 else {
-            anytypeAssertionFailure("Unknown situation. We can't have zero roots.", domain: .middlewareEventConverter)
-            return
-        }
-
-        if roots.count != 1 {
-            // this situation is not possible, but, let handle it.
-            anytypeAssertionFailure(
-                "We have several roots for our rootId. Not possible, but let us handle it.",
-                domain: .middlewareEventConverter
-            )
-        }
-
-        let rootId = roots[0].id
-
-        IndentationBuilder.build(container: container, id: rootId)
     }
 }

@@ -36,38 +36,17 @@ final class TextIconPickerViewModel: ObjectIconPickerViewModelProtocol {
     }
 
     func uploadImage(from itemProvider: NSItemProvider) {
-        let typeIdentifier: String = itemProvider.registeredTypeIdentifiers.first {
-            MediaPickerContentType.images.supportedTypeIdentifiers.contains($0)
-        } ?? ""
-
-        itemProvider.loadFileRepresentation(
-            forTypeIdentifier: typeIdentifier
-        ) { [self] localPath, error in
-            guard let localPath = localPath else {
-                return
-            }
-            uploadImage(from: localPath)
+        Task {
+            let hash = try await fileService.uploadImage(source: .itemProvider(itemProvider))
+            textService.setTextIcon(
+                contextId: contextId,
+                blockId: objectId,
+                imageHash: hash.value,
+                emojiUnicode: ""
+            )
         }
     }
 
     func removeIcon() { /* Unavailable */ }
-
-    private func uploadImage(from url: URL) {
-        fileService
-            .asyncUploadImage(at: url)
-            .sinkWithResult { [self] result in
-                switch result {
-                case .success(let hash):
-                    guard let hash = hash else { return }
-                    textService.setTextIcon(
-                        contextId: contextId,
-                        blockId: objectId,
-                        imageHash: hash.value,
-                        emojiUnicode: ""
-                    )
-                case .failure: break
-                }
-            }.store(in: &self.cancellables)
-    }
 }
 

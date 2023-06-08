@@ -13,7 +13,8 @@ extension ObjectIconImageUsecase {
                     size: 48,
                     weight: .regular
                 ),
-                placeholderImageFont: nil
+                placeholderImageFont: nil,
+                spaceImageFont: nil
             )
         case .openedObjectNavigationBar:
             return ObjectIconImageFontSet(
@@ -27,7 +28,8 @@ extension ObjectIconImageUsecase {
                     size: 14,
                     weight: .regular
                 ),
-                placeholderImageFont: nil
+                placeholderImageFont: nil,
+                spaceImageFont: nil
             )
         case .editorSearch, .editorAccessorySearch:
             return ObjectIconImageFontSet(
@@ -45,7 +47,8 @@ extension ObjectIconImageUsecase {
                     name: .inter,
                     size: 22,
                     weight: .regular
-                )
+                ),
+                spaceImageFont: nil
             )
 
         case .editorCalloutBlock:
@@ -64,7 +67,8 @@ extension ObjectIconImageUsecase {
                     name: .inter,
                     size: 20,
                     weight: .regular
-                )
+                ),
+                spaceImageFont: nil
             )
         case .editorSearchExpandedIcons, .homeBottomPanel:
             return ObjectIconImageFontSet(
@@ -82,6 +86,11 @@ extension ObjectIconImageUsecase {
                     name: .inter,
                     size: 22,
                     weight: .regular
+                ),
+                spaceImageFont: UIKitFontBuilder.uiKitFont(
+                    name: .inter,
+                    size: 18,
+                    weight: .regular
                 )
             )
         case .dashboardList, .inlineSetHeader:
@@ -96,7 +105,8 @@ extension ObjectIconImageUsecase {
                     size: 30,
                     weight: .regular
                 ),
-                placeholderImageFont: nil
+                placeholderImageFont: nil,
+                spaceImageFont: nil
             )
         case .dashboardProfile:
             return ObjectIconImageFontSet(
@@ -106,9 +116,10 @@ extension ObjectIconImageUsecase {
                     weight: .regular
                 ),
                 emojiImageFont: nil,
-                placeholderImageFont: nil
+                placeholderImageFont: nil,
+                spaceImageFont: nil
             )
-        case .dashboardSearch, .linkToObject, .homeSetWidget:
+        case .dashboardSearch, .linkToObject, .widgetList, .fileStorage:
             return ObjectIconImageFontSet(
                 profileImageFont: UIKitFontBuilder.uiKitFont(
                     name: .inter,
@@ -121,6 +132,11 @@ extension ObjectIconImageUsecase {
                     weight: .regular
                 ),
                 placeholderImageFont: UIKitFontBuilder.uiKitFont(
+                    name: .inter,
+                    size: 28,
+                    weight: .regular
+                ),
+                spaceImageFont: UIKitFontBuilder.uiKitFont(
                     name: .inter,
                     size: 28,
                     weight: .regular
@@ -140,7 +156,42 @@ extension ObjectIconImageUsecase {
                     size: 14,
                     weight: .regular
                 ),
-                placeholderImageFont: nil
+                placeholderImageFont: nil,
+                spaceImageFont: nil
+            )
+        case .settingsHeader:
+            return ObjectIconImageFontSet(
+                profileImageFont: UIKitFontBuilder.uiKitFont(
+                    name: .inter,
+                    size: 54,
+                    weight: .regular
+                ),
+                emojiImageFont: UIKitFontBuilder.uiKitFont(
+                    name: .inter,
+                    size: 54,
+                    weight: .regular
+                ),
+                placeholderImageFont: nil,
+                spaceImageFont: UIKitFontBuilder.uiKitFont(
+                    name: .inter,
+                    size: 54,
+                    weight: .regular
+                )
+            )
+        case .settingsSection:
+            return ObjectIconImageFontSet(
+                profileImageFont: UIKitFontBuilder.uiKitFont(
+                    name: .inter,
+                    size: 19,
+                    weight: .regular
+                ),
+                emojiImageFont: UIKitFontBuilder.uiKitFont(
+                    name: .inter,
+                    size: 28,
+                    weight: .regular
+                ),
+                placeholderImageFont: nil,
+                spaceImageFont: nil
             )
         }
     }
@@ -159,7 +210,8 @@ extension ObjectIconImageUsecase {
                     size: 28,
                     weight: .regular
                 ),
-                placeholderImageFont: nil
+                placeholderImageFont: nil,
+                spaceImageFont: nil
             )
         case .heading:
             return ObjectIconImageFontSet(
@@ -173,7 +225,8 @@ extension ObjectIconImageUsecase {
                     size: 22,
                     weight: .regular
                 ),
-                placeholderImageFont: nil
+                placeholderImageFont: nil,
+                spaceImageFont: nil
             )
         case .subheading, .body:
             return ObjectIconImageFontSet(
@@ -187,7 +240,8 @@ extension ObjectIconImageUsecase {
                     size: 15,
                     weight: .regular
                 ),
-                placeholderImageFont: nil
+                placeholderImageFont: nil,
+                spaceImageFont: nil
             )
         case .callout:
             return ObjectIconImageFontSet(
@@ -201,7 +255,8 @@ extension ObjectIconImageUsecase {
                     size: 15,
                     weight: .regular
                 ),
-                placeholderImageFont: nil
+                placeholderImageFont: nil,
+                spaceImageFont: nil
             )
         }
     }

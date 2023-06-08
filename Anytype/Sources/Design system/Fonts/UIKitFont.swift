@@ -88,8 +88,8 @@ extension UIFont {
     static let heading = UIKitFontBuilder.uiKitFont(font: .heading)
     static let subheading = UIKitFontBuilder.uiKitFont(font: .subheading)
     
-    static let bodyRegular = UIKitFontBuilder.uiKitFont(font: .body)
-    static let calloutRegular = UIKitFontBuilder.uiKitFont(font: .callout)
+    static let bodyRegular = UIKitFontBuilder.uiKitFont(font: .bodyRegular)
+    static let calloutRegular = UIKitFontBuilder.uiKitFont(font: .calloutRegular)
 
     static let relation2Regular = UIKitFontBuilder.uiKitFont(font: .relation2Regular)
     static let relation3Regular = UIKitFontBuilder.uiKitFont(font: .relation3Regular)
@@ -150,6 +150,8 @@ struct UIKitFontBuilder {
         case .plex:
             return UIFontDescriptor.AttributeName.name
         case .inter:
+            return UIFontDescriptor.AttributeName.family
+        case .riccione:
             return UIFontDescriptor.AttributeName.family
         }
     }

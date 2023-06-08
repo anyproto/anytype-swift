@@ -15,4 +15,22 @@ protocol ModulesDIProtocol: AnyObject {
     func newRelation() -> NewRelationModuleAssemblyProtocol
     func homeWidgets() -> HomeWidgetsModuleAssemblyProtocol
     func textIconPicker() -> TextIconPickerModuleAssemblyProtocol
+    func widgetType() -> WidgetTypeModuleAssemblyProtocol
+    func widgetObjectList() -> WidgetObjectListModuleAssemblyProtocol
+    func settingsAppearance() -> SettingsAppearanceModuleAssemblyProtocol
+    func wallpaperPicker() -> WallpaperPickerModuleAssemblyProtocol
+    func about() -> AboutModuleAssemblyProtocol
+    func personalization() -> PersonalizationModuleAssemblyProtocol
+    func keychainPhrase() -> KeychainPhraseModuleAssemblyProtocol
+    func dashboardAlerts() -> DashboardAlertsAssemblyProtocol
+    func settings() -> SettingsModuleAssemblyProtocol
+    func debugMenu() -> DebugMenuModuleAssemblyProtocol
+    func settingsAccount() -> SettingsAccountModuleAssemblyProtocol
+    func fileStorage() -> FileStorageModuleAssemblyProtocol
+    func authorization() -> AuthModuleAssemblyProtocol
+    func joinFlow() -> JoinFlowModuleAssemblyProtocol
+    
+    func authInviteCode() -> InviteCodeViewModuleAssemblyProtocol
+    func authVoid() -> VoidViewModuleAssemblyProtocol
+    func authKey() -> KeyPhraseViewModuleAssemblyProtocol
 }

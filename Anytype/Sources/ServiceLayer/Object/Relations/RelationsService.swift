@@ -16,45 +16,36 @@ final class RelationsService: RelationsServiceProtocol {
     
     func addFeaturedRelation(relationKey: String) {
         AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.addFeatureRelation)
-
-        Anytype_Rpc.ObjectRelation.AddFeatured.Service.invoke(
-            contextID: objectId,
-            relations: [relationKey]
-        ).map { EventsBunch(event: $0.event) }
-        .getValue(domain: .relationsService)?
-        .send()
+        _ = try? ClientCommands.objectRelationAddFeatured(.with {
+            $0.contextID = objectId
+            $0.relations = [relationKey]
+        }).invoke(errorDomain: .relationsService)
     }
     
     func removeFeaturedRelation(relationKey: String) {
         AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.removeFeatureRelation)
-        Anytype_Rpc.ObjectRelation.RemoveFeatured.Service.invoke(
-            contextID: objectId,
-            relations: [relationKey]
-        ).map { EventsBunch(event: $0.event) }
-        .getValue(domain: .relationsService)?
-        .send()
+        _ = try? ClientCommands.objectRelationRemoveFeatured(.with {
+            $0.contextID = objectId
+            $0.relations = [relationKey]
+        }).invoke(errorDomain: .relationsService)
     }
     
     func updateRelation(relationKey: String, value: Google_Protobuf_Value) {
-        Anytype_Rpc.Object.SetDetails.Service.invoke(
-            contextID: objectId,
-            details: [
-                Anytype_Rpc.Object.SetDetails.Detail(
-                    key: relationKey,
-                    value: value
-                )
+        _ = try? ClientCommands.objectSetDetails(.with {
+            $0.contextID = objectId
+            $0.details = [
+                Anytype_Rpc.Object.SetDetails.Detail.with {
+                    $0.key = relationKey
+                    $0.value = value
+                }
             ]
-        )
-            .map { EventsBunch(event: $0.event) }
-            .getValue(domain: .relationsService)?
-            .send()
+        }).invoke(errorDomain: .relationsService)
     }
 
     func createRelation(relationDetails: RelationDetails) -> RelationDetails? {
-        let result = Anytype_Rpc.Object.CreateRelation.Service
-            .invocation(details: relationDetails.asCreateMiddleware)
-            .invoke()
-            .getValue(domain: .relationsService)
+        let result = try? ClientCommands.objectCreateRelation(.with {
+            $0.details = relationDetails.asCreateMiddleware
+        }).invoke(errorDomain: .relationsService)
         
         guard let result = result,
               addRelations(relationKeys: [result.key]),
@@ -68,26 +59,21 @@ final class RelationsService: RelationsServiceProtocol {
         return addRelations(relationKeys: relationsDetails.map(\.key))
     }
 
-    private func addRelations(relationKeys: [String]) -> Bool {
-        let events = Anytype_Rpc.ObjectRelation.Add.Service
-            .invocation(contextID: objectId, relationKeys: relationKeys)
-            .invoke()
-            .map { EventsBunch(event: $0.event) }
-            .getValue(domain: .relationsService)
-            
-        events?.send()
+    func addRelations(relationKeys: [String]) -> Bool {
+        let result = try? ClientCommands.objectRelationAdd(.with {
+            $0.contextID = objectId
+            $0.relationKeys = relationKeys
+        }).invoke(errorDomain: .relationsService)
         
-        return events.isNotNil
+        return result.isNotNil
     }
     
     func removeRelation(relationKey: String) {
-        Anytype_Rpc.ObjectRelation.Delete.Service
-            .invocation(contextID: objectId, relationKeys: [relationKey])
-            .invoke()
-            .map { EventsBunch(event: $0.event) }
-            .getValue(domain: .relationsService)?
-            .send()
-
+        _ = try? ClientCommands.objectRelationDelete(.with {
+            $0.contextID = objectId
+            $0.relationKeys = [relationKey]
+        }).invoke(errorDomain: .relationsService)
+        
         AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.deleteRelation)
     }
     
@@ -102,9 +88,9 @@ final class RelationsService: RelationsServiceProtocol {
             ]
         )
         
-        let optionResult = Anytype_Rpc.Object.CreateRelationOption.Service.invocation(details: details)
-            .invoke()
-            .getValue(domain: .relationsService)
+        let optionResult = try? ClientCommands.objectCreateRelationOption(.with {
+            $0.details = details
+        }).invoke(errorDomain: .relationsService)
         
         return optionResult?.objectID
     }

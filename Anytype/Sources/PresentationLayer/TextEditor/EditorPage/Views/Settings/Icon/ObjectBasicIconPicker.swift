@@ -86,7 +86,7 @@ struct ObjectBasicIconPicker: View {
             }
             
         } label: {
-            AnytypeText(tab.title, style: .uxBodyRegular, color: selectedTab == tab ? Color.Button.selected : Color.Button.active)
+            AnytypeText(tab.title, style: .uxBodyRegular, color: selectedTab == tab ? Color.Button.button : Color.Button.active)
         }
         .frame(maxWidth: .infinity)
     }

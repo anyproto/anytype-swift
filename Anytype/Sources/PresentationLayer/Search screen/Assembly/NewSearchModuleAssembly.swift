@@ -1,5 +1,6 @@
 import Foundation
 import BlocksModels
+import SwiftUI
 
 final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
  
@@ -79,7 +80,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         selectionMode: NewSearchViewModel.SelectionMode,
         excludedObjectIds: [String],
         limitedObjectType: [String],
-        onSelect: @escaping (_ ids: [String]) -> Void
+        onSelect: @escaping (_ details: [ObjectDetails]) -> Void
     ) -> NewSearchView {
         let interactor = ObjectsSearchInteractor(
             searchService: serviceLocator.searchService(),
@@ -90,7 +91,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         let internalViewModel = ObjectsSearchViewModel(
             selectionMode: selectionMode,
             interactor: interactor,
-            onSelect: { onSelect($0.map { $0.id })}
+            onSelect: { onSelect($0)}
         )
         
         let viewModel = NewSearchViewModel(
@@ -132,7 +133,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         selectedObjectId: BlockId?,
         excludedObjectTypeId: String?,
         showBookmark: Bool,
-        showSet: Bool,
+        showSetAndCollection: Bool,
         browser: EditorBrowserController?,
         onSelect: @escaping (_ type: ObjectType) -> Void
     ) -> NewSearchView {
@@ -141,7 +142,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
             workspaceService: serviceLocator.workspaceService(),
             excludedObjectTypeId: excludedObjectTypeId,
             showBookmark: showBookmark,
-            showSet: showSet
+            showSetAndCollection: showSetAndCollection
         )
         
         let internalViewModel = ObjectTypesSearchViewModel(
@@ -170,7 +171,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
             workspaceService: serviceLocator.workspaceService(),
             excludedObjectTypeId: nil,
             showBookmark: false,
-            showSet: false
+            showSetAndCollection: false
         )
         
         let internalViewModel = MultiselectObjectTypesSearchViewModel(
@@ -192,11 +193,13 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
     func blockObjectsSearchModule(
         title: String,
         excludedObjectIds: [String],
+        excludedTypeIds: [String],
         onSelect: @escaping (_ details: ObjectDetails) -> Void
     ) -> NewSearchView {
         let interactor = BlockObjectsSearchInteractor(
             searchService: serviceLocator.searchService(),
-            excludedObjectIds: excludedObjectIds
+            excludedObjectIds: excludedObjectIds,
+            excludedTypeIds: excludedTypeIds
         )
 
         let internalViewModel = ObjectsSearchViewModel(
@@ -278,5 +281,48 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         )
         
         return NewSearchView(viewModel: viewModel)
+    }
+    
+    func widgetSourceSearchModule(
+        context: AnalyticsWidgetContext,
+        onSelect: @escaping (_ source: WidgetSource) -> Void
+    ) -> AnyView {
+        let model = WidgetSourceSearchSelectInternalViewModel(context: context, onSelect: onSelect)
+        return widgetSourceSearchModule(model: model)
+    }
+    
+    func widgetChangeSourceSearchModule(
+        widgetObjectId: String,
+        widgetId: String,
+        context: AnalyticsWidgetContext,
+        onFinish: @escaping () -> Void
+    ) -> AnyView {
+        let model = WidgetSourceSearchChangeInternalViewModel(
+            widgetObjectId: widgetObjectId,
+            widgetId: widgetId,
+            documentService: serviceLocator.documentService(),
+            blockWidgetService: serviceLocator.blockWidgetService(),
+            context: context,
+            onFinish: onFinish
+        )
+        return widgetSourceSearchModule(model: model)
+    }
+    
+    // MARK: - Private
+    
+    private func widgetSourceSearchModule(model: WidgetSourceSearchInternalViewModelProtocol) -> AnyView {
+        let interactor = WidgetSourceSearchInteractor(searchService: serviceLocator.searchService())
+        
+        let internalViewModel = WidgetSourceSearchViewModel(interactor: interactor, internalModel: model)
+        
+        let viewModel = NewSearchViewModel(
+            title: Loc.Widgets.sourceSearch,
+            searchPlaceholder: Loc.search,
+            style: .default,
+            itemCreationMode: .unavailable,
+            internalViewModel: internalViewModel
+        )
+        
+        return NewSearchView(viewModel: viewModel).eraseToAnyView()
     }
 }

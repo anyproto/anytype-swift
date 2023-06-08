@@ -21,7 +21,8 @@ protocol EditorPageViewModelProtocol: AnyObject {
     func shakeMotionDidAppear()
 
     func didSelectBlock(at indexPath: IndexPath)
-
+    func didFinishEditing(blockId: BlockId)
+    
     func showSettings()
     
     func showIconPicker()

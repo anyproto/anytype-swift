@@ -4,6 +4,7 @@ struct RelationsListRowView: View {
     
     @Binding var editingMode: Bool
     let starButtonAvailable: Bool
+    let addedToObject: Bool
     let relation: Relation
     
     let onRemoveTap: (_ relation: Relation) -> ()
@@ -21,7 +22,7 @@ struct RelationsListRowView: View {
     private var row: some View {
         HStack(spacing: 8) {
             if editingMode {
-                if !relation.isSystem {
+                if !relation.isSystem && addedToObject {
                     removeButton
                 } else {
                     Spacer.fixedWidth(Constants.buttonWidth)
@@ -75,7 +76,8 @@ struct RelationsListRowView: View {
     private var valueView: some View {
         RelationValueView(
             relation: RelationItemModel(relation: relation),
-            style: .regular(allowMultiLine: false), action: nil
+            style: .regular(allowMultiLine: false),
+            mode: .button(action: nil)
         )
     }
     
@@ -115,6 +117,7 @@ struct ObjectRelationRow_Previews: PreviewProvider {
             RelationsListRowView(
                 editingMode: .constant(false),
                 starButtonAvailable: true,
+                addedToObject: true,
                 relation: Relation.tag(
                     Relation.Tag(
                         id: "1",
@@ -159,6 +162,7 @@ struct ObjectRelationRow_Previews: PreviewProvider {
             RelationsListRowView(
                 editingMode: .constant(false),
                 starButtonAvailable: true,
+                addedToObject: true,
                 relation: Relation.text(
                     Relation.Text(
                         id: "1",

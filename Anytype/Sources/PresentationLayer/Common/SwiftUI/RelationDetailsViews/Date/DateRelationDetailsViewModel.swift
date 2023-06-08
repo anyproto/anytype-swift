@@ -25,23 +25,25 @@ final class DateRelationDetailsViewModel: ObservableObject {
     
     private let relation: Relation
     private let service: RelationsServiceProtocol
+    private let analyticsType: AnalyticsEventsRelationType
     
     init(
         value: DateRelationValue?,
         relation: Relation,
-        service: RelationsServiceProtocol
+        service: RelationsServiceProtocol,
+        analyticsType: AnalyticsEventsRelationType
     ) {
         self.selectedValue = value?.dateRelationEditingValue ?? .noDate
         self.date = value?.date ?? Date()
         
         self.relation = relation
         self.service = service
+        self.analyticsType = analyticsType
     }
     
     var title: String {
         relation.name
     }
-    
 }
 
 extension DateRelationDetailsViewModel: AnytypePopupViewModelProtocol {
@@ -81,6 +83,7 @@ private extension DateRelationDetailsViewModel {
         }()
         
         service.updateRelation(relationKey: relation.key, value: value)
+        AnytypeAnalytics.instance().logChangeRelationValue(isEmpty: selectedValue == .noDate, type: analyticsType)
     }
      
 }

@@ -104,16 +104,6 @@ extension Array where Element == EditorItem {
         }
     }
 
-    var firstFeatureRelationViewModel: FeaturedRelationsBlockViewModel? {
-        first { element -> FeaturedRelationsBlockViewModel? in
-            if case let .block(block) = element, case .featuredRelations = block.content {
-                return block as? FeaturedRelationsBlockViewModel
-            }
-
-            return nil
-        }
-    }
-
     var allRelationViewModel: [BlockViewModelProtocol] {
         compactMap { element -> BlockViewModelProtocol? in
             if case let .block(block) = element {
@@ -124,16 +114,6 @@ extension Array where Element == EditorItem {
                     return nil
                 }
             }
-            return nil
-        }
-    }
-
-    var onlyBlockViewModels: [BlockViewModelProtocol] {
-        compactMap { element -> BlockViewModelProtocol? in
-            if case let .block(block) = element {
-                return block
-            }
-
             return nil
         }
     }

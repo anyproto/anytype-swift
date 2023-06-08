@@ -3,32 +3,43 @@ import SwiftUI
 struct LinkWidgetViewContainer<Content, MenuContent>: View where Content: View, MenuContent: View {
     
     let title: String
-    let description: String?
+    let icon: ImageAsset?
     @Binding var isExpanded: Bool
+    let dragId: String?
     let isEditalbeMode: Bool
     let allowMenuContent: Bool
+    let allowContent: Bool
     let menu: () -> MenuContent
-    let content: () -> Content
+    let content: Content
+    let headerAction: (() -> Void)
     let removeAction: (() -> Void)?
+    
+    @Environment(\.anytypeDragState) @Binding private var dragState
     
     init(
         title: String,
-        description: String? = nil,
+        icon: ImageAsset?,
         isExpanded: Binding<Bool>,
+        dragId: String? = nil,
         isEditalbeMode: Bool = false,
         allowMenuContent: Bool = false,
+        allowContent: Bool = true,
+        headerAction: @escaping (() -> Void),
+        removeAction: (() -> Void)? = nil,
         @ViewBuilder menu: @escaping () -> MenuContent = { EmptyView() },
-        @ViewBuilder content: @escaping () -> Content,
-        removeAction: (() -> Void)? = nil
+        @ViewBuilder content: () -> Content
     ) {
         self.title = title
-        self.description = description
+        self.icon = icon
         self._isExpanded = isExpanded
+        self.dragId = dragId
         self.isEditalbeMode = isEditalbeMode
         self.allowMenuContent = allowMenuContent
-        self.menu = menu
-        self.content = content
+        self.allowContent = allowContent
+        self.headerAction = headerAction
         self.removeAction = removeAction
+        self.menu = menu
+        self.content = content()
     }
     
     var body: some View {
@@ -36,39 +47,58 @@ struct LinkWidgetViewContainer<Content, MenuContent>: View where Content: View, 
             VStack(spacing: 0) {
                 Spacer.fixedHeight(6)
                 header
-                if !isExpanded {
+                if !isExpanded || !allowContent {
                     Spacer.fixedHeight(6)
                 } else {
-                    content()
+                    content
                         .allowsHitTesting(!isEditalbeMode)
                         .frame(
                             minWidth: 0,
                             maxWidth: .infinity,
                             alignment: .topLeading
                         )
-                    Spacer.fixedHeight(16)
                 }
             }
             .background(Color.Dashboard.card)
             .cornerRadius(16, style: .continuous)
             .contentShapeLegacy(.contextMenuPreview, RoundedRectangle(cornerRadius: 16, style: .continuous))
+            .contentShapeLegacy(.dragPreview, RoundedRectangle(cornerRadius: 16, style: .continuous))
+            .ifLet(dragId) { view, dragId in
+                view.anytypeVerticalDrag(itemId: dragId)
+            }
             
             removeButton
                 .zIndex(1)
         }
         .animation(.default, value: isEditalbeMode)
+        .opacity(isDragging() ? 0 : 1)
     }
     
     // MARK: - Private
     
     private var header: some View {
         HStack(spacing: 0) {
-            Spacer.fixedWidth(16)
-            AnytypeText(title, style: .subheading, color: .Text.primary)
-                .lineLimit(1)
-                .layoutPriority(-1)
-            descriptionView
-            Spacer()
+            HStack(spacing: 0) {
+                if let icon {
+                    Spacer.fixedWidth(14)
+                    Image(asset: icon)
+                        .foregroundColor(.Text.primary)
+                        .frame(width: 20, height: 20)
+                    Spacer.fixedWidth(8)
+                } else {
+                    Spacer.fixedWidth(16)
+                }
+                AnytypeText(title, style: .subheading, color: .Text.primary)
+                    .lineLimit(1)
+                    .layoutPriority(-1)
+                Spacer.fixedWidth(16)
+                Spacer()
+            }
+            .fixTappableArea()
+            .onTapGesture {
+                headerAction()
+            }
+            .allowsHitTesting(!isEditalbeMode)
             menuButton
             arrowButton
             Spacer.fixedWidth(12)
@@ -77,25 +107,18 @@ struct LinkWidgetViewContainer<Content, MenuContent>: View where Content: View, 
     }
     
     @ViewBuilder
-    private var descriptionView: some View {
-        // TODO: Waiting designer. Fix description style and spacer after title.
-        if let description {
-            Spacer.fixedWidth(8)
-            AnytypeText(description, style: .body, color: .Text.secondary)
-                .lineLimit(1)
-        }
-    }
-    
     private var arrowButton: some View {
-        Button(action: {
-            withAnimation {
-                isExpanded = !isExpanded
-            }
-        }, label: {
+        if allowContent {
             Image(asset: .Widget.collapse)
+                .foregroundColor(.Text.primary)
                 .rotationEffect(.degrees(isExpanded ? 90 : 0))
-        })
+                .increaseTapGesture(EdgeInsets(side: 10)) {
+                    withAnimation {
+                        isExpanded = !isExpanded
+                    }
+                }
             .allowsHitTesting(!isEditalbeMode)
+        }
     }
     
     @ViewBuilder
@@ -105,24 +128,33 @@ struct LinkWidgetViewContainer<Content, MenuContent>: View where Content: View, 
                 menu()
             } label: {
                 Image(asset: .Widget.settings)
+                    .foregroundColor(.Text.primary)
+                    .padding(EdgeInsets(horizontal: 16, vertical: 10))
             }
-            Spacer.fixedWidth(16)
         }
     }
     
     @ViewBuilder
     private var removeButton: some View {
-        VStack {
-            if isEditalbeMode, let removeAction {
-                Button(action: {
-                    removeAction()
-                }, label: {
-                    Image(asset: .Widget.remove)
-                })
-                .transition(.scale)
+        if isEditalbeMode, let removeAction {
+            ZStack {
+                Color.Background.material
+                    .backgroundMaterial(.ultraThinMaterial)
+                    .cornerRadius(12, style: .continuous)
+                Color.white.frame(height: 1.5)
+                    .cornerRadius(0.75)
+                    .frame(width: 10)
+            }
+            .frame(width: 24, height: 24)
+            .offset(x: 8, y: -8)
+            .onTapGesture {
+                removeAction()
             }
         }
-        .offset(x: 8, y: -8)
+    }
+    
+    private func isDragging() -> Bool {
+        dragState.dragInitiateId == dragId && dragState.dragInProgress
     }
 }
 
@@ -133,36 +165,40 @@ struct LinkWidgetViewContainer_Previews: PreviewProvider {
             VStack {
                 LinkWidgetViewContainer(
                     title: "Name",
-                    description: nil,
+                    icon: nil,
                     isExpanded: .constant(true),
-                    isEditalbeMode: false
+                    isEditalbeMode: false,
+                    headerAction: {}
                 ) {
                     Text("Content")
                 }
                 Spacer.fixedHeight(10)
                 LinkWidgetViewContainer(
                     title: "Name",
-                    description: "1",
+                    icon: ImageAsset.Widget.bin,
                     isExpanded: .constant(false),
-                    isEditalbeMode: false
+                    isEditalbeMode: false,
+                    headerAction: {}
                 ) {
                     Text("Content")
                 }
                 Spacer.fixedHeight(10)
                 LinkWidgetViewContainer(
                     title: "Very long text very long text very long text very long text",
-                    description: nil,
+                    icon: nil,
                     isExpanded: .constant(false),
-                    isEditalbeMode: false
+                    isEditalbeMode: false,
+                    headerAction: {}
                 ) {
                     Text("Content")
                 }
                 Spacer.fixedHeight(10)
                 LinkWidgetViewContainer(
                     title: "Very long text very long text very long text very long text very long text",
-                    description: "1 111",
+                    icon: nil,
                     isExpanded: .constant(true),
-                    isEditalbeMode: true
+                    isEditalbeMode: true,
+                    headerAction: {}
                 ) {
                     Text("Content")
                 }

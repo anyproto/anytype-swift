@@ -5,7 +5,6 @@ class CleanupDependenciesDirectoryWorker
   end
 
   def work
-    FileUtils.remove_entry directoryPath
-    FileUtils.mkdir_p directoryPath
+    FileUtils.rm_rf directoryPath
   end
 end

@@ -3,10 +3,10 @@ import SwiftUI
 
 class MainAuthViewModel: ObservableObject {
     private let authService = ServiceLocator.shared.authService()
-    private let windowManager: WindowManager
+    private let applicationStateService: ApplicationStateServiceProtocol
     
-    init(windowManager: WindowManager) {
-        self.windowManager = windowManager
+    init(applicationStateService: ApplicationStateServiceProtocol) {
+        self.applicationStateService = applicationStateService
     }
     
     var error: String = "" {
@@ -22,28 +22,27 @@ class MainAuthViewModel: ObservableObject {
     @Published var showSignUpFlow: Bool = false
     
     func singUp() {
-        let result = authService.createWallet()
-        switch result {
-        case .failure(let error):
-            self.error = error.localizedDescription
-        case .success(let mnemonic):
+        do {
+            let mnemonic = try authService.createWallet()
             enteredMnemonic = mnemonic
             showSignUpFlow = true
+        } catch {
+            self.error = error.localizedDescription
         }
     }
     
     // MARK: - Coordinator
     func signUpFlow() -> some View {
-        return AlphaInviteCodeView(signUpData: SignUpData(mnemonic: self.enteredMnemonic), windowManager: windowManager)
+        return AlphaInviteCodeView(signUpData: SignUpData(mnemonic: self.enteredMnemonic), applicationStateService: applicationStateService)
     }
     
     func loginView() -> some View {
-        let viewModel = LoginViewModel(windowManager: windowManager)
+        let viewModel = LoginViewModel(applicationStateService: applicationStateService)
         return LoginView(viewModel: viewModel)
     }
 
     // MARK: - View output
     func viewLoaded() {
-        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.authScreenShow)
+        AnytypeAnalytics.instance().logScreenAuthRegistration()
     }
 }

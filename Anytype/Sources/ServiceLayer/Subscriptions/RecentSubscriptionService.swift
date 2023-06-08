@@ -19,12 +19,12 @@ final class RecentSubscriptionService: RecentSubscriptionServiceProtocol {
     
     private let subscriptionService: SubscriptionsServiceProtocol
     private let objectTypeProvider: ObjectTypeProviderProtocol
-    private let accountManager: AccountManager
+    private let accountManager: AccountManagerProtocol
     private let subscriptionId = SubscriptionId(value: "Recent-\(UUID().uuidString)")
     
     init(
         subscriptionService: SubscriptionsServiceProtocol,
-        accountManager: AccountManager,
+        accountManager: AccountManagerProtocol,
         objectTypeProvider: ObjectTypeProviderProtocol
     ) {
         self.subscriptionService = subscriptionService
@@ -38,7 +38,7 @@ final class RecentSubscriptionService: RecentSubscriptionServiceProtocol {
     ) {
         
         let sort = SearchHelper.sort(
-            relation: BundledRelationKey.lastModifiedDate,
+            relation: BundledRelationKey.lastOpenedDate,
             type: .desc
         )
         
@@ -46,10 +46,16 @@ final class RecentSubscriptionService: RecentSubscriptionServiceProtocol {
             SearchHelper.notHiddenFilter(),
             SearchHelper.isArchivedFilter(isArchived: false),
             SearchHelper.workspaceId(accountManager.account.info.accountSpaceId),
-            SearchHelper.excludedTypeFilter(objectTypeProvider.notVisibleTypeIds()),
+            SearchHelper.layoutFilter(DetailsLayout.visibleLayouts),
             SearchHelper.lastOpenedDateNotNilFilter()
             
         ]
+        
+        let keys: [BundledRelationKey] = .builder {
+            BundledRelationKey.lastOpenedDate
+            BundledRelationKey.links
+            BundledRelationKey.objectListKeys
+        }
         
         let searchData: SubscriptionData = .search(
             SubscriptionData.Search(
@@ -58,7 +64,7 @@ final class RecentSubscriptionService: RecentSubscriptionServiceProtocol {
                 filters: filters,
                 limit: objectLimit ?? Constants.limit,
                 offset: 0,
-                keys: BundledRelationKey.objectListKeys
+                keys: keys.map { $0.rawValue }
             )
         )
         

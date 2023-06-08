@@ -19,12 +19,6 @@ enum MarkupViewType {
     case link
 }
 
-enum MarkupViewLayoutAlignmentType {
-    case left
-    case center
-    case right
-}
-
 extension MarkupType {
     
     var toMarkupViewType: MarkupViewType? {

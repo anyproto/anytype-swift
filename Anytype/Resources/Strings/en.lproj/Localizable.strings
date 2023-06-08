@@ -3,11 +3,6 @@
 
 "Callout" = "Callout";
 
-"Create pin code" = "Create pin code";
-"Verify pin code" = "Verify pin code";
-"Create a pin code description" = "The pin code will protect your secret phrase. As we do not store your secret phrase or pin code and not ask your e-mail or phone number, there is no id recovery without your pin code or secret phrase. So, please, remember your pin code";
-"Recovery pharse is nil" = "Recovery pharse is nil";
-"node failed to start" = "node failed to start";
 "Toggle empty. Tap to create block." = "Toggle empty. Tap to create block.";
 "Highlighted text" = "Highlighted text";
 "Toggle block" = "Toggle block";
@@ -16,8 +11,6 @@
 "Numbered placeholder" = "Numbered list item";
 "Loading, please wait" = "Loading, please wait";
 "Untitled" = "Untitled";
-"Select or drag and drop blocks" = "Select or drag and drop blocks";
-"Blocks selected" = "blocks selected";
 "Done" = "Done";
 "Style" = "Style";
 "Color" = "Color";
@@ -36,7 +29,6 @@
 "Paste" = "Paste";
 "Move" = "Move";
 "Move to" = "Move to";
-"Clear style" = "Clear style";
 "Back" = "Back";
 "Text" = "Text";
 "Title" = "Title";
@@ -71,26 +63,20 @@
 "Align left" = "Align left";
 "Align center" = "Align center";
 "Black" = "Black";
-"Lemon" = "Lemon";
 "Amber" = "Amber";
 "Red" = "Red";
 "Pink" = "Pink";
 "Purple" = "Purple";
-"Ultramarine" = "Ultramarine";
 "Blue" = "Blue";
 "Teal" = "Teal";
 "Green" = "Green";
-"coldgray" = "Coldgray";
-"Lemon background" = "Lemon background";
 "Default background" = "Default background";
 "Amber background" = "Amber background";
 "Red background" = "Red background";
 "Pink background" = "Pink background";
 "Purple background" = "Purple background";
-"Ultramarine background" = "Ultramarine background";
 "Blue background" = "Blue background";
 "Green background" = "Green background";
-"Coldgray background" = "Coldgray background";
 "Create new object" = "Create new object";
 "Cancel" = "Cancel";
 "Paste or type URL" = "Paste or type URL";
@@ -105,22 +91,17 @@
 // Home
 "Favorites" = "Favorites";
 "Recent" = "Recent";
-"Drafts" = "Drafts";
 "Bin" = "Bin";
+"Files" = "Files";
 "The future will be the one you build" = "The future will be the one you build";
 
 // Settings
-"Your public page" = "Your public page";
 "Wallpaper" = "Wallpaper";
-"Pin code" = "Pin code";
 "Log out" = "Log out";
 "Soon" = "Soon";
-"Anytype info" = "Anytype info";
-"Library version" = "Library version";
 "Clear cache description" = "All media files will be deleted from your current device.\nThey can be downloaded again from a backup node or another device";
 
 // Action
-"Archive" = "Archive";
 "Restore" = "Restore";
 
 // Keychain screen
@@ -143,40 +124,51 @@
 "OrganizeEverythingDescription" = "With Anytype you can write notes and documents, manage tasks and save important content from the web.";
 "Sign up" = "Sign up";
 "Login" = "Login";
-"Enter phrase" = "Enter phrase";
 "Restore secret phrase from keychain" = "Restore secret phrase from keychain";
 "or type your recovery phrase" = "or type your recovery phrase";
-"Choose pin code" = "Choose pin code";
-"Do it later" = "Do it later";
 "Setting up the wallet" = "Setting up the wallet";
 "Enter your name" = "Enter your name";
 "New profile" = "New profile";
 "Create" = "Create";
-"Let’s start!" = "Let’s start!";
-"Choose profile" = "Choose profile";
-"Add profile" = "Add profile";
 "Scan QR code" = "Scan QR code";
 "Auth.CameraPermissionTitle" = "Camera access required to scan QR code";
 "Analytics constent text" = "Understanding how people use Anytype helps us improve the product. This version of Anytype includes the analytics code that protects your privacy.\nIt doesn't record the actual document's content but still allows us to understand how you use Anytype.\nStay subscribed to our mailing list, as we will soon announce a new release that enables you to opt-out.";
 
 "Enter your invitation code" = "Enter your invitation code";
 "Do not have invite" = "If you don't have one just go to anytype.io and sign up to the waiting list. We are inviting people on the rolling bases.";
-"Sign up error" = "No internet connection / invalid invitation code";
 "Account recover error" = "Account recover error, try again";
 "Account recover error no internet" = "Account recover error, probably no internet connection";
 "SignUp.InvintationCode.Placeholder" = "Invitation code";
 
-
 // Auth Errors
 "Error creating wallet" = "Error creating wallet";
-"Login error" = "Login error";
-"Logout error" = "Logout error";
-"Error creating account" = "Error creating account";
 "Error select account" = "Error select account";
 "Error wallet recover account" = "Error wallet recover account";
-"Error account recover" = "Error account recover";
 
 "Search for language" = "Search for language";
+
+// New Auth
+"Auth.LogIn" = "Log in";
+"Auth.Join" = "Join";
+"Auth.Welcome.Title" = "the\neverything\napp";
+"Auth.Welcome.Subtitle" = "Welcome to Anytype: a place to securely write notes and documents, manage tasks, and save important content from the web.";
+"Auth.Caption.Privacy.Text" = "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)";
+
+// New Auth - Join flow
+"Auth.JoinFlow.Next" = "Next";
+
+"Auth.JoinFlow.InterCode.Title" = "Enter your invite code";
+"Auth.JoinFlow.InterCode.Description" = "If you don't have one just go to anytype.io and sign up to the waiting list.";
+
+"Auth.JoinFlow.Void.Title" = "This is your Void";
+"Auth.JoinFlow.Void.Description" = "Everything you create will be stored here. It is a special encrypted place, which exist on your machine and is backed up to the network.";
+
+"Auth.JoinFlow.Key.Title" = "Your Void is encrypted by the Key";
+"Auth.JoinFlow.Key.Description" = "The Key is a set of 12 words  in a specific order. It is unique for the Void and can’t be changed. You are the only one person who knows the Key.";
+"Auth.JoinFlow.Key.TextField.Placeholder" = "Type your recovery phrase";
+"Auth.JoinFlow.Key.Button.Show.Title" = "Show me the key";
+"Auth.JoinFlow.Key.Button.Later.Title" = "Check later";
+
 
 // Object settings
 
@@ -214,20 +206,8 @@
 "Actions.LinkItself" = "Link to";
 
 // Object Type
-"Page" = "Page";
 "Set" = "Set";
-"Template" = "Template";
-
-// MARK: - Contextual menu
-"General.AddBlockBelow" = "Add block below";
-"General.Delete" = "Delete";
-"General.Duplicate" = "Duplicate";
-
-"Specific.TurnInto" = "Turn into";
-"Specific.TurnIntoPage" = "Turn into Page";
-"Specific.Style" = "Style";
-"Specific.Download" = "Download";
-"Specific.Replace" = "Replace";
+"Collection" = "Collection";
 
 "Editor.MovingState.ScrollToSelectedPlace" = "Scroll to select a place";
 
@@ -254,12 +234,12 @@
 
 // MARK: - Relation
 "Featured relations" = "Featured relations";
-"Create from scratch" = "Create from scratch";
 "Create relation" = "Create relation ‘%@’";
 "Relation.View.Hint.Empty" = "empty";
 "Relation.MyRelations" = "My relations";
 "Relation.AddedToLibrary" = "Relation ‘%@’ added to your library";
 "Relation.Deleted" = "Deleted relation";
+"Relation.From.Type" = "From type %@";
 
 // MARK: - Deletion
 "Pending deletion text" = "We're sorry to see you go. You have 30 days to cancel this request. After 30 days, your encrypted account data is permanently removed from the backup node.";
@@ -394,11 +374,20 @@
 
 // MARK: - Sets: empty view
 "Set.View.Empty.Title" = "No query selected";
-"Set.View.Empty.Subtitle" = "All objects satisfying your query will be displayed in Set";
+"Set.View.Empty.Subtitle" = "Add search query to aggregate objects with equal types and relations in a live mode";
 
 // MARK: - Set source type
 "Set.SourceType.SelectQuery" = "Select query";
 "Set.SourceType.Cancel.Toast.Title" = "This query can be changed on desktop only";
+
+// MARK: - Set: Type context menu
+"Set.TypeRelation.ContextMenu.TurnIntoCollection" = "Turn into collection";
+"Set.TypeRelation.ContextMenu.ChangeQuery" = "Change query";
+
+// MARK: - Collection: empty view
+"Collection.View.Empty.Title" = "No objects";
+"Collection.View.Empty.Subtitle" = "Create first object to continue";
+"Collection.View.Empty.Button.Title" = "Create object";
 
 // MARK: Slash Menu
 "SlashMenu.DotsDivider" = "Dots divider";
@@ -432,9 +421,6 @@
 "Enter number" = "Enter number";
 "Enter text" = "Enter text";
 "Unsupported value" = "Unsupported value";
-"There is no relation named" = "There is no relation named %@";
-"Find a relation" = "Find a relation";
-"Your library" = "Your library";
 "Select relation type" = "Select relation type";
 "Object" = "Object";
 "Tag" = "Tag";
@@ -451,9 +437,11 @@
 "Non-existent object" = "Non-existent object";
 "Deleted object" = "Deleted object";
 "Select all" = "Select all";
+"Unselect all" = "Unselect all";
 "Deselect all" = "Deselect all";
 "Shared" = "Shared";
 "Sets" = "Sets";
+"Collections" = "Collections";
 "Default object type" = "Default object type";
 "Personalization" = "Personalization";
 "Choose default object type" = "Choose default object type";
@@ -505,7 +493,6 @@
 "Download" = "Download";
 "Open object" = "Open object";
 "Open source" = "Open source";
-"Turn into" = "Turn into";
 "Into object" = "Into object";
 "Add below" = "Add below";
 "Change type" = "Change type";
@@ -524,7 +511,6 @@
 "Unknown" = "Unknown";
 "Settings" = "Settings";
 "Views" = "Views";
-"Group" = "Group";
 "Filter" = "Filter";
 "Sort" = "Sort";
 "View" = "View";
@@ -653,9 +639,11 @@
 "Content.Bookmark.Add" = "Add a web bookmark";
 "Content.Bookmark.Loading" = "Loading, please wait...";
 "Content.DataView.InlineSet.Subtitle" = "Inline set";
+"Content.DataView.InlineCollection.Subtitle" = "Inline collection";
 "Content.DataView.InlineSet.NoSource" = "No source";
 "Content.DataView.InlineSet.NoData" = "No data";
 "Content.DataView.InlineSet.Untitled" = "Untitled set";
+"Content.DataView.InlineCollection.Untitled" = "Untitled collection";
 "Content.DataView.InlineSet.Toast.Failure" = "This inline set doesn’t have a source";
 
 // MARK: - Widget extension
@@ -671,7 +659,52 @@
 
 // MARK: - Widgets
 "Widgets.SourceSearch" = "Widget source";
-"Widgets.Actions.ChangeSource" = "Change source";
-"Widgets.Actions.ChangeWidgetType" = "Change widget type";
-"Widgets.Actions.RemoveWidget" = "Remove widget";
-"Widgets.Actions.EditWidgets" = "Edit widgets";
+"Widgets.Actions.ChangeSource" = "Change Source";
+"Widgets.Actions.ChangeWidgetType" = "Change Widget Type";
+"Widgets.Actions.RemoveWidget" = "Remove Widget";
+"Widgets.Actions.EditWidgets" = "Edit Widgets";
+"Widgets.Actions.EmptyBin" = "Empty Bin";
+"Widgets.Actions.AddBelow" = "Add Below";
+"Widgets.Layout.Screen.Title" = "Widget type";
+"Widgets.Layout.Link.Title" = "Link";
+"Widgets.Layout.Tree.Title" = "Tree";
+"Widgets.Layout.List.Title" = "List";
+"Widgets.Layout.Link.Description" = "Сompact version of the object";
+"Widgets.Layout.Tree.Description" = "Hierarchical structure of objects";
+"Widgets.Layout.List.Description" = "Widget with list view of set object";
+"Widgets.Empty.Title" = "This data view contains no objects";
+
+// MARK: - About
+"About.AppVersion" = "App version";
+"About.BuildNumber" = "Build number";
+"About.Library" = "Library";
+"About.analyticsId" = "Analytics ID";
+
+// MARK: - Cache
+"ClearCache.Success" = "Cache sucessfully cleared";
+"ClearCache.Error" = "Error, try again later";
+
+// MARK: - Settings
+"Settings.Title" = "Personal Space";
+"Settings.SpaceName" = "Space name";
+
+// MARK: - MigrationGuide
+"MigrationGuide.Title" = "Almost there!";
+"MigrationGuide.Subtitle" = "To use this version of the app, please choose the correct option below to migrate your account.";
+"MigrationGuide.DidntComplete.Title" = "I didn’t complete migration";
+"MigrationGuide.DidntComplete.Step1" = "Download the desktop app *here*";
+"MigrationGuide.DidntComplete.Step2" = "Log in and update it to the latest version";
+"MigrationGuide.DidntComplete.Step3" = "Follow the migration instructions";
+"MigrationGuide.Completed.Title" = "I completed migration";
+"MigrationGuide.Completed.Description" = "Something might have gone wrong. Please visit our forum, read the migration instructions, and ask questions to our team.";
+"MigrationGuide.Completed.ForumButton" = "Visit forum";
+
+// MARK: - File Storage
+"FileStorage.Title" = "File storage";
+"FileStorage.Space.Instruction" = "You can store up to %@ of your files on our encrypted backup node for free. If you reach the limit, remove some files.";
+"FileStorage.Space.Used" = "%@ of %@ used";
+"FileStorage.Local.Title" = "Local storage";
+"FileStorage.Local.Instruction" = "In order to save your local space, you can offload all your Anytype files to our encrypted backup node.";
+"FileStorage.Local.Used" = "%@ used";
+"FileStorage.OffloadTitle" = "Offload files";
+"FileStorage.ManageFiles" = "Manage Files";

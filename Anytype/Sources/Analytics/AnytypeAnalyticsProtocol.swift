@@ -10,6 +10,7 @@ import Foundation
 
 protocol AnytypeAnalyticsProtocol {
     var isEnabled: Bool { get set }
+    var eventHandler: ((_ eventType: String, _ eventProperties: [AnyHashable : Any]?) -> Void)? { get set }
     
     func initializeApiKey(_ apiKey: String)
     func setUserId(_ userId: String)

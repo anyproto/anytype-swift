@@ -11,6 +11,14 @@ class SearchHelper {
         return sort
     }
     
+    static func customSort(ids: [String]) -> DataviewSort {
+        var sort = DataviewSort()
+        sort.type = .custom
+        sort.customOrder = ids.map { $0.protobufValue }
+        
+        return sort
+    }
+    
     static func isArchivedFilter(isArchived: Bool) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .equal
@@ -71,16 +79,6 @@ class SearchHelper {
         return filter
     }
     
-    static func smartblockTypesFilter(types: [SmartBlockType]) -> DataviewFilter {
-        var filter = DataviewFilter()
-        filter.condition = .in
-        filter.value = types.map { $0.asMiddleware.rawValue }.protobufValue
-        filter.relationKey = BundledRelationKey.smartblockTypes.rawValue
-        filter.operator = .and
-        
-        return filter
-    }
-    
     static func excludedTypeFilter(_ typeIds: [String]) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .notIn
@@ -91,11 +89,21 @@ class SearchHelper {
         return filter
     }
     
-    static func layoutFilter(layouts: [Int]) -> DataviewFilter {
+    static func layoutFilter(_ layouts: [DetailsLayout]) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .in
-        filter.value = layouts.protobufValue
+        filter.value = layouts.map(\.rawValue).protobufValue
         filter.relationKey = BundledRelationKey.layout.rawValue
+        filter.operator = .and
+        
+        return filter
+    }
+    
+    static func recomendedLayoutFilter(_ layouts: [DetailsLayout]) -> DataviewFilter {
+        var filter = DataviewFilter()
+        filter.condition = .in
+        filter.value = layouts.map(\.rawValue).protobufValue
+        filter.relationKey = BundledRelationKey.recommendedLayout.rawValue
         filter.operator = .and
         
         return filter
@@ -128,17 +136,6 @@ class SearchHelper {
             workspaceFilter,
             highlightedFilter
         ]
-    }
-    
-    static func excludedIdFilter(_ typeUrl: String) -> DataviewFilter {
-        var filter = DataviewFilter()
-        filter.condition = .notEqual
-        filter.value = typeUrl.protobufValue
-        
-        filter.relationKey = BundledRelationKey.id.rawValue
-        filter.operator = .and
-        
-        return filter
     }
     
     static func excludedIdsFilter(_ ids: [String]) -> DataviewFilter {

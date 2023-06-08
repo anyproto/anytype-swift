@@ -81,20 +81,6 @@ struct BlockImageViewModel: BlockViewModelProtocol {
             return
         }
     }
-
-    private func downloadImage() {
-        guard
-            let url = ImageMetadata(id: fileData.metadata.hash, width: .original).contentUrl
-        else {
-            return
-        }
-
-        AnytypeImageDownloader.retrieveImage(with: url, options: nil) { image in
-            guard let image = image else { return }
-
-            UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
-        }
-    }
     
     private func didTapOpenImage(_ sender: UIImageView) {
         onImageOpen?(
@@ -102,7 +88,7 @@ struct BlockImageViewModel: BlockViewModelProtocol {
                 file: ImagePreviewMedia(file: fileData, blockId: info.id, previewImage: sender.image),
                 sourceView: sender, previewImage: sender.image, onDidEditFile: { url in
                     handler.uploadMediaFile(
-                        uploadingSource: .url(url),
+                        uploadingSource: .path(url.relativePath),
                         type: .images,
                         blockId: info.id
                     )

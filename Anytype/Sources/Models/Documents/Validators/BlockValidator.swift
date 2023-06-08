@@ -64,7 +64,7 @@ struct BlockValidator {
         
         return BlockText(
             text: content.text,
-            marks: .init(marks: filteredMarks),
+            marks: .with { $0.marks = filteredMarks },
             color: content.color,
             contentType: content.contentType,
             checked: content.checked,

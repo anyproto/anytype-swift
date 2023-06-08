@@ -51,11 +51,11 @@ struct SetFiltersCheckboxView: View {
     private var icon: some View {
         Image(asset: .optionChecked)
             .frame(width: 24, height: 24)
-            .foregroundColor(.Button.selected)
+            .foregroundColor(.Button.button)
     }
     
     private var button: some View {
-        StandardButton(disabled: false, text: Loc.Set.Button.Title.apply, style: .primary) {
+        StandardButton(Loc.Set.Button.Title.apply, style: .primaryLarge) {
             viewModel.handleCheckbox()
         }
         .padding(.top, 20)

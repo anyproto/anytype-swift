@@ -100,7 +100,8 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
     func linkToAction(onSelect: @escaping (BlockId) -> ()) {
         let moduleView = newSearchModuleAssembly.blockObjectsSearchModule(
             title: Loc.linkTo,
-            excludedObjectIds: [document.objectId]
+            excludedObjectIds: [document.objectId],
+            excludedTypeIds: [ObjectTypeId.bundled(.set).rawValue]
         ) { [weak navigationContext] details in
             navigationContext?.dismissAllPresented(animated: true) {
                 onSelect(details.id)
@@ -129,6 +130,7 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
         relationValueCoordinator.startFlow(
             objectId: document.objectId,
             relation: relation,
+            analyticsType: .menu,
             output: self
         )
     }

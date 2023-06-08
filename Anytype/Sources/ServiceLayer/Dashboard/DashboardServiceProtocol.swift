@@ -3,5 +3,5 @@ import BlocksModels
 
 protocol DashboardServiceProtocol {
     
-    func createNewPage() -> BlockId?
+    func createNewPage() -> ObjectDetails?
 }

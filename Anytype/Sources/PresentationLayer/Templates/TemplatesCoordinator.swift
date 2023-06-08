@@ -16,7 +16,6 @@ final class TemplatesCoordinator {
     private let objectsService: ObjectActionsServiceProtocol
 
     private let keyboardHeightListener: KeyboardHeightListener
-    private var keyboardHeightSubscription: AnyCancellable?
     private weak var currentPopup: AnytypePopup?
 
     init(

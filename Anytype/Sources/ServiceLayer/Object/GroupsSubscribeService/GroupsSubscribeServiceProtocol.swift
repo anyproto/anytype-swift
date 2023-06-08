@@ -5,7 +5,8 @@ protocol GroupsSubscribeServiceProtocol {
         id: SubscriptionId,
         relationKey: String,
         filters: [DataviewFilter],
-        source: [String]
+        source: [String]?,
+        collectionId: String?
     ) async throws -> GroupsSubscribeResult
     
     func stopSubscription(id: SubscriptionId)

@@ -6,158 +6,163 @@ import AnytypeCore
 import BlocksModels
 
 final class AuthService: AuthServiceProtocol {
+    
+    private enum AuthServiceParsingError: Error {
+        case undefinedStatus(status: Anytype_Model_Account.Status)
+    }
+    
     private let rootPath: String
-    private let loginStateService: LoginStateService
-    private let accountManager: AccountManager
+    private let loginStateService: LoginStateServiceProtocol
+    private let accountManager: AccountManagerProtocol
+    private let appErrorLoggerConfiguration: AppErrorLoggerConfigurationProtocol
     
     private var subscriptions: [AnyCancellable] = []
     
     init(
         localRepoService: LocalRepoServiceProtocol,
-        loginStateService: LoginStateService,
-        accountManager: AccountManager
+        loginStateService: LoginStateServiceProtocol,
+        accountManager: AccountManagerProtocol,
+        appErrorLoggerConfiguration: AppErrorLoggerConfigurationProtocol
     ) {
         self.rootPath = localRepoService.middlewareRepoPath
         self.loginStateService = loginStateService
         self.accountManager = accountManager
+        self.appErrorLoggerConfiguration = appErrorLoggerConfiguration
     }
 
     func logout(removeData: Bool, onCompletion: @escaping (Bool) -> ()) {
-        Anytype_Rpc.Account.Stop.Service
-            .invoke(removeData: removeData, queue: .global(qos: .userInitiated))
-            .receiveOnMain()
-            .sinkWithResult { [weak self] result in
-                switch result {
-                case .success:
-                    self?.loginStateService.cleanStateAfterLogout()
-                    onCompletion(true)
-                case .failure(let error):
-                    anytypeAssertionFailure(error.localizedDescription, domain: .authService)
-                    onCompletion(false)
-                }
+        Task { @MainActor [weak self] in
+            do {
+                try await ClientCommands.accountStop(.with {
+                    $0.removeData = removeData
+                }).invoke(errorDomain: .authService)
+                self?.loginStateService.cleanStateAfterLogout()
+                onCompletion(true)
+            } catch {
+                onCompletion(false)
             }
-            .store(in: &subscriptions)
+        }
+        .cancellable()
+        .store(in: &subscriptions)
     }
 
-    func createWallet() -> Result<String, AuthServiceError> {
-        let result = Anytype_Rpc.Wallet.Create.Service.invoke(rootPath: rootPath)
-            .mapError { _ in AuthServiceError.createWalletError }
-            .map { $0.mnemonic }
-        
-        return result
+    func createWallet() throws -> String {
+        do {
+            let result = try ClientCommands.walletCreate(.with {
+                $0.rootPath = rootPath
+            }).invoke()
+            return result.mnemonic
+        } catch {
+            throw AuthServiceError.createWalletError
+        }
     }
 
-    func createAccount(name: String, imagePath: String, alphaInviteCode: String) -> Result<Void, CreateAccountServiceError> {
-        let result = Anytype_Rpc.Account.Create.Service
-            .invoke(name: name, avatar: .avatarLocalPath(imagePath), storePath: "", alphaInviteCode: alphaInviteCode)
-        
-        switch result {
-        case .success(let response):
-            return handleCreateAccount(response: response)
-        case .failure(let error as NSError):
-            guard
-                let code = Anytype_Rpc.Account.Create.Response.Error.Code(rawValue: error.code),
-                let serviceError = CreateAccountServiceError(code: code)
-            else {
-                return .failure(.unknownError)
-            }
+    func createAccount(name: String, imagePath: String, alphaInviteCode: String) async throws {
+        do {
+            let response = try await ClientCommands.accountCreate(.with {
+                $0.name = name
+                $0.avatar = .avatarLocalPath(imagePath)
+                $0.icon = Int64(GradientId.random.rawValue)
+                $0.alphaInviteCode = alphaInviteCode
+            }).invoke()
             
-            return .failure(serviceError)
+            let analyticsId = response.account.info.analyticsID
+            AnytypeAnalytics.instance().setUserId(analyticsId)
+            AnytypeAnalytics.instance().logAccountCreate(analyticsId: analyticsId)
+            appErrorLoggerConfiguration.setUserId(analyticsId)
+            
+            UserDefaultsConfig.usersId = response.account.id
+            
+            accountManager.account = response.account.asModel
+            
+            await loginStateService.setupStateAfterRegistration(account: accountManager.account)
+        } catch let responseError as Anytype_Rpc.Account.Create.Response.Error {
+            throw responseError.asError ?? responseError
         }
     }
     
-    func walletRecovery(mnemonic: String) -> Result<Void, AuthServiceError> {
-        let result = Anytype_Rpc.Wallet.Recover.Service.invoke(rootPath: rootPath, mnemonic: mnemonic)
-            .mapError { _ in AuthServiceError.recoverWalletError }
-            .map { _ in Void() }
-
-        return result
+    func walletRecovery(mnemonic: String) throws {
+        do {
+            _ = try ClientCommands.walletRecover(.with {
+                $0.rootPath = rootPath
+                $0.mnemonic = mnemonic
+            }).invoke()
+        } catch {
+            throw AuthServiceError.recoverWalletError
+        }
+    }
+    
+    func walletRecovery(mnemonic: String) async throws {
+        try await ClientCommands.walletRecover(.with {
+            $0.rootPath = rootPath
+            $0.mnemonic = mnemonic
+        }).invoke(errorDomain: .authService)
     }
 
     func accountRecover(onCompletion: @escaping (AuthServiceError?) -> ()) {
-        Anytype_Rpc.Account.Recover.Service.invoke(queue: .global(qos: .userInitiated))
-            .receiveOnMain()
-            .sinkWithResult { result in
-                switch result {
-                case .success(let data):
-                    guard data.error.code == .null else {
-                        return onCompletion(AuthServiceError.recoverAccountError(code: data.error.code))
-                    }
-                    return onCompletion(nil)
-                case .failure(let error as NSError):
-                    let code = RecoverAccountErrorCode(rawValue: error.code) ?? .null
-                    return onCompletion(AuthServiceError.recoverAccountError(code: code))
-                }
+        Task { @MainActor [weak self] in
+            do {
+                _ = try ClientCommands.accountRecover().invoke()
+                self?.loginStateService.setupStateAfterAuth()
+                return onCompletion(nil)
+            } catch {
+                let code = (error as? Anytype_Rpc.Account.Recover.Response.Error)?.code ?? .null
+                return onCompletion(AuthServiceError.recoverAccountError(code: code))
             }
-            .store(in: &subscriptions)
-    }
-
-    func selectAccount(id: String) -> AccountStatus? {
-        let result = Anytype_Rpc.Account.Select.Service.invoke(id: id, rootPath: rootPath)
-        return handleAccountSelect(result: result)
+        }
+        .cancellable()
+        .store(in: &subscriptions)
     }
     
-    func selectAccount(id: String, onCompletion: @escaping (AccountStatus?) -> ()) {
-        Anytype_Rpc.Account.Select.Service.invoke(id: id, rootPath: rootPath, queue: .global(qos: .userInitiated))
-            .receiveOnMain()
-            .sinkWithResult { [weak self] result in
-                onCompletion(self?.handleAccountSelect(result: result))
+    func selectAccount(id: String) async throws -> AccountStatus {
+        do {
+            let response = try await ClientCommands.accountSelect(.with {
+                $0.id = id
+                $0.rootPath = rootPath
+            }).invoke()
+            
+            let analyticsId = response.account.info.analyticsID
+            AnytypeAnalytics.instance().setUserId(analyticsId)
+            AnytypeAnalytics.instance().logAccountSelect(analyticsId: analyticsId)
+            appErrorLoggerConfiguration.setUserId(analyticsId)
+            
+            UserDefaultsConfig.usersId = response.account.id
+            
+            accountManager.account = response.account.asModel
+            
+            await loginStateService.setupStateAfterLoginOrAuth(account: accountManager.account)
+            
+            guard let status = response.account.status.asModel else {
+                throw AuthServiceParsingError.undefinedStatus(status: response.account.status)
             }
-            .store(in: &subscriptions)
+            return status
+        } catch let responseError as Anytype_Rpc.Account.Select.Response.Error {
+            throw responseError.asError ?? responseError
+        }
     }
     
     func deleteAccount() -> AccountStatus? {
-        Anytype_Rpc.Account.Delete.Service.invoke(revert: false)
-            .getValue(domain: .authService)
-            .flatMap { $0.status.asModel }
+        let result = try? ClientCommands.accountDelete(.with {
+            $0.revert = false
+        }).invoke(errorDomain: .authService)
+        return result?.status.asModel
     }
     
     func restoreAccount() -> AccountStatus? {
-        Anytype_Rpc.Account.Delete.Service.invoke(revert: true)
-            .getValue(domain: .authService)
-            .flatMap { $0.status.asModel }
+        let result = try? ClientCommands.accountDelete(.with {
+            $0.revert = true
+        }).invoke(errorDomain: .authService)
+        return result?.status.asModel
     }
     
-    func mnemonicByEntropy(_ entropy: String) -> Result<String, Error> {
-        Anytype_Rpc.Wallet.Convert.Service.invoke(mnemonic: "", entropy: entropy)
-            .map { $0.mnemonic }
-            .mapError { _ in AuthServiceError.selectAccountError }
-    }
-    
-    // MARK: - Private
-    
-    private func handleCreateAccount(response: Anytype_Rpc.Account.Create.Response) -> Result<Void, CreateAccountServiceError> {
-        if let error = CreateAccountServiceError(code: response.error.code) {
-            return .failure(error)
-        }
-
-        let accountId = response.account.id
-        AnytypeAnalytics.instance().setUserId(accountId)
-        AnytypeAnalytics.instance().logAccountCreate(accountId)
-        UserDefaultsConfig.usersId = accountId
-        
-        accountManager.account = response.account.asModel
-        
-        loginStateService.setupStateAfterRegistration(account: accountManager.account)
-        
-        return .success(Void())
-    }
-    
-    private func handleAccountSelect(result: Result<Anytype_Rpc.Account.Select.Response, Error>) -> AccountStatus? {
-        switch result {
-        case .success(let response):
-            accountManager.account = response.account.asModel
-    
-            let accountId = response.account.id
-            AnytypeAnalytics.instance().setUserId(accountId)
-            AnytypeAnalytics.instance().logAccountSelect(accountId)
-            UserDefaultsConfig.usersId = accountId
-            
-            loginStateService.setupStateAfterLoginOrAuth(account: accountManager.account)
-            return response.account.status.asModel
-        case .failure:
-            return nil
+    func mnemonicByEntropy(_ entropy: String) throws -> String {
+        do {
+            let result = try ClientCommands.walletConvert(.with {
+                $0.entropy = entropy
+            }).invoke()
+            return result.mnemonic
+        } catch {
+            throw AuthServiceError.selectAccountError
         }
     }
-    
 }

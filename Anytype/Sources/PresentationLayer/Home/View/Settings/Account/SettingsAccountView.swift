@@ -2,96 +2,69 @@ import SwiftUI
 import AnytypeCore
 
 struct SettingsAccountView: View {
-    @EnvironmentObject private var model: SettingsViewModel
+    @ObservedObject var model: SettingsAccountViewModel
 
     var body: some View {
         VStack(spacing: 0) {
-            DragIndicator()
             header
-            accessBlock
-            dataBlock
-            accountBlock
-            Spacer.fixedHeight(20)
+            ScrollView(showsIndicators: false) {
+                VStack(spacing: 0) {
+                    profileBlock
+                    accessBlock
+                    if !FeatureFlags.fileStorage {
+                        dataBlock
+                    }
+                    accountBlock
+                }
+            }
         }
         .padding(.horizontal, 20)
-        .background(Color.Background.secondary)
-        .cornerRadius(16, corners: .top)
-        
         .onAppear {
             AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.accountSettingsShow)
         }
     }
     
+    @ViewBuilder
     private var header: some View {
-        VStack(spacing: 0) {
-            Spacer.fixedHeight(12)
-            AnytypeText(Loc.accountData, style: .uxTitle1Semibold, color: .Text.primary)
-            Spacer.fixedHeight(12)
-        }
+        DragIndicator()
+        TitleView(title: FeatureFlags.fileStorage ? Loc.profile : Loc.accountData)
     }
     
+    @ViewBuilder
+    private var profileBlock: some View {
+        SettingsObjectHeader(name: $model.profileName, nameTitle: Loc.name, iconImage: model.profileIcon, onTap: {
+            model.onChangeIconTap()
+        })
+    }
+    
+    @ViewBuilder
     private var accessBlock: some View {
-        VStack(spacing: 0) {
-            section(Loc.access)
-            recoveryPhrase
-        }
-    }
-    
-    private var recoveryPhrase: some View {
+        SectionHeaderView(title: Loc.access)
         SettingsSectionItemView(
             name: Loc.Keychain.recoveryPhrase,
-            imageAsset: .settingsSetKeychainPhrase,
-            pressed: $model.keychain
+            imageAsset: .Settings.setKeychainPhrase,
+            onTap: { model.onRecoveryPhraseTap() }
         )
-        .sheet(isPresented: $model.keychain) {
-            if model.loggingOut {
-                KeychainPhraseView(shownInContext: .logout)
-            } else {
-                KeychainPhraseView(shownInContext: .settings)
-            }
-        }
     }
     
+    @ViewBuilder
     private var dataBlock: some View {
-        VStack(spacing: 0) {
-            section(Loc.data)
-            SettingsButton(text: Loc.clearFileCache, textColor: .Text.primary) {
-                model.clearCacheAlert = true
-            }
+        SectionHeaderView(title: Loc.data)
+        SettingsButton(text: Loc.clearFileCache, textColor: .Text.primary) {
+            model.onClearTap()
         }
     }
 
+    @ViewBuilder
     private var accountBlock: some View {
-        VStack(spacing: 0) {
-            section(Loc.account)
-            
-            SettingsButton(text: Loc.deleteAccount, textColor: .Text.primary) {
-                model.accountDeleting = true
-            }
-            
-            SettingsButton(text: Loc.logOut, textColor: .System.red) {
-                model.loggingOut = true
-            }
-         }
-    }
-    
-    private func section(_ text: String) -> some View {
-        VStack(spacing: 0) {
-            Spacer.fixedHeight(26)
-            HStack {
-                AnytypeText(text, style: .caption1Regular, color: .Text.secondary)
-                Spacer()
-            }
-            Spacer.fixedHeight(8)
+        SectionHeaderView(title: Loc.account)
+        
+        SettingsButton(text: Loc.logOut, textColor: .Text.primary) {
+            model.onLogOutTap()
         }
-    }
-}
-
-struct SettingsAccountView_Previews: PreviewProvider {
-    static var previews: some View {
-        ZStack {
-            Color.System.blue
-            SettingsAccountView()
+        
+        SettingsButton(text: Loc.deleteAccount, textColor: .System.red) {
+            model.onDeleteAccountTap()
         }
     }
 }

@@ -16,7 +16,6 @@ struct RelationNameValueView: View {
     @ObservedObject var viewModel: RelationNameValueViewModel
     var isEditable: Bool = false
     var onEditTap: ((String) -> ())? = nil
-    var showDivider: Bool = true
 
     @State private var width: CGFloat = .zero
     @State private var height: CGFloat = .zero
@@ -55,6 +54,10 @@ struct RelationNameValueView: View {
     }
 
     private var valueView: some View {
-        RelationValueView(relation: viewModel.relation, style: .regular(allowMultiLine: false), action: viewModel.action)
+        RelationValueView(
+            relation: viewModel.relation,
+            style: .regular(allowMultiLine: false),
+            mode: .button(action: viewModel.action)
+        )
     }
 }

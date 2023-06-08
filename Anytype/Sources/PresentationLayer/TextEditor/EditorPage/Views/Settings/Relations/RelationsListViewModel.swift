@@ -15,7 +15,6 @@ final class RelationsListViewModel: ObservableObject {
     private let sectionsBuilder = RelationsSectionBuilder()
     private let relationsService: RelationsServiceProtocol
     
-    private var subscriptions = [AnyCancellable]()
     private weak var output: RelationsListModuleOutput?
     
     // MARK: - Initializers
@@ -29,7 +28,12 @@ final class RelationsListViewModel: ObservableObject {
         self.output = output
         
         document.parsedRelationsPublisher
-            .map { [sectionsBuilder] relations in sectionsBuilder.buildSections(from: relations) }
+            .map { [sectionsBuilder] relations in
+                sectionsBuilder.buildSections(
+                    from: relations,
+                    objectTypeName: document.details?.objectType.name ?? ""
+                )
+            }
             .assign(to: &$sections)
         
         document.isLockedPublisher.assign(to: &$navigationBarButtonsDisabled)
@@ -41,7 +45,17 @@ final class RelationsListViewModel: ObservableObject {
 
 extension RelationsListViewModel {
     
-    func changeRelationFeaturedState(relation: Relation) {
+    func changeRelationFeaturedState(relation: Relation, addedToObject: Bool) {
+        if !addedToObject {
+            if relationsService.addRelations(relationKeys: [relation.key]) {
+                changeRelationFeaturedState(relation: relation)
+            }
+        } else {
+            changeRelationFeaturedState(relation: relation)
+        }
+    }
+    
+    private func changeRelationFeaturedState(relation: Relation) {
         if relation.isFeatured {
             relationsService.removeFeaturedRelation(relationKey: relation.key)
         } else {
@@ -51,7 +65,6 @@ extension RelationsListViewModel {
     }
     
     func handleTapOnRelation(relation: Relation) {
-        AnytypeAnalytics.instance().logChangeRelationValue(type: .menu)
         output?.editRelationValueAction(relationKey: relation.key)
     }
     

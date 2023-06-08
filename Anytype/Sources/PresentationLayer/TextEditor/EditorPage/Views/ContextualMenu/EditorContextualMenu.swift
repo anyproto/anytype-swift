@@ -43,7 +43,7 @@ struct EditorContextualMenuView: View {
                         .font(AnytypeFontBuilder.font(anytypeFont: .uxCalloutRegular))
                         .padding(.leading, 16)
                         .frame(maxWidth: .infinity, minHeight: 28, alignment: .leading)
-                        .contentShape(Rectangle())
+                        .fixTappableArea()
                 }
                 .frame(minWidth: 208, maxWidth: 224, minHeight: 28, maxHeight: 43.5)
                 .buttonStyle(TertiaryPressedBackgroundButtonStyle())

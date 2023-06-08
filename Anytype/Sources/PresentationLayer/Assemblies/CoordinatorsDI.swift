@@ -79,24 +79,30 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     }
     
     func homeViewAssemby() -> HomeViewAssembly {
-        return HomeViewAssembly(coordinatorsDI: self, modulesDI: modulesDI)
+        return HomeViewAssembly(coordinatorsDI: self, modulesDI: modulesDI, serviceLocator: serviceLocator)
     }
     
-    @MainActor
-    func application() -> ApplicationCoordinator {
-        return ApplicationCoordinator(
-            windowManager: windowManager(),
-            authService: serviceLocator.authService(),
-            accountEventHandler: serviceLocator.accountEventHandler()
-        )
+    func editorBrowser() -> EditorBrowserCoordinatorAssemblyProtocol {
+        return EditorBrowserCoordinatorAssembly(uiHelpersDI: uiHelpersDI, coordinatorsID: self)
     }
     
-    @MainActor
-    func windowManager() -> WindowManager {
-        WindowManager(
-            viewControllerProvider: uiHelpersDI.viewControllerProvider(),
-            homeViewAssembly: homeViewAssemby(),
-            homeWidgetsCoordinatorAssembly: homeWidgets()
-        )
+    func application() -> ApplicationCoordinatorAssemblyProtocol {
+        return ApplicationCoordinatorAssembly(serviceLocator: serviceLocator, coordinatorsDI: self, uiHelpersDI: uiHelpersDI)
+    }
+    
+    func settings() -> SettingsCoordinatorAssemblyProtocol {
+        return SettingsCoordinatorAssembly(modulesDI: modulesDI, uiHelpersDI: uiHelpersDI, serviceLocator: serviceLocator)
+    }
+    
+    func authorization() -> AuthCoordinatorAssemblyProtocol {
+        return AuthCoordinatorAssembly(modulesDI: modulesDI, coordinatorsID: self)
+    }
+    
+    func joinFlow() -> JoinFlowCoordinatorAssemblyProtocol {
+        return JoinFlowCoordinatorAssembly(modulesDI: modulesDI)
+    }
+    
+    func legacyAuthViewAssembly() -> LegacyAuthViewAssembly {
+        return LegacyAuthViewAssembly(serviceLocator: serviceLocator)
     }
 }

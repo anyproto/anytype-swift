@@ -6,10 +6,11 @@ import AnytypeCore
 protocol RelationDetailsStorageProtocol: AnyObject {
     
     func relationsDetails(for links: [RelationLink]) -> [RelationDetails]
+    func relationsDetails(for ids: [ObjectId]) -> [RelationDetails]
     func relationsDetails() -> [RelationDetails]
     var relationsDetailsPublisher: AnyPublisher<[RelationDetails], Never> { get }
     
-    func startSubscription()
+    func startSubscription() async
     func stopSubscription()
 }
 

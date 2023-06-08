@@ -1,16 +1,10 @@
-require_relative 'pipelines/codegen_pipeline'
+require_relative 'pipelines/download_middleware'
 require_relative 'pipelines/version_provider'
 require_relative 'pipelines/copy_artifacts_pipeline'
 require_relative 'library/lib_version'
 
 class PipelineStarter
   def self.start(options)
-    if options[:codegenOnly]
-      puts "Run only codegen"
-      CodegenPipeline.work()
-      done()
-      return
-    end
 
     unless options[:artifactsPath].empty?
       install_library_from_path(options)
@@ -28,7 +22,6 @@ class PipelineStarter
       path = options[:artifactsPath]
       puts "Install library from path #{path}"
       CopyArtifactsPipeline.work(path)
-      CodegenPipeline.work()
       done()
   end
 
@@ -37,7 +30,7 @@ class PipelineStarter
     actifacts_dir = DownloadMiddlewarePipeline.work(version, options)
     
     CopyArtifactsPipeline.work(actifacts_dir)
-    CodegenPipeline.work()
+
     LibraryFile.set(version)
     
     cleanup(actifacts_dir)
@@ -49,7 +42,6 @@ class PipelineStarter
     actifacts_dir = DownloadMiddlewarePipeline.work(version, options)
     
     CopyArtifactsPipeline.work(actifacts_dir)
-    CodegenPipeline.work()
 
     cleanup(actifacts_dir)
     done()

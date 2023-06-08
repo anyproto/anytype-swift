@@ -5,7 +5,7 @@ import BlocksModels
 final class ChangeTypeAccessoryViewModel {
     typealias TypeItem = HorizontalListItem
 
-    @Published private(set) var isTypesViewVisible: Bool = true
+    @Published private(set) var isTypesViewVisible: Bool = false
     @Published private(set) var supportedTypes = [TypeItem]()
     var onDoneButtonTap: (() -> Void)?
 
@@ -46,7 +46,13 @@ final class ChangeTypeAccessoryViewModel {
 
     private func fetchSupportedTypes() {
         let supportedTypes = searchService
-            .searchObjectTypes(text: "", filteringTypeId: nil, shouldIncludeSets: true, shouldIncludeBookmark: false)?
+            .searchObjectTypes(
+                text: "",
+                filteringTypeId: nil,
+                shouldIncludeSets: true,
+                shouldIncludeCollections: true,
+                shouldIncludeBookmark: false
+            )?
             .map { type in
                 TypeItem(from: type, handler: { [weak self] in
                     self?.onTypeTap(typeId: type.id)
@@ -58,9 +64,22 @@ final class ChangeTypeAccessoryViewModel {
 
     private func onTypeTap(typeId: String) {
         if typeId == ObjectTypeId.BundledTypeId.set.rawValue {
-            let setObjectID = handler.setObjectSetType()
-
-            router.replaceCurrentPage(with: .init(pageId: setObjectID, type: .set()))
+            Task { @MainActor in
+                document.resetSubscriptions() // to avoid glytch with premature document update
+                try await handler.setObjectSetType()
+                try await document.close()
+                router.replaceCurrentPage(with: .init(pageId: document.objectId, type: .set()))
+            }
+            return
+        }
+        
+        if typeId == ObjectTypeId.BundledTypeId.collection.rawValue {
+            Task { @MainActor in
+                document.resetSubscriptions() // to avoid glytch with premature document update
+                try await handler.setObjectCollectionType()
+                try await document.close()
+                router.replaceCurrentPage(with: .init(pageId: document.objectId, type: .set()))
+            }
             return
         }
 

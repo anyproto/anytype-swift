@@ -51,32 +51,27 @@ final class MentionMarkupEventProvider {
             else { return nil }
             
             let mentionNameInDetails = details.mentionTitle
-            // Update only mentions to updated pages
-            let mentionChanged = true // mentionName != mentionNameInDetails
-            
-            if mentionChanged {
-                needUpdate = true
-                let countDelta = Int32(mentionName.count - mentionNameInDetails.count)
+            needUpdate = true
+            let countDelta = Int32(mentionName.count - mentionNameInDetails.count)
 
-                string.replaceSubrange(mentionRange, with: mentionNameInDetails)
+            string.replaceSubrange(mentionRange, with: mentionNameInDetails)
+            
+            if countDelta != 0 {
+                var mentionMark = mark
+                mentionMark.range.to -= countDelta
+                sortedMarks[offset] = mentionMark
                 
-                if countDelta != 0 {
-                    var mentionMark = mark
-                    mentionMark.range.to -= countDelta
-                    sortedMarks[offset] = mentionMark
-                    
-                    for counter in 0..<sortedMarks.count {
-                        var mark = sortedMarks[counter]
-                        if counter == offset || mark.range.to <= mentionFrom {
-                            continue
-                        }
-                        
-                        if mark.range.from >= mentionTo {
-                            mark.range.from -= countDelta
-                        }
-                        mark.range.to -= countDelta
-                        sortedMarks[counter] = mark
+                for counter in 0..<sortedMarks.count {
+                    var mark = sortedMarks[counter]
+                    if counter == offset || mark.range.to <= mentionFrom {
+                        continue
                     }
+                    
+                    if mark.range.from >= mentionTo {
+                        mark.range.from -= countDelta
+                    }
+                    mark.range.to -= countDelta
+                    sortedMarks[counter] = mark
                 }
             }
         }
@@ -104,7 +99,7 @@ final class MentionMarkupEventProvider {
         marks: [Anytype_Model_Block.Content.Text.Mark]) {
         if case var .text(content) = info.content {
             content.text = string
-            content.marks = Anytype_Model_Block.Content.Text.Marks(marks: marks)
+            content.marks = Anytype_Model_Block.Content.Text.Marks.with { $0.marks = marks }
             infoContainer.add(
                 info.updated(content: .text(content))
             )

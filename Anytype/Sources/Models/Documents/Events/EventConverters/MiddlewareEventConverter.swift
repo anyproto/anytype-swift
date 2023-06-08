@@ -371,9 +371,23 @@ final class MiddlewareEventConverter {
                 return dataView.updated(targetObjectID: data.targetObjectID)
             }
             return .general
+        case .blockDataviewIsCollectionSet(let data):
+            infoContainer.updateDataview(blockId: data.id) { dataView in
+                return dataView.updated(isCollection: data.value)
+            }
+            return .general
         case .blockDataviewViewUpdate(let data):
             handleBlockDataviewViewUpdate(data)
             return .general
+        case .blockSetRelation(let data):
+            guard FeatureFlags.fixUpdateRelationBlock else { return nil }
+            infoContainer.update(blockId: data.id) { info in
+                return info.updated(content: .relation(BlockRelation(key: data.key.value)))
+            }
+            return .general // Relace to `.blocks(blockIds: [data.id])` after implment task https://linear.app/anytype/issue/IOS-914
+        case .objectRestrictionsSet(let restrictions):
+            restrictionsContainer.restrinctions = MiddlewareObjectRestrictionsConverter.convertObjectRestrictions(middlewareRestrictions: restrictions.restrictions)
+            return nil
         case .accountShow,
                 .accountUpdate, // Event not working on middleware. See AccountManager.
                 .accountDetails, // Skipped
@@ -388,7 +402,6 @@ final class MiddlewareEventConverter {
                 .filesUpload,
                 .marksInfo,
                 .blockSetRestrictions,
-                .blockSetRelation,
                 .blockSetLatex,
                 .blockSetVerticalAlign,
                 .blockSetTableRow,
@@ -402,7 +415,10 @@ final class MiddlewareEventConverter {
                 .processNew,
                 .processUpdate,
                 .processDone,
-                .blockSetWidget:
+                .blockSetWidget,
+                .fileLocalUsage,
+                .fileSpaceUsage,
+                .fileLimitReached:
             return nil
         }
     }
@@ -470,26 +486,22 @@ final class MiddlewareEventConverter {
             var objectOrderIds = objectOrder.objectIds
             
             update.sliceChanges.forEach { change in
-                let idx = objectOrderIds.firstIndex(of: change.afterID)
+                let afterIdIndex = objectOrderIds.firstIndex(of: change.afterID)
                 
                 switch change.op {
                 case .add:
-                    if objectOrderIds.isEmpty {
-                        objectOrderIds.append(contentsOf: change.ids)
-                    } else {
-                        var addIndex = 0
-                        if let idx {
-                            addIndex = idx + 1
-                        }
-                        objectOrderIds.insert(contentsOf: change.ids, at: addIndex)
+                    var addIndex = 0
+                    if let afterIdIndex {
+                        addIndex = afterIdIndex + 1
                     }
+                    objectOrderIds.insert(contentsOf: change.ids, at: addIndex)
                     objectOrder.objectIds = objectOrderIds
                 case .move:
                     change.ids.enumerated().forEach { index, id in
                         guard let objectIndex = objectOrderIds.firstIndex(of: id) else { return }
-                        let orderIndex = (idx ?? 0) + index
+                        let orderIndex = (afterIdIndex ?? 0) + index
                         let appendix = orderIndex < objectOrderIds.count ? 1 : 0
-                        let moveIndex = idx == nil ? index : orderIndex + appendix
+                        let moveIndex = afterIdIndex == nil ? index : orderIndex + appendix
                         objectOrderIds.move(
                             fromOffsets: IndexSet(integer: objectIndex),
                             toOffset: moveIndex

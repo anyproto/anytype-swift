@@ -5,9 +5,17 @@ public protocol ResultWithError {
     associatedtype Error: ResponseError
     
     var error: Error { get }
+    
+    var event: Anytype_ResponseEvent { get }
+    var hasEvent: Bool { get }
 }
 
-public protocol ResponseError {
+extension ResultWithError {
+    public var event: Anytype_ResponseEvent { Anytype_ResponseEvent() }
+    public var hasEvent: Bool { false }
+}
+
+public protocol ResponseError: Swift.Error, LocalizedError {
     
     associatedtype ErrorCode: RawRepresentable where ErrorCode.RawValue == Int
     
@@ -17,13 +25,8 @@ public protocol ResponseError {
     var description_p: String { get }
 }
 
-
-extension ResponseError {
-    func toSystemError() -> Error? {
-        guard !isNull else { return nil }
-        let domain = Anytype_Middleware_Error.domain
-        let code = code.rawValue
-        let description = description_p
-        return NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description])
+public extension ResponseError  {
+    var errorDescription: String? {
+        return "Code: \(code), description: \(description_p)"
     }
 }

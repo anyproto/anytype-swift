@@ -4,12 +4,14 @@ import AnytypeCore
 
 protocol BaseDocumentGeneralProtocol: AnyObject {
     var details: ObjectDetails? { get }
+    var detailsPublisher: AnyPublisher<ObjectDetails, Never> { get }
     var updatePublisher: AnyPublisher<DocumentUpdate, Never> { get }
 }
 
 protocol BaseDocumentProtocol: AnyObject, BaseDocumentGeneralProtocol {
     var infoContainer: InfoContainerProtocol { get }
     var objectRestrictions: ObjectRestrictions { get }
+    var detailsStorage: ObjectDetailsStorage { get }
     var objectId: BlockId { get }
     var children: [BlockInformation] { get }
     var parsedRelations: ParsedRelations { get }
@@ -19,7 +21,8 @@ protocol BaseDocumentProtocol: AnyObject, BaseDocumentGeneralProtocol {
     
     var parsedRelationsPublisher: AnyPublisher<ParsedRelations, Never> { get }
     var isLockedPublisher: AnyPublisher<Bool, Never> { get }
-    var detailsPublisher: AnyPublisher<ObjectDetails, Never> { get }
+    
+    var syncPublisher: AnyPublisher<Void, Never> { get }
     
     @MainActor
     func open() async throws
@@ -27,4 +30,6 @@ protocol BaseDocumentProtocol: AnyObject, BaseDocumentGeneralProtocol {
     func openForPreview() async throws
     @MainActor
     func close() async throws
+    
+    func resetSubscriptions()
 }

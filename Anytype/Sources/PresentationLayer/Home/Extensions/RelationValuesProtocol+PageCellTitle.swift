@@ -23,11 +23,22 @@ extension BundledRelationsValueProvider {
         switch layoutValue {
         case .note:
             title = snippet
+        case .file, .image:
+            title = "\(name).\(fileExt)"
         default:
             title = name
         }
 
-        return title.isEmpty ? Loc.untitled : title
+        return title.isEmpty ? Loc.untitled : title.replacedNewlinesWithSpaces
+    }
+    
+    var subtitle: String {
+        switch layoutValue {
+        case .note:
+            return description
+        default:
+            return description.isNotEmpty ? description : snippet.replacedNewlinesWithSpaces
+        }
     }
     
     var homeLayout: HomeCellData.TitleLayout {

@@ -13,18 +13,16 @@ let package = Package(
             targets: ["AnytypeCore"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/apple/swift-protobuf", revision: "1.15.0"),
-        .package(path: "../ProtobufMessages"),
+        .package(url: "https://github.com/apple/swift-protobuf", revision: "1.21.0"),
         .package(path: "../Logger"),
         // Waiting issue - https://github.com/krzysztofzablocki/Sourcery/issues/1090
-        .package(url: "https://github.com/anytypeio/SourceryGenPlugin.git", revision: "1.9.2")
+        .package(url: "https://github.com/anyproto/SourceryGenPlugin.git", revision: "1.9.2")
     ],
     targets: [
         .target(
             name: "AnytypeCore",
             dependencies: [
                 .product(name: "SwiftProtobuf", package: "swift-protobuf"),
-                "ProtobufMessages",
                 "Logger"
             ],
             path: "AnytypeCore",

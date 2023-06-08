@@ -5,6 +5,8 @@ import PulseUI
 public final class LoggerUI {
     
     public static func makeView() -> some View {
-        return MainView()
+        NavigationView {
+            ConsoleView()
+        }.navigationViewStyle(.stack)
     }
 }

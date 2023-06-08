@@ -68,5 +68,23 @@
 			<string>in %d days</string>
 		</dict>
 	</dict>
+	<key>Widgets.Actions.BinConfirm</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@object@</string>
+		<key>object</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>zero</key>
+			<string>Bin already empty</string>
+			<key>one</key>
+			<string>One object deleted</string>
+			<key>other</key>
+			<string>%d objects deleted</string>
+		</dict>
+	</dict>
 </dict>
 </plist>

@@ -15,13 +15,14 @@ protocol EditorBrowserViewInputProtocol: AnyObject {
 }
 
 protocol EditorPageOpenRouterProtocol: AnyObject {
+    // TODO: set main action with delete homeWidgets toggle
     func showPage(data: EditorScreenData)
 }
 
 final class EditorBrowserController: UIViewController, UINavigationControllerDelegate, EditorBrowser, EditorBrowserViewInputProtocol {
         
     var childNavigation: UINavigationController!
-    var router: EditorPageOpenRouterProtocol!
+    weak var router: EditorPageOpenRouterProtocol!
 
     private lazy var navigationView: EditorBottomNavigationView = createNavigationView()
     private var navigationViewBottomConstaint: NSLayoutConstraint?
@@ -61,18 +62,30 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if let navigationController = navigationController as? NavigationControllerWithSwiftUIContent {
-            navigationController.anytype_setNavigationBarHidden(true, animated: false)
-        } else {
+        if FeatureFlags.homeWidgets {
             navigationController?.setNavigationBarHidden(true, animated: false)
+        } else {
+            if let navigationController = navigationController as? NavigationControllerWithSwiftUIContent {
+                navigationController.anytype_setNavigationBarHidden(true, animated: false)
+            } else {
+                navigationController?.setNavigationBarHidden(true, animated: false)
+            }
         }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        if let navigationController = navigationController as? NavigationControllerWithSwiftUIContent {
-            navigationController.anytype_setNavigationBarHidden(false, animated: false)
+        if !FeatureFlags.homeWidgets {
+            if let navigationController = navigationController as? NavigationControllerWithSwiftUIContent {
+                navigationController.anytype_setNavigationBarHidden(false, animated: false)
+            }
+        }
+        
+        if FeatureFlags.homeWidgets {
+            if let navigationController, !navigationController.viewControllers.contains(where: { $0 == self}) {
+                UserDefaultsConfig.storeOpenedScreenData(nil)
+            }
         }
     }
     
@@ -113,17 +126,18 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
                 self.router.showPage(data: page.pageData)
             },
             onHomeTap: { [weak self] in
+                if FeatureFlags.homeWidgets {
+                    AnytypeAnalytics.instance().logShowHome(view: .widget)
+                }
                 self?.goToHome(animated: true)
             },
             onCreateObjectTap: { [weak self] in
                 guard let self = self else { return }
-                guard let id = self.dashboardService.createNewPage() else { return }
+                guard let details = self.dashboardService.createNewPage() else { return }
                 
-                AnytypeAnalytics.instance().logCreateObjectNavBar(
-                    objectType: ObjectTypeProvider.shared.defaultObjectType.id
-                )
+                AnytypeAnalytics.instance().logCreateObjectNavBar(objectType: details.analyticsType)
                 
-                self.router.showPage(data: EditorScreenData(pageId: id, type: .page))
+                self.router.showPage(data: EditorScreenData(pageId: details.id, type: details.editorViewType))
             }
         )
     }
@@ -183,9 +197,8 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
         
         UserDefaultsConfig.storeOpenedScreenData(detailsProvider.screenData)
         
-        let details = detailsProvider.details
-        let title = details?.title
-        let subtitle = details?.description
+        let title = detailsProvider.documentTitle
+        let subtitle = detailsProvider.documentDescription
         do {
             try stateManager.didShow(
                 page: BrowserPage(

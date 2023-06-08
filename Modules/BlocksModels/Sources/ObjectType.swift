@@ -22,7 +22,7 @@ public struct ObjectType: Equatable, Hashable, Codable {
     public let isDeleted: Bool
     public let sourceObject: String
     
-    public let smartBlockTypes: Set<SmartBlockType>
+    public let recommendedRelations: [ObjectId]
     
     public init(
         id: String,
@@ -34,7 +34,7 @@ public struct ObjectType: Equatable, Hashable, Codable {
         isArchived: Bool,
         isDeleted: Bool,
         sourceObject: String,
-        smartBlockTypes: Set<SmartBlockType>
+        recommendedRelations: [ObjectId]
     ) {
         self.id = id
         self.name = name
@@ -45,7 +45,7 @@ public struct ObjectType: Equatable, Hashable, Codable {
         self.isArchived = isArchived
         self.isDeleted = isDeleted
         self.sourceObject = sourceObject
-        self.smartBlockTypes = smartBlockTypes
+        self.recommendedRelations = recommendedRelations
     }
 }
 
@@ -62,7 +62,7 @@ extension ObjectType {
             isArchived: details.isArchived,
             isDeleted: details.isDeleted,
             sourceObject: details.sourceObject,
-            smartBlockTypes: Set(details.smartblockTypesValue)
+            recommendedRelations: details.recommendedRelations
         )
     }
     

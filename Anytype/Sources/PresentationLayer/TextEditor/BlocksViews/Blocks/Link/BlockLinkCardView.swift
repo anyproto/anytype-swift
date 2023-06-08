@@ -19,7 +19,6 @@ final class BlockLinkCardView: UIView, BlockContentView {
     private let verticalTextsStackView = UIStackView()
     private let horizontalContentStackView = UIStackView()
 
-    private var topPaddingConstraint: NSLayoutConstraint?
     private var largeLeadingIconImageViewHeightConstraint: NSLayoutConstraint?
     private var verticalTextsStackViewHeightConstraint: NSLayoutConstraint?
 

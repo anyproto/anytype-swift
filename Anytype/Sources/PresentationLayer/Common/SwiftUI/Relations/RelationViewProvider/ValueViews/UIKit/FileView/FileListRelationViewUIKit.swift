@@ -5,7 +5,6 @@ final class FileListRelationViewUIKit: UIView {
     let hint: String
     let style: RelationStyle
 
-    private lazy var textView = AnytypeLabel(style: style.font)
     private var stackView = UIStackView()
 
     // MARK: - Lifecycle

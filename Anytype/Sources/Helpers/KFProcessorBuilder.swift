@@ -36,7 +36,7 @@ extension KFProcessorBuilder {
 
 private extension ImageCornersGuideline.Radius {
     
-    var asRoundCornerImageProcessorRadius: RoundCornerImageProcessor.Radius {
+    var asRoundCornerImageProcessorRadius: Kingfisher.Radius {
         switch self {
         case .widthFraction(let widthFraction): return .widthFraction(widthFraction)
         case .point(let point): return .point(point)

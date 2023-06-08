@@ -7,7 +7,7 @@ final class BlockListServiceMock: BlockListServiceProtocol {
     var replaceNumberOfCalls = 0
     var replaceBlockIds: [BlockId]?
     var replaceTargetId: BlockId?
-    func replace(blockIds: [BlockId], targetId: BlockId) {
+    func replace(objectId: BlockId, blockIds: [BlockId], targetId: BlockId) {
         if replaceStub {
             replaceNumberOfCalls += 1
             replaceBlockIds = blockIds
@@ -22,7 +22,7 @@ final class BlockListServiceMock: BlockListServiceProtocol {
     var moveBlockId: BlockId?
     var moveTargetId: BlockId?
     var movePosition: Anytype_Model_Block.Position?
-    func move(blockId: BlockId, targetId: BlockId, position: Anytype_Model_Block.Position) {
+    func move(objectId: BlockId, blockId: BlockId, targetId: BlockId, position: Anytype_Model_Block.Position) {
         if moveStub {
             moveNumberOfCalls += 1
             moveBlockId = blockId
@@ -32,40 +32,36 @@ final class BlockListServiceMock: BlockListServiceProtocol {
             assertionFailure()
         }
     }
-    
-    func setDivStyle(blockIds: [BlockId], style: BlockDivider.Style) {
+
+    func setAlign(objectId: BlockId, blockIds: [BlockId], alignment: LayoutAlignment) {
         assertionFailure()
     }
 
-    func setAlign(blockIds: [BlockId], alignment: LayoutAlignment) {
+    func changeMarkup(objectId: BlockId, blockIds: [BlockId], markType: MarkupType) {
+        assertionFailure()
+    }
+    
+    func setBackgroundColor(objectId: BlockId, blockIds: [BlockId], color: MiddlewareColor) {
+        assertionFailure()
+    }
+    
+    func setFields(objectId: BlockId, fields: [BlockFields]) {
+        assertionFailure()
+    }
+    
+    func setBlockColor(objectId: BlockId, blockIds: [BlockId], color: MiddlewareColor) {
+        assertionFailure()
+    }
+    
+    func moveToPage(objectId: BlockId, blockId: BlockId, pageId: BlockId) {
         assertionFailure()
     }
 
-    func changeMarkup(blockIds: [BlockId], markType: MarkupType) {
-        assertionFailure()
-    }
-    
-    func setBackgroundColor(blockIds: [BlockId], color: MiddlewareColor) {
-        assertionFailure()
-    }
-    
-    func setFields(fields: [BlockFields]) {
-        assertionFailure()
-    }
-    
-    func setBlockColor(blockIds: [BlockId], color: MiddlewareColor) {
-        assertionFailure()
-    }
-    
-    func moveToPage(blockId: BlockId, pageId: BlockId) {
+    func setFields(objectId: BlockId, blockId: BlockId, fields: BlockFields) {
         assertionFailure()
     }
 
-    func setFields(blockId: BlockId, fields: BlockFields) {
-        assertionFailure()
-    }
-
-    func setLinkAppearance(blockIds: [BlockId], appearance: BlockLink.Appearance) {
+    func setLinkAppearance(objectId: BlockId, blockIds: [BlockId], appearance: BlockLink.Appearance) {
         assertionFailure()
     }
 }

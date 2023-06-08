@@ -6,10 +6,12 @@ final class RelationValueModuleAssembly: RelationValueModuleAssemblyProtocol {
     
     private let modulesDI: ModulesDIProtocol
     private let serviceLocator: ServiceLocator
+    private let uiHelpersDI: UIHelpersDIProtocol
     
-    init(modulesDI: ModulesDIProtocol, serviceLocator: ServiceLocator) {
+    init(modulesDI: ModulesDIProtocol, serviceLocator: ServiceLocator, uiHelpersDI: UIHelpersDIProtocol) {
         self.modulesDI = modulesDI
         self.serviceLocator = serviceLocator
+        self.uiHelpersDI = uiHelpersDI
     }
     
     // MARK: - RelationValueModuleAssemblyProtocol
@@ -17,6 +19,7 @@ final class RelationValueModuleAssembly: RelationValueModuleAssemblyProtocol {
     func make(
         objectId: BlockId,
         relation: Relation,
+        analyticsType: AnalyticsEventsRelationType,
         delegate: TextRelationActionButtonViewModelDelegate,
         output: RelationValueViewModelOutput
     ) -> UIViewController? {
@@ -26,12 +29,13 @@ final class RelationValueModuleAssembly: RelationValueModuleAssemblyProtocol {
             newSearchModuleAssembly: modulesDI.newSearch(),
             searchService: serviceLocator.searchService(),
             systemURLService: serviceLocator.systemURLService(),
-            alertOpener: serviceLocator.alertOpener(),
+            alertOpener: uiHelpersDI.alertOpener(),
             bookmarkService: serviceLocator.bookmarkService()
         )
             .buildViewModel(
                 objectId: objectId,
                 relation: relation,
+                analyticsType: analyticsType,
                 onTap: { [weak output] pageId, viewType in
                     output?.onTapRelation(pageId: pageId, viewType: viewType)
                 }

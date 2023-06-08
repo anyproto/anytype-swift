@@ -4,37 +4,38 @@ import SwiftUI
 struct HomeWidgetsView: View {
     
     @ObservedObject var model: HomeWidgetsViewModel
+    @State var dndState = DragState()
     
     var body: some View {
         ZStack {
-            Gradients.widgetsBackground()
-            ScrollView {
-                LazyVStack(spacing: 12) {
-                    ForEach(model.models, id: \.componentId) { model in
-                        model.view
+            DashboardWallpaper()
+            VerticalScrollViewWithOverlayHeader {
+                HomeTopShadow()
+            } content: {
+                VStack(spacing: 12) {
+                    ForEach(model.models) { rowModel in
+                        rowModel.provider.view
                     }
                     HomeEditButton(text: Loc.Widgets.Actions.editWidgets) {
                         model.onEditButtonTap()
                     }
                     .opacity(model.hideEditButton ? 0 : 1)
                     .animation(.default, value: model.hideEditButton)
-                    Button("Show old home") {
-                        model.onDisableNewHomeTap()
-                    }
-                    Button("Edit space icon") {
-                        model.onSpaceIconChangeTap()
-                    }
                     if #available(iOS 15.0, *) {} else {
                         // For safeAreaInsetLegacy
                         Color.clear.frame(height: 72)
                     }
                 }
                 .padding(.horizontal, 20)
+                .opacity(model.dataLoaded ? 1 : 0)
+                .animation(.default.delay(0.3), value: model.dataLoaded)
+                .fitIPadToReadableContentGuide()
             }
             .animation(.default, value: model.models.count)
         }
         .safeAreaInsetLegacy(edge: .bottom, spacing: 20) {
             model.bottomPanelProvider.view
+                .fitIPadToReadableContentGuide()
         }
         .onAppear {
             model.onAppear()
@@ -42,25 +43,13 @@ struct HomeWidgetsView: View {
         .onDisappear {
             model.onDisappear()
         }
-    }
-}
-
-struct HomeWidgetsView_Previews: PreviewProvider {
-    static var previews: some View {
-        HomeWidgetsView(
-            model: HomeWidgetsViewModel(
-                widgetObject: HomeWidgetsObject(
-                    objectId: "",
-                    objectDetailsStorage: DI.preview.serviceLocator.objectDetailsStorage()
-                ),
-                registry: DI.preview.widgetsDI.homeWidgetsRegistry(stateManager: HomeWidgetsStateManager(), widgetOutput: nil),
-                blockWidgetService: DI.preview.serviceLocator.blockWidgetService(),
-                accountManager: DI.preview.serviceLocator.accountManager(),
-                bottomPanelProviderAssembly: DI.preview.widgetsDI.bottomPanelProviderAssembly(output: nil),
-                toastPresenter: DI.preview.uihelpersDI.toastPresenter(),
-                stateManager: HomeWidgetsStateManager(),
-                output: nil
-            )
-        )
+        .navigationBarHidden(true)
+        .anytypeStatusBar(style: .lightContent)
+        .ignoresSafeArea(.all, edges: .bottom)
+        .anytypeVerticalDrop(data: model.models, state: $dndState) { from, to in
+            model.dropUpdate(from: from, to: to)
+        } dropFinish: { from, to in
+            model.dropFinish(from: from, to: to)
+        }
     }
 }

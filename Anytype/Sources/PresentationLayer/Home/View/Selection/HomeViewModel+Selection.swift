@@ -42,17 +42,17 @@ extension HomeViewModel {
     func pagesDeleteConfirmation() {
         loadingAlertData = .init(text: "Deleting in progress", showAlert: true)
         
-        objectActionsService.delete(objectIds: Array(selectedPageIds)) { [weak self] success in
-            self?.loadingAlertData = .empty
-            
-            if success {
+        Task { @MainActor [weak self] in
+            do {
+                try await self?.objectActionsService.delete(objectIds: Array(selectedPageIds))
                 UINotificationFeedbackGenerator().notificationOccurred(.success)
                 self?.showPagesDeletionAlert = false
                 self?.selectAll(false)
-            } else {
+            } catch {
                 UINotificationFeedbackGenerator().notificationOccurred(.error)
                 self?.snackBarData = .init(text: Loc.deletionError, showSnackBar: true)
             }
+            self?.loadingAlertData = .empty
         }
     }
 }

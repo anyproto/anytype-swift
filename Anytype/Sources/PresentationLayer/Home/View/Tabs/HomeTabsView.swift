@@ -15,15 +15,16 @@ extension HomeTabsView {
 struct HomeTabsView: View {
     private let cornerRadius: CGFloat = 16
 
-    @EnvironmentObject var model: HomeViewModel
+    @ObservedObject var model: HomeViewModel
     
+    let showSpaceTab: Bool
     let offsetChanged: (CGPoint) -> Void
     let onDrag: (CGSize) -> Void
     let onDragEnd: (CGSize) -> Void
     
     var body: some View {
         VStack(spacing: 0) {
-            HomeTabsHeader(tabSelection: $model.selectedTab)
+            HomeTabsHeader(model: model, tabSelection: $model.selectedTab)
                 .cornerRadius(cornerRadius, corners: .top)
                 .highPriorityGesture(
                     DragGesture(coordinateSpace: .named(model.bottomSheetCoordinateSpaceName))
@@ -41,6 +42,7 @@ struct HomeTabsView: View {
     private var tabs: some View {
         TabView(selection: $model.selectedTab) {
             HomeCollectionView(
+                viewModel: model,
                 cellData: model.notDeletedFavoritesCellData,
                 dragAndDropDelegate: model,
                 offsetChanged: offsetChanged,
@@ -52,6 +54,7 @@ struct HomeTabsView: View {
             .tag(Tab.favourites)
             
             HomeCollectionView(
+                viewModel: model,
                 cellData: model.historyCellData,
                 dragAndDropDelegate: nil, // no dnd
                 offsetChanged: offsetChanged,
@@ -62,6 +65,7 @@ struct HomeTabsView: View {
             .tag(Tab.recent)
             
             HomeCollectionView(
+                viewModel: model,
                 cellData: model.setsCellData,
                 dragAndDropDelegate: nil, // no dnd
                 offsetChanged: offsetChanged,
@@ -71,8 +75,9 @@ struct HomeTabsView: View {
             )
             .tag(Tab.sets)
             
-            if AccountManager.shared.account.config.enableSpaces {
+            if showSpaceTab {
                 HomeCollectionView(
+                    viewModel: model,
                     cellData: model.sharedCellData,
                     dragAndDropDelegate: nil, // no dnd
                     offsetChanged: offsetChanged,
@@ -84,6 +89,7 @@ struct HomeTabsView: View {
             }
             
             HomeCollectionView(
+                viewModel: model,
                 cellData: model.binCellData,
                 dragAndDropDelegate: nil, // no dnd
                 offsetChanged: offsetChanged,
@@ -105,8 +111,7 @@ struct HomeTabsView_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
             Color.blue
-            HomeTabsView(offsetChanged: { _ in }, onDrag: { _ in}, onDragEnd: { _ in })
-                .environmentObject(HomeViewModel.makeForPreview())
+            HomeTabsView(model: HomeViewModel.makeForPreview(), showSpaceTab: true, offsetChanged: { _ in }, onDrag: { _ in}, onDragEnd: { _ in })
         }
     }
 }

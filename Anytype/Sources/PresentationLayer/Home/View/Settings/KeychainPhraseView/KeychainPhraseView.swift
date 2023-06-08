@@ -1,11 +1,8 @@
 import SwiftUI
 
-
 struct KeychainPhraseView: View {
-    var shownInContext: AnalyticsEventsKeychainContext
 
-    @StateObject private var model = KeychainPhraseViewModel()
-    @State private var toastBarData: ToastBarData = .empty
+    @ObservedObject var model: KeychainPhraseViewModel
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -15,34 +12,24 @@ struct KeychainPhraseView: View {
             Spacer.fixedHeight(8)
             AnytypeText(Loc.Keychain.recoveryPhraseDescription, style: .uxBodyRegular, color: .Text.primary)
             Spacer.fixedHeight(24)
-            SeedPhraseView(model: model) {
-                didShowPhrase()
-            }
+            SeedPhraseView(model: model)
             Spacer()
-            StandardButton(text: Loc.Keychain.showAndCopyPhrase, style: .secondary) {
-                model.onSeedViewTap(onTap: {
-                    didShowPhrase()
-                })
+            StandardButton(Loc.Keychain.showAndCopyPhrase, style: .secondaryLarge) {
+                model.onSeedViewTap()
             }
             Spacer.fixedHeight(20)
         }
         .cornerRadius(12)
         .padding(.horizontal, 20)
         .onAppear {
-            AnytypeAnalytics.instance().logKeychainPhraseShow(shownInContext)
+            model.onAppear()
         }
-        .snackbar(toastBarData: $toastBarData)
-        .environmentObject(model)
-    }
-    
-    private func didShowPhrase() {
-        toastBarData = .init(text: Loc.Keychain.recoveryPhraseCopiedToClipboard, showSnackBar: true)
-        AnytypeAnalytics.instance().logKeychainPhraseCopy(shownInContext)
+        .snackbar(toastBarData: $model.toastBarData)
     }
 }
 
 struct SaveRecoveryPhraseView_Previews: PreviewProvider {    
     static var previews: some View {
-        return KeychainPhraseView(shownInContext: .settings)
+        return KeychainPhraseView(model: KeychainPhraseViewModel.makeForPreview())
     }
 }

@@ -5,7 +5,7 @@ import BlocksModels
 struct HomeContextMenuView: View {
     
     let cellData: HomeCellData
-    @EnvironmentObject private var viewModel: HomeViewModel
+    @ObservedObject var viewModel: HomeViewModel
     
     var body: some View {
         Group {

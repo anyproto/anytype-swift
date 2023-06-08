@@ -15,15 +15,15 @@ struct SelectionIndicatorView: View {
     
     private var notSelectedView: some View {
         Circle()
-            .stroke(Color.Stroke.primary, lineWidth: 1.5)
+            .strokeBorder(Color.Stroke.primary, lineWidth: 1.5)
             .frame(width: 24, height: 24)
     }
     
     private func selectedView(index: Int) -> some View {
-        AnytypeText("\(index)", style: .previewTitle1Medium, color: .Text.white)
+        AnytypeText("\(index)", style: .uxTitle2Medium, color: .Text.white)
             .lineLimit(1)
             .frame(width:24, height: 24)
-            .background(Color.System.amber100)
+            .background(Color.Button.button)
             .clipShape(Circle())
     }
 }

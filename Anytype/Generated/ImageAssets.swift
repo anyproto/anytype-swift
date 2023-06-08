@@ -19,7 +19,6 @@ internal extension ImageAsset {
   static let noImage = ImageAsset.bundle(name: "no_image")
   static let optionChecked = ImageAsset.bundle(name: "option_checked")
   static let plus = ImageAsset.bundle(name: "plus")
-  static let plusWhite12 = ImageAsset.bundle(name: "plus_white_12")
   static let draft = ImageAsset.bundle(name: "draft")
   static let mainSearch = ImageAsset.bundle(name: "main_search")
   static let mainSettings = ImageAsset.bundle(name: "main_settings")
@@ -34,7 +33,21 @@ internal extension ImageAsset {
   }
   enum Emoji {
     }
+  enum FileTypes {
+    static let archive = ImageAsset.bundle(name: "FileTypes/Archive")
+    static let audio = ImageAsset.bundle(name: "FileTypes/Audio")
+    static let image = ImageAsset.bundle(name: "FileTypes/Image")
+    static let other = ImageAsset.bundle(name: "FileTypes/Other")
+    static let pdf = ImageAsset.bundle(name: "FileTypes/PDF")
+    static let presentation = ImageAsset.bundle(name: "FileTypes/Presentation")
+    static let spreadsheet = ImageAsset.bundle(name: "FileTypes/Spreadsheet")
+    static let text = ImageAsset.bundle(name: "FileTypes/Text")
+    static let video = ImageAsset.bundle(name: "FileTypes/Video")
+  }
   static let createNewObject = ImageAsset.bundle(name: "createNewObject")
+  enum Migration {
+    static let close = ImageAsset.bundle(name: "Migration/Close")
+  }
   static let taskChecked = ImageAsset.bundle(name: "task_checked")
   static let taskUnchecked = ImageAsset.bundle(name: "task_unchecked")
   static let todoCheckbox = ImageAsset.bundle(name: "todo_checkbox")
@@ -75,6 +88,10 @@ internal extension ImageAsset {
   static let objectSettingsIcon = ImageAsset.bundle(name: "object_settings_icon")
   static let objectSettingsLayout = ImageAsset.bundle(name: "object_settings_layout")
   static let objectSettingsRelations = ImageAsset.bundle(name: "object_settings_relations")
+  enum PageBlock {
+    static let checkboxChecked = ImageAsset.bundle(name: "PageBlock/checkbox_checked")
+    static let checkboxUnchecked = ImageAsset.bundle(name: "PageBlock/checkbox_unchecked")
+  }
   static let webPage = ImageAsset.bundle(name: "web_page")
   static let searchTextFieldIcon = ImageAsset.bundle(name: "searchTextFieldIcon")
   static let setGalleryView = ImageAsset.bundle(name: "set_gallery_view")
@@ -92,17 +109,22 @@ internal extension ImageAsset {
   static let setSettinsGroup = ImageAsset.bundle(name: "set_settins_group")
   static let setSettinsSort = ImageAsset.bundle(name: "set_settins_sort")
   static let setSettinsView = ImageAsset.bundle(name: "set_settins_view")
-  static let themeDark = ImageAsset.bundle(name: "theme_dark")
-  static let themeLight = ImageAsset.bundle(name: "theme_light")
-  static let themeSystem = ImageAsset.bundle(name: "theme_system")
-  static let settingsAbout = ImageAsset.bundle(name: "settings_about")
-  static let settingsAccountAndData = ImageAsset.bundle(name: "settings_account_and_data")
-  static let settingsAppearance = ImageAsset.bundle(name: "settings_appearance")
-  static let settingsDebug = ImageAsset.bundle(name: "settings_debug")
-  static let settingsPersonalization = ImageAsset.bundle(name: "settings_personalization")
-  static let settingsSetKeychainPhrase = ImageAsset.bundle(name: "settings_set_keychain_phrase")
-  static let settingsSetPinCode = ImageAsset.bundle(name: "settings_set_pin_code")
-  static let settingsSetWallpaper = ImageAsset.bundle(name: "settings_set_wallpaper")
+  enum Settings {
+    enum Theme {
+      static let dark = ImageAsset.bundle(name: "Settings/Theme/dark")
+      static let light = ImageAsset.bundle(name: "Settings/Theme/light")
+      static let system = ImageAsset.bundle(name: "Settings/Theme/system")
+    }
+    static let about = ImageAsset.bundle(name: "Settings/about")
+    static let accountAndData = ImageAsset.bundle(name: "Settings/account_and_data")
+    static let appearance = ImageAsset.bundle(name: "Settings/appearance")
+    static let debug = ImageAsset.bundle(name: "Settings/debug")
+    static let fileStorage = ImageAsset.bundle(name: "Settings/fileStorage")
+    static let personalization = ImageAsset.bundle(name: "Settings/personalization")
+    static let setKeychainPhrase = ImageAsset.bundle(name: "Settings/set_keychain_phrase")
+    static let setPinCode = ImageAsset.bundle(name: "Settings/set_pin_code")
+    static let setWallpaper = ImageAsset.bundle(name: "Settings/set_wallpaper")
+  }
   static let slashMenuActionClear = ImageAsset.bundle(name: "slash_menu_action_clear")
   static let slashMenuActionCopy = ImageAsset.bundle(name: "slash_menu_action_copy")
   static let slashMenuActionDuplicate = ImageAsset.bundle(name: "slash_menu_action_duplicate")
@@ -181,17 +203,6 @@ internal extension ImageAsset {
   }
   enum TextEditor {
     enum BlockFile {
-      enum Content {
-        static let archive = ImageAsset.bundle(name: "TextEditor/BlockFile/Content/Archive")
-        static let audio = ImageAsset.bundle(name: "TextEditor/BlockFile/Content/Audio")
-        static let image = ImageAsset.bundle(name: "TextEditor/BlockFile/Content/Image")
-        static let other = ImageAsset.bundle(name: "TextEditor/BlockFile/Content/Other")
-        static let pdf = ImageAsset.bundle(name: "TextEditor/BlockFile/Content/PDF")
-        static let presentation = ImageAsset.bundle(name: "TextEditor/BlockFile/Content/Presentation")
-        static let spreadsheet = ImageAsset.bundle(name: "TextEditor/BlockFile/Content/Spreadsheet")
-        static let text = ImageAsset.bundle(name: "TextEditor/BlockFile/Content/Text")
-        static let video = ImageAsset.bundle(name: "TextEditor/BlockFile/Content/Video")
-      }
       enum Empty {
         static let bookmark = ImageAsset.bundle(name: "TextEditor/BlockFile/Empty/Bookmark")
         static let file = ImageAsset.bundle(name: "TextEditor/BlockFile/Empty/File")
@@ -245,13 +256,20 @@ internal extension ImageAsset {
   static let toastFailure = ImageAsset.bundle(name: "toast_failure")
   static let toastTick = ImageAsset.bundle(name: "toast_tick")
   enum Widget {
+    enum Preview {
+      static let link = ImageAsset.bundle(name: "Widget/Preview/link")
+      static let list = ImageAsset.bundle(name: "Widget/Preview/list")
+      static let tree = ImageAsset.bundle(name: "Widget/Preview/tree")
+    }
     static let add = ImageAsset.bundle(name: "Widget/add")
+    static let bin = ImageAsset.bundle(name: "Widget/bin")
     static let collapse = ImageAsset.bundle(name: "Widget/collapse")
+    static let collection = ImageAsset.bundle(name: "Widget/collection")
     static let dot = ImageAsset.bundle(name: "Widget/dot")
-    static let remove = ImageAsset.bundle(name: "Widget/remove")
     static let search = ImageAsset.bundle(name: "Widget/search")
     static let `set` = ImageAsset.bundle(name: "Widget/set")
     static let settings = ImageAsset.bundle(name: "Widget/settings")
+    static let tick = ImageAsset.bundle(name: "Widget/tick")
   }
   static let splashLogo = ImageAsset.bundle(name: "splash_logo")
 }

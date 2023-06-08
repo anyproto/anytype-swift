@@ -30,32 +30,9 @@ struct NewSearchView: View {
             case .resultsList(let model):
                 searchResults(model: model)
             case .error(let error):
-                errorState(error)
+                NewSearchErrorView(error: error)
             }
         }
-    }
-    
-    private func errorState(_ error: NewSearchError) -> some View {
-        VStack(alignment: .center) {
-            Spacer()
-            AnytypeText(
-                error.title,
-                style: .uxBodyRegular,
-                color: .Text.primary
-            )
-            .multilineTextAlignment(.center)
-            error.subtitle.flatMap {
-                AnytypeText(
-                    $0,
-                    style: .uxBodyRegular,
-                    color: .Text.secondary
-                )
-                .multilineTextAlignment(.center)
-            }
-            
-            Spacer()
-        }
-        .padding(.horizontal)
     }
     
     private func searchResults(model: ListModel) -> some View {
@@ -92,24 +69,10 @@ struct NewSearchView: View {
     }
     
     private func addButton(model: AddButtonModel) -> some View {
-        StandardButton(disabled: model.isDisabled, text: viewModel.style.buttonTitle, style: .primary) {
+        StandardButton(viewModel.style.buttonTitle, info: model.counter > 0 ? "\(model.counter)" : nil, style: .primaryLarge) {
             viewModel.didTapAddButton()
         }
-        .if(!model.isDisabled) {
-            $0.if(model.counter > 0) {
-                $0.overlay(
-                    HStack(spacing: 0) {
-                        Spacer()
-                        AnytypeText("\(model.counter)", style: .relation1Regular, color: .Text.white)
-                            .frame(minWidth: 15, minHeight: 15)
-                            .padding(5)
-                            .background(Color.System.amber125)
-                            .clipShape(Circle())
-                        Spacer.fixedWidth(12)
-                    }
-                )
-            }
-        }
+        .disabled(model.isDisabled)
         .padding(.vertical, 10)
         .padding(.horizontal, 20)
     }

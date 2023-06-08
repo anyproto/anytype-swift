@@ -2,8 +2,6 @@ import UIKit
 import SwiftUI
 
 final class RelationBlockView: UIView, BlockContentView {
-    private var bottomConstraint: NSLayoutConstraint!
-
     // MARK: - Views
     private let relationValueView = RelationValueViewUIKit()
 

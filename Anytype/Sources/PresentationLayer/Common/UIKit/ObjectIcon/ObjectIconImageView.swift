@@ -79,6 +79,8 @@ extension ObjectIconImageView: ConfigurableView {
                     backgroundColor: model.usecase.profileBackgroundColor
                 )
                 imageView.wrapper.setImage(image)
+            case .gradient(let gradientId):
+                gradientIcon(gradientId: gradientId, model: model)
             }
         case .emoji(let iconEmoji):
             let image: UIImage? = stringIconImage(
@@ -88,6 +90,8 @@ extension ObjectIconImageView: ConfigurableView {
                 backgroundColor: model.usecase.emojiBackgroundColor
             )
             imageView.wrapper.setImage(image)
+        case .space(let space):
+            spaceIcon(space: space, model: model)
         }
     }
     
@@ -122,6 +126,19 @@ extension ObjectIconImageView: ConfigurableView {
         )
     }
     
+    private func gradientIcon(gradientId: GradientId, model: Model) {
+        Task { @MainActor in
+            let image = await painter.gradientImage(gradientId: gradientId, model: model)
+            imageView.wrapper.setImage(image)
+        }
+    }
+    
+    private func spaceIcon(space: ObjectIconType.Space, model: Model) {
+        Task { @MainActor in
+            let image = await painter.spaceImage(space: space, model: model)
+            imageView.wrapper.setImage(image)
+        }
+    }
 }
 
 // MARK: - Private extension

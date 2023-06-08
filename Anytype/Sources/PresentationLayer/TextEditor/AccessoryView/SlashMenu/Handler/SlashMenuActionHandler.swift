@@ -39,7 +39,7 @@ final class SlashMenuActionHandler {
                 actionHandler
                     .createPage(targetId: blockId, type: .dynamic(object.id))
                     .flatMap { id in
-                        AnytypeAnalytics.instance().logCreateObject(objectType: object.id, route: .powertool)
+                        AnytypeAnalytics.instance().logCreateObject(objectType: object.analyticsType, route: .powertool)
 
                         router.showPage(data: EditorScreenData(pageId: id, type: .page))
                     }

@@ -2,6 +2,7 @@ import SwiftUI
 
 struct CreateNewProfileView: View {
     @State private var showImagePicker: Bool = false
+    @State private var showSetupWallet: Bool = false
     @Environment(\.presentationMode) var presentationMode
     
     @ObservedObject var viewModel: CreateNewProfileViewModel
@@ -71,17 +72,18 @@ struct CreateNewProfileView: View {
     
     private var buttons: some View {
         HStack(spacing: 10) {
-            StandardButton(disabled: false, text: Loc.back, style: .secondary) {
+            StandardButton(Loc.back, style: .secondaryLarge) {
                 self.presentationMode.wrappedValue.dismiss()
             }
             
-            NavigationLink(
-                destination: viewModel.showSetupWallet(signUpData: signUpData, showWaitingView: $showCreateNewProfile)
-            ) {
-                StandardButtonView(disabled: signUpData.userName.isEmpty, text: Loc.create, style: .primary)
+            StandardButton(Loc.create, style: .primaryLarge) {
+                showSetupWallet.toggle()
             }
+            .addEmptyNavigationLink(
+                destination: viewModel.showSetupWallet(signUpData: signUpData, showWaitingView: $showCreateNewProfile),
+                isActive: $showSetupWallet
+            )
             .disabled(signUpData.userName.isEmpty)
-            .buttonStyle(ShrinkingButtonStyle())
         }
     }
     
@@ -112,7 +114,7 @@ struct CreateNewProfileView_Previews: PreviewProvider {
     static var previews: some View {
         CreateNewProfileView(
             viewModel: CreateNewProfileViewModel(
-                windowManager: DI.preview.coordinatorsDI.windowManager(),
+                applicationStateService: DI.preview.serviceLocator.applicationStateService(),
                 authService: DI.preview.serviceLocator.authService(),
                 seedService: DI.preview.serviceLocator.seedService()
             ),

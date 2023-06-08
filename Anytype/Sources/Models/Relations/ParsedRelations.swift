@@ -8,19 +8,31 @@ struct ParsedRelations: Equatable {
     
     let featuredRelations: [Relation]
     let deletedRelations: [Relation]
+    let typeRelations: [Relation]
     let otherRelations: [Relation]
     
-    init(featuredRelations: [Relation], deletedRelations: [Relation], otherRelations: [Relation]) {
-        self.installed = featuredRelations + otherRelations
-        self.all = featuredRelations + deletedRelations + otherRelations
+    init(
+        featuredRelations: [Relation],
+        deletedRelations: [Relation],
+        typeRelations: [Relation],
+        otherRelations: [Relation]
+    ){
+        self.installed = featuredRelations + otherRelations + typeRelations
+        self.all = featuredRelations + deletedRelations + otherRelations + typeRelations
         self.featuredRelations = featuredRelations
         self.deletedRelations = deletedRelations
+        self.typeRelations = typeRelations
         self.otherRelations = otherRelations
     }
 }
 
 extension ParsedRelations {
     
-    static let empty = ParsedRelations(featuredRelations: [], deletedRelations: [], otherRelations: [])
+    static let empty = ParsedRelations(
+        featuredRelations: [],
+        deletedRelations: [],
+        typeRelations: [],
+        otherRelations: []
+    )
     
 }

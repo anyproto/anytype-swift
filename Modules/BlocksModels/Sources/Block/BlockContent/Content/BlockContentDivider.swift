@@ -17,7 +17,9 @@ public struct BlockDivider: Hashable {
 
     
     public var asMiddleware: Anytype_Model_Block.OneOf_Content {
-        .div(.init(style: style.asMiddleware))
+        .div(.with {
+            $0.style = style.asMiddleware
+        })
     }
 }
 

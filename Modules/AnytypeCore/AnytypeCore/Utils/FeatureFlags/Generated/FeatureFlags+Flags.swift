@@ -18,6 +18,34 @@ public extension FeatureFlags {
         value(for: .fullInlineSetImpl)
     }
 
+    static var fixUpdateRelationBlock: Bool {
+        value(for: .fixUpdateRelationBlock)
+    }
+
+    static var styleViewFixColor: Bool {
+        value(for: .styleViewFixColor)
+    }
+
+    static var dndOnCollectionsAndSets: Bool {
+        value(for: .dndOnCollectionsAndSets)
+    }
+
+    static var migrationGuide: Bool {
+        value(for: .migrationGuide)
+    }
+
+    static var keyboardToolbarInSets: Bool {
+        value(for: .keyboardToolbarInSets)
+    }
+
+    static var fileStorage: Bool {
+        value(for: .fileStorage)
+    }
+
+    static var newAuthorization: Bool {
+        value(for: .newAuthorization)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -30,8 +58,8 @@ public extension FeatureFlags {
         value(for: .analytics)
     }
 
-    static var middlewareLogs: Bool {
-        value(for: .middlewareLogs)
+    static var analyticsAlerts: Bool {
+        value(for: .analyticsAlerts)
     }
 
     // All toggles
@@ -39,9 +67,16 @@ public extension FeatureFlags {
         .setKanbanView,
         .homeWidgets,
         .fullInlineSetImpl,
+        .fixUpdateRelationBlock,
+        .styleViewFixColor,
+        .dndOnCollectionsAndSets,
+        .migrationGuide,
+        .keyboardToolbarInSets,
+        .fileStorage,
+        .newAuthorization,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
-        .middlewareLogs
+        .analyticsAlerts
     ]
 }

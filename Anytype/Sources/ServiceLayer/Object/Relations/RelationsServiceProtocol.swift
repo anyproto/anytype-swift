@@ -10,6 +10,7 @@ protocol RelationsServiceProtocol: AnyObject {
 
     func createRelation(relationDetails: RelationDetails) -> RelationDetails?
     func addRelations(relationsDetails: [RelationDetails]) -> Bool
+    func addRelations(relationKeys: [String]) -> Bool
 
     func removeRelation(relationKey: String)
     func addRelationOption(relationKey: String, optionText: String) -> String?

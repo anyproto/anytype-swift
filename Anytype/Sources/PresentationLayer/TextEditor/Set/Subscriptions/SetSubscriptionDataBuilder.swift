@@ -8,6 +8,12 @@ extension SubscriptionId {
 
 final class SetSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol {
     
+    private let accountManager: AccountManagerProtocol
+    
+    init(accountManager: AccountManagerProtocol) {
+        self.accountManager = accountManager
+    }
+    
     // MARK: - SetSubscriptionDataBuilderProtocol
     
     func set(_ data: SetSubsriptionData) -> SubscriptionData {
@@ -18,7 +24,7 @@ final class SetSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol {
         let offset = (data.currentPage - 1) * numberOfRowsPerPageInSubscriptions
         
         let defaultFilters = [
-            SearchHelper.workspaceId(AccountManager.shared.account.info.accountSpaceId)
+            SearchHelper.workspaceId(accountManager.account.info.accountSpaceId)
         ]
         
         let filters = data.filters + defaultFilters
@@ -31,7 +37,8 @@ final class SetSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol {
                 limit: numberOfRowsPerPageInSubscriptions,
                 offset: offset,
                 keys: keys,
-                source: data.source
+                source: data.source,
+                collectionId: data.collectionId
             )
         )
     }

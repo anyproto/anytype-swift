@@ -18,7 +18,7 @@ final class UndoRedoModuleAssembly: UndoRedoModuleAssemblyProtocol {
     // MARK: - UndoRedoModuleAssemblyProtocol
     
     func make(document: BaseDocumentProtocol) -> UIViewController {
-        let viewModel = UndoRedoViewModel(objectId: document.objectId)
+        let viewModel = UndoRedoViewModel(objectId: document.objectId, objectActionsService: serviceLocator.objectActionsService())
         let undoRedoView = UndoRedoView(viewModel: viewModel)
         
         let popupViewController = AnytypePopup(

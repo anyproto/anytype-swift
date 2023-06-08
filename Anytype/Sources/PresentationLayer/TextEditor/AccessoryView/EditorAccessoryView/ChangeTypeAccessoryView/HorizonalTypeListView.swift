@@ -7,17 +7,18 @@ struct HorizonalTypeListView: View {
 
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            LazyHStack(spacing: 0) {
+            LazyHStack(spacing: 28) {
                 ForEach(viewModel.items) { item in
                     Button {
                         item.action()
                     } label: {
                         TypeView(image: item.image, title: item.title)
                     }
-                    .frame(width: 80, height: 90)
                 }
             }
+            .padding(.horizontal, 16)
         }
+        .frame(height: 96)
         .ignoresSafeArea()
     }
 }
@@ -29,17 +30,23 @@ private struct TypeView: View {
     var body: some View {
         VStack(spacing: 5) {
             imageView
+            Spacer.fixedHeight(14)
+        }
+        .overlay(
             AnytypeText(title, style: .caption2Regular, color: .Text.secondary)
                 .lineLimit(1)
-        }
-        .padding(EdgeInsets(top: 16, leading: 0, bottom: 13, trailing: 0))
+                .padding(.horizontal, -9), // Max width 70
+            alignment: .bottom
+        )
+        .fixTappableArea()
     }
 
     private var imageView: some View {
         SwiftUIObjectIconImageView(
             iconImage: image,
             usecase: .editorAccessorySearch
-        ).frame(width: 48, height: 48)
+        )
+        .frame(width: 52, height: 52)
     }
 }
 

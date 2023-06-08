@@ -3,7 +3,7 @@ import SwiftUIVisualEffects
 
 struct DashboardSelectionActionsView: View {
     static let height: CGFloat = 48
-    @EnvironmentObject private var model: HomeViewModel
+    @ObservedObject var model: HomeViewModel
     
     var body: some View {
         Group {

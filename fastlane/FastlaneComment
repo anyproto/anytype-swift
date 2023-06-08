@@ -1,0 +1,50 @@
+default_platform(:ios)
+
+repoUrl = 'git@github.com:anytypeio/devops-utils.git'
+
+platform :ios do
+    lane :add_linear_comment do |options|
+
+        working_dir = Dir.mktmpdir
+        project_dir = Dir.pwd + "/.."
+
+        sh("git clone #{repoUrl} #{working_dir}")
+
+        config = {
+            "linear_token" => options[:linear_token] || ENV['LINEAR_TOKEN'],
+            "private_key_full_path" => "",
+            "public_key_full_path" => "",
+            "repo_local_full_path" => project_dir,
+            "git_passphrase" => "",
+            "git_fetch" => false,
+            "git_revision_from" => options[:from_tag],
+            "git_revision_to" => options[:to_tag],
+            "comment" => options[:comment],
+            "tasks_to_run" => ["add_comment"]
+        }
+
+        # Debug
+        debugConfig = {
+            "private_key_full_path" => "",
+            "public_key_full_path" => "",
+            "repo_local_full_path" => project_dir,
+            "git_passphrase" => "",
+            "git_fetch" => false,
+            "git_revision_from" => options[:from_tag],
+            "git_revision_to" => options[:to_tag],
+            "comment" => options[:comment],
+            "tasks_to_run" => ["add_comment"]
+        }
+
+        puts debugConfig.to_yaml
+
+        File.write("#{working_dir}/release-utils/release_config.yaml", config.to_yaml)
+
+        Dir.chdir("#{working_dir}/release-utils") do
+            sh("pip3 install -r requirements.txt")
+            sh("python3 release.py")
+        end
+
+        FileUtils.rm_rf(working_dir)
+    end
+end

@@ -2,7 +2,7 @@ import SwiftUI
 import AnytypeCore
 
 struct HomeProfileView: View {
-    @EnvironmentObject var model: HomeViewModel
+    @ObservedObject var model: HomeViewModel
     
     private let topPaddingRatio: CGFloat = 0.16
     private let buttonsPaddingRatio: CGFloat = 0.05
@@ -95,12 +95,10 @@ struct HomeProfileView: View {
 
 struct HomeProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeProfileView()
-            .environmentObject(HomeViewModel.makeForPreview())
+        HomeProfileView(model: HomeViewModel.makeForPreview())
             .background(Color.System.blue)
         
-        HomeProfileView()
-            .environmentObject(HomeViewModel.makeForPreview())
+        HomeProfileView(model: HomeViewModel.makeForPreview())
             .background(Color.System.blue)
             .redacted(reason: .placeholder)
     }

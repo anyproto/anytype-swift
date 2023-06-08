@@ -4,15 +4,18 @@ import ProtobufMessages
 import AnytypeCore
 
 protocol ObjectActionsServiceProtocol {
-    func delete(objectIds: [BlockId], completion: @escaping (Bool) -> ())
+    func delete(objectIds: [BlockId]) async throws
     
-    func setArchive(objectId: BlockId, _ isArchived: Bool)
     func setArchive(objectIds: [BlockId], _ isArchived: Bool)
-    func setFavorite(objectId: BlockId, _ isFavorite: Bool)
-    func convertChildrenToPages(contextID: BlockId, blocksIds: [BlockId], objectType: String) -> [BlockId]?
+    func setArchive(objectIds: [BlockId], _ isArchived: Bool) async throws
+    func setFavorite(objectIds: [BlockId], _ isFavorite: Bool)
+    func setFavorite(objectIds: [BlockId], _ isFavorite: Bool) async throws
+    func convertChildrenToPages(contextID: BlockId, blocksIds: [BlockId], typeId: String) -> [BlockId]?
     func updateBundledDetails(contextID: BlockId, details: [BundledDetails])
+    func updateBundledDetails(contextID: BlockId, details: [BundledDetails]) async throws
     func updateDetails(contextId: String, relationKey: String, value: DataviewGroupValue)
     func move(dashboadId: BlockId, blockId: BlockId, dropPositionblockId: BlockId, position: Anytype_Model_Block.Position)
+    func move(dashboadId: BlockId, blockId: BlockId, dropPositionblockId: BlockId, position: Anytype_Model_Block.Position) async throws
     func setLocked(_ isLocked: Bool, objectId: BlockId)
     func updateLayout(contextID: BlockId, value: Int)
     func duplicate(objectId: BlockId) -> BlockId?
@@ -26,8 +29,11 @@ protocol ObjectActionsServiceProtocol {
         templateId: String
     ) -> BlockId?
     
+    func addObjectsToCollection(contextId: BlockId, objectIds: [String]) async throws
+    
     func setObjectType(objectId: BlockId, objectTypeId: String)
-    func setObjectSetType(objectId: BlockId) -> BlockId
+    func setObjectSetType(objectId: BlockId) async throws
+    func setObjectCollectionType(objectId: BlockId) async throws
     func applyTemplate(objectId: BlockId, templateId: BlockId)
     func setSource(objectId: BlockId, source: [String]) async throws
     

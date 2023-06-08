@@ -14,13 +14,13 @@ struct HomeCollectionView: View {
         }
     }()
     
+    @ObservedObject var viewModel: HomeViewModel
     var cellData: [HomeCellData]
     let dragAndDropDelegate: DragAndDropDelegate?
     let offsetChanged: (CGPoint) -> Void
     let onTap: (HomeCellData) -> Void
     
     @State private var dropData = DropData()
-    @EnvironmentObject private var viewModel: HomeViewModel
     
     var body: some View {
         VStack(spacing: 0) {
@@ -51,7 +51,7 @@ struct HomeCollectionView: View {
                     }
                     .if(!data.isArchived) {
                         $0.contextMenu {
-                            HomeContextMenuView(cellData: data)
+                            HomeContextMenuView(cellData: data, viewModel: viewModel)
                         }
                     }
                 }
@@ -65,6 +65,6 @@ struct HomeCollectionView: View {
 
 struct HomeCollectionView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeCollectionView(cellData: [], dragAndDropDelegate: HomeViewModel.makeForPreview(), offsetChanged: { _ in }, onTap: { _ in })
+        HomeCollectionView(viewModel: HomeViewModel.makeForPreview(), cellData: [], dragAndDropDelegate: HomeViewModel.makeForPreview(), offsetChanged: { _ in }, onTap: { _ in })
     }
 }

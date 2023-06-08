@@ -7,7 +7,7 @@ struct SetKanbanView: View {
     @Binding var tableHeaderSize: CGSize
     @Binding var offset: CGPoint
     
-    @State private var dropData = KanbanCardDropData()
+    @State private var dropData = SetCardDropData()
     
     var headerMinimizedSize: CGSize
 
@@ -37,14 +37,13 @@ struct SetKanbanView: View {
         .padding(.top, -headerMinimizedSize.height)
     }
     
+    @ViewBuilder
     private var boardView: some View {
-        Group {
-            if model.isEmpty {
-                EmptyView()
-            } else {
-                Section(header: compoundHeader) {
-                    boardContent
-                }
+        if model.isEmptyViews {
+            EmptyView()
+        } else {
+            Section(header: compoundHeader) {
+                boardContent
             }
         }
     }
@@ -79,18 +78,26 @@ struct SetKanbanView: View {
 
     private var compoundHeader: some View {
         VStack(spacing: 0) {
-            Spacer.fixedHeight(headerMinimizedSize.height)
-            VStack {
-                HStack {
-                    SetHeaderSettings()
-                        .environmentObject(model)
-                        .frame(width: tableHeaderSize.width)
-                        .offset(x: 4, y: 8)
-                    Spacer()
-                }
-                Spacer.fixedHeight(16)
-            }
+            headerSettingsView
+            Spacer.fixedHeight(16)
         }
         .background(Color.Background.primary)
+    }
+    
+    private var headerSettingsView: some View {
+        HStack {
+            SetHeaderSettingsView(
+                model: SetHeaderSettingsViewModel(
+                    setDocument: model.setDocument,
+                    isActive: model.isActiveHeader,
+                    onViewTap: model.showViewPicker,
+                    onSettingsTap: model.showSetSettings,
+                    onCreateTap: model.createObject
+                )
+            )
+            .frame(width: tableHeaderSize.width)
+            .offset(x: 4, y: 8)
+            Spacer()
+        }
     }
 }

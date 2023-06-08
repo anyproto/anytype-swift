@@ -5,7 +5,7 @@ import AnytypeCore
 import UIKit
 
 final class ObjectActionsViewModel: ObservableObject {
-    var onLinkItselfToObjectHandler: RoutingAction<BlockId>?
+    var onLinkItselfToObjectHandler: RoutingAction<EditorScreenData>?
     
     var objectActions: [ObjectAction] {
         guard let details = details else { return [] }
@@ -28,14 +28,19 @@ final class ObjectActionsViewModel: ObservableObject {
     let openPageAction: (_ screenData: EditorScreenData) -> ()
     
     private let objectId: BlockId
-    private let service = ServiceLocator.shared.objectActionsService()
+    private let service: ObjectActionsServiceProtocol
+    private let blockActionsService: BlockActionsServiceSingleProtocol
     
     init(
         objectId: BlockId,
+        service: ObjectActionsServiceProtocol,
+        blockActionsService: BlockActionsServiceSingleProtocol,
         undoRedoAction: @escaping () -> (),
         openPageAction: @escaping (_ screenData: EditorScreenData) -> ()
     ) {
         self.objectId = objectId
+        self.service = service
+        self.blockActionsService = blockActionsService
         self.undoRedoAction = undoRedoAction
         self.openPageAction = openPageAction
     }
@@ -44,7 +49,7 @@ final class ObjectActionsViewModel: ObservableObject {
         guard let details = details else { return }
         
         let isArchived = !details.isArchived
-        service.setArchive(objectId: objectId, isArchived)
+        service.setArchive(objectIds: [objectId], isArchived)
         if isArchived {
             dismissSheet()
         }
@@ -53,7 +58,7 @@ final class ObjectActionsViewModel: ObservableObject {
     func changeFavoriteSate() {
         guard let details = details else { return }
 
-        service.setFavorite(objectId: objectId, !details.isFavorite)
+        service.setFavorite(objectIds: [objectId], !details.isFavorite)
     }
 
     func changeLockState() {
@@ -81,10 +86,27 @@ final class ObjectActionsViewModel: ObservableObject {
                 try? await targetDocument.open()
                 guard let id = targetDocument.children.last?.id else { return }
 
-                let targetObjectService = BlockActionsServiceSingle(contextId: objectId)
-                let _ = targetObjectService.add(targetId: id, info: .emptyLink(targetId: currentObjectId), position: .bottom)
-                
-                self.onLinkItselfToObjectHandler?(objectId)
+                if let details = targetDocument.details, details.isCollection {
+                    try await self.service.addObjectsToCollection(
+                        contextId: objectId,
+                        objectIds: [currentObjectId]
+                    )
+                    self.onLinkItselfToObjectHandler?(
+                        EditorScreenData(pageId: objectId, type: .set())
+                    )
+                    AnytypeAnalytics.instance().logLinkToObject(type: .collection)
+                } else {
+                    let _ = self.blockActionsService.add(
+                        contextId: objectId,
+                        targetId: id,
+                        info: .emptyLink(targetId: currentObjectId),
+                        position: .bottom
+                    )
+                    self.onLinkItselfToObjectHandler?(
+                        EditorScreenData(pageId: objectId, type: .page)
+                    )
+                    AnytypeAnalytics.instance().logLinkToObject(type: .object)
+                }
             }
         }
 

@@ -9,6 +9,7 @@ struct ObjectIconImageGuidelineSet {
     let placeholderImageGuideline: ImageGuideline?
     let staticImageGuideline: ImageGuideline?
     let bookmarkImageGuideline: ImageGuideline?
+    let spaceImageGuideline: ImageGuideline?
     
     func imageGuideline(for iconImage: ObjectIconImage) -> ImageGuideline? {
         switch iconImage {
@@ -22,6 +23,8 @@ struct ObjectIconImageGuidelineSet {
                 return emojiImageGuideline
             case .bookmark:
                 return bookmarkImageGuideline
+            case .space:
+                return spaceImageGuideline
             }
         case .todo:
             return todoImageGuideline

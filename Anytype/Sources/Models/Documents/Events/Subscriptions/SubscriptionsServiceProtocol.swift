@@ -20,13 +20,15 @@ enum SubscriptionUpdate {
 
 typealias SubscriptionCallback = (SubscriptionId, SubscriptionUpdate) -> ()
 protocol SubscriptionsServiceProtocol {
-    func hasSubscriptionDataDiff(with data: SubscriptionData) -> Bool
+   
+    func updateSubscription(data: SubscriptionData, required: Bool, update: @escaping SubscriptionCallback)
     
     func startSubscriptions(data: [SubscriptionData], update: @escaping SubscriptionCallback)
     func startSubscription(data: SubscriptionData, update: @escaping SubscriptionCallback)
+    // Wait until subscription started and received initial data
+    func startSubscriptionAsync(data: SubscriptionData, update: @escaping SubscriptionCallback) async
     
     func stopSubscriptions(ids: [SubscriptionId])
     func stopSubscription(id: SubscriptionId)
     func stopAllSubscriptions()
 }
-

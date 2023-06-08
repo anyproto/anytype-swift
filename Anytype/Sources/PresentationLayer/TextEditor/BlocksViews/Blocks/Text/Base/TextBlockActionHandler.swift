@@ -237,6 +237,7 @@ struct TextBlockActionHandler: TextBlockActionHandlerProtocol {
     }
 
     private func copy(range: NSRange) {
+        AnytypeAnalytics.instance().logCopyBlock()
         pasteboardService.copy(blocksIds: [info.id], selectedTextRange: range)
     }
 

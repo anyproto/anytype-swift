@@ -14,4 +14,5 @@ protocol EventsListenerProtocol: AnyObject {
     
     func startListening()
     
+    func stopListening()
 }

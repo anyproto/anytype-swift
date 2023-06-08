@@ -11,17 +11,17 @@ final class ProfileSubscriptionDataBuilder: ProfileSubscriptionDataBuilderProtoc
     
     func profile(id: String) -> SubscriptionData {
         
-        let keys = [
-            BundledRelationKey.id.rawValue,
-            BundledRelationKey.name.rawValue,
-            BundledRelationKey.iconImage.rawValue
-        ]
+        let keys: [BundledRelationKey] = .builder {
+            BundledRelationKey.id
+            BundledRelationKey.objectIconImageKeys
+            BundledRelationKey.titleKeys
+        }.uniqued()
 
         return .objects(
             SubscriptionData.Object(
                 identifier: SubscriptionId.profile,
                 objectIds: [id],
-                keys: keys
+                keys: keys.map { $0.rawValue }
             )
         )
     }

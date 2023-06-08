@@ -2,7 +2,7 @@ import SwiftUI
 import AnytypeCore
 
 struct DashboardWallpaper: View {
-    @EnvironmentObject private var model: SettingsViewModel
+    @ObservedObject private var model = DashboardWallpaperViewModel()
     
     var body: some View {
         Group {

@@ -56,16 +56,23 @@ final class ObjectHeaderViewModel: ObservableObject {
     }
 
     func buildShimmeringHeader() -> ObjectHeader {
-        let image = UIImage(color: .shimmering)
+        let usecase = ObjectIconImageUsecase.openedObject
+        let imageSize = usecase.objectIconImageGuidelineSet.emojiImageGuideline?.size ?? .zero
+        let image = UIImage().image(
+            imageSize: imageSize,
+            cornerRadius: 0,
+            side: imageSize.height,
+            backgroundColor: .Stroke.tertiary
+        )
         return .filled(
             state: .iconAndCover(
                 icon: .init(
-                    icon: .init(mode: .image(image), usecase: .openedObject),
+                    icon: .init(mode: .image(image), usecase: usecase),
                     layoutAlignment: .left,
                     onTap: {}
                 ),
                 cover: .init(
-                    coverType: .cover(.color(.shimmering)),
+                    coverType: .cover(.color(.Stroke.tertiary)),
                     onTap: {})
             ),
             isShimmering: true

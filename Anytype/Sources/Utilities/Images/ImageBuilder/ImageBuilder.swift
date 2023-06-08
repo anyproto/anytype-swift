@@ -60,29 +60,32 @@ extension ImageBuilder: ImageBuilderProtocol {
             return cachedImage
         }
         
-        let isOpaque = imageGuideline.cornersGuideline?.isOpaque ?? false
-        let format = UIGraphicsImageRendererFormat.preferred()
-        format.opaque = isOpaque
-        
-        let image = UIGraphicsImageRenderer(
-            size: imageGuideline.size,
-            format: format
-        )
-            .image { ctx in
-                ctx.cgContext.setFillColor(imageColor.cgColor)
-                ctx.fill(ctx.format.bounds)
-                
-                text.flatMap {
-                   draw(text: $0)
+        let image = UIImage.generateDynamicImage {
+            
+            let isOpaque = imageGuideline.cornersGuideline?.isOpaque ?? false
+            let format = UIGraphicsImageRendererFormat.preferred()
+            format.opaque = isOpaque
+            
+            return UIGraphicsImageRenderer(
+                size: imageGuideline.size,
+                format: format
+            )
+                .image { ctx in
+                    ctx.cgContext.setFillColor(imageColor.cgColor)
+                    ctx.fill(ctx.format.bounds)
+                    
+                    text.flatMap {
+                       draw(text: $0)
+                    }
+                    
                 }
-                
-            }
-            .rounded(
-                radius: imageGuideline.cornerRadius,
-                opaque: isOpaque,
-                backgroundColor: imageGuideline.cornersGuideline?.backgroundColor?.cgColor
-        )
-
+                .rounded(
+                    radius: imageGuideline.cornerRadius,
+                    opaque: isOpaque,
+                    backgroundColor: imageGuideline.cornersGuideline?.backgroundColor?.cgColor
+            )
+        }
+        
         imageStorage.saveImage(image, forKey: key)
 
         return image

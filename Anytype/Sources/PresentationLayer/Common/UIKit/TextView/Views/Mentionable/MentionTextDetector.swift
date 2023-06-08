@@ -4,7 +4,7 @@ protocol MentionTextDetectorProtocol {
     func removeMentionIfNeeded(textView: UITextView, replacementText: String) -> Bool
 }
 
-final class MentionTextDetector {
+final class MentionTextDetector: MentionTextDetectorProtocol {
     func removeMentionIfNeeded(textView: UITextView, replacementText: String) -> Bool {
         guard replacementText == "" else { return false }
         let mentionSearchRange = NSRange(location: 0, length: textView.selectedRange.location)

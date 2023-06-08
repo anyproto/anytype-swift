@@ -17,6 +17,8 @@ struct RelationsListView: View {
         HStack {
             editButton
             Spacer()
+            AnytypeText(Loc.relations, style: .uxTitle1Semibold, color: .Text.primary)
+            Spacer()
             createNewRelationButton
         }
         .frame(height: 48)
@@ -57,14 +59,11 @@ struct RelationsListView: View {
             LazyVStack(spacing: 0) {
                 ForEach(viewModel.sections) { section in
                     VStack(alignment: .leading, spacing: 0) {
-                        
                         Section(header: sectionHeader(title: section.title)) {
                             ForEach(section.relations) {
-                                row(with: $0)
+                                row(with: $0, addedToObject: section.addedToObject)
                             }
                         }
-                        
-                        Spacer().frame(height: 20)
                     }
                 }
             }
@@ -73,15 +72,19 @@ struct RelationsListView: View {
     }
     
     private func sectionHeader(title: String) -> some View {
-        AnytypeText(title, style: .uxTitle1Semibold, color: .Text.primary)
-            .frame(height: 48)
+        ListSectionHeaderView(title: title)
     }
     
-    private func row(with relation: Relation) -> some View {
-        RelationsListRowView(editingMode: $editingMode, starButtonAvailable: !viewModel.navigationBarButtonsDisabled, relation: relation) {
+    private func row(with relation: Relation, addedToObject: Bool) -> some View {
+        RelationsListRowView(
+            editingMode: $editingMode,
+            starButtonAvailable: !viewModel.navigationBarButtonsDisabled,
+            addedToObject: addedToObject,
+            relation: relation
+        ) {
             viewModel.removeRelation(relation: $0)
         } onStarTap: {
-            viewModel.changeRelationFeaturedState(relation: $0)
+            viewModel.changeRelationFeaturedState(relation: $0, addedToObject: addedToObject)
         } onEditTap: {
             viewModel.handleTapOnRelation(relation: $0)
         }

@@ -3,11 +3,16 @@ import BlocksModels
 import Combine
 import AnytypeCore
 
+struct FavoriteBlockDetails: Equatable {
+    let blockId: String
+    let details: ObjectDetails
+}
+
 protocol FavoriteSubscriptionServiceProtocol: AnyObject {
     func startSubscription(
         homeDocument: BaseDocumentProtocol,
         objectLimit: Int?,
-        update: @escaping (_ details: [ObjectDetails], _ count: Int) -> Void
+        update: @escaping (_ details: [FavoriteBlockDetails]) -> Void
     )
     func stopSubscription()
 }
@@ -16,17 +21,15 @@ final class FavoriteSubscriptionService: FavoriteSubscriptionServiceProtocol {
     
     private var subscriptions = [AnyCancellable]()
     private let objectDetailsStorage: ObjectDetailsStorage
-    private let objectTypeProvider: ObjectTypeProviderProtocol
     
-    init(objectDetailsStorage: ObjectDetailsStorage, objectTypeProvider: ObjectTypeProviderProtocol) {
+    init(objectDetailsStorage: ObjectDetailsStorage) {
         self.objectDetailsStorage = objectDetailsStorage
-        self.objectTypeProvider = objectTypeProvider
     }
     
     func startSubscription(
         homeDocument: BaseDocumentProtocol,
         objectLimit: Int?,
-        update: @escaping (_ details: [ObjectDetails], _ count: Int) -> Void
+        update: @escaping (_ details: [FavoriteBlockDetails]) -> Void
     ) {
         
         guard subscriptions.isEmpty else {
@@ -34,13 +37,12 @@ final class FavoriteSubscriptionService: FavoriteSubscriptionServiceProtocol {
             return
         }
         
-        // TODO: Discuss about publisher and maybe delete it
-        updateSubscription(children: homeDocument.children, objectLimit: objectLimit, update: update)
-        
-        homeDocument.updatePublisher
+        homeDocument.syncPublisher
+            .map { [weak self, homeDocument] in self?.createChildren(children: homeDocument.children, objectLimit: objectLimit) ?? [] }
+            .removeDuplicates()
             .receiveOnMain()
-            .sink { [weak self, homeDocument] links in
-                self?.updateSubscription(children: homeDocument.children, objectLimit: objectLimit, update: update)
+            .sink { result in
+                update(result)
             }
             .store(in: &subscriptions)
     }
@@ -49,25 +51,29 @@ final class FavoriteSubscriptionService: FavoriteSubscriptionServiceProtocol {
         subscriptions.removeAll()
     }
     
-    private func updateSubscription(children: [BlockInformation], objectLimit: Int?, update: @escaping (_ details: [ObjectDetails], _ count: Int) -> Void) {
+    private func createChildren(children: [BlockInformation], objectLimit: Int?) -> [FavoriteBlockDetails] {
+        var details: [FavoriteBlockDetails] = []
+        details.reserveCapacity(objectLimit ?? children.count)
         
-        let details: [ObjectDetails] = children.compactMap { info in
+        for info in children {
+            
+            if let objectLimit, details.count >= objectLimit {
+                break
+            }
             
             guard case .link(let link) = info.content else {
                 anytypeAssertionFailure(
                     "Not link type in home screen dashboard: \(info.content)",
                     domain: .homeView
                 )
-                return nil
+                continue
             }
         
-            guard let details = objectDetailsStorage.get(id: link.targetBlockID),
-                  details.isFavorite, !details.isArchived, !details.isDeleted,
-                  objectTypeProvider.isSupportedForEdit(typeId: details.type) else { return nil }
-            return details
+            guard let childDetails = objectDetailsStorage.get(id: link.targetBlockID),
+                  childDetails.isFavorite, childDetails.isVisibleForEdit else { continue }
+
+            details.append(FavoriteBlockDetails(blockId: info.id, details: childDetails))
         }
-        
-        let visibleDetails = objectLimit.map { Array(details.prefix($0)) } ?? details
-        update(visibleDetails, details.count)
+        return details
     }
 }

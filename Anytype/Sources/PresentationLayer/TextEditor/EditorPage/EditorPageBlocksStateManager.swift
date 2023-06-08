@@ -312,7 +312,10 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
     private func move(position: BlockPosition, targetId: BlockId, dropTargetId: BlockId) {
         guard !movingBlocksIds.contains(dropTargetId) else { return }
 
+        UISelectionFeedbackGenerator().selectionChanged()
+        
         blockActionsServiceSingle.move(
+            contextId: document.objectId,
             blockIds: movingBlocksIds,
             targetContextID: targetId,
             dropTargetID: dropTargetId,
@@ -440,6 +443,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
                 }
             }
 
+            AnytypeAnalytics.instance().logCopyBlock()
             pasteboardService.copy(blocksIds: blocksIds, selectedTextRange: NSRange())
             toastPresenter.show(message: Loc.copied)
         case .preview:

@@ -20,7 +20,7 @@ final class CodeLanguageListModuleAssembly: CodeLanguageListModuleAssemblyProtoc
         let viewModel = CodeLanguageListViewModel(
             document: document,
             blockId: blockId,
-            blockListService: serviceLocator.blockListService(documentId: document.objectId)
+            blockListService: serviceLocator.blockListService()
         )
         return CodeLanguageListViewController(viewModel: viewModel)
     }

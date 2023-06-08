@@ -1,8 +1,7 @@
 // MARK: - API Key
 
 enum AnalyticsConfiguration {
-    static let devAPIKey = "827af3255d76ef87541cd459a0a38242"
-    static let prodAPIKey = "1ba981d1a9afb8af8c81847ef3383a20"
+    static let apiKey = "AmplitudeApiKey"
 }
 
 // MARK: - Events name
@@ -21,7 +20,7 @@ enum AnalyticsEventsName {
 
     static let blockListDuplicate = "DuplicateBlock"
     static let blockListSetAlign = "ChangeBlockAlign"
-    static let blockListSetBackgroundColor = "ChangeBlockBackground"
+    static let changeBlockBackground = "ChangeBlockBackground"
     static let blockUpload = "UploadMedia"
     static let downloadFile = "DownloadMedia"
 
@@ -33,6 +32,9 @@ enum AnalyticsEventsName {
     static let blockBookmarkOpenUrl = "BlockBookmarkOpenUrl"
     static let openAsObject = "OpenAsObject"
     static let openAsSource = "OpenAsSource"
+    static let copyBlock = "CopyBlock"
+    static let pasteBlock = "PasteBlock"
+    static let setObjectDescription = "SetObjectDescription"
     
     // Relation events
     static let addExistingRelation = "AddExistingRelation"
@@ -52,8 +54,6 @@ enum AnalyticsEventsName {
     static let objectListDelete = "RemoveCompletely"
     static let defaultObjectTypeChange = "DefaultTypeChange"
     static let objectTypeChange = "ChangeObjectType"
-    static let searchQuery = "SearchQuery"
-    static let searchResult = "SearchResult"
     static let showObject = "ScreenObject"
     static let setLayoutAlign = "SetLayoutAlign"
     static let setIcon = "SetIcon"
@@ -62,6 +62,13 @@ enum AnalyticsEventsName {
     static let removeCover = "RemoveCover"
     static let addFeatureRelation = "FeatureRelation"
     static let removeFeatureRelation = "UnfeatureRelation"
+    static let linkToObject = "LinkToObject"
+    static let lockPage = "LockPage"
+    static let unlockPage = "UnlockPage"
+    static let undo = "Undo"
+    static let redo = "Redo"
+    static let duplicateObject = "DuplicateObject"
+    static let moveBlock = "MoveBlock"
 
     // Details events
     static let changeLayout = "ChangeLayout"
@@ -79,7 +86,7 @@ enum AnalyticsEventsName {
     static let disclaimerShow = "ScreenDisclaimer"
     static let authScreenShow = "ScreenIndex"
     static let loginScreenShow = "ScreenLogin"
-    static let signupScreenShow = "ScreenAuthRegistration"
+    static let screenAuthRegistration = "ScreenAuthRegistration"
     static let invitaionScreenShow = "ScreenAuthInvitation"
 
     static let homeShow = "ScreenHome"
@@ -88,16 +95,19 @@ enum AnalyticsEventsName {
 
     static let wallpaperSettingsShow = "ScreenSettingsWallpaper"
     static let accountSettingsShow = "ScreenSettingsAccount"
-    static let personalizationSettingsShow = "ScreenSettingsPersonalization"
+    static let screenSettingsPersonal = "ScreenSettingsPersonal"
     static let appearanceSettingsShow = "ScreenSettingsAppearance"
     static let aboutSettingsShow = "ScreenSettingsAbout"
+    static let screenSettingsDelete = "ScreenSettingsDelete"
+    static let settingsWallpaperSet = "SettingsWallpaperSet"
     
     static let deletionWarningShow = "ShowDeletionWarning"
 
     static let keychainPhraseScreenShow = "ScreenKeychain"
     static let keychainPhraseCopy = "KeychainCopy"
 
-    static let searchShow = "ScreenSearch"
+    static let screenSearch = "ScreenSearch"
+    static let searchResult = "SearchResult"
     static let objectRelationShow = "ScreenObjectRelation"
 
     // Navigation events
@@ -111,7 +121,37 @@ enum AnalyticsEventsName {
     static let relationUrlOpen = "RelationUrlOpen"
     static let relationUrlCopy = "RelationUrlCopy"
     static let relationUrlEditMobile = "RelationUrlEditMobile"
+    
+    // Collection
+    static let screenCollection = "ScreenCollection"
+    
+    // Set
+    static let screenSet = "ScreenSet"
+    static let setSelectQuery = "SetSelectQuery"
+    static let setTurnIntoCollection = "SetTurnIntoCollection"
+    
+    // Set/Collection: Views
+    static let addView = "AddView"
+    static let switchView = "SwitchView"
+    static let repositionView = "RepositionView"
+    static let duplicateView = "DuplicateView"
+    static let changeViewType = "ChangeViewType"
+    static let removeView = "RemoveView"
+    
+    // Set/Collection: Filters
+    static let addFilter = "AddFilter"
+    static let сhangeFilterValue = "ChangeFilterValue"
+    static let removeFilter = "RemoveFilter"
+    
+    // Set/Collection: Sorts
+    static let addSort = "AddSort"
+    static let changeSortValue = "ChangeSortValue"
+    static let repositionSort = "RepositionSort"
+    static let removeSort = "RemoveSort"
 
+    // Migration
+    static let migrationGoneWrong = "MigrationGoneWrong"
+    
     // Keyboard bar actions
     enum KeyboardBarAction {
         static let slashMenu = "KeyboardBarSlashMenu"
@@ -119,6 +159,20 @@ enum AnalyticsEventsName {
         static let selectionMenu = "KeyboardBarSelectionMenu"
         static let mentionMenu = "KeyboardBarMentionMenu"
         static let hideKeyboard = "KeyboardBarHideKeyboardMenu"
+    }
+    
+    enum Widget {
+        static let edit = "EditWidget"
+        static let add = "AddWidget"
+        static let delete = "DeleteWidget"
+        static let changeSource = "ChangeWidgetSource"
+        static let changeLayout = "ChangeWidgetLayout"
+        static let reorderWidget = "ReorderWidget"
+    }
+    
+    enum Sidebar {
+        static let openGroupToggle = "OpenSidebarGroupToggle"
+        static let closeGroupToggle = "CloseSidebarGroupToggle"
     }
 }
 
@@ -140,15 +194,6 @@ enum AnalyticsEventsKeychainContext: String {
     case signup = "FirstSession"
 }
 
-// MARK: - Search context
-
-enum AnalyticsEventsSearchContext: String {
-    /// General search
-    case general = "ScreenSearch"
-    case mention = "MenuMention"
-    case menuSearch = "MenuSearch"
-}
-
 // MARK: - Properties key
 
 enum AnalyticsEventsPropertiesKey {
@@ -163,11 +208,16 @@ enum AnalyticsEventsPropertiesKey {
 
     static let type = "type"
     static let objectType = "objectType"
+    static let embedType = "embedType"
     static let length = "length"
-    static let index = "index"
     static let layout = "layout"
     static let align = "align"
     static let format = "format"
+    static let condition = "condition"
+    static let linkType = "linkType"
+    static let view = "view"
+    static let context = "context"
+    static let color = "color"
 }
 
 enum AnalyticsEventsTypeValues {
@@ -184,6 +234,80 @@ enum AnalyticsEventsRouteKind: String {
 
 enum AnalyticsEventsRelationType: String {
     case menu = "menu"
-    case set = "set"
+    case dataview = "dataview"
     case block = "block"
+}
+
+enum AnalyticsEventsSetQueryType {
+    static let type = "type"
+}
+
+enum AnalyticsEventsSetCollectionEmbedType {
+    static let object = "object"
+}
+
+enum AnalyticsEventsLinkToObjectType: String {
+    case object = "Object"
+    case collection = "Collection"
+}
+
+enum AnalyticsEventsMigrationType: String {
+    case complete = "complete"
+    case instruсtions = "instruсtions"
+    case download = "download"
+    case exit = "exit"
+}
+
+enum AnalyticsWidgetSource {
+    case favorites
+    case recent
+    case sets
+    case collections
+    case bin
+    case object(type: AnalyticsObjectType)
+    
+    var analyticsId: String {
+        switch self {
+        case .favorites:
+            return "Favorites"
+        case .recent:
+            return "Recent"
+        case .sets:
+            return "Sets"
+        case .collections:
+            return "Collections"
+        case .bin:
+            return "Bin"
+        case .object(let type):
+            return type.analyticsId
+        }
+    }
+}
+
+enum AnalyticsObjectType {
+    case object(typeId: String)
+    case custom
+    
+    var analyticsId: String {
+        switch self {
+        case .object(let typeId):
+            return typeId
+        case .custom:
+            return AnalyticsEventsTypeValues.customType
+        }
+    }
+}
+
+enum AnalyticsView: String {
+    case widget = "Widget"
+}
+
+enum AnalyticsWidgetRoute: String {
+    case addWidget = "AddWidget"
+    case inner = "Inner"
+}
+
+enum AnalyticsWidgetContext: String {
+    case home = "Home"
+    case editor = "Editor"
 }

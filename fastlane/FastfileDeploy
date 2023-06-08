@@ -17,7 +17,7 @@ platform :ios do
   # Private lanes
 
   private_lane :deploy do |options| 
-    xcodeproj = "Anytype.xcodeproj"
+    xcodeproj = ENV["APP_PROJECT"]
     current_branch = git_branch
     temp_branch = "#{current_branch}-temp"
 
@@ -31,7 +31,8 @@ platform :ios do
     sh("git checkout -b " + temp_branch)
 
     build_number = increment_build_number(xcodeproj: xcodeproj)
-    version = get_version_number(xcodeproj: xcodeproj, target: "Anytype")
+    version = get_version_number(xcodeproj: xcodeproj, target: ENV["APP_TARGET"])
+    old_tag_name = sh("git describe --first-parent --tags --abbrev=0").chomp
 
     commit_version_bump(
       message: "Bump version #{version}(#{build_number})",
@@ -45,18 +46,26 @@ platform :ios do
         no_badge: true
       )
     end
+
+    set_amplitude_api_key_to_info_plist
+    set_sentry_dsn_to_info_plist
+    
     
     build_app(
-      scheme: "Anytype", 
-      configuration: options[:release] ? "Release" : "Debug-Nightly",
+      scheme: ENV["APP_TARGET"], 
+      configuration: options[:release] ? ENV["APP_CONF_RELEASE"] : ENV["APP_CONF_DEVELOP"],
       include_symbols: true,
       use_system_scm: true,
-      output_directory: "./build_app_results",
-      xcargs: ENV['BUILD_OPTIONS']
+      archive_path: "./build/archive",
+      output_directory: "./build/result",
+      xcargs: ENV['BUILD_OPTIONS'],
+      cloned_source_packages_path: ENV['SPM_DERIVED_DATA']
     )
 
     upload_build_to_testflight
-    upload_dsyms_to_crashlytics(release: options[:release])
+
+    # Reset icon/info.plist changes
+    reset_git_repo(skip_clean: true)
 
     sh("git checkout " + current_branch)
 
@@ -72,25 +81,23 @@ platform :ios do
       force: true
     )
 
-    # Reset icon changes
-    reset_git_repo(skip_clean: true)
+    push_to_git_remote(no_verify: true)
+    
+    upload_dsyms_to_sentry
 
-    push_to_git_remote
+    if current_branch == "develop" || current_branch == "release"
+      add_linear_comment(
+        from_tag: old_tag_name,
+        to_tag: tag_name,
+        comment: "Implemented in `#{version}(#{build_number})`"
+      )
+    end
 
     build_name = options[:release] ? "Anytype" : "Anytype Dev"
     dsym_paths = []
     Dir.chdir("..") do
-      dsym_paths = Dir["./build_app_results/*.dSYM.zip"]
+      dsym_paths = Dir["./build/result/*.dSYM.zip"]
     end
-
-
-    set_github_release(
-      repository_name: "anytypeio/ios-anytype",
-      api_token: ENV['PERSONAL_TOKEN_FOR_GITHUB_RELEASE'],
-      tag_name: tag_name,
-      name: "#{build_name} #{version}(#{build_number})",
-      upload_assets: dsym_paths
-    )
 
   end
 
@@ -109,20 +116,32 @@ platform :ios do
     )
   end
 
-  private_lane :upload_dsyms_to_crashlytics do |options|
-    gsp_plist = options[:release] ? "GoogleService-Info.plist" : "GoogleService-Info-Dev.plist"
-    dsym_paths = []
+  private_lane :upload_dsyms_to_sentry do |options|
 
-    Dir.chdir("..") do
-      dsym_paths = Dir["./build_app_results/*.dSYM.zip"]
-    end
+    sentry_upload_dif(
+      url: 'https://sentry.anytype.io',
+      auth_token: ENV["SENTRY_AUTH_TOKEN"],
+      org_slug: 'anytype',
+      project_slug: 'ios',
+      path: "./build/result"
+    )
+  end
 
-    upload_symbols_to_crashlytics(
-      dsym_paths: dsym_paths,
-      gsp_path: "./Anytype/Resources/Plists/#{gsp_plist}",
-      binary_path: './Scripts/firebase/upload-symbols',
-      dsym_worker_threads: 2,
-      debug: true
+  private_lane :set_amplitude_api_key_to_info_plist do |options|
+
+    set_info_plist_value(
+      path: "./Anytype/Supporting files/Info.plist", 
+      key: "AmplitudeApiKey", 
+      value: ENV["AMPLITUDE_API_KEY"]
+    )
+  end
+
+  private_lane :set_sentry_dsn_to_info_plist do |options|
+
+    set_info_plist_value(
+      path: "./Anytype/Supporting files/Info.plist", 
+      key: "SentryDSN",
+      value: ENV["SENTRY_DSN"]
     )
   end
 

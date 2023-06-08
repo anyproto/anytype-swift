@@ -1,0 +1,67 @@
+import UIKit
+
+struct ColorInfo: Hashable {
+    let name: String
+    let color: UIColor
+}
+
+struct ColorCollectionInfo: Hashable {
+    let name: String
+    let colors: [ColorInfo]
+}
+
+struct ColorAssetInfo: Hashable {
+    let name: String
+    let collections: [ColorCollectionInfo]
+}
+
+{% macro colorsBlock assets prefix %}
+    {% for asset in assets %}
+    {% if asset.type == "color" %}
+        ColorInfo(name: "{{asset.name}}", color: {{prefix}}.{{asset.name|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords}}){{ ", " if not forloop.last }}
+    {% endif %}
+    {% endfor %}
+{% endmacro %}
+{% macro catalogsBlock assets prefix %}
+    {% for asset in assets %}
+    {% if asset.isNamespaced == "true" %}
+        {{prefix}}.{{asset.name|swiftIdentifier:"pretty"|escapeReservedKeywords}}.collectionInfo{{ ", " if not forloop.last }}
+    {% endif %}
+    {% endfor %}
+{% endmacro %}
+{% macro colorExtensionBlock assets prefix %}
+    {% for asset in assets %}
+    {% set assetName %}{{prefix}}.{{asset.name|swiftIdentifier:"pretty"|escapeReservedKeywords}}{% endset %}
+    {% if asset.isNamespaced == "true" %}
+extension {{assetName}} {
+    static let collectionInfo = ColorCollectionInfo(
+        name: "{{asset.name}}",
+        colors: [
+            {% filter indent:4," ",true %}
+            {% call colorsBlock asset.items assetName %}
+            {% endfilter %}
+        ]
+    )
+}
+    {% endif %}
+    {% endfor %}
+{% endmacro %}
+extension UIColor {
+    static let anytypeAssetsInfo: [ColorAssetInfo] = [
+        {% for catalog in catalogs %}
+        ColorAssetInfo(
+            name: "{{catalog.name}}",
+            collections: [
+            {% filter indent:8," ",true %}
+            {% call catalogsBlock catalog.assets "UIColor" %}
+            {% endfilter %}
+            ]
+        ){{ ", " if not forloop.last }}
+        {% endfor %}
+    ]
+}
+
+{% for catalog in catalogs %}
+    {% call colorExtensionBlock catalog.assets "UIColor" %}
+
+{% endfor %}

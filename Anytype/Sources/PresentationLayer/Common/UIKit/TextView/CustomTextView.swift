@@ -15,7 +15,6 @@ final class CustomTextView: UIView {
     // MARK: - Private variables
     
     private(set) lazy var textView = createTextView()
-    private var firstResponderSubscription: AnyCancellable?
     
     // MARK: - Initializers
     

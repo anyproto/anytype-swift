@@ -6,8 +6,6 @@ import Foundation
 
 public enum BundledRelationKey: String {
 
-    case meditation = "meditation"
-
     case tag = "tag"
 
     /// Camera used to capture image or video
@@ -15,8 +13,6 @@ public enum BundledRelationKey: String {
 
     /// Height of image/video in pixels
     case heightInPixels = "heightInPixels"
-
-    case location = "location"
 
     /// Date when the object was initially created
     case createdDate = "createdDate"
@@ -44,8 +40,6 @@ public enum BundledRelationKey: String {
     /// Specifies whether template is provided by anytype
     case templateIsBundled = "templateIsBundled"
 
-    case shipTo = "shipTo"
-
     case dateOfBirth = "dateOfBirth"
 
     /// Object restrictions list
@@ -69,12 +63,6 @@ public enum BundledRelationKey: String {
 
     case hypothesisAssumptions = "hypothesisAssumptions"
 
-    case gratefulFor = "gratefulFor"
-
-    case founders = "founders"
-
-    case website = "website"
-
     /// Type of the underlying value
     case relationFormat = "relationFormat"
 
@@ -85,10 +73,6 @@ public enum BundledRelationKey: String {
     case iconImage = "iconImage"
 
     case ingredients = "ingredients"
-
-    case total = "total"
-
-    case responsible = "responsible"
 
     case genre = "genre"
 
@@ -102,8 +86,6 @@ public enum BundledRelationKey: String {
 
     case twitter = "twitter"
 
-    case resources = "resources"
-
     case userStories = "userStories"
 
     case relationDefaultValue = "relationDefaultValue"
@@ -112,8 +94,6 @@ public enum BundledRelationKey: String {
 
     /// Audio record's album name
     case audioAlbum = "audioAlbum"
-
-    case participants = "participants"
 
     case problem = "problem"
 
@@ -129,15 +109,6 @@ public enum BundledRelationKey: String {
     /// Task status
     case status = "status"
 
-    case candidate = "candidate"
-
-    case happenings = "happenings"
-
-    /// Duration of audio/video file in seconds
-    case durationInSeconds = "durationInSeconds"
-
-    case billToAddress = "billToAddress"
-
     case logic = "logic"
 
     case alternative = "alternative"
@@ -148,9 +119,6 @@ public enum BundledRelationKey: String {
 
     /// Specify if object is hidden
     case isHidden = "isHidden"
-
-    /// A subsidiary, subsidiary company or daughter company is a company owned or controlled by another company, which is called the parent company or holding company
-    case subsidiaries = "subsidiaries"
 
     case additional = "additional"
 
@@ -173,8 +141,6 @@ public enum BundledRelationKey: String {
     case stakeholders = "stakeholders"
 
     case measureOfSuccess = "measureOfSuccess"
-
-    case notes = "notes"
 
     /// List of recommended relations
     case recommendedRelations = "recommendedRelations"
@@ -199,8 +165,6 @@ public enum BundledRelationKey: String {
 
     case dueDate = "dueDate"
 
-    case ceo = "ceo"
-
     case records = "records"
 
     /// 1 emoji(can contains multiple UTF symbols) used as an icon
@@ -209,13 +173,8 @@ public enum BundledRelationKey: String {
     /// 1-image, 2-color, 3-gradient, 4-prebuilt bg image. Value stored in coverId
     case coverType = "coverType"
 
-    /// A ticker symbol or stock symbol is an abbreviation used to uniquely identify publicly traded shares of a particular stock on a particular stock market
-    case tickerSymbol = "tickerSymbol"
-
     /// Image y offset of the provided image
     case coverY = "coverY"
-
-    case story = "story"
 
     case time = "time"
 
@@ -226,8 +185,6 @@ public enum BundledRelationKey: String {
     case collectionOf = "collectionOf"
 
     case events = "events"
-
-    case owner = "owner"
 
     case timeframe = "timeframe"
 
@@ -252,25 +209,13 @@ public enum BundledRelationKey: String {
 
     case stars = "stars"
 
-    /// Repeat words that someone else has said or written
-    case quote = "quote"
-
     /// Space object belongs to
     case workspaceId = "workspaceId"
-
-    case journaling = "journaling"
-
-    case billTo = "billTo"
 
     /// Audio record's genre name
     case audioGenre = "audioGenre"
 
-    case intentions = "intentions"
-
     case telegram = "telegram"
-
-    /// Relation that indicates document in draft state
-    case isDraft = "isDraft"
 
     case trailer = "trailer"
 
@@ -278,10 +223,6 @@ public enum BundledRelationKey: String {
     case name = "name"
 
     case mood = "mood"
-
-    case agenda = "agenda"
-
-    case number = "number"
 
     /// The text lyrics of the music record
     case audioLyrics = "audioLyrics"
@@ -303,8 +244,6 @@ public enum BundledRelationKey: String {
     /// Relation that stores the object's type
     case type = "type"
 
-    case numberOfEmployees = "numberOfEmployees"
-
     /// Anytype layout ID(from pb enum)
     case layout = "layout"
 
@@ -322,8 +261,6 @@ public enum BundledRelationKey: String {
 
     case occupation = "occupation"
 
-    case _7hourssleep = "7hourssleep"
-
     /// Image x offset of the provided image
     case coverX = "coverX"
 
@@ -331,15 +268,11 @@ public enum BundledRelationKey: String {
 
     case facebook = "facebook"
 
-    case address = "address"
-
     /// An image is an artifact that depicts visual perception, such as a photograph or other two-dimensional picture
     case picture = "picture"
 
     /// Link to itself. Used in databases
     case id = "id"
-
-    case stockprice = "stockprice"
 
     /// Web address, a reference to a web resource that specifies its location on a computer network and a mechanism for retrieving it
     case url = "url"
@@ -347,8 +280,6 @@ public enum BundledRelationKey: String {
     case objectives = "objectives"
 
     case cameraIso = "cameraIso"
-
-    case healthyEating = "healthyEating"
 
     /// Relation that indicates document has been deleted
     case isDeleted = "isDeleted"
@@ -359,10 +290,6 @@ public enum BundledRelationKey: String {
     case servings = "servings"
 
     case category = "category"
-
-    case shipToAddress = "shipToAddress"
-
-    case founded = "founded"
 
     /// Can contains image hash, color or prebuild bg id, depends on coverType relation
     case coverId = "coverId"
@@ -375,14 +302,8 @@ public enum BundledRelationKey: String {
 
     case questions = "questions"
 
-    case worriedAbout = "worriedAbout"
-
-    case headquarters = "headquarters"
-
     /// Width of image/video in pixels
     case widthInPixels = "widthInPixels"
-
-    case running = "running"
 
     case progress = "progress"
 
@@ -400,9 +321,6 @@ public enum BundledRelationKey: String {
 
     case job = "job"
 
-    /// Have been added to library from marketplace
-    case mpAddedToLibrary = "mpAddedToLibrary"
-
     /// Important relations that always appear at the top of the object
     case featuredRelations = "featuredRelations"
 
@@ -416,4 +334,24 @@ public enum BundledRelationKey: String {
     case source = "source"
 
     case sourceObject = "sourceObject"
+
+    case oldAnytypeID = "oldAnytypeID"
+
+    /// Space Dashboard object ID
+    case spaceDashboardId = "spaceDashboardId"
+
+    /// Choose one of our pre-installed icons during On-boarding
+    case iconOption = "iconOption"
+
+    /// There are two options of accessibility of workspace - private (0) or public (1)
+    case spaceAccessibility = "spaceAccessibility"
+
+    /// File path or url with original object
+    case sourceFilePath = "sourceFilePath"
+
+    /// File sync status
+    case fileSyncStatus = "fileSyncStatus"
+
+    /// Last change ID
+    case lastChangeId = "lastChangeId"
 }

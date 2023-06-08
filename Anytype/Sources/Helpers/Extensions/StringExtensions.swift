@@ -1,10 +1,6 @@
 import UIKit
 
 extension String {
-
-    var containsOnlyEmoji: Bool {
-        !isEmpty && !contains { !$0.isEmoji }
-    }
     
     var leftIndented: String {
         return "      " + self

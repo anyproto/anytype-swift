@@ -16,6 +16,7 @@ class KeyboardActionHandlerTests: XCTestCase {
         listService = BlockListServiceMock()
         infoContainer = InfoContainerMock()
         handler = KeyboardActionHandler(
+            documentId: "",
             service: service,
             listService: listService,
             toggleStorage: toggleStorage,

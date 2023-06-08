@@ -7,120 +7,100 @@ import SwiftProtobuf
 import AnytypeCore
 
 class BlockListService: BlockListServiceProtocol {
-    private let contextId: BlockId
-    init(contextId: BlockId) {
-        self.contextId = contextId
+    
+    func setBlockColor(objectId: BlockId, blockIds: [BlockId], color: MiddlewareColor) {
+        _ = try? ClientCommands.blockTextListSetColor(.with {
+            $0.contextID = objectId
+            $0.blockIds = blockIds
+            $0.color = color.rawValue
+        }).invoke(errorDomain: .blockListService)
     }
     
-    func setBlockColor(blockIds: [BlockId], color: MiddlewareColor) {
-        Anytype_Rpc.BlockText.ListSetColor.Service
-            .invoke(contextID: contextId, blockIds: blockIds, color: color.rawValue)
-            .map { EventsBunch(event: $0.event) }
-            .getValue(domain: .blockListService)?
-            .send()
-    }
-    
-    func setFields(blockId: BlockId, fields: BlockFields) {
-        let fieldsRequest = Anytype_Rpc.Block.ListSetFields.Request.BlockField(blockID: blockId, fields: .init(fields: fields))
-        Anytype_Rpc.Block.ListSetFields.Service
-            .invoke(contextID: contextId, blockFields: [fieldsRequest])
-            .map { EventsBunch(event: $0.event) }
-            .getValue(domain: .blockListService)?
-            .send()
+    func setFields(objectId: BlockId, blockId: BlockId, fields: BlockFields) {
+        let fieldsRequest = Anytype_Rpc.Block.ListSetFields.Request.BlockField.with {
+            $0.blockID = blockId
+            $0.fields = .with {
+                $0.fields = fields
+            }
+        }
+        _ = try? ClientCommands.blockListSetFields(.with {
+            $0.contextID = objectId
+            $0.blockFields = [fieldsRequest]
+        }).invoke(errorDomain: .blockListService)
     }
 
     func changeMarkup(
+        objectId: BlockId,
         blockIds: [BlockId],
         markType: MarkupType
     ) {
         guard let mark = markType.asMiddleware else { return }
-        Anytype_Rpc.BlockText.ListSetMark.Service
-            .invoke(contextID: contextId, blockIds: blockIds, mark: mark
-        )
-            .map { EventsBunch(event: $0.event) }
-            .getValue(domain: .blockListService)?
-            .send()
+        _ = try? ClientCommands.blockTextListSetMark(.with {
+            $0.contextID = objectId
+            $0.blockIds = blockIds
+            $0.mark = mark
+        }).invoke(errorDomain: .blockListService)
     }
 
-    func setBackgroundColor(blockIds: [BlockId], color: MiddlewareColor) {
-        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.blockListSetBackgroundColor)
-
-        Anytype_Rpc.Block.ListSetBackgroundColor.Service
-            .invoke(contextID: contextId, blockIds: blockIds, color: color.rawValue)
-            .map { EventsBunch(event: $0.event) }
-            .getValue(domain: .blockListService)?
-            .send()
+    func setBackgroundColor(objectId: BlockId, blockIds: [BlockId], color: MiddlewareColor) {
+        AnytypeAnalytics.instance().logChangeBlockBackground(color: color)
+        
+        _ = try? ClientCommands.blockListSetBackgroundColor(.with {
+            $0.contextID = objectId
+            $0.blockIds = blockIds
+            $0.color = color.rawValue
+        }).invoke(errorDomain: .blockListService)
     }
 
-    func setAlign(blockIds: [BlockId], alignment: LayoutAlignment) {
+    func setAlign(objectId: BlockId, blockIds: [BlockId], alignment: LayoutAlignment) {
         AnytypeAnalytics.instance().logSetAlignment(alignment, isBlock: blockIds.isNotEmpty)
 
-        Anytype_Rpc.Block.ListSetAlign.Service
-            .invoke(contextID: contextId, blockIds: blockIds, align: alignment.asMiddleware)
-            .map { EventsBunch(event: $0.event) }
-            .getValue(domain: .blockListService)?
-            .send()
+        _ = try? ClientCommands.blockListSetAlign(.with {
+            $0.contextID = objectId
+            $0.blockIds = blockIds
+            $0.align = alignment.asMiddleware
+        }).invoke(errorDomain: .blockListService)
     }
 
-    func setDivStyle(blockIds: [BlockId], style: BlockDivider.Style) {
-        Anytype_Rpc.BlockDiv.ListSetStyle.Service
-            .invoke(contextID: contextId, blockIds: blockIds, style: style.asMiddleware)
-            .map { EventsBunch(event: $0.event) }
-            .getValue(domain: .blockListService)?
-            .send()
-    }
-
-    func replace(blockIds: [BlockId], targetId: BlockId) {
-        Anytype_Rpc.Block.ListMoveToExistingObject.Service.invoke(
-            contextID: contextId,
-            blockIds: blockIds,
-            targetContextID: contextId,
-            dropTargetID: targetId,
-            position: .replace
-        )
-            .map { EventsBunch(event: $0.event) }
-            .getValue(domain: .blockListService)?
-            .send()
+    func replace(objectId: BlockId, blockIds: [BlockId], targetId: BlockId) {
+        _ = try? ClientCommands.blockListMoveToExistingObject(.with {
+            $0.contextID = objectId
+            $0.blockIds = blockIds
+            $0.targetContextID = objectId
+            $0.dropTargetID = targetId
+            $0.position = .replace
+        }).invoke(errorDomain: .blockListService)
     }
     
-    func move(blockId: BlockId, targetId: BlockId, position: Anytype_Model_Block.Position) {
-        Anytype_Rpc.Block.ListMoveToExistingObject.Service.invoke(
-            contextID: contextId,
-            blockIds: [blockId],
-            targetContextID: contextId,
-            dropTargetID: targetId,
-            position: position
-        )
-            .map { EventsBunch(event: $0.event) }
-            .getValue(domain: .blockListService)?
-            .send()
+    func move(objectId: BlockId, blockId: BlockId, targetId: BlockId, position: Anytype_Model_Block.Position) {
+        _ = try? ClientCommands.blockListMoveToExistingObject(.with {
+            $0.contextID = objectId
+            $0.blockIds = [blockId]
+            $0.targetContextID = objectId
+            $0.dropTargetID = targetId
+            $0.position = position
+        }).invoke(errorDomain: .blockListService)
     }
     
-    func moveToPage(blockId: BlockId, pageId: BlockId) {
-        Anytype_Rpc.Block.ListMoveToExistingObject.Service.invoke(
-            contextID: contextId,
-            blockIds: [blockId],
-            targetContextID: pageId,
-            dropTargetID: "",
-            position: .bottom
-        )
-            .map { EventsBunch(event: $0.event) }
-            .getValue(domain: .blockListService)?
-            .send()
+    func moveToPage(objectId: BlockId, blockId: BlockId, pageId: BlockId) {
+        _ = try? ClientCommands.blockListMoveToExistingObject(.with {
+            $0.contextID = objectId
+            $0.blockIds = [blockId]
+            $0.targetContextID = pageId
+            $0.dropTargetID = ""
+            $0.position = .bottom
+        }).invoke(errorDomain: .blockListService)
     }
 
-    func setLinkAppearance(blockIds: [BlockId], appearance: BlockLink.Appearance) {
-        Anytype_Rpc.BlockLink.ListSetAppearance.Service.invoke(
-            contextID: contextId,
-            blockIds: blockIds,
-            iconSize: appearance.iconSize.asMiddleware,
-            cardStyle: appearance.cardStyle.asMiddleware,
-            description_p: appearance.description.asMiddleware,
-            relations: appearance.relations.map(\.rawValue)
-        )
-            .map { EventsBunch(event: $0.event) }
-            .getValue(domain: .blockListService)?
-            .send()
+    func setLinkAppearance(objectId: BlockId, blockIds: [BlockId], appearance: BlockLink.Appearance) {
+        _ = try? ClientCommands.blockLinkListSetAppearance(.with {
+            $0.contextID = objectId
+            $0.blockIds = blockIds
+            $0.iconSize = appearance.iconSize.asMiddleware
+            $0.cardStyle = appearance.cardStyle.asMiddleware
+            $0.description_p = appearance.description.asMiddleware
+            $0.relations = appearance.relations.map(\.rawValue)
+        }).invoke(errorDomain: .blockListService)
     }
 }
 
@@ -128,30 +108,39 @@ private extension MarkupType {
     var asMiddleware: Anytype_Model_Block.Content.Text.Mark? {
         switch self {
         case .bold:
-            return Anytype_Model_Block.Content.Text.Mark.init(range: .init(), type: .bold, param: "")
+            return Anytype_Model_Block.Content.Text.Mark(range: .init(), type: .bold, param: "")
         case .italic:
-            return Anytype_Model_Block.Content.Text.Mark.init(range: .init(), type: .italic, param: "")
+            return Anytype_Model_Block.Content.Text.Mark(range: .init(), type: .italic, param: "")
         case .keyboard:
-            return Anytype_Model_Block.Content.Text.Mark.init(range: .init(), type: .keyboard, param: "")
+            return Anytype_Model_Block.Content.Text.Mark(range: .init(), type: .keyboard, param: "")
         case .strikethrough:
-            return Anytype_Model_Block.Content.Text.Mark.init(range: .init(), type: .strikethrough, param: "")
+            return Anytype_Model_Block.Content.Text.Mark(range: .init(), type: .strikethrough, param: "")
         case .underscored:
-            return Anytype_Model_Block.Content.Text.Mark.init(range: .init(), type: .underscored, param: "")
+            return Anytype_Model_Block.Content.Text.Mark(range: .init(), type: .underscored, param: "")
         case let .textColor(color):
             let param = color.middlewareString(background: false) ?? ""
-            return Anytype_Model_Block.Content.Text.Mark.init(range: .init(), type: .textColor, param: param)
+            return Anytype_Model_Block.Content.Text.Mark(range: .init(), type: .textColor, param: param)
         case let .backgroundColor(color):
             let param = color.middlewareString(background: true) ?? ""
-            return Anytype_Model_Block.Content.Text.Mark.init(range: .init(), type: .backgroundColor, param: param)
+            return Anytype_Model_Block.Content.Text.Mark(range: .init(), type: .backgroundColor, param: param)
         case let .link(url):
             let param = url?.absoluteString ?? ""
-            return Anytype_Model_Block.Content.Text.Mark.init(range: .init(), type: .link, param: param)
+            return Anytype_Model_Block.Content.Text.Mark(range: .init(), type: .link, param: param)
         case let .linkToObject(blockId):
-            return Anytype_Model_Block.Content.Text.Mark.init(range: .init(), type: .object, param: blockId ?? "")
+            return Anytype_Model_Block.Content.Text.Mark(range: .init(), type: .object, param: blockId ?? "")
         case let .mention(mentionData):
-            return Anytype_Model_Block.Content.Text.Mark.init(range: .init(), type: .mention, param: mentionData.blockId)
+            return Anytype_Model_Block.Content.Text.Mark(range: .init(), type: .mention, param: mentionData.blockId)
         case let .emoji(emoji):
-            return Anytype_Model_Block.Content.Text.Mark.init(range: .init(), type: .emoji, param: emoji.value)
+            return Anytype_Model_Block.Content.Text.Mark(range: .init(), type: .emoji, param: emoji.value)
         }
+    }
+}
+
+private extension Anytype_Model_Block.Content.Text.Mark {
+    init(range: Anytype_Model_Range, type: Anytype_Model_Block.Content.Text.Mark.TypeEnum, param: String) {
+        self.init()
+        self.range = range
+        self.type = type
+        self.param = param
     }
 }

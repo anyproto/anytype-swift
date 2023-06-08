@@ -76,7 +76,7 @@ struct SimpleTableMenuView: View {
             AnytypeText(
                 item.title,
                 style: .subheading,
-                color: item.isSelected ? Color.Button.selected : Color.Button.active
+                color: item.isSelected ? Color.Button.button : Color.Button.active
             )
         }
     }

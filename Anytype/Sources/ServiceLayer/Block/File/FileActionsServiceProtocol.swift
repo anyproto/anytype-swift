@@ -3,12 +3,25 @@ import Combine
 import AnytypeCore
 import Foundation
 
+enum FileUploadingSource {
+    case path(String)
+    case itemProvider(NSItemProvider)
+}
+
+struct FileData {
+    let path: String
+    let isTemporary: Bool
+}
+
 protocol FileActionsServiceProtocol {
     
-    func syncUploadDataAt(filePath: String, contextID: BlockId, blockID: BlockId)
+    func createFileData(source: FileUploadingSource) async throws -> FileData
     
-    func asyncUploadDataAt(filePath: String, contextID: BlockId, blockID: BlockId) -> AnyPublisher<EventsBunch, Error>
+    func uploadDataAt(data: FileData, contextID: BlockId, blockID: BlockId) async throws
+    func uploadImage(data: FileData) async throws -> Hash
     
-    func syncUploadImageAt(localPath: String) -> Hash?
-    func asyncUploadImage(at localPathURL: URL) -> AnyPublisher<Hash?, Error>
+    func uploadDataAt(source: FileUploadingSource, contextID: BlockId, blockID: BlockId) async throws
+    func uploadImage(source: FileUploadingSource) async throws -> Hash
+    
+    func clearCache() async throws
 }

@@ -12,9 +12,7 @@ struct ShimmeringBlockViewModel: SystemContentConfiguationProvider {
     }
 
     func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration {
-        let shimmeringImage = UIImage(asset: ImageAsset.TextEditor.shimmering)
-
-        return ShimmeringBlockConfiguration(shimmeringImage: shimmeringImage)
+        return ShimmeringBlockConfiguration(image: ImageAsset.TextEditor.shimmering)
             .cellBlockConfiguration(indentationSettings: nil, dragConfiguration: nil)
     }
 }
@@ -22,6 +20,6 @@ struct ShimmeringBlockViewModel: SystemContentConfiguationProvider {
 struct ShimmeringBlockConfiguration: BlockConfiguration {
     typealias View = ShimmeringBlockView
 
-    let shimmeringImage: UIImage?
+    let image: ImageAsset
 }
 

@@ -13,7 +13,7 @@ let package = Package(
             targets: ["BlocksModels"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/apple/swift-protobuf", revision: "1.15.0"),
+        .package(url: "https://github.com/apple/swift-protobuf", revision: "1.21.0"),
         .package(url: "https://github.com/SwiftGen/SwiftGenPlugin", revision: "6.6.2"),
         .package(path: "../ProtobufMessages"),
         .package(path: "../AnytypeCore")

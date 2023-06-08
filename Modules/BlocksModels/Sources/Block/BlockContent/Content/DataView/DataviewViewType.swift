@@ -27,6 +27,15 @@ public enum DataviewViewType: Hashable, CaseIterable {
             return false
         }
     }
+    
+    public var stringValue: String {
+        switch self {
+        case .table: return "Grid"
+        case .list: return "List"
+        case .gallery: return "Gallery"
+        case .kanban: return "Board"
+        }
+    }
 }
 
 public extension DataviewTypeEnum {

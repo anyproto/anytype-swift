@@ -24,8 +24,9 @@ final class SceneLifecycleStateService {
             }
         }()
         
-        _ = Anytype_Rpc.App.SetDeviceState.Service.invoke(deviceState: deviceState)
-            .getValue(domain: .sceneLifecycleStateService)
+        _ = try? ClientCommands.appSetDeviceState(.with {
+            $0.deviceState = deviceState
+        }).invoke(errorDomain: .sceneLifecycleStateService)
     }
     
 }
