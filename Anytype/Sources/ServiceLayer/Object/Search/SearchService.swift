@@ -267,7 +267,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
     }
     
     func searchArchiveObjectIds() async throws -> [String] {
-        let filters = buildFilters(isArchived: false, layouts: DetailsLayout.visibleLayouts)
+        let filters = buildFilters(isArchived: true, layouts: DetailsLayout.visibleLayouts)
         let keys = [BundledRelationKey.id.rawValue]
         let result = try await search(filters: filters, keys: keys)
         return result.map { $0.id }

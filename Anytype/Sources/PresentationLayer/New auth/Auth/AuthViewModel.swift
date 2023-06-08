@@ -12,20 +12,17 @@ final class AuthViewModel: ObservableObject {
     // MARK: - Private
     
     private let state: JoinFlowState
-    private let viewControllerProvider: ViewControllerProviderProtocol
     private weak var output: AuthViewModelOutput?
     private let authService: AuthServiceProtocol
     private let seedService: SeedServiceProtocol
     
     init(
         state: JoinFlowState,
-        viewControllerProvider: ViewControllerProviderProtocol,
         output: AuthViewModelOutput?,
         authService: AuthServiceProtocol,
         seedService: SeedServiceProtocol
     ) {
         self.state = state
-        self.viewControllerProvider = viewControllerProvider
         self.output = output
         self.authService = authService
         self.seedService = seedService
@@ -34,7 +31,6 @@ final class AuthViewModel: ObservableObject {
     // MARK: - Public
     
     func onViewAppear() {
-        viewControllerProvider.window?.overrideUserInterfaceStyle = .dark
         changeContentOpacity(false)
     }
     
