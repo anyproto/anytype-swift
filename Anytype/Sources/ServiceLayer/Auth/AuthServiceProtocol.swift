@@ -3,7 +3,7 @@ import Services
 protocol AuthServiceProtocol {
     func createWallet() async throws -> String
     func createWallet() throws -> String
-    func createAccount(name: String, imagePath: String, alphaInviteCode: String) async throws
+    func createAccount(name: String, imagePath: String) async throws
     func walletRecovery(mnemonic: String) throws
     func walletRecovery(mnemonic: String) async throws
     

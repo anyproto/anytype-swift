@@ -66,8 +66,7 @@ final class AuthViewModel: ObservableObject {
                 state.mnemonic = try await authService.createWallet()
                 try await authService.createAccount(
                     name: "",
-                    imagePath: "",
-                    alphaInviteCode: state.inviteCode
+                    imagePath: ""
                 )
                 try? seedService.saveSeed(state.mnemonic)
                 

@@ -3,13 +3,11 @@ import SwiftUI
 final class SignUpData: ObservableObject {
     @Published var userName: String
     @Published var image: UIImage?
-    @Published var inviteCode: String
     var mnemonic: String
     
     init(mnemonic: String) {
         userName = ""
         image = nil
-        inviteCode = ""
 
         self.mnemonic = mnemonic
     }
@@ -49,8 +47,7 @@ final class WaitingOnCreatAccountViewModel: ObservableObject {
             do {
                 try await authService.createAccount(
                     name: signUpData.userName,
-                    imagePath: imagePath(),
-                    alphaInviteCode: signUpData.inviteCode.trimmingCharacters(in: .whitespacesAndNewlines)
+                    imagePath: imagePath()
                 )
                 try? seedService.saveSeed(signUpData.mnemonic)
                 applicationStateService.state = .home

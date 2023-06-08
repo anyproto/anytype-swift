@@ -225,8 +225,6 @@ internal enum Loc {
   internal static let deselectAll = Loc.tr("Localizable", "Deselect all", fallback: "Deselect all")
   /// Designed to capture thoughts quickly
   internal static let designedToCaptureThoughtsQuickly = Loc.tr("Localizable", "Designed to capture thoughts quickly", fallback: "Designed to capture thoughts quickly")
-  /// If you don't have one just go to anytype.io and sign up to the waiting list. We are inviting people on the rolling bases.
-  internal static let doNotHaveInvite = Loc.tr("Localizable", "Do not have invite", fallback: "If you don't have one just go to anytype.io and sign up to the waiting list. We are inviting people on the rolling bases.")
   /// Done
   internal static let done = Loc.tr("Localizable", "Done", fallback: "Done")
   /// Download
@@ -259,8 +257,6 @@ internal enum Loc {
   internal static let enterURL = Loc.tr("Localizable", "Enter URL", fallback: "Enter URL")
   /// Enter value
   internal static let enterValue = Loc.tr("Localizable", "Enter value", fallback: "Enter value")
-  /// Enter your invitation code
-  internal static let enterYourInvitationCode = Loc.tr("Localizable", "Enter your invitation code", fallback: "Enter your invitation code")
   /// Enter your name
   internal static let enterYourName = Loc.tr("Localizable", "Enter your name", fallback: "Enter your name")
   /// Error creating wallet
