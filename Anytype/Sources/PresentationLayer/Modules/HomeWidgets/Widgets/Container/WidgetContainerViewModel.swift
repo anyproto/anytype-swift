@@ -2,6 +2,7 @@ import Foundation
 import Combine
 import Services
 import UIKit
+import AnytypeCore
 
 @MainActor
 final class WidgetContainerViewModel<ContentVM: WidgetContainerContentViewModelProtocol>: ObservableObject {
@@ -15,6 +16,7 @@ final class WidgetContainerViewModel<ContentVM: WidgetContainerContentViewModelP
     private let blockWidgetExpandedService: BlockWidgetExpandedServiceProtocol
     private let objectActionsService: ObjectActionsServiceProtocol
     private let searchService: SearchServiceProtocol
+    private let alertOpener: AlertOpenerProtocol
     private weak var output: CommonWidgetModuleOutput?
     
     // MARK: - State
@@ -36,6 +38,7 @@ final class WidgetContainerViewModel<ContentVM: WidgetContainerContentViewModelP
         blockWidgetExpandedService: BlockWidgetExpandedServiceProtocol,
         objectActionsService: ObjectActionsServiceProtocol,
         searchService: SearchServiceProtocol,
+        alertOpener: AlertOpenerProtocol,
         contentModel: ContentVM,
         output: CommonWidgetModuleOutput?
     ) {
@@ -46,6 +49,7 @@ final class WidgetContainerViewModel<ContentVM: WidgetContainerContentViewModelP
         self.blockWidgetExpandedService = blockWidgetExpandedService
         self.objectActionsService = objectActionsService
         self.searchService = searchService
+        self.alertOpener = alertOpener
         self.contentModel = contentModel
         self.output = output
         
@@ -100,10 +104,28 @@ final class WidgetContainerViewModel<ContentVM: WidgetContainerContentViewModelP
     }
     
     func onEmptyBinTap() {
-        Task {
-            let binIds = try await searchService.searchArchiveObjectIds()
-            try await objectActionsService.delete(objectIds: binIds, route: .bin)
-            toastData = ToastBarData(text: Loc.Widgets.Actions.binConfirm(binIds.count), showSnackBar: true)
+        if FeatureFlags.binConfirmAlert {
+            Task {
+                let binIds = try await searchService.searchArchiveObjectIds()
+                guard binIds.isNotEmpty else {
+                    toastData = ToastBarData(text: Loc.Widgets.Actions.binConfirm(binIds.count), showSnackBar: true)
+                    return
+                }
+                AnytypeAnalytics.instance().logShowDeletionWarning(route: .bin)
+                let alert = BottomAlert.binConfirmation(count: binIds.count) { [binIds, weak self] in
+                    Task { [weak self] in
+                        try await self?.objectActionsService.delete(objectIds: binIds, route: .bin)
+                        self?.toastData = ToastBarData(text: Loc.Widgets.Actions.binConfirm(binIds.count), showSnackBar: true)
+                    }
+                }
+                alertOpener.showFloatAlert(model: alert)
+            }
+        } else {
+            Task {
+                let binIds = try await searchService.searchArchiveObjectIds()
+                try await objectActionsService.delete(objectIds: binIds, route: .bin)
+                toastData = ToastBarData(text: Loc.Widgets.Actions.binConfirm(binIds.count), showSnackBar: true)
+            }
         }
         UISelectionFeedbackGenerator().selectionChanged()
     }
