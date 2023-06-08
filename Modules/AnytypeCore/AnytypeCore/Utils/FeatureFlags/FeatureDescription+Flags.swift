@@ -18,7 +18,7 @@ public extension FeatureDescription {
     
     static let dndOnCollectionsAndSets = FeatureDescription(
         title: "Dnd on collections and sets (wating for the middle)",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.23.0"),
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.?.0"),
         defaultValue: false
     )
     
@@ -31,7 +31,7 @@ public extension FeatureDescription {
     static let fileStorage = FeatureDescription(
         title: "File storage",
         type: .feature(author: "m@anytype.io", releaseVersion: "0.23.0"),
-        defaultValue: false
+        defaultValue: true
     )
     
     static let newAuthorization = FeatureDescription(
@@ -44,20 +44,19 @@ public extension FeatureDescription {
     static let redesignAbout = FeatureDescription(
         title: "Redesign about",
         type: .feature(author: "m@anytype.io", releaseVersion: "0.23.0"),
-        defaultValue: false,
-        debugValue: true
+        defaultValue: true
     )
     
     static let sortIncludeTime = FeatureDescription(
         title: "Sort include time",
         type: .feature(author: "m@anytype.io", releaseVersion: "0.23.0"),
-        defaultValue: false
+        defaultValue: true
     )
     
     static let binConfirmAlert = FeatureDescription(
         title: "Bin confirm alert",
         type: .feature(author: "m@anytype.io", releaseVersion: "0.23.0"),
-        defaultValue: false
+        defaultValue: true
     )
     
     // MARK: - Debug
