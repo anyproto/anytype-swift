@@ -7,11 +7,9 @@ protocol AuthModuleAssemblyProtocol {
 
 final class AuthModuleAssembly: AuthModuleAssemblyProtocol {
     
-    private let uiHelpersDI: UIHelpersDIProtocol
     private let serviceLocator: ServiceLocator
     
-    init(uiHelpersDI: UIHelpersDIProtocol, serviceLocator: ServiceLocator) {
-        self.uiHelpersDI = uiHelpersDI
+    init(serviceLocator: ServiceLocator) {
         self.serviceLocator = serviceLocator
     }
     
@@ -22,7 +20,6 @@ final class AuthModuleAssembly: AuthModuleAssemblyProtocol {
         return AuthView(
             model: AuthViewModel(
                 state: state,
-                viewControllerProvider: uiHelpersDI.viewControllerProvider(),
                 output: output,
                 authService: serviceLocator.authService(),
                 seedService: serviceLocator.seedService()
