@@ -26,23 +26,23 @@ final class UndoRedoViewModel: ObservableObject {
 
     func undo() {
         AnytypeAnalytics.instance().logUndo()
-        do {
-            try objectActionsService.undo(objectId: objectId)
-        } catch let error as ObjectActionsServiceError {
-            onErrorHandler?(error.message)
-        } catch {
-            anytypeAssertionFailure("Unknown error")
+        Task {
+            do {
+                try await objectActionsService.undo(objectId: objectId)
+            } catch let error as ObjectActionsServiceError {
+                onErrorHandler?(error.message)
+            }
         }
     }
 
     func redo() {
         AnytypeAnalytics.instance().logRedo()
-        do {
-            try objectActionsService.redo(objectId: objectId)
-        } catch let error as ObjectActionsServiceError {
-            onErrorHandler?(error.message)
-        } catch {
-            anytypeAssertionFailure("Unknown error")
+        Task {
+            do {
+                try await objectActionsService.redo(objectId: objectId)
+            } catch let error as ObjectActionsServiceError {
+                onErrorHandler?(error.message)
+            }
         }
     }
 

@@ -261,22 +261,22 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         }).invoke()
     }
 
-    func undo(objectId: BlockId) throws {
+    func undo(objectId: BlockId) async throws {
         do {
-            _ = try ClientCommands.objectUndo(.with {
+            try await ClientCommands.objectUndo(.with {
                 $0.contextID = objectId
             }).invoke()
-        } catch {
+        } catch let error as Anytype_Rpc.Object.Undo.Response.Error where error.code == .canNotMove {
             throw ObjectActionsServiceError.nothingToUndo
         }
     }
 
-    func redo(objectId: BlockId) throws {
+    func redo(objectId: BlockId) async throws {
         do {
-            _ = try ClientCommands.objectRedo(.with {
+            try await ClientCommands.objectRedo(.with {
                 $0.contextID = objectId
             }).invoke()
-        } catch {
+        }  catch let error as Anytype_Rpc.Object.Redo.Response.Error where error.code == .canNotMove {
             throw ObjectActionsServiceError.nothingToRedo
         }
     }
