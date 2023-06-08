@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-final class CollectionsListWidgetModuleAssembly: HomeWidgetCommonAssemblyProtocol {
+final class RecentCompactListWidgetModuleAssembly: HomeWidgetCommonAssemblyProtocol {
     
     private let serviceLocator: ServiceLocator
     private let widgetsSubmoduleDI: WidgetsSubmoduleDIProtocol
@@ -21,11 +21,15 @@ final class CollectionsListWidgetModuleAssembly: HomeWidgetCommonAssemblyProtoco
         output: CommonWidgetModuleOutput?
     ) -> AnyView {
         
-        let model = CollectionsWidgetInternalViewModel(subscriptionService: serviceLocator.collectionsSubscriptionService(), context: .list)
+        let model = RecentWidgetInternalViewModel(
+            recentSubscriptionService: serviceLocator.recentSubscriptionService(),
+            context: .compactList
+        )
      
         return widgetsSubmoduleDI.listWidgetModuleAssembly().make(
             widgetBlockId: widgetBlockId,
             widgetObject: widgetObject,
+            style: .compactList,
             stateManager: stateManager,
             internalModel: model,
             output: output

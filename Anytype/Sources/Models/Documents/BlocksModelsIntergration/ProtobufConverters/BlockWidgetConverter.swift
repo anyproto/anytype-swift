@@ -18,7 +18,7 @@ extension Anytype_Model_Block.Content.Widget.Layout {
         case .list:
             return .list
         case .compactList:
-            return .list
+            return .compactList
         case .UNRECOGNIZED:
             return nil
         }
@@ -34,6 +34,8 @@ extension BlockWidget.Layout {
             return .tree
         case .list:
             return .list
+        case .compactList:
+            return .compactList
         }
     }
 }

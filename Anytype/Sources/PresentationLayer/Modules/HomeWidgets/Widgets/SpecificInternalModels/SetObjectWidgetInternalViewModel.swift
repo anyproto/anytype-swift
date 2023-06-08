@@ -3,12 +3,6 @@ import Services
 import Combine
 import UIKit
 
-fileprivate extension SubscriptionId {
-    static func setWidgetId(_ widgetId: String) -> SubscriptionId {
-        SubscriptionId(value: "SetWidget-\(widgetId)")
-    }
-}
-
 final class SetObjectWidgetInternalViewModel: WidgetDataviewInternalViewModelProtocol {
     
     private enum Constants {
@@ -22,6 +16,8 @@ final class SetObjectWidgetInternalViewModel: WidgetDataviewInternalViewModelPro
     private let objectDetailsStorage: ObjectDetailsStorage
     private let setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol
     private let subscriptionService: SubscriptionsServiceProtocol
+    
+    private let subscriptionId = SubscriptionId(value: "SetWidget-\(UUID().uuidString)")
     
     // MARK: - State
     
@@ -122,7 +118,7 @@ final class SetObjectWidgetInternalViewModel: WidgetDataviewInternalViewModelPro
         
         let subscriptionData = setSubscriptionDataBuilder.set(
             SetSubsriptionData(
-                identifier: SubscriptionId.setWidgetId(widgetBlockId),
+                identifier: subscriptionId,
                 source: setDocument.details?.setOf,
                 view: activeView,
                 groupFilter: nil,

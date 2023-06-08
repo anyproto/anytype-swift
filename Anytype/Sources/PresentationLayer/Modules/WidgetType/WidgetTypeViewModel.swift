@@ -47,6 +47,8 @@ private extension BlockWidget.Layout {
             return Loc.Widgets.Layout.Tree.title
         case .list:
             return Loc.Widgets.Layout.List.title
+        case .compactList:
+            return Loc.Widgets.Layout.CompactList.title
         }
     }
     
@@ -58,6 +60,8 @@ private extension BlockWidget.Layout {
             return Loc.Widgets.Layout.Tree.description
         case .list:
             return Loc.Widgets.Layout.List.description
+        case .compactList:
+            return Loc.Widgets.Layout.CompactList.description
         }
     }
     
@@ -69,6 +73,8 @@ private extension BlockWidget.Layout {
             return .Widget.Preview.tree
         case .list:
             return .Widget.Preview.list
+        case .compactList:
+            return .Widget.Preview.compactList
         }
     }
 }

@@ -627,6 +627,13 @@
 		2ADF94D429CDAFB000F6FFCC /* EnvironmentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADF94D329CDAFB000F6FFCC /* EnvironmentConfiguration.swift */; };
 		2ADFA9DC2949C61D00F64688 /* UIKitModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADFA9DB2949C61D00F64688 /* UIKitModule.swift */; };
 		2AE10778296C258400BAB22A /* View+LegacyAdopt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE10777296C258400BAB22A /* View+LegacyAdopt.swift */; };
+		2AE1558C2A31BB220049C387 /* ListWidgetStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE1558B2A31BB220049C387 /* ListWidgetStyle.swift */; };
+		2AE155922A31BDF50049C387 /* RecentCompactListWidgetModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE1558D2A31BDF40049C387 /* RecentCompactListWidgetModuleAssembly.swift */; };
+		2AE155932A31BDF50049C387 /* FavoriteCompactListWidgetModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE1558E2A31BDF40049C387 /* FavoriteCompactListWidgetModuleAssembly.swift */; };
+		2AE155942A31BDF50049C387 /* SetsCompactListWidgetModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE1558F2A31BDF40049C387 /* SetsCompactListWidgetModuleAssembly.swift */; };
+		2AE155952A31BDF50049C387 /* SetCompactListWidgetModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE155902A31BDF40049C387 /* SetCompactListWidgetModuleAssembly.swift */; };
+		2AE155962A31BDF50049C387 /* CollectionsCompactListWidgetModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE155912A31BDF40049C387 /* CollectionsCompactListWidgetModuleAssembly.swift */; };
+		2AE1559A2A31C6170049C387 /* ListWidgetCompactRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE155992A31C6170049C387 /* ListWidgetCompactRow.swift */; };
 		2AE3D76B29DB1B640060D60C /* SpaceIconImageGuideline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE3D76A29DB1B640060D60C /* SpaceIconImageGuideline.swift */; };
 		2AE4EDB92834CF5D00B61ABE /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE4EDB82834CF5D00B61ABE /* LaunchView.swift */; };
 		2AE5C71D29B7299F00A92C12 /* WidgetSourceSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE5C71C29B7299F00A92C12 /* WidgetSourceSearchViewModel.swift */; };
@@ -2106,6 +2113,13 @@
 		2ADF94D329CDAFB000F6FFCC /* EnvironmentConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnvironmentConfiguration.swift; sourceTree = "<group>"; };
 		2ADFA9DB2949C61D00F64688 /* UIKitModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitModule.swift; sourceTree = "<group>"; };
 		2AE10777296C258400BAB22A /* View+LegacyAdopt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+LegacyAdopt.swift"; sourceTree = "<group>"; };
+		2AE1558B2A31BB220049C387 /* ListWidgetStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListWidgetStyle.swift; sourceTree = "<group>"; };
+		2AE1558D2A31BDF40049C387 /* RecentCompactListWidgetModuleAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentCompactListWidgetModuleAssembly.swift; sourceTree = "<group>"; };
+		2AE1558E2A31BDF40049C387 /* FavoriteCompactListWidgetModuleAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteCompactListWidgetModuleAssembly.swift; sourceTree = "<group>"; };
+		2AE1558F2A31BDF40049C387 /* SetsCompactListWidgetModuleAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetsCompactListWidgetModuleAssembly.swift; sourceTree = "<group>"; };
+		2AE155902A31BDF40049C387 /* SetCompactListWidgetModuleAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetCompactListWidgetModuleAssembly.swift; sourceTree = "<group>"; };
+		2AE155912A31BDF40049C387 /* CollectionsCompactListWidgetModuleAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionsCompactListWidgetModuleAssembly.swift; sourceTree = "<group>"; };
+		2AE155992A31C6170049C387 /* ListWidgetCompactRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListWidgetCompactRow.swift; sourceTree = "<group>"; };
 		2AE3D76A29DB1B640060D60C /* SpaceIconImageGuideline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceIconImageGuideline.swift; sourceTree = "<group>"; };
 		2AE4EDB82834CF5D00B61ABE /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
 		2AE5C71C29B7299F00A92C12 /* WidgetSourceSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSourceSearchViewModel.swift; sourceTree = "<group>"; };
@@ -4844,6 +4858,7 @@
 				2A1F947F2978381700E25782 /* ListWidgetRow.swift */,
 				2A971C07297E7BFD00D3D786 /* ListWidgetRowModel+ObjectDetails.swift */,
 				2A947B412A30E3EC00119140 /* ListWidgetRowModel.swift */,
+				2AE155992A31C6170049C387 /* ListWidgetCompactRow.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -5470,11 +5485,8 @@
 		2AC906D329B621E700209E39 /* Specific */ = {
 			isa = PBXGroup;
 			children = (
-				2AC906DE29B6289A00209E39 /* FavoriteListWidgetModuleAssembly.swift */,
-				2AC906DD29B6289A00209E39 /* RecentListWidgetModuleAssembly.swift */,
-				2A28D042297E8CAD00E55E15 /* SetsListWidgetModuleAssembly.swift */,
-				2AFCEB3C29C8A67700841E13 /* CollectionsListWidgetModuleAssembly.swift */,
-				2A1F94712978221400E25782 /* SetListWidgetModuleAssembly.swift */,
+				2AE155982A31BE080049C387 /* CompactList */,
+				2AE155972A31BDFF0049C387 /* List */,
 			);
 			path = Specific;
 			sourceTree = "<group>";
@@ -5486,6 +5498,7 @@
 				2AC906D729B6233700209E39 /* ListWidgetViewModel.swift */,
 				2AC906DB29B6276A00209E39 /* ListWidgetModuleAssembly.swift */,
 				2A1F946D2978208F00E25782 /* ListWidgetView.swift */,
+				2AE1558B2A31BB220049C387 /* ListWidgetStyle.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -5558,6 +5571,30 @@
 				2ADD55732987CE65009AFCB1 /* LinkWidgetModuleAssembly.swift */,
 			);
 			path = Link;
+			sourceTree = "<group>";
+		};
+		2AE155972A31BDFF0049C387 /* List */ = {
+			isa = PBXGroup;
+			children = (
+				2AC906DE29B6289A00209E39 /* FavoriteListWidgetModuleAssembly.swift */,
+				2AC906DD29B6289A00209E39 /* RecentListWidgetModuleAssembly.swift */,
+				2A28D042297E8CAD00E55E15 /* SetsListWidgetModuleAssembly.swift */,
+				2AFCEB3C29C8A67700841E13 /* CollectionsListWidgetModuleAssembly.swift */,
+				2A1F94712978221400E25782 /* SetListWidgetModuleAssembly.swift */,
+			);
+			path = List;
+			sourceTree = "<group>";
+		};
+		2AE155982A31BE080049C387 /* CompactList */ = {
+			isa = PBXGroup;
+			children = (
+				2AE155912A31BDF40049C387 /* CollectionsCompactListWidgetModuleAssembly.swift */,
+				2AE1558E2A31BDF40049C387 /* FavoriteCompactListWidgetModuleAssembly.swift */,
+				2AE1558D2A31BDF40049C387 /* RecentCompactListWidgetModuleAssembly.swift */,
+				2AE155902A31BDF40049C387 /* SetCompactListWidgetModuleAssembly.swift */,
+				2AE1558F2A31BDF40049C387 /* SetsCompactListWidgetModuleAssembly.swift */,
+			);
+			path = CompactList;
 			sourceTree = "<group>";
 		};
 		2AE4EDB42834CF4F00B61ABE /* Launch */ = {
@@ -8932,6 +8969,7 @@
 				2A8C00FB29C4ADE500309C14 /* SettingsTextField.swift in Sources */,
 				2AE671DE2901896400118F56 /* UIView+DynamicBorderColor.swift in Sources */,
 				2AFD69D92987BC5B0006D792 /* WidgetTypeCreateObjectViewModel.swift in Sources */,
+				2AE1559A2A31C6170049C387 /* ListWidgetCompactRow.swift in Sources */,
 				3D17025C2716E4F60079B65B /* EditorBarItemState.swift in Sources */,
 				1289C51628105A2D005085E2 /* FileDownloadingViewModel.swift in Sources */,
 				3D16841626DD672E008B9DFF /* BlockLayoutConverter.swift in Sources */,
@@ -9365,6 +9403,7 @@
 				2E9BF63F28B7D40A006D3CC2 /* SetViewTypeConfiguration.swift in Sources */,
 				2AD7412C2993E1C9004BD223 /* HomeWidgetCommonProvider.swift in Sources */,
 				3D34F20C27BE3BE400990C49 /* UIRectCorner+Corners.swift in Sources */,
+				2AE155942A31BDF50049C387 /* SetsCompactListWidgetModuleAssembly.swift in Sources */,
 				3DF80F3B26EF9B37000492F3 /* TextBlockLeftViewStyler.swift in Sources */,
 				2E63047928A55D2000BEF2E9 /* SetGalleryViewCell.swift in Sources */,
 				3D7C08272684E21500E2168D /* FileSizeConverter.swift in Sources */,
@@ -9641,6 +9680,7 @@
 				2AAE455828A5307C00E538C8 /* BlockBookmark+Extensions.swift in Sources */,
 				535E02B0275023B300E1AF8C /* RelationStyle.swift in Sources */,
 				0303ED0122D8EDAA005C552B /* SceneDelegate.swift in Sources */,
+				2AE1558C2A31BB220049C387 /* ListWidgetStyle.swift in Sources */,
 				0A74E50023A90EF000B6C406 /* NotificationExtension.swift in Sources */,
 				2AF4260329AF3B1700753B17 /* SettingsAppearanceModuleAssembly.swift in Sources */,
 				2AE5C71F29B72B8100A92C12 /* WidgetSourceSearchInteractor.swift in Sources */,
@@ -9774,6 +9814,7 @@
 				12DE403A264AD006007B5074 /* ConfigurableView.swift in Sources */,
 				2AA8107829A3BFE3007DD64B /* WidgetObjectListMenuBuilder.swift in Sources */,
 				2A4FFBC4289D4B55004938DF /* InvocationMesagesHandler.swift in Sources */,
+				2AE155952A31BDF50049C387 /* SetCompactListWidgetModuleAssembly.swift in Sources */,
 				12FF0D0827C51ADD00562DD9 /* AnytypeTextField.swift in Sources */,
 				125B6EC826F235F400BCD7D6 /* MentionsViewModel.swift in Sources */,
 				535E02B227502ECF00E1AF8C /* RelationBlockViewModel.swift in Sources */,
@@ -9907,6 +9948,7 @@
 				3D8D41B62742840000F8EBF3 /* DocumentDetaisProvider.swift in Sources */,
 				EA20CDD926122CCF00DBA9FE /* VideoBlockContentViewConfiguration.swift in Sources */,
 				C92DCD93272990FD00A03D91 /* ChangeTypeAccessoryViewModel.swift in Sources */,
+				2AE155932A31BDF50049C387 /* FavoriteCompactListWidgetModuleAssembly.swift in Sources */,
 				2AA1652829D474D40093DB12 /* FeatureFlagView.swift in Sources */,
 				2A5A898E29C866FF00C170D6 /* SettingsObjectHeader.swift in Sources */,
 				C99DCEC4283CCBF30051F99D /* GenericUIKitToSwiftUIView.swift in Sources */,
@@ -9947,6 +9989,7 @@
 				12F14CD02758D09F00B976B5 /* RelationEditingViewModelBuilder.swift in Sources */,
 				2AB522082A14D0E7007DEE53 /* FileErrorEventHandler.swift in Sources */,
 				2E52DE6C2A1CE77100F16815 /* SoulViewModuleAssembly.swift in Sources */,
+				2AE155922A31BDF50049C387 /* RecentCompactListWidgetModuleAssembly.swift in Sources */,
 				3D932D5826317EFC00C7D1EA /* BaseFilePickerViewModel.swift in Sources */,
 				0AD7694C25D57F2D00669F8C /* TextService.swift in Sources */,
 				3DB1C9E32727FE2E000D2779 /* MentionData.swift in Sources */,
@@ -10008,6 +10051,7 @@
 				12C8440226FCE92200D64B8D /* ObjectHeaderEmptyConfiguration.swift in Sources */,
 				3D8D41BB274297FF00F8EBF3 /* EditorSetViewModel.swift in Sources */,
 				1223C8FE272693E600C34616 /* FeaturedRelationsBlockViewModel.swift in Sources */,
+				2AE155962A31BDF50049C387 /* CollectionsCompactListWidgetModuleAssembly.swift in Sources */,
 				3D24912F27BD271900821595 /* MiddlewareEventConverter.swift in Sources */,
 				3D1702562716D1C30079B65B /* UIButton+ImageTitleSpacing.swift in Sources */,
 				3D34F20727BE2FAB00990C49 /* PersonalizationView.swift in Sources */,

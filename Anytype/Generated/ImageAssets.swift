@@ -327,6 +327,7 @@ internal extension ImageAsset {
   static let toastTick = ImageAsset.bundle(name: "toast_tick")
   enum Widget {
     enum Preview {
+      static let compactList = ImageAsset.bundle(name: "Widget/Preview/compact list")
       static let link = ImageAsset.bundle(name: "Widget/Preview/link")
       static let list = ImageAsset.bundle(name: "Widget/Preview/list")
       static let tree = ImageAsset.bundle(name: "Widget/Preview/tree")

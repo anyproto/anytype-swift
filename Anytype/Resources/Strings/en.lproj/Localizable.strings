@@ -673,9 +673,11 @@
 "Widgets.Layout.Link.Title" = "Link";
 "Widgets.Layout.Tree.Title" = "Tree";
 "Widgets.Layout.List.Title" = "List";
+"Widgets.Layout.CompactList.Title" = "Сompact list";
 "Widgets.Layout.Link.Description" = "Сompact version of the object";
 "Widgets.Layout.Tree.Description" = "Hierarchical structure of objects";
 "Widgets.Layout.List.Description" = "Widget with list view of set object";
+"Widgets.Layout.CompactList.Description" = "Widget with list view of set object";
 "Widgets.Empty.Title" = "This data view contains no objects";
 
 // MARK: - About
