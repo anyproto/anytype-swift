@@ -479,8 +479,8 @@ internal enum Loc {
   internal static let restore = Loc.tr("Localizable", "Restore", fallback: "Restore")
   /// Restore from keychain
   internal static let restoreFromKeychain = Loc.tr("Localizable", "Restore from keychain", fallback: "Restore from keychain")
-  /// Restore secret phrase from keychain
-  internal static let restoreSecretPhraseFromKeychain = Loc.tr("Localizable", "Restore secret phrase from keychain", fallback: "Restore secret phrase from keychain")
+  /// Restore Recovery Phrase from the keychain
+  internal static let restoreSecretPhraseFromKeychain = Loc.tr("Localizable", "Restore secret phrase from keychain", fallback: "Restore Recovery Phrase from the keychain")
   /// Scan QR code
   internal static let scanQRCode = Loc.tr("Localizable", "Scan QR code", fallback: "Scan QR code")
   /// Search
@@ -723,8 +723,8 @@ internal enum Loc {
   }
   internal enum Alert {
     internal enum CameraPermissions {
-      /// Go to Settings?
-      internal static let goToSettings = Loc.tr("Localizable", "Alert.CameraPermissions.GoToSettings", fallback: "Go to Settings?")
+      /// Please, go to your device's Settings -> Privacy -> Camera and set Anytype to ON
+      internal static let goToSettings = Loc.tr("Localizable", "Alert.CameraPermissions.GoToSettings", fallback: "Please, go to your device's Settings -> Privacy -> Camera and set Anytype to ON")
       /// Settings
       internal static let settings = Loc.tr("Localizable", "Alert.CameraPermissions.Settings", fallback: "Settings")
     }
@@ -740,8 +740,8 @@ internal enum Loc {
     }
   }
   internal enum Auth {
-    /// Camera access required to scan QR code
-    internal static let cameraPermissionTitle = Loc.tr("Localizable", "Auth.CameraPermissionTitle", fallback: "Camera access required to scan QR code")
+    /// Anytype needs access to your camera to scan QR codes
+    internal static let cameraPermissionTitle = Loc.tr("Localizable", "Auth.CameraPermissionTitle", fallback: "Anytype needs access to your camera to scan QR codes")
     /// Join
     internal static let join = Loc.tr("Localizable", "Auth.Join", fallback: "Join")
     /// Log in

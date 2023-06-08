@@ -121,14 +121,14 @@
 "OrganizeEverythingDescription" = "With Anytype you can write notes and documents, manage tasks and save important content from the web.";
 "Sign up" = "Sign up";
 "Login" = "Login";
-"Restore secret phrase from keychain" = "Restore secret phrase from keychain";
+"Restore secret phrase from keychain" = "Restore Recovery Phrase from the keychain";
 "or type your recovery phrase" = "or type your recovery phrase";
 "Setting up the wallet" = "Setting up the wallet";
 "Enter your name" = "Enter your name";
 "New profile" = "New profile";
 "Create" = "Create";
 "Scan QR code" = "Scan QR code";
-"Auth.CameraPermissionTitle" = "Camera access required to scan QR code";
+"Auth.CameraPermissionTitle" = "Anytype needs access to your camera to scan QR codes";
 "Analytics constent text" = "Understanding how people use Anytype helps us improve the product. This version of Anytype includes the analytics code that protects your privacy.\nIt doesn't record the actual document's content but still allows us to understand how you use Anytype.\nStay subscribed to our mailing list, as we will soon announce a new release that enables you to opt-out.";
 
 "Account recover error" = "Account recover error, try again";
@@ -232,7 +232,7 @@
 
 // MARK: - Alerts
 "Alert.CameraPermissions.Settings" = "Settings";
-"Alert.CameraPermissions.GoToSettings" = "Go to Settings?";
+"Alert.CameraPermissions.GoToSettings" = "Please, go to your device's Settings -> Privacy -> Camera and set Anytype to ON";
 
 // MARK: - Relation
 "Featured relations" = "Featured relations";
