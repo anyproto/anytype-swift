@@ -13,9 +13,7 @@ extension SyncStatus {
             return Loc.syncing
         case .synced:
             return Loc.synced
-        case .failed:
-            return Loc.notSyncing
-        case .incompatibleVersion:
+        case .failed, .incompatibleVersion:
             return Loc.notSyncing
         }
     }
