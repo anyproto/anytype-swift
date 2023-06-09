@@ -1547,6 +1547,16 @@ internal enum Loc {
     /// Table of contents
     internal static let tableOfContents = Loc.tr("Localizable", "SlashMenu.TableOfContents", fallback: "Table of contents")
   }
+  internal enum Sync {
+    internal enum Status {
+      internal enum Version {
+        internal enum Outdated {
+          /// Version outdated. Please update anytype
+          internal static let description = Loc.tr("Localizable", "Sync.Status.Version.Outdated.Description", fallback: "Version outdated. Please update anytype")
+        }
+      }
+    }
+  }
   internal enum TalbeOfContents {
     /// Add headings to create a table of contents
     internal static let empty = Loc.tr("Localizable", "TalbeOfContents.Empty", fallback: "Add headings to create a table of contents")

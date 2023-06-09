@@ -541,6 +541,7 @@
 "Connection refused" = "Connection refused. Please, try again";
 "Companies, contacts, friends and family" = "Companies, contacts, friends and family";
 "Failed to sync, trying again..." = "Failed to sync, trying again...";
+"Sync.Status.Version.Outdated.Description" = "Version outdated. Please update anytype";
 "This object doesn't exist" = "This object doesn't exist";
 "Account & data" = "Account & data";
 "File & Media" = "File & Media";
