@@ -467,7 +467,7 @@
 "On analytics" = "On analytics";
 "Select account error" = "Select account error";
 "Account deleted" = "Account deleted";
-"Account.Select.Error.Text" = "Unable to retrieve account data due to incompatible version on remote nodes. Please update Anytype to the latest version.";
+"Account.Select.Error.Incompatible.Version.Text" = "Unable to retrieve account data due to incompatible version on remote nodes. Please update Anytype to the latest version.";
 "Restore from keychain" = "Restore from keychain";
 "Edit" = "Edit";
 "In this object" = "In this object";

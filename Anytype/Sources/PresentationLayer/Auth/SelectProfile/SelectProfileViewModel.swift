@@ -86,7 +86,7 @@ private extension SelectProfileViewModel {
             } catch SelectAccountError.accountIsDeleted {
                 errorText = Loc.accountDeleted
             } catch SelectAccountError.failedToFetchRemoteNodeHasIncompatibleProtoVersion {
-                errorText = Loc.Account.Select.Error.text
+                errorText = Loc.Account.Select.Error.Incompatible.Version.text
             } catch {
                 errorText = Loc.selectAccountError
             }
