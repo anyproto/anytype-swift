@@ -1563,8 +1563,8 @@ internal enum Loc {
     internal enum Status {
       internal enum Version {
         internal enum Outdated {
-          /// Version outdated. Please update anytype
-          internal static let description = Loc.tr("Localizable", "Sync.Status.Version.Outdated.Description", fallback: "Version outdated. Please update anytype")
+          /// Version outdated. Please update Anytype
+          internal static let description = Loc.tr("Localizable", "Sync.Status.Version.Outdated.Description", fallback: "Version outdated. Please update Anytype")
         }
       }
     }
