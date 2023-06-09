@@ -717,6 +717,14 @@ internal enum Loc {
       }
     }
   }
+  internal enum Account {
+    internal enum Select {
+      internal enum Error {
+        /// Unable to retrieve account data due to incompatible version on remote nodes. Please update Anytype to the latest version.
+        internal static let text = Loc.tr("Localizable", "Account.Select.Error.Text", fallback: "Unable to retrieve account data due to incompatible version on remote nodes. Please update Anytype to the latest version.")
+      }
+    }
+  }
   internal enum Actions {
     /// Link to
     internal static let linkItself = Loc.tr("Localizable", "Actions.LinkItself", fallback: "Link to")
