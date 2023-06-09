@@ -467,6 +467,7 @@
 "On analytics" = "On analytics";
 "Select account error" = "Select account error";
 "Account deleted" = "Account deleted";
+"Account.Select.Incompatible.Version.Error.Text" = "Unable to retrieve account data due to incompatible version on remote nodes. Please update Anytype to the latest version.";
 "Restore from keychain" = "Restore from keychain";
 "Edit" = "Edit";
 "In this object" = "In this object";
@@ -541,7 +542,7 @@
 "Connection refused" = "Connection refused. Please, try again";
 "Companies, contacts, friends and family" = "Companies, contacts, friends and family";
 "Failed to sync, trying again..." = "Failed to sync, trying again...";
-"Sync.Status.Version.Outdated.Description" = "Version outdated. Please update anytype";
+"Sync.Status.Version.Outdated.Description" = "Version outdated. Please update Anytype";
 "This object doesn't exist" = "This object doesn't exist";
 "Account & data" = "Account & data";
 "File & Media" = "File & Media";
