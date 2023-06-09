@@ -13,7 +13,7 @@ extension SyncStatus {
             return Loc.syncing
         case .synced:
             return Loc.synced
-        case .failed:
+        case .failed, .incompatibleVersion:
             return Loc.notSyncing
         }
     }
@@ -30,6 +30,8 @@ extension SyncStatus {
             return Loc.backedUpOnOneNodeAtLeast
         case .failed:
             return Loc.failedToSyncTryingAgain
+        case .incompatibleVersion:
+            return Loc.Sync.Status.Version.Outdated.description
         }
     }
     
@@ -45,7 +47,7 @@ extension SyncStatus {
     
     private var color: UIColor {
         switch self {
-        case .offline, .failed:
+        case .offline, .failed, .incompatibleVersion:
             return UIColor.System.red
         case .syncing, .unknown:
             return UIColor.System.amber100
