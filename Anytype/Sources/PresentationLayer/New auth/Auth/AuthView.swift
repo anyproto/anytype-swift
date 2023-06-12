@@ -67,8 +67,11 @@ struct AuthView: View {
             StandardButton(
                 Loc.Auth.logIn,
                 style: .secondaryLarge,
-                action: {}
+                action: {
+                    model.onLoginButtonTap()
+                }
             )
+            .addEmptyNavigationLink(destination: model.onLoginAction(), isActive: $model.showLoginFlow)
         }
     }
     

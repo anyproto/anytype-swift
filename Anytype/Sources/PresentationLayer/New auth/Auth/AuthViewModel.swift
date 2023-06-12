@@ -5,6 +5,7 @@ import AudioToolbox
 final class AuthViewModel: ObservableObject {
     
     @Published var showJoinFlow: Bool = false
+    @Published var showLoginFlow: Bool = false
     @Published var showDebugMenu: Bool = false
     @Published var opacity: Double = 1
     @Published var creatingAccountInProgress = false
@@ -47,6 +48,14 @@ final class AuthViewModel: ObservableObject {
     
     func onJoinAction() -> AnyView? {
         output?.onJoinAction()
+    }
+    
+    func onLoginButtonTap() {
+        showLoginFlow.toggle()
+    }
+    
+    func onLoginAction() -> AnyView? {
+        output?.onLoginAction()
     }
     
     func onUrlTapAction(_ url: URL) {

@@ -716,6 +716,12 @@
 		2E0797C72A09678D006F0FD7 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0797C12A09678C006F0FD7 /* AuthViewModel.swift */; };
 		2E0797C82A09678D006F0FD7 /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0797C22A09678C006F0FD7 /* AuthView.swift */; };
 		2E0797C92A09678D006F0FD7 /* AuthViewModelOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0797C32A09678C006F0FD7 /* AuthViewModelOutput.swift */; };
+		2E0A6CD12A376B4600A28AF2 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0A6CD02A376B4600A28AF2 /* LoginView.swift */; };
+		2E0A6CD32A376E4400A28AF2 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0A6CD22A376E4400A28AF2 /* LoginViewModel.swift */; };
+		2E0A6CD52A376F1300A28AF2 /* LoginViewModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0A6CD42A376F1300A28AF2 /* LoginViewModuleAssembly.swift */; };
+		2E0A6CD72A3773B800A28AF2 /* LoginFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0A6CD62A3773B800A28AF2 /* LoginFlowCoordinator.swift */; };
+		2E0A6CD92A3773F200A28AF2 /* LoginFlowOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0A6CD82A3773F200A28AF2 /* LoginFlowOutput.swift */; };
+		2E0A6CDB2A3775D900A28AF2 /* LoginFlowCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0A6CDA2A3775D900A28AF2 /* LoginFlowCoordinatorAssembly.swift */; };
 		2E0D0E75289D652000785833 /* EditorSetViewSettingsRelation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0D0E74289D652000785833 /* EditorSetViewSettingsRelation.swift */; };
 		2E0D0E77289D653500785833 /* EditorSetViewSettingsToggleItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0D0E76289D653500785833 /* EditorSetViewSettingsToggleItem.swift */; };
 		2E0D0E79289D678200785833 /* EditorSetViewSettingsValueItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0D0E78289D678200785833 /* EditorSetViewSettingsValueItem.swift */; };
@@ -2185,6 +2191,12 @@
 		2E0797C12A09678C006F0FD7 /* AuthViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		2E0797C22A09678C006F0FD7 /* AuthView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
 		2E0797C32A09678C006F0FD7 /* AuthViewModelOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthViewModelOutput.swift; sourceTree = "<group>"; };
+		2E0A6CD02A376B4600A28AF2 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		2E0A6CD22A376E4400A28AF2 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		2E0A6CD42A376F1300A28AF2 /* LoginViewModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModuleAssembly.swift; sourceTree = "<group>"; };
+		2E0A6CD62A3773B800A28AF2 /* LoginFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFlowCoordinator.swift; sourceTree = "<group>"; };
+		2E0A6CD82A3773F200A28AF2 /* LoginFlowOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFlowOutput.swift; sourceTree = "<group>"; };
+		2E0A6CDA2A3775D900A28AF2 /* LoginFlowCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFlowCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		2E0D0E74289D652000785833 /* EditorSetViewSettingsRelation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetViewSettingsRelation.swift; sourceTree = "<group>"; };
 		2E0D0E76289D653500785833 /* EditorSetViewSettingsToggleItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetViewSettingsToggleItem.swift; sourceTree = "<group>"; };
 		2E0D0E78289D678200785833 /* EditorSetViewSettingsValueItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetViewSettingsValueItem.swift; sourceTree = "<group>"; };
@@ -5752,6 +5764,12 @@
 		2E0A6CCF2A37674300A28AF2 /* LoginFlow */ = {
 			isa = PBXGroup;
 			children = (
+				2E0A6CD02A376B4600A28AF2 /* LoginView.swift */,
+				2E0A6CD22A376E4400A28AF2 /* LoginViewModel.swift */,
+				2E0A6CD42A376F1300A28AF2 /* LoginViewModuleAssembly.swift */,
+				2E0A6CD62A3773B800A28AF2 /* LoginFlowCoordinator.swift */,
+				2E0A6CD82A3773F200A28AF2 /* LoginFlowOutput.swift */,
+				2E0A6CDA2A3775D900A28AF2 /* LoginFlowCoordinatorAssembly.swift */,
 			);
 			path = LoginFlow;
 			sourceTree = "<group>";
@@ -9044,6 +9062,7 @@
 				125683F427DF8366003A8251 /* NewSearchView+AddButtonModel.swift in Sources */,
 				12AF69142656AB7D00C0BA99 /* UIImageViewExtensions.swift in Sources */,
 				12E15B89270B2FAE0055EA01 /* BlockActionHandlerProtocol.swift in Sources */,
+				2E0A6CDB2A3775D900A28AF2 /* LoginFlowCoordinatorAssembly.swift in Sources */,
 				C9F0A47D28057D8F00FA16DD /* TextIconPickerViewModel.swift in Sources */,
 				120F7D58267D071400327734 /* PickerSectionHeaderView.swift in Sources */,
 				2A2C330D28928DA7008BC326 /* CoordinatorsDI.swift in Sources */,
@@ -9810,11 +9829,13 @@
 				C99DCE95283B6D1F0051F99D /* TemplatePickerView.swift in Sources */,
 				120F7D44267CD1AC00327734 /* ObjectCoverPicker.swift in Sources */,
 				531F0DEA283CCD8D000A0B31 /* Debouncer.swift in Sources */,
+				2E0A6CD32A376E4400A28AF2 /* LoginViewModel.swift in Sources */,
 				EA77E541262DEC3F009F91D9 /* ButtonsFactory.swift in Sources */,
 				EA20CDD526122C9200DBA9FE /* VideoBlockContentView.swift in Sources */,
 				2A1F947E2978312900E25782 /* ListWidgetHeaderItem.swift in Sources */,
 				2E61D470286C63FC004BC2E7 /* BlockBookmarkStateConverter.swift in Sources */,
 				2A6F5048288A9AB600ED6E2E /* Image+Create.swift in Sources */,
+				2E0A6CD92A3773F200A28AF2 /* LoginFlowOutput.swift in Sources */,
 				12F14CD52758D0B200B976B5 /* RelationEditingViewModelBuilderProtocol.swift in Sources */,
 				2E37F01428C768B900337BD4 /* EditorSetViewRow.swift in Sources */,
 				C9A04F8D287C317D00276804 /* SelectionDecorationView.swift in Sources */,
@@ -9982,6 +10003,7 @@
 				C9CD66AC27EB3BDE001F1860 /* UnsplashItemsViewModel.swift in Sources */,
 				3DAE1C89273E6A59009A72F3 /* String+Range.swift in Sources */,
 				5386E3C027B2DAEA004D8221 /* RelationValueViewUIKit.swift in Sources */,
+				2E0A6CD12A376B4600A28AF2 /* LoginView.swift in Sources */,
 				3DB1C9DC2726C248000D2779 /* DeletedLabel.swift in Sources */,
 				2ABF214C29B2056500E872D9 /* DashboardAccountDeletionAlertModel.swift in Sources */,
 				2E56F13F2A0D81AC00031167 /* TransparentBackground.swift in Sources */,
@@ -10005,6 +10027,7 @@
 				531767D52666899B00DF463A /* UICollectionViewDiffableDataSourceExtension.swift in Sources */,
 				2E9BF63D28B7D38F006D3CC2 /* SetViewTypesPickerViewModel.swift in Sources */,
 				3D16843626DE8BDF008B9DFF /* Application+FirstResponder.swift in Sources */,
+				2E0A6CD72A3773B800A28AF2 /* LoginFlowCoordinator.swift in Sources */,
 				2E975EDD287C2325004DE574 /* SetFiltersListView.swift in Sources */,
 				1206DB90267A303E000A48A7 /* MediaPickerView.swift in Sources */,
 				1247BC6627FDC36B005F2DB4 /* RelationFormatsListModuleOutput.swift in Sources */,
@@ -10124,6 +10147,7 @@
 				2A673C1929B0D7CD00E3D672 /* SettingsAccountViewModel.swift in Sources */,
 				3D68564D26E10D2500AA36A9 /* View+Placeholder.swift in Sources */,
 				5386E3BE27B2C8B7004D8221 /* TextRelationViewUIKit.swift in Sources */,
+				2E0A6CD52A376F1300A28AF2 /* LoginViewModuleAssembly.swift in Sources */,
 				C9C0A99E274FB04E0002FA30 /* EditorPageBlocksStateManager.swift in Sources */,
 				C96B6CA127B0F8DE00C453EB /* SpacerBlockViewModel.swift in Sources */,
 				12A52E2726CAA166000F0333 /* ViewAnimator.swift in Sources */,
