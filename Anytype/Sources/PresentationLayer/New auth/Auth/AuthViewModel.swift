@@ -51,8 +51,8 @@ final class AuthViewModel: ObservableObject {
     }
     
     func onLoginButtonTap() {
-        changeContentOpacity(true)
         showLoginFlow.toggle()
+        changeContentOpacity(true)
     }
     
     func onLoginAction() -> AnyView? {
