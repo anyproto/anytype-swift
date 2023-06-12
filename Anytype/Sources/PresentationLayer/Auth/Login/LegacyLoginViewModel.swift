@@ -2,7 +2,7 @@ import SwiftUI
 import Combine
 import LocalAuthentication
 
-class LoginViewModel: ObservableObject {
+class LegacyLoginViewModel: ObservableObject {
     private let authService = ServiceLocator.shared.authService()
     private lazy var cameraPermissionVerifier = CameraPermissionVerifier()
     private let seedService: SeedServiceProtocol

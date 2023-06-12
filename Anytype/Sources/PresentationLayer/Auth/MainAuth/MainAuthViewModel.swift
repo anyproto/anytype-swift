@@ -45,8 +45,8 @@ class MainAuthViewModel: ObservableObject {
     }
     
     func loginView() -> some View {
-        let viewModel = LoginViewModel(applicationStateService: applicationStateService)
-        return LoginView(viewModel: viewModel)
+        let viewModel = LegacyLoginViewModel(applicationStateService: applicationStateService)
+        return LegacyLoginView(viewModel: viewModel)
     }
 
     // MARK: - View output
