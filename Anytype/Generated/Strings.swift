@@ -679,6 +679,10 @@ internal enum Loc {
     internal static func device(_ p1: Any) -> String {
       return Loc.tr("Localizable", "About.Device", String(describing: p1), fallback: "Device: %@")
     }
+    /// Device ID: %@
+    internal static func deviceId(_ p1: Any) -> String {
+      return Loc.tr("Localizable", "About.deviceId", String(describing: p1), fallback: "Device ID: %@")
+    }
     /// Help & Community
     internal static let helpCommunity = Loc.tr("Localizable", "About.HelpCommunity", fallback: "Help & Community")
     /// Help & Tutorials
