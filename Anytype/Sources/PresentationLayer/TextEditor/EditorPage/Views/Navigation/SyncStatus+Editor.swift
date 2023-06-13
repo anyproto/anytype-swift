@@ -36,7 +36,7 @@ extension SyncStatus {
     }
     
     var image: UIImage? {
-        guard shouldShowImage else { return nil }
+        guard let color else { return nil }
         return ImageBuilder(
             ImageGuideline(
                 size: CGSize(width: 10, height: 10),
@@ -46,23 +46,16 @@ extension SyncStatus {
             .setImageColor(color).build()
     }
     
-    private var shouldShowImage: Bool {
+    private var color: UIColor? {
         switch self {
-        case .failed, .incompatibleVersion, .syncing, .synced:
-            return true
-        case .unknown, .offline:
-            return false
-        }
-    }
-    
-    private var color: UIColor {
-        switch self {
-        case .offline, .failed, .incompatibleVersion:
+        case .failed, .incompatibleVersion:
             return UIColor.System.red
-        case .syncing, .unknown:
+        case .syncing:
             return UIColor.System.amber100
         case .synced:
             return UIColor.System.green
+        case .unknown, .offline:
+            return nil
         }
     }
     
