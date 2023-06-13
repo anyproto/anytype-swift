@@ -1,7 +1,5 @@
 import ProtobufMessages
 import Combine
-import Foundation
-import AnytypeCore
 
 protocol UsecaseServiceProtocol {
     func setObjectImportUseCaseToSkip() async throws
