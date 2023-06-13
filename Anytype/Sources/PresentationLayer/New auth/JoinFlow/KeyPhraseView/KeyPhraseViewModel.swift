@@ -4,7 +4,6 @@ import SwiftUI
 final class KeyPhraseViewModel: ObservableObject {
 
     @Published var key: String
-    @Published var autofocus = false
     @Published var keyShown: Bool {
         didSet {
             state.keyShown = keyShown

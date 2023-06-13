@@ -42,8 +42,7 @@ struct KeyPhraseView: View {
     private var authMultilineTextField: some View {
         AuthMultilineTextField(
             text: $model.key,
-            autofocus: $model.autofocus,
-            blured: $model.keyShown
+            showText: $model.keyShown
         )
         .disabled(true)
     }

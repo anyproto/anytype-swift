@@ -11,7 +11,7 @@ struct VoidView: View {
             Spacer()
             
             StandardButton(
-                Loc.Auth.JoinFlow.next,
+                Loc.Auth.next,
                 style: .primaryLarge,
                 action: {
                     model.onNextButtonTap()

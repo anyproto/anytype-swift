@@ -2,13 +2,11 @@ import SwiftUI
 
 struct AuthMultilineTextField: View {
     @Binding var text: String
-    @Binding var autofocus: Bool
-    @Binding var blured: Bool
+    @Binding var showText: Bool
 
-    init(text: Binding<String>, autofocus: Binding<Bool>, blured: Binding<Bool>) {
+    init(text: Binding<String>, showText: Binding<Bool>) {
         self._text = text
-        self._autofocus = autofocus
-        self._blured = blured
+        self._showText = showText
     }
     
     var body: some View {
@@ -17,20 +15,19 @@ struct AuthMultilineTextField: View {
                 TextField("", text: $text,  axis: .vertical)
                     .padding(Constants.edgeInsets)
                     .background(Color.Auth.input)
-                    .blur(radius: blured ? 0 : Constants.blurRadius)
+                    .blur(radius: showText ? 0 : Constants.blurRadius)
                     .cornerRadius(Constants.cornerRadius, style: .continuous)
             } else {
                 TextEditor(text: $text)
                     .frame(height: 105)
                     .padding(Constants.edgeInsets)
-                    .blur(radius: blured ? 0 : Constants.blurRadius)
+                    .blur(radius: showText ? 0 : Constants.blurRadius)
                     .overlay(
                         RoundedRectangle(cornerRadius: Constants.cornerRadius)
                             .stroke(Color.Auth.input, lineWidth: 2)
                     )
             }
         }
-        .autofocus($autofocus)
         .disableAutocorrection(true)
         .textContentType(.password)
         .autocapitalization(.none)

@@ -746,6 +746,8 @@ internal enum Loc {
     internal static let join = Loc.tr("Localizable", "Auth.Join", fallback: "Join")
     /// Log in
     internal static let logIn = Loc.tr("Localizable", "Auth.LogIn", fallback: "Log in")
+    /// Next
+    internal static let next = Loc.tr("Localizable", "Auth.Next", fallback: "Next")
     internal enum Caption {
       internal enum Privacy {
         /// By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)
@@ -755,8 +757,6 @@ internal enum Loc {
       }
     }
     internal enum JoinFlow {
-      /// Next
-      internal static let next = Loc.tr("Localizable", "Auth.JoinFlow.Next", fallback: "Next")
       internal enum Creating {
         internal enum Soul {
           /// Creating your Soul
@@ -822,6 +822,16 @@ internal enum Loc {
         internal static let description = Loc.tr("Localizable", "Auth.JoinFlow.Void.Description", fallback: "Everything you create will be stored here. It is a special encrypted place, which exist on your machine and is backed up to the network.")
         /// This is your Void
         internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Void.Title", fallback: "This is your Void")
+      }
+    }
+    internal enum LoginFlow {
+      /// OR
+      internal static let or = Loc.tr("Localizable", "Auth.LoginFlow.Or", fallback: "OR")
+      internal enum Use {
+        internal enum Keychain {
+          /// Use keychain
+          internal static let title = Loc.tr("Localizable", "Auth.LoginFlow.Use.Keychain.Title", fallback: "Use keychain")
+        }
       }
     }
     internal enum Welcome {
