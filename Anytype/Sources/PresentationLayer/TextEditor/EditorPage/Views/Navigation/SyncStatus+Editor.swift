@@ -35,14 +35,24 @@ extension SyncStatus {
         }
     }
     
-    var image: UIImage {
-        ImageBuilder(
+    var image: UIImage? {
+        guard shouldShowImage else { return nil }
+        return ImageBuilder(
             ImageGuideline(
                 size: CGSize(width: 10, height: 10),
                 radius: .point(5)
             )
         )
             .setImageColor(color).build()
+    }
+    
+    private var shouldShowImage: Bool {
+        switch self {
+        case .failed, .incompatibleVersion, .syncing, .synced:
+            return true
+        case .unknown, .offline:
+            return false
+        }
     }
     
     private var color: UIColor {
