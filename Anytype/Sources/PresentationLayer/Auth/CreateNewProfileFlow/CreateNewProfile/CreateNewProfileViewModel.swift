@@ -6,15 +6,18 @@ class CreateNewProfileViewModel: ObservableObject {
     private let applicationStateService: ApplicationStateServiceProtocol
     private let authService: AuthServiceProtocol
     private let seedService: SeedServiceProtocol
+    private let usecaseService: UsecaseServiceProtocol
 
     init(
         applicationStateService: ApplicationStateServiceProtocol,
         authService: AuthServiceProtocol,
-        seedService: SeedServiceProtocol
+        seedService: SeedServiceProtocol,
+        usecaseService: UsecaseServiceProtocol
     ) {
         self.applicationStateService = applicationStateService
         self.authService = authService
         self.seedService = seedService
+        self.usecaseService = usecaseService
     }
 
     func showSetupWallet(signUpData: SignUpData, showWaitingView: Binding<Bool>) -> some View {
@@ -23,7 +26,8 @@ class CreateNewProfileViewModel: ObservableObject {
             showWaitingView: showWaitingView,
             applicationStateService: applicationStateService,
             authService: authService,
-            seedService: seedService
+            seedService: seedService,
+            usecaseService: usecaseService
         )
         return WaitingOnCreatAccountView(viewModel: viewModel)
     }
