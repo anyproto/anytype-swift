@@ -688,6 +688,7 @@
 "About.Library" = "Library version: %@";
 "About.accountId" = "Account ID: %@";
 "About.analyticsId" = "Analytics ID: %@";
+"About.deviceId" = "Device ID: %@";
 "About.Device" = "Device: %@";
 "About.OSVersion" = "OS version: %@";
 "About.HelpCommunity" = "Help & Community";
