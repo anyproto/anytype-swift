@@ -691,6 +691,11 @@ extension Anytype_Rpc.Object.ImportList.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }
 }
 
+extension Anytype_Rpc.Object.ImportUseCase.Response: ResultWithError {}
+extension Anytype_Rpc.Object.ImportUseCase.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null }
+}
+
 extension Anytype_Rpc.Object.ListDelete.Response: ResultWithError {}
 extension Anytype_Rpc.Object.ListDelete.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }

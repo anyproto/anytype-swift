@@ -27,7 +27,7 @@ public struct Anytype_Model_ObjectInfo {
 
   public var id: String = String()
 
-  /// deprecated
+  /// DEPRECATED
   public var objectTypeUrls: [String] = []
 
   public var details: SwiftProtobuf.Google_Protobuf_Struct {
@@ -39,10 +39,12 @@ public struct Anytype_Model_ObjectInfo {
   /// Clears the value of `details`. Subsequent reads from it will return its default value.
   public mutating func clearDetails() {self._details = nil}
 
+  /// DEPRECATED
   public var relations: [Anytype_Model_Relation] = []
 
   public var snippet: String = String()
 
+  /// DEPRECATED
   public var hasInboundLinks_p: Bool = false
 
   public var objectType: Anytype_Model_SmartBlockType = .accountOld
