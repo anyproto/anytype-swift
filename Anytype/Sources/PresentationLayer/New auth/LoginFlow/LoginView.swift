@@ -25,7 +25,7 @@ struct LoginView: View {
             Spacer.fixedHeight(16)
             
             AuthMultilineTextField(
-                text: $model.key,
+                text: $model.phrase,
                 showText: .constant(true)
             )
             .focused($model.autofocus)
@@ -42,11 +42,14 @@ struct LoginView: View {
         VStack(spacing: 12) {
             StandardButton(
                 Loc.Auth.next,
+                inProgress: model.walletRecoveryInProgress,
                 style: .primaryLarge,
-                action: {}
+                action: {
+                    model.onNextButtonAction()
+                }
             )
-            .colorScheme(model.key.isEmpty ? .dark : .light)
-            .disabled(model.key.isEmpty)
+            .colorScheme(model.phrase.isEmpty ? .dark : .light)
+            .disabled(model.phrase.isEmpty)
             
             AnytypeText(
                 Loc.Auth.LoginFlow.or,
@@ -54,17 +57,25 @@ struct LoginView: View {
                 color: .Auth.inputText
             )
             
-            StandardButton(
-                Loc.scanQRCode,
-                style: .secondaryLarge,
-                action: {}
-            )
-            
-            StandardButton(
-                Loc.Auth.LoginFlow.Use.Keychain.title,
-                style: .secondaryLarge,
-                action: {}
-            )
+            HStack(spacing: 8) {
+                StandardButton(
+                    Loc.scanQRCode,
+                    style: .secondaryLarge,
+                    action: {
+                        model.onScanQRButtonAction()
+                    }
+                )
+                
+                if model.canRestoreFromKeychain {
+                    StandardButton(
+                        Loc.Auth.LoginFlow.Use.Keychain.title,
+                        style: .secondaryLarge,
+                        action: {
+                            model.onKeychainButtonAction()
+                        }
+                    )
+                }
+            }
         }
     }
     
@@ -82,7 +93,12 @@ struct LoginView: View {
 struct LoginView_Previews : PreviewProvider {
     static var previews: some View {
         LoginView(
-            model: LoginViewModel()
+            model: LoginViewModel(
+                authService: DI.preview.serviceLocator.authService(),
+                seedService: DI.preview.serviceLocator.seedService(),
+                localAuthService: DI.preview.serviceLocator.localAuthService(),
+                cameraPermissionVerifier: DI.preview.serviceLocator.cameraPermissionVerifier()
+            )
         )
     }
 }

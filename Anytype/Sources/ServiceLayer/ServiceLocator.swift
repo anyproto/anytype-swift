@@ -237,6 +237,10 @@ final class ServiceLocator {
         LocalAuthService()
     }
     
+    func cameraPermissionVerifier() -> CameraPermissionVerifierProtocol {
+        CameraPermissionVerifier()
+    }
+    
     // MARK: - Private
     
     private func subscriptionToggler() -> SubscriptionTogglerProtocol {
