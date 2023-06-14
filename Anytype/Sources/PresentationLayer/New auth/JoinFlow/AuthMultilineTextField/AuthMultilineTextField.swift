@@ -26,7 +26,7 @@ struct AuthMultilineTextField: View {
                     .blur(radius: showText ? 0 : Constants.blurRadius)
                     .overlay(
                         RoundedRectangle(cornerRadius: Constants.cornerRadius)
-                            .stroke(Color.Auth.input, lineWidth: 2)
+                            .stroke(Color.Stroke.transperent, lineWidth: 2)
                     )
             }
         }
@@ -37,6 +37,9 @@ struct AuthMultilineTextField: View {
         .foregroundColor(.Auth.inputText)
         .accentColor(.Auth.inputText)
         .lineSpacing(AnytypeFont.authInput.lineSpacing)
+        .autocapitalization(.none)
+        .textContentType(.password)
+        .disableAutocorrection(true)
     }
 }
 
