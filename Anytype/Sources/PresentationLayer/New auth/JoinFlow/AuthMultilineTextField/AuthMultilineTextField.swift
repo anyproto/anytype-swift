@@ -13,10 +13,12 @@ struct AuthMultilineTextField: View {
         Group {
             if #available(iOS 16.0, *) {
                 TextField("", text: $text,  axis: .vertical)
+                    .lineLimit(4, reservesSpace: true)
                     .padding(Constants.edgeInsets)
-                    .background(Color.Auth.input)
+                    .background(Color.Stroke.transperent)
                     .blur(radius: showText ? 0 : Constants.blurRadius)
                     .cornerRadius(Constants.cornerRadius, style: .continuous)
+                    .opacity(0.8)
             } else {
                 TextEditor(text: $text)
                     .frame(height: 105)
