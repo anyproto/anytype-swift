@@ -3,8 +3,8 @@ import Services
 import SwiftProtobuf
 
 protocol RelationsServiceProtocol: AnyObject {
-    func addFeaturedRelation(relationKey: String)
-    func removeFeaturedRelation(relationKey: String)
+    func addFeaturedRelation(relationKey: String) async throws
+    func removeFeaturedRelation(relationKey: String) async throws
     
     func updateRelation(relationKey: String, value: Google_Protobuf_Value)
 
@@ -13,6 +13,6 @@ protocol RelationsServiceProtocol: AnyObject {
     func addRelations(relationKeys: [String]) -> Bool
 
     func removeRelation(relationKey: String)
-    func addRelationOption(relationKey: String, optionText: String) -> String?
+    func addRelationOption(relationKey: String, optionText: String) async throws -> String?
     func availableRelations() -> [RelationDetails]
 }
