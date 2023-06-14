@@ -130,6 +130,10 @@ final class ModulesDI: ModulesDIProtocol {
         return JoinFlowModuleAssembly(serviceLocator: serviceLocator)
     }
     
+    func login() -> LoginViewModuleAssemblyProtocol {
+        return LoginViewModuleAssembly()
+    }
+    
     // @joe_pusya: will be moved to separate modulesDI
     
     func authVoid() -> VoidViewModuleAssemblyProtocol {
