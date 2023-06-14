@@ -102,12 +102,12 @@ private extension StatusRelationDetailsViewModel {
     }
     
     func handleCreateOption(title: String) {
-        let optionId = service.addRelationOption(relationKey: relation.key, optionText: title)
-        guard let optionId = optionId else {
-            return
+        Task { @MainActor in
+            let optionId = try await service.addRelationOption(relationKey: relation.key, optionText: title)
+            guard let optionId = optionId else { return }
+            
+            handleSelectedOptionIds([optionId])
         }
-
-        handleSelectedOptionIds([optionId])
     }
     
     func logChanges() {

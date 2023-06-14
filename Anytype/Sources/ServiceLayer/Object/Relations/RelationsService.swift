@@ -77,7 +77,7 @@ final class RelationsService: RelationsServiceProtocol {
         AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.deleteRelation)
     }
     
-    func addRelationOption(relationKey: String, optionText: String) -> String? {
+    func addRelationOption(relationKey: String, optionText: String) async throws -> String? {
         let color = MiddlewareColor.allCases.randomElement()?.rawValue ?? MiddlewareColor.default.rawValue
         
         let details = Google_Protobuf_Struct(
@@ -88,7 +88,7 @@ final class RelationsService: RelationsServiceProtocol {
             ]
         )
         
-        let optionResult = try? ClientCommands.objectCreateRelationOption(.with {
+        let optionResult = try? await ClientCommands.objectCreateRelationOption(.with {
             $0.details = details
         }).invoke()
         
