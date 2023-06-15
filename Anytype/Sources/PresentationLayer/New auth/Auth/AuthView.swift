@@ -95,7 +95,8 @@ struct AuthView_Previews : PreviewProvider {
                 state: JoinFlowState(),
                 output: nil,
                 authService: DI.preview.serviceLocator.authService(),
-                seedService: DI.preview.serviceLocator.seedService()
+                seedService: DI.preview.serviceLocator.seedService(),
+                metricsService: DI.preview.serviceLocator.metricsService()
             )
         )
     }

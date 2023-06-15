@@ -16,6 +16,7 @@ final class SelectProfileViewModel: ObservableObject {
     
     private let authService = ServiceLocator.shared.authService()
     private let fileService = ServiceLocator.shared.fileService()
+    private let metricsService = ServiceLocator.shared.metricsService()
     private let accountEventHandler = ServiceLocator.shared.accountEventHandler()
     
     private var cancellable: AnyCancellable?
@@ -65,6 +66,7 @@ private extension SelectProfileViewModel {
     func selectProfile(id: String) {
         Task { @MainActor in
             do {
+                try await metricsService.metricsSetParameters()
                 let status = try await authService.selectAccount(id: id)
                 isAccountRecovering = false
                 snackBarData = .empty

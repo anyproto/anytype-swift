@@ -117,7 +117,8 @@ struct CreateNewProfileView_Previews: PreviewProvider {
                 applicationStateService: DI.preview.serviceLocator.applicationStateService(),
                 authService: DI.preview.serviceLocator.authService(),
                 seedService: DI.preview.serviceLocator.seedService(),
-                usecaseService: DI.preview.serviceLocator.usecaseService()
+                usecaseService: DI.preview.serviceLocator.usecaseService(),
+                metricsService: DI.preview.serviceLocator.metricsService()
             ),
             signUpData: SignUpData(mnemonic: UUID().uuidString)
         )
