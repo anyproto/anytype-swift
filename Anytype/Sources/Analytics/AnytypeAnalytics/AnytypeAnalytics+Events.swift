@@ -153,7 +153,7 @@ extension AnytypeAnalytics {
         logEvent(
             AnalyticsEventsName.createObject,
             withEventProperties: [
-                AnalyticsEventsPropertiesKey.type: objectType.analyticsId,
+                AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId,
                 AnalyticsEventsPropertiesKey.route: route.rawValue
             ]
         )

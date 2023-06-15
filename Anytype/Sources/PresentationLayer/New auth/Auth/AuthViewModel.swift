@@ -15,17 +15,20 @@ final class AuthViewModel: ObservableObject {
     private weak var output: AuthViewModelOutput?
     private let authService: AuthServiceProtocol
     private let seedService: SeedServiceProtocol
+    private let metricsService: MetricsServiceProtocol
     
     init(
         state: JoinFlowState,
         output: AuthViewModelOutput?,
         authService: AuthServiceProtocol,
-        seedService: SeedServiceProtocol
+        seedService: SeedServiceProtocol,
+        metricsService: MetricsServiceProtocol
     ) {
         self.state = state
         self.output = output
         self.authService = authService
         self.seedService = seedService
+        self.metricsService = metricsService
     }
     
     // MARK: - Public
@@ -64,6 +67,7 @@ final class AuthViewModel: ObservableObject {
                 creatingAccountInProgress = true
                 
                 state.mnemonic = try await authService.createWallet()
+                try await metricsService.metricsSetParameters()
                 try await authService.createAccount(
                     name: "",
                     imagePath: ""
