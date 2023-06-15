@@ -59,6 +59,12 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
+    static let fixSIGPIPECrash = FeatureDescription(
+        title: "Fix SIGPIPE crash",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.22.0"),
+        defaultValue: true
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(
