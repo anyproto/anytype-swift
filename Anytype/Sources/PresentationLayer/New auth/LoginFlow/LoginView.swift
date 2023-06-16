@@ -17,6 +17,12 @@ struct LoginView: View {
                     backButton
                 }
             }
+            .sheet(isPresented: $model.showQrCodeView) {
+                QRCodeScannerView(qrCode: self.$model.entropy, error: self.$model.error)
+            }
+            .alert(isPresented: $model.openSettingsURL) {
+                AlertsFactory.goToSettingsAlert(title: Loc.Auth.cameraPermissionTitle)
+            }
             .fitIPadToReadableContentGuide()
     }
     

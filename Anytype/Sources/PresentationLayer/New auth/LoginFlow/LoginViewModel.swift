@@ -6,6 +6,14 @@ final class LoginViewModel: ObservableObject {
     @Published var phrase = ""
     @Published var autofocus = true
     @Published var walletRecoveryInProgress = false
+    @Published var showQrCodeView: Bool = false
+    @Published var openSettingsURL = false
+    @Published var entropy: String = "" {
+        didSet {
+            onEntropySet()
+        }
+    }
+    @Published var error: String?
     
     let canRestoreFromKeychain: Bool
     
@@ -37,17 +45,27 @@ final class LoginViewModel: ObservableObject {
         cameraPermissionVerifier.cameraPermission
             .receiveOnMain()
             .sink { [unowned self] isGranted in
-//                if isGranted {
-//                    showQrCodeView = true
-//                } else {
-//                    openSettingsURL = true
-//                }
+                if isGranted {
+                    showQrCodeView = true
+                } else {
+                    openSettingsURL = true
+                }
             }
             .store(in: &subscriptions)
     }
     
     func onKeychainButtonAction() {
         restoreFromkeychain()
+    }
+    
+    private func onEntropySet() {
+        do {
+            let phrase = try authService.mnemonicByEntropy(entropy)
+            self.phrase = phrase
+            walletRecovery(with: phrase)
+        } catch {
+            self.error = error.localizedDescription
+        }
     }
     
     private func walletRecovery(with phrase: String) {
