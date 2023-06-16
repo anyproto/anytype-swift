@@ -103,10 +103,12 @@ private extension RelationOptionsListViewModel {
     }
     
     func handleCreateOption(title: String) {
-        let optionId = service.addRelationOption(relationKey: relationKey, optionText: title)
-        guard let optionId = optionId else { return}
+        Task { @MainActor in
+            let optionId = try await service.addRelationOption(relationKey: relationKey, optionText: title)
+            guard let optionId = optionId else { return}
 
-        handleNewOptionIds([optionId])
+            handleNewOptionIds([optionId])
+        }
     }
     
     func updateLayout() {
