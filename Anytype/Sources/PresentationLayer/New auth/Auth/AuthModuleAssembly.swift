@@ -22,7 +22,8 @@ final class AuthModuleAssembly: AuthModuleAssemblyProtocol {
                 state: state,
                 output: output,
                 authService: serviceLocator.authService(),
-                seedService: serviceLocator.seedService()
+                seedService: serviceLocator.seedService(),
+                metricsService: serviceLocator.metricsService()
             )
         ).eraseToAnyView()
     }

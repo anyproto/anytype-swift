@@ -21,6 +21,7 @@ final class ApplicationCoordinator: ApplicationCoordinatorProtocol {
     private let seedService: SeedServiceProtocol
     private let fileErrorEventHandler: FileErrorEventHandlerProtocol
     private let toastPresenter: ToastPresenterProtocol
+    private let metricsService: MetricsServiceProtocol
     
     // MARK: - State
     
@@ -36,7 +37,8 @@ final class ApplicationCoordinator: ApplicationCoordinatorProtocol {
         accountManager: AccountManagerProtocol,
         seedService: SeedServiceProtocol,
         fileErrorEventHandler: FileErrorEventHandlerProtocol,
-        toastPresenter: ToastPresenterProtocol
+        toastPresenter: ToastPresenterProtocol,
+        metricsService: MetricsServiceProtocol
     ) {
         self.windowManager = windowManager
         self.authService = authService
@@ -46,6 +48,7 @@ final class ApplicationCoordinator: ApplicationCoordinatorProtocol {
         self.seedService = seedService
         self.fileErrorEventHandler = fileErrorEventHandler
         self.toastPresenter = toastPresenter
+        self.metricsService = metricsService
     }
     
     // MARK: - ApplicationCoordinatorProtocol
@@ -149,6 +152,7 @@ final class ApplicationCoordinator: ApplicationCoordinatorProtocol {
             do {
                 let seed = try seedService.obtainSeed()
                 try await authService.walletRecovery(mnemonic: seed)
+                try await metricsService.metricsSetParameters()
                 let result = try await authService.selectAccount(id: userId)
                 
                 switch result {

@@ -94,6 +94,7 @@ final class AboutViewModel: ObservableObject {
                 Loc.About.buildNumber(buildNumber ?? ""),
                 Loc.About.library(libraryVersion ?? ""),
                 Loc.About.accountId(accountManager.account.id),
+                Loc.About.deviceId(accountManager.account.info.deviceId),
                 Loc.About.analyticsId(accountManager.account.info.analyticsId)
             ].joined(separator: "\n")
         }

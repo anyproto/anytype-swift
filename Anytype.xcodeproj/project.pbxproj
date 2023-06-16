@@ -716,6 +716,7 @@
 		2E0797C72A09678D006F0FD7 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0797C12A09678C006F0FD7 /* AuthViewModel.swift */; };
 		2E0797C82A09678D006F0FD7 /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0797C22A09678C006F0FD7 /* AuthView.swift */; };
 		2E0797C92A09678D006F0FD7 /* AuthViewModelOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0797C32A09678C006F0FD7 /* AuthViewModelOutput.swift */; };
+		2E0A57BA2A3C7C6800359110 /* UsecaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0A57B92A3C7C6800359110 /* UsecaseService.swift */; };
 		2E0A6CD12A376B4600A28AF2 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0A6CD02A376B4600A28AF2 /* LoginView.swift */; };
 		2E0A6CD32A376E4400A28AF2 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0A6CD22A376E4400A28AF2 /* LoginViewModel.swift */; };
 		2E0A6CD52A376F1300A28AF2 /* LoginViewModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0A6CD42A376F1300A28AF2 /* LoginViewModuleAssembly.swift */; };
@@ -839,6 +840,7 @@
 		2EB97A1B28B64CDC002BBB39 /* SetListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB97A1A28B64CDC002BBB39 /* SetListViewCell.swift */; };
 		2EC669212A166FD1001F71BC /* JoinFlowStepOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC669202A166FD1001F71BC /* JoinFlowStepOutput.swift */; };
 		2EC669242A16755A001F71BC /* AuthCustomTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC669232A16755A001F71BC /* AuthCustomTransition.swift */; };
+		2EC6AFBA2A3B1C0700A17A50 /* MetricsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC6AFB92A3B1C0700A17A50 /* MetricsService.swift */; };
 		2EC9424F28F97F4D00DE91E4 /* GroupsSubscribeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC9424E28F97F4D00DE91E4 /* GroupsSubscribeService.swift */; };
 		2EC9425128F97F5E00DE91E4 /* GroupsSubscribeServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC9425028F97F5E00DE91E4 /* GroupsSubscribeServiceProtocol.swift */; };
 		2EC9425F2900351C00DE91E4 /* DataviewGroup+Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC9425E2900351C00DE91E4 /* DataviewGroup+Filter.swift */; };
@@ -2191,6 +2193,7 @@
 		2E0797C12A09678C006F0FD7 /* AuthViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		2E0797C22A09678C006F0FD7 /* AuthView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
 		2E0797C32A09678C006F0FD7 /* AuthViewModelOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthViewModelOutput.swift; sourceTree = "<group>"; };
+		2E0A57B92A3C7C6800359110 /* UsecaseService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsecaseService.swift; sourceTree = "<group>"; };
 		2E0A6CD02A376B4600A28AF2 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		2E0A6CD22A376E4400A28AF2 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		2E0A6CD42A376F1300A28AF2 /* LoginViewModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModuleAssembly.swift; sourceTree = "<group>"; };
@@ -2314,6 +2317,7 @@
 		2EB97A1A28B64CDC002BBB39 /* SetListViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetListViewCell.swift; sourceTree = "<group>"; };
 		2EC669202A166FD1001F71BC /* JoinFlowStepOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinFlowStepOutput.swift; sourceTree = "<group>"; };
 		2EC669232A16755A001F71BC /* AuthCustomTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCustomTransition.swift; sourceTree = "<group>"; };
+		2EC6AFB92A3B1C0700A17A50 /* MetricsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricsService.swift; sourceTree = "<group>"; };
 		2EC9424E28F97F4D00DE91E4 /* GroupsSubscribeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsSubscribeService.swift; sourceTree = "<group>"; };
 		2EC9425028F97F5E00DE91E4 /* GroupsSubscribeServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsSubscribeServiceProtocol.swift; sourceTree = "<group>"; };
 		2EC9425E2900351C00DE91E4 /* DataviewGroup+Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataviewGroup+Filter.swift"; sourceTree = "<group>"; };
@@ -3249,6 +3253,7 @@
 		038FB5C822D8F321002B90B8 /* ServiceLayer */ = {
 			isa = PBXGroup;
 			children = (
+				2EC6AFB82A3B1ADC00A17A50 /* Metrics */,
 				2AB522062A14D08A007DEE53 /* File */,
 				2AD741322994F17F004BD223 /* ApplicationState */,
 				2A1F949629795FB300E25782 /* Subscriptions */,
@@ -5761,6 +5766,14 @@
 			path = Auth;
 			sourceTree = "<group>";
 		};
+		2E0A57B82A3C7C6800359110 /* Usecase */ = {
+			isa = PBXGroup;
+			children = (
+				2E0A57B92A3C7C6800359110 /* UsecaseService.swift */,
+			);
+			path = Usecase;
+			sourceTree = "<group>";
+		};
 		2E0A6CCF2A37674300A28AF2 /* LoginFlow */ = {
 			isa = PBXGroup;
 			children = (
@@ -6069,6 +6082,14 @@
 				2EC669232A16755A001F71BC /* AuthCustomTransition.swift */,
 			);
 			path = Transition;
+			sourceTree = "<group>";
+		};
+		2EC6AFB82A3B1ADC00A17A50 /* Metrics */ = {
+			isa = PBXGroup;
+			children = (
+				2EC6AFB92A3B1C0700A17A50 /* MetricsService.swift */,
+			);
+			path = Metrics;
 			sourceTree = "<group>";
 		};
 		2EC9424928F97F2A00DE91E4 /* GroupsSubscribeService */ = {
@@ -6438,6 +6459,7 @@
 		3D2F9C14271EADC50043C326 /* Object */ = {
 			isa = PBXGroup;
 			children = (
+				2E0A57B82A3C7C6800359110 /* Usecase */,
 				2A733A86293F329E00B7D27C /* Workspace */,
 				2E98634B2937B55800304645 /* GroupsSubscriptionsHandler */,
 				2EC9424928F97F2A00DE91E4 /* GroupsSubscribeService */,
@@ -9522,6 +9544,7 @@
 				3D5A41692703170300F1F6A1 /* BlockColor.swift in Sources */,
 				2E0DAF2128A26F1600F43320 /* DataviewViewSize+Value.swift in Sources */,
 				12461BFC2767837000D47708 /* TagView.swift in Sources */,
+				2EC6AFBA2A3B1C0700A17A50 /* MetricsService.swift in Sources */,
 				3D5A415F2703132800F1F6A1 /* SlashActionAlignment.swift in Sources */,
 				0A0965EE25BEF5B000C004BD /* EditorPageViewModel.swift in Sources */,
 				0A996BD123F0342A000FDC9C /* PlistReader.swift in Sources */,
@@ -9840,6 +9863,7 @@
 				2E37F01428C768B900337BD4 /* EditorSetViewRow.swift in Sources */,
 				C9A04F8D287C317D00276804 /* SelectionDecorationView.swift in Sources */,
 				12136D5A2799A2BC00262FE7 /* TextRelationDetailsViewController.swift in Sources */,
+				2E0A57BA2A3C7C6800359110 /* UsecaseService.swift in Sources */,
 				535FDE2027E8B63A0098DBFA /* PasteboardHelper.swift in Sources */,
 				12CAF32326D53878001E56B2 /* ObjectIconImagePainterProtocol.swift in Sources */,
 				126C46D726BD966700D31DBF /* ObjectHeaderIcon.swift in Sources */,
