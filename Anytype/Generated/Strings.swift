@@ -679,6 +679,10 @@ internal enum Loc {
     internal static func device(_ p1: Any) -> String {
       return Loc.tr("Localizable", "About.Device", String(describing: p1), fallback: "Device: %@")
     }
+    /// Device ID: %@
+    internal static func deviceId(_ p1: Any) -> String {
+      return Loc.tr("Localizable", "About.deviceId", String(describing: p1), fallback: "Device ID: %@")
+    }
     /// Help & Community
     internal static let helpCommunity = Loc.tr("Localizable", "About.HelpCommunity", fallback: "Help & Community")
     /// Help & Tutorials
@@ -714,6 +718,18 @@ internal enum Loc {
       /// Support request, Account ID %@
       internal static func subject(_ p1: Any) -> String {
         return Loc.tr("Localizable", "About.Mail.Subject", String(describing: p1), fallback: "Support request, Account ID %@")
+      }
+    }
+  }
+  internal enum Account {
+    internal enum Select {
+      internal enum Incompatible {
+        internal enum Version {
+          internal enum Error {
+            /// Unable to retrieve account data due to incompatible version on remote nodes. Please update Anytype to the latest version.
+            internal static let text = Loc.tr("Localizable", "Account.Select.Incompatible.Version.Error.Text", fallback: "Unable to retrieve account data due to incompatible version on remote nodes. Please update Anytype to the latest version.")
+          }
+        }
       }
     }
   }
@@ -1556,6 +1572,16 @@ internal enum Loc {
     internal static let table = Loc.tr("Localizable", "SlashMenu.Table", fallback: "Table")
     /// Table of contents
     internal static let tableOfContents = Loc.tr("Localizable", "SlashMenu.TableOfContents", fallback: "Table of contents")
+  }
+  internal enum Sync {
+    internal enum Status {
+      internal enum Version {
+        internal enum Outdated {
+          /// Version outdated. Please update Anytype
+          internal static let description = Loc.tr("Localizable", "Sync.Status.Version.Outdated.Description", fallback: "Version outdated. Please update Anytype")
+        }
+      }
+    }
   }
   internal enum TalbeOfContents {
     /// Add headings to create a table of contents

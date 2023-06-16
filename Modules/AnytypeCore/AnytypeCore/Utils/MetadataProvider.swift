@@ -8,4 +8,8 @@ public final class MetadataProvider {
     public static var buildNumber: String? {
         Bundle.main.infoDictionary?["CFBundleVersion"] as? String
     }
+    
+    public static var buildIdentifier: String? {
+        Bundle.main.infoDictionary?["CFBundleIdentifier"] as? String
+    }
 }

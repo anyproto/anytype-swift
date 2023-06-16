@@ -30,6 +30,14 @@ final class ServiceLocator {
         )
     }
     
+    func usecaseService() -> UsecaseServiceProtocol {
+        UsecaseService()
+    }
+    
+    func metricsService() -> MetricsServiceProtocol {
+        MetricsService()
+    }
+    
     private lazy var _loginStateService = LoginStateService(
         seedService: seedService(),
         objectTypeProvider: objectTypeProvider(),
