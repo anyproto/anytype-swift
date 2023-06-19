@@ -26,7 +26,7 @@ final class UndoRedoViewModel: ObservableObject {
 
     func undo() {
         AnytypeAnalytics.instance().logUndo()
-        Task {
+        Task { @MainActor in
             do {
                 try await objectActionsService.undo(objectId: objectId)
             } catch let error as ObjectActionsServiceError {
@@ -37,7 +37,7 @@ final class UndoRedoViewModel: ObservableObject {
 
     func redo() {
         AnytypeAnalytics.instance().logRedo()
-        Task {
+        Task { @MainActor in
             do {
                 try await objectActionsService.redo(objectId: objectId)
             } catch let error as ObjectActionsServiceError {
