@@ -63,9 +63,7 @@ final class LoginViewModel: ObservableObject {
             let phrase = try authService.mnemonicByEntropy(entropy)
             self.phrase = phrase
             walletRecovery(with: phrase)
-        } catch {
-            self.error = error.localizedDescription
-        }
+        } catch {}
     }
     
     private func walletRecovery(with phrase: String) {
@@ -89,7 +87,7 @@ final class LoginViewModel: ObservableObject {
                   let phrase = try? seedService.obtainSeed() else {
                 return
             }
-
+            self.phrase = phrase
             walletRecovery(with: phrase)
         }
     }
