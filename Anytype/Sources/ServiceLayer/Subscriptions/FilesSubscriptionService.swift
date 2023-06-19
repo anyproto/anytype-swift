@@ -1,10 +1,11 @@
 import Foundation
-import BlocksModels
+import Services
 import Combine
 import AnytypeCore
 
 protocol FilesSubscriptionServiceProtocol: AnyObject {
     func startSubscription(
+        syncStatus: FileSyncStatus,
         objectLimit: Int?,
         update: @escaping SubscriptionCallback
     )
@@ -32,6 +33,7 @@ final class FilesSubscriptionService: FilesSubscriptionServiceProtocol {
     // MARK: - FilesSubscriptionServiceProtocol
     
     func startSubscription(
+        syncStatus: FileSyncStatus,
         objectLimit: Int?,
         update: @escaping SubscriptionCallback
     ) {
@@ -44,7 +46,8 @@ final class FilesSubscriptionService: FilesSubscriptionServiceProtocol {
         let filters = [
             SearchHelper.notHiddenFilter(),
             SearchHelper.workspaceId(accountManager.account.info.accountSpaceId),
-            SearchHelper.layoutFilter([DetailsLayout.file, DetailsLayout.image])
+            SearchHelper.layoutFilter([DetailsLayout.file, DetailsLayout.image]),
+            SearchHelper.fileSyncStatus(syncStatus)
         ]
         
         let searchData: SubscriptionData = .search(

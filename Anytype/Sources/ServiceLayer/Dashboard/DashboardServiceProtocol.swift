@@ -1,5 +1,5 @@
 import AnytypeCore
-import BlocksModels
+import Services
 
 protocol DashboardServiceProtocol {
     

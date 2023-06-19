@@ -1,6 +1,6 @@
 import Foundation
 import SwiftUI
-import BlocksModels
+import Services
 import Combine
 
 final class NewRelationViewModel: ObservableObject {

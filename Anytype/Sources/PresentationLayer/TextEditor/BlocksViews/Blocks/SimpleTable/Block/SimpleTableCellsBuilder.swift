@@ -1,5 +1,5 @@
 import UIKit
-import BlocksModels
+import Services
 import AnytypeCore
 
 final class SimpleTableCellsBuilder {
@@ -60,7 +60,7 @@ final class SimpleTableCellsBuilder {
                 case let .text(content):
                     return textBlockConfiguration(information: blockInformation, content: content, table: computedTable, isHeaderRow: item.isHeaderRow)
                 default:
-                    anytypeAssertionFailure("Wrong path", domain: .simpleTables)
+                    anytypeAssertionFailure("Wrong path")
                     return makeEmptyContentCellConfiguration(columnId: item.columnId, rowId: item.rowId, isHeaderRow: item.isHeaderRow)
                 }
             }
@@ -193,7 +193,7 @@ struct ComputedTable {
 
         for rowId in tableRowsBlockInfo.childrenIds {
             guard let childInformation = infoContainer.get(id: rowId) else {
-                anytypeAssertionFailure("Missing column or rows information", domain: .simpleTables)
+                anytypeAssertionFailure("Missing column or rows information")
                 return nil
             }
 
@@ -225,7 +225,7 @@ extension ComputedTable {
 
         for childId in newBlockInformation.childrenIds {
             guard let childInformation = infoContainer.get(id: childId) else {
-                anytypeAssertionFailure("Can't find child of table view", domain: .simpleTables)
+                anytypeAssertionFailure("Can't find child of table view")
                 return nil
             }
 
@@ -238,7 +238,7 @@ extension ComputedTable {
 
         guard let tableColumnsBlockInfo = tableColumnsBlockInfo,
               let tableRowsBlockInfo = tableRowsBlockInfo else {
-            anytypeAssertionFailure("Missing column or rows information", domain: .simpleTables)
+            anytypeAssertionFailure("Missing column or rows information")
             return nil
         }
 

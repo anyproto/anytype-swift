@@ -1,6 +1,6 @@
 import Combine
 import UIKit
-import BlocksModels
+import Services
 import AnytypeCore
 
 final class BlockBookmarkView: UIView, BlockContentView {

@@ -1,5 +1,5 @@
 import Foundation
-import BlocksModels
+import Services
 
 extension WidgetContainerViewModel {
     
@@ -7,6 +7,7 @@ extension WidgetContainerViewModel {
     
     convenience init(
         serviceLocator: ServiceLocator,
+        uiHelpersDI: UIHelpersDIProtocol,
         widgetBlockId: BlockId,
         widgetObject: BaseDocumentProtocol,
         stateManager: HomeWidgetsStateManagerProtocol,
@@ -21,6 +22,7 @@ extension WidgetContainerViewModel {
             blockWidgetExpandedService: serviceLocator.blockWidgetExpandedService(),
             objectActionsService: serviceLocator.objectActionsService(),
             searchService: serviceLocator.searchService(),
+            alertOpener: uiHelpersDI.alertOpener(),
             contentModel: contentModel,
             output: output
         )

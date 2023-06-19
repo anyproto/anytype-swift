@@ -19,36 +19,35 @@ enum BlocksOptionItem: CaseIterable, Comparable {
 }
 
 extension BlocksOptionItem {
-    private typealias BlockOptionImage = ImageAsset.TextEditor.BlocksOption
-
+    
     var imageAsset: ImageAsset {
         switch self {
         case .style:
-            return .EditingToolbar.style
+            return .X32.style
         case .delete:
-            return BlockOptionImage.delete
+            return .X32.delete
         case .addBlockBelow:
-            return BlockOptionImage.addBelow
+            return .X32.addBelow
         case .duplicate:
-            return BlockOptionImage.duplicate
+            return .X32.duplicate
         case .turnInto:
-            return BlockOptionImage.turnIntoObject
+            return .X32.turnIntoObject
         case .moveTo:
-            return BlockOptionImage.moveTo
+            return .X32.moveTo
         case .move:
-            return BlockOptionImage.move
+            return .X32.move
         case .download:
-            return BlockOptionImage.download
+            return .X32.download
         case .openObject:
-            return BlockOptionImage.openToEdit
+            return .X32.openAsObject
         case .openSource:
-            return BlockOptionImage.openToEdit
+            return .X32.openAsObject
         case .paste:
-            return BlockOptionImage.paste
+            return .X32.paste
         case .copy:
-            return BlockOptionImage.copy
+            return .X32.copy
         case .preview:
-            return BlockOptionImage.view
+            return .X32.View.view
         }
     }
 

@@ -1,5 +1,5 @@
 import Foundation
-import BlocksModels
+import Services
 
 protocol WidgetSourceSearchInternalViewModelProtocol: AnyObject {
     func onSelect(source: WidgetSource)

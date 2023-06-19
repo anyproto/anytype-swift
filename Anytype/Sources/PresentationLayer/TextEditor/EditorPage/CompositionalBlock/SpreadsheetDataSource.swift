@@ -1,6 +1,6 @@
 import AnytypeCore
 import UIKit
-import BlocksModels
+import Services
 
 final class SpreadsheetViewDataSource {
     typealias DataSource = UICollectionViewDiffableDataSource<Int, EditorItem>

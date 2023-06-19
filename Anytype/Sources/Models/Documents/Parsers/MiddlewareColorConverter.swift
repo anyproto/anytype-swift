@@ -1,5 +1,5 @@
 import UIKit
-import BlocksModels
+import Services
 
 extension ComponentColor where T: UIColor {
     static func uiColor(from middlewareColor: MiddlewareColor) -> UIColor {

@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 import Combine
 import os
-import BlocksModels
+import Services
 import AnytypeCore
 
 final class EditorPageViewModel: EditorPageViewModelProtocol {

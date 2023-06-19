@@ -7,13 +7,12 @@ enum AssertionError: Error {
 
 public func anytypeAssertionFailure(
     _ message: String,
-    domain: ErrorDomain,
     info: [String: String] = [:],
     file: StaticString = #file,
     function: String = #function,
     line: UInt = #line
 ) {
-    logNonFatal(message, domain: domain, info: info, file: file, function: function, line: line)
+    logNonFatal(message, info: info, file: file, function: function, line: line)
     #if ENTERPRISE
         if FeatureFlags.showAlertOnAssert {
             showAssertionAlert(message)
@@ -23,34 +22,36 @@ public func anytypeAssertionFailure(
 
 public func anytypeAssertionFailureWithError(
     _ message: String,
-    domain: ErrorDomain,
     info: [String: String] = [:],
     file: StaticString = #file,
     function: String = #function,
     line: UInt = #line
 ) -> Error {
-    anytypeAssertionFailure(message, domain: domain, info: info, file: file, function: function, line: line)
+    anytypeAssertionFailure(message, info: info, file: file, function: function, line: line)
     return AssertionError.common(message)
 }
 
 public func anytypeAssert(
     _ condition: @autoclosure () -> Bool,
     _ message: String,
-    domain: ErrorDomain,
     info: [String: String] = [:],
     file: StaticString = #file,
     function: String = #function,
     line: UInt = #line
 ) {
     if condition() != true {
-        anytypeAssertionFailure(message, domain: domain, info: info, file: file, function: function, line: line)
+        anytypeAssertionFailure(message, info: info, file: file, function: function, line: line)
     }
 } 
 
 // MARK:- Private
 private func showAssertionAlert(_ message: String) {
     
-    guard let keyWindow = UIApplication.shared.windows.filter({$0.isKeyWindow}).first else {
+    let keyWindow = UIApplication.shared.connectedScenes
+        .first { $0.activationState == .foregroundActive }
+        .flatMap { $0 as? UIWindowScene }?.keyWindow
+    
+    guard let keyWindow else {
         return
     }
     
@@ -71,11 +72,10 @@ private func showAssertionAlert(_ message: String) {
 
 private func logNonFatal(
     _ message: String,
-    domain: ErrorDomain,
     info: [String: String] = [:],
     file: StaticString = #file,
     function: String = #function,
     line: UInt = #line
 ) {
-    AssertionLogger.shared.log(message, domain: domain, info: info, file: "\(file)", function: function, line: line)
+    AssertionLogger.shared.log(message, info: info, file: "\(file)", function: function, line: line)
 }

@@ -1,6 +1,6 @@
 import Combine
 import UIKit
-import BlocksModels
+import Services
 
 struct TextBlockViewModel: BlockViewModelProtocol {
     let info: BlockInformation

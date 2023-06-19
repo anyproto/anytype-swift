@@ -5,7 +5,11 @@ struct FloaterAlertView: View {
     let description: String
     let leftButtonData: StandardButtonModel
     let rightButtonData: StandardButtonModel
+    var dismissAfterLeftTap: Bool = false
+    var dismissAfterRightTap: Bool = false
     var showShadow: Bool = false
+    
+    @Environment(\.presentationMode) @Binding var presentationMode
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -28,11 +32,26 @@ struct FloaterAlertView: View {
     
     private var buttons: some View {
         HStack(spacing: 0) {
-            StandardButton(model: leftButtonData)
+            button(model: leftButtonData, dismissAfterTap: dismissAfterLeftTap)
             Spacer.fixedWidth(10)
-            StandardButton(model: rightButtonData)
+            button(model: rightButtonData, dismissAfterTap: dismissAfterRightTap)
         }
         .padding(.vertical, 10)
+    }
+    
+    private func button(model: StandardButtonModel, dismissAfterTap: Bool) -> some View {
+        StandardButton(
+            model: StandardButtonModel(
+                text: model.text,
+                disabled: model.disabled,
+                inProgress: model.inProgress,
+                style: model.style) {
+                    model.action()
+                    if dismissAfterTap {
+                        presentationMode.dismiss()
+                    }
+                }
+        )
     }
 }
 

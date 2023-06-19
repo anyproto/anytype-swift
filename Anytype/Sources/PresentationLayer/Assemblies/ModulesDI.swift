@@ -79,7 +79,7 @@ final class ModulesDI: ModulesDIProtocol {
     }
     
     func widgetObjectList() -> WidgetObjectListModuleAssemblyProtocol {
-        return WidgetObjectListModuleAssembly(serviceLocator: serviceLocator)
+        return WidgetObjectListModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
     }
     
     func settingsAppearance() -> SettingsAppearanceModuleAssemblyProtocol {
@@ -123,23 +123,28 @@ final class ModulesDI: ModulesDIProtocol {
     }
     
     func authorization() -> AuthModuleAssemblyProtocol {
-        return AuthModuleAssembly(uiHelpersDI: uiHelpersDI)
+        return AuthModuleAssembly(serviceLocator: serviceLocator)
     }
     
     func joinFlow() -> JoinFlowModuleAssemblyProtocol {
-        return JoinFlowModuleAssembly()
+        return JoinFlowModuleAssembly(serviceLocator: serviceLocator)
     }
     
     // @joe_pusya: will be moved to separate modulesDI
-    func authInviteCode() -> InviteCodeViewModuleAssemblyProtocol {
-        return InviteCodeViewModuleAssembly()
-    }
     
     func authVoid() -> VoidViewModuleAssemblyProtocol {
         return VoidViewModuleAssembly()
     }
     
     func authKey() -> KeyPhraseViewModuleAssemblyProtocol {
-        return KeyPhraseViewModuleAssembly()
+        return KeyPhraseViewModuleAssembly(uiHelpersDI: uiHelpersDI, serviceLocator: serviceLocator)
+    }
+    
+    func authSoul() -> SoulViewModuleAssemblyProtocol {
+        return SoulViewModuleAssembly(serviceLocator: serviceLocator)
+    }
+    
+    func authCreatingSoul() -> CreatingSoulViewModuleAssemblyProtocol {
+        return CreatingSoulViewModuleAssembly(serviceLocator: serviceLocator)
     }
 }

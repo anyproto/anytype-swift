@@ -1,6 +1,6 @@
 import SwiftUI
 import AnytypeCore
-import BlocksModels
+import Services
 
 struct RelationFormatListCell: View {
     
@@ -8,7 +8,8 @@ struct RelationFormatListCell: View {
 
     var body: some View {
         HStack(alignment: .center, spacing: 10) {
-            Image(asset: model.iconAsset).frame(width: 24, height: 24)
+            Image(asset: model.iconAsset)
+                .foregroundColor(.Button.active)
 
             AnytypeText(model.title, style: .uxBodyRegular, color: .Text.primary)
                 .lineLimit(1)
@@ -16,7 +17,7 @@ struct RelationFormatListCell: View {
             Spacer()
 
             if model.isSelected {
-                Image(asset: .optionChecked).frame(width: 24, height: 24).foregroundColor(.Text.primary)
+                Image(asset: .X24.tick).foregroundColor(.Text.primary)
             }
         }
         .frame(height: 52)

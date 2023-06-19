@@ -1,5 +1,5 @@
 import SwiftUI
-import BlocksModels
+import Services
 
 struct RelationsListView: View {
     
@@ -44,12 +44,8 @@ struct RelationsListView: View {
         Button {
             viewModel.showAddNewRelationView()
         } label: {
-            Image(asset: .relationNew)
-                .if(viewModel.navigationBarButtonsDisabled) {
-                    $0.renderingMode(.template)
-                        .foregroundColor(.Button.inactive)
-                }
-                .frame(width: 24, height: 24)
+            Image(asset: .X32.plus)
+                .foregroundColor(viewModel.navigationBarButtonsDisabled ? .Button.inactive : .Button.active)
         }
         .disabled(viewModel.navigationBarButtonsDisabled)
     }

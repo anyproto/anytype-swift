@@ -33,7 +33,17 @@ class MainAuthViewModel: ObservableObject {
     
     // MARK: - Coordinator
     func signUpFlow() -> some View {
-        return AlphaInviteCodeView(signUpData: SignUpData(mnemonic: self.enteredMnemonic), applicationStateService: applicationStateService)
+        let viewModel = CreateNewProfileViewModel(
+            applicationStateService: applicationStateService,
+            authService: ServiceLocator.shared.authService(),
+            seedService: ServiceLocator.shared.seedService(),
+            usecaseService: ServiceLocator.shared.usecaseService(),
+            metricsService: ServiceLocator.shared.metricsService()
+        )
+        return CreateNewProfileView(
+            viewModel: viewModel,
+            signUpData: SignUpData(mnemonic: self.enteredMnemonic)
+        )
     }
     
     func loginView() -> some View {

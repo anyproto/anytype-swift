@@ -1,5 +1,5 @@
 import UIKit
-import BlocksModels
+import Services
 import AnytypeCore
 
 final class EditorBottomNavigationView: UIView {
@@ -104,28 +104,28 @@ final class EditorBottomNavigationView: UIView {
     
     // MARK: - Views
     private func createBackButton() -> EditorBrowserButton {
-        EditorBrowserButton(imageAsset: .TextEditor.backArrow) { [weak self] in
+        EditorBrowserButton(imageAsset: .X32.Arrow.left) { [weak self] in
             UISelectionFeedbackGenerator().selectionChanged()
             self?.onBackTap()
         }
     }
     
     private func createForwardButton() -> EditorBrowserButton {
-        return EditorBrowserButton(imageAsset: .TextEditor.forwardArrow, isEnabled: false) { [weak self] in
+        return EditorBrowserButton(imageAsset: .X32.Arrow.right, isEnabled: false) { [weak self] in
             UISelectionFeedbackGenerator().selectionChanged()
             self?.onForwardTap()
         }
     }
     
     private func createHomeButton() -> UIView {
-        EditorBrowserButton(imageAsset: .TextEditor.home) { [weak self] in
+        EditorBrowserButton(imageAsset: .X32.dashboard) { [weak self] in
             UISelectionFeedbackGenerator().selectionChanged()
             self?.onHomeTap()
         }
     }
     
     private func createCreateObjectButton() -> UIView {
-        EditorBrowserButton(imageAsset: .draft) { [weak self] in
+        EditorBrowserButton(imageAsset: .X32.plus) { [weak self] in
             UISelectionFeedbackGenerator().selectionChanged()
             self?.onCreateObjectTap()
         }

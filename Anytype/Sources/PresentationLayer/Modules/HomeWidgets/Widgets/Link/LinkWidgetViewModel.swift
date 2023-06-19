@@ -1,6 +1,6 @@
 import Foundation
 import Combine
-import BlocksModels
+import Services
 
 @MainActor
 final class LinkWidgetViewModel: ObservableObject, WidgetContainerContentViewModelProtocol {

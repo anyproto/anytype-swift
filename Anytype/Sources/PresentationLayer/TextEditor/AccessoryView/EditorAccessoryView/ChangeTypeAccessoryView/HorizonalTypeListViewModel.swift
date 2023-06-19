@@ -1,6 +1,6 @@
 import UIKit
 import Combine
-import BlocksModels
+import Services
 import SwiftUI
 import AnytypeCore
 
@@ -41,10 +41,11 @@ extension HorizontalListItem {
     }
 
     static func searchItem(onTap: @escaping () -> Void) -> Self {
-        let image = (UIImage(asset: .search) ?? UIImage()).image(
-            imageSize: .init(width: 24, height: 24),
+        let image = (UIImage(asset: .X32.search) ?? UIImage()).image(
+            imageSize: .init(width: 32, height: 32),
             cornerRadius: 12,
             side: 52,
+            foregroundColor: .Button.active,
             backgroundColor: .Stroke.tertiary
         )
 

@@ -1,4 +1,4 @@
-import BlocksModels
+import Services
 import AnytypeCore
 
 enum DocumentUpdate: Hashable {

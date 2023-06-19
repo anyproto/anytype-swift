@@ -15,7 +15,7 @@ final class CameraPermissionVerifier {
                     promise(.success(success))
                 }
             @unknown default:
-                anytypeAssertionFailure("@unknown AVAuthorizationStatus case", domain: .camera)
+                anytypeAssertionFailure("@unknown AVAuthorizationStatus case")
                 promise(.success(false))
             }
         }

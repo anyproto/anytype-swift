@@ -63,7 +63,8 @@ private extension StatusRelationDetailsView {
         Button {
             viewModel.didTapAddButton()
         } label: {
-            Image(asset: .relationNew).frame(width: 24, height: 24)
+            Image(asset: .X32.plus)
+                .foregroundColor(.Button.active)
         }
         .disabled(!viewModel.isEditable)
     }

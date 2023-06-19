@@ -1,5 +1,5 @@
 import SwiftUI
-import BlocksModels
+import Services
 
 final class SetFiltersTextViewModel: ObservableObject {
     @Published var input = ""

@@ -29,7 +29,8 @@ extension ObjectIconAttachementLoader {
             let image = model.imageGuideline.flatMap {
                 painter.todoImage(
                     isChecked: isChecked,
-                    imageGuideline: $0
+                    imageGuideline: $0,
+                    tintColor: .Button.active
                 )
             }
             setImage(image: image, processor: processor)
@@ -44,7 +45,8 @@ extension ObjectIconAttachementLoader {
             setImage(image: image, processor: processor)
         case .imageAsset(let imageAsset):
             let image = model.imageGuideline.flatMap {
-                painter.staticImage(imageAsset: imageAsset, imageGuideline: $0)
+                // TODO: Refactoring with IOS-1317
+                painter.staticImage(imageAsset: imageAsset, imageGuideline: $0, tintColor: .Button.active)
             }
             setImage(image: image, processor: processor)
         case .image(let image):

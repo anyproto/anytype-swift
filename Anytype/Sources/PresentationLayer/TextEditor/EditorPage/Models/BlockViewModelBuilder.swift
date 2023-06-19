@@ -1,5 +1,5 @@
 import Foundation
-import BlocksModels
+import Services
 import Combine
 import UniformTypeIdentifiers
 import AnytypeCore
@@ -193,8 +193,7 @@ final class BlockViewModelBuilder {
         case let .link(content):
             guard let details = ObjectDetailsStorage.shared.get(id: content.targetBlockID) else {
                 anytypeAssertionFailure(
-                    "Couldn't find details for block link with id \(content.targetBlockID)",
-                    domain: .blockBuilder
+                    "Couldn't find details for block link", info: ["targetBlockID": content.targetBlockID]
                 )
                 return nil
             }

@@ -1,5 +1,5 @@
 import Foundation
-import BlocksModels
+import Services
 import Combine
 
 struct WidgetObjectListDetailsData {
@@ -20,6 +20,7 @@ protocol WidgetObjectListInternalViewModelProtocol: AnyObject {
     var editorViewType: EditorViewType { get }
     var editMode: WidgetObjectListEditMode { get }
     var availableMenuItems: [WidgetObjectListMenuItem] { get }
+    var forceDeleteTitle: String { get }
     
     func onAppear()
     func onDisappear()
@@ -29,6 +30,7 @@ protocol WidgetObjectListInternalViewModelProtocol: AnyObject {
 
 extension WidgetObjectListInternalViewModelProtocol {
     var availableMenuItems: [WidgetObjectListMenuItem] { [.favorite, .unfavorite, .moveToBin] }
+    var forceDeleteTitle: String { "" }
     func onMove(from: IndexSet, to: Int) {}
     func subtitle(for details: ObjectDetails) -> String? { return nil }
 }

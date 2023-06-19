@@ -1,5 +1,5 @@
 import Combine
-import BlocksModels
+import Services
 import ProtobufMessages
 import AnytypeCore
 import Foundation
@@ -11,7 +11,7 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
         let result = try await ClientCommands.objectOpen(.with {
             $0.contextID = contextId
             $0.objectID = contextId
-        }).invoke(errorDomain: .blockActionsService)
+        }).invoke()
         return result.objectView
     }
 
@@ -19,7 +19,7 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
         let result = try await ClientCommands.objectShow(.with {
             $0.contextID = contextId
             $0.objectID = contextId
-        }).invoke(errorDomain: .blockActionsService)
+        }).invoke()
         return result.objectView
     }
     
@@ -27,12 +27,12 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
         try await ClientCommands.objectClose(.with {
             $0.contextID = contextId
             $0.objectID = contextId
-        }).invoke(errorDomain: .blockActionsService)
+        }).invoke()
     }
     
     func add(contextId: String, targetId: BlockId, info: BlockInformation, position: BlockPosition) -> BlockId? {
         guard let block = BlockInformationConverter.convert(information: info) else {
-            anytypeAssertionFailure("addActionBlockIsNotParsed", domain: .blockActionsService)
+            anytypeAssertionFailure("addActionBlockIsNotParsed")
             return nil
         }
 
@@ -43,8 +43,7 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
             $0.targetID = targetId
             $0.block = block
             $0.position = position.asMiddleware
-        })
-        .invoke(errorDomain: .blockActionsService)
+        }).invoke()
         
         return response?.blockID
     }
@@ -55,8 +54,7 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
         _ = try? ClientCommands.blockListDelete(.with {
             $0.contextID = contextId
             $0.blockIds = blockIds
-        })
-        .invoke(errorDomain: .blockActionsService)
+        }).invoke()
         
         return true
     }
@@ -69,8 +67,7 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
             $0.targetID = targetId
             $0.blockIds = blockIds
             $0.position = position.asMiddleware
-        })
-        .invoke(errorDomain: .blockActionsService)
+        }).invoke()
     }
 
     func move(
@@ -86,8 +83,7 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
             $0.targetContextID = targetContextID
             $0.dropTargetID = dropTargetID
             $0.position = position.asMiddleware
-        })
-        .invoke(errorDomain: .blockActionsService)
+        }).invoke()
         
         AnytypeAnalytics.instance().logReorderBlock(count: blockIds.count)
     }

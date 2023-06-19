@@ -1,4 +1,4 @@
-import BlocksModels
+import Services
 import UIKit
 import AnytypeCore
 import SwiftUI
@@ -143,7 +143,7 @@ final class EditorAssembly {
             document: document,
             addNewRelationCoordinator: coordinatorsDI.addNewRelation().make(document: document),
             templatesCoordinator: coordinatorsDI.templates().make(viewController: controller),
-            urlOpener: URLOpener(viewController: browser),
+            urlOpener: uiHelpersDI.urlOpener(),
             relationValueCoordinator: coordinatorsDI.relationValue().make(),
             editorPageCoordinator: coordinatorsDI.editorPage().make(browserController: browser),
             linkToObjectCoordinator: coordinatorsDI.linkToObject().make(browserController: browser),
@@ -250,7 +250,7 @@ final class EditorAssembly {
             router: router,
             pasteboardService: pasteboardService,
             document: document,
-            onShowStyleMenu: blocksStateManager.didSelectStyleSelection(info:),
+            onShowStyleMenu: blocksStateManager.didSelectStyleSelection(infos:),
             onBlockSelection: actionHandler.selectBlock(info:),
             pageService: serviceLocator.pageService(),
             linkToObjectCoordinator: coordinatorsDI.linkToObject().make(browserController: browser)

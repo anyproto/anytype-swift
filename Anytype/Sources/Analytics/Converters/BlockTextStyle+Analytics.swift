@@ -1,5 +1,5 @@
 import Foundation
-import BlocksModels
+import Services
 
 extension BlockText.Style {
     var analyticsValue: String {

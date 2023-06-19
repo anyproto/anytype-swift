@@ -1,5 +1,5 @@
 import Foundation
-import BlocksModels
+import Services
 
 protocol ObjectSettingsCoordinatorProtocol {
     func startFlow(delegate: ObjectSettingsModuleDelegate)

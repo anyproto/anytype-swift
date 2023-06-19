@@ -1,5 +1,5 @@
 import UIKit
-import BlocksModels
+import Services
 import Combine
 
 struct BlockFileViewModel: BlockViewModelProtocol {    
@@ -51,7 +51,7 @@ struct BlockFileViewModel: BlockViewModelProtocol {
     
     private func emptyViewConfiguration(text: String, state: BlocksFileEmptyViewState) -> UIContentConfiguration {
         BlocksFileEmptyViewConfiguration(
-            imageAsset: .TextEditor.BlockFile.Empty.file,
+            imageAsset: .X32.file,
             text: text,
             state: state
         ).cellBlockConfiguration(

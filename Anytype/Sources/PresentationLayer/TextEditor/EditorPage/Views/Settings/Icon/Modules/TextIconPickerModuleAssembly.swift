@@ -1,6 +1,6 @@
 import Foundation
 import SwiftUI
-import BlocksModels
+import Services
 
 protocol TextIconPickerModuleAssemblyProtocol: AnyObject {
     func make(contextId: BlockId, objectId: BlockId, onDismiss: @escaping () -> Void) -> AnyView

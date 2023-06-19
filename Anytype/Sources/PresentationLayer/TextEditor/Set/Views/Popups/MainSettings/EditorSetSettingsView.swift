@@ -1,5 +1,5 @@
 import SwiftUI
-import BlocksModels
+import Services
 
 struct EditorSetSettingsView: View {
     @EnvironmentObject private var model: EditorSetSettingsViewModel
@@ -29,6 +29,7 @@ struct EditorSetSettingsView: View {
                     RoundedRectangle(cornerRadius: 10)
                         .foregroundColor(Color.Background.highlightedOfSelected)
                     Image(asset: setting.imageAsset)
+                        .foregroundColor(.Button.active)
                 }
                 .frame(width: 52, height: 52)
                 

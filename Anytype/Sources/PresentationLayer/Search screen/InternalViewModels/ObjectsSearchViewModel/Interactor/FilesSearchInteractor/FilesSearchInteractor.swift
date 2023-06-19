@@ -1,5 +1,5 @@
 import Foundation
-import BlocksModels
+import Services
 
 final class FilesSearchInteractor {
     

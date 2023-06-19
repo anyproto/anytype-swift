@@ -1,4 +1,4 @@
-import BlocksModels
+import Services
 import Combine
 import AnytypeCore
 import Foundation
@@ -276,7 +276,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
                 Task { @MainActor [weak self] in
                     try? await targetDocument.open()
                     guard let id = targetDocument.children.last?.id else { return }
-                    move(position: .bottom, targetId: targetDocument.objectId, dropTargetId: id)
+                    self?.move(position: .bottom, targetId: targetDocument.objectId, dropTargetId: id)
                     
                     self?.toastPresenter.showObjectCompositeAlert(
                         prefixText: Loc.Editor.Toast.movedTo,
@@ -299,12 +299,12 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
                 position = .bottom
                 dropTargetId = targetBlock.blockId
             } else {
-                anytypeAssertionFailure("Unxpected case", domain: .editorPage)
+                anytypeAssertionFailure("Unxpected case")
                 return
             }
             move(position: position, targetId: document.objectId, dropTargetId: dropTargetId)
         case .none:
-            anytypeAssertionFailure("Unxpected case", domain: .editorPage)
+            anytypeAssertionFailure("Unxpected case")
             return
         }
     }
@@ -389,8 +389,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         case .download:
             anytypeAssert(
                 elements.count == 1,
-                "Number of elements should be 1",
-                domain: .editorPage
+                "Number of elements should be 1"
             )
 
             if case let .file(blockFile) = elements.first?.content,
@@ -400,8 +399,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         case .openObject:
             anytypeAssert(
                 elements.count == 1,
-                "Number of elements should be 1",
-                domain: .editorPage
+                "Number of elements should be 1"
             )
             guard case let .bookmark(bookmark) = elements.first?.content else { return }
             AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.openAsObject)
@@ -410,8 +408,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         case .openSource:
             anytypeAssert(
                 elements.count == 1,
-                "Number of elements should be 1",
-                domain: .editorPage
+                "Number of elements should be 1"
             )
             guard case let .dataView(data) = elements.first?.content else { return }
             AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.openAsSource)
@@ -419,7 +416,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
             router.showPage(data: screenData)
         case .style:
             editingState = .editing
-            elements.first.map { didSelectStyleSelection(info: $0.info) }
+            didSelectStyleSelection(infos: elements.map { $0.info })
 
             return
         case .paste:
@@ -503,13 +500,13 @@ extension EditorPageBlocksStateManager: BlockSelectionHandler {
         updateSelectionBarActions(selectedBlocks: [info])
     }
 
-    func didSelectStyleSelection(info: BlockInformation) {
+    func didSelectStyleSelection(infos: [BlockInformation]) {
         viewInput?.endEditing()
         bottomNavigationManager.styleViewActive(true)
-        selectedBlocks = [info.id]
+        selectedBlocks = infos.map { $0.id }
 
-        let restrictions = BlockRestrictionsBuilder.build(content: info.content)
-        router.showStyleMenu(information: info, restrictions: restrictions) { [weak self] presentedView in
+        let restrictions = BlockRestrictionsBuilder.build(contents: infos.map { $0.content })
+        router.showStyleMenu(informations: infos, restrictions: restrictions) { [weak self] presentedView in
             self?.viewInput?.adjustContentOffset(relatively: presentedView)
         } onDismiss: { [weak self] in
             self?.bottomNavigationManager.styleViewActive(false)

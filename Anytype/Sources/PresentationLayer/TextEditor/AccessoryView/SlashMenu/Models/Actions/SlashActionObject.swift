@@ -1,4 +1,4 @@
-import BlocksModels
+import Services
 
 enum SlashActionObject {
     case linkTo

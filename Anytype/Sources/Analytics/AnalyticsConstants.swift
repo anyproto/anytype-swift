@@ -75,8 +75,9 @@ enum AnalyticsEventsName {
 
     // App settings events
     static let selectTheme = "ThemeSet"
-    static let clearFileCacheAlertShow = "ScreenFileOffloadWarning"
+    static let screenFileOffloadWarning = "ScreenFileOffloadWarning"
     static let fileCacheCleared = "FileOffload"
+    static let settingsStorageOffload = "SettingsStorageOffload"
 
     // Dashboard view events
     static let selectHomeTab = "SelectHomeTab"
@@ -100,8 +101,10 @@ enum AnalyticsEventsName {
     static let aboutSettingsShow = "ScreenSettingsAbout"
     static let screenSettingsDelete = "ScreenSettingsDelete"
     static let settingsWallpaperSet = "SettingsWallpaperSet"
+    static let screenSettingsStorageIndex = "ScreenSettingsStorageIndex"
+    static let screenSettingsStorageManager = "ScreenSettingsStorageManager"
     
-    static let deletionWarningShow = "ShowDeletionWarning"
+    static let showDeletionWarning = "ShowDeletionWarning"
 
     static let keychainPhraseScreenShow = "ScreenKeychain"
     static let keychainPhraseCopy = "KeychainCopy"
@@ -174,16 +177,11 @@ enum AnalyticsEventsName {
         static let openGroupToggle = "OpenSidebarGroupToggle"
         static let closeGroupToggle = "CloseSidebarGroupToggle"
     }
-}
-
-// MARK: - Home tab names
-
-enum AnalyticsEventsHomeTabValue {
-    static let favoritesTabSelected = "FavoritesTabSelected"
-    static let archiveTabSelected = "ArchiveTabSelected"
-    static let recentTabSelected = "RecentTabSelected"
-    static let sharedTabSelected = "SharedTabSelected"
-    static let setsTabSelected = "SetsTabSelected"
+    
+    enum About {
+        static let helpAndCommunity = "Help_and_Community"
+        static let legal = "Legal"
+    }
 }
 
 // MARK: - Keychain showing context
@@ -310,4 +308,27 @@ enum AnalyticsWidgetRoute: String {
 enum AnalyticsWidgetContext: String {
     case home = "Home"
     case editor = "Editor"
+}
+
+enum RemoveCompletelyRoute: String {
+    case bin = "Bin"
+    case settings = "Settings"
+}
+
+enum ShowDeletionWarningRoute: String {
+    case bin = "Bin"
+    case settings = "Settings"
+}
+
+enum HelpAndCommunityType: String {
+    case whatIsNew = "what_is_new"
+    case anytypeCommunity = "anytype_community"
+    case helpAndTutorials = "help_and_tutorials"
+    case contactUs = "contact_us"
+}
+
+enum LegalType: String {
+    case termsOfUse = "terms_of_use"
+    case privacyPolicy = "privacy_policy"
+    case acknowledgments = "acknowledgments"
 }

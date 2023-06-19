@@ -1,4 +1,4 @@
-import BlocksModels
+import Services
 
 struct BlockLinkState: Hashable, Equatable {
     let title: String

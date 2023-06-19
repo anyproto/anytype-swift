@@ -1,5 +1,5 @@
 import SwiftUI
-import BlocksModels
+import Services
 
 struct EditorSetViewRow: View {
     @Environment(\.editMode) var editMode
@@ -39,13 +39,13 @@ struct EditorSetViewRow: View {
         Group {
             if configuration.isSupported {
                 if configuration.isActive, editMode?.wrappedValue == .inactive {
-                    Image(asset: .optionChecked)
+                    Image(asset: .X24.tick)
                         .foregroundColor(.Button.button)
                 }
             } else {
                 if editMode?.wrappedValue == .inactive {
                     AnytypeText(
-                        Loc.EditorSetViewPicker.View.Available.soon(configuration.typeName),
+                        Loc.EditorSetViewPicker.View.Not.Supported.title,
                         style: .uxBodyRegular,
                         color: .Text.secondary
                     )
@@ -60,8 +60,8 @@ struct EditorSetViewRow: View {
                 Button(action: {
                     configuration.onEditTap()
                 }) {
-                    Image(asset: .setPenEdit)
-                        .foregroundColor(.Button.button)
+                    Image(asset: .X32.edit)
+                        .foregroundColor(.Button.active)
                 }
             }
         }

@@ -1,5 +1,5 @@
 import Foundation
-import BlocksModels
+import Services
 import Combine
 import SwiftUI
 import AnytypeCore
@@ -68,7 +68,7 @@ extension ObjectTypesSearchViewModel: NewInternalSearchViewModelProtocol {
             return
         }
        
-        anytypeAssertionFailure("Type not found", domain: .objectTypeSearch)
+        anytypeAssertionFailure("Type not found")
     }
 }
 

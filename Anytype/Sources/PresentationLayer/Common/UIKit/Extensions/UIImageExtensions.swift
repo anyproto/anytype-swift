@@ -252,28 +252,36 @@ extension UIImage {
         imageSize: CGSize,
         cornerRadius: CGFloat,
         side: CGFloat,
+        foregroundColor: UIColor?,
         backgroundColor: UIColor?
     ) -> UIImage {
         
-        let lightImage = imageDraw(
-            imageSize: imageSize,
-            cornerRadius: cornerRadius,
-            side: side,
-            backgroundColor: backgroundColor?.light.cgColor
-        )
-        
-        guard let backgroundColor = backgroundColor, backgroundColor.light != backgroundColor.dark else {
-            return lightImage
+        return .generateDynamicImage {
+            let size = CGSize(width: side, height: side)
+            let renderer = UIGraphicsImageRenderer(size: size)
+
+            return renderer.image { actions in
+                let context = actions.cgContext
+
+                let rect = CGRect(origin: .zero, size: size)
+                let rectPath = UIBezierPath(roundedRect: rect, cornerRadius: cornerRadius)
+                context.addPath(rectPath.cgPath)
+                backgroundColor.map { context.setFillColor($0.cgColor) }
+                context.fillPath()
+
+                let x = (size.width - imageSize.width) / 2
+                let y = (size.height - imageSize.height) / 2
+                
+                
+                applyTint(color: foregroundColor)
+                    .scaled(to: imageSize)
+                    .draw(
+                        at: .init(x: x, y: y),
+                        blendMode: .normal,
+                        alpha: 1.0
+                    )
+            }
         }
-        
-        let darkImage = imageDraw(
-            imageSize: imageSize,
-            cornerRadius: cornerRadius,
-            side: side,
-            backgroundColor: backgroundColor.dark.cgColor
-        )
-        
-        return UIImage.dynamicImage(light: lightImage, dark: darkImage)
     }
 
     func rotate(radians: Float) -> UIImage {
@@ -370,35 +378,6 @@ extension UIImage {
     
     // MARK: - Private
     
-    private func imageDraw(
-        imageSize: CGSize,
-        cornerRadius: CGFloat,
-        side: CGFloat,
-        backgroundColor: CGColor? = nil
-    ) -> UIImage {
-        let size = CGSize(width: side, height: side)
-        let renderer = UIGraphicsImageRenderer(size: size)
-
-        return renderer.image { actions in
-            let context = actions.cgContext
-
-            let rect = CGRect(origin: .zero, size: size)
-            let rectPath = UIBezierPath(roundedRect: rect, cornerRadius: cornerRadius)
-            context.addPath(rectPath.cgPath)
-            backgroundColor.map { context.setFillColor($0) }
-            context.fillPath()
-
-            let x = (size.width - imageSize.width) / 2
-            let y = (size.height - imageSize.height) / 2
-
-            scaled(to: imageSize).draw(
-                at: .init(x: x, y: y),
-                blendMode: .normal,
-                alpha: 1.0
-            )
-        }
-    }
-
     func imageResized(to size: CGSize) -> UIImage {
         return UIGraphicsImageRenderer(size: size).image { _ in
             draw(in: CGRect(origin: .zero, size: size))
@@ -427,5 +406,12 @@ extension UIImage {
         }
 
         return nil
+    }
+    
+    func applyTint(color: UIColor?) -> UIImage {
+        if let color, renderingMode == .alwaysTemplate {
+            return self.withTintColor(color).withRenderingMode(.alwaysOriginal)
+        }
+        return self
     }
 }

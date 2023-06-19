@@ -5,11 +5,11 @@ import AnytypeCore
 extension Invocation {
     
     @discardableResult
-    func invoke(errorDomain: ErrorDomain, file: StaticString = #file, function: String = #function, line: UInt = #line) async throws -> Response {
+    func invoke(file: StaticString = #file, function: String = #function, line: UInt = #line) async throws -> Response {
         do {
-            return try await invoke()
+            return try await invoke(file: file)
         } catch {
-            anytypeAssertionFailure(error.localizedDescription, domain: errorDomain, file: file, function: function, line: line)
+            anytypeAssertionFailure(error.localizedDescription, file: file, function: function, line: line)
             throw error
         }
     }
@@ -18,11 +18,11 @@ extension Invocation {
     // We should to write `_ = try? ClientCommand...`
     // https://github.com/apple/swift/issues/45672
     @discardableResult
-    func invoke(errorDomain: ErrorDomain, file: StaticString = #file, function: String = #function, line: UInt = #line) throws -> Response {
+    func invoke(file: StaticString = #file, function: String = #function, line: UInt = #line) throws -> Response {
         do {
-            return try invoke()
+            return try invoke(file: file)
         } catch {
-            anytypeAssertionFailure(error.localizedDescription, domain: errorDomain, file: file, function: function, line: line)
+            anytypeAssertionFailure(error.localizedDescription, file: file, function: function, line: line)
             throw error
         }
     }

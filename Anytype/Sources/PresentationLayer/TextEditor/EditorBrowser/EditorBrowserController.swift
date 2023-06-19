@@ -1,5 +1,5 @@
 import UIKit
-import BlocksModels
+import Services
 import AnytypeCore
 
 protocol EditorBrowser: AnyObject {
@@ -61,31 +61,14 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        if FeatureFlags.homeWidgets {
-            navigationController?.setNavigationBarHidden(true, animated: false)
-        } else {
-            if let navigationController = navigationController as? NavigationControllerWithSwiftUIContent {
-                navigationController.anytype_setNavigationBarHidden(true, animated: false)
-            } else {
-                navigationController?.setNavigationBarHidden(true, animated: false)
-            }
-        }
+        navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        if !FeatureFlags.homeWidgets {
-            if let navigationController = navigationController as? NavigationControllerWithSwiftUIContent {
-                navigationController.anytype_setNavigationBarHidden(false, animated: false)
-            }
-        }
-        
-        if FeatureFlags.homeWidgets {
-            if let navigationController, !navigationController.viewControllers.contains(where: { $0 == self}) {
-                UserDefaultsConfig.storeOpenedScreenData(nil)
-            }
+        if let navigationController, !navigationController.viewControllers.contains(where: { $0 == self}) {
+            UserDefaultsConfig.storeOpenedScreenData(nil)
         }
     }
     
@@ -101,7 +84,7 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
                 do {
                     try self.stateManager.moveBack(page: page)
                 } catch let error {
-                    anytypeAssertionFailure(error.localizedDescription, domain: .editorBrowser)
+                    anytypeAssertionFailure(error.localizedDescription)
                     self.navigationController?.popViewController(animated: true)
                 }
 
@@ -119,16 +102,14 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
                 do {
                     try self.stateManager.moveForward(page: page)
                 } catch let error {
-                    anytypeAssertionFailure(error.localizedDescription, domain: .editorBrowser)
+                    anytypeAssertionFailure(error.localizedDescription)
                     self.navigationController?.popViewController(animated: true)
                 }
                 
                 self.router.showPage(data: page.pageData)
             },
             onHomeTap: { [weak self] in
-                if FeatureFlags.homeWidgets {
-                    AnytypeAnalytics.instance().logShowHome(view: .widget)
-                }
+                AnytypeAnalytics.instance().logShowHome(view: .widget)
                 self?.goToHome(animated: true)
             },
             onCreateObjectTap: { [weak self] in
@@ -191,7 +172,7 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
         
     func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
         guard let detailsProvider = viewController as? DocumentDetaisProvider else {
-            anytypeAssertionFailure("Not supported browser controller: \(viewController)", domain: .editorBrowser)
+            anytypeAssertionFailure("Not supported browser controller", info: ["controller": "\(viewController)"])
             return
         }
         
@@ -210,7 +191,7 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
                 childernCount: childNavigation.children.count
             )
         } catch let error {
-            anytypeAssertionFailure(error.localizedDescription, domain: .editorBrowser)
+            anytypeAssertionFailure(error.localizedDescription)
             self.navigationController?.popViewController(animated: true)
         }
         

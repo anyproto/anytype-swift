@@ -1,4 +1,4 @@
-import BlocksModels
+import Services
 import ProtobufMessages
 import AnytypeCore
 import Foundation
@@ -75,7 +75,7 @@ final class PasteboardMiddleService: PasteboardMiddlewareServiceProtocol {
             $0.contextID = document.objectId
             $0.blocks = blocks
             $0.selectedTextRange = selectedTextRange.asMiddleware
-        }).invoke(errorDomain: .blockActionsService)
+        }).invoke()
 
         if let result = result {
             let blocksSlots = result.anySlot.compactMap { modelBlock in
@@ -111,7 +111,7 @@ private extension PasteboardMiddleService {
             $0.htmlSlot = htmlSlot
             $0.anySlot = anySlots
             $0.fileSlot = fileSlots
-        }).invoke(errorDomain: .blockActionsService)
+        }).invoke()
 
         guard let result = result else {
             return nil

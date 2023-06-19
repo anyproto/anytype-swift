@@ -1,4 +1,4 @@
-import BlocksModels
+import Services
 
 final class ObjectSettingBuilder {
     func build(details: ObjectDetails, restrictions: ObjectRestrictions, isLocked: Bool) -> [ObjectSetting] {

@@ -61,7 +61,7 @@ struct EditorSetViewPicker: View {
                 Button {
                     viewModel.addButtonTapped()
                 } label: {
-                    Image(asset: .plus).frame(width: 24, height: 24)
+                    Image(asset: .X32.plus).foregroundColor(.Button.active)
                 }
             }
         }

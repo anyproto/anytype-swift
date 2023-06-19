@@ -1,7 +1,7 @@
 import FloatingPanel
 import SwiftUI
 import ProtobufMessages
-import BlocksModels
+import Services
 import AnytypeCore
 import Combine
 
@@ -99,7 +99,7 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
     func deleteRelations(indexes: IndexSet) {
         indexes.forEach { index in
             guard let relation = setDocument.sortedRelations[safe: index] else {
-                anytypeAssertionFailure("No relation to delete at index: \(index)", domain: .dataviewService)
+                anytypeAssertionFailure("No relation to delete", info: ["index": "\(index)"])
                 return
             }
             Task {
@@ -111,8 +111,8 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
     }
     
     func moveRelation(from: IndexSet, to: Int) {
-        from.forEach { [weak self] sortedRelationsFromIndex in
-            guard let self = self, sortedRelationsFromIndex != to else { return }
+        from.forEach { sortedRelationsFromIndex in
+            guard sortedRelationsFromIndex != to else { return }
             
             let relationFrom = setDocument.sortedRelations[sortedRelationsFromIndex]
             let sortedRelationsToIndex = to > sortedRelationsFromIndex ? to - 1 : to // map insert index to item index
@@ -120,11 +120,11 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
             
             // index in all options array (includes hidden options)
             guard let indexFrom = setDocument.activeView.options.index(of: relationFrom) else {
-                anytypeAssertionFailure("No relation for move: \(relationFrom)", domain: .dataviewService)
+                anytypeAssertionFailure("No from relation for move", info: ["key": relationFrom.relationDetails.key])
                 return
             }
             guard let indexTo = setDocument.activeView.options.index(of: relationTo) else {
-                anytypeAssertionFailure("No relation for move: \(relationTo)", domain: .dataviewService)
+                anytypeAssertionFailure("No to relation for move", info: ["key": relationTo.relationDetails.key])
                 return
             }
             
@@ -132,7 +132,7 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
             newOptions.moveElement(from: indexFrom, to: indexTo)
             let keys = newOptions.map { $0.key }
             Task {
-                try await self.dataviewService.sortViewRelations(keys, viewId: setDocument.activeView.id)
+                try await dataviewService.sortViewRelations(keys, viewId: setDocument.activeView.id)
             }
         }
     }
@@ -201,16 +201,14 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
     }
     
     private func imagePreviewValueFromCovers() -> String? {
-        SetViewSettingsImagePreviewCover.allCases.first { [weak self] cover in
-            guard let self = self else { return false }
-            return cover.rawValue == self.setDocument.activeView.coverRelationKey
+        SetViewSettingsImagePreviewCover.allCases.first { cover in
+            return cover.rawValue == setDocument.activeView.coverRelationKey
         }?.title
     }
     
     private func imagePreviewValueFromRelations() -> String? {
-        setDocument.dataViewRelationsDetails.first { [weak self] relationDetails in
-            guard let self = self else { return false }
-            return relationDetails.key == self.setDocument.activeView.coverRelationKey
+        setDocument.dataViewRelationsDetails.first { relationDetails in
+            return relationDetails.key == setDocument.activeView.coverRelationKey
         }?.name
     }
     

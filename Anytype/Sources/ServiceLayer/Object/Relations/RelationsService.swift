@@ -1,6 +1,6 @@
 import Foundation
 import ProtobufMessages
-import BlocksModels
+import Services
 import SwiftProtobuf
 
 final class RelationsService: RelationsServiceProtocol {
@@ -19,7 +19,7 @@ final class RelationsService: RelationsServiceProtocol {
         _ = try? ClientCommands.objectRelationAddFeatured(.with {
             $0.contextID = objectId
             $0.relations = [relationKey]
-        }).invoke(errorDomain: .relationsService)
+        }).invoke()
     }
     
     func removeFeaturedRelation(relationKey: String) {
@@ -27,7 +27,7 @@ final class RelationsService: RelationsServiceProtocol {
         _ = try? ClientCommands.objectRelationRemoveFeatured(.with {
             $0.contextID = objectId
             $0.relations = [relationKey]
-        }).invoke(errorDomain: .relationsService)
+        }).invoke()
     }
     
     func updateRelation(relationKey: String, value: Google_Protobuf_Value) {
@@ -39,13 +39,13 @@ final class RelationsService: RelationsServiceProtocol {
                     $0.value = value
                 }
             ]
-        }).invoke(errorDomain: .relationsService)
+        }).invoke()
     }
 
     func createRelation(relationDetails: RelationDetails) -> RelationDetails? {
         let result = try? ClientCommands.objectCreateRelation(.with {
             $0.details = relationDetails.asCreateMiddleware
-        }).invoke(errorDomain: .relationsService)
+        }).invoke()
         
         guard let result = result,
               addRelations(relationKeys: [result.key]),
@@ -63,7 +63,7 @@ final class RelationsService: RelationsServiceProtocol {
         let result = try? ClientCommands.objectRelationAdd(.with {
             $0.contextID = objectId
             $0.relationKeys = relationKeys
-        }).invoke(errorDomain: .relationsService)
+        }).invoke()
         
         return result.isNotNil
     }
@@ -72,7 +72,7 @@ final class RelationsService: RelationsServiceProtocol {
         _ = try? ClientCommands.objectRelationDelete(.with {
             $0.contextID = objectId
             $0.relationKeys = [relationKey]
-        }).invoke(errorDomain: .relationsService)
+        }).invoke()
         
         AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.deleteRelation)
     }
@@ -90,7 +90,7 @@ final class RelationsService: RelationsServiceProtocol {
         
         let optionResult = try? ClientCommands.objectCreateRelationOption(.with {
             $0.details = details
-        }).invoke(errorDomain: .relationsService)
+        }).invoke()
         
         return optionResult?.objectID
     }

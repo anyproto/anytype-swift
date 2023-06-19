@@ -15,7 +15,7 @@ final class TextRelationCopyActionViewModel: TextRelationActionViewModelProtocol
     
     var inputText: String = ""
     var title: String { type.title }
-    let iconAsset = ImageAsset.relationSmallCopy
+    let iconAsset = ImageAsset.X24.copy
     
     init(
         type: SupportedTextType,

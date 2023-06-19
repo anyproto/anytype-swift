@@ -32,6 +32,7 @@ private struct SelectionOptionsItemView: View {
     var body: some View {
         VStack(spacing: 5) {
             Image(asset: imageAsset)
+                .foregroundColor(.Button.active)
                 .frame(width: 52, height: 52)
                 .background(Color.Background.highlightedOfSelected)
                 .cornerRadius(10.5)

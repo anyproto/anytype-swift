@@ -1,5 +1,5 @@
 import Foundation
-import BlocksModels
+import Services
 import ProtobufMessages
 import AnytypeCore
 
@@ -12,11 +12,8 @@ extension Anytype_Model_Block.Content.Layout.Style {
         case .header: return .header
         case .tableColumns: return .tableColumns
         case .tableRows: return .tableRows
-        case .UNRECOGNIZED:
-            anytypeAssertionFailure(
-                "UNRECOGNIZED block layout style",
-                domain: .unsupportedBlock
-            )
+        case .UNRECOGNIZED(let value):
+            anytypeAssertionFailure("UNRECOGNIZED block layout style", info: ["value": "\(value)"])
             return nil
         }
     }

@@ -9,12 +9,6 @@ public extension FeatureDescription {
         debugValue: false
     )
     
-    static let homeWidgets = FeatureDescription(
-        title: "Home widgets (IOS-731)",
-        type: .feature(author: "m@anytype.io", releaseVersion: "0.22.0"),
-        defaultValue: true
-    )
-    
     static let fullInlineSetImpl = FeatureDescription(
         title: "Full inline set impl (IOS-790)",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.?.0"),
@@ -22,21 +16,9 @@ public extension FeatureDescription {
         debugValue: false
     )
     
-    static let fixUpdateRelationBlock = FeatureDescription(
-        title: "Fix relation block updates (IOS-801)",
-        type: .feature(author: "m@anytype.io", releaseVersion: "0.22.0"),
-        defaultValue: true
-    )
-    
-    static let styleViewFixColor = FeatureDescription(
-        title: "Style view - fix color (IOS-234)",
-        type: .feature(author: "m@anytype.io", releaseVersion: "0.22.0"),
-        defaultValue: true
-    )
-    
     static let dndOnCollectionsAndSets = FeatureDescription(
         title: "Dnd on collections and sets (wating for the middle)",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.23.0"),
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.?.0"),
         defaultValue: false
     )
     
@@ -46,17 +28,10 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
-    static let keyboardToolbarInSets = FeatureDescription(
-        title: "Keyboard toolbar (Done button) in Set/Collection",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.22.0"),
-        defaultValue: true
-    )
-    
     static let fileStorage = FeatureDescription(
         title: "File storage",
-        type: .feature(author: "m@anytype.io", releaseVersion: "0.23.0"),
-        defaultValue: false,
-        debugValue: false
+        type: .feature(author: "m@anytype.io", releaseVersion: "0.22.0"),
+        defaultValue: true
     )
     
     static let newAuthorization = FeatureDescription(
@@ -64,6 +39,30 @@ public extension FeatureDescription {
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.?.0"),
         defaultValue: false,
         debugValue: false
+    )
+    
+    static let redesignAbout = FeatureDescription(
+        title: "Redesign about",
+        type: .feature(author: "m@anytype.io", releaseVersion: "0.22.0"),
+        defaultValue: true
+    )
+    
+    static let sortIncludeTime = FeatureDescription(
+        title: "Sort include time",
+        type: .feature(author: "m@anytype.io", releaseVersion: "0.22.0"),
+        defaultValue: true
+    )
+    
+    static let binConfirmAlert = FeatureDescription(
+        title: "Bin confirm alert",
+        type: .feature(author: "m@anytype.io", releaseVersion: "0.22.0"),
+        defaultValue: true
+    )
+    
+    static let fixSIGPIPECrash = FeatureDescription(
+        title: "Fix SIGPIPE crash",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.22.0"),
+        defaultValue: true
     )
     
     // MARK: - Debug

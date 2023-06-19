@@ -13,6 +13,7 @@ struct ObjectActionRow: View {
         label: {
             VStack(spacing: Constants.space) {
                 Image(asset: setting.imageAsset)
+                    .foregroundColor(.Button.active)
                     .frame(width: 52, height: 52)
                     .background(Color.Background.highlightedOfSelected)
                     .cornerRadius(10)
@@ -52,15 +53,15 @@ private extension ObjectAction {
     var imageAsset: ImageAsset {
         switch self {
         case .undoRedo:
-            return .undoredo
+            return .X32.undoRedo
         case let .archive(isArchived):
-            return isArchived ? .restore : .delete
+            return isArchived ? .X32.restore : .X32.delete
         case let .favorite(isFavorite):
-            return isFavorite ? .unfavorite : .addToFavorites
+            return isFavorite ? .X32.Favorite.unfavorite : .X32.Favorite.favorite
         case let .locked(isLocked):
-            return isLocked ? .unlock : .lock
+            return isLocked ? .X32.Lock.unlock : .X32.Lock.lock
         case .duplicate:
-            return .duplicate
+            return .X32.duplicate
         case .linkItself:
             return .linkToItself
         }

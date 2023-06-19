@@ -1,34 +1,34 @@
 import Foundation
-import BlocksModels
+import Services
 
 extension RelationFormat {
 
     var iconAsset: ImageAsset {
         switch self {
         case .longText:
-            return .Format.text
+            return .X24.text
         case .shortText:
-            return .Format.name
+            return .X24.name
         case .number:
-            return .Format.number
+            return .X24.number
         case .status:
-            return .Format.status
+            return .X24.status
         case .date:
-            return .Format.date
+            return .X24.date
         case .file:
-            return .Format.attachment
+            return .X24.attachment
         case .checkbox:
-            return .Format.checkbox
+            return .X24.checkbox
         case .url:
-            return .Format.url
+            return .X24.url
         case .email:
-            return .Format.email
+            return .X24.email
         case .phone:
-            return .Format.phone
+            return .X24.phoneNumber
         case .tag:
-            return .Format.tag
+            return .X24.tag
         case .object:
-            return .Format.object
+            return .X24.object
         case .unrecognized:
             return .Format.unknown
         }

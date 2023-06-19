@@ -1,5 +1,5 @@
 import Foundation
-import BlocksModels
+import Services
 import Combine
 import SwiftUI
 import AnytypeCore
@@ -59,7 +59,7 @@ final class WidgetSourceSearchViewModel: NewInternalSearchViewModelProtocol {
             return
         }
 
-        anytypeAssertionFailure("Object not found", domain: .objectTypeSearch)
+        anytypeAssertionFailure("Object not found")
     }
     
     // MARK: - Private

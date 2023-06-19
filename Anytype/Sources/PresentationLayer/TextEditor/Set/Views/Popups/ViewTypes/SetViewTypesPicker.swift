@@ -1,5 +1,5 @@
 import SwiftUI
-import BlocksModels
+import Services
 
 struct SetViewTypesPicker: View {
     @ObservedObject var viewModel: SetViewTypesPickerViewModel
@@ -29,7 +29,7 @@ struct SetViewTypesPicker: View {
             }
             duplicateButton
         } label: {
-            Image(asset: .more)
+            Image(asset: .X24.more)
                 .foregroundColor(.Button.active)
                 .frame(width: 24, height: 24)
         }
@@ -114,28 +114,21 @@ struct SetViewTypesPicker: View {
             viewTypeContent(configuration)
         }
         .frame(height: 52, alignment: .leading)
-        .disabled(!configuration.isSupported)
         .divider()
     }
     
     private func viewTypeContent(_ configuration: SetViewTypeConfiguration) -> some View {
         HStack(spacing: 10) {
             Image(asset: configuration.icon)
-                .renderingMode(.template)
-                .foregroundColor(
-                    configuration.isSupported ? .Button.active : .Button.inactive
-                )
+                .foregroundColor(.Button.active)
             AnytypeText(
                 configuration.name,
                 style: .uxBodyRegular,
-                color: configuration.isSupported ? .Text.primary : .Text.tertiary
+                color: .Text.primary
             )
             Spacer()
-            if !configuration.isSupported {
-                AnytypeText(Loc.soon, style: .caption1Regular, color: .Text.tertiary)
-            }
-            if configuration.isSelected && configuration.isSupported {
-                Image(asset: .optionChecked)
+            if configuration.isSelected {
+                Image(asset: .X24.tick)
                     .foregroundColor(.Button.button)
             }
         }

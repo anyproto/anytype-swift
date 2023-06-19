@@ -1,4 +1,4 @@
-import BlocksModels
+import Services
 import ProtobufMessages
 
 final class GroupsSubscribeService: GroupsSubscribeServiceProtocol {
@@ -16,13 +16,13 @@ final class GroupsSubscribeService: GroupsSubscribeServiceProtocol {
             $0.filters = filters
             $0.source = source ?? []
             $0.collectionID = collectionId ?? ""
-        }).invoke(errorDomain: .groupsSubscribeService)
+        }).invoke()
         return GroupsSubscribeResult(subscriptionId: response.subID, groups: response.groups)
     }
     
     func stopSubscription(id: SubscriptionId) {
         _ = try? ClientCommands.objectSearchUnsubscribe(.with {
             $0.subIds = [id.value]
-        }).invoke(errorDomain: .groupsSubscribeService)
+        }).invoke()
     }
 }

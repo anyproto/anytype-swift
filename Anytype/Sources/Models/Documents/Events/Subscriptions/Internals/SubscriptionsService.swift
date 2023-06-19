@@ -1,4 +1,4 @@
-import BlocksModels
+import Services
 import Combine
 import AnytypeCore
 import NotificationCenter
@@ -38,10 +38,10 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
         taskQueue.enqueue { [weak self] in
             guard let self = self else { return }
             
-            guard required || self.hasSubscriptionDataDiff(with: data) else { return }
+            guard required || hasSubscriptionDataDiff(with: data) else { return }
             
-            await self.unsafeStopSubscriptions(ids: [data.identifier])
-            await self.unsafeStartSubscription(data: data, update: update)
+            await unsafeStopSubscriptions(ids: [data.identifier])
+            await unsafeStartSubscription(data: data, update: update)
         }
     }
     
@@ -49,8 +49,8 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
         taskQueue.enqueue { [weak self] in
             guard let self = self else { return }
             
-            let ids = Array(self.subscribers.keys)
-            self.stopSubscriptions(ids: ids)
+            let ids = Array(subscribers.keys)
+            stopSubscriptions(ids: ids)
         }
     }
     
@@ -58,12 +58,12 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
         taskQueue.enqueue { [weak self] in
             guard let self = self else { return }
             
-            let idsToDelete = self.subscribers.keys.filter { ids.contains($0) }
+            let idsToDelete = subscribers.keys.filter { ids.contains($0) }
             guard idsToDelete.isNotEmpty else { return }
             
-            try? await self.toggler.stopSubscriptions(ids: idsToDelete)
+            try? await toggler.stopSubscriptions(ids: idsToDelete)
             for id in idsToDelete {
-                self.subscribers[id] = nil
+                subscribers[id] = nil
             }
         }
     }
@@ -144,7 +144,7 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
     }
     
     private func handle(events: EventsBunch) {
-        anytypeAssert(events.localEvents.isEmpty, "Local events with emplty objectId: \(events)", domain: .subscriptionStorage)
+        anytypeAssert(events.localEvents.isEmpty, "Local events with emplty objectId: \(events)")
         
         for event in events.middlewareEvents {
             switch event.value {
@@ -164,7 +164,7 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
                 guard
                     let details = storage.get(id: data.id)
                 else {
-                    anytypeAssertionFailure("No details found for id \(data.id)", domain: .subscriptionStorage)
+                    anytypeAssertionFailure("No details found", info: ["id": data.id])
                     return
                 }
                 
@@ -182,10 +182,8 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
                     )),
                     subId: data.subID
                 )
-            case .accountConfigUpdate, .accountUpdate, .accountDetails, .accountShow, .subscriptionGroups:
-                break
             default:
-                anytypeAssertionFailure("Unsupported event \(event)", domain: .subscriptionStorage)
+                break
             }
         }
     }

@@ -1,5 +1,5 @@
 import UIKit
-import BlocksModels
+import Services
 import Kingfisher
 import AnytypeCore
 
@@ -297,7 +297,7 @@ extension BlockLinkCoverView {
     private func switchState(_ state: State) {
         switch state {
         case .icon:
-            anytypeAssertionFailure("Wrong case", domain: .blockValidator)
+            anytypeAssertionFailure("Wrong case")
         case .cover:
             iconView.isHidden = true
             coverView.isHidden = false

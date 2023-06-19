@@ -1,5 +1,5 @@
 import UIKit
-import BlocksModels
+import Services
 import SwiftUI
 import AnytypeCore
 

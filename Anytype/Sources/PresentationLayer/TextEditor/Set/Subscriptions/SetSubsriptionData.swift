@@ -1,5 +1,5 @@
 import Foundation
-import BlocksModels
+import Services
 
 struct SetSubsriptionData: Hashable {
     let identifier: SubscriptionId

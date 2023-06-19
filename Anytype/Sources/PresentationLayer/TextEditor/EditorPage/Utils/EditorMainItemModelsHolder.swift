@@ -1,4 +1,4 @@
-import BlocksModels
+import Services
 
 typealias BlockMapping = Dictionary<BlockId, BlockViewModelProtocol>
 

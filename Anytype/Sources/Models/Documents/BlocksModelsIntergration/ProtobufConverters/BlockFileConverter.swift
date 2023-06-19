@@ -1,5 +1,5 @@
 import ProtobufMessages
-import BlocksModels
+import Services
 
 extension Anytype_Model_Block.Content.File {
     var blockContent: BlockContent? {

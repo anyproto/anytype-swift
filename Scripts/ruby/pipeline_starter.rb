@@ -13,9 +13,15 @@ class PipelineStarter
 
     if options[:latest]
       install_latest_library(options)
-    else
-      install_library_from_libfile(options)
+      return
     end
+
+    if options[:version]
+      install_specific_version_library(options)
+      return
+    end
+
+    install_library_from_libfile(options)
   end
 
   private_class_method def self.install_library_from_path(options)
@@ -27,6 +33,19 @@ class PipelineStarter
 
   private_class_method def self.install_latest_library(options)
     version = VersionProvider.latest_version(options[:token])
+    actifacts_dir = DownloadMiddlewarePipeline.work(version, options)
+    
+    CopyArtifactsPipeline.work(actifacts_dir)
+
+    LibraryFile.set(version)
+    
+    cleanup(actifacts_dir)
+    done()
+  end
+
+
+  private_class_method def self.install_specific_version_library(options)
+    version = VersionProvider.specific_version(options[:version], options[:token])
     actifacts_dir = DownloadMiddlewarePipeline.work(version, options)
     
     CopyArtifactsPipeline.work(actifacts_dir)

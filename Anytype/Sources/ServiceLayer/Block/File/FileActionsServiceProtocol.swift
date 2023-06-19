@@ -1,4 +1,4 @@
-import BlocksModels
+import Services
 import Combine
 import AnytypeCore
 import Foundation
@@ -22,6 +22,8 @@ protocol FileActionsServiceProtocol {
     
     func uploadDataAt(source: FileUploadingSource, contextID: BlockId, blockID: BlockId) async throws
     func uploadImage(source: FileUploadingSource) async throws -> Hash
+    
+    func spaceUsage() async throws -> FileLimits
     
     func clearCache() async throws
 }

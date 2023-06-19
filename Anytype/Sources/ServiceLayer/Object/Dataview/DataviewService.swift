@@ -1,4 +1,4 @@
-import BlocksModels
+import Services
 import ProtobufMessages
 import SwiftProtobuf
 import Combine
@@ -25,7 +25,7 @@ final class DataviewService: DataviewServiceProtocol {
             $0.blockID = blockId
             $0.viewID = view.id
             $0.view = view.asMiddleware
-        }).invoke(errorDomain: .dataviewService)
+        }).invoke()
     }
     
     // MARK: - Filters
@@ -36,7 +36,7 @@ final class DataviewService: DataviewServiceProtocol {
             $0.blockID = blockId
             $0.viewID = viewId
             $0.filter = filter
-        }).invoke(errorDomain: .dataviewService)
+        }).invoke()
     }
     
     func removeFilters(_ ids: [String], viewId: String) async throws {
@@ -45,7 +45,7 @@ final class DataviewService: DataviewServiceProtocol {
             $0.blockID = blockId
             $0.viewID = viewId
             $0.ids = ids
-        }).invoke(errorDomain: .dataviewService)
+        }).invoke()
     }
     
     func replaceFilter(_ id: String, with filter: DataviewFilter, viewId: String) async throws {
@@ -55,7 +55,7 @@ final class DataviewService: DataviewServiceProtocol {
             $0.viewID = viewId
             $0.id = id
             $0.filter = filter
-        }).invoke(errorDomain: .dataviewService)
+        }).invoke()
     }
     
     // MARK: - Sorts
@@ -66,7 +66,7 @@ final class DataviewService: DataviewServiceProtocol {
             $0.blockID = blockId
             $0.viewID = viewId
             $0.sort = sort
-        }).invoke(errorDomain: .dataviewService)
+        }).invoke()
     }
     
     func removeSorts(_ ids: [String], viewId: String) async throws {
@@ -75,7 +75,7 @@ final class DataviewService: DataviewServiceProtocol {
             $0.blockID = blockId
             $0.viewID = viewId
             $0.ids = ids
-        }).invoke(errorDomain: .dataviewService)
+        }).invoke()
     }
     
     func replaceSort(_ id: String, with sort: DataviewSort, viewId: String) async throws {
@@ -85,7 +85,7 @@ final class DataviewService: DataviewServiceProtocol {
             $0.viewID = viewId
             $0.id = id
             $0.sort = sort
-        }).invoke(errorDomain: .dataviewService)
+        }).invoke()
     }
     
     func sortSorts(_ ids: [String], viewId: String) async throws {
@@ -94,7 +94,7 @@ final class DataviewService: DataviewServiceProtocol {
             $0.blockID = blockId
             $0.viewID = viewId
             $0.ids = ids
-        }).invoke(errorDomain: .dataviewService)
+        }).invoke()
     }
     
     // MARK: - Relations
@@ -105,7 +105,7 @@ final class DataviewService: DataviewServiceProtocol {
             $0.blockID = blockId
             $0.viewID = viewId
             $0.relation = relation
-        }).invoke(errorDomain: .dataviewService)
+        }).invoke()
     }
     
     func removeViewRelations(_ keys: [String], viewId: String) async throws {
@@ -114,7 +114,7 @@ final class DataviewService: DataviewServiceProtocol {
             $0.blockID = blockId
             $0.viewID = viewId
             $0.relationKeys = keys
-        }).invoke(errorDomain: .dataviewService)
+        }).invoke()
     }
     
     func replaceViewRelation(_ key: String, with relation: MiddlewareRelation, viewId: String) async throws {
@@ -124,7 +124,7 @@ final class DataviewService: DataviewServiceProtocol {
             $0.viewID = viewId
             $0.relationKey = key
             $0.relation = relation
-        }).invoke(errorDomain: .dataviewService)
+        }).invoke()
     }
     
     func sortViewRelations(_ keys: [String], viewId: String) async throws {
@@ -133,7 +133,7 @@ final class DataviewService: DataviewServiceProtocol {
             $0.blockID = blockId
             $0.viewID = viewId
             $0.relationKeys = keys
-        }).invoke(errorDomain: .dataviewService)
+        }).invoke()
     }
     
     // MARK: -
@@ -144,7 +144,7 @@ final class DataviewService: DataviewServiceProtocol {
             $0.blockID = blockId
             $0.view = view.asMiddleware
             $0.source = source
-        }).invoke(errorDomain: .dataviewService)
+        }).invoke()
     }
 
     func deleteView( _ viewId: String) async throws {
@@ -152,7 +152,7 @@ final class DataviewService: DataviewServiceProtocol {
             $0.contextID = objectId
             $0.blockID = blockId
             $0.viewID = viewId
-        }).invoke(errorDomain: .dataviewService)
+        }).invoke()
     }
 
     func addRelation(_ relationDetails: RelationDetails) async throws {
@@ -160,7 +160,7 @@ final class DataviewService: DataviewServiceProtocol {
             $0.contextID = objectId
             $0.blockID = blockId
             $0.relationKeys = [relationDetails.key]
-        }).invoke(errorDomain: .dataviewService)
+        }).invoke()
     }
     
     func deleteRelation(relationKey: String) async throws {
@@ -168,7 +168,7 @@ final class DataviewService: DataviewServiceProtocol {
             $0.contextID = objectId
             $0.blockID = blockId
             $0.relationKeys = [relationKey]
-        }).invoke(errorDomain: .dataviewService)
+        }).invoke()
     }
     
     func addRecord(
@@ -194,7 +194,7 @@ final class DataviewService: DataviewServiceProtocol {
             $0.details = details
             $0.internalFlags = internalFlags
             $0.templateID = templateId
-        }).invoke(errorDomain: .dataviewService)
+        }).invoke()
 
         return response.objectID
     }
@@ -205,7 +205,7 @@ final class DataviewService: DataviewServiceProtocol {
             $0.blockID = Constants.dataview
             $0.viewID = viewId
             $0.position = UInt32(position)
-        }).invoke(errorDomain: .dataviewService)
+        }).invoke()
     }
     
     func objectOrderUpdate(viewId: String, groupObjectIds: [GroupObjectIds]) async throws {
@@ -220,7 +220,7 @@ final class DataviewService: DataviewServiceProtocol {
             $0.contextID = objectId
             $0.blockID = Constants.dataview
             $0.objectOrders = objectOrders
-        }).invoke(errorDomain: .dataviewService)
+        }).invoke()
     }
     
     func groupOrderUpdate(viewId: String, groupOrder: DataviewGroupOrder) async throws {
@@ -228,6 +228,6 @@ final class DataviewService: DataviewServiceProtocol {
             $0.contextID = objectId
             $0.blockID = Constants.dataview
             $0.groupOrder = groupOrder
-        }).invoke(errorDomain: .dataviewService)
+        }).invoke()
     }
 }

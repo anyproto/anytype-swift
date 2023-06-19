@@ -1,6 +1,6 @@
 import Foundation
 import ProtobufMessages
-import BlocksModels
+import Services
 import AnytypeCore
 
 protocol BlockWidgetServiceProtocol {
@@ -23,7 +23,7 @@ final class BlockWidgetService: BlockWidgetServiceProtocol {
         
         let info = BlockInformation.empty(content: .link(.empty(targetBlockID: sourceId)))
         guard let block = BlockInformationConverter.convert(information: info) else {
-            throw anytypeAssertionFailureWithError("Block not created", domain: .blockWidgetService)
+            throw anytypeAssertionFailureWithError("Block not created")
         }
         
         try await ClientCommands.blockCreateWidget(.with {
@@ -32,21 +32,21 @@ final class BlockWidgetService: BlockWidgetServiceProtocol {
             $0.block = block
             $0.position = position.middlePosition
             $0.widgetLayout = layout.asMiddleware
-        }).invoke(errorDomain: .blockWidgetService)
+        }).invoke()
     }
     
     func removeWidgetBlock(contextId: String, widgetBlockId: String) async throws {
         try await ClientCommands.blockListDelete(.with {
             $0.contextID = contextId
             $0.blockIds = [widgetBlockId]
-        }).invoke(errorDomain: .blockWidgetService)
+        }).invoke()
     }
     
     func replaceWidgetBlock(contextId: String, widgetBlockId: String, sourceId: String, layout: BlockWidget.Layout) async throws {
         
         let info = BlockInformation.empty(content: .link(.empty(targetBlockID: sourceId)))
         guard let block = BlockInformationConverter.convert(information: info) else {
-            throw anytypeAssertionFailureWithError("Block not created", domain: .blockWidgetService)
+            throw anytypeAssertionFailureWithError("Block not created")
         }
         
         let result = try await ClientCommands.blockCreateWidget(.with {
@@ -55,7 +55,7 @@ final class BlockWidgetService: BlockWidgetServiceProtocol {
             $0.block = block
             $0.position = .replace
             $0.widgetLayout = layout.asMiddleware
-        }).invoke(errorDomain: .blockWidgetService)
+        }).invoke()
         
         let expandedState = blockWidgetExpandedService.isExpanded(widgetBlockId: widgetBlockId)
         blockWidgetExpandedService.setState(widgetBlockId: result.blockID, isExpanded: expandedState)

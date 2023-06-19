@@ -89,6 +89,7 @@ struct SetKanbanColumn: View {
                         Image(asset: .TextEditor.Text.checked)
                     } else {
                         Image(asset: .TextEditor.Text.unchecked)
+                            .foregroundColor(.Button.active)
                     }
                     let text = isChecked ?
                     Loc.Set.View.Kanban.Column.Title.checked(title) :
@@ -103,7 +104,7 @@ struct SetKanbanColumn: View {
             
             Spacer()
             
-            Image(asset: .more).foregroundColor(.Button.active)
+            Image(asset: .X24.more).foregroundColor(.Button.active)
         }
         .padding(.horizontal, 10)
     }

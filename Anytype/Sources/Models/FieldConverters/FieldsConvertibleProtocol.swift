@@ -6,7 +6,7 @@
 //  Copyright © 2022 Anytype. All rights reserved.
 //
 
-import BlocksModels
+import Services
 
 public protocol FieldsConvertibleProtocol {
     func asMiddleware() -> BlockFields

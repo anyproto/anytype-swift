@@ -1,4 +1,4 @@
-import BlocksModels
+import Services
 import UIKit
 import AnytypeCore
 
@@ -81,7 +81,7 @@ final class SimpleTableDependenciesBuilder {
             router: router,
             pasteboardService: pasteboardService,
             document: document,
-            onShowStyleMenu: stateManager.didSelectStyleSelection(info:),
+            onShowStyleMenu: stateManager.didSelectStyleSelection(infos:),
             onBlockSelection: stateManager.didSelectEditingState(info:),
             pageService: pageService,
             linkToObjectCoordinator: linkToObjectCoordinator

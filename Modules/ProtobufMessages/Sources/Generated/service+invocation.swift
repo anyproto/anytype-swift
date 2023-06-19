@@ -624,6 +624,16 @@ public struct ClientCommands {
         }
     }
 
+    public static func objectImportUseCase(
+        _ request: Anytype_Rpc.Object.ImportUseCase.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Object.ImportUseCase.Request, Anytype_Rpc.Object.ImportUseCase.Response> {
+        return Invocation(messageName: "ObjectImportUseCase", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceObjectImportUseCase(requestData) ?? Data()
+            return try Anytype_Rpc.Object.ImportUseCase.Response(serializedData: responseData)
+        }
+    }
+
     public static func objectCollectionAdd(
         _ request: Anytype_Rpc.ObjectCollection.Add.Request = .init()
     ) -> Invocation<Anytype_Rpc.ObjectCollection.Add.Request, Anytype_Rpc.ObjectCollection.Add.Response> {
@@ -1741,6 +1751,16 @@ public struct ClientCommands {
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockWidgetSetLimit(requestData) ?? Data()
             return try Anytype_Rpc.BlockWidget.SetLimit.Response(serializedData: responseData)
+        }
+    }
+
+    public static func blockWidgetSetViewId(
+        _ request: Anytype_Rpc.BlockWidget.SetViewId.Request = .init()
+    ) -> Invocation<Anytype_Rpc.BlockWidget.SetViewId.Request, Anytype_Rpc.BlockWidget.SetViewId.Response> {
+        return Invocation(messageName: "BlockWidgetSetViewId", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceBlockWidgetSetViewId(requestData) ?? Data()
+            return try Anytype_Rpc.BlockWidget.SetViewId.Response(serializedData: responseData)
         }
     }
 

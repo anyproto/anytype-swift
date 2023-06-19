@@ -1,5 +1,5 @@
 import Foundation
-import BlocksModels
+import Services
 import ProtobufMessages
 
 extension Anytype_Model_Block.Content.Widget {

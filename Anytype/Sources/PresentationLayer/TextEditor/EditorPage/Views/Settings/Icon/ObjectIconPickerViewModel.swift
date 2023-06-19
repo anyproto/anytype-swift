@@ -1,6 +1,6 @@
 import Combine
 import UIKit
-import BlocksModels
+import Services
 import AnytypeCore
 
 final class ObjectIconPickerViewModel: ObservableObject, ObjectIconPickerViewModelProtocol {
@@ -22,8 +22,7 @@ final class ObjectIconPickerViewModel: ObservableObject, ObjectIconPickerViewMod
             return details.iconImage.isNotNil
         default:
             anytypeAssertionFailure(
-                "`ObjectIconPickerViewModel` unavailable in \(detailsLayout)",
-                domain: .iconPicker
+                "`ObjectIconPickerViewModel` unavailable", info: ["detailsLayout": "\(detailsLayout.rawValue)"]
             )
             return true
         }

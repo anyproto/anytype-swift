@@ -2,7 +2,7 @@
 import AVKit
 import Combine
 import UIKit
-import BlocksModels
+import Services
 import AnytypeCore
 
 final class VideoBlockContentView: UIView, BlockContentView {
@@ -31,8 +31,7 @@ final class VideoBlockContentView: UIView, BlockContentView {
     private func apply(configuration: VideoBlockConfiguration) {
         anytypeAssert(
             configuration.file.state == .done,
-            "Wrong state \(configuration.file.state) for block file",
-            domain: .blockVideo
+            "Wrong state \(configuration.file.state) for block file"
         )
         
         guard let url = configuration.file.metadata.contentUrl else { return }

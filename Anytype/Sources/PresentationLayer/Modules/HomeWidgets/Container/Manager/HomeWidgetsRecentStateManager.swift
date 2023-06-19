@@ -1,5 +1,5 @@
 import Foundation
-import BlocksModels
+import Services
 
 protocol HomeWidgetsRecentStateManagerProtocol: AnyObject {
     func setupRecentStateIfNeeded(

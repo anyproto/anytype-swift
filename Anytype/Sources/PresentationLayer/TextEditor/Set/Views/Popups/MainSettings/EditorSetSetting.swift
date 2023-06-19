@@ -27,13 +27,13 @@ enum EditorSetSetting: CaseIterable, Identifiable {
     var imageAsset: ImageAsset {
         switch self {
         case .view:
-            return .setSettinsView
+            return .X32.View.view
         case .settings:
-            return .setSettingsSettings
+            return .X32.properties
         case .sort:
-            return .setSettinsSort
+            return .X32.sort
         case .filter:
-            return .setSettinsFilter
+            return .X32.filter
 //        case .group:
 //            return .set.group
         }

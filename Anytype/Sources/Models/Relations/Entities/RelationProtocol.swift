@@ -1,4 +1,4 @@
-import BlocksModels
+import Services
 
 protocol RelationProtocol {
     var id: String { get }

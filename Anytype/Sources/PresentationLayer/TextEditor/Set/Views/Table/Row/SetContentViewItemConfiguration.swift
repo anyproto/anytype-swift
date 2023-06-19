@@ -1,5 +1,5 @@
 import CoreFoundation
-import BlocksModels
+import Services
 import AnytypeCore
 
 struct SetContentViewItemConfiguration: Identifiable, Hashable {

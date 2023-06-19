@@ -1,5 +1,5 @@
 import Foundation
-import BlocksModels
+import Services
 
 enum WidgetSource: Equatable {
     case object(ObjectDetails)

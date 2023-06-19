@@ -1,5 +1,5 @@
 import UIKit
-import BlocksModels
+import Services
 
 extension BlockText.Style {
     var uiFont: AnytypeFont {

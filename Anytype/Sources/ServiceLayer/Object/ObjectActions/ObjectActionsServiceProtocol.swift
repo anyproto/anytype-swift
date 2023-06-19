@@ -1,10 +1,10 @@
 import Combine
-import BlocksModels
+import Services
 import ProtobufMessages
 import AnytypeCore
 
 protocol ObjectActionsServiceProtocol {
-    func delete(objectIds: [BlockId]) async throws
+    func delete(objectIds: [BlockId], route: RemoveCompletelyRoute) async throws
     
     func setArchive(objectIds: [BlockId], _ isArchived: Bool)
     func setArchive(objectIds: [BlockId], _ isArchived: Bool) async throws

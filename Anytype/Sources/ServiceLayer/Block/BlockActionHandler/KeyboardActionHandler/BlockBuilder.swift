@@ -1,4 +1,4 @@
-import BlocksModels
+import Services
 import AnytypeCore
 import SwiftUI
 
@@ -32,7 +32,7 @@ struct BlockBuilder {
         case .tableOfContents:
             return .tableOfContents
         case .layout, .smartblock, .featuredRelations, .dataView, .widget:
-            anytypeAssertionFailure("Unsupported type \(type)", domain: .blockBuilder)
+            anytypeAssertionFailure("Unsupported type", info: ["type": "\(type)"])
             return nil
         case .table:
             return .table

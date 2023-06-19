@@ -1,5 +1,5 @@
 import Foundation
-import BlocksModels
+import Services
 import ProtobufMessages
 import AnytypeCore
 
@@ -49,7 +49,7 @@ final class BlockTableService: BlockTableServiceProtocol {
             $0.rows = UInt32(rowsCount)
             $0.columns = UInt32(columnsCount)
             $0.withHeaderRow = false
-        }).invoke(errorDomain: .simpleTablesService)
+        }).invoke()
     }
 
     func rowListFill(
@@ -59,7 +59,7 @@ final class BlockTableService: BlockTableServiceProtocol {
         _ = try? ClientCommands.blockTableRowListFill(.with {
             $0.contextID = contextId
             $0.blockIds = targetIds
-        }).invoke(errorDomain: .simpleTablesService)
+        }).invoke()
     }
 
     func insertRow(contextId: BlockId, targetId: BlockId, position: BlockPosition) {
@@ -67,7 +67,7 @@ final class BlockTableService: BlockTableServiceProtocol {
             $0.contextID = contextId
             $0.targetID = targetId
             $0.position = position.asMiddleware
-        }).invoke(errorDomain: .simpleTablesService)
+        }).invoke()
     }
 
     func insertColumn(contextId: BlockId, targetId: BlockId, position: BlockPosition) {
@@ -75,14 +75,14 @@ final class BlockTableService: BlockTableServiceProtocol {
             $0.contextID = contextId
             $0.targetID = targetId
             $0.position = position.asMiddleware
-        }).invoke(errorDomain: .simpleTablesService)
+        }).invoke()
     }
 
     func deleteColumn(contextId: BlockId, targetId: BlockId) {
         _ = try? ClientCommands.blockTableColumnDelete(.with {
             $0.contextID = contextId
             $0.targetID = targetId
-        }).invoke(errorDomain: .simpleTablesService)
+        }).invoke()
     }
 
     func columnDuplicate(contextId: BlockId, targetId: BlockId) {
@@ -91,7 +91,7 @@ final class BlockTableService: BlockTableServiceProtocol {
             $0.targetID = targetId
             $0.blockID = targetId
             $0.position = BlockPosition.left.asMiddleware
-        }).invoke(errorDomain: .simpleTablesService)
+        }).invoke()
     }
 
     func columnSort(contextId: BlockId, columnId: BlockId, blocksSortType: BlocksSortType) {
@@ -99,7 +99,7 @@ final class BlockTableService: BlockTableServiceProtocol {
             $0.contextID = contextId
             $0.columnID = columnId
             $0.type = blocksSortType.asMiddleware
-        }).invoke(errorDomain: .simpleTablesService)
+        }).invoke()
     }
 
     func columnMove(contextId: BlockId, targetId: BlockId, dropTargetID: BlockId, position: BlockPosition) {
@@ -108,7 +108,7 @@ final class BlockTableService: BlockTableServiceProtocol {
             $0.targetID = targetId
             $0.dropTargetID = dropTargetID
             $0.position = position.asMiddleware
-        }).invoke(errorDomain: .simpleTablesService)
+        }).invoke()
     }
 
     func rowMove(contextId: BlockId, targetId: BlockId, dropTargetID: BlockId, position: BlockPosition) {
@@ -118,14 +118,14 @@ final class BlockTableService: BlockTableServiceProtocol {
             $0.targetContextID = contextId
             $0.dropTargetID = dropTargetID
             $0.position = position.asMiddleware
-        }).invoke(errorDomain: .simpleTablesService)
+        }).invoke()
     }
 
     func deleteRow(contextId: BlockId, targetId: BlockId) {
         _ = try? ClientCommands.blockTableRowDelete(.with {
             $0.contextID = contextId
             $0.targetID = targetId
-        }).invoke(errorDomain: .simpleTablesService)
+        }).invoke()
     }
 
     func rowDuplicate(contextId: BlockId, targetId: BlockId) {
@@ -134,21 +134,21 @@ final class BlockTableService: BlockTableServiceProtocol {
             $0.targetID = targetId
             $0.blockID = targetId
             $0.position = BlockPosition.bottom.asMiddleware
-        }).invoke(errorDomain: .simpleTablesService)
+        }).invoke()
     }
 
     func clearContents(contextId: BlockId, blockIds: [BlockId]) {
         _ = try? ClientCommands.blockTextListClearContent(.with {
             $0.contextID = contextId
             $0.blockIds = blockIds
-        }).invoke(errorDomain: .simpleTablesService)
+        }).invoke()
     }
 
     func clearStyle(contextId: BlockId, blocksIds: [BlockId]) {
         _ = try? ClientCommands.blockTextListClearStyle(.with {
             $0.contextID = contextId
             $0.blockIds = blocksIds
-        }).invoke(errorDomain: .simpleTablesService)
+        }).invoke()
     }
 }
 

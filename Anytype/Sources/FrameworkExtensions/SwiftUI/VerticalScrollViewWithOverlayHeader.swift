@@ -25,7 +25,7 @@ struct VerticalScrollViewWithOverlayHeader<Content, Header>: View where Content:
             }
             content
         }
-        .safeAreaInsetLegacy(edge: .top, content: {
+        .safeAreaInset(edge: .top, content: {
             PositionCatcher { newPosition in
                 safeAreaTopOffset = newPosition.y
                 updateOverlay()

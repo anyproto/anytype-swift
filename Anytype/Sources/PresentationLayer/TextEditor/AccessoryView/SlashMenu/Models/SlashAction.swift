@@ -35,7 +35,7 @@ enum SlashAction {
             )
         case let .style(style):
             return .titleSubtitleDisplayData(
-                SlashMenuItemDisplayData(iconData: .image(style.image ?? UIImage()), title: style.title, subtitle: style.subtitle, expandedIcon: true)
+                SlashMenuItemDisplayData(iconData: .imageAsset(style.imageAsset), title: style.title, subtitle: style.subtitle, expandedIcon: true)
             )
         case let .other(other):
             return .titleSubtitleDisplayData(
@@ -46,7 +46,7 @@ enum SlashAction {
             case .linkTo:
                 return .titleSubtitleDisplayData(
                     SlashMenuItemDisplayData(
-                        iconData: .imageAsset(.slashMenuLinkTo),
+                        iconData: .imageAsset(.X40.linkToExistingObject),
                         title: Loc.linkToObject,
                         subtitle: Loc.linkToExistingObject
                     )
@@ -65,7 +65,7 @@ enum SlashAction {
             case .newRealtion:
                 return .titleSubtitleDisplayData(
                     SlashMenuItemDisplayData(
-                        iconData: .imageAsset(.slashMenuAddRelation),
+                        iconData: .imageAsset(.X24.plus),
                         title: Loc.newRelation
                     )
                 )

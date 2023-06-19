@@ -1,5 +1,5 @@
 import UIKit
-import BlocksModels
+import Services
 
 final class TextBlockLeftViewStyler {
     static func applyStyle(

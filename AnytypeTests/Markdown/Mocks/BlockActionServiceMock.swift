@@ -1,5 +1,5 @@
 @testable import Anytype
-import BlocksModels
+import Services
 import ProtobufMessages
 import XCTest
 import Foundation

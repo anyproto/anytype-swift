@@ -37,4 +37,16 @@ final class AlertOpener: AlertOpenerProtocol {
         
         return navigationContext.present(popup)
     }
+    
+    func showFloatAlert(model: BottomAlert) -> AnytypeDismiss {
+        let view = FloaterAlertView(bottomAlert: model)
+        
+        let popup = AnytypePopup(
+            contentView: view,
+            floatingPanelStyle: true,
+            configuration: .init(isGrabberVisible: false, dismissOnBackdropView: true)
+        )
+        
+        return navigationContext.present(popup)
+    }
 }

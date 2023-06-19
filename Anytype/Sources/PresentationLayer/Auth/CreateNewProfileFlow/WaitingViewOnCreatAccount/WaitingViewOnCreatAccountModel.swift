@@ -3,13 +3,11 @@ import SwiftUI
 final class SignUpData: ObservableObject {
     @Published var userName: String
     @Published var image: UIImage?
-    @Published var inviteCode: String
     var mnemonic: String
     
     init(mnemonic: String) {
         userName = ""
         image = nil
-        inviteCode = ""
 
         self.mnemonic = mnemonic
     }
@@ -19,6 +17,8 @@ final class WaitingOnCreatAccountViewModel: ObservableObject {
     private let applicationStateService: ApplicationStateServiceProtocol
     private let authService: AuthServiceProtocol
     private let seedService: SeedServiceProtocol
+    private let usecaseService: UsecaseServiceProtocol
+    private let metricsService: MetricsServiceProtocol
     
     private let diskStorage = DiskStorage()
     
@@ -34,24 +34,28 @@ final class WaitingOnCreatAccountViewModel: ObservableObject {
         showWaitingView: Binding<Bool>,
         applicationStateService: ApplicationStateServiceProtocol,
         authService: AuthServiceProtocol,
-        seedService: SeedServiceProtocol
+        seedService: SeedServiceProtocol,
+        usecaseService: UsecaseServiceProtocol,
+        metricsService: MetricsServiceProtocol
     ) {
         self.signUpData = signUpData
         self._showWaitingView = showWaitingView
         self.applicationStateService = applicationStateService
         self.authService = authService
         self.seedService = seedService
-
+        self.usecaseService = usecaseService
+        self.metricsService = metricsService
     }
     
     func createAccount() {
         Task { @MainActor in
             do {
+                try await metricsService.metricsSetParameters()
                 try await authService.createAccount(
                     name: signUpData.userName,
-                    imagePath: imagePath(),
-                    alphaInviteCode: signUpData.inviteCode.trimmingCharacters(in: .whitespacesAndNewlines)
+                    imagePath: imagePath()
                 )
+                try await usecaseService.setObjectImportUseCaseToSkip()
                 try? seedService.saveSeed(signUpData.mnemonic)
                 applicationStateService.state = .home
             } catch {

@@ -1,5 +1,5 @@
 import Foundation
-import BlocksModels
+import Services
 
 extension SubscriptionId {
     static var set = SubscriptionId(value: "SubscriptionId.Set")

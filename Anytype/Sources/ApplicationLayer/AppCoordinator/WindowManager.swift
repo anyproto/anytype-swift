@@ -9,14 +9,12 @@ final class WindowManager {
     private let viewControllerProvider: ViewControllerProviderProtocol
     private let authCoordinatorAssembly: AuthCoordinatorAssemblyProtocol
     private let legacyAuthViewAssembly: LegacyAuthViewAssembly
-    private let homeViewAssembly: HomeViewAssembly
     private let homeWidgetsCoordinatorAssembly: HomeWidgetsCoordinatorAssemblyProtocol
     private let applicationStateService: ApplicationStateServiceProtocol
     
     // MARK: - State
     
     private var homeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol?
-    private weak var lastHomeViewModel: HomeViewModel?
     
     private var authCoordinator: AuthCoordinatorProtocol?
     
@@ -24,32 +22,23 @@ final class WindowManager {
         viewControllerProvider: ViewControllerProviderProtocol,
         authCoordinatorAssembly: AuthCoordinatorAssemblyProtocol,
         legacyAuthViewAssembly: LegacyAuthViewAssembly,
-        homeViewAssembly: HomeViewAssembly,
         homeWidgetsCoordinatorAssembly: HomeWidgetsCoordinatorAssemblyProtocol,
         applicationStateService: ApplicationStateServiceProtocol
     ) {
         self.viewControllerProvider = viewControllerProvider
         self.authCoordinatorAssembly = authCoordinatorAssembly
         self.legacyAuthViewAssembly = legacyAuthViewAssembly
-        self.homeViewAssembly = homeViewAssembly
         self.homeWidgetsCoordinatorAssembly = homeWidgetsCoordinatorAssembly
         self.applicationStateService = applicationStateService
     }
 
     @MainActor
     func showHomeWindow() {
-        if FeatureFlags.homeWidgets {
-            let coordinator = homeWidgetsCoordinatorAssembly.make()
-            self.homeWidgetsCoordinator = coordinator
-            let homeView = coordinator.startFlow()
-            startNewRootView(homeView)
-            coordinator.flowStarted()
-        } else {
-            let homeView = homeViewAssembly.createHomeView()
-            
-            self.lastHomeViewModel = homeView?.model
-            startNewRootView(homeView)
-        }
+        let coordinator = homeWidgetsCoordinatorAssembly.make()
+        self.homeWidgetsCoordinator = coordinator
+        let homeView = coordinator.startFlow()
+        startNewRootView(homeView)
+        coordinator.flowStarted()
     }
     
     @MainActor
@@ -58,7 +47,7 @@ final class WindowManager {
             let coordinator = authCoordinatorAssembly.make()
             self.authCoordinator = coordinator
             let authView = coordinator.startFlow()
-            startNewRootView(authView)
+            startNewRootView(authView, preferredColorScheme: .dark)
         } else {
             let legacyAuthView = legacyAuthViewAssembly.createAuthView()
             startNewRootView(legacyAuthView)
@@ -71,11 +60,7 @@ final class WindowManager {
 
     @MainActor
     func createAndShowNewObject() {
-        if FeatureFlags.homeWidgets {
-            homeWidgetsCoordinator?.createAndShowNewPage()
-        } else {
-            lastHomeViewModel?.createAndShowNewPage()
-        }
+        homeWidgetsCoordinator?.createAndShowNewPage()
     }
     
     @MainActor
@@ -89,11 +74,12 @@ final class WindowManager {
     
     // MARK: - Private
     
-    private func startNewRootView<ViewType: View>(_ view: ViewType) {
+    private func startNewRootView<ViewType: View>(_ view: ViewType, preferredColorScheme: UIUserInterfaceStyle? = nil) {
         
-        let controller = FeatureFlags.homeWidgets
-            ? UINavigationController(rootViewController: AnytypeHostingController(rootView: view))
-            : NavigationControllerWithSwiftUIContent(rootViewController: UIHostingController(rootView: view))
+        let controller = UINavigationController(rootViewController: AnytypeHostingController(rootView: view))
+        if let preferredColorScheme {
+            controller.overrideUserInterfaceStyle = preferredColorScheme
+        }
         
         let navBarAppearance = UINavigationBarAppearance()
         navBarAppearance.configureWithTransparentBackground()

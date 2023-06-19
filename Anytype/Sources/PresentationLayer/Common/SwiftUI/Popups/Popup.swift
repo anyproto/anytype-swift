@@ -390,7 +390,7 @@ public struct Popup<Item: Equatable, PopupContent: View>: ViewModifier {
                 }
                 .frameGetter($sheetContentRect, $sheetSafeArea)
                 .offset(y: currentOffset)
-                .animation(animation)
+                .animation(animation, value: UUID())
         }
 
         #if !os(tvOS)

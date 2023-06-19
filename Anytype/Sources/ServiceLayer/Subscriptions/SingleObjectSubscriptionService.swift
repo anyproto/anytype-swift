@@ -1,5 +1,5 @@
 import Foundation
-import BlocksModels
+import Services
 
 protocol SingleObjectSubscriptionServiceProtocol: AnyObject {
     func startSubscription(subIdPrefix: String, objectId: String, dataHandler: @escaping (ObjectDetails) -> Void)

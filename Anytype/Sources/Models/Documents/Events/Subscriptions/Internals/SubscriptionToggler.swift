@@ -1,5 +1,5 @@
 import ProtobufMessages
-import BlocksModels
+import Services
 import AnytypeCore
 
 protocol SubscriptionTogglerProtocol {
@@ -26,7 +26,7 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
     func stopSubscriptions(ids: [SubscriptionId]) async throws {
         try await ClientCommands.objectSearchUnsubscribe(.with {
             $0.subIds = ids.map { $0.value }
-        }).invoke(errorDomain: .subscriptionService)
+        }).invoke()
     }
     
     // MARK: - Private
@@ -35,7 +35,7 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
         let result = try await ClientCommands.objectSearchSubscribe(.with {
             $0.subID = data.identifier.value
             $0.filters = data.filters
-            $0.sorts = data.sorts
+            $0.sorts = data.sorts.map { $0.fixIncludeTime() }
             $0.limit = Int64(data.limit)
             $0.offset = Int64(data.offset)
             $0.keys = data.keys
@@ -45,7 +45,7 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
             $0.ignoreWorkspace = data.ignoreWorkspace ?? ""
             $0.noDepSubscription = data.noDepSubscription
             $0.collectionID = data.collectionId ?? ""
-        }).invoke(errorDomain: .subscriptionService)
+        }).invoke()
         
         return SubscriptionTogglerResult(
             records: result.records.asDetais,
@@ -60,7 +60,7 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
             $0.ids = data.objectIds
             $0.keys = data.keys
             $0.ignoreWorkspace = data.ignoreWorkspace ?? ""
-        }).invoke(errorDomain: .subscriptionService)
+        }).invoke()
 
         return SubscriptionTogglerResult(
             records: result.records.asDetais,

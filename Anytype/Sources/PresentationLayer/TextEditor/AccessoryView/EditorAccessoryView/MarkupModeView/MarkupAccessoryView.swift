@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import BlocksModels
+import Services
 import Combine
 import AnytypeCore
 
@@ -63,8 +63,8 @@ final class MarkupAccessoryView: UIView {
             guard let self = self else {  return }
 
             if shouldShowColorView {
-                guard let viewModel = self.viewModel else { return }
-                let view = UIApplication.shared.windows[UIApplication.shared.windows.count - 1]
+                guard let viewModel = self.viewModel,
+                      let view = UIApplication.shared.keyWindow else { return }
                 let topAnchorConstant = viewModel.colorButtonFrame?.minY ?? 0
 
                 view.addSubview(self.colorView) {
@@ -114,7 +114,6 @@ final class MarkupAccessoryView: UIView {
     // MARK: - Private
     
     private func updateColorViewStyle() {
-        guard FeatureFlags.styleViewFixColor else { return }
         // Presented window - is not application window. This is the system window.
         // We should to set custom UserInterfaceStyle for sync with application.
         colorView.overrideUserInterfaceStyle = traitCollection.userInterfaceStyle
@@ -140,7 +139,6 @@ struct MarkupAccessoryContentView: View {
                                 })
                         } else {
                             Image(asset: item.markupItem.iconAsset)
-                                .renderingMode(.template)
                                 .foregroundColor(viewModel.iconColor(for: item.markupItem))
                         }
                     }

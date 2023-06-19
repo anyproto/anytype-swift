@@ -1,4 +1,4 @@
-import BlocksModels
+import Services
 
 struct BookmarkBlockRestrictions: BlockRestrictions {
     let canApplyBold = false

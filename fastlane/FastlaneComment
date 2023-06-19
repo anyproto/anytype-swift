@@ -1,6 +1,6 @@
 default_platform(:ios)
 
-repoUrl = 'git@github.com:anytypeio/devops-utils.git'
+repoUrl = 'git@github.com:anyproto/devops-utils.git'
 
 platform :ios do
     lane :add_linear_comment do |options|

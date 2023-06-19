@@ -1,5 +1,5 @@
 import Foundation
-import BlocksModels
+import Services
 
 protocol HomeWidgetsRegistryProtocol {
     func providers(blocks: [BlockInformation], widgetObject: BaseDocumentProtocol) -> [HomeWidgetSubmoduleModel]

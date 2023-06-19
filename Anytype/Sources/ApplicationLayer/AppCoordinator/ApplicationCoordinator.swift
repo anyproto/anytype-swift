@@ -2,7 +2,7 @@ import UIKit
 import SwiftUI
 import Combine
 import AnytypeCore
-import BlocksModels
+import Services
 
 @MainActor
 protocol ApplicationCoordinatorProtocol: AnyObject {
@@ -19,6 +19,9 @@ final class ApplicationCoordinator: ApplicationCoordinatorProtocol {
     private let applicationStateService: ApplicationStateServiceProtocol
     private let accountManager: AccountManagerProtocol
     private let seedService: SeedServiceProtocol
+    private let fileErrorEventHandler: FileErrorEventHandlerProtocol
+    private let toastPresenter: ToastPresenterProtocol
+    private let metricsService: MetricsServiceProtocol
     
     // MARK: - State
     
@@ -32,7 +35,10 @@ final class ApplicationCoordinator: ApplicationCoordinatorProtocol {
         accountEventHandler: AccountEventHandlerProtocol,
         applicationStateService: ApplicationStateServiceProtocol,
         accountManager: AccountManagerProtocol,
-        seedService: SeedServiceProtocol
+        seedService: SeedServiceProtocol,
+        fileErrorEventHandler: FileErrorEventHandlerProtocol,
+        toastPresenter: ToastPresenterProtocol,
+        metricsService: MetricsServiceProtocol
     ) {
         self.windowManager = windowManager
         self.authService = authService
@@ -40,6 +46,9 @@ final class ApplicationCoordinator: ApplicationCoordinatorProtocol {
         self.applicationStateService = applicationStateService
         self.accountManager = accountManager
         self.seedService = seedService
+        self.fileErrorEventHandler = fileErrorEventHandler
+        self.toastPresenter = toastPresenter
+        self.metricsService = metricsService
     }
     
     // MARK: - ApplicationCoordinatorProtocol
@@ -73,6 +82,12 @@ final class ApplicationCoordinator: ApplicationCoordinatorProtocol {
             for await status in accountEventHandler.accountStatusPublisher.myValues {
                 guard let self = self else { return }
                 self.handleAccountStatus(status)
+            }
+        }
+        Task { @MainActor [weak self, fileErrorEventHandler] in
+            for await _ in fileErrorEventHandler.fileLimitReachedPublisher.myValues {
+                guard let self = self else { return }
+                self.handleFileLimitReachedError()
             }
         }
     }
@@ -137,6 +152,7 @@ final class ApplicationCoordinator: ApplicationCoordinatorProtocol {
             do {
                 let seed = try seedService.obtainSeed()
                 try await authService.walletRecovery(mnemonic: seed)
+                try await metricsService.metricsSetParameters()
                 let result = try await authService.selectAccount(id: userId)
                 
                 switch result {
@@ -174,5 +190,9 @@ final class ApplicationCoordinator: ApplicationCoordinatorProtocol {
             return
         }
         windowManager.showDeletedAccountWindow(deadline: deadline)
+    }
+    
+    private func handleFileLimitReachedError() {
+        toastPresenter.show(message: Loc.FileStorage.limitError)
     }
 } 

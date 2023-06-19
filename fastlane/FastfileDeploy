@@ -110,6 +110,10 @@ platform :ios do
         in_house: false
     )
 
+  # Fix prices error https://github.com/fastlane/fastlane/issues/21125
+  require 'spaceship'
+  Spaceship::ConnectAPI::App.const_set('ESSENTIAL_INCLUDES', 'appStoreVersions')
+
     upload_to_testflight(
       api_key: api_key, 
       skip_waiting_for_build_processing: true

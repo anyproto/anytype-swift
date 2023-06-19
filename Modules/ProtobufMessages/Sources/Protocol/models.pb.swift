@@ -2172,6 +2172,8 @@ public struct Anytype_Model_Block {
 
       public var limit: Int32 = 0
 
+      public var viewID: String = String()
+
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
       public enum Layout: SwiftProtobuf.Enum {
@@ -3016,34 +3018,6 @@ extension Anytype_Model_Restrictions.DataviewRestriction: CaseIterable {
 
 #endif  // swift(>=4.2)
 
-public struct Anytype_Model_ThreadDeeplinkPayload {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  public var key: String = String()
-
-  public var addrs: [String] = []
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-}
-
-public struct Anytype_Model_ThreadCreateQueueEntry {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  public var collectionThread: String = String()
-
-  public var threadID: String = String()
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-}
-
 public struct Anytype_Model_Object {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -3734,8 +3708,6 @@ extension Anytype_Model_Restrictions: @unchecked Sendable {}
 extension Anytype_Model_Restrictions.ObjectRestriction: @unchecked Sendable {}
 extension Anytype_Model_Restrictions.DataviewRestriction: @unchecked Sendable {}
 extension Anytype_Model_Restrictions.DataviewRestrictions: @unchecked Sendable {}
-extension Anytype_Model_ThreadDeeplinkPayload: @unchecked Sendable {}
-extension Anytype_Model_ThreadCreateQueueEntry: @unchecked Sendable {}
 extension Anytype_Model_Object: @unchecked Sendable {}
 extension Anytype_Model_Object.ChangePayload: @unchecked Sendable {}
 extension Anytype_Model_ObjectType: @unchecked Sendable {}
@@ -6038,6 +6010,7 @@ extension Anytype_Model_Block.Content.Widget: SwiftProtobuf.Message, SwiftProtob
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "layout"),
     2: .same(proto: "limit"),
+    3: .same(proto: "viewId"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -6048,6 +6021,7 @@ extension Anytype_Model_Block.Content.Widget: SwiftProtobuf.Message, SwiftProtob
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularEnumField(value: &self.layout) }()
       case 2: try { try decoder.decodeSingularInt32Field(value: &self.limit) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.viewID) }()
       default: break
       }
     }
@@ -6060,12 +6034,16 @@ extension Anytype_Model_Block.Content.Widget: SwiftProtobuf.Message, SwiftProtob
     if self.limit != 0 {
       try visitor.visitSingularInt32Field(value: self.limit, fieldNumber: 2)
     }
+    if !self.viewID.isEmpty {
+      try visitor.visitSingularStringField(value: self.viewID, fieldNumber: 3)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Model_Block.Content.Widget, rhs: Anytype_Model_Block.Content.Widget) -> Bool {
     if lhs.layout != rhs.layout {return false}
     if lhs.limit != rhs.limit {return false}
+    if lhs.viewID != rhs.viewID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -6697,82 +6675,6 @@ extension Anytype_Model_Restrictions.DataviewRestrictions: SwiftProtobuf.Message
   public static func ==(lhs: Anytype_Model_Restrictions.DataviewRestrictions, rhs: Anytype_Model_Restrictions.DataviewRestrictions) -> Bool {
     if lhs.blockID != rhs.blockID {return false}
     if lhs.restrictions != rhs.restrictions {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Anytype_Model_ThreadDeeplinkPayload: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".ThreadDeeplinkPayload"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "key"),
-    2: .same(proto: "addrs"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.key) }()
-      case 2: try { try decoder.decodeRepeatedStringField(value: &self.addrs) }()
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.key.isEmpty {
-      try visitor.visitSingularStringField(value: self.key, fieldNumber: 1)
-    }
-    if !self.addrs.isEmpty {
-      try visitor.visitRepeatedStringField(value: self.addrs, fieldNumber: 2)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Anytype_Model_ThreadDeeplinkPayload, rhs: Anytype_Model_ThreadDeeplinkPayload) -> Bool {
-    if lhs.key != rhs.key {return false}
-    if lhs.addrs != rhs.addrs {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Anytype_Model_ThreadCreateQueueEntry: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".ThreadCreateQueueEntry"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "collectionThread"),
-    2: .same(proto: "threadId"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.collectionThread) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self.threadID) }()
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.collectionThread.isEmpty {
-      try visitor.visitSingularStringField(value: self.collectionThread, fieldNumber: 1)
-    }
-    if !self.threadID.isEmpty {
-      try visitor.visitSingularStringField(value: self.threadID, fieldNumber: 2)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Anytype_Model_ThreadCreateQueueEntry, rhs: Anytype_Model_ThreadCreateQueueEntry) -> Bool {
-    if lhs.collectionThread != rhs.collectionThread {return false}
-    if lhs.threadID != rhs.threadID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

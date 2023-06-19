@@ -1,5 +1,5 @@
 import SwiftUI
-import BlocksModels
+import Services
 
 struct SetSortRow: View {
     
@@ -22,6 +22,7 @@ struct SetSortRow: View {
                 RoundedRectangle(cornerRadius: 10)
                     .foregroundColor(Color.Background.highlightedOfSelected)
                 Image(asset: configuration.iconAsset)
+                    .foregroundColor(.Button.active)
             }
             .frame(width: 48, height: 48)
             

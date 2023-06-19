@@ -1,6 +1,6 @@
 import AnytypeCore
 import UIKit
-import BlocksModels
+import Services
 
 extension TextBlockContentView: CustomTextViewDelegate {
 

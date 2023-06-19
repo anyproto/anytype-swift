@@ -1,6 +1,6 @@
 import SwiftUI
 import AnytypeCore
-import BlocksModels
+import Services
 
 struct SearchCell<SearchData: SearchDataProtocol>: View {
     

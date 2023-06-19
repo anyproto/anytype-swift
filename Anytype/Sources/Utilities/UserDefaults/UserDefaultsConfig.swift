@@ -1,5 +1,5 @@
 import AnytypeCore
-import BlocksModels
+import Services
 import Combine
 import SwiftUI
 
@@ -101,30 +101,6 @@ extension UserDefaultsConfig {
     
 }
 
-// MARK: - Selected Tab
-
-extension UserDefaultsConfig {
-    
-    @UserDefault("UserData.SelectedTab", defaultValue: nil)
-    private static var _selectedTab: String?
-    
-    static var selectedTab: HomeTabsView.Tab {
-        get {
-            let tab = _selectedTab.flatMap { HomeTabsView.Tab(rawValue: $0) } ?? .favourites
-            
-            if tab == .shared && !ServiceLocator.shared.accountManager().account.config.enableSpaces {
-                return .favourites
-            }
-            
-            return tab
-        }
-        set {
-            _selectedTab = newValue.rawValue
-        }
-    }
-    
-}
-
 // MARK: - Wallpaper
 
 extension UserDefaultsConfig {
@@ -146,7 +122,7 @@ extension UserDefaultsConfig {
         }
         set {
             guard let encoded = try? JSONEncoder().encode(newValue) else {
-                anytypeAssertionFailure("Cannot encode \(newValue)", domain: .userDefaults)
+                anytypeAssertionFailure("Cannot encode", info: ["wallpaperId": "\(newValue)"])
                 return
             }
             _wallpaper = encoded

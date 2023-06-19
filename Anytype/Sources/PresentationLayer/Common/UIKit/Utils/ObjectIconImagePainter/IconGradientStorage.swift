@@ -38,7 +38,7 @@ final class IconGradientStorage: IconGradientStorageProtocol {
     
     func gradient(for gradientId: Int) -> IconGradient {
         guard let gradient = storage[safe: gradientId - 1] else {
-            anytypeAssertionFailure("Gradient not found", domain: .imageCreation, info: ["gradientId": "\(gradientId)"])
+            anytypeAssertionFailure("Gradient not found", info: ["gradientId": "\(gradientId)"])
             return fallbackGradient
         }
         

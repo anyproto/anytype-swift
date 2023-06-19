@@ -1,5 +1,5 @@
 import Foundation
-import BlocksModels
+import Services
 import AnytypeCore
 
 extension DataviewViewType {
@@ -19,13 +19,13 @@ extension DataviewViewType {
     var icon: ImageAsset {
         switch self {
         case .table:
-            return .setGridView
+            return .X24.View.table
         case .list:
-            return .setListView
+            return .X24.View.list
         case .gallery:
-            return .setGalleryView
+            return .X24.View.gallery
         case .kanban:
-            return .setKanbanView
+            return .X24.View.kanban
         }
     }
     

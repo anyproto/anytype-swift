@@ -31,7 +31,7 @@ final class UndoRedoViewModel: ObservableObject {
         } catch let error as ObjectActionsServiceError {
             onErrorHandler?(error.message)
         } catch {
-            anytypeAssertionFailure("Unknown error", domain: .editorPage)
+            anytypeAssertionFailure("Unknown error")
         }
     }
 
@@ -42,7 +42,7 @@ final class UndoRedoViewModel: ObservableObject {
         } catch let error as ObjectActionsServiceError {
             onErrorHandler?(error.message)
         } catch {
-            anytypeAssertionFailure("Unknown error", domain: .editorPage)
+            anytypeAssertionFailure("Unknown error")
         }
     }
 
@@ -51,13 +51,13 @@ final class UndoRedoViewModel: ObservableObject {
             .init(
                 id: "undo",
                 title: "Undo",
-                imageAsset: .undo,
+                imageAsset: .X32.Undo.undo,
                 action: { [weak self] in self?.undo() }
             ),
             .init(
                 id: "redo",
                 title: "Redo",
-                imageAsset: .redo,
+                imageAsset: .X32.Undo.redo,
                 action: { [weak self] in self?.redo() }
             )
         ]

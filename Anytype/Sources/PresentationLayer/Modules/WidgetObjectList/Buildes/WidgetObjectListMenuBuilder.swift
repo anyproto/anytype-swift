@@ -1,5 +1,5 @@
 import Foundation
-import BlocksModels
+import Services
 
 protocol WidgetObjectListMenuBuilderProtocol: AnyObject {
     func buildOptionsMenu(
@@ -71,32 +71,38 @@ final class WidgetObjectListMenuBuilder: WidgetObjectListMenuBuilderProtocol {
         return .builder {
             
             if allowOptions.contains(.favorite), isUndavoriteIds.isNotEmpty {
-                Action(optionTitle: Loc.favorite, optionImage: .addToFavorites, menuTitle: Loc.addToFavorite, negative: false, action: { [weak output] in
+                Action(optionTitle: Loc.favorite, optionImage: .X32.Favorite.favorite, menuTitle: Loc.addToFavorite, negative: false, action: { [weak output] in
                     output?.setFavorite(objectIds: isUndavoriteIds, true)
                 })
             }
             
             if allowOptions.contains(.unfavorite), isFavoriteIds.isNotEmpty {
-                Action(optionTitle: Loc.unfavorite, optionImage: .unfavorite, menuTitle: Loc.removeFromFavorite, negative: false, action: { [weak output] in
+                Action(optionTitle: Loc.unfavorite, optionImage: .X32.Favorite.unfavorite, menuTitle: Loc.removeFromFavorite, negative: false, action: { [weak output] in
                     output?.setFavorite(objectIds: isFavoriteIds, false)
                 })
             }
             
             if allowOptions.contains(.moveToBin), notArchivedIds.isNotEmpty {
-                Action(optionTitle: Loc.moveToBin, optionImage: .delete, menuTitle: Loc.moveToBin, negative: true, action: { [weak output] in
+                Action(optionTitle: Loc.moveToBin, optionImage: .X32.delete, menuTitle: Loc.moveToBin, negative: true, action: { [weak output] in
                     output?.setArchive(objectIds: notArchivedIds, true)
                 })
             }
             
-            if allowOptions.contains(.delete) {
-                Action(optionTitle: Loc.delete, optionImage: .delete, menuTitle: Loc.delete, negative: true, action: { [weak output] in
-                    output?.delete(objectIds: allIds)
+            if allowOptions.contains(.delete), isArchivedIds.isNotEmpty {
+                Action(optionTitle: Loc.delete, optionImage: .X32.delete, menuTitle: Loc.delete, negative: true, action: { [weak output] in
+                    output?.delete(objectIds: isArchivedIds)
                 })
             }
             
             if allowOptions.contains(.restore), isArchivedIds.isNotEmpty {
-                Action(optionTitle: Loc.restore, optionImage: .restore, menuTitle: Loc.restore, negative: false, action: { [weak output] in
+                Action(optionTitle: Loc.restore, optionImage: .X32.restore, menuTitle: Loc.restore, negative: false, action: { [weak output] in
                     output?.setArchive(objectIds: isArchivedIds, false)
+                })
+            }
+            
+            if allowOptions.contains(.forceDelete) {
+                Action(optionTitle: Loc.delete, optionImage: .X32.delete, menuTitle: Loc.delete, negative: true, action: { [weak output] in
+                    output?.forceDelete(objectIds: allIds)
                 })
             }
         }

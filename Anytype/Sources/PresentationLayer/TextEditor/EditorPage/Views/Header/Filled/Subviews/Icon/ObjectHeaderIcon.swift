@@ -1,5 +1,5 @@
 import UIKit.UIImage
-import BlocksModels
+import Services
 
 struct ObjectHeaderIcon: Hashable {
     let icon: ObjectHeaderIconView.Model

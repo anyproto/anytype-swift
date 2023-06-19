@@ -1,4 +1,4 @@
-import BlocksModels
+import Services
 import UIKit
 
 extension AnytypeAnalytics {
@@ -17,10 +17,13 @@ extension AnytypeAnalytics {
         )
     }
     
-    func logDeletion(count: Int) {
+    func logDeletion(count: Int, route: RemoveCompletelyRoute) {
         logEvent(
             AnalyticsEventsName.objectListDelete,
-            withEventProperties: [AnalyticsEventsPropertiesKey.count : count]
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.count: count,
+                AnalyticsEventsPropertiesKey.route: route.rawValue
+            ]
         )
     }
     
@@ -42,27 +45,6 @@ extension AnytypeAnalytics {
         logEvent(
             AnalyticsEventsName.changeTextStyle,
             withEventProperties: [AnalyticsEventsPropertiesKey.type: markupType.analyticsValue]
-        )
-    }
-
-    func logHomeTabSelection(_ selectedTab: HomeTabsView.Tab) {
-        let anayliticsName: String
-
-        switch selectedTab {
-        case .favourites:
-            anayliticsName = AnalyticsEventsHomeTabValue.favoritesTabSelected
-        case .recent:
-            anayliticsName = AnalyticsEventsHomeTabValue.recentTabSelected
-        case .sets:
-            anayliticsName = AnalyticsEventsHomeTabValue.setsTabSelected
-        case .shared:
-            anayliticsName = AnalyticsEventsHomeTabValue.sharedTabSelected
-        case .bin:
-            anayliticsName = AnalyticsEventsHomeTabValue.archiveTabSelected
-        }
-        logEvent(
-            AnalyticsEventsName.selectHomeTab,
-            withEventProperties: [AnalyticsEventsPropertiesKey.tab: anayliticsName]
         )
     }
 
@@ -171,7 +153,7 @@ extension AnytypeAnalytics {
         logEvent(
             AnalyticsEventsName.createObject,
             withEventProperties: [
-                AnalyticsEventsPropertiesKey.type: objectType.analyticsId,
+                AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId,
                 AnalyticsEventsPropertiesKey.route: route.rawValue
             ]
         )
@@ -542,5 +524,46 @@ extension AnytypeAnalytics {
         logEvent(AnalyticsEventsName.changeBlockBackground, withEventProperties: [
             AnalyticsEventsPropertiesKey.color: color.rawValue
         ])
+    }
+    
+    func logScreenSettingsStorageIndex() {
+        logEvent(AnalyticsEventsName.screenSettingsStorageIndex)
+    }
+    
+    func logScreenSettingsStorageManager() {
+        logEvent(AnalyticsEventsName.screenSettingsStorageManager)
+    }
+    
+    func logScreenFileOffloadWarning() {
+        logEvent(AnalyticsEventsName.screenFileOffloadWarning)
+    }
+    
+    func logSettingsStorageOffload() {
+        logEvent(AnalyticsEventsName.settingsStorageOffload)
+    }
+    
+    func logShowDeletionWarning(route: ShowDeletionWarningRoute) {
+        logEvent(
+            AnalyticsEventsName.showDeletionWarning,
+            withEventProperties: [AnalyticsEventsPropertiesKey.route: route.rawValue]
+        )
+    }
+    
+    func logAboutSettingsShow() {
+        logEvent(AnalyticsEventsName.aboutSettingsShow)
+    }
+    
+    func logHelpAndCommunity(type: HelpAndCommunityType) {
+        logEvent(
+            AnalyticsEventsName.About.helpAndCommunity,
+            withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue]
+        )
+    }
+    
+    func logLegal(type: LegalType) {
+        logEvent(
+            AnalyticsEventsName.About.legal,
+            withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue]
+        )
     }
 }

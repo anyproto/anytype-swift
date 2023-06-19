@@ -92,13 +92,10 @@
 "Favorites" = "Favorites";
 "Recent" = "Recent";
 "Bin" = "Bin";
-"Files" = "Files";
-"The future will be the one you build" = "The future will be the one you build";
 
 // Settings
 "Wallpaper" = "Wallpaper";
 "Log out" = "Log out";
-"Soon" = "Soon";
 "Clear cache description" = "All media files will be deleted from your current device.\nThey can be downloaded again from a backup node or another device";
 
 // Action
@@ -124,18 +121,16 @@
 "OrganizeEverythingDescription" = "With Anytype you can write notes and documents, manage tasks and save important content from the web.";
 "Sign up" = "Sign up";
 "Login" = "Login";
-"Restore secret phrase from keychain" = "Restore secret phrase from keychain";
+"Restore secret phrase from keychain" = "Restore Recovery Phrase from the keychain";
 "or type your recovery phrase" = "or type your recovery phrase";
 "Setting up the wallet" = "Setting up the wallet";
 "Enter your name" = "Enter your name";
 "New profile" = "New profile";
 "Create" = "Create";
 "Scan QR code" = "Scan QR code";
-"Auth.CameraPermissionTitle" = "Camera access required to scan QR code";
+"Auth.CameraPermissionTitle" = "Anytype needs access to your camera to scan QR codes";
 "Analytics constent text" = "Understanding how people use Anytype helps us improve the product. This version of Anytype includes the analytics code that protects your privacy.\nIt doesn't record the actual document's content but still allows us to understand how you use Anytype.\nStay subscribed to our mailing list, as we will soon announce a new release that enables you to opt-out.";
 
-"Enter your invitation code" = "Enter your invitation code";
-"Do not have invite" = "If you don't have one just go to anytype.io and sign up to the waiting list. We are inviting people on the rolling bases.";
 "Account recover error" = "Account recover error, try again";
 "Account recover error no internet" = "Account recover error, probably no internet connection";
 "SignUp.InvintationCode.Placeholder" = "Invitation code";
@@ -157,18 +152,25 @@
 // New Auth - Join flow
 "Auth.JoinFlow.Next" = "Next";
 
-"Auth.JoinFlow.InterCode.Title" = "Enter your invite code";
-"Auth.JoinFlow.InterCode.Description" = "If you don't have one just go to anytype.io and sign up to the waiting list.";
-
 "Auth.JoinFlow.Void.Title" = "This is your Void";
 "Auth.JoinFlow.Void.Description" = "Everything you create will be stored here. It is a special encrypted place, which exist on your machine and is backed up to the network.";
 
 "Auth.JoinFlow.Key.Title" = "Your Void is encrypted by the Key";
-"Auth.JoinFlow.Key.Description" = "The Key is a set of 12 words  in a specific order. It is unique for the Void and can’t be changed. You are the only one person who knows the Key.";
+"Auth.JoinFlow.Key.Hidden.Description" = "The Key is a set of 12 words  in a specific order. It is unique for the Void and can’t be changed. You are the only one person who knows the Key.";
+"Auth.JoinFlow.Key.Shown.Description" = "If you lose the key, no one, including us, can help restore your Void. Write it down on a sheet of paper and store it securely.";
 "Auth.JoinFlow.Key.TextField.Placeholder" = "Type your recovery phrase";
 "Auth.JoinFlow.Key.Button.Show.Title" = "Show me the key";
+"Auth.JoinFlow.Key.Button.Saved.Title" = "I saved my key";
 "Auth.JoinFlow.Key.Button.Later.Title" = "Check later";
+"Auth.JoinFlow.Key.Button.Copy.Title" = "Copy to clipboard";
 
+"Auth.JoinFlow.Soul.Title" = "Create your Soul";
+"Auth.JoinFlow.Soul.Description" = "Think of it like an identity, or a profile within Anytype.";
+"Auth.JoinFlow.Soul.Placeholder" = "Call it whatever you want";
+
+"Auth.JoinFlow.Creating.Soul.Title" = "Creating your Soul";
+"Auth.JoinFlow.Setting.Space.Title" = "Setting up your Personal Space";
+"Auth.JoinFlow.Personal.Space.Title" = "Personal Space";
 
 // Object settings
 
@@ -230,7 +232,7 @@
 
 // MARK: - Alerts
 "Alert.CameraPermissions.Settings" = "Settings";
-"Alert.CameraPermissions.GoToSettings" = "Go to Settings?";
+"Alert.CameraPermissions.GoToSettings" = "Please, go to your device's Settings -> Privacy -> Camera and set Anytype to ON";
 
 // MARK: - Relation
 "Featured relations" = "Featured relations";
@@ -465,6 +467,7 @@
 "On analytics" = "On analytics";
 "Select account error" = "Select account error";
 "Account deleted" = "Account deleted";
+"Account.Select.Incompatible.Version.Error.Text" = "Unable to retrieve account data due to incompatible version on remote nodes. Please update Anytype to the latest version.";
 "Restore from keychain" = "Restore from keychain";
 "Edit" = "Edit";
 "In this object" = "In this object";
@@ -539,6 +542,7 @@
 "Connection refused" = "Connection refused. Please, try again";
 "Companies, contacts, friends and family" = "Companies, contacts, friends and family";
 "Failed to sync, trying again..." = "Failed to sync, trying again...";
+"Sync.Status.Version.Outdated.Description" = "Version outdated. Please update Anytype";
 "This object doesn't exist" = "This object doesn't exist";
 "Account & data" = "Account & data";
 "File & Media" = "File & Media";
@@ -627,7 +631,7 @@
 "SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Untitled";
 
 // MARK: Select view picker
-"EditorSetViewPicker.View.Available.Soon" = "%@ view soon";
+"EditorSetViewPicker.View.Not.Supported.Title" = "not supported";
 
 // BlockContent
 "Content.File.Upload" = "Upload a file";
@@ -675,10 +679,29 @@
 "Widgets.Empty.Title" = "This data view contains no objects";
 
 // MARK: - About
-"About.AppVersion" = "App version";
-"About.BuildNumber" = "Build number";
-"About.Library" = "Library";
-"About.analyticsId" = "Analytics ID";
+"About.AppVersionLegacy" = "App version";
+"About.BuildNumberLegacy" = "Build number";
+"About.LibraryLegacy" = "Library";
+"About.analyticsIdLegacy" = "Analytics ID";
+"About.AppVersion" = "App version: %@";
+"About.BuildNumber" = "Build number: %@";
+"About.Library" = "Library version: %@";
+"About.accountId" = "Account ID: %@";
+"About.analyticsId" = "Analytics ID: %@";
+"About.deviceId" = "Device ID: %@";
+"About.Device" = "Device: %@";
+"About.OSVersion" = "OS version: %@";
+"About.HelpCommunity" = "Help & Community";
+"About.WhatsNew" = "What’s New";
+"About.AnytypeCommunity" = "Anytype Community";
+"About.HelpTutorials" = "Help & Tutorials";
+"About.ContactUs" = "Contact Us";
+"About.Legal" = "Legal";
+"About.TermsOfUse" = "Terms of Use";
+"About.PrivacyPolicy" = "Privacy Policy";
+"About.TechInfo" = "Tech Info";
+"About.Mail.Subject" = "Support request, Account ID %@";
+"About.Mail.Body" = "\n\nTechnical information\n%@";
 
 // MARK: - Cache
 "ClearCache.Success" = "Cache sucessfully cleared";
@@ -692,7 +715,7 @@
 "MigrationGuide.Title" = "Almost there!";
 "MigrationGuide.Subtitle" = "To use this version of the app, please choose the correct option below to migrate your account.";
 "MigrationGuide.DidntComplete.Title" = "I didn’t complete migration";
-"MigrationGuide.DidntComplete.Step1" = "Download the desktop app *here*";
+"MigrationGuide.DidntComplete.Step1" = "Download the desktop app **here**";
 "MigrationGuide.DidntComplete.Step2" = "Log in and update it to the latest version";
 "MigrationGuide.DidntComplete.Step3" = "Follow the migration instructions";
 "MigrationGuide.Completed.Title" = "I completed migration";
@@ -701,10 +724,23 @@
 
 // MARK: - File Storage
 "FileStorage.Title" = "File storage";
-"FileStorage.Space.Instruction" = "You can store up to %@ of your files on our encrypted backup node for free. If you reach the limit, remove some files.";
+"FileStorage.Space.Title" = "Remote storage";
+"FileStorage.Space.Instruction" = "You can store up to %@ of your files on our encrypted backup node for free. If you reach the limit, files will be stored only locally.";
 "FileStorage.Space.Used" = "%@ of %@ used";
 "FileStorage.Local.Title" = "Local storage";
-"FileStorage.Local.Instruction" = "In order to save your local space, you can offload all your Anytype files to our encrypted backup node.";
+"FileStorage.Local.Instruction" = "In order to save space on your local device, you can offload all your files to our encrypted backup node. The files will be loaded back when you open them.";
 "FileStorage.Local.Used" = "%@ used";
 "FileStorage.OffloadTitle" = "Offload files";
-"FileStorage.ManageFiles" = "Manage Files";
+"FileStorage.ManageFiles" = "Manage files";
+"FileStorage.LimitError" = "You exceeded file limit upload";
+
+// MARK: - Files List
+"FilesList.Title" = "Synced files";
+"FilesList.ForceDelete.Title" = "Are you sure you want to permanently delete the files?";
+
+// MARK: - Widget object list
+"WidgetObjectList.ForceDelete.Message" = "You can’t undo this action.";
+
+// MARK: - Cpear cache alert
+"ClearCacheAlert.Title" = "Are you sure?";
+"ClearCacheAlert.Description" = "All media files stored in Anytype will be deleted from your current device. They can be downloaded again from a backup node or another device.";

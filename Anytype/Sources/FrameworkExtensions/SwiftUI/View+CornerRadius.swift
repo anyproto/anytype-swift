@@ -8,6 +8,12 @@ extension View {
     func cornerRadius(_ radius: CGFloat, style: RoundedCornerStyle) -> some View {
         clipShape(RoundedRectangle(cornerRadius: radius, style: style))
     }
+    
+    func border(_ radius: CGFloat, color: Color, lineWidth: CGFloat = 1) -> some View {
+        overlay(
+            RoundedRectangle(cornerRadius: radius, style: .continuous).strokeBorder(color, lineWidth: lineWidth)
+        )
+    }
 }
 
 struct RoundedCorner: Shape {

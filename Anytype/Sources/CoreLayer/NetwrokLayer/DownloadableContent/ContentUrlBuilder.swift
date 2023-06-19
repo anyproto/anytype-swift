@@ -10,13 +10,13 @@ final class ContentUrlBuilder {
     
     static func fileUrl(fileId: String) -> URL? {
         guard fileId.isNotEmpty else {
-            anytypeAssertionFailure("File id is empty", domain: .contentUrlBuilder)
+            anytypeAssertionFailure("File id is empty")
             return nil
         }
         
         let gatewayUrl = middlewareConfigurationProvider.configuration.gatewayURL
         guard let components = URLComponents(string: gatewayUrl) else {
-            anytypeAssertionFailure("File url components is nil. GatewayUrl: \(gatewayUrl)", domain: .contentUrlBuilder)
+            anytypeAssertionFailure("File url components is nil", info: ["gatewayUrl": gatewayUrl])
             return nil
         }
         
@@ -25,13 +25,13 @@ final class ContentUrlBuilder {
     
     static func imageUrl(imageMetadata: ImageMetadata) -> URL? {
         guard imageMetadata.id.isNotEmpty else {
-            anytypeAssertionFailure("Image id is empty", domain: .contentUrlBuilder)
+            anytypeAssertionFailure("Image id is empty")
             return nil
         }
         
         let gatewayUrl = middlewareConfigurationProvider.configuration.gatewayURL
         guard let components = URLComponents(string: gatewayUrl) else {
-            anytypeAssertionFailure("Image url components is nil. GatewayUrl: \(gatewayUrl)", domain: .contentUrlBuilder)
+            anytypeAssertionFailure("Image url components is nil", info: ["gatewayUrl": gatewayUrl])
             return nil
         }
         

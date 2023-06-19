@@ -1,5 +1,5 @@
 import SwiftUI
-import BlocksModels
+import Services
 
 struct SwiftUIEditorSyncStatusItem: UIViewRepresentable {
     let status: SyncStatus

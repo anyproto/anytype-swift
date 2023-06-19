@@ -1,6 +1,6 @@
 import UIKit
 import Combine
-import BlocksModels
+import Services
 import Kingfisher
 
 final class BlockLinkView: UIView, BlockContentView {

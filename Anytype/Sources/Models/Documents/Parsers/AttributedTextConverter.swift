@@ -1,4 +1,4 @@
-import BlocksModels
+import Services
 import UIKit
 import ProtobufMessages
 import AnytypeCore
@@ -44,7 +44,7 @@ enum AttributedTextConverter {
                 mark range to: \(mark.range.to),
                 mark type: \(mark.type)
                 """
-                anytypeAssertionFailure(message, domain: .textConverter)
+                anytypeAssertionFailure(message)
                 return nil
             }
 

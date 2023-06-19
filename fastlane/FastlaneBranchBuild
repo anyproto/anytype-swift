@@ -33,11 +33,13 @@ platform :ios do
       use_system_scm: true,
       archive_path: "./build/archive",
       output_directory: "./build/result",
+      output_name: "Anytype.ipa",
       xcargs: ENV['BUILD_OPTIONS']
     )
 
     upload_to_testflight(
-      skip_waiting_for_build_processing: true
+      skip_waiting_for_build_processing: true,
+      ipa: "./build/result/Anytype.ipa"
     )
 
     reset_git_repo(skip_clean: true)

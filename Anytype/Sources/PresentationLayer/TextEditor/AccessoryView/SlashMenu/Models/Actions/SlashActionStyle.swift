@@ -1,4 +1,4 @@
-import BlocksModels
+import Services
 import UIKit
 
 enum SlashActionStyle: CaseIterable {
@@ -53,50 +53,38 @@ enum SlashActionStyle: CaseIterable {
         }
     }
     
-    var image: UIImage? {
+    var imageAsset: ImageAsset {
         switch self {
         case .text:
-            return UIImage(asset: .slashMenuStyleText)?
-                .withTintColor(.Button.active)
+            return .X40.text
         case .title:
-            return UIImage(asset: .slashMenuStyleTitle)?
-                .withTintColor(.Button.active)
+            return .X40.title
         case .heading:
-            return UIImage(asset: .slashMenuStyleHeading)?
-                .withTintColor(.Button.active)
+            return .X40.heading
         case .subheading:
-            return UIImage(asset: .slashMenuStyleSubheading)?
-                .withTintColor(.Button.active)
+            return .X40.subheading
         case .highlighted:
-            return UIImage(asset: .slashMenuStyleHighlighted)
+            return .X40.highlighted
         case .callout:
-            return UIImage(asset: .slashMenuStyleCallout)
+            return .X40.callout
         case .checkbox:
-            return UIImage(asset: .slashMenuStyleCheckbox)
+            return .X40.checkbox
         case .bulleted:
-            return UIImage(asset: .slashMenuStyleBulleted)?
-                .withTintColor(.Button.active)
+            return .X40.bulleted
         case .numberedList:
-            return UIImage(asset: .slashMenuStyleNumbered)?
-                .withTintColor(.Button.active)
+            return .X40.numbered
         case .toggle:
-            return UIImage(asset: .slashMenuStyleToggle)?
-                .withTintColor(.Button.active)
+            return .X40.toggle
         case .bold:
-            return UIImage(asset: .slashMenuStyleBold)?
-                .withTintColor(.Button.active)
+            return .X40.bold
         case .italic:
-            return UIImage(asset: .slashMenuStyleItalic)?
-                .withTintColor(.Button.active)
+            return .X40.italic
         case .strikethrough:
-            return UIImage(asset: .slashMenuStyleStrikethrough)?
-                .withTintColor(.Button.active)
+            return .X40.strikethrough
         case .code:
-            return UIImage(asset: .slashMenuStyleCode)?
-                .withTintColor(.Button.active)
+            return .X40.code
         case .link:
-            return UIImage(asset: .slashMenuStyleLink)?
-                .withTintColor(.Button.active)
+            return .X40.link
         }
     }
     

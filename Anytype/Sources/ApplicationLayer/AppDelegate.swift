@@ -1,4 +1,5 @@
 import UIKit
+import AnytypeCore
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -11,10 +12,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(
         _ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
+        
+        if FeatureFlags.fixSIGPIPECrash {
+            // Fix SIGPIPE crashes
+            signal(SIGPIPE, SIG_IGN)
+        }
+        
         configurator.configure()
         // Global listeners
         eventListener.startListening()
         ServiceLocator.shared.accountEventHandler().startSubscription()
+        ServiceLocator.shared.fileErrorEventHandler().startSubscription()
 
         return true
     }

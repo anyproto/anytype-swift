@@ -43,6 +43,7 @@ final class TreeWidgetModuleAssembly: TreeWidgetModuleAssemblyProtocol {
         
         let containerModel = WidgetContainerViewModel(
             serviceLocator: serviceLocator,
+            uiHelpersDI: uiHelpersDI,
             widgetBlockId: widgetBlockId,
             widgetObject: widgetObject,
             stateManager: stateManager,

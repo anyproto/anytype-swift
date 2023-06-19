@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import BlocksModels
+import Services
 
 struct CheckPopupView<ViewModel: CheckPopupViewViewModelProtocol>: View {
     @Environment(\.presentationMode) var presentationMode
@@ -40,6 +40,7 @@ struct CheckPopupView<ViewModel: CheckPopupViewViewModelProtocol>: View {
         HStack(spacing: 0) {
             if let iconAsset = item.iconAsset {
                 Image(asset: iconAsset)
+                    .foregroundColor(.Button.active)
                 Spacer.fixedWidth(12)
             }
 
@@ -53,7 +54,7 @@ struct CheckPopupView<ViewModel: CheckPopupViewViewModelProtocol>: View {
             Spacer()
 
             if item.isSelected {
-                Image(asset: .optionChecked).frame(width: 24, height: 24).foregroundColor(.Button.button)
+                Image(asset: .X24.tick).foregroundColor(.Button.button)
             }
         }
         .frame(height: 52)
@@ -68,8 +69,8 @@ struct CheckPopupView_Previews: PreviewProvider {
         }
 
         var items: [CheckPopupItem] = [
-            .init(id: "1", iconAsset: .text, title: "Some title", subtitle: "Long subtitle", isSelected: true, onTap: {}),
-            .init(id: "2", iconAsset: .text, title: "Other title", subtitle: "Long subtitle", isSelected: false, onTap: {})
+            .init(id: "1", iconAsset: .Preview.text, title: "Some title", subtitle: "Long subtitle", isSelected: true, onTap: {}),
+            .init(id: "2", iconAsset: .Preview.text, title: "Other title", subtitle: "Long subtitle", isSelected: false, onTap: {})
         ]
     }
 

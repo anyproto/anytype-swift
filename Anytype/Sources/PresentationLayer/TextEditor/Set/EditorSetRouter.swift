@@ -1,6 +1,6 @@
 import Foundation
 import AnytypeCore
-import BlocksModels
+import Services
 import UIKit
 import SwiftUI
 

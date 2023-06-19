@@ -1,5 +1,5 @@
 import Foundation
-import BlocksModels
+import Services
 
 protocol TreeSubscriptionDataBuilderProtocol {
     func build(objectIds: [String]) -> SubscriptionData

@@ -1,6 +1,6 @@
 import Foundation
 import Combine
-import BlocksModels
+import Services
 import ProtobufMessages
 import AnytypeCore
 

@@ -1,5 +1,5 @@
 import UIKit
-import BlocksModels
+import Services
 import Combine
 import Kingfisher
 import AnytypeCore
@@ -25,8 +25,7 @@ struct BlockImageViewModel: BlockViewModelProtocol {
     ) {
         guard fileData.contentType == .image else {
             anytypeAssertionFailure(
-                "Wrong content type of \(fileData), image expected",
-                domain: .blockImage
+                "Wrong content type, image expected", info: ["contentType": "\(fileData.contentType)"]
             )
             return nil
         }
@@ -63,7 +62,7 @@ struct BlockImageViewModel: BlockViewModelProtocol {
         
     private func emptyViewConfiguration(text: String, state: BlocksFileEmptyViewState) -> UIContentConfiguration {
         BlocksFileEmptyViewConfiguration(
-            imageAsset: .TextEditor.BlockFile.Empty.image,
+            imageAsset: .X32.image,
             text: text,
             state: state
         ).cellBlockConfiguration(

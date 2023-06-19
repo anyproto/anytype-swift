@@ -1,5 +1,5 @@
 @testable import Anytype
-@testable import BlocksModels
+@testable import Services
 import Foundation
 
 final class BlockMarkupChangerMock: BlockMarkupChangerProtocol {

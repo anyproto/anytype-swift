@@ -1,5 +1,5 @@
 import SwiftUI
-import BlocksModels
+import Services
 
 struct SearchView<SearchViewModel: SearchViewModelProtocol>: View {
     @Environment(\.presentationMode) var presentationMode

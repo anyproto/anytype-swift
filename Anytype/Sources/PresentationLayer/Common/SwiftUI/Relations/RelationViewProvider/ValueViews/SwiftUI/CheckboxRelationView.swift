@@ -19,14 +19,25 @@ struct CheckboxRelationView: View {
     
     private var featuredRelationBlockIcon: some View {
         Group {
-            isChecked ? Image(asset: .relationCheckboxChecked).resizable() : Image(asset: .relationCheckboxUnchecked).resizable()
-        }.frame(width: style.checkboxSize.width, height: style.checkboxSize.height)
-        
+            if isChecked {
+                Image(asset: .relationCheckboxChecked)
+                    .resizable()
+            } else {
+                Image(asset: .relationCheckboxUnchecked)
+                    .resizable()
+                    .foregroundColor(.Button.active)
+            }
+        }
+        .frame(width: style.checkboxSize.width, height: style.checkboxSize.height)
     }
     
+    @ViewBuilder
     private var icon: some View {
-        Group {
-            isChecked ? Image(asset: .relationCheckboxChecked) : Image(asset: .relationCheckboxUnchecked)
+        if isChecked {
+            Image(asset: .relationCheckboxChecked)
+        } else {
+            Image(asset: .relationCheckboxUnchecked)
+                .foregroundColor(.Button.active)
         }
     }
     

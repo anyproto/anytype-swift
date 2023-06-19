@@ -1,7 +1,8 @@
 import Foundation
 import Combine
-import BlocksModels
+import Services
 import UIKit
+import AnytypeCore
 
 enum WidgetObjectListData {
     case list([ListSectionData<String?, WidgetObjectListRow>])
@@ -16,6 +17,7 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
     private let bottomPanelManager: BrowserBottomPanelManagerProtocol?
     private let objectActionService: ObjectActionsServiceProtocol
     private let menuBuilder: WidgetObjectListMenuBuilderProtocol
+    private let alertOpener: AlertOpenerProtocol
     private weak var output: WidgetObjectListCommonModuleOutput?
     
     // MARK: - State
@@ -46,6 +48,7 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
         bottomPanelManager: BrowserBottomPanelManagerProtocol?,
         objectActionService: ObjectActionsServiceProtocol,
         menuBuilder: WidgetObjectListMenuBuilderProtocol,
+        alertOpener: AlertOpenerProtocol,
         output: WidgetObjectListCommonModuleOutput?,
         isSheet: Bool = false
     ) {
@@ -53,6 +56,7 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
         self.bottomPanelManager = bottomPanelManager
         self.objectActionService = objectActionService
         self.menuBuilder = menuBuilder
+        self.alertOpener = alertOpener
         self.output = output
         self.isSheet = isSheet
         internalModel.rowDetailsPublisher.sink { [weak self] data in
@@ -102,11 +106,43 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
     }
     
     func delete(objectIds: [BlockId]) {
-        Task { try? await objectActionService.delete(objectIds: objectIds) }
+        if FeatureFlags.binConfirmAlert {
+            AnytypeAnalytics.instance().logShowDeletionWarning(route: .bin)
+            let alert = BottomAlert.binConfirmation(count: objectIds.count) { [objectIds, weak self] in
+                Task { [weak self] in
+                    try? await self?.objectActionService.delete(objectIds: objectIds, route: .bin)
+                }
+            }
+            alertOpener.showFloatAlert(model: alert)
+        } else {
+            Task { try? await objectActionService.delete(objectIds: objectIds, route: .bin) }
+        }
+        UISelectionFeedbackGenerator().selectionChanged()
+    }
+    
+    func forceDelete(objectIds: [BlockId]) {
+        AnytypeAnalytics.instance().logShowDeletionWarning(route: .settings)
+        let alert = BottomAlert(
+            title: internalModel.forceDeleteTitle,
+            message: Loc.WidgetObjectList.ForceDelete.message,
+            leftButton: BottomAlertButton(title: Loc.cancel, action: { }),
+            rightButton: BottomAlertButton(title: Loc.delete, isDistructive: true, action: { [weak self] in
+                self?.forceDeleteConfirmed(objectIds: objectIds)
+            })
+        )
+        alertOpener.showFloatAlert(model: alert)
         UISelectionFeedbackGenerator().selectionChanged()
     }
     
     // MARK: - Private
+    
+    private func forceDeleteConfirmed(objectIds: [BlockId]) {
+        Task {
+            try await objectActionService.setArchive(objectIds: objectIds, true)
+            try await objectActionService.delete(objectIds: objectIds, route: .settings)
+        }
+        UISelectionFeedbackGenerator().selectionChanged()
+    }
     
     private func updateRows() {
         

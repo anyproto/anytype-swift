@@ -1,6 +1,6 @@
 import ProtobufMessages
 import Combine
-import BlocksModels
+import Services
 import AnytypeCore
 
 protocol SearchServiceProtocol: AnyObject {
@@ -267,7 +267,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
     }
     
     func searchArchiveObjectIds() async throws -> [String] {
-        let filters = buildFilters(isArchived: false, layouts: DetailsLayout.visibleLayouts)
+        let filters = buildFilters(isArchived: true, layouts: DetailsLayout.visibleLayouts)
         let keys = [BundledRelationKey.id.rawValue]
         let result = try await search(filters: filters, keys: keys)
         return result.map { $0.id }
@@ -285,10 +285,10 @@ private extension SearchService {
         
         let response = try? ClientCommands.objectSearch(.with {
             $0.filters = filters
-            $0.sorts = sorts
+            $0.sorts = sorts.map { $0.fixIncludeTime() }
             $0.fullText = fullText
             $0.limit = Int32(limit)
-        }).invoke(errorDomain: .searchService)
+        }).invoke()
        
         return response?.records.asDetais
     }
@@ -303,11 +303,11 @@ private extension SearchService {
                 
         let response = try await ClientCommands.objectSearch(.with {
             $0.filters = filters
-            $0.sorts = sorts
+            $0.sorts = sorts.map { $0.fixIncludeTime() }
             $0.fullText = fullText
             $0.limit = Int32(limit)
             $0.keys = keys
-        }).invoke(errorDomain: .searchService)
+        }).invoke()
         
         return response.records.asDetais
     }

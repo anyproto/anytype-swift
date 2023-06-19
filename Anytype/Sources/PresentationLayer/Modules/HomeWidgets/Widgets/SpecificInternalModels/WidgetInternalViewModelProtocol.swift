@@ -1,6 +1,6 @@
 import Foundation
 import Combine
-import BlocksModels
+import Services
 
 protocol WidgetInternalViewModelProtocol: AnyObject {
     var detailsPublisher: AnyPublisher<[ObjectDetails]?, Never> { get }

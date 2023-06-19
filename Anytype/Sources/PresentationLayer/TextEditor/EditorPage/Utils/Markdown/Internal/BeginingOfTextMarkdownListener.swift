@@ -1,6 +1,6 @@
 import Foundation
 import UIKit
-import BlocksModels
+import Services
 import AnytypeCore
 
 final class BeginingOfTextMarkdownListener: MarkdownListener {
@@ -38,7 +38,7 @@ final class BeginingOfTextMarkdownListener: MarkdownListener {
         range: NSRange
     ) -> Bool {
         guard let offsetToCaretPosition = textView.offsetToCaretPosition() else {
-            anytypeAssertionFailure("No caret position for markdown call", domain: .markdownListener)
+            anytypeAssertionFailure("No caret position for markdown call")
             return false
         }
         guard let replacedText = (textView.text as NSString?)?.replacingCharacters(in: range, with: replacementText) else {
@@ -58,8 +58,8 @@ final class BeginingOfTextMarkdownListener: MarkdownListener {
         
         anytypeAssert(
             shortcutLength <= text.string.count,
-            "Shortcut length: \(shortcutLength) for type: \(type) is bigger then  string length: \(text.string)",
-            domain: .markdownListener
+            "Shortcut length is bigger then string length",
+            info: ["shortcutLength": "\(shortcutLength)", "type": "\(type)", "string": text.string]
         )
         
         text.mutableString.deleteCharacters(
@@ -72,7 +72,7 @@ final class BeginingOfTextMarkdownListener: MarkdownListener {
         case .divider:
             return .addBlock(type: type, text: text)
         default:
-            anytypeAssertionFailure("Markdown change not supported. Type: \(type)", domain: .markdownListener)
+            anytypeAssertionFailure("Markdown change not supported", info: ["type": "\(type)"])
             return .turnInto(.text, text: string)
         }
     }

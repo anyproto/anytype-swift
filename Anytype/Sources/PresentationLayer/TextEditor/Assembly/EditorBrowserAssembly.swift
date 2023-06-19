@@ -1,5 +1,5 @@
 import SwiftUI
-import BlocksModels
+import Services
 import Combine
 
 final class EditorBrowserAssembly {
@@ -10,10 +10,6 @@ final class EditorBrowserAssembly {
     init(coordinatorsDI: CoordinatorsDIProtocol, serviceLocator: ServiceLocator) {
         self.coordinatorsDI = coordinatorsDI
         self.serviceLocator = serviceLocator
-    }
-    
-    func editor(data: EditorScreenData, model: HomeViewModel) -> some View {
-        EditorViewRepresentable(data: data, model: model, editorBrowserAssembly: self).eraseToAnyView()
     }
     
     func buildEditorBrowser(

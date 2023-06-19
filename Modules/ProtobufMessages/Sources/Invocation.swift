@@ -2,13 +2,6 @@ import Foundation
 import Combine
 import SwiftProtobuf
 
-private extension DispatchQueue {
-    static let invocationQueue = DispatchQueue(
-        label: "com.middlewate-invocation",
-        qos: .userInitiated
-    )
-}
-
 public struct Invocation<Request, Response> where Request: Message,
                                             Response: ResultWithError,
                                             Response: Message {
@@ -23,25 +16,17 @@ public struct Invocation<Request, Response> where Request: Message,
         self.invokeTask = invokeTask
     }
     
-    public func invoke() async throws -> Response {
-        typealias Continuation = CheckedContinuation<Response, Error>
-        return try await withCheckedThrowingContinuation { (continuation: Continuation) in
-            DispatchQueue.invocationQueue.async {
-                do {
-                    let data = try self.syncInvoke()
-                    continuation.resume(returning: data)
-                } catch {
-                    continuation.resume(throwing: error)
-                }
-            }
-        }
+    public func invoke(file: StaticString) async throws -> Response {
+        return try await Task {
+            try self.syncInvoke(file: file)
+        }.value
     }
     
-    public func invoke() throws -> Response {
-        return try syncInvoke()
+    public func invoke(file: StaticString) throws -> Response {
+        return try syncInvoke(file: file)
     }
     
-    private func syncInvoke() throws -> Response {
+    private func syncInvoke(file: StaticString) throws -> Response {
         
         let start = DispatchTime.now()
 
@@ -50,7 +35,7 @@ public struct Invocation<Request, Response> where Request: Message,
                 let end = DispatchTime.now()
                 let timeMs = (end.uptimeNanoseconds - start.uptimeNanoseconds) / 1_000_000
                 if timeMs > 5 {
-                    InvocationSettings.handler?.assertationHandler(message: "Method \(messageName) called on main thread", info: ["Time ms": "\(timeMs)"])
+                    InvocationSettings.handler?.assertationHandler(message: "Method \(messageName) called on main thread", info: ["Time ms": "\(timeMs)"], file: file)
                 }
             }
         }
@@ -60,11 +45,11 @@ public struct Invocation<Request, Response> where Request: Message,
         do {
             result = try invokeTask(request)
         } catch {
-            log(message: messageName, rquest: request, respose: nil, error: error)
+            log(message: messageName, rquest: request, response: nil, error: error)
             throw error
         }
         
-        log(message: messageName, rquest: request, respose: result, error: result.error.isNull ? nil : result.error)
+        log(message: messageName, rquest: request, response: result, error: result.error.isNull ? nil : result.error)
         
         if !result.error.isNull {
             throw result.error
@@ -77,11 +62,20 @@ public struct Invocation<Request, Response> where Request: Message,
         return result
     }
     
-    private func log(message: String, rquest: Request, respose: Response?, error: Error?) {
+    private func log(message: String, rquest: Request, response: Response?, error: Error?) {
+        
+        let name: String
+        if let response, !response.event.messages.isEmpty {
+            let messageNames = (try? response.event.jsonUTF8Data())?.parseMessages() ?? ""
+            name = "\(message),Events:\(messageNames)"
+        } else {
+            name = message
+        }
+        
         let message = InvocationMessage(
-            name: message,
+            name: name,
             requestJsonData: try? request.jsonUTF8Data(),
-            responseJsonData: try? respose?.jsonUTF8Data(),
+            responseJsonData: try? response?.jsonUTF8Data(),
             responseError: error
         )
         InvocationSettings.handler?.logHandler(message: message)

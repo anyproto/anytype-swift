@@ -1,5 +1,5 @@
 import ProtobufMessages
-import BlocksModels
+import Services
 import AnytypeCore
 
 extension Anytype_Model_Block.Content.Bookmark {

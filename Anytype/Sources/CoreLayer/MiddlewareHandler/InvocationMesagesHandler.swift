@@ -30,8 +30,8 @@ final class InvocationMesagesHandler: InvocationMesagesHandlerProtocol {
         EventsBunch(event: event).send()
     }
     
-    func assertationHandler(message: String, info: [String: String]) {
-        anytypeAssertionFailure(message, domain: .middlewareEvents, info: info)
+    func assertationHandler(message: String, info: [String: String], file: StaticString) {
+        anytypeAssertionFailure(message, info: info, file: file)
     }
 }
 

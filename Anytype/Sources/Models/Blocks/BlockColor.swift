@@ -1,5 +1,5 @@
 import UIKit
-import BlocksModels
+import Services
 
 enum BlockColor: CaseIterable {
     case black

@@ -61,8 +61,8 @@ struct LinkWidgetViewContainer<Content, MenuContent>: View where Content: View, 
             }
             .background(Color.Dashboard.card)
             .cornerRadius(16, style: .continuous)
-            .contentShapeLegacy(.contextMenuPreview, RoundedRectangle(cornerRadius: 16, style: .continuous))
-            .contentShapeLegacy(.dragPreview, RoundedRectangle(cornerRadius: 16, style: .continuous))
+            .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 16, style: .continuous))
+            .contentShape(.dragPreview, RoundedRectangle(cornerRadius: 16, style: .continuous))
             .ifLet(dragId) { view, dragId in
                 view.anytypeVerticalDrag(itemId: dragId)
             }
@@ -139,7 +139,7 @@ struct LinkWidgetViewContainer<Content, MenuContent>: View where Content: View, 
         if isEditalbeMode, let removeAction {
             ZStack {
                 Color.Background.material
-                    .backgroundMaterial(.ultraThinMaterial)
+                    .background(.ultraThinMaterial)
                     .cornerRadius(12, style: .continuous)
                 Color.white.frame(height: 1.5)
                     .cornerRadius(0.75)

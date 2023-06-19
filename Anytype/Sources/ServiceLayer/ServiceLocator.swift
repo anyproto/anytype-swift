@@ -1,6 +1,6 @@
 import Foundation
 import UIKit
-import BlocksModels
+import Services
 import AnytypeCore
 
 // TODO: Migrate to ServicesDI
@@ -28,6 +28,14 @@ final class ServiceLocator {
             accountManager: accountManager(),
             appErrorLoggerConfiguration: appErrorLoggerConfiguration()
         )
+    }
+    
+    func usecaseService() -> UsecaseServiceProtocol {
+        UsecaseService()
+    }
+    
+    func metricsService() -> MetricsServiceProtocol {
+        MetricsService()
     }
     
     private lazy var _loginStateService = LoginStateService(
@@ -217,8 +225,24 @@ final class ServiceLocator {
         SingleObjectSubscriptionService(subscriptionService: subscriptionService(), subscriotionBuilder: objectsCommonSubscriptionDataBuilder())
     }
     
+    private weak var _fileLimitsStorage: FileLimitsStorageProtocol?
+    func fileLimitsStorage() -> FileLimitsStorageProtocol {
+        let storage = _fileLimitsStorage ?? FileLimitsStorage(fileService: fileService())
+        _fileLimitsStorage = storage
+        return storage
+    }
+    
+    private lazy var _fileErrorEventHandler = FileErrorEventHandler()
+    func fileErrorEventHandler() -> FileErrorEventHandlerProtocol {
+        _fileErrorEventHandler
+    }
+    
     func appErrorLoggerConfiguration() -> AppErrorLoggerConfigurationProtocol {
         AppErrorLoggerConfiguration()
+    }
+    
+    func localAuthService() -> LocalAuthServiceProtocol {
+        LocalAuthService()
     }
     
     // MARK: - Private

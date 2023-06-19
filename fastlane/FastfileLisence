@@ -12,7 +12,6 @@ platform :ios do
       sh("xcodebuild -resolvePackageDependencies -clonedSourcePackagesDirPath #{ENV['SPM_DERIVED_DATA']} -scheme #{ENV["APP_TARGET"]} -project ./#{ENV["APP_PROJECT"]}")
       sh("bundle exec license_finder --enabled-package-managers spm --decisions-file ./build/open/decisions.yml")
     end
-    
   end
 
 end

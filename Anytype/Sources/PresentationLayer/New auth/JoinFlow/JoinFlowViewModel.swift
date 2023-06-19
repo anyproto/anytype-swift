@@ -4,31 +4,54 @@ import SwiftUI
 final class JoinFlowViewModel: ObservableObject, JoinFlowStepOutput {
     
     @Published var step: JoinFlowStep = JoinFlowStep.firstStep
-    @Published var forward = true
+    @Published var showNavigation = true
+    @Published var forward = true {
+        didSet {
+            UIApplication.shared.hideKeyboard()
+        }
+    }
+    @Published var percent: CGFloat = 0
+    
+    let progressBarConfiguration = LineProgressBarConfiguration.joinFlow
     
     var counter: String {
-        "\(step.rawValue) / \(JoinFlowStep.allCases.count)"
+        "\(step.rawValue) / \(JoinFlowStep.totalCount)"
     }
     
+    private let state: JoinFlowState
     private weak var output: JoinFlowOutput?
+    private let applicationStateService: ApplicationStateServiceProtocol
     
-    init(output: JoinFlowOutput?) {
+    init(
+        state: JoinFlowState,
+        output: JoinFlowOutput?,
+        applicationStateService: ApplicationStateServiceProtocol
+    ) {
+        self.state = state
         self.output = output
+        self.applicationStateService = applicationStateService
+        
+        updatePercent(step)
     }
     
     @ViewBuilder
     func content() -> some View {
-        output?.onStepChanged(step, output: self)
+        output?.onStepChanged(step, state: state, output: self)
     }
     
     // MARK: - JoinStepOutput
     
     func onNext() {
-        guard let nextStep = step.next else { return }
+        guard let nextStep = step.next else {
+            finishFlow()
+            return
+        }
         forward = true
         
         withAnimation {
+            updatePercent(nextStep)
             step = nextStep
+            showNavigation = !nextStep.isLast
         }
     }
     
@@ -37,8 +60,16 @@ final class JoinFlowViewModel: ObservableObject, JoinFlowStepOutput {
         forward = false
         
         withAnimation {
+            updatePercent(previousStep)
             step = previousStep
         }
     }
     
+    private func updatePercent(_ step: JoinFlowStep) {
+        percent = CGFloat(step.rawValue) / CGFloat(JoinFlowStep.totalCount)
+    }
+    
+    private func finishFlow() {
+        applicationStateService.state = .home
+    }
 }

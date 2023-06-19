@@ -1,5 +1,5 @@
 import Foundation
-import BlocksModels
+import Services
 import ProtobufMessages
 
 protocol WorkspaceServiceProtocol {
@@ -14,7 +14,7 @@ final class WorkspaceService: WorkspaceServiceProtocol {
     func installObjects(objectIds: [String]) -> [String] {
         let result = try? ClientCommands.workspaceObjectListAdd(.with {
             $0.objectIds = objectIds
-        }).invoke(errorDomain: .workspaceService)
+        }).invoke()
         
         return result?.objectIds ?? []
     }
@@ -22,7 +22,7 @@ final class WorkspaceService: WorkspaceServiceProtocol {
     func installObject(objectId: String) -> ObjectDetails? {
         let result = try? ClientCommands.workspaceObjectAdd(.with {
             $0.objectID = objectId
-        }).invoke(errorDomain: .workspaceService)
+        }).invoke()
         
         return result.flatMap { ObjectDetails(protobufStruct: $0.details) }
     }

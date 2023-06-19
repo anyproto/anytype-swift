@@ -2,25 +2,28 @@ import SwiftUI
 
 protocol AuthModuleAssemblyProtocol {
     @MainActor
-    func make(output: AuthViewModelOutput?) -> AnyView
+    func make(state: JoinFlowState, output: AuthViewModelOutput?) -> AnyView
 }
 
 final class AuthModuleAssembly: AuthModuleAssemblyProtocol {
     
-    private let uiHelpersDI: UIHelpersDIProtocol
+    private let serviceLocator: ServiceLocator
     
-    init(uiHelpersDI: UIHelpersDIProtocol) {
-        self.uiHelpersDI = uiHelpersDI
+    init(serviceLocator: ServiceLocator) {
+        self.serviceLocator = serviceLocator
     }
     
     // MARK: - AuthModuleAssemblyProtocol
     
     @MainActor
-    func make(output: AuthViewModelOutput?) -> AnyView {
+    func make(state: JoinFlowState, output: AuthViewModelOutput?) -> AnyView {
         return AuthView(
             model: AuthViewModel(
-                viewControllerProvider: uiHelpersDI.viewControllerProvider(),
-                output: output
+                state: state,
+                output: output,
+                authService: serviceLocator.authService(),
+                seedService: serviceLocator.seedService(),
+                metricsService: serviceLocator.metricsService()
             )
         ).eraseToAnyView()
     }

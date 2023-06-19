@@ -1,5 +1,5 @@
 import ProtobufMessages
-import BlocksModels
+import Services
 import SwiftProtobuf
 
 class BookmarkService: BookmarkServiceProtocol {
@@ -8,7 +8,7 @@ class BookmarkService: BookmarkServiceProtocol {
             $0.contextID = contextID
             $0.blockID = blockID
             $0.url = url
-        }).invoke(errorDomain: .bookmarkService)
+        }).invoke()
     }
 
     func createAndFetchBookmark(
@@ -22,7 +22,7 @@ class BookmarkService: BookmarkServiceProtocol {
             $0.targetID = targetID
             $0.position = position.asMiddleware
             $0.url = url
-        }).invoke(errorDomain: .bookmarkService)
+        }).invoke()
     }
     
     func createBookmarkObject(url: String) -> Bool {
@@ -35,7 +35,7 @@ class BookmarkService: BookmarkServiceProtocol {
         
         let result = try? ClientCommands.objectCreateBookmark(.with {
             $0.details = details
-        }).invoke(errorDomain: .bookmarkService)
+        }).invoke()
         return result.isNotNil
     }
     
@@ -43,6 +43,6 @@ class BookmarkService: BookmarkServiceProtocol {
         _ = try? ClientCommands.objectBookmarkFetch(.with {
             $0.contextID = bookmarkId
             $0.url = url
-        }).invoke(errorDomain: .bookmarkService)
+        }).invoke()
     }
 }

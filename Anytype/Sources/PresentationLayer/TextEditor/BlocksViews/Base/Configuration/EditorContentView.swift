@@ -1,5 +1,5 @@
 import UIKit
-import BlocksModels
+import Services
 
 final class EditorContentView<View: BlockContentView>: UIView & UIContentView, UIDragInteractionDelegate {
     typealias Configuration = CellBlockConfiguration<View.Configuration>

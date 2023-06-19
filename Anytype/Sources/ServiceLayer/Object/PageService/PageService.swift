@@ -1,6 +1,6 @@
 import ProtobufMessages
 import SwiftProtobuf
-import BlocksModels
+import Services
 
 protocol PageServiceProtocol: AnyObject {
     func createPage(
@@ -69,7 +69,7 @@ final class PageService: PageServiceProtocol {
             $0.details = details
             $0.internalFlags = internalFlags
             $0.templateID = templateId ?? ""
-        }).invoke(errorDomain: .pageService)
+        }).invoke()
         
         return response?.details.asDetails
     }

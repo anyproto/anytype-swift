@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 import Combine
-import BlocksModels
+import Services
 import UniformTypeIdentifiers
 
 struct FileIconBuilder {

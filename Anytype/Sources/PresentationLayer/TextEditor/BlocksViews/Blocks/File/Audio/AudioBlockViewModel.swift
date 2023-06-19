@@ -1,4 +1,4 @@
-import BlocksModels
+import Services
 import UIKit
 import AVFoundation
 
@@ -68,7 +68,7 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
 
     private func emptyViewConfiguration(text: String, state: BlocksFileEmptyViewState) -> UIContentConfiguration {
         BlocksFileEmptyViewConfiguration(
-            imageAsset: .TextEditor.BlockFile.Empty.video,
+            imageAsset: .X32.video,
             text: text,
             state: state
         ).cellBlockConfiguration(

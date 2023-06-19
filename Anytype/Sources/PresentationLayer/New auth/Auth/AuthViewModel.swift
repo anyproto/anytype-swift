@@ -1,31 +1,39 @@
 import SwiftUI
+import AudioToolbox
 
 @MainActor
 final class AuthViewModel: ObservableObject {
     
     @Published var showJoinFlow: Bool = false
-    @Published var showSafari: Bool = false
+    @Published var showDebugMenu: Bool = false
     @Published var opacity: Double = 1
-    
-    var currentUrl: URL?
+    @Published var creatingAccountInProgress = false
     
     // MARK: - Private
     
-    private let viewControllerProvider: ViewControllerProviderProtocol
+    private let state: JoinFlowState
     private weak var output: AuthViewModelOutput?
+    private let authService: AuthServiceProtocol
+    private let seedService: SeedServiceProtocol
+    private let metricsService: MetricsServiceProtocol
     
     init(
-        viewControllerProvider: ViewControllerProviderProtocol,
-        output: AuthViewModelOutput?
+        state: JoinFlowState,
+        output: AuthViewModelOutput?,
+        authService: AuthServiceProtocol,
+        seedService: SeedServiceProtocol,
+        metricsService: MetricsServiceProtocol
     ) {
-        self.viewControllerProvider = viewControllerProvider
+        self.state = state
         self.output = output
+        self.authService = authService
+        self.seedService = seedService
+        self.metricsService = metricsService
     }
     
     // MARK: - Public
     
     func onViewAppear() {
-        viewControllerProvider.window?.overrideUserInterfaceStyle = .dark
         changeContentOpacity(false)
     }
     
@@ -37,8 +45,7 @@ final class AuthViewModel: ObservableObject {
     }
     
     func onJoinButtonTap() {
-        showJoinFlow.toggle()
-        changeContentOpacity(true)
+        createAccount()
     }
     
     func onJoinAction() -> AnyView? {
@@ -46,8 +53,42 @@ final class AuthViewModel: ObservableObject {
     }
     
     func onUrlTapAction(_ url: URL) {
-        currentUrl = url
-        showSafari.toggle()
+        output?.onUrlAction(url)
+    }
+    
+    func onDebugMenuAction() -> AnyView? {
+        AudioServicesPlaySystemSound(1109)
+        return output?.onDebugMenuAction()
+    }
+    
+    private func createAccount() {
+        Task { @MainActor in
+            do {
+                creatingAccountInProgress = true
+                
+                state.mnemonic = try await authService.createWallet()
+                try await metricsService.metricsSetParameters()
+                try await authService.createAccount(
+                    name: "",
+                    imagePath: ""
+                )
+                try? seedService.saveSeed(state.mnemonic)
+                
+                createAccountSuccess()
+            } catch {
+                createAccountError()
+            }
+        }
+    }
+    
+    private func createAccountSuccess() {
+        creatingAccountInProgress = false
+        showJoinFlow.toggle()
+        changeContentOpacity(true)
+    }
+    
+    private func createAccountError() {
+        creatingAccountInProgress = false
     }
     
     private func changeContentOpacity(_ hide: Bool) {

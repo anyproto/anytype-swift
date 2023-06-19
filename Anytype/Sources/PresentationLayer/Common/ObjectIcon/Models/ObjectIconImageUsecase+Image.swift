@@ -30,7 +30,7 @@ extension ObjectIconImageUsecase {
                 emojiImageGuideline: EmojiIconImageGuideline.x40,
                 todoImageGuideline: TodoIconImageGuideline.x24,
                 placeholderImageGuideline: PlaceholderIconImageGuideline.x40,
-                staticImageGuideline: StaticImageGuideline.x24,
+                staticImageGuideline: nil, // Use original different icon size
                 bookmarkImageGuideline: BookmarkIconImageGuideline.x24,
                 spaceImageGuideline: nil
             )
@@ -41,7 +41,7 @@ extension ObjectIconImageUsecase {
                 emojiImageGuideline: EmojiIconImageGuideline.x40,
                 todoImageGuideline: TodoIconImageGuideline.x24,
                 placeholderImageGuideline: PlaceholderIconImageGuideline.x40,
-                staticImageGuideline: StaticImageGuideline.x40,
+                staticImageGuideline: nil, // Use original different icon size
                 bookmarkImageGuideline: BookmarkIconImageGuideline.x24,
                 spaceImageGuideline: nil
             )

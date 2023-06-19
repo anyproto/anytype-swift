@@ -1,5 +1,5 @@
 import Foundation
-import BlocksModels
+import Services
 
 enum Relation: Hashable, Identifiable {
     case text(Text)

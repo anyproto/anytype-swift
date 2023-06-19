@@ -3,7 +3,7 @@ import Combine
 import SwiftUI
 import ProtobufMessages
 import AnytypeCore
-import BlocksModels
+import Services
 
 final class AuthService: AuthServiceProtocol {
     
@@ -35,7 +35,7 @@ final class AuthService: AuthServiceProtocol {
             do {
                 try await ClientCommands.accountStop(.with {
                     $0.removeData = removeData
-                }).invoke(errorDomain: .authService)
+                }).invoke()
                 self?.loginStateService.cleanStateAfterLogout()
                 onCompletion(true)
             } catch {
@@ -56,14 +56,20 @@ final class AuthService: AuthServiceProtocol {
             throw AuthServiceError.createWalletError
         }
     }
+    
+    func createWallet() async throws -> String {
+        let result = try await ClientCommands.walletCreate(.with {
+            $0.rootPath = rootPath
+        }).invoke()
+        return result.mnemonic
+    }
 
-    func createAccount(name: String, imagePath: String, alphaInviteCode: String) async throws {
+    func createAccount(name: String, imagePath: String) async throws {
         do {
             let response = try await ClientCommands.accountCreate(.with {
                 $0.name = name
                 $0.avatar = .avatarLocalPath(imagePath)
                 $0.icon = Int64(GradientId.random.rawValue)
-                $0.alphaInviteCode = alphaInviteCode
             }).invoke()
             
             let analyticsId = response.account.info.analyticsID
@@ -96,7 +102,7 @@ final class AuthService: AuthServiceProtocol {
         try await ClientCommands.walletRecover(.with {
             $0.rootPath = rootPath
             $0.mnemonic = mnemonic
-        }).invoke(errorDomain: .authService)
+        }).invoke()
     }
 
     func accountRecover(onCompletion: @escaping (AuthServiceError?) -> ()) {
@@ -144,14 +150,14 @@ final class AuthService: AuthServiceProtocol {
     func deleteAccount() -> AccountStatus? {
         let result = try? ClientCommands.accountDelete(.with {
             $0.revert = false
-        }).invoke(errorDomain: .authService)
+        }).invoke()
         return result?.status.asModel
     }
     
     func restoreAccount() -> AccountStatus? {
         let result = try? ClientCommands.accountDelete(.with {
             $0.revert = true
-        }).invoke(errorDomain: .authService)
+        }).invoke()
         return result?.status.asModel
     }
     

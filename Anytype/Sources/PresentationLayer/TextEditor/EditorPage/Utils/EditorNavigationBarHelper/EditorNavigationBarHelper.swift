@@ -1,6 +1,6 @@
 import Foundation
 import UIKit
-import BlocksModels
+import Services
 
 final class EditorNavigationBarHelper {
     
@@ -33,7 +33,7 @@ final class EditorNavigationBarHelper {
         onDoneBarButtonItemTap: @escaping () -> Void
     ) {
         self.controller = viewController
-        self.settingsItem = UIEditorBarButtonItem(imageAsset: .more, action: onSettingsBarButtonItemTap)
+        self.settingsItem = UIEditorBarButtonItem(imageAsset: .X24.more, action: onSettingsBarButtonItemTap)
 
         self.doneBarButtonItem = UIBarButtonItem(
             title: Loc.done,

@@ -1,5 +1,5 @@
 
-import BlocksModels
+import Services
 
 enum SlashActionAlignment: CaseIterable {
     case right
@@ -31,11 +31,11 @@ enum SlashActionAlignment: CaseIterable {
     var iconAsset: ImageAsset {
         switch self {
         case .left:
-            return .slashMenuAlignmentLeft
+            return .X32.Align.left
         case .center:
-            return .slashMenuAlignmentCenter
+            return .X32.Align.center
         case .right:
-            return .slashMenuAlignmentRight
+            return .X32.Align.right
         }
     }
 }

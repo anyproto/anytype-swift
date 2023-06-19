@@ -1,4 +1,4 @@
-import BlocksModels
+import Services
 
 protocol DataviewServiceProtocol {
     func updateView(_ view: DataviewView) async throws

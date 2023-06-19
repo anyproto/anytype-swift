@@ -1,5 +1,5 @@
 import Foundation
-import BlocksModels
+import Services
 
 enum SupportedRelationFormat: String, Hashable, CaseIterable {
     case object

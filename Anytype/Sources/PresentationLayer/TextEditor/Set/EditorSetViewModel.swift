@@ -1,5 +1,5 @@
 import Combine
-import BlocksModels
+import Services
 import AnytypeCore
 import SwiftUI
 import OrderedCollections
@@ -24,7 +24,7 @@ final class EditorSetViewModel: ObservableObject {
     
     var isUpdating = false
 
-    var objectId: BlocksModels.BlockId {
+    var objectId: Services.BlockId {
         setDocument.objectId
     }
     
@@ -256,9 +256,9 @@ final class EditorSetViewModel: ObservableObject {
         featuredRelations = setDocument.featuredRelationsForEditor
         
         guard setDocument.dataviews.isNotEmpty else { return }
-        anytypeAssert(setDocument.dataviews.count < 2, "\(setDocument.dataviews.count) dataviews in set", domain: .editorSet)
+        anytypeAssert(setDocument.dataviews.count < 2, "\(setDocument.dataviews.count) dataviews in set")
         setDocument.dataviews.first.flatMap { dataView in
-            anytypeAssert(dataView.views.isNotEmpty, "Empty views in dataview: \(dataView)", domain: .editorSet)
+            anytypeAssert(dataView.views.isNotEmpty, "Empty views in dataview: \(dataView)")
         }
         
         isUpdating = true

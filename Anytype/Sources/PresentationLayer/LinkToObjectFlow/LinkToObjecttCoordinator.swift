@@ -1,6 +1,6 @@
 import Foundation
 import UIKit
-import BlocksModels
+import Services
 import AnytypeCore
 
 protocol LinkToObjectCoordinatorProtocol: AnyObject {

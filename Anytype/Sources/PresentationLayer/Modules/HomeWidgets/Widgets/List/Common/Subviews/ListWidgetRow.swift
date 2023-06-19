@@ -67,9 +67,10 @@ struct ListWidgetRow: View {
     @ViewBuilder
     private var checkboxView: some View {
         if model.isChecked {
-            Image(asset: .PageBlock.checkboxChecked)
+            Image(asset: .PageBlock.Checkbox.marked)
         } else {
-            Image(asset: .PageBlock.checkboxUnchecked)
+            Image(asset: .PageBlock.Checkbox.empty)
+                .foregroundColor(.Button.active)
         }
     }
     

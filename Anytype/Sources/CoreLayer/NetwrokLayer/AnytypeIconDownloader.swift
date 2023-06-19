@@ -12,6 +12,7 @@ final class AnytypeIconDownloader {
             return await image(with: objectIconType, imageGuideline: imageGuideline)
         case .checkmark(let isChecked):
             return UIImage(asset: isChecked ? .taskChecked : .taskUnchecked)?
+                .applyTint(color: .Button.active)
                 .imageResized(to: imageGuideline.size)
         }
     }

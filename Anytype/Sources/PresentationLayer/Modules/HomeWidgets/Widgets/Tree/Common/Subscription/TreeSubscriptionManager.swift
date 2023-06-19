@@ -1,5 +1,5 @@
 import Foundation
-import BlocksModels
+import Services
 
 protocol TreeSubscriptionManagerProtocol: AnyObject {
     var handler: ((_ child: [ObjectDetails]) -> Void)? { get set }

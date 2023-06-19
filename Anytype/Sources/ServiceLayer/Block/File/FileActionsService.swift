@@ -1,6 +1,6 @@
 import Foundation
 import Combine
-import BlocksModels
+import Services
 import ProtobufMessages
 import AnytypeCore
 import UniformTypeIdentifiers
@@ -74,7 +74,7 @@ final class FileActionsService: FileActionsServiceProtocol {
             $0.contextID = contextID
             $0.blockID = blockID
             $0.filePath = data.path
-        }).invoke(errorDomain: .fileService)
+        }).invoke()
         
         if data.isTemporary {
             try? FileManager.default.removeItem(atPath: data.path)
@@ -87,7 +87,7 @@ final class FileActionsService: FileActionsServiceProtocol {
             $0.type = FileContentType.image.asMiddleware
             $0.disableEncryption = false
             $0.style = .auto
-        }).invoke(errorDomain: .fileService)
+        }).invoke()
         
         if data.isTemporary {
             try? FileManager.default.removeItem(atPath: data.path)
@@ -108,7 +108,19 @@ final class FileActionsService: FileActionsServiceProtocol {
     func clearCache() async throws {
         try await ClientCommands.fileListOffload(.with {
             $0.includeNotPinned = false
-        }).invoke(errorDomain: .fileService)
+        }).invoke()
+    }
+    
+    func spaceUsage() async throws -> FileLimits {
+        let result = try await ClientCommands.fileSpaceUsage().invoke()
+        return FileLimits(
+            filesCount: Int64(result.usage.filesCount),
+            cidsCount: Int64(result.usage.cidsCount),
+            bytesUsage: Int64(result.usage.bytesUsage),
+            bytesLeft: Int64(result.usage.bytesLeft),
+            bytesLimit: Int64(result.usage.bytesLimit),
+            localBytesUsage: Int64(result.usage.localBytesUsage)
+        )
     }
     
     // MARK: - Private

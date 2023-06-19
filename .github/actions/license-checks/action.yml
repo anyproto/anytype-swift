@@ -2,6 +2,7 @@ name: License Checks
 runs:
   using: "composite"
   steps:
+    # Todo. Migrate checkout to fastlane check_lisence
     - name: Setup license repository
       uses: actions/checkout@master
       with:

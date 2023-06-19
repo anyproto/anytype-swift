@@ -1,5 +1,5 @@
 import SwiftUI
-import BlocksModels
+import Services
 
 final class SetFiltersSelectionHeaderViewModel: ObservableObject {
     @Published var headerConfiguration: SetFiltersSelectionHeaderConfiguration

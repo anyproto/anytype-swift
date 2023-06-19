@@ -4,7 +4,7 @@ import UIKit
 protocol ViewControllerProviderProtocol {
     var window: UIWindow? { get }
     var rootViewController: UIViewController? { get }
-    var topViewController: UIViewController? { get }
+    var topVisibleController: UIViewController? { get }
 }
 
 final class ViewControllerProvider: ViewControllerProviderProtocol {
@@ -25,7 +25,7 @@ final class ViewControllerProvider: ViewControllerProviderProtocol {
         return sceneWindow?.rootViewController
     }
     
-    var topViewController: UIViewController? {
-        return sceneWindow?.rootViewController?.topPresentedController
+    var topVisibleController: UIViewController? {
+        return sceneWindow?.rootViewController?.topVisibleController
     }
 }

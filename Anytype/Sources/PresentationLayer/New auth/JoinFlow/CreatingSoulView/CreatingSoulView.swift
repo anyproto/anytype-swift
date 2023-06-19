@@ -1,0 +1,92 @@
+import SwiftUI
+
+struct CreatingSoulView: View {
+    
+    @ObservedObject var model: CreatingSoulViewModel
+    
+    var body: some View {
+        GeometryReader { geo in
+            content(width: geo.size.width)
+        }
+    }
+    
+    private func content(width: CGFloat) -> some View {
+        VStack(alignment: .center, spacing: 0) {
+            AnytypeText(
+                model.showSpace ? Loc.Auth.JoinFlow.Setting.Space.title : Loc.Auth.JoinFlow.Creating.Soul.title,
+                style: .uxTitle1Semibold,
+                color: .Text.primary
+            )
+            .opacity(0.9)
+            
+            Spacer.fixedHeight(64)
+
+            personalContent(width: width)
+            
+        }
+        .frame(width: width)
+    }
+    
+    private func personalContent(width: CGFloat) -> some View {
+        ZStack(alignment: .top) {
+            VStack(spacing: 0) {
+                Spacer.fixedHeight(Constants.imageDimension / 2)
+                Rectangle().foregroundColor(.Auth.body)
+                    .frame(
+                        width: model.showSpace ? width / Constants.scaleFactor : 0,
+                        height: 2
+                    )
+                    .opacity(model.showSpace ? 1 : 0)
+                    .padding(.trailing, Constants.imageDimension)
+            }
+            if model.showProfile {
+                space
+                    .offset(x: model.showSpace ? width / (Constants.scaleFactor * 2) : 0)
+                    .opacity(model.showSpace ? 1 : 0)
+                soul
+                    .offset(x: model.showSpace ? -width / (Constants.scaleFactor * 2) : 0)
+            }
+        }
+    }
+    
+    private var soul: some View {
+        VStack(spacing: 8) {
+            SwiftUIObjectIconImageViewWithPlaceholder(iconImage: model.profileIcon, usecase: .dashboardSearch)
+                .frame(width: Constants.imageDimension, height: Constants.imageDimension)
+            AnytypeText(model.state.soul, style: .previewTitle2Medium, color: .Text.primary)
+                .lineLimit(1)
+        }
+        .frame(width: Constants.itemWidth)
+    }
+    
+    private var space: some View {
+        VStack(spacing: 8) {
+            SwiftUIObjectIconImageViewWithPlaceholder(iconImage: model.spaceIcon, usecase: .dashboardSearch)
+                .frame(width: Constants.imageDimension, height: Constants.imageDimension)
+            AnytypeText(Loc.Auth.JoinFlow.Personal.Space.title, style: .previewTitle2Medium, color: .Text.primary)
+        }
+        .frame(width: Constants.itemWidth)
+    }
+}
+
+private extension CreatingSoulView {
+    enum Constants {
+        static let imageDimension: CGFloat = 48
+        static let scaleFactor: CGFloat = 2
+        static let itemWidth: CGFloat = 110
+    }
+}
+
+
+struct CreatingSoulView_Previews : PreviewProvider {
+    static var previews: some View {
+        CreatingSoulView(
+            model: CreatingSoulViewModel(
+                state: JoinFlowState(),
+                output: nil,
+                accountManager: DI.preview.serviceLocator.accountManager(),
+                subscriptionService: DI.preview.serviceLocator.singleObjectSubscriptionService()
+            )
+        )
+    }
+}

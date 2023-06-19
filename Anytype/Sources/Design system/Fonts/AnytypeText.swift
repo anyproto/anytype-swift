@@ -11,17 +11,12 @@ struct AnytypeText: View {
         self.spacing = spacing
     }
 
-    init(_ text: String, style: AnytypeFont, color: Color, isRich: Bool = false) {
+    init(_ text: String, style: AnytypeFont, color: Color) {
         let spacing = style.lineSpacing
         
-        if isRich {
-             self.textView = Self.buildRichText(text, style: style)
+        self.textView = Self.buildText(text, style: style)
                  .foregroundColor(color)
-         } else {
-             self.textView = Self.buildText(text, style: style)
-                 .foregroundColor(color)
-         }
-         self.spacing = spacing
+        self.spacing = spacing
     }
     
     init(
@@ -32,8 +27,7 @@ struct AnytypeText: View {
     ) {
         anytypeAssert(
             name != .plex,
-            "Custom plex font requires custom line spacing implementation",
-            domain: .anytypeText
+            "Custom plex font requires custom line spacing implementation"
         )
         let font = AnytypeFontBuilder.font(name: name, size: size, weight: weight)
         
@@ -56,21 +50,6 @@ struct AnytypeText: View {
         return Text(.init(text)).font(font).kerning(style.kern)
     }
     
-    private static func buildRichText(_ text: String, style: AnytypeFont) -> Text {
-        let richElements = text.parseRichTextElements()
-        var text = Text("")
-        richElements.forEach { element in
-            let content = element.id == richElements.last?.id ? element.content : element.content + " "
-            if element.isBold {
-                text = text + Self.buildText(content, style: style)
-                    .fontWeight(.bold)
-            } else {
-                text = text + Self.buildText(content, style: style)
-            }
-        }
-        return text
-    }
-
     public static func + (lhs: AnytypeText, rhs: AnytypeText) -> AnytypeText {
         let textView = lhs.textView + rhs.textView
         let spacing = max(lhs.spacing, rhs.spacing)

@@ -1,4 +1,4 @@
-import BlocksModels
+import Services
 
 struct GroupsSubscription: Equatable {
     let identifier: SubscriptionId

@@ -1,5 +1,5 @@
 import Foundation
-import BlocksModels
+import Services
 import AnytypeCore
 import Combine
 
@@ -81,10 +81,7 @@ final class RelationDetailsStorage: RelationDetailsStorageProtocol {
         searchDetailsByKey.removeAll()
         details.forEach {
             if searchDetailsByKey[$0.key] != nil {
-                anytypeAssertionFailure(
-                    "Dublicate relation found for key \($0.key), id: \($0.id)",
-                    domain: .relationDetailsStorage
-                )
+                anytypeAssertionFailure("Dublicate relation found", info: ["key": $0.key, "id": $0.id])
             }
             searchDetailsByKey[$0.key] = $0
         }

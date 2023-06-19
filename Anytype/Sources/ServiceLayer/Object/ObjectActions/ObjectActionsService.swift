@@ -1,7 +1,7 @@
 import Foundation
 import Combine
 import SwiftProtobuf
-import BlocksModels
+import Services
 import ProtobufMessages
 import AnytypeCore
 
@@ -28,19 +28,19 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         self.objectTypeProvider = objectTypeProvider
     }
     
-    func delete(objectIds: [BlockId]) async throws {
-        AnytypeAnalytics.instance().logDeletion(count: objectIds.count)
+    func delete(objectIds: [BlockId], route: RemoveCompletelyRoute) async throws {
+        AnytypeAnalytics.instance().logDeletion(count: objectIds.count, route: route)
         
         try await ClientCommands.objectListDelete(.with {
             $0.objectIds = objectIds
-        }).invoke(errorDomain: .objectActionsService)
+        }).invoke()
     }
     
     func setArchive(objectIds: [BlockId], _ isArchived: Bool) {
         _ = try? ClientCommands.objectListSetIsArchived(.with {
             $0.objectIds = objectIds
             $0.isArchived = isArchived
-        }).invoke(errorDomain: .objectActionsService)
+        }).invoke()
         
         AnytypeAnalytics.instance().logMoveToBin(isArchived)
     }
@@ -49,7 +49,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         try await ClientCommands.objectListSetIsArchived(.with {
             $0.objectIds = objectIds
             $0.isArchived = isArchived
-        }).invoke(errorDomain: .objectActionsService)
+        }).invoke()
         
         AnytypeAnalytics.instance().logMoveToBin(isArchived)
     }
@@ -58,7 +58,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         _ = try? ClientCommands.objectListSetIsFavorite(.with {
             $0.objectIds = objectIds
             $0.isFavorite = isFavorite
-        }).invoke(errorDomain: .objectActionsService)
+        }).invoke()
         
         AnytypeAnalytics.instance().logAddToFavorites(isFavorite)
     }
@@ -67,7 +67,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         try await ClientCommands.objectListSetIsFavorite(.with {
             $0.objectIds = objectIds
             $0.isFavorite = isFavorite
-        }).invoke(errorDomain: .objectActionsService)
+        }).invoke()
         
         AnytypeAnalytics.instance().logAddToFavorites(isFavorite)
     }
@@ -91,7 +91,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         _ = try? ClientCommands.blockListSetFields(.with {
             $0.contextID = objectId
             $0.blockFields = [blockField]
-        }).invoke(errorDomain: .objectActionsService)
+        }).invoke()
     }
     
     /// NOTE: `CreatePage` action will return block of type `.link(.page)`.
@@ -115,7 +115,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
             $0.templateID = templateId
             $0.targetID = targetId
             $0.position = position.asMiddleware
-        }).invoke(errorDomain: .objectActionsService)
+        }).invoke()
         
         return response?.targetID
     }
@@ -127,14 +127,14 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         _ = try? ClientCommands.objectSetLayout(.with {
             $0.contextID = contextID
             $0.layout = selectedLayout
-        }).invoke(errorDomain: .objectActionsService)
+        }).invoke()
     }
     
     func duplicate(objectId: BlockId) -> BlockId? {
         AnytypeAnalytics.instance().logDuplicateObject()
         let result = try? ClientCommands.objectDuplicate(.with {
             $0.contextID = objectId
-        }).invoke(errorDomain: .objectActionsService)
+        }).invoke()
         
         return result?.id
     }
@@ -150,7 +150,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
                     $0.value = details.value
                 }
             }
-        }).invoke(errorDomain: .objectActionsService)
+        }).invoke()
     }
     
     func updateBundledDetails(contextID: BlockId, details: [BundledDetails]) async throws {
@@ -162,7 +162,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
                     $0.value = details.value
                 }
             }
-        }).invoke(errorDomain: .objectActionsService)
+        }).invoke()
     }
     
     func updateDetails(contextId: String, relationKey: String, value: DataviewGroupValue) {
@@ -179,7 +179,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         }
         
         guard let protobufValue else {
-            anytypeAssertionFailure("DataviewGroupValue doesnt support", domain: .objectActionsService)
+            anytypeAssertionFailure("DataviewGroupValue doesnt support")
             return
         }
         
@@ -191,7 +191,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
                     $0.value = protobufValue
                 }
             ]
-        }).invoke(errorDomain: .relationsService)
+        }).invoke()
     }
 
     func convertChildrenToPages(contextID: BlockId, blocksIds: [BlockId], typeId: String) -> [BlockId]? {
@@ -202,7 +202,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
             $0.contextID = contextID
             $0.blockIds = blocksIds
             $0.objectType = typeId
-        }).invoke(errorDomain: .objectActionsService)
+        }).invoke()
         
         return response?.linkIds
     }
@@ -214,7 +214,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
             $0.targetContextID = dashboadId
             $0.dropTargetID = dropPositionblockId
             $0.position = position
-        }).invoke(errorDomain: .objectActionsService)
+        }).invoke()
     }
     
     func move(dashboadId: BlockId, blockId: BlockId, dropPositionblockId: BlockId, position: Anytype_Model_Block.Position) async throws {
@@ -224,14 +224,14 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
             $0.targetContextID = dashboadId
             $0.dropTargetID = dropPositionblockId
             $0.position = position
-        }).invoke(errorDomain: .objectActionsService)
+        }).invoke()
     }
     
     func setObjectType(objectId: BlockId, objectTypeId: String) {
         _ = try? ClientCommands.objectSetObjectType(.with {
             $0.contextID = objectId
             $0.objectTypeURL = objectTypeId
-        }).invoke(errorDomain: .objectActionsService)
+        }).invoke()
         
         let objectType = objectTypeProvider.objectType(id: objectTypeId)?.analyticsType ?? .object(typeId: objectTypeId)
         AnytypeAnalytics.instance().logObjectTypeChange(objectType)
@@ -240,34 +240,34 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
     func setObjectSetType(objectId: BlockId) async throws {
         try await ClientCommands.objectToSet(.with {
             $0.contextID = objectId
-        }).invoke(errorDomain: .objectActionsService)
+        }).invoke()
     }
     
     func addObjectsToCollection(contextId: BlockId, objectIds: [String]) async throws {
         try await ClientCommands.objectCollectionAdd(.with {
             $0.contextID = contextId
             $0.objectIds = objectIds
-        }).invoke(errorDomain: .objectActionsService)
+        }).invoke()
     }
     
     func setObjectCollectionType(objectId: BlockId) async throws {
         try await ClientCommands.objectToCollection(.with {
             $0.contextID = objectId
-        }).invoke(errorDomain: .objectActionsService)
+        }).invoke()
     }
 
     func applyTemplate(objectId: BlockId, templateId: BlockId) {
         _ = try? ClientCommands.objectApplyTemplate(.with {
             $0.contextID = objectId
             $0.templateID = templateId
-        }).invoke(errorDomain: .objectActionsService)
+        }).invoke()
     }
     
     func setSource(objectId: BlockId, source: [String]) async throws {
         try await ClientCommands.objectSetSource(.with {
             $0.contextID = objectId
             $0.source = source
-        }).invoke(errorDomain: .objectActionsService)
+        }).invoke()
     }
 
     func undo(objectId: BlockId) throws {
@@ -298,6 +298,6 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         try await ClientCommands.objectSetInternalFlags(.with {
             $0.contextID = contextId
             $0.internalFlags = flags
-        }).invoke(errorDomain: .objectActionsService)
+        }).invoke()
     }
 }

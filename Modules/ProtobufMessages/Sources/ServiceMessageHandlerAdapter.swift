@@ -58,33 +58,15 @@ extension ServiceMessageHandlerAdapter: ServiceMessageHandlerProtocol {
     
     private func log(event: Anytype_Event) {
         
-        let info: [String] = [
-            [event.contextID],
-            event.subIds
-        ].flatMap { $0 }.filter { !$0.isEmpty }
+        let responseJsonData = try? event.jsonUTF8Data()
+        let messageNames = responseJsonData?.parseMessages() ?? ""
         
         let message = InvocationMessage(
-            name: "Event:\(info.joined(separator: ","))",
+            name: "Events:\(messageNames)",
             requestJsonData: nil,
-            responseJsonData: try? event.jsonUTF8Data(),
+            responseJsonData: responseJsonData,
             responseError: nil
         )
         InvocationSettings.handler?.logHandler(message: message)
-    }
-}
-
-
-private extension Anytype_Event {
-    var subIds: [String] {
-        let result = messages.map { message in
-            [
-                message.subscriptionAdd.subID,
-                message.subscriptionGroups.subID,
-                message.subscriptionRemove.subID,
-                message.subscriptionCounters.subID,
-                message.subscriptionPosition.subID
-            ]
-        }.flatMap { $0 }.filter { !$0.isEmpty }
-        return Array(Set(result))
     }
 }

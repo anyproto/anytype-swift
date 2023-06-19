@@ -6,7 +6,7 @@
 //  Copyright © 2022 Anytype. All rights reserved.
 //
 
-import BlocksModels
+import Services
 
 struct ObjectPreviewModel {
     var cardStyle: BlockLink.CardStyle
@@ -138,9 +138,9 @@ extension BlockLink.CardStyle {
     var iconAsset: ImageAsset {
         switch self {
         case .text:
-            return .text
+            return .Preview.text
         case .card:
-            return .card
+            return .Preview.card
         }
     }
 }

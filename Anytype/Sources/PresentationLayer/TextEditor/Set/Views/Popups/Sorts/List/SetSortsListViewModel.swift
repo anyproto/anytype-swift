@@ -1,6 +1,6 @@
 import Foundation
 import SwiftUI
-import BlocksModels
+import Services
 import Combine
 
 final class SetSortsListViewModel: ObservableObject {
@@ -53,12 +53,12 @@ extension SetSortsListViewModel {
     // MARK: - Actions
     
     func delete(_ indexSet: IndexSet) {
-        indexSet.forEach { [weak self] deleteIndex in
-            guard let self, deleteIndex < self.setDocument.sorts.count else { return }
-            let sort = self.setDocument.sorts[deleteIndex]
+        indexSet.forEach { deleteIndex in
+            guard deleteIndex < setDocument.sorts.count else { return }
+            let sort = setDocument.sorts[deleteIndex]
             Task {
-                try await dataviewService.removeSorts([sort.sort.id], viewId: self.setDocument.activeView.id)
-                AnytypeAnalytics.instance().logSortRemove(objectType: self.setDocument.analyticsType)
+                try await dataviewService.removeSorts([sort.sort.id], viewId: setDocument.activeView.id)
+                AnytypeAnalytics.instance().logSortRemove(objectType: setDocument.analyticsType)
             }
         }
     }

@@ -1,5 +1,5 @@
 import UIKit
-import BlocksModels
+import Services
 
 final class SlashMenuView: DismissableInputAccessoryView {
     
@@ -60,9 +60,9 @@ final class SlashMenuView: DismissableInputAccessoryView {
         navBarAppearance.configureWithTransparentBackground()
         navBarAppearance.shadowColor = .Background.primary
         navBarAppearance.backgroundColor = .Background.primary
-        navBarAppearance.setBackIndicatorImage(UIImage(asset: .slashBackArrow), transitionMaskImage: UIImage(asset: .slashBackArrow))
+        navBarAppearance.setBackIndicatorImage(UIImage(asset: .X18.slashMenuArrow), transitionMaskImage: UIImage(asset: .X18.slashMenuArrow))
         navigationController.modifyBarAppearance(navBarAppearance)
-        navigationController.navigationBar.tintColor = .Text.secondary
+        navigationController.navigationBar.tintColor = .Button.active
         
         return navigationController
     }()
