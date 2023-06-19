@@ -843,6 +843,10 @@ internal enum Loc {
     internal enum LoginFlow {
       /// OR
       internal static let or = Loc.tr("Localizable", "Auth.LoginFlow.Or", fallback: "OR")
+      internal enum Textfield {
+        /// Type your recovery phrase
+        internal static let placeholder = Loc.tr("Localizable", "Auth.LoginFlow.Textfield.Placeholder", fallback: "Type your recovery phrase")
+      }
       internal enum Use {
         internal enum Keychain {
           /// Use keychain

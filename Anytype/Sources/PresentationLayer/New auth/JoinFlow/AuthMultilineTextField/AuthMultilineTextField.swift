@@ -12,7 +12,7 @@ struct AuthMultilineTextField: View {
     var body: some View {
         Group {
             if #available(iOS 16.0, *) {
-                TextField("", text: $text,  axis: .vertical)
+                TextField(Loc.Auth.LoginFlow.Textfield.placeholder, text: $text,  axis: .vertical)
                     .lineLimit(4, reservesSpace: true)
                     .padding(Constants.edgeInsets)
                     .background(Color.Stroke.transperent)
