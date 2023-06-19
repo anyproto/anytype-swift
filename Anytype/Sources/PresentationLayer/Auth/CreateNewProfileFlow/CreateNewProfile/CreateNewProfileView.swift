@@ -6,9 +6,9 @@ struct CreateNewProfileView: View {
     @Environment(\.presentationMode) var presentationMode
     
     @ObservedObject var viewModel: CreateNewProfileViewModel
-    @EnvironmentObject var signUpData: SignUpData
+    @StateObject var signUpData: SignUpData
     
-    @Binding var showCreateNewProfile: Bool
+    @State var showCreateNewProfile = true
     
     
     var body: some View {
@@ -116,9 +116,11 @@ struct CreateNewProfileView_Previews: PreviewProvider {
             viewModel: CreateNewProfileViewModel(
                 applicationStateService: DI.preview.serviceLocator.applicationStateService(),
                 authService: DI.preview.serviceLocator.authService(),
-                seedService: DI.preview.serviceLocator.seedService()
+                seedService: DI.preview.serviceLocator.seedService(),
+                usecaseService: DI.preview.serviceLocator.usecaseService(),
+                metricsService: DI.preview.serviceLocator.metricsService()
             ),
-            showCreateNewProfile: .constant(true)
+            signUpData: SignUpData(mnemonic: UUID().uuidString)
         )
         .environmentObject(SignUpData(mnemonic: ""))
     }

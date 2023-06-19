@@ -98,6 +98,10 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
         return JoinFlowCoordinatorAssembly(modulesDI: modulesDI)
     }
     
+    func loginFlow() -> LoginFlowCoordinatorAssemblyProtocol {
+        return LoginFlowCoordinatorAssembly(modulesDI: modulesDI)
+    }
+    
     func legacyAuthViewAssembly() -> LegacyAuthViewAssembly {
         return LegacyAuthViewAssembly(serviceLocator: serviceLocator)
     }

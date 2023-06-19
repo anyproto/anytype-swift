@@ -56,10 +56,12 @@ extension RelationsListViewModel {
     }
     
     private func changeRelationFeaturedState(relation: Relation) {
-        if relation.isFeatured {
-            relationsService.removeFeaturedRelation(relationKey: relation.key)
-        } else {
-            relationsService.addFeaturedRelation(relationKey: relation.key)
+        Task {
+            if relation.isFeatured {
+                try await relationsService.removeFeaturedRelation(relationKey: relation.key)
+            } else {
+                try await relationsService.addFeaturedRelation(relationKey: relation.key)
+            }
         }
         UISelectionFeedbackGenerator().selectionChanged()
     }

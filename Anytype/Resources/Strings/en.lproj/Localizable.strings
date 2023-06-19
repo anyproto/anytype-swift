@@ -121,18 +121,16 @@
 "OrganizeEverythingDescription" = "With Anytype you can write notes and documents, manage tasks and save important content from the web.";
 "Sign up" = "Sign up";
 "Login" = "Login";
-"Restore secret phrase from keychain" = "Restore secret phrase from keychain";
+"Restore secret phrase from keychain" = "Restore Recovery Phrase from the keychain";
 "or type your recovery phrase" = "or type your recovery phrase";
 "Setting up the wallet" = "Setting up the wallet";
 "Enter your name" = "Enter your name";
 "New profile" = "New profile";
 "Create" = "Create";
 "Scan QR code" = "Scan QR code";
-"Auth.CameraPermissionTitle" = "Camera access required to scan QR code";
+"Auth.CameraPermissionTitle" = "Anytype needs access to your camera to scan QR codes";
 "Analytics constent text" = "Understanding how people use Anytype helps us improve the product. This version of Anytype includes the analytics code that protects your privacy.\nIt doesn't record the actual document's content but still allows us to understand how you use Anytype.\nStay subscribed to our mailing list, as we will soon announce a new release that enables you to opt-out.";
 
-"Enter your invitation code" = "Enter your invitation code";
-"Do not have invite" = "If you don't have one just go to anytype.io and sign up to the waiting list. We are inviting people on the rolling bases.";
 "Account recover error" = "Account recover error, try again";
 "Account recover error no internet" = "Account recover error, probably no internet connection";
 "SignUp.InvintationCode.Placeholder" = "Invitation code";
@@ -234,7 +232,7 @@
 
 // MARK: - Alerts
 "Alert.CameraPermissions.Settings" = "Settings";
-"Alert.CameraPermissions.GoToSettings" = "Go to Settings?";
+"Alert.CameraPermissions.GoToSettings" = "Please, go to your device's Settings -> Privacy -> Camera and set Anytype to ON";
 
 // MARK: - Relation
 "Featured relations" = "Featured relations";
@@ -469,6 +467,7 @@
 "On analytics" = "On analytics";
 "Select account error" = "Select account error";
 "Account deleted" = "Account deleted";
+"Account.Select.Incompatible.Version.Error.Text" = "Unable to retrieve account data due to incompatible version on remote nodes. Please update Anytype to the latest version.";
 "Restore from keychain" = "Restore from keychain";
 "Edit" = "Edit";
 "In this object" = "In this object";
@@ -543,6 +542,7 @@
 "Connection refused" = "Connection refused. Please, try again";
 "Companies, contacts, friends and family" = "Companies, contacts, friends and family";
 "Failed to sync, trying again..." = "Failed to sync, trying again...";
+"Sync.Status.Version.Outdated.Description" = "Version outdated. Please update Anytype";
 "This object doesn't exist" = "This object doesn't exist";
 "Account & data" = "Account & data";
 "File & Media" = "File & Media";
@@ -688,6 +688,7 @@
 "About.Library" = "Library version: %@";
 "About.accountId" = "Account ID: %@";
 "About.analyticsId" = "Analytics ID: %@";
+"About.deviceId" = "Device ID: %@";
 "About.Device" = "Device: %@";
 "About.OSVersion" = "OS version: %@";
 "About.HelpCommunity" = "Help & Community";

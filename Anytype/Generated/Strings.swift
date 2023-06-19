@@ -225,8 +225,6 @@ internal enum Loc {
   internal static let deselectAll = Loc.tr("Localizable", "Deselect all", fallback: "Deselect all")
   /// Designed to capture thoughts quickly
   internal static let designedToCaptureThoughtsQuickly = Loc.tr("Localizable", "Designed to capture thoughts quickly", fallback: "Designed to capture thoughts quickly")
-  /// If you don't have one just go to anytype.io and sign up to the waiting list. We are inviting people on the rolling bases.
-  internal static let doNotHaveInvite = Loc.tr("Localizable", "Do not have invite", fallback: "If you don't have one just go to anytype.io and sign up to the waiting list. We are inviting people on the rolling bases.")
   /// Done
   internal static let done = Loc.tr("Localizable", "Done", fallback: "Done")
   /// Download
@@ -259,8 +257,6 @@ internal enum Loc {
   internal static let enterURL = Loc.tr("Localizable", "Enter URL", fallback: "Enter URL")
   /// Enter value
   internal static let enterValue = Loc.tr("Localizable", "Enter value", fallback: "Enter value")
-  /// Enter your invitation code
-  internal static let enterYourInvitationCode = Loc.tr("Localizable", "Enter your invitation code", fallback: "Enter your invitation code")
   /// Enter your name
   internal static let enterYourName = Loc.tr("Localizable", "Enter your name", fallback: "Enter your name")
   /// Error creating wallet
@@ -483,8 +479,8 @@ internal enum Loc {
   internal static let restore = Loc.tr("Localizable", "Restore", fallback: "Restore")
   /// Restore from keychain
   internal static let restoreFromKeychain = Loc.tr("Localizable", "Restore from keychain", fallback: "Restore from keychain")
-  /// Restore secret phrase from keychain
-  internal static let restoreSecretPhraseFromKeychain = Loc.tr("Localizable", "Restore secret phrase from keychain", fallback: "Restore secret phrase from keychain")
+  /// Restore Recovery Phrase from the keychain
+  internal static let restoreSecretPhraseFromKeychain = Loc.tr("Localizable", "Restore secret phrase from keychain", fallback: "Restore Recovery Phrase from the keychain")
   /// Scan QR code
   internal static let scanQRCode = Loc.tr("Localizable", "Scan QR code", fallback: "Scan QR code")
   /// Search
@@ -683,6 +679,10 @@ internal enum Loc {
     internal static func device(_ p1: Any) -> String {
       return Loc.tr("Localizable", "About.Device", String(describing: p1), fallback: "Device: %@")
     }
+    /// Device ID: %@
+    internal static func deviceId(_ p1: Any) -> String {
+      return Loc.tr("Localizable", "About.deviceId", String(describing: p1), fallback: "Device ID: %@")
+    }
     /// Help & Community
     internal static let helpCommunity = Loc.tr("Localizable", "About.HelpCommunity", fallback: "Help & Community")
     /// Help & Tutorials
@@ -721,14 +721,26 @@ internal enum Loc {
       }
     }
   }
+  internal enum Account {
+    internal enum Select {
+      internal enum Incompatible {
+        internal enum Version {
+          internal enum Error {
+            /// Unable to retrieve account data due to incompatible version on remote nodes. Please update Anytype to the latest version.
+            internal static let text = Loc.tr("Localizable", "Account.Select.Incompatible.Version.Error.Text", fallback: "Unable to retrieve account data due to incompatible version on remote nodes. Please update Anytype to the latest version.")
+          }
+        }
+      }
+    }
+  }
   internal enum Actions {
     /// Link to
     internal static let linkItself = Loc.tr("Localizable", "Actions.LinkItself", fallback: "Link to")
   }
   internal enum Alert {
     internal enum CameraPermissions {
-      /// Go to Settings?
-      internal static let goToSettings = Loc.tr("Localizable", "Alert.CameraPermissions.GoToSettings", fallback: "Go to Settings?")
+      /// Please, go to your device's Settings -> Privacy -> Camera and set Anytype to ON
+      internal static let goToSettings = Loc.tr("Localizable", "Alert.CameraPermissions.GoToSettings", fallback: "Please, go to your device's Settings -> Privacy -> Camera and set Anytype to ON")
       /// Settings
       internal static let settings = Loc.tr("Localizable", "Alert.CameraPermissions.Settings", fallback: "Settings")
     }
@@ -744,8 +756,8 @@ internal enum Loc {
     }
   }
   internal enum Auth {
-    /// Camera access required to scan QR code
-    internal static let cameraPermissionTitle = Loc.tr("Localizable", "Auth.CameraPermissionTitle", fallback: "Camera access required to scan QR code")
+    /// Anytype needs access to your camera to scan QR codes
+    internal static let cameraPermissionTitle = Loc.tr("Localizable", "Auth.CameraPermissionTitle", fallback: "Anytype needs access to your camera to scan QR codes")
     /// Join
     internal static let join = Loc.tr("Localizable", "Auth.Join", fallback: "Join")
     /// Log in
@@ -1550,6 +1562,16 @@ internal enum Loc {
     internal static let table = Loc.tr("Localizable", "SlashMenu.Table", fallback: "Table")
     /// Table of contents
     internal static let tableOfContents = Loc.tr("Localizable", "SlashMenu.TableOfContents", fallback: "Table of contents")
+  }
+  internal enum Sync {
+    internal enum Status {
+      internal enum Version {
+        internal enum Outdated {
+          /// Version outdated. Please update Anytype
+          internal static let description = Loc.tr("Localizable", "Sync.Status.Version.Outdated.Description", fallback: "Version outdated. Please update Anytype")
+        }
+      }
+    }
   }
   internal enum TalbeOfContents {
     /// Add headings to create a table of contents

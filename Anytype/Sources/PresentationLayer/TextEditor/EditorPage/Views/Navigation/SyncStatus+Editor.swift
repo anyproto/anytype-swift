@@ -13,7 +13,7 @@ extension SyncStatus {
             return Loc.syncing
         case .synced:
             return Loc.synced
-        case .failed:
+        case .failed, .incompatibleVersion:
             return Loc.notSyncing
         }
     }
@@ -30,11 +30,14 @@ extension SyncStatus {
             return Loc.backedUpOnOneNodeAtLeast
         case .failed:
             return Loc.failedToSyncTryingAgain
+        case .incompatibleVersion:
+            return Loc.Sync.Status.Version.Outdated.description
         }
     }
     
-    var image: UIImage {
-        ImageBuilder(
+    var image: UIImage? {
+        guard let color else { return nil }
+        return ImageBuilder(
             ImageGuideline(
                 size: CGSize(width: 10, height: 10),
                 radius: .point(5)
@@ -43,14 +46,16 @@ extension SyncStatus {
             .setImageColor(color).build()
     }
     
-    private var color: UIColor {
+    private var color: UIColor? {
         switch self {
-        case .offline, .failed:
+        case .failed, .incompatibleVersion:
             return UIColor.System.red
-        case .syncing, .unknown:
+        case .syncing:
             return UIColor.System.amber100
         case .synced:
             return UIColor.System.green
+        case .unknown, .offline:
+            return nil
         }
     }
     

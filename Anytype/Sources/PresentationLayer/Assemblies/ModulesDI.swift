@@ -123,11 +123,15 @@ final class ModulesDI: ModulesDIProtocol {
     }
     
     func authorization() -> AuthModuleAssemblyProtocol {
-        return AuthModuleAssembly(uiHelpersDI: uiHelpersDI, serviceLocator: serviceLocator)
+        return AuthModuleAssembly(serviceLocator: serviceLocator)
     }
     
     func joinFlow() -> JoinFlowModuleAssemblyProtocol {
         return JoinFlowModuleAssembly(serviceLocator: serviceLocator)
+    }
+    
+    func login() -> LoginViewModuleAssemblyProtocol {
+        return LoginViewModuleAssembly()
     }
     
     // @joe_pusya: will be moved to separate modulesDI

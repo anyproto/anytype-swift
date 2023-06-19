@@ -64,13 +64,12 @@ final class AuthService: AuthServiceProtocol {
         return result.mnemonic
     }
 
-    func createAccount(name: String, imagePath: String, alphaInviteCode: String) async throws {
+    func createAccount(name: String, imagePath: String) async throws {
         do {
             let response = try await ClientCommands.accountCreate(.with {
                 $0.name = name
                 $0.avatar = .avatarLocalPath(imagePath)
                 $0.icon = Int64(GradientId.random.rawValue)
-                $0.alphaInviteCode = alphaInviteCode
             }).invoke()
             
             let analyticsId = response.account.info.analyticsID

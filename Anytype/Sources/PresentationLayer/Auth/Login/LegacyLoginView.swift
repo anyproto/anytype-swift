@@ -1,8 +1,8 @@
 import SwiftUI
 
-struct LoginView: View {
+struct LegacyLoginView: View {
     @Environment(\.presentationMode) var presentationMode
-    @StateObject var viewModel: LoginViewModel
+    @StateObject var viewModel: LegacyLoginViewModel
     
     var body: some View {
         ZStack {
@@ -146,8 +146,8 @@ struct LoginView: View {
     }
 }
 
-struct LoginView_Previews: PreviewProvider {
+struct LegacyLoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView(viewModel: LoginViewModel(applicationStateService: DI.preview.serviceLocator.applicationStateService()))
+        LegacyLoginView(viewModel: LegacyLoginViewModel(applicationStateService: DI.preview.serviceLocator.applicationStateService()))
     }
 }

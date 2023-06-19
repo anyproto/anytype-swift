@@ -5,6 +5,7 @@ import AudioToolbox
 final class AuthViewModel: ObservableObject {
     
     @Published var showJoinFlow: Bool = false
+    @Published var showLoginFlow: Bool = false
     @Published var showDebugMenu: Bool = false
     @Published var opacity: Double = 1
     @Published var creatingAccountInProgress = false
@@ -12,29 +13,28 @@ final class AuthViewModel: ObservableObject {
     // MARK: - Private
     
     private let state: JoinFlowState
-    private let viewControllerProvider: ViewControllerProviderProtocol
     private weak var output: AuthViewModelOutput?
     private let authService: AuthServiceProtocol
     private let seedService: SeedServiceProtocol
+    private let metricsService: MetricsServiceProtocol
     
     init(
         state: JoinFlowState,
-        viewControllerProvider: ViewControllerProviderProtocol,
         output: AuthViewModelOutput?,
         authService: AuthServiceProtocol,
-        seedService: SeedServiceProtocol
+        seedService: SeedServiceProtocol,
+        metricsService: MetricsServiceProtocol
     ) {
         self.state = state
-        self.viewControllerProvider = viewControllerProvider
         self.output = output
         self.authService = authService
         self.seedService = seedService
+        self.metricsService = metricsService
     }
     
     // MARK: - Public
     
     func onViewAppear() {
-        viewControllerProvider.window?.overrideUserInterfaceStyle = .dark
         changeContentOpacity(false)
     }
     
@@ -53,6 +53,15 @@ final class AuthViewModel: ObservableObject {
         output?.onJoinAction()
     }
     
+    func onLoginButtonTap() {
+        showLoginFlow.toggle()
+        changeContentOpacity(true)
+    }
+    
+    func onLoginAction() -> AnyView? {
+        output?.onLoginAction()
+    }
+    
     func onUrlTapAction(_ url: URL) {
         output?.onUrlAction(url)
     }
@@ -68,10 +77,10 @@ final class AuthViewModel: ObservableObject {
                 creatingAccountInProgress = true
                 
                 state.mnemonic = try await authService.createWallet()
+                try await metricsService.metricsSetParameters()
                 try await authService.createAccount(
                     name: "",
-                    imagePath: "",
-                    alphaInviteCode: state.inviteCode
+                    imagePath: ""
                 )
                 try? seedService.saveSeed(state.mnemonic)
                 

@@ -38,6 +38,14 @@ public extension FeatureFlags {
         value(for: .sortIncludeTime)
     }
 
+    static var binConfirmAlert: Bool {
+        value(for: .binConfirmAlert)
+    }
+
+    static var fixSIGPIPECrash: Bool {
+        value(for: .fixSIGPIPECrash)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -64,6 +72,8 @@ public extension FeatureFlags {
         .newAuthorization,
         .redesignAbout,
         .sortIncludeTime,
+        .binConfirmAlert,
+        .fixSIGPIPECrash,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
