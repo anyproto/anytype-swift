@@ -36,8 +36,8 @@ protocol ObjectActionsServiceProtocol {
     func applyTemplate(objectId: BlockId, templateId: BlockId)
     func setSource(objectId: BlockId, source: [String]) async throws
     
-    func undo(objectId: BlockId) throws
-    func redo(objectId: BlockId) throws
+    func undo(objectId: BlockId) async throws
+    func redo(objectId: BlockId) async throws
     
     func setInternalFlags(contextId: BlockId, internalFlags: [Int]) async throws
 }
