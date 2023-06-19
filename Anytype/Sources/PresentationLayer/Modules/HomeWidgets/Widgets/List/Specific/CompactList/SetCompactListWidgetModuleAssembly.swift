@@ -29,7 +29,8 @@ final class SetCompactListWidgetModuleAssembly: HomeWidgetCommonAssemblyProtocol
                 accountManager: serviceLocator.accountManager()
             ),
             subscriptionService: serviceLocator.subscriptionService(),
-            documentService: serviceLocator.documentService()
+            documentService: serviceLocator.documentService(),
+            context: .compactList
         )
      
         return widgetsSubmoduleDI.listWidgetModuleAssembly().make(

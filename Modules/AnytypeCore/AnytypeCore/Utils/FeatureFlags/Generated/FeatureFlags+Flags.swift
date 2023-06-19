@@ -46,6 +46,10 @@ public extension FeatureFlags {
         value(for: .fixSIGPIPECrash)
     }
 
+    static var compactListWidget: Bool {
+        value(for: .compactListWidget)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -74,6 +78,7 @@ public extension FeatureFlags {
         .sortIncludeTime,
         .binConfirmAlert,
         .fixSIGPIPECrash,
+        .compactListWidget,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

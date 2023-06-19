@@ -5,10 +5,6 @@ import UIKit
 
 final class SetObjectWidgetInternalViewModel: WidgetDataviewInternalViewModelProtocol {
     
-    private enum Constants {
-        static let maxItems = 3
-    }
-    
     // MARK: - DI
     
     private let widgetBlockId: BlockId
@@ -16,6 +12,7 @@ final class SetObjectWidgetInternalViewModel: WidgetDataviewInternalViewModelPro
     private let objectDetailsStorage: ObjectDetailsStorage
     private let setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol
     private let subscriptionService: SubscriptionsServiceProtocol
+    private let context: WidgetInternalViewModelContext
     
     private let subscriptionId = SubscriptionId(value: "SetWidget-\(UUID().uuidString)")
     
@@ -43,13 +40,15 @@ final class SetObjectWidgetInternalViewModel: WidgetDataviewInternalViewModelPro
         objectDetailsStorage: ObjectDetailsStorage,
         setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol,
         subscriptionService: SubscriptionsServiceProtocol,
-        documentService: DocumentServiceProtocol
+        documentService: DocumentServiceProtocol,
+        context: WidgetInternalViewModelContext
     ) {
         self.widgetBlockId = widgetBlockId
         self.widgetObject = widgetObject
         self.objectDetailsStorage = objectDetailsStorage
         self.setSubscriptionDataBuilder = setSubscriptionDataBuilder
         self.subscriptionService = subscriptionService
+        self.context = context
         
         if let tagetObjectId = widgetObject.targetObjectIdByLinkFor(widgetBlockId: widgetBlockId) {
             setDocument = documentService.setDocument(objectId: tagetObjectId, forPreview: true)
@@ -123,7 +122,7 @@ final class SetObjectWidgetInternalViewModel: WidgetDataviewInternalViewModelPro
                 view: activeView,
                 groupFilter: nil,
                 currentPage: 0,
-                numberOfRowsPerPage: Constants.maxItems,
+                numberOfRowsPerPage: context.maxItems,
                 collectionId: setDocument.isCollection() ? setDocument.objectId : nil,
                 objectOrderIds: setDocument.objectOrderIds(for: SubscriptionId.set.value)
             )
