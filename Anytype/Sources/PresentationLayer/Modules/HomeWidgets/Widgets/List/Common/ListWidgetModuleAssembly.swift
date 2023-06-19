@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-protocol ListWithoutHeaderWidgetModuleAssemblyProtocol: AnyObject {
+protocol ListWidgetModuleAssemblyProtocol: AnyObject {
     @MainActor
     func make(
         widgetBlockId: String,
@@ -10,9 +10,18 @@ protocol ListWithoutHeaderWidgetModuleAssemblyProtocol: AnyObject {
         internalModel: WidgetInternalViewModelProtocol,
         output: CommonWidgetModuleOutput?
     ) -> AnyView
+    
+    @MainActor
+    func make(
+        widgetBlockId: String,
+        widgetObject: BaseDocumentProtocol,
+        stateManager: HomeWidgetsStateManagerProtocol,
+        internalModel: WidgetDataviewInternalViewModelProtocol,
+        output: CommonWidgetModuleOutput?
+    ) -> AnyView
 }
 
-final class ListWithoutHeaderWidgetModuleAssembly: ListWithoutHeaderWidgetModuleAssemblyProtocol {
+final class ListWidgetModuleAssembly: ListWidgetModuleAssemblyProtocol {
     
     private let serviceLocator: ServiceLocator
     private let uiHelpersDI: UIHelpersDIProtocol
@@ -32,11 +41,51 @@ final class ListWithoutHeaderWidgetModuleAssembly: ListWithoutHeaderWidgetModule
         internalModel: WidgetInternalViewModelProtocol,
         output: CommonWidgetModuleOutput?
     ) -> AnyView {
+        make(
+            widgetBlockId: widgetBlockId,
+            widgetObject: widgetObject,
+            stateManager: stateManager,
+            internalModel: internalModel,
+            internalHeaderModel: nil,
+            output: output
+        )
+    }
+    
+    @MainActor
+    func make(
+        widgetBlockId: String,
+        widgetObject: BaseDocumentProtocol,
+        stateManager: HomeWidgetsStateManagerProtocol,
+        internalModel: WidgetDataviewInternalViewModelProtocol,
+        output: CommonWidgetModuleOutput?
+    ) -> AnyView {
+        make(
+            widgetBlockId: widgetBlockId,
+            widgetObject: widgetObject,
+            stateManager: stateManager,
+            internalModel: internalModel,
+            internalHeaderModel: internalModel,
+            output: output
+        )
+    }
+    
+    // MARK: - Private
+    
+    @MainActor
+    func make(
+        widgetBlockId: String,
+        widgetObject: BaseDocumentProtocol,
+        stateManager: HomeWidgetsStateManagerProtocol,
+        internalModel: WidgetInternalViewModelProtocol,
+        internalHeaderModel: WidgetDataviewInternalViewModelProtocol?,
+        output: CommonWidgetModuleOutput?
+    ) -> AnyView {
         
-        let contentModel = ListWithoutHeaderWidgetViewModel(
+        let contentModel = ListWidgetViewModel(
             widgetBlockId: widgetBlockId,
             widgetObject: widgetObject,
             internalModel: internalModel,
+            internalHeaderModel: internalHeaderModel,
             output: output
         )
         let contentView = ListWidgetView(model: contentModel)

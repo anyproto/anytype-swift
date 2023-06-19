@@ -1,9 +1,9 @@
 import Foundation
 import SwiftUI
 
-struct ListWidgetView<Model: ListWidgetViewModelProtocol>: View {
+struct ListWidgetView: View {
     
-    @ObservedObject var model: Model
+    @ObservedObject var model: ListWidgetViewModel
     
     var body: some View {
         VStack(spacing: 0) {

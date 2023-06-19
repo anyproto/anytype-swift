@@ -12,7 +12,7 @@ protocol WidgetsSubmoduleDIProtocol {
     func recentTreeWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
     func setsTreeWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
     // MARK: - List
-    func listWithoutHeaderWidgetModuleAssembly() -> ListWithoutHeaderWidgetModuleAssemblyProtocol
+    func listWidgetModuleAssembly() -> ListWidgetModuleAssemblyProtocol
     func setListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
     func favoriteListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
     func recentListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
@@ -123,12 +123,12 @@ final class WidgetsSubmoduleDI: WidgetsSubmoduleDIProtocol {
     
     // MARK: - List
     
-    func listWithoutHeaderWidgetModuleAssembly() -> ListWithoutHeaderWidgetModuleAssemblyProtocol {
-        return ListWithoutHeaderWidgetModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
+    func listWidgetModuleAssembly() -> ListWidgetModuleAssemblyProtocol {
+        return ListWidgetModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
     }
     
     func setListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol {
-        return SetListWidgetModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
+        return SetListWidgetModuleAssembly(serviceLocator: serviceLocator, widgetsSubmoduleDI: self)
     }
     
     func favoriteListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol {
