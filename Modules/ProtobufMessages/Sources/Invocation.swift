@@ -28,17 +28,19 @@ public struct Invocation<Request, Response> where Request: Message,
     
     private func syncInvoke(file: StaticString) throws -> Response {
         
-        let start = DispatchTime.now()
-
-        defer {
-            if Thread.isMainThread {
-                let end = DispatchTime.now()
-                let timeMs = (end.uptimeNanoseconds - start.uptimeNanoseconds) / 1_000_000
-                if timeMs > 5 {
-                    InvocationSettings.handler?.assertationHandler(message: "Method \(messageName) called on main thread", info: ["Time ms": "\(timeMs)"], file: file)
-                }
-            }
-        }
+        // Helper for https://linear.app/anytype/issue/IOS-1169
+        // Turn on after migration of methods that call longer 5 ms.
+//        let start = DispatchTime.now()
+//
+//        defer {
+//            if Thread.isMainThread {
+//                let end = DispatchTime.now()
+//                let timeMs = (end.uptimeNanoseconds - start.uptimeNanoseconds) / 1_000_000
+//                if timeMs > 5 {
+//                    InvocationSettings.handler?.assertationHandler(message: "Method \(messageName) called on main thread", info: ["Time ms": "\(timeMs)"], file: file)
+//                }
+//            }
+//        }
         
         let result: Response
         
