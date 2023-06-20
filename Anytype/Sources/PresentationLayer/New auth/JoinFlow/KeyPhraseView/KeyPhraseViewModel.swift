@@ -22,7 +22,7 @@ final class KeyPhraseViewModel: ObservableObject {
         localAuthService: LocalAuthServiceProtocol
     ) {
         self.state = state
-        self.key = state.mnemonic
+        self.key = state.mnemonic.capitalized
         self.keyShown = state.keyShown
         self.output = output
         self.alertOpener = alertOpener

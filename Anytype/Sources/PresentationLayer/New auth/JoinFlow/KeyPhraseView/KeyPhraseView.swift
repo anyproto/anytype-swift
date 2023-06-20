@@ -40,8 +40,7 @@ struct KeyPhraseView: View {
     }
     
     private var phraseTextView: some View {
-        PhraseTextView(text: $model.key)
-            .frame(height: 155)
+        PhraseTextView(text: $model.key, expandable: true)
             .disabled(true)
             .blur(radius: model.keyShown ? 0 : 5)
             .clipped()

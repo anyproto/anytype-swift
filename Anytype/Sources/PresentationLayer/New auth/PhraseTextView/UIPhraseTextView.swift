@@ -3,6 +3,7 @@ import UIKit
 class UIPhraseTextView: UITextView, UITextViewDelegate {
     
     var textDidChange: ((String) -> Void)?
+    var expandable = false
     
     private lazy var placeholderLabel: UILabel = {
         let label = UILabel()
@@ -27,6 +28,19 @@ class UIPhraseTextView: UITextView, UITextViewDelegate {
         fatalError("Not implemented")
     }
     
+    override var intrinsicContentSize: CGSize {
+        let fixedWidth = frame.size.width
+        let newSize = sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
+        return CGSize(width: max(newSize.width, fixedWidth), height: max(newSize.height.rounded(), 155))
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        if expandable, !bounds.size.equalTo(intrinsicContentSize) {
+            invalidateIntrinsicContentSize()
+        }
+    }
+    
     override func caretRect(for position: UITextPosition) -> CGRect {
         var superRect = super.caretRect(for: position)
         guard let font = self.font else { return superRect }
@@ -38,6 +52,8 @@ class UIPhraseTextView: UITextView, UITextViewDelegate {
     private func setup() {
         delegate = self
         
+        setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        setContentHuggingPriority(.defaultHigh, for: .vertical)
         autocorrectionType = .no
         autocapitalizationType = .words
         showsVerticalScrollIndicator = false
@@ -68,6 +84,7 @@ class UIPhraseTextView: UITextView, UITextViewDelegate {
     func update(with text: String) {
         attributedText = configureAttributedString(from: text)
         handlePlaceholder(text.isNotEmpty)
+        setNeedsLayout()
     }
     
     // MARK: - UITextViewDelegate
@@ -75,6 +92,7 @@ class UIPhraseTextView: UITextView, UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         textDidChange?(textView.text)
         handlePlaceholder(textView.text.isNotEmpty)
+        setNeedsLayout()
     }
     
     // MARK: - Private

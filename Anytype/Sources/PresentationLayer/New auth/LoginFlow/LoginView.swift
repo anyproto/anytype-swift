@@ -30,8 +30,7 @@ struct LoginView: View {
         VStack(spacing: 0) {
             Spacer.fixedHeight(16)
             
-            PhraseTextView(text: $model.phrase)
-                .frame(height: 155)
+            PhraseTextView(text: $model.phrase, expandable: false)
                 .focused($model.autofocus)
             
             Spacer.fixedHeight(16)

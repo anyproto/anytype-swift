@@ -2,15 +2,16 @@ import SwiftUI
 
 struct PhraseTextView: UIViewRepresentable {
     @Binding var text: String
+    let expandable: Bool
 
     func makeUIView(context: Context) -> UIPhraseTextView {
         let textView = UIPhraseTextView()
-        textView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         textView.textDidChange = { text in
             DispatchQueue.main.async {
                 self.text = text
             }
         }
+        textView.expandable = expandable
         return textView
     }
     
