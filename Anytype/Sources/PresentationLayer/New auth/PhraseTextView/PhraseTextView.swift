@@ -15,15 +15,7 @@ struct PhraseTextView: UIViewRepresentable {
     }
     
     func updateUIView(_ textView: UIPhraseTextView, context: UIViewRepresentableContext<PhraseTextView>) {
-        let style = NSMutableParagraphStyle()
-        style.lineSpacing = AnytypeFont.authInput.lineHeight
-        let attributes = [
-            NSAttributedString.Key.paragraphStyle : style,
-            NSAttributedString.Key.font: AnytypeFont.authInput.uiKitFont,
-            NSAttributedString.Key.foregroundColor: UIColor.Auth.inputText
-        ]
-        textView.attributedText = NSAttributedString(string: text, attributes: attributes)
-        textView.handlePlaceholder(text.isNotEmpty)
+        textView.update(with: text)
     }
 }
 
@@ -92,12 +84,32 @@ class UIPhraseTextView: UITextView, UITextViewDelegate {
         placeholderLabel.setContentHuggingPriority(.defaultLow - 1, for: .horizontal)
     }
     
+    func update(with text: String) {
+        attributedText = configureAttributedString(from: text)
+        handlePlaceholder(text.isNotEmpty)
+    }
+    
+    // MARK: - UITextViewDelegate
+    
     func textViewDidChange(_ textView: UITextView) {
         textDidChange?(textView.text)
         handlePlaceholder(textView.text.isNotEmpty)
     }
     
-    func handlePlaceholder(_ hide: Bool) {
+    // MARK: - Private
+    
+    private func handlePlaceholder(_ hide: Bool) {
         placeholderLabel.isHidden = hide
+    }
+    
+    private func configureAttributedString(from text: String) -> NSAttributedString {
+        let style = NSMutableParagraphStyle()
+        style.lineSpacing = AnytypeFont.authInput.lineHeight
+        let attributes = [
+            NSAttributedString.Key.paragraphStyle : style,
+            NSAttributedString.Key.font: AnytypeFont.authInput.uiKitFont,
+            NSAttributedString.Key.foregroundColor: UIColor.Auth.inputText
+        ]
+        return NSAttributedString(string: text, attributes: attributes)
     }
 }
