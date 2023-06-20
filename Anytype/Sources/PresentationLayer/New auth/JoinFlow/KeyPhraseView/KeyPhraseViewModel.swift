@@ -49,7 +49,7 @@ final class KeyPhraseViewModel: ObservableObject {
     
     func onCopyButtonTap() {
         UISelectionFeedbackGenerator().selectionChanged()
-        UIPasteboard.general.string = key
+        UIPasteboard.general.string = state.mnemonic
         alertOpener.showTopAlert(message: Loc.copied)
     }
 }

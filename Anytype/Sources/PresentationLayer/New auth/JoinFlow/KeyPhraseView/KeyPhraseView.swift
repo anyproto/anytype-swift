@@ -17,7 +17,7 @@ struct KeyPhraseView: View {
             AnytypeText(Loc.Auth.JoinFlow.Key.title, style: .uxTitle1Semibold, color: .Text.primary)
                 .opacity(0.9)
             
-            authMultilineTextField
+            phraseTextView
             
             if model.keyShown {
                 StandardButton(
@@ -39,12 +39,12 @@ struct KeyPhraseView: View {
         }
     }
     
-    private var authMultilineTextField: some View {
-        AuthMultilineTextField(
-            text: $model.key,
-            showText: $model.keyShown
-        )
-        .disabled(true)
+    private var phraseTextView: some View {
+        PhraseTextView(text: $model.key)
+            .frame(height: 155)
+            .disabled(true)
+            .blur(radius: model.keyShown ? 0 : 5)
+            .clipped()
     }
     
     private var buttons: some View {

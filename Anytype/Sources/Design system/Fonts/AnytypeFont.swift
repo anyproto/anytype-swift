@@ -108,13 +108,13 @@ enum AnytypeFont: CaseIterable {
 
     var lineHeight: CGFloat {
         switch self {
-        case .title, .authInput:
+        case .title:
             return 32
         case .heading:
             return 26
         case .subheading, .bodyRegular, .uxTitle1Semibold, .uxBodyRegular, .button1Regular, .button1Medium:
             return 24
-        case .codeBlock, .previewTitle1Medium, .calloutRegular, .uxCalloutMedium, .uxCalloutRegular, .authBody:
+        case .codeBlock, .previewTitle1Medium, .calloutRegular, .uxCalloutMedium, .uxCalloutRegular, .authBody, .authInput:
             return 22
         case .previewTitle2Regular, .previewTitle2Medium, .uxTitle2Regular, .uxTitle2Medium, .relation1Regular:
             return 20

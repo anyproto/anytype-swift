@@ -30,11 +30,9 @@ struct LoginView: View {
         VStack(spacing: 0) {
             Spacer.fixedHeight(16)
             
-            AuthMultilineTextField(
-                text: $model.phrase,
-                showText: .constant(true)
-            )
-            .focused($model.autofocus)
+            PhraseTextView(text: $model.phrase)
+                .frame(height: 155)
+                .focused($model.autofocus)
             
             Spacer.fixedHeight(16)
 
