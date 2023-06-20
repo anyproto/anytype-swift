@@ -27,7 +27,7 @@ final class ListWidgetViewModel: WidgetContainerContentViewModelProtocol, Observ
     // MARK: - ListWidgetViewModelProtocol
     
     @Published private(set) var headerItems: [ListWidgetHeaderItem.Model] = []
-    @Published private(set) var rows: [ListWidgetRow.Model]?
+    @Published private(set) var rows: [ListWidgetRowModel]?
     let emptyTitle = Loc.Widgets.Empty.title
     
     init(
@@ -98,7 +98,7 @@ final class ListWidgetViewModel: WidgetContainerContentViewModelProtocol, Observ
     private func updateViewState() {
         withAnimation {
             rows = rowDetails.map { details in
-                ListWidgetRow.Model(
+                ListWidgetRowModel(
                     details: details,
                     onTap: { [weak self] in
                         self?.output?.onObjectSelected(screenData: $0)

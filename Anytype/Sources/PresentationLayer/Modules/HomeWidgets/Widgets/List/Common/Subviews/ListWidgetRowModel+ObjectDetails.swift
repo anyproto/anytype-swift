@@ -1,27 +1,21 @@
 import Foundation
 import Services
 
-extension ListWidgetRow.Model {
+extension ListWidgetRowModel {
     
     init(
         details: ObjectDetails,
-        subtitle: String? = nil,
-        isChecked: Bool = false,
-        onTap: @escaping (EditorScreenData) -> Void,
-        onCheckboxTap: (() -> Void)? = nil
+        onTap: @escaping (EditorScreenData) -> Void
     ) {
-        self = ListWidgetRow.Model(
+        self = ListWidgetRowModel(
             objectId: details.id,
             icon: details.objectIconImage,
             title: details.title,
             description: details.subtitle,
-            subtitle: subtitle,
-            isChecked: isChecked,
             onTap: {
                 let data = EditorScreenData(pageId: details.id, type: details.editorViewType)
                 onTap(data)
-            },
-            onCheckboxTap: onCheckboxTap
+            }
         )
     }
 }
