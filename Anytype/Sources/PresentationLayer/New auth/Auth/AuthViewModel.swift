@@ -17,19 +17,22 @@ final class AuthViewModel: ObservableObject {
     private let authService: AuthServiceProtocol
     private let seedService: SeedServiceProtocol
     private let metricsService: MetricsServiceProtocol
+    private let usecaseService: UsecaseServiceProtocol
     
     init(
         state: JoinFlowState,
         output: AuthViewModelOutput?,
         authService: AuthServiceProtocol,
         seedService: SeedServiceProtocol,
-        metricsService: MetricsServiceProtocol
+        metricsService: MetricsServiceProtocol,
+        usecaseService: UsecaseServiceProtocol
     ) {
         self.state = state
         self.output = output
         self.authService = authService
         self.seedService = seedService
         self.metricsService = metricsService
+        self.usecaseService = usecaseService
     }
     
     // MARK: - Public
@@ -82,6 +85,7 @@ final class AuthViewModel: ObservableObject {
                     name: "",
                     imagePath: ""
                 )
+                try await usecaseService.setObjectImportUseCaseToSkip()
                 try? seedService.saveSeed(state.mnemonic)
                 
                 createAccountSuccess()
