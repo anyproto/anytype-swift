@@ -1,5 +1,6 @@
 import Foundation
 import Services
+import AnytypeCore
 
 protocol HomeWidgetsRegistryProtocol {
     func providers(blocks: [BlockInformation], widgetObject: BaseDocumentProtocol) -> [HomeWidgetSubmoduleModel]
@@ -23,6 +24,7 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
     private let objectTreeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     private let favoriteTreeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     private let recentTreeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
+    // Delete with compactListWidget toggle
     private let setsTreeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     private let collectionsTreeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     // MARK: - List
@@ -169,13 +171,21 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
         case (.recent, .compactList):
             return recentCompactListWidgetProviderAssembly
         case (.sets, .tree):
-            return setsTreeWidgetProviderAssembly
+            if FeatureFlags.compactListWidget {
+                return setsCompactListWidgetProviderAssembly
+            } else {
+                return setsTreeWidgetProviderAssembly
+            }
         case (.sets, .list):
             return setsListWidgetProviderAssembly
         case (.sets, .compactList):
             return setsCompactListWidgetProviderAssembly
         case (.collections, .tree):
-            return collectionsTreeWidgetProviderAssembly
+            if FeatureFlags.compactListWidget {
+                return collectionsCompactListWidgetProviderAssembly
+            } else {
+                return collectionsTreeWidgetProviderAssembly
+            }
         case (.collections, .list):
             return collectionsListWidgetProviderAssembly
         case (.collections, .compactList):

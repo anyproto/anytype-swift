@@ -10,6 +10,7 @@ protocol WidgetsSubmoduleDIProtocol {
     func objectTreeWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
     func favoriteTreeWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
     func recentTreeWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
+    // Delete with compactListWidget toggle
     func setsTreeWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
     func collectionsTreeWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
     // MARK: - List
