@@ -827,7 +827,6 @@
 		2E999483293E490300FFBED9 /* Relation+Set.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E999482293E490300FFBED9 /* Relation+Set.swift */; };
 		2E9994852940D1D500FFBED9 /* SetDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9994842940D1D500FFBED9 /* SetDocument.swift */; };
 		2E999487294240C300FFBED9 /* SetDocumentProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E999486294240C300FFBED9 /* SetDocumentProtocol.swift */; };
-		2E9B405D2A1E5D2F00A7D74E /* AuthMultilineTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9B405C2A1E5D2F00A7D74E /* AuthMultilineTextField.swift */; };
 		2E9B40602A1F807A00A7D74E /* LocalAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9B405F2A1F807A00A7D74E /* LocalAuthService.swift */; };
 		2E9BF63828B78E02006D3CC2 /* CountTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9BF63728B78E02006D3CC2 /* CountTagView.swift */; };
 		2E9BF63B28B7D370006D3CC2 /* SetViewTypesPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9BF63A28B7D370006D3CC2 /* SetViewTypesPicker.swift */; };
@@ -858,6 +857,7 @@
 		2EDC2B082A13E5E00065E009 /* KeyPhraseViewModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDC2B072A13E5E00065E009 /* KeyPhraseViewModuleAssembly.swift */; };
 		2EE10C7428ACFCF100F41D50 /* LightDimmingButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE10C7328ACFCF100F41D50 /* LightDimmingButtonStyle.swift */; };
 		2EE622FC29F2F57D004DBF3E /* SetItemProviderObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE622FB29F2F57D004DBF3E /* SetItemProviderObject.swift */; };
+		2EFBBEFA2A41DBD900734A0B /* PhraseTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFBBEF92A41DBD900734A0B /* PhraseTextView.swift */; };
 		2EFFEB9629A52537002F5859 /* SetDragAndDropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFFEB9529A52537002F5859 /* SetDragAndDropView.swift */; };
 		3D00F1CF278D7CB700863D7C /* ObjectSearchData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D00F1CE278D7CB700863D7C /* ObjectSearchData.swift */; };
 		3D00F1D5278D84C400863D7C /* LinkToObjectSearchData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D00F1D4278D84C400863D7C /* LinkToObjectSearchData.swift */; };
@@ -2304,7 +2304,6 @@
 		2E999482293E490300FFBED9 /* Relation+Set.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Relation+Set.swift"; sourceTree = "<group>"; };
 		2E9994842940D1D500FFBED9 /* SetDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetDocument.swift; sourceTree = "<group>"; };
 		2E999486294240C300FFBED9 /* SetDocumentProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetDocumentProtocol.swift; sourceTree = "<group>"; };
-		2E9B405C2A1E5D2F00A7D74E /* AuthMultilineTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthMultilineTextField.swift; sourceTree = "<group>"; };
 		2E9B405F2A1F807A00A7D74E /* LocalAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalAuthService.swift; sourceTree = "<group>"; };
 		2E9BF63728B78E02006D3CC2 /* CountTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountTagView.swift; sourceTree = "<group>"; };
 		2E9BF63A28B7D370006D3CC2 /* SetViewTypesPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewTypesPicker.swift; sourceTree = "<group>"; };
@@ -2335,6 +2334,7 @@
 		2EDC2B072A13E5E00065E009 /* KeyPhraseViewModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyPhraseViewModuleAssembly.swift; sourceTree = "<group>"; };
 		2EE10C7328ACFCF100F41D50 /* LightDimmingButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightDimmingButtonStyle.swift; sourceTree = "<group>"; };
 		2EE622FB29F2F57D004DBF3E /* SetItemProviderObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetItemProviderObject.swift; sourceTree = "<group>"; };
+		2EFBBEF92A41DBD900734A0B /* PhraseTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhraseTextView.swift; sourceTree = "<group>"; };
 		2EFFEB9529A52537002F5859 /* SetDragAndDropView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetDragAndDropView.swift; sourceTree = "<group>"; };
 		3D00F1CE278D7CB700863D7C /* ObjectSearchData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectSearchData.swift; sourceTree = "<group>"; };
 		3D00F1D4278D84C400863D7C /* LinkToObjectSearchData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkToObjectSearchData.swift; sourceTree = "<group>"; };
@@ -5734,7 +5734,6 @@
 			isa = PBXGroup;
 			children = (
 				2E8E8D102A261DA4009BC3B0 /* CreatingSoulView */,
-				2E9B40612A1FAA8B00A7D74E /* AuthMultilineTextField */,
 				2E52DE6F2A1CEAEB00F16815 /* JoinFlowInputView */,
 				2E52DE6A2A1CE74500F16815 /* SoulView */,
 				2EDC2B022A13E48F0065E009 /* KeyPhraseView */,
@@ -6038,14 +6037,6 @@
 			path = LocalAuthService;
 			sourceTree = "<group>";
 		};
-		2E9B40612A1FAA8B00A7D74E /* AuthMultilineTextField */ = {
-			isa = PBXGroup;
-			children = (
-				2E9B405C2A1E5D2F00A7D74E /* AuthMultilineTextField.swift */,
-			);
-			path = AuthMultilineTextField;
-			sourceTree = "<group>";
-		};
 		2E9BF63928B7D341006D3CC2 /* ViewTypes */ = {
 			isa = PBXGroup;
 			children = (
@@ -6156,6 +6147,14 @@
 				2EDC2B072A13E5E00065E009 /* KeyPhraseViewModuleAssembly.swift */,
 			);
 			path = KeyPhraseView;
+			sourceTree = "<group>";
+		};
+		2EFBBEF82A41DBC300734A0B /* PhraseTextView */ = {
+			isa = PBXGroup;
+			children = (
+				2EFBBEF92A41DBD900734A0B /* PhraseTextView.swift */,
+			);
+			path = PhraseTextView;
 			sourceTree = "<group>";
 		};
 		2EFFEB9429A52537002F5859 /* SetDragAndDropView */ = {
@@ -8105,6 +8104,7 @@
 		957A2A252A01707400F81076 /* New auth */ = {
 			isa = PBXGroup;
 			children = (
+				2EFBBEF82A41DBC300734A0B /* PhraseTextView */,
 				2E0A6CCF2A37674300A28AF2 /* LoginFlow */,
 				2EC669222A167513001F71BC /* Transition */,
 				2E56F13D2A0D819400031167 /* TransparentBackground */,
@@ -9106,6 +9106,7 @@
 				EA0261212625CCD200AE6D86 /* BlockRestrictions.swift in Sources */,
 				2E2D256628880EB300E3DFD1 /* SetFiltersContentHandler.swift in Sources */,
 				2E975F06287F00E6004DE574 /* SetFiltersTextViewModel.swift in Sources */,
+				2EFBBEFA2A41DBD900734A0B /* PhraseTextView.swift in Sources */,
 				2A25D15D29F2ED5000AB5D9E /* StandardPlainButtonStyle.swift in Sources */,
 				53040A4626D80DFD0023AC73 /* UIKitAnytypeText.swift in Sources */,
 				3D8D41BE2743D32000F8EBF3 /* EditorScreenData.swift in Sources */,
@@ -10046,7 +10047,6 @@
 				2A9486612950B193007A5586 /* HomeWidgetsModuleOutput.swift in Sources */,
 				2A971C06297E75D300D3D786 /* RecentSubscriptionService.swift in Sources */,
 				53ED6257280819AE00F5503A /* AnytypeAnalyticsProtocol.swift in Sources */,
-				2E9B405D2A1E5D2F00A7D74E /* AuthMultilineTextField.swift in Sources */,
 				530F502026F0981700F76D03 /* AnytypeLabel.swift in Sources */,
 				531767D52666899B00DF463A /* UICollectionViewDiffableDataSourceExtension.swift in Sources */,
 				2E9BF63D28B7D38F006D3CC2 /* SetViewTypesPickerViewModel.swift in Sources */,
