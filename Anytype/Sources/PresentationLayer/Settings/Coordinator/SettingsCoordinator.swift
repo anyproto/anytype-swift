@@ -166,6 +166,6 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol, SettingsModuleOutp
     // MARK: - AboutModuleOutput
     
     func onLinkOpen(url: URL) {
-        urlOpener.openUrl(url, presentationStyle: .popover)
+        urlOpener.openUrl(url, presentationStyle: .pageSheet)
     }
 }

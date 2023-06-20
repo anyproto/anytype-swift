@@ -4,7 +4,7 @@ import SafariServices
 
 enum URLOpenerPresentationStyle {
     case `default`
-    case popover
+    case pageSheet
 }
 
 protocol URLOpenerProtocol: AnyObject {
@@ -43,8 +43,8 @@ final class URLOpener: URLOpenerProtocol {
             switch presentationStyle {
             case .default:
                 break
-            case .popover:
-                safariController.modalPresentationStyle = .popover
+            case .pageSheet:
+                safariController.modalPresentationStyle = .pageSheet
             }
             
             if let preferredColorScheme {
