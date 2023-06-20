@@ -6,6 +6,7 @@ protocol ListWidgetModuleAssemblyProtocol: AnyObject {
     func make(
         widgetBlockId: String,
         widgetObject: BaseDocumentProtocol,
+        style: ListWidgetStyle,
         stateManager: HomeWidgetsStateManagerProtocol,
         internalModel: WidgetInternalViewModelProtocol,
         output: CommonWidgetModuleOutput?
@@ -15,6 +16,7 @@ protocol ListWidgetModuleAssemblyProtocol: AnyObject {
     func make(
         widgetBlockId: String,
         widgetObject: BaseDocumentProtocol,
+        style: ListWidgetStyle,
         stateManager: HomeWidgetsStateManagerProtocol,
         internalModel: WidgetDataviewInternalViewModelProtocol,
         output: CommonWidgetModuleOutput?
@@ -37,6 +39,7 @@ final class ListWidgetModuleAssembly: ListWidgetModuleAssemblyProtocol {
     func make(
         widgetBlockId: String,
         widgetObject: BaseDocumentProtocol,
+        style: ListWidgetStyle,
         stateManager: HomeWidgetsStateManagerProtocol,
         internalModel: WidgetInternalViewModelProtocol,
         output: CommonWidgetModuleOutput?
@@ -44,6 +47,7 @@ final class ListWidgetModuleAssembly: ListWidgetModuleAssemblyProtocol {
         make(
             widgetBlockId: widgetBlockId,
             widgetObject: widgetObject,
+            style: style,
             stateManager: stateManager,
             internalModel: internalModel,
             internalHeaderModel: nil,
@@ -55,6 +59,7 @@ final class ListWidgetModuleAssembly: ListWidgetModuleAssemblyProtocol {
     func make(
         widgetBlockId: String,
         widgetObject: BaseDocumentProtocol,
+        style: ListWidgetStyle,
         stateManager: HomeWidgetsStateManagerProtocol,
         internalModel: WidgetDataviewInternalViewModelProtocol,
         output: CommonWidgetModuleOutput?
@@ -62,6 +67,7 @@ final class ListWidgetModuleAssembly: ListWidgetModuleAssemblyProtocol {
         make(
             widgetBlockId: widgetBlockId,
             widgetObject: widgetObject,
+            style: style,
             stateManager: stateManager,
             internalModel: internalModel,
             internalHeaderModel: internalModel,
@@ -75,6 +81,7 @@ final class ListWidgetModuleAssembly: ListWidgetModuleAssemblyProtocol {
     func make(
         widgetBlockId: String,
         widgetObject: BaseDocumentProtocol,
+        style: ListWidgetStyle,
         stateManager: HomeWidgetsStateManagerProtocol,
         internalModel: WidgetInternalViewModelProtocol,
         internalHeaderModel: WidgetDataviewInternalViewModelProtocol?,
@@ -84,6 +91,7 @@ final class ListWidgetModuleAssembly: ListWidgetModuleAssemblyProtocol {
         let contentModel = ListWidgetViewModel(
             widgetBlockId: widgetBlockId,
             widgetObject: widgetObject,
+            style: style,
             internalModel: internalModel,
             internalHeaderModel: internalHeaderModel,
             output: output

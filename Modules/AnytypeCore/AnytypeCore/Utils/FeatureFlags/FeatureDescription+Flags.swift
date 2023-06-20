@@ -65,6 +65,12 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
+    static let compactListWidget = FeatureDescription(
+        title: "Compact List widget",
+        type: .feature(author: "m@anytype.io", releaseVersion: "0.23.0"),
+        defaultValue: true
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(

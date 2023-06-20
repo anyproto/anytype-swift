@@ -26,12 +26,17 @@ extension WidgetSource {
             case .page:
                return [.tree, .link]
             case .set:
-                return [.list, .link]
+                return [.compactList, .list, .link]
             case .favorites, .recent, .sets, .collections, .bin:
-                return [.list, .tree]
+                return []
             }
-        case .library:
-            return [.tree, .list]
+        case .library(let library):
+            switch library {
+            case .favorite, .recent:
+                return [.compactList, .list, .tree]
+            case .sets, .collections:
+                return [.compactList, .list]
+            }
         }
     }
 }

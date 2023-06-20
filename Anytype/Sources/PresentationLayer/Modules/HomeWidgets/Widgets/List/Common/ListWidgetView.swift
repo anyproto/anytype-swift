@@ -39,12 +39,22 @@ struct ListWidgetView: View {
                 .opacity(rows.isEmpty ? 1 : 0)
                 VStack(spacing: 0) {
                     ForEach(rows) {
-                        ListWidgetRow(model: $0)
+                        rowView(row: $0)
                     }
                     Spacer.fixedHeight(16)
                 }
                 .opacity(rows.isEmpty ? 0 : 1)
             }
+        }
+    }
+    
+    @ViewBuilder
+    private func rowView(row: ListWidgetRowModel) -> some View {
+        switch model.style {
+        case .compactList:
+            ListWidgetCompactRow(model: row)
+        case .list:
+            ListWidgetRow(model: row)
         }
     }
 }

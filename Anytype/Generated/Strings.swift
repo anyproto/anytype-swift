@@ -1631,6 +1631,12 @@ internal enum Loc {
       internal static let title = Loc.tr("Localizable", "Widgets.Empty.Title", fallback: "This data view contains no objects")
     }
     internal enum Layout {
+      internal enum CompactList {
+        /// Widget with list view of set object
+        internal static let description = Loc.tr("Localizable", "Widgets.Layout.CompactList.Description", fallback: "Widget with list view of set object")
+        /// Сompact list
+        internal static let title = Loc.tr("Localizable", "Widgets.Layout.CompactList.Title", fallback: "Сompact list")
+      }
       internal enum Link {
         /// Сompact version of the object
         internal static let description = Loc.tr("Localizable", "Widgets.Layout.Link.Description", fallback: "Сompact version of the object")

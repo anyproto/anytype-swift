@@ -1,6 +1,7 @@
 import Foundation
 import Services
 import ProtobufMessages
+import AnytypeCore
 
 extension Anytype_Model_Block.Content.Widget {
     var blockContent: BlockContent? {
@@ -18,7 +19,11 @@ extension Anytype_Model_Block.Content.Widget.Layout {
         case .list:
             return .list
         case .compactList:
-            return .list
+            if FeatureFlags.compactListWidget {
+                return .compactList
+            } else {
+                return .list
+            }
         case .UNRECOGNIZED:
             return nil
         }
@@ -34,6 +39,8 @@ extension BlockWidget.Layout {
             return .tree
         case .list:
             return .list
+        case .compactList:
+            return .compactList
         }
     }
 }

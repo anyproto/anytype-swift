@@ -24,21 +24,22 @@ final class ListWidgetViewModel: WidgetContainerContentViewModelProtocol, Observ
     @Published private(set) var name: String = ""
     var dragId: String? { widgetBlockId }
     
-    // MARK: - ListWidgetViewModelProtocol
-    
     @Published private(set) var headerItems: [ListWidgetHeaderItem.Model] = []
     @Published private(set) var rows: [ListWidgetRowModel]?
     let emptyTitle = Loc.Widgets.Empty.title
+    let style: ListWidgetStyle
     
     init(
         widgetBlockId: BlockId,
         widgetObject: BaseDocumentProtocol,
+        style: ListWidgetStyle,
         internalModel: any WidgetInternalViewModelProtocol,
         internalHeaderModel: (any WidgetDataviewInternalViewModelProtocol)?,
         output: CommonWidgetModuleOutput?
     ) {
         self.widgetBlockId = widgetBlockId
         self.widgetObject = widgetObject
+        self.style = style
         self.internalModel = internalModel
         self.internalHeaderModel = internalHeaderModel
         self.output = output

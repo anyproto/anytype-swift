@@ -6,6 +6,7 @@ public struct BlockWidget: Hashable {
         case link
         case tree
         case list
+        case compactList
     }
     
     public let layout: Layout
