@@ -66,7 +66,7 @@ final class LoginViewModel: ObservableObject {
     }
     
     private func walletRecovery(with phrase: String) {
-        Task { @MainActor in
+        Task {
             do {
                 self.phrase = phrase
                 walletRecoveryInProgress = true

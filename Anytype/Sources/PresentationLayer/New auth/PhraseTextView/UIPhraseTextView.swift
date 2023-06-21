@@ -71,10 +71,7 @@ class UIPhraseTextView: UITextView, UITextViewDelegate {
         // add placeholderLabel
         addSubview(placeholderLabel)
         placeholderLabel.layoutUsing.anchors {
-            $0.leading.equal(to: leadingAnchor, constant: textContainerInset.left)
-            $0.trailing.equal(to: trailingAnchor, constant: -textContainerInset.right)
-            $0.top.equal(to: topAnchor, constant: textContainerInset.top)
-            $0.bottom.equal(to: bottomAnchor, constant: -textContainerInset.bottom)
+            $0.pinToSuperview(insets: textContainerInset)
             $0.width.equal(to: widthAnchor).priority = .defaultHigh - 1
         }
         placeholderLabel.setContentHuggingPriority(.defaultLow - 1, for: .horizontal)
