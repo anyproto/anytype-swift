@@ -21,6 +21,7 @@ struct TextBlockActionHandler: TextBlockActionHandlerProtocol {
     private let hideWaitingView: () -> Void
 
     private let content: BlockText
+    private let anytypeText: UIKitAnytypeText
     private let showURLBookmarkPopup: (TextBlockURLInputParameters) -> Void
     private let actionHandler: BlockActionHandlerProtocol
     private let pasteboardService: PasteboardServiceProtocol
@@ -36,6 +37,7 @@ struct TextBlockActionHandler: TextBlockActionHandlerProtocol {
         showWaitingView: @escaping (String) -> Void,
         hideWaitingView: @escaping () -> Void,
         content: BlockText,
+        anytypeText: UIKitAnytypeText,
         showURLBookmarkPopup: @escaping (TextBlockURLInputParameters) -> Void,
         actionHandler: BlockActionHandlerProtocol,
         pasteboardService: PasteboardServiceProtocol,
@@ -49,6 +51,7 @@ struct TextBlockActionHandler: TextBlockActionHandlerProtocol {
         self.showWaitingView = showWaitingView
         self.hideWaitingView = hideWaitingView
         self.content = content
+        self.anytypeText = anytypeText
         self.showURLBookmarkPopup = showURLBookmarkPopup
         self.actionHandler = actionHandler
         self.pasteboardService = pasteboardService
@@ -80,7 +83,7 @@ struct TextBlockActionHandler: TextBlockActionHandlerProtocol {
     }
 
     private func blockDelegateData(textView: UITextView) -> TextBlockDelegateData {
-        .init(textView: textView, info: info, text: content.anytypeText, usecase: .editor)
+        .init(textView: textView, info: info, text: anytypeText, usecase: .editor)
     }
 
     private func textViewShouldReplaceText(

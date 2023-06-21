@@ -100,7 +100,7 @@ final class MarkupViewModel: MarkupViewModelProtocol {
         let info = blockIds.compactMap { document.infoContainer.get(id: $0) }
     
         displayCurrentState(
-            selectedMarkups: AttributeState.markupAttributes(from: info),
+            selectedMarkups: AttributeState.markupAttributes(document: document, infos: info),
             selectedHorizontalAlignment: AttributeState.alignmentAttributes(from: info)
         )
     }

@@ -72,6 +72,7 @@ final class BlockViewModelBuilder {
                 return CodeBlockViewModel(
                     info: info,
                     content: content,
+                    anytypeText: content.anytypeText(document: document),
                     codeLanguage: CodeLanguage.create(
                         middleware: info.fields[CodeBlockFields.FieldName.codeLanguage]?.stringValue
                     ),
@@ -86,7 +87,8 @@ final class BlockViewModelBuilder {
                 )
             default:
                 let isCheckable = content.contentType == .title ? document.details?.layoutValue == .todo : false
-
+                let anytypeText = content.anytypeText(document: document)
+                
                 let textBlockActionHandler = TextBlockActionHandler(
                     info: info,
                     showPage: { [weak self] data in
@@ -108,6 +110,7 @@ final class BlockViewModelBuilder {
                         router?.hideWaitingView()
                     },
                     content: content,
+                    anytypeText: anytypeText,
                     showURLBookmarkPopup: { [weak router] parameters in
                         router?.showLinkContextualMenu(inputParameters: parameters)
                     },
@@ -120,6 +123,7 @@ final class BlockViewModelBuilder {
                 return TextBlockViewModel(
                     info: info,
                     content: content,
+                    anytypeText: anytypeText,
                     isCheckable: isCheckable,
                     focusSubject: subjectsHolder.focusSubject(for: info.id),
                     actionHandler: textBlockActionHandler

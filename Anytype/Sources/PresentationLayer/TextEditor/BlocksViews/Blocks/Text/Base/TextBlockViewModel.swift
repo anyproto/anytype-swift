@@ -6,6 +6,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     let info: BlockInformation
 
     private let content: BlockText
+    private let anytypeText: UIKitAnytypeText
     private let isCheckable: Bool
     private let toggled: Bool
 
@@ -20,12 +21,14 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     init(
         info: BlockInformation,
         content: BlockText,
+        anytypeText: UIKitAnytypeText,
         isCheckable: Bool,
         focusSubject: PassthroughSubject<BlockFocusPosition, Never>,
         actionHandler: TextBlockActionHandlerProtocol,
         customBackgroundColor: UIColor? = nil
     ) {
         self.content = content
+        self.anytypeText = anytypeText
         self.isCheckable = isCheckable
 
         self.toggled = info.isToggled
@@ -45,6 +48,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         TextBlockContentConfiguration(
             blockId: info.id,
             content: content,
+            anytypeText: anytypeText,
             alignment: info.horizontalAlignment.asNSTextAlignment,
             isCheckable: isCheckable,
             isToggled: info.isToggled,

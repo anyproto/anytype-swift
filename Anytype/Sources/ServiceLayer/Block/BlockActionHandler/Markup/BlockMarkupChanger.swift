@@ -4,17 +4,17 @@ import Foundation
 
 final class BlockMarkupChanger: BlockMarkupChangerProtocol {
     
-    private let infoContainer: InfoContainerProtocol
+    private let document: BaseDocumentProtocol
     
-    init(infoContainer: InfoContainerProtocol) {
-        self.infoContainer = infoContainer
+    init(document: BaseDocumentProtocol) {
+        self.document = document
     }
     
     func toggleMarkup(_ markup: MarkupType, blockId: BlockId)  -> NSAttributedString? {
-        guard let info = infoContainer.get(id: blockId) else { return nil }
+        guard let info = document.infoContainer.get(id: blockId) else { return nil }
         guard case let .text(blockText) = info.content else { return nil }
         
-        let range = blockText.anytypeText.attrString.wholeRange
+        let range = blockText.anytypeText(document: document).attrString.wholeRange
         
         return toggleMarkup(markup, blockId: blockId, range: range)
     }
@@ -26,7 +26,7 @@ final class BlockMarkupChanger: BlockMarkupChangerProtocol {
 
         guard restrictions.isMarkupAvailable(markup) else { return nil }
 
-        let attributedText = content.anytypeText.attrString
+        let attributedText = content.anytypeText(document: document).attrString
         let shouldApplyMarkup = !attributedText.hasMarkup(markup, range: range)
 
         return apply(
@@ -57,7 +57,7 @@ final class BlockMarkupChanger: BlockMarkupChangerProtocol {
 
         guard restrictions.isMarkupAvailable(markup) else { return nil }
 
-        let attributedText = currentText ?? content.anytypeText.attrString
+        let attributedText = currentText ?? content.anytypeText(document: document).attrString
 
         return apply(
             markup,
@@ -102,7 +102,7 @@ final class BlockMarkupChanger: BlockMarkupChangerProtocol {
     }
     
     private func blockData(blockId: BlockId) -> BlockText? {
-        guard let info = infoContainer.get(id: blockId) else {
+        guard let info = document.infoContainer.get(id: blockId) else {
             anytypeAssertionFailure("Can't find block", info: ["blockId": blockId])
             return nil
         }

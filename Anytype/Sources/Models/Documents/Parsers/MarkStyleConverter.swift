@@ -5,7 +5,7 @@ import UIKit
 
 enum MarkStyleActionConverter {
     
-    static func asModel(tuple: MiddlewareTuple) -> MarkupType? {
+    static func asModel(document: BaseDocumentProtocol, tuple: MiddlewareTuple) -> MarkupType? {
         switch tuple.attribute {
         case .strikethrough:
             return .strikethrough
@@ -34,7 +34,7 @@ enum MarkStyleActionConverter {
             return .backgroundColor(UIColor.VeryLight.uiColor(from: middlewareColor))
 
         case .mention:
-            guard let details = ObjectDetailsStorage.shared.get(id: tuple.value) else {
+            guard let details = document.detailsStorage.get(id: tuple.value) else {
                 return .mention(.noDetails(blockId: tuple.value))
             }
             return .mention(MentionData(details: details))

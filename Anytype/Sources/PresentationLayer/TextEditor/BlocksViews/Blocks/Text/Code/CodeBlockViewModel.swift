@@ -12,6 +12,7 @@ struct CodeBlockViewModel: BlockViewModelProtocol {
     
     let info: BlockInformation
     let content: BlockText
+    let anytypeText: UIKitAnytypeText
     let codeLanguage: CodeLanguage
 
     let becomeFirstResponder: (BlockInformation) -> ()
@@ -21,6 +22,7 @@ struct CodeBlockViewModel: BlockViewModelProtocol {
     func makeContentConfiguration(maxWidth _ : CGFloat) -> UIContentConfiguration {
         CodeBlockContentConfiguration(
             content: content,
+            anytypeText: anytypeText,
             backgroundColor: info.backgroundColor,
             codeLanguage: codeLanguage,
             actions: .init(
@@ -41,6 +43,6 @@ struct CodeBlockViewModel: BlockViewModelProtocol {
 
 extension CodeBlockViewModel: CustomDebugStringConvertible {
     var debugDescription: String {
-        return "id: \(blockId)\ntext: \(content.anytypeText.attrString.string.prefix(10))...\ntype: \(info.content.type.style.description)"
+        return "id: \(blockId)\ntext: \(anytypeText.attrString.string.prefix(10))...\ntype: \(info.content.type.style.description)"
     }
 }

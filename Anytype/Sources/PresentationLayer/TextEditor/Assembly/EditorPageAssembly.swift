@@ -191,7 +191,7 @@ final class EditorAssembly {
         isOpenedForPreview: Bool
     ) -> EditorPageViewModel {
         let modelsHolder = EditorMainItemModelsHolder()
-        let markupChanger = BlockMarkupChanger(infoContainer: document.infoContainer)
+        let markupChanger = BlockMarkupChanger(document: document)
         let focusSubjectHolder = FocusSubjectsHolder()
 
         let cursorManager = EditorCursorManager(focusSubjectHolder: focusSubjectHolder)
