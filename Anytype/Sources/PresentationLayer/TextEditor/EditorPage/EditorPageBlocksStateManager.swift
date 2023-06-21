@@ -252,7 +252,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
     }
 
     private func updateSelectionBarActions(selectedBlocks: [BlockInformation]) {
-        let availableItems = selectedBlocks.blocksOptionItems
+        let availableItems = selectedBlocks.blocksOptionItems(document: document)
         let horizontalItems = availableItems.map { item in
             SelectionOptionsItemViewModel(
                 id: "\(item.hashValue)",
@@ -448,7 +448,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
                 let blockId = $0.blockId
 
                 guard case let .link(blockLink) = $0.info.content,
-                      let details = ObjectDetailsStorage.shared.get(id: blockLink.targetBlockID) else { return }
+                      let details = document.detailsStorage.get(id: blockLink.targetBlockID) else { return }
 
                 let blockLinkState = BlockLinkState(details: details, blockLink: blockLink)
                 

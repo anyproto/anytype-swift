@@ -74,7 +74,8 @@ final class BaseDocument: BaseDocumentProtocol {
             objectId: objectId,
             infoContainer: infoContainer,
             relationLinksStorage: relationLinksStorage,
-            restrictionsContainer: restrictionsContainer
+            restrictionsContainer: restrictionsContainer,
+            detailsStorage: detailsStorage
         )
         
         self.viewModelSetter = DocumentViewModelSetter(

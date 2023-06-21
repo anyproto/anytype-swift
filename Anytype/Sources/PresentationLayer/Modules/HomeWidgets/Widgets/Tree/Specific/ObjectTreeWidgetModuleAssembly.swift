@@ -24,7 +24,6 @@ final class ObjectTreeWidgetModuleAssembly: HomeWidgetCommonAssemblyProtocol {
         let model = ObjectWidgetInternalViewModel(
             widgetBlockId: widgetBlockId,
             widgetObject: widgetObject,
-            objectDetailsStorage: serviceLocator.objectDetailsStorage(),
             subscriptionManager: serviceLocator.treeSubscriptionManager()
         )
      

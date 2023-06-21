@@ -437,7 +437,11 @@ final class EditorSetRouter: EditorSetRouterProtocol {
     }
     
     func showRelationValueEditingView(objectId: BlockId, relation: Relation) {
-        relationValueCoordinator.startFlow(objectId: objectId, relation: relation, analyticsType: .dataview, output: self)
+        guard let objectDetails = setDocument.document.detailsStorage.get(id: objectId) else {
+            anytypeAssertionFailure("Details not found")
+            return
+        }
+        relationValueCoordinator.startFlow(objectDetails: objectDetails, relation: relation, analyticsType: .dataview, output: self)
     }
     
     func showAddNewRelationView(onSelect: ((RelationDetails, _ isNew: Bool) -> Void)?) {

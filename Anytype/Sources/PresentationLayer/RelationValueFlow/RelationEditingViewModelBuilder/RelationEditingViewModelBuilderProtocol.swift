@@ -4,7 +4,7 @@ import Services
 protocol RelationEditingViewModelBuilderProtocol: AnyObject {
 
     func buildViewModel(
-        objectId: BlockId,
+        objectDetails: ObjectDetails,
         relation: Relation,
         analyticsType: AnalyticsEventsRelationType,
         onTap: @escaping (_ pageId: BlockId, _ viewType: EditorViewType) -> Void

@@ -25,7 +25,7 @@ final class RelationValueCoordinator: RelationValueCoordinatorProtocol,
     // MARK: - RelationValueCoordinatorProtocol
     
     func startFlow(
-        objectId: BlockId,
+        objectDetails: ObjectDetails,
         relation: Relation,
         analyticsType: AnalyticsEventsRelationType,
         output: RelationValueCoordinatorOutput
@@ -37,13 +37,13 @@ final class RelationValueCoordinator: RelationValueCoordinatorProtocol,
         if case .checkbox(let checkbox) = relation {
             let newValue = !checkbox.value
             AnytypeAnalytics.instance().logChangeRelationValue(isEmpty: !newValue, type: analyticsType)
-            let relationsService = RelationsService(objectId: objectId)
+            let relationsService = RelationsService(objectId: objectDetails.id)
             relationsService.updateRelation(relationKey: checkbox.key, value: newValue.protobufValue)
             return
         }
         
         guard let moduleViewController = relationValueModuleAssembly.make(
-            objectId: objectId,
+            objectDetails: objectDetails,
             relation: relation,
             analyticsType: analyticsType,
             delegate: self,

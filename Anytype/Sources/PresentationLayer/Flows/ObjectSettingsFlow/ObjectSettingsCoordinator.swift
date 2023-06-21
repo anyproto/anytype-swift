@@ -1,5 +1,6 @@
 import Foundation
 import Services
+import AnytypeCore
 
 protocol ObjectSettingsCoordinatorProtocol {
     func startFlow(delegate: ObjectSettingsModuleDelegate)
@@ -125,10 +126,18 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
     
     func editRelationValueAction(relationKey: String) {
         let relation = document.parsedRelations.installed.first { $0.key == relationKey }
-        guard let relation = relation else { return }
+        guard let relation = relation else {
+            anytypeAssertionFailure("Relation not found")
+            return
+        }
+        
+        guard let objectDetails = document.details else {
+            anytypeAssertionFailure("Detaiils not found")
+            return
+        }
         
         relationValueCoordinator.startFlow(
-            objectId: document.objectId,
+            objectDetails: objectDetails,
             relation: relation,
             analyticsType: .menu,
             output: self

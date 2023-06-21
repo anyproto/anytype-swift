@@ -14,7 +14,7 @@ class SetDocument: SetDocumentProtocol {
     
     var details: ObjectDetails? {
         if let targetObjectID {
-            return ObjectDetailsStorage.shared.get(id: targetObjectID)
+            return document.detailsStorage.get(id: targetObjectID)
         } else {
             return document.details
         }

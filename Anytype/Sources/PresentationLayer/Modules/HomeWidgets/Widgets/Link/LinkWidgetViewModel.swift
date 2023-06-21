@@ -9,7 +9,6 @@ final class LinkWidgetViewModel: ObservableObject, WidgetContainerContentViewMod
     
     private let widgetBlockId: BlockId
     private let widgetObject: BaseDocumentProtocol
-    private let objectDetailsStorage: ObjectDetailsStorage
     private weak var output: CommonWidgetModuleOutput?
     
     // MARK: - State
@@ -24,12 +23,10 @@ final class LinkWidgetViewModel: ObservableObject, WidgetContainerContentViewMod
     init(
         widgetBlockId: BlockId,
         widgetObject: BaseDocumentProtocol,
-        objectDetailsStorage: ObjectDetailsStorage,
         output: CommonWidgetModuleOutput?
     ) {
         self.widgetBlockId = widgetBlockId
         self.widgetObject = widgetObject
-        self.objectDetailsStorage = objectDetailsStorage
         self.output = output
     }
     
@@ -60,7 +57,7 @@ final class LinkWidgetViewModel: ObservableObject, WidgetContainerContentViewMod
         guard let tagetObjectId = widgetObject.targetObjectIdByLinkFor(widgetBlockId: widgetBlockId)
             else { return }
         
-        objectDetailsStorage.publisherFor(id: tagetObjectId)
+        widgetObject.detailsStorage.publisherFor(id: tagetObjectId)
             .compactMap { $0 }
             .receiveOnMain()
             .sink { [weak self] details in

@@ -5,7 +5,7 @@ import UIKit
 protocol RelationValueModuleAssemblyProtocol: AnyObject {
     
     func make(
-        objectId: BlockId,
+        objectDetails: ObjectDetails,
         relation: Relation,
         analyticsType: AnalyticsEventsRelationType,
         delegate: TextRelationActionButtonViewModelDelegate,

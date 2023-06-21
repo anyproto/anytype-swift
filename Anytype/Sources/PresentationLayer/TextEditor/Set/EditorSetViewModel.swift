@@ -84,7 +84,7 @@ final class EditorSetViewModel: ObservableObject {
     
     func headerType(for groupId: String) -> SetKanbanColumnHeaderType {
         guard let group = groups.first(where: { $0.id == groupId }) else { return .uncategorized }
-        return group.header(with: activeView.groupRelationKey)
+        return group.header(with: activeView.groupRelationKey, document: setDocument.document)
     }
     
     func contextMenuItems(for relation: Relation) -> [RelationValueView.MenuItem] {
@@ -105,7 +105,7 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     private func groupFirstOptionBackgroundColor(for groupId: String) -> BlockBackgroundColor {
-        guard let backgroundColor = groups.first(where: { $0.id == groupId })?.backgroundColor else {
+        guard let backgroundColor = groups.first(where: { $0.id == groupId })?.backgroundColor(document: setDocument.document) else {
             return BlockBackgroundColor.gray
         }
         return backgroundColor

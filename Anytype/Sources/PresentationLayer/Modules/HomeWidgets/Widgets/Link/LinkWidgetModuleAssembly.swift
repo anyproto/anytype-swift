@@ -24,7 +24,6 @@ final class LinkWidgetModuleAssembly: HomeWidgetCommonAssemblyProtocol {
         let contentModel = LinkWidgetViewModel(
             widgetBlockId: widgetBlockId,
             widgetObject: widgetObject,
-            objectDetailsStorage: serviceLocator.objectDetailsStorage(),
             output: output
         )
         let contentView = EmptyView()

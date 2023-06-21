@@ -17,7 +17,7 @@ final class MiddlewareEventConverter {
         infoContainer: InfoContainerProtocol,
         relationLinksStorage: RelationLinksStorageProtocol,
         informationCreator: BlockInformationCreator,
-        detailsStorage: ObjectDetailsStorage = ObjectDetailsStorage.shared,
+        detailsStorage: ObjectDetailsStorage,
         restrictionsContainer: ObjectRestrictionsContainer
     ) {
         self.infoContainer = infoContainer

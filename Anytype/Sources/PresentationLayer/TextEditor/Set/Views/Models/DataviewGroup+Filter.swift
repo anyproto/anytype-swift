@@ -26,30 +26,30 @@ extension DataviewGroup {
         }
     }
     
-    var backgroundColor: BlockBackgroundColor? {
+    func backgroundColor(document: BaseDocumentProtocol) -> BlockBackgroundColor? {
         switch value {
         case .tag(let tag):
             guard let firstTagId = tag.ids.first,
-                    let details = ObjectDetailsStorage.shared.get(id: firstTagId) else { return nil }
+                  let details = document.detailsStorage.get(id: firstTagId) else { return nil }
             return MiddlewareColor(rawValue: details.relationOptionColor)?.backgroundColor
         case .status(let status):
-            guard let details = ObjectDetailsStorage.shared.get(id: status.id) else { return nil }
+            guard let details = document.detailsStorage.get(id: status.id) else { return nil }
             return MiddlewareColor(rawValue: details.relationOptionColor)?.backgroundColor
         default:
             return nil
         }
     }
     
-    func header(with groupRelationKey: String) -> SetKanbanColumnHeaderType {
+    func header(with groupRelationKey: String, document: BaseDocumentProtocol) -> SetKanbanColumnHeaderType {
         switch value {
         case .tag(let tag):
             let tags = tag.ids
-                .compactMap { ObjectDetailsStorage.shared.get(id: $0) }
+                .compactMap { document.detailsStorage.get(id: $0) }
                 .map { RelationOption(details: $0) }
                 .map { Relation.Tag.Option(option: $0) }
             return tags.isEmpty ? .uncategorized : .tag(tags)
         case .status(let status):
-            guard let optionDetails = ObjectDetailsStorage.shared.get(id: status.id) else {
+            guard let optionDetails = document.detailsStorage.get(id: status.id) else {
                 return .uncategorized
             }
             let option = RelationOption(details: optionDetails)

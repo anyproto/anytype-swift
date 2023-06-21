@@ -471,7 +471,11 @@ extension EditorRouter {
     }
     
     func showRelationValueEditingView(objectId: BlockId, relation: Relation) {
-        relationValueCoordinator.startFlow(objectId: objectId, relation: relation, analyticsType: .block, output: self)
+        guard let objectDetails = document.detailsStorage.get(id: objectId) else {
+            anytypeAssertionFailure("Details not found")
+            return
+        }
+        relationValueCoordinator.startFlow(objectDetails: objectDetails, relation: relation, analyticsType: .block, output: self)
     }
 
     func showAddNewRelationView(onSelect: ((RelationDetails, _ isNew: Bool) -> Void)?) {

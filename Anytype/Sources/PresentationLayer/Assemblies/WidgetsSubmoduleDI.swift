@@ -119,8 +119,7 @@ final class WidgetsSubmoduleDI: WidgetsSubmoduleDIProtocol {
                 widgetAssembly: binLinkWidgetModuleAssembly(),
                 output: widgetOutput
             ),
-            stateManager: stateManager,
-            objectDetailsStorage: serviceLocator.objectDetailsStorage()
+            stateManager: stateManager
         )
     }
     
