@@ -18,7 +18,7 @@ final class WidgetObjectListHostingController: UIHostingController<WidgetObjectL
     // MARK: - DocumentDetaisProvider
     
     var screenData: EditorScreenData {
-        EditorScreenData(pageId: "", type: model.editorViewType)
+        model.editorScreenData
     }
 
     var documentTitle: String? {

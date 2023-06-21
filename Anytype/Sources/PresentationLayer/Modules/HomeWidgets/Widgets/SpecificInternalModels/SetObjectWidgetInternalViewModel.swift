@@ -84,7 +84,7 @@ final class SetObjectWidgetInternalViewModel: WidgetDataviewInternalViewModelPro
     
     func screenData() -> EditorScreenData? {
         guard let details = setDocument?.details else { return nil }
-        return EditorScreenData(pageId: details.id, type: details.editorViewType)
+        return details.editorScreenData()
     }
     
     func analyticsSource() -> AnalyticsWidgetSource {

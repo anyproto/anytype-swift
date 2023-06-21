@@ -1,6 +1,7 @@
 import UIKit
 import Combine
 import Services
+import AnytypeCore
 
 final class ChangeTypeAccessoryViewModel {
     typealias TypeItem = HorizontalListItem
@@ -63,12 +64,16 @@ final class ChangeTypeAccessoryViewModel {
     }
 
     private func onTypeTap(typeId: String) {
+        guard let details = document.details else {
+            anytypeAssertionFailure("Details not found")
+            return
+        }
         if typeId == ObjectTypeId.BundledTypeId.set.rawValue {
             Task { @MainActor in
                 document.resetSubscriptions() // to avoid glytch with premature document update
                 try await handler.setObjectSetType()
                 try await document.close()
-                router.replaceCurrentPage(with: .init(pageId: document.objectId, type: .set()))
+                router.replaceCurrentPage(with: details.editorScreenData())
             }
             return
         }
@@ -78,7 +83,7 @@ final class ChangeTypeAccessoryViewModel {
                 document.resetSubscriptions() // to avoid glytch with premature document update
                 try await handler.setObjectCollectionType()
                 try await document.close()
-                router.replaceCurrentPage(with: .init(pageId: document.objectId, type: .set()))
+                router.replaceCurrentPage(with: details.editorScreenData())
             }
             return
         }

@@ -36,7 +36,7 @@ extension Relation.Object {
         let type: String
         let isArchived: Bool
         let isDeleted: Bool
-        let editorViewType: EditorViewType
+        let editorScreenData: EditorScreenData
     }
     
 }

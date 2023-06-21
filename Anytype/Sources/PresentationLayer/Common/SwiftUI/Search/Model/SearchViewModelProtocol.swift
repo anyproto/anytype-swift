@@ -1,6 +1,5 @@
 import SwiftUI
 
-
 protocol SearchDataProtocol: Identifiable {
     var usecase: ObjectIconImageUsecase { get }
     var iconImage: ObjectIconImage { get }
@@ -17,6 +16,8 @@ protocol SearchDataProtocol: Identifiable {
     var shouldShowCallout: Bool { get }
     
     var verticalInset: CGFloat { get }
+    
+    var editorScreenData: EditorScreenData { get }
 }
 
 struct SearchDataSection<SearchData: SearchDataProtocol>: Identifiable {

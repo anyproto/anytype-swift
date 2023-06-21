@@ -413,7 +413,7 @@ private extension RelationsBuilder {
                         type: .empty,
                         isArchived: true,
                         isDeleted: true,
-                        editorViewType: .page
+                        editorScreenData: objectDetail.editorScreenData()
                     )
                 }
                 
@@ -424,7 +424,7 @@ private extension RelationsBuilder {
                     type: objectDetail.objectType.name,
                     isArchived: objectDetail.isArchived,
                     isDeleted: objectDetail.isDeleted,
-                    editorViewType: objectDetail.editorViewType
+                    editorScreenData: objectDetail.editorScreenData()
                 )
             }
             
@@ -462,7 +462,8 @@ private extension RelationsBuilder {
                 return Relation.File.Option(
                     id: objectDetail.id,
                     icon: objectDetail.objectIconImageWithPlaceholder,
-                    title: objectDetail.title
+                    title: objectDetail.title,
+                    editorScreenData: objectDetail.editorScreenData()
                 )
             }
             

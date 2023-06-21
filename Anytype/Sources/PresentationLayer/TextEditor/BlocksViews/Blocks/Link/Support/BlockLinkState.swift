@@ -13,6 +13,7 @@ struct BlockLinkState: Hashable, Equatable {
     let iconSize: BlockLink.IconSize
     let descriptionState: BlockLink.Description
     let objectLayout: DetailsLayout
+    let screenData: EditorScreenData
 
     let archived: Bool
     let deleted: Bool
@@ -50,7 +51,8 @@ struct BlockLinkState: Hashable, Equatable {
             iconSize: iconSize,
             descriptionState: blockLink.appearance.description,
             documentCover: documentCover,
-            objectLayout: details.layoutValue
+            objectLayout: details.layoutValue,
+            screenData: details.editorScreenData()
         )
     }
     
@@ -66,7 +68,8 @@ struct BlockLinkState: Hashable, Equatable {
          iconSize: BlockLink.IconSize,
          descriptionState: BlockLink.Description,
          documentCover: DocumentCover?,
-         objectLayout: DetailsLayout
+         objectLayout: DetailsLayout,
+         screenData: EditorScreenData
     ) {
         self.title = title
         self.cardStyle = cardStyle
@@ -81,5 +84,6 @@ struct BlockLinkState: Hashable, Equatable {
         self.descriptionState = descriptionState
         self.documentCover = documentCover
         self.objectLayout = objectLayout
+        self.screenData = screenData
     }
 }

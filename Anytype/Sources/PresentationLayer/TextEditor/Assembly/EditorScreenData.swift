@@ -1,57 +1,44 @@
 import Services
 import AnytypeCore
 
-struct EditorScreenData: Hashable {
-    let pageId: BlockId
-    let type: EditorViewType
-    let isOpenedForPreview: Bool
-
-    init(pageId: BlockId, type: EditorViewType, isOpenedForPreview: Bool = false) {
-        self.pageId = pageId
-        self.type = type
-        self.isOpenedForPreview = isOpenedForPreview
-    }
-}
-
-enum EditorViewType: Hashable {
-    case page
-    case set(blockId: BlockId? = nil, targetObjectID: String? = nil)
+enum EditorScreenData: Hashable, Codable {
     case favorites
     case recent
     case sets
     case collections
     case bin
+    case page(EditorPageObject)
+    case set(EditorSetObject)
+}
+
+struct EditorPageObject: Hashable, Codable {
+    let objectId: String
+    let isSupportedForEdit: Bool
+    let isOpenedForPreview: Bool
+}
+
+struct EditorSetObject: Hashable, Codable {
+    let objectId: String
+    var inline: EditorInlineSetObject?
+    let isSupportedForEdit: Bool
     
-    init?(rawValue: String, blockId: BlockId?, targetObjectID: String?) {
-        switch rawValue {
-        case "page":
-            self = .page
-        case "set":
-            self = .set(blockId: blockId, targetObjectID: targetObjectID)
-        case "favorites":
-            self = .favorites
-        case "recent":
-            self = .recent
-        case "sets":
-            self = .sets
-        case "collections":
-            self = .collections
-        case "bin":
-            self = .bin
-        default:
-            return nil
-        }
+    init(
+        objectId: String,
+        inline: EditorInlineSetObject? = nil,
+        isSupportedForEdit: Bool
+    ) {
+        self.objectId = objectId
+        self.inline = inline
+        self.isSupportedForEdit = isSupportedForEdit
     }
-    
-    var rawValue: String {
-        switch self {
-        case .page: return "page"
-        case .set: return "set"
-        case .favorites: return "favorites"
-        case .recent: return "recent"
-        case .sets: return "sets"
-        case .collections: return "collections"
-        case .bin: return "bin"
-        }
-    }
+}
+
+struct EditorInlineSetObject: Hashable, Codable {
+    let blockId: BlockId
+    let targetObjectID: String
+}
+
+enum EditorViewType {
+    case page
+    case set
 }

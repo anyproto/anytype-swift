@@ -275,14 +275,15 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
                 
                 Task { @MainActor [weak self] in
                     try? await targetDocument.open()
-                    guard let id = targetDocument.children.last?.id else { return }
+                    guard let id = targetDocument.children.last?.id,
+                          let details = targetDocument.details else { return }
                     self?.move(position: .bottom, targetId: targetDocument.objectId, dropTargetId: id)
                     
                     self?.toastPresenter.showObjectCompositeAlert(
                         prefixText: Loc.Editor.Toast.movedTo,
                         objectId: targetDocument.objectId,
                         tapHandler: { [weak self] in
-                            self?.router.showPage(data: .init(pageId: content.targetBlockID, type: .page))
+                            self?.router.showPage(data: details.editorScreenData())
                         }
                     )
                 }
@@ -350,17 +351,17 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         case .turnInto:
             elements.forEach { actionHandler.turnIntoPage(blockId: $0.blockId) }
         case .moveTo:
-            router.showMoveTo { [weak self] pageId in
+            router.showMoveTo { [weak self] details in
                 elements.forEach {
-                    self?.actionHandler.moveToPage(blockId: $0.blockId, pageId: pageId)
+                    self?.actionHandler.moveToPage(blockId: $0.blockId, pageId: details.id)
                 }
                 self?.editingState = .editing
                 
                 self?.toastPresenter.showObjectCompositeAlert(
                     prefixText: Loc.Editor.Toast.movedTo,
-                    objectId: pageId,
+                    objectId: details.id,
                     tapHandler: { [weak self] in
-                        self?.router.showPage(data: .init(pageId: pageId, type: .page))
+                        self?.router.showPage(data: details.editorScreenData())
                     }
                 )
             }
@@ -403,8 +404,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
             )
             guard case let .bookmark(bookmark) = elements.first?.content else { return }
             AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.openAsObject)
-            let screenData = EditorScreenData(pageId: bookmark.targetObjectID, type: .page)
-            router.showPage(data: screenData)
+            router.showPage(objectId: bookmark.targetObjectID)
         case .openSource:
             anytypeAssert(
                 elements.count == 1,
@@ -412,8 +412,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
             )
             guard case let .dataView(data) = elements.first?.content else { return }
             AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.openAsSource)
-            let screenData = EditorScreenData(pageId: data.targetObjectID, type: .set())
-            router.showPage(data: screenData)
+            router.showPage(objectId: data.targetObjectID)
         case .style:
             editingState = .editing
             didSelectStyleSelection(infos: elements.map { $0.info })

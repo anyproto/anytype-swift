@@ -146,8 +146,8 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
     
     // MARK: - RelationValueCoordinatorOutput
     
-    func openObject(pageId: BlockId, viewType: EditorViewType) {
+    func openObject(screenData: EditorScreenData) {
         navigationContext.dismissAllPresented()
-        editorPageCoordinator.startFlow(data: EditorScreenData(pageId: pageId, type: viewType), replaceCurrentPage: false)
+        editorPageCoordinator.startFlow(data: screenData, replaceCurrentPage: false)
     }
 }

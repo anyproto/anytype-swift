@@ -13,7 +13,7 @@ final class WidgetObjectListRecentViewModel: WidgetObjectListInternalViewModelPr
     // MARK: - State
     
     let title = Loc.recent
-    let editorViewType: EditorViewType = .recent
+    let editorScreenData: EditorScreenData = .recent
     var rowDetailsPublisher: AnyPublisher<[WidgetObjectListDetailsData], Never> { $rowDetails.eraseToAnyPublisher()}
     let editMode: WidgetObjectListEditMode = .normal(allowDnd: false)
     

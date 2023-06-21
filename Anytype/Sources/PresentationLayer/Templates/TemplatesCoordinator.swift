@@ -116,7 +116,7 @@ final class TemplatesCoordinator {
 
         let items = availableTemplates.enumerated().map { info -> TemplatePickerViewModel.Item in
             let item = info.element
-            let data = EditorScreenData(pageId: item.id, type: .page, isOpenedForPreview: true)
+            let data = item.editorScreenData(isOpenedForPreview: true)
 
             let editorController = editorPageAssembly.buildEditorController(browser: nil, data: data)
 

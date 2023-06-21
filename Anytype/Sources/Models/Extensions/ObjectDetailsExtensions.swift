@@ -126,7 +126,7 @@ extension BundledRelationsValueProvider {
         case .basic, .profile, .todo, .note, .bookmark, .space, .file, .image, .objectType, .unknown, .relation, .relationOption:
             return .page
         case .set, .collection:
-            return .set()
+            return .set
         }
     }
     

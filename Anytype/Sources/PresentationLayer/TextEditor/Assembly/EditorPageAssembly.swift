@@ -35,16 +35,11 @@ final class EditorAssembly {
         data: EditorScreenData,
         widgetListOutput: WidgetObjectListCommonModuleOutput? = nil
     ) -> (vc: UIViewController, router: EditorPageOpenRouterProtocol?) {
-        switch data.type {
-        case .page:
-            return buildPageModule(browser: browser, data: data)
-        case let .set(blockId, targetObjectID):
-            return buildSetModule(
-                browser: browser,
-                data: data,
-                blockId: blockId,
-                targetObjectID: targetObjectID
-            )
+        switch data {
+        case let .page(pageData):
+            return buildPageModule(browser: browser, data: pageData)
+        case let .set(setData):
+            return buildSetModule(browser: browser, data: setData)
         case .favorites:
             return favoritesModule(browser: browser, output: widgetListOutput)
         case .recent:
@@ -61,23 +56,21 @@ final class EditorAssembly {
     // MARK: - Set
     private func buildSetModule(
         browser: EditorBrowserController?,
-        data: EditorScreenData,
-        blockId: BlockId?,
-        targetObjectID: String?
+        data: EditorSetObject
     ) -> (EditorSetHostingController, EditorPageOpenRouterProtocol) {
-        let document = BaseDocument(objectId: data.pageId)
+        let document = BaseDocument(objectId: data.objectId)
         let setDocument = SetDocument(
             document: document,
-            blockId: blockId,
-            targetObjectID: targetObjectID,
+            blockId: data.inline?.blockId,
+            targetObjectID: data.inline?.targetObjectID,
             relationDetailsStorage: serviceLocator.relationDetailsStorage()
         )
         let dataviewService = DataviewService(
-            objectId: data.pageId,
-            blockId: blockId,
+            objectId: data.objectId,
+            blockId: data.inline?.blockId,
             prefilledFieldsBuilder: SetPrefilledFieldsBuilder()
         )
-        let detailsService = serviceLocator.detailsService(objectId: data.pageId)
+        let detailsService = serviceLocator.detailsService(objectId: data.objectId)
         
         let model = EditorSetViewModel(
             setDocument: setDocument,
@@ -91,7 +84,7 @@ final class EditorAssembly {
             setSubscriptionDataBuilder: SetSubscriptionDataBuilder(accountManager: serviceLocator.accountManager()),
             objectTypeProvider: serviceLocator.objectTypeProvider()
         )
-        let controller = EditorSetHostingController(objectId: data.pageId, model: model)
+        let controller = EditorSetHostingController(objectId: data.objectId, model: model)
 
         let router = EditorSetRouter(
             setDocument: setDocument,
@@ -119,7 +112,7 @@ final class EditorAssembly {
     
     private func buildPageModule(
         browser: EditorBrowserController?,
-        data: EditorScreenData
+        data: EditorPageObject
     ) -> (EditorPageController, EditorPageOpenRouterProtocol) {
         let simpleTableMenuViewModel = SimpleTableMenuViewModel()
         let blocksOptionViewModel = SelectionOptionsViewModel(itemProvider: nil)
@@ -135,7 +128,7 @@ final class EditorAssembly {
             bottomNavigationManager: bottomNavigationManager,
             browserViewInput: browser
         )
-        let document = BaseDocument(objectId: data.pageId)
+        let document = BaseDocument(objectId: data.objectId)
         let router = EditorRouter(
             rootController: browser,
             viewController: controller,

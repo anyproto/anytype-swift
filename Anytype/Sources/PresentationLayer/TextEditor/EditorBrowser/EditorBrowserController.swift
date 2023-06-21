@@ -68,7 +68,7 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
         super.viewWillDisappear(animated)
         
         if let navigationController, !navigationController.viewControllers.contains(where: { $0 == self}) {
-            UserDefaultsConfig.storeOpenedScreenData(nil)
+            UserDefaultsConfig.lastOpenPage = nil
         }
     }
     
@@ -118,7 +118,7 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
                 
                 AnytypeAnalytics.instance().logCreateObjectNavBar(objectType: details.analyticsType)
                 
-                self.router.showPage(data: EditorScreenData(pageId: details.id, type: details.editorViewType))
+                self.router.showPage(data: details.editorScreenData())
             }
         )
     }
@@ -176,7 +176,7 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
             return
         }
         
-        UserDefaultsConfig.storeOpenedScreenData(detailsProvider.screenData)
+        UserDefaultsConfig.lastOpenPage = detailsProvider.screenData
         
         let title = detailsProvider.documentTitle
         let subtitle = detailsProvider.documentDescription

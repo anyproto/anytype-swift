@@ -44,7 +44,10 @@ public extension ObjectDetails {
         
         return ObjectDetails(id: self.id, values: currentValues)
     }
-    
+}
+
+enum ObjectDetailsError: Error {
+    case idNotFound
 }
 
 public extension ObjectDetails {
@@ -53,8 +56,19 @@ public extension ObjectDetails {
         let fields = protobufStruct.fields
         
         guard let id = fields["id"]?.stringValue, id.isValidId else {
-            anytypeAssertionFailure("Empty id in subscription data")
+            anytypeAssertionFailure("Empty id")
             return nil
+        }
+        
+        self.init(id: id, values: fields)
+    }
+    
+    init(safeProtobufStruct protobufStruct: Google_Protobuf_Struct) throws {
+        let fields = protobufStruct.fields
+        
+        guard let id = fields["id"]?.stringValue, id.isValidId else {
+            anytypeAssertionFailure("Empty id")
+            throw ObjectDetailsError.idNotFound
         }
         
         self.init(id: id, values: fields)

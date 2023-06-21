@@ -59,10 +59,9 @@ final class LinkToObjectCoordinator: LinkToObjectCoordinatorProtocol {
             case let .openURL(url):
                 willShowNextScreen?()
                 self?.urlOpener.openUrl(url)
-            case let .openObject(objectId):
+            case let .openObject(details):
                 willShowNextScreen?()
-                let data = EditorScreenData(pageId: objectId, type: .page)
-                self?.editorPageCoordinator.startFlow(data: data, replaceCurrentPage: false)
+                self?.editorPageCoordinator.startFlow(data: details.editorScreenData(), replaceCurrentPage: false)
             case .removeLink:
                 removeLink()
             case let .copyLink(url):

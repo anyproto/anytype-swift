@@ -139,7 +139,7 @@ private extension RelationFilterBuilder {
                     type: objectDetail.objectType.name,
                     isArchived: objectDetail.isArchived,
                     isDeleted: objectDetail.isDeleted,
-                    editorViewType: objectDetail.editorViewType
+                    editorScreenData: objectDetail.editorScreenData()
                 )
             }
             
@@ -348,7 +348,8 @@ private extension RelationFilterBuilder {
                 return Relation.File.Option(
                     id: objectDetail.id,
                     icon: objectDetail.objectIconImageWithPlaceholder,
-                    title: objectDetail.title
+                    title: objectDetail.title,
+                    editorScreenData: objectDetail.editorScreenData()
                 )
             }
             

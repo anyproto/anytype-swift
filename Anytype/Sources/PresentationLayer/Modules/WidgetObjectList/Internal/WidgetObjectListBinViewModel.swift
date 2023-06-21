@@ -11,7 +11,7 @@ final class WidgetObjectListBinViewModel: WidgetObjectListInternalViewModelProto
     // MARK: - State
     
     let title = Loc.bin
-    let editorViewType: EditorViewType = .bin
+    let editorScreenData: EditorScreenData = .bin
     var rowDetailsPublisher: AnyPublisher<[WidgetObjectListDetailsData], Never> { $rowDetails.eraseToAnyPublisher()}
     let editMode: WidgetObjectListEditMode = .editOnly
     let availableMenuItems: [WidgetObjectListMenuItem] = [.restore, .delete]

@@ -16,7 +16,7 @@ final class WidgetObjectListFavoritesViewModel: WidgetObjectListInternalViewMode
     // MARK: - State
     
     let title = Loc.favorites
-    let editorViewType: EditorViewType = .favorites
+    let editorScreenData: EditorScreenData = .favorites
     var rowDetailsPublisher: AnyPublisher<[WidgetObjectListDetailsData], Never> { $rowDetails.eraseToAnyPublisher() }
     let editMode: WidgetObjectListEditMode = .normal(allowDnd: true)
     

@@ -440,6 +440,7 @@
 		2A5A898C29C8650600C170D6 /* SettingsAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5A898B29C8650600C170D6 /* SettingsAccountView.swift */; };
 		2A5A898E29C866FF00C170D6 /* SettingsObjectHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5A898D29C866FF00C170D6 /* SettingsObjectHeader.swift */; };
 		2A5BA75F2A17C2A10049B3B4 /* AnytypeErrorLoggerConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5BA75E2A17C2A10049B3B4 /* AnytypeErrorLoggerConfiguration.swift */; };
+		2A5CB4212A433C3B00ED9415 /* EditorScreenData+Details.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5CB4202A433C3B00ED9415 /* EditorScreenData+Details.swift */; };
 		2A6688932A1CCB1100D80CED /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6688922A1CCB1100D80CED /* AboutView.swift */; };
 		2A6688952A1CCB3D00D80CED /* AboutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6688942A1CCB3D00D80CED /* AboutViewModel.swift */; };
 		2A673C0B29B0B26D00E3D672 /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A673C0A29B0B26D00E3D672 /* SettingsCoordinator.swift */; };
@@ -496,9 +497,9 @@
 		2A90C47B28605F8C00B6B44E /* TableOfContentsContentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A90C47A28605F8C00B6B44E /* TableOfContentsContentProvider.swift */; };
 		2A945D3C299E2CD300C34C86 /* WidgetEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A945D3B299E2CD300C34C86 /* WidgetEmptyView.swift */; };
 		2A945D3E299E3E9D00C34C86 /* PlainList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A945D3D299E3E9D00C34C86 /* PlainList.swift */; };
+		2A947B302A3093DD00119140 /* BottomAlert+Bin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A947B2F2A3093DD00119140 /* BottomAlert+Bin.swift */; };
 		2A947B372A30CDCF00119140 /* WidgetDataviewInternalViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A947B362A30CDCF00119140 /* WidgetDataviewInternalViewModelProtocol.swift */; };
 		2A947B392A30CF2400119140 /* SetObjectWidgetInternalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A947B382A30CF2400119140 /* SetObjectWidgetInternalViewModel.swift */; };
-		2A947B302A3093DD00119140 /* BottomAlert+Bin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A947B2F2A3093DD00119140 /* BottomAlert+Bin.swift */; };
 		2A947B3E2A30E25600119140 /* WidgetObjectListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A947B3D2A30E25600119140 /* WidgetObjectListRowView.swift */; };
 		2A947B422A30E3EC00119140 /* ListWidgetRowModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A947B412A30E3EC00119140 /* ListWidgetRowModel.swift */; };
 		2A9486542950A3E7007A5586 /* HomeWidgetsModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9486532950A3E7007A5586 /* HomeWidgetsModuleAssembly.swift */; };
@@ -1939,6 +1940,7 @@
 		2A5A898B29C8650600C170D6 /* SettingsAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAccountView.swift; sourceTree = "<group>"; };
 		2A5A898D29C866FF00C170D6 /* SettingsObjectHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsObjectHeader.swift; sourceTree = "<group>"; };
 		2A5BA75E2A17C2A10049B3B4 /* AnytypeErrorLoggerConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeErrorLoggerConfiguration.swift; sourceTree = "<group>"; };
+		2A5CB4202A433C3B00ED9415 /* EditorScreenData+Details.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorScreenData+Details.swift"; sourceTree = "<group>"; };
 		2A6688922A1CCB1100D80CED /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		2A6688942A1CCB3D00D80CED /* AboutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewModel.swift; sourceTree = "<group>"; };
 		2A673C0A29B0B26D00E3D672 /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
@@ -1983,9 +1985,9 @@
 		2A90C47A28605F8C00B6B44E /* TableOfContentsContentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableOfContentsContentProvider.swift; sourceTree = "<group>"; };
 		2A945D3B299E2CD300C34C86 /* WidgetEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetEmptyView.swift; sourceTree = "<group>"; };
 		2A945D3D299E3E9D00C34C86 /* PlainList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlainList.swift; sourceTree = "<group>"; };
+		2A947B2F2A3093DD00119140 /* BottomAlert+Bin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BottomAlert+Bin.swift"; sourceTree = "<group>"; };
 		2A947B362A30CDCF00119140 /* WidgetDataviewInternalViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetDataviewInternalViewModelProtocol.swift; sourceTree = "<group>"; };
 		2A947B382A30CF2400119140 /* SetObjectWidgetInternalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetObjectWidgetInternalViewModel.swift; sourceTree = "<group>"; };
-		2A947B2F2A3093DD00119140 /* BottomAlert+Bin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BottomAlert+Bin.swift"; sourceTree = "<group>"; };
 		2A947B3D2A30E25600119140 /* WidgetObjectListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetObjectListRowView.swift; sourceTree = "<group>"; };
 		2A947B412A30E3EC00119140 /* ListWidgetRowModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListWidgetRowModel.swift; sourceTree = "<group>"; };
 		2A9486532950A3E7007A5586 /* HomeWidgetsModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWidgetsModuleAssembly.swift; sourceTree = "<group>"; };
@@ -7099,6 +7101,7 @@
 				3D8D41BD2743D32000F8EBF3 /* EditorScreenData.swift */,
 				2AFE04BA28F94C52008647E0 /* EditorPageCoordinatorAssembly.swift */,
 				2A2F147D298BF38600C0C0A0 /* EditorBrowserCoordinatorAssembly.swift */,
+				2A5CB4202A433C3B00ED9415 /* EditorScreenData+Details.swift */,
 			);
 			path = Assembly;
 			sourceTree = "<group>";
@@ -9163,6 +9166,7 @@
 				03D1516023FB4329004027CE /* DashboardServiceProtocol.swift in Sources */,
 				2AA0208628D34FCA00321A66 /* SubscriptionId.swift in Sources */,
 				2AC906C329B5FA3300209E39 /* ObjectWidgetInternalViewModel.swift in Sources */,
+				2A5CB4212A433C3B00ED9415 /* EditorScreenData+Details.swift in Sources */,
 				C9367A91273126AD007D687A /* SelectionOptionsView.swift in Sources */,
 				12EEC36D26A0903F00C3C4B1 /* EmojiGroup.swift in Sources */,
 				C910809E274CB02400EFA11C /* DividerCursorController.swift in Sources */,

@@ -23,7 +23,7 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
     // MARK: - State
     
     var title: String { internalModel.title }
-    var editorViewType: EditorViewType { internalModel.editorViewType }
+    var editorScreenData: EditorScreenData { internalModel.editorScreenData }
     @Published private(set) var data: WidgetObjectListData = .list([])
     var editModel: WidgetObjectListEditMode { internalModel.editMode }
     @Published private(set) var selectButtonText: String = ""
@@ -177,8 +177,7 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
                             output: self
                         ),
                         onTap: { [weak self] in
-                            let screenData = EditorScreenData(pageId: details.id, type: details.editorViewType)
-                            self?.output?.onObjectSelected(screenData: screenData)
+                            self?.output?.onObjectSelected(screenData: details.editorScreenData())
                         },
                         onCheckboxTap: { [weak self] in
                             self?.switchCheckbox(details: details)
