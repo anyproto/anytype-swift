@@ -31,8 +31,11 @@ final class TemplatePickerViewModel {
 
     func onApplyButton() {
         let objectId = items[selectedTab].object.id
-        objectService.applyTemplate(objectId: document.objectId, templateId: objectId)
-        onSkip()
+        
+        Task { @MainActor in
+            try await objectService.applyTemplate(objectId: document.objectId, templateId: objectId)
+            onSkip()
+        }
     }
 
     func onSkipButton() {
