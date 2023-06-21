@@ -16,9 +16,9 @@ struct TreeWidgetView: View {
                 .opacity(rows.isEmpty ? 1 : 0)
                 VStack(spacing: 0) {
                     ForEach(rows, id: \.rowId) {
-                        TreeWidgetRowView(model: $0)
+                        TreeWidgetRowView(model: $0, showDivider: $0.rowId != rows.last?.rowId)
                     }
-                    Spacer.fixedHeight(16)
+                    Spacer.fixedHeight(8)
                 }
                 .opacity(rows.isEmpty ? 0 : 1)
             }
