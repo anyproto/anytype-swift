@@ -51,7 +51,6 @@ class UIPhraseTextView: UITextView, UITextViewDelegate {
     
     private func setup() {
         delegate = self
-        
         setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         setContentHuggingPriority(.defaultHigh, for: .vertical)
         autocorrectionType = .no
