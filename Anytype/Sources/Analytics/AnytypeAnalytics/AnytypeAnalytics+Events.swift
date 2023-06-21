@@ -81,7 +81,7 @@ extension AnytypeAnalytics {
 
     func logSelectTheme(_ userInterfaceStyle: UIUserInterfaceStyle) {
         logEvent(AnalyticsEventsName.selectTheme,
-                 withEventProperties: [AnalyticsEventsPropertiesKey.type: userInterfaceStyle.title])
+                 withEventProperties: [AnalyticsEventsPropertiesKey.id: userInterfaceStyle.analyticsId])
     }
 
     func logShowObject(type: AnalyticsObjectType, layout: DetailsLayout) {
