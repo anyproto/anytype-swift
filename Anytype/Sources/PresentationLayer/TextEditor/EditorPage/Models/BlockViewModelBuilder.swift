@@ -176,7 +176,7 @@ final class BlockViewModelBuilder {
             return DividerBlockViewModel(content: content, info: info)
         case let .bookmark(data):
             
-            let details = ObjectDetailsStorage.shared.get(id: data.targetObjectID)
+            let details = document.detailsStorage.get(id: data.targetObjectID)
             
             if details?.isDeleted ?? false {
                 return NonExistentBlockViewModel(info: info)
@@ -195,7 +195,7 @@ final class BlockViewModelBuilder {
                 }
             )
         case let .link(content):
-            guard let details = ObjectDetailsStorage.shared.get(id: content.targetBlockID) else {
+            guard let details = document.detailsStorage.get(id: content.targetBlockID) else {
                 anytypeAssertionFailure(
                     "Couldn't find details for block link", info: ["targetBlockID": content.targetBlockID]
                 )
@@ -269,7 +269,7 @@ final class BlockViewModelBuilder {
                 simpleTableDependenciesBuilder: simpleTableDependenciesBuilder
             )
         case let .dataView(data):
-            let details = ObjectDetailsStorage.shared.get(id: data.targetObjectID)
+            let details = document.detailsStorage.get(id: data.targetObjectID)
             
             if details?.isDeleted ?? false {
                 return NonExistentBlockViewModel(info: info)
