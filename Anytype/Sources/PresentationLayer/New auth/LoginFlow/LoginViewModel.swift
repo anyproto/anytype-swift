@@ -61,7 +61,6 @@ final class LoginViewModel: ObservableObject {
     private func onEntropySet() {
         do {
             let phrase = try authService.mnemonicByEntropy(entropy)
-            self.phrase = phrase
             walletRecovery(with: phrase)
         } catch {}
     }
@@ -69,6 +68,7 @@ final class LoginViewModel: ObservableObject {
     private func walletRecovery(with phrase: String) {
         Task { @MainActor in
             do {
+                self.phrase = phrase
                 walletRecoveryInProgress = true
                 
                 try await authService.walletRecovery(mnemonic: phrase.trimmingCharacters(in: .whitespacesAndNewlines))
@@ -87,7 +87,6 @@ final class LoginViewModel: ObservableObject {
                   let phrase = try? seedService.obtainSeed() else {
                 return
             }
-            self.phrase = phrase
             walletRecovery(with: phrase)
         }
     }
