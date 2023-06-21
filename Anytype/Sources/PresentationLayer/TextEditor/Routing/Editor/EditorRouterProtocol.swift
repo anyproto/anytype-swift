@@ -13,6 +13,7 @@ protocol EditorRouterProtocol:
     ObjectHeaderRouterProtocol
 {
     func showAlert(alertModel: AlertModel)
+    func showPage(objectId: String)
     func showPage(data: EditorScreenData)
     func replaceCurrentPage(with data: EditorScreenData)
     

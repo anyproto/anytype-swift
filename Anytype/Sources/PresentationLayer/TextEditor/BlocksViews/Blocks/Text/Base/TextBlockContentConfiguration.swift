@@ -9,7 +9,7 @@ struct TextBlockContentConfiguration: BlockConfiguration {
         let shouldPaste: (NSRange, UITextView) -> Bool
         let copy: (NSRange) -> Void
         let createEmptyBlock: () -> Void
-        let showPage: (EditorScreenData) -> Void
+        let showPage: (BlockId) -> Void
         let openURL: (URL) -> Void
 
         let changeTextStyle: (MarkupType, NSRange) -> Void

@@ -53,18 +53,7 @@ extension TextBlockContentView: CustomTextViewDelegate {
     }
     
     func showPage(blockId: BlockId) {
-        guard
-            let details = ObjectDetailsStorage.shared.get(id: blockId)
-        else {
-            // Deleted objects goes here
-            return
-        }
-        
-        if !details.isArchived && !details.isDeleted {
-            actions?.showPage(
-                EditorScreenData(pageId: details.id, type: details.editorViewType)
-            )
-        }
+        actions?.showPage(blockId)
     }
     
     func openURL(_ url: URL) {

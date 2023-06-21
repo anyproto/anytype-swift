@@ -95,8 +95,8 @@ final class SimpleTableCellsBuilder {
         
         let textBlockActionHandler = SimpleTablesTextBlockActionHandler(
             info: information,
-            showPage: { [weak self] data in
-                self?.router.showPage(data: data)
+            showPage: { [weak self] objectId in
+                self?.router.showPage(objectId: objectId)
             },
             openURL: { [weak router] url in
                 router?.openUrl(url)
