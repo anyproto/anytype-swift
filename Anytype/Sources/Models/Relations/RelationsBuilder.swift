@@ -7,7 +7,7 @@ final class RelationsBuilder {
     
     private let storage: ObjectDetailsStorage
     
-    init(storage: ObjectDetailsStorage = ObjectDetailsStorage.shared) {
+    init(storage: ObjectDetailsStorage) {
         self.storage = storage
     }
 

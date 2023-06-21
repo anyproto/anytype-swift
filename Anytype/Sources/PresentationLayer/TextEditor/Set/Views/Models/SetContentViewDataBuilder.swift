@@ -4,9 +4,16 @@ import AnytypeCore
 import SwiftProtobuf
 
 final class SetContentViewDataBuilder {
-    private let relationsBuilder = RelationsBuilder()
-    private let storage = ObjectDetailsStorage.shared
-    private let relationDetailsStorage = ServiceLocator.shared.relationDetailsStorage()
+    
+    private let relationsBuilder: RelationsBuilder
+    private let detailsStorage: ObjectDetailsStorage
+    private let relationDetailsStorage: RelationDetailsStorageProtocol
+    
+    init(relationsBuilder: RelationsBuilder, detailsStorage: ObjectDetailsStorage, relationDetailsStorage: RelationDetailsStorageProtocol) {
+        self.relationsBuilder = relationsBuilder
+        self.detailsStorage = detailsStorage
+        self.relationDetailsStorage = relationDetailsStorage
+    }
     
     func sortedRelations(dataview: BlockDataview, view: DataviewView) -> [SetRelation] {
         let relations: [SetRelation] = view.options
@@ -157,7 +164,7 @@ final class SetContentViewDataBuilder {
 
     private func findCover(at values: [String], _ details: ObjectDetails) -> ObjectHeaderCoverType? {
         for value in values {
-            let details = storage.get(id: value)
+            let details = detailsStorage.get(id: value)
             if let details = details, details.type == Constants.imageType {
                 return .cover(.imageId(details.id))
             }

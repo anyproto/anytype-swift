@@ -116,7 +116,6 @@ final class EditorSetViewModel: ObservableObject {
     
     private var router: EditorSetRouterProtocol?
     private let subscriptionService: SubscriptionsServiceProtocol
-    private let dataBuilder = SetContentViewDataBuilder()
     private let dataviewService: DataviewServiceProtocol
     private let searchService: SearchServiceProtocol
     private let detailsService: DetailsServiceProtocol
@@ -422,7 +421,7 @@ final class EditorSetViewModel: ObservableObject {
         var tempConfigurationsDict = configurationsDict
         for groupId in groupIds {
             if let records = sortedRecords(with: groupId) {
-                let configurations = dataBuilder.itemData(
+                let configurations = setDocument.dataBuilder.itemData(
                     records,
                     dataView: setDocument.dataView,
                     activeView: activeView,
