@@ -2,7 +2,7 @@ import Foundation
 import ProtobufMessages
 import AnytypeCore
 
-extension Invocation {
+public extension Invocation {
     
     @discardableResult
     func invoke(file: StaticString = #file, function: String = #function, line: UInt = #line) async throws -> Response {

@@ -1,9 +1,11 @@
 import ProtobufMessages
-import Services
 import SwiftProtobuf
 
-class BookmarkService: BookmarkServiceProtocol {
-    func fetchBookmark(contextID: BlockId, blockID: BlockId, url: String) {
+public class BookmarkService: BookmarkServiceProtocol {
+    
+    public init() {}
+    
+    public func fetchBookmark(contextID: BlockId, blockID: BlockId, url: String) {
         _ = try? ClientCommands.blockBookmarkFetch(.with {
             $0.contextID = contextID
             $0.blockID = blockID
@@ -11,7 +13,7 @@ class BookmarkService: BookmarkServiceProtocol {
         }).invoke()
     }
 
-    func createAndFetchBookmark(
+    public func createAndFetchBookmark(
         contextID: BlockId,
         targetID: BlockId,
         position: BlockPosition,
@@ -25,7 +27,7 @@ class BookmarkService: BookmarkServiceProtocol {
         }).invoke()
     }
     
-    func createBookmarkObject(url: String) -> Bool {
+    public func createBookmarkObject(url: String) -> Bool {
         
         let details = Google_Protobuf_Struct(
             fields: [
@@ -39,7 +41,7 @@ class BookmarkService: BookmarkServiceProtocol {
         return result.isNotNil
     }
     
-    func fetchBookmarkContent(bookmarkId: BlockId, url: String) {
+    public func fetchBookmarkContent(bookmarkId: BlockId, url: String) {
         _ = try? ClientCommands.objectBookmarkFetch(.with {
             $0.contextID = bookmarkId
             $0.url = url
