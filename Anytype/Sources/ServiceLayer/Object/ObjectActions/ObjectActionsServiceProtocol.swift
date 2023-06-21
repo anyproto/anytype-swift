@@ -33,7 +33,7 @@ protocol ObjectActionsServiceProtocol {
     func setObjectType(objectId: BlockId, objectTypeId: String)
     func setObjectSetType(objectId: BlockId) async throws
     func setObjectCollectionType(objectId: BlockId) async throws
-    func applyTemplate(objectId: BlockId, templateId: BlockId)
+    func applyTemplate(objectId: BlockId, templateId: BlockId) async throws
     func setSource(objectId: BlockId, source: [String]) async throws
     
     func undo(objectId: BlockId) async throws
