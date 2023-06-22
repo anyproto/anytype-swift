@@ -46,21 +46,22 @@ final class ChangeTypeAccessoryViewModel {
     }
 
     private func fetchSupportedTypes() {
-        let supportedTypes = searchService
-            .searchObjectTypes(
-                text: "",
-                filteringTypeId: nil,
-                shouldIncludeSets: true,
-                shouldIncludeCollections: true,
-                shouldIncludeBookmark: false
-            )?
-            .map { type in
-                TypeItem(from: type, handler: { [weak self] in
-                    self?.onTypeTap(typeId: type.id)
-                })
-            }
-
-        supportedTypes.map { allSupportedTypes = $0 }
+        Task { @MainActor [weak self] in
+            let supportedTypes = try? await self?.searchService
+                .searchObjectTypes(
+                    text: "",
+                    filteringTypeId: nil,
+                    shouldIncludeSets: true,
+                    shouldIncludeCollections: true,
+                    shouldIncludeBookmark: false
+                ).map { type in
+                    TypeItem(from: type, handler: { [weak self] in
+                        self?.onTypeTap(typeId: type.id)
+                    })
+                }
+            
+            supportedTypes.map { self?.allSupportedTypes = $0 }
+        }
     }
 
     private func onTypeTap(typeId: String) {
@@ -93,13 +94,12 @@ final class ChangeTypeAccessoryViewModel {
     }
     
     private func applyDefaultTemplateIfNeeded(typeId: String) {
-        let availableTemplates = searchService.searchTemplates(for: .dynamic(typeId))
-        
-        guard availableTemplates?.count == 1,
-                let firstTemplate = availableTemplates?.first
-            else { return }
-        
         Task { @MainActor in
+            let availableTemplates = try? await searchService.searchTemplates(for: .dynamic(typeId))
+            guard availableTemplates?.count == 1,
+                  let firstTemplate = availableTemplates?.first
+            else { return }
+            
             try await objectService.applyTemplate(objectId: document.objectId, templateId: firstTemplate.id)
         }
     }

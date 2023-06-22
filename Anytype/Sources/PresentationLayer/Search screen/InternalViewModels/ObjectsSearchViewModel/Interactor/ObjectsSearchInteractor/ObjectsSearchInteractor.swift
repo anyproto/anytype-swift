@@ -17,13 +17,12 @@ final class ObjectsSearchInteractor {
 
 extension ObjectsSearchInteractor: ObjectsSearchInteractorProtocol {
     
-    func search(text: String) -> [ObjectDetails] {
-        let response = searchService.searchObjects(
+    func search(text: String) async throws -> [ObjectDetails] {
+        try await searchService.searchObjects(
             text: text,
             excludedObjectIds: excludedObjectIds,
             limitedTypeIds: limitedObjectType
         )
-        return response ?? []
     }
     
 }

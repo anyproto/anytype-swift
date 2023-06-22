@@ -19,18 +19,16 @@ final class ObjectSearchViewModel: SearchViewModelProtocol {
     }
     
     func search(text: String) {
-        let result = searchDetails(text: text)
-        let objectsSearchData = result?.compactMap { ObjectSearchData(details: $0) }
-
-        guard let objectsSearchData = objectsSearchData, objectsSearchData.isNotEmpty else {
-            searchData = []
-            return
+        Task { @MainActor in
+            let result = try? await searchService.search(text: text)
+            let objectsSearchData = result?.compactMap { ObjectSearchData(details: $0) }
+            
+            guard let objectsSearchData = objectsSearchData, objectsSearchData.isNotEmpty else {
+                searchData = []
+                return
+            }
+            
+            searchData = [SearchDataSection(searchData: objectsSearchData, sectionName: "")]
         }
-
-        searchData = [SearchDataSection(searchData: objectsSearchData, sectionName: "")]
-    }
-    
-    private func searchDetails(text: String) -> [ObjectDetails]? {
-        searchService.search(text: text)
     }
 }

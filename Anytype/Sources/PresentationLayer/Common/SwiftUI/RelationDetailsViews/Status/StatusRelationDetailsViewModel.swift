@@ -64,7 +64,9 @@ extension StatusRelationDetailsViewModel {
             relationKey: relation.key,
             selectedStatusesIds: selectedStatus.flatMap { [$0.id] } ?? []
         ) { [weak self] ids in
-            self?.handleSelectedOptionIds(ids)
+            Task { @MainActor [weak self] in
+                try? await self?.handleSelectedOptionIds(ids)
+            }
         } onCreate: { [weak self] title in
             self?.handleCreateOption(title: title)
         }
@@ -80,7 +82,7 @@ private extension StatusRelationDetailsViewModel {
         }
     }
     
-    func handleSelectedOptionIds(_ ids: [String]) {
+    func handleSelectedOptionIds(_ ids: [String]) async throws {
         defer {
             isSearchPresented = false
         }
@@ -89,7 +91,7 @@ private extension StatusRelationDetailsViewModel {
         
         service.updateRelation(relationKey: relation.key, value: newStatusId.protobufValue)
         
-        let newStatus = searchService.searchRelationOptions(optionIds: [newStatusId])?.first
+        let newStatus = try await searchService.searchRelationOptions(optionIds: [newStatusId]).first
             .map { Relation.Status.Option(option: $0) }
         
         guard let newStatus = newStatus else {
@@ -106,7 +108,7 @@ private extension StatusRelationDetailsViewModel {
             let optionId = try await service.addRelationOption(relationKey: relation.key, optionText: title)
             guard let optionId = optionId else { return }
             
-            handleSelectedOptionIds([optionId])
+            try? await handleSelectedOptionIds([optionId])
         }
     }
     

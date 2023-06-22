@@ -33,16 +33,9 @@ final class StatusSearchViewModel {
 
 extension StatusSearchViewModel: NewInternalSearchViewModelProtocol {
     
-    func search(text: String) {
-        let result = interactor.search(text: text)
-        switch result {
-        case .success(let statuses):
-            self.statuses = statuses
-            
-            handleSearchResults(statuses)
-        case .failure(let error):
-            handleError(for: error)
-        }
+    func search(text: String) async throws {
+        let result = try await interactor.search(text: text)
+        handleSearchResults(statuses)
     }
     
     func handleRowsSelection(ids: [String]) {

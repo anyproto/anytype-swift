@@ -20,12 +20,12 @@ final class RelationsSearchInteractor {
         self.dataviewService = dataviewService
     }
     
-    func search(text: String, excludedIds: [String]) -> [RelationDetails] {
-        return searchService.searchRelations(text: text, excludedIds: excludedIds) ?? []
+    func search(text: String, excludedIds: [String]) async throws -> [RelationDetails] {
+        try await searchService.searchRelations(text: text, excludedIds: excludedIds)
     }
     
-    func searchInMarketplace(text: String) -> [RelationDetails] {
-        return searchService.searchMarketplaceRelations(text: text, includeInstalled: false) ?? []
+    func searchInMarketplace(text: String) async throws -> [RelationDetails] {
+        try await searchService.searchMarketplaceRelations(text: text, includeInstalled: false)
     }
     
     func installRelation(objectId: String) -> RelationDetails? {
