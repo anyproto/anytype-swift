@@ -39,9 +39,9 @@ struct ListWidgetView: View {
                 .opacity(rows.isEmpty ? 1 : 0)
                 VStack(spacing: 0) {
                     ForEach(rows) {
-                        rowView(row: $0)
+                        rowView(row: $0, showDivider: $0.id != rows.last?.id)
                     }
-                    Spacer.fixedHeight(16)
+                    Spacer.fixedHeight(8)
                 }
                 .opacity(rows.isEmpty ? 0 : 1)
             }
@@ -49,12 +49,12 @@ struct ListWidgetView: View {
     }
     
     @ViewBuilder
-    private func rowView(row: ListWidgetRowModel) -> some View {
+    private func rowView(row: ListWidgetRowModel, showDivider: Bool) -> some View {
         switch model.style {
         case .compactList:
-            ListWidgetCompactRow(model: row)
+            ListWidgetCompactRow(model: row, showDivider: showDivider)
         case .list:
-            ListWidgetRow(model: row)
+            ListWidgetRow(model: row, showDivider: showDivider)
         }
     }
 }

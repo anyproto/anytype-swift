@@ -205,6 +205,7 @@ enum AnalyticsEventsPropertiesKey {
     static let route = "route"
 
     static let type = "type"
+    static let id = "id"
     static let objectType = "objectType"
     static let embedType = "embedType"
     static let length = "length"

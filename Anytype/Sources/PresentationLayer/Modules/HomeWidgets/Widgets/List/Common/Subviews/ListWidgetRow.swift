@@ -4,6 +4,7 @@ import SwiftUI
 struct ListWidgetRow: View {
     
     let model: ListWidgetRowModel
+    let showDivider: Bool
     
     @Environment(\.editMode) private var editMode
     
@@ -32,6 +33,8 @@ struct ListWidgetRow: View {
         .onTapGesture {
             model.onTap()
         }
-        .newDivider(leadingPadding: 16, trailingPadding: 16)
+        .if(showDivider) {
+            $0.newDivider(leadingPadding: 16, trailingPadding: 16)
+        }
     }
 }

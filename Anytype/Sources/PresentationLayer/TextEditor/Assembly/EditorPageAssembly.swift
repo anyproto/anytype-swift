@@ -128,7 +128,7 @@ final class EditorAssembly {
             bottomNavigationManager: bottomNavigationManager,
             browserViewInput: browser
         )
-        let document = BaseDocument(objectId: data.objectId)
+        let document = BaseDocument(objectId: data.objectId, forPreview: data.isOpenedForPreview)
         let router = EditorRouter(
             rootController: browser,
             viewController: controller,

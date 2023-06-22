@@ -99,7 +99,9 @@ final class ChangeTypeAccessoryViewModel {
                 let firstTemplate = availableTemplates?.first
             else { return }
         
-        objectService.applyTemplate(objectId: document.objectId, templateId: firstTemplate.id)
+        Task { @MainActor in
+            try await objectService.applyTemplate(objectId: document.objectId, templateId: firstTemplate.id)
+        }
     }
 
     private func subscribeOnDocumentChanges() {

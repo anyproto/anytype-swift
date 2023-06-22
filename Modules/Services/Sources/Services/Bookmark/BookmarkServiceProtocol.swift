@@ -1,8 +1,6 @@
 import Foundation
-import Combine
-import Services
 
-protocol BookmarkServiceProtocol {
+public protocol BookmarkServiceProtocol {
     func fetchBookmark(contextID: BlockId, blockID: BlockId, url: String)
     func createAndFetchBookmark(
         contextID: BlockId,

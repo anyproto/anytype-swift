@@ -247,8 +247,8 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         }).invoke()
     }
 
-    func applyTemplate(objectId: BlockId, templateId: BlockId) {
-        _ = try? ClientCommands.objectApplyTemplate(.with {
+    func applyTemplate(objectId: BlockId, templateId: BlockId) async throws {
+        try await ClientCommands.objectApplyTemplate(.with {
             $0.contextID = objectId
             $0.templateID = templateId
         }).invoke()
