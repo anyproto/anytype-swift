@@ -48,7 +48,7 @@ struct LoginView: View {
                 inProgress: model.walletRecoveryInProgress,
                 style: .primaryLarge,
                 action: {
-                    model.onNextButtonAction()
+                    model.onEnterButtonAction()
                 }
             )
             .colorScheme(model.phrase.isEmpty ? .dark : .light)

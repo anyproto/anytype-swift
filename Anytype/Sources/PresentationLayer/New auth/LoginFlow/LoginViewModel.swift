@@ -41,7 +41,7 @@ final class LoginViewModel: ObservableObject {
         self.output = output
     }
     
-    func onNextButtonAction() {
+    func onEnterButtonAction() {
         walletRecovery(with: phrase)
     }
     
