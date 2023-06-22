@@ -38,7 +38,7 @@ public extension FeatureDescription {
         title: "New authorization",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.?.0"),
         defaultValue: false,
-        debugValue: false
+        debugValue: true
     )
     
     static let redesignAbout = FeatureDescription(
