@@ -11,7 +11,7 @@ final class BaseDocument: BaseDocumentProtocol {
     let infoContainer: InfoContainerProtocol = InfoContainer()
     let relationLinksStorage: RelationLinksStorageProtocol = RelationLinksStorage()
     let restrictionsContainer: ObjectRestrictionsContainer = ObjectRestrictionsContainer()
-    let detailsStorage = ObjectDetailsStorage.shared
+    let detailsStorage = ObjectDetailsStorage()
     
     var objectRestrictions: ObjectRestrictions { restrictionsContainer.restrinctions }
 

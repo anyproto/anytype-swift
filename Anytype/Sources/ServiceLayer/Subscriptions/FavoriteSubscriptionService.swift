@@ -20,11 +20,6 @@ protocol FavoriteSubscriptionServiceProtocol: AnyObject {
 final class FavoriteSubscriptionService: FavoriteSubscriptionServiceProtocol {
     
     private var subscriptions = [AnyCancellable]()
-    private let objectDetailsStorage: ObjectDetailsStorage
-    
-    init(objectDetailsStorage: ObjectDetailsStorage) {
-        self.objectDetailsStorage = objectDetailsStorage
-    }
     
     func startSubscription(
         homeDocument: BaseDocumentProtocol,
@@ -38,7 +33,7 @@ final class FavoriteSubscriptionService: FavoriteSubscriptionServiceProtocol {
         }
         
         homeDocument.syncPublisher
-            .map { [weak self, homeDocument] in self?.createChildren(children: homeDocument.children, objectLimit: objectLimit) ?? [] }
+            .map { [weak self, homeDocument] in self?.createChildren(document: homeDocument, objectLimit: objectLimit) ?? [] }
             .removeDuplicates()
             .receiveOnMain()
             .sink { result in
@@ -51,11 +46,11 @@ final class FavoriteSubscriptionService: FavoriteSubscriptionServiceProtocol {
         subscriptions.removeAll()
     }
     
-    private func createChildren(children: [BlockInformation], objectLimit: Int?) -> [FavoriteBlockDetails] {
+    private func createChildren(document: BaseDocumentProtocol, objectLimit: Int?) -> [FavoriteBlockDetails] {
         var details: [FavoriteBlockDetails] = []
-        details.reserveCapacity(objectLimit ?? children.count)
+        details.reserveCapacity(objectLimit ?? document.children.count)
         
-        for info in children {
+        for info in document.children {
             
             if let objectLimit, details.count >= objectLimit {
                 break
@@ -66,7 +61,7 @@ final class FavoriteSubscriptionService: FavoriteSubscriptionServiceProtocol {
                 continue
             }
         
-            guard let childDetails = objectDetailsStorage.get(id: link.targetBlockID),
+            guard let childDetails = document.detailsStorage.get(id: link.targetBlockID),
                   childDetails.isFavorite, childDetails.isVisibleForEdit else { continue }
 
             details.append(FavoriteBlockDetails(blockId: info.id, details: childDetails))
