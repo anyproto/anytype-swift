@@ -7,6 +7,7 @@ final class LoginViewModel: ObservableObject {
     @Published var autofocus = true
     @Published var walletRecoveryInProgress = false
     @Published var showQrCodeView: Bool = false
+    @Published var showEnteringVoidView = false
     @Published var openSettingsURL = false
     @Published var entropy: String = "" {
         didSet {
@@ -21,6 +22,7 @@ final class LoginViewModel: ObservableObject {
     private let seedService: SeedServiceProtocol
     private let localAuthService: LocalAuthServiceProtocol
     private let cameraPermissionVerifier: CameraPermissionVerifierProtocol
+    private weak var output: LoginFlowOutput?
     
     private var subscriptions = [AnyCancellable]()
     
@@ -28,13 +30,15 @@ final class LoginViewModel: ObservableObject {
         authService: AuthServiceProtocol,
         seedService: SeedServiceProtocol,
         localAuthService: LocalAuthServiceProtocol,
-        cameraPermissionVerifier: CameraPermissionVerifierProtocol
+        cameraPermissionVerifier: CameraPermissionVerifierProtocol,
+        output: LoginFlowOutput?
     ) {
         self.authService = authService
         self.seedService = seedService
         self.localAuthService = localAuthService
         self.cameraPermissionVerifier = cameraPermissionVerifier
         self.canRestoreFromKeychain = (try? seedService.obtainSeed()).isNotNil
+        self.output = output
     }
     
     func onNextButtonAction() {
@@ -58,11 +62,17 @@ final class LoginViewModel: ObservableObject {
         restoreFromkeychain()
     }
     
+    func onNextAction() -> AnyView? {
+        output?.onEntetingVoidAction()
+    }
+    
     private func onEntropySet() {
-        do {
-            let phrase = try authService.mnemonicByEntropy(entropy)
-            walletRecovery(with: phrase)
-        } catch {}
+        Task {
+            do {
+                let phrase = try await authService.mnemonicByEntropy(entropy)
+                walletRecovery(with: phrase)
+            } catch {}
+        }
     }
     
     private func walletRecovery(with phrase: String) {
@@ -93,6 +103,7 @@ final class LoginViewModel: ObservableObject {
     
     private func recoverWalletSuccess() {
         walletRecoveryInProgress = false
+        showEnteringVoidView.toggle()
     }
     
     private func recoverWalletError() {
