@@ -6,7 +6,6 @@ struct BlockLinkState: Hashable, Equatable {
     let cardStyle: BlockLink.CardStyle
     let style: Style
     let type: ObjectType?
-    let viewType: EditorViewType
     let documentCover: DocumentCover?
 
     let relations: [BlockLink.Relation]
@@ -44,7 +43,6 @@ struct BlockLinkState: Hashable, Equatable {
             description: description,
             style: Style(details: details),
             type: details.objectType,
-            viewType: details.editorViewType,
             archived: details.isArchived,
             deleted: details.isDeleted,
             relations: blockLink.appearance.relations,
@@ -61,7 +59,6 @@ struct BlockLinkState: Hashable, Equatable {
          description: String,
          style: Style,
          type: ObjectType?,
-         viewType: EditorViewType,
          archived: Bool,
          deleted: Bool,
          relations: [BlockLink.Relation],
@@ -75,7 +72,6 @@ struct BlockLinkState: Hashable, Equatable {
         self.cardStyle = cardStyle
         self.style = style
         self.type = type
-        self.viewType = viewType
         self.archived = archived
         self.deleted = deleted
         self.description = description.replacedNewlinesWithSpaces

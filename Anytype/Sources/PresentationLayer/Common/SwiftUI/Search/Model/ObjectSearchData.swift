@@ -58,9 +58,4 @@ extension ObjectSearchData {
     var iconImage: ObjectIconImage {
         details.objectIconImageWithPlaceholder
     }
-    
-    var viewType: EditorViewType {
-        details.editorViewType
-    }
-    
 }
