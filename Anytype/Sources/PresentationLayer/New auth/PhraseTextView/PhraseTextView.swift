@@ -7,9 +7,7 @@ struct PhraseTextView: UIViewRepresentable {
     func makeUIView(context: Context) -> UIPhraseTextView {
         let textView = UIPhraseTextView()
         textView.textDidChange = { text in
-            DispatchQueue.main.async {
-                self.text = text
-            }
+            self.text = text
         }
         textView.expandable = expandable
         return textView

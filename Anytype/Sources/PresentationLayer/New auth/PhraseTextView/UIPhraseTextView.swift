@@ -1,5 +1,6 @@
 import UIKit
 
+@MainActor
 class UIPhraseTextView: UITextView, UITextViewDelegate {
     
     var textDidChange: ((String) -> Void)?
