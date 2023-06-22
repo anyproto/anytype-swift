@@ -176,6 +176,7 @@
 "Auth.LoginFlow.Use.Keychain.Title" = "Use keychain";
 "Auth.LoginFlow.Or" = "OR";
 "Auth.LoginFlow.Textfield.Placeholder" = "Type your recovery phrase";
+"Auth.LoginFlow.Enter.Button.Title" = "Enter my Void";
 "Auth.LoginFlow.Entering.Void.Title" = "Entering the Void";
 
 // Object settings

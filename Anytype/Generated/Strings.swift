@@ -843,6 +843,12 @@ internal enum Loc {
     internal enum LoginFlow {
       /// OR
       internal static let or = Loc.tr("Localizable", "Auth.LoginFlow.Or", fallback: "OR")
+      internal enum Enter {
+        internal enum Button {
+          /// Enter my Void
+          internal static let title = Loc.tr("Localizable", "Auth.LoginFlow.Enter.Button.Title", fallback: "Enter my Void")
+        }
+      }
       internal enum Entering {
         internal enum Void {
           /// Entering the Void

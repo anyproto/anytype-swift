@@ -44,7 +44,7 @@ struct LoginView: View {
     private var buttonsBlock : some View {
         VStack(spacing: 12) {
             StandardButton(
-                Loc.Auth.next,
+                Loc.Auth.LoginFlow.Enter.Button.title,
                 inProgress: model.walletRecoveryInProgress,
                 style: .primaryLarge,
                 action: {
