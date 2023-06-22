@@ -96,9 +96,6 @@ internal enum Asset {
     static let inactive = ColorAsset(name: "Button/inactive")
     static let white = ColorAsset(name: "Button/white")
   }
-  internal enum Dashboard {
-    static let card = ColorAsset(name: "Dashboard/card")
-  }
   internal enum Shadow {
     static let primary = ColorAsset(name: "Shadow/primary")
   }
@@ -114,6 +111,12 @@ internal enum Asset {
     static let secondary = ColorAsset(name: "Text/secondary")
     static let tertiary = ColorAsset(name: "Text/tertiary")
     static let white = ColorAsset(name: "Text/white")
+  }
+  internal enum Widget {
+    static let card = ColorAsset(name: "Widget/card")
+    static let divider = ColorAsset(name: "Widget/divider")
+    static let inactiveTab = ColorAsset(name: "Widget/inactiveTab")
+    static let secondary = ColorAsset(name: "Widget/secondary")
   }
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name
