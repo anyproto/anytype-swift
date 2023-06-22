@@ -9,7 +9,6 @@ final class SetObjectWidgetInternalViewModel: WidgetDataviewInternalViewModelPro
     
     private let widgetBlockId: BlockId
     private let widgetObject: BaseDocumentProtocol
-    private let objectDetailsStorage: ObjectDetailsStorage
     private let setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol
     private let subscriptionService: SubscriptionsServiceProtocol
     private let context: WidgetInternalViewModelContext
@@ -37,7 +36,6 @@ final class SetObjectWidgetInternalViewModel: WidgetDataviewInternalViewModelPro
     init(
         widgetBlockId: BlockId,
         widgetObject: BaseDocumentProtocol,
-        objectDetailsStorage: ObjectDetailsStorage,
         setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol,
         subscriptionService: SubscriptionsServiceProtocol,
         documentService: DocumentServiceProtocol,
@@ -45,7 +43,6 @@ final class SetObjectWidgetInternalViewModel: WidgetDataviewInternalViewModelPro
     ) {
         self.widgetBlockId = widgetBlockId
         self.widgetObject = widgetObject
-        self.objectDetailsStorage = objectDetailsStorage
         self.setSubscriptionDataBuilder = setSubscriptionDataBuilder
         self.subscriptionService = subscriptionService
         self.context = context
@@ -59,7 +56,7 @@ final class SetObjectWidgetInternalViewModel: WidgetDataviewInternalViewModelPro
         guard let tagetObjectId = widgetObject.targetObjectIdByLinkFor(widgetBlockId: widgetBlockId)
             else { return }
         
-        objectDetailsStorage.publisherFor(id: tagetObjectId)
+        widgetObject.detailsStorage.publisherFor(id: tagetObjectId)
             .compactMap { $0 }
             .receiveOnMain()
             .sink { [weak self] details in

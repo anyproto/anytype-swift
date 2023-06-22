@@ -43,7 +43,6 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
     private let linkWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     private let binLinkWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     private let stateManager: HomeWidgetsStateManagerProtocol
-    private let objectDetailsStorage: ObjectDetailsStorage
     private var providersCache: [ProviderCache] = []
     
     init(
@@ -64,8 +63,7 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
         collectionsCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         linkWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         binLinkWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
-        stateManager: HomeWidgetsStateManagerProtocol,
-        objectDetailsStorage: ObjectDetailsStorage
+        stateManager: HomeWidgetsStateManagerProtocol
     ) {
         self.objectTreeWidgetProviderAssembly = objectTreeWidgetProviderAssembly
         self.favoriteTreeWidgetProviderAssembly = favoriteTreeWidgetProviderAssembly
@@ -85,7 +83,6 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
         self.linkWidgetProviderAssembly = linkWidgetProviderAssembly
         self.binLinkWidgetProviderAssembly = binLinkWidgetProviderAssembly
         self.stateManager = stateManager
-        self.objectDetailsStorage = objectDetailsStorage
     }
     
     // MARK: - HomeWidgetsRegistryProtocol

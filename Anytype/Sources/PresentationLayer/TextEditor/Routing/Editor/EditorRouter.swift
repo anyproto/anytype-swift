@@ -70,6 +70,14 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         self.alertHelper = alertHelper
     }
 
+    func showPage(objectId: String) {
+        guard let details = document.detailsStorage.get(id: objectId) else { return }
+        guard !details.isArchived && !details.isDeleted else { return }
+        
+        let screenData = EditorScreenData(pageId: details.id, type: details.editorViewType)
+        showPage(data: screenData)
+    }
+    
     func showPage(data: EditorScreenData) {
         editorPageCoordinator.startFlow(data: data, replaceCurrentPage: false)
     }
@@ -471,7 +479,11 @@ extension EditorRouter {
     }
     
     func showRelationValueEditingView(objectId: BlockId, relation: Relation) {
-        relationValueCoordinator.startFlow(objectId: objectId, relation: relation, analyticsType: .block, output: self)
+        guard let objectDetails = document.detailsStorage.get(id: objectId) else {
+            anytypeAssertionFailure("Details not found")
+            return
+        }
+        relationValueCoordinator.startFlow(objectDetails: objectDetails, relation: relation, analyticsType: .block, output: self)
     }
 
     func showAddNewRelationView(onSelect: ((RelationDetails, _ isNew: Bool) -> Void)?) {

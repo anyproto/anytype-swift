@@ -151,7 +151,7 @@ final class MarkupAccessoryViewModel: ObservableObject {
 
             guard isCurrentBlock, let (block, textBlockContent) = self.blockData(blockId: self.blockId) else { return }
 
-            let currentText = textBlockContent.anytypeText.attrString
+            let currentText = textBlockContent.anytypeText(document: self.document).attrString
             self.selectBlock(block, text: currentText, range: self.range)
         }.store(in: &cancellables)
     }

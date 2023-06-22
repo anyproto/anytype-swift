@@ -5,7 +5,7 @@ import UIKit
 struct SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
     let info: BlockInformation
 
-    let showPage: (EditorScreenData) -> Void
+    let showPage: (BlockId) -> Void
     let openURL: (URL) -> Void
     let showTextIconPicker: () -> Void
     let resetSubject = PassthroughSubject<Void, Never>()
@@ -14,6 +14,7 @@ struct SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
     private let hideWaitingView: () -> Void
     private let onKeyboardAction: (CustomTextView.KeyboardAction) -> Void
     private let content: BlockText
+    private let anytypeText: UIKitAnytypeText
     private let actionHandler: BlockActionHandlerProtocol
     private let pasteboardService: PasteboardServiceProtocol
     private let mentionDetecter = MentionTextDetector()
@@ -24,12 +25,13 @@ struct SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
 
     init(
         info: BlockInformation,
-        showPage: @escaping (EditorScreenData) -> Void,
+        showPage: @escaping (BlockId) -> Void,
         openURL: @escaping (URL) -> Void,
         showTextIconPicker: @escaping () -> Void,
         showWaitingView: @escaping (String) -> Void,
         hideWaitingView: @escaping () -> Void,
         content: BlockText,
+        anytypeText: UIKitAnytypeText,
         actionHandler: BlockActionHandlerProtocol,
         pasteboardService: PasteboardServiceProtocol,
         markdownListener: MarkdownListener,
@@ -44,6 +46,7 @@ struct SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
         self.showWaitingView = showWaitingView
         self.hideWaitingView = hideWaitingView
         self.content = content
+        self.anytypeText = anytypeText
         self.actionHandler = actionHandler
         self.pasteboardService = pasteboardService
         self.markdownListener = markdownListener
@@ -76,7 +79,7 @@ struct SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
     }
 
     private func blockDelegateData(textView: UITextView) -> TextBlockDelegateData {
-        .init(textView: textView, info: info, text: content.anytypeText, usecase: .simpleTable)
+        .init(textView: textView, info: info, text: anytypeText, usecase: .simpleTable)
     }
 
     private func textViewShouldReplaceText(

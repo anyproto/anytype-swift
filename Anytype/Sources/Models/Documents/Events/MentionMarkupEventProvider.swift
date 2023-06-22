@@ -11,7 +11,7 @@ final class MentionMarkupEventProvider {
     init(
         objectId: BlockId,
         infoContainer: InfoContainerProtocol,
-        detailsStorage: ObjectDetailsStorage = ObjectDetailsStorage.shared
+        detailsStorage: ObjectDetailsStorage
     ) {
         self.objectId = objectId
         self.infoContainer = infoContainer

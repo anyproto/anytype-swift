@@ -14,7 +14,7 @@ class SetDocument: SetDocumentProtocol {
     
     var details: ObjectDetails? {
         if let targetObjectID {
-            return ObjectDetailsStorage.shared.get(id: targetObjectID)
+            return document.detailsStorage.get(id: targetObjectID)
         } else {
             return document.details
         }
@@ -85,7 +85,7 @@ class SetDocument: SetDocumentProtocol {
     
     private var subscriptions = [AnyCancellable]()
     private let relationDetailsStorage: RelationDetailsStorageProtocol
-    private let dataBuilder = SetContentViewDataBuilder()
+    let dataBuilder: SetContentViewDataBuilder
     
     init(
         document: BaseDocumentProtocol,
@@ -97,6 +97,11 @@ class SetDocument: SetDocumentProtocol {
         self.relationDetailsStorage = relationDetailsStorage
         self.targetObjectID = targetObjectID
         self.blockId = blockId
+        self.dataBuilder = SetContentViewDataBuilder(
+            relationsBuilder: RelationsBuilder(storage: document.detailsStorage),
+            detailsStorage: document.detailsStorage,
+            relationDetailsStorage: relationDetailsStorage
+        )
         self.setup()
     }
     

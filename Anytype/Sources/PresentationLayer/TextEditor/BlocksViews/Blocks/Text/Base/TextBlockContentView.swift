@@ -85,7 +85,7 @@ final class TextBlockContentView: UIView, BlockContentView, DynamicHeightView, F
     // MARK: - Apply configuration
     
     private func applyNewConfiguration(configuration: TextBlockContentConfiguration) {
-        textView.textView.textStorage.setAttributedString(configuration.content.anytypeText.attrString)
+        textView.textView.textStorage.setAttributedString(configuration.anytypeText.attrString)
 
         let restrictions = BlockRestrictionsBuilder.build(textContentType: configuration.content.contentType)
         

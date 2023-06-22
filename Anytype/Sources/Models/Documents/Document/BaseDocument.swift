@@ -18,7 +18,7 @@ final class BaseDocument: BaseDocumentProtocol {
     private let blockActionsService: BlockActionsServiceSingleProtocol
     private let eventsListener: EventsListenerProtocol
     private let updateSubject = PassthroughSubject<DocumentUpdate, Never>()
-    private let relationBuilder = RelationsBuilder()
+    private let relationBuilder: RelationsBuilder
     private let relationDetailsStorage = ServiceLocator.shared.relationDetailsStorage()
     private let viewModelSetter: DocumentViewModelSetterProtocol
     private let forPreview: Bool
@@ -74,7 +74,8 @@ final class BaseDocument: BaseDocumentProtocol {
             objectId: objectId,
             infoContainer: infoContainer,
             relationLinksStorage: relationLinksStorage,
-            restrictionsContainer: restrictionsContainer
+            restrictionsContainer: restrictionsContainer,
+            detailsStorage: detailsStorage
         )
         
         self.viewModelSetter = DocumentViewModelSetter(
@@ -85,6 +86,7 @@ final class BaseDocument: BaseDocumentProtocol {
         )
         
         self.blockActionsService = ServiceLocator.shared.blockActionsServiceSingle()
+        self.relationBuilder = RelationsBuilder(storage: detailsStorage)
         
         setup()
     }

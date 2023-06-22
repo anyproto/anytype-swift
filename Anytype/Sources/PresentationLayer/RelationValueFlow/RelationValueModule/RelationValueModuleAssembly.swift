@@ -17,7 +17,7 @@ final class RelationValueModuleAssembly: RelationValueModuleAssemblyProtocol {
     // MARK: - RelationValueModuleAssemblyProtocol
     
     func make(
-        objectId: BlockId,
+        objectDetails: ObjectDetails,
         relation: Relation,
         analyticsType: AnalyticsEventsRelationType,
         delegate: TextRelationActionButtonViewModelDelegate,
@@ -33,7 +33,7 @@ final class RelationValueModuleAssembly: RelationValueModuleAssemblyProtocol {
             bookmarkService: serviceLocator.bookmarkService()
         )
             .buildViewModel(
-                objectId: objectId,
+                objectDetails: objectDetails,
                 relation: relation,
                 analyticsType: analyticsType,
                 onTap: { [weak output] pageId, viewType in

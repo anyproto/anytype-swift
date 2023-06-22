@@ -108,6 +108,7 @@ extension SetFiltersListViewModel {
         default:
             return .relation(
                 relationFilterBuilder.relation(
+                    document: setDocument.document,
                     relationDetails: filter.relationDetails,
                     filter: filter.filter
                 )

@@ -8,7 +8,6 @@ final class ObjectWidgetInternalViewModel: WidgetInternalViewModelProtocol {
     
     private let widgetBlockId: BlockId
     private let widgetObject: BaseDocumentProtocol
-    private let objectDetailsStorage: ObjectDetailsStorage
     private let subscriptionManager: TreeSubscriptionManagerProtocol
     
     // MARK: - State
@@ -25,12 +24,10 @@ final class ObjectWidgetInternalViewModel: WidgetInternalViewModelProtocol {
     init(
         widgetBlockId: BlockId,
         widgetObject: BaseDocumentProtocol,
-        objectDetailsStorage: ObjectDetailsStorage,
         subscriptionManager: TreeSubscriptionManagerProtocol
     ) {
         self.widgetBlockId = widgetBlockId
         self.widgetObject = widgetObject
-        self.objectDetailsStorage = objectDetailsStorage
         self.subscriptionManager = subscriptionManager
     }
     
@@ -38,7 +35,7 @@ final class ObjectWidgetInternalViewModel: WidgetInternalViewModelProtocol {
         guard let tagetObjectId = widgetObject.targetObjectIdByLinkFor(widgetBlockId: widgetBlockId)
             else { return }
         
-        objectDetailsStorage.publisherFor(id: tagetObjectId)
+        widgetObject.detailsStorage.publisherFor(id: tagetObjectId)
             .compactMap { $0 }
             .receiveOnMain()
             .sink { [weak self] details in

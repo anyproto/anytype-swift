@@ -9,7 +9,7 @@ struct TextBlockContentConfiguration: BlockConfiguration {
         let shouldPaste: (NSRange, UITextView) -> Bool
         let copy: (NSRange) -> Void
         let createEmptyBlock: () -> Void
-        let showPage: (EditorScreenData) -> Void
+        let showPage: (BlockId) -> Void
         let openURL: (URL) -> Void
 
         let changeTextStyle: (MarkupType, NSRange) -> Void
@@ -35,6 +35,7 @@ struct TextBlockContentConfiguration: BlockConfiguration {
 
     let blockId: BlockId
     let content: BlockText
+    let anytypeText: UIKitAnytypeText
     let isCheckable: Bool
     let isToggled: Bool
     let isChecked: Bool
@@ -48,6 +49,7 @@ struct TextBlockContentConfiguration: BlockConfiguration {
     init(
         blockId: BlockId,
         content: BlockText,
+        anytypeText: UIKitAnytypeText,
         alignment: NSTextAlignment,
         isCheckable: Bool,
         isToggled: Bool,
@@ -59,6 +61,7 @@ struct TextBlockContentConfiguration: BlockConfiguration {
     ) {
         self.blockId = blockId
         self.content = content
+        self.anytypeText = anytypeText
         self.alignment = alignment
         self.isCheckable = isCheckable
         self.isToggled = isToggled

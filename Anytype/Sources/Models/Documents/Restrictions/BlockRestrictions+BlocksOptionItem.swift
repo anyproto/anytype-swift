@@ -26,7 +26,7 @@ extension Array where Element == BlockRestrictions {
 }
 
 extension Array where Element == BlockInformation {
-    var blocksOptionItems: [BlocksOptionItem] {
+    func blocksOptionItems(document: BaseDocumentProtocol) -> [BlocksOptionItem] {
         var isDownloadAvailable = true
         var isStyleAvailable = true
         var isOpenObjectAvailable = false
@@ -43,7 +43,7 @@ extension Array where Element == BlockInformation {
             
             if case let .bookmark(bookmark) = element.content,
                 bookmark.targetObjectID.isNotEmpty,
-                let details = ObjectDetailsStorage.shared.get(id: bookmark.targetObjectID),
+                let details = document.detailsStorage.get(id: bookmark.targetObjectID),
                 !details.isArchived, !details.isDeleted {
                 isOpenObjectAvailable = true
             }
@@ -55,7 +55,7 @@ extension Array where Element == BlockInformation {
             if FeatureFlags.fullInlineSetImpl,
                case let .dataView(data) = element.content,
                data.targetObjectID.isNotEmpty,
-                let details = ObjectDetailsStorage.shared.get(id: data.targetObjectID),
+                let details = document.detailsStorage.get(id: data.targetObjectID),
                 !details.isArchived, !details.isDeleted {
                 isOpenSourceAvailable = true
             }

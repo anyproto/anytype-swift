@@ -3,7 +3,7 @@ import Services
 
 protocol RelationValueCoordinatorProtocol: AnyObject {
     func startFlow(
-        objectId: BlockId,
+        objectDetails: ObjectDetails,
         relation: Relation,
         analyticsType: AnalyticsEventsRelationType,
         output: RelationValueCoordinatorOutput

@@ -84,7 +84,7 @@ final class EditorSetViewModel: ObservableObject {
     
     func headerType(for groupId: String) -> SetKanbanColumnHeaderType {
         guard let group = groups.first(where: { $0.id == groupId }) else { return .uncategorized }
-        return group.header(with: activeView.groupRelationKey)
+        return group.header(with: activeView.groupRelationKey, document: setDocument.document)
     }
     
     func contextMenuItems(for relation: Relation) -> [RelationValueView.MenuItem] {
@@ -105,7 +105,7 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     private func groupFirstOptionBackgroundColor(for groupId: String) -> BlockBackgroundColor {
-        guard let backgroundColor = groups.first(where: { $0.id == groupId })?.backgroundColor else {
+        guard let backgroundColor = groups.first(where: { $0.id == groupId })?.backgroundColor(document: setDocument.document) else {
             return BlockBackgroundColor.gray
         }
         return backgroundColor
@@ -116,7 +116,6 @@ final class EditorSetViewModel: ObservableObject {
     
     private var router: EditorSetRouterProtocol?
     private let subscriptionService: SubscriptionsServiceProtocol
-    private let dataBuilder = SetContentViewDataBuilder()
     private let dataviewService: DataviewServiceProtocol
     private let searchService: SearchServiceProtocol
     private let detailsService: DetailsServiceProtocol
@@ -422,7 +421,7 @@ final class EditorSetViewModel: ObservableObject {
         var tempConfigurationsDict = configurationsDict
         for groupId in groupIds {
             if let records = sortedRecords(with: groupId) {
-                let configurations = dataBuilder.itemData(
+                let configurations = setDocument.dataBuilder.itemData(
                     records,
                     dataView: setDocument.dataView,
                     activeView: activeView,
