@@ -10,10 +10,42 @@ struct ObjectIconExample: View {
             TitleView(title: "Icons")
             ScrollView {
                 VStack(spacing: 20) {
+                    AnytypeText("Profile Char", style: .subheading, color: .Text.primary)
+                    profileChar()
                     AnytypeText("Emoji", style: .subheading, color: .Text.primary)
                     emoji()
                 }
             }
+        }
+    }
+    
+    @ViewBuilder
+    private func profileChar() -> some View {
+        ForEach(0..<emojiExamples.count, id: \.self) { index in
+            let size = emojiExamples[index]
+            AnytypeText("Size \(size)", style: .bodyRegular, color: .Text.primary)
+            HStack(spacing: 0) {
+                HStack {
+                    Spacer()
+                    CircleCharIconView(text: "ABC")
+                        .frame(width: size, height: size)
+                    Spacer()
+                }
+                .padding(10)
+                .background(Color.white)
+                .colorScheme(.light)
+                HStack {
+                    Spacer()
+                    CircleCharIconView(text: "BCD")
+                        .frame(width: size, height: size)
+                    Spacer()
+                }
+                .padding(10)
+                .background(Color.black)
+                .colorScheme(.dark)
+            }
+            .padding(.bottom, 10)
+            .newDivider()
         }
     }
     

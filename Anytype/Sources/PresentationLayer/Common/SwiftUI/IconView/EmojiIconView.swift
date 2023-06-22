@@ -28,16 +28,14 @@ struct EmojiIconView: View {
     let text: String
     
     var body: some View {
-        ZStack {
-            Color.clear.readSize { size in
-                updateConfig(size: size)
-            }
+        Color.clear.readSize { size in
+            updateConfig(size: size)
         }
         .background {
             // Text shouldn't affect layout if font larger frame
-                Text(text)
-                    .font(.system(size: config.fontSize))
-                    .fixedSize()
+            Text(text)
+                .font(.system(size: config.fontSize))
+                .fixedSize()
         }
         .clipped()
         .ifLet(config.cornerRadius) { view, cornerRadius in
