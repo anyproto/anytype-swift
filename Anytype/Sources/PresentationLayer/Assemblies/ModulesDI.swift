@@ -131,7 +131,7 @@ final class ModulesDI: ModulesDIProtocol {
     }
     
     func login() -> LoginViewModuleAssemblyProtocol {
-        return LoginViewModuleAssembly()
+        return LoginViewModuleAssembly(serviceLocator: serviceLocator)
     }
     
     // @joe_pusya: will be moved to separate modulesDI

@@ -99,7 +99,8 @@ struct AuthView_Previews : PreviewProvider {
                 output: nil,
                 authService: DI.preview.serviceLocator.authService(),
                 seedService: DI.preview.serviceLocator.seedService(),
-                metricsService: DI.preview.serviceLocator.metricsService()
+                metricsService: DI.preview.serviceLocator.metricsService(),
+                usecaseService: DI.preview.serviceLocator.usecaseService()
             )
         )
     }

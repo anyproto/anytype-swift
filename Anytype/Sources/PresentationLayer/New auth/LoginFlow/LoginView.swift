@@ -17,14 +17,71 @@ struct LoginView: View {
                     backButton
                 }
             }
+            .sheet(isPresented: $model.showQrCodeView) {
+                QRCodeScannerView(qrCode: self.$model.entropy, error: self.$model.error)
+            }
+            .alert(isPresented: $model.openSettingsURL) {
+                AlertsFactory.goToSettingsAlert(title: Loc.Auth.cameraPermissionTitle)
+            }
             .fitIPadToReadableContentGuide()
     }
     
     private var content: some View {
         VStack(spacing: 0) {
+            Spacer.fixedHeight(16)
+            
+            PhraseTextView(text: $model.phrase, expandable: false)
+                .focused($model.autofocus)
+            
+            Spacer.fixedHeight(16)
+
+            buttonsBlock
+            
             Spacer()
         }
     }
+    
+    private var buttonsBlock : some View {
+        VStack(spacing: 12) {
+            StandardButton(
+                Loc.Auth.next,
+                inProgress: model.walletRecoveryInProgress,
+                style: .primaryLarge,
+                action: {
+                    model.onNextButtonAction()
+                }
+            )
+            .colorScheme(model.phrase.isEmpty ? .dark : .light)
+            .disabled(model.phrase.isEmpty)
+            
+            AnytypeText(
+                Loc.Auth.LoginFlow.or,
+                style: .caption2Medium,
+                color: .Auth.inputText
+            )
+            
+            HStack(spacing: 8) {
+                StandardButton(
+                    Loc.scanQRCode,
+                    style: .secondaryLarge,
+                    action: {
+                        model.onScanQRButtonAction()
+                    }
+                )
+                
+                if model.canRestoreFromKeychain {
+                    StandardButton(
+                        Loc.Auth.LoginFlow.Use.Keychain.title,
+                        style: .secondaryLarge,
+                        action: {
+                            model.onKeychainButtonAction()
+                        }
+                    )
+                }
+            }
+        }
+    }
+    
     private var backButton : some View {
         Button(action: {
             presentationMode.dismiss()
@@ -39,7 +96,12 @@ struct LoginView: View {
 struct LoginView_Previews : PreviewProvider {
     static var previews: some View {
         LoginView(
-            model: LoginViewModel()
+            model: LoginViewModel(
+                authService: DI.preview.serviceLocator.authService(),
+                seedService: DI.preview.serviceLocator.seedService(),
+                localAuthService: DI.preview.serviceLocator.localAuthService(),
+                cameraPermissionVerifier: DI.preview.serviceLocator.cameraPermissionVerifier()
+            )
         )
     }
 }

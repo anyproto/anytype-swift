@@ -148,9 +148,9 @@
 "Auth.Welcome.Title" = "the\neverything\napp";
 "Auth.Welcome.Subtitle" = "Welcome to Anytype: a place to securely write notes and documents, manage tasks, and save important content from the web.";
 "Auth.Caption.Privacy.Text" = "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)";
+"Auth.Next" = "Next";
 
 // New Auth - Join flow
-"Auth.JoinFlow.Next" = "Next";
 
 "Auth.JoinFlow.Void.Title" = "This is your Void";
 "Auth.JoinFlow.Void.Description" = "Everything you create will be stored here. It is a special encrypted place, which exist on your machine and is backed up to the network.";
@@ -171,6 +171,11 @@
 "Auth.JoinFlow.Creating.Soul.Title" = "Creating your Soul";
 "Auth.JoinFlow.Setting.Space.Title" = "Setting up your Personal Space";
 "Auth.JoinFlow.Personal.Space.Title" = "Personal Space";
+
+// New Auth - Login flow
+"Auth.LoginFlow.Use.Keychain.Title" = "Use keychain";
+"Auth.LoginFlow.Or" = "OR";
+"Auth.LoginFlow.Textfield.Placeholder" = "Type your recovery phrase";
 
 // Object settings
 

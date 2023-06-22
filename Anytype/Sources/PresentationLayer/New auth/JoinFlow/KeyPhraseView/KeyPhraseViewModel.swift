@@ -4,7 +4,6 @@ import SwiftUI
 final class KeyPhraseViewModel: ObservableObject {
 
     @Published var key: String
-    @Published var autofocus = false
     @Published var keyShown: Bool {
         didSet {
             state.keyShown = keyShown
@@ -23,7 +22,7 @@ final class KeyPhraseViewModel: ObservableObject {
         localAuthService: LocalAuthServiceProtocol
     ) {
         self.state = state
-        self.key = state.mnemonic
+        self.key = state.mnemonic.capitalized
         self.keyShown = state.keyShown
         self.output = output
         self.alertOpener = alertOpener
@@ -50,7 +49,7 @@ final class KeyPhraseViewModel: ObservableObject {
     
     func onCopyButtonTap() {
         UISelectionFeedbackGenerator().selectionChanged()
-        UIPasteboard.general.string = key
+        UIPasteboard.general.string = state.mnemonic
         alertOpener.showTopAlert(message: Loc.copied)
     }
 }

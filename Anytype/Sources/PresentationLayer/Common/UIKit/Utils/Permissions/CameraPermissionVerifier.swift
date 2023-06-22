@@ -2,7 +2,11 @@ import AVFoundation
 import AnytypeCore
 import Combine
 
-final class CameraPermissionVerifier {
+protocol CameraPermissionVerifierProtocol {
+    var cameraPermission: Future<Bool, Never> { get }
+}
+
+final class CameraPermissionVerifier: CameraPermissionVerifierProtocol {
     var cameraPermission: Future<Bool, Never> {
         Future<Bool, Never> { promise in
             switch AVCaptureDevice.authorizationStatus(for: .video) {

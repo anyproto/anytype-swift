@@ -21,7 +21,7 @@ struct JoinFlowInputView<ViewModel: JoinFlowInputProtocol>: View {
             Spacer()
             
             StandardButton(
-                Loc.Auth.JoinFlow.next,
+                Loc.Auth.next,
                 inProgress: model.inProgress,
                 style: .primaryLarge,
                 action: {
