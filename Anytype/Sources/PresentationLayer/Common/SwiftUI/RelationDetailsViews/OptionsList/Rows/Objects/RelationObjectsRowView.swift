@@ -79,7 +79,7 @@ struct RelationObjectsRowView_Previews: PreviewProvider {
                 type: "type",
                 isArchived: false,
                 isDeleted: false,
-                editorViewType: .page
+                editorScreenData: .favorites
             ),
             action: {}
         )

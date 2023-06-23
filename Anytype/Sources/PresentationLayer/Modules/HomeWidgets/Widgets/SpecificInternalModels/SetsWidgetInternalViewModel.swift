@@ -44,7 +44,7 @@ final class SetsWidgetInternalViewModel: WidgetInternalViewModelProtocol {
     }
     
     func screenData() -> EditorScreenData? {
-        return EditorScreenData(pageId: "", type: .sets)
+        return .sets
     }
     
     func analyticsSource() -> AnalyticsWidgetSource {

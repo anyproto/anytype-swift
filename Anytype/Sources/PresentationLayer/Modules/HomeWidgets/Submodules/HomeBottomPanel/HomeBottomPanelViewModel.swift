@@ -107,7 +107,6 @@ final class HomeBottomPanelViewModel: ObservableObject {
         
         AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: .home)
         
-        let screenData = EditorScreenData(pageId: details.id, type: details.editorViewType)
-        output?.onCreateObjectSelected(screenData: screenData)
+        output?.onCreateObjectSelected(screenData: details.editorScreenData())
     }
 }

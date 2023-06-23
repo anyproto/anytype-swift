@@ -8,7 +8,7 @@ final class LinkToObjectSearchViewModel: SearchViewModelProtocol {
         case createObject(String)
         case object(BlockId)
         case openURL(URL)
-        case openObject(BlockId)
+        case openObject(ObjectDetails)
         case removeLink
         case copyLink(URL)
     }
@@ -116,7 +116,7 @@ final class LinkToObjectSearchViewModel: SearchViewModelProtocol {
             let object = result?.first(where: { $0.id == blockId })
 
             linkedToData = object.map {
-                LinkToObjectSearchData(details: $0, searchKind: .openObject(blockId))
+                LinkToObjectSearchData(details: $0, searchKind: .openObject($0))
             }
             copyLink = nil
         }

@@ -36,8 +36,7 @@ extension UserDefaultsConfig {
     
     static func cleanStateAfterLogout() {
         usersId = ""
-        _screenDataFromLastSession = nil
-        storeOpenedScreenData(nil)
+        lastOpenedPage = nil
     }
     
 }
@@ -46,58 +45,8 @@ extension UserDefaultsConfig {
 
 extension UserDefaultsConfig {
     
-    @UserDefault("UserData.LastOpenedPageId", defaultValue: nil)
-    private static var _lastOpenedPageId: String?
-    @UserDefault("UserData.LastOpenedViewType", defaultValue: nil)
-    private static var _lastOpenedViewType: String?
-    @UserDefault("UserData.LastOpenedBlockId", defaultValue: nil)
-    private static var _lastOpenedBlockId: String?
-    @UserDefault("UserData.LastOpenedTargetObjectID", defaultValue: nil)
-    private static var _lastOpenedTargetObjectID: String?
-    
-    private static var _screenDataFromLastSessionInitialized = false
-    private static var _screenDataFromLastSession: EditorScreenData?
-    static var screenDataFromLastSession: EditorScreenData? {
-        initializeScreenDataFromLastSession()
-        return _screenDataFromLastSession
-    }
-    
-    static func storeOpenedScreenData(_ data: EditorScreenData?) {
-        initializeScreenDataFromLastSession()
-        _lastOpenedPageId = data?.pageId
-        
-        switch data?.type {
-        case .page, .favorites, .recent, .sets, .collections, .bin:
-            _lastOpenedViewType = data?.type.rawValue
-            _lastOpenedBlockId = nil
-            _lastOpenedTargetObjectID = nil
-        case let .set(blockId, targetObjectId):
-            _lastOpenedViewType = data?.type.rawValue
-            _lastOpenedBlockId = blockId
-            _lastOpenedTargetObjectID = targetObjectId
-        case .none:
-            _lastOpenedViewType = nil
-            _lastOpenedBlockId = nil
-            _lastOpenedTargetObjectID = nil
-        }
-    }
-    
-    private static func initializeScreenDataFromLastSession() {
-        guard !_screenDataFromLastSessionInitialized else { return }
-        _screenDataFromLastSessionInitialized = true
-        
-        guard let type = _lastOpenedViewType.flatMap ({
-            EditorViewType(
-                rawValue: $0,
-                blockId: _lastOpenedBlockId,
-                targetObjectID: _lastOpenedTargetObjectID
-            )
-        }) else { return }
-        
-        guard let pageId = _lastOpenedPageId else { return }
-                
-        _screenDataFromLastSession = EditorScreenData(pageId: pageId, type: type)
-    }
+    @UserDefault("UserData.LastOpenedPage", defaultValue: nil)
+    static var lastOpenedPage: EditorScreenData?
     
 }
 

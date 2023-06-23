@@ -177,7 +177,7 @@ final class DataviewService: DataviewServiceProtocol {
         templateId: BlockId,
         setFilters: [SetFilter],
         relationsDetails: [RelationDetails]
-    ) async throws -> String {
+    ) async throws -> ObjectDetails {
         var prefilledFields = prefilledFieldsBuilder.buildPrefilledFields(from: setFilters, relationsDetails: relationsDetails)
         prefilledFields[BundledRelationKey.type.rawValue] = objectType.protobufValue
 
@@ -196,7 +196,7 @@ final class DataviewService: DataviewServiceProtocol {
             $0.templateID = templateId
         }).invoke()
 
-        return response.objectID
+        return try ObjectDetails(safeProtobufStruct: response.details)
     }
     
     func setPositionForView(_ viewId: String, position: Int) async throws {

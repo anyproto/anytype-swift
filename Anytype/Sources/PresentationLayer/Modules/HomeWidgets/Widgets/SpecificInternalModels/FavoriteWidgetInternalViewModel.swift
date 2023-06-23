@@ -50,7 +50,7 @@ final class FavoriteWidgetInternalViewModel: WidgetInternalViewModelProtocol {
     }
     
     func screenData() -> EditorScreenData? {
-        return EditorScreenData(pageId: "", type: .favorites)
+        return .favorites
     }
     
     func analyticsSource() -> AnalyticsWidgetSource {

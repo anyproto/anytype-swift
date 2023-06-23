@@ -71,11 +71,13 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     }
 
     func showPage(objectId: String) {
-        guard let details = document.detailsStorage.get(id: objectId) else { return }
+        guard let details = document.detailsStorage.get(id: objectId) else {
+            anytypeAssertionFailure("Details not found")
+            return
+        }
         guard !details.isArchived && !details.isDeleted else { return }
         
-        let screenData = EditorScreenData(pageId: details.id, type: details.editorViewType)
-        showPage(data: screenData)
+        showPage(data: details.editorScreenData())
     }
     
     func showPage(data: EditorScreenData) {
@@ -203,7 +205,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         }
     }
     
-    func showMoveTo(onSelect: @escaping (BlockId) -> ()) {
+    func showMoveTo(onSelect: @escaping (ObjectDetails) -> ()) {
         
         let moveToView = newSearchModuleAssembly.blockObjectsSearchModule(
             title: Loc.moveTo,
@@ -213,7 +215,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
                 ObjectTypeId.bundled(.collection).rawValue
             ]
         ) { [weak self] details in
-            onSelect(details.id)
+            onSelect(details)
             self?.navigationContext.dismissTopPresented()
         }
 
@@ -247,7 +249,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     
     func showSearch(onSelect: @escaping (EditorScreenData) -> ()) {
         let module = searchModuleAssembly.makeObjectSearch(title: nil) { data in
-            onSelect(EditorScreenData(pageId: data.blockId, type: data.viewType))
+            onSelect(data.editorScreenData)
         }
         navigationContext.present(module)
     }
@@ -496,16 +498,16 @@ extension EditorRouter {
 }
 
 extension EditorRouter: RelationValueCoordinatorOutput {
-    func openObject(pageId: BlockId, viewType: EditorViewType) {
+    func openObject(screenData: EditorScreenData) {
         navigationContext.dismissAllPresented()
-        showPage(data: EditorScreenData(pageId: pageId, type: viewType))
+        showPage(data: screenData)
     }
 }
 
 extension EditorRouter: ObjectSettingsModuleDelegate {
     func didCreateLinkToItself(selfName: String, data: EditorScreenData) {
         UIApplication.shared.hideKeyboard()
-        toastPresenter.showObjectName(selfName, middleAction: Loc.Editor.Toast.linkedTo, secondObjectId: data.pageId) { [weak self] in
+        toastPresenter.showObjectName(selfName, middleAction: Loc.Editor.Toast.linkedTo, secondObjectId: data.objectId) { [weak self] in
             self?.showPage(data: data)
         }
     }

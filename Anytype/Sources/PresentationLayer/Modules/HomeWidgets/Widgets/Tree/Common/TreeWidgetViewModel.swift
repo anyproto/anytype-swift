@@ -161,8 +161,7 @@ final class TreeWidgetViewModel: ObservableObject, WidgetContainerContentViewMod
                     self?.onTapCollapse(model: model)
                 },
                 tapObject: { [weak self] _ in
-                    let data = EditorScreenData(pageId: details.id, type: details.editorViewType)
-                    self?.output?.onObjectSelected(screenData: data)
+                    self?.output?.onObjectSelected(screenData: details.editorScreenData())
                 }
             )
             
@@ -187,8 +186,6 @@ private extension ObjectDetails {
             return links.isEmpty || !canBeExpanded ? .icon(asset: .Widget.dot) : .arrow(expanded: isExpanded)
         case .set:
             return isCollection ? .icon(asset: .Widget.collection) : .icon(asset: .Widget.set)
-        case .favorites, .recent, .sets, .collections, .bin:
-            return .icon(asset: .Widget.dot)
         }
     }
 }

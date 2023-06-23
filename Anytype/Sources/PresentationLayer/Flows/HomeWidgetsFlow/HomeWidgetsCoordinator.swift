@@ -85,8 +85,8 @@ final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsM
         }
         .store(in: &subscriptions)
         
-        if let data = UserDefaultsConfig.screenDataFromLastSession {
-            UserDefaultsConfig.storeOpenedScreenData(nil)
+        if let data = UserDefaultsConfig.lastOpenedPage {
+            UserDefaultsConfig.lastOpenedPage = nil
             openObject(screenData: data)
             return
         }
@@ -101,7 +101,7 @@ final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsM
     func createAndShowNewPage() {
         guard let details = dashboardService.createNewPage() else { return }
         AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: .home)
-        openObject(screenData: EditorScreenData(pageId: details.id, type: details.editorViewType))
+        openObject(screenData: details.editorScreenData())
     }
     
     // MARK: - HomeWidgetsModuleOutput
@@ -148,9 +148,8 @@ final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsM
         AnytypeAnalytics.instance().logScreenSearch()
         let module = searchModuleAssembly.makeObjectSearch(title: nil, onSelect: { [weak self] data in
             AnytypeAnalytics.instance().logSearchResult()
-            let screenData = EditorScreenData(pageId: data.blockId, type: data.viewType)
             self?.navigationContext.dismissAllPresented()
-            self?.openObject(screenData: screenData)
+            self?.openObject(screenData: data.editorScreenData)
         })
         navigationContext.present(module)
     }

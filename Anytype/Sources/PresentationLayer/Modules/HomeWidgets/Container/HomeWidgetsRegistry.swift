@@ -203,10 +203,10 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
             guard objectDetails.editorViewType == .page else { return nil }
             return objectTreeWidgetProviderAssembly
         case .list:
-            guard objectDetails.editorViewType == .set() else { return nil }
+            guard objectDetails.editorViewType == .set else { return nil }
             return setListWidgetProviderAssembly
         case .compactList:
-            guard objectDetails.editorViewType == .set() else { return nil }
+            guard objectDetails.editorViewType == .set else { return nil }
             return setCompactListWidgetProviderAssembly
         }
     }

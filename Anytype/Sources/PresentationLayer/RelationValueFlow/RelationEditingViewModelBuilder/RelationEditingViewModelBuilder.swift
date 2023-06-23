@@ -35,7 +35,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
         objectDetails: ObjectDetails,
         relation: Relation,
         analyticsType: AnalyticsEventsRelationType,
-        onTap: @escaping (_ id: BlockId, _ viewType: EditorViewType) -> Void
+        onTap: @escaping (_ screenData: EditorScreenData) -> Void
     ) -> AnytypePopupViewModelProtocol? {
         switch relation {
         case .text(let text):
@@ -167,7 +167,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                     ) {
                         RelationObjectsRowView(
                             object: object,
-                            action: { onTap(object.id, object.editorViewType) }
+                            action: { onTap(object.editorScreenData) }
                         ).eraseToAnyView()
                     }
                 },
@@ -189,7 +189,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                     ) {
                         RelationFilesRowView(
                             file: file,
-                            action: { onTap(file.id, .page) }
+                            action: { onTap(file.editorScreenData) }
                         ).eraseToAnyView()
                     }
                 },
