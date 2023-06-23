@@ -27,7 +27,7 @@ struct ListWidgetCompactRow: View {
             model.onTap()
         }
         .if(showDivider) {
-            $0.newDivider(leadingPadding: 16, trailingPadding: 16)
+            $0.newDivider(leadingPadding: 16, trailingPadding: 16, color: .Widget.divider)
         }
     }
 }

@@ -21,7 +21,7 @@ struct ListWidgetRow: View {
                     .lineLimit(1)
                 if let description = model.description, description.isNotEmpty {
                     Spacer.fixedHeight(1)
-                    AnytypeText(description, style: .relation3Regular, color: .Text.secondary)
+                    AnytypeText(description, style: .relation3Regular, color: .Widget.secondary)
                         .lineLimit(1)
                 }
             }
@@ -34,7 +34,7 @@ struct ListWidgetRow: View {
             model.onTap()
         }
         .if(showDivider) {
-            $0.newDivider(leadingPadding: 16, trailingPadding: 16)
+            $0.newDivider(leadingPadding: 16, trailingPadding: 16, color: .Widget.divider)
         }
     }
 }

@@ -13,7 +13,7 @@ struct ListWidgetHeaderItem: View {
     let model: Model
     
     var body: some View {
-        AnytypeText(model.title, style: .previewTitle2Medium, color: model.isSelected ? .Text.primary : .Button.active)
+        AnytypeText(model.title, style: .previewTitle2Medium, color: model.isSelected ? .Text.primary : .Widget.inactiveTab)
             .onTapGesture {
                 model.onTap()
             }
