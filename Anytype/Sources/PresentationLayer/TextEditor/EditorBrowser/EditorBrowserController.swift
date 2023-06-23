@@ -113,12 +113,14 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
                 self?.goToHome(animated: true)
             },
             onCreateObjectTap: { [weak self] in
-                guard let self = self else { return }
-                guard let details = self.dashboardService.createNewPage() else { return }
-                
-                AnytypeAnalytics.instance().logCreateObjectNavBar(objectType: details.analyticsType)
-                
-                self.router.showPage(data: details.editorScreenData())
+                Task { @MainActor in
+                    guard let self = self,
+                          let details = try? await self.dashboardService.createNewPage() else {
+                        return
+                    }
+                    AnytypeAnalytics.instance().logCreateObjectNavBar(objectType: details.analyticsType)
+                    self.router.showPage(data: details.editorScreenData())
+                }
             }
         )
     }

@@ -9,7 +9,7 @@ struct WidgetAnytypeLibrarySource: Hashable {
 }
 
 protocol WidgetSourceSearchInteractorProtocol: AnyObject {
-    func objectSearch(text: String) -> [ObjectDetails]
+    func objectSearch(text: String) async throws -> [ObjectDetails]
     func anytypeLibrarySearch(text: String) -> [WidgetAnytypeLibrarySource]
 }
 
@@ -29,13 +29,12 @@ final class WidgetSourceSearchInteractor: WidgetSourceSearchInteractorProtocol {
     
     // MARK: - WidgetSourceSearchInteractorProtocol
     
-    func objectSearch(text: String) -> [ObjectDetails] {
-        let response = searchService.searchObjects(
+    func objectSearch(text: String) async throws -> [ObjectDetails] {
+        try await searchService.searchObjects(
             text: text,
             excludedObjectIds: [],
             limitedTypeIds: []
         )
-        return response ?? []
     }
     
     func anytypeLibrarySearch(text: String) -> [WidgetAnytypeLibrarySource] {

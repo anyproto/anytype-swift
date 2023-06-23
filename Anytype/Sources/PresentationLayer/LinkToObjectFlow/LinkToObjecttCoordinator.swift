@@ -50,9 +50,11 @@ final class LinkToObjectCoordinator: LinkToObjectCoordinatorProtocol {
             case let .object(linkBlockId):
                 setLinkToObject(linkBlockId)
             case let .createObject(name):
-                if let linkBlockDetails = self?.pageService.createPage(name: name) {
-                    AnytypeAnalytics.instance().logCreateObject(objectType: linkBlockDetails.analyticsType, route: .mention)
-                    setLinkToObject(linkBlockDetails.id)
+                Task { @MainActor [weak self] in
+                    if let linkBlockDetails = try? await self?.pageService.createPage(name: name) {
+                        AnytypeAnalytics.instance().logCreateObject(objectType: linkBlockDetails.analyticsType, route: .mention)
+                        setLinkToObject(linkBlockDetails.id)
+                    }
                 }
             case let .web(url):
                 setLinkToUrl(url)

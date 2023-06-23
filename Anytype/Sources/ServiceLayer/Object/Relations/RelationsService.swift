@@ -49,7 +49,7 @@ final class RelationsService: RelationsServiceProtocol {
         
         guard let result = result,
               addRelations(relationKeys: [result.key]),
-              let objectDetails = ObjectDetails(protobufStruct: result.details)
+              let objectDetails = try? ObjectDetails(protobufStruct: result.details)
             else { return nil }
         
         return RelationDetails(objectDetails: objectDetails)
