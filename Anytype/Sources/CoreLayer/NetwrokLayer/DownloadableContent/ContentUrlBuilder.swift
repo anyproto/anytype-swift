@@ -56,8 +56,14 @@ private extension ContentUrlBuilder {
         components.path = "\(Constants.imageSubPath)\(imageMetadata.id)"
         
         switch imageMetadata.width {
-        case .custom(let width):
+        case .width(let width):
             components.queryItems = [makeCustomWidthQueryItem(width: width)]
+            return components.url
+        case .height(let height):
+            components.queryItems = [makeCustomWHeightQueryItem(height: height)]
+            return components.url
+        case .size(let size):
+            components.queryItems = [makeCustomWidthQueryItem(width: size.width), makeCustomWHeightQueryItem(height: size.height)]
             return components.url
         case .original:
             return components.url
@@ -78,6 +84,20 @@ private extension ContentUrlBuilder {
         return URLQueryItem(name: Constants.widthQueryItemName, value: queryItemValue)
     }
     
+    static func makeCustomWHeightQueryItem(height: CGFloat) -> URLQueryItem {
+        let adjustedWidth = Int(height * UIScreen.main.scale)
+        
+        let queryItemValue: String = {
+            guard adjustedWidth > 0 else {
+                return Constants.defaultWidth
+            }
+            
+            return "\(adjustedWidth)"
+        }()
+        
+        return URLQueryItem(name: Constants.heightQueryItemName, value: queryItemValue)
+    }
+    
 }
 
 // MARK: - Constants
@@ -89,6 +109,7 @@ private extension ContentUrlBuilder {
         static let fileSubPath = "/file/"
         
         static let widthQueryItemName = "width"
+        static let heightQueryItemName = "height"
         static let defaultWidth = "700"
         
     }

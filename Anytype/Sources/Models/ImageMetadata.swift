@@ -10,7 +10,7 @@ extension ImageMetadata {
     
     init(id: String, width: CGFloat) {
         self.id = id
-        self.width = .custom(width)
+        self.width = .width(width)
     }
     
 }

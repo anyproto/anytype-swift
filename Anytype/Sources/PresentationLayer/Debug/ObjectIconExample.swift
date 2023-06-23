@@ -3,31 +3,34 @@ import SwiftUI
 struct ObjectIconExample: View {
     
     private let emojiExamples: [CGFloat] = [16, 18, 40, 48, 64, 80, 96]
-
+    private let iconId = "bafybeiat4rk32gloscasl2pv5kevxl6zvlojw22aijxqj5tyqqr3l5vgii"
+    
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
             TitleView(title: "Icons")
             ScrollView {
                 VStack(spacing: 20) {
+                    AnytypeText("Profile Icon", style: .subheading, color: .Text.primary)
+                    demoBlock { CircleImageIdView(imageId: iconId) }
                     AnytypeText("Profile Char", style: .subheading, color: .Text.primary)
-                    profileChar()
+                    demoBlock { CircleCharIconView(text: "ABC") }
                     AnytypeText("Emoji", style: .subheading, color: .Text.primary)
-                    emoji()
+                    demoBlock { EmojiIconView(text: "😀") }
                 }
             }
         }
     }
     
     @ViewBuilder
-    private func profileChar() -> some View {
+    private func demoBlock(@ViewBuilder content: @escaping () -> some View) -> some View {
         ForEach(0..<emojiExamples.count, id: \.self) { index in
             let size = emojiExamples[index]
             AnytypeText("Size \(size)", style: .bodyRegular, color: .Text.primary)
             HStack(spacing: 0) {
                 HStack {
                     Spacer()
-                    CircleCharIconView(text: "ABC")
+                    content()
                         .frame(width: size, height: size)
                     Spacer()
                 }
@@ -36,37 +39,7 @@ struct ObjectIconExample: View {
                 .colorScheme(.light)
                 HStack {
                     Spacer()
-                    CircleCharIconView(text: "BCD")
-                        .frame(width: size, height: size)
-                    Spacer()
-                }
-                .padding(10)
-                .background(Color.black)
-                .colorScheme(.dark)
-            }
-            .padding(.bottom, 10)
-            .newDivider()
-        }
-    }
-    
-    @ViewBuilder
-    private func emoji() -> some View {
-        ForEach(0..<emojiExamples.count, id: \.self) { index in
-            let size = emojiExamples[index]
-            AnytypeText("Size \(size)", style: .bodyRegular, color: .Text.primary)
-            HStack(spacing: 0) {
-                HStack {
-                    Spacer()
-                    EmojiIconView(text: "😀")
-                        .frame(width: size, height: size)
-                    Spacer()
-                }
-                .padding(10)
-                .background(Color.white)
-                .colorScheme(.light)
-                HStack {
-                    Spacer()
-                    EmojiIconView(text: "😀")
+                    content()
                         .frame(width: size, height: size)
                     Spacer()
                 }
