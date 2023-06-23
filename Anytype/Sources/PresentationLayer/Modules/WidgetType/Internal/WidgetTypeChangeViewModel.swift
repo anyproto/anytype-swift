@@ -30,7 +30,7 @@ final class WidgetTypeChangeViewModel: WidgetTypeInternalViewModelProtocol {
         
         widgetObject.syncPublisher.sink { [weak self] in
             guard let info = self?.widgetObject.widgetInfo(blockId: widgetId) else { return }
-            self?.state = WidgetTypeState(source: info.source, layout: info.block.layout)
+            self?.state = WidgetTypeState(source: info.source, layout: info.fixedLayout)
         }
         .store(in: &subscriptions)
     }

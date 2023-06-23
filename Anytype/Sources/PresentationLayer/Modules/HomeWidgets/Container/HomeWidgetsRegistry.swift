@@ -147,14 +147,14 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
     private func providerForInfo(_ widgetInfo: BlockWidgetInfo) -> HomeWidgetProviderAssemblyProtocol? {
         switch widgetInfo.source {
         case .object(let objectDetails):
-            return providerForObject(objectDetails, widget: widgetInfo.block)
+            return providerForObject(objectDetails, widgetInfo: widgetInfo)
         case .library(let anytypeWidgetId):
-            return providerForAnytypeWidgetId(anytypeWidgetId, widget: widgetInfo.block)
+            return providerForAnytypeWidgetId(anytypeWidgetId, widgetInfo: widgetInfo)
         }
     }
     
-    private func providerForAnytypeWidgetId(_ anytypeWidgetId: AnytypeWidgetId, widget: BlockWidget) -> HomeWidgetProviderAssemblyProtocol? {
-        switch (anytypeWidgetId, widget.layout) {
+    private func providerForAnytypeWidgetId(_ anytypeWidgetId: AnytypeWidgetId, widgetInfo: BlockWidgetInfo) -> HomeWidgetProviderAssemblyProtocol? {
+        switch (anytypeWidgetId, widgetInfo.fixedLayout) {
         case (.favorite, .tree):
             return favoriteTreeWidgetProviderAssembly
         case (.favorite, .list):
@@ -192,11 +192,11 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
         }
     }
     
-    private func providerForObject(_ objectDetails: ObjectDetails, widget: BlockWidget) -> HomeWidgetProviderAssemblyProtocol? {
+    private func providerForObject(_ objectDetails: ObjectDetails, widgetInfo: BlockWidgetInfo) -> HomeWidgetProviderAssemblyProtocol? {
         
         guard objectDetails.isVisibleForEdit else { return nil }
         
-        switch widget.layout {
+        switch widgetInfo.fixedLayout {
         case .link:
             return linkWidgetProviderAssembly
         case .tree:

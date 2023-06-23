@@ -60,7 +60,7 @@ final class SetObjectWidgetInternalViewModel: WidgetDataviewInternalViewModelPro
             .compactMap { $0 }
             .receiveOnMain()
             .sink { [weak self] details in
-                self?.name = self?.setDocument?.details?.title ?? ""
+                self?.name = details?.title ?? ""
             }
             .store(in: &subscriptions)
     }
