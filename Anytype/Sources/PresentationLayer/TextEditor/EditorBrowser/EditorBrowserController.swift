@@ -68,7 +68,7 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
         super.viewWillDisappear(animated)
         
         if let navigationController, !navigationController.viewControllers.contains(where: { $0 == self}) {
-            UserDefaultsConfig.lastOpenPage = nil
+            UserDefaultsConfig.lastOpenedPage = nil
         }
     }
     
@@ -176,7 +176,7 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
             return
         }
         
-        UserDefaultsConfig.lastOpenPage = detailsProvider.screenData
+        UserDefaultsConfig.lastOpenedPage = detailsProvider.screenData
         
         let title = detailsProvider.documentTitle
         let subtitle = detailsProvider.documentDescription

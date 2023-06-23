@@ -85,8 +85,8 @@ final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsM
         }
         .store(in: &subscriptions)
         
-        if let data = UserDefaultsConfig.lastOpenPage {
-            UserDefaultsConfig.lastOpenPage = nil
+        if let data = UserDefaultsConfig.lastOpenedPage {
+            UserDefaultsConfig.lastOpenedPage = nil
             openObject(screenData: data)
             return
         }

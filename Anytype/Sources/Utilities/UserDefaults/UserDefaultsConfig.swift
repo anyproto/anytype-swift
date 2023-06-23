@@ -36,7 +36,7 @@ extension UserDefaultsConfig {
     
     static func cleanStateAfterLogout() {
         usersId = ""
-        lastOpenPage = nil
+        lastOpenedPage = nil
     }
     
 }
@@ -46,7 +46,7 @@ extension UserDefaultsConfig {
 extension UserDefaultsConfig {
     
     @UserDefault("UserData.LastOpenedPage", defaultValue: nil)
-    static var lastOpenPage: EditorScreenData?
+    static var lastOpenedPage: EditorScreenData?
     
 }
 
