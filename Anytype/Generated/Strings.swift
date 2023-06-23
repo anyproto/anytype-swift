@@ -1414,8 +1414,8 @@ internal enum Loc {
       internal enum ContextMenu {
         /// Change query
         internal static let changeQuery = Loc.tr("Localizable", "Set.TypeRelation.ContextMenu.ChangeQuery", fallback: "Change query")
-        /// Turn into collection
-        internal static let turnIntoCollection = Loc.tr("Localizable", "Set.TypeRelation.ContextMenu.TurnIntoCollection", fallback: "Turn into collection")
+        /// Turn Set into Collection
+        internal static let turnIntoCollection = Loc.tr("Localizable", "Set.TypeRelation.ContextMenu.TurnIntoCollection", fallback: "Turn Set into Collection")
       }
     }
     internal enum View {

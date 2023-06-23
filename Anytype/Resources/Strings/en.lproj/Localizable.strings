@@ -388,7 +388,7 @@
 "Set.SourceType.Cancel.Toast.Title" = "This query can be changed on desktop only";
 
 // MARK: - Set: Type context menu
-"Set.TypeRelation.ContextMenu.TurnIntoCollection" = "Turn into collection";
+"Set.TypeRelation.ContextMenu.TurnIntoCollection" = "Turn Set into Collection";
 "Set.TypeRelation.ContextMenu.ChangeQuery" = "Change query";
 
 // MARK: - Collection: empty view
