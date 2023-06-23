@@ -497,21 +497,21 @@ extension RelationFormat {
         case .number:
             return Loc.enterNumber
         case .date:
-            return Loc.enterDate
+            return Loc.selectDate
         case .url:
-            return Loc.enterURL
+            return Loc.addLink
         case .email:
-            return Loc.enterEMail
+            return Loc.addEmail
         case .phone:
-            return Loc.enterPhone
+            return Loc.addPhone
         case .status:
             return Loc.selectStatus
         case .tag:
-            return Loc.selectTags
+            return Loc.selectTag
         case .file:
-            return Loc.selectFiles
+            return Loc.selectFile
         case .object:
-            return Loc.selectObjects
+            return Loc.selectObject
         case .checkbox:
             return ""
         case .unrecognized:
