@@ -81,7 +81,7 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
             onEnterAtTheEndOfContent(info: info, text: text, range: range, action: action, newString: string)
             
         case let .enterAtTheBegining(_, range):
-            service.split(currentString, blockId: info.id, mode: .bottom, range: range, newBlockContentType: .text)
+            service.split(currentString, blockId: info.id, mode: .bottom, range: range, newBlockContentType: text.contentType)
         case .delete:
             onDelete(text: text, info: info, parent: parent)
         }
