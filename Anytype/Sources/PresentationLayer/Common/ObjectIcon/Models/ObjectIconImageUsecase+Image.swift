@@ -108,7 +108,7 @@ extension ObjectIconImageUsecase {
                 profileImageGuideline: nil,
                 emojiImageGuideline: EmojiIconImageGuideline.x52,
                 todoImageGuideline: nil,
-                placeholderImageGuideline: nil,
+                placeholderImageGuideline: PlaceholderIconImageGuideline.x52,
                 staticImageGuideline: nil,
                 bookmarkImageGuideline: nil,
                 spaceImageGuideline: nil
