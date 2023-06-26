@@ -15,9 +15,8 @@ final class FilesSearchInteractor {
 
 extension FilesSearchInteractor: ObjectsSearchInteractorProtocol {
     
-    func search(text: String) -> [ObjectDetails] {
-        let response = searchService.searchFiles(text: text, excludedFileIds: excludedFileIds)
-        return response ?? []
+    func search(text: String) async throws -> [ObjectDetails] {
+        try await searchService.searchFiles(text: text, excludedFileIds: excludedFileIds)
     }
     
 }

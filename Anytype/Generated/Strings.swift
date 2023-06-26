@@ -42,8 +42,12 @@ internal enum Loc {
   internal static let addBelow = Loc.tr("Localizable", "Add below", fallback: "Add below")
   /// Add email
   internal static let addEmail = Loc.tr("Localizable", "Add email", fallback: "Add email")
+  /// Add link
+  internal static let addLink = Loc.tr("Localizable", "Add link", fallback: "Add link")
   /// Add number
   internal static let addNumber = Loc.tr("Localizable", "Add number", fallback: "Add number")
+  /// Add phone
+  internal static let addPhone = Loc.tr("Localizable", "Add phone", fallback: "Add phone")
   /// Add phone number
   internal static let addPhoneNumber = Loc.tr("Localizable", "Add phone number", fallback: "Add phone number")
   /// Add text
@@ -243,18 +247,10 @@ internal enum Loc {
   internal static let emojiOrImageForObject = Loc.tr("Localizable", "Emoji or image for object", fallback: "Emoji or image for object")
   /// Empty
   internal static let empty = Loc.tr("Localizable", "Empty", fallback: "Empty")
-  /// Enter date
-  internal static let enterDate = Loc.tr("Localizable", "Enter date", fallback: "Enter date")
-  /// Enter e-mail
-  internal static let enterEMail = Loc.tr("Localizable", "Enter e-mail", fallback: "Enter e-mail")
   /// Enter number
   internal static let enterNumber = Loc.tr("Localizable", "Enter number", fallback: "Enter number")
-  /// Enter phone
-  internal static let enterPhone = Loc.tr("Localizable", "Enter phone", fallback: "Enter phone")
   /// Enter text
   internal static let enterText = Loc.tr("Localizable", "Enter text", fallback: "Enter text")
-  /// Enter URL
-  internal static let enterURL = Loc.tr("Localizable", "Enter URL", fallback: "Enter URL")
   /// Enter value
   internal static let enterValue = Loc.tr("Localizable", "Enter value", fallback: "Enter value")
   /// Enter your name
@@ -491,16 +487,18 @@ internal enum Loc {
   internal static let selectAccountError = Loc.tr("Localizable", "Select account error", fallback: "Select account error")
   /// Select all
   internal static let selectAll = Loc.tr("Localizable", "Select all", fallback: "Select all")
-  /// Select files
-  internal static let selectFiles = Loc.tr("Localizable", "Select files", fallback: "Select files")
-  /// Select objects
-  internal static let selectObjects = Loc.tr("Localizable", "Select objects", fallback: "Select objects")
+  /// Select date
+  internal static let selectDate = Loc.tr("Localizable", "Select date", fallback: "Select date")
+  /// Select file
+  internal static let selectFile = Loc.tr("Localizable", "Select file", fallback: "Select file")
+  /// Select object
+  internal static let selectObject = Loc.tr("Localizable", "Select object", fallback: "Select object")
   /// Select relation type
   internal static let selectRelationType = Loc.tr("Localizable", "Select relation type", fallback: "Select relation type")
   /// Select status
   internal static let selectStatus = Loc.tr("Localizable", "Select status", fallback: "Select status")
-  /// Select tags
-  internal static let selectTags = Loc.tr("Localizable", "Select tags", fallback: "Select tags")
+  /// Select tag
+  internal static let selectTag = Loc.tr("Localizable", "Select tag", fallback: "Select tag")
   /// Plural format key: "%#@object@"
   internal static func selectedBlocks(_ p1: Int) -> String {
     return Loc.tr("Localizable", "Selected blocks", p1, fallback: "Plural format key: \"%#@object@\"")
@@ -1414,8 +1412,8 @@ internal enum Loc {
       internal enum ContextMenu {
         /// Change query
         internal static let changeQuery = Loc.tr("Localizable", "Set.TypeRelation.ContextMenu.ChangeQuery", fallback: "Change query")
-        /// Turn into collection
-        internal static let turnIntoCollection = Loc.tr("Localizable", "Set.TypeRelation.ContextMenu.TurnIntoCollection", fallback: "Turn into collection")
+        /// Turn Set into Collection
+        internal static let turnIntoCollection = Loc.tr("Localizable", "Set.TypeRelation.ContextMenu.TurnIntoCollection", fallback: "Turn Set into Collection")
       }
     }
     internal enum View {

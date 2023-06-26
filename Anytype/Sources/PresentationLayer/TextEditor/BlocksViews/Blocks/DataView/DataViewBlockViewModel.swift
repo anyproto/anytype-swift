@@ -65,18 +65,24 @@ struct DataViewBlockViewModel: BlockViewModelProtocol {
     }
 
     func didSelectRowInTableView(editorEditingState: EditorEditingState) {
-        if objectDetails == nil {
+        guard let objectDetails else {
             showFailureToast(Loc.Content.DataView.InlineSet.Toast.failure)
-        } else if FeatureFlags.fullInlineSetImpl, let pageId = info.configurationData.parentId {
+            return
+        }
+        
+        if FeatureFlags.fullInlineSetImpl, let pageId = info.configurationData.parentId {
             openSet(
-                EditorScreenData(
-                    pageId: pageId,
-                    type: .set(blockId: info.id, targetObjectID: objectDetails?.id)
+                .set(
+                    EditorSetObject(
+                        objectId: pageId,
+                        inline: EditorInlineSetObject(blockId: info.id, targetObjectID: objectDetails.id),
+                        isSupportedForEdit: objectDetails.isSupportedForEdit
+                    )
                 )
             )
-        } else if !FeatureFlags.fullInlineSetImpl, let targetObjectID = objectDetails?.id {
+        } else if !FeatureFlags.fullInlineSetImpl {
             openSet(
-                EditorScreenData(pageId: targetObjectID, type: .set())
+                objectDetails.editorScreenData()
             )
         }
     }

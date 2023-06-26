@@ -30,7 +30,8 @@ struct RelationFilesRowView_Previews: PreviewProvider {
             file: Relation.File.Option(
                 id: "s",
                 icon: .todo(false),
-                title: "title"
+                title: "title",
+                editorScreenData: .favorites
             ),
             action: {}
         )

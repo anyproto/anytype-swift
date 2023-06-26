@@ -27,8 +27,6 @@ extension WidgetSource {
                return [.tree, .link]
             case .set:
                 return [.compactList, .list, .link]
-            case .favorites, .recent, .sets, .collections, .bin:
-                return []
             }
         case .library(let library):
             switch library {

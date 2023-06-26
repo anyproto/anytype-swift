@@ -29,8 +29,8 @@ final class WidgetSourceSearchViewModel: NewInternalSearchViewModelProtocol {
 
     // MARK: - NewInternalSearchViewModelProtocol
     
-    func search(text: String) {
-        let objects = interactor.objectSearch(text: text)
+    func search(text: String) async throws {
+        let objects = try await interactor.objectSearch(text: text)
         let libraryObjects = interactor.anytypeLibrarySearch(text: text)
         
         if objects.isEmpty && libraryObjects.isEmpty {

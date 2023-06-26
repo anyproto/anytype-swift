@@ -44,7 +44,7 @@ final class RecentWidgetInternalViewModel: WidgetInternalViewModelProtocol {
     }
     
     func screenData() -> EditorScreenData? {
-        return EditorScreenData(pageId: "", type: .recent)
+        return .recent
     }
     
     func analyticsSource() -> AnalyticsWidgetSource {

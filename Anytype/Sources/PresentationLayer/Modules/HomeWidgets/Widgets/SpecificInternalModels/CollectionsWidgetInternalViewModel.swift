@@ -44,7 +44,7 @@ final class CollectionsWidgetInternalViewModel: WidgetInternalViewModelProtocol 
     }
     
     func screenData() -> EditorScreenData? {
-        return EditorScreenData(pageId: "", type: .collections)
+        return .collections
     }
     
     func analyticsSource() -> AnalyticsWidgetSource {

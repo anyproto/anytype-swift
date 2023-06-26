@@ -103,11 +103,11 @@ final class HomeBottomPanelViewModel: ObservableObject {
     }
     
     private func handleCreateObject() {
-        guard let details = dashboardService.createNewPage() else { return }
-        
-        AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: .home)
-        
-        let screenData = EditorScreenData(pageId: details.id, type: details.editorViewType)
-        output?.onCreateObjectSelected(screenData: screenData)
+        Task { @MainActor in
+            guard let details = try? await dashboardService.createNewPage() else { return }
+            AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: .home)
+            
+            output?.onCreateObjectSelected(screenData: details.editorScreenData())
+        }
     }
 }

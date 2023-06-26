@@ -4,7 +4,7 @@ import Services
 import AnytypeCore
 
 protocol SearchServiceProtocol: AnyObject {
-    func search(text: String) -> [ObjectDetails]?
+    func search(text: String) async throws -> [ObjectDetails]
     func search(text: String, excludedObjectIds: [String]) async throws -> [ObjectDetails]
     func searchObjectTypes(
         text: String,
@@ -12,21 +12,22 @@ protocol SearchServiceProtocol: AnyObject {
         shouldIncludeSets: Bool,
         shouldIncludeCollections: Bool,
         shouldIncludeBookmark: Bool
-    ) -> [ObjectDetails]?
-    func searchMarketplaceObjectTypes(text: String, includeInstalled: Bool) -> [ObjectDetails]?
-    func searchFiles(text: String, excludedFileIds: [String]) -> [ObjectDetails]?
-    func searchObjects(text: String, excludedObjectIds: [String], limitedTypeIds: [String]) -> [ObjectDetails]?
-    func searchTemplates(for type: ObjectTypeId) -> [ObjectDetails]?
+    ) async throws -> [ObjectDetails]
+    
+    func searchMarketplaceObjectTypes(text: String, includeInstalled: Bool) async throws -> [ObjectDetails]
+    func searchFiles(text: String, excludedFileIds: [String]) async throws -> [ObjectDetails]
+    func searchObjects(text: String, excludedObjectIds: [String], limitedTypeIds: [String]) async throws -> [ObjectDetails]
+    func searchTemplates(for type: ObjectTypeId) async throws -> [ObjectDetails]
     func searchObjects(
         text: String,
         excludedObjectIds: [String],
         excludedTypeIds: [String],
         sortRelationKey: BundledRelationKey?
-    ) -> [ObjectDetails]?
-    func searchRelationOptions(text: String, relationKey: String, excludedObjectIds: [String]) -> [RelationOption]?
-    func searchRelationOptions(optionIds: [String]) -> [RelationOption]?
-    func searchRelations(text: String, excludedIds: [String]) -> [RelationDetails]?
-    func searchMarketplaceRelations(text: String, includeInstalled: Bool) -> [RelationDetails]?
+    ) async throws -> [ObjectDetails]
+    func searchRelationOptions(text: String, relationKey: String, excludedObjectIds: [String]) async throws -> [RelationOption]
+    func searchRelationOptions(optionIds: [String]) async throws -> [RelationOption]
+    func searchRelations(text: String, excludedIds: [String]) async throws -> [RelationDetails]
+    func searchMarketplaceRelations(text: String, includeInstalled: Bool) async throws -> [RelationDetails]
     func searchArchiveObjectIds() async throws -> [String]
 }
 
@@ -52,7 +53,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
     
     // MARK: - SearchServiceProtocol
     
-    func search(text: String) -> [ObjectDetails]? {
+    func search(text: String) async throws -> [ObjectDetails] {
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.lastOpenedDate,
             type: .desc
@@ -60,7 +61,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         
         let filters = buildFilters(isArchived: false, layouts: DetailsLayout.visibleLayouts)
         
-        return search(filters: filters, sorts: [sort], fullText: text, limit: Constants.defaultLimit)
+        return try await search(filters: filters, sorts: [sort], fullText: text, limit: Constants.defaultLimit)
     }
     
     func search(text: String, excludedObjectIds: [String]) async throws -> [ObjectDetails] {
@@ -83,7 +84,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         shouldIncludeSets: Bool,
         shouldIncludeCollections: Bool,
         shouldIncludeBookmark: Bool
-    ) -> [ObjectDetails]? {
+    ) async throws -> [ObjectDetails] {
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.name,
             type: .asc
@@ -112,9 +113,9 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             }
         }
         
-        let result = search(filters: filters, sorts: [sort], fullText: text)
+        let result = try await search(filters: filters, sorts: [sort], fullText: text)
 
-        return result?.reordered(
+        return result.reordered(
             by: [
                 ObjectTypeId.bundled(.page).rawValue,
                 ObjectTypeId.bundled(.note).rawValue,
@@ -124,7 +125,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         ) { $0.id }
     }
     
-    func searchMarketplaceObjectTypes(text: String, includeInstalled: Bool) -> [ObjectDetails]? {
+    func searchMarketplaceObjectTypes(text: String, includeInstalled: Bool) async throws -> [ObjectDetails] {
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.name,
             type: .asc
@@ -139,11 +140,10 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             }
         }
         
-        let result = search(filters: filters, sorts: [sort], fullText: text)
-        return result
+        return try await search(filters: filters, sorts: [sort], fullText: text)
     }
     
-    func searchFiles(text: String, excludedFileIds: [String]) -> [ObjectDetails]? {
+    func searchFiles(text: String, excludedFileIds: [String]) async throws -> [ObjectDetails] {
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.name,
             type: .asc
@@ -157,10 +157,10 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             SearchHelper.workspaceId(accountManager.account.info.accountSpaceId),
         ]
         
-        return search(filters: filters, sorts: [sort], fullText: text, limit: Constants.defaultLimit)
+        return try await search(filters: filters, sorts: [sort], fullText: text, limit: Constants.defaultLimit)
     }
     
-    func searchObjects(text: String, excludedObjectIds: [String], limitedTypeIds: [String]) -> [ObjectDetails]? {
+    func searchObjects(text: String, excludedObjectIds: [String], limitedTypeIds: [String]) async throws -> [ObjectDetails] {
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.lastOpenedDate,
             type: .desc
@@ -174,11 +174,11 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             }
         }
                 
-        return search(filters: filters, sorts: [sort], fullText: text)
+        return try await search(filters: filters, sorts: [sort], fullText: text)
     }
 
-    func searchTemplates(for type: ObjectTypeId) -> [ObjectDetails]? {
-        return search(filters: SearchHelper.templatesFilters(type: type))
+    func searchTemplates(for type: ObjectTypeId) async throws -> [ObjectDetails] {
+        try await search(filters: SearchHelper.templatesFilters(type: type))
     }
 	
     func searchObjects(
@@ -186,7 +186,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         excludedObjectIds: [String],
         excludedTypeIds: [String],
         sortRelationKey: BundledRelationKey?
-    ) -> [ObjectDetails]? {
+    ) async throws -> [ObjectDetails] {
         let sort = SearchHelper.sort(
             relation: sortRelationKey ?? .lastOpenedDate,
             type: .desc
@@ -198,10 +198,10 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             SearchHelper.excludedTypeFilter(excludedTypeIds)
         }
         
-        return search(filters: filters, sorts: [sort], fullText: text, limit: Constants.defaultLimit)
+        return try await search(filters: filters, sorts: [sort], fullText: text, limit: Constants.defaultLimit)
     }
 
-    func searchRelationOptions(text: String, relationKey: String, excludedObjectIds: [String]) -> [RelationOption]? {
+    func searchRelationOptions(text: String, relationKey: String, excludedObjectIds: [String]) async throws -> [RelationOption] {
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.name,
             type: .asc
@@ -214,22 +214,22 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         filters.append(SearchHelper.relationKey(relationKey))
         filters.append(SearchHelper.excludedIdsFilter(excludedObjectIds))
         
-        let details = search(filters: filters, sorts: [sort], fullText: text, limit: 0)
-        return details?.map { RelationOption(details: $0) }
+        let details = try await search(filters: filters, sorts: [sort], fullText: text, limit: 0)
+        return details.map { RelationOption(details: $0) }
     }
 
-    func searchRelationOptions(optionIds: [String]) -> [RelationOption]? {
+    func searchRelationOptions(optionIds: [String]) async throws -> [RelationOption] {
         var filters = buildFilters(
             isArchived: false,
             layouts: [DetailsLayout.relationOption]
         )
         filters.append(SearchHelper.supportedIdsFilter(optionIds))
 
-        let details = search(filters: filters, sorts: [], fullText: "")
-        return details?.map { RelationOption(details: $0) }
+        let details = try await search(filters: filters, sorts: [], fullText: "")
+        return details.map { RelationOption(details: $0) }
     }
     
-    func searchRelations(text: String, excludedIds: [String]) -> [RelationDetails]? {
+    func searchRelations(text: String, excludedIds: [String]) async throws -> [RelationDetails] {
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.name,
             type: .asc
@@ -241,11 +241,11 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             SearchHelper.excludedIdsFilter(excludedIds)
         }
         
-        let details = search(filters: filters, sorts: [sort], fullText: text)
-        return details?.map { RelationDetails(objectDetails: $0) }
+        let details = try await search(filters: filters, sorts: [sort], fullText: text)
+        return details.map { RelationDetails(objectDetails: $0) }
     }
     
-    func searchMarketplaceRelations(text: String, includeInstalled: Bool) -> [RelationDetails]? {
+    func searchMarketplaceRelations(text: String, includeInstalled: Bool) async throws -> [RelationDetails] {
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.name,
             type: .asc
@@ -262,8 +262,8 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
                 SearchHelper.excludedIdsFilter(relationDetailsStorage.relationsDetails().map(\.sourceObject))
             }
         }
-        let details = search(filters: filters, sorts: [sort], fullText: text)
-        return details?.map { RelationDetails(objectDetails: $0) }
+        let details = try await search(filters: filters, sorts: [sort], fullText: text)
+        return details.map { RelationDetails(objectDetails: $0) }
     }
     
     func searchArchiveObjectIds() async throws -> [String] {
@@ -281,16 +281,16 @@ private extension SearchService {
         sorts: [DataviewSort] = [],
         fullText: String = "",
         limit: Int = 0
-    ) -> [ObjectDetails]? {
-        
-        let response = try? ClientCommands.objectSearch(.with {
+    ) async throws -> [ObjectDetails] {
+        let response = try await ClientCommands.objectSearch(.with {
             $0.filters = filters
             $0.sorts = sorts.map { $0.fixIncludeTime() }
             $0.fullText = fullText
             $0.limit = Int32(limit)
         }).invoke()
        
-        return response?.records.asDetais
+        try Task.checkCancellation()
+        return response.records.asDetais
     }
     
     func search(
@@ -309,6 +309,7 @@ private extension SearchService {
             $0.keys = keys
         }).invoke()
         
+        try Task.checkCancellation()
         return response.records.asDetais
     }
 

@@ -36,8 +36,8 @@ final class RelationValueModuleAssembly: RelationValueModuleAssemblyProtocol {
                 objectDetails: objectDetails,
                 relation: relation,
                 analyticsType: analyticsType,
-                onTap: { [weak output] pageId, viewType in
-                    output?.onTapRelation(pageId: pageId, viewType: viewType)
+                onTap: { [weak output] screenData in
+                    output?.onTapRelation(screenData: screenData)
                 }
             )
         guard let contentViewModel = contentViewModel else { return nil }

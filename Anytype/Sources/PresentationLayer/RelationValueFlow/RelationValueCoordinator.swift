@@ -65,7 +65,7 @@ final class RelationValueCoordinator: RelationValueCoordinatorProtocol,
     
     // MARK: - RelationValueViewModelOutput
     
-    func onTapRelation(pageId: BlockId, viewType: EditorViewType) {
-        output?.openObject(pageId: pageId, viewType: viewType)
+    func onTapRelation(screenData: EditorScreenData) {
+        output?.openObject(screenData: screenData)
     }
 }

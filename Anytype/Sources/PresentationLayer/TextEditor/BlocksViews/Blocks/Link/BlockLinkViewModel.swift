@@ -56,7 +56,7 @@ struct BlockLinkViewModel: BlockViewModelProtocol {
     func didSelectRowInTableView(editorEditingState: EditorEditingState) {
         if state.deleted || state.archived { return }
         
-        openLink(EditorScreenData(pageId: content.targetBlockID, type: state.viewType))
+        openLink(state.screenData)
     }
 
     private func toggleTodo() {

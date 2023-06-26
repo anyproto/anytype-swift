@@ -24,14 +24,12 @@ final class StatusSearchInteractor {
 
 extension StatusSearchInteractor {
     
-    func search(text: String) -> Result<[Relation.Status.Option], NewSearchError> {
-        let statuses = searchService.searchRelationOptions(
+    func search(text: String) async throws -> [Relation.Status.Option] {
+        try await searchService.searchRelationOptions(
             text: text,
             relationKey: relationKey,
-            excludedObjectIds: selectedStatusesIds)?
-            .map { Relation.Status.Option(option: $0) } ?? []
-        
-        return .success(statuses)
+            excludedObjectIds: selectedStatusesIds)
+            .map { Relation.Status.Option(option: $0) }
     }
     
     func isCreateButtonAvailable(searchText: String, statuses: [Relation.Status.Option]) -> Bool {

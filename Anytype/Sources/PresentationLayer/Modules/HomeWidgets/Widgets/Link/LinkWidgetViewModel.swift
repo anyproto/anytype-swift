@@ -47,7 +47,7 @@ final class LinkWidgetViewModel: ObservableObject, WidgetContainerContentViewMod
     func onHeaderTap() {
         guard let linkedObjectDetails else { return }
         AnytypeAnalytics.instance().logSelectHomeTab(source: .object(type: linkedObjectDetails.analyticsType))
-        output?.onObjectSelected(screenData: EditorScreenData(pageId: linkedObjectDetails.id, type: linkedObjectDetails.editorViewType))
+        output?.onObjectSelected(screenData: linkedObjectDetails.editorScreenData())
     }
     
     // MARK: - Private

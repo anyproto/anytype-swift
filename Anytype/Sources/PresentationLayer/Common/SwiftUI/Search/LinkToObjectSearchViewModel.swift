@@ -8,7 +8,7 @@ final class LinkToObjectSearchViewModel: SearchViewModelProtocol {
         case createObject(String)
         case object(BlockId)
         case openURL(URL)
-        case openObject(BlockId)
+        case openObject(ObjectDetails)
         case removeLink
         case copyLink(URL)
     }
@@ -21,11 +21,12 @@ final class LinkToObjectSearchViewModel: SearchViewModelProtocol {
 
     let descriptionTextColor: Color = .Text.primary
     let shouldShowCallout: Bool = true
-
+    
     @Published var searchData: [SearchDataSection<SearchDataType>] = []
     
     var onSelect: (SearchDataType) -> ()
     var onDismiss: () -> () = { }
+    var searchTask: Task<(), Never>?
 
     var placeholder: String { Loc.Editor.LinkToObject.searchPlaceholder }
 
@@ -42,40 +43,38 @@ final class LinkToObjectSearchViewModel: SearchViewModelProtocol {
     }
 
     func search(text: String) {
+        searchTask?.cancel()
         searchData.removeAll()
 
-        if let currentLink = currentLink, text.isEmpty {
-            searchData.append(
-                contentsOf: buildExistingLinkSections(currentLink: currentLink)
-            )
-
-            return
+        searchTask = Task { @MainActor [weak self] in
+            guard let result = try? await self?.searchService.search(text: text) else { return }
+            self?.handleSearch(result: result, text: text)
         }
-
-        let result = searchService.search(text: text)
-
-        var objectData = result?.compactMap { details in
+    }
+    
+    func handleSearch(result: [ObjectDetails], text: String) {
+        var objectData = result.compactMap { details in
             LinkToObjectSearchData(details: details)
         }
-
+        
         if text.isNotEmpty {
             if text.isValidURL(), let url = AnytypeURL(string: text) {
                 let webSearchData = LinkToObjectSearchData(
                     searchKind: .web(url.url),
                     searchTitle: text,
                     iconImage: .imageAsset(.webPage))
-
+                
                 let webSection = SearchDataSection(searchData: [webSearchData], sectionName: Loc.webPages)
                 searchData.append(webSection)
             }
-
+            
             let title = Loc.createObject + "  " + "\"" + text + "\""
             let createObjectData = LinkToObjectSearchData(searchKind: .createObject(text),
                                                           searchTitle: title,
                                                           iconImage: .imageAsset(.createNewObject))
-            objectData?.insert(createObjectData, at: 0)
+            objectData.insert(createObjectData, at: 0)
         }
-
+        
         if text.isEmpty {
             if pasteboardHelper.hasValidURL,
                let pasteboardString = pasteboardHelper.obrainString(),
@@ -84,16 +83,16 @@ final class LinkToObjectSearchViewModel: SearchViewModelProtocol {
                     searchKind: .web(url.url),
                     searchTitle: Loc.Editor.LinkToObject.pasteFromClipboard,
                     iconImage: .imageAsset(.webPage))
-
+                
                 let webSection = SearchDataSection(searchData: [webSearchData], sectionName: Loc.webPages)
                 searchData.append(webSection)
             }
         }
-
-        searchData.append(SearchDataSection(searchData: objectData ?? [], sectionName: Loc.objects))
+        
+        searchData.append(SearchDataSection(searchData: objectData, sectionName: Loc.objects))
     }
 
-    func buildExistingLinkSections(currentLink: Either<URL, BlockId>) -> [SearchDataSection<SearchDataType>] {
+    func buildExistingLinkSections(currentLink: Either<URL, BlockId>) async throws -> [SearchDataSection<SearchDataType>] {
         let linkedToData: LinkToObjectSearchData?
         let copyLink: LinkToObjectSearchData?
 
@@ -111,12 +110,11 @@ final class LinkToObjectSearchViewModel: SearchViewModelProtocol {
                 iconImage: .imageAsset(.TextEditor.BlocksOption.copy)
             )
         case let .right(blockId):
-            let result = searchService.search(text: "")
-
-            let object = result?.first(where: { $0.id == blockId })
+            let result = try await searchService.search(text: "")
+            let object = result.first(where: { $0.id == blockId })
 
             linkedToData = object.map {
-                LinkToObjectSearchData(details: $0, searchKind: .openObject(blockId))
+                LinkToObjectSearchData(details: $0, searchKind: .openObject($0))
             }
             copyLink = nil
         }

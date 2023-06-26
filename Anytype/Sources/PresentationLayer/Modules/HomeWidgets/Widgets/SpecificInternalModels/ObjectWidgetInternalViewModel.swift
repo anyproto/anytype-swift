@@ -70,7 +70,7 @@ final class ObjectWidgetInternalViewModel: WidgetInternalViewModelProtocol {
     
     func screenData() -> EditorScreenData? {
         guard let linkedObjectDetails else { return nil }
-        return EditorScreenData(pageId: linkedObjectDetails.id, type: linkedObjectDetails.editorViewType)
+        return linkedObjectDetails.editorScreenData()
     }
     
     func analyticsSource() -> AnalyticsWidgetSource {
