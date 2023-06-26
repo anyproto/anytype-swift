@@ -1,6 +1,7 @@
 import Foundation
 import Services
 import Combine
+import AnytypeCore
 
 final class WidgetTypeChangeViewModel: WidgetTypeInternalViewModelProtocol {
     
@@ -43,12 +44,20 @@ final class WidgetTypeChangeViewModel: WidgetTypeInternalViewModelProtocol {
         AnytypeAnalytics.instance().logChangeWidgetLayout(source: source.analyticsSource, layout: layout, route: .inner, context: context)
         
         Task { @MainActor in
-            try? await blockWidgetService.replaceWidgetBlock(
-                contextId: widgetObject.objectId,
-                widgetBlockId: widgetId,
-                sourceId: source.sourceId,
-                layout: layout
-            )
+            if FeatureFlags.widgetsNewApi {
+                try? await blockWidgetService.setLayout(
+                    contextId: widgetObject.objectId,
+                    widgetBlockId: widgetId,
+                    layout: layout
+                )
+            } else {
+                try? await blockWidgetService.replaceWidgetBlock(
+                    contextId: widgetObject.objectId,
+                    widgetBlockId: widgetId,
+                    sourceId: source.sourceId,
+                    layout: layout
+                )
+            }
             onFinish()
         }
     }

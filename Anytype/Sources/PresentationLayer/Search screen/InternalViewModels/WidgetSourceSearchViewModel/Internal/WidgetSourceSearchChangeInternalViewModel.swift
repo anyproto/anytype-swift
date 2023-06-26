@@ -1,5 +1,6 @@
 import Foundation
 import Services
+import AnytypeCore
 
 final class WidgetSourceSearchChangeInternalViewModel: WidgetSourceSearchInternalViewModelProtocol {
     
@@ -39,12 +40,20 @@ final class WidgetSourceSearchChangeInternalViewModel: WidgetSourceSearchInterna
         }
         
         Task { @MainActor in
-            try? await blockWidgetService.replaceWidgetBlock(
-                contextId: document.objectId,
-                widgetBlockId: widgetId,
-                sourceId: source.sourceId,
-                layout: info.block.layout
-            )
+            if FeatureFlags.widgetsNewApi {
+                try? await blockWidgetService.setSourceId(
+                    contextId: document.objectId,
+                    widgetBlockId: widgetId,
+                    sourceId: source.sourceId
+                )
+            } else {
+                try? await blockWidgetService.replaceWidgetBlock(
+                    contextId: document.objectId,
+                    widgetBlockId: widgetId,
+                    sourceId: source.sourceId,
+                    layout: info.block.layout
+                )
+            }
             onFinish()
         }
     }

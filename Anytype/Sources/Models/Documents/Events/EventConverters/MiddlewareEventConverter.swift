@@ -384,6 +384,15 @@ final class MiddlewareEventConverter {
         case .objectRestrictionsSet(let restrictions):
             restrictionsContainer.restrinctions = MiddlewareObjectRestrictionsConverter.convertObjectRestrictions(middlewareRestrictions: restrictions.restrictions)
             return nil
+        case .blockSetWidget(let data):
+            infoContainer.update(blockId: data.id) { info in
+                guard case let .widget(widget) = info.content else {
+                    anytypeAssertionFailure("Wrong content in blockSetWidget", info: ["content": "\(info.content)"])
+                    return info
+                }
+                return info.updated(content: .widget(widget.applyBlockSetWidgetEvent(data: data)))
+            }
+            return .general
         case .accountShow,
                 .accountUpdate, // Event not working on middleware. See AccountManager.
                 .accountDetails, // Skipped
@@ -411,7 +420,6 @@ final class MiddlewareEventConverter {
                 .processNew,
                 .processUpdate,
                 .processDone,
-                .blockSetWidget,
                 .fileLimitReached,
                 .fileSpaceUsage,
                 .fileLocalUsage:

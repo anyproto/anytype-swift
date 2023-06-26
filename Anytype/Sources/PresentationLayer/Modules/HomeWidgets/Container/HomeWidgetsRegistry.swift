@@ -11,6 +11,7 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
     private struct ProviderCache {
         let widgetBlockId: String
         let widgetObjectId: String
+        let layout: BlockWidget.Layout?
         let provider: HomeSubmoduleProviderProtocol
         let source: HomeWidgetProviderAssemblyProtocol
     }
@@ -99,6 +100,7 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
             return createProviderCache(
                 source: provider,
                 widgetBlockId: block.id,
+                info: widgetInfo,
                 widgetObject: widgetObject
             )
         }
@@ -107,6 +109,7 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
             createProviderCache(
                 source: binLinkWidgetProviderAssembly,
                 widgetBlockId: Constants.binWidgetId,
+                info: nil,
                 widgetObject: widgetObject
             )
         )
@@ -120,12 +123,14 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
     private func createProviderCache(
         source: HomeWidgetProviderAssemblyProtocol,
         widgetBlockId: String,
+        info: BlockWidgetInfo?,
         widgetObject: BaseDocumentProtocol
     ) -> ProviderCache {
         let cache = providersCache.first {
             $0.source === source
             && $0.widgetBlockId == widgetBlockId
             && $0.widgetObjectId == widgetObject.objectId
+            && $0.layout == info?.fixedLayout
         }
         
         if let cache {
@@ -137,6 +142,7 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
         let newCache = ProviderCache(
             widgetBlockId: widgetBlockId,
             widgetObjectId: widgetObject.objectId,
+            layout: info?.fixedLayout,
             provider: provider,
             source: source
         )

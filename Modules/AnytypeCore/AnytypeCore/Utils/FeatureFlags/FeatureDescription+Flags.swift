@@ -71,6 +71,12 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
+    static let widgetsNewApi = FeatureDescription(
+        title: "Widget - new api",
+        type: .feature(author: "m@anytype.io", releaseVersion: "0.23.0"),
+        defaultValue: true
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(

@@ -6,7 +6,10 @@ import AnytypeCore
 protocol BlockWidgetServiceProtocol {
     func createWidgetBlock(contextId: String, sourceId: String, layout: BlockWidget.Layout, position: WidgetPosition) async throws
     func removeWidgetBlock(contextId: String, widgetBlockId: String) async throws
+    // Delete with widgetsNewApi flag
     func replaceWidgetBlock(contextId: String, widgetBlockId: String, sourceId: String, layout: BlockWidget.Layout) async throws
+    func setSourceId(contextId: String, widgetBlockId: String, sourceId: String) async throws
+    func setLayout(contextId: String, widgetBlockId: String, layout: BlockWidget.Layout) async throws
 }
 
 final class BlockWidgetService: BlockWidgetServiceProtocol {
@@ -60,5 +63,21 @@ final class BlockWidgetService: BlockWidgetServiceProtocol {
         let expandedState = blockWidgetExpandedService.isExpanded(widgetBlockId: widgetBlockId)
         blockWidgetExpandedService.setState(widgetBlockId: result.blockID, isExpanded: expandedState)
         blockWidgetExpandedService.deleteState(widgetBlockId: widgetBlockId)
+    }
+    
+    func setSourceId(contextId: String, widgetBlockId: String, sourceId: String) async throws {
+        _ = try? await ClientCommands.blockWidgetSetTargetId(.with {
+            $0.contextID = contextId
+            $0.blockID = widgetBlockId
+            $0.targetID = sourceId
+        }).invoke()
+    }
+    
+    func setLayout(contextId: String, widgetBlockId: String, layout: BlockWidget.Layout) async throws {
+        _ = try? await ClientCommands.blockWidgetSetLayout(.with {
+            $0.contextID = contextId
+            $0.blockID = widgetBlockId
+            $0.layout = layout.asMiddleware
+        }).invoke()
     }
 }
