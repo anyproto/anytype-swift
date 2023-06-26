@@ -13,20 +13,17 @@ final class LoginStateService: LoginStateServiceProtocol {
     var isFirstLaunchAfterRegistration: Bool = false
     var isFirstLaunchAfterAuthorization: Bool = false
     
-    private let seedService: SeedServiceProtocol
     private let objectTypeProvider: ObjectTypeProviderProtocol
     private let middlewareConfigurationProvider: MiddlewareConfigurationProviderProtocol
     private let blockWidgetExpandedService: BlockWidgetExpandedServiceProtocol
     private let relationDetailsStorage: RelationDetailsStorageProtocol
     
     init(
-        seedService: SeedServiceProtocol,
         objectTypeProvider: ObjectTypeProviderProtocol,
         middlewareConfigurationProvider: MiddlewareConfigurationProviderProtocol,
         blockWidgetExpandedService: BlockWidgetExpandedServiceProtocol,
         relationDetailsStorage: RelationDetailsStorageProtocol
     ) {
-        self.seedService = seedService
         self.objectTypeProvider = objectTypeProvider
         self.middlewareConfigurationProvider = middlewareConfigurationProvider
         self.blockWidgetExpandedService = blockWidgetExpandedService

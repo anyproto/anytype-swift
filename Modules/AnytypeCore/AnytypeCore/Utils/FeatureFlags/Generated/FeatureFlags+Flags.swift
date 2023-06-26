@@ -50,6 +50,10 @@ public extension FeatureFlags {
         value(for: .compactListWidget)
     }
 
+    static var clearAccountDataOnDeletedStatus: Bool {
+        value(for: .clearAccountDataOnDeletedStatus)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -79,6 +83,7 @@ public extension FeatureFlags {
         .binConfirmAlert,
         .fixSIGPIPECrash,
         .compactListWidget,
+        .clearAccountDataOnDeletedStatus,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
