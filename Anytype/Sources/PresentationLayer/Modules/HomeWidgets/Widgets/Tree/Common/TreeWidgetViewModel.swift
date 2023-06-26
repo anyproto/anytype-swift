@@ -100,7 +100,6 @@ final class TreeWidgetViewModel: ObservableObject, WidgetContainerContentViewMod
         }
         
         internalModel.detailsPublisher
-            .compactMap { $0 }
             .receiveOnMain()
             .sink { [weak self] details in
                 self?.firstLevelSubscriptionData = details

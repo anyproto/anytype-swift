@@ -60,9 +60,9 @@ final class BaseDocument: BaseDocumentProtocol {
     }
     
     var detailsPublisher: AnyPublisher<ObjectDetails, Never> {
-        detailsStorage.publisherFor(id: objectId)
+        syncPublisher
             .receiveOnMain()
-            .compactMap { $0 }
+            .compactMap { [weak self, objectId] in self?.detailsStorage.get(id: objectId) }
             .eraseToAnyPublisher()
     }
     

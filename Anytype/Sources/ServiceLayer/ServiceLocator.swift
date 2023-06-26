@@ -138,7 +138,7 @@ final class ServiceLocator {
     }
         
     func blockWidgetService() -> BlockWidgetServiceProtocol {
-        return BlockWidgetService(blockWidgetExpandedService: blockWidgetExpandedService())
+        return BlockWidgetService()
     }
     
     func favoriteSubscriptionService() -> FavoriteSubscriptionServiceProtocol {

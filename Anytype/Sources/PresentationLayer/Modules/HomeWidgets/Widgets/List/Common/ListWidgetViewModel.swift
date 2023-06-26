@@ -16,7 +16,7 @@ final class ListWidgetViewModel: WidgetContainerContentViewModelProtocol, Observ
     
     // MARK: - State
     
-    private var rowDetails: [ObjectDetails] = []
+    private var rowDetails: [ObjectDetails]?
     private var subscriptions = [AnyCancellable]()
     
     // MARK: - WidgetContainerContentViewModelProtocol
@@ -24,7 +24,7 @@ final class ListWidgetViewModel: WidgetContainerContentViewModelProtocol, Observ
     @Published private(set) var name: String = ""
     var dragId: String? { widgetBlockId }
     
-    @Published private(set) var headerItems: [ListWidgetHeaderItem.Model] = []
+    @Published private(set) var headerItems: [ListWidgetHeaderItem.Model]?
     @Published private(set) var rows: [ListWidgetRowModel]?
     let emptyTitle = Loc.Widgets.Empty.title
     let style: ListWidgetStyle
@@ -79,7 +79,6 @@ final class ListWidgetViewModel: WidgetContainerContentViewModelProtocol, Observ
             .assign(to: &$name)
         
         internalModel.detailsPublisher
-            .compactMap { $0 }
             .receiveOnMain()
             .sink { [weak self] details in
                 self?.rowDetails = details
@@ -88,7 +87,6 @@ final class ListWidgetViewModel: WidgetContainerContentViewModelProtocol, Observ
             .store(in: &subscriptions)
         
         internalHeaderModel?.dataviewPublisher
-            .compactMap { $0 }
             .receiveOnMain()
             .sink { [weak self] dataview in
                 self?.updateHeader(dataviewState: dataview)
@@ -98,7 +96,7 @@ final class ListWidgetViewModel: WidgetContainerContentViewModelProtocol, Observ
     
     private func updateViewState() {
         withAnimation {
-            rows = rowDetails.map { details in
+            rows = rowDetails?.map { details in
                 ListWidgetRowModel(
                     details: details,
                     onTap: { [weak self] in
@@ -109,13 +107,13 @@ final class ListWidgetViewModel: WidgetContainerContentViewModelProtocol, Observ
         }
     }
     
-    private func updateHeader(dataviewState: WidgetDataviewState) {
+    private func updateHeader(dataviewState: WidgetDataviewState?) {
         withAnimation {
-            headerItems = dataviewState.dataview.map { dataView in
+            headerItems = dataviewState?.dataview.map { dataView in
                 ListWidgetHeaderItem.Model(
                     dataviewId: dataView.id,
                     title: dataView.name,
-                    isSelected: dataView.id == dataviewState.activeViewId,
+                    isSelected: dataView.id == dataviewState?.activeViewId,
                     onTap: { [weak self] in
                         self?.internalHeaderModel?.onActiveViewTap(dataView.id)
                     }

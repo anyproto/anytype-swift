@@ -14,10 +14,10 @@ struct ListWidgetView: View {
     
     private var header: some View {
         Group {
-            if model.headerItems.isNotEmpty {
+            if let headerItems = model.headerItems, headerItems.isNotEmpty {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 16) {
-                        ForEach(model.headerItems, id: \.dataviewId) {
+                        ForEach(headerItems, id: \.dataviewId) {
                             ListWidgetHeaderItem(model: $0)
                         }
                     }

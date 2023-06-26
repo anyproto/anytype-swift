@@ -50,10 +50,6 @@ public extension FeatureFlags {
         value(for: .compactListWidget)
     }
 
-    static var widgetsNewApi: Bool {
-        value(for: .widgetsNewApi)
-    }
-
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -83,7 +79,6 @@ public extension FeatureFlags {
         .binConfirmAlert,
         .fixSIGPIPECrash,
         .compactListWidget,
-        .widgetsNewApi,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
