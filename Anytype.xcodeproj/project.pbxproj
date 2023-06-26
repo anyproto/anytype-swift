@@ -851,6 +851,7 @@
 		2EC9425F2900351C00DE91E4 /* DataviewGroup+Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC9425E2900351C00DE91E4 /* DataviewGroup+Filter.swift */; };
 		2EC9426C2901905900DE91E4 /* SetKanbanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC942692901905800DE91E4 /* SetKanbanView.swift */; };
 		2EC9426E2901946800DE91E4 /* SetKanbanColumn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC9426D2901946800DE91E4 /* SetKanbanColumn.swift */; };
+		2ECC87562A43A17800A78293 /* MigrationGuideViewModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECC87552A43A17800A78293 /* MigrationGuideViewModuleAssembly.swift */; };
 		2ECD122B28AFE58E00BD464A /* TitleWithIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECD122A28AFE58E00BD464A /* TitleWithIconView.swift */; };
 		2ECD123028AFE6A900BD464A /* TitleWithIconStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECD122F28AFE6A900BD464A /* TitleWithIconStyle.swift */; };
 		2EDC2AF72A1251EF0065E009 /* VoidView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDC2AF62A1251EF0065E009 /* VoidView.swift */; };
@@ -865,6 +866,9 @@
 		2EE622FC29F2F57D004DBF3E /* SetItemProviderObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE622FB29F2F57D004DBF3E /* SetItemProviderObject.swift */; };
 		2EFBBEFA2A41DBD900734A0B /* PhraseTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFBBEF92A41DBD900734A0B /* PhraseTextView.swift */; };
 		2EFBBEFC2A42512300734A0B /* UIPhraseTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFBBEFB2A42512300734A0B /* UIPhraseTextView.swift */; };
+		2EFBBEFF2A431EEA00734A0B /* EnteringVoidView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFBBEFE2A431EEA00734A0B /* EnteringVoidView.swift */; };
+		2EFBBF012A431F0300734A0B /* EnteringVoidViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFBBF002A431F0300734A0B /* EnteringVoidViewModel.swift */; };
+		2EFBBF032A43235E00734A0B /* EnteringVoidModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFBBF022A43235E00734A0B /* EnteringVoidModuleAssembly.swift */; };
 		2EFFEB9629A52537002F5859 /* SetDragAndDropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFFEB9529A52537002F5859 /* SetDragAndDropView.swift */; };
 		3D00F1CF278D7CB700863D7C /* ObjectSearchData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D00F1CE278D7CB700863D7C /* ObjectSearchData.swift */; };
 		3D00F1D5278D84C400863D7C /* LinkToObjectSearchData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D00F1D4278D84C400863D7C /* LinkToObjectSearchData.swift */; };
@@ -2333,6 +2337,7 @@
 		2EC9425E2900351C00DE91E4 /* DataviewGroup+Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataviewGroup+Filter.swift"; sourceTree = "<group>"; };
 		2EC942692901905800DE91E4 /* SetKanbanView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetKanbanView.swift; sourceTree = "<group>"; };
 		2EC9426D2901946800DE91E4 /* SetKanbanColumn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetKanbanColumn.swift; sourceTree = "<group>"; };
+		2ECC87552A43A17800A78293 /* MigrationGuideViewModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MigrationGuideViewModuleAssembly.swift; sourceTree = "<group>"; };
 		2ECD122A28AFE58E00BD464A /* TitleWithIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleWithIconView.swift; sourceTree = "<group>"; };
 		2ECD122F28AFE6A900BD464A /* TitleWithIconStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleWithIconStyle.swift; sourceTree = "<group>"; };
 		2EDC2AF62A1251EF0065E009 /* VoidView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoidView.swift; sourceTree = "<group>"; };
@@ -2347,6 +2352,9 @@
 		2EE622FB29F2F57D004DBF3E /* SetItemProviderObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetItemProviderObject.swift; sourceTree = "<group>"; };
 		2EFBBEF92A41DBD900734A0B /* PhraseTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhraseTextView.swift; sourceTree = "<group>"; };
 		2EFBBEFB2A42512300734A0B /* UIPhraseTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPhraseTextView.swift; sourceTree = "<group>"; };
+		2EFBBEFE2A431EEA00734A0B /* EnteringVoidView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnteringVoidView.swift; sourceTree = "<group>"; };
+		2EFBBF002A431F0300734A0B /* EnteringVoidViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnteringVoidViewModel.swift; sourceTree = "<group>"; };
+		2EFBBF022A43235E00734A0B /* EnteringVoidModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnteringVoidModuleAssembly.swift; sourceTree = "<group>"; };
 		2EFFEB9529A52537002F5859 /* SetDragAndDropView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetDragAndDropView.swift; sourceTree = "<group>"; };
 		3D00F1CE278D7CB700863D7C /* ObjectSearchData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectSearchData.swift; sourceTree = "<group>"; };
 		3D00F1D4278D84C400863D7C /* LinkToObjectSearchData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkToObjectSearchData.swift; sourceTree = "<group>"; };
@@ -5506,6 +5514,7 @@
 				2AD53F5429DEEF7600460CF3 /* MigrationGuideView.swift */,
 				2AD53F5629DEEF8F00460CF3 /* InstructionBlockView.swift */,
 				2AD53F5829DEF6E000460CF3 /* InstructionNumericContentView.swift */,
+				2ECC87552A43A17800A78293 /* MigrationGuideViewModuleAssembly.swift */,
 			);
 			path = MigrationGuide;
 			sourceTree = "<group>";
@@ -5776,6 +5785,7 @@
 		2E0A6CCF2A37674300A28AF2 /* LoginFlow */ = {
 			isa = PBXGroup;
 			children = (
+				2EFBBEFD2A431E3400734A0B /* EnteringVoidView */,
 				2E0A6CD02A376B4600A28AF2 /* LoginView.swift */,
 				2E0A6CD22A376E4400A28AF2 /* LoginViewModel.swift */,
 				2E0A6CD42A376F1300A28AF2 /* LoginViewModuleAssembly.swift */,
@@ -6156,6 +6166,16 @@
 				2EFBBEFB2A42512300734A0B /* UIPhraseTextView.swift */,
 			);
 			path = PhraseTextView;
+			sourceTree = "<group>";
+		};
+		2EFBBEFD2A431E3400734A0B /* EnteringVoidView */ = {
+			isa = PBXGroup;
+			children = (
+				2EFBBEFE2A431EEA00734A0B /* EnteringVoidView.swift */,
+				2EFBBF002A431F0300734A0B /* EnteringVoidViewModel.swift */,
+				2EFBBF022A43235E00734A0B /* EnteringVoidModuleAssembly.swift */,
+			);
+			path = EnteringVoidView;
 			sourceTree = "<group>";
 		};
 		2EFFEB9429A52537002F5859 /* SetDragAndDropView */ = {
@@ -9056,6 +9076,7 @@
 				C9D5F7BD281A79C30076A47F /* DynamicCollectionView.swift in Sources */,
 				2AF4260D29AF471C00753B17 /* AboutModuleOutput.swift in Sources */,
 				2A1F94932979579B00E25782 /* CommonWidgetModuleOutput.swift in Sources */,
+				2ECC87562A43A17800A78293 /* MigrationGuideViewModuleAssembly.swift in Sources */,
 				125B6EC326F235F400BCD7D6 /* CursorModeAccessoryView.swift in Sources */,
 				0AD6B24E24CF634E0097A841 /* BlockToolbarBookmarkViewModel.swift in Sources */,
 				03B161A0239F3A3200BF27D1 /* WaitingViewOnCreatAccountModel.swift in Sources */,
@@ -9166,6 +9187,7 @@
 				1200BF9227F4CA62000A0366 /* DownloadableImageViewWrapperProtocol.swift in Sources */,
 				2E7CAA3C2949E6A200475898 /* SetKanbanColumnHeaderType.swift in Sources */,
 				C9367A9E27313692007D687A /* TextBlockDelegateData.swift in Sources */,
+				2EFBBF012A431F0300734A0B /* EnteringVoidViewModel.swift in Sources */,
 				3D1CEC2B27F38CE3000D36BA /* DeletedAccountView.swift in Sources */,
 				2AFFFB8A2926670E00A487E1 /* ObjectLayoutPickerModuleAssembly.swift in Sources */,
 				531629372632BD0B000D6780 /* StylePanelLayout.swift in Sources */,
@@ -9315,6 +9337,7 @@
 				12EEC36C26A0903F00C3C4B1 /* EmojiProvider.swift in Sources */,
 				2AD37D5A299121D30012409E /* WidgetObjectListViewModel.swift in Sources */,
 				2E0D0F712938CFE200674D3F /* DataviewGroupOrder+Update.swift in Sources */,
+				2EFBBEFF2A431EEA00734A0B /* EnteringVoidView.swift in Sources */,
 				032E00122395D0C400620E1A /* WaitingView.swift in Sources */,
 				537F49722677EB6700C81BA0 /* BlockDelegate.swift in Sources */,
 				535F79732746AAD40050A1B8 /* FlowLayout.swift in Sources */,
@@ -10089,6 +10112,7 @@
 				3D471E1F26C3B60200457DE5 /* BlockLinkState+Icon.swift in Sources */,
 				3DFD1B3926EA5AE600F893FC /* ObjectIconImageModel.swift in Sources */,
 				3DA6263D2657AB8000942249 /* AnimationExtension.swift in Sources */,
+				2EFBBF032A43235E00734A0B /* EnteringVoidModuleAssembly.swift in Sources */,
 				53728D00273596C40092A8CF /* MarkupAccessoryViewModel.swift in Sources */,
 				1289F5A42733C50500656EC2 /* TextRelationFactory.swift in Sources */,
 				2AF2C6B928BD104B00F8612B /* UIAnytypeActivityIndicator.swift in Sources */,

@@ -44,15 +44,16 @@ struct LoginView: View {
     private var buttonsBlock : some View {
         VStack(spacing: 12) {
             StandardButton(
-                Loc.Auth.next,
+                Loc.Auth.LoginFlow.Enter.Button.title,
                 inProgress: model.walletRecoveryInProgress,
                 style: .primaryLarge,
                 action: {
-                    model.onNextButtonAction()
+                    model.onEnterButtonAction()
                 }
             )
             .colorScheme(model.phrase.isEmpty ? .dark : .light)
             .disabled(model.phrase.isEmpty)
+            .addEmptyNavigationLink(destination: model.onNextAction(), isActive: $model.showEnteringVoidView)
             
             AnytypeText(
                 Loc.Auth.LoginFlow.or,
@@ -100,7 +101,8 @@ struct LoginView_Previews : PreviewProvider {
                 authService: DI.preview.serviceLocator.authService(),
                 seedService: DI.preview.serviceLocator.seedService(),
                 localAuthService: DI.preview.serviceLocator.localAuthService(),
-                cameraPermissionVerifier: DI.preview.serviceLocator.cameraPermissionVerifier()
+                cameraPermissionVerifier: DI.preview.serviceLocator.cameraPermissionVerifier(),
+                output: nil
             )
         )
     }

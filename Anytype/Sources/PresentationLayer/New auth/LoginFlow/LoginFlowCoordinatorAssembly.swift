@@ -10,9 +10,11 @@ final class LoginFlowCoordinatorAssembly: LoginFlowCoordinatorAssemblyProtocol {
     // MARK: - DI
     
     private let modulesDI: ModulesDIProtocol
+    private let uiHelpersDI: UIHelpersDIProtocol
     
-    init(modulesDI: ModulesDIProtocol) {
+    init(modulesDI: ModulesDIProtocol, uiHelpersDI: UIHelpersDIProtocol) {
         self.modulesDI = modulesDI
+        self.uiHelpersDI = uiHelpersDI
     }
     
     // MARK: - LoginFlowCoordinatorAssemblyProtocol
@@ -20,7 +22,10 @@ final class LoginFlowCoordinatorAssembly: LoginFlowCoordinatorAssemblyProtocol {
     @MainActor
     func make() -> LoginFlowCoordinatorProtocol {
         return LoginFlowCoordinator(
-            loginViewModuleAssembly: modulesDI.login()
+            loginViewModuleAssembly: modulesDI.login(),
+            enteringVoidModuleAssembly: modulesDI.enteringVoid(),
+            migrationGuideViewModuleAssembly: modulesDI.migrationGuide(),
+            navigationContext: uiHelpersDI.commonNavigationContext()
         )
     }
 }

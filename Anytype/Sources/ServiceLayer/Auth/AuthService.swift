@@ -120,6 +120,16 @@ final class AuthService: AuthServiceProtocol {
         .store(in: &subscriptions)
     }
     
+    func accountRecover() async throws {
+        do {
+            try await ClientCommands.accountRecover().invoke()
+            loginStateService.setupStateAfterAuth()
+        } catch {
+            let code = (error as? Anytype_Rpc.Account.Recover.Response.Error)?.code ?? .null
+            throw AuthServiceError.recoverAccountError(code: code)
+        }
+    }
+    
     func selectAccount(id: String) async throws -> AccountStatus {
         do {
             let response = try await ClientCommands.accountSelect(.with {
@@ -164,6 +174,17 @@ final class AuthService: AuthServiceProtocol {
     func mnemonicByEntropy(_ entropy: String) throws -> String {
         do {
             let result = try ClientCommands.walletConvert(.with {
+                $0.entropy = entropy
+            }).invoke()
+            return result.mnemonic
+        } catch {
+            throw AuthServiceError.selectAccountError
+        }
+    }
+    
+    func mnemonicByEntropy(_ entropy: String) async throws -> String {
+        do {
+            let result = try await ClientCommands.walletConvert(.with {
                 $0.entropy = entropy
             }).invoke()
             return result.mnemonic
