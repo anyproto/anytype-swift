@@ -47,7 +47,7 @@ struct TreeWidgetRowView: View {
         }
         .frame(height: 40)
         .if(showDivider) {
-            $0.newDivider(leadingPadding: 16, trailingPadding: 16)
+            $0.newDivider(leadingPadding: 16, trailingPadding: 16, color: .Widget.divider)
         }
     }
     

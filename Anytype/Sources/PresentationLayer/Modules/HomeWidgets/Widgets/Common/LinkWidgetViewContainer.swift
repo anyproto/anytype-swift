@@ -59,7 +59,7 @@ struct LinkWidgetViewContainer<Content, MenuContent>: View where Content: View, 
                         )
                 }
             }
-            .background(Color.Dashboard.card)
+            .background(Color.Widget.card)
             .cornerRadius(16, style: .continuous)
             .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 16, style: .continuous))
             .contentShape(.dragPreview, RoundedRectangle(cornerRadius: 16, style: .continuous))

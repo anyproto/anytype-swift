@@ -71,9 +71,9 @@ final class ObjectActionsViewModel: ObservableObject {
               let duplicatedId = service.duplicate(objectId: objectId)
             else { return }
         
-        let screenData = EditorScreenData(pageId: duplicatedId, type: details.editorViewType)
+        let newDetails = ObjectDetails(id: duplicatedId, values: details.values)
         dismissSheet()
-        openPageAction(screenData)
+        openPageAction(newDetails.editorScreenData())
     }
 
     func linkItselfAction() {
@@ -85,16 +85,15 @@ final class ObjectActionsViewModel: ObservableObject {
                 guard let self = self else { return }
                 let targetDocument = BaseDocument(objectId: objectId)
                 try? await targetDocument.open()
-                guard let id = targetDocument.children.last?.id else { return }
+                guard let id = targetDocument.children.last?.id,
+                      let details = targetDocument.details else { return }
 
-                if let details = targetDocument.details, details.isCollection {
+                if details.isCollection {
                     try await self.service.addObjectsToCollection(
                         contextId: objectId,
                         objectIds: [currentObjectId]
                     )
-                    self.onLinkItselfToObjectHandler?(
-                        EditorScreenData(pageId: objectId, type: .set())
-                    )
+                    self.onLinkItselfToObjectHandler?(details.editorScreenData())
                     AnytypeAnalytics.instance().logLinkToObject(type: .collection)
                 } else {
                     let _ = self.blockActionsService.add(
@@ -103,9 +102,7 @@ final class ObjectActionsViewModel: ObservableObject {
                         info: .emptyLink(targetId: currentObjectId),
                         position: .bottom
                     )
-                    self.onLinkItselfToObjectHandler?(
-                        EditorScreenData(pageId: objectId, type: .page)
-                    )
+                    self.onLinkItselfToObjectHandler?(details.editorScreenData())
                     AnytypeAnalytics.instance().logLinkToObject(type: .object)
                 }
             }

@@ -9,7 +9,7 @@ protocol PageServiceProtocol: AnyObject {
         shouldSelectType: Bool,
         shouldSelectTemplate: Bool,
         templateId: String?
-    ) -> ObjectDetails?
+    ) async throws -> ObjectDetails
 }
 
 // MARK: - Default argumentsf
@@ -20,8 +20,8 @@ extension PageServiceProtocol {
         shouldSelectType: Bool = false,
         shouldSelectTemplate: Bool = false,
         templateId: String? = nil
-    ) -> ObjectDetails? {
-        createPage(
+    ) async throws -> ObjectDetails {
+        try await createPage(
             name: name,
             shouldDeleteEmptyObject: shouldDeleteEmptyObject,
             shouldSelectType: shouldSelectType,
@@ -45,7 +45,7 @@ final class PageService: PageServiceProtocol {
         shouldSelectType: Bool,
         shouldSelectTemplate: Bool,
         templateId: String? = nil
-    ) -> ObjectDetails? {
+    ) async throws -> ObjectDetails {
         let details = Google_Protobuf_Struct(
             fields: [
                 BundledRelationKey.name.rawValue: name.protobufValue,
@@ -65,12 +65,12 @@ final class PageService: PageServiceProtocol {
             }
         }
         
-        let response = try? ClientCommands.objectCreate(.with {
+        let response = try await ClientCommands.objectCreate(.with {
             $0.details = details
             $0.internalFlags = internalFlags
             $0.templateID = templateId ?? ""
         }).invoke()
         
-        return response?.details.asDetails
+        return try response.details.toDetails()
     }
 }

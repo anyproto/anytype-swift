@@ -47,18 +47,19 @@ final class MentionsViewModel {
     }
     
     func didSelectCreateNewMention() {
-        guard let newBlockDetails = pageService.createPage(name: searchString) else { return }
-
-        AnytypeAnalytics.instance().logCreateObject(objectType: newBlockDetails.analyticsType, route: .mention)
-        
-        let name = searchString.isEmpty ? Loc.untitled : searchString
-        let mention = MentionObject(
-            id: newBlockDetails.id,
-            objectIcon: .placeholder(name.first),
-            name: name,
-            description: nil,
-            type: nil
-        )
-        didSelectMention(mention)
+        Task { @MainActor in
+            guard let newBlockDetails = try? await pageService.createPage(name: searchString) else { return }
+            
+            AnytypeAnalytics.instance().logCreateObject(objectType: newBlockDetails.analyticsType, route: .mention)
+            let name = searchString.isEmpty ? Loc.untitled : searchString
+            let mention = MentionObject(
+                id: newBlockDetails.id,
+                objectIcon: .placeholder(name.first),
+                name: name,
+                description: nil,
+                type: nil
+            )
+            didSelectMention(mention)
+        }
     }
 }

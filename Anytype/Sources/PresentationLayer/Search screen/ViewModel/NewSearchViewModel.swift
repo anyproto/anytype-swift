@@ -17,6 +17,7 @@ final class NewSearchViewModel: ObservableObject {
     private let internalViewModel: NewInternalSearchViewModelProtocol
     
     private var cancellable: AnyCancellable? = nil
+    private var searchTask: Task<(), Never>?
     
     private var selectedRowIds: [String] = [] {
         didSet {
@@ -45,8 +46,12 @@ final class NewSearchViewModel: ObservableObject {
 extension NewSearchViewModel {
     
     func didAskToSearch(text: String) {
-        internalViewModel.search(text: text)
-        updateCreateItemButtonState(searchText: text)
+        searchTask?.cancel()
+        
+        searchTask = Task { @MainActor in
+            try? await internalViewModel.search(text: text)
+            updateCreateItemButtonState(searchText: text)
+        }
     }
     
     func didSelectRow(with id: String) {

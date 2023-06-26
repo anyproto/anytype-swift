@@ -47,20 +47,20 @@ enum RelationItemModel: Hashable {
         switch self {
         case .text: return Loc.enterText
         case .number: return Loc.enterNumber
-        case .date: return Loc.enterDate
+        case .date: return Loc.selectDate
         case .object:
             switch key {
             case BundledRelationKey.setOf.rawValue:
                 return Loc.Set.FeaturedRelations.query
             default:
-                return Loc.selectObjects
+                return Loc.selectObject
             }
-        case .url: return Loc.enterURL
-        case .email: return Loc.enterEMail
-        case .phone: return Loc.enterPhone
+        case .url: return Loc.addLink
+        case .email: return Loc.addEmail
+        case .phone: return Loc.addPhone
         case .status: return Loc.selectStatus
-        case .tag: return Loc.selectTags
-        case .file: return Loc.selectFiles
+        case .tag: return Loc.selectTag
+        case .file: return Loc.selectFile
         case .checkbox: return ""
         case .unknown: return Loc.enterValue
         }

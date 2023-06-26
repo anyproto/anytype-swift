@@ -13,8 +13,7 @@ extension ListWidgetRowModel {
             title: details.title,
             description: details.subtitle,
             onTap: {
-                let data = EditorScreenData(pageId: details.id, type: details.editorViewType)
-                onTap(data)
+                onTap(details.editorScreenData())
             }
         )
     }

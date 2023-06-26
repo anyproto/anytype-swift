@@ -9,6 +9,8 @@ public final class ObjectDetailsStorage {
     
     private var storage = PublishedDictionary<BlockId, ObjectDetails>()
     
+    public init() {}
+    
     public func publisherFor(id: BlockId) -> AnyPublisher<ObjectDetails?, Never> {
         return storage.publisher(id)
     }

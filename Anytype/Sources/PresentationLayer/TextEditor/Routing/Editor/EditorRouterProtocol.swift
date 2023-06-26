@@ -43,7 +43,7 @@ protocol EditorRouterProtocol:
     func showSettings()
     func showTextIconPicker(contextId: BlockId, objectId: BlockId)
     
-    func showMoveTo(onSelect: @escaping (BlockId) -> ())
+    func showMoveTo(onSelect: @escaping (ObjectDetails) -> ())
     func showLinkTo(onSelect: @escaping (ObjectDetails) -> ())
     func showSearch(onSelect: @escaping (EditorScreenData) -> ())
 

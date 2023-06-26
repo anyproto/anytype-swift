@@ -25,6 +25,6 @@ public final class WorkspaceService: WorkspaceServiceProtocol {
             $0.objectID = objectId
         }).invoke()
         
-        return result.flatMap { ObjectDetails(protobufStruct: $0.details) }
+        return result.flatMap { try? ObjectDetails(protobufStruct: $0.details) }
     }
 }

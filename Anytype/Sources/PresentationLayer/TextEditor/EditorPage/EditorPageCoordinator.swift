@@ -28,9 +28,8 @@ final class EditorPageCoordinator: EditorPageCoordinatorProtocol, WidgetObjectLi
     // MARK: - EditorPageCoordinatorProtocol
     
     func startFlow(data: EditorScreenData, replaceCurrentPage: Bool) {
-        if let details = ObjectDetailsStorage.shared.get(id: data.pageId),
-           !details.isSupportedForEdit {
-            showUnsupportedTypeAlert(typeId: details.type)
+        if !data.isSupportedForEdit {
+            showUnsupportedTypeAlert(documentId: data.objectId)
             return
         }
         
@@ -55,12 +54,19 @@ final class EditorPageCoordinator: EditorPageCoordinatorProtocol, WidgetObjectLi
     
     // MARK: - Private
     
-    private func showUnsupportedTypeAlert(typeId: String) {
-        let typeName = objectTypeProvider.objectType(id: typeId)?.name ?? Loc.unknown
-        
-        alertHelper.showToast(
-            title: "Not supported type \"\(typeName)\"",
-            message: "You can open it via desktop"
-        )
+    private func showUnsupportedTypeAlert(documentId: String) {
+        Task { @MainActor in
+            let document = BaseDocument(objectId: documentId)
+            try await document.openForPreview()
+
+            guard let typeId = document.details?.type else { return }
+            
+            let typeName = objectTypeProvider.objectType(id: typeId)?.name ?? Loc.unknown
+            
+            alertHelper.showToast(
+                title: "Not supported type \"\(typeName)\"",
+                message: "You can open it via desktop"
+            )
+        }
     }
 }

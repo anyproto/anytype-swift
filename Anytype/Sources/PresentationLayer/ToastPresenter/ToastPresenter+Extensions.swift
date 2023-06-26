@@ -88,7 +88,7 @@ extension ToastPresenterProtocol {
 
 private func retrieveObjectDetails(objectId: BlockId) async -> ObjectDetails? {
     let targetDocument = BaseDocument(objectId: objectId)
-    try? await targetDocument.open()
+    try? await targetDocument.openForPreview()
     
     return targetDocument.details
 }

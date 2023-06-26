@@ -30,7 +30,7 @@ protocol DataviewServiceProtocol {
         templateId: BlockId,
         setFilters: [SetFilter],
         relationsDetails: [RelationDetails]
-    ) async throws -> String
+    ) async throws -> ObjectDetails
     func setPositionForView(_ viewId: String, position: Int) async throws
     func objectOrderUpdate(viewId: String, groupObjectIds: [GroupObjectIds]) async throws
     func groupOrderUpdate(viewId: String, groupOrder: DataviewGroupOrder) async throws
