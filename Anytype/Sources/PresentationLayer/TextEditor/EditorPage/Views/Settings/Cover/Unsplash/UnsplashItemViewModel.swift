@@ -1,6 +1,7 @@
 import SwiftUI
 import Combine
 import Kingfisher
+import Services
 
 struct UnsplashItemViewModel: Identifiable {
     var id: String { item.id }
