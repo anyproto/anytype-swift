@@ -80,6 +80,8 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     var previewLayer: AVCaptureVideoPreviewLayer!
     var delegate: ScannerViewControllerDeleage?
     
+    private let serialQueue = DispatchQueue(label: "ScannerViewController.serial.queue")
+    
     // MARK: Lifecycle
     
     override func viewDidLoad() {
@@ -132,23 +134,19 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        if (captureSession?.isRunning == false) {
-            startRunningCaptureSession()
-        }
+        startRunningCaptureSession()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
-        if (captureSession?.isRunning == true) {
-            captureSession.stopRunning()
-        }
+        stopRunningCaptureSession()
     }
     
     // MARK: AVCaptureMetadataOutputObjectsDelegate
     
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
-        captureSession.stopRunning()
+        stopRunningCaptureSession()
 
         if let metadataObject = metadataObjects.first {
             guard let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject else { return }
@@ -166,11 +164,35 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     
     private func startRunningCaptureSession() {
         if FeatureFlags.fixAVCaptureSessionError {
-            DispatchQueue.global().async { [weak self] in
-                self?.captureSession.startRunning()
+            serialQueue.async { [weak self] in
+                guard let self else { return }
+                self.startRunningCaptureSessionIfNeeded()
             }
         } else {
+            startRunningCaptureSessionIfNeeded()
+        }
+    }
+    
+    private func startRunningCaptureSessionIfNeeded() {
+        if !captureSession.isRunning {
             captureSession.startRunning()
+        }
+    }
+    
+    private func stopRunningCaptureSession() {
+        if FeatureFlags.fixAVCaptureSessionError {
+            serialQueue.async { [weak self] in
+                guard let self else { return }
+                self.stopRunningCaptureSessionIfNeeded()
+            }
+        } else {
+            stopRunningCaptureSessionIfNeeded()
+        }
+    }
+    
+    private func stopRunningCaptureSessionIfNeeded() {
+        if captureSession.isRunning {
+            captureSession.stopRunning()
         }
     }
 
