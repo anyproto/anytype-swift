@@ -7,13 +7,9 @@ import Combine
 public final class ObjectDetailsStorage {
     public static let shared = ObjectDetailsStorage()
     
-    private var storage = PublishedDictionary<BlockId, ObjectDetails>()
+    private var storage = SynchronizedDictionary<BlockId, ObjectDetails>()
     
     public init() {}
-    
-    public func publisherFor(id: BlockId) -> AnyPublisher<ObjectDetails?, Never> {
-        return storage.publisher(id)
-    }
         
     public func get(id: BlockId) -> ObjectDetails? {
         guard id.isValidId else { return nil }
