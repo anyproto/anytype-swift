@@ -50,6 +50,10 @@ public extension FeatureFlags {
         value(for: .compactListWidget)
     }
 
+    static var fixAVCaptureSessionError: Bool {
+        value(for: .fixAVCaptureSessionError)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -79,6 +83,7 @@ public extension FeatureFlags {
         .binConfirmAlert,
         .fixSIGPIPECrash,
         .compactListWidget,
+        .fixAVCaptureSessionError,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

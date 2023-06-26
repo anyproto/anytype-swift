@@ -1,14 +1,7 @@
-//
-//  ScannerViewController.swift
-//  AnyType
-//
-//  Created by Denis Batvinkin on 10.12.2019.
-//  Copyright © 2019 AnyType. All rights reserved.
-//
-
 import AVFoundation
 import UIKit
 import SwiftUI
+import AnytypeCore
 
 
 // MARK: - SwiftUI adapter
@@ -128,7 +121,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         previewLayer.videoGravity = .resizeAspectFill
         view.layer.addSublayer(previewLayer)
 
-        captureSession.startRunning()
+        startRunningCaptureSession()
     }
 
     func failed() {
@@ -140,7 +133,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         super.viewWillAppear(animated)
 
         if (captureSession?.isRunning == false) {
-            captureSession.startRunning()
+            startRunningCaptureSession()
         }
     }
 
@@ -169,6 +162,16 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
 
     func found(code: String) {
         delegate?.scanningComplete(result: .success(code))
+    }
+    
+    private func startRunningCaptureSession() {
+        if FeatureFlags.fixAVCaptureSessionError {
+            DispatchQueue.global().async { [weak self] in
+                self?.captureSession.startRunning()
+            }
+        } else {
+            captureSession.startRunning()
+        }
     }
 
     override var prefersStatusBarHidden: Bool {

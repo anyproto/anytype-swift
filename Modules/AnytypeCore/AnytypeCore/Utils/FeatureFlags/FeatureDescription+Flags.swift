@@ -71,6 +71,12 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
+    static let fixAVCaptureSessionError = FeatureDescription(
+        title: "Fix AVCaptureSession error",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.23.0"),
+        defaultValue: true
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(
