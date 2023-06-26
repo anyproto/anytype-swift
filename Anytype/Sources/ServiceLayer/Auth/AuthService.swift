@@ -120,19 +120,14 @@ final class AuthService: AuthServiceProtocol {
         .store(in: &subscriptions)
     }
     
-    func accountRecoverAsync(onCompletion: @escaping (AuthServiceError?) -> ()) {
-        Task { @MainActor [weak self] in
-            do {
-                try await ClientCommands.accountRecover().invoke()
-                self?.loginStateService.setupStateAfterAuth()
-                return onCompletion(nil)
-            } catch {
-                let code = (error as? Anytype_Rpc.Account.Recover.Response.Error)?.code ?? .null
-                return onCompletion(AuthServiceError.recoverAccountError(code: code))
-            }
+    func accountRecover() async throws {
+        do {
+            try await ClientCommands.accountRecover().invoke()
+            loginStateService.setupStateAfterAuth()
+        } catch {
+            let code = (error as? Anytype_Rpc.Account.Recover.Response.Error)?.code ?? .null
+            throw AuthServiceError.recoverAccountError(code: code)
         }
-        .cancellable()
-        .store(in: &subscriptions)
     }
     
     func selectAccount(id: String) async throws -> AccountStatus {

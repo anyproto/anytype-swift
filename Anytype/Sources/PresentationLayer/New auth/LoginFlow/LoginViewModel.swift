@@ -68,10 +68,8 @@ final class LoginViewModel: ObservableObject {
     
     private func onEntropySet() {
         Task {
-            do {
-                let phrase = try await authService.mnemonicByEntropy(entropy)
-                walletRecovery(with: phrase)
-            } catch {}
+            let phrase = try await authService.mnemonicByEntropy(entropy)
+            walletRecovery(with: phrase)
         }
     }
     

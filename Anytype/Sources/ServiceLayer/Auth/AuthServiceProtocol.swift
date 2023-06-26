@@ -9,7 +9,7 @@ protocol AuthServiceProtocol {
     
     /// Recover account, called after wallet recovery. As soon as this func complete middleware send Event.Account.Show event.
     func accountRecover(onCompletion: @escaping (AuthServiceError?) -> ())
-    func accountRecoverAsync(onCompletion: @escaping (AuthServiceError?) -> ())
+    func accountRecover() async throws
    
     func selectAccount(id: String) async throws -> AccountStatus
     

@@ -31,9 +31,12 @@ final class EnteringVoidViewModel: ObservableObject {
     }
     
     func onAppear() {
-        authService.accountRecoverAsync { [weak self] error in
-            guard let self, error != nil else { return }
-            self.dismiss.toggle()
+        Task {
+            do {
+                try await authService.accountRecover()
+            } catch {
+                dismiss.toggle()
+            }
         }
     }
     
