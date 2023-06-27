@@ -464,6 +464,14 @@ extension AnytypeAnalytics {
         logEvent(AnalyticsEventsName.screenAuthRegistration)
     }
     
+    func logAuthScreenShow() {
+        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.authScreenShow)
+    }
+    
+    func logLoginScreenShow() {
+        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.loginScreenShow)
+    }
+    
     func logScreenSettingsPersonal() {
         logEvent(AnalyticsEventsName.screenSettingsPersonal)
     }
@@ -564,6 +572,13 @@ extension AnytypeAnalytics {
         logEvent(
             AnalyticsEventsName.About.legal,
             withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue]
+        )
+    }
+    
+    func logScreenOnboarding(step: ScreenOnboardingStep) {
+        logEvent(
+            AnalyticsEventsName.screenOnboarding,
+            withEventProperties: [AnalyticsEventsPropertiesKey.step: step.rawValue]
         )
     }
 }

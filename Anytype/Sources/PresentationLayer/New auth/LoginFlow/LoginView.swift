@@ -23,6 +23,9 @@ struct LoginView: View {
             .alert(isPresented: $model.openSettingsURL) {
                 AlertsFactory.goToSettingsAlert(title: Loc.Auth.cameraPermissionTitle)
             }
+            .onAppear {
+                model.onAppear()
+            }
             .fitIPadToReadableContentGuide()
     }
     

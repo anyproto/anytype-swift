@@ -29,6 +29,10 @@ final class KeyPhraseViewModel: ObservableObject {
         self.localAuthService = localAuthService
     }
     
+    func onAppear() {
+        AnytypeAnalytics.instance().logScreenOnboarding(step: .phrase)
+    }
+    
     func onPrimaryButtonTap() {
         if keyShown {
             output?.onNext()

@@ -13,6 +13,10 @@ enum AnalyticsEventsName {
     static let logout = "LogOut"
     static let deleteAccount = "DeleteAccount"
     static let cancelDeletion = "CancelDeletion"
+    
+    // New auth events
+    static let screenOnboarding = "ScreenOnboarding"
+    static let clickOnboarding = "ClickOnboarding"
 
     // Block events
     static let blockCreate = "CreateBlock"
@@ -88,7 +92,6 @@ enum AnalyticsEventsName {
     static let authScreenShow = "ScreenIndex"
     static let loginScreenShow = "ScreenLogin"
     static let screenAuthRegistration = "ScreenAuthRegistration"
-    static let invitaionScreenShow = "ScreenAuthInvitation"
 
     static let homeShow = "ScreenHome"
     static let settingsShow = "ScreenSettings"
@@ -203,6 +206,7 @@ enum AnalyticsEventsPropertiesKey {
 
     static let tab = "tab"
     static let route = "route"
+    static let step = "step"
 
     static let type = "type"
     static let id = "id"
@@ -332,4 +336,12 @@ enum LegalType: String {
     case termsOfUse = "terms_of_use"
     case privacyPolicy = "privacy_policy"
     case acknowledgments = "acknowledgments"
+}
+
+enum ScreenOnboardingStep: String {
+    case void = "Void"
+    case phrase = "Phrase"
+    case soul = "Soul"
+    case soulCreating = "SoulCreating"
+    case spaceCreating = "SpaceCreating"
 }

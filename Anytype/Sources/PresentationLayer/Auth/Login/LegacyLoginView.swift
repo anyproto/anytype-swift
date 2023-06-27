@@ -23,7 +23,7 @@ struct LegacyLoginView: View {
             QRCodeScannerView(qrCode: self.$viewModel.entropy, error: self.$viewModel.error)
         }
         .onAppear {
-            AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.loginScreenShow)
+            AnytypeAnalytics.instance().logLoginScreenShow()
         }
         .if(UIDevice.isPad, if: {
             $0.sheet(isPresented: $viewModel.showMigrationGuide) {

@@ -9,4 +9,5 @@ protocol JoinFlowInputProtocol: ObservableObject {
     var inputText: String { get set }
     
     func onNextAction()
+    func onAppear()
 }

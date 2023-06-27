@@ -41,6 +41,10 @@ final class LoginViewModel: ObservableObject {
         self.output = output
     }
     
+    func onAppear() {
+        AnytypeAnalytics.instance().logLoginScreenShow()
+    }
+    
     func onEnterButtonAction() {
         walletRecovery(with: phrase)
     }

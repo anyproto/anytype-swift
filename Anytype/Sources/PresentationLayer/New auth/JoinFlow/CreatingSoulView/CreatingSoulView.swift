@@ -25,6 +25,9 @@ struct CreatingSoulView: View {
             
         }
         .frame(width: width)
+        .onAppear {
+            model.onAppear()
+        }
     }
     
     private func personalContent(width: CGFloat) -> some View {

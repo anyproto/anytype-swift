@@ -19,6 +19,9 @@ struct VoidView: View {
             )
             .colorScheme(.light)
         }
+        .onAppear {
+            model.onAppear()
+        }
     }
     
     private var info: some View {
