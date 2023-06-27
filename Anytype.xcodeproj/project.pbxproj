@@ -3179,6 +3179,7 @@
 				3DE8D5C326CFFFE4006F31C1 /* AlertHelper.swift */,
 				3D44984C26D54A64005A3E06 /* BindableGestureRecognizer.swift */,
 				531F0DE9283CCD8D000A0B31 /* Debouncer.swift */,
+				2A01A4F52A1F9FA1002042FB /* MailToUrl.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -3610,7 +3611,6 @@
 				2AF4260E29AF47DB00753B17 /* AboutModuleAssembly.swift */,
 				2A6688922A1CCB1100D80CED /* AboutView.swift */,
 				2A6688942A1CCB3D00D80CED /* AboutViewModel.swift */,
-				2A01A4F52A1F9FA1002042FB /* MailToUrl.swift */,
 				2E1C80E42A2F6EF000217C47 /* AboutApp.swift */,
 			);
 			path = About;

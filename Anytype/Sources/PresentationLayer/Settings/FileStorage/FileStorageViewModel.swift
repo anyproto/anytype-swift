@@ -2,6 +2,7 @@ import Foundation
 import Services
 import UIKit
 import Combine
+import AnytypeCore
 
 @MainActor
 final class FileStorageViewModel: ObservableObject {
@@ -9,12 +10,14 @@ final class FileStorageViewModel: ObservableObject {
     private enum Constants {
         static let subSpaceId = "FileStorageSpace"
         static let warningPercent = 0.9
+        static let mailTo = "support@anytype.io"
     }
     
 
     private let accountManager: AccountManagerProtocol
     private let subscriptionService: SingleObjectSubscriptionServiceProtocol
     private let fileLimitsStorage: FileLimitsStorageProtocol
+    private let documentService: DocumentServiceProtocol
     private weak var output: FileStorageModuleOutput?
     private var subscriptions = [AnyCancellable]()
     
@@ -22,8 +25,11 @@ final class FileStorageViewModel: ObservableObject {
         let formatter = ByteCountFormatter()
         formatter.allowedUnits = [.useMB, .useGB]
         formatter.countStyle = .binary
+        formatter.allowsNonnumericFormatting = false
         return formatter
     }()
+    
+    private var limits: FileLimits?
     
     @Published var spaceInstruction: String = ""
     @Published var spaceName: String = ""
@@ -34,17 +40,20 @@ final class FileStorageViewModel: ObservableObject {
     @Published var locaUsed: String = ""
     @Published var spaceUsedWarning: Bool = false
     @Published var contentLoaded: Bool = false
+    @Published var showGetMoreSpaceButton: Bool = false
     let progressBarConfiguration = LineProgressBarConfiguration.fileStorage
     
     init(
         accountManager: AccountManagerProtocol,
         subscriptionService: SingleObjectSubscriptionServiceProtocol,
         fileLimitsStorage: FileLimitsStorageProtocol,
+        documentService: DocumentServiceProtocol,
         output: FileStorageModuleOutput?
     ) {
         self.accountManager = accountManager
         self.subscriptionService = subscriptionService
         self.fileLimitsStorage = fileLimitsStorage
+        self.documentService = documentService
         self.output = output
         setupPlaceholderState()
         setupSubscription()
@@ -62,6 +71,22 @@ final class FileStorageViewModel: ObservableObject {
         AnytypeAnalytics.instance().logScreenSettingsStorageIndex()
     }
     
+    func onTapGetMoreSpace() {
+        guard let limits else { return }
+        Task { @MainActor in
+            let profileDocument = documentService.document(objectId: accountManager.account.info.profileObjectID, forPreview: true)
+            try await profileDocument.openForPreview()
+            let limit = byteCountFormatter.string(fromByteCount: limits.bytesLimit)
+            let mailLink = MailUrl(
+                to: Constants.mailTo,
+                subject: Loc.FileStorage.Space.Mail.subject(accountManager.account.id),
+                body: Loc.FileStorage.Space.Mail.body(limit, accountManager.account.id, profileDocument.details?.name ?? "")
+            )
+            guard let mailLinkUrl = mailLink.url else { return }
+            output?.onLinkOpen(url: mailLinkUrl)
+        }
+    }
+    
     // MARK: - Private
     
     private func setupSubscription() {
@@ -74,6 +99,7 @@ final class FileStorageViewModel: ObservableObject {
                 // May be fixed in feature.
                 // Slack discussion https://anytypeio.slack.com/archives/C04QVG8V15K/p1684399017487419?thread_ts=1684244283.014759&cid=C04QVG8V15K
                 self?.contentLoaded = true
+                self?.limits = limits
                 self?.updateView(limits: limits)
             }
             .store(in: &subscriptions)
@@ -111,5 +137,9 @@ final class FileStorageViewModel: ObservableObject {
         percentUsage = Double(bytesUsed) / Double(bytesLimit)
         locaUsed = Loc.FileStorage.Local.used(local)
         spaceUsedWarning = percentUsage >= Constants.warningPercent
+        if FeatureFlags.getMoreSpace {
+            let localPercentUsage = Double(localBytesUsage) / Double(bytesLimit)
+            showGetMoreSpaceButton = percentUsage >= Constants.warningPercent || localPercentUsage >= Constants.warningPercent
+        }
     }
 }

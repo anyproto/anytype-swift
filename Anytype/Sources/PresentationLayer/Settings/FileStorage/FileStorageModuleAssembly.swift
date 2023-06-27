@@ -24,6 +24,7 @@ final class FileStorageModuleAssembly: FileStorageModuleAssemblyProtocol {
             accountManager: serviceLocator.accountManager(),
             subscriptionService: serviceLocator.singleObjectSubscriptionService(),
             fileLimitsStorage: serviceLocator.fileLimitsStorage(),
+            documentService: serviceLocator.documentService(),
             output: output
         )
         let view = FileStorageView(model: model)

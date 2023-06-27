@@ -1173,6 +1173,8 @@ internal enum Loc {
       }
     }
     internal enum Space {
+      /// Get more space
+      internal static let getMore = Loc.tr("Localizable", "FileStorage.Space.GetMore", fallback: "Get more space")
       /// You can store up to %@ of your files on our encrypted backup node for free. If you reach the limit, files will be stored only locally.
       internal static func instruction(_ p1: Any) -> String {
         return Loc.tr("Localizable", "FileStorage.Space.Instruction", String(describing: p1), fallback: "You can store up to %@ of your files on our encrypted backup node for free. If you reach the limit, files will be stored only locally.")
@@ -1182,6 +1184,16 @@ internal enum Loc {
       /// %@ of %@ used
       internal static func used(_ p1: Any, _ p2: Any) -> String {
         return Loc.tr("Localizable", "FileStorage.Space.Used", String(describing: p1), String(describing: p2), fallback: "%@ of %@ used")
+      }
+      internal enum Mail {
+        /// Hi, Anytype team. I am reaching out to request an increase in my file storage capacity as I have run out of storage. My current limits is %@. My account id is %@. Cheers, %@.
+        internal static func body(_ p1: Any, _ p2: Any, _ p3: Any) -> String {
+          return Loc.tr("Localizable", "FileStorage.Space.Mail.Body", String(describing: p1), String(describing: p2), String(describing: p3), fallback: "Hi, Anytype team. I am reaching out to request an increase in my file storage capacity as I have run out of storage. My current limits is %@. My account id is %@. Cheers, %@.")
+        }
+        /// Get more storage, account %@
+        internal static func subject(_ p1: Any) -> String {
+          return Loc.tr("Localizable", "FileStorage.Space.Mail.Subject", String(describing: p1), fallback: "Get more storage, account %@")
+        }
       }
     }
   }
