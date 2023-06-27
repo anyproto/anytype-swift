@@ -39,7 +39,6 @@ final class ServiceLocator {
     }
     
     private lazy var _loginStateService = LoginStateService(
-        seedService: seedService(),
         objectTypeProvider: objectTypeProvider(),
         middlewareConfigurationProvider: middlewareConfigurationProvider(),
         blockWidgetExpandedService: blockWidgetExpandedService(),
