@@ -50,6 +50,10 @@ public extension FeatureFlags {
         value(for: .compactListWidget)
     }
 
+    static var fixAVCaptureSessionError: Bool {
+        value(for: .fixAVCaptureSessionError)
+    }
+
     static var clearAccountDataOnDeletedStatus: Bool {
         value(for: .clearAccountDataOnDeletedStatus)
     }
@@ -83,6 +87,7 @@ public extension FeatureFlags {
         .binConfirmAlert,
         .fixSIGPIPECrash,
         .compactListWidget,
+        .fixAVCaptureSessionError,
         .clearAccountDataOnDeletedStatus,
         .rainbowViews,
         .showAlertOnAssert,
