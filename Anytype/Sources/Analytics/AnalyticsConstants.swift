@@ -345,3 +345,9 @@ enum ScreenOnboardingStep: String {
     case soulCreating = "SoulCreating"
     case spaceCreating = "SpaceCreating"
 }
+
+enum ClickOnboardingButton: String {
+    case show = "Show"
+    case copy = "Copy"
+    case checkLater = "CheckLater"
+}

@@ -581,4 +581,14 @@ extension AnytypeAnalytics {
             withEventProperties: [AnalyticsEventsPropertiesKey.step: step.rawValue]
         )
     }
+    
+    func logClickOnboarding(step: ScreenOnboardingStep, button: ClickOnboardingButton) {
+        logEvent(
+            AnalyticsEventsName.clickOnboarding,
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.type: button.rawValue,
+                AnalyticsEventsPropertiesKey.step: step.rawValue
+            ]
+        )
+    }
 }
