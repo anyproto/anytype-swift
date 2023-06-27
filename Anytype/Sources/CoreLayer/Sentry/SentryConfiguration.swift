@@ -16,6 +16,7 @@ final class SentryConfigurator: AppConfiguratorProtocol {
             options.dsn = dsn
             options.tracesSampleRate = 1.0
             options.enableCaptureFailedRequests = false
+            options.enableMetricKit = true
             
             options.environment = env
         }
