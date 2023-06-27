@@ -50,6 +50,10 @@ public extension FeatureFlags {
         value(for: .compactListWidget)
     }
 
+    static var getMoreSpace: Bool {
+        value(for: .getMoreSpace)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -79,6 +83,7 @@ public extension FeatureFlags {
         .binConfirmAlert,
         .fixSIGPIPECrash,
         .compactListWidget,
+        .getMoreSpace,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

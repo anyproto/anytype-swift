@@ -71,6 +71,12 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
+    static let getMoreSpace = FeatureDescription(
+        title: "Get more space - IOS-1307",
+        type: .feature(author: "m@anytype.io", releaseVersion: "0.23.0"),
+        defaultValue: true
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(
