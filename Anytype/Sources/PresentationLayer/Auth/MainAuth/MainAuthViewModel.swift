@@ -53,6 +53,6 @@ class MainAuthViewModel: ObservableObject {
 
     // MARK: - View output
     func viewLoaded() {
-        AnytypeAnalytics.instance().logAuthScreenShow()
+        AnytypeAnalytics.instance().logMainAuthScreenShow()
     }
 }

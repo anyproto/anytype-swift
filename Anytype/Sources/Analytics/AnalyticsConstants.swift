@@ -90,7 +90,7 @@ enum AnalyticsEventsName {
 
     // Screen show events
     static let disclaimerShow = "ScreenDisclaimer"
-    static let authScreenShow = "ScreenIndex"
+    static let mainAuthScreenShow = "ScreenIndex"
     static let loginScreenShow = "ScreenLogin"
     static let screenAuthRegistration = "ScreenAuthRegistration"
 

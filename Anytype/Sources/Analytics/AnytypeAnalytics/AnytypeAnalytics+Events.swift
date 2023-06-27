@@ -464,8 +464,8 @@ extension AnytypeAnalytics {
         logEvent(AnalyticsEventsName.screenAuthRegistration)
     }
     
-    func logAuthScreenShow() {
-        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.authScreenShow)
+    func logMainAuthScreenShow() {
+        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.mainAuthScreenShow)
     }
     
     func logLoginScreenShow() {

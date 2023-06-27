@@ -49,14 +49,14 @@ final class KeyPhraseViewModel: ObservableObject {
     }
     
     func onSecondaryButtonTap() {
-        output?.onNext()
         AnytypeAnalytics.instance().logClickOnboarding(step: .phrase, button: .checkLater)
+        output?.onNext()
     }
     
     func onCopyButtonTap() {
+        AnytypeAnalytics.instance().logClickOnboarding(step: .phrase, button: .copy)
         UISelectionFeedbackGenerator().selectionChanged()
         UIPasteboard.general.string = state.mnemonic
         alertOpener.showTopAlert(message: Loc.copied)
-        AnytypeAnalytics.instance().logClickOnboarding(step: .phrase, button: .copy)
     }
 }
