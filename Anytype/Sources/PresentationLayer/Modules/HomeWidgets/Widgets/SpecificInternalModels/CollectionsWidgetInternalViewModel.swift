@@ -2,12 +2,11 @@ import Foundation
 import Services
 import Combine
 
-final class CollectionsWidgetInternalViewModel: WidgetInternalViewModelProtocol {
+final class CollectionsWidgetInternalViewModel: CommonWidgetInternalViewModel, WidgetInternalViewModelProtocol {
     
     // MARK: - DI
     
     private let subscriptionService: CollectionsSubscriptionServiceProtocol
-    private let context: WidgetInternalViewModelContext
     
     // MARK: - State
     
@@ -17,29 +16,24 @@ final class CollectionsWidgetInternalViewModel: WidgetInternalViewModelProtocol 
     var detailsPublisher: AnyPublisher<[ObjectDetails]?, Never> { $details.eraseToAnyPublisher() }
     var namePublisher: AnyPublisher<String, Never> { $name.eraseToAnyPublisher() }
     
-    init(subscriptionService: CollectionsSubscriptionServiceProtocol, context: WidgetInternalViewModelContext) {
+    init(
+        widgetBlockId: BlockId,
+        widgetObject: BaseDocumentProtocol,
+        subscriptionService: CollectionsSubscriptionServiceProtocol
+    ) {
         self.subscriptionService = subscriptionService
-        self.context = context
+        super.init(widgetBlockId: widgetBlockId, widgetObject: widgetObject)
     }
     
     // MARK: - WidgetInternalViewModelProtocol
     
-    func startHeaderSubscription() {}
-    
-    func stopHeaderSubscription() {}
-    
-    func startContentSubscription() {
-        subscriptionService.startSubscription(
-            objectLimit: context.maxItems,
-            update: { [weak self] _, update in
-                var details = self?.details ?? []
-                details.applySubscriptionUpdate(update)
-                self?.details = details
-            }
-        )
+    override func startContentSubscription() {
+        super.startContentSubscription()
+        updateSubscription()
     }
     
-    func stopContentSubscription() {
+    override func stopContentSubscription() {
+        super.stopContentSubscription()
         subscriptionService.stopSubscription()
     }
     
@@ -49,5 +43,25 @@ final class CollectionsWidgetInternalViewModel: WidgetInternalViewModelProtocol 
     
     func analyticsSource() -> AnalyticsWidgetSource {
         return .collections
+    }
+    
+    // MARK: - CommonWidgetInternalViewModel oveerides
+    
+    override func widgetInfoUpdated() {
+        updateSubscription()
+    }
+    
+    // MARK: - Private func
+    
+    private func updateSubscription() {
+        guard let widgetInfo, contentIsAppear else { return }
+        subscriptionService.startSubscription(
+            objectLimit: widgetInfo.fixedLimit,
+            update: { [weak self] _, update in
+                var details = self?.details ?? []
+                details.applySubscriptionUpdate(update)
+                self?.details = details
+            }
+        )
     }
 }

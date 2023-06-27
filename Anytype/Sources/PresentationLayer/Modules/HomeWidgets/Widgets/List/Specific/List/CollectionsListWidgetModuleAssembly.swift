@@ -22,8 +22,9 @@ final class CollectionsListWidgetModuleAssembly: HomeWidgetCommonAssemblyProtoco
     ) -> AnyView {
         
         let model = CollectionsWidgetInternalViewModel(
-            subscriptionService: serviceLocator.collectionsSubscriptionService(),
-            context: .list
+            widgetBlockId: widgetBlockId,
+            widgetObject: widgetObject,
+            subscriptionService: serviceLocator.collectionsSubscriptionService()
         )
      
         return widgetsSubmoduleDI.listWidgetModuleAssembly().make(

@@ -41,6 +41,7 @@ final class WidgetTypeCreateObjectViewModel: WidgetTypeInternalViewModelProtocol
                 contextId: widgetObjectId,
                 sourceId: source.sourceId,
                 layout: layout,
+                limit: layout.limits.first ?? 0,
                 position: position
             )
             onFinish()

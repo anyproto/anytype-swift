@@ -28,8 +28,7 @@ final class SetListWidgetModuleAssembly: HomeWidgetCommonAssemblyProtocol {
                 accountManager: serviceLocator.accountManager()
             ),
             subscriptionService: serviceLocator.subscriptionService(),
-            documentService: serviceLocator.documentService(),
-            context: .list
+            documentService: serviceLocator.documentService()
         )
      
         return widgetsSubmoduleDI.listWidgetModuleAssembly().make(

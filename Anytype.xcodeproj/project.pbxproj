@@ -439,6 +439,8 @@
 		2A5BA75F2A17C2A10049B3B4 /* AnytypeErrorLoggerConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5BA75E2A17C2A10049B3B4 /* AnytypeErrorLoggerConfiguration.swift */; };
 		2A5CB4212A433C3B00ED9415 /* EditorScreenData+Details.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5CB4202A433C3B00ED9415 /* EditorScreenData+Details.swift */; };
 		2A617BCA2A49960500725152 /* Document+WidgetTargetSubscriptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A617BC92A49960400725152 /* Document+WidgetTargetSubscriptions.swift */; };
+		2A617BCC2A49E5B400725152 /* BlockWidget+Limits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A617BCB2A49E5B400725152 /* BlockWidget+Limits.swift */; };
+		2A617BCE2A49EC0B00725152 /* CommonWidgetInternalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A617BCD2A49EC0B00725152 /* CommonWidgetInternalViewModel.swift */; };
 		2A6688932A1CCB1100D80CED /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6688922A1CCB1100D80CED /* AboutView.swift */; };
 		2A6688952A1CCB3D00D80CED /* AboutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6688942A1CCB3D00D80CED /* AboutViewModel.swift */; };
 		2A673C0B29B0B26D00E3D672 /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A673C0A29B0B26D00E3D672 /* SettingsCoordinator.swift */; };
@@ -584,7 +586,6 @@
 		2AC906DC29B6276A00209E39 /* ListWidgetModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC906DB29B6276A00209E39 /* ListWidgetModuleAssembly.swift */; };
 		2AC906DF29B6289A00209E39 /* RecentListWidgetModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC906DD29B6289A00209E39 /* RecentListWidgetModuleAssembly.swift */; };
 		2AC906E029B6289A00209E39 /* FavoriteListWidgetModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC906DE29B6289A00209E39 /* FavoriteListWidgetModuleAssembly.swift */; };
-		2AC906E229B62C9A00209E39 /* WidgetInternalViewModelContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC906E129B62C9A00209E39 /* WidgetInternalViewModelContext.swift */; };
 		2ACA341829AD09D400BBD2F5 /* DashboardWallpaperViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACA341729AD09D400BBD2F5 /* DashboardWallpaperViewModel.swift */; };
 		2ACD86F229C2181B0082E861 /* NewSearchErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACD86F129C2181B0082E861 /* NewSearchErrorView.swift */; };
 		2ACD86F429C309AA0082E861 /* WidgetTypeChangeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACD86F329C309AA0082E861 /* WidgetTypeChangeViewModel.swift */; };
@@ -1937,6 +1938,8 @@
 		2A5BA75E2A17C2A10049B3B4 /* AnytypeErrorLoggerConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeErrorLoggerConfiguration.swift; sourceTree = "<group>"; };
 		2A5CB4202A433C3B00ED9415 /* EditorScreenData+Details.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorScreenData+Details.swift"; sourceTree = "<group>"; };
 		2A617BC92A49960400725152 /* Document+WidgetTargetSubscriptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Document+WidgetTargetSubscriptions.swift"; sourceTree = "<group>"; };
+		2A617BCB2A49E5B400725152 /* BlockWidget+Limits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockWidget+Limits.swift"; sourceTree = "<group>"; };
+		2A617BCD2A49EC0B00725152 /* CommonWidgetInternalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonWidgetInternalViewModel.swift; sourceTree = "<group>"; };
 		2A6688922A1CCB1100D80CED /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		2A6688942A1CCB3D00D80CED /* AboutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewModel.swift; sourceTree = "<group>"; };
 		2A673C0A29B0B26D00E3D672 /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
@@ -2069,7 +2072,6 @@
 		2AC906DB29B6276A00209E39 /* ListWidgetModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListWidgetModuleAssembly.swift; sourceTree = "<group>"; };
 		2AC906DD29B6289A00209E39 /* RecentListWidgetModuleAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentListWidgetModuleAssembly.swift; sourceTree = "<group>"; };
 		2AC906DE29B6289A00209E39 /* FavoriteListWidgetModuleAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteListWidgetModuleAssembly.swift; sourceTree = "<group>"; };
-		2AC906E129B62C9A00209E39 /* WidgetInternalViewModelContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetInternalViewModelContext.swift; sourceTree = "<group>"; };
 		2ACA341729AD09D400BBD2F5 /* DashboardWallpaperViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardWallpaperViewModel.swift; sourceTree = "<group>"; };
 		2ACD86F129C2181B0082E861 /* NewSearchErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSearchErrorView.swift; sourceTree = "<group>"; };
 		2ACD86F329C309AA0082E861 /* WidgetTypeChangeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetTypeChangeViewModel.swift; sourceTree = "<group>"; };
@@ -5335,6 +5337,7 @@
 				2A8C00F429C48CB000309C14 /* WidgetSource.swift */,
 				2AC429A529B784280002AD05 /* BaseDocumentProtocol+Home.swift */,
 				2ACD86F529C316C90082E861 /* BlockWidgetInfo.swift */,
+				2A617BCB2A49E5B400725152 /* BlockWidget+Limits.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -5466,7 +5469,6 @@
 			children = (
 				2A617BC82A4995EE00725152 /* Helpers */,
 				2AC906C029B5F8EF00209E39 /* WidgetInternalViewModelProtocol.swift */,
-				2AC906E129B62C9A00209E39 /* WidgetInternalViewModelContext.swift */,
 				2AC906C229B5FA3300209E39 /* ObjectWidgetInternalViewModel.swift */,
 				2AC906C629B601C200209E39 /* FavoriteWidgetInternalViewModel.swift */,
 				2AC906CB29B61A9700209E39 /* RecentWidgetInternalViewModel.swift */,
@@ -5474,6 +5476,7 @@
 				2AFCEB3629C89A7B00841E13 /* CollectionsWidgetInternalViewModel.swift */,
 				2A947B362A30CDCF00119140 /* WidgetDataviewInternalViewModelProtocol.swift */,
 				2A947B382A30CF2400119140 /* SetObjectWidgetInternalViewModel.swift */,
+				2A617BCD2A49EC0B00725152 /* CommonWidgetInternalViewModel.swift */,
 			);
 			path = SpecificInternalModels;
 			sourceTree = "<group>";
@@ -9279,7 +9282,6 @@
 				2A9D299028BCC11A00789AC7 /* NonExistentBlockView.swift in Sources */,
 				2AEAA48529F68BC8009ACA00 /* Color+Info.swift in Sources */,
 				3D2F9C3F271F024E0043C326 /* FloaterAlertView.swift in Sources */,
-				2AC906E229B62C9A00209E39 /* WidgetInternalViewModelContext.swift in Sources */,
 				2A90C47B28605F8C00B6B44E /* TableOfContentsContentProvider.swift in Sources */,
 				2AC3F9462A138263005EFEE9 /* FileLimitsStorage.swift in Sources */,
 				1211D65A2667CED000541D9C /* ActivityIndicatorView.swift in Sources */,
@@ -9888,6 +9890,7 @@
 				12CAF32326D53878001E56B2 /* ObjectIconImagePainterProtocol.swift in Sources */,
 				126C46D726BD966700D31DBF /* ObjectHeaderIcon.swift in Sources */,
 				3D8A82D82656EDF400C4A9CD /* Popup.swift in Sources */,
+				2A617BCE2A49EC0B00725152 /* CommonWidgetInternalViewModel.swift in Sources */,
 				C9C49A82270499B500D86463 /* CameraPermissionVerifier.swift in Sources */,
 				C92DCD97272998D800A03D91 /* BaseDocument+Extensions.swift in Sources */,
 				2E92219F294B8CDE00968750 /* DataViewBlockConfiguration.swift in Sources */,
@@ -10041,6 +10044,7 @@
 				1223C8FE272693E600C34616 /* FeaturedRelationsBlockViewModel.swift in Sources */,
 				2AE155962A31BDF50049C387 /* CollectionsCompactListWidgetModuleAssembly.swift in Sources */,
 				3D24912F27BD271900821595 /* MiddlewareEventConverter.swift in Sources */,
+				2A617BCC2A49E5B400725152 /* BlockWidget+Limits.swift in Sources */,
 				3D1702562716D1C30079B65B /* UIButton+ImageTitleSpacing.swift in Sources */,
 				3D34F20727BE2FAB00990C49 /* PersonalizationView.swift in Sources */,
 				2A9486562950A41B007A5586 /* HomeWidgetsView.swift in Sources */,
