@@ -56,7 +56,7 @@ final class EditorPageCoordinator: EditorPageCoordinatorProtocol, WidgetObjectLi
     
     private func showUnsupportedTypeAlert(documentId: String) {
         Task { @MainActor in
-            let document = BaseDocument(objectId: documentId)
+            let document = BaseDocument(objectId: documentId, forPreview: true)
             try await document.openForPreview()
 
             guard let typeId = document.details?.type else { return }
