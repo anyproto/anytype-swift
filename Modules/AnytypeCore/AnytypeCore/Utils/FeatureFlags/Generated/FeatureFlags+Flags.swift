@@ -54,6 +54,10 @@ public extension FeatureFlags {
         value(for: .fixAVCaptureSessionError)
     }
 
+    static var clearAccountDataOnDeletedStatus: Bool {
+        value(for: .clearAccountDataOnDeletedStatus)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -84,6 +88,7 @@ public extension FeatureFlags {
         .fixSIGPIPECrash,
         .compactListWidget,
         .fixAVCaptureSessionError,
+        .clearAccountDataOnDeletedStatus,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

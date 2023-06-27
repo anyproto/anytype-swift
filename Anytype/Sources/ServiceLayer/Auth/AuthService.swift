@@ -142,19 +142,31 @@ final class AuthService: AuthServiceProtocol {
             AnytypeAnalytics.instance().logAccountSelect(analyticsId: analyticsId)
             appErrorLoggerConfiguration.setUserId(analyticsId)
             
-            UserDefaultsConfig.usersId = response.account.id
-            
-            accountManager.account = response.account.asModel
-            
-            await loginStateService.setupStateAfterLoginOrAuth(account: accountManager.account)
-            
             guard let status = response.account.status.asModel else {
                 throw AuthServiceParsingError.undefinedStatus(status: response.account.status)
             }
+            
+            switch status {
+            case .active, .pendingDeletion:
+                await setupAccountData(response.account.asModel)
+            case .deleted:
+                if FeatureFlags.clearAccountDataOnDeletedStatus {
+                    loginStateService.cleanStateAfterLogout()
+                } else {
+                    await setupAccountData(response.account.asModel)
+                }
+            }
+            
             return status
         } catch let responseError as Anytype_Rpc.Account.Select.Response.Error {
             throw responseError.asError ?? responseError
         }
+    }
+    
+    private func setupAccountData(_ account: AccountData) async {
+        UserDefaultsConfig.usersId = account.id
+        accountManager.account = account
+        await loginStateService.setupStateAfterLoginOrAuth(account: accountManager.account)
     }
     
     func deleteAccount() -> AccountStatus? {
