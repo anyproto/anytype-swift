@@ -10,8 +10,16 @@ public struct BlockWidget: Hashable {
     }
     
     public let layout: Layout
+    public let limit: Int
+    public let viewId: String
     
-    public init(layout: Layout) {
+    public init(
+        layout: BlockWidget.Layout,
+        limit: Int,
+        viewId: String
+    ) {
         self.layout = layout
+        self.limit = limit
+        self.viewId = viewId
     }
 }

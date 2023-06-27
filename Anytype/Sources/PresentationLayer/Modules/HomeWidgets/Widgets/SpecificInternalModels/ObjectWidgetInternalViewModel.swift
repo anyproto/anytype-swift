@@ -16,7 +16,7 @@ final class ObjectWidgetInternalViewModel: WidgetInternalViewModelProtocol {
     private var subscriptions = [AnyCancellable]()
     private var linkedObjectDetails: ObjectDetails?
     @Published private var details: [ObjectDetails]?
-    @Published private var name: String = Loc.favorites
+    @Published private var name: String = ""
     
     var detailsPublisher: AnyPublisher<[ObjectDetails]?, Never> { $details.eraseToAnyPublisher() }
     var namePublisher: AnyPublisher<String, Never> { $name.eraseToAnyPublisher() }
@@ -32,11 +32,7 @@ final class ObjectWidgetInternalViewModel: WidgetInternalViewModelProtocol {
     }
     
     func startHeaderSubscription() {
-        guard let tagetObjectId = widgetObject.targetObjectIdByLinkFor(widgetBlockId: widgetBlockId)
-            else { return }
-        
-        widgetObject.detailsStorage.publisherFor(id: tagetObjectId)
-            .compactMap { $0 }
+        widgetObject.widgetTargetDetailsPublisher(widgetBlockId: widgetBlockId)
             .receiveOnMain()
             .sink { [weak self] details in
                 self?.name = details.title

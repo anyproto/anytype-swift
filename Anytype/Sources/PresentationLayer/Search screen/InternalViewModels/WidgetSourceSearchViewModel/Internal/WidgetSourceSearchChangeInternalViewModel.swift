@@ -39,11 +39,10 @@ final class WidgetSourceSearchChangeInternalViewModel: WidgetSourceSearchInterna
         }
         
         Task { @MainActor in
-            try? await blockWidgetService.replaceWidgetBlock(
+            try? await blockWidgetService.setSourceId(
                 contextId: document.objectId,
                 widgetBlockId: widgetId,
-                sourceId: source.sourceId,
-                layout: info.block.layout
+                sourceId: source.sourceId
             )
             onFinish()
         }

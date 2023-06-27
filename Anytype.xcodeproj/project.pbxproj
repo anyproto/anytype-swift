@@ -438,6 +438,7 @@
 		2A5A898E29C866FF00C170D6 /* SettingsObjectHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5A898D29C866FF00C170D6 /* SettingsObjectHeader.swift */; };
 		2A5BA75F2A17C2A10049B3B4 /* AnytypeErrorLoggerConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5BA75E2A17C2A10049B3B4 /* AnytypeErrorLoggerConfiguration.swift */; };
 		2A5CB4212A433C3B00ED9415 /* EditorScreenData+Details.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5CB4202A433C3B00ED9415 /* EditorScreenData+Details.swift */; };
+		2A617BCA2A49960500725152 /* Document+WidgetTargetSubscriptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A617BC92A49960400725152 /* Document+WidgetTargetSubscriptions.swift */; };
 		2A6688932A1CCB1100D80CED /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6688922A1CCB1100D80CED /* AboutView.swift */; };
 		2A6688952A1CCB3D00D80CED /* AboutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6688942A1CCB3D00D80CED /* AboutViewModel.swift */; };
 		2A673C0B29B0B26D00E3D672 /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A673C0A29B0B26D00E3D672 /* SettingsCoordinator.swift */; };
@@ -1937,6 +1938,7 @@
 		2A5A898D29C866FF00C170D6 /* SettingsObjectHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsObjectHeader.swift; sourceTree = "<group>"; };
 		2A5BA75E2A17C2A10049B3B4 /* AnytypeErrorLoggerConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeErrorLoggerConfiguration.swift; sourceTree = "<group>"; };
 		2A5CB4202A433C3B00ED9415 /* EditorScreenData+Details.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorScreenData+Details.swift"; sourceTree = "<group>"; };
+		2A617BC92A49960400725152 /* Document+WidgetTargetSubscriptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Document+WidgetTargetSubscriptions.swift"; sourceTree = "<group>"; };
 		2A6688922A1CCB1100D80CED /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		2A6688942A1CCB3D00D80CED /* AboutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewModel.swift; sourceTree = "<group>"; };
 		2A673C0A29B0B26D00E3D672 /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
@@ -5061,6 +5063,14 @@
 			name = Packages;
 			sourceTree = "<group>";
 		};
+		2A617BC82A4995EE00725152 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				2A617BC92A49960400725152 /* Document+WidgetTargetSubscriptions.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		2A673C0929B0B26100E3D672 /* Coordinator */ = {
 			isa = PBXGroup;
 			children = (
@@ -5450,6 +5460,7 @@
 		2AC906C829B6093A00209E39 /* SpecificInternalModels */ = {
 			isa = PBXGroup;
 			children = (
+				2A617BC82A4995EE00725152 /* Helpers */,
 				2AC906C029B5F8EF00209E39 /* WidgetInternalViewModelProtocol.swift */,
 				2AC906E129B62C9A00209E39 /* WidgetInternalViewModelContext.swift */,
 				2AC906C229B5FA3300209E39 /* ObjectWidgetInternalViewModel.swift */,
@@ -9420,6 +9431,7 @@
 				2E975EEF287C23DA004DE574 /* SetSortTypesListViewModel.swift in Sources */,
 				EA2640CA26C3DDF6006071BD /* NSRange+Middleware.swift in Sources */,
 				3DB3EC6B275514E9002781DA /* ProgressBarWithAnimation.swift in Sources */,
+				2A617BCA2A49960500725152 /* Document+WidgetTargetSubscriptions.swift in Sources */,
 				2E63047728A54F1900BEF2E9 /* SetContentViewType.swift in Sources */,
 				12CAF34826D64231001E56B2 /* BasicIconImageGuideline.swift in Sources */,
 				2AEE49EE292E27FA00EA53AA /* ObjectSettingsCoordinator.swift in Sources */,

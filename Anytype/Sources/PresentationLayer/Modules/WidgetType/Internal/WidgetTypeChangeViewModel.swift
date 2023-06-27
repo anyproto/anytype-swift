@@ -43,10 +43,9 @@ final class WidgetTypeChangeViewModel: WidgetTypeInternalViewModelProtocol {
         AnytypeAnalytics.instance().logChangeWidgetLayout(source: source.analyticsSource, layout: layout, route: .inner, context: context)
         
         Task { @MainActor in
-            try? await blockWidgetService.replaceWidgetBlock(
+            try? await blockWidgetService.setLayout(
                 contextId: widgetObject.objectId,
                 widgetBlockId: widgetId,
-                sourceId: source.sourceId,
                 layout: layout
             )
             onFinish()

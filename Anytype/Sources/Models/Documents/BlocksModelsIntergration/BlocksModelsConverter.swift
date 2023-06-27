@@ -21,7 +21,7 @@ enum BlocksModelsConverter {
         case .table: return BlockContent.table
         case .tableColumn: return BlockContent.tableColumn
         case .tableRow(let data): return data.blockContent
-        case .widget(let data): return data.blockContent
+        case .widget(let data): return try? data.blockContent
         case .icon, .latex:
             return .unsupported
         }

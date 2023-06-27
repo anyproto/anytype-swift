@@ -54,11 +54,7 @@ final class LinkWidgetViewModel: ObservableObject, WidgetContainerContentViewMod
     
     private func setupAllSubscriptions() {
         
-        guard let tagetObjectId = widgetObject.targetObjectIdByLinkFor(widgetBlockId: widgetBlockId)
-            else { return }
-        
-        widgetObject.detailsStorage.publisherFor(id: tagetObjectId)
-            .compactMap { $0 }
+        widgetObject.widgetTargetDetailsPublisher(widgetBlockId: widgetBlockId)
             .receiveOnMain()
             .sink { [weak self] details in
                 self?.linkedObjectDetails = details

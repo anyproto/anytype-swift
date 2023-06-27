@@ -11,6 +11,7 @@ final class SetObjectWidgetInternalViewModel: WidgetDataviewInternalViewModelPro
     private let widgetObject: BaseDocumentProtocol
     private let setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol
     private let subscriptionService: SubscriptionsServiceProtocol
+    private let documentService: DocumentServiceProtocol
     private let context: WidgetInternalViewModelContext
     
     private let subscriptionId = SubscriptionId(value: "SetWidget-\(UUID().uuidString)")
@@ -20,7 +21,8 @@ final class SetObjectWidgetInternalViewModel: WidgetDataviewInternalViewModelPro
     private var setDocument: SetDocumentProtocol?
     private var subscriptions = [AnyCancellable]()
     private var contentSubscriptions = [AnyCancellable]()
-    private var activeViewId: String = ""
+    private var contentIsAppear = false
+    private var activeViewId: String?
     @Published private var details: [ObjectDetails]?
     @Published private var name: String = ""
     @Published var dataview: WidgetDataviewState?
@@ -45,22 +47,16 @@ final class SetObjectWidgetInternalViewModel: WidgetDataviewInternalViewModelPro
         self.widgetObject = widgetObject
         self.setSubscriptionDataBuilder = setSubscriptionDataBuilder
         self.subscriptionService = subscriptionService
+        self.documentService = documentService
         self.context = context
-        
-        if let tagetObjectId = widgetObject.targetObjectIdByLinkFor(widgetBlockId: widgetBlockId) {
-            setDocument = documentService.setDocument(objectId: tagetObjectId, forPreview: true)
-        }
     }
     
     func startHeaderSubscription() {
-        guard let tagetObjectId = widgetObject.targetObjectIdByLinkFor(widgetBlockId: widgetBlockId)
-            else { return }
-        
-        widgetObject.detailsStorage.publisherFor(id: tagetObjectId)
-            .compactMap { $0 }
+        widgetObject.widgetTargetDetailsPublisher(widgetBlockId: widgetBlockId)
             .receiveOnMain()
             .sink { [weak self] details in
-                self?.name = details?.title ?? ""
+                self?.name = details.title
+                self?.updateSetDocument(objectId: details.id)
             }
             .store(in: &subscriptions)
     }
@@ -70,6 +66,7 @@ final class SetObjectWidgetInternalViewModel: WidgetDataviewInternalViewModelPro
     }
     
     func startContentSubscription() {
+        contentIsAppear = true
         setDocument?.syncPublisher.sink { [weak self] in
             self?.updateActiveViewId()
             self?.updateDataviewState()
@@ -79,6 +76,7 @@ final class SetObjectWidgetInternalViewModel: WidgetDataviewInternalViewModelPro
     }
     
     func stopContentSubscription() {
+        contentIsAppear = false
         contentSubscriptions.removeAll()
     }
     
@@ -102,12 +100,22 @@ final class SetObjectWidgetInternalViewModel: WidgetDataviewInternalViewModelPro
     // MARK: - Private
     
     private func updateActiveViewId() {
-        guard activeViewId.isEmpty else { return }
-        activeViewId = setDocument?.dataView.activeViewId ?? ""
+        guard let setDocument else {
+            activeViewId = nil
+            return
+        }
+        
+        let containsViewId = setDocument.dataView.views.contains { $0.id == activeViewId }
+        guard !containsViewId else { return }
+        
+        activeViewId = setDocument.dataView.activeViewId
     }
         
     private func updateViewSubscription() {
-        guard let setDocument else { return }
+        guard let setDocument else {
+            subscriptionService.stopAllSubscriptions()
+            return
+        }
         
         guard setDocument.canStartSubscription(),
               let activeView = setDocument.dataView.views.first(where: { $0.id == activeViewId }) else { return }
@@ -133,7 +141,10 @@ final class SetObjectWidgetInternalViewModel: WidgetDataviewInternalViewModelPro
     }
     
     private func updateDataviewState() {
-        guard let setDocument else { return }
+        guard let setDocument, let activeViewId else {
+            dataview = nil
+            return
+        }
         dataview = WidgetDataviewState(
             dataview: setDocument.dataView.views,
             activeViewId: activeViewId
@@ -146,5 +157,19 @@ final class SetObjectWidgetInternalViewModel: WidgetDataviewInternalViewModelPro
             return details
         }
         return details?.reorderedStable(by: objectOrderIds, transform: { $0.id })
+    }
+    
+    private func updateSetDocument(objectId: String) {
+        guard objectId != setDocument?.objectId else { return }
+        
+        setDocument = documentService.setDocument(objectId: objectId, forPreview: true)
+        
+        details = nil
+        dataview = nil
+        
+        guard contentIsAppear else { return }
+        
+        stopContentSubscription()
+        startContentSubscription()
     }
 }
