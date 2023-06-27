@@ -591,4 +591,11 @@ extension AnytypeAnalytics {
             ]
         )
     }
+    
+    func logClickLogin(button: ClickLoginButton) {
+        logEvent(
+            AnalyticsEventsName.clickLogin,
+            withEventProperties: [AnalyticsEventsPropertiesKey.type: button.rawValue]
+        )
+    }
 }

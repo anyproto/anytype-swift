@@ -17,6 +17,7 @@ enum AnalyticsEventsName {
     // New auth events
     static let screenOnboarding = "ScreenOnboarding"
     static let clickOnboarding = "ClickOnboarding"
+    static let clickLogin = "ClickLogin"
 
     // Block events
     static let blockCreate = "CreateBlock"
@@ -350,4 +351,10 @@ enum ClickOnboardingButton: String {
     case show = "Show"
     case copy = "Copy"
     case checkLater = "CheckLater"
+}
+
+enum ClickLoginButton: String {
+    case phrase = "Phrase"
+    case qr = "Qr"
+    case keychain = "Keychain"
 }
