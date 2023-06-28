@@ -17,7 +17,6 @@ final class FileStorageViewModel: ObservableObject {
     private let accountManager: AccountManagerProtocol
     private let subscriptionService: SingleObjectSubscriptionServiceProtocol
     private let fileLimitsStorage: FileLimitsStorageProtocol
-    private let documentService: DocumentServiceProtocol
     private weak var output: FileStorageModuleOutput?
     private var subscriptions = [AnyCancellable]()
     
@@ -47,13 +46,11 @@ final class FileStorageViewModel: ObservableObject {
         accountManager: AccountManagerProtocol,
         subscriptionService: SingleObjectSubscriptionServiceProtocol,
         fileLimitsStorage: FileLimitsStorageProtocol,
-        documentService: DocumentServiceProtocol,
         output: FileStorageModuleOutput?
     ) {
         self.accountManager = accountManager
         self.subscriptionService = subscriptionService
         self.fileLimitsStorage = fileLimitsStorage
-        self.documentService = documentService
         self.output = output
         setupPlaceholderState()
         setupSubscription()
@@ -74,7 +71,7 @@ final class FileStorageViewModel: ObservableObject {
     func onTapGetMoreSpace() {
         guard let limits else { return }
         Task { @MainActor in
-            let profileDocument = documentService.document(objectId: accountManager.account.info.profileObjectID, forPreview: true)
+            let profileDocument = BaseDocument(objectId: accountManager.account.info.profileObjectID, forPreview: true)
             try await profileDocument.openForPreview()
             let limit = byteCountFormatter.string(fromByteCount: limits.bytesLimit)
             let mailLink = MailUrl(
