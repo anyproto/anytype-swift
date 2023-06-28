@@ -22,10 +22,11 @@ final class FavoriteTreeWidgetModuleAssembly: HomeWidgetCommonAssemblyProtocol {
     ) -> AnyView {
         
         let model = FavoriteWidgetInternalViewModel(
+            widgetBlockId: widgetBlockId,
+            widgetObject: widgetObject,
             favoriteSubscriptionService: serviceLocator.favoriteSubscriptionService(),
             accountManager: serviceLocator.accountManager(),
-            documentService: serviceLocator.documentService(),
-            context: .tree
+            documentService: serviceLocator.documentService()
         )
      
         return widgetsSubmoduleDI.treeWidgetModuleAssembly().make(

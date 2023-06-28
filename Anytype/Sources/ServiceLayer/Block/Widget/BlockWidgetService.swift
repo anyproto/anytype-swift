@@ -4,7 +4,7 @@ import Services
 import AnytypeCore
 
 protocol BlockWidgetServiceProtocol {
-    func createWidgetBlock(contextId: String, sourceId: String, layout: BlockWidget.Layout, position: WidgetPosition) async throws
+    func createWidgetBlock(contextId: String, sourceId: String, layout: BlockWidget.Layout, limit: Int, position: WidgetPosition) async throws
     func removeWidgetBlock(contextId: String, widgetBlockId: String) async throws
     func setSourceId(contextId: String, widgetBlockId: String, sourceId: String) async throws
     func setLayout(contextId: String, widgetBlockId: String, layout: BlockWidget.Layout) async throws
@@ -14,7 +14,7 @@ final class BlockWidgetService: BlockWidgetServiceProtocol {
     
     // MARK: - BlockWidgetServiceProtocol
     
-    func createWidgetBlock(contextId: String, sourceId: String, layout: BlockWidget.Layout, position: WidgetPosition) async throws {
+    func createWidgetBlock(contextId: String, sourceId: String, layout: BlockWidget.Layout, limit: Int, position: WidgetPosition) async throws {
         
         let info = BlockInformation.empty(content: .link(.empty(targetBlockID: sourceId)))
         guard let block = BlockInformationConverter.convert(information: info) else {
@@ -27,6 +27,7 @@ final class BlockWidgetService: BlockWidgetServiceProtocol {
             $0.block = block
             $0.position = position.middlePosition
             $0.widgetLayout = layout.asMiddleware
+            $0.objectLimit = Int32(limit)
         }).invoke()
     }
     

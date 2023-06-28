@@ -21,7 +21,11 @@ final class SetsTreeWidgetModuleAssembly: HomeWidgetCommonAssemblyProtocol {
         output: CommonWidgetModuleOutput?
     ) -> AnyView {
         
-        let model = SetsWidgetInternalViewModel(setsSubscriptionService: serviceLocator.setsSubscriptionService(), context: .tree)
+        let model = SetsWidgetInternalViewModel(
+            widgetBlockId: widgetBlockId,
+            widgetObject: widgetObject,
+            setsSubscriptionService: serviceLocator.setsSubscriptionService()
+        )
      
         return widgetsSubmoduleDI.treeWidgetModuleAssembly().make(
             widgetBlockId: widgetBlockId,

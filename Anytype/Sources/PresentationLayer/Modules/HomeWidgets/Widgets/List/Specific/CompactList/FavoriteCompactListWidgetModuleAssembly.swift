@@ -22,10 +22,11 @@ final class FavoriteCompactListWidgetModuleAssembly: HomeWidgetCommonAssemblyPro
     ) -> AnyView {
         
         let model = FavoriteWidgetInternalViewModel(
+            widgetBlockId: widgetBlockId,
+            widgetObject: widgetObject,
             favoriteSubscriptionService: serviceLocator.favoriteSubscriptionService(),
             accountManager: serviceLocator.accountManager(),
-            documentService: serviceLocator.documentService(),
-            context: .compactList
+            documentService: serviceLocator.documentService()
         )
      
         return widgetsSubmoduleDI.listWidgetModuleAssembly().make(

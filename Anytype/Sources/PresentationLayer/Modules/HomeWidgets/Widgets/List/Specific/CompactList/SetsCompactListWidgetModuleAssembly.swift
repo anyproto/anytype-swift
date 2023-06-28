@@ -22,8 +22,9 @@ final class SetsCompactListWidgetModuleAssembly: HomeWidgetCommonAssemblyProtoco
     ) -> AnyView {
         
         let model = SetsWidgetInternalViewModel(
-            setsSubscriptionService: serviceLocator.setsSubscriptionService(),
-            context: .compactList
+            widgetBlockId: widgetBlockId,
+            widgetObject: widgetObject,
+            setsSubscriptionService: serviceLocator.setsSubscriptionService()
         )
      
         return widgetsSubmoduleDI.listWidgetModuleAssembly().make(

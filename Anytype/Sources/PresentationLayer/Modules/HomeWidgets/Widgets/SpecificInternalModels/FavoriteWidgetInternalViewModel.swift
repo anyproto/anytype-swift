@@ -2,16 +2,15 @@ import Foundation
 import Services
 import Combine
 
-final class FavoriteWidgetInternalViewModel: WidgetInternalViewModelProtocol {
+final class FavoriteWidgetInternalViewModel: CommonWidgetInternalViewModel, WidgetInternalViewModelProtocol {
     
     // MARK: - DI
     
     private let favoriteSubscriptionService: FavoriteSubscriptionServiceProtocol
-    private let context: WidgetInternalViewModelContext
     
     // MARK: - State
     
-    private var document: BaseDocumentProtocol
+    private let document: BaseDocumentProtocol
     @Published private var details: [ObjectDetails]?
     @Published private var name: String = Loc.favorites
     
@@ -19,33 +18,26 @@ final class FavoriteWidgetInternalViewModel: WidgetInternalViewModelProtocol {
     var namePublisher: AnyPublisher<String, Never> { $name.eraseToAnyPublisher() }
     
     init(
+        widgetBlockId: BlockId,
+        widgetObject: BaseDocumentProtocol,
         favoriteSubscriptionService: FavoriteSubscriptionServiceProtocol,
         accountManager: AccountManagerProtocol,
-        documentService: DocumentServiceProtocol,
-        context: WidgetInternalViewModelContext
+        documentService: DocumentServiceProtocol
     ) {
         self.favoriteSubscriptionService = favoriteSubscriptionService
-        self.context = context
         self.document = documentService.document(objectId: accountManager.account.info.homeObjectID)
+        super.init(widgetBlockId: widgetBlockId, widgetObject: widgetObject)
     }
     
     // MARK: - WidgetInternalViewModelProtocol
     
-    func startHeaderSubscription() {}
-    
-    func stopHeaderSubscription() {}
-    
-    func startContentSubscription() {
-        favoriteSubscriptionService.startSubscription(
-            homeDocument: document,
-            objectLimit: context.maxItems,
-            update: { [weak self] blocks in
-                self?.details = blocks.map { $0.details }
-            }
-        )
+    override func startContentSubscription() {
+        super.startContentSubscription()
+        updateSubscription()
     }
     
-    func stopContentSubscription() {
+    override func stopContentSubscription() {
+        super.stopContentSubscription()
         favoriteSubscriptionService.stopSubscription()
     }
     
@@ -55,5 +47,25 @@ final class FavoriteWidgetInternalViewModel: WidgetInternalViewModelProtocol {
     
     func analyticsSource() -> AnalyticsWidgetSource {
         return .favorites
+    }
+    
+    // MARK: - CommonWidgetInternalViewModel oveerides
+    
+    override func widgetInfoUpdated() {
+        updateSubscription()
+    }
+    
+    // MARK: - Private func
+    
+    private func updateSubscription() {
+        guard let widgetInfo, contentIsAppear else { return }
+        favoriteSubscriptionService.stopSubscription()
+        favoriteSubscriptionService.startSubscription(
+            homeDocument: document,
+            objectLimit: widgetInfo.fixedLimit,
+            update: { [weak self] blocks in
+                self?.details = blocks.map { $0.details }
+            }
+        )
     }
 }

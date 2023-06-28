@@ -22,8 +22,9 @@ final class RecentListWidgetModuleAssembly: HomeWidgetCommonAssemblyProtocol {
     ) -> AnyView {
         
         let model = RecentWidgetInternalViewModel(
-            recentSubscriptionService: serviceLocator.recentSubscriptionService(),
-            context: .list
+            widgetBlockId: widgetBlockId,
+            widgetObject: widgetObject,
+            recentSubscriptionService: serviceLocator.recentSubscriptionService()
         )
      
         return widgetsSubmoduleDI.listWidgetModuleAssembly().make(
