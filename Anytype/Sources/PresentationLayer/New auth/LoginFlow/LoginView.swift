@@ -24,7 +24,7 @@ struct LoginView: View {
                 AlertsFactory.goToSettingsAlert(title: Loc.Auth.cameraPermissionTitle)
             }
             .ifLet(model.errorText) { view, errorText in
-                view.errorToast(isShowing: $model.showError, errorText: errorText)
+                view.alertView(isShowing: $model.showError, errorText: errorText)
             }
             .fitIPadToReadableContentGuide()
     }

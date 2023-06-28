@@ -17,7 +17,7 @@ struct EnteringVoidView: View {
             model.onAppear()
         }
         .ifLet(model.errorText) { view, errorText in
-            view.errorToast(isShowing: $model.showError, errorText: errorText) {
+            view.alertView(isShowing: $model.showError, errorText: errorText) {
                 presentationMode.dismiss()
             }
         }
