@@ -28,6 +28,12 @@ struct EmojiIconView: View {
     let text: String
     
     var body: some View {
+        SquareView { _ in
+            content
+        }
+    }
+    
+    private var content: some View {
         Color.clear.readSize { size in
             updateConfig(size: size)
         }

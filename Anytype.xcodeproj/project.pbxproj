@@ -357,6 +357,14 @@
 		2A0BAD2F29E01E33005BC5D9 /* View+Focused.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0BAD2E29E01E33005BC5D9 /* View+Focused.swift */; };
 		2A0BAD3129E020A3005BC5D9 /* Task+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0BAD3029E020A3005BC5D9 /* Task+Extensions.swift */; };
 		2A0BAD3329E020D7005BC5D9 /* View+Autofocus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0BAD3229E020D7005BC5D9 /* View+Autofocus.swift */; };
+		2A11E8792A4C42A8003E1823 /* CircleImageIdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A11E8782A4C42A8003E1823 /* CircleImageIdView.swift */; };
+		2A11E87B2A4C430C003E1823 /* SquareImageIdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A11E87A2A4C430C003E1823 /* SquareImageIdView.swift */; };
+		2A11E87D2A4C7FC5003E1823 /* SquareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A11E87C2A4C7FC5003E1823 /* SquareView.swift */; };
+		2A11E8802A4C81C5003E1823 /* CharIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A11E87F2A4C81C5003E1823 /* CharIconView.swift */; };
+		2A11E8842A4C850D003E1823 /* GradientIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A11E8832A4C850D003E1823 /* GradientIconView.swift */; };
+		2A11E8862A4C882A003E1823 /* SquareGradientIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A11E8852A4C882A003E1823 /* SquareGradientIconView.swift */; };
+		2A11E8882A4C935C003E1823 /* CircleGradientIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A11E8872A4C935C003E1823 /* CircleGradientIconView.swift */; };
+		2A11E88A2A4C95C4003E1823 /* TodoIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A11E8892A4C95C4003E1823 /* TodoIconView.swift */; };
 		2A143A9F284775E20034729E /* AccountInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A143A9E284775E20034729E /* AccountInfo.swift */; };
 		2A150BE028AA8E9700F2E569 /* TextRelationURLActionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A150BDF28AA8E9700F2E569 /* TextRelationURLActionViewModel.swift */; };
 		2A176438283E2211002853D3 /* AnytypePopupProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A176437283E2211002853D3 /* AnytypePopupProxy.swift */; };
@@ -435,7 +443,7 @@
 		2A6574652A4450CB002F568C /* EmojiIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6574642A4450CB002F568C /* EmojiIconView.swift */; };
 		2A6574682A4456F6002F568C /* ObjectIconExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6574672A4456F6002F568C /* ObjectIconExample.swift */; };
 		2A65746A2A448998002F568C /* CircleCharIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6574692A448998002F568C /* CircleCharIconView.swift */; };
-		2A65746C2A448F3A002F568C /* CircleImageIdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A65746B2A448F3A002F568C /* CircleImageIdView.swift */; };
+		2A65746C2A448F3A002F568C /* ImageIdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A65746B2A448F3A002F568C /* ImageIdView.swift */; };
 		2A6688932A1CCB1100D80CED /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6688922A1CCB1100D80CED /* AboutView.swift */; };
 		2A6688952A1CCB3D00D80CED /* AboutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6688942A1CCB3D00D80CED /* AboutViewModel.swift */; };
 		2A673C0B29B0B26D00E3D672 /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A673C0A29B0B26D00E3D672 /* SettingsCoordinator.swift */; };
@@ -1844,6 +1852,14 @@
 		2A0BAD2E29E01E33005BC5D9 /* View+Focused.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Focused.swift"; sourceTree = "<group>"; };
 		2A0BAD3029E020A3005BC5D9 /* Task+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+Extensions.swift"; sourceTree = "<group>"; };
 		2A0BAD3229E020D7005BC5D9 /* View+Autofocus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Autofocus.swift"; sourceTree = "<group>"; };
+		2A11E8782A4C42A8003E1823 /* CircleImageIdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleImageIdView.swift; sourceTree = "<group>"; };
+		2A11E87A2A4C430C003E1823 /* SquareImageIdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareImageIdView.swift; sourceTree = "<group>"; };
+		2A11E87C2A4C7FC5003E1823 /* SquareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareView.swift; sourceTree = "<group>"; };
+		2A11E87F2A4C81C5003E1823 /* CharIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharIconView.swift; sourceTree = "<group>"; };
+		2A11E8832A4C850D003E1823 /* GradientIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientIconView.swift; sourceTree = "<group>"; };
+		2A11E8852A4C882A003E1823 /* SquareGradientIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareGradientIconView.swift; sourceTree = "<group>"; };
+		2A11E8872A4C935C003E1823 /* CircleGradientIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleGradientIconView.swift; sourceTree = "<group>"; };
+		2A11E8892A4C95C4003E1823 /* TodoIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoIconView.swift; sourceTree = "<group>"; };
 		2A143A9E284775E20034729E /* AccountInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountInfo.swift; sourceTree = "<group>"; };
 		2A150BDF28AA8E9700F2E569 /* TextRelationURLActionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRelationURLActionViewModel.swift; sourceTree = "<group>"; };
 		2A176437283E2211002853D3 /* AnytypePopupProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnytypePopupProxy.swift; sourceTree = "<group>"; };
@@ -1921,7 +1937,7 @@
 		2A6574642A4450CB002F568C /* EmojiIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiIconView.swift; sourceTree = "<group>"; };
 		2A6574672A4456F6002F568C /* ObjectIconExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectIconExample.swift; sourceTree = "<group>"; };
 		2A6574692A448998002F568C /* CircleCharIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleCharIconView.swift; sourceTree = "<group>"; };
-		2A65746B2A448F3A002F568C /* CircleImageIdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleImageIdView.swift; sourceTree = "<group>"; };
+		2A65746B2A448F3A002F568C /* ImageIdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageIdView.swift; sourceTree = "<group>"; };
 		2A6688922A1CCB1100D80CED /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		2A6688942A1CCB3D00D80CED /* AboutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewModel.swift; sourceTree = "<group>"; };
 		2A673C0A29B0B26D00E3D672 /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
@@ -4767,6 +4783,47 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		2A11E8772A4C4299003E1823 /* Content */ = {
+			isa = PBXGroup;
+			children = (
+				2A65746B2A448F3A002F568C /* ImageIdView.swift */,
+				2A11E87F2A4C81C5003E1823 /* CharIconView.swift */,
+				2A11E8832A4C850D003E1823 /* GradientIconView.swift */,
+			);
+			path = Content;
+			sourceTree = "<group>";
+		};
+		2A11E87E2A4C8122003E1823 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				2A11E87C2A4C7FC5003E1823 /* SquareView.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		2A11E8812A4C8472003E1823 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				2A11E87E2A4C8122003E1823 /* Helpers */,
+				2A11E8772A4C4299003E1823 /* Content */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		2A11E8822A4C847A003E1823 /* Specific */ = {
+			isa = PBXGroup;
+			children = (
+				2A6574642A4450CB002F568C /* EmojiIconView.swift */,
+				2A6574692A448998002F568C /* CircleCharIconView.swift */,
+				2A11E8782A4C42A8003E1823 /* CircleImageIdView.swift */,
+				2A11E87A2A4C430C003E1823 /* SquareImageIdView.swift */,
+				2A11E8852A4C882A003E1823 /* SquareGradientIconView.swift */,
+				2A11E8872A4C935C003E1823 /* CircleGradientIconView.swift */,
+				2A11E8892A4C95C4003E1823 /* TodoIconView.swift */,
+			);
+			path = Specific;
+			sourceTree = "<group>";
+		};
 		2A1F4CB729B88DBE004516F6 /* Sentry */ = {
 			isa = PBXGroup;
 			children = (
@@ -5039,9 +5096,8 @@
 		2A6574662A4450D4002F568C /* IconView */ = {
 			isa = PBXGroup;
 			children = (
-				2A6574642A4450CB002F568C /* EmojiIconView.swift */,
-				2A6574692A448998002F568C /* CircleCharIconView.swift */,
-				2A65746B2A448F3A002F568C /* CircleImageIdView.swift */,
+				2A11E8822A4C847A003E1823 /* Specific */,
+				2A11E8812A4C8472003E1823 /* Common */,
 			);
 			path = IconView;
 			sourceTree = "<group>";
@@ -8925,6 +8981,8 @@
 				8624C8612A6E577E0065CBC0 /* EditorPageViewModelConfiguration.swift in Sources */,
 				3D17025C2716E4F60079B65B /* EditorBarItemState.swift in Sources */,
 				1289C51628105A2D005085E2 /* FileDownloadingViewModel.swift in Sources */,
+				3D16841626DD672E008B9DFF /* BlockLayoutConverter.swift in Sources */,
+				2A11E87B2A4C430C003E1823 /* SquareImageIdView.swift in Sources */,
 				2A673C1D29B0FA2800E3D672 /* AnytypeDismiss.swift in Sources */,
 				12CAF37226D6A9E3001E56B2 /* ImageStorageProtocol.swift in Sources */,
 				12C0592E27F3274E004FFAAB /* DownloadableContentProtocol.swift in Sources */,
@@ -9088,6 +9146,7 @@
 				53040A4626D80DFD0023AC73 /* UIKitAnytypeText.swift in Sources */,
 				3D8D41BE2743D32000F8EBF3 /* EditorScreenData.swift in Sources */,
 				2AC906CC29B61A9700209E39 /* RecentWidgetInternalViewModel.swift in Sources */,
+				2A11E88A2A4C95C4003E1823 /* TodoIconView.swift in Sources */,
 				125B6ECB26F235F400BCD7D6 /* FilterableItemsView.swift in Sources */,
 				3D9EE8DA273D432C004FEAA7 /* InlineMarkdown.swift in Sources */,
 				3D2D59B1268CD584004745EC /* BlockImageConfiguration.swift in Sources */,
@@ -9272,6 +9331,7 @@
 				EA20CDCD2612288400DBA9FE /* VideoBlockViewModel.swift in Sources */,
 				2AD6792C29812EE600339624 /* HomeBottomPanelModuleOutput.swift in Sources */,
 				3D1CEC4527F5F566000D36BA /* Clock.swift in Sources */,
+				2A11E8792A4C42A8003E1823 /* CircleImageIdView.swift in Sources */,
 				53FF7C4826F7562B00A5A592 /* AnytypeAudioPlayer.swift in Sources */,
 				3D1CEC4B27F70B2E000D36BA /* AccountData.swift in Sources */,
 				C946681728462EB000A8A6F5 /* SimpleTableBlockView.swift in Sources */,
@@ -9389,6 +9449,7 @@
 				C905B2B128291C9100F1106B /* ToastView.swift in Sources */,
 				2AA8107E29A3D8A9007DD64B /* WidgetObjectListMenuItemModel.swift in Sources */,
 				53D6EE2E265D7DD600C47263 /* EditorViewListCell.swift in Sources */,
+				2A11E8802A4C81C5003E1823 /* CharIconView.swift in Sources */,
 				C9D3066B287431A7005BC877 /* SimpleTableMenuItem.swift in Sources */,
 				2E975EEF287C23DA004DE574 /* SetSortTypesListViewModel.swift in Sources */,
 				EA2640CA26C3DDF6006071BD /* NSRange+Middleware.swift in Sources */,
@@ -9403,6 +9464,7 @@
 				3D5A41482702E4E400F1F6A1 /* SlashMenuCellDataBuilder.swift in Sources */,
 				124AF82C26A6DA63004911E9 /* RelationValuesProtocol+PageCellTitle.swift in Sources */,
 				3D07ED72261F4B5A00C007E2 /* DividerBlockView.swift in Sources */,
+				2A11E87D2A4C7FC5003E1823 /* SquareView.swift in Sources */,
 				2AE5C71D29B7299F00A92C12 /* WidgetSourceSearchViewModel.swift in Sources */,
 				EA45749725F8D2EB007D6C83 /* TextBlockContentView.swift in Sources */,
 				12EB9AF62771F0E900BA732F /* RelationOptionsListView.swift in Sources */,
@@ -9608,7 +9670,7 @@
 				2A39F3CB29ED97F3005DE8F5 /* BlockTextStyle+Analytics.swift in Sources */,
 				3D2D4C5B27BA54030070A4C6 /* Divider.swift in Sources */,
 				2A4C79B229B8A1F9003BB9D3 /* WidgetSourceSearchChangeInternalViewModel.swift in Sources */,
-				2A65746C2A448F3A002F568C /* CircleImageIdView.swift in Sources */,
+				2A65746C2A448F3A002F568C /* ImageIdView.swift in Sources */,
 				12B0FF60274FC5E200CA35FE /* TextRelationActionButtonViewModelDelegate.swift in Sources */,
 				3D1B5F66274C0CFD007D97AE /* SetTableViewRow.swift in Sources */,
 				2E0DAF2728A273FC00F43320 /* SetViewSettingsImagePreviewCover.swift in Sources */,
@@ -9718,6 +9780,7 @@
 				2A4063652A5D9D8A00ECEA79 /* EventBunchSubscribtion.swift in Sources */,
 				534D19C72623A7220080AEF0 /* CodeLanguageListViewController.swift in Sources */,
 				2AFB541D28621776004F7458 /* Strings.swift in Sources */,
+				2A11E8862A4C882A003E1823 /* SquareGradientIconView.swift in Sources */,
 				2E8387BB291A51A000506766 /* SetCardDropInsideDelegate.swift in Sources */,
 				C90F8F2628DCBB4000E874A9 /* ImageSourceMedia.swift in Sources */,
 				2A9D299428BCC78900789AC7 /* NonExistentBlockViewModel.swift in Sources */,
@@ -10022,6 +10085,7 @@
 				2AE7ECA3298816F30079F12B /* WidgetObjectListInternalViewModelProtocol.swift in Sources */,
 				12136D2C2796C5EC00262FE7 /* RelationOptionsPopupLayout.swift in Sources */,
 				2A673C0D29B0B2AA00E3D672 /* SettingsModuleAssembly.swift in Sources */,
+				2A11E8842A4C850D003E1823 /* GradientIconView.swift in Sources */,
 				12636CF3276A0CF00084D35D /* ListSectionHeaderView.swift in Sources */,
 				120E818426A04A31006FE84E /* DetailsService.swift in Sources */,
 				2A9486612950B193007A5586 /* HomeWidgetsModuleOutput.swift in Sources */,
@@ -10208,6 +10272,7 @@
 				EA3D1E4F26CFC0E5001A31D9 /* TextViewAttributeSelectionInteraction.swift in Sources */,
 				2E0D0E77289D653500785833 /* EditorSetViewSettingsToggleItem.swift in Sources */,
 				2E0797BC2A0965FD006F0FD7 /* JoinFlowCoordinatorAssembly.swift in Sources */,
+				2A11E8882A4C935C003E1823 /* CircleGradientIconView.swift in Sources */,
 				0A74E4FB23A90E8C00B6C406 /* AuthService.swift in Sources */,
 				53F80F0527BD8DAD00E9E12A /* ObjectListRelationViewUIKit.swift in Sources */,
 				3D3A182A2733E946000D0842 /* MarkdownListener.swift in Sources */,

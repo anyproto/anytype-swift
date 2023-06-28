@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-struct CircleCharIconView: View {
+struct CharIconView: View {
     
     // MARK: - Private
     
@@ -28,6 +28,12 @@ struct CircleCharIconView: View {
     let text: String
     
     var body: some View {
+        SquareView { _ in
+            content
+        }
+    }
+    
+    private var content: some View {
         Color.clear.readSize { size in
             updateConfig(size: size)
         }
@@ -39,15 +45,12 @@ struct CircleCharIconView: View {
                 .fixedSize()
         }
         .clipped()
-        .background {
-            Circle()
-                .foregroundColor(.Stroke.secondary)
-        }
+        .background(Color.Stroke.secondary)
         .frame(idealWidth: 30, idealHeight: 30) // Default frame
     }
     
     private func updateConfig(size: CGSize) {
         let side = min(size.width, size.height)
-        config = CircleCharIconView.configs.first(where: { $0.side <= side }) ?? CircleCharIconView.configs.last ?? .zero
+        config = Self.configs.first(where: { $0.side <= side }) ?? Self.configs.last ?? .zero
     }
 }
