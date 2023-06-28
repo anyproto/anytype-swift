@@ -50,6 +50,10 @@ public extension FeatureFlags {
         value(for: .compactListWidget)
     }
 
+    static var getMoreSpace: Bool {
+        value(for: .getMoreSpace)
+    }
+
     static var fixAVCaptureSessionError: Bool {
         value(for: .fixAVCaptureSessionError)
     }
@@ -87,6 +91,7 @@ public extension FeatureFlags {
         .binConfirmAlert,
         .fixSIGPIPECrash,
         .compactListWidget,
+        .getMoreSpace,
         .fixAVCaptureSessionError,
         .clearAccountDataOnDeletedStatus,
         .rainbowViews,
