@@ -18,14 +18,14 @@ final class DashboardService: DashboardServiceProtocol {
     
     // MARK: - DashboardServiceProtocol
     
-    func createNewPage() -> ObjectDetails? {
-        let availableTemplates = searchService.searchTemplates(
+    func createNewPage() async throws -> ObjectDetails {
+        let availableTemplates = try await searchService.searchTemplates(
             for: .dynamic(objectTypeProvider.defaultObjectType.id)
         )
-        let hasSingleTemplate = availableTemplates?.count == 1
-        let templateId = hasSingleTemplate ? (availableTemplates?.first?.id ?? "") : ""
+        let hasSingleTemplate = availableTemplates.count == 1
+        let templateId = hasSingleTemplate ? (availableTemplates.first?.id ?? "") : ""
 
-        let details = pageService.createPage(
+        let details = try await pageService.createPage(
             name: "",
             shouldDeleteEmptyObject: true,
             shouldSelectType: true,

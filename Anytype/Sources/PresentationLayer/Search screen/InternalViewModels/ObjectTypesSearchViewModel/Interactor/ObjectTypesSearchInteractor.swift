@@ -28,18 +28,18 @@ final class ObjectTypesSearchInteractor {
 
 extension ObjectTypesSearchInteractor {
     
-    func search(text: String) -> [ObjectDetails] {
-        searchService.searchObjectTypes(
+    func search(text: String) async throws -> [ObjectDetails] {
+        try await searchService.searchObjectTypes(
             text: text,
             filteringTypeId: excludedObjectTypeId,
             shouldIncludeSets: showSetAndCollection,
             shouldIncludeCollections: showSetAndCollection,
             shouldIncludeBookmark: showBookmark
-        ) ?? []
+        )
     }
     
-    func searchInMarketplace(text: String) -> [ObjectDetails] {
-        return searchService.searchMarketplaceObjectTypes(text: text, includeInstalled: false) ?? []
+    func searchInMarketplace(text: String) async throws -> [ObjectDetails] {
+        try await searchService.searchMarketplaceObjectTypes(text: text, includeInstalled: false)
     }
     
     func installType(objectId: String) -> ObjectDetails? {

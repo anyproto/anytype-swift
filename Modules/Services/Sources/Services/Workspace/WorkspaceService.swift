@@ -1,17 +1,18 @@
 import Foundation
-import Services
 import ProtobufMessages
 
-protocol WorkspaceServiceProtocol {
+public protocol WorkspaceServiceProtocol {
     func installObjects(objectIds: [String]) -> [String]
     func installObject(objectId: String) -> ObjectDetails?
 }
 
-final class WorkspaceService: WorkspaceServiceProtocol {
+public final class WorkspaceService: WorkspaceServiceProtocol {
+    
+    public init() {}
     
     // MARK: - WorkspaceServiceProtocol
     
-    func installObjects(objectIds: [String]) -> [String] {
+    public func installObjects(objectIds: [String]) -> [String] {
         let result = try? ClientCommands.workspaceObjectListAdd(.with {
             $0.objectIds = objectIds
         }).invoke()
@@ -19,11 +20,11 @@ final class WorkspaceService: WorkspaceServiceProtocol {
         return result?.objectIds ?? []
     }
     
-    func installObject(objectId: String) -> ObjectDetails? {
+    public func installObject(objectId: String) -> ObjectDetails? {
         let result = try? ClientCommands.workspaceObjectAdd(.with {
             $0.objectID = objectId
         }).invoke()
         
-        return result.flatMap { ObjectDetails(protobufStruct: $0.details) }
+        return result.flatMap { try? ObjectDetails(protobufStruct: $0.details) }
     }
 }

@@ -196,7 +196,7 @@ final class DataviewService: DataviewServiceProtocol {
             $0.templateID = templateId
         }).invoke()
 
-        return try ObjectDetails(safeProtobufStruct: response.details)
+        return try ObjectDetails(protobufStruct: response.details)
     }
     
     func setPositionForView(_ viewId: String, position: Int) async throws {

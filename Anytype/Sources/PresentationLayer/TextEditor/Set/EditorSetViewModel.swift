@@ -582,19 +582,18 @@ final class EditorSetViewModel: ObservableObject {
         relationsDetails: [RelationDetails],
         completion: ((_ details: ObjectDetails) -> Void)?
     ) {
-        let templateId: String
-        if type.isNotEmpty {
-            let availableTemplates = searchService.searchTemplates(
-                for: .dynamic(type)
-            )
-            let hasSingleTemplate = availableTemplates?.count == 1
-            templateId = hasSingleTemplate ? (availableTemplates?.first?.id ?? "") : ""
-        } else {
-            templateId = ""
-        }
-
         Task { @MainActor [weak self] in
             guard let self else { return }
+            let templateId: String
+            if type.isNotEmpty {
+                let availableTemplates = try? await self.searchService.searchTemplates(
+                    for: .dynamic(type)
+                )
+                let hasSingleTemplate = availableTemplates?.count == 1
+                templateId = hasSingleTemplate ? (availableTemplates?.first?.id ?? "") : ""
+            } else {
+                templateId = ""
+            }
             let details = try await self.dataviewService.addRecord(
                 objectType: type,
                 shouldSelectType: shouldSelectType,

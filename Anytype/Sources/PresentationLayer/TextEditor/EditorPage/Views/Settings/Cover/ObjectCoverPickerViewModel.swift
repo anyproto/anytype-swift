@@ -13,7 +13,7 @@ final class ObjectCoverPickerViewModel: ObservableObject {
     private let objectId: String
     private let fileService: FileActionsServiceProtocol
     private let detailsService: DetailsServiceProtocol
-    private let unsplashDownloadService: UnslpashItemDownloader
+    private let unsplashService: UnsplashServiceProtocol
         
     // MARK: - Initializer
     
@@ -22,13 +22,13 @@ final class ObjectCoverPickerViewModel: ObservableObject {
         objectId: String,
         fileService: FileActionsServiceProtocol,
         detailsService: DetailsServiceProtocol,
-        unsplashDownloadService: UnslpashItemDownloader = UnsplashService()
+        unsplashService: UnsplashServiceProtocol = UnsplashService()
     ) {
         self.document = document
         self.objectId = objectId
         self.fileService = fileService
         self.detailsService = detailsService
-        self.unsplashDownloadService = unsplashDownloadService
+        self.unsplashService = unsplashService
     }
 }
 
@@ -63,7 +63,7 @@ extension ObjectCoverPickerViewModel {
         ).send()
 
         Task { @MainActor in
-            let imageHash = try await unsplashDownloadService.downloadImage(id: unsplashItem.id)
+            let imageHash = try await unsplashService.downloadImage(id: unsplashItem.id)
             try await detailsService.setCover(imageHash: imageHash)
         }
     }

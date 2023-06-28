@@ -17,6 +17,7 @@ final class TemplatesCoordinator {
 
     private let keyboardHeightListener: KeyboardHeightListener
     private weak var currentPopup: AnytypePopup?
+    private var showTemplatesTask: Task<(), Error>?
 
     init(
         rootViewController: UIViewController,
@@ -38,19 +39,22 @@ final class TemplatesCoordinator {
         onShow: (() -> Void)?
     ) {
         let isSelectTemplate = document.details?.isSelectTemplate ?? false
-        guard isSelectTemplate, let availableTemplates = searchService.searchTemplates(for: templatesTypeId) else {
-            return
-        }
+        showTemplatesTask?.cancel()
         
-        currentPopup?.removePanelFromParent(animated: false, completion: nil)
-        
-        guard availableTemplates.count >= Constants.minimumTemplatesAvailableToPick else {
-            return
-        }
+        showTemplatesTask = Task { @MainActor [weak self] in
+            guard isSelectTemplate,
+                  let availableTemplates = try? await self?.searchService.searchTemplates(for: templatesTypeId) else {
+                return
+            }
+            guard availableTemplates.count >= Constants.minimumTemplatesAvailableToPick else {
+                return
+            }
+            
+            onShow?()
 
-        onShow?()
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [weak self] in
+            try await Task.sleep(seconds: 0.2)
+            try Task.checkCancellation()
+            self?.currentPopup?.removePanelFromParent(animated: false, completion: nil)
             self?.showTemplateAvailablitityPopup(
                 availableTemplates: availableTemplates,
                 document: document

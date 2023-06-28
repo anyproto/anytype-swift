@@ -99,7 +99,7 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     }
     
     func loginFlow() -> LoginFlowCoordinatorAssemblyProtocol {
-        return LoginFlowCoordinatorAssembly(modulesDI: modulesDI)
+        return LoginFlowCoordinatorAssembly(modulesDI: modulesDI, uiHelpersDI: uiHelpersDI)
     }
     
     func legacyAuthViewAssembly() -> LegacyAuthViewAssembly {

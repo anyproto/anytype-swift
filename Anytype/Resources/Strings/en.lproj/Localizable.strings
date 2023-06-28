@@ -176,6 +176,8 @@
 "Auth.LoginFlow.Use.Keychain.Title" = "Use keychain";
 "Auth.LoginFlow.Or" = "OR";
 "Auth.LoginFlow.Textfield.Placeholder" = "Type your recovery phrase";
+"Auth.LoginFlow.Enter.Button.Title" = "Enter my Void";
+"Auth.LoginFlow.Entering.Void.Title" = "Entering the Void";
 
 // Object settings
 
@@ -388,7 +390,7 @@
 "Set.SourceType.Cancel.Toast.Title" = "This query can be changed on desktop only";
 
 // MARK: - Set: Type context menu
-"Set.TypeRelation.ContextMenu.TurnIntoCollection" = "Turn into collection";
+"Set.TypeRelation.ContextMenu.TurnIntoCollection" = "Turn Set into Collection";
 "Set.TypeRelation.ContextMenu.ChangeQuery" = "Change query";
 
 // MARK: - Collection: empty view
@@ -406,6 +408,7 @@
 "Invalid invitation code" = "Invalid invitation code";
 "Unknown error" = "Unknown error";
 "Account is deleted" = "Account is deleted";
+"Add phone" = "Add phone";
 "Nothing to redo" = "Nothing to redo";
 "Nothing to undo" = "Nothing to undo";
 "Progress..." = "Progress...";
@@ -417,14 +420,13 @@
 "Sky background" = "Sky background";
 "Yellow background" = "Yellow background";
 "Enter value" = "Enter value";
-"Select objects" = "Select objects";
-"Select files" = "Select files";
-"Select tags" = "Select tags";
+"Select object" = "Select object";
+"Select file" = "Select file";
+"Select tag" = "Select tag";
 "Select status" = "Select status";
-"Enter phone" = "Enter phone";
-"Enter e-mail" = "Enter e-mail";
-"Enter URL" = "Enter URL";
-"Enter date" = "Enter date";
+"Select date" = "Select date";
+"Add email" = "Add email";
+"Add link" = "Add link";
 "Enter number" = "Enter number";
 "Enter text" = "Enter text";
 "Unsupported value" = "Unsupported value";

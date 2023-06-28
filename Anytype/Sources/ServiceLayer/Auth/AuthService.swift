@@ -120,6 +120,16 @@ final class AuthService: AuthServiceProtocol {
         .store(in: &subscriptions)
     }
     
+    func accountRecover() async throws {
+        do {
+            try await ClientCommands.accountRecover().invoke()
+            loginStateService.setupStateAfterAuth()
+        } catch {
+            let code = (error as? Anytype_Rpc.Account.Recover.Response.Error)?.code ?? .null
+            throw AuthServiceError.recoverAccountError(code: code)
+        }
+    }
+    
     func selectAccount(id: String) async throws -> AccountStatus {
         do {
             let response = try await ClientCommands.accountSelect(.with {
@@ -132,19 +142,31 @@ final class AuthService: AuthServiceProtocol {
             AnytypeAnalytics.instance().logAccountSelect(analyticsId: analyticsId)
             appErrorLoggerConfiguration.setUserId(analyticsId)
             
-            UserDefaultsConfig.usersId = response.account.id
-            
-            accountManager.account = response.account.asModel
-            
-            await loginStateService.setupStateAfterLoginOrAuth(account: accountManager.account)
-            
             guard let status = response.account.status.asModel else {
                 throw AuthServiceParsingError.undefinedStatus(status: response.account.status)
             }
+            
+            switch status {
+            case .active, .pendingDeletion:
+                await setupAccountData(response.account.asModel)
+            case .deleted:
+                if FeatureFlags.clearAccountDataOnDeletedStatus {
+                    loginStateService.cleanStateAfterLogout()
+                } else {
+                    await setupAccountData(response.account.asModel)
+                }
+            }
+            
             return status
         } catch let responseError as Anytype_Rpc.Account.Select.Response.Error {
             throw responseError.asError ?? responseError
         }
+    }
+    
+    private func setupAccountData(_ account: AccountData) async {
+        UserDefaultsConfig.usersId = account.id
+        accountManager.account = account
+        await loginStateService.setupStateAfterLoginOrAuth(account: accountManager.account)
     }
     
     func deleteAccount() -> AccountStatus? {
@@ -164,6 +186,17 @@ final class AuthService: AuthServiceProtocol {
     func mnemonicByEntropy(_ entropy: String) throws -> String {
         do {
             let result = try ClientCommands.walletConvert(.with {
+                $0.entropy = entropy
+            }).invoke()
+            return result.mnemonic
+        } catch {
+            throw AuthServiceError.selectAccountError
+        }
+    }
+    
+    func mnemonicByEntropy(_ entropy: String) async throws -> String {
+        do {
+            let result = try await ClientCommands.walletConvert(.with {
                 $0.entropy = entropy
             }).invoke()
             return result.mnemonic

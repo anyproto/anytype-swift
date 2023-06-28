@@ -2,7 +2,7 @@ import SwiftUI
 
 protocol LoginViewModuleAssemblyProtocol {
     @MainActor
-    func make() -> AnyView
+    func make(output: LoginFlowOutput) -> AnyView
 }
 
 final class LoginViewModuleAssembly: LoginViewModuleAssemblyProtocol {
@@ -16,13 +16,14 @@ final class LoginViewModuleAssembly: LoginViewModuleAssemblyProtocol {
     // MARK: - LoginViewModuleAssemblyProtocol
     
     @MainActor
-    func make() -> AnyView {
+    func make(output: LoginFlowOutput) -> AnyView {
         return LoginView(
             model: LoginViewModel(
                 authService: serviceLocator.authService(),
                 seedService: serviceLocator.seedService(),
                 localAuthService: serviceLocator.localAuthService(),
-                cameraPermissionVerifier: serviceLocator.cameraPermissionVerifier()
+                cameraPermissionVerifier: serviceLocator.cameraPermissionVerifier(),
+                output: output
             )
         ).eraseToAnyView()
     }

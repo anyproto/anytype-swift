@@ -1,17 +1,17 @@
 import ProtobufMessages
 import Foundation
 
-struct UnsplashItem {
-    let id: String
-    let url: URL
-    let artistName: String
-    let artistURL: URL
+public struct UnsplashItem {
+    public let id: String
+    public let url: URL
+    public let artistName: String
+    public let artistURL: URL
 }
 
 
 // MARK: - Unsplash + Middleware
 
-extension UnsplashItem {
+public extension UnsplashItem {
     init?(model: Anytype_Rpc.Unsplash.Search.Response.Picture) {
         guard let url = URL(string: model.url),
               let artistsURL = URL(string: model.artistURL) else {
@@ -23,8 +23,4 @@ extension UnsplashItem {
         self.artistName = model.artist
         self.artistURL = artistsURL
     }
-}
-
-extension UnsplashItem {
-    var updateEvent: LocalEvent { .header(.coverUploading(.remotePreviewURL(url))) }
 }

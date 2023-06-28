@@ -38,7 +38,7 @@ public extension FeatureDescription {
         title: "New authorization",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.?.0"),
         defaultValue: false,
-        debugValue: false
+        debugValue: true
     )
     
     static let redesignAbout = FeatureDescription(
@@ -74,6 +74,18 @@ public extension FeatureDescription {
     static let getMoreSpace = FeatureDescription(
         title: "Get more space - IOS-1307",
         type: .feature(author: "m@anytype.io", releaseVersion: "0.23.0"),
+        defaultValue: true
+    )
+    
+    static let fixAVCaptureSessionError = FeatureDescription(
+        title: "Fix AVCaptureSession error",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.23.0"),
+        defaultValue: true
+    )
+    
+    static let clearAccountDataOnDeletedStatus = FeatureDescription(
+        title: "Clear cccount data on deleted status",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.23.0"),
         defaultValue: true
     )
     
