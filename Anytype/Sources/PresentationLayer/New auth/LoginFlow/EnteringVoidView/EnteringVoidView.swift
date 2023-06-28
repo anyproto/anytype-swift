@@ -16,6 +16,11 @@ struct EnteringVoidView: View {
         .onAppear {
             model.onAppear()
         }
+        .ifLet(model.errorText) { view, errorText in
+            view.errorToast(isShowing: $model.showError, errorText: errorText) {
+                presentationMode.dismiss()
+            }
+        }
         .onChange(of: model.dismiss) { newValue in
             guard newValue else { return }
             presentationMode.dismiss()
