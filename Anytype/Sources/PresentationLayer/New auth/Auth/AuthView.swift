@@ -29,6 +29,9 @@ struct AuthView: View {
             Spacer.fixedHeight(14)
         }
         .padding(.horizontal, 30)
+        .ifLet(model.errorText) { view, errorText in
+            view.errorToast(isShowing: $model.showError, errorText: errorText)
+        }
     }
     
     private var greetings: some View {
