@@ -1,5 +1,6 @@
 import SwiftUI
 
+// Todo can be two layouts: center in search and big in object
 struct TodoIconView: View {
     
     let checked: Bool
