@@ -8,6 +8,7 @@ protocol BlockWidgetServiceProtocol {
     func removeWidgetBlock(contextId: String, widgetBlockId: String) async throws
     func setSourceId(contextId: String, widgetBlockId: String, sourceId: String) async throws
     func setLayout(contextId: String, widgetBlockId: String, layout: BlockWidget.Layout) async throws
+    func setViewId(contextId: String, widgetBlockId: String, viewId: String) async throws
 }
 
 final class BlockWidgetService: BlockWidgetServiceProtocol {
@@ -51,6 +52,14 @@ final class BlockWidgetService: BlockWidgetServiceProtocol {
             $0.contextID = contextId
             $0.blockID = widgetBlockId
             $0.layout = layout.asMiddleware
+        }).invoke()
+    }
+    
+    func setViewId(contextId: String, widgetBlockId: String, viewId: String) async throws {
+        _ = try? await ClientCommands.blockWidgetSetViewId(.with {
+            $0.contextID = contextId
+            $0.blockID = widgetBlockId
+            $0.viewID = viewId
         }).invoke()
     }
 }

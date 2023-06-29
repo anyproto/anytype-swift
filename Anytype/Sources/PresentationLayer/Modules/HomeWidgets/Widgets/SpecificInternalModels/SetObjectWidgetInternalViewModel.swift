@@ -10,6 +10,7 @@ final class SetObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Wid
     private let setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol
     private let subscriptionService: SubscriptionsServiceProtocol
     private let documentService: DocumentServiceProtocol
+    private let blockWidgetService: BlockWidgetServiceProtocol
     
     private let subscriptionId = SubscriptionId(value: "SetWidget-\(UUID().uuidString)")
     
@@ -36,11 +37,13 @@ final class SetObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Wid
         widgetObject: BaseDocumentProtocol,
         setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol,
         subscriptionService: SubscriptionsServiceProtocol,
-        documentService: DocumentServiceProtocol
+        documentService: DocumentServiceProtocol,
+        blockWidgetService: BlockWidgetServiceProtocol
     ) {
         self.setSubscriptionDataBuilder = setSubscriptionDataBuilder
         self.subscriptionService = subscriptionService
         self.documentService = documentService
+        self.blockWidgetService = blockWidgetService
         super.init(widgetBlockId: widgetBlockId, widgetObject: widgetObject)
     }
     
@@ -86,15 +89,17 @@ final class SetObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Wid
     
     func onActiveViewTap(_ viewId: String) {
         guard activeViewId != viewId else { return }
+        Task { @MainActor in
+            try await blockWidgetService.setViewId(contextId: widgetObject.objectId, widgetBlockId: widgetBlockId, viewId: viewId)
+        }
         UISelectionFeedbackGenerator().selectionChanged()
-        activeViewId = viewId
-        updateDataviewState()
-        updateViewSubscription()
     }
     
     // MARK: - CommonWidgetInternalViewModel oveerides
     
     override func widgetInfoUpdated() {
+        updateActiveViewId()
+        updateDataviewState()
         updateViewSubscription()
     }
     
@@ -105,6 +110,8 @@ final class SetObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Wid
             activeViewId = nil
             return
         }
+        
+        activeViewId = widgetInfo?.block.viewId
         
         let containsViewId = setDocument.dataView.views.contains { $0.id == activeViewId }
         guard !containsViewId else { return }
