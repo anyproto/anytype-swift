@@ -10,7 +10,7 @@ final class FileStorageViewModel: ObservableObject {
     private enum Constants {
         static let subSpaceId = "FileStorageSpace"
         static let warningPercent = 0.9
-        static let mailTo = "support@anytype.io"
+        static let mailTo = "storage@anytype.io"
     }
     
 
