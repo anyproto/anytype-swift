@@ -22,8 +22,8 @@ struct ListWidgetView: View {
                         }
                     }
                     .padding(.horizontal, 16)
+                    .frame(height: 40)
                 }
-                .frame(height: 40)
             }
         }
     }
@@ -46,6 +46,8 @@ struct ListWidgetView: View {
                 .opacity(rows.isEmpty ? 0 : 1)
             }
         }
+        // This fixes the tap area for header in bottom side
+        .fixTappableArea()
     }
     
     @ViewBuilder

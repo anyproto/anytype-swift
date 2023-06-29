@@ -14,7 +14,7 @@ struct ListWidgetHeaderItem: View {
     
     var body: some View {
         AnytypeText(model.title, style: .previewTitle2Medium, color: model.isSelected ? .Text.primary : .Widget.inactiveTab)
-            .onTapGesture {
+            .increaseTapGesture(EdgeInsets(horizontal: 8, vertical: 12)) {
                 model.onTap()
             }
     }
