@@ -549,21 +549,31 @@ extension AnytypeAnalytics {
         )
     }
     
-    func logAboutSettingsShow() {
-        logEvent(AnalyticsEventsName.aboutSettingsShow)
+    func logMenuHelp() {
+        logEvent(AnalyticsEventsName.menuHelp)
     }
     
-    func logHelpAndCommunity(type: HelpAndCommunityType) {
-        logEvent(
-            AnalyticsEventsName.About.helpAndCommunity,
-            withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue]
-        )
+    func logWhatsNew() {
+        logEvent(AnalyticsEventsName.About.whatIsNew)
     }
     
-    func logLegal(type: LegalType) {
-        logEvent(
-            AnalyticsEventsName.About.legal,
-            withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue]
-        )
+    func logAnytypeCommunity() {
+        logEvent(AnalyticsEventsName.About.anytypeCommunity)
+    }
+    
+    func logHelpAndTutorials() {
+        logEvent(AnalyticsEventsName.About.helpAndTutorials)
+    }
+    
+    func logContactUs() {
+        logEvent(AnalyticsEventsName.About.contactUs)
+    }
+    
+    func logTermsOfUse() {
+        logEvent(AnalyticsEventsName.About.termsOfUse)
+    }
+    
+    func logPrivacyPolicy() {
+        logEvent(AnalyticsEventsName.About.privacyPolicy)
     }
 }

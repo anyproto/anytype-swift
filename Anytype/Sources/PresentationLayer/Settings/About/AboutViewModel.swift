@@ -33,26 +33,26 @@ final class AboutViewModel: ObservableObject {
     }
     
     func onAppear() {
-        AnytypeAnalytics.instance().logAboutSettingsShow()
+        AnytypeAnalytics.instance().logMenuHelp()
     }
     
     func onWhatsNewTap() {
-        AnytypeAnalytics.instance().logHelpAndCommunity(type: .whatIsNew)
+        AnytypeAnalytics.instance().logWhatsNew()
         handleUrl(string: AboutApp.whatsNewLink)
     }
     
     func onCommunityTap() {
-        AnytypeAnalytics.instance().logHelpAndCommunity(type: .anytypeCommunity)
+        AnytypeAnalytics.instance().logAnytypeCommunity()
         handleUrl(string: AboutApp.communityLink)
     }
     
     func onHelpTap() {
-        AnytypeAnalytics.instance().logHelpAndCommunity(type: .helpAndTutorials)
+        AnytypeAnalytics.instance().logHelpAndTutorials()
         handleUrl(string: AboutApp.helpLink)
     }
     
     func onContactTap() {
-        AnytypeAnalytics.instance().logHelpAndCommunity(type: .contactUs)
+        AnytypeAnalytics.instance().logContactUs()
         let mailLink = MailUrl(
             to: AboutApp.mailTo,
             subject: Loc.About.Mail.subject(accountManager.account.id),
@@ -63,12 +63,12 @@ final class AboutViewModel: ObservableObject {
     }
     
     func onTermOfUseTap() {
-        AnytypeAnalytics.instance().logLegal(type: .termsOfUse)
+        AnytypeAnalytics.instance().logTermsOfUse()
         handleUrl(string: AboutApp.termsLink)
     }
     
     func onPrivacyPolicyTap() {
-        AnytypeAnalytics.instance().logLegal(type: .privacyPolicy)
+        AnytypeAnalytics.instance().logPrivacyPolicy()
         handleUrl(string: AboutApp.privacyLink)
     }
     
