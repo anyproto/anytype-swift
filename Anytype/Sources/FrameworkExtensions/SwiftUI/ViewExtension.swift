@@ -3,7 +3,11 @@ import SwiftUI
 
 extension View {
     func errorToast(isShowing: Binding<Bool>, errorText: String, onOkPressed: @escaping () -> () = {}) -> some View {
-        ErrorAlertView(isShowing: isShowing, errorText: errorText, presenting: self, onOkPressed: onOkPressed)
+        LegacyErrorAlertView(isShowing: isShowing, errorText: errorText, presenting: self, onOkPressed: onOkPressed)
+    }
+    
+    func alertView(isShowing: Binding<Bool>, errorText: String, onButtonTap: @escaping () -> () = {}) -> some View {
+        AlertView(isShowing: isShowing, errorText: errorText, presenting: self, onButtonTap: onButtonTap)
     }
 
     func eraseToAnyView() -> AnyView {

@@ -24,7 +24,7 @@
 		0372AB4523A11861008CF5B9 /* SelectProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03992F6C2396BA9B0027A4AD /* SelectProfileView.swift */; };
 		037AA83422E34601002CB09F /* ApplicationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037AA83322E34601002CB09F /* ApplicationCoordinator.swift */; };
 		038A81FD23A0158B00B71388 /* LegacyLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038A81FC23A0158B00B71388 /* LegacyLoginViewModel.swift */; };
-		039DA2E62305843D0041F95C /* ErrorAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039DA2E52305843D0041F95C /* ErrorAlertView.swift */; };
+		039DA2E62305843D0041F95C /* LegacyErrorAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039DA2E52305843D0041F95C /* LegacyErrorAlertView.swift */; };
 		039F669923C7FD1D00DBE36A /* GeometryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039F669823C7FD1D00DBE36A /* GeometryExtension.swift */; };
 		039F669C23C7FDC300DBE36A /* TimingTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039F669B23C7FDC300DBE36A /* TimingTimer.swift */; };
 		039F6D78239580A10097560A /* LegacyLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039F6D77239580A10097560A /* LegacyLoginView.swift */; };
@@ -789,6 +789,7 @@
 		2E63047928A55D2000BEF2E9 /* SetGalleryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E63047828A55D2000BEF2E9 /* SetGalleryViewCell.swift */; };
 		2E63047B28A55D2A00BEF2E9 /* SetCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E63047A28A55D2A00BEF2E9 /* SetCollectionView.swift */; };
 		2E63047D28AA69ED00BEF2E9 /* SwiftUIObjectHeaderCoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E63047C28AA69ED00BEF2E9 /* SwiftUIObjectHeaderCoverView.swift */; };
+		2E6F3E1A2A4C6828002F4278 /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6F3E192A4C6828002F4278 /* AlertView.swift */; };
 		2E74AF0829CB4A5100AC3B91 /* SetContentViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E74AF0729CB4A5100AC3B91 /* SetContentViewItem.swift */; };
 		2E7C445D2891753B0062287C /* SetFiltersDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C445C2891753B0062287C /* SetFiltersDateView.swift */; };
 		2E7C445F2891755A0062287C /* SetFiltersDateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C445E2891755A0062287C /* SetFiltersDateViewModel.swift */; };
@@ -1534,7 +1535,7 @@
 		038A81FC23A0158B00B71388 /* LegacyLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegacyLoginViewModel.swift; sourceTree = "<group>"; };
 		03992F642395D7A10027A4AD /* CreateNewProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewProfileView.swift; sourceTree = "<group>"; };
 		03992F6C2396BA9B0027A4AD /* SelectProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectProfileView.swift; sourceTree = "<group>"; };
-		039DA2E52305843D0041F95C /* ErrorAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorAlertView.swift; sourceTree = "<group>"; };
+		039DA2E52305843D0041F95C /* LegacyErrorAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LegacyErrorAlertView.swift; sourceTree = "<group>"; };
 		039F669823C7FD1D00DBE36A /* GeometryExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeometryExtension.swift; sourceTree = "<group>"; };
 		039F669B23C7FDC300DBE36A /* TimingTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimingTimer.swift; sourceTree = "<group>"; };
 		039F6D77239580A10097560A /* LegacyLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegacyLoginView.swift; sourceTree = "<group>"; };
@@ -2277,6 +2278,7 @@
 		2E63047828A55D2000BEF2E9 /* SetGalleryViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetGalleryViewCell.swift; sourceTree = "<group>"; };
 		2E63047A28A55D2A00BEF2E9 /* SetCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetCollectionView.swift; sourceTree = "<group>"; };
 		2E63047C28AA69ED00BEF2E9 /* SwiftUIObjectHeaderCoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIObjectHeaderCoverView.swift; sourceTree = "<group>"; };
+		2E6F3E192A4C6828002F4278 /* AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
 		2E74AF0729CB4A5100AC3B91 /* SetContentViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetContentViewItem.swift; sourceTree = "<group>"; };
 		2E7C445C2891753B0062287C /* SetFiltersDateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersDateView.swift; sourceTree = "<group>"; };
 		2E7C445E2891755A0062287C /* SetFiltersDateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersDateViewModel.swift; sourceTree = "<group>"; };
@@ -3282,8 +3284,6 @@
 				2A1F949629795FB300E25782 /* Subscriptions */,
 				2AFFFB9D2927B02500A487E1 /* Account */,
 				2A03039D28ABD480002EFC46 /* URL */,
-				C971EA4127E9C67D002FF3BE /* Unsplash */,
-				12EE02CB2840E33B00223EB5 /* SceneLifecycleStateService */,
 				3D2F9C14271EADC50043C326 /* Object */,
 				0A66456924085A1E008392AF /* Block */,
 				03D1516423FB443E004027CE /* Configuration */,
@@ -6502,8 +6502,10 @@
 		3D2F9C3A271F023A0043C326 /* Alerts */ = {
 			isa = PBXGroup;
 			children = (
+				039DA2E52305843D0041F95C /* LegacyErrorAlertView.swift */,
 				3D2F9C3E271F024E0043C326 /* FloaterAlertView.swift */,
 				2A947B2F2A3093DD00119140 /* BottomAlert+Bin.swift */,
+				2E6F3E192A4C6828002F4278 /* AlertView.swift */,
 			);
 			path = Alerts;
 			sourceTree = "<group>";
@@ -6811,7 +6813,6 @@
 				03475B702306CFA900F8FCE7 /* Waiting Views */,
 				12887F3B274BC1ED00228330 /* RelationDetailsViews */,
 				1256840B27E1D904003A8251 /* Configurations */,
-				039DA2E52305843D0041F95C /* ErrorAlertView.swift */,
 				3D829171265E50190007C152 /* RedactedText.swift */,
 				3D932D5C2631807800C7D1EA /* OffsetAwareScrollView.swift */,
 				3D3D894C2678D08E008C2B26 /* ViewModifiers.swift */,
@@ -9287,7 +9288,7 @@
 				2AEE3E6B29C1C2E2007C72AF /* AnytypeHostingController.swift in Sources */,
 				3D2D4C6327BA76270070A4C6 /* EditorRouterProtocol.swift in Sources */,
 				12A52E2926CAA17B000F0333 /* AnimatableView.swift in Sources */,
-				039DA2E62305843D0041F95C /* ErrorAlertView.swift in Sources */,
+				039DA2E62305843D0041F95C /* LegacyErrorAlertView.swift in Sources */,
 				2AFFFB972927722A00A487E1 /* ObjectCoverPickerModuleAssembly.swift in Sources */,
 				1247BCA727FF3827005F2DB4 /* FeedbackGeneratorExamplesView.swift in Sources */,
 				3D929B2F263307700063F1BE /* AnytypeFont.swift in Sources */,
@@ -10242,6 +10243,7 @@
 				53FF7CB526FCCDE800A5A592 /* ObjectActionRow.swift in Sources */,
 				2A1F946E2978208F00E25782 /* ListWidgetView.swift in Sources */,
 				125FD2E926CD6D2100D21F5A /* EditorNavigationBarHelper.swift in Sources */,
+				2E6F3E1A2A4C6828002F4278 /* AlertView.swift in Sources */,
 				2A28D04B297E9EDB00E55E15 /* HomeWidgetsStateManager.swift in Sources */,
 				2A6688932A1CCB1100D80CED /* AboutView.swift in Sources */,
 				3D5A41792704541900F1F6A1 /* SearchView.swift in Sources */,
