@@ -26,7 +26,7 @@ struct CreateNewProfileView: View {
             }
         }
         .onAppear {
-            AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.authScreenShow)
+            AnytypeAnalytics.instance().logScreenAuthRegistration()
         }
     }
     

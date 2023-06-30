@@ -46,11 +46,17 @@ final class LoginViewModel: ObservableObject {
         self.output = output
     }
     
+    func onAppear() {
+        AnytypeAnalytics.instance().logLoginScreenShow()
+    }
+    
     func onEnterButtonAction() {
+        AnytypeAnalytics.instance().logClickLogin(button: .phrase)
         walletRecovery(with: phrase)
     }
     
     func onScanQRButtonAction() {
+        AnytypeAnalytics.instance().logClickLogin(button: .qr)
         cameraPermissionVerifier.cameraPermission
             .receiveOnMain()
             .sink { [unowned self] isGranted in
@@ -64,6 +70,7 @@ final class LoginViewModel: ObservableObject {
     }
     
     func onKeychainButtonAction() {
+        AnytypeAnalytics.instance().logClickLogin(button: .keychain)
         restoreFromkeychain()
     }
     

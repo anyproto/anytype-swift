@@ -13,6 +13,11 @@ enum AnalyticsEventsName {
     static let logout = "LogOut"
     static let deleteAccount = "DeleteAccount"
     static let cancelDeletion = "CancelDeletion"
+    
+    // New auth events
+    static let screenOnboarding = "ScreenOnboarding"
+    static let clickOnboarding = "ClickOnboarding"
+    static let clickLogin = "ClickLogin"
 
     // Block events
     static let blockCreate = "CreateBlock"
@@ -85,10 +90,9 @@ enum AnalyticsEventsName {
 
     // Screen show events
     static let disclaimerShow = "ScreenDisclaimer"
-    static let authScreenShow = "ScreenIndex"
+    static let mainAuthScreenShow = "ScreenIndex"
     static let loginScreenShow = "ScreenLogin"
     static let screenAuthRegistration = "ScreenAuthRegistration"
-    static let invitaionScreenShow = "ScreenAuthInvitation"
 
     static let homeShow = "ScreenHome"
     static let settingsShow = "ScreenSettings"
@@ -209,6 +213,7 @@ enum AnalyticsEventsPropertiesKey {
 
     static let tab = "tab"
     static let route = "route"
+    static let step = "step"
 
     static let type = "type"
     static let id = "id"
@@ -325,4 +330,23 @@ enum RemoveCompletelyRoute: String {
 enum ShowDeletionWarningRoute: String {
     case bin = "Bin"
     case settings = "Settings"
+}
+
+enum ScreenOnboardingStep: String {
+    case void = "Void"
+    case phrase = "Phrase"
+    case soul = "Soul"
+    case soulCreating = "SoulCreating"
+    case spaceCreating = "SpaceCreating"
+}
+
+enum ClickOnboardingButton: String {
+    case showAndCopy = "ShowAndCopy"
+    case checkLater = "CheckLater"
+}
+
+enum ClickLoginButton: String {
+    case phrase = "Phrase"
+    case qr = "Qr"
+    case keychain = "Keychain"
 }

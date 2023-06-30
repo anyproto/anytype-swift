@@ -31,6 +31,9 @@ struct JoinFlowInputView<ViewModel: JoinFlowInputProtocol>: View {
             .colorScheme(model.inputText.isEmpty ? .dark : .light)
             .disabled(model.inputText.isEmpty)
         }
+        .onAppear {
+            model.onAppear()
+        }
     }
     
     private var input: some View {

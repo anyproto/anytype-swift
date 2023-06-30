@@ -30,6 +30,11 @@ final class CreatingSoulViewModel: ObservableObject {
         setupSubscription()
     }
     
+    func onAppear() {
+        AnytypeAnalytics.instance().logScreenOnboarding(step: .soulCreating)
+        AnytypeAnalytics.instance().logScreenOnboarding(step: .spaceCreating)
+    }
+    
     func animateCreation() {
         guard profileIcon != nil, spaceIcon != nil else { return }
         

@@ -10,6 +10,9 @@ struct KeyPhraseView: View {
             Spacer()
             buttons
         }
+        .onAppear {
+            model.onAppear()
+        }
     }
     
     private var content: some View {

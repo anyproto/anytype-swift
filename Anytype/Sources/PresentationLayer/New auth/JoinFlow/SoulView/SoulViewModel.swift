@@ -36,6 +36,10 @@ final class SoulViewModel: JoinFlowInputProtocol {
         self.objectActionsService = objectActionsService
     }
     
+    func onAppear() {
+        AnytypeAnalytics.instance().logScreenOnboarding(step: .soul)
+    }
+    
     func onNextAction() {
         inProgress = true
         updateProfileName()

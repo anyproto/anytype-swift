@@ -10,7 +10,7 @@ struct AuthView: View {
                 .navigationBarHidden(true)
                 .opacity(model.opacity)
                 .onAppear {
-                    model.onViewAppear()
+                    model.onAppear()
                 }
                 .background(TransparentBackground())
                 .fitIPadToReadableContentGuide()

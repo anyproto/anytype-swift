@@ -29,10 +29,15 @@ final class KeyPhraseViewModel: ObservableObject {
         self.localAuthService = localAuthService
     }
     
+    func onAppear() {
+        AnytypeAnalytics.instance().logScreenOnboarding(step: .phrase)
+    }
+    
     func onPrimaryButtonTap() {
         if keyShown {
             output?.onNext()
         } else {
+            AnytypeAnalytics.instance().logClickOnboarding(step: .phrase, button: .showAndCopy)
             localAuthService.auth(reason: Loc.accessToSecretPhraseFromKeychain) { didComplete in
                 guard didComplete else { return }
                 DispatchQueue.main.async { [weak self] in
@@ -44,10 +49,12 @@ final class KeyPhraseViewModel: ObservableObject {
     }
     
     func onSecondaryButtonTap() {
+        AnytypeAnalytics.instance().logClickOnboarding(step: .phrase, button: .checkLater)
         output?.onNext()
     }
     
     func onCopyButtonTap() {
+        AnytypeAnalytics.instance().logClickOnboarding(step: .phrase, button: .showAndCopy)
         UISelectionFeedbackGenerator().selectionChanged()
         UIPasteboard.general.string = state.mnemonic
         alertOpener.showTopAlert(message: Loc.copied)
