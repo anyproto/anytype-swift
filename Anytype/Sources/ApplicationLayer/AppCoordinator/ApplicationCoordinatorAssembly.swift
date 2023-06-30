@@ -42,8 +42,7 @@ final class ApplicationCoordinatorAssembly: ApplicationCoordinatorAssemblyProtoc
             accountManager: serviceLocator.accountManager(),
             seedService: serviceLocator.seedService(),
             fileErrorEventHandler: serviceLocator.fileErrorEventHandler(),
-            toastPresenter: uiHelpersDI.toastPresenter(),
-            metricsService: serviceLocator.metricsService()
+            toastPresenter: uiHelpersDI.toastPresenter()
         )
     }
 }

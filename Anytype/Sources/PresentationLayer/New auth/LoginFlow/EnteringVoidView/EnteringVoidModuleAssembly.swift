@@ -22,7 +22,6 @@ final class EnteringVoidModuleAssembly: EnteringVoidModuleAssemblyProtocol {
                 output: output,
                 applicationStateService: self.serviceLocator.applicationStateService(),
                 authService: self.serviceLocator.authService(),
-                metricsService: self.serviceLocator.metricsService(),
                 accountEventHandler: self.serviceLocator.accountEventHandler()
             )
         ).eraseToAnyView()

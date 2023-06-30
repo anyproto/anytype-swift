@@ -10,7 +10,6 @@ final class EnteringVoidViewModel: ObservableObject {
     private weak var output: LoginFlowOutput?
     private let applicationStateService: ApplicationStateServiceProtocol
     private let authService: AuthServiceProtocol
-    private let metricsService: MetricsServiceProtocol
     private let accountEventHandler: AccountEventHandlerProtocol
     
     private var cancellable: AnyCancellable?
@@ -28,13 +27,11 @@ final class EnteringVoidViewModel: ObservableObject {
         output: LoginFlowOutput?,
         applicationStateService: ApplicationStateServiceProtocol,
         authService: AuthServiceProtocol,
-        metricsService: MetricsServiceProtocol,
         accountEventHandler: AccountEventHandlerProtocol
     ) {
         self.output = output
         self.applicationStateService = applicationStateService
         self.authService = authService
-        self.metricsService = metricsService
         self.accountEventHandler = accountEventHandler
         handleAccountShowEvent()
     }
@@ -67,7 +64,6 @@ final class EnteringVoidViewModel: ObservableObject {
     private func selectProfile(id: String) {
         Task {
             do {
-                try await metricsService.metricsSetParameters()
                 let status = try await authService.selectAccount(id: id)
                 
                 switch status {

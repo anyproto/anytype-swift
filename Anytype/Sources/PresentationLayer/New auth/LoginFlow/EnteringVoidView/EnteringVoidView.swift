@@ -36,7 +36,6 @@ struct EnteringVoidView_Previews : PreviewProvider {
                 output: nil,
                 applicationStateService: DI.preview.serviceLocator.applicationStateService(),
                 authService: DI.preview.serviceLocator.authService(),
-                metricsService: DI.preview.serviceLocator.metricsService(),
                 accountEventHandler: DI.preview.serviceLocator.accountEventHandler()
             )
         )
