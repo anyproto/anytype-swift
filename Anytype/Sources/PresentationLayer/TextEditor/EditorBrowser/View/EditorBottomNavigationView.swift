@@ -105,14 +105,12 @@ final class EditorBottomNavigationView: UIView {
     // MARK: - Views
     private func createBackButton() -> EditorBrowserButton {
         EditorBrowserButton(imageAsset: .X32.Arrow.left) { [weak self] in
-            UISelectionFeedbackGenerator().selectionChanged()
             self?.onBackTap()
         }
     }
     
     private func createForwardButton() -> EditorBrowserButton {
         return EditorBrowserButton(imageAsset: .X32.Arrow.right, isEnabled: false) { [weak self] in
-            UISelectionFeedbackGenerator().selectionChanged()
             self?.onForwardTap()
         }
     }
