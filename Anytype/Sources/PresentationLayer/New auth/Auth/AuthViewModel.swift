@@ -9,6 +9,12 @@ final class AuthViewModel: ObservableObject {
     @Published var showDebugMenu: Bool = false
     @Published var opacity: Double = 1
     @Published var creatingAccountInProgress = false
+    @Published var errorText: String? {
+        didSet {
+            showError = errorText.isNotNil
+        }
+    }
+    @Published var showError: Bool = false
     
     // MARK: - Private
     
@@ -91,7 +97,7 @@ final class AuthViewModel: ObservableObject {
                 
                 createAccountSuccess()
             } catch {
-                createAccountError()
+                createAccountError(error)
             }
         }
     }
@@ -102,8 +108,9 @@ final class AuthViewModel: ObservableObject {
         changeContentOpacity(true)
     }
     
-    private func createAccountError() {
+    private func createAccountError(_ error: Error) {
         creatingAccountInProgress = false
+        errorText = error.localizedDescription
     }
     
     private func changeContentOpacity(_ hide: Bool) {

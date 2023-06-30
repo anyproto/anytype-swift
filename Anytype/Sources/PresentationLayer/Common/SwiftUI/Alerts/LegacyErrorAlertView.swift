@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct ErrorAlertView<Presenting>: View where Presenting: View {
+struct LegacyErrorAlertView<Presenting>: View where Presenting: View {
     @Binding var isShowing: Bool
     var errorText: String
     
@@ -39,11 +39,11 @@ struct ErrorAlertView<Presenting>: View where Presenting: View {
     
 }
 
-struct ErrorAlertView_Previews: PreviewProvider {
+struct LegacyErrorAlertView_Previews: PreviewProvider {
     static var previews: some View {
         let view = VStack {
             AnytypeText("ParentView", style: .bodyRegular, color: .Text.primary)
         }
-        return ErrorAlertView(isShowing: .constant(true), errorText: "Some Error long very long long long error", presenting: view, onOkPressed: {})
+        return LegacyErrorAlertView(isShowing: .constant(true), errorText: "Some Error long very long long long error", presenting: view, onOkPressed: {})
     }
 }

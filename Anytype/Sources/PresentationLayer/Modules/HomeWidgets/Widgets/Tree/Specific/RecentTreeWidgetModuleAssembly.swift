@@ -21,7 +21,11 @@ final class RecentTreeWidgetModuleAssembly: HomeWidgetCommonAssemblyProtocol {
         output: CommonWidgetModuleOutput?
     ) -> AnyView {
         
-        let model = RecentWidgetInternalViewModel(recentSubscriptionService: serviceLocator.recentSubscriptionService(), context: .tree)
+        let model = RecentWidgetInternalViewModel(
+            widgetBlockId: widgetBlockId,
+            widgetObject: widgetObject,
+            recentSubscriptionService: serviceLocator.recentSubscriptionService()
+        )
      
         return widgetsSubmoduleDI.treeWidgetModuleAssembly().make(
             widgetBlockId: widgetBlockId,

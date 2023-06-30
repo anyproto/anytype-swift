@@ -2,17 +2,14 @@ import Foundation
 import Services
 import Combine
 
-final class ObjectWidgetInternalViewModel: WidgetInternalViewModelProtocol {
+final class ObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, WidgetInternalViewModelProtocol {
     
     // MARK: - DI
     
-    private let widgetBlockId: BlockId
-    private let widgetObject: BaseDocumentProtocol
     private let subscriptionManager: TreeSubscriptionManagerProtocol
     
     // MARK: - State
     
-    private var contentIsAppear = false
     private var subscriptions = [AnyCancellable]()
     private var linkedObjectDetails: ObjectDetails?
     @Published private var details: [ObjectDetails]?
@@ -26,12 +23,12 @@ final class ObjectWidgetInternalViewModel: WidgetInternalViewModelProtocol {
         widgetObject: BaseDocumentProtocol,
         subscriptionManager: TreeSubscriptionManagerProtocol
     ) {
-        self.widgetBlockId = widgetBlockId
-        self.widgetObject = widgetObject
         self.subscriptionManager = subscriptionManager
+        super.init(widgetBlockId: widgetBlockId, widgetObject: widgetObject)
     }
     
-    func startHeaderSubscription() {
+    override func startHeaderSubscription() {
+        super.startHeaderSubscription()
         widgetObject.widgetTargetDetailsPublisher(widgetBlockId: widgetBlockId)
             .receiveOnMain()
             .sink { [weak self] details in
@@ -50,17 +47,18 @@ final class ObjectWidgetInternalViewModel: WidgetInternalViewModelProtocol {
         }
     }
     
-    func stopHeaderSubscription() {
+    override func stopHeaderSubscription() {
+        super.stopHeaderSubscription()
         subscriptions.removeAll()
     }
     
-    func startContentSubscription() {
-        contentIsAppear = true
+    override func startContentSubscription() {
+        super.startContentSubscription()
         updateLinksSubscriptions()
     }
     
-    func stopContentSubscription() {
-        contentIsAppear = false
+    override func stopContentSubscription() {
+        super.stopContentSubscription()
         subscriptionManager.stopAllSubscriptions()
     }
     

@@ -11,7 +11,7 @@ struct AboutLegacyView: View {
     var body: some View {
         contentView
             .onAppear {
-                AnytypeAnalytics.instance().logAboutSettingsShow()
+                AnytypeAnalytics.instance().logMenuHelp()
             }
     }
     

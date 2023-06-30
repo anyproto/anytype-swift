@@ -13,4 +13,14 @@ extension BaseDocumentProtocol {
             .removeDuplicates()
             .eraseToAnyPublisher()
     }
+    
+    func blockWidgetInfoPublisher(widgetBlockId: String) -> AnyPublisher<BlockWidgetInfo, Never> {
+        syncPublisher
+            .compactMap { [weak self] _ -> BlockWidgetInfo? in
+                guard let self else { return nil }
+                return widgetInfo(blockId: widgetBlockId)
+            }
+            .removeDuplicates()
+            .eraseToAnyPublisher()
+    }
 }

@@ -74,7 +74,7 @@ final class ChangeTypeAccessoryViewModel {
                 document.resetSubscriptions() // to avoid glytch with premature document update
                 try await handler.setObjectSetType()
                 try await document.close()
-                router.replaceCurrentPage(with: details.editorScreenData())
+                router.replaceCurrentPage(with: .set(.init(objectId: document.objectId, isSupportedForEdit: true)))
             }
             return
         }
@@ -84,7 +84,7 @@ final class ChangeTypeAccessoryViewModel {
                 document.resetSubscriptions() // to avoid glytch with premature document update
                 try await handler.setObjectCollectionType()
                 try await document.close()
-                router.replaceCurrentPage(with: details.editorScreenData())
+                router.replaceCurrentPage(with: .set(.init(objectId: document.objectId, isSupportedForEdit: true)))
             }
             return
         }

@@ -1,7 +1,7 @@
 import Foundation
 import Services
 
-struct BlockWidgetInfo {
+struct BlockWidgetInfo: Equatable {
     let block: BlockWidget
     let source: WidgetSource
 }
@@ -17,5 +17,13 @@ extension BlockWidgetInfo {
         }
         
         return block.layout
+    }
+    
+    var fixedLimit: Int {
+        if block.layout.limits.contains(block.limit) {
+            return block.limit
+        }
+        
+        return block.layout.limits.first ?? 0
     }
 }

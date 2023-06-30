@@ -29,7 +29,7 @@ final class SetListWidgetModuleAssembly: HomeWidgetCommonAssemblyProtocol {
             ),
             subscriptionService: serviceLocator.subscriptionService(),
             documentService: serviceLocator.documentService(),
-            context: .list
+            blockWidgetService: serviceLocator.blockWidgetService()
         )
      
         return widgetsSubmoduleDI.listWidgetModuleAssembly().make(

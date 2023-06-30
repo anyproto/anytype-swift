@@ -15,6 +15,15 @@ final class EnteringVoidViewModel: ObservableObject {
     
     private var cancellable: AnyCancellable?
     
+    private var delayTask: Task<(), Error>?
+    
+    @Published var errorText: String? {
+        didSet {
+            showError = errorText.isNotNil
+        }
+    }
+    @Published var showError: Bool = false
+    
     init(
         output: LoginFlowOutput?,
         applicationStateService: ApplicationStateServiceProtocol,
@@ -31,12 +40,20 @@ final class EnteringVoidViewModel: ObservableObject {
     }
     
     func onAppear() {
+        startDelayTask()
         Task {
             do {
                 try await authService.accountRecover()
             } catch {
-                dismiss.toggle()
+                errorText = error.localizedDescription
             }
+        }
+    }
+    
+    private func startDelayTask() {
+        delayTask = Task {
+            // add delay to avoid screen blinking
+            try await Task.sleep(seconds: 1.5)
         }
     }
     
@@ -55,19 +72,27 @@ final class EnteringVoidViewModel: ObservableObject {
                 
                 switch status {
                 case .active:
+                    _ = await delayTask?.result
                     applicationStateService.state = .home
                 case .pendingDeletion:
+                    _ = await delayTask?.result
                     applicationStateService.state = .delete
                 case .deleted:
-                    dismiss.toggle()
+                    errorText = Loc.accountDeleted
                 }
             } catch SelectAccountError.failedToFindAccountInfo {
                 if FeatureFlags.migrationGuide {
+                    dismiss.toggle()
                     output?.onShowMigrationGuideAction()
+                } else {
+                    errorText = Loc.selectAccountError
                 }
-                dismiss.toggle()
+            } catch SelectAccountError.accountIsDeleted {
+                errorText = Loc.accountDeleted
+            } catch SelectAccountError.failedToFetchRemoteNodeHasIncompatibleProtoVersion {
+                errorText = Loc.Account.Select.Incompatible.Version.Error.text
             } catch {
-                dismiss.toggle()
+                errorText = Loc.selectAccountError
             }
         }
     }

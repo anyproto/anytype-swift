@@ -14,7 +14,12 @@ final class LoginViewModel: ObservableObject {
             onEntropySet()
         }
     }
-    @Published var error: String?
+    @Published var errorText: String? {
+        didSet {
+            showError = errorText.isNotNil
+        }
+    }
+    @Published var showError: Bool = false
     
     let canRestoreFromKeychain: Bool
     
@@ -75,11 +80,15 @@ final class LoginViewModel: ObservableObject {
     
     private func onEntropySet() {
         Task {
-            let phrase = try await authService.mnemonicByEntropy(entropy)
-            walletRecovery(with: phrase)
+            do {
+                let phrase = try await authService.mnemonicByEntropy(entropy)
+                walletRecovery(with: phrase)
+            } catch {
+                errorText = error.localizedDescription
+            }
         }
     }
-    
+
     private func walletRecovery(with phrase: String) {
         Task {
             do {
@@ -91,7 +100,7 @@ final class LoginViewModel: ObservableObject {
                 
                 recoverWalletSuccess()
             } catch {
-                recoverWalletError()
+                recoverWalletError(error)
             }
         }
     }
@@ -111,7 +120,8 @@ final class LoginViewModel: ObservableObject {
         showEnteringVoidView.toggle()
     }
     
-    private func recoverWalletError() {
+    private func recoverWalletError(_ error: Error) {
         walletRecoveryInProgress = false
+        errorText = error.localizedDescription
     }
 }
