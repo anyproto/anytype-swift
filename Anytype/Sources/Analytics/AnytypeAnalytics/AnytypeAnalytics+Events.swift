@@ -576,4 +576,8 @@ extension AnytypeAnalytics {
     func logPrivacyPolicy() {
         logEvent(AnalyticsEventsName.About.privacyPolicy)
     }
+    
+    func logGetMoreSpace() {
+        logEvent(AnalyticsEventsName.FileStorage.getMoreSpace)
+    }
 }
