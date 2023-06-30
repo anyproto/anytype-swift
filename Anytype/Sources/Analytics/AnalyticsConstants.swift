@@ -98,7 +98,7 @@ enum AnalyticsEventsName {
     static let accountSettingsShow = "ScreenSettingsAccount"
     static let screenSettingsPersonal = "ScreenSettingsPersonal"
     static let appearanceSettingsShow = "ScreenSettingsAppearance"
-    static let aboutSettingsShow = "ScreenSettingsAbout"
+    static let menuHelp = "MenuHelp"
     static let screenSettingsDelete = "ScreenSettingsDelete"
     static let settingsWallpaperSet = "SettingsWallpaperSet"
     static let screenSettingsStorageIndex = "ScreenSettingsStorageIndex"
@@ -178,9 +178,15 @@ enum AnalyticsEventsName {
         static let closeGroupToggle = "CloseSidebarGroupToggle"
     }
     
-    enum About {
-        static let helpAndCommunity = "Help_and_Community"
-        static let legal = "Legal"
+    enum About {        
+        static let whatIsNew = "MenuHelpWhatsNew"
+        static let anytypeCommunity = "MenuHelpCommunity"
+        static let helpAndTutorials = "MenuHelpTutorial"
+        static let contactUs = "MenuHelpContact"
+
+        static let termsOfUse = "MenuHelpTerms"
+        static let privacyPolicy = "MenuHelpPrivacy"
+        static let acknowledgments = "acknowledgments"
     }
 }
 
@@ -319,17 +325,4 @@ enum RemoveCompletelyRoute: String {
 enum ShowDeletionWarningRoute: String {
     case bin = "Bin"
     case settings = "Settings"
-}
-
-enum HelpAndCommunityType: String {
-    case whatIsNew = "what_is_new"
-    case anytypeCommunity = "anytype_community"
-    case helpAndTutorials = "help_and_tutorials"
-    case contactUs = "contact_us"
-}
-
-enum LegalType: String {
-    case termsOfUse = "terms_of_use"
-    case privacyPolicy = "privacy_policy"
-    case acknowledgments = "acknowledgments"
 }
