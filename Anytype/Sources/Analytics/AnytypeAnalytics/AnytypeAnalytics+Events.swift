@@ -464,6 +464,14 @@ extension AnytypeAnalytics {
         logEvent(AnalyticsEventsName.screenAuthRegistration)
     }
     
+    func logMainAuthScreenShow() {
+        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.mainAuthScreenShow)
+    }
+    
+    func logLoginScreenShow() {
+        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.loginScreenShow)
+    }
+    
     func logScreenSettingsPersonal() {
         logEvent(AnalyticsEventsName.screenSettingsPersonal)
     }
@@ -579,5 +587,29 @@ extension AnytypeAnalytics {
     
     func logGetMoreSpace() {
         logEvent(AnalyticsEventsName.FileStorage.getMoreSpace)
+    }
+    
+    func logScreenOnboarding(step: ScreenOnboardingStep) {
+        logEvent(
+            AnalyticsEventsName.screenOnboarding,
+            withEventProperties: [AnalyticsEventsPropertiesKey.step: step.rawValue]
+        )
+    }
+    
+    func logClickOnboarding(step: ScreenOnboardingStep, button: ClickOnboardingButton) {
+        logEvent(
+            AnalyticsEventsName.clickOnboarding,
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.type: button.rawValue,
+                AnalyticsEventsPropertiesKey.step: step.rawValue
+            ]
+        )
+    }
+    
+    func logClickLogin(button: ClickLoginButton) {
+        logEvent(
+            AnalyticsEventsName.clickLogin,
+            withEventProperties: [AnalyticsEventsPropertiesKey.type: button.rawValue]
+        )
     }
 }

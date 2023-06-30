@@ -43,8 +43,9 @@ final class AuthViewModel: ObservableObject {
     
     // MARK: - Public
     
-    func onViewAppear() {
+    func onAppear() {
         changeContentOpacity(false)
+        AnytypeAnalytics.instance().logMainAuthScreenShow()
     }
     
     func videoUrl() -> URL? {

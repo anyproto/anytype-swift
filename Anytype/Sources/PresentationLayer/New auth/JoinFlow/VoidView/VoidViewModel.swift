@@ -12,4 +12,8 @@ final class VoidViewModel: ObservableObject {
     func onNextButtonTap() {
         output?.onNext()
     }
+    
+    func onAppear() {
+        AnytypeAnalytics.instance().logScreenOnboarding(step: .void)
+    }
 }

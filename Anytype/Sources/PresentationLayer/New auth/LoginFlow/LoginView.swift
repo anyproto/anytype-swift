@@ -26,6 +26,9 @@ struct LoginView: View {
             .ifLet(model.errorText) { view, errorText in
                 view.alertView(isShowing: $model.showError, errorText: errorText)
             }
+            .onAppear {
+                model.onAppear()
+            }
             .fitIPadToReadableContentGuide()
     }
     
