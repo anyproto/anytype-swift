@@ -168,7 +168,12 @@ final class SetObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Wid
     }
     
     private func updateSetDocument(objectId: String) {
-        guard objectId != setDocument?.objectId else { return }
+        guard objectId != setDocument?.objectId else {
+            Task { @MainActor in
+                try await setDocument?.openForPreview()
+            }
+            return
+        }
         
         setDocument = documentService.setDocument(objectId: objectId, forPreview: true)
         
