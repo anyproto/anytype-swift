@@ -37,7 +37,7 @@ final class KeyPhraseViewModel: ObservableObject {
         if keyShown {
             output?.onNext()
         } else {
-            AnytypeAnalytics.instance().logClickOnboarding(step: .phrase, button: .show)
+            AnytypeAnalytics.instance().logClickOnboarding(step: .phrase, button: .showAndCopy)
             localAuthService.auth(reason: Loc.accessToSecretPhraseFromKeychain) { didComplete in
                 guard didComplete else { return }
                 DispatchQueue.main.async { [weak self] in
@@ -54,7 +54,7 @@ final class KeyPhraseViewModel: ObservableObject {
     }
     
     func onCopyButtonTap() {
-        AnytypeAnalytics.instance().logClickOnboarding(step: .phrase, button: .copy)
+        AnytypeAnalytics.instance().logClickOnboarding(step: .phrase, button: .showAndCopy)
         UISelectionFeedbackGenerator().selectionChanged()
         UIPasteboard.general.string = state.mnemonic
         alertOpener.showTopAlert(message: Loc.copied)
