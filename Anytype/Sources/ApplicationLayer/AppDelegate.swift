@@ -23,6 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         eventListener.startListening()
         ServiceLocator.shared.accountEventHandler().startSubscription()
         ServiceLocator.shared.fileErrorEventHandler().startSubscription()
+        ServiceLocator.shared.deviceSceneStateListener().start()
 
         return true
     }

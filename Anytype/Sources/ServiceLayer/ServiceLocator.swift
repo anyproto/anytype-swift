@@ -242,6 +242,17 @@ final class ServiceLocator {
         CameraPermissionVerifier()
     }
     
+    
+    private lazy var _sceneStateNotifier = SceneStateNotifier()
+    func sceneStateNotifier() -> SceneStateNotifierProtocol {
+        _sceneStateNotifier
+    }
+    
+    private lazy var _deviceSceneStateListener = DeviceSceneStateListener()
+    func deviceSceneStateListener() -> DeviceSceneStateListenerProtocol {
+        _deviceSceneStateListener
+    }
+    
     // MARK: - Private
     
     private func subscriptionToggler() -> SubscriptionTogglerProtocol {
