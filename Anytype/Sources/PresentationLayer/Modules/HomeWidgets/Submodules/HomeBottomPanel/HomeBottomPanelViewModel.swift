@@ -1,6 +1,7 @@
 import Foundation
 import Services
 import Combine
+import UIKit
 
 @MainActor
 final class HomeBottomPanelViewModel: ObservableObject {
@@ -75,6 +76,7 @@ final class HomeBottomPanelViewModel: ObservableObject {
                     self?.output?.onSearchSelected()
                 }),
                 ImageButton(image: .imageAsset(.Widget.add), onTap: { [weak self] in
+                    UISelectionFeedbackGenerator().selectionChanged()
                     self?.handleCreateObject()
                 }),
                 ImageButton(image: spaceDetails?.objectIconImage, onTap: { [weak self] in
