@@ -15,6 +15,8 @@ final class EnteringVoidViewModel: ObservableObject {
     
     private var cancellable: AnyCancellable?
     
+    private var delayTask: Task<(), Error>?
+    
     @Published var errorText: String? {
         didSet {
             showError = errorText.isNotNil
@@ -38,12 +40,20 @@ final class EnteringVoidViewModel: ObservableObject {
     }
     
     func onAppear() {
+        startDelayTask()
         Task {
             do {
                 try await authService.accountRecover()
             } catch {
                 errorText = error.localizedDescription
             }
+        }
+    }
+    
+    private func startDelayTask() {
+        delayTask = Task {
+            // add delay to avoid screen blinking
+            try await Task.sleep(seconds: 1.5)
         }
     }
     
@@ -62,8 +72,10 @@ final class EnteringVoidViewModel: ObservableObject {
                 
                 switch status {
                 case .active:
+                    _ = await delayTask?.result
                     applicationStateService.state = .home
                 case .pendingDeletion:
+                    _ = await delayTask?.result
                     applicationStateService.state = .delete
                 case .deleted:
                     errorText = Loc.accountDeleted
