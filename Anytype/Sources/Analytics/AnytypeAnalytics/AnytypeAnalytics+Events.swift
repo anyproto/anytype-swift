@@ -585,6 +585,10 @@ extension AnytypeAnalytics {
         logEvent(AnalyticsEventsName.About.privacyPolicy)
     }
     
+    func logGetMoreSpace() {
+        logEvent(AnalyticsEventsName.FileStorage.getMoreSpace)
+    }
+    
     func logScreenOnboarding(step: ScreenOnboardingStep) {
         logEvent(
             AnalyticsEventsName.screenOnboarding,

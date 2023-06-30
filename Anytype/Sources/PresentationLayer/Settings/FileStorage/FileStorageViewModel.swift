@@ -70,6 +70,7 @@ final class FileStorageViewModel: ObservableObject {
     
     func onTapGetMoreSpace() {
         guard let limits else { return }
+        AnytypeAnalytics.instance().logGetMoreSpace()
         Task { @MainActor in
             let profileDocument = BaseDocument(objectId: accountManager.account.info.profileObjectID, forPreview: true)
             try await profileDocument.openForPreview()

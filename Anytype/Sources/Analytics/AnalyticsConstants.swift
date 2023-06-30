@@ -192,6 +192,10 @@ enum AnalyticsEventsName {
         static let privacyPolicy = "MenuHelpPrivacy"
         static let acknowledgments = "acknowledgments"
     }
+    
+    enum FileStorage {
+        static let getMoreSpace = "GetMoreSpace"
+    }
 }
 
 // MARK: - Keychain showing context
