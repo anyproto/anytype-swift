@@ -17,6 +17,7 @@ final class SentryConfigurator: AppConfiguratorProtocol {
             options.tracesSampleRate = 1.0
             options.enableCaptureFailedRequests = false
             options.enableMetricKit = true
+            options.swiftAsyncStacktraces = true
             
             options.environment = env
         }
