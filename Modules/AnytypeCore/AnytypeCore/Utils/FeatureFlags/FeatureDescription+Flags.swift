@@ -95,6 +95,12 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
+    static let newObjectIcon = FeatureDescription(
+        title: "New object icon",
+        type: .feature(author: "m@anytype.io", releaseVersion: "0.24.0"),
+        defaultValue: true
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(

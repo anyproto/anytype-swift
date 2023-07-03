@@ -3,7 +3,27 @@ import SwiftUI
 import AnytypeCore
 
 // Needs refactoring - https://linear.app/anytype/issue/IOS-978
+
 struct SwiftUIObjectIconImageView: View {
+    
+    let iconImage: ObjectIconImage
+    let usecase: ObjectIconImageUsecase
+    
+    init(iconImage: ObjectIconImage, usecase: ObjectIconImageUsecase) {
+        self.iconImage = iconImage
+        self.usecase = usecase
+    }
+    
+    var body: some View {
+        if FeatureFlags.newObjectIcon {
+            IconView(icon: iconImage)
+        } else {
+            LegacySwiftUIObjectIconImageView(iconImage: iconImage, usecase: usecase)
+        }
+    }
+}
+
+struct LegacySwiftUIObjectIconImageView: View {
     
     @ObservedObject private var model = SwiftUIObjectIconImageViewModel()
     

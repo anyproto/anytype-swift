@@ -357,6 +357,8 @@
 		2A0BAD2F29E01E33005BC5D9 /* View+Focused.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0BAD2E29E01E33005BC5D9 /* View+Focused.swift */; };
 		2A0BAD3129E020A3005BC5D9 /* Task+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0BAD3029E020A3005BC5D9 /* Task+Extensions.swift */; };
 		2A0BAD3329E020D7005BC5D9 /* View+Autofocus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0BAD3229E020D7005BC5D9 /* View+Autofocus.swift */; };
+		2A11724C2A4F26BE00CFE45A /* SmallImageIdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A11724B2A4F26BE00CFE45A /* SmallImageIdView.swift */; };
+		2A11724E2A4F270A00CFE45A /* SquareSmallImageIdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A11724D2A4F270A00CFE45A /* SquareSmallImageIdView.swift */; };
 		2A11E8792A4C42A8003E1823 /* CircleImageIdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A11E8782A4C42A8003E1823 /* CircleImageIdView.swift */; };
 		2A11E87B2A4C430C003E1823 /* SquareImageIdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A11E87A2A4C430C003E1823 /* SquareImageIdView.swift */; };
 		2A11E87D2A4C7FC5003E1823 /* SquareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A11E87C2A4C7FC5003E1823 /* SquareView.swift */; };
@@ -1855,6 +1857,8 @@
 		2A0BAD2E29E01E33005BC5D9 /* View+Focused.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Focused.swift"; sourceTree = "<group>"; };
 		2A0BAD3029E020A3005BC5D9 /* Task+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+Extensions.swift"; sourceTree = "<group>"; };
 		2A0BAD3229E020D7005BC5D9 /* View+Autofocus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Autofocus.swift"; sourceTree = "<group>"; };
+		2A11724B2A4F26BE00CFE45A /* SmallImageIdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallImageIdView.swift; sourceTree = "<group>"; };
+		2A11724D2A4F270A00CFE45A /* SquareSmallImageIdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareSmallImageIdView.swift; sourceTree = "<group>"; };
 		2A11E8782A4C42A8003E1823 /* CircleImageIdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleImageIdView.swift; sourceTree = "<group>"; };
 		2A11E87A2A4C430C003E1823 /* SquareImageIdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareImageIdView.swift; sourceTree = "<group>"; };
 		2A11E87C2A4C7FC5003E1823 /* SquareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareView.swift; sourceTree = "<group>"; };
@@ -4793,6 +4797,7 @@
 			isa = PBXGroup;
 			children = (
 				2A65746B2A448F3A002F568C /* ImageIdView.swift */,
+				2A11724B2A4F26BE00CFE45A /* SmallImageIdView.swift */,
 				2A11E87F2A4C81C5003E1823 /* CharIconView.swift */,
 				2A11E8832A4C850D003E1823 /* GradientIconView.swift */,
 			);
@@ -4823,6 +4828,7 @@
 				2A6574692A448998002F568C /* CircleCharIconView.swift */,
 				2A11E8782A4C42A8003E1823 /* CircleImageIdView.swift */,
 				2A11E87A2A4C430C003E1823 /* SquareImageIdView.swift */,
+				2A11724D2A4F270A00CFE45A /* SquareSmallImageIdView.swift */,
 				2A11E8852A4C882A003E1823 /* SquareGradientIconView.swift */,
 				2A11E8872A4C935C003E1823 /* CircleGradientIconView.swift */,
 				2A11E8892A4C95C4003E1823 /* TodoIconView.swift */,
@@ -9533,6 +9539,7 @@
 				2E0797C92A09678D006F0FD7 /* AuthViewModelOutput.swift in Sources */,
 				120E8175269F342D006FE84E /* ObjectSettingsViewModel.swift in Sources */,
 				EAE8C6A6269304B600324B46 /* URLInputView.swift in Sources */,
+				2A11724E2A4F270A00CFE45A /* SquareSmallImageIdView.swift in Sources */,
 				3D6E9A46270F4889001B0A07 /* BrowserNavigationManagerError.swift in Sources */,
 				03A90DF423A04FFE000E3EFE /* LocalRepoService.swift in Sources */,
 				EAADB16F26776DDD004B0AF2 /* MentionAttachment.swift in Sources */,
@@ -10289,6 +10296,7 @@
 				53F80F0527BD8DAD00E9E12A /* ObjectListRelationViewUIKit.swift in Sources */,
 				3D3A182A2733E946000D0842 /* MarkdownListener.swift in Sources */,
 				2A03039A28ABAA99002EFC46 /* TextRelationCopyActionViewModel.swift in Sources */,
+				2A11724C2A4F26BE00CFE45A /* SmallImageIdView.swift in Sources */,
 				2A1ED0A72A16698B00567CE9 /* SwiftUIObjectIconImageViewWithPlaceholder.swift in Sources */,
 				3D3040AD27DB5A7300FFE0EB /* AnytypePopupLayoutType.swift in Sources */,
 				2A143A9F284775E20034729E /* AccountInfo.swift in Sources */,

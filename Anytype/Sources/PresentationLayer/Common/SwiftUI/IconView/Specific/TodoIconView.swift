@@ -8,7 +8,7 @@ struct TodoIconView: View {
     var body: some View {
         SquareView { _ in
             Image(asset: checked ? .TaskLayout.done : .TaskLayout.empty)
-                .resizable()
+//                .resizable()
                 .foregroundColor(.Button.active)
         }
     }

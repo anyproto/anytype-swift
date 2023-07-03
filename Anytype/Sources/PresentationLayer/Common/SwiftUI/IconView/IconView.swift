@@ -22,7 +22,7 @@ struct IconView: View {
             case .emoji(let emoji):
                 EmojiIconView(text: emoji.value)
             case .bookmark(let string):
-                EmptyView()
+                SquareSmallImageIdView(imageId: string)
             case .space(let space):
                 switch space {
                 case .character(let c):

@@ -7,7 +7,7 @@ struct DataIconView: View {
     let uiImage: UIImage
     
     var body: some View {
-        Image(uiImage: image)
+        Image(uiImage: uiImage)
             .foregroundColor(isEnable ? .Button.active : .Button.inactive)
     }
 }
