@@ -55,7 +55,7 @@ class UIPhraseTextView: UITextView, UITextViewDelegate {
         setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         setContentHuggingPriority(.defaultHigh, for: .vertical)
         autocorrectionType = .no
-        autocapitalizationType = .words
+        autocapitalizationType = .none
         showsVerticalScrollIndicator = false
         showsHorizontalScrollIndicator = false
         font = AnytypeFont.authInput.uiKitFont
