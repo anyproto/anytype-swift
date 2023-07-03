@@ -772,8 +772,7 @@
 		2E52DE692A1CDF5500F16815 /* LineProgressBarConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E52DE682A1CDF5500F16815 /* LineProgressBarConfiguration.swift */; };
 		2E52DE6C2A1CE77100F16815 /* SoulViewModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E52DE6B2A1CE77100F16815 /* SoulViewModuleAssembly.swift */; };
 		2E52DE6E2A1CE7E700F16815 /* SoulViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E52DE6D2A1CE7E700F16815 /* SoulViewModel.swift */; };
-		2E52DE712A1CEAF700F16815 /* JoinFlowInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E52DE702A1CEAF700F16815 /* JoinFlowInputView.swift */; };
-		2E52DE732A1D00EC00F16815 /* JoinFlowInputProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E52DE722A1D00EC00F16815 /* JoinFlowInputProtocol.swift */; };
+		2E52DE712A1CEAF700F16815 /* SoulView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E52DE702A1CEAF700F16815 /* SoulView.swift */; };
 		2E5310202A44B27900BD2893 /* UnsplashItem+LocalEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E53101F2A44B27900BD2893 /* UnsplashItem+LocalEvent.swift */; };
 		2E56F1332A0D410E00031167 /* anytype-shader-S.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 2E56F1322A0D410E00031167 /* anytype-shader-S.mp4 */; };
 		2E56F1362A0D43BB00031167 /* LoopingPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E56F1352A0D43BB00031167 /* LoopingPlayerView.swift */; };
@@ -2264,8 +2263,7 @@
 		2E52DE682A1CDF5500F16815 /* LineProgressBarConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineProgressBarConfiguration.swift; sourceTree = "<group>"; };
 		2E52DE6B2A1CE77100F16815 /* SoulViewModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoulViewModuleAssembly.swift; sourceTree = "<group>"; };
 		2E52DE6D2A1CE7E700F16815 /* SoulViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoulViewModel.swift; sourceTree = "<group>"; };
-		2E52DE702A1CEAF700F16815 /* JoinFlowInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinFlowInputView.swift; sourceTree = "<group>"; };
-		2E52DE722A1D00EC00F16815 /* JoinFlowInputProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinFlowInputProtocol.swift; sourceTree = "<group>"; };
+		2E52DE702A1CEAF700F16815 /* SoulView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoulView.swift; sourceTree = "<group>"; };
 		2E53101F2A44B27900BD2893 /* UnsplashItem+LocalEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UnsplashItem+LocalEvent.swift"; sourceTree = "<group>"; };
 		2E56F1322A0D410E00031167 /* anytype-shader-S.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "anytype-shader-S.mp4"; sourceTree = "<group>"; };
 		2E56F1352A0D43BB00031167 /* LoopingPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoopingPlayerView.swift; sourceTree = "<group>"; };
@@ -5764,7 +5762,6 @@
 			isa = PBXGroup;
 			children = (
 				2E8E8D102A261DA4009BC3B0 /* CreatingSoulView */,
-				2E52DE6F2A1CEAEB00F16815 /* JoinFlowInputView */,
 				2E52DE6A2A1CE74500F16815 /* SoulView */,
 				2EDC2B022A13E48F0065E009 /* KeyPhraseView */,
 				2EDC2AF52A1251C90065E009 /* VoidView */,
@@ -5926,18 +5923,10 @@
 			isa = PBXGroup;
 			children = (
 				2E52DE6B2A1CE77100F16815 /* SoulViewModuleAssembly.swift */,
+				2E52DE702A1CEAF700F16815 /* SoulView.swift */,
 				2E52DE6D2A1CE7E700F16815 /* SoulViewModel.swift */,
 			);
 			path = SoulView;
-			sourceTree = "<group>";
-		};
-		2E52DE6F2A1CEAEB00F16815 /* JoinFlowInputView */ = {
-			isa = PBXGroup;
-			children = (
-				2E52DE702A1CEAF700F16815 /* JoinFlowInputView.swift */,
-				2E52DE722A1D00EC00F16815 /* JoinFlowInputProtocol.swift */,
-			);
-			path = JoinFlowInputView;
 			sourceTree = "<group>";
 		};
 		2E56F1312A0D410E00031167 /* Video */ = {
@@ -9591,7 +9580,7 @@
 				2E56F1362A0D43BB00031167 /* LoopingPlayerView.swift in Sources */,
 				C99DCE8B283B5BDE0051F99D /* KeyboardHeightListener.swift in Sources */,
 				53F80F1027BDA95D00E9E12A /* FileListRelationViewUIKit.swift in Sources */,
-				2E52DE712A1CEAF700F16815 /* JoinFlowInputView.swift in Sources */,
+				2E52DE712A1CEAF700F16815 /* SoulView.swift in Sources */,
 				C9EA69D328C7412A003F488C /* SimpleTableBlockView+UICollectionViewDelegate.swift in Sources */,
 				535FDE2227E8CB0B0098DBFA /* PasteboardFileOperation.swift in Sources */,
 				2ACD86F229C2181B0082E861 /* NewSearchErrorView.swift in Sources */,
@@ -9652,7 +9641,6 @@
 				2E9EFE72285B62E500C8E47A /* SetFilter.swift in Sources */,
 				1247BC8227FE0929005F2DB4 /* TransparencyEffectModifier.swift in Sources */,
 				2AAF343E29559DA600921320 /* HomeWidgetsRegistry.swift in Sources */,
-				2E52DE732A1D00EC00F16815 /* JoinFlowInputProtocol.swift in Sources */,
 				3D16841126DD672E008B9DFF /* BlockBookmarkConverter.swift in Sources */,
 				3DB3EC5D2754CB0D002781DA /* ProgressBar.swift in Sources */,
 				2A7BD6E828D8599D008B735C /* RelationSubscriptionDataBuilderProtocol.swift in Sources */,
