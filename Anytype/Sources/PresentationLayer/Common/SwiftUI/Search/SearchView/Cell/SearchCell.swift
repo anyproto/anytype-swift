@@ -9,7 +9,6 @@ struct SearchCell<SearchData: SearchDataProtocol>: View {
     var body: some View {
         HStack(alignment: .center, spacing: 0) {
             icon
-            Spacer.fixedWidth(12)
             content
             Spacer()
         }
@@ -17,9 +16,13 @@ struct SearchCell<SearchData: SearchDataProtocol>: View {
         .padding(.horizontal, 16)
     }
     
+    @ViewBuilder
     private var icon: some View {
-        SwiftUIObjectIconImageView(iconImage: data.iconImage, usecase: data.usecase)
-            .frame(width: 48, height: 48)
+        if let iconImage = data.iconImage {
+            SwiftUIObjectIconImageView(iconImage: iconImage, usecase: data.usecase)
+                .frame(width: 48, height: 48)
+            Spacer.fixedWidth(12)
+        }
     }
     
     private var content: some View {

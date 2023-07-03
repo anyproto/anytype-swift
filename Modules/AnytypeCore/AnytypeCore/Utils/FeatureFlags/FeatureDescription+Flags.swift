@@ -89,6 +89,12 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
+    static let deleteObjectPlaceholder = FeatureDescription(
+        title: "Delete object placeholder - IOS-960",
+        type: .feature(author: "m@anytype.io", releaseVersion: "0.23.0"),
+        defaultValue: true
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(

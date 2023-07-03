@@ -62,6 +62,10 @@ public extension FeatureFlags {
         value(for: .clearAccountDataOnDeletedStatus)
     }
 
+    static var deleteObjectPlaceholder: Bool {
+        value(for: .deleteObjectPlaceholder)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -94,6 +98,7 @@ public extension FeatureFlags {
         .getMoreSpace,
         .fixAVCaptureSessionError,
         .clearAccountDataOnDeletedStatus,
+        .deleteObjectPlaceholder,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

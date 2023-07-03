@@ -7,14 +7,16 @@ struct SearchObjectRowView: View {
     
     var body: some View {
         HStack(spacing: 0) {
-            SwiftUIObjectIconImageView(
-                iconImage: viewModel.icon,
-                usecase: .dashboardSearch
-            ).frame(
-                width: viewModel.style.iconSize.width,
-                height: viewModel.style.iconSize.height
-            )
-            Spacer.fixedWidth(12)
+            if let icon = viewModel.icon {
+                SwiftUIObjectIconImageView(
+                    iconImage: icon,
+                    usecase: .dashboardSearch
+                ).frame(
+                    width: viewModel.style.iconSize.width,
+                    height: viewModel.style.iconSize.height
+                )
+                Spacer.fixedWidth(12)
+            }
             content
             if viewModel.isChecked {
                 Image(asset: .X24.tick)
@@ -60,7 +62,7 @@ struct SearchObjectRowView: View {
 extension SearchObjectRowView {
     
     struct Model {
-        let icon: ObjectIconImage
+        let icon: ObjectIconImage?
         let title: String
         let subtitle: String?
         let style: Style
