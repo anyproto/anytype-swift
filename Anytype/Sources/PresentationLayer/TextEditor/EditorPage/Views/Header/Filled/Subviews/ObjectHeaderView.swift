@@ -17,6 +17,10 @@ final class ObjectHeaderView: UIView {
     private var leadingConstraint: NSLayoutConstraint!
     private var centerConstraint: NSLayoutConstraint!
     private var trailingConstraint: NSLayoutConstraint!
+    
+    private var fullHeightConstraint: NSLayoutConstraint?
+    private var converViewHeightConstraint: NSLayoutConstraint?
+    private var iconTopConstraint: NSLayoutConstraint?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -88,6 +92,11 @@ extension ObjectHeaderView: ConfigurableView {
     }
     
     private func switchState(_ state: State) {
+        let isIcon = state == .icon
+        fullHeightConstraint?.isActive = !isIcon
+        iconTopConstraint?.isActive = isIcon
+        converViewHeightConstraint?.isActive = !isIcon
+        
         switch state {
         case .icon:
             iconView.isHidden = false
@@ -172,7 +181,7 @@ private extension ObjectHeaderView {
     
     func setupLayout() {
         layoutUsing.anchors {
-            $0.height.equal(to: ObjectHeaderConstants.coverFullHeight, priority: .defaultLow)
+            fullHeightConstraint = $0.height.equal(to: ObjectHeaderConstants.coverFullHeight, priority: .defaultLow)
         }
 
         addSubview(coverView) {
@@ -181,7 +190,7 @@ private extension ObjectHeaderView {
                 insets: .zero
             )
             $0.bottom.greaterThanOrEqual(to: bottomAnchor, constant: -ObjectHeaderConstants.coverBottomInset, priority: .init(rawValue: 999))
-            $0.height.equal(to: ObjectHeaderConstants.coverHeight)
+            converViewHeightConstraint = $0.height.equal(to: ObjectHeaderConstants.coverHeight)
         }
         
         addSubview(iconView) {
@@ -204,6 +213,12 @@ private extension ObjectHeaderView {
             trailingConstraint =  $0.trailing.equal(
                 to: trailingAnchor,
                 constant: -ObjectHeaderConstants.iconHorizontalInset,
+                activate: false
+            )
+            
+            iconTopConstraint = $0.top.equal(
+                to: topAnchor,
+                constant: ObjectHeaderConstants.emptyViewHeight,
                 activate: false
             )
         }

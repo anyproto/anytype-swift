@@ -2,7 +2,7 @@ import CoreGraphics
 
 enum ObjectHeaderConstants {
     static let minimizedHeaderHeight: CGFloat = 48
-    static let emptyViewHeight: CGFloat = 156
+    static let emptyViewHeight: CGFloat = 124
     
     static let coverHeight: CGFloat = 228
     static let coverBottomInset: CGFloat = 32
