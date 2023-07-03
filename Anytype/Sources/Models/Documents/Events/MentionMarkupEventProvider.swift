@@ -18,10 +18,11 @@ final class MentionMarkupEventProvider {
         self.detailsStorage = detailsStorage
     }
     
-    func updateMentionsEvent() -> DocumentUpdate {
+    func updateMentionsEvent() -> DocumentUpdate? {
         let blockIds = infoContainer
             .recursiveChildren(of: objectId)
             .compactMap { updateIfNeeded(info: $0) }
+        guard blockIds.count > 0 else { return nil }
         
         return .blocks(blockIds: Set(blockIds))
     }

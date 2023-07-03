@@ -118,16 +118,16 @@ final class EventsListener: EventsListenerProtocol {
     }
     
     private func receiveUpdates(_ updates: [DocumentUpdate]) {
+        if updates.contains(where: (\.hasUpdate)) {
+            IndentationBuilder.build(
+                container: infoContainer,
+                id: objectId
+            )
+        }
+        
         updates
             .filteredUpdates
             .forEach { update in
-            if update.hasUpdate {
-                IndentationBuilder.build(
-                    container: infoContainer,
-                    id: objectId
-                )
-            }
-            
             onUpdateReceive?(update)
         }
     }
@@ -150,8 +150,9 @@ private extension Array where Element == DocumentUpdate {
                 blocksSet.forEach { blockIdsUpdates.insert($0) }
             }
         }
-
-        newUpdates.append(.blocks(blockIds: blockIdsUpdates))
+        if blockIdsUpdates.count > 0 {
+            newUpdates.append(.blocks(blockIds: blockIdsUpdates))
+        }
 
         guard contains(.general) else {
             return newUpdates
