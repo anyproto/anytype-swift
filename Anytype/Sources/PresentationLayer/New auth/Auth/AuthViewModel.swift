@@ -22,7 +22,6 @@ final class AuthViewModel: ObservableObject {
     private weak var output: AuthViewModelOutput?
     private let authService: AuthServiceProtocol
     private let seedService: SeedServiceProtocol
-    private let metricsService: MetricsServiceProtocol
     private let usecaseService: UsecaseServiceProtocol
     
     init(
@@ -30,14 +29,12 @@ final class AuthViewModel: ObservableObject {
         output: AuthViewModelOutput?,
         authService: AuthServiceProtocol,
         seedService: SeedServiceProtocol,
-        metricsService: MetricsServiceProtocol,
         usecaseService: UsecaseServiceProtocol
     ) {
         self.state = state
         self.output = output
         self.authService = authService
         self.seedService = seedService
-        self.metricsService = metricsService
         self.usecaseService = usecaseService
     }
     
@@ -87,7 +84,6 @@ final class AuthViewModel: ObservableObject {
                 creatingAccountInProgress = true
                 
                 state.mnemonic = try await authService.createWallet()
-                try await metricsService.metricsSetParameters()
                 try await authService.createAccount(
                     name: "",
                     imagePath: ""

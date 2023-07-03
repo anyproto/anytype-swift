@@ -23,7 +23,6 @@ final class AuthModuleAssembly: AuthModuleAssemblyProtocol {
                 output: output,
                 authService: serviceLocator.authService(),
                 seedService: serviceLocator.seedService(),
-                metricsService: serviceLocator.metricsService(),
                 usecaseService: serviceLocator.usecaseService()
             )
         ).eraseToAnyView()

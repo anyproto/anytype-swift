@@ -37,8 +37,7 @@ class MainAuthViewModel: ObservableObject {
             applicationStateService: applicationStateService,
             authService: ServiceLocator.shared.authService(),
             seedService: ServiceLocator.shared.seedService(),
-            usecaseService: ServiceLocator.shared.usecaseService(),
-            metricsService: ServiceLocator.shared.metricsService()
+            usecaseService: ServiceLocator.shared.usecaseService()
         )
         return CreateNewProfileView(
             viewModel: viewModel,
