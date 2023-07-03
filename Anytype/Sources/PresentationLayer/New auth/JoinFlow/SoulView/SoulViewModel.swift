@@ -1,13 +1,7 @@
 import SwiftUI
 
 @MainActor
-final class SoulViewModel: JoinFlowInputProtocol {
-
-    // MARK: - JoinFlowInputProtocol
-    
-    let title = Loc.Auth.JoinFlow.Soul.title
-    let description = Loc.Auth.JoinFlow.Soul.description
-    let placeholder = Loc.Auth.JoinFlow.Soul.placeholder
+final class SoulViewModel: ObservableObject {
     
     @Published var inputText: String {
         didSet {

@@ -33,7 +33,7 @@ struct KeyPhraseView: View {
             }
             
             AnytypeText(
-                model.keyShown ? Loc.Auth.JoinFlow.Key.Shown.description : Loc.Auth.JoinFlow.Key.Hidden.description,
+                Loc.Auth.JoinFlow.Key.description,
                 style: .authBody,
                 color: .Auth.body
             )

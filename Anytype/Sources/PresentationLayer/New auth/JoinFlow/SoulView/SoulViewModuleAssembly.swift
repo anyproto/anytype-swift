@@ -17,7 +17,7 @@ final class SoulViewModuleAssembly: SoulViewModuleAssemblyProtocol {
     
     @MainActor
     func make(state: JoinFlowState, output: JoinFlowStepOutput?) -> AnyView {
-        return JoinFlowInputView(
+        return SoulView(
             model: SoulViewModel(
                 state: state,
                 output: output,

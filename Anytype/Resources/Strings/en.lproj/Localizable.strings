@@ -146,37 +146,37 @@
 "Auth.LogIn" = "Log in";
 "Auth.Join" = "Join";
 "Auth.Welcome.Title" = "the\neverything\napp";
-"Auth.Welcome.Subtitle" = "Welcome to Anytype: a place to securely write notes and documents, manage tasks, and save important content from the web.";
+"Auth.Welcome.Subtitle" = "For those who celebrate trust & autonomy. Anytype is your safe space to write, plan, think and organise everything that matters to you";
 "Auth.Caption.Privacy.Text" = "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)";
 "Auth.Next" = "Next";
 
 // New Auth - Join flow
 
 "Auth.JoinFlow.Void.Title" = "This is your Void";
-"Auth.JoinFlow.Void.Description" = "Everything you create will be stored here. It is a special encrypted place, which exist on your machine and is backed up to the network.";
+"Auth.JoinFlow.Void.Description" = "It is an encrypted location for everything you create. Everything is stored on your device, and backed up to the distributed network.";
 
-"Auth.JoinFlow.Key.Title" = "Your Void is encrypted by the Key";
-"Auth.JoinFlow.Key.Hidden.Description" = "The Key is a set of 12 words  in a specific order. It is unique for the Void and can’t be changed. You are the only one person who knows the Key.";
-"Auth.JoinFlow.Key.Shown.Description" = "If you lose the key, no one, including us, can help restore your Void. Write it down on a sheet of paper and store it securely.";
+"Auth.JoinFlow.Key.Title" = "End-to-end Encryption";
+"Auth.JoinFlow.Key.Description" = "Your data is encrypted by the Key above - your secret Recovery phrase. Store it securely. This is the only way to login and access your Void.";
 "Auth.JoinFlow.Key.TextField.Placeholder" = "Type your recovery phrase";
 "Auth.JoinFlow.Key.Button.Show.Title" = "Show me the key";
 "Auth.JoinFlow.Key.Button.Saved.Title" = "I saved my key";
 "Auth.JoinFlow.Key.Button.Later.Title" = "Check later";
 "Auth.JoinFlow.Key.Button.Copy.Title" = "Copy to clipboard";
 
-"Auth.JoinFlow.Soul.Title" = "Create your Soul";
-"Auth.JoinFlow.Soul.Description" = "Think of it like an identity, or a profile within Anytype.";
-"Auth.JoinFlow.Soul.Placeholder" = "Call it whatever you want";
+"Auth.JoinFlow.Soul.Title" = "Anytype Identity";
+"Auth.JoinFlow.Soul.Description" = "Great! As a last step, let's create your Identity and enter your name. Don't worry – you can always change the name later.";
+"Auth.JoinFlow.Soul.Placeholder" = "Name";
+"Auth.JoinFlow.Soul.Button.Title" = "Go to the app";
 
-"Auth.JoinFlow.Creating.Soul.Title" = "Creating your Soul";
-"Auth.JoinFlow.Setting.Space.Title" = "Setting up your Personal Space";
+"Auth.JoinFlow.Creating.Soul.Title" = "Creating your Identity…";
+"Auth.JoinFlow.Setting.Space.Title" = "Setting up the Personal space...";
 "Auth.JoinFlow.Personal.Space.Title" = "Personal Space";
 
 // New Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Use keychain";
 "Auth.LoginFlow.Or" = "OR";
 "Auth.LoginFlow.Textfield.Placeholder" = "Type your recovery phrase";
-"Auth.LoginFlow.Enter.Button.Title" = "Enter my Void";
+"Auth.LoginFlow.Enter.Button.Title" = "Login";
 "Auth.LoginFlow.Entering.Void.Title" = "Entering the Void";
 
 // Object settings

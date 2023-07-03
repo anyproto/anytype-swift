@@ -1,19 +1,19 @@
 import SwiftUI
 
-struct JoinFlowInputView<ViewModel: JoinFlowInputProtocol>: View {
+struct SoulView: View {
     
-    @ObservedObject var model: ViewModel
+    @ObservedObject var model: SoulViewModel
     
     var body: some View {
         VStack(spacing: 0) {
-            AnytypeText(model.title, style: .uxTitle1Semibold, color: .Text.primary)
+            AnytypeText(Loc.Auth.JoinFlow.Soul.title, style: .uxTitle1Semibold, color: .Text.primary)
                 .opacity(0.9)
             Spacer.fixedHeight(16)
             
             input
             
             Spacer.fixedHeight(9)
-            AnytypeText(model.description, style: .authBody, color: .Auth.body)
+            AnytypeText(Loc.Auth.JoinFlow.Soul.description, style: .authBody, color: .Auth.body)
                 .multilineTextAlignment(.center)
                 .fixedSize(horizontal: false, vertical: true)
                 .padding(.horizontal, 24)
@@ -21,7 +21,7 @@ struct JoinFlowInputView<ViewModel: JoinFlowInputProtocol>: View {
             Spacer()
             
             StandardButton(
-                Loc.Auth.next,
+                Loc.Auth.JoinFlow.Soul.Button.title,
                 inProgress: model.inProgress,
                 style: .primaryLarge,
                 action: {
@@ -38,7 +38,7 @@ struct JoinFlowInputView<ViewModel: JoinFlowInputProtocol>: View {
     
     private var input: some View {
         AutofocusedTextField(
-            placeholder: model.placeholder,
+            placeholder: Loc.Auth.JoinFlow.Soul.placeholder,
             placeholderFont: .authInput,
             text: $model.inputText
         )
@@ -56,7 +56,7 @@ struct JoinFlowInputView<ViewModel: JoinFlowInputProtocol>: View {
 
 struct JoinFlowInputView_Previews: PreviewProvider {
     static var previews: some View {
-        JoinFlowInputView(
+        SoulView(
             model: SoulViewModel(
                 state: JoinFlowState(),
                 output: nil,
