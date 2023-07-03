@@ -1,4 +1,5 @@
 import SwiftUI
+import AnytypeCore
 
 struct SearchObjectRowView: View {
     
@@ -24,7 +25,11 @@ struct SearchObjectRowView: View {
             }
         }
         .frame(height: viewModel.style.rowHeight)
-        .divider(leadingPadding: viewModel.style.leadingDividerPadding)
+        .if(FeatureFlags.deleteObjectPlaceholder, if: {
+            $0.newDivider()
+        }, else: {
+            $0.divider(leadingPadding: viewModel.style.leadingDividerPadding)
+        })
         .padding(.horizontal, 20)
     }
     

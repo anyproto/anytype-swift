@@ -2,6 +2,7 @@ import Foundation
 import Services
 import SwiftProtobuf
 import UIKit
+import AnytypeCore
 
 final class RelationsBuilder {
     
@@ -419,7 +420,7 @@ private extension RelationsBuilder {
                 
                 return Relation.Object.Option(
                     id: objectDetail.id,
-                    icon: objectDetail.objectIconImageWithPlaceholder,
+                    icon: FeatureFlags.deleteObjectPlaceholder ? objectDetail.objectIconImage : objectDetail.objectIconImageWithPlaceholder,
                     title: objectDetail.title,
                     type: objectDetail.objectType.name,
                     isArchived: objectDetail.isArchived,

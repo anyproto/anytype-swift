@@ -13,6 +13,9 @@ struct SearchCell<SearchData: SearchDataProtocol>: View {
             Spacer()
         }
         .frame(height: 68)
+        .if(FeatureFlags.deleteObjectPlaceholder, transform: {
+            $0.newDivider()
+        })
         .padding(.horizontal, 16)
     }
     
@@ -46,7 +49,9 @@ struct SearchCell<SearchData: SearchDataProtocol>: View {
             }
             
             Spacer()
-            AnytypeDivider()
+            if !FeatureFlags.deleteObjectPlaceholder {
+                AnytypeDivider()
+            }
         }
     }
     
