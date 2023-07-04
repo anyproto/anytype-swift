@@ -190,7 +190,7 @@ extension AnytypeFont {
                 size: 11,
                 weight: .regular,
                 lineHeight: 14,
-                kern: -0.07
+                kern: 0.07
             )
         case .caption2Medium:
             return AnytypeFontConfig(
@@ -198,7 +198,7 @@ extension AnytypeFont {
                 size: 11,
                 weight: .medium,
                 lineHeight: 14,
-                kern: -0.07
+                kern: 0.07
             )
         case .button1Regular:
             return AnytypeFontConfig(
