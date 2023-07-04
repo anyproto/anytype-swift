@@ -36,9 +36,8 @@ public extension FeatureDescription {
     
     static let newAuthorization = FeatureDescription(
         title: "New authorization",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.?.0"),
-        defaultValue: false,
-        debugValue: true
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.23.0"),
+        defaultValue: true
     )
     
     static let redesignAbout = FeatureDescription(
