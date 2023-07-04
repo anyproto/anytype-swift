@@ -3,22 +3,22 @@ import SwiftUI
 
 enum AppIcon: CaseIterable {
     case oldSchool
-    case gradient
-    case art
+    case standart
+    case classic
     
-    var name: String? {
+    var previewAsset: ImageAsset {
         switch self {
-        case .gradient: return nil
-        case .oldSchool: return "oldSchool"
-        case .art: return "art"
+        case .standart: return .AppIconsPreview.appIcon
+        case .oldSchool: return .AppIconsPreview.oldSchoolAppIcon
+        case .classic: return .AppIconsPreview.classicAppIcon
         }
     }
     
-    var preview: Image {
+    var iconName: String? {
         switch self {
-        case .gradient: return Image.appIcon
-        case .oldSchool: return Image.oldSchoolAppIcon
-        case .art: return Image.artAppIcon
+            case .standart: return nil
+            case .oldSchool: return "OldSchoolAppIcon"
+            case .classic: return "ClassicAppIcon"
         }
     }
 }

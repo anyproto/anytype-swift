@@ -8,6 +8,11 @@
 
 // swiftlint:disable identifier_name line_length nesting type_body_length type_name
 internal extension ImageAsset {
+  enum AppIconsPreview {
+    static let appIcon = ImageAsset.bundle(name: "AppIconsPreview/AppIcon")
+    static let classicAppIcon = ImageAsset.bundle(name: "AppIconsPreview/ClassicAppIcon")
+    static let oldSchoolAppIcon = ImageAsset.bundle(name: "AppIconsPreview/OldSchoolAppIcon")
+  }
   static let authPhotoIcon = ImageAsset.bundle(name: "auth_photo_icon")
   static let arrowDown = ImageAsset.bundle(name: "arrowDown")
   static let arrowForward = ImageAsset.bundle(name: "arrowForward")
