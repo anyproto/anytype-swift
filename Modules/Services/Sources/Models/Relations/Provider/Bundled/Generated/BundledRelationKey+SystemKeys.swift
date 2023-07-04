@@ -62,5 +62,6 @@ public extension BundledRelationKey {
         .sizeInBytes,
         .sourceFilePath,
         .fileSyncStatus,
+        .defaultTemplateId,
     ]
 }
