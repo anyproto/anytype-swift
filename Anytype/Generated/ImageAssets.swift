@@ -347,7 +347,7 @@ internal extension ImageAsset {
     static let settings = ImageAsset.bundle(name: "Widget/settings")
     static let tick = ImageAsset.bundle(name: "Widget/tick")
   }
-  static let splashLogo = ImageAsset.bundle(name: "splash_logo")
+  static let splashLogoWhite = ImageAsset.bundle(name: "splash_logo_white")
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name
 
