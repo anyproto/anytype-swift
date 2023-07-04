@@ -1495,6 +1495,8 @@ public struct Anytype_Model_Block {
 
         public var pageLimit: Int32 = 0
 
+        public var defaultTemplateID: String = String()
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public enum TypeEnum: SwiftProtobuf.Enum {
@@ -5108,6 +5110,7 @@ extension Anytype_Model_Block.Content.Dataview.View: SwiftProtobuf.Message, Swif
     11: .same(proto: "groupRelationKey"),
     12: .same(proto: "groupBackgroundColors"),
     13: .same(proto: "pageLimit"),
+    14: .same(proto: "defaultTemplateId"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -5129,6 +5132,7 @@ extension Anytype_Model_Block.Content.Dataview.View: SwiftProtobuf.Message, Swif
       case 11: try { try decoder.decodeSingularStringField(value: &self.groupRelationKey) }()
       case 12: try { try decoder.decodeSingularBoolField(value: &self.groupBackgroundColors) }()
       case 13: try { try decoder.decodeSingularInt32Field(value: &self.pageLimit) }()
+      case 14: try { try decoder.decodeSingularStringField(value: &self.defaultTemplateID) }()
       default: break
       }
     }
@@ -5174,6 +5178,9 @@ extension Anytype_Model_Block.Content.Dataview.View: SwiftProtobuf.Message, Swif
     if self.pageLimit != 0 {
       try visitor.visitSingularInt32Field(value: self.pageLimit, fieldNumber: 13)
     }
+    if !self.defaultTemplateID.isEmpty {
+      try visitor.visitSingularStringField(value: self.defaultTemplateID, fieldNumber: 14)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -5191,6 +5198,7 @@ extension Anytype_Model_Block.Content.Dataview.View: SwiftProtobuf.Message, Swif
     if lhs.groupRelationKey != rhs.groupRelationKey {return false}
     if lhs.groupBackgroundColors != rhs.groupBackgroundColors {return false}
     if lhs.pageLimit != rhs.pageLimit {return false}
+    if lhs.defaultTemplateID != rhs.defaultTemplateID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
