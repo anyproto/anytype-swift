@@ -40,7 +40,7 @@ final class SlashMenuActionHandler {
                     .createPage(targetId: blockId, type: .dynamic(object.id))
                     .flatMap { id in
                         AnytypeAnalytics.instance().logCreateObject(objectType: object.analyticsType, route: .powertool)
-                        router.showPage(data: object.editorScreenData())
+                        router.showPage(data: .page(EditorPageObject(objectId: id, isSupportedForEdit: true, isOpenedForPreview: false)))
                     }
             }
         case let .relations(action):
