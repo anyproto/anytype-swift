@@ -94,8 +94,7 @@ struct SettingsAppearanceView: View {
             Button {
                 model.updateIcon(icon)
             } label: {
-                icon.preview.resizable()
-                    .frame(width: 60, height: 60)
+                Image(asset: icon.previewAsset)
                     .cornerRadius(8)
                     .clipShape(RoundedRectangle(cornerRadius: 14))
                     .overlay(

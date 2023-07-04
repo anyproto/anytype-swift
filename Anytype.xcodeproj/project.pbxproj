@@ -246,10 +246,6 @@
 		1289C518281159DE005085E2 /* FileDownloadingModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1289C517281159DE005085E2 /* FileDownloadingModuleOutput.swift */; };
 		1289F59C2733622C00656EC2 /* RelationsListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1289F59B2733622C00656EC2 /* RelationsListRowView.swift */; };
 		1289F5A42733C50500656EC2 /* TextRelationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1289F5A32733C50500656EC2 /* TextRelationFactory.swift */; };
-		128AD9EA2775B2F1004E3BDB /* art@3x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 128AD9E52775B2F1004E3BDB /* art@3x~ipad.png */; };
-		128AD9EB2775B2F1004E3BDB /* art@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 128AD9E92775B2F1004E3BDB /* art@2x~ipad.png */; };
-		128AD9EE2775B2FB004E3BDB /* oldSchool@3x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 128AD9EC2775B2FB004E3BDB /* oldSchool@3x~ipad.png */; };
-		128AD9EF2775B2FB004E3BDB /* oldSchool@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 128AD9ED2775B2FB004E3BDB /* oldSchool@2x~ipad.png */; };
 		12928C8827BCF75600CE94C3 /* AnytypePopupViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12928C8727BCF75600CE94C3 /* AnytypePopupViewModelProtocol.swift */; };
 		12928C8C27BD3C0B00CE94C3 /* IntrinsicPopupLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12928C8B27BD3C0B00CE94C3 /* IntrinsicPopupLayout.swift */; };
 		129C54C427FC4CF600C390C7 /* NewRelationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129C54C327FC4CF600C390C7 /* NewRelationViewModel.swift */; };
@@ -282,10 +278,6 @@
 		12B0FF60274FC5E200CA35FE /* TextRelationActionButtonViewModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B0FF5F274FC5E200CA35FE /* TextRelationActionButtonViewModelDelegate.swift */; };
 		12B0FF6F274FD67F00CA35FE /* AppIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B0FF6E274FD67F00CA35FE /* AppIcon.swift */; };
 		12B0FF71274FD6D700CA35FE /* AppIconManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B0FF70274FD6D700CA35FE /* AppIconManager.swift */; };
-		12B0FF77274FDB3700CA35FE /* art@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12B0FF73274FDB3700CA35FE /* art@3x.png */; };
-		12B0FF78274FDB3700CA35FE /* oldSchool@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12B0FF74274FDB3700CA35FE /* oldSchool@3x.png */; };
-		12B0FF79274FDB3700CA35FE /* art@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12B0FF75274FDB3700CA35FE /* art@2x.png */; };
-		12B0FF7A274FDB3700CA35FE /* oldSchool@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12B0FF76274FDB3700CA35FE /* oldSchool@2x.png */; };
 		12B691D227F4CB5D00A0C336 /* ImageGuideline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B691D027F4CB5D00A0C336 /* ImageGuideline.swift */; };
 		12B691D327F4CB5D00A0C336 /* ImageCornersGuideline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B691D127F4CB5D00A0C336 /* ImageCornersGuideline.swift */; };
 		12C0592E27F3274E004FFAAB /* DownloadableContentProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C0592D27F3274E004FFAAB /* DownloadableContentProtocol.swift */; };
@@ -1754,10 +1746,6 @@
 		1289C517281159DE005085E2 /* FileDownloadingModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileDownloadingModuleOutput.swift; sourceTree = "<group>"; };
 		1289F59B2733622C00656EC2 /* RelationsListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationsListRowView.swift; sourceTree = "<group>"; };
 		1289F5A32733C50500656EC2 /* TextRelationFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRelationFactory.swift; sourceTree = "<group>"; };
-		128AD9E52775B2F1004E3BDB /* art@3x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "art@3x~ipad.png"; sourceTree = "<group>"; };
-		128AD9E92775B2F1004E3BDB /* art@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "art@2x~ipad.png"; sourceTree = "<group>"; };
-		128AD9EC2775B2FB004E3BDB /* oldSchool@3x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "oldSchool@3x~ipad.png"; sourceTree = "<group>"; };
-		128AD9ED2775B2FB004E3BDB /* oldSchool@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "oldSchool@2x~ipad.png"; sourceTree = "<group>"; };
 		12928C8727BCF75600CE94C3 /* AnytypePopupViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypePopupViewModelProtocol.swift; sourceTree = "<group>"; };
 		12928C8B27BD3C0B00CE94C3 /* IntrinsicPopupLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntrinsicPopupLayout.swift; sourceTree = "<group>"; };
 		129C54C327FC4CF600C390C7 /* NewRelationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRelationViewModel.swift; sourceTree = "<group>"; };
@@ -1790,10 +1778,6 @@
 		12B0FF5F274FC5E200CA35FE /* TextRelationActionButtonViewModelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRelationActionButtonViewModelDelegate.swift; sourceTree = "<group>"; };
 		12B0FF6E274FD67F00CA35FE /* AppIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIcon.swift; sourceTree = "<group>"; };
 		12B0FF70274FD6D700CA35FE /* AppIconManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIconManager.swift; sourceTree = "<group>"; };
-		12B0FF73274FDB3700CA35FE /* art@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "art@3x.png"; sourceTree = "<group>"; };
-		12B0FF74274FDB3700CA35FE /* oldSchool@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "oldSchool@3x.png"; sourceTree = "<group>"; };
-		12B0FF75274FDB3700CA35FE /* art@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "art@2x.png"; sourceTree = "<group>"; };
-		12B0FF76274FDB3700CA35FE /* oldSchool@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "oldSchool@2x.png"; sourceTree = "<group>"; };
 		12B691D027F4CB5D00A0C336 /* ImageGuideline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageGuideline.swift; sourceTree = "<group>"; };
 		12B691D127F4CB5D00A0C336 /* ImageCornersGuideline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCornersGuideline.swift; sourceTree = "<group>"; };
 		12C0592D27F3274E004FFAAB /* DownloadableContentProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadableContentProtocol.swift; sourceTree = "<group>"; };
@@ -3224,7 +3208,6 @@
 			isa = PBXGroup;
 			children = (
 				2E56F1312A0D410E00031167 /* Video */,
-				12B0FF72274FDB1D00CA35FE /* App Icons */,
 				3D568FB4266A287400DC7881 /* SystemColors.xcassets */,
 				C9D57022278C474E00F6DBB8 /* ComponentColors.xcassets */,
 				0303ED0422D8EDAD005C552B /* Assets.xcassets */,
@@ -4492,21 +4475,6 @@
 				12B0FF70274FD6D700CA35FE /* AppIconManager.swift */,
 			);
 			path = AppIcon;
-			sourceTree = "<group>";
-		};
-		12B0FF72274FDB1D00CA35FE /* App Icons */ = {
-			isa = PBXGroup;
-			children = (
-				128AD9ED2775B2FB004E3BDB /* oldSchool@2x~ipad.png */,
-				128AD9EC2775B2FB004E3BDB /* oldSchool@3x~ipad.png */,
-				128AD9E92775B2F1004E3BDB /* art@2x~ipad.png */,
-				128AD9E52775B2F1004E3BDB /* art@3x~ipad.png */,
-				12B0FF75274FDB3700CA35FE /* art@2x.png */,
-				12B0FF73274FDB3700CA35FE /* art@3x.png */,
-				12B0FF76274FDB3700CA35FE /* oldSchool@2x.png */,
-				12B0FF74274FDB3700CA35FE /* oldSchool@3x.png */,
-			);
-			path = "App Icons";
 			sourceTree = "<group>";
 		};
 		12BE8E5826565D6D000C95B9 /* Extensions */ = {
@@ -8835,8 +8803,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				2AFB542328634FC5004F7458 /* Localizable.stringsdict in Resources */,
-				128AD9EA2775B2F1004E3BDB /* art@3x~ipad.png in Resources */,
-				128AD9EB2775B2F1004E3BDB /* art@2x~ipad.png in Resources */,
 				95A38D3A2A03F17700D06C96 /* Riccione-Xlight-Regular.ttf in Resources */,
 				EAA7E1FE26B5D57000F7A81B /* IBMPlexMono-Italic.ttf in Resources */,
 				C9D57023278C474E00F6DBB8 /* ComponentColors.xcassets in Resources */,
@@ -8847,16 +8813,10 @@
 				EAA7E20326B5D57500F7A81B /* IBMPlexMono-Bold.ttf in Resources */,
 				03A46A40231417D6009AC10C /* InfoPlist.strings in Resources */,
 				0303ED0B22D8EDAD005C552B /* LaunchScreen.storyboard in Resources */,
-				12B0FF78274FDB3700CA35FE /* oldSchool@3x.png in Resources */,
-				12B0FF7A274FDB3700CA35FE /* oldSchool@2x.png in Resources */,
 				0303ED0822D8EDAD005C552B /* Preview Assets.xcassets in Resources */,
 				EA57F35226B5DEAA007D4292 /* IBMPlexMono-BoldItalic.ttf in Resources */,
-				128AD9EF2775B2FB004E3BDB /* oldSchool@2x~ipad.png in Resources */,
 				2E56F1332A0D410E00031167 /* anytype-shader-S.mp4 in Resources */,
 				0303ED0522D8EDAD005C552B /* Assets.xcassets in Resources */,
-				12B0FF79274FDB3700CA35FE /* art@2x.png in Resources */,
-				128AD9EE2775B2FB004E3BDB /* oldSchool@3x~ipad.png in Resources */,
-				12B0FF77274FDB3700CA35FE /* art@3x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -10514,7 +10474,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 36;
@@ -10556,7 +10516,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 36;
@@ -10708,7 +10668,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 36;
