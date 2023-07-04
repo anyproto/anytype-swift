@@ -9,16 +9,16 @@ enum AppIcon: CaseIterable {
     var previewAsset: ImageAsset {
         switch self {
         case .standart: return .AppIconsPreview.appIcon
-        case .oldSchool: return .AppIconsPreview.oldSchoolAppIcon
-        case .classic: return .AppIconsPreview.classicAppIcon
+        case .oldSchool: return .AppIconsPreview.appIconOldSchool
+        case .classic: return .AppIconsPreview.appIconClassic
         }
     }
     
     var iconName: String? {
         switch self {
             case .standart: return nil
-            case .oldSchool: return "OldSchoolAppIcon"
-            case .classic: return "ClassicAppIcon"
+            case .oldSchool: return "AppIconOldSchool"
+            case .classic: return "AppIconClassic"
         }
     }
 }
