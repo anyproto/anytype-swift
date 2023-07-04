@@ -758,6 +758,8 @@
 		2E2D256D288ACA5100E3DFD1 /* SetFiltersCheckboxViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2D256C288ACA5100E3DFD1 /* SetFiltersCheckboxViewModel.swift */; };
 		2E2D256F288AD08100E3DFD1 /* SetFiltersCheckboxValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2D256E288AD08100E3DFD1 /* SetFiltersCheckboxValue.swift */; };
 		2E2D25732890036200E3DFD1 /* SubscriptionTogglerResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2D25722890036100E3DFD1 /* SubscriptionTogglerResult.swift */; };
+		2E2EA2CA2A53388500569E1E /* DotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2EA2C92A53388500569E1E /* DotView.swift */; };
+		2E2EA2CC2A5339CE00569E1E /* DotsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2EA2CB2A5339CE00569E1E /* DotsView.swift */; };
 		2E330C52286CB6A70099C7C3 /* CreateBookmarkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E330C51286CB6A70099C7C3 /* CreateBookmarkViewModel.swift */; };
 		2E330C54286CC2BA0099C7C3 /* CreateObjectViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E330C53286CC2BA0099C7C3 /* CreateObjectViewModelProtocol.swift */; };
 		2E37F01428C768B900337BD4 /* EditorSetViewRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E37F01328C768B900337BD4 /* EditorSetViewRow.swift */; };
@@ -2249,6 +2251,8 @@
 		2E2D256C288ACA5100E3DFD1 /* SetFiltersCheckboxViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersCheckboxViewModel.swift; sourceTree = "<group>"; };
 		2E2D256E288AD08100E3DFD1 /* SetFiltersCheckboxValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersCheckboxValue.swift; sourceTree = "<group>"; };
 		2E2D25722890036100E3DFD1 /* SubscriptionTogglerResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionTogglerResult.swift; sourceTree = "<group>"; };
+		2E2EA2C92A53388500569E1E /* DotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotView.swift; sourceTree = "<group>"; };
+		2E2EA2CB2A5339CE00569E1E /* DotsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotsView.swift; sourceTree = "<group>"; };
 		2E330C51286CB6A70099C7C3 /* CreateBookmarkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateBookmarkViewModel.swift; sourceTree = "<group>"; };
 		2E330C53286CC2BA0099C7C3 /* CreateObjectViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateObjectViewModelProtocol.swift; sourceTree = "<group>"; };
 		2E37F01328C768B900337BD4 /* EditorSetViewRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetViewRow.swift; sourceTree = "<group>"; };
@@ -5901,6 +5905,15 @@
 			path = Checkbox;
 			sourceTree = "<group>";
 		};
+		2E2EA2C62A53385000569E1E /* DotsView */ = {
+			isa = PBXGroup;
+			children = (
+				2E2EA2C92A53388500569E1E /* DotView.swift */,
+				2E2EA2CB2A5339CE00569E1E /* DotsView.swift */,
+			);
+			path = DotsView;
+			sourceTree = "<group>";
+		};
 		2E412D0128466AC900C973FF /* Sorts */ = {
 			isa = PBXGroup;
 			children = (
@@ -6183,6 +6196,7 @@
 		2EFBBEFD2A431E3400734A0B /* EnteringVoidView */ = {
 			isa = PBXGroup;
 			children = (
+				2E2EA2C62A53385000569E1E /* DotsView */,
 				2EFBBEFE2A431EEA00734A0B /* EnteringVoidView.swift */,
 				2EFBBF002A431F0300734A0B /* EnteringVoidViewModel.swift */,
 				2EFBBF022A43235E00734A0B /* EnteringVoidModuleAssembly.swift */,
@@ -9344,6 +9358,7 @@
 				3D7C08212684B68600E2168D /* BlockFileViewModel.swift in Sources */,
 				2AF4261F29AF86CD00753B17 /* DashboardAlertsAssembly.swift in Sources */,
 				1247BCAC27FF3A0C005F2DB4 /* FeedbackGeneratorExample.swift in Sources */,
+				2E2EA2CA2A53388500569E1E /* DotView.swift in Sources */,
 				EA0261242625CE0800AE6D86 /* TextBlockRestrictions.swift in Sources */,
 				2A6E04B1298D66DB0023B33D /* WidgetObjectListCommonModuleOutput.swift in Sources */,
 				2ABA0E07283BC420008369DC /* BlockObjectsSearchInteractor.swift in Sources */,
@@ -10174,6 +10189,7 @@
 				2E2D256428880C8D00E3DFD1 /* SetFiltersSelectionHeaderViewModel.swift in Sources */,
 				12EB9B2C27743D1700BA732F /* RelationFile.swift in Sources */,
 				3D2D59B3268CD5E5004745EC /* BlockImageContentView.swift in Sources */,
+				2E2EA2CC2A5339CE00569E1E /* DotsView.swift in Sources */,
 				2A673C0B29B0B26D00E3D672 /* SettingsCoordinator.swift in Sources */,
 				2ABF214329B204BE00E872D9 /* UIUserInterfaceStyle+Settings.swift in Sources */,
 				1247BC6427FD9637005F2DB4 /* SearchNewRelationModuleOutput.swift in Sources */,

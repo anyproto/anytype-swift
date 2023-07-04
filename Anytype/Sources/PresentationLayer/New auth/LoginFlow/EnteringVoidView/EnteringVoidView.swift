@@ -8,8 +8,14 @@ struct EnteringVoidView: View {
     var body: some View {
         VStack(spacing: 0) {
             Spacer()
+            
             AnytypeText(Loc.Auth.LoginFlow.Entering.Void.title, style: .uxTitle1Semibold, color: .Text.primary)
                 .opacity(0.9)
+            
+            Spacer.fixedHeight(20)
+            
+            DotsView()
+            
             Spacer()
         }
         .navigationBarHidden(true)
