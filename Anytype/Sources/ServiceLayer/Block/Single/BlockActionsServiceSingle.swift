@@ -30,7 +30,7 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
         }).invoke()
     }
     
-    func add(contextId: String, targetId: BlockId, info: BlockInformation, position: BlockPosition) -> BlockId? {
+    func add(contextId: String, targetId: BlockId, info: BlockInformation, position: BlockPosition) async throws -> BlockId? {
         guard let block = BlockInformationConverter.convert(information: info) else {
             anytypeAssertionFailure("addActionBlockIsNotParsed")
             return nil
@@ -38,31 +38,29 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
 
         AnytypeAnalytics.instance().logCreateBlock(type: info.content.description, style: info.content.type.style)
 
-        let response = try? ClientCommands.blockCreate(.with {
+        let response = try await ClientCommands.blockCreate(.with {
             $0.contextID = contextId
             $0.targetID = targetId
             $0.block = block
             $0.position = position.asMiddleware
         }).invoke()
         
-        return response?.blockID
+        return response.blockID
     }
     
-    func delete(contextId: String, blockIds: [BlockId]) -> Bool {
+    func delete(contextId: String, blockIds: [BlockId]) async throws {
         AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.blockDelete)
         
-        _ = try? ClientCommands.blockListDelete(.with {
+        try await ClientCommands.blockListDelete(.with {
             $0.contextID = contextId
             $0.blockIds = blockIds
         }).invoke()
-        
-        return true
     }
 
-    func duplicate(contextId: String, targetId: BlockId, blockIds: [BlockId], position: BlockPosition) {
+    func duplicate(contextId: String, targetId: BlockId, blockIds: [BlockId], position: BlockPosition) async throws {
         AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.blockListDuplicate)
         
-        _ = try? ClientCommands.blockListDuplicate(.with {
+        try await ClientCommands.blockListDuplicate(.with {
             $0.contextID = contextId
             $0.targetID = targetId
             $0.blockIds = blockIds
@@ -76,8 +74,8 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
         targetContextID: BlockId,
         dropTargetID: String,
         position: BlockPosition
-    ) {
-        _ = try? ClientCommands.blockListMoveToExistingObject(.with {
+    ) async throws {
+        try await ClientCommands.blockListMoveToExistingObject(.with {
             $0.contextID = contextId
             $0.blockIds = blockIds
             $0.targetContextID = targetContextID

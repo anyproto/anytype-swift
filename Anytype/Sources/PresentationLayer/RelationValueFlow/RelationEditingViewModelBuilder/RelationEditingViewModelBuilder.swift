@@ -31,6 +31,7 @@ final class RelationEditingViewModelBuilder {
 
 extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtocol {
     
+    @MainActor
     func buildViewModel(
         objectDetails: ObjectDetails,
         relation: Relation,

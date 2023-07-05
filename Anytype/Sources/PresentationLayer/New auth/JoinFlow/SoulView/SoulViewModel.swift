@@ -44,14 +44,20 @@ final class SoulViewModel: ObservableObject {
     }
     
     private func updateProfileName() {
-        objectActionsService.updateBundledDetails(contextID: accountManager.account.info.profileObjectID, details: [
-            .name(state.soul)
-        ])
+        Task {
+            try await objectActionsService.updateBundledDetails(
+                contextID: accountManager.account.info.profileObjectID,
+                details: [.name(state.soul)]
+            )
+        }
     }
     
     private func updateSpaceName() {
-        objectActionsService.updateBundledDetails(contextID: accountManager.account.info.accountSpaceId, details: [
-            .name(state.soul)
-        ])
+        Task {
+            try await objectActionsService.updateBundledDetails(
+                contextID: accountManager.account.info.accountSpaceId,
+                details: [.name(state.soul)]
+            )
+        }
     }
 }

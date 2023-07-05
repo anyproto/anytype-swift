@@ -47,7 +47,8 @@ extension RelationsListViewModel {
     
     func changeRelationFeaturedState(relation: Relation, addedToObject: Bool) {
         if !addedToObject {
-            if relationsService.addRelations(relationKeys: [relation.key]) {
+            Task { @MainActor in
+                try await relationsService.addRelations(relationKeys: [relation.key])
                 changeRelationFeaturedState(relation: relation)
             }
         } else {

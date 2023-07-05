@@ -191,14 +191,17 @@ struct TextBlockActionHandler: TextBlockActionHandlerProtocol {
                 case .createBookmark:
                     let position: BlockPosition = textView.text == trimmedText ?
                         .replace : .bottom
-                    actionHandler.createAndFetchBookmark(
-                        targetID: info.id,
-                        position: position,
-                        url: url
-                    )
-
-                    originalAttributedString.map {
-                        actionHandler.changeTextForced($0, blockId: info.id)
+                    
+                    Task {
+                        try await actionHandler.createAndFetchBookmark(
+                            targetID: info.id,
+                            position: position,
+                            url: url
+                        )
+                        
+                        originalAttributedString.map {
+                            actionHandler.changeTextForced($0, blockId: info.id)
+                        }
                     }
                 case .pasteAsLink:
                     break
@@ -241,7 +244,9 @@ struct TextBlockActionHandler: TextBlockActionHandlerProtocol {
 
     private func copy(range: NSRange) {
         AnytypeAnalytics.instance().logCopyBlock()
-        pasteboardService.copy(blocksIds: [info.id], selectedTextRange: range)
+        Task {
+            try await pasteboardService.copy(blocksIds: [info.id], selectedTextRange: range)
+        }
     }
 
     private func createEmptyBlock() {

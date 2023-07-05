@@ -57,9 +57,11 @@ extension ObjectTypesSearchViewModel: NewInternalSearchViewModelProtocol {
         guard let id = ids.first else { return }
 
         if let marketplaceType = marketplaceObjects.first(where: { $0.id == id}) {
-            guard let installedType = interactor.installType(objectId: marketplaceType.id) else { return }
-            toastPresenter.show(message: Loc.ObjectType.addedToLibrary(installedType.name))
-            onSelect(ObjectType(details: installedType))
+            Task { @MainActor in
+                guard let installedType = try await interactor.installType(objectId: marketplaceType.id) else { return }
+                toastPresenter.show(message: Loc.ObjectType.addedToLibrary(installedType.name))
+                onSelect(ObjectType(details: installedType))
+            }
             return
         }
         
