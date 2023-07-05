@@ -29,14 +29,9 @@ struct LoginView: View {
             .onAppear {
                 model.onAppear()
             }
-            .highPriorityGesture(
-                DragGesture()
-                    .onEnded { value in
-                        if value.startLocation.x < 50, value.translation.width > 100 {
-                            presentationMode.dismiss()
-                        }
-                    }
-            )
+            .customBackSwipe {
+                presentationMode.dismiss()
+            }
             .fitIPadToReadableContentGuide()
     }
     
