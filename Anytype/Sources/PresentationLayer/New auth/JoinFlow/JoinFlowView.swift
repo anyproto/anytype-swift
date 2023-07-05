@@ -9,6 +9,14 @@ struct JoinFlowView: View {
         GeometryReader { geo in
             content(height: geo.size.height)
         }
+        .highPriorityGesture(
+            DragGesture()
+                .onEnded { value in
+                    if value.startLocation.x < 50, value.translation.width > 100 {
+                        onDragGestureEnded()
+                    }
+                }
+        )
         .fitIPadToReadableContentGuide()
     }
     
@@ -60,6 +68,14 @@ struct JoinFlowView: View {
     
     private var counter : some View {
         AnytypeText(model.counter, style: .authBody, color: .Text.tertiary)
+    }
+    
+    private func onDragGestureEnded() {
+        if model.step.isFirst {
+             presentationMode.dismiss()
+         } else {
+             model.onBack()
+         }
     }
 }
 
