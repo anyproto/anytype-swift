@@ -78,9 +78,10 @@ class UIPhraseTextView: UITextView, UITextViewDelegate {
         placeholderLabel.setContentHuggingPriority(.defaultLow - 1, for: .horizontal)
     }
     
-    func update(with text: String) {
+    func update(with text: String, alignToCenter: Bool) {
         attributedText = configureAttributedString(from: text)
         handlePlaceholder(text.isNotEmpty)
+        handleTextAlignment(alignToCenter: alignToCenter)
         setNeedsLayout()
     }
     
@@ -96,6 +97,12 @@ class UIPhraseTextView: UITextView, UITextViewDelegate {
     
     private func handlePlaceholder(_ hide: Bool) {
         placeholderLabel.isHidden = hide
+    }
+    
+    private func handleTextAlignment(alignToCenter: Bool) {
+        if alignToCenter {
+            textAlignment = .center
+        }
     }
     
     private func configureAttributedString(from text: String) -> NSAttributedString {

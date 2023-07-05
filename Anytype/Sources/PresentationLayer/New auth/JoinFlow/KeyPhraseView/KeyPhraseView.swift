@@ -43,10 +43,14 @@ struct KeyPhraseView: View {
     }
     
     private var phraseTextView: some View {
-        PhraseTextView(text: $model.key, expandable: true)
-            .disabled(true)
-            .blur(radius: model.keyShown ? 0 : 5)
-            .clipped()
+        PhraseTextView(
+            text: $model.key,
+            expandable: true,
+            alignTextToCenter: true
+        )
+        .disabled(true)
+        .blur(radius: model.keyShown ? 0 : 5)
+        .clipped()
     }
     
     private var buttons: some View {
