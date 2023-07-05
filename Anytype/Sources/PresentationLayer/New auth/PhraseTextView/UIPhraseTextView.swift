@@ -100,9 +100,7 @@ class UIPhraseTextView: UITextView, UITextViewDelegate {
     }
     
     private func handleTextAlignment(alignToCenter: Bool) {
-        if alignToCenter {
-            textAlignment = .center
-        }
+        textAlignment = alignToCenter ? .center : .left
     }
     
     private func configureAttributedString(from text: String) -> NSAttributedString {
