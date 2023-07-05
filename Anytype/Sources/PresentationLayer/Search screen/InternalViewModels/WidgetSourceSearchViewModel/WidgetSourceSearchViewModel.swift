@@ -142,7 +142,7 @@ private extension SearchObjectRowView.Model {
     
     init(details: ObjectDetails) {
         let title = details.title
-        self.icon = details.objectIconImageWithPlaceholder
+        self.icon = FeatureFlags.deleteObjectPlaceholder ? details.objectIconImage : details.objectIconImageWithPlaceholder
         self.title = title
         self.subtitle = details.description
         self.style = .default

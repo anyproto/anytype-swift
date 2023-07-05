@@ -1,4 +1,5 @@
 import SwiftUI
+import AnytypeCore
 
 struct SearchObjectRowView: View {
     
@@ -7,14 +8,16 @@ struct SearchObjectRowView: View {
     
     var body: some View {
         HStack(spacing: 0) {
-            SwiftUIObjectIconImageView(
-                iconImage: viewModel.icon,
-                usecase: .dashboardSearch
-            ).frame(
-                width: viewModel.style.iconSize.width,
-                height: viewModel.style.iconSize.height
-            )
-            Spacer.fixedWidth(12)
+            if let icon = viewModel.icon {
+                SwiftUIObjectIconImageView(
+                    iconImage: icon,
+                    usecase: .dashboardSearch
+                ).frame(
+                    width: viewModel.style.iconSize.width,
+                    height: viewModel.style.iconSize.height
+                )
+                Spacer.fixedWidth(12)
+            }
             content
             if viewModel.isChecked {
                 Image(asset: .X24.tick)
@@ -22,7 +25,11 @@ struct SearchObjectRowView: View {
             }
         }
         .frame(height: viewModel.style.rowHeight)
-        .divider(leadingPadding: viewModel.style.leadingDividerPadding)
+        .if(FeatureFlags.deleteObjectPlaceholder, if: {
+            $0.newDivider()
+        }, else: {
+            $0.divider(leadingPadding: viewModel.style.leadingDividerPadding)
+        })
         .padding(.horizontal, 20)
     }
     
@@ -60,7 +67,7 @@ struct SearchObjectRowView: View {
 extension SearchObjectRowView {
     
     struct Model {
-        let icon: ObjectIconImage
+        let icon: ObjectIconImage?
         let title: String
         let subtitle: String?
         let style: Style

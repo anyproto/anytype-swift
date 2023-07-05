@@ -28,7 +28,7 @@ extension Relation.File {
         
         let id: String
         
-        let icon: ObjectIconImage
+        let icon: ObjectIconImage?
         let title: String
         
         let editorScreenData: EditorScreenData
