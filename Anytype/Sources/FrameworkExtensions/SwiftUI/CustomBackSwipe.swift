@@ -6,7 +6,7 @@ extension View {
         highPriorityGesture(
             DragGesture()
                 .onEnded { value in
-                    if value.startLocation.x < 50, value.translation.width > 100 {
+                    if value.startLocation.x < 50, value.translation.width > 70 {
                         actionEnded()
                     }
                 }
