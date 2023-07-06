@@ -7502,6 +7502,7 @@ public struct Anytype_Rpc {
             case accountIsNotRunning // = 4
             case noObjectsToImport // = 5
             case importIsCanceled // = 6
+            case limitOfRowsOrRelationsExceeded // = 7
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -7517,6 +7518,7 @@ public struct Anytype_Rpc {
               case 4: self = .accountIsNotRunning
               case 5: self = .noObjectsToImport
               case 6: self = .importIsCanceled
+              case 7: self = .limitOfRowsOrRelationsExceeded
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -7530,6 +7532,7 @@ public struct Anytype_Rpc {
               case .accountIsNotRunning: return 4
               case .noObjectsToImport: return 5
               case .importIsCanceled: return 6
+              case .limitOfRowsOrRelationsExceeded: return 7
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -23377,6 +23380,7 @@ extension Anytype_Rpc.Object.Import.Response.Error.Code: CaseIterable {
     .accountIsNotRunning,
     .noObjectsToImport,
     .importIsCanceled,
+    .limitOfRowsOrRelationsExceeded,
   ]
 }
 
@@ -36374,6 +36378,7 @@ extension Anytype_Rpc.Object.Import.Response.Error.Code: SwiftProtobuf._ProtoNam
     4: .same(proto: "ACCOUNT_IS_NOT_RUNNING"),
     5: .same(proto: "NO_OBJECTS_TO_IMPORT"),
     6: .same(proto: "IMPORT_IS_CANCELED"),
+    7: .same(proto: "LIMIT_OF_ROWS_OR_RELATIONS_EXCEEDED"),
   ]
 }
 
