@@ -17,9 +17,11 @@ public struct Invocation<Request, Response> where Request: Message,
     }
     
     public func invoke(file: StaticString) async throws -> Response {
-        return try await Task {
-            try self.syncInvoke(file: file)
+        let value = try await Task {
+           try syncInvoke(file: file)
         }.value
+        try Task.checkCancellation()
+        return value
     }
     
     public func invoke(file: StaticString) throws -> Response {
