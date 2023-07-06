@@ -12,8 +12,8 @@ final class ObjectTypesSearchViewModel {
     }
     
     let selectionMode: NewSearchViewModel.SelectionMode = .singleItem
-    let viewStateSubject = PassthroughSubject<NewSearchViewState, Never>()
     
+    private let viewStateSubject = PassthroughSubject<NewSearchViewState, Never>()
     private var objects: [ObjectDetails] = []
     private var marketplaceObjects: [ObjectDetails] = []
     private let interactor: ObjectTypesSearchInteractor
@@ -35,6 +35,8 @@ final class ObjectTypesSearchViewModel {
 }
 
 extension ObjectTypesSearchViewModel: NewInternalSearchViewModelProtocol {
+    
+    var viewStatePublisher: AnyPublisher<NewSearchViewState, Never> { viewStateSubject.eraseToAnyPublisher() }
     
     func search(text: String) async throws {
         let objects = try await interactor.search(text: text)

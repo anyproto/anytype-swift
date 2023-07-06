@@ -7,8 +7,8 @@ import AnytypeCore
 final class ObjectsSearchViewModel {
     
     let selectionMode: NewSearchViewModel.SelectionMode
-    let viewStateSubject = PassthroughSubject<NewSearchViewState, Never>()
-
+    
+    private let viewStateSubject = PassthroughSubject<NewSearchViewState, Never>()
     private let interactor: ObjectsSearchInteractorProtocol
     private let onSelect: (_ details: [ObjectDetails]) -> Void
     
@@ -34,6 +34,8 @@ final class ObjectsSearchViewModel {
 }
 
 extension ObjectsSearchViewModel: NewInternalSearchViewModelProtocol {
+    
+    var viewStatePublisher: AnyPublisher<NewSearchViewState, Never> { viewStateSubject.eraseToAnyPublisher() }
     
     func search(text: String) async throws {
         let objects = try await interactor.search(text: text)
