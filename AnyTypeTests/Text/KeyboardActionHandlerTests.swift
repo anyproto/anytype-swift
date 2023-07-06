@@ -546,7 +546,9 @@ class KeyboardActionHandlerTests: XCTestCase {
         handler.handle(info: info, currentString: string,
                        action: .enterAtTheBegining(string: string, NSRange(location: 0, length: 0)))
 
-        XCTAssertEqual(service.splitNumberOfCalls, 1)
+        eventually { [weak self] in
+            XCTAssertEqual(self?.service.splitNumberOfCalls, 1)
+        }
         XCTAssertEqual(service.splitData!.string.string, "Title text")
         XCTAssertEqual(service.splitData!.mode, .bottom)
         XCTAssertEqual(service.splitData!.blockId, "id")
@@ -562,7 +564,9 @@ class KeyboardActionHandlerTests: XCTestCase {
         handler.handle(info: info, currentString: string,
                        action: .enterAtTheBegining(string: string, NSRange(location: 0, length: 0)))
 
-        XCTAssertEqual(service.splitNumberOfCalls, 1)
+        eventually { [weak self] in
+            XCTAssertEqual(self?.service.splitNumberOfCalls, 1)
+        }
         XCTAssertEqual(service.splitData!.string.string, "Toogle")
         XCTAssertEqual(service.splitData!.mode, .bottom)
         XCTAssertEqual(service.splitData!.blockId, "id")
@@ -578,7 +582,9 @@ class KeyboardActionHandlerTests: XCTestCase {
         handler.handle(info: info, currentString: string,
                        action: .enterAtTheBegining(string: string, NSRange(location: 0, length: 0)))
 
-        XCTAssertEqual(service.splitNumberOfCalls, 1)
+        eventually { [weak self] in
+            XCTAssertEqual(self?.service.splitNumberOfCalls, 1)
+        }
         XCTAssertEqual(service.splitData!.string.string, "Title text")
         XCTAssertEqual(service.splitData!.mode, .bottom)
         XCTAssertEqual(service.splitData!.blockId, "id")
@@ -595,7 +601,9 @@ class KeyboardActionHandlerTests: XCTestCase {
         handler.handle(info: info, currentString: string,
                        action: .enterAtTheBegining(string: string, NSRange(location: 0, length: 0)))
 
-        XCTAssertEqual(service.splitNumberOfCalls, 1)
+        eventually { [weak self] in
+            XCTAssertEqual(self?.service.splitNumberOfCalls, 1)
+        }
         XCTAssertEqual(service.splitData!.string.string, "description text")
         XCTAssertEqual(service.splitData!.mode, .bottom)
         XCTAssertEqual(service.splitData!.blockId, "id")

@@ -54,7 +54,7 @@ extension RelationOptionsListViewModel {
     
     func delete(_ indexSet: IndexSet) {
         selectedOptions.remove(atOffsets: indexSet)
-        Task { @MainActor in
+        Task {
             try await service.updateRelation(
                 relationKey: relationKey,
                 value: selectedOptions.map { $0.id }.protobufValue

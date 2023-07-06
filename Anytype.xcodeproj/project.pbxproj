@@ -1255,6 +1255,7 @@
 		53FF7CB826FCDB4B00A5A592 /* ObjectActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FF7CB726FCDB4B00A5A592 /* ObjectActionsView.swift */; };
 		53FF7CBC26FDD36200A5A592 /* ObjectActionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FF7CBB26FDD36200A5A592 /* ObjectActionsViewModel.swift */; };
 		53FF7CBE26FDD37D00A5A592 /* ObjectAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FF7CBD26FDD37D00A5A592 /* ObjectAction.swift */; };
+		86947EFF2A56B91D00CD7335 /* XCTests+Eventually.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86947EFE2A56B91D00CD7335 /* XCTests+Eventually.swift */; };
 		95A38D3A2A03F17700D06C96 /* Riccione-Xlight-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 95A38D392A03F17700D06C96 /* Riccione-Xlight-Regular.ttf */; };
 		95ADB5602A0284A400FE061B /* LegacyAuthViewAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95ADB55F2A0284A400FE061B /* LegacyAuthViewAssembly.swift */; };
 		C90189A928338D2900F30853 /* TemplatesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90189A828338D2900F30853 /* TemplatesCoordinator.swift */; };
@@ -2737,6 +2738,7 @@
 		53FF7CB726FCDB4B00A5A592 /* ObjectActionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectActionsView.swift; sourceTree = "<group>"; };
 		53FF7CBB26FDD36200A5A592 /* ObjectActionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectActionsViewModel.swift; sourceTree = "<group>"; };
 		53FF7CBD26FDD37D00A5A592 /* ObjectAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectAction.swift; sourceTree = "<group>"; };
+		86947EFE2A56B91D00CD7335 /* XCTests+Eventually.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "XCTests+Eventually.swift"; path = "AnyTypeTests/Extensions/XCTests+Eventually.swift"; sourceTree = SOURCE_ROOT; };
 		95A38D392A03F17700D06C96 /* Riccione-Xlight-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Riccione-Xlight-Regular.ttf"; sourceTree = "<group>"; };
 		95ADB55F2A0284A400FE061B /* LegacyAuthViewAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegacyAuthViewAssembly.swift; sourceTree = "<group>"; };
 		C90189A828338D2900F30853 /* TemplatesCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesCoordinator.swift; sourceTree = "<group>"; };
@@ -3411,6 +3413,7 @@
 		03C5C54122DFD90C00DD91DE /* AnytypeTests */ = {
 			isa = PBXGroup;
 			children = (
+				86947EFD2A56B90E00CD7335 /* Extensions */,
 				2AB2C23528B658B3000191F8 /* AnytypeURL */,
 				3D34F25227C3D14200990C49 /* Text */,
 				3DA46B65273BEB52007B7464 /* Mocks */,
@@ -8109,6 +8112,14 @@
 			path = ObjectActions;
 			sourceTree = "<group>";
 		};
+		86947EFD2A56B90E00CD7335 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				86947EFE2A56B91D00CD7335 /* XCTests+Eventually.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		957A2A252A01707400F81076 /* New auth */ = {
 			isa = PBXGroup;
 			children = (
@@ -10269,6 +10280,7 @@
 				2AB2C23728B658D1000191F8 /* AnytypeURLTests.swift in Sources */,
 				EA26404126BC05F3006071BD /* MarkStyleModifierTests.swift in Sources */,
 				3DA46B67273BEB60007B7464 /* BlockActionHandlerMock.swift in Sources */,
+				86947EFF2A56B91D00CD7335 /* XCTests+Eventually.swift in Sources */,
 				3DB3EC8427577596002781DA /* BrowserNavigationManagerTests.swift in Sources */,
 				3DA46B69273BECBB007B7464 /* BlockMarkupChangerMock.swift in Sources */,
 				3DA46B64273BEB1E007B7464 /* BeginingOfTextMarkdownListenerTests.swift in Sources */,
