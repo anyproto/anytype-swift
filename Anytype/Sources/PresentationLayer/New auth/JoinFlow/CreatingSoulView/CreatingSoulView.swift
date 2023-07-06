@@ -67,6 +67,7 @@ struct CreatingSoulView: View {
             SwiftUIObjectIconImageViewWithPlaceholder(iconImage: model.spaceIcon, usecase: .dashboardSearch)
                 .frame(width: Constants.imageDimension, height: Constants.imageDimension)
             AnytypeText(Loc.Auth.JoinFlow.Personal.Space.title, style: .previewTitle2Medium, color: .Text.primary)
+                .multilineTextAlignment(.center)
         }
         .frame(width: Constants.itemWidth)
     }
