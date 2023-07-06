@@ -58,7 +58,7 @@ final class SlashMenuView: DismissableInputAccessoryView {
     
     // MARK: - Controllers
     private lazy var navigationController: UINavigationController = {
-        let navigationController = UINavigationController(rootViewController: controller)
+        let navigationController = BaseNavigationController(rootViewController: controller)
         
         let navBarAppearance = UINavigationBarAppearance()
         navBarAppearance.titleTextAttributes = [

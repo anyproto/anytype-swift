@@ -32,6 +32,7 @@ struct AuthView: View {
         .ifLet(model.errorText) { view, errorText in
             view.alertView(isShowing: $model.showError, errorText: errorText)
         }
+        .ignoresSafeArea(.keyboard)
     }
     
     private var greetings: some View {

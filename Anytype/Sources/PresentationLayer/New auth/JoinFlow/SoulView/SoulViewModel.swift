@@ -39,7 +39,8 @@ final class SoulViewModel: ObservableObject {
         updateProfileName()
         updateSpaceName()
         inProgress = false
-        
+        UIApplication.shared.hideKeyboard()
+         
         output?.onNext()
     }
     
