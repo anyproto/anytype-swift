@@ -30,10 +30,6 @@ public extension FeatureFlags {
         value(for: .newAuthorization)
     }
 
-    static var redesignAbout: Bool {
-        value(for: .redesignAbout)
-    }
-
     static var sortIncludeTime: Bool {
         value(for: .sortIncludeTime)
     }
@@ -90,7 +86,6 @@ public extension FeatureFlags {
         .migrationGuide,
         .fileStorage,
         .newAuthorization,
-        .redesignAbout,
         .sortIncludeTime,
         .binConfirmAlert,
         .fixSIGPIPECrash,

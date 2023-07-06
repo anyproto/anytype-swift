@@ -688,10 +688,6 @@
 "Widgets.Empty.Title" = "This data view contains no objects";
 
 // MARK: - About
-"About.AppVersionLegacy" = "App version";
-"About.BuildNumberLegacy" = "Build number";
-"About.LibraryLegacy" = "Library";
-"About.analyticsIdLegacy" = "Analytics ID";
 "About.AppVersion" = "App version: %@";
 "About.BuildNumber" = "Build number: %@";
 "About.Library" = "Library version: %@";
