@@ -26,10 +26,6 @@ public extension FeatureFlags {
         value(for: .newAuthorization)
     }
 
-    static var binConfirmAlert: Bool {
-        value(for: .binConfirmAlert)
-    }
-
     static var fixSIGPIPECrash: Bool {
         value(for: .fixSIGPIPECrash)
     }
@@ -77,7 +73,6 @@ public extension FeatureFlags {
         .dndOnCollectionsAndSets,
         .migrationGuide,
         .newAuthorization,
-        .binConfirmAlert,
         .fixSIGPIPECrash,
         .compactListWidget,
         .getMoreSpace,
