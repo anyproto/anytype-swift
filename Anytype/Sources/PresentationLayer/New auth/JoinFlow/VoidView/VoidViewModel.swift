@@ -3,19 +3,13 @@ import SwiftUI
 @MainActor
 final class VoidViewModel: ObservableObject {
     
+    @Published var creatingAccountInProgress = false
+    
     private let state: JoinFlowState
     private weak var output: JoinFlowStepOutput?
     private let authService: AuthServiceProtocol
     private let seedService: SeedServiceProtocol
     private let usecaseService: UsecaseServiceProtocol
-    
-    @Published var creatingAccountInProgress = false
-    @Published var errorText: String? {
-        didSet {
-            showError = errorText.isNotNil
-        }
-    }
-    @Published var showError: Bool = false
     
     init(
         state: JoinFlowState,
@@ -62,7 +56,7 @@ final class VoidViewModel: ObservableObject {
     
     private func createAccountError(_ error: Error) {
         creatingAccountInProgress = false
-        errorText = error.localizedDescription
+        output?.onError(error)
     }
     
     func onAppear() {

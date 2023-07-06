@@ -16,6 +16,9 @@ struct JoinFlowView: View {
                  model.onBack()
              }
         }
+        .ifLet(model.errorText) { view, errorText in
+            view.alertView(isShowing: $model.showError, errorText: errorText)
+        }
         .fitIPadToReadableContentGuide()
     }
     
