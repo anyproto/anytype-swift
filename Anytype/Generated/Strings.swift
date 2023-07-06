@@ -20,8 +20,6 @@ internal enum Loc {
   internal static let accessToSecretPhraseFromKeychain = Loc.tr("Localizable", "Access to secret phrase from keychain", fallback: "Access to secret phrase from keychain")
   /// Account
   internal static let account = Loc.tr("Localizable", "Account", fallback: "Account")
-  /// Account & data
-  internal static let accountData = Loc.tr("Localizable", "Account & data", fallback: "Account & data")
   /// Account deleted
   internal static let accountDeleted = Loc.tr("Localizable", "Account deleted", fallback: "Account deleted")
   /// Account is deleted
@@ -150,13 +148,6 @@ internal enum Loc {
   internal static let chooseLayoutType = Loc.tr("Localizable", "Choose layout type", fallback: "Choose layout type")
   /// Clear
   internal static let clear = Loc.tr("Localizable", "Clear", fallback: "Clear")
-  /// Clear cache
-  internal static let clearCache = Loc.tr("Localizable", "Clear cache", fallback: "Clear cache")
-  /// All media files will be deleted from your current device.
-  /// They can be downloaded again from a backup node or another device
-  internal static let clearCacheDescription = Loc.tr("Localizable", "Clear cache description", fallback: "All media files will be deleted from your current device.\nThey can be downloaded again from a backup node or another device")
-  /// Clear file cache
-  internal static let clearFileCache = Loc.tr("Localizable", "Clear file cache", fallback: "Clear file cache")
   /// Code
   internal static let code = Loc.tr("Localizable", "Code", fallback: "Code")
   /// Capture code snippet
@@ -201,8 +192,6 @@ internal enum Loc {
   internal static func createRelation(_ p1: Any) -> String {
     return Loc.tr("Localizable", "Create relation", String(describing: p1), fallback: "Create relation ‘%@’")
   }
-  /// Data
-  internal static let data = Loc.tr("Localizable", "Data", fallback: "Data")
   /// Date
   internal static let date = Loc.tr("Localizable", "Date", fallback: "Date")
   /// Plural format key: "This account will be deleted %#@days@"
@@ -655,22 +644,16 @@ internal enum Loc {
     internal static func analyticsId(_ p1: Any) -> String {
       return Loc.tr("Localizable", "About.analyticsId", String(describing: p1), fallback: "Analytics ID: %@")
     }
-    /// Analytics ID
-    internal static let analyticsIdLegacy = Loc.tr("Localizable", "About.analyticsIdLegacy", fallback: "Analytics ID")
     /// Anytype Community
     internal static let anytypeCommunity = Loc.tr("Localizable", "About.AnytypeCommunity", fallback: "Anytype Community")
     /// App version: %@
     internal static func appVersion(_ p1: Any) -> String {
       return Loc.tr("Localizable", "About.AppVersion", String(describing: p1), fallback: "App version: %@")
     }
-    /// App version
-    internal static let appVersionLegacy = Loc.tr("Localizable", "About.AppVersionLegacy", fallback: "App version")
     /// Build number: %@
     internal static func buildNumber(_ p1: Any) -> String {
       return Loc.tr("Localizable", "About.BuildNumber", String(describing: p1), fallback: "Build number: %@")
     }
-    /// Build number
-    internal static let buildNumberLegacy = Loc.tr("Localizable", "About.BuildNumberLegacy", fallback: "Build number")
     /// Contact Us
     internal static let contactUs = Loc.tr("Localizable", "About.ContactUs", fallback: "Contact Us")
     /// Device: %@
@@ -691,8 +674,6 @@ internal enum Loc {
     internal static func library(_ p1: Any) -> String {
       return Loc.tr("Localizable", "About.Library", String(describing: p1), fallback: "Library version: %@")
     }
-    /// Library
-    internal static let libraryLegacy = Loc.tr("Localizable", "About.LibraryLegacy", fallback: "Library")
     /// OS version: %@
     internal static func osVersion(_ p1: Any) -> String {
       return Loc.tr("Localizable", "About.OSVersion", String(describing: p1), fallback: "OS version: %@")

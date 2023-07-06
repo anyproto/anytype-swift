@@ -106,17 +106,13 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
     }
     
     func delete(objectIds: [BlockId]) {
-        if FeatureFlags.binConfirmAlert {
-            AnytypeAnalytics.instance().logShowDeletionWarning(route: .bin)
-            let alert = BottomAlert.binConfirmation(count: objectIds.count) { [objectIds, weak self] in
-                Task { [weak self] in
-                    try? await self?.objectActionService.delete(objectIds: objectIds, route: .bin)
-                }
+        AnytypeAnalytics.instance().logShowDeletionWarning(route: .bin)
+        let alert = BottomAlert.binConfirmation(count: objectIds.count) { [objectIds, weak self] in
+            Task { [weak self] in
+                try? await self?.objectActionService.delete(objectIds: objectIds, route: .bin)
             }
-            alertOpener.showFloatAlert(model: alert)
-        } else {
-            Task { try? await objectActionService.delete(objectIds: objectIds, route: .bin) }
         }
+        alertOpener.showFloatAlert(model: alert)
         UISelectionFeedbackGenerator().selectionChanged()
     }
     

@@ -44,10 +44,6 @@ final class SettingsAccountViewModel: ObservableObject {
         output?.onRecoveryPhraseSelected()
     }
     
-    func onClearTap() {
-        output?.onClearCacheSelected()
-    }
-    
     func onDeleteAccountTap() {
         output?.onDeleteAccountSelected()
     }
