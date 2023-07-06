@@ -1261,23 +1261,17 @@ internal enum Loc {
   }
   internal enum LinkAppearance {
     internal enum Description {
-      internal enum Added {
-        /// Show only added description
-        internal static let subtitle = Loc.tr("Localizable", "LinkAppearance.Description.Added.Subtitle", fallback: "Show only added description")
-        /// Only Added
-        internal static let title = Loc.tr("Localizable", "LinkAppearance.Description.Added.Title", fallback: "Only Added")
-      }
       internal enum Content {
-        /// Show first sentenses of the object
-        internal static let subtitle = Loc.tr("Localizable", "LinkAppearance.Description.Content.Subtitle", fallback: "Show first sentenses of the object")
         /// Content preview
         internal static let title = Loc.tr("Localizable", "LinkAppearance.Description.Content.Title", fallback: "Content preview")
       }
       internal enum None {
-        /// Don't show description
-        internal static let subtitle = Loc.tr("Localizable", "LinkAppearance.Description.None.Subtitle", fallback: "Don't show description")
         /// None
         internal static let title = Loc.tr("Localizable", "LinkAppearance.Description.None.Title", fallback: "None")
+      }
+      internal enum Object {
+        /// Object description
+        internal static let title = Loc.tr("Localizable", "LinkAppearance.Description.Object.Title", fallback: "Object description")
       }
     }
     internal enum ObjectType {
