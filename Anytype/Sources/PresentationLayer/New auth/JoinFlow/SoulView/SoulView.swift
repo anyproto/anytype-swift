@@ -44,7 +44,7 @@ struct SoulView: View {
         )
             .disableAutocorrection(true)
             .textContentType(.password)
-            .autocapitalization(.none)
+            .autocapitalization(.sentences)
             .font(AnytypeFontBuilder.font(anytypeFont: .authInput))
             .foregroundColor(.Auth.inputText)
             .padding(EdgeInsets(horizontal: 22, vertical: 18))
