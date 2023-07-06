@@ -3905,7 +3905,6 @@
 		1244793927DC61E400581174 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				2A730A702940BB2400E51335 /* Rows */,
 				1244791327D8A37000581174 /* NewSearchView.swift */,
 				1244794027DC735A00581174 /* NewSearchView+ListModel.swift */,
 				125683F327DF8366003A8251 /* NewSearchView+AddButtonModel.swift */,
@@ -5074,13 +5073,6 @@
 				2AA0C43C2A013EB500B9C108 /* WidgetObjectListFilesViewModel.swift */,
 			);
 			path = Internal;
-			sourceTree = "<group>";
-		};
-		2A730A702940BB2400E51335 /* Rows */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Rows;
 			sourceTree = "<group>";
 		};
 		2A730A712940BBF100E51335 /* List */ = {

@@ -5,8 +5,8 @@ import Combine
 final class StatusSearchViewModel {
     
     let selectionMode: NewSearchViewModel.SelectionMode
-    let viewStateSubject = PassthroughSubject<NewSearchViewState, Never>()
     
+    private let viewStateSubject = PassthroughSubject<NewSearchViewState, Never>()
     private var selectedStatusesIds: [String] = []
     private var statuses: [Relation.Status.Option] = []
     
@@ -32,6 +32,8 @@ final class StatusSearchViewModel {
 }
 
 extension StatusSearchViewModel: NewInternalSearchViewModelProtocol {
+    
+    var viewStatePublisher: AnyPublisher<NewSearchViewState, Never> { viewStateSubject.eraseToAnyPublisher() }
     
     func search(text: String) async throws {
         let result = try await interactor.search(text: text)

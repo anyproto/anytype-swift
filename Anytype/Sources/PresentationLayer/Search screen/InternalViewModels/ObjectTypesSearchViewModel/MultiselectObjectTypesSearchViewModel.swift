@@ -7,8 +7,8 @@ import AnytypeCore
 final class MultiselectObjectTypesSearchViewModel {
     
     let selectionMode: NewSearchViewModel.SelectionMode = .multipleItems()
-    let viewStateSubject = PassthroughSubject<NewSearchViewState, Never>()
     
+    private let viewStateSubject = PassthroughSubject<NewSearchViewState, Never>()
     private var objects: [ObjectDetails] = []
     private var selectedObjectTypeIds: [String] = []
     
@@ -28,6 +28,8 @@ final class MultiselectObjectTypesSearchViewModel {
 }
 
 extension MultiselectObjectTypesSearchViewModel: NewInternalSearchViewModelProtocol {
+    
+    var viewStatePublisher: AnyPublisher<NewSearchViewState, Never> { viewStateSubject.eraseToAnyPublisher() }
     
     func search(text: String) async throws {
         let objects = try await interactor.search(text: text)

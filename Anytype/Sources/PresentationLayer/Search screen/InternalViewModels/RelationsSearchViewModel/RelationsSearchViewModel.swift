@@ -11,8 +11,9 @@ final class RelationsSearchViewModel: NewInternalSearchViewModelProtocol {
     }
     
     let selectionMode: NewSearchViewModel.SelectionMode = .singleItem
-    let viewStateSubject = PassthroughSubject<NewSearchViewState, Never>()
+    var viewStatePublisher: AnyPublisher<NewSearchViewState, Never> { viewStateSubject.eraseToAnyPublisher() }
     
+    private let viewStateSubject = PassthroughSubject<NewSearchViewState, Never>()
     private var objects: [RelationDetails] = []
     private var marketplaceObjects: [RelationDetails] = []
     
