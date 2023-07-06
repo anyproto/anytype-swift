@@ -96,7 +96,6 @@
 // Settings
 "Wallpaper" = "Wallpaper";
 "Log out" = "Log out";
-"Clear cache description" = "All media files will be deleted from your current device.\nThey can be downloaded again from a backup node or another device";
 
 // Action
 "Restore" = "Restore";
@@ -457,18 +456,15 @@
 "About" = "About";
 "Appearance" = "Appearance";
 "Change wallpaper" = "Change wallpaper";
-"Clear file cache" = "Clear file cache";
 "Application icon" = "Application icon";
 "Mode" = "Mode";
 "copied to clipboard" = "%@ copied to clipboard";
 "Access to secret phrase from keychain" = "Access to secret phrase from keychain";
 "Back up your recovery phrase" = "Back up your recovery phrase";
 "Account" = "Account";
-"Data" = "Data";
 "Access" = "Access";
 "Back up phrase" = "Back up phrase";
 "Removing cache" = "Removing cache";
-"Clear cache" = "Clear cache";
 "Deletion error" = "Deletion error";
 "Start" = "Start";
 "On analytics" = "On analytics";
@@ -551,7 +547,6 @@
 "Failed to sync, trying again..." = "Failed to sync, trying again...";
 "Sync.Status.Version.Outdated.Description" = "Version outdated. Please update Anytype";
 "This object doesn't exist" = "This object doesn't exist";
-"Account & data" = "Account & data";
 "File & Media" = "File & Media";
 "Setting up encrypted storage\nPlease wait" = "Setting up encrypted storage\nPlease wait";
 "These objects will be deleted irrevocably" = "These objects will be deleted irrevocably. You can’t undo this action.";

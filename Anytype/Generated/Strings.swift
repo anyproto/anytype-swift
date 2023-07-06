@@ -20,8 +20,6 @@ internal enum Loc {
   internal static let accessToSecretPhraseFromKeychain = Loc.tr("Localizable", "Access to secret phrase from keychain", fallback: "Access to secret phrase from keychain")
   /// Account
   internal static let account = Loc.tr("Localizable", "Account", fallback: "Account")
-  /// Account & data
-  internal static let accountData = Loc.tr("Localizable", "Account & data", fallback: "Account & data")
   /// Account deleted
   internal static let accountDeleted = Loc.tr("Localizable", "Account deleted", fallback: "Account deleted")
   /// Account is deleted
@@ -150,13 +148,6 @@ internal enum Loc {
   internal static let chooseLayoutType = Loc.tr("Localizable", "Choose layout type", fallback: "Choose layout type")
   /// Clear
   internal static let clear = Loc.tr("Localizable", "Clear", fallback: "Clear")
-  /// Clear cache
-  internal static let clearCache = Loc.tr("Localizable", "Clear cache", fallback: "Clear cache")
-  /// All media files will be deleted from your current device.
-  /// They can be downloaded again from a backup node or another device
-  internal static let clearCacheDescription = Loc.tr("Localizable", "Clear cache description", fallback: "All media files will be deleted from your current device.\nThey can be downloaded again from a backup node or another device")
-  /// Clear file cache
-  internal static let clearFileCache = Loc.tr("Localizable", "Clear file cache", fallback: "Clear file cache")
   /// Code
   internal static let code = Loc.tr("Localizable", "Code", fallback: "Code")
   /// Capture code snippet
@@ -201,8 +192,6 @@ internal enum Loc {
   internal static func createRelation(_ p1: Any) -> String {
     return Loc.tr("Localizable", "Create relation", String(describing: p1), fallback: "Create relation ‘%@’")
   }
-  /// Data
-  internal static let data = Loc.tr("Localizable", "Data", fallback: "Data")
   /// Date
   internal static let date = Loc.tr("Localizable", "Date", fallback: "Date")
   /// Plural format key: "This account will be deleted %#@days@"

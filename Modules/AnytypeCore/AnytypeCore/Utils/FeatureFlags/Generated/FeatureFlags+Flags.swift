@@ -22,10 +22,6 @@ public extension FeatureFlags {
         value(for: .migrationGuide)
     }
 
-    static var fileStorage: Bool {
-        value(for: .fileStorage)
-    }
-
     static var newAuthorization: Bool {
         value(for: .newAuthorization)
     }
@@ -84,7 +80,6 @@ public extension FeatureFlags {
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
         .migrationGuide,
-        .fileStorage,
         .newAuthorization,
         .sortIncludeTime,
         .binConfirmAlert,
