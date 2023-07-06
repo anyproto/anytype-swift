@@ -37,9 +37,7 @@ struct AuthView: View {
     
     private var greetings: some View {
         VStack(alignment: .center, spacing: 0) {
-            AnytypeText(Loc.Auth.Welcome.title, style: .authTitle, color: .Text.primary)
-                .multilineTextAlignment(.center)
-                .opacity(0.9)
+            Image(asset: .theEverythingApp)
                 .onTapGesture(count: 10) {
                     model.showDebugMenu.toggle()
                 }

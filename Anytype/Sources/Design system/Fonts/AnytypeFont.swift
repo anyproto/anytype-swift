@@ -41,7 +41,6 @@ enum AnytypeFont: CaseIterable {
     case button1Regular
     case button1Medium
     
-    case authTitle
     case authBody
     case authCaption
     case authInput
@@ -56,15 +55,12 @@ enum AnytypeFont: CaseIterable {
     enum FontName: String {
         case plex = "IBMPlexMono"
         case inter = "Inter"
-        case riccione = "Riccione-Xlight"
     }
 
     var fontName: FontName {
         switch self {
         case .codeBlock:
             return .plex
-        case .authTitle:
-            return .riccione
         default:
             return .inter
         }
@@ -86,8 +82,6 @@ enum AnytypeFont: CaseIterable {
             return 12
         case .caption2Regular, .caption2Medium:
             return 11
-        case .authTitle:
-            return 60
         case .authBody:
             return 14
         }
@@ -97,7 +91,7 @@ enum AnytypeFont: CaseIterable {
         switch self {
         case .title, .heading, .subheading:
             return .bold
-        case .previewTitle2Regular, .bodyRegular, .relation1Regular, .calloutRegular, .relation2Regular, .relation3Regular, .codeBlock, .uxBodyRegular, .uxTitle2Regular, .uxCalloutRegular, .caption1Regular, .caption2Regular, .button1Regular, .authTitle, .authBody, .authCaption, .authInput:
+        case .previewTitle2Regular, .bodyRegular, .relation1Regular, .calloutRegular, .relation2Regular, .relation3Regular, .codeBlock, .uxBodyRegular, .uxTitle2Regular, .uxCalloutRegular, .caption1Regular, .caption2Regular, .button1Regular, .authBody, .authCaption, .authInput:
             return .regular
         case .previewTitle1Medium, .previewTitle2Medium, .uxCalloutMedium, .caption2Medium, .caption1Medium, .uxTitle2Medium, .button1Medium:
             return .medium
@@ -124,8 +118,6 @@ enum AnytypeFont: CaseIterable {
             return 15
         case .caption2Regular, .caption2Medium:
             return 14
-        case .authTitle:
-            return 60
         }
     }
 
@@ -148,8 +140,6 @@ enum AnytypeFont: CaseIterable {
             return -0.07
         case .relation3Regular:
             return 0
-        case .authTitle:
-            return -0.3
         }
     }
 
