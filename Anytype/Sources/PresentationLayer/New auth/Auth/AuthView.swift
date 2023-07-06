@@ -29,9 +29,6 @@ struct AuthView: View {
             Spacer.fixedHeight(14)
         }
         .padding(.horizontal, 30)
-        .ifLet(model.errorText) { view, errorText in
-            view.alertView(isShowing: $model.showError, errorText: errorText)
-        }
         .ignoresSafeArea(.keyboard)
     }
     
@@ -59,7 +56,6 @@ struct AuthView: View {
         HStack(spacing: 13) {
             StandardButton(
                 Loc.Auth.join,
-                inProgress: model.creatingAccountInProgress,
                 style: .primaryLarge,
                 action: {
                     model.onJoinButtonTap()
@@ -98,13 +94,7 @@ struct AuthView: View {
 struct AuthView_Previews : PreviewProvider {
     static var previews: some View {
         AuthView(
-            model: AuthViewModel(
-                state: JoinFlowState(),
-                output: nil,
-                authService: DI.preview.serviceLocator.authService(),
-                seedService: DI.preview.serviceLocator.seedService(),
-                usecaseService: DI.preview.serviceLocator.usecaseService()
-            )
+            model: AuthViewModel(output: nil)
         )
     }
 }
