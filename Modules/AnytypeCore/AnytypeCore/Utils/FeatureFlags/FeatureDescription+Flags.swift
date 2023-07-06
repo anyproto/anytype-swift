@@ -34,12 +34,6 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
-    static let sortIncludeTime = FeatureDescription(
-        title: "Sort include time",
-        type: .feature(author: "m@anytype.io", releaseVersion: "0.22.0"),
-        defaultValue: true
-    )
-    
     static let binConfirmAlert = FeatureDescription(
         title: "Bin confirm alert",
         type: .feature(author: "m@anytype.io", releaseVersion: "0.22.0"),

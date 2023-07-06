@@ -26,10 +26,6 @@ public extension FeatureFlags {
         value(for: .newAuthorization)
     }
 
-    static var sortIncludeTime: Bool {
-        value(for: .sortIncludeTime)
-    }
-
     static var binConfirmAlert: Bool {
         value(for: .binConfirmAlert)
     }
@@ -81,7 +77,6 @@ public extension FeatureFlags {
         .dndOnCollectionsAndSets,
         .migrationGuide,
         .newAuthorization,
-        .sortIncludeTime,
         .binConfirmAlert,
         .fixSIGPIPECrash,
         .compactListWidget,
