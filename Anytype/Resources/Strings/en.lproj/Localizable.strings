@@ -280,11 +280,8 @@
 "Card" = "Card";
 
 "LinkAppearance.Description.None.Title" = "None";
-"LinkAppearance.Description.Added.Title" = "Only Added";
+"LinkAppearance.Description.Object.Title" = "Object description";
 "LinkAppearance.Description.Content.Title" = "Content preview";
-"LinkAppearance.Description.None.Subtitle" = "Don't show description";
-"LinkAppearance.Description.Added.Subtitle" = "Show only added description";
-"LinkAppearance.Description.Content.Subtitle" = "Show first sentenses of the object";
 "LinkAppearance.ObjectType.Title" = "Object type";
 
 // MARK: - Sets: Sorts
