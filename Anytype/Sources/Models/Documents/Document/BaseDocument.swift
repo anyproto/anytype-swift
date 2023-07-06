@@ -46,7 +46,8 @@ final class BaseDocument: BaseDocumentProtocol {
             relationsDetails: objectRelationsDetails,
             typeRelationsDetails: typeRelationsDetails,
             objectId: objectId,
-            isObjectLocked: isLocked
+            isObjectLocked: isLocked,
+            storage: detailsStorage
         )
     }
     
@@ -86,7 +87,7 @@ final class BaseDocument: BaseDocumentProtocol {
         )
         
         self.blockActionsService = ServiceLocator.shared.blockActionsServiceSingle()
-        self.relationBuilder = RelationsBuilder(storage: detailsStorage)
+        self.relationBuilder = RelationsBuilder()
         
         setup()
     }
