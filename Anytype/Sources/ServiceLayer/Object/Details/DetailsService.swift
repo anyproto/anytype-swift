@@ -16,25 +16,20 @@ final class DetailsService {
 }
 
 extension DetailsService: DetailsServiceProtocol {
-    
-    func updateBundledDetails(_ bundledDetails: [BundledDetails]) {
-        service.updateBundledDetails(contextID: objectId, details: bundledDetails)
-    }
-    
     func updateBundledDetails(_ bundledDetails: [BundledDetails]) async throws {
         try await service.updateBundledDetails(contextID: objectId, details: bundledDetails)
     }
     
-    func updateBundledDetails(contextID: String, bundledDetails: [BundledDetails]) {
-        service.updateBundledDetails(contextID: contextID, details: bundledDetails)
+    func updateBundledDetails(contextID: String, bundledDetails: [BundledDetails]) async throws {
+        try await service.updateBundledDetails(contextID: contextID, details: bundledDetails)
     }
     
-    func updateDetails(contextId: String, relationKey: String, value: DataviewGroupValue) {
-        service.updateDetails(contextId: contextId, relationKey: relationKey, value: value)
+    func updateDetails(contextId: String, relationKey: String, value: DataviewGroupValue) async throws {
+        try await service.updateDetails(contextId: contextId, relationKey: relationKey, value: value)
     }
 
-    func setLayout(_ detailsLayout: DetailsLayout) {
-        service.updateLayout(contextID: objectId, value: detailsLayout.rawValue)
+    func setLayout(_ detailsLayout: DetailsLayout) async throws {
+        try await service.updateLayout(contextID: objectId, value: detailsLayout.rawValue)
     }
     
     func setCover(source: FileUploadingSource) async throws {

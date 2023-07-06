@@ -28,13 +28,13 @@ final class RelationsSearchInteractor {
         try await searchService.searchMarketplaceRelations(text: text, includeInstalled: false)
     }
     
-    func installRelation(objectId: String) -> RelationDetails? {
-        return workspaceService.installObject(objectId: objectId)
+    func installRelation(objectId: String) async throws -> RelationDetails? {
+        try await workspaceService.installObject(objectId: objectId)
             .map { RelationDetails(objectDetails: $0) }
     }
     
-    func addRelationToObject(relation: RelationDetails) -> Bool {
-        return relationsService.addRelations(relationsDetails: [relation])
+    func addRelationToObject(relation: RelationDetails) async throws {
+        try await relationsService.addRelations(relationsDetails: [relation])
     }
     
     func addRelationToDataview(relation: RelationDetails, activeViewId: String) async throws {

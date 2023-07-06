@@ -3,6 +3,7 @@ import SwiftUI
 import FloatingPanel
 import AnytypeCore
 
+@MainActor
 final class RelationOptionsListViewModel: ObservableObject {
             
     @Published var selectedOptions: [ListRowConfiguration] = []
@@ -53,21 +54,26 @@ extension RelationOptionsListViewModel {
     
     func delete(_ indexSet: IndexSet) {
         selectedOptions.remove(atOffsets: indexSet)
-        service.updateRelation(
-            relationKey: relationKey,
-            value: selectedOptions.map { $0.id }.protobufValue
-        )
-        AnytypeAnalytics.instance().logChangeRelationValue(isEmpty: selectedOptions.isEmpty, type: analyticsType)
-        updateLayout()
+        Task {
+            try await service.updateRelation(
+                relationKey: relationKey,
+                value: selectedOptions.map { $0.id }.protobufValue
+            )
+            AnytypeAnalytics.instance().logChangeRelationValue(isEmpty: selectedOptions.isEmpty, type: analyticsType)
+            updateLayout()
+        }
     }
     
     func move(source: IndexSet, destination: Int) {
         selectedOptions.move(fromOffsets: source, toOffset: destination)
-        service.updateRelation(
-            relationKey: relationKey,
-            value: selectedOptions.map { $0.id }.protobufValue
-        )
-        AnytypeAnalytics.instance().logChangeRelationValue(isEmpty: selectedOptions.isEmpty, type: analyticsType)
+        
+        Task {
+            try await service.updateRelation(
+                relationKey: relationKey,
+                value: selectedOptions.map { $0.id }.protobufValue
+            )
+            AnytypeAnalytics.instance().logChangeRelationValue(isEmpty: selectedOptions.isEmpty, type: analyticsType)
+        }
     }
     
     func didTapAddButton() {
@@ -91,19 +97,20 @@ extension RelationOptionsListViewModel {
 private extension RelationOptionsListViewModel {
     
     func handleNewOptionIds(_ ids: [String]) {
-        let newSelectedOptionsIds = selectedOptionIds + ids
-        
-        service.updateRelation(
-            relationKey: relationKey,
-            value: newSelectedOptionsIds.protobufValue
-        )
-        isSearchPresented = false
-        AnytypeAnalytics.instance().logChangeRelationValue(isEmpty: newSelectedOptionsIds.isEmpty, type: analyticsType)
-        popup?.close()
+        Task {
+            let newSelectedOptionsIds = selectedOptionIds + ids
+            try await service.updateRelation(
+                relationKey: relationKey,
+                value: newSelectedOptionsIds.protobufValue
+            )
+            isSearchPresented = false
+            AnytypeAnalytics.instance().logChangeRelationValue(isEmpty: newSelectedOptionsIds.isEmpty, type: analyticsType)
+            popup?.close()
+        }
     }
     
     func handleCreateOption(title: String) {
-        Task { @MainActor in
+        Task {
             let optionId = try await service.addRelationOption(relationKey: relationKey, optionText: title)
             guard let optionId = optionId else { return}
 

@@ -72,10 +72,12 @@ extension NewRelationViewModel {
             isDeleted: false
         )
         
-        guard let createRelation = service.createRelation(relationDetails: relationDetails) else { return }
-        toastPresenter.show(message: Loc.Relation.addedToLibrary(createRelation.name))
-        UINotificationFeedbackGenerator().notificationOccurred(.success)
-        output?.didCreateRelation(createRelation)
+        Task { @MainActor [weak self] in
+            guard let createRelation = try await self?.service.createRelation(relationDetails: relationDetails) else { return }
+            self?.toastPresenter.show(message: Loc.Relation.addedToLibrary(createRelation.name))
+            UINotificationFeedbackGenerator().notificationOccurred(.success)
+            self?.output?.didCreateRelation(createRelation)
+        }
     }
     
 }

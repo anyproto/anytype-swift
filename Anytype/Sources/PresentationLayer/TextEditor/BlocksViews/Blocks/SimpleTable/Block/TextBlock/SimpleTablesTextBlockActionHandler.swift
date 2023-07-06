@@ -201,7 +201,9 @@ struct SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
     }
 
     private func copy(range: NSRange) {
-        pasteboardService.copy(blocksIds: [info.id], selectedTextRange: range)
+        Task {
+            try await pasteboardService.copy(blocksIds: [info.id], selectedTextRange: range)
+        }
     }
 
     private func createEmptyBlock() {

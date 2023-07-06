@@ -229,7 +229,9 @@ final class BlockViewModelBuilder {
                     self.router.showTypes(
                         selectedObjectId: self.document.details?.type,
                         onSelect: { [weak self] id in
-                            self?.handler.setObjectTypeId(id)
+                            Task { [weak self] in
+                                try await self?.handler.setObjectTypeId(id)
+                            }
                         }
                     )
                 } else {
@@ -324,9 +326,9 @@ final class BlockViewModelBuilder {
 
     private func showBookmarkBar(info: BlockInformation) {
         router.showBookmarkBar() { [weak self] url in
-            guard let self = self else { return }
-
-            self.handler.fetch(url: url, blockId: info.id)
+            Task { [weak self] in
+                try await self?.handler.fetch(url: url, blockId: info.id)
+            }
         }
     }
 }

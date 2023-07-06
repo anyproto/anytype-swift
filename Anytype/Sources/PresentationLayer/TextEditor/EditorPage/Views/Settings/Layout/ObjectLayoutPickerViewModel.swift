@@ -26,8 +26,10 @@ final class ObjectLayoutPickerViewModel: ObservableObject {
     
     func didSelectLayout(_ layout: DetailsLayout) {
         AnytypeAnalytics.instance().logLayoutChange(layout)
-        detailsService.setLayout(layout)
-        UISelectionFeedbackGenerator().selectionChanged()
+        Task { @MainActor in
+            try await detailsService.setLayout(layout)
+            UISelectionFeedbackGenerator().selectionChanged()
+        }
     }
     
     // MARK: - Private

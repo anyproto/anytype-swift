@@ -10,7 +10,7 @@ protocol BlockTableServiceProtocol {
         position: BlockPosition,
         rowsCount: Int,
         columnsCount: Int
-    )
+    ) async throws
 
     func rowListFill(
         contextId: BlockId,
@@ -40,9 +40,9 @@ final class BlockTableService: BlockTableServiceProtocol {
         position: BlockPosition,
         rowsCount: Int,
         columnsCount: Int
-    ) {
+    ) async throws {
         AnytypeAnalytics.instance().logCreateBlock(type: AnalyticsConstants.simpleTableBlock)
-        _ = try? ClientCommands.blockTableCreate(.with {
+        try await ClientCommands.blockTableCreate(.with {
             $0.contextID = contextId
             $0.targetID = targetId
             $0.position = position.asMiddleware

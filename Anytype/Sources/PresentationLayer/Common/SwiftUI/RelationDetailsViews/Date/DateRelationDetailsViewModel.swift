@@ -82,10 +82,11 @@ private extension DateRelationDetailsViewModel {
             }
         }()
         
-        service.updateRelation(relationKey: relation.key, value: value)
-        AnytypeAnalytics.instance().logChangeRelationValue(isEmpty: selectedValue == .noDate, type: analyticsType)
+        Task {
+            try await service.updateRelation(relationKey: relation.key, value: value)
+            AnytypeAnalytics.instance().logChangeRelationValue(isEmpty: selectedValue == .noDate, type: analyticsType)
+        }
     }
-     
 }
 
 private extension DateRelationValue {
