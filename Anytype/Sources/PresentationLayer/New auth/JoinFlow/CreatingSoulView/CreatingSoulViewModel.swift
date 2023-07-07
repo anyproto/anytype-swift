@@ -7,8 +7,8 @@ final class CreatingSoulViewModel: ObservableObject {
     @Published var profileIcon: ObjectIconImage?
     @Published var spaceIcon: ObjectIconImage?
     
-    @Published var showProfile = false
-    @Published var showSpace = false
+    @Published var showProfileIcon = false
+    @Published var showSpaceIcon = false
     
     let state: JoinFlowState
     
@@ -26,8 +26,6 @@ final class CreatingSoulViewModel: ObservableObject {
         self.output = output
         self.accountManager = accountManager
         self.subscriptionService = subscriptionService
-        
-        setupSubscription()
     }
     
     func onAppear() {
@@ -39,14 +37,14 @@ final class CreatingSoulViewModel: ObservableObject {
         guard profileIcon != nil, spaceIcon != nil else { return }
         
         let animationTime = 0.5
-        let finishAnimationTime = 2.0
+        let finishAnimationTime = 1.5
 
         withAnimation(.easeInOut(duration: animationTime).delay(animationTime)) { [weak self] in
-            self?.showProfile = true
+            self?.showProfileIcon = true
         }
 
         withAnimation(.easeInOut(duration: animationTime).speed(0.5).delay(animationTime * 2)) { [weak self] in
-            self?.showSpace = true
+            self?.showSpaceIcon = true
         }
         
         let totalTime = animationTime * 3 + finishAnimationTime
@@ -57,7 +55,7 @@ final class CreatingSoulViewModel: ObservableObject {
        }
     }
     
-    private func setupSubscription() {
+    func setupSubscription() {
         subscriptionService.startSubscription(
             subIdPrefix: Constants.subProfileId,
             objectId: accountManager.account.info.profileObjectID

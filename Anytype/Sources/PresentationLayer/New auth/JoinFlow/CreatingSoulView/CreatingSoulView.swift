@@ -12,19 +12,18 @@ struct CreatingSoulView: View {
         .task {
             try? await Task.sleep(seconds: 0.5)
             showSpaceTitle.toggle()
+            model.setupSubscription()
         }
     }
     
     private func content(width: CGFloat) -> some View {
         VStack(alignment: .center, spacing: 0) {
-            if showSpaceTitle {
-                AnytypeText(
-                    model.showSpace ? Loc.Auth.JoinFlow.Setting.Space.title : Loc.Auth.JoinFlow.Creating.Soul.title,
-                    style: .uxTitle1Semibold,
-                    color: .Text.primary
-                )
-                .opacity(0.9)
-            }
+            AnytypeText(
+                model.showSpaceIcon ? Loc.Auth.JoinFlow.Setting.Space.title : Loc.Auth.JoinFlow.Creating.Soul.title,
+                style: .uxTitle1Semibold,
+                color: .Text.primary
+            )
+            .opacity(showSpaceTitle ? 0.9 : 0)
             
             Spacer.fixedHeight(64)
 
@@ -43,18 +42,18 @@ struct CreatingSoulView: View {
                 Spacer.fixedHeight(Constants.imageDimension / 2)
                 Rectangle().foregroundColor(.Auth.body)
                     .frame(
-                        width: model.showSpace ? width / Constants.scaleFactor : 0,
+                        width: model.showSpaceIcon ? width / Constants.scaleFactor : 0,
                         height: 2
                     )
-                    .opacity(model.showSpace ? 1 : 0)
-                    .padding(.trailing, Constants.imageDimension)
+                    .opacity(model.showSpaceIcon ? 1 : 0)
+                    .padding(.trailing, Constants.imageDimension / 2)
             }
-            if model.showProfile {
+            if model.showProfileIcon {
                 space
-                    .offset(x: model.showSpace ? width / (Constants.scaleFactor * 2) : 0)
-                    .opacity(model.showSpace ? 1 : 0)
+                    .offset(x: model.showSpaceIcon ? width / (Constants.scaleFactor * 2) : 0)
+                    .opacity(model.showSpaceIcon ? 1 : 0)
                 soul
-                    .offset(x: model.showSpace ? -width / (Constants.scaleFactor * 2) : 0)
+                    .offset(x: model.showSpaceIcon ? -width / (Constants.scaleFactor * 2) : 0)
             }
         }
     }
