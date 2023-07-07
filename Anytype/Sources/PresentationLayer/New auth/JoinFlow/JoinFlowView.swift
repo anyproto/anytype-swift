@@ -10,6 +10,7 @@ struct JoinFlowView: View {
             content(height: geo.size.height)
         }
         .customBackSwipe {
+            guard !model.disableBackAction else { return }
             if model.step.isFirst {
                  presentationMode.dismiss()
              } else {
@@ -66,6 +67,7 @@ struct JoinFlowView: View {
             Image(asset: .backArrow)
                 .foregroundColor(.Text.tertiary)
         }
+        .disabled(model.disableBackAction)
     }
     
     private var counter : some View {

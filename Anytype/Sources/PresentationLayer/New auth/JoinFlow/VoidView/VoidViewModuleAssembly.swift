@@ -21,9 +21,9 @@ final class VoidViewModuleAssembly: VoidViewModuleAssemblyProtocol {
             model: VoidViewModel(
                 state: state,
                 output: output,
-                authService: serviceLocator.authService(),
-                seedService: serviceLocator.seedService(),
-                usecaseService: serviceLocator.usecaseService()
+                authService: self.serviceLocator.authService(),
+                seedService: self.serviceLocator.seedService(),
+                usecaseService: self.serviceLocator.usecaseService()
             )
         ).eraseToAnyView()
     }

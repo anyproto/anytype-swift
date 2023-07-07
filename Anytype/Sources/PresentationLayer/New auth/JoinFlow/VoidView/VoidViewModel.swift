@@ -26,6 +26,7 @@ final class VoidViewModel: ObservableObject {
     }
     
     func onNextButtonTap() {
+        output?.disableBackAction(true)
         createAccount()
     }
     
@@ -51,11 +52,13 @@ final class VoidViewModel: ObservableObject {
     
     private func createAccountSuccess() {
         creatingAccountInProgress = false
+        output?.disableBackAction(false)
         output?.onNext()
     }
     
     private func createAccountError(_ error: Error) {
         creatingAccountInProgress = false
+        output?.disableBackAction(false)
         output?.onError(error)
     }
     
