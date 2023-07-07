@@ -47,7 +47,7 @@ final class WindowManager {
             let coordinator = authCoordinatorAssembly.make()
             self.authCoordinator = coordinator
             let authView = coordinator.startFlow()
-            startNewRootView(authView, preferredColorScheme: .dark)
+            startNewRootView(authView, preferredColorScheme: .dark, disableBackSwipe: true)
         } else {
             let legacyAuthView = legacyAuthViewAssembly.createAuthView()
             startNewRootView(legacyAuthView)
@@ -74,9 +74,15 @@ final class WindowManager {
     
     // MARK: - Private
     
-    private func startNewRootView<ViewType: View>(_ view: ViewType, preferredColorScheme: UIUserInterfaceStyle? = nil) {
+    private func startNewRootView<ViewType: View>(
+        _ view: ViewType,
+        preferredColorScheme: UIUserInterfaceStyle? = nil,
+        disableBackSwipe: Bool = false
+    ) {
         
-        let controller = UINavigationController(rootViewController: AnytypeHostingController(rootView: view))
+        let controller = BaseNavigationController(rootViewController: AnytypeHostingController(rootView: view))
+        controller.disableBackSwipe = disableBackSwipe
+        
         if let preferredColorScheme {
             controller.overrideUserInterfaceStyle = preferredColorScheme
         }

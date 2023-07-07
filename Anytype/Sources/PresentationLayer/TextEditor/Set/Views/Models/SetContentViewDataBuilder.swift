@@ -51,6 +51,7 @@ final class SetContentViewDataBuilder {
         dataView: BlockDataview,
         activeView: DataviewView,
         isObjectLocked: Bool,
+        storage: ObjectDetailsStorage,
         onIconTap: @escaping (ObjectDetails) -> Void,
         onItemTap: @escaping (ObjectDetails) -> Void
     ) -> [SetContentViewItemConfiguration] {
@@ -65,7 +66,8 @@ final class SetContentViewDataBuilder {
             relationsDetails: relationsDetails,
             dataView: dataView,
             activeView: activeView,
-            isObjectLocked: isObjectLocked
+            isObjectLocked: isObjectLocked,
+            storage: storage
         )
         let minHeight = calculateMinHeight(activeView: activeView, items: items)
         let hasCover = activeView.coverRelationKey.isNotEmpty && activeView.type != .kanban
@@ -98,7 +100,8 @@ final class SetContentViewDataBuilder {
         relationsDetails: [RelationDetails],
         dataView: BlockDataview,
         activeView: DataviewView,
-        isObjectLocked: Bool
+        isObjectLocked: Bool,
+        storage: ObjectDetailsStorage
     ) -> [SetContentViewItem] {
         details.map { details in
             let parsedRelations = relationsBuilder
@@ -106,7 +109,8 @@ final class SetContentViewDataBuilder {
                     relationsDetails: relationsDetails,
                     typeRelationsDetails: [],
                     objectId: details.id,
-                    isObjectLocked: isObjectLocked
+                    isObjectLocked: isObjectLocked,
+                    storage: storage
                 )
                 .installed
             let sortedRelations = relationsDetails.compactMap { colum in

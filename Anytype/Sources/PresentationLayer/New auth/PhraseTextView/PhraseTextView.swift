@@ -3,6 +3,7 @@ import SwiftUI
 struct PhraseTextView: UIViewRepresentable {
     @Binding var text: String
     let expandable: Bool
+    let alignTextToCenter: Bool
 
     func makeUIView(context: Context) -> UIPhraseTextView {
         let textView = UIPhraseTextView()
@@ -14,6 +15,6 @@ struct PhraseTextView: UIViewRepresentable {
     }
     
     func updateUIView(_ textView: UIPhraseTextView, context: UIViewRepresentableContext<PhraseTextView>) {
-        textView.update(with: text)
+        textView.update(with: text, alignToCenter: alignTextToCenter)
     }
 }

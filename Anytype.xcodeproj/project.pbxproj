@@ -759,6 +759,7 @@
 		2E412CC8283BCA3E00C973FF /* MediaPickerContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E412CC7283BCA3E00C973FF /* MediaPickerContentType.swift */; };
 		2E412D152847B15C00C973FF /* SetSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E412D142847B15C00C973FF /* SetSort.swift */; };
 		2E4758922A1BC54F00A6FEB9 /* JoinFlowState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E4758912A1BC54F00A6FEB9 /* JoinFlowState.swift */; };
+		2E48ACA32A55D4EF0059CB5C /* CustomBackSwipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E48ACA22A55D4EF0059CB5C /* CustomBackSwipe.swift */; };
 		2E48D74328CF461400CEE69D /* TertiaryPressedBackgroundButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E48D74228CF461400CEE69D /* TertiaryPressedBackgroundButtonStyle.swift */; };
 		2E52DE672A1CDF3D00F16815 /* LineProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E52DE662A1CDF3D00F16815 /* LineProgressBar.swift */; };
 		2E52DE692A1CDF5500F16815 /* LineProgressBarConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E52DE682A1CDF5500F16815 /* LineProgressBarConfiguration.swift */; };
@@ -2243,6 +2244,7 @@
 		2E412CC7283BCA3E00C973FF /* MediaPickerContentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaPickerContentType.swift; sourceTree = "<group>"; };
 		2E412D142847B15C00C973FF /* SetSort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetSort.swift; sourceTree = "<group>"; };
 		2E4758912A1BC54F00A6FEB9 /* JoinFlowState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinFlowState.swift; sourceTree = "<group>"; };
+		2E48ACA22A55D4EF0059CB5C /* CustomBackSwipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBackSwipe.swift; sourceTree = "<group>"; };
 		2E48D74228CF461400CEE69D /* TertiaryPressedBackgroundButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TertiaryPressedBackgroundButtonStyle.swift; sourceTree = "<group>"; };
 		2E52DE662A1CDF3D00F16815 /* LineProgressBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineProgressBar.swift; sourceTree = "<group>"; };
 		2E52DE682A1CDF5500F16815 /* LineProgressBarConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineProgressBarConfiguration.swift; sourceTree = "<group>"; };
@@ -7386,6 +7388,7 @@
 				2A00A73429D19051007BE598 /* ReadableContentGuide.swift */,
 				2A00A73F29D33AA7007BE598 /* TappableArea.swift */,
 				2A00A74129D33B25007BE598 /* EdgeInsets+Helpers.swift */,
+				2E48ACA22A55D4EF0059CB5C /* CustomBackSwipe.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -9807,6 +9810,7 @@
 				12FD9D29276717CF00991886 /* RelationTag.swift in Sources */,
 				53D4088827EC9EFE00495335 /* ObjectPreviewView.swift in Sources */,
 				12EB9AF12771CD6600BA732F /* RelationOptionsListViewModel.swift in Sources */,
+				2E48ACA32A55D4EF0059CB5C /* CustomBackSwipe.swift in Sources */,
 				EA5FB42A266A970F00DCD56C /* MentionObject.swift in Sources */,
 				2E8387C1291A897700506766 /* BlockDataview+Group.swift in Sources */,
 				12C2A59D2757A6E000311854 /* StatusRelationDetailsViewModel.swift in Sources */,

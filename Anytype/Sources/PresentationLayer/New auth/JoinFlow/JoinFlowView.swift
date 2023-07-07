@@ -9,6 +9,13 @@ struct JoinFlowView: View {
         GeometryReader { geo in
             content(height: geo.size.height)
         }
+        .customBackSwipe {
+            if model.step.isFirst {
+                 presentationMode.dismiss()
+             } else {
+                 model.onBack()
+             }
+        }
         .fitIPadToReadableContentGuide()
     }
     

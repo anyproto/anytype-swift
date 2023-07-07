@@ -6,12 +6,6 @@ import AnytypeCore
 
 final class RelationsBuilder {
     
-    private let storage: ObjectDetailsStorage
-    
-    init(storage: ObjectDetailsStorage) {
-        self.storage = storage
-    }
-
     // MARK: - Private variables
     
     private let dateFormatter: DateFormatter = {
@@ -35,7 +29,8 @@ final class RelationsBuilder {
         relationsDetails: [RelationDetails],
         typeRelationsDetails: [RelationDetails],
         objectId: BlockId,
-        isObjectLocked: Bool
+        isObjectLocked: Bool,
+        storage: ObjectDetailsStorage
     ) -> ParsedRelations {
         guard
             let objectDetails = storage.get(id: objectId)
@@ -53,7 +48,8 @@ final class RelationsBuilder {
             let value = relation(
                 relationDetails: relationDetails,
                 details: objectDetails,
-                isObjectLocked: isObjectLocked
+                isObjectLocked: isObjectLocked,
+                storage: storage
             )
             
             if value.isFeatured {
@@ -70,7 +66,8 @@ final class RelationsBuilder {
             return relation(
                 relationDetails: relationDetails,
                 details: objectDetails,
-                isObjectLocked: isObjectLocked
+                isObjectLocked: isObjectLocked,
+                storage: storage
             )
         }
         
@@ -91,7 +88,8 @@ private extension RelationsBuilder {
     func relation(
         relationDetails: RelationDetails,
         details: ObjectDetails,
-        isObjectLocked: Bool
+        isObjectLocked: Bool,
+        storage: ObjectDetailsStorage
     ) -> Relation {
         switch relationDetails.format {
         case .longText:
@@ -116,7 +114,8 @@ private extension RelationsBuilder {
             return statusRelation(
                 relationDetails: relationDetails,
                 details: details,
-                isObjectLocked: isObjectLocked
+                isObjectLocked: isObjectLocked,
+                storage: storage
             )
         case .date:
             return dateRelation(
@@ -128,7 +127,8 @@ private extension RelationsBuilder {
             return fileRelation(
                 relationDetails: relationDetails,
                 details: details,
-                isObjectLocked: isObjectLocked
+                isObjectLocked: isObjectLocked,
+                storage: storage
             )
         case .checkbox:
             return checkboxRelation(
@@ -158,13 +158,15 @@ private extension RelationsBuilder {
             return tagRelation(
                 relationDetails: relationDetails,
                 details: details,
-                isObjectLocked: isObjectLocked
+                isObjectLocked: isObjectLocked,
+                storage: storage
             )
         case .object:
             return objectRelation(
                 relationDetails: relationDetails,
                 details: details,
-                isObjectLocked: isObjectLocked
+                isObjectLocked: isObjectLocked,
+                storage: storage
             )
         case .unrecognized:
             return .text(
@@ -285,7 +287,8 @@ private extension RelationsBuilder {
     func statusRelation(
         relationDetails: RelationDetails,
         details: ObjectDetails,
-        isObjectLocked: Bool
+        isObjectLocked: Bool,
+        storage: ObjectDetailsStorage
     ) -> Relation {
         
         let selectedOption: Relation.Status.Option? = {
@@ -361,7 +364,8 @@ private extension RelationsBuilder {
     func tagRelation(
         relationDetails: RelationDetails,
         details: ObjectDetails,
-        isObjectLocked: Bool
+        isObjectLocked: Bool,
+        storage: ObjectDetailsStorage
     ) -> Relation {
         
         let selectedTags: [Relation.Tag.Option] = {
@@ -392,7 +396,8 @@ private extension RelationsBuilder {
     func objectRelation(
         relationDetails: RelationDetails,
         details: ObjectDetails,
-        isObjectLocked: Bool
+        isObjectLocked: Bool,
+        storage: ObjectDetailsStorage
     ) -> Relation {
         let objectOptions: [Relation.Object.Option] = {
             
@@ -448,7 +453,8 @@ private extension RelationsBuilder {
     func fileRelation(
         relationDetails: RelationDetails,
         details: ObjectDetails,
-        isObjectLocked: Bool
+        isObjectLocked: Bool,
+        storage: ObjectDetailsStorage
     ) -> Relation {
         let fileOptions: [Relation.File.Option] = {
             let values = details.stringArrayValue(for: relationDetails.key)

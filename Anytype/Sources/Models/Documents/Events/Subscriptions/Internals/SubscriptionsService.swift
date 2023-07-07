@@ -11,12 +11,17 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
         let callback: SubscriptionCallback
     }
     
+    // MARK: - Private properties
+    
     private var subscription: AnyCancellable?
     private let toggler: SubscriptionTogglerProtocol
-    private let storage: ObjectDetailsStorage
     
     private var subscribers = [SubscriptionId: Subscriber]()
     private let taskQueue = FIFOQueue()
+    
+    // MARK: - Public properties
+    
+    let storage: ObjectDetailsStorage
     
     init(toggler: SubscriptionTogglerProtocol, storage: ObjectDetailsStorage) {
         self.toggler = toggler

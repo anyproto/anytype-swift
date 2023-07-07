@@ -5,7 +5,6 @@ import ProtobufMessages
 import Combine
 
 public final class ObjectDetailsStorage {
-    public static let shared = ObjectDetailsStorage()
     
     private var storage = SynchronizedDictionary<BlockId, ObjectDetails>()
     

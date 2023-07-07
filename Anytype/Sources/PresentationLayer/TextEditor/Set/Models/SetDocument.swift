@@ -98,7 +98,7 @@ class SetDocument: SetDocumentProtocol {
         self.targetObjectID = targetObjectID
         self.blockId = blockId
         self.dataBuilder = SetContentViewDataBuilder(
-            relationsBuilder: RelationsBuilder(storage: document.detailsStorage),
+            relationsBuilder: RelationsBuilder(),
             detailsStorage: document.detailsStorage,
             relationDetailsStorage: relationDetailsStorage
         )

@@ -18,6 +18,7 @@ struct SetTableViewHeader: View {
                     Spacer.fixedWidth(15)
                     if data.isReadOnlyValue {
                         Image(asset: .relationLockedSmall)
+                            .tint(.Button.active)
                         Spacer.fixedWidth(4)
                     }
                     AnytypeText(data.name, style: .relation2Regular, color: .Text.secondary)
