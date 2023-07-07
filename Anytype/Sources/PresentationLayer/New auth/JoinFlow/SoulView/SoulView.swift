@@ -6,17 +6,7 @@ struct SoulView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            AnytypeText(Loc.Auth.JoinFlow.Soul.title, style: .uxTitle1Semibold, color: .Text.primary)
-                .opacity(0.9)
-            Spacer.fixedHeight(16)
-            
-            input
-            
-            Spacer.fixedHeight(9)
-            AnytypeText(Loc.Auth.JoinFlow.Soul.description, style: .authBody, color: .Auth.body)
-                .multilineTextAlignment(.center)
-                .fixedSize(horizontal: false, vertical: true)
-                .padding(.horizontal, 24)
+            content
             
             Spacer()
             
@@ -34,6 +24,23 @@ struct SoulView: View {
         .onAppear {
             model.onAppear()
         }
+    }
+    
+    private var content: some View {
+        VStack(spacing: 0) {
+            AnytypeText(Loc.Auth.JoinFlow.Soul.title, style: .uxTitle1Semibold, color: .Text.primary)
+                .opacity(0.9)
+            Spacer.fixedHeight(16)
+            
+            input
+            
+            Spacer.fixedHeight(9)
+            AnytypeText(Loc.Auth.JoinFlow.Soul.description, style: .authBody, color: .Auth.body)
+                .multilineTextAlignment(.center)
+                .fixedSize(horizontal: false, vertical: true)
+                .padding(.horizontal, 24)
+        }
+        .padding(.horizontal, UIDevice.isPad ? 75 : 0)
     }
     
     private var input: some View {

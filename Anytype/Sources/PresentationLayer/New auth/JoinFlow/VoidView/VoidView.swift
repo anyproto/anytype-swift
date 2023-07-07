@@ -33,7 +33,7 @@ struct VoidView: View {
                 .multilineTextAlignment(.center)
             Spacer.fixedHeight(100)
         }
-        .padding(.horizontal, 24)
+        .padding(.horizontal, UIDevice.isPad ? 75 : 24)
     }
 }
 

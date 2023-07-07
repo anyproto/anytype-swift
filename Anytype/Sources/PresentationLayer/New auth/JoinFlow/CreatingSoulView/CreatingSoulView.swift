@@ -9,6 +9,7 @@ struct CreatingSoulView: View {
         GeometryReader { geo in
             content(width: geo.size.width)
         }
+        .padding(.horizontal, UIDevice.isPad ? 75 : 0)
         .task {
             try? await Task.sleep(seconds: 0.5)
             showSpaceTitle.toggle()
