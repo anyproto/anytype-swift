@@ -14,5 +14,5 @@ protocol PasteboardMiddlewareServiceProtocol: AnyObject {
     func pasteHTML(_ html: String, context: PasteboardActionContext) -> PasteboardPasteResult?
     func pasteBlock(_ blocks: [String], context: PasteboardActionContext) -> PasteboardPasteResult?
     func pasteFile(localPath: String, name: String, context: PasteboardActionContext) -> PasteboardPasteResult?
-    func copy(blocksIds: [BlockId], selectedTextRange: NSRange) -> PasteboardCopyResult?
+    func copy(blocksIds: [BlockId], selectedTextRange: NSRange) async throws -> PasteboardCopyResult?
 }

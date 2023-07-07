@@ -22,24 +22,8 @@ public extension FeatureFlags {
         value(for: .migrationGuide)
     }
 
-    static var fileStorage: Bool {
-        value(for: .fileStorage)
-    }
-
     static var newAuthorization: Bool {
         value(for: .newAuthorization)
-    }
-
-    static var redesignAbout: Bool {
-        value(for: .redesignAbout)
-    }
-
-    static var sortIncludeTime: Bool {
-        value(for: .sortIncludeTime)
-    }
-
-    static var binConfirmAlert: Bool {
-        value(for: .binConfirmAlert)
     }
 
     static var fixSIGPIPECrash: Bool {
@@ -60,6 +44,10 @@ public extension FeatureFlags {
 
     static var clearAccountDataOnDeletedStatus: Bool {
         value(for: .clearAccountDataOnDeletedStatus)
+    }
+
+    static var deleteObjectPlaceholder: Bool {
+        value(for: .deleteObjectPlaceholder)
     }
 
     static var rainbowViews: Bool {
@@ -84,16 +72,13 @@ public extension FeatureFlags {
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
         .migrationGuide,
-        .fileStorage,
         .newAuthorization,
-        .redesignAbout,
-        .sortIncludeTime,
-        .binConfirmAlert,
         .fixSIGPIPECrash,
         .compactListWidget,
         .getMoreSpace,
         .fixAVCaptureSessionError,
         .clearAccountDataOnDeletedStatus,
+        .deleteObjectPlaceholder,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

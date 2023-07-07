@@ -44,10 +44,6 @@ final class SettingsAccountViewModel: ObservableObject {
         output?.onRecoveryPhraseSelected()
     }
     
-    func onClearTap() {
-        output?.onClearCacheSelected()
-    }
-    
     func onDeleteAccountTap() {
         output?.onDeleteAccountSelected()
     }
@@ -87,8 +83,11 @@ final class SettingsAccountViewModel: ObservableObject {
     }
     
     private func updateSpaceName(name: String) {
-        objectActionsService.updateBundledDetails(contextID: accountManager.account.info.profileObjectID, details: [
-            .name(name)
-        ])
+        Task {
+            try await objectActionsService.updateBundledDetails(
+                contextID: accountManager.account.info.profileObjectID,
+                details: [.name(name)]
+            )
+        }
     }
 }

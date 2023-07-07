@@ -36,12 +36,14 @@ final class SlashMenuActionHandler {
                     self?.actionHandler.addLink(targetId: details.id, typeId: details.type, blockId: blockId)
                 }
             case .objectType(let object):
-                actionHandler
-                    .createPage(targetId: blockId, type: .dynamic(object.id))
-                    .flatMap { id in
-                        AnytypeAnalytics.instance().logCreateObject(objectType: object.analyticsType, route: .powertool)
-                        router.showPage(data: .page(EditorPageObject(objectId: id, isSupportedForEdit: true, isOpenedForPreview: false)))
-                    }
+                Task { @MainActor [weak self] in
+                    try await self?.actionHandler
+                        .createPage(targetId: blockId, type: .dynamic(object.id))
+                        .flatMap { id in
+                            AnytypeAnalytics.instance().logCreateObject(objectType: object.analyticsType, route: .powertool)
+                            self?.router.showPage(data: .page(EditorPageObject(objectId: id, isSupportedForEdit: true, isOpenedForPreview: false)))
+                        }
+                }
             }
         case let .relations(action):
             switch action {
@@ -129,7 +131,9 @@ final class SlashMenuActionHandler {
                 self?.actionHandler.moveToPage(blockId: blockId, pageId: details.id)
             }
         case .copy:
-            pasteboardService.copy(blocksIds: [blockId], selectedTextRange: NSRange())
+            Task {
+                try await pasteboardService.copy(blocksIds: [blockId], selectedTextRange: NSRange())
+            }
         case .paste:
             textView?.paste(self)
         }

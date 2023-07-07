@@ -4,7 +4,7 @@ import Combine
 import AnytypeCore
 import ProtobufMessages
 
-final class BlockActionHandler: BlockActionHandlerProtocol {
+final class BlockActionHandler: BlockActionHandlerProtocol {    
     weak var blockSelectionHandler: BlockSelectionHandler?
     private let document: BaseDocumentProtocol
     
@@ -35,20 +35,24 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
 
     // MARK: - Service proxy
 
-    func turnIntoPage(blockId: BlockId) -> BlockId? {
-        return service.turnIntoPage(blockId: blockId)
+    func turnIntoPage(blockId: BlockId) async throws -> BlockId? {
+        try await service.turnIntoPage(blockId: blockId)
     }
     
-    func turnInto(_ style: BlockText.Style, blockId: BlockId) {        
+    func turnInto(_ style: BlockText.Style, blockId: BlockId) {
         switch style {
         case .toggle:
             if let blockInformation = document.infoContainer.get(id: blockId),
                blockInformation.childrenIds.count > 0, !blockInformation.isToggled {
                 blockInformation.toggle()
             }
-            service.turnInto(style, blockId: blockId)
+            Task {
+                try await service.turnInto(style, blockId: blockId)
+            }
         default:
-            service.turnInto(style, blockId: blockId)
+            Task {
+                try await service.turnInto(style, blockId: blockId)
+            }
         }
     }
     
@@ -56,8 +60,8 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         try await service.upload(blockId: blockId, filePath: filePath)
     }
     
-    func setObjectTypeId(_ objectTypeId: String) {
-        service.setObjectTypeId(objectTypeId)
+    func setObjectTypeId(_ objectTypeId: String) async throws {
+        try await service.setObjectTypeId(objectTypeId)
     }
 
     func setObjectSetType() async throws {
@@ -69,23 +73,33 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     }
     
     func setTextColor(_ color: BlockColor, blockIds: [BlockId]) {
-        listService.setBlockColor(objectId: document.objectId, blockIds: blockIds, color: color.middleware)
+        Task {
+            try await listService.setBlockColor(objectId: document.objectId, blockIds: blockIds, color: color.middleware)
+        }
     }
     
     func setBackgroundColor(_ color: BlockBackgroundColor, blockIds: [BlockId]) {
-        service.setBackgroundColor(blockIds: blockIds, color: color)
+        Task {
+            try await service.setBackgroundColor(blockIds: blockIds, color: color)
+        }
     }
     
     func duplicate(blockId: BlockId) {
-        service.duplicate(blockId: blockId)
+        Task {
+            try await service.duplicate(blockId: blockId)
+        }
     }
     
     func fetch(url: AnytypeURL, blockId: BlockId) {
-        service.bookmarkFetch(blockId: blockId, url: url)
+        Task {
+            try await service.bookmarkFetch(blockId: blockId, url: url)
+        }
     }
     
     func checkbox(selected: Bool, blockId: BlockId) {
-        service.checked(blockId: blockId, newValue: selected)
+        Task {
+            try await service.checked(blockId: blockId, newValue: selected)
+        }
     }
     
     func toggle(blockId: BlockId) {
@@ -98,7 +112,9 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     }
     
     func delete(blockIds: [BlockId]) {
-        service.delete(blockIds: blockIds)
+        Task {
+            try await service.delete(blockIds: blockIds)
+        }
     }
     
     func moveToPage(blockId: BlockId, pageId: BlockId) {
@@ -107,21 +123,27 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     }
     
     func createEmptyBlock(parentId: BlockId) {
-        service.addChild(info: BlockInformation.emptyText, parentId: parentId)
+        Task {
+            try await service.addChild(info: BlockInformation.emptyText, parentId: parentId)
+        }
     }
     
     func addLink(targetId: BlockId, typeId: String, blockId: BlockId) {
-        let isBookmarkType = ObjectTypeId.bundled(.bookmark).rawValue == typeId
-        service.add(
-            info: isBookmarkType ? .bookmark(targetId: targetId) : .emptyLink(targetId: targetId),
-            targetBlockId: blockId,
-            position: .replace
-        )
+        Task {
+            let isBookmarkType = ObjectTypeId.bundled(.bookmark).rawValue == typeId
+            try await service.add(
+                info: isBookmarkType ? .bookmark(targetId: targetId) : .emptyLink(targetId: targetId),
+                targetBlockId: blockId,
+                position: .replace
+            )
+        }
     }
     
     func changeMarkup(blockIds: [BlockId], markType: MarkupType) {
-        AnytypeAnalytics.instance().logChangeBlockStyle(markType)
-        listService.changeMarkup(objectId: document.objectId, blockIds: blockIds, markType: markType)
+        Task {
+            AnytypeAnalytics.instance().logChangeBlockStyle(markType)
+            try await listService.changeMarkup(objectId: document.objectId, blockIds: blockIds, markType: markType)
+        }
     }
     
     // MARK: - Markup changer proxy
@@ -237,7 +259,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         }
     }
     
-    func createPage(targetId: BlockId, type: ObjectTypeId) -> BlockId? {
+    func createPage(targetId: BlockId, type: ObjectTypeId) async throws -> BlockId? {
         guard let info = document.infoContainer.get(id: targetId) else { return nil }
         var position: BlockPosition
         if case .text(let blockText) = info.content, blockText.text.isEmpty {
@@ -246,7 +268,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
             position = .bottom
         }
         
-        return service.createPage(targetId: targetId, type: type, position: position)
+        return try await service.createPage(targetId: targetId, type: type, position: position)
     }
 
 
@@ -261,13 +283,15 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         
         let position: BlockPosition = isTextAndEmpty ? .replace : .bottom
 
-        blockTableService.createTable(
-            contextId: document.objectId,
-            targetId: blockId,
-            position: position,
-            rowsCount: rowsCount,
-            columnsCount: columnsCount
-        )
+        Task {
+            try await blockTableService.createTable(
+                contextId: document.objectId,
+                targetId: blockId,
+                position: position,
+                rowsCount: rowsCount,
+                columnsCount: columnsCount
+            )
+        }
     }
 
 
@@ -284,7 +308,9 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         
         let position: BlockPosition = isTextAndEmpty ? .replace : (position ?? .bottom)
 
-        service.add(info: newBlock, targetBlockId: blockId, position: position)
+        Task {
+            try await service.add(info: newBlock, targetBlockId: blockId, position: position)
+        }
     }
 
     func selectBlock(info: BlockInformation) {
@@ -296,15 +322,19 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         position: BlockPosition,
         url: AnytypeURL
     ) {
-        service.createAndFetchBookmark(
-            contextID: document.objectId,
-            targetID: targetID,
-            position: position,
-            url: url
-        )
+        Task {
+            try await service.createAndFetchBookmark(
+                contextID: document.objectId,
+                targetID: targetID,
+                position: position,
+                url: url
+            )
+        }
     }
 
     func setAppearance(blockId: BlockId, appearance: BlockLink.Appearance) {
-        listService.setLinkAppearance(objectId: document.objectId, blockIds: [blockId], appearance: appearance)
+        Task {
+            try await listService.setLinkAppearance(objectId: document.objectId, blockIds: [blockId], appearance: appearance)
+        }
     }
 }

@@ -19,24 +19,26 @@ final class DashboardAccountDeletionAlertModel: ObservableObject {
     }
     
     func accountDeletionConfirm() {
-        
         UINotificationFeedbackGenerator().notificationOccurred(.success)
         AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.deleteAccount)
-        guard let status = authService.deleteAccount() else {
-            UINotificationFeedbackGenerator().notificationOccurred(.error)
-            return
-        }
         
-        switch status {
-        case .active:
-            UINotificationFeedbackGenerator().notificationOccurred(.error)
-            return
-        case .pendingDeletion:
-            UINotificationFeedbackGenerator().notificationOccurred(.success)
-            applicationStateService.state = .delete
-        case .deleted:
-            logout()
-            break
+        Task {
+            guard let status = try? await authService.deleteAccount() else {
+                UINotificationFeedbackGenerator().notificationOccurred(.error)
+                return
+            }
+            
+            switch status {
+            case .active:
+                UINotificationFeedbackGenerator().notificationOccurred(.error)
+                return
+            case .pendingDeletion:
+                UINotificationFeedbackGenerator().notificationOccurred(.success)
+                applicationStateService.state = .delete
+            case .deleted:
+                logout()
+                break
+            }
         }
     }
     

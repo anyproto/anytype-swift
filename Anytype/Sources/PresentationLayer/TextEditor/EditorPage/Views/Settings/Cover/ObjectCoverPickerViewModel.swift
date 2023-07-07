@@ -36,18 +36,22 @@ extension ObjectCoverPickerViewModel {
     
     func setColor(_ colorName: String) {
         AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.setCover)
-        detailsService.updateBundledDetails(
-            [.coverType(CoverType.color), .coverId(colorName)]
-        )
+        Task {
+            try? await detailsService.updateBundledDetails(
+                [.coverType(CoverType.color), .coverId(colorName)]
+            )
+        }
     }
     
     func setGradient(_ gradientName: String) {
         AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.setCover)
-        detailsService.updateBundledDetails(
-            [.coverType(CoverType.gradient), .coverId(gradientName)]
-        )
+        Task {
+            try? await detailsService.updateBundledDetails(
+                [.coverType(CoverType.gradient), .coverId(gradientName)]
+            )
+        }
     }
-
+    
     func uploadImage(from itemProvider: NSItemProvider) {
         AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.setCover)
         Task {
@@ -70,9 +74,10 @@ extension ObjectCoverPickerViewModel {
     
     func removeCover() {
         AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.removeCover)
-        detailsService.updateBundledDetails(
-            [.coverType(CoverType.none), .coverId("")]
-        )
+        Task {
+            try? await detailsService.updateBundledDetails(
+                [.coverType(CoverType.none), .coverId("")]
+            )
+        }
     }
-    
 }

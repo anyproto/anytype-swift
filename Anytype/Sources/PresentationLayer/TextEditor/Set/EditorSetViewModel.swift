@@ -228,11 +228,13 @@ final class EditorSetViewModel: ObservableObject {
         guard let group = groups.first(where: { $0.id == groupId }),
         let value = group.value else { return }
 
-        detailsService.updateDetails(
-            contextId: detailsId,
-            relationKey: activeView.groupRelationKey,
-            value: value
-        )
+        Task {
+            try await detailsService.updateDetails(
+                contextId: detailsId,
+                relationKey: activeView.groupRelationKey,
+                value: value
+            )
+        }
     }
     
     func pagitationData(by groupId: String) -> EditorSetPaginationData {
@@ -505,10 +507,12 @@ final class EditorSetViewModel: ObservableObject {
     
     private func updateDetailsIfNeeded(_ details: ObjectDetails) {
         guard details.layoutValue == .todo else { return }
-        detailsService.updateBundledDetails(
-            contextID: details.id,
-            bundledDetails: [.done(!details.isDone)]
-        )
+        Task {
+            try await detailsService.updateBundledDetails(
+                contextID: details.id,
+                bundledDetails: [.done(!details.isDone)]
+            )
+        }
     }
     
     private func itemTapped(_ details: ObjectDetails) {

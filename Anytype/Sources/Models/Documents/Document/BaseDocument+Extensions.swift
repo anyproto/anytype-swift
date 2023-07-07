@@ -5,27 +5,16 @@ import AnytypeCore
 extension BaseDocumentProtocol {
     // without description, type and editable setOf if needed
     var featuredRelationsForEditor: [Relation] {
-        let type = details?.objectType ?? .fallbackType
-        let objectRestriction = objectRestrictions.objectRestriction
         
         var enhancedRelations = parsedRelations.featuredRelations
         
-        let objectTypeRelationValue: Relation = .text(
-            Relation.Text(
-                id: BundledRelationKey.type.rawValue,
-                key: BundledRelationKey.type.rawValue,
-                name: "",
-                isFeatured: false,
-                isEditable: !objectRestriction.contains(.typechange),
-                isSystem: true,
-                isDeleted: false,
-                isDeletedValue: type.isDeleted,
-                value: type.name
-            )
-        )
-
-        enhancedRelations.insert(objectTypeRelationValue, at: 0)
-
+        enhancedRelations.reorder(
+            by: [
+                BundledRelationKey.type.rawValue,
+                BundledRelationKey.setOf.rawValue
+            ]
+        ) { $0.key }
+        
         enhancedRelations.removeAll { relation in
             relation.key == BundledRelationKey.description.rawValue
         }

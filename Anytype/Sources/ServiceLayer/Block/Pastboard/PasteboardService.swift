@@ -60,8 +60,8 @@ final class PasteboardService: PasteboardServiceProtocol {
         pasteboardOperations.addOperation(operation)
     }
     
-    func copy(blocksIds: [BlockId], selectedTextRange: NSRange) {
-        if let result = pasteboardMiddlewareService.copy(blocksIds: blocksIds, selectedTextRange: selectedTextRange) {
+    func copy(blocksIds: [BlockId], selectedTextRange: NSRange) async throws {
+        if let result = try await pasteboardMiddlewareService.copy(blocksIds: blocksIds, selectedTextRange: selectedTextRange) {
             pasteboardHelper.setItems(textSlot: result.textSlot, htmlSlot: result.htmlSlot, blocksSlots: result.blockSlot)
         }
     }
