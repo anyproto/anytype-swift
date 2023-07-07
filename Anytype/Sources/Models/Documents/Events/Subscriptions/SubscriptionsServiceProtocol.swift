@@ -21,6 +21,9 @@ enum SubscriptionUpdate {
 typealias SubscriptionCallback = (SubscriptionId, SubscriptionUpdate) -> ()
 protocol SubscriptionsServiceProtocol {
    
+    // TODO: Needs refactoring
+    var storage: ObjectDetailsStorage { get }
+    
     func updateSubscription(data: SubscriptionData, required: Bool, update: @escaping SubscriptionCallback)
     
     func startSubscriptions(data: [SubscriptionData], update: @escaping SubscriptionCallback)

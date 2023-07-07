@@ -426,6 +426,7 @@ final class EditorSetViewModel: ObservableObject {
                     dataView: setDocument.dataView,
                     activeView: activeView,
                     isObjectLocked: setDocument.isObjectLocked,
+                    storage: subscriptionService.storage,
                     onIconTap: { [weak self] details in
                         self?.updateDetailsIfNeeded(details)
                     },
