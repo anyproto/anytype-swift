@@ -82,6 +82,7 @@ private extension EditorNavigationBarTitleView {
         stackView.spacing = 8
         lockImageView.image =  UIImage(asset: .TextEditor.lockedObject)
         lockImageView.contentMode = .center
+        lockImageView.tintColor = .Button.active
         
         setupLayout()        
     }

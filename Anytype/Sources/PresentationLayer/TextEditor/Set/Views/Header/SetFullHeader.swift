@@ -75,7 +75,7 @@ extension SetFullHeader {
             if let description = model.details?.description, description.isNotEmpty {
                 AnytypeText(
                     description,
-                    style: .relation2Regular,
+                    style: .relation1Regular,
                     color: .Text.primary
                 )
                 .fixedSize(horizontal: false, vertical: true)
