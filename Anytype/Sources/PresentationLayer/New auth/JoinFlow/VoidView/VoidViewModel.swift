@@ -30,7 +30,7 @@ final class VoidViewModel: ObservableObject {
     }
     
     private func createAccount() {
-        Task { @MainActor in
+        Task {
             do {
                 creatingAccountInProgress = true
                 
