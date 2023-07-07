@@ -224,8 +224,9 @@ final class BlockViewModelBuilder {
                 guard let self = self else { return }
 
                 let bookmarkFilter = self.document.details?.type != ObjectTypeId.bundled(.bookmark).rawValue
+                let allowTypeChange = !self.document.objectRestrictions.objectRestriction.contains(.typechange)
                 
-                if relation.key == BundledRelationKey.type.rawValue && !self.document.isLocked && bookmarkFilter {
+                if relation.key == BundledRelationKey.type.rawValue && !self.document.isLocked && bookmarkFilter && allowTypeChange {
                     self.router.showTypes(
                         selectedObjectId: self.document.details?.type,
                         onSelect: { [weak self] id in
