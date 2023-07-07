@@ -3,21 +3,28 @@ import SwiftUI
 struct CreatingSoulView: View {
     
     @ObservedObject var model: CreatingSoulViewModel
+    @State private var showSpaceTitle = false
     
     var body: some View {
         GeometryReader { geo in
             content(width: geo.size.width)
         }
+        .task {
+            try? await Task.sleep(seconds: 0.5)
+            showSpaceTitle.toggle()
+        }
     }
     
     private func content(width: CGFloat) -> some View {
         VStack(alignment: .center, spacing: 0) {
-            AnytypeText(
-                model.showSpace ? Loc.Auth.JoinFlow.Setting.Space.title : Loc.Auth.JoinFlow.Creating.Soul.title,
-                style: .uxTitle1Semibold,
-                color: .Text.primary
-            )
-            .opacity(0.9)
+            if showSpaceTitle {
+                AnytypeText(
+                    model.showSpace ? Loc.Auth.JoinFlow.Setting.Space.title : Loc.Auth.JoinFlow.Creating.Soul.title,
+                    style: .uxTitle1Semibold,
+                    color: .Text.primary
+                )
+                .opacity(0.9)
+            }
             
             Spacer.fixedHeight(64)
 
