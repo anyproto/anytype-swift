@@ -2,7 +2,7 @@ import SwiftUI
 
 @MainActor
 protocol JoinFlowCoordinatorProtocol {
-    func startFlow(with state: JoinFlowState) -> AnyView
+    func startFlow() -> AnyView
 }
 
 @MainActor
@@ -15,6 +15,10 @@ final class JoinFlowCoordinator: JoinFlowCoordinatorProtocol, JoinFlowOutput {
     private let keyViewModuleAssembly: KeyPhraseViewModuleAssemblyProtocol
     private let soulViewModuleAssembly: SoulViewModuleAssemblyProtocol
     private let creatingSoulViewModuleAssembly: CreatingSoulViewModuleAssemblyProtocol
+    
+    // MARK: - State
+    
+    private let state = JoinFlowState()
     
     init(
         joinFlowModuleAssembly: JoinFlowModuleAssemblyProtocol,
@@ -32,16 +36,16 @@ final class JoinFlowCoordinator: JoinFlowCoordinatorProtocol, JoinFlowOutput {
     
     // MARK: - JoinFlowCoordinatorProtocol
     
-    func startFlow(with state: JoinFlowState) -> AnyView {
-        joinFlowModuleAssembly.make(state: state, output: self)
+    func startFlow() -> AnyView {
+        joinFlowModuleAssembly.make(output: self)
     }
     
     // MARK: - JoinFlowOutput
     
-    func onStepChanged(_ step: JoinFlowStep, state: JoinFlowState, output: JoinFlowStepOutput) -> AnyView {
+    func onStepChanged(_ step: JoinFlowStep, output: JoinFlowStepOutput) -> AnyView {
         switch step {
         case .void:
-            return voidViewModuleAssembly.make(output: output)
+            return voidViewModuleAssembly.make(state: state, output: output)
         case .key:
             return keyViewModuleAssembly.make(state: state, output: output)
         case .soul:

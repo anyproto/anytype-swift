@@ -12,6 +12,7 @@ struct VoidView: View {
             
             StandardButton(
                 Loc.Auth.next,
+                inProgress: model.creatingAccountInProgress,
                 style: .primaryLarge,
                 action: {
                     model.onNextButtonTap()
@@ -39,6 +40,14 @@ struct VoidView: View {
 
 struct VoidView_Previews : PreviewProvider {
     static var previews: some View {
-        VoidView(model: VoidViewModel(output: nil))
+        VoidView(
+            model: VoidViewModel(
+                state: JoinFlowState(),
+                output: nil,
+                authService: DI.preview.serviceLocator.authService(),
+                seedService: DI.preview.serviceLocator.seedService(),
+                usecaseService: DI.preview.serviceLocator.usecaseService()
+            )
+        )
     }
 }

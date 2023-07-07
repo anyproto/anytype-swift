@@ -2,7 +2,7 @@ import SwiftUI
 
 protocol JoinFlowModuleAssemblyProtocol {
     @MainActor
-    func make(state: JoinFlowState, output: JoinFlowOutput?) -> AnyView
+    func make(output: JoinFlowOutput?) -> AnyView
 }
 
 final class JoinFlowModuleAssembly: JoinFlowModuleAssemblyProtocol {
@@ -16,10 +16,9 @@ final class JoinFlowModuleAssembly: JoinFlowModuleAssemblyProtocol {
     // MARK: - JoinModuleAssemblyProtocol
     
     @MainActor
-    func make(state: JoinFlowState, output: JoinFlowOutput?) -> AnyView {
+    func make(output: JoinFlowOutput?) -> AnyView {
         return JoinFlowView(
             model: JoinFlowViewModel(
-                state: state,
                 output: output,
                 applicationStateService: serviceLocator.applicationStateService()
             )
