@@ -289,7 +289,6 @@ private extension SearchService {
             $0.limit = Int32(limit)
         }).invoke()
        
-        try Task.checkCancellation()
         return response.records.asDetais
     }
     
@@ -309,7 +308,6 @@ private extension SearchService {
             $0.keys = keys
         }).invoke()
         
-        try Task.checkCancellation()
         return response.records.asDetais
     }
 
