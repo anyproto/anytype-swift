@@ -20,7 +20,7 @@ struct CreatingSoulView: View {
     private func content(width: CGFloat) -> some View {
         VStack(alignment: .center, spacing: 0) {
             AnytypeText(
-                model.showSpaceIcon ? Loc.Auth.JoinFlow.Setting.Space.title : Loc.Auth.JoinFlow.Creating.Soul.title,
+                model.showSpace ? Loc.Auth.JoinFlow.Setting.Space.title : Loc.Auth.JoinFlow.Creating.Soul.title,
                 style: .uxTitle1Semibold,
                 color: .Text.primary
             )
@@ -43,18 +43,18 @@ struct CreatingSoulView: View {
                 Spacer.fixedHeight(Constants.imageDimension / 2)
                 Rectangle().foregroundColor(.Auth.body)
                     .frame(
-                        width: model.showSpaceIcon ? width / Constants.scaleFactor : 0,
+                        width: model.showSpace ? width / Constants.scaleFactor : 0,
                         height: 2
                     )
-                    .opacity(model.showSpaceIcon ? 1 : 0)
+                    .opacity(model.showSpace ? 1 : 0)
                     .padding(.trailing, Constants.imageDimension / 2)
             }
-            if model.showProfileIcon {
+            if model.showProfile {
                 space
-                    .offset(x: model.showSpaceIcon ? width / (Constants.scaleFactor * 2) : 0)
-                    .opacity(model.showSpaceIcon ? 1 : 0)
+                    .offset(x: model.showSpace ? width / (Constants.scaleFactor * 2) : 0)
+                    .opacity(model.showSpace ? 1 : 0)
                 soul
-                    .offset(x: model.showSpaceIcon ? -width / (Constants.scaleFactor * 2) : 0)
+                    .offset(x: model.showSpace ? -width / (Constants.scaleFactor * 2) : 0)
             }
         }
     }
