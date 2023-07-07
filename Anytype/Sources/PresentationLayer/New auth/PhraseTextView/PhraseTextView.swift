@@ -8,7 +8,7 @@ struct PhraseTextView: UIViewRepresentable {
     func makeUIView(context: Context) -> UIPhraseTextView {
         let textView = UIPhraseTextView()
         textView.textDidChange = { text in
-            self.text = text
+            self.text = text.trimmingCharacters(in: .newlines)
         }
         textView.expandable = expandable
         return textView
