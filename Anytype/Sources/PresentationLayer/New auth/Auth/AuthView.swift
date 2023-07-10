@@ -46,7 +46,7 @@ struct AuthView: View {
             
             AnytypeText(Loc.Auth.Welcome.subtitle, style: .authBody, color: .Auth.body)
                 .multilineTextAlignment(.center)
-                .padding(.horizontal, 28)
+                .padding(.horizontal, UIDevice.isPad ? 75 : 28)
         }
     }
 

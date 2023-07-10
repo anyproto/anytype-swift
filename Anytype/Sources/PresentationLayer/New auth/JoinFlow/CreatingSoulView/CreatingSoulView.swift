@@ -3,10 +3,17 @@ import SwiftUI
 struct CreatingSoulView: View {
     
     @ObservedObject var model: CreatingSoulViewModel
+    @State private var showSpaceTitle = false
     
     var body: some View {
         GeometryReader { geo in
             content(width: geo.size.width)
+        }
+        .padding(.horizontal, UIDevice.isPad ? 75 : 0)
+        .task {
+            try? await Task.sleep(seconds: 0.5)
+            showSpaceTitle.toggle()
+            model.setupSubscription()
         }
     }
     
@@ -17,7 +24,7 @@ struct CreatingSoulView: View {
                 style: .uxTitle1Semibold,
                 color: .Text.primary
             )
-            .opacity(0.9)
+            .opacity(showSpaceTitle ? 0.9 : 0)
             
             Spacer.fixedHeight(64)
 
@@ -40,7 +47,7 @@ struct CreatingSoulView: View {
                         height: 2
                     )
                     .opacity(model.showSpace ? 1 : 0)
-                    .padding(.trailing, Constants.imageDimension)
+                    .padding(.trailing, Constants.imageDimension / 2)
             }
             if model.showProfile {
                 space

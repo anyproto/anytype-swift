@@ -40,6 +40,7 @@ struct KeyPhraseView: View {
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 24)
         }
+        .padding(.horizontal, UIDevice.isPad ? 75 : 0)
     }
     
     private var phraseTextView: some View {
