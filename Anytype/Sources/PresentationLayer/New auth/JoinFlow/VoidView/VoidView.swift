@@ -2,7 +2,7 @@ import SwiftUI
 
 struct VoidView: View {
     
-    @ObservedObject var model: VoidViewModel
+    @StateObject var model: VoidViewModel
     
     var body: some View {
         VStack(spacing: 0) {

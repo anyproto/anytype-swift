@@ -17,6 +17,7 @@ final class JoinFlowViewModel: ObservableObject, JoinFlowStepOutput {
         }
     }
     @Published var showError: Bool = false
+    @Published var disableBackAction: Bool = false
     
     let progressBarConfiguration = LineProgressBarConfiguration.joinFlow
     
@@ -67,6 +68,10 @@ final class JoinFlowViewModel: ObservableObject, JoinFlowStepOutput {
     
     func onError(_ error: Error) {
         errorText = error.localizedDescription
+    }
+    
+    func disableBackAction(_ disable: Bool) {
+        disableBackAction = disable
     }
     
     private func updatePercent(_ step: JoinFlowStep) {
