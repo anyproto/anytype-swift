@@ -62,6 +62,10 @@ public extension FeatureFlags {
         value(for: .clearAccountDataOnDeletedStatus)
     }
 
+    static var fixAudioSession: Bool {
+        value(for: .fixAudioSession)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -94,6 +98,7 @@ public extension FeatureFlags {
         .getMoreSpace,
         .fixAVCaptureSessionError,
         .clearAccountDataOnDeletedStatus,
+        .fixAudioSession,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

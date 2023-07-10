@@ -1,6 +1,7 @@
 import Services
 import UIKit
 import AVFoundation
+import AnytypeCore
 
 
 final class AudioBlockViewModel: BlockViewModelProtocol {
@@ -10,6 +11,7 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
 
     let info: BlockInformation
     let fileData: BlockFile
+    let audioSessionService: AudioSessionServiceProtocol
 
     let showAudioPicker: (BlockId) -> ()
 
@@ -21,10 +23,12 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
     init(
         info: BlockInformation,
         fileData: BlockFile,
+        audioSessionService: AudioSessionServiceProtocol,
         showAudioPicker: @escaping (BlockId) -> ()
     ) {
         self.info = info
         self.fileData = fileData
+        self.audioSessionService = audioSessionService
         self.showAudioPicker = showAudioPicker
 
         if let url = fileData.metadata.contentUrl {
@@ -75,5 +79,19 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
             indentationSettings: .init(with: info.configurationData),
             dragConfiguration: .init(id: info.id)
         )
+    }
+    
+    func setAudioSessionCategorypPlayback() {
+        if FeatureFlags.fixAudioSession {
+            audioSessionService.setCategorypPlayback()
+        } else {
+            audioSessionService.setAudioSessionActiveLegacy()
+        }
+    }
+    
+    func setAudioSessionCategorypPlaybackMixWithOthers() {
+        if FeatureFlags.fixAudioSession {
+            audioSessionService.setCategorypPlaybackMixWithOthers()
+        }
     }
 }

@@ -293,7 +293,8 @@ final class EditorAssembly {
             simpleTableDependenciesBuilder: simpleTableDependenciesBuilder,
             subjectsHolder: focusSubjectHolder,
             pageService: serviceLocator.pageService(),
-            detailsService: serviceLocator.detailsService(objectId: document.objectId)
+            detailsService: serviceLocator.detailsService(objectId: document.objectId),
+            audioSessionService: serviceLocator.audioSessionService()
         )
 
         actionHandler.blockSelectionHandler = blocksStateManager

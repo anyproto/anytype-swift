@@ -1,13 +1,6 @@
-//
-//  AnytypeAudioPlayer.swift
-//  Anytype
-//
-//  Created by Denis Batvinkin on 19.09.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import AVKit
 import MediaPlayer
+import AnytypeCore
 
 
 final class AnytypeAudioPlayer: NSObject, AnytypeAudioPlayerProtocol {
@@ -133,7 +126,6 @@ final class AnytypeAudioPlayer: NSObject, AnytypeAudioPlayerProtocol {
     }
 
     func play() {
-        try? AVAudioSession.sharedInstance().setActive(true)
         audioPlayer.play()
         updatePlayingInfo()
     }
