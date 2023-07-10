@@ -8,6 +8,6 @@ public protocol BookmarkServiceProtocol {
         position: BlockPosition,
         url: String
     )
-    func createBookmarkObject(url: String) -> Bool
+    func createBookmarkObject(url: String) throws -> ObjectDetails
     func fetchBookmarkContent(bookmarkId: BlockId, url: String)
 }
