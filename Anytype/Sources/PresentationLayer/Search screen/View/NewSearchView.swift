@@ -69,7 +69,7 @@ struct NewSearchView: View {
     }
     
     private func addButton(model: AddButtonModel) -> some View {
-        StandardButton(viewModel.style.buttonTitle, info: model.counter > 0 ? "\(model.counter)" : nil, style: .primaryLarge) {
+        StandardButton(.text(viewModel.style.buttonTitle), info: model.counter > 0 ? "\(model.counter)" : nil, style: .primaryLarge) {
             viewModel.didTapAddButton()
         }
         .disabled(model.isDisabled)

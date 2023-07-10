@@ -8,6 +8,7 @@ final class ServiceLocator {
     static let shared = ServiceLocator()
 
     let textService = TextService()
+    let templatesService = TemplatesService()
     
     // MARK: - Services
     

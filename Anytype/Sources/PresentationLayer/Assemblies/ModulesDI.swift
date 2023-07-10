@@ -159,4 +159,8 @@ final class ModulesDI: ModulesDIProtocol {
     func authCreatingSoul() -> CreatingSoulViewModuleAssemblyProtocol {
         return CreatingSoulViewModuleAssembly(serviceLocator: serviceLocator)
     }
+    
+    func templatesAssembly() -> TemplateModulesAssembly {
+        return TemplateModulesAssembly(serviceLocator: serviceLocator)
+    }
 }

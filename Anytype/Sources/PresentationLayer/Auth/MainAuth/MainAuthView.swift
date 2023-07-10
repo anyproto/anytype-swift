@@ -58,7 +58,7 @@ struct MainAuthView: View {
             AnytypeText(Loc.analyticsConstentText, style: .uxCalloutRegular, color: .Text.primary)
                 .padding(.trailing, 5)
             Spacer.fixedHeight(18)
-            StandardButton(Loc.start, style: .primaryLarge) {
+            StandardButton(.text(Loc.start), style: .primaryLarge) {
                 UISelectionFeedbackGenerator().selectionChanged()
                 withAnimation(.fastSpring) {
                     userAnalyticsConsent = true
@@ -82,11 +82,11 @@ struct MainAuthView: View {
     
     private var buttons: some View {
         HStack(spacing: 10) {
-            StandardButton(Loc.signUp, style: .secondaryLarge) {
+            StandardButton(.text(Loc.signUp), style: .secondaryLarge) {
                 viewModel.singUp()
             }
             
-            StandardButton(Loc.login, style: .primaryLarge) {
+            StandardButton(.text(Loc.login), style: .primaryLarge) {
                 showLogInView.toggle()
             }
             .addEmptyNavigationLink(destination: viewModel.loginView(), isActive: $showLogInView)

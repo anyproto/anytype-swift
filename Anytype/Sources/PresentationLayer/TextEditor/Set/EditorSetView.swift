@@ -109,7 +109,8 @@ struct EditorSetView: View {
                 isActive: model.isActiveHeader,
                 onViewTap: model.showViewPicker,
                 onSettingsTap: model.showSetSettings,
-                onCreateTap: model.createObject
+                onCreateTap: model.createObject,
+                onSecondaryCreateTap: model.onSecondaryCreateTap
             )
         )
         .frame(width: tableHeaderSize.width)

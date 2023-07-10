@@ -47,10 +47,10 @@ struct TemplatePickerView: View {
 
     var buttons: some View {
         HStack(spacing: 10) {
-            StandardButton(Loc.TemplatePicker.Buttons.skip, style: .secondaryLarge) { [weak viewModel] in
+            StandardButton(.text(Loc.TemplatePicker.Buttons.skip), style: .secondaryLarge) { [weak viewModel] in
                 viewModel?.onSkipButton()
             }
-            StandardButton(Loc.TemplatePicker.Buttons.useTemplate, style: .primaryLarge) { [weak viewModel] in
+            StandardButton(.text(Loc.TemplatePicker.Buttons.useTemplate), style: .primaryLarge) { [weak viewModel] in
                 viewModel?.onApplyButton()
             }
         }

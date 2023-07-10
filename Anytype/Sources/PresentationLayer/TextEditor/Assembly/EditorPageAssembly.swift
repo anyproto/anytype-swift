@@ -85,12 +85,13 @@ final class EditorAssembly {
             objectTypeProvider: serviceLocator.objectTypeProvider()
         )
         let controller = EditorSetHostingController(objectId: data.objectId, model: model)
+        let navigationContext = NavigationContext(rootViewController: browser ?? controller)
 
         let router = EditorSetRouter(
             setDocument: setDocument,
             rootController: browser,
             viewController: controller,
-            navigationContext: NavigationContext(rootViewController: browser ?? controller),
+            navigationContext: navigationContext,
             createObjectModuleAssembly: modulesDI.createObject(),
             newSearchModuleAssembly: modulesDI.newSearch(),
             editorPageCoordinator: coordinatorsDI.editorPage().make(browserController: browser),
@@ -100,7 +101,11 @@ final class EditorAssembly {
             objectCoverPickerModuleAssembly: modulesDI.objectCoverPicker(),
             objectIconPickerModuleAssembly: modulesDI.objectIconPicker(),
             toastPresenter: uiHelpersDI.toastPresenter(using: browser),
-            alertHelper: AlertHelper(viewController: controller)
+            alertHelper: AlertHelper(viewController: controller),
+            templateSelectionCoordinator: TemplateSelectionCoordinator(
+                navigationContext: navigationContext,
+                templatesModulesAssembly: modulesDI.templatesAssembly()
+            )
         )
         
         model.setup(router: router)

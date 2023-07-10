@@ -66,6 +66,12 @@ protocol EditorSetRouterProtocol:
     func showAddNewRelationView(onSelect: ((RelationDetails, _ isNew: Bool) -> Void)?)
     
     func showFailureToast(message: String)
+    
+    func showTemplatesSelection(
+        setDocument: SetDocumentProtocol,
+        dataview: DataviewView,
+        onTemplateSelection: @escaping (BlockId) -> ()
+    )
 }
 
 final class EditorSetRouter: EditorSetRouterProtocol {
@@ -86,6 +92,7 @@ final class EditorSetRouter: EditorSetRouterProtocol {
     private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
     private let toastPresenter: ToastPresenterProtocol
     private let alertHelper: AlertHelper
+    private let templateSelectionCoordinator: TemplateSelectionCoordinatorProtocol
     
     // MARK: - State
     
@@ -105,7 +112,8 @@ final class EditorSetRouter: EditorSetRouterProtocol {
         objectCoverPickerModuleAssembly: ObjectCoverPickerModuleAssemblyProtocol,
         objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
         toastPresenter: ToastPresenterProtocol,
-        alertHelper: AlertHelper
+        alertHelper: AlertHelper,
+        templateSelectionCoordinator: TemplateSelectionCoordinatorProtocol
     ) {
         self.setDocument = setDocument
         self.rootController = rootController
@@ -121,6 +129,7 @@ final class EditorSetRouter: EditorSetRouterProtocol {
         self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
         self.toastPresenter = toastPresenter
         self.alertHelper = alertHelper
+        self.templateSelectionCoordinator = templateSelectionCoordinator
     }
     
     // MARK: - EditorSetRouterProtocol
@@ -462,6 +471,18 @@ final class EditorSetRouter: EditorSetRouterProtocol {
     
     func showFailureToast(message: String) {
         toastPresenter.showFailureAlert(message: message)
+    }
+    
+    func showTemplatesSelection(
+        setDocument: SetDocumentProtocol,
+        dataview: DataviewView,
+        onTemplateSelection: @escaping (BlockId) -> ()
+    ) {
+        templateSelectionCoordinator.showTemplatesSelection(
+            setDocument: setDocument,
+            dataview: dataview,
+            onTemplateSelection: onTemplateSelection
+        )
     }
     
     // MARK: - Private

@@ -263,6 +263,12 @@
 "TemplatePicker.ChooseTemplate" = "Choose template";
 "TemplatePicker.Buttons.Skip" = "Skip";
 "TemplatePicker.Buttons.UseTemplate" = "Use template";
+"TemplateSelection.SelectTemplate" = "Select template";
+
+"TemplateOptions.Alert.SetAsDefault" = "Set as default for this view";
+"TemplateOptions.Alert.EditTemplate" = "Edit template";
+"TemplateOptions.Alert.Duplicate" = "Duplicate";
+"TemplateOptions.Alert.Delete" = "Delete";
 
 "To Bin" = "To Bin";
 
@@ -744,3 +750,4 @@
 // MARK: - Cpear cache alert
 "ClearCacheAlert.Title" = "Are you sure?";
 "ClearCacheAlert.Description" = "All media files stored in Anytype will be deleted from your current device. They can be downloaded again from a backup node or another device.";
+

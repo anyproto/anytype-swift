@@ -53,7 +53,7 @@ struct SetFullHeader: View {
                     configuration: ObjectHeaderFilledConfiguration(
                         state: state,
                         isShimmering: false,
-                        width: width
+                        sizeConfiguration: .editorSizeConfiguration(width: width)
                     )
                 )
                 .frame(height: ObjectHeaderConstants.coverFullHeight)

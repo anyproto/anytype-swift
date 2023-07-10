@@ -47,46 +47,46 @@ struct DebugMenu: View {
     private var buttons: some View {
         VStack {
             HStack {
-                StandardButton("Logs 🧻", style: .secondaryLarge) {
+                StandardButton(.text("Logs 🧻"), style: .secondaryLarge) {
                     showLogs.toggle()
                 }
-                StandardButton("Typography 🦭", style: .secondaryLarge) {
+                StandardButton(.text("Typography 🦭"), style: .secondaryLarge) {
                     showTypography.toggle()
                 }
             }
             HStack {
-                StandardButton("Crash 🔥", style: .primaryLarge) {
+                StandardButton(.text("Crash 🔥"), style: .primaryLarge) {
                     let crash: [Int] = []
                     _ = crash[1]
                 }
-                StandardButton("Assert 🥲", style: .secondaryLarge) {
+                StandardButton(.text("Assert 🥲"), style: .secondaryLarge) {
                     anytypeAssertionFailure("Test assert")
                 }
             }
             
             HStack {
-                StandardButton("Controls 🎛️", style: .secondaryLarge) {
+                StandardButton(.text("Controls 🎛️"), style: .secondaryLarge) {
                     UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
                     showControls.toggle()
                 }
-                StandardButton("Icons 🟣", style: .secondaryLarge) {
+                StandardButton(.text("Icons 🟣"), style: .secondaryLarge) {
                     UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
                     showGradientIcons.toggle()
                 }
             }
             
-            StandardButton("Colors 🌈", style: .secondaryLarge) {
+            StandardButton(.text("Colors 🌈"), style: .secondaryLarge) {
                 UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
                 showColors.toggle()
             }
 
-            StandardButton("Feedback Generator 🃏", style: .secondaryLarge) {
+            StandardButton(.text("Feedback Generator 🃏"), style: .secondaryLarge) {
                 UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
                 showFeedbackGenerators.toggle()
             }
 
             StandardButton(
-                "Remove Recovery Phrase from device",
+                .text("Remove Recovery Phrase from device"),
                 inProgress: model.isRemovingRecoveryPhraseInProgress,
                 style: .warningLarge
             ) {
