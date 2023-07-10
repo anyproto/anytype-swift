@@ -119,6 +119,14 @@ final class TextViewWithPlaceholder: UITextView {
 
         customTextViewDelegate.copy(range: selectedRange)
     }
+    
+    override func cut(_ sender: Any?) {
+        guard let customTextViewDelegate = customTextViewDelegate else {
+            return super.copy(sender)
+        }
+        
+        customTextViewDelegate.cut(range: selectedRange)
+    }
 
     // MARK: - Initialization
         

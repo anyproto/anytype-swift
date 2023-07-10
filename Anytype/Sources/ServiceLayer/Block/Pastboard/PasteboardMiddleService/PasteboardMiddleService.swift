@@ -82,6 +82,24 @@ final class PasteboardMiddleService: PasteboardMiddlewareServiceProtocol {
         }
         return PasteboardCopyResult(textSlot: result.textSlot, htmlSlot: result.htmlSlot, blockSlot: blocksSlots)
     }
+    
+    func cut(blocksIds: [BlockId], selectedTextRange: NSRange) async throws -> PasteboardCopyResult? {
+        let blocks: [Anytype_Model_Block] = blocksIds.compactMap {
+            guard let info = document.infoContainer.get(id: $0) else { return nil }
+            return BlockInformationConverter.convert(information: info)
+        }
+
+        let result = try await ClientCommands.blockCut(.with {
+            $0.contextID = document.objectId
+            $0.blocks = blocks
+            $0.selectedTextRange = selectedTextRange.asMiddleware
+        }).invoke()
+
+        let blocksSlots = result.anySlot.compactMap { modelBlock in
+            try? modelBlock.jsonString()
+        }
+        return PasteboardCopyResult(textSlot: result.textSlot, htmlSlot: result.htmlSlot, blockSlot: blocksSlots)
+    }
 }
 
 // MARK: - Private methods for middle
