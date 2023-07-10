@@ -14,7 +14,7 @@ struct KeychainPhraseView: View {
             Spacer.fixedHeight(24)
             SeedPhraseView(model: model)
             Spacer()
-            StandardButton(Loc.Keychain.showAndCopyPhrase, style: .secondaryLarge) {
+            StandardButton(.text(Loc.Keychain.showAndCopyPhrase), style: .secondaryLarge) {
                 model.onSeedViewTap()
             }
             Spacer.fixedHeight(20)

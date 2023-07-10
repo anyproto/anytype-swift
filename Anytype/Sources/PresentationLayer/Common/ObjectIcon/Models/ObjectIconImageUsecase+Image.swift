@@ -201,6 +201,17 @@ extension ObjectIconImageUsecase {
                 bookmarkImageGuideline: BookmarkIconImageGuideline.x28,
                 spaceImageGuideline: nil
             )
+        case .templatePreview:
+            return ObjectIconImageGuidelineSet(
+                basicImageGuideline: BasicIconImageGuideline.x32,
+                profileImageGuideline: ProfileIconImageGuideline.x32,
+                emojiImageGuideline: EmojiIconImageGuideline.x32cornerRadius,
+                todoImageGuideline: nil,
+                placeholderImageGuideline: PlaceholderIconImageGuideline.x32,
+                staticImageGuideline: nil,
+                bookmarkImageGuideline: nil,
+                spaceImageGuideline: nil
+            )
         }
     }
     

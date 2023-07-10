@@ -1229,6 +1229,19 @@
 		53FF7CB826FCDB4B00A5A592 /* ObjectActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FF7CB726FCDB4B00A5A592 /* ObjectActionsView.swift */; };
 		53FF7CBC26FDD36200A5A592 /* ObjectActionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FF7CBB26FDD36200A5A592 /* ObjectActionsViewModel.swift */; };
 		53FF7CBE26FDD37D00A5A592 /* ObjectAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FF7CBD26FDD37D00A5A592 /* ObjectAction.swift */; };
+		861E75F62A5C03E400F18552 /* EditableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 861E75F52A5C03E400F18552 /* EditableView.swift */; };
+		861E75F82A5D5A5F00F18552 /* TemplateSelectionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 861E75F72A5D5A5F00F18552 /* TemplateSelectionCoordinator.swift */; };
+		863776832A658AF10040308E /* TemplateModulesAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 863776822A658AF10040308E /* TemplateModulesAssembly.swift */; };
+		863776852A658B410040308E /* TemplateOptionAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 863776842A658B410040308E /* TemplateOptionAction.swift */; };
+		863776872A6663E50040308E /* VisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 863776862A6663E50040308E /* VisualEffectView.swift */; };
+		8637768A2A66644B0040308E /* DataviewTemplateSelectionInteractorProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 863776892A66644B0040308E /* DataviewTemplateSelectionInteractorProvider.swift */; };
+		8637768F2A6668680040308E /* TemplatePreviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8637768E2A6668680040308E /* TemplatePreviewModel.swift */; };
+		863776902A6669030040308E /* MockTemplateSelectionInteractorProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8637768B2A6664DB0040308E /* MockTemplateSelectionInteractorProvider.swift */; };
+		8638777A2A5808620024F814 /* TemplatesSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 863877792A5808620024F814 /* TemplatesSelectionView.swift */; };
+		8638777C2A58088F0024F814 /* TemplatesSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8638777B2A58088F0024F814 /* TemplatesSelectionViewModel.swift */; };
+		8639E0142A6020E700F52ED2 /* TemplatesSubscriptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8639E0132A6020E700F52ED2 /* TemplatesSubscriptionService.swift */; };
+		867580042A58306A0008566A /* TemplatePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 867580032A58306A0008566A /* TemplatePreview.swift */; };
+		86760D112A666F4400E915C9 /* HeaderViewSizeConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86760D102A666F4400E915C9 /* HeaderViewSizeConfiguration.swift */; };
 		86947EFF2A56B91D00CD7335 /* XCTests+Eventually.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86947EFE2A56B91D00CD7335 /* XCTests+Eventually.swift */; };
 		95A38D3A2A03F17700D06C96 /* Riccione-Xlight-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 95A38D392A03F17700D06C96 /* Riccione-Xlight-Regular.ttf */; };
 		95ADB5602A0284A400FE061B /* LegacyAuthViewAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95ADB55F2A0284A400FE061B /* LegacyAuthViewAssembly.swift */; };
@@ -2674,6 +2687,19 @@
 		53FF7CB726FCDB4B00A5A592 /* ObjectActionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectActionsView.swift; sourceTree = "<group>"; };
 		53FF7CBB26FDD36200A5A592 /* ObjectActionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectActionsViewModel.swift; sourceTree = "<group>"; };
 		53FF7CBD26FDD37D00A5A592 /* ObjectAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectAction.swift; sourceTree = "<group>"; };
+		861E75F52A5C03E400F18552 /* EditableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditableView.swift; sourceTree = "<group>"; };
+		861E75F72A5D5A5F00F18552 /* TemplateSelectionCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateSelectionCoordinator.swift; sourceTree = "<group>"; };
+		863776822A658AF10040308E /* TemplateModulesAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateModulesAssembly.swift; sourceTree = "<group>"; };
+		863776842A658B410040308E /* TemplateOptionAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateOptionAction.swift; sourceTree = "<group>"; };
+		863776862A6663E50040308E /* VisualEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectView.swift; sourceTree = "<group>"; };
+		863776892A66644B0040308E /* DataviewTemplateSelectionInteractorProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataviewTemplateSelectionInteractorProvider.swift; sourceTree = "<group>"; };
+		8637768B2A6664DB0040308E /* MockTemplateSelectionInteractorProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockTemplateSelectionInteractorProvider.swift; sourceTree = "<group>"; };
+		8637768E2A6668680040308E /* TemplatePreviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatePreviewModel.swift; sourceTree = "<group>"; };
+		863877792A5808620024F814 /* TemplatesSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesSelectionView.swift; sourceTree = "<group>"; };
+		8638777B2A58088F0024F814 /* TemplatesSelectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesSelectionViewModel.swift; sourceTree = "<group>"; };
+		8639E0132A6020E700F52ED2 /* TemplatesSubscriptionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesSubscriptionService.swift; sourceTree = "<group>"; };
+		867580032A58306A0008566A /* TemplatePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatePreview.swift; sourceTree = "<group>"; };
+		86760D102A666F4400E915C9 /* HeaderViewSizeConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderViewSizeConfiguration.swift; sourceTree = "<group>"; };
 		86947EFE2A56B91D00CD7335 /* XCTests+Eventually.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "XCTests+Eventually.swift"; path = "AnyTypeTests/Extensions/XCTests+Eventually.swift"; sourceTree = SOURCE_ROOT; };
 		95A38D392A03F17700D06C96 /* Riccione-Xlight-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Riccione-Xlight-Regular.ttf"; sourceTree = "<group>"; };
 		95ADB55F2A0284A400FE061B /* LegacyAuthViewAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegacyAuthViewAssembly.swift; sourceTree = "<group>"; };
@@ -4470,6 +4496,7 @@
 			isa = PBXGroup;
 			children = (
 				120EB4DB26E8E94C003A0C2B /* ObjectHeaderView.swift */,
+				86760D102A666F4400E915C9 /* HeaderViewSizeConfiguration.swift */,
 				12C8441426FE103E00D64B8D /* Icon */,
 				12C8441326FE102900D64B8D /* Cover */,
 			);
@@ -4756,6 +4783,7 @@
 				2AFCEB3829C8A25900841E13 /* CollectionsSubscriptionService.swift */,
 				2A6C75C329FC03D4002BD440 /* SingleObjectSubscriptionService.swift */,
 				2AA0C43E2A013EF800B9C108 /* FilesSubscriptionService.swift */,
+				8639E0132A6020E700F52ED2 /* TemplatesSubscriptionService.swift */,
 			);
 			path = Subscriptions;
 			sourceTree = "<group>";
@@ -5541,6 +5569,7 @@
 			children = (
 				2A2C33122892A161008BC326 /* TemplatesCoordinatorAssembly.swift */,
 				2AECFD4328993CCA000E9CFB /* TemplatesCoordinatorAssemblyProtocol.swift */,
+				863776822A658AF10040308E /* TemplateModulesAssembly.swift */,
 			);
 			path = Assembly;
 			sourceTree = "<group>";
@@ -7945,6 +7974,55 @@
 			path = ObjectActions;
 			sourceTree = "<group>";
 		};
+		863776882A6664360040308E /* Dataview */ = {
+			isa = PBXGroup;
+			children = (
+				863776892A66644B0040308E /* DataviewTemplateSelectionInteractorProvider.swift */,
+				8637768B2A6664DB0040308E /* MockTemplateSelectionInteractorProvider.swift */,
+			);
+			path = Dataview;
+			sourceTree = "<group>";
+		};
+		863877752A5808050024F814 /* Popup */ = {
+			isa = PBXGroup;
+			children = (
+				C90189AA2833903A00F30853 /* TemplateAvailabilityPopup.swift */,
+			);
+			path = Popup;
+			sourceTree = "<group>";
+		};
+		863877762A5808100024F814 /* Picker */ = {
+			isa = PBXGroup;
+			children = (
+				C99DCE94283B6D1F0051F99D /* TemplatePickerView.swift */,
+				C99DCEDD283D0E820051F99D /* TemplatePickerViewModel.swift */,
+			);
+			path = Picker;
+			sourceTree = "<group>";
+		};
+		863877782A58084B0024F814 /* Selection */ = {
+			isa = PBXGroup;
+			children = (
+				863776882A6664360040308E /* Dataview */,
+				867580022A582F110008566A /* Objects */,
+				863877792A5808620024F814 /* TemplatesSelectionView.swift */,
+				8638777B2A58088F0024F814 /* TemplatesSelectionViewModel.swift */,
+				861E75F52A5C03E400F18552 /* EditableView.swift */,
+				863776862A6663E50040308E /* VisualEffectView.swift */,
+				863776842A658B410040308E /* TemplateOptionAction.swift */,
+			);
+			path = Selection;
+			sourceTree = "<group>";
+		};
+		867580022A582F110008566A /* Objects */ = {
+			isa = PBXGroup;
+			children = (
+				867580032A58306A0008566A /* TemplatePreview.swift */,
+				8637768E2A6668680040308E /* TemplatePreviewModel.swift */,
+			);
+			path = Objects;
+			sourceTree = "<group>";
+		};
 		86947EFD2A56B90E00CD7335 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -7973,6 +8051,7 @@
 				2AECFD4528993CCC000E9CFB /* Assembly */,
 				C99DCE8F283B6C270051F99D /* Views */,
 				C90189A828338D2900F30853 /* TemplatesCoordinator.swift */,
+				861E75F72A5D5A5F00F18552 /* TemplateSelectionCoordinator.swift */,
 			);
 			path = Templates;
 			sourceTree = "<group>";
@@ -8200,9 +8279,9 @@
 		C99DCE8F283B6C270051F99D /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				C90189AA2833903A00F30853 /* TemplateAvailabilityPopup.swift */,
-				C99DCE94283B6D1F0051F99D /* TemplatePickerView.swift */,
-				C99DCEDD283D0E820051F99D /* TemplatePickerViewModel.swift */,
+				863877782A58084B0024F814 /* Selection */,
+				863877762A5808100024F814 /* Picker */,
+				863877752A5808050024F814 /* Popup */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -8701,7 +8780,6 @@
 		};
 		C9C89788276CA25900EB7585 /* SwiftGen */ = {
 			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -8854,6 +8932,7 @@
 				2EDC2B062A13E4E00065E009 /* KeyPhraseViewModel.swift in Sources */,
 				127EAC19273A438900C731F2 /* RelationsListRowHintView.swift in Sources */,
 				C940A9A6286033C0008B500B /* SimpleTableViewModel.swift in Sources */,
+				8639E0142A6020E700F52ED2 /* TemplatesSubscriptionService.swift in Sources */,
 				2ABAF2C1293DED8C003C4730 /* CreateObjectModuleAssembly.swift in Sources */,
 				12887F3A274BB32600228330 /* BundledDetails.swift in Sources */,
 				3D1CEC2D27F48301000D36BA /* SettingsButton.swift in Sources */,
@@ -8937,6 +9016,7 @@
 				EAED57D026A1A33500374A46 /* TextBlockContentView+TextViewDelegate.swift in Sources */,
 				12426A1626DCE1B900693B1F /* ImageBuilderProtocol.swift in Sources */,
 				C9A4774028DB0B3600D05EA3 /* AnytypePreviewController.swift in Sources */,
+				8637768A2A66644B0040308E /* DataviewTemplateSelectionInteractorProvider.swift in Sources */,
 				2ACEAE442984016600B467CE /* WidgetTypeView.swift in Sources */,
 				3DB9810E274FB82500ECC882 /* DashboardKeychainReminderAlert.swift in Sources */,
 				C9E89098285866DD0040DEB2 /* BlockTableService.swift in Sources */,
@@ -9047,6 +9127,7 @@
 				12B0FF71274FD6D700CA35FE /* AppIconManager.swift in Sources */,
 				2A03632029FBEEC200CE3116 /* FileStorageModuleAssembly.swift in Sources */,
 				3DCC549426D3B58E002517AC /* BlockBookmarkOnlyUrlView.swift in Sources */,
+				86760D112A666F4400E915C9 /* HeaderViewSizeConfiguration.swift in Sources */,
 				534785622743D4550097CA30 /* RelationsSectionBuilder.swift in Sources */,
 				125B6ED726F2386900BCD7D6 /* ObjectIconImageMentionType.swift in Sources */,
 				125B6ED526F235F400BCD7D6 /* SlashMenuViewController+TableView.swift in Sources */,
@@ -9081,6 +9162,7 @@
 				3D2F9C3F271F024E0043C326 /* FloaterAlertView.swift in Sources */,
 				2A90C47B28605F8C00B6B44E /* TableOfContentsContentProvider.swift in Sources */,
 				2AC3F9462A138263005EFEE9 /* FileLimitsStorage.swift in Sources */,
+				863776832A658AF10040308E /* TemplateModulesAssembly.swift in Sources */,
 				2E6F3E1D2A4DB179002F4278 /* SceneStateNotifier.swift in Sources */,
 				1211D65A2667CED000541D9C /* ActivityIndicatorView.swift in Sources */,
 				125683E227DF1E7D003A8251 /* SearchObjectRowView.swift in Sources */,
@@ -9116,6 +9198,7 @@
 				3D1CEC4B27F70B2E000D36BA /* AccountData.swift in Sources */,
 				C946681728462EB000A8A6F5 /* SimpleTableBlockView.swift in Sources */,
 				2A00A4E929E811FD00C5FCC3 /* ControlsExample.swift in Sources */,
+				8638777C2A58088F0024F814 /* TemplatesSelectionViewModel.swift in Sources */,
 				53F7449D27FB9006005C9BB0 /* ObjectPreviewIconMenuViewModel.swift in Sources */,
 				2AEABE0328C7546200BDE3AC /* RelationEvent.swift in Sources */,
 				2E2D256F288AD08100E3DFD1 /* SetFiltersCheckboxValue.swift in Sources */,
@@ -9154,6 +9237,7 @@
 				535F79732746AAD40050A1B8 /* FlowLayout.swift in Sources */,
 				3D07ECE9261B735300C007E2 /* UINavigationController+UIGestureRecognizerDelegate.swift in Sources */,
 				535E02AD274FF0B100E1AF8C /* RelationValueView.swift in Sources */,
+				867580042A58306A0008566A /* TemplatePreview.swift in Sources */,
 				0A2ADCE62496C72A00FA135D /* ObjectActionsServiceProtocol.swift in Sources */,
 				2AB2C22428AD23FD000191F8 /* AlertOpenerProtocol.swift in Sources */,
 				2A0BAD3129E020A3005BC5D9 /* Task+Extensions.swift in Sources */,
@@ -9245,6 +9329,7 @@
 				12EB9AF62771F0E900BA732F /* RelationOptionsListView.swift in Sources */,
 				3DFD1B3B26EA5B3E00F893FC /* ObjectIconAttachementLoader.swift in Sources */,
 				3DDD3D0E26AEB55700B5673A /* BlockFileView.swift in Sources */,
+				861E75F82A5D5A5F00F18552 /* TemplateSelectionCoordinator.swift in Sources */,
 				C96AFFD1284A385D0048B8EB /* SeparatorItemView.swift in Sources */,
 				53FF7C6D26F8F8E400A5A592 /* iCloudBackupConfigurator.swift in Sources */,
 				53F80F1227BDA96E00E9E12A /* FileRelationViewUIKit.swift in Sources */,
@@ -9298,6 +9383,7 @@
 				3D6E9A46270F4889001B0A07 /* BrowserNavigationManagerError.swift in Sources */,
 				03A90DF423A04FFE000E3EFE /* LocalRepoService.swift in Sources */,
 				EAADB16F26776DDD004B0AF2 /* MentionAttachment.swift in Sources */,
+				8638777A2A5808620024F814 /* TemplatesSelectionView.swift in Sources */,
 				3DB6E247268B5F8900C303E5 /* BlockViewModelProtocol.swift in Sources */,
 				120EB4E326E8F618003A0C2B /* ObjectHeaderIconView.swift in Sources */,
 				53F80EFA27BD8A0A00E9E12A /* TagViewUIKit.swift in Sources */,
@@ -9309,6 +9395,7 @@
 				129C54D227FC7A2800C390C7 /* RelationFormatsListViewModel.swift in Sources */,
 				125B6ED026F235F400BCD7D6 /* SlashMenuAssembly.swift in Sources */,
 				2AFF7AC2299CDA4B00B7746B /* WidgetObjectListBinViewModel.swift in Sources */,
+				863776852A658B410040308E /* TemplateOptionAction.swift in Sources */,
 				12CAF35E26D67540001E56B2 /* ObjectIconImageFontSet.swift in Sources */,
 				125B6ECF26F235F400BCD7D6 /* SlashMenuViewController.swift in Sources */,
 				2A03039F28ABD4BD002EFC46 /* SystemURLService.swift in Sources */,
@@ -9467,6 +9554,7 @@
 				5356072926E61E2E001464A4 /* UnsupportedBlockContentConfiguration.swift in Sources */,
 				5392CACF28469E1000F56F10 /* PasteboardPasteResult.swift in Sources */,
 				1215E8B426A860ED0089AF7E /* AppConfiguratorProtocol.swift in Sources */,
+				861E75F62A5C03E400F18552 /* EditableView.swift in Sources */,
 				2A945D3E299E3E9D00C34C86 /* PlainList.swift in Sources */,
 				3DDC6A602627071E004F5EA4 /* BlockLinkState.swift in Sources */,
 				2EDC2AF72A1251EF0065E009 /* VoidView.swift in Sources */,
@@ -9556,6 +9644,7 @@
 				2AFFFB862924EE1000A487E1 /* ViewControllerProvider.swift in Sources */,
 				53D408D327F1DFCB00495335 /* PasteboardActionContext.swift in Sources */,
 				2A00A4EB29E81D9800C5FCC3 /* ObjectType+Analytics.swift in Sources */,
+				863776902A6669030040308E /* MockTemplateSelectionInteractorProvider.swift in Sources */,
 				2EC9426C2901905900DE91E4 /* SetKanbanView.swift in Sources */,
 				3D93D570270C9E4E00614E29 /* EditorPageViewInput.swift in Sources */,
 				531629382632BD0B000D6780 /* StyleView.swift in Sources */,
@@ -9944,6 +10033,7 @@
 				535F799A274705C30050A1B8 /* FlowRelationsViewModel.swift in Sources */,
 				2A1F949929795FEB00E25782 /* FavoriteSubscriptionService.swift in Sources */,
 				2ADFA9DC2949C61D00F64688 /* UIKitModule.swift in Sources */,
+				863776872A6663E50040308E /* VisualEffectView.swift in Sources */,
 				C93B2D2F274E41390008544D /* CustomStateKeys.swift in Sources */,
 				2A2C3311289294B8008BC326 /* ModulesDI.swift in Sources */,
 				2AFFFB9B292778B700A487E1 /* ObjectSettingModuleAssembly.swift in Sources */,
@@ -9968,6 +10058,7 @@
 				2A4E5C8A296C0BAD002BB71B /* HomeBottomPanelView.swift in Sources */,
 				53FF7CBE26FDD37D00A5A592 /* ObjectAction.swift in Sources */,
 				2A150BE028AA8E9700F2E569 /* TextRelationURLActionViewModel.swift in Sources */,
+				8637768F2A6668680040308E /* TemplatePreviewModel.swift in Sources */,
 				125FD2FE26CE522700D21F5A /* EditorNavigationBarHelperProtocol.swift in Sources */,
 				534D19CB2623BDCC0080AEF0 /* ButtonWithImage.swift in Sources */,
 				2A673C1929B0D7CD00E3D672 /* SettingsAccountViewModel.swift in Sources */,

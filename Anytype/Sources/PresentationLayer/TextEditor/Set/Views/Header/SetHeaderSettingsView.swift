@@ -12,7 +12,11 @@ struct SetHeaderSettingsView: View {
             settingButton
 
             Spacer.fixedWidth(16)
-            createObjectButton
+            if FeatureFlags.setTemplateSelection {
+                compositeCreateButtons
+            } else {
+                createObjectButton
+            }
         }
         .padding(.horizontal, 20)
         .frame(height: 56)
@@ -30,11 +34,33 @@ struct SetHeaderSettingsView: View {
     }
     
     private var createObjectButton: some View {
-        StandardButton(Loc.new, style: .primaryXSmall) {
+        StandardButton(.text(Loc.new), style: .primaryXSmall) {
             UISelectionFeedbackGenerator().selectionChanged()
             model.onCreateTap()
         }
         .disabled(!model.isActive)
+    }
+    
+    private var compositeCreateButtons: some View {
+        HStack(spacing: 0) {
+            StandardButton(
+                .text(Loc.new),
+                style: .primaryXSmall,
+                corners: [.topLeft, .bottomLeft]
+            ) {
+                UISelectionFeedbackGenerator().selectionChanged()
+                model.onCreateTap()
+            }
+            .disabled(!model.isActive)
+            Rectangle()
+                .fill(Color.Stroke.primary)
+                .frame(width: 1, height: 28)
+            StandardButton(.image(.X18.listArrow), style: .primaryXSmall, corners: [.topRight, .bottomRight]) {
+                UISelectionFeedbackGenerator().selectionChanged()
+                model.onSecondaryCreateTap()
+            }
+            .disabled(!model.isActive)
+        }
     }
     
     private var viewButton: some View {
@@ -72,7 +98,8 @@ struct SetHeaderSettings_Previews: PreviewProvider {
                 isActive: true,
                 onViewTap: {},
                 onSettingsTap: {},
-                onCreateTap:{}
+                onCreateTap:{},
+                onSecondaryCreateTap: {}
             )
         )
     }

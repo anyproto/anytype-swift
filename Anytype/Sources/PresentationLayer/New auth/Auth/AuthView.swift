@@ -53,7 +53,7 @@ struct AuthView: View {
     private var buttons: some View {
         HStack(spacing: 13) {
             StandardButton(
-                Loc.Auth.join,
+                .text(Loc.Auth.join),
                 style: .primaryLarge,
                 action: {
                     model.onJoinButtonTap()
@@ -63,7 +63,7 @@ struct AuthView: View {
             .addEmptyNavigationLink(destination: model.onJoinAction(), isActive: $model.showJoinFlow)
             
             StandardButton(
-                Loc.Auth.logIn,
+                .text(Loc.Auth.logIn),
                 style: .secondaryLarge,
                 action: {
                     model.onLoginButtonTap()

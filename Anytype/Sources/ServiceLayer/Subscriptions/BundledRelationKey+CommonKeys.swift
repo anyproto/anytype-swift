@@ -35,6 +35,20 @@ extension BundledRelationKey {
         }.uniqued()
     }
     
+    static var templatePreviewKeys: [BundledRelationKey] {
+        .builder {
+            BundledRelationKey.objectIconImageKeys
+            BundledRelationKey.titleKeys
+            BundledRelationKey.iconImage
+            BundledRelationKey.iconEmoji
+            BundledRelationKey.iconOption
+            BundledRelationKey.coverId
+            BundledRelationKey.coverType
+            BundledRelationKey.id
+            BundledRelationKey.layoutAlign
+        }.uniqued()
+    }
+    
     // Keys for object list screens
     
     static var objectListKeys: [BundledRelationKey] {

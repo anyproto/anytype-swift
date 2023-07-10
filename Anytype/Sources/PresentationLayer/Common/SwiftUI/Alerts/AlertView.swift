@@ -24,7 +24,7 @@ struct AlertView<Presenting>: View where Presenting: View {
                 .multilineTextAlignment(.center)
             
             StandardButton(
-                Loc.ok,
+                .text(Loc.ok),
                 style: .primaryLarge,
                 action: {
                     isShowing.toggle()

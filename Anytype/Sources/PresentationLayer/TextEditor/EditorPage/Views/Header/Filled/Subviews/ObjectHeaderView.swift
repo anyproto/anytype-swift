@@ -14,13 +14,15 @@ final class ObjectHeaderView: UIView {
     private var onIconTap: (() -> Void)?
     private var onCoverTap: (() -> Void)?
     
-    private var leadingConstraint: NSLayoutConstraint!
-    private var centerConstraint: NSLayoutConstraint!
-    private var trailingConstraint: NSLayoutConstraint!
+    private var leadingConstraint: NSLayoutConstraint?
+    private var centerConstraint: NSLayoutConstraint?
+    private var trailingConstraint: NSLayoutConstraint?
     
     private var fullHeightConstraint: NSLayoutConstraint?
     private var converViewHeightConstraint: NSLayoutConstraint?
     private var iconTopConstraint: NSLayoutConstraint?
+    private var coverBottomConstraint: NSLayoutConstraint?
+    private var iconBottomConstraint: NSLayoutConstraint?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -67,11 +69,14 @@ extension ObjectHeaderView: ConfigurableView {
     
     struct Model {
         let state: ObjectHeaderFilledState
-        let width: CGFloat
+        let sizeConfiguration: HeaderViewSizeConfiguration
         let isShimmering: Bool
     }
     
     func configure(model: Model) {
+        update(sizeConfiguration: model.sizeConfiguration)
+        iconView.initialBorderWidth = model.sizeConfiguration.iconBorderWidth
+        
         switch model.state {
         case .iconOnly(let objectHeaderIconState):
             switchState(.icon)
@@ -81,13 +86,13 @@ extension ObjectHeaderView: ConfigurableView {
         case .coverOnly(let objectHeaderCover):
             switchState(.cover)
             
-            applyObjectHeaderCover(objectHeaderCover, maxWidth: model.width)
+            applyObjectHeaderCover(objectHeaderCover, sizeConfiguration: model.sizeConfiguration)
             
         case .iconAndCover(let objectHeaderIcon, let objectHeaderCover):
             switchState(.iconAndCover)
             
             applyObjectHeaderIcon(objectHeaderIcon)
-            applyObjectHeaderCover(objectHeaderCover, maxWidth: model.width)
+            applyObjectHeaderCover(objectHeaderCover, sizeConfiguration: model.sizeConfiguration)
         }
     }
     
@@ -119,36 +124,46 @@ extension ObjectHeaderView: ConfigurableView {
     private func applyLayoutAlignment(_ layoutAlignment: LayoutAlignment) {
         switch layoutAlignment {
         case .left:
-            leadingConstraint.isActive = true
-            centerConstraint.isActive = false
-            trailingConstraint.isActive = false
+            leadingConstraint?.isActive = true
+            centerConstraint?.isActive = false
+            trailingConstraint?.isActive = false
         case .center:
-            leadingConstraint.isActive = false
-            centerConstraint.isActive = true
-            trailingConstraint.isActive = false
+            leadingConstraint?.isActive = false
+            centerConstraint?.isActive = true
+            trailingConstraint?.isActive = false
         case .right:
-            leadingConstraint.isActive = false
-            centerConstraint.isActive = false
-            trailingConstraint.isActive = true
+            leadingConstraint?.isActive = false
+            centerConstraint?.isActive = false
+            trailingConstraint?.isActive = true
         }
     }
     
     private func applyObjectHeaderCover(
         _ objectHeaderCover: ObjectHeaderCover,
-        maxWidth: CGFloat
+        sizeConfiguration: HeaderViewSizeConfiguration
     ) {
         coverView.configure(
             model: ObjectHeaderCoverView.Model(
                 objectCover: objectHeaderCover.coverType,
                 size: CGSize(
-                    width: maxWidth,
-                    height: ObjectHeaderConstants.coverHeight
+                    width: sizeConfiguration.width,
+                    height: sizeConfiguration.coverHeight
                 ),
                 fitImage: false
             )
         )
 
         onCoverTap = objectHeaderCover.onTap
+    }
+    
+    private func update(sizeConfiguration: HeaderViewSizeConfiguration) {
+        fullHeightConstraint?.constant = sizeConfiguration.fullHeight
+        coverBottomConstraint?.constant = -sizeConfiguration.coverBottomInset
+        converViewHeightConstraint?.constant = sizeConfiguration.coverHeight
+        iconBottomConstraint?.constant = -sizeConfiguration.iconBottomInset
+        leadingConstraint?.constant = sizeConfiguration.iconHorizontalInset
+        trailingConstraint?.constant = -sizeConfiguration.iconHorizontalInset
+        iconTopConstraint?.constant = sizeConfiguration.onlyIconTopInset
     }
     
 }
@@ -181,7 +196,7 @@ private extension ObjectHeaderView {
     
     func setupLayout() {
         layoutUsing.anchors {
-            fullHeightConstraint = $0.height.equal(to: ObjectHeaderConstants.coverFullHeight, priority: .defaultLow)
+            fullHeightConstraint = $0.height.equal(to: 0, priority: .defaultLow)
         }
 
         addSubview(coverView) {
@@ -189,19 +204,23 @@ private extension ObjectHeaderView {
                 excluding: [.bottom],
                 insets: .zero
             )
-            $0.bottom.greaterThanOrEqual(to: bottomAnchor, constant: -ObjectHeaderConstants.coverBottomInset, priority: .init(rawValue: 999))
-            converViewHeightConstraint = $0.height.equal(to: ObjectHeaderConstants.coverHeight)
+            coverBottomConstraint = $0.bottom.greaterThanOrEqual(
+                to: bottomAnchor,
+                constant: 0,
+                priority: .init(rawValue: 999)
+            )
+            converViewHeightConstraint = $0.height.equal(to: 0)
         }
         
         addSubview(iconView) {
-            $0.bottom.equal(
+            iconBottomConstraint = $0.bottom.equal(
                 to: bottomAnchor,
-                constant: -ObjectHeaderConstants.iconBottomInset
+                constant: 0
             )
 
             leadingConstraint = $0.leading.equal(
                 to: leadingAnchor,
-                constant: ObjectHeaderConstants.iconHorizontalInset,
+                constant: 0,
                 activate: false
             )
 
@@ -212,14 +231,13 @@ private extension ObjectHeaderView {
             
             trailingConstraint =  $0.trailing.equal(
                 to: trailingAnchor,
-                constant: -ObjectHeaderConstants.iconHorizontalInset,
+                constant: 0,
                 activate: false
             )
             
             iconTopConstraint = $0.top.equal(
                 to: topAnchor,
-                constant: ObjectHeaderConstants.emptyViewHeight,
-                activate: false
+                constant: 0
             )
         }
     }

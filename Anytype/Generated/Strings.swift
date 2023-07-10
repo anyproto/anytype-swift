@@ -1586,6 +1586,18 @@ internal enum Loc {
     /// Add headings to create a table of contents
     internal static let empty = Loc.tr("Localizable", "TalbeOfContents.Empty", fallback: "Add headings to create a table of contents")
   }
+  internal enum TemplateOptions {
+    internal enum Alert {
+      /// Delete
+      internal static let delete = Loc.tr("Localizable", "TemplateOptions.Alert.Delete", fallback: "Delete")
+      /// Duplicate
+      internal static let duplicate = Loc.tr("Localizable", "TemplateOptions.Alert.Duplicate", fallback: "Duplicate")
+      /// Edit template
+      internal static let editTemplate = Loc.tr("Localizable", "TemplateOptions.Alert.EditTemplate", fallback: "Edit template")
+      /// Set as default for this view
+      internal static let setAsDefault = Loc.tr("Localizable", "TemplateOptions.Alert.SetAsDefault", fallback: "Set as default for this view")
+    }
+  }
   internal enum TemplatePicker {
     /// Choose template
     internal static let chooseTemplate = Loc.tr("Localizable", "TemplatePicker.ChooseTemplate", fallback: "Choose template")
@@ -1595,6 +1607,10 @@ internal enum Loc {
       /// Use template
       internal static let useTemplate = Loc.tr("Localizable", "TemplatePicker.Buttons.UseTemplate", fallback: "Use template")
     }
+  }
+  internal enum TemplateSelection {
+    /// Select template
+    internal static let selectTemplate = Loc.tr("Localizable", "TemplateSelection.SelectTemplate", fallback: "Select template")
   }
   internal enum ToggleEmpty {
     /// Toggle empty. Tap to create block.

@@ -63,7 +63,7 @@ struct MigrationGuideView: View {
                 ) {
                     AnytypeText(Loc.MigrationGuide.Completed.description, style: .uxCalloutRegular, color: .Text.primary)
                     Spacer.fixedHeight(16)
-                    StandardButton(Loc.MigrationGuide.Completed.forumButton, style: .primaryLarge) {
+                    StandardButton(.text(Loc.MigrationGuide.Completed.forumButton), style: .primaryLarge) {
                         AnytypeAnalytics.instance().logMigrationGoneWrong(type: .instruсtions)
                         guard let url = URL(string: Constants.forumLink) else { return }
                         openURL(url)
