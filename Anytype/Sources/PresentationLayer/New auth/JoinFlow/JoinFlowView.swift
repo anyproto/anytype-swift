@@ -10,11 +10,15 @@ struct JoinFlowView: View {
             content(height: geo.size.height)
         }
         .customBackSwipe {
+            guard !model.disableBackAction else { return }
             if model.step.isFirst {
                  presentationMode.dismiss()
              } else {
                  model.onBack()
              }
+        }
+        .ifLet(model.errorText) { view, errorText in
+            view.alertView(isShowing: $model.showError, errorText: errorText)
         }
         .fitIPadToReadableContentGuide()
     }
@@ -63,6 +67,7 @@ struct JoinFlowView: View {
             Image(asset: .backArrow)
                 .foregroundColor(.Text.tertiary)
         }
+        .disabled(model.disableBackAction)
     }
     
     private var counter : some View {
@@ -75,7 +80,6 @@ struct JoinFlowView_Previews : PreviewProvider {
     static var previews: some View {
         JoinFlowView(
             model: JoinFlowViewModel(
-                state: JoinFlowState(),
                 output: nil,
                 applicationStateService: DI.preview.serviceLocator.applicationStateService()
             )

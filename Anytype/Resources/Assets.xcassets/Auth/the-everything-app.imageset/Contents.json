@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "the-everything-app.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

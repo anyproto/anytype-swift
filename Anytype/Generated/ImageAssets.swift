@@ -14,6 +14,7 @@ internal extension ImageAsset {
     static let appIconOldSchool = ImageAsset.bundle(name: "AppIconsPreview/AppIconOldSchool")
   }
   static let authPhotoIcon = ImageAsset.bundle(name: "auth_photo_icon")
+  static let theEverythingApp = ImageAsset.bundle(name: "the-everything-app")
   static let arrowDown = ImageAsset.bundle(name: "arrowDown")
   static let arrowForward = ImageAsset.bundle(name: "arrowForward")
   static let backArrow = ImageAsset.bundle(name: "backArrow")

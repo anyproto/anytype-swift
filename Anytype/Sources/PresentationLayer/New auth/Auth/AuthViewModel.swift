@@ -8,34 +8,12 @@ final class AuthViewModel: ObservableObject {
     @Published var showLoginFlow: Bool = false
     @Published var showDebugMenu: Bool = false
     @Published var opacity: Double = 1
-    @Published var creatingAccountInProgress = false
-    @Published var errorText: String? {
-        didSet {
-            showError = errorText.isNotNil
-        }
-    }
-    @Published var showError: Bool = false
     
     // MARK: - Private
-    
-    private let state: JoinFlowState
     private weak var output: AuthViewModelOutput?
-    private let authService: AuthServiceProtocol
-    private let seedService: SeedServiceProtocol
-    private let usecaseService: UsecaseServiceProtocol
     
-    init(
-        state: JoinFlowState,
-        output: AuthViewModelOutput?,
-        authService: AuthServiceProtocol,
-        seedService: SeedServiceProtocol,
-        usecaseService: UsecaseServiceProtocol
-    ) {
-        self.state = state
+    init(output: AuthViewModelOutput?) {
         self.output = output
-        self.authService = authService
-        self.seedService = seedService
-        self.usecaseService = usecaseService
     }
     
     // MARK: - Public
@@ -53,7 +31,8 @@ final class AuthViewModel: ObservableObject {
     }
     
     func onJoinButtonTap() {
-        createAccount()
+        showJoinFlow.toggle()
+        changeContentOpacity(true)
     }
     
     func onJoinAction() -> AnyView? {
@@ -76,37 +55,6 @@ final class AuthViewModel: ObservableObject {
     func onDebugMenuAction() -> AnyView? {
         AudioServicesPlaySystemSound(1109)
         return output?.onDebugMenuAction()
-    }
-    
-    private func createAccount() {
-        Task { @MainActor in
-            do {
-                creatingAccountInProgress = true
-                
-                state.mnemonic = try await authService.createWallet()
-                try await authService.createAccount(
-                    name: "",
-                    imagePath: ""
-                )
-                try await usecaseService.setObjectImportUseCaseToSkip()
-                try? seedService.saveSeed(state.mnemonic)
-                
-                createAccountSuccess()
-            } catch {
-                createAccountError(error)
-            }
-        }
-    }
-    
-    private func createAccountSuccess() {
-        creatingAccountInProgress = false
-        showJoinFlow.toggle()
-        changeContentOpacity(true)
-    }
-    
-    private func createAccountError(_ error: Error) {
-        creatingAccountInProgress = false
-        errorText = error.localizedDescription
     }
     
     private func changeContentOpacity(_ hide: Bool) {

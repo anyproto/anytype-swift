@@ -38,7 +38,6 @@ enum AnytypeFont: CaseIterable {
     case button1Regular
     case button1Medium
     
-    case authTitle
     case authBody
     case authCaption
     case authInput

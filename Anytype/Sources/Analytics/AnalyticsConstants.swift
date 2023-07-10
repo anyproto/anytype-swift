@@ -51,7 +51,6 @@ enum AnalyticsEventsName {
 
     // Object events
     static let createObject = "CreateObject"
-    static let createObjectNavBar = "CreateObjectNavBar"
     static let addToFavorites = "AddToFavorites"
     static let removeFromFavorites = "RemoveFromFavorites"
     static let moveToBin = "MoveToBin"
@@ -240,10 +239,16 @@ enum AnalyticsEventsTypeValues {
 
 enum AnalyticsEventsRouteKind: String {
     case set = "Set"
-    case home = "Home"
+    case collection = "Collection"
     case mention = "Mention"
     case powertool = "Powertool"
     case turnInto = "TurnInto"
+    case navigation = "Navigation"
+}
+
+enum AnalyticsEventsRouteView: String {
+    case navbar = "Navbar"
+    case home = "Home"
 }
 
 enum AnalyticsEventsRelationType: String {

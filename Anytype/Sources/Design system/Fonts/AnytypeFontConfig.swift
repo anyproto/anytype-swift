@@ -10,7 +10,6 @@ struct AnytypeFontConfig {
     enum Name: String {
         case plex = "IBMPlexMono"
         case inter = "Inter"
-        case riccione = "Riccione-Xlight"
     }
     
     enum Weight {
@@ -215,14 +214,6 @@ extension AnytypeFont {
                 weight: .medium,
                 lineHeight: 24,
                 kern: -0.41
-            )
-        case .authTitle:
-            return AnytypeFontConfig(
-                fontName: .riccione,
-                size: 60,
-                weight: .regular,
-                lineHeight: 60,
-                kern: -0.3
             )
         case .authBody:
             return AnytypeFontConfig(

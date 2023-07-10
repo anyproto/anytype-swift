@@ -16,10 +16,6 @@ final class AuthCoordinator: AuthCoordinatorProtocol, AuthViewModelOutput {
     private let loginFlowCoordinator: LoginFlowCoordinatorProtocol
     private let urlOpener: URLOpenerProtocol
     
-    // MARK: - State
-    
-    private let state = JoinFlowState()
-    
     init(
         authModuleAssembly: AuthModuleAssemblyProtocol,
         debugMenuModuleAssembly: DebugMenuModuleAssemblyProtocol,
@@ -37,13 +33,13 @@ final class AuthCoordinator: AuthCoordinatorProtocol, AuthViewModelOutput {
     // MARK: - AuthCoordinatorProtocol
     
     func startFlow() -> AnyView {
-        return authModuleAssembly.make(state: state, output: self)
+        return authModuleAssembly.make(output: self)
     }
     
     // MARK: - AuthViewModelOutput
     
     func onJoinAction() -> AnyView {
-        joinFlowCoordinator.startFlow(with: state)
+        joinFlowCoordinator.startFlow()
     }
     
     func onLoginAction() -> AnyView {
