@@ -2,18 +2,18 @@
 Official Anytype client for iOS.
 
 ## Building the source
+Use XCode to build the project.
 
-### Install current middleware version
+[`anytype-heart`](https://github.com/anyproto/anytype-heart) is required for a successful build.
 
-`make setup-middle`
+### Use pre-built `anytype-heart`
+`make setup-middle` — install the latest `anytype-heart` version.
 
-### Update to the latest middleware version
+`make update-middle` — update to the latest `anytype-heart` version
 
-`make update-middle`
+### Build `anytype-heart` locally
 
-### Build from the middleware repo
-
-Clone [anytype-heart](https://github.com/anyproto/anytype-heart) repo.
+Clone [`anytype-heart`](https://github.com/anyproto/anytype-heart) repo.
 Check folder structure for use `make` in next steps:
 ```
 - Parent Directory
@@ -21,9 +21,9 @@ Check folder structure for use `make` in next steps:
   | - anytype-swift
 ```
 
-Configure go environment by following instructions in [anytype-heart](https://github.com/anyproto/anytype-heart) repo.
+Configure go environment by following instructions in [`anytype-heart`](https://github.com/anyproto/anytype-heart) repo.
 
-`make setup-middle-local` to build and setup middleware from the repo.
+`make setup-middle-local` — build and setup `anytype-heart` from the local repo.
 
 ## Contribution
 Thank you for your desire to develop Anytype together. 
