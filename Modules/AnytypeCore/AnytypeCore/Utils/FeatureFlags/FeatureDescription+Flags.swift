@@ -28,33 +28,9 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
-    static let fileStorage = FeatureDescription(
-        title: "File storage",
-        type: .feature(author: "m@anytype.io", releaseVersion: "0.22.0"),
-        defaultValue: true
-    )
-    
     static let newAuthorization = FeatureDescription(
         title: "New authorization",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.23.0"),
-        defaultValue: true
-    )
-    
-    static let redesignAbout = FeatureDescription(
-        title: "Redesign about",
-        type: .feature(author: "m@anytype.io", releaseVersion: "0.22.0"),
-        defaultValue: true
-    )
-    
-    static let sortIncludeTime = FeatureDescription(
-        title: "Sort include time",
-        type: .feature(author: "m@anytype.io", releaseVersion: "0.22.0"),
-        defaultValue: true
-    )
-    
-    static let binConfirmAlert = FeatureDescription(
-        title: "Bin confirm alert",
-        type: .feature(author: "m@anytype.io", releaseVersion: "0.22.0"),
         defaultValue: true
     )
     
@@ -85,6 +61,12 @@ public extension FeatureDescription {
     static let clearAccountDataOnDeletedStatus = FeatureDescription(
         title: "Clear cccount data on deleted status",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.23.0"),
+        defaultValue: true
+    )
+    
+    static let deleteObjectPlaceholder = FeatureDescription(
+        title: "Delete object placeholder - IOS-960",
+        type: .feature(author: "m@anytype.io", releaseVersion: "0.23.0"),
         defaultValue: true
     )
     

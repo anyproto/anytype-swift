@@ -315,16 +315,18 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
 
         UISelectionFeedbackGenerator().selectionChanged()
         
-        blockActionsServiceSingle.move(
-            contextId: document.objectId,
-            blockIds: movingBlocksIds,
-            targetContextID: targetId,
-            dropTargetID: dropTargetId,
-            position: position
-        )
-
-        movingBlocksIds.removeAll()
-        editingState = .editing
+        Task { @MainActor in
+            try await blockActionsServiceSingle.move(
+                contextId: document.objectId,
+                blockIds: movingBlocksIds,
+                targetContextID: targetId,
+                dropTargetID: dropTargetId,
+                position: position
+            )
+            
+            movingBlocksIds.removeAll()
+            editingState = .editing
+        }
     }
 
     private func didTapEndSelectionModeButton() {
@@ -349,7 +351,11 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         case .duplicate:
             elements.forEach { actionHandler.duplicate(blockId: $0.blockId) }
         case .turnInto:
-            elements.forEach { actionHandler.turnIntoPage(blockId: $0.blockId) }
+            Task {
+                for block in elements {
+                    try await actionHandler.turnIntoPage(blockId: block.blockId)
+                }
+            }
         case .moveTo:
             router.showMoveTo { [weak self] details in
                 elements.forEach {
@@ -440,8 +446,10 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
             }
 
             AnytypeAnalytics.instance().logCopyBlock()
-            pasteboardService.copy(blocksIds: blocksIds, selectedTextRange: NSRange())
-            toastPresenter.show(message: Loc.copied)
+            Task { @MainActor [weak self, blocksIds] in
+                try await self?.pasteboardService.copy(blocksIds: blocksIds, selectedTextRange: NSRange())
+                self?.toastPresenter.show(message: Loc.copied)
+            }
         case .preview:
             elements.first.map {
                 let blockId = $0.blockId

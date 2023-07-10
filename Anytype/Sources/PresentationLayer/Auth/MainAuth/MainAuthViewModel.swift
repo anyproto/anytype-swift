@@ -1,6 +1,7 @@
 import Foundation
 import SwiftUI
 
+@MainActor
 class MainAuthViewModel: ObservableObject {
     private let authService = ServiceLocator.shared.authService()
     private let applicationStateService: ApplicationStateServiceProtocol
@@ -22,12 +23,14 @@ class MainAuthViewModel: ObservableObject {
     @Published var showSignUpFlow: Bool = false
     
     func singUp() {
-        do {
-            let mnemonic = try authService.createWallet()
-            enteredMnemonic = mnemonic
-            showSignUpFlow = true
-        } catch {
-            self.error = error.localizedDescription
+        Task {
+            do {
+                let mnemonic = try await authService.createWallet()
+                enteredMnemonic = mnemonic
+                showSignUpFlow = true
+            } catch {
+                self.error = error.localizedDescription
+            }
         }
     }
     

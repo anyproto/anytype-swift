@@ -18,5 +18,5 @@ protocol PasteboardServiceProtocol {
     func pasteInSelectedBlocks(selectedBlockIds: [BlockId],
                                handleLongOperation:  @escaping () -> Void,
                                completion: @escaping (_ pasteResult: PasteboardPasteResult?) -> Void)
-    func copy(blocksIds: [BlockId], selectedTextRange: NSRange)
+    func copy(blocksIds: [BlockId], selectedTextRange: NSRange) async throws
 }

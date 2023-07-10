@@ -1,4 +1,5 @@
 import UIKit
+import AnytypeCore
 
 final class ObjectRelationViewUIKit: UIView {
     
@@ -34,19 +35,34 @@ private extension ObjectRelationViewUIKit {
     }
     
     func setupIconViewIfNeeded() {
-        let icon = option.icon
-        guard shouldShowIcon(icon: icon) else {
-            iconView.isHidden = true
-            return
+        
+        if FeatureFlags.deleteObjectPlaceholder {
+            guard let icon = option.icon else {
+                iconView.isHidden = true
+                return
+            }
+            
+            let model = ObjectIconImageModel(
+                iconImage: icon,
+                usecase: .featuredRelationsBlock
+            )
+            
+            iconView.configure(model: model)
+            iconView.isHidden = false
+        } else {
+            guard let icon = option.icon, shouldShowIcon(icon: icon) else {
+                iconView.isHidden = true
+                return
+            }
+            
+            let model = ObjectIconImageModel(
+                iconImage: icon,
+                usecase: .featuredRelationsBlock
+            )
+            
+            iconView.configure(model: model)
+            iconView.isHidden = false
         }
-        
-        let model = ObjectIconImageModel(
-            iconImage: icon,
-            usecase: .featuredRelationsBlock
-        )
-        
-        iconView.configure(model: model)
-        iconView.isHidden = false
     }
     
     func setupTitleLabel() {
@@ -82,6 +98,7 @@ private extension ObjectRelationViewUIKit {
         }
     }
     
+    // Delete with FeatureFlags.deleteObjectPlaceholder
     func shouldShowIcon(icon: ObjectIconImage) -> Bool {
         switch icon {
         case .icon, .todo, .image, .imageAsset:

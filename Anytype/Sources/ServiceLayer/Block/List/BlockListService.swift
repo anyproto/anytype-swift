@@ -7,7 +7,6 @@ import SwiftProtobuf
 import AnytypeCore
 
 class BlockListService: BlockListServiceProtocol {
-    
     func setBlockColor(objectId: BlockId, blockIds: [BlockId], color: MiddlewareColor) {
         _ = try? ClientCommands.blockTextListSetColor(.with {
             $0.contextID = objectId
@@ -33,19 +32,19 @@ class BlockListService: BlockListServiceProtocol {
         objectId: BlockId,
         blockIds: [BlockId],
         markType: MarkupType
-    ) {
+    ) async throws {
         guard let mark = markType.asMiddleware else { return }
-        _ = try? ClientCommands.blockTextListSetMark(.with {
+        try await ClientCommands.blockTextListSetMark(.with {
             $0.contextID = objectId
             $0.blockIds = blockIds
             $0.mark = mark
         }).invoke()
     }
 
-    func setBackgroundColor(objectId: BlockId, blockIds: [BlockId], color: MiddlewareColor) {
+    func setBackgroundColor(objectId: BlockId, blockIds: [BlockId], color: MiddlewareColor) async throws {
         AnytypeAnalytics.instance().logChangeBlockBackground(color: color)
         
-        _ = try? ClientCommands.blockListSetBackgroundColor(.with {
+        try await ClientCommands.blockListSetBackgroundColor(.with {
             $0.contextID = objectId
             $0.blockIds = blockIds
             $0.color = color.rawValue
@@ -92,8 +91,8 @@ class BlockListService: BlockListServiceProtocol {
         }).invoke()
     }
 
-    func setLinkAppearance(objectId: BlockId, blockIds: [BlockId], appearance: BlockLink.Appearance) {
-        _ = try? ClientCommands.blockLinkListSetAppearance(.with {
+    func setLinkAppearance(objectId: BlockId, blockIds: [BlockId], appearance: BlockLink.Appearance) async throws {
+        try await ClientCommands.blockLinkListSetAppearance(.with {
             $0.contextID = objectId
             $0.blockIds = blockIds
             $0.iconSize = appearance.iconSize.asMiddleware

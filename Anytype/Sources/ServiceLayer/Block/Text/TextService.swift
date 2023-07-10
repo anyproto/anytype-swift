@@ -22,10 +22,10 @@ final class TextService: TextServiceProtocol {
         }).invoke()
     }
     
-    func setStyle(contextId: BlockId, blockId: BlockId, style: Style) {
+    func setStyle(contextId: BlockId, blockId: BlockId, style: Style) async throws {
         AnytypeAnalytics.instance().logChangeBlockStyle(style)
         
-        _ = try? ClientCommands.blockTextSetStyle(.with {
+        _ = try await ClientCommands.blockTextSetStyle(.with {
             $0.contextID = contextId
             $0.blockID = blockId
             $0.style = style.asMiddleware
@@ -37,11 +37,11 @@ final class TextService: TextServiceProtocol {
         ).send()
     }
     
-    func split(contextId: BlockId, blockId: BlockId, range: NSRange, style: Style, mode: SplitMode) -> BlockId? {
+    func split(contextId: BlockId, blockId: BlockId, range: NSRange, style: Style, mode: SplitMode) async throws -> BlockId {
         let textContentType = BlockContent.text(.empty(contentType: style)).description
         AnytypeAnalytics.instance().logCreateBlock(type: textContentType, style: String(describing: style))
 
-        let response = try? ClientCommands.blockSplit(.with {
+        let response = try await ClientCommands.blockSplit(.with {
             $0.contextID = contextId
             $0.blockID = blockId
             $0.range = range.asMiddleware
@@ -49,8 +49,6 @@ final class TextService: TextServiceProtocol {
             $0.mode = mode
         }).invoke()
 
-        guard let response else { return nil }
-        
         EventsBunch(
             contextId: contextId,
             localEvents: [.general]
@@ -59,18 +57,16 @@ final class TextService: TextServiceProtocol {
         return response.blockID
     }
 
-    func merge(contextId: BlockId, firstBlockId: BlockId, secondBlockId: BlockId) -> Bool {
-        let response = try? ClientCommands.blockMerge(.with {
+    func merge(contextId: BlockId, firstBlockId: BlockId, secondBlockId: BlockId) async throws {
+        try await ClientCommands.blockMerge(.with {
             $0.contextID = contextId
             $0.firstBlockID = firstBlockId
             $0.secondBlockID = secondBlockId
         }).invoke()
-        
-        return response.isNotNil
     }
     
-    func checked(contextId: BlockId, blockId: BlockId, newValue: Bool) {
-        _ = try? ClientCommands.blockTextSetChecked(.with {
+    func checked(contextId: BlockId, blockId: BlockId, newValue: Bool) async throws {
+        try await ClientCommands.blockTextSetChecked(.with {
             $0.contextID = contextId
             $0.blockID = blockId
             $0.checked = newValue
