@@ -602,6 +602,7 @@ final class EditorSetViewModel: ObservableObject {
                 setFilters: self.setDocument.filters,
                 relationsDetails: relationsDetails
             )
+            AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: setDocument.isCollection() ? .collection : .set)
             completion?(details)
         }
     }

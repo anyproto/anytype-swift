@@ -27,7 +27,7 @@ public class BookmarkService: BookmarkServiceProtocol {
         }).invoke()
     }
     
-    public func createBookmarkObject(url: String) -> Bool {
+    public func createBookmarkObject(url: String) throws -> ObjectDetails {
         
         let details = Google_Protobuf_Struct(
             fields: [
@@ -35,10 +35,10 @@ public class BookmarkService: BookmarkServiceProtocol {
             ]
         )
         
-        let result = try? ClientCommands.objectCreateBookmark(.with {
+        let result = try ClientCommands.objectCreateBookmark(.with {
             $0.details = details
         }).invoke()
-        return result.isNotNil
+        return try result.details.toDetails()
     }
     
     public func fetchBookmarkContent(bookmarkId: BlockId, url: String) {

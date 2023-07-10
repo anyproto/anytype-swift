@@ -101,7 +101,7 @@ final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsM
     func createAndShowNewPage() {
         Task { @MainActor in
             guard let details = try? await dashboardService.createNewPage() else { return }
-            AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: .home)
+            AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: .navigation, view: .home)
             openObject(screenData: details.editorScreenData())
         }
     }

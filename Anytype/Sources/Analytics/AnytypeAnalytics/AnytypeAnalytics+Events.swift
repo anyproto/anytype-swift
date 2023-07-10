@@ -149,19 +149,15 @@ extension AnytypeAnalytics {
                  withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue])
     }
 
-    func logCreateObject(objectType: AnalyticsObjectType, route: AnalyticsEventsRouteKind) {
-        logEvent(
-            AnalyticsEventsName.createObject,
-            withEventProperties: [
-                AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId,
-                AnalyticsEventsPropertiesKey.route: route.rawValue
-            ]
-        )
-    }
-    
-    func logCreateObjectNavBar(objectType: AnalyticsObjectType) {
-        logEvent(AnalyticsEventsName.createObjectNavBar,
-                 withEventProperties: [AnalyticsEventsPropertiesKey.type: objectType.analyticsId])
+    func logCreateObject(objectType: AnalyticsObjectType, route: AnalyticsEventsRouteKind, view: AnalyticsEventsRouteView? = nil) {
+        var properties = [
+            AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId,
+            AnalyticsEventsPropertiesKey.route: route.rawValue
+        ]
+        if let view {
+            properties[AnalyticsEventsPropertiesKey.view] = view.rawValue
+        }
+        logEvent(AnalyticsEventsName.createObject, withEventProperties: properties)
     }
     
     func logLinkToObject(type: AnalyticsEventsLinkToObjectType) {

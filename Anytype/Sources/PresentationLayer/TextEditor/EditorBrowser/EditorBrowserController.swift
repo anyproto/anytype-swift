@@ -118,7 +118,7 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
                           let details = try? await self.dashboardService.createNewPage() else {
                         return
                     }
-                    AnytypeAnalytics.instance().logCreateObjectNavBar(objectType: details.analyticsType)
+                    AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: .navigation, view: .navbar)
                     self.router.showPage(data: details.editorScreenData())
                 }
             }
