@@ -15,4 +15,5 @@ protocol PasteboardMiddlewareServiceProtocol: AnyObject {
     func pasteBlock(_ blocks: [String], context: PasteboardActionContext) -> PasteboardPasteResult?
     func pasteFile(localPath: String, name: String, context: PasteboardActionContext) -> PasteboardPasteResult?
     func copy(blocksIds: [BlockId], selectedTextRange: NSRange) async throws -> PasteboardCopyResult?
+    func cut(blocksIds: [BlockId], selectedTextRange: NSRange) async throws -> PasteboardCopyResult?
 }
