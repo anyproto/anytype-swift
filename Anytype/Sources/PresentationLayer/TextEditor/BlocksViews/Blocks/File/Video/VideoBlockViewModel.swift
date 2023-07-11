@@ -6,6 +6,7 @@ struct VideoBlockViewModel: BlockViewModelProtocol {
     
     let info: BlockInformation
     let fileData: BlockFile
+    let audioSessionService: AudioSessionServiceProtocol
     
     let showVideoPicker: (BlockId) -> ()
     
@@ -29,7 +30,18 @@ struct VideoBlockViewModel: BlockViewModelProtocol {
         case .error:
             return emptyViewConfiguration(text: Loc.Content.Common.error, state: .error)
         case .done:
-            return VideoBlockConfiguration(file: fileData).cellBlockConfiguration(
+            return VideoBlockConfiguration(
+                file: fileData,
+                action: { status in
+                    guard let status else { return }
+                    switch status {
+                    case .playing:
+                        audioSessionService.setCategorypPlayback()
+                    case .paused:
+                        audioSessionService.setCategorypPlaybackMixWithOthers()
+                    }
+                }
+            ).cellBlockConfiguration(
                 indentationSettings: .init(with: info.configurationData),
                 dragConfiguration: .init(id: info.id)
             )
