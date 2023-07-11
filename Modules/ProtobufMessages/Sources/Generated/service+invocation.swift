@@ -1914,6 +1914,16 @@ public struct ClientCommands {
         }
     }
 
+    public static func debugSubscriptions(
+        _ request: Anytype_Rpc.Debug.Subscriptions.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Debug.Subscriptions.Request, Anytype_Rpc.Debug.Subscriptions.Response> {
+        return Invocation(messageName: "DebugSubscriptions", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceDebugSubscriptions(requestData) ?? Data()
+            return try Anytype_Rpc.Debug.Subscriptions.Response(serializedData: responseData)
+        }
+    }
+
     public static func metricsSetParameters(
         _ request: Anytype_Rpc.Metrics.SetParameters.Request = .init()
     ) -> Invocation<Anytype_Rpc.Metrics.SetParameters.Request, Anytype_Rpc.Metrics.SetParameters.Response> {
