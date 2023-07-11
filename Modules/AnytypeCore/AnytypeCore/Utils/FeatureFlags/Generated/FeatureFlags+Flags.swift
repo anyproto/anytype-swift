@@ -26,10 +26,6 @@ public extension FeatureFlags {
         value(for: .newAuthorization)
     }
 
-    static var fixSIGPIPECrash: Bool {
-        value(for: .fixSIGPIPECrash)
-    }
-
     static var compactListWidget: Bool {
         value(for: .compactListWidget)
     }
@@ -73,7 +69,6 @@ public extension FeatureFlags {
         .dndOnCollectionsAndSets,
         .migrationGuide,
         .newAuthorization,
-        .fixSIGPIPECrash,
         .compactListWidget,
         .getMoreSpace,
         .fixAVCaptureSessionError,
