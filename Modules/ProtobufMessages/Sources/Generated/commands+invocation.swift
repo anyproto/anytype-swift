@@ -532,6 +532,11 @@ extension Anytype_Rpc.Debug.SpaceSummary.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }
 }
 
+extension Anytype_Rpc.Debug.Subscriptions.Response: ResultWithError {}
+extension Anytype_Rpc.Debug.Subscriptions.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null }
+}
+
 extension Anytype_Rpc.Debug.Tree.Response: ResultWithError {}
 extension Anytype_Rpc.Debug.Tree.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }
