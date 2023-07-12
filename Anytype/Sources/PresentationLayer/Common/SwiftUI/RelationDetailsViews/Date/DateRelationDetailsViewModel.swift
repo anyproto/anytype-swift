@@ -3,6 +3,7 @@ import SwiftUI
 import SwiftProtobuf
 import FloatingPanel
 import Combine
+import Services
 
 final class DateRelationDetailsViewModel: ObservableObject {
         

@@ -1,8 +1,7 @@
 import Foundation
-import Services
 import SwiftProtobuf
 
-protocol RelationsServiceProtocol: AnyObject {
+public protocol RelationsServiceProtocol: AnyObject {
     func addFeaturedRelation(relationKey: String) async throws
     func removeFeaturedRelation(relationKey: String) async throws
     
@@ -14,5 +13,4 @@ protocol RelationsServiceProtocol: AnyObject {
 
     func removeRelation(relationKey: String) async throws
     func addRelationOption(relationKey: String, optionText: String) async throws -> String?
-    func availableRelations() -> [RelationDetails]
 }

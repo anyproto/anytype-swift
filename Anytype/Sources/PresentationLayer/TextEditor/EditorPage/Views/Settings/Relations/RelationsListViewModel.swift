@@ -59,8 +59,10 @@ extension RelationsListViewModel {
     private func changeRelationFeaturedState(relation: Relation) {
         Task {
             if relation.isFeatured {
+                AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.removeFeatureRelation)
                 try await relationsService.removeFeaturedRelation(relationKey: relation.key)
             } else {
+                AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.addFeatureRelation)
                 try await relationsService.addFeaturedRelation(relationKey: relation.key)
             }
         }
@@ -73,6 +75,7 @@ extension RelationsListViewModel {
     
     func removeRelation(relation: Relation) {
         Task {
+            AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.deleteRelation)
             try await relationsService.removeRelation(relationKey: relation.key)
         }
     }

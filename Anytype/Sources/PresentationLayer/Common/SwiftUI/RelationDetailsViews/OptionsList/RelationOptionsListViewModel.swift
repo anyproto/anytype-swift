@@ -2,6 +2,7 @@ import Foundation
 import SwiftUI
 import FloatingPanel
 import AnytypeCore
+import Services
 
 @MainActor
 final class RelationOptionsListViewModel: ObservableObject {
