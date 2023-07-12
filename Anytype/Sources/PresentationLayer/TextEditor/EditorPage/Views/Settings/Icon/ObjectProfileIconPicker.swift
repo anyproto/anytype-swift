@@ -3,7 +3,7 @@ import SwiftUI
 
 struct ObjectProfileIconPicker: View {
     
-    @EnvironmentObject private var viewModel: ObjectIconPickerViewModel
+    @ObservedObject var viewModel: ObjectIconPickerViewModel
     @Environment(\.presentationMode) private var presentationMode
     
     var onDismiss: (() -> ())?
@@ -43,6 +43,13 @@ struct ObjectProfileIconPicker: View {
 
 struct DocumentProfileIconPicker_Previews: PreviewProvider {
     static var previews: some View {
-        ObjectProfileIconPicker()
+        ObjectProfileIconPicker(
+            viewModel: ObjectIconPickerViewModel(
+                document: BaseDocument(objectId: ""),
+                objectId: "",
+                fileService: DI.preview.serviceLocator.fileService(),
+                detailsService: DI.preview.serviceLocator.detailsService(objectId: "")
+            )
+        )
     }
 }

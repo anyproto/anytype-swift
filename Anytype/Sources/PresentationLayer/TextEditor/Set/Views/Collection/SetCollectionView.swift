@@ -119,6 +119,7 @@ struct SetCollectionView: View {
     
     private var pagination: some View {
         EditorSetPaginationView(
+            model: model,
             paginationData: model.pagitationData(by: SubscriptionId.set.value),
             groupId: SubscriptionId.set.value
         )
