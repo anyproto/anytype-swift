@@ -9,7 +9,7 @@ struct TextBlockURLInputParameters {
     let optionHandler: (EditorContextualOption) -> Void
 }
 
-struct TextBlockActionHandler: TextBlockActionHandlerProtocol {
+final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
     let info: BlockInformation
 
     let showPage: (BlockId) -> Void
@@ -186,21 +186,22 @@ struct TextBlockActionHandler: TextBlockActionHandlerProtocol {
 
         let urlIputParameters = TextBlockURLInputParameters(
             textView: textView,
-            rect: textRect) { option in
+            rect: textRect) { [weak self] option in
+                guard let self else { return }
                 switch option {
                 case .createBookmark:
                     let position: BlockPosition = textView.text == trimmedText ?
                         .replace : .bottom
                     
                     Task {
-                        try await actionHandler.createAndFetchBookmark(
-                            targetID: info.id,
+                        try await self.actionHandler.createAndFetchBookmark(
+                            targetID: self.info.id,
                             position: position,
                             url: url
                         )
                         
                         originalAttributedString.map {
-                            actionHandler.changeTextForced($0, blockId: info.id)
+                            self.actionHandler.changeTextForced($0, blockId: self.info.id)
                         }
                     }
                 case .pasteAsLink:
@@ -225,11 +226,13 @@ struct TextBlockActionHandler: TextBlockActionHandlerProtocol {
             return true
         }
 
-        pasteboardService.pasteInsideBlock(focusedBlockId: info.id, range: range) {
-            showWaitingView(Loc.pasteProcessing)
-        } completion: { pasteResult in
+        pasteboardService.pasteInsideBlock(focusedBlockId: info.id, range: range) { [weak self] in
+            self?.showWaitingView(Loc.pasteProcessing)
+        } completion: { [weak self, weak textView] pasteResult in
+            guard let self, let textView else { return }
+            
             defer {
-                hideWaitingView()
+                self.hideWaitingView()
             }
 
             guard let pasteResult = pasteResult else { return }

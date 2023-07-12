@@ -39,9 +39,7 @@ final class BlockActionService: BlockActionServiceProtocol {
     // MARK: Actions
 
     func addChild(info: BlockInformation, parentId: BlockId) {
-        Task {
-            try await add(info: info, targetBlockId: parentId, position: .inner)
-        }
+        add(info: info, targetBlockId: parentId, position: .inner)
     }
 
     func add(info: BlockInformation, targetBlockId: BlockId, position: BlockPosition, setFocus: Bool) {
@@ -143,12 +141,12 @@ final class BlockActionService: BlockActionServiceProtocol {
         }
     }
     
-    func setText(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) {
-        textService.setText(contextId: contextId, blockId: blockId, middlewareString: middlewareString)
+    func setText(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) async throws {
+        try await textService.setText(contextId: contextId, blockId: blockId, middlewareString: middlewareString)
     }
 
-    func setTextForced(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) {
-        textService.setTextForced(contextId: contextId, blockId: blockId, middlewareString: middlewareString)
+    func setTextForced(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) async throws {
+        try await textService.setTextForced(contextId: contextId, blockId: blockId, middlewareString: middlewareString)
     }
     
     func setObjectTypeId(_ objectTypeId: String) async throws {

@@ -15,22 +15,22 @@ protocol BlockTableServiceProtocol {
     func rowListFill(
         contextId: BlockId,
         targetIds: [BlockId]
-    )
+    ) async throws
 
 
-    func insertColumn(contextId: BlockId, targetId: BlockId, position: BlockPosition)
-    func deleteColumn(contextId: BlockId, targetId: BlockId)
-    func columnDuplicate(contextId: BlockId, targetId: BlockId)
-    func columnSort(contextId: BlockId, columnId: BlockId, blocksSortType: BlocksSortType)
-    func columnMove(contextId: BlockId, targetId: BlockId, dropTargetID: BlockId, position: BlockPosition)
+    func insertColumn(contextId: BlockId, targetId: BlockId, position: BlockPosition) async throws
+    func deleteColumn(contextId: BlockId, targetId: BlockId) async throws
+    func columnDuplicate(contextId: BlockId, targetId: BlockId) async throws
+    func columnSort(contextId: BlockId, columnId: BlockId, blocksSortType: BlocksSortType) async throws
+    func columnMove(contextId: BlockId, targetId: BlockId, dropTargetID: BlockId, position: BlockPosition) async throws
 
-    func insertRow(contextId: BlockId, targetId: BlockId, position: BlockPosition)
-    func deleteRow(contextId: BlockId, targetId: BlockId)
-    func rowDuplicate(contextId: BlockId, targetId: BlockId)
-    func rowMove(contextId: BlockId, targetId: BlockId, dropTargetID: BlockId, position: BlockPosition)
+    func insertRow(contextId: BlockId, targetId: BlockId, position: BlockPosition) async throws
+    func deleteRow(contextId: BlockId, targetId: BlockId) async throws
+    func rowDuplicate(contextId: BlockId, targetId: BlockId) async throws
+    func rowMove(contextId: BlockId, targetId: BlockId, dropTargetID: BlockId, position: BlockPosition) async throws
 
-    func clearContents(contextId: BlockId, blockIds: [BlockId])
-    func clearStyle(contextId: BlockId, blocksIds: [BlockId])
+    func clearContents(contextId: BlockId, blockIds: [BlockId]) async throws
+    func clearStyle(contextId: BlockId, blocksIds: [BlockId]) async throws
 }
 
 final class BlockTableService: BlockTableServiceProtocol {
@@ -55,38 +55,38 @@ final class BlockTableService: BlockTableServiceProtocol {
     func rowListFill(
         contextId: BlockId,
         targetIds: [BlockId]
-    ) {
-        _ = try? ClientCommands.blockTableRowListFill(.with {
+    ) async throws {
+        _ = try await ClientCommands.blockTableRowListFill(.with {
             $0.contextID = contextId
             $0.blockIds = targetIds
         }).invoke()
     }
 
-    func insertRow(contextId: BlockId, targetId: BlockId, position: BlockPosition) {
-        _ = try? ClientCommands.blockTableRowCreate(.with {
+    func insertRow(contextId: BlockId, targetId: BlockId, position: BlockPosition) async throws {
+        _ = try await ClientCommands.blockTableRowCreate(.with {
             $0.contextID = contextId
             $0.targetID = targetId
             $0.position = position.asMiddleware
         }).invoke()
     }
 
-    func insertColumn(contextId: BlockId, targetId: BlockId, position: BlockPosition) {
-        _ = try? ClientCommands.blockTableColumnCreate(.with {
+    func insertColumn(contextId: BlockId, targetId: BlockId, position: BlockPosition) async throws {
+        _ = try await ClientCommands.blockTableColumnCreate(.with {
             $0.contextID = contextId
             $0.targetID = targetId
             $0.position = position.asMiddleware
         }).invoke()
     }
 
-    func deleteColumn(contextId: BlockId, targetId: BlockId) {
-        _ = try? ClientCommands.blockTableColumnDelete(.with {
+    func deleteColumn(contextId: BlockId, targetId: BlockId) async throws {
+        _ = try await ClientCommands.blockTableColumnDelete(.with {
             $0.contextID = contextId
             $0.targetID = targetId
         }).invoke()
     }
 
-    func columnDuplicate(contextId: BlockId, targetId: BlockId) {
-        _ = try? ClientCommands.blockTableColumnDuplicate(.with {
+    func columnDuplicate(contextId: BlockId, targetId: BlockId) async throws {
+        _ = try await ClientCommands.blockTableColumnDuplicate(.with {
             $0.contextID = contextId
             $0.targetID = targetId
             $0.blockID = targetId
@@ -94,16 +94,16 @@ final class BlockTableService: BlockTableServiceProtocol {
         }).invoke()
     }
 
-    func columnSort(contextId: BlockId, columnId: BlockId, blocksSortType: BlocksSortType) {
-        _ = try? ClientCommands.blockTableSort(.with {
+    func columnSort(contextId: BlockId, columnId: BlockId, blocksSortType: BlocksSortType) async throws {
+        _ = try await ClientCommands.blockTableSort(.with {
             $0.contextID = contextId
             $0.columnID = columnId
             $0.type = blocksSortType.asMiddleware
         }).invoke()
     }
 
-    func columnMove(contextId: BlockId, targetId: BlockId, dropTargetID: BlockId, position: BlockPosition) {
-        _ = try? ClientCommands.blockTableColumnMove(.with {
+    func columnMove(contextId: BlockId, targetId: BlockId, dropTargetID: BlockId, position: BlockPosition) async throws {
+        _ = try await ClientCommands.blockTableColumnMove(.with {
             $0.contextID = contextId
             $0.targetID = targetId
             $0.dropTargetID = dropTargetID
@@ -111,8 +111,8 @@ final class BlockTableService: BlockTableServiceProtocol {
         }).invoke()
     }
 
-    func rowMove(contextId: BlockId, targetId: BlockId, dropTargetID: BlockId, position: BlockPosition) {
-        _ = try? ClientCommands.blockListMoveToExistingObject(.with {
+    func rowMove(contextId: BlockId, targetId: BlockId, dropTargetID: BlockId, position: BlockPosition) async throws {
+        _ = try await ClientCommands.blockListMoveToExistingObject(.with {
             $0.contextID = contextId
             $0.blockIds = [targetId]
             $0.targetContextID = contextId
@@ -121,15 +121,15 @@ final class BlockTableService: BlockTableServiceProtocol {
         }).invoke()
     }
 
-    func deleteRow(contextId: BlockId, targetId: BlockId) {
-        _ = try? ClientCommands.blockTableRowDelete(.with {
+    func deleteRow(contextId: BlockId, targetId: BlockId) async throws {
+        _ = try await ClientCommands.blockTableRowDelete(.with {
             $0.contextID = contextId
             $0.targetID = targetId
         }).invoke()
     }
 
-    func rowDuplicate(contextId: BlockId, targetId: BlockId) {
-        _ = try? ClientCommands.blockTableRowDuplicate(.with {
+    func rowDuplicate(contextId: BlockId, targetId: BlockId) async throws {
+        _ = try await ClientCommands.blockTableRowDuplicate(.with {
             $0.contextID = contextId
             $0.targetID = targetId
             $0.blockID = targetId
@@ -137,15 +137,15 @@ final class BlockTableService: BlockTableServiceProtocol {
         }).invoke()
     }
 
-    func clearContents(contextId: BlockId, blockIds: [BlockId]) {
-        _ = try? ClientCommands.blockTextListClearContent(.with {
+    func clearContents(contextId: BlockId, blockIds: [BlockId]) async throws {
+        _ = try await ClientCommands.blockTextListClearContent(.with {
             $0.contextID = contextId
             $0.blockIds = blockIds
         }).invoke()
     }
 
-    func clearStyle(contextId: BlockId, blocksIds: [BlockId]) {
-        _ = try? ClientCommands.blockTextListClearStyle(.with {
+    func clearStyle(contextId: BlockId, blocksIds: [BlockId]) async throws {
+        _ = try await ClientCommands.blockTextListClearStyle(.with {
             $0.contextID = contextId
             $0.blockIds = blocksIds
         }).invoke()

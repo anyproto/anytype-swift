@@ -26,8 +26,8 @@ protocol BlockActionServiceProtocol {
     func setBackgroundColor(blockIds: [BlockId], color: MiddlewareColor)
     func checked(blockId: BlockId, newValue: Bool)
     func duplicate(blockId: BlockId)
-    func setText(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString)
-    func setTextForced(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString)
+    func setText(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) async throws
+    func setTextForced(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) async throws
     func merge(secondBlockId: BlockId)
     func setObjectTypeId(_ objectTypeId: String) async throws
     func setObjectSetType() async throws

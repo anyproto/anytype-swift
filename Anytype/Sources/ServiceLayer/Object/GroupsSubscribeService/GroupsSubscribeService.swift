@@ -20,8 +20,8 @@ final class GroupsSubscribeService: GroupsSubscribeServiceProtocol {
         return GroupsSubscribeResult(subscriptionId: response.subID, groups: response.groups)
     }
     
-    func stopSubscription(id: SubscriptionId) {
-        _ = try? ClientCommands.objectSearchUnsubscribe(.with {
+    func stopSubscription(id: SubscriptionId) async throws {
+        _ = try await ClientCommands.objectSearchUnsubscribe(.with {
             $0.subIds = [id.value]
         }).invoke()
     }

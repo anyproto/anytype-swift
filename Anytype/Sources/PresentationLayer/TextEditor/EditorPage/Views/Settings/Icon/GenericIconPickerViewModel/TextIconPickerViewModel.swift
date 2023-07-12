@@ -26,19 +26,21 @@ final class TextIconPickerViewModel: ObjectIconPickerViewModelProtocol {
     }
     
 
-    func setEmoji(_ emojiUnicode: String) {
-        textService.setTextIcon(
-            contextId: contextId,
-            blockId: objectId,
-            imageHash: "",
-            emojiUnicode: emojiUnicode
-        )
+    func setEmoji(_ emojiUnicode: String)  {
+        Task {
+            try await textService.setTextIcon(
+                contextId: contextId,
+                blockId: objectId,
+                imageHash: "",
+                emojiUnicode: emojiUnicode
+            )
+        }
     }
 
     func uploadImage(from itemProvider: NSItemProvider) {
         Task {
             let hash = try await fileService.uploadImage(source: .itemProvider(itemProvider))
-            textService.setTextIcon(
+            try await textService.setTextIcon(
                 contextId: contextId,
                 blockId: objectId,
                 imageHash: hash.value,

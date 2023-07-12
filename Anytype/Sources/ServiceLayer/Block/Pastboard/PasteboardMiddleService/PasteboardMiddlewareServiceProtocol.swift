@@ -10,9 +10,9 @@ import Services
 import Foundation
 
 protocol PasteboardMiddlewareServiceProtocol: AnyObject {
-    func pasteText(_ text: String, context: PasteboardActionContext) -> PasteboardPasteResult?
-    func pasteHTML(_ html: String, context: PasteboardActionContext) -> PasteboardPasteResult?
-    func pasteBlock(_ blocks: [String], context: PasteboardActionContext) -> PasteboardPasteResult?
-    func pasteFile(localPath: String, name: String, context: PasteboardActionContext) -> PasteboardPasteResult?
+    func pasteText(_ text: String, context: PasteboardActionContext) async throws -> PasteboardPasteResult
+    func pasteHTML(_ html: String, context: PasteboardActionContext) async throws -> PasteboardPasteResult
+    func pasteBlock(_ blocks: [String], context: PasteboardActionContext) async throws -> PasteboardPasteResult
+    func pasteFiles(_ files: [PasteboardFile], context: PasteboardActionContext) async throws -> PasteboardPasteResult
     func copy(blocksIds: [BlockId], selectedTextRange: NSRange) async throws -> PasteboardCopyResult?
 }

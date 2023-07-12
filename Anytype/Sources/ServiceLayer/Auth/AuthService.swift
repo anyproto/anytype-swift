@@ -87,7 +87,7 @@ final class AuthService: AuthServiceProtocol {
     func accountRecover(onCompletion: @escaping (AuthServiceError?) -> ()) {
         Task { @MainActor [weak self] in
             do {
-                _ = try ClientCommands.accountRecover().invoke()
+                _ = try await ClientCommands.accountRecover().invoke()
                 self?.loginStateService.setupStateAfterAuth()
                 return onCompletion(nil)
             } catch {
@@ -159,11 +159,14 @@ final class AuthService: AuthServiceProtocol {
         return model
     }
     
-    func restoreAccount() -> AccountStatus? {
-        let result = try? ClientCommands.accountDelete(.with {
+    func restoreAccount() async throws -> AccountStatus {
+        let result = try await ClientCommands.accountDelete(.with {
             $0.revert = true
         }).invoke()
-        return result?.status.asModel
+        guard let model = result.status.asModel else {
+            throw AuthServiceParsingError.undefinedModel
+        }
+        return model
     }
     
     func mnemonicByEntropy(_ entropy: String) async throws -> String {

@@ -4,8 +4,8 @@ import Services
 import AnytypeCore
 
 final class TextService: TextServiceProtocol {    
-    func setText(contextId: String, blockId: String, middlewareString: MiddlewareString) {
-        _ = try? ClientCommands.blockTextSetText(.with {
+    func setText(contextId: String, blockId: String, middlewareString: MiddlewareString) async throws {
+        _ = try await ClientCommands.blockTextSetText(.with {
             $0.contextID = contextId
             $0.blockID = blockId
             $0.text = middlewareString.text
@@ -13,8 +13,8 @@ final class TextService: TextServiceProtocol {
         }).invoke()
     }
 
-    func setTextForced(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) {
-        _ = try? ClientCommands.blockTextSetText(.with {
+    func setTextForced(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) async throws {
+        _ = try await ClientCommands.blockTextSetText(.with {
             $0.contextID = contextId
             $0.blockID = blockId
             $0.text = middlewareString.text
@@ -31,7 +31,7 @@ final class TextService: TextServiceProtocol {
             $0.style = style.asMiddleware
         }).invoke()
         
-        EventsBunch(
+        await EventsBunch(
             contextId: contextId,
             localEvents: [.setStyle(blockId: blockId)]
         ).send()
@@ -49,7 +49,7 @@ final class TextService: TextServiceProtocol {
             $0.mode = mode
         }).invoke()
 
-        EventsBunch(
+        await EventsBunch(
             contextId: contextId,
             localEvents: [.general]
         ).send()
@@ -78,8 +78,8 @@ final class TextService: TextServiceProtocol {
         blockId: BlockId,
         imageHash: String,
         emojiUnicode: String
-    ) {
-        _ = try? ClientCommands.blockTextSetIcon(.with {
+    ) async throws {
+        _ = try await ClientCommands.blockTextSetIcon(.with {
             $0.contextID = contextId
             $0.blockID = blockId
             $0.iconImage = imageHash

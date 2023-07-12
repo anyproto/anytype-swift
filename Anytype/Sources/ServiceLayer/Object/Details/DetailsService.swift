@@ -33,12 +33,12 @@ extension DetailsService: DetailsServiceProtocol {
     }
     
     func setCover(source: FileUploadingSource) async throws {
-        EventsBunch(
+        await EventsBunch(
             contextId: objectId,
             localEvents: [.header(.coverUploading(.bundleImagePath("")))]
         ).send()
         let data = try await fileService.createFileData(source: source)
-        EventsBunch(
+        await EventsBunch(
             contextId: objectId,
             localEvents: [.header(.coverUploading(.bundleImagePath(data.path)))]
         ).send()
@@ -51,12 +51,12 @@ extension DetailsService: DetailsServiceProtocol {
     }
     
     func setObjectIcon(source: FileUploadingSource) async throws {
-        EventsBunch(
+        await EventsBunch(
             contextId: objectId,
             localEvents: [.header(.iconUploading(""))]
         ).send()
         let data = try await fileService.createFileData(source: source)
-        EventsBunch(
+        await EventsBunch(
             contextId: objectId,
             localEvents: [.header(.iconUploading(data.path))]
         ).send()
