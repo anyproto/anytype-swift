@@ -134,10 +134,6 @@ final class ModulesDI: ModulesDIProtocol {
         return LoginViewModuleAssembly(serviceLocator: serviceLocator)
     }
     
-    func enteringVoid() -> EnteringVoidModuleAssemblyProtocol {
-        return EnteringVoidModuleAssembly(serviceLocator: serviceLocator)
-    }
-    
     func migrationGuide() -> MigrationGuideViewModuleAssemblyProtocol {
         return MigrationGuideViewModuleAssembly()
     }
