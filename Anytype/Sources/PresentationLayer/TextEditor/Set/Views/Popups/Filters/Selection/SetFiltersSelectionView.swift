@@ -1,11 +1,12 @@
 import SwiftUI
 
 struct SetFiltersSelectionView<Content: View>: View {
-    @EnvironmentObject var viewModel: SetFiltersSelectionViewModel
+    @ObservedObject var viewModel: SetFiltersSelectionViewModel
     
     private let content: Content
     
-    init(@ViewBuilder content: () -> Content) {
+    init(viewModel: SetFiltersSelectionViewModel, @ViewBuilder content: () -> Content) {
+        self.viewModel = viewModel
         self.content = content()
     }
     

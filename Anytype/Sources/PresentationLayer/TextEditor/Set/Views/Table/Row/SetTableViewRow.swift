@@ -2,10 +2,10 @@
 import SwiftUI
 
 struct SetTableViewRow: View {
+    
+    @ObservedObject var model: EditorSetViewModel
     let configuration: SetContentViewItemConfiguration
     let xOffset: CGFloat
-    
-    @EnvironmentObject private var model: EditorSetViewModel
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {

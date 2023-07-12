@@ -2,11 +2,11 @@ import SwiftUI
 import AnytypeCore
 
 struct SetMinimizedHeader: View {
+    
+    @ObservedObject var model: EditorSetViewModel
     var headerSize: CGSize
     var tableViewOffset: CGPoint
     @Binding var headerMinimizedSize: CGSize
-
-    @EnvironmentObject private var model: EditorSetViewModel
 
     private let height = ObjectHeaderConstants.minimizedHeaderHeight + UIApplication.shared.mainWindowInsets.top
 
@@ -98,6 +98,7 @@ struct SetMinimizedHeader: View {
 struct SetMinimizedHeader_Previews: PreviewProvider {
     static var previews: some View {
         SetMinimizedHeader(
+            model: EditorSetViewModel.emptyPreview,
             headerSize: .init(width: 100, height: 200),
             tableViewOffset: .zero,
             headerMinimizedSize: .constant(.zero)

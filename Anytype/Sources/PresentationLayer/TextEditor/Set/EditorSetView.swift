@@ -18,7 +18,6 @@ struct EditorSetView: View {
         }
         .navigationBarHidden(true)
         .navigationBarBackButtonHidden(true)
-        .environmentObject(model)
         .onAppear {
             model.onAppear()
         }
@@ -31,10 +30,11 @@ struct EditorSetView: View {
         contentView
             .overlay(
                 ZStack(alignment: .topLeading, content: {
-                    SetFullHeader()
+                    SetFullHeader(model: model)
                         .readSize { tableHeaderSize = $0 }
                         .offset(x: 0, y: offset.y)
                     SetMinimizedHeader(
+                        model: model,
                         headerSize: tableHeaderSize,
                         tableViewOffset: offset,
                         headerMinimizedSize: $headerMinimizedSize
