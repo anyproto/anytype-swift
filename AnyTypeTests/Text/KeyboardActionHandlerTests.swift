@@ -619,9 +619,10 @@ class KeyboardActionHandlerTests: XCTestCase {
         service.mergeStub = true
 
         handler.handle(info: info, currentString: .init(string: ""), action: .delete)
-
-        XCTAssertEqual(service.mergeNumberOfCalls, 1)
-        XCTAssertEqual(service.mergeSecondBlockId, "id")
+        eventually { [weak self] in
+            XCTAssertEqual(self?.service.mergeNumberOfCalls, 1)
+            XCTAssertEqual(self?.service.mergeSecondBlockId, "id")
+        }
     }
     
     func test_delete_text_with_children() throws {
@@ -629,9 +630,10 @@ class KeyboardActionHandlerTests: XCTestCase {
         service.mergeStub = true
 
         handler.handle(info: info, currentString: .init(string: ""), action: .delete)
-
-        XCTAssertEqual(service.mergeNumberOfCalls, 1)
-        XCTAssertEqual(service.mergeSecondBlockId, "id")
+        eventually { [weak self] in
+            XCTAssertEqual(self?.service.mergeNumberOfCalls, 1)
+            XCTAssertEqual(self?.service.mergeSecondBlockId, "id")
+        }
     }
     
     func test_delete_title() throws {
@@ -720,8 +722,10 @@ class KeyboardActionHandlerTests: XCTestCase {
         
         handler.handle(info: info2, currentString: .init(string: ""), action: .delete)
         
-        XCTAssertEqual(service.mergeNumberOfCalls, 1)
-        XCTAssertEqual(service.mergeSecondBlockId!, "id2")
+        eventually { [weak self] in
+            XCTAssertEqual(self?.service.mergeNumberOfCalls, 1)
+            XCTAssertEqual(self?.service.mergeSecondBlockId!, "id2")
+        }
     }
     
     func test_delete_text_first_block_in_page_without_title_with_description() throws {
@@ -732,8 +736,10 @@ class KeyboardActionHandlerTests: XCTestCase {
 
         handler.handle(info: info, currentString: .init(string: ""), action: .delete)
         
-        XCTAssertEqual(service.mergeNumberOfCalls, 1)
-        XCTAssertEqual(service.mergeSecondBlockId!, "id")
+        eventually { [weak self] in
+            XCTAssertEqual(self?.service.mergeNumberOfCalls, 1)
+            XCTAssertEqual(self?.service.mergeSecondBlockId!, "id")
+        }
     }
     
     func test_delete_text_first_block_in_page_with_title_without_description() throws {
@@ -744,8 +750,10 @@ class KeyboardActionHandlerTests: XCTestCase {
 
         handler.handle(info: info, currentString: .init(string: ""), action: .delete)
         
-        XCTAssertEqual(service.mergeNumberOfCalls, 1)
-        XCTAssertEqual(service.mergeSecondBlockId!, "id")
+        eventually { [weak self] in
+            XCTAssertEqual(self?.service.mergeNumberOfCalls, 1)
+            XCTAssertEqual(self?.service.mergeSecondBlockId!, "id")
+        }
     }
     
     // MARK: - Nested blocks
@@ -756,10 +764,12 @@ class KeyboardActionHandlerTests: XCTestCase {
         
         handler.handle(info: child, currentString: .init(string: ""), action: .delete)
         
-        XCTAssertEqual(listService.moveNumberOfCalls, 1)
-        XCTAssertEqual(listService.moveBlockId, "childId")
-        XCTAssertEqual(listService.moveTargetId, "parentId")
-        XCTAssertEqual(listService.movePosition, .bottom)
+        eventually { [weak self] in
+            XCTAssertEqual(self?.listService.moveNumberOfCalls, 1)
+            XCTAssertEqual(self?.listService.moveBlockId, "childId")
+            XCTAssertEqual(self?.listService.moveTargetId, "parentId")
+            XCTAssertEqual(self?.listService.movePosition, .bottom)
+        }
     }
     
     func test_deleteAtTheBegining_last_children() throws {
@@ -771,10 +781,12 @@ class KeyboardActionHandlerTests: XCTestCase {
         // when
         handler.handle(info: child2, currentString: .init(string: ""), action: .delete)
         
-        XCTAssertEqual(listService.moveNumberOfCalls, 1)
-        XCTAssertEqual(listService.moveBlockId, "childId2")
-        XCTAssertEqual(listService.moveTargetId, "parentId")
-        XCTAssertEqual(listService.movePosition, .bottom)
+        eventually { [weak self] in
+            XCTAssertEqual(self?.listService.moveNumberOfCalls, 1)
+            XCTAssertEqual(self?.listService.moveBlockId, "childId2")
+            XCTAssertEqual(self?.listService.moveTargetId, "parentId")
+            XCTAssertEqual(self?.listService.movePosition, .bottom)
+        }
     }
     
     func test_deleteAtTheBegining_not_last_children() throws {
@@ -787,8 +799,10 @@ class KeyboardActionHandlerTests: XCTestCase {
         // when
         handler.handle(info: child1, currentString: .init(string: ""), action: .delete)
         
-        XCTAssertEqual(service.mergeNumberOfCalls, 1)
-        XCTAssertEqual(service.mergeSecondBlockId, "childId1")
+        eventually { [weak self] in
+            XCTAssertEqual(self?.service.mergeNumberOfCalls, 1)
+            XCTAssertEqual(self?.service.mergeSecondBlockId, "childId1")
+        }
     }
     
     func test_deleteAtTheBegining_one_children_of_page() throws {
@@ -809,15 +823,19 @@ class KeyboardActionHandlerTests: XCTestCase {
         // when
         handler.handle(info: child, currentString: .init(string: ""), action: .delete)
         
-        XCTAssertEqual(service.mergeNumberOfCalls, 1)
-        XCTAssertEqual(service.mergeSecondBlockId, "childId")
+        eventually { [weak self] in
+            XCTAssertEqual(self?.service.mergeNumberOfCalls, 1)
+            XCTAssertEqual(self?.service.mergeSecondBlockId, "childId")
+        }
     }
     
     // MARK: - Private
     private func validateTurnInto() {
-        XCTAssertEqual(service.turnIntoNumberOfCalls, 1)
-        XCTAssertEqual(service.turnIntoStyle, .text)
-        XCTAssertEqual(service.turnIntoBlockId, "id")
+        eventually { [weak self] in
+            XCTAssertEqual(self?.service.turnIntoNumberOfCalls, 1)
+            XCTAssertEqual(self?.service.turnIntoStyle, .text)
+            XCTAssertEqual(self?.service.turnIntoBlockId, "id")
+        }
     }
     
     private func info(
