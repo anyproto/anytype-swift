@@ -91,7 +91,9 @@ private extension ObjectRelationViewUIKit {
 private extension ObjectRelationViewUIKit {
     
     func titleColor(option: Relation.Object.Option) -> UIColor {
-        if option.isDeleted || option.isArchived {
+        if relationStyle.isError {
+            return relationStyle.uiFontColorWithError
+        } else if option.isDeleted || option.isArchived {
             return .Text.tertiary
         } else {
             return relationStyle.uiKitFontColor
