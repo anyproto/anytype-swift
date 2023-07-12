@@ -168,7 +168,11 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                     ) {
                         RelationObjectsRowView(
                             object: object,
-                            action: { onTap(object.editorScreenData) }
+                            action: {
+                                if let editorScreenData = object.editorScreenData {
+                                    onTap(editorScreenData)
+                                }
+                            }
                         ).eraseToAnyView()
                     }
                 },
