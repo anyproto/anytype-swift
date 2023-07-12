@@ -44,15 +44,7 @@ extension InlineMarkdown.Pattern {
 extension InlineMarkdown {
     static let all: [InlineMarkdown] = [
         
-        InlineMarkdown(text: ["`", "‘", "'",
-            // Special cases for autocorrection:
-            // "Left Single Quotation Mark" for case when user input space and then start quote
-            // Example: Text ‘fdfs'
-            .different("‘", "'"),
-            // "Right Single Quotation Mark" for case when user input start quote without space
-            // Example: Text’fdfs'
-            .different("’", "'")
-        ], markup: .keyboard),
+        InlineMarkdown(text: ["`"], markup: .keyboard),
         InlineMarkdown(text: ["_", "*"], markup: .italic),
         InlineMarkdown(text: ["__", "**"], markup: .bold),
         InlineMarkdown(text: ["~~"], markup: .strikethrough),
