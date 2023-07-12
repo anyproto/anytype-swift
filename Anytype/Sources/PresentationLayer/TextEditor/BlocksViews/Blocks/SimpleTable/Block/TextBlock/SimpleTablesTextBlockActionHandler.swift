@@ -58,6 +58,7 @@ final class SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
     func textBlockActions() -> TextBlockContentConfiguration.Actions {
         .init(shouldPaste: shouldPaste(range:textView:),
               copy: copy(range:),
+              cut: cut(range:),
               createEmptyBlock: createEmptyBlock,
               showPage: showPage,
               openURL: openURL,
@@ -204,6 +205,12 @@ final class SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
     private func copy(range: NSRange) {
         Task {
             try await pasteboardService.copy(blocksIds: [info.id], selectedTextRange: range)
+        }
+    }
+    
+    private func cut(range: NSRange) {
+        Task {
+            try await pasteboardService.cut(blocksIds: [info.id], selectedTextRange: range)
         }
     }
 

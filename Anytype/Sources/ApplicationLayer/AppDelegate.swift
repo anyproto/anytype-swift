@@ -13,10 +13,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
         
-        if FeatureFlags.fixSIGPIPECrash {
-            // Fix SIGPIPE crashes
-            signal(SIGPIPE, SIG_IGN)
-        }
+        // Fix SIGPIPE crashes
+        signal(SIGPIPE, SIG_IGN)
         
         configurator.configure()
         // Global listeners

@@ -69,8 +69,10 @@ final class PasteboardService: PasteboardServiceProtocol {
         }
     }
     
-    deinit {
-        print("lol")
+    func cut(blocksIds: [BlockId], selectedTextRange: NSRange) async throws {
+        if let result = try await pasteboardMiddlewareService.cut(blocksIds: blocksIds, selectedTextRange: selectedTextRange) {
+            pasteboardHelper.setItems(textSlot: result.textSlot, htmlSlot: result.htmlSlot, blocksSlots: result.blockSlot)
+        }
     }
 }
 
