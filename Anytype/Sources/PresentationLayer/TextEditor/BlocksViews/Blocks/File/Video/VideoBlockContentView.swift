@@ -1,4 +1,3 @@
-
 import AVKit
 import Combine
 import UIKit
@@ -7,6 +6,7 @@ import AnytypeCore
 
 final class VideoBlockContentView: UIView, BlockContentView {
     private let videoVC = AVPlayerViewController()
+    private var cancellable: AnyCancellable?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -36,6 +36,23 @@ final class VideoBlockContentView: UIView, BlockContentView {
         
         guard let url = configuration.file.metadata.contentUrl else { return }
         videoVC.player = AVPlayer(url: url)
+        
+        subscribeOnStatusChange(action: configuration.action)
+    }
+    
+    private func subscribeOnStatusChange(action: @escaping (VideoControlStatus?) -> Void) {
+        guard FeatureFlags.fixAudioSession else { return }
+        cancellable = videoVC.player?.publisher(for: \.timeControlStatus)
+            .sink { status in
+                switch status {
+                case .playing:
+                    action(.playing)
+                case .paused:
+                    action(.paused)
+                default:
+                    action(nil)
+                }
+            }
     }
 }
 

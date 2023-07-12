@@ -42,6 +42,10 @@ public extension FeatureFlags {
         value(for: .clearAccountDataOnDeletedStatus)
     }
 
+    static var fixAudioSession: Bool {
+        value(for: .fixAudioSession)
+    }
+
     static var deleteObjectPlaceholder: Bool {
         value(for: .deleteObjectPlaceholder)
     }
@@ -73,6 +77,7 @@ public extension FeatureFlags {
         .getMoreSpace,
         .fixAVCaptureSessionError,
         .clearAccountDataOnDeletedStatus,
+        .fixAudioSession,
         .deleteObjectPlaceholder,
         .rainbowViews,
         .showAlertOnAssert,

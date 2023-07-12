@@ -253,6 +253,11 @@ final class ServiceLocator {
         _deviceSceneStateListener
     }
     
+    private lazy var _audioSessionService = AudioSessionService()
+    func audioSessionService() -> AudioSessionServiceProtocol {
+        _audioSessionService
+    }
+    
     // MARK: - Private
     
     private func subscriptionToggler() -> SubscriptionTogglerProtocol {

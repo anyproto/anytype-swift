@@ -15,6 +15,7 @@ final class BlockViewModelBuilder {
     private let simpleTableDependenciesBuilder: SimpleTableDependenciesBuilder
     private let pageService: PageServiceProtocol
     private let detailsService: DetailsServiceProtocol
+    private let audioSessionService: AudioSessionServiceProtocol
 
     init(
         document: BaseDocumentProtocol,
@@ -26,7 +27,8 @@ final class BlockViewModelBuilder {
         simpleTableDependenciesBuilder: SimpleTableDependenciesBuilder,
         subjectsHolder: FocusSubjectsHolder,
         pageService: PageServiceProtocol,
-        detailsService: DetailsServiceProtocol
+        detailsService: DetailsServiceProtocol,
+        audioSessionService: AudioSessionServiceProtocol
     ) {
         self.document = document
         self.handler = handler
@@ -38,6 +40,7 @@ final class BlockViewModelBuilder {
         self.subjectsHolder = subjectsHolder
         self.pageService = pageService
         self.detailsService = detailsService
+        self.audioSessionService = audioSessionService
     }
 
     func buildEditorItems(infos: [BlockInformation]) -> [EditorItem] {
@@ -159,6 +162,7 @@ final class BlockViewModelBuilder {
                 return VideoBlockViewModel(
                     info: info,
                     fileData: content,
+                    audioSessionService: audioSessionService,
                     showVideoPicker: { [weak self] blockId in
                         self?.showMediaPicker(type: .videos, blockId: blockId)
                     }
@@ -167,6 +171,7 @@ final class BlockViewModelBuilder {
                 return AudioBlockViewModel(
                     info: info,
                     fileData: content,
+                    audioSessionService: audioSessionService,
                     showAudioPicker: { [weak self] blockId in
                         self?.showFilePicker(blockId: blockId, types: [.audio])
                     }
