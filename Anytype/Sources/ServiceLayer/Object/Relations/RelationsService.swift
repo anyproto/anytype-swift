@@ -3,6 +3,10 @@ import ProtobufMessages
 import Services
 import SwiftProtobuf
 
+enum RelationServiceError: Error {
+    case unableToCreateRelationFromObject
+}
+
 final class RelationsService: RelationsServiceProtocol {
     
     private let relationDetailsStorage = ServiceLocator.shared.relationDetailsStorage()
@@ -16,7 +20,7 @@ final class RelationsService: RelationsServiceProtocol {
     
     func addFeaturedRelation(relationKey: String) async throws {
         AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.addFeatureRelation)
-        _ = try? await ClientCommands.objectRelationAddFeatured(.with {
+        try await ClientCommands.objectRelationAddFeatured(.with {
             $0.contextID = objectId
             $0.relations = [relationKey]
         }).invoke()
@@ -24,14 +28,14 @@ final class RelationsService: RelationsServiceProtocol {
     
     func removeFeaturedRelation(relationKey: String) async throws {
         AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.removeFeatureRelation)
-        _ = try? await ClientCommands.objectRelationRemoveFeatured(.with {
+        try await ClientCommands.objectRelationRemoveFeatured(.with {
             $0.contextID = objectId
             $0.relations = [relationKey]
         }).invoke()
     }
     
-    func updateRelation(relationKey: String, value: Google_Protobuf_Value) {
-        _ = try? ClientCommands.objectSetDetails(.with {
+    func updateRelation(relationKey: String, value: Google_Protobuf_Value) async throws {
+        try await ClientCommands.objectSetDetails(.with {
             $0.contextID = objectId
             $0.details = [
                 Anytype_Rpc.Object.SetDetails.Detail.with {
@@ -42,34 +46,32 @@ final class RelationsService: RelationsServiceProtocol {
         }).invoke()
     }
 
-    func createRelation(relationDetails: RelationDetails) -> RelationDetails? {
-        let result = try? ClientCommands.objectCreateRelation(.with {
+    func createRelation(relationDetails: RelationDetails) async throws -> RelationDetails? {
+        let result = try await ClientCommands.objectCreateRelation(.with {
             $0.details = relationDetails.asCreateMiddleware
         }).invoke()
         
-        guard let result = result,
-              addRelations(relationKeys: [result.key]),
-              let objectDetails = try? ObjectDetails(protobufStruct: result.details)
-            else { return nil }
-        
+        try await addRelations(relationKeys: [result.key])
+        guard let objectDetails = try? ObjectDetails(protobufStruct: result.details) else {
+            throw RelationServiceError.unableToCreateRelationFromObject
+        }
+              
         return RelationDetails(objectDetails: objectDetails)
     }
 
-    func addRelations(relationsDetails: [RelationDetails]) -> Bool {
-        return addRelations(relationKeys: relationsDetails.map(\.key))
+    func addRelations(relationsDetails: [RelationDetails]) async throws {
+        try await addRelations(relationKeys: relationsDetails.map(\.key))
     }
 
-    func addRelations(relationKeys: [String]) -> Bool {
-        let result = try? ClientCommands.objectRelationAdd(.with {
+    func addRelations(relationKeys: [String]) async throws {
+        try await ClientCommands.objectRelationAdd(.with {
             $0.contextID = objectId
             $0.relationKeys = relationKeys
         }).invoke()
-        
-        return result.isNotNil
     }
     
-    func removeRelation(relationKey: String) {
-        _ = try? ClientCommands.objectRelationDelete(.with {
+    func removeRelation(relationKey: String) async throws {
+        _ = try await ClientCommands.objectRelationDelete(.with {
             $0.contextID = objectId
             $0.relationKeys = [relationKey]
         }).invoke()

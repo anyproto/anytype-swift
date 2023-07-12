@@ -112,8 +112,11 @@ final class SettingsViewModel: ObservableObject {
     }
     
     private func updateSpaceName(name: String) {
-        objectActionsService.updateBundledDetails(contextID: accountManager.account.info.accountSpaceId, details: [
-            .name(name)
-        ])
+        Task {
+            try await objectActionsService.updateBundledDetails(
+                contextID: accountManager.account.info.accountSpaceId,
+                details: [.name(name)]
+            )
+        }
     }
 }

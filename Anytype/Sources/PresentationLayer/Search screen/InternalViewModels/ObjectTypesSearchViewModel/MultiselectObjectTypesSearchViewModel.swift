@@ -2,12 +2,13 @@ import Foundation
 import Services
 import Combine
 import SwiftUI
+import AnytypeCore
 
 final class MultiselectObjectTypesSearchViewModel {
     
     let selectionMode: NewSearchViewModel.SelectionMode = .multipleItems()
-    let viewStateSubject = PassthroughSubject<NewSearchViewState, Never>()
     
+    private let viewStateSubject = PassthroughSubject<NewSearchViewState, Never>()
     private var objects: [ObjectDetails] = []
     private var selectedObjectTypeIds: [String] = []
     
@@ -27,6 +28,8 @@ final class MultiselectObjectTypesSearchViewModel {
 }
 
 extension MultiselectObjectTypesSearchViewModel: NewInternalSearchViewModelProtocol {
+    
+    var viewStatePublisher: AnyPublisher<NewSearchViewState, Never> { viewStateSubject.eraseToAnyPublisher() }
     
     func search(text: String) async throws {
         let objects = try await interactor.search(text: text)
@@ -89,7 +92,7 @@ private extension SearchObjectRowView.Model {
     
     init(details: ObjectDetails) {
         let title = details.title
-        self.icon = details.objectIconImageWithPlaceholder
+        self.icon = FeatureFlags.deleteObjectPlaceholder ? details.objectIconImage : details.objectIconImageWithPlaceholder
         self.title = title
         self.subtitle = details.description
         self.style = .default

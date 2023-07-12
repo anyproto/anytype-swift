@@ -26,12 +26,12 @@ final class InvocationMesagesHandler: InvocationMesagesHandlerProtocol {
         )
     }
     
-    func eventHandler(event: Anytype_ResponseEvent) {
-        EventsBunch(event: event).send()
+    func eventHandler(event: Anytype_ResponseEvent) async {
+        await EventsBunch(event: event).send()
     }
     
-    func assertationHandler(message: String, info: [String: String], file: StaticString) {
-        anytypeAssertionFailure(message, info: info, file: file)
+    func assertationHandler(message: String, info: [String: String], file: StaticString, function: String, line: UInt) {
+        anytypeAssertionFailure(message, info: info, file: file, function: function, line: line)
     }
 }
 

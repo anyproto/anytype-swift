@@ -2,7 +2,7 @@ import Services
 import Combine
 import UIKit
 
-struct SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
+final class SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
     let info: BlockInformation
 
     let showPage: (BlockId) -> Void
@@ -58,6 +58,7 @@ struct SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
     func textBlockActions() -> TextBlockContentConfiguration.Actions {
         .init(shouldPaste: shouldPaste(range:textView:),
               copy: copy(range:),
+              cut: cut(range:),
               createEmptyBlock: createEmptyBlock,
               showPage: showPage,
               openURL: openURL,
@@ -183,11 +184,12 @@ struct SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
             return true
         }
 
-        pasteboardService.pasteInsideBlock(focusedBlockId: info.id, range: range) {
-            showWaitingView(Loc.pasteProcessing)
-        } completion: { pasteResult in
+        pasteboardService.pasteInsideBlock(focusedBlockId: info.id, range: range) { [weak self] in
+            self?.showWaitingView(Loc.pasteProcessing)
+        } completion: { [weak self, weak textView] pasteResult in
+            guard let self, let textView else { return }
             defer {
-                hideWaitingView()
+                self.hideWaitingView()
             }
 
             guard let pasteResult = pasteResult else { return }
@@ -201,7 +203,15 @@ struct SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
     }
 
     private func copy(range: NSRange) {
-        pasteboardService.copy(blocksIds: [info.id], selectedTextRange: range)
+        Task {
+            try await pasteboardService.copy(blocksIds: [info.id], selectedTextRange: range)
+        }
+    }
+    
+    private func cut(range: NSRange) {
+        Task {
+            try await pasteboardService.cut(blocksIds: [info.id], selectedTextRange: range)
+        }
     }
 
     private func createEmptyBlock() {
@@ -232,7 +242,8 @@ struct SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
     private func textViewDidBeginEditing(textView: UITextView) {
         blockDelegate?.didBeginEditing(view: textView)
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+            guard let self else { return }
             responderScrollViewHelper.textViewDidBeginEditing(textView: textView)
         }
     }

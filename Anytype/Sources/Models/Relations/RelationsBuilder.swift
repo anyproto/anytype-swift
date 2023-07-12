@@ -2,6 +2,7 @@ import Foundation
 import Services
 import SwiftProtobuf
 import UIKit
+import AnytypeCore
 
 final class RelationsBuilder {
     
@@ -42,9 +43,7 @@ final class RelationsBuilder {
         var otherRelations: [Relation] = []
         
         relationsDetails.forEach { relationDetails in
-            guard !relationDetails.isHidden,
-                    relationDetails.key != BundledRelationKey.type.rawValue
-            else { return }
+            guard !relationDetails.isHidden else { return }
             
             let value = relation(
                 relationDetails: relationDetails,
@@ -63,9 +62,7 @@ final class RelationsBuilder {
         }
         
         let typeRelations: [Relation] = typeRelationsDetails.compactMap { relationDetails in
-            guard !relationDetails.isHidden,
-                    relationDetails.key != BundledRelationKey.type.rawValue
-            else { return nil }
+            guard !relationDetails.isHidden else { return nil }
             return relation(
                 relationDetails: relationDetails,
                 details: objectDetails,
@@ -422,9 +419,11 @@ private extension RelationsBuilder {
                     )
                 }
                 
+                let showIcon = relationDetails.key != BundledRelationKey.type.rawValue
+                
                 return Relation.Object.Option(
                     id: objectDetail.id,
-                    icon: objectDetail.objectIconImageWithPlaceholder,
+                    icon: FeatureFlags.deleteObjectPlaceholder ? (showIcon ? objectDetail.objectIconImage : nil) : objectDetail.objectIconImageWithPlaceholder,
                     title: objectDetail.title,
                     type: objectDetail.objectType.name,
                     isArchived: objectDetail.isArchived,
@@ -467,7 +466,7 @@ private extension RelationsBuilder {
             let objectOptions: [Relation.File.Option] = objectDetails.map { objectDetail in      
                 return Relation.File.Option(
                     id: objectDetail.id,
-                    icon: objectDetail.objectIconImageWithPlaceholder,
+                    icon: FeatureFlags.deleteObjectPlaceholder ? objectDetail.objectIconImage : objectDetail.objectIconImageWithPlaceholder,
                     title: objectDetail.title,
                     editorScreenData: objectDetail.editorScreenData()
                 )

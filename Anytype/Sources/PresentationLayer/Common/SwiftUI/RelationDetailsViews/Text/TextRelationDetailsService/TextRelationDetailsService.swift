@@ -24,16 +24,17 @@ final class TextRelationDetailsService {
 extension TextRelationDetailsService: TextRelationDetailsServiceProtocol {
     
     func saveRelation(value: String, key: String, textType: TextRelationDetailsViewType) {
-        switch textType {
-        case .text:
-            service.updateRelation(relationKey: key, value: value.protobufValue)
-        case .number, .numberOfDays:
-            guard let number = numberFormatter.number(from: value)?.doubleValue else { return }
-            service.updateRelation(relationKey: key, value: number.protobufValue)
-        case .phone, .email, .url:
-            let value = value.replacingOccurrences(of: " ", with: "")
-            service.updateRelation(relationKey: key, value: value.protobufValue)
+        Task {
+            switch textType {
+            case .text:
+                try await service.updateRelation(relationKey: key, value: value.protobufValue)
+            case .number, .numberOfDays:
+                guard let number = numberFormatter.number(from: value)?.doubleValue else { return }
+                try await service.updateRelation(relationKey: key, value: number.protobufValue)
+            case .phone, .email, .url:
+                let value = value.replacingOccurrences(of: " ", with: "")
+                try await service.updateRelation(relationKey: key, value: value.protobufValue)
+            }
         }
     }
-    
 }

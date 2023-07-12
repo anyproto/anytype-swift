@@ -89,7 +89,7 @@ platform :ios do
       add_linear_comment(
         from_tag: old_tag_name,
         to_tag: tag_name,
-        comment: "Implemented in `#{version}(#{build_number})`"
+        comment: "Implemented in `#{version}(#{build_number})`. This comment was created automatically."
       )
     end
 
