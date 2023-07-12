@@ -1,16 +1,13 @@
 import Services
 import Foundation
+import Combine
 
 final class PasteboardService: PasteboardServiceProtocol {
     private let document: BaseDocumentProtocol
     private let pasteboardHelper: PasteboardHelper
     private let pasteboardMiddlewareService: PasteboardMiddlewareServiceProtocol
-    private let pasteboardOperations: OperationQueue = {
-        let queue = OperationQueue()
-        queue.qualityOfService = .utility
-        queue.maxConcurrentOperationCount = 1
-        return queue
-    }()
+    
+    private var tasks = [AnyCancellable]()
 
     init(document: BaseDocumentProtocol,
          pasteboardHelper: PasteboardHelper,
@@ -42,22 +39,28 @@ final class PasteboardService: PasteboardServiceProtocol {
     private func paste(context: PasteboardActionContext,
                        handleLongOperation:  @escaping () -> Void,
                        completion: @escaping (_ pasteResult: PasteboardPasteResult?) -> Void) {
+        
         let workItem = DispatchWorkItem {
             handleLongOperation()
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + Constants.longOperationTime, execute: workItem)
-
-        let operation = PasteboardOperation (
+        
+        let task = PasteboardTask(
             pasteboardHelper: pasteboardHelper,
             pasteboardMiddlewareService: pasteboardMiddlewareService,
             context: context
-        ) { pasteResult in
+        )
+        
+        Task {
+            let pasteResult = try? await task.start()
+            
             DispatchQueue.main.async {
                 workItem.cancel()
                 completion(pasteResult)
             }
         }
-        pasteboardOperations.addOperation(operation)
+        .cancellable()
+        .store(in: &tasks)
     }
     
     func copy(blocksIds: [BlockId], selectedTextRange: NSRange) async throws {

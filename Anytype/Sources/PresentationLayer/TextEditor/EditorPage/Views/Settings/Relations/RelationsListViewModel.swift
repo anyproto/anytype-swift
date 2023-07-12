@@ -72,7 +72,9 @@ extension RelationsListViewModel {
     }
     
     func removeRelation(relation: Relation) {
-        relationsService.removeRelation(relationKey: relation.key)
+        Task {
+            try await relationsService.removeRelation(relationKey: relation.key)
+        }
     }
     
     func showAddNewRelationView() {

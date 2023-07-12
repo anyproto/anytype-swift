@@ -61,12 +61,14 @@ struct EmptyRowViewViewModel: SystemContentConfiguationProvider {
     }
 
     private func fillAndSetFocus() {
-        tablesService.rowListFill(
-            contextId: contextId,
-            targetIds: [rowId]
-        )
-
-        cursorManager.blockFocus = .init(id: "\(rowId)-\(columnId)", position: .beginning)
+        Task { @MainActor in
+            try await tablesService.rowListFill(
+                contextId: contextId,
+                targetIds: [rowId]
+            )
+            
+            cursorManager.blockFocus = .init(id: "\(rowId)-\(columnId)", position: .beginning)
+        }
     }
 }
 

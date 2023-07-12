@@ -12,7 +12,7 @@ protocol RelationsServiceProtocol: AnyObject {
     func addRelations(relationsDetails: [RelationDetails]) async throws
     func addRelations(relationKeys: [String]) async throws
 
-    func removeRelation(relationKey: String)
+    func removeRelation(relationKey: String) async throws
     func addRelationOption(relationKey: String, optionText: String) async throws -> String?
     func availableRelations() -> [RelationDetails]
 }

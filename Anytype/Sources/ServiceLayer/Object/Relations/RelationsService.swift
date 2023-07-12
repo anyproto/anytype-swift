@@ -70,8 +70,8 @@ final class RelationsService: RelationsServiceProtocol {
         }).invoke()
     }
     
-    func removeRelation(relationKey: String) {
-        _ = try? ClientCommands.objectRelationDelete(.with {
+    func removeRelation(relationKey: String) async throws {
+        _ = try await ClientCommands.objectRelationDelete(.with {
             $0.contextID = objectId
             $0.relationKeys = [relationKey]
         }).invoke()

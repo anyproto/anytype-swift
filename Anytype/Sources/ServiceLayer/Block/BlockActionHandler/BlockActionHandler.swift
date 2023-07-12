@@ -46,13 +46,9 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
                blockInformation.childrenIds.count > 0, !blockInformation.isToggled {
                 blockInformation.toggle()
             }
-            Task {
-                try await service.turnInto(style, blockId: blockId)
-            }
+            service.turnInto(style, blockId: blockId)
         default:
-            Task {
-                try await service.turnInto(style, blockId: blockId)
-            }
+            service.turnInto(style, blockId: blockId)
         }
     }
     
@@ -79,64 +75,56 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     }
     
     func setBackgroundColor(_ color: BlockBackgroundColor, blockIds: [BlockId]) {
-        Task {
-            try await service.setBackgroundColor(blockIds: blockIds, color: color)
-        }
+        service.setBackgroundColor(blockIds: blockIds, color: color)
     }
     
     func duplicate(blockId: BlockId) {
-        Task {
-            try await service.duplicate(blockId: blockId)
-        }
+        service.duplicate(blockId: blockId)
     }
     
     func fetch(url: AnytypeURL, blockId: BlockId) {
-        Task {
-            try await service.bookmarkFetch(blockId: blockId, url: url)
-        }
+        service.bookmarkFetch(blockId: blockId, url: url)
     }
     
     func checkbox(selected: Bool, blockId: BlockId) {
-        Task {
-            try await service.checked(blockId: blockId, newValue: selected)
-        }
+        service.checked(blockId: blockId, newValue: selected)
     }
     
     func toggle(blockId: BlockId) {
-        EventsBunch(contextId: document.objectId, localEvents: [.setToggled(blockId: blockId)])
-            .send()
+        Task {
+            await EventsBunch(contextId: document.objectId, localEvents: [.setToggled(blockId: blockId)])
+                .send()
+        }
     }
     
     func setAlignment(_ alignment: LayoutAlignment, blockIds: [BlockId]) {
-        listService.setAlign(objectId: document.objectId, blockIds: blockIds, alignment: alignment)
+        Task {
+            try await listService.setAlign(objectId: document.objectId, blockIds: blockIds, alignment: alignment)
+        }
     }
     
     func delete(blockIds: [BlockId]) {
-        Task {
-            try await service.delete(blockIds: blockIds)
-        }
+        service.delete(blockIds: blockIds)
     }
     
     func moveToPage(blockId: BlockId, pageId: BlockId) {
         AnytypeAnalytics.instance().logMoveBlock()
-        listService.moveToPage(objectId: document.objectId, blockId: blockId, pageId: pageId)
+        Task {
+            try await listService.moveToPage(objectId: document.objectId, blockId: blockId, pageId: pageId)
+        }
     }
     
     func createEmptyBlock(parentId: BlockId) {
-        Task {
-            try await service.addChild(info: BlockInformation.emptyText, parentId: parentId)
-        }
+        service.addChild(info: BlockInformation.emptyText, parentId: parentId)
     }
     
     func addLink(targetId: BlockId, typeId: String, blockId: BlockId) {
-        Task {
-            let isBookmarkType = ObjectTypeId.bundled(.bookmark).rawValue == typeId
-            try await service.add(
-                info: isBookmarkType ? .bookmark(targetId: targetId) : .emptyLink(targetId: targetId),
-                targetBlockId: blockId,
-                position: .replace
-            )
-        }
+        let isBookmarkType = ObjectTypeId.bundled(.bookmark).rawValue == typeId
+        service.add(
+            info: isBookmarkType ? .bookmark(targetId: targetId) : .emptyLink(targetId: targetId),
+            targetBlockId: blockId,
+            position: .replace
+        )
     }
     
     func changeMarkup(blockIds: [BlockId], markType: MarkupType) {
@@ -205,41 +193,47 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     }
     
     func changeTextForced(_ text: NSAttributedString, blockId: BlockId) {
-        guard let info = document.infoContainer.get(id: blockId) else { return }
-
-        guard case .text = info.content else { return }
-
-        let middlewareString = AttributedTextConverter.asMiddleware(attributedText: text)
-
-        EventsBunch(
-            contextId: document.objectId,
-            localEvents: [.setText(blockId: info.id, text: middlewareString)]
-        ).send()
-
-        service.setTextForced(contextId: document.objectId, blockId: info.id, middlewareString: middlewareString)
+        Task {
+            guard let info = document.infoContainer.get(id: blockId) else { return }
+            
+            guard case .text = info.content else { return }
+            
+            let middlewareString = AttributedTextConverter.asMiddleware(attributedText: text)
+            
+            await EventsBunch(
+                contextId: document.objectId,
+                localEvents: [.setText(blockId: info.id, text: middlewareString)]
+            ).send()
+            
+            try await service.setTextForced(contextId: document.objectId, blockId: info.id, middlewareString: middlewareString)
+        }
     }
     
     func changeText(_ text: NSAttributedString, info: BlockInformation) {
-        guard case .text = info.content else { return }
-
-        let middlewareString = AttributedTextConverter.asMiddleware(attributedText: text)
-
-        EventsBunch(
-            contextId: document.objectId,
-            dataSourceUpdateEvents: [.setText(blockId: info.id, text: middlewareString)]
-        ).send()
-
-        service.setText(contextId: document.objectId, blockId: info.id, middlewareString: middlewareString)
+        Task {
+            guard case .text = info.content else { return }
+            
+            let middlewareString = AttributedTextConverter.asMiddleware(attributedText: text)
+            
+            await EventsBunch(
+                contextId: document.objectId,
+                dataSourceUpdateEvents: [.setText(blockId: info.id, text: middlewareString)]
+            ).send()
+            
+            try await service.setText(contextId: document.objectId, blockId: info.id, middlewareString: middlewareString)
+        }
     }
     
     // MARK: - Public methods
     func uploadMediaFile(uploadingSource: FileUploadingSource, type: MediaPickerContentType, blockId: BlockId) {
-        EventsBunch(
-            contextId: document.objectId,
-            localEvents: [.setLoadingState(blockId: blockId)]
-        ).send()
         
         Task {
+            
+            await EventsBunch(
+                contextId: document.objectId,
+                localEvents: [.setLoadingState(blockId: blockId)]
+            ).send()
+            
             try await fileService.uploadDataAt(source: uploadingSource, contextID: document.objectId, blockID: blockId)
         }
 
@@ -248,13 +242,13 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     
     func uploadFileAt(localPath: String, blockId: BlockId) {
         AnytypeAnalytics.instance().logUploadMedia(type: .file)
-
-        EventsBunch(
-            contextId: document.objectId,
-            localEvents: [.setLoadingState(blockId: blockId)]
-        ).send()
         
         Task {
+            await EventsBunch(
+                contextId: document.objectId,
+                localEvents: [.setLoadingState(blockId: blockId)]
+            ).send()
+            
             try await upload(blockId: blockId, filePath: localPath)
         }
     }
@@ -308,9 +302,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         
         let position: BlockPosition = isTextAndEmpty ? .replace : (position ?? .bottom)
 
-        Task {
-            try await service.add(info: newBlock, targetBlockId: blockId, position: position)
-        }
+        service.add(info: newBlock, targetBlockId: blockId, position: position)
     }
 
     func selectBlock(info: BlockInformation) {
@@ -322,14 +314,12 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         position: BlockPosition,
         url: AnytypeURL
     ) {
-        Task {
-            try await service.createAndFetchBookmark(
-                contextID: document.objectId,
-                targetID: targetID,
-                position: position,
-                url: url
-            )
-        }
+        service.createAndFetchBookmark(
+            contextID: document.objectId,
+            targetID: targetID,
+            position: position,
+            url: url
+        )
     }
 
     func setAppearance(blockId: BlockId, appearance: BlockLink.Appearance) {

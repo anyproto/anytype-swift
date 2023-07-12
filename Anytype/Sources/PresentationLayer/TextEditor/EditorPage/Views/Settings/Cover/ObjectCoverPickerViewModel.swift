@@ -61,12 +61,12 @@ extension ObjectCoverPickerViewModel {
 
     func uploadUnplashCover(unsplashItem: UnsplashItem) {
         AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.setCover)
-        EventsBunch(
-            contextId: objectId,
-            localEvents: [unsplashItem.updateEvent]
-        ).send()
 
         Task { @MainActor in
+            await EventsBunch(
+                contextId: objectId,
+                localEvents: [unsplashItem.updateEvent]
+            ).send()
             let imageHash = try await unsplashService.downloadImage(id: unsplashItem.id)
             try await detailsService.setCover(imageHash: imageHash)
         }

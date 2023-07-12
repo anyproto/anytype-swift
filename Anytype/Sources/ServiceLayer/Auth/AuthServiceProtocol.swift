@@ -16,5 +16,5 @@ protocol AuthServiceProtocol {
 
     func logout(removeData: Bool, onCompletion: @escaping (Bool) -> ())
     func deleteAccount() async throws -> AccountStatus
-    func restoreAccount() -> AccountStatus?
+    func restoreAccount() async throws -> AccountStatus
 }

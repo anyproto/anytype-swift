@@ -24,26 +24,22 @@ final class FileErrorEventHandler: FileErrorEventHandlerProtocol {
     func startSubscription() {
         guard cancellable == nil else { return }
         
-        cancellable = NotificationCenter.Publisher(
-            center: .default,
-            name: .middlewareEvent,
-            object: nil
-        )
-        .compactMap { $0.object as? EventsBunch }
-        .map(\.middlewareEvents)
-        .sink { [weak self] events in
-            events.forEach { self?.handleEvent($0) }
+        cancellable = EventBunchSubscribtion.default.addHandler { [weak self] events in
+            await self?.handle(events: events)
         }
     }
     
     // MARK: - Private
     
-    private func handleEvent(_ event: Anytype_Event.Message) {
-        switch event.value {
-        case .fileLimitReached:
-            fileLimitReachedSubject.send(())
-        default:
-            break
+    @MainActor
+    private func handle(events: EventsBunch) {
+        for event in events.middlewareEvents {
+            switch event.value {
+            case .fileLimitReached:
+                fileLimitReachedSubject.send(())
+            default:
+                break
+            }
         }
     }
 }

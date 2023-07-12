@@ -22,7 +22,10 @@ final class GroupsSubscriptionsHandler: GroupsSubscriptionsHandlerProtocol {
     }
     
     deinit {
-        stopAllSubscriptions()
+        let keys = subscribers.keys
+        Task { [keys, groupsSubscribeService] in
+            await keys.asyncForEach { try? await groupsSubscribeService.stopSubscription(id: $0) }
+        }
     }
     
     func startGroupsSubscription(data: GroupsSubscription, update: @escaping GroupsSubscriptionCallback) async throws -> [DataviewGroup] {
@@ -48,33 +51,27 @@ final class GroupsSubscriptionsHandler: GroupsSubscriptionsHandlerProtocol {
         return data != subscriber.data
     }
     
-    func stopAllSubscriptions() {
-        subscribers.keys.forEach { stopGroupsSubscription(id: $0) }
+    func stopAllSubscriptions() async throws {
+        try await subscribers.keys.asyncForEach { try await stopGroupsSubscription(id: $0) }
     }
  
     // MARK: - Private
     
-    private func stopGroupsSubscription(id: SubscriptionId) {
+    private func stopGroupsSubscription(id: SubscriptionId) async throws {
         guard subscribers[id].isNotNil else { return }
 
-        _ = groupsSubscribeService.stopSubscription(id: id)
+        _ = try await groupsSubscribeService.stopSubscription(id: id)
         subscribers[id] = nil
     }
     
     private func setup() {
-        subscription = NotificationCenter.Publisher(
-            center: .default,
-            name: .middlewareEvent,
-            object: nil
-        )
-            .compactMap { $0.object as? EventsBunch }
-            .filter { $0.contextId.isEmpty }
-            .receiveOnMain()
-            .sink { [weak self] events in
-                self?.handle(events: events)
-            }
+        subscription = EventBunchSubscribtion.default.addHandler { [weak self] events in
+            guard events.contextId.isEmpty else { return }
+            await self?.handle(events: events)
+        }
     }
     
+    @MainActor
     private func handle(events: EventsBunch) {
         // handle only Groups Subscription events
         for event in events.middlewareEvents {
