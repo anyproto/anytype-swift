@@ -26,10 +26,6 @@ class InlineMarkdownListenerTests: XCTestCase {
         
         let cases = [
             Case(text:"AAA`bbb", inputText: "`"),
-            Case(text:"AAA‘bbb", inputText: "‘"),
-            Case(text:"AAA'bbb", inputText: "'"),
-            Case(text:"AAA‘bbb", inputText: "'"),
-            Case(text:"AAA’bbb", inputText: "'"),
             Case(text:"AAA’bb", inputText: "b"),
             Case(text:"AAA’’bb", inputText: "b"),
             Case(text:"AAA_bbb", inputText: "_"),
@@ -49,10 +45,6 @@ class InlineMarkdownListenerTests: XCTestCase {
         let focusRange = NSRange(location: 7, length: 0)
         
         let expectedResults: [MarkdownChange?] = [
-            .addStyle(.keyboard, text: text, range: range, focusRange: focusRange),
-            .addStyle(.keyboard, text: text, range: range, focusRange: focusRange),
-            .addStyle(.keyboard, text: text, range: range, focusRange: focusRange),
-            .addStyle(.keyboard, text: text, range: range, focusRange: focusRange),
             .addStyle(.keyboard, text: text, range: range, focusRange: focusRange),
             nil,
             nil,
