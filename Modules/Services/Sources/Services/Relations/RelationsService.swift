@@ -1,40 +1,36 @@
 import Foundation
 import ProtobufMessages
-import Services
 import SwiftProtobuf
 
 enum RelationServiceError: Error {
     case unableToCreateRelationFromObject
 }
 
-final class RelationsService: RelationsServiceProtocol {
+public final class RelationsService: RelationsServiceProtocol {
     
-    private let relationDetailsStorage = ServiceLocator.shared.relationDetailsStorage()
     private let objectId: String
         
-    init(objectId: String) {
+    public init(objectId: String) {
         self.objectId = objectId
     }
     
     // MARK: - RelationsServiceProtocol
     
-    func addFeaturedRelation(relationKey: String) async throws {
-        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.addFeatureRelation)
+    public func addFeaturedRelation(relationKey: String) async throws {
         try await ClientCommands.objectRelationAddFeatured(.with {
             $0.contextID = objectId
             $0.relations = [relationKey]
         }).invoke()
     }
     
-    func removeFeaturedRelation(relationKey: String) async throws {
-        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.removeFeatureRelation)
+    public func removeFeaturedRelation(relationKey: String) async throws {
         try await ClientCommands.objectRelationRemoveFeatured(.with {
             $0.contextID = objectId
             $0.relations = [relationKey]
         }).invoke()
     }
     
-    func updateRelation(relationKey: String, value: Google_Protobuf_Value) async throws {
+    public func updateRelation(relationKey: String, value: Google_Protobuf_Value) async throws {
         try await ClientCommands.objectSetDetails(.with {
             $0.contextID = objectId
             $0.details = [
@@ -46,7 +42,7 @@ final class RelationsService: RelationsServiceProtocol {
         }).invoke()
     }
 
-    func createRelation(relationDetails: RelationDetails) async throws -> RelationDetails? {
+    public func createRelation(relationDetails: RelationDetails) async throws -> RelationDetails? {
         let result = try await ClientCommands.objectCreateRelation(.with {
             $0.details = relationDetails.asCreateMiddleware
         }).invoke()
@@ -59,27 +55,25 @@ final class RelationsService: RelationsServiceProtocol {
         return RelationDetails(objectDetails: objectDetails)
     }
 
-    func addRelations(relationsDetails: [RelationDetails]) async throws {
+    public func addRelations(relationsDetails: [RelationDetails]) async throws {
         try await addRelations(relationKeys: relationsDetails.map(\.key))
     }
 
-    func addRelations(relationKeys: [String]) async throws {
+    public func addRelations(relationKeys: [String]) async throws {
         try await ClientCommands.objectRelationAdd(.with {
             $0.contextID = objectId
             $0.relationKeys = relationKeys
         }).invoke()
     }
     
-    func removeRelation(relationKey: String) async throws {
+    public func removeRelation(relationKey: String) async throws {
         _ = try await ClientCommands.objectRelationDelete(.with {
             $0.contextID = objectId
             $0.relationKeys = [relationKey]
         }).invoke()
-        
-        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.deleteRelation)
     }
     
-    func addRelationOption(relationKey: String, optionText: String) async throws -> String? {
+    public func addRelationOption(relationKey: String, optionText: String) async throws -> String? {
         let color = MiddlewareColor.allCases.randomElement()?.rawValue ?? MiddlewareColor.default.rawValue
         
         let details = Google_Protobuf_Struct(
@@ -95,9 +89,5 @@ final class RelationsService: RelationsServiceProtocol {
         }).invoke()
         
         return optionResult?.objectID
-    }
-
-    func availableRelations() -> [RelationDetails] {
-        relationDetailsStorage.relationsDetails()
     }
 }
