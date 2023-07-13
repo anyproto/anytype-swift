@@ -9,7 +9,7 @@ struct TextBlockURLInputParameters {
     let optionHandler: (EditorContextualOption) -> Void
 }
 
-final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
+struct TextBlockActionHandler: TextBlockActionHandlerProtocol {
     let info: BlockInformation
 
     let showPage: (BlockId) -> Void
@@ -24,7 +24,8 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
     private let anytypeText: UIKitAnytypeText
     private let showURLBookmarkPopup: (TextBlockURLInputParameters) -> Void
     private let actionHandler: BlockActionHandlerProtocol
-    private let pasteboardService: PasteboardServiceProtocol
+    // Fix retain cycle for long paste action
+    private weak var pasteboardService: PasteboardServiceProtocol?
     private let mentionDetecter = MentionTextDetector()
     private let markdownListener: MarkdownListener
     private weak var blockDelegate: BlockDelegate?
@@ -187,22 +188,21 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
 
         let urlIputParameters = TextBlockURLInputParameters(
             textView: textView,
-            rect: textRect) { [weak self] option in
-                guard let self else { return }
+            rect: textRect) { option in
                 switch option {
                 case .createBookmark:
                     let position: BlockPosition = textView.text == trimmedText ?
                         .replace : .bottom
                     
                     Task {
-                        try await self.actionHandler.createAndFetchBookmark(
+                        try await actionHandler.createAndFetchBookmark(
                             targetID: self.info.id,
                             position: position,
                             url: url
                         )
                         
                         originalAttributedString.map {
-                            self.actionHandler.changeTextForced($0, blockId: self.info.id)
+                            actionHandler.changeTextForced($0, blockId: self.info.id)
                         }
                     }
                 case .pasteAsLink:
@@ -223,17 +223,19 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
     }
 
     private func shouldPaste(range: NSRange, textView: UITextView) -> Bool {
+        guard let pasteboardService else { return false }
+        
         if pasteboardService.hasValidURL {
             return true
         }
 
-        pasteboardService.pasteInsideBlock(focusedBlockId: info.id, range: range) { [weak self] in
-            self?.showWaitingView(Loc.pasteProcessing)
-        } completion: { [weak self, weak textView] pasteResult in
-            guard let self, let textView else { return }
+        pasteboardService.pasteInsideBlock(focusedBlockId: info.id, range: range) {
+            showWaitingView(Loc.pasteProcessing)
+        } completion: { [weak textView] pasteResult in
+            guard let textView else { return }
             
             defer {
-                self.hideWaitingView()
+                hideWaitingView()
             }
 
             guard let pasteResult = pasteResult else { return }
@@ -249,13 +251,13 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
     private func copy(range: NSRange) {
         AnytypeAnalytics.instance().logCopyBlock()
         Task {
-            try await pasteboardService.copy(blocksIds: [info.id], selectedTextRange: range)
+            try await pasteboardService?.copy(blocksIds: [info.id], selectedTextRange: range)
         }
     }
     
     private func cut(range: NSRange) {
         Task {
-            try await pasteboardService.cut(blocksIds: [info.id], selectedTextRange: range)
+            try await pasteboardService?.cut(blocksIds: [info.id], selectedTextRange: range)
         }
     }
 

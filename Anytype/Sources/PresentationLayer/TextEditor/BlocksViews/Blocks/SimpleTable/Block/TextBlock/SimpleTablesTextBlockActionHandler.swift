@@ -2,7 +2,7 @@ import Services
 import Combine
 import UIKit
 
-final class SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
+struct SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
     let info: BlockInformation
 
     let showPage: (BlockId) -> Void
@@ -16,7 +16,8 @@ final class SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
     private let content: BlockText
     private let anytypeText: UIKitAnytypeText
     private let actionHandler: BlockActionHandlerProtocol
-    private let pasteboardService: PasteboardServiceProtocol
+    // Fix retain cycle for long paste action
+    private weak var pasteboardService: PasteboardServiceProtocol?
     private let mentionDetecter = MentionTextDetector()
     private let markdownListener: MarkdownListener
     private let responderScrollViewHelper: ResponderScrollViewHelper
@@ -180,16 +181,18 @@ final class SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
     }
 
     private func shouldPaste(range: NSRange, textView: UITextView) -> Bool {
+        guard let pasteboardService else { return false }
+        
         if pasteboardService.hasValidURL {
             return true
         }
 
-        pasteboardService.pasteInsideBlock(focusedBlockId: info.id, range: range) { [weak self] in
-            self?.showWaitingView(Loc.pasteProcessing)
-        } completion: { [weak self, weak textView] pasteResult in
-            guard let self, let textView else { return }
+        pasteboardService.pasteInsideBlock(focusedBlockId: info.id, range: range) {
+            showWaitingView(Loc.pasteProcessing)
+        } completion: { [weak textView] pasteResult in
+            guard let textView else { return }
             defer {
-                self.hideWaitingView()
+                hideWaitingView()
             }
 
             guard let pasteResult = pasteResult else { return }
@@ -204,13 +207,13 @@ final class SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
 
     private func copy(range: NSRange) {
         Task {
-            try await pasteboardService.copy(blocksIds: [info.id], selectedTextRange: range)
+            try await pasteboardService?.copy(blocksIds: [info.id], selectedTextRange: range)
         }
     }
     
     private func cut(range: NSRange) {
         Task {
-            try await pasteboardService.cut(blocksIds: [info.id], selectedTextRange: range)
+            try await pasteboardService?.cut(blocksIds: [info.id], selectedTextRange: range)
         }
     }
 
@@ -242,8 +245,7 @@ final class SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
     private func textViewDidBeginEditing(textView: UITextView) {
         blockDelegate?.didBeginEditing(view: textView)
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
-            guard let self else { return }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             responderScrollViewHelper.textViewDidBeginEditing(textView: textView)
         }
     }
