@@ -1,7 +1,7 @@
 import ProtobufMessages
 import SwiftProtobuf
 
-public class BookmarkService: BookmarkServiceProtocol {
+public final class BookmarkService: BookmarkServiceProtocol {
     
     public init() {}
     
