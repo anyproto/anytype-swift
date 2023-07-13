@@ -69,6 +69,12 @@ public extension FeatureDescription {
         type: .feature(author: "m@anytype.io", releaseVersion: "0.23.0"),
         defaultValue: true
     )
+
+    static let showAllFilesInBin = FeatureDescription(
+        title: "Show all files in bin - IOS-1408",
+        type: .feature(author: "m@anytype.io", releaseVersion: "0.24.0"),
+        defaultValue: true
+    )
     
     // MARK: - Debug
     
