@@ -36,8 +36,6 @@ public final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol 
             return nil
         }
 
-        // check joe AnytypeAnalytics.instance().logCreateBlock(type: info.content.description, style: info.content.type.style)
-
         let response = try await ClientCommands.blockCreate(.with {
             $0.contextID = contextId
             $0.targetID = targetId
@@ -48,9 +46,7 @@ public final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol 
         return response.blockID
     }
     
-    public func delete(contextId: String, blockIds: [BlockId]) async throws {
-        // check joe AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.blockDelete)
-        
+    public func delete(contextId: String, blockIds: [BlockId]) async throws {        
         try await ClientCommands.blockListDelete(.with {
             $0.contextID = contextId
             $0.blockIds = blockIds
@@ -58,8 +54,6 @@ public final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol 
     }
 
     public func duplicate(contextId: String, targetId: BlockId, blockIds: [BlockId], position: BlockPosition) async throws {
-        // check joe AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.blockListDuplicate)
-        
         try await ClientCommands.blockListDuplicate(.with {
             $0.contextID = contextId
             $0.targetID = targetId
@@ -82,7 +76,5 @@ public final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol 
             $0.dropTargetID = dropTargetID
             $0.position = position.asMiddleware
         }).invoke()
-        
-        // check joe AnytypeAnalytics.instance().logReorderBlock(count: blockIds.count)
     }
 }

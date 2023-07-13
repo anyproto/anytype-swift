@@ -101,10 +101,12 @@ final class ObjectActionsViewModel: ObservableObject {
                     self.onLinkItselfToObjectHandler?(details.editorScreenData())
                     AnytypeAnalytics.instance().logLinkToObject(type: .collection)
                 } else {
+                    let info = BlockInformation.emptyLink(targetId: currentObjectId)
+                    AnytypeAnalytics.instance().logCreateBlock(type: info.content.description, style: info.content.type.style)
                     let _ = try await self.blockActionsService.add(
                         contextId: objectId,
                         targetId: id,
-                        info: .emptyLink(targetId: currentObjectId),
+                        info: info,
                         position: .bottom
                     )
                     self.onLinkItselfToObjectHandler?(details.editorScreenData())
