@@ -50,6 +50,10 @@ public extension FeatureFlags {
         value(for: .deleteObjectPlaceholder)
     }
 
+    static var showAllFilesInBin: Bool {
+        value(for: .showAllFilesInBin)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -79,6 +83,7 @@ public extension FeatureFlags {
         .clearAccountDataOnDeletedStatus,
         .fixAudioSession,
         .deleteObjectPlaceholder,
+        .showAllFilesInBin,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
