@@ -3,6 +3,7 @@ import SwiftUI
 import SwiftProtobuf
 import FloatingPanel
 import Combine
+import Services
 
 final class DateRelationDetailsViewModel: ObservableObject {
         
@@ -82,10 +83,11 @@ private extension DateRelationDetailsViewModel {
             }
         }()
         
-        service.updateRelation(relationKey: relation.key, value: value)
-        AnytypeAnalytics.instance().logChangeRelationValue(isEmpty: selectedValue == .noDate, type: analyticsType)
+        Task {
+            try await service.updateRelation(relationKey: relation.key, value: value)
+            AnytypeAnalytics.instance().logChangeRelationValue(isEmpty: selectedValue == .noDate, type: analyticsType)
+        }
     }
-     
 }
 
 private extension DateRelationValue {

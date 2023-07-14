@@ -65,10 +65,6 @@ final class ChangeTypeAccessoryViewModel {
     }
 
     private func onTypeTap(typeId: String) {
-        guard let details = document.details else {
-            anytypeAssertionFailure("Details not found")
-            return
-        }
         if typeId == ObjectTypeId.BundledTypeId.set.rawValue {
             Task { @MainActor in
                 document.resetSubscriptions() // to avoid glytch with premature document update
@@ -89,8 +85,10 @@ final class ChangeTypeAccessoryViewModel {
             return
         }
 
-        handler.setObjectTypeId(typeId)
-        applyDefaultTemplateIfNeeded(typeId: typeId)
+        Task { @MainActor in
+            try await handler.setObjectTypeId(typeId)
+            applyDefaultTemplateIfNeeded(typeId: typeId)
+        }
     }
     
     private func applyDefaultTemplateIfNeeded(typeId: String) {

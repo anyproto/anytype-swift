@@ -1,4 +1,5 @@
 import SwiftUI
+import AnytypeCore
 
 struct ObjectRelationView: View {
     let options: [Relation.Object.Option]
@@ -30,12 +31,20 @@ struct ObjectRelationView: View {
     private func objectView(option: Relation.Object.Option) -> some View {
         HStack(spacing: style.objectRelationStyle.hSpaсingObject) {
             
-            if shouldShowIcon(icon: option.icon) {
-                SwiftUIObjectIconImageView(
-                    iconImage: option.icon,
-                    usecase: style.objectIconImageUsecase
-                ).frame(width: style.objectRelationStyle.size.width, height: style.objectRelationStyle.size.height)
-
+            if FeatureFlags.deleteObjectPlaceholder {
+                if let icon = option.icon, shouldShowIcon(icon: icon) {
+                    SwiftUIObjectIconImageView(
+                        iconImage: icon,
+                        usecase: style.objectIconImageUsecase
+                    ).frame(width: style.objectRelationStyle.size.width, height: style.objectRelationStyle.size.height)
+                }
+            } else {
+                if let icon = option.icon, shouldShowIconLegacy(icon: icon) {
+                    SwiftUIObjectIconImageView(
+                        iconImage: icon,
+                        usecase: style.objectIconImageUsecase
+                    ).frame(width: style.objectRelationStyle.size.width, height: style.objectRelationStyle.size.height)
+                }
             }
             
             AnytypeText(
@@ -84,10 +93,20 @@ struct ObjectRelationView: View {
         }
     }
 
-    private func shouldShowIcon(icon: ObjectIconImage) -> Bool {
+    // Delete with FeatureFlags.deleteObjectPlaceholder
+    private func shouldShowIconLegacy(icon: ObjectIconImage) -> Bool {
         if case .placeholder = icon {
             return false
         }
+        switch style {
+        case .regular, .set, .filter, .setCollection, .kanbanHeader:
+            return true
+        case .featuredRelationBlock(let settings):
+            return settings.showIcon
+        }
+    }
+    
+    private func shouldShowIcon(icon: ObjectIconImage) -> Bool {
         switch style {
         case .regular, .set, .filter, .setCollection, .kanbanHeader:
             return true

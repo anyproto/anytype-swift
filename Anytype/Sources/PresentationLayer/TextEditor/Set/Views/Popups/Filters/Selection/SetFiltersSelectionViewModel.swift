@@ -117,8 +117,7 @@ extension SetFiltersSelectionViewModel: AnytypePopupViewModelProtocol {
     
     func makeContentView() -> UIViewController {
         UIHostingController(
-            rootView: SetFiltersSelectionView(content: makeContentView)
-                .environmentObject(self)
+            rootView: SetFiltersSelectionView(viewModel: self, content: makeContentView)
         )
     }
     

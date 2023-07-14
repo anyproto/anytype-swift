@@ -1,6 +1,7 @@
 import Foundation
 import Services
 import SwiftProtobuf
+import AnytypeCore
 
 final class RelationFilterBuilder {
         
@@ -134,7 +135,7 @@ private extension RelationFilterBuilder {
             let objectOptions: [Relation.Object.Option] = objectDetails.map { objectDetail in
                 return Relation.Object.Option(
                     id: objectDetail.id,
-                    icon: objectDetail.objectIconImageWithPlaceholder,
+                    icon: FeatureFlags.deleteObjectPlaceholder ? objectDetail.objectIconImage : objectDetail.objectIconImageWithPlaceholder,
                     title: objectDetail.title,
                     type: objectDetail.objectType.name,
                     isArchived: objectDetail.isArchived,
@@ -347,7 +348,7 @@ private extension RelationFilterBuilder {
             let objectOptions: [Relation.File.Option] = objectDetails.map { objectDetail in
                 return Relation.File.Option(
                     id: objectDetail.id,
-                    icon: objectDetail.objectIconImageWithPlaceholder,
+                    icon: FeatureFlags.deleteObjectPlaceholder ? objectDetail.objectIconImage : objectDetail.objectIconImageWithPlaceholder,
                     title: objectDetail.title,
                     editorScreenData: objectDetail.editorScreenData()
                 )

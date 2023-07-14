@@ -105,7 +105,7 @@ class UIPhraseTextView: UITextView, UITextViewDelegate {
     
     private func configureAttributedString(from text: String) -> NSAttributedString {
         let style = NSMutableParagraphStyle()
-        style.lineSpacing = AnytypeFont.authInput.lineHeight
+        style.lineSpacing = AnytypeFont.authInput.config.lineHeight
         let attributes = [
             NSAttributedString.Key.paragraphStyle : style,
             NSAttributedString.Key.font: AnytypeFont.authInput.uiKitFont,

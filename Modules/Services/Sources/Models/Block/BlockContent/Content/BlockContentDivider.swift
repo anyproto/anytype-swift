@@ -14,13 +14,6 @@ public struct BlockDivider: Hashable {
         
         self.style = style
     }
-
-    
-    public var asMiddleware: Anytype_Model_Block.OneOf_Content {
-        .div(.with {
-            $0.style = style.asMiddleware
-        })
-    }
 }
 
 extension BlockDivider {

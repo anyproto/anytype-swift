@@ -28,7 +28,13 @@ final class CreateBookmarkViewModel: CreateObjectViewModelProtocol {
     }
     
     private func createBookmarkObject(with url: String) {
-        let details = try? bookmarkService.createBookmarkObject(url: currentText)
-        closeAction(details)
+        Task { @MainActor in
+            do {
+                let details = try await bookmarkService.createBookmarkObject(url: currentText)
+                closeAction(details)
+            } catch {
+                closeAction(nil)
+            }
+        }
     }
 }

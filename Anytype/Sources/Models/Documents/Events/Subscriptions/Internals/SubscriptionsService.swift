@@ -135,19 +135,13 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
     private let dependencySubscriptionSuffix = "/dep"
     
     private func setup() {
-        subscription = NotificationCenter.Publisher(
-            center: .default,
-            name: .middlewareEvent,
-            object: nil
-        )
-            .compactMap { $0.object as? EventsBunch }
-            .filter { $0.contextId.isEmpty }
-            .receiveOnMain()
-            .sink { [weak self] events in
-                self?.handle(events: events)
-            }
+        subscription = EventBunchSubscribtion.default.addHandler { [weak self] events in
+            guard events.contextId.isEmpty else { return }
+            await self?.handle(events: events)
+        }
     }
     
+    @MainActor
     private func handle(events: EventsBunch) {
         anytypeAssert(events.localEvents.isEmpty, "Local events with emplty objectId: \(events)")
         

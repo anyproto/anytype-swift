@@ -3,7 +3,7 @@ import Combine
 
 protocol NewInternalSearchViewModelProtocol {
     
-    var viewStateSubject: PassthroughSubject<NewSearchViewState, Never> { get }
+    var viewStatePublisher: AnyPublisher<NewSearchViewState, Never> { get }
     
     var selectionMode: NewSearchViewModel.SelectionMode { get }
     
