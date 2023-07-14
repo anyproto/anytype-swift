@@ -49,9 +49,11 @@ final class ObjectActionsViewModel: ObservableObject {
         guard let details = details else { return }
         
         let isArchived = !details.isArchived
-        service.setArchive(objectIds: [objectId], isArchived)
-        if isArchived {
-            dismissSheet()
+        Task { @MainActor in
+            try await service.setArchive(objectIds: [objectId], isArchived)
+            if isArchived {
+                dismissSheet()
+            }
         }
     }
 
@@ -63,17 +65,20 @@ final class ObjectActionsViewModel: ObservableObject {
     }
 
     func changeLockState() {
-        service.setLocked(!isLocked, objectId: objectId)
+        Task {
+            try await service.setLocked(!isLocked, objectId: objectId)
+        }
     }
     
     func duplicateAction() {
-        guard let details = details,
-              let duplicatedId = service.duplicate(objectId: objectId)
-            else { return }
-        
-        let newDetails = ObjectDetails(id: duplicatedId, values: details.values)
-        dismissSheet()
-        openPageAction(newDetails.editorScreenData())
+        Task { @MainActor [weak self] in
+            guard let details = self?.details, let objectId = self?.objectId else { return }
+            
+            guard let duplicatedId = try await self?.service.duplicate(objectId: objectId) else { return }
+            let newDetails = ObjectDetails(id: duplicatedId, values: details.values)
+            self?.dismissSheet()
+            self?.openPageAction(newDetails.editorScreenData())
+        }
     }
 
     func linkItselfAction() {
@@ -96,10 +101,12 @@ final class ObjectActionsViewModel: ObservableObject {
                     self.onLinkItselfToObjectHandler?(details.editorScreenData())
                     AnytypeAnalytics.instance().logLinkToObject(type: .collection)
                 } else {
-                    let _ = self.blockActionsService.add(
+                    let info = BlockInformation.emptyLink(targetId: currentObjectId)
+                    AnytypeAnalytics.instance().logCreateBlock(type: info.content.description, style: info.content.type.style)
+                    let _ = try await self.blockActionsService.add(
                         contextId: objectId,
                         targetId: id,
-                        info: .emptyLink(targetId: currentObjectId),
+                        info: info,
                         position: .bottom
                     )
                     self.onLinkItselfToObjectHandler?(details.editorScreenData())

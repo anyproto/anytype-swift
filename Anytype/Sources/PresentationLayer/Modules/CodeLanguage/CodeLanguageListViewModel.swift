@@ -16,9 +16,11 @@ final class CodeLanguageListViewModel {
     }
     
     func onTapCodeLanguage(_ language: CodeLanguage) {
-        guard let info = document.infoContainer.get(id: blockId) else { return }
-        let fields = CodeBlockFields(language: language)
-        let newInfo = info.addFields(fields.asMiddleware())
-        blockListService.setFields(objectId: document.objectId, blockId: blockId, fields: newInfo.fields)
+        Task { @MainActor in
+            guard let info = document.infoContainer.get(id: blockId) else { return }
+            let fields = CodeBlockFields(language: language)
+            let newInfo = info.addFields(fields.asMiddleware())
+            try await blockListService.setFields(objectId: document.objectId, blockId: blockId, fields: newInfo.fields)
+        }
     }
 }

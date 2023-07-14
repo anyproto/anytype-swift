@@ -121,6 +121,5 @@ struct CreateNewProfileView_Previews: PreviewProvider {
             ),
             signUpData: SignUpData(mnemonic: UUID().uuidString)
         )
-        .environmentObject(SignUpData(mnemonic: ""))
     }
 }

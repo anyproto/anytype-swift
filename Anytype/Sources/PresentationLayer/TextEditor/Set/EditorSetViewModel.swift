@@ -199,7 +199,9 @@ final class EditorSetViewModel: ObservableObject {
     
     func onDisappear() {
         subscriptionService.stopAllSubscriptions()
-        groupsSubscriptionsHandler.stopAllSubscriptions()
+        Task {
+            try await groupsSubscriptionsHandler.stopAllSubscriptions()
+        }
     }
 
     func onRelationTap(relation: Relation) {
@@ -228,11 +230,13 @@ final class EditorSetViewModel: ObservableObject {
         guard let group = groups.first(where: { $0.id == groupId }),
         let value = group.value else { return }
 
-        detailsService.updateDetails(
-            contextId: detailsId,
-            relationKey: activeView.groupRelationKey,
-            value: value
-        )
+        Task {
+            try await detailsService.updateDetails(
+                contextId: detailsId,
+                relationKey: activeView.groupRelationKey,
+                value: value
+            )
+        }
     }
     
     func pagitationData(by groupId: String) -> EditorSetPaginationData {
@@ -288,13 +292,15 @@ final class EditorSetViewModel: ObservableObject {
                     return
                 }
 
-                self.textService.setText(
-                    contextId: self.setDocument.targetObjectID ?? self.objectId,
-                    blockId: RelationKey.title.rawValue,
-                    middlewareString: .init(text: newValue, marks: .init())
-                )
-
-                self.isUpdating = false
+                Task { @MainActor in
+                    try? await self.textService.setText(
+                        contextId: self.setDocument.targetObjectID ?? self.objectId,
+                        blockId: RelationKey.title.rawValue,
+                        middlewareString: .init(text: newValue, marks: .init())
+                    )
+                    
+                    self.isUpdating = false
+                }
             }
         }
     }
@@ -312,7 +318,7 @@ final class EditorSetViewModel: ObservableObject {
                 collectionId: self.setDocument.isCollection() ? objectId : nil
             )
             if self.groupsSubscriptionsHandler.hasGroupsSubscriptionDataDiff(with: data) {
-                self.groupsSubscriptionsHandler.stopAllSubscriptions()
+                try await self.groupsSubscriptionsHandler.stopAllSubscriptions()
                 self.groups = try await self.startGroupsSubscription(with: data)
             }
             
@@ -394,8 +400,8 @@ final class EditorSetViewModel: ObservableObject {
             )
         )
         
-        subscriptionService.updateSubscription(data: data, required: recordsDict.keys.isEmpty) { subId, update in
-            DispatchQueue.main.async { [weak self] in
+        subscriptionService.updateSubscription(data: data, required: recordsDict.keys.isEmpty) { [weak self] subId, update in
+            DispatchQueue.main.async {
                 self?.updateData(with: subId.value, update: update)
             }
         }
@@ -505,10 +511,12 @@ final class EditorSetViewModel: ObservableObject {
     
     private func updateDetailsIfNeeded(_ details: ObjectDetails) {
         guard details.layoutValue == .todo else { return }
-        detailsService.updateBundledDetails(
-            contextID: details.id,
-            bundledDetails: [.done(!details.isDone)]
-        )
+        Task {
+            try await detailsService.updateBundledDetails(
+                contextID: details.id,
+                bundledDetails: [.done(!details.isDone)]
+            )
+        }
     }
     
     private func itemTapped(_ details: ObjectDetails) {
@@ -521,7 +529,9 @@ final class EditorSetViewModel: ObservableObject {
         pagitationDataDict = [:]
         groups = []
         subscriptionService.stopAllSubscriptions()
-        groupsSubscriptionsHandler.stopAllSubscriptions()
+        Task {
+            try await groupsSubscriptionsHandler.stopAllSubscriptions()
+        }
     }
     
     func createObject() {

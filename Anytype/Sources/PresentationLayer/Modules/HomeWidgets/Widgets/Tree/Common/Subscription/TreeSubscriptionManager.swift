@@ -60,7 +60,7 @@ final class TreeSubscriptionManager: TreeSubscriptionManagerProtocol {
     
     private func handleEvent(subId: SubscriptionId, update: SubscriptionUpdate) {
         data.applySubscriptionUpdate(update)
-        let result = data.filter(\.isVisibleForEdit)
+        let result = data.filter(\.isNotDeletedAndSupportedForEdit)
         handler?(result)
     }
 }

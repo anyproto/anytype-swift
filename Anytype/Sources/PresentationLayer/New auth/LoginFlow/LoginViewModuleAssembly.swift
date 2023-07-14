@@ -23,6 +23,8 @@ final class LoginViewModuleAssembly: LoginViewModuleAssemblyProtocol {
                 seedService: serviceLocator.seedService(),
                 localAuthService: serviceLocator.localAuthService(),
                 cameraPermissionVerifier: serviceLocator.cameraPermissionVerifier(),
+                accountEventHandler: serviceLocator.accountEventHandler(),
+                applicationStateService: serviceLocator.applicationStateService(),
                 output: output
             )
         ).eraseToAnyView()

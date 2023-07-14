@@ -3,6 +3,7 @@ import SwiftUI
 import Services
 import FloatingPanel
 
+@MainActor
 final class StatusRelationDetailsViewModel: ObservableObject {
     
     @Published private(set) var currentStatusModel: StatusSearchRowView.Model?
@@ -53,9 +54,11 @@ extension StatusRelationDetailsViewModel {
     }
     
     func didTapClearButton() {
-        selectedStatus = nil
-        service.updateRelation(relationKey: relation.key, value: nil)
-        logChanges()
+        Task {
+            selectedStatus = nil
+            try await service.updateRelation(relationKey: relation.key, value: nil)
+            logChanges()
+        }
     }
     
     @ViewBuilder
@@ -89,22 +92,24 @@ private extension StatusRelationDetailsViewModel {
         
         guard let newStatusId = ids.first else { return }
         
-        service.updateRelation(relationKey: relation.key, value: newStatusId.protobufValue)
-        
-        let newStatus = try await searchService.searchRelationOptions(optionIds: [newStatusId]).first
-            .map { Relation.Status.Option(option: $0) }
-        
-        guard let newStatus = newStatus else {
-            popup?.close()
-            return
+        Task {
+            try await service.updateRelation(relationKey: relation.key, value: newStatusId.protobufValue)
+            
+            let newStatus = try await searchService.searchRelationOptions(optionIds: [newStatusId]).first
+                .map { Relation.Status.Option(option: $0) }
+            
+            guard let newStatus = newStatus else {
+                popup?.close()
+                return
+            }
+            
+            selectedStatus = newStatus
+            logChanges()
         }
-        
-        selectedStatus = newStatus
-        logChanges()
     }
     
     func handleCreateOption(title: String) {
-        Task { @MainActor in
+        Task {
             let optionId = try await service.addRelationOption(relationKey: relation.key, optionText: title)
             guard let optionId = optionId else { return }
             

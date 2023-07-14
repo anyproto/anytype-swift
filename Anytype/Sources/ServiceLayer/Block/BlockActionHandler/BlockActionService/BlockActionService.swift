@@ -43,11 +43,14 @@ final class BlockActionService: BlockActionServiceProtocol {
     }
 
     func add(info: BlockInformation, targetBlockId: BlockId, position: BlockPosition, setFocus: Bool) {
-        guard let blockId = singleService
-            .add(contextId: documentId, targetId: targetBlockId, info: info, position: position) else { return }
-        
-        if setFocus {
-            cursorManager.blockFocus = .init(id: blockId, position: .beginning)
+        AnytypeAnalytics.instance().logCreateBlock(type: info.content.description, style: info.content.type.style)
+        Task {
+            guard let blockId = try await singleService
+                .add(contextId: documentId, targetId: targetBlockId, info: info, position: position) else { return }
+            
+            if setFocus {
+                cursorManager.blockFocus = .init(id: blockId, position: .beginning)
+            }
         }
     }
 
@@ -58,82 +61,98 @@ final class BlockActionService: BlockActionServiceProtocol {
         range: NSRange,
         newBlockContentType: BlockText.Style
     ) {
-        guard let blockId = textService.split(
-            contextId: documentId,
-            blockId: blockId,
-            range: range,
-            style: newBlockContentType,
-            mode: mode
-        ) else { return }
-
-        cursorManager.blockFocus = .init(id: blockId, position: .beginning)
+        Task {
+            let blockId = try await textService.split(
+                contextId: documentId,
+                blockId: blockId,
+                range: range,
+                style: newBlockContentType,
+                mode: mode
+            )
+            
+            cursorManager.blockFocus = .init(id: blockId, position: .beginning)
+        }
     }
 
-    func duplicate(blockId: BlockId) {        
-        singleService
-            .duplicate(contextId: documentId, targetId: blockId, blockIds: [blockId], position: .bottom)
+    func duplicate(blockId: BlockId) {
+        Task {
+            try await singleService.duplicate(
+                contextId: documentId,
+                targetId: blockId,
+                blockIds: [blockId],
+                position: .bottom
+            )
+        }
     }
 
-
-    func createPage(targetId: BlockId, type: ObjectTypeId, position: BlockPosition) -> BlockId? {
-        guard let newBlockId = objectActionService.createPage(
+    func createPage(targetId: BlockId, type: ObjectTypeId, position: BlockPosition) async throws -> BlockId {
+        try await objectActionService.createPage(
             contextId: documentId,
             targetId: targetId,
             details: [.name(""), .type(type)],
             position: position,
             templateId: ""
-        ) else { return nil }
-
-        return newBlockId
+        )
     }
 
     func turnInto(_ style: BlockText.Style, blockId: BlockId) {
-        textService.setStyle(contextId: documentId, blockId: blockId, style: style)
+        Task {
+            try await textService.setStyle(contextId: documentId, blockId: blockId, style: style)
+        }
     }
     
-    func turnIntoPage(blockId: BlockId) -> BlockId? {
-        return objectActionService.convertChildrenToPages(
+    func turnIntoPage(blockId: BlockId) async throws -> BlockId? {
+        try await objectActionService.convertChildrenToPages(
             contextID: documentId,
             blocksIds: [blockId],
             typeId: ObjectTypeId.BundledTypeId.page.rawValue
-        )?.first
+        ).first
     }
     
     func checked(blockId: BlockId, newValue: Bool) {
-        textService.checked(contextId: documentId, blockId: blockId, newValue: newValue)
+        Task {
+            try await textService.checked(contextId: documentId, blockId: blockId, newValue: newValue)
+        }
     }
     
     func merge(secondBlockId: BlockId) {
-        guard
-            let previousBlock = modelsHolder?.findModel(
-                beforeBlockId: secondBlockId,
-                acceptingTypes: BlockContentType.allTextTypes
-            ),
-            previousBlock.content != .unsupported
-        else {
-            delete(blockIds: [secondBlockId])
-            return
-        }
-        
-        if textService.merge(contextId: documentId, firstBlockId: previousBlock.blockId, secondBlockId: secondBlockId) {
-            setFocus(model: previousBlock)
+        Task { @MainActor [weak self, documentId] in
+            guard
+                let previousBlock = self?.modelsHolder?.findModel(
+                    beforeBlockId: secondBlockId,
+                    acceptingTypes: BlockContentType.allTextTypes
+                ),
+                previousBlock.content != .unsupported
+            else {
+                self?.delete(blockIds: [secondBlockId])
+                return
+            }
+            do {
+                try await self?.textService.merge(contextId: documentId, firstBlockId: previousBlock.blockId, secondBlockId: secondBlockId)
+                self?.setFocus(model: previousBlock)
+            } catch {
+                // Do not set focus to previous block
+            }
         }
     }
     
     func delete(blockIds: [BlockId]) {
-        _ = singleService.delete(contextId: documentId, blockIds: blockIds)
+        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.blockDelete)
+        Task {
+            try await singleService.delete(contextId: documentId, blockIds: blockIds)
+        }
     }
     
-    func setText(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) {
-        textService.setText(contextId: contextId, blockId: blockId, middlewareString: middlewareString)
+    func setText(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) async throws {
+        try await textService.setText(contextId: contextId, blockId: blockId, middlewareString: middlewareString)
     }
 
-    func setTextForced(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) {
-        textService.setTextForced(contextId: contextId, blockId: blockId, middlewareString: middlewareString)
+    func setTextForced(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) async throws {
+        try await textService.setTextForced(contextId: contextId, blockId: blockId, middlewareString: middlewareString)
     }
     
-    func setObjectTypeId(_ objectTypeId: String) {
-        objectActionService.setObjectType(objectId: documentId, objectTypeId: objectTypeId)
+    func setObjectTypeId(_ objectTypeId: String) async throws {
+        try await objectActionService.setObjectType(objectId: documentId, objectTypeId: objectTypeId)
     }
 
     func setObjectSetType() async throws {
@@ -155,7 +174,9 @@ final class BlockActionService: BlockActionServiceProtocol {
 
 extension BlockActionService {
     func bookmarkFetch(blockId: BlockId, url: AnytypeURL) {
-        bookmarkService.fetchBookmark(contextID: self.documentId, blockID: blockId, url: url.absoluteString)
+        Task {
+            try await bookmarkService.fetchBookmark(contextID: documentId, blockID: blockId, url: url.absoluteString)
+        }
     }
 
     func createAndFetchBookmark(
@@ -164,12 +185,14 @@ extension BlockActionService {
         position: BlockPosition,
         url: AnytypeURL
     ) {
-        bookmarkService.createAndFetchBookmark(
-            contextID: contextID,
-            targetID: targetID,
-            position: position,
-            url: url.absoluteString
-        )
+        Task {
+            try await bookmarkService.createAndFetchBookmark(
+                contextID: contextID,
+                targetID: targetID,
+                position: position,
+                url: url.absoluteString
+            )
+        }
     }
 }
 
@@ -181,7 +204,9 @@ extension BlockActionService {
     }
     
     func setBackgroundColor(blockIds: [BlockId], color: MiddlewareColor) {
-        listService.setBackgroundColor(objectId: documentId, blockIds: blockIds, color: color)
+        Task {
+            try await listService.setBackgroundColor(objectId: documentId, blockIds: blockIds, color: color)
+        }
     }
 }
 

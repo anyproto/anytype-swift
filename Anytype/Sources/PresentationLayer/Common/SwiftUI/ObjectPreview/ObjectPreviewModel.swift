@@ -151,7 +151,7 @@ extension BlockLink.Description {
         case .none:
             return Loc.LinkAppearance.Description.None.title
         case .added:
-            return Loc.LinkAppearance.Description.Added.title
+            return Loc.LinkAppearance.Description.Object.title
         case .content:
             return Loc.LinkAppearance.Description.Content.title
         }
@@ -159,16 +159,5 @@ extension BlockLink.Description {
 
     var iconAsset: ImageAsset {
         RelationFormat.longText.iconAsset
-    }
-
-    var subtitle: String {
-        switch self {
-        case .none:
-            return Loc.LinkAppearance.Description.None.subtitle
-        case .added:
-            return Loc.LinkAppearance.Description.Added.subtitle
-        case .content:
-            return Loc.LinkAppearance.Description.Content.subtitle
-        }
     }
 }

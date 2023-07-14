@@ -163,12 +163,14 @@ final class SimpleTableCellsBuilder {
         if let blockInformation = cell.blockInformation {
             cursorManager.focus(at: blockInformation.id, position: position)
         } else {
-            blockTableService.rowListFill(
-                contextId: document.objectId,
-                targetIds: [cell.rowId]
-            )
-
-            cursorManager.blockFocus = .init(id: "\(cell.rowId)-\(cell.columnId)", position: .beginning)
+            Task { @MainActor in
+                try await blockTableService.rowListFill(
+                    contextId: document.objectId,
+                    targetIds: [cell.rowId]
+                )
+                
+                cursorManager.blockFocus = .init(id: "\(cell.rowId)-\(cell.columnId)", position: .beginning)
+            }
         }
     }
 }
