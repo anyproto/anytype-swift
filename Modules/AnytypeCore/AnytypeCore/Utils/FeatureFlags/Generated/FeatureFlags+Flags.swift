@@ -54,6 +54,10 @@ public extension FeatureFlags {
         value(for: .showAllFilesInBin)
     }
 
+    static var superNewButtonLoadingState: Bool {
+        value(for: .superNewButtonLoadingState)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -84,6 +88,7 @@ public extension FeatureFlags {
         .fixAudioSession,
         .deleteObjectPlaceholder,
         .showAllFilesInBin,
+        .superNewButtonLoadingState,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
