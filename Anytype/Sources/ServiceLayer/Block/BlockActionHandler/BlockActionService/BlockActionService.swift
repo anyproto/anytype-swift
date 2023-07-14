@@ -43,6 +43,7 @@ final class BlockActionService: BlockActionServiceProtocol {
     }
 
     func add(info: BlockInformation, targetBlockId: BlockId, position: BlockPosition, setFocus: Bool) {
+        AnytypeAnalytics.instance().logCreateBlock(type: info.content.description, style: info.content.type.style)
         Task {
             guard let blockId = try await singleService
                 .add(contextId: documentId, targetId: targetBlockId, info: info, position: position) else { return }
@@ -136,6 +137,7 @@ final class BlockActionService: BlockActionServiceProtocol {
     }
     
     func delete(blockIds: [BlockId]) {
+        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.blockDelete)
         Task {
             try await singleService.delete(contextId: documentId, blockIds: blockIds)
         }

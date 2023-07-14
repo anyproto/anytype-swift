@@ -79,6 +79,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     }
     
     func duplicate(blockId: BlockId) {
+        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.blockListDuplicate)
         service.duplicate(blockId: blockId)
     }
     

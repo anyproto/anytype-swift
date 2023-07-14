@@ -314,6 +314,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         guard !movingBlocksIds.contains(dropTargetId) else { return }
 
         UISelectionFeedbackGenerator().selectionChanged()
+        AnytypeAnalytics.instance().logReorderBlock(count: movingBlocksIds.count)
         
         Task { @MainActor in
             try await blockActionsServiceSingle.move(
