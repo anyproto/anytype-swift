@@ -9,7 +9,7 @@
 import Services
 import Foundation
 
-protocol PasteboardServiceProtocol {
+protocol PasteboardServiceProtocol: AnyObject {
     var hasValidURL: Bool { get }
     func pasteInsideBlock(focusedBlockId: BlockId,
                           range: NSRange,
