@@ -14,7 +14,6 @@ struct SplitData {
 }
 
 final class BlockActionServiceMock: BlockActionServiceProtocol {
-    
     var splitStub = false
     var splitNumberOfCalls = 0
     var splitData: SplitData?
@@ -112,9 +111,13 @@ final class BlockActionServiceMock: BlockActionServiceProtocol {
         return nil
     }
     
-    func createPage(targetId: BlockId, type: ObjectTypeId, position: BlockPosition) -> BlockId? {
+    func createPage(
+        targetId: Services.BlockId,
+        type: Services.ObjectTypeId,
+        position: Services.BlockPosition
+    ) async throws -> BlockId {
         assertionFailure()
-        return nil
+        return "nil"
     }
     
     func bookmarkFetch(blockId: BlockId, url: AnytypeURL) {

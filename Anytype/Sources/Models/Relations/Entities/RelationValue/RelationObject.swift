@@ -31,12 +31,12 @@ extension Relation.Object {
     struct Option: Hashable, Identifiable {
         let id: String
         
-        let icon: ObjectIconImage
+        let icon: ObjectIconImage?
         let title: String
         let type: String
         let isArchived: Bool
         let isDeleted: Bool
-        let editorScreenData: EditorScreenData
+        let editorScreenData: EditorScreenData?
     }
     
 }

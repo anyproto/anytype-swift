@@ -11,8 +11,9 @@ final class RelationsSearchViewModel: NewInternalSearchViewModelProtocol {
     }
     
     let selectionMode: NewSearchViewModel.SelectionMode = .singleItem
-    let viewStateSubject = PassthroughSubject<NewSearchViewState, Never>()
+    var viewStatePublisher: AnyPublisher<NewSearchViewState, Never> { viewStateSubject.eraseToAnyPublisher() }
     
+    private let viewStateSubject = PassthroughSubject<NewSearchViewState, Never>()
     private var objects: [RelationDetails] = []
     private var marketplaceObjects: [RelationDetails] = []
     
@@ -60,12 +61,14 @@ final class RelationsSearchViewModel: NewInternalSearchViewModelProtocol {
         guard let id = ids.first else { return }
         
         if let marketplaceRelation = marketplaceObjects.first(where: { $0.id == id}) {
-            guard let installedRelation = interactor.installRelation(objectId: marketplaceRelation.id) else {
-                anytypeAssertionFailure("Relation not installed", info: ["id": marketplaceRelation.id, "key": marketplaceRelation.key])
-                return
+            Task { @MainActor [weak self] in
+                guard let installedRelation = try await self?.interactor.installRelation(objectId: marketplaceRelation.id) else {
+                    anytypeAssertionFailure("Relation not installed", info: ["id": marketplaceRelation.id, "key": marketplaceRelation.key])
+                    return
+                }
+                self?.toastPresenter.show(message: Loc.Relation.addedToLibrary(installedRelation.name))
+                self?.addRelation(relation: installedRelation)
             }
-            toastPresenter.show(message: Loc.Relation.addedToLibrary(installedRelation.name))
-            addRelation(relation: installedRelation)
             return
         }
         
@@ -82,10 +85,9 @@ final class RelationsSearchViewModel: NewInternalSearchViewModelProtocol {
     private func addRelation(relation: RelationDetails) {
         switch target {
         case .object:
-            if interactor.addRelationToObject(relation: relation) {
-                onSelect(relation)
-            } else {
-                anytypeAssertionFailure("Relation not added to document", info: ["id": relation.id, "key": relation.key])
+            Task { @MainActor [weak self] in
+                try await self?.interactor.addRelationToObject(relation: relation)
+                self?.onSelect(relation)
             }
         case .dataview(let activeViewId):
             Task { @MainActor [weak self] in

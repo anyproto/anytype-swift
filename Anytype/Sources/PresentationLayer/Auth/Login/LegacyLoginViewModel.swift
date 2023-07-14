@@ -48,12 +48,14 @@ class LegacyLoginViewModel: ObservableObject {
     }
     
     func onEntropySet() {
-        do {
-            let seed = try authService.mnemonicByEntropy(entropy)
-            self.seed = seed
-            recoverWallet()
-        } catch {
-            self.error = error.localizedDescription
+        Task { @MainActor in
+            do {
+                let seed = try await authService.mnemonicByEntropy(entropy)
+                self.seed = seed
+                recoverWallet()
+            } catch {
+                self.error = error.localizedDescription
+            }
         }
     }
     
@@ -103,12 +105,14 @@ class LegacyLoginViewModel: ObservableObject {
     }
 
     private func recoverWallet(with string: String) {
-        do {
-            try authService.walletRecovery(mnemonic: string.trimmingCharacters(in: .whitespacesAndNewlines))
-            try seedService.saveSeed(string)
-            showSelectProfile = true
-        } catch {
-            self.error = error.localizedDescription
+        Task { @MainActor in
+            do {
+                try await authService.walletRecovery(mnemonic: string.trimmingCharacters(in: .whitespacesAndNewlines))
+                try seedService.saveSeed(string)
+                showSelectProfile = true
+            } catch {
+                self.error = error.localizedDescription
+            }
         }
     }
 }

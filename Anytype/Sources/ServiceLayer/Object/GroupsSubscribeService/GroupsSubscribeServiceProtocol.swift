@@ -9,5 +9,5 @@ protocol GroupsSubscribeServiceProtocol {
         collectionId: String?
     ) async throws -> GroupsSubscribeResult
     
-    func stopSubscription(id: SubscriptionId)
+    func stopSubscription(id: SubscriptionId) async throws
 }

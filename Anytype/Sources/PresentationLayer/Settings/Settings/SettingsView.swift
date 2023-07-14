@@ -20,7 +20,7 @@ struct SettingsView: View {
                     SectionHeaderView(title: Loc.settings)
                     
                     SettingsSectionItemView(
-                        name: FeatureFlags.fileStorage ? Loc.profile : Loc.accountData,
+                        name: Loc.profile,
                         iconImage: model.profileIcon,
                         onTap: { model.onAccountDataTap() }
                     )
@@ -37,13 +37,11 @@ struct SettingsView: View {
                         onTap: { model.onAppearanceTap() }
                     )
                     
-                    if FeatureFlags.fileStorage {
-                        SettingsSectionItemView(
-                            name: Loc.FileStorage.title,
-                            imageAsset: .Settings.fileStorage,
-                            onTap: { model.onFileStorageTap() }
-                        )
-                    }
+                    SettingsSectionItemView(
+                        name: Loc.FileStorage.title,
+                        imageAsset: .Settings.fileStorage,
+                        onTap: { model.onFileStorageTap() }
+                    )
                     
                     SettingsSectionItemView(
                         name: Loc.about,

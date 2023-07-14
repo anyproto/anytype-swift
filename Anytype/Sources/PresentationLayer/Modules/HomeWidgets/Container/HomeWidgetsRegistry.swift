@@ -200,7 +200,7 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
     
     private func providerForObject(_ objectDetails: ObjectDetails, widgetInfo: BlockWidgetInfo) -> HomeWidgetProviderAssemblyProtocol? {
         
-        guard objectDetails.isVisibleForEdit else { return nil }
+        guard objectDetails.isNotDeletedAndVisibleForEdit else { return nil }
         
         switch widgetInfo.fixedLayout {
         case .link:

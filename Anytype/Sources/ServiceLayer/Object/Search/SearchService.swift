@@ -267,7 +267,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
     }
     
     func searchArchiveObjectIds() async throws -> [String] {
-        let filters = buildFilters(isArchived: true, layouts: DetailsLayout.visibleLayouts)
+        let filters = FeatureFlags.showAllFilesInBin ? buildFilters(isArchived: true) : buildFilters(isArchived: true, layouts: DetailsLayout.visibleLayouts)
         let keys = [BundledRelationKey.id.rawValue]
         let result = try await search(filters: filters, keys: keys)
         return result.map { $0.id }
@@ -289,7 +289,6 @@ private extension SearchService {
             $0.limit = Int32(limit)
         }).invoke()
        
-        try Task.checkCancellation()
         return response.records.asDetais
     }
     
@@ -309,7 +308,6 @@ private extension SearchService {
             $0.keys = keys
         }).invoke()
         
-        try Task.checkCancellation()
         return response.records.asDetais
     }
 

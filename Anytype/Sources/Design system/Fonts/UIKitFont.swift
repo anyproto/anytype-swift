@@ -108,7 +108,7 @@ extension UIFont {
     static let code = UIKitFontBuilder.uiKitFont(font: .codeBlock)
 
     var isCode: Bool {
-        return fontName.hasPrefix(AnytypeFont.FontName.plex.rawValue)
+        return fontName.hasPrefix(AnytypeFontConfig.Name.plex.rawValue)
     }
 
     static func code(of size: CGFloat) -> UIFont {
@@ -126,10 +126,10 @@ extension AnytypeFont {
 struct UIKitFontBuilder {
 
     static func uiKitFont(font: AnytypeFont) -> UIFont {
-        return uiKitFont(name: font.fontName, size: font.size, weight: font.weight)
+        return uiKitFont(name: font.config.fontName, size: font.config.size, weight: font.config.weight)
     }
 
-    static func uiKitFont(name: AnytypeFont.FontName, size: CGFloat, weight: AnytypeFont.Weight) -> UIFont {
+    static func uiKitFont(name: AnytypeFontConfig.Name, size: CGFloat, weight: AnytypeFontConfig.Weight) -> UIFont {
         let scaledSize = UIFontMetrics.default.scaledValue(for: size)
         var descriptor = UIFontDescriptor(fontAttributes: [
             attributeKey(name: name): name.rawValue,
@@ -145,7 +145,7 @@ struct UIKitFontBuilder {
         return UIFont(descriptor: descriptor, size: scaledSize)
     }
 
-    private static func attributeKey(name: AnytypeFont.FontName) -> UIFontDescriptor.AttributeName {
+    private static func attributeKey(name: AnytypeFontConfig.Name) -> UIFontDescriptor.AttributeName {
         switch name {
         case .plex:
             return UIFontDescriptor.AttributeName.name
@@ -154,7 +154,7 @@ struct UIKitFontBuilder {
         }
     }
 
-    static func uiKitWeight(_ weight: AnytypeFont.Weight) -> UIFont.Weight {
+    static func uiKitWeight(_ weight: AnytypeFontConfig.Weight) -> UIFont.Weight {
         switch weight {
         case .regular:
             return .regular
