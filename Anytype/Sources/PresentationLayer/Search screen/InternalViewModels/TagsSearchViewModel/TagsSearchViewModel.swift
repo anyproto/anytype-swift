@@ -33,15 +33,10 @@ final class TagsSearchViewModel {
 
 extension TagsSearchViewModel: NewInternalSearchViewModelProtocol {
     
-    func search(text: String) {
-        let result = interactor.search(text: text)
-        switch result {
-        case .success(let tags):
-            self.tags = tags
-            handleSearchedTags()
-        case .failure(let error):
-            viewStateSubject.send(.error(error))
-        }
+    func search(text: String) async throws {
+        let resultTags = try await interactor.search(text: text)
+        self.tags = resultTags
+        handleSearchedTags()
     }
     
     func handleRowsSelection(ids: [String]) {

@@ -84,7 +84,7 @@ final class EditorSetViewModel: ObservableObject {
     
     func headerType(for groupId: String) -> SetKanbanColumnHeaderType {
         guard let group = groups.first(where: { $0.id == groupId }) else { return .uncategorized }
-        return group.header(with: activeView.groupRelationKey)
+        return group.header(with: activeView.groupRelationKey, document: setDocument.document)
     }
     
     func contextMenuItems(for relation: Relation) -> [RelationValueView.MenuItem] {
@@ -105,7 +105,7 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     private func groupFirstOptionBackgroundColor(for groupId: String) -> BlockBackgroundColor {
-        guard let backgroundColor = groups.first(where: { $0.id == groupId })?.backgroundColor else {
+        guard let backgroundColor = groups.first(where: { $0.id == groupId })?.backgroundColor(document: setDocument.document) else {
             return BlockBackgroundColor.gray
         }
         return backgroundColor
@@ -116,7 +116,6 @@ final class EditorSetViewModel: ObservableObject {
     
     private var router: EditorSetRouterProtocol?
     private let subscriptionService: SubscriptionsServiceProtocol
-    private let dataBuilder = SetContentViewDataBuilder()
     private let dataviewService: DataviewServiceProtocol
     private let searchService: SearchServiceProtocol
     private let detailsService: DetailsServiceProtocol
@@ -422,11 +421,12 @@ final class EditorSetViewModel: ObservableObject {
         var tempConfigurationsDict = configurationsDict
         for groupId in groupIds {
             if let records = sortedRecords(with: groupId) {
-                let configurations = dataBuilder.itemData(
+                let configurations = setDocument.dataBuilder.itemData(
                     records,
                     dataView: setDocument.dataView,
                     activeView: activeView,
                     isObjectLocked: setDocument.isObjectLocked,
+                    storage: subscriptionService.storage,
                     onIconTap: { [weak self] details in
                         self?.updateDetailsIfNeeded(details)
                     },
@@ -512,7 +512,7 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     private func itemTapped(_ details: ObjectDetails) {
-        openObject(pageId: details.id, type: details.editorViewType)
+        openObject(details: details)
     }
     
     private func clearState() {
@@ -530,14 +530,14 @@ final class EditorSetViewModel: ObservableObject {
                 with: objectTypeProvider.defaultObjectType.id,
                 shouldSelectType: true,
                 relationsDetails: [],
-                completion: { objectId, _ in
+                completion: { details in
                     Task { @MainActor [weak self] in
                         guard let self else { return }
                         try await self.objectActionsService.addObjectsToCollection(
                             contextId: self.setDocument.objectId,
-                            objectIds: [objectId]
+                            objectIds: [details.id]
                         )
-                        self.openObject(pageId: objectId, type: .page)
+                        self.openObject(details: details)
                     }
                 }
             )
@@ -552,8 +552,8 @@ final class EditorSetViewModel: ObservableObject {
                 with: objectTypeProvider.defaultObjectType.id,
                 shouldSelectType: true,
                 relationsDetails: relationsDetails,
-                completion: { [weak self] objectId, _ in
-                    self?.openObject(pageId: objectId, type: .page)
+                completion: { [weak self] details in
+                    self?.openObject(details: details)
                 }
             )
         } else {
@@ -562,8 +562,8 @@ final class EditorSetViewModel: ObservableObject {
                 with: type,
                 shouldSelectType: type.isEmpty,
                 relationsDetails: [],
-                completion: { [weak self] objectId, type in
-                    self?.handleCreatedObjectId(objectId, type: type)
+                completion: { [weak self] details in
+                    self?.handleCreatedObject(details: details)
                 }
             )
         }
@@ -581,29 +581,29 @@ final class EditorSetViewModel: ObservableObject {
         with type: String,
         shouldSelectType: Bool,
         relationsDetails: [RelationDetails],
-        completion: ((_ objectId: String, _ type: String) -> Void)?
+        completion: ((_ details: ObjectDetails) -> Void)?
     ) {
-        let templateId: String
-        if type.isNotEmpty {
-            let availableTemplates = searchService.searchTemplates(
-                for: .dynamic(type)
-            )
-            let hasSingleTemplate = availableTemplates?.count == 1
-            templateId = hasSingleTemplate ? (availableTemplates?.first?.id ?? "") : ""
-        } else {
-            templateId = ""
-        }
-
         Task { @MainActor [weak self] in
             guard let self else { return }
-            let objectId = try await self.dataviewService.addRecord(
+            let templateId: String
+            if type.isNotEmpty {
+                let availableTemplates = try? await self.searchService.searchTemplates(
+                    for: .dynamic(type)
+                )
+                let hasSingleTemplate = availableTemplates?.count == 1
+                templateId = hasSingleTemplate ? (availableTemplates?.first?.id ?? "") : ""
+            } else {
+                templateId = ""
+            }
+            let details = try await self.dataviewService.addRecord(
                 objectType: type,
                 shouldSelectType: shouldSelectType,
                 templateId: templateId,
                 setFilters: self.setDocument.filters,
                 relationsDetails: relationsDetails
             )
-            completion?(objectId, type)
+            AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: setDocument.isCollection() ? .collection : .set)
+            completion?(details)
         }
     }
 }
@@ -733,7 +733,7 @@ extension EditorSetViewModel {
         Task { @MainActor in
             try await objectActionsService.setObjectCollectionType(objectId: objectId)
             try await setDocument.close()
-            router?.replaceCurrentPage(with: .init(pageId: objectId, type: .set()))
+            router?.replaceCurrentPage(with: .set(EditorSetObject(objectId: objectId, isSupportedForEdit: true)))
         }
         AnytypeAnalytics.instance().logSetTurnIntoCollection()
     }
@@ -774,17 +774,16 @@ extension EditorSetViewModel {
         return groupOrder.updated(viewGroups: viewGroups)
     }
     
-    private func handleCreatedObjectId(_ objectId: String, type: String) {
-        if type == ObjectTypeId.BundledTypeId.note.rawValue {
-            openObject(pageId: objectId, type: .page)
+    private func handleCreatedObject(details: ObjectDetails) {
+        if details.type == ObjectTypeId.BundledTypeId.note.rawValue {
+            openObject(details: details)
         } else {
-            router?.showCreateObject(pageId: objectId)
+            router?.showCreateObject(details: details)
         }
     }
     
-    private func openObject(pageId: BlockId, type: EditorViewType) {
-        let screenData = EditorScreenData(pageId: pageId, type: type)
-        router?.showPage(data: screenData)
+   private func openObject(details: ObjectDetails) {
+       router?.showPage(data: details.editorScreenData())
     }
     
     private func createBookmarkObject() {

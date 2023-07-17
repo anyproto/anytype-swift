@@ -10,6 +10,9 @@ struct KeyPhraseView: View {
             Spacer()
             buttons
         }
+        .onAppear {
+            model.onAppear()
+        }
     }
     
     private var content: some View {
@@ -17,7 +20,7 @@ struct KeyPhraseView: View {
             AnytypeText(Loc.Auth.JoinFlow.Key.title, style: .uxTitle1Semibold, color: .Text.primary)
                 .opacity(0.9)
             
-            authMultilineTextField
+            phraseTextView
             
             if model.keyShown {
                 StandardButton(
@@ -30,22 +33,25 @@ struct KeyPhraseView: View {
             }
             
             AnytypeText(
-                model.keyShown ? Loc.Auth.JoinFlow.Key.Shown.description : Loc.Auth.JoinFlow.Key.Hidden.description,
+                Loc.Auth.JoinFlow.Key.description,
                 style: .authBody,
                 color: .Auth.body
             )
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 24)
         }
+        .padding(.horizontal, UIDevice.isPad ? 75 : 0)
     }
     
-    private var authMultilineTextField: some View {
-        AuthMultilineTextField(
+    private var phraseTextView: some View {
+        PhraseTextView(
             text: $model.key,
-            autofocus: $model.autofocus,
-            blured: $model.keyShown
+            expandable: true,
+            alignTextToCenter: true
         )
         .disabled(true)
+        .blur(radius: model.keyShown ? 0 : 5)
+        .clipped()
     }
     
     private var buttons: some View {

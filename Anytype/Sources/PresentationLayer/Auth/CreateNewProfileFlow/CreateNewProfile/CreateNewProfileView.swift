@@ -26,7 +26,7 @@ struct CreateNewProfileView: View {
             }
         }
         .onAppear {
-            AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.authScreenShow)
+            AnytypeAnalytics.instance().logScreenAuthRegistration()
         }
     }
     
@@ -117,8 +117,7 @@ struct CreateNewProfileView_Previews: PreviewProvider {
                 applicationStateService: DI.preview.serviceLocator.applicationStateService(),
                 authService: DI.preview.serviceLocator.authService(),
                 seedService: DI.preview.serviceLocator.seedService(),
-                usecaseService: DI.preview.serviceLocator.usecaseService(),
-                metricsService: DI.preview.serviceLocator.metricsService()
+                usecaseService: DI.preview.serviceLocator.usecaseService()
             ),
             signUpData: SignUpData(mnemonic: UUID().uuidString)
         )

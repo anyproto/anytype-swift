@@ -39,7 +39,6 @@ final class ServiceLocator {
     }
     
     private lazy var _loginStateService = LoginStateService(
-        seedService: seedService(),
         objectTypeProvider: objectTypeProvider(),
         middlewareConfigurationProvider: middlewareConfigurationProvider(),
         blockWidgetExpandedService: blockWidgetExpandedService(),
@@ -80,7 +79,7 @@ final class ServiceLocator {
     func subscriptionService() -> SubscriptionsServiceProtocol {
         SubscriptionsService(
             toggler: subscriptionToggler(),
-            storage: objectDetailsStorage()
+            storage: ObjectDetailsStorage()
         )
     }
     
@@ -136,19 +135,13 @@ final class ServiceLocator {
     func pageService() -> PageServiceProtocol {
         return PageService(objectTypeProvider: objectTypeProvider())
     }
-    
-    func objectDetailsStorage() -> ObjectDetailsStorage {
-        ObjectDetailsStorage.shared
-    }
         
     func blockWidgetService() -> BlockWidgetServiceProtocol {
-        return BlockWidgetService(blockWidgetExpandedService: blockWidgetExpandedService())
+        return BlockWidgetService()
     }
     
     func favoriteSubscriptionService() -> FavoriteSubscriptionServiceProtocol {
-        return FavoriteSubscriptionService(
-            objectDetailsStorage: objectDetailsStorage()
-        )
+        return FavoriteSubscriptionService()
     }
     
     func recentSubscriptionService() -> RecentSubscriptionServiceProtocol {
@@ -243,6 +236,26 @@ final class ServiceLocator {
     
     func localAuthService() -> LocalAuthServiceProtocol {
         LocalAuthService()
+    }
+    
+    func cameraPermissionVerifier() -> CameraPermissionVerifierProtocol {
+        CameraPermissionVerifier()
+    }
+    
+    
+    private lazy var _sceneStateNotifier = SceneStateNotifier()
+    func sceneStateNotifier() -> SceneStateNotifierProtocol {
+        _sceneStateNotifier
+    }
+    
+    private lazy var _deviceSceneStateListener = DeviceSceneStateListener()
+    func deviceSceneStateListener() -> DeviceSceneStateListenerProtocol {
+        _deviceSceneStateListener
+    }
+    
+    private lazy var _audioSessionService = AudioSessionService()
+    func audioSessionService() -> AudioSessionServiceProtocol {
+        _audioSessionService
     }
     
     // MARK: - Private

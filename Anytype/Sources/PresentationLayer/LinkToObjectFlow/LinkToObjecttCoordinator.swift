@@ -50,19 +50,20 @@ final class LinkToObjectCoordinator: LinkToObjectCoordinatorProtocol {
             case let .object(linkBlockId):
                 setLinkToObject(linkBlockId)
             case let .createObject(name):
-                if let linkBlockDetails = self?.pageService.createPage(name: name) {
-                    AnytypeAnalytics.instance().logCreateObject(objectType: linkBlockDetails.analyticsType, route: .mention)
-                    setLinkToObject(linkBlockDetails.id)
+                Task { @MainActor [weak self] in
+                    if let linkBlockDetails = try? await self?.pageService.createPage(name: name) {
+                        AnytypeAnalytics.instance().logCreateObject(objectType: linkBlockDetails.analyticsType, route: .mention)
+                        setLinkToObject(linkBlockDetails.id)
+                    }
                 }
             case let .web(url):
                 setLinkToUrl(url)
             case let .openURL(url):
                 willShowNextScreen?()
                 self?.urlOpener.openUrl(url)
-            case let .openObject(objectId):
+            case let .openObject(details):
                 willShowNextScreen?()
-                let data = EditorScreenData(pageId: objectId, type: .page)
-                self?.editorPageCoordinator.startFlow(data: data, replaceCurrentPage: false)
+                self?.editorPageCoordinator.startFlow(data: details.editorScreenData(), replaceCurrentPage: false)
             case .removeLink:
                 removeLink()
             case let .copyLink(url):

@@ -1,0 +1,14 @@
+{
+  "images" : [
+    {
+      "filename" : "Anytype_Resources_Assets.xcassets_AppIconClassic.appiconset_1024_Before_700bb98b765bfcaa4dc24304e82ac38f310249d9.png",
+      "idiom" : "universal",
+      "platform" : "ios",
+      "size" : "1024x1024"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

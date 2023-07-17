@@ -1,9 +1,9 @@
 import Foundation
 import SwiftUI
 
-struct ListWidgetView<Model: ListWidgetViewModelProtocol>: View {
+struct ListWidgetView: View {
     
-    @ObservedObject var model: Model
+    @ObservedObject var model: ListWidgetViewModel
     
     var body: some View {
         VStack(spacing: 0) {
@@ -14,16 +14,16 @@ struct ListWidgetView<Model: ListWidgetViewModelProtocol>: View {
     
     private var header: some View {
         Group {
-            if model.headerItems.isNotEmpty {
+            if let headerItems = model.headerItems, headerItems.isNotEmpty {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 16) {
-                        ForEach(model.headerItems, id: \.dataviewId) {
+                        ForEach(headerItems, id: \.dataviewId) {
                             ListWidgetHeaderItem(model: $0)
                         }
                     }
                     .padding(.horizontal, 16)
+                    .frame(height: 40)
                 }
-                .frame(height: 40)
             }
         }
     }
@@ -39,12 +39,24 @@ struct ListWidgetView<Model: ListWidgetViewModelProtocol>: View {
                 .opacity(rows.isEmpty ? 1 : 0)
                 VStack(spacing: 0) {
                     ForEach(rows) {
-                        ListWidgetRow(model: $0)
+                        rowView(row: $0, showDivider: $0.id != rows.last?.id)
                     }
-                    Spacer.fixedHeight(16)
+                    Spacer.fixedHeight(8)
                 }
                 .opacity(rows.isEmpty ? 0 : 1)
             }
+        }
+        // This fixes the tap area for header in bottom side
+        .fixTappableArea()
+    }
+    
+    @ViewBuilder
+    private func rowView(row: ListWidgetRowModel, showDivider: Bool) -> some View {
+        switch model.style {
+        case .compactList:
+            ListWidgetCompactRow(model: row, showDivider: showDivider)
+        case .list:
+            ListWidgetRow(model: row, showDivider: showDivider)
         }
     }
 }

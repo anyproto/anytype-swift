@@ -29,8 +29,7 @@ final class WidgetSourceSearchChangeInternalViewModel: WidgetSourceSearchInterna
     // MARK: - WidgetSourceSearchInternalViewModelProtocol
     
     func onSelect(source: WidgetSource) {
-        guard let info = document.widgetInfo(blockId: widgetId),
-              let layout = layoutFor(source: source, oldLayout: info.block.layout) else { return }
+        guard let info = document.widgetInfo(blockId: widgetId) else { return }
         
         AnytypeAnalytics.instance().logChangeWidgetSource(source: source.analyticsSource, route: .inner, context: context)
         
@@ -40,36 +39,12 @@ final class WidgetSourceSearchChangeInternalViewModel: WidgetSourceSearchInterna
         }
         
         Task { @MainActor in
-            try? await blockWidgetService.replaceWidgetBlock(
+            try? await blockWidgetService.setSourceId(
                 contextId: document.objectId,
                 widgetBlockId: widgetId,
-                sourceId: source.sourceId,
-                layout: layout
+                sourceId: source.sourceId
             )
             onFinish()
-        }
-    }
-    
-    private func layoutFor(source: WidgetSource, oldLayout: BlockWidget.Layout) -> BlockWidget.Layout? {
-        let availableLayout = source.availableWidgetLayout
-        guard !availableLayout.contains(oldLayout) else {
-            return oldLayout
-        }
-        
-        let fallbackValue = fallbackValue(for: source)
-        if availableLayout.contains(fallbackValue) {
-            return fallbackValue
-        }
-        
-        return availableLayout.first
-    }
-    
-    private func fallbackValue(for source: WidgetSource) -> BlockWidget.Layout {
-        switch source {
-        case .object:
-            return .link
-        case .library:
-            return .list
         }
     }
 }

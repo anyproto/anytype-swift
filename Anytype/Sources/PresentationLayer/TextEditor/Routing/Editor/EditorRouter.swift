@@ -70,6 +70,16 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         self.alertHelper = alertHelper
     }
 
+    func showPage(objectId: String) {
+        guard let details = document.detailsStorage.get(id: objectId) else {
+            anytypeAssertionFailure("Details not found")
+            return
+        }
+        guard !details.isArchived && !details.isDeleted else { return }
+        
+        showPage(data: details.editorScreenData())
+    }
+    
     func showPage(data: EditorScreenData) {
         editorPageCoordinator.startFlow(data: data, replaceCurrentPage: false)
     }
@@ -195,7 +205,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         }
     }
     
-    func showMoveTo(onSelect: @escaping (BlockId) -> ()) {
+    func showMoveTo(onSelect: @escaping (ObjectDetails) -> ()) {
         
         let moveToView = newSearchModuleAssembly.blockObjectsSearchModule(
             title: Loc.moveTo,
@@ -205,7 +215,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
                 ObjectTypeId.bundled(.collection).rawValue
             ]
         ) { [weak self] details in
-            onSelect(details.id)
+            onSelect(details)
             self?.navigationContext.dismissTopPresented()
         }
 
@@ -239,7 +249,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     
     func showSearch(onSelect: @escaping (EditorScreenData) -> ()) {
         let module = searchModuleAssembly.makeObjectSearch(title: nil) { data in
-            onSelect(EditorScreenData(pageId: data.blockId, type: data.viewType))
+            onSelect(data.editorScreenData)
         }
         navigationContext.present(module)
     }
@@ -471,7 +481,11 @@ extension EditorRouter {
     }
     
     func showRelationValueEditingView(objectId: BlockId, relation: Relation) {
-        relationValueCoordinator.startFlow(objectId: objectId, relation: relation, analyticsType: .block, output: self)
+        guard let objectDetails = document.detailsStorage.get(id: objectId) else {
+            anytypeAssertionFailure("Details not found")
+            return
+        }
+        relationValueCoordinator.startFlow(objectDetails: objectDetails, relation: relation, analyticsType: .block, output: self)
     }
 
     func showAddNewRelationView(onSelect: ((RelationDetails, _ isNew: Bool) -> Void)?) {
@@ -484,16 +498,16 @@ extension EditorRouter {
 }
 
 extension EditorRouter: RelationValueCoordinatorOutput {
-    func openObject(pageId: BlockId, viewType: EditorViewType) {
+    func openObject(screenData: EditorScreenData) {
         navigationContext.dismissAllPresented()
-        showPage(data: EditorScreenData(pageId: pageId, type: viewType))
+        showPage(data: screenData)
     }
 }
 
 extension EditorRouter: ObjectSettingsModuleDelegate {
     func didCreateLinkToItself(selfName: String, data: EditorScreenData) {
         UIApplication.shared.hideKeyboard()
-        toastPresenter.showObjectName(selfName, middleAction: Loc.Editor.Toast.linkedTo, secondObjectId: data.pageId) { [weak self] in
+        toastPresenter.showObjectName(selfName, middleAction: Loc.Editor.Toast.linkedTo, secondObjectId: data.objectId) { [weak self] in
             self?.showPage(data: data)
         }
     }

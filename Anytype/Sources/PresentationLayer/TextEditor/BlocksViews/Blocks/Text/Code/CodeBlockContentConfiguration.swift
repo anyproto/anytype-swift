@@ -11,6 +11,7 @@ struct CodeBlockContentConfiguration: BlockConfiguration {
     }
 
     let content: BlockText
+    let anytypeText: UIKitAnytypeText
     let backgroundColor: MiddlewareColor?
     let codeLanguage: CodeLanguage
     @EquatableNoop private(set) var actions: Actions

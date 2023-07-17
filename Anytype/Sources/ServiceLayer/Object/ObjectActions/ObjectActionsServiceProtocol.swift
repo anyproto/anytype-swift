@@ -8,7 +8,6 @@ protocol ObjectActionsServiceProtocol {
     
     func setArchive(objectIds: [BlockId], _ isArchived: Bool)
     func setArchive(objectIds: [BlockId], _ isArchived: Bool) async throws
-    func setFavorite(objectIds: [BlockId], _ isFavorite: Bool)
     func setFavorite(objectIds: [BlockId], _ isFavorite: Bool) async throws
     func convertChildrenToPages(contextID: BlockId, blocksIds: [BlockId], typeId: String) -> [BlockId]?
     func updateBundledDetails(contextID: BlockId, details: [BundledDetails])
@@ -34,11 +33,11 @@ protocol ObjectActionsServiceProtocol {
     func setObjectType(objectId: BlockId, objectTypeId: String)
     func setObjectSetType(objectId: BlockId) async throws
     func setObjectCollectionType(objectId: BlockId) async throws
-    func applyTemplate(objectId: BlockId, templateId: BlockId)
+    func applyTemplate(objectId: BlockId, templateId: BlockId) async throws
     func setSource(objectId: BlockId, source: [String]) async throws
     
-    func undo(objectId: BlockId) throws
-    func redo(objectId: BlockId) throws
+    func undo(objectId: BlockId) async throws
+    func redo(objectId: BlockId) async throws
     
     func setInternalFlags(contextId: BlockId, internalFlags: [Int]) async throws
 }

@@ -26,15 +26,18 @@ final class CreatingSoulViewModel: ObservableObject {
         self.output = output
         self.accountManager = accountManager
         self.subscriptionService = subscriptionService
-        
-        setupSubscription()
+    }
+    
+    func onAppear() {
+        AnytypeAnalytics.instance().logScreenOnboarding(step: .soulCreating)
+        AnytypeAnalytics.instance().logScreenOnboarding(step: .spaceCreating)
     }
     
     func animateCreation() {
         guard profileIcon != nil, spaceIcon != nil else { return }
         
         let animationTime = 0.5
-        let finishAnimationTime = 2.0
+        let finishAnimationTime = 1.5
 
         withAnimation(.easeInOut(duration: animationTime).delay(animationTime)) { [weak self] in
             self?.showProfile = true
@@ -52,7 +55,7 @@ final class CreatingSoulViewModel: ObservableObject {
        }
     }
     
-    private func setupSubscription() {
+    func setupSubscription() {
         subscriptionService.startSubscription(
             subIdPrefix: Constants.subProfileId,
             objectId: accountManager.account.info.profileObjectID

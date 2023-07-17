@@ -5,5 +5,7 @@ protocol JoinFlowStepOutput: AnyObject {
     
     func onNext()
     func onBack()
+    func onError(_ error: Error)
+    func disableBackAction(_ disable: Bool)
     
 }

@@ -10,16 +10,7 @@ protocol RelativePositionProvider: AnyObject {
 
 final class SpreadsheetLayout: UICollectionViewLayout {
     weak var dataSource: SpreadsheetViewDataSource?
-    weak var relativePositionProvider: RelativePositionProvider? {
-        didSet {
-            cancellables.removeAll()
-            relativePositionProvider?
-                .contentOffsetDidChangedStatePublisher
-                .sink { [weak self] _ in
-                    self?.invalidateLayout(with: SpreadsheetInvalidationContext())
-                }.store(in: &cancellables)
-        }
-    }
+    weak var relativePositionProvider: RelativePositionProvider?
     var cacheContainer: SimpleTableHeightCacheContainer?
     var itemWidths = [CGFloat]() {
         didSet {
@@ -57,8 +48,9 @@ final class SpreadsheetLayout: UICollectionViewLayout {
     override func layoutAttributesForElements(
         in rect: CGRect
     ) -> [UICollectionViewLayoutAttributes]? {
+        
         guard let collectionView = collectionView,
-              collectionView.numberOfSections > 0,
+              dataSource?.allModels.count ?? 0 > 0,
               let visibleRect = relativePositionProvider?.visibleRect(to: collectionView)  else {
             return nil
         }
@@ -74,7 +66,7 @@ final class SpreadsheetLayout: UICollectionViewLayout {
         }
 
         let newRect = CGRect(x: rect.origin.x, y: y, width: rect.width, height: height)
-        let attributes = (attributes + [selectionAttributes]).filter { $0.frame.intersects(newRect) }
+        let attributes = (attributes + [selectionAttributes])
 
         return attributes
     }

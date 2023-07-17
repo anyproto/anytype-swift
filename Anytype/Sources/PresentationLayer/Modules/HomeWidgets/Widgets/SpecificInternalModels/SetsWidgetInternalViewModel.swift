@@ -2,12 +2,11 @@ import Foundation
 import Services
 import Combine
 
-final class SetsWidgetInternalViewModel: WidgetInternalViewModelProtocol {
+final class SetsWidgetInternalViewModel: CommonWidgetInternalViewModel, WidgetInternalViewModelProtocol {
     
     // MARK: - DI
     
     private let setsSubscriptionService: SetsSubscriptionServiceProtocol
-    private let context: WidgetInternalViewModelContext
     
     // MARK: - State
     
@@ -17,37 +16,52 @@ final class SetsWidgetInternalViewModel: WidgetInternalViewModelProtocol {
     var detailsPublisher: AnyPublisher<[ObjectDetails]?, Never> { $details.eraseToAnyPublisher() }
     var namePublisher: AnyPublisher<String, Never> { $name.eraseToAnyPublisher() }
     
-    init(setsSubscriptionService: SetsSubscriptionServiceProtocol, context: WidgetInternalViewModelContext) {
+    init(
+        widgetBlockId: BlockId,
+        widgetObject: BaseDocumentProtocol,
+        setsSubscriptionService: SetsSubscriptionServiceProtocol
+    ) {
         self.setsSubscriptionService = setsSubscriptionService
-        self.context = context
+        super.init(widgetBlockId: widgetBlockId, widgetObject: widgetObject)
     }
     
     // MARK: - WidgetInternalViewModelProtocol
     
-    func startHeaderSubscription() {}
+    override func startContentSubscription() {
+        super.startContentSubscription()
+        updateSubscription()
+    }
     
-    func stopHeaderSubscription() {}
+    override func stopContentSubscription() {
+        super.stopContentSubscription()
+        setsSubscriptionService.stopSubscription()
+    }
     
-    func startContentSubscription() {
+    func screenData() -> EditorScreenData? {
+        return .sets
+    }
+    
+    func analyticsSource() -> AnalyticsWidgetSource {
+        return .sets
+    }
+    
+    // MARK: - CommonWidgetInternalViewModel oveerides
+    
+    override func widgetInfoUpdated() {
+        updateSubscription()
+    }
+    
+    // MARK: - Private func
+    
+    private func updateSubscription() {
+        guard let widgetInfo, contentIsAppear else { return }
         setsSubscriptionService.startSubscription(
-            objectLimit: context.maxItems,
+            objectLimit: widgetInfo.fixedLimit,
             update: { [weak self] _, update in
                 var details = self?.details ?? []
                 details.applySubscriptionUpdate(update)
                 self?.details = details
             }
         )
-    }
-    
-    func stopContentSubscription() {
-        setsSubscriptionService.stopSubscription()
-    }
-    
-    func screenData() -> EditorScreenData? {
-        return EditorScreenData(pageId: "", type: .sets)
-    }
-    
-    func analyticsSource() -> AnalyticsWidgetSource {
-        return .sets
     }
 }

@@ -13,6 +13,7 @@ protocol EditorRouterProtocol:
     ObjectHeaderRouterProtocol
 {
     func showAlert(alertModel: AlertModel)
+    func showPage(objectId: String)
     func showPage(data: EditorScreenData)
     func replaceCurrentPage(with data: EditorScreenData)
     
@@ -42,7 +43,7 @@ protocol EditorRouterProtocol:
     func showSettings()
     func showTextIconPicker(contextId: BlockId, objectId: BlockId)
     
-    func showMoveTo(onSelect: @escaping (BlockId) -> ())
+    func showMoveTo(onSelect: @escaping (ObjectDetails) -> ())
     func showLinkTo(onSelect: @escaping (ObjectDetails) -> ())
     func showSearch(onSelect: @escaping (EditorScreenData) -> ())
 

@@ -13,7 +13,7 @@ final class AlertHelper {
         let alert = UIAlertController(
             title: title,
             message: message,
-            preferredStyle: .actionSheet
+            preferredStyle: UIDevice.isPad ? .alert : .actionSheet
         )
         
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2){

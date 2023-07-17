@@ -96,11 +96,6 @@ extension UIColor {
       internal static let white = UIColor(asset: Asset.Button.white)
     }
     
-    // MARK: - Dashboard
-    enum Dashboard {
-      internal static let card = UIColor(asset: Asset.Dashboard.card)
-    }
-    
     // MARK: - Shadow
     enum Shadow {
       internal static let primary = UIColor(asset: Asset.Shadow.primary)
@@ -121,5 +116,13 @@ extension UIColor {
       internal static let secondary = UIColor(asset: Asset.Text.secondary)
       internal static let tertiary = UIColor(asset: Asset.Text.tertiary)
       internal static let white = UIColor(asset: Asset.Text.white)
+    }
+    
+    // MARK: - Widget
+    enum Widget {
+      internal static let card = UIColor(asset: Asset.Widget.card)
+      internal static let divider = UIColor(asset: Asset.Widget.divider)
+      internal static let inactiveTab = UIColor(asset: Asset.Widget.inactiveTab)
+      internal static let secondary = UIColor(asset: Asset.Widget.secondary)
     }
 }

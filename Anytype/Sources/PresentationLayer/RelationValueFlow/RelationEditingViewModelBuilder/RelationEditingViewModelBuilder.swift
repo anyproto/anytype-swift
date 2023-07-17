@@ -32,10 +32,10 @@ final class RelationEditingViewModelBuilder {
 extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtocol {
     
     func buildViewModel(
-        objectId: BlockId,
+        objectDetails: ObjectDetails,
         relation: Relation,
         analyticsType: AnalyticsEventsRelationType,
-        onTap: @escaping (_ id: BlockId, _ viewType: EditorViewType) -> Void
+        onTap: @escaping (_ screenData: EditorScreenData) -> Void
     ) -> AnytypePopupViewModelProtocol? {
         switch relation {
         case .text(let text):
@@ -43,7 +43,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                 value: text.value ?? "",
                 type: .text,
                 relation: relation,
-                service: TextRelationDetailsService(service: RelationsService(objectId: objectId)),
+                service: TextRelationDetailsService(service: RelationsService(objectId: objectDetails.id)),
                 analyticsType: analyticsType
             )
         case .number(let number):
@@ -51,7 +51,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                 value: number.value ?? "",
                 type: .number,
                 relation: relation,
-                service: TextRelationDetailsService(service: RelationsService(objectId: objectId)),
+                service: TextRelationDetailsService(service: RelationsService(objectId: objectDetails.id)),
                 analyticsType: analyticsType
             )
         case .phone(let phone):
@@ -59,7 +59,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                 value: phone.value ?? "",
                 type: .phone,
                 relation: relation,
-                service: TextRelationDetailsService(service: RelationsService(objectId: objectId)),
+                service: TextRelationDetailsService(service: RelationsService(objectId: objectDetails.id)),
                 analyticsType: analyticsType,
                 actionsViewModel: [
                     TextRelationURLActionViewModel(
@@ -79,7 +79,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                 value: email.value ?? "",
                 type: .email,
                 relation: relation,
-                service: TextRelationDetailsService(service: RelationsService(objectId: objectId)),
+                service: TextRelationDetailsService(service: RelationsService(objectId: objectDetails.id)),
                 analyticsType: analyticsType,
                 actionsViewModel: [
                     TextRelationURLActionViewModel(
@@ -107,7 +107,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                     delegate: delegate
                 ),
                 TextRelationReloadContentActionViewModel(
-                    objectId: objectId,
+                    objectDetails: objectDetails,
                     relation: relation,
                     bookmarkService: bookmarkService,
                     alertOpener: alertOpener
@@ -117,7 +117,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                 value: url.value ?? "",
                 type: .url,
                 relation: relation,
-                service: TextRelationDetailsService(service: RelationsService(objectId: objectId)),
+                service: TextRelationDetailsService(service: RelationsService(objectId: objectDetails.id)),
                 analyticsType: analyticsType,
                 actionsViewModel: actions.compactMap { $0 }
             )
@@ -125,14 +125,14 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
             return DateRelationDetailsViewModel(
                 value: value.value,
                 relation: relation,
-                service: RelationsService(objectId: objectId),
+                service: RelationsService(objectId: objectDetails.id),
                 analyticsType: analyticsType
             )
         case .status(let status):
             return StatusRelationDetailsViewModel(
                 selectedStatus: status.values.first,
                 relation: relation,
-                service: RelationsService(objectId: objectId),
+                service: RelationsService(objectId: objectDetails.id),
                 newSearchModuleAssembly: newSearchModuleAssembly,
                 searchService: searchService,
                 analyticsType: analyticsType
@@ -155,7 +155,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                     relationKey: relation.key,
                     newSearcModuleAssembly: newSearchModuleAssembly
                 ),
-                service: RelationsService(objectId: objectId),
+                service: RelationsService(objectId: objectDetails.id),
                 analyticsType: analyticsType
             )
         case .object(let object):
@@ -167,7 +167,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                     ) {
                         RelationObjectsRowView(
                             object: object,
-                            action: { onTap(object.id, object.editorViewType) }
+                            action: { onTap(object.editorScreenData) }
                         ).eraseToAnyView()
                     }
                 },
@@ -177,7 +177,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                     limitedObjectType: object.limitedObjectTypes,
                     newSearcModuleAssembly: newSearchModuleAssembly
                 ),
-                service: RelationsService(objectId: objectId),
+                service: RelationsService(objectId: objectDetails.id),
                 analyticsType: analyticsType
             )
         case .file(let file):
@@ -189,14 +189,14 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                     ) {
                         RelationFilesRowView(
                             file: file,
-                            action: { onTap(file.id, .page) }
+                            action: { onTap(file.editorScreenData) }
                         ).eraseToAnyView()
                     }
                 },
                 emptyOptionsPlaceholder: Constants.tagsOrFilesOptionsPlaceholder,
                 relation: relation,
                 searchModuleBuilder: FilesOptionsSearchModuleBuilder(newSearcModuleAssembly: newSearchModuleAssembly),
-                service: RelationsService(objectId: objectId),
+                service: RelationsService(objectId: objectDetails.id),
                 analyticsType: analyticsType
             )
         default:

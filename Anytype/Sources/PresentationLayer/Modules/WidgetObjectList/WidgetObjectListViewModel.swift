@@ -5,7 +5,7 @@ import UIKit
 import AnytypeCore
 
 enum WidgetObjectListData {
-    case list([ListSectionData<String?, WidgetObjectListRow>])
+    case list([ListSectionData<String?, WidgetObjectListRowModel>])
     case error(NewSearchError)
 }
 
@@ -23,7 +23,7 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
     // MARK: - State
     
     var title: String { internalModel.title }
-    var editorViewType: EditorViewType { internalModel.editorViewType }
+    var editorScreenData: EditorScreenData { internalModel.editorScreenData }
     @Published private(set) var data: WidgetObjectListData = .list([])
     var editModel: WidgetObjectListEditMode { internalModel.editMode }
     @Published private(set) var selectButtonText: String = ""
@@ -164,19 +164,24 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
                 id: section.id ?? "\(section.details.hashValue)",
                 data: section.title,
                 rows: section.details.map { details in
-                    WidgetObjectListRow(
-                        data: ListWidgetRow.Model(
+                    WidgetObjectListRowModel(
+                        objectId: details.id,
+                        icon: details.objectIconImage,
+                        title: details.title,
+                        description: details.subtitle,
+                        subtitle: internalModel.subtitle(for: details),
+                        isChecked: selectedRowIds.contains(details.id),
+                        menu: menuBuilder.buildMenuItems(
                             details: details,
-                            subtitle: internalModel.subtitle(for: details),
-                            isChecked: selectedRowIds.contains(details.id),
-                            onTap: { [weak self] screenData in
-                                self?.output?.onObjectSelected(screenData: screenData)
-                            },
-                            onCheckboxTap: { [weak self] in
-                                self?.switchCheckbox(details: details)
-                            }
+                            allowOptions: internalModel.availableMenuItems,
+                            output: self
                         ),
-                        menu: menuBuilder.buildMenuItems(details: details, allowOptions: internalModel.availableMenuItems, output: self)
+                        onTap: { [weak self] in
+                            self?.output?.onObjectSelected(screenData: details.editorScreenData())
+                        },
+                        onCheckboxTap: { [weak self] in
+                            self?.switchCheckbox(details: details)
+                        }
                     )
                 }
             )

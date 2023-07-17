@@ -3,28 +3,13 @@ import SwiftUI
 
 struct ListWidgetRow: View {
     
-    struct Model: Identifiable {
-        let objectId: String
-        let icon: ObjectIconImage?
-        let title: String
-        let description: String?
-        let subtitle: String?
-        let isChecked: Bool
-        let onTap: () -> Void
-        let onCheckboxTap: (() -> Void)?
-        
-        var id: String { objectId }
-    }
-    
-    let model: Model
+    let model: ListWidgetRowModel
+    let showDivider: Bool
     
     @Environment(\.editMode) private var editMode
     
     var body: some View {
         HStack(spacing: 12) {
-            if editMode?.wrappedValue == .active {
-                checkboxView
-            }
             if let icon = model.icon {
                 SwiftUIObjectIconImageView(
                     iconImage: icon,
@@ -36,12 +21,7 @@ struct ListWidgetRow: View {
                     .lineLimit(1)
                 if let description = model.description, description.isNotEmpty {
                     Spacer.fixedHeight(1)
-                    AnytypeText(description, style: .relation3Regular, color: descriptionColor)
-                        .lineLimit(1)
-                }
-                if let subtitle = model.subtitle, subtitle.isNotEmpty {
-                    Spacer.fixedHeight(2)
-                    AnytypeText(subtitle, style: .relation3Regular, color: .Text.secondary)
+                    AnytypeText(description, style: .relation3Regular, color: .Widget.secondary)
                         .lineLimit(1)
                 }
             }
@@ -51,30 +31,10 @@ struct ListWidgetRow: View {
         .frame(height: 72)
         .fixTappableArea()
         .onTapGesture {
-            if isActiveEditMode {
-                model.onCheckboxTap?()
-            } else {
-                model.onTap()
-            }
+            model.onTap()
         }
-        .newDivider(leadingPadding: 16, trailingPadding: 16)
-    }
-    
-    private var descriptionColor: Color {
-        return (model.subtitle?.isEmpty ?? true) ? .Text.secondary : .Text.primary
-    }
-    
-    @ViewBuilder
-    private var checkboxView: some View {
-        if model.isChecked {
-            Image(asset: .PageBlock.Checkbox.marked)
-        } else {
-            Image(asset: .PageBlock.Checkbox.empty)
-                .foregroundColor(.Button.active)
+        .if(showDivider) {
+            $0.newDivider(leadingPadding: 16, trailingPadding: 16, color: .Widget.divider)
         }
-    }
-    
-    private var isActiveEditMode: Bool {
-        editMode?.wrappedValue == .active
     }
 }

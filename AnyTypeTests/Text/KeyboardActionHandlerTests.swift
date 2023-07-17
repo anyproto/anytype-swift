@@ -550,7 +550,7 @@ class KeyboardActionHandlerTests: XCTestCase {
         XCTAssertEqual(service.splitData!.string.string, "Title text")
         XCTAssertEqual(service.splitData!.mode, .bottom)
         XCTAssertEqual(service.splitData!.blockId, "id")
-        XCTAssertEqual(service.splitData!.newBlockContentType, .text)
+        XCTAssertEqual(service.splitData!.newBlockContentType, .bulleted)
         XCTAssertEqual(service.splitData!.range.location, 0)
     }
     
@@ -566,7 +566,7 @@ class KeyboardActionHandlerTests: XCTestCase {
         XCTAssertEqual(service.splitData!.string.string, "Toogle")
         XCTAssertEqual(service.splitData!.mode, .bottom)
         XCTAssertEqual(service.splitData!.blockId, "id")
-        XCTAssertEqual(service.splitData!.newBlockContentType, .text)
+        XCTAssertEqual(service.splitData!.newBlockContentType, .toggle)
         XCTAssertEqual(service.splitData!.range.location, 0)
     }
     
@@ -582,7 +582,7 @@ class KeyboardActionHandlerTests: XCTestCase {
         XCTAssertEqual(service.splitData!.string.string, "Title text")
         XCTAssertEqual(service.splitData!.mode, .bottom)
         XCTAssertEqual(service.splitData!.blockId, "id")
-        XCTAssertEqual(service.splitData!.newBlockContentType, .text)
+        XCTAssertEqual(service.splitData!.newBlockContentType, .title)
         XCTAssertEqual(service.splitData!.range.location, 0)
     }
     
@@ -599,7 +599,7 @@ class KeyboardActionHandlerTests: XCTestCase {
         XCTAssertEqual(service.splitData!.string.string, "description text")
         XCTAssertEqual(service.splitData!.mode, .bottom)
         XCTAssertEqual(service.splitData!.blockId, "id")
-        XCTAssertEqual(service.splitData!.newBlockContentType, .text)
+        XCTAssertEqual(service.splitData!.newBlockContentType, .description)
         XCTAssertEqual(service.splitData!.range.location, 0)
     }
 

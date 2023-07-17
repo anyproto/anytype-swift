@@ -1,6 +1,7 @@
 import UIKit
 import Combine
 import Services
+import AnytypeCore
 
 final class ChangeTypeAccessoryViewModel {
     typealias TypeItem = HorizontalListItem
@@ -45,30 +46,35 @@ final class ChangeTypeAccessoryViewModel {
     }
 
     private func fetchSupportedTypes() {
-        let supportedTypes = searchService
-            .searchObjectTypes(
-                text: "",
-                filteringTypeId: nil,
-                shouldIncludeSets: true,
-                shouldIncludeCollections: true,
-                shouldIncludeBookmark: false
-            )?
-            .map { type in
-                TypeItem(from: type, handler: { [weak self] in
-                    self?.onTypeTap(typeId: type.id)
-                })
-            }
-
-        supportedTypes.map { allSupportedTypes = $0 }
+        Task { @MainActor [weak self] in
+            let supportedTypes = try? await self?.searchService
+                .searchObjectTypes(
+                    text: "",
+                    filteringTypeId: nil,
+                    shouldIncludeSets: true,
+                    shouldIncludeCollections: true,
+                    shouldIncludeBookmark: false
+                ).map { type in
+                    TypeItem(from: type, handler: { [weak self] in
+                        self?.onTypeTap(typeId: type.id)
+                    })
+                }
+            
+            supportedTypes.map { self?.allSupportedTypes = $0 }
+        }
     }
 
     private func onTypeTap(typeId: String) {
+        guard let details = document.details else {
+            anytypeAssertionFailure("Details not found")
+            return
+        }
         if typeId == ObjectTypeId.BundledTypeId.set.rawValue {
             Task { @MainActor in
                 document.resetSubscriptions() // to avoid glytch with premature document update
                 try await handler.setObjectSetType()
                 try await document.close()
-                router.replaceCurrentPage(with: .init(pageId: document.objectId, type: .set()))
+                router.replaceCurrentPage(with: .set(.init(objectId: document.objectId, isSupportedForEdit: true)))
             }
             return
         }
@@ -78,7 +84,7 @@ final class ChangeTypeAccessoryViewModel {
                 document.resetSubscriptions() // to avoid glytch with premature document update
                 try await handler.setObjectCollectionType()
                 try await document.close()
-                router.replaceCurrentPage(with: .init(pageId: document.objectId, type: .set()))
+                router.replaceCurrentPage(with: .set(.init(objectId: document.objectId, isSupportedForEdit: true)))
             }
             return
         }
@@ -88,13 +94,14 @@ final class ChangeTypeAccessoryViewModel {
     }
     
     private func applyDefaultTemplateIfNeeded(typeId: String) {
-        let availableTemplates = searchService.searchTemplates(for: .dynamic(typeId))
-        
-        guard availableTemplates?.count == 1,
-                let firstTemplate = availableTemplates?.first
+        Task { @MainActor in
+            let availableTemplates = try? await searchService.searchTemplates(for: .dynamic(typeId))
+            guard availableTemplates?.count == 1,
+                  let firstTemplate = availableTemplates?.first
             else { return }
-        
-        objectService.applyTemplate(objectId: document.objectId, templateId: firstTemplate.id)
+            
+            try await objectService.applyTemplate(objectId: document.objectId, templateId: firstTemplate.id)
+        }
     }
 
     private func subscribeOnDocumentChanges() {

@@ -7,7 +7,7 @@ protocol NewInternalSearchViewModelProtocol {
     
     var selectionMode: NewSearchViewModel.SelectionMode { get }
     
-    func search(text: String)
+    func search(text: String) async throws
     
     func handleRowsSelection(ids: [String])
     

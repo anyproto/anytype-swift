@@ -38,9 +38,9 @@ final class RelationsSearchViewModel: NewInternalSearchViewModelProtocol {
     
     // MARK: - NewInternalSearchViewModelProtocol
     
-    func search(text: String) {
-        let objects = interactor.search(text: text, excludedIds: excludedRelationsIds)
-        let marketplaceObjects = interactor.searchInMarketplace(text: text)
+    func search(text: String) async throws {
+        let objects = try await interactor.search(text: text, excludedIds: excludedRelationsIds)
+        let marketplaceObjects = try await interactor.searchInMarketplace(text: text)
         
         handleSearchResults(objects: objects, marketplaceObjects: marketplaceObjects)
         

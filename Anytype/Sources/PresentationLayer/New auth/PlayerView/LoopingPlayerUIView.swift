@@ -1,11 +1,16 @@
 import AVKit
 
-class LoopingPlayerUIView: UIView {
+final class LoopingPlayerUIView: UIView, SceneStateListener {
+    
     private let playerLayer = AVPlayerLayer()
     private var playerLooper: AVPlayerLooper?
+    private let player = AVQueuePlayer()
+    private let sceneStateNotifier = ServiceLocator.shared.sceneStateNotifier()
     
     init(url: URL) {
         super.init(frame: .zero)
+        
+        sceneStateNotifier.addListener(self)
         setup(with: url)
     }
     
@@ -17,7 +22,6 @@ class LoopingPlayerUIView: UIView {
         let asset = AVAsset(url: url)
         let item = AVPlayerItem(asset: asset)
 
-        let player = AVQueuePlayer()
         playerLayer.player = player
         playerLayer.videoGravity = .resizeAspectFill
         layer.addSublayer(playerLayer)
@@ -31,4 +35,12 @@ class LoopingPlayerUIView: UIView {
         super.layoutSubviews()
         playerLayer.frame = bounds
     }
+    
+    // MARK: - SceneStateListener
+    
+    func willEnterForeground() {
+        player.play()
+    }
+    
+    func didEnterBackground() {}
 }

@@ -91,11 +91,12 @@ final class SimpleTableCellsBuilder {
         isHeaderRow: Bool
     ) -> EditorItem {
         let isCheckable = content.contentType == .title ? document.details?.layoutValue == .todo : false
-
+        let anytypeText = content.anytypeText(document: document)
+        
         let textBlockActionHandler = SimpleTablesTextBlockActionHandler(
             info: information,
-            showPage: { [weak self] data in
-                self?.router.showPage(data: data)
+            showPage: { [weak self] objectId in
+                self?.router.showPage(objectId: objectId)
             },
             openURL: { [weak router] url in
                 router?.openUrl(url)
@@ -113,6 +114,7 @@ final class SimpleTableCellsBuilder {
                 router?.hideWaitingView()
             },
             content: content,
+            anytypeText: anytypeText,
             actionHandler: handler,
             pasteboardService: pasteboardService,
             markdownListener: markdownListener,
@@ -126,6 +128,7 @@ final class SimpleTableCellsBuilder {
         let viewModel = TextBlockViewModel(
             info: information,
             content: content,
+            anytypeText: anytypeText,
             isCheckable: isCheckable,
             focusSubject: focusSubjectHolder.focusSubject(for: information.id),
             actionHandler: textBlockActionHandler,

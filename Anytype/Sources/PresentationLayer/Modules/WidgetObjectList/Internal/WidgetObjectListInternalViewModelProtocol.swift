@@ -17,7 +17,7 @@ protocol WidgetObjectListInternalViewModelProtocol: AnyObject {
     
     var title: String { get }
     var rowDetailsPublisher: AnyPublisher<[WidgetObjectListDetailsData], Never> { get }
-    var editorViewType: EditorViewType { get }
+    var editorScreenData: EditorScreenData { get }
     var editMode: WidgetObjectListEditMode { get }
     var availableMenuItems: [WidgetObjectListMenuItem] { get }
     var forceDeleteTitle: String { get }

@@ -33,6 +33,6 @@ final class BinLinkWidgetViewModel: ObservableObject, WidgetContainerContentView
     
     func onHeaderTap() {
         AnytypeAnalytics.instance().logSelectHomeTab(source: .bin)
-        output?.onObjectSelected(screenData: EditorScreenData(pageId: "", type: .bin))
+        output?.onObjectSelected(screenData: .bin)
     }
 }

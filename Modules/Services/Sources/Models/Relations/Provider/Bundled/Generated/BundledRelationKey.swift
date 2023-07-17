@@ -354,4 +354,9 @@ public enum BundledRelationKey: String {
 
     /// Last change ID
     case lastChangeId = "lastChangeId"
+
+    case starred = "starred"
+
+    /// ID of template chosen as default for particular object type
+    case defaultTemplateId = "defaultTemplateId"
 }

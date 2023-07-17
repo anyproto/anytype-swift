@@ -10,6 +10,8 @@ extension BlockWidget.Layout {
             return "Tree"
         case .list:
             return "List"
+        case .compactList:
+            return "CompactList"
         }
     }
 }

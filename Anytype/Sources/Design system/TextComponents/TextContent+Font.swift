@@ -7,7 +7,7 @@ extension BlockText.Style {
         case .title:
             return .title
         case .description:
-            return .caption1Regular
+            return .relation1Regular
         case .header:
             return .title
         case .header2:

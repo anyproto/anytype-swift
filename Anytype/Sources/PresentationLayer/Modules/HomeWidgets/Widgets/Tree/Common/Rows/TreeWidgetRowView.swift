@@ -22,6 +22,7 @@ struct TreeWidgetRowViewModel {
 struct TreeWidgetRowView: View {
     
     let model: TreeWidgetRowViewModel
+    let showDivider: Bool
     
     var body: some View {
         HStack(alignment: .center, spacing: 0) {
@@ -45,7 +46,9 @@ struct TreeWidgetRowView: View {
             }
         }
         .frame(height: 40)
-        .newDivider(leadingPadding: 16, trailingPadding: 16)
+        .if(showDivider) {
+            $0.newDivider(leadingPadding: 16, trailingPadding: 16, color: .Widget.divider)
+        }
     }
     
     // MARK: - Private

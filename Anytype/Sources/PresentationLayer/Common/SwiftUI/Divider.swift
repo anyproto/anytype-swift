@@ -16,17 +16,25 @@ extension View {
     
     func newDivider(
         leadingPadding: CGFloat = 0,
-        trailingPadding: CGFloat = 0
+        trailingPadding: CGFloat = 0,
+        color: Color? = nil
     ) -> some View {
         modifier(
-            NewDividerModifier(leadingPadding: leadingPadding, trailingPadding: trailingPadding)
+            NewDividerModifier(leadingPadding: leadingPadding, trailingPadding: trailingPadding, color: color)
         )
     }
 }
 
 struct AnytypeDivider: View {
+    
+    let color: Color
+    
+    init(color: Color? = nil) {
+        self.color = color ?? Color.Stroke.primary
+    }
+    
     var body: some View {
-        Color.Stroke.primary.frame(height: .onePixel)
+        color.frame(height: .onePixel)
     }
 }
 
@@ -76,11 +84,12 @@ struct DividerModifier: ViewModifier {
 struct NewDividerModifier: ViewModifier {
     let leadingPadding: CGFloat
     let trailingPadding: CGFloat
+    let color: Color?
     
     func body(content: Content) -> some View {
         content
             .overlay(
-                AnytypeDivider()
+                AnytypeDivider(color: color)
                     .padding(.leading, leadingPadding)
                     .padding(.trailing, trailingPadding),
                 alignment: .bottom

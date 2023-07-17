@@ -54,15 +54,6 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         AnytypeAnalytics.instance().logMoveToBin(isArchived)
     }
     
-    func setFavorite(objectIds: [BlockId], _ isFavorite: Bool) {
-        _ = try? ClientCommands.objectListSetIsFavorite(.with {
-            $0.objectIds = objectIds
-            $0.isFavorite = isFavorite
-        }).invoke()
-        
-        AnytypeAnalytics.instance().logAddToFavorites(isFavorite)
-    }
-    
     func setFavorite(objectIds: [BlockId], _ isFavorite: Bool) async throws {
         try await ClientCommands.objectListSetIsFavorite(.with {
             $0.objectIds = objectIds
@@ -256,8 +247,8 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         }).invoke()
     }
 
-    func applyTemplate(objectId: BlockId, templateId: BlockId) {
-        _ = try? ClientCommands.objectApplyTemplate(.with {
+    func applyTemplate(objectId: BlockId, templateId: BlockId) async throws {
+        try await ClientCommands.objectApplyTemplate(.with {
             $0.contextID = objectId
             $0.templateID = templateId
         }).invoke()
@@ -270,22 +261,22 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         }).invoke()
     }
 
-    func undo(objectId: BlockId) throws {
+    func undo(objectId: BlockId) async throws {
         do {
-            _ = try ClientCommands.objectUndo(.with {
+            try await ClientCommands.objectUndo(.with {
                 $0.contextID = objectId
             }).invoke()
-        } catch {
+        } catch let error as Anytype_Rpc.Object.Undo.Response.Error where error.code == .canNotMove {
             throw ObjectActionsServiceError.nothingToUndo
         }
     }
 
-    func redo(objectId: BlockId) throws {
+    func redo(objectId: BlockId) async throws {
         do {
-            _ = try ClientCommands.objectRedo(.with {
+            try await ClientCommands.objectRedo(.with {
                 $0.contextID = objectId
             }).invoke()
-        } catch {
+        }  catch let error as Anytype_Rpc.Object.Redo.Response.Error where error.code == .canNotMove {
             throw ObjectActionsServiceError.nothingToRedo
         }
     }

@@ -39,8 +39,17 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         return service.turnIntoPage(blockId: blockId)
     }
     
-    func turnInto(_ style: BlockText.Style, blockId: BlockId) {
-        service.turnInto(style, blockId: blockId)
+    func turnInto(_ style: BlockText.Style, blockId: BlockId) {        
+        switch style {
+        case .toggle:
+            if let blockInformation = document.infoContainer.get(id: blockId),
+               blockInformation.childrenIds.count > 0, !blockInformation.isToggled {
+                blockInformation.toggle()
+            }
+            service.turnInto(style, blockId: blockId)
+        default:
+            service.turnInto(style, blockId: blockId)
+        }
     }
     
     func upload(blockId: BlockId, filePath: String) async throws {

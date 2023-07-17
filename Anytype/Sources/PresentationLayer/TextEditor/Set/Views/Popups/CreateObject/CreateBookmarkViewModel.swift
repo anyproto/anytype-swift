@@ -5,10 +5,10 @@ final class CreateBookmarkViewModel: CreateObjectViewModelProtocol {
     let style = CreateObjectView.Style.bookmark
     
     private let bookmarkService: BookmarkServiceProtocol
-    private let closeAction: (_ withError: Bool) -> Void
+    private let closeAction: (_ details: ObjectDetails?) -> Void
     private var currentText: String = .empty
 
-    init(bookmarkService: BookmarkServiceProtocol, closeAction: @escaping (_ withError: Bool) -> Void) {
+    init(bookmarkService: BookmarkServiceProtocol, closeAction: @escaping (_ details: ObjectDetails?) -> Void) {
         self.bookmarkService = bookmarkService
         self.closeAction = closeAction
     }
@@ -28,7 +28,7 @@ final class CreateBookmarkViewModel: CreateObjectViewModelProtocol {
     }
     
     private func createBookmarkObject(with url: String) {
-        let success = bookmarkService.createBookmarkObject(url: currentText)
-        closeAction(!success)        
+        let details = try? bookmarkService.createBookmarkObject(url: currentText)
+        closeAction(details)
     }
 }

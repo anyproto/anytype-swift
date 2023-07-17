@@ -48,6 +48,7 @@ final class RelationBlockView: UIView, BlockContentView {
     ) {
         relationNameView.setText(relation.name)
         relationIcon.image = UIImage(asset: .relationLocked)
+        relationIcon.tintColor = .Button.active
         relationIcon.isHidden = relation.isEditable
         relationValueView.update(
             with: .init(

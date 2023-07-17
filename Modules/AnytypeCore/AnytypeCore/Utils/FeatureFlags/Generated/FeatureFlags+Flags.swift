@@ -46,6 +46,26 @@ public extension FeatureFlags {
         value(for: .fixSIGPIPECrash)
     }
 
+    static var compactListWidget: Bool {
+        value(for: .compactListWidget)
+    }
+
+    static var getMoreSpace: Bool {
+        value(for: .getMoreSpace)
+    }
+
+    static var fixAVCaptureSessionError: Bool {
+        value(for: .fixAVCaptureSessionError)
+    }
+
+    static var clearAccountDataOnDeletedStatus: Bool {
+        value(for: .clearAccountDataOnDeletedStatus)
+    }
+
+    static var fixAudioSession: Bool {
+        value(for: .fixAudioSession)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -74,6 +94,11 @@ public extension FeatureFlags {
         .sortIncludeTime,
         .binConfirmAlert,
         .fixSIGPIPECrash,
+        .compactListWidget,
+        .getMoreSpace,
+        .fixAVCaptureSessionError,
+        .clearAccountDataOnDeletedStatus,
+        .fixAudioSession,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

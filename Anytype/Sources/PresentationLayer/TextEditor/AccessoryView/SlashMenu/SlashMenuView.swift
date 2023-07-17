@@ -9,6 +9,8 @@ final class SlashMenuView: DismissableInputAccessoryView {
     
     private let viewModel: SlashMenuViewModel
     private let cellDataBuilder = SlashMenuCellDataBuilder()
+    private let itemsBuilder = SlashMenuItemsBuilder()
+    private var searchMenuItemsTask: Task<(), Never>?
     
     init(frame: CGRect, viewModel: SlashMenuViewModel) {
         self.viewModel = viewModel
@@ -25,10 +27,15 @@ final class SlashMenuView: DismissableInputAccessoryView {
     }
     
     func update(info: BlockInformation, relations: [Relation]) {
+        searchMenuItemsTask?.cancel()
+
         viewModel.info = info
-        menuItems = SlashMenuItemsBuilder(blockType: info.content.type, relations: relations).slashMenuItems
-        
-        restoreDefaultState()
+        let restrictions = BlockRestrictionsBuilder.build(contentType: info.content.type)
+    
+        Task { @MainActor [weak self] in
+            self?.menuItems = (try? await self?.itemsBuilder.slashMenuItems(resrictions: restrictions, relations: relations)) ?? []
+            self?.restoreDefaultState()
+        }
     }
     
     func restoreDefaultState() {
@@ -51,7 +58,7 @@ final class SlashMenuView: DismissableInputAccessoryView {
     
     // MARK: - Controllers
     private lazy var navigationController: UINavigationController = {
-        let navigationController = UINavigationController(rootViewController: controller)
+        let navigationController = BaseNavigationController(rootViewController: controller)
         
         let navBarAppearance = UINavigationBarAppearance()
         navBarAppearance.titleTextAttributes = [

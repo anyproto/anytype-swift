@@ -11,7 +11,7 @@ final class WidgetObjectListSetsViewModel: WidgetObjectListInternalViewModelProt
     // MARK: - State
     
     let title = Loc.sets
-    let editorViewType: EditorViewType = .sets
+    let editorScreenData: EditorScreenData = .sets
     var rowDetailsPublisher: AnyPublisher<[WidgetObjectListDetailsData], Never> { $rowDetails.eraseToAnyPublisher()}
     let editMode: WidgetObjectListEditMode = .normal(allowDnd: false)
     

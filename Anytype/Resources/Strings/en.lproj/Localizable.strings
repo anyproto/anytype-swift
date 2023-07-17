@@ -146,31 +146,38 @@
 "Auth.LogIn" = "Log in";
 "Auth.Join" = "Join";
 "Auth.Welcome.Title" = "the\neverything\napp";
-"Auth.Welcome.Subtitle" = "Welcome to Anytype: a place to securely write notes and documents, manage tasks, and save important content from the web.";
+"Auth.Welcome.Subtitle" = "For those who celebrate trust & autonomy. Anytype is your safe space to write, plan, think and organise everything that matters to you";
 "Auth.Caption.Privacy.Text" = "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)";
+"Auth.Next" = "Next";
 
 // New Auth - Join flow
-"Auth.JoinFlow.Next" = "Next";
 
 "Auth.JoinFlow.Void.Title" = "This is your Void";
-"Auth.JoinFlow.Void.Description" = "Everything you create will be stored here. It is a special encrypted place, which exist on your machine and is backed up to the network.";
+"Auth.JoinFlow.Void.Description" = "It is an encrypted location for everything you create. Everything is stored on your device, and backed up to the distributed network.";
 
-"Auth.JoinFlow.Key.Title" = "Your Void is encrypted by the Key";
-"Auth.JoinFlow.Key.Hidden.Description" = "The Key is a set of 12 words  in a specific order. It is unique for the Void and can’t be changed. You are the only one person who knows the Key.";
-"Auth.JoinFlow.Key.Shown.Description" = "If you lose the key, no one, including us, can help restore your Void. Write it down on a sheet of paper and store it securely.";
+"Auth.JoinFlow.Key.Title" = "End-to-end Encryption";
+"Auth.JoinFlow.Key.Description" = "Your data is encrypted by the Key above - your secret Recovery phrase. Store it securely. This is the only way to login and access your Void.";
 "Auth.JoinFlow.Key.TextField.Placeholder" = "Type your recovery phrase";
 "Auth.JoinFlow.Key.Button.Show.Title" = "Show me the key";
 "Auth.JoinFlow.Key.Button.Saved.Title" = "I saved my key";
 "Auth.JoinFlow.Key.Button.Later.Title" = "Check later";
 "Auth.JoinFlow.Key.Button.Copy.Title" = "Copy to clipboard";
 
-"Auth.JoinFlow.Soul.Title" = "Create your Soul";
-"Auth.JoinFlow.Soul.Description" = "Think of it like an identity, or a profile within Anytype.";
-"Auth.JoinFlow.Soul.Placeholder" = "Call it whatever you want";
+"Auth.JoinFlow.Soul.Title" = "Anytype Identity";
+"Auth.JoinFlow.Soul.Description" = "Great! As a last step, let's create your Identity and enter your name. Don't worry – you can always change the name later.";
+"Auth.JoinFlow.Soul.Placeholder" = "Name";
+"Auth.JoinFlow.Soul.Button.Title" = "Go to the app";
 
-"Auth.JoinFlow.Creating.Soul.Title" = "Creating your Soul";
-"Auth.JoinFlow.Setting.Space.Title" = "Setting up your Personal Space";
+"Auth.JoinFlow.Creating.Soul.Title" = "Creating your Identity…";
+"Auth.JoinFlow.Setting.Space.Title" = "Setting up the Personal space...";
 "Auth.JoinFlow.Personal.Space.Title" = "Personal Space";
+
+// New Auth - Login flow
+"Auth.LoginFlow.Use.Keychain.Title" = "Use keychain";
+"Auth.LoginFlow.Or" = "OR";
+"Auth.LoginFlow.Textfield.Placeholder" = "Type your recovery phrase";
+"Auth.LoginFlow.Enter.Button.Title" = "Login";
+"Auth.LoginFlow.Entering.Void.Title" = "Entering the Void";
 
 // Object settings
 
@@ -383,7 +390,7 @@
 "Set.SourceType.Cancel.Toast.Title" = "This query can be changed on desktop only";
 
 // MARK: - Set: Type context menu
-"Set.TypeRelation.ContextMenu.TurnIntoCollection" = "Turn into collection";
+"Set.TypeRelation.ContextMenu.TurnIntoCollection" = "Turn Set into Collection";
 "Set.TypeRelation.ContextMenu.ChangeQuery" = "Change query";
 
 // MARK: - Collection: empty view
@@ -401,6 +408,7 @@
 "Invalid invitation code" = "Invalid invitation code";
 "Unknown error" = "Unknown error";
 "Account is deleted" = "Account is deleted";
+"Add phone" = "Add phone";
 "Nothing to redo" = "Nothing to redo";
 "Nothing to undo" = "Nothing to undo";
 "Progress..." = "Progress...";
@@ -412,14 +420,13 @@
 "Sky background" = "Sky background";
 "Yellow background" = "Yellow background";
 "Enter value" = "Enter value";
-"Select objects" = "Select objects";
-"Select files" = "Select files";
-"Select tags" = "Select tags";
+"Select object" = "Select object";
+"Select file" = "Select file";
+"Select tag" = "Select tag";
 "Select status" = "Select status";
-"Enter phone" = "Enter phone";
-"Enter e-mail" = "Enter e-mail";
-"Enter URL" = "Enter URL";
-"Enter date" = "Enter date";
+"Select date" = "Select date";
+"Add email" = "Add email";
+"Add link" = "Add link";
 "Enter number" = "Enter number";
 "Enter text" = "Enter text";
 "Unsupported value" = "Unsupported value";
@@ -673,9 +680,11 @@
 "Widgets.Layout.Link.Title" = "Link";
 "Widgets.Layout.Tree.Title" = "Tree";
 "Widgets.Layout.List.Title" = "List";
+"Widgets.Layout.CompactList.Title" = "Сompact list";
 "Widgets.Layout.Link.Description" = "Сompact version of the object";
 "Widgets.Layout.Tree.Description" = "Hierarchical structure of objects";
 "Widgets.Layout.List.Description" = "Widget with list view of set object";
+"Widgets.Layout.CompactList.Description" = "Widget with list view of set object";
 "Widgets.Empty.Title" = "This data view contains no objects";
 
 // MARK: - About
@@ -727,6 +736,9 @@
 "FileStorage.Space.Title" = "Remote storage";
 "FileStorage.Space.Instruction" = "You can store up to %@ of your files on our encrypted backup node for free. If you reach the limit, files will be stored only locally.";
 "FileStorage.Space.Used" = "%@ of %@ used";
+"FileStorage.Space.GetMore" = "Get more space";
+"FileStorage.Space.Mail.Subject" = "Get more storage, account %@";
+"FileStorage.Space.Mail.Body" = "Hi, Anytype team. I am reaching out to request an increase in my file storage capacity as I have run out of storage. My current limits is %@. My account id is %@. Cheers, %@.";
 "FileStorage.Local.Title" = "Local storage";
 "FileStorage.Local.Instruction" = "In order to save space on your local device, you can offload all your files to our encrypted backup node. The files will be loaded back when you open them.";
 "FileStorage.Local.Used" = "%@ used";

@@ -6,13 +6,13 @@ struct BlockLinkState: Hashable, Equatable {
     let cardStyle: BlockLink.CardStyle
     let style: Style
     let type: ObjectType?
-    let viewType: EditorViewType
     let documentCover: DocumentCover?
 
     let relations: [BlockLink.Relation]
     let iconSize: BlockLink.IconSize
     let descriptionState: BlockLink.Description
     let objectLayout: DetailsLayout
+    let screenData: EditorScreenData
 
     let archived: Bool
     let deleted: Bool
@@ -43,14 +43,14 @@ struct BlockLinkState: Hashable, Equatable {
             description: description,
             style: Style(details: details),
             type: details.objectType,
-            viewType: details.editorViewType,
             archived: details.isArchived,
             deleted: details.isDeleted,
             relations: blockLink.appearance.relations,
             iconSize: iconSize,
             descriptionState: blockLink.appearance.description,
             documentCover: documentCover,
-            objectLayout: details.layoutValue
+            objectLayout: details.layoutValue,
+            screenData: details.editorScreenData()
         )
     }
     
@@ -59,20 +59,19 @@ struct BlockLinkState: Hashable, Equatable {
          description: String,
          style: Style,
          type: ObjectType?,
-         viewType: EditorViewType,
          archived: Bool,
          deleted: Bool,
          relations: [BlockLink.Relation],
          iconSize: BlockLink.IconSize,
          descriptionState: BlockLink.Description,
          documentCover: DocumentCover?,
-         objectLayout: DetailsLayout
+         objectLayout: DetailsLayout,
+         screenData: EditorScreenData
     ) {
         self.title = title
         self.cardStyle = cardStyle
         self.style = style
         self.type = type
-        self.viewType = viewType
         self.archived = archived
         self.deleted = deleted
         self.description = description.replacedNewlinesWithSpaces
@@ -81,5 +80,6 @@ struct BlockLinkState: Hashable, Equatable {
         self.descriptionState = descriptionState
         self.documentCover = documentCover
         self.objectLayout = objectLayout
+        self.screenData = screenData
     }
 }

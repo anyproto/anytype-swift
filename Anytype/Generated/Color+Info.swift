@@ -33,10 +33,10 @@ extension UIColor {
                 UIColor.Auth.collectionInfo, 
                 UIColor.Background.collectionInfo, 
                 UIColor.Button.collectionInfo, 
-                UIColor.Dashboard.collectionInfo, 
                 UIColor.Shadow.collectionInfo, 
                 UIColor.Stroke.collectionInfo, 
-                UIColor.Text.collectionInfo
+                UIColor.Text.collectionInfo, 
+                UIColor.Widget.collectionInfo
             ]
         )
     ]
@@ -160,14 +160,6 @@ extension UIColor.Button {
         ]
     )
 }
-extension UIColor.Dashboard {
-    static let collectionInfo = ColorCollectionInfo(
-        name: "Dashboard",
-        colors: [
-            ColorInfo(name: "card", color: UIColor.Dashboard.card)
-        ]
-    )
-}
 extension UIColor.Shadow {
     static let collectionInfo = ColorCollectionInfo(
         name: "Shadow",
@@ -196,6 +188,17 @@ extension UIColor.Text {
             ColorInfo(name: "secondary", color: UIColor.Text.secondary), 
             ColorInfo(name: "tertiary", color: UIColor.Text.tertiary), 
             ColorInfo(name: "white", color: UIColor.Text.white)
+        ]
+    )
+}
+extension UIColor.Widget {
+    static let collectionInfo = ColorCollectionInfo(
+        name: "Widget",
+        colors: [
+            ColorInfo(name: "card", color: UIColor.Widget.card), 
+            ColorInfo(name: "divider", color: UIColor.Widget.divider), 
+            ColorInfo(name: "inactiveTab", color: UIColor.Widget.inactiveTab), 
+            ColorInfo(name: "secondary", color: UIColor.Widget.secondary)
         ]
     )
 }

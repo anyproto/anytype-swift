@@ -18,7 +18,6 @@ final class WaitingOnCreatAccountViewModel: ObservableObject {
     private let authService: AuthServiceProtocol
     private let seedService: SeedServiceProtocol
     private let usecaseService: UsecaseServiceProtocol
-    private let metricsService: MetricsServiceProtocol
     
     private let diskStorage = DiskStorage()
     
@@ -35,8 +34,7 @@ final class WaitingOnCreatAccountViewModel: ObservableObject {
         applicationStateService: ApplicationStateServiceProtocol,
         authService: AuthServiceProtocol,
         seedService: SeedServiceProtocol,
-        usecaseService: UsecaseServiceProtocol,
-        metricsService: MetricsServiceProtocol
+        usecaseService: UsecaseServiceProtocol
     ) {
         self.signUpData = signUpData
         self._showWaitingView = showWaitingView
@@ -44,13 +42,11 @@ final class WaitingOnCreatAccountViewModel: ObservableObject {
         self.authService = authService
         self.seedService = seedService
         self.usecaseService = usecaseService
-        self.metricsService = metricsService
     }
     
     func createAccount() {
         Task { @MainActor in
             do {
-                try await metricsService.metricsSetParameters()
                 try await authService.createAccount(
                     name: signUpData.userName,
                     imagePath: imagePath()

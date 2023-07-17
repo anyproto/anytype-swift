@@ -8,7 +8,13 @@
 
 // swiftlint:disable identifier_name line_length nesting type_body_length type_name
 internal extension ImageAsset {
+  enum AppIconsPreview {
+    static let appIcon = ImageAsset.bundle(name: "AppIconsPreview/AppIcon")
+    static let appIconClassic = ImageAsset.bundle(name: "AppIconsPreview/AppIconClassic")
+    static let appIconOldSchool = ImageAsset.bundle(name: "AppIconsPreview/AppIconOldSchool")
+  }
   static let authPhotoIcon = ImageAsset.bundle(name: "auth_photo_icon")
+  static let theEverythingApp = ImageAsset.bundle(name: "the-everything-app")
   static let arrowDown = ImageAsset.bundle(name: "arrowDown")
   static let arrowForward = ImageAsset.bundle(name: "arrowForward")
   static let backArrow = ImageAsset.bundle(name: "backArrow")
@@ -327,6 +333,7 @@ internal extension ImageAsset {
   static let toastTick = ImageAsset.bundle(name: "toast_tick")
   enum Widget {
     enum Preview {
+      static let compactList = ImageAsset.bundle(name: "Widget/Preview/compact list")
       static let link = ImageAsset.bundle(name: "Widget/Preview/link")
       static let list = ImageAsset.bundle(name: "Widget/Preview/list")
       static let tree = ImageAsset.bundle(name: "Widget/Preview/tree")
@@ -341,7 +348,7 @@ internal extension ImageAsset {
     static let settings = ImageAsset.bundle(name: "Widget/settings")
     static let tick = ImageAsset.bundle(name: "Widget/tick")
   }
-  static let splashLogo = ImageAsset.bundle(name: "splash_logo")
+  static let splashLogoWhite = ImageAsset.bundle(name: "splash_logo_white")
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name
 

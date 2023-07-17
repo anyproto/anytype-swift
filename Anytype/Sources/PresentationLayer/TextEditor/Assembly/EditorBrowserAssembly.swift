@@ -37,7 +37,7 @@ final class EditorBrowserAssembly {
     }
     
     private func navigationStack(rootPage: UIViewController?) -> UINavigationController {
-        let navigationController = rootPage.map { UINavigationController(rootViewController: $0) } ?? UINavigationController()
+        let navigationController = rootPage.map { BaseNavigationController(rootViewController: $0) } ?? BaseNavigationController()
 
         let navBarAppearance = UINavigationBarAppearance()
         navBarAppearance.configureWithTransparentBackground()

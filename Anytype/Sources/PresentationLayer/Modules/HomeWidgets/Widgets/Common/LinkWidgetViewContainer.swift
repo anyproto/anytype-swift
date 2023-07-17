@@ -43,7 +43,7 @@ struct LinkWidgetViewContainer<Content, MenuContent>: View where Content: View, 
     }
     
     var body: some View {
-        ZStack(alignment: .topTrailing) {
+        ZStack(alignment: .topLeading) {
             VStack(spacing: 0) {
                 Spacer.fixedHeight(6)
                 header
@@ -59,7 +59,7 @@ struct LinkWidgetViewContainer<Content, MenuContent>: View where Content: View, 
                         )
                 }
             }
-            .background(Color.Dashboard.card)
+            .background(Color.Widget.card)
             .cornerRadius(16, style: .continuous)
             .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 16, style: .continuous))
             .contentShape(.dragPreview, RoundedRectangle(cornerRadius: 16, style: .continuous))
@@ -117,7 +117,6 @@ struct LinkWidgetViewContainer<Content, MenuContent>: View where Content: View, 
                         isExpanded = !isExpanded
                     }
                 }
-            .allowsHitTesting(!isEditalbeMode)
         }
     }
     
@@ -146,7 +145,7 @@ struct LinkWidgetViewContainer<Content, MenuContent>: View where Content: View, 
                     .frame(width: 10)
             }
             .frame(width: 24, height: 24)
-            .offset(x: 8, y: -8)
+            .offset(x: -8, y: -8)
             .onTapGesture {
                 removeAction()
             }

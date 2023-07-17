@@ -4,7 +4,7 @@ import Services
 
 final class TextRelationReloadContentActionViewModel: TextRelationActionViewModelProtocol {
     
-    private let objectId: BlockId
+    private let objectDetails: ObjectDetails
     private let relation: Relation
     private let bookmarkService: BookmarkServiceProtocol
     private let alertOpener: AlertOpenerProtocol
@@ -14,16 +14,15 @@ final class TextRelationReloadContentActionViewModel: TextRelationActionViewMode
     let iconAsset = ImageAsset.X24.replace
     
     init?(
-        objectId: BlockId,
+        objectDetails: ObjectDetails,
         relation: Relation,
         bookmarkService: BookmarkServiceProtocol,
         alertOpener: AlertOpenerProtocol
     ) {
-        guard let objectInfo = ObjectDetailsStorage.shared.get(id: objectId),
-              objectInfo.objectType.id == ObjectTypeId.bundled(.bookmark).rawValue,
+        guard objectDetails.objectType.id == ObjectTypeId.bundled(.bookmark).rawValue,
               relation.isSource else { return nil }
         
-        self.objectId = objectId
+        self.objectDetails = objectDetails
         self.relation = relation
         self.bookmarkService = bookmarkService
         self.alertOpener = alertOpener
@@ -35,7 +34,7 @@ final class TextRelationReloadContentActionViewModel: TextRelationActionViewMode
     
     func performAction() {
         UISelectionFeedbackGenerator().selectionChanged()
-        bookmarkService.fetchBookmarkContent(bookmarkId: objectId, url: inputText)
+        bookmarkService.fetchBookmarkContent(bookmarkId: objectDetails.id, url: inputText)
         alertOpener.showTopAlert(message: Loc.RelationAction.reloadingContent)
         AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.reloadSourceData)
     }

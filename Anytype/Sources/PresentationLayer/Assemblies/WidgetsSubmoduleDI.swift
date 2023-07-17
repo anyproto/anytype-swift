@@ -10,13 +10,22 @@ protocol WidgetsSubmoduleDIProtocol {
     func objectTreeWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
     func favoriteTreeWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
     func recentTreeWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
+    // Delete with compactListWidget toggle
     func setsTreeWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
+    func collectionsTreeWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
     // MARK: - List
-    func listWithoutHeaderWidgetModuleAssembly() -> ListWithoutHeaderWidgetModuleAssemblyProtocol
+    func listWidgetModuleAssembly() -> ListWidgetModuleAssemblyProtocol
     func setListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
     func favoriteListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
     func recentListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
     func setsListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
+    func collectionsListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
+    // MARK: - CompactList
+    func setCompactListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
+    func favoriteCompactListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
+    func recentCompactListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
+    func setsCompactListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
+    func collectionsCompactListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
     // MARK: - Link
     func linkWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
     func binLinkWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
@@ -62,7 +71,7 @@ final class WidgetsSubmoduleDI: WidgetsSubmoduleDIProtocol {
                 widgetAssembly: collectionsTreeWidgetModuleAssembly(),
                 output: widgetOutput
             ),
-            setWidgetProviderAssembly: HomeWidgetCommonProviderAssembly(
+            setListWidgetProviderAssembly: HomeWidgetCommonProviderAssembly(
                 widgetAssembly: setListWidgetModuleAssembly(),
                 output: widgetOutput
             ),
@@ -82,6 +91,26 @@ final class WidgetsSubmoduleDI: WidgetsSubmoduleDIProtocol {
                 widgetAssembly: collectionsListWidgetModuleAssembly(),
                 output: widgetOutput
             ),
+            setCompactListWidgetProviderAssembly: HomeWidgetCommonProviderAssembly(
+                widgetAssembly: setCompactListWidgetModuleAssembly(),
+                output: widgetOutput
+            ),
+            favoriteCompactListWidgetProviderAssembly: HomeWidgetCommonProviderAssembly(
+                widgetAssembly: favoriteCompactListWidgetModuleAssembly(),
+                output: widgetOutput
+            ),
+            recentCompactListWidgetProviderAssembly: HomeWidgetCommonProviderAssembly(
+                widgetAssembly: recentCompactListWidgetModuleAssembly(),
+                output: widgetOutput
+            ),
+            setsCompactListWidgetProviderAssembly: HomeWidgetCommonProviderAssembly(
+                widgetAssembly: setsCompactListWidgetModuleAssembly(),
+                output: widgetOutput
+            ),
+            collectionsCompactListWidgetProviderAssembly: HomeWidgetCommonProviderAssembly(
+                widgetAssembly: collectionsCompactListWidgetModuleAssembly(),
+                output: widgetOutput
+            ),
             linkWidgetProviderAssembly: HomeWidgetCommonProviderAssembly(
                 widgetAssembly: linkWidgetModuleAssembly(),
                 output: widgetOutput
@@ -90,8 +119,7 @@ final class WidgetsSubmoduleDI: WidgetsSubmoduleDIProtocol {
                 widgetAssembly: binLinkWidgetModuleAssembly(),
                 output: widgetOutput
             ),
-            stateManager: stateManager,
-            objectDetailsStorage: serviceLocator.objectDetailsStorage()
+            stateManager: stateManager
         )
     }
     
@@ -123,12 +151,12 @@ final class WidgetsSubmoduleDI: WidgetsSubmoduleDIProtocol {
     
     // MARK: - List
     
-    func listWithoutHeaderWidgetModuleAssembly() -> ListWithoutHeaderWidgetModuleAssemblyProtocol {
-        return ListWithoutHeaderWidgetModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
+    func listWidgetModuleAssembly() -> ListWidgetModuleAssemblyProtocol {
+        return ListWidgetModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
     }
     
     func setListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol {
-        return SetListWidgetModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
+        return SetListWidgetModuleAssembly(serviceLocator: serviceLocator, widgetsSubmoduleDI: self)
     }
     
     func favoriteListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol {
@@ -145,6 +173,28 @@ final class WidgetsSubmoduleDI: WidgetsSubmoduleDIProtocol {
     
     func collectionsListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol {
         return CollectionsListWidgetModuleAssembly(serviceLocator: serviceLocator, widgetsSubmoduleDI: self)
+    }
+    
+    // MARK: - CompactList
+    
+    func setCompactListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol {
+        return SetCompactListWidgetModuleAssembly(serviceLocator: serviceLocator, widgetsSubmoduleDI: self)
+    }
+    
+    func favoriteCompactListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol {
+        return FavoriteCompactListWidgetModuleAssembly(serviceLocator: serviceLocator, widgetsSubmoduleDI: self)
+    }
+    
+    func recentCompactListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol {
+        return RecentCompactListWidgetModuleAssembly(serviceLocator: serviceLocator, widgetsSubmoduleDI: self)
+    }
+    
+    func setsCompactListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol {
+        return SetsCompactListWidgetModuleAssembly(serviceLocator: serviceLocator, widgetsSubmoduleDI: self)
+    }
+    
+    func collectionsCompactListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol {
+        return CollectionsCompactListWidgetModuleAssembly(serviceLocator: serviceLocator, widgetsSubmoduleDI: self)
     }
     
     // MARK: - Link

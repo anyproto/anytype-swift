@@ -15,6 +15,8 @@ protocol SetDocumentProtocol: BaseDocumentGeneralProtocol {
     var sortedRelations: [SetRelation] { get }
     var isObjectLocked: Bool { get }
     var analyticsType: AnalyticsObjectType { get }
+    // TODO Refactor this
+    var dataBuilder: SetContentViewDataBuilder { get }
     
     var featuredRelationsForEditor: [Relation] { get }
     var parsedRelations: ParsedRelations { get }

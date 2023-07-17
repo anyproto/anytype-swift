@@ -1,5 +1,6 @@
 import Foundation
 import UIKit
+import Services
 
 protocol CreateObjectModuleAssemblyProtocol {
     func makeCreateObject(
@@ -8,7 +9,7 @@ protocol CreateObjectModuleAssemblyProtocol {
         closeAction: @escaping () -> Void
     ) -> UIViewController
     
-    func makeCreateBookmark(closeAction: @escaping (_ withError: Bool) -> Void) -> UIViewController
+    func makeCreateBookmark(closeAction: @escaping (_ details: ObjectDetails?) -> Void) -> UIViewController
 }
 
 
@@ -35,7 +36,7 @@ final class CreateObjectModuleAssembly: CreateObjectModuleAssemblyProtocol {
         return make(viewModel: viewModel)
     }
     
-    func makeCreateBookmark(closeAction: @escaping (_ withError: Bool) -> Void) -> UIViewController {
+    func makeCreateBookmark(closeAction: @escaping (_ details: ObjectDetails?) -> Void) -> UIViewController {
         let viewModel = CreateBookmarkViewModel(
             bookmarkService: serviceLocator.bookmarkService(),
             closeAction: closeAction

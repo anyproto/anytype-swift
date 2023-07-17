@@ -6,6 +6,7 @@ import AnytypeCore
 enum AttributedTextConverter {
     
     static func asModel(
+        document: BaseDocumentProtocol,
         text: String,
         marks: Anytype_Model_Block.Content.Text.Marks,
         style: BlockText.Style
@@ -18,7 +19,7 @@ enum AttributedTextConverter {
                 attribute: mark.type,
                 value: mark.param
             )
-            guard let markValue = MarkStyleActionConverter.asModel(tuple: middlewareTuple) else {
+            guard let markValue = MarkStyleActionConverter.asModel(document: document, tuple: middlewareTuple) else {
                 return nil
             }
             

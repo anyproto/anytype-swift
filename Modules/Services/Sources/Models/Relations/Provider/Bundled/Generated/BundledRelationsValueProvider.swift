@@ -147,6 +147,8 @@ public protocol BundledRelationsValueProvider {
     var sourceFilePath: String { get }
     var fileSyncStatus: Int? { get }
     var lastChangeId: String { get }
+    var starred: Bool { get }
+    var defaultTemplateId: ObjectId { get }
 } 
 
 public extension BundledRelationsValueProvider where Self: RelationValueProvider {
@@ -637,5 +639,12 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     /// Last change ID
     var lastChangeId: String {
         return value(for: BundledRelationKey.lastChangeId.rawValue)
+    }
+    var starred: Bool {
+        return value(for: BundledRelationKey.starred.rawValue)
+    }
+    /// ID of template chosen as default for particular object type
+    var defaultTemplateId: ObjectId {
+        return value(for: BundledRelationKey.defaultTemplateId.rawValue)
     }
 }

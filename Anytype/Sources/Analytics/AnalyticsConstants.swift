@@ -13,6 +13,11 @@ enum AnalyticsEventsName {
     static let logout = "LogOut"
     static let deleteAccount = "DeleteAccount"
     static let cancelDeletion = "CancelDeletion"
+    
+    // New auth events
+    static let screenOnboarding = "ScreenOnboarding"
+    static let clickOnboarding = "ClickOnboarding"
+    static let clickLogin = "ClickLogin"
 
     // Block events
     static let blockCreate = "CreateBlock"
@@ -46,7 +51,6 @@ enum AnalyticsEventsName {
 
     // Object events
     static let createObject = "CreateObject"
-    static let createObjectNavBar = "CreateObjectNavBar"
     static let addToFavorites = "AddToFavorites"
     static let removeFromFavorites = "RemoveFromFavorites"
     static let moveToBin = "MoveToBin"
@@ -85,10 +89,9 @@ enum AnalyticsEventsName {
 
     // Screen show events
     static let disclaimerShow = "ScreenDisclaimer"
-    static let authScreenShow = "ScreenIndex"
+    static let mainAuthScreenShow = "ScreenIndex"
     static let loginScreenShow = "ScreenLogin"
     static let screenAuthRegistration = "ScreenAuthRegistration"
-    static let invitaionScreenShow = "ScreenAuthInvitation"
 
     static let homeShow = "ScreenHome"
     static let settingsShow = "ScreenSettings"
@@ -98,7 +101,7 @@ enum AnalyticsEventsName {
     static let accountSettingsShow = "ScreenSettingsAccount"
     static let screenSettingsPersonal = "ScreenSettingsPersonal"
     static let appearanceSettingsShow = "ScreenSettingsAppearance"
-    static let aboutSettingsShow = "ScreenSettingsAbout"
+    static let menuHelp = "MenuHelp"
     static let screenSettingsDelete = "ScreenSettingsDelete"
     static let settingsWallpaperSet = "SettingsWallpaperSet"
     static let screenSettingsStorageIndex = "ScreenSettingsStorageIndex"
@@ -178,9 +181,19 @@ enum AnalyticsEventsName {
         static let closeGroupToggle = "CloseSidebarGroupToggle"
     }
     
-    enum About {
-        static let helpAndCommunity = "Help_and_Community"
-        static let legal = "Legal"
+    enum About {        
+        static let whatIsNew = "MenuHelpWhatsNew"
+        static let anytypeCommunity = "MenuHelpCommunity"
+        static let helpAndTutorials = "MenuHelpTutorial"
+        static let contactUs = "MenuHelpContact"
+
+        static let termsOfUse = "MenuHelpTerms"
+        static let privacyPolicy = "MenuHelpPrivacy"
+        static let acknowledgments = "acknowledgments"
+    }
+    
+    enum FileStorage {
+        static let getMoreSpace = "GetMoreSpace"
     }
 }
 
@@ -203,8 +216,10 @@ enum AnalyticsEventsPropertiesKey {
 
     static let tab = "tab"
     static let route = "route"
+    static let step = "step"
 
     static let type = "type"
+    static let id = "id"
     static let objectType = "objectType"
     static let embedType = "embedType"
     static let length = "length"
@@ -224,10 +239,16 @@ enum AnalyticsEventsTypeValues {
 
 enum AnalyticsEventsRouteKind: String {
     case set = "Set"
-    case home = "Home"
+    case collection = "Collection"
     case mention = "Mention"
     case powertool = "Powertool"
     case turnInto = "TurnInto"
+    case navigation = "Navigation"
+}
+
+enum AnalyticsEventsRouteView: String {
+    case navbar = "Navbar"
+    case home = "Home"
 }
 
 enum AnalyticsEventsRelationType: String {
@@ -320,15 +341,21 @@ enum ShowDeletionWarningRoute: String {
     case settings = "Settings"
 }
 
-enum HelpAndCommunityType: String {
-    case whatIsNew = "what_is_new"
-    case anytypeCommunity = "anytype_community"
-    case helpAndTutorials = "help_and_tutorials"
-    case contactUs = "contact_us"
+enum ScreenOnboardingStep: String {
+    case void = "Void"
+    case phrase = "Phrase"
+    case soul = "Soul"
+    case soulCreating = "SoulCreating"
+    case spaceCreating = "SpaceCreating"
 }
 
-enum LegalType: String {
-    case termsOfUse = "terms_of_use"
-    case privacyPolicy = "privacy_policy"
-    case acknowledgments = "acknowledgments"
+enum ClickOnboardingButton: String {
+    case showAndCopy = "ShowAndCopy"
+    case checkLater = "CheckLater"
+}
+
+enum ClickLoginButton: String {
+    case phrase = "Phrase"
+    case qr = "Qr"
+    case keychain = "Keychain"
 }

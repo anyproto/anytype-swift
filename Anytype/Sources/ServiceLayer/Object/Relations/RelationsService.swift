@@ -14,17 +14,17 @@ final class RelationsService: RelationsServiceProtocol {
     
     // MARK: - RelationsServiceProtocol
     
-    func addFeaturedRelation(relationKey: String) {
+    func addFeaturedRelation(relationKey: String) async throws {
         AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.addFeatureRelation)
-        _ = try? ClientCommands.objectRelationAddFeatured(.with {
+        _ = try? await ClientCommands.objectRelationAddFeatured(.with {
             $0.contextID = objectId
             $0.relations = [relationKey]
         }).invoke()
     }
     
-    func removeFeaturedRelation(relationKey: String) {
+    func removeFeaturedRelation(relationKey: String) async throws {
         AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.removeFeatureRelation)
-        _ = try? ClientCommands.objectRelationRemoveFeatured(.with {
+        _ = try? await ClientCommands.objectRelationRemoveFeatured(.with {
             $0.contextID = objectId
             $0.relations = [relationKey]
         }).invoke()
@@ -49,7 +49,7 @@ final class RelationsService: RelationsServiceProtocol {
         
         guard let result = result,
               addRelations(relationKeys: [result.key]),
-              let objectDetails = ObjectDetails(protobufStruct: result.details)
+              let objectDetails = try? ObjectDetails(protobufStruct: result.details)
             else { return nil }
         
         return RelationDetails(objectDetails: objectDetails)
@@ -77,7 +77,7 @@ final class RelationsService: RelationsServiceProtocol {
         AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.deleteRelation)
     }
     
-    func addRelationOption(relationKey: String, optionText: String) -> String? {
+    func addRelationOption(relationKey: String, optionText: String) async throws -> String? {
         let color = MiddlewareColor.allCases.randomElement()?.rawValue ?? MiddlewareColor.default.rawValue
         
         let details = Google_Protobuf_Struct(
@@ -88,7 +88,7 @@ final class RelationsService: RelationsServiceProtocol {
             ]
         )
         
-        let optionResult = try? ClientCommands.objectCreateRelationOption(.with {
+        let optionResult = try? await ClientCommands.objectCreateRelationOption(.with {
             $0.details = details
         }).invoke()
         

@@ -29,7 +29,8 @@ final class EventsListener: EventsListenerProtocol {
         objectId: BlockId,
         infoContainer: InfoContainerProtocol,
         relationLinksStorage: RelationLinksStorageProtocol,
-        restrictionsContainer: ObjectRestrictionsContainer
+        restrictionsContainer: ObjectRestrictionsContainer,
+        detailsStorage: ObjectDetailsStorage
     ) {
         self.objectId = objectId
         self.infoContainer = infoContainer
@@ -42,6 +43,7 @@ final class EventsListener: EventsListenerProtocol {
             infoContainer: infoContainer,
             relationLinksStorage: relationLinksStorage,
             informationCreator: informationCreator,
+            detailsStorage: detailsStorage,
             restrictionsContainer: restrictionsContainer
         )
         self.localConverter = LocalEventConverter(
@@ -49,7 +51,8 @@ final class EventsListener: EventsListenerProtocol {
         )
         self.mentionMarkupEventProvider = MentionMarkupEventProvider(
             objectId: objectId,
-            infoContainer: infoContainer
+            infoContainer: infoContainer,
+            detailsStorage: detailsStorage
         )
         self.relationEventConverter = RelationEventConverter(relationLinksStorage: relationLinksStorage)
     }
@@ -115,16 +118,16 @@ final class EventsListener: EventsListenerProtocol {
     }
     
     private func receiveUpdates(_ updates: [DocumentUpdate]) {
+        if updates.contains(where: (\.hasUpdate)) {
+            IndentationBuilder.build(
+                container: infoContainer,
+                id: objectId
+            )
+        }
+        
         updates
             .filteredUpdates
             .forEach { update in
-            if update.hasUpdate {
-                IndentationBuilder.build(
-                    container: infoContainer,
-                    id: objectId
-                )
-            }
-            
             onUpdateReceive?(update)
         }
     }
@@ -147,8 +150,9 @@ private extension Array where Element == DocumentUpdate {
                 blocksSet.forEach { blockIdsUpdates.insert($0) }
             }
         }
-
-        newUpdates.append(.blocks(blockIds: blockIdsUpdates))
+        if blockIdsUpdates.count > 0 {
+            newUpdates.append(.blocks(blockIds: blockIdsUpdates))
+        }
 
         guard contains(.general) else {
             return newUpdates

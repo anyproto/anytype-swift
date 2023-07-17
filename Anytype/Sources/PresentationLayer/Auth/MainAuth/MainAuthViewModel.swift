@@ -37,8 +37,7 @@ class MainAuthViewModel: ObservableObject {
             applicationStateService: applicationStateService,
             authService: ServiceLocator.shared.authService(),
             seedService: ServiceLocator.shared.seedService(),
-            usecaseService: ServiceLocator.shared.usecaseService(),
-            metricsService: ServiceLocator.shared.metricsService()
+            usecaseService: ServiceLocator.shared.usecaseService()
         )
         return CreateNewProfileView(
             viewModel: viewModel,
@@ -47,12 +46,12 @@ class MainAuthViewModel: ObservableObject {
     }
     
     func loginView() -> some View {
-        let viewModel = LoginViewModel(applicationStateService: applicationStateService)
-        return LoginView(viewModel: viewModel)
+        let viewModel = LegacyLoginViewModel(applicationStateService: applicationStateService)
+        return LegacyLoginView(viewModel: viewModel)
     }
 
     // MARK: - View output
     func viewLoaded() {
-        AnytypeAnalytics.instance().logScreenAuthRegistration()
+        AnytypeAnalytics.instance().logMainAuthScreenShow()
     }
 }

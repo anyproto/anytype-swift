@@ -12,6 +12,8 @@ struct ObjectSearchData: SearchDataProtocol {
     
     let blockId: BlockId
     
+    let editorScreenData: EditorScreenData
+    
     private let details: ObjectDetails
     
     init(details: ObjectDetails) {
@@ -22,6 +24,7 @@ struct ObjectSearchData: SearchDataProtocol {
         self.typeId = details.objectType.id
         
         self.blockId = details.id
+        self.editorScreenData = details.editorScreenData()
     }
 
 }
@@ -55,9 +58,4 @@ extension ObjectSearchData {
     var iconImage: ObjectIconImage {
         details.objectIconImageWithPlaceholder
     }
-    
-    var viewType: EditorViewType {
-        details.editorViewType
-    }
-    
 }

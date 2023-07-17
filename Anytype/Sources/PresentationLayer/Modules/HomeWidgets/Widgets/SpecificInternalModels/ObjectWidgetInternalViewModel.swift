@@ -2,22 +2,18 @@ import Foundation
 import Services
 import Combine
 
-final class ObjectWidgetInternalViewModel: WidgetInternalViewModelProtocol {
+final class ObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, WidgetInternalViewModelProtocol {
     
     // MARK: - DI
     
-    private let widgetBlockId: BlockId
-    private let widgetObject: BaseDocumentProtocol
-    private let objectDetailsStorage: ObjectDetailsStorage
     private let subscriptionManager: TreeSubscriptionManagerProtocol
     
     // MARK: - State
     
-    private var contentIsAppear = false
     private var subscriptions = [AnyCancellable]()
     private var linkedObjectDetails: ObjectDetails?
     @Published private var details: [ObjectDetails]?
-    @Published private var name: String = Loc.favorites
+    @Published private var name: String = ""
     
     var detailsPublisher: AnyPublisher<[ObjectDetails]?, Never> { $details.eraseToAnyPublisher() }
     var namePublisher: AnyPublisher<String, Never> { $name.eraseToAnyPublisher() }
@@ -25,21 +21,15 @@ final class ObjectWidgetInternalViewModel: WidgetInternalViewModelProtocol {
     init(
         widgetBlockId: BlockId,
         widgetObject: BaseDocumentProtocol,
-        objectDetailsStorage: ObjectDetailsStorage,
         subscriptionManager: TreeSubscriptionManagerProtocol
     ) {
-        self.widgetBlockId = widgetBlockId
-        self.widgetObject = widgetObject
-        self.objectDetailsStorage = objectDetailsStorage
         self.subscriptionManager = subscriptionManager
+        super.init(widgetBlockId: widgetBlockId, widgetObject: widgetObject)
     }
     
-    func startHeaderSubscription() {
-        guard let tagetObjectId = widgetObject.targetObjectIdByLinkFor(widgetBlockId: widgetBlockId)
-            else { return }
-        
-        objectDetailsStorage.publisherFor(id: tagetObjectId)
-            .compactMap { $0 }
+    override func startHeaderSubscription() {
+        super.startHeaderSubscription()
+        widgetObject.widgetTargetDetailsPublisher(widgetBlockId: widgetBlockId)
             .receiveOnMain()
             .sink { [weak self] details in
                 self?.name = details.title
@@ -57,23 +47,24 @@ final class ObjectWidgetInternalViewModel: WidgetInternalViewModelProtocol {
         }
     }
     
-    func stopHeaderSubscription() {
+    override func stopHeaderSubscription() {
+        super.stopHeaderSubscription()
         subscriptions.removeAll()
     }
     
-    func startContentSubscription() {
-        contentIsAppear = true
+    override func startContentSubscription() {
+        super.startContentSubscription()
         updateLinksSubscriptions()
     }
     
-    func stopContentSubscription() {
-        contentIsAppear = false
+    override func stopContentSubscription() {
+        super.stopContentSubscription()
         subscriptionManager.stopAllSubscriptions()
     }
     
     func screenData() -> EditorScreenData? {
         guard let linkedObjectDetails else { return nil }
-        return EditorScreenData(pageId: linkedObjectDetails.id, type: linkedObjectDetails.editorViewType)
+        return linkedObjectDetails.editorScreenData()
     }
     
     func analyticsSource() -> AnalyticsWidgetSource {

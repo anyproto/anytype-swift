@@ -81,7 +81,7 @@ extension AnytypeAnalytics {
 
     func logSelectTheme(_ userInterfaceStyle: UIUserInterfaceStyle) {
         logEvent(AnalyticsEventsName.selectTheme,
-                 withEventProperties: [AnalyticsEventsPropertiesKey.type: userInterfaceStyle.title])
+                 withEventProperties: [AnalyticsEventsPropertiesKey.id: userInterfaceStyle.analyticsId])
     }
 
     func logShowObject(type: AnalyticsObjectType, layout: DetailsLayout) {
@@ -149,19 +149,15 @@ extension AnytypeAnalytics {
                  withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue])
     }
 
-    func logCreateObject(objectType: AnalyticsObjectType, route: AnalyticsEventsRouteKind) {
-        logEvent(
-            AnalyticsEventsName.createObject,
-            withEventProperties: [
-                AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId,
-                AnalyticsEventsPropertiesKey.route: route.rawValue
-            ]
-        )
-    }
-    
-    func logCreateObjectNavBar(objectType: AnalyticsObjectType) {
-        logEvent(AnalyticsEventsName.createObjectNavBar,
-                 withEventProperties: [AnalyticsEventsPropertiesKey.type: objectType.analyticsId])
+    func logCreateObject(objectType: AnalyticsObjectType, route: AnalyticsEventsRouteKind, view: AnalyticsEventsRouteView? = nil) {
+        var properties = [
+            AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId,
+            AnalyticsEventsPropertiesKey.route: route.rawValue
+        ]
+        if let view {
+            properties[AnalyticsEventsPropertiesKey.view] = view.rawValue
+        }
+        logEvent(AnalyticsEventsName.createObject, withEventProperties: properties)
     }
     
     func logLinkToObject(type: AnalyticsEventsLinkToObjectType) {
@@ -464,6 +460,14 @@ extension AnytypeAnalytics {
         logEvent(AnalyticsEventsName.screenAuthRegistration)
     }
     
+    func logMainAuthScreenShow() {
+        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.mainAuthScreenShow)
+    }
+    
+    func logLoginScreenShow() {
+        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.loginScreenShow)
+    }
+    
     func logScreenSettingsPersonal() {
         logEvent(AnalyticsEventsName.screenSettingsPersonal)
     }
@@ -549,21 +553,59 @@ extension AnytypeAnalytics {
         )
     }
     
-    func logAboutSettingsShow() {
-        logEvent(AnalyticsEventsName.aboutSettingsShow)
+    func logMenuHelp() {
+        logEvent(AnalyticsEventsName.menuHelp)
     }
     
-    func logHelpAndCommunity(type: HelpAndCommunityType) {
+    func logWhatsNew() {
+        logEvent(AnalyticsEventsName.About.whatIsNew)
+    }
+    
+    func logAnytypeCommunity() {
+        logEvent(AnalyticsEventsName.About.anytypeCommunity)
+    }
+    
+    func logHelpAndTutorials() {
+        logEvent(AnalyticsEventsName.About.helpAndTutorials)
+    }
+    
+    func logContactUs() {
+        logEvent(AnalyticsEventsName.About.contactUs)
+    }
+    
+    func logTermsOfUse() {
+        logEvent(AnalyticsEventsName.About.termsOfUse)
+    }
+    
+    func logPrivacyPolicy() {
+        logEvent(AnalyticsEventsName.About.privacyPolicy)
+    }
+    
+    func logGetMoreSpace() {
+        logEvent(AnalyticsEventsName.FileStorage.getMoreSpace)
+    }
+    
+    func logScreenOnboarding(step: ScreenOnboardingStep) {
         logEvent(
-            AnalyticsEventsName.About.helpAndCommunity,
-            withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue]
+            AnalyticsEventsName.screenOnboarding,
+            withEventProperties: [AnalyticsEventsPropertiesKey.step: step.rawValue]
         )
     }
     
-    func logLegal(type: LegalType) {
+    func logClickOnboarding(step: ScreenOnboardingStep, button: ClickOnboardingButton) {
         logEvent(
-            AnalyticsEventsName.About.legal,
-            withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue]
+            AnalyticsEventsName.clickOnboarding,
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.type: button.rawValue,
+                AnalyticsEventsPropertiesKey.step: step.rawValue
+            ]
+        )
+    }
+    
+    func logClickLogin(button: ClickLoginButton) {
+        logEvent(
+            AnalyticsEventsName.clickLogin,
+            withEventProperties: [AnalyticsEventsPropertiesKey.type: button.rawValue]
         )
     }
 }

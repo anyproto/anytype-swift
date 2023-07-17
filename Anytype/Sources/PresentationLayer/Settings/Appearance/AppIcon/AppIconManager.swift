@@ -7,15 +7,15 @@ final class AppIconManager {
     static let shared = AppIconManager()
     
     var currentIcon: AppIcon {
-        AppIcon.allCases.first { $0.name == UIApplication.shared.alternateIconName } ?? .gradient
+        AppIcon.allCases.first { $0.iconName == UIApplication.shared.alternateIconName } ?? .standart
     }
     
     func setIcon(_ appIcon: AppIcon, completion: ((Bool) -> Void)? = nil) {
         guard currentIcon != appIcon, UIApplication.shared.supportsAlternateIcons else { return }
         
-        UIApplication.shared.setAlternateIconName(appIcon.name) { error in
+        UIApplication.shared.setAlternateIconName(appIcon.iconName) { error in
             if let error = error {
-                anytypeAssertionFailure("Error setting alternate icon: \(error.localizedDescription))", info: ["name": appIcon.name ?? ""])
+                anytypeAssertionFailure("Error setting alternate icon: \(error.localizedDescription))", info: ["name": appIcon.iconName ?? ""])
             }
             completion?(error != nil)
         }

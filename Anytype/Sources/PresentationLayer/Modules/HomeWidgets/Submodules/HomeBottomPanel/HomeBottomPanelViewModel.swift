@@ -1,6 +1,7 @@
 import Foundation
 import Services
 import Combine
+import UIKit
 
 @MainActor
 final class HomeBottomPanelViewModel: ObservableObject {
@@ -75,6 +76,7 @@ final class HomeBottomPanelViewModel: ObservableObject {
                     self?.output?.onSearchSelected()
                 }),
                 ImageButton(image: .imageAsset(.Widget.add), onTap: { [weak self] in
+                    UISelectionFeedbackGenerator().selectionChanged()
                     self?.handleCreateObject()
                 }),
                 ImageButton(image: spaceDetails?.objectIconImage, onTap: { [weak self] in
@@ -103,11 +105,11 @@ final class HomeBottomPanelViewModel: ObservableObject {
     }
     
     private func handleCreateObject() {
-        guard let details = dashboardService.createNewPage() else { return }
-        
-        AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: .home)
-        
-        let screenData = EditorScreenData(pageId: details.id, type: details.editorViewType)
-        output?.onCreateObjectSelected(screenData: screenData)
+        Task { @MainActor in
+            guard let details = try? await dashboardService.createNewPage() else { return }
+            AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: .navigation, view: .home)
+            
+            output?.onCreateObjectSelected(screenData: details.editorScreenData())
+        }
     }
 }

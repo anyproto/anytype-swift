@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "splash_logo_white.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

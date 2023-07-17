@@ -9,7 +9,6 @@ final class LinkWidgetViewModel: ObservableObject, WidgetContainerContentViewMod
     
     private let widgetBlockId: BlockId
     private let widgetObject: BaseDocumentProtocol
-    private let objectDetailsStorage: ObjectDetailsStorage
     private weak var output: CommonWidgetModuleOutput?
     
     // MARK: - State
@@ -24,12 +23,10 @@ final class LinkWidgetViewModel: ObservableObject, WidgetContainerContentViewMod
     init(
         widgetBlockId: BlockId,
         widgetObject: BaseDocumentProtocol,
-        objectDetailsStorage: ObjectDetailsStorage,
         output: CommonWidgetModuleOutput?
     ) {
         self.widgetBlockId = widgetBlockId
         self.widgetObject = widgetObject
-        self.objectDetailsStorage = objectDetailsStorage
         self.output = output
     }
     
@@ -50,18 +47,14 @@ final class LinkWidgetViewModel: ObservableObject, WidgetContainerContentViewMod
     func onHeaderTap() {
         guard let linkedObjectDetails else { return }
         AnytypeAnalytics.instance().logSelectHomeTab(source: .object(type: linkedObjectDetails.analyticsType))
-        output?.onObjectSelected(screenData: EditorScreenData(pageId: linkedObjectDetails.id, type: linkedObjectDetails.editorViewType))
+        output?.onObjectSelected(screenData: linkedObjectDetails.editorScreenData())
     }
     
     // MARK: - Private
     
     private func setupAllSubscriptions() {
         
-        guard let tagetObjectId = widgetObject.targetObjectIdByLinkFor(widgetBlockId: widgetBlockId)
-            else { return }
-        
-        objectDetailsStorage.publisherFor(id: tagetObjectId)
-            .compactMap { $0 }
+        widgetObject.widgetTargetDetailsPublisher(widgetBlockId: widgetBlockId)
             .receiveOnMain()
             .sink { [weak self] details in
                 self?.linkedObjectDetails = details

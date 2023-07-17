@@ -148,7 +148,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     }
     
     private func performGeneralUpdate() {
-
         let models = document.children
         
         let blocksViewModels = blockBuilder.buildEditorItems(infos: models)
@@ -255,8 +254,8 @@ extension EditorPageViewModel {
                     try await document.openForPreview()
                 } else {
                     try await document.open()
+                    blocksStateManager.checkOpenedState()
                 }
-                blocksStateManager.checkOpenedState()
             } catch {
                 router.closeEditor()
             }
@@ -283,7 +282,9 @@ extension EditorPageViewModel {
             alertModel: .undoAlertModel(
                 undoAction: { [weak self] in
                     guard let self = self else { return }
-                    try? self.objectActionsService.undo(objectId: self.document.objectId)
+                    Task {
+                        try await self.objectActionsService.undo(objectId: self.document.objectId)
+                    }
                 }
             )
         )
@@ -335,6 +336,6 @@ extension EditorPageViewModel {
 
 extension EditorPageViewModel: CustomDebugStringConvertible {
     var debugDescription: String {
-        "\(String(reflecting: Self.self)) -> \(String(describing: document.objectId))"
+        "\(Unmanaged.passUnretained(self).toOpaque()) -> \(String(reflecting: Self.self)) -> \(String(describing: document.objectId))"
     }
 }

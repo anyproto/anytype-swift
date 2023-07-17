@@ -33,6 +33,13 @@ struct FileStorageView: View {
         AnytypeText(Loc.FileStorage.Space.title, style: .uxTitle1Semibold, color: .Text.primary)
         Spacer.fixedHeight(4)
         AnytypeText(model.spaceInstruction, style: .uxCalloutRegular, color: .Text.primary)
+        if model.showGetMoreSpaceButton {
+            Spacer.fixedHeight(4)
+            AnytypeText(Loc.FileStorage.Space.getMore, style: .uxCalloutMedium, color: .System.red)
+                .onTapGesture {
+                    model.onTapGetMoreSpace()
+                }
+        }
         Spacer.fixedHeight(16)
         FileStorageInfoBlock(iconImage: model.spaceIcon, title: model.spaceName, description: model.spaceUsed, isWarning: model.spaceUsedWarning)
         Spacer.fixedHeight(8)

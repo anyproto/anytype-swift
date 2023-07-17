@@ -55,7 +55,7 @@ struct AuthBackgroundView<Content>: View where Content: View {
     private func playerView(width: CGFloat, height: CGFloat) -> some View {
         if let url {
             LoopingPlayerView(url: url)
-                .aspectRatio(UIDevice.isPad ? 0.7 : 0.53, contentMode: .fill)
+                .aspectRatio(UIDevice.isPad ? 0.85 : 0.53, contentMode: .fill)
                 .frame(width: width, height: height)
         }
     }

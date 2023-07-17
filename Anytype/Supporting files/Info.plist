@@ -2,58 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>AmplitudeApiKey</key>
+	<string></string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
-	<key>CFBundleIcons</key>
-	<dict>
-		<key>CFBundleAlternateIcons</key>
-		<dict>
-			<key>art</key>
-			<dict>
-				<key>CFBundleIconFiles</key>
-				<array>
-					<string>art</string>
-				</array>
-				<key>UIPrerenderedIcon</key>
-				<false/>
-			</dict>
-			<key>oldSchool</key>
-			<dict>
-				<key>CFBundleIconFiles</key>
-				<array>
-					<string>oldSchool</string>
-				</array>
-				<key>UIPrerenderedIcon</key>
-				<false/>
-			</dict>
-		</dict>
-	</dict>
-	<key>CFBundleIcons~ipad</key>
-	<dict>
-		<key>CFBundleAlternateIcons</key>
-		<dict>
-			<key>art</key>
-			<dict>
-				<key>CFBundleIconFiles</key>
-				<array>
-					<string>art</string>
-				</array>
-				<key>UIPrerenderedIcon</key>
-				<false/>
-			</dict>
-			<key>oldSchool</key>
-			<dict>
-				<key>CFBundleIconFiles</key>
-				<array>
-					<string>oldSchool</string>
-				</array>
-				<key>UIPrerenderedIcon</key>
-				<false/>
-			</dict>
-		</dict>
-	</dict>
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
@@ -63,7 +17,7 @@
 	<key>CFBundlePackageType</key>
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.22.1</string>
+	<string>0.23.2</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -106,6 +60,8 @@
 	<array>
 		<string>ConfigurationIntent</string>
 	</array>
+	<key>SentryDSN</key>
+	<string></string>
 	<key>SentryEnv</key>
 	<string>$(SENTRY_ENV)</string>
 	<key>UIAppFonts</key>
@@ -115,7 +71,6 @@
 		<string>IBMPlexMono-Bold.ttf</string>
 		<string>IBMPlexMono-Regular.ttf</string>
 		<string>Inter.ttf</string>
-		<string>Riccione-Xlight-Regular.ttf</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
@@ -200,9 +155,5 @@
 		<key>BuildConfigurationName</key>
 		<string>$(CONFIGURATION)</string>
 	</dict>
-	<key>AmplitudeApiKey</key>
-	<string></string>
-	<key>SentryDSN</key>
-	<string></string>
 </dict>
 </plist>

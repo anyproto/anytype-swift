@@ -40,8 +40,7 @@ final class SlashMenuActionHandler {
                     .createPage(targetId: blockId, type: .dynamic(object.id))
                     .flatMap { id in
                         AnytypeAnalytics.instance().logCreateObject(objectType: object.analyticsType, route: .powertool)
-
-                        router.showPage(data: EditorScreenData(pageId: id, type: .page))
+                        router.showPage(data: .page(EditorPageObject(objectId: id, isSupportedForEdit: true, isOpenedForPreview: false)))
                     }
             }
         case let .relations(action):
@@ -126,8 +125,8 @@ final class SlashMenuActionHandler {
         case .duplicate:
             actionHandler.duplicate(blockId: blockId)
         case .moveTo:
-            router.showMoveTo { [weak self] pageId in
-                self?.actionHandler.moveToPage(blockId: blockId, pageId: pageId)
+            router.showMoveTo { [weak self] details in
+                self?.actionHandler.moveToPage(blockId: blockId, pageId: details.id)
             }
         case .copy:
             pasteboardService.copy(blocksIds: [blockId], selectedTextRange: NSRange())

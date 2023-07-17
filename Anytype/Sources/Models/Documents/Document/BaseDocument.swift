@@ -11,14 +11,14 @@ final class BaseDocument: BaseDocumentProtocol {
     let infoContainer: InfoContainerProtocol = InfoContainer()
     let relationLinksStorage: RelationLinksStorageProtocol = RelationLinksStorage()
     let restrictionsContainer: ObjectRestrictionsContainer = ObjectRestrictionsContainer()
-    let detailsStorage = ObjectDetailsStorage.shared
+    let detailsStorage = ObjectDetailsStorage()
     
     var objectRestrictions: ObjectRestrictions { restrictionsContainer.restrinctions }
 
     private let blockActionsService: BlockActionsServiceSingleProtocol
     private let eventsListener: EventsListenerProtocol
     private let updateSubject = PassthroughSubject<DocumentUpdate, Never>()
-    private let relationBuilder = RelationsBuilder()
+    private let relationBuilder: RelationsBuilder
     private let relationDetailsStorage = ServiceLocator.shared.relationDetailsStorage()
     private let viewModelSetter: DocumentViewModelSetterProtocol
     private let forPreview: Bool
@@ -46,7 +46,8 @@ final class BaseDocument: BaseDocumentProtocol {
             relationsDetails: objectRelationsDetails,
             typeRelationsDetails: typeRelationsDetails,
             objectId: objectId,
-            isObjectLocked: isLocked
+            isObjectLocked: isLocked,
+            storage: detailsStorage
         )
     }
     
@@ -60,9 +61,9 @@ final class BaseDocument: BaseDocumentProtocol {
     }
     
     var detailsPublisher: AnyPublisher<ObjectDetails, Never> {
-        detailsStorage.publisherFor(id: objectId)
+        syncPublisher
             .receiveOnMain()
-            .compactMap { $0 }
+            .compactMap { [weak self, objectId] in self?.detailsStorage.get(id: objectId) }
             .eraseToAnyPublisher()
     }
     
@@ -74,7 +75,8 @@ final class BaseDocument: BaseDocumentProtocol {
             objectId: objectId,
             infoContainer: infoContainer,
             relationLinksStorage: relationLinksStorage,
-            restrictionsContainer: restrictionsContainer
+            restrictionsContainer: restrictionsContainer,
+            detailsStorage: detailsStorage
         )
         
         self.viewModelSetter = DocumentViewModelSetter(
@@ -85,6 +87,7 @@ final class BaseDocument: BaseDocumentProtocol {
         )
         
         self.blockActionsService = ServiceLocator.shared.blockActionsServiceSingle()
+        self.relationBuilder = RelationsBuilder()
         
         setup()
     }

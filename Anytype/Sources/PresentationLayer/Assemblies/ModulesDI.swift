@@ -123,17 +123,29 @@ final class ModulesDI: ModulesDIProtocol {
     }
     
     func authorization() -> AuthModuleAssemblyProtocol {
-        return AuthModuleAssembly(serviceLocator: serviceLocator)
+        return AuthModuleAssembly()
     }
     
     func joinFlow() -> JoinFlowModuleAssemblyProtocol {
         return JoinFlowModuleAssembly(serviceLocator: serviceLocator)
     }
     
+    func login() -> LoginViewModuleAssemblyProtocol {
+        return LoginViewModuleAssembly(serviceLocator: serviceLocator)
+    }
+    
+    func enteringVoid() -> EnteringVoidModuleAssemblyProtocol {
+        return EnteringVoidModuleAssembly(serviceLocator: serviceLocator)
+    }
+    
+    func migrationGuide() -> MigrationGuideViewModuleAssemblyProtocol {
+        return MigrationGuideViewModuleAssembly()
+    }
+    
     // @joe_pusya: will be moved to separate modulesDI
     
     func authVoid() -> VoidViewModuleAssemblyProtocol {
-        return VoidViewModuleAssembly()
+        return VoidViewModuleAssembly(serviceLocator: serviceLocator)
     }
     
     func authKey() -> KeyPhraseViewModuleAssemblyProtocol {

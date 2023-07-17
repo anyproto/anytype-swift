@@ -24,14 +24,12 @@ final class TagsSearchInteractor {
 
 extension TagsSearchInteractor {
     
-    func search(text: String) -> Result<[Relation.Tag.Option], NewSearchError> {
-        let filteredTags = searchService.searchRelationOptions(
+    func search(text: String) async throws -> [Relation.Tag.Option] {
+        try await searchService.searchRelationOptions(
             text: text,
             relationKey: relationKey,
-            excludedObjectIds: selectedTagIds)?
-            .map { Relation.Tag.Option(option: $0) } ?? []
-
-        return .success(filteredTags)
+            excludedObjectIds: selectedTagIds)
+            .map { Relation.Tag.Option(option: $0) }
     }
     
     func isCreateButtonAvailable(searchText: String, tags: [Relation.Tag.Option]) -> Bool {

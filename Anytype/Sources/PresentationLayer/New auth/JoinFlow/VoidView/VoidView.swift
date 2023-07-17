@@ -2,7 +2,7 @@ import SwiftUI
 
 struct VoidView: View {
     
-    @ObservedObject var model: VoidViewModel
+    @StateObject var model: VoidViewModel
     
     var body: some View {
         VStack(spacing: 0) {
@@ -11,13 +11,17 @@ struct VoidView: View {
             Spacer()
             
             StandardButton(
-                Loc.Auth.JoinFlow.next,
+                Loc.Auth.next,
+                inProgress: model.creatingAccountInProgress,
                 style: .primaryLarge,
                 action: {
                     model.onNextButtonTap()
                 }
             )
             .colorScheme(.light)
+        }
+        .onAppear {
+            model.onAppear()
         }
     }
     
@@ -29,13 +33,21 @@ struct VoidView: View {
                 .multilineTextAlignment(.center)
             Spacer.fixedHeight(100)
         }
-        .padding(.horizontal, 24)
+        .padding(.horizontal, UIDevice.isPad ? 75 : 24)
     }
 }
 
 
 struct VoidView_Previews : PreviewProvider {
     static var previews: some View {
-        VoidView(model: VoidViewModel(output: nil))
+        VoidView(
+            model: VoidViewModel(
+                state: JoinFlowState(),
+                output: nil,
+                authService: DI.preview.serviceLocator.authService(),
+                seedService: DI.preview.serviceLocator.seedService(),
+                usecaseService: DI.preview.serviceLocator.usecaseService()
+            )
+        )
     }
 }

@@ -1,11 +1,3 @@
-//
-//  AudioBlockPlayerDelegate.swift
-//  Anytype
-//
-//  Created by Denis Batvinkin on 06.10.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import Foundation
 
 
@@ -31,9 +23,11 @@ extension AudioBlockViewModel: AudioPlayerViewDelegate {
 
     func playButtonDidPress(sliderValue: Double) {
         if audioPlayer.isPlaying(audioId: info.id) {
+            setAudioSessionCategorypPlaybackMixWithOthers()
             audioPlayer.pause(audioId: info.id)
             audioPlayerView?.pause()
         } else {
+            setAudioSessionCategorypPlayback()
             audioPlayer.play(
                 audioId: info.id,
                 name: fileData.metadata.name,
@@ -68,6 +62,7 @@ extension AudioBlockViewModel: AnytypeAudioPlayerDelegate {
     }
 
     func playerItemDidPlayToEndTime() {
+        setAudioSessionCategorypPlaybackMixWithOthers()
         audioPlayerView?.trackTimeChanged(0)
         audioPlayerView?.pause()
     }
@@ -78,6 +73,7 @@ extension AudioBlockViewModel: AnytypeAudioPlayerDelegate {
     }
 
     func stopPlaying() {
+        setAudioSessionCategorypPlaybackMixWithOthers()
         audioPlayerView?.pause()
     }
 }

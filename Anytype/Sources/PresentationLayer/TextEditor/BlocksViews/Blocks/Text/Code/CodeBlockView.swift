@@ -62,7 +62,7 @@ final class CodeBlockView: UIView, BlockContentView {
         textStorage.language = configuration.codeLanguage.rawValue
         textStorage.highlightr.setTheme(to: traitCollection.userInterfaceStyle.themeName)
     
-        textStorage.highlightr.highlight(configuration.content.anytypeText.attrString.string).flatMap {
+        textStorage.highlightr.highlight(configuration.anytypeText.attrString.string).flatMap {
             textStorage.setAttributedString($0)
         }
         

@@ -3,13 +3,7 @@ import Services
 import SwiftProtobuf
 
 final class RelationFilterBuilder {
-    
-    private let storage: ObjectDetailsStorage
-    
-    init(storage: ObjectDetailsStorage = ObjectDetailsStorage.shared) {
-        self.storage = storage
-    }
-    
+        
     // MARK: - Private variables
     
     private let dateFormatter: DateFormatter = {
@@ -27,12 +21,14 @@ final class RelationFilterBuilder {
     }()
     
     func relation(
+        document: BaseDocumentProtocol,
         relationDetails: RelationDetails,
         filter: DataviewFilter
     ) -> Relation? {
         switch relationDetails.format {
         case .object:
             return objectRelation(
+                document: document,
                 relationDetails: relationDetails,
                 filter: filter
             )
@@ -48,11 +44,13 @@ final class RelationFilterBuilder {
             )
         case .status:
             return statusRelation(
+                document: document,
                 relationDetails: relationDetails,
                 filter: filter
             )
         case .file:
             return fileRelation(
+                document: document,
                 relationDetails: relationDetails,
                 filter: filter
             )
@@ -78,6 +76,7 @@ final class RelationFilterBuilder {
             )
         case .tag:
             return tagRelation(
+                document: document,
                 relationDetails: relationDetails,
                 filter: filter
             )
@@ -113,6 +112,7 @@ final class RelationFilterBuilder {
 
 private extension RelationFilterBuilder {
     func objectRelation(
+        document: BaseDocumentProtocol,
         relationDetails: RelationDetails,
         filter: DataviewFilter
     ) -> Relation? {
@@ -128,7 +128,7 @@ private extension RelationFilterBuilder {
             }()
             
             let objectDetails: [ObjectDetails] = values.compactMap {
-                return storage.get(id: $0.stringValue)
+                return document.detailsStorage.get(id: $0.stringValue)
             }
 
             let objectOptions: [Relation.Object.Option] = objectDetails.map { objectDetail in
@@ -139,7 +139,7 @@ private extension RelationFilterBuilder {
                     type: objectDetail.objectType.name,
                     isArchived: objectDetail.isArchived,
                     isDeleted: objectDetail.isDeleted,
-                    editorViewType: objectDetail.editorViewType
+                    editorScreenData: objectDetail.editorScreenData()
                 )
             }
             
@@ -263,6 +263,7 @@ private extension RelationFilterBuilder {
     }
     
     func statusRelation(
+        document: BaseDocumentProtocol,
         relationDetails: RelationDetails,
         filter: DataviewFilter
     ) -> Relation? {
@@ -275,7 +276,7 @@ private extension RelationFilterBuilder {
             }
             
             return selectedSatusesIds
-                .compactMap { storage.get(id: $0) }
+                .compactMap { document.detailsStorage.get(id: $0) }
                 .map { RelationOption(details: $0) }
                 .map { Relation.Status.Option(option: $0) }
         }()
@@ -295,6 +296,7 @@ private extension RelationFilterBuilder {
     }
     
     func tagRelation(
+        document: BaseDocumentProtocol,
         relationDetails: RelationDetails,
         filter: DataviewFilter
     ) -> Relation? {
@@ -309,7 +311,7 @@ private extension RelationFilterBuilder {
             }
             
             let tags = selectedTagIds
-                .compactMap { storage.get(id: $0) }
+                .compactMap { document.detailsStorage.get(id: $0) }
                 .map { RelationOption(details: $0) }
                 .map { Relation.Tag.Option(option: $0) }
             
@@ -331,6 +333,7 @@ private extension RelationFilterBuilder {
     }
     
     func fileRelation(
+        document: BaseDocumentProtocol,
         relationDetails: RelationDetails,
         filter: DataviewFilter
     ) -> Relation? {
@@ -338,14 +341,15 @@ private extension RelationFilterBuilder {
         
         let fileOptions: [Relation.File.Option] = {
             let objectDetails: [ObjectDetails] = filter.value.listValue.values.compactMap {
-                return storage.get(id: $0.stringValue)
+                return document.detailsStorage.get(id: $0.stringValue)
             }
 
             let objectOptions: [Relation.File.Option] = objectDetails.map { objectDetail in
                 return Relation.File.Option(
                     id: objectDetail.id,
                     icon: objectDetail.objectIconImageWithPlaceholder,
-                    title: objectDetail.title
+                    title: objectDetail.title,
+                    editorScreenData: objectDetail.editorScreenData()
                 )
             }
             

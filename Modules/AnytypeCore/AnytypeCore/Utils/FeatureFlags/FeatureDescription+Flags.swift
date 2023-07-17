@@ -36,9 +36,8 @@ public extension FeatureDescription {
     
     static let newAuthorization = FeatureDescription(
         title: "New authorization",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.?.0"),
-        defaultValue: false,
-        debugValue: false
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.23.0"),
+        defaultValue: true
     )
     
     static let redesignAbout = FeatureDescription(
@@ -62,6 +61,36 @@ public extension FeatureDescription {
     static let fixSIGPIPECrash = FeatureDescription(
         title: "Fix SIGPIPE crash",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.22.0"),
+        defaultValue: true
+    )
+    
+    static let compactListWidget = FeatureDescription(
+        title: "Compact List widget",
+        type: .feature(author: "m@anytype.io", releaseVersion: "0.23.0"),
+        defaultValue: true
+    )
+    
+    static let getMoreSpace = FeatureDescription(
+        title: "Get more space - IOS-1307",
+        type: .feature(author: "m@anytype.io", releaseVersion: "0.23.0"),
+        defaultValue: true
+    )
+    
+    static let fixAVCaptureSessionError = FeatureDescription(
+        title: "Fix AVCaptureSession error",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.23.0"),
+        defaultValue: true
+    )
+    
+    static let clearAccountDataOnDeletedStatus = FeatureDescription(
+        title: "Clear cccount data on deleted status",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.23.0"),
+        defaultValue: true
+    )
+    
+    static let fixAudioSession = FeatureDescription(
+        title: "Fix AudioSession to avoid stop playing misic on the new onboarding",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.23.0"),
         defaultValue: true
     )
     

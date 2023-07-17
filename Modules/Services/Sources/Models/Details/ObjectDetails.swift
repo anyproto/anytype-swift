@@ -2,6 +2,10 @@ import Foundation
 import AnytypeCore
 import SwiftProtobuf
 
+enum ObjectDetailsError: Error {
+	case detailsIdIsMissing
+}
+
 public struct ObjectDetails: Hashable, RelationValueProvider, BundledRelationsValueProvider {
     
     public let id: BlockId
@@ -44,17 +48,16 @@ public extension ObjectDetails {
         
         return ObjectDetails(id: self.id, values: currentValues)
     }
-    
 }
 
 public extension ObjectDetails {
     
-    init?(protobufStruct: Google_Protobuf_Struct) {
+    init(protobufStruct: Google_Protobuf_Struct) throws {
         let fields = protobufStruct.fields
         
         guard let id = fields["id"]?.stringValue, id.isValidId else {
             anytypeAssertionFailure("Empty id in subscription data")
-            return nil
+			throw ObjectDetailsError.detailsIdIsMissing
         }
         
         self.init(id: id, values: fields)

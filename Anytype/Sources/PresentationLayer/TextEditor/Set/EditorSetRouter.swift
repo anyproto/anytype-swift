@@ -20,7 +20,7 @@ protocol EditorSetRouterProtocol:
         showViewTypes: @escaping RoutingAction<DataviewView?>
     )
     
-    func showCreateObject(pageId: BlockId)
+    func showCreateObject(details: ObjectDetails)
     func showCreateBookmarkObject()
     
     func showRelationSearch(relationsDetails: [RelationDetails], onSelect: @escaping (RelationDetails) -> Void)
@@ -161,10 +161,10 @@ final class EditorSetRouter: EditorSetRouterProtocol {
         presentSheet(vc)
     }
     
-    func showCreateObject(pageId: BlockId) {
-        let moduleViewController = createObjectModuleAssembly.makeCreateObject(objectId: pageId) { [weak self] in
+    func showCreateObject(details: ObjectDetails) {
+        let moduleViewController = createObjectModuleAssembly.makeCreateObject(objectId: details.id) { [weak self] in
             self?.navigationContext.dismissTopPresented()
-            self?.showPage(data: EditorScreenData(pageId: pageId, type: .page))
+            self?.showPage(data: details.editorScreenData())
         } closeAction: { [weak self] in
             self?.navigationContext.dismissTopPresented()
         }
@@ -174,9 +174,13 @@ final class EditorSetRouter: EditorSetRouterProtocol {
     
     func showCreateBookmarkObject() {
         let moduleViewController = createObjectModuleAssembly.makeCreateBookmark(
-            closeAction: { [weak self] withError in
+            closeAction: { [weak self] details in
+                if let details, let self {
+                    AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: setDocument.isCollection() ? .collection : .set)
+                }
+                
                 self?.navigationContext.dismissTopPresented(animated: true) {
-                    guard withError else { return }
+                    guard details.isNil else { return }
                     self?.alertHelper.showToast(
                         title: Loc.Set.Bookmark.Error.title,
                         message: Loc.Set.Bookmark.Error.message
@@ -437,7 +441,11 @@ final class EditorSetRouter: EditorSetRouterProtocol {
     }
     
     func showRelationValueEditingView(objectId: BlockId, relation: Relation) {
-        relationValueCoordinator.startFlow(objectId: objectId, relation: relation, analyticsType: .dataview, output: self)
+        guard let objectDetails = setDocument.document.detailsStorage.get(id: objectId) else {
+            anytypeAssertionFailure("Details not found")
+            return
+        }
+        relationValueCoordinator.startFlow(objectDetails: objectDetails, relation: relation, analyticsType: .dataview, output: self)
     }
     
     func showAddNewRelationView(onSelect: ((RelationDetails, _ isNew: Bool) -> Void)?) {
@@ -510,16 +518,16 @@ final class EditorSetRouter: EditorSetRouterProtocol {
 }
 
 extension EditorSetRouter: RelationValueCoordinatorOutput {
-    func openObject(pageId: BlockId, viewType: EditorViewType) {
+    func openObject(screenData: EditorScreenData) {
         navigationContext.dismissAllPresented()
-        showPage(data: EditorScreenData(pageId: pageId, type: viewType))
+        showPage(data: screenData)
     }
 }
 
 extension EditorSetRouter: ObjectSettingsModuleDelegate {
     func didCreateLinkToItself(selfName: String, data: EditorScreenData) {
         UIApplication.shared.hideKeyboard()
-        toastPresenter.showObjectName(selfName, middleAction: Loc.Editor.Toast.linkedTo, secondObjectId: data.pageId) { [weak self] in
+        toastPresenter.showObjectName(selfName, middleAction: Loc.Editor.Toast.linkedTo, secondObjectId: data.objectId) { [weak self] in
             self?.showPage(data: data)
         }
     }

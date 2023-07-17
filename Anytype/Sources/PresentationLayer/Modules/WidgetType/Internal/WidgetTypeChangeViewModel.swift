@@ -30,7 +30,7 @@ final class WidgetTypeChangeViewModel: WidgetTypeInternalViewModelProtocol {
         
         widgetObject.syncPublisher.sink { [weak self] in
             guard let info = self?.widgetObject.widgetInfo(blockId: widgetId) else { return }
-            self?.state = WidgetTypeState(source: info.source, layout: info.block.layout)
+            self?.state = WidgetTypeState(source: info.source, layout: info.fixedLayout)
         }
         .store(in: &subscriptions)
     }
@@ -43,10 +43,9 @@ final class WidgetTypeChangeViewModel: WidgetTypeInternalViewModelProtocol {
         AnytypeAnalytics.instance().logChangeWidgetLayout(source: source.analyticsSource, layout: layout, route: .inner, context: context)
         
         Task { @MainActor in
-            try? await blockWidgetService.replaceWidgetBlock(
+            try? await blockWidgetService.setLayout(
                 contextId: widgetObject.objectId,
                 widgetBlockId: widgetId,
-                sourceId: source.sourceId,
                 layout: layout
             )
             onFinish()
