@@ -227,7 +227,8 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
     // MARK: - Private
 
     private func setupEditingHandlers() {
-        $editingState.sink { [unowned self] state in
+        $editingState.sink { [weak self] state in
+            guard let self else { return }
             switch state {
             case .selecting(let blocks):
                 blocksSelectionOverlayViewModel?.state = .editorMenu(selectedBlocksCount: blocks.count)

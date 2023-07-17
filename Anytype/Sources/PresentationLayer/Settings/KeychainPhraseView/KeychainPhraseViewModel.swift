@@ -43,16 +43,16 @@ class KeychainPhraseViewModel: ObservableObject {
     // MARK: - Private
     
     private func obtainRecoveryPhrase(onTap: @escaping () -> ()) {
-        localAuthService.auth(reason: Loc.accessToSecretPhraseFromKeychain) { [unowned self] didComplete in
+        localAuthService.auth(reason: Loc.accessToSecretPhraseFromKeychain) { [weak self] didComplete in
             guard didComplete,
-                  let phrase = try? seedService.obtainSeed() else {
+                  let phrase = try? self?.seedService.obtainSeed() else {
                 return
             }
             
             DispatchQueue.main.async { [weak self] in
-                guard let self = self else { return }
-                self.recoveryPhrase = phrase
-                self.onSuccessfullRecovery(recoveryPhrase: phrase, onTap: onTap)
+                guard let self else { return }
+                recoveryPhrase = phrase
+                onSuccessfullRecovery(recoveryPhrase: phrase, onTap: onTap)
             }
         }
     }
