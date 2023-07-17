@@ -34,7 +34,7 @@ final class StatusSearchViewModel {
 extension StatusSearchViewModel: NewInternalSearchViewModelProtocol {
     
     func search(text: String) async throws {
-        let result = try await interactor.search(text: text)
+        statuses = try await interactor.search(text: text)
         handleSearchResults(statuses)
     }
     
