@@ -5679,7 +5679,6 @@
 		2E0A6CCF2A37674300A28AF2 /* LoginFlow */ = {
 			isa = PBXGroup;
 			children = (
-				2E2EA2C62A53385000569E1E /* DotsView */,
 				2E0A6CD02A376B4600A28AF2 /* LoginView.swift */,
 				2E0A6CD22A376E4400A28AF2 /* LoginViewModel.swift */,
 				2E0A6CD42A376F1300A28AF2 /* LoginViewModuleAssembly.swift */,
@@ -6657,6 +6656,7 @@
 		3D486C162631726A00A9B625 /* SwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				2E2EA2C62A53385000569E1E /* DotsView */,
 				2E52DE652A1CDF3D00F16815 /* LineProgressBar */,
 				2AEE3E6929C1C2D3007C72AF /* HostingController */,
 				2AA8108629A667FD007DD64B /* DragAndDrop */,
