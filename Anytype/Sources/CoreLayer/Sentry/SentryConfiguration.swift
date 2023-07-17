@@ -18,6 +18,7 @@ final class SentryConfigurator: AppConfiguratorProtocol {
             options.enableCaptureFailedRequests = false
             options.enableMetricKit = true
             options.swiftAsyncStacktraces = true
+            options.enableAppHangTracking = false
             
             #if DEBUG
             options.attachViewHierarchy = true
