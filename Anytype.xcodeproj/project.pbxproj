@@ -651,7 +651,6 @@
 		2AEE3E6B29C1C2E2007C72AF /* AnytypeHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEE3E6A29C1C2E2007C72AF /* AnytypeHostingController.swift */; };
 		2AEE3E6D29C1C352007C72AF /* AnytypeStatusBarStyleKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEE3E6C29C1C352007C72AF /* AnytypeStatusBarStyleKey.swift */; };
 		2AEE49EE292E27FA00EA53AA /* ObjectSettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEE49ED292E27FA00EA53AA /* ObjectSettingsCoordinator.swift */; };
-		2AEF20F32A61399100464B88 /* ButtonLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF20F22A61399100464B88 /* ButtonLoadingView.swift */; };
 		2AF109562A02639700EDDE26 /* FileIconBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF109552A02639700EDDE26 /* FileIconBuilder.swift */; };
 		2AF109582A03C56600EDDE26 /* NSItemProvider+Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF109572A03C56600EDDE26 /* NSItemProvider+Async.swift */; };
 		2AF2C6B928BD104B00F8612B /* UIAnytypeActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF2C6B828BD104B00F8612B /* UIAnytypeActivityIndicator.swift */; };
@@ -2135,7 +2134,6 @@
 		2AEE3E6A29C1C2E2007C72AF /* AnytypeHostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeHostingController.swift; sourceTree = "<group>"; };
 		2AEE3E6C29C1C352007C72AF /* AnytypeStatusBarStyleKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeStatusBarStyleKey.swift; sourceTree = "<group>"; };
 		2AEE49ED292E27FA00EA53AA /* ObjectSettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectSettingsCoordinator.swift; sourceTree = "<group>"; };
-		2AEF20F22A61399100464B88 /* ButtonLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonLoadingView.swift; sourceTree = "<group>"; };
 		2AF109552A02639700EDDE26 /* FileIconBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileIconBuilder.swift; sourceTree = "<group>"; };
 		2AF109572A03C56600EDDE26 /* NSItemProvider+Async.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSItemProvider+Async.swift"; sourceTree = "<group>"; };
 		2AF2C6B828BD104B00F8612B /* UIAnytypeActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAnytypeActivityIndicator.swift; sourceTree = "<group>"; };
@@ -5756,7 +5754,6 @@
 		2E0A6CCF2A37674300A28AF2 /* LoginFlow */ = {
 			isa = PBXGroup;
 			children = (
-				2E2EA2C62A53385000569E1E /* DotsView */,
 				2E0A6CD02A376B4600A28AF2 /* LoginView.swift */,
 				2E0A6CD22A376E4400A28AF2 /* LoginViewModel.swift */,
 				2E0A6CD42A376F1300A28AF2 /* LoginViewModuleAssembly.swift */,
@@ -6746,6 +6743,7 @@
 		3D486C162631726A00A9B625 /* SwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				2E2EA2C62A53385000569E1E /* DotsView */,
 				2E52DE652A1CDF3D00F16815 /* LineProgressBar */,
 				2AEE3E6929C1C2D3007C72AF /* HostingController */,
 				2AA8108629A667FD007DD64B /* DragAndDrop */,
@@ -7072,7 +7070,6 @@
 				2ACE879A29F2B23B00C2B2A9 /* StandardButtonConfig.swift */,
 				2A25D15C29F2ED5000AB5D9E /* StandardPlainButtonStyle.swift */,
 				2ACE879629F2859800C2B2A9 /* EmptyNavigationLink.swift */,
-				2AEF20F22A61399100464B88 /* ButtonLoadingView.swift */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -9005,7 +9002,6 @@
 				EAADB1A52678CD6E004B0AF2 /* MentionTextDetector.swift in Sources */,
 				2A2C330928928C02008BC326 /* UrlOpener.swift in Sources */,
 				3D88217C26F3722600A41E75 /* BlockText+AnytypeText.swift in Sources */,
-				2AEF20F32A61399100464B88 /* ButtonLoadingView.swift in Sources */,
 				12AF9986273A8B87004CBB80 /* RelationsBuilder.swift in Sources */,
 				EA57F41B26B99937007D4292 /* MarkupViewProtocol.swift in Sources */,
 				3D210C142758CCE50007F558 /* RelationsListRowPlaceholderView.swift in Sources */,

@@ -6,9 +6,12 @@ struct DotView: View {
     
     var body: some View {
         Circle()
-            .stroke(Color.Auth.dotSelected, lineWidth: 1)
-            .background(Circle().fill(filled ? Color.Auth.dotSelected : Color.clear))
-            .frame(width: 5, height: 5)
+            .stroke(.foreground, lineWidth: 1)
+            .background {
+                if filled {
+                    Circle().fill(.foreground)
+                }
+            }
             .animation(Animation.linear(duration: 0.5).repeatForever().delay(delay), value: UUID())
             .task {
                 try? await Task.sleep(seconds: 0.1)

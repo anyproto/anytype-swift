@@ -103,7 +103,7 @@ struct StandardButton: View {
     private func progressView(config: StandardButtonConfig.Style) -> some View {
         if FeatureFlags.superNewButtonLoadingState {
             if inProgress {
-                ButtonLoadingView()
+                DotsView()
                     .foregroundColor(config.textColor)
                     .frame(width: style.config.loadingIndicatorSize.width, height: style.config.loadingIndicatorSize.height)
             }
