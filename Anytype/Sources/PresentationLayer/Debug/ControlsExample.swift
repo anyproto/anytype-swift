@@ -6,28 +6,51 @@ struct ControlsExample: View {
             DragIndicator()
             TitleView(title: "Controls")
             ScrollView {
-                VStack(alignment: .leading, spacing: 20) {
+                VStack(alignment: .leading) {
                     Group {
-                        makeLargeButtonVariants(title: "Primary Large", style: .primaryLarge)
-                        makeLargeButtonVariants(title: "Secondary Large", style: .secondaryLarge)
-                        makeLargeButtonVariants(title: "Destructive Large", style: .warningLarge)
+                        makeLargeButtonVariants(title: "Primary Large - Light", style: .primaryLarge).colorScheme(.light)
+                        makeLargeButtonVariants(title: "Primary Large - Dark", style: .primaryLarge).colorScheme(.dark)
                         
-                        makeTwoByLineButtonVariants(title: "Primary Medium", style: .primaryMedium)
-                        makeTwoByLineButtonVariants(title: "Secondary Medium", style: .secondaryMedium)
-                        makeTwoByLineButtonVariants(title: "Destructive Medium", style: .warningMedium)
+                        makeLargeButtonVariants(title: "Secondary Large - Light", style: .secondaryLarge).colorScheme(.light)
+                        makeLargeButtonVariants(title: "Secondary Large - Dark", style: .secondaryLarge).colorScheme(.dark)
+                        
+                        makeLargeButtonVariants(title: "Destructive Large - Light", style: .warningLarge).colorScheme(.light)
+                        makeLargeButtonVariants(title: "Destructive Large - Dark", style: .warningLarge).colorScheme(.dark)
                     }
                     
                     Group {
-                        makeTwoByLineButtonVariants(title: "Primary Small", style: .primarySmall)
-                        makeTwoByLineButtonVariants(title: "Secondary Small", style: .secondarySmall)
-                        makeTwoByLineButtonVariants(title: "Destructive Small", style: .warningSmall)
+                        makeTwoByLineButtonVariants(title: "Primary Medium - Light", style: .primaryMedium).colorScheme(.light)
+                        makeTwoByLineButtonVariants(title: "Primary Medium - Dark", style: .primaryMedium).colorScheme(.dark)
                         
-                        makeTwoByLineButtonVariants(title: "Primary XSmall", style: .primaryXSmall)
-                        makeTwoByLineButtonVariants(title: "Secondary XSmall", style: .secondaryXSmall)
-                        makeTwoByLineButtonVariants(title: "Destructive XSmall", style: .warningXSmall)
+                        makeTwoByLineButtonVariants(title: "Secondary Medium - Light", style: .secondaryMedium).colorScheme(.light)
+                        makeTwoByLineButtonVariants(title: "Secondary Medium - Dark", style: .secondaryMedium).colorScheme(.dark)
+                        
+                        makeTwoByLineButtonVariants(title: "Destructive Medium - Light", style: .warningMedium).colorScheme(.light)
+                        makeTwoByLineButtonVariants(title: "Destructive Medium - Dark", style: .warningMedium).colorScheme(.dark)
+                    }
+                    
+                    Group {
+                        makeTwoByLineButtonVariants(title: "Primary Small - Light", style: .primarySmall).colorScheme(.light)
+                        makeTwoByLineButtonVariants(title: "Primary Small - Dark", style: .primarySmall).colorScheme(.dark)
+                        
+                        makeTwoByLineButtonVariants(title: "Secondary Small - Light", style: .secondarySmall).colorScheme(.light)
+                        makeTwoByLineButtonVariants(title: "Secondary Small - Dark", style: .secondarySmall).colorScheme(.dark)
+                        
+                        makeTwoByLineButtonVariants(title: "Destructive Small - Light", style: .warningSmall).colorScheme(.light)
+                        makeTwoByLineButtonVariants(title: "Destructive Small - Dark", style: .warningSmall).colorScheme(.dark)
+                    }
+                    
+                    Group {
+                        makeTwoByLineButtonVariants(title: "Primary XSmall - Light", style: .primaryXSmall).colorScheme(.light)
+                        makeTwoByLineButtonVariants(title: "Primary XSmall - Dark", style: .primaryXSmall).colorScheme(.dark)
+                        
+                        makeTwoByLineButtonVariants(title: "Secondary XSmall - Light", style: .secondaryXSmall).colorScheme(.light)
+                        makeTwoByLineButtonVariants(title: "Secondary XSmall - Dark", style: .secondaryXSmall).colorScheme(.dark)
+                        
+                        makeTwoByLineButtonVariants(title: "Destructive XSmall - Light", style: .warningXSmall).colorScheme(.light)
+                        makeTwoByLineButtonVariants(title: "Destructive XSmall - Dark", style: .warningXSmall).colorScheme(.dark)
                     }
                 }
-                .padding(.horizontal, 16)
             }
         }
         .background(Color.Background.primary.ignoresSafeArea())
@@ -69,6 +92,8 @@ struct ControlsExample: View {
                 )
             }
         }
+        .padding(16)
+        .background(Color.Background.primary)
     }
     
     @ViewBuilder
@@ -103,6 +128,8 @@ struct ControlsExample: View {
                 )
             }
         }
+        .padding(16)
+        .background(Color.Background.primary)
     }
 }
 

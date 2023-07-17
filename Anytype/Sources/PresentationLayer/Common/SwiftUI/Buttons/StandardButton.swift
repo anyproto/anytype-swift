@@ -1,4 +1,5 @@
 import SwiftUI
+import AnytypeCore
 
 typealias StandardButtonAction = () -> Void
 
@@ -100,9 +101,17 @@ struct StandardButton: View {
     
     @ViewBuilder
     private func progressView(config: StandardButtonConfig.Style) -> some View {
-        if inProgress {
-            ProgressView()
-                .progressViewStyle(CircularProgressViewStyle(tint: config.textColor ?? .black))
+        if FeatureFlags.superNewButtonLoadingState {
+            if inProgress {
+                ButtonLoadingView()
+                    .foregroundColor(config.textColor)
+                    .frame(width: style.config.loadingIndicatorSize.width, height: style.config.loadingIndicatorSize.height)
+            }
+        } else {
+            if inProgress {
+                ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle(tint: config.textColor ?? .black))
+            }
         }
     }
     
