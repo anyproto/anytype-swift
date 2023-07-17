@@ -6,7 +6,7 @@ struct DotView: View {
     
     var body: some View {
         Circle()
-            .stroke(.foreground, lineWidth: 1)
+            .strokeBorder(.foreground, lineWidth: 1)
             .background {
                 if filled {
                     Circle().fill(.foreground)
