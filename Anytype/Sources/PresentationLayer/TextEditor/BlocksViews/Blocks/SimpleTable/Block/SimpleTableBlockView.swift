@@ -59,7 +59,8 @@ final class SimpleTableBlockView: UIView, BlockContentView {
     }
 
     private func setupHandlers() {
-        viewModel?.stateManager.editorEditingStatePublisher.sink { [unowned self] state in
+        viewModel?.stateManager.editorEditingStatePublisher.sink { [weak self] state in
+            guard let self else { return }
             switch state {
             case .selecting:
                 UIApplication.shared.hideKeyboard()
@@ -76,18 +77,19 @@ final class SimpleTableBlockView: UIView, BlockContentView {
             }
         }.store(in: &cancellables)
 
-        viewModel?.stateManager.selectedBlocksIndexPathsPublisher.sink { [unowned self] indexPaths in
+        viewModel?.stateManager.selectedBlocksIndexPathsPublisher.sink { [weak self] indexPaths in
+            guard let self else { return }
             collectionView.deselectAllSelectedItems()
 
             indexPaths.forEach {
-                collectionView.selectItem(at: $0, animated: false, scrollPosition: [])
+                self.collectionView.selectItem(at: $0, animated: false, scrollPosition: [])
             }
             spreadsheetLayout.reselectSelectedCells()
 
         }.store(in: &cancellables)
 
-        viewModel?.stateManager.selectedMenuTabPublisher.sink { [unowned self] _ in
-            spreadsheetLayout.reselectSelectedCells()
+        viewModel?.stateManager.selectedMenuTabPublisher.sink { [weak self] _ in
+            self?.spreadsheetLayout.reselectSelectedCells()
         }.store(in: &cancellables)
     }
 

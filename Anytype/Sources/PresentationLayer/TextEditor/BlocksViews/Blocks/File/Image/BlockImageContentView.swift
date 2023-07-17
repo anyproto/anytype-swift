@@ -6,7 +6,8 @@ import AnytypeCore
 
 final class BlockImageContentView: UIView, BlockContentView {
     private lazy var imageView = UIImageView()
-    private lazy var tapGesture = BindableGestureRecognizer { [unowned self] _ in
+    private lazy var tapGesture = BindableGestureRecognizer { [weak self] _ in
+        guard let self else { return }
         imageViewTapHandler?(imageView)
     }
     private var currentFile: BlockFile?
