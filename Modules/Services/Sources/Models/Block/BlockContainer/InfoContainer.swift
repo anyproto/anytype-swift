@@ -53,24 +53,12 @@ public final class InfoContainer: InfoContainerProtocol {
         add(parent.updated(childrenIds: ids))
     }
     
-    public func update(blockId: BlockId, update updateAction: @escaping (BlockInformation) -> (BlockInformation?)) {
+    public func update(blockId: BlockId, update updateAction: (BlockInformation) -> (BlockInformation?)) {
         guard let entry = get(id: blockId) else {
             anytypeAssertionFailure("No block", info: ["blockId": blockId])
             return
         }
         
         updateAction(entry).flatMap { add($0) }
-    }
-    
-    public func updateDataview(blockId: BlockId, update updateAction: @escaping (BlockDataview) -> (BlockDataview)) {
-        update(blockId: blockId) { info in
-            guard case let .dataView(dataView) = info.content else {
-                anytypeAssertionFailure("Not a dataview", info: ["infoId": info.id])
-                return nil
-            }
-            
-            let content = BlockContent.dataView(updateAction(dataView))
-            return info.updated(content: content)
-        }
     }
 }

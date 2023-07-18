@@ -56,15 +56,3 @@ public extension BlockWidget.Layout {
         }
     }
 }
-
-// Apply Events
-
-public extension BlockWidget {
-    func applyBlockSetWidgetEvent(data: Anytype_Event.Block.Set.Widget) -> Self {
-        return BlockWidget(
-            layout: (data.hasLayout ? (try? data.layout.value.asModel) : nil) ?? layout,
-            limit: data.hasLimit ? Int(data.limit.value) : limit,
-            viewId: data.hasViewID ? data.viewID.value : viewId
-        )
-    }
-}

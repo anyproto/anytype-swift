@@ -9,9 +9,9 @@ public struct BlockWidget: Hashable {
         case compactList
     }
     
-    public let layout: Layout
-    public let limit: Int
-    public let viewId: String
+    public var layout: Layout
+    public var limit: Int
+    public var viewId: String
     
     public init(
         layout: BlockWidget.Layout,

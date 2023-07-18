@@ -13,6 +13,5 @@ public protocol InfoContainerProtocol: AnyObject {
     
     func setChildren(ids: [BlockId], parentId: BlockId)
     
-    func update(blockId: BlockId, update: @escaping (BlockInformation) -> (BlockInformation?))
-    func updateDataview(blockId: BlockId, update: @escaping (BlockDataview) -> (BlockDataview))
+    func update(blockId: BlockId, update: (BlockInformation) -> (BlockInformation?))
 }
