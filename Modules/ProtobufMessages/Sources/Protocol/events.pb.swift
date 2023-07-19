@@ -3287,6 +3287,9 @@ public struct Anytype_Event {
 
           public var pageLimit: Int32 = 0
 
+          /// Id of template object set default for the view
+          public var defaultTemplateID: String = String()
+
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
           public init() {}
@@ -10510,6 +10513,7 @@ extension Anytype_Event.Block.Dataview.ViewUpdate.Fields: SwiftProtobuf.Message,
     7: .same(proto: "groupRelationKey"),
     8: .same(proto: "groupBackgroundColors"),
     9: .same(proto: "pageLimit"),
+    10: .same(proto: "defaultTemplateId"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -10527,6 +10531,7 @@ extension Anytype_Event.Block.Dataview.ViewUpdate.Fields: SwiftProtobuf.Message,
       case 7: try { try decoder.decodeSingularStringField(value: &self.groupRelationKey) }()
       case 8: try { try decoder.decodeSingularBoolField(value: &self.groupBackgroundColors) }()
       case 9: try { try decoder.decodeSingularInt32Field(value: &self.pageLimit) }()
+      case 10: try { try decoder.decodeSingularStringField(value: &self.defaultTemplateID) }()
       default: break
       }
     }
@@ -10560,6 +10565,9 @@ extension Anytype_Event.Block.Dataview.ViewUpdate.Fields: SwiftProtobuf.Message,
     if self.pageLimit != 0 {
       try visitor.visitSingularInt32Field(value: self.pageLimit, fieldNumber: 9)
     }
+    if !self.defaultTemplateID.isEmpty {
+      try visitor.visitSingularStringField(value: self.defaultTemplateID, fieldNumber: 10)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -10573,6 +10581,7 @@ extension Anytype_Event.Block.Dataview.ViewUpdate.Fields: SwiftProtobuf.Message,
     if lhs.groupRelationKey != rhs.groupRelationKey {return false}
     if lhs.groupBackgroundColors != rhs.groupBackgroundColors {return false}
     if lhs.pageLimit != rhs.pageLimit {return false}
+    if lhs.defaultTemplateID != rhs.defaultTemplateID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
