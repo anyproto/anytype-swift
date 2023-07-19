@@ -16,13 +16,14 @@ struct PhraseTextValidator: PhraseTextValidatorProtocol {
         
         guard FeatureFlags.validateRecoveryPhrase else { return textNoNewlines }
         
+        let emptyRawComponentsCount = textNoNewlines.filter { $0 == " " }.count
+        let emptyPrevRawComponentsCount = prevText.filter { $0 == " " }.count
+        
+        // if any whitespaces are added - we should validate
+        guard emptyRawComponentsCount != emptyPrevRawComponentsCount else { return textNoNewlines }
+        
         let rawComponents = textNoNewlines.components(separatedBy: .whitespaces)
         let prevRawComponents = prevText.components(separatedBy: .whitespaces)
-        
-        let emptyRawComponentsCount = rawComponents.filter { $0.isEmpty }.count
-        let emptyPrevRawComponentsCount = prevRawComponents.filter { $0.isEmpty }.count
-        
-        guard emptyRawComponentsCount != emptyPrevRawComponentsCount else { return textNoNewlines }
         
         var suffix = ""
         if rawComponents.count > 1 && (rawComponents.last?.isEmpty ?? false) {
