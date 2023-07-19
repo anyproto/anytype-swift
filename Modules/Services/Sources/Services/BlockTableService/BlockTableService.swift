@@ -1,9 +1,8 @@
 import Foundation
-import Services
 import ProtobufMessages
 import AnytypeCore
 
-protocol BlockTableServiceProtocol {
+public protocol BlockTableServiceProtocol {
     func createTable(
         contextId: BlockId,
         targetId: BlockId,
@@ -33,15 +32,19 @@ protocol BlockTableServiceProtocol {
     func clearStyle(contextId: BlockId, blocksIds: [BlockId]) async throws
 }
 
-final class BlockTableService: BlockTableServiceProtocol {
-    func createTable(
+public final class BlockTableService: BlockTableServiceProtocol {
+    
+    public init() {}
+    
+    // MARK: - BlockTableServiceProtocol
+    
+    public func createTable(
         contextId: BlockId,
         targetId: BlockId,
         position: BlockPosition,
         rowsCount: Int,
         columnsCount: Int
     ) async throws {
-        AnytypeAnalytics.instance().logCreateBlock(type: AnalyticsConstants.simpleTableBlock)
         try await ClientCommands.blockTableCreate(.with {
             $0.contextID = contextId
             $0.targetID = targetId
@@ -52,7 +55,7 @@ final class BlockTableService: BlockTableServiceProtocol {
         }).invoke()
     }
 
-    func rowListFill(
+    public func rowListFill(
         contextId: BlockId,
         targetIds: [BlockId]
     ) async throws {
@@ -62,7 +65,7 @@ final class BlockTableService: BlockTableServiceProtocol {
         }).invoke()
     }
 
-    func insertRow(contextId: BlockId, targetId: BlockId, position: BlockPosition) async throws {
+    public func insertRow(contextId: BlockId, targetId: BlockId, position: BlockPosition) async throws {
         _ = try await ClientCommands.blockTableRowCreate(.with {
             $0.contextID = contextId
             $0.targetID = targetId
@@ -70,7 +73,7 @@ final class BlockTableService: BlockTableServiceProtocol {
         }).invoke()
     }
 
-    func insertColumn(contextId: BlockId, targetId: BlockId, position: BlockPosition) async throws {
+    public func insertColumn(contextId: BlockId, targetId: BlockId, position: BlockPosition) async throws {
         _ = try await ClientCommands.blockTableColumnCreate(.with {
             $0.contextID = contextId
             $0.targetID = targetId
@@ -78,14 +81,14 @@ final class BlockTableService: BlockTableServiceProtocol {
         }).invoke()
     }
 
-    func deleteColumn(contextId: BlockId, targetId: BlockId) async throws {
+    public func deleteColumn(contextId: BlockId, targetId: BlockId) async throws {
         _ = try await ClientCommands.blockTableColumnDelete(.with {
             $0.contextID = contextId
             $0.targetID = targetId
         }).invoke()
     }
 
-    func columnDuplicate(contextId: BlockId, targetId: BlockId) async throws {
+    public func columnDuplicate(contextId: BlockId, targetId: BlockId) async throws {
         _ = try await ClientCommands.blockTableColumnDuplicate(.with {
             $0.contextID = contextId
             $0.targetID = targetId
@@ -94,7 +97,7 @@ final class BlockTableService: BlockTableServiceProtocol {
         }).invoke()
     }
 
-    func columnSort(contextId: BlockId, columnId: BlockId, blocksSortType: BlocksSortType) async throws {
+    public func columnSort(contextId: BlockId, columnId: BlockId, blocksSortType: BlocksSortType) async throws {
         _ = try await ClientCommands.blockTableSort(.with {
             $0.contextID = contextId
             $0.columnID = columnId
@@ -102,7 +105,7 @@ final class BlockTableService: BlockTableServiceProtocol {
         }).invoke()
     }
 
-    func columnMove(contextId: BlockId, targetId: BlockId, dropTargetID: BlockId, position: BlockPosition) async throws {
+    public func columnMove(contextId: BlockId, targetId: BlockId, dropTargetID: BlockId, position: BlockPosition) async throws {
         _ = try await ClientCommands.blockTableColumnMove(.with {
             $0.contextID = contextId
             $0.targetID = targetId
@@ -111,7 +114,7 @@ final class BlockTableService: BlockTableServiceProtocol {
         }).invoke()
     }
 
-    func rowMove(contextId: BlockId, targetId: BlockId, dropTargetID: BlockId, position: BlockPosition) async throws {
+    public func rowMove(contextId: BlockId, targetId: BlockId, dropTargetID: BlockId, position: BlockPosition) async throws {
         _ = try await ClientCommands.blockListMoveToExistingObject(.with {
             $0.contextID = contextId
             $0.blockIds = [targetId]
@@ -121,14 +124,14 @@ final class BlockTableService: BlockTableServiceProtocol {
         }).invoke()
     }
 
-    func deleteRow(contextId: BlockId, targetId: BlockId) async throws {
+    public func deleteRow(contextId: BlockId, targetId: BlockId) async throws {
         _ = try await ClientCommands.blockTableRowDelete(.with {
             $0.contextID = contextId
             $0.targetID = targetId
         }).invoke()
     }
 
-    func rowDuplicate(contextId: BlockId, targetId: BlockId) async throws {
+    public func rowDuplicate(contextId: BlockId, targetId: BlockId) async throws {
         _ = try await ClientCommands.blockTableRowDuplicate(.with {
             $0.contextID = contextId
             $0.targetID = targetId
@@ -137,35 +140,17 @@ final class BlockTableService: BlockTableServiceProtocol {
         }).invoke()
     }
 
-    func clearContents(contextId: BlockId, blockIds: [BlockId]) async throws {
+    public func clearContents(contextId: BlockId, blockIds: [BlockId]) async throws {
         _ = try await ClientCommands.blockTextListClearContent(.with {
             $0.contextID = contextId
             $0.blockIds = blockIds
         }).invoke()
     }
 
-    func clearStyle(contextId: BlockId, blocksIds: [BlockId]) async throws {
+    public func clearStyle(contextId: BlockId, blocksIds: [BlockId]) async throws {
         _ = try await ClientCommands.blockTextListClearStyle(.with {
             $0.contextID = contextId
             $0.blockIds = blocksIds
         }).invoke()
     }
-}
-
-enum BlocksSortType {
-    case asc
-    case desc
-
-    var asMiddleware: Anytype_Model_Block.Content.Dataview.Sort.TypeEnum {
-        switch self {
-        case .asc:
-            return .asc
-        case .desc:
-            return .desc
-        }
-    }
-}
-
-private enum AnalyticsConstants {
-    static let simpleTableBlock = "table"
 }
