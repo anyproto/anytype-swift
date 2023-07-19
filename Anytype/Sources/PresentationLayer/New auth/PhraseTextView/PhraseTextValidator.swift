@@ -12,17 +12,17 @@ struct PhraseTextValidator: PhraseTextValidatorProtocol {
     }
     
     func validated(prevText: String, text : String) -> String {
-        let textNoNewlines = text.trimmingCharacters(in: .newlines)
+        let textWithoutNewlines = text.trimmingCharacters(in: .newlines)
         
-        guard FeatureFlags.validateRecoveryPhrase else { return textNoNewlines }
+        guard FeatureFlags.validateRecoveryPhrase else { return textWithoutNewlines }
         
-        let emptyRawComponentsCount = textNoNewlines.filter { $0 == " " }.count
-        let emptyPrevRawComponentsCount = prevText.filter { $0 == " " }.count
+        let whitespacesTextCount = textWithoutNewlines.filter { $0 == " " }.count
+        let whitespacesPrevTextCount = prevText.filter { $0 == " " }.count
         
-        // if any whitespaces are added - we should validate
-        guard emptyRawComponentsCount != emptyPrevRawComponentsCount else { return textNoNewlines }
+        // if any whitespaces are added / deleted - we should validate
+        guard whitespacesTextCount != whitespacesPrevTextCount else { return textWithoutNewlines }
         
-        let rawComponents = textNoNewlines.components(separatedBy: .whitespaces)
+        let rawComponents = textWithoutNewlines.components(separatedBy: .whitespaces)
         let prevRawComponents = prevText.components(separatedBy: .whitespaces)
         
         var suffix = ""
@@ -39,8 +39,7 @@ struct PhraseTextValidator: PhraseTextValidatorProtocol {
             }
         }
         
-        let result = words.joined(separator: " ") + suffix
-                return result
+        return words.joined(separator: " ") + suffix
     }
     
 }
