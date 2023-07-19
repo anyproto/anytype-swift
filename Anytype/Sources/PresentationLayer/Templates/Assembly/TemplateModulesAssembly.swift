@@ -2,6 +2,7 @@ import Services
 import SwiftUI
 
 protocol TemplateModulesAssemblyProtocol {
+    @MainActor
     func buildTemplateSelection(
         setDocument: SetDocumentProtocol,
         dataView: DataviewView,

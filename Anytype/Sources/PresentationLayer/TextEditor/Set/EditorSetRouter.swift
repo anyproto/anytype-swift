@@ -67,6 +67,7 @@ protocol EditorSetRouterProtocol:
     
     func showFailureToast(message: String)
     
+    @MainActor
     func showTemplatesSelection(
         setDocument: SetDocumentProtocol,
         dataview: DataviewView,
@@ -477,6 +478,7 @@ final class EditorSetRouter: EditorSetRouterProtocol {
         toastPresenter.showFailureAlert(message: message)
     }
     
+    @MainActor
     func showTemplatesSelection(
         setDocument: SetDocumentProtocol,
         dataview: DataviewView,

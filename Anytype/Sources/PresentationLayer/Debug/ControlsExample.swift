@@ -50,6 +50,13 @@ struct ControlsExample: View {
                         makeTwoByLineButtonVariants(title: "Destructive XSmall - Light", style: .warningXSmall).colorScheme(.light)
                         makeTwoByLineButtonVariants(title: "Destructive XSmall - Dark", style: .warningXSmall).colorScheme(.dark)
                     }
+                    
+                    Group {
+                        makeComposeButtons(title: "Composite buttons")
+                            .colorScheme(.light)
+                        makeComposeButtons(title: "Composite buttons")
+                            .colorScheme(.dark)
+                    }
                 }
             }
         }
@@ -126,6 +133,30 @@ struct ControlsExample: View {
                     style: style,
                     action: {}
                 )
+            }
+        }
+        .padding(16)
+        .background(Color.Background.primary)
+    }
+    
+    @ViewBuilder
+    private func makeComposeButtons(title: String) -> some View {
+        VStack(alignment: .leading, spacing: 10) {
+            AnytypeText(title, style: .subheading, color: .Text.primary)
+            HStack(spacing: .zero) {
+                StandardButton(
+                    Loc.new,
+                    style: .primaryXSmall,
+                    corners: [.topLeft, .bottomLeft]
+                ) {
+                    UISelectionFeedbackGenerator().selectionChanged()
+                }
+                Rectangle()
+                    .fill(Color.Stroke.primary)
+                    .frame(width: 1, height: 28)
+                StandardButton(.image(.X18.listArrow), style: .primaryXSmall, corners: [.topRight, .bottomRight]) {
+                    UISelectionFeedbackGenerator().selectionChanged()
+                }
             }
         }
         .padding(16)

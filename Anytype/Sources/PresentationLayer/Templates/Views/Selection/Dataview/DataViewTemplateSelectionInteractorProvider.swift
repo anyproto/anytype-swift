@@ -9,7 +9,7 @@ protocol TemplateSelectionInteractorProvider {
     var userTemplates: AnyPublisher<[TemplatePreviewModel], Never> { get }
 }
 
-class DataviewTemplateSelectionInteractorProvider: TemplateSelectionInteractorProvider {
+final class DataviewTemplateSelectionInteractorProvider: TemplateSelectionInteractorProvider {
     var userTemplates: AnyPublisher<[TemplatePreviewModel], Never> {
         Publishers.CombineLatest($templatesDetails, $defaultTemplateId)
             .map { details, defaultTemplateId in

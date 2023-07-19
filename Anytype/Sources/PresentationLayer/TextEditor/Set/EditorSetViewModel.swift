@@ -534,6 +534,7 @@ final class EditorSetViewModel: ObservableObject {
         }
     }
     
+    @MainActor
     func onSecondaryCreateTap() {
         router?.showTemplatesSelection(
             setDocument: setDocument,

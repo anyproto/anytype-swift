@@ -7,14 +7,12 @@ struct EditableView<Content: View>: View {
     @Binding var isEditing: Bool
     
     var body: some View {
-        ZStack(alignment: .topTrailing) {
-            content
-                .padding(.trailing, 8)
-                .padding(.top, 8)
-            if canBeEdited && isEditing {
-                dotImageButton
+        content
+            .padding(.trailing, 8)
+            .padding(.top, 8)
+            .if(canBeEdited && isEditing) {
+                $0.overlay(dotImageButton, alignment: .topTrailing)
             }
-        }
     }
     
     var dotImageButton: some View {

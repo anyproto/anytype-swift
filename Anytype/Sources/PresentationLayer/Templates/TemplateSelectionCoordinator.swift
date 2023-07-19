@@ -3,6 +3,7 @@ import Services
 import SwiftUI
 
 protocol TemplateSelectionCoordinatorProtocol: AnyObject {
+    @MainActor
     func showTemplatesSelection(
         setDocument: SetDocumentProtocol,
         dataview: DataviewView,
