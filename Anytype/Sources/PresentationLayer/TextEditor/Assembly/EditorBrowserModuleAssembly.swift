@@ -1,10 +1,10 @@
 import Foundation
 
-protocol EditorBrowserCoordinatorAssemblyProtocol: AnyObject {
+protocol EditorBrowserModuleAssemblyProtocol: AnyObject {
     func make() -> EditorBrowserCoordinatorProtocol
 }
 
-final class EditorBrowserCoordinatorAssembly: EditorBrowserCoordinatorAssemblyProtocol {
+final class EditorBrowserModuleAssembly: EditorBrowserModuleAssemblyProtocol {
     
     private let uiHelpersDI: UIHelpersDIProtocol
     private let coordinatorsID: CoordinatorsDIProtocol

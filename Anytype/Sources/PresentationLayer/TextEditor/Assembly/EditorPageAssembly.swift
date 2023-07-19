@@ -95,8 +95,8 @@ final class EditorAssembly {
             createObjectModuleAssembly: modulesDI.createObject(),
             newSearchModuleAssembly: modulesDI.newSearch(),
             editorPageCoordinator: coordinatorsDI.editorPage().make(browserController: browser),
-            addNewRelationCoordinator: coordinatorsDI.addNewRelation().make(document: document),
-            objectSettingCoordinator: coordinatorsDI.objectSettings().make(document: document, browserController: browser),
+            addNewRelationCoordinator: coordinatorsDI.addNewRelation().make(),
+            objectSettingCoordinator: coordinatorsDI.objectSettings().make(browserController: browser),
             relationValueCoordinator: coordinatorsDI.relationValue().make(),
             objectCoverPickerModuleAssembly: modulesDI.objectCoverPicker(),
             objectIconPickerModuleAssembly: modulesDI.objectIconPicker(),
@@ -104,7 +104,9 @@ final class EditorAssembly {
             alertHelper: AlertHelper(viewController: controller),
             templateSelectionCoordinator: TemplateSelectionCoordinator(
                 navigationContext: navigationContext,
-                templatesModulesAssembly: modulesDI.templatesAssembly()
+                templatesModulesAssembly: modulesDI.templatesAssembly(),
+                editorAssembly: coordinatorsDI.editor(),
+                objectSettingCoordinator: coordinatorsDI.objectSettings().make(browserController: nil)
             )
         )
         
@@ -139,7 +141,7 @@ final class EditorAssembly {
             viewController: controller,
             navigationContext: NavigationContext(rootViewController: browser ?? controller),
             document: document,
-            addNewRelationCoordinator: coordinatorsDI.addNewRelation().make(document: document),
+            addNewRelationCoordinator: coordinatorsDI.addNewRelation().make(),
             templatesCoordinator: coordinatorsDI.templates().make(viewController: controller),
             urlOpener: uiHelpersDI.urlOpener(),
             relationValueCoordinator: coordinatorsDI.relationValue().make(),
@@ -147,7 +149,7 @@ final class EditorAssembly {
             linkToObjectCoordinator: coordinatorsDI.linkToObject().make(browserController: browser),
             objectCoverPickerModuleAssembly: modulesDI.objectCoverPicker(),
             objectIconPickerModuleAssembly: modulesDI.objectIconPicker(),
-            objectSettingCoordinator: coordinatorsDI.objectSettings().make(document: document, browserController: browser),
+            objectSettingCoordinator: coordinatorsDI.objectSettings().make(browserController: browser),
             searchModuleAssembly: modulesDI.search(),
             toastPresenter: uiHelpersDI.toastPresenter(using: browser),
             codeLanguageListModuleAssembly: modulesDI.codeLanguageList(),
@@ -167,7 +169,10 @@ final class EditorAssembly {
             simpleTableMenuViewModel: simpleTableMenuViewModel,
             blocksSelectionOverlayViewModel: blocksSelectionOverlayView.viewModel,
             bottomNavigationManager: bottomNavigationManager,
-            isOpenedForPreview: data.isOpenedForPreview
+            configuration: EditorPageViewModelConfiguration(
+                isOpenedForPreview: data.isOpenedForPreview,
+                shouldShowTemplateSelection: data.shouldShowTemplatesOptions
+            )
         )
 
         controller.viewModel = viewModel
@@ -186,7 +191,7 @@ final class EditorAssembly {
         simpleTableMenuViewModel: SimpleTableMenuViewModel,
         blocksSelectionOverlayViewModel: BlocksSelectionOverlayViewModel,
         bottomNavigationManager: EditorBottomNavigationManagerProtocol,
-        isOpenedForPreview: Bool
+        configuration: EditorPageViewModelConfiguration
     ) -> EditorPageViewModel {
         let modelsHolder = EditorMainItemModelsHolder()
         let markupChanger = BlockMarkupChanger(document: document)
@@ -238,7 +243,7 @@ final class EditorAssembly {
             actionHandler: actionHandler,
             pasteboardService: pasteboardService,
             router: router,
-            initialEditingState: isOpenedForPreview ? .locked : .editing,
+            initialEditingState: configuration.isOpenedForPreview ? .locked : .editing,
             viewInput: viewInput,
             bottomNavigationManager: bottomNavigationManager
         )
@@ -270,7 +275,7 @@ final class EditorAssembly {
         let headerModel = ObjectHeaderViewModel(
             document: document,
             router: router,
-            isOpenedForPreview: isOpenedForPreview
+            isOpenedForPreview: configuration.isOpenedForPreview
         )
 
         let responderScrollViewHelper = ResponderScrollViewHelper(scrollView: scrollView)
@@ -325,7 +330,7 @@ final class EditorAssembly {
             searchService: serviceLocator.searchService(),
             editorPageTemplatesHandler: editorPageTemplatesHandler,
             accountManager: serviceLocator.accountManager(),
-            isOpenedForPreview: isOpenedForPreview
+            configuration: configuration
         )
     }
 

@@ -546,7 +546,7 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     func createObject() {
-        createObject(selectedTemplateId: nil)
+        createObject(selectedTemplateId: activeView.defaultTemplateID)
     }
     
     func createObject(selectedTemplateId: BlockId?) {
@@ -817,7 +817,9 @@ extension EditorSetViewModel {
     }
     
    private func openObject(details: ObjectDetails) {
-       router?.showPage(data: details.editorScreenData())
+       router?.showPage(
+        data: details.editorScreenData(shouldShowTemplatesOptions: !FeatureFlags.setTemplateSelection)
+       )
     }
     
     private func createBookmarkObject() {

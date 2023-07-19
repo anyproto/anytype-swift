@@ -56,8 +56,10 @@ protocol EditorRouterProtocol:
     
     func showRelationValueEditingView(key: String)
     func showRelationValueEditingView(objectId: BlockId, relation: Relation)
-    func showAddNewRelationView(onSelect: ((RelationDetails, _ isNew: Bool) -> Void)?)
-
+    func showAddNewRelationView(
+        document: BaseDocumentProtocol,
+        onSelect: ((RelationDetails, _ isNew: Bool) -> Void)?
+    )
     func showLinkContextualMenu(inputParameters: TextBlockURLInputParameters)
 
     func showWaitingView(text: String)

@@ -15,6 +15,19 @@ struct EditorPageObject: Hashable, Codable {
     let objectId: String
     let isSupportedForEdit: Bool
     let isOpenedForPreview: Bool
+    let shouldShowTemplatesOptions: Bool
+    
+    init(
+        objectId: String,
+        isSupportedForEdit: Bool,
+        isOpenedForPreview: Bool,
+        shouldShowTemplatesOptions: Bool = true
+    ) {
+        self.objectId = objectId
+        self.isSupportedForEdit = isSupportedForEdit
+        self.isOpenedForPreview = isOpenedForPreview
+        self.shouldShowTemplatesOptions = shouldShowTemplatesOptions
+    }
 }
 
 struct EditorSetObject: Hashable, Codable {

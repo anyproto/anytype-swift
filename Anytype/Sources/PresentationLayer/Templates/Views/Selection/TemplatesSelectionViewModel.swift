@@ -2,39 +2,65 @@ import Foundation
 import AnytypeCore
 import Services
 import Combine
+import SwiftUI
 
 @MainActor
 final class TemplatesSelectionViewModel: ObservableObject {
     @Published var isEditingState = false
     @Published var templates = [TemplatePreviewModel]()
     var templateOptionsHandler: ((@escaping (TemplateOptionAction) -> Void) -> Void)?
-    
     private var userTemplates = [TemplatePreviewModel]() {
         didSet {
             updateTemplatesList()
         }
     }
+    
     private let interactor: TemplateSelectionInteractorProvider
     private let templatesService: TemplatesServiceProtocol
-    private let onTemplateSelection: (BlockId) -> Void
+    private let onTemplateSelection: (BlockId?) -> Void
+    private let templateEditingHandler: ((BlockId) -> Void)
     private var cancellables = [AnyCancellable]()
     
     init(
         interactor: TemplateSelectionInteractorProvider,
         templatesService: TemplatesServiceProtocol,
-        onTemplateSelection: @escaping (BlockId) -> Void
+        onTemplateSelection: @escaping (BlockId?) -> Void,
+        templateEditingHandler: @escaping ((BlockId) -> Void)
     ) {
         self.interactor = interactor
         self.templatesService = templatesService
         self.onTemplateSelection = onTemplateSelection
+        self.templateEditingHandler = templateEditingHandler
         
         interactor.userTemplates.sink { [weak self] templates in
             self?.userTemplates = templates
         }.store(in: &cancellables)
     }
     
-    func onModelTap(model: TemplatePreviewModel) {
-        onTemplateSelection(model.id)
+    func onTemplateTap(model: TemplatePreviewModel) {
+        switch model.model {
+        case .installed(let templateModel):
+            onTemplateSelection(templateModel.id)
+        case .blank:
+            onTemplateSelection(nil)
+        case .addTemplate:
+            onAddTemplateTap()
+        }
+    }
+    
+    func onAddTemplateTap() {
+        let objectTypeId = interactor.objectTypeId.rawValue
+        Task { [weak self] in
+            do {
+                guard let objectId = try await self?.templatesService.createTemplateFromObjectType(objectTypeId: objectTypeId) else {
+                    return
+                }
+                
+                self?.templateEditingHandler(objectId)
+            } catch {
+                anytypeAssertionFailure(error.localizedDescription)
+            }
+        }
     }
     
     func onEditingButonTap(model: TemplatePreviewModel) {
@@ -52,7 +78,7 @@ final class TemplatesSelectionViewModel: ObservableObject {
                 case .duplicate:
                     try await templatesService.cloneTemplate(blockId: templateViewModel.id)
                 case .editTemplate:
-                    fatalError()
+                    templateEditingHandler(templateViewModel.id)
                 case .setAsDefault:
                     try await interactor.setDefaultTemplate(model: templateViewModel)
                 }
@@ -71,10 +97,12 @@ final class TemplatesSelectionViewModel: ObservableObject {
             templates.append(.init(model: .blank, alignment: .left, isDefault: false))
         }
         
-        
         templates.append(contentsOf: userTemplates)
-
-        self.templates = templates
+        templates.append(.init(model: .addTemplate, alignment: .center, isDefault: false))
+        
+        withAnimation(.fastSpring) {
+            self.templates = templates
+        }
     }
 }
 
@@ -100,10 +128,10 @@ extension TemplatePreviewModel {
 
 extension TemplatePreviewModel {
     var isEditable: Bool {
-        if case .blank = model {
-            return false
+        if case .installed = model {
+            return true
         }
         
-        return true
+        return false
     }
 }

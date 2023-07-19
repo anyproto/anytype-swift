@@ -5,11 +5,7 @@ struct TemplatePreview: View {
     let viewModel: TemplatePreviewModel
     
     var body: some View {
-        ZStack {
-            Rectangle()
-                .fill(.clear)
-            content
-        }
+        content
         .border(
             16,
             color: viewModel.isDefault ?
@@ -21,24 +17,46 @@ struct TemplatePreview: View {
     }
     
     var content: some View {
-        VStack(alignment: viewModel.alignment.horizontalAlignment) {
-            cover
+        Group {
             switch viewModel.model {
             case .blank:
-                AnytypeText(
-                    "Blank",
-                    style: .caption2Medium,
-                    color: .Text.tertiary
-                ).padding(.horizontal, 16)
+                wrapped(shouldIncludeShimmer: false) {
+                    AnytypeText(
+                        Loc.TemplateSelection.blankTemplate,
+                        style: .caption2Medium,
+                        color: .Text.tertiary
+                    )
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.horizontal, 16)
+                }
             case let .installed(templateModel):
-                AnytypeText(
-                    templateModel.title,
-                    style: .caption2Medium,
-                    color: .Text.primary
-                ).padding(.horizontal, 16)
+                wrapped(shouldIncludeShimmer: true) {
+                    AnytypeText(
+                        templateModel.title,
+                        style: .caption2Medium,
+                        color: .Text.primary
+                    ).padding(.horizontal, 16)
+                }
+            case .addTemplate:
+                Image(asset: .X32.plus)
+                    .tint(.Button.active)
             }
-            Spacer.fixedHeight(12)
-            shimmer.padding(.horizontal, 16)
+        }
+        .frame(width: 120, height: 224)
+    }
+    
+    @ViewBuilder
+    private func wrapped(
+        shouldIncludeShimmer: Bool,
+        @ViewBuilder content: () -> some View
+    ) -> some View {
+        VStack(alignment: viewModel.alignment.horizontalAlignment) {
+            cover
+            content()
+            if shouldIncludeShimmer {
+                Spacer.fixedHeight(12)
+                shimmer.padding(.horizontal, 16)
+            }
             Spacer()
         }
     }

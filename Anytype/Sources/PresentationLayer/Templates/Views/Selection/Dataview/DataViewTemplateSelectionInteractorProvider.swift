@@ -4,9 +4,10 @@ import AnytypeCore
 
 
 protocol TemplateSelectionInteractorProvider {
-    func setDefaultTemplate(model: TemplatePreviewModel) async throws
-    
     var userTemplates: AnyPublisher<[TemplatePreviewModel], Never> { get }
+    var objectTypeId: ObjectTypeId { get }
+    
+    func setDefaultTemplate(model: TemplatePreviewModel) async throws
 }
 
 final class DataviewTemplateSelectionInteractorProvider: TemplateSelectionInteractorProvider {
@@ -22,10 +23,10 @@ final class DataviewTemplateSelectionInteractorProvider: TemplateSelectionIntera
             }
             .eraseToAnyPublisher()
     }
+    let objectTypeId: ObjectTypeId
     
     private let setDocument: SetDocumentProtocol
     private let dataView: DataviewView
-    private let objectTypeId: ObjectTypeId
     
     private let subscriptionService: TemplatesSubscriptionServiceProtocol
     private let objectTypeProvider: ObjectTypeProviderProtocol
@@ -67,6 +68,14 @@ final class DataviewTemplateSelectionInteractorProvider: TemplateSelectionIntera
     }
     
     private func subscribeOnDocmentUpdates() {
+        setDocument.activeViewPublisher.sink { [weak self] activeDataView in
+            guard let self = self else { return }
+            if self.defaultTemplateId != activeDataView.defaultTemplateID {
+                self.defaultTemplateId = activeDataView.defaultTemplateID ?? .empty
+            }
+        }.store(in: &cancellables)
+        
+        
         setDocument.updatePublisher.sink { [weak self] _ in
             guard let self = self,
                   let view = self.setDocument.dataView.views.first(where: { $0.id == self.dataView.id }) else {

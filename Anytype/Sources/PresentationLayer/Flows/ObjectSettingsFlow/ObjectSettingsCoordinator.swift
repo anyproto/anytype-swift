@@ -3,14 +3,12 @@ import Services
 import AnytypeCore
 
 protocol ObjectSettingsCoordinatorProtocol {
-    func startFlow(delegate: ObjectSettingsModuleDelegate)
+    func startFlow(objectId: BlockId, delegate: ObjectSettingsModuleDelegate)
 }
 
 final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
                                        ObjectSettingswModelOutput, RelationsListModuleOutput,
                                        RelationValueCoordinatorOutput {
-    
-    private let document: BaseDocumentProtocol
     private let navigationContext: NavigationContextProtocol
     private let objectSettingsModuleAssembly: ObjectSettingModuleAssemblyProtocol
     private let undoRedoModuleAssembly: UndoRedoModuleAssemblyProtocol
@@ -25,7 +23,6 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     
     init(
-        document: BaseDocumentProtocol,
         navigationContext: NavigationContextProtocol,
         objectSettingsModuleAssembly: ObjectSettingModuleAssemblyProtocol,
         undoRedoModuleAssembly: UndoRedoModuleAssemblyProtocol,
@@ -39,7 +36,6 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
         searchModuleAssembly: SearchModuleAssemblyProtocol,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     ) {
-        self.document = document
         self.navigationContext = navigationContext
         self.objectSettingsModuleAssembly = objectSettingsModuleAssembly
         self.undoRedoModuleAssembly = undoRedoModuleAssembly
@@ -54,40 +50,48 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
         self.newSearchModuleAssembly = newSearchModuleAssembly
     }
     
-    func startFlow(delegate: ObjectSettingsModuleDelegate) {
-        let moduleViewController = objectSettingsModuleAssembly.make(
-            document: document,
-            output: self,
-            delegate: delegate
-        )
-        
-        navigationContext.present(moduleViewController)
+    func startFlow(objectId: BlockId, delegate: ObjectSettingsModuleDelegate) {
+        let document = BaseDocument(objectId: objectId)
+        Task { @MainActor in
+            do {
+                try await document.open()
+                let moduleViewController = objectSettingsModuleAssembly.make(
+                    document: document,
+                    output: self,
+                    delegate: delegate
+                )
+                
+                navigationContext.present(moduleViewController)
+            } catch {
+                anytypeAssertionFailure(error.localizedDescription)
+            }
+        }
     }
     
     // MARK: - ObjectSettingswModelOutput
     
-    func undoRedoAction() {
+    func undoRedoAction(document: BaseDocumentProtocol) {
         let moduleViewController = undoRedoModuleAssembly.make(document: document)
         navigationContext.dismissTopPresented(animated: false)
         navigationContext.present(moduleViewController)
     }
     
-    func layoutPickerAction() {
+    func layoutPickerAction(document: BaseDocumentProtocol) {
         let moduleViewController = objectLayoutPickerModuleAssembly.make(document: document)
         navigationContext.present(moduleViewController)
     }
     
-    func coverPickerAction() {
+    func coverPickerAction(document: BaseDocumentProtocol) {
         let moduleViewController = objectCoverPickerModuleAssembly.make(document: document, objectId: document.objectId)
         navigationContext.present(moduleViewController)
     }
     
-    func iconPickerAction() {
+    func iconPickerAction(document: BaseDocumentProtocol) {
         let moduleViewController = objectIconPickerModuleAssembly.make(document: document, objectId: document.objectId)
         navigationContext.present(moduleViewController)
     }
     
-    func relationsAction() {
+    func relationsAction(document: BaseDocumentProtocol) {
         AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.objectRelationShow)
         
         let moduleViewController = relationsListModuleAssembly.make(document: document, output: self)
@@ -98,7 +102,7 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
         editorPageCoordinator.startFlow(data: screenData, replaceCurrentPage: false)
     }
     
-    func linkToAction(onSelect: @escaping (BlockId) -> ()) {
+    func linkToAction(document: BaseDocumentProtocol, onSelect: @escaping (BlockId) -> ()) {
         let moduleView = newSearchModuleAssembly.blockObjectsSearchModule(
             title: Loc.linkTo,
             excludedObjectIds: [document.objectId],
@@ -114,8 +118,9 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
     
     // MARK: - RelationsListModuleOutput
     
-    func addNewRelationAction() {
+    func addNewRelationAction(document: BaseDocumentProtocol) {
         addNewRelationCoordinator.showAddNewRelationView(
+            document: document,
             excludedRelationsIds: document.parsedRelations.installed.map(\.id),
             target: .object,
             onCompletion: { relation, isNew in
@@ -124,7 +129,7 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
         )
     }
     
-    func editRelationValueAction(relationKey: String) {
+    func editRelationValueAction(document: BaseDocumentProtocol, relationKey: String) {
         let relation = document.parsedRelations.installed.first { $0.key == relationKey }
         guard let relation = relation else {
             anytypeAssertionFailure("Relation not found")

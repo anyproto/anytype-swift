@@ -6,14 +6,17 @@ import UIKit
 final class SlashMenuActionHandler {
     private let actionHandler: BlockActionHandlerProtocol
     private let router: EditorRouterProtocol
+    private let document: BaseDocumentProtocol
     private let pasteboardService: PasteboardServiceProtocol
     private weak var textView: UITextView?
     
     init(
+        document: BaseDocumentProtocol,
         actionHandler: BlockActionHandlerProtocol,
         router: EditorRouterProtocol,
         pasteboardService: PasteboardServiceProtocol
     ) {
+        self.document = document
         self.actionHandler = actionHandler
         self.router = router
         self.pasteboardService = pasteboardService
@@ -48,7 +51,7 @@ final class SlashMenuActionHandler {
         case let .relations(action):
             switch action {
             case .newRealtion:
-                router.showAddNewRelationView() { [weak self] relation, isNew in
+                router.showAddNewRelationView(document: document) { [weak self] relation, isNew in
                     self?.actionHandler.addBlock(.relation(key: relation.key), blockId: blockId, blockText: textView?.attributedText)
 
                     AnytypeAnalytics.instance().logAddRelation(format: relation.format, isNew: isNew, type: .block)
