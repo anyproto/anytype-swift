@@ -28,7 +28,7 @@ struct SetFiltersTextView: View {
     }
     
     private var button: some View {
-        StandardButton(.text(Loc.Set.Button.Title.apply), style: .primaryLarge) {
+        StandardButton(Loc.Set.Button.Title.apply, style: .primaryLarge) {
             viewModel.handleText()
         }
         .disabled(viewModel.input.isEmpty)

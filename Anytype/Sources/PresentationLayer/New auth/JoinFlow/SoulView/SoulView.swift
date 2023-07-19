@@ -11,7 +11,7 @@ struct SoulView: View {
             Spacer()
             
             StandardButton(
-                .text(Loc.Auth.JoinFlow.Soul.Button.title),
+                Loc.Auth.JoinFlow.Soul.Button.title,
                 inProgress: model.inProgress,
                 style: .primaryLarge,
                 action: {

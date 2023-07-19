@@ -63,7 +63,7 @@ struct SetKanbanColumnSettingsView: View {
     }
     
     private var button: some View {
-        StandardButton(.text(Loc.Set.Button.Title.apply), style: .primaryLarge) {
+        StandardButton(Loc.Set.Button.Title.apply, style: .primaryLarge) {
             viewModel.applyTapped()
         }
         .padding(.horizontal, 20)

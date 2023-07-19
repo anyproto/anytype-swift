@@ -135,7 +135,7 @@ struct SetViewTypesPicker: View {
     }
     
     private var button: some View {
-        StandardButton(.text(Loc.done), style: .primaryLarge) {
+        StandardButton(Loc.done, style: .primaryLarge) {
             presentationMode.wrappedValue.dismiss()
             viewModel.buttonTapped()
         }

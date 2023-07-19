@@ -72,11 +72,11 @@ struct CreateNewProfileView: View {
     
     private var buttons: some View {
         HStack(spacing: 10) {
-            StandardButton(.text(Loc.back), style: .secondaryLarge) {
+            StandardButton(Loc.back, style: .secondaryLarge) {
                 self.presentationMode.wrappedValue.dismiss()
             }
             
-            StandardButton(.text(Loc.create), style: .primaryLarge) {
+            StandardButton(Loc.create, style: .primaryLarge) {
                 showSetupWallet.toggle()
             }
             .addEmptyNavigationLink(

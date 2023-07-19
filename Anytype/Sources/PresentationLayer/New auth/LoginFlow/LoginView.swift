@@ -58,7 +58,7 @@ struct LoginView: View {
     private var buttonsBlock : some View {
         VStack(spacing: 12) {
             StandardButton(
-                .text(Loc.Auth.LoginFlow.Enter.Button.title),
+                Loc.Auth.LoginFlow.Enter.Button.title,
                 inProgress: model.loadingRoute.isLoginInProgress,
                 style: .primaryLarge,
                 action: {
@@ -76,7 +76,7 @@ struct LoginView: View {
             
             HStack(spacing: 8) {
                 StandardButton(
-                    .text(Loc.scanQRCode),
+                    Loc.scanQRCode,
                     inProgress: model.loadingRoute.isQRInProgress,
                     style: .secondaryLarge,
                     action: {
@@ -87,7 +87,7 @@ struct LoginView: View {
                 
                 if model.canRestoreFromKeychain {
                     StandardButton(
-                        .text(Loc.Auth.LoginFlow.Use.Keychain.title),
+                        Loc.Auth.LoginFlow.Use.Keychain.title,
                         inProgress: model.loadingRoute.isKeychainInProgress,
                         style: .secondaryLarge,
                         action: {

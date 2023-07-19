@@ -11,7 +11,7 @@ struct VoidView: View {
             Spacer()
             
             StandardButton(
-                .text(Loc.Auth.next),
+                Loc.Auth.next,
                 inProgress: model.creatingAccountInProgress,
                 style: .primaryLarge,
                 action: {

@@ -45,7 +45,7 @@ struct FileStorageView: View {
         Spacer.fixedHeight(8)
         LineProgressBar(percent: model.percentUsage, configuration: model.progressBarConfiguration)
         Spacer.fixedHeight(20)
-        StandardButton(.text(Loc.FileStorage.manageFiles), style: .secondarySmall) {
+        StandardButton(Loc.FileStorage.manageFiles, style: .secondarySmall) {
             model.onTapManageFiles()
         }
     }
@@ -63,7 +63,7 @@ struct FileStorageView: View {
             isWarning: false
         )
         Spacer.fixedHeight(8)
-        StandardButton(.text(Loc.FileStorage.offloadTitle), style: .secondarySmall) {
+        StandardButton(Loc.FileStorage.offloadTitle, style: .secondarySmall) {
             model.onTapOffloadFiles()
         }
     }

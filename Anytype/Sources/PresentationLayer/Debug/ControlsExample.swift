@@ -61,31 +61,31 @@ struct ControlsExample: View {
         VStack(alignment: .leading, spacing: 10) {
             AnytypeText(title, style: .subheading, color: .Text.primary)
             StandardButton(
-                .text("Normal"),
+                "Normal",
                 style: style,
                 action: {}
             )
             StandardButton(
-                .text("Pressed"),
+                "Pressed",
                 style: style,
                 holdPressState: true,
                 action: {}
             )
             StandardButton(
-                .text("Disabled"),
+                "Disabled",
                 style: style,
                 action: {}
             )
             .disabled(true)
             StandardButton(
-                .text("In Progress"),
+                "In Progress",
                 inProgress: true,
                 style: style,
                 action: {}
             )
             if style.config.infoTextFont.isNotNil {
                 StandardButton(
-                    .text("Counter"),
+                    "Counter",
                     info: "5",
                     style: style,
                     action: {}
@@ -102,12 +102,12 @@ struct ControlsExample: View {
             AnytypeText(title, style: .subheading, color: .Text.primary)
             HStack {
                 StandardButton(
-                    .text("Normal"),
+                    "Normal",
                     style: style,
                     action: {}
                 )
                 StandardButton(
-                    .text("Pressed"),
+                    "Pressed",
                     style: style,
                     holdPressState: true,
                     action: {}
@@ -115,13 +115,13 @@ struct ControlsExample: View {
             }
             HStack {
                 StandardButton(
-                    .text("Disabled"),
+                    "Disabled",
                     style: style,
                     action: {}
                 )
                 .disabled(true)
                 StandardButton(
-                    .text("In Progress"),
+                    "In Progress",
                     inProgress: true,
                     style: style,
                     action: {}

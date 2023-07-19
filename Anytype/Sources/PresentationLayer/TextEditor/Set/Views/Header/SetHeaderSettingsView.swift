@@ -34,7 +34,7 @@ struct SetHeaderSettingsView: View {
     }
     
     private var createObjectButton: some View {
-        StandardButton(.text(Loc.new), style: .primaryXSmall) {
+        StandardButton(Loc.new, style: .primaryXSmall) {
             UISelectionFeedbackGenerator().selectionChanged()
             model.onCreateTap()
         }
@@ -44,7 +44,7 @@ struct SetHeaderSettingsView: View {
     private var compositeCreateButtons: some View {
         HStack(spacing: 0) {
             StandardButton(
-                .text(Loc.new),
+                Loc.new,
                 style: .primaryXSmall,
                 corners: [.topLeft, .bottomLeft]
             ) {

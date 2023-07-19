@@ -146,14 +146,30 @@ struct StandardButton: View {
 }
 
 extension StandardButton {
-    
     init(model: StandardButtonModel) {
         self.init(
-            .text(model.text),
+            model.text,
             inProgress: model.inProgress,
             style: model.style,
             action: model.action
         )
     }
     
+    init(
+        _ text: String,
+        info: String? = nil,
+        inProgress: Bool = false,
+        style: StandardButtonStyle,
+        holdPressState: Bool = false,
+        corners: UIRectCorner = .allCorners,
+        action: @escaping StandardButtonAction
+    ) {
+        self.content = .text(text)
+        self.info = info
+        self.inProgress = inProgress
+        self.style = style
+        self.holdPressState = holdPressState
+        self.corners = corners
+        self.action = action
+    }
 }

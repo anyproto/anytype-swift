@@ -24,7 +24,7 @@ struct KeyPhraseView: View {
             
             if model.keyShown {
                 StandardButton(
-                    .text(Loc.Auth.JoinFlow.Key.Button.Copy.title),
+                    Loc.Auth.JoinFlow.Key.Button.Copy.title,
                     style: .secondarySmall,
                     action: {
                         model.onCopyButtonTap()
@@ -56,9 +56,7 @@ struct KeyPhraseView: View {
     
     private var buttons: some View {
         VStack(spacing: 12) {
-            StandardButton(.text(
-                model.keyShown ? Loc.Auth.JoinFlow.Key.Button.Saved.title : Loc.Auth.JoinFlow.Key.Button.Show.title
-            ),
+            StandardButton(model.keyShown ? Loc.Auth.JoinFlow.Key.Button.Saved.title : Loc.Auth.JoinFlow.Key.Button.Show.title,
                 style: .primaryLarge,
                 action: {
                     model.onPrimaryButtonTap()
@@ -68,7 +66,7 @@ struct KeyPhraseView: View {
             
             if !model.keyShown {
                 StandardButton(
-                    .text(Loc.Auth.JoinFlow.Key.Button.Later.title),
+                    Loc.Auth.JoinFlow.Key.Button.Later.title,
                     style: .secondaryLarge,
                     action: {
                         model.onSecondaryButtonTap()

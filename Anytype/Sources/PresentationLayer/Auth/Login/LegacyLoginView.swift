@@ -65,11 +65,11 @@ struct LegacyLoginView: View {
     
     private var buttons: some View {
         HStack(spacing: 12) {
-            StandardButton(.text(Loc.back), style: .secondaryLarge) {
+            StandardButton(Loc.back, style: .secondaryLarge) {
                 self.presentationMode.wrappedValue.dismiss()
             }
 
-            StandardButton(.text(Loc.login), style: .primaryLarge) {
+            StandardButton(Loc.login, style: .primaryLarge) {
                 self.viewModel.recoverWallet()
             }
             .disabled(viewModel.seed.isEmpty)
