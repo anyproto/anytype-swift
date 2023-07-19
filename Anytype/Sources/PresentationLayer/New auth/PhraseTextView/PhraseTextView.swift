@@ -32,6 +32,7 @@ extension PhraseTextView {
             _text = text
         }
         
+        @MainActor
         func textDidChange(_ text: String) {
             self.text = phraseTextValidator.validated(prevText: self.text, text: text)
         }

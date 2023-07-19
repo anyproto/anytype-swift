@@ -82,6 +82,12 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
+    static let validateRecoveryPhrase = FeatureDescription(
+        title: "Trim typed/inserted text in recovery phrase field",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.24.0"),
+        defaultValue: true
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(
