@@ -23,7 +23,6 @@ struct PhraseTextValidator: PhraseTextValidatorProtocol {
         guard whitespacesTextCount != whitespacesPrevTextCount else { return textWithoutNewlines }
         
         let rawComponents = textWithoutNewlines.components(separatedBy: .whitespaces)
-        let prevRawComponents = prevText.components(separatedBy: .whitespaces)
         
         var suffix = ""
         if rawComponents.count > 1 && (rawComponents.last?.isEmpty ?? false) {
