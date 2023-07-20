@@ -62,6 +62,10 @@ public extension FeatureFlags {
         value(for: .superNewButtonLoadingState)
     }
 
+    static var validateRecoveryPhrase: Bool {
+        value(for: .validateRecoveryPhrase)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -94,6 +98,7 @@ public extension FeatureFlags {
         .deleteObjectPlaceholder,
         .showAllFilesInBin,
         .superNewButtonLoadingState,
+        .validateRecoveryPhrase,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

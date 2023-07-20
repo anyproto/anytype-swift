@@ -722,6 +722,7 @@
 		2E0DAF2528A2723C00F43320 /* SetViewSettingsImagePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DAF2428A2723C00F43320 /* SetViewSettingsImagePreviewView.swift */; };
 		2E0DAF2728A273FC00F43320 /* SetViewSettingsImagePreviewCover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DAF2628A273FC00F43320 /* SetViewSettingsImagePreviewCover.swift */; };
 		2E0DAF2928A2767B00F43320 /* SetViewSettingsImagePreviewRowConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DAF2828A2767B00F43320 /* SetViewSettingsImagePreviewRowConfiguration.swift */; };
+		2E0E007F2A680D8600F1D95B /* PhraseTextValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0E007E2A680D8600F1D95B /* PhraseTextValidator.swift */; };
 		2E1146D0293124ED0057C753 /* SetKanbanColumnSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1146CF293124ED0057C753 /* SetKanbanColumnSettingsViewModel.swift */; };
 		2E1146D2293125610057C753 /* SetKanbanColumnSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1146D1293125610057C753 /* SetKanbanColumnSettingsView.swift */; };
 		2E1C80E52A2F6EF000217C47 /* AboutApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1C80E42A2F6EF000217C47 /* AboutApp.swift */; };
@@ -2182,6 +2183,7 @@
 		2E0DAF2428A2723C00F43320 /* SetViewSettingsImagePreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewSettingsImagePreviewView.swift; sourceTree = "<group>"; };
 		2E0DAF2628A273FC00F43320 /* SetViewSettingsImagePreviewCover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewSettingsImagePreviewCover.swift; sourceTree = "<group>"; };
 		2E0DAF2828A2767B00F43320 /* SetViewSettingsImagePreviewRowConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewSettingsImagePreviewRowConfiguration.swift; sourceTree = "<group>"; };
+		2E0E007E2A680D8600F1D95B /* PhraseTextValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhraseTextValidator.swift; sourceTree = "<group>"; };
 		2E1146CF293124ED0057C753 /* SetKanbanColumnSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetKanbanColumnSettingsViewModel.swift; sourceTree = "<group>"; };
 		2E1146D1293125610057C753 /* SetKanbanColumnSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetKanbanColumnSettingsView.swift; sourceTree = "<group>"; };
 		2E1C80E42A2F6EF000217C47 /* AboutApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutApp.swift; sourceTree = "<group>"; };
@@ -6088,6 +6090,7 @@
 			children = (
 				2EFBBEF92A41DBD900734A0B /* PhraseTextView.swift */,
 				2EFBBEFB2A42512300734A0B /* UIPhraseTextView.swift */,
+				2E0E007E2A680D8600F1D95B /* PhraseTextValidator.swift */,
 			);
 			path = PhraseTextView;
 			sourceTree = "<group>";
@@ -8918,6 +8921,7 @@
 				03E2AD5523A93D3800C701CE /* UserIconView.swift in Sources */,
 				12F6072826D7DF0D00876C92 /* ObjectIconImageView.swift in Sources */,
 				3D3040B027DBAD3500FFE0EB /* EditorBarButtonItem.swift in Sources */,
+				2E0E007F2A680D8600F1D95B /* PhraseTextValidator.swift in Sources */,
 				2E52DE692A1CDF5500F16815 /* LineProgressBarConfiguration.swift in Sources */,
 				C9C49A8527049D0200D86463 /* AlertsFactory.swift in Sources */,
 				C98F6A6C27A90F210063DD7A /* BlockConfiguration.swift in Sources */,
