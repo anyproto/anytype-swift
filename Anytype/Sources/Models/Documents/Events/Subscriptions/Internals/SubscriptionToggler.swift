@@ -9,6 +9,12 @@ protocol SubscriptionTogglerProtocol {
 }
 
 final class SubscriptionToggler: SubscriptionTogglerProtocol {
+    
+    private let objectSubscriptionService: ObjectSubscriptionServiceProtocol
+    
+    init(objectSubscriptionService: ObjectSubscriptionServiceProtocol) {
+        self.objectSubscriptionService = objectSubscriptionService
+    }
 
     func startSubscription(data: SubscriptionData) async throws -> SubscriptionTogglerResult? {
         switch data {
@@ -20,52 +26,32 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
     }
     
     func stopSubscription(id: SubscriptionId) async throws {
-        try await stopSubscriptions(ids: [id])
+        try await objectSubscriptionService.stopSubscriptions(ids: [id])
     }
     
     func stopSubscriptions(ids: [SubscriptionId]) async throws {
-        try await ClientCommands.objectSearchUnsubscribe(.with {
-            $0.subIds = ids.map { $0.value }
-        }).invoke()
+        try await objectSubscriptionService.stopSubscriptions(ids: ids)
     }
     
     // MARK: - Private
     
     private func makeSearchToggler(data: SubscriptionData.Search) async throws -> SubscriptionTogglerResult {
-        let result = try await ClientCommands.objectSearchSubscribe(.with {
-            $0.subID = data.identifier.value
-            $0.filters = data.filters
-            $0.sorts = data.sorts.map { $0.fixIncludeTime() }
-            $0.limit = Int64(data.limit)
-            $0.offset = Int64(data.offset)
-            $0.keys = data.keys
-            $0.afterID = data.afterID ?? ""
-            $0.beforeID = data.beforeID ?? ""
-            $0.source = data.source ?? []
-            $0.ignoreWorkspace = data.ignoreWorkspace ?? ""
-            $0.noDepSubscription = data.noDepSubscription
-            $0.collectionID = data.collectionId ?? ""
-        }).invoke()
+        let response = try await objectSubscriptionService.objectSearchSubscribe(data: data)
         
         return SubscriptionTogglerResult(
-            records: result.records.asDetais,
-            dependencies: result.dependencies.asDetais,
-            count: Int(result.counters.total)
+            records: response.records,
+            dependencies: response.dependencies,
+            count: response.count
         )
     }
     
     private func makeObjectsToggler(data: SubscriptionData.Object) async throws -> SubscriptionTogglerResult? {
-        let result = try await ClientCommands.objectSubscribeIds(.with {
-            $0.subID = data.identifier.value
-            $0.ids = data.objectIds
-            $0.keys = data.keys
-            $0.ignoreWorkspace = data.ignoreWorkspace ?? ""
-        }).invoke()
-
+        let response = try await objectSubscriptionService.objectSubscribe(data: data)
+        
         return SubscriptionTogglerResult(
-            records: result.records.asDetais,
-            dependencies: result.dependencies.asDetais,
-            count: data.objectIds.count
+            records: response.records,
+            dependencies: response.dependencies,
+            count: response.count
         )
     }
 }

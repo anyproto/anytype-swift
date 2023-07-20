@@ -1,4 +1,5 @@
 import SwiftUI
+import Services
 
 struct SetCollectionView: View {
     @ObservedObject private(set) var model: EditorSetViewModel
