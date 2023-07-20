@@ -15,7 +15,8 @@ final class EditorSelectionView: UIView {
     }
 
     func updateStyle(isSelected: Bool) {
-        UIView.animate(withDuration: 0.34, delay: 0) { [unowned self] in
+        UIView.animate(withDuration: 0.34, delay: 0) { [weak self] in
+            guard let self else { return }
             if isSelected {
                 layer.borderWidth = Constants.borderWidth
                 dynamicBorderColor = UIColor.System.amber100

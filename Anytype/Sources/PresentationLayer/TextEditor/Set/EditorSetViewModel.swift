@@ -653,8 +653,13 @@ extension EditorSetViewModel {
         objectId: BlockId,
         relation: Relation
     ) {
+        guard let objectDetails = subscriptionService.storage.get(id: objectId) else {
+            anytypeAssertionFailure("Details not found")
+            return
+        }
+        
         router?.showRelationValueEditingView(
-            objectId: objectId,
+            objectDetails: objectDetails,
             relation: relation
         )
     }

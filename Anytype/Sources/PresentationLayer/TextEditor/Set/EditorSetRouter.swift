@@ -62,7 +62,7 @@ protocol EditorSetRouterProtocol:
     func replaceCurrentPage(with data: EditorScreenData)
     
     func showRelationValueEditingView(key: String)
-    func showRelationValueEditingView(objectId: BlockId, relation: Relation)
+    func showRelationValueEditingView(objectDetails: ObjectDetails, relation: Relation)
     func showAddNewRelationView(onSelect: ((RelationDetails, _ isNew: Bool) -> Void)?)
     
     func showFailureToast(message: String)
@@ -446,15 +446,14 @@ final class EditorSetRouter: EditorSetRouterProtocol {
     func showRelationValueEditingView(key: String) {
         let relation = setDocument.parsedRelations.installed.first { $0.key == key }
         guard let relation = relation else { return }
-        
-        showRelationValueEditingView(objectId: setDocument.objectId, relation: relation)
-    }
-    
-    func showRelationValueEditingView(objectId: BlockId, relation: Relation) {
-        guard let objectDetails = setDocument.document.detailsStorage.get(id: objectId) else {
-            anytypeAssertionFailure("Details not found")
+        guard let objectDetails = setDocument.details else {
+            anytypeAssertionFailure("Set document doesn't contains details")
             return
         }
+        showRelationValueEditingView(objectDetails: objectDetails, relation: relation)
+    }
+    
+    func showRelationValueEditingView(objectDetails: ObjectDetails, relation: Relation) {
         relationValueCoordinator.startFlow(objectDetails: objectDetails, relation: relation, analyticsType: .dataview, output: self)
     }
     

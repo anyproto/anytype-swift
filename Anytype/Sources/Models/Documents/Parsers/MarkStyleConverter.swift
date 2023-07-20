@@ -44,7 +44,7 @@ enum MarkStyleActionConverter {
 
         case .emoji:
             guard let emoji = Emoji(tuple.value) else {
-                anytypeAssertionFailure("Unrecognized emoji", info: ["value": "\(tuple.value)"])
+                anytypeAssertionFailure("Unrecognized emoji")
                 return nil
             }
             return .emoji(emoji)

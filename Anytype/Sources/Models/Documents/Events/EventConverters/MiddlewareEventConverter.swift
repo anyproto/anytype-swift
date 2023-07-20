@@ -178,7 +178,7 @@ final class MiddlewareEventConverter {
                     
                     return info.updated(content: .file(fileData))
                 default:
-                    anytypeAssertionFailure("Wrong content in blockSetFile", info: ["content": "\(info.content)"])
+                    anytypeAssertionFailure("Wrong content in blockSetFile", info: ["contentType": "\(info.content.type)"])
                     return nil
                 }
             })
@@ -229,7 +229,7 @@ final class MiddlewareEventConverter {
                     return info.updated(content: .bookmark(bookmark))
 
                 default:
-                    anytypeAssertionFailure("Wrong content in blockSetBookmark", info: ["content": "\(info.content)"])
+                    anytypeAssertionFailure("Wrong content in blockSetBookmark", info: ["contentType": "\(info.content.type)"])
                     return nil
                 }
             })
@@ -254,7 +254,7 @@ final class MiddlewareEventConverter {
                     return info.updated(content: .divider(divider))
                     
                 default:
-                    anytypeAssertionFailure("Wrong content in blockSetDiv", info: ["content": "\(info.content)"])
+                    anytypeAssertionFailure("Wrong content in blockSetDiv", info: ["contentType": "\(info.content.type)"])
                     return nil
                 }
             })
@@ -289,7 +289,7 @@ final class MiddlewareEventConverter {
                     return info.updated(content: .link(blockLink))
 
                 default:
-                    anytypeAssertionFailure("Wrong content in blockSetLink", info: ["content": "\(info.content)"])
+                    anytypeAssertionFailure("Wrong content in blockSetLink", info: ["contentType": "\(info.content.type)"])
                     return nil
                 }
             }
@@ -387,7 +387,7 @@ final class MiddlewareEventConverter {
         case .blockSetWidget(let data):
             infoContainer.update(blockId: data.id) { info in
                 guard case let .widget(widget) = info.content else {
-                    anytypeAssertionFailure("Wrong content in blockSetWidget", info: ["content": "\(info.content)"])
+                    anytypeAssertionFailure("Wrong content in blockSetWidget", info: ["contentType": "\(info.content.type)"])
                     return info
                 }
                 return info.updated(content: .widget(widget.applyBlockSetWidgetEvent(data: data)))
