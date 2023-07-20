@@ -31,10 +31,10 @@ protocol ModulesDIProtocol: AnyObject {
     func authorization() -> AuthModuleAssemblyProtocol
     func joinFlow() -> JoinFlowModuleAssemblyProtocol
     func login() -> LoginViewModuleAssemblyProtocol
-    func enteringVoid() -> EnteringVoidModuleAssemblyProtocol
     func migrationGuide() -> MigrationGuideViewModuleAssemblyProtocol
     func authVoid() -> VoidViewModuleAssemblyProtocol
     func authKey() -> KeyPhraseViewModuleAssemblyProtocol
     func authSoul() -> SoulViewModuleAssemblyProtocol
     func authCreatingSoul() -> CreatingSoulViewModuleAssemblyProtocol
+    func templatesAssembly() -> TemplateModulesAssembly
 }

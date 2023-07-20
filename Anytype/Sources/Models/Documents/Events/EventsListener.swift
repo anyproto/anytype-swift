@@ -69,18 +69,10 @@ final class EventsListener: EventsListenerProtocol {
     }
     
     private func subscribeMiddlewareEvents() {
-        let subscription = NotificationCenter.Publisher(
-            center: .default,
-            name: .middlewareEvent,
-            object: nil
-        )
-            .compactMap { $0.object as? EventsBunch }
-            .filter { [weak self] in $0.contextId == self?.objectId ?? "" }
-            .receiveOnMain()
-            .sink { [weak self] events in
-                self?.handle(events: events)
-            }
-        subscriptions.append(subscription)
+        EventBunchSubscribtion.default.addHandler { [weak self] events in
+            guard events.contextId == self?.objectId else { return }
+            await self?.handle(events: events)
+        }.store(in: &subscriptions)
     }
     
     private func subscribeRelationEvents() {
@@ -97,6 +89,7 @@ final class EventsListener: EventsListenerProtocol {
         subscriptions.append(subscription)
     }
     
+    @MainActor
     private func handle(events: EventsBunch) {
         let middlewareUpdates = events.middlewareEvents.compactMap(\.value).compactMap { middlewareConverter.convert($0) }
         let localUpdates = events.localEvents.compactMap { localConverter.convert($0) }

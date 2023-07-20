@@ -57,7 +57,7 @@ final class PasteboardHelper {
         return nil
     }
 
-    func obtainAsFiles() -> [NSItemProvider]? {
+    func obtainAsFiles() -> [NSItemProvider] {
         return pasteboard.itemProviders
     }
 

@@ -38,19 +38,22 @@ final class SimpleTableSelectionOptionHandler {
     // MARK: - Public
 
     func handle(action: SimpleTableOptionType) {
-        switch action {
-        case .cell(let cellAction):
-            handleCellAction(action: cellAction)
-        case .row(let rowAction):
-            handleRowAction(action: rowAction)
-        case .column(let columnnAction):
-            handleColumnAction(action: columnnAction)
+        Task { @MainActor in
+            switch action {
+            case .cell(let cellAction):
+                await handleCellAction(action: cellAction)
+            case .row(let rowAction):
+                await handleRowAction(action: rowAction)
+            case .column(let columnnAction):
+                await handleColumnAction(action: columnnAction)
+            }
         }
     }
 
     // MARK: - Private
 
-    private func handleColumnAction(action: SimpleTableColumnMenuItem) {
+    @MainActor
+    private func handleColumnAction(action: SimpleTableColumnMenuItem) async {
         guard let table = ComputedTable(
             blockInformation: tableBlockInformation,
             infoContainer: document.infoContainer
@@ -63,16 +66,16 @@ final class SimpleTableSelectionOptionHandler {
         let selectedBlockIds = selectedBlocksIndexPaths
             .compactMap { table.cells[$0.section][$0.row].blockId }
 
-        fillSelectedRows()
+        await fillSelectedRows()
 
         switch action {
         case .insertLeft:
-            uniqueColumns.forEach {
-                tableService.insertColumn(contextId: document.objectId, targetId: $0, position: .left)
+            await uniqueColumns.asyncForEach {
+                try? await tableService.insertColumn(contextId: document.objectId, targetId: $0, position: .left)
             }
         case .insertRight:
-            uniqueColumns.forEach {
-                tableService.insertColumn(contextId: document.objectId, targetId: $0, position: .right)
+            await uniqueColumns.asyncForEach {
+                try? await tableService.insertColumn(contextId: document.objectId, targetId: $0, position: .right)
             }
         case .moveLeft:
             let allColumnIds = table.allColumnIds
@@ -83,9 +86,8 @@ final class SimpleTableSelectionOptionHandler {
                 return allColumnIds[safe: indexBefore]
             }
 
-            zip(uniqueColumns, dropColumnIds).forEach { targetId, dropColumnId in
-                tableService.columnMove(contextId: document.objectId, targetId: targetId, dropTargetID: dropColumnId, position: .left)
-
+            await zip(uniqueColumns, dropColumnIds).asyncForEach { targetId, dropColumnId in
+                try? await tableService.columnMove(contextId: document.objectId, targetId: targetId, dropTargetID: dropColumnId, position: .left)
             }
         case .moveRight:
             let allColumnIds = table.allColumnIds
@@ -96,24 +98,23 @@ final class SimpleTableSelectionOptionHandler {
                 return allColumnIds[safe: indexBefore]
             }
 
-            zip(uniqueColumns, dropColumnIds).forEach { targetId, dropColumnId in
-                tableService.columnMove(contextId: document.objectId, targetId: targetId, dropTargetID: dropColumnId, position: .right)
-
+            await zip(uniqueColumns, dropColumnIds).asyncForEach { targetId, dropColumnId in
+                try? await tableService.columnMove(contextId: document.objectId, targetId: targetId, dropTargetID: dropColumnId, position: .right)
             }
         case .duplicate:
-            uniqueColumns.forEach {
-                tableService.columnDuplicate(contextId: document.objectId, targetId: $0)
+            await uniqueColumns.asyncForEach {
+                try? await tableService.columnDuplicate(contextId: document.objectId, targetId: $0)
             }
 
         case .delete:
-            uniqueColumns.forEach {
-                tableService.deleteColumn(contextId: document.objectId, targetId: $0)
+            await uniqueColumns.asyncForEach {
+                try? await tableService.deleteColumn(contextId: document.objectId, targetId: $0)
             }
         case .clearContents:
-            tableService.clearContents(contextId: document.objectId, blockIds: selectedBlockIds)
+            try? await tableService.clearContents(contextId: document.objectId, blockIds: selectedBlockIds)
         case .sort:
-            uniqueColumns.forEach {
-                tableService.columnSort(contextId: document.objectId, columnId: $0, blocksSortType: currentSortType)
+            await uniqueColumns.asyncForEach {
+                try? await tableService.columnSort(contextId: document.objectId, columnId: $0, blocksSortType: currentSortType)
             }
 
             currentSortType = currentSortType == .asc ? .desc : .asc
@@ -171,7 +172,8 @@ final class SimpleTableSelectionOptionHandler {
         )
     }
 
-    private func handleRowAction(action: SimpleTableRowMenuItem) {
+    @MainActor
+    private func handleRowAction(action: SimpleTableRowMenuItem) async {
         guard let table = ComputedTable(
             blockInformation: tableBlockInformation,
             infoContainer: document.infoContainer
@@ -184,16 +186,16 @@ final class SimpleTableSelectionOptionHandler {
         let selectedBlockIds = selectedBlocksIndexPaths
             .compactMap { table.cells[$0.section][$0.row].blockId }
 
-        fillSelectedRows()
+        await fillSelectedRows()
 
         switch action {
         case .insertAbove:
-            uniqueRows.forEach {
-                tableService.insertRow(contextId: document.objectId, targetId: $0, position: .top)
+            await uniqueRows.asyncForEach {
+                try? await tableService.insertRow(contextId: document.objectId, targetId: $0, position: .top)
             }
         case .insertBelow:
-            uniqueRows.forEach {
-                tableService.insertRow(contextId: document.objectId, targetId: $0, position: .bottom)
+            await uniqueRows.asyncForEach {
+                try? await tableService.insertRow(contextId: document.objectId, targetId: $0, position: .bottom)
             }
         case .moveUp:
             let allRowIds = table.allRowIds
@@ -204,8 +206,8 @@ final class SimpleTableSelectionOptionHandler {
                 return allRowIds[safe: indexBefore]
             }
 
-            zip(uniqueRows, dropRowIds).forEach { targetId, dropColumnId in
-                tableService.rowMove(
+            await zip(uniqueRows, dropRowIds).asyncForEach { targetId, dropColumnId in
+                try? await tableService.rowMove(
                     contextId: document.objectId,
                     targetId: targetId,
                     dropTargetID: dropColumnId,
@@ -221,8 +223,8 @@ final class SimpleTableSelectionOptionHandler {
                 return allRowIds[safe: indexAfter]
             }
 
-            zip(uniqueRows, dropRowIds).forEach { targetId, dropColumnId in
-                tableService.rowMove(
+            await zip(uniqueRows, dropRowIds).asyncForEach { targetId, dropColumnId in
+                try? await tableService.rowMove(
                     contextId: document.objectId,
                     targetId: targetId,
                     dropTargetID: dropColumnId,
@@ -230,15 +232,15 @@ final class SimpleTableSelectionOptionHandler {
                 )
             }
         case .duplicate:
-            uniqueRows.forEach {
-                tableService.rowDuplicate(contextId: document.objectId, targetId: $0)
+            await uniqueRows.asyncForEach {
+                try? await tableService.rowDuplicate(contextId: document.objectId, targetId: $0)
             }
         case .delete:
-            uniqueRows.forEach {
-                tableService.deleteRow(contextId: document.objectId, targetId: $0)
+            await uniqueRows.asyncForEach {
+                try? await tableService.deleteRow(contextId: document.objectId, targetId: $0)
             }
         case .clearContents:
-            tableService.clearContents(contextId: document.objectId, blockIds: selectedBlockIds)
+            try? await tableService.clearContents(contextId: document.objectId, blockIds: selectedBlockIds)
         case .color:
             onColorSelection(for: selectedBlockIds)
             return
@@ -250,7 +252,8 @@ final class SimpleTableSelectionOptionHandler {
         onFinishSelection?()
     }
 
-    private func handleCellAction(action: SimpleTableCellMenuItem) {
+    @MainActor
+    private func handleCellAction(action: SimpleTableCellMenuItem) async {
         guard let table = ComputedTable(
             blockInformation: tableBlockInformation,
             infoContainer: document.infoContainer
@@ -260,11 +263,11 @@ final class SimpleTableSelectionOptionHandler {
         let selectedBlockIds = selectedBlocksIndexPaths
             .compactMap { table.cells[$0.section][$0.row].blockId }
 
-        fillSelectedRows()
+        await fillSelectedRows()
 
         switch action {
         case .clearContents:
-            tableService.clearContents(contextId: document.objectId, blockIds: selectedBlockIds)
+            try? await tableService.clearContents(contextId: document.objectId, blockIds: selectedBlockIds)
         case .color:
             onColorSelection(for: selectedBlockIds)
             return
@@ -272,13 +275,14 @@ final class SimpleTableSelectionOptionHandler {
             onStyleSelection(for: selectedBlockIds)
             return
         case .clearStyle:
-            tableService.clearStyle(contextId: document.objectId, blocksIds: selectedBlockIds)
+            try? await tableService.clearStyle(contextId: document.objectId, blocksIds: selectedBlockIds)
         }
 
         onFinishSelection?()
     }
 
-    private func fillSelectedRows() {
+    @MainActor
+    private func fillSelectedRows() async {
         guard let table = ComputedTable(
             blockInformation: tableBlockInformation,
             infoContainer: document.infoContainer
@@ -291,6 +295,6 @@ final class SimpleTableSelectionOptionHandler {
 
         guard selectedRows.count > 0 else { return }
 
-        tableService.rowListFill(contextId: document.objectId, targetIds: Array(selectedRows))
+        try? await tableService.rowListFill(contextId: document.objectId, targetIds: Array(selectedRows))
     }
 }

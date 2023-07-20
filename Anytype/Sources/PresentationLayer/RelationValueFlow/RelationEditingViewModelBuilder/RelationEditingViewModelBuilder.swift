@@ -31,6 +31,7 @@ final class RelationEditingViewModelBuilder {
 
 extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtocol {
     
+    @MainActor
     func buildViewModel(
         objectDetails: ObjectDetails,
         relation: Relation,
@@ -167,7 +168,11 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                     ) {
                         RelationObjectsRowView(
                             object: object,
-                            action: { onTap(object.editorScreenData) }
+                            action: {
+                                if let editorScreenData = object.editorScreenData {
+                                    onTap(editorScreenData)
+                                }
+                            }
                         ).eraseToAnyView()
                     }
                 },

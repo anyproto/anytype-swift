@@ -19,23 +19,12 @@ final class AboutModuleAssembly: AboutModuleAssemblyProtocol {
     
     @MainActor
     func make(output: AboutModuleOutput?) -> UIViewController {
-        
-        if FeatureFlags.redesignAbout {
-            let model = AboutViewModel(
-                middlewareConfigurationProvider: serviceLocator.middlewareConfigurationProvider(),
-                accountManager: serviceLocator.accountManager(),
-                output: output
-            )
-            let view = AboutView(model: model)
-            return UIHostingController(rootView: view)
-        } else {
-            let model = AboutLegacyViewModel(
-                middlewareConfigurationProvider: serviceLocator.middlewareConfigurationProvider(),
-                accountManager: serviceLocator.accountManager(),
-                output: output
-            )
-            let view = AboutLegacyView(model: model)
-            return AnytypePopup(contentView: view)
-        }
+        let model = AboutViewModel(
+            middlewareConfigurationProvider: serviceLocator.middlewareConfigurationProvider(),
+            accountManager: serviceLocator.accountManager(),
+            output: output
+        )
+        let view = AboutView(model: model)
+        return UIHostingController(rootView: view)
     }
 }

@@ -96,7 +96,6 @@
 // Settings
 "Wallpaper" = "Wallpaper";
 "Log out" = "Log out";
-"Clear cache description" = "All media files will be deleted from your current device.\nThey can be downloaded again from a backup node or another device";
 
 // Action
 "Restore" = "Restore";
@@ -264,6 +263,12 @@
 "TemplatePicker.ChooseTemplate" = "Choose template";
 "TemplatePicker.Buttons.Skip" = "Skip";
 "TemplatePicker.Buttons.UseTemplate" = "Use template";
+"TemplateSelection.SelectTemplate" = "Select template";
+
+"TemplateOptions.Alert.SetAsDefault" = "Set as default for this view";
+"TemplateOptions.Alert.EditTemplate" = "Edit template";
+"TemplateOptions.Alert.Duplicate" = "Duplicate";
+"TemplateOptions.Alert.Delete" = "Delete";
 
 "To Bin" = "To Bin";
 
@@ -280,11 +285,8 @@
 "Card" = "Card";
 
 "LinkAppearance.Description.None.Title" = "None";
-"LinkAppearance.Description.Added.Title" = "Only Added";
+"LinkAppearance.Description.Object.Title" = "Object description";
 "LinkAppearance.Description.Content.Title" = "Content preview";
-"LinkAppearance.Description.None.Subtitle" = "Don't show description";
-"LinkAppearance.Description.Added.Subtitle" = "Show only added description";
-"LinkAppearance.Description.Content.Subtitle" = "Show first sentenses of the object";
 "LinkAppearance.ObjectType.Title" = "Object type";
 
 // MARK: - Sets: Sorts
@@ -457,18 +459,15 @@
 "About" = "About";
 "Appearance" = "Appearance";
 "Change wallpaper" = "Change wallpaper";
-"Clear file cache" = "Clear file cache";
 "Application icon" = "Application icon";
 "Mode" = "Mode";
 "copied to clipboard" = "%@ copied to clipboard";
 "Access to secret phrase from keychain" = "Access to secret phrase from keychain";
 "Back up your recovery phrase" = "Back up your recovery phrase";
 "Account" = "Account";
-"Data" = "Data";
 "Access" = "Access";
 "Back up phrase" = "Back up phrase";
 "Removing cache" = "Removing cache";
-"Clear cache" = "Clear cache";
 "Deletion error" = "Deletion error";
 "Start" = "Start";
 "On analytics" = "On analytics";
@@ -551,7 +550,6 @@
 "Failed to sync, trying again..." = "Failed to sync, trying again...";
 "Sync.Status.Version.Outdated.Description" = "Version outdated. Please update Anytype";
 "This object doesn't exist" = "This object doesn't exist";
-"Account & data" = "Account & data";
 "File & Media" = "File & Media";
 "Setting up encrypted storage\nPlease wait" = "Setting up encrypted storage\nPlease wait";
 "These objects will be deleted irrevocably" = "These objects will be deleted irrevocably. You can’t undo this action.";
@@ -688,10 +686,6 @@
 "Widgets.Empty.Title" = "This data view contains no objects";
 
 // MARK: - About
-"About.AppVersionLegacy" = "App version";
-"About.BuildNumberLegacy" = "Build number";
-"About.LibraryLegacy" = "Library";
-"About.analyticsIdLegacy" = "Analytics ID";
 "About.AppVersion" = "App version: %@";
 "About.BuildNumber" = "Build number: %@";
 "About.Library" = "Library version: %@";
@@ -756,3 +750,4 @@
 // MARK: - Cpear cache alert
 "ClearCacheAlert.Title" = "Are you sure?";
 "ClearCacheAlert.Description" = "All media files stored in Anytype will be deleted from your current device. They can be downloaded again from a backup node or another device.";
+

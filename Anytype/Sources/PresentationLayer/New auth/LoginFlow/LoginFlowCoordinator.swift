@@ -11,18 +11,15 @@ final class LoginFlowCoordinator: LoginFlowCoordinatorProtocol, LoginFlowOutput 
     // MARK: - DI
     
     private let loginViewModuleAssembly: LoginViewModuleAssemblyProtocol
-    private let enteringVoidModuleAssembly: EnteringVoidModuleAssemblyProtocol
     private let migrationGuideViewModuleAssembly: MigrationGuideViewModuleAssemblyProtocol
     private let navigationContext: NavigationContextProtocol
     
     init(
         loginViewModuleAssembly: LoginViewModuleAssemblyProtocol,
-        enteringVoidModuleAssembly: EnteringVoidModuleAssemblyProtocol,
         migrationGuideViewModuleAssembly: MigrationGuideViewModuleAssemblyProtocol,
         navigationContext: NavigationContextProtocol
     ) {
         self.loginViewModuleAssembly = loginViewModuleAssembly
-        self.enteringVoidModuleAssembly = enteringVoidModuleAssembly
         self.migrationGuideViewModuleAssembly = migrationGuideViewModuleAssembly
         self.navigationContext = navigationContext
     }
@@ -31,10 +28,6 @@ final class LoginFlowCoordinator: LoginFlowCoordinatorProtocol, LoginFlowOutput 
     
     func startFlow() -> AnyView {
         loginViewModuleAssembly.make(output: self)
-    }
-    
-    func onEntetingVoidAction() -> AnyView {
-        enteringVoidModuleAssembly.make(output: self)
     }
     
     func onShowMigrationGuideAction() {

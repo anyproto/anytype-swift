@@ -1,31 +1,40 @@
 import SwiftUI
+import AnytypeCore
 
 typealias StandardButtonAction = () -> Void
 
 struct StandardButton: View {
-    let text: String
+    enum Content {
+        case text(String)
+        case image(ImageAsset)
+    }
+    
+    let content: Content
     let info: String?
     let inProgress: Bool
     let style: StandardButtonStyle
     let action: StandardButtonAction
+    let corners: UIRectCorner
     let holdPressState: Bool // Use only for demo
     
     @State private var isPressed: Bool = false
     @Environment(\.isEnabled) private var isEnable
     
     init(
-        _ text: String,
+        _ content: Content,
         info: String? = nil,
         inProgress: Bool = false,
         style: StandardButtonStyle,
         holdPressState: Bool = false,
+        corners: UIRectCorner = .allCorners,
         action: @escaping StandardButtonAction
     ) {
-        self.text = text
+        self.content = content
         self.info = info
         self.inProgress = inProgress
         self.style = style
         self.holdPressState = holdPressState
+        self.corners = corners
         self.action = action
     }
     
@@ -33,7 +42,7 @@ struct StandardButton: View {
         Button {
             action()
         } label: {
-            content
+            contentView
         }
         .buttonStyle(StandardPlainButtonStyle())
         .onLongPressGesture(minimumDuration: .infinity, maximumDistance: .infinity) {
@@ -44,22 +53,31 @@ struct StandardButton: View {
     }
     
     @ViewBuilder
-    private var content: some View {
+    private var contentView: some View {
         let colorConfigStyle = buildColorConfigStyle()
 
-        AnytypeText(
-            text,
-            style: style.config.textFont,
-            color: colorConfigStyle.textColor ?? .Text.primary
-        )
-        .padding(.horizontal, 12)
+        Group {
+            switch content {
+            case let .text(text):
+                AnytypeText(
+                    text,
+                    style: style.config.textFont,
+                    color: colorConfigStyle.textColor ?? .Text.primary
+                )
+                .padding(.horizontal, 12)
+            case let .image(asset):
+                Image(asset: asset)
+                    .foregroundColor(colorConfigStyle.textColor ?? .Text.primary)
+                    .padding(.horizontal, 5)
+            }
+        }
         .opacity(inProgress ? 0 : 1)
         .if(style.config.stretchSize) {
             $0.frame(minWidth: 0, maxWidth: .infinity)
         }
         .frame(height: style.config.height)
         .background(background(style: colorConfigStyle))
-        .cornerRadius(style.config.radius, style: .continuous)
+        .cornerRadius(style.config.radius, corners: corners)
         .ifLet(colorConfigStyle.borderColor) { view, borderColor in
             view.overlay(
                 RoundedRectangle(cornerRadius: style.config.radius, style: .continuous).strokeBorder(borderColor, lineWidth: 1)
@@ -100,9 +118,17 @@ struct StandardButton: View {
     
     @ViewBuilder
     private func progressView(config: StandardButtonConfig.Style) -> some View {
-        if inProgress {
-            ProgressView()
-                .progressViewStyle(CircularProgressViewStyle(tint: config.textColor ?? .black))
+        if FeatureFlags.superNewButtonLoadingState {
+            if inProgress {
+                DotsView()
+                    .foregroundColor(config.textColor)
+                    .frame(width: style.config.loadingIndicatorSize.width, height: style.config.loadingIndicatorSize.height)
+            }
+        } else {
+            if inProgress {
+                ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle(tint: config.textColor ?? .black))
+            }
         }
     }
     
@@ -120,7 +146,6 @@ struct StandardButton: View {
 }
 
 extension StandardButton {
-    
     init(model: StandardButtonModel) {
         self.init(
             model.text,
@@ -130,4 +155,21 @@ extension StandardButton {
         )
     }
     
+    init(
+        _ text: String,
+        info: String? = nil,
+        inProgress: Bool = false,
+        style: StandardButtonStyle,
+        holdPressState: Bool = false,
+        corners: UIRectCorner = .allCorners,
+        action: @escaping StandardButtonAction
+    ) {
+        self.content = .text(text)
+        self.info = info
+        self.inProgress = inProgress
+        self.style = style
+        self.holdPressState = holdPressState
+        self.corners = corners
+        self.action = action
+    }
 }

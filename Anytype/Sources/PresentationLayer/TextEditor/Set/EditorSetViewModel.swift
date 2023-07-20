@@ -199,7 +199,9 @@ final class EditorSetViewModel: ObservableObject {
     
     func onDisappear() {
         subscriptionService.stopAllSubscriptions()
-        groupsSubscriptionsHandler.stopAllSubscriptions()
+        Task {
+            try await groupsSubscriptionsHandler.stopAllSubscriptions()
+        }
     }
 
     func onRelationTap(relation: Relation) {
@@ -228,11 +230,13 @@ final class EditorSetViewModel: ObservableObject {
         guard let group = groups.first(where: { $0.id == groupId }),
         let value = group.value else { return }
 
-        detailsService.updateDetails(
-            contextId: detailsId,
-            relationKey: activeView.groupRelationKey,
-            value: value
-        )
+        Task {
+            try await detailsService.updateDetails(
+                contextId: detailsId,
+                relationKey: activeView.groupRelationKey,
+                value: value
+            )
+        }
     }
     
     func pagitationData(by groupId: String) -> EditorSetPaginationData {
@@ -288,13 +292,15 @@ final class EditorSetViewModel: ObservableObject {
                     return
                 }
 
-                self.textService.setText(
-                    contextId: self.setDocument.targetObjectID ?? self.objectId,
-                    blockId: RelationKey.title.rawValue,
-                    middlewareString: .init(text: newValue, marks: .init())
-                )
-
-                self.isUpdating = false
+                Task { @MainActor in
+                    try? await self.textService.setText(
+                        contextId: self.setDocument.targetObjectID ?? self.objectId,
+                        blockId: RelationKey.title.rawValue,
+                        middlewareString: .init(text: newValue, marks: .init())
+                    )
+                    
+                    self.isUpdating = false
+                }
             }
         }
     }
@@ -312,7 +318,7 @@ final class EditorSetViewModel: ObservableObject {
                 collectionId: self.setDocument.isCollection() ? objectId : nil
             )
             if self.groupsSubscriptionsHandler.hasGroupsSubscriptionDataDiff(with: data) {
-                self.groupsSubscriptionsHandler.stopAllSubscriptions()
+                try await self.groupsSubscriptionsHandler.stopAllSubscriptions()
                 self.groups = try await self.startGroupsSubscription(with: data)
             }
             
@@ -394,8 +400,8 @@ final class EditorSetViewModel: ObservableObject {
             )
         )
         
-        subscriptionService.updateSubscription(data: data, required: recordsDict.keys.isEmpty) { subId, update in
-            DispatchQueue.main.async { [weak self] in
+        subscriptionService.updateSubscription(data: data, required: recordsDict.keys.isEmpty) { [weak self] subId, update in
+            DispatchQueue.main.async {
                 self?.updateData(with: subId.value, update: update)
             }
         }
@@ -505,10 +511,12 @@ final class EditorSetViewModel: ObservableObject {
     
     private func updateDetailsIfNeeded(_ details: ObjectDetails) {
         guard details.layoutValue == .todo else { return }
-        detailsService.updateBundledDetails(
-            contextID: details.id,
-            bundledDetails: [.done(!details.isDone)]
-        )
+        Task {
+            try await detailsService.updateBundledDetails(
+                contextID: details.id,
+                bundledDetails: [.done(!details.isDone)]
+            )
+        }
     }
     
     private func itemTapped(_ details: ObjectDetails) {
@@ -521,15 +529,33 @@ final class EditorSetViewModel: ObservableObject {
         pagitationDataDict = [:]
         groups = []
         subscriptionService.stopAllSubscriptions()
-        groupsSubscriptionsHandler.stopAllSubscriptions()
+        Task {
+            try await groupsSubscriptionsHandler.stopAllSubscriptions()
+        }
+    }
+    
+    @MainActor
+    func onSecondaryCreateTap() {
+        router?.showTemplatesSelection(
+            setDocument: setDocument,
+            dataview: activeView,
+            onTemplateSelection: { [weak self] templateId in
+                self?.createObject(selectedTemplateId: templateId)
+            }
+        )
     }
     
     func createObject() {
+        createObject(selectedTemplateId: nil)
+    }
+    
+    func createObject(selectedTemplateId: BlockId?) {
         if setDocument.isCollection() {
             createObject(
                 with: objectTypeProvider.defaultObjectType.id,
                 shouldSelectType: true,
                 relationsDetails: [],
+                templateId: selectedTemplateId,
                 completion: { details in
                     Task { @MainActor [weak self] in
                         guard let self else { return }
@@ -552,6 +578,7 @@ final class EditorSetViewModel: ObservableObject {
                 with: objectTypeProvider.defaultObjectType.id,
                 shouldSelectType: true,
                 relationsDetails: relationsDetails,
+                templateId: selectedTemplateId,
                 completion: { [weak self] details in
                     self?.openObject(details: details)
                 }
@@ -562,6 +589,7 @@ final class EditorSetViewModel: ObservableObject {
                 with: type,
                 shouldSelectType: type.isEmpty,
                 relationsDetails: [],
+                templateId: selectedTemplateId,
                 completion: { [weak self] details in
                     self?.handleCreatedObject(details: details)
                 }
@@ -581,24 +609,25 @@ final class EditorSetViewModel: ObservableObject {
         with type: String,
         shouldSelectType: Bool,
         relationsDetails: [RelationDetails],
+        templateId: BlockId?,
         completion: ((_ details: ObjectDetails) -> Void)?
     ) {
         Task { @MainActor [weak self] in
             guard let self else { return }
-            let templateId: String
-            if type.isNotEmpty {
+            
+            var finalTemplateId = templateId
+            if type.isNotEmpty, templateId?.isEmpty ?? true {
                 let availableTemplates = try? await self.searchService.searchTemplates(
                     for: .dynamic(type)
                 )
                 let hasSingleTemplate = availableTemplates?.count == 1
-                templateId = hasSingleTemplate ? (availableTemplates?.first?.id ?? "") : ""
-            } else {
-                templateId = ""
+                finalTemplateId = hasSingleTemplate ? (availableTemplates?.first?.id ?? "") : ""
             }
+            
             let details = try await self.dataviewService.addRecord(
                 objectType: type,
                 shouldSelectType: shouldSelectType,
-                templateId: templateId,
+                templateId: finalTemplateId ?? "",
                 setFilters: self.setDocument.filters,
                 relationsDetails: relationsDetails
             )

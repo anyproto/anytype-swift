@@ -50,16 +50,18 @@ final class DeletedAccountViewModel: ObservableObject {
     
     func cancel() {
         AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.cancelDeletion)
-        guard let status = service.restoreAccount() else {
-            UINotificationFeedbackGenerator().notificationOccurred(.error)
-            return
-        }
-        
-        if case .active = status {
-            applicationStateService.state = .home
-        } else {
-            UINotificationFeedbackGenerator().notificationOccurred(.error)
-            return
+        Task { @MainActor in
+            guard let status = try? await service.restoreAccount() else {
+                UINotificationFeedbackGenerator().notificationOccurred(.error)
+                return
+            }
+            
+            if case .active = status {
+                applicationStateService.state = .home
+            } else {
+                UINotificationFeedbackGenerator().notificationOccurred(.error)
+                return
+            }
         }
     }
     

@@ -21,10 +21,12 @@ public final class SceneLifecycleStateService: SceneLifecycleStateServiceProtoco
             case .didEnterBackground: return .background
             }
         }()
-        
-        _ = try? ClientCommands.appSetDeviceState(.with {
-            $0.deviceState = deviceState
-        }).invoke()
+		
+		Task { @MainActor in
+			_ = try? await ClientCommands.appSetDeviceState(.with {
+				$0.deviceState = deviceState
+			}).invoke()
+		}
     }
     
 }

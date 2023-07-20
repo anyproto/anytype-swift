@@ -27,8 +27,16 @@ struct StandardButtonConfig {
     var height: Double
     var stretchSize: Bool
     var radius: Double
+    var loadingIndicatorSize: CGSize
 }
 
+private extension CGSize {
+    enum ButtonLoadingIndicator {
+        static let large = CGSize(width: 50, height: 6)
+        static let small = CGSize(width: 42, height: 6)
+        static let xsmall = CGSize(width: 34, height: 6)
+    }
+}
 
 extension StandardButtonStyle {
     
@@ -51,7 +59,8 @@ extension StandardButtonStyle {
                 infoTextFont: .caption1Medium,
                 height: 48,
                 stretchSize: true,
-                radius: 12
+                radius: 12,
+                loadingIndicatorSize: .ButtonLoadingIndicator.large
             )
         case .secondaryLarge:
             return StandardButtonConfig(
@@ -69,7 +78,8 @@ extension StandardButtonStyle {
                 textFont: .button1Regular,
                 height: 48,
                 stretchSize: true,
-                radius: 12
+                radius: 12,
+                loadingIndicatorSize: .ButtonLoadingIndicator.large
             )
         case .warningLarge:
             return StandardButtonConfig(
@@ -87,7 +97,8 @@ extension StandardButtonStyle {
                 textFont: .button1Medium,
                 height: 48,
                 stretchSize: true,
-                radius: 12
+                radius: 12,
+                loadingIndicatorSize: .ButtonLoadingIndicator.large
             )
         case .primaryMedium:
             return StandardButtonConfig(
@@ -97,7 +108,8 @@ extension StandardButtonStyle {
                 textFont: .button1Medium,
                 height: 44,
                 stretchSize: true,
-                radius: 10
+                radius: 10,
+                loadingIndicatorSize: .ButtonLoadingIndicator.large
             )
         case .secondaryMedium:
             return StandardButtonConfig(
@@ -107,7 +119,8 @@ extension StandardButtonStyle {
                 textFont: .uxBodyRegular,
                 height: 44,
                 stretchSize: true,
-                radius: 10
+                radius: 10,
+                loadingIndicatorSize: .ButtonLoadingIndicator.large
             )
         case .warningMedium:
             return StandardButtonConfig(
@@ -117,7 +130,8 @@ extension StandardButtonStyle {
                 textFont: .button1Medium,
                 height: 44,
                 stretchSize: true,
-                radius: 10
+                radius: 10,
+                loadingIndicatorSize: .ButtonLoadingIndicator.large
             )
         case .primarySmall:
             return StandardButtonConfig(
@@ -127,7 +141,8 @@ extension StandardButtonStyle {
                 textFont: .uxCalloutMedium,
                 height: 36,
                 stretchSize: false,
-                radius: 8
+                radius: 8,
+                loadingIndicatorSize: .ButtonLoadingIndicator.small
             )
         case .secondarySmall:
             return StandardButtonConfig(
@@ -137,7 +152,8 @@ extension StandardButtonStyle {
                 textFont: .uxCalloutRegular,
                 height: 36,
                 stretchSize: false,
-                radius: 8
+                radius: 8,
+                loadingIndicatorSize: .ButtonLoadingIndicator.small
             )
         case .warningSmall:
             return StandardButtonConfig(
@@ -147,7 +163,8 @@ extension StandardButtonStyle {
                 textFont: .uxCalloutMedium,
                 height: 36,
                 stretchSize: false,
-                radius: 8
+                radius: 8,
+                loadingIndicatorSize: .ButtonLoadingIndicator.small
             )
         case .primaryXSmall:
             return StandardButtonConfig(
@@ -157,7 +174,8 @@ extension StandardButtonStyle {
                 textFont: .caption1Medium,
                 height: 28,
                 stretchSize: false,
-                radius: 6
+                radius: 6,
+                loadingIndicatorSize: .ButtonLoadingIndicator.xsmall
             )
         case .secondaryXSmall:
             return StandardButtonConfig(
@@ -167,7 +185,8 @@ extension StandardButtonStyle {
                 textFont: .caption1Regular,
                 height: 28,
                 stretchSize: false,
-                radius: 6
+                radius: 6,
+                loadingIndicatorSize: .ButtonLoadingIndicator.xsmall
             )
         case .warningXSmall:
             return StandardButtonConfig(
@@ -177,7 +196,8 @@ extension StandardButtonStyle {
                 textFont: .caption1Medium,
                 height: 28,
                 stretchSize: false,
-                radius: 6
+                radius: 6,
+                loadingIndicatorSize: .ButtonLoadingIndicator.xsmall
             )
         }
     }

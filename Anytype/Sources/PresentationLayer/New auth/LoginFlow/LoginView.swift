@@ -30,6 +30,7 @@ struct LoginView: View {
                 model.onAppear()
             }
             .customBackSwipe {
+                guard !model.loadingRoute.isLoadingInProgress else { return }
                 presentationMode.dismiss()
             }
             .fitIPadToReadableContentGuide()
@@ -58,15 +59,14 @@ struct LoginView: View {
         VStack(spacing: 12) {
             StandardButton(
                 Loc.Auth.LoginFlow.Enter.Button.title,
-                inProgress: model.walletRecoveryInProgress,
+                inProgress: model.loadingRoute.isLoginInProgress,
                 style: .primaryLarge,
                 action: {
                     model.onEnterButtonAction()
                 }
             )
-            .colorScheme(model.phrase.isEmpty ? .dark : .light)
-            .disabled(model.phrase.isEmpty)
-            .addEmptyNavigationLink(destination: model.onNextAction(), isActive: $model.showEnteringVoidView)
+            .colorScheme(model.loginButtonDisabled ? .dark : .light)
+            .disabled(model.loginButtonDisabled)
             
             AnytypeText(
                 Loc.Auth.LoginFlow.or,
@@ -77,20 +77,24 @@ struct LoginView: View {
             HStack(spacing: 8) {
                 StandardButton(
                     Loc.scanQRCode,
+                    inProgress: model.loadingRoute.isQRInProgress,
                     style: .secondaryLarge,
                     action: {
                         model.onScanQRButtonAction()
                     }
                 )
+                .disabled(model.qrButtonDisabled)
                 
                 if model.canRestoreFromKeychain {
                     StandardButton(
                         Loc.Auth.LoginFlow.Use.Keychain.title,
+                        inProgress: model.loadingRoute.isKeychainInProgress,
                         style: .secondaryLarge,
                         action: {
                             model.onKeychainButtonAction()
                         }
                     )
+                    .disabled(model.keychainButtonDisabled)
                 }
             }
         }
@@ -103,6 +107,7 @@ struct LoginView: View {
             Image(asset: .backArrow)
                 .foregroundColor(.Text.tertiary)
         }
+        .disabled(model.loadingRoute.isLoadingInProgress)
     }
 }
 
@@ -115,6 +120,8 @@ struct LoginView_Previews : PreviewProvider {
                 seedService: DI.preview.serviceLocator.seedService(),
                 localAuthService: DI.preview.serviceLocator.localAuthService(),
                 cameraPermissionVerifier: DI.preview.serviceLocator.cameraPermissionVerifier(),
+                accountEventHandler: DI.preview.serviceLocator.accountEventHandler(),
+                applicationStateService: DI.preview.serviceLocator.applicationStateService(),
                 output: nil
             )
         )

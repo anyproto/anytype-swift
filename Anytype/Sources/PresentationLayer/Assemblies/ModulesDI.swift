@@ -134,10 +134,6 @@ final class ModulesDI: ModulesDIProtocol {
         return LoginViewModuleAssembly(serviceLocator: serviceLocator)
     }
     
-    func enteringVoid() -> EnteringVoidModuleAssemblyProtocol {
-        return EnteringVoidModuleAssembly(serviceLocator: serviceLocator)
-    }
-    
     func migrationGuide() -> MigrationGuideViewModuleAssemblyProtocol {
         return MigrationGuideViewModuleAssembly()
     }
@@ -158,5 +154,9 @@ final class ModulesDI: ModulesDIProtocol {
     
     func authCreatingSoul() -> CreatingSoulViewModuleAssemblyProtocol {
         return CreatingSoulViewModuleAssembly(serviceLocator: serviceLocator)
+    }
+    
+    func templatesAssembly() -> TemplateModulesAssembly {
+        return TemplateModulesAssembly(serviceLocator: serviceLocator)
     }
 }

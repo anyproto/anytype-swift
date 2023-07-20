@@ -4,8 +4,8 @@ import Services
 final class SetSortsSearchViewModel {
     
     let selectionMode: NewSearchViewModel.SelectionMode = .singleItem
-    let viewStateSubject = PassthroughSubject<NewSearchViewState, Never> ()
     
+    private let viewStateSubject = PassthroughSubject<NewSearchViewState, Never> ()
     private let interactor: SetSortsSearchInteractor
     private let onSelect: (_ details: [RelationDetails]) -> Void
     
@@ -16,6 +16,8 @@ final class SetSortsSearchViewModel {
 }
 
 extension SetSortsSearchViewModel: NewInternalSearchViewModelProtocol {
+    
+    var viewStatePublisher: AnyPublisher<NewSearchViewState, Never> { viewStateSubject.eraseToAnyPublisher() }
     
     func search(text: String) {
         let result = interactor.search(text: text)

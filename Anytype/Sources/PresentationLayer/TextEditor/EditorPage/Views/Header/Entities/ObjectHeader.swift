@@ -27,7 +27,7 @@ extension ObjectHeader: ContentConfigurationProvider {
             return ObjectHeaderFilledConfiguration(
                 state: filledState,
                 isShimmering: isShimmering,
-                width: maxWidth
+                sizeConfiguration: .editorSizeConfiguration(width: maxWidth)
             )
                 .cellBlockConfiguration(indentationSettings: nil, dragConfiguration: nil)
         case .empty(let data, let isShimmering):

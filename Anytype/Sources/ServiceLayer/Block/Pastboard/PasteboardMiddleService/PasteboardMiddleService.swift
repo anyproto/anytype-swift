@@ -10,8 +10,8 @@ final class PasteboardMiddleService: PasteboardMiddlewareServiceProtocol {
         self.document = document
     }
 
-    func pasteText(_ text: String, context: PasteboardActionContext) -> PasteboardPasteResult? {
-        paste(contextId: document.objectId,
+    func pasteText(_ text: String, context: PasteboardActionContext) async throws -> PasteboardPasteResult {
+        try await paste(contextId: document.objectId,
               focusedBlockId: context.focusedBlockId,
               selectedTextRange: context.selectedRange,
               selectedBlockIds: context.selectedBlocksIds,
@@ -22,8 +22,8 @@ final class PasteboardMiddleService: PasteboardMiddlewareServiceProtocol {
               fileSlots: [])
     }
 
-    func pasteHTML(_ html: String, context: PasteboardActionContext) -> PasteboardPasteResult? {
-        paste(contextId: document.objectId,
+    func pasteHTML(_ html: String, context: PasteboardActionContext) async throws -> PasteboardPasteResult {
+        try await paste(contextId: document.objectId,
               focusedBlockId: context.focusedBlockId,
               selectedTextRange: context.selectedRange,
               selectedBlockIds: context.selectedBlocksIds,
@@ -34,11 +34,11 @@ final class PasteboardMiddleService: PasteboardMiddlewareServiceProtocol {
               fileSlots: [])
     }
 
-    func pasteBlock(_ blocks: [String], context: PasteboardActionContext) -> PasteboardPasteResult? {
+    func pasteBlock(_ blocks: [String], context: PasteboardActionContext) async throws -> PasteboardPasteResult {
         let blocksSlots = blocks.compactMap { blockJSONSlot in
             try? Anytype_Model_Block(jsonString: blockJSONSlot)
         }
-        return paste(contextId: document.objectId,
+        return try await paste(contextId: document.objectId,
                      focusedBlockId: context.focusedBlockId,
                      selectedTextRange: context.selectedRange,
                      selectedBlockIds: context.selectedBlocksIds,
@@ -49,13 +49,15 @@ final class PasteboardMiddleService: PasteboardMiddlewareServiceProtocol {
                      fileSlots: [])
     }
 
-    func pasteFile(localPath: String, name: String, context: PasteboardActionContext)  -> PasteboardPasteResult? {
-        let fileSlot = Anytype_Rpc.Block.Paste.Request.File.with {
-            $0.name = name
-            $0.data = Data()
-            $0.localPath = localPath
+    func pasteFiles(_ files: [PasteboardFile], context: PasteboardActionContext) async throws -> PasteboardPasteResult {
+        let fileSlots = files.map { file in
+            return Anytype_Rpc.Block.Paste.Request.File.with {
+                $0.name = file.name
+                $0.data = Data()
+                $0.localPath = file.path
+            }
         }
-        return paste(contextId: document.objectId,
+        return try await paste(contextId: document.objectId,
               focusedBlockId: context.focusedBlockId,
               selectedTextRange: context.selectedRange,
               selectedBlockIds: context.selectedBlocksIds,
@@ -63,27 +65,42 @@ final class PasteboardMiddleService: PasteboardMiddlewareServiceProtocol {
               textSlot: "",
               htmlSlot: "",
               anySlots:  [],
-              fileSlots: [fileSlot])
+              fileSlots: fileSlots)
     }
 
-    func copy(blocksIds: [BlockId], selectedTextRange: NSRange) -> PasteboardCopyResult? {
+    func copy(blocksIds: [BlockId], selectedTextRange: NSRange) async throws -> PasteboardCopyResult? {
         let blocks: [Anytype_Model_Block] = blocksIds.compactMap {
             guard let info = document.infoContainer.get(id: $0) else { return nil }
             return BlockInformationConverter.convert(information: info)
         }
-        let result = try? ClientCommands.blockCopy(.with {
+        let result = try await ClientCommands.blockCopy(.with {
             $0.contextID = document.objectId
             $0.blocks = blocks
             $0.selectedTextRange = selectedTextRange.asMiddleware
         }).invoke()
 
-        if let result = result {
-            let blocksSlots = result.anySlot.compactMap { modelBlock in
-                try? modelBlock.jsonString()
-            }
-            return PasteboardCopyResult(textSlot: result.textSlot, htmlSlot: result.htmlSlot, blockSlot: blocksSlots)
+        let blocksSlots = result.anySlot.compactMap { modelBlock in
+            try? modelBlock.jsonString()
         }
-        return nil
+        return PasteboardCopyResult(textSlot: result.textSlot, htmlSlot: result.htmlSlot, blockSlot: blocksSlots)
+    }
+    
+    func cut(blocksIds: [BlockId], selectedTextRange: NSRange) async throws -> PasteboardCopyResult? {
+        let blocks: [Anytype_Model_Block] = blocksIds.compactMap {
+            guard let info = document.infoContainer.get(id: $0) else { return nil }
+            return BlockInformationConverter.convert(information: info)
+        }
+
+        let result = try await ClientCommands.blockCut(.with {
+            $0.contextID = document.objectId
+            $0.blocks = blocks
+            $0.selectedTextRange = selectedTextRange.asMiddleware
+        }).invoke()
+
+        let blocksSlots = result.anySlot.compactMap { modelBlock in
+            try? modelBlock.jsonString()
+        }
+        return PasteboardCopyResult(textSlot: result.textSlot, htmlSlot: result.htmlSlot, blockSlot: blocksSlots)
     }
 }
 
@@ -99,9 +116,9 @@ private extension PasteboardMiddleService {
                        textSlot: String,
                        htmlSlot: String,
                        anySlots:  [Anytype_Model_Block],
-                       fileSlots: [Anytype_Rpc.Block.Paste.Request.File]) -> PasteboardPasteResult? {
+                       fileSlots: [Anytype_Rpc.Block.Paste.Request.File]) async throws -> PasteboardPasteResult {
 
-        let result = try? ClientCommands.blockPaste(.with {
+        let result = try await ClientCommands.blockPaste(.with {
             $0.contextID = contextId
             $0.focusedBlockID = focusedBlockId
             $0.selectedTextRange = selectedTextRange.asMiddleware
@@ -112,10 +129,6 @@ private extension PasteboardMiddleService {
             $0.anySlot = anySlots
             $0.fileSlot = fileSlots
         }).invoke()
-
-        guard let result = result else {
-            return nil
-        }
 
         return PasteboardPasteResult(caretPosition: Int(result.caretPosition),
                                      isSameBlockCaret: result.isSameBlockCaret,

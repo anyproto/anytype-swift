@@ -6,6 +6,10 @@
 public extension FeatureFlags {
 
     // Static value reader
+    static var setTemplateSelection: Bool {
+        value(for: .setTemplateSelection)
+    }
+
     static var setKanbanView: Bool {
         value(for: .setKanbanView)
     }
@@ -22,28 +26,8 @@ public extension FeatureFlags {
         value(for: .migrationGuide)
     }
 
-    static var fileStorage: Bool {
-        value(for: .fileStorage)
-    }
-
     static var newAuthorization: Bool {
         value(for: .newAuthorization)
-    }
-
-    static var redesignAbout: Bool {
-        value(for: .redesignAbout)
-    }
-
-    static var sortIncludeTime: Bool {
-        value(for: .sortIncludeTime)
-    }
-
-    static var binConfirmAlert: Bool {
-        value(for: .binConfirmAlert)
-    }
-
-    static var fixSIGPIPECrash: Bool {
-        value(for: .fixSIGPIPECrash)
     }
 
     static var compactListWidget: Bool {
@@ -66,6 +50,18 @@ public extension FeatureFlags {
         value(for: .fixAudioSession)
     }
 
+    static var deleteObjectPlaceholder: Bool {
+        value(for: .deleteObjectPlaceholder)
+    }
+
+    static var showAllFilesInBin: Bool {
+        value(for: .showAllFilesInBin)
+    }
+
+    static var superNewButtonLoadingState: Bool {
+        value(for: .superNewButtonLoadingState)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -84,21 +80,20 @@ public extension FeatureFlags {
 
     // All toggles
     static let features: [FeatureDescription] = [
+        .setTemplateSelection,
         .setKanbanView,
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
         .migrationGuide,
-        .fileStorage,
         .newAuthorization,
-        .redesignAbout,
-        .sortIncludeTime,
-        .binConfirmAlert,
-        .fixSIGPIPECrash,
         .compactListWidget,
         .getMoreSpace,
         .fixAVCaptureSessionError,
         .clearAccountDataOnDeletedStatus,
         .fixAudioSession,
+        .deleteObjectPlaceholder,
+        .showAllFilesInBin,
+        .superNewButtonLoadingState,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

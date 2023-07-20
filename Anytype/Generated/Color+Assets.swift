@@ -65,6 +65,7 @@ extension Color {
   
     // MARK: - Additional
     enum Additional {
+      internal static let editingBackground = Color(asset: Asset.Additional.editingBackground)
       internal static let space = Color(asset: Asset.Additional.space)
     }
     

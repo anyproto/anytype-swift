@@ -119,6 +119,7 @@ struct SetCollectionView: View {
     
     private var pagination: some View {
         EditorSetPaginationView(
+            model: model,
             paginationData: model.pagitationData(by: SubscriptionId.set.value),
             groupId: SubscriptionId.set.value
         )
@@ -150,7 +151,8 @@ struct SetCollectionView: View {
                     isActive: model.isActiveHeader,
                     onViewTap: model.showViewPicker,
                     onSettingsTap: model.showSetSettings,
-                    onCreateTap: model.createObject
+                    onCreateTap: model.createObject,
+                    onSecondaryCreateTap: model.onSecondaryCreateTap
                 )
             )
             .frame(width: tableHeaderSize.width)

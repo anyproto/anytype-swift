@@ -7,23 +7,22 @@ import SwiftProtobuf
 import AnytypeCore
 
 class BlockListService: BlockListServiceProtocol {
-    
-    func setBlockColor(objectId: BlockId, blockIds: [BlockId], color: MiddlewareColor) {
-        _ = try? ClientCommands.blockTextListSetColor(.with {
+    func setBlockColor(objectId: BlockId, blockIds: [BlockId], color: MiddlewareColor) async throws {
+        try await ClientCommands.blockTextListSetColor(.with {
             $0.contextID = objectId
             $0.blockIds = blockIds
             $0.color = color.rawValue
         }).invoke()
     }
     
-    func setFields(objectId: BlockId, blockId: BlockId, fields: BlockFields) {
+    func setFields(objectId: BlockId, blockId: BlockId, fields: BlockFields) async throws {
         let fieldsRequest = Anytype_Rpc.Block.ListSetFields.Request.BlockField.with {
             $0.blockID = blockId
             $0.fields = .with {
                 $0.fields = fields
             }
         }
-        _ = try? ClientCommands.blockListSetFields(.with {
+        try await ClientCommands.blockListSetFields(.with {
             $0.contextID = objectId
             $0.blockFields = [fieldsRequest]
         }).invoke()
@@ -33,37 +32,37 @@ class BlockListService: BlockListServiceProtocol {
         objectId: BlockId,
         blockIds: [BlockId],
         markType: MarkupType
-    ) {
+    ) async throws {
         guard let mark = markType.asMiddleware else { return }
-        _ = try? ClientCommands.blockTextListSetMark(.with {
+        try await ClientCommands.blockTextListSetMark(.with {
             $0.contextID = objectId
             $0.blockIds = blockIds
             $0.mark = mark
         }).invoke()
     }
 
-    func setBackgroundColor(objectId: BlockId, blockIds: [BlockId], color: MiddlewareColor) {
+    func setBackgroundColor(objectId: BlockId, blockIds: [BlockId], color: MiddlewareColor) async throws {
         AnytypeAnalytics.instance().logChangeBlockBackground(color: color)
         
-        _ = try? ClientCommands.blockListSetBackgroundColor(.with {
+        try await ClientCommands.blockListSetBackgroundColor(.with {
             $0.contextID = objectId
             $0.blockIds = blockIds
             $0.color = color.rawValue
         }).invoke()
     }
 
-    func setAlign(objectId: BlockId, blockIds: [BlockId], alignment: LayoutAlignment) {
+    func setAlign(objectId: BlockId, blockIds: [BlockId], alignment: LayoutAlignment) async throws {
         AnytypeAnalytics.instance().logSetAlignment(alignment, isBlock: blockIds.isNotEmpty)
 
-        _ = try? ClientCommands.blockListSetAlign(.with {
+        try await ClientCommands.blockListSetAlign(.with {
             $0.contextID = objectId
             $0.blockIds = blockIds
             $0.align = alignment.asMiddleware
         }).invoke()
     }
 
-    func replace(objectId: BlockId, blockIds: [BlockId], targetId: BlockId) {
-        _ = try? ClientCommands.blockListMoveToExistingObject(.with {
+    func replace(objectId: BlockId, blockIds: [BlockId], targetId: BlockId) async throws {
+        try await ClientCommands.blockListMoveToExistingObject(.with {
             $0.contextID = objectId
             $0.blockIds = blockIds
             $0.targetContextID = objectId
@@ -72,8 +71,8 @@ class BlockListService: BlockListServiceProtocol {
         }).invoke()
     }
     
-    func move(objectId: BlockId, blockId: BlockId, targetId: BlockId, position: Anytype_Model_Block.Position) {
-        _ = try? ClientCommands.blockListMoveToExistingObject(.with {
+    func move(objectId: BlockId, blockId: BlockId, targetId: BlockId, position: Anytype_Model_Block.Position) async throws {
+        try await ClientCommands.blockListMoveToExistingObject(.with {
             $0.contextID = objectId
             $0.blockIds = [blockId]
             $0.targetContextID = objectId
@@ -82,8 +81,8 @@ class BlockListService: BlockListServiceProtocol {
         }).invoke()
     }
     
-    func moveToPage(objectId: BlockId, blockId: BlockId, pageId: BlockId) {
-        _ = try? ClientCommands.blockListMoveToExistingObject(.with {
+    func moveToPage(objectId: BlockId, blockId: BlockId, pageId: BlockId) async throws {
+        try await ClientCommands.blockListMoveToExistingObject(.with {
             $0.contextID = objectId
             $0.blockIds = [blockId]
             $0.targetContextID = pageId
@@ -92,8 +91,8 @@ class BlockListService: BlockListServiceProtocol {
         }).invoke()
     }
 
-    func setLinkAppearance(objectId: BlockId, blockIds: [BlockId], appearance: BlockLink.Appearance) {
-        _ = try? ClientCommands.blockLinkListSetAppearance(.with {
+    func setLinkAppearance(objectId: BlockId, blockIds: [BlockId], appearance: BlockLink.Appearance) async throws {
+        try await ClientCommands.blockLinkListSetAppearance(.with {
             $0.contextID = objectId
             $0.blockIds = blockIds
             $0.iconSize = appearance.iconSize.asMiddleware
