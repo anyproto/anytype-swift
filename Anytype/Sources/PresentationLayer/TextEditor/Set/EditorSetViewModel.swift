@@ -534,12 +534,28 @@ final class EditorSetViewModel: ObservableObject {
         }
     }
     
+    @MainActor
+    func onSecondaryCreateTap() {
+        router?.showTemplatesSelection(
+            setDocument: setDocument,
+            dataview: activeView,
+            onTemplateSelection: { [weak self] templateId in
+                self?.createObject(selectedTemplateId: templateId)
+            }
+        )
+    }
+    
     func createObject() {
+        createObject(selectedTemplateId: nil)
+    }
+    
+    func createObject(selectedTemplateId: BlockId?) {
         if setDocument.isCollection() {
             createObject(
                 with: objectTypeProvider.defaultObjectType.id,
                 shouldSelectType: true,
                 relationsDetails: [],
+                templateId: selectedTemplateId,
                 completion: { details in
                     Task { @MainActor [weak self] in
                         guard let self else { return }
@@ -562,6 +578,7 @@ final class EditorSetViewModel: ObservableObject {
                 with: objectTypeProvider.defaultObjectType.id,
                 shouldSelectType: true,
                 relationsDetails: relationsDetails,
+                templateId: selectedTemplateId,
                 completion: { [weak self] details in
                     self?.openObject(details: details)
                 }
@@ -572,6 +589,7 @@ final class EditorSetViewModel: ObservableObject {
                 with: type,
                 shouldSelectType: type.isEmpty,
                 relationsDetails: [],
+                templateId: selectedTemplateId,
                 completion: { [weak self] details in
                     self?.handleCreatedObject(details: details)
                 }
@@ -591,24 +609,25 @@ final class EditorSetViewModel: ObservableObject {
         with type: String,
         shouldSelectType: Bool,
         relationsDetails: [RelationDetails],
+        templateId: BlockId?,
         completion: ((_ details: ObjectDetails) -> Void)?
     ) {
         Task { @MainActor [weak self] in
             guard let self else { return }
-            let templateId: String
-            if type.isNotEmpty {
+            
+            var finalTemplateId = templateId
+            if type.isNotEmpty, templateId?.isEmpty ?? true {
                 let availableTemplates = try? await self.searchService.searchTemplates(
                     for: .dynamic(type)
                 )
                 let hasSingleTemplate = availableTemplates?.count == 1
-                templateId = hasSingleTemplate ? (availableTemplates?.first?.id ?? "") : ""
-            } else {
-                templateId = ""
+                finalTemplateId = hasSingleTemplate ? (availableTemplates?.first?.id ?? "") : ""
             }
+            
             let details = try await self.dataviewService.addRecord(
                 objectType: type,
                 shouldSelectType: shouldSelectType,
-                templateId: templateId,
+                templateId: finalTemplateId ?? "",
                 setFilters: self.setDocument.filters,
                 relationsDetails: relationsDetails
             )

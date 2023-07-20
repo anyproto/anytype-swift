@@ -95,7 +95,7 @@ final class ObjectHeaderViewModel: ObservableObject {
         guard let details = document.details else {
             return buildShimmeringHeader()
         }
-        return buildObjectHeader(details: details)
+        return HeaderBuilder.buildObjectHeader(details: details, usecase: .openedObject, onIconTap: onIconTap, onCoverTap: onCoverTap)
     }
     
     private func buildLoadingHeader(_ update: ObjectHeaderUpdate) -> ObjectHeader {
@@ -103,7 +103,7 @@ final class ObjectHeaderViewModel: ObservableObject {
             return fakeHeader(update: update)
         }
         
-        let header = buildObjectHeader(details: details)
+        let header = HeaderBuilder.buildObjectHeader(details: details, usecase: .openedObject, onIconTap: onIconTap, onCoverTap: onCoverTap)
         return header.modifiedByUpdate(
             update,
             onIconTap: onIconTap,
@@ -149,10 +149,17 @@ final class ObjectHeaderViewModel: ObservableObject {
             }
         }
     }
-    
-    private func buildObjectHeader(details: ObjectDetails) -> ObjectHeader {
-        let layoutAlign = details.layoutAlignValue
+}
 
+enum HeaderBuilder {
+    static func buildObjectHeader(
+        details: ObjectDetails,
+        usecase: ObjectIconImageUsecase,
+        onIconTap: @escaping () -> Void,
+        onCoverTap: @escaping () -> Void
+    ) -> ObjectHeader {
+        let layoutAlign = details.layoutAlignValue
+        
         if details.layoutValue == .note {
             return .empty(data: .init(onTap: {}))
         }
@@ -161,46 +168,47 @@ final class ObjectHeaderViewModel: ObservableObject {
         
         if let icon = icon, let cover = details.documentCover {
             return .filled(state:
-                .iconAndCover(
-                    icon: ObjectHeaderIcon(
-                        icon: .init(mode: .icon(icon), usecase: .openedObject),
-                        layoutAlignment: layoutAlign,
-                        onTap: onIconTap
-                    ),
-                    cover: ObjectHeaderCover(
-                        coverType: .cover(cover),
-                        onTap: onCoverTap
+                    .iconAndCover(
+                        icon: ObjectHeaderIcon(
+                            icon: .init(mode: .icon(icon), usecase: usecase),
+                            layoutAlignment: layoutAlign,
+                            onTap: onIconTap
+                        ),
+                        cover: ObjectHeaderCover(
+                            coverType: .cover(cover),
+                            onTap: onCoverTap
+                        )
                     )
-                )
             )
         }
         
         if let icon = icon {
             return .filled(state:
-                .iconOnly(
-                    ObjectHeaderIconOnlyState(
-                        icon: ObjectHeaderIcon(
-                            icon: .init(mode: .icon(icon), usecase: .openedObject),
-                            layoutAlignment: layoutAlign,
-                            onTap: onIconTap
-                        ),
-                        onCoverTap: onCoverTap
+                    .iconOnly(
+                        ObjectHeaderIconOnlyState(
+                            icon: ObjectHeaderIcon(
+                                icon: .init(mode: .icon(icon), usecase: usecase),
+                                layoutAlignment: layoutAlign,
+                                onTap: onIconTap
+                            ),
+                            onCoverTap: onCoverTap
+                        )
                     )
-                )
             )
         }
         
         if let cover = details.documentCover {
             return .filled(state:
-                .coverOnly(
-                    ObjectHeaderCover(
-                        coverType: .cover(cover),
-                        onTap: onCoverTap
+                    .coverOnly(
+                        ObjectHeaderCover(
+                            coverType: .cover(cover),
+                            onTap: onCoverTap
+                        )
                     )
-                )
             )
         }
         
         return .empty(data: ObjectHeaderEmptyData(onTap: onCoverTap))
     }
+
 }

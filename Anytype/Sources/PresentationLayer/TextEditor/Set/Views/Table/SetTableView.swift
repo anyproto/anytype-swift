@@ -103,7 +103,8 @@ struct SetTableView: View {
                     isActive: model.isActiveHeader,
                     onViewTap: model.showViewPicker,
                     onSettingsTap: model.showSetSettings,
-                    onCreateTap: model.createObject
+                    onCreateTap: model.createObject,
+                    onSecondaryCreateTap: model.onSecondaryCreateTap
                 )
             )
             .offset(x: xOffset, y: 0)
