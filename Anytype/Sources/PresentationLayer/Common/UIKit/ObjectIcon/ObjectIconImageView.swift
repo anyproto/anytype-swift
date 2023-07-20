@@ -1,10 +1,49 @@
 import Foundation
 import UIKit
 import Kingfisher
+import AnytypeCore
 
 // KEEP IN SYNC WITH ObjectIconAttachementLoader
 
 final class ObjectIconImageView: UIView {
+    
+    private var legacyView: ObjectIconImageViewLegacy?
+    private var newView: IconViewUIKit?
+    
+    typealias Model = ObjectIconImageModel
+    
+    init() {
+        super.init(frame: .zero)
+        
+        if FeatureFlags.newObjectIcon {
+            let view = IconViewUIKit()
+            addSubview(view) {
+                $0.pinToSuperview()
+            }
+            newView = view
+        } else {
+            let view = ObjectIconImageViewLegacy()
+            addSubview(view) {
+                $0.pinToSuperview()
+            }
+            legacyView = view
+        }
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func configure(model: ObjectIconImageModel) {
+        if FeatureFlags.newObjectIcon {
+            newView?.icon = model.iconImage
+        } else {
+            legacyView?.configure(model: model)
+        }
+    }
+}
+
+final class ObjectIconImageViewLegacy: UIView {
     
     private let painter: ObjectIconImagePainterProtocol = ObjectIconImagePainter.shared
     private var currentModel: ObjectIconImageModel?
@@ -33,7 +72,7 @@ final class ObjectIconImageView: UIView {
 
 // MARK: - ConfigurableView
 
-extension ObjectIconImageView: ConfigurableView {    
+extension ObjectIconImageViewLegacy: ConfigurableView {
     func configure(model: ObjectIconImageModel) {
         switch model.iconImage {
         case .icon(let objectIconType):
@@ -144,7 +183,7 @@ extension ObjectIconImageView: ConfigurableView {
 
 // MARK: - Private extension
 
-private extension ObjectIconImageView {
+private extension ObjectIconImageViewLegacy {
     
     func setupView() {
         clipsToBounds = true

@@ -46,7 +46,7 @@ final class SwiftUIObjectIconImageViewModel: ObservableObject {
     
     @Published var image = UIImage()
 
-    private let uiView = ObjectIconImageView()
+    private let uiView = ObjectIconImageViewLegacy()
     private var observation: NSKeyValueObservation?
     
     init() {
@@ -57,7 +57,7 @@ final class SwiftUIObjectIconImageViewModel: ObservableObject {
     
     func update(iconImage: ObjectIconImage, usecase: ObjectIconImageUsecase) {
         uiView.configure(
-            model: ObjectIconImageView.Model(
+            model: ObjectIconImageViewLegacy.Model(
                 iconImage: iconImage,
                 usecase: usecase
             )

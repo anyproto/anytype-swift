@@ -1,3 +1,5 @@
+import Foundation
+
 enum ObjectIconImageMentionType: Equatable {
     case title
     case heading

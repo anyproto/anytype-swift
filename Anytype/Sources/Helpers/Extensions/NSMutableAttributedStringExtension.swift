@@ -8,7 +8,7 @@ extension NSMutableAttributedString {
             .attachment,
             in: NSRange(location: 0, length: length)
         ) { attachment, range, _ in
-            guard attachment is MentionAttachment else { return }
+            guard attachment is MentionAttachment || attachment is MentionAttachmentLegacy else { return }
             attachmentRanges.append(range)
         }
         attachmentRanges.reversed().forEach { deleteCharacters(in: $0) }

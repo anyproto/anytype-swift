@@ -19,7 +19,7 @@ final class ObjectIconAttachementLoader {
 }
 
 // MARK: - ConfigurableView
-
+// TODO: Delete with newObjectIcon
 extension ObjectIconAttachementLoader {
     func configure(model: ObjectIconImageModel, processor: ImageProcessor) {        
         switch model.iconImage {
