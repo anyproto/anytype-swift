@@ -34,4 +34,8 @@ final class LoginFlowCoordinator: LoginFlowCoordinatorProtocol, LoginFlowOutput 
         let module = migrationGuideViewModuleAssembly.make()
         navigationContext.present(module)
     }
+    
+    func onSettingsAction() {
+        UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+    }
 }

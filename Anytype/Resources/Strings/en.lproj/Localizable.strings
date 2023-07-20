@@ -127,7 +127,7 @@
 "New profile" = "New profile";
 "Create" = "Create";
 "Scan QR code" = "Scan QR code";
-"Auth.CameraPermissionTitle" = "Anytype needs access to your camera to scan QR codes";
+"Auth.CameraPermissionTitle" = "Please allow access";
 "Analytics constent text" = "Understanding how people use Anytype helps us improve the product. This version of Anytype includes the analytics code that protects your privacy.\nIt doesn't record the actual document's content but still allows us to understand how you use Anytype.\nStay subscribed to our mailing list, as we will soon announce a new release that enables you to opt-out.";
 
 "Account recover error" = "Account recover error, try again";
@@ -238,7 +238,7 @@
 
 // MARK: - Alerts
 "Alert.CameraPermissions.Settings" = "Settings";
-"Alert.CameraPermissions.GoToSettings" = "Please, go to your device's Settings -> Privacy -> Camera and set Anytype to ON";
+"Alert.CameraPermissions.GoToSettings" = "Anytype needs access to your camera to scan QR codes.\nPlease, go to your device's Settings -> Privacy -> Camera and set Anytype to ON";
 
 // MARK: - Relation
 "Featured relations" = "Featured relations";
