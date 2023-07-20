@@ -1357,7 +1357,6 @@
 		C9D5F7BD281A79C30076A47F /* DynamicCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D5F7BC281A79C30076A47F /* DynamicCollectionView.swift */; };
 		C9D5F7BF281A79F70076A47F /* UICollectionViewCompositionalLayout+BlockLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D5F7BE281A79F70076A47F /* UICollectionViewCompositionalLayout+BlockLayout.swift */; };
 		C9D655E427B4D10D00E09F38 /* EditorContextualMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D655E327B4D10D00E09F38 /* EditorContextualMenu.swift */; };
-		C9E89098285866DD0040DEB2 /* BlockTableService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E89097285866DD0040DEB2 /* BlockTableService.swift */; };
 		C9E939D428538B600089CB98 /* TextBlockActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E939D328538B600089CB98 /* TextBlockActionHandler.swift */; };
 		C9E939D9285390B70089CB98 /* TextBlockActionHandlerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E939D8285390B70089CB98 /* TextBlockActionHandlerProtocol.swift */; };
 		C9E9F5E427FC7E7F008163D9 /* InsetConstraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E9F5E327FC7E7F008163D9 /* InsetConstraints.swift */; };
@@ -2810,7 +2809,6 @@
 		C9D5F7BC281A79C30076A47F /* DynamicCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicCollectionView.swift; sourceTree = "<group>"; };
 		C9D5F7BE281A79F70076A47F /* UICollectionViewCompositionalLayout+BlockLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewCompositionalLayout+BlockLayout.swift"; sourceTree = "<group>"; };
 		C9D655E327B4D10D00E09F38 /* EditorContextualMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorContextualMenu.swift; sourceTree = "<group>"; };
-		C9E89097285866DD0040DEB2 /* BlockTableService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockTableService.swift; sourceTree = "<group>"; };
 		C9E939D328538B600089CB98 /* TextBlockActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockActionHandler.swift; sourceTree = "<group>"; };
 		C9E939D8285390B70089CB98 /* TextBlockActionHandlerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockActionHandlerProtocol.swift; sourceTree = "<group>"; };
 		C9E9F5E327FC7E7F008163D9 /* InsetConstraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsetConstraints.swift; sourceTree = "<group>"; };
@@ -8377,7 +8375,6 @@
 		C9E89093285866D20040DEB2 /* Table */ = {
 			isa = PBXGroup;
 			children = (
-				C9E89097285866DD0040DEB2 /* BlockTableService.swift */,
 			);
 			path = Table;
 			sourceTree = "<group>";
@@ -9019,7 +9016,6 @@
 				8637768A2A66644B0040308E /* DataviewTemplateSelectionInteractorProvider.swift in Sources */,
 				2ACEAE442984016600B467CE /* WidgetTypeView.swift in Sources */,
 				3DB9810E274FB82500ECC882 /* DashboardKeychainReminderAlert.swift in Sources */,
-				C9E89098285866DD0040DEB2 /* BlockTableService.swift in Sources */,
 				2E412D152847B15C00C973FF /* SetSort.swift in Sources */,
 				3D3D894D2678D08E008C2B26 /* ViewModifiers.swift in Sources */,
 				3DB1CA0927293041000D2779 /* AnytypeAnalytics+Events.swift in Sources */,
