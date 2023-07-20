@@ -114,8 +114,8 @@ final class EditorPageController: UIViewController {
 
         navigationBarHelper.handleViewWillAppear(scrollView: collectionView)
 
-        AnytypeWindow.shared?.textRangeTouchSubject.sink { [unowned self] touch in
-            handleTextSelectionTouch(touch)
+        AnytypeWindow.shared?.textRangeTouchSubject.sink { [weak self] touch in
+            self?.handleTextSelectionTouch(touch)
         }.store(in: &cancellables)
     }
 
@@ -272,11 +272,12 @@ final class EditorPageController: UIViewController {
     }
 
     func bindViewModel() {
-        viewModel.blocksStateManager.editorEditingStatePublisher.sink { [unowned self] state in
-            handleState(state: state)
+        viewModel.blocksStateManager.editorEditingStatePublisher.sink { [weak self] state in
+            self?.handleState(state: state)
         }.store(in: &cancellables)
 
-        viewModel.blocksStateManager.editorSelectedBlocks.sink { [unowned self] blockIds in
+        viewModel.blocksStateManager.editorSelectedBlocks.sink { [weak self] blockIds in
+            guard let self else { return }
             blockIds.forEach(selectBlock)
         }.store(in: &cancellables)
     }
@@ -427,8 +428,8 @@ extension EditorPageController: EditorPageViewInput {
 
     // Moved from EditorPageController+FloatingPanelControllerDelegate.swift
     func restoreEditingState() {
-        UIView.animate(withDuration: CATransaction.animationDuration()) { [unowned self] in
-            insetsHelper?.restoreEditingOffset()
+        UIView.animate(withDuration: CATransaction.animationDuration()) { [weak self] in
+            self?.insetsHelper?.restoreEditingOffset()
         }
 
         guard let selectedIndexPath = collectionView.indexPathsForSelectedItems?.first else { return }
