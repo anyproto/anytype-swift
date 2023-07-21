@@ -19,12 +19,12 @@ final class LoginViewModuleAssembly: LoginViewModuleAssemblyProtocol {
     func make(output: LoginFlowOutput) -> AnyView {
         return LoginView(
             model: LoginViewModel(
-                authService: serviceLocator.authService(),
-                seedService: serviceLocator.seedService(),
-                localAuthService: serviceLocator.localAuthService(),
-                cameraPermissionVerifier: serviceLocator.cameraPermissionVerifier(),
-                accountEventHandler: serviceLocator.accountEventHandler(),
-                applicationStateService: serviceLocator.applicationStateService(),
+                authService: self.serviceLocator.authService(),
+                seedService: self.serviceLocator.seedService(),
+                localAuthService: self.serviceLocator.localAuthService(),
+                cameraPermissionVerifier: self.serviceLocator.cameraPermissionVerifier(),
+                accountEventHandler: self.serviceLocator.accountEventHandler(),
+                applicationStateService: self.serviceLocator.applicationStateService(),
                 output: output
             )
         ).eraseToAnyView()

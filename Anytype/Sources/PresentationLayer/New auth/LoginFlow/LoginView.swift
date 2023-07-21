@@ -2,7 +2,7 @@ import SwiftUI
 
 struct LoginView: View {
     
-    @ObservedObject var model: LoginViewModel
+    @StateObject var model: LoginViewModel
     @Environment(\.presentationMode) @Binding private var presentationMode
     
     var body: some View {
