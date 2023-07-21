@@ -21,4 +21,11 @@ final class AnytypeImageDownloader {
         }
     }
     
+    static func retrieveImage(with url: URL) async -> UIImage? {
+        await withCheckedContinuation { continuation in
+            retrieveImage(with: url) { result in
+                continuation.resume(returning: result)
+            }
+        }
+    }
 }

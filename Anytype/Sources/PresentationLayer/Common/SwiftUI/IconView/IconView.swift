@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct IconView: View {
+struct IconViewOld: View {
     
     let icon: ObjectIconImage
     

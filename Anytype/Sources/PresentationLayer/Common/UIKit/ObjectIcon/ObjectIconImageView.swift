@@ -4,7 +4,7 @@ import Kingfisher
 import AnytypeCore
 
 // KEEP IN SYNC WITH ObjectIconAttachementLoader
-
+// TODO: Delete with newObjectIcon
 final class ObjectIconImageView: UIView {
     
     private var legacyView: ObjectIconImageViewLegacy?

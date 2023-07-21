@@ -40,6 +40,7 @@ final class TextBlockIconView: UIView {
     private func addContentView() {
         switch type {
         case let .titleCheckbox(isSelected):
+            // TODO
             let painer = ObjectIconImagePainter.shared
             let imageGuideline = ObjectIconImageUsecase.openedObject.objectIconImageGuidelineSet.todoImageGuideline
             

@@ -3,14 +3,16 @@ import Kingfisher
 import AnytypeCore
 import Services
 
-final class MentionAttachment: NSTextAttachment {
+final class IconTextAttachment: NSTextAttachment {
     
     let icon: ObjectIconImage?
-    let mentionType: ObjectIconImageMentionType
+    let size: CGSize
+    let rightPadding: CGFloat
     
-    init(icon: ObjectIconImage?, mentionType: ObjectIconImageMentionType) {
+    init(icon: ObjectIconImage?, size: CGSize, rightPadding: CGFloat = 0) {
         self.icon = icon
-        self.mentionType = mentionType
+        self.size = size
+        self.rightPadding = rightPadding
         super.init(data: nil, ofType: "com.anytype.mention")
     }
     
@@ -25,8 +27,8 @@ final class MentionAttachment: NSTextAttachment {
         glyphPosition position: CGPoint,
         characterIndex charIndex: Int
     ) -> CGRect {
-        let size = mentionType.size
-        
+
+
         let textStorage: NSTextStorage? = textContainer?.layoutManager?.textStorage
         let anyAttribute: Any? = textStorage?.attribute(.font, at: charIndex, effectiveRange: nil)
 
@@ -42,15 +44,34 @@ final class MentionAttachment: NSTextAttachment {
         let imageYPoint: CGFloat = -(size.height / 2.0) + yOffset
         let imageOrigin = CGPoint(x: .zero, y: imageYPoint)
 
-        return CGRect(origin: imageOrigin, size: CGSize(width: size.width + mentionType.iconSpacing, height: size.height))
+        return CGRect(origin: imageOrigin, size: CGSize(width: size.width + rightPadding, height: size.height))
+    }
+    
+    override func viewProvider(for parentView: UIView?, location: NSTextLocation, textContainer: NSTextContainer?) -> NSTextAttachmentViewProvider? {
+        super.viewProvider(for: parentView, location: location, textContainer: textContainer)
+    }
+    
+    override var usesTextAttachmentView: Bool {
+        super.usesTextAttachmentView
     }
 }
 
-final class MentionTextAttachmentViewProvider: NSTextAttachmentViewProvider {
+extension IconTextAttachment {
+    convenience init(icon: ObjectIconImage?, mentionType: ObjectIconImageMentionType) {
+        self.init(icon: icon, size: mentionType.size, rightPadding: mentionType.iconSpacing)
+    }
+}
+
+
+final class IconTextAttachmentViewProvider: NSTextAttachmentViewProvider {
+    
+    override init(textAttachment: NSTextAttachment, parentView: UIView?, textLayoutManager: NSTextLayoutManager?, location: NSTextLocation) {
+        super.init(textAttachment: textAttachment, parentView: parentView, textLayoutManager: textLayoutManager, location: location)
+    }
     
     override func loadView() {
-        guard let mentionAttachment = textAttachment as? MentionAttachment else {
-            anytypeAssertionFailure("Mention type is not MentionAttachment", info: ["type": String(describing: textAttachment)])
+        guard let mentionAttachment = textAttachment as? IconTextAttachment else {
+            anytypeAssertionFailure("Text attachment type is not IconTextAttachment", info: ["type": String(describing: textAttachment)])
             return
         }
         guard let icon = mentionAttachment.icon else { return }

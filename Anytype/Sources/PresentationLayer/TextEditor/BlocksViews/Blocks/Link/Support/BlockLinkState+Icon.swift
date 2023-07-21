@@ -1,5 +1,6 @@
 import UIKit
 import Services
+import AnytypeCore
 
 extension BlockLinkState {
     var iconImage: ObjectIconImage? {
@@ -42,27 +43,34 @@ extension BlockLinkState {
             return
         }
 
-        let image = UIImage.circleImage(
-            size: imageSize,
-            fillColor: .Stroke.primary,
-            borderColor: .clear,
-            borderWidth: 0
-        )
-
-        let attributedText = NSAttributedString.imageFirstComposite(
-            image: image,
-            text: titleText,
-            attributes: attributes
-        )
-
-        label.setText(attributedText)
-
-        let anytypeLoader = AnytypeIconDownloader()
-
-        Task { @MainActor in
-            guard let image = await anytypeLoader.image(with: style, imageGuideline: .init(size: imageSize)) else {
-                return
+        if FeatureFlags.newObjectIcon {
+            let painter = IconMaker(icon: iconImage!, size: imageSize)
+            let placeholder = painter.makePlaceholder()
+            let attributedText = NSAttributedString.imageFirstComposite(
+                image: placeholder,
+                text: titleText,
+                attributes: attributes
+            )
+            label.setText(attributedText)
+            Task { @MainActor in
+                
+                let image = await painter.make()
+                
+                let attributedText = NSAttributedString.imageFirstComposite(
+                    image: image,
+                    text: titleText,
+                    attributes: attributes
+                )
+                label.setText(attributedText)
             }
+        } else {
+            
+            let image = UIImage.circleImage(
+                size: imageSize,
+                fillColor: .Stroke.primary,
+                borderColor: .clear,
+                borderWidth: 0
+            )
 
             let attributedText = NSAttributedString.imageFirstComposite(
                 image: image,
@@ -71,6 +79,23 @@ extension BlockLinkState {
             )
 
             label.setText(attributedText)
+
+            let anytypeLoader = AnytypeIconDownloader()
+            
+            Task { @MainActor in
+                
+                guard let image = await anytypeLoader.image(with: style, imageGuideline: .init(size: imageSize)) else {
+                    return
+                }
+                
+                let attributedText = NSAttributedString.imageFirstComposite(
+                    image: image,
+                    text: titleText,
+                    attributes: attributes
+                )
+                
+                label.setText(attributedText)
+            }
         }
     }
 }
