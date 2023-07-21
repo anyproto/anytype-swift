@@ -719,8 +719,9 @@ internal enum Loc {
   internal enum Alert {
     internal enum CameraPermissions {
       /// Anytype needs access to your camera to scan QR codes.
+      /// 
       /// Please, go to your device's Settings -> Privacy -> Camera and set Anytype to ON
-      internal static let goToSettings = Loc.tr("Localizable", "Alert.CameraPermissions.GoToSettings", fallback: "Anytype needs access to your camera to scan QR codes.\nPlease, go to your device's Settings -> Privacy -> Camera and set Anytype to ON")
+      internal static let goToSettings = Loc.tr("Localizable", "Alert.CameraPermissions.GoToSettings", fallback: "Anytype needs access to your camera to scan QR codes.\n\nPlease, go to your device's Settings -> Privacy -> Camera and set Anytype to ON")
       /// Settings
       internal static let settings = Loc.tr("Localizable", "Alert.CameraPermissions.Settings", fallback: "Settings")
     }

@@ -238,7 +238,7 @@
 
 // MARK: - Alerts
 "Alert.CameraPermissions.Settings" = "Settings";
-"Alert.CameraPermissions.GoToSettings" = "Anytype needs access to your camera to scan QR codes.\nPlease, go to your device's Settings -> Privacy -> Camera and set Anytype to ON";
+"Alert.CameraPermissions.GoToSettings" = "Anytype needs access to your camera to scan QR codes.\n\nPlease, go to your device's Settings -> Privacy -> Camera and set Anytype to ON";
 
 // MARK: - Relation
 "Featured relations" = "Featured relations";
