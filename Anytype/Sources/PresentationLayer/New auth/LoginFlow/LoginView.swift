@@ -46,6 +46,7 @@ struct LoginView: View {
                 alignTextToCenter: false
             )
             .focused($model.autofocus)
+            .disabled(model.loadingRoute.isLoadingInProgress)
             
             Spacer.fixedHeight(16)
 
