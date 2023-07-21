@@ -36,6 +36,7 @@ final class LoginFlowCoordinator: LoginFlowCoordinatorProtocol, LoginFlowOutput 
     }
     
     func onSettingsAction() {
-        UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+        guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
+        UIApplication.shared.open(url)
     }
 }
