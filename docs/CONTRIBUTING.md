@@ -103,7 +103,7 @@ You must never report security related issues, vulnerabilities or bugs including
 When contributing to this project, you must agree that you have authored 100% of the content, that you have the necessary rights to the content and that the content you contribute may be provided under the project license. Our bot will ask you to accept the [Contributor License Agreement](https://github.com/anyproto/open/blob/main/templates/CLA.md) before we can accept the pull request.
 
 Basic rules for pull requests:
-- Pull requests generally need to be based on and opened against the `main` branch, unless by explicit agreement because the work is contributing to some more complex feature branch
+- Pull requests generally need to be based on and opened against the `develop` branch, unless by explicit agreement because the work is contributing to some more complex feature branch
 - Please follow a suggested template for the pull request description
 - When neccesary, changes are documented in [`README.md`](../README.md) or suggestions are also made to [`tech-docs`](https://github.com/anyproto/tech-docs)
 
