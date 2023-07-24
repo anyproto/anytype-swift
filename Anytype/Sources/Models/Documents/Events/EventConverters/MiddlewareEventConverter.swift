@@ -141,7 +141,7 @@ final class MiddlewareEventConverter {
         case let .blockSetFile(data):
             infoContainer.updateFile(blockId: data.id) { $0.handleSetFile(data: data) }
             
-            if data.hasState {
+            guard data.hasState else {
                 return .general
             }
             
