@@ -41,7 +41,7 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
         guard let parentId = info.configurationData.parentId,
               let parent = container.get(id: parentId)
         else {
-            anytypeAssertionFailure("No parent", info: ["text": "\(text)"])
+            anytypeAssertionFailure("No parent for text")
             return
         }
         

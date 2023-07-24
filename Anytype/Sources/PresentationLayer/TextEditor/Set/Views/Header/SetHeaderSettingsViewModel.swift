@@ -11,19 +11,22 @@ class SetHeaderSettingsViewModel: ObservableObject {
     let onViewTap: () -> Void
     let onSettingsTap: () -> Void
     let onCreateTap: () -> Void
+    let onSecondaryCreateTap: () -> Void
     
     init(
         setDocument: SetDocumentProtocol,
         isActive: Bool,
         onViewTap: @escaping () -> Void,
         onSettingsTap: @escaping () -> Void,
-        onCreateTap: @escaping () -> Void
+        onCreateTap: @escaping () -> Void,
+        onSecondaryCreateTap: @escaping () -> Void
     ) {
         self.setDocument = setDocument
         self.isActive = isActive
         self.onViewTap = onViewTap
         self.onSettingsTap = onSettingsTap
         self.onCreateTap = onCreateTap
+        self.onSecondaryCreateTap = onSecondaryCreateTap
         self.setup()
     }
     

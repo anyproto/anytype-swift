@@ -2,6 +2,13 @@ import Foundation
 
 public extension FeatureDescription {
     
+    static let setTemplateSelection = FeatureDescription(
+        title: "Additional button in sets to pick needed template",
+        type: .feature(author: "db@anytype.io", releaseVersion: "0.?.0"),
+        defaultValue: false,
+        debugValue: false
+    )
+    
     static let setKanbanView = FeatureDescription(
         title: "Set kanban view",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.?.0"),
@@ -79,6 +86,12 @@ public extension FeatureDescription {
     static let superNewButtonLoadingState = FeatureDescription(
         title: "New Button loading state - IOS-1185",
         type: .feature(author: "m@anytype.io", releaseVersion: "0.24.0"),
+        defaultValue: true
+    )
+    
+    static let validateRecoveryPhrase = FeatureDescription(
+        title: "Trim typed/inserted text in recovery phrase field",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.24.0"),
         defaultValue: true
     )
     

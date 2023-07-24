@@ -189,7 +189,7 @@ final class MiddlewareEventConverter {
                     return info.updated(content: .link(blockLink))
 
                 default:
-                    anytypeAssertionFailure("Wrong content in blockSetLink", info: ["content": "\(info.content)"])
+                    anytypeAssertionFailure("Wrong content in blockSetLink", info: ["contentType": "\(info.content.type)"])
                     return nil
                 }
             }

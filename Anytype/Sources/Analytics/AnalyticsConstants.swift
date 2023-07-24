@@ -359,3 +359,7 @@ enum ClickLoginButton: String {
     case qr = "Qr"
     case keychain = "Keychain"
 }
+
+enum TableBlockType: String {
+    case simpleTableBlock = "table"
+}

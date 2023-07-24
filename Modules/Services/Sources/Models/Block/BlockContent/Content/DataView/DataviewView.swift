@@ -17,7 +17,8 @@ public struct DataviewView: Hashable, Identifiable {
     public let coverFit: Bool
     public let groupRelationKey: String
     public let groupBackgroundColors: Bool
-    
+    public let defaultTemplateID: BlockId?
+
     public static var empty: DataviewView {
         DataviewView(
             id: "",
@@ -31,7 +32,8 @@ public struct DataviewView: Hashable, Identifiable {
             cardSize: .small,
             coverFit: false,
             groupRelationKey: "",
-            groupBackgroundColors: false
+            groupBackgroundColors: false,
+            defaultTemplateID: nil
         )
     }
     
@@ -46,7 +48,8 @@ public struct DataviewView: Hashable, Identifiable {
         sorts: [DataviewSort]? = nil,
         filters: [DataviewFilter]? = nil,
         groupRelationKey: String?  = nil,
-        groupBackgroundColors: Bool? = nil
+        groupBackgroundColors: Bool? = nil,
+        defaultTemplateID: BlockId? = nil
     ) -> DataviewView {
         DataviewView(
             id: id,
@@ -60,7 +63,8 @@ public struct DataviewView: Hashable, Identifiable {
             cardSize: cardSize ?? self.cardSize,
             coverFit: coverFit ?? self.coverFit,
             groupRelationKey: groupRelationKey ?? self.groupRelationKey,
-            groupBackgroundColors: groupBackgroundColors ?? self.groupBackgroundColors
+            groupBackgroundColors: groupBackgroundColors ?? self.groupBackgroundColors,
+            defaultTemplateID: defaultTemplateID ?? self.defaultTemplateID
         )
     }
     
@@ -77,7 +81,8 @@ public struct DataviewView: Hashable, Identifiable {
             cardSize: fields.cardSize,
             coverFit: fields.coverFit,
             groupRelationKey: fields.groupRelationKey,
-            groupBackgroundColors: fields.groupBackgroundColors
+            groupBackgroundColors: fields.groupBackgroundColors,
+            defaultTemplateID: self.defaultTemplateID
         )
     }
     
@@ -107,7 +112,8 @@ public struct DataviewView: Hashable, Identifiable {
             cardSize: .small,
             coverFit: false,
             groupRelationKey: "",
-            groupBackgroundColors: false
+            groupBackgroundColors: false,
+            defaultTemplateID: nil
         )
     }
     
@@ -125,6 +131,7 @@ public struct DataviewView: Hashable, Identifiable {
             $0.coverFit = coverFit
             $0.groupRelationKey = groupRelationKey
             $0.groupBackgroundColors = groupBackgroundColors
+            $0.defaultTemplateID = defaultTemplateID ?? ""
         }
     }
 }
@@ -145,6 +152,7 @@ public extension DataviewView {
         self.coverFit = data.coverFit
         self.groupRelationKey = data.groupRelationKey
         self.groupBackgroundColors = data.groupBackgroundColors
+        self.defaultTemplateID = data.defaultTemplateID.isEmpty ? nil : data.defaultTemplateID
     }
 }
 

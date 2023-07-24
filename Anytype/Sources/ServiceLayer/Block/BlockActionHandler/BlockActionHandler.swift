@@ -278,6 +278,8 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         
         let position: BlockPosition = isTextAndEmpty ? .replace : .bottom
 
+        AnytypeAnalytics.instance().logCreateBlock(type: TableBlockType.simpleTableBlock.rawValue)
+        
         Task {
             try await blockTableService.createTable(
                 contextId: document.objectId,

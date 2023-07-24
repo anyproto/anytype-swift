@@ -6,6 +6,10 @@
 public extension FeatureFlags {
 
     // Static value reader
+    static var setTemplateSelection: Bool {
+        value(for: .setTemplateSelection)
+    }
+
     static var setKanbanView: Bool {
         value(for: .setKanbanView)
     }
@@ -58,6 +62,10 @@ public extension FeatureFlags {
         value(for: .superNewButtonLoadingState)
     }
 
+    static var validateRecoveryPhrase: Bool {
+        value(for: .validateRecoveryPhrase)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -76,6 +84,7 @@ public extension FeatureFlags {
 
     // All toggles
     static let features: [FeatureDescription] = [
+        .setTemplateSelection,
         .setKanbanView,
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
@@ -89,6 +98,7 @@ public extension FeatureFlags {
         .deleteObjectPlaceholder,
         .showAllFilesInBin,
         .superNewButtonLoadingState,
+        .validateRecoveryPhrase,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

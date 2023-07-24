@@ -101,7 +101,8 @@ final class SimpleTableCellsBuilder {
             openURL: { [weak router] url in
                 router?.openUrl(url)
             },
-            showTextIconPicker: { [unowned router, unowned document] in
+            showTextIconPicker: { [weak router, weak document] in
+                guard let router, let document else { return }
                 router.showTextIconPicker(
                     contextId: document.objectId,
                     objectId: information.id

@@ -10,10 +10,7 @@ public struct Emoji: Hashable, Codable {
         }
         
         let emoji = value.first { $0.isEmoji }
-        guard let emoji = emoji else {
-            anytypeAssertionFailure("Not an emoji", info: ["emojiData": value])
-            return nil
-        }
+        guard let emoji else { return nil }
         
         self.value = String(emoji)
     }

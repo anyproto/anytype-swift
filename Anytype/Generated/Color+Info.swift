@@ -119,6 +119,7 @@ extension UIColor.Additional {
     static let collectionInfo = ColorCollectionInfo(
         name: "Additional",
         colors: [
+            ColorInfo(name: "editingBackground", color: UIColor.Additional.editingBackground), 
             ColorInfo(name: "space", color: UIColor.Additional.space)
         ]
     )

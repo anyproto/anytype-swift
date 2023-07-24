@@ -197,7 +197,7 @@ extension AnytypeFont {
                 size: 11,
                 weight: .medium,
                 lineHeight: 14,
-                kern: 0.07
+                kern: -0.07
             )
         case .button1Regular:
             return AnytypeFontConfig(

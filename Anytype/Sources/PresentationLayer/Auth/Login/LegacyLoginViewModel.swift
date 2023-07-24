@@ -66,7 +66,8 @@ class LegacyLoginViewModel: ObservableObject {
     func onShowQRCodeTap() {
         cameraPermissionVerifier.cameraPermission
             .receiveOnMain()
-            .sink { [unowned self] isGranted in
+            .sink { [weak self] isGranted in
+                guard let self else { return }
                 if isGranted {
                     showQrCodeView = true
                 } else {
@@ -77,8 +78,8 @@ class LegacyLoginViewModel: ObservableObject {
     }
 
     func restoreFromkeychain() {
-        localAuthService.auth(reason: Loc.restoreSecretPhraseFromKeychain) { [unowned self] didComplete in
-            guard didComplete,
+        localAuthService.auth(reason: Loc.restoreSecretPhraseFromKeychain) { [weak self] didComplete in
+            guard let self, didComplete,
                   let phrase = try? seedService.obtainSeed() else {
                 return
             }
