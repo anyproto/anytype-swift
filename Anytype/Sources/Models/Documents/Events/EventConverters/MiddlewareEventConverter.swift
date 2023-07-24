@@ -138,126 +138,26 @@ final class MiddlewareEventConverter {
             
             return .general
             
-        case let .blockSetFile(newData):
-            guard newData.hasState else {
+        case let .blockSetFile(data):
+            infoContainer.updateFile(blockId: data.id) { $0.handleSetFile(data: data) }
+            
+            guard data.hasState else {
                 return .general
             }
             
-            infoContainer.update(blockId: newData.id, update: { info in
-                switch info.content {
-                case let .file(fileData):
-                    var fileData = fileData
-                    
-                    if newData.hasType {
-                        if let contentType = FileContentType(newData.type.value) {
-                            fileData.contentType = contentType
-                        }
-                    }
-
-                    if newData.hasState {
-                        if let state = newData.state.value.asModel {
-                            fileData.state = state
-                        }
-                    }
-                    
-                    if newData.hasName {
-                        fileData.metadata.name = newData.name.value
-                    }
-                    
-                    if newData.hasHash {
-                        fileData.metadata.hash = newData.hash.value
-                    }
-                    
-                    if newData.hasMime {
-                        fileData.metadata.mime = newData.mime.value
-                    }
-                    
-                    if newData.hasSize {
-                        fileData.metadata.size = newData.size.value
-                    }
-                    
-                    return info.updated(content: .file(fileData))
-                default:
-                    anytypeAssertionFailure("Wrong content in blockSetFile", info: ["contentType": "\(info.content.type)"])
-                    return nil
-                }
-            })
-            return .blocks(blockIds: [newData.id])
+            return .blocks(blockIds: [data.id])
         case let .blockSetBookmark(data):
+            infoContainer.updateBookmark(blockId: data.id) { $0.handleSetBookmark(data: data) }
             
-            let blockId = data.id
-            
-            infoContainer.update(blockId: blockId, update: { info in
-                switch info.content {
-                case let .bookmark(bookmark):
-                    var bookmark = bookmark
-                    
-                    if data.hasURL {
-                        bookmark.source = AnytypeURL(string: data.url.value)
-                    }
-                    
-                    if data.hasTitle {
-                        bookmark.title = data.title.value
-                    }
-
-                    if data.hasDescription_p {
-                        bookmark.theDescription = data.description_p.value
-                    }
-
-                    if data.hasImageHash {
-                        bookmark.imageHash = data.imageHash.value
-                    }
-
-                    if data.hasFaviconHash {
-                        bookmark.faviconHash = data.faviconHash.value
-                    }
-
-                    if data.hasType {
-                        if let type = data.type.value.asModel {
-                            bookmark.type = type
-                        }
-                    }
-                    
-                    if data.hasTargetObjectID {
-                        bookmark.targetObjectID = data.targetObjectID.value
-                    }
-                    
-                    if data.hasState {
-                        bookmark.state = data.state.value.asModel
-                    }
-                    
-                    return info.updated(content: .bookmark(bookmark))
-
-                default:
-                    anytypeAssertionFailure("Wrong content in blockSetBookmark", info: ["contentType": "\(info.content.type)"])
-                    return nil
-                }
-            })
-            return .blocks(blockIds: [blockId])
+            return .blocks(blockIds: [data.id])
             
         case let .blockSetDiv(data):
+            infoContainer.updateDivider(blockId: data.id) { $0.handleSetDiv(data: data) }
+            
             guard data.hasStyle else {
                 return .general
             }
             
-            let blockId = data.id
-            
-            infoContainer.update(blockId: blockId, update: { info in
-                switch info.content {
-                case let .divider(divider):
-                    var divider = divider
-                                        
-                    if let style = BlockDivider.Style(data.style.value) {
-                        divider.style = style
-                    }
-                    
-                    return info.updated(content: .divider(divider))
-                    
-                default:
-                    anytypeAssertionFailure("Wrong content in blockSetDiv", info: ["contentType": "\(info.content.type)"])
-                    return nil
-                }
-            })
             return .blocks(blockIds: [data.id])
         case .blockSetLink(let data):
 
@@ -377,21 +277,13 @@ final class MiddlewareEventConverter {
             handleBlockDataviewViewUpdate(data)
             return .general
         case .blockSetRelation(let data):
-            infoContainer.update(blockId: data.id) { info in
-                return info.updated(content: .relation(BlockRelation(key: data.key.value)))
-            }
+            infoContainer.updateRelation(blockId: data.id) { $0.handleSetRelation(data: data) }
             return .general // Relace to `.blocks(blockIds: [data.id])` after implment task https://linear.app/anytype/issue/IOS-914
         case .objectRestrictionsSet(let restrictions):
             restrictionsContainer.restrinctions = MiddlewareObjectRestrictionsConverter.convertObjectRestrictions(middlewareRestrictions: restrictions.restrictions)
             return nil
         case .blockSetWidget(let data):
-            infoContainer.update(blockId: data.id) { info in
-                guard case let .widget(widget) = info.content else {
-                    anytypeAssertionFailure("Wrong content in blockSetWidget", info: ["contentType": "\(info.content.type)"])
-                    return info
-                }
-                return info.updated(content: .widget(widget.applyBlockSetWidgetEvent(data: data)))
-            }
+            infoContainer.updateWidget(blockId: data.id) { $0.handleSetWidget(data: data) }
             return .general
         case .accountShow,
                 .accountUpdate, // Event not working on middleware. See AccountManager.
