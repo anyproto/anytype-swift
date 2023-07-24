@@ -2,7 +2,6 @@ import Combine
 import Services
 import AnytypeCore
 
-
 protocol TemplateSelectionInteractorProvider {
     var userTemplates: AnyPublisher<[TemplatePreviewModel], Never> { get }
     var objectTypeId: ObjectTypeId { get }
@@ -23,6 +22,7 @@ final class DataviewTemplateSelectionInteractorProvider: TemplateSelectionIntera
             }
             .eraseToAnyPublisher()
     }
+    
     let objectTypeId: ObjectTypeId
     
     private let setDocument: SetDocumentProtocol
@@ -47,7 +47,6 @@ final class DataviewTemplateSelectionInteractorProvider: TemplateSelectionIntera
         self.setDocument = setDocument
         self.dataView = dataView
         self.defaultTemplateId = dataView.defaultTemplateID ?? .empty
-        
         self.subscriptionService = subscriptionService
         self.objectTypeProvider = objectTypeProvider
         self.dataviewService = dataviewService

@@ -7,8 +7,8 @@ import SwiftUI
 @MainActor
 final class TemplatesSelectionViewModel: ObservableObject {
     @Published var isEditingState = false
-    @Published var templates = [TemplatePreviewModel]()
-    var templateOptionsHandler: ((@escaping (TemplateOptionAction) -> Void) -> Void)?
+    @Published var templates = [TemplatePreviewViewModel]()
+    
     private var userTemplates = [TemplatePreviewModel]() {
         didSet {
             updateTemplatesList()
@@ -33,7 +33,10 @@ final class TemplatesSelectionViewModel: ObservableObject {
         self.templateEditingHandler = templateEditingHandler
         
         interactor.userTemplates.sink { [weak self] templates in
-            self?.userTemplates = templates
+            if let userTemplates = self?.userTemplates,
+                userTemplates != templates {
+                self?.userTemplates = templates
+            }
         }.store(in: &cancellables)
     }
     
@@ -60,12 +63,6 @@ final class TemplatesSelectionViewModel: ObservableObject {
             } catch {
                 anytypeAssertionFailure(error.localizedDescription)
             }
-        }
-    }
-    
-    func onEditingButonTap(model: TemplatePreviewModel) {
-        templateOptionsHandler? { [weak self] option in
-            self?.handleTemplateOption(option: option, templateViewModel: model)
         }
     }
     
@@ -100,8 +97,15 @@ final class TemplatesSelectionViewModel: ObservableObject {
         templates.append(contentsOf: userTemplates)
         templates.append(.init(model: .addTemplate, alignment: .center, isDefault: false))
         
-        withAnimation(.fastSpring) {
-            self.templates = templates
+        withAnimation {
+            self.templates = templates.map { model in
+                TemplatePreviewViewModel(
+                    model: model,
+                    onOptionSelection: { [weak self] option in
+                        self?.handleTemplateOption(option: option, templateViewModel: model)
+                    }
+                )
+            }
         }
     }
 }

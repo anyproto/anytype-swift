@@ -49,10 +49,6 @@ final class TemplateSelectionCoordinator: TemplateSelectionCoordinatorProtocol {
             }
         )
         
-        view.model.templateOptionsHandler = { [weak self] closure in
-            self?.showTemplateOptions(handler: closure)
-        }
-
         let viewModel = AnytypePopupViewModel(
             contentView: view,
             popupLayout: .constantHeight(height: TemplatesSelectionView.height, floatingPanelStyle: true, needBottomInset: false))
@@ -62,24 +58,6 @@ final class TemplateSelectionCoordinator: TemplateSelectionCoordinatorProtocol {
             configuration: .init(isGrabberVisible: false, dismissOnBackdropView: true, skipThroughGestures: false)
         )
         navigationContext.present(popup)
-    }
-    
-    private func showTemplateOptions(handler: @escaping (TemplateOptionAction) -> Void) {
-        let templateActions = TemplateOptionAction.allCases.map { option in
-            UIAlertAction(
-                title: option.title,
-                style: option.style
-            ) { _ in
-                handler(option)
-            }
-        }
-        let cancelAction = UIAlertAction(title: Loc.cancel, style: .cancel)
-        
-        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        templateActions.forEach(alertController.addAction(_:))
-        alertController.addAction(cancelAction)
-        
-        navigationContext.present(alertController)
     }
     
     private func showTemplateEditing(blockId: BlockId, onTemplateSelection: @escaping (BlockId) -> Void) {

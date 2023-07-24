@@ -1,16 +1,16 @@
 import SwiftUI
 import Services
 
-struct TemplatePreview: View {
-    let viewModel: TemplatePreviewModel
+struct TemplatePreview: View, ContextualMenuItemsProvider {
+    let viewModel: TemplatePreviewViewModel
     
     var body: some View {
         content
         .border(
             16,
-            color: viewModel.isDefault ?
+            color: viewModel.model.isDefault ?
             Color.System.amber50 : .Stroke.primary,
-            lineWidth: viewModel.isDefault ? 2 : 1
+            lineWidth: viewModel.model.isDefault ? 2 : 1
         )
         .cornerRadius(16, corners: .top)
         .frame(width: 120, height: 224)
@@ -18,7 +18,7 @@ struct TemplatePreview: View {
     
     var content: some View {
         Group {
-            switch viewModel.model {
+            switch viewModel.model.model {
             case .blank:
                 wrapped(shouldIncludeShimmer: false) {
                     AnytypeText(
@@ -50,7 +50,7 @@ struct TemplatePreview: View {
         shouldIncludeShimmer: Bool,
         @ViewBuilder content: () -> some View
     ) -> some View {
-        VStack(alignment: viewModel.alignment.horizontalAlignment) {
+        VStack(alignment: viewModel.model.alignment.horizontalAlignment) {
             cover
             content()
             if shouldIncludeShimmer {
@@ -63,7 +63,7 @@ struct TemplatePreview: View {
     
     private var cover: some View {
         Group {
-            if case let .installed(templateModel) = viewModel.model {
+            if case let .installed(templateModel) = viewModel.model.model {
                 switch templateModel.header {
                 case .filled(let state, _):
                     ObjectHeaderFilledContentSwitfUIView(
@@ -86,7 +86,7 @@ struct TemplatePreview: View {
         VStack(spacing: 6) {
             shimmerRectangle
             shimmerRectangle
-            switch viewModel.alignment {
+            switch viewModel.model.alignment {
             case .center:
                 shimmerRectangle.padding(.horizontal, 12)
             case .right:
@@ -103,13 +103,33 @@ struct TemplatePreview: View {
             .border(1, color: .clear)
             .frame(height: 6)
     }
+    
+    @ViewBuilder
+    var contextMenuItems: AnyView {
+        Group {
+            ForEach(TemplateOptionAction.allCases, id: \.self) {
+                menuItemToView(option: $0)
+            }
+            Divider()
+        }.eraseToAnyView()
+    }
+    
+    @ViewBuilder
+    func menuItemToView(option: TemplateOptionAction) -> some View {
+        Button(option.title, role: option.style) {
+            viewModel.onOptionSelection(option)
+        }
+    }
 }
 
 struct TemplatePreview_Previews: PreviewProvider {
     static var previews: some View {
         ForEach(MockTemplatePreviewModel.allPreviews) {
             TemplatePreview(
-                viewModel: $0.model
+                viewModel: .init(
+                    model: $0.model,
+                    onOptionSelection: { _ in }
+                )
             )
             .previewLayout(.sizeThatFits)
             .padding()

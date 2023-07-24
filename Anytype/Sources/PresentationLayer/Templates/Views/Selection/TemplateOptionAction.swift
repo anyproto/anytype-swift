@@ -1,4 +1,4 @@
-import UIKit
+import SwiftUI
 
 enum TemplateOptionAction: CaseIterable {
     case setAsDefault
@@ -19,12 +19,12 @@ enum TemplateOptionAction: CaseIterable {
         }
     }
     
-    var style: UIAlertAction.Style {
+    var style: ButtonRole? {
         switch self {
         case .delete:
             return .destructive
         default:
-            return .default
+            return nil
         }
     }
 }

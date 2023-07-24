@@ -1,6 +1,18 @@
 import Services
 
-struct TemplateModel {
+struct TemplatePreviewViewModel: Identifiable, Equatable {
+    var id: String { model.id }
+    
+    let model: TemplatePreviewModel
+    @EquatableNoop var onOptionSelection: (TemplateOptionAction) -> Void
+    
+    init(model: TemplatePreviewModel, onOptionSelection: @escaping (TemplateOptionAction) -> Void) {
+        self.model = model
+        self.onOptionSelection = onOptionSelection
+    }
+}
+
+struct TemplateModel: Equatable {
     init(
         id: BlockId,
         title: String,
@@ -16,13 +28,13 @@ struct TemplateModel {
     let header: ObjectHeader?
 }
 
-enum TemplateType {
+enum TemplateType: Equatable {
     case blank
     case addTemplate
     case installed(TemplateModel)
 }
 
-struct TemplatePreviewModel: Identifiable {
+struct TemplatePreviewModel: Identifiable, Equatable {
     let model: TemplateType
     let alignment: LayoutAlignment
     let isDefault: Bool
