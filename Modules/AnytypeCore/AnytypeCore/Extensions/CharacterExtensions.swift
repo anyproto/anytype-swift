@@ -3,7 +3,7 @@ extension Character {
     var isSimpleEmoji: Bool {
         guard let firstScalar = unicodeScalars.first else { return false }
         
-        return firstScalar.properties.isEmoji && firstScalar.value > 0x238C
+        return firstScalar.properties.isEmoji && firstScalar.value >= 0x231A
     }
 
     /// Checks if the scalars will be merged into an emoji

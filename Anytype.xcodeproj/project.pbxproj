@@ -1246,6 +1246,7 @@
 		863776902A6669030040308E /* MockTemplateSelectionInteractorProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8637768B2A6664DB0040308E /* MockTemplateSelectionInteractorProvider.swift */; };
 		8638777A2A5808620024F814 /* TemplatesSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 863877792A5808620024F814 /* TemplatesSelectionView.swift */; };
 		8638777C2A58088F0024F814 /* TemplatesSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8638777B2A58088F0024F814 /* TemplatesSelectionViewModel.swift */; };
+		8638C7602A6FE26300BF2A41 /* EmojiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8638C75F2A6FE26300BF2A41 /* EmojiTests.swift */; };
 		8639E0142A6020E700F52ED2 /* TemplatesSubscriptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8639E0132A6020E700F52ED2 /* TemplatesSubscriptionService.swift */; };
 		867519E22A669146001C2346 /* TemplateEditingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 867519E12A669146001C2346 /* TemplateEditingViewController.swift */; };
 		867580042A58306A0008566A /* TemplatePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 867580032A58306A0008566A /* TemplatePreview.swift */; };
@@ -2711,6 +2712,7 @@
 		8637768E2A6668680040308E /* TemplatePreviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatePreviewModel.swift; sourceTree = "<group>"; };
 		863877792A5808620024F814 /* TemplatesSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesSelectionView.swift; sourceTree = "<group>"; };
 		8638777B2A58088F0024F814 /* TemplatesSelectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesSelectionViewModel.swift; sourceTree = "<group>"; };
+		8638C75F2A6FE26300BF2A41 /* EmojiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EmojiTests.swift; path = AnyTypeTests/Emoji/EmojiTests.swift; sourceTree = SOURCE_ROOT; };
 		8639E0132A6020E700F52ED2 /* TemplatesSubscriptionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesSubscriptionService.swift; sourceTree = "<group>"; };
 		867519E12A669146001C2346 /* TemplateEditingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateEditingViewController.swift; sourceTree = "<group>"; };
 		867580032A58306A0008566A /* TemplatePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatePreview.swift; sourceTree = "<group>"; };
@@ -3378,6 +3380,7 @@
 		03C5C54122DFD90C00DD91DE /* AnytypeTests */ = {
 			isa = PBXGroup;
 			children = (
+				8638C75E2A6FE25100BF2A41 /* Emoji */,
 				86947EFD2A56B90E00CD7335 /* Extensions */,
 				2AB2C23528B658B3000191F8 /* AnytypeURL */,
 				3D34F25227C3D14200990C49 /* Text */,
@@ -8051,6 +8054,14 @@
 			path = Selection;
 			sourceTree = "<group>";
 		};
+		8638C75E2A6FE25100BF2A41 /* Emoji */ = {
+			isa = PBXGroup;
+			children = (
+				8638C75F2A6FE26300BF2A41 /* EmojiTests.swift */,
+			);
+			path = Emoji;
+			sourceTree = "<group>";
+		};
 		867519E02A669133001C2346 /* Editing */ = {
 			isa = PBXGroup;
 			children = (
@@ -10208,6 +10219,7 @@
 			files = (
 				3D7F718927A1B0D4003FE893 /* EditorSetMarkdownHelpertests.swift in Sources */,
 				EA2640E526C40DEA006071BD /* AttributedStringConverterTests.swift in Sources */,
+				8638C7602A6FE26300BF2A41 /* EmojiTests.swift in Sources */,
 				2AB511AE29093CB4005D0A91 /* InlineMarkdownListenerTests.swift in Sources */,
 				3D4B8CE527C54FDC001A1F98 /* BlockListServiceMock.swift in Sources */,
 				3D34F25627C3D1D100990C49 /* BlockActionServiceMock.swift in Sources */,
