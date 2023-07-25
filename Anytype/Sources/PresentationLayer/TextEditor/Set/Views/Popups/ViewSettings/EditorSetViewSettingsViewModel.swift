@@ -138,7 +138,7 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
     }
     
     func showAddNewRelationView() {
-        router.showAddNewRelationView { relation, isNew in
+        router.showAddNewRelationView(document: setDocument.document) { relation, isNew in
             AnytypeAnalytics.instance().logAddRelation(format: relation.format, isNew: isNew, type: .dataview)
         }
     }

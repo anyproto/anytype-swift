@@ -2,11 +2,13 @@ import SwiftUI
 import Services
 
 struct TemplatesSelectionView: View {
+    // Popup height. Something is wrong with keyboard appearance on UIKit view. Intistic content size couldn't be calculated in FloatingPanel :/
+    static let height: CGFloat = 312
 
     @ObservedObject var model: TemplatesSelectionViewModel
 
     var body: some View {
-        VStack(spacing: 8) {
+        VStack {
             Spacer.fixedHeight(16)
             navigation
             Spacer.fixedHeight(14)
@@ -30,7 +32,7 @@ struct TemplatesSelectionView: View {
                 }
                 Spacer()
                 Button {
-                    
+                    model.onAddTemplateTap()
                 } label: {
                     Image(asset: .X32.plus)
                         .tint(.Button.active)
@@ -46,7 +48,7 @@ struct TemplatesSelectionView: View {
             LazyHStack {
                 ForEach(model.templates) { item in
                     Button {
-                        model.onModelTap(model: item)
+                        model.onTemplateTap(model: item)
                     } label: {
                         EditableView<TemplatePreview>(
                             content: TemplatePreview(viewModel: item),
@@ -69,7 +71,8 @@ struct TemplatesSelectionView_Previews: PreviewProvider {
             model: .init(
                 interactor: MockTemplateSelectionInteractorProvider(),
                 templatesService: TemplatesService(),
-                onTemplateSelection: { _ in }
+                onTemplateSelection: { _ in },
+                templateEditingHandler: { _ in }
             )
         )
         .previewLayout(.sizeThatFits)

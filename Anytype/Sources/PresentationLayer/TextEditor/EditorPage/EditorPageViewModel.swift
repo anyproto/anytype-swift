@@ -25,7 +25,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     private let headerModel: ObjectHeaderViewModel
     private let editorPageTemplatesHandler: EditorPageTemplatesHandlerProtocol
     private let accountManager: AccountManagerProtocol
-    private let isOpenedForPreview: Bool
+    private let configuration: EditorPageViewModelConfiguration
     @Published private var isAppear: Bool = false
     
     private lazy var subscriptions = [AnyCancellable]()
@@ -49,7 +49,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         searchService: SearchServiceProtocol,
         editorPageTemplatesHandler: EditorPageTemplatesHandlerProtocol,
         accountManager: AccountManagerProtocol,
-        isOpenedForPreview: Bool
+        configuration: EditorPageViewModelConfiguration
     ) {
         self.viewInput = viewInput
         self.document = document
@@ -66,7 +66,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         self.searchService = searchService
         self.editorPageTemplatesHandler = editorPageTemplatesHandler
         self.accountManager = accountManager
-        self.isOpenedForPreview = isOpenedForPreview
+        self.configuration = configuration
 
         setupLoadingState()
     }
@@ -142,7 +142,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             break // supported in headerModel
         }
 
-        if !isOpenedForPreview {
+        if !configuration.isOpenedForPreview {
             blocksStateManager.checkDocumentLockField()
         }
     }
@@ -224,7 +224,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     }
     
     private func handleTemplatesPopupShowing() {
-        guard editorPageTemplatesHandler.needShowTemplates(for: document),
+        guard configuration.shouldShowTemplateSelection,
+              editorPageTemplatesHandler.needShowTemplates(for: document),
               let type = document.details?.objectType else {
             return
         }
@@ -250,7 +251,7 @@ extension EditorPageViewModel {
     
         Task { @MainActor in
             do {
-                if isOpenedForPreview {
+                if configuration.isOpenedForPreview {
                     try await document.openForPreview()
                 } else {
                     try await document.open()

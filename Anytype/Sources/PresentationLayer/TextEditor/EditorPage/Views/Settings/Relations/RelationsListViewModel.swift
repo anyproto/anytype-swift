@@ -12,6 +12,7 @@ final class RelationsListViewModel: ObservableObject {
     
     // MARK: - Private variables
     
+    private let document: BaseDocumentProtocol
     private let sectionsBuilder = RelationsSectionBuilder()
     private let relationsService: RelationsServiceProtocol
     
@@ -24,6 +25,7 @@ final class RelationsListViewModel: ObservableObject {
         relationsService: RelationsServiceProtocol,
         output: RelationsListModuleOutput
     ) {
+        self.document = document
         self.relationsService = relationsService
         self.output = output
         
@@ -70,7 +72,7 @@ extension RelationsListViewModel {
     }
     
     func handleTapOnRelation(relation: Relation) {
-        output?.editRelationValueAction(relationKey: relation.key)
+        output?.editRelationValueAction(document: document, relationKey: relation.key)
     }
     
     func removeRelation(relation: Relation) {
@@ -81,7 +83,7 @@ extension RelationsListViewModel {
     }
     
     func showAddNewRelationView() {
-        output?.addNewRelationAction()
+        output?.addNewRelationAction(document: document)
     }
     
 }

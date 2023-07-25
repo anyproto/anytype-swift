@@ -264,11 +264,15 @@
 "TemplatePicker.Buttons.Skip" = "Skip";
 "TemplatePicker.Buttons.UseTemplate" = "Use template";
 "TemplateSelection.SelectTemplate" = "Select template";
+"TemplateSelection.blankTemplate" = "Blank";
 
 "TemplateOptions.Alert.SetAsDefault" = "Set as default for this view";
 "TemplateOptions.Alert.EditTemplate" = "Edit template";
 "TemplateOptions.Alert.Duplicate" = "Duplicate";
 "TemplateOptions.Alert.Delete" = "Delete";
+
+"TemplateEditing.Title" = "Edit template";
+"TemplateEditing.SelectButtonTitle" = "Select template";
 
 "To Bin" = "To Bin";
 

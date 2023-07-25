@@ -5,6 +5,7 @@ import SwiftUI
 
 protocol AddNewRelationCoordinatorProtocol {
     func showAddNewRelationView(
+        document: BaseDocumentProtocol,
         excludedRelationsIds: [String],
         target: RelationsSearchTarget,
         onCompletion: ((_ newRelationDetails: RelationDetails, _ isNew: Bool) -> Void)?
@@ -12,8 +13,6 @@ protocol AddNewRelationCoordinatorProtocol {
 }
 
 final class AddNewRelationCoordinator {
-    
-    private let document: BaseDocumentProtocol
     private let navigationContext: NavigationContextProtocol
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     private let newRelationModuleAssembly: NewRelationModuleAssemblyProtocol
@@ -23,12 +22,10 @@ final class AddNewRelationCoordinator {
     private weak var newRelationModuleInput: NewRelationModuleInput?
     
     init(
-        document: BaseDocumentProtocol,
         navigationContext: NavigationContextProtocol,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
         newRelationModuleAssembly: NewRelationModuleAssemblyProtocol
     ) {
-        self.document = document
         self.navigationContext = navigationContext
         self.newSearchModuleAssembly = newSearchModuleAssembly
         self.newRelationModuleAssembly = newRelationModuleAssembly
@@ -41,6 +38,7 @@ final class AddNewRelationCoordinator {
 extension AddNewRelationCoordinator: AddNewRelationCoordinatorProtocol {
     
     func showAddNewRelationView(
+        document: BaseDocumentProtocol,
         excludedRelationsIds: [String],
         target: RelationsSearchTarget,
         onCompletion: ((_ newRelationDetails: RelationDetails, _ isNew: Bool) -> Void)?
@@ -68,12 +66,12 @@ extension AddNewRelationCoordinator: RelationSearchModuleOutput {
         navigationContext.dismissTopPresented(animated: true)
     }
     
-    func didAskToShowCreateNewRelation(searchText: String) {
+    func didAskToShowCreateNewRelation(document: BaseDocumentProtocol, searchText: String) {
         navigationContext.dismissTopPresented(animated: true)
-        showCreateNewRelationView(searchText: searchText)
+        showCreateNewRelationView(document: document, searchText: searchText)
     }
     
-    private func showCreateNewRelationView(searchText: String) {
+    private func showCreateNewRelationView(document: BaseDocumentProtocol, searchText: String) {
         let module = newRelationModuleAssembly.make(document: document, searchText: searchText, output: self)
         newRelationModuleInput = module.input
         

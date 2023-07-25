@@ -1586,6 +1586,12 @@ internal enum Loc {
     /// Add headings to create a table of contents
     internal static let empty = Loc.tr("Localizable", "TalbeOfContents.Empty", fallback: "Add headings to create a table of contents")
   }
+  internal enum TemplateEditing {
+    /// Select template
+    internal static let selectButtonTitle = Loc.tr("Localizable", "TemplateEditing.SelectButtonTitle", fallback: "Select template")
+    /// Edit template
+    internal static let title = Loc.tr("Localizable", "TemplateEditing.Title", fallback: "Edit template")
+  }
   internal enum TemplateOptions {
     internal enum Alert {
       /// Delete
@@ -1609,6 +1615,8 @@ internal enum Loc {
     }
   }
   internal enum TemplateSelection {
+    /// Blank
+    internal static let blankTemplate = Loc.tr("Localizable", "TemplateSelection.blankTemplate", fallback: "Blank")
     /// Select template
     internal static let selectTemplate = Loc.tr("Localizable", "TemplateSelection.SelectTemplate", fallback: "Select template")
   }

@@ -349,7 +349,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     
     // MARK: - Settings
     func showSettings() {
-        objectSettingCoordinator.startFlow(delegate: self)
+        objectSettingCoordinator.startFlow(objectId: document.objectId, delegate: self)
     }
     
     func showCoverPicker() {
@@ -488,8 +488,12 @@ extension EditorRouter {
         relationValueCoordinator.startFlow(objectDetails: objectDetails, relation: relation, analyticsType: .block, output: self)
     }
 
-    func showAddNewRelationView(onSelect: ((RelationDetails, _ isNew: Bool) -> Void)?) {
+    func showAddNewRelationView(
+        document: BaseDocumentProtocol,
+        onSelect: ((RelationDetails, _ isNew: Bool) -> Void)?
+    ) {
         addNewRelationCoordinator.showAddNewRelationView(
+            document: document,
             excludedRelationsIds: document.parsedRelations.installed.map(\.id),
             target: .object,
             onCompletion: onSelect

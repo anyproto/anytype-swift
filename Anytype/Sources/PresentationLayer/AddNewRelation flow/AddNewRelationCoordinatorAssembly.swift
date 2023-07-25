@@ -1,7 +1,7 @@
 import Foundation
 
 protocol AddNewRelationCoordinatorAssemblyProtocol {
-    func make(document: BaseDocumentProtocol) -> AddNewRelationCoordinatorProtocol
+    func make() -> AddNewRelationCoordinatorProtocol
 }
 
 final class AddNewRelationCoordinatorAssembly: AddNewRelationCoordinatorAssemblyProtocol {
@@ -14,9 +14,8 @@ final class AddNewRelationCoordinatorAssembly: AddNewRelationCoordinatorAssembly
         self.modulesDI = modulesDI
     }
     
-    func make(document: BaseDocumentProtocol) -> AddNewRelationCoordinatorProtocol {
+    func make() -> AddNewRelationCoordinatorProtocol {
         return AddNewRelationCoordinator(
-            document: document,
             navigationContext: uiHelpersDI.commonNavigationContext(),
             newSearchModuleAssembly: modulesDI.newSearch(),
             newRelationModuleAssembly: modulesDI.newRelation()

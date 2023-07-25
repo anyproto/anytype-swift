@@ -82,7 +82,7 @@ public struct DataviewView: Hashable, Identifiable {
             coverFit: fields.coverFit,
             groupRelationKey: fields.groupRelationKey,
             groupBackgroundColors: fields.groupBackgroundColors,
-            defaultTemplateID: self.defaultTemplateID
+            defaultTemplateID: fields.defaultTemplateID
         )
     }
     

@@ -1,8 +1,9 @@
 import ProtobufMessages
+import SwiftProtobuf
 
 public protocol TemplatesServiceProtocol {
     func cloneTemplate(blockId: BlockId) async throws
-    func createTemplateFromObject(blockId: BlockId) async throws
+    func createTemplateFromObjectType(objectTypeId: BlockId) async throws -> BlockId
     func deleteTemplate(templateId: BlockId) async throws
 }
 
@@ -15,10 +16,17 @@ public final class TemplatesService: TemplatesServiceProtocol {
         }).invoke()
     }
     
-    public func createTemplateFromObject(blockId: BlockId) async throws {
-        _ = try await ClientCommands.templateCreateFromObject(.with {
-            $0.contextID = blockId
+    public func createTemplateFromObjectType(objectTypeId: BlockId) async throws -> BlockId {
+        let response = try await ClientCommands.objectCreate(.with {
+            $0.details = .with {
+                var fields = [String: Google_Protobuf_Value]()
+                fields[BundledRelationKey.targetObjectType.rawValue] = objectTypeId.protobufValue
+                fields[BundledRelationKey.type.rawValue] = ObjectTypeId.BundledTypeId.template.rawValue.protobufValue
+                $0.fields = fields
+            }
         }).invoke()
+        
+        return response.objectID
     }
     
     public func deleteTemplate(templateId: BlockId) async throws {
@@ -28,4 +36,3 @@ public final class TemplatesService: TemplatesServiceProtocol {
         }).invoke()
     }
 }
-

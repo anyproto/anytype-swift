@@ -18,6 +18,7 @@ struct TemplateModel {
 
 enum TemplateType {
     case blank
+    case addTemplate
     case installed(TemplateModel)
 }
 
@@ -32,6 +33,8 @@ extension TemplatePreviewModel: IdProvider {
         switch model {
         case .blank:
             return "Blank"
+        case .addTemplate:
+            return "Add template"
         case let .installed(model):
             return model.id
         }

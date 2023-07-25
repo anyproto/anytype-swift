@@ -60,10 +60,12 @@ protocol EditorSetRouterProtocol:
     func closeEditor()
     func showPage(data: EditorScreenData)
     func replaceCurrentPage(with data: EditorScreenData)
-    
     func showRelationValueEditingView(key: String)
     func showRelationValueEditingView(objectDetails: ObjectDetails, relation: Relation)
-    func showAddNewRelationView(onSelect: ((RelationDetails, _ isNew: Bool) -> Void)?)
+    func showAddNewRelationView(
+        document: BaseDocumentProtocol,
+        onSelect: ((RelationDetails, _ isNew: Bool) -> Void)?
+    )
     
     func showFailureToast(message: String)
     
@@ -71,7 +73,7 @@ protocol EditorSetRouterProtocol:
     func showTemplatesSelection(
         setDocument: SetDocumentProtocol,
         dataview: DataviewView,
-        onTemplateSelection: @escaping (BlockId) -> ()
+        onTemplateSelection: @escaping (BlockId?) -> ()
     )
 }
 
@@ -174,7 +176,7 @@ final class EditorSetRouter: EditorSetRouterProtocol {
     func showCreateObject(details: ObjectDetails) {
         let moduleViewController = createObjectModuleAssembly.makeCreateObject(objectId: details.id) { [weak self] in
             self?.navigationContext.dismissTopPresented()
-            self?.showPage(data: details.editorScreenData())
+            self?.showPage(data: details.editorScreenData(shouldShowTemplatesOptions: !FeatureFlags.setTemplateSelection))
         } closeAction: { [weak self] in
             self?.navigationContext.dismissTopPresented()
         }
@@ -409,7 +411,7 @@ final class EditorSetRouter: EditorSetRouterProtocol {
     }
     
     func showSettings() {
-        objectSettingCoordinator.startFlow(delegate: self)
+        objectSettingCoordinator.startFlow(objectId: setDocument.objectId, delegate: self)
     }
     
     func showCoverPicker() {
@@ -457,8 +459,12 @@ final class EditorSetRouter: EditorSetRouterProtocol {
         relationValueCoordinator.startFlow(objectDetails: objectDetails, relation: relation, analyticsType: .dataview, output: self)
     }
     
-    func showAddNewRelationView(onSelect: ((RelationDetails, _ isNew: Bool) -> Void)?) {
+    func showAddNewRelationView(
+        document: BaseDocumentProtocol,
+        onSelect: ((RelationDetails, _ isNew: Bool) -> Void)?
+    ) {
         addNewRelationCoordinator.showAddNewRelationView(
+            document: document,
             excludedRelationsIds: setDocument.sortedRelations.map(\.id),
             target: .dataview(activeViewId: setDocument.activeView.id),
             onCompletion: onSelect
@@ -481,7 +487,7 @@ final class EditorSetRouter: EditorSetRouterProtocol {
     func showTemplatesSelection(
         setDocument: SetDocumentProtocol,
         dataview: DataviewView,
-        onTemplateSelection: @escaping (BlockId) -> ()
+        onTemplateSelection: @escaping (BlockId?) -> ()
     ) {
         templateSelectionCoordinator.showTemplatesSelection(
             setDocument: setDocument,
