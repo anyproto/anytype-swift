@@ -35,14 +35,14 @@ enum TemplateType: Equatable {
 }
 
 struct TemplatePreviewModel: Identifiable, Equatable {
-    let model: TemplateType
+    let mode: TemplateType
     let alignment: LayoutAlignment
     let isDefault: Bool
 }
 
 extension TemplatePreviewModel: IdProvider {
     var id: BlockId {
-        switch model {
+        switch mode {
         case .blank:
             return "Blank"
         case .addTemplate:

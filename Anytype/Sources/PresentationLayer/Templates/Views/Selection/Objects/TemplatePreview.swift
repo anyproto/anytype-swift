@@ -18,7 +18,7 @@ struct TemplatePreview: View, ContextualMenuItemsProvider {
     
     var content: some View {
         Group {
-            switch viewModel.model.model {
+            switch viewModel.model.mode {
             case .blank:
                 wrapped(shouldIncludeShimmer: false) {
                     AnytypeText(
@@ -63,7 +63,7 @@ struct TemplatePreview: View, ContextualMenuItemsProvider {
     
     private var cover: some View {
         Group {
-            if case let .installed(templateModel) = viewModel.model.model {
+            if case let .installed(templateModel) = viewModel.model.mode {
                 switch templateModel.header {
                 case .filled(let state, _):
                     ObjectHeaderFilledContentSwitfUIView(

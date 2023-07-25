@@ -29,13 +29,13 @@ extension MockTemplatePreviewModel {
     
     static let blankPreview = MockTemplatePreviewModel(
         title: "Blank preview",
-        model: .init(model: .blank, alignment: .left, isDefault: false)
+        model: .init(mode: .blank, alignment: .left, isDefault: false)
     )
     
     static let templateWithTitle = MockTemplatePreviewModel(
         title: "Template with title",
         model: .init(
-            model: .installed(
+            mode: .installed(
                 .init(
                     id: "id",
                     title: "Awesome template",
@@ -50,7 +50,7 @@ extension MockTemplatePreviewModel {
     static let onlyIcon = MockTemplatePreviewModel(
         title: "Only icon",
         model: .init(
-            model: .installed(
+            mode: .installed(
                 .init(
                     id: "id",
                     title: "Awesome template",
@@ -79,7 +79,7 @@ extension MockTemplatePreviewModel {
     static let iconCoverTitle = MockTemplatePreviewModel(
         title: "Preview icon cover title",
         model: .init(
-            model: .installed(
+            mode: .installed(
                 .init(
                     id: "Id",
                     title: "Awesome template",
@@ -107,7 +107,7 @@ extension MockTemplatePreviewModel {
     static let coverTitle = MockTemplatePreviewModel(
         title: "Preview cover title",
         model: .init(
-            model: .installed(
+            mode: .installed(
                 .init(
                     id: "Id",
                     title: "Awesome template",
