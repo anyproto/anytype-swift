@@ -10,7 +10,6 @@ class DownloadFileAtURLWorker
 
   def work
     headers = {}
-    headers["Authorization"] = "token #{token}"
     headers["Accept"] = "application/octet-stream"
     headersString = headers.map{|k, v| "-H '#{k}: #{v}'"}.join(' ')
     action = "curl -L -o #{filePath} #{headersString} #{url}"
