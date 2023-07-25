@@ -12,7 +12,7 @@ COMMIT_MSG_FILE=$1
 COMMIT_TEXT=$(cat "$COMMIT_MSG_FILE")
 ORIGIN=$(git remote get-url origin)
 
-if [[ "$ORIGIN" != "git@github.com:anyproto/anytype-swift.git" ]]; then
+if [[ "$ORIGIN" != "git@github.com:anyproto/anytype-swift.git" && "$ORIGIN" != "https://github.com/anyproto/anytype-swift.git" ]]; then
     exit 0
 fi
 
