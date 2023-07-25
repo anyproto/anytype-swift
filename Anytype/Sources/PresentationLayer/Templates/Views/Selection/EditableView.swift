@@ -1,13 +1,22 @@
 import SwiftUI
 
-struct EditableView<Content: View>: View {
+protocol ContextualMenuItemsProvider {
+    @ViewBuilder
+    var contextMenuItems: AnyView { get }
+}
+
+struct EditableView<Content: View & ContextualMenuItemsProvider>: View {
     var content: Content
-    var onEditingTap: () -> Void
+    var onTap: () -> Void
     var canBeEdited: Bool
     @Binding var isEditing: Bool
     
     var body: some View {
-        content
+        Button {
+            onTap()
+        } label: {
+            content
+        }
             .padding(.trailing, 8)
             .padding(.top, 8)
             .if(canBeEdited && isEditing) {
@@ -16,8 +25,8 @@ struct EditableView<Content: View>: View {
     }
     
     var dotImageButton: some View {
-        Button {
-            onEditingTap()
+        Menu {
+            content.contextMenuItems
         } label: {
             dotImage
         }
@@ -40,8 +49,13 @@ struct EditableView<Content: View>: View {
 struct EditableView_Previews: PreviewProvider {
     static var previews: some View {
         EditableView<TemplatePreview>(
-            content: TemplatePreview(viewModel: MockTemplatePreviewModel.iconCoverTitle.model),
-            onEditingTap: {},
+            content: TemplatePreview(
+                viewModel: TemplatePreviewViewModel(
+                    model: MockTemplatePreviewModel.iconCoverTitle.model,
+                    onOptionSelection: { _ in }
+                )
+            ),
+            onTap: {},
             canBeEdited: true,
             isEditing: .constant(true)
         )

@@ -7,8 +7,8 @@ import SwiftUI
 @MainActor
 final class TemplatesSelectionViewModel: ObservableObject {
     @Published var isEditingState = false
-    @Published var templates = [TemplatePreviewModel]()
-    var templateOptionsHandler: ((@escaping (TemplateOptionAction) -> Void) -> Void)?
+    @Published var templates = [TemplatePreviewViewModel]()
+    
     private var userTemplates = [TemplatePreviewModel]() {
         didSet {
             updateTemplatesList()
@@ -33,12 +33,15 @@ final class TemplatesSelectionViewModel: ObservableObject {
         self.templateEditingHandler = templateEditingHandler
         
         interactor.userTemplates.sink { [weak self] templates in
-            self?.userTemplates = templates
+            if let userTemplates = self?.userTemplates,
+                userTemplates != templates {
+                self?.userTemplates = templates
+            }
         }.store(in: &cancellables)
     }
     
     func onTemplateTap(model: TemplatePreviewModel) {
-        switch model.model {
+        switch model.mode {
         case .installed(let templateModel):
             onTemplateSelection(templateModel.id)
         case .blank:
@@ -60,12 +63,6 @@ final class TemplatesSelectionViewModel: ObservableObject {
             } catch {
                 anytypeAssertionFailure(error.localizedDescription)
             }
-        }
-    }
-    
-    func onEditingButonTap(model: TemplatePreviewModel) {
-        templateOptionsHandler? { [weak self] option in
-            self?.handleTemplateOption(option: option, templateViewModel: model)
         }
     }
     
@@ -92,16 +89,23 @@ final class TemplatesSelectionViewModel: ObservableObject {
         var templates = [TemplatePreviewModel]()
 
         if !userTemplates.contains(where: { $0.isDefault }) {
-            templates.append(.init(model: .blank, alignment: .left, isDefault: true))
+            templates.append(.init(mode: .blank, alignment: .left, isDefault: true))
         } else {
-            templates.append(.init(model: .blank, alignment: .left, isDefault: false))
+            templates.append(.init(mode: .blank, alignment: .left, isDefault: false))
         }
         
         templates.append(contentsOf: userTemplates)
-        templates.append(.init(model: .addTemplate, alignment: .center, isDefault: false))
+        templates.append(.init(mode: .addTemplate, alignment: .center, isDefault: false))
         
-        withAnimation(.fastSpring) {
-            self.templates = templates
+        withAnimation {
+            self.templates = templates.map { model in
+                TemplatePreviewViewModel(
+                    model: model,
+                    onOptionSelection: { [weak self] option in
+                        self?.handleTemplateOption(option: option, templateViewModel: model)
+                    }
+                )
+            }
         }
     }
 }
@@ -109,7 +113,7 @@ final class TemplatesSelectionViewModel: ObservableObject {
 extension TemplatePreviewModel {
     init(objectDetails: ObjectDetails, isDefault: Bool) {
         self = .init(
-            model: .installed(.init(
+            mode: .installed(.init(
                 id: objectDetails.id,
                 title: objectDetails.title,
                 header: HeaderBuilder.buildObjectHeader(
@@ -128,7 +132,7 @@ extension TemplatePreviewModel {
 
 extension TemplatePreviewModel {
     var isEditable: Bool {
-        if case .installed = model {
+        if case .installed = mode {
             return true
         }
         

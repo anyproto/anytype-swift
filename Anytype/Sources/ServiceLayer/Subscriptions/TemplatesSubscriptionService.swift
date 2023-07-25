@@ -27,7 +27,7 @@ final class TemplatesSubscriptionService: TemplatesSubscriptionServiceProtocol {
         update: @escaping SubscriptionCallback
     ) {
         let sort = SearchHelper.sort(
-            relation: BundledRelationKey.lastOpenedDate,
+            relation: BundledRelationKey.addedDate,
             type: .desc
         )
         let filters = SearchHelper.templatesFilters(type: objectType)

@@ -47,16 +47,12 @@ struct TemplatesSelectionView: View {
         ScrollView(.horizontal) {
             LazyHStack {
                 ForEach(model.templates) { item in
-                    Button {
-                        model.onTemplateTap(model: item)
-                    } label: {
-                        EditableView<TemplatePreview>(
-                            content: TemplatePreview(viewModel: item),
-                            onEditingTap: { model.onEditingButonTap(model: item) },
-                            canBeEdited: item.isEditable,
-                            isEditing: $model.isEditingState
-                        )
-                    }
+                    EditableView<TemplatePreview>(
+                        content: TemplatePreview(viewModel: item),
+                        onTap: { model.onTemplateTap(model: item.model) },
+                        canBeEdited: item.model.isEditable,
+                        isEditing: $model.isEditingState
+                    )
                 }
             }
             .frame(height: 232)
