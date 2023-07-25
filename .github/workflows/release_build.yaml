@@ -38,7 +38,7 @@ jobs:
           xcode-version: '14.3'
 
       - name: Download Middleware
-        run: ruby ./Scripts/middleware.rb --token ${{ secrets.ANYTYPE_MIDDLEWARE_ACCESS_TOKEN }}
+        run: make setup-middle
 
       - name: License Checks
         uses: ./.github/actions/license-checks
