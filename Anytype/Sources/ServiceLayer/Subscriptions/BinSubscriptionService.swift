@@ -43,12 +43,12 @@ final class BinSubscriptionService: BinSubscriptionServiceProtocol {
             ? [
                 SearchHelper.notHiddenFilter(),
                 SearchHelper.isArchivedFilter(isArchived: true),
-                SearchHelper.workspaceId(accountManager.account.info.accountSpaceId)
+                SearchHelper.spaceId(accountManager.account.info.accountSpaceId)
             ]
             : [
                 SearchHelper.notHiddenFilter(),
                 SearchHelper.isArchivedFilter(isArchived: true),
-                SearchHelper.workspaceId(accountManager.account.info.accountSpaceId),
+                SearchHelper.spaceId(accountManager.account.info.accountSpaceId),
                 SearchHelper.layoutFilter(DetailsLayout.visibleLayouts)
             ]
         

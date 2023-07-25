@@ -39,6 +39,7 @@ protocol NewSearchModuleAssemblyProtocol {
     func objectTypeSearchModule(
         style: NewSearchView.Style,
         title: String,
+        spaceId: String,
         selectedObjectId: BlockId?,
         excludedObjectTypeId: String?,
         showBookmark: Bool,
@@ -49,6 +50,7 @@ protocol NewSearchModuleAssemblyProtocol {
     
     func multiselectObjectTypesSearchModule(
         selectedObjectTypeIds: [String],
+        spaceId: String,
         onSelect: @escaping (_ ids: [String]) -> Void
     ) -> NewSearchView
     

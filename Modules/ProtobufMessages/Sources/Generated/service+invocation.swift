@@ -94,6 +94,16 @@ public struct ClientCommands {
         }
     }
 
+    public static func workspaceInfo(
+        _ request: Anytype_Rpc.Workspace.Info.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Workspace.Info.Request, Anytype_Rpc.Workspace.Info.Response> {
+        return Invocation(messageName: "WorkspaceInfo", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceWorkspaceInfo(requestData) ?? Data()
+            return try Anytype_Rpc.Workspace.Info.Response(serializedData: responseData)
+        }
+    }
+
     public static func workspaceObjectAdd(
         _ request: Anytype_Rpc.Workspace.Object.Add.Request = .init()
     ) -> Invocation<Anytype_Rpc.Workspace.Object.Add.Request, Anytype_Rpc.Workspace.Object.Add.Response> {
@@ -1921,6 +1931,16 @@ public struct ClientCommands {
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceDebugSubscriptions(requestData) ?? Data()
             return try Anytype_Rpc.Debug.Subscriptions.Response(serializedData: responseData)
+        }
+    }
+
+    public static func debugOpenedObjects(
+        _ request: Anytype_Rpc.Debug.OpenedObjects.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Debug.OpenedObjects.Request, Anytype_Rpc.Debug.OpenedObjects.Response> {
+        return Invocation(messageName: "DebugOpenedObjects", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceDebugOpenedObjects(requestData) ?? Data()
+            return try Anytype_Rpc.Debug.OpenedObjects.Response(serializedData: responseData)
         }
     }
 

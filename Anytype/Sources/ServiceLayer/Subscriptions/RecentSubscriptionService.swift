@@ -45,7 +45,7 @@ final class RecentSubscriptionService: RecentSubscriptionServiceProtocol {
         let filters = [
             SearchHelper.notHiddenFilter(),
             SearchHelper.isArchivedFilter(isArchived: false),
-            SearchHelper.workspaceId(accountManager.account.info.accountSpaceId),
+            SearchHelper.spaceId(accountManager.account.info.accountSpaceId),
             SearchHelper.layoutFilter(DetailsLayout.visibleLayouts),
             SearchHelper.lastOpenedDateNotNilFilter()
             

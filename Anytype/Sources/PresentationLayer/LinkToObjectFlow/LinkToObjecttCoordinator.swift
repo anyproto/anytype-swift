@@ -5,6 +5,7 @@ import AnytypeCore
 
 protocol LinkToObjectCoordinatorProtocol: AnyObject {
     func startFlow(
+        spaceId: String,
         currentLink: Either<URL, BlockId>?,
         setLinkToObject: @escaping (_ blockId: String) -> Void,
         setLinkToUrl: @escaping (_ url: URL) -> Void,
@@ -38,6 +39,7 @@ final class LinkToObjectCoordinator: LinkToObjectCoordinatorProtocol {
     // MARK: - LinkToObjectCoordinatorProtocol
         
     func startFlow(
+        spaceId: String,
         currentLink: Either<URL, BlockId>?,
         setLinkToObject: @escaping (_ blockId: String) -> Void,
         setLinkToUrl: @escaping (_ url: URL) -> Void,
@@ -51,7 +53,7 @@ final class LinkToObjectCoordinator: LinkToObjectCoordinatorProtocol {
                 setLinkToObject(linkBlockId)
             case let .createObject(name):
                 Task { @MainActor [weak self] in
-                    if let linkBlockDetails = try? await self?.pageService.createPage(name: name) {
+                    if let linkBlockDetails = try? await self?.pageService.createPage(name: name, spaceId: spaceId) {
                         AnytypeAnalytics.instance().logCreateObject(objectType: linkBlockDetails.analyticsType, route: .mention)
                         setLinkToObject(linkBlockDetails.id)
                     }

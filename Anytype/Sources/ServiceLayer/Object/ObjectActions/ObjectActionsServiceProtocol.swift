@@ -20,6 +20,7 @@ protocol ObjectActionsServiceProtocol {
     func createPage(
         contextId: BlockId,
         targetId: BlockId,
+        spaceId: String,
         details: [BundledDetails],
         position: BlockPosition,
         templateId: String

@@ -17,7 +17,7 @@ final class EditorBrowserAssembly {
         router: EditorPageOpenRouterProtocol? = nil,
         addRoot: Bool = true
     ) -> EditorBrowserController {
-        let browser = EditorBrowserController(dashboardService: serviceLocator.dashboardService())
+        let browser = EditorBrowserController(dashboardService: serviceLocator.dashboardService(), accountManager: serviceLocator.accountManager())
 
         if addRoot {
             // Legacy logic. Delete with homeWidgets toggle

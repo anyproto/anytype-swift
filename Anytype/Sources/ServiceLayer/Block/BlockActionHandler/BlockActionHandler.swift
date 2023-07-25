@@ -254,7 +254,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         }
     }
     
-    func createPage(targetId: BlockId, type: ObjectTypeId) async throws -> BlockId? {
+    func createPage(targetId: BlockId, type: ObjectTypeId) async throws -> ObjectPath? {
         guard let info = document.infoContainer.get(id: targetId) else { return nil }
         var position: BlockPosition
         if case .text(let blockText) = info.content, blockText.text.isEmpty {
@@ -263,9 +263,9 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
             position = .bottom
         }
         
-        return try await service.createPage(targetId: targetId, type: type, position: position)
+        let blockId = try await service.createPage(targetId: targetId, spaceId: document.spaceId, type: type, position: position)
+        return ObjectPath(objectId: blockId, spaceId: document.spaceId)
     }
-
 
     func createTable(
         blockId: BlockId,

@@ -212,6 +212,9 @@ public enum BundledRelationKey: String {
     /// Space object belongs to
     case workspaceId = "workspaceId"
 
+    /// Space belongs to
+    case spaceId = "spaceId"
+
     /// Audio record's genre name
     case audioGenre = "audioGenre"
 

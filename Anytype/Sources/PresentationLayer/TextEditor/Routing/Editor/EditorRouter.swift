@@ -239,6 +239,8 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         let moduleView = textIconPickerModuleAssembly.make(
             contextId: contextId,
             objectId: objectId,
+            // In feature space id should be read from blockInfo, when we will create "link to" between sapces
+            spaceId: document.spaceId,
             onDismiss: { [weak self] in
                 self?.navigationContext.dismissTopPresented()
             }

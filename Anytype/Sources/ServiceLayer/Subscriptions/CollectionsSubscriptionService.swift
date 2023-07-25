@@ -45,7 +45,7 @@ final class CollectionsSubscriptionService: CollectionsSubscriptionServiceProtoc
         let filters = [
             SearchHelper.notHiddenFilter(),
             SearchHelper.isArchivedFilter(isArchived: false),
-            SearchHelper.workspaceId(accountManager.account.info.accountSpaceId),
+            SearchHelper.spaceId(accountManager.account.info.accountSpaceId),
             SearchHelper.layoutFilter([DetailsLayout.collection])
         ]
         

@@ -24,7 +24,7 @@ final class SetSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol {
         let offset = (data.currentPage - 1) * numberOfRowsPerPageInSubscriptions
         
         let defaultFilters = [
-            SearchHelper.workspaceId(accountManager.account.info.accountSpaceId)
+            SearchHelper.spaceId(accountManager.account.info.accountSpaceId)
         ]
         
         let filters = data.filters + defaultFilters

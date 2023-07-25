@@ -9,6 +9,7 @@ final class MentionsViewModel {
     weak var view: MentionsView!
     
     private let documentId: String
+    private let spaceId: String
     private let mentionService: MentionObjectsServiceProtocol
     private let pageService: PageServiceProtocol
     private let onSelect: (MentionObject) -> Void
@@ -18,11 +19,13 @@ final class MentionsViewModel {
     
     init(
         documentId: String,
+        spaceId: String,
         mentionService: MentionObjectsServiceProtocol,
         pageService: PageServiceProtocol,
         onSelect: @escaping (MentionObject) -> Void
     ) {
         self.documentId = documentId
+        self.spaceId = spaceId
         self.mentionService = mentionService
         self.pageService = pageService
         self.onSelect = onSelect
@@ -48,7 +51,7 @@ final class MentionsViewModel {
     
     func didSelectCreateNewMention() {
         Task { @MainActor in
-            guard let newBlockDetails = try? await pageService.createPage(name: searchString) else { return }
+            guard let newBlockDetails = try? await pageService.createPage(name: searchString, spaceId: spaceId) else { return }
             
             AnytypeAnalytics.instance().logCreateObject(objectType: newBlockDetails.analyticsType, route: .mention)
             let name = searchString.isEmpty ? Loc.untitled : searchString

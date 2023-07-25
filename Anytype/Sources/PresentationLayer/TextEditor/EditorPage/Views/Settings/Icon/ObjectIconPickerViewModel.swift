@@ -64,7 +64,7 @@ extension ObjectIconPickerViewModel {
         AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.setIcon)
         Task {
             let data = try await fileService.createFileData(source: .itemProvider(itemProvider))
-            let imageHash = try await fileService.uploadImage(data: data)
+            let imageHash = try await fileService.uploadImage(spaceId: document.details?.spaceId ?? "", data: data)
             try await detailsService.updateBundledDetails([.iconEmoji(""), .iconImageHash(imageHash)])
         }
     }

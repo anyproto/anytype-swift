@@ -42,9 +42,10 @@ public final class RelationsService: RelationsServiceProtocol {
         }).invoke()
     }
 
-    public func createRelation(relationDetails: RelationDetails) async throws -> RelationDetails? {
+    public func createRelation(spaceId: String, relationDetails: RelationDetails) async throws -> RelationDetails {
         let result = try await ClientCommands.objectCreateRelation(.with {
             $0.details = relationDetails.asCreateMiddleware
+            $0.spaceID = spaceId
         }).invoke()
         
         try await addRelations(relationKeys: [result.key])
@@ -73,7 +74,7 @@ public final class RelationsService: RelationsServiceProtocol {
         }).invoke()
     }
     
-    public func addRelationOption(relationKey: String, optionText: String) async throws -> String? {
+    public func addRelationOption(spaceId: String, relationKey: String, optionText: String) async throws -> String? {
         let color = MiddlewareColor.allCases.randomElement()?.rawValue ?? MiddlewareColor.default.rawValue
         
         let details = Google_Protobuf_Struct(
@@ -86,6 +87,7 @@ public final class RelationsService: RelationsServiceProtocol {
         
         let optionResult = try? await ClientCommands.objectCreateRelationOption(.with {
             $0.details = details
+            $0.spaceID = spaceId
         }).invoke()
         
         return optionResult?.objectID

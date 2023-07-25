@@ -19,6 +19,7 @@ final class StatusRelationDetailsViewModel: ObservableObject {
     var isEditable: Bool {
         return relation.isEditable
     }
+    private let details: ObjectDetails
     private let relation: Relation
     private let service: RelationsServiceProtocol
     private let searchService: SearchServiceProtocol
@@ -27,13 +28,15 @@ final class StatusRelationDetailsViewModel: ObservableObject {
     private weak var popup: AnytypePopupProxy?
     
     init(
+        details: ObjectDetails,
         selectedStatus: Relation.Status.Option?,
         relation: Relation,
         service: RelationsServiceProtocol,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
         searchService: SearchServiceProtocol,
         analyticsType: AnalyticsEventsRelationType
-    ) {        
+    ) {
+        self.details = details
         self.selectedStatus = selectedStatus
         
         self.relation = relation
@@ -110,7 +113,7 @@ private extension StatusRelationDetailsViewModel {
     
     func handleCreateOption(title: String) {
         Task {
-            let optionId = try await service.addRelationOption(relationKey: relation.key, optionText: title)
+            let optionId = try await service.addRelationOption(spaceId: details.spaceId, relationKey: relation.key, optionText: title)
             guard let optionId = optionId else { return }
             
             try? await handleSelectedOptionIds([optionId])

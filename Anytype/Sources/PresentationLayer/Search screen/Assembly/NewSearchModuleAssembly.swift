@@ -130,6 +130,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
     func objectTypeSearchModule(
         style: NewSearchView.Style,
         title: String,
+        spaceId: String,
         selectedObjectId: BlockId?,
         excludedObjectTypeId: String?,
         showBookmark: Bool,
@@ -138,6 +139,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         onSelect: @escaping (_ type: ObjectType) -> Void
     ) -> NewSearchView {
         let interactor = ObjectTypesSearchInteractor(
+            spaceId: spaceId,
             searchService: serviceLocator.searchService(),
             workspaceService: serviceLocator.workspaceService(),
             excludedObjectTypeId: excludedObjectTypeId,
@@ -164,9 +166,11 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
     
     func multiselectObjectTypesSearchModule(
         selectedObjectTypeIds: [String],
+        spaceId: String,
         onSelect: @escaping (_ ids: [String]) -> Void
     ) -> NewSearchView {
         let interactor = ObjectTypesSearchInteractor(
+            spaceId: spaceId,
             searchService: serviceLocator.searchService(),
             workspaceService: serviceLocator.workspaceService(),
             excludedObjectTypeId: nil,
@@ -263,6 +267,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         )
         
         let internalViewModel = RelationsSearchViewModel(
+            document: document,
             excludedRelationsIds: excludedRelationsIds,
             target: target,
             interactor: interactor,

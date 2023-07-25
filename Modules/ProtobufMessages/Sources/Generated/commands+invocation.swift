@@ -522,6 +522,11 @@ extension Anytype_Rpc.Debug.ExportLocalstore.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }
 }
 
+extension Anytype_Rpc.Debug.OpenedObjects.Response: ResultWithError {}
+extension Anytype_Rpc.Debug.OpenedObjects.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null }
+}
+
 extension Anytype_Rpc.Debug.Ping.Response: ResultWithError {}
 extension Anytype_Rpc.Debug.Ping.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }
@@ -983,6 +988,11 @@ extension Anytype_Rpc.Workspace.GetAll.Response.Error: ResponseError {
 
 extension Anytype_Rpc.Workspace.GetCurrent.Response: ResultWithError {}
 extension Anytype_Rpc.Workspace.GetCurrent.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null }
+}
+
+extension Anytype_Rpc.Workspace.Info.Response: ResultWithError {}
+extension Anytype_Rpc.Workspace.Info.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }
 }
 

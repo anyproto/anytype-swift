@@ -175,6 +175,7 @@ final class DataviewService: DataviewServiceProtocol {
         objectType: String,
         shouldSelectType: Bool,
         templateId: BlockId,
+        spaceId: String,
         setFilters: [SetFilter],
         relationsDetails: [RelationDetails]
     ) async throws -> ObjectDetails {
@@ -194,6 +195,7 @@ final class DataviewService: DataviewServiceProtocol {
             $0.details = details
             $0.internalFlags = internalFlags
             $0.templateID = templateId
+            $0.spaceID = spaceId
         }).invoke()
 
         return try ObjectDetails(protobufStruct: response.details)

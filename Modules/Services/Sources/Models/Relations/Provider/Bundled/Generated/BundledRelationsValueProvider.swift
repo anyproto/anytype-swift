@@ -90,6 +90,7 @@ public protocol BundledRelationsValueProvider {
     var isFavorite: Bool { get }
     var stars: [ObjectId] { get }
     var workspaceId: ObjectId { get }
+    var spaceId: ObjectId { get }
     var audioGenre: String { get }
     var telegram: AnytypeURL? { get }
     var trailer: [Hash] { get }
@@ -439,6 +440,10 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     /// Space object belongs to
     var workspaceId: ObjectId {
         return value(for: BundledRelationKey.workspaceId.rawValue)
+    }
+    /// Space belongs to
+    var spaceId: ObjectId {
+        return value(for: BundledRelationKey.spaceId.rawValue)
     }
     /// Audio record's genre name
     var audioGenre: String {

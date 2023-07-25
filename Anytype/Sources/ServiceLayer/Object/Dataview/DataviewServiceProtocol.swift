@@ -28,6 +28,7 @@ protocol DataviewServiceProtocol {
         objectType: String,
         shouldSelectType: Bool,
         templateId: BlockId,
+        spaceId: String,
         setFilters: [SetFilter],
         relationsDetails: [RelationDetails]
     ) async throws -> ObjectDetails

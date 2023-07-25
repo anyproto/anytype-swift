@@ -55,7 +55,7 @@ extension ObjectCoverPickerViewModel {
     func uploadImage(from itemProvider: NSItemProvider) {
         AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.setCover)
         Task {
-            try await detailsService.setCover(source: .itemProvider(itemProvider))
+            try await detailsService.setCover(spaceId: document.details?.spaceId ?? "", source: .itemProvider(itemProvider))
         }
     }
 
@@ -67,7 +67,7 @@ extension ObjectCoverPickerViewModel {
                 contextId: objectId,
                 localEvents: [unsplashItem.updateEvent]
             ).send()
-            let imageHash = try await unsplashService.downloadImage(id: unsplashItem.id)
+            let imageHash = try await unsplashService.downloadImage(spaceId: document.details?.spaceId ?? "", id: unsplashItem.id)
             try await detailsService.setCover(imageHash: imageHash)
         }
     }
