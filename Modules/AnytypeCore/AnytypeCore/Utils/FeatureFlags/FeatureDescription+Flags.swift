@@ -95,6 +95,12 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
+    static let multiSpace = FeatureDescription(
+        title: "Multi spaces - IOS-1568",
+        type: .feature(author: "m@anytype.io", releaseVersion: "0.24.0"),
+        defaultValue: false
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(
