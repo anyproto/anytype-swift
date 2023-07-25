@@ -7,21 +7,13 @@ on:
 
 jobs:
   main:
-    runs-on: ${{ vars.RUNNER }}
+    runs-on: ios-self-hosted
     timeout-minutes: 35
 
-    steps:
-      - name: Install SSH key for access to repository
-        uses: webfactory/ssh-agent@v0.6.0
-        with:
-          ssh-private-key: ${{ secrets.SSH_ACCESS_KEY }}
-      
+    steps:      
       - name: Checkout
         uses: actions/checkout@v3
-
-      - name: Update git config
-        uses: ./.github/actions/update-git-config
-
+      
       - name: Prepare deps
         uses: ./.github/actions/prepare-deps
 
@@ -31,7 +23,7 @@ jobs:
           xcode-version: '14.3'
 
       - name: Download Middleware
-        run: ruby ./Scripts/middleware.rb --token ${{ secrets.ANYTYPE_MIDDLEWARE_ACCESS_TOKEN }}
+        run: make setup-middle
 
       - name: License Checks
         uses: ./.github/actions/license-checks

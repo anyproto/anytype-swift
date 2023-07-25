@@ -37,7 +37,7 @@ jobs:
           xcode-version: '14.3'
 
       - name: Download Middleware
-        run: ruby ./Scripts/middleware.rb --token ${{ secrets.ANYTYPE_MIDDLEWARE_ACCESS_TOKEN }}
+        run: make setup-middle
 
       # - name: Test comment
       #   run: bundle exec fastlane add_linear_comment from_tag:dev/0.22.0/32 to_tag:dev/0.22.0/33 comment:"Test comment \`0.23\`"

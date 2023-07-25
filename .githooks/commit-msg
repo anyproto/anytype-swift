@@ -10,6 +10,11 @@ REGEX_ISSUE_ID="[a-zA-Z0-9]+-[0-9]+"
 BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
 COMMIT_MSG_FILE=$1
 COMMIT_TEXT=$(cat "$COMMIT_MSG_FILE")
+ORIGIN=$(git remote get-url origin)
+
+if [[ "$ORIGIN" != "git@github.com:anyproto/anytype-swift.git" && "$ORIGIN" != "https://github.com/anyproto/anytype-swift.git" ]]; then
+    exit 0
+fi
 
 if [[ -z "$BRANCH_NAME" ]]; then
     echo "Commit message validation failed: no branch name!"; exit 1
