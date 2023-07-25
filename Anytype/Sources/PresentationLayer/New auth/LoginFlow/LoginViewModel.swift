@@ -72,6 +72,10 @@ final class LoginViewModel: ObservableObject {
         AnytypeAnalytics.instance().logLoginScreenShow()
     }
     
+    func onSettingsTap() {
+        output?.onSettingsAction()
+    }
+    
     func onEnterButtonAction() {
         AnytypeAnalytics.instance().logClickLogin(button: .phrase)
         walletRecovery(with: phrase, route: .login)
