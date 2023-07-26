@@ -20,7 +20,7 @@ class BlockBookmarkImageView: UIImageView {
     }
     
     
-    func update(imageId: String) {  
+    func update(imageId: String) {
         let imageGuideline = ImageGuideline(size: Constants.size, radius: .point(2))
         wrapper.imageGuideline(imageGuideline).setImage(id: imageId)
     }

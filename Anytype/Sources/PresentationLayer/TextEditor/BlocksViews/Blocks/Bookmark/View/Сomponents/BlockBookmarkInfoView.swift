@@ -32,7 +32,7 @@ final class BlockBookmarkInfoView: UIView {
         urlStackView.removeAllSubviews()
         
         guard !payload.faviconHash.isEmpty else {
-            iconView.image = nil
+            iconView.icon = nil
             urlStackView.addSubview(urlView) {
                 $0.pinToSuperview()
             }
@@ -48,17 +48,7 @@ final class BlockBookmarkInfoView: UIView {
             )
         }
         
-        let imageGuideline = ImageGuideline(
-            size: Layout.iconSize,
-            radius: .point(2),
-            backgroundColor: .clear
-        )
-        
-        iconView.wrapper
-            .imageGuideline(imageGuideline)
-            .scalingType(.downsampling)
-            .animatedTransition(false)
-            .setImage(id: payload.faviconHash)
+        iconView.icon = .icon(.bookmark(payload.faviconHash))
     }
     
     // MARK: - Views
@@ -88,10 +78,8 @@ final class BlockBookmarkInfoView: UIView {
         return view
     }()
     
-    private let iconView: UIImageView = {
-        let view = UIImageView()
-        view.clipsToBounds = true
-        view.backgroundColor = .clear
+    private let iconView: IconViewUIKit = {
+        let view = IconViewUIKit()
         view.layoutUsing.anchors {
             $0.size(Layout.iconSize)
         }

@@ -440,6 +440,7 @@
 		2A66937D2A7104EA007747DD /* ObjectIconImageGuidelineSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A66936F2A7104EA007747DD /* ObjectIconImageGuidelineSet.swift */; };
 		2A66937E2A7104EA007747DD /* ObjectIconImageFontSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6693702A7104EA007747DD /* ObjectIconImageFontSet.swift */; };
 		2A6693812A71057D007747DD /* ObjectIconImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6693802A71057D007747DD /* ObjectIconImageModel.swift */; };
+		2A6693852A71168B007747DD /* Kingfisher+Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6693842A71168B007747DD /* Kingfisher+Async.swift */; };
 		2A673C0B29B0B26D00E3D672 /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A673C0A29B0B26D00E3D672 /* SettingsCoordinator.swift */; };
 		2A673C0D29B0B2AA00E3D672 /* SettingsModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A673C0C29B0B2AA00E3D672 /* SettingsModuleAssembly.swift */; };
 		2A673C0F29B0B39300E3D672 /* SettingsCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A673C0E29B0B39300E3D672 /* SettingsCoordinatorAssembly.swift */; };
@@ -1936,6 +1937,7 @@
 		2A66936F2A7104EA007747DD /* ObjectIconImageGuidelineSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectIconImageGuidelineSet.swift; sourceTree = "<group>"; };
 		2A6693702A7104EA007747DD /* ObjectIconImageFontSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectIconImageFontSet.swift; sourceTree = "<group>"; };
 		2A6693802A71057D007747DD /* ObjectIconImageModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectIconImageModel.swift; sourceTree = "<group>"; };
+		2A6693842A71168B007747DD /* Kingfisher+Async.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Kingfisher+Async.swift"; sourceTree = "<group>"; };
 		2A673C0A29B0B26D00E3D672 /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
 		2A673C0C29B0B2AA00E3D672 /* SettingsModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModuleAssembly.swift; sourceTree = "<group>"; };
 		2A673C0E29B0B39300E3D672 /* SettingsCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinatorAssembly.swift; sourceTree = "<group>"; };
@@ -3442,6 +3444,7 @@
 				12C0593227F3282F004FFAAB /* DownloadableContent */,
 				1211AF6527F338EC00BACB88 /* AnytypeImageDownloader.swift */,
 				12A1B51F27F4CEB2007ACDC9 /* DownloadableImageViewWrapper */,
+				2A6693842A71168B007747DD /* Kingfisher+Async.swift */,
 			);
 			path = NetwrokLayer;
 			sourceTree = "<group>";
@@ -9725,6 +9728,7 @@
 				538AE50F272C57300071DB0D /* LinkToObjectSearchViewModel.swift in Sources */,
 				2A5A898C29C8650600C170D6 /* SettingsAccountView.swift in Sources */,
 				2EB97A1B28B64CDC002BBB39 /* SetListViewCell.swift in Sources */,
+				2A6693852A71168B007747DD /* Kingfisher+Async.swift in Sources */,
 				5356072726E61A0F001464A4 /* UnsupportedBlockView.swift in Sources */,
 				1244793127DC575D00581174 /* ListRowConfiguration.swift in Sources */,
 				C955AF232886A61700AF23B5 /* SimpleTableTextCellRestrictions.swift in Sources */,
