@@ -80,9 +80,9 @@ extension EditorScreenData {
         case .favorites, .recent, .sets, .collections, .bin:
             return nil
         case .page(let object):
-            return object.objectId
+            return object.spaceId
         case .set(let object):
-            return object.objectId
+            return object.spaceId
         }
     }
 }
