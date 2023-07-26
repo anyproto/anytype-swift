@@ -13,6 +13,7 @@ protocol BaseDocumentProtocol: AnyObject, BaseDocumentGeneralProtocol {
     var objectRestrictions: ObjectRestrictions { get }
     var detailsStorage: ObjectDetailsStorage { get }
     var objectId: BlockId { get }
+    var spaceId: String { get }
     var children: [BlockInformation] { get }
     var parsedRelations: ParsedRelations { get }
     var isLocked: Bool { get }

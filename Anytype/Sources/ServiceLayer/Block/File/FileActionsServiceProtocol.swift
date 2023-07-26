@@ -18,12 +18,12 @@ protocol FileActionsServiceProtocol {
     func createFileData(source: FileUploadingSource) async throws -> FileData
     
     func uploadDataAt(data: FileData, contextID: BlockId, blockID: BlockId) async throws
-    func uploadImage(data: FileData) async throws -> Hash
+    func uploadImage(spaceId: String, data: FileData) async throws -> Hash
     
     func uploadDataAt(source: FileUploadingSource, contextID: BlockId, blockID: BlockId) async throws
-    func uploadImage(source: FileUploadingSource) async throws -> Hash
+    func uploadImage(spaceId: String, source: FileUploadingSource) async throws -> Hash
     
-    func spaceUsage() async throws -> FileLimits
+    func spaceUsage(spaceId: String) async throws -> FileLimits
     
     func clearCache() async throws
 }

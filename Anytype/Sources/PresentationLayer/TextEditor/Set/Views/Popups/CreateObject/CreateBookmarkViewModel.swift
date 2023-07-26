@@ -4,11 +4,13 @@ import AnytypeCore
 final class CreateBookmarkViewModel: CreateObjectViewModelProtocol {
     let style = CreateObjectView.Style.bookmark
     
+    private let spaceId: String
     private let bookmarkService: BookmarkServiceProtocol
     private let closeAction: (_ details: ObjectDetails?) -> Void
     private var currentText: String = .empty
 
-    init(bookmarkService: BookmarkServiceProtocol, closeAction: @escaping (_ details: ObjectDetails?) -> Void) {
+    init(spaceId: String, bookmarkService: BookmarkServiceProtocol, closeAction: @escaping (_ details: ObjectDetails?) -> Void) {
+        self.spaceId = spaceId
         self.bookmarkService = bookmarkService
         self.closeAction = closeAction
     }
@@ -30,7 +32,7 @@ final class CreateBookmarkViewModel: CreateObjectViewModelProtocol {
     private func createBookmarkObject(with url: String) {
         Task { @MainActor in
             do {
-                let details = try await bookmarkService.createBookmarkObject(url: currentText)
+                let details = try await bookmarkService.createBookmarkObject(spaceId: spaceId, url: currentText)
                 closeAction(details)
             } catch {
                 closeAction(nil)

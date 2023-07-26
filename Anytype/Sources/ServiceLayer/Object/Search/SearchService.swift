@@ -154,7 +154,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             SearchHelper.isDeletedFilter(isDeleted: false),
             SearchHelper.layoutFilter([DetailsLayout.file, DetailsLayout.image]),
             SearchHelper.excludedIdsFilter(excludedFileIds),
-            SearchHelper.workspaceId(accountManager.account.info.accountSpaceId),
+            SearchHelper.spaceId(accountManager.account.info.accountSpaceId),
         ]
         
         return try await search(filters: filters, sorts: [sort], fullText: text, limit: Constants.defaultLimit)
@@ -311,11 +311,19 @@ private extension SearchService {
         return response.records.asDetais
     }
 
-    private func buildFilters(isArchived: Bool, workspaceId: String? = nil) -> [DataviewFilter] {
+    private func buildFilters(isArchived: Bool, workspaceId: String) -> [DataviewFilter] {
         [
             SearchHelper.notHiddenFilter(),
             SearchHelper.isArchivedFilter(isArchived: isArchived),
-            SearchHelper.workspaceId(workspaceId ?? accountManager.account.info.accountSpaceId),
+            SearchHelper.workspaceId(workspaceId)
+        ]
+    }
+    
+    private func buildFilters(isArchived: Bool) -> [DataviewFilter] {
+        [
+            SearchHelper.notHiddenFilter(),
+            SearchHelper.isArchivedFilter(isArchived: isArchived),
+            SearchHelper.spaceId(accountManager.account.info.accountSpaceId)
         ]
     }
     

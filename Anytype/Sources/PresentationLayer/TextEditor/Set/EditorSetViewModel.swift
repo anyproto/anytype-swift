@@ -628,6 +628,7 @@ final class EditorSetViewModel: ObservableObject {
                 objectType: type,
                 shouldSelectType: shouldSelectType,
                 templateId: finalTemplateId ?? "",
+                spaceId: setDocument.spaceId,
                 setFilters: self.setDocument.filters,
                 relationsDetails: relationsDetails
             )
@@ -767,7 +768,7 @@ extension EditorSetViewModel {
         Task { @MainActor in
             try await objectActionsService.setObjectCollectionType(objectId: objectId)
             try await setDocument.close()
-            router?.replaceCurrentPage(with: .set(EditorSetObject(objectId: objectId, isSupportedForEdit: true)))
+            router?.replaceCurrentPage(with: .set(EditorSetObject(objectId: objectId, spaceId: setDocument.spaceId, isSupportedForEdit: true)))
         }
         AnytypeAnalytics.instance().logSetTurnIntoCollection()
     }

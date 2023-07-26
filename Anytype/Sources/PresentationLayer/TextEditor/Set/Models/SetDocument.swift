@@ -10,6 +10,8 @@ class SetDocument: SetDocumentProtocol {
         document.objectId
     }
     
+    var spaceId: String { document.spaceId }
+    
     var targetObjectID: String?
     
     var details: ObjectDetails? {

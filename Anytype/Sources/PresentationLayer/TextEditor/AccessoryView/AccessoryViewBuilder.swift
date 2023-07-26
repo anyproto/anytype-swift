@@ -13,7 +13,11 @@ struct AccessoryViewBuilder {
         pageService: PageServiceProtocol,
         linkToObjectCoordinator: LinkToObjectCoordinatorProtocol
     ) -> AccessoryViewStateManager {
-        let mentionsView = MentionView(documentId: document.objectId, frame: CGRect(origin: .zero, size: menuActionsViewSize))
+        let mentionsView = MentionView(
+            documentId: document.objectId,
+            spaceId: document.spaceId,
+            frame: CGRect(origin: .zero, size: menuActionsViewSize)
+        )
         
         let cursorModeAccessoryViewModel = CursorModeAccessoryViewModel(
             handler: actionHandler,

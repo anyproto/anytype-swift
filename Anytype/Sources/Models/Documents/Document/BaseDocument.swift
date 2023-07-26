@@ -101,6 +101,10 @@ final class BaseDocument: BaseDocumentProtocol {
 
     // MARK: - BaseDocumentProtocol
     
+    var spaceId: String {
+        details?.spaceId ?? ""
+    }
+    
     @MainActor
     func open() async throws {
         guard !isOpened else {

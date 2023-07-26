@@ -88,7 +88,7 @@ final class FileStorageViewModel: ObservableObject {
     // MARK: - Private
     
     private func setupSubscription() {
-        
+        fileLimitsStorage.setupSpaceId(spaceId: accountManager.account.info.accountSpaceId)
         fileLimitsStorage.limits
             .receiveOnMain()
             .sink { [weak self] limits in

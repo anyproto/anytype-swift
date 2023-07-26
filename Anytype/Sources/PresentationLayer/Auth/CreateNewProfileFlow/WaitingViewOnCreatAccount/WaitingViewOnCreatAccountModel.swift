@@ -47,11 +47,11 @@ final class WaitingOnCreatAccountViewModel: ObservableObject {
     func createAccount() {
         Task { @MainActor in
             do {
-                try await authService.createAccount(
+                let account = try await authService.createAccount(
                     name: signUpData.userName,
                     imagePath: imagePath()
                 )
-                try await usecaseService.setObjectImportUseCaseToSkip()
+                try await usecaseService.setObjectImportUseCaseToSkip(spaceId: account.info.accountSpaceId)
                 try? seedService.saveSeed(signUpData.mnemonic)
                 applicationStateService.state = .home
             } catch {

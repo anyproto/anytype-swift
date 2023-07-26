@@ -32,7 +32,7 @@ extension DetailsService: DetailsServiceProtocol {
         try await service.updateLayout(contextID: objectId, value: detailsLayout.rawValue)
     }
     
-    func setCover(source: FileUploadingSource) async throws {
+    func setCover(spaceId: String, source: FileUploadingSource) async throws {
         await EventsBunch(
             contextId: objectId,
             localEvents: [.header(.coverUploading(.bundleImagePath("")))]
@@ -42,7 +42,7 @@ extension DetailsService: DetailsServiceProtocol {
             contextId: objectId,
             localEvents: [.header(.coverUploading(.bundleImagePath(data.path)))]
         ).send()
-        let imageHash = try await fileService.uploadImage(data: data)
+        let imageHash = try await fileService.uploadImage(spaceId: spaceId, data: data)
         try await setCover(imageHash: imageHash)
     }
     
@@ -50,7 +50,7 @@ extension DetailsService: DetailsServiceProtocol {
         try await updateBundledDetails([.coverType(CoverType.uploadedImage), .coverId(imageHash.value)])
     }
     
-    func setObjectIcon(source: FileUploadingSource) async throws {
+    func setObjectIcon(spaceId: String, source: FileUploadingSource) async throws {
         await EventsBunch(
             contextId: objectId,
             localEvents: [.header(.iconUploading(""))]
@@ -60,7 +60,7 @@ extension DetailsService: DetailsServiceProtocol {
             contextId: objectId,
             localEvents: [.header(.iconUploading(data.path))]
         ).send()
-        let imageHash = try await fileService.uploadImage(data: data)
+        let imageHash = try await fileService.uploadImage(spaceId: spaceId, data: data)
         try await updateBundledDetails([.iconEmoji(""), .iconImageHash(imageHash)])
     }
 }

@@ -11,7 +11,7 @@ protocol DocumentDetaisProvider {
 extension EditorPageController: DocumentDetaisProvider {
     
     var screenData: EditorScreenData {
-        .page(EditorPageObject(objectId: viewModel.document.objectId, isSupportedForEdit: true, isOpenedForPreview: false))
+        .page(EditorPageObject(objectId: viewModel.document.objectId, spaceId: viewModel.document.spaceId, isSupportedForEdit: true, isOpenedForPreview: false))
     }
     
     var documentTitle: String? {
@@ -26,7 +26,7 @@ extension EditorPageController: DocumentDetaisProvider {
 extension EditorSetHostingController: DocumentDetaisProvider {
     
     var screenData: EditorScreenData {
-        .set(EditorSetObject(objectId: objectId, inline: nil, isSupportedForEdit: true))
+        .set(EditorSetObject(objectId: objectId, spaceId: model.setDocument.spaceId, inline: nil, isSupportedForEdit: true))
     }
     
     var documentTitle: String? {

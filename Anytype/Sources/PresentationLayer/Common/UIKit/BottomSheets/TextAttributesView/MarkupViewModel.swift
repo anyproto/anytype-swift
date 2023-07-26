@@ -62,6 +62,7 @@ final class MarkupViewModel: MarkupViewModelProtocol {
             let currentLink = Either.from(left: urlLink, right: blokcLink)
             
             linkToObjectCoordinator.startFlow(
+                spaceId: document.spaceId,
                 currentLink: currentLink,
                 setLinkToObject: { [weak self, blockIds] blockId in
                     self?.actionHandler.changeMarkup(blockIds: blockIds, markType: .linkToObject(blockId))

@@ -1,6 +1,7 @@
 final class MentionAssembly {
     func controller(
         documentId: String,
+        spaceId: String,
         onMentionSelect: @escaping (MentionObject) -> Void,
         onDismiss: (() -> Void)?
     ) -> MentionsViewController {
@@ -8,6 +9,7 @@ final class MentionAssembly {
         
         let viewModel = MentionsViewModel(
             documentId: documentId,
+            spaceId: spaceId,
             mentionService: mentionService,
             pageService: ServiceLocator.shared.pageService(),
             onSelect: onMentionSelect

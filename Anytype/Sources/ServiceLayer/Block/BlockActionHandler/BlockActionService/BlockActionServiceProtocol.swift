@@ -11,7 +11,7 @@ protocol BlockActionServiceProtocol {
     func add(info: BlockInformation, targetBlockId: BlockId, position: BlockPosition, setFocus: Bool)
     func addChild(info: BlockInformation, parentId: BlockId)
     func delete(blockIds: [BlockId])
-    func createPage(targetId: BlockId, type: ObjectTypeId, position: BlockPosition) async throws -> BlockId
+    func createPage(targetId: BlockId, spaceId: String, type: ObjectTypeId, position: BlockPosition) async throws -> BlockId
     func split(
         _ string: NSAttributedString,
         blockId: BlockId,

@@ -131,6 +131,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
             )
         case .status(let status):
             return StatusRelationDetailsViewModel(
+                details: objectDetails,
                 selectedStatus: status.values.first,
                 relation: relation,
                 service: RelationsService(objectId: objectDetails.id),
@@ -140,6 +141,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
             )
         case .tag(let tag):
             return RelationOptionsListViewModel(
+                details: objectDetails,
                 selectedOptions: tag.selectedTags.map { tag in
                     ListRowConfiguration(
                         id: tag.id,
@@ -161,6 +163,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
             )
         case .object(let object):
             return RelationOptionsListViewModel(
+                details: objectDetails,
                 selectedOptions: object.selectedObjects.map { object in
                     ListRowConfiguration(
                         id: object.id,
@@ -187,6 +190,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
             )
         case .file(let file):
             return RelationOptionsListViewModel(
+                details: objectDetails,
                 selectedOptions: file.files.map { file in
                     ListRowConfiguration(
                         id: file.id,

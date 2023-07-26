@@ -2,7 +2,7 @@ import Services
 
 protocol AuthServiceProtocol {
     func createWallet() async throws -> String
-    func createAccount(name: String, imagePath: String) async throws
+    func createAccount(name: String, imagePath: String) async throws -> AccountData
     func walletRecovery(mnemonic: String) async throws
     
     /// Recover account, called after wallet recovery. As soon as this func complete middleware send Event.Account.Show event.

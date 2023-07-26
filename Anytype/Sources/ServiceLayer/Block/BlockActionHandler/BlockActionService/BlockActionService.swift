@@ -85,10 +85,11 @@ final class BlockActionService: BlockActionServiceProtocol {
         }
     }
 
-    func createPage(targetId: BlockId, type: ObjectTypeId, position: BlockPosition) async throws -> BlockId {
+    func createPage(targetId: BlockId, spaceId: String, type: ObjectTypeId, position: BlockPosition) async throws -> BlockId {
         try await objectActionService.createPage(
             contextId: documentId,
             targetId: targetId,
+            spaceId: spaceId,
             details: [.name(""), .type(type)],
             position: position,
             templateId: ""

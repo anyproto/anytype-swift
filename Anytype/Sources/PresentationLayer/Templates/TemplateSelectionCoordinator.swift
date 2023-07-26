@@ -45,7 +45,7 @@ final class TemplateSelectionCoordinator: TemplateSelectionCoordinatorProtocol {
                 }
             },
             templateEditingHandler: { [weak self] templateId in
-                self?.showTemplateEditing(blockId: templateId, onTemplateSelection: onTemplateSelection)
+                self?.showTemplateEditing(blockId: templateId, setDocument: setDocument, onTemplateSelection: onTemplateSelection)
             }
         )
         
@@ -60,10 +60,10 @@ final class TemplateSelectionCoordinator: TemplateSelectionCoordinatorProtocol {
         navigationContext.present(popup)
     }
     
-    private func showTemplateEditing(blockId: BlockId, onTemplateSelection: @escaping (BlockId) -> Void) {
+    private func showTemplateEditing(blockId: BlockId, setDocument: SetDocumentProtocol, onTemplateSelection: @escaping (BlockId) -> Void) {
         let editorPage = editorAssembly.buildEditorModule(
             browser: nil,
-            data: .page(.init(objectId: blockId, isSupportedForEdit: true, isOpenedForPreview: false))
+            data: .page(.init(objectId: blockId, spaceId: setDocument.spaceId, isSupportedForEdit: true, isOpenedForPreview: false))
         )
         let editingTemplateViewController = TemplateEditingViewController(
             editorViewController: editorPage.vc,

@@ -3037,7 +3037,6 @@
 			children = (
 				3D24911A27BD271900821595 /* Events */,
 				EA57F39326B74D2E007D4292 /* Creators */,
-				EAC6BAA1262711DA004C8C06 /* Validators */,
 				EA02611A2625B1DB00AE6D86 /* Restrictions */,
 				0A0965B525BEE7DE00C004BD /* Document */,
 				0A78328424BDEB2A00A1B6F6 /* Parsers */,
@@ -3581,7 +3580,6 @@
 			isa = PBXGroup;
 			children = (
 				2AAF344429598D8300921320 /* Widget */,
-				C9E89093285866D20040DEB2 /* Table */,
 				53A4878327D6ABF200A2E627 /* Pastboard */,
 				EA5FB452266E2F6500DCD56C /* Mention */,
 				531197DE26430A8200FFC71E /* BlockActionHandler */,
@@ -8420,13 +8418,6 @@
 			path = ContextualMenu;
 			sourceTree = "<group>";
 		};
-		C9E89093285866D20040DEB2 /* Table */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Table;
-			sourceTree = "<group>";
-		};
 		C9EF85152938E69A0001E6EC /* TappableLabel */ = {
 			isa = PBXGroup;
 			children = (
@@ -8590,13 +8581,6 @@
 				2AE942C5294713F8005BAD1F /* KeyboardEvent.swift */,
 			);
 			path = UIScrollView;
-			sourceTree = "<group>";
-		};
-		EAC6BAA1262711DA004C8C06 /* Validators */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Validators;
 			sourceTree = "<group>";
 		};
 		EAE8C6A12693011C00324B46 /* URLInputView */ = {

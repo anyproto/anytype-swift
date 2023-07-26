@@ -9,7 +9,7 @@ protocol CreateObjectModuleAssemblyProtocol {
         closeAction: @escaping () -> Void
     ) -> UIViewController
     
-    func makeCreateBookmark(closeAction: @escaping (_ details: ObjectDetails?) -> Void) -> UIViewController
+    func makeCreateBookmark(spaceId: String, closeAction: @escaping (_ details: ObjectDetails?) -> Void) -> UIViewController
 }
 
 
@@ -36,8 +36,9 @@ final class CreateObjectModuleAssembly: CreateObjectModuleAssemblyProtocol {
         return make(viewModel: viewModel)
     }
     
-    func makeCreateBookmark(closeAction: @escaping (_ details: ObjectDetails?) -> Void) -> UIViewController {
+    func makeCreateBookmark(spaceId: String, closeAction: @escaping (_ details: ObjectDetails?) -> Void) -> UIViewController {
         let viewModel = CreateBookmarkViewModel(
+            spaceId: spaceId,
             bookmarkService: serviceLocator.bookmarkService(),
             closeAction: closeAction
         )

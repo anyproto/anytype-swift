@@ -80,6 +80,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
     func createPage(
         contextId: BlockId,
         targetId: BlockId,
+        spaceId: String,
         details: [BundledDetails],
         position: BlockPosition,
         templateId: String
@@ -97,6 +98,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
             $0.templateID = templateId
             $0.targetID = targetId
             $0.position = position.asMiddleware
+            $0.spaceID = spaceId
         }).invoke()
         
         return response.targetID

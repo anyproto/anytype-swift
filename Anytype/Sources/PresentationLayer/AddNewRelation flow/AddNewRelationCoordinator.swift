@@ -18,7 +18,7 @@ final class AddNewRelationCoordinator {
     private let newRelationModuleAssembly: NewRelationModuleAssemblyProtocol
     
     private var onCompletion: ((_ newRelationDetails: RelationDetails, _ isNew: Bool) -> Void)?
-    
+    private var document: BaseDocumentProtocol?
     private weak var newRelationModuleInput: NewRelationModuleInput?
     
     init(
@@ -43,6 +43,7 @@ extension AddNewRelationCoordinator: AddNewRelationCoordinatorProtocol {
         target: RelationsSearchTarget,
         onCompletion: ((_ newRelationDetails: RelationDetails, _ isNew: Bool) -> Void)?
     ) {
+        self.document = document
         self.onCompletion = onCompletion
 
         let view = newSearchModuleAssembly.relationsSearchModule(
@@ -92,8 +93,10 @@ extension AddNewRelationCoordinator: NewRelationModuleOutput {
     }
     
     func didAskToShowObjectTypesSearch(selectedObjectTypesIds: [String]) {
+        guard let document else { return }
         let view = newSearchModuleAssembly.multiselectObjectTypesSearchModule(
-            selectedObjectTypeIds: selectedObjectTypesIds
+            selectedObjectTypeIds: selectedObjectTypesIds,
+            spaceId: document.spaceId
         ) { [weak self] ids in
             self?.handleObjectTypesSelection(objectTypesIds: ids)
         }

@@ -28,9 +28,9 @@ final class RelationsSearchInteractor {
         try await searchService.searchMarketplaceRelations(text: text, includeInstalled: false)
     }
     
-    func installRelation(objectId: String) async throws -> RelationDetails? {
-        try await workspaceService.installObject(objectId: objectId)
-            .map { RelationDetails(objectDetails: $0) }
+    func installRelation(spaceId: String, objectId: String) async throws -> RelationDetails? {
+        let objectDetails = try await workspaceService.installObject(spaceId: spaceId, objectId: objectId)
+        return RelationDetails(objectDetails: objectDetails)
     }
     
     func addRelationToObject(relation: RelationDetails) async throws {

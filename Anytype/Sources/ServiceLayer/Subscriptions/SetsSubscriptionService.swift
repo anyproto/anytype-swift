@@ -45,7 +45,7 @@ final class SetsSubscriptionService: SetsSubscriptionServiceProtocol {
         let filters = [
             SearchHelper.notHiddenFilter(),
             SearchHelper.isArchivedFilter(isArchived: false),
-            SearchHelper.workspaceId(accountManager.account.info.accountSpaceId),
+            SearchHelper.spaceId(accountManager.account.info.accountSpaceId),
             SearchHelper.layoutFilter([DetailsLayout.set])
         ]
         

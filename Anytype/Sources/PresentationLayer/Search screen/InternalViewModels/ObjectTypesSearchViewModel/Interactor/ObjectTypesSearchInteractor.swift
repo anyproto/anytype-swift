@@ -4,6 +4,7 @@ import AnytypeCore
 
 final class ObjectTypesSearchInteractor {
     
+    private let spaceId: String
     private let searchService: SearchServiceProtocol
     private let workspaceService: WorkspaceServiceProtocol
     private let excludedObjectTypeId: String?
@@ -11,12 +12,14 @@ final class ObjectTypesSearchInteractor {
     private let showSetAndCollection: Bool
     
     init(
+        spaceId: String,
         searchService: SearchServiceProtocol,
         workspaceService: WorkspaceServiceProtocol,
         excludedObjectTypeId: String?,
         showBookmark: Bool,
         showSetAndCollection: Bool
     ) {
+        self.spaceId = spaceId
         self.searchService = searchService
         self.workspaceService = workspaceService
         self.excludedObjectTypeId = excludedObjectTypeId
@@ -42,8 +45,8 @@ extension ObjectTypesSearchInteractor {
         try await searchService.searchMarketplaceObjectTypes(text: text, includeInstalled: false)
     }
     
-    func installType(objectId: String) async throws -> ObjectDetails? {
-        try await workspaceService.installObject(objectId: objectId)
+    func installType(objectId: String) async throws -> ObjectDetails {
+        try await workspaceService.installObject(spaceId: spaceId, objectId: objectId)
     }
 }
 
