@@ -89,7 +89,7 @@ final class HomeBottomPanelViewModel: ObservableObject {
     private func setupSubscription() {
         subscriptionService.startSubscription(
             subIdPrefix: Constants.subId,
-            objectId: accountManager.account.info.accountSpaceId
+            objectId: accountManager.account.info.workspaceObjectId
         ) { [weak self] details in
             self?.handleSpaceDetails(details: details)
         }

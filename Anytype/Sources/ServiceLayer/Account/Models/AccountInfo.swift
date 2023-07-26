@@ -7,6 +7,7 @@ struct AccountInfo {
     let profileObjectID: String
     let gatewayURL: String
     let accountSpaceId: String
+    let workspaceObjectId: String
     let widgetsId: String
     let analyticsId: String
     let deviceId: String
@@ -19,6 +20,7 @@ extension AccountInfo {
         profileObjectID: "",
         gatewayURL: "",
         accountSpaceId: "",
+        workspaceObjectId: "",
         widgetsId: "",
         analyticsId: "",
         deviceId: ""
@@ -33,6 +35,7 @@ extension Anytype_Model_Account.Info {
             profileObjectID: profileObjectID,
             gatewayURL: gatewayURL,
             accountSpaceId: accountSpaceID,
+            workspaceObjectId: workspaceObjectID,
             widgetsId: widgetsID,
             analyticsId: analyticsID,
             deviceId: deviceID

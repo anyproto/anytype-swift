@@ -66,7 +66,7 @@ final class CreatingSoulViewModel: ObservableObject {
         
         subscriptionService.startSubscription(
             subIdPrefix: Constants.subSpaceId,
-            objectId: accountManager.account.info.accountSpaceId
+            objectId: accountManager.account.info.workspaceObjectId
         ) { [weak self] details in
             self?.spaceIcon = details.objectIconImage
             self?.animateCreation()

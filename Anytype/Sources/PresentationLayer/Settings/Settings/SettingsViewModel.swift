@@ -71,7 +71,7 @@ final class SettingsViewModel: ObservableObject {
     }
     
     func onChangeIconTap() {
-        output?.onChangeIconSelected(objectId: accountManager.account.info.accountSpaceId)
+        output?.onChangeIconSelected(objectId: accountManager.account.info.workspaceObjectId)
     }
     
     // MARK: - Private
@@ -79,7 +79,7 @@ final class SettingsViewModel: ObservableObject {
     private func setupSubscription() {
         subscriptionService.startSubscription(
             subIdPrefix: Constants.subSpaceId,
-            objectId: accountManager.account.info.accountSpaceId
+            objectId: accountManager.account.info.workspaceObjectId
         ) { [weak self] details in
             self?.handleSpaceDetails(details: details)
         }
@@ -114,7 +114,7 @@ final class SettingsViewModel: ObservableObject {
     private func updateSpaceName(name: String) {
         Task {
             try await objectActionsService.updateBundledDetails(
-                contextID: accountManager.account.info.accountSpaceId,
+                contextID: accountManager.account.info.workspaceObjectId,
                 details: [.name(name)]
             )
         }
