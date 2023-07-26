@@ -30,7 +30,7 @@ final class ObjectHeaderIconView: UIView {
     
     private let containerView = UIView()
     
-    private let iconImageView = ObjectIconImageView()
+    private let iconImageView = IconViewUIKit()
     private let previewImageView = UIImageView()
     
     // MARK: - Initializers
@@ -96,8 +96,7 @@ private extension ObjectHeaderIconView {
         )
         
         applyImageGuideline(model.imageGuideline)
-        
-        iconImageView.configure(model: model)
+        iconImageView.icon = model.iconImage
         
         iconImageView.isHidden = false
         previewImageView.isHidden = true
@@ -113,7 +112,7 @@ private extension ObjectHeaderIconView {
         
         applyImageGuideline(model.imageGuideline)
         
-        iconImageView.configure(model: model)
+        iconImageView.icon = model.iconImage
         
         iconImageView.isHidden = false
         previewImageView.isHidden = true
@@ -144,7 +143,7 @@ private extension ObjectHeaderIconView {
         
         containerView.layer.cornerRadius = imageGuideline.cornerRadius
         layer.cornerRadius = imageGuideline.cornerRadius + initialBorderWidth
-    }    
+    }
 }
 
 // MARK: - Private extension

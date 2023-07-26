@@ -3,16 +3,6 @@ import Services
 import AnytypeCore
 
 extension BlockLinkState {
-    var iconImage: ObjectIconImage? {
-        switch style {
-        case .noContent:
-            return nil
-        case .checkmark(let isChecked):
-            return .todo(isChecked)
-        case .icon(let iconType):
-            return .icon(iconType)
-        }
-    }
 
     func applyTitleState(
         on label: AnytypeLabel,
@@ -33,7 +23,9 @@ extension BlockLinkState {
 
             label.setText(attributedString)
             return 
-        } else if style == .noContent || !iconSize.hasIcon || iconIntendHidden {
+        }
+        
+        guard let icon, iconSize.hasIcon, !iconIntendHidden else {
             let attributedString = NSAttributedString(
                 string: titleText,
                 attributes: attributes
@@ -43,59 +35,24 @@ extension BlockLinkState {
             return
         }
 
-        if FeatureFlags.newObjectIcon {
-            let painter = IconMaker(icon: iconImage!, size: imageSize)
-            let placeholder = painter.makePlaceholder()
-            let attributedText = NSAttributedString.imageFirstComposite(
-                image: placeholder,
-                text: titleText,
-                attributes: attributes
-            )
-            label.setText(attributedText)
-            Task { @MainActor in
-                
-                let image = await painter.make()
-                
-                let attributedText = NSAttributedString.imageFirstComposite(
-                    image: image,
-                    text: titleText,
-                    attributes: attributes
-                )
-                label.setText(attributedText)
-            }
-        } else {
+        let painter = IconMaker(icon: icon, size: imageSize)
+        let placeholder = painter.makePlaceholder()
+        let attributedText = NSAttributedString.imageFirstComposite(
+            image: placeholder,
+            text: titleText,
+            attributes: attributes
+        )
+        label.setText(attributedText)
+        Task { @MainActor in
             
-            let image = UIImage.circleImage(
-                size: imageSize,
-                fillColor: .Stroke.primary,
-                borderColor: .clear,
-                borderWidth: 0
-            )
-
+            let image = await painter.make()
+            
             let attributedText = NSAttributedString.imageFirstComposite(
                 image: image,
                 text: titleText,
                 attributes: attributes
             )
-
             label.setText(attributedText)
-
-            let anytypeLoader = AnytypeIconDownloader()
-            
-            Task { @MainActor in
-                
-                guard let image = await anytypeLoader.image(with: style, imageGuideline: .init(size: imageSize)) else {
-                    return
-                }
-                
-                let attributedText = NSAttributedString.imageFirstComposite(
-                    image: image,
-                    text: titleText,
-                    attributes: attributes
-                )
-                
-                label.setText(attributedText)
-            }
         }
     }
 }

@@ -57,13 +57,7 @@ final class EditorSearchCell: UIView, UIContentView {
     }
     
     private func apply(configuration: EditorSearchCellConfiguration) {
-        icon.configure(
-            model: ObjectIconImageView.Model(
-                iconImage: configuration.cellData.icon,
-                usecase: configuration.cellData.expandedIcon ? .editorSearchExpandedIcons : .editorSearch
-            )
-        )
-
+        icon.icon = configuration.cellData.icon
         title.setText(configuration.cellData.title, style: .uxTitle2Regular)
         
         if configuration.cellData.subtitle.isNotEmpty {
@@ -78,7 +72,7 @@ final class EditorSearchCell: UIView, UIContentView {
     
     // MARK: - Views
     private let container = UIView()
-    private let icon = ObjectIconImageView()
+    private let icon = IconViewUIKit()
     private let title: AnytypeLabel = {
         let title = AnytypeLabel(style: .uxTitle2Regular)
         title.textColor = .Text.primary

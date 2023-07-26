@@ -1,7 +1,7 @@
 import Foundation
 import CoreGraphics
 
-struct IconContext {
+struct IconContext: Hashable {
     let isEnabled: Bool
 }
 

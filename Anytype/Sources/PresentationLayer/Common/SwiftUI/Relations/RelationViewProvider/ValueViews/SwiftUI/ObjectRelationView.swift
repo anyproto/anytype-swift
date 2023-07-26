@@ -33,17 +33,19 @@ struct ObjectRelationView: View {
             
             if FeatureFlags.deleteObjectPlaceholder {
                 if let icon = option.icon, shouldShowIcon(icon: icon) {
-                    SwiftUIObjectIconImageView(
-                        iconImage: icon,
-                        usecase: style.objectIconImageUsecase
-                    ).frame(width: style.objectRelationStyle.size.width, height: style.objectRelationStyle.size.height)
+                    IconView(icon: icon)
+                        .frame(
+                            width: style.objectRelationStyle.size.width,
+                            height: style.objectRelationStyle.size.height
+                        )
                 }
             } else {
                 if let icon = option.icon, shouldShowIconLegacy(icon: icon) {
-                    SwiftUIObjectIconImageView(
-                        iconImage: icon,
-                        usecase: style.objectIconImageUsecase
-                    ).frame(width: style.objectRelationStyle.size.width, height: style.objectRelationStyle.size.height)
+                    IconView(icon: icon)
+                        .frame(
+                            width: style.objectRelationStyle.size.width,
+                            height: style.objectRelationStyle.size.height
+                        )
                 }
             }
             

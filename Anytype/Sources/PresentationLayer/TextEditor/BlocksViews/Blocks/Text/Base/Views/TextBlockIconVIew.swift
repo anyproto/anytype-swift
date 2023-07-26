@@ -10,7 +10,7 @@ final class TextBlockIconView: UIView {
         case numbered(Int)
         case bulleted
         case quote
-        case callout(model: ObjectIconImageModel)
+        case callout(image: ObjectIconImage)
     }
 
     private var currentView: UIView?
@@ -40,21 +40,10 @@ final class TextBlockIconView: UIView {
     private func addContentView() {
         switch type {
         case let .titleCheckbox(isSelected):
-            // TODO
-            let painer = ObjectIconImagePainter.shared
-            let imageGuideline = ObjectIconImageUsecase.openedObject.objectIconImageGuidelineSet.todoImageGuideline
-            
-            let uncheckedImage: UIImage? = imageGuideline.flatMap {
-                painer.todoImage(isChecked: false, imageGuideline: $0, tintColor: .Button.active)
-            }
-            let checkedImage: UIImage? = imageGuideline.flatMap {
-                painer.todoImage(isChecked: true, imageGuideline: $0, tintColor: .Button.active)
-            }
-            
             currentView = createCheckboxView(
                 isSelected: isSelected,
-                uncheckedImage: uncheckedImage,
-                checkedImage: checkedImage,
+                uncheckedImage: UIImage(asset: .TaskLayout.empty),
+                checkedImage: UIImage(asset: .TaskLayout.done),
                 viewSize: Constants.TitleCheckbox.viewSize,
                 imageSize: Constants.TitleCheckbox.imageSize
             )
@@ -86,8 +75,8 @@ final class TextBlockIconView: UIView {
         case .quote:
             let quoteView = createQuoteView()
             currentView = quoteView
-        case .callout(let model):
-            currentView = createCalloutView(model: model)
+        case .callout(let image):
+            currentView = createCalloutView(icon: image)
         }
     }
 }
@@ -202,10 +191,10 @@ extension TextBlockIconView {
         return quoteView
     }
 
-    private func createCalloutView(model: ObjectIconImageModel) -> UIView {
-        let iconView = ObjectIconImageView()
-
-        iconView.configure(model: model)
+    private func createCalloutView(icon: ObjectIconImage) -> UIView {
+        let iconView = IconViewUIKit()
+        
+        iconView.icon = icon
         addSubview(iconView) {
             $0.pinToSuperview()
         }

@@ -11,10 +11,8 @@ struct ListWidgetCompactRow: View {
     var body: some View {
         HStack(spacing: 12) {
             if let icon = model.icon {
-                SwiftUIObjectIconImageView(
-                    iconImage: icon,
-                    usecase: .widgetTree
-                ).frame(width: 18, height: 18)
+                IconView(icon: icon)
+                    .frame(width: 18, height: 18)
             }
             AnytypeText(model.title, style: .previewTitle2Medium, color: .Text.primary)
                 .lineLimit(1)

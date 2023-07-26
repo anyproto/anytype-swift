@@ -24,7 +24,7 @@ struct SettingsSectionItemView: View {
         Button(action: onTap) {
             HStack(alignment: .center, spacing: 0) {
                 if let iconImage {
-                    SwiftUIObjectIconImageView(iconImage: iconImage, usecase: .settingsSection)
+                    IconView(icon: iconImage)
                         .frame(width: iconWidth, height: iconWidth)
                     Spacer.fixedWidth(iconSpacing)
                 }

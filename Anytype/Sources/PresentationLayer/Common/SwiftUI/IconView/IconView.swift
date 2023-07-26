@@ -1,46 +1,42 @@
+import Foundation
 import SwiftUI
 
-struct IconViewOld: View {
+struct IconView: View {
     
     let icon: ObjectIconImage
     
+    @State private var task: Task<Void, Never>?
+    @State private var size: CGSize = .zero
+    @State private var image: UIImage?
+    
+    @Environment(\.isEnabled) private var isEnable
+    
+    // MARK: - Public properties
+    
     var body: some View {
-        switch icon {
-        case .icon(let objectIconType):
-            switch objectIconType {
-            case .basic(let string):
-                SquareImageIdView(imageId: string)
-            case .profile(let profile):
-                switch profile {
-                case .imageId(let imageId):
-                    CircleImageIdView(imageId: imageId)
-                case .character(let c):
-                    CircleCharIconView(text: String(c))
-                case .gradient(let gradientId):
-                    CircleGradientIconView(gradientId: gradientId)
-                }
-            case .emoji(let emoji):
-                EmojiIconView(text: emoji.value)
-            case .bookmark(let string):
-                SquareSmallImageIdView(imageId: string)
-            case .space(let space):
-                switch space {
-                case .character(let c):
-                    // TODO: Check me
-                    EmojiIconView(text: String(c))
-                case .gradient(let gradientId):
-                    SquareGradientIconView(gradientId: gradientId)
-                }
+        ZStack {
+            Color.clear.readSize { newSize in
+                size = newSize
             }
-        case .todo(let bool):
-            TodoIconView(checked: bool)
-        case .placeholder(let character):
-            // TODO: Rename Emoji view
-            EmojiIconView(text: character.map { String($0) } ?? "")
-        case .imageAsset(let imageAsset):
-            AssetIconView(asset: imageAsset)
-        case .image(let uIImage):
-            DataIconView(uiImage: uIImage)
+            if let image {
+                Image(uiImage: image)
+            }
+        }
+        .onChange(of: isEnable) { _ in
+            updateIcon()
+        }
+        .onChange(of: size) { _ in
+            updateIcon()
+        }
+        .frame(idealWidth: 30, idealHeight: 30) // Default frame
+    }
+    
+    private func updateIcon() {
+        task?.cancel()
+        task = Task {
+            let maker = IconMaker(icon: icon, size: size, iconContext: IconContext(isEnabled: isEnable))
+            image = maker.makePlaceholder()
+            image = await maker.make()
         }
     }
 }

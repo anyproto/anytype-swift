@@ -9,7 +9,7 @@ struct FileStorageInfoBlock: View {
     
     var body: some View {
         HStack(spacing: 12) {
-            SwiftUIObjectIconImageViewWithPlaceholder(iconImage: iconImage, usecase: .fileStorage)
+            SwiftUIObjectIconImageViewWithPlaceholder(icon: iconImage)
             .frame(width: 48, height: 48)
             VStack(alignment: .leading, spacing: 1) {
                 AnytypeText(title, style: .previewTitle2Medium, color: .Text.primary)

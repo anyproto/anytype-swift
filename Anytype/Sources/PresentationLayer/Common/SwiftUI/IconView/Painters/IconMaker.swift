@@ -3,12 +3,24 @@ import UIKit
 
 final class IconMaker {
     
+    private struct HashData: Hashable {
+        let icon: ObjectIconImage
+        let bounds: CGRect
+        let iconContext: IconContext
+        let placeholder: Bool
+        
+        var hashString: String {
+            return "\(hashValue)"
+        }
+    }
+    
     let icon: ObjectIconImage
     let size: CGSize
     let iconContext: IconContext
     
     private let bounds: CGRect
     private let painter: IconPainter?
+    private let imageStorage = ImageStorage.shared
     
     init(icon: ObjectIconImage, size: CGSize, iconContext: IconContext = IconContext(isEnabled: true)) {
         self.icon = icon
@@ -20,22 +32,37 @@ final class IconMaker {
     }
     
     func makePlaceholder() -> UIImage {
-        return UIImage.generateDynamicImage {
+        let hash = HashData(icon: icon, bounds: bounds, iconContext: iconContext, placeholder: true)
+        if let image = imageStorage.image(forKey: hash.hashString) {
+            return image
+        }
+        
+        let image = UIImage.generateDynamicImage {
             let renderer = UIGraphicsImageRenderer(size: size, format: .preferred())
             return renderer.image { ctx in
                 painter?.drawPlaceholder(bounds: bounds, context: ctx.cgContext, iconContext: iconContext)
             }
         }
+        
+        imageStorage.saveImage(image, forKey: hash.hashString)
+        return image
     }
     
     func make() async -> UIImage {
+        let hash = HashData(icon: icon, bounds: bounds, iconContext: iconContext, placeholder: false)
+        if let image = imageStorage.image(forKey: hash.hashString) {
+            return image
+        }
+        
         await painter?.prepare(bounds: bounds)
-        return UIImage.generateDynamicImage {
+        let image = UIImage.generateDynamicImage {
             let renderer = UIGraphicsImageRenderer(size: size, format: .preferred())
             return renderer.image { ctx in
                 painter?.draw(bounds: bounds, context: ctx.cgContext, iconContext: iconContext)
             }
         }
+        imageStorage.saveImage(image, forKey: hash.hashString)
+        return image
     }
     
     // MARK: - Private func

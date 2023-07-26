@@ -2,7 +2,7 @@ import AnytypeCore
 
 struct CalloutIconViewModel {
     let onTap: () -> Void
-    let iconImageModel: ObjectIconImageModel
+    let icomImage: ObjectIconImage
 }
 
 enum TextBlockLeadingStyle {
@@ -72,7 +72,8 @@ enum TextBlockLeadingStyle {
                 .init(
                     onTap: {
                         configuration.actions.tapOnCalloutIcon()
-                    }, iconImageModel: .init(iconImage: objectIconImage, usecase: .editorCalloutBlock)
+                    },
+                    icomImage: objectIconImage
                 )
             )
         case .header, .header2, .header3, .header4, .code, .description, .text, .quote:

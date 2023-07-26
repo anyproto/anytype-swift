@@ -8,7 +8,7 @@ final class BlockLinkCardView: UIView, BlockContentView {
     // MARK: - Views
 
     private let coverView = BlockLinkCoverView()
-    private let largeLeadingIconImageView = ObjectIconImageView()
+    private let largeLeadingIconImageView = IconViewUIKit()
 
     private let titleLabel = AnytypeLabel(style: .uxTitle2Medium)
     private let descriptionLabel = AnytypeLabel(style: .relation3Regular)
@@ -52,10 +52,7 @@ final class BlockLinkCardView: UIView, BlockContentView {
         objectTypeLabel.isHidden = !configuration.state.relations.contains(.type)
         configuration.state.type.map { objectTypeLabel.setText($0.name) }
 
-        configuration.state.iconImage.map {
-            largeLeadingIconImageView.configure(model: .init(iconImage: $0, usecase: .linkToObject))
-        }
-
+        largeLeadingIconImageView.icon = configuration.state.icon
         onTaskActionTap = configuration.todoToggleAction
 
         setupElementsVisibility(with: configuration)
@@ -69,10 +66,10 @@ final class BlockLinkCardView: UIView, BlockContentView {
     private func setupElementsVisibility(with configuration: Configuration) {
         let hasCover = configuration.state.documentCover != nil && configuration.state.relations.contains(.cover)
 
-        switch (configuration.state.style, configuration.state.iconImage, configuration.state.iconSize, hasCover) {
-        case (.checkmark, _, _, _), (_, .none, _, _):
+        switch (configuration.state.icon, configuration.state.iconSize, hasCover) {
+        case (.todo, _, _), (.none, _, _):
             setLargeLeadingIconImageViewHidden(true)
-        case (_, .some(_), .medium, false):
+        case (.some(_), .medium, false):
             setLargeLeadingIconImageViewHidden(false)
         default:
             setLargeLeadingIconImageViewHidden(true)
@@ -91,8 +88,8 @@ final class BlockLinkCardView: UIView, BlockContentView {
 
             let cover = ObjectHeaderCover(coverType: .cover(documentCover), onTap: {})
 
-            let hasCoverIcon = configuration.state.iconSize == .medium && configuration.state.iconImage != nil
-            switch (hasCoverIcon, configuration.state.style) {
+            let hasCoverIcon = configuration.state.iconSize == .medium && configuration.state.icon != nil
+            switch (hasCoverIcon, configuration.state.icon) {
             case (true, .icon(let iconType)):
                 coverView.configure(
                     state: .iconAndCover(

@@ -65,7 +65,7 @@ public extension FeatureFlags {
     static var validateRecoveryPhrase: Bool {
         value(for: .validateRecoveryPhrase)
     }
-    
+
     static var newObjectIcon: Bool {
         value(for: .newObjectIcon)
     }

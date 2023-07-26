@@ -1,6 +1,7 @@
 import UIKit
 import AnytypeCore
 
+// TODO
 struct ImageGuideline {
     
     let size: CGSize

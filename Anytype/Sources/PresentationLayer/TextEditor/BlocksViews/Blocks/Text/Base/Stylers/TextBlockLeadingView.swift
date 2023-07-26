@@ -45,7 +45,7 @@ final class TextBlockLeadingView: UIView {
             return
         case .callout(let model):
             innerView = TextBlockIconView(
-                viewType: .callout(model: model.iconImageModel),
+                viewType: .callout(image: model.icomImage),
                 action: model.onTap
             )
             self.calloutIconView = innerView

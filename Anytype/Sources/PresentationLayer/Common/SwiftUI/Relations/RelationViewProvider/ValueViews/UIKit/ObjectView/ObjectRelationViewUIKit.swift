@@ -3,7 +3,7 @@ import AnytypeCore
 
 final class ObjectRelationViewUIKit: UIView {
     
-    private let iconView = ObjectIconImageView()
+    private let iconView = IconViewUIKit()
     private var titleLabel: AnytypeLabel!
 
     private let option: Relation.Object.Option
@@ -42,12 +42,7 @@ private extension ObjectRelationViewUIKit {
                 return
             }
             
-            let model = ObjectIconImageModel(
-                iconImage: icon,
-                usecase: .featuredRelationsBlock
-            )
-            
-            iconView.configure(model: model)
+            iconView.icon = icon
             iconView.isHidden = false
         } else {
             guard let icon = option.icon, shouldShowIcon(icon: icon) else {
@@ -55,12 +50,7 @@ private extension ObjectRelationViewUIKit {
                 return
             }
             
-            let model = ObjectIconImageModel(
-                iconImage: icon,
-                usecase: .featuredRelationsBlock
-            )
-            
-            iconView.configure(model: model)
+            iconView.icon = icon
             iconView.isHidden = false
         }
     }

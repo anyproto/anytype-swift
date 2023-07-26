@@ -60,7 +60,7 @@ struct BlockLinkViewModel: BlockViewModelProtocol {
     }
 
     private func toggleTodo() {
-        guard case let .checkmark(isChecked) = state.style else {
+        guard case let .todo(isChecked) = state.icon else {
             return
         }
         

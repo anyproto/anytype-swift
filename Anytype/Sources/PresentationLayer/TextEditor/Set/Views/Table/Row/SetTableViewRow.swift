@@ -34,7 +34,7 @@ struct SetTableViewRow: View {
                 Button {
                     configuration.onIconTap()
                 } label: {
-                    SwiftUIObjectIconImageView(iconImage: icon, usecase: .setRow).frame(width: 18, height: 18)
+                    IconView(icon: icon).frame(width: 18, height: 18)
                     Spacer.fixedWidth(8)
                 }
             }

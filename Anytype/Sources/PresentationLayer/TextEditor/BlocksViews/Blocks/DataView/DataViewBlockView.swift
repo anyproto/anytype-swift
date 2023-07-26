@@ -4,7 +4,7 @@ import Services
 import AnytypeCore
 
 final class DataViewBlockView: UIView, BlockContentView {
-    private let iconView = ObjectIconImageView()
+    private let iconView = IconViewUIKit()
     private let titleLabel: AnytypeLabel = {
         let title = AnytypeLabel(style: .subheading)
         title.numberOfLines = 1
@@ -55,9 +55,7 @@ final class DataViewBlockView: UIView, BlockContentView {
 
     func update(with configuration: DataViewBlockConfiguration) {
         if let iconImage = configuration.content.iconImage {
-            iconView.configure(
-                model: ObjectIconImageModel(iconImage: iconImage, usecase: .editorCalloutBlock)
-            )
+            iconView.icon = iconImage
             iconView.isHidden = false
         } else {
             iconView.isHidden = true

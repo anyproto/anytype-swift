@@ -1,7 +1,6 @@
 import SwiftUI
 
 protocol SearchDataProtocol: Identifiable {
-    var usecase: ObjectIconImageUsecase { get }
     var iconImage: ObjectIconImage? { get }
 
     var title: String { get }

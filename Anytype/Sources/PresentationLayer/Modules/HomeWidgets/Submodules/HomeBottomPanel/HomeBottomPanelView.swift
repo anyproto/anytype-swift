@@ -25,7 +25,8 @@ struct HomeBottomPanelView: View {
                 Button(action: button.onTap, label: {
                     VStack {
                         if let image = button.image {
-                            SwiftUIObjectIconImageView(iconImage: image, usecase: .homeBottomPanel)
+                            IconView(icon: image)
+                                .frame(width: 24, height: 24)
                         }
                     }
                     .fixTappableArea()

@@ -17,9 +17,7 @@ struct TitleWithIconView: View {
             if let icon = icon, showIcon{
                 ZStack(alignment: .topLeading) {
                     title(with: title?.leftIndented)
-                    SwiftUIObjectIconImageView(
-                        iconImage: icon,
-                        usecase: .setRow)
+                    IconView(icon: icon)
                     .frame(
                         width: style.iconSize.width,
                         height: style.iconSize.height

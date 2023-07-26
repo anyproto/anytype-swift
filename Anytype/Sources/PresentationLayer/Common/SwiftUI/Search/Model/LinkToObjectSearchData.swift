@@ -65,12 +65,4 @@ extension LinkToObjectSearchData {
     var verticalInset: CGFloat {
         20
     }
-
-    var usecase: ObjectIconImageUsecase {
-        switch searchKind {
-        case .object, .openObject: return .dashboardSearch
-        case .web, .createObject, .removeLink, .openURL, .copyLink: return .mention(.heading)
-        }
-    }
-    
 }

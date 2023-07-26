@@ -52,10 +52,6 @@ extension ObjectSearchData {
         16
     }
 
-    var usecase: ObjectIconImageUsecase {
-        .dashboardSearch
-    }
-
     var iconImage: ObjectIconImage? {
         FeatureFlags.deleteObjectPlaceholder ? details.objectIconImage : details.objectIconImageWithPlaceholder
     }

@@ -61,7 +61,7 @@ struct CreatingSoulView: View {
     
     private var soul: some View {
         VStack(spacing: 8) {
-            SwiftUIObjectIconImageViewWithPlaceholder(iconImage: model.profileIcon, usecase: .dashboardSearch)
+            SwiftUIObjectIconImageViewWithPlaceholder(icon: model.profileIcon)
                 .frame(width: Constants.imageDimension, height: Constants.imageDimension)
             AnytypeText(model.state.soul, style: .previewTitle2Medium, color: .Text.primary)
                 .lineLimit(1)
@@ -71,7 +71,7 @@ struct CreatingSoulView: View {
     
     private var space: some View {
         VStack(spacing: 8) {
-            SwiftUIObjectIconImageViewWithPlaceholder(iconImage: model.spaceIcon, usecase: .dashboardSearch)
+            SwiftUIObjectIconImageViewWithPlaceholder(icon: model.spaceIcon)
                 .frame(width: Constants.imageDimension, height: Constants.imageDimension)
             AnytypeText(Loc.Auth.JoinFlow.Personal.Space.title, style: .previewTitle2Medium, color: .Text.primary)
                 .multilineTextAlignment(.center)

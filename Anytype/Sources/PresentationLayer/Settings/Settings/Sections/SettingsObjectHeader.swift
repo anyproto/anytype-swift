@@ -12,7 +12,7 @@ struct SettingsObjectHeader: View {
         Spacer.fixedHeight(16)
         VStack {
             if let iconImage {
-                SwiftUIObjectIconImageView(iconImage: iconImage, usecase: .settingsHeader)
+                IconView(icon: iconImage)
             }
         }
         .frame(width: 96, height: 96)

@@ -9,13 +9,11 @@ struct SearchObjectRowView: View {
     var body: some View {
         HStack(spacing: 0) {
             if let icon = viewModel.icon {
-                SwiftUIObjectIconImageView(
-                    iconImage: icon,
-                    usecase: .dashboardSearch
-                ).frame(
-                    width: viewModel.style.iconSize.width,
-                    height: viewModel.style.iconSize.height
-                )
+                IconView(icon: icon)
+                    .frame(
+                        width: viewModel.style.iconSize.width,
+                        height: viewModel.style.iconSize.height
+                    )
                 Spacer.fixedWidth(12)
             }
             content

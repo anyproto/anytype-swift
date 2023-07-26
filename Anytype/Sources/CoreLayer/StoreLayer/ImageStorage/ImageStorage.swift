@@ -13,6 +13,7 @@ final class ImageStorage {
     
     static let shared = ImageStorage()
     
+    private init() {}
     private let cache = NSCache<NSString, UIImage>()
     
 }

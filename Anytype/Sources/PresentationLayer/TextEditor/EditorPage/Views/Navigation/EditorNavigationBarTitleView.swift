@@ -5,7 +5,7 @@ final class EditorNavigationBarTitleView: UIView {
     
     private let stackView = UIStackView()
     
-    private let iconImageView = ObjectIconImageView()
+    private let iconImageView = IconViewUIKit()
     private let titleLabel = UILabel()
     private let lockImageView = UIImageView()
     
@@ -38,18 +38,8 @@ extension EditorNavigationBarTitleView: ConfigurableView {
         case let .title(titleModel):
             titleLabel.text = titleModel.title
             titleLabel.font = .uxCalloutRegular
-            switch titleModel.icon {
-            case .some(let objectIconImage):
-                iconImageView.isHidden = false
-                iconImageView.configure(
-                    model: ObjectIconImageView.Model(
-                        iconImage: objectIconImage,
-                        usecase: .openedObjectNavigationBar
-                    )
-                )
-            case .none:
-                iconImageView.isHidden = true
-            }
+            iconImageView.isHidden = titleModel.icon.isNil
+            iconImageView.icon = titleModel.icon
         case let .modeTitle(text):
             titleLabel.text = text
             titleLabel.font = .uxTitle1Semibold

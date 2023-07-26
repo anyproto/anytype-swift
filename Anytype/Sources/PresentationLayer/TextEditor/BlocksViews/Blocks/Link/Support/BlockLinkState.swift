@@ -4,7 +4,7 @@ struct BlockLinkState: Hashable, Equatable {
     let title: String
     let description: String
     let cardStyle: BlockLink.CardStyle
-    let style: Style
+    let icon: ObjectIconImage?
     let type: ObjectType?
     let documentCover: DocumentCover?
 
@@ -41,7 +41,7 @@ struct BlockLinkState: Hashable, Equatable {
             title: details.name,
             cardStyle: blockLink.appearance.cardStyle,
             description: description,
-            style: Style(details: details),
+            icon: details.objectIconImage,
             type: details.objectType,
             archived: details.isArchived,
             deleted: details.isDeleted,
@@ -57,7 +57,7 @@ struct BlockLinkState: Hashable, Equatable {
     init(title: String,
          cardStyle: BlockLink.CardStyle,
          description: String,
-         style: Style,
+         icon: ObjectIconImage?,
          type: ObjectType?,
          archived: Bool,
          deleted: Bool,
@@ -70,7 +70,7 @@ struct BlockLinkState: Hashable, Equatable {
     ) {
         self.title = title
         self.cardStyle = cardStyle
-        self.style = style
+        self.icon = icon
         self.type = type
         self.archived = archived
         self.deleted = deleted
