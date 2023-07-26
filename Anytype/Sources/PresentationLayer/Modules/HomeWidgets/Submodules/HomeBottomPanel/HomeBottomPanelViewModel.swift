@@ -27,7 +27,7 @@ final class HomeBottomPanelViewModel: ObservableObject {
     
     // MARK: - Private properties
     
-    private let accountManager: AccountManagerProtocol
+    private let activeSpaceStorage: ActiveSpaceStorageProtocol
     private let subscriptionService: SingleObjectSubscriptionServiceProtocol
     private let stateManager: HomeWidgetsStateManagerProtocol
     private let dashboardService: DashboardServiceProtocol
@@ -36,20 +36,21 @@ final class HomeBottomPanelViewModel: ObservableObject {
     // MARK: - State
     
     private var spaceDetails: ObjectDetails?
-    private var subscriptions: [AnyCancellable] = []
+    private var workspaceSubscription: AnyCancellable?
+    private var dataSubscriptions: [AnyCancellable] = []
     
     // MARK: - Public properties
     
     @Published var buttonState: ButtonState = .normal([])
     
     init(
-        accountManager: AccountManagerProtocol,
+        activeSpaceStorage: ActiveSpaceStorageProtocol,
         subscriptionService: SingleObjectSubscriptionServiceProtocol,
         stateManager: HomeWidgetsStateManagerProtocol,
         dashboardService: DashboardServiceProtocol,
         output: HomeBottomPanelModuleOutput?
     ) {
-        self.accountManager = accountManager
+        self.activeSpaceStorage = activeSpaceStorage
         self.subscriptionService = subscriptionService
         self.stateManager = stateManager
         self.dashboardService = dashboardService
@@ -87,16 +88,25 @@ final class HomeBottomPanelViewModel: ObservableObject {
     }
     
     private func setupSubscription() {
+        workspaceSubscription = activeSpaceStorage.workspaceInfoPublisher.sink { [weak self] info in
+            self?.setupDataSubscription(workspaceInfo: info)
+        }
+    }
+    
+    private func setupDataSubscription(workspaceInfo: AccountInfo) {
+        dataSubscriptions.removeAll()
+        subscriptionService.stopSubscription(subIdPrefix: Constants.subId)
+        
         subscriptionService.startSubscription(
             subIdPrefix: Constants.subId,
-            objectId: accountManager.account.info.workspaceObjectId
+            objectId: workspaceInfo.workspaceObjectId
         ) { [weak self] details in
             self?.handleSpaceDetails(details: details)
         }
         
         stateManager.isEditStatePublisher
             .sink { [weak self] in self?.updateModels(isEditState: $0) }
-            .store(in: &subscriptions)
+            .store(in: &dataSubscriptions)
     }
     
     private func handleSpaceDetails(details: ObjectDetails) {
@@ -107,7 +117,7 @@ final class HomeBottomPanelViewModel: ObservableObject {
     private func handleCreateObject() {
         guard let spaceDetails else { return }
         Task { @MainActor in
-            guard let details = try? await dashboardService.createNewPage(spaceId: spaceDetails.id) else { return }
+            guard let details = try? await dashboardService.createNewPage(spaceId: spaceDetails.spaceId) else { return }
             AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: .navigation, view: .home)
             
             output?.onCreateObjectSelected(screenData: details.editorScreenData())

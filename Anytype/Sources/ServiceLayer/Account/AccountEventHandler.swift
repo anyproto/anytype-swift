@@ -1,6 +1,7 @@
 import Foundation
 import ProtobufMessages
 import Combine
+import Services
 
 protocol AccountEventHandlerProtocol {
     func startSubscription()

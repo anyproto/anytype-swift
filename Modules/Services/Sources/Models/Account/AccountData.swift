@@ -1,21 +1,20 @@
 import ProtobufMessages
-import Services
 
-struct AccountData {
+public struct AccountData {
     
-    let id: BlockId
-    let name: String
-    let avatar: Anytype_Model_Account.Avatar
-    let config: AccountConfiguration
-    var status: AccountStatus
-    let info: AccountInfo
+    public let id: BlockId
+    public let name: String
+    public let avatar: Anytype_Model_Account.Avatar
+    public let config: AccountConfiguration
+    public var status: AccountStatus
+    public let info: AccountInfo
     
-    static var empty: AccountData {
+    public static var empty: AccountData {
         AccountData(id: "", name: "", avatar: .init(), config: .empty, status: .active, info: .empty)
     }
 }
 
-extension Anytype_Model_Account {
+public extension Anytype_Model_Account {
     var asModel: AccountData {
         AccountData(
             id: id,

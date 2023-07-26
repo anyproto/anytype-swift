@@ -19,16 +19,16 @@ final class SetsSubscriptionService: SetsSubscriptionServiceProtocol {
     
     private let subscriptionService: SubscriptionsServiceProtocol
     private let objectTypeProvider: ObjectTypeProviderProtocol
-    private let accountManager: AccountManagerProtocol
+    private let activeSpaceStorage: ActiveSpaceStorageProtocol
     private let subscriptionId = SubscriptionId(value: "Sets-\(UUID().uuidString)")
     
     init(
         subscriptionService: SubscriptionsServiceProtocol,
-        accountManager: AccountManagerProtocol,
+        activeSpaceStorage: ActiveSpaceStorageProtocol,
         objectTypeProvider: ObjectTypeProviderProtocol
     ) {
         self.subscriptionService = subscriptionService
-        self.accountManager = accountManager
+        self.activeSpaceStorage = activeSpaceStorage
         self.objectTypeProvider = objectTypeProvider
     }
     
@@ -45,7 +45,7 @@ final class SetsSubscriptionService: SetsSubscriptionServiceProtocol {
         let filters = [
             SearchHelper.notHiddenFilter(),
             SearchHelper.isArchivedFilter(isArchived: false),
-            SearchHelper.spaceId(accountManager.account.info.accountSpaceId),
+            SearchHelper.spaceId(activeSpaceStorage.workspaceInfo.accountSpaceId),
             SearchHelper.layoutFilter([DetailsLayout.set])
         ]
         

@@ -1,6 +1,6 @@
 import ProtobufMessages
 
-struct AccountConfiguration {    
+public struct AccountConfiguration {    
     let enableSpaces: Bool
     let enableDataview: Bool
     let enableDebug: Bool

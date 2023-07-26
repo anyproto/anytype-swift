@@ -2,6 +2,7 @@ import Foundation
 import Combine
 import ProtobufMessages
 import AnytypeCore
+import Services
 
 protocol MiddlewareConfigurationProviderProtocol: AnyObject {
     var configuration: MiddlewareConfiguration { get }

@@ -1,6 +1,7 @@
 import Foundation
 import ProtobufMessages
 import Combine
+import Services
 
 protocol AccountManagerProtocol: AnyObject {
     var account: AccountData { get set }

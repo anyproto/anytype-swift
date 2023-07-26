@@ -2,13 +2,13 @@ import ProtobufMessages
 import CoreGraphics
 import Foundation
 
-enum AccountStatus: Equatable {
+public enum AccountStatus: Equatable {
     case active
     case pendingDeletion(deadline: Date)
     case deleted
 }
 
-extension Anytype_Model_Account.Status {
+public extension Anytype_Model_Account.Status {
     var asModel: AccountStatus? {
         switch self.statusType {
         case .startedDeletion, .deleted:

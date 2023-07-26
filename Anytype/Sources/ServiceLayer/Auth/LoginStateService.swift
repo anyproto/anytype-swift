@@ -1,4 +1,5 @@
 import AnytypeCore
+import Services
 
 protocol LoginStateServiceProtocol: AnyObject {
     var isFirstLaunchAfterRegistration: Bool { get }

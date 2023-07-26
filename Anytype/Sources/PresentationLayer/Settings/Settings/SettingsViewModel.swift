@@ -14,7 +14,7 @@ final class SettingsViewModel: ObservableObject {
     
     // MARK: - DI
     
-    private let accountManager: AccountManagerProtocol
+    private let activeSpaceStorage: ActiveSpaceStorageProtocol
     private let subscriptionService: SingleObjectSubscriptionServiceProtocol
     private let objectActionsService: ObjectActionsServiceProtocol
     private weak var output: SettingsModuleOutput?
@@ -29,12 +29,12 @@ final class SettingsViewModel: ObservableObject {
     @Published var profileIcon: ObjectIconImage = .imageAsset(.SettingsOld.accountAndData)
     
     init(
-        accountManager: AccountManagerProtocol,
+        activeSpaceStorage: ActiveSpaceStorageProtocol,
         subscriptionService: SingleObjectSubscriptionServiceProtocol,
         objectActionsService: ObjectActionsServiceProtocol,
         output: SettingsModuleOutput?
     ) {
-        self.accountManager = accountManager
+        self.activeSpaceStorage = activeSpaceStorage
         self.subscriptionService = subscriptionService
         self.objectActionsService = objectActionsService
         self.output = output
@@ -71,7 +71,7 @@ final class SettingsViewModel: ObservableObject {
     }
     
     func onChangeIconTap() {
-        output?.onChangeIconSelected(objectId: accountManager.account.info.workspaceObjectId)
+        output?.onChangeIconSelected(objectId: activeSpaceStorage.workspaceInfo.workspaceObjectId)
     }
     
     // MARK: - Private
@@ -79,14 +79,14 @@ final class SettingsViewModel: ObservableObject {
     private func setupSubscription() {
         subscriptionService.startSubscription(
             subIdPrefix: Constants.subSpaceId,
-            objectId: accountManager.account.info.workspaceObjectId
+            objectId: activeSpaceStorage.workspaceInfo.workspaceObjectId
         ) { [weak self] details in
             self?.handleSpaceDetails(details: details)
         }
         
         subscriptionService.startSubscription(
             subIdPrefix: Constants.subAccountId,
-            objectId: accountManager.account.info.profileObjectID
+            objectId: activeSpaceStorage.workspaceInfo.profileObjectID
         ) { [weak self] details in
             self?.handleProfileDetails(details: details)
         }
@@ -114,7 +114,7 @@ final class SettingsViewModel: ObservableObject {
     private func updateSpaceName(name: String) {
         Task {
             try await objectActionsService.updateBundledDetails(
-                contextID: accountManager.account.info.workspaceObjectId,
+                contextID: activeSpaceStorage.workspaceInfo.workspaceObjectId,
                 details: [.name(name)]
             )
         }

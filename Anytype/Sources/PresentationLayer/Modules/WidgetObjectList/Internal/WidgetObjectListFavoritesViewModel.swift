@@ -28,12 +28,12 @@ final class WidgetObjectListFavoritesViewModel: WidgetObjectListInternalViewMode
     
     init(
         favoriteSubscriptionService: FavoriteSubscriptionServiceProtocol,
-        accountManager: AccountManagerProtocol,
+        activeSpaceStorage: ActiveSpaceStorageProtocol,
         documentService: DocumentServiceProtocol,
         objectActionService: ObjectActionsServiceProtocol
     ) {
         self.favoriteSubscriptionService = favoriteSubscriptionService
-        self.homeDocument = documentService.document(objectId: accountManager.account.info.homeObjectID)
+        self.homeDocument = documentService.document(objectId: activeSpaceStorage.workspaceInfo.homeObjectID)
         self.objectActionService = objectActionService
     }
     

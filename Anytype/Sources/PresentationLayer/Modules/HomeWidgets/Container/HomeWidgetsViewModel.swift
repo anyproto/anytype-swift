@@ -1,18 +1,21 @@
 import Foundation
 import AnytypeCore
 import Services
+import Combine
 
 @MainActor
 final class HomeWidgetsViewModel: ObservableObject {
 
     // MARK: - DI
     
-    private let widgetObject: BaseDocumentProtocol
+    private var widgetObject: BaseDocumentProtocol?
     private let registry: HomeWidgetsRegistryProtocol
     private let blockWidgetService: BlockWidgetServiceProtocol
     private let stateManager: HomeWidgetsStateManagerProtocol
     private let objectActionService: ObjectActionsServiceProtocol
     private let recentStateManagerProtocol: HomeWidgetsRecentStateManagerProtocol
+    private let documentService: DocumentServiceProtocol
+    private let activeSpaceStorage: ActiveSpaceStorageProtocol
     // Temporary
     private let workspaceService: WorkspaceServiceProtocol
     private let workspacesStorage: WorkspacesStorageProtocol
@@ -28,9 +31,10 @@ final class HomeWidgetsViewModel: ObservableObject {
     @Published var showWorkspacesSwitchList: Bool = false
     @Published var showWorkspacesDeleteList: Bool = false
     @Published var workspaces: [ObjectDetails] = []
+    private var activeSpaceSubscription: AnyCancellable?
+    private var objectSubscriptions = [AnyCancellable]()
     
     init(
-        widgetObjectId: String,
         registry: HomeWidgetsRegistryProtocol,
         blockWidgetService: BlockWidgetServiceProtocol,
         bottomPanelProviderAssembly: HomeBottomPanelProviderAssemblyProtocol,
@@ -38,25 +42,26 @@ final class HomeWidgetsViewModel: ObservableObject {
         objectActionService: ObjectActionsServiceProtocol,
         recentStateManagerProtocol: HomeWidgetsRecentStateManagerProtocol,
         documentService: DocumentServiceProtocol,
+        activeSpaceStorage: ActiveSpaceStorageProtocol,
         workspaceService: WorkspaceServiceProtocol,
         workspacesStorage: WorkspacesStorageProtocol,
         output: HomeWidgetsModuleOutput?
     ) {
-        self.widgetObject = documentService.document(objectId: widgetObjectId)
         self.registry = registry
         self.blockWidgetService = blockWidgetService
         self.bottomPanelProvider = bottomPanelProviderAssembly.make(stateManager: stateManager)
         self.stateManager = stateManager
         self.objectActionService = objectActionService
         self.recentStateManagerProtocol = recentStateManagerProtocol
+        self.documentService = documentService
+        self.activeSpaceStorage = activeSpaceStorage
         self.workspaceService = workspaceService
         self.workspacesStorage = workspacesStorage
         self.output = output
+        setupSpaceSubscription()
     }
     
-    func onAppear() {
-        setupInitialState()
-    }
+    func onAppear() {}
     
     func onDisappear() {}
     
@@ -70,6 +75,7 @@ final class HomeWidgetsViewModel: ObservableObject {
     }
     
     func dropFinish(from: DropDataElement<HomeWidgetSubmoduleModel>, to: DropDataElement<HomeWidgetSubmoduleModel>) {
+        guard let widgetObject else { return }
         if let info = widgetObject.widgetInfo(blockId: from.data.blockId) {
             AnytypeAnalytics.instance().logReorderWidget(source: info.source.analyticsSource)
         }
@@ -104,7 +110,9 @@ final class HomeWidgetsViewModel: ObservableObject {
     
     // Temporary
     func onTapSwitchWorkspace(details: ObjectDetails) {
-        
+        Task {
+            try? await activeSpaceStorage.setActiveSpace(spaceId: details.spaceId)
+        }
     }
     
     // Temporary
@@ -113,18 +121,35 @@ final class HomeWidgetsViewModel: ObservableObject {
     
     // MARK: - Private
     
-    private func setupInitialState() {
-        widgetObject.widgetsPublisher
+    private func updateWidgetSubscriptions(workspaceInfo: AccountInfo) {
+        models = []
+        dataLoaded = false
+        objectSubscriptions.removeAll()
+        widgetObject = documentService.document(objectId: workspaceInfo.widgetsId)
+        
+        widgetObject?.widgetsPublisher
             .map { [weak self] blocks in
                 self?.dataLoaded = true
-                guard let self = self else { return [] }
-                self.recentStateManagerProtocol.setupRecentStateIfNeeded(blocks: blocks, widgetObject: self.widgetObject)
-                return self.registry.providers(blocks: blocks, widgetObject: self.widgetObject)
+                guard let self, let widgetObject = self.widgetObject else { return [] }
+                recentStateManagerProtocol.setupRecentStateIfNeeded(blocks: blocks, widgetObject: widgetObject)
+                return registry.providers(blocks: blocks, widgetObject: widgetObject)
             }
             .removeDuplicates()
-            .assign(to: &$models)
+            .receiveOnMain()
+            .assign(to: \.models, on: self)
+            .store(in: &objectSubscriptions)
         
         stateManager.isEditStatePublisher
-            .assign(to: &$hideEditButton)
+            .receiveOnMain()
+            .assign(to: \.hideEditButton, on: self)
+            .store(in: &objectSubscriptions)
+    }
+    
+    private func setupSpaceSubscription() {
+        activeSpaceSubscription = activeSpaceStorage
+            .workspaceInfoPublisher
+            .sink { [weak self] info in
+                self?.updateWidgetSubscriptions(workspaceInfo: info)
+            }
     }
 }

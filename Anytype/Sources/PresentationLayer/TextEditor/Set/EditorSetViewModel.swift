@@ -847,7 +847,7 @@ extension EditorSetViewModel {
         objectActionsService: DI.preview.serviceLocator.objectActionsService(),
         textService: TextService(),
         groupsSubscriptionsHandler: DI.preview.serviceLocator.groupsSubscriptionsHandler(),
-        setSubscriptionDataBuilder: SetSubscriptionDataBuilder(accountManager: DI.preview.serviceLocator.accountManager()),
+        setSubscriptionDataBuilder: SetSubscriptionDataBuilder(activeSpaceStorage: DI.preview.serviceLocator.activeSpaceStorage()),
         objectTypeProvider: DI.preview.serviceLocator.objectTypeProvider()
     )
 }
