@@ -43,7 +43,8 @@ final class ServiceLocator {
         objectTypeProvider: objectTypeProvider(),
         middlewareConfigurationProvider: middlewareConfigurationProvider(),
         blockWidgetExpandedService: blockWidgetExpandedService(),
-        relationDetailsStorage: relationDetailsStorage()
+        relationDetailsStorage: relationDetailsStorage(),
+        workspacesStorage: workspaceStorage()
     )
     func loginStateService() -> LoginStateServiceProtocol {
         return _loginStateService
@@ -256,6 +257,19 @@ final class ServiceLocator {
         _audioSessionService
     }
     
+    // In future lifecycle should be depend for screen
+    private lazy var _activeSpaceStorage = ActiveSpaceStorage()
+    func activeSpaceStorage() -> ActiveSpaceStorageProtocol {
+        return _activeSpaceStorage
+    }
+
+    private lazy var _workspaceStorage = WorkspacesStorage(
+        subscriptionsService: subscriptionService(),
+        subscriptionBuilder: WorkspacesSubscriptionBuilder()
+    )
+    func workspaceStorage() -> WorkspacesStorageProtocol {
+        return _workspaceStorage
+    }
     // MARK: - Private
     
     private func subscriptionToggler() -> SubscriptionTogglerProtocol {

@@ -13,6 +13,9 @@ final class HomeWidgetsViewModel: ObservableObject {
     private let stateManager: HomeWidgetsStateManagerProtocol
     private let objectActionService: ObjectActionsServiceProtocol
     private let recentStateManagerProtocol: HomeWidgetsRecentStateManagerProtocol
+    // Temporary
+    private let workspaceService: WorkspaceServiceProtocol
+    private let workspacesStorage: WorkspacesStorageProtocol
     private weak var output: HomeWidgetsModuleOutput?
     
     // MARK: - State
@@ -21,6 +24,10 @@ final class HomeWidgetsViewModel: ObservableObject {
     @Published var bottomPanelProvider: HomeSubmoduleProviderProtocol
     @Published var hideEditButton: Bool = false
     @Published var dataLoaded: Bool = false
+    // Temporary
+    @Published var showWorkspacesSwitchList: Bool = false
+    @Published var showWorkspacesDeleteList: Bool = false
+    @Published var workspaces: [ObjectDetails] = []
     
     init(
         widgetObjectId: String,
@@ -31,6 +38,8 @@ final class HomeWidgetsViewModel: ObservableObject {
         objectActionService: ObjectActionsServiceProtocol,
         recentStateManagerProtocol: HomeWidgetsRecentStateManagerProtocol,
         documentService: DocumentServiceProtocol,
+        workspaceService: WorkspaceServiceProtocol,
+        workspacesStorage: WorkspacesStorageProtocol,
         output: HomeWidgetsModuleOutput?
     ) {
         self.widgetObject = documentService.document(objectId: widgetObjectId)
@@ -40,6 +49,8 @@ final class HomeWidgetsViewModel: ObservableObject {
         self.stateManager = stateManager
         self.objectActionService = objectActionService
         self.recentStateManagerProtocol = recentStateManagerProtocol
+        self.workspaceService = workspaceService
+        self.workspacesStorage = workspacesStorage
         self.output = output
     }
     
@@ -70,6 +81,34 @@ final class HomeWidgetsViewModel: ObservableObject {
                 position: to.index > from.index ? .bottom : .top
             )
         }
+    }
+    
+    // Temporary
+    func onCreateSpaceTap() {
+        Task {
+            _ = try await workspaceService.createWorkspace(name: "Workspace \(workspacesStorage.workspaces.count + 1)")
+        }
+    }
+    
+    // Temporary
+    func onDeleteSpaceTap() {
+        workspaces = workspacesStorage.workspaces
+        showWorkspacesDeleteList = true
+    }
+    
+    // Temporary
+    func onSwitchSapceTap() {
+        workspaces = workspacesStorage.workspaces
+        showWorkspacesSwitchList = true
+    }
+    
+    // Temporary
+    func onTapSwitchWorkspace(details: ObjectDetails) {
+        
+    }
+    
+    // Temporary
+    func onTapDeleteWorkspace(details: ObjectDetails) {
     }
     
     // MARK: - Private

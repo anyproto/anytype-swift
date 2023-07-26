@@ -47,6 +47,8 @@ final class HomeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol {
             objectActionService: serviceLocator.objectActionsService(),
             recentStateManagerProtocol: recentStateManagerProtocol,
             documentService: serviceLocator.documentService(),
+            workspaceService: serviceLocator.workspaceService(),
+            workspacesStorage: serviceLocator.workspaceStorage(),
             output: output
         )
         let view = HomeWidgetsView(model: model)

@@ -4,6 +4,8 @@ import ProtobufMessages
 public protocol WorkspaceServiceProtocol {
     func installObjects(spaceId: String, objectIds: [String]) async throws -> [String]
     func installObject(spaceId: String, objectId: String) async throws -> ObjectDetails
+    func createWorkspace(name: String) async throws -> String
+    func deleteWorkspace(objectId: String) async throws
 }
 
 public final class WorkspaceService: WorkspaceServiceProtocol {
@@ -27,5 +29,18 @@ public final class WorkspaceService: WorkspaceServiceProtocol {
         }).invoke()
         
 		return try ObjectDetails(protobufStruct: result.details)
+    }
+    
+    public func createWorkspace(name: String) async throws -> String {
+        let result = try await ClientCommands.workspaceCreate(.with {
+            $0.details.fields[BundledRelationKey.name.rawValue] = name.protobufValue
+        }).invoke()
+        return result.spaceID
+    }
+    
+    public func deleteWorkspace(objectId: String) async throws {
+        try await ClientCommands.objectListDelete(.with {
+            $0.objectIds = [objectId]
+        }).invoke()
     }
 }
