@@ -13,11 +13,12 @@ class TagsOptionsSearchModuleBuilder: RelationOptionsSearchModuleBuilderProtocol
     // MARK: - RelationOptionsSearchModuleBuilderProtocol
     
     func buildModule(
+        spaceId: String,
         excludedOptionIds: [String],
         onSelect: @escaping ([String]) -> Void,
         onCreate: @escaping (String) -> Void
     ) -> NewSearchView {
-        newSearcModuleAssembly.tagsSearchModule(relationKey: relationKey, selectedTagIds: excludedOptionIds, onSelect: onSelect, onCreate: onCreate)
+        newSearcModuleAssembly.tagsSearchModule(spaceId: spaceId, relationKey: relationKey, selectedTagIds: excludedOptionIds, onSelect: onSelect, onCreate: onCreate)
     }
     
 }

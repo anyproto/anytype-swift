@@ -116,6 +116,7 @@ final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsM
     func onChangeSource(widgetId: String, context: AnalyticsWidgetContext) {
         let module = newSearchModuleAssembly.widgetChangeSourceSearchModule(
             widgetObjectId: activeSpaceStorage.workspaceInfo.widgetsId,
+            spaceId: activeSpaceStorage.workspaceInfo.accountSpaceId,
             widgetId: widgetId,
             context: context
         ) { [weak self] in
@@ -136,22 +137,36 @@ final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsM
     }
     
     func onAddBelowWidget(widgetId: String, context: AnalyticsWidgetContext) {
-        createWidgetCoordinator.startFlow(widgetObjectId: activeSpaceStorage.workspaceInfo.widgetsId, position: .below(widgetId: widgetId), context: context)
+        createWidgetCoordinator.startFlow(
+            widgetObjectId: activeSpaceStorage.workspaceInfo.widgetsId,
+            spaceId: activeSpaceStorage.workspaceInfo.accountSpaceId,
+            position: .below(widgetId: widgetId),
+            context: context
+        )
     }
     
     // MARK: - HomeBottomPanelModuleOutput
     
     func onCreateWidgetSelected(context: AnalyticsWidgetContext) {
-        createWidgetCoordinator.startFlow(widgetObjectId: activeSpaceStorage.workspaceInfo.widgetsId, position: .end, context: context)
+        createWidgetCoordinator.startFlow(
+            widgetObjectId: activeSpaceStorage.workspaceInfo.widgetsId,
+            spaceId: activeSpaceStorage.workspaceInfo.accountSpaceId,
+            position: .end,
+            context: context
+        )
     }
     
     func onSearchSelected() {
         AnytypeAnalytics.instance().logScreenSearch()
-        let module = searchModuleAssembly.makeObjectSearch(title: nil, onSelect: { [weak self] data in
-            AnytypeAnalytics.instance().logSearchResult()
-            self?.navigationContext.dismissAllPresented()
-            self?.openObject(screenData: data.editorScreenData)
-        })
+        let module = searchModuleAssembly.makeObjectSearch(
+            spaceId: activeSpaceStorage.workspaceInfo.accountSpaceId,
+            title: nil,
+            onSelect: { [weak self] data in
+                AnytypeAnalytics.instance().logSearchResult()
+                self?.navigationContext.dismissAllPresented()
+                self?.openObject(screenData: data.editorScreenData)
+            }
+        )
         navigationContext.present(module)
     }
     

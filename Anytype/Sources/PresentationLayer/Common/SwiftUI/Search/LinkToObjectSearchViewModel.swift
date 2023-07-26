@@ -15,6 +15,7 @@ final class LinkToObjectSearchViewModel: SearchViewModelProtocol {
 
     typealias SearchDataType = LinkToObjectSearchData
 
+    private let spaceId: String
     private let searchService: SearchServiceProtocol
     private let pasteboardHelper: PasteboardHelper
     private let currentLink: Either<URL, BlockId>?
@@ -31,11 +32,13 @@ final class LinkToObjectSearchViewModel: SearchViewModelProtocol {
     var placeholder: String { Loc.Editor.LinkToObject.searchPlaceholder }
 
     init(
+        spaceId: String,
         currentLink: Either<URL, BlockId>?,
         searchService: SearchServiceProtocol,
         pasteboardHelper: PasteboardHelper = PasteboardHelper(),
         onSelect: @escaping (SearchDataType) -> ()
     ) {
+        self.spaceId = spaceId
         self.currentLink = currentLink
         self.searchService = searchService
         self.pasteboardHelper = pasteboardHelper
@@ -46,8 +49,8 @@ final class LinkToObjectSearchViewModel: SearchViewModelProtocol {
         searchTask?.cancel()
         searchData.removeAll()
 
-        searchTask = Task { @MainActor [weak self] in
-            guard let result = try? await self?.searchService.search(text: text) else { return }
+        searchTask = Task { @MainActor [weak self, spaceId] in
+            guard let result = try? await self?.searchService.search(text: text, spaceId: spaceId) else { return }
             self?.handleSearch(result: result, text: text)
         }
     }
@@ -110,7 +113,7 @@ final class LinkToObjectSearchViewModel: SearchViewModelProtocol {
                 iconImage: .imageAsset(.TextEditor.BlocksOption.copy)
             )
         case let .right(blockId):
-            let result = try await searchService.search(text: "")
+            let result = try await searchService.search(text: "", spaceId: spaceId)
             let object = result.first(where: { $0.id == blockId })
 
             linkedToData = object.map {

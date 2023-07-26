@@ -53,7 +53,8 @@ final class ChangeTypeAccessoryViewModel {
                     filteringTypeId: nil,
                     shouldIncludeSets: true,
                     shouldIncludeCollections: true,
-                    shouldIncludeBookmark: false
+                    shouldIncludeBookmark: false,
+                    spaceId: self?.document.spaceId ?? ""
                 ).map { type in
                     TypeItem(from: type, handler: { [weak self] in
                         self?.onTypeTap(typeId: type.id)
@@ -93,7 +94,7 @@ final class ChangeTypeAccessoryViewModel {
     
     private func applyDefaultTemplateIfNeeded(typeId: String) {
         Task { @MainActor in
-            let availableTemplates = try? await searchService.searchTemplates(for: .dynamic(typeId))
+            let availableTemplates = try? await searchService.searchTemplates(for: .dynamic(typeId), spaceId: document.spaceId)
             guard availableTemplates?.count == 1,
                   let firstTemplate = availableTemplates?.first
             else { return }

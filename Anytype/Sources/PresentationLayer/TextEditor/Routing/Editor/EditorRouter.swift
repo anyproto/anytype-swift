@@ -250,7 +250,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     }
     
     func showSearch(onSelect: @escaping (EditorScreenData) -> ()) {
-        let module = searchModuleAssembly.makeObjectSearch(title: nil) { data in
+        let module = searchModuleAssembly.makeObjectSearch(spaceId: document.spaceId, title: nil) { data in
             onSelect(data.editorScreenData)
         }
         navigationContext.present(module)
@@ -449,6 +449,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     ) {
         let view = newSearchModuleAssembly.objectTypeSearchModule(
             title: title,
+            spaceId: document.spaceId,
             selectedObjectId: selectedObjectId,
             excludedObjectTypeId: document.details?.type,
             showBookmark: showBookmark,

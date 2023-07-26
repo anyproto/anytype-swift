@@ -3,7 +3,7 @@ import Services
 
 @MainActor
 protocol CreateWidgetCoordinatorProtocol {
-    func startFlow(widgetObjectId: String, position: WidgetPosition, context: AnalyticsWidgetContext)
+    func startFlow(widgetObjectId: String, spaceId: String, position: WidgetPosition, context: AnalyticsWidgetContext)
 }
 
 @MainActor
@@ -25,8 +25,8 @@ final class CreateWidgetCoordinator: CreateWidgetCoordinatorProtocol {
     
     // MARK: - CreateWidgetCoordinatorProtocol
     
-    func startFlow(widgetObjectId: String, position: WidgetPosition, context: AnalyticsWidgetContext) {
-        let searchView = newSearchModuleAssembly.widgetSourceSearchModule(context: context) { [weak self] source in
+    func startFlow(widgetObjectId: String, spaceId: String, position: WidgetPosition, context: AnalyticsWidgetContext) {
+        let searchView = newSearchModuleAssembly.widgetSourceSearchModule(spaceId: spaceId, context: context) { [weak self] source in
             self?.showSelectWidgetType(widgetObjectId: widgetObjectId, source: source, position: position, context: context)
         }
         navigationContext.present(searchView)

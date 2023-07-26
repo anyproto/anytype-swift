@@ -17,12 +17,14 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
     func statusSearchModule(
         style: NewSearchView.Style,
         selectionMode: NewSearchViewModel.SelectionMode,
+        spaceId: String,
         relationKey: String,
         selectedStatusesIds: [String],
         onSelect: @escaping (_ ids: [String]) -> Void,
         onCreate: @escaping (_ title: String) -> Void
     ) -> NewSearchView {
         let interactor = StatusSearchInteractor(
+            spaceId: spaceId,
             relationKey: relationKey,
             selectedStatusesIds: selectedStatusesIds,
             isPreselectModeAvailable: selectionMode.isPreselectModeAvailable,
@@ -47,12 +49,14 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
     func tagsSearchModule(
         style: NewSearchView.Style,
         selectionMode: NewSearchViewModel.SelectionMode,
+        spaceId: String,
         relationKey: String,
         selectedTagIds: [String],
         onSelect: @escaping (_ ids: [String]) -> Void,
         onCreate: @escaping (_ title: String) -> Void
     ) -> NewSearchView {
         let interactor = TagsSearchInteractor(
+            spaceId: spaceId,
             relationKey: relationKey,
             selectedTagIds: selectedTagIds,
             isPreselectModeAvailable: selectionMode.isPreselectModeAvailable,
@@ -76,6 +80,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
     
     func objectsSearchModule(
         title: String?,
+        spaceId: String,
         style: NewSearchView.Style,
         selectionMode: NewSearchViewModel.SelectionMode,
         excludedObjectIds: [String],
@@ -83,6 +88,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         onSelect: @escaping (_ details: [ObjectDetails]) -> Void
     ) -> NewSearchView {
         let interactor = ObjectsSearchInteractor(
+            spaceId: spaceId,
             searchService: serviceLocator.searchService(),
             excludedObjectIds: excludedObjectIds,
             limitedObjectType: limitedObjectType
@@ -105,10 +111,12 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
     }
     
     func filesSearchModule(
+        spaceId: String,
         excludedFileIds: [String],
         onSelect: @escaping (_ ids: [String]) -> Void
     ) -> NewSearchView {
         let interactor = FilesSearchInteractor(
+            spaceId: spaceId,
             searchService: serviceLocator.searchService(),
             excludedFileIds: excludedFileIds
         )
@@ -289,15 +297,17 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
     }
     
     func widgetSourceSearchModule(
+        spaceId: String,
         context: AnalyticsWidgetContext,
         onSelect: @escaping (_ source: WidgetSource) -> Void
     ) -> AnyView {
         let model = WidgetSourceSearchSelectInternalViewModel(context: context, onSelect: onSelect)
-        return widgetSourceSearchModule(model: model)
+        return widgetSourceSearchModule(spaceId: spaceId, model: model)
     }
     
     func widgetChangeSourceSearchModule(
         widgetObjectId: String,
+        spaceId: String,
         widgetId: String,
         context: AnalyticsWidgetContext,
         onFinish: @escaping () -> Void
@@ -310,13 +320,13 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
             context: context,
             onFinish: onFinish
         )
-        return widgetSourceSearchModule(model: model)
+        return widgetSourceSearchModule(spaceId: spaceId, model: model)
     }
     
     // MARK: - Private
     
-    private func widgetSourceSearchModule(model: WidgetSourceSearchInternalViewModelProtocol) -> AnyView {
-        let interactor = WidgetSourceSearchInteractor(searchService: serviceLocator.searchService())
+    private func widgetSourceSearchModule(spaceId: String, model: WidgetSourceSearchInternalViewModelProtocol) -> AnyView {
+        let interactor = WidgetSourceSearchInteractor(spaceId: spaceId, searchService: serviceLocator.searchService())
         
         let internalViewModel = WidgetSourceSearchViewModel(interactor: interactor, internalModel: model)
         

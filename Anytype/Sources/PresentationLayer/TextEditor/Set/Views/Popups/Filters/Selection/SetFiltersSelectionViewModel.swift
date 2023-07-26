@@ -16,6 +16,7 @@ final class SetFiltersSelectionViewModel: ObservableObject {
     let headerViewModel: SetFiltersSelectionHeaderViewModel
     let onApply: (SetFilter) -> Void
     
+    private let spaceId: String
     private let filter: SetFilter
     private let contentViewBuilder: SetFiltersContentViewBuilder
     private let contentHandler: SetFiltersContentHandlerProtocol
@@ -31,15 +32,18 @@ final class SetFiltersSelectionViewModel: ObservableObject {
     private weak var popup: AnytypePopupProxy?
     
     init(
+        spaceId: String,
         filter: SetFilter,
         router: EditorSetRouterProtocol,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
         onApply: @escaping (SetFilter) -> Void
     ) {
+        self.spaceId = spaceId
         self.filter = filter
         self.router = router
         self.condition = filter.filter.condition
         self.contentViewBuilder = SetFiltersContentViewBuilder(
+            spaceId: spaceId,
             filter: filter,
             newSearchModuleAssembly: newSearchModuleAssembly
         )

@@ -7,6 +7,7 @@ protocol NewSearchModuleAssemblyProtocol {
     func statusSearchModule(
         style: NewSearchView.Style,
         selectionMode: NewSearchViewModel.SelectionMode,
+        spaceId: String,
         relationKey: String,
         selectedStatusesIds: [String],
         onSelect: @escaping (_ ids: [String]) -> Void,
@@ -16,6 +17,7 @@ protocol NewSearchModuleAssemblyProtocol {
     func tagsSearchModule(
         style: NewSearchView.Style,
         selectionMode: NewSearchViewModel.SelectionMode,
+        spaceId: String,
         relationKey: String,
         selectedTagIds: [String],
         onSelect: @escaping (_ ids: [String]) -> Void,
@@ -24,6 +26,7 @@ protocol NewSearchModuleAssemblyProtocol {
     
     func objectsSearchModule(
         title: String?,
+        spaceId: String,
         style: NewSearchView.Style,
         selectionMode: NewSearchViewModel.SelectionMode,
         excludedObjectIds: [String],
@@ -32,6 +35,7 @@ protocol NewSearchModuleAssemblyProtocol {
     ) -> NewSearchView
     
     func filesSearchModule(
+        spaceId: String,
         excludedFileIds: [String],
         onSelect: @escaping (_ ids: [String]) -> Void
     ) -> NewSearchView
@@ -73,10 +77,11 @@ protocol NewSearchModuleAssemblyProtocol {
         output: RelationSearchModuleOutput
     ) -> NewSearchView
     
-    func widgetSourceSearchModule(context: AnalyticsWidgetContext, onSelect: @escaping (_ source: WidgetSource) -> Void) -> AnyView
+    func widgetSourceSearchModule(spaceId: String, context: AnalyticsWidgetContext, onSelect: @escaping (_ source: WidgetSource) -> Void) -> AnyView
     
     func widgetChangeSourceSearchModule(
         widgetObjectId: String,
+        spaceId: String,
         widgetId: String,
         context: AnalyticsWidgetContext,
         onFinish: @escaping () -> Void
@@ -88,6 +93,7 @@ extension NewSearchModuleAssemblyProtocol {
     func statusSearchModule(
         style: NewSearchView.Style = .default,
         selectionMode: NewSearchViewModel.SelectionMode = .singleItem,
+        spaceId: String,
         relationKey: String,
         selectedStatusesIds: [String],
         onSelect: @escaping (_ ids: [String]) -> Void,
@@ -96,6 +102,7 @@ extension NewSearchModuleAssemblyProtocol {
         return statusSearchModule(
             style: style,
             selectionMode: selectionMode,
+            spaceId: spaceId,
             relationKey: relationKey,
             selectedStatusesIds: selectedStatusesIds,
             onSelect: onSelect,
@@ -106,6 +113,7 @@ extension NewSearchModuleAssemblyProtocol {
     func tagsSearchModule(
         style: NewSearchView.Style = .default,
         selectionMode: NewSearchViewModel.SelectionMode = .multipleItems(),
+        spaceId: String,
         relationKey: String,
         selectedTagIds: [String],
         onSelect: @escaping (_ ids: [String]) -> Void,
@@ -114,6 +122,7 @@ extension NewSearchModuleAssemblyProtocol {
         return tagsSearchModule(
             style: style,
             selectionMode: selectionMode,
+            spaceId: spaceId,
             relationKey: relationKey,
             selectedTagIds: selectedTagIds,
             onSelect: onSelect,
@@ -123,6 +132,7 @@ extension NewSearchModuleAssemblyProtocol {
     
     func objectsSearchModule(
         title: String? = nil,
+        spaceId: String,
         style: NewSearchView.Style = .default,
         selectionMode: NewSearchViewModel.SelectionMode = .multipleItems(),
         excludedObjectIds: [String],
@@ -131,6 +141,7 @@ extension NewSearchModuleAssemblyProtocol {
     ) -> NewSearchView {
         return objectsSearchModule(
             title: title,
+            spaceId: spaceId,
             style: style,
             selectionMode: selectionMode,
             excludedObjectIds: excludedObjectIds,
@@ -142,6 +153,7 @@ extension NewSearchModuleAssemblyProtocol {
     func objectTypeSearchModule(
         style: NewSearchView.Style = .default,
         title: String,
+        spaceId: String,
         selectedObjectId: BlockId? = nil,
         excludedObjectTypeId: String? = nil,
         showBookmark: Bool = false,
@@ -152,6 +164,7 @@ extension NewSearchModuleAssemblyProtocol {
         return objectTypeSearchModule(
             style: style,
             title: title,
+            spaceId: spaceId,
             selectedObjectId: selectedObjectId,
             excludedObjectTypeId: excludedObjectTypeId,
             showBookmark: showBookmark,

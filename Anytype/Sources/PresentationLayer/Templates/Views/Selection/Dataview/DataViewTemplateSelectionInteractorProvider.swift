@@ -91,7 +91,7 @@ final class DataviewTemplateSelectionInteractorProvider: TemplateSelectionIntera
     }
     
     private func loadTemplates() {
-        subscriptionService.startSubscription(objectType: objectTypeId) { [weak self] _, update in
+        subscriptionService.startSubscription(objectType: objectTypeId, spaceId: setDocument.spaceId) { [weak self] _, update in
             self?.templatesDetails.applySubscriptionUpdate(update)
         }
     }

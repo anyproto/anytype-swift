@@ -37,7 +37,8 @@ extension ObjectTypesSearchInteractor {
             filteringTypeId: excludedObjectTypeId,
             shouldIncludeSets: showSetAndCollection,
             shouldIncludeCollections: showSetAndCollection,
-            shouldIncludeBookmark: showBookmark
+            shouldIncludeBookmark: showBookmark,
+            spaceId: spaceId
         )
     }
     

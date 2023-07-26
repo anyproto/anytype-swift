@@ -73,17 +73,18 @@ final class LinkToObjectCoordinator: LinkToObjectCoordinatorProtocol {
             }
         }
         
-        showLinkToObject(currentLink: currentLink, onSelect: onLinkSelection)
+        showLinkToObject(spaceId: spaceId, currentLink: currentLink, onSelect: onLinkSelection)
     }
     
     
     // MARK: - Private
     
     func showLinkToObject(
+        spaceId: String,
         currentLink: Either<URL, BlockId>?,
         onSelect: @escaping (LinkToObjectSearchViewModel.SearchKind) -> ()
     ) {
-        let viewModel = LinkToObjectSearchViewModel(currentLink: currentLink, searchService: searchService) { data in
+        let viewModel = LinkToObjectSearchViewModel(spaceId: spaceId, currentLink: currentLink, searchService: searchService) { data in
             onSelect(data.searchKind)
         }
         let linkToView = SearchView(title: Loc.linkTo, viewModel: viewModel)

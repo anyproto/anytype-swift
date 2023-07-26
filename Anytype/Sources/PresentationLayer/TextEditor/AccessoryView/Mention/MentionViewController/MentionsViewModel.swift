@@ -35,7 +35,7 @@ final class MentionsViewModel {
         searchString = filterString
         searchTask?.cancel()
         searchTask = Task { @MainActor in
-            let mentions = try await mentionService.searchMentions(text: filterString, excludedObjectIds: [documentId])
+            let mentions = try await mentionService.searchMentions(spaceId: spaceId, text: filterString, excludedObjectIds: [documentId])
             view?.display(mentions.map { .mention($0) }, newObjectName: filterString)
         }
     }

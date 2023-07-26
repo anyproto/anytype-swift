@@ -67,6 +67,7 @@ extension StatusRelationDetailsViewModel {
     @ViewBuilder
     func makeSearchView() -> some View {
         newSearchModuleAssembly.statusSearchModule(
+            spaceId: details.spaceId,
             relationKey: relation.key,
             selectedStatusesIds: selectedStatus.flatMap { [$0.id] } ?? []
         ) { [weak self] ids in
