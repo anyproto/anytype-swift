@@ -17,9 +17,14 @@ public struct Invocation<Request, Response> where Request: Message,
     }
     
     @discardableResult
-    public func invoke(file: StaticString = #file, function: String = #function, line: UInt = #line) async throws -> Response {
+    public func invoke(
+        file: StaticString = #file,
+        function: String = #function,
+        line: UInt = #line,
+        shouldHandleEvent: Bool = false
+    ) async throws -> Response {
         do {
-            return try await internalInvoke()
+            return try await internalInvoke(shouldHandleEvent: shouldHandleEvent)
         } catch let error as CancellationError {
             // Ignore try Task.checkCancellation()
             throw error
@@ -31,7 +36,7 @@ public struct Invocation<Request, Response> where Request: Message,
     
     // MARK: - Private
     
-    private func internalInvoke() async throws -> Response {
+    private func internalInvoke(shouldHandleEvent: Bool) async throws -> Response {
         
         let result: Response
         
@@ -50,7 +55,7 @@ public struct Invocation<Request, Response> where Request: Message,
             throw result.error
         }
         
-        if result.hasEvent {
+        if shouldHandleEvent && result.hasEvent {
             await InvocationSettings.handler?.eventHandler(event: result.event)
         }
         

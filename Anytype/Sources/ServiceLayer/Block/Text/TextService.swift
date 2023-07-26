@@ -10,7 +10,12 @@ final class TextService: TextServiceProtocol {
             $0.blockID = blockId
             $0.text = middlewareString.text
             $0.marks = middlewareString.marks
-        }).invoke()
+        }).invoke(shouldHandleEvent: false)
+        
+        await EventsBunch(
+            contextId: contextId,
+            dataSourceUpdateEvents: [.reload(blockId: blockId)]
+        ).send()
     }
 
     func setTextForced(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) async throws {
