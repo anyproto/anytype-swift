@@ -84,8 +84,7 @@ struct KeyView_Previews : PreviewProvider {
             model: KeyPhraseViewModel(
                 state: JoinFlowState(),
                 output: nil,
-                alertOpener: DI.preview.uihelpersDI.alertOpener(),
-                localAuthService: DI.preview.serviceLocator.localAuthService()
+                alertOpener: DI.preview.uihelpersDI.alertOpener()
             )
         )
     }

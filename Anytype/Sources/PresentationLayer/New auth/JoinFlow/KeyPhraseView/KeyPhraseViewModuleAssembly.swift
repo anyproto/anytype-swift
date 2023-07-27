@@ -8,11 +8,9 @@ protocol KeyPhraseViewModuleAssemblyProtocol {
 final class KeyPhraseViewModuleAssembly: KeyPhraseViewModuleAssemblyProtocol {
     
     private let uiHelpersDI: UIHelpersDIProtocol
-    private let serviceLocator: ServiceLocator
 
-    init(uiHelpersDI: UIHelpersDIProtocol, serviceLocator: ServiceLocator) {
+    init(uiHelpersDI: UIHelpersDIProtocol) {
         self.uiHelpersDI = uiHelpersDI
-        self.serviceLocator = serviceLocator
     }
     
     // MARK: - KeyViewModuleAssemblyProtocol
@@ -23,8 +21,7 @@ final class KeyPhraseViewModuleAssembly: KeyPhraseViewModuleAssemblyProtocol {
             model: KeyPhraseViewModel(
                 state: state,
                 output: output,
-                alertOpener: uiHelpersDI.alertOpener(),
-                localAuthService: serviceLocator.localAuthService()
+                alertOpener: uiHelpersDI.alertOpener()
             )
         ).eraseToAnyView()
     }
