@@ -22,11 +22,19 @@ final class SentryConfigurator: AppConfiguratorProtocol {
             
             #if DEBUG
             options.attachViewHierarchy = true
-            options.attachScreenshot = true
             options.enableTimeToFullDisplay = true
             #endif
             
             options.environment = env
+        }
+        
+        let configProvider = ServiceLocator.shared.middlewareConfigurationProvider()
+        Task {
+            let version = (try? await configProvider.libraryVersion()) ?? "undefined"
+            SentrySDK.configureScope { scope in
+                scope.setContext(value: ["version" : version], key: "middleware")
+                scope.setTag(value: version, key: "middleware.version")
+            }
         }
         
         AssertionLogger.shared.handler = SentryNonFatalLogger()
