@@ -20,7 +20,7 @@ final class ActiveWorkspaceStorage: ActiveWorkpaceStorageProtocol {
     
     // MARK: - State
     
-    private var subscriptions: [AnyCancellable] = []
+    private var workspaceSubscription: AnyCancellable?
     @UserDefault("activeSpaceId", defaultValue: "")
     private var activeSpaceId: String
     @Published
@@ -33,7 +33,7 @@ final class ActiveWorkspaceStorage: ActiveWorkpaceStorageProtocol {
         self.workspaceService = workspaceService
         self.workspaceInfo = accountManager.account.info
         Task {
-            await checkActiveSpaceId()
+            await setupActiveSpace()
         }
     }
     
@@ -49,13 +49,30 @@ final class ActiveWorkspaceStorage: ActiveWorkpaceStorageProtocol {
     
     // MARK: - Private
     
-    private func checkActiveSpaceId() async {
+    private func setupActiveSpace() async {
         do {
             let info = try await workspaceService.workspaceInfo(spaceId: activeSpaceId)
             workspaceInfo = info
         } catch {
-            workspaceInfo = accountManager.account.info
-            activeSpaceId = workspaceInfo.accountSpaceId
+            resetActiveSpace()
         }
+        startSubscriotion()
+    }
+    
+    private func startSubscriotion() {
+        workspaceSubscription = workspaceStorage.workspsacesPublisher
+            .map { $0.map(\.spaceId) }
+            .receiveOnMain()
+            .sink { [weak self] spaceIds in
+                guard let self else { return }
+                if !spaceIds.contains(activeSpaceId) {
+                    resetActiveSpace()
+                }
+            }
+    }
+    
+    private func resetActiveSpace() {
+        workspaceInfo = accountManager.account.info
+        activeSpaceId = workspaceInfo.accountSpaceId
     }
 }

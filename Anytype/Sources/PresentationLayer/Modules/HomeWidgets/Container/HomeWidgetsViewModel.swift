@@ -128,8 +128,7 @@ final class HomeWidgetsViewModel: ObservableObject {
         widgetObject = documentService.document(objectId: workspaceInfo.widgetsId)
         
         widgetObject?.widgetsPublisher
-            .map { [weak self] blocks in
-                self?.dataLoaded = true
+            .map { [weak self] blocks -> [HomeWidgetSubmoduleModel] in
                 guard let self, let widgetObject = self.widgetObject else { return [] }
                 recentStateManagerProtocol.setupRecentStateIfNeeded(blocks: blocks, widgetObject: widgetObject)
                 return registry.providers(blocks: blocks, widgetObject: widgetObject)
@@ -138,6 +137,7 @@ final class HomeWidgetsViewModel: ObservableObject {
             .receiveOnMain()
             .sink { [weak self] models in
                 self?.models = models
+                self?.dataLoaded = true
             }
             .store(in: &objectSubscriptions)
         
