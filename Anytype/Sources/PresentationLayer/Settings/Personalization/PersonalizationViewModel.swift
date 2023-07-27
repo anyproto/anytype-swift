@@ -24,6 +24,7 @@ final class PersonalizationViewModel: ObservableObject {
     private func setupSubscriptions() {
         objectTypeProvider.defaultObjectTypePublisher
             .map { $0.name }
+            .receiveOnMain()
             .assign(to: &$objectType)
     }
 }
