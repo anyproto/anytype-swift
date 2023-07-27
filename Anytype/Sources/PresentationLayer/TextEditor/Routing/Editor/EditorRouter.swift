@@ -209,6 +209,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         
         let moveToView = newSearchModuleAssembly.blockObjectsSearchModule(
             title: Loc.moveTo,
+            spaceId: document.spaceId,
             excludedObjectIds: [document.objectId],
             excludedTypeIds: [
                 ObjectTypeId.bundled(.set).rawValue,
@@ -225,6 +226,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     func showLinkTo(onSelect: @escaping (ObjectDetails) -> ()) {
         let moduleView = newSearchModuleAssembly.blockObjectsSearchModule(
             title: Loc.linkTo,
+            spaceId: document.spaceId,
             excludedObjectIds: [document.objectId],
             excludedTypeIds: []
         ) { [weak self] details in

@@ -99,7 +99,7 @@ private extension StatusRelationDetailsViewModel {
         Task {
             try await service.updateRelation(relationKey: relation.key, value: newStatusId.protobufValue)
             
-            let newStatus = try await searchService.searchRelationOptions(optionIds: [newStatusId]).first
+            let newStatus = try await searchService.searchRelationOptions(optionIds: [newStatusId], spaceId: details.spaceId).first
                 .map { Relation.Status.Option(option: $0) }
             
             guard let newStatus = newStatus else {

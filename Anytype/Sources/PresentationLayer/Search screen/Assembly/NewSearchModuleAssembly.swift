@@ -204,14 +204,16 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
     
     func blockObjectsSearchModule(
         title: String,
+        spaceId: String,
         excludedObjectIds: [String],
         excludedTypeIds: [String],
         onSelect: @escaping (_ details: ObjectDetails) -> Void
     ) -> NewSearchView {
         let interactor = BlockObjectsSearchInteractor(
-            searchService: serviceLocator.searchService(),
+            spaceId: spaceId,
             excludedObjectIds: excludedObjectIds,
-            excludedTypeIds: excludedTypeIds
+            excludedTypeIds: excludedTypeIds,
+            searchService: serviceLocator.searchService()
         )
 
         let internalViewModel = ObjectsSearchViewModel(

@@ -23,13 +23,14 @@ protocol SearchServiceProtocol: AnyObject {
         text: String,
         excludedObjectIds: [String],
         excludedTypeIds: [String],
+        spaceId: String,
         sortRelationKey: BundledRelationKey?
     ) async throws -> [ObjectDetails]
     func searchRelationOptions(text: String, relationKey: String, excludedObjectIds: [String], spaceId: String) async throws -> [RelationOption]
-    func searchRelationOptions(optionIds: [String]) async throws -> [RelationOption]
-    func searchRelations(text: String, excludedIds: [String]) async throws -> [RelationDetails]
+    func searchRelationOptions(optionIds: [String], spaceId: String) async throws -> [RelationOption]
+    func searchRelations(text: String, excludedIds: [String], spaceId: String) async throws -> [RelationDetails]
     func searchMarketplaceRelations(text: String, includeInstalled: Bool) async throws -> [RelationDetails]
-    func searchArchiveObjectIds() async throws -> [String]
+    func searchArchiveObjectIds(spaceId: String) async throws -> [String]
 }
 
 final class SearchService: ObservableObject, SearchServiceProtocol {
@@ -38,16 +39,13 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         static let defaultLimit = 100
     }
     
-    private let accountManager: AccountManagerProtocol
     private let objectTypeProvider: ObjectTypeProviderProtocol
     private let relationDetailsStorage: RelationDetailsStorageProtocol
     
     init(
-        accountManager: AccountManagerProtocol,
         objectTypeProvider: ObjectTypeProviderProtocol,
         relationDetailsStorage: RelationDetailsStorageProtocol
     ) {
-        self.accountManager = accountManager
         self.objectTypeProvider = objectTypeProvider
         self.relationDetailsStorage = relationDetailsStorage
     }
@@ -187,6 +185,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         text: String,
         excludedObjectIds: [String],
         excludedTypeIds: [String],
+        spaceId: String,
         sortRelationKey: BundledRelationKey?
     ) async throws -> [ObjectDetails] {
         let sort = SearchHelper.sort(
@@ -195,7 +194,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         )
         
         let filters: [DataviewFilter] = .builder {
-            buildFilters(isArchived: false, layouts: DetailsLayout.visibleLayouts)
+            buildFilters(isArchived: false, spaceId: spaceId, layouts: DetailsLayout.visibleLayouts)
             SearchHelper.excludedIdsFilter(excludedObjectIds)
             SearchHelper.excludedTypeFilter(excludedTypeIds)
         }
@@ -221,9 +220,10 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         return details.map { RelationOption(details: $0) }
     }
 
-    func searchRelationOptions(optionIds: [String]) async throws -> [RelationOption] {
+    func searchRelationOptions(optionIds: [String], spaceId: String) async throws -> [RelationOption] {
         var filters = buildFilters(
             isArchived: false,
+            spaceId: spaceId,
             layouts: [DetailsLayout.relationOption]
         )
         filters.append(SearchHelper.supportedIdsFilter(optionIds))
@@ -232,14 +232,14 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         return details.map { RelationOption(details: $0) }
     }
     
-    func searchRelations(text: String, excludedIds: [String]) async throws -> [RelationDetails] {
+    func searchRelations(text: String, excludedIds: [String], spaceId: String) async throws -> [RelationDetails] {
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.name,
             type: .asc
         )
         
         let filters: [DataviewFilter] = .builder {
-            buildFilters(isArchived: false, layouts: [DetailsLayout.relation])
+            buildFilters(isArchived: false, spaceId: spaceId, layouts: [DetailsLayout.relation])
             SearchHelper.excludedRelationKeys(BundledRelationKey.systemKeys.map(\.rawValue))
             SearchHelper.excludedIdsFilter(excludedIds)
         }
@@ -269,8 +269,8 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         return details.map { RelationDetails(objectDetails: $0) }
     }
     
-    func searchArchiveObjectIds() async throws -> [String] {
-        let filters = FeatureFlags.showAllFilesInBin ? buildFilters(isArchived: true) : buildFilters(isArchived: true, layouts: DetailsLayout.visibleLayouts)
+    func searchArchiveObjectIds(spaceId: String) async throws -> [String] {
+        let filters = FeatureFlags.showAllFilesInBin ? buildFilters(isArchived: true, spaceId: spaceId) : buildFilters(isArchived: true, spaceId: spaceId, layouts: DetailsLayout.visibleLayouts)
         let keys = [BundledRelationKey.id.rawValue]
         let result = try await search(filters: filters, keys: keys)
         return result.map { $0.id }
@@ -320,20 +320,6 @@ private extension SearchService {
             SearchHelper.isArchivedFilter(isArchived: isArchived),
             SearchHelper.workspaceId(workspaceId)
         ]
-    }
-    
-    private func buildFilters(isArchived: Bool) -> [DataviewFilter] {
-        [
-            SearchHelper.notHiddenFilter(),
-            SearchHelper.isArchivedFilter(isArchived: isArchived),
-            SearchHelper.spaceId(accountManager.account.info.accountSpaceId)
-        ]
-    }
-    
-    private func buildFilters(isArchived: Bool, layouts: [DetailsLayout]) -> [DataviewFilter] {
-        var filters = buildFilters(isArchived: isArchived)
-        filters.append(SearchHelper.layoutFilter(layouts))
-        return filters
     }
     
     private func buildFilters(isArchived: Bool, spaceId: String) -> [DataviewFilter] {

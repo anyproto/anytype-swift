@@ -60,6 +60,7 @@ protocol NewSearchModuleAssemblyProtocol {
     
     func blockObjectsSearchModule(
         title: String,
+        spaceId: String,
         excludedObjectIds: [String],
         excludedTypeIds: [String],
         onSelect: @escaping (_ details: ObjectDetails) -> Void
