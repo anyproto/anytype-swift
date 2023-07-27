@@ -31,7 +31,7 @@ final class HomeWidgetsCoordinatorAssembly: HomeWidgetsCoordinatorAssemblyProtoc
     func make() -> HomeWidgetsCoordinatorProtocol {
         return HomeWidgetsCoordinator(
             homeWidgetsModuleAssembly: modulesDI.homeWidgets(),
-            activeSpaceStorage: serviceLocator.activeSpaceStorage(),
+            activeWorkspaceStorage: serviceLocator.activeWorkspaceStorage(),
             navigationContext: uiHelpersDI.commonNavigationContext(),
             createWidgetCoordinator: coordinatorsID.createWidget().make(),
             editorBrowserCoordinator: coordinatorsID.editorBrowser().make(),

@@ -14,7 +14,7 @@ final class SettingsAccountViewModel: ObservableObject {
     
     // MARK: - DI
     
-    private let activeSpaceStorage: ActiveSpaceStorageProtocol
+    private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private let subscriptionService: SingleObjectSubscriptionServiceProtocol
     private let objectActionsService: ObjectActionsServiceProtocol
     private weak var output: SettingsAccountModuleOutput?
@@ -27,12 +27,12 @@ final class SettingsAccountViewModel: ObservableObject {
     private var dataLoaded: Bool = false
     
     init(
-        activeSpaceStorage: ActiveSpaceStorageProtocol,
+        activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
         subscriptionService: SingleObjectSubscriptionServiceProtocol,
         objectActionsService: ObjectActionsServiceProtocol,
         output: SettingsAccountModuleOutput?
     ) {
-        self.activeSpaceStorage = activeSpaceStorage
+        self.activeWorkspaceStorage = activeWorkspaceStorage
         self.subscriptionService = subscriptionService
         self.objectActionsService = objectActionsService
         self.output = output
@@ -53,7 +53,7 @@ final class SettingsAccountViewModel: ObservableObject {
     }
     
     func onChangeIconTap() {
-        output?.onChangeIconSelected(objectId: activeSpaceStorage.workspaceInfo.profileObjectID)
+        output?.onChangeIconSelected(objectId: activeWorkspaceStorage.workspaceInfo.profileObjectID)
     }
     
     // MARK: - Private
@@ -61,7 +61,7 @@ final class SettingsAccountViewModel: ObservableObject {
     private func setupSubscription() {
         subscriptionService.startSubscription(
             subIdPrefix: Constants.subId,
-            objectId: activeSpaceStorage.workspaceInfo.profileObjectID
+            objectId: activeWorkspaceStorage.workspaceInfo.profileObjectID
         ) { [weak self] details in
             self?.updateProfile(details: details)
         }
@@ -85,7 +85,7 @@ final class SettingsAccountViewModel: ObservableObject {
     private func updateSpaceName(name: String) {
         Task {
             try await objectActionsService.updateBundledDetails(
-                contextID: activeSpaceStorage.workspaceInfo.profileObjectID,
+                contextID: activeWorkspaceStorage.workspaceInfo.profileObjectID,
                 details: [.name(name)]
             )
         }

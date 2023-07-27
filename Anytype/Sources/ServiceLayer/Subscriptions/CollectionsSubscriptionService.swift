@@ -19,16 +19,16 @@ final class CollectionsSubscriptionService: CollectionsSubscriptionServiceProtoc
     
     private let subscriptionService: SubscriptionsServiceProtocol
     private let objectTypeProvider: ObjectTypeProviderProtocol
-    private let activeSpaceStorage: ActiveSpaceStorageProtocol
+    private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private let subscriptionId = SubscriptionId(value: "Collections-\(UUID().uuidString)")
     
     init(
         subscriptionService: SubscriptionsServiceProtocol,
-        activeSpaceStorage: ActiveSpaceStorageProtocol,
+        activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
         objectTypeProvider: ObjectTypeProviderProtocol
     ) {
         self.subscriptionService = subscriptionService
-        self.activeSpaceStorage = activeSpaceStorage
+        self.activeWorkspaceStorage = activeWorkspaceStorage
         self.objectTypeProvider = objectTypeProvider
     }
     
@@ -45,7 +45,7 @@ final class CollectionsSubscriptionService: CollectionsSubscriptionServiceProtoc
         let filters = [
             SearchHelper.notHiddenFilter(),
             SearchHelper.isArchivedFilter(isArchived: false),
-            SearchHelper.spaceId(activeSpaceStorage.workspaceInfo.accountSpaceId),
+            SearchHelper.spaceId(activeWorkspaceStorage.workspaceInfo.accountSpaceId),
             SearchHelper.layoutFilter([DetailsLayout.collection])
         ]
         

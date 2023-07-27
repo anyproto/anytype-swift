@@ -21,7 +21,7 @@ final class HomeBottomPanelModuleAssembly: HomeBottomPanelModuleAssemblyProtocol
     @MainActor
     func make(stateManager: HomeWidgetsStateManagerProtocol, output: HomeBottomPanelModuleOutput?) -> AnyView {
         let model = HomeBottomPanelViewModel(
-            activeSpaceStorage: serviceLocator.activeSpaceStorage(),
+            activeWorkspaceStorage: serviceLocator.activeWorkspaceStorage(),
             subscriptionService: serviceLocator.singleObjectSubscriptionService(),
             stateManager: stateManager,
             dashboardService: serviceLocator.dashboardService(),

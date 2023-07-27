@@ -25,7 +25,7 @@ final class SetCompactListWidgetModuleAssembly: HomeWidgetCommonAssemblyProtocol
             widgetBlockId: widgetBlockId,
             widgetObject: widgetObject,
             setSubscriptionDataBuilder: SetSubscriptionDataBuilder(
-                activeSpaceStorage: serviceLocator.activeSpaceStorage()
+                activeWorkspaceStorage: serviceLocator.activeWorkspaceStorage()
             ),
             subscriptionService: serviceLocator.subscriptionService(),
             documentService: serviceLocator.documentService(),

@@ -14,7 +14,7 @@ final class FileStorageViewModel: ObservableObject {
     }
     
     private let accountManager: AccountManagerProtocol
-    private let activeSpaceStorage: ActiveSpaceStorageProtocol
+    private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private let subscriptionService: SingleObjectSubscriptionServiceProtocol
     private let fileLimitsStorage: FileLimitsStorageProtocol
     private weak var output: FileStorageModuleOutput?
@@ -44,13 +44,13 @@ final class FileStorageViewModel: ObservableObject {
     
     init(
         accountManager: AccountManagerProtocol,
-        activeSpaceStorage: ActiveSpaceStorageProtocol,
+        activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
         subscriptionService: SingleObjectSubscriptionServiceProtocol,
         fileLimitsStorage: FileLimitsStorageProtocol,
         output: FileStorageModuleOutput?
     ) {
         self.accountManager = accountManager
-        self.activeSpaceStorage = activeSpaceStorage
+        self.activeWorkspaceStorage = activeWorkspaceStorage
         self.subscriptionService = subscriptionService
         self.fileLimitsStorage = fileLimitsStorage
         self.output = output
@@ -74,7 +74,7 @@ final class FileStorageViewModel: ObservableObject {
         guard let limits else { return }
         AnytypeAnalytics.instance().logGetMoreSpace()
         Task { @MainActor in
-            let profileDocument = BaseDocument(objectId: activeSpaceStorage.workspaceInfo.profileObjectID, forPreview: true)
+            let profileDocument = BaseDocument(objectId: activeWorkspaceStorage.workspaceInfo.profileObjectID, forPreview: true)
             try await profileDocument.openForPreview()
             let limit = byteCountFormatter.string(fromByteCount: limits.bytesLimit)
             let mailLink = MailUrl(
@@ -90,7 +90,7 @@ final class FileStorageViewModel: ObservableObject {
     // MARK: - Private
     
     private func setupSubscription() {
-        fileLimitsStorage.setupSpaceId(spaceId: activeSpaceStorage.workspaceInfo.accountSpaceId)
+        fileLimitsStorage.setupSpaceId(spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId)
         fileLimitsStorage.limits
             .receiveOnMain()
             .sink { [weak self] limits in
@@ -107,7 +107,7 @@ final class FileStorageViewModel: ObservableObject {
         
         subscriptionService.startSubscription(
             subIdPrefix: Constants.subSpaceId,
-            objectId: activeSpaceStorage.workspaceInfo.workspaceObjectId
+            objectId: activeWorkspaceStorage.workspaceInfo.workspaceObjectId
         ) { [weak self] details in
             self?.handleSpaceDetails(details: details)
         }

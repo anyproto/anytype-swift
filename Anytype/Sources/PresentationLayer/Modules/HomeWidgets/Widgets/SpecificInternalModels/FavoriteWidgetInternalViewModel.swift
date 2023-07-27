@@ -21,11 +21,11 @@ final class FavoriteWidgetInternalViewModel: CommonWidgetInternalViewModel, Widg
         widgetBlockId: BlockId,
         widgetObject: BaseDocumentProtocol,
         favoriteSubscriptionService: FavoriteSubscriptionServiceProtocol,
-        activeSpaceStorage: ActiveSpaceStorageProtocol,
+        activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
         documentService: DocumentServiceProtocol
     ) {
         self.favoriteSubscriptionService = favoriteSubscriptionService
-        self.document = documentService.document(objectId: activeSpaceStorage.workspaceInfo.homeObjectID)
+        self.document = documentService.document(objectId: activeWorkspaceStorage.workspaceInfo.homeObjectID)
         super.init(widgetBlockId: widgetBlockId, widgetObject: widgetObject)
     }
     

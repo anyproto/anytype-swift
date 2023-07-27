@@ -8,10 +8,10 @@ extension SubscriptionId {
 
 final class SetSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol {
     
-    private let activeSpaceStorage: ActiveSpaceStorageProtocol
+    private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     
-    init(activeSpaceStorage: ActiveSpaceStorageProtocol) {
-        self.activeSpaceStorage = activeSpaceStorage
+    init(activeWorkspaceStorage: ActiveWorkpaceStorageProtocol) {
+        self.activeWorkspaceStorage = activeWorkspaceStorage
     }
     
     // MARK: - SetSubscriptionDataBuilderProtocol
@@ -24,7 +24,7 @@ final class SetSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol {
         let offset = (data.currentPage - 1) * numberOfRowsPerPageInSubscriptions
         
         let defaultFilters = [
-            SearchHelper.spaceId(activeSpaceStorage.workspaceInfo.accountSpaceId)
+            SearchHelper.spaceId(activeWorkspaceStorage.workspaceInfo.accountSpaceId)
         ]
         
         let filters = data.filters + defaultFilters

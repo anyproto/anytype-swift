@@ -148,7 +148,7 @@ final class ServiceLocator {
     func recentSubscriptionService() -> RecentSubscriptionServiceProtocol {
         return RecentSubscriptionService(
             subscriptionService: subscriptionService(),
-            activeSpaceStorage: activeSpaceStorage(),
+            activeWorkspaceStorage: activeWorkspaceStorage(),
             objectTypeProvider: objectTypeProvider()
         )
     }
@@ -156,7 +156,7 @@ final class ServiceLocator {
     func setsSubscriptionService() -> SetsSubscriptionServiceProtocol {
         return SetsSubscriptionService(
             subscriptionService: subscriptionService(),
-            activeSpaceStorage: activeSpaceStorage(),
+            activeWorkspaceStorage: activeWorkspaceStorage(),
             objectTypeProvider: objectTypeProvider()
         )
     }
@@ -164,7 +164,7 @@ final class ServiceLocator {
     func collectionsSubscriptionService() -> CollectionsSubscriptionServiceProtocol {
         return CollectionsSubscriptionService(
             subscriptionService: subscriptionService(),
-            activeSpaceStorage: activeSpaceStorage(),
+            activeWorkspaceStorage: activeWorkspaceStorage(),
             objectTypeProvider: objectTypeProvider()
         )
     }
@@ -172,7 +172,7 @@ final class ServiceLocator {
     func binSubscriptionService() -> BinSubscriptionServiceProtocol {
         return BinSubscriptionService(
             subscriptionService: subscriptionService(),
-            activeSpaceStorage: activeSpaceStorage()
+            activeWorkspaceStorage: activeWorkspaceStorage()
         )
     }
     
@@ -184,7 +184,7 @@ final class ServiceLocator {
     }
     
     func filesSubscriptionManager() -> FilesSubscriptionServiceProtocol {
-        return FilesSubscriptionService(subscriptionService: subscriptionService(), activeSpaceStorage: activeSpaceStorage())
+        return FilesSubscriptionService(subscriptionService: subscriptionService(), activeWorkspaceStorage: activeWorkspaceStorage())
     }
     
     private lazy var _middlewareConfigurationProvider = MiddlewareConfigurationProvider()
@@ -257,13 +257,13 @@ final class ServiceLocator {
     }
     
     // In future lifecycle should be depend for screen
-    private lazy var _activeSpaceStorage = ActiveSpaceStorage(
+    private lazy var _activeWorkspaceStorage = ActiveWorkspaceStorage(
         workspaceStorage: workspaceStorage(),
         accountManager: accountManager(),
         workspaceService: workspaceService()
     )
-    func activeSpaceStorage() -> ActiveSpaceStorageProtocol {
-        return _activeSpaceStorage
+    func activeWorkspaceStorage() -> ActiveWorkpaceStorageProtocol {
+        return _activeWorkspaceStorage
     }
 
     private lazy var _workspaceStorage = WorkspacesStorage(

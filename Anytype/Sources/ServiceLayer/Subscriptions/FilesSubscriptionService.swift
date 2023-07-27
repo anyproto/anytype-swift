@@ -19,15 +19,15 @@ final class FilesSubscriptionService: FilesSubscriptionServiceProtocol {
     }
     
     private let subscriptionService: SubscriptionsServiceProtocol
-    private let activeSpaceStorage: ActiveSpaceStorageProtocol
+    private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private let subscriptionId = SubscriptionId(value: "Files-\(UUID().uuidString)")
     
     init(
         subscriptionService: SubscriptionsServiceProtocol,
-        activeSpaceStorage: ActiveSpaceStorageProtocol
+        activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     ) {
         self.subscriptionService = subscriptionService
-        self.activeSpaceStorage = activeSpaceStorage
+        self.activeWorkspaceStorage = activeWorkspaceStorage
     }
     
     // MARK: - FilesSubscriptionServiceProtocol
@@ -45,7 +45,7 @@ final class FilesSubscriptionService: FilesSubscriptionServiceProtocol {
         
         let filters = [
             SearchHelper.notHiddenFilter(),
-            SearchHelper.spaceId(activeSpaceStorage.workspaceInfo.accountSpaceId),
+            SearchHelper.spaceId(activeWorkspaceStorage.workspaceInfo.accountSpaceId),
             SearchHelper.layoutFilter([DetailsLayout.file, DetailsLayout.image]),
             SearchHelper.fileSyncStatus(syncStatus)
         ]

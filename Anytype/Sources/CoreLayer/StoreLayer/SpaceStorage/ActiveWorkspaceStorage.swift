@@ -4,13 +4,13 @@ import AnytypeCore
 import Services
 
 // Storage for store active space id for each screen.
-protocol ActiveSpaceStorageProtocol: AnyObject {
+protocol ActiveWorkpaceStorageProtocol: AnyObject {
     var workspaceInfo: AccountInfo { get }
     var workspaceInfoPublisher: AnyPublisher<AccountInfo, Never> { get }
     func setActiveSpace(spaceId: String) async throws
 }
 
-final class ActiveSpaceStorage: ActiveSpaceStorageProtocol {
+final class ActiveWorkspaceStorage: ActiveWorkpaceStorageProtocol {
     
     // MARK: - DI
     
@@ -20,6 +20,7 @@ final class ActiveSpaceStorage: ActiveSpaceStorageProtocol {
     
     // MARK: - State
     
+    private var subscriptions: [AnyCancellable] = []
     @UserDefault("activeSpaceId", defaultValue: "")
     private var activeSpaceId: String
     @Published

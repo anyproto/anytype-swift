@@ -15,7 +15,7 @@ final class HomeWidgetsViewModel: ObservableObject {
     private let objectActionService: ObjectActionsServiceProtocol
     private let recentStateManagerProtocol: HomeWidgetsRecentStateManagerProtocol
     private let documentService: DocumentServiceProtocol
-    private let activeSpaceStorage: ActiveSpaceStorageProtocol
+    private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     // Temporary
     private let workspaceService: WorkspaceServiceProtocol
     private let workspacesStorage: WorkspacesStorageProtocol
@@ -42,7 +42,7 @@ final class HomeWidgetsViewModel: ObservableObject {
         objectActionService: ObjectActionsServiceProtocol,
         recentStateManagerProtocol: HomeWidgetsRecentStateManagerProtocol,
         documentService: DocumentServiceProtocol,
-        activeSpaceStorage: ActiveSpaceStorageProtocol,
+        activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
         workspaceService: WorkspaceServiceProtocol,
         workspacesStorage: WorkspacesStorageProtocol,
         output: HomeWidgetsModuleOutput?
@@ -54,7 +54,7 @@ final class HomeWidgetsViewModel: ObservableObject {
         self.objectActionService = objectActionService
         self.recentStateManagerProtocol = recentStateManagerProtocol
         self.documentService = documentService
-        self.activeSpaceStorage = activeSpaceStorage
+        self.activeWorkspaceStorage = activeWorkspaceStorage
         self.workspaceService = workspaceService
         self.workspacesStorage = workspacesStorage
         self.output = output
@@ -111,7 +111,7 @@ final class HomeWidgetsViewModel: ObservableObject {
     // Temporary
     func onTapSwitchWorkspace(details: ObjectDetails) {
         Task {
-            try? await activeSpaceStorage.setActiveSpace(spaceId: details.spaceId)
+            try? await activeWorkspaceStorage.setActiveSpace(spaceId: details.spaceId)
         }
     }
     
@@ -136,18 +136,20 @@ final class HomeWidgetsViewModel: ObservableObject {
             }
             .removeDuplicates()
             .receiveOnMain()
-            .assign(to: \.models, on: self)
+            .sink { [weak self] models in
+                self?.models = models
+            }
             .store(in: &objectSubscriptions)
         
         stateManager.isEditStatePublisher
             .receiveOnMain()
-            .assign(to: \.hideEditButton, on: self)
-            .store(in: &objectSubscriptions)
+            .assign(to: &$hideEditButton)
     }
     
     private func setupSpaceSubscription() {
-        activeSpaceSubscription = activeSpaceStorage
+        activeSpaceSubscription = activeWorkspaceStorage
             .workspaceInfoPublisher
+            .receiveOnMain()
             .sink { [weak self] info in
                 self?.updateWidgetSubscriptions(workspaceInfo: info)
             }

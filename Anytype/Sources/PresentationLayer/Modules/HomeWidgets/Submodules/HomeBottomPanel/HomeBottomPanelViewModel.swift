@@ -27,7 +27,7 @@ final class HomeBottomPanelViewModel: ObservableObject {
     
     // MARK: - Private properties
     
-    private let activeSpaceStorage: ActiveSpaceStorageProtocol
+    private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private let subscriptionService: SingleObjectSubscriptionServiceProtocol
     private let stateManager: HomeWidgetsStateManagerProtocol
     private let dashboardService: DashboardServiceProtocol
@@ -44,13 +44,13 @@ final class HomeBottomPanelViewModel: ObservableObject {
     @Published var buttonState: ButtonState = .normal([])
     
     init(
-        activeSpaceStorage: ActiveSpaceStorageProtocol,
+        activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
         subscriptionService: SingleObjectSubscriptionServiceProtocol,
         stateManager: HomeWidgetsStateManagerProtocol,
         dashboardService: DashboardServiceProtocol,
         output: HomeBottomPanelModuleOutput?
     ) {
-        self.activeSpaceStorage = activeSpaceStorage
+        self.activeWorkspaceStorage = activeWorkspaceStorage
         self.subscriptionService = subscriptionService
         self.stateManager = stateManager
         self.dashboardService = dashboardService
@@ -88,7 +88,7 @@ final class HomeBottomPanelViewModel: ObservableObject {
     }
     
     private func setupSubscription() {
-        workspaceSubscription = activeSpaceStorage.workspaceInfoPublisher.sink { [weak self] info in
+        workspaceSubscription = activeWorkspaceStorage.workspaceInfoPublisher.sink { [weak self] info in
             self?.setupDataSubscription(workspaceInfo: info)
         }
     }
@@ -105,6 +105,7 @@ final class HomeBottomPanelViewModel: ObservableObject {
         }
         
         stateManager.isEditStatePublisher
+            .receiveOnMain()
             .sink { [weak self] in self?.updateModels(isEditState: $0) }
             .store(in: &dataSubscriptions)
     }
