@@ -19,10 +19,10 @@ final class SquareCharIconPainter: IconPainter {
     
     func draw(bounds: CGRect, context: CGContext, iconContext: IconContext) {
         
-        let side = min(bounds.size.width, bounds.size.height)
-        
         context.saveGState()
         
+        let side = min(bounds.size.width, bounds.size.height)
+       
         let path = UIBezierPath(roundedRect: bounds, cornerRadius: side * (1/12)).cgPath
         context.addPath(path)
         context.clip()

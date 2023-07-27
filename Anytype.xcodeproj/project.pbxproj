@@ -351,7 +351,6 @@
 		2A17643A283E2245002853D3 /* ContentUrlBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A176439283E2245002853D3 /* ContentUrlBuilder.swift */; };
 		2A1AEDA028FD318A008C3660 /* MarkupViewTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1AED9F28FD318A008C3660 /* MarkupViewTypes.swift */; };
 		2A1D2B3E2A42CD0300B07596 /* UIUserInterfaceStyle+Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1D2B3D2A42CD0300B07596 /* UIUserInterfaceStyle+Analytics.swift */; };
-		2A1ED0A72A16698B00567CE9 /* SwiftUIObjectIconImageViewWithPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1ED0A62A16698B00567CE9 /* SwiftUIObjectIconImageViewWithPlaceholder.swift */; };
 		2A1F4CBA29B88DBE004516F6 /* SentryConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1F4CB829B88DBE004516F6 /* SentryConfiguration.swift */; };
 		2A1F4CBB29B88DBE004516F6 /* SentryNonFatalLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1F4CB929B88DBE004516F6 /* SentryNonFatalLogger.swift */; };
 		2A1F946E2978208F00E25782 /* ListWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1F946D2978208F00E25782 /* ListWidgetView.swift */; };
@@ -1849,7 +1848,6 @@
 		2A176439283E2245002853D3 /* ContentUrlBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentUrlBuilder.swift; sourceTree = "<group>"; };
 		2A1AED9F28FD318A008C3660 /* MarkupViewTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupViewTypes.swift; sourceTree = "<group>"; };
 		2A1D2B3D2A42CD0300B07596 /* UIUserInterfaceStyle+Analytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIUserInterfaceStyle+Analytics.swift"; sourceTree = "<group>"; };
-		2A1ED0A62A16698B00567CE9 /* SwiftUIObjectIconImageViewWithPlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIObjectIconImageViewWithPlaceholder.swift; sourceTree = "<group>"; };
 		2A1F4CB829B88DBE004516F6 /* SentryConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SentryConfiguration.swift; sourceTree = "<group>"; };
 		2A1F4CB929B88DBE004516F6 /* SentryNonFatalLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SentryNonFatalLogger.swift; sourceTree = "<group>"; };
 		2A1F946D2978208F00E25782 /* ListWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListWidgetView.swift; sourceTree = "<group>"; };
@@ -6323,7 +6321,6 @@
 			children = (
 				2A6693692A7104EA007747DD /* Models */,
 				2A6693602A7104EA007747DD /* ObjectIconImageGuidelines */,
-				2A1ED0A62A16698B00567CE9 /* SwiftUIObjectIconImageViewWithPlaceholder.swift */,
 			);
 			path = ObjectIcon;
 			sourceTree = "<group>";
@@ -10280,7 +10277,6 @@
 				3D3A182A2733E946000D0842 /* MarkdownListener.swift in Sources */,
 				2A6693752A7104EA007747DD /* StaticImageGuideline.swift in Sources */,
 				2A03039A28ABAA99002EFC46 /* TextRelationCopyActionViewModel.swift in Sources */,
-				2A1ED0A72A16698B00567CE9 /* SwiftUIObjectIconImageViewWithPlaceholder.swift in Sources */,
 				3D3040AD27DB5A7300FFE0EB /* AnytypePopupLayoutType.swift in Sources */,
 				2A143A9F284775E20034729E /* AccountInfo.swift in Sources */,
 				2AF4C3E0295D837C00FD7153 /* ObjectTreeWidgetModuleAssembly.swift in Sources */,
