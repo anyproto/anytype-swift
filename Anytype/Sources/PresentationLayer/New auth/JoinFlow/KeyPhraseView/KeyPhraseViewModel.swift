@@ -13,20 +13,17 @@ final class KeyPhraseViewModel: ObservableObject {
     
     private weak var output: JoinFlowStepOutput?
     private let alertOpener: AlertOpenerProtocol
-    private let localAuthService: LocalAuthServiceProtocol
     
     init(
         state: JoinFlowState,
         output: JoinFlowStepOutput?,
-        alertOpener: AlertOpenerProtocol,
-        localAuthService: LocalAuthServiceProtocol
+        alertOpener: AlertOpenerProtocol
     ) {
         self.state = state
         self.key = state.mnemonic
         self.keyShown = state.keyShown
         self.output = output
         self.alertOpener = alertOpener
-        self.localAuthService = localAuthService
     }
     
     func onAppear() {
@@ -38,13 +35,7 @@ final class KeyPhraseViewModel: ObservableObject {
             output?.onNext()
         } else {
             AnytypeAnalytics.instance().logClickOnboarding(step: .phrase, button: .showAndCopy)
-            localAuthService.auth(reason: Loc.accessToSecretPhraseFromKeychain) { didComplete in
-                guard didComplete else { return }
-                DispatchQueue.main.async { [weak self] in
-                    guard let self = self else { return }
-                    self.keyShown = true
-                }
-            }
+            keyShown = true
         }
     }
     
