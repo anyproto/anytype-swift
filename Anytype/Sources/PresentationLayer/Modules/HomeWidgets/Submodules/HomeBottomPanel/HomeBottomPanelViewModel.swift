@@ -88,9 +88,11 @@ final class HomeBottomPanelViewModel: ObservableObject {
     }
     
     private func setupSubscription() {
-        workspaceSubscription = activeWorkspaceStorage.workspaceInfoPublisher.sink { [weak self] info in
-            self?.setupDataSubscription(workspaceInfo: info)
-        }
+        workspaceSubscription = activeWorkspaceStorage.workspaceInfoPublisher
+            .receiveOnMain()
+            .sink { [weak self] info in
+                self?.setupDataSubscription(workspaceInfo: info)
+            }
     }
     
     private func setupDataSubscription(workspaceInfo: AccountInfo) {
