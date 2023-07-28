@@ -27,7 +27,6 @@ final class ActiveWorkspaceStorage: ActiveWorkpaceStorageProtocol {
     private(set) var workspaceInfo: AccountInfo
     
     init(workspaceStorage: WorkspacesStorageProtocol, accountManager: AccountManagerProtocol, workspaceService: WorkspaceServiceProtocol) {
-        // TODO: Handle deleted workpace
         self.workspaceStorage = workspaceStorage
         self.accountManager = accountManager
         self.workspaceService = workspaceService
