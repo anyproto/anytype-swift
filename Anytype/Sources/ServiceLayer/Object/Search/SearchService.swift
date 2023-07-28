@@ -22,7 +22,7 @@ protocol SearchServiceProtocol: AnyObject {
     func searchObjects(
         text: String,
         excludedObjectIds: [String],
-        excludedTypeIds: [String],
+        excludedLayouts: [DetailsLayout],
         spaceId: String,
         sortRelationKey: BundledRelationKey?
     ) async throws -> [ObjectDetails]
@@ -105,7 +105,9 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         }
         
         let filters: [DataviewFilter] = .builder {
-            buildFilters(isArchived: false, spaceId: spaceId)
+//            buildFilters(isArchived: false, spaceId: spaceId)
+            SearchHelper.notHiddenFilter()
+            SearchHelper.isArchivedFilter(isArchived: false)
             SearchHelper.layoutFilter([DetailsLayout.objectType])
             SearchHelper.recomendedLayoutFilter(layouts)
             if let filteringTypeId {
@@ -115,14 +117,15 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         
         let result = try await search(filters: filters, sorts: [sort], fullText: text)
 
-        return result.reordered(
-            by: [
-                ObjectTypeId.bundled(.page).rawValue,
-                ObjectTypeId.bundled(.note).rawValue,
-                ObjectTypeId.bundled(.task).rawValue,
-                ObjectTypeId.bundled(.collection).rawValue
-            ]
-        ) { $0.id }
+        return result
+//        return result.reordered(
+//            by: [
+//                ObjectTypeId.bundled(.page).rawValue,
+//                ObjectTypeId.bundled(.note).rawValue,
+//                ObjectTypeId.bundled(.task).rawValue,
+//                ObjectTypeId.bundled(.collection).rawValue
+//            ]
+//        ) { $0.id }
     }
     
     func searchMarketplaceObjectTypes(text: String, includeInstalled: Bool) async throws -> [ObjectDetails] {
@@ -184,7 +187,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
     func searchObjects(
         text: String,
         excludedObjectIds: [String],
-        excludedTypeIds: [String],
+        excludedLayouts: [DetailsLayout],
         spaceId: String,
         sortRelationKey: BundledRelationKey?
     ) async throws -> [ObjectDetails] {
@@ -196,7 +199,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         let filters: [DataviewFilter] = .builder {
             buildFilters(isArchived: false, spaceId: spaceId, layouts: DetailsLayout.visibleLayouts)
             SearchHelper.excludedIdsFilter(excludedObjectIds)
-            SearchHelper.excludedTypeFilter(excludedTypeIds)
+            SearchHelper.excludedLayoutFilter(excludedLayouts)
         }
         
         return try await search(filters: filters, sorts: [sort], fullText: text, limit: Constants.defaultLimit)

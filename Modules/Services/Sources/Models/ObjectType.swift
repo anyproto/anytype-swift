@@ -23,6 +23,7 @@ public struct ObjectType: Equatable, Hashable, Codable {
     public let sourceObject: String
     
     public let recommendedRelations: [ObjectId]
+    public let recommendedLayout: DetailsLayout?
     
     public init(
         id: String,
@@ -34,7 +35,8 @@ public struct ObjectType: Equatable, Hashable, Codable {
         isArchived: Bool,
         isDeleted: Bool,
         sourceObject: String,
-        recommendedRelations: [ObjectId]
+        recommendedRelations: [ObjectId],
+        recommendedLayout: DetailsLayout?
     ) {
         self.id = id
         self.name = name
@@ -46,6 +48,7 @@ public struct ObjectType: Equatable, Hashable, Codable {
         self.isDeleted = isDeleted
         self.sourceObject = sourceObject
         self.recommendedRelations = recommendedRelations
+        self.recommendedLayout = recommendedLayout
     }
 }
 
@@ -62,7 +65,8 @@ extension ObjectType {
             isArchived: details.isArchived,
             isDeleted: details.isDeleted,
             sourceObject: details.sourceObject,
-            recommendedRelations: details.recommendedRelations
+            recommendedRelations: details.recommendedRelations,
+            recommendedLayout: details.recommendedLayoutValue
         )
     }
     

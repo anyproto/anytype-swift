@@ -206,13 +206,13 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         title: String,
         spaceId: String,
         excludedObjectIds: [String],
-        excludedTypeIds: [String],
+        excludedLayouts: [DetailsLayout],
         onSelect: @escaping (_ details: ObjectDetails) -> Void
     ) -> NewSearchView {
         let interactor = BlockObjectsSearchInteractor(
             spaceId: spaceId,
             excludedObjectIds: excludedObjectIds,
-            excludedTypeIds: excludedTypeIds,
+            excludedLayouts: excludedLayouts,
             searchService: serviceLocator.searchService()
         )
 

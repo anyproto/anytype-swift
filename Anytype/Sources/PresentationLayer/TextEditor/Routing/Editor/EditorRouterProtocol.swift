@@ -47,8 +47,8 @@ protocol EditorRouterProtocol:
     func showLinkTo(onSelect: @escaping (ObjectDetails) -> ())
     func showSearch(onSelect: @escaping (EditorScreenData) -> ())
 
-    func showTypes(selectedObjectId: BlockId?, onSelect: @escaping (BlockId) -> ())
-    func showTypesForEmptyObject(selectedObjectId: BlockId?, onSelect: @escaping (BlockId) -> ())
+    func showTypes(selectedObjectId: BlockId?, onSelect: @escaping (ObjectType) -> ())
+    func showTypesForEmptyObject(selectedObjectId: BlockId?, onSelect: @escaping (ObjectType) -> ())
     func showObjectPreview(
         blockLinkState: BlockLinkState,
         onSelect: @escaping (BlockLink.Appearance) -> Void

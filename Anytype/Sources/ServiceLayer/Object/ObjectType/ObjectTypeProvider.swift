@@ -54,7 +54,8 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
             isArchived: false,
             isDeleted: true,
             sourceObject: "",
-            recommendedRelations: []
+            recommendedRelations: [],
+            recommendedLayout: nil
         )
     }
     

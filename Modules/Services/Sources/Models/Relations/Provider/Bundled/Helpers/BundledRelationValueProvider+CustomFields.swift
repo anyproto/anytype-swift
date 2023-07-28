@@ -17,6 +17,9 @@ extension BundledRelationsValueProvider {
         return layout
     }
     
+    public var recommendedLayoutValue: DetailsLayout? {
+        return recommendedLayout.flatMap { DetailsLayout(rawValue: $0) }
+    }
     
     public var coverTypeValue: CoverType {
         guard

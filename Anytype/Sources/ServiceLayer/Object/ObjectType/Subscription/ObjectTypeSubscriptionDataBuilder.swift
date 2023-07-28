@@ -25,8 +25,8 @@ final class ObjectTypeSubscriptionDataBuilder: ObjectTypeSubscriptionDataBuilder
             type: .asc
         )
         let filters = [
-            SearchHelper.layoutFilter([DetailsLayout.objectType]),
-            SearchHelper.spaceId(accountManager.account.info.accountSpaceId)
+            SearchHelper.layoutFilter([DetailsLayout.objectType])//,
+//            SearchHelper.spaceId(accountManager.account.info.accountSpaceId)
         ]
         
         let keys = [

@@ -62,7 +62,7 @@ protocol NewSearchModuleAssemblyProtocol {
         title: String,
         spaceId: String,
         excludedObjectIds: [String],
-        excludedTypeIds: [String],
+        excludedLayouts: [DetailsLayout],
         onSelect: @escaping (_ details: ObjectDetails) -> Void
     ) -> NewSearchView
     

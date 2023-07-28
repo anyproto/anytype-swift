@@ -811,7 +811,7 @@ extension EditorSetViewModel {
     }
     
     private func handleCreatedObject(details: ObjectDetails) {
-        if details.type == ObjectTypeId.BundledTypeId.note.rawValue {
+        if details.layoutValue == .note {
             openObject(details: details)
         } else {
             router?.showCreateObject(details: details)

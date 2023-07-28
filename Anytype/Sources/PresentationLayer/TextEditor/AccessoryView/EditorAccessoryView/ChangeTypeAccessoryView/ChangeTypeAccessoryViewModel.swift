@@ -57,7 +57,7 @@ final class ChangeTypeAccessoryViewModel {
                     spaceId: self?.document.spaceId ?? ""
                 ).map { type in
                     TypeItem(from: type, handler: { [weak self] in
-                        self?.onTypeTap(typeId: type.id)
+                        self?.onTypeTap(type: ObjectType(details: type))
                     })
                 }
             
@@ -65,8 +65,8 @@ final class ChangeTypeAccessoryViewModel {
         }
     }
 
-    private func onTypeTap(typeId: String) {
-        if typeId == ObjectTypeId.BundledTypeId.set.rawValue {
+    private func onTypeTap(type: ObjectType) {
+        if type.recommendedLayout == .set {
             Task { @MainActor in
                 document.resetSubscriptions() // to avoid glytch with premature document update
                 try await handler.setObjectSetType()
@@ -76,7 +76,7 @@ final class ChangeTypeAccessoryViewModel {
             return
         }
         
-        if typeId == ObjectTypeId.BundledTypeId.collection.rawValue {
+        if type.recommendedLayout == .collection {
             Task { @MainActor in
                 document.resetSubscriptions() // to avoid glytch with premature document update
                 try await handler.setObjectCollectionType()
@@ -87,8 +87,8 @@ final class ChangeTypeAccessoryViewModel {
         }
 
         Task { @MainActor in
-            try await handler.setObjectTypeId(typeId)
-            applyDefaultTemplateIfNeeded(typeId: typeId)
+            try await handler.setObjectTypeId(type.id)
+            applyDefaultTemplateIfNeeded(typeId: type.id)
         }
     }
     
@@ -116,8 +116,8 @@ final class ChangeTypeAccessoryViewModel {
     private func onSearchTap() {
         router.showTypesForEmptyObject(
             selectedObjectId: document.details?.type,
-            onSelect: { [weak self] typeId in
-                self?.onTypeTap(typeId: typeId)
+            onSelect: { [weak self] type in
+                self?.onTypeTap(type: type)
             }
         )
     }

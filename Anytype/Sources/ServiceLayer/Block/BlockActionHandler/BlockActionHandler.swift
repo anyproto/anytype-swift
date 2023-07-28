@@ -119,10 +119,10 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         service.addChild(info: BlockInformation.emptyText, parentId: parentId)
     }
     
-    func addLink(targetId: BlockId, typeId: String, blockId: BlockId) {
-        let isBookmarkType = ObjectTypeId.bundled(.bookmark).rawValue == typeId
+    func addLink(targetDetails: ObjectDetails, blockId: BlockId) {
+        let isBookmarkType = targetDetails.layoutValue == .bookmark
         service.add(
-            info: isBookmarkType ? .bookmark(targetId: targetId) : .emptyLink(targetId: targetId),
+            info: isBookmarkType ? .bookmark(targetId: targetDetails.id) : .emptyLink(targetId: targetDetails.id),
             targetBlockId: blockId,
             position: .replace
         )

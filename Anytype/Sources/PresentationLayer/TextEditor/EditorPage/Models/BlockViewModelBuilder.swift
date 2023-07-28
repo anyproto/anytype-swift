@@ -229,15 +229,15 @@ final class BlockViewModelBuilder {
             ) { [weak self] relation in
                 guard let self = self else { return }
 
-                let bookmarkFilter = self.document.details?.type != ObjectTypeId.bundled(.bookmark).rawValue
+                let bookmarkFilter = self.document.details?.layoutValue != .bookmark
                 let allowTypeChange = !self.document.objectRestrictions.objectRestriction.contains(.typechange)
                 
                 if relation.key == BundledRelationKey.type.rawValue && !self.document.isLocked && bookmarkFilter && allowTypeChange {
                     self.router.showTypes(
                         selectedObjectId: self.document.details?.type,
-                        onSelect: { [weak self] id in
+                        onSelect: { [weak self] type in
                             Task { [weak self] in
-                                try await self?.handler.setObjectTypeId(id)
+                                try await self?.handler.setObjectTypeId(type.id)
                             }
                         }
                     )

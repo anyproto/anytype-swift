@@ -107,7 +107,7 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
             title: Loc.linkTo,
             spaceId: document.spaceId,
             excludedObjectIds: [document.objectId],
-            excludedTypeIds: [ObjectTypeId.bundled(.set).rawValue]
+            excludedLayouts: [.set]
         ) { [weak navigationContext] details in
             navigationContext?.dismissAllPresented(animated: true) {
                 onSelect(details.id)

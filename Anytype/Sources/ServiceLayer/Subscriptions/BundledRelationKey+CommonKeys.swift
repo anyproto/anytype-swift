@@ -54,6 +54,7 @@ extension BundledRelationKey {
     static var objectListKeys: [BundledRelationKey] {
         return .builder {
             BundledRelationKey.id
+            BundledRelationKey.spaceId
             BundledRelationKey.description
             BundledRelationKey.type
             BundledRelationKey.isArchived

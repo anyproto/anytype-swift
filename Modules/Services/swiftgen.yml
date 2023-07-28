@@ -13,7 +13,3 @@ json:
       output: ./Sources/Models/Relations/Provider/Bundled/Generated/BundledRelationKey+SystemKeys.swift
       params:
         varName: systemKeys
-  - inputs: Dependencies/Middleware/json/systemTypes.json
-    outputs:
-      templatePath: ./Templates/type-bundled.stencil
-      output: ./Sources/Models/Relations/Provider/Bundled/Generated/BundledTypeId.swift

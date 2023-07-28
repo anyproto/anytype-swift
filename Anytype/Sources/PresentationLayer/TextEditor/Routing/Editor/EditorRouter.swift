@@ -211,10 +211,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
             title: Loc.moveTo,
             spaceId: document.spaceId,
             excludedObjectIds: [document.objectId],
-            excludedTypeIds: [
-                ObjectTypeId.bundled(.set).rawValue,
-                ObjectTypeId.bundled(.collection).rawValue
-            ]
+            excludedLayouts: [.set, .collection]
         ) { [weak self] details in
             onSelect(details)
             self?.navigationContext.dismissTopPresented()
@@ -228,7 +225,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
             title: Loc.linkTo,
             spaceId: document.spaceId,
             excludedObjectIds: [document.objectId],
-            excludedTypeIds: []
+            excludedLayouts: []
         ) { [weak self] details in
             onSelect(details)
             self?.navigationContext.dismissTopPresented()
@@ -258,7 +255,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         navigationContext.present(module)
     }
     
-    func showTypes(selectedObjectId: BlockId?, onSelect: @escaping (BlockId) -> ()) {
+    func showTypes(selectedObjectId: BlockId?, onSelect: @escaping (ObjectType) -> ()) {
         showTypesSearch(
             title: Loc.changeType,
             selectedObjectId: selectedObjectId,
@@ -270,7 +267,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     
     func showTypesForEmptyObject(
         selectedObjectId: BlockId?,
-        onSelect: @escaping (BlockId) -> ()
+        onSelect: @escaping (ObjectType) -> ()
     ) {
         showTypesSearch(
             title: Loc.changeType,
@@ -447,7 +444,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         selectedObjectId: BlockId?,
         showBookmark: Bool,
         showSetAndCollection: Bool,
-        onSelect: @escaping (BlockId) -> ()
+        onSelect: @escaping (ObjectType) -> ()
     ) {
         let view = newSearchModuleAssembly.objectTypeSearchModule(
             title: title,
@@ -459,7 +456,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
             browser: rootController
         ) { [weak self] type in
             self?.navigationContext.dismissTopPresented()
-            onSelect(type.id)
+            onSelect(type)
         }
         
         navigationContext.presentSwiftUIView(view: view)

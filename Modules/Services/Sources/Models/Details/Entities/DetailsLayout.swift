@@ -1,7 +1,7 @@
 
 // Layout in go https://github.com/anytypeio/go-anytype-middleware/blob/master/pkg/lib/pb/model/models.pb.go#L1172
 
-public enum DetailsLayout: Int, CaseIterable {
+public enum DetailsLayout: Int, CaseIterable, Codable {
     case basic = 0
     case profile = 1
     case todo = 2
@@ -15,6 +15,9 @@ public enum DetailsLayout: Int, CaseIterable {
     case bookmark = 11
     case relationOption = 13
     case collection = 14
+    case audio = 15
+    case video = 16
+    case date = 17
     
     case unknown = -1
 }

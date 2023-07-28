@@ -14,7 +14,7 @@ extension BundledRelationsValueProvider {
             return profileIcon
         case .bookmark:
             return bookmarkIcon
-        case .todo, .note, .file, .unknown, .relation, .relationOption:
+        case .todo, .note, .file, .unknown, .relation, .relationOption, .audio, .video, .date:
             return nil
         case .space:
             return spaceIcon
@@ -123,7 +123,7 @@ extension BundledRelationsValueProvider {
     
     var editorViewType: EditorViewType {
         switch layoutValue {
-        case .basic, .profile, .todo, .note, .bookmark, .space, .file, .image, .objectType, .unknown, .relation, .relationOption:
+        case .basic, .profile, .todo, .note, .bookmark, .space, .file, .image, .objectType, .unknown, .relation, .relationOption, .audio, .video, .date:
             return .page
         case .set, .collection:
             return .set

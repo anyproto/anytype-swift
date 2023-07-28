@@ -99,6 +99,16 @@ class SearchHelper {
         return filter
     }
     
+    static func excludedLayoutFilter(_ layouts: [DetailsLayout]) -> DataviewFilter {
+        var filter = DataviewFilter()
+        filter.condition = .notIn
+        filter.value = layouts.map(\.rawValue).protobufValue
+        filter.relationKey = BundledRelationKey.layout.rawValue
+        filter.operator = .and
+        
+        return filter
+    }
+    
     static func recomendedLayoutFilter(_ layouts: [DetailsLayout]) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .in
