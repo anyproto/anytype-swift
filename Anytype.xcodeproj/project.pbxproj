@@ -3039,7 +3039,6 @@
 			children = (
 				3D24911A27BD271900821595 /* Events */,
 				EA57F39326B74D2E007D4292 /* Creators */,
-				EAC6BAA1262711DA004C8C06 /* Validators */,
 				EA02611A2625B1DB00AE6D86 /* Restrictions */,
 				0A0965B525BEE7DE00C004BD /* Document */,
 				0A78328424BDEB2A00A1B6F6 /* Parsers */,
@@ -8601,13 +8600,6 @@
 				2AE942C5294713F8005BAD1F /* KeyboardEvent.swift */,
 			);
 			path = UIScrollView;
-			sourceTree = "<group>";
-		};
-		EAC6BAA1262711DA004C8C06 /* Validators */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Validators;
 			sourceTree = "<group>";
 		};
 		EAE8C6A12693011C00324B46 /* URLInputView */ = {
