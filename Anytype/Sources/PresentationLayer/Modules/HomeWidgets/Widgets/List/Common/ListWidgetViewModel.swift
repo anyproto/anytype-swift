@@ -76,6 +76,7 @@ final class ListWidgetViewModel: WidgetContainerContentViewModelProtocol, Observ
     private func setupAllSubscriptions() {
         
         internalModel.namePublisher
+            .receiveOnMain()
             .assign(to: &$name)
         
         internalModel.detailsPublisher

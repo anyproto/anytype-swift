@@ -59,12 +59,14 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
         self.alertOpener = alertOpener
         self.output = output
         self.isSheet = isSheet
-        internalModel.rowDetailsPublisher.sink { [weak self] data in
-            self?.rowDetails = data
-            self?.validateSelectedIds()
-            self?.updateView()
-        }
-        .store(in: &subscriptions)
+        internalModel.rowDetailsPublisher
+            .receiveOnMain()
+            .sink { [weak self] data in
+                self?.rowDetails = data
+                self?.validateSelectedIds()
+                self?.updateView()
+            }
+            .store(in: &subscriptions)
     }
     
     func onAppear() {

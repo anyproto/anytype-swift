@@ -56,6 +56,7 @@ final class WidgetContainerViewModel<ContentVM: WidgetContainerContentViewModelP
         isExpanded = blockWidgetExpandedService.isExpanded(widgetBlockId: widgetBlockId)
         
         stateManager.isEditStatePublisher
+            .receiveOnMain()
             .assign(to: &$isEditState)
         
         // Call show notifications for prepare first state

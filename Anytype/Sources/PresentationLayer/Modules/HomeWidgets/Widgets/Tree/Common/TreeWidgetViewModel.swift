@@ -92,6 +92,7 @@ final class TreeWidgetViewModel: ObservableObject, WidgetContainerContentViewMod
     private func setupAllSubscriptions() {
         
         internalModel.namePublisher
+            .receiveOnMain()
             .assign(to: &$name)
         
         subscriptionManager.handler = { [weak self] details in
