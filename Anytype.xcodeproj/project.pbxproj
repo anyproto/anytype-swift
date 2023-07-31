@@ -502,7 +502,7 @@
 		2AA0209228D3502000321A66 /* Array+SubscriptionUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA0209128D3502000321A66 /* Array+SubscriptionUpdate.swift */; };
 		2AA0209528D3523000321A66 /* SetSubscriptionDataBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA0209428D3523000321A66 /* SetSubscriptionDataBuilder.swift */; };
 		2AA0209728D3526700321A66 /* SetSubscriptionDataBuilderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA0209628D3526700321A66 /* SetSubscriptionDataBuilderProtocol.swift */; };
-		2AA0209928D352C300321A66 /* SetSubsriptionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA0209828D352C300321A66 /* SetSubsriptionData.swift */; };
+		2AA0209928D352C300321A66 /* SetSubscriptionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA0209828D352C300321A66 /* SetSubscriptionData.swift */; };
 		2AA0C43D2A013EB500B9C108 /* WidgetObjectListFilesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA0C43C2A013EB500B9C108 /* WidgetObjectListFilesViewModel.swift */; };
 		2AA0C43F2A013EF800B9C108 /* FilesSubscriptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA0C43E2A013EF800B9C108 /* FilesSubscriptionService.swift */; };
 		2AA1652629D4711B0093DB12 /* DebugMenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA1652529D4711B0093DB12 /* DebugMenuViewModel.swift */; };
@@ -1961,7 +1961,7 @@
 		2AA0209128D3502000321A66 /* Array+SubscriptionUpdate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+SubscriptionUpdate.swift"; sourceTree = "<group>"; };
 		2AA0209428D3523000321A66 /* SetSubscriptionDataBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetSubscriptionDataBuilder.swift; sourceTree = "<group>"; };
 		2AA0209628D3526700321A66 /* SetSubscriptionDataBuilderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetSubscriptionDataBuilderProtocol.swift; sourceTree = "<group>"; };
-		2AA0209828D352C300321A66 /* SetSubsriptionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetSubsriptionData.swift; sourceTree = "<group>"; };
+		2AA0209828D352C300321A66 /* SetSubscriptionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetSubscriptionData.swift; sourceTree = "<group>"; };
 		2AA0C43C2A013EB500B9C108 /* WidgetObjectListFilesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetObjectListFilesViewModel.swift; sourceTree = "<group>"; };
 		2AA0C43E2A013EF800B9C108 /* FilesSubscriptionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilesSubscriptionService.swift; sourceTree = "<group>"; };
 		2AA1652529D4711B0093DB12 /* DebugMenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugMenuViewModel.swift; sourceTree = "<group>"; };
@@ -5139,7 +5139,7 @@
 			children = (
 				2AA0209428D3523000321A66 /* SetSubscriptionDataBuilder.swift */,
 				2AA0209628D3526700321A66 /* SetSubscriptionDataBuilderProtocol.swift */,
-				2AA0209828D352C300321A66 /* SetSubsriptionData.swift */,
+				2AA0209828D352C300321A66 /* SetSubscriptionData.swift */,
 			);
 			path = Subscriptions;
 			sourceTree = "<group>";
@@ -9839,7 +9839,7 @@
 				C97A9A162872F2040032DE3E /* SimpleTableComparator.swift in Sources */,
 				3D5A418E27046EE400F1F6A1 /* AutofocusedTextField.swift in Sources */,
 				EADD27DB26737A1A00853264 /* NSAttributedString.KeyExtension.swift in Sources */,
-				2AA0209928D352C300321A66 /* SetSubsriptionData.swift in Sources */,
+				2AA0209928D352C300321A66 /* SetSubscriptionData.swift in Sources */,
 				C92DCD682728561900A03D91 /* HorizonalTypeListViewModel.swift in Sources */,
 				3D1B5F7A274D0397007D97AE /* UIColor+Color.swift in Sources */,
 				EAED581E26A7321600374A46 /* MiddlewareTuple.swift in Sources */,

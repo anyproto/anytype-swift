@@ -4,8 +4,8 @@ import AnytypeCore
 
 protocol SubscriptionTogglerProtocol {
     func startSubscription(data: SubscriptionData) async throws -> SubscriptionTogglerResult?
-    func stopSubscription(id: SubscriptionId) async throws
-    func stopSubscriptions(ids: [SubscriptionId]) async throws
+    func stopSubscription(id: String) async throws
+    func stopSubscriptions(ids: [String]) async throws
 }
 
 final class SubscriptionToggler: SubscriptionTogglerProtocol {
@@ -25,11 +25,11 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
         }
     }
     
-    func stopSubscription(id: SubscriptionId) async throws {
+    func stopSubscription(id: String) async throws {
         try await objectSubscriptionService.stopSubscriptions(ids: [id])
     }
     
-    func stopSubscriptions(ids: [SubscriptionId]) async throws {
+    func stopSubscriptions(ids: [String]) async throws {
         try await objectSubscriptionService.stopSubscriptions(ids: ids)
     }
     

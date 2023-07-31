@@ -20,7 +20,7 @@ final class SetsSubscriptionService: SetsSubscriptionServiceProtocol {
     private let subscriptionService: SubscriptionsServiceProtocol
     private let objectTypeProvider: ObjectTypeProviderProtocol
     private let accountManager: AccountManagerProtocol
-    private let subscriptionId = SubscriptionId(value: "Sets-\(UUID().uuidString)")
+    private let subscriptionId = "Sets-\(UUID().uuidString)"
     
     init(
         subscriptionService: SubscriptionsServiceProtocol,

@@ -1,23 +1,12 @@
 public enum SubscriptionData: Equatable {
     case search(Search)
     case objects(Object)
-    
-    public static func == (lhs: SubscriptionData, rhs: SubscriptionData) -> Bool {
-        switch (lhs, rhs) {
-        case let (.search(lhsSearch), .search(rhsSearch)):
-            return lhsSearch == rhsSearch
-        case let (.objects(lhsObject), .objects(rhsObject)):
-            return lhsObject == rhsObject
-        default:
-            return false
-        }
-    }
 }
 
 extension SubscriptionData {
 
     public struct Search: Equatable {
-        public let identifier: SubscriptionId
+        public let identifier: String
         public let sorts: [DataviewSort]
         public let filters: [DataviewFilter]
         public let limit: Int
@@ -31,7 +20,7 @@ extension SubscriptionData {
         public let collectionId: String?
 
         public init(
-            identifier: SubscriptionId,
+            identifier: String,
             sorts: [DataviewSort],
             filters: [DataviewFilter],
             limit: Int,
@@ -61,13 +50,13 @@ extension SubscriptionData {
 
     public struct Object: Equatable {
 
-        public let identifier: SubscriptionId
+        public let identifier: String
         public let objectIds: [String]
         public let keys: [String]
         public let ignoreWorkspace: String?
 
         public init(
-            identifier: SubscriptionId,
+            identifier: String,
             objectIds: [String],
             keys: [String],
             ignoreWorkspace: String? = nil

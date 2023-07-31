@@ -1,5 +1,4 @@
 import SwiftUI
-import Services
 
 struct SetCollectionView: View {
     @ObservedObject private(set) var model: EditorSetViewModel
@@ -121,8 +120,8 @@ struct SetCollectionView: View {
     private var pagination: some View {
         EditorSetPaginationView(
             model: model,
-            paginationData: model.pagitationData(by: SubscriptionId.set.value),
-            groupId: SubscriptionId.set.value
+            paginationData: model.pagitationData(by: SetSubscriptionData.setId),
+            groupId: SetSubscriptionData.setId
         )
         .frame(width: tableHeaderSize.width)
     }

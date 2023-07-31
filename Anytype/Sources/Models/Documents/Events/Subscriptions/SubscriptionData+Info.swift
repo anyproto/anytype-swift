@@ -1,7 +1,7 @@
 import Services
 
 extension SubscriptionData {
-    var identifier: SubscriptionId {
+    var identifier: String {
         switch self {
         case .search(let description):
             return description.identifier
