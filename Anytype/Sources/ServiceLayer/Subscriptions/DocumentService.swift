@@ -23,9 +23,11 @@ final class DocumentService: DocumentServiceProtocol {
     // MARK: - DI
     
     private let relationDetailsStorage: RelationDetailsStorageProtocol
+    private let objectTypeProvider: ObjectTypeProviderProtocol
     
-    init(relationDetailsStorage: RelationDetailsStorageProtocol) {
+    init(relationDetailsStorage: RelationDetailsStorageProtocol, objectTypeProvider: ObjectTypeProviderProtocol) {
         self.relationDetailsStorage = relationDetailsStorage
+        self.objectTypeProvider = objectTypeProvider
     }
     
     // MARK: - DocumentServiceProtocol
@@ -93,7 +95,8 @@ final class DocumentService: DocumentServiceProtocol {
             document: document,
             blockId: nil,
             targetObjectID: nil,
-            relationDetailsStorage: relationDetailsStorage
+            relationDetailsStorage: relationDetailsStorage,
+            objectTypeProvider: objectTypeProvider
         )
     }
 }

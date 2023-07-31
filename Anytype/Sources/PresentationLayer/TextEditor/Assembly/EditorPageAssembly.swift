@@ -63,7 +63,8 @@ final class EditorAssembly {
             document: document,
             blockId: data.inline?.blockId,
             targetObjectID: data.inline?.targetObjectID,
-            relationDetailsStorage: serviceLocator.relationDetailsStorage()
+            relationDetailsStorage: serviceLocator.relationDetailsStorage(),
+            objectTypeProvider: serviceLocator.objectTypeProvider()
         )
         let dataviewService = DataviewService(
             objectId: data.objectId,
@@ -206,7 +207,8 @@ final class EditorAssembly {
             objectActionService: serviceLocator.objectActionsService(),
             modelsHolder: modelsHolder,
             bookmarkService: serviceLocator.bookmarkService(),
-            cursorManager: cursorManager
+            cursorManager: cursorManager,
+            objectTypeProvider: serviceLocator.objectTypeProvider()
         )
         let keyboardHandler = KeyboardActionHandler(
             documentId: document.objectId,

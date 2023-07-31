@@ -15,6 +15,7 @@ final class BlockActionService: BlockActionServiceProtocol {
     private let bookmarkService: BookmarkServiceProtocol
     private let fileService = FileActionsService()
     private let cursorManager: EditorCursorManager
+    private let objectTypeProvider: ObjectTypeProviderProtocol
     
     private weak var modelsHolder: EditorMainItemModelsHolder?
 
@@ -25,7 +26,8 @@ final class BlockActionService: BlockActionServiceProtocol {
         objectActionService: ObjectActionsServiceProtocol,
         modelsHolder: EditorMainItemModelsHolder,
         bookmarkService: BookmarkServiceProtocol,
-        cursorManager: EditorCursorManager
+        cursorManager: EditorCursorManager,
+        objectTypeProvider: ObjectTypeProviderProtocol
     ) {
         self.documentId = documentId
         self.listService = listService
@@ -34,6 +36,7 @@ final class BlockActionService: BlockActionServiceProtocol {
         self.modelsHolder = modelsHolder
         self.bookmarkService = bookmarkService
         self.cursorManager = cursorManager
+        self.objectTypeProvider = objectTypeProvider
     }
 
     // MARK: Actions
@@ -103,10 +106,11 @@ final class BlockActionService: BlockActionServiceProtocol {
     }
     
     func turnIntoPage(blockId: BlockId) async throws -> BlockId? {
-        try await objectActionService.convertChildrenToPages(
+        let pageType = try objectTypeProvider.objectType(uniqueKey: .page)
+        return try await objectActionService.convertChildrenToPages(
             contextID: documentId,
             blocksIds: [blockId],
-            typeId: ObjectTypeId.BundledTypeId.page.rawValue
+            typeId: pageType.id
         ).first
     }
     

@@ -87,13 +87,15 @@ class SetDocument: SetDocumentProtocol {
     
     private var subscriptions = [AnyCancellable]()
     private let relationDetailsStorage: RelationDetailsStorageProtocol
+    private let objectTypeProvider: ObjectTypeProviderProtocol
     let dataBuilder: SetContentViewDataBuilder
     
     init(
         document: BaseDocumentProtocol,
         blockId: BlockId?,
         targetObjectID: String?,
-        relationDetailsStorage: RelationDetailsStorageProtocol)
+        relationDetailsStorage: RelationDetailsStorageProtocol,
+        objectTypeProvider: ObjectTypeProviderProtocol)
     {
         self.document = document
         self.relationDetailsStorage = relationDetailsStorage
@@ -104,6 +106,7 @@ class SetDocument: SetDocumentProtocol {
             detailsStorage: document.detailsStorage,
             relationDetailsStorage: relationDetailsStorage
         )
+        self.objectTypeProvider = objectTypeProvider
         self.setup()
     }
     
@@ -131,7 +134,9 @@ class SetDocument: SetDocumentProtocol {
     }
     
     func isBookmarksSet() -> Bool {
-        details?.setOf.contains(ObjectTypeId.BundledTypeId.bookmark.rawValue) ?? false
+        guard let details,
+              let bookmarkType = (try? objectTypeProvider.objectType(recommendedLayout: .bookmark)) else { return false }
+        return details.setOf.contains(bookmarkType.id)
     }
     
     func isRelationsSet() -> Bool {

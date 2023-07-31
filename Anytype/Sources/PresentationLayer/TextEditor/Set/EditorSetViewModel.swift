@@ -835,7 +835,8 @@ extension EditorSetViewModel {
             document: BaseDocument(objectId: "objectId"),
             blockId: nil,
             targetObjectID: nil,
-            relationDetailsStorage: DI.preview.serviceLocator.relationDetailsStorage()
+            relationDetailsStorage: DI.preview.serviceLocator.relationDetailsStorage(),
+            objectTypeProvider: DI.preview.serviceLocator.objectTypeProvider()
         ),
         subscriptionService: DI.preview.serviceLocator.subscriptionService(),
         dataviewService: DataviewService(objectId: "objectId", blockId: "blockId", prefilledFieldsBuilder: SetPrefilledFieldsBuilder()),

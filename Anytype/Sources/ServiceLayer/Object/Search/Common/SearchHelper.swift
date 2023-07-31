@@ -249,7 +249,7 @@ class SearchHelper {
         var filter = DataviewFilter()
         filter.condition = .equal
         filter.relationKey = BundledRelationKey.type.rawValue
-        filter.value = ObjectTypeId.bundled(.template).rawValue.protobufValue
+        filter.value = "ObjectTypeId.bundled(.template).rawValue.protobufValue"
 
         return filter
     }

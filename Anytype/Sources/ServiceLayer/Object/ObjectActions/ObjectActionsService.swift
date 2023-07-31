@@ -166,7 +166,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
     }
 
     func convertChildrenToPages(contextID: BlockId, blocksIds: [BlockId], typeId: String) async throws -> [BlockId] {
-        let type = objectTypeProvider.objectType(id: typeId)?.analyticsType ?? .object(typeId: typeId)
+        let type = (try? objectTypeProvider.objectType(id: typeId))?.analyticsType ?? .object(typeId: typeId)
         AnytypeAnalytics.instance().logCreateObject(objectType: type, route: .turnInto)
 
         let response = try await ClientCommands.blockListConvertToObjects(.with {
@@ -194,7 +194,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
             $0.objectTypeURL = objectTypeId
         }).invoke()
         
-        let objectType = objectTypeProvider.objectType(id: objectTypeId)?.analyticsType ?? .object(typeId: objectTypeId)
+        let objectType = (try? objectTypeProvider.objectType(id: objectTypeId))?.analyticsType ?? .object(typeId: objectTypeId)
         AnytypeAnalytics.instance().logObjectTypeChange(objectType)
     }
 

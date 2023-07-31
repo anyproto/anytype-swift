@@ -1,5 +1,5 @@
 
-// Layout in go https://github.com/anytypeio/go-anytype-middleware/blob/master/pkg/lib/pb/model/models.pb.go#L1172
+// Layout in go https://github.com/anyproto/anytype-heart/blob/main/pkg/lib/pb/model/models.pb.go#L1172
 
 public enum DetailsLayout: Int, CaseIterable, Codable {
     case basic = 0

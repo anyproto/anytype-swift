@@ -1,0 +1,22 @@
+// swiftlint:disable all
+
+{% macro enumList prefixType prefixVar %}
+{% for file in files %}
+  {% for value in file.document.data %}
+    {% if prefixVar.count == 0 %}
+    case {{value}} = "{{prefixType}}{{value}}"
+    {% else %}
+    case {{prefixVar}}{{value|upperFirstLetter}} = "{{prefixType}}{{value}}"
+    {% endif %}
+  {% endfor %}
+{% endfor %}
+{% endmacro %}
+
+{% if files %}
+public enum ObjectTypeUniqueKey: String, Codable {
+
+    {% call enumList "ot-" "" %}
+
+    {% call enumList "_ot" "marketplace" %}
+}
+{% endif %}

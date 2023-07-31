@@ -192,7 +192,7 @@ final class ServiceLocator {
         return _middlewareConfigurationProvider
     }
     
-    private lazy var _documentService = DocumentService(relationDetailsStorage: relationDetailsStorage())
+    private lazy var _documentService = DocumentService(relationDetailsStorage: relationDetailsStorage(), objectTypeProvider: objectTypeProvider())
     func documentService() -> DocumentServiceProtocol {
         return _documentService
     }

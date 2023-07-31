@@ -96,7 +96,7 @@ extension NewRelationViewModel: NewRelationModuleInput {
     
     func updateTypesRestriction(objectTypeIds: [String]) {
         objectTypes = objectTypeIds.compactMap {
-            objectTypeProvider.objectType(id: $0)
+            try? objectTypeProvider.objectType(id: $0)
         }
     }
     

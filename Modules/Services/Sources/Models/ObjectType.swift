@@ -21,6 +21,7 @@ public struct ObjectType: Equatable, Hashable, Codable {
     public let isArchived: Bool
     public let isDeleted: Bool
     public let sourceObject: String
+    public let uniqueKey: ObjectTypeUniqueKey?
     
     public let recommendedRelations: [ObjectId]
     public let recommendedLayout: DetailsLayout?
@@ -35,6 +36,7 @@ public struct ObjectType: Equatable, Hashable, Codable {
         isArchived: Bool,
         isDeleted: Bool,
         sourceObject: String,
+        uniqueKey: ObjectTypeUniqueKey?,
         recommendedRelations: [ObjectId],
         recommendedLayout: DetailsLayout?
     ) {
@@ -47,6 +49,7 @@ public struct ObjectType: Equatable, Hashable, Codable {
         self.isArchived = isArchived
         self.isDeleted = isDeleted
         self.sourceObject = sourceObject
+        self.uniqueKey = uniqueKey
         self.recommendedRelations = recommendedRelations
         self.recommendedLayout = recommendedLayout
     }
@@ -65,6 +68,7 @@ extension ObjectType {
             isArchived: details.isArchived,
             isDeleted: details.isDeleted,
             sourceObject: details.sourceObject,
+            uniqueKey: nil,
             recommendedRelations: details.recommendedRelations,
             recommendedLayout: details.recommendedLayoutValue
         )
