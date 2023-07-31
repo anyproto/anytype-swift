@@ -1,5 +1,6 @@
 import SwiftUI
 
+@MainActor
 struct PhraseTextView: UIViewRepresentable {
     @Binding var text: String
     let expandable: Bool
