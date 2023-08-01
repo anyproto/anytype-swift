@@ -24,7 +24,7 @@ extension BundledRelationKey {
         }.uniqued()
     }
     
-    static var IconKeys: [BundledRelationKey] {
+    static var objectIconImageKeys: [BundledRelationKey] {
         return .builder {
             BundledRelationKey.isDeleted
             BundledRelationKey.layout
@@ -37,7 +37,7 @@ extension BundledRelationKey {
     
     static var templatePreviewKeys: [BundledRelationKey] {
         .builder {
-            BundledRelationKey.IconKeys
+            BundledRelationKey.objectIconImageKeys
             BundledRelationKey.titleKeys
             BundledRelationKey.iconImage
             BundledRelationKey.iconEmoji
@@ -60,7 +60,7 @@ extension BundledRelationKey {
             BundledRelationKey.isDeleted
             BundledRelationKey.isFavorite
             // Complex keys
-            BundledRelationKey.IconKeys
+            BundledRelationKey.objectIconImageKeys
             BundledRelationKey.titleKeys
         }.uniqued()
     }

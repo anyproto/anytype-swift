@@ -3,7 +3,6 @@ import UIKit
 import Kingfisher
 import AnytypeCore
 
-// TODO
 final class DownloadableImageViewWrapper {
     
     private var imageGuideline: ImageGuideline?

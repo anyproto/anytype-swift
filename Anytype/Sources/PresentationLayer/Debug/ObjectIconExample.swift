@@ -41,26 +41,6 @@ struct ObjectIconExample: View {
                         AnytypeText("Assets - inactive (copy example)", style: .subheading, color: .Text.primary)
                         demoBlock { IconView(icon: .asset(.X32.copy)).disabled(true) }
                     }
-//                    Group {
-//                        AnytypeText("Object Icon", style: .subheading, color: .Text.primary)
-//                        demoBlock { SquareImageIdView(imageId: iconId) }
-//                        AnytypeText("Profile Icon", style: .subheading, color: .Text.primary)
-//                        demoBlock { CircleImageIdView(imageId: iconId) }
-//                        AnytypeText("Profile Char", style: .subheading, color: .Text.primary)
-//                        demoBlock { CircleCharIconView(text: "ABC") }
-//                        AnytypeText("Profile Gradient", style: .subheading, color: .Text.primary)
-//                        demoBlock { CircleGradientIconView(gradientId: GradientId(2)!) }
-//                    }
-//                    Group {
-//                        AnytypeText("Emoji", style: .subheading, color: .Text.primary)
-//                        demoBlock { EmojiIconView(text: "😀") }
-//                        AnytypeText("Todo done", style: .subheading, color: .Text.primary)
-//                        demoBlock { TodoIconView(checked: true) }
-//                        AnytypeText("Todo empty", style: .subheading, color: .Text.primary)
-//                        demoBlock { TodoIconView(checked: false) }
-//                        AnytypeText("Space gradient", style: .subheading, color: .Text.primary)
-//                        demoBlock { SquareGradientIconView(gradientId: GradientId(1)!) }
-//                    }
                 }
             }
         }

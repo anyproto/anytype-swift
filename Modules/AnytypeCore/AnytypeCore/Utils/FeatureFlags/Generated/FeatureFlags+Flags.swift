@@ -66,10 +66,6 @@ public extension FeatureFlags {
         value(for: .validateRecoveryPhrase)
     }
 
-    static var newObjectIcon: Bool {
-        value(for: .newObjectIcon)
-    }
-
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -103,7 +99,6 @@ public extension FeatureFlags {
         .showAllFilesInBin,
         .superNewButtonLoadingState,
         .validateRecoveryPhrase,
-        .newObjectIcon,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

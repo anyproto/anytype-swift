@@ -3,8 +3,6 @@ import UIKit
 
 enum ImageWidth {
     case width(CGFloat)
-    case height(CGFloat)
-    case size(CGSize)
     case original
 }
 

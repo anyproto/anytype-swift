@@ -13,8 +13,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
         
-        NSTextAttachment.registerViewProviderClass(IconTextAttachmentViewProvider.self, forFileType: "com.anytype.mention")
-
         // Fix SIGPIPE crashes
         signal(SIGPIPE, SIG_IGN)
         
