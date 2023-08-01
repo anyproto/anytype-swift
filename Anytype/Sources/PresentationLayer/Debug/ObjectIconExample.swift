@@ -4,7 +4,9 @@ import AnytypeCore
 struct ObjectIconExample: View {
     
     private let emojiExamples: [CGFloat] = [16, 18, 40, 48, 64, 80, 96]
-    private let iconId = "bafybeigly3yyhiyou5a2eb4kurd2l7kod6ex3ufvsin5snpqfevupztdam"
+    private let seearchService = ServiceLocator.shared.searchService()
+    
+    @State private var iconId: String = ""
     
     var body: some View {
         VStack(spacing: 0) {
@@ -43,6 +45,10 @@ struct ObjectIconExample: View {
                     }
                 }
             }
+        }
+        .task {
+            let files = try? await seearchService.searchImages()
+            iconId = files?.first?.iconImage?.value ?? ""
         }
     }
     

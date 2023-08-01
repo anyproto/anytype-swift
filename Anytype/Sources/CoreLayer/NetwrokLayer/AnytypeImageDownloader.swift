@@ -23,7 +23,14 @@ final class AnytypeImageDownloader {
     }
     
     static func retrieveImage(with url: URL) async -> UIImage? {
-        return try? await KingfisherManager.shared.retrieveImageAsync(with: url).image
+        do {
+            return try await KingfisherManager.shared.retrieveImageAsync(with: url).image
+        } catch is CancellationError {
+            return nil
+        } catch {
+            anytypeAssertionFailure(error.localizedDescription)
+            return nil
+        }
     }
 }
 

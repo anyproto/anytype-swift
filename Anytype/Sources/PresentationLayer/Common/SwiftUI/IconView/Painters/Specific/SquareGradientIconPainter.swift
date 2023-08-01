@@ -30,7 +30,7 @@ final class SquareGradientIconPainter: IconPainter {
         context.setFillColor(UIColor.Additional.space.cgColor)
         context.fill(bounds)
         
-        let gradientBounds = bounds.insetBy(dx: side * (1/6), dy: side * (1/6))
+        let gradientBounds = bounds.insetBy(dx: side * (1/8), dy: side * (1/8))
         painter.draw(bounds: gradientBounds, context: context, iconContext: iconContext)
         
         context.restoreGState()
