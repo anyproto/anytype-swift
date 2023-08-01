@@ -417,6 +417,12 @@
 		2A5A898C29C8650600C170D6 /* SettingsAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5A898B29C8650600C170D6 /* SettingsAccountView.swift */; };
 		2A5A898E29C866FF00C170D6 /* SettingsObjectHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5A898D29C866FF00C170D6 /* SettingsObjectHeader.swift */; };
 		2A5BA75F2A17C2A10049B3B4 /* AnytypeErrorLoggerConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5BA75E2A17C2A10049B3B4 /* AnytypeErrorLoggerConfiguration.swift */; };
+		2A5BC4B72A78F5C7004FAABF /* CircleIconPainter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5BC4B62A78F5C7004FAABF /* CircleIconPainter.swift */; };
+		2A5BC4BA2A78F61E004FAABF /* SquareIconPainter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5BC4B92A78F61E004FAABF /* SquareIconPainter.swift */; };
+		2A5BC4BC2A78F7FE004FAABF /* SquareDynamicIconPainter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5BC4BB2A78F7FE004FAABF /* SquareDynamicIconPainter.swift */; };
+		2A5BC4BE2A78F9D9004FAABF /* SquircleIconPainter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5BC4BD2A78F9D9004FAABF /* SquircleIconPainter.swift */; };
+		2A5BC4C22A78FAC7004FAABF /* AssetIconPainter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5BC4C02A78FAC7004FAABF /* AssetIconPainter.swift */; };
+		2A5BC4C32A78FAC7004FAABF /* CharIconPainter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5BC4C12A78FAC7004FAABF /* CharIconPainter.swift */; };
 		2A5CB4212A433C3B00ED9415 /* EditorScreenData+Details.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5CB4202A433C3B00ED9415 /* EditorScreenData+Details.swift */; };
 		2A617BCA2A49960500725152 /* Document+WidgetTargetSubscriptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A617BC92A49960400725152 /* Document+WidgetTargetSubscriptions.swift */; };
 		2A617BCC2A49E5B400725152 /* BlockWidget+Limits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A617BCB2A49E5B400725152 /* BlockWidget+Limits.swift */; };
@@ -505,15 +511,10 @@
 		2A9486612950B193007A5586 /* HomeWidgetsModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9486602950B193007A5586 /* HomeWidgetsModuleOutput.swift */; };
 		2A94B5D329B88E95009AE2A7 /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = 2A94B5D229B88E95009AE2A7 /* Sentry */; };
 		2A95A26C29DD94F4009637C9 /* IconGradientStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A95A26B29DD94F4009637C9 /* IconGradientStorage.swift */; };
-		2A9614852A69758E00E50D0A /* CharIconPainter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9614842A69758E00E50D0A /* CharIconPainter.swift */; };
-		2A9614892A69806F00E50D0A /* CircleCharIconPainter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9614882A69806F00E50D0A /* CircleCharIconPainter.swift */; };
 		2A96148B2A6981DF00E50D0A /* IconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A96148A2A6981DF00E50D0A /* IconView.swift */; };
 		2A96148D2A69839100E50D0A /* IconMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A96148C2A69839100E50D0A /* IconMaker.swift */; };
 		2A9614912A69A4EB00E50D0A /* ImageIdPainter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9614902A69A4EB00E50D0A /* ImageIdPainter.swift */; };
 		2A9614932A6A60B400E50D0A /* IconPainter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9614922A6A60B400E50D0A /* IconPainter.swift */; };
-		2A9614952A6A648A00E50D0A /* CircleImageIdPainter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9614942A6A648A00E50D0A /* CircleImageIdPainter.swift */; };
-		2A9614972A6A681800E50D0A /* SquareImageIdPainter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9614962A6A681800E50D0A /* SquareImageIdPainter.swift */; };
-		2A9614992A6A70D000E50D0A /* EmojiIconPainter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9614982A6A70D000E50D0A /* EmojiIconPainter.swift */; };
 		2A971C06297E75D300D3D786 /* RecentSubscriptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A971C05297E75D300D3D786 /* RecentSubscriptionService.swift */; };
 		2A971C08297E7BFD00D3D786 /* ListWidgetRowModel+ObjectDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A971C07297E7BFD00D3D786 /* ListWidgetRowModel+ObjectDetails.swift */; };
 		2A9D299028BCC11A00789AC7 /* NonExistentBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9D298F28BCC11A00789AC7 /* NonExistentBlockView.swift */; };
@@ -599,9 +600,6 @@
 		2ACEAE482984018100B467CE /* WidgetTypeModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACEAE472984018100B467CE /* WidgetTypeModuleAssembly.swift */; };
 		2ACEAE4A2984115F00B467CE /* WidgetTypeRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACEAE492984115F00B467CE /* WidgetTypeRowView.swift */; };
 		2ACF42982A6A7C09001B5D2E /* SquareGradientIconPainter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACF42972A6A7C09001B5D2E /* SquareGradientIconPainter.swift */; };
-		2ACF429A2A6A8017001B5D2E /* TodoIconPainter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACF42992A6A8017001B5D2E /* TodoIconPainter.swift */; };
-		2ACF429C2A6A844A001B5D2E /* SquareCharIconPainter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACF429B2A6A844A001B5D2E /* SquareCharIconPainter.swift */; };
-		2ACF429E2A6A85B8001B5D2E /* AssetIconPainter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACF429D2A6A85B8001B5D2E /* AssetIconPainter.swift */; };
 		2ACF42A02A6A85C3001B5D2E /* ImageDataIconPainter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACF429F2A6A85C3001B5D2E /* ImageDataIconPainter.swift */; };
 		2ACF42A32A6A8C86001B5D2E /* UIImage+Draw.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACF42A22A6A8C86001B5D2E /* UIImage+Draw.swift */; };
 		2AD06B7C2857271D0006C255 /* TableOfContentsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD06B7B2857271D0006C255 /* TableOfContentsViewModel.swift */; };
@@ -706,6 +704,7 @@
 		2AFD69D92987BC5B0006D792 /* WidgetTypeCreateObjectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFD69D82987BC5B0006D792 /* WidgetTypeCreateObjectViewModel.swift */; };
 		2AFE04B928F94ABB008647E0 /* EditorPageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFE04B828F94ABB008647E0 /* EditorPageCoordinator.swift */; };
 		2AFE04BB28F94C52008647E0 /* EditorPageCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFE04BA28F94C52008647E0 /* EditorPageCoordinatorAssembly.swift */; };
+		2AFEED0D2A72713500D7A45B /* Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFEED0C2A72713500D7A45B /* Icon.swift */; };
 		2AFF7AC2299CDA4B00B7746B /* WidgetObjectListBinViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFF7AC1299CDA4B00B7746B /* WidgetObjectListBinViewModel.swift */; };
 		2AFF7AC4299CDA6900B7746B /* BinSubscriptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFF7AC3299CDA6900B7746B /* BinSubscriptionService.swift */; };
 		2AFF7AC8299CFB9A00B7746B /* AnytypeRelativeDateTimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFF7AC7299CFB9A00B7746B /* AnytypeRelativeDateTimeFormatter.swift */; };
@@ -1913,6 +1912,12 @@
 		2A5A898B29C8650600C170D6 /* SettingsAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAccountView.swift; sourceTree = "<group>"; };
 		2A5A898D29C866FF00C170D6 /* SettingsObjectHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsObjectHeader.swift; sourceTree = "<group>"; };
 		2A5BA75E2A17C2A10049B3B4 /* AnytypeErrorLoggerConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeErrorLoggerConfiguration.swift; sourceTree = "<group>"; };
+		2A5BC4B62A78F5C7004FAABF /* CircleIconPainter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleIconPainter.swift; sourceTree = "<group>"; };
+		2A5BC4B92A78F61E004FAABF /* SquareIconPainter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareIconPainter.swift; sourceTree = "<group>"; };
+		2A5BC4BB2A78F7FE004FAABF /* SquareDynamicIconPainter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareDynamicIconPainter.swift; sourceTree = "<group>"; };
+		2A5BC4BD2A78F9D9004FAABF /* SquircleIconPainter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquircleIconPainter.swift; sourceTree = "<group>"; };
+		2A5BC4C02A78FAC7004FAABF /* AssetIconPainter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetIconPainter.swift; sourceTree = "<group>"; };
+		2A5BC4C12A78FAC7004FAABF /* CharIconPainter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CharIconPainter.swift; sourceTree = "<group>"; };
 		2A5CB4202A433C3B00ED9415 /* EditorScreenData+Details.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorScreenData+Details.swift"; sourceTree = "<group>"; };
 		2A617BC92A49960400725152 /* Document+WidgetTargetSubscriptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Document+WidgetTargetSubscriptions.swift"; sourceTree = "<group>"; };
 		2A617BCB2A49E5B400725152 /* BlockWidget+Limits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockWidget+Limits.swift"; sourceTree = "<group>"; };
@@ -1988,15 +1993,10 @@
 		2A94865C2950A59D007A5586 /* HomeWidgetsCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWidgetsCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		2A9486602950B193007A5586 /* HomeWidgetsModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWidgetsModuleOutput.swift; sourceTree = "<group>"; };
 		2A95A26B29DD94F4009637C9 /* IconGradientStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconGradientStorage.swift; sourceTree = "<group>"; };
-		2A9614842A69758E00E50D0A /* CharIconPainter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharIconPainter.swift; sourceTree = "<group>"; };
-		2A9614882A69806F00E50D0A /* CircleCharIconPainter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleCharIconPainter.swift; sourceTree = "<group>"; };
 		2A96148A2A6981DF00E50D0A /* IconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconView.swift; sourceTree = "<group>"; };
 		2A96148C2A69839100E50D0A /* IconMaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconMaker.swift; sourceTree = "<group>"; };
 		2A9614902A69A4EB00E50D0A /* ImageIdPainter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageIdPainter.swift; sourceTree = "<group>"; };
 		2A9614922A6A60B400E50D0A /* IconPainter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconPainter.swift; sourceTree = "<group>"; };
-		2A9614942A6A648A00E50D0A /* CircleImageIdPainter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleImageIdPainter.swift; sourceTree = "<group>"; };
-		2A9614962A6A681800E50D0A /* SquareImageIdPainter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareImageIdPainter.swift; sourceTree = "<group>"; };
-		2A9614982A6A70D000E50D0A /* EmojiIconPainter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiIconPainter.swift; sourceTree = "<group>"; };
 		2A971C05297E75D300D3D786 /* RecentSubscriptionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSubscriptionService.swift; sourceTree = "<group>"; };
 		2A971C07297E7BFD00D3D786 /* ListWidgetRowModel+ObjectDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ListWidgetRowModel+ObjectDetails.swift"; sourceTree = "<group>"; };
 		2A9D298F28BCC11A00789AC7 /* NonExistentBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonExistentBlockView.swift; sourceTree = "<group>"; };
@@ -2082,9 +2082,6 @@
 		2ACEAE472984018100B467CE /* WidgetTypeModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetTypeModuleAssembly.swift; sourceTree = "<group>"; };
 		2ACEAE492984115F00B467CE /* WidgetTypeRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetTypeRowView.swift; sourceTree = "<group>"; };
 		2ACF42972A6A7C09001B5D2E /* SquareGradientIconPainter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareGradientIconPainter.swift; sourceTree = "<group>"; };
-		2ACF42992A6A8017001B5D2E /* TodoIconPainter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoIconPainter.swift; sourceTree = "<group>"; };
-		2ACF429B2A6A844A001B5D2E /* SquareCharIconPainter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareCharIconPainter.swift; sourceTree = "<group>"; };
-		2ACF429D2A6A85B8001B5D2E /* AssetIconPainter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetIconPainter.swift; sourceTree = "<group>"; };
 		2ACF429F2A6A85C3001B5D2E /* ImageDataIconPainter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDataIconPainter.swift; sourceTree = "<group>"; };
 		2ACF42A22A6A8C86001B5D2E /* UIImage+Draw.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Draw.swift"; sourceTree = "<group>"; };
 		2AD06B7B2857271D0006C255 /* TableOfContentsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableOfContentsViewModel.swift; sourceTree = "<group>"; };
@@ -2189,6 +2186,7 @@
 		2AFD69D82987BC5B0006D792 /* WidgetTypeCreateObjectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetTypeCreateObjectViewModel.swift; sourceTree = "<group>"; };
 		2AFE04B828F94ABB008647E0 /* EditorPageCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorPageCoordinator.swift; sourceTree = "<group>"; };
 		2AFE04BA28F94C52008647E0 /* EditorPageCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorPageCoordinatorAssembly.swift; sourceTree = "<group>"; };
+		2AFEED0C2A72713500D7A45B /* Icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icon.swift; sourceTree = "<group>"; };
 		2AFF7AC1299CDA4B00B7746B /* WidgetObjectListBinViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetObjectListBinViewModel.swift; sourceTree = "<group>"; };
 		2AFF7AC3299CDA6900B7746B /* BinSubscriptionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinSubscriptionService.swift; sourceTree = "<group>"; };
 		2AFF7AC7299CFB9A00B7746B /* AnytypeRelativeDateTimeFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeRelativeDateTimeFormatter.swift; sourceTree = "<group>"; };
@@ -5020,6 +5018,30 @@
 			path = MiddlewareHandler;
 			sourceTree = "<group>";
 		};
+		2A5BC4B82A78F5FB004FAABF /* Container */ = {
+			isa = PBXGroup;
+			children = (
+				2A5BC4B62A78F5C7004FAABF /* CircleIconPainter.swift */,
+				2A5BC4B92A78F61E004FAABF /* SquareIconPainter.swift */,
+				2A5BC4BB2A78F7FE004FAABF /* SquareDynamicIconPainter.swift */,
+				2A5BC4BD2A78F9D9004FAABF /* SquircleIconPainter.swift */,
+			);
+			path = Container;
+			sourceTree = "<group>";
+		};
+		2A5BC4BF2A78FAB0004FAABF /* Content */ = {
+			isa = PBXGroup;
+			children = (
+				2A5BC4C02A78FAC7004FAABF /* AssetIconPainter.swift */,
+				2A5BC4C12A78FAC7004FAABF /* CharIconPainter.swift */,
+				2ACF429F2A6A85C3001B5D2E /* ImageDataIconPainter.swift */,
+				2A9614902A69A4EB00E50D0A /* ImageIdPainter.swift */,
+				2A12B77D2A6A754200CE1AFD /* GradientIconPainter.swift */,
+				2A3425AB2A6A8EB3005E61F1 /* SmallImageIdPainter.swift */,
+			);
+			path = Content;
+			sourceTree = "<group>";
+		};
 		2A5DEC4B285B3A410083EA6B /* Packages */ = {
 			isa = PBXGroup;
 			children = (
@@ -5045,6 +5067,7 @@
 				2A9614832A69757000E50D0A /* Painters */,
 				2A96148A2A6981DF00E50D0A /* IconView.swift */,
 				2ADA60EA2A681A7E0044164D /* IconViewUIKit.swift */,
+				2AFEED0C2A72713500D7A45B /* Icon.swift */,
 			);
 			path = IconView;
 			sourceTree = "<group>";
@@ -5232,6 +5255,7 @@
 				2A96148F2A698F5D00E50D0A /* Specific */,
 				2A96148E2A698F4D00E50D0A /* Common */,
 				2A96148C2A69839100E50D0A /* IconMaker.swift */,
+				2A9614922A6A60B400E50D0A /* IconPainter.swift */,
 			);
 			path = Painters;
 			sourceTree = "<group>";
@@ -5239,11 +5263,8 @@
 		2A96148E2A698F4D00E50D0A /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				2A9614842A69758E00E50D0A /* CharIconPainter.swift */,
-				2A9614902A69A4EB00E50D0A /* ImageIdPainter.swift */,
-				2A9614922A6A60B400E50D0A /* IconPainter.swift */,
-				2A12B77D2A6A754200CE1AFD /* GradientIconPainter.swift */,
-				2A3425AB2A6A8EB3005E61F1 /* SmallImageIdPainter.swift */,
+				2A5BC4B82A78F5FB004FAABF /* Container */,
+				2A5BC4BF2A78FAB0004FAABF /* Content */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -5251,15 +5272,7 @@
 		2A96148F2A698F5D00E50D0A /* Specific */ = {
 			isa = PBXGroup;
 			children = (
-				2A9614882A69806F00E50D0A /* CircleCharIconPainter.swift */,
-				2A9614942A6A648A00E50D0A /* CircleImageIdPainter.swift */,
-				2A9614962A6A681800E50D0A /* SquareImageIdPainter.swift */,
-				2A9614982A6A70D000E50D0A /* EmojiIconPainter.swift */,
 				2ACF42972A6A7C09001B5D2E /* SquareGradientIconPainter.swift */,
-				2ACF42992A6A8017001B5D2E /* TodoIconPainter.swift */,
-				2ACF429B2A6A844A001B5D2E /* SquareCharIconPainter.swift */,
-				2ACF429D2A6A85B8001B5D2E /* AssetIconPainter.swift */,
-				2ACF429F2A6A85C3001B5D2E /* ImageDataIconPainter.swift */,
 			);
 			path = Specific;
 			sourceTree = "<group>";
@@ -8956,7 +8969,6 @@
 				C9A59DEA27E0F40B0063D3E1 /* TextBlockLeadingStyle.swift in Sources */,
 				2AFA1113296DBBD60055422F /* ObjectsCommonSubscriptionDataBuilder.swift in Sources */,
 				3D829172265E50190007C152 /* RedactedText.swift in Sources */,
-				2ACF429A2A6A8017001B5D2E /* TodoIconPainter.swift in Sources */,
 				C9EF85172938E6A50001E6EC /* TappableLabel.swift in Sources */,
 				2AFA1110296C67B50055422F /* HomeBottomPanelProviderAssembly.swift in Sources */,
 				2EC9426E2901946800DE91E4 /* SetKanbanColumn.swift in Sources */,
@@ -8971,7 +8983,6 @@
 				2A6693792A7104EA007747DD /* ObjectIconImageUsecase+Font.swift in Sources */,
 				EA4AC46B261CBDE4002E961E /* FileLoadingState.swift in Sources */,
 				0AA00C4424CB02D400870C18 /* DividerBlockContentConfiguration.swift in Sources */,
-				2A9614892A69806F00E50D0A /* CircleCharIconPainter.swift in Sources */,
 				3D850B9F26458CC2005805A8 /* DragIndicator.swift in Sources */,
 				2E975EDA287C2325004DE574 /* SetFilterRow.swift in Sources */,
 				C90189AB2833903A00F30853 /* TemplateAvailabilityPopup.swift in Sources */,
@@ -9057,7 +9068,6 @@
 				2E0E007F2A680D8600F1D95B /* PhraseTextValidator.swift in Sources */,
 				2E52DE692A1CDF5500F16815 /* LineProgressBarConfiguration.swift in Sources */,
 				C9C49A8527049D0200D86463 /* AlertsFactory.swift in Sources */,
-				2A9614852A69758E00E50D0A /* CharIconPainter.swift in Sources */,
 				C98F6A6C27A90F210063DD7A /* BlockConfiguration.swift in Sources */,
 				0AD6B24C24CF633F0097A841 /* BlockToolbarBookmark.swift in Sources */,
 				2ABF214929B2052900E872D9 /* DashboardClearCacheAlertModel.swift in Sources */,
@@ -9254,6 +9264,7 @@
 				2A4919AE295333CF00FCEAC9 /* Color+ComponentColor.swift in Sources */,
 				12CAF33E26D63473001E56B2 /* ObjectIconImage.swift in Sources */,
 				2AE10778296C258400BAB22A /* View+LegacyAdopt.swift in Sources */,
+				2A5BC4C32A78FAC7004FAABF /* CharIconPainter.swift in Sources */,
 				3D93D57C270CC88300614E29 /* EditorBrowserButton.swift in Sources */,
 				C922F692286205B300DF2EF5 /* SpreadsheetBlockConfiguration.swift in Sources */,
 				C9235F822862F573004D86BA /* SpreadsheetDataSource.swift in Sources */,
@@ -9321,7 +9332,6 @@
 				3DA7AD7E2712C7BF00EA45F6 /* CustomTextViewKeyboardAction.swift in Sources */,
 				2E0797BA2A096571006F0FD7 /* JoinFlowCoordinator.swift in Sources */,
 				2A7DCDE4292E7D5A001919B4 /* SearchModuleAssembly.swift in Sources */,
-				2A9614992A6A70D000E50D0A /* EmojiIconPainter.swift in Sources */,
 				2A017FBA291E7BB7009C5BEF /* RelationsListModuleAsembly.swift in Sources */,
 				03CB3EFF230C0FF2003D5DFD /* SeedService.swift in Sources */,
 				2EC669212A166FD1001F71BC /* JoinFlowStepOutput.swift in Sources */,
@@ -9630,6 +9640,7 @@
 				C93B2D32274E4FA70008544D /* TwoStandardButtonsView.swift in Sources */,
 				120E818E26A05946006FE84E /* ObjectIconPickerViewModel.swift in Sources */,
 				3DB692B12697645C00149864 /* MiddlewareColorConverter.swift in Sources */,
+				2A5BC4BE2A78F9D9004FAABF /* SquircleIconPainter.swift in Sources */,
 				EA3D1DEE26CDAFBD001A31D9 /* BlockMarkupChangerProtocol.swift in Sources */,
 				122FFD43272BA7420069129A /* ObjectHeaderFilledState.swift in Sources */,
 				3D30416F27EA5EA700FFE0EB /* DataviewServiceProtocol.swift in Sources */,
@@ -9798,7 +9809,6 @@
 				2A1F94802978381700E25782 /* ListWidgetRow.swift in Sources */,
 				538EF48725F831AA005C7438 /* NSAttributedStringExtension.swift in Sources */,
 				2A6C75C429FC03D4002BD440 /* SingleObjectSubscriptionService.swift in Sources */,
-				2ACF429E2A6A85B8001B5D2E /* AssetIconPainter.swift in Sources */,
 				125E75E526CD199A000AF4E9 /* EditorNavigationBarTitleView.swift in Sources */,
 				539E019727582AA300067A24 /* RelationNameValueView.swift in Sources */,
 				2E2D256328880C8D00E3DFD1 /* SetFiltersSelectionHeaderView.swift in Sources */,
@@ -9817,7 +9827,6 @@
 				2A4FFBC4289D4B55004938DF /* InvocationMesagesHandler.swift in Sources */,
 				2AE155952A31BDF50049C387 /* SetCompactListWidgetModuleAssembly.swift in Sources */,
 				12FF0D0827C51ADD00562DD9 /* AnytypeTextField.swift in Sources */,
-				2ACF429C2A6A844A001B5D2E /* SquareCharIconPainter.swift in Sources */,
 				125B6EC826F235F400BCD7D6 /* MentionsViewModel.swift in Sources */,
 				535E02B227502ECF00E1AF8C /* RelationBlockViewModel.swift in Sources */,
 				3DAE1C84273E69AD009A72F3 /* Range+Mention.swift in Sources */,
@@ -9980,7 +9989,6 @@
 				2A7DCDE0292E4AC5001919B4 /* RelationsListModuleOutput.swift in Sources */,
 				2A6E04A2298CFCDA0023B33D /* WidgetObjectListFavoritesViewModel.swift in Sources */,
 				3D568FC4266A714900DC7881 /* UIColor+Convenience.swift in Sources */,
-				2A9614952A6A648A00E50D0A /* CircleImageIdPainter.swift in Sources */,
 				53F8215B2655C871003FEB0B /* BottomSheetsFactory.swift in Sources */,
 				120EB4E126E8EE2E003A0C2B /* ObjectHeaderCoverView.swift in Sources */,
 				12A52E0126CA7BF6000F0333 /* UIViewControllerExtensions.swift in Sources */,
@@ -10091,6 +10099,7 @@
 				2A971C06297E75D300D3D786 /* RecentSubscriptionService.swift in Sources */,
 				53ED6257280819AE00F5503A /* AnytypeAnalyticsProtocol.swift in Sources */,
 				530F502026F0981700F76D03 /* AnytypeLabel.swift in Sources */,
+				2A5BC4C22A78FAC7004FAABF /* AssetIconPainter.swift in Sources */,
 				531767D52666899B00DF463A /* UICollectionViewDiffableDataSourceExtension.swift in Sources */,
 				2E9BF63D28B7D38F006D3CC2 /* SetViewTypesPickerViewModel.swift in Sources */,
 				2EFBBEFC2A42512300734A0B /* UIPhraseTextView.swift in Sources */,
@@ -10112,7 +10121,6 @@
 				1219F971269350A5009DE4D4 /* ObjectIconType.swift in Sources */,
 				2A2C331D2892B627008BC326 /* RelationValueModuleAssembly.swift in Sources */,
 				2ADA5EEA28A292D000CD82A4 /* FeatureFlagViewModel.swift in Sources */,
-				2A9614972A6A681800E50D0A /* SquareImageIdPainter.swift in Sources */,
 				1289C51428105493005085E2 /* FileDownloadingView.swift in Sources */,
 				2EC669242A16755A001F71BC /* AuthCustomTransition.swift in Sources */,
 				3D30416A27EA4DC100FFE0EB /* EditorSetViewSettingsView.swift in Sources */,
@@ -10124,6 +10132,7 @@
 				1280E20B265C1A5700E5AEEE /* UIImageExtensions.swift in Sources */,
 				2AA8107229A36412007DD64B /* BrowserBottomPanelManager.swift in Sources */,
 				12FD9D232767177400991886 /* RelationStatus.swift in Sources */,
+				2A5BC4BA2A78F61E004FAABF /* SquareIconPainter.swift in Sources */,
 				C9432719285DE08200D82F3F /* SimpleTablesTextBlockActionHandler.swift in Sources */,
 				1244794527DC931900581174 /* NewSearchSectionsBuilder.swift in Sources */,
 				C922F68E2860973900DF2EF5 /* SimpleTableCellsBuilder.swift in Sources */,
@@ -10164,6 +10173,7 @@
 				125B6EC926F235F400BCD7D6 /* MentionView.swift in Sources */,
 				0372AB4523A11861008CF5B9 /* SelectProfileView.swift in Sources */,
 				53FF7CBC26FDD36200A5A592 /* ObjectActionsViewModel.swift in Sources */,
+				2A5BC4B72A78F5C7004FAABF /* CircleIconPainter.swift in Sources */,
 				2AE7ECA2298816F30079F12B /* WidgetObjectListView.swift in Sources */,
 				2A8C00F529C48CB000309C14 /* WidgetSource.swift in Sources */,
 				0A74E4F923A90E6300B6C406 /* DiskStorage.swift in Sources */,
@@ -10177,6 +10187,7 @@
 				EA4AC466261CB701002E961E /* FileLoaderReturnValue.swift in Sources */,
 				538269F426F4E4D400040156 /* AudioPlaybackConfigurator.swift in Sources */,
 				0ACFCCF7249C17B5002E0477 /* BlockListService Protocol.swift in Sources */,
+				2AFEED0D2A72713500D7A45B /* Icon.swift in Sources */,
 				3D1CEC3127F5A8CA000D36BA /* DeletedAccountViewModel.swift in Sources */,
 				535F799A274705C30050A1B8 /* FlowRelationsViewModel.swift in Sources */,
 				2A1F949929795FEB00E25782 /* FavoriteSubscriptionService.swift in Sources */,
@@ -10274,6 +10285,7 @@
 				2E0797BC2A0965FD006F0FD7 /* JoinFlowCoordinatorAssembly.swift in Sources */,
 				0A74E4FB23A90E8C00B6C406 /* AuthService.swift in Sources */,
 				53F80F0527BD8DAD00E9E12A /* ObjectListRelationViewUIKit.swift in Sources */,
+				2A5BC4BC2A78F7FE004FAABF /* SquareDynamicIconPainter.swift in Sources */,
 				3D3A182A2733E946000D0842 /* MarkdownListener.swift in Sources */,
 				2A6693752A7104EA007747DD /* StaticImageGuideline.swift in Sources */,
 				2A03039A28ABAA99002EFC46 /* TextRelationCopyActionViewModel.swift in Sources */,

@@ -1,20 +1,20 @@
 import Foundation
 import UIKit
 
-final class CircleCharIconPainter: IconPainter {
+final class CircleIconPainter: IconPainter {
     
-    private let charPainter: IconPainter
+    let contentPainter: IconPainter
     
-    init(text: String) {
-        self.charPainter = CharIconPainter(text: text)
+    init(contentPainter: IconPainter) {
+        self.contentPainter = contentPainter
     }
     
     func drawPlaceholder(bounds: CGRect, context: CGContext, iconContext: IconContext) {
-        charPainter.drawPlaceholder(bounds: bounds, context: context, iconContext: iconContext)
+        contentPainter.drawPlaceholder(bounds: bounds, context: context, iconContext: iconContext)
     }
     
     func prepare(bounds: CGRect) async {
-        await charPainter.prepare(bounds: bounds)
+        await contentPainter.prepare(bounds: bounds)
     }
     
     func draw(bounds: CGRect, context: CGContext, iconContext: IconContext) {
@@ -28,7 +28,7 @@ final class CircleCharIconPainter: IconPainter {
         context.setFillColor(UIColor.Stroke.secondary.cgColor)
         context.fill(bounds)
 
-        charPainter.draw(bounds: bounds, context: context, iconContext: iconContext)
+        contentPainter.draw(bounds: bounds, context: context, iconContext: iconContext)
         
         context.restoreGState()
     }

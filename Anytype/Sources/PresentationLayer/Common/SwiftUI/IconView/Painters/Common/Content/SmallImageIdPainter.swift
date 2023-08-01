@@ -15,12 +15,7 @@ final class SmallImageIdPainter: IconPainter {
     func drawPlaceholder(bounds: CGRect, context: CGContext, iconContext: IconContext) {}
     
     func prepare(bounds: CGRect) async {
-        let imageMetadata = ImageMetadata(id: imageId, width: .width(bounds.size.width))
-        guard let url = imageMetadata.contentUrl else {
-            anytypeAssertionFailure("Url is nil")
-            return
-        }
-        image = await AnytypeImageDownloader.retrieveImage(with: url)
+        image = await AnytypeImageDownloader.retrieveImage(imageId: imageId, width: bounds.size.width)
     }
     
     func draw(bounds: CGRect, context: CGContext, iconContext: IconContext) {

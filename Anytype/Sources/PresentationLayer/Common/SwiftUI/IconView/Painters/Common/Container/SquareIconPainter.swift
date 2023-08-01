@@ -1,36 +1,34 @@
 import Foundation
 import UIKit
 
-final class SquareCharIconPainter: IconPainter {
+final class SquareIconPainter: IconPainter {
     
-    private let painter: IconPainter
+    private let contentPainter: IconPainter
     
-    init(text: String) {
-        self.painter = CharIconPainter(text: text)
+    init(contentPainter: IconPainter) {
+        self.contentPainter = contentPainter
     }
     
     func drawPlaceholder(bounds: CGRect, context: CGContext, iconContext: IconContext) {
-        painter.drawPlaceholder(bounds: bounds, context: context, iconContext: iconContext)
+        contentPainter.drawPlaceholder(bounds: bounds, context: context, iconContext: iconContext)
     }
     
     func prepare(bounds: CGRect) async {
-        await painter.prepare(bounds: bounds)
+        await contentPainter.prepare(bounds: bounds)
     }
     
     func draw(bounds: CGRect, context: CGContext, iconContext: IconContext) {
         
         context.saveGState()
         
-        let side = min(bounds.size.width, bounds.size.height)
-       
-        let path = UIBezierPath(roundedRect: bounds, cornerRadius: side * (1/12)).cgPath
+        let path = UIBezierPath(roundedRect: bounds, cornerRadius: 2).cgPath
         context.addPath(path)
         context.clip()
         
         context.setFillColor(UIColor.Stroke.secondary.cgColor)
         context.fill(bounds)
         
-        painter.draw(bounds: bounds, context: context, iconContext: iconContext)
+        contentPainter.draw(bounds: bounds, context: context, iconContext: iconContext)
         
         context.restoreGState()
     }

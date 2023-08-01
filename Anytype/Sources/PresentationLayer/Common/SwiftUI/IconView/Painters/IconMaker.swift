@@ -72,32 +72,32 @@ final class IconMaker {
         case .icon(let objectIconType):
             switch objectIconType {
             case .basic(let imageId):
-                return SquareImageIdPainter(imageId: imageId)
+                return SquareIconPainter(contentPainter: ImageIdPainter(imageId: imageId))
             case .profile(let profile):
                 switch profile {
                 case .imageId(let imageId):
-                    return CircleImageIdPainter(imageId: imageId)
+                    return CircleIconPainter(contentPainter: ImageIdPainter(imageId: imageId))
                 case .character(let c):
-                    return CircleCharIconPainter(text: String(c))
+                    return CircleIconPainter(contentPainter: CharIconPainter(text: String(c)))
                 case .gradient(let gradientId):
                     return GradientIdIconPainter(gradientId: gradientId.rawValue)
                 }
             case .emoji(let emoji):
-                return EmojiIconPainter(text: emoji.value)
+                return SquircleIconPainter(contentPainter: CharIconPainter(text: emoji.value))
             case .bookmark(let imageId):
                 return SmallImageIdPainter(imageId: imageId)
             case .space(let space):
                 switch space {
                 case .character(let c):
-                    return SquareCharIconPainter(text: String(c))
+                    return SquareDynamicIconPainter(contentPainter: CharIconPainter(text: String(c)))
                 case .gradient(let gradientId):
                     return SquareGradientIconPainter(gradientId: gradientId.rawValue)
                 }
             }
         case .todo(let checked):
-            return TodoIconPainter(checked: checked)
-        case .placeholder(let character):
-            return SquareCharIconPainter(text: String(character!))
+            return checked ? AssetIconPainter(asset: .TaskLayout.done) : AssetIconPainter(asset: .TaskLayout.empty)
+        case .placeholder(let c):
+            return SquareDynamicIconPainter(contentPainter: CharIconPainter(text: String(c!)))
         case .imageAsset(let imageAsset):
             return AssetIconPainter(asset: imageAsset)
         case .image(let uIImage):
