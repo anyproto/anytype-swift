@@ -69,8 +69,8 @@ final class IconMaker {
     
     private static func createPainter(icon: ObjectIconImage) -> IconPainter? {
         switch icon {
-        case .icon(let objectIconType):
-            switch objectIconType {
+        case .icon(let ObjectIcon):
+            switch ObjectIcon {
             case .basic(let imageId):
                 return SquareIconPainter(contentPainter: ImageIdPainter(imageId: imageId))
             case .profile(let profile):
@@ -93,11 +93,11 @@ final class IconMaker {
                 case .gradient(let gradientId):
                     return SquareGradientIconPainter(gradientId: gradientId.rawValue)
                 }
+            case .todo(let checked):
+                return checked ? AssetIconPainter(asset: .TaskLayout.done) : AssetIconPainter(asset: .TaskLayout.empty)
+            case .placeholder(let c):
+                return SquareDynamicIconPainter(contentPainter: CharIconPainter(text: c.map { String($0) } ?? ""))
             }
-        case .todo(let checked):
-            return checked ? AssetIconPainter(asset: .TaskLayout.done) : AssetIconPainter(asset: .TaskLayout.empty)
-        case .placeholder(let c):
-            return SquareDynamicIconPainter(contentPainter: CharIconPainter(text: String(c!)))
         case .imageAsset(let imageAsset):
             return AssetIconPainter(asset: imageAsset)
         case .image(let uIImage):

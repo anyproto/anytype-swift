@@ -13,8 +13,8 @@ struct ObjectIconImageGuidelineSet {
     
     func imageGuideline(for iconImage: ObjectIconImage) -> ImageGuideline? {
         switch iconImage {
-        case .icon(let objectIconType):
-            switch objectIconType {
+        case .icon(let ObjectIcon):
+            switch ObjectIcon {
             case .basic:
                 return basicImageGuideline
             case .profile:
@@ -25,11 +25,11 @@ struct ObjectIconImageGuidelineSet {
                 return bookmarkImageGuideline
             case .space:
                 return spaceImageGuideline
+            case .todo:
+                return todoImageGuideline
+            case .placeholder:
+                return placeholderImageGuideline
             }
-        case .todo:
-            return todoImageGuideline
-        case .placeholder:
-            return placeholderImageGuideline
         case .imageAsset:
             return staticImageGuideline
         case .image:

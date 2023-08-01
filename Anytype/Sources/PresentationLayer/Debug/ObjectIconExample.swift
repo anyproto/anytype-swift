@@ -18,7 +18,7 @@ struct ObjectIconExample: View {
                         AnytypeText("Profile Icon", style: .subheading, color: .Text.primary)
                         demoBlock { IconView(icon: .icon(.profile(.imageId(iconId)))) }
                         AnytypeText("Profile Char", style: .subheading, color: .Text.primary)
-                        demoBlock { IconView(icon: .icon(.profile(.character("AAAA".first!)))) }
+                        demoBlock { IconView(icon: .icon(.profile(.character("A")))) }
                         AnytypeText("Profile Gradient", style: .subheading, color: .Text.primary)
                         demoBlock { IconView(icon: .icon(.profile(.gradient(GradientId(1)!)))) }
                     }
@@ -26,13 +26,13 @@ struct ObjectIconExample: View {
                         AnytypeText("Emoji", style: .subheading, color: .Text.primary)
                         demoBlock { IconView(icon: .icon(.emoji(Emoji("😀")!))) }
                         AnytypeText("Todo done", style: .subheading, color: .Text.primary)
-                        demoBlock { IconView(icon: .todo(true)) }
+                        demoBlock { IconView(icon: .icon(.todo(true))) }
                         AnytypeText("Todo empty", style: .subheading, color: .Text.primary)
-                        demoBlock { IconView(icon: .todo(false)) }
+                        demoBlock { IconView(icon: .icon(.todo(false))) }
                         AnytypeText("Space gradient", style: .subheading, color: .Text.primary)
                         demoBlock { IconView(icon: .icon(.space(.gradient(GradientId(2)!)))) }
                         AnytypeText("Space char", style: .subheading, color: .Text.primary)
-                        demoBlock { IconView(icon: .icon(.space(.character("A".first!)))) }
+                        demoBlock { IconView(icon: .icon(.space(.character("A")))) }
                     }
                     
                     Group {

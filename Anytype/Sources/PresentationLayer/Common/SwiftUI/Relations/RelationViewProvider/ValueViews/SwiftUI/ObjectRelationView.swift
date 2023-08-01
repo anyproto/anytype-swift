@@ -97,7 +97,7 @@ struct ObjectRelationView: View {
 
     // Delete with FeatureFlags.deleteObjectPlaceholder
     private func shouldShowIconLegacy(icon: ObjectIconImage) -> Bool {
-        if case .placeholder = icon {
+        if case .icon(.placeholder) = icon {
             return false
         }
         switch style {

@@ -54,7 +54,7 @@ extension ObjectHeaderIconView: ConfigurableView {
 
     struct ObjectHeaderIconModel: Hashable {
         enum Mode: Hashable {
-            case icon(ObjectIconType)
+            case icon(ObjectIcon)
             case image(UIImage?)
             case basicPreview(UIImage?)
             case profilePreview(UIImage?)
@@ -67,8 +67,8 @@ extension ObjectHeaderIconView: ConfigurableView {
 
     func configure(model: ObjectHeaderIconModel) {
         switch model.mode {
-        case .icon(let objectIconType):
-            showObjectIconType(objectIconType, usecase: model.usecase)
+        case .icon(let ObjectIcon):
+            showObjectIcon(ObjectIcon, usecase: model.usecase)
         case .image(let uiImage):
             guard let uiImage = uiImage else { return }
             showImage(uiImage, usecase: model.usecase)
@@ -89,9 +89,9 @@ extension ObjectHeaderIconView: ConfigurableView {
 
 private extension ObjectHeaderIconView {
     
-    func showObjectIconType(_ objectIconType: ObjectIconType, usecase: ObjectIconImageUsecase) {
+    func showObjectIcon(_ ObjectIcon: ObjectIcon, usecase: ObjectIconImageUsecase) {
         let model = ObjectIconImageModel(
-            iconImage: ObjectIconImage.icon(objectIconType),
+            iconImage: ObjectIconImage.icon(ObjectIcon),
             usecase: usecase
         )
         

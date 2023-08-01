@@ -6,7 +6,7 @@ extension BundledRelationsValueProvider {
     
     // MARK: - Icon
     
-    var icon: ObjectIconType? {
+    var icon: ObjectIcon? {
         switch layoutValue {
         case .basic, .set, .collection, .image, .objectType:
             return basicIcon
@@ -21,7 +21,7 @@ extension BundledRelationsValueProvider {
         }
     }
     
-    private var basicIcon: ObjectIconType? {
+    private var basicIcon: ObjectIcon? {
         if let iconImageHash = self.iconImage {
             return .basic(iconImageHash.value)
         }
@@ -33,7 +33,7 @@ extension BundledRelationsValueProvider {
         return nil
     }
     
-    private var profileIcon: ObjectIconType? {
+    private var profileIcon: ObjectIcon? {
         if let iconImageHash = self.iconImage {
             return .profile(.imageId(iconImageHash.value))
         }
@@ -45,11 +45,11 @@ extension BundledRelationsValueProvider {
         return title.first.flatMap { .profile(.character($0)) }
     }
     
-    private var bookmarkIcon: ObjectIconType? {
+    private var bookmarkIcon: ObjectIcon? {
         return iconImage.map { .bookmark($0.value) }
     }
     
-    private var spaceIcon: ObjectIconType? {
+    private var spaceIcon: ObjectIcon? {
         if let basicIcon {
             return basicIcon
         }
@@ -58,7 +58,7 @@ extension BundledRelationsValueProvider {
             return .space(.gradient(gradiendId))
         }
         
-        return title.first.flatMap { .space(ObjectIconType.Space.character($0)) }
+        return title.first.flatMap { .space(.character($0)) }
     }
     
     private var fileIcon: ObjectIconImage {
@@ -102,14 +102,14 @@ extension BundledRelationsValueProvider {
         }
         
         if layoutValue == .todo {
-            return .todo(isDone)
+            return .icon(.todo(isDone))
         }
         
         return nil
     }
     
     var objectIconImageWithPlaceholder: ObjectIconImage {
-        return objectIconImage ?? .placeholder(title.first)
+        return objectIconImage ?? .icon(.placeholder(title.first))
     }
     
     var objectType: ObjectType {

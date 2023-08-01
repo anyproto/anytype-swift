@@ -4,7 +4,7 @@
 //
 //    enum Style: Hashable, Equatable {
 //        case noContent
-//        case icon(ObjectIconType)
+//        case icon(ObjectIcon)
 //        case checkmark(Bool)
 //
 //        var isCheckmark: Bool {

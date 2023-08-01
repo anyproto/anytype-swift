@@ -20,8 +20,8 @@ struct ObjectIconImageFontSet {
     
     func imageFont(for iconImage: ObjectIconImage) -> UIFont? {
         switch iconImage {
-        case .icon(let objectIconType):
-            switch objectIconType {
+        case .icon(let ObjectIcon):
+            switch ObjectIcon {
             case .basic, .bookmark:
                 return nil
             case .profile:
@@ -30,10 +30,12 @@ struct ObjectIconImageFontSet {
                 return emojiImageFont
             case .space:
                 return spaceImageFont
+            case .todo:
+                return nil
+            case .placeholder:
+                return placeholderImageFont
             }
-        case .placeholder:
-            return placeholderImageFont
-        case .todo, .image, .imageAsset:
+        case .image, .imageAsset:
             return nil
         }
     }
