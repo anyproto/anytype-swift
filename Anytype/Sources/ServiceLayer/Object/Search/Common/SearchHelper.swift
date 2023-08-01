@@ -212,6 +212,16 @@ class SearchHelper {
         return filter
     }
     
+    static func relationReadonlyValue(_ value: Bool) -> DataviewFilter {
+        var filter = DataviewFilter()
+        filter.condition = .equal
+        filter.value = value.protobufValue
+        filter.relationKey = BundledRelationKey.relationReadonlyValue.rawValue
+        filter.operator = .and
+        
+        return filter
+    }
+    
     // MARK: - Private
 
     private static func templateTypeFilter(type: String) -> DataviewFilter {

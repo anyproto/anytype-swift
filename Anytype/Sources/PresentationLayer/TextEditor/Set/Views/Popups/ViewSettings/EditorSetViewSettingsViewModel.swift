@@ -81,7 +81,7 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
                 image: relation.relationDetails.format.iconAsset,
                 title: relation.relationDetails.name,
                 isOn: relation.option.isVisible,
-                isSystem: relation.relationDetails.isSystem,
+                isSystem: relation.relationDetails.canBeRemovedFromObject,
                 onChange: { [weak self] isVisible in
                     self?.onRelationVisibleChange(relation, isVisible: isVisible)
                 }

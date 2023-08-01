@@ -89,7 +89,7 @@ final class RelationFilterBuilder {
                     name: relationDetails.name,
                     isFeatured: false,
                     isEditable: false,
-                    isSystem: relationDetails.isSystem,
+                    isSystem: relationDetails.canBeRemovedFromObject,
                     isDeleted: relationDetails.isDeleted,
                     value: Loc.unsupportedValue
                 )
@@ -154,7 +154,7 @@ private extension RelationFilterBuilder {
                 name: relationDetails.name,
                 isFeatured: false,
                 isEditable: false,
-                isSystem: relationDetails.isSystem,
+                canBeRemovedFromObject: relationDetails.canBeRemovedFromObject,
                 isDeleted: relationDetails.isDeleted,
                 selectedObjects: objectOptions,
                 limitedObjectTypes: relationDetails.objectTypes
@@ -174,7 +174,7 @@ private extension RelationFilterBuilder {
                 name: relationDetails.name,
                 isFeatured: false,
                 isEditable: false,
-                isSystem: relationDetails.isSystem,
+                isSystem: relationDetails.canBeRemovedFromObject,
                 isDeleted: relationDetails.isDeleted,
                 value: "“\(filter.value.stringValue)“"
             )
@@ -199,7 +199,7 @@ private extension RelationFilterBuilder {
                 name: relationDetails.name,
                 isFeatured: false,
                 isEditable: false,
-                isSystem: relationDetails.isSystem,
+                isSystem: relationDetails.canBeRemovedFromObject,
                 isDeleted: relationDetails.isDeleted,
                 value: "“\(numberValue ?? "")“"
             )
@@ -218,7 +218,7 @@ private extension RelationFilterBuilder {
                 name: relationDetails.name,
                 isFeatured: false,
                 isEditable: false,
-                isSystem: relationDetails.isSystem,
+                isSystem: relationDetails.canBeRemovedFromObject,
                 isDeleted: relationDetails.isDeleted,
                 value: "“\(filter.value.stringValue)“"
             )
@@ -237,7 +237,7 @@ private extension RelationFilterBuilder {
                 name: relationDetails.name,
                 isFeatured: false,
                 isEditable: false,
-                isSystem: relationDetails.isSystem,
+                isSystem: relationDetails.canBeRemovedFromObject,
                 isDeleted: relationDetails.isDeleted,
                 value: "“\(filter.value.stringValue)“"
             )
@@ -256,7 +256,7 @@ private extension RelationFilterBuilder {
                 name: relationDetails.name,
                 isFeatured: false,
                 isEditable: false,
-                isSystem: relationDetails.isSystem,
+                isSystem: relationDetails.canBeRemovedFromObject,
                 isDeleted: relationDetails.isDeleted,
                 value: "“\(filter.value.stringValue)“"
             )
@@ -289,7 +289,7 @@ private extension RelationFilterBuilder {
                 name: relationDetails.name,
                 isFeatured: false,
                 isEditable: false,
-                isSystem: relationDetails.isSystem,
+                canBeRemovedFromObject: relationDetails.canBeRemovedFromObject,
                 isDeleted: relationDetails.isDeleted,
                 values: selectedStatuses
             )
@@ -326,7 +326,7 @@ private extension RelationFilterBuilder {
                 name: relationDetails.name,
                 isFeatured: false,
                 isEditable: false,
-                isSystem: relationDetails.isSystem,
+                canBeRemovedFromObject: relationDetails.canBeRemovedFromObject,
                 isDeleted: relationDetails.isDeleted,
                 selectedTags: selectedTags
             )
@@ -364,7 +364,7 @@ private extension RelationFilterBuilder {
                 name: relationDetails.name,
                 isFeatured: false,
                 isEditable: false,
-                isSystem: relationDetails.isSystem,
+                canBeRemovedFromObject: relationDetails.canBeRemovedFromObject,
                 isDeleted: relationDetails.isDeleted,
                 files: fileOptions
             )
@@ -383,7 +383,7 @@ private extension RelationFilterBuilder {
                 name: relationDetails.name,
                 isFeatured: false,
                 isEditable: false,
-                isSystem: relationDetails.isSystem,
+                canBeRemovedFromObject: relationDetails.canBeRemovedFromObject,
                 isDeleted: relationDetails.isDeleted,
                 value: filter.value.boolValue
             )

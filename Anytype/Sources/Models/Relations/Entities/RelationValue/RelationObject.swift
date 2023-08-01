@@ -9,7 +9,7 @@ extension Relation {
         let name: String
         let isFeatured: Bool
         var isEditable: Bool
-        let isSystem: Bool
+        let canBeRemovedFromObject: Bool
         let isDeleted: Bool
         
         let selectedObjects: [Option]
