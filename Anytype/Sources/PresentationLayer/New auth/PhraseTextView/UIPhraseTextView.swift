@@ -4,7 +4,7 @@ import UIKit
 class UIPhraseTextView: UITextView, UITextViewDelegate {
     
     var textDidChange: ((String) -> Void)?
-    var expandable = false
+    var noninteractive = false
     
     private lazy var placeholderLabel: UILabel = {
         let label = UILabel()
@@ -37,7 +37,7 @@ class UIPhraseTextView: UITextView, UITextViewDelegate {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        if expandable, !bounds.size.equalTo(intrinsicContentSize) {
+        if noninteractive, !bounds.size.equalTo(intrinsicContentSize) {
             invalidateIntrinsicContentSize()
         }
     }
@@ -126,6 +126,8 @@ extension UIPhraseTextView {
             attributes[NSAttributedString.Key.backgroundColor] = hidden ? color : nil
             return NSAttributedString(string: word, attributes: attributes)
         }
-        return attributedWords.joined(with: " ")
+        // hack to increase words spacing when view is noninteractive
+        let separator = noninteractive ? "     " : " "
+        return attributedWords.joined(with: separator)
     }
 }

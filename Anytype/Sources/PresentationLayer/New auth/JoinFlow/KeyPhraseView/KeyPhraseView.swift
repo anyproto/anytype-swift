@@ -46,7 +46,7 @@ struct KeyPhraseView: View {
     private var phraseTextView: some View {
         PhraseTextView(
             text: $model.key,
-            expandable: true,
+            noninteractive: true,
             alignTextToCenter: true,
             hideWords: !model.keyShown
         )

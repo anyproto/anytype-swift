@@ -45,7 +45,7 @@ struct LoginView: View {
             
             PhraseTextView(
                 text: $model.phrase,
-                expandable: false,
+                noninteractive: false,
                 alignTextToCenter: false,
                 hideWords: false
             )
