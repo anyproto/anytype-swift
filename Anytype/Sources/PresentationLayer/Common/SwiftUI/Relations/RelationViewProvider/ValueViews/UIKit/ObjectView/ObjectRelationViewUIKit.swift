@@ -91,11 +91,11 @@ private extension ObjectRelationViewUIKit {
     }
     
     // Delete with FeatureFlags.deleteObjectPlaceholder
-    func shouldShowIcon(icon: ObjectIconImage) -> Bool {
+    func shouldShowIcon(icon: Icon) -> Bool {
         switch icon {
-        case .icon(.placeholder):
+        case .object(.placeholder):
             return false
-        case .icon(_), .image, .imageAsset:
+        default:
             return true
         }
     }

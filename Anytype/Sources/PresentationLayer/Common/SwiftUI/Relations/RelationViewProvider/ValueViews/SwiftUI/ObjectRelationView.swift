@@ -96,8 +96,8 @@ struct ObjectRelationView: View {
     }
 
     // Delete with FeatureFlags.deleteObjectPlaceholder
-    private func shouldShowIconLegacy(icon: ObjectIconImage) -> Bool {
-        if case .icon(.placeholder) = icon {
+    private func shouldShowIconLegacy(icon: Icon) -> Bool {
+        if case .object(.placeholder) = icon {
             return false
         }
         switch style {
@@ -108,7 +108,7 @@ struct ObjectRelationView: View {
         }
     }
     
-    private func shouldShowIcon(icon: ObjectIconImage) -> Bool {
+    private func shouldShowIcon(icon: Icon) -> Bool {
         switch style {
         case .regular, .set, .filter, .setCollection, .kanbanHeader:
             return true

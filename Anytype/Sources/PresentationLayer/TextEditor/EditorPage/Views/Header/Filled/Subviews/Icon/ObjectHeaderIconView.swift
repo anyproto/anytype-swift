@@ -89,9 +89,9 @@ extension ObjectHeaderIconView: ConfigurableView {
 
 private extension ObjectHeaderIconView {
     
-    func showObjectIcon(_ ObjectIcon: ObjectIcon, usecase: ObjectIconImageUsecase) {
+    func showObjectIcon(_ icon: ObjectIcon, usecase: ObjectIconImageUsecase) {
         let model = ObjectIconImageModel(
-            iconImage: ObjectIconImage.icon(ObjectIcon),
+            iconImage: .object(icon),
             usecase: usecase
         )
         

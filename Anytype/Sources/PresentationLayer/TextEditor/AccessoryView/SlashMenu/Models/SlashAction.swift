@@ -15,11 +15,11 @@ enum SlashAction {
         switch self {
         case let .actions(action):
             return .titleSubtitleDisplayData(
-                SlashMenuItemDisplayData(iconData: .imageAsset(action.iconAsset), title: action.title)
+                SlashMenuItemDisplayData(iconData: .asset(action.iconAsset), title: action.title)
             )
         case let .alignment(alignment):
             return .titleSubtitleDisplayData(
-                SlashMenuItemDisplayData(iconData: .imageAsset(alignment.iconAsset), title: alignment.title)
+                SlashMenuItemDisplayData(iconData: .asset(alignment.iconAsset), title: alignment.title)
                 )
         case let .background(color):
             return .titleSubtitleDisplayData(
@@ -31,22 +31,22 @@ enum SlashAction {
             )
         case let .media(media):
             return .titleSubtitleDisplayData(
-                SlashMenuItemDisplayData(iconData: .imageAsset(media.iconAsset), title: media.title, subtitle: media.subtitle)
+                SlashMenuItemDisplayData(iconData: .asset(media.iconAsset), title: media.title, subtitle: media.subtitle)
             )
         case let .style(style):
             return .titleSubtitleDisplayData(
-                SlashMenuItemDisplayData(iconData: .imageAsset(style.imageAsset), title: style.title, subtitle: style.subtitle, expandedIcon: true)
+                SlashMenuItemDisplayData(iconData: .asset(style.imageAsset), title: style.title, subtitle: style.subtitle, expandedIcon: true)
             )
         case let .other(other):
             return .titleSubtitleDisplayData(
-                SlashMenuItemDisplayData(iconData: .imageAsset(other.iconAsset), title: other.title, searchAliases: other.searchAliases)
+                SlashMenuItemDisplayData(iconData: .asset(other.iconAsset), title: other.title, searchAliases: other.searchAliases)
             )
         case let .objects(object):
             switch object {
             case .linkTo:
                 return .titleSubtitleDisplayData(
                     SlashMenuItemDisplayData(
-                        iconData: .imageAsset(.X40.linkToExistingObject),
+                        iconData: .asset(.X40.linkToExistingObject),
                         title: Loc.linkToObject,
                         subtitle: Loc.linkToExistingObject
                     )
@@ -65,7 +65,7 @@ enum SlashAction {
             case .newRealtion:
                 return .titleSubtitleDisplayData(
                     SlashMenuItemDisplayData(
-                        iconData: .imageAsset(.X24.plus),
+                        iconData: .asset(.X24.plus),
                         title: Loc.newRelation
                     )
                 )

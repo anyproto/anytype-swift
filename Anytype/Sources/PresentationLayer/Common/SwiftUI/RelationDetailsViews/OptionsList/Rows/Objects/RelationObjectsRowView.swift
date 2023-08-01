@@ -94,7 +94,7 @@ struct RelationObjectsRowView_Previews: PreviewProvider {
         RelationObjectsRowView(
             object: Relation.Object.Option(
                 id: "",
-                icon: .icon(.placeholder("r")),
+                icon: .object(.placeholder("r")),
                 title: "title",
                 type: "type",
                 isArchived: false,

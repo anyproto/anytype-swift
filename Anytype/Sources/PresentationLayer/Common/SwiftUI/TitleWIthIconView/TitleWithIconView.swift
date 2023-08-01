@@ -2,7 +2,7 @@ import SwiftUI
 import AnytypeCore
 
 struct TitleWithIconView: View {
-    let icon: ObjectIconImage?
+    let icon: Icon?
     let showIcon: Bool
     let title: String?
     let style: TitleWithIconStyle
@@ -49,7 +49,7 @@ struct TitleWithIconView: View {
 struct TitleWithIconView_Previews: PreviewProvider {
     static var previews: some View {
         TitleWithIconView(
-            icon: .icon(.emoji(Emoji("📘")!)),
+            icon: .object(.emoji(Emoji("📘")!)),
             showIcon: true,
             title: "Let's see how this TitleWithIconView looks like with image - header style",
             style: .header,
@@ -58,7 +58,7 @@ struct TitleWithIconView_Previews: PreviewProvider {
         .previewLayout(.fixed(width: 375, height: 150))
         
         TitleWithIconView(
-            icon: .icon(.emoji(Emoji("📘")!)),
+            icon: .object(.emoji(Emoji("📘")!)),
             showIcon: true,
             title: "Let's see how this TitleWithIconView looks like with image - list style",
             style: .list,
@@ -67,7 +67,7 @@ struct TitleWithIconView_Previews: PreviewProvider {
         .previewLayout(.fixed(width: 375, height: 150))
         
         TitleWithIconView(
-            icon: .icon(.emoji(Emoji("📘")!)),
+            icon: .object(.emoji(Emoji("📘")!)),
             showIcon: true,
             title: "Let's see how this TitleWithIconView looks like with image - gallery style",
             style: .gallery,

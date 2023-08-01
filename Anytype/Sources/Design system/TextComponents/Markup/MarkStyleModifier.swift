@@ -166,7 +166,7 @@ final class MarkStyleModifier {
         var iconAttributes = emojiAttributedString.attributes(at: 0, effectiveRange: nil)
         iconAttributes.removeValue(forKey: .anytypeLink) // no underline under icon
         
-        let attachment = IconTextAttachment(icon: .icon(.emoji(data)), mentionType: font.mentionType)
+        let attachment = IconTextAttachment(icon: .object(.emoji(data)), mentionType: font.mentionType)
         let attachmentString = NSMutableAttributedString(attachment: attachment)
         attachmentString.addAttributes(iconAttributes, range: attachmentString.wholeRange)
         

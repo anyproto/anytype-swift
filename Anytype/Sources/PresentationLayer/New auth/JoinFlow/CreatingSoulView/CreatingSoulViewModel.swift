@@ -4,8 +4,8 @@ import Services
 @MainActor
 final class CreatingSoulViewModel: ObservableObject {
 
-    @Published var profileIcon: ObjectIconImage?
-    @Published var spaceIcon: ObjectIconImage?
+    @Published var profileIcon: Icon?
+    @Published var spaceIcon: Icon?
     
     @Published var showProfile = false
     @Published var showSpace = false

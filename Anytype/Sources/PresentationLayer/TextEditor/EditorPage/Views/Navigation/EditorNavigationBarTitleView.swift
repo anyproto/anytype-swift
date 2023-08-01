@@ -24,7 +24,7 @@ extension EditorNavigationBarTitleView: ConfigurableView {
 
     enum Mode {
         struct TitleModel {
-            let icon: ObjectIconImage?
+            let icon: Icon?
             let title: String?
         }
 

@@ -13,16 +13,14 @@ extension BlockLinkState {
     var textTitleFont: AnytypeFont { .previewTitle1Medium }
 
     var titleColor: UIColor {
-        if case let .icon(.todo(value)) = icon, value {
+        if case let .object(.todo(value)) = icon, value {
             return .Button.active
         }
 
         if deleted || archived {
             return .Button.active
         }
-
-
-
+        
         return .Text.primary
     }
 

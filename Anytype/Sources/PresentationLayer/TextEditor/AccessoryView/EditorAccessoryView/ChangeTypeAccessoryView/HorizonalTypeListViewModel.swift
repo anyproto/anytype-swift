@@ -7,7 +7,7 @@ import AnytypeCore
 struct HorizontalListItem: Identifiable, Hashable {
     let id: String
     let title: String
-    let image: ObjectIconImage
+    let image: Icon
 
     @EquatableNoop var action: () -> Void
 }
@@ -30,8 +30,8 @@ final class HorizonalTypeListViewModel: ObservableObject {
 
 extension HorizontalListItem {
     init(from details: ObjectDetails, handler: @escaping () -> Void) {
-        let emoji = details.iconEmoji.map { ObjectIconImage.icon(.emoji($0)) } ??
-            .icon(.placeholder(details.name.first))
+        let emoji = details.iconEmoji.map { Icon.object(.emoji($0)) } ??
+            .object(.placeholder(details.name.first))
         
         self.init(
             id: details.id,
@@ -42,18 +42,10 @@ extension HorizontalListItem {
     }
 
     static func searchItem(onTap: @escaping () -> Void) -> Self {
-        let image = (UIImage(asset: .X32.search) ?? UIImage()).image(
-            imageSize: .init(width: 32, height: 32),
-            cornerRadius: 12,
-            side: 52,
-            foregroundColor: .Button.active,
-            backgroundColor: .Stroke.tertiary
-        )
-
         return .init(
             id: "Search",
             title: Loc.search,
-            image: ObjectIconImage.image(image),
+            image: .squircle(.asset(.X32.search)),
             action: onTap
         )
     }

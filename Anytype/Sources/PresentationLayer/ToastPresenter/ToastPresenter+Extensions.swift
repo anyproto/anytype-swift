@@ -95,13 +95,13 @@ private func retrieveObjectDetails(objectId: BlockId) async -> ObjectDetails? {
 }
 
 private func createAttributedString(from objectDetails: ObjectDetails) async -> NSAttributedString {
-    guard let objectIconImage = objectDetails.objectIconImage else {
+    guard let Icon = objectDetails.objectIconImage else {
         return await NSAttributedString(
             string: objectDetails.title.trimmed(numberOfCharacters: 16),
             attributes: ToastView.objectAttributes
         )
     }
-    let maker = IconMaker(icon: objectIconImage, size: CGSize(width: 16, height: 16))
+    let maker = IconMaker(icon: Icon, size: CGSize(width: 16, height: 16))
     let image = await maker.make()
     return await NSAttributedString.imageFirstComposite(
         image: image,

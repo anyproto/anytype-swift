@@ -14,32 +14,32 @@ struct ObjectIconExample: View {
                 VStack(spacing: 20) {
                     Group {
                         AnytypeText("Object Icon", style: .subheading, color: .Text.primary)
-                        demoBlock { IconView(icon: .icon(.basic(iconId))) }
+                        demoBlock { IconView(icon: .object(.basic(iconId))) }
                         AnytypeText("Profile Icon", style: .subheading, color: .Text.primary)
-                        demoBlock { IconView(icon: .icon(.profile(.imageId(iconId)))) }
+                        demoBlock { IconView(icon: .object(.profile(.imageId(iconId)))) }
                         AnytypeText("Profile Char", style: .subheading, color: .Text.primary)
-                        demoBlock { IconView(icon: .icon(.profile(.character("A")))) }
+                        demoBlock { IconView(icon: .object(.profile(.character("A")))) }
                         AnytypeText("Profile Gradient", style: .subheading, color: .Text.primary)
-                        demoBlock { IconView(icon: .icon(.profile(.gradient(GradientId(1)!)))) }
+                        demoBlock { IconView(icon: .object(.profile(.gradient(GradientId(1)!)))) }
                     }
                     Group {
                         AnytypeText("Emoji", style: .subheading, color: .Text.primary)
-                        demoBlock { IconView(icon: .icon(.emoji(Emoji("😀")!))) }
+                        demoBlock { IconView(icon: .object(.emoji(Emoji("😀")!))) }
                         AnytypeText("Todo done", style: .subheading, color: .Text.primary)
-                        demoBlock { IconView(icon: .icon(.todo(true))) }
+                        demoBlock { IconView(icon: .object(.todo(true))) }
                         AnytypeText("Todo empty", style: .subheading, color: .Text.primary)
-                        demoBlock { IconView(icon: .icon(.todo(false))) }
+                        demoBlock { IconView(icon: .object(.todo(false))) }
                         AnytypeText("Space gradient", style: .subheading, color: .Text.primary)
-                        demoBlock { IconView(icon: .icon(.space(.gradient(GradientId(2)!)))) }
+                        demoBlock { IconView(icon: .object(.space(.gradient(GradientId(2)!)))) }
                         AnytypeText("Space char", style: .subheading, color: .Text.primary)
-                        demoBlock { IconView(icon: .icon(.space(.character("A")))) }
+                        demoBlock { IconView(icon: .object(.space(.character("A")))) }
                     }
                     
                     Group {
                         AnytypeText("Assets - active (copy example)", style: .subheading, color: .Text.primary)
-                        demoBlock { IconView(icon: .imageAsset(.X32.copy)) }
+                        demoBlock { IconView(icon: .asset(.X32.copy)) }
                         AnytypeText("Assets - inactive (copy example)", style: .subheading, color: .Text.primary)
-                        demoBlock { IconView(icon: .imageAsset(.X32.copy)).disabled(true) }
+                        demoBlock { IconView(icon: .asset(.X32.copy)).disabled(true) }
                     }
 //                    Group {
 //                        AnytypeText("Object Icon", style: .subheading, color: .Text.primary)

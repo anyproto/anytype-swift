@@ -11,7 +11,7 @@ struct TreeWidgetRowViewModel {
     let rowId: String
     let objectId: String
     let title: String
-    let icon: ObjectIconImage?
+    let icon: Icon?
     let expandedType: ExpandedType
     let level: Int
     let tapExpand: (TreeWidgetRowViewModel) -> Void

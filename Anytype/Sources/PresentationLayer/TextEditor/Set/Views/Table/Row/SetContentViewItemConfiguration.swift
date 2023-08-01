@@ -6,7 +6,7 @@ struct SetContentViewItemConfiguration: Identifiable, Hashable {
     let id: BlockId
     let title: String
     let description: String?
-    let icon: ObjectIconImage?
+    let icon: Icon?
     let relations: [Relation]
     let showIcon: Bool
     let smallItemSize: Bool
@@ -21,7 +21,7 @@ struct SetContentViewItemConfiguration: Identifiable, Hashable {
         id: BlockId,
         title: String,
         description: String?,
-        icon: ObjectIconImage?,
+        icon: Icon?,
         relations: [Relation],
         showIcon: Bool,
         smallItemSize: Bool,

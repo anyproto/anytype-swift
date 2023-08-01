@@ -65,7 +65,7 @@ struct SearchObjectRowView: View {
 extension SearchObjectRowView {
     
     struct Model {
-        let icon: ObjectIconImage?
+        let icon: Icon?
         let title: String
         let subtitle: String?
         let style: Style

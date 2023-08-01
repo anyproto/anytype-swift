@@ -5,7 +5,7 @@ struct SettingsObjectHeader: View {
 
     @Binding var name: String
     let nameTitle: String
-    let iconImage: ObjectIconImage?
+    let iconImage: Icon?
     let onTap: () -> Void
     
     var body: some View {

@@ -3,7 +3,7 @@ import SwiftUI
 
 struct IconView: View {
     
-    let icon: ObjectIconImage?
+    let icon: Icon?
     
     @State private var task: Task<Void, Never>?
     @State private var size: CGSize = .zero

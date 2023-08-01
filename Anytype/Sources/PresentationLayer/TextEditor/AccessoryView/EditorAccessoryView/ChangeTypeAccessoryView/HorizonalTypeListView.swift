@@ -24,7 +24,7 @@ struct HorizonalTypeListView: View {
 }
 
 private struct TypeView: View {
-    let image: ObjectIconImage
+    let image: Icon
     let title: String
 
     var body: some View {

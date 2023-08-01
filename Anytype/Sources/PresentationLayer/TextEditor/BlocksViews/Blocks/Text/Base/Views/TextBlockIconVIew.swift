@@ -10,7 +10,7 @@ final class TextBlockIconView: UIView {
         case numbered(Int)
         case bulleted
         case quote
-        case callout(image: ObjectIconImage)
+        case callout(image: Icon)
     }
 
     private var currentView: UIView?
@@ -191,7 +191,7 @@ extension TextBlockIconView {
         return quoteView
     }
 
-    private func createCalloutView(icon: ObjectIconImage) -> UIView {
+    private func createCalloutView(icon: Icon) -> UIView {
         let iconView = IconViewUIKit()
         
         iconView.icon = icon

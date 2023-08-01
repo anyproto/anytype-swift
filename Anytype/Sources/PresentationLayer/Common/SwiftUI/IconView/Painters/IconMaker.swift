@@ -4,7 +4,7 @@ import UIKit
 final class IconMaker {
     
     private struct HashData: Hashable {
-        let icon: ObjectIconImage
+        let icon: Icon
         let bounds: CGRect
         let iconContext: IconContext
         let placeholder: Bool
@@ -14,21 +14,21 @@ final class IconMaker {
         }
     }
     
-    let icon: ObjectIconImage
+    let icon: Icon
     let size: CGSize
     let iconContext: IconContext
     
     private let bounds: CGRect
-    private let painter: IconPainter?
+    private var painter: IconPainter?
     private let imageStorage = ImageStorage.shared
     
-    init(icon: ObjectIconImage, size: CGSize, iconContext: IconContext = IconContext(isEnabled: true)) {
+    init(icon: Icon, size: CGSize, iconContext: IconContext = IconContext(isEnabled: true)) {
         self.icon = icon
         self.size = size
         self.iconContext = iconContext
         let side = min(size.width, size.height)
         self.bounds = CGRect(x: 0, y: 0, width: side, height: side)
-        self.painter = IconMaker.createPainter(icon: icon)
+        self.painter = createPainter(icon: icon)
     }
     
     func makePlaceholder() -> UIImage {
@@ -67,41 +67,63 @@ final class IconMaker {
     
     // MARK: - Private func
     
-    private static func createPainter(icon: ObjectIconImage) -> IconPainter? {
+    private func createPainter(icon: Icon) -> IconPainter? {
         switch icon {
-        case .icon(let ObjectIcon):
+        case .object(let ObjectIcon):
             switch ObjectIcon {
             case .basic(let imageId):
-                return SquareIconPainter(contentPainter: ImageIdPainter(imageId: imageId))
+                return SquareIconPainter(contentPainter: contentPainter(.imageId(imageId)))
             case .profile(let profile):
                 switch profile {
                 case .imageId(let imageId):
-                    return CircleIconPainter(contentPainter: ImageIdPainter(imageId: imageId))
+                    return CircleIconPainter(contentPainter: contentPainter(.imageId(imageId)))
                 case .character(let c):
-                    return CircleIconPainter(contentPainter: CharIconPainter(text: String(c)))
+                    return CircleIconPainter(contentPainter: contentPainter(.char(String(c))))
                 case .gradient(let gradientId):
                     return GradientIdIconPainter(gradientId: gradientId.rawValue)
                 }
             case .emoji(let emoji):
-                return SquircleIconPainter(contentPainter: CharIconPainter(text: emoji.value))
+                return SquircleIconPainter(contentPainter: contentPainter(.char(emoji.value)))
             case .bookmark(let imageId):
                 return SmallImageIdPainter(imageId: imageId)
             case .space(let space):
                 switch space {
                 case .character(let c):
-                    return SquareDynamicIconPainter(contentPainter: CharIconPainter(text: String(c)))
+                    return SquareDynamicIconPainter(contentPainter: contentPainter(.char(String(c))))
                 case .gradient(let gradientId):
                     return SquareGradientIconPainter(gradientId: gradientId.rawValue)
                 }
             case .todo(let checked):
-                return checked ? AssetIconPainter(asset: .TaskLayout.done) : AssetIconPainter(asset: .TaskLayout.empty)
+                return checked ? contentPainter(.asset(.TaskLayout.done)) : contentPainter(.asset(.TaskLayout.empty))
             case .placeholder(let c):
-                return SquareDynamicIconPainter(contentPainter: CharIconPainter(text: c.map { String($0) } ?? ""))
+                let char = c.map { String($0) } ?? ""
+                return SquareDynamicIconPainter(contentPainter: contentPainter(.char(char)))
             }
-        case .imageAsset(let imageAsset):
+        case .asset(let imageAsset):
+            return contentPainter(.asset(imageAsset))
+        case .image(let uIImage):
+            return contentPainter(.image(uIImage))
+        case .square(let content):
+            return SquareIconPainter(contentPainter: contentPainter(content))
+        case .cycle(let content):
+            return CircleIconPainter(contentPainter: contentPainter(content))
+        case .squareDynamic(let content):
+            return SquareDynamicIconPainter(contentPainter: contentPainter(content))
+        case .squircle(let content):
+            return SquircleIconPainter(contentPainter: contentPainter((content)))
+        }
+    }
+    
+    private func contentPainter(_ iconContent: Icon.Content) -> IconPainter {
+        switch iconContent {
+        case .char(let c):
+            return CharIconPainter(text: String(c))
+        case .asset(let imageAsset):
             return AssetIconPainter(asset: imageAsset)
         case .image(let uIImage):
             return ImageDataIconPainter(image: uIImage)
+        case .imageId(let imageId):
+            return ImageIdPainter(imageId: imageId)
         }
     }
 }

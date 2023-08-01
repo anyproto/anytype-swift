@@ -57,7 +57,7 @@ struct FileStorageView: View {
         AnytypeText(Loc.FileStorage.Local.instruction, style: .uxCalloutRegular, color: .Text.primary)
         Spacer.fixedHeight(16)
         FileStorageInfoBlock(
-            iconImage: Emoji("📱").map { ObjectIconImage.icon(.emoji($0)) },
+            iconImage: Emoji("📱").map { Icon.object(.emoji($0)) },
             title: model.phoneName,
             description: model.locaUsed,
             isWarning: false

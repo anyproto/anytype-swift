@@ -1,7 +1,7 @@
 import UIKit
 
 struct ObjectIconImageModel {
-    let iconImage: ObjectIconImage
+    let iconImage: Icon
     let usecase: ObjectIconImageUsecase
     
     var imageGuideline: ImageGuideline? {

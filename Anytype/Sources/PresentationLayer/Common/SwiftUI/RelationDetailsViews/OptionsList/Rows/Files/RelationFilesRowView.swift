@@ -28,7 +28,7 @@ struct RelationFilesRowView_Previews: PreviewProvider {
         RelationFilesRowView(
             file: Relation.File.Option(
                 id: "s",
-                icon: .icon(.todo(false)),
+                icon: .object(.todo(false)),
                 title: "title",
                 editorScreenData: .favorites
             ),

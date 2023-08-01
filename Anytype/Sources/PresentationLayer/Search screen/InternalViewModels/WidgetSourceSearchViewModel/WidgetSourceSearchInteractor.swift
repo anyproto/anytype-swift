@@ -5,7 +5,7 @@ import AnytypeCore
 struct WidgetAnytypeLibrarySource: Hashable {
     let type: AnytypeWidgetId
     let name: String
-    let icon: ObjectIconImage
+    let icon: Icon
 }
 
 protocol WidgetSourceSearchInteractorProtocol: AnyObject {
@@ -17,10 +17,10 @@ final class WidgetSourceSearchInteractor: WidgetSourceSearchInteractorProtocol {
     
     private let searchService: SearchServiceProtocol
     private let anytypeLibrary = [
-        WidgetAnytypeLibrarySource(type: .favorite, name: Loc.favorite, icon: .icon(.emoji(Emoji("⭐️") ?? .default))),
-        WidgetAnytypeLibrarySource(type: .sets, name: Loc.sets, icon: .icon(.emoji(Emoji("📚") ?? .default))),
-        WidgetAnytypeLibrarySource(type: .collections, name: Loc.collections, icon: .icon(.emoji(Emoji("📂") ?? .default))),
-        WidgetAnytypeLibrarySource(type: .recent, name: Loc.recent, icon: .icon(.emoji(Emoji("📅") ?? .default)))
+        WidgetAnytypeLibrarySource(type: .favorite, name: Loc.favorite, icon: .object(.emoji(Emoji("⭐️") ?? .default))),
+        WidgetAnytypeLibrarySource(type: .sets, name: Loc.sets, icon: .object(.emoji(Emoji("📚") ?? .default))),
+        WidgetAnytypeLibrarySource(type: .collections, name: Loc.collections, icon: .object(.emoji(Emoji("📂") ?? .default))),
+        WidgetAnytypeLibrarySource(type: .recent, name: Loc.recent, icon: .object(.emoji(Emoji("📅") ?? .default)))
     ]
     
     init(searchService: SearchServiceProtocol) {

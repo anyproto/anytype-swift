@@ -5,11 +5,11 @@ import Services
 
 final class IconTextAttachment: NSTextAttachment {
     
-    let icon: ObjectIconImage?
+    let icon: Icon?
     let size: CGSize
     let rightPadding: CGFloat
     
-    init(icon: ObjectIconImage?, size: CGSize, rightPadding: CGFloat = 0) {
+    init(icon: Icon?, size: CGSize, rightPadding: CGFloat = 0) {
         self.icon = icon
         self.size = size
         self.rightPadding = rightPadding
@@ -55,7 +55,7 @@ final class IconTextAttachment: NSTextAttachment {
 }
 
 extension IconTextAttachment {
-    convenience init(icon: ObjectIconImage?, mentionType: ObjectIconImageMentionType) {
+    convenience init(icon: Icon?, mentionType: ObjectIconImageMentionType) {
         self.init(icon: icon, size: mentionType.size, rightPadding: mentionType.iconSpacing)
     }
 }

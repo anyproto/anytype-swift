@@ -61,8 +61,8 @@ extension BundledRelationsValueProvider {
         return title.first.flatMap { .space(.character($0)) }
     }
     
-    private var fileIcon: ObjectIconImage {
-        return .imageAsset(FileIconBuilder.convert(mime: fileMimeType, fileName: name))
+    private var fileIcon: Icon {
+        return .asset(FileIconBuilder.convert(mime: fileMimeType, fileName: name))
     }
     
     // MARK: - Cover
@@ -88,13 +88,13 @@ extension BundledRelationsValueProvider {
         }
     }
     
-    var objectIconImage: ObjectIconImage? {
+    var objectIconImage: Icon? {
         guard !isDeleted else {
-            return .imageAsset(.ghost)
+            return .asset(.ghost)
         }
         
         if let icon = icon {
-            return .icon(icon)
+            return .object(icon)
         }
         
         if layoutValue == .file {
@@ -102,14 +102,14 @@ extension BundledRelationsValueProvider {
         }
         
         if layoutValue == .todo {
-            return .icon(.todo(isDone))
+            return .object(.todo(isDone))
         }
         
         return nil
     }
     
-    var objectIconImageWithPlaceholder: ObjectIconImage {
-        return objectIconImage ?? .icon(.placeholder(title.first))
+    var objectIconImageWithPlaceholder: Icon {
+        return objectIconImage ?? .object(.placeholder(title.first))
     }
     
     var objectType: ObjectType {

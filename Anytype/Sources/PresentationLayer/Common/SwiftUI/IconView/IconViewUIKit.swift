@@ -4,7 +4,7 @@ import SwiftUI
 
 final class IconViewUIKit: UIView {
     
-    var icon: ObjectIconImage? {
+    var icon: Icon? {
         didSet {
             if oldValue != icon {
                 updateIcon()
@@ -12,7 +12,7 @@ final class IconViewUIKit: UIView {
         }
     }
     
-    init(icon: ObjectIconImage? = nil) {
+    init(icon: Icon? = nil) {
         self.icon = icon
         super.init(frame: .zero)
         updateIcon()

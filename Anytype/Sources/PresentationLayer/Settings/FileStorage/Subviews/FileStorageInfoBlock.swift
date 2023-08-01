@@ -2,7 +2,7 @@ import SwiftUI
 
 struct FileStorageInfoBlock: View {
     
-    let iconImage: ObjectIconImage?
+    let iconImage: Icon?
     let title: String
     let description: String
     let isWarning: Bool
@@ -24,7 +24,7 @@ struct FileStorageInfoBlock: View {
 struct FileStorageInfoBlock_Previews: PreviewProvider {
     static var previews: some View {
         FileStorageInfoBlock(
-            iconImage: .icon(.space(.gradient(.random))),
+            iconImage: .object(.space(.gradient(.random))),
             title: "Anton’s space",
             description: "212 MB of 1 GB used",
             isWarning: false

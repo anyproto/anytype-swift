@@ -48,7 +48,7 @@ final class BlockBookmarkInfoView: UIView {
             )
         }
         
-        iconView.icon = .icon(.bookmark(payload.faviconHash))
+        iconView.icon = .object(.bookmark(payload.faviconHash))
     }
     
     // MARK: - Views

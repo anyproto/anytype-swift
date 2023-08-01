@@ -26,7 +26,10 @@ struct HomeBottomPanelView: View {
                     VStack {
                         if let image = button.image {
                             IconView(icon: image)
-                                .frame(width: 24, height: 24)
+                                .if(button.padding) {
+                                    $0.padding(EdgeInsets(side: 4))
+                                }
+                                .frame(width: 32, height: 32)
                         }
                     }
                     .fixTappableArea()

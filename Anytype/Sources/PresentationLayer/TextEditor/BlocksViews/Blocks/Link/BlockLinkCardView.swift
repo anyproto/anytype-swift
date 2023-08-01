@@ -67,7 +67,7 @@ final class BlockLinkCardView: UIView, BlockContentView {
         let hasCover = configuration.state.documentCover != nil && configuration.state.relations.contains(.cover)
 
         switch (configuration.state.icon, configuration.state.iconSize, hasCover) {
-        case (.icon(.todo), _, _), (.none, _, _):
+        case (.object(.todo), _, _), (.none, _, _):
             setLargeLeadingIconImageViewHidden(true)
         case (.some(_), .medium, false):
             setLargeLeadingIconImageViewHidden(false)
@@ -90,7 +90,7 @@ final class BlockLinkCardView: UIView, BlockContentView {
 
             let hasCoverIcon = configuration.state.iconSize == .medium && configuration.state.icon != nil
             switch (hasCoverIcon, configuration.state.icon) {
-            case (true, .icon(let iconType)):
+            case (true, .object(let iconType)):
                 coverView.configure(
                     state: .iconAndCover(
                         icon: .init(
