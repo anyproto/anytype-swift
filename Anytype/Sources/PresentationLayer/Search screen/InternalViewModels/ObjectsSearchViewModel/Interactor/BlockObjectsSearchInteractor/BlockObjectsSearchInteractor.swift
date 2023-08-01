@@ -3,15 +3,18 @@ import Services
 
 final class BlockObjectsSearchInteractor {
     
-    private let searchService: SearchServiceProtocol
+    private let spaceId: String
     private let excludedObjectIds: [String]
     private let excludedTypeIds: [String]
-                
+    private let searchService: SearchServiceProtocol
+    
     init(
-        searchService: SearchServiceProtocol,
+        spaceId: String,
         excludedObjectIds: [String],
-        excludedTypeIds: [String]
+        excludedTypeIds: [String],
+        searchService: SearchServiceProtocol
     ) {
+        self.spaceId = spaceId
         self.searchService = searchService
         self.excludedObjectIds = excludedObjectIds
         self.excludedTypeIds = excludedTypeIds
@@ -25,6 +28,7 @@ extension BlockObjectsSearchInteractor: ObjectsSearchInteractorProtocol {
             text: text,
             excludedObjectIds: excludedObjectIds,
             excludedTypeIds: excludedTypeIds,
+            spaceId: spaceId,
             sortRelationKey: .lastModifiedDate
         )
     }

@@ -16,7 +16,7 @@ final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsM
     // MARK: - DI
     
     private let homeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol
-    private let accountManager: AccountManagerProtocol
+    private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private let navigationContext: NavigationContextProtocol
     private let createWidgetCoordinator: CreateWidgetCoordinatorProtocol
     private let editorBrowserCoordinator: EditorBrowserCoordinatorProtocol
@@ -34,7 +34,7 @@ final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsM
     
     init(
         homeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol,
-        accountManager: AccountManagerProtocol,
+        activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
         navigationContext: NavigationContextProtocol,
         createWidgetCoordinator: CreateWidgetCoordinatorProtocol,
         editorBrowserCoordinator: EditorBrowserCoordinatorProtocol,
@@ -47,7 +47,7 @@ final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsM
         widgetTypeModuleAssembly: WidgetTypeModuleAssemblyProtocol
     ) {
         self.homeWidgetsModuleAssembly = homeWidgetsModuleAssembly
-        self.accountManager = accountManager
+        self.activeWorkspaceStorage = activeWorkspaceStorage
         self.navigationContext = navigationContext
         self.createWidgetCoordinator = createWidgetCoordinator
         self.editorBrowserCoordinator = editorBrowserCoordinator
@@ -64,7 +64,6 @@ final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsM
     
     func startFlow() -> AnyView {
         return homeWidgetsModuleAssembly.make(
-            widgetObjectId: accountManager.account.info.widgetsId,
             output: self,
             widgetOutput: self,
             bottomPanelOutput: self
@@ -100,7 +99,7 @@ final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsM
     
     func createAndShowNewPage() {
         Task { @MainActor in
-            guard let details = try? await dashboardService.createNewPage(spaceId: accountManager.account.info.accountSpaceId) else { return }
+            guard let details = try? await dashboardService.createNewPage(spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId) else { return }
             AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: .navigation, view: .home)
             openObject(screenData: details.editorScreenData())
         }
@@ -116,7 +115,8 @@ final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsM
     
     func onChangeSource(widgetId: String, context: AnalyticsWidgetContext) {
         let module = newSearchModuleAssembly.widgetChangeSourceSearchModule(
-            widgetObjectId: accountManager.account.info.widgetsId,
+            widgetObjectId: activeWorkspaceStorage.workspaceInfo.widgetsId,
+            spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
             widgetId: widgetId,
             context: context
         ) { [weak self] in
@@ -127,7 +127,7 @@ final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsM
 
     func onChangeWidgetType(widgetId: String, context: AnalyticsWidgetContext) {
         let module = widgetTypeModuleAssembly.makeChangeType(
-            widgetObjectId: accountManager.account.info.widgetsId,
+            widgetObjectId: activeWorkspaceStorage.workspaceInfo.widgetsId,
             widgetId: widgetId,
             context: context
         ) { [weak self] in
@@ -137,22 +137,36 @@ final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsM
     }
     
     func onAddBelowWidget(widgetId: String, context: AnalyticsWidgetContext) {
-        createWidgetCoordinator.startFlow(widgetObjectId: accountManager.account.info.widgetsId, position: .below(widgetId: widgetId), context: context)
+        createWidgetCoordinator.startFlow(
+            widgetObjectId: activeWorkspaceStorage.workspaceInfo.widgetsId,
+            spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
+            position: .below(widgetId: widgetId),
+            context: context
+        )
     }
     
     // MARK: - HomeBottomPanelModuleOutput
     
     func onCreateWidgetSelected(context: AnalyticsWidgetContext) {
-        createWidgetCoordinator.startFlow(widgetObjectId: accountManager.account.info.widgetsId, position: .end, context: context)
+        createWidgetCoordinator.startFlow(
+            widgetObjectId: activeWorkspaceStorage.workspaceInfo.widgetsId,
+            spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
+            position: .end,
+            context: context
+        )
     }
     
     func onSearchSelected() {
         AnytypeAnalytics.instance().logScreenSearch()
-        let module = searchModuleAssembly.makeObjectSearch(title: nil, onSelect: { [weak self] data in
-            AnytypeAnalytics.instance().logSearchResult()
-            self?.navigationContext.dismissAllPresented()
-            self?.openObject(screenData: data.editorScreenData)
-        })
+        let module = searchModuleAssembly.makeObjectSearch(
+            spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
+            title: nil,
+            onSelect: { [weak self] data in
+                AnytypeAnalytics.instance().logSearchResult()
+                self?.navigationContext.dismissAllPresented()
+                self?.openObject(screenData: data.editorScreenData)
+            }
+        )
         navigationContext.present(module)
     }
     

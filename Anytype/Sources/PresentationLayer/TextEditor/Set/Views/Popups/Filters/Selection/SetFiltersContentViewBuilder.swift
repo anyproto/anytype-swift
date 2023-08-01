@@ -5,10 +5,12 @@ import UIKit
 import SwiftUI
 
 final class SetFiltersContentViewBuilder {
+    let spaceId: String
     let filter: SetFilter
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     
-    init(filter: SetFilter, newSearchModuleAssembly: NewSearchModuleAssemblyProtocol) {
+    init(spaceId: String, filter: SetFilter, newSearchModuleAssembly: NewSearchModuleAssemblyProtocol) {
+        self.spaceId = spaceId
         self.filter = filter
         self.newSearchModuleAssembly = newSearchModuleAssembly
     }
@@ -63,6 +65,7 @@ final class SetFiltersContentViewBuilder {
         return newSearchModuleAssembly.tagsSearchModule(
             style: .embedded,
             selectionMode: .multipleItems(preselectedIds: selectedTagIds),
+            spaceId: spaceId,
             relationKey: filter.relationDetails.key,
             selectedTagIds: [],
             onSelect: onSelect,
@@ -85,6 +88,7 @@ final class SetFiltersContentViewBuilder {
             return values.map { $0.stringValue }
         }()
         return newSearchModuleAssembly.objectsSearchModule(
+            spaceId: spaceId,
             style: .embedded,
             selectionMode: .multipleItems(preselectedIds: selectedObjectsIds),
             excludedObjectIds: [],
@@ -102,6 +106,7 @@ final class SetFiltersContentViewBuilder {
         return newSearchModuleAssembly.statusSearchModule(
             style: .embedded,
             selectionMode: .multipleItems(preselectedIds: selectedStatusesIds),
+            spaceId: spaceId,
             relationKey: filter.relationDetails.key,
             selectedStatusesIds: [],
             onSelect: onSelect,

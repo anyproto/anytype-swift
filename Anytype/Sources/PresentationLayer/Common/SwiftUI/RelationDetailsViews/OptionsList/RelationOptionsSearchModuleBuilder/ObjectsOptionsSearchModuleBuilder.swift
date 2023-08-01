@@ -13,11 +13,13 @@ class ObjectsOptionsSearchModuleBuilder: RelationOptionsSearchModuleBuilderProto
     // MARK: - RelationOptionsSearchModuleBuilderProtocol
     
     func buildModule(
+        spaceId: String,
         excludedOptionIds: [String],
         onSelect: @escaping ([String]) -> Void,
         onCreate _ : @escaping (String) -> Void
     ) -> NewSearchView {
         newSearcModuleAssembly.objectsSearchModule(
+            spaceId: spaceId,
             excludedObjectIds: excludedOptionIds,
             limitedObjectType: limitedObjectType,
             onSelect: { details in onSelect(details.map(\.id)) }

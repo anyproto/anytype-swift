@@ -21,7 +21,7 @@ final class SettingsModuleAssembly: SettingsModuleAssemblyProtocol {
     @MainActor
     func make(output: SettingsModuleOutput?) -> UIViewController {
         let model = SettingsViewModel(
-            accountManager: serviceLocator.accountManager(),
+            activeWorkspaceStorage: serviceLocator.activeWorkspaceStorage(),
             subscriptionService: serviceLocator.singleObjectSubscriptionService(),
             objectActionsService: serviceLocator.objectActionsService(),
             output: output

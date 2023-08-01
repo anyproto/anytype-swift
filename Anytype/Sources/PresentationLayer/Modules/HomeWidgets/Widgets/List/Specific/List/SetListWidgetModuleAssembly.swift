@@ -25,7 +25,7 @@ final class SetListWidgetModuleAssembly: HomeWidgetCommonAssemblyProtocol {
             widgetBlockId: widgetBlockId,
             widgetObject: widgetObject,
             setSubscriptionDataBuilder: SetSubscriptionDataBuilder(
-                accountManager: serviceLocator.accountManager()
+                activeWorkspaceStorage: serviceLocator.activeWorkspaceStorage()
             ),
             subscriptionService: serviceLocator.subscriptionService(),
             documentService: serviceLocator.documentService(),

@@ -290,6 +290,7 @@ final class EditorSetRouter: EditorSetRouterProtocol {
         onApply: @escaping (SetFilter) -> Void
     ) {
         let viewModel = SetFiltersSelectionViewModel(
+            spaceId: setDocument.spaceId,
             filter: filter,
             router: self,
             newSearchModuleAssembly: newSearchModuleAssembly,
@@ -508,6 +509,7 @@ final class EditorSetRouter: EditorSetRouterProtocol {
     ) {
         let view = newSearchModuleAssembly.objectTypeSearchModule(
             title: title,
+            spaceId: setDocument.spaceId,
             selectedObjectId: selectedObjectId,
             excludedObjectTypeId: setDocument.details?.type,
             showBookmark: showBookmark,

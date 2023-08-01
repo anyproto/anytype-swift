@@ -28,14 +28,14 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
     private var navigationViewBottomConstaint: NSLayoutConstraint?
     
     private let dashboardService: DashboardServiceProtocol
-    private let accountManager: AccountManagerProtocol
+    private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private let stateManager = BrowserNavigationManager()
     private let browserView = EditorBrowserView()
     private var isNavigationViewHidden = false
     
-    init(dashboardService: DashboardServiceProtocol, accountManager: AccountManagerProtocol) {
+    init(dashboardService: DashboardServiceProtocol, activeWorkspaceStorage: ActiveWorkpaceStorageProtocol) {
         self.dashboardService = dashboardService
-        self.accountManager = accountManager
+        self.activeWorkspaceStorage = activeWorkspaceStorage
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -117,7 +117,7 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
             onCreateObjectTap: { [weak self] in
                 Task { @MainActor in
                     guard let self = self,
-                          let details = try? await self.dashboardService.createNewPage(spaceId: self.accountManager.account.info.accountSpaceId) else {
+                          let details = try? await self.dashboardService.createNewPage(spaceId: self.activeWorkspaceStorage.workspaceInfo.accountSpaceId) else {
                         return
                     }
                     AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: .navigation, view: .navbar)

@@ -1,4 +1,5 @@
 import AnytypeCore
+import Services
 
 protocol LoginStateServiceProtocol: AnyObject {
     var isFirstLaunchAfterRegistration: Bool { get }
@@ -17,17 +18,20 @@ final class LoginStateService: LoginStateServiceProtocol {
     private let middlewareConfigurationProvider: MiddlewareConfigurationProviderProtocol
     private let blockWidgetExpandedService: BlockWidgetExpandedServiceProtocol
     private let relationDetailsStorage: RelationDetailsStorageProtocol
+    private let workspacesStorage: WorkspacesStorageProtocol
     
     init(
         objectTypeProvider: ObjectTypeProviderProtocol,
         middlewareConfigurationProvider: MiddlewareConfigurationProviderProtocol,
         blockWidgetExpandedService: BlockWidgetExpandedServiceProtocol,
-        relationDetailsStorage: RelationDetailsStorageProtocol
+        relationDetailsStorage: RelationDetailsStorageProtocol,
+        workspacesStorage: WorkspacesStorageProtocol
     ) {
         self.objectTypeProvider = objectTypeProvider
         self.middlewareConfigurationProvider = middlewareConfigurationProvider
         self.blockWidgetExpandedService = blockWidgetExpandedService
         self.relationDetailsStorage = relationDetailsStorage
+        self.workspacesStorage = workspacesStorage
     }
     
     // MARK: - LoginStateServiceProtocol
@@ -58,12 +62,14 @@ final class LoginStateService: LoginStateServiceProtocol {
     // MARK: - Private
     
     private func startSubscriptions() async {
+        await workspacesStorage.startSubscription()
         await relationDetailsStorage.startSubscription()
         await objectTypeProvider.startSubscription()
     }
     
     private func stopSubscriptions() {
-        ServiceLocator.shared.relationDetailsStorage().stopSubscription()
+        workspacesStorage.stopSubscription()
+        relationDetailsStorage.stopSubscription()
         objectTypeProvider.stopSubscription()
     }
 }

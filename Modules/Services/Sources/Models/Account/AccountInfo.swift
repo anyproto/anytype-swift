@@ -1,24 +1,26 @@
 import Foundation
 import ProtobufMessages
 
-struct AccountInfo {
-    let homeObjectID: String
-    let archiveObjectID: String
-    let profileObjectID: String
-    let gatewayURL: String
-    let accountSpaceId: String
-    let widgetsId: String
-    let analyticsId: String
-    let deviceId: String
+public struct AccountInfo: Equatable {
+    public let homeObjectID: String
+    public let archiveObjectID: String
+    public let profileObjectID: String
+    public let gatewayURL: String
+    public let accountSpaceId: String
+    public let workspaceObjectId: String
+    public let widgetsId: String
+    public let analyticsId: String
+    public let deviceId: String
 }
 
-extension AccountInfo {
+public extension AccountInfo {
     static let empty = AccountInfo(
         homeObjectID: "",
         archiveObjectID: "",
         profileObjectID: "",
         gatewayURL: "",
         accountSpaceId: "",
+        workspaceObjectId: "",
         widgetsId: "",
         analyticsId: "",
         deviceId: ""
@@ -33,6 +35,7 @@ extension Anytype_Model_Account.Info {
             profileObjectID: profileObjectID,
             gatewayURL: gatewayURL,
             accountSpaceId: accountSpaceID,
+            workspaceObjectId: workspaceObjectID,
             widgetsId: widgetsID,
             analyticsId: analyticsID,
             deviceId: deviceID

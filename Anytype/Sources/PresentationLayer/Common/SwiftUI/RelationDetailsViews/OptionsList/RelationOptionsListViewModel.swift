@@ -86,6 +86,7 @@ extension RelationOptionsListViewModel {
     
     func makeSearchView() -> some View {
         searchModuleBuilder.buildModule(
+            spaceId: details.spaceId,
             excludedOptionIds: selectedOptionIds
         ) { [weak self] ids in
             self?.handleNewOptionIds(ids)

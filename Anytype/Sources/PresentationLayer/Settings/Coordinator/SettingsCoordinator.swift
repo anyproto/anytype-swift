@@ -27,6 +27,7 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol, SettingsModuleOutp
     private let widgetObjectListModuleAssembly: WidgetObjectListModuleAssemblyProtocol
     private let documentService: DocumentServiceProtocol
     private let urlOpener: URLOpenerProtocol
+    private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     
     init(
         navigationContext: NavigationContextProtocol,
@@ -45,7 +46,8 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol, SettingsModuleOutp
         fileStorageModuleAssembly: FileStorageModuleAssemblyProtocol,
         widgetObjectListModuleAssembly: WidgetObjectListModuleAssemblyProtocol,
         documentService: DocumentServiceProtocol,
-        urlOpener: URLOpenerProtocol
+        urlOpener: URLOpenerProtocol,
+        activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     ) {
         self.navigationContext = navigationContext
         self.objectTypeProvider = objectTypeProvider
@@ -64,6 +66,7 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol, SettingsModuleOutp
         self.widgetObjectListModuleAssembly = widgetObjectListModuleAssembly
         self.documentService = documentService
         self.urlOpener = urlOpener
+        self.activeWorkspaceStorage = activeWorkspaceStorage
     }
     
     func startFlow() {
@@ -114,6 +117,7 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol, SettingsModuleOutp
     func onDefaultTypeSelected() {
         let module = newSearchModuleAssembly.objectTypeSearchModule(
             title: Loc.chooseDefaultObjectType,
+            spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
             showBookmark: false
         ) { [weak self] type in
             self?.objectTypeProvider.setDefaulObjectType(type: type)

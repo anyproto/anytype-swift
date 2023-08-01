@@ -105,6 +105,7 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
     func linkToAction(document: BaseDocumentProtocol, onSelect: @escaping (BlockId) -> ()) {
         let moduleView = newSearchModuleAssembly.blockObjectsSearchModule(
             title: Loc.linkTo,
+            spaceId: document.spaceId,
             excludedObjectIds: [document.objectId],
             excludedTypeIds: [ObjectTypeId.bundled(.set).rawValue]
         ) { [weak navigationContext] details in

@@ -10831,6 +10831,8 @@ public struct Anytype_Rpc {
         /// id of template block for cloning
         public var contextID: String = String()
 
+        public var spaceID: String = String()
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public init() {}
@@ -41615,6 +41617,7 @@ extension Anytype_Rpc.Template.Clone.Request: SwiftProtobuf.Message, SwiftProtob
   public static let protoMessageName: String = Anytype_Rpc.Template.Clone.protoMessageName + ".Request"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "contextId"),
+    2: .same(proto: "spaceId"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -41624,6 +41627,7 @@ extension Anytype_Rpc.Template.Clone.Request: SwiftProtobuf.Message, SwiftProtob
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.contextID) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
       default: break
       }
     }
@@ -41633,11 +41637,15 @@ extension Anytype_Rpc.Template.Clone.Request: SwiftProtobuf.Message, SwiftProtob
     if !self.contextID.isEmpty {
       try visitor.visitSingularStringField(value: self.contextID, fieldNumber: 1)
     }
+    if !self.spaceID.isEmpty {
+      try visitor.visitSingularStringField(value: self.spaceID, fieldNumber: 2)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Template.Clone.Request, rhs: Anytype_Rpc.Template.Clone.Request) -> Bool {
     if lhs.contextID != rhs.contextID {return false}
+    if lhs.spaceID != rhs.spaceID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

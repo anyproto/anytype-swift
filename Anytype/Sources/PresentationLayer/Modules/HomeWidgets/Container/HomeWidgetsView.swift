@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import AnytypeCore
 
 struct HomeWidgetsView: View {
     
@@ -21,9 +22,17 @@ struct HomeWidgetsView: View {
                     }
                     .opacity(model.hideEditButton ? 0 : 1)
                     .animation(.default, value: model.hideEditButton)
-                    if #available(iOS 15.0, *) {} else {
-                        // For safeAreaInsetLegacy
-                        Color.clear.frame(height: 72)
+                    // Temporary buttons. For test without design
+                    if FeatureFlags.multiSpace {
+                        HomeEditButton(text: "Create space") {
+                            model.onCreateSpaceTap()
+                        }
+                        HomeEditButton(text: "Delete space") {
+                            model.onDeleteSpaceTap()
+                        }
+                        HomeEditButton(text: "Switch space") {
+                            model.onSwitchSapceTap()
+                        }
                     }
                 }
                 .padding(.horizontal, 20)
@@ -50,6 +59,24 @@ struct HomeWidgetsView: View {
             model.dropUpdate(from: from, to: to)
         } dropFinish: { from, to in
             model.dropFinish(from: from, to: to)
+        }
+        // Temporary
+        .confirmationDialog("Switch space", isPresented: $model.showWorkspacesSwitchList) {
+            ForEach(model.workspaces, id:\.id) { details in
+                Button(details.title) {
+                    model.onTapSwitchWorkspace(details: details)
+                }
+            }
+            Button("Cancel", role: .cancel) {}
+        }
+        // Temporary
+        .confirmationDialog("Delete space", isPresented: $model.showWorkspacesDeleteList) {
+            ForEach(model.workspaces, id:\.id) { details in
+                Button(details.title) {
+                    model.onTapDeleteWorkspace(details: details)
+                }
+            }
+            Button("Cancel", role: .cancel) {}
         }
     }
 }

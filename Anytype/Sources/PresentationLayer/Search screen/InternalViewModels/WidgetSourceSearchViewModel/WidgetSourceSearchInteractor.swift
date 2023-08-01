@@ -15,6 +15,7 @@ protocol WidgetSourceSearchInteractorProtocol: AnyObject {
 
 final class WidgetSourceSearchInteractor: WidgetSourceSearchInteractorProtocol {
     
+    private let spaceId: String
     private let searchService: SearchServiceProtocol
     private let anytypeLibrary = [
         WidgetAnytypeLibrarySource(type: .favorite, name: Loc.favorite, icon: .icon(.emoji(Emoji("⭐️") ?? .default))),
@@ -23,7 +24,8 @@ final class WidgetSourceSearchInteractor: WidgetSourceSearchInteractorProtocol {
         WidgetAnytypeLibrarySource(type: .recent, name: Loc.recent, icon: .icon(.emoji(Emoji("📅") ?? .default)))
     ]
     
-    init(searchService: SearchServiceProtocol) {
+    init(spaceId: String, searchService: SearchServiceProtocol) {
+        self.spaceId = spaceId
         self.searchService = searchService
     }
     
@@ -33,7 +35,8 @@ final class WidgetSourceSearchInteractor: WidgetSourceSearchInteractorProtocol {
         try await searchService.searchObjects(
             text: text,
             excludedObjectIds: [],
-            limitedTypeIds: []
+            limitedTypeIds: [],
+            spaceId: spaceId
         )
     }
     

@@ -94,8 +94,8 @@ struct SearchView<SearchViewModel: SearchViewModelProtocol>: View {
 struct HomeSearchView_Previews: PreviewProvider {
     static var previews: some View {
         SearchView(
-            title: "FOoo",
-            viewModel: ObjectSearchViewModel(searchService: DI.preview.serviceLocator.searchService()) { _ in }
+            title: "Foo",
+            viewModel: ObjectSearchViewModel(spaceId: "", searchService: DI.preview.serviceLocator.searchService()) { _ in }
         )
     }
 }

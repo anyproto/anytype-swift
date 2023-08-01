@@ -618,7 +618,8 @@ final class EditorSetViewModel: ObservableObject {
             var finalTemplateId = templateId
             if type.isNotEmpty, templateId?.isEmpty ?? true {
                 let availableTemplates = try? await self.searchService.searchTemplates(
-                    for: .dynamic(type)
+                    for: .dynamic(type),
+                    spaceId: setDocument.spaceId
                 )
                 let hasSingleTemplate = availableTemplates?.count == 1
                 finalTemplateId = hasSingleTemplate ? (availableTemplates?.first?.id ?? "") : ""
@@ -847,7 +848,7 @@ extension EditorSetViewModel {
         objectActionsService: DI.preview.serviceLocator.objectActionsService(),
         textService: TextService(),
         groupsSubscriptionsHandler: DI.preview.serviceLocator.groupsSubscriptionsHandler(),
-        setSubscriptionDataBuilder: SetSubscriptionDataBuilder(accountManager: DI.preview.serviceLocator.accountManager()),
+        setSubscriptionDataBuilder: SetSubscriptionDataBuilder(activeWorkspaceStorage: DI.preview.serviceLocator.activeWorkspaceStorage()),
         objectTypeProvider: DI.preview.serviceLocator.objectTypeProvider()
     )
 }

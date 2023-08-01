@@ -3,6 +3,7 @@ import Services
 
 protocol SingleObjectSubscriptionServiceProtocol: AnyObject {
     func startSubscription(subIdPrefix: String, objectId: String, dataHandler: @escaping (ObjectDetails) -> Void)
+    func stopSubscription(subIdPrefix: String)
 }
 
 final class SingleObjectSubscriptionService: SingleObjectSubscriptionServiceProtocol {
@@ -11,6 +12,7 @@ final class SingleObjectSubscriptionService: SingleObjectSubscriptionServiceProt
     
     private let subscriptionService: SubscriptionsServiceProtocol
     private let subscriotionBuilder: ObjectsCommonSubscriptionDataBuilderProtocol
+    private var subData: SubscriptionData?
     
     private var cache = [String: [ObjectDetails]]()
     
@@ -26,6 +28,7 @@ final class SingleObjectSubscriptionService: SingleObjectSubscriptionServiceProt
     
     func startSubscription(subIdPrefix: String, objectId: String, dataHandler: @escaping (ObjectDetails) -> Void) {
         let subData = subscriotionBuilder.build(subIdPrefix: subIdPrefix, objectIds: [objectId])
+        self.subData = subData
         subscriptionService.startSubscription(data: subData, update: { [weak self] subId, update in
             var details = self?.cache[subIdPrefix] ?? []
             details.applySubscriptionUpdate(update)
@@ -33,5 +36,10 @@ final class SingleObjectSubscriptionService: SingleObjectSubscriptionServiceProt
             guard let object = details.first else { return }
             dataHandler(object)
         })
+    }
+    
+    func stopSubscription(subIdPrefix: String) {
+        guard let subData else { return }
+        subscriptionService.stopSubscription(id: subData.identifier)
     }
 }

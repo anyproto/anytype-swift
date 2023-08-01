@@ -8,8 +8,8 @@ struct SlashMenuItemsBuilder {
         self.searchService = searchService
     }
     
-    func slashMenuItems(resrictions: BlockRestrictions, relations: [Relation]) async throws -> [SlashMenuItem] {
-        let searchObjectsMenuItem = try? await searchObjectsMenuItem()
+    func slashMenuItems(spaceId: String, resrictions: BlockRestrictions, relations: [Relation]) async throws -> [SlashMenuItem] {
+        let searchObjectsMenuItem = try? await searchObjectsMenuItem(spaceId: spaceId)
         
         return [
             styleMenuItem(restrictions: resrictions),
@@ -66,13 +66,14 @@ struct SlashMenuItemsBuilder {
         return SlashMenuItem(type: .actions, children: children)
     }
     
-    private func searchObjectsMenuItem() async throws -> SlashMenuItem? {
+    private func searchObjectsMenuItem(spaceId: String) async throws -> SlashMenuItem? {
         guard let searchTypes = try? await searchService.searchObjectTypes(
             text: "",
             filteringTypeId: nil,
             shouldIncludeSets: false,
             shouldIncludeCollections: false,
-            shouldIncludeBookmark: false
+            shouldIncludeBookmark: false,
+            spaceId: spaceId
         ) else {
             return nil
         }

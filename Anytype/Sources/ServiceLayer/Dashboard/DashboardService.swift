@@ -20,7 +20,8 @@ final class DashboardService: DashboardServiceProtocol {
     
     func createNewPage(spaceId: String) async throws -> ObjectDetails {
         let availableTemplates = try await searchService.searchTemplates(
-            for: .dynamic(objectTypeProvider.defaultObjectType.id)
+            for: .dynamic(objectTypeProvider.defaultObjectType.id),
+            spaceId: spaceId
         )
         let hasSingleTemplate = availableTemplates.count == 1
         let templateId = hasSingleTemplate ? (availableTemplates.first?.id ?? "") : ""

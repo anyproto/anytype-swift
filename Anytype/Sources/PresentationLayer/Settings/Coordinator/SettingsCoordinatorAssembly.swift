@@ -42,7 +42,8 @@ final class SettingsCoordinatorAssembly: SettingsCoordinatorAssemblyProtocol {
             fileStorageModuleAssembly: modulesDI.fileStorage(),
             widgetObjectListModuleAssembly: modulesDI.widgetObjectList(),
             documentService: serviceLocator.documentService(),
-            urlOpener: uiHelpersDI.urlOpener()
+            urlOpener: uiHelpersDI.urlOpener(),
+            activeWorkspaceStorage: serviceLocator.activeWorkspaceStorage()
         )
     }
 }

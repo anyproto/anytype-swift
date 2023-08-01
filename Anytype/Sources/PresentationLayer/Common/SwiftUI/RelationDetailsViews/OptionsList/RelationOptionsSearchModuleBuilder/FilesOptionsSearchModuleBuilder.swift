@@ -11,11 +11,13 @@ struct FilesOptionsSearchModuleBuilder: RelationOptionsSearchModuleBuilderProtoc
     // MARK: - RelationOptionsSearchModuleBuilderProtocol
     
     func buildModule(
+        spaceId: String,
         excludedOptionIds: [String],
         onSelect: @escaping ([String]) -> Void,
         onCreate _ : @escaping (String) -> Void
     ) -> NewSearchView {
         newSearcModuleAssembly.filesSearchModule(
+            spaceId: spaceId,
             excludedFileIds: excludedOptionIds,
             onSelect: onSelect
         )

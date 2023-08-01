@@ -4,7 +4,6 @@ import SwiftUI
 protocol HomeWidgetsModuleAssemblyProtocol {
     @MainActor
     func make(
-        widgetObjectId: String,
         output: HomeWidgetsModuleOutput,
         widgetOutput: CommonWidgetModuleOutput?,
         bottomPanelOutput: HomeBottomPanelModuleOutput?
@@ -26,7 +25,6 @@ final class HomeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol {
     // MARK: - HomeWidgetsModuleAssemblyProtocol
     @MainActor
     func make(
-        widgetObjectId: String,
         output: HomeWidgetsModuleOutput,
         widgetOutput: CommonWidgetModuleOutput?,
         bottomPanelOutput: HomeBottomPanelModuleOutput?
@@ -39,7 +37,6 @@ final class HomeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol {
         )
         
         let model = HomeWidgetsViewModel(
-            widgetObjectId: widgetObjectId,
             registry: widgetsSubmoduleDI.homeWidgetsRegistry(stateManager: stateManager, widgetOutput: widgetOutput),
             blockWidgetService: serviceLocator.blockWidgetService(),
             bottomPanelProviderAssembly: widgetsSubmoduleDI.bottomPanelProviderAssembly(output: bottomPanelOutput),
@@ -47,6 +44,9 @@ final class HomeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol {
             objectActionService: serviceLocator.objectActionsService(),
             recentStateManagerProtocol: recentStateManagerProtocol,
             documentService: serviceLocator.documentService(),
+            activeWorkspaceStorage: serviceLocator.activeWorkspaceStorage(),
+            workspaceService: serviceLocator.workspaceService(),
+            workspacesStorage: serviceLocator.workspaceStorage(),
             output: output
         )
         let view = HomeWidgetsView(model: model)
