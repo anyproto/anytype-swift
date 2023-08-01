@@ -5,6 +5,7 @@ struct PhraseTextView: UIViewRepresentable {
     @Binding var text: String
     let expandable: Bool
     let alignTextToCenter: Bool
+    let hideWords: Bool
 
     func makeUIView(context: Context) -> UIPhraseTextView {
         let textView = UIPhraseTextView()
@@ -14,7 +15,7 @@ struct PhraseTextView: UIViewRepresentable {
     }
     
     func updateUIView(_ textView: UIPhraseTextView, context: UIViewRepresentableContext<PhraseTextView>) {
-        textView.update(with: text, alignToCenter: alignTextToCenter)
+        textView.update(with: text, alignToCenter: alignTextToCenter, hidden: hideWords)
     }
     
     func makeCoordinator() -> Coordinator {
