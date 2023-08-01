@@ -106,8 +106,7 @@ class UIPhraseTextView: UITextView, UITextViewDelegate {
 
 extension UIPhraseTextView {
     private static let colors: [UIColor] = [
-        .Dark.amber, .Dark.red, .Dark.blue, .Dark.sky, .Dark.pink, .Dark.purple, .Dark.green,
-        .Dark.amber, .Dark.red, .Dark.blue, .Dark.sky, .Dark.pink, .Dark.purple, .Dark.green
+        .Dark.amber, .Dark.red, .Dark.pink, .Dark.purple, .Dark.blue, .Dark.sky, .Dark.green
     ]
     
     private func configureAttributedString(from text: String, hidden: Bool) -> NSAttributedString {
@@ -121,7 +120,8 @@ extension UIPhraseTextView {
         ]
         
         let words = text.components(separatedBy: " ")
-        let attributedWords: [NSAttributedString] = zip(words, Self.colors).map { (word, color) in
+        let colors = Self.colors + Self.colors
+        let attributedWords: [NSAttributedString] = zip(words, colors).map { (word, color) in
             attributes[NSAttributedString.Key.foregroundColor] = color
             attributes[NSAttributedString.Key.backgroundColor] = hidden ? color : nil
             return NSAttributedString(string: word, attributes: attributes)
