@@ -278,8 +278,6 @@ internal extension ImageAsset {
   enum Migration {
     static let close = ImageAsset.bundle(name: "Migration/Close")
   }
-  static let taskChecked = ImageAsset.bundle(name: "task_checked")
-  static let taskUnchecked = ImageAsset.bundle(name: "task_unchecked")
   static let linkToItself = ImageAsset.bundle(name: "link_to_itself")
   static let relationAddToFeatured = ImageAsset.bundle(name: "relation_add_to_featured")
   static let relationCheckboxChecked = ImageAsset.bundle(name: "relation_checkbox_checked")
