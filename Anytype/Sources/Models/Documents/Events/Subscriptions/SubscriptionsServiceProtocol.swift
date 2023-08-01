@@ -18,7 +18,7 @@ enum SubscriptionUpdate {
     }
 }
 
-typealias SubscriptionCallback = (SubscriptionId, SubscriptionUpdate) -> ()
+typealias SubscriptionCallback = (String, SubscriptionUpdate) -> ()
 protocol SubscriptionsServiceProtocol {
    
     // TODO: Needs refactoring
@@ -31,7 +31,7 @@ protocol SubscriptionsServiceProtocol {
     // Wait until subscription started and received initial data
     func startSubscriptionAsync(data: SubscriptionData, update: @escaping SubscriptionCallback) async
     
-    func stopSubscriptions(ids: [SubscriptionId])
-    func stopSubscription(id: SubscriptionId)
+    func stopSubscriptions(ids: [String])
+    func stopSubscription(id: String)
     func stopAllSubscriptions()
 }

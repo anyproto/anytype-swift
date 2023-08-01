@@ -11,7 +11,7 @@ protocol TemplatesSubscriptionServiceProtocol: AnyObject {
 }
 
 final class TemplatesSubscriptionService: TemplatesSubscriptionServiceProtocol {
-    private let subscriptionId = SubscriptionId(value: "Templates-\(UUID().uuidString)")
+    private let subscriptionId = "Templates-\(UUID().uuidString)"
     private let subscriptionService: SubscriptionsServiceProtocol
     
     deinit {

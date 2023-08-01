@@ -58,7 +58,7 @@ final class TreeSubscriptionManager: TreeSubscriptionManagerProtocol {
     
     // MARK: - Private
     
-    private func handleEvent(subId: SubscriptionId, update: SubscriptionUpdate) {
+    private func handleEvent(subId: String, update: SubscriptionUpdate) {
         data.applySubscriptionUpdate(update)
         let result = data.filter(\.isNotDeletedAndSupportedForEdit)
         handler?(result)

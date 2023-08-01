@@ -20,7 +20,7 @@ final class RecentSubscriptionService: RecentSubscriptionServiceProtocol {
     private let subscriptionService: SubscriptionsServiceProtocol
     private let objectTypeProvider: ObjectTypeProviderProtocol
     private let accountManager: AccountManagerProtocol
-    private let subscriptionId = SubscriptionId(value: "Recent-\(UUID().uuidString)")
+    private let subscriptionId = "Recent-\(UUID().uuidString)"
     
     init(
         subscriptionService: SubscriptionsServiceProtocol,

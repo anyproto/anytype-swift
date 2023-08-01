@@ -1,11 +1,6 @@
 import Foundation
 import Services
 
-extension SubscriptionId {
-    static var set = SubscriptionId(value: "SubscriptionId.Set")
-    static var setGroups = SubscriptionId(value: "SubscriptionId.Set.Groups")
-}
-
 final class SetSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol {
     
     private let accountManager: AccountManagerProtocol
@@ -16,7 +11,7 @@ final class SetSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol {
     
     // MARK: - SetSubscriptionDataBuilderProtocol
     
-    func set(_ data: SetSubsriptionData) -> SubscriptionData {
+    func set(_ data: SetSubscriptionData) -> SubscriptionData {
         let numberOfRowsPerPageInSubscriptions = data.numberOfRowsPerPage
 
         let keys = buildKeys(with: data)
@@ -44,7 +39,7 @@ final class SetSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol {
     }
     
     
-    func buildKeys(with data: SetSubsriptionData) -> [String] {
+    func buildKeys(with data: SetSubscriptionData) -> [String] {
         
         var keys = [
             BundledRelationKey.id.rawValue,
