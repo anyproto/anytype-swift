@@ -13,15 +13,18 @@ final class SetFiltersListViewModel: ObservableObject {
     private let dataviewService: DataviewServiceProtocol
     private let router: EditorSetRouterProtocol
     private let relationFilterBuilder = RelationFilterBuilder()
+    private let subscriptionDetailsStorage: ObjectDetailsStorage
     
     init(
         setDocument: SetDocumentProtocol,
         dataviewService: DataviewServiceProtocol,
-        router: EditorSetRouterProtocol)
+        router: EditorSetRouterProtocol,
+        subscriptionDetailsStorage: ObjectDetailsStorage)
     {
         self.setDocument = setDocument
         self.dataviewService = dataviewService
         self.router = router
+        self.subscriptionDetailsStorage = subscriptionDetailsStorage
         self.setup()
     }
     
@@ -108,7 +111,7 @@ extension SetFiltersListViewModel {
         default:
             return .relation(
                 relationFilterBuilder.relation(
-                    document: setDocument.document,
+                    detailsStorage: subscriptionDetailsStorage,
                     relationDetails: filter.relationDetails,
                     filter: filter.filter
                 )

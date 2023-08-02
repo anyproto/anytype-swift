@@ -22,14 +22,14 @@ final class RelationFilterBuilder {
     }()
     
     func relation(
-        document: BaseDocumentProtocol,
+        detailsStorage: ObjectDetailsStorage,
         relationDetails: RelationDetails,
         filter: DataviewFilter
     ) -> Relation? {
         switch relationDetails.format {
         case .object:
             return objectRelation(
-                document: document,
+                detailsStorage: detailsStorage,
                 relationDetails: relationDetails,
                 filter: filter
             )
@@ -45,13 +45,13 @@ final class RelationFilterBuilder {
             )
         case .status:
             return statusRelation(
-                document: document,
+                detailsStorage: detailsStorage,
                 relationDetails: relationDetails,
                 filter: filter
             )
         case .file:
             return fileRelation(
-                document: document,
+                detailsStorage: detailsStorage,
                 relationDetails: relationDetails,
                 filter: filter
             )
@@ -77,7 +77,7 @@ final class RelationFilterBuilder {
             )
         case .tag:
             return tagRelation(
-                document: document,
+                detailsStorage: detailsStorage,
                 relationDetails: relationDetails,
                 filter: filter
             )
@@ -113,7 +113,7 @@ final class RelationFilterBuilder {
 
 private extension RelationFilterBuilder {
     func objectRelation(
-        document: BaseDocumentProtocol,
+        detailsStorage: ObjectDetailsStorage,
         relationDetails: RelationDetails,
         filter: DataviewFilter
     ) -> Relation? {
@@ -129,7 +129,7 @@ private extension RelationFilterBuilder {
             }()
             
             let objectDetails: [ObjectDetails] = values.compactMap {
-                return document.detailsStorage.get(id: $0.stringValue)
+                return detailsStorage.get(id: $0.stringValue)
             }
 
             let objectOptions: [Relation.Object.Option] = objectDetails.map { objectDetail in
@@ -264,7 +264,7 @@ private extension RelationFilterBuilder {
     }
     
     func statusRelation(
-        document: BaseDocumentProtocol,
+        detailsStorage: ObjectDetailsStorage,
         relationDetails: RelationDetails,
         filter: DataviewFilter
     ) -> Relation? {
@@ -277,7 +277,7 @@ private extension RelationFilterBuilder {
             }
             
             return selectedSatusesIds
-                .compactMap { document.detailsStorage.get(id: $0) }
+                .compactMap { detailsStorage.get(id: $0) }
                 .map { RelationOption(details: $0) }
                 .map { Relation.Status.Option(option: $0) }
         }()
@@ -297,7 +297,7 @@ private extension RelationFilterBuilder {
     }
     
     func tagRelation(
-        document: BaseDocumentProtocol,
+        detailsStorage: ObjectDetailsStorage,
         relationDetails: RelationDetails,
         filter: DataviewFilter
     ) -> Relation? {
@@ -312,7 +312,7 @@ private extension RelationFilterBuilder {
             }
             
             let tags = selectedTagIds
-                .compactMap { document.detailsStorage.get(id: $0) }
+                .compactMap { detailsStorage.get(id: $0) }
                 .map { RelationOption(details: $0) }
                 .map { Relation.Tag.Option(option: $0) }
             
@@ -334,7 +334,7 @@ private extension RelationFilterBuilder {
     }
     
     func fileRelation(
-        document: BaseDocumentProtocol,
+        detailsStorage: ObjectDetailsStorage,
         relationDetails: RelationDetails,
         filter: DataviewFilter
     ) -> Relation? {
@@ -342,7 +342,7 @@ private extension RelationFilterBuilder {
         
         let fileOptions: [Relation.File.Option] = {
             let objectDetails: [ObjectDetails] = filter.value.listValue.values.compactMap {
-                return document.detailsStorage.get(id: $0.stringValue)
+                return detailsStorage.get(id: $0.stringValue)
             }
 
             let objectOptions: [Relation.File.Option] = objectDetails.map { objectDetail in
