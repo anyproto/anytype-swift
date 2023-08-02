@@ -19,6 +19,8 @@ extension AnytypeWidgetId {
             return .favorites
         case .recent:
             return .recent
+        case .recentOpen:
+            return .recentOpen
         case .sets:
             return .sets
         case .collections:

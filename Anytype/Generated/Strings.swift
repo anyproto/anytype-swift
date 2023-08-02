@@ -1695,6 +1695,18 @@ internal enum Loc {
         internal static let title = Loc.tr("Localizable", "Widgets.Layout.Tree.Title", fallback: "Tree")
       }
     }
+    internal enum Library {
+      internal enum RecentlyEdited {
+        /// Recently edited
+        internal static let name = Loc.tr("Localizable", "Widgets.Library.RecentlyEdited.Name", fallback: "Recently edited")
+      }
+      internal enum RecentlyOpened {
+        /// On this device
+        internal static let description = Loc.tr("Localizable", "Widgets.Library.RecentlyOpened.Description", fallback: "On this device")
+        /// Recently opened
+        internal static let name = Loc.tr("Localizable", "Widgets.Library.RecentlyOpened.Name", fallback: "Recently opened")
+      }
+    }
   }
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length
