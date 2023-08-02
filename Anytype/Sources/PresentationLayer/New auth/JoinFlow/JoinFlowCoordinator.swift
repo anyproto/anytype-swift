@@ -16,10 +16,6 @@ final class JoinFlowCoordinator: JoinFlowCoordinatorProtocol, JoinFlowOutput {
     private let soulViewModuleAssembly: SoulViewModuleAssemblyProtocol
     private let creatingSoulViewModuleAssembly: CreatingSoulViewModuleAssemblyProtocol
     
-    // MARK: - State
-    
-    private let state = JoinFlowState()
-    
     init(
         joinFlowModuleAssembly: JoinFlowModuleAssemblyProtocol,
         voidViewModuleAssembly: VoidViewModuleAssemblyProtocol,
@@ -42,7 +38,7 @@ final class JoinFlowCoordinator: JoinFlowCoordinatorProtocol, JoinFlowOutput {
     
     // MARK: - JoinFlowOutput
     
-    func onStepChanged(_ step: JoinFlowStep, output: JoinFlowStepOutput) -> AnyView {
+    func onStepChanged(_ step: JoinFlowStep, state: JoinFlowState, output: JoinFlowStepOutput) -> AnyView {
         switch step {
         case .void:
             return voidViewModuleAssembly.make(state: state, output: output)

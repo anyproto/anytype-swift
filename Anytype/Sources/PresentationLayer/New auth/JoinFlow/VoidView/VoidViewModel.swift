@@ -26,8 +26,12 @@ final class VoidViewModel: ObservableObject {
     }
     
     func onNextButtonTap() {
-        output?.disableBackAction(true)
-        createAccount()
+        if state.mnemonic.isEmpty {
+            output?.disableBackAction(true)
+            createAccount()
+        } else {
+            output?.onNext()
+        }
     }
     
     private func createAccount() {
