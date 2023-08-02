@@ -1,4 +1,5 @@
 import UIKit
+import AnytypeCore
 
 @MainActor
 class UIPhraseTextView: UITextView, UITextViewDelegate {
@@ -118,6 +119,10 @@ extension UIPhraseTextView {
             NSAttributedString.Key.font: AnytypeFont.authInput.uiKitFont,
             NSAttributedString.Key.foregroundColor: UIColor.Auth.inputText
         ]
+        
+        guard FeatureFlags.colorfulRecoveryPhrase else {
+            return NSAttributedString(string: text, attributes: attributes)
+        }
         
         let words = text.components(separatedBy: " ")
         let colors = Self.colors + Self.colors
