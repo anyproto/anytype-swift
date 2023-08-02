@@ -1,7 +1,7 @@
 import Foundation
 import Services
 
-enum WidgetSource: Equatable {
+enum WidgetSource: Equatable, Hashable {
     case object(ObjectDetails)
     case library(AnytypeWidgetId)
 }

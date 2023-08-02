@@ -3,7 +3,7 @@ import SwiftUI
 
 protocol HomeWidgetsCoordinatorAssemblyProtocol {
     @MainActor
-    func make() -> HomeWidgetsCoordinatorProtocol
+    func make() -> AnyView
 }
 
 final class HomeWidgetsCoordinatorAssembly: HomeWidgetsCoordinatorAssemblyProtocol {
@@ -28,12 +28,19 @@ final class HomeWidgetsCoordinatorAssembly: HomeWidgetsCoordinatorAssemblyProtoc
     // MARK: - HomeWidgetsCoordinatorAssemblyProtocol
     
     @MainActor
-    func make() -> HomeWidgetsCoordinatorProtocol {
-        return HomeWidgetsCoordinator(
+    func make() -> AnyView {
+        return HomeWidgetsCoordinatorView(model: self.makeModel()).eraseToAnyView()
+    }
+    
+    // MARK: - Private func
+    
+    @MainActor
+    private func makeModel() -> HomeWidgetsCoordinatorViewModel {
+        HomeWidgetsCoordinatorViewModel(
             homeWidgetsModuleAssembly: modulesDI.homeWidgets(),
             activeWorkspaceStorage: serviceLocator.activeWorkspaceStorage(),
             navigationContext: uiHelpersDI.commonNavigationContext(),
-            createWidgetCoordinator: coordinatorsID.createWidget().make(),
+            createWidgetCoordinatorAssembly: coordinatorsID.createWidget(),
             editorBrowserCoordinator: coordinatorsID.editorBrowser().make(),
             searchModuleAssembly: modulesDI.search(),
             settingsCoordinator: coordinatorsID.settings().make(),

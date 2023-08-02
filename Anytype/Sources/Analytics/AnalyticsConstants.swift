@@ -326,7 +326,7 @@ enum AnalyticsWidgetRoute: String {
     case inner = "Inner"
 }
 
-enum AnalyticsWidgetContext: String {
+enum AnalyticsWidgetContext: String, Hashable {
     case home = "Home"
     case editor = "Editor"
 }

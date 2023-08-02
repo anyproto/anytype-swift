@@ -23,20 +23,32 @@ final class HomeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol {
     }
     
     // MARK: - HomeWidgetsModuleAssemblyProtocol
+    
     @MainActor
     func make(
         output: HomeWidgetsModuleOutput,
         widgetOutput: CommonWidgetModuleOutput?,
         bottomPanelOutput: HomeBottomPanelModuleOutput?
     ) -> AnyView {
-        
+        let view = HomeWidgetsView(model: self.modelProvider(output: output, widgetOutput: widgetOutput, bottomPanelOutput: bottomPanelOutput))
+        return view.eraseToAnyView()
+    }
+    
+    // MARK: - Private
+    
+    @MainActor
+    private func modelProvider(
+        output: HomeWidgetsModuleOutput,
+        widgetOutput: CommonWidgetModuleOutput?,
+        bottomPanelOutput: HomeBottomPanelModuleOutput?
+    ) -> HomeWidgetsViewModel {
         let stateManager = HomeWidgetsStateManager()
         let recentStateManagerProtocol = HomeWidgetsRecentStateManager(
             loginStateService: serviceLocator.loginStateService(),
             expandedService: serviceLocator.blockWidgetExpandedService()
         )
         
-        let model = HomeWidgetsViewModel(
+        return HomeWidgetsViewModel(
             registry: widgetsSubmoduleDI.homeWidgetsRegistry(stateManager: stateManager, widgetOutput: widgetOutput),
             blockWidgetService: serviceLocator.blockWidgetService(),
             bottomPanelProviderAssembly: widgetsSubmoduleDI.bottomPanelProviderAssembly(output: bottomPanelOutput),
@@ -49,7 +61,5 @@ final class HomeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol {
             workspacesStorage: serviceLocator.workspaceStorage(),
             output: output
         )
-        let view = HomeWidgetsView(model: model)
-        return view.eraseToAnyView()
     }
 }

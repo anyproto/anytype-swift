@@ -26,7 +26,6 @@ final class LinkToObjectSearchViewModel: SearchViewModelProtocol {
     @Published var searchData: [SearchDataSection<SearchDataType>] = []
     
     var onSelect: (SearchDataType) -> ()
-    var onDismiss: () -> () = { }
     var searchTask: Task<(), Never>?
 
     var placeholder: String { Loc.Editor.LinkToObject.searchPlaceholder }
