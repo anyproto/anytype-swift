@@ -39,7 +39,8 @@ extension MockTemplatePreviewModel {
                 .init(
                     id: "id",
                     title: "Awesome template",
-                    header: .none
+                    header: .none,
+                    isBundled: false
                 )
             ),
             alignment: .left,
@@ -68,7 +69,8 @@ extension MockTemplatePreviewModel {
                                 onCoverTap: {}
                             )
                         )
-                    )
+                    ),
+                    isBundled: false
                 )
             ),
             alignment: .left,
@@ -96,7 +98,8 @@ extension MockTemplatePreviewModel {
                             cover: .init(
                                 coverType: .cover(.gradient(.init(start: .red, end: .blue))),
                                 onTap: {}))
-                    )
+                    ),
+                    isBundled: false
                 )
             ),
             alignment: .left,
@@ -118,7 +121,8 @@ extension MockTemplatePreviewModel {
                                 onTap: {}
                             )
                         )
-                    )
+                    ),
+                    isBundled: false
                 )
             ),
             alignment: .left,

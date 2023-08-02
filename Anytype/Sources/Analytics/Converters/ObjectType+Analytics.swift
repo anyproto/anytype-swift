@@ -37,4 +37,8 @@ extension ObjectDetails {
     var analyticsType: AnalyticsObjectType {
         objectType.analyticsType
     }
+    
+    var templateType: AnalyticsObjectType {
+        templateIsBundled ? .object(typeId: id) : .custom
+    }
 }

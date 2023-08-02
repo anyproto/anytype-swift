@@ -16,16 +16,19 @@ struct TemplateModel: Equatable {
     init(
         id: BlockId,
         title: String,
-        header: ObjectHeader?
+        header: ObjectHeader?,
+        isBundled: Bool
     ) {
         self.id = id
         self.title = title
         self.header = header
+        self.isBundled = isBundled
     }
     
     let id: BlockId
     let title: String
     let header: ObjectHeader?
+    let isBundled: Bool
 }
 
 enum TemplateType: Equatable {

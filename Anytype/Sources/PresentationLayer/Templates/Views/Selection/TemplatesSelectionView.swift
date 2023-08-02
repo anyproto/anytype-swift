@@ -66,6 +66,7 @@ struct TemplatesSelectionView_Previews: PreviewProvider {
         TemplatesSelectionView(
             model: .init(
                 interactor: MockTemplateSelectionInteractorProvider(),
+                setDocument: MockSetDocument(),
                 templatesService: TemplatesService(),
                 onTemplateSelection: { _ in },
                 templateEditingHandler: { _ in }
