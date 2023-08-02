@@ -171,7 +171,7 @@ struct ObjectRelationRow_Previews: PreviewProvider {
                         name: "Relation name",
                         isFeatured: false,
                         isEditable: true,
-                        isSystem: false,
+                        canBeRemovedFromObject: false,
                         isDeleted: false,
                         value: "hello"
                     )

@@ -3,6 +3,6 @@ struct EditorSetViewSettingsRelation: Identifiable {
     let image: ImageAsset
     let title: String
     let isOn: Bool
-    let isSystem: Bool
+    let canBeRemovedFromObject: Bool
     @EquatableNoop var onChange: (Bool) -> Void
 }

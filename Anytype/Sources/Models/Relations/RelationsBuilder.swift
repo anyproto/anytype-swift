@@ -176,7 +176,7 @@ private extension RelationsBuilder {
                     name: relationDetails.name,
                     isFeatured: relationDetails.isFeatured(details: details),
                     isEditable: relationDetails.isEditable(objectLocked: isObjectLocked),
-                    isSystem: relationDetails.canBeRemovedFromObject,
+                    canBeRemovedFromObject: relationDetails.canBeRemovedFromObject,
                     isDeleted: relationDetails.isDeleted,
                     value: Loc.unsupportedValue
                 )
@@ -196,7 +196,7 @@ private extension RelationsBuilder {
                 name: relationDetails.name,
                 isFeatured: relationDetails.isFeatured(details: details),
                 isEditable: relationDetails.isEditable(objectLocked: isObjectLocked),
-                isSystem: relationDetails.canBeRemovedFromObject,
+                canBeRemovedFromObject: relationDetails.canBeRemovedFromObject,
                 isDeleted: relationDetails.isDeleted,
                 value: details.stringValue(for: relationDetails.key)
             )
@@ -220,7 +220,7 @@ private extension RelationsBuilder {
                 name: relationDetails.name,
                 isFeatured: relationDetails.isFeatured(details: details),
                 isEditable: relationDetails.isEditable(objectLocked: isObjectLocked),
-                isSystem: relationDetails.canBeRemovedFromObject,
+                canBeRemovedFromObject: relationDetails.canBeRemovedFromObject,
                 isDeleted: relationDetails.isDeleted,
                 value: numberValue
             )
@@ -239,7 +239,7 @@ private extension RelationsBuilder {
                 name: relationDetails.name,
                 isFeatured: relationDetails.isFeatured(details: details),
                 isEditable: relationDetails.isEditable(objectLocked: isObjectLocked),
-                isSystem: relationDetails.canBeRemovedFromObject,
+                canBeRemovedFromObject: relationDetails.canBeRemovedFromObject,
                 isDeleted: relationDetails.isDeleted,
                 value: details.stringValue(for: relationDetails.key)
             )
@@ -258,7 +258,7 @@ private extension RelationsBuilder {
                 name: relationDetails.name,
                 isFeatured: relationDetails.isFeatured(details: details),
                 isEditable: relationDetails.isEditable(objectLocked: isObjectLocked),
-                isSystem: relationDetails.canBeRemovedFromObject,
+                canBeRemovedFromObject: relationDetails.canBeRemovedFromObject,
                 isDeleted: relationDetails.isDeleted,
                 value: details.stringValue(for: relationDetails.key)
             )
@@ -277,7 +277,7 @@ private extension RelationsBuilder {
                 name: relationDetails.name,
                 isFeatured: relationDetails.isFeatured(details: details),
                 isEditable: relationDetails.isEditable(objectLocked: isObjectLocked),
-                isSystem: relationDetails.canBeRemovedFromObject,
+                canBeRemovedFromObject: relationDetails.canBeRemovedFromObject,
                 isDeleted: relationDetails.isDeleted,
                 value: details.stringValue(for: relationDetails.key)
             )
