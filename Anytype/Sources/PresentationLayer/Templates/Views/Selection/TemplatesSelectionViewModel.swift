@@ -32,6 +32,8 @@ final class TemplatesSelectionViewModel: ObservableObject {
         self.onTemplateSelection = onTemplateSelection
         self.templateEditingHandler = templateEditingHandler
         
+        updateTemplatesList()
+        
         interactor.userTemplates.sink { [weak self] templates in
             if let userTemplates = self?.userTemplates,
                 userTemplates != templates {
