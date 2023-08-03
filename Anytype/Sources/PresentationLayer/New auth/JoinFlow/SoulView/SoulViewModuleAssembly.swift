@@ -21,8 +21,8 @@ final class SoulViewModuleAssembly: SoulViewModuleAssemblyProtocol {
             model: SoulViewModel(
                 state: state,
                 output: output,
-                accountManager: serviceLocator.accountManager(),
-                objectActionsService: serviceLocator.objectActionsService()
+                accountManager: self.serviceLocator.accountManager(),
+                objectActionsService: self.serviceLocator.objectActionsService()
             )
         ).eraseToAnyView()
     }

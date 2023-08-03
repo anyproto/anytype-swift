@@ -21,7 +21,7 @@ final class KeyPhraseViewModuleAssembly: KeyPhraseViewModuleAssemblyProtocol {
             model: KeyPhraseViewModel(
                 state: state,
                 output: output,
-                alertOpener: uiHelpersDI.alertOpener()
+                alertOpener: self.uiHelpersDI.alertOpener()
             )
         ).eraseToAnyView()
     }

@@ -2,7 +2,7 @@ import SwiftUI
 
 struct KeyPhraseView: View {
     
-    @ObservedObject var model: KeyPhraseViewModel
+    @StateObject var model: KeyPhraseViewModel
     
     var body: some View {
         VStack(spacing: 0) {

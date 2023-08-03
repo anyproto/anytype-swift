@@ -2,7 +2,7 @@ import SwiftUI
 
 struct CreatingSoulView: View {
     
-    @ObservedObject var model: CreatingSoulViewModel
+    @StateObject var model: CreatingSoulViewModel
     @State private var showSpaceTitle = false
     
     var body: some View {
