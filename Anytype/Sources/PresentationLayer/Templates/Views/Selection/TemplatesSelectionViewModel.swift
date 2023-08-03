@@ -157,7 +157,8 @@ extension TemplatePreviewModel {
                     onIconTap: {},
                     onCoverTap: {}
                 ),
-                isBundled: objectDetails.templateIsBundled
+                isBundled: objectDetails.templateIsBundled,
+                style: objectDetails.layoutValue == .todo ? .todo(false) : .none
             )
             ),
             alignment: objectDetails.layoutAlignValue,

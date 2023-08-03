@@ -56,7 +56,6 @@ struct SetFullHeader: View {
                         sizeConfiguration: .editorSizeConfiguration(width: width)
                     )
                 )
-                .frame(height: ObjectHeaderConstants.coverFullHeight)
             default:
                 EmptyView()
             }
