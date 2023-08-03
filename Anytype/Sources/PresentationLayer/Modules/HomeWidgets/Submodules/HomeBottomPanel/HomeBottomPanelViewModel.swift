@@ -27,7 +27,7 @@ final class HomeBottomPanelViewModel: ObservableObject {
     
     // MARK: - Private properties
     
-    private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    private let info: AccountInfo
     private let subscriptionService: SingleObjectSubscriptionServiceProtocol
     private let stateManager: HomeWidgetsStateManagerProtocol
     private let dashboardService: DashboardServiceProtocol
@@ -42,20 +42,21 @@ final class HomeBottomPanelViewModel: ObservableObject {
     // MARK: - Public properties
     
     @Published var buttonState: ButtonState = .normal([])
+    @Published var isEditState: Bool = false
     
     init(
-        activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
+        info: AccountInfo,
         subscriptionService: SingleObjectSubscriptionServiceProtocol,
         stateManager: HomeWidgetsStateManagerProtocol,
         dashboardService: DashboardServiceProtocol,
         output: HomeBottomPanelModuleOutput?
     ) {
-        self.activeWorkspaceStorage = activeWorkspaceStorage
+        self.info = info
         self.subscriptionService = subscriptionService
         self.stateManager = stateManager
         self.dashboardService = dashboardService
         self.output = output
-        setupSubscription()
+        setupDataSubscription()
     }
         
     // MARK: - Private
@@ -85,23 +86,16 @@ final class HomeBottomPanelViewModel: ObservableObject {
                 })
             ])
         }
+        self.isEditState = isEditState
     }
     
-    private func setupSubscription() {
-        workspaceSubscription = activeWorkspaceStorage.workspaceInfoPublisher
-            .receiveOnMain()
-            .sink { [weak self] info in
-                self?.setupDataSubscription(workspaceInfo: info)
-            }
-    }
-    
-    private func setupDataSubscription(workspaceInfo: AccountInfo) {
+    private func setupDataSubscription() {
         dataSubscriptions.removeAll()
         subscriptionService.stopSubscription(subIdPrefix: Constants.subId)
         
         subscriptionService.startSubscription(
             subIdPrefix: Constants.subId,
-            objectId: workspaceInfo.workspaceObjectId
+            objectId: info.workspaceObjectId
         ) { [weak self] details in
             self?.handleSpaceDetails(details: details)
         }

@@ -1,9 +1,11 @@
 import Foundation
 import SwiftUI
+import Services
 
 protocol HomeWidgetsModuleAssemblyProtocol {
     @MainActor
     func make(
+        info: AccountInfo,
         output: HomeWidgetsModuleOutput,
         widgetOutput: CommonWidgetModuleOutput?,
         bottomPanelOutput: HomeBottomPanelModuleOutput?
@@ -26,18 +28,27 @@ final class HomeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol {
     
     @MainActor
     func make(
+        info: AccountInfo,
         output: HomeWidgetsModuleOutput,
         widgetOutput: CommonWidgetModuleOutput?,
         bottomPanelOutput: HomeBottomPanelModuleOutput?
     ) -> AnyView {
-        let view = HomeWidgetsView(model: self.modelProvider(output: output, widgetOutput: widgetOutput, bottomPanelOutput: bottomPanelOutput))
-        return view.eraseToAnyView()
+        let view = HomeWidgetsView(
+            model: self.modelProvider(
+                info: info,
+                output: output,
+                widgetOutput: widgetOutput,
+                bottomPanelOutput: bottomPanelOutput
+            )
+        )
+        return view.id(info.widgetsId).eraseToAnyView()
     }
     
     // MARK: - Private
     
     @MainActor
     private func modelProvider(
+        info: AccountInfo,
         output: HomeWidgetsModuleOutput,
         widgetOutput: CommonWidgetModuleOutput?,
         bottomPanelOutput: HomeBottomPanelModuleOutput?
@@ -49,6 +60,7 @@ final class HomeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol {
         )
         
         return HomeWidgetsViewModel(
+            info: info,
             registry: widgetsSubmoduleDI.homeWidgetsRegistry(stateManager: stateManager, widgetOutput: widgetOutput),
             blockWidgetService: serviceLocator.blockWidgetService(),
             bottomPanelProviderAssembly: widgetsSubmoduleDI.bottomPanelProviderAssembly(output: bottomPanelOutput),

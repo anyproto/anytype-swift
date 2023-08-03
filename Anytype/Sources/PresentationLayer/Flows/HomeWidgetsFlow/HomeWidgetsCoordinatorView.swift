@@ -6,7 +6,11 @@ struct HomeWidgetsCoordinatorView: View {
     @StateObject var model: HomeWidgetsCoordinatorViewModel
     
     var body: some View {
-        model.homeWidgetsModule()
+        VStack {
+            model.homeWidgetsModule()
+                .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .leading)))
+        }
+        .animation(.default, value: model.homeAnimationId)
         .onAppear {
             model.onAppear()
         }

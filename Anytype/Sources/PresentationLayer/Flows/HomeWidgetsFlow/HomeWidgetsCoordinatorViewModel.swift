@@ -1,6 +1,7 @@
 import Foundation
 import SwiftUI
 import Combine
+import Services
 
 @MainActor
 final class HomeWidgetsCoordinatorViewModel: ObservableObject,
@@ -31,6 +32,15 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     @Published var showChangeTypeData: WidgetTypeModuleChangeModel?
     @Published var showSearchData: SearchModuleModel?
     @Published var createWidgetData: CreateWidgetCoordinatorModel?
+    @Published var info: AccountInfo? {
+        didSet {
+            // Prevent animation for first sync
+            if oldValue.isNotNil {
+                homeAnimationId = UUID()
+            }
+        }
+    }
+    @Published var homeAnimationId = UUID()
     
     init(
         homeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol,
@@ -63,18 +73,27 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     func onAppear() {
         guard !viewLoaded else { return }
         viewLoaded = true
+        
+        activeWorkspaceStorage
+            .workspaceInfoPublisher
+            .receiveOnMain()
+            .sink { [weak self] info in
+                self?.info = info
+            }
+            .store(in: &subscriptions)
+        
         quickActionsStorage.$action
             .receiveOnMain()
             .sink { [weak self] action in
-            switch action {
-            case .newNote:
-                self?.createAndShowNewPage()
-                self?.quickActionsStorage.action = nil
-            case .none:
-                break
+                switch action {
+                case .newNote:
+                    self?.createAndShowNewPage()
+                    self?.quickActionsStorage.action = nil
+                case .none:
+                    break
+                }
             }
-        }
-        .store(in: &subscriptions)
+            .store(in: &subscriptions)
         
         if let data = UserDefaultsConfig.lastOpenedPage {
             UserDefaultsConfig.lastOpenedPage = nil
@@ -89,8 +108,9 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
         }
     }
     
-    func homeWidgetsModule() -> AnyView {
-        return homeWidgetsModuleAssembly.make(output: self, widgetOutput: self, bottomPanelOutput: self)
+    func homeWidgetsModule() -> AnyView? {
+        guard let info else { return nil }
+        return homeWidgetsModuleAssembly.make(info: info, output: self, widgetOutput: self, bottomPanelOutput: self)
     }
     
     func changeSourceModule(data: WidgetChangeSourceSearchModuleModel) -> AnyView {
