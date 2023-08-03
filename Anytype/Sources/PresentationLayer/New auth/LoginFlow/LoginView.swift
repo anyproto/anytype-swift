@@ -45,8 +45,9 @@ struct LoginView: View {
             
             PhraseTextView(
                 text: $model.phrase,
-                expandable: false,
-                alignTextToCenter: false
+                noninteractive: false,
+                alignTextToCenter: false,
+                hideWords: false
             )
             .focused($model.autofocus)
             .disabled(model.loadingRoute.isLoadingInProgress)

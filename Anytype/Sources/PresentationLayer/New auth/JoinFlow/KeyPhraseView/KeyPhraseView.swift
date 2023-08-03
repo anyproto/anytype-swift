@@ -46,8 +46,9 @@ struct KeyPhraseView: View {
     private var phraseTextView: some View {
         PhraseTextView(
             text: $model.key,
-            expandable: true,
-            alignTextToCenter: true
+            noninteractive: true,
+            alignTextToCenter: true,
+            hideWords: !model.keyShown
         )
         .disabled(true)
         .blur(radius: model.keyShown ? 0 : 5)

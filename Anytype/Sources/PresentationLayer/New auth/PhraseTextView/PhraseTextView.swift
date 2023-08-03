@@ -3,18 +3,19 @@ import SwiftUI
 @MainActor
 struct PhraseTextView: UIViewRepresentable {
     @Binding var text: String
-    let expandable: Bool
+    let noninteractive: Bool
     let alignTextToCenter: Bool
+    let hideWords: Bool
 
     func makeUIView(context: Context) -> UIPhraseTextView {
         let textView = UIPhraseTextView()
         textView.textDidChange = context.coordinator.textDidChange(_:)
-        textView.expandable = expandable
+        textView.noninteractive = noninteractive
         return textView
     }
     
     func updateUIView(_ textView: UIPhraseTextView, context: UIViewRepresentableContext<PhraseTextView>) {
-        textView.update(with: text, alignToCenter: alignTextToCenter)
+        textView.update(with: text, alignToCenter: alignTextToCenter, hidden: hideWords)
     }
     
     func makeCoordinator() -> Coordinator {

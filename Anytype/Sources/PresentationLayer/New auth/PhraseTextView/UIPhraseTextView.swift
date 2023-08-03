@@ -1,10 +1,11 @@
 import UIKit
+import AnytypeCore
 
 @MainActor
 class UIPhraseTextView: UITextView, UITextViewDelegate {
     
     var textDidChange: ((String) -> Void)?
-    var expandable = false
+    var noninteractive = false
     
     private lazy var placeholderLabel: UILabel = {
         let label = UILabel()
@@ -37,7 +38,7 @@ class UIPhraseTextView: UITextView, UITextViewDelegate {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        if expandable, !bounds.size.equalTo(intrinsicContentSize) {
+        if noninteractive, !bounds.size.equalTo(intrinsicContentSize) {
             invalidateIntrinsicContentSize()
         }
     }
@@ -78,8 +79,8 @@ class UIPhraseTextView: UITextView, UITextViewDelegate {
         placeholderLabel.setContentHuggingPriority(.defaultLow - 1, for: .horizontal)
     }
     
-    func update(with text: String, alignToCenter: Bool) {
-        attributedText = configureAttributedString(from: text)
+    func update(with text: String, alignToCenter: Bool, hidden: Bool) {
+        attributedText = configureAttributedString(from: text, hidden: hidden)
         handlePlaceholder(text.isNotEmpty)
         handleTextAlignment(alignToCenter: alignToCenter)
         setNeedsLayout()
@@ -102,15 +103,36 @@ class UIPhraseTextView: UITextView, UITextViewDelegate {
     private func handleTextAlignment(alignToCenter: Bool) {
         textAlignment = alignToCenter ? .center : .left
     }
+}
+
+extension UIPhraseTextView {
+    private static let colors: [UIColor] = [
+        .Dark.amber, .Dark.red, .Dark.pink, .Dark.purple, .Dark.blue, .Dark.sky, .Dark.green
+    ]
     
-    private func configureAttributedString(from text: String) -> NSAttributedString {
+    private func configureAttributedString(from text: String, hidden: Bool) -> NSAttributedString {
+        
         let style = NSMutableParagraphStyle()
         style.lineSpacing = AnytypeFont.authInput.config.lineHeight
-        let attributes = [
+        var attributes = [
             NSAttributedString.Key.paragraphStyle : style,
             NSAttributedString.Key.font: AnytypeFont.authInput.uiKitFont,
             NSAttributedString.Key.foregroundColor: UIColor.Auth.inputText
         ]
-        return NSAttributedString(string: text, attributes: attributes)
+        
+        guard FeatureFlags.colorfulRecoveryPhrase else {
+            return NSAttributedString(string: text, attributes: attributes)
+        }
+        
+        let words = text.components(separatedBy: " ")
+        let colors = Self.colors + Self.colors
+        let attributedWords: [NSAttributedString] = zip(words, colors).map { (word, color) in
+            attributes[NSAttributedString.Key.foregroundColor] = color
+            attributes[NSAttributedString.Key.backgroundColor] = hidden ? color : nil
+            return NSAttributedString(string: word, attributes: attributes)
+        }
+        // hack to increase words spacing when view is noninteractive
+        let separator = noninteractive ? "     " : " "
+        return attributedWords.joined(with: separator)
     }
 }

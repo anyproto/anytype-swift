@@ -95,6 +95,12 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
+    static let colorfulRecoveryPhrase = FeatureDescription(
+        title: "Colourful recovery phrase",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.24.0"),
+        defaultValue: true
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(
