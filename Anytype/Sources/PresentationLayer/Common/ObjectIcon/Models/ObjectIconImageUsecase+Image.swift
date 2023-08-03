@@ -206,7 +206,7 @@ extension ObjectIconImageUsecase {
                 basicImageGuideline: BasicIconImageGuideline.x32,
                 profileImageGuideline: ProfileIconImageGuideline.x32,
                 emojiImageGuideline: EmojiIconImageGuideline.x32cornerRadius,
-                todoImageGuideline: nil,
+                todoImageGuideline: TodoIconImageGuideline.x14,
                 placeholderImageGuideline: PlaceholderIconImageGuideline.x32,
                 staticImageGuideline: nil,
                 bookmarkImageGuideline: nil,

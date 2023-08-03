@@ -13,22 +13,30 @@ struct TemplatePreviewViewModel: Identifiable, Equatable {
 }
 
 struct TemplateModel: Equatable {
+    enum Style: Equatable {
+        case none
+        case todo(Bool)
+    }
+    
     init(
         id: BlockId,
         title: String,
         header: ObjectHeader?,
-        isBundled: Bool
+        isBundled: Bool,
+        style: Style
     ) {
         self.id = id
         self.title = title
         self.header = header
         self.isBundled = isBundled
+        self.style = style
     }
     
     let id: BlockId
     let title: String
     let header: ObjectHeader?
     let isBundled: Bool
+    let style: Style
 }
 
 enum TemplateType: Equatable {
