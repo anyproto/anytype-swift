@@ -237,7 +237,8 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         
         let filters: [DataviewFilter] = .builder {
             buildFilters(isArchived: false, layouts: [DetailsLayout.relation])
-            SearchHelper.excludedRelationKeys(BundledRelationKey.systemKeys.map(\.rawValue))
+            SearchHelper.relationReadonlyValue(false)
+            SearchHelper.excludedRelationKeys(BundledRelationKey.internalKeys.map(\.rawValue))
             SearchHelper.excludedIdsFilter(excludedIds)
         }
         
@@ -257,7 +258,8 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
                 workspaceId: MarketplaceId.anytypeMarketplace.rawValue
             )
             SearchHelper.layoutFilter([DetailsLayout.relation])
-            SearchHelper.excludedRelationKeys(BundledRelationKey.systemKeys.map(\.rawValue))
+            SearchHelper.relationReadonlyValue(false)
+            SearchHelper.excludedRelationKeys(BundledRelationKey.internalKeys.map(\.rawValue))
             if !includeInstalled {
                 SearchHelper.excludedIdsFilter(relationDetailsStorage.relationsDetails().map(\.sourceObject))
             }
