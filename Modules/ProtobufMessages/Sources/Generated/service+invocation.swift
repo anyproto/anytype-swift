@@ -514,6 +514,16 @@ public struct ClientCommands {
         }
     }
 
+    public static func objectListSetObjectType(
+        _ request: Anytype_Rpc.Object.ListSetObjectType.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Object.ListSetObjectType.Request, Anytype_Rpc.Object.ListSetObjectType.Response> {
+        return Invocation(messageName: "ObjectListSetObjectType", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceObjectListSetObjectType(requestData) ?? Data()
+            return try Anytype_Rpc.Object.ListSetObjectType.Response(serializedData: responseData)
+        }
+    }
+
     public static func objectApplyTemplate(
         _ request: Anytype_Rpc.Object.ApplyTemplate.Request = .init()
     ) -> Invocation<Anytype_Rpc.Object.ApplyTemplate.Request, Anytype_Rpc.Object.ApplyTemplate.Response> {

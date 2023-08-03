@@ -475,7 +475,6 @@
 		2A7DCDE0292E4AC5001919B4 /* RelationsListModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7DCDDF292E4AC5001919B4 /* RelationsListModuleOutput.swift */; };
 		2A7DCDE2292E60BA001919B4 /* AddNewRelationCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7DCDE1292E60BA001919B4 /* AddNewRelationCoordinatorAssembly.swift */; };
 		2A7DCDE4292E7D5A001919B4 /* SearchModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7DCDE3292E7D5A001919B4 /* SearchModuleAssembly.swift */; };
-		2A7DCDE6292E8191001919B4 /* SwiftUIModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7DCDE5292E8191001919B4 /* SwiftUIModule.swift */; };
 		2A7DCDE8292E8260001919B4 /* SearchModuleAssemblyProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7DCDE7292E8260001919B4 /* SearchModuleAssemblyProtocol.swift */; };
 		2A8C00F529C48CB000309C14 /* WidgetSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8C00F429C48CB000309C14 /* WidgetSource.swift */; };
 		2A8C00F729C4AAF200309C14 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8C00F629C4AAF200309C14 /* SettingsView.swift */; };
@@ -1959,7 +1958,6 @@
 		2A7DCDDF292E4AC5001919B4 /* RelationsListModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationsListModuleOutput.swift; sourceTree = "<group>"; };
 		2A7DCDE1292E60BA001919B4 /* AddNewRelationCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewRelationCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		2A7DCDE3292E7D5A001919B4 /* SearchModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModuleAssembly.swift; sourceTree = "<group>"; };
-		2A7DCDE5292E8191001919B4 /* SwiftUIModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIModule.swift; sourceTree = "<group>"; };
 		2A7DCDE7292E8260001919B4 /* SearchModuleAssemblyProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModuleAssemblyProtocol.swift; sourceTree = "<group>"; };
 		2A8C00F429C48CB000309C14 /* WidgetSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetSource.swift; sourceTree = "<group>"; };
 		2A8C00F629C4AAF200309C14 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -4860,7 +4858,6 @@
 			isa = PBXGroup;
 			children = (
 				2A2A347429229D2B0004BD8B /* NavigationContext.swift */,
-				2A7DCDE5292E8191001919B4 /* SwiftUIModule.swift */,
 				2ADFA9DB2949C61D00F64688 /* UIKitModule.swift */,
 				2A673C1C29B0FA2800E3D672 /* AnytypeDismiss.swift */,
 			);
@@ -9801,7 +9798,6 @@
 				125BD56E27CF471B006D8227 /* AuthServiceError.swift in Sources */,
 				2AA2291A29C45DC50047B245 /* VerticalScrollViewWithOverlayHeader.swift in Sources */,
 				53F80F0A27BD93CF00E9E12A /* MoreRelationView.swift in Sources */,
-				2A7DCDE6292E8191001919B4 /* SwiftUIModule.swift in Sources */,
 				EA6279AB26317CCA00670715 /* UIScreen+Convenience.swift in Sources */,
 				3D2D4C6527BAA2EF0070A4C6 /* SetConstants.swift in Sources */,
 				2A2C330528928A7C008BC326 /* RelationValueCoordinatorAssembly.swift in Sources */,

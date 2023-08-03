@@ -15,7 +15,8 @@ protocol ObjectSettingswModelOutput: AnyObject {
     func linkToAction(document: BaseDocumentProtocol, onSelect: @escaping (BlockId) -> ())
 }
 
-final class ObjectSettingsViewModel: ObservableObject, Dismissible {
+final class ObjectSettingsViewModel: ObservableObject {
+    // TODO: Change it. Doesn't possible to test right now, because move to archive is broken
     var onDismiss: () -> Void = {} {
         didSet {
             objectActionsViewModel.dismissSheet = onDismiss
