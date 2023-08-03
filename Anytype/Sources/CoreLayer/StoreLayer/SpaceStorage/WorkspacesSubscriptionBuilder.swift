@@ -16,7 +16,7 @@ final class WorkspacesSubscriptionBuilder: WorkspacesSubscriptionBuilderProtocol
     
     func build() -> SubscriptionData {
         let sort = SearchHelper.sort(
-            relation: BundledRelationKey.id,
+            relation: BundledRelationKey.createdDate,
             type: .asc
         )
         

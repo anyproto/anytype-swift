@@ -28,10 +28,6 @@ final class HomeWidgetsViewModel: ObservableObject {
     @Published var hideEditButton: Bool = false
     @Published var dataLoaded: Bool = false
     
-    // Temporary
-    @Published var showWorkspacesSwitchList: Bool = false
-    @Published var showWorkspacesDeleteList: Bool = false
-    @Published var workspaces: [ObjectDetails] = []
     private var objectSubscriptions = [AnyCancellable]()
     
     init(
@@ -92,33 +88,8 @@ final class HomeWidgetsViewModel: ObservableObject {
     }
     
     // Temporary
-    func onCreateSpaceTap() {
-        Task {
-            _ = try await workspaceService.createWorkspace(name: "Workspace \(workspacesStorage.workspaces.count + 1)")
-        }
-    }
-    
-    // Temporary
-    func onDeleteSpaceTap() {
-        workspaces = workspacesStorage.workspaces
-        showWorkspacesDeleteList = true
-    }
-    
-    // Temporary
     func onSwitchSapceTap() {
-        workspaces = workspacesStorage.workspaces
-        showWorkspacesSwitchList = true
-    }
-    
-    // Temporary
-    func onTapSwitchWorkspace(details: ObjectDetails) {
-        Task {
-            try? await activeWorkspaceStorage.setActiveSpace(spaceId: details.spaceId)
-        }
-    }
-    
-    // Temporary
-    func onTapDeleteWorkspace(details: ObjectDetails) {
+        output?.onSpaceSwitchSelected()
     }
     
     // MARK: - Private

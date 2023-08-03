@@ -22,6 +22,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     private let dashboardAlertsAssembly: DashboardAlertsAssemblyProtocol
     private let quickActionsStorage: QuickActionsStorage
     private let widgetTypeModuleAssembly: WidgetTypeModuleAssemblyProtocol
+    private let spaceSwitchModuleAssembly: SpaceSwitchModileAssemblyProtocol
     
     // MARK: - State
     
@@ -31,7 +32,8 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     @Published var showChangeSourceData: WidgetChangeSourceSearchModuleModel?
     @Published var showChangeTypeData: WidgetTypeModuleChangeModel?
     @Published var showSearchData: SearchModuleModel?
-    @Published var createWidgetData: CreateWidgetCoordinatorModel?
+    @Published var showSpaceSwitch: Bool = false
+    @Published var showCreateWidgetData: CreateWidgetCoordinatorModel?
     @Published var info: AccountInfo? {
         didSet {
             // Prevent animation for first sync
@@ -54,7 +56,8 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
         dashboardService: DashboardServiceProtocol,
         dashboardAlertsAssembly: DashboardAlertsAssemblyProtocol,
         quickActionsStorage: QuickActionsStorage,
-        widgetTypeModuleAssembly: WidgetTypeModuleAssemblyProtocol
+        widgetTypeModuleAssembly: WidgetTypeModuleAssemblyProtocol,
+        spaceSwitchModuleAssembly: SpaceSwitchModileAssemblyProtocol
     ) {
         self.homeWidgetsModuleAssembly = homeWidgetsModuleAssembly
         self.activeWorkspaceStorage = activeWorkspaceStorage
@@ -68,6 +71,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
         self.dashboardAlertsAssembly = dashboardAlertsAssembly
         self.quickActionsStorage = quickActionsStorage
         self.widgetTypeModuleAssembly = widgetTypeModuleAssembly
+        self.spaceSwitchModuleAssembly = spaceSwitchModuleAssembly
     }
 
     func onAppear() {
@@ -128,8 +132,16 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     func createWidgetModule(data: CreateWidgetCoordinatorModel) -> AnyView {
         return createWidgetCoordinatorAssembly.make(data: data)
     }
+    
+    func createSpaceSwitchModule() -> AnyView {
+        return spaceSwitchModuleAssembly.make()
+    }
  
     // MARK: - HomeWidgetsModuleOutput
+    
+    func onSpaceSwitchSelected() {
+        showSpaceSwitch.toggle()
+    }
     
     // MARK: - CommonWidgetModuleOutput
         
@@ -161,7 +173,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     }
     
     func onAddBelowWidget(widgetId: String, context: AnalyticsWidgetContext) {
-        createWidgetData = CreateWidgetCoordinatorModel(
+        showCreateWidgetData = CreateWidgetCoordinatorModel(
             widgetObjectId: activeWorkspaceStorage.workspaceInfo.widgetsId,
             spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
             position: .below(widgetId: widgetId),
@@ -172,7 +184,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     // MARK: - HomeBottomPanelModuleOutput
     
     func onCreateWidgetSelected(context: AnalyticsWidgetContext) {
-        createWidgetData = CreateWidgetCoordinatorModel(
+        showCreateWidgetData = CreateWidgetCoordinatorModel(
             widgetObjectId: activeWorkspaceStorage.workspaceInfo.widgetsId,
             spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
             position: .end,
