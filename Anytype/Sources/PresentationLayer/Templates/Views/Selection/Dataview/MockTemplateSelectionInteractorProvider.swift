@@ -40,7 +40,8 @@ extension MockTemplatePreviewModel {
                     id: "id",
                     title: "Awesome template",
                     header: .none,
-                    isBundled: false
+                    isBundled: false,
+                    style: .todo(false)
                 )
             ),
             alignment: .left,
@@ -70,7 +71,8 @@ extension MockTemplatePreviewModel {
                             )
                         )
                     ),
-                    isBundled: false
+                    isBundled: false,
+                    style: .todo(false)
                 )
             ),
             alignment: .left,
@@ -99,7 +101,8 @@ extension MockTemplatePreviewModel {
                                 coverType: .cover(.gradient(.init(start: .red, end: .blue))),
                                 onTap: {}))
                     ),
-                    isBundled: false
+                    isBundled: false,
+                    style: .todo(false)
                 )
             ),
             alignment: .left,
@@ -122,7 +125,8 @@ extension MockTemplatePreviewModel {
                             )
                         )
                     ),
-                    isBundled: false
+                    isBundled: false,
+                    style: .todo(false)
                 )
             ),
             alignment: .left,

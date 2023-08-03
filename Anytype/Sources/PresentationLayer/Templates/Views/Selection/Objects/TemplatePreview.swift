@@ -31,11 +31,24 @@ struct TemplatePreview: View, ContextualMenuItemsProvider {
                 }
             case let .installed(templateModel):
                 wrapped(shouldIncludeShimmer: true) {
-                    AnytypeText(
-                        templateModel.title,
-                        style: .caption2Medium,
-                        color: .Text.primary
-                    ).padding(.horizontal, 16)
+                    switch templateModel.style {
+                    case .none:
+                        AnytypeText(
+                            templateModel.title,
+                            style: .caption2Medium,
+                            color: .Text.primary
+                        ).padding(.horizontal, 16)
+                    case let .todo(isChecked):
+                        HStack   {
+                            SwiftUIObjectIconImageView(iconImage: .todo(isChecked), usecase: .setRow).frame(width: 14, height: 14)
+                            AnytypeText(
+                                templateModel.title,
+                                style: .caption2Medium,
+                                color: .Text.primary
+                            ).lineLimit(1)
+                        }.padding(.horizontal, 16)
+                    }
+                    
                 }
             case .addTemplate:
                 Image(asset: .X32.plus)
