@@ -38,6 +38,7 @@ final class TemplateModulesAssembly: TemplateModulesAssemblyProtocol {
                         prefilledFieldsBuilder: SetPrefilledFieldsBuilder()
                     )
                 ),
+                setDocument: setDocument,
                 templatesService: serviceLocator.templatesService,
                 onTemplateSelection: onTemplateSelection,
                 templateEditingHandler: templateEditingHandler

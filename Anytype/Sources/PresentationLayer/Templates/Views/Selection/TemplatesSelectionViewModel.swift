@@ -16,6 +16,7 @@ final class TemplatesSelectionViewModel: ObservableObject {
     }
     
     private let interactor: TemplateSelectionInteractorProvider
+    private let setDocument: SetDocumentProtocol
     private let templatesService: TemplatesServiceProtocol
     private let onTemplateSelection: (BlockId?) -> Void
     private let templateEditingHandler: ((BlockId) -> Void)
@@ -23,11 +24,13 @@ final class TemplatesSelectionViewModel: ObservableObject {
     
     init(
         interactor: TemplateSelectionInteractorProvider,
+        setDocument: SetDocumentProtocol,
         templatesService: TemplatesServiceProtocol,
         onTemplateSelection: @escaping (BlockId?) -> Void,
         templateEditingHandler: @escaping ((BlockId) -> Void)
     ) {
         self.interactor = interactor
+        self.setDocument = setDocument
         self.templatesService = templatesService
         self.onTemplateSelection = onTemplateSelection
         self.templateEditingHandler = templateEditingHandler
@@ -46,8 +49,16 @@ final class TemplatesSelectionViewModel: ObservableObject {
         switch model.mode {
         case .installed(let templateModel):
             onTemplateSelection(templateModel.id)
+            AnytypeAnalytics.instance().logTemplateSelection(
+                objectType: templateModel.isBundled ? .object(typeId: templateModel.id) : .custom,
+                route: setDocument.isCollection() ? .collection : .set
+            )
         case .blank:
             onTemplateSelection(nil)
+            AnytypeAnalytics.instance().logTemplateSelection(
+                objectType: nil,
+                route: setDocument.isCollection() ? .collection : .set
+            )
         case .addTemplate:
             onAddTemplateTap()
         }
@@ -60,7 +71,7 @@ final class TemplatesSelectionViewModel: ObservableObject {
                 guard let objectId = try await self?.templatesService.createTemplateFromObjectType(objectTypeId: objectTypeId) else {
                     return
                 }
-                
+                AnytypeAnalytics.instance().logTemplateCreate(objectType: .object(typeId: objectTypeId))
                 self?.templateEditingHandler(objectId)
             } catch {
                 anytypeAssertionFailure(error.localizedDescription)
@@ -81,9 +92,31 @@ final class TemplatesSelectionViewModel: ObservableObject {
                 case .setAsDefault:
                     try await interactor.setDefaultTemplate(model: templateViewModel)
                 }
+                
+                handleAnalytics(option: option, templateViewModel: templateViewModel)
             } catch {
                 anytypeAssertionFailure(error.localizedDescription)
             }
+        }
+    }
+    
+    private func handleAnalytics(option: TemplateOptionAction, templateViewModel: TemplatePreviewModel) {
+        guard case let .installed(templateModel) = templateViewModel.mode else {
+            return
+        }
+        
+        let objectType: AnalyticsObjectType = templateModel.isBundled ? .object(typeId: templateModel.id) : .custom
+        
+        
+        switch option {
+        case .editTemplate:
+            AnytypeAnalytics.instance().logTemplateEditing(objectType: objectType, route: setDocument.isCollection() ? .collection : .set)
+        case .delete:
+            AnytypeAnalytics.instance().logMoveToBin(true)
+        case .duplicate:
+            AnytypeAnalytics.instance().logTemplateDuplicate(objectType: objectType, route: setDocument.isCollection() ? .collection : .set)
+        case .setAsDefault:
+            break // Interactor resposibility
         }
     }
     
@@ -123,7 +156,8 @@ extension TemplatePreviewModel {
                     usecase: .templatePreview,
                     onIconTap: {},
                     onCoverTap: {}
-                )
+                ),
+                isBundled: objectDetails.templateIsBundled
             )
             ),
             alignment: objectDetails.layoutAlignValue,

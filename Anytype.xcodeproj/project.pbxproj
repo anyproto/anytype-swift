@@ -1250,6 +1250,7 @@
 		867580042A58306A0008566A /* TemplatePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 867580032A58306A0008566A /* TemplatePreview.swift */; };
 		86760D112A666F4400E915C9 /* HeaderViewSizeConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86760D102A666F4400E915C9 /* HeaderViewSizeConfiguration.swift */; };
 		86947EFF2A56B91D00CD7335 /* XCTests+Eventually.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86947EFE2A56B91D00CD7335 /* XCTests+Eventually.swift */; };
+		86E555372A7AB983000A8DC7 /* MockSetDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86E555362A7AB983000A8DC7 /* MockSetDocument.swift */; };
 		95A38D3A2A03F17700D06C96 /* Riccione-Xlight-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 95A38D392A03F17700D06C96 /* Riccione-Xlight-Regular.ttf */; };
 		95ADB5602A0284A400FE061B /* LegacyAuthViewAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95ADB55F2A0284A400FE061B /* LegacyAuthViewAssembly.swift */; };
 		C90189A928338D2900F30853 /* TemplatesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90189A828338D2900F30853 /* TemplatesCoordinator.swift */; };
@@ -2714,6 +2715,7 @@
 		867580032A58306A0008566A /* TemplatePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatePreview.swift; sourceTree = "<group>"; };
 		86760D102A666F4400E915C9 /* HeaderViewSizeConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderViewSizeConfiguration.swift; sourceTree = "<group>"; };
 		86947EFE2A56B91D00CD7335 /* XCTests+Eventually.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "XCTests+Eventually.swift"; path = "AnyTypeTests/Extensions/XCTests+Eventually.swift"; sourceTree = SOURCE_ROOT; };
+		86E555362A7AB983000A8DC7 /* MockSetDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSetDocument.swift; sourceTree = "<group>"; };
 		95A38D392A03F17700D06C96 /* Riccione-Xlight-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Riccione-Xlight-Regular.ttf"; sourceTree = "<group>"; };
 		95ADB55F2A0284A400FE061B /* LegacyAuthViewAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegacyAuthViewAssembly.swift; sourceTree = "<group>"; };
 		C90189A828338D2900F30853 /* TemplatesCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesCoordinator.swift; sourceTree = "<group>"; };
@@ -7375,6 +7377,7 @@
 				2E999482293E490300FFBED9 /* Relation+Set.swift */,
 				2E9994842940D1D500FFBED9 /* SetDocument.swift */,
 				2E999486294240C300FFBED9 /* SetDocumentProtocol.swift */,
+				86E555362A7AB983000A8DC7 /* MockSetDocument.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -9434,6 +9437,7 @@
 				12CAF35E26D67540001E56B2 /* ObjectIconImageFontSet.swift in Sources */,
 				125B6ECF26F235F400BCD7D6 /* SlashMenuViewController.swift in Sources */,
 				2A03039F28ABD4BD002EFC46 /* SystemURLService.swift in Sources */,
+				86E555372A7AB983000A8DC7 /* MockSetDocument.swift in Sources */,
 				2AC906DF29B6289A00209E39 /* RecentListWidgetModuleAssembly.swift in Sources */,
 				2A1F949B297961A300E25782 /* BundledRelationKey+CommonKeys.swift in Sources */,
 				2AFD69D72987BC240006D792 /* WidgetTypeInternalViewModelProtocol.swift in Sources */,
