@@ -8,7 +8,7 @@ final class HomeWidgetsViewModel: ObservableObject {
 
     // MARK: - DI
     
-    private var widgetObject: BaseDocumentProtocol?
+    private let widgetObject: BaseDocumentProtocol
     private let registry: HomeWidgetsRegistryProtocol
     private let blockWidgetService: BlockWidgetServiceProtocol
     private let stateManager: HomeWidgetsStateManagerProtocol
@@ -27,14 +27,15 @@ final class HomeWidgetsViewModel: ObservableObject {
     @Published var bottomPanelProvider: HomeSubmoduleProviderProtocol
     @Published var hideEditButton: Bool = false
     @Published var dataLoaded: Bool = false
+    
     // Temporary
     @Published var showWorkspacesSwitchList: Bool = false
     @Published var showWorkspacesDeleteList: Bool = false
     @Published var workspaces: [ObjectDetails] = []
-    private var activeSpaceSubscription: AnyCancellable?
     private var objectSubscriptions = [AnyCancellable]()
     
     init(
+        info: AccountInfo,
         registry: HomeWidgetsRegistryProtocol,
         blockWidgetService: BlockWidgetServiceProtocol,
         bottomPanelProviderAssembly: HomeBottomPanelProviderAssemblyProtocol,
@@ -47,9 +48,10 @@ final class HomeWidgetsViewModel: ObservableObject {
         workspacesStorage: WorkspacesStorageProtocol,
         output: HomeWidgetsModuleOutput?
     ) {
+        self.widgetObject = documentService.document(objectId: info.widgetsId)
         self.registry = registry
         self.blockWidgetService = blockWidgetService
-        self.bottomPanelProvider = bottomPanelProviderAssembly.make(stateManager: stateManager)
+        self.bottomPanelProvider = bottomPanelProviderAssembly.make(info: info, stateManager: stateManager)
         self.stateManager = stateManager
         self.objectActionService = objectActionService
         self.recentStateManagerProtocol = recentStateManagerProtocol
@@ -58,10 +60,11 @@ final class HomeWidgetsViewModel: ObservableObject {
         self.workspaceService = workspaceService
         self.workspacesStorage = workspacesStorage
         self.output = output
-        setupSpaceSubscription()
     }
     
-    func onAppear() {}
+    func onAppear() {
+        setupInitialState()
+    }
     
     func onDisappear() {}
     
@@ -75,7 +78,6 @@ final class HomeWidgetsViewModel: ObservableObject {
     }
     
     func dropFinish(from: DropDataElement<HomeWidgetSubmoduleModel>, to: DropDataElement<HomeWidgetSubmoduleModel>) {
-        guard let widgetObject else { return }
         if let info = widgetObject.widgetInfo(blockId: from.data.blockId) {
             AnytypeAnalytics.instance().logReorderWidget(source: info.source.analyticsSource)
         }
@@ -121,16 +123,11 @@ final class HomeWidgetsViewModel: ObservableObject {
     
     // MARK: - Private
     
-    private func updateWidgetSubscriptions(workspaceInfo: AccountInfo) {
-        models = []
-        dataLoaded = false
-        objectSubscriptions.removeAll()
-        widgetObject = documentService.document(objectId: workspaceInfo.widgetsId)
-        
-        widgetObject?.widgetsPublisher
+    private func setupInitialState() {
+        widgetObject.widgetsPublisher
             .map { [weak self] blocks -> [HomeWidgetSubmoduleModel] in
-                guard let self, let widgetObject = self.widgetObject else { return [] }
-                recentStateManagerProtocol.setupRecentStateIfNeeded(blocks: blocks, widgetObject: widgetObject)
+                guard let self else { return [] }
+                recentStateManagerProtocol.setupRecentStateIfNeeded(blocks: blocks, widgetObject: self.widgetObject)
                 return registry.providers(blocks: blocks, widgetObject: widgetObject)
             }
             .removeDuplicates()
@@ -144,14 +141,5 @@ final class HomeWidgetsViewModel: ObservableObject {
         stateManager.isEditStatePublisher
             .receiveOnMain()
             .assign(to: &$hideEditButton)
-    }
-    
-    private func setupSpaceSubscription() {
-        activeSpaceSubscription = activeWorkspaceStorage
-            .workspaceInfoPublisher
-            .receiveOnMain()
-            .sink { [weak self] info in
-                self?.updateWidgetSubscriptions(workspaceInfo: info)
-            }
     }
 }

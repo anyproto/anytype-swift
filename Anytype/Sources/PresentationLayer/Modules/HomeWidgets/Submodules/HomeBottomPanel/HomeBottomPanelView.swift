@@ -15,7 +15,7 @@ struct HomeBottomPanelView: View {
             }
             Spacer.fixedHeight(32)
         }
-        .animation(.default, value: model.buttonState)
+        .animation(.default, value: model.isEditState)
     }
 
     @ViewBuilder

@@ -26,18 +26,12 @@ struct SearchDataSection<SearchData: SearchDataProtocol>: Identifiable {
     let sectionName: String
 }
 
-// For iOS 14 calls from UIKit
-protocol Dismissible: AnyObject {
-    var onDismiss: () -> () { get set }
-}
-
-protocol SearchViewModelProtocol: ObservableObject, Dismissible {
+protocol SearchViewModelProtocol: ObservableObject {
     associatedtype SearchDataType: SearchDataProtocol
 
     var searchData: [SearchDataSection<SearchDataType>] { get }
     var placeholder: String { get }
     var onSelect: (SearchDataType) -> () { get }
-    var onDismiss: () -> () { get set }
-
+    
     func search(text: String)
 }

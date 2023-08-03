@@ -4,7 +4,7 @@ import AnytypeCore
 
 struct HomeWidgetsView: View {
     
-    @ObservedObject var model: HomeWidgetsViewModel
+    @StateObject var model: HomeWidgetsViewModel
     @State var dndState = DragState()
     
     var body: some View {

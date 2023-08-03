@@ -731,6 +731,11 @@ extension Anytype_Rpc.Object.ListSetIsFavorite.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }
 }
 
+extension Anytype_Rpc.Object.ListSetObjectType.Response: ResultWithError {}
+extension Anytype_Rpc.Object.ListSetObjectType.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null }
+}
+
 extension Anytype_Rpc.Object.Open.Response: ResultWithError {}
 extension Anytype_Rpc.Object.Open.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }

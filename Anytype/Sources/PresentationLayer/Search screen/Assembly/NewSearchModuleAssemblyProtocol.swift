@@ -78,15 +78,9 @@ protocol NewSearchModuleAssemblyProtocol {
         output: RelationSearchModuleOutput
     ) -> NewSearchView
     
-    func widgetSourceSearchModule(spaceId: String, context: AnalyticsWidgetContext, onSelect: @escaping (_ source: WidgetSource) -> Void) -> AnyView
+    func widgetSourceSearchModule(data: WidgetSourceSearchModuleModel) -> AnyView
     
-    func widgetChangeSourceSearchModule(
-        widgetObjectId: String,
-        spaceId: String,
-        widgetId: String,
-        context: AnalyticsWidgetContext,
-        onFinish: @escaping () -> Void
-    ) -> AnyView
+    func widgetChangeSourceSearchModule(data: WidgetChangeSourceSearchModuleModel) -> AnyView
 }
 
 // Extension for specific Settings

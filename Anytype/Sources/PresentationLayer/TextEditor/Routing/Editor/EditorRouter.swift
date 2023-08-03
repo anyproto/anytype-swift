@@ -220,7 +220,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
             self?.navigationContext.dismissTopPresented()
         }
 
-        navigationContext.presentSwiftUIView(view: moveToView, model: nil)
+        navigationContext.present(moveToView)
     }
 
     func showLinkTo(onSelect: @escaping (ObjectDetails) -> ()) {
@@ -248,13 +248,19 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
             }
         )
 
-        navigationContext.presentSwiftUIView(view: moduleView, model: nil)
+        navigationContext.present(moduleView)
     }
     
     func showSearch(onSelect: @escaping (EditorScreenData) -> ()) {
-        let module = searchModuleAssembly.makeObjectSearch(spaceId: document.spaceId, title: nil) { data in
-            onSelect(data.editorScreenData)
-        }
+        let module = searchModuleAssembly.makeObjectSearch(
+            data: SearchModuleModel(
+                spaceId: document.spaceId,
+                title: nil,
+                onSelect: { data in
+                    onSelect(data.editorScreenData)
+                }
+            )
+        )
         navigationContext.present(module)
     }
     

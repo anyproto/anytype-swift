@@ -7,26 +7,15 @@ protocol WidgetTypeModuleAssemblyProtocol: AnyObject {
     // MARK: - Common
     
     @MainActor
-    func make(internalModel: WidgetTypeInternalViewModelProtocol) -> UIViewController
+    func make(internalModel: @autoclosure @escaping () -> WidgetTypeInternalViewModelProtocol) -> AnyView
     
     // MARK: - Specific
     
     @MainActor
-    func makeCreateWidget(
-        widgetObjectId: String,
-        source: WidgetSource,
-        position: WidgetPosition,
-        context: AnalyticsWidgetContext,
-        onFinish: @escaping () -> Void
-    ) -> UIViewController
+    func makeCreateWidget(data: WidgetTypeModuleCreateModel) -> AnyView
  
     @MainActor
-    func makeChangeType(
-        widgetObjectId: String,
-        widgetId: String,
-        context: AnalyticsWidgetContext,
-        onFinish: @escaping () -> Void
-    ) -> UIViewController
+    func makeChangeType(data: WidgetTypeModuleChangeModel) -> AnyView
 }
 
 final class WidgetTypeModuleAssembly: WidgetTypeModuleAssemblyProtocol {
@@ -40,47 +29,31 @@ final class WidgetTypeModuleAssembly: WidgetTypeModuleAssemblyProtocol {
     // MARK: - WidgetTypeModuleAssemblyProtocol
     
     @MainActor
-    func make(internalModel: WidgetTypeInternalViewModelProtocol) -> UIViewController {
-        let model = WidgetTypeViewModel(internalModel: internalModel)
-        let view = WidgetTypeView(model: model).eraseToAnyView()
-        return AnytypePopup(contentView: view)
+    func make(internalModel: @autoclosure @escaping () -> WidgetTypeInternalViewModelProtocol) -> AnyView {
+        return WidgetTypeView(model: WidgetTypeViewModel(internalModel: internalModel())).eraseToAnyView()
     }
     
     @MainActor
-    func makeCreateWidget(
-        widgetObjectId: String,
-        source: WidgetSource,
-        position: WidgetPosition,
-        context: AnalyticsWidgetContext,
-        onFinish: @escaping () -> Void
-    ) -> UIViewController {
-        let internalModel = WidgetTypeCreateObjectViewModel(
-            widgetObjectId: widgetObjectId,
-            source: source,
-            position: position,
-            blockWidgetService: serviceLocator.blockWidgetService(),
-            context: context,
-            onFinish: onFinish
-        )
-        
-        return make(internalModel: internalModel)
+    func makeCreateWidget(data: WidgetTypeModuleCreateModel) -> AnyView {
+        return make(internalModel: WidgetTypeCreateObjectViewModel(
+            widgetObjectId: data.widgetObjectId,
+            source: data.source,
+            position: data.position,
+            blockWidgetService: self.serviceLocator.blockWidgetService(),
+            context: data.context,
+            onFinish: data.onFinish
+        ))
     }
     
     @MainActor
-    func makeChangeType(
-        widgetObjectId: String,
-        widgetId: String,
-        context: AnalyticsWidgetContext,
-        onFinish: @escaping () -> Void
-    ) -> UIViewController {
-        let internalModel = WidgetTypeChangeViewModel(
-            widgetObjectId: widgetObjectId,
-            widgetId: widgetId,
-            blockWidgetService: serviceLocator.blockWidgetService(),
-            documentService: serviceLocator.documentService(),
-            context: context,
-            onFinish: onFinish
-        )
-        return make(internalModel: internalModel)
+    func makeChangeType(data: WidgetTypeModuleChangeModel) -> AnyView {
+        return make(internalModel: WidgetTypeChangeViewModel(
+            widgetObjectId: data.widgetObjectId,
+            widgetId: data.widgetId,
+            blockWidgetService: self.serviceLocator.blockWidgetService(),
+            documentService: self.serviceLocator.documentService(),
+            context: data.context,
+            onFinish: data.onFinish
+        ))
     }
 }
