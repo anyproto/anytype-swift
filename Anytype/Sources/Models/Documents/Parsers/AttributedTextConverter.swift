@@ -40,7 +40,7 @@ enum AttributedTextConverter {
             guard let fromOffset = fromOffset, let toOffset = toOffset else {
                 let message = """
                 AttributedTextConverter parsing error.
-                string: \(text),
+                textLength: \(textLength),
                 mark range from: \(mark.range.from),
                 mark range to: \(mark.range.to),
                 mark type: \(mark.type)
