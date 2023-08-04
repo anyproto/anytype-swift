@@ -286,6 +286,7 @@ enum AnalyticsEventsMigrationType: String {
 enum AnalyticsWidgetSource {
     case favorites
     case recent
+    case recentOpen
     case sets
     case collections
     case bin
@@ -297,6 +298,8 @@ enum AnalyticsWidgetSource {
             return "Favorites"
         case .recent:
             return "Recent"
+        case .recentOpen:
+            return "RecentOpen"
         case .sets:
             return "Sets"
         case .collections:

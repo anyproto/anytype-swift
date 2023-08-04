@@ -53,7 +53,7 @@ extension ObjectDetails {
 extension EditorScreenData {
     var isSupportedForEdit: Bool {
         switch self {
-        case .favorites, .recent, .sets, .collections, .bin:
+        case .favorites, .recentEdit, .recentOpen, .sets, .collections, .bin:
             return true
         case .page(let object):
             return object.isSupportedForEdit
@@ -64,7 +64,7 @@ extension EditorScreenData {
     
     var objectId: String {
         switch self {
-        case .favorites, .recent, .sets, .collections, .bin:
+        case .favorites, .recentEdit, .recentOpen, .sets, .collections, .bin:
             return ""
         case .page(let object):
             return object.objectId

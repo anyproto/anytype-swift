@@ -3,10 +3,12 @@ import SwiftUI
 
 final class RecentTreeWidgetModuleAssembly: HomeWidgetCommonAssemblyProtocol {
     
+    private let type: RecentWidgetType
     private let serviceLocator: ServiceLocator
     private let widgetsSubmoduleDI: WidgetsSubmoduleDIProtocol
     
-    init(serviceLocator: ServiceLocator, widgetsSubmoduleDI: WidgetsSubmoduleDIProtocol) {
+    init(type: RecentWidgetType, serviceLocator: ServiceLocator, widgetsSubmoduleDI: WidgetsSubmoduleDIProtocol) {
+        self.type = type
         self.serviceLocator = serviceLocator
         self.widgetsSubmoduleDI = widgetsSubmoduleDI
     }
@@ -22,6 +24,7 @@ final class RecentTreeWidgetModuleAssembly: HomeWidgetCommonAssemblyProtocol {
     ) -> AnyView {
         
         let model = RecentWidgetInternalViewModel(
+            type: type,
             widgetBlockId: widgetBlockId,
             widgetObject: widgetObject,
             recentSubscriptionService: serviceLocator.recentSubscriptionService()
