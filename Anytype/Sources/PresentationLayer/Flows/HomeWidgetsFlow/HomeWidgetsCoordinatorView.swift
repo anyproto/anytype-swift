@@ -8,7 +8,7 @@ struct HomeWidgetsCoordinatorView: View {
     var body: some View {
         VStack {
             model.homeWidgetsModule()
-                .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .leading)))
+                .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .offset(x: -100)))
         }
         .animation(.default, value: model.homeAnimationId)
         .onAppear {
@@ -23,8 +23,11 @@ struct HomeWidgetsCoordinatorView: View {
         .sheet(item: $model.showSearchData) { data in
             model.searchModule(data: data)
         }
-        .sheet(item: $model.createWidgetData) { data in
+        .sheet(item: $model.showCreateWidgetData) { data in
             model.createWidgetModule(data: data)
+        }
+        .sheet(isPresented: $model.showSpaceSwitch) {
+            model.createSpaceSwitchModule()
         }
     }
 }

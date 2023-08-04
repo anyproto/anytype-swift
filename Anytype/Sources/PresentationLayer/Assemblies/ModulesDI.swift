@@ -122,6 +122,10 @@ final class ModulesDI: ModulesDIProtocol {
         return FileStorageModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
     }
     
+    func spaceSwitch() -> SpaceSwitchModileAssemblyProtocol {
+        return SpaceSwitchModileAssembly(serviceLocator: serviceLocator)
+    }
+    
     func authorization() -> AuthModuleAssemblyProtocol {
         return AuthModuleAssembly()
     }
