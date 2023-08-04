@@ -139,10 +139,6 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
  
     // MARK: - HomeWidgetsModuleOutput
     
-    func onSpaceSwitchSelected() {
-        showSpaceSwitch.toggle()
-    }
-    
     // MARK: - CommonWidgetModuleOutput
         
     func onObjectSelected(screenData: EditorScreenData) {
@@ -181,6 +177,10 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
         )
     }
     
+    func onSpaceSelected() {
+        settingsCoordinator.startFlow()
+    }
+    
     // MARK: - HomeBottomPanelModuleOutput
     
     func onCreateWidgetSelected(context: AnalyticsWidgetContext) {
@@ -213,6 +213,10 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     
     func onSettingsSelected() {
         settingsCoordinator.startFlow()
+    }
+    
+    func onProfileSelected() {
+        showSpaceSwitch.toggle()
     }
     
     // MARK: - Private

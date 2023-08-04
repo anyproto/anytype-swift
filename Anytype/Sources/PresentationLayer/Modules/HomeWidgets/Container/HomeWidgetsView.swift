@@ -1,6 +1,5 @@
 import Foundation
 import SwiftUI
-import AnytypeCore
 
 struct HomeWidgetsView: View {
     
@@ -22,12 +21,6 @@ struct HomeWidgetsView: View {
                     }
                     .opacity(model.hideEditButton ? 0 : 1)
                     .animation(.default, value: model.hideEditButton)
-                    // Temporary buttons. For test without design
-                    if FeatureFlags.multiSpace {
-                        HomeEditButton(text: "Switch space") {
-                            model.onSwitchSapceTap()
-                        }
-                    }
                 }
                 .padding(.horizontal, 20)
                 .opacity(model.dataLoaded ? 1 : 0)
