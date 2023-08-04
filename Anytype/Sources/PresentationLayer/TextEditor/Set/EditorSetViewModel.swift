@@ -615,19 +615,10 @@ final class EditorSetViewModel: ObservableObject {
         Task { @MainActor [weak self] in
             guard let self else { return }
             
-            var finalTemplateId = templateId
-            if type.isNotEmpty, templateId?.isEmpty ?? true {
-                let availableTemplates = try? await self.searchService.searchTemplates(
-                    for: .dynamic(type)
-                )
-                let hasSingleTemplate = availableTemplates?.count == 1
-                finalTemplateId = hasSingleTemplate ? (availableTemplates?.first?.id ?? "") : ""
-            }
-            
             let details = try await self.dataviewService.addRecord(
                 objectType: type,
                 shouldSelectType: shouldSelectType,
-                templateId: finalTemplateId ?? "",
+                templateId: templateId ?? "",
                 setFilters: self.setDocument.filters,
                 relationsDetails: relationsDetails
             )
