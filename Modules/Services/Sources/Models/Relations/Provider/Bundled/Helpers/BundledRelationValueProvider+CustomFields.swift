@@ -59,4 +59,8 @@ extension BundledRelationsValueProvider {
     var relationFormatValue: RelationFormat {
         relationFormat.map { RelationFormat(rawValue: $0) } ?? .unrecognized
     }
+    
+    public var spaceAccessibilityValue: SpaceAccessibility? {
+        return spaceAccessibility.flatMap { SpaceAccessibility(rawValue: $0) }
+    }
 }

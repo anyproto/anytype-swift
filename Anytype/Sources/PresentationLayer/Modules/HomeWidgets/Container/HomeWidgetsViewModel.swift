@@ -87,11 +87,6 @@ final class HomeWidgetsViewModel: ObservableObject {
         }
     }
     
-    // Temporary
-    func onSwitchSapceTap() {
-        output?.onSpaceSwitchSelected()
-    }
-    
     // MARK: - Private
     
     private func setupInitialState() {

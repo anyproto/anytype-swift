@@ -2,6 +2,7 @@ import Foundation
 import Services
 import Combine
 import UIKit
+import AnytypeCore
 
 @MainActor
 final class HomeBottomPanelViewModel: ObservableObject {
@@ -35,7 +36,7 @@ final class HomeBottomPanelViewModel: ObservableObject {
     
     // MARK: - State
     
-    private var spaceDetails: ObjectDetails?
+    private var profileDetails: ObjectDetails?
     private var workspaceSubscription: AnyCancellable?
     private var dataSubscriptions: [AnyCancellable] = []
     
@@ -81,8 +82,12 @@ final class HomeBottomPanelViewModel: ObservableObject {
                     UISelectionFeedbackGenerator().selectionChanged()
                     self?.handleCreateObject()
                 }),
-                ImageButton(image: spaceDetails?.objectIconImage, onTap: { [weak self] in
-                    self?.output?.onSettingsSelected()
+                ImageButton(image: profileDetails?.objectIconImage, onTap: { [weak self] in
+                    if FeatureFlags.multiSpace {
+                        self?.output?.onProfileSelected()
+                    } else {
+                        self?.output?.onSettingsSelected()
+                    }
                 })
             ])
         }
@@ -95,9 +100,9 @@ final class HomeBottomPanelViewModel: ObservableObject {
         
         subscriptionService.startSubscription(
             subIdPrefix: Constants.subId,
-            objectId: info.workspaceObjectId
+            objectId: FeatureFlags.multiSpace ? info.profileObjectID : info.workspaceObjectId
         ) { [weak self] details in
-            self?.handleSpaceDetails(details: details)
+            self?.handleProfileDetails(details: details)
         }
         
         stateManager.isEditStatePublisher
@@ -106,15 +111,14 @@ final class HomeBottomPanelViewModel: ObservableObject {
             .store(in: &dataSubscriptions)
     }
     
-    private func handleSpaceDetails(details: ObjectDetails) {
-        spaceDetails = details
+    private func handleProfileDetails(details: ObjectDetails) {
+        profileDetails = details
         updateModels(isEditState: stateManager.isEditState)
     }
     
     private func handleCreateObject() {
-        guard let spaceDetails else { return }
         Task { @MainActor in
-            guard let details = try? await dashboardService.createNewPage(spaceId: spaceDetails.spaceId) else { return }
+            guard let details = try? await dashboardService.createNewPage(spaceId: info.accountSpaceId) else { return }
             AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: .navigation, view: .home)
             
             output?.onCreateObjectSelected(screenData: details.editorScreenData())

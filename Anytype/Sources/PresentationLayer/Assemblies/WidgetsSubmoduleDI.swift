@@ -29,6 +29,8 @@ protocol WidgetsSubmoduleDIProtocol {
     // MARK: - Link
     func linkWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
     func binLinkWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
+    // MARK: - Specific
+    func spaceWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
     // MARK: - Bottom
     func bottomPanelProviderAssembly(output: HomeBottomPanelModuleOutput?) -> HomeBottomPanelProviderAssemblyProtocol
     func bottomPanelModuleAssembly() -> HomeBottomPanelModuleAssemblyProtocol
@@ -119,6 +121,10 @@ final class WidgetsSubmoduleDI: WidgetsSubmoduleDIProtocol {
                 widgetAssembly: binLinkWidgetModuleAssembly(),
                 output: widgetOutput
             ),
+            spaceWidgetProviderAssembly: HomeWidgetCommonProviderAssembly(
+                widgetAssembly: spaceWidgetModuleAssembly(),
+                output: widgetOutput
+            ),
             stateManager: stateManager
         )
     }
@@ -205,6 +211,12 @@ final class WidgetsSubmoduleDI: WidgetsSubmoduleDIProtocol {
     
     func binLinkWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol {
         return BinLinkWidgetModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
+    }
+    
+    // MARK: - Specific
+    
+    func spaceWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol {
+        return SpaceWidgetModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
     }
     
     // MARK: - Bottom

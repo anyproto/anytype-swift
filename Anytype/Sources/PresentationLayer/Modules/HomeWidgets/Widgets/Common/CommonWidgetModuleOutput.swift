@@ -6,4 +6,5 @@ protocol CommonWidgetModuleOutput: AnyObject {
     func onChangeSource(widgetId: String, context: AnalyticsWidgetContext)
     func onChangeWidgetType(widgetId: String, context: AnalyticsWidgetContext)
     func onAddBelowWidget(widgetId: String, context: AnalyticsWidgetContext)
+    func onSpaceSelected()
 }
