@@ -2770,6 +2770,9 @@ public struct Anytype_Model_Account {
 
     public var analyticsID: String = String()
 
+    /// network id to which anytype is connected
+    public var networkID: String = String()
+
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public init() {}
@@ -6440,6 +6443,7 @@ extension Anytype_Model_Account.Info: SwiftProtobuf.Message, SwiftProtobuf._Mess
     103: .same(proto: "localStoragePath"),
     104: .same(proto: "timeZone"),
     105: .same(proto: "analyticsId"),
+    106: .same(proto: "networkId"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -6459,6 +6463,7 @@ extension Anytype_Model_Account.Info: SwiftProtobuf.Message, SwiftProtobuf._Mess
       case 103: try { try decoder.decodeSingularStringField(value: &self.localStoragePath) }()
       case 104: try { try decoder.decodeSingularStringField(value: &self.timeZone) }()
       case 105: try { try decoder.decodeSingularStringField(value: &self.analyticsID) }()
+      case 106: try { try decoder.decodeSingularStringField(value: &self.networkID) }()
       default: break
       }
     }
@@ -6498,6 +6503,9 @@ extension Anytype_Model_Account.Info: SwiftProtobuf.Message, SwiftProtobuf._Mess
     if !self.analyticsID.isEmpty {
       try visitor.visitSingularStringField(value: self.analyticsID, fieldNumber: 105)
     }
+    if !self.networkID.isEmpty {
+      try visitor.visitSingularStringField(value: self.networkID, fieldNumber: 106)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -6513,6 +6521,7 @@ extension Anytype_Model_Account.Info: SwiftProtobuf.Message, SwiftProtobuf._Mess
     if lhs.localStoragePath != rhs.localStoragePath {return false}
     if lhs.timeZone != rhs.timeZone {return false}
     if lhs.analyticsID != rhs.analyticsID {return false}
+    if lhs.networkID != rhs.networkID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
