@@ -6,6 +6,7 @@ public struct ArrayBuilder<Element> {
     public static func buildPartialBlock(first: Element?) -> [Element] { first.map { [$0] } ?? [] }
     public static func buildPartialBlock(first: [Element]) -> [Element] { first }
     public static func buildPartialBlock(accumulated: [Element], next: Element) -> [Element] { accumulated + [next] }
+    public static func buildPartialBlock(accumulated: [Element], next: Element?) -> [Element] { accumulated + (next.map { [$0] } ?? []) }
     public static func buildPartialBlock(accumulated: [Element], next: [Element]) -> [Element] { accumulated + next }
     
     public static func buildBlock() -> [Element] { [] }
