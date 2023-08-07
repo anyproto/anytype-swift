@@ -10,6 +10,8 @@ protocol TemplateSelectionCoordinatorProtocol: AnyObject {
         dataview: DataviewView,
         onTemplateSelection: @escaping (BlockId?) -> ()
     )
+    
+    func showTemplateEditing(blockId: BlockId, onTemplateSelection: @escaping (BlockId) -> Void)
 }
 
 final class TemplateSelectionCoordinator: TemplateSelectionCoordinatorProtocol {
@@ -60,7 +62,7 @@ final class TemplateSelectionCoordinator: TemplateSelectionCoordinatorProtocol {
         navigationContext.present(popup)
     }
     
-    private func showTemplateEditing(blockId: BlockId, onTemplateSelection: @escaping (BlockId) -> Void) {
+    func showTemplateEditing(blockId: BlockId, onTemplateSelection: @escaping (BlockId) -> Void) {
         let editorPage = editorAssembly.buildEditorModule(
             browser: nil,
             data: .page(.init(objectId: blockId, isSupportedForEdit: true, isOpenedForPreview: false))
@@ -84,6 +86,10 @@ final class TemplateSelectionCoordinator: TemplateSelectionCoordinatorProtocol {
 
 extension TemplateSelectionCoordinator: ObjectSettingsModuleDelegate {
     func didCreateLinkToItself(selfName: String, data: EditorScreenData) {
+        anytypeAssertionFailure("Should be disabled in restrictions. Check template restrinctions")
+    }
+    
+    func didCreateTemplate(templateId: BlockId) {
         anytypeAssertionFailure("Should be disabled in restrictions. Check template restrinctions")
     }
 }

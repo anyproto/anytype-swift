@@ -97,16 +97,7 @@ struct SetTableView: View {
     
     private var headerSettingsView: some View {
         HStack {
-            SetHeaderSettingsView(
-                model: SetHeaderSettingsViewModel(
-                    setDocument: model.setDocument,
-                    isActive: model.isActiveHeader,
-                    onViewTap: model.showViewPicker,
-                    onSettingsTap: model.showSetSettings,
-                    onCreateTap: model.createObject,
-                    onSecondaryCreateTap: model.onSecondaryCreateTap
-                )
-            )
+            SetHeaderSettingsView(model: model.headerSettingsViewModel)
             .offset(x: xOffset, y: 0)
             .frame(width: tableHeaderSize.width)
             Spacer()

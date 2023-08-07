@@ -13,6 +13,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     private let addNewRelationCoordinator: AddNewRelationCoordinatorProtocol
     private let document: BaseDocumentProtocol
     private let templatesCoordinator: TemplatesCoordinator
+    private let templateSelectionCoordinator: TemplateSelectionCoordinatorProtocol
     private let urlOpener: URLOpenerProtocol
     private let relationValueCoordinator: RelationValueCoordinatorProtocol
     private let editorPageCoordinator: EditorPageCoordinatorProtocol
@@ -26,6 +27,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     private let textIconPickerModuleAssembly: TextIconPickerModuleAssemblyProtocol
     private let alertHelper: AlertHelper
+    private let pageService: PageServiceProtocol
     
     init(
         rootController: EditorBrowserController?,
@@ -34,6 +36,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         document: BaseDocumentProtocol,
         addNewRelationCoordinator: AddNewRelationCoordinatorProtocol,
         templatesCoordinator: TemplatesCoordinator,
+        templateSelectionCoordinator: TemplateSelectionCoordinatorProtocol,
         urlOpener: URLOpenerProtocol,
         relationValueCoordinator: RelationValueCoordinatorProtocol,
         editorPageCoordinator: EditorPageCoordinatorProtocol,
@@ -46,7 +49,8 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         codeLanguageListModuleAssembly: CodeLanguageListModuleAssemblyProtocol,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
         textIconPickerModuleAssembly: TextIconPickerModuleAssemblyProtocol,
-        alertHelper: AlertHelper
+        alertHelper: AlertHelper,
+        pageService: PageServiceProtocol
     ) {
         self.rootController = rootController
         self.viewController = viewController
@@ -55,6 +59,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         self.fileCoordinator = FileDownloadingCoordinator(viewController: viewController)
         self.addNewRelationCoordinator = addNewRelationCoordinator
         self.templatesCoordinator = templatesCoordinator
+        self.templateSelectionCoordinator = templateSelectionCoordinator
         self.urlOpener = urlOpener
         self.relationValueCoordinator = relationValueCoordinator
         self.editorPageCoordinator = editorPageCoordinator
@@ -68,6 +73,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         self.newSearchModuleAssembly = newSearchModuleAssembly
         self.textIconPickerModuleAssembly = textIconPickerModuleAssembly
         self.alertHelper = alertHelper
+        self.pageService = pageService
     }
 
     func showPage(objectId: String) {
@@ -513,6 +519,30 @@ extension EditorRouter: ObjectSettingsModuleDelegate {
         UIApplication.shared.hideKeyboard()
         toastPresenter.showObjectName(selfName, middleAction: Loc.Editor.Toast.linkedTo, secondObjectId: data.objectId) { [weak self] in
             self?.showPage(data: data)
+        }
+    }
+    
+    func didCreateTemplate(templateId: BlockId) {
+        templateSelectionCoordinator.showTemplateEditing(blockId: templateId) { [weak self] templateSelection in
+            Task { @MainActor [weak self] in
+                do {
+                    guard let type = document.details?.type,
+                          let objectDetails = try await self?.pageService.createPage(
+                            name: "",
+                            type: type,
+                            shouldDeleteEmptyObject: true,
+                            shouldSelectType: false,
+                            shouldSelectTemplate: false,
+                            templateId: templateSelection
+                          ) else {
+                        return
+                    }
+                    
+                    self?.openObject(screenData: .init(details: objectDetails, shouldShowTemplatesOptions: false))
+                } catch {
+                    print(error.localizedDescription)
+                }
+            }
         }
     }
 }

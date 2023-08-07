@@ -554,6 +554,10 @@ extension EditorSetRouter: RelationValueCoordinatorOutput {
 }
 
 extension EditorSetRouter: ObjectSettingsModuleDelegate {
+    func didCreateTemplate(templateId: Services.BlockId) {
+        anytypeAssertionFailure("Should be disabled in restrictions. Check template restrinctions")
+    }
+    
     func didCreateLinkToItself(selfName: String, data: EditorScreenData) {
         UIApplication.shared.hideKeyboard()
         toastPresenter.showObjectName(selfName, middleAction: Loc.Editor.Toast.linkedTo, secondObjectId: data.objectId) { [weak self] in

@@ -84,7 +84,8 @@ final class EditorAssembly {
             textService: serviceLocator.textService,
             groupsSubscriptionsHandler: serviceLocator.groupsSubscriptionsHandler(),
             setSubscriptionDataBuilder: SetSubscriptionDataBuilder(accountManager: serviceLocator.accountManager()),
-            objectTypeProvider: serviceLocator.objectTypeProvider()
+            objectTypeProvider: serviceLocator.objectTypeProvider(),
+            setTemplatesInteractor: serviceLocator.setTemplatesInteractor
         )
         let controller = EditorSetHostingController(objectId: data.objectId, model: model)
         let navigationContext = NavigationContext(rootViewController: browser ?? controller)
@@ -138,13 +139,20 @@ final class EditorAssembly {
             browserViewInput: browser
         )
         let document = BaseDocument(objectId: data.objectId, forPreview: data.isOpenedForPreview)
+        let navigationContext = NavigationContext(rootViewController: browser ?? controller)
         let router = EditorRouter(
             rootController: browser,
             viewController: controller,
-            navigationContext: NavigationContext(rootViewController: browser ?? controller),
+            navigationContext: navigationContext,
             document: document,
             addNewRelationCoordinator: coordinatorsDI.addNewRelation().make(),
             templatesCoordinator: coordinatorsDI.templates().make(viewController: controller),
+            templateSelectionCoordinator: TemplateSelectionCoordinator(
+                navigationContext: navigationContext,
+                templatesModulesAssembly: modulesDI.templatesAssembly(),
+                editorAssembly: coordinatorsDI.editor(),
+                objectSettingCoordinator: coordinatorsDI.objectSettings().make(browserController: nil)
+            ),
             urlOpener: uiHelpersDI.urlOpener(),
             relationValueCoordinator: coordinatorsDI.relationValue().make(),
             editorPageCoordinator: coordinatorsDI.editorPage().make(browserController: browser),
@@ -157,7 +165,8 @@ final class EditorAssembly {
             codeLanguageListModuleAssembly: modulesDI.codeLanguageList(),
             newSearchModuleAssembly: modulesDI.newSearch(),
             textIconPickerModuleAssembly: modulesDI.textIconPicker(),
-            alertHelper: AlertHelper(viewController: controller)
+            alertHelper: AlertHelper(viewController: controller),
+            pageService: serviceLocator.pageService()
         )
 
         let viewModel = buildViewModel(
