@@ -4,9 +4,8 @@ public extension FeatureDescription {
     
     static let setTemplateSelection = FeatureDescription(
         title: "Additional button in sets to pick needed template",
-        type: .feature(author: "db@anytype.io", releaseVersion: "0.?.0"),
-        defaultValue: false,
-        debugValue: false
+        type: .feature(author: "db@anytype.io", releaseVersion: "0.24.0"),
+        defaultValue: true
     )
     
     static let setKanbanView = FeatureDescription(
