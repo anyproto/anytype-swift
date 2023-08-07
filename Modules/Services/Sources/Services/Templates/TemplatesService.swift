@@ -2,21 +2,17 @@ import ProtobufMessages
 import SwiftProtobuf
 
 public protocol TemplatesServiceProtocol {
+    func typeObjectDetails(objectTypeId: BlockId) async throws -> ObjectDetails
     func cloneTemplate(blockId: BlockId) async throws
     func createTemplateFromObjectType(objectTypeId: BlockId) async throws -> BlockId
+    func createTemplateFromObject(objectId: BlockId) async throws -> BlockId
     func deleteTemplate(templateId: BlockId) async throws
 }
 
 public final class TemplatesService: TemplatesServiceProtocol {
     public init() {}
     
-    public func cloneTemplate(blockId: BlockId) async throws {
-        _ = try await ClientCommands.objectListDuplicate(.with {
-            $0.objectIds = [blockId]
-        }).invoke()
-    }
-    
-    public func createTemplateFromObjectType(objectTypeId: BlockId) async throws -> BlockId {
+    public func typeObjectDetails(objectTypeId: BlockId) async throws -> ObjectDetails {
         let objectShow = try await ClientCommands.objectShow(.with {
             $0.contextID = objectTypeId
             $0.objectID = objectTypeId
@@ -26,6 +22,18 @@ public final class TemplatesService: TemplatesServiceProtocol {
               let objectDetails = try? ObjectDetails(protobufStruct: details) else {
             throw AnyUnpackError.typeMismatch
         }
+        
+        return objectDetails
+    }
+    
+    public func cloneTemplate(blockId: BlockId) async throws {
+        _ = try await ClientCommands.objectListDuplicate(.with {
+            $0.objectIds = [blockId]
+        }).invoke()
+    }
+    
+    public func createTemplateFromObjectType(objectTypeId: BlockId) async throws -> BlockId {
+        let objectDetails = try await typeObjectDetails(objectTypeId: objectTypeId)
         
         let response = try await ClientCommands.objectCreate(.with {
             $0.details = .with {
@@ -38,6 +46,14 @@ public final class TemplatesService: TemplatesServiceProtocol {
         }).invoke()
         
         return response.objectID
+    }
+    
+    public func createTemplateFromObject(objectId: BlockId) async throws -> BlockId {
+        let response = try await ClientCommands.templateCreateFromObject(.with {
+            $0.contextID = objectId
+        }).invoke()
+        
+        return response.id
     }
     
     public func deleteTemplate(templateId: BlockId) async throws {

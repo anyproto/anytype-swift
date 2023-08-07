@@ -17,11 +17,16 @@ struct ObjectActionRow: View {
                     .frame(width: 52, height: 52)
                     .background(Color.Background.highlightedOfSelected)
                     .cornerRadius(10)
-                AnytypeText(
-                    setting.title,
-                    style: .caption2Regular,
-                    color: .Text.secondary
-                )
+                Text("")
+                    .overlay {
+                        AnytypeText(
+                            setting.title,
+                            style: .caption2Regular,
+                            color: .Text.secondary
+                        ).fixedSize()
+                            .lineLimit(1)
+                            .frame(maxWidth: .infinity)
+                    }
             }
         }
     }
@@ -47,6 +52,8 @@ private extension ObjectAction {
             return Loc.duplicate
         case .linkItself:
             return Loc.Actions.linkItself
+        case .makeAsTemplate:
+            return Loc.Actions.makeAsTemplate
         }
     }
 
@@ -64,6 +71,8 @@ private extension ObjectAction {
             return .X32.duplicate
         case .linkItself:
             return .linkToItself
+        case .makeAsTemplate:
+            return .makeAsTemplate
         }
     }
 }

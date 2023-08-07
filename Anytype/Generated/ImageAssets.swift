@@ -281,6 +281,7 @@ internal extension ImageAsset {
   static let taskChecked = ImageAsset.bundle(name: "task_checked")
   static let taskUnchecked = ImageAsset.bundle(name: "task_unchecked")
   static let linkToItself = ImageAsset.bundle(name: "link_to_itself")
+  static let makeAsTemplate = ImageAsset.bundle(name: "make_as_template")
   static let relationAddToFeatured = ImageAsset.bundle(name: "relation_add_to_featured")
   static let relationCheckboxChecked = ImageAsset.bundle(name: "relation_checkbox_checked")
   static let relationCheckboxUnchecked = ImageAsset.bundle(name: "relation_checkbox_unchecked")
