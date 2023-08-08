@@ -33,6 +33,23 @@ struct SpaceSettingsView: View {
                         onTap: { model.onPersonalizationTap() }
                     )
                     
+                    SectionHeaderView(title: Loc.SpaceSettings.info)
+                    
+                    SettingsInfoBlock(
+                        title: "Space ID",
+                        subtitle: "bafyreiffhfg6rxuerttu2uhlvd6hlvhh4w3cd3iu6d7pge6eypwhw6mlsa") {
+                        print("on tap")
+                    }
+                    
+                    SettingsInfoBlock(
+                        title: "Created by",
+                        subtitle: "Anton Barulenkov"
+                    )
+                    
+                    SettingsInfoBlock(
+                        title: "Creation date",
+                        subtitle: "15/12/2023"
+                    )
                 }
             }
             .padding(.horizontal, 20)
