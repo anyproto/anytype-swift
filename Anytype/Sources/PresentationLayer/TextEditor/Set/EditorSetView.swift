@@ -103,16 +103,7 @@ struct EditorSetView: View {
     }
     
     private var headerSettingsView: some View {
-        SetHeaderSettingsView(
-            model: SetHeaderSettingsViewModel(
-                setDocument: model.setDocument,
-                isActive: model.isActiveHeader,
-                onViewTap: model.showViewPicker,
-                onSettingsTap: model.showSetSettings,
-                onCreateTap: model.createObject,
-                onSecondaryCreateTap: model.onSecondaryCreateTap
-            )
-        )
-        .frame(width: tableHeaderSize.width)
+        SetHeaderSettingsView(model: model.headerSettingsViewModel)
+            .frame(width: tableHeaderSize.width)
     }
 }

@@ -16,6 +16,17 @@ final class EditorSetViewModel: ObservableObject {
             startSubscriptionsByGroups()
         }
     }
+    
+    @MainActor
+    lazy var headerSettingsViewModel = SetHeaderSettingsViewModel(
+        setDocument: setDocument,
+        setTemplatesInteractor: setTemplatesInteractor,
+        isActive: isActiveHeader,
+        onViewTap: showViewPicker,
+        onSettingsTap: showSetSettings,
+        onCreateTap: createObject,
+        onSecondaryCreateTap: onSecondaryCreateTap
+    )
     @Published var configurationsDict: OrderedDictionary<String, [SetContentViewItemConfiguration]> = [:]
     @Published var pagitationDataDict: OrderedDictionary<String, EditorSetPaginationData> = [:]
     
@@ -124,6 +135,7 @@ final class EditorSetViewModel: ObservableObject {
     private let groupsSubscriptionsHandler: GroupsSubscriptionsHandlerProtocol
     private let setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol
     private let objectTypeProvider: ObjectTypeProviderProtocol
+    private let setTemplatesInteractor: SetTemplatesInteractorProtocol
     private var subscriptions = [AnyCancellable]()
     private var titleSubscription: AnyCancellable?
 
@@ -137,7 +149,8 @@ final class EditorSetViewModel: ObservableObject {
         textService: TextServiceProtocol,
         groupsSubscriptionsHandler: GroupsSubscriptionsHandlerProtocol,
         setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol,
-        objectTypeProvider: ObjectTypeProviderProtocol
+        objectTypeProvider: ObjectTypeProviderProtocol,
+        setTemplatesInteractor: SetTemplatesInteractorProtocol
     ) {
         self.setDocument = setDocument
         self.subscriptionService = subscriptionService
@@ -149,6 +162,7 @@ final class EditorSetViewModel: ObservableObject {
         self.groupsSubscriptionsHandler = groupsSubscriptionsHandler
         self.setSubscriptionDataBuilder = setSubscriptionDataBuilder
         self.objectTypeProvider = objectTypeProvider
+        self.setTemplatesInteractor = setTemplatesInteractor
 
         self.titleString = setDocument.details?.pageCellTitle ?? ""
     }
@@ -839,6 +853,6 @@ extension EditorSetViewModel {
         textService: TextService(),
         groupsSubscriptionsHandler: DI.preview.serviceLocator.groupsSubscriptionsHandler(),
         setSubscriptionDataBuilder: SetSubscriptionDataBuilder(accountManager: DI.preview.serviceLocator.accountManager()),
-        objectTypeProvider: DI.preview.serviceLocator.objectTypeProvider()
+        objectTypeProvider: DI.preview.serviceLocator.objectTypeProvider(), setTemplatesInteractor: DI.preview.serviceLocator.setTemplatesInteractor
     )
 }

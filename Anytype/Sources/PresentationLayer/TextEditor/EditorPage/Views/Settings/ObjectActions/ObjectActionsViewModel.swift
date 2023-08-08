@@ -22,6 +22,7 @@ final class ObjectActionsViewModel: ObservableObject {
     @Published var isLocked: Bool = false
 
     var onLinkItselfAction: RoutingAction<(BlockId) -> Void>?
+    var onNewTemplateCreation: RoutingAction<BlockId>?
     var dismissSheet: () -> () = {}
 
     let undoRedoAction: () -> ()
@@ -30,17 +31,20 @@ final class ObjectActionsViewModel: ObservableObject {
     private let objectId: BlockId
     private let service: ObjectActionsServiceProtocol
     private let blockActionsService: BlockActionsServiceSingleProtocol
+    private let templatesService: TemplatesServiceProtocol
     
     init(
         objectId: BlockId,
         service: ObjectActionsServiceProtocol,
         blockActionsService: BlockActionsServiceSingleProtocol,
+        templatesService: TemplatesServiceProtocol,
         undoRedoAction: @escaping () -> (),
         openPageAction: @escaping (_ screenData: EditorScreenData) -> ()
     ) {
         self.objectId = objectId
         self.service = service
         self.blockActionsService = blockActionsService
+        self.templatesService = templatesService
         self.undoRedoAction = undoRedoAction
         self.openPageAction = openPageAction
     }
@@ -117,13 +121,13 @@ final class ObjectActionsViewModel: ObservableObject {
 
         onLinkItselfAction?(onObjectSelection)
     }
-
-    func moveTo() {
-    }
-
-    func template() {
-    }
-
-    func search() {
+    
+    func makeAsTempalte() {
+        guard let details = details else { return }
+        
+        Task {
+            let templateId = try await templatesService.createTemplateFromObject(objectId: details.id)
+            onNewTemplateCreation?(templateId)
+        }
     }
 }

@@ -1252,6 +1252,7 @@
 		86760D112A666F4400E915C9 /* HeaderViewSizeConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86760D102A666F4400E915C9 /* HeaderViewSizeConfiguration.swift */; };
 		86947EFF2A56B91D00CD7335 /* XCTests+Eventually.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86947EFE2A56B91D00CD7335 /* XCTests+Eventually.swift */; };
 		86E555372A7AB983000A8DC7 /* MockSetDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86E555362A7AB983000A8DC7 /* MockSetDocument.swift */; };
+		86FB86592A812F6D008DAF52 /* TemplatesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86FB86582A812F6D008DAF52 /* TemplatesInteractor.swift */; };
 		95A38D3A2A03F17700D06C96 /* Riccione-Xlight-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 95A38D392A03F17700D06C96 /* Riccione-Xlight-Regular.ttf */; };
 		95ADB5602A0284A400FE061B /* LegacyAuthViewAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95ADB55F2A0284A400FE061B /* LegacyAuthViewAssembly.swift */; };
 		C90189A928338D2900F30853 /* TemplatesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90189A828338D2900F30853 /* TemplatesCoordinator.swift */; };
@@ -2718,6 +2719,7 @@
 		86760D102A666F4400E915C9 /* HeaderViewSizeConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderViewSizeConfiguration.swift; sourceTree = "<group>"; };
 		86947EFE2A56B91D00CD7335 /* XCTests+Eventually.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "XCTests+Eventually.swift"; path = "AnyTypeTests/Extensions/XCTests+Eventually.swift"; sourceTree = SOURCE_ROOT; };
 		86E555362A7AB983000A8DC7 /* MockSetDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSetDocument.swift; sourceTree = "<group>"; };
+		86FB86582A812F6D008DAF52 /* TemplatesInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesInteractor.swift; sourceTree = "<group>"; };
 		95A38D392A03F17700D06C96 /* Riccione-Xlight-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Riccione-Xlight-Regular.ttf"; sourceTree = "<group>"; };
 		95ADB55F2A0284A400FE061B /* LegacyAuthViewAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegacyAuthViewAssembly.swift; sourceTree = "<group>"; };
 		C90189A828338D2900F30853 /* TemplatesCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesCoordinator.swift; sourceTree = "<group>"; };
@@ -6422,6 +6424,7 @@
 				3DE8D5AE26CD76CF006F31C1 /* ObjectType */,
 				3D24F435269C92F700FA0F5F /* Search */,
 				0A721EE6244067DF0035A3E4 /* ObjectActions */,
+				86FB86572A812F54008DAF52 /* Templates */,
 				3D93851B26FB0AD0001C137F /* PageService */,
 			);
 			path = Object;
@@ -8086,6 +8089,14 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		86FB86572A812F54008DAF52 /* Templates */ = {
+			isa = PBXGroup;
+			children = (
+				86FB86582A812F6D008DAF52 /* TemplatesInteractor.swift */,
+			);
+			path = Templates;
+			sourceTree = "<group>";
+		};
 		957A2A252A01707400F81076 /* New auth */ = {
 			isa = PBXGroup;
 			children = (
@@ -9593,6 +9604,7 @@
 				2AFFFB9F2927B05700A487E1 /* AccountEventHandler.swift in Sources */,
 				2AAE455828A5307C00E538C8 /* BlockBookmark+Extensions.swift in Sources */,
 				535E02B0275023B300E1AF8C /* RelationStyle.swift in Sources */,
+				86FB86592A812F6D008DAF52 /* TemplatesInteractor.swift in Sources */,
 				0303ED0122D8EDAA005C552B /* SceneDelegate.swift in Sources */,
 				2AE1558C2A31BB220049C387 /* ListWidgetStyle.swift in Sources */,
 				0A74E50023A90EF000B6C406 /* NotificationExtension.swift in Sources */,
