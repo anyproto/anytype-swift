@@ -31,6 +31,9 @@ final class SpaceSettingsCoordinatorAssembly: SpaceSettingsCoordinatorAssemblyPr
                 spaceSettingsModuleAssembly: self.modulesDI.spaceSettings(),
                 navigationContext: self.uiHelpersDI.commonNavigationContext(),
                 objectIconPickerModuleAssembly: self.modulesDI.objectIconPicker(),
+                remoteStorageModuleAssembly: self.modulesDI.remoteStorage(),
+                widgetObjectListModuleAssembly: self.modulesDI.widgetObjectList(),
+                urlOpener: self.uiHelpersDI.urlOpener(),
                 documentService: self.serviceLocator.documentService()
             )
         ).eraseToAnyView()

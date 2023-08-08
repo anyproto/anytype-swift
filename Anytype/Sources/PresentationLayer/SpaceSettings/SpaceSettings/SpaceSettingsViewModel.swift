@@ -52,7 +52,7 @@ final class SpaceSettingsViewModel: ObservableObject {
     }
     
     func onStorageTap() {
-        
+        output?.onRemoteStorageSelected()
     }
     
     func onPersonalizationTap() {

@@ -415,6 +415,10 @@
 		2A30735128AD04D7003673DF /* TopAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A30735028AD04D7003673DF /* TopAlertView.swift */; };
 		2A3629A7292E2BB200C02EC3 /* ObjectSettingsCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3629A6292E2BB200C02EC3 /* ObjectSettingsCoordinatorAssembly.swift */; };
 		2A377E3E2A82564E00EA856B /* SpaceTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A377E3D2A82564E00EA856B /* SpaceTypeView.swift */; };
+		2A377E412A826FFD00EA856B /* RemoteStorageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A377E402A826FFD00EA856B /* RemoteStorageView.swift */; };
+		2A377E432A82700C00EA856B /* RemoteStorageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A377E422A82700C00EA856B /* RemoteStorageViewModel.swift */; };
+		2A377E452A82701700EA856B /* RemoteStorageModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A377E442A82701700EA856B /* RemoteStorageModuleAssembly.swift */; };
+		2A377E472A82703500EA856B /* RemoteStorageModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A377E462A82703500EA856B /* RemoteStorageModuleOutput.swift */; };
 		2A39DC4629FBC567003C43A9 /* FileStorageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A39DC4529FBC567003C43A9 /* FileStorageView.swift */; };
 		2A39DC4829FBC57F003C43A9 /* FileStorageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A39DC4729FBC57F003C43A9 /* FileStorageViewModel.swift */; };
 		2A39DC4D29FBC6DF003C43A9 /* FileStorageInfoBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A39DC4C29FBC6DF003C43A9 /* FileStorageInfoBlock.swift */; };
@@ -1924,6 +1928,10 @@
 		2A30735028AD04D7003673DF /* TopAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopAlertView.swift; sourceTree = "<group>"; };
 		2A3629A6292E2BB200C02EC3 /* ObjectSettingsCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectSettingsCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		2A377E3D2A82564E00EA856B /* SpaceTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceTypeView.swift; sourceTree = "<group>"; };
+		2A377E402A826FFD00EA856B /* RemoteStorageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteStorageView.swift; sourceTree = "<group>"; };
+		2A377E422A82700C00EA856B /* RemoteStorageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteStorageViewModel.swift; sourceTree = "<group>"; };
+		2A377E442A82701700EA856B /* RemoteStorageModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteStorageModuleAssembly.swift; sourceTree = "<group>"; };
+		2A377E462A82703500EA856B /* RemoteStorageModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteStorageModuleOutput.swift; sourceTree = "<group>"; };
 		2A39DC4529FBC567003C43A9 /* FileStorageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileStorageView.swift; sourceTree = "<group>"; };
 		2A39DC4729FBC57F003C43A9 /* FileStorageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileStorageViewModel.swift; sourceTree = "<group>"; };
 		2A39DC4C29FBC6DF003C43A9 /* FileStorageInfoBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileStorageInfoBlock.swift; sourceTree = "<group>"; };
@@ -5005,6 +5013,17 @@
 			path = Alert;
 			sourceTree = "<group>";
 		};
+		2A377E3F2A826FE100EA856B /* RemoteStorage */ = {
+			isa = PBXGroup;
+			children = (
+				2A377E402A826FFD00EA856B /* RemoteStorageView.swift */,
+				2A377E422A82700C00EA856B /* RemoteStorageViewModel.swift */,
+				2A377E442A82701700EA856B /* RemoteStorageModuleAssembly.swift */,
+				2A377E462A82703500EA856B /* RemoteStorageModuleOutput.swift */,
+			);
+			path = RemoteStorage;
+			sourceTree = "<group>";
+		};
 		2A39DC4429FBC55A003C43A9 /* FileStorage */ = {
 			isa = PBXGroup;
 			children = (
@@ -5139,6 +5158,7 @@
 		2A5B53AE2A80DB8900BC993B /* SpaceSettings */ = {
 			isa = PBXGroup;
 			children = (
+				2A377E3F2A826FE100EA856B /* RemoteStorage */,
 				2A5B53AF2A80DB9700BC993B /* SpaceSettings */,
 			);
 			path = SpaceSettings;
@@ -9222,6 +9242,7 @@
 				2ACEAE442984016600B467CE /* WidgetTypeView.swift in Sources */,
 				3DB9810E274FB82500ECC882 /* DashboardKeychainReminderAlert.swift in Sources */,
 				2E412D152847B15C00C973FF /* SetSort.swift in Sources */,
+				2A377E452A82701700EA856B /* RemoteStorageModuleAssembly.swift in Sources */,
 				3D3D894D2678D08E008C2B26 /* ViewModifiers.swift in Sources */,
 				3DB1CA0927293041000D2779 /* AnytypeAnalytics+Events.swift in Sources */,
 				2E5E066629943E20004A98CE /* RelationsSearchTarget.swift in Sources */,
@@ -9694,6 +9715,7 @@
 				EAE6BE252681FC5C00275788 /* LoginStateService.swift in Sources */,
 				2E63047B28A55D2A00BEF2E9 /* SetCollectionView.swift in Sources */,
 				5315D39627B99E28000F3456 /* StatusRelationViewUIKit.swift in Sources */,
+				2A377E432A82700C00EA856B /* RemoteStorageViewModel.swift in Sources */,
 				C92DCD952729952500A03D91 /* CursorModeAccessoryViewModel.swift in Sources */,
 				3D155278264D97A100B0E976 /* View+Snackbar.swift in Sources */,
 				2AD37D5C299145370012409E /* WidgetObjectListRecentViewModel.swift in Sources */,
@@ -10179,6 +10201,7 @@
 				2E975EDD287C2325004DE574 /* SetFiltersListView.swift in Sources */,
 				2A4C7FFA2A822BA000201946 /* SettingsInfoBlockView.swift in Sources */,
 				1206DB90267A303E000A48A7 /* MediaPickerView.swift in Sources */,
+				2A377E412A826FFD00EA856B /* RemoteStorageView.swift in Sources */,
 				1247BC6627FDC36B005F2DB4 /* RelationFormatsListModuleOutput.swift in Sources */,
 				1244791627D8A38600581174 /* StatusSearchViewModel.swift in Sources */,
 				535E02AA274FE5BE00E1AF8C /* RelationBlockView.swift in Sources */,
@@ -10281,6 +10304,7 @@
 				2E6F3E1F2A4DF154002F4278 /* SceneStateListener.swift in Sources */,
 				2ACE879B29F2B23B00C2B2A9 /* StandardButtonConfig.swift in Sources */,
 				3DE0CFD426F8593D003A606A /* SlashMenuItem.swift in Sources */,
+				2A377E472A82703500EA856B /* RemoteStorageModuleOutput.swift in Sources */,
 				2A176438283E2211002853D3 /* AnytypePopupProxy.swift in Sources */,
 				2AF4261629AF4ECE00753B17 /* PersonalizationViewModel.swift in Sources */,
 				C90F8F2A28DCBD9900E874A9 /* PreviewRemoteItem.swift in Sources */,
