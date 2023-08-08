@@ -41,14 +41,13 @@ final class RecentSubscriptionService: RecentSubscriptionServiceProtocol {
         
         let sort = makeSort(type: type)
         
-        let filters = [
-            SearchHelper.notHiddenFilter(),
-            SearchHelper.isArchivedFilter(isArchived: false),
-            SearchHelper.workspaceId(accountManager.account.info.accountSpaceId),
-            SearchHelper.layoutFilter(DetailsLayout.visibleLayouts),
-            SearchHelper.lastOpenedDateNotNilFilter()
-            
-        ]
+        let filters: [DataviewFilter] = .builder {
+            SearchHelper.notHiddenFilter()
+            SearchHelper.isArchivedFilter(isArchived: false)
+            SearchHelper.workspaceId(accountManager.account.info.accountSpaceId)
+            SearchHelper.layoutFilter(DetailsLayout.visibleLayouts)
+            makeDateFilter(type: type)
+        }
         
         let keys: [BundledRelationKey] = .builder {
             BundledRelationKey.lastOpenedDate
@@ -96,6 +95,19 @@ final class RecentSubscriptionService: RecentSubscriptionServiceProtocol {
                 relation: BundledRelationKey.lastOpenedDate,
                 type: .desc
             )
+        }
+    }
+    
+    private func makeDateFilter(type: RecentWidgetType) -> DataviewFilter? {
+        if FeatureFlags.recentEditWidget {
+            switch type {
+            case .recentEdit:
+                return nil
+            case .recentOpen:
+                return SearchHelper.lastOpenedDateNotNilFilter()
+            }
+        } else {
+            return SearchHelper.lastOpenedDateNotNilFilter()
         }
     }
 }
