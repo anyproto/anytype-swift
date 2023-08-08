@@ -1572,6 +1572,12 @@ internal enum Loc {
     /// Table of contents
     internal static let tableOfContents = Loc.tr("Localizable", "SlashMenu.TableOfContents", fallback: "Table of contents")
   }
+  internal enum SpaceSettings {
+    /// Remote storage
+    internal static let remoteStorage = Loc.tr("Localizable", "SpaceSettings.RemoteStorage", fallback: "Remote storage")
+    /// Space settings
+    internal static let title = Loc.tr("Localizable", "SpaceSettings.Title", fallback: "Space settings")
+  }
   internal enum Spaces {
     internal enum Accessibility {
       /// Private

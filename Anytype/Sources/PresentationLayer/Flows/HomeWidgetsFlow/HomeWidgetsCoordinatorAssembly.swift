@@ -49,7 +49,8 @@ final class HomeWidgetsCoordinatorAssembly: HomeWidgetsCoordinatorAssemblyProtoc
             dashboardAlertsAssembly: modulesDI.dashboardAlerts(),
             quickActionsStorage: serviceLocator.quickActionStorage(),
             widgetTypeModuleAssembly: modulesDI.widgetType(),
-            spaceSwitchModuleAssembly: modulesDI.spaceSwitch()
+            spaceSwitchModuleAssembly: modulesDI.spaceSwitch(),
+            spaceSettingsCoordinatorAssembly: coordinatorsID.spaceSettings()
         )
     }
 }

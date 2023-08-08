@@ -2,6 +2,7 @@ import Foundation
 import SwiftUI
 import Combine
 import Services
+import AnytypeCore
 
 @MainActor
 final class HomeWidgetsCoordinatorViewModel: ObservableObject,
@@ -23,6 +24,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     private let quickActionsStorage: QuickActionsStorage
     private let widgetTypeModuleAssembly: WidgetTypeModuleAssemblyProtocol
     private let spaceSwitchModuleAssembly: SpaceSwitchModileAssemblyProtocol
+    private let spaceSettingsCoordinatorAssembly: SpaceSettingsCoordinatorAssemblyProtocol
     
     // MARK: - State
     
@@ -34,6 +36,8 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     @Published var showSearchData: SearchModuleModel?
     @Published var showSpaceSwitch: Bool = false
     @Published var showCreateWidgetData: CreateWidgetCoordinatorModel?
+    @Published var showSpaceSettings: Bool = false
+    
     @Published var info: AccountInfo? {
         didSet {
             // Prevent animation for first sync
@@ -57,7 +61,8 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
         dashboardAlertsAssembly: DashboardAlertsAssemblyProtocol,
         quickActionsStorage: QuickActionsStorage,
         widgetTypeModuleAssembly: WidgetTypeModuleAssemblyProtocol,
-        spaceSwitchModuleAssembly: SpaceSwitchModileAssemblyProtocol
+        spaceSwitchModuleAssembly: SpaceSwitchModileAssemblyProtocol,
+        spaceSettingsCoordinatorAssembly: SpaceSettingsCoordinatorAssemblyProtocol
     ) {
         self.homeWidgetsModuleAssembly = homeWidgetsModuleAssembly
         self.activeWorkspaceStorage = activeWorkspaceStorage
@@ -72,6 +77,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
         self.quickActionsStorage = quickActionsStorage
         self.widgetTypeModuleAssembly = widgetTypeModuleAssembly
         self.spaceSwitchModuleAssembly = spaceSwitchModuleAssembly
+        self.spaceSettingsCoordinatorAssembly = spaceSettingsCoordinatorAssembly
     }
 
     func onAppear() {
@@ -136,6 +142,10 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     func createSpaceSwitchModule() -> AnyView {
         return spaceSwitchModuleAssembly.make()
     }
+    
+    func createSpaceSeetingsModule() -> AnyView {
+        return spaceSettingsCoordinatorAssembly.make()
+    }
  
     // MARK: - HomeWidgetsModuleOutput
     
@@ -178,7 +188,11 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     }
     
     func onSpaceSelected() {
-        settingsCoordinator.startFlow()
+        if FeatureFlags.multiSpaceSettings {
+            showSpaceSettings.toggle()
+        } else {
+            settingsCoordinator.startFlow()
+        }
     }
     
     // MARK: - HomeBottomPanelModuleOutput

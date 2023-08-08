@@ -163,4 +163,8 @@ final class ModulesDI: ModulesDIProtocol {
     func templatesAssembly() -> TemplateModulesAssembly {
         return TemplateModulesAssembly(serviceLocator: serviceLocator)
     }
+    
+    func spaceSettings() -> SpaceSettingsModuleAssemblyProtocol {
+        return SpaceSettingsModuleAssembly(serviceLocator: serviceLocator)
+    }
 }

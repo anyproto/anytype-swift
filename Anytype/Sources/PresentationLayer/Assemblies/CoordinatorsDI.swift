@@ -102,6 +102,10 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
         return LoginFlowCoordinatorAssembly(modulesDI: modulesDI, uiHelpersDI: uiHelpersDI)
     }
     
+    func spaceSettings() -> SpaceSettingsCoordinatorAssemblyProtocol {
+        return SpaceSettingsCoordinatorAssembly(modulesDI: modulesDI, serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
+    }
+    
     func legacyAuthViewAssembly() -> LegacyAuthViewAssembly {
         return LegacyAuthViewAssembly(serviceLocator: serviceLocator)
     }

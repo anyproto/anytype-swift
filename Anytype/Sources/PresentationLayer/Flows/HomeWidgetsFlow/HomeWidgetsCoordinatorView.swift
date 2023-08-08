@@ -29,5 +29,8 @@ struct HomeWidgetsCoordinatorView: View {
         .sheet(isPresented: $model.showSpaceSwitch) {
             model.createSpaceSwitchModule()
         }
+        .sheet(isPresented: $model.showSpaceSettings) {
+            model.createSpaceSeetingsModule()
+        }
     }
 }

@@ -1,15 +1,12 @@
-import SwiftUI
-import ProtobufMessages
-import AnytypeCore
+import Foundation
 import Combine
 import Services
 
 @MainActor
-final class SettingsViewModel: ObservableObject {
+final class SpaceSettingsViewModel: ObservableObject {
     
     private enum Constants {
-        static let subSpaceId = "SettingsViewModel-Space"
-        static let subAccountId = "SettingsAccount"
+        static let subSpaceId = "SpaceSettingsViewModel-Space"
     }
     
     // MARK: - DI
@@ -17,7 +14,7 @@ final class SettingsViewModel: ObservableObject {
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private let subscriptionService: SingleObjectSubscriptionServiceProtocol
     private let objectActionsService: ObjectActionsServiceProtocol
-    private weak var output: SettingsModuleOutput?
+    private weak var output: SpaceSettingsModuleOutput?
     
     // MARK: - State
     
@@ -32,7 +29,7 @@ final class SettingsViewModel: ObservableObject {
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
         subscriptionService: SingleObjectSubscriptionServiceProtocol,
         objectActionsService: ObjectActionsServiceProtocol,
-        output: SettingsModuleOutput?
+        output: SpaceSettingsModuleOutput?
     ) {
         self.activeWorkspaceStorage = activeWorkspaceStorage
         self.subscriptionService = subscriptionService
@@ -42,36 +39,16 @@ final class SettingsViewModel: ObservableObject {
         setupSubscription()
     }
     
-    func onAppear() {
-        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.settingsShow)
+    func onChangeIconTap() {
+        output?.onChangeIconSelected(objectId: activeWorkspaceStorage.workspaceInfo.workspaceObjectId)
     }
     
-    func onAccountDataTap() {
-        output?.onAccountDataSelected()
-    }
-    
-    func onDebugMenuTap() {
-        output?.onDebugMenuSelected()
+    func onStorageTap() {
+        
     }
     
     func onPersonalizationTap() {
-        output?.onPersonalizationSelected()
-    }
-    
-    func onAppearanceTap() {
-        output?.onAppearanceSelected()
-    }
-    
-    func onFileStorageTap() {
-        output?.onFileStorageSelected()
-    }
-    
-    func onAboutTap() {
-        output?.onAboutSelected()
-    }
-    
-    func onChangeIconTap() {
-        output?.onChangeIconSelected(objectId: activeWorkspaceStorage.workspaceInfo.workspaceObjectId)
+        
     }
     
     // MARK: - Private
@@ -82,13 +59,6 @@ final class SettingsViewModel: ObservableObject {
             objectId: activeWorkspaceStorage.workspaceInfo.workspaceObjectId
         ) { [weak self] details in
             self?.handleSpaceDetails(details: details)
-        }
-        
-        subscriptionService.startSubscription(
-            subIdPrefix: Constants.subAccountId,
-            objectId: activeWorkspaceStorage.workspaceInfo.profileObjectID
-        ) { [weak self] details in
-            self?.handleProfileDetails(details: details)
         }
     }
     
@@ -105,10 +75,6 @@ final class SettingsViewModel: ObservableObject {
                 }
                 .store(in: &subscriptions)
         }
-    }
-    
-    private func handleProfileDetails(details: ObjectDetails) {
-        profileIcon = details.objectIconImage ?? .imageAsset(.SettingsOld.accountAndData)
     }
     
     private func updateSpaceName(name: String) {

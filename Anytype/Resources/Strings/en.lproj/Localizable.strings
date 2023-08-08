@@ -758,3 +758,7 @@
 // MARK: - Spaces
 "Spaces.Accessibility.Public" = "Public";
 "Spaces.Accessibility.Private" = "Private";
+
+// MARK: - Space Settings
+"SpaceSettings.Title" = "Space settings";
+"SpaceSettings.RemoteStorage" = "Remote storage";

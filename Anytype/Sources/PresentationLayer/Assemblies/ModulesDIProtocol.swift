@@ -37,4 +37,5 @@ protocol ModulesDIProtocol: AnyObject {
     func authSoul() -> SoulViewModuleAssemblyProtocol
     func authCreatingSoul() -> CreatingSoulViewModuleAssemblyProtocol
     func templatesAssembly() -> TemplateModulesAssembly
+    func spaceSettings() -> SpaceSettingsModuleAssemblyProtocol
 }
