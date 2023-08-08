@@ -414,6 +414,7 @@
 		2A30734928ACEF58003673DF /* AlertOpener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A30734828ACEF58003673DF /* AlertOpener.swift */; };
 		2A30735128AD04D7003673DF /* TopAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A30735028AD04D7003673DF /* TopAlertView.swift */; };
 		2A3629A7292E2BB200C02EC3 /* ObjectSettingsCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3629A6292E2BB200C02EC3 /* ObjectSettingsCoordinatorAssembly.swift */; };
+		2A377E3E2A82564E00EA856B /* SpaceTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A377E3D2A82564E00EA856B /* SpaceTypeView.swift */; };
 		2A39DC4629FBC567003C43A9 /* FileStorageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A39DC4529FBC567003C43A9 /* FileStorageView.swift */; };
 		2A39DC4829FBC57F003C43A9 /* FileStorageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A39DC4729FBC57F003C43A9 /* FileStorageViewModel.swift */; };
 		2A39DC4D29FBC6DF003C43A9 /* FileStorageInfoBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A39DC4C29FBC6DF003C43A9 /* FileStorageInfoBlock.swift */; };
@@ -436,7 +437,7 @@
 		2A4C79AD29B8A0E3003BB9D3 /* WidgetSourceSearchInternalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4C79AC29B8A0E3003BB9D3 /* WidgetSourceSearchInternalViewModel.swift */; };
 		2A4C79B029B8A17C003BB9D3 /* WidgetSourceSearchSelectInternalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4C79AF29B8A17C003BB9D3 /* WidgetSourceSearchSelectInternalViewModel.swift */; };
 		2A4C79B229B8A1F9003BB9D3 /* WidgetSourceSearchChangeInternalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4C79B129B8A1F9003BB9D3 /* WidgetSourceSearchChangeInternalViewModel.swift */; };
-		2A4C7FFA2A822BA000201946 /* SetingsInfoBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4C7FF92A822BA000201946 /* SetingsInfoBlock.swift */; };
+		2A4C7FFA2A822BA000201946 /* SettingsInfoBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4C7FF92A822BA000201946 /* SettingsInfoBlockView.swift */; };
 		2A4C7FFC2A823CB300201946 /* DateFormatter+Relation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4C7FFB2A823CB300201946 /* DateFormatter+Relation.swift */; };
 		2A4C7FFF2A823E2300201946 /* RelationDateFormatterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4C7FFE2A823E2300201946 /* RelationDateFormatterTests.swift */; };
 		2A4CEFFE2A13CCCD00B99891 /* BottomAlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4CEFFD2A13CCCD00B99891 /* BottomAlertModel.swift */; };
@@ -1922,6 +1923,7 @@
 		2A30734828ACEF58003673DF /* AlertOpener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertOpener.swift; sourceTree = "<group>"; };
 		2A30735028AD04D7003673DF /* TopAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopAlertView.swift; sourceTree = "<group>"; };
 		2A3629A6292E2BB200C02EC3 /* ObjectSettingsCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectSettingsCoordinatorAssembly.swift; sourceTree = "<group>"; };
+		2A377E3D2A82564E00EA856B /* SpaceTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceTypeView.swift; sourceTree = "<group>"; };
 		2A39DC4529FBC567003C43A9 /* FileStorageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileStorageView.swift; sourceTree = "<group>"; };
 		2A39DC4729FBC57F003C43A9 /* FileStorageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileStorageViewModel.swift; sourceTree = "<group>"; };
 		2A39DC4C29FBC6DF003C43A9 /* FileStorageInfoBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileStorageInfoBlock.swift; sourceTree = "<group>"; };
@@ -1944,7 +1946,7 @@
 		2A4C79AC29B8A0E3003BB9D3 /* WidgetSourceSearchInternalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSourceSearchInternalViewModel.swift; sourceTree = "<group>"; };
 		2A4C79AF29B8A17C003BB9D3 /* WidgetSourceSearchSelectInternalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSourceSearchSelectInternalViewModel.swift; sourceTree = "<group>"; };
 		2A4C79B129B8A1F9003BB9D3 /* WidgetSourceSearchChangeInternalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSourceSearchChangeInternalViewModel.swift; sourceTree = "<group>"; };
-		2A4C7FF92A822BA000201946 /* SetingsInfoBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetingsInfoBlock.swift; sourceTree = "<group>"; };
+		2A4C7FF92A822BA000201946 /* SettingsInfoBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsInfoBlockView.swift; sourceTree = "<group>"; };
 		2A4C7FFB2A823CB300201946 /* DateFormatter+Relation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Relation.swift"; sourceTree = "<group>"; };
 		2A4C7FFE2A823E2300201946 /* RelationDateFormatterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RelationDateFormatterTests.swift; path = AnyTypeTests/Formatters/RelationDateFormatterTests.swift; sourceTree = SOURCE_ROOT; };
 		2A4CEFFD2A13CCCD00B99891 /* BottomAlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomAlertModel.swift; sourceTree = "<group>"; };
@@ -5091,7 +5093,8 @@
 		2A4C7FF62A822B7F00201946 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				2A4C7FF92A822BA000201946 /* SetingsInfoBlock.swift */,
+				2A4C7FF92A822BA000201946 /* SettingsInfoBlockView.swift */,
+				2A377E3D2A82564E00EA856B /* SpaceTypeView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -9157,6 +9160,7 @@
 				12136D5827996F7C00262FE7 /* TextRelationDetailsServiceProtocol.swift in Sources */,
 				1247BC6A27FDC493005F2DB4 /* NewRelationModuleOutput.swift in Sources */,
 				129C54CD27FC741C00C390C7 /* NewRelationFormatSectionView.swift in Sources */,
+				2A377E3E2A82564E00EA856B /* SpaceTypeView.swift in Sources */,
 				2E52DE6E2A1CE7E700F16815 /* SoulViewModel.swift in Sources */,
 				2AFCEB4329CC808D00841E13 /* HomeWidgetsRecentStateManager.swift in Sources */,
 				12D94FD12678CD1F00F794EB /* ObjectBasicIconPicker.swift in Sources */,
@@ -10173,7 +10177,7 @@
 				3D16843626DE8BDF008B9DFF /* Application+FirstResponder.swift in Sources */,
 				2E0A6CD72A3773B800A28AF2 /* LoginFlowCoordinator.swift in Sources */,
 				2E975EDD287C2325004DE574 /* SetFiltersListView.swift in Sources */,
-				2A4C7FFA2A822BA000201946 /* SetingsInfoBlock.swift in Sources */,
+				2A4C7FFA2A822BA000201946 /* SettingsInfoBlockView.swift in Sources */,
 				1206DB90267A303E000A48A7 /* MediaPickerView.swift in Sources */,
 				1247BC6627FDC36B005F2DB4 /* RelationFormatsListModuleOutput.swift in Sources */,
 				1244791627D8A38600581174 /* StatusSearchViewModel.swift in Sources */,

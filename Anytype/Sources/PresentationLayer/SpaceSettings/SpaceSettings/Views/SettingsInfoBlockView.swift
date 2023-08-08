@@ -12,7 +12,7 @@ struct SettingsInfoModel {
     }
 }
 
-struct SettingsInfoBlock: View {
+struct SettingsInfoBlockView: View {
     
     let model: SettingsInfoModel
     

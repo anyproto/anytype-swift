@@ -25,6 +25,7 @@ final class SpaceSettingsViewModel: ObservableObject {
     private var dataLoaded: Bool = false
     
     @Published var spaceName: String = ""
+    @Published var spaceType: String = ""
     @Published var spaceIcon: ObjectIconImage?
     @Published var profileIcon: ObjectIconImage = .imageAsset(.SettingsOld.accountAndData)
     @Published var info = [SettingsInfoModel]()
@@ -64,7 +65,7 @@ final class SpaceSettingsViewModel: ObservableObject {
         subscriptionService.startSubscription(
             subIdPrefix: Constants.subSpaceId,
             objectId: activeWorkspaceStorage.workspaceInfo.workspaceObjectId,
-            additionalKeys: [.createdDate, .creator]
+            additionalKeys: [.createdDate, .creator, .spaceAccessibility]
         ) { [weak self] details in
             self?.handleSpaceDetails(details: details)
         }
@@ -72,6 +73,7 @@ final class SpaceSettingsViewModel: ObservableObject {
     
     private func handleSpaceDetails(details: ObjectDetails) {
         spaceIcon = details.objectIconImage
+        spaceType = details.spaceAccessibilityValue?.fullName ?? ""
         buildInfoBlock(details: details)
         
         if !dataLoaded {

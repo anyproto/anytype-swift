@@ -19,6 +19,8 @@ struct SpaceSettingsView: View {
                     
                     SectionHeaderView(title: Loc.type)
                     
+                    SpaceTypeView(name: model.spaceType)
+                    
                     SectionHeaderView(title: Loc.settings)
                     
                     SettingsSectionItemView(
@@ -36,7 +38,7 @@ struct SpaceSettingsView: View {
                     SectionHeaderView(title: Loc.SpaceSettings.info)
                     
                     ForEach(0..<model.info.count, id:\.self) { index in
-                        SettingsInfoBlock(model: model.info[index])
+                        SettingsInfoBlockView(model: model.info[index])
                     }
                 }
             }
