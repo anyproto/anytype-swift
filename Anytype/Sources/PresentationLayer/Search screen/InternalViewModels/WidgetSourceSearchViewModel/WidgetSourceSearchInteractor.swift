@@ -49,21 +49,21 @@ private extension AnytypeWidgetId {
                 type: .favorite,
                 name: Loc.favorite,
                 description: nil,
-                icon: .icon(.emoji(Emoji("⭐️") ?? .default))
+                icon: .object(.emoji(Emoji("⭐️") ?? .default))
             )
         case .sets:
             return WidgetAnytypeLibrarySource(
                 type: .sets,
                 name: Loc.sets,
                 description: nil,
-                icon: .icon(.emoji(Emoji("📚") ?? .default))
+                icon: .object(.emoji(Emoji("📚") ?? .default))
             )
         case .collections:
             return WidgetAnytypeLibrarySource(
                 type: .collections,
                 name: Loc.collections,
                 description: nil,
-                icon: .icon(.emoji(Emoji("📂") ?? .default))
+                icon: .object(.emoji(Emoji("📂") ?? .default))
             )
         case .recent:
             if FeatureFlags.recentEditWidget {
@@ -71,14 +71,14 @@ private extension AnytypeWidgetId {
                     type: .recent,
                     name: Loc.Widgets.Library.RecentlyEdited.name,
                     description: nil,
-                    icon: .icon(.emoji(Emoji("📝") ?? .default))
+                    icon: .object(.emoji(Emoji("📝") ?? .default))
                 )
             } else {
                 return WidgetAnytypeLibrarySource(
                     type: .recent,
                     name: Loc.recent,
                     description: nil,
-                    icon: .icon(.emoji(Emoji("📅") ?? .default))
+                    icon: .object(.emoji(Emoji("📅") ?? .default))
                 )
             }
         case .recentOpen:
@@ -86,7 +86,7 @@ private extension AnytypeWidgetId {
                 type: .recentOpen,
                 name: Loc.Widgets.Library.RecentlyOpened.name,
                 description: Loc.Widgets.Library.RecentlyOpened.description,
-                icon: .icon(.emoji(Emoji("📅") ?? .default))
+                icon: .object(.emoji(Emoji("📅") ?? .default))
             )
         }
     }
