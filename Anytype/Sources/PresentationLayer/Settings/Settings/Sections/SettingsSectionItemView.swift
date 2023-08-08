@@ -2,16 +2,16 @@ import SwiftUI
 
 struct SettingsSectionItemView: View {
     let name: String
-    let iconImage: ObjectIconImage?
+    let iconImage: Icon?
     let onTap: () -> Void
         
     init(name: String, imageAsset: ImageAsset, onTap: @escaping () -> Void) {
         self.name = name
-        self.iconImage = .imageAsset(imageAsset)
+        self.iconImage = .asset(imageAsset)
         self.onTap = onTap
     }
     
-    init(name: String, iconImage: ObjectIconImage? = nil, onTap: @escaping () -> Void) {
+    init(name: String, iconImage: Icon? = nil, onTap: @escaping () -> Void) {
         self.name = name
         self.iconImage = iconImage
         self.onTap = onTap
@@ -24,7 +24,7 @@ struct SettingsSectionItemView: View {
         Button(action: onTap) {
             HStack(alignment: .center, spacing: 0) {
                 if let iconImage {
-                    SwiftUIObjectIconImageView(iconImage: iconImage, usecase: .settingsSection)
+                    IconView(icon: iconImage)
                         .frame(width: iconWidth, height: iconWidth)
                     Spacer.fixedWidth(iconSpacing)
                 }
