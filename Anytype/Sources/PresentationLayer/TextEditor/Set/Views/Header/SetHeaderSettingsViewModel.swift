@@ -8,6 +8,7 @@ class SetHeaderSettingsViewModel: ObservableObject {
     @Published var isTemplatesSelectionAvailable: Bool = false
     
     private let setDocument: SetDocumentProtocol
+    private let setTemplatesInteractor: SetTemplatesInteractorProtocol
     private var subscriptions = [AnyCancellable]()
     
     let onViewTap: () -> Void
@@ -17,6 +18,7 @@ class SetHeaderSettingsViewModel: ObservableObject {
     
     init(
         setDocument: SetDocumentProtocol,
+        setTemplatesInteractor: SetTemplatesInteractorProtocol,
         isActive: Bool,
         onViewTap: @escaping () -> Void,
         onSettingsTap: @escaping () -> Void,
@@ -24,6 +26,7 @@ class SetHeaderSettingsViewModel: ObservableObject {
         onSecondaryCreateTap: @escaping () -> Void
     ) {
         self.setDocument = setDocument
+        self.setTemplatesInteractor = setTemplatesInteractor
         self.isActive = isActive
         self.onViewTap = onViewTap
         self.onSettingsTap = onSettingsTap
@@ -43,20 +46,18 @@ class SetHeaderSettingsViewModel: ObservableObject {
             .sink { [weak self] details in
                 self?.isActive = details.setOf.first { $0.isNotEmpty } != nil
                 
-                self?.isTemplatesSelectionAvailable = ObjectTypeId.BundledTypeId.isTemplatesAvailable(for: details.setOf)
+                self?.checkTemplatesAvailablility(details: details)
             }
             .store(in: &subscriptions)
     }
-}
-
-fileprivate extension ObjectTypeId.BundledTypeId {
-    static func isTemplatesAvailable(for setOf: [ObjectId]) -> Bool {
-        !unavailableTemplatesSelection.contains {
-            setOf.contains($0.rawValue)
-        }
-    }
     
-    static var unavailableTemplatesSelection: [Self] {
-        return [.audio, .file, .image, .video, .collection, .set, .bookmark, .space, .dashboard]
+    func checkTemplatesAvailablility(details: ObjectDetails) {
+        Task { @MainActor in
+            let isTemplatesAvailable = try await setTemplatesInteractor.isTemplatesAvailableFor(
+                setDocument: setDocument,
+                setObject: details
+            )
+            isTemplatesSelectionAvailable = isTemplatesAvailable
+        }
     }
 }

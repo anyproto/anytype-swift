@@ -15,4 +15,34 @@ extension DetailsLayout {
         .profile,
         .todo
     ]
+    
+    static var fileLayouts: [DetailsLayout] = [
+        .file,
+        .image
+    ]
+    
+    static var systemLayouts: [DetailsLayout] = [
+        .objectType,
+        .relation,
+        .relationOption,
+        .relationOptionList,
+        .dashboard,
+        .database
+    ]
+    
+    static var pageLayouts: [DetailsLayout] = [
+        .basic,
+        .profile,
+        .todo,
+        .note,
+        .bookmark
+    ]
+    
+    static var fileAndSystemLayouts: [DetailsLayout] = fileLayouts + systemLayouts
+    static var layoutsWithoutTemplate: [DetailsLayout] = [
+        .note,
+        .set,
+        .collection,
+        .bookmark
+    ] + fileAndSystemLayouts
 }

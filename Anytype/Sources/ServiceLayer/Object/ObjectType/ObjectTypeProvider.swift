@@ -51,6 +51,7 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
             name: Loc.ObjectType.deletedName,
             iconEmoji: .default,
             description: "",
+            recommendedLayout: .note,
             hidden: false,
             readonly: true,
             isArchived: false,

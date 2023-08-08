@@ -212,6 +212,7 @@
 "Undo typing" = "Undo typing";
 "Undo" = "Undo";
 "Actions.LinkItself" = "Link to";
+"Actions.MakeAsTemplate" = "Make template";
 
 // Object Type
 "Set" = "Set";
