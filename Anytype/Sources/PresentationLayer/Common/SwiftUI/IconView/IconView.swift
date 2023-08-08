@@ -35,6 +35,7 @@ struct IconView: View {
         .onChange(of: icon) { icon in
             // Icon field from struct contains old value
             updateIcon(icon)
+            
         }
         .frame(idealWidth: 30, idealHeight: 30) // Default frame
     }
@@ -59,7 +60,11 @@ struct IconView: View {
     
     private func updateIcon(_ newIcon: Icon? = nil) {
         task?.cancel()
-        guard let icon = newIcon ?? icon else { return }
+        guard let icon = newIcon ?? icon else {
+            placeholderImage = nil
+            image = nil
+            return
+        }
         task = Task {
             let maker = IconMaker(icon: icon, size: size, iconContext: IconContext(isEnabled: isEnable))
             placeholderImage = maker.makePlaceholder()
