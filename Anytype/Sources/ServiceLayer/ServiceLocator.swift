@@ -262,6 +262,10 @@ final class ServiceLocator {
     // MARK: - Private
     
     private func subscriptionToggler() -> SubscriptionTogglerProtocol {
-        SubscriptionToggler()
+        SubscriptionToggler(objectSubscriptionService: objectSubscriptionService())
+    }
+    
+    private func objectSubscriptionService() -> ObjectSubscriptionServiceProtocol {
+        ObjectSubscriptionService()
     }
 }

@@ -9,6 +9,7 @@ struct PhraseTextValidator: PhraseTextValidatorProtocol {
     private enum Constants {
         static let maxWordsCount = 12
         static let maxCharactersPerWordCount = 8
+        static let maxCharactersCount = 150
     }
     
     func validated(prevText: String, text : String) -> String {
@@ -19,8 +20,11 @@ struct PhraseTextValidator: PhraseTextValidatorProtocol {
         let whitespacesTextCount = textWithoutNewlines.filter { $0 == " " }.count
         let whitespacesPrevTextCount = prevText.filter { $0 == " " }.count
         
-        // if any whitespaces are added / deleted - we should validate
-        guard whitespacesTextCount != whitespacesPrevTextCount else { return textWithoutNewlines }
+        // if any whitespaces are added / deleted or maxCharactersCount exceeded - we should validate
+        guard whitespacesTextCount != whitespacesPrevTextCount ||
+                text.count > Constants.maxCharactersCount else {
+            return textWithoutNewlines
+        }
         
         let rawComponents = textWithoutNewlines.components(separatedBy: .whitespaces)
         

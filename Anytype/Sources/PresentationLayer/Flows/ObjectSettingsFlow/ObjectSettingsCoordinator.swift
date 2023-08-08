@@ -121,7 +121,7 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
     func addNewRelationAction(document: BaseDocumentProtocol) {
         addNewRelationCoordinator.showAddNewRelationView(
             document: document,
-            excludedRelationsIds: document.parsedRelations.installed.map(\.id),
+            excludedRelationsIds: document.parsedRelations.installedInObject.map(\.id),
             target: .object,
             onCompletion: { relation, isNew in
                 AnytypeAnalytics.instance().logAddRelation(format: relation.format, isNew: isNew, type: .menu)

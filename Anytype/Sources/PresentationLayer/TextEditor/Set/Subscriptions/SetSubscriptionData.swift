@@ -1,8 +1,8 @@
 import Foundation
 import Services
 
-struct SetSubsriptionData: Hashable {
-    let identifier: SubscriptionId
+struct SetSubscriptionData: Hashable {
+    let identifier: String
     let source: [String]?
     let sorts: [DataviewSort]
     let filters: [DataviewFilter]
@@ -13,7 +13,7 @@ struct SetSubsriptionData: Hashable {
     let collectionId: String?
     
     init(
-        identifier: SubscriptionId,
+        identifier: String,
         source: [String]?,
         view: DataviewView,
         groupFilter: DataviewFilter?,
@@ -42,4 +42,9 @@ struct SetSubsriptionData: Hashable {
         self.numberOfRowsPerPage = numberOfRowsPerPage
         self.collectionId = collectionId
     }
+}
+
+extension SetSubscriptionData {
+    static var setId = "SubscriptionId.Set"
+    static var setGroupsId = "SubscriptionId.Set.Groups"
 }

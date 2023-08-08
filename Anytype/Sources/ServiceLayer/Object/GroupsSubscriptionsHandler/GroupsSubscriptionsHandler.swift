@@ -13,7 +13,7 @@ final class GroupsSubscriptionsHandler: GroupsSubscriptionsHandlerProtocol {
     private var subscription: AnyCancellable?
     private let groupsSubscribeService: GroupsSubscribeServiceProtocol
     
-    private var subscribers = SynchronizedDictionary<SubscriptionId, Subscriber>()
+    private var subscribers = SynchronizedDictionary<String, Subscriber>()
     
     init(groupsSubscribeService: GroupsSubscribeServiceProtocol) {
         self.groupsSubscribeService = groupsSubscribeService
@@ -57,7 +57,7 @@ final class GroupsSubscriptionsHandler: GroupsSubscriptionsHandlerProtocol {
  
     // MARK: - Private
     
-    private func stopGroupsSubscription(id: SubscriptionId) async throws {
+    private func stopGroupsSubscription(id: String) async throws {
         guard subscribers[id].isNotNil else { return }
 
         _ = try await groupsSubscribeService.stopSubscription(id: id)
@@ -89,7 +89,6 @@ final class GroupsSubscriptionsHandler: GroupsSubscriptionsHandlerProtocol {
     }
     
     private func sendUpdate(subId: String, group: DataviewGroup, remove: Bool) {
-        let subId = SubscriptionId(value: subId)
         guard let action = subscribers[subId]?.callback else {
             return
         }

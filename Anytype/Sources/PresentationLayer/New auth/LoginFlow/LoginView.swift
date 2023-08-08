@@ -2,7 +2,7 @@ import SwiftUI
 
 struct LoginView: View {
     
-    @ObservedObject var model: LoginViewModel
+    @StateObject var model: LoginViewModel
     @Environment(\.presentationMode) @Binding private var presentationMode
     
     var body: some View {
@@ -45,10 +45,12 @@ struct LoginView: View {
             
             PhraseTextView(
                 text: $model.phrase,
-                expandable: false,
-                alignTextToCenter: false
+                noninteractive: false,
+                alignTextToCenter: false,
+                hideWords: false
             )
             .focused($model.autofocus)
+            .disabled(model.loadingRoute.isLoadingInProgress)
             
             Spacer.fixedHeight(16)
 

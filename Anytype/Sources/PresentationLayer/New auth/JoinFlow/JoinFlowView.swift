@@ -2,7 +2,7 @@ import SwiftUI
 
 struct JoinFlowView: View {
     
-    @ObservedObject var model: JoinFlowViewModel
+    @StateObject var model: JoinFlowViewModel
     @Environment(\.presentationMode) @Binding private var presentationMode
     
     var body: some View {

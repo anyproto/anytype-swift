@@ -19,7 +19,7 @@ final class BinSubscriptionService: BinSubscriptionServiceProtocol {
     
     private let subscriptionService: SubscriptionsServiceProtocol
     private let accountManager: AccountManagerProtocol
-    private let subscriptionId = SubscriptionId(value: "Bin-\(UUID().uuidString)")
+    private let subscriptionId = "Bin-\(UUID().uuidString)"
     
     init(
         subscriptionService: SubscriptionsServiceProtocol,

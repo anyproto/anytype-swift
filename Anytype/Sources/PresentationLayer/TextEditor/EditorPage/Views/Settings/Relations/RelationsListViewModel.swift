@@ -36,6 +36,7 @@ final class RelationsListViewModel: ObservableObject {
                     objectTypeName: document.details?.objectType.name ?? ""
                 )
             }
+            .receiveOnMain()
             .assign(to: &$sections)
         
         document.isLockedPublisher.assign(to: &$navigationBarButtonsDisabled)

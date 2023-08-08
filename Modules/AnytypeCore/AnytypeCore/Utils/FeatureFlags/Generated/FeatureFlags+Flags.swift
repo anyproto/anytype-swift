@@ -66,6 +66,14 @@ public extension FeatureFlags {
         value(for: .validateRecoveryPhrase)
     }
 
+    static var colorfulRecoveryPhrase: Bool {
+        value(for: .colorfulRecoveryPhrase)
+    }
+
+    static var recentEditWidget: Bool {
+        value(for: .recentEditWidget)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -99,6 +107,8 @@ public extension FeatureFlags {
         .showAllFilesInBin,
         .superNewButtonLoadingState,
         .validateRecoveryPhrase,
+        .colorfulRecoveryPhrase,
+        .recentEditWidget,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

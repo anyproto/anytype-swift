@@ -3,7 +3,8 @@ import SwiftUI
 
 protocol WidgetObjectListModuleAssemblyProtocol: AnyObject {
     func makeFavorites(bottomPanelManager: BrowserBottomPanelManagerProtocol, output: WidgetObjectListCommonModuleOutput?) -> UIViewController
-    func makeRecent(bottomPanelManager: BrowserBottomPanelManagerProtocol, output: WidgetObjectListCommonModuleOutput?) -> UIViewController
+    func makerecentEdit(bottomPanelManager: BrowserBottomPanelManagerProtocol, output: WidgetObjectListCommonModuleOutput?) -> UIViewController
+    func makeRecentOpen(bottomPanelManager: BrowserBottomPanelManagerProtocol, output: WidgetObjectListCommonModuleOutput?) -> UIViewController
     func makeSets(bottomPanelManager: BrowserBottomPanelManagerProtocol, output: WidgetObjectListCommonModuleOutput?) -> UIViewController
     func makeCollections(bottomPanelManager: BrowserBottomPanelManagerProtocol, output: WidgetObjectListCommonModuleOutput?) -> UIViewController
     func makeBin(bottomPanelManager: BrowserBottomPanelManagerProtocol, output: WidgetObjectListCommonModuleOutput?) -> UIViewController
@@ -32,8 +33,13 @@ final class WidgetObjectListModuleAssembly: WidgetObjectListModuleAssemblyProtoc
         return make(internalModel: model, bottomPanelManager: bottomPanelManager, output: output)
     }
     
-    func makeRecent(bottomPanelManager: BrowserBottomPanelManagerProtocol, output: WidgetObjectListCommonModuleOutput?) -> UIViewController {
-        let model = WidgetObjectListRecentViewModel(recentSubscriptionService: serviceLocator.recentSubscriptionService())
+    func makerecentEdit(bottomPanelManager: BrowserBottomPanelManagerProtocol, output: WidgetObjectListCommonModuleOutput?) -> UIViewController {
+        let model = WidgetObjectListRecentViewModel(type: .recentEdit, recentSubscriptionService: serviceLocator.recentSubscriptionService())
+        return make(internalModel: model, bottomPanelManager: bottomPanelManager, output: output)
+    }
+    
+    func makeRecentOpen(bottomPanelManager: BrowserBottomPanelManagerProtocol, output: WidgetObjectListCommonModuleOutput?) -> UIViewController {
+        let model = WidgetObjectListRecentViewModel(type: .recentOpen, recentSubscriptionService: serviceLocator.recentSubscriptionService())
         return make(internalModel: model, bottomPanelManager: bottomPanelManager, output: output)
     }
     

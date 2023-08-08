@@ -14,7 +14,7 @@ final class ObjectsCommonSubscriptionDataBuilder: ObjectsCommonSubscriptionDataB
     func build(subIdPrefix: String, objectIds: [String]) -> SubscriptionData {
         return .objects(
             SubscriptionData.Object(
-                identifier: SubscriptionId(value: "\(subIdPrefix)-\(idUUID)"),
+                identifier: "\(subIdPrefix)-\(idUUID)",
                 objectIds: objectIds,
                 keys: BundledRelationKey.objectListKeys.map { $0.rawValue }
             )

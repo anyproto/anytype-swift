@@ -219,11 +219,6 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
     }
 
     func searchRelationOptions(text: String, relationKey: String, excludedObjectIds: [String]) async throws -> [RelationOption] {
-        let sort = SearchHelper.sort(
-            relation: BundledRelationKey.name,
-            type: .asc
-        )
-
         var filters = buildFilters(
             isArchived: false,
             layouts: [DetailsLayout.relationOption]
@@ -231,7 +226,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         filters.append(SearchHelper.relationKey(relationKey))
         filters.append(SearchHelper.excludedIdsFilter(excludedObjectIds))
         
-        let details = try await search(filters: filters, sorts: [sort], fullText: text, limit: 0)
+        let details = try await search(filters: filters, sorts: [], fullText: text, limit: 0)
         return details.map { RelationOption(details: $0) }
     }
 
@@ -254,7 +249,8 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         
         let filters: [DataviewFilter] = .builder {
             buildFilters(isArchived: false, layouts: [DetailsLayout.relation])
-            SearchHelper.excludedRelationKeys(BundledRelationKey.systemKeys.map(\.rawValue))
+            SearchHelper.relationReadonlyValue(false)
+            SearchHelper.excludedRelationKeys(BundledRelationKey.internalKeys.map(\.rawValue))
             SearchHelper.excludedIdsFilter(excludedIds)
         }
         
@@ -274,7 +270,8 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
                 workspaceId: MarketplaceId.anytypeMarketplace.rawValue
             )
             SearchHelper.layoutFilter([DetailsLayout.relation])
-            SearchHelper.excludedRelationKeys(BundledRelationKey.systemKeys.map(\.rawValue))
+            SearchHelper.relationReadonlyValue(false)
+            SearchHelper.excludedRelationKeys(BundledRelationKey.internalKeys.map(\.rawValue))
             if !includeInstalled {
                 SearchHelper.excludedIdsFilter(relationDetailsStorage.relationsDetails().map(\.sourceObject))
             }
