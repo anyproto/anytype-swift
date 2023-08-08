@@ -1,7 +1,6 @@
 import SwiftUI
 
-struct SettingsInfoBlock: View {
-    
+struct SettingsInfoModel {
     let title: String
     let subtitle: String
     let onTap: (() -> Void)?
@@ -11,14 +10,19 @@ struct SettingsInfoBlock: View {
         self.subtitle = subtitle
         self.onTap = onTap
     }
+}
+
+struct SettingsInfoBlock: View {
+    
+    let model: SettingsInfoModel
     
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
-            AnytypeText(title, style: .uxTitle1Semibold, color: .Text.primary)
+            AnytypeText(model.title, style: .uxTitle1Semibold, color: .Text.primary)
             HStack {
-                AnytypeText(subtitle, style: .previewTitle2Regular, color: .Text.primary)
+                AnytypeText(model.subtitle, style: .previewTitle2Regular, color: .Text.primary)
                 Spacer()
-                if let onTap {
+                if let onTap = model.onTap {
                     Image(asset: .X24.copy)
                         .foregroundColor(.Button.active)
                         .onTapGesture {
@@ -27,6 +31,7 @@ struct SettingsInfoBlock: View {
                 }
             }
         }
+        .padding(.vertical, 12)
         .frame(maxWidth: .infinity, alignment: .leading)
     }
 }

@@ -113,6 +113,7 @@ final class BlockActionServiceMock: BlockActionServiceProtocol {
     
     func createPage(
         targetId: Services.BlockId,
+        spaceId: String,
         type: Services.ObjectTypeId,
         position: Services.BlockPosition
     ) async throws -> BlockId {

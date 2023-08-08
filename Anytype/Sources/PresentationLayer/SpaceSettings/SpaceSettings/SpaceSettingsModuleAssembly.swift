@@ -22,6 +22,7 @@ final class SpaceSettingsModuleAssembly: SpaceSettingsModuleAssemblyProtocol {
             activeWorkspaceStorage: self.serviceLocator.activeWorkspaceStorage(),
             subscriptionService: self.serviceLocator.singleObjectSubscriptionService(),
             objectActionsService: self.serviceLocator.objectActionsService(),
+            relationDetailsStorage: self.serviceLocator.relationDetailsStorage(),
             output: output
         )).eraseToAnyView()
     }
