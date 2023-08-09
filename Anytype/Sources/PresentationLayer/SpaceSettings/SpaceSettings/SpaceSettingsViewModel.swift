@@ -1,15 +1,13 @@
-import SwiftUI
-import ProtobufMessages
-import AnytypeCore
+import Foundation
 import Combine
 import Services
+import UIKit
 
 @MainActor
-final class SettingsViewModel: ObservableObject {
+final class SpaceSettingsViewModel: ObservableObject {
     
     private enum Constants {
-        static let subSpaceId = "SettingsViewModel-Space"
-        static let subAccountId = "SettingsAccount"
+        static let subSpaceId = "SpaceSettingsViewModel-Space"
     }
     
     // MARK: - DI
@@ -17,7 +15,9 @@ final class SettingsViewModel: ObservableObject {
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private let subscriptionService: SingleObjectSubscriptionServiceProtocol
     private let objectActionsService: ObjectActionsServiceProtocol
-    private weak var output: SettingsModuleOutput?
+    private let relationDetailsStorage: RelationDetailsStorageProtocol
+    private let dateFormatter = DateFormatter.relationDateFormatter
+    private weak var output: SpaceSettingsModuleOutput?
     
     // MARK: - State
     
@@ -25,53 +25,38 @@ final class SettingsViewModel: ObservableObject {
     private var dataLoaded: Bool = false
     
     @Published var spaceName: String = ""
+    @Published var spaceType: String = ""
     @Published var spaceIcon: ObjectIconImage?
     @Published var profileIcon: ObjectIconImage = .imageAsset(.SettingsOld.accountAndData)
+    @Published var info = [SettingsInfoModel]()
+    @Published var snackBarData = ToastBarData.empty
     
     init(
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
         subscriptionService: SingleObjectSubscriptionServiceProtocol,
         objectActionsService: ObjectActionsServiceProtocol,
-        output: SettingsModuleOutput?
+        relationDetailsStorage: RelationDetailsStorageProtocol,
+        output: SpaceSettingsModuleOutput?
     ) {
         self.activeWorkspaceStorage = activeWorkspaceStorage
         self.subscriptionService = subscriptionService
         self.objectActionsService = objectActionsService
+        self.relationDetailsStorage = relationDetailsStorage
         self.output = output
         
         setupSubscription()
     }
     
-    func onAppear() {
-        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.settingsShow)
+    func onChangeIconTap() {
+        output?.onChangeIconSelected(objectId: activeWorkspaceStorage.workspaceInfo.workspaceObjectId)
     }
     
-    func onAccountDataTap() {
-        output?.onAccountDataSelected()
-    }
-    
-    func onDebugMenuTap() {
-        output?.onDebugMenuSelected()
+    func onStorageTap() {
+        
     }
     
     func onPersonalizationTap() {
-        output?.onPersonalizationSelected()
-    }
-    
-    func onAppearanceTap() {
-        output?.onAppearanceSelected()
-    }
-    
-    func onFileStorageTap() {
-        output?.onFileStorageSelected()
-    }
-    
-    func onAboutTap() {
-        output?.onAboutSelected()
-    }
-    
-    func onChangeIconTap() {
-        output?.onChangeIconSelected(objectId: activeWorkspaceStorage.workspaceInfo.workspaceObjectId)
+        
     }
     
     // MARK: - Private
@@ -79,21 +64,17 @@ final class SettingsViewModel: ObservableObject {
     private func setupSubscription() {
         subscriptionService.startSubscription(
             subIdPrefix: Constants.subSpaceId,
-            objectId: activeWorkspaceStorage.workspaceInfo.workspaceObjectId
+            objectId: activeWorkspaceStorage.workspaceInfo.workspaceObjectId,
+            additionalKeys: [.createdDate, .creator, .spaceAccessibility]
         ) { [weak self] details in
             self?.handleSpaceDetails(details: details)
-        }
-        
-        subscriptionService.startSubscription(
-            subIdPrefix: Constants.subAccountId,
-            objectId: activeWorkspaceStorage.workspaceInfo.profileObjectID
-        ) { [weak self] details in
-            self?.handleProfileDetails(details: details)
         }
     }
     
     private func handleSpaceDetails(details: ObjectDetails) {
         spaceIcon = details.objectIconImage
+        spaceType = details.spaceAccessibilityValue?.fullName ?? ""
+        buildInfoBlock(details: details)
         
         if !dataLoaded {
             spaceName = details.name
@@ -107,8 +88,25 @@ final class SettingsViewModel: ObservableObject {
         }
     }
     
-    private func handleProfileDetails(details: ObjectDetails) {
-        profileIcon = details.objectIconImage ?? .imageAsset(.SettingsOld.accountAndData)
+    private func buildInfoBlock(details: ObjectDetails) {
+        
+        info.removeAll()
+        
+        if let spaceRelationDetails = try? relationDetailsStorage.relationsDetails(for: .spaceId) {
+            info.append(
+                SettingsInfoModel(title: spaceRelationDetails.name, subtitle: details.spaceId, onTap: { [weak self] in
+                    UIPasteboard.general.string = details.spaceId
+                    self?.snackBarData = .init(text: Loc.copiedToClipboard(details.spaceId), showSnackBar: true)
+                })
+            )
+        }
+        
+        if let createdDateDetails = try? relationDetailsStorage.relationsDetails(for: .createdDate) {
+            let date = details.createdDate.map { dateFormatter.string(from: $0) } ?? Loc.unknown
+            info.append(
+                SettingsInfoModel(title: createdDateDetails.name, subtitle: date)
+            )
+        }
     }
     
     private func updateSpaceName(name: String) {

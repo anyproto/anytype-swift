@@ -36,7 +36,8 @@ final class SpaceWidgetViewModel: ObservableObject {
     private func startSubscription() {
         subscriptionService.startSubscription(
             subIdPrefix: Constants.subSpaceId,
-            objectId: workspaceObjectId
+            objectId: workspaceObjectId,
+            additionalKeys: [.spaceAccessibility]
         ) { [weak self] details in
             self?.handleSpaceDetails(details: details)
         }

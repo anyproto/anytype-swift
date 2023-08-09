@@ -70,6 +70,10 @@ public extension FeatureFlags {
         value(for: .multiSpace)
     }
 
+    static var multiSpaceSettings: Bool {
+        value(for: .multiSpaceSettings)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -104,6 +108,7 @@ public extension FeatureFlags {
         .superNewButtonLoadingState,
         .validateRecoveryPhrase,
         .multiSpace,
+        .multiSpaceSettings,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

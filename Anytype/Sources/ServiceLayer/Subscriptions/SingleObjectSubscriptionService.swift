@@ -2,8 +2,19 @@ import Foundation
 import Services
 
 protocol SingleObjectSubscriptionServiceProtocol: AnyObject {
-    func startSubscription(subIdPrefix: String, objectId: String, dataHandler: @escaping (ObjectDetails) -> Void)
+    func startSubscription(
+        subIdPrefix: String,
+        objectId: String,
+        additionalKeys: [BundledRelationKey],
+        dataHandler: @escaping (ObjectDetails) -> Void
+    )
     func stopSubscription(subIdPrefix: String)
+}
+
+extension SingleObjectSubscriptionServiceProtocol {
+    func startSubscription(subIdPrefix: String, objectId: String, dataHandler: @escaping (ObjectDetails) -> Void) {
+        self.startSubscription(subIdPrefix: subIdPrefix, objectId: objectId, additionalKeys: [], dataHandler: dataHandler)
+    }
 }
 
 final class SingleObjectSubscriptionService: SingleObjectSubscriptionServiceProtocol {
@@ -26,8 +37,13 @@ final class SingleObjectSubscriptionService: SingleObjectSubscriptionServiceProt
     
     // MARK: - SingleObjectSubscriptionServiceProtocol
     
-    func startSubscription(subIdPrefix: String, objectId: String, dataHandler: @escaping (ObjectDetails) -> Void) {
-        let subData = subscriotionBuilder.build(subIdPrefix: subIdPrefix, objectIds: [objectId])
+    func startSubscription(
+        subIdPrefix: String,
+        objectId: String,
+        additionalKeys: [BundledRelationKey],
+        dataHandler: @escaping (ObjectDetails) -> Void
+    ) {
+        let subData = subscriotionBuilder.build(subIdPrefix: subIdPrefix, objectIds: [objectId], additionalKeys: additionalKeys)
         self.subData = subData
         subscriptionService.startSubscription(data: subData, update: { [weak self] subId, update in
             var details = self?.cache[subIdPrefix] ?? []

@@ -96,8 +96,14 @@ public extension FeatureDescription {
     )
     
     static let multiSpace = FeatureDescription(
-        title: "Multi spaces - IOS-1568",
-        type: .feature(author: "m@anytype.io", releaseVersion: "0.24.0"),
+        title: "Multi spaces - switch space - IOS-1568",
+        type: .feature(author: "m@anytype.io", releaseVersion: "0.25.0"),
+        defaultValue: false
+    )
+    
+    static let multiSpaceSettings = FeatureDescription(
+        title: "Multi spaces - settings - IOS-1568",
+        type: .feature(author: "m@anytype.io", releaseVersion: "0.25.0"),
         defaultValue: false
     )
     

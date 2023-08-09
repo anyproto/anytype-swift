@@ -260,7 +260,7 @@ class BrowserNavigationManagerTests: XCTestCase {
     private func createPage() -> BrowserPage {
         let controller = UIViewController()
         controllersStorage.append(controller)
-        let pageData: EditorScreenData = .page(EditorPageObject(objectId: UUID().uuidString, isSupportedForEdit: true, isOpenedForPreview: false))
+        let pageData: EditorScreenData = .page(EditorPageObject(objectId: UUID().uuidString, spaceId: "", isSupportedForEdit: true, isOpenedForPreview: false))
         return BrowserPage(pageData: pageData, title: nil, subtitle: nil, controller: controller)
     }
 }
