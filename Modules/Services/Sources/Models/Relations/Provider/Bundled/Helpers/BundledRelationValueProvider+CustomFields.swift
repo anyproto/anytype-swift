@@ -63,4 +63,8 @@ extension BundledRelationsValueProvider {
     public var spaceAccessibilityValue: SpaceAccessibility? {
         return spaceAccessibility.flatMap { SpaceAccessibility(rawValue: $0) }
     }
+    
+    public var iconOptionValue: GradientId? {
+        return iconOption.flatMap { GradientId($0) }
+    }
 }

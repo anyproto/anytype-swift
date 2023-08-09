@@ -33,7 +33,7 @@ final class RemoteStorageViewModel: ObservableObject {
     @Published var spaceInstruction: String = ""
     @Published var spaceName: String = ""
     @Published var percentUsage: Double = 0
-    @Published var spaceIcon: ObjectIconImage?
+    @Published var spaceIcon: Icon?
     @Published var spaceUsed: String = ""
     @Published var spaceUsedWarning: Bool = false
     @Published var contentLoaded: Bool = false

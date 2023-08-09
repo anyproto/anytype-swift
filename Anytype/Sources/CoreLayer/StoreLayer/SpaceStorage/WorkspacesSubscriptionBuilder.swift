@@ -28,6 +28,7 @@ final class WorkspacesSubscriptionBuilder: WorkspacesSubscriptionBuilderProtocol
             BundledRelationKey.id
             BundledRelationKey.spaceId
             BundledRelationKey.titleKeys
+            BundledRelationKey.objectIconImageKeys
         }.uniqued()
         
         return .search(

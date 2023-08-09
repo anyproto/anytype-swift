@@ -4,6 +4,7 @@ import SwiftUI
 struct SpaceRowModel: Identifiable {
     let id: String
     let title: String
+    let icon: Icon?
     let isSelected: Bool
     let onTap: () -> Void
 }
@@ -14,7 +15,7 @@ struct SpaceRowView: View {
     
     var body: some View {
         VStack {
-            Color.gray
+            IconView(icon: model.icon)
                 .frame(width: 96, height: 96)
                 .cornerRadius(8)
                 .shadow(color: .Shadow.primary, radius: 20)
