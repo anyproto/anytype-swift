@@ -167,4 +167,8 @@ final class ModulesDI: ModulesDIProtocol {
     func spaceSettings() -> SpaceSettingsModuleAssemblyProtocol {
         return SpaceSettingsModuleAssembly(serviceLocator: serviceLocator)
     }
+    
+    func remoteStorage() -> RemoteStorageModuleAssemblyProtocol {
+        return RemoteStorageModuleAssembly(serviceLocator: serviceLocator)
+    }
 }

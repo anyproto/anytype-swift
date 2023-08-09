@@ -7,5 +7,8 @@ struct SpaceSettingsCoordinatorView: View {
     
     var body: some View {
         model.settingsModule()
+            .sheet(isPresented: $model.showRemoteStorage) {
+                model.remoteStorageModule()
+            }
     }
 }
