@@ -97,6 +97,11 @@ final class DataviewTemplateSelectionInteractorProvider: TemplateSelectionIntera
     }
     
     func setDefaultTemplate(model: TemplatePreviewModel) async throws {
+        if let details = templatesDetails.first { $0.id == model.id } {
+            AnytypeAnalytics.instance().logChangeDefaultTemplate(objectType: details.templateType, route: setDocument.isCollection() ? .collection : .set)
+        }
+        
+
         let updatedDataView = dataView.updated(defaultTemplateID: model.id)
         try await dataviewService.updateView(updatedDataView)
     }

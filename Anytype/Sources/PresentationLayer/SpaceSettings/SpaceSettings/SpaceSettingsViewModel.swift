@@ -26,8 +26,8 @@ final class SpaceSettingsViewModel: ObservableObject {
     
     @Published var spaceName: String = ""
     @Published var spaceType: String = ""
-    @Published var spaceIcon: ObjectIconImage?
-    @Published var profileIcon: ObjectIconImage = .imageAsset(.SettingsOld.accountAndData)
+    @Published var spaceIcon: Icon?
+    @Published var profileIcon: Icon = .asset(.SettingsOld.accountAndData)
     @Published var info = [SettingsInfoModel]()
     @Published var snackBarData = ToastBarData.empty
     

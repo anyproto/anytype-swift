@@ -149,7 +149,7 @@ final class ModulesDI: ModulesDIProtocol {
     }
     
     func authKey() -> KeyPhraseViewModuleAssemblyProtocol {
-        return KeyPhraseViewModuleAssembly(uiHelpersDI: uiHelpersDI, serviceLocator: serviceLocator)
+        return KeyPhraseViewModuleAssembly(uiHelpersDI: uiHelpersDI)
     }
     
     func authSoul() -> SoulViewModuleAssemblyProtocol {

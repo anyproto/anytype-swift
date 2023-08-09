@@ -3,7 +3,7 @@ import AnytypeCore
 
 struct SetHeaderSettingsView: View {
     
-    let model: SetHeaderSettingsViewModel
+    @ObservedObject var model: SetHeaderSettingsViewModel
     
     var body: some View {
         HStack(alignment: .center, spacing: 0) {
@@ -12,7 +12,7 @@ struct SetHeaderSettingsView: View {
             settingButton
 
             Spacer.fixedWidth(16)
-            if FeatureFlags.setTemplateSelection {
+            if FeatureFlags.setTemplateSelection && model.isTemplatesSelectionAvailable {
                 compositeCreateButtons
             } else {
                 createObjectButton
@@ -95,6 +95,7 @@ struct SetHeaderSettings_Previews: PreviewProvider {
                     targetObjectID: nil,
                     relationDetailsStorage: DI.preview.serviceLocator.relationDetailsStorage()
                 ),
+                setTemplatesInteractor: DI.preview.serviceLocator.setTemplatesInteractor,
                 isActive: true,
                 onViewTap: {},
                 onSettingsTap: {},

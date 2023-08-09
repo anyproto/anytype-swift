@@ -1,10 +1,6 @@
 import Foundation
 import Services
 
-extension SubscriptionId {
-    static var relation = SubscriptionId(value: "SubscriptionId.Relation")
-}
-
 final class RelationSubscriptionDataBuilder: RelationSubscriptionDataBuilderProtocol {
     
     private let accountManager: AccountManagerProtocol
@@ -41,7 +37,7 @@ final class RelationSubscriptionDataBuilder: RelationSubscriptionDataBuilderProt
         
         return .search(
             SubscriptionData.Search(
-                identifier: .relation,
+                identifier: RelationDetailsStorage.subscriptionId,
                 sorts: [sort],
                 filters: filters,
                 limit: 0,

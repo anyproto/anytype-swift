@@ -1,13 +1,13 @@
 import Services
 
 struct MentionData: Equatable, Hashable {
-    let image: ObjectIconImage?
+    let image: Icon?
     let blockId: BlockId
     let isDeleted: Bool
     let isArchived: Bool
     
     static func noDetails(blockId: BlockId) -> MentionData {
-        return MentionData(image: ObjectIconImage.imageAsset(.ghost), blockId: blockId, isDeleted: true, isArchived: false)
+        return MentionData(image: Icon.asset(.ghost), blockId: blockId, isDeleted: true, isArchived: false)
     }
 }
 

@@ -18,7 +18,8 @@ final class AppConfigurator {
         AnalyticsConfigurator(),
         KingfisherConfigurator(),
         AudioPlaybackConfigurator(),
-        iCloudBackupConfigurator()
+        iCloudBackupConfigurator(),
+        ViewProvidersConfigurator()
     ]
 
     func configure() {

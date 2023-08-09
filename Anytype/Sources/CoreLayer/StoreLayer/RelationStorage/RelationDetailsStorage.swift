@@ -11,6 +11,8 @@ enum RelationDetailsStorageError: Error {
 
 final class RelationDetailsStorage: RelationDetailsStorageProtocol {
     
+    static let subscriptionId = "SubscriptionId.Relation"
+    
     private let subscriptionsService: SubscriptionsServiceProtocol
     private let subscriptionDataBuilder: RelationSubscriptionDataBuilderProtocol
     
@@ -59,7 +61,7 @@ final class RelationDetailsStorage: RelationDetailsStorageProtocol {
     }
     
     func stopSubscription() {
-        subscriptionsService.stopSubscription(id: .relation)
+        subscriptionsService.stopSubscription(id: Self.subscriptionId)
         details.removeAll()
         updateSearchCache()
         relationsDetailsSubject.send(details)

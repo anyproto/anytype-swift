@@ -17,6 +17,11 @@ extension Anytype_Rpc.Account.Delete.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }
 }
 
+extension Anytype_Rpc.Account.EnableLocalNetworkSync.Response: ResultWithError {}
+extension Anytype_Rpc.Account.EnableLocalNetworkSync.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null }
+}
+
 extension Anytype_Rpc.Account.Move.Response: ResultWithError {}
 extension Anytype_Rpc.Account.Move.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }

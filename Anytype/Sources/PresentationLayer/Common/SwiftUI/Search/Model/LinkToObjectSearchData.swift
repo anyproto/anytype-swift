@@ -12,7 +12,7 @@ struct LinkToObjectSearchData: SearchDataProtocol {
     let callout: String
     let typeId: String
     
-    let iconImage: ObjectIconImage?
+    let iconImage: Icon?
     
     let editorScreenData: EditorScreenData
 
@@ -26,7 +26,7 @@ struct LinkToObjectSearchData: SearchDataProtocol {
         self.editorScreenData = details.editorScreenData()
     }
 
-    init(searchKind: LinkToObjectSearchViewModel.SearchKind, searchTitle: String, iconImage: ObjectIconImage?) {
+    init(searchKind: LinkToObjectSearchViewModel.SearchKind, searchTitle: String, iconImage: Icon?) {
         self.searchKind = searchKind
         self.title = searchTitle
         self.iconImage = iconImage
@@ -65,12 +65,4 @@ extension LinkToObjectSearchData {
     var verticalInset: CGFloat {
         20
     }
-
-    var usecase: ObjectIconImageUsecase {
-        switch searchKind {
-        case .object, .openObject: return .dashboardSearch
-        case .web, .createObject, .removeLink, .openURL, .copyLink: return .mention(.heading)
-        }
-    }
-    
 }

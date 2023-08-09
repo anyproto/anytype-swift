@@ -28,10 +28,13 @@ struct GradientIconsExamples: View {
                         if let gradientId = GradientId(index + 1) {
                             AnytypeText("Gradient \(gradientId.rawValue)", style: .bodyRegular, color: .Text.primary)
                             HStack(spacing: 0) {
-                                SwiftUIObjectIconImageView(iconImage: .icon(.space(.gradient(gradientId))), usecase: .settingsHeader)
-                                    .frame(maxWidth: .infinity)
-                                SwiftUIObjectIconImageView(iconImage: .icon(.profile(.gradient(gradientId))), usecase: .settingsHeader)
-                                    .frame(maxWidth: .infinity)
+                                Spacer()
+                                IconView(icon: .object(.space(.gradient(gradientId))))
+                                    .frame(width: 96, height: 96)
+                                Spacer()
+                                IconView(icon: .object(.profile(.gradient(gradientId))))
+                                    .frame(width: 96, height: 96)
+                                Spacer()
                             }
                             .padding(.bottom, 12)
                             .newDivider()

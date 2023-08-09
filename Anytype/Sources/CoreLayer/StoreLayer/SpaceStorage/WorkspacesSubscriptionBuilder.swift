@@ -6,11 +6,11 @@ protocol WorkspacesSubscriptionBuilderProtocol: AnyObject {
     func build() -> SubscriptionData
 }
 
-private extension SubscriptionId {
-    static var spaces = SubscriptionId(value: "SubscriptionId.Workspaces")
-}
-
 final class WorkspacesSubscriptionBuilder: WorkspacesSubscriptionBuilderProtocol {
+    
+    private enum Constants {
+        static let spacesSubId = "SubscriptionId.Workspaces"
+    }
     
     // MARK: - WorkspacesSubscriptionBuilderProtocol
     
@@ -32,7 +32,7 @@ final class WorkspacesSubscriptionBuilder: WorkspacesSubscriptionBuilderProtocol
         
         return .search(
             SubscriptionData.Search(
-                identifier: .spaces,
+                identifier: Constants.spacesSubId,
                 sorts: [sort],
                 filters: filters,
                 limit: 0,

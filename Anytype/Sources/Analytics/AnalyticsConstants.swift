@@ -47,7 +47,13 @@ enum AnalyticsEventsName {
     static let changeRelationValue = "ChangeRelationValue"
     static let deleteRelationValue = "DeleteRelationValue"
     static let deleteRelation = "DeleteRelation"
-
+    
+    // Templating
+    static let selectTemplate = "SelectTemplate"
+    static let changeDefaultTemplate = "ChangeDefaultTemplate"
+    static let templateEditing = "EditTemplate"
+    static let duplicateTemplate = "DuplicateTemplate"
+    static let createTemplate = "CreateTemplate"
 
     // Object events
     static let createObject = "CreateObject"
@@ -280,6 +286,7 @@ enum AnalyticsEventsMigrationType: String {
 enum AnalyticsWidgetSource {
     case favorites
     case recent
+    case recentOpen
     case sets
     case collections
     case bin
@@ -291,6 +298,8 @@ enum AnalyticsWidgetSource {
             return "Favorites"
         case .recent:
             return "Recent"
+        case .recentOpen:
+            return "RecentOpen"
         case .sets:
             return "Sets"
         case .collections:

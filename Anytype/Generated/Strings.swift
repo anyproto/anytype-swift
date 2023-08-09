@@ -715,11 +715,15 @@ internal enum Loc {
   internal enum Actions {
     /// Link to
     internal static let linkItself = Loc.tr("Localizable", "Actions.LinkItself", fallback: "Link to")
+    /// Make template
+    internal static let makeAsTemplate = Loc.tr("Localizable", "Actions.MakeAsTemplate", fallback: "Make template")
   }
   internal enum Alert {
     internal enum CameraPermissions {
+      /// Anytype needs access to your camera to scan QR codes.
+      /// 
       /// Please, go to your device's Settings -> Privacy -> Camera and set Anytype to ON
-      internal static let goToSettings = Loc.tr("Localizable", "Alert.CameraPermissions.GoToSettings", fallback: "Please, go to your device's Settings -> Privacy -> Camera and set Anytype to ON")
+      internal static let goToSettings = Loc.tr("Localizable", "Alert.CameraPermissions.GoToSettings", fallback: "Anytype needs access to your camera to scan QR codes.\n\nPlease, go to your device's Settings -> Privacy -> Camera and set Anytype to ON")
       /// Settings
       internal static let settings = Loc.tr("Localizable", "Alert.CameraPermissions.Settings", fallback: "Settings")
     }
@@ -735,8 +739,8 @@ internal enum Loc {
     }
   }
   internal enum Auth {
-    /// Anytype needs access to your camera to scan QR codes
-    internal static let cameraPermissionTitle = Loc.tr("Localizable", "Auth.CameraPermissionTitle", fallback: "Anytype needs access to your camera to scan QR codes")
+    /// Please allow access
+    internal static let cameraPermissionTitle = Loc.tr("Localizable", "Auth.CameraPermissionTitle", fallback: "Please allow access")
     /// Join
     internal static let join = Loc.tr("Localizable", "Auth.Join", fallback: "Join")
     /// Log in
@@ -1711,6 +1715,18 @@ internal enum Loc {
         internal static let description = Loc.tr("Localizable", "Widgets.Layout.Tree.Description", fallback: "Hierarchical structure of objects")
         /// Tree
         internal static let title = Loc.tr("Localizable", "Widgets.Layout.Tree.Title", fallback: "Tree")
+      }
+    }
+    internal enum Library {
+      internal enum RecentlyEdited {
+        /// Recently edited
+        internal static let name = Loc.tr("Localizable", "Widgets.Library.RecentlyEdited.Name", fallback: "Recently edited")
+      }
+      internal enum RecentlyOpened {
+        /// On this device
+        internal static let description = Loc.tr("Localizable", "Widgets.Library.RecentlyOpened.Description", fallback: "On this device")
+        /// Recently opened
+        internal static let name = Loc.tr("Localizable", "Widgets.Library.RecentlyOpened.Name", fallback: "Recently opened")
       }
     }
   }

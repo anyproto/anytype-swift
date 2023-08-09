@@ -10,6 +10,8 @@ protocol TemplateSelectionCoordinatorProtocol: AnyObject {
         dataview: DataviewView,
         onTemplateSelection: @escaping (BlockId?) -> ()
     )
+    
+    func showTemplateEditing(blockId: BlockId, spaceId: String, onTemplateSelection: @escaping (BlockId) -> Void)
 }
 
 final class TemplateSelectionCoordinator: TemplateSelectionCoordinatorProtocol {
@@ -45,7 +47,7 @@ final class TemplateSelectionCoordinator: TemplateSelectionCoordinatorProtocol {
                 }
             },
             templateEditingHandler: { [weak self] templateId in
-                self?.showTemplateEditing(blockId: templateId, setDocument: setDocument, onTemplateSelection: onTemplateSelection)
+                self?.showTemplateEditing(blockId: templateId, spaceId: setDocument.spaceId, onTemplateSelection: onTemplateSelection)
             }
         )
         
@@ -60,10 +62,10 @@ final class TemplateSelectionCoordinator: TemplateSelectionCoordinatorProtocol {
         navigationContext.present(popup)
     }
     
-    private func showTemplateEditing(blockId: BlockId, setDocument: SetDocumentProtocol, onTemplateSelection: @escaping (BlockId) -> Void) {
+    func showTemplateEditing(blockId: BlockId, spaceId: String, onTemplateSelection: @escaping (BlockId) -> Void) {
         let editorPage = editorAssembly.buildEditorModule(
             browser: nil,
-            data: .page(.init(objectId: blockId, spaceId: setDocument.spaceId, isSupportedForEdit: true, isOpenedForPreview: false))
+            data: .page(.init(objectId: blockId, spaceId: spaceId, isSupportedForEdit: true, isOpenedForPreview: false))
         )
         let editingTemplateViewController = TemplateEditingViewController(
             editorViewController: editorPage.vc,
@@ -84,6 +86,10 @@ final class TemplateSelectionCoordinator: TemplateSelectionCoordinatorProtocol {
 
 extension TemplateSelectionCoordinator: ObjectSettingsModuleDelegate {
     func didCreateLinkToItself(selfName: String, data: EditorScreenData) {
+        anytypeAssertionFailure("Should be disabled in restrictions. Check template restrinctions")
+    }
+    
+    func didCreateTemplate(templateId: BlockId) {
         anytypeAssertionFailure("Should be disabled in restrictions. Check template restrinctions")
     }
 }

@@ -2,7 +2,7 @@ import SwiftUI
 
 struct CreatingSoulView: View {
     
-    @ObservedObject var model: CreatingSoulViewModel
+    @StateObject var model: CreatingSoulViewModel
     @State private var showSpaceTitle = false
     
     var body: some View {
@@ -61,7 +61,7 @@ struct CreatingSoulView: View {
     
     private var soul: some View {
         VStack(spacing: 8) {
-            SwiftUIObjectIconImageViewWithPlaceholder(iconImage: model.profileIcon, usecase: .dashboardSearch)
+            IconView(icon: model.profileIcon)
                 .frame(width: Constants.imageDimension, height: Constants.imageDimension)
             AnytypeText(model.state.soul, style: .previewTitle2Medium, color: .Text.primary)
                 .lineLimit(1)
@@ -71,7 +71,7 @@ struct CreatingSoulView: View {
     
     private var space: some View {
         VStack(spacing: 8) {
-            SwiftUIObjectIconImageViewWithPlaceholder(iconImage: model.spaceIcon, usecase: .dashboardSearch)
+            IconView(icon: model.spaceIcon)
                 .frame(width: Constants.imageDimension, height: Constants.imageDimension)
             AnytypeText(Loc.Auth.JoinFlow.Personal.Space.title, style: .previewTitle2Medium, color: .Text.primary)
                 .multilineTextAlignment(.center)

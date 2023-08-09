@@ -133,7 +133,7 @@ private extension SearchObjectRowView.Model {
     init(source: WidgetAnytypeLibrarySource) {
         self.icon = source.icon
         self.title = source.name
-        self.subtitle = nil
+        self.subtitle = source.description
         self.style = .default
         self.isChecked = false
     }

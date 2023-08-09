@@ -12,7 +12,8 @@ final class HomeBottomPanelViewModel: ObservableObject {
     }
     
     struct ImageButton: Hashable, Equatable {
-        let image: ObjectIconImage?
+        let image: Icon?
+        let padding: Bool
         @EquatableNoop var onTap: () -> Void
     }
     
@@ -75,14 +76,14 @@ final class HomeBottomPanelViewModel: ObservableObject {
             ])
         } else {
             buttonState = .normal([
-                ImageButton(image: .imageAsset(.Widget.search), onTap: { [weak self] in
+                ImageButton(image: .asset(.Widget.search), padding: false, onTap: { [weak self] in
                     self?.output?.onSearchSelected()
                 }),
-                ImageButton(image: .imageAsset(.Widget.add), onTap: { [weak self] in
+                ImageButton(image: .asset(.Widget.add), padding: false, onTap: { [weak self] in
                     UISelectionFeedbackGenerator().selectionChanged()
                     self?.handleCreateObject()
                 }),
-                ImageButton(image: profileDetails?.objectIconImage, onTap: { [weak self] in
+                ImageButton(image: profileDetails?.objectIconImage, padding: true, onTap: { [weak self] in
                     if FeatureFlags.multiSpace {
                         self?.output?.onProfileSelected()
                     } else {

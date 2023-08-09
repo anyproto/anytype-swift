@@ -224,6 +224,16 @@ public struct ClientCommands {
         }
     }
 
+    public static func accountEnableLocalNetworkSync(
+        _ request: Anytype_Rpc.Account.EnableLocalNetworkSync.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Account.EnableLocalNetworkSync.Request, Anytype_Rpc.Account.EnableLocalNetworkSync.Response> {
+        return Invocation(messageName: "AccountEnableLocalNetworkSync", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceAccountEnableLocalNetworkSync(requestData) ?? Data()
+            return try Anytype_Rpc.Account.EnableLocalNetworkSync.Response(serializedData: responseData)
+        }
+    }
+
     public static func accountStop(
         _ request: Anytype_Rpc.Account.Stop.Request = .init()
     ) -> Invocation<Anytype_Rpc.Account.Stop.Request, Anytype_Rpc.Account.Stop.Response> {

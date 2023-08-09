@@ -74,6 +74,14 @@ public extension FeatureFlags {
         value(for: .multiSpaceSettings)
     }
 
+    static var colorfulRecoveryPhrase: Bool {
+        value(for: .colorfulRecoveryPhrase)
+    }
+
+    static var recentEditWidget: Bool {
+        value(for: .recentEditWidget)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -109,6 +117,8 @@ public extension FeatureFlags {
         .validateRecoveryPhrase,
         .multiSpace,
         .multiSpaceSettings,
+        .colorfulRecoveryPhrase,
+        .recentEditWidget,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

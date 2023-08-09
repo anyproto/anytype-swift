@@ -1,5 +1,5 @@
 struct SlashMenuItemDisplayData {
-    let iconData: ObjectIconImage
+    let iconData: Icon
     let title: String
     let subtitle: String?
     let searchAliases: [String]
@@ -7,7 +7,7 @@ struct SlashMenuItemDisplayData {
     let customPredicate: ((String) -> SlashAction?)?
     
     init(
-        iconData: ObjectIconImage,
+        iconData: Icon,
         title: String,
         subtitle: String? = nil,
         searchAliases: [String] = [],

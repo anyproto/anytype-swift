@@ -8,6 +8,7 @@ extension ObjectType {
         name: Loc.note,
         iconEmoji: .default,
         description: Loc.ObjectType.fallbackDescription,
+        recommendedLayout: .note,
         hidden: false,
         readonly: false,
         isArchived: false,

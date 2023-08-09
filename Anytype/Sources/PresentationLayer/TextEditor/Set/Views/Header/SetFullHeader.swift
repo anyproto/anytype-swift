@@ -56,7 +56,6 @@ struct SetFullHeader: View {
                         sizeConfiguration: .editorSizeConfiguration(width: width)
                     )
                 )
-                .frame(height: ObjectHeaderConstants.coverFullHeight)
             default:
                 EmptyView()
             }
@@ -95,9 +94,7 @@ extension SetFullHeader {
     private var iconView: some View {
         Group {
             if model.hasTargetObjectId, let iconImage = model.details?.objectIconImage {
-                SwiftUIObjectIconImageView(
-                    iconImage: iconImage,
-                    usecase: .inlineSetHeader)
+                IconView(icon: iconImage)
                 .frame(
                     width: 32,
                     height: 32

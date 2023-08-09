@@ -40,7 +40,7 @@ struct SetMinimizedHeader: View {
     private var title: some View {
         HStack(spacing: 8) {
             if let icon = model.details?.objectIconImage {
-                SwiftUIObjectIconImageView(iconImage: icon, usecase: .openedObjectNavigationBar)
+                IconView(icon: icon)
                     .frame(width: 18, height: 18)
             }
             model.details.flatMap {

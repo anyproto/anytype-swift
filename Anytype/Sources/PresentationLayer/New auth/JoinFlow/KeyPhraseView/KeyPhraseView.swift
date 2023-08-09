@@ -2,7 +2,7 @@ import SwiftUI
 
 struct KeyPhraseView: View {
     
-    @ObservedObject var model: KeyPhraseViewModel
+    @StateObject var model: KeyPhraseViewModel
     
     var body: some View {
         VStack(spacing: 0) {
@@ -46,8 +46,9 @@ struct KeyPhraseView: View {
     private var phraseTextView: some View {
         PhraseTextView(
             text: $model.key,
-            expandable: true,
-            alignTextToCenter: true
+            noninteractive: true,
+            alignTextToCenter: true,
+            hideWords: !model.keyShown
         )
         .disabled(true)
         .blur(radius: model.keyShown ? 0 : 5)
@@ -84,8 +85,7 @@ struct KeyView_Previews : PreviewProvider {
             model: KeyPhraseViewModel(
                 state: JoinFlowState(),
                 output: nil,
-                alertOpener: DI.preview.uihelpersDI.alertOpener(),
-                localAuthService: DI.preview.serviceLocator.localAuthService()
+                alertOpener: DI.preview.uihelpersDI.alertOpener()
             )
         )
     }

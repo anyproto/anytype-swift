@@ -1,7 +1,7 @@
 import UIKit
 
 final class FileRelationViewUIKit: UIView {
-    private let iconView = ObjectIconImageView()
+    private let iconView = IconViewUIKit()
     private var titleLabel: AnytypeLabel!
 
     private let option: Relation.File.Option
@@ -34,13 +34,7 @@ private extension FileRelationViewUIKit {
     }
     
     func setupIconView() {
-        if let icon = option.icon {
-            let model = ObjectIconImageModel(
-                iconImage: icon,
-                usecase: .featuredRelationsBlock
-            )
-            iconView.configure(model: model)
-        }
+        iconView.icon = option.icon
         iconView.isHidden = option.icon.isNil
     }
     

@@ -7,7 +7,7 @@ protocol TreeSubscriptionDataBuilderProtocol {
 
 final class TreeSubscriptionDataBuilder: TreeSubscriptionDataBuilderProtocol {
     
-    private let builderId = UUID()
+    private let subscriptionId = "Tree-\(UUID().uuidString)"
     
     // MARK: - TreeSubscriptionDataBuilderProtocol
     
@@ -19,7 +19,7 @@ final class TreeSubscriptionDataBuilder: TreeSubscriptionDataBuilderProtocol {
         
         return .objects(
             SubscriptionData.Object(
-                identifier: SubscriptionId(value: "Tree-\(builderId.uuidString)"),
+                identifier: subscriptionId,
                 objectIds: objectIds,
                 keys: keys.map { $0.rawValue }
             )

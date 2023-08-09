@@ -10,6 +10,7 @@ struct DebugMenu: View {
     @State private var showGradientIcons = false
     @State private var showControls = false
     @State private var showColors = false
+    @State private var showObjectIcons = false
     
     var body: some View {
         VStack {
@@ -69,15 +70,22 @@ struct DebugMenu: View {
                     UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
                     showControls.toggle()
                 }
-                StandardButton("Icons 🟣", style: .secondaryLarge) {
+                StandardButton("Space icons 🟣", style: .secondaryLarge) {
                     UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
                     showGradientIcons.toggle()
                 }
             }
             
-            StandardButton("Colors 🌈", style: .secondaryLarge) {
-                UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
-                showColors.toggle()
+            HStack {
+                StandardButton("Colors 🌈", style: .secondaryLarge) {
+                    UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+                    showColors.toggle()
+                }
+                
+                StandardButton("Object icons 📸", style: .secondaryLarge) {
+                    UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+                    showObjectIcons.toggle()
+                }
             }
 
             StandardButton("Feedback Generator 🃏", style: .secondaryLarge) {
@@ -100,7 +108,8 @@ struct DebugMenu: View {
         .sheet(isPresented: $showFeedbackGenerators) { FeedbackGeneratorExamplesView() }
         .sheet(isPresented: $showGradientIcons) { GradientIconsExamples() }
         .sheet(isPresented: $showControls) { ControlsExample() }
-        .sheet(isPresented: $showColors) { ColorsExample() } 
+        .sheet(isPresented: $showColors) { ColorsExample() }
+        .sheet(isPresented: $showObjectIcons) { ObjectIconExample() }
     }
     
     var toggles: some View {

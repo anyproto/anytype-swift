@@ -45,6 +45,11 @@ final class IconGradientStorage: IconGradientStorageProtocol {
         return gradient
     }
     
+    static func gradient(for gradientId: Int) -> IconGradient {
+        let storage = IconGradientStorage()
+        return storage.gradient(for: gradientId)
+    }
+    
     func allGradients() -> [IconGradient] {
         return storage
     }
