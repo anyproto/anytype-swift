@@ -237,6 +237,8 @@ enum AnalyticsEventsPropertiesKey {
     static let view = "view"
     static let context = "context"
     static let color = "color"
+    
+    static let middleTime = "middleTime"
 }
 
 enum AnalyticsEventsTypeValues {
