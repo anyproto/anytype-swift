@@ -7,10 +7,11 @@ struct SpaceWidgetView: View {
     
     var body: some View {
         HStack(spacing: 15) {
-            Color.gray.frame(width: 40, height: 40)
+            IconView(icon: model.spaceIcon)
+                .frame(width: 40, height: 40)
             VStack(alignment: .leading, spacing: 1) {
                 AnytypeText(model.spaceName, style: .previewTitle2Medium, color: .Text.primary)
-                AnytypeText("Personal", style: .relation3Regular, color: .Text.secondary)
+                AnytypeText(model.spaceAccessibility, style: .relation3Regular, color: .Text.secondary)
             }
             Spacer()
         }

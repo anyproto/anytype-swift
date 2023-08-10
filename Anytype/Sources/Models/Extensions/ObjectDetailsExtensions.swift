@@ -38,8 +38,8 @@ extension BundledRelationsValueProvider {
             return .profile(.imageId(iconImageHash.value))
         }
         
-        if let iconOption, let gradiendId = GradientId(iconOption) {
-            return .profile(.gradient(gradiendId))
+        if let iconOptionValue {
+            return .profile(.gradient(iconOptionValue))
         }
         
         return title.first.flatMap { .profile(.character($0)) }
@@ -54,8 +54,8 @@ extension BundledRelationsValueProvider {
             return basicIcon
         }
         
-        if let iconOption, let gradiendId = GradientId(iconOption) {
-            return .space(.gradient(gradiendId))
+        if let iconOptionValue {
+            return .space(.gradient(iconOptionValue))
         }
         
         return title.first.flatMap { .space(.character($0)) }

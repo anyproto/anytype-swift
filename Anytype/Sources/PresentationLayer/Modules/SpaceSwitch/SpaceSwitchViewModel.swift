@@ -22,6 +22,7 @@ final class SpaceSwitchViewModel: ObservableObject {
     @Published var rows = [SpaceRowModel]()
     @Published var dismiss: Bool = false
     @Published var profileName: String = ""
+    @Published var profileIcon: Icon?
     @Published var spaceCreateLoading: Bool = false
     
     init(
@@ -49,7 +50,7 @@ final class SpaceSwitchViewModel: ObservableObject {
                 spaceCreateLoading = false
                 startSpacesSubscriotions()
             }
-            let spaceId = try await workspaceService.createWorkspace(name: "Workspace \(workspacesStorage.workspaces.count + 1)")
+            let spaceId = try await workspaceService.createWorkspace(name: "Workspace \(workspacesStorage.workspaces.count + 1)", gradient: .random)
             try await activeWorkspaceStorage.setActiveSpace(spaceId: spaceId)
         
         }
@@ -99,6 +100,7 @@ final class SpaceSwitchViewModel: ObservableObject {
             SpaceRowModel(
                 id: workspace.id,
                 title: workspace.title,
+                icon: workspace.objectIconImage,
                 isSelected: activeSpaceId == workspace.spaceId
             ) { [weak self] in
                 self?.onTapWorkspace(workspace: workspace)
@@ -108,6 +110,7 @@ final class SpaceSwitchViewModel: ObservableObject {
     
     private func updateProfile(profile: ObjectDetails) {
         profileName = profile.title
+        profileIcon = profile.objectIconImage
     }
     
     private func onTapWorkspace(workspace: ObjectDetails) {

@@ -60,7 +60,8 @@ struct SpaceSwitchView: View {
     }
     
     private var rightButton: some View {
-        Color.gray.frame(width: 32, height: 32)
+        IconView(icon: model.profileIcon)
+            .frame(width: 32, height: 32)
     }
 }
 

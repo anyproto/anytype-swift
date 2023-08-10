@@ -18,6 +18,7 @@ final class SpaceWidgetViewModel: ObservableObject {
     // MARK: - State
     
     @Published var spaceName: String = ""
+    @Published var spaceIcon: Icon?
     @Published var spaceAccessibility: String = ""
     
     init(activeWorkspaceStorage: ActiveWorkpaceStorageProtocol, subscriptionService: SingleObjectSubscriptionServiceProtocol, output: CommonWidgetModuleOutput?) {
@@ -45,6 +46,7 @@ final class SpaceWidgetViewModel: ObservableObject {
     
     private func handleSpaceDetails(details: ObjectDetails) {
         spaceName = details.name
+        spaceIcon = details.objectIconImage
         spaceAccessibility = details.spaceAccessibilityValue?.name ?? ""
     }
 }
