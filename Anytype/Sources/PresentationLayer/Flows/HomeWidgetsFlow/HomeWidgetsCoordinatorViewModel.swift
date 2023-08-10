@@ -7,7 +7,7 @@ import AnytypeCore
 @MainActor
 final class HomeWidgetsCoordinatorViewModel: ObservableObject,
                                              HomeWidgetsModuleOutput, CommonWidgetModuleOutput,
-                                             HomeBottomPanelModuleOutput {
+                                             HomeBottomPanelModuleOutput, SpaceSwitchModuleOutput {
     
     // MARK: - DI
     
@@ -140,7 +140,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
     }
     
     func createSpaceSwitchModule() -> AnyView {
-        return spaceSwitchModuleAssembly.make()
+        return spaceSwitchModuleAssembly.make(output: self)
     }
     
     func createSpaceSeetingsModule() -> AnyView {

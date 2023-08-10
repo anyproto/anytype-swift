@@ -11,6 +11,7 @@ final class SpaceSwitchViewModel: ObservableObject {
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private let subscriptionService: SingleObjectSubscriptionServiceProtocol
     private let workspaceService: WorkspaceServiceProtocol
+    private weak var output: SpaceSwitchModuleOutput?
     
     // MARK: - State
     
@@ -29,12 +30,14 @@ final class SpaceSwitchViewModel: ObservableObject {
         workspacesStorage: WorkspacesStorageProtocol,
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
         subscriptionService: SingleObjectSubscriptionServiceProtocol,
-        workspaceService: WorkspaceServiceProtocol
+        workspaceService: WorkspaceServiceProtocol,
+        output: SpaceSwitchModuleOutput?
     ) {
         self.workspacesStorage = workspacesStorage
         self.activeWorkspaceStorage = activeWorkspaceStorage
         self.subscriptionService = subscriptionService
         self.workspaceService = workspaceService
+        self.output = output
         startProfileSubscriotions()
         startSpacesSubscriotions()
     }
@@ -54,6 +57,10 @@ final class SpaceSwitchViewModel: ObservableObject {
             try await activeWorkspaceStorage.setActiveSpace(spaceId: spaceId)
         
         }
+    }
+    
+    func onTapProfile() {
+        output?.onSettingsSelected()
     }
     
     // MARK: - Private
