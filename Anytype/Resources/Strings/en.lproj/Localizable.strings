@@ -750,9 +750,6 @@
 "FileStorage.ManageFiles" = "Manage files";
 "FileStorage.LimitError" = "You exceeded file limit upload";
 
-// MARK: - Local Storage
-"LocalStorage.Title" = "Local storage";
-
 // MARK: - Files List
 "FilesList.Title" = "Synced files";
 "FilesList.ForceDelete.Title" = "Are you sure you want to permanently delete the files?";

@@ -59,7 +59,7 @@ struct SettingsView: View {
                     
                     if FeatureFlags.multiSpaceSettings {
                         SettingsSectionItemView(
-                            name: Loc.LocalStorage.title,
+                            name: Loc.FileStorage.Local.title,
                             imageAsset: .Settings.fileStorage,
                             onTap: { model.onFileStorageTap() }
                         )

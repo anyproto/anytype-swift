@@ -1272,10 +1272,6 @@ internal enum Loc {
     /// Paste as text
     internal static let text = Loc.tr("Localizable", "LinkPaste.text", fallback: "Paste as text")
   }
-  internal enum LocalStorage {
-    /// Local storage
-    internal static let title = Loc.tr("Localizable", "LocalStorage.Title", fallback: "Local storage")
-  }
   internal enum MigrationGuide {
     /// To use this version of the app, please choose the correct option below to migrate your account.
     internal static let subtitle = Loc.tr("Localizable", "MigrationGuide.Subtitle", fallback: "To use this version of the app, please choose the correct option below to migrate your account.")
