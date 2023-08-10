@@ -1521,10 +1521,14 @@ internal enum Loc {
     }
   }
   internal enum Settings {
+    /// Account and access
+    internal static let accountAndAccess = Loc.tr("Localizable", "Settings.AccountAndAccess", fallback: "Account and access")
     /// Space name
     internal static let spaceName = Loc.tr("Localizable", "Settings.SpaceName", fallback: "Space name")
+    /// Settings
+    internal static let title = Loc.tr("Localizable", "Settings.Title", fallback: "Settings")
     /// Personal Space
-    internal static let title = Loc.tr("Localizable", "Settings.Title", fallback: "Personal Space")
+    internal static let titleLegacy = Loc.tr("Localizable", "Settings.TitleLegacy", fallback: "Personal Space")
   }
   internal enum SignUp {
     internal enum InvintationCode {

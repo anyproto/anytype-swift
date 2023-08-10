@@ -60,8 +60,12 @@ struct SpaceSwitchView: View {
     }
     
     private var rightButton: some View {
-        IconView(icon: model.profileIcon)
-            .frame(width: 32, height: 32)
+        Button {
+            model.onTapProfile()
+        } label: {
+            IconView(icon: model.profileIcon)
+                .frame(width: 32, height: 32)
+        }
     }
 }
 

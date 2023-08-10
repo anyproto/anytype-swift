@@ -2,7 +2,7 @@ import SwiftUI
 
 protocol SpaceSwitchModileAssemblyProtocol: AnyObject {
     @MainActor
-    func make() -> AnyView
+    func make(output: SpaceSwitchModuleOutput?) -> AnyView
 }
 
 final class SpaceSwitchModileAssembly: SpaceSwitchModileAssemblyProtocol {
@@ -16,12 +16,13 @@ final class SpaceSwitchModileAssembly: SpaceSwitchModileAssemblyProtocol {
     // MARK: - SpaceSwitchModileAssemblyProtocol
     
     @MainActor
-    func make() -> AnyView {
+    func make(output: SpaceSwitchModuleOutput?) -> AnyView {
         return SpaceSwitchView(model: SpaceSwitchViewModel(
             workspacesStorage: self.serviceLocator.workspaceStorage(),
             activeWorkspaceStorage: self.serviceLocator.activeWorkspaceStorage(),
             subscriptionService: self.serviceLocator.singleObjectSubscriptionService(),
-            workspaceService: self.serviceLocator.workspaceService()
+            workspaceService: self.serviceLocator.workspaceService(),
+            output: output
         )).eraseToAnyView()
     }
 }

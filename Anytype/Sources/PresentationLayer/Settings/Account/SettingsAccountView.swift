@@ -9,7 +9,9 @@ struct SettingsAccountView: View {
             header
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 0) {
-                    profileBlock
+                    if !FeatureFlags.multiSpaceSettings {
+                        profileBlock
+                    }
                     accessBlock
                     accountBlock
                 }
@@ -24,7 +26,11 @@ struct SettingsAccountView: View {
     @ViewBuilder
     private var header: some View {
         DragIndicator()
-        TitleView(title: Loc.profile)
+        if FeatureFlags.multiSpaceSettings {
+            TitleView(title: Loc.Settings.accountAndAccess)
+        } else {
+            TitleView(title: Loc.profile)
+        }
     }
     
     @ViewBuilder

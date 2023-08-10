@@ -719,8 +719,10 @@
 "ClearCache.Error" = "Error, try again later";
 
 // MARK: - Settings
-"Settings.Title" = "Personal Space";
+"Settings.TitleLegacy" = "Personal Space";
+"Settings.Title" = "Settings";
 "Settings.SpaceName" = "Space name";
+"Settings.AccountAndAccess" = "Account and access";
 
 // MARK: - MigrationGuide
 "MigrationGuide.Title" = "Almost there!";
