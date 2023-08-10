@@ -719,8 +719,10 @@
 "ClearCache.Error" = "Error, try again later";
 
 // MARK: - Settings
-"Settings.Title" = "Personal Space";
+"Settings.TitleLegacy" = "Personal Space";
+"Settings.Title" = "Settings";
 "Settings.SpaceName" = "Space name";
+"Settings.AccountAndAccess" = "Account and access";
 
 // MARK: - MigrationGuide
 "MigrationGuide.Title" = "Almost there!";
@@ -747,6 +749,9 @@
 "FileStorage.OffloadTitle" = "Offload files";
 "FileStorage.ManageFiles" = "Manage files";
 "FileStorage.LimitError" = "You exceeded file limit upload";
+
+// MARK: - Local Storage
+"LocalStorage.Title" = "Local storage";
 
 // MARK: - Files List
 "FilesList.Title" = "Synced files";
