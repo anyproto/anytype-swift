@@ -1,9 +1,12 @@
 import Foundation
 import ProtobufMessages
 
-enum WidgetPosition {
+public enum WidgetPosition {
     case end
     case below(widgetId: String)
+}
+
+extension WidgetPosition {
     
     var targetId: String {
         switch self {
