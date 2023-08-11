@@ -96,7 +96,6 @@ struct SetHeaderSettings_Previews: PreviewProvider {
                     relationDetailsStorage: DI.preview.serviceLocator.relationDetailsStorage()
                 ),
                 setTemplatesInteractor: DI.preview.serviceLocator.setTemplatesInteractor,
-                isActive: true,
                 onViewTap: {},
                 onSettingsTap: {},
                 onCreateTap:{},

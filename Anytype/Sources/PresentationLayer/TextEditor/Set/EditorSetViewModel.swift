@@ -21,7 +21,6 @@ final class EditorSetViewModel: ObservableObject {
     lazy var headerSettingsViewModel = SetHeaderSettingsViewModel(
         setDocument: setDocument,
         setTemplatesInteractor: setTemplatesInteractor,
-        isActive: isActiveHeader,
         onViewTap: showViewPicker,
         onSettingsTap: showSetSettings,
         onCreateTap: createObject,
@@ -73,10 +72,6 @@ final class EditorSetViewModel: ObservableObject {
     
     var isEmptyQuery: Bool {
         setDocument.details?.setOf.first { $0.isNotEmpty } == nil
-    }
-    
-    var isActiveHeader: Bool {
-        !isEmptyQuery || setDocument.isCollection()
     }
     
     var showEmptyState: Bool {
