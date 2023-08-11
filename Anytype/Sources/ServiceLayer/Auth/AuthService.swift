@@ -65,7 +65,7 @@ final class AuthService: AuthServiceProtocol {
                 $0.disableLocalNetworkSync = true
             }).invoke()
     
-            let middleTime = ((CFAbsoluteTimeGetCurrent() - start) * 1_000).rounded() // milliseconds
+            let middleTime = Int(((CFAbsoluteTimeGetCurrent() - start) * 1_000)) // milliseconds
             
             let analyticsId = response.account.info.analyticsID
             AnytypeAnalytics.instance().setUserId(analyticsId)
