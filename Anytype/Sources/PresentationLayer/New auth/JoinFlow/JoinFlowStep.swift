@@ -1,8 +1,7 @@
 enum JoinFlowStep: Int, CaseIterable {
-    case void = 1
-    case key
-    case soul
     case creatingSoul
+    case soul
+    case key
     
     var next: JoinFlowStep? {
         let nextStepNumber = self.rawValue + 1
@@ -21,11 +20,11 @@ enum JoinFlowStep: Int, CaseIterable {
     }
     
     static var firstStep: JoinFlowStep {
-        JoinFlowStep.allCases.first ?? .void
+        JoinFlowStep.allCases.first ?? .creatingSoul
     }
     
-    var isFirst: Bool {
-        self == JoinFlowStep.allCases.first
+    var isFirstCountable: Bool {
+        self == JoinFlowStep.allCases.filter { $0.countableStep }.first
     }
     
     var isLast: Bool {
@@ -36,11 +35,11 @@ enum JoinFlowStep: Int, CaseIterable {
         JoinFlowStep.allCases.filter { $0.countableStep }.count
     }
     
-    private var countableStep: Bool {
+    var countableStep: Bool {
         switch self {
         case .creatingSoul:
             return false
-        case .void, .key, .soul:
+        case .key, .soul:
             return true
         }
     }

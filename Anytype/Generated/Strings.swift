@@ -758,31 +758,57 @@ internal enum Loc {
     internal enum JoinFlow {
       internal enum Creating {
         internal enum Soul {
-          /// Creating your Identity…
-          internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Creating.Soul.Title", fallback: "Creating your Identity…")
+          /// Generating new Anytype identity
+          internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Creating.Soul.Title", fallback: "Generating new Anytype identity")
         }
       }
       internal enum Key {
-        /// Your data is encrypted by the Key above - your secret Recovery phrase. Store it securely. This is the only way to login and access your Void.
-        internal static let description = Loc.tr("Localizable", "Auth.JoinFlow.Key.Description", fallback: "Your data is encrypted by the Key above - your secret Recovery phrase. Store it securely. This is the only way to login and access your Void.")
-        /// End-to-end Encryption
-        internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.Title", fallback: "End-to-end Encryption")
+        /// To log in into your account you need a recovery phrase. It is 12 random words, like a master password for all data. Save it now or later in settings.
+        internal static let description = Loc.tr("Localizable", "Auth.JoinFlow.Key.Description", fallback: "To log in into your account you need a recovery phrase. It is 12 random words, like a master password for all data. Save it now or later in settings.")
+        /// Save your recovery phrase
+        internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.Title", fallback: "Save your recovery phrase")
         internal enum Button {
           internal enum Copy {
             /// Copy to clipboard
             internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.Button.Copy.Title", fallback: "Copy to clipboard")
           }
+          internal enum Info {
+            /// Learn more
+            internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.Button.Info.Title", fallback: "Learn more")
+          }
           internal enum Later {
-            /// Check later
-            internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.Button.Later.Title", fallback: "Check later")
+            /// Do it later
+            internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.Button.Later.Title", fallback: "Do it later")
           }
           internal enum Saved {
-            /// I saved my key
-            internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.Button.Saved.Title", fallback: "I saved my key")
+            /// Enter your space
+            internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.Button.Saved.Title", fallback: "Enter your space")
           }
           internal enum Show {
-            /// Show me the key
-            internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.Button.Show.Title", fallback: "Show me the key")
+            /// Show Recovery Phrase
+            internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.Button.Show.Title", fallback: "Show Recovery Phrase")
+          }
+        }
+        internal enum Description {
+          /// Lose the Recovery Phrase, lose your account. It's irreplaceable, so secure it well. Quick option: Save to password manager. Safest option: Write on paper and store offline in a secure spot.
+          internal static let shown = Loc.tr("Localizable", "Auth.JoinFlow.Key.Description.Shown", fallback: "Lose the Recovery Phrase, lose your account. It's irreplaceable, so secure it well. Quick option: Save to password manager. Safest option: Write on paper and store offline in a secure spot.")
+        }
+        internal enum MoreInfo {
+          /// Your Recovery Phrase protects your data cryptographically. No one can access your data without your Recovery Phrase (not even Anytype).
+          /// That makes it very important to keep it safe, and equally importantly, to keep it to yourself.
+          /// 
+          /// **So again, please don't share your Recovery Phrase.**
+          /// 
+          /// **One last important thing...**
+          /// We do not know your Recovery Phrase and will never ask for it. If you lose it, no one, including Anytype, can help you restore your data. So, it's essential you keep it somewhere safe.
+          /// 
+          /// **The easiest way so store your Recovery Phrase is to save it to your password manager.
+          /// 
+          /// The securest way is to write it down on paper and keep it offline, in a safe and secure place.**
+          internal static let description = Loc.tr("Localizable", "Auth.JoinFlow.Key.MoreInfo.Description", fallback: "Your Recovery Phrase protects your data cryptographically. No one can access your data without your Recovery Phrase (not even Anytype).\nThat makes it very important to keep it safe, and equally importantly, to keep it to yourself.\n\n**So again, please don't share your Recovery Phrase.**\n\n**One last important thing...**\nWe do not know your Recovery Phrase and will never ask for it. If you lose it, no one, including Anytype, can help you restore your data. So, it's essential you keep it somewhere safe.\n\n**The easiest way so store your Recovery Phrase is to save it to your password manager.\n\nThe securest way is to write it down on paper and keep it offline, in a safe and secure place.**")
+          internal enum Button {
+            /// Sounds good
+            internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.MoreInfo.Button.Title", fallback: "Sounds good")
           }
         }
         internal enum TextField {
@@ -798,27 +824,17 @@ internal enum Loc {
       }
       internal enum Setting {
         internal enum Space {
-          /// Setting up the Personal space...
-          internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Setting.Space.Title", fallback: "Setting up the Personal space...")
+          /// Setting up your Personal space
+          internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Setting.Space.Title", fallback: "Setting up your Personal space")
         }
       }
       internal enum Soul {
-        /// Great! As a last step, let's create your Identity and enter your name. Don't worry – you can always change the name later.
-        internal static let description = Loc.tr("Localizable", "Auth.JoinFlow.Soul.Description", fallback: "Great! As a last step, let's create your Identity and enter your name. Don't worry – you can always change the name later.")
-        /// Name
-        internal static let placeholder = Loc.tr("Localizable", "Auth.JoinFlow.Soul.Placeholder", fallback: "Name")
-        /// Anytype Identity
-        internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Soul.Title", fallback: "Anytype Identity")
-        internal enum Button {
-          /// Go to the app
-          internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Soul.Button.Title", fallback: "Go to the app")
-        }
-      }
-      internal enum Void {
-        /// It is an encrypted location for everything you create. Everything is stored on your device, and backed up to the distributed network.
-        internal static let description = Loc.tr("Localizable", "Auth.JoinFlow.Void.Description", fallback: "It is an encrypted location for everything you create. Everything is stored on your device, and backed up to the distributed network.")
-        /// This is your Void
-        internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Void.Title", fallback: "This is your Void")
+        /// First, choose a name to use inside Anytype.
+        internal static let description = Loc.tr("Localizable", "Auth.JoinFlow.Soul.Description", fallback: "First, choose a name to use inside Anytype.")
+        /// Untitled
+        internal static let placeholder = Loc.tr("Localizable", "Auth.JoinFlow.Soul.Placeholder", fallback: "Untitled")
+        /// Set a name for new identity
+        internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Soul.Title", fallback: "Set a name for new identity")
       }
     }
     internal enum LoginFlow {
@@ -848,8 +864,8 @@ internal enum Loc {
       }
     }
     internal enum Welcome {
-      /// For those who celebrate trust & autonomy. Anytype is your safe space to write, plan, think and organise everything that matters to you
-      internal static let subtitle = Loc.tr("Localizable", "Auth.Welcome.Subtitle", fallback: "For those who celebrate trust & autonomy. Anytype is your safe space to write, plan, think and organise everything that matters to you")
+      /// Anytype is your safe space to write, plan, think and organise everything that matters to you.
+      internal static let subtitle = Loc.tr("Localizable", "Auth.Welcome.Subtitle", fallback: "Anytype is your safe space to write, plan, think and organise everything that matters to you.")
       /// the
       /// everything
       /// app

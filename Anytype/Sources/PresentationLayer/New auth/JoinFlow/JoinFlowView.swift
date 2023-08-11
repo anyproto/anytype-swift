@@ -11,14 +11,16 @@ struct JoinFlowView: View {
         }
         .customBackSwipe {
             guard !model.disableBackAction else { return }
-            if model.step.isFirst {
+            if model.step.isFirstCountable {
                  presentationMode.dismiss()
              } else {
                  model.onBack()
              }
         }
         .ifLet(model.errorText) { view, errorText in
-            view.alertView(isShowing: $model.showError, errorText: errorText)
+            view.alertView(isShowing: $model.showError, errorText: errorText, onButtonTap: {
+                presentationMode.dismiss()
+            })
         }
         .fitIPadToReadableContentGuide()
     }
@@ -29,7 +31,9 @@ struct JoinFlowView: View {
             
             navigationBar
             
-            Spacer.fixedHeight(height / Constants.offsetFactor)
+            Spacer.fixedHeight(
+                UIDevice.isPad || !model.step.countableStep ? height / Constants.offsetFactor : Constants.topOffset
+            )
             
             model.content()
                 .transition(model.forward ? .moveAndFadeForward: .moveAndFadeBack)
@@ -43,28 +47,28 @@ struct JoinFlowView: View {
     
     private var navigationBar : some View {
         VStack(spacing: 13) {
-            LineProgressBar(
-                percent: model.percent,
-                configuration: model.progressBarConfiguration
-            )
             HStack {
-                backButton
                 Spacer()
                 counter
+                Spacer()
             }
+            .overlay(alignment: .leading, content: {
+                backButton
+            })
         }
         .opacity(model.showNavigation ? 1 : 0)
+        .frame(height: 44)
     }
     
     private var backButton : some View {
         Button(action: {
-            if model.step.isFirst {
+            if model.step.isFirstCountable {
                 presentationMode.dismiss()
             } else {
                 model.onBack()
             }
         }) {
-            Image(asset: .backArrow)
+            Image(asset: .X18.slashMenuArrow)
                 .foregroundColor(.Text.tertiary)
         }
         .disabled(model.disableBackAction)
@@ -89,6 +93,7 @@ struct JoinFlowView_Previews : PreviewProvider {
 
 extension JoinFlowView {
     enum Constants {
-        static let offsetFactor = UIDevice.isPad ? 3.0 : 4.5
+        static let offsetFactor = UIDevice.isPad ? 3.5 : 4.5
+        static let topOffset: CGFloat = 36
     }
 }

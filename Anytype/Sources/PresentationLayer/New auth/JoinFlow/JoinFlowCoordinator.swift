@@ -11,21 +11,21 @@ final class JoinFlowCoordinator: JoinFlowCoordinatorProtocol, JoinFlowOutput {
     // MARK: - DI
     
     private let joinFlowModuleAssembly: JoinFlowModuleAssemblyProtocol
-    private let voidViewModuleAssembly: VoidViewModuleAssemblyProtocol
     private let keyViewModuleAssembly: KeyPhraseViewModuleAssemblyProtocol
+    private let keyPhraseMoreInfoViewModuleAssembly: KeyPhraseMoreInfoViewModuleAssemblyProtocol
     private let soulViewModuleAssembly: SoulViewModuleAssemblyProtocol
     private let creatingSoulViewModuleAssembly: CreatingSoulViewModuleAssemblyProtocol
     
     init(
         joinFlowModuleAssembly: JoinFlowModuleAssemblyProtocol,
-        voidViewModuleAssembly: VoidViewModuleAssemblyProtocol,
         keyViewModuleAssembly: KeyPhraseViewModuleAssemblyProtocol,
+        keyPhraseMoreInfoViewModuleAssembly: KeyPhraseMoreInfoViewModuleAssemblyProtocol,
         soulViewModuleAssembly: SoulViewModuleAssemblyProtocol,
         creatingSoulViewModuleAssembly: CreatingSoulViewModuleAssemblyProtocol
     ) {
         self.joinFlowModuleAssembly = joinFlowModuleAssembly
-        self.voidViewModuleAssembly = voidViewModuleAssembly
         self.keyViewModuleAssembly = keyViewModuleAssembly
+        self.keyPhraseMoreInfoViewModuleAssembly = keyPhraseMoreInfoViewModuleAssembly
         self.soulViewModuleAssembly = soulViewModuleAssembly
         self.creatingSoulViewModuleAssembly = creatingSoulViewModuleAssembly
     }
@@ -40,14 +40,16 @@ final class JoinFlowCoordinator: JoinFlowCoordinatorProtocol, JoinFlowOutput {
     
     func onStepChanged(_ step: JoinFlowStep, state: JoinFlowState, output: JoinFlowStepOutput) -> AnyView {
         switch step {
-        case .void:
-            return voidViewModuleAssembly.make(state: state, output: output)
-        case .key:
-            return keyViewModuleAssembly.make(state: state, output: output)
-        case .soul:
-            return soulViewModuleAssembly.make(state: state, output: output)
         case .creatingSoul:
             return creatingSoulViewModuleAssembly.make(state: state, output: output)
+        case .soul:
+            return soulViewModuleAssembly.make(state: state, output: output)
+        case .key:
+            return keyViewModuleAssembly.make(state: state, output: output)
         }
+    }
+    
+    func keyPhraseMoreInfo() -> AnyView {
+        keyPhraseMoreInfoViewModuleAssembly.make()
     }
 }

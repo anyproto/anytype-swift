@@ -11,7 +11,7 @@ struct SoulView: View {
             Spacer()
             
             StandardButton(
-                Loc.Auth.JoinFlow.Soul.Button.title,
+                Loc.Auth.next,
                 inProgress: model.inProgress,
                 style: .primaryLarge,
                 action: {
@@ -28,17 +28,12 @@ struct SoulView: View {
     
     private var content: some View {
         VStack(spacing: 0) {
-            AnytypeText(Loc.Auth.JoinFlow.Soul.title, style: .uxTitle1Semibold, color: .Text.primary)
-                .opacity(0.9)
-            Spacer.fixedHeight(16)
+            AnytypeText(Loc.Auth.JoinFlow.Soul.title, style: .heading, color: .Auth.inputText)
+                .multilineTextAlignment(.center)
+            
+            Spacer.fixedHeight(26)
             
             input
-            
-            Spacer.fixedHeight(9)
-            AnytypeText(Loc.Auth.JoinFlow.Soul.description, style: .authBody, color: .Auth.body)
-                .multilineTextAlignment(.center)
-                .fixedSize(horizontal: false, vertical: true)
-                .padding(.horizontal, 24)
         }
         .padding(.horizontal, UIDevice.isPad ? 75 : 0)
     }
@@ -54,10 +49,11 @@ struct SoulView: View {
             .autocapitalization(.sentences)
             .font(AnytypeFontBuilder.font(anytypeFont: .authInput))
             .foregroundColor(.Auth.inputText)
-            .padding(EdgeInsets(horizontal: 22, vertical: 18))
+            .padding(EdgeInsets(horizontal: 22, vertical: 23))
             .background(Color.Auth.input)
             .accentColor(.Auth.inputText)
             .cornerRadius(24)
+            .frame(height: 68)
     }
 }
 
