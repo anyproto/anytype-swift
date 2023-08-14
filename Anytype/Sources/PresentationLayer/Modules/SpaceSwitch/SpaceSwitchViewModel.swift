@@ -24,6 +24,7 @@ final class SpaceSwitchViewModel: ObservableObject {
     @Published var profileName: String = ""
     @Published var profileIcon: Icon?
     @Published var spaceCreateLoading: Bool = false
+    @Published var scrollToRowId: String? = nil
     
     init(
         workspacesStorage: WorkspacesStorageProtocol,
@@ -96,6 +97,10 @@ final class SpaceSwitchViewModel: ObservableObject {
             ) { [weak self] in
                 self?.onTapWorkspace(workspace: workspace)
             }
+        }
+        
+        if scrollToRowId.isNil, let selectedRow = rows.first(where: { $0.isSelected }) {
+            scrollToRowId = selectedRow.id
         }
     }
     
