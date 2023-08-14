@@ -4,6 +4,8 @@ final class ObjectHeaderEmptyContentView: UIView, BlockContentView {
     // MARK: - Private variables
     private let emptyView = UIView()
     private let tapGesture = BindableGestureRecognizer()
+    
+    private var heightConstraint: NSLayoutConstraint?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -25,6 +27,13 @@ final class ObjectHeaderEmptyContentView: UIView, BlockContentView {
         tapGesture.action = { _ in
             configuration.data.onTap()
         }
+        
+        switch configuration.data.presentationStyle {
+        case .editor:
+            heightConstraint?.constant = ObjectHeaderConstants.emptyViewHeight
+        case .templateEditing:
+            heightConstraint?.constant = ObjectHeaderConstants.templateEditingEmptyViewHeight
+        }
     }
 }
 
@@ -40,7 +49,7 @@ private extension ObjectHeaderEmptyContentView  {
         addSubview(emptyView) {
             $0.pinToSuperview(excluding: [.bottom])
             $0.bottom.equal(to: bottomAnchor, priority: .init(rawValue: 999))
-            $0.height.equal(to: ObjectHeaderConstants.emptyViewHeight)
+            heightConstraint = $0.height.equal(to: ObjectHeaderConstants.emptyViewHeight)
         }
     }
 }

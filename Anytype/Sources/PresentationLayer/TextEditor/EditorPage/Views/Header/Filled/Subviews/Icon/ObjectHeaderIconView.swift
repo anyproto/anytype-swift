@@ -17,6 +17,12 @@ final class ObjectHeaderIconView: UIView {
             iconViewLeadingConstraint?.constant = initialBorderWidth
         }
     }
+    
+    var borderColor: UIColor = .Background.primary {
+        didSet {
+            setupBackgroundColor(color: borderColor)
+        }
+    }
 
     // MARK: - Private variables
     
@@ -159,16 +165,15 @@ private extension ObjectHeaderIconView {
         previewImageView.isHidden = true
         activityIndicatorView.hide()
         
-        setupBackgroundColor()
         setupLayout()
     }
     
-    func setupBackgroundColor() {
-        backgroundColor = .Background.primary
+    func setupBackgroundColor(color: UIColor) {
+        backgroundColor = color
         
-        containerView.backgroundColor = .Background.primary
-        iconImageView.backgroundColor = .Background.primary
-        previewImageView.backgroundColor = .Background.primary
+        containerView.backgroundColor = color
+        iconImageView.backgroundColor = color
+        previewImageView.backgroundColor = color
     }
     
     func setupLayout() {
