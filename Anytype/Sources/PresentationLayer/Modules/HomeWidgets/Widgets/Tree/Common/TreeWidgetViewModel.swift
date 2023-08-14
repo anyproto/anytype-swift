@@ -2,6 +2,7 @@ import Foundation
 import Services
 import Combine
 import SwiftUI
+import AnytypeCore
 
 @MainActor
 final class TreeWidgetViewModel: ObservableObject, WidgetContainerContentViewModelProtocol {
@@ -19,6 +20,7 @@ final class TreeWidgetViewModel: ObservableObject, WidgetContainerContentViewMod
 
     private let internalModel: any WidgetInternalViewModelProtocol
     private let subscriptionManager: TreeSubscriptionManagerProtocol
+    private let objectActionsService: ObjectActionsServiceProtocol
     private weak var output: CommonWidgetModuleOutput?
     
     // MARK: - State
@@ -38,11 +40,13 @@ final class TreeWidgetViewModel: ObservableObject, WidgetContainerContentViewMod
         widgetBlockId: BlockId,
         internalModel: any WidgetInternalViewModelProtocol,
         subscriptionManager: TreeSubscriptionManagerProtocol,
+        objectActionsService: ObjectActionsServiceProtocol,
         output: CommonWidgetModuleOutput?
     ) {
         self.dragId = widgetBlockId
         self.internalModel = internalModel
         self.subscriptionManager = subscriptionManager
+        self.objectActionsService = objectActionsService
         self.output = output
     }
     
@@ -154,6 +158,9 @@ final class TreeWidgetViewModel: ObservableObject, WidgetContainerContentViewMod
                     canBeExpanded: level < Constants.maxExpandableLevel
                 ),
                 level: level,
+                onIconTap: { [weak self] in
+                    self?.updateDone(details: details)
+                },
                 tapExpand: { [weak self] model in
                     self?.onTapExpand(model: model)
                 },
@@ -176,6 +183,16 @@ final class TreeWidgetViewModel: ObservableObject, WidgetContainerContentViewMod
     
     private var subscriptionData: [ObjectDetails] {
         return (firstLevelSubscriptionData ?? []) + (childSubscriptionData ?? [])
+    }
+    
+    private func updateDone(details: ObjectDetails) {
+        guard
+            FeatureFlags.widgetTaskDone else { return }
+        guard details.layoutValue == .todo else { return }
+        
+        Task {
+            try await objectActionsService.updateBundledDetails(contextID: details.id, details: [.done(!details.done)])
+        }
     }
 }
 

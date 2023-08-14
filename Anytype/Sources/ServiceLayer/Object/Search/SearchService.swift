@@ -16,6 +16,7 @@ protocol SearchServiceProtocol: AnyObject {
     
     func searchMarketplaceObjectTypes(text: String, includeInstalled: Bool) async throws -> [ObjectDetails]
     func searchFiles(text: String, excludedFileIds: [String]) async throws -> [ObjectDetails]
+    func searchImages() async throws -> [ObjectDetails]
     func searchObjects(text: String, excludedObjectIds: [String], limitedTypeIds: [String]) async throws -> [ObjectDetails]
     func searchTemplates(for type: ObjectTypeId) async throws -> [ObjectDetails]
     func searchObjects(
@@ -158,6 +159,22 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         ]
         
         return try await search(filters: filters, sorts: [sort], fullText: text, limit: Constants.defaultLimit)
+    }
+    
+    func searchImages() async throws -> [ObjectDetails] {
+        let sort = SearchHelper.sort(
+            relation: BundledRelationKey.id,
+            type: .desc
+        )
+        
+        let filters = [
+            SearchHelper.notHiddenFilter(),
+            SearchHelper.isDeletedFilter(isDeleted: false),
+            SearchHelper.layoutFilter([DetailsLayout.image]),
+            SearchHelper.workspaceId(accountManager.account.info.accountSpaceId),
+        ]
+        
+        return try await search(filters: filters, sorts: [sort], fullText: "", limit: Constants.defaultLimit)
     }
     
     func searchObjects(text: String, excludedObjectIds: [String], limitedTypeIds: [String]) async throws -> [ObjectDetails] {

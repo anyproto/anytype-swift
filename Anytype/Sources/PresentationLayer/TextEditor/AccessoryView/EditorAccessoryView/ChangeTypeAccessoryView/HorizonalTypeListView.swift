@@ -24,7 +24,7 @@ struct HorizonalTypeListView: View {
 }
 
 private struct TypeView: View {
-    let image: ObjectIconImage
+    let image: Icon
     let title: String
 
     var body: some View {
@@ -42,11 +42,8 @@ private struct TypeView: View {
     }
 
     private var imageView: some View {
-        SwiftUIObjectIconImageView(
-            iconImage: image,
-            usecase: .editorAccessorySearch
-        )
-        .frame(width: 52, height: 52)
+        IconView(icon: image)
+            .frame(width: 52, height: 52)
     }
 }
 

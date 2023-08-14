@@ -56,7 +56,7 @@ private extension ContentUrlBuilder {
         components.path = "\(Constants.imageSubPath)\(imageMetadata.id)"
         
         switch imageMetadata.width {
-        case .custom(let width):
+        case .width(let width):
             components.queryItems = [makeCustomWidthQueryItem(width: width)]
             return components.url
         case .original:
@@ -77,7 +77,6 @@ private extension ContentUrlBuilder {
         
         return URLQueryItem(name: Constants.widthQueryItemName, value: queryItemValue)
     }
-    
 }
 
 // MARK: - Constants
