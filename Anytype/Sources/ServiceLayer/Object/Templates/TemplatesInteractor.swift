@@ -16,6 +16,10 @@ final class SetTemplatesInteractor: SetTemplatesInteractorProtocol {
             return true
         }
         
+        if setDocument.isCollection() {
+            return UserDefaultsConfig.defaultObjectType.recommendedLayout.isTemplatesAvailable
+        }
+        
         guard setObject.setOf.count == 1,
                 let typeId = setObject.setOf.first else {
             return false
