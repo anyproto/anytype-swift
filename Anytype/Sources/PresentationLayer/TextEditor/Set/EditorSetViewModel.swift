@@ -21,7 +21,6 @@ final class EditorSetViewModel: ObservableObject {
     lazy var headerSettingsViewModel = SetHeaderSettingsViewModel(
         setDocument: setDocument,
         setTemplatesInteractor: setTemplatesInteractor,
-        isActive: isActiveHeader,
         onViewTap: showViewPicker,
         onSettingsTap: showSetSettings,
         onCreateTap: createObject,
@@ -73,10 +72,6 @@ final class EditorSetViewModel: ObservableObject {
     
     var isEmptyQuery: Bool {
         setDocument.details?.setOf.first { $0.isNotEmpty } == nil
-    }
-    
-    var isActiveHeader: Bool {
-        !isEmptyQuery || setDocument.isCollection()
     }
     
     var showEmptyState: Bool {
@@ -169,7 +164,15 @@ final class EditorSetViewModel: ObservableObject {
     
     func setup(router: EditorSetRouterProtocol) {
         self.router = router
-        self.headerModel = ObjectHeaderViewModel(document: setDocument, router: router, isOpenedForPreview: false)
+        self.headerModel = ObjectHeaderViewModel(
+            document: setDocument,
+            router: router,
+            configuration: .init(
+                isOpenedForPreview: false,
+                shouldShowTemplateSelection: false,
+                usecase: .editor
+            )
+        )
         
         setDocument.setUpdatePublisher.sink { [weak self] in
             self?.onDataChange($0)

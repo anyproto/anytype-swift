@@ -9,6 +9,7 @@ struct HeaderViewSizeConfiguration: Hashable {
     let iconHorizontalInset: CGFloat
     let onlyIconTopInset: CGFloat
     let iconBorderWidth: CGFloat
+    let iconBorderColor: UIColor
 }
 
 extension HeaderViewSizeConfiguration {
@@ -21,7 +22,8 @@ extension HeaderViewSizeConfiguration {
             iconBottomInset: ObjectHeaderConstants.iconBottomInset,
             iconHorizontalInset: ObjectHeaderConstants.iconHorizontalInset,
             onlyIconTopInset: ObjectHeaderConstants.emptyViewHeight,
-            iconBorderWidth: 4
+            iconBorderWidth: 4,
+            iconBorderColor: .Background.primary
         )
     }
     
@@ -33,6 +35,7 @@ extension HeaderViewSizeConfiguration {
         iconBottomInset: 0,
         iconHorizontalInset: 16,
         onlyIconTopInset: 28,
-        iconBorderWidth: 2
+        iconBorderWidth: 2,
+        iconBorderColor: .Background.secondary
     )
 }

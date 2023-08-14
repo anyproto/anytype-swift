@@ -154,11 +154,12 @@ extension TemplatePreviewModel {
                 header: HeaderBuilder.buildObjectHeader(
                     details: objectDetails,
                     usecase: .templatePreview,
+                    presentationUsecase: .editor,
                     onIconTap: {},
                     onCoverTap: {}
                 ),
                 isBundled: objectDetails.templateIsBundled,
-                style: objectDetails.layoutValue == .todo ? .todo(false) : .none
+                style: objectDetails.layoutValue == .todo ? .todo(objectDetails.isDone) : .none
             )
             ),
             alignment: objectDetails.layoutAlignValue,

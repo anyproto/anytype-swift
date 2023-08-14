@@ -4,8 +4,8 @@ import Services
 
 class SetHeaderSettingsViewModel: ObservableObject {
     @Published var viewName = ""
-    @Published var isActive: Bool = true
-    @Published var isTemplatesSelectionAvailable: Bool = false
+    @Published var isActive = true
+    @Published var isTemplatesSelectionAvailable = false
     
     private let setDocument: SetDocumentProtocol
     private let setTemplatesInteractor: SetTemplatesInteractorProtocol
@@ -19,7 +19,6 @@ class SetHeaderSettingsViewModel: ObservableObject {
     init(
         setDocument: SetDocumentProtocol,
         setTemplatesInteractor: SetTemplatesInteractorProtocol,
-        isActive: Bool,
         onViewTap: @escaping () -> Void,
         onSettingsTap: @escaping () -> Void,
         onCreateTap: @escaping () -> Void,
@@ -27,7 +26,6 @@ class SetHeaderSettingsViewModel: ObservableObject {
     ) {
         self.setDocument = setDocument
         self.setTemplatesInteractor = setTemplatesInteractor
-        self.isActive = isActive
         self.onViewTap = onViewTap
         self.onSettingsTap = onSettingsTap
         self.onCreateTap = onCreateTap
@@ -44,7 +42,7 @@ class SetHeaderSettingsViewModel: ObservableObject {
         
         setDocument.detailsPublisher
             .sink { [weak self] details in
-                self?.isActive = details.setOf.first { $0.isNotEmpty } != nil
+                self?.isActive = details.setOf.first { $0.isNotEmpty } != nil || details.isCollection
                 
                 self?.checkTemplatesAvailablility(details: details)
             }

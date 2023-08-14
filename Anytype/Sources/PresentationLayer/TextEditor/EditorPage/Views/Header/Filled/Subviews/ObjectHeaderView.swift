@@ -76,6 +76,8 @@ extension ObjectHeaderView: ConfigurableView {
     func configure(model: Model) {
         update(sizeConfiguration: model.sizeConfiguration)
         iconView.initialBorderWidth = model.sizeConfiguration.iconBorderWidth
+        iconView.borderColor = model.sizeConfiguration.iconBorderColor
+        
         
         switch model.state {
         case .iconOnly(let objectHeaderIconState):

@@ -2,11 +2,14 @@ import Services
 import UIKit
 
 extension AnytypeAnalytics {
-    func logAccountCreate(analyticsId: String) {
+    func logAccountCreate(analyticsId: String, middleTime: Int) {
 
         logEvent(
             AnalyticsEventsName.createAccount,
-            withEventProperties: [AnalyticsEventsPropertiesKey.accountId : analyticsId]
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.accountId : analyticsId,
+                AnalyticsEventsPropertiesKey.middleTime : middleTime
+            ]
         )
     }
     
