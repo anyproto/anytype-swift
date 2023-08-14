@@ -23,6 +23,7 @@ struct HomeWidgetsView: View {
                     .animation(.default, value: model.hideEditButton)
                 }
                 .padding(.horizontal, 20)
+                .padding(.top, 12)
                 .opacity(model.dataLoaded ? 1 : 0)
                 .animation(.default.delay(0.3), value: model.dataLoaded)
                 .fitIPadToReadableContentGuide()

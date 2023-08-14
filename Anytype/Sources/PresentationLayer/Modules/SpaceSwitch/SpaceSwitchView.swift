@@ -4,6 +4,8 @@ struct SpaceSwitchView: View {
     
     @StateObject var model: SpaceSwitchViewModel
     
+    @State private var headerSize: CGSize = .zero
+    
     private let columns = [
         GridItem(.flexible(), alignment: .top),
         GridItem(.flexible(), alignment: .top),
@@ -22,27 +24,35 @@ struct SpaceSwitchView: View {
     }
     
     private var contentContainer: some View {
-        VStack {
+        ZStack(alignment: .top) {
+            VerticalScrollViewWithOverlayHeader {
+                Color.clear
+                    .frame(height: headerSize.height)
+                    .background(Color.Background.material)
+                    .background(.ultraThinMaterial)
+            } content: {
+                content
+            }
+            .hideScrollIndicatorLegacy()
             header
-            content
+                .readSize { size in
+                    headerSize = size
+                }
         }
         .background(Color.Background.material)
     }
     
     private var content: some View {
-        ScrollView {
-            LazyVGrid(columns: columns, spacing: 14) {
-                ForEach(model.rows) { row in
-                    SpaceRowView(model: row)
-                }
-                SpacePlusRow(loading: model.spaceCreateLoading) {
-                    model.onTapAddSpace()
-                }
+        LazyVGrid(columns: columns, spacing: 16) {
+            ForEach(model.rows) { row in
+                SpaceRowView(model: row)
             }
-            .padding([.top], 20)
-            .animation(.default, value: model.rows.count)
+            SpacePlusRow(loading: model.spaceCreateLoading) {
+                model.onTapAddSpace()
+            }
         }
-        .hideScrollIndicatorLegacy()
+        .padding([.top], headerSize.height + 14)
+        .animation(.default, value: model.rows.count)
     }
 
     private var header: some View {
