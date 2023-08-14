@@ -9,9 +9,9 @@ struct TemplatesSelectionView: View {
 
     var body: some View {
         VStack {
-            Spacer.fixedHeight(16)
+            Spacer.fixedHeight(8)
             navigation
-            Spacer.fixedHeight(14)
+            Spacer.fixedHeight(8)
             collection
             Spacer.fixedHeight(24)
         }

@@ -239,6 +239,14 @@ extension AnytypeFont {
                 lineHeight: 22,
                 kern: -0.24
             )
+        case .navigationBarTitle:
+            return AnytypeFontConfig(
+                fontName: .inter,
+                size: 15,
+                weight: .semibold,
+                lineHeight: 20,
+                kern: -0.24
+            )
         }
     }
     

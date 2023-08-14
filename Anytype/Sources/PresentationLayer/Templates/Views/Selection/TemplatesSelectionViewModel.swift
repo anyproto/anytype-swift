@@ -154,6 +154,7 @@ extension TemplatePreviewModel {
                 header: HeaderBuilder.buildObjectHeader(
                     details: objectDetails,
                     usecase: .templatePreview,
+                    presentationUsecase: .editor,
                     onIconTap: {},
                     onCoverTap: {}
                 ),

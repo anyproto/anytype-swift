@@ -65,7 +65,14 @@ final class TemplateSelectionCoordinator: TemplateSelectionCoordinatorProtocol {
     func showTemplateEditing(blockId: BlockId, onTemplateSelection: @escaping (BlockId) -> Void) {
         let editorPage = editorAssembly.buildEditorModule(
             browser: nil,
-            data: .page(.init(objectId: blockId, isSupportedForEdit: true, isOpenedForPreview: false))
+            data: .page(
+                .init(
+                    objectId: blockId,
+                    isSupportedForEdit: true,
+                    isOpenedForPreview: false,
+                    usecase: .templateEditing
+                )
+            )
         )
         let editingTemplateViewController = TemplateEditingViewController(
             editorViewController: editorPage.vc,
