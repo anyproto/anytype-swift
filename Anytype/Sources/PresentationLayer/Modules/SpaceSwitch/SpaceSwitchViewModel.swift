@@ -10,7 +10,6 @@ final class SpaceSwitchViewModel: ObservableObject {
     private let workspacesStorage: WorkspacesStorageProtocol
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private let subscriptionService: SingleObjectSubscriptionServiceProtocol
-    private let workspaceService: WorkspaceServiceProtocol
     private weak var output: SpaceSwitchModuleOutput?
     
     // MARK: - State
@@ -30,33 +29,18 @@ final class SpaceSwitchViewModel: ObservableObject {
         workspacesStorage: WorkspacesStorageProtocol,
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
         subscriptionService: SingleObjectSubscriptionServiceProtocol,
-        workspaceService: WorkspaceServiceProtocol,
         output: SpaceSwitchModuleOutput?
     ) {
         self.workspacesStorage = workspacesStorage
         self.activeWorkspaceStorage = activeWorkspaceStorage
         self.subscriptionService = subscriptionService
-        self.workspaceService = workspaceService
         self.output = output
         startProfileSubscriotions()
         startSpacesSubscriotions()
     }
     
     func onTapAddSpace() {
-        Task {
-            // Stop and start for fix big delay between receive workspace list and apply active space.
-            // This delay occurs because middle send a lot of events for create workspace action.
-            // It only fixes the not nice view update.
-            spaceCreateLoading = true
-            stopSpacesSubscriotions()
-            defer {
-                spaceCreateLoading = false
-                startSpacesSubscriotions()
-            }
-            let spaceId = try await workspaceService.createWorkspace(name: "Workspace \(workspacesStorage.workspaces.count + 1)", gradient: .random)
-            try await activeWorkspaceStorage.setActiveSpace(spaceId: spaceId)
-        
-        }
+        output?.onCreateSpaceSelected()
     }
     
     func onTapProfile() {

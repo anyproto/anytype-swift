@@ -50,6 +50,7 @@ final class HomeWidgetsCoordinatorAssembly: HomeWidgetsCoordinatorAssemblyProtoc
             quickActionsStorage: serviceLocator.quickActionStorage(),
             widgetTypeModuleAssembly: modulesDI.widgetType(),
             spaceSwitchModuleAssembly: modulesDI.spaceSwitch(),
+            spaceCreateModuleAssembly: modulesDI.spaceCreate(),
             spaceSettingsCoordinatorAssembly: coordinatorsID.spaceSettings()
         )
     }
