@@ -147,7 +147,7 @@ extension BundledRelationsValueProvider {
     }
     
     var canMakeTemplate: Bool {
-        isTemplatesAvailable(for: layoutValue)
+        layoutValue.isTemplatesAvailable
     }
     
     var setIsTemplatesAvailable: Bool {
@@ -156,11 +156,6 @@ extension BundledRelationsValueProvider {
             return false
         }
         
-        return isTemplatesAvailable(for: recommendedLayout)
-    }
-    
-    private func isTemplatesAvailable(for layout: DetailsLayout) -> Bool {
-        return !DetailsLayout.layoutsWithoutTemplate.contains(layout) &&
-        DetailsLayout.pageLayouts.contains(layout)
+        return recommendedLayout.isTemplatesAvailable
     }
 }
