@@ -771,3 +771,6 @@
 "SpaceSettings.Title" = "Space settings";
 "SpaceSettings.RemoteStorage" = "Remote storage";
 "SpaceSettings.Info" = "Space info";
+
+// MARK: - Space Create
+"SpaceCreate.Title" = "Create a space";

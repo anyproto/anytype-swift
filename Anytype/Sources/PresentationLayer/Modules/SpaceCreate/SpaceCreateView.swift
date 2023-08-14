@@ -9,7 +9,7 @@ struct SpaceCreateView: View {
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
-            TitleView(title: "Create a space")
+            TitleView(title: Loc.SpaceCreate.title)
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 0) {
                     SettingsObjectHeader(name: $model.spaceName, nameTitle: Loc.Settings.spaceName, iconImage: model.spaceIcon, onTap: {})
@@ -19,7 +19,7 @@ struct SpaceCreateView: View {
                 }
             }
             .safeAreaInset(edge: .bottom) {
-                StandardButton(model: StandardButtonModel(text: "Create", inProgress: model.createLoadingState, style: .primaryLarge, action: {
+                StandardButton(model: StandardButtonModel(text: Loc.create, inProgress: model.createLoadingState, style: .primaryLarge, action: {
                     model.onTapCreate()
                 }))
             }
