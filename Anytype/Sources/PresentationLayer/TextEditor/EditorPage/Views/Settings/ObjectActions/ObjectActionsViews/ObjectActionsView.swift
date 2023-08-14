@@ -25,6 +25,8 @@ struct ObjectActionsView: View {
                             viewModel.linkItselfAction()
                         case .makeAsTemplate:
                             viewModel.makeAsTempalte()
+                        case .templateSetAsDefault:
+                            viewModel.makeAsTempalte()
                         }
                     }
                 }

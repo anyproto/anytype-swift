@@ -213,6 +213,7 @@
 "Undo" = "Undo";
 "Actions.LinkItself" = "Link to";
 "Actions.MakeAsTemplate" = "Make template";
+"Actions.TemplateMakeDefault" = "Set as default";
 
 // Object Type
 "Set" = "Set";

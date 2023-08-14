@@ -543,7 +543,13 @@ extension EditorRouter: ObjectSettingsModuleDelegate {
                     print(error.localizedDescription)
                 }
             }
+        } onSetAsDefaultTempalte: { _ in
+            
         }
+    }
+    
+    func didTapUseTemplateAsDefault(templateId: BlockId) {
+        anytypeAssertionFailure("Invalid delegate method handler")
     }
 }
 

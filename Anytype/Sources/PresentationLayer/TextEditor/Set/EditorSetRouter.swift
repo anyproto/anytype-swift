@@ -564,4 +564,8 @@ extension EditorSetRouter: ObjectSettingsModuleDelegate {
             self?.showPage(data: data)
         }
     }
+    
+    func didTapUseTemplateAsDefault(templateId: BlockId) {
+        anytypeAssertionFailure("Invalid delegate method handler")
+    }
 }

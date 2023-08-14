@@ -147,7 +147,11 @@ extension BundledRelationsValueProvider {
     }
     
     var canMakeTemplate: Bool {
-        layoutValue.isTemplatesAvailable
+        layoutValue.isTemplatesAvailable && !isTemplateType
+    }
+    
+    var isTemplateType: Bool {
+        type == ObjectTypeId.BundledTypeId.template.rawValue
     }
     
     var setIsTemplatesAvailable: Bool {
