@@ -30,19 +30,25 @@ struct SpaceSwitchView: View {
     }
     
     private var content: some View {
-        ScrollView {
-            LazyVGrid(columns: columns, spacing: 14) {
-                ForEach(model.rows) { row in
-                    SpaceRowView(model: row)
+        ScrollViewReader { reader in
+            ScrollView {
+                LazyVGrid(columns: columns, spacing: 14) {
+                    ForEach(model.rows, id: \.id) { row in
+                        SpaceRowView(model: row)
+                            .id(row.id)
+                    }
+                    SpacePlusRow(loading: model.spaceCreateLoading) {
+                        model.onTapAddSpace()
+                    }
                 }
-                SpacePlusRow(loading: model.spaceCreateLoading) {
-                    model.onTapAddSpace()
-                }
+                .padding([.top], 20)
+                .animation(.default, value: model.rows.count)
             }
-            .padding([.top], 20)
-            .animation(.default, value: model.rows.count)
+            .hideScrollIndicatorLegacy()
+            .onChange(of: model.scrollToRowId) { rowId in
+                reader.scrollTo(rowId)
+            }
         }
-        .hideScrollIndicatorLegacy()
     }
 
     private var header: some View {

@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-struct SpaceRowModel: Identifiable {
+struct SpaceRowModel {
     let id: String
     let title: String
     let icon: Icon?
