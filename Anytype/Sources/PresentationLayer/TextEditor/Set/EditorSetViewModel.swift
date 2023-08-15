@@ -21,10 +21,10 @@ final class EditorSetViewModel: ObservableObject {
     lazy var headerSettingsViewModel = SetHeaderSettingsViewModel(
         setDocument: setDocument,
         setTemplatesInteractor: setTemplatesInteractor,
-        onViewTap: showViewPicker,
-        onSettingsTap: showSetSettings,
-        onCreateTap: createObject,
-        onSecondaryCreateTap: onSecondaryCreateTap
+        onViewTap: { [weak self] in self?.showViewPicker() } ,
+        onSettingsTap: { [weak self] in self?.showSetSettings() } ,
+        onCreateTap: { [weak self] in self?.createObject() },
+        onSecondaryCreateTap: { [weak self] in self?.onSecondaryCreateTap() }
     )
     @Published var configurationsDict: OrderedDictionary<String, [SetContentViewItemConfiguration]> = [:]
     @Published var pagitationDataDict: OrderedDictionary<String, EditorSetPaginationData> = [:]
