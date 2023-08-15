@@ -3,7 +3,7 @@ import Services
 import UniformTypeIdentifiers
 import Combine
 
-final class TextIconPickerViewModel: ObjectIconPickerViewModelProtocol {
+final class TextIconPickerViewModel: ObservableObject, ObjectIconPickerViewModelProtocol {
     let mediaPickerContentType: MediaPickerContentType = .images
     let isRemoveButtonAvailable: Bool = false
 
