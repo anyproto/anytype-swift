@@ -118,7 +118,7 @@ final class FileStorageViewModel: ObservableObject {
     
     private func handleSpaceDetails(details: ObjectDetails) {
         spaceIcon = details.objectIconImage
-        spaceName = details.name.isNotEmpty ? details.name : Loc.untitled
+        spaceName = details.name.isNotEmpty ? details.name : Loc.Object.Title.placeholder
     }
     
     private func updateView(limits: FileLimits) {

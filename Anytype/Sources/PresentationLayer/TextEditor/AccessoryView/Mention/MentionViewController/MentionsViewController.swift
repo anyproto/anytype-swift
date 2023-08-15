@@ -63,7 +63,7 @@ final class MentionsViewController: UITableViewController {
         EditorSearchCellConfiguration(
             cellData: EditorSearchCellData(
                 title: mention.name,
-                subtitle: mention.type?.name ?? Loc.object,
+                subtitle: mention.type?.name ?? Loc.Mention.Subtitle.placeholder,
                 icon: mention.objectIcon,
                 expandedIcon: false
             )

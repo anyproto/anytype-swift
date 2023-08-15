@@ -109,7 +109,7 @@ extension SetFullHeader {
 
     private var titleView: some View {
         AutofocusedTextField(
-            placeholder: Loc.untitled,
+            placeholder: Loc.Object.Title.placeholder,
             placeholderFont: .title,
             shouldSkipFocusOnFilled: true,
             text: $model.titleString

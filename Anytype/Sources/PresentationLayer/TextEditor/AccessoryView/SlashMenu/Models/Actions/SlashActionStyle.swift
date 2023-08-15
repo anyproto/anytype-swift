@@ -21,35 +21,35 @@ enum SlashActionStyle: CaseIterable {
     var title: String {
         switch self {
         case .text:
-            return Loc.text
+            return Loc.TextStyle.Text.title
         case .title:
-            return Loc.title
+            return Loc.TextStyle.Title.title
         case .heading:
-            return Loc.heading
+            return Loc.TextStyle.Heading.title
         case .subheading:
-            return Loc.subheading
+            return Loc.TextStyle.Subheading.title
         case .highlighted:
-            return Loc.highlighted
+            return Loc.TextStyle.Highlighted.title
         case .callout:
-            return Loc.callout
+            return Loc.TextStyle.Callout.title
         case .checkbox:
-            return Loc.checkbox
+            return Loc.TextStyle.Checkbox.title
         case .bulleted:
-            return Loc.bulleted
+            return Loc.TextStyle.Bulleted.title
         case .numberedList:
-            return Loc.numberedList
+            return Loc.TextStyle.Numbered.title
         case .toggle:
-            return Loc.toggle
+            return Loc.TextStyle.Toggle.title
         case .bold:
-            return Loc.bold
+            return Loc.TextStyle.Bold.title
         case .italic:
-            return Loc.italic
+            return Loc.TextStyle.Italic.title
         case .strikethrough:
-            return Loc.strikethrough
+            return Loc.TextStyle.Strikethrough.title
         case .code:
-            return Loc.code
+            return Loc.TextStyle.Code.title
         case .link:
-            return Loc.link
+            return Loc.TextStyle.Link.title
         }
     }
     
@@ -91,25 +91,25 @@ enum SlashActionStyle: CaseIterable {
     var subtitle: String? {
         switch self {
         case .text:
-            return Loc.textBlockSubtitle
+            return Loc.TextStyle.Text.subtitle
         case .title:
-            return Loc.titleBlockSubtitle
+            return Loc.TextStyle.Title.subtitle
         case .heading:
-            return Loc.headingBlockSubtitle
+            return Loc.TextStyle.Heading.subtitle
         case .subheading:
-            return Loc.subheadingBlockSubtitle
+            return Loc.TextStyle.Subheading.subtitle
         case .highlighted:
-            return Loc.spotlightThatNeedsSpecialAttention
+            return Loc.TextStyle.Highlighted.subtitle
         case .callout:
-            return Loc.borderedTextWithIcon
+            return Loc.TextStyle.Callout.subtitle
         case .checkbox:
-            return Loc.checkboxBlockSubtitle
+            return Loc.TextStyle.Checkbox.subtitle
         case .bulleted:
-            return Loc.bulletedBlockSubtitle
+            return Loc.TextStyle.Bulleted.subtitle
         case .numberedList:
-            return Loc.numberedBlockSubtitle
+            return Loc.TextStyle.Numbered.subtitle
         case .toggle:
-            return Loc.toggleBlockSubtitle
+            return Loc.TextStyle.Toggle.subtitle
         case .bold, .italic, .strikethrough, .code, .link:
             return nil
         }

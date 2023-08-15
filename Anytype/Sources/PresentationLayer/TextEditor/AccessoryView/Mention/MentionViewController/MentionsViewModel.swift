@@ -51,7 +51,7 @@ final class MentionsViewModel {
             guard let newBlockDetails = try? await pageService.createPage(name: searchString) else { return }
             
             AnytypeAnalytics.instance().logCreateObject(objectType: newBlockDetails.analyticsType, route: .mention)
-            let name = searchString.isEmpty ? Loc.untitled : searchString
+            let name = searchString.isEmpty ? Loc.Object.Title.placeholder : searchString
             let mention = MentionObject(
                 id: newBlockDetails.id,
                 objectIcon: newBlockDetails.objectIconImageWithPlaceholder,

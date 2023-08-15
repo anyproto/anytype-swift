@@ -21,10 +21,10 @@ private extension StyleView {
             let title: BlockText.Style = selectedStyle == .title ? .title : .header
 
             return [
-                Item(kind: title, text: Loc.title, font: .title),
-                Item(kind: .header2, text: Loc.heading, font: .heading),
-                Item(kind: .header3, text: Loc.subheading, font: .subheading),
-                Item(kind: .text, text: Loc.text, font: UIFont.bodyRegular)
+                Item(kind: title, text: Loc.TextStyle.Title.title, font: .title),
+                Item(kind: .header2, text: Loc.TextStyle.Heading.title, font: .heading),
+                Item(kind: .header3, text: Loc.TextStyle.Subheading.title, font: .subheading),
+                Item(kind: .text, text: Loc.TextStyle.Text.title, font: UIFont.bodyRegular)
             ]
         }
     }
