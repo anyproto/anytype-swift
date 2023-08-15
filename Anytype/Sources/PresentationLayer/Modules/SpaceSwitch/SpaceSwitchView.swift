@@ -4,6 +4,8 @@ struct SpaceSwitchView: View {
     
     @StateObject var model: SpaceSwitchViewModel
     
+    @State private var headerSize: CGSize = .zero
+    
     private let columns = [
         GridItem(.flexible(), alignment: .top),
         GridItem(.flexible(), alignment: .top),
@@ -22,33 +24,41 @@ struct SpaceSwitchView: View {
     }
     
     private var contentContainer: some View {
-        VStack {
+        ZStack(alignment: .top) {
+            ScrollViewReader { reader in
+                VerticalScrollViewWithOverlayHeader {
+                    Color.clear
+                        .frame(height: headerSize.height)
+                        .background(Color.Background.material)
+                        .background(.ultraThinMaterial)
+                } content: {
+                    content
+                }
+                .hideScrollIndicatorLegacy()
+                .onChange(of: model.scrollToRowId) { rowId in
+                    reader.scrollTo(rowId)
+                }
+            }
             header
-            content
+                .readSize { size in
+                    headerSize = size
+                }
         }
         .background(Color.Background.material)
     }
     
     private var content: some View {
-        ScrollViewReader { reader in
-            ScrollView {
-                LazyVGrid(columns: columns, spacing: 14) {
-                    ForEach(model.rows, id: \.id) { row in
-                        SpaceRowView(model: row)
-                            .id(row.id)
-                    }
-                    SpacePlusRow(loading: model.spaceCreateLoading) {
-                        model.onTapAddSpace()
-                    }
-                }
-                .padding([.top], 20)
-                .animation(.default, value: model.rows.count)
+        LazyVGrid(columns: columns, spacing: 16) {
+            ForEach(model.rows, id: \.id) { row in
+                SpaceRowView(model: row)
+                    .id(row.id)
             }
-            .hideScrollIndicatorLegacy()
-            .onChange(of: model.scrollToRowId) { rowId in
-                reader.scrollTo(rowId)
+            SpacePlusRow(loading: model.spaceCreateLoading) {
+                model.onTapAddSpace()
             }
         }
+        .padding([.top], headerSize.height + 14)
+        .animation(.default, value: model.rows.count)
     }
 
     private var header: some View {
