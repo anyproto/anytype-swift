@@ -1,7 +1,7 @@
 import SwiftUI
 
-struct ObjectBasicIconPicker: View {
-    let viewModel: ObjectIconPickerViewModelProtocol
+struct ObjectBasicIconPicker<T: ObservableObject & ObjectIconPickerViewModelProtocol>: View {
+    @ObservedObject var viewModel: T
     
     @Environment(\.presentationMode) private var presentationMode
     @State private var selectedTab: Tab = .emoji

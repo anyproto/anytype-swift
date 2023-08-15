@@ -15,6 +15,8 @@ struct ObjectIconPicker: View {
                 )
             case .profile:
                 ObjectProfileIconPicker(viewModel: viewModel, onDismiss: dismissHandler.onDismiss)
+            case nil:
+                EmptyView()
             case .todo, .note, .bookmark, .unknown, .relation, .relationOption, .dashboard, .relationOptionList, .database:
                 EmptyView()
                     .onAppear {
