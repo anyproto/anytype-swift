@@ -25,15 +25,20 @@ struct SpaceSwitchView: View {
     
     private var contentContainer: some View {
         ZStack(alignment: .top) {
-            VerticalScrollViewWithOverlayHeader {
-                Color.clear
-                    .frame(height: headerSize.height)
-                    .background(Color.Background.material)
-                    .background(.ultraThinMaterial)
-            } content: {
-                content
+            ScrollViewReader { reader in
+                VerticalScrollViewWithOverlayHeader {
+                    Color.clear
+                        .frame(height: headerSize.height)
+                        .background(Color.Background.material)
+                        .background(.ultraThinMaterial)
+                } content: {
+                    content
+                }
+                .hideScrollIndicatorLegacy()
+                .onChange(of: model.scrollToRowId) { rowId in
+                    reader.scrollTo(rowId)
+                }
             }
-            .hideScrollIndicatorLegacy()
             header
                 .readSize { size in
                     headerSize = size
@@ -44,8 +49,9 @@ struct SpaceSwitchView: View {
     
     private var content: some View {
         LazyVGrid(columns: columns, spacing: 16) {
-            ForEach(model.rows) { row in
+            ForEach(model.rows, id: \.id) { row in
                 SpaceRowView(model: row)
+                    .id(row.id)
             }
             SpacePlusRow(loading: model.spaceCreateLoading) {
                 model.onTapAddSpace()
