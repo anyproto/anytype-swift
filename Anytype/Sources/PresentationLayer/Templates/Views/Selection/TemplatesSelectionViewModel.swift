@@ -178,10 +178,11 @@ extension TemplatePreviewModel {
 
 extension TemplatePreviewModel {
     var isEditable: Bool {
-        if case .installed = mode {
+        switch mode {
+        case .blank, .installed:
             return true
+        case .addTemplate:
+            return false
         }
-        
-        return false
     }
 }

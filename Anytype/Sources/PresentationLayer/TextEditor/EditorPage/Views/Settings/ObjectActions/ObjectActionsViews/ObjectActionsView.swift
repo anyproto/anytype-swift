@@ -26,7 +26,7 @@ struct ObjectActionsView: View {
                         case .makeAsTemplate:
                             viewModel.makeAsTempalte()
                         case .templateSetAsDefault:
-                            viewModel.makeAsTempalte()
+                            viewModel.makeTemplateAsDefault()
                         }
                     }
                 }

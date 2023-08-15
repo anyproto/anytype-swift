@@ -23,6 +23,7 @@ final class TemplateSelectionCoordinator: TemplateSelectionCoordinatorProtocol {
     private let templatesModuleAssembly: TemplateModulesAssembly
     private let editorAssembly: EditorAssembly
     private let objectSettingCoordinator: ObjectSettingsCoordinatorProtocol
+    private var handler: TemplateSelectionObjectSettingsHandler?
     
     init(
         navigationContext: NavigationContextProtocol,
@@ -90,11 +91,11 @@ final class TemplateSelectionCoordinator: TemplateSelectionCoordinatorProtocol {
                 )
             )
         )
-        let handler = TemplateSelectionObjectSettingsHandler(useAsTemplateAction: onSetAsDefaultTempalte)
+        handler = TemplateSelectionObjectSettingsHandler(useAsTemplateAction: onSetAsDefaultTempalte)
         let editingTemplateViewController = TemplateEditingViewController(
             editorViewController: editorPage.vc,
             onSettingsTap: { [weak self] in
-                guard let self = self else { return }
+                guard let self = self, let handler = self.handler else { return }
                 
                 self.objectSettingCoordinator.startFlow(objectId: blockId, delegate: handler)
             }, onSelectTemplateTap: { [weak self] in
