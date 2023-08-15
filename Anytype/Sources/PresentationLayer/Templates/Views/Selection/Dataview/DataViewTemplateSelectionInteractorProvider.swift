@@ -6,7 +6,7 @@ protocol TemplateSelectionInteractorProvider {
     var userTemplates: AnyPublisher<[TemplatePreviewModel], Never> { get }
     var objectTypeId: ObjectTypeId { get }
     
-    func setDefaultTemplate(model: TemplatePreviewModel) async throws
+    func setDefaultTemplate(templateId: BlockId) async throws
 }
 
 final class DataviewTemplateSelectionInteractorProvider: TemplateSelectionInteractorProvider {
@@ -96,13 +96,8 @@ final class DataviewTemplateSelectionInteractorProvider: TemplateSelectionIntera
         }
     }
     
-    func setDefaultTemplate(model: TemplatePreviewModel) async throws {
-        if let details = templatesDetails.first { $0.id == model.id } {
-            AnytypeAnalytics.instance().logChangeDefaultTemplate(objectType: details.templateType, route: setDocument.isCollection() ? .collection : .set)
-        }
-        
-
-        let updatedDataView = dataView.updated(defaultTemplateID: model.id)
+    func setDefaultTemplate(templateId: BlockId) async throws {
+        let updatedDataView = dataView.updated(defaultTemplateID: templateId)
         try await dataviewService.updateView(updatedDataView)
     }
 }

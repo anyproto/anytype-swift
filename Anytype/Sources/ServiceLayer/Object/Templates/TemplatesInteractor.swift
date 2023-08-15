@@ -25,7 +25,7 @@ final class SetTemplatesInteractor: SetTemplatesInteractorProtocol {
             return false
         }
         
-        let objectDetails = try await templatesService.typeObjectDetails(objectTypeId: typeId)
+        let objectDetails = try await templatesService.objectDetails(objectId: typeId)
         
         return objectDetails.setIsTemplatesAvailable
     }

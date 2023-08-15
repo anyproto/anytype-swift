@@ -9,6 +9,8 @@ final class TemplatesSelectionViewModel: ObservableObject {
     @Published var isEditingState = false
     @Published var templates = [TemplatePreviewViewModel]()
     
+    var templateEditingHandler: RoutingAction<BlockId>?
+    
     private var userTemplates = [TemplatePreviewModel]() {
         didSet {
             updateTemplatesList()
@@ -19,21 +21,18 @@ final class TemplatesSelectionViewModel: ObservableObject {
     private let setDocument: SetDocumentProtocol
     private let templatesService: TemplatesServiceProtocol
     private let onTemplateSelection: (BlockId?) -> Void
-    private let templateEditingHandler: ((BlockId) -> Void)
     private var cancellables = [AnyCancellable]()
     
     init(
         interactor: TemplateSelectionInteractorProvider,
         setDocument: SetDocumentProtocol,
         templatesService: TemplatesServiceProtocol,
-        onTemplateSelection: @escaping (BlockId?) -> Void,
-        templateEditingHandler: @escaping ((BlockId) -> Void)
+        onTemplateSelection: @escaping (BlockId?) -> Void
     ) {
         self.interactor = interactor
         self.setDocument = setDocument
         self.templatesService = templatesService
         self.onTemplateSelection = onTemplateSelection
-        self.templateEditingHandler = templateEditingHandler
         
         updateTemplatesList()
         
@@ -72,14 +71,23 @@ final class TemplatesSelectionViewModel: ObservableObject {
                     return
                 }
                 AnytypeAnalytics.instance().logTemplateCreate(objectType: .object(typeId: objectTypeId))
-                self?.templateEditingHandler(objectId)
+                self?.templateEditingHandler?(objectId)
             } catch {
                 anytypeAssertionFailure(error.localizedDescription)
             }
         }
     }
     
-    private func handleTemplateOption(option: TemplateOptionAction, templateViewModel: TemplatePreviewModel) {
+    func setTemplateAsDefault(templateId: BlockId) {
+        Task {
+            try await interactor.setDefaultTemplate(templateId: templateId)
+        }
+    }
+    
+    private func handleTemplateOption(
+        option: TemplateOptionAction,
+        templateViewModel: TemplatePreviewModel
+    ) {
         Task {
             do {
                 switch option {
@@ -88,9 +96,9 @@ final class TemplatesSelectionViewModel: ObservableObject {
                 case .duplicate:
                     try await templatesService.cloneTemplate(blockId: templateViewModel.id)
                 case .editTemplate:
-                    templateEditingHandler(templateViewModel.id)
+                    templateEditingHandler?(templateViewModel.id)
                 case .setAsDefault:
-                    try await interactor.setDefaultTemplate(model: templateViewModel)
+                    setTemplateAsDefault(templateId: templateViewModel.id)
                 }
                 
                 handleAnalytics(option: option, templateViewModel: templateViewModel)
@@ -170,10 +178,11 @@ extension TemplatePreviewModel {
 
 extension TemplatePreviewModel {
     var isEditable: Bool {
-        if case .installed = mode {
+        switch mode {
+        case .blank, .installed:
             return true
+        case .addTemplate:
+            return false
         }
-        
-        return false
     }
 }

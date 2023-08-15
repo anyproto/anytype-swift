@@ -64,7 +64,7 @@ struct StandardButton: View {
                     style: style.config.textFont,
                     color: colorConfigStyle.textColor ?? .Text.primary
                 )
-                .padding(.horizontal, 12)
+                .padding(.horizontal, style.config.horizontalPadding)
             case let .image(asset):
                 Image(asset: asset)
                     .foregroundColor(colorConfigStyle.textColor ?? .Text.primary)

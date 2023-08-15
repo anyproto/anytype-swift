@@ -717,6 +717,8 @@ internal enum Loc {
     internal static let linkItself = Loc.tr("Localizable", "Actions.LinkItself", fallback: "Link to")
     /// Make template
     internal static let makeAsTemplate = Loc.tr("Localizable", "Actions.MakeAsTemplate", fallback: "Make template")
+    /// Set as default
+    internal static let templateMakeDefault = Loc.tr("Localizable", "Actions.TemplateMakeDefault", fallback: "Set as default")
   }
   internal enum Alert {
     internal enum CameraPermissions {
