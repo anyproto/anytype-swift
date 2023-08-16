@@ -41,17 +41,17 @@ extension SupportedRelationFormat {
 
     var title: String {
         switch self {
-        case .text: return Loc.text
-        case .number: return Loc.numbers
-        case .status: return Loc.status
-        case .date: return Loc.date
-        case .file: return Loc.fileMedia
-        case .checkbox: return Loc.checkbox
-        case .url: return Loc.url
-        case .email: return Loc.email
-        case .phone: return Loc.phoneNumber
-        case .tag: return Loc.tag
-        case .object: return Loc.object
+        case .text: return Loc.Relation.Format.Text.title
+        case .number: return Loc.Relation.Format.Number.title
+        case .status: return Loc.Relation.Format.Status.title
+        case .date: return Loc.Relation.Format.Date.title
+        case .file: return Loc.Relation.Format.FileMedia.title
+        case .checkbox: return Loc.Relation.Format.Checkbox.title
+        case .url: return Loc.Relation.Format.Url.title
+        case .email: return Loc.Relation.Format.Email.title
+        case .phone: return Loc.Relation.Format.Phone.title
+        case .tag: return Loc.Relation.Format.Tag.title
+        case .object: return Loc.Relation.Format.Object.title
         }
     }
 }
