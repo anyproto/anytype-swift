@@ -15,7 +15,6 @@ public struct ObjectType: Equatable, Hashable, Codable {
     public let name: String
     public let iconEmoji: Emoji
     public let description: String
-    public let recommendedLayout: DetailsLayout
     public let hidden: Bool
     public let readonly: Bool
     public let isArchived: Bool
@@ -31,7 +30,6 @@ public struct ObjectType: Equatable, Hashable, Codable {
         name: String,
         iconEmoji: Emoji,
         description: String,
-        recommendedLayout: DetailsLayout,
         hidden: Bool,
         readonly: Bool,
         isArchived: Bool,
@@ -45,7 +43,6 @@ public struct ObjectType: Equatable, Hashable, Codable {
         self.name = name
         self.iconEmoji = iconEmoji
         self.description = description
-        self.recommendedLayout = recommendedLayout
         self.hidden = hidden
         self.readonly = readonly
         self.isArchived = isArchived
@@ -65,7 +62,6 @@ extension ObjectType {
             name: details.name,
             iconEmoji: details.iconEmoji ?? Emoji.default,
             description: details.description,
-            recommendedLayout: details.recommendedLayout.flatMap { DetailsLayout(rawValue: $0) } ?? .unknown,
             hidden: details.isHidden,
             readonly: details.isReadonly,
             isArchived: details.isArchived,

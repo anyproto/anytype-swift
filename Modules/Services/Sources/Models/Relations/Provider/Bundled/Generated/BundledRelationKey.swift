@@ -362,4 +362,7 @@ public enum BundledRelationKey: String {
 
     /// ID of template chosen as default for particular object type
     case defaultTemplateId = "defaultTemplateId"
+
+    /// Unique key used to ensure object uniqueness within the space
+    case uniqueKey = "uniqueKey"
 }

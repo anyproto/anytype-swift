@@ -26,7 +26,8 @@ let package = Package(
             ],
             path: "Sources",
             linkerSettings: [
-                .linkedLibrary("c++")
+                .linkedLibrary("c++"),
+                .linkedLibrary("resolv")
             ],
             plugins: [
                 .plugin(name: "ServiceGenPlugin", package: "AnytypeSwiftCodegen"),
