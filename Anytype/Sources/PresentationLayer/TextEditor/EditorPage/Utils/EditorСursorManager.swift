@@ -34,7 +34,6 @@ final class EditorCursorManager {
 
         self.currentType = type
         setFocusOnFirstTextBlock(blocks: blocks)
-
     }
 
     func applyCurrentFocus() {

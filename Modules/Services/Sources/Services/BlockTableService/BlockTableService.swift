@@ -9,7 +9,7 @@ public protocol BlockTableServiceProtocol {
         position: BlockPosition,
         rowsCount: Int,
         columnsCount: Int
-    ) async throws
+    ) async throws -> BlockId
 
     func rowListFill(
         contextId: BlockId,
@@ -44,8 +44,8 @@ public final class BlockTableService: BlockTableServiceProtocol {
         position: BlockPosition,
         rowsCount: Int,
         columnsCount: Int
-    ) async throws {
-        try await ClientCommands.blockTableCreate(.with {
+    ) async throws -> BlockId {
+        let response = try await ClientCommands.blockTableCreate(.with {
             $0.contextID = contextId
             $0.targetID = targetId
             $0.position = position.asMiddleware
@@ -53,6 +53,8 @@ public final class BlockTableService: BlockTableServiceProtocol {
             $0.columns = UInt32(columnsCount)
             $0.withHeaderRow = false
         }).invoke()
+        
+        return response.blockID
     }
 
     public func rowListFill(
