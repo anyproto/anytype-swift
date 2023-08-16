@@ -82,6 +82,10 @@ public extension FeatureFlags {
         value(for: .recentEditWidget)
     }
 
+    static var widgetTaskDone: Bool {
+        value(for: .widgetTaskDone)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -119,6 +123,7 @@ public extension FeatureFlags {
         .multiSpaceSettings,
         .colorfulRecoveryPhrase,
         .recentEditWidget,
+        .widgetTaskDone,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

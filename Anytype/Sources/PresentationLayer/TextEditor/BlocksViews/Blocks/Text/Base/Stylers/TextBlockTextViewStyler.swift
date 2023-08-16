@@ -19,25 +19,25 @@ final class TextBlockTextViewStyler {
     private static func updateText(textView: CustomTextView, configuration: TextBlockContentConfiguration) {
         switch configuration.content.contentType {
         case .title:
-            setupText(in: textView, placeholer: Loc.untitled, textStyle: configuration.anytypeText)
+            setupText(in: textView, placeholer: Loc.BlockText.ContentType.Title.placeholder, textStyle: configuration.anytypeText)
         case .description:
-            setupText(in: textView, placeholer: Loc.addADescription, textStyle: configuration.anytypeText)
+            setupText(in: textView, placeholer: Loc.BlockText.ContentType.Description.placeholder, textStyle: configuration.anytypeText)
         case .toggle:
-            setupText(in: textView, placeholer: Loc.toggleBlock, textStyle: configuration.anytypeText)
+            setupText(in: textView, placeholer: Loc.BlockText.ContentType.Toggle.placeholder, textStyle: configuration.anytypeText)
         case .bulleted:
-            setupText(in: textView, placeholer: Loc.bulletedPlaceholder, textStyle: configuration.anytypeText)
+            setupText(in: textView, placeholer: Loc.BlockText.ContentType.Bulleted.placeholder, textStyle: configuration.anytypeText)
         case .checkbox:
-            setupText(in: textView, placeholer: Loc.checkbox, textStyle: configuration.anytypeText)
+            setupText(in: textView, placeholer: Loc.BlockText.ContentType.Checkbox.placeholder, textStyle: configuration.anytypeText)
         case .numbered:
-            setupText(in: textView, placeholer: Loc.numberedPlaceholder, textStyle: configuration.anytypeText)
+            setupText(in: textView, placeholer: Loc.BlockText.ContentType.Numbered.placeholder, textStyle: configuration.anytypeText)
         case .quote:
-            setupText(in: textView, placeholer: Loc.highlightedText, textStyle: configuration.anytypeText)
+            setupText(in: textView, placeholer: Loc.BlockText.ContentType.Quote.placeholder, textStyle: configuration.anytypeText)
         case .header:
-            setupText(in: textView, placeholer: Loc.title, textStyle: configuration.anytypeText)
+            setupText(in: textView, placeholer: Loc.BlockText.ContentType.Header.placeholder, textStyle: configuration.anytypeText)
         case .header2:
-            setupText(in: textView, placeholer: Loc.heading, textStyle: configuration.anytypeText)
+            setupText(in: textView, placeholer: Loc.BlockText.ContentType.Header2.placeholder, textStyle: configuration.anytypeText)
         case .header3:
-            setupText(in: textView, placeholer: Loc.subheading, textStyle: configuration.anytypeText)
+            setupText(in: textView, placeholer: Loc.BlockText.ContentType.Header3.placeholder, textStyle: configuration.anytypeText)
         case .header4, .code, .text, .callout:
             setupText(in: textView, placeholer: "", textStyle: configuration.anytypeText)
         }

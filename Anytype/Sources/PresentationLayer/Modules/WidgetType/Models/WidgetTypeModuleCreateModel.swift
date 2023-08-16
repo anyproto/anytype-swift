@@ -1,4 +1,5 @@
 import Foundation
+import Services
 
 struct WidgetTypeModuleCreateModel: Identifiable, Hashable {
     let widgetObjectId: String

@@ -2,6 +2,7 @@ import Foundation
 import Services
 import Combine
 import SwiftUI
+import AnytypeCore
 
 @MainActor
 final class ListWidgetViewModel: WidgetContainerContentViewModelProtocol, ObservableObject {
@@ -12,6 +13,7 @@ final class ListWidgetViewModel: WidgetContainerContentViewModelProtocol, Observ
     private let widgetObject: BaseDocumentProtocol
     private let internalModel: any WidgetInternalViewModelProtocol
     private let internalHeaderModel: (any WidgetDataviewInternalViewModelProtocol)?
+    private let objectActionsService: ObjectActionsServiceProtocol
     private weak var output: CommonWidgetModuleOutput?
     
     // MARK: - State
@@ -35,6 +37,7 @@ final class ListWidgetViewModel: WidgetContainerContentViewModelProtocol, Observ
         style: ListWidgetStyle,
         internalModel: any WidgetInternalViewModelProtocol,
         internalHeaderModel: (any WidgetDataviewInternalViewModelProtocol)?,
+        objectActionsService: ObjectActionsServiceProtocol,
         output: CommonWidgetModuleOutput?
     ) {
         self.widgetBlockId = widgetBlockId
@@ -42,6 +45,7 @@ final class ListWidgetViewModel: WidgetContainerContentViewModelProtocol, Observ
         self.style = style
         self.internalModel = internalModel
         self.internalHeaderModel = internalHeaderModel
+        self.objectActionsService = objectActionsService
         self.output = output
     }
     
@@ -102,6 +106,9 @@ final class ListWidgetViewModel: WidgetContainerContentViewModelProtocol, Observ
                     details: details,
                     onTap: { [weak self] in
                         self?.output?.onObjectSelected(screenData: $0)
+                    },
+                    onIconTap: { [weak self] in
+                        self?.updateDone(details: details)
                     }
                 )
             }
@@ -120,6 +127,15 @@ final class ListWidgetViewModel: WidgetContainerContentViewModelProtocol, Observ
                     }
                 )
             }
+        }
+    }
+    
+    private func updateDone(details: ObjectDetails) {
+        guard FeatureFlags.widgetTaskDone else { return }
+        guard details.layoutValue == .todo else { return }
+        
+        Task {
+            try await objectActionsService.updateBundledDetails(contextID: details.id, details: [.done(!details.done)])
         }
     }
 }

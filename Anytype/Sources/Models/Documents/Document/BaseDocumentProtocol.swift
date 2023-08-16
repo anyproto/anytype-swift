@@ -6,6 +6,7 @@ protocol BaseDocumentGeneralProtocol: AnyObject {
     var details: ObjectDetails? { get }
     var detailsPublisher: AnyPublisher<ObjectDetails, Never> { get }
     var updatePublisher: AnyPublisher<DocumentUpdate, Never> { get }
+    var syncPublisher: AnyPublisher<Void, Never> { get }
 }
 
 protocol BaseDocumentProtocol: AnyObject, BaseDocumentGeneralProtocol {

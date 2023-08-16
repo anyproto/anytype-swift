@@ -150,6 +150,7 @@ public protocol BundledRelationsValueProvider {
     var lastChangeId: String { get }
     var starred: Bool { get }
     var defaultTemplateId: ObjectId { get }
+    var uniqueKey: String { get }
 } 
 
 public extension BundledRelationsValueProvider where Self: RelationValueProvider {
@@ -651,5 +652,9 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     /// ID of template chosen as default for particular object type
     var defaultTemplateId: ObjectId {
         return value(for: BundledRelationKey.defaultTemplateId.rawValue)
+    }
+    /// Unique key used to ensure object uniqueness within the space
+    var uniqueKey: String {
+        return value(for: BundledRelationKey.uniqueKey.rawValue)
     }
 }

@@ -1,4 +1,5 @@
 import Foundation
+import Services
 
 struct CreateWidgetCoordinatorModel: Identifiable, Hashable {
     let widgetObjectId: String

@@ -4,10 +4,10 @@ import Services
 extension BlockLinkState {
     var titleText: String {
         if deleted {
-            return Loc.deletedObject
+            return Loc.Object.Deleted.placeholder
         }
 
-        return !title.isEmpty ? title : Loc.untitled
+        return !title.isEmpty ? title : Loc.Object.Title.placeholder
     }
 
     var textTitleFont: AnytypeFont { .previewTitle1Medium }

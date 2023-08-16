@@ -13,6 +13,9 @@ struct ListWidgetCompactRow: View {
             if let icon = model.icon {
                 IconView(icon: icon)
                     .frame(width: 18, height: 18)
+                    .onTapGesture {
+                        model.onIconTap()
+                    }
             }
             AnytypeText(model.title, style: .previewTitle2Medium, color: .Text.primary)
                 .lineLimit(1)

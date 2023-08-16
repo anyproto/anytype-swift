@@ -37,6 +37,7 @@ final class TreeWidgetModuleAssembly: TreeWidgetModuleAssemblyProtocol {
             widgetBlockId: widgetBlockId,
             internalModel: internalModel,
             subscriptionManager: serviceLocator.treeSubscriptionManager(),
+            objectActionsService: serviceLocator.objectActionsService(),
             output: output
         )
         let contentView = TreeWidgetView(model: contentModel)
