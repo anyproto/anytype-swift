@@ -29,7 +29,7 @@ extension BundledRelationsValueProvider {
             title = name
         }
 
-        return title.isEmpty ? Loc.untitled : title.replacedNewlinesWithSpaces
+        return title.isEmpty ? Loc.Object.Title.placeholder : title.replacedNewlinesWithSpaces
     }
 
     var subtitle: String {

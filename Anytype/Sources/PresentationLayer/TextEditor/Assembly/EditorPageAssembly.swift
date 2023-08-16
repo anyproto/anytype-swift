@@ -183,7 +183,8 @@ final class EditorAssembly {
             bottomNavigationManager: bottomNavigationManager,
             configuration: EditorPageViewModelConfiguration(
                 isOpenedForPreview: data.isOpenedForPreview,
-                shouldShowTemplateSelection: data.shouldShowTemplatesOptions
+                shouldShowTemplateSelection: data.shouldShowTemplatesOptions,
+                usecase: data.usecase
             )
         )
 
@@ -288,7 +289,7 @@ final class EditorAssembly {
         let headerModel = ObjectHeaderViewModel(
             document: document,
             router: router,
-            isOpenedForPreview: configuration.isOpenedForPreview
+            configuration: configuration
         )
 
         let responderScrollViewHelper = ResponderScrollViewHelper(scrollView: scrollView)

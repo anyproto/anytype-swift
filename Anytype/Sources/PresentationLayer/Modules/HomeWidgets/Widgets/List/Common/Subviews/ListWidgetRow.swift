@@ -13,6 +13,9 @@ struct ListWidgetRow: View {
             if let icon = model.icon {
                 IconView(icon: icon)
                     .frame(width: 48, height: 48)
+                    .onTapGesture {
+                        model.onIconTap()
+                    }
             }
             VStack(alignment: .leading, spacing: 0) {
                 AnytypeText(model.title, style: .previewTitle2Medium, color: .Text.primary)

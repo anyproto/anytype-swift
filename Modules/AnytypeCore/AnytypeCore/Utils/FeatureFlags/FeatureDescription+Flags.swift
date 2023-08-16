@@ -118,6 +118,12 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
+    static let widgetTaskDone = FeatureDescription(
+        title: "Widget task done - IOS-1577",
+        type: .feature(author: "m@anytype.io", releaseVersion: "0.25.0"),
+        defaultValue: true
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(

@@ -7,26 +7,9 @@ final class ObjectIconPickerViewModel: ObservableObject, ObjectIconPickerViewMod
     
     let mediaPickerContentType: MediaPickerContentType = .images
 
-    var isRemoveButtonAvailable: Bool { document.details?.icon != nil }
-
-    var detailsLayout: DetailsLayout {
-        document.details?.layoutValue ?? .basic
-    }
-    
-    var isRemoveEnabled: Bool {
-        switch detailsLayout {
-        case .basic:
-            return true
-        case .profile:
-            guard let details = document.details else { return false }
-            return details.iconImage.isNotNil
-        default:
-            anytypeAssertionFailure(
-                "`ObjectIconPickerViewModel` unavailable", info: ["detailsLayout": "\(detailsLayout.rawValue)"]
-            )
-            return true
-        }
-    }
+    @Published private(set) var isRemoveButtonAvailable: Bool = false
+    @Published private(set) var detailsLayout: DetailsLayout?
+    @Published private(set) var isRemoveEnabled: Bool = false
 
     // MARK: - Private variables
     
@@ -49,6 +32,30 @@ final class ObjectIconPickerViewModel: ObservableObject, ObjectIconPickerViewMod
         self.objectId = objectId
         self.fileService = fileService
         self.detailsService = detailsService
+        subscription = document.syncPublisher.sink { [weak self] in
+            self?.updateState()
+        }
+    }
+    
+    private func updateState() {
+        isRemoveButtonAvailable = document.details?.icon != nil
+        detailsLayout = document.details?.layoutValue
+        isRemoveEnabled = makeIsRemoveEnabled()
+    }
+    
+    private func makeIsRemoveEnabled() -> Bool {
+        switch detailsLayout {
+        case .basic:
+            return true
+        case .profile:
+            guard let details = document.details else { return false }
+            return details.iconImage.isNotNil
+        default:
+            anytypeAssertionFailure(
+                "`ObjectIconPickerViewModel` unavailable", info: ["detailsLayout": "\(detailsLayout?.rawValue)"]
+            )
+            return true
+        }
     }
 }
 
