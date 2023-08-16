@@ -60,6 +60,7 @@ final class AuthService: AuthServiceProtocol {
                 $0.name = name
                 $0.avatar = .avatarLocalPath(imagePath)
                 $0.icon = Int64(GradientId.random.rawValue)
+                $0.disableLocalNetworkSync = true
             }).invoke()
             
             let analyticsId = response.account.info.analyticsID
@@ -117,6 +118,7 @@ final class AuthService: AuthServiceProtocol {
             let response = try await ClientCommands.accountSelect(.with {
                 $0.id = id
                 $0.rootPath = rootPath
+                $0.disableLocalNetworkSync = true
             }).invoke()
             
             let analyticsId = response.account.info.analyticsID

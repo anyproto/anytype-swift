@@ -1,7 +1,7 @@
 import Foundation
 import Services
 
-enum WidgetSource: Equatable {
+enum WidgetSource: Equatable, Hashable {
     case object(ObjectDetails)
     case library(AnytypeWidgetId)
 }
@@ -30,7 +30,7 @@ extension WidgetSource {
             }
         case .library(let library):
             switch library {
-            case .favorite, .recent:
+            case .favorite, .recent, .recentOpen:
                 return [.compactList, .list, .tree]
             case .sets, .collections:
                 return [.compactList, .list]

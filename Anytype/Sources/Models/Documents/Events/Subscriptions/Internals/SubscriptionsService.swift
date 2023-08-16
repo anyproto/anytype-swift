@@ -16,7 +16,7 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
     private var subscription: AnyCancellable?
     private let toggler: SubscriptionTogglerProtocol
     
-    private var subscribers = [SubscriptionId: Subscriber]()
+    private var subscribers = [String: Subscriber]()
     private let taskQueue = FIFOQueue()
     
     // MARK: - Public properties
@@ -59,7 +59,7 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
         }
     }
     
-    func stopSubscriptions(ids: [SubscriptionId]) {
+    func stopSubscriptions(ids: [String]) {
         taskQueue.enqueue { [weak self] in
             guard let self = self else { return }
             
@@ -73,7 +73,7 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
         }
     }
     
-    func stopSubscription(id: SubscriptionId) {
+    func stopSubscription(id: String) {
         taskQueue.enqueue { [weak self] in
             await self?.unsafeStopSubscriptions(ids: [id])
         }
@@ -122,7 +122,7 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
         }
     }
     
-    func unsafeStopSubscriptions(ids: [SubscriptionId]) async {
+    func unsafeStopSubscriptions(ids: [String]) async {
         let idsToDelete = subscribers.keys.filter { ids.contains($0) }
         guard idsToDelete.isNotEmpty else { return }
         
@@ -188,7 +188,6 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
     }
     
     private func sendUpdate(_ update: SubscriptionUpdate, subId: String) {
-        let subId = SubscriptionId(value: subId)
         guard let action = subscribers[subId]?.callback else {
             return
         }
@@ -197,7 +196,6 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
     
     private func update(details: ObjectDetails, ids: [String]) {
         for id in ids {
-            let id = SubscriptionId(value: id)
             guard let action = subscribers[id]?.callback else {
                 continue
             }

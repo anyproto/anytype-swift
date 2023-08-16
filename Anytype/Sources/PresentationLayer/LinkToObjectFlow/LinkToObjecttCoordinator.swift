@@ -89,7 +89,7 @@ final class LinkToObjectCoordinator: LinkToObjectCoordinatorProtocol {
         }
         let linkToView = SearchView(title: Loc.linkTo, viewModel: viewModel)
 
-        navigationContext.presentSwiftUIView(view: linkToView, model: viewModel)
+        navigationContext.presentSwiftUIView(view: linkToView)
     }
     
 }

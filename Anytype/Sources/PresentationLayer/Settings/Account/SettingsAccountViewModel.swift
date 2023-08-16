@@ -21,7 +21,7 @@ final class SettingsAccountViewModel: ObservableObject {
     
     // MARK: - State
     
-    @Published var profileIcon: ObjectIconImage?
+    @Published var profileIcon: Icon?
     @Published var profileName: String = ""
     private var subscriptions: [AnyCancellable] = []
     private var dataLoaded: Bool = false

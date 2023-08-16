@@ -1,9 +1,10 @@
 import Foundation
 import SwiftUI
+import Services
 
 protocol HomeBottomPanelModuleAssemblyProtocol {
     @MainActor
-    func make(stateManager: HomeWidgetsStateManagerProtocol, output: HomeBottomPanelModuleOutput?) -> AnyView
+    func make(info: AccountInfo, stateManager: HomeWidgetsStateManagerProtocol, output: HomeBottomPanelModuleOutput?) -> AnyView
 }
 
 final class HomeBottomPanelModuleAssembly: HomeBottomPanelModuleAssemblyProtocol {
@@ -19,9 +20,9 @@ final class HomeBottomPanelModuleAssembly: HomeBottomPanelModuleAssemblyProtocol
     // MARK: - HomeBottomPanelModuleAssemblyProtocol
     
     @MainActor
-    func make(stateManager: HomeWidgetsStateManagerProtocol, output: HomeBottomPanelModuleOutput?) -> AnyView {
+    func make(info: AccountInfo, stateManager: HomeWidgetsStateManagerProtocol, output: HomeBottomPanelModuleOutput?) -> AnyView {
         let model = HomeBottomPanelViewModel(
-            activeWorkspaceStorage: serviceLocator.activeWorkspaceStorage(),
+            info: info,
             subscriptionService: serviceLocator.singleObjectSubscriptionService(),
             stateManager: stateManager,
             dashboardService: serviceLocator.dashboardService(),

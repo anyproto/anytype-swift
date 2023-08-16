@@ -17,6 +17,11 @@ extension Anytype_Rpc.Account.Delete.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }
 }
 
+extension Anytype_Rpc.Account.EnableLocalNetworkSync.Response: ResultWithError {}
+extension Anytype_Rpc.Account.EnableLocalNetworkSync.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null }
+}
+
 extension Anytype_Rpc.Account.Move.Response: ResultWithError {}
 extension Anytype_Rpc.Account.Move.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }
@@ -728,6 +733,11 @@ extension Anytype_Rpc.Object.ListSetIsArchived.Response.Error: ResponseError {
 
 extension Anytype_Rpc.Object.ListSetIsFavorite.Response: ResultWithError {}
 extension Anytype_Rpc.Object.ListSetIsFavorite.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null }
+}
+
+extension Anytype_Rpc.Object.ListSetObjectType.Response: ResultWithError {}
+extension Anytype_Rpc.Object.ListSetObjectType.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }
 }
 

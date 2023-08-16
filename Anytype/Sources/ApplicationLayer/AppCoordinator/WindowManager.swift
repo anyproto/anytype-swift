@@ -14,8 +14,6 @@ final class WindowManager {
     
     // MARK: - State
     
-    private var homeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol?
-    
     private var authCoordinator: AuthCoordinatorProtocol?
     
     init(
@@ -34,11 +32,8 @@ final class WindowManager {
 
     @MainActor
     func showHomeWindow() {
-        let coordinator = homeWidgetsCoordinatorAssembly.make()
-        self.homeWidgetsCoordinator = coordinator
-        let homeView = coordinator.startFlow()
+        let homeView = homeWidgetsCoordinatorAssembly.make()
         startNewRootView(homeView)
-        coordinator.flowStarted()
     }
     
     @MainActor
@@ -56,11 +51,6 @@ final class WindowManager {
     
     func showLaunchWindow() {
         startNewRootView(LaunchView())
-    }
-
-    @MainActor
-    func createAndShowNewObject() {
-        homeWidgetsCoordinator?.createAndShowNewPage()
     }
     
     @MainActor

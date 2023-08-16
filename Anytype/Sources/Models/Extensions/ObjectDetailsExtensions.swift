@@ -6,7 +6,7 @@ extension BundledRelationsValueProvider {
     
     // MARK: - Icon
     
-    var icon: ObjectIconType? {
+    var icon: ObjectIcon? {
         switch layoutValue {
         case .basic, .set, .collection, .image, .objectType:
             return basicIcon
@@ -14,14 +14,14 @@ extension BundledRelationsValueProvider {
             return profileIcon
         case .bookmark:
             return bookmarkIcon
-        case .todo, .note, .file, .unknown, .relation, .relationOption, .audio, .video, .date:
+        case .todo, .note, .file, .unknown, .relation, .relationOption, .dashboard, .relationOptionList, .database:
             return nil
         case .space:
             return spaceIcon
         }
     }
     
-    private var basicIcon: ObjectIconType? {
+    private var basicIcon: ObjectIcon? {
         if let iconImageHash = self.iconImage {
             return .basic(iconImageHash.value)
         }
@@ -33,36 +33,36 @@ extension BundledRelationsValueProvider {
         return nil
     }
     
-    private var profileIcon: ObjectIconType? {
+    private var profileIcon: ObjectIcon? {
         if let iconImageHash = self.iconImage {
             return .profile(.imageId(iconImageHash.value))
         }
         
-        if let iconOption, let gradiendId = GradientId(iconOption) {
-            return .profile(.gradient(gradiendId))
+        if let iconOptionValue {
+            return .profile(.gradient(iconOptionValue))
         }
         
         return title.first.flatMap { .profile(.character($0)) }
     }
     
-    private var bookmarkIcon: ObjectIconType? {
+    private var bookmarkIcon: ObjectIcon? {
         return iconImage.map { .bookmark($0.value) }
     }
     
-    private var spaceIcon: ObjectIconType? {
+    private var spaceIcon: ObjectIcon? {
         if let basicIcon {
             return basicIcon
         }
         
-        if let iconOption, let gradiendId = GradientId(iconOption) {
-            return .space(.gradient(gradiendId))
+        if let iconOptionValue {
+            return .space(.gradient(iconOptionValue))
         }
         
-        return title.first.flatMap { .space(ObjectIconType.Space.character($0)) }
+        return title.first.flatMap { .space(.character($0)) }
     }
     
-    private var fileIcon: ObjectIconImage {
-        return .imageAsset(FileIconBuilder.convert(mime: fileMimeType, fileName: name))
+    private var fileIcon: Icon {
+        return .asset(FileIconBuilder.convert(mime: fileMimeType, fileName: name))
     }
     
     // MARK: - Cover
@@ -88,13 +88,13 @@ extension BundledRelationsValueProvider {
         }
     }
     
-    var objectIconImage: ObjectIconImage? {
+    var objectIconImage: Icon? {
         guard !isDeleted else {
-            return .imageAsset(.ghost)
+            return .asset(.ghost)
         }
         
         if let icon = icon {
-            return .icon(icon)
+            return .object(icon)
         }
         
         if layoutValue == .file {
@@ -102,14 +102,14 @@ extension BundledRelationsValueProvider {
         }
         
         if layoutValue == .todo {
-            return .todo(isDone)
+            return .object(.todo(isDone))
         }
         
         return nil
     }
     
-    var objectIconImageWithPlaceholder: ObjectIconImage {
-        return objectIconImage ?? .placeholder(title.first)
+    var objectIconImageWithPlaceholder: Icon {
+        return objectIconImage ?? .object(.placeholder(title.first))
     }
     
     var objectType: ObjectType {
@@ -117,13 +117,13 @@ extension BundledRelationsValueProvider {
             return ObjectTypeProvider.shared.defaultObjectType
         }
         
-        let parsedType = try? ObjectTypeProvider.shared.objectType(id: type)
+        let parsedType = ObjectTypeProvider.shared.objectType(id: type)
         return parsedType ?? ObjectTypeProvider.shared.deleteObjectType(id: type)
     }
     
     var editorViewType: EditorViewType {
         switch layoutValue {
-        case .basic, .profile, .todo, .note, .bookmark, .space, .file, .image, .objectType, .unknown, .relation, .relationOption, .audio, .video, .date:
+        case .basic, .profile, .todo, .note, .bookmark, .space, .file, .image, .objectType, .unknown, .relation, .relationOption, .dashboard, .relationOptionList, .database:
             return .page
         case .set, .collection:
             return .set
@@ -144,5 +144,23 @@ extension BundledRelationsValueProvider {
     
     var isNotDeletedAndSupportedForEdit: Bool {
         return !isDeleted && !isArchived && isSupportedForEdit
+    }
+    
+    var canMakeTemplate: Bool {
+        isTemplatesAvailable(for: layoutValue)
+    }
+    
+    var setIsTemplatesAvailable: Bool {
+        guard let recommendedLayout = recommendedLayout,
+              let recommendedLayout = DetailsLayout(rawValue: recommendedLayout) else {
+            return false
+        }
+        
+        return isTemplatesAvailable(for: recommendedLayout)
+    }
+    
+    private func isTemplatesAvailable(for layout: DetailsLayout) -> Bool {
+        return !DetailsLayout.layoutsWithoutTemplate.contains(layout) &&
+        DetailsLayout.pageLayouts.contains(layout)
     }
 }

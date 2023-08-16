@@ -715,11 +715,15 @@ internal enum Loc {
   internal enum Actions {
     /// Link to
     internal static let linkItself = Loc.tr("Localizable", "Actions.LinkItself", fallback: "Link to")
+    /// Make template
+    internal static let makeAsTemplate = Loc.tr("Localizable", "Actions.MakeAsTemplate", fallback: "Make template")
   }
   internal enum Alert {
     internal enum CameraPermissions {
+      /// Anytype needs access to your camera to scan QR codes.
+      /// 
       /// Please, go to your device's Settings -> Privacy -> Camera and set Anytype to ON
-      internal static let goToSettings = Loc.tr("Localizable", "Alert.CameraPermissions.GoToSettings", fallback: "Please, go to your device's Settings -> Privacy -> Camera and set Anytype to ON")
+      internal static let goToSettings = Loc.tr("Localizable", "Alert.CameraPermissions.GoToSettings", fallback: "Anytype needs access to your camera to scan QR codes.\n\nPlease, go to your device's Settings -> Privacy -> Camera and set Anytype to ON")
       /// Settings
       internal static let settings = Loc.tr("Localizable", "Alert.CameraPermissions.Settings", fallback: "Settings")
     }
@@ -735,8 +739,8 @@ internal enum Loc {
     }
   }
   internal enum Auth {
-    /// Anytype needs access to your camera to scan QR codes
-    internal static let cameraPermissionTitle = Loc.tr("Localizable", "Auth.CameraPermissionTitle", fallback: "Anytype needs access to your camera to scan QR codes")
+    /// Please allow access
+    internal static let cameraPermissionTitle = Loc.tr("Localizable", "Auth.CameraPermissionTitle", fallback: "Please allow access")
     /// Join
     internal static let join = Loc.tr("Localizable", "Auth.Join", fallback: "Join")
     /// Log in
@@ -1517,10 +1521,14 @@ internal enum Loc {
     }
   }
   internal enum Settings {
+    /// Account and access
+    internal static let accountAndAccess = Loc.tr("Localizable", "Settings.AccountAndAccess", fallback: "Account and access")
     /// Space name
     internal static let spaceName = Loc.tr("Localizable", "Settings.SpaceName", fallback: "Space name")
+    /// Settings
+    internal static let title = Loc.tr("Localizable", "Settings.Title", fallback: "Settings")
     /// Personal Space
-    internal static let title = Loc.tr("Localizable", "Settings.Title", fallback: "Personal Space")
+    internal static let titleLegacy = Loc.tr("Localizable", "Settings.TitleLegacy", fallback: "Personal Space")
   }
   internal enum SignUp {
     internal enum InvintationCode {
@@ -1571,6 +1579,30 @@ internal enum Loc {
     internal static let table = Loc.tr("Localizable", "SlashMenu.Table", fallback: "Table")
     /// Table of contents
     internal static let tableOfContents = Loc.tr("Localizable", "SlashMenu.TableOfContents", fallback: "Table of contents")
+  }
+  internal enum SpaceCreate {
+    /// Create a space
+    internal static let title = Loc.tr("Localizable", "SpaceCreate.Title", fallback: "Create a space")
+  }
+  internal enum SpaceSettings {
+    /// Space info
+    internal static let info = Loc.tr("Localizable", "SpaceSettings.Info", fallback: "Space info")
+    /// Remote storage
+    internal static let remoteStorage = Loc.tr("Localizable", "SpaceSettings.RemoteStorage", fallback: "Remote storage")
+    /// Space settings
+    internal static let title = Loc.tr("Localizable", "SpaceSettings.Title", fallback: "Space settings")
+  }
+  internal enum Spaces {
+    internal enum Accessibility {
+      /// Private
+      internal static let `private` = Loc.tr("Localizable", "Spaces.Accessibility.Private", fallback: "Private")
+      /// Private space
+      internal static let privateFull = Loc.tr("Localizable", "Spaces.Accessibility.PrivateFull", fallback: "Private space")
+      /// Public
+      internal static let `public` = Loc.tr("Localizable", "Spaces.Accessibility.Public", fallback: "Public")
+      /// Public space
+      internal static let publicFull = Loc.tr("Localizable", "Spaces.Accessibility.PublicFull", fallback: "Public space")
+    }
   }
   internal enum Sync {
     internal enum Status {
@@ -1691,6 +1723,18 @@ internal enum Loc {
         internal static let description = Loc.tr("Localizable", "Widgets.Layout.Tree.Description", fallback: "Hierarchical structure of objects")
         /// Tree
         internal static let title = Loc.tr("Localizable", "Widgets.Layout.Tree.Title", fallback: "Tree")
+      }
+    }
+    internal enum Library {
+      internal enum RecentlyEdited {
+        /// Recently edited
+        internal static let name = Loc.tr("Localizable", "Widgets.Library.RecentlyEdited.Name", fallback: "Recently edited")
+      }
+      internal enum RecentlyOpened {
+        /// On this device
+        internal static let description = Loc.tr("Localizable", "Widgets.Library.RecentlyOpened.Description", fallback: "On this device")
+        /// Recently opened
+        internal static let name = Loc.tr("Localizable", "Widgets.Library.RecentlyOpened.Name", fallback: "Recently opened")
       }
     }
   }

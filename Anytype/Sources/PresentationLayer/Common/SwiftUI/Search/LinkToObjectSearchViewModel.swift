@@ -26,7 +26,6 @@ final class LinkToObjectSearchViewModel: SearchViewModelProtocol {
     @Published var searchData: [SearchDataSection<SearchDataType>] = []
     
     var onSelect: (SearchDataType) -> ()
-    var onDismiss: () -> () = { }
     var searchTask: Task<(), Never>?
 
     var placeholder: String { Loc.Editor.LinkToObject.searchPlaceholder }
@@ -65,7 +64,7 @@ final class LinkToObjectSearchViewModel: SearchViewModelProtocol {
                 let webSearchData = LinkToObjectSearchData(
                     searchKind: .web(url.url),
                     searchTitle: text,
-                    iconImage: .imageAsset(.webPage))
+                    iconImage: .asset(.webPage))
                 
                 let webSection = SearchDataSection(searchData: [webSearchData], sectionName: Loc.webPages)
                 searchData.append(webSection)
@@ -74,7 +73,7 @@ final class LinkToObjectSearchViewModel: SearchViewModelProtocol {
             let title = Loc.createObject + "  " + "\"" + text + "\""
             let createObjectData = LinkToObjectSearchData(searchKind: .createObject(text),
                                                           searchTitle: title,
-                                                          iconImage: .imageAsset(.createNewObject))
+                                                          iconImage: .asset(.createNewObject))
             objectData.insert(createObjectData, at: 0)
         }
         
@@ -85,7 +84,7 @@ final class LinkToObjectSearchViewModel: SearchViewModelProtocol {
                 let webSearchData = LinkToObjectSearchData(
                     searchKind: .web(url.url),
                     searchTitle: Loc.Editor.LinkToObject.pasteFromClipboard,
-                    iconImage: .imageAsset(.webPage))
+                    iconImage: .asset(.webPage))
                 
                 let webSection = SearchDataSection(searchData: [webSearchData], sectionName: Loc.webPages)
                 searchData.append(webSection)
@@ -104,13 +103,13 @@ final class LinkToObjectSearchViewModel: SearchViewModelProtocol {
             linkedToData = LinkToObjectSearchData(
                 searchKind: .openURL(url),
                 searchTitle: url.absoluteString,
-                iconImage: .imageAsset(.webPage)
+                iconImage: .asset(.webPage)
             )
 
             copyLink = LinkToObjectSearchData(
                 searchKind: .copyLink(url),
                 searchTitle: Loc.Editor.LinkToObject.copyLink,
-                iconImage: .imageAsset(.TextEditor.BlocksOption.copy)
+                iconImage: .asset(.TextEditor.BlocksOption.copy)
             )
         case let .right(blockId):
             let result = try await searchService.search(text: "", spaceId: spaceId)
@@ -131,7 +130,7 @@ final class LinkToObjectSearchViewModel: SearchViewModelProtocol {
         let removeLink = LinkToObjectSearchData(
             searchKind: .removeLink,
             searchTitle: Loc.Editor.LinkToObject.removeLink,
-            iconImage: .imageAsset(.TextEditor.BlocksOption.delete)
+            iconImage: .asset(.TextEditor.BlocksOption.delete)
         )
 
         let actionsSection = SearchDataSection(

@@ -1,8 +1,9 @@
 import Foundation
+import SwiftUI
 
 protocol CreateWidgetCoordinatorAssemblyProtocol {
     @MainActor
-    func make() -> CreateWidgetCoordinatorProtocol
+    func make(data: CreateWidgetCoordinatorModel) -> AnyView
 }
 
 final class CreateWidgetCoordinatorAssembly: CreateWidgetCoordinatorAssemblyProtocol {
@@ -24,11 +25,13 @@ final class CreateWidgetCoordinatorAssembly: CreateWidgetCoordinatorAssemblyProt
     // MARK: - CreateWidgetCoordinatorAssemblyProtocol
     
     @MainActor
-    func make() -> CreateWidgetCoordinatorProtocol {
-        return CreateWidgetCoordinator(
-            newSearchModuleAssembly: modulesDI.newSearch(),
-            navigationContext: uiHelpersDI.commonNavigationContext(),
-            widgetTypeModuleAssembly: modulesDI.widgetType()
-        )
+    func make(data: CreateWidgetCoordinatorModel) -> AnyView {
+        return CreateWidgetCoordinatorView(
+            model: CreateWidgetCoordinatorViewModel(
+                data: data,
+                newSearchModuleAssembly: self.modulesDI.newSearch(),
+                widgetTypeModuleAssembly: self.modulesDI.widgetType()
+            )
+        ).eraseToAnyView()
     }
 }

@@ -11,6 +11,16 @@ protocol PageServiceProtocol: AnyObject {
         spaceId: String,
         templateId: String?
     ) async throws -> ObjectDetails
+    
+    func createPage(
+        name: String,
+        type: String,
+        shouldDeleteEmptyObject: Bool,
+        shouldSelectType: Bool,
+        shouldSelectTemplate: Bool,
+        spaceId: String,
+        templateId: String?
+    ) async throws -> ObjectDetails
 }
 
 // MARK: - Default argumentsf
@@ -44,6 +54,7 @@ final class PageService: PageServiceProtocol {
     
     func createPage(
         name: String,
+        type: String,
         shouldDeleteEmptyObject: Bool,
         shouldSelectType: Bool,
         shouldSelectTemplate: Bool,
@@ -53,7 +64,7 @@ final class PageService: PageServiceProtocol {
         let details = Google_Protobuf_Struct(
             fields: [
                 BundledRelationKey.name.rawValue: name.protobufValue,
-                BundledRelationKey.type.rawValue: objectTypeProvider.defaultObjectType.id.protobufValue
+                BundledRelationKey.type.rawValue: type.protobufValue
             ]
         )
         
@@ -77,5 +88,24 @@ final class PageService: PageServiceProtocol {
         }).invoke()
         
         return try response.details.toDetails()
+    }
+    
+    func createPage(
+        name: String,
+        shouldDeleteEmptyObject: Bool,
+        shouldSelectType: Bool,
+        shouldSelectTemplate: Bool,
+        spaceId: String,
+        templateId: String? = nil
+    ) async throws -> ObjectDetails {
+        try await createPage(
+            name: name,
+            type: objectTypeProvider.defaultObjectType.id,
+            shouldDeleteEmptyObject: shouldDeleteEmptyObject,
+            shouldSelectType: shouldSelectType,
+            shouldSelectTemplate: shouldSelectTemplate,
+            spaceId: spaceId,
+            templateId: templateId
+        )
     }
 }

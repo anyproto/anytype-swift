@@ -11,10 +11,8 @@ struct ListWidgetRow: View {
     var body: some View {
         HStack(spacing: 12) {
             if let icon = model.icon {
-                SwiftUIObjectIconImageView(
-                    iconImage: icon,
-                    usecase: .widgetList
-                ).frame(width: 48, height: 48)
+                IconView(icon: icon)
+                    .frame(width: 48, height: 48)
             }
             VStack(alignment: .leading, spacing: 0) {
                 AnytypeText(model.title, style: .previewTitle2Medium, color: .Text.primary)

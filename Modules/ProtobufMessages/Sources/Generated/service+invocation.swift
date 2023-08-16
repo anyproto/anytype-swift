@@ -224,6 +224,16 @@ public struct ClientCommands {
         }
     }
 
+    public static func accountEnableLocalNetworkSync(
+        _ request: Anytype_Rpc.Account.EnableLocalNetworkSync.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Account.EnableLocalNetworkSync.Request, Anytype_Rpc.Account.EnableLocalNetworkSync.Response> {
+        return Invocation(messageName: "AccountEnableLocalNetworkSync", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceAccountEnableLocalNetworkSync(requestData) ?? Data()
+            return try Anytype_Rpc.Account.EnableLocalNetworkSync.Response(serializedData: responseData)
+        }
+    }
+
     public static func accountStop(
         _ request: Anytype_Rpc.Account.Stop.Request = .init()
     ) -> Invocation<Anytype_Rpc.Account.Stop.Request, Anytype_Rpc.Account.Stop.Response> {
@@ -511,6 +521,16 @@ public struct ClientCommands {
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectListSetIsFavorite(requestData) ?? Data()
             return try Anytype_Rpc.Object.ListSetIsFavorite.Response(serializedData: responseData)
+        }
+    }
+
+    public static func objectListSetObjectType(
+        _ request: Anytype_Rpc.Object.ListSetObjectType.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Object.ListSetObjectType.Request, Anytype_Rpc.Object.ListSetObjectType.Response> {
+        return Invocation(messageName: "ObjectListSetObjectType", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceObjectListSetObjectType(requestData) ?? Data()
+            return try Anytype_Rpc.Object.ListSetObjectType.Response(serializedData: responseData)
         }
     }
 

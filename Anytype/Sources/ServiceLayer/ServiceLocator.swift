@@ -9,6 +9,7 @@ final class ServiceLocator {
 
     let textService = TextService()
     let templatesService = TemplatesService()
+    lazy private(set) var setTemplatesInteractor = SetTemplatesInteractor(templatesService: templatesService)
     
     // MARK: - Services
     
@@ -276,6 +277,10 @@ final class ServiceLocator {
     // MARK: - Private
     
     private func subscriptionToggler() -> SubscriptionTogglerProtocol {
-        SubscriptionToggler()
+        SubscriptionToggler(objectSubscriptionService: objectSubscriptionService())
+    }
+    
+    private func objectSubscriptionService() -> ObjectSubscriptionServiceProtocol {
+        ObjectSubscriptionService()
     }
 }

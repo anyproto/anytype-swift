@@ -8,7 +8,6 @@ final class ObjectSearchViewModel: SearchViewModelProtocol {
     @Published var searchData: [SearchDataSection<ObjectSearchData>] = []
     
     var onSelect: (ObjectSearchData) -> ()
-    var onDismiss: () -> () = {}
 
     let placeholder: String = Loc.search
     

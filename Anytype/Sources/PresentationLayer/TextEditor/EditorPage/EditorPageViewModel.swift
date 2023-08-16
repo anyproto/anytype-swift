@@ -243,9 +243,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
 
 extension EditorPageViewModel {
     func viewDidLoad() {
-        if let objectDetails = document.details {
-            AnytypeAnalytics.instance().logShowObject(type: objectDetails.analyticsType, layout: objectDetails.layoutValue)
-        }
         
         blocksStateManager.checkOpenedState()
     
@@ -259,6 +256,10 @@ extension EditorPageViewModel {
                 }
             } catch {
                 router.closeEditor()
+            }
+            
+            if let objectDetails = document.details {
+                AnytypeAnalytics.instance().logShowObject(type: objectDetails.analyticsType, layout: objectDetails.layoutValue)
             }
         }
     }

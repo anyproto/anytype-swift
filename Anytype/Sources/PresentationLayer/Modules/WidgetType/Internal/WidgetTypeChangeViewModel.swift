@@ -28,11 +28,13 @@ final class WidgetTypeChangeViewModel: WidgetTypeInternalViewModelProtocol {
         self.context = context
         self.onFinish = onFinish
         
-        widgetObject.syncPublisher.sink { [weak self] in
-            guard let info = self?.widgetObject.widgetInfo(blockId: widgetId) else { return }
-            self?.state = WidgetTypeState(source: info.source, layout: info.fixedLayout)
-        }
-        .store(in: &subscriptions)
+        widgetObject.syncPublisher
+            .receiveOnMain()
+            .sink { [weak self] in
+                guard let info = self?.widgetObject.widgetInfo(blockId: widgetId) else { return }
+                self?.state = WidgetTypeState(source: info.source, layout: info.fixedLayout)
+            }
+            .store(in: &subscriptions)
     }
     
     // MARK: - WidgetTypeInternalViewModelProtocol

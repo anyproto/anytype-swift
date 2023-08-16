@@ -10,7 +10,7 @@ extension Relation {
         let name: String
         let isFeatured: Bool
         let isEditable: Bool
-        let isSystem: Bool
+        let canBeRemovedFromObject: Bool
         let isDeleted: Bool
         
         let files: [Option]
@@ -28,7 +28,7 @@ extension Relation.File {
         
         let id: String
         
-        let icon: ObjectIconImage?
+        let icon: Icon?
         let title: String
         
         let editorScreenData: EditorScreenData

@@ -171,7 +171,6 @@ extension ObjectHeaderView: ConfigurableView {
 private extension ObjectHeaderView {
     
     func setupView() {
-        backgroundColor = .Background.primary
         setupGestureRecognizers()
         
         setupLayout()
@@ -204,7 +203,7 @@ private extension ObjectHeaderView {
                 excluding: [.bottom],
                 insets: .zero
             )
-            coverBottomConstraint = $0.bottom.greaterThanOrEqual(
+            coverBottomConstraint = $0.bottom.equal(
                 to: bottomAnchor,
                 constant: 0,
                 priority: .init(rawValue: 999)

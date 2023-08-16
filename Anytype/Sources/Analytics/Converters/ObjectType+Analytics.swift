@@ -19,6 +19,8 @@ extension AnytypeWidgetId {
             return .favorites
         case .recent:
             return .recent
+        case .recentOpen:
+            return .recentOpen
         case .sets:
             return .sets
         case .collections:
@@ -36,5 +38,9 @@ extension ObjectType {
 extension ObjectDetails {
     var analyticsType: AnalyticsObjectType {
         objectType.analyticsType
+    }
+    
+    var templateType: AnalyticsObjectType {
+        templateIsBundled ? .object(typeId: id) : .custom
     }
 }

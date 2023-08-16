@@ -1,5 +1,5 @@
 import Foundation
-import UIKit
+import SwiftUI
 
 final class SearchModuleAssembly: SearchModuleAssemblyProtocol {
     
@@ -11,15 +11,16 @@ final class SearchModuleAssembly: SearchModuleAssemblyProtocol {
     
     // MARK: - SearchModuleAssemblyProtocol
     
-    func makeObjectSearch(
-        spaceId: String,
-        title: String?,
-        onSelect: @escaping (ObjectSearchData) -> ()
-    ) -> SwiftUIModule {
-        let viewModel = ObjectSearchViewModel(spaceId: spaceId, searchService: serviceLocator.searchService()) { data in
-            onSelect(data)
-        }
-        let searchView = SearchView(title: title, viewModel: viewModel)
-        return SwiftUIModule(view: searchView, model: viewModel)
+    func makeObjectSearch(data: SearchModuleModel) -> AnyView {
+        let searchView = SearchView(
+            title: data.title,
+            viewModel: ObjectSearchViewModel(
+                spaceId: data.spaceId,
+                searchService: self.serviceLocator.searchService()
+            ) { result in
+                data.onSelect(result)
+            }
+        )
+        return searchView.eraseToAnyView()
     }
 }

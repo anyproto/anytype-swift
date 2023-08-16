@@ -88,20 +88,20 @@ extension Relation: RelationProtocol {
         }
     }
     
-    var isSystem: Bool {
+    var canBeRemovedFromObject: Bool {
         switch self {
-        case .text(let text): return text.isSystem
-        case .number(let text): return text.isSystem
-        case .status(let status): return status.isSystem
-        case .date(let date): return date.isSystem
-        case .object(let object): return object.isSystem
-        case .checkbox(let checkbox): return checkbox.isSystem
-        case .url(let text): return text.isSystem
-        case .email(let text): return text.isSystem
-        case .phone(let text): return text.isSystem
-        case .tag(let tag): return tag.isSystem
-        case .file(let file): return file.isSystem
-        case .unknown(let unknown): return unknown.isSystem
+        case .text(let text): return text.canBeRemovedFromObject
+        case .number(let text): return text.canBeRemovedFromObject
+        case .status(let status): return status.canBeRemovedFromObject
+        case .date(let date): return date.canBeRemovedFromObject
+        case .object(let object): return object.canBeRemovedFromObject
+        case .checkbox(let checkbox): return checkbox.canBeRemovedFromObject
+        case .url(let text): return text.canBeRemovedFromObject
+        case .email(let text): return text.canBeRemovedFromObject
+        case .phone(let text): return text.canBeRemovedFromObject
+        case .tag(let tag): return tag.canBeRemovedFromObject
+        case .file(let file): return file.canBeRemovedFromObject
+        case .unknown(let unknown): return unknown.canBeRemovedFromObject
         }
     }
     

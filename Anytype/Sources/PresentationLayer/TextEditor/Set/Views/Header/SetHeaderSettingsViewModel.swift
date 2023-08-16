@@ -1,11 +1,14 @@
 import Foundation
 import Combine
+import Services
 
 class SetHeaderSettingsViewModel: ObservableObject {
     @Published var viewName = ""
     @Published var isActive: Bool = true
+    @Published var isTemplatesSelectionAvailable: Bool = false
     
     private let setDocument: SetDocumentProtocol
+    private let setTemplatesInteractor: SetTemplatesInteractorProtocol
     private var subscriptions = [AnyCancellable]()
     
     let onViewTap: () -> Void
@@ -15,6 +18,7 @@ class SetHeaderSettingsViewModel: ObservableObject {
     
     init(
         setDocument: SetDocumentProtocol,
+        setTemplatesInteractor: SetTemplatesInteractorProtocol,
         isActive: Bool,
         onViewTap: @escaping () -> Void,
         onSettingsTap: @escaping () -> Void,
@@ -22,6 +26,7 @@ class SetHeaderSettingsViewModel: ObservableObject {
         onSecondaryCreateTap: @escaping () -> Void
     ) {
         self.setDocument = setDocument
+        self.setTemplatesInteractor = setTemplatesInteractor
         self.isActive = isActive
         self.onViewTap = onViewTap
         self.onSettingsTap = onSettingsTap
@@ -40,7 +45,19 @@ class SetHeaderSettingsViewModel: ObservableObject {
         setDocument.detailsPublisher
             .sink { [weak self] details in
                 self?.isActive = details.setOf.first { $0.isNotEmpty } != nil
+                
+                self?.checkTemplatesAvailablility(details: details)
             }
             .store(in: &subscriptions)
+    }
+    
+    func checkTemplatesAvailablility(details: ObjectDetails) {
+        Task { @MainActor in
+            let isTemplatesAvailable = try await setTemplatesInteractor.isTemplatesAvailableFor(
+                setDocument: setDocument,
+                setObject: details
+            )
+            isTemplatesSelectionAvailable = isTemplatesAvailable
+        }
     }
 }

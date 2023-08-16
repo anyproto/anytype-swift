@@ -8,7 +8,7 @@ extension Relation {
         let name: String
         let isFeatured: Bool
         let isEditable: Bool
-        let isSystem: Bool
+        let canBeRemovedFromObject: Bool
         let isDeleted: Bool
         
         let value: Bool

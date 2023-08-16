@@ -17,6 +17,7 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
     }
     
     private enum Constants {
+        static let spaceWidgetId = "SpaceWidgetId"
         static let binWidgetId = "BinWidgetId"
     }
     
@@ -24,65 +25,78 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
     // MARK: - Tree
     private let objectTreeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     private let favoriteTreeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
-    private let recentTreeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
+    private let recentEditTreeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
+    private let recentOpenTreeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     // Delete with compactListWidget toggle
     private let setsTreeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     private let collectionsTreeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     // MARK: - List
     private let setListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     private let favoriteListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
-    private let recentListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
+    private let recentEditListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
+    private let recentOpenListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     private let setsListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     private let collectionsListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     // MARK: - CompactList
     private let setCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     private let favoriteCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
-    private let recentCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
+    private let recentEditCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
+    private let recentOpenCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     private let setsCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     private let collectionsCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     
     private let linkWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     private let binLinkWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
+    private let spaceWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
+    
     private let stateManager: HomeWidgetsStateManagerProtocol
     private var providersCache: [ProviderCache] = []
     
     init(
         objectTreeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         favoriteTreeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
-        recentTreeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
+        recentEditTreeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
+        recentOpenTreeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         setsTreeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         collectionsTreeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         setListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         favoriteListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
-        recentListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
+        recentEditListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
+        recentOpenListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         setsListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         collectionsListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         setCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         favoriteCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
-        recentCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
+        recentEditCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
+        recentOpenCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         setsCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         collectionsCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         linkWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         binLinkWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
+        spaceWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         stateManager: HomeWidgetsStateManagerProtocol
     ) {
         self.objectTreeWidgetProviderAssembly = objectTreeWidgetProviderAssembly
         self.favoriteTreeWidgetProviderAssembly = favoriteTreeWidgetProviderAssembly
-        self.recentTreeWidgetProviderAssembly = recentTreeWidgetProviderAssembly
+        self.recentEditTreeWidgetProviderAssembly = recentEditTreeWidgetProviderAssembly
+        self.recentOpenTreeWidgetProviderAssembly = recentOpenTreeWidgetProviderAssembly
         self.setsTreeWidgetProviderAssembly = setsTreeWidgetProviderAssembly
         self.collectionsTreeWidgetProviderAssembly = collectionsTreeWidgetProviderAssembly
         self.setListWidgetProviderAssembly = setListWidgetProviderAssembly
         self.favoriteListWidgetProviderAssembly = favoriteListWidgetProviderAssembly
-        self.recentListWidgetProviderAssembly = recentListWidgetProviderAssembly
+        self.recentEditListWidgetProviderAssembly = recentEditListWidgetProviderAssembly
+        self.recentOpenListWidgetProviderAssembly = recentOpenListWidgetProviderAssembly
         self.setsListWidgetProviderAssembly = setsListWidgetProviderAssembly
         self.collectionsListWidgetProviderAssembly = collectionsListWidgetProviderAssembly
         self.setCompactListWidgetProviderAssembly = setCompactListWidgetProviderAssembly
         self.favoriteCompactListWidgetProviderAssembly = favoriteCompactListWidgetProviderAssembly
-        self.recentCompactListWidgetProviderAssembly = recentCompactListWidgetProviderAssembly
+        self.recentEditCompactListWidgetProviderAssembly = recentEditCompactListWidgetProviderAssembly
+        self.recentOpenCompactListWidgetProviderAssembly = recentOpenCompactListWidgetProviderAssembly
         self.setsCompactListWidgetProviderAssembly = setsCompactListWidgetProviderAssembly
         self.collectionsCompactListWidgetProviderAssembly = collectionsCompactListWidgetProviderAssembly
         self.linkWidgetProviderAssembly = linkWidgetProviderAssembly
         self.binLinkWidgetProviderAssembly = binLinkWidgetProviderAssembly
+        self.spaceWidgetProviderAssembly = spaceWidgetProviderAssembly
         self.stateManager = stateManager
     }
     
@@ -93,7 +107,20 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
         widgetObject: BaseDocumentProtocol
     ) -> [HomeWidgetSubmoduleModel] {
         
-        var newProvidersCache: [ProviderCache] = blocks.compactMap { block in
+        var newProvidersCache: [ProviderCache] = []
+        
+        if FeatureFlags.multiSpace {
+            newProvidersCache.append(
+                createProviderCache(
+                    source: spaceWidgetProviderAssembly,
+                    widgetBlockId: Constants.spaceWidgetId,
+                    info: nil,
+                    widgetObject: widgetObject
+                )
+            )
+        }
+        
+        let blockWidgets = blocks.compactMap { block -> ProviderCache? in
             guard let widgetInfo = widgetObject.widgetInfo(block: block),
                   let provider = providerForInfo(widgetInfo) else { return nil }
             
@@ -104,6 +131,8 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
                 widgetObject: widgetObject
             )
         }
+        
+        newProvidersCache.append(contentsOf: blockWidgets)
         
         newProvidersCache.append(
             createProviderCache(
@@ -168,11 +197,29 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
         case (.favorite, .compactList):
             return favoriteCompactListWidgetProviderAssembly
         case (.recent, .tree):
-            return recentTreeWidgetProviderAssembly
+            return recentEditTreeWidgetProviderAssembly
         case (.recent, .list):
-            return recentListWidgetProviderAssembly
+            return recentEditListWidgetProviderAssembly
         case (.recent, .compactList):
-            return recentCompactListWidgetProviderAssembly
+            return recentEditCompactListWidgetProviderAssembly
+        case (.recentOpen, .tree):
+            if FeatureFlags.recentEditWidget {
+                return recentOpenTreeWidgetProviderAssembly
+            } else {
+                return nil
+            }
+        case (.recentOpen, .list):
+            if FeatureFlags.recentEditWidget {
+                return recentOpenListWidgetProviderAssembly
+            } else {
+                return nil
+            }
+        case (.recentOpen, .compactList):
+            if FeatureFlags.recentEditWidget {
+                return recentOpenCompactListWidgetProviderAssembly
+            } else {
+                return nil
+            }
         case (.sets, .tree):
             if FeatureFlags.compactListWidget {
                 return setsCompactListWidgetProviderAssembly

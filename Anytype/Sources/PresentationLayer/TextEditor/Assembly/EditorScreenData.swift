@@ -3,7 +3,8 @@ import AnytypeCore
 
 enum EditorScreenData: Hashable, Codable {
     case favorites
-    case recent
+    case recentEdit
+    case recentOpen
     case sets
     case collections
     case bin

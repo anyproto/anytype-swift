@@ -11,7 +11,7 @@ struct TreeWidgetRowViewModel {
     let rowId: String
     let objectId: String
     let title: String
-    let icon: ObjectIconImage?
+    let icon: Icon?
     let expandedType: ExpandedType
     let level: Int
     let tapExpand: (TreeWidgetRowViewModel) -> Void
@@ -31,7 +31,7 @@ struct TreeWidgetRowView: View {
             Spacer.fixedWidth(8)
             HStack(alignment: .center, spacing: 0) {
                 if let icon = model.icon {
-                    SwiftUIObjectIconImageView(iconImage: icon, usecase: .widgetTree)
+                    IconView(icon: icon)
                         .frame(width: 18, height: 18)
                     Spacer.fixedWidth(12)
                 }

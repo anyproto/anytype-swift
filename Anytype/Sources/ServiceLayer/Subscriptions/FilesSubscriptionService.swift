@@ -20,7 +20,7 @@ final class FilesSubscriptionService: FilesSubscriptionServiceProtocol {
     
     private let subscriptionService: SubscriptionsServiceProtocol
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
-    private let subscriptionId = SubscriptionId(value: "Files-\(UUID().uuidString)")
+    private let subscriptionId = "Files-\(UUID().uuidString)"
     
     init(
         subscriptionService: SubscriptionsServiceProtocol,

@@ -122,6 +122,14 @@ final class ModulesDI: ModulesDIProtocol {
         return FileStorageModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
     }
     
+    func spaceSwitch() -> SpaceSwitchModuleAssemblyProtocol {
+        return SpaceSwitchModileAssembly(serviceLocator: serviceLocator)
+    }
+    
+    func spaceCreate() -> SpaceCreateModuleAssemblyProtocol {
+        return SpaceCreateModuleAssembly(serviceLocator: serviceLocator)
+    }
+    
     func authorization() -> AuthModuleAssemblyProtocol {
         return AuthModuleAssembly()
     }
@@ -145,7 +153,7 @@ final class ModulesDI: ModulesDIProtocol {
     }
     
     func authKey() -> KeyPhraseViewModuleAssemblyProtocol {
-        return KeyPhraseViewModuleAssembly(uiHelpersDI: uiHelpersDI, serviceLocator: serviceLocator)
+        return KeyPhraseViewModuleAssembly(uiHelpersDI: uiHelpersDI)
     }
     
     func authSoul() -> SoulViewModuleAssemblyProtocol {
@@ -158,5 +166,13 @@ final class ModulesDI: ModulesDIProtocol {
     
     func templatesAssembly() -> TemplateModulesAssembly {
         return TemplateModulesAssembly(serviceLocator: serviceLocator)
+    }
+    
+    func spaceSettings() -> SpaceSettingsModuleAssemblyProtocol {
+        return SpaceSettingsModuleAssembly(serviceLocator: serviceLocator)
+    }
+    
+    func remoteStorage() -> RemoteStorageModuleAssemblyProtocol {
+        return RemoteStorageModuleAssembly(serviceLocator: serviceLocator)
     }
 }

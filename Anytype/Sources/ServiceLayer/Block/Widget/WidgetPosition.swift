@@ -1,7 +1,7 @@
 import Foundation
 import ProtobufMessages
 
-enum WidgetPosition {
+enum WidgetPosition: Equatable, Hashable {
     case end
     case below(widgetId: String)
     

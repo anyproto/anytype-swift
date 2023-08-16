@@ -126,7 +126,7 @@ private extension ObjectHeaderIcon {
     
     func modifiedBy(previewImage image: UIImage?) -> ObjectHeaderIcon {
         switch self.icon.mode {
-        case .icon(.basic), .icon(.emoji), .icon(.bookmark),  .icon(.space), .basicPreview, .image:
+        case .icon(.basic), .icon(.emoji), .icon(.bookmark),  .icon(.space), .basicPreview, .image, .icon(.todo), .icon(.placeholder):
             return ObjectHeaderIcon(
                 icon: .init(mode: .basicPreview(image), usecase: icon.usecase),
                 layoutAlignment: self.layoutAlignment,

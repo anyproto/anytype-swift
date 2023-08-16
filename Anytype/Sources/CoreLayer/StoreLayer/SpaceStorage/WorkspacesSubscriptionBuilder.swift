@@ -6,17 +6,17 @@ protocol WorkspacesSubscriptionBuilderProtocol: AnyObject {
     func build() -> SubscriptionData
 }
 
-private extension SubscriptionId {
-    static var spaces = SubscriptionId(value: "SubscriptionId.Workspaces")
-}
-
 final class WorkspacesSubscriptionBuilder: WorkspacesSubscriptionBuilderProtocol {
+    
+    private enum Constants {
+        static let spacesSubId = "SubscriptionId.Workspaces"
+    }
     
     // MARK: - WorkspacesSubscriptionBuilderProtocol
     
     func build() -> SubscriptionData {
         let sort = SearchHelper.sort(
-            relation: BundledRelationKey.id,
+            relation: BundledRelationKey.createdDate,
             type: .asc
         )
         
@@ -28,11 +28,12 @@ final class WorkspacesSubscriptionBuilder: WorkspacesSubscriptionBuilderProtocol
             BundledRelationKey.id
             BundledRelationKey.spaceId
             BundledRelationKey.titleKeys
+            BundledRelationKey.objectIconImageKeys
         }.uniqued()
         
         return .search(
             SubscriptionData.Search(
-                identifier: .spaces,
+                identifier: Constants.spacesSubId,
                 sorts: [sort],
                 filters: filters,
                 limit: 0,

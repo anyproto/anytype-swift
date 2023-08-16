@@ -42,7 +42,6 @@ struct SearchView<SearchViewModel: SearchViewModelProtocol>: View {
                             Button(
                                 action: {
                                     presentationMode.wrappedValue.dismiss()
-                                    viewModel.onDismiss()
                                     viewModel.onSelect(searchData)
                                 }
                             ) {

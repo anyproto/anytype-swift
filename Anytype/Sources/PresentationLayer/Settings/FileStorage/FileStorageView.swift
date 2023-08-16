@@ -8,12 +8,18 @@ struct FileStorageView: View {
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
-            TitleView(title: Loc.FileStorage.title)
+            if FeatureFlags.multiSpaceSettings {
+                TitleView(title: Loc.FileStorage.Local.title)
+            } else {
+                TitleView(title: Loc.FileStorage.title)
+            }
             ScrollView {
                 VStack(alignment: .leading, spacing: 0) {
-                    Spacer.fixedHeight(24)
-                    spaceBlock
-                    Spacer.fixedHeight(44)
+                    if !FeatureFlags.multiSpaceSettings {
+                        Spacer.fixedHeight(24)
+                        spaceBlock
+                        Spacer.fixedHeight(44)
+                    }
                     locaBlock
                 }
                 .padding(.horizontal, 20)
@@ -52,12 +58,14 @@ struct FileStorageView: View {
     
     @ViewBuilder
     private var locaBlock: some View {
-        AnytypeText(Loc.FileStorage.Local.title, style: .uxTitle1Semibold, color: .Text.primary)
+        if !FeatureFlags.multiSpaceSettings {
+            AnytypeText(Loc.FileStorage.Local.title, style: .uxTitle1Semibold, color: .Text.primary)
+        }
         Spacer.fixedHeight(4)
         AnytypeText(Loc.FileStorage.Local.instruction, style: .uxCalloutRegular, color: .Text.primary)
         Spacer.fixedHeight(16)
         FileStorageInfoBlock(
-            iconImage: Emoji("📱").map { ObjectIconImage.icon(.emoji($0)) },
+            iconImage: Emoji("📱").map { Icon.object(.emoji($0)) },
             title: model.phoneName,
             description: model.locaUsed,
             isWarning: false

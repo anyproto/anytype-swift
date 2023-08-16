@@ -298,48 +298,47 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         return NewSearchView(viewModel: viewModel)
     }
     
-    func widgetSourceSearchModule(
-        spaceId: String,
-        context: AnalyticsWidgetContext,
-        onSelect: @escaping (_ source: WidgetSource) -> Void
-    ) -> AnyView {
-        let model = WidgetSourceSearchSelectInternalViewModel(context: context, onSelect: onSelect)
-        return widgetSourceSearchModule(spaceId: spaceId, model: model)
+    func widgetSourceSearchModule(data: WidgetSourceSearchModuleModel) -> AnyView {
+        return widgetSourceSearchModule(
+            spaceId: data.spaceId,
+            model: WidgetSourceSearchSelectInternalViewModel(context: data.context, onSelect: data.onSelect)
+        )
     }
     
-    func widgetChangeSourceSearchModule(
-        widgetObjectId: String,
-        spaceId: String,
-        widgetId: String,
-        context: AnalyticsWidgetContext,
-        onFinish: @escaping () -> Void
-    ) -> AnyView {
-        let model = WidgetSourceSearchChangeInternalViewModel(
-            widgetObjectId: widgetObjectId,
-            widgetId: widgetId,
-            documentService: serviceLocator.documentService(),
-            blockWidgetService: serviceLocator.blockWidgetService(),
-            context: context,
-            onFinish: onFinish
+    func widgetChangeSourceSearchModule(data: WidgetChangeSourceSearchModuleModel) -> AnyView {
+        return widgetSourceSearchModule(
+            spaceId: data.spaceId,
+            model: WidgetSourceSearchChangeInternalViewModel(
+                widgetObjectId: data.widgetObjectId,
+                widgetId: data.widgetId,
+                documentService: self.serviceLocator.documentService(),
+                blockWidgetService: self.serviceLocator.blockWidgetService(),
+                context: data.context,
+                onFinish: data.onFinish
+            )
         )
-        return widgetSourceSearchModule(spaceId: spaceId, model: model)
     }
     
     // MARK: - Private
     
-    private func widgetSourceSearchModule(spaceId: String, model: WidgetSourceSearchInternalViewModelProtocol) -> AnyView {
-        let interactor = WidgetSourceSearchInteractor(spaceId: spaceId, searchService: serviceLocator.searchService())
-        
-        let internalViewModel = WidgetSourceSearchViewModel(interactor: interactor, internalModel: model)
-        
-        let viewModel = NewSearchViewModel(
-            title: Loc.Widgets.sourceSearch,
-            searchPlaceholder: Loc.search,
-            style: .default,
-            itemCreationMode: .unavailable,
-            internalViewModel: internalViewModel
-        )
-        
-        return NewSearchView(viewModel: viewModel).eraseToAnyView()
+    private func widgetSourceSearchModule(
+        spaceId: String,
+        model: @autoclosure @escaping () -> WidgetSourceSearchInternalViewModelProtocol
+    ) -> AnyView {
+       return NewSearchView(
+            viewModel: NewSearchViewModel(
+                title: Loc.Widgets.sourceSearch,
+                searchPlaceholder: Loc.search,
+                style: .default,
+                itemCreationMode: .unavailable,
+                internalViewModel: WidgetSourceSearchViewModel(
+                    interactor: WidgetSourceSearchInteractor(
+                        spaceId: spaceId,
+                        searchService: self.serviceLocator.searchService()
+                    ),
+                    internalModel: model()
+                )
+            )
+        ).eraseToAnyView()
     }
 }

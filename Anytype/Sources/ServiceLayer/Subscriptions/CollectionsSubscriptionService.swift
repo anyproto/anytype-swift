@@ -20,7 +20,7 @@ final class CollectionsSubscriptionService: CollectionsSubscriptionServiceProtoc
     private let subscriptionService: SubscriptionsServiceProtocol
     private let objectTypeProvider: ObjectTypeProviderProtocol
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
-    private let subscriptionId = SubscriptionId(value: "Collections-\(UUID().uuidString)")
+    private let subscriptionId = "Collections-\(UUID().uuidString)"
     
     init(
         subscriptionService: SubscriptionsServiceProtocol,

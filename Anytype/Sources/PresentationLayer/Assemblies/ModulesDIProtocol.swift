@@ -27,7 +27,8 @@ protocol ModulesDIProtocol: AnyObject {
     func debugMenu() -> DebugMenuModuleAssemblyProtocol
     func settingsAccount() -> SettingsAccountModuleAssemblyProtocol
     func fileStorage() -> FileStorageModuleAssemblyProtocol
-    
+    func spaceSwitch() -> SpaceSwitchModuleAssemblyProtocol
+    func spaceCreate() -> SpaceCreateModuleAssemblyProtocol
     func authorization() -> AuthModuleAssemblyProtocol
     func joinFlow() -> JoinFlowModuleAssemblyProtocol
     func login() -> LoginViewModuleAssemblyProtocol
@@ -37,4 +38,6 @@ protocol ModulesDIProtocol: AnyObject {
     func authSoul() -> SoulViewModuleAssemblyProtocol
     func authCreatingSoul() -> CreatingSoulViewModuleAssemblyProtocol
     func templatesAssembly() -> TemplateModulesAssembly
+    func spaceSettings() -> SpaceSettingsModuleAssemblyProtocol
+    func remoteStorage() -> RemoteStorageModuleAssemblyProtocol
 }

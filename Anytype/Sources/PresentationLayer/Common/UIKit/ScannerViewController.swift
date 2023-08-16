@@ -7,12 +7,11 @@ import AnytypeCore
 // MARK: - SwiftUI adapter
 
 struct QRCodeScannerView: UIViewControllerRepresentable {
-    @Environment(\.presentationMode) var presentationMode
     @Binding var qrCode: String
     @Binding var error: String?
     
     func makeCoordinator() -> Coordinator {
-        return Coordinator(presentationMode: presentationMode, qrCode: $qrCode, error: $error)
+        return Coordinator(qrCode: $qrCode, error: $error)
     }
 
     func makeUIViewController(context: UIViewControllerRepresentableContext<QRCodeScannerView>) -> ScannerViewController {
@@ -29,12 +28,10 @@ struct QRCodeScannerView: UIViewControllerRepresentable {
     // MARK: - Coordinator
     
     class Coordinator: NSObject, UINavigationControllerDelegate, ScannerViewControllerDeleage {
-        @Binding var presentationMode: PresentationMode
         @Binding var qrCode: String
         @Binding var error: String?
 
-        init(presentationMode: Binding<PresentationMode>, qrCode: Binding<String>, error: Binding<String?>) {
-            _presentationMode = presentationMode
+        init(qrCode: Binding<String>, error: Binding<String?>) {
             _qrCode = qrCode
             _error = error
         }
@@ -46,7 +43,6 @@ struct QRCodeScannerView: UIViewControllerRepresentable {
             case .success(let qrCode):
                 self.qrCode = qrCode
             }
-            presentationMode.dismiss()
         }
     }
 }

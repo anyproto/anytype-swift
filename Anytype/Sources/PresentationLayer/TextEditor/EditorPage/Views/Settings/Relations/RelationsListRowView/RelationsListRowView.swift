@@ -22,7 +22,7 @@ struct RelationsListRowView: View {
     private var row: some View {
         HStack(spacing: 8) {
             if editingMode {
-                if !relation.isSystem && addedToObject {
+                if relation.canBeRemovedFromObject && addedToObject {
                     removeButton
                 } else {
                     Spacer.fixedWidth(Constants.buttonWidth)
@@ -126,7 +126,7 @@ struct ObjectRelationRow_Previews: PreviewProvider {
                         name: "relation name",
                         isFeatured: false,
                         isEditable: true,
-                        isSystem: false,
+                        canBeRemovedFromObject: false,
                         isDeleted: false,
                         selectedTags: [
                             Relation.Tag.Option(
@@ -171,7 +171,7 @@ struct ObjectRelationRow_Previews: PreviewProvider {
                         name: "Relation name",
                         isFeatured: false,
                         isEditable: true,
-                        isSystem: false,
+                        canBeRemovedFromObject: false,
                         isDeleted: false,
                         value: "hello"
                     )

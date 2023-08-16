@@ -3,19 +3,18 @@ import Services
 
 extension ObjectType {
     
-    public static let emptyType: ObjectType = ObjectType(
-        id: "",
-        name: "",
+    public static let fallbackType: ObjectType = ObjectType(
+        id: ObjectTypeId.bundled(.note).rawValue,
+        name: Loc.note,
         iconEmoji: .default,
-        description: "",
+        description: Loc.ObjectType.fallbackDescription,
+        recommendedLayout: .note,
         hidden: false,
         readonly: false,
         isArchived: false,
         isDeleted: false,
         sourceObject: "",
-        uniqueKey: nil,
-        recommendedRelations: [],
-        recommendedLayout: nil
+        recommendedRelations: []
     )
     
 }

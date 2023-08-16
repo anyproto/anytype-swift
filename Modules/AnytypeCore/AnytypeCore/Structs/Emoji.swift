@@ -5,14 +5,9 @@ public struct Emoji: Hashable, Codable {
     // MARK: - Initializer
     
     public init?(_ value: String?) {
-        guard let value = value?.trimmed, value.isNotEmpty else {
-            return nil
-        }
+        guard let value = value?.trimmed, value.isNotEmpty else { return nil }
         
-        let emoji = value.first { $0.isEmoji }
-        guard let emoji else { return nil }
-        
-        self.value = String(emoji)
+        self.value = value
     }
     
     public static let `default` = Emoji("📝")!

@@ -2,7 +2,7 @@ ruby '2.7.2'
 
 source 'https://rubygems.org'
 
-gem 'fastlane', '~> 2.210.1'
+gem 'fastlane', '~> 2.214.0'
 gem 'fastlane-plugin-sentry', '1.15.0'
 gem 'license_finder'
 

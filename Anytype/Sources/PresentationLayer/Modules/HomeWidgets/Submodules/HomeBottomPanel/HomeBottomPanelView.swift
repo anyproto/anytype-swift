@@ -15,7 +15,7 @@ struct HomeBottomPanelView: View {
             }
             Spacer.fixedHeight(32)
         }
-        .animation(.default, value: model.buttonState)
+        .animation(.default, value: model.isEditState)
     }
 
     @ViewBuilder
@@ -25,7 +25,11 @@ struct HomeBottomPanelView: View {
                 Button(action: button.onTap, label: {
                     VStack {
                         if let image = button.image {
-                            SwiftUIObjectIconImageView(iconImage: image, usecase: .homeBottomPanel)
+                            IconView(icon: image)
+                                .if(button.padding) {
+                                    $0.padding(EdgeInsets(side: 4))
+                                }
+                                .frame(width: 32, height: 32)
                         }
                     }
                     .fixTappableArea()

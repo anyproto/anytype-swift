@@ -8,11 +8,8 @@ struct RelationFilesRowView: View {
     var body: some View {
         HStack(alignment: .center, spacing: 9) {
             if let icon = file.icon {
-                SwiftUIObjectIconImageView(
-                    iconImage: icon,
-                    usecase: .dashboardSearch
-                )
-                .frame(width: 48, height: 48)
+                IconView(icon: icon)
+                    .frame(width: 48, height: 48)
             }
             
             AnytypeText(file.title, style: .previewTitle2Medium, color: .Text.primary)
@@ -31,7 +28,7 @@ struct RelationFilesRowView_Previews: PreviewProvider {
         RelationFilesRowView(
             file: Relation.File.Option(
                 id: "s",
-                icon: .todo(false),
+                icon: .object(.todo(false)),
                 title: "title",
                 editorScreenData: .favorites
             ),

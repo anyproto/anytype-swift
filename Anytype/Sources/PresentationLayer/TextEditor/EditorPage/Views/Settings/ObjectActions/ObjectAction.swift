@@ -9,6 +9,7 @@ enum ObjectAction: Hashable, Identifiable {
     case locked(isLocked: Bool)
     case duplicate
     case linkItself
+    case makeAsTemplate
 
     // When adding to case
     static func allCasesWith(
@@ -31,6 +32,11 @@ enum ObjectAction: Hashable, Identifiable {
 
         if details.layoutValue != .set && details.layoutValue != .collection {
             allCases.append(.undoRedo)
+            
+            if details.canMakeTemplate {
+                allCases.append(.makeAsTemplate)
+            }
+            
             allCases.append(.linkItself)
             allCases.append(.locked(isLocked: isLocked))
         } else {
@@ -54,6 +60,8 @@ enum ObjectAction: Hashable, Identifiable {
             return "duplicate"
         case .linkItself:
             return "linkItself"
+        case .makeAsTemplate:
+            return "makeAsTemplate"
         }
     }
 }

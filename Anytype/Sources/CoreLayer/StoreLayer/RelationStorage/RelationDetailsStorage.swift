@@ -5,7 +5,13 @@ import Combine
 
 extension RelationDetails: IdProvider {}
 
+enum RelationDetailsStorageError: Error {
+    case relationNotFound
+}
+
 final class RelationDetailsStorage: RelationDetailsStorageProtocol {
+    
+    static let subscriptionId = "SubscriptionId.Relation"
     
     private let subscriptionsService: SubscriptionsServiceProtocol
     private let subscriptionDataBuilder: RelationSubscriptionDataBuilderProtocol
@@ -37,6 +43,13 @@ final class RelationDetailsStorage: RelationDetailsStorageProtocol {
         }
     }
     
+    func relationsDetails(for key: BundledRelationKey) throws -> RelationDetails {
+        guard let details = searchDetailsByKey[key.rawValue] else {
+            throw RelationDetailsStorageError.relationNotFound
+        }
+        return details
+    }
+    
     func relationsDetails() -> [RelationDetails] {
         return details
     }
@@ -48,7 +61,7 @@ final class RelationDetailsStorage: RelationDetailsStorageProtocol {
     }
     
     func stopSubscription() {
-        subscriptionsService.stopSubscription(id: .relation)
+        subscriptionsService.stopSubscription(id: Self.subscriptionId)
         details.removeAll()
         updateSearchCache()
         relationsDetailsSubject.send(details)
