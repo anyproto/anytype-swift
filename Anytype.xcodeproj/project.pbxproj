@@ -867,6 +867,10 @@
 		2ECC87562A43A17800A78293 /* MigrationGuideViewModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECC87552A43A17800A78293 /* MigrationGuideViewModuleAssembly.swift */; };
 		2ECD122B28AFE58E00BD464A /* TitleWithIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECD122A28AFE58E00BD464A /* TitleWithIconView.swift */; };
 		2ECD123028AFE6A900BD464A /* TitleWithIconStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECD122F28AFE6A900BD464A /* TitleWithIconStyle.swift */; };
+		2ED9F4392A8E8F0900BE0A6B /* SetViewSettingsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED9F4382A8E8F0900BE0A6B /* SetViewSettingsList.swift */; };
+		2ED9F43B2A8E902A00BE0A6B /* SetViewSettingsListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED9F43A2A8E902A00BE0A6B /* SetViewSettingsListModel.swift */; };
+		2ED9F43D2A8E90A800BE0A6B /* SetViewSettingsNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED9F43C2A8E90A800BE0A6B /* SetViewSettingsNavigationView.swift */; };
+		2ED9F43F2A8E90E500BE0A6B /* SetViewSettingsNavigationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED9F43E2A8E90E500BE0A6B /* SetViewSettingsNavigationViewModel.swift */; };
 		2EDC2AF72A1251EF0065E009 /* VoidView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDC2AF62A1251EF0065E009 /* VoidView.swift */; };
 		2EDC2AF92A1252470065E009 /* VoidViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDC2AF82A1252470065E009 /* VoidViewModel.swift */; };
 		2EDC2AFB2A125BD60065E009 /* JoinFlowOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDC2AFA2A125BD60065E009 /* JoinFlowOutput.swift */; };
@@ -2346,6 +2350,10 @@
 		2ECC87552A43A17800A78293 /* MigrationGuideViewModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MigrationGuideViewModuleAssembly.swift; sourceTree = "<group>"; };
 		2ECD122A28AFE58E00BD464A /* TitleWithIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleWithIconView.swift; sourceTree = "<group>"; };
 		2ECD122F28AFE6A900BD464A /* TitleWithIconStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleWithIconStyle.swift; sourceTree = "<group>"; };
+		2ED9F4382A8E8F0900BE0A6B /* SetViewSettingsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewSettingsList.swift; sourceTree = "<group>"; };
+		2ED9F43A2A8E902A00BE0A6B /* SetViewSettingsListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewSettingsListModel.swift; sourceTree = "<group>"; };
+		2ED9F43C2A8E90A800BE0A6B /* SetViewSettingsNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewSettingsNavigationView.swift; sourceTree = "<group>"; };
+		2ED9F43E2A8E90E500BE0A6B /* SetViewSettingsNavigationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewSettingsNavigationViewModel.swift; sourceTree = "<group>"; };
 		2EDC2AF62A1251EF0065E009 /* VoidView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoidView.swift; sourceTree = "<group>"; };
 		2EDC2AF82A1252470065E009 /* VoidViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoidViewModel.swift; sourceTree = "<group>"; };
 		2EDC2AFA2A125BD60065E009 /* JoinFlowOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinFlowOutput.swift; sourceTree = "<group>"; };
@@ -6219,6 +6227,33 @@
 			path = TitleWIthIconView;
 			sourceTree = "<group>";
 		};
+		2ED9F4372A8E8EF300BE0A6B /* SetViewSettings */ = {
+			isa = PBXGroup;
+			children = (
+				2ED9F4412A8E93F000BE0A6B /* SetViewSettingsNavigationView */,
+				2ED9F4402A8E93EA00BE0A6B /* SetViewSettingsList */,
+			);
+			path = SetViewSettings;
+			sourceTree = "<group>";
+		};
+		2ED9F4402A8E93EA00BE0A6B /* SetViewSettingsList */ = {
+			isa = PBXGroup;
+			children = (
+				2ED9F4382A8E8F0900BE0A6B /* SetViewSettingsList.swift */,
+				2ED9F43A2A8E902A00BE0A6B /* SetViewSettingsListModel.swift */,
+			);
+			path = SetViewSettingsList;
+			sourceTree = "<group>";
+		};
+		2ED9F4412A8E93F000BE0A6B /* SetViewSettingsNavigationView */ = {
+			isa = PBXGroup;
+			children = (
+				2ED9F43C2A8E90A800BE0A6B /* SetViewSettingsNavigationView.swift */,
+				2ED9F43E2A8E90E500BE0A6B /* SetViewSettingsNavigationViewModel.swift */,
+			);
+			path = SetViewSettingsNavigationView;
+			sourceTree = "<group>";
+		};
 		2EDC2AF52A1251C90065E009 /* VoidView */ = {
 			isa = PBXGroup;
 			children = (
@@ -6618,6 +6653,7 @@
 		3D30416527EA4DC000FFE0EB /* Popups */ = {
 			isa = PBXGroup;
 			children = (
+				2ED9F4372A8E8EF300BE0A6B /* SetViewSettings */,
 				2E9BF63928B7D341006D3CC2 /* ViewTypes */,
 				2E9EFE69285B576400C8E47A /* Filters */,
 				2E412D0128466AC900C973FF /* Sorts */,
@@ -9444,6 +9480,7 @@
 				2AA8107E29A3D8A9007DD64B /* WidgetObjectListMenuItemModel.swift in Sources */,
 				53D6EE2E265D7DD600C47263 /* EditorViewListCell.swift in Sources */,
 				C9D3066B287431A7005BC877 /* SimpleTableMenuItem.swift in Sources */,
+				2ED9F4392A8E8F0900BE0A6B /* SetViewSettingsList.swift in Sources */,
 				2E975EEF287C23DA004DE574 /* SetSortTypesListViewModel.swift in Sources */,
 				EA2640CA26C3DDF6006071BD /* NSRange+Middleware.swift in Sources */,
 				3DB3EC6B275514E9002781DA /* ProgressBarWithAnimation.swift in Sources */,
@@ -9677,6 +9714,7 @@
 				2A730A732940BE7A00E51335 /* NewSearchCreateButtonModel.swift in Sources */,
 				125683ED27DF4DDF003A8251 /* SelectionIndicatorView.swift in Sources */,
 				C9C536A9276C75F4003CD3F3 /* Assets.swift in Sources */,
+				2ED9F43B2A8E902A00BE0A6B /* SetViewSettingsListModel.swift in Sources */,
 				2AFFFB9F2927B05700A487E1 /* AccountEventHandler.swift in Sources */,
 				2AAE455828A5307C00E538C8 /* BlockBookmark+Extensions.swift in Sources */,
 				535E02B0275023B300E1AF8C /* RelationStyle.swift in Sources */,
@@ -10010,6 +10048,7 @@
 				C9CD66A827EB1480001F1860 /* CoverColorsGridViewModel.swift in Sources */,
 				2AE6E29329DDB62C00B5AAD3 /* GradientIconsExamples.swift in Sources */,
 				126F3D57273D2C0A00AEF39A /* RelationsSection.swift in Sources */,
+				2ED9F43F2A8E90E500BE0A6B /* SetViewSettingsNavigationViewModel.swift in Sources */,
 				2A6688952A1CCB3D00D80CED /* AboutViewModel.swift in Sources */,
 				3DA6DBDB2746582300516E75 /* View+ReadSize.swift in Sources */,
 				2AA0C43F2A013EF800B9C108 /* FilesSubscriptionService.swift in Sources */,
@@ -10076,6 +10115,7 @@
 				1247BC7B27FDD7D8005F2DB4 /* ObjectTypesSearchInteractor.swift in Sources */,
 				2A6693762A7104EA007747DD /* EmojiIconImageGuideline.swift in Sources */,
 				2ACF42A32A6A8C86001B5D2E /* UIImage+Draw.swift in Sources */,
+				2ED9F43D2A8E90A800BE0A6B /* SetViewSettingsNavigationView.swift in Sources */,
 				2AE7ECA3298816F30079F12B /* WidgetObjectListInternalViewModelProtocol.swift in Sources */,
 				12136D2C2796C5EC00262FE7 /* RelationOptionsPopupLayout.swift in Sources */,
 				2A673C0D29B0B2AA00E3D672 /* SettingsModuleAssembly.swift in Sources */,

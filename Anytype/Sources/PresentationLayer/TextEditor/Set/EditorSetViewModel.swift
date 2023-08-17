@@ -682,17 +682,21 @@ extension EditorSetViewModel {
     }
     
     func showSetSettings() {
-        router?.showSetSettings { [weak self] setting in
-            guard let self else { return }
-            switch setting {
-            case .view:
-                self.showViewTypes(with: self.activeView)
-            case .settings:
-                self.showViewSettings()
-            case .sort:
-                self.showSorts()
-            case .filter:
-                self.showFilters()
+        if FeatureFlags.newSetSettings {
+            router?.showSetSettings()
+        } else {
+            router?.showSetSettingsLegacy { [weak self] setting in
+                guard let self else { return }
+                switch setting {
+                case .view:
+                    self.showViewTypes(with: self.activeView)
+                case .settings:
+                    self.showViewSettings()
+                case .sort:
+                    self.showSorts()
+                case .filter:
+                    self.showFilters()
+                }
             }
         }
     }

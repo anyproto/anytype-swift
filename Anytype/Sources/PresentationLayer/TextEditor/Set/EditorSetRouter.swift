@@ -10,7 +10,8 @@ protocol EditorSetRouterProtocol:
     ObjectHeaderRouterProtocol
 {
     
-    func showSetSettings(onSettingTap: @escaping (EditorSetSetting) -> Void)
+    func showSetSettings()
+    func showSetSettingsLegacy(onSettingTap: @escaping (EditorSetSetting) -> Void)
     func dismissSetSettingsIfNeeded()
     
     func setNavigationViewHidden(_ isHidden: Bool, animated: Bool)
@@ -137,7 +138,17 @@ final class EditorSetRouter: EditorSetRouterProtocol {
     
     // MARK: - EditorSetRouterProtocol
     
-    func showSetSettings(onSettingTap: @escaping (EditorSetSetting) -> Void) {
+    func showSetSettings() {
+        let viewModel = SetViewSettingsNavigationViewModel()
+        let view = SetViewSettingsNavigationView(model: viewModel)
+        let popup = AnytypePopup(
+            contentView: view,
+            floatingPanelStyle: true
+        )
+        navigationContext.present(popup)
+    }
+    
+    func showSetSettingsLegacy(onSettingTap: @escaping (EditorSetSetting) -> Void) {
         guard let currentSetSettingsPopup = currentSetSettingsPopup else {
             showSetSettingsPopup(onSettingTap: onSettingTap)
             return
