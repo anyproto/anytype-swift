@@ -871,9 +871,11 @@
 		2ECD123028AFE6A900BD464A /* TitleWithIconStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECD122F28AFE6A900BD464A /* TitleWithIconStyle.swift */; };
 		2ED9F4392A8E8F0900BE0A6B /* SetViewSettingsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED9F4382A8E8F0900BE0A6B /* SetViewSettingsList.swift */; };
 		2ED9F43B2A8E902A00BE0A6B /* SetViewSettingsListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED9F43A2A8E902A00BE0A6B /* SetViewSettingsListModel.swift */; };
-		2ED9F43D2A8E90A800BE0A6B /* SetViewSettingsNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED9F43C2A8E90A800BE0A6B /* SetViewSettingsNavigationView.swift */; };
-		2ED9F43F2A8E90E500BE0A6B /* SetViewSettingsNavigationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED9F43E2A8E90E500BE0A6B /* SetViewSettingsNavigationViewModel.swift */; };
+		2ED9F43D2A8E90A800BE0A6B /* SetViewSettingsCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED9F43C2A8E90A800BE0A6B /* SetViewSettingsCoordinatorView.swift */; };
+		2ED9F43F2A8E90E500BE0A6B /* SetViewSettingsCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED9F43E2A8E90E500BE0A6B /* SetViewSettingsCoordinatorViewModel.swift */; };
 		2ED9F4432A8F94D400BE0A6B /* SetViewSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED9F4422A8F94D400BE0A6B /* SetViewSettings.swift */; };
+		2ED9F4452A8FBB5400BE0A6B /* SetViewSettingsListModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED9F4442A8FBB5400BE0A6B /* SetViewSettingsListModuleAssembly.swift */; };
+		2ED9F4472A8FBC6400BE0A6B /* SetViewSettingsCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED9F4462A8FBC6400BE0A6B /* SetViewSettingsCoordinatorAssembly.swift */; };
 		2EDC2AF72A1251EF0065E009 /* VoidView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDC2AF62A1251EF0065E009 /* VoidView.swift */; };
 		2EDC2AF92A1252470065E009 /* VoidViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDC2AF82A1252470065E009 /* VoidViewModel.swift */; };
 		2EDC2AFB2A125BD60065E009 /* JoinFlowOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDC2AFA2A125BD60065E009 /* JoinFlowOutput.swift */; };
@@ -2357,9 +2359,11 @@
 		2ECD122F28AFE6A900BD464A /* TitleWithIconStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleWithIconStyle.swift; sourceTree = "<group>"; };
 		2ED9F4382A8E8F0900BE0A6B /* SetViewSettingsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewSettingsList.swift; sourceTree = "<group>"; };
 		2ED9F43A2A8E902A00BE0A6B /* SetViewSettingsListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewSettingsListModel.swift; sourceTree = "<group>"; };
-		2ED9F43C2A8E90A800BE0A6B /* SetViewSettingsNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewSettingsNavigationView.swift; sourceTree = "<group>"; };
-		2ED9F43E2A8E90E500BE0A6B /* SetViewSettingsNavigationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewSettingsNavigationViewModel.swift; sourceTree = "<group>"; };
+		2ED9F43C2A8E90A800BE0A6B /* SetViewSettingsCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewSettingsCoordinatorView.swift; sourceTree = "<group>"; };
+		2ED9F43E2A8E90E500BE0A6B /* SetViewSettingsCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewSettingsCoordinatorViewModel.swift; sourceTree = "<group>"; };
 		2ED9F4422A8F94D400BE0A6B /* SetViewSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewSettings.swift; sourceTree = "<group>"; };
+		2ED9F4442A8FBB5400BE0A6B /* SetViewSettingsListModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewSettingsListModuleAssembly.swift; sourceTree = "<group>"; };
+		2ED9F4462A8FBC6400BE0A6B /* SetViewSettingsCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewSettingsCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		2EDC2AF62A1251EF0065E009 /* VoidView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoidView.swift; sourceTree = "<group>"; };
 		2EDC2AF82A1252470065E009 /* VoidViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoidViewModel.swift; sourceTree = "<group>"; };
 		2EDC2AFA2A125BD60065E009 /* JoinFlowOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinFlowOutput.swift; sourceTree = "<group>"; };
@@ -6246,7 +6250,7 @@
 		2ED9F4372A8E8EF300BE0A6B /* SetViewSettings */ = {
 			isa = PBXGroup;
 			children = (
-				2ED9F4412A8E93F000BE0A6B /* SetViewSettingsNavigationView */,
+				2ED9F4412A8E93F000BE0A6B /* SetViewSettingsCoordinatorView */,
 				2ED9F4402A8E93EA00BE0A6B /* SetViewSettingsList */,
 			);
 			path = SetViewSettings;
@@ -6258,17 +6262,19 @@
 				2ED9F4382A8E8F0900BE0A6B /* SetViewSettingsList.swift */,
 				2ED9F43A2A8E902A00BE0A6B /* SetViewSettingsListModel.swift */,
 				2ED9F4422A8F94D400BE0A6B /* SetViewSettings.swift */,
+				2ED9F4442A8FBB5400BE0A6B /* SetViewSettingsListModuleAssembly.swift */,
 			);
 			path = SetViewSettingsList;
 			sourceTree = "<group>";
 		};
-		2ED9F4412A8E93F000BE0A6B /* SetViewSettingsNavigationView */ = {
+		2ED9F4412A8E93F000BE0A6B /* SetViewSettingsCoordinatorView */ = {
 			isa = PBXGroup;
 			children = (
-				2ED9F43C2A8E90A800BE0A6B /* SetViewSettingsNavigationView.swift */,
-				2ED9F43E2A8E90E500BE0A6B /* SetViewSettingsNavigationViewModel.swift */,
+				2ED9F43C2A8E90A800BE0A6B /* SetViewSettingsCoordinatorView.swift */,
+				2ED9F43E2A8E90E500BE0A6B /* SetViewSettingsCoordinatorViewModel.swift */,
+				2ED9F4462A8FBC6400BE0A6B /* SetViewSettingsCoordinatorAssembly.swift */,
 			);
-			path = SetViewSettingsNavigationView;
+			path = SetViewSettingsCoordinatorView;
 			sourceTree = "<group>";
 		};
 		2EDC2AF52A1251C90065E009 /* VoidView */ = {
@@ -9531,6 +9537,7 @@
 				2A4E5C8D296C0BFF002BB71B /* HomeBottomPanelViewModel.swift in Sources */,
 				2A66937D2A7104EA007747DD /* ObjectIconImageGuidelineSet.swift in Sources */,
 				3D44984D26D54A64005A3E06 /* BindableGestureRecognizer.swift in Sources */,
+				2ED9F4452A8FBB5400BE0A6B /* SetViewSettingsListModuleAssembly.swift in Sources */,
 				53EDA8802837EC4000887804 /* CreateObjectView.swift in Sources */,
 				1244792227D8A8BE00581174 /* StatusSearchRowView.swift in Sources */,
 				2E999487294240C300FFBED9 /* SetDocumentProtocol.swift in Sources */,
@@ -9960,6 +9967,7 @@
 				3DE6925127301D4000A4CD4E /* AccessoryViewStateManager+Mention.swift in Sources */,
 				2EC7FBA12A60238400491F99 /* BlockRestrictions+MarkupType.swift in Sources */,
 				1244793F27DC633700581174 /* NewSearchViewModel.swift in Sources */,
+				2ED9F4472A8FBC6400BE0A6B /* SetViewSettingsCoordinatorAssembly.swift in Sources */,
 				2ABFED9428C9D784008B5C03 /* RelationDetailsStorageProtocol.swift in Sources */,
 				531197E026430A9800FFC71E /* BlockActionHandler.swift in Sources */,
 				2AC906CE29B61B1F00209E39 /* RecentTreeWidgetModuleAssembly.swift in Sources */,
@@ -10069,7 +10077,7 @@
 				C9CD66A827EB1480001F1860 /* CoverColorsGridViewModel.swift in Sources */,
 				2AE6E29329DDB62C00B5AAD3 /* GradientIconsExamples.swift in Sources */,
 				126F3D57273D2C0A00AEF39A /* RelationsSection.swift in Sources */,
-				2ED9F43F2A8E90E500BE0A6B /* SetViewSettingsNavigationViewModel.swift in Sources */,
+				2ED9F43F2A8E90E500BE0A6B /* SetViewSettingsCoordinatorViewModel.swift in Sources */,
 				2A6688952A1CCB3D00D80CED /* AboutViewModel.swift in Sources */,
 				3DA6DBDB2746582300516E75 /* View+ReadSize.swift in Sources */,
 				2AA0C43F2A013EF800B9C108 /* FilesSubscriptionService.swift in Sources */,
@@ -10136,7 +10144,7 @@
 				1247BC7B27FDD7D8005F2DB4 /* ObjectTypesSearchInteractor.swift in Sources */,
 				2A6693762A7104EA007747DD /* EmojiIconImageGuideline.swift in Sources */,
 				2ACF42A32A6A8C86001B5D2E /* UIImage+Draw.swift in Sources */,
-				2ED9F43D2A8E90A800BE0A6B /* SetViewSettingsNavigationView.swift in Sources */,
+				2ED9F43D2A8E90A800BE0A6B /* SetViewSettingsCoordinatorView.swift in Sources */,
 				2AE7ECA3298816F30079F12B /* WidgetObjectListInternalViewModelProtocol.swift in Sources */,
 				12136D2C2796C5EC00262FE7 /* RelationOptionsPopupLayout.swift in Sources */,
 				2A673C0D29B0B2AA00E3D672 /* SettingsModuleAssembly.swift in Sources */,

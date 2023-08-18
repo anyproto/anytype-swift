@@ -94,6 +94,7 @@ final class EditorSetRouter: EditorSetRouterProtocol {
     private let relationValueCoordinator: RelationValueCoordinatorProtocol
     private let objectCoverPickerModuleAssembly: ObjectCoverPickerModuleAssemblyProtocol
     private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
+    private let setViewSettingsCoordinatorAssembly: SetViewSettingsCoordinatorAssemblyProtocol
     private let toastPresenter: ToastPresenterProtocol
     private let alertHelper: AlertHelper
     private let templateSelectionCoordinator: TemplateSelectionCoordinatorProtocol
@@ -115,6 +116,7 @@ final class EditorSetRouter: EditorSetRouterProtocol {
         relationValueCoordinator: RelationValueCoordinatorProtocol,
         objectCoverPickerModuleAssembly: ObjectCoverPickerModuleAssemblyProtocol,
         objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
+        setViewSettingsCoordinatorAssembly: SetViewSettingsCoordinatorAssemblyProtocol,
         toastPresenter: ToastPresenterProtocol,
         alertHelper: AlertHelper,
         templateSelectionCoordinator: TemplateSelectionCoordinatorProtocol
@@ -131,6 +133,7 @@ final class EditorSetRouter: EditorSetRouterProtocol {
         self.relationValueCoordinator = relationValueCoordinator
         self.objectCoverPickerModuleAssembly = objectCoverPickerModuleAssembly
         self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
+        self.setViewSettingsCoordinatorAssembly = setViewSettingsCoordinatorAssembly
         self.toastPresenter = toastPresenter
         self.alertHelper = alertHelper
         self.templateSelectionCoordinator = templateSelectionCoordinator
@@ -138,9 +141,9 @@ final class EditorSetRouter: EditorSetRouterProtocol {
     
     // MARK: - EditorSetRouterProtocol
     
+    @MainActor
     func showSetSettings() {
-        let viewModel = SetViewSettingsNavigationViewModel()
-        let view = SetViewSettingsNavigationView(model: viewModel)
+        let view = setViewSettingsCoordinatorAssembly.make()
         let popup = AnytypePopup(
             contentView: view,
             floatingPanelStyle: true

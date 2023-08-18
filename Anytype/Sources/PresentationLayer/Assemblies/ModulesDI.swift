@@ -159,4 +159,8 @@ final class ModulesDI: ModulesDIProtocol {
     func templatesAssembly() -> TemplateModulesAssembly {
         return TemplateModulesAssembly(serviceLocator: serviceLocator)
     }
+    
+    func setViewSettingsList() -> SetViewSettingsListModuleAssemblyProtocol {
+        return SetViewSettingsListModuleAssembly(serviceLocator: serviceLocator)
+    }
 }

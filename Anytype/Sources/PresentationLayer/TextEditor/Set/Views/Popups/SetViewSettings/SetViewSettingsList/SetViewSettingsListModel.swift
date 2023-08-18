@@ -5,9 +5,9 @@ final class SetViewSettingsListModel: ObservableObject {
     
     let settings = SetViewSettings.allCases
     
-    private weak var output: SetViewSettingsNavigationOutput?
+    private weak var output: SetViewSettingsCoordinatorOutput?
     
-    init(output: SetViewSettingsNavigationOutput?) {
+    init(output: SetViewSettingsCoordinatorOutput?) {
         self.output = output
     }
     
