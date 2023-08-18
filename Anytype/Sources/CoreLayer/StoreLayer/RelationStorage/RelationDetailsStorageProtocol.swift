@@ -5,9 +5,9 @@ import AnytypeCore
 
 protocol RelationDetailsStorageProtocol: AnyObject {
     
-    func relationsDetails(for links: [RelationLink]) -> [RelationDetails]
+    func relationsDetails(for links: [RelationLink], spaceId: String) -> [RelationDetails]
     func relationsDetails(for ids: [ObjectId]) -> [RelationDetails]
-    func relationsDetails(for key: BundledRelationKey) throws -> RelationDetails
+    func relationsDetails(for key: BundledRelationKey, spaceId: String) throws -> RelationDetails
     func relationsDetails() -> [RelationDetails]
     var relationsDetailsPublisher: AnyPublisher<[RelationDetails], Never> { get }
     

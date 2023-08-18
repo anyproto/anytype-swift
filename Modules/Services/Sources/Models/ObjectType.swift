@@ -20,6 +20,7 @@ public struct ObjectType: Equatable, Hashable, Codable {
     public let isArchived: Bool
     public let isDeleted: Bool
     public let sourceObject: String
+    public let spaceId: String
     public let uniqueKey: ObjectTypeUniqueKey?
     
     public let recommendedRelations: [ObjectId]
@@ -35,6 +36,7 @@ public struct ObjectType: Equatable, Hashable, Codable {
         isArchived: Bool,
         isDeleted: Bool,
         sourceObject: String,
+        spaceId: String,
         uniqueKey: ObjectTypeUniqueKey?,
         recommendedRelations: [ObjectId],
         recommendedLayout: DetailsLayout?
@@ -48,6 +50,7 @@ public struct ObjectType: Equatable, Hashable, Codable {
         self.isArchived = isArchived
         self.isDeleted = isDeleted
         self.sourceObject = sourceObject
+        self.spaceId = spaceId
         self.uniqueKey = uniqueKey
         self.recommendedRelations = recommendedRelations
         self.recommendedLayout = recommendedLayout
@@ -67,7 +70,8 @@ extension ObjectType {
             isArchived: details.isArchived,
             isDeleted: details.isDeleted,
             sourceObject: details.sourceObject,
-            uniqueKey: nil,
+            spaceId: details.spaceId,
+            uniqueKey: details.uniqueKeyValue,
             recommendedRelations: details.recommendedRelations,
             recommendedLayout: details.recommendedLayoutValue
         )

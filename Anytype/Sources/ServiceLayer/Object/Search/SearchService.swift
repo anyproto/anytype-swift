@@ -106,7 +106,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         }
         
         let filters: [DataviewFilter] = .builder {
-//            buildFilters(isArchived: false, spaceId: spaceId)
+            buildFilters(isArchived: false, spaceId: spaceId)
             SearchHelper.notHiddenFilter()
             SearchHelper.isArchivedFilter(isArchived: false)
             SearchHelper.layoutFilter([DetailsLayout.objectType])

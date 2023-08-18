@@ -13,6 +13,7 @@ extension ObjectType {
         isArchived: false,
         isDeleted: false,
         sourceObject: "",
+        spaceId: "",
         uniqueKey: nil,
         recommendedRelations: [],
         recommendedLayout: nil

@@ -4,6 +4,7 @@ import Foundation
 final class PersonalizationViewModel: ObservableObject {
  
     // MARK: - DI
+    private let spaceId: String
     private let objectTypeProvider: ObjectTypeProviderProtocol
     private weak var output: PersonalizationModuleOutput?
     
@@ -11,7 +12,8 @@ final class PersonalizationViewModel: ObservableObject {
     
     @Published var objectType: String = ""
     
-    init(objectTypeProvider: ObjectTypeProviderProtocol, output: PersonalizationModuleOutput?) {
+    init(spaceId: String, objectTypeProvider: ObjectTypeProviderProtocol, output: PersonalizationModuleOutput?) {
+        self.spaceId = spaceId
         self.objectTypeProvider = objectTypeProvider
         self.output = output
         setupSubscriptions()
@@ -22,7 +24,7 @@ final class PersonalizationViewModel: ObservableObject {
     }
     
     private func setupSubscriptions() {
-        objectTypeProvider.defaultObjectTypePublisher
+        objectTypeProvider.defaultObjectTypePublisher(spaceId: spaceId)
             .map { $0.name }
             .receiveOnMain()
             .assign(to: &$objectType)

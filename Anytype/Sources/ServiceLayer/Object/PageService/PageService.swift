@@ -98,9 +98,10 @@ final class PageService: PageServiceProtocol {
         spaceId: String,
         templateId: String? = nil
     ) async throws -> ObjectDetails {
-        try await createPage(
+        let defaultObjectType = objectTypeProvider.defaultObjectType(spaceId: spaceId)
+        return try await createPage(
             name: name,
-            type: objectTypeProvider.defaultObjectType.id,
+            type: defaultObjectType?.id ?? "",
             shouldDeleteEmptyObject: shouldDeleteEmptyObject,
             shouldSelectType: shouldSelectType,
             shouldSelectTemplate: shouldSelectTemplate,

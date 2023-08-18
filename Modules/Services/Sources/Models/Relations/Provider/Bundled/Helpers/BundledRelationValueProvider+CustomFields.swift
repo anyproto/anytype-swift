@@ -70,4 +70,8 @@ extension BundledRelationsValueProvider {
     public var iconOptionValue: GradientId? {
         return iconOption.flatMap { GradientId($0) }
     }
+    
+    public var uniqueKeyValue: ObjectTypeUniqueKey? {
+        return ObjectTypeUniqueKey(rawValue: uniqueKey)
+    }
 }

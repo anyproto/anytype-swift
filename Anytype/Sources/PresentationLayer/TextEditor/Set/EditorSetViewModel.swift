@@ -568,8 +568,9 @@ final class EditorSetViewModel: ObservableObject {
     
     func createObject(selectedTemplateId: BlockId?) {
         if setDocument.isCollection() {
+            guard let defaultObjectType = objectTypeProvider.defaultObjectType(spaceId: setDocument.spaceId) else { return }
             createObject(
-                with: objectTypeProvider.defaultObjectType.id,
+                with: defaultObjectType.id,
                 shouldSelectType: true,
                 relationsDetails: [],
                 templateId: selectedTemplateId,
@@ -587,12 +588,13 @@ final class EditorSetViewModel: ObservableObject {
         } else if setDocument.isBookmarksSet() {
             createBookmarkObject()
         } else if setDocument.isRelationsSet() {
+            guard let defaultObjectType = objectTypeProvider.defaultObjectType(spaceId: setDocument.spaceId) else { return }
             let relationsDetails = setDocument.dataViewRelationsDetails.filter { [weak self] detail in
                 guard let source = self?.details?.setOf else { return false }
                 return source.contains(detail.id)
             }
             createObject(
-                with: objectTypeProvider.defaultObjectType.id,
+                with: defaultObjectType.id,
                 shouldSelectType: true,
                 relationsDetails: relationsDetails,
                 templateId: selectedTemplateId,

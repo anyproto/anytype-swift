@@ -42,6 +42,7 @@ struct PersonalizationView_Previews: PreviewProvider {
         ZStack {
             Color.System.blue
             PersonalizationView(model: PersonalizationViewModel(
+                spaceId: "",
                 objectTypeProvider: DI.preview.serviceLocator.objectTypeProvider(),
                 output: nil
             ))

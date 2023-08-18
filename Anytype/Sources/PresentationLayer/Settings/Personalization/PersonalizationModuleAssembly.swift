@@ -3,7 +3,7 @@ import SwiftUI
 
 protocol PersonalizationModuleAssemblyProtocol: AnyObject {
     @MainActor
-    func make(output: PersonalizationModuleOutput?) -> UIViewController
+    func make(spaceId: String, output: PersonalizationModuleOutput?) -> UIViewController
 }
 
 final class PersonalizationModuleAssembly: PersonalizationModuleAssemblyProtocol {
@@ -17,8 +17,8 @@ final class PersonalizationModuleAssembly: PersonalizationModuleAssemblyProtocol
     // MARK: - PersonalizationModuleAssemblyProtocol
     
     @MainActor
-    func make(output: PersonalizationModuleOutput?) -> UIViewController {
-        let model = PersonalizationViewModel(objectTypeProvider: serviceLocator.objectTypeProvider(), output: output)
+    func make(spaceId: String, output: PersonalizationModuleOutput?) -> UIViewController {
+        let model = PersonalizationViewModel(spaceId: spaceId, objectTypeProvider: serviceLocator.objectTypeProvider(), output: output)
         let view = PersonalizationView(model: model)
         return AnytypePopup(contentView: view)
     }

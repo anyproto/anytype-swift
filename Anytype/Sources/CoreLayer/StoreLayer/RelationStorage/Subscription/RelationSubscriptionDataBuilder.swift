@@ -32,7 +32,8 @@ final class RelationSubscriptionDataBuilder: RelationSubscriptionDataBuilderProt
             BundledRelationKey.isHidden.rawValue,
             BundledRelationKey.isReadonly.rawValue,
             BundledRelationKey.relationMaxCount.rawValue,
-            BundledRelationKey.sourceObject.rawValue
+            BundledRelationKey.sourceObject.rawValue,
+            BundledRelationKey.spaceId.rawValue
         ]
         
         return .search(

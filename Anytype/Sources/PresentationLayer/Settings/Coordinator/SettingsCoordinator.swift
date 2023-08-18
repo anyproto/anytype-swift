@@ -82,7 +82,7 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol, SettingsModuleOutp
     }
     
     func onPersonalizationSelected() {
-        let module = personalizationModuleAssembly.make(output: self)
+        let module = personalizationModuleAssembly.make(spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId, output: self)
         navigationContext.present(module)
     }
     
@@ -120,7 +120,7 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol, SettingsModuleOutp
             spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
             showBookmark: false
         ) { [weak self] type in
-            self?.objectTypeProvider.setDefaulObjectType(type: type)
+            self?.objectTypeProvider.setDefaultObjectType(type: type, spaceId: type.spaceId)
             self?.navigationContext.dismissTopPresented(animated: true)
         }
         navigationContext.present(module)

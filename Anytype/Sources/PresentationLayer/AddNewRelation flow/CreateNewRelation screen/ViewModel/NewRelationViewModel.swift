@@ -72,7 +72,8 @@ extension NewRelationViewModel {
             objectTypes: objectTypeIds,
             maxCount: 0,
             sourceObject: "",
-            isDeleted: false
+            isDeleted: false,
+            spaceId: ""
         )
         
         Task { @MainActor in

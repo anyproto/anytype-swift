@@ -35,7 +35,9 @@ final class ObjectTypeSubscriptionDataBuilder: ObjectTypeSubscriptionDataBuilder
             BundledRelationKey.isArchived.rawValue,
             BundledRelationKey.smartblockTypes.rawValue,
             BundledRelationKey.sourceObject.rawValue,
-            BundledRelationKey.recommendedRelations.rawValue
+            BundledRelationKey.recommendedRelations.rawValue,
+            BundledRelationKey.uniqueKey.rawValue,
+            BundledRelationKey.spaceId.rawValue
         ]
 
         return .search(
