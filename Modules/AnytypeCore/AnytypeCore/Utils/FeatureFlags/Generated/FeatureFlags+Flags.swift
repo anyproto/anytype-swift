@@ -94,6 +94,10 @@ public extension FeatureFlags {
         value(for: .analyticsAlerts)
     }
 
+    static var middleareErrorAlerts: Bool {
+        value(for: .middleareErrorAlerts)
+    }
+
     // All toggles
     static let features: [FeatureDescription] = [
         .setTemplateSelection,
@@ -117,6 +121,7 @@ public extension FeatureFlags {
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
-        .analyticsAlerts
+        .analyticsAlerts,
+        .middleareErrorAlerts
     ]
 }
