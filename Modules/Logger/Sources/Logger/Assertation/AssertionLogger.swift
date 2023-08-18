@@ -1,7 +1,7 @@
 import Logging
 
 public protocol AssertionLoggerHandler: AnyObject {
-    func log(_ message: String, domain: String, info: [String: Any])
+    func log(_ message: String, domain: String, info: [String: Any], file: String, function: String, line: UInt)
 }
 
 public final class AssertionLogger {
@@ -38,7 +38,7 @@ public final class AssertionLogger {
             line: line
         )
         handlers.forEach {
-            $0.log(message, domain: domain, info: info)
+            $0.log(message, domain: domain, info: info, file: file, function: function, line: line)
         }
     }
 }
