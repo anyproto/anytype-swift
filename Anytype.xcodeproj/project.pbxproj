@@ -556,7 +556,6 @@
 		2AB511AC29093A36005D0A91 /* BeginingOfTextMarkdownListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB511AB29093A36005D0A91 /* BeginingOfTextMarkdownListener.swift */; };
 		2AB511AE29093CB4005D0A91 /* InlineMarkdownListenerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB511AD29093CB4005D0A91 /* InlineMarkdownListenerTests.swift */; };
 		2AB522082A14D0E7007DEE53 /* FileErrorEventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB522072A14D0E7007DEE53 /* FileErrorEventHandler.swift */; };
-		2AB5220D2A151821007DEE53 /* DetailsLayout+Visible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB5220C2A151820007DEE53 /* DetailsLayout+Visible.swift */; };
 		2ABA0E07283BC420008369DC /* BlockObjectsSearchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABA0E06283BC420008369DC /* BlockObjectsSearchInteractor.swift */; };
 		2ABAF2B92938E58E003C4730 /* CodeLanguageListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABAF2B82938E58E003C4730 /* CodeLanguageListViewModel.swift */; };
 		2ABAF2BB2938E5FA003C4730 /* CodeLanguageModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABAF2BA2938E5FA003C4730 /* CodeLanguageModuleAssembly.swift */; };
@@ -2035,7 +2034,6 @@
 		2AB511AB29093A36005D0A91 /* BeginingOfTextMarkdownListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeginingOfTextMarkdownListener.swift; sourceTree = "<group>"; };
 		2AB511AD29093CB4005D0A91 /* InlineMarkdownListenerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = InlineMarkdownListenerTests.swift; path = AnyTypeTests/Markdown/InlineMarkdownListenerTests.swift; sourceTree = SOURCE_ROOT; };
 		2AB522072A14D0E7007DEE53 /* FileErrorEventHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileErrorEventHandler.swift; sourceTree = "<group>"; };
-		2AB5220C2A151820007DEE53 /* DetailsLayout+Visible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DetailsLayout+Visible.swift"; sourceTree = "<group>"; };
 		2ABA0E06283BC420008369DC /* BlockObjectsSearchInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockObjectsSearchInteractor.swift; sourceTree = "<group>"; };
 		2ABAF2B82938E58E003C4730 /* CodeLanguageListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeLanguageListViewModel.swift; sourceTree = "<group>"; };
 		2ABAF2BA2938E5FA003C4730 /* CodeLanguageModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeLanguageModuleAssembly.swift; sourceTree = "<group>"; };
@@ -4460,7 +4458,6 @@
 				2AFB54682869989D004F7458 /* ObjectType+Extensions.swift */,
 				2A2C32FF28919576008BC326 /* RelationMetadataFormat+Extensions.swift */,
 				2AAE455728A5307C00E538C8 /* BlockBookmark+Extensions.swift */,
-				2AB5220C2A151820007DEE53 /* DetailsLayout+Visible.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -10184,7 +10181,6 @@
 				C93B2D2F274E41390008544D /* CustomStateKeys.swift in Sources */,
 				2A2C3311289294B8008BC326 /* ModulesDI.swift in Sources */,
 				2AFFFB9B292778B700A487E1 /* ObjectSettingModuleAssembly.swift in Sources */,
-				2AB5220D2A151821007DEE53 /* DetailsLayout+Visible.swift in Sources */,
 				12928C8C27BD3C0B00CE94C3 /* IntrinsicPopupLayout.swift in Sources */,
 				538F1728272C126F009528E7 /* SearchViewModelProtocol.swift in Sources */,
 				2E2D256428880C8D00E3DFD1 /* SetFiltersSelectionHeaderViewModel.swift in Sources */,

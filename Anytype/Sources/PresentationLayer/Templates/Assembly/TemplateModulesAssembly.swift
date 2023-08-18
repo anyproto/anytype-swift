@@ -6,8 +6,7 @@ protocol TemplateModulesAssemblyProtocol {
     func buildTemplateSelection(
         setDocument: SetDocumentProtocol,
         dataView: DataviewView,
-        onTemplateSelection: @escaping (BlockId?) -> Void,
-        templateEditingHandler: @escaping ((BlockId) -> Void)
+        onTemplateSelection: @escaping (BlockId?) -> Void
     ) -> TemplatesSelectionView
 }
 
@@ -22,8 +21,7 @@ final class TemplateModulesAssembly: TemplateModulesAssemblyProtocol {
     func buildTemplateSelection(
         setDocument: SetDocumentProtocol,
         dataView: DataviewView,
-        onTemplateSelection: @escaping (BlockId?) -> Void,
-        templateEditingHandler: @escaping ((BlockId) -> Void)
+        onTemplateSelection: @escaping (BlockId?) -> Void
     ) -> TemplatesSelectionView {
         TemplatesSelectionView(
             model: .init(
@@ -40,8 +38,7 @@ final class TemplateModulesAssembly: TemplateModulesAssemblyProtocol {
                 ),
                 setDocument: setDocument,
                 templatesService: serviceLocator.templatesService,
-                onTemplateSelection: onTemplateSelection,
-                templateEditingHandler: templateEditingHandler
+                onTemplateSelection: onTemplateSelection
             )
         )
     }

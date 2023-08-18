@@ -166,7 +166,8 @@ final class EditorAssembly {
             newSearchModuleAssembly: modulesDI.newSearch(),
             textIconPickerModuleAssembly: modulesDI.textIconPicker(),
             alertHelper: AlertHelper(viewController: controller),
-            pageService: serviceLocator.pageService()
+            pageService: serviceLocator.pageService(),
+            templateService: serviceLocator.templatesService
         )
 
         let viewModel = buildViewModel(
