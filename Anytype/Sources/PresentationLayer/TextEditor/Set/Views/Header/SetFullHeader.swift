@@ -94,9 +94,7 @@ extension SetFullHeader {
     private var iconView: some View {
         Group {
             if model.hasTargetObjectId, let iconImage = model.details?.objectIconImage {
-                SwiftUIObjectIconImageView(
-                    iconImage: iconImage,
-                    usecase: .inlineSetHeader)
+                IconView(icon: iconImage)
                 .frame(
                     width: 32,
                     height: 32
@@ -111,7 +109,7 @@ extension SetFullHeader {
 
     private var titleView: some View {
         AutofocusedTextField(
-            placeholder: Loc.untitled,
+            placeholder: Loc.Object.Title.placeholder,
             placeholderFont: .title,
             shouldSkipFocusOnFilled: true,
             text: $model.titleString

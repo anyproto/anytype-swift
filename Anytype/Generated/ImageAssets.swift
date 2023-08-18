@@ -278,8 +278,6 @@ internal extension ImageAsset {
   enum Migration {
     static let close = ImageAsset.bundle(name: "Migration/Close")
   }
-  static let taskChecked = ImageAsset.bundle(name: "task_checked")
-  static let taskUnchecked = ImageAsset.bundle(name: "task_unchecked")
   static let linkToItself = ImageAsset.bundle(name: "link_to_itself")
   static let makeAsTemplate = ImageAsset.bundle(name: "make_as_template")
   static let templateMakeDefault = ImageAsset.bundle(name: "template_make_default")

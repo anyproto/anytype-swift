@@ -33,7 +33,7 @@ final class FileStorageViewModel: ObservableObject {
     @Published var spaceInstruction: String = ""
     @Published var spaceName: String = ""
     @Published var percentUsage: Double = 0
-    @Published var spaceIcon: ObjectIconImage?
+    @Published var spaceIcon: Icon?
     @Published var spaceUsed: String = ""
     let phoneName: String = UIDevice.current.name
     @Published var locaUsed: String = ""
@@ -118,7 +118,7 @@ final class FileStorageViewModel: ObservableObject {
     
     private func handleSpaceDetails(details: ObjectDetails) {
         spaceIcon = details.objectIconImage
-        spaceName = details.name.isNotEmpty ? details.name : Loc.untitled
+        spaceName = details.name.isNotEmpty ? details.name : Loc.Object.Title.placeholder
     }
     
     private func updateView(limits: FileLimits) {

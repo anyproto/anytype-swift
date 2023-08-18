@@ -69,7 +69,7 @@ final class TableOfContentsContentProvider {
                 for index in position+1..<hasHeader.count {
                     hasHeader[index] = false
                 }
-                let title = content.text.isEmpty ? Loc.untitled : content.text
+                let title = content.text.isEmpty ? Loc.Object.Title.placeholder : content.text
                 items.append(TableOfContentItem(blockId: child.id, title: title, level: depth))
             default:
                 break

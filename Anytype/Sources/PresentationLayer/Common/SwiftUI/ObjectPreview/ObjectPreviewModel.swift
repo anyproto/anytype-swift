@@ -109,11 +109,11 @@ extension BlockLink.IconSize {
     var name: String {
         switch self {
         case .none:
-            return Loc.none
+            return Loc.BlockLink.PreviewSettings.IconSize.none
         case .small:
-            return Loc.small
+            return Loc.BlockLink.PreviewSettings.IconSize.small
         case .medium:
-            return Loc.medium
+            return Loc.BlockLink.PreviewSettings.IconSize.medium
         }
     }
 
@@ -129,9 +129,9 @@ extension BlockLink.CardStyle {
     var name: String {
         switch self {
         case .text:
-            return Loc.text
+            return Loc.BlockLink.PreviewSettings.Layout.Text.title
         case .card:
-            return Loc.card
+            return Loc.BlockLink.PreviewSettings.Layout.Card.title
         }
     }
 

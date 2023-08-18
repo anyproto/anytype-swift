@@ -1,5 +1,6 @@
 import UIKit
 import Services
+import AnytypeCore
 
 extension ToastPresenterProtocol {
     func showObjectName(
@@ -94,22 +95,14 @@ private func retrieveObjectDetails(objectId: BlockId) async -> ObjectDetails? {
 }
 
 private func createAttributedString(from objectDetails: ObjectDetails) async -> NSAttributedString {
-    guard let icon = objectDetails.icon else {
+    guard let Icon = objectDetails.objectIconImage else {
         return await NSAttributedString(
             string: objectDetails.title.trimmed(numberOfCharacters: 16),
             attributes: ToastView.objectAttributes
         )
     }
-    
-    let loader = AnytypeIconDownloader()
-    
-    guard let image = await loader.image(
-        with: icon,
-        imageGuideline: .init(size: .init(width: 16, height: 16))
-    ) else {
-        return .init(string: objectDetails.name)
-    }
-    
+    let maker = IconMaker(icon: Icon, size: CGSize(width: 16, height: 16))
+    let image = await maker.make()
     return await NSAttributedString.imageFirstComposite(
         image: image,
         text: objectDetails.title.trimmed(numberOfCharacters: 16),

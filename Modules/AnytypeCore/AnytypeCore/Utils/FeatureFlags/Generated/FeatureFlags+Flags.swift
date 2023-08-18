@@ -74,6 +74,10 @@ public extension FeatureFlags {
         value(for: .recentEditWidget)
     }
 
+    static var widgetTaskDone: Bool {
+        value(for: .widgetTaskDone)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -109,6 +113,7 @@ public extension FeatureFlags {
         .validateRecoveryPhrase,
         .colorfulRecoveryPhrase,
         .recentEditWidget,
+        .widgetTaskDone,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
