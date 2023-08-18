@@ -871,6 +871,7 @@
 		2ED9F43B2A8E902A00BE0A6B /* SetViewSettingsListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED9F43A2A8E902A00BE0A6B /* SetViewSettingsListModel.swift */; };
 		2ED9F43D2A8E90A800BE0A6B /* SetViewSettingsNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED9F43C2A8E90A800BE0A6B /* SetViewSettingsNavigationView.swift */; };
 		2ED9F43F2A8E90E500BE0A6B /* SetViewSettingsNavigationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED9F43E2A8E90E500BE0A6B /* SetViewSettingsNavigationViewModel.swift */; };
+		2ED9F4432A8F94D400BE0A6B /* SetViewSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED9F4422A8F94D400BE0A6B /* SetViewSettings.swift */; };
 		2EDC2AF72A1251EF0065E009 /* VoidView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDC2AF62A1251EF0065E009 /* VoidView.swift */; };
 		2EDC2AF92A1252470065E009 /* VoidViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDC2AF82A1252470065E009 /* VoidViewModel.swift */; };
 		2EDC2AFB2A125BD60065E009 /* JoinFlowOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDC2AFA2A125BD60065E009 /* JoinFlowOutput.swift */; };
@@ -2354,6 +2355,7 @@
 		2ED9F43A2A8E902A00BE0A6B /* SetViewSettingsListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewSettingsListModel.swift; sourceTree = "<group>"; };
 		2ED9F43C2A8E90A800BE0A6B /* SetViewSettingsNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewSettingsNavigationView.swift; sourceTree = "<group>"; };
 		2ED9F43E2A8E90E500BE0A6B /* SetViewSettingsNavigationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewSettingsNavigationViewModel.swift; sourceTree = "<group>"; };
+		2ED9F4422A8F94D400BE0A6B /* SetViewSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewSettings.swift; sourceTree = "<group>"; };
 		2EDC2AF62A1251EF0065E009 /* VoidView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoidView.swift; sourceTree = "<group>"; };
 		2EDC2AF82A1252470065E009 /* VoidViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoidViewModel.swift; sourceTree = "<group>"; };
 		2EDC2AFA2A125BD60065E009 /* JoinFlowOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinFlowOutput.swift; sourceTree = "<group>"; };
@@ -6241,6 +6243,7 @@
 			children = (
 				2ED9F4382A8E8F0900BE0A6B /* SetViewSettingsList.swift */,
 				2ED9F43A2A8E902A00BE0A6B /* SetViewSettingsListModel.swift */,
+				2ED9F4422A8F94D400BE0A6B /* SetViewSettings.swift */,
 			);
 			path = SetViewSettingsList;
 			sourceTree = "<group>";
@@ -9029,6 +9032,7 @@
 				3DB1CA5F272BF43F000D2779 /* DashboardWallpaper.swift in Sources */,
 				C9C283802864724900F035C5 /* FeaturedRelationBlockItemsDataSource.swift in Sources */,
 				5338E7EC25DC723D008CB97D /* KeyboardActionHandler.swift in Sources */,
+				2ED9F4432A8F94D400BE0A6B /* SetViewSettings.swift in Sources */,
 				1244794127DC735A00581174 /* NewSearchView+ListModel.swift in Sources */,
 				539E01922757CD0600067A24 /* SlashActionRelations.swift in Sources */,
 				2E2D255F28880C8D00E3DFD1 /* SetFilterConditionsViewModel.swift in Sources */,
