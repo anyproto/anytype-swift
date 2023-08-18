@@ -120,7 +120,7 @@ struct TemplatePreview: View, ContextualMenuItemsProvider {
     @ViewBuilder
     var contextMenuItems: AnyView {
         Group {
-            ForEach(TemplateOptionAction.allCases, id: \.self) {
+            ForEach(viewModel.model.contextualMenuOptions, id: \.self) {
                 menuItemToView(option: $0)
             }
             Divider()

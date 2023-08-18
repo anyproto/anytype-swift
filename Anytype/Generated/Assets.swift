@@ -72,6 +72,7 @@ internal enum Asset {
     static let yellow = ColorAsset(name: "VeryLight/yellow")
   }
   internal enum Additional {
+    static let separator = ColorAsset(name: "Additional/separator")
     static let space = ColorAsset(name: "Additional/space")
   }
   internal enum Auth {

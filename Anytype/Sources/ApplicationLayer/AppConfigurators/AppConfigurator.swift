@@ -12,6 +12,7 @@ final class AppConfigurator {
     
     private let configurators: [AppConfiguratorProtocol] = [
         EnvironmentConfiguration(),
+        NonFatalAlertConfigurator(),
         MiddlewareMerticsConfigurator(),
         MiddlewareHandlerConfigurator(),
         SentryConfigurator(),

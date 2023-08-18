@@ -166,7 +166,8 @@ final class EditorAssembly {
             newSearchModuleAssembly: modulesDI.newSearch(),
             textIconPickerModuleAssembly: modulesDI.textIconPicker(),
             alertHelper: AlertHelper(viewController: controller),
-            pageService: serviceLocator.pageService()
+            pageService: serviceLocator.pageService(),
+            templateService: serviceLocator.templatesService
         )
 
         let viewModel = buildViewModel(
@@ -268,7 +269,8 @@ final class EditorAssembly {
             onShowStyleMenu: blocksStateManager.didSelectStyleSelection(infos:),
             onBlockSelection: actionHandler.selectBlock(info:),
             pageService: serviceLocator.pageService(),
-            linkToObjectCoordinator: coordinatorsDI.linkToObject().make(browserController: browser)
+            linkToObjectCoordinator: coordinatorsDI.linkToObject().make(browserController: browser),
+            cursorManager: cursorManager
         )
         
         let markdownListener = MarkdownListenerImpl(
@@ -291,6 +293,8 @@ final class EditorAssembly {
         )
 
         let responderScrollViewHelper = ResponderScrollViewHelper(scrollView: scrollView)
+        
+        let simpleTableCursorManager = EditorCursorManager(focusSubjectHolder: focusSubjectHolder)
         let simpleTableDependenciesBuilder = SimpleTableDependenciesBuilder(
             document: document,
             router: router,
@@ -316,7 +320,9 @@ final class EditorAssembly {
             subjectsHolder: focusSubjectHolder,
             pageService: serviceLocator.pageService(),
             detailsService: serviceLocator.detailsService(objectId: document.objectId),
-            audioSessionService: serviceLocator.audioSessionService()
+            audioSessionService: serviceLocator.audioSessionService(),
+            infoContainer: document.infoContainer,
+            tableService: blockTableService
         )
 
         actionHandler.blockSelectionHandler = blocksStateManager

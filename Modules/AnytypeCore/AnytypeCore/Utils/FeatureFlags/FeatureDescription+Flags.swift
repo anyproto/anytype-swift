@@ -147,4 +147,11 @@ public extension FeatureDescription {
         defaultValue: false,
         debugValue: false
     )
+    
+    static let nonfatalAlerts = FeatureDescription(
+        title: "Show non fatal alerts",
+        type: .debug,
+        defaultValue: false,
+        debugValue: true
+    )
 }

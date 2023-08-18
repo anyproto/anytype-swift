@@ -2,6 +2,7 @@ import Foundation
 import Logger
 import ProtobufMessages
 import AnytypeCore
+import SwiftEntryKit
 
 final class InvocationMesagesHandler: InvocationMesagesHandlerProtocol {
     

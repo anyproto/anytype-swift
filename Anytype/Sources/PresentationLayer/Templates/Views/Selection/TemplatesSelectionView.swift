@@ -68,8 +68,7 @@ struct TemplatesSelectionView_Previews: PreviewProvider {
                 interactor: MockTemplateSelectionInteractorProvider(),
                 setDocument: MockSetDocument(),
                 templatesService: TemplatesService(),
-                onTemplateSelection: { _ in },
-                templateEditingHandler: { _ in }
+                onTemplateSelection: { _ in }
             )
         )
         .previewLayout(.sizeThatFits)

@@ -28,6 +28,7 @@ struct StandardButtonConfig {
     var stretchSize: Bool
     var radius: Double
     var loadingIndicatorSize: CGSize
+    var horizontalPadding: Double = 12
 }
 
 private extension CGSize {
@@ -120,7 +121,8 @@ extension StandardButtonStyle {
                 height: 44,
                 stretchSize: true,
                 radius: 10,
-                loadingIndicatorSize: .ButtonLoadingIndicator.large
+                loadingIndicatorSize: .ButtonLoadingIndicator.large,
+                horizontalPadding: 12
             )
         case .warningMedium:
             return StandardButtonConfig(
@@ -175,7 +177,8 @@ extension StandardButtonStyle {
                 height: 28,
                 stretchSize: false,
                 radius: 6,
-                loadingIndicatorSize: .ButtonLoadingIndicator.xsmall
+                loadingIndicatorSize: .ButtonLoadingIndicator.xsmall,
+                horizontalPadding: 10
             )
         case .secondaryXSmall:
             return StandardButtonConfig(

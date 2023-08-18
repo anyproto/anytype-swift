@@ -54,6 +54,8 @@ private extension ObjectAction {
             return Loc.Actions.linkItself
         case .makeAsTemplate:
             return Loc.Actions.makeAsTemplate
+        case .templateSetAsDefault:
+            return Loc.Actions.templateMakeDefault
         }
     }
 
@@ -73,6 +75,8 @@ private extension ObjectAction {
             return .linkToItself
         case .makeAsTemplate:
             return .makeAsTemplate
+        case .templateSetAsDefault:
+            return .templateMakeDefault
         }
     }
 }

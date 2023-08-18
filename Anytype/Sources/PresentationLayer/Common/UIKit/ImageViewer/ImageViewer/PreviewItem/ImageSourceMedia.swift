@@ -34,27 +34,31 @@ final class ImagePreviewMedia: NSObject, PreviewRemoteItem {
 
     func startDownloading() {
         if let previewImage = previewImage {
-            updatePreviewItemURL(with: previewImage, isPreview: true)
+            updatePreviewItemURL(with: previewImage, data: nil, isPreview: true)
         }
 
         imageSource.image.sinkWithResult { [weak self] result in
-            let _ = result.map { image in
-                guard let image = image else {
+            let _ = result.map { result in
+                guard let image = result.0 else {
                     return
                 }
 
-                self?.updatePreviewItemURL(with: image, isPreview: false)
+                self?.updatePreviewItemURL(with: image, data: result.1, isPreview: false)
             }
         }.store(in: &cancellables)
     }
 
 
-    func updatePreviewItemURL(with image: UIImage, isPreview: Bool) {
-        let data = image.jpegData(compressionQuality: 1)
-
-        guard let data = data else {
-            fatalError()
-        }
+    func updatePreviewItemURL(with image: UIImage, data: Data?, isPreview: Bool) {
+        let data = {
+            guard let data = data else {
+                return image.pngData()
+            }
+            
+            return data
+        }()
+        
+        guard let data = data else { return }
 
         DispatchQueue.global().async { [weak self] in
             guard let self = self else { return }
@@ -68,7 +72,7 @@ final class ImagePreviewMedia: NSObject, PreviewRemoteItem {
                     at: path.deletingLastPathComponent(),
                     withIntermediateDirectories: true
                 )
-                try data.write(to: path, options: .withoutOverwriting)
+                try data.write(to: path)
                 self.previewItemURL = path
 
                 DispatchQueue.main.async {
