@@ -60,6 +60,7 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
 
     func objectType(id: String) throws -> ObjectType {
         guard let result = searchTypesById[id] else {
+            // TODO: Delete it, because some tipes can be deleted
             anytypeAssertionFailure("Object type not found by id", info: ["id": id])
             throw ObjectTypeError.objectTypeNotFound
         }

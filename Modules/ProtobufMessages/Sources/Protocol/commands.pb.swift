@@ -1149,6 +1149,8 @@ public struct Anytype_Rpc {
             case noAccountsFound // = 101
             case needToRecoverWalletFirst // = 102
             case failedToCreateLocalRepo // = 103
+
+            /// Unused
             case localRepoExistsButCorrupted // = 104
             case failedToRunNode // = 105
             case walletRecoverNotPerformed // = 106
