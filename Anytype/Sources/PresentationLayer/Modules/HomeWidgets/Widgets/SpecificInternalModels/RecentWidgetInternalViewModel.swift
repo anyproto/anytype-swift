@@ -6,21 +6,25 @@ final class RecentWidgetInternalViewModel: CommonWidgetInternalViewModel, Widget
     
     // MARK: - DI
     
+    private let type: RecentWidgetType
     private let recentSubscriptionService: RecentSubscriptionServiceProtocol
     
     // MARK: - State
     
     @Published private var details: [ObjectDetails]?
-    @Published private var name: String = Loc.recent
+    @Published private var name: String
     
     var detailsPublisher: AnyPublisher<[ObjectDetails]?, Never> { $details.eraseToAnyPublisher() }
     var namePublisher: AnyPublisher<String, Never> { $name.eraseToAnyPublisher() }
     
     init(
+        type: RecentWidgetType,
         widgetBlockId: BlockId,
         widgetObject: BaseDocumentProtocol,
         recentSubscriptionService: RecentSubscriptionServiceProtocol
     ) {
+        self.type = type
+        self.name = type.title
         self.recentSubscriptionService = recentSubscriptionService
         super.init(widgetBlockId: widgetBlockId, widgetObject: widgetObject)
     }
@@ -38,11 +42,11 @@ final class RecentWidgetInternalViewModel: CommonWidgetInternalViewModel, Widget
     }
     
     func screenData() -> EditorScreenData? {
-        return .recent
+        return type.editorScreenData
     }
     
     func analyticsSource() -> AnalyticsWidgetSource {
-        return .recent
+        return type.analyticsSource
     }
     
     // MARK: - CommonWidgetInternalViewModel oveerides
@@ -56,6 +60,7 @@ final class RecentWidgetInternalViewModel: CommonWidgetInternalViewModel, Widget
     private func updateSubscription() {
         guard let widgetInfo, contentIsAppear else { return }
         recentSubscriptionService.startSubscription(
+            type: type,
             objectLimit: widgetInfo.fixedLimit,
             update: { [weak self] _, update in
                 var details = self?.details ?? []

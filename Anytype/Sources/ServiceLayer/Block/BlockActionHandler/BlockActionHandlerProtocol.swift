@@ -12,12 +12,12 @@ protocol BlockActionHandlerProtocol: AnyObject {
 
     func turnInto(_ style: BlockText.Style, blockId: BlockId)
     @discardableResult
-    func turnIntoPage(blockId: BlockId) -> BlockId?
+    func turnIntoPage(blockId: BlockId) async throws -> BlockId?
     
     func setTextColor(_ color: BlockColor, blockIds: [BlockId])
     func setBackgroundColor(_ color: BlockBackgroundColor, blockIds: [BlockId])
     func duplicate(blockId: BlockId)
-    func fetch(url: AnytypeURL, blockId: BlockId)
+    func fetch(url: AnytypeURL, blockId: BlockId) async throws
     func checkbox(selected: Bool, blockId: BlockId)
     func toggle(blockId: BlockId)
     func setAlignment(_ alignment: LayoutAlignment, blockIds: [BlockId])
@@ -31,9 +31,9 @@ protocol BlockActionHandlerProtocol: AnyObject {
     func addBlock(_ type: BlockContentType, blockId: BlockId, blockText: NSAttributedString?, position: BlockPosition?)
     func toggleWholeBlockMarkup(_ markup: MarkupType, blockId: BlockId)
     func upload(blockId: BlockId, filePath: String) async throws
-    func createPage(targetId: BlockId, type: ObjectTypeId) -> BlockId?
+    func createPage(targetId: BlockId, type: ObjectTypeId) async throws -> BlockId?
 
-    func setObjectTypeId(_ objectTypeId: String)
+    func setObjectTypeId(_ objectTypeId: String) async throws
     func setObjectSetType() async throws
     func setObjectCollectionType() async throws
     func changeTextForced(_ text: NSAttributedString, blockId: BlockId)
@@ -52,7 +52,7 @@ protocol BlockActionHandlerProtocol: AnyObject {
         targetID: BlockId,
         position: BlockPosition,
         url: AnytypeURL
-    )
+    ) async throws
     func setAppearance(blockId: BlockId, appearance: BlockLink.Appearance)
     func createTable(
         blockId: BlockId,

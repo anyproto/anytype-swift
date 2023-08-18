@@ -9,6 +9,8 @@ enum ObjectAction: Hashable, Identifiable {
     case locked(isLocked: Bool)
     case duplicate
     case linkItself
+    case makeAsTemplate
+    case templateSetAsDefault
 
     // When adding to case
     static func allCasesWith(
@@ -16,6 +18,15 @@ enum ObjectAction: Hashable, Identifiable {
         objectRestrictions: ObjectRestrictions,
         isLocked: Bool
     ) -> [Self] {
+        if details.isTemplateType {
+            return [
+                .archive(isArchived: details.isArchived),
+                .templateSetAsDefault,
+                .duplicate,
+                .undoRedo
+            ]
+        }
+        
         var allCases: [ObjectAction] = []
 
         // We shouldn't allow archive for profile
@@ -33,6 +44,11 @@ enum ObjectAction: Hashable, Identifiable {
             details.objectType.id != ObjectTypeId.bundled(.collection).rawValue
         {
             allCases.append(.undoRedo)
+            
+            if details.canMakeTemplate {
+                allCases.append(.makeAsTemplate)
+            }
+            
             allCases.append(.linkItself)
             allCases.append(.locked(isLocked: isLocked))
         } else {
@@ -56,6 +72,10 @@ enum ObjectAction: Hashable, Identifiable {
             return "duplicate"
         case .linkItself:
             return "linkItself"
+        case .makeAsTemplate:
+            return "makeAsTemplate"
+        case .templateSetAsDefault:
+            return "templateSetAsDefault"
         }
     }
 }

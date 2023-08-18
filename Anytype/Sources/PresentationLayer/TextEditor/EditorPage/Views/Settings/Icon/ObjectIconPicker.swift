@@ -13,11 +13,9 @@ struct ObjectIconPicker: View {
                     viewModel: viewModel,
                     onDismiss: dismissHandler.onDismiss
                 )
-                    .environmentObject(viewModel)
             case .profile:
-                ObjectProfileIconPicker(onDismiss: dismissHandler.onDismiss)
-                    .environmentObject(viewModel)
-            case .todo, .note, .bookmark, .unknown, .relation, .relationOption:
+                ObjectProfileIconPicker(viewModel: viewModel, onDismiss: dismissHandler.onDismiss)
+            case .todo, .note, .bookmark, .unknown, .relation, .relationOption, .dashboard, .relationOptionList, .database:
                 EmptyView()
                     .onAppear {
                         anytypeAssertionFailure("Not supported layout")

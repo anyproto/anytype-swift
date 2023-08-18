@@ -18,7 +18,6 @@ struct EditorSetView: View {
         }
         .navigationBarHidden(true)
         .navigationBarBackButtonHidden(true)
-        .environmentObject(model)
         .onAppear {
             model.onAppear()
         }
@@ -31,10 +30,11 @@ struct EditorSetView: View {
         contentView
             .overlay(
                 ZStack(alignment: .topLeading, content: {
-                    SetFullHeader()
+                    SetFullHeader(model: model)
                         .readSize { tableHeaderSize = $0 }
                         .offset(x: 0, y: offset.y)
                     SetMinimizedHeader(
+                        model: model,
                         headerSize: tableHeaderSize,
                         tableViewOffset: offset,
                         headerMinimizedSize: $headerMinimizedSize
@@ -103,15 +103,7 @@ struct EditorSetView: View {
     }
     
     private var headerSettingsView: some View {
-        SetHeaderSettingsView(
-            model: SetHeaderSettingsViewModel(
-                setDocument: model.setDocument,
-                isActive: model.isActiveHeader,
-                onViewTap: model.showViewPicker,
-                onSettingsTap: model.showSetSettings,
-                onCreateTap: model.createObject
-            )
-        )
-        .frame(width: tableHeaderSize.width)
+        SetHeaderSettingsView(model: model.headerSettingsViewModel)
+            .frame(width: tableHeaderSize.width)
     }
 }

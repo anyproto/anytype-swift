@@ -12,7 +12,7 @@ final class SetObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Wid
     private let documentService: DocumentServiceProtocol
     private let blockWidgetService: BlockWidgetServiceProtocol
     
-    private let subscriptionId = SubscriptionId(value: "SetWidget-\(UUID().uuidString)")
+    private let subscriptionId = "SetWidget-\(UUID().uuidString)"
     
     // MARK: - State
     
@@ -129,7 +129,7 @@ final class SetObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Wid
               let activeView = setDocument.dataView.views.first(where: { $0.id == activeViewId }) else { return }
         
         let subscriptionData = setSubscriptionDataBuilder.set(
-            SetSubsriptionData(
+            SetSubscriptionData(
                 identifier: subscriptionId,
                 source: setDocument.details?.setOf,
                 view: activeView,
@@ -137,7 +137,7 @@ final class SetObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Wid
                 currentPage: 0,
                 numberOfRowsPerPage: widgetInfo.fixedLimit,
                 collectionId: setDocument.isCollection() ? setDocument.objectId : nil,
-                objectOrderIds: setDocument.objectOrderIds(for: SubscriptionId.set.value)
+                objectOrderIds: setDocument.objectOrderIds(for: SetSubscriptionData.setId)
             )
         )
         
@@ -160,7 +160,7 @@ final class SetObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, Wid
     }
     
     private func sortedRowDetails(_ details: [ObjectDetails]?) -> [ObjectDetails]? {
-        guard let objectOrderIds = setDocument?.objectOrderIds(for: SubscriptionId.set.value),
+        guard let objectOrderIds = setDocument?.objectOrderIds(for: SetSubscriptionData.setId),
                 objectOrderIds.isNotEmpty else {
             return details
         }

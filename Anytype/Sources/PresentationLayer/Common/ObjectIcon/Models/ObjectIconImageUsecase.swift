@@ -29,6 +29,7 @@ enum ObjectIconImageUsecase: Equatable, Hashable {
     case settingsSection
 
     case inlineSetHeader
+    case templatePreview
     case fileStorage
 }
 

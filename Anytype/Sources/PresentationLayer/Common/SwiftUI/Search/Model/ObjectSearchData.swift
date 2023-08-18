@@ -1,5 +1,6 @@
 import Services
 import SwiftUI
+import AnytypeCore
 
 struct ObjectSearchData: SearchDataProtocol {
     
@@ -55,7 +56,7 @@ extension ObjectSearchData {
         .dashboardSearch
     }
 
-    var iconImage: ObjectIconImage {
-        details.objectIconImageWithPlaceholder
+    var iconImage: ObjectIconImage? {
+        FeatureFlags.deleteObjectPlaceholder ? details.objectIconImage : details.objectIconImageWithPlaceholder
     }
 }

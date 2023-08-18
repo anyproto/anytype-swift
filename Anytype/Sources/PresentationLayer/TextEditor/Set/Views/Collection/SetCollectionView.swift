@@ -119,8 +119,9 @@ struct SetCollectionView: View {
     
     private var pagination: some View {
         EditorSetPaginationView(
-            paginationData: model.pagitationData(by: SubscriptionId.set.value),
-            groupId: SubscriptionId.set.value
+            model: model,
+            paginationData: model.pagitationData(by: SetSubscriptionData.setId),
+            groupId: SetSubscriptionData.setId
         )
         .frame(width: tableHeaderSize.width)
     }
@@ -144,15 +145,7 @@ struct SetCollectionView: View {
     
     private var headerSettingsView: some View {
         HStack {
-            SetHeaderSettingsView(
-                model: SetHeaderSettingsViewModel(
-                    setDocument: model.setDocument,
-                    isActive: model.isActiveHeader,
-                    onViewTap: model.showViewPicker,
-                    onSettingsTap: model.showSetSettings,
-                    onCreateTap: model.createObject
-                )
-            )
+            SetHeaderSettingsView(model: model.headerSettingsViewModel)
             .frame(width: tableHeaderSize.width)
             .offset(x: 4, y: 8)
             Spacer()

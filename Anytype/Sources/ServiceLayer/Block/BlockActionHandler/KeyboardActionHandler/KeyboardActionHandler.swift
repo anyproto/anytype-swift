@@ -64,6 +64,7 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
                 )
             }
         case let .enterInside(string, range):
+            
             service.split(
                 string,
                 blockId: info.id,
@@ -83,11 +84,14 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
         case let .enterAtTheBegining(_, range):
             service.split(currentString, blockId: info.id, mode: .bottom, range: range, newBlockContentType: text.contentType)
         case .delete:
-            onDelete(text: text, info: info, parent: parent)
+            Task {
+                await onDelete(text: text, info: info, parent: parent)
+            }
         }
     }
     
-    private func onDelete(text: BlockText, info: BlockInformation, parent: BlockInformation) {
+    @MainActor
+    private func onDelete(text: BlockText, info: BlockInformation, parent: BlockInformation) async {
         if text.contentType.isList || text.contentType == .quote || text.contentType == .callout {
             service.turnInto(.text, blockId: info.id)
             return
@@ -104,7 +108,7 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
         if isLastChildOfBlock(info: info, container: container, parent: parent)
         {
             // on delete of last child of block - move child to parent level
-            listService.move(objectId: documentId, blockId: info.id, targetId: parent.id, position: .bottom)
+            try? await listService.move(objectId: documentId, blockId: info.id, targetId: parent.id, position: .bottom)
             return
         }
         

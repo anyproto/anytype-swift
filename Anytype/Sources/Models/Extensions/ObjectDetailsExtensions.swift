@@ -14,7 +14,7 @@ extension BundledRelationsValueProvider {
             return profileIcon
         case .bookmark:
             return bookmarkIcon
-        case .todo, .note, .file, .unknown, .relation, .relationOption:
+        case .todo, .note, .file, .unknown, .relation, .relationOption, .dashboard, .relationOptionList, .database:
             return nil
         case .space:
             return spaceIcon
@@ -123,7 +123,7 @@ extension BundledRelationsValueProvider {
     
     var editorViewType: EditorViewType {
         switch layoutValue {
-        case .basic, .profile, .todo, .note, .bookmark, .space, .file, .image, .objectType, .unknown, .relation, .relationOption:
+        case .basic, .profile, .todo, .note, .bookmark, .space, .file, .image, .objectType, .unknown, .relation, .relationOption, .dashboard, .relationOptionList, .database:
             return .page
         case .set, .collection:
             return .set
@@ -138,7 +138,28 @@ extension BundledRelationsValueProvider {
         return DetailsLayout.supportedForEditLayouts.contains(layoutValue)
     }
     
-    var isVisibleForEdit: Bool {
+    var isNotDeletedAndVisibleForEdit: Bool {
         return !isDeleted && !isArchived && DetailsLayout.visibleLayouts.contains(layoutValue)
+    }
+    
+    var isNotDeletedAndSupportedForEdit: Bool {
+        return !isDeleted && !isArchived && isSupportedForEdit
+    }
+    
+    var canMakeTemplate: Bool {
+        layoutValue.isTemplatesAvailable && !isTemplateType
+    }
+    
+    var isTemplateType: Bool {
+        type == ObjectTypeId.BundledTypeId.template.rawValue
+    }
+    
+    var setIsTemplatesAvailable: Bool {
+        guard let recommendedLayout = recommendedLayout,
+              let recommendedLayout = DetailsLayout(rawValue: recommendedLayout) else {
+            return false
+        }
+        
+        return recommendedLayout.isTemplatesAvailable
     }
 }

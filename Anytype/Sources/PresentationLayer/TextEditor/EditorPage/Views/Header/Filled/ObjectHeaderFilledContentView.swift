@@ -8,6 +8,11 @@ final class ObjectHeaderFilledContentView: UIView, BlockContentView {
     private let shimmeringView = ShimmeringView(frame: .zero)
     private var headerView = ObjectHeaderView(frame: .zero)
     
+    // MARK: - Sizes&SwiftUI intristicSize
+    private var sizeConfiguration: HeaderViewSizeConfiguration?
+    private var intristicSize: CGSize = .zero
+    override var intrinsicContentSize: CGSize { intristicSize }
+    
     // MARK: - Private variables
     
     private var subscription: AnyCancellable?
@@ -28,16 +33,19 @@ final class ObjectHeaderFilledContentView: UIView, BlockContentView {
 
     // MARK: - BlockContentView
     func update(with configuration: ObjectHeaderFilledConfiguration) {
+        sizeConfiguration = configuration.sizeConfiguration
+        
         UIView.performWithoutAnimation {
             shimmeringView.isShimmering = configuration.isShimmering
         }
         headerView.configure(
             model: ObjectHeaderView.Model(
                 state: configuration.state,
-                width: configuration.width,
+                sizeConfiguration: configuration.sizeConfiguration,
                 isShimmering: configuration.isShimmering
             )
         )
+        updateIntristicSize()
 
         guard configuration.state.hasCover else {
             subscription = nil
@@ -58,6 +66,15 @@ final class ObjectHeaderFilledContentView: UIView, BlockContentView {
 
     func update(with state: UICellConfigurationState) {
         isUserInteractionEnabled = !state.isLocked
+    }
+    
+    private func updateIntristicSize() {
+        intristicSize = systemLayoutSizeFitting(
+            CGSize(width: sizeConfiguration?.width ?? 0, height: .greatestFiniteMagnitude),
+            withHorizontalFittingPriority: .defaultHigh,
+            verticalFittingPriority: .fittingSizeLevel
+        )
+        invalidateIntrinsicContentSize()
     }
 }
 
@@ -85,7 +102,7 @@ private extension ObjectHeaderFilledContentView  {
             return
         }
 
-        let coverHeight = ObjectHeaderConstants.coverHeight
+        let coverHeight = sizeConfiguration?.coverHeight ?? 0
         let scaleY = (abs(offset) + coverHeight) / coverHeight
 
         var t = CGAffineTransform.identity

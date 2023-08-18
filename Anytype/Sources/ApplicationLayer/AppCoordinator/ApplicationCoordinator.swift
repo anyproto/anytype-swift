@@ -70,19 +70,19 @@ final class ApplicationCoordinator: ApplicationCoordinatorProtocol {
 
     private func startObserve() {
         Task { @MainActor [weak self, applicationStateService] in
-            for await state in applicationStateService.statePublisher.myValues {
+            for await state in applicationStateService.statePublisher.values {
                 guard let self = self else { return }
                 self.handleApplicationState(state)
             }
         }
         Task { @MainActor [weak self, accountEventHandler] in
-            for await status in accountEventHandler.accountStatusPublisher.myValues {
+            for await status in accountEventHandler.accountStatusPublisher.values {
                 guard let self = self else { return }
                 self.handleAccountStatus(status)
             }
         }
         Task { @MainActor [weak self, fileErrorEventHandler] in
-            for await _ in fileErrorEventHandler.fileLimitReachedPublisher.myValues {
+            for await _ in fileErrorEventHandler.fileLimitReachedPublisher.values {
                 guard let self = self else { return }
                 self.handleFileLimitReachedError()
             }

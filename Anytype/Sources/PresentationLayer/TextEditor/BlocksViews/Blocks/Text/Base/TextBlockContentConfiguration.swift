@@ -8,6 +8,7 @@ struct TextBlockContentConfiguration: BlockConfiguration {
     struct Actions {
         let shouldPaste: (NSRange, UITextView) -> Bool
         let copy: (NSRange) -> Void
+        let cut: (NSRange) -> Void
         let createEmptyBlock: () -> Void
         let showPage: (BlockId) -> Void
         let openURL: (URL) -> Void

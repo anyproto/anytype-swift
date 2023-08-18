@@ -49,11 +49,11 @@ final class InfoContainerMock: InfoContainerProtocol {
         assertionFailure()
     }
     
-    func update(blockId: BlockId, update: @escaping (BlockInformation) -> (BlockInformation?)) {
+    func update(blockId: BlockId, update: (BlockInformation) -> (BlockInformation?)) {
         assertionFailure()
     }
     
-    func updateDataview(blockId: BlockId, update: @escaping (BlockDataview) -> (BlockDataview)) {
+    func updateDataview(blockId: BlockId, update: (BlockDataview) -> (BlockDataview)) {
         assertionFailure()
     }
 }

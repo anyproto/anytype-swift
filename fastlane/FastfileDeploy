@@ -89,7 +89,7 @@ platform :ios do
       add_linear_comment(
         from_tag: old_tag_name,
         to_tag: tag_name,
-        comment: "Implemented in `#{version}(#{build_number})`"
+        comment: "Implemented in `#{version}(#{build_number})`. This comment was created automatically."
       )
     end
 
@@ -109,10 +109,6 @@ platform :ios do
         duration: 1200,
         in_house: false
     )
-
-  # Fix prices error https://github.com/fastlane/fastlane/issues/21125
-  require 'spaceship'
-  Spaceship::ConnectAPI::App.const_set('ESSENTIAL_INCLUDES', 'appStoreVersions')
 
     upload_to_testflight(
       api_key: api_key, 

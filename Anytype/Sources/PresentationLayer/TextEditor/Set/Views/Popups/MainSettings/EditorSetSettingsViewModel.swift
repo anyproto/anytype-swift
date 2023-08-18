@@ -24,8 +24,7 @@ final class EditorSetSettingsViewModel: ObservableObject, AnytypePopupViewModelP
     
     func makeContentView() -> UIViewController {
         UIHostingController(
-            rootView: EditorSetSettingsView()
-                .environmentObject(self)
+            rootView: EditorSetSettingsView(model: self)
         )
     }
 }

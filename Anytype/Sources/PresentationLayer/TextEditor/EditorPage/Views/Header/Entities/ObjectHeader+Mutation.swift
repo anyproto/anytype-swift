@@ -6,7 +6,7 @@ extension ObjectHeader {
         _ update: ObjectHeaderUpdate,
         onIconTap: @escaping () -> (),
         onCoverTap: @escaping () -> ()
-    ) -> ObjectHeader? {
+    ) -> ObjectHeader {
         switch update {
         case .iconUploading(let path):
             return modifiedByIconUploadingEventWith(
@@ -34,7 +34,7 @@ extension ObjectHeader {
         image: UIImage?,
         onIconTap: @escaping () -> (),
         onCoverTap: @escaping () -> ()
-    ) -> ObjectHeader? {
+    ) -> ObjectHeader {
         switch self {
         case .filled(let filledState, _):
             return .filled(state:
@@ -63,7 +63,7 @@ extension ObjectHeader {
     private func modifiedByCoverUploadingEventWith(
         previewType: ObjectHeaderCoverPreviewType,
         onCoverTap: @escaping () -> ()
-    ) -> ObjectHeader? {
+    ) -> ObjectHeader {
         let newCover = ObjectHeaderCover(
             coverType: .preview(previewType),
             onTap: onCoverTap

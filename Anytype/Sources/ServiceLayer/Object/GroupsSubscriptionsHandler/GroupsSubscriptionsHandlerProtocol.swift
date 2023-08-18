@@ -5,5 +5,5 @@ typealias GroupsSubscriptionCallback = (_ group: DataviewGroup, _ remove: Bool) 
 protocol GroupsSubscriptionsHandlerProtocol {
     func hasGroupsSubscriptionDataDiff(with data: GroupsSubscription) -> Bool
     func startGroupsSubscription(data: GroupsSubscription, update: @escaping GroupsSubscriptionCallback) async throws -> [DataviewGroup]
-    func stopAllSubscriptions()
+    func stopAllSubscriptions() async throws
 }

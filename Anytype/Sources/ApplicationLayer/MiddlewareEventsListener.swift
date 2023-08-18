@@ -14,7 +14,7 @@ final class MiddlewareEventsListener: NSObject {
 
 extension MiddlewareEventsListener: ServiceEventsHandlerProtocol {
     
-    func handle(_ event: Anytype_Event) {
-        EventsBunch(event: event).send()
+    func handle(_ event: Anytype_Event) async {
+        await EventsBunch(event: event).send()
     }
 }

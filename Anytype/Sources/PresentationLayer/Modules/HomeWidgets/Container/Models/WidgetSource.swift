@@ -30,7 +30,7 @@ extension WidgetSource {
             }
         case .library(let library):
             switch library {
-            case .favorite, .recent:
+            case .favorite, .recent, .recentOpen:
                 return [.compactList, .list, .tree]
             case .sets, .collections:
                 return [.compactList, .list]

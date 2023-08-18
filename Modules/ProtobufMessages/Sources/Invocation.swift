@@ -16,36 +16,29 @@ public struct Invocation<Request, Response> where Request: Message,
         self.invokeTask = invokeTask
     }
     
-    public func invoke(file: StaticString) async throws -> Response {
-        return try await Task {
-            try self.syncInvoke(file: file)
-        }.value
+    @discardableResult
+    public func invoke(file: StaticString = #file, function: String = #function, line: UInt = #line) async throws -> Response {
+        do {
+            return try await internalInvoke()
+        } catch let error as CancellationError {
+            // Ignore try Task.checkCancellation()
+            throw error
+        } catch {
+            InvocationSettings.handler?.assertationHandler(message: error.localizedDescription, info: [:], file: file, function: function, line: line)
+            throw error
+        }
     }
     
-    public func invoke(file: StaticString) throws -> Response {
-        return try syncInvoke(file: file)
-    }
+    // MARK: - Private
     
-    private func syncInvoke(file: StaticString) throws -> Response {
-        
-        // Helper for https://linear.app/anytype/issue/IOS-1169
-        // Turn on after migration of methods that call longer 5 ms.
-//        let start = DispatchTime.now()
-//
-//        defer {
-//            if Thread.isMainThread {
-//                let end = DispatchTime.now()
-//                let timeMs = (end.uptimeNanoseconds - start.uptimeNanoseconds) / 1_000_000
-//                if timeMs > 5 {
-//                    InvocationSettings.handler?.assertationHandler(message: "Method \(messageName) called on main thread", info: ["Time ms": "\(timeMs)"], file: file)
-//                }
-//            }
-//        }
+    private func internalInvoke() async throws -> Response {
         
         let result: Response
         
         do {
-            result = try invokeTask(request)
+            result = try await Task {
+                try invokeTask(request)
+            }.value
         } catch {
             log(message: messageName, rquest: request, response: nil, error: error)
             throw error
@@ -58,8 +51,10 @@ public struct Invocation<Request, Response> where Request: Message,
         }
         
         if result.hasEvent {
-            InvocationSettings.handler?.eventHandler(event: result.event)
+            await InvocationSettings.handler?.eventHandler(event: result.event)
         }
+        
+        try Task.checkCancellation()
         
         return result
     }

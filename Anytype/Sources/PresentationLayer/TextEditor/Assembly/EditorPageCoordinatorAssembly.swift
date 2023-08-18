@@ -20,7 +20,6 @@ final class EditorPageCoordinatorAssembly: EditorPageCoordinatorAssemblyProtocol
     // MARK: - RelationValueCoordinatorAssemblyProtocol
     
     func make(browserController: EditorBrowserController?) -> EditorPageCoordinatorProtocol {
-    
         let coordinator = EditorPageCoordinator(
             browserController: browserController,
             editorAssembly: coordinatorsID.editor(),

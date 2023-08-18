@@ -359,8 +359,10 @@ extension EditorPageController: EditorPageViewInput {
 
     func scrollToBlock(blockId: BlockId) {
         guard let item = dataSourceItem(for: blockId),
-              let indexPath = dataSource.indexPath(for: item) else { return }
-        collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
+              let indexPath = dataSource.indexPath(for: item),
+              let cellRect = collectionView.layoutAttributesForItem(at: indexPath)?.frame else { return }
+        let yOffset = cellRect.minY - view.safeAreaInsets.top
+        collectionView.setContentOffset(.init(x: 0, y: yOffset), animated: true)
     }
     
     func selectBlock(blockId: BlockId) {

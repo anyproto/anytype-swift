@@ -13,6 +13,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     private let addNewRelationCoordinator: AddNewRelationCoordinatorProtocol
     private let document: BaseDocumentProtocol
     private let templatesCoordinator: TemplatesCoordinator
+    private let templateSelectionCoordinator: TemplateSelectionCoordinatorProtocol
     private let urlOpener: URLOpenerProtocol
     private let relationValueCoordinator: RelationValueCoordinatorProtocol
     private let editorPageCoordinator: EditorPageCoordinatorProtocol
@@ -26,6 +27,8 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     private let textIconPickerModuleAssembly: TextIconPickerModuleAssemblyProtocol
     private let alertHelper: AlertHelper
+    private let pageService: PageServiceProtocol
+    private let templateService: TemplatesServiceProtocol
     
     init(
         rootController: EditorBrowserController?,
@@ -34,6 +37,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         document: BaseDocumentProtocol,
         addNewRelationCoordinator: AddNewRelationCoordinatorProtocol,
         templatesCoordinator: TemplatesCoordinator,
+        templateSelectionCoordinator: TemplateSelectionCoordinatorProtocol,
         urlOpener: URLOpenerProtocol,
         relationValueCoordinator: RelationValueCoordinatorProtocol,
         editorPageCoordinator: EditorPageCoordinatorProtocol,
@@ -46,7 +50,9 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         codeLanguageListModuleAssembly: CodeLanguageListModuleAssemblyProtocol,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
         textIconPickerModuleAssembly: TextIconPickerModuleAssemblyProtocol,
-        alertHelper: AlertHelper
+        alertHelper: AlertHelper,
+        pageService: PageServiceProtocol,
+        templateService: TemplatesServiceProtocol
     ) {
         self.rootController = rootController
         self.viewController = viewController
@@ -55,6 +61,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         self.fileCoordinator = FileDownloadingCoordinator(viewController: viewController)
         self.addNewRelationCoordinator = addNewRelationCoordinator
         self.templatesCoordinator = templatesCoordinator
+        self.templateSelectionCoordinator = templateSelectionCoordinator
         self.urlOpener = urlOpener
         self.relationValueCoordinator = relationValueCoordinator
         self.editorPageCoordinator = editorPageCoordinator
@@ -68,6 +75,8 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         self.newSearchModuleAssembly = newSearchModuleAssembly
         self.textIconPickerModuleAssembly = textIconPickerModuleAssembly
         self.alertHelper = alertHelper
+        self.pageService = pageService
+        self.templateService = templateService
     }
 
     func showPage(objectId: String) {
@@ -349,7 +358,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     
     // MARK: - Settings
     func showSettings() {
-        objectSettingCoordinator.startFlow(delegate: self)
+        objectSettingCoordinator.startFlow(objectId: document.objectId, delegate: self)
     }
     
     func showCoverPicker() {
@@ -488,8 +497,12 @@ extension EditorRouter {
         relationValueCoordinator.startFlow(objectDetails: objectDetails, relation: relation, analyticsType: .block, output: self)
     }
 
-    func showAddNewRelationView(onSelect: ((RelationDetails, _ isNew: Bool) -> Void)?) {
+    func showAddNewRelationView(
+        document: BaseDocumentProtocol,
+        onSelect: ((RelationDetails, _ isNew: Bool) -> Void)?
+    ) {
         addNewRelationCoordinator.showAddNewRelationView(
+            document: document,
             excludedRelationsIds: document.parsedRelations.installed.map(\.id),
             target: .object,
             onCompletion: onSelect
@@ -510,6 +523,38 @@ extension EditorRouter: ObjectSettingsModuleDelegate {
         toastPresenter.showObjectName(selfName, middleAction: Loc.Editor.Toast.linkedTo, secondObjectId: data.objectId) { [weak self] in
             self?.showPage(data: data)
         }
+    }
+    
+    func didCreateTemplate(templateId: BlockId) {
+        templateSelectionCoordinator.showTemplateEditing(blockId: templateId) { [weak self] templateSelection in
+            Task { @MainActor [weak self] in
+                do {
+                    guard let type = self?.document.details?.type,
+                          let objectDetails = try await self?.pageService.createPage(
+                            name: "",
+                            type: type,
+                            shouldDeleteEmptyObject: true,
+                            shouldSelectType: false,
+                            shouldSelectTemplate: false,
+                            templateId: templateSelection
+                          ) else {
+                        return
+                    }
+                    
+                    self?.openObject(screenData: .init(details: objectDetails, shouldShowTemplatesOptions: false))
+                } catch {
+                    print(error.localizedDescription)
+                }
+            }
+        } onSetAsDefaultTempalte: { [weak self] templateId in
+            Task { [weak self] in
+                try? await self?.templateService.setTemplateAsDefaultForType(templateId: templateId)
+            }
+        }
+    }
+    
+    func didTapUseTemplateAsDefault(templateId: BlockId) {
+        anytypeAssertionFailure("Invalid delegate method handler")
     }
 }
 

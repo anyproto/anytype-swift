@@ -10,8 +10,11 @@ enum ObjectHeader: Hashable {
         .filled(state: state, isShimmering: false)
     }
 
-    static func empty(data: ObjectHeaderEmptyData) -> Self {
-        .empty(data: data, isShimmering: false)
+    static func empty(
+        usecase: ObjectHeaderEmptyData.ObjectHeaderEmptyUsecase,
+        onTap: @escaping () -> Void
+    ) -> Self {
+        return .empty(data: .init(presentationStyle: usecase, onTap: onTap), isShimmering: false)
     }
 }
 extension ObjectHeader: ContentConfigurationProvider {
@@ -27,7 +30,7 @@ extension ObjectHeader: ContentConfigurationProvider {
             return ObjectHeaderFilledConfiguration(
                 state: filledState,
                 isShimmering: isShimmering,
-                width: maxWidth
+                sizeConfiguration: .editorSizeConfiguration(width: maxWidth)
             )
                 .cellBlockConfiguration(indentationSettings: nil, dragConfiguration: nil)
         case .empty(let data, let isShimmering):

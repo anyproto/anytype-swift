@@ -34,12 +34,14 @@ private extension FileRelationViewUIKit {
     }
     
     func setupIconView() {
-        let model = ObjectIconImageModel(
-            iconImage: option.icon,
-            usecase: .featuredRelationsBlock
-        )
-        
-        iconView.configure(model: model)
+        if let icon = option.icon {
+            let model = ObjectIconImageModel(
+                iconImage: icon,
+                usecase: .featuredRelationsBlock
+            )
+            iconView.configure(model: model)
+        }
+        iconView.isHidden = option.icon.isNil
     }
     
     func setupTitleLabel() {
@@ -52,8 +54,8 @@ private extension FileRelationViewUIKit {
     func setupLayout() {
         self.layoutUsing.stack {
             $0.hStack(
+                spacing: relationStyle.objectRelationStyle.hSpaсingObject,
                 iconView,
-                $0.hGap(fixed: relationStyle.objectRelationStyle.hSpaсingObject),
                 titleLabel
             )
         }

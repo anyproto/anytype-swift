@@ -55,7 +55,9 @@ final class ObjectIconPickerViewModel: ObservableObject, ObjectIconPickerViewMod
 extension ObjectIconPickerViewModel {
     func setEmoji(_ emojiUnicode: String) {
         AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.setIcon)
-        detailsService.updateBundledDetails([.iconEmoji(emojiUnicode), .iconImageHash(nil)])
+        Task {
+            try await detailsService.updateBundledDetails([.iconEmoji(emojiUnicode), .iconImageHash(nil)])
+        }
     }
     
     func uploadImage(from itemProvider: NSItemProvider) {
@@ -70,10 +72,11 @@ extension ObjectIconPickerViewModel {
     func removeIcon() {
         // Analytics
         AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.removeIcon)
-        
-        detailsService.updateBundledDetails(
-            [.iconEmoji(""), .iconImageHash(nil)]
-        )
+        Task {
+            try await detailsService.updateBundledDetails(
+                [.iconEmoji(""), .iconImageHash(nil)]
+            )
+        }
     }
     
 }

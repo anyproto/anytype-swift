@@ -275,7 +275,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
             searchPlaceholder: "Search or create a new relation",
             style: .default,
             itemCreationMode: .available(action: { title in
-                output.didAskToShowCreateNewRelation(searchText: title)
+                output.didAskToShowCreateNewRelation(document: document, searchText: title)
             }),
             internalViewModel: internalViewModel
         )

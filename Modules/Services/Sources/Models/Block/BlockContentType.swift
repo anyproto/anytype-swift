@@ -1,4 +1,3 @@
-
 public enum BlockContentType: Hashable {
     case smartblock(BlockSmartblock.Style)
     case text(BlockText.Style)

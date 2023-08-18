@@ -1,5 +1,6 @@
 import SwiftUI
 import Services
+import AnytypeCore
 
 struct LinkToObjectSearchData: SearchDataProtocol {
     let id = UUID()
@@ -11,7 +12,7 @@ struct LinkToObjectSearchData: SearchDataProtocol {
     let callout: String
     let typeId: String
     
-    let iconImage: ObjectIconImage
+    let iconImage: ObjectIconImage?
     
     let editorScreenData: EditorScreenData
 
@@ -21,11 +22,11 @@ struct LinkToObjectSearchData: SearchDataProtocol {
         self.description = details.description
         self.callout = details.objectType.name
         self.typeId = details.objectType.id
-        self.iconImage = details.objectIconImageWithPlaceholder
+        self.iconImage = FeatureFlags.deleteObjectPlaceholder ? details.objectIconImage : details.objectIconImageWithPlaceholder
         self.editorScreenData = details.editorScreenData()
     }
 
-    init(searchKind: LinkToObjectSearchViewModel.SearchKind, searchTitle: String, iconImage: ObjectIconImage) {
+    init(searchKind: LinkToObjectSearchViewModel.SearchKind, searchTitle: String, iconImage: ObjectIconImage?) {
         self.searchKind = searchKind
         self.title = searchTitle
         self.iconImage = iconImage

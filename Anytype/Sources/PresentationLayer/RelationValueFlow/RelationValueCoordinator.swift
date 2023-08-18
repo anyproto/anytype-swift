@@ -38,7 +38,9 @@ final class RelationValueCoordinator: RelationValueCoordinatorProtocol,
             let newValue = !checkbox.value
             AnytypeAnalytics.instance().logChangeRelationValue(isEmpty: !newValue, type: analyticsType)
             let relationsService = RelationsService(objectId: objectDetails.id)
-            relationsService.updateRelation(relationKey: checkbox.key, value: newValue.protobufValue)
+            Task {
+                try await relationsService.updateRelation(relationKey: checkbox.key, value: newValue.protobufValue)
+            }
             return
         }
         

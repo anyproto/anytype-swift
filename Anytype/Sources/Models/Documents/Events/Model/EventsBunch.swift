@@ -8,8 +8,8 @@ struct EventsBunch {
     let localEvents: [LocalEvent]
     let dataSourceEvents: [LocalEvent]
 
-    func send() {
-        NotificationCenter.default.post(name: .middlewareEvent, object: self)
+    func send() async {
+        await EventBunchSubscribtion.default.sendEvent(events: self)
     }
 }
 

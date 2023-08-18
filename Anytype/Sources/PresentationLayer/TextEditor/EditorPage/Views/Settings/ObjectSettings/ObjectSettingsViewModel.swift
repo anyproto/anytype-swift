@@ -6,13 +6,13 @@ import FloatingPanel
 import SwiftUI
 
 protocol ObjectSettingswModelOutput: AnyObject {
-    func undoRedoAction()
-    func layoutPickerAction()
-    func coverPickerAction()
-    func iconPickerAction()
-    func relationsAction()
+    func undoRedoAction(document: BaseDocumentProtocol)
+    func layoutPickerAction(document: BaseDocumentProtocol)
+    func coverPickerAction(document: BaseDocumentProtocol)
+    func iconPickerAction(document: BaseDocumentProtocol)
+    func relationsAction(document: BaseDocumentProtocol)
     func openPageAction(screenData: EditorScreenData)
-    func linkToAction(onSelect: @escaping (BlockId) -> ())
+    func linkToAction(document: BaseDocumentProtocol, onSelect: @escaping (BlockId) -> ())
 }
 
 final class ObjectSettingsViewModel: ObservableObject, Dismissible {
@@ -48,6 +48,7 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
         objectDetailsService: DetailsServiceProtocol,
         objectActionsService: ObjectActionsServiceProtocol,
         blockActionsService: BlockActionsServiceSingleProtocol,
+        templatesService: TemplatesServiceProtocol,
         output: ObjectSettingswModelOutput,
         delegate: ObjectSettingsModuleDelegate
     ) {
@@ -60,13 +61,20 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
             objectId: document.objectId,
             service: objectActionsService,
             blockActionsService: blockActionsService,
+            templatesService: templatesService,
             undoRedoAction: { [weak output] in
-                output?.undoRedoAction()
+                output?.undoRedoAction(document: document)
             },
             openPageAction: { [weak output] screenData in
                 output?.openPageAction(screenData: screenData)
             }
         )
+        
+        objectActionsViewModel.onNewTemplateCreation = { [weak delegate] templateId in
+            DispatchQueue.main.async {
+                delegate?.didCreateTemplate(templateId: templateId)
+            }
+        }
         
         objectActionsViewModel.onLinkItselfToObjectHandler = { [weak delegate] data in
             guard let documentName = document.details?.name else { return }
@@ -74,7 +82,11 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
         }
 
         objectActionsViewModel.onLinkItselfAction = { [weak output] onSelect in
-            output?.linkToAction(onSelect: onSelect)
+            output?.linkToAction(document: document, onSelect: onSelect)
+        }
+        
+        objectActionsViewModel.onTemplateMakeDefault = { [weak delegate] templateId in
+            delegate?.didTapUseTemplateAsDefault(templateId: templateId)
         }
         
         setupSubscription()
@@ -82,19 +94,19 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
     }
 
     func onTapLayoutPicker() {
-        output?.layoutPickerAction()
+        output?.layoutPickerAction(document: document)
     }
     
     func onTapIconPicker() {
-        output?.iconPickerAction()
+        output?.iconPickerAction(document: document)
     }
     
     func onTapCoverPicker() {
-        output?.coverPickerAction()
+        output?.coverPickerAction(document: document)
     }
     
     func onTapRelations() {
-        output?.relationsAction()
+        output?.relationsAction(document: document)
     }
     
     // MARK: - Private

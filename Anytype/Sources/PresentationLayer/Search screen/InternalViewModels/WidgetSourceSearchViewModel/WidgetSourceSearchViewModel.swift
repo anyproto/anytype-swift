@@ -12,8 +12,9 @@ final class WidgetSourceSearchViewModel: NewInternalSearchViewModelProtocol {
     }
     
     let selectionMode: NewSearchViewModel.SelectionMode = .singleItem
-    let viewStateSubject = PassthroughSubject<NewSearchViewState, Never>()
+    var viewStatePublisher: AnyPublisher<NewSearchViewState, Never> { viewStateSubject.eraseToAnyPublisher() }
     
+    private let viewStateSubject = PassthroughSubject<NewSearchViewState, Never>()
     private var objects: [ObjectDetails] = []
     private var libraryObjects: [WidgetAnytypeLibrarySource] = []
     private let interactor: WidgetSourceSearchInteractorProtocol
@@ -132,7 +133,7 @@ private extension SearchObjectRowView.Model {
     init(source: WidgetAnytypeLibrarySource) {
         self.icon = source.icon
         self.title = source.name
-        self.subtitle = nil
+        self.subtitle = source.description
         self.style = .default
         self.isChecked = false
     }
@@ -142,7 +143,7 @@ private extension SearchObjectRowView.Model {
     
     init(details: ObjectDetails) {
         let title = details.title
-        self.icon = details.objectIconImageWithPlaceholder
+        self.icon = FeatureFlags.deleteObjectPlaceholder ? details.objectIconImage : details.objectIconImageWithPlaceholder
         self.title = title
         self.subtitle = details.description
         self.style = .default

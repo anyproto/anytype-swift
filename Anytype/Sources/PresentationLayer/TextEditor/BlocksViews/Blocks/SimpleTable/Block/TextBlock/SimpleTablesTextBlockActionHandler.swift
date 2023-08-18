@@ -16,7 +16,8 @@ struct SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
     private let content: BlockText
     private let anytypeText: UIKitAnytypeText
     private let actionHandler: BlockActionHandlerProtocol
-    private let pasteboardService: PasteboardServiceProtocol
+    // Fix retain cycle for long paste action
+    private weak var pasteboardService: PasteboardServiceProtocol?
     private let mentionDetecter = MentionTextDetector()
     private let markdownListener: MarkdownListener
     private let responderScrollViewHelper: ResponderScrollViewHelper
@@ -58,6 +59,7 @@ struct SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
     func textBlockActions() -> TextBlockContentConfiguration.Actions {
         .init(shouldPaste: shouldPaste(range:textView:),
               copy: copy(range:),
+              cut: cut(range:),
               createEmptyBlock: createEmptyBlock,
               showPage: showPage,
               openURL: openURL,
@@ -179,13 +181,16 @@ struct SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
     }
 
     private func shouldPaste(range: NSRange, textView: UITextView) -> Bool {
+        guard let pasteboardService else { return false }
+        
         if pasteboardService.hasValidURL {
             return true
         }
 
         pasteboardService.pasteInsideBlock(focusedBlockId: info.id, range: range) {
             showWaitingView(Loc.pasteProcessing)
-        } completion: { pasteResult in
+        } completion: { [weak textView] pasteResult in
+            guard let textView else { return }
             defer {
                 hideWaitingView()
             }
@@ -201,7 +206,15 @@ struct SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
     }
 
     private func copy(range: NSRange) {
-        pasteboardService.copy(blocksIds: [info.id], selectedTextRange: range)
+        Task {
+            try await pasteboardService?.copy(blocksIds: [info.id], selectedTextRange: range)
+        }
+    }
+    
+    private func cut(range: NSRange) {
+        Task {
+            try await pasteboardService?.cut(blocksIds: [info.id], selectedTextRange: range)
+        }
     }
 
     private func createEmptyBlock() {

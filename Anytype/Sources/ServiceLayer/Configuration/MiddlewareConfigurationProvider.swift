@@ -7,8 +7,6 @@ protocol MiddlewareConfigurationProviderProtocol: AnyObject {
     var configuration: MiddlewareConfiguration { get }
     func removeCachedConfiguration()
     func setupConfiguration(account: AccountData)
-    // Delete with redesignAbout toggle
-    func libraryVersion() -> String?
     func libraryVersion() async throws -> String
 }
 
@@ -37,10 +35,6 @@ extension MiddlewareConfigurationProvider: MiddlewareConfigurationProviderProtoc
     
     func setupConfiguration(account: AccountData) {
         cachedConfiguration = MiddlewareConfiguration(info: account.info)
-    }
-    
-    func libraryVersion() -> String? {
-        return try? ClientCommands.appGetVersion().invoke().version
     }
     
     func libraryVersion() async throws -> String {

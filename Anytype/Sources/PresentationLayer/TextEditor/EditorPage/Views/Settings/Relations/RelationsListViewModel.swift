@@ -12,6 +12,7 @@ final class RelationsListViewModel: ObservableObject {
     
     // MARK: - Private variables
     
+    private let document: BaseDocumentProtocol
     private let sectionsBuilder = RelationsSectionBuilder()
     private let relationsService: RelationsServiceProtocol
     
@@ -24,6 +25,7 @@ final class RelationsListViewModel: ObservableObject {
         relationsService: RelationsServiceProtocol,
         output: RelationsListModuleOutput
     ) {
+        self.document = document
         self.relationsService = relationsService
         self.output = output
         
@@ -34,6 +36,7 @@ final class RelationsListViewModel: ObservableObject {
                     objectTypeName: document.details?.objectType.name ?? ""
                 )
             }
+            .receiveOnMain()
             .assign(to: &$sections)
         
         document.isLockedPublisher.assign(to: &$navigationBarButtonsDisabled)
@@ -47,7 +50,8 @@ extension RelationsListViewModel {
     
     func changeRelationFeaturedState(relation: Relation, addedToObject: Bool) {
         if !addedToObject {
-            if relationsService.addRelations(relationKeys: [relation.key]) {
+            Task { @MainActor in
+                try await relationsService.addRelations(relationKeys: [relation.key])
                 changeRelationFeaturedState(relation: relation)
             }
         } else {
@@ -58,8 +62,10 @@ extension RelationsListViewModel {
     private func changeRelationFeaturedState(relation: Relation) {
         Task {
             if relation.isFeatured {
+                AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.removeFeatureRelation)
                 try await relationsService.removeFeaturedRelation(relationKey: relation.key)
             } else {
+                AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.addFeatureRelation)
                 try await relationsService.addFeaturedRelation(relationKey: relation.key)
             }
         }
@@ -67,15 +73,18 @@ extension RelationsListViewModel {
     }
     
     func handleTapOnRelation(relation: Relation) {
-        output?.editRelationValueAction(relationKey: relation.key)
+        output?.editRelationValueAction(document: document, relationKey: relation.key)
     }
     
     func removeRelation(relation: Relation) {
-        relationsService.removeRelation(relationKey: relation.key)
+        Task {
+            AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.deleteRelation)
+            try await relationsService.removeRelation(relationKey: relation.key)
+        }
     }
     
     func showAddNewRelationView() {
-        output?.addNewRelationAction()
+        output?.addNewRelationAction(document: document)
     }
     
 }

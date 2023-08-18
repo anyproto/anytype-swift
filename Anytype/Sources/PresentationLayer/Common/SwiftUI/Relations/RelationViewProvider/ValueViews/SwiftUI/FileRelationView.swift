@@ -28,11 +28,12 @@ struct FileRelationView: View {
     
     private func objectView(option: Relation.File.Option) -> some View {
         HStack(spacing: style.objectRelationStyle.hSpaсingObject) {
-            SwiftUIObjectIconImageView(
-                iconImage: option.icon,
-                usecase: style.objectIconImageUsecase
-            ).frame(width: style.objectRelationStyle.size.width, height: style.objectRelationStyle.size.height)
-
+            if let icon = option.icon {
+                SwiftUIObjectIconImageView(
+                    iconImage: icon,
+                    usecase: style.objectIconImageUsecase
+                ).frame(width: style.objectRelationStyle.size.width, height: style.objectRelationStyle.size.height)
+            }
             
             AnytypeText(
                 option.title,

@@ -11,6 +11,10 @@ extension TextBlockContentView: CustomTextViewDelegate {
     func copy(range: NSRange) {
         actions?.copy(range)
     }
+    
+    func cut(range: NSRange) {
+        actions?.cut(range)
+    }
 
     func changeFirstResponderState(_ change: CustomTextViewFirstResponderChange) {
         switch change {

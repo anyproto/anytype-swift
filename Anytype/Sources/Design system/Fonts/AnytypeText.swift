@@ -21,7 +21,7 @@ struct AnytypeText: View {
     
     init(
         _ text: String,
-        name: AnytypeFont.FontName,
+        name: AnytypeFontConfig.Name,
         size: CGFloat,
         weight: Font.Weight
     ) {
@@ -47,7 +47,7 @@ struct AnytypeText: View {
     private static func buildText(_ text: String, style: AnytypeFont) -> Text {
         let font = AnytypeFontBuilder.font(anytypeFont: style)
         
-        return Text(.init(text)).font(font).kerning(style.kern)
+        return Text(.init(text)).font(font).kerning(style.config.kern)
     }
     
     public static func + (lhs: AnytypeText, rhs: AnytypeText) -> AnytypeText {

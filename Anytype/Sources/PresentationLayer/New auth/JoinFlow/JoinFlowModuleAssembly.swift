@@ -20,7 +20,7 @@ final class JoinFlowModuleAssembly: JoinFlowModuleAssemblyProtocol {
         return JoinFlowView(
             model: JoinFlowViewModel(
                 output: output,
-                applicationStateService: serviceLocator.applicationStateService()
+                applicationStateService: self.serviceLocator.applicationStateService()
             )
         )
         .eraseToAnyView()

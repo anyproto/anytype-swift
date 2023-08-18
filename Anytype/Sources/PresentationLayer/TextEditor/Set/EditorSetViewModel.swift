@@ -16,6 +16,16 @@ final class EditorSetViewModel: ObservableObject {
             startSubscriptionsByGroups()
         }
     }
+    
+    @MainActor
+    lazy var headerSettingsViewModel = SetHeaderSettingsViewModel(
+        setDocument: setDocument,
+        setTemplatesInteractor: setTemplatesInteractor,
+        onViewTap: { [weak self] in self?.showViewPicker() } ,
+        onSettingsTap: { [weak self] in self?.showSetSettings() } ,
+        onCreateTap: { [weak self] in self?.createObject() },
+        onSecondaryCreateTap: { [weak self] in self?.onSecondaryCreateTap() }
+    )
     @Published var configurationsDict: OrderedDictionary<String, [SetContentViewItemConfiguration]> = [:]
     @Published var pagitationDataDict: OrderedDictionary<String, EditorSetPaginationData> = [:]
     
@@ -62,10 +72,6 @@ final class EditorSetViewModel: ObservableObject {
     
     var isEmptyQuery: Bool {
         setDocument.details?.setOf.first { $0.isNotEmpty } == nil
-    }
-    
-    var isActiveHeader: Bool {
-        !isEmptyQuery || setDocument.isCollection()
     }
     
     var showEmptyState: Bool {
@@ -124,6 +130,7 @@ final class EditorSetViewModel: ObservableObject {
     private let groupsSubscriptionsHandler: GroupsSubscriptionsHandlerProtocol
     private let setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol
     private let objectTypeProvider: ObjectTypeProviderProtocol
+    private let setTemplatesInteractor: SetTemplatesInteractorProtocol
     private var subscriptions = [AnyCancellable]()
     private var titleSubscription: AnyCancellable?
 
@@ -137,7 +144,8 @@ final class EditorSetViewModel: ObservableObject {
         textService: TextServiceProtocol,
         groupsSubscriptionsHandler: GroupsSubscriptionsHandlerProtocol,
         setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol,
-        objectTypeProvider: ObjectTypeProviderProtocol
+        objectTypeProvider: ObjectTypeProviderProtocol,
+        setTemplatesInteractor: SetTemplatesInteractorProtocol
     ) {
         self.setDocument = setDocument
         self.subscriptionService = subscriptionService
@@ -149,13 +157,22 @@ final class EditorSetViewModel: ObservableObject {
         self.groupsSubscriptionsHandler = groupsSubscriptionsHandler
         self.setSubscriptionDataBuilder = setSubscriptionDataBuilder
         self.objectTypeProvider = objectTypeProvider
+        self.setTemplatesInteractor = setTemplatesInteractor
 
         self.titleString = setDocument.details?.pageCellTitle ?? ""
     }
     
     func setup(router: EditorSetRouterProtocol) {
         self.router = router
-        self.headerModel = ObjectHeaderViewModel(document: setDocument, router: router, isOpenedForPreview: false)
+        self.headerModel = ObjectHeaderViewModel(
+            document: setDocument,
+            router: router,
+            configuration: .init(
+                isOpenedForPreview: false,
+                shouldShowTemplateSelection: false,
+                usecase: .editor
+            )
+        )
         
         setDocument.setUpdatePublisher.sink { [weak self] in
             self?.onDataChange($0)
@@ -199,7 +216,9 @@ final class EditorSetViewModel: ObservableObject {
     
     func onDisappear() {
         subscriptionService.stopAllSubscriptions()
-        groupsSubscriptionsHandler.stopAllSubscriptions()
+        Task {
+            try await groupsSubscriptionsHandler.stopAllSubscriptions()
+        }
     }
 
     func onRelationTap(relation: Relation) {
@@ -219,8 +238,8 @@ final class EditorSetViewModel: ObservableObject {
         if activeView.type.hasGroups {
             setupGroupsSubscription(forceUpdate: forceUpdate)
         } else {
-            setupPaginationDataIfNeeded(groupId: SubscriptionId.set.value)
-            startSubscriptionIfNeeded(with: SubscriptionId.set)
+            setupPaginationDataIfNeeded(groupId: SetSubscriptionData.setId)
+            startSubscriptionIfNeeded(with: SetSubscriptionData.setId)
         }
     }
     
@@ -228,11 +247,13 @@ final class EditorSetViewModel: ObservableObject {
         guard let group = groups.first(where: { $0.id == groupId }),
         let value = group.value else { return }
 
-        detailsService.updateDetails(
-            contextId: detailsId,
-            relationKey: activeView.groupRelationKey,
-            value: value
-        )
+        Task {
+            try await detailsService.updateDetails(
+                contextId: detailsId,
+                relationKey: activeView.groupRelationKey,
+                value: value
+            )
+        }
     }
     
     func pagitationData(by groupId: String) -> EditorSetPaginationData {
@@ -288,13 +309,15 @@ final class EditorSetViewModel: ObservableObject {
                     return
                 }
 
-                self.textService.setText(
-                    contextId: self.setDocument.targetObjectID ?? self.objectId,
-                    blockId: RelationKey.title.rawValue,
-                    middlewareString: .init(text: newValue, marks: .init())
-                )
-
-                self.isUpdating = false
+                Task { @MainActor in
+                    try? await self.textService.setText(
+                        contextId: self.setDocument.targetObjectID ?? self.objectId,
+                        blockId: RelationKey.title.rawValue,
+                        middlewareString: .init(text: newValue, marks: .init())
+                    )
+                    
+                    self.isUpdating = false
+                }
             }
         }
     }
@@ -305,14 +328,14 @@ final class EditorSetViewModel: ObservableObject {
         Task { @MainActor [weak self] in
             guard let self else { return }
             let data = GroupsSubscription(
-                identifier: SubscriptionId.setGroups,
+                identifier: SetSubscriptionData.setGroupsId,
                 relationKey: self.activeView.groupRelationKey,
                 filters: self.activeView.filters,
                 source: self.details?.setOf,
                 collectionId: self.setDocument.isCollection() ? objectId : nil
             )
             if self.groupsSubscriptionsHandler.hasGroupsSubscriptionDataDiff(with: data) {
-                self.groupsSubscriptionsHandler.stopAllSubscriptions()
+                try await self.groupsSubscriptionsHandler.stopAllSubscriptions()
                 self.groups = try await self.startGroupsSubscription(with: data)
             }
             
@@ -334,7 +357,7 @@ final class EditorSetViewModel: ObservableObject {
                 hasNewHidden = true
                 recordsDict[group.groupID] = nil
                 configurationsDict[group.groupID] = nil
-                subscriptionService.stopSubscription(id: SubscriptionId(value: group.groupID))
+                subscriptionService.stopSubscription(id: group.groupID)
             }
         }
         
@@ -356,7 +379,7 @@ final class EditorSetViewModel: ObservableObject {
         sortedVisibleGroups().forEach { [weak self] group in
             guard let self else { return }
             let groupFilter = group.filter(with: self.activeView.groupRelationKey)
-            let subscriptionId = SubscriptionId(value: group.id)
+            let subscriptionId = group.id
             self.setupPaginationDataIfNeeded(groupId: group.id)
             self.startSubscriptionIfNeeded(with: subscriptionId, groupFilter: groupFilter)
         }
@@ -367,8 +390,8 @@ final class EditorSetViewModel: ObservableObject {
         pagitationDataDict[groupId] = EditorSetPaginationData.empty
     }
     
-    private func startSubscriptionIfNeeded(with subscriptionId: SubscriptionId, groupFilter: DataviewFilter? = nil) {
-        let pagitationData = pagitationData(by: subscriptionId.value)
+    private func startSubscriptionIfNeeded(with subscriptionId: String, groupFilter: DataviewFilter? = nil) {
+        let pagitationData = pagitationData(by: subscriptionId)
         let currentPage: Int
         let numberOfRowsPerPage: Int
         if activeView.type.hasGroups {
@@ -390,13 +413,13 @@ final class EditorSetViewModel: ObservableObject {
                 currentPage: currentPage, // show first page for empty request
                 numberOfRowsPerPage: numberOfRowsPerPage,
                 collectionId: setDocument.isCollection() ? objectId : nil,
-                objectOrderIds: setDocument.objectOrderIds(for: subscriptionId.value)
+                objectOrderIds: setDocument.objectOrderIds(for: subscriptionId)
             )
         )
         
-        subscriptionService.updateSubscription(data: data, required: recordsDict.keys.isEmpty) { subId, update in
-            DispatchQueue.main.async { [weak self] in
-                self?.updateData(with: subId.value, update: update)
+        subscriptionService.updateSubscription(data: data, required: recordsDict.keys.isEmpty) { [weak self] subId, update in
+            DispatchQueue.main.async {
+                self?.updateData(with: subId, update: update)
             }
         }
     }
@@ -505,10 +528,12 @@ final class EditorSetViewModel: ObservableObject {
     
     private func updateDetailsIfNeeded(_ details: ObjectDetails) {
         guard details.layoutValue == .todo else { return }
-        detailsService.updateBundledDetails(
-            contextID: details.id,
-            bundledDetails: [.done(!details.isDone)]
-        )
+        Task {
+            try await detailsService.updateBundledDetails(
+                contextID: details.id,
+                bundledDetails: [.done(!details.isDone)]
+            )
+        }
     }
     
     private func itemTapped(_ details: ObjectDetails) {
@@ -521,15 +546,33 @@ final class EditorSetViewModel: ObservableObject {
         pagitationDataDict = [:]
         groups = []
         subscriptionService.stopAllSubscriptions()
-        groupsSubscriptionsHandler.stopAllSubscriptions()
+        Task {
+            try await groupsSubscriptionsHandler.stopAllSubscriptions()
+        }
+    }
+    
+    @MainActor
+    func onSecondaryCreateTap() {
+        router?.showTemplatesSelection(
+            setDocument: setDocument,
+            dataview: activeView,
+            onTemplateSelection: { [weak self] templateId in
+                self?.createObject(selectedTemplateId: templateId)
+            }
+        )
     }
     
     func createObject() {
+        createObject(selectedTemplateId: activeView.defaultTemplateID)
+    }
+    
+    func createObject(selectedTemplateId: BlockId?) {
         if setDocument.isCollection() {
             createObject(
                 with: objectTypeProvider.defaultObjectType.id,
                 shouldSelectType: true,
                 relationsDetails: [],
+                templateId: selectedTemplateId,
                 completion: { details in
                     Task { @MainActor [weak self] in
                         guard let self else { return }
@@ -552,6 +595,7 @@ final class EditorSetViewModel: ObservableObject {
                 with: objectTypeProvider.defaultObjectType.id,
                 shouldSelectType: true,
                 relationsDetails: relationsDetails,
+                templateId: selectedTemplateId,
                 completion: { [weak self] details in
                     self?.openObject(details: details)
                 }
@@ -562,6 +606,7 @@ final class EditorSetViewModel: ObservableObject {
                 with: type,
                 shouldSelectType: type.isEmpty,
                 relationsDetails: [],
+                templateId: selectedTemplateId,
                 completion: { [weak self] details in
                     self?.handleCreatedObject(details: details)
                 }
@@ -581,24 +626,16 @@ final class EditorSetViewModel: ObservableObject {
         with type: String,
         shouldSelectType: Bool,
         relationsDetails: [RelationDetails],
+        templateId: BlockId?,
         completion: ((_ details: ObjectDetails) -> Void)?
     ) {
         Task { @MainActor [weak self] in
             guard let self else { return }
-            let templateId: String
-            if type.isNotEmpty {
-                let availableTemplates = try? await self.searchService.searchTemplates(
-                    for: .dynamic(type)
-                )
-                let hasSingleTemplate = availableTemplates?.count == 1
-                templateId = hasSingleTemplate ? (availableTemplates?.first?.id ?? "") : ""
-            } else {
-                templateId = ""
-            }
+            
             let details = try await self.dataviewService.addRecord(
                 objectType: type,
                 shouldSelectType: shouldSelectType,
-                templateId: templateId,
+                templateId: templateId ?? "",
                 setFilters: self.setDocument.filters,
                 relationsDetails: relationsDetails
             )
@@ -685,7 +722,8 @@ extension EditorSetViewModel {
     func showFilters() {
         router?.showFilters(
             setDocument: setDocument,
-            dataviewService: dataviewService
+            dataviewService: dataviewService,
+            subscriptionDetailsStorage: subscriptionService.storage
         )
     }
     
@@ -788,7 +826,9 @@ extension EditorSetViewModel {
     }
     
    private func openObject(details: ObjectDetails) {
-       router?.showPage(data: details.editorScreenData())
+       router?.showPage(
+        data: details.editorScreenData(shouldShowTemplatesOptions: !FeatureFlags.setTemplateSelection)
+       )
     }
     
     private func createBookmarkObject() {
@@ -816,6 +856,6 @@ extension EditorSetViewModel {
         textService: TextService(),
         groupsSubscriptionsHandler: DI.preview.serviceLocator.groupsSubscriptionsHandler(),
         setSubscriptionDataBuilder: SetSubscriptionDataBuilder(accountManager: DI.preview.serviceLocator.accountManager()),
-        objectTypeProvider: DI.preview.serviceLocator.objectTypeProvider()
+        objectTypeProvider: DI.preview.serviceLocator.objectTypeProvider(), setTemplatesInteractor: DI.preview.serviceLocator.setTemplatesInteractor
     )
 }

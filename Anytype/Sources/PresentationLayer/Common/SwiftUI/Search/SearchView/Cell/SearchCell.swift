@@ -9,17 +9,23 @@ struct SearchCell<SearchData: SearchDataProtocol>: View {
     var body: some View {
         HStack(alignment: .center, spacing: 0) {
             icon
-            Spacer.fixedWidth(12)
             content
             Spacer()
         }
         .frame(height: 68)
+        .if(FeatureFlags.deleteObjectPlaceholder, transform: {
+            $0.newDivider()
+        })
         .padding(.horizontal, 16)
     }
     
+    @ViewBuilder
     private var icon: some View {
-        SwiftUIObjectIconImageView(iconImage: data.iconImage, usecase: data.usecase)
-            .frame(width: 48, height: 48)
+        if let iconImage = data.iconImage {
+            SwiftUIObjectIconImageView(iconImage: iconImage, usecase: data.usecase)
+                .frame(width: 48, height: 48)
+            Spacer.fixedWidth(12)
+        }
     }
     
     private var content: some View {
@@ -43,7 +49,9 @@ struct SearchCell<SearchData: SearchDataProtocol>: View {
             }
             
             Spacer()
-            AnytypeDivider()
+            if !FeatureFlags.deleteObjectPlaceholder {
+                AnytypeDivider()
+            }
         }
     }
     

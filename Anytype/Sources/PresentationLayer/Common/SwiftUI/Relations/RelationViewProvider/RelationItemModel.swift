@@ -120,7 +120,9 @@ enum RelationItemModel: Hashable {
     var isErrorState: Bool {
         switch self {
         case let .text(text): return text.isDeletedValue
-        case let .object(object): return object.key == BundledRelationKey.setOf.rawValue && object.isDeletedValue
+        case let .object(object): return
+            (object.key == BundledRelationKey.setOf.rawValue && object.isDeletedValue)
+            || (object.key == BundledRelationKey.type.rawValue && object.isDeletedValue)
         default:
             return false
         }

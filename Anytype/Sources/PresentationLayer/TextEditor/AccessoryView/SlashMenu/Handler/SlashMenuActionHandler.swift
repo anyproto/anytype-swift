@@ -6,14 +6,17 @@ import UIKit
 final class SlashMenuActionHandler {
     private let actionHandler: BlockActionHandlerProtocol
     private let router: EditorRouterProtocol
+    private let document: BaseDocumentProtocol
     private let pasteboardService: PasteboardServiceProtocol
     private weak var textView: UITextView?
     
     init(
+        document: BaseDocumentProtocol,
         actionHandler: BlockActionHandlerProtocol,
         router: EditorRouterProtocol,
         pasteboardService: PasteboardServiceProtocol
     ) {
+        self.document = document
         self.actionHandler = actionHandler
         self.router = router
         self.pasteboardService = pasteboardService
@@ -36,17 +39,19 @@ final class SlashMenuActionHandler {
                     self?.actionHandler.addLink(targetId: details.id, typeId: details.type, blockId: blockId)
                 }
             case .objectType(let object):
-                actionHandler
-                    .createPage(targetId: blockId, type: .dynamic(object.id))
-                    .flatMap { id in
-                        AnytypeAnalytics.instance().logCreateObject(objectType: object.analyticsType, route: .powertool)
-                        router.showPage(data: .page(EditorPageObject(objectId: id, isSupportedForEdit: true, isOpenedForPreview: false)))
-                    }
+                Task { @MainActor [weak self] in
+                    try await self?.actionHandler
+                        .createPage(targetId: blockId, type: .dynamic(object.id))
+                        .flatMap { id in
+                            AnytypeAnalytics.instance().logCreateObject(objectType: object.analyticsType, route: .powertool)
+                            self?.router.showPage(data: .page(EditorPageObject(objectId: id, isSupportedForEdit: true, isOpenedForPreview: false)))
+                        }
+                }
             }
         case let .relations(action):
             switch action {
             case .newRealtion:
-                router.showAddNewRelationView() { [weak self] relation, isNew in
+                router.showAddNewRelationView(document: document) { [weak self] relation, isNew in
                     self?.actionHandler.addBlock(.relation(key: relation.key), blockId: blockId, blockText: textView?.attributedText)
 
                     AnytypeAnalytics.instance().logAddRelation(format: relation.format, isNew: isNew, type: .block)
@@ -129,7 +134,9 @@ final class SlashMenuActionHandler {
                 self?.actionHandler.moveToPage(blockId: blockId, pageId: details.id)
             }
         case .copy:
-            pasteboardService.copy(blocksIds: [blockId], selectedTextRange: NSRange())
+            Task {
+                try await pasteboardService.copy(blocksIds: [blockId], selectedTextRange: NSRange())
+            }
         case .paste:
             textView?.paste(self)
         }

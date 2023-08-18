@@ -83,9 +83,11 @@ final class HomeWidgetsViewModel: ObservableObject {
                 return self.registry.providers(blocks: blocks, widgetObject: self.widgetObject)
             }
             .removeDuplicates()
+            .receiveOnMain()
             .assign(to: &$models)
         
         stateManager.isEditStatePublisher
+            .receiveOnMain()
             .assign(to: &$hideEditButton)
     }
 }

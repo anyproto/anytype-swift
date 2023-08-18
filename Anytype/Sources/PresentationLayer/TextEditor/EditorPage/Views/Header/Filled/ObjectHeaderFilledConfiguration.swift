@@ -5,8 +5,9 @@ struct ObjectHeaderFilledConfiguration: BlockConfiguration {
     
     let state: ObjectHeaderFilledState
     let isShimmering: Bool
-    let width: CGFloat
-
-    var contentInsets: UIEdgeInsets { .zero }
+    let sizeConfiguration: HeaderViewSizeConfiguration
 }
 
+extension ObjectHeaderFilledConfiguration {
+    var contentInsets: UIEdgeInsets { .zero }
+}

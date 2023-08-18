@@ -4,7 +4,7 @@ import Kingfisher
 struct SetFullHeader: View {
     @State private var width: CGFloat = .zero
 
-    @EnvironmentObject private var model: EditorSetViewModel
+    @ObservedObject var model: EditorSetViewModel
     
     var body: some View {
         Group {
@@ -53,10 +53,9 @@ struct SetFullHeader: View {
                     configuration: ObjectHeaderFilledConfiguration(
                         state: state,
                         isShimmering: false,
-                        width: width
+                        sizeConfiguration: .editorSizeConfiguration(width: width)
                     )
                 )
-                .frame(height: ObjectHeaderConstants.coverFullHeight)
             default:
                 EmptyView()
             }
@@ -178,6 +177,6 @@ extension SetFullHeader {
 
 struct SetFullHeader_Previews: PreviewProvider {
     static var previews: some View {
-        SetFullHeader()
+        SetFullHeader(model: EditorSetViewModel.emptyPreview)
     }
 }

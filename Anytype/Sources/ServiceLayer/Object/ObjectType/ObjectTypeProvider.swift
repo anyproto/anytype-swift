@@ -12,6 +12,8 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
         subscriptionBuilder: ObjectTypeSubscriptionDataBuilder(accountManager: ServiceLocator.shared.accountManager())
     )
     
+    static let subscriptionId = "SubscriptionId.ObjectType"
+    
     // MARK: - Private variables
     
     private let subscriptionsService: SubscriptionsServiceProtocol
@@ -49,6 +51,7 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
             name: Loc.ObjectType.deletedName,
             iconEmoji: .default,
             description: "",
+            recommendedLayout: .note,
             hidden: false,
             readonly: true,
             isArchived: false,
@@ -65,7 +68,7 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     }
     
     func stopSubscription() {
-        subscriptionsService.stopSubscription(id: .objectType)
+        subscriptionsService.stopSubscription(id: Self.subscriptionId)
         objectTypes.removeAll()
         updateAllCache()
     }

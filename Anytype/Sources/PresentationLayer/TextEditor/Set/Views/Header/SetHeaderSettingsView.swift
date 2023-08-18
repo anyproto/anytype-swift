@@ -3,7 +3,7 @@ import AnytypeCore
 
 struct SetHeaderSettingsView: View {
     
-    let model: SetHeaderSettingsViewModel
+    @ObservedObject var model: SetHeaderSettingsViewModel
     
     var body: some View {
         HStack(alignment: .center, spacing: 0) {
@@ -12,7 +12,11 @@ struct SetHeaderSettingsView: View {
             settingButton
 
             Spacer.fixedWidth(16)
-            createObjectButton
+            if FeatureFlags.setTemplateSelection && model.isTemplatesSelectionAvailable {
+                compositeCreateButtons
+            } else {
+                createObjectButton
+            }
         }
         .padding(.horizontal, 20)
         .frame(height: 56)
@@ -35,6 +39,29 @@ struct SetHeaderSettingsView: View {
             model.onCreateTap()
         }
         .disabled(!model.isActive)
+    }
+    
+    private var compositeCreateButtons: some View {
+        HStack(spacing: 0) {
+            StandardButton(
+                Loc.new,
+                style: .primaryXSmall,
+                corners: [.topLeft, .bottomLeft]
+            ) {
+                UISelectionFeedbackGenerator().selectionChanged()
+                model.onCreateTap()
+            }
+            .disabled(!model.isActive)
+            Rectangle()
+                .fill(Color.Additional.separator)
+                .frame(width: 1, height: 28)
+                .background(Color.Button.button)
+            StandardButton(.image(.X18.listArrow), style: .primaryXSmall, corners: [.topRight, .bottomRight]) {
+                UISelectionFeedbackGenerator().selectionChanged()
+                model.onSecondaryCreateTap()
+            }
+            .disabled(!model.isActive)
+        }
     }
     
     private var viewButton: some View {
@@ -69,10 +96,11 @@ struct SetHeaderSettings_Previews: PreviewProvider {
                     targetObjectID: nil,
                     relationDetailsStorage: DI.preview.serviceLocator.relationDetailsStorage()
                 ),
-                isActive: true,
+                setTemplatesInteractor: DI.preview.serviceLocator.setTemplatesInteractor,
                 onViewTap: {},
                 onSettingsTap: {},
-                onCreateTap:{}
+                onCreateTap:{},
+                onSecondaryCreateTap: {}
             )
         )
     }

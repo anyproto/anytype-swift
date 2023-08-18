@@ -32,7 +32,7 @@ protocol EditorSetRouterProtocol:
     
     func showViewSettings(setDocument: SetDocumentProtocol, dataviewService: DataviewServiceProtocol)
     func showSorts(setDocument: SetDocumentProtocol, dataviewService: DataviewServiceProtocol)
-    func showFilters(setDocument: SetDocumentProtocol, dataviewService: DataviewServiceProtocol)
+    func showFilters(setDocument: SetDocumentProtocol, dataviewService: DataviewServiceProtocol, subscriptionDetailsStorage: ObjectDetailsStorage)
     func showFilterSearch(filter: SetFilter, onApply: @escaping (SetFilter) -> Void)
     
     func showCardSizes(size: DataviewViewSize, onSelect: @escaping (DataviewViewSize) -> Void)
@@ -60,12 +60,21 @@ protocol EditorSetRouterProtocol:
     func closeEditor()
     func showPage(data: EditorScreenData)
     func replaceCurrentPage(with data: EditorScreenData)
-    
     func showRelationValueEditingView(key: String)
     func showRelationValueEditingView(objectDetails: ObjectDetails, relation: Relation)
-    func showAddNewRelationView(onSelect: ((RelationDetails, _ isNew: Bool) -> Void)?)
+    func showAddNewRelationView(
+        document: BaseDocumentProtocol,
+        onSelect: ((RelationDetails, _ isNew: Bool) -> Void)?
+    )
     
     func showFailureToast(message: String)
+    
+    @MainActor
+    func showTemplatesSelection(
+        setDocument: SetDocumentProtocol,
+        dataview: DataviewView,
+        onTemplateSelection: @escaping (BlockId?) -> ()
+    )
 }
 
 final class EditorSetRouter: EditorSetRouterProtocol {
@@ -86,6 +95,7 @@ final class EditorSetRouter: EditorSetRouterProtocol {
     private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
     private let toastPresenter: ToastPresenterProtocol
     private let alertHelper: AlertHelper
+    private let templateSelectionCoordinator: TemplateSelectionCoordinatorProtocol
     
     // MARK: - State
     
@@ -105,7 +115,8 @@ final class EditorSetRouter: EditorSetRouterProtocol {
         objectCoverPickerModuleAssembly: ObjectCoverPickerModuleAssemblyProtocol,
         objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
         toastPresenter: ToastPresenterProtocol,
-        alertHelper: AlertHelper
+        alertHelper: AlertHelper,
+        templateSelectionCoordinator: TemplateSelectionCoordinatorProtocol
     ) {
         self.setDocument = setDocument
         self.rootController = rootController
@@ -121,6 +132,7 @@ final class EditorSetRouter: EditorSetRouterProtocol {
         self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
         self.toastPresenter = toastPresenter
         self.alertHelper = alertHelper
+        self.templateSelectionCoordinator = templateSelectionCoordinator
     }
     
     // MARK: - EditorSetRouterProtocol
@@ -164,7 +176,7 @@ final class EditorSetRouter: EditorSetRouterProtocol {
     func showCreateObject(details: ObjectDetails) {
         let moduleViewController = createObjectModuleAssembly.makeCreateObject(objectId: details.id) { [weak self] in
             self?.navigationContext.dismissTopPresented()
-            self?.showPage(data: details.editorScreenData())
+            self?.showPage(data: details.editorScreenData(shouldShowTemplatesOptions: !FeatureFlags.setTemplateSelection))
         } closeAction: { [weak self] in
             self?.navigationContext.dismissTopPresented()
         }
@@ -260,11 +272,12 @@ final class EditorSetRouter: EditorSetRouterProtocol {
         presentSheet(vc)
     }
     
-    func showFilters(setDocument: SetDocumentProtocol, dataviewService: DataviewServiceProtocol) {
+    func showFilters(setDocument: SetDocumentProtocol, dataviewService: DataviewServiceProtocol, subscriptionDetailsStorage: ObjectDetailsStorage) {
         let viewModel = SetFiltersListViewModel(
             setDocument: setDocument,
             dataviewService: dataviewService,
-            router: self
+            router: self,
+            subscriptionDetailsStorage: subscriptionDetailsStorage
         )
         let vc = UIHostingController(
             rootView: SetFiltersListView(viewModel: viewModel)
@@ -399,7 +412,7 @@ final class EditorSetRouter: EditorSetRouterProtocol {
     }
     
     func showSettings() {
-        objectSettingCoordinator.startFlow(delegate: self)
+        objectSettingCoordinator.startFlow(objectId: setDocument.objectId, delegate: self)
     }
     
     func showCoverPicker() {
@@ -447,8 +460,12 @@ final class EditorSetRouter: EditorSetRouterProtocol {
         relationValueCoordinator.startFlow(objectDetails: objectDetails, relation: relation, analyticsType: .dataview, output: self)
     }
     
-    func showAddNewRelationView(onSelect: ((RelationDetails, _ isNew: Bool) -> Void)?) {
+    func showAddNewRelationView(
+        document: BaseDocumentProtocol,
+        onSelect: ((RelationDetails, _ isNew: Bool) -> Void)?
+    ) {
         addNewRelationCoordinator.showAddNewRelationView(
+            document: document,
             excludedRelationsIds: setDocument.sortedRelations.map(\.id),
             target: .dataview(activeViewId: setDocument.activeView.id),
             onCompletion: onSelect
@@ -465,6 +482,19 @@ final class EditorSetRouter: EditorSetRouterProtocol {
     
     func showFailureToast(message: String) {
         toastPresenter.showFailureAlert(message: message)
+    }
+    
+    @MainActor
+    func showTemplatesSelection(
+        setDocument: SetDocumentProtocol,
+        dataview: DataviewView,
+        onTemplateSelection: @escaping (BlockId?) -> ()
+    ) {
+        templateSelectionCoordinator.showTemplatesSelection(
+            setDocument: setDocument,
+            dataview: dataview,
+            onTemplateSelection: onTemplateSelection
+        )
     }
     
     // MARK: - Private
@@ -524,10 +554,18 @@ extension EditorSetRouter: RelationValueCoordinatorOutput {
 }
 
 extension EditorSetRouter: ObjectSettingsModuleDelegate {
+    func didCreateTemplate(templateId: Services.BlockId) {
+        anytypeAssertionFailure("Should be disabled in restrictions. Check template restrinctions")
+    }
+    
     func didCreateLinkToItself(selfName: String, data: EditorScreenData) {
         UIApplication.shared.hideKeyboard()
         toastPresenter.showObjectName(selfName, middleAction: Loc.Editor.Toast.linkedTo, secondObjectId: data.objectId) { [weak self] in
             self?.showPage(data: data)
         }
+    }
+    
+    func didTapUseTemplateAsDefault(templateId: BlockId) {
+        anytypeAssertionFailure("Invalid delegate method handler")
     }
 }

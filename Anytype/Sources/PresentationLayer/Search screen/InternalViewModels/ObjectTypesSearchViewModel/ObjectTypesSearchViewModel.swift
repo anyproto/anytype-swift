@@ -12,8 +12,8 @@ final class ObjectTypesSearchViewModel {
     }
     
     let selectionMode: NewSearchViewModel.SelectionMode = .singleItem
-    let viewStateSubject = PassthroughSubject<NewSearchViewState, Never>()
     
+    private let viewStateSubject = PassthroughSubject<NewSearchViewState, Never>()
     private var objects: [ObjectDetails] = []
     private var marketplaceObjects: [ObjectDetails] = []
     private let interactor: ObjectTypesSearchInteractor
@@ -36,6 +36,8 @@ final class ObjectTypesSearchViewModel {
 
 extension ObjectTypesSearchViewModel: NewInternalSearchViewModelProtocol {
     
+    var viewStatePublisher: AnyPublisher<NewSearchViewState, Never> { viewStateSubject.eraseToAnyPublisher() }
+    
     func search(text: String) async throws {
         let objects = try await interactor.search(text: text)
         let marketplaceObjects = try await interactor.searchInMarketplace(text: text)
@@ -57,9 +59,11 @@ extension ObjectTypesSearchViewModel: NewInternalSearchViewModelProtocol {
         guard let id = ids.first else { return }
 
         if let marketplaceType = marketplaceObjects.first(where: { $0.id == id}) {
-            guard let installedType = interactor.installType(objectId: marketplaceType.id) else { return }
-            toastPresenter.show(message: Loc.ObjectType.addedToLibrary(installedType.name))
-            onSelect(ObjectType(details: installedType))
+            Task { @MainActor in
+                guard let installedType = try await interactor.installType(objectId: marketplaceType.id) else { return }
+                toastPresenter.show(message: Loc.ObjectType.addedToLibrary(installedType.name))
+                onSelect(ObjectType(details: installedType))
+            }
             return
         }
         
@@ -127,7 +131,7 @@ private extension SearchObjectRowView.Model {
     
     init(details: ObjectDetails, isChecked: Bool) {
         let title = details.title
-        self.icon = details.objectIconImageWithPlaceholder
+        self.icon = FeatureFlags.deleteObjectPlaceholder ? details.objectIconImage : details.objectIconImageWithPlaceholder
         self.title = title
         self.subtitle = details.description
         self.style = .default

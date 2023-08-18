@@ -11,9 +11,6 @@ struct SettingsAccountView: View {
                 VStack(spacing: 0) {
                     profileBlock
                     accessBlock
-                    if !FeatureFlags.fileStorage {
-                        dataBlock
-                    }
                     accountBlock
                 }
             }
@@ -27,7 +24,7 @@ struct SettingsAccountView: View {
     @ViewBuilder
     private var header: some View {
         DragIndicator()
-        TitleView(title: FeatureFlags.fileStorage ? Loc.profile : Loc.accountData)
+        TitleView(title: Loc.profile)
     }
     
     @ViewBuilder
@@ -45,14 +42,6 @@ struct SettingsAccountView: View {
             imageAsset: .Settings.keychainPhrase,
             onTap: { model.onRecoveryPhraseTap() }
         )
-    }
-    
-    @ViewBuilder
-    private var dataBlock: some View {
-        SectionHeaderView(title: Loc.data)
-        SettingsButton(text: Loc.clearFileCache, textColor: .Text.primary) {
-            model.onClearTap()
-        }
     }
 
     @ViewBuilder

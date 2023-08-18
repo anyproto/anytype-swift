@@ -23,4 +23,9 @@ enum PlaceholderIconImageGuideline {
            radius: .point(8)
     )
     
+    static let x32 = ImageGuideline(
+        size: CGSize(width: 32, height: 32),
+        radius: .point(8)
+    )
+    
 }

@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct EditorSetPaginationView: View {
-    @EnvironmentObject private var model: EditorSetViewModel
+    @ObservedObject var model: EditorSetViewModel
     let paginationData: EditorSetPaginationData
     let groupId: String
     

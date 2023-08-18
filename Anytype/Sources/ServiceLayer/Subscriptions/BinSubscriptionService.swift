@@ -19,7 +19,7 @@ final class BinSubscriptionService: BinSubscriptionServiceProtocol {
     
     private let subscriptionService: SubscriptionsServiceProtocol
     private let accountManager: AccountManagerProtocol
-    private let subscriptionId = SubscriptionId(value: "Bin-\(UUID().uuidString)")
+    private let subscriptionId = "Bin-\(UUID().uuidString)"
     
     init(
         subscriptionService: SubscriptionsServiceProtocol,
@@ -39,12 +39,18 @@ final class BinSubscriptionService: BinSubscriptionServiceProtocol {
             type: .desc
         )
         
-        let filters = [
-            SearchHelper.notHiddenFilter(),
-            SearchHelper.isArchivedFilter(isArchived: true),
-            SearchHelper.workspaceId(accountManager.account.info.accountSpaceId),
-            SearchHelper.layoutFilter(DetailsLayout.visibleLayouts)
-        ]
+        let filters = FeatureFlags.showAllFilesInBin
+            ? [
+                SearchHelper.notHiddenFilter(),
+                SearchHelper.isArchivedFilter(isArchived: true),
+                SearchHelper.workspaceId(accountManager.account.info.accountSpaceId)
+            ]
+            : [
+                SearchHelper.notHiddenFilter(),
+                SearchHelper.isArchivedFilter(isArchived: true),
+                SearchHelper.workspaceId(accountManager.account.info.accountSpaceId),
+                SearchHelper.layoutFilter(DetailsLayout.visibleLayouts)
+            ]
         
         let searchData: SubscriptionData = .search(
             SubscriptionData.Search(

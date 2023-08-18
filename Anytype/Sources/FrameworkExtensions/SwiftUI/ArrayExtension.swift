@@ -5,7 +5,16 @@ extension Array {
         by order: [T],
         transform: (Element) -> T
     ) -> [Element] {
-        sorted { a, b in
+        var newArray = self
+        newArray.reorder(by: order, transform: transform)
+        return newArray
+    }
+    
+    mutating func reorder<T: Comparable>(
+        by order: [T],
+        transform: (Element) -> T
+    ) {
+        sort { a, b in
             let transformedA = transform(a)
             let transformedB = transform(b)
             guard let first = order.firstIndex(of: transformedA) else {
@@ -23,7 +32,16 @@ extension Array {
         by order: [T],
         transform: (Element) -> T
     ) -> [Element] {
-        sorted { a, b in
+        var newArray = self
+        newArray.reorderStable(by: order, transform: transform)
+        return newArray
+    }
+    
+    mutating func reorderStable<T: Comparable>(
+        by order: [T],
+        transform: (Element) -> T
+    ) {
+        sort { a, b in
             let transformedA = transform(a)
             let transformedB = transform(b)
             

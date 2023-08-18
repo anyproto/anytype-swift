@@ -36,31 +36,21 @@ actor FileLimitsStorage: FileLimitsStorageProtocol {
     }
     
     private func setupSubscription() {
-        NotificationCenter.Publisher(
-            center: .default,
-            name: .middlewareEvent,
-            object: nil
-        )
-        .compactMap { $0.object as? EventsBunch }
-        .map(\.middlewareEvents)
-        .sink { [weak self] events in
-            Task { [weak self] in
-                for event in events {
-                    await self?.handleEvent(event)
-                }
-            }
-        }
-        .store(in: &subscriptions)
+        EventBunchSubscribtion.default.addHandler { [weak self] events in
+            await self?.handle(events: events)
+        }.store(in: &subscriptions)
     }
     
-    private func handleEvent(_ event: Anytype_Event.Message) async {
-        switch event.value {
-        case let .fileLocalUsage(eventData):
-            data.value?.localBytesUsage = Int64(eventData.localBytesUsage)
-        case let .fileSpaceUsage(eventData):
-            data.value?.bytesUsage = Int64(eventData.bytesUsage)
-        default:
-            break
+    private func handle(events: EventsBunch) {
+        for event in events.middlewareEvents {
+            switch event.value {
+            case let .fileLocalUsage(eventData):
+                data.value?.localBytesUsage = Int64(eventData.localBytesUsage)
+            case let .fileSpaceUsage(eventData):
+                data.value?.bytesUsage = Int64(eventData.bytesUsage)
+            default:
+                break
+            }
         }
     }
 }

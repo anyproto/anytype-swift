@@ -21,8 +21,8 @@ final class CreatingSoulViewModuleAssembly: CreatingSoulViewModuleAssemblyProtoc
             model: CreatingSoulViewModel(
                 state: state,
                 output: output,
-                accountManager: serviceLocator.accountManager(),
-                subscriptionService: serviceLocator.singleObjectSubscriptionService()
+                accountManager: self.serviceLocator.accountManager(),
+                subscriptionService: self.serviceLocator.singleObjectSubscriptionService()
             )
         ).eraseToAnyView()
     }

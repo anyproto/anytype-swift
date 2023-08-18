@@ -103,7 +103,7 @@ final class TextViewWithPlaceholder: UITextView {
     }
 
     override func paste(_ sender: Any?) {
-        guard let customTextViewDelegate = customTextViewDelegate else {
+        guard let customTextViewDelegate else {
             return super.paste(sender)
         }
 
@@ -113,11 +113,19 @@ final class TextViewWithPlaceholder: UITextView {
     }
 
     override func copy(_ sender: Any?) {
-        guard let customTextViewDelegate = customTextViewDelegate else {
+        guard let customTextViewDelegate else {
             return super.copy(sender)
         }
 
         customTextViewDelegate.copy(range: selectedRange)
+    }
+    
+    override func cut(_ sender: Any?) {
+        guard let customTextViewDelegate else {
+            return super.copy(sender)
+        }
+        
+        customTextViewDelegate.cut(range: selectedRange)
     }
 
     // MARK: - Initialization

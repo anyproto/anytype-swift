@@ -1,6 +1,6 @@
 import Foundation
 
 protocol RelationsListModuleOutput: AnyObject {
-    func addNewRelationAction()
-    func editRelationValueAction(relationKey: String)
+    func addNewRelationAction(document: BaseDocumentProtocol)
+    func editRelationValueAction(document: BaseDocumentProtocol, relationKey: String)
 }

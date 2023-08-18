@@ -6,18 +6,15 @@ import AnytypeCore
 protocol ObjectActionsServiceProtocol {
     func delete(objectIds: [BlockId], route: RemoveCompletelyRoute) async throws
     
-    func setArchive(objectIds: [BlockId], _ isArchived: Bool)
     func setArchive(objectIds: [BlockId], _ isArchived: Bool) async throws
     func setFavorite(objectIds: [BlockId], _ isFavorite: Bool) async throws
-    func convertChildrenToPages(contextID: BlockId, blocksIds: [BlockId], typeId: String) -> [BlockId]?
-    func updateBundledDetails(contextID: BlockId, details: [BundledDetails])
+    func convertChildrenToPages(contextID: BlockId, blocksIds: [BlockId], typeId: String) async throws -> [BlockId]
     func updateBundledDetails(contextID: BlockId, details: [BundledDetails]) async throws
-    func updateDetails(contextId: String, relationKey: String, value: DataviewGroupValue)
-    func move(dashboadId: BlockId, blockId: BlockId, dropPositionblockId: BlockId, position: Anytype_Model_Block.Position)
+    func updateDetails(contextId: String, relationKey: String, value: DataviewGroupValue) async throws
     func move(dashboadId: BlockId, blockId: BlockId, dropPositionblockId: BlockId, position: Anytype_Model_Block.Position) async throws
-    func setLocked(_ isLocked: Bool, objectId: BlockId)
-    func updateLayout(contextID: BlockId, value: Int)
-    func duplicate(objectId: BlockId) -> BlockId?
+    func setLocked(_ isLocked: Bool, objectId: BlockId) async throws
+    func updateLayout(contextID: BlockId, value: Int) async throws
+    func duplicate(objectId: BlockId) async throws -> BlockId
     
     /// NOTE: `CreatePage` action will return block of type `.link(.page)`. (!!!)
     func createPage(
@@ -26,11 +23,11 @@ protocol ObjectActionsServiceProtocol {
         details: [BundledDetails],
         position: BlockPosition,
         templateId: String
-    ) -> BlockId?
+    ) async throws -> BlockId
     
     func addObjectsToCollection(contextId: BlockId, objectIds: [String]) async throws
     
-    func setObjectType(objectId: BlockId, objectTypeId: String)
+    func setObjectType(objectId: BlockId, objectTypeId: String) async throws
     func setObjectSetType(objectId: BlockId) async throws
     func setObjectCollectionType(objectId: BlockId) async throws
     func applyTemplate(objectId: BlockId, templateId: BlockId) async throws

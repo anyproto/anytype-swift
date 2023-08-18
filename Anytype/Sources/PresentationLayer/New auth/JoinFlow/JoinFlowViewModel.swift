@@ -25,6 +25,9 @@ final class JoinFlowViewModel: ObservableObject, JoinFlowStepOutput {
         "\(step.rawValue) / \(JoinFlowStep.totalCount)"
     }
     
+    // MARK: - State
+    private let state = JoinFlowState()
+    
     private weak var output: JoinFlowOutput?
     private let applicationStateService: ApplicationStateServiceProtocol
     
@@ -37,7 +40,7 @@ final class JoinFlowViewModel: ObservableObject, JoinFlowStepOutput {
     
     @ViewBuilder
     func content() -> some View {
-        output?.onStepChanged(step, output: self)
+        output?.onStepChanged(step, state: state, output: self)
     }
     
     // MARK: - JoinStepOutput

@@ -2,7 +2,7 @@ import SwiftUI
 import Services
 
 struct EditorSetSettingsView: View {
-    @EnvironmentObject private var model: EditorSetSettingsViewModel
+    @ObservedObject var model: EditorSetSettingsViewModel
     
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {

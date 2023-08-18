@@ -63,7 +63,7 @@ struct SetTableView: View {
                                 groupId: groupId,
                                 dragAndDropDelegate: model,
                                 content: {
-                                    SetTableViewRow(configuration: configuration, xOffset: xOffset)
+                                    SetTableViewRow(model: model, configuration: configuration, xOffset: xOffset)
                                 }
                             )
                         }
@@ -75,8 +75,9 @@ struct SetTableView: View {
     
     private var pagination: some View {
         EditorSetPaginationView(
-            paginationData: model.pagitationData(by: SubscriptionId.set.value),
-            groupId: SubscriptionId.set.value
+            model: model,
+            paginationData: model.pagitationData(by: SetSubscriptionData.setId),
+            groupId: SetSubscriptionData.setId
         )
         .frame(width: tableHeaderSize.width)
         .offset(x: xOffset, y: 0)
@@ -89,22 +90,14 @@ struct SetTableView: View {
     private var compoundHeader: some View {
         VStack(spacing: 0) {
             headerSettingsView
-            SetTableViewHeader()
+            SetTableViewHeader(model: model)
         }
         .background(Color.Background.primary)
     }
     
     private var headerSettingsView: some View {
         HStack {
-            SetHeaderSettingsView(
-                model: SetHeaderSettingsViewModel(
-                    setDocument: model.setDocument,
-                    isActive: model.isActiveHeader,
-                    onViewTap: model.showViewPicker,
-                    onSettingsTap: model.showSetSettings,
-                    onCreateTap: model.createObject
-                )
-            )
+            SetHeaderSettingsView(model: model.headerSettingsViewModel)
             .offset(x: xOffset, y: 0)
             .frame(width: tableHeaderSize.width)
             Spacer()

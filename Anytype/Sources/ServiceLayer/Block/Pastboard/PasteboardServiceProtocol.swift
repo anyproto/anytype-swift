@@ -9,7 +9,7 @@
 import Services
 import Foundation
 
-protocol PasteboardServiceProtocol {
+protocol PasteboardServiceProtocol: AnyObject {
     var hasValidURL: Bool { get }
     func pasteInsideBlock(focusedBlockId: BlockId,
                           range: NSRange,
@@ -18,5 +18,6 @@ protocol PasteboardServiceProtocol {
     func pasteInSelectedBlocks(selectedBlockIds: [BlockId],
                                handleLongOperation:  @escaping () -> Void,
                                completion: @escaping (_ pasteResult: PasteboardPasteResult?) -> Void)
-    func copy(blocksIds: [BlockId], selectedTextRange: NSRange)
+    func copy(blocksIds: [BlockId], selectedTextRange: NSRange) async throws
+    func cut(blocksIds: [BlockId], selectedTextRange: NSRange) async throws
 }

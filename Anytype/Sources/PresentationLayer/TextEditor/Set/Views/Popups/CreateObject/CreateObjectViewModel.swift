@@ -22,19 +22,24 @@ final class CreateObjectViewModel: CreateObjectViewModelProtocol {
         currentText = text
 
         debouncer.debounce(milliseconds: 100) { [weak self] in
-            guard let self = self else { return }
-
-            self.relationService.updateRelation(relationKey: BundledRelationKey.name.rawValue, value: text.protobufValue)
+            Task { [weak self] in
+                try await self?.relationService.updateRelation(
+                    relationKey: BundledRelationKey.name.rawValue,
+                    value: text.protobufValue
+                )
+            }
         }
     }
 
     func actionButtonTapped(with text: String) {
         debouncer.cancel()
         
-        if currentText != text {
-            relationService.updateRelation(relationKey: BundledRelationKey.name.rawValue, value: text.protobufValue)
+        Task { @MainActor in
+            if currentText != text {
+                try await relationService.updateRelation(relationKey: BundledRelationKey.name.rawValue, value: text.protobufValue)
+            }
+            openToEditAction()
         }
-        openToEditAction()
     }
 
     func returnDidTap() {

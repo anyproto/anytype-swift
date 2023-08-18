@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct SetTableViewHeader: View {
-    @EnvironmentObject private var model: EditorSetViewModel
+    @ObservedObject var model: EditorSetViewModel
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -38,6 +38,6 @@ struct SetTableViewHeader: View {
 
 struct SetTableViewHeader_Previews: PreviewProvider {
     static var previews: some View {
-        SetTableViewHeader()
+        SetTableViewHeader(model: EditorSetViewModel.emptyPreview)
     }
 }

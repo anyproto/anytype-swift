@@ -84,9 +84,11 @@ private extension NewSearchViewModel {
     }
     
     func setupInternalViewModel() {
-        cancellable = internalViewModel.viewStateSubject.sink { [weak self] state in
-            self?.state = state
-        }
+        cancellable = Task { @MainActor [weak self, internalViewModel] in
+            for await state in internalViewModel.viewStatePublisher.values {
+                self?.state = state
+            }
+        }.cancellable()
     }
     
     func updateCreateItemButtonState(searchText: String) {

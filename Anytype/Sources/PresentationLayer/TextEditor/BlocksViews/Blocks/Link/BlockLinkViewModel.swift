@@ -63,11 +63,13 @@ struct BlockLinkViewModel: BlockViewModelProtocol {
         guard case let .checkmark(isChecked) = state.style else {
             return
         }
-
-        detailsService.updateDetails(
-            contextId: content.targetBlockID,
-            relationKey: BundledRelationKey.done.rawValue,
-            value: .checkbox(.with { $0.checked = !isChecked })
-        )
+        
+        Task {
+            try await detailsService.updateDetails(
+                contextId: content.targetBlockID,
+                relationKey: BundledRelationKey.done.rawValue,
+                value: .checkbox(.with { $0.checked = !isChecked })
+            )
+        }
     }
 }

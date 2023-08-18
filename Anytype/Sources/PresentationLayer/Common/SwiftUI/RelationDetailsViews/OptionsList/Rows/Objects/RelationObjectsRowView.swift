@@ -1,4 +1,5 @@
 import SwiftUI
+import AnytypeCore
 
 struct RelationObjectsRowView: View {
     
@@ -7,8 +8,12 @@ struct RelationObjectsRowView: View {
     
     var body: some View {
         HStack(alignment: .center, spacing: 0) {
-            icon
-            Spacer.fixedWidth(12)
+            if FeatureFlags.deleteObjectPlaceholder {
+                icon
+            } else {
+                legacyIcon
+                Spacer.fixedWidth(12)
+            }
             text
             Spacer()
         }
@@ -18,17 +23,38 @@ struct RelationObjectsRowView: View {
         }
     }
     
+    @ViewBuilder
+    private var legacyIcon: some View {
+        if let icon = object.icon {
+            Group {
+                if object.isDeleted {
+                    Image(asset: .ghost).resizable().frame(width: 28, height: 28)
+                } else {
+                    SwiftUIObjectIconImageView(
+                        iconImage: icon,
+                        usecase: .dashboardSearch
+                    )
+                }
+            }.frame(width: 48, height: 48)
+        }
+    }
+    
+    @ViewBuilder
     private var icon: some View {
-        Group {
-            if object.isDeleted {
+        if object.isDeleted {
+            Group {
                 Image(asset: .ghost).resizable().frame(width: 28, height: 28)
-            } else {
-                SwiftUIObjectIconImageView(
-                    iconImage: object.icon,
-                    usecase: .dashboardSearch
-                )
-            }
-        }.frame(width: 48, height: 48)
+            }.frame(width: 48, height: 48)
+            Spacer.fixedWidth(12)
+        }
+        else if let icon = object.icon {
+            SwiftUIObjectIconImageView(
+                iconImage: icon,
+                usecase: .dashboardSearch
+            )
+            .frame(width: 48, height: 48)
+            Spacer.fixedWidth(12)
+        }
     }
     
     private var text: some View {

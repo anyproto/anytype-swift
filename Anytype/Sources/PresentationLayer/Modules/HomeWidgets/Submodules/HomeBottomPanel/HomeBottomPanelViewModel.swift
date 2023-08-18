@@ -95,6 +95,7 @@ final class HomeBottomPanelViewModel: ObservableObject {
         }
         
         stateManager.isEditStatePublisher
+            .receiveOnMain()
             .sink { [weak self] in self?.updateModels(isEditState: $0) }
             .store(in: &subscriptions)
     }

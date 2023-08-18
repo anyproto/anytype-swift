@@ -35,16 +35,8 @@ final class AccountEventHandler: AccountEventHandlerProtocol {
     func startSubscription() {
         guard cancellable == nil else { return }
         
-        cancellable = NotificationCenter.Publisher(
-            center: .default,
-            name: .middlewareEvent,
-            object: nil
-        )
-        .compactMap { $0.object as? EventsBunch }
-        .map(\.middlewareEvents)
-        .receiveOnMain()
-        .sink { [weak self] events in
-            events.forEach { self?.handleEvent($0) }
+        cancellable = EventBunchSubscribtion.default.addHandler { [weak self] events in
+            await self?.handle(events: events)
         }
     }
     
@@ -54,20 +46,23 @@ final class AccountEventHandler: AccountEventHandlerProtocol {
     
     // MARK: - Private
     
-    private func handleEvent(_ event: Anytype_Event.Message) {
-        switch event.value {
-        case let .accountShow(data):
-            accountShowSubject.send(data.account.id)
-        case let .accountUpdate(data):
-            if data.hasStatus, let status = data.status.asModel {
-                handleStatus(status)
+    @MainActor
+    private func handle(events: EventsBunch) {
+        for event in events.middlewareEvents {
+            switch event.value {
+            case let .accountShow(data):
+                accountShowSubject.send(data.account.id)
+            case let .accountUpdate(data):
+                if data.hasStatus, let status = data.status.asModel {
+                    handleStatus(status)
+                }
+                // Other account events
+            case .accountDetails,
+                    .accountConfigUpdate:
+                break
+            default:
+                break
             }
-        // Other account events
-        case .accountDetails,
-             .accountConfigUpdate:
-            break
-        default:
-            break
         }
     }
     

@@ -2,7 +2,7 @@ import SwiftUI
 
 struct SoulView: View {
     
-    @ObservedObject var model: SoulViewModel
+    @StateObject var model: SoulViewModel
     
     var body: some View {
         VStack(spacing: 0) {

@@ -211,6 +211,25 @@ extension ObjectIconImageUsecase {
                 placeholderImageFont: nil,
                 spaceImageFont: nil
             )
+        case .templatePreview:
+            return ObjectIconImageFontSet(
+                profileImageFont: UIKitFontBuilder.uiKitFont(
+                    name: .inter,
+                    size: 20,
+                    weight: .regular
+                ),
+                emojiImageFont: UIKitFontBuilder.uiKitFont(
+                    name: .inter,
+                    size: 20,
+                    weight: .regular
+                ),
+                placeholderImageFont: UIKitFontBuilder.uiKitFont(
+                    name: .inter,
+                    size: 20,
+                    weight: .regular
+                ),
+                spaceImageFont: nil
+            )
         }
     }
     

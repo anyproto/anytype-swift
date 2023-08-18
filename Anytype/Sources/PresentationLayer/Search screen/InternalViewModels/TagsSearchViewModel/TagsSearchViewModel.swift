@@ -5,8 +5,8 @@ import SwiftUI
 final class TagsSearchViewModel {
     
     let selectionMode: NewSearchViewModel.SelectionMode
-    let viewStateSubject = PassthroughSubject<NewSearchViewState, Never> ()
     
+    private let viewStateSubject = PassthroughSubject<NewSearchViewState, Never> ()
     private var tags: [Relation.Tag.Option] = []
     private var selectedTagIds: [String] = []
     
@@ -32,6 +32,8 @@ final class TagsSearchViewModel {
 }
 
 extension TagsSearchViewModel: NewInternalSearchViewModelProtocol {
+    
+    var viewStatePublisher: AnyPublisher<NewSearchViewState, Never> { viewStateSubject.eraseToAnyPublisher() }
     
     func search(text: String) async throws {
         let resultTags = try await interactor.search(text: text)

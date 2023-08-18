@@ -1,10 +1,6 @@
 import Foundation
 import Services
 
-extension SubscriptionId {
-    static var objectType = SubscriptionId(value: "SubscriptionId.ObjectType")
-}
-
 protocol ObjectTypeSubscriptionDataBuilderProtocol: AnyObject {
     func build() -> SubscriptionData
 }
@@ -44,7 +40,7 @@ final class ObjectTypeSubscriptionDataBuilder: ObjectTypeSubscriptionDataBuilder
 
         return .search(
             SubscriptionData.Search(
-                identifier: .objectType,
+                identifier: ObjectTypeProvider.subscriptionId,
                 sorts: [sort],
                 filters: filters,
                 limit: 0,

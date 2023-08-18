@@ -1,6 +1,7 @@
 import Foundation
 import UIKit
 import SwiftUI
+import Services
 
 protocol NewRelationModuleAssemblyProtocol {
     func make(

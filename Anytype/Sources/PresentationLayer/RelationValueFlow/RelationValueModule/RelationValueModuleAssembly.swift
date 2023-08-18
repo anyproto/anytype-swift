@@ -16,6 +16,7 @@ final class RelationValueModuleAssembly: RelationValueModuleAssemblyProtocol {
     
     // MARK: - RelationValueModuleAssemblyProtocol
     
+    @MainActor
     func make(
         objectDetails: ObjectDetails,
         relation: Relation,

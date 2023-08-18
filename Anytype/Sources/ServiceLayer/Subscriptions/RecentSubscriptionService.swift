@@ -5,6 +5,7 @@ import AnytypeCore
 
 protocol RecentSubscriptionServiceProtocol: AnyObject {
     func startSubscription(
+        type: RecentWidgetType,
         objectLimit: Int?,
         update: @escaping SubscriptionCallback
     )
@@ -20,7 +21,7 @@ final class RecentSubscriptionService: RecentSubscriptionServiceProtocol {
     private let subscriptionService: SubscriptionsServiceProtocol
     private let objectTypeProvider: ObjectTypeProviderProtocol
     private let accountManager: AccountManagerProtocol
-    private let subscriptionId = SubscriptionId(value: "Recent-\(UUID().uuidString)")
+    private let subscriptionId = "Recent-\(UUID().uuidString)"
     
     init(
         subscriptionService: SubscriptionsServiceProtocol,
@@ -33,26 +34,24 @@ final class RecentSubscriptionService: RecentSubscriptionServiceProtocol {
     }
     
     func startSubscription(
+        type: RecentWidgetType,
         objectLimit: Int?,
         update: @escaping SubscriptionCallback
     ) {
         
-        let sort = SearchHelper.sort(
-            relation: BundledRelationKey.lastOpenedDate,
-            type: .desc
-        )
+        let sort = makeSort(type: type)
         
-        let filters = [
-            SearchHelper.notHiddenFilter(),
-            SearchHelper.isArchivedFilter(isArchived: false),
-            SearchHelper.workspaceId(accountManager.account.info.accountSpaceId),
-            SearchHelper.layoutFilter(DetailsLayout.visibleLayouts),
-            SearchHelper.lastOpenedDateNotNilFilter()
-            
-        ]
+        let filters: [DataviewFilter] = .builder {
+            SearchHelper.notHiddenFilter()
+            SearchHelper.isArchivedFilter(isArchived: false)
+            SearchHelper.workspaceId(accountManager.account.info.accountSpaceId)
+            SearchHelper.layoutFilter(DetailsLayout.visibleLayouts)
+            makeDateFilter(type: type)
+        }
         
         let keys: [BundledRelationKey] = .builder {
             BundledRelationKey.lastOpenedDate
+            BundledRelationKey.lastModifiedDate
             BundledRelationKey.links
             BundledRelationKey.objectListKeys
         }
@@ -73,5 +72,42 @@ final class RecentSubscriptionService: RecentSubscriptionServiceProtocol {
     
     func stopSubscription() {
         subscriptionService.stopAllSubscriptions()
+    }
+    
+    // MARK: - Private
+    
+    private func makeSort(type: RecentWidgetType) -> DataviewSort {
+        if FeatureFlags.recentEditWidget {
+            switch type {
+            case .recentEdit:
+                return SearchHelper.sort(
+                    relation: BundledRelationKey.lastModifiedDate,
+                    type: .desc
+                )
+            case .recentOpen:
+                return SearchHelper.sort(
+                    relation: BundledRelationKey.lastOpenedDate,
+                    type: .desc
+                )
+            }
+        } else {
+            return SearchHelper.sort(
+                relation: BundledRelationKey.lastOpenedDate,
+                type: .desc
+            )
+        }
+    }
+    
+    private func makeDateFilter(type: RecentWidgetType) -> DataviewFilter? {
+        if FeatureFlags.recentEditWidget {
+            switch type {
+            case .recentEdit:
+                return nil
+            case .recentOpen:
+                return SearchHelper.lastOpenedDateNotNilFilter()
+            }
+        } else {
+            return SearchHelper.lastOpenedDateNotNilFilter()
+        }
     }
 }

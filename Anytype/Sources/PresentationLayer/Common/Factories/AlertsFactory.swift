@@ -9,6 +9,7 @@
 import SwiftUI
 
 final class AlertsFactory {
+    // TODO: Remove with LegacyLoginView
     static func goToSettingsAlert(title: String) -> Alert {
         Alert(
             title: Text(title),

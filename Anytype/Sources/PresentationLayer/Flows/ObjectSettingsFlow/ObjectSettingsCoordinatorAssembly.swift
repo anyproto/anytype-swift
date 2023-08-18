@@ -1,7 +1,7 @@
 import Foundation
 
 protocol ObjectSettingsCoordinatorAssemblyProtocol {
-    func make(document: BaseDocumentProtocol, browserController: EditorBrowserController?) -> ObjectSettingsCoordinatorProtocol
+    func make(browserController: EditorBrowserController?) -> ObjectSettingsCoordinatorProtocol
 }
 
 final class ObjectSettingsCoordinatorAssembly: ObjectSettingsCoordinatorAssemblyProtocol {
@@ -22,9 +22,8 @@ final class ObjectSettingsCoordinatorAssembly: ObjectSettingsCoordinatorAssembly
     
     // MARK: - ObjectSettingsCoordinatorAssemblyProtocol
     
-    func make(document: BaseDocumentProtocol, browserController: EditorBrowserController?) -> ObjectSettingsCoordinatorProtocol {
-        return ObjectSettingsCoordinator(
-            document: document,
+    func make(browserController: EditorBrowserController?) -> ObjectSettingsCoordinatorProtocol {
+        ObjectSettingsCoordinator(
             navigationContext: uiHelpersDI.commonNavigationContext(),
             objectSettingsModuleAssembly: modulesDI.objectSetting(),
             undoRedoModuleAssembly: modulesDI.undoRedo(),
@@ -34,7 +33,7 @@ final class ObjectSettingsCoordinatorAssembly: ObjectSettingsCoordinatorAssembly
             relationsListModuleAssembly: modulesDI.relationsList(),
             relationValueCoordinator: coordinatorsDI.relationValue().make(),
             editorPageCoordinator: coordinatorsDI.editorPage().make(browserController: browserController),
-            addNewRelationCoordinator: coordinatorsDI.addNewRelation().make(document: document),
+            addNewRelationCoordinator: coordinatorsDI.addNewRelation().make(),
             searchModuleAssembly: modulesDI.search(),
             newSearchModuleAssembly: modulesDI.newSearch()
         )

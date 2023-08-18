@@ -9,7 +9,7 @@ extension Relation {
         let name: String
         let isFeatured: Bool
         var isEditable: Bool
-        let isSystem: Bool
+        let canBeRemovedFromObject: Bool
         let isDeleted: Bool
         
         let selectedObjects: [Option]
@@ -31,12 +31,12 @@ extension Relation.Object {
     struct Option: Hashable, Identifiable {
         let id: String
         
-        let icon: ObjectIconImage
+        let icon: ObjectIconImage?
         let title: String
         let type: String
         let isArchived: Bool
         let isDeleted: Bool
-        let editorScreenData: EditorScreenData
+        let editorScreenData: EditorScreenData?
     }
     
 }

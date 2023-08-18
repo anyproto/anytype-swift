@@ -4,6 +4,7 @@ import Services
 struct ParsedRelations: Equatable {
 
     let installed: [Relation]
+    let installedInObject: [Relation]
     let all: [Relation]
     
     let featuredRelations: [Relation]
@@ -17,6 +18,7 @@ struct ParsedRelations: Equatable {
         typeRelations: [Relation],
         otherRelations: [Relation]
     ){
+        self.installedInObject = featuredRelations + otherRelations
         self.installed = featuredRelations + otherRelations + typeRelations
         self.all = featuredRelations + deletedRelations + otherRelations + typeRelations
         self.featuredRelations = featuredRelations

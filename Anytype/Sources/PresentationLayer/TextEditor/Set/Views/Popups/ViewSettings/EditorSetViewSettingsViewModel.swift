@@ -81,7 +81,7 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
                 image: relation.relationDetails.format.iconAsset,
                 title: relation.relationDetails.name,
                 isOn: relation.option.isVisible,
-                isSystem: relation.relationDetails.isSystem,
+                canBeRemovedFromObject: relation.relationDetails.canBeRemovedFromObject,
                 onChange: { [weak self] isVisible in
                     self?.onRelationVisibleChange(relation, isVisible: isVisible)
                 }
@@ -138,7 +138,7 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
     }
     
     func showAddNewRelationView() {
-        router.showAddNewRelationView { relation, isNew in
+        router.showAddNewRelationView(document: setDocument.document) { relation, isNew in
             AnytypeAnalytics.instance().logAddRelation(format: relation.format, isNew: isNew, type: .dataview)
         }
     }

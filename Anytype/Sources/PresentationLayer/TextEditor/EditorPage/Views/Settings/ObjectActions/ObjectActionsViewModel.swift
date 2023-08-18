@@ -22,6 +22,8 @@ final class ObjectActionsViewModel: ObservableObject {
     @Published var isLocked: Bool = false
 
     var onLinkItselfAction: RoutingAction<(BlockId) -> Void>?
+    var onNewTemplateCreation: RoutingAction<BlockId>?
+    var onTemplateMakeDefault: RoutingAction<BlockId>?
     var dismissSheet: () -> () = {}
 
     let undoRedoAction: () -> ()
@@ -30,17 +32,20 @@ final class ObjectActionsViewModel: ObservableObject {
     private let objectId: BlockId
     private let service: ObjectActionsServiceProtocol
     private let blockActionsService: BlockActionsServiceSingleProtocol
+    private let templatesService: TemplatesServiceProtocol
     
     init(
         objectId: BlockId,
         service: ObjectActionsServiceProtocol,
         blockActionsService: BlockActionsServiceSingleProtocol,
+        templatesService: TemplatesServiceProtocol,
         undoRedoAction: @escaping () -> (),
         openPageAction: @escaping (_ screenData: EditorScreenData) -> ()
     ) {
         self.objectId = objectId
         self.service = service
         self.blockActionsService = blockActionsService
+        self.templatesService = templatesService
         self.undoRedoAction = undoRedoAction
         self.openPageAction = openPageAction
     }
@@ -49,9 +54,11 @@ final class ObjectActionsViewModel: ObservableObject {
         guard let details = details else { return }
         
         let isArchived = !details.isArchived
-        service.setArchive(objectIds: [objectId], isArchived)
-        if isArchived {
-            dismissSheet()
+        Task { @MainActor in
+            try await service.setArchive(objectIds: [objectId], isArchived)
+            if isArchived {
+                dismissSheet()
+            }
         }
     }
 
@@ -63,17 +70,20 @@ final class ObjectActionsViewModel: ObservableObject {
     }
 
     func changeLockState() {
-        service.setLocked(!isLocked, objectId: objectId)
+        Task {
+            try await service.setLocked(!isLocked, objectId: objectId)
+        }
     }
     
     func duplicateAction() {
-        guard let details = details,
-              let duplicatedId = service.duplicate(objectId: objectId)
-            else { return }
-        
-        let newDetails = ObjectDetails(id: duplicatedId, values: details.values)
-        dismissSheet()
-        openPageAction(newDetails.editorScreenData())
+        Task { @MainActor [weak self] in
+            guard let details = self?.details, let objectId = self?.objectId else { return }
+            
+            guard let duplicatedId = try await self?.service.duplicate(objectId: objectId) else { return }
+            let newDetails = ObjectDetails(id: duplicatedId, values: details.values)
+            self?.dismissSheet()
+            self?.openPageAction(newDetails.editorScreenData())
+        }
     }
 
     func linkItselfAction() {
@@ -96,10 +106,12 @@ final class ObjectActionsViewModel: ObservableObject {
                     self.onLinkItselfToObjectHandler?(details.editorScreenData())
                     AnytypeAnalytics.instance().logLinkToObject(type: .collection)
                 } else {
-                    let _ = self.blockActionsService.add(
+                    let info = BlockInformation.emptyLink(targetId: currentObjectId)
+                    AnytypeAnalytics.instance().logCreateBlock(type: info.content.description, style: info.content.type.style)
+                    let _ = try await self.blockActionsService.add(
                         contextId: objectId,
                         targetId: id,
-                        info: .emptyLink(targetId: currentObjectId),
+                        info: info,
                         position: .bottom
                     )
                     self.onLinkItselfToObjectHandler?(details.editorScreenData())
@@ -110,13 +122,19 @@ final class ObjectActionsViewModel: ObservableObject {
 
         onLinkItselfAction?(onObjectSelection)
     }
-
-    func moveTo() {
+    
+    func makeAsTempalte() {
+        guard let details = details else { return }
+        
+        Task {
+            let templateId = try await templatesService.createTemplateFromObject(objectId: details.id)
+            onNewTemplateCreation?(templateId)
+        }
     }
-
-    func template() {
-    }
-
-    func search() {
+    
+    func makeTemplateAsDefault() {
+        guard let details = details else { return }
+        
+        onTemplateMakeDefault?(details.id)
     }
 }

@@ -42,8 +42,8 @@ extension ObjectTypesSearchInteractor {
         try await searchService.searchMarketplaceObjectTypes(text: text, includeInstalled: false)
     }
     
-    func installType(objectId: String) -> ObjectDetails? {
-        return workspaceService.installObject(objectId: objectId)
+    func installType(objectId: String) async throws -> ObjectDetails? {
+        try await workspaceService.installObject(objectId: objectId)
     }
 }
 

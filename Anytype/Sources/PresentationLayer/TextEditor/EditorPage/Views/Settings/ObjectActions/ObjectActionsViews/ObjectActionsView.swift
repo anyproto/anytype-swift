@@ -23,6 +23,10 @@ struct ObjectActionsView: View {
                             viewModel.duplicateAction()
                         case .linkItself:
                             viewModel.linkItselfAction()
+                        case .makeAsTemplate:
+                            viewModel.makeAsTempalte()
+                        case .templateSetAsDefault:
+                            viewModel.makeTemplateAsDefault()
                         }
                     }
                 }

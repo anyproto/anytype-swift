@@ -39,7 +39,7 @@ final class ObjectPreviewDescriptionMenuViewModel: CheckPopupViewViewModelProtoc
             return CheckPopupItem(id: String(description.rawValue),
                                   iconAsset: nil,
                                   title: description.name,
-                                  subtitle: description.subtitle,
+                                  subtitle: nil,
                                   isSelected: isSelected,
                                   onTap: { [weak self] in self?.onTap(item: description) }
             )

@@ -2,6 +2,7 @@ import Foundation
 import Services
 import SwiftProtobuf
 import UIKit
+import AnytypeCore
 
 final class RelationsBuilder {
     
@@ -42,9 +43,7 @@ final class RelationsBuilder {
         var otherRelations: [Relation] = []
         
         relationsDetails.forEach { relationDetails in
-            guard !relationDetails.isHidden,
-                    relationDetails.key != BundledRelationKey.type.rawValue
-            else { return }
+            guard !relationDetails.isHidden else { return }
             
             let value = relation(
                 relationDetails: relationDetails,
@@ -63,9 +62,7 @@ final class RelationsBuilder {
         }
         
         let typeRelations: [Relation] = typeRelationsDetails.compactMap { relationDetails in
-            guard !relationDetails.isHidden,
-                    relationDetails.key != BundledRelationKey.type.rawValue
-            else { return nil }
+            guard !relationDetails.isHidden else { return nil }
             return relation(
                 relationDetails: relationDetails,
                 details: objectDetails,
@@ -179,7 +176,7 @@ private extension RelationsBuilder {
                     name: relationDetails.name,
                     isFeatured: relationDetails.isFeatured(details: details),
                     isEditable: relationDetails.isEditable(objectLocked: isObjectLocked),
-                    isSystem: relationDetails.isSystem,
+                    canBeRemovedFromObject: relationDetails.canBeRemovedFromObject,
                     isDeleted: relationDetails.isDeleted,
                     value: Loc.unsupportedValue
                 )
@@ -199,7 +196,7 @@ private extension RelationsBuilder {
                 name: relationDetails.name,
                 isFeatured: relationDetails.isFeatured(details: details),
                 isEditable: relationDetails.isEditable(objectLocked: isObjectLocked),
-                isSystem: relationDetails.isSystem,
+                canBeRemovedFromObject: relationDetails.canBeRemovedFromObject,
                 isDeleted: relationDetails.isDeleted,
                 value: details.stringValue(for: relationDetails.key)
             )
@@ -223,7 +220,7 @@ private extension RelationsBuilder {
                 name: relationDetails.name,
                 isFeatured: relationDetails.isFeatured(details: details),
                 isEditable: relationDetails.isEditable(objectLocked: isObjectLocked),
-                isSystem: relationDetails.isSystem,
+                canBeRemovedFromObject: relationDetails.canBeRemovedFromObject,
                 isDeleted: relationDetails.isDeleted,
                 value: numberValue
             )
@@ -242,7 +239,7 @@ private extension RelationsBuilder {
                 name: relationDetails.name,
                 isFeatured: relationDetails.isFeatured(details: details),
                 isEditable: relationDetails.isEditable(objectLocked: isObjectLocked),
-                isSystem: relationDetails.isSystem,
+                canBeRemovedFromObject: relationDetails.canBeRemovedFromObject,
                 isDeleted: relationDetails.isDeleted,
                 value: details.stringValue(for: relationDetails.key)
             )
@@ -261,7 +258,7 @@ private extension RelationsBuilder {
                 name: relationDetails.name,
                 isFeatured: relationDetails.isFeatured(details: details),
                 isEditable: relationDetails.isEditable(objectLocked: isObjectLocked),
-                isSystem: relationDetails.isSystem,
+                canBeRemovedFromObject: relationDetails.canBeRemovedFromObject,
                 isDeleted: relationDetails.isDeleted,
                 value: details.stringValue(for: relationDetails.key)
             )
@@ -280,7 +277,7 @@ private extension RelationsBuilder {
                 name: relationDetails.name,
                 isFeatured: relationDetails.isFeatured(details: details),
                 isEditable: relationDetails.isEditable(objectLocked: isObjectLocked),
-                isSystem: relationDetails.isSystem,
+                canBeRemovedFromObject: relationDetails.canBeRemovedFromObject,
                 isDeleted: relationDetails.isDeleted,
                 value: details.stringValue(for: relationDetails.key)
             )
@@ -314,7 +311,7 @@ private extension RelationsBuilder {
                 name: relationDetails.name,
                 isFeatured: relationDetails.isFeatured(details: details),
                 isEditable: relationDetails.isEditable(objectLocked: isObjectLocked),
-                isSystem: relationDetails.isSystem,
+                canBeRemovedFromObject: relationDetails.canBeRemovedFromObject,
                 isDeleted: relationDetails.isDeleted,
                 values: values
             )
@@ -338,7 +335,7 @@ private extension RelationsBuilder {
                 name: relationDetails.name,
                 isFeatured: relationDetails.isFeatured(details: details),
                 isEditable: relationDetails.isEditable(objectLocked: isObjectLocked),
-                isSystem: relationDetails.isSystem,
+                canBeRemovedFromObject: relationDetails.canBeRemovedFromObject,
                 isDeleted: relationDetails.isDeleted,
                 value: value
             )
@@ -357,7 +354,7 @@ private extension RelationsBuilder {
                 name: relationDetails.name,
                 isFeatured: relationDetails.isFeatured(details: details),
                 isEditable: relationDetails.isEditable(objectLocked: isObjectLocked),
-                isSystem: relationDetails.isSystem,
+                canBeRemovedFromObject: relationDetails.canBeRemovedFromObject,
                 isDeleted: relationDetails.isDeleted,
                 value: details.boolValue(for: relationDetails.key)
             )
@@ -389,7 +386,7 @@ private extension RelationsBuilder {
                 name: relationDetails.name,
                 isFeatured: relationDetails.isFeatured(details: details),
                 isEditable: relationDetails.isEditable(objectLocked: isObjectLocked),
-                isSystem: relationDetails.isSystem,
+                canBeRemovedFromObject: relationDetails.canBeRemovedFromObject,
                 isDeleted: relationDetails.isDeleted,
                 selectedTags: selectedTags
             )
@@ -408,8 +405,21 @@ private extension RelationsBuilder {
 
             let objectOptions: [Relation.Object.Option] = values.compactMap { valueId in
                 
-                guard let objectDetail = storage.get(id: valueId) else { return nil }
+                if relationDetails.key == BundledRelationKey.type.rawValue {
+                    let type = details.objectType
+                    return Relation.Object.Option(
+                        id: type.id,
+                        icon: nil,
+                        title: type.name,
+                        type: "",
+                        isArchived: type.isArchived,
+                        isDeleted: type.isDeleted,
+                        editorScreenData: nil
+                    )
+                }
                 
+                guard let objectDetail = storage.get(id: valueId) else { return nil }
+                    
                 if relationDetails.key == BundledRelationKey.setOf.rawValue, objectDetail.isDeleted {
                     return Relation.Object.Option(
                         id: valueId,
@@ -424,7 +434,7 @@ private extension RelationsBuilder {
                 
                 return Relation.Object.Option(
                     id: objectDetail.id,
-                    icon: objectDetail.objectIconImageWithPlaceholder,
+                    icon: FeatureFlags.deleteObjectPlaceholder ? objectDetail.objectIconImage: objectDetail.objectIconImageWithPlaceholder,
                     title: objectDetail.title,
                     type: objectDetail.objectType.name,
                     isArchived: objectDetail.isArchived,
@@ -443,7 +453,7 @@ private extension RelationsBuilder {
                 name: relationDetails.name,
                 isFeatured: relationDetails.isFeatured(details: details),
                 isEditable: relationDetails.isEditable(objectLocked: isObjectLocked),
-                isSystem: relationDetails.isSystem,
+                canBeRemovedFromObject: relationDetails.canBeRemovedFromObject,
                 isDeleted: relationDetails.isDeleted,
                 selectedObjects: objectOptions,
                 limitedObjectTypes: relationDetails.objectTypes
@@ -467,7 +477,7 @@ private extension RelationsBuilder {
             let objectOptions: [Relation.File.Option] = objectDetails.map { objectDetail in      
                 return Relation.File.Option(
                     id: objectDetail.id,
-                    icon: objectDetail.objectIconImageWithPlaceholder,
+                    icon: FeatureFlags.deleteObjectPlaceholder ? objectDetail.objectIconImage : objectDetail.objectIconImageWithPlaceholder,
                     title: objectDetail.title,
                     editorScreenData: objectDetail.editorScreenData()
                 )
@@ -483,7 +493,7 @@ private extension RelationsBuilder {
                 name: relationDetails.name,
                 isFeatured: relationDetails.isFeatured(details: details),
                 isEditable: relationDetails.isEditable(objectLocked: isObjectLocked),
-                isSystem: relationDetails.isSystem,
+                canBeRemovedFromObject: relationDetails.canBeRemovedFromObject,
                 isDeleted: relationDetails.isDeleted,
                 files: fileOptions
             )

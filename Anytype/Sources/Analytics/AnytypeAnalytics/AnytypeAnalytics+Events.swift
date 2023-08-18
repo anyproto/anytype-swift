@@ -2,11 +2,14 @@ import Services
 import UIKit
 
 extension AnytypeAnalytics {
-    func logAccountCreate(analyticsId: String) {
+    func logAccountCreate(analyticsId: String, middleTime: Int) {
 
         logEvent(
             AnalyticsEventsName.createAccount,
-            withEventProperties: [AnalyticsEventsPropertiesKey.accountId : analyticsId]
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.accountId : analyticsId,
+                AnalyticsEventsPropertiesKey.middleTime : middleTime
+            ]
         )
     }
     
@@ -606,6 +609,55 @@ extension AnytypeAnalytics {
         logEvent(
             AnalyticsEventsName.clickLogin,
             withEventProperties: [AnalyticsEventsPropertiesKey.type: button.rawValue]
+        )
+    }
+    
+    func logTemplateSelection(objectType: AnalyticsObjectType?, route: AnalyticsEventsRouteKind) {
+        logEvent(
+            AnalyticsEventsName.selectTemplate,
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.type: objectType?.analyticsId,
+                AnalyticsEventsPropertiesKey.route: route.rawValue
+            ].compactMapValues { $0 }
+        )
+    }
+    
+    func logChangeDefaultTemplate(objectType: AnalyticsObjectType, route: AnalyticsEventsRouteKind) {
+        logEvent(
+            AnalyticsEventsName.changeDefaultTemplate,
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.type: objectType.analyticsId,
+                AnalyticsEventsPropertiesKey.route: route.rawValue
+            ]
+        )
+    }
+    
+    func logTemplateEditing(objectType: AnalyticsObjectType, route: AnalyticsEventsRouteKind) {
+        logEvent(
+            AnalyticsEventsName.templateEditing,
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.type: objectType.analyticsId,
+                AnalyticsEventsPropertiesKey.route: route.rawValue
+            ]
+        )
+    }
+    
+    func logTemplateDuplicate(objectType: AnalyticsObjectType, route: AnalyticsEventsRouteKind) {
+        logEvent(
+            AnalyticsEventsName.duplicateTemplate,
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.type: objectType.analyticsId,
+                AnalyticsEventsPropertiesKey.route: route.rawValue
+            ]
+        )
+    }
+    
+    func logTemplateCreate(objectType: AnalyticsObjectType) {
+        logEvent(
+            AnalyticsEventsName.createTemplate,
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId
+            ]
         )
     }
 }

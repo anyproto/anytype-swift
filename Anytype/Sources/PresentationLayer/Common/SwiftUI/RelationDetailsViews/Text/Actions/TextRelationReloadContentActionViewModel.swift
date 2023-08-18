@@ -33,9 +33,11 @@ final class TextRelationReloadContentActionViewModel: TextRelationActionViewMode
     }
     
     func performAction() {
-        UISelectionFeedbackGenerator().selectionChanged()
-        bookmarkService.fetchBookmarkContent(bookmarkId: objectDetails.id, url: inputText)
-        alertOpener.showTopAlert(message: Loc.RelationAction.reloadingContent)
-        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.reloadSourceData)
+        Task { @MainActor in
+            UISelectionFeedbackGenerator().selectionChanged()
+            try await bookmarkService.fetchBookmarkContent(bookmarkId: objectDetails.id, url: inputText)
+            alertOpener.showTopAlert(message: Loc.RelationAction.reloadingContent)
+            AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.reloadSourceData)
+        }
     }
 }

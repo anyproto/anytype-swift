@@ -2,12 +2,13 @@ import Foundation
 import Services
 import Combine
 import SwiftUI
+import AnytypeCore
 
 final class ObjectsSearchViewModel {
     
     let selectionMode: NewSearchViewModel.SelectionMode
-    let viewStateSubject = PassthroughSubject<NewSearchViewState, Never>()
-
+    
+    private let viewStateSubject = PassthroughSubject<NewSearchViewState, Never>()
     private let interactor: ObjectsSearchInteractorProtocol
     private let onSelect: (_ details: [ObjectDetails]) -> Void
     
@@ -33,6 +34,8 @@ final class ObjectsSearchViewModel {
 }
 
 extension ObjectsSearchViewModel: NewInternalSearchViewModelProtocol {
+    
+    var viewStatePublisher: AnyPublisher<NewSearchViewState, Never> { viewStateSubject.eraseToAnyPublisher() }
     
     func search(text: String) async throws {
         let objects = try await interactor.search(text: text)
@@ -115,7 +118,7 @@ private extension SearchObjectRowView.Model {
     
     init(details: ObjectDetails) {
         let title = details.title
-        self.icon = details.objectIconImageWithPlaceholder
+        self.icon = FeatureFlags.deleteObjectPlaceholder ? details.objectIconImage : details.objectIconImageWithPlaceholder
         self.title = title
         self.subtitle = details.objectType.name
         self.style = .default

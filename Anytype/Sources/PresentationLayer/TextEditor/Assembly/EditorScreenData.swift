@@ -3,7 +3,8 @@ import AnytypeCore
 
 enum EditorScreenData: Hashable, Codable {
     case favorites
-    case recent
+    case recentEdit
+    case recentOpen
     case sets
     case collections
     case bin
@@ -15,6 +16,22 @@ struct EditorPageObject: Hashable, Codable {
     let objectId: String
     let isSupportedForEdit: Bool
     let isOpenedForPreview: Bool
+    let shouldShowTemplatesOptions: Bool
+    let usecase: ObjectHeaderEmptyData.ObjectHeaderEmptyUsecase
+    
+    init(
+        objectId: String,
+        isSupportedForEdit: Bool,
+        isOpenedForPreview: Bool,
+        shouldShowTemplatesOptions: Bool = true,
+        usecase: ObjectHeaderEmptyData.ObjectHeaderEmptyUsecase = .editor
+    ) {
+        self.objectId = objectId
+        self.isSupportedForEdit = isSupportedForEdit
+        self.isOpenedForPreview = isOpenedForPreview
+        self.shouldShowTemplatesOptions = shouldShowTemplatesOptions
+        self.usecase = usecase
+    }
 }
 
 struct EditorSetObject: Hashable, Codable {
