@@ -13,7 +13,7 @@ final class BlockViewModelBuilder {
     private let subjectsHolder: FocusSubjectsHolder
     private let markdownListener: MarkdownListener
     private let simpleTableDependenciesBuilder: SimpleTableDependenciesBuilder
-    private let pageService: PageServiceProtocol
+    private let pageService: PageRepositoryProtocol
     private let detailsService: DetailsServiceProtocol
     private let audioSessionService: AudioSessionServiceProtocol
     private let infoContainer: InfoContainerProtocol
@@ -28,7 +28,7 @@ final class BlockViewModelBuilder {
         markdownListener: MarkdownListener,
         simpleTableDependenciesBuilder: SimpleTableDependenciesBuilder,
         subjectsHolder: FocusSubjectsHolder,
-        pageService: PageServiceProtocol,
+        pageService: PageRepositoryProtocol,
         detailsService: DetailsServiceProtocol,
         audioSessionService: AudioSessionServiceProtocol,
         infoContainer: InfoContainerProtocol,

@@ -16,14 +16,14 @@ protocol LinkToObjectCoordinatorProtocol: AnyObject {
 final class LinkToObjectCoordinator: LinkToObjectCoordinatorProtocol {
     
     private let navigationContext: NavigationContextProtocol
-    private let pageService: PageServiceProtocol
+    private let pageService: PageRepositoryProtocol
     private let urlOpener: URLOpenerProtocol
     private let editorPageCoordinator: EditorPageCoordinatorProtocol
     private let searchService: SearchServiceProtocol
     
     init(
         navigationContext: NavigationContextProtocol,
-        pageService: PageServiceProtocol,
+        pageService: PageRepositoryProtocol,
         urlOpener: URLOpenerProtocol,
         editorPageCoordinator: EditorPageCoordinatorProtocol,
         searchService: SearchServiceProtocol
@@ -51,7 +51,7 @@ final class LinkToObjectCoordinator: LinkToObjectCoordinatorProtocol {
                 setLinkToObject(linkBlockId)
             case let .createObject(name):
                 Task { @MainActor [weak self] in
-                    if let linkBlockDetails = try? await self?.pageService.createPage(name: name) {
+                    if let linkBlockDetails = try? await self?.pageService.createDefaultPage(name: name) {
                         AnytypeAnalytics.instance().logCreateObject(objectType: linkBlockDetails.analyticsType, route: .mention)
                         setLinkToObject(linkBlockDetails.id)
                     }

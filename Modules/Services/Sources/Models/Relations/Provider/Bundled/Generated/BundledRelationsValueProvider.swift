@@ -149,7 +149,6 @@ public protocol BundledRelationsValueProvider {
     var lastChangeId: String { get }
     var starred: Bool { get }
     var defaultTemplateId: ObjectId { get }
-    var backlinks: ObjectId { get }
 } 
 
 public extension BundledRelationsValueProvider where Self: RelationValueProvider {
@@ -647,9 +646,5 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     /// ID of template chosen as default for particular object type
     var defaultTemplateId: ObjectId {
         return value(for: BundledRelationKey.defaultTemplateId.rawValue)
-    }
-    /// List of backlinks
-    var backlinks: ObjectId {
-        return value(for: BundledRelationKey.backlinks.rawValue)
     }
 }

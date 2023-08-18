@@ -217,4 +217,8 @@ final class ModulesDI: ModulesDIProtocol {
     func setRelationsView() -> SetRelationsViewModuleAssemblyProtocol {
         SetRelationsViewModuleAssembly(serviceLocator: serviceLocator)
     }
+
+    func shareAssembly() -> ShareModuleAssemblyProtocol {
+        return ShareModuleAssembly(serviceLocator: serviceLocator)
+    }
 }

@@ -41,7 +41,8 @@ final class HomeWidgetsCoordinatorAssembly: HomeWidgetsCoordinatorAssemblyProtoc
             dashboardService: serviceLocator.dashboardService(),
             dashboardAlertsAssembly: modulesDI.dashboardAlerts(),
             quickActionsStorage: serviceLocator.quickActionStorage(),
-            widgetTypeModuleAssembly: modulesDI.widgetType()
+            widgetTypeModuleAssembly: modulesDI.widgetType(),
+            shareModuleAssembly: modulesDI.shareAssembly()
         )
     }
 }

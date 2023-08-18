@@ -28,16 +28,16 @@
 
 import LocalAuthentication
 
-protocol SecureStoreQueryable {
+public protocol SecureStoreQueryable {
     var query: [String: Any] { get }
 }
 
-struct GenericPasswordQueryable {
+public struct GenericPasswordQueryable {
     let service: String
     let accessGroup: String?
     let account: String
     
-    init(account: String, service: String, accessGroup: String? = nil) {
+    public init(account: String, service: String, accessGroup: String? = nil) {
         self.service = service
         self.accessGroup = accessGroup
         self.account = account

@@ -27,7 +27,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     private let textIconPickerModuleAssembly: TextIconPickerModuleAssemblyProtocol
     private let alertHelper: AlertHelper
-    private let pageService: PageServiceProtocol
+    private let pageService: PageRepositoryProtocol
     private let templateService: TemplatesServiceProtocol
     
     init(
@@ -51,7 +51,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
         textIconPickerModuleAssembly: TextIconPickerModuleAssemblyProtocol,
         alertHelper: AlertHelper,
-        pageService: PageServiceProtocol,
+        pageService: PageRepositoryProtocol,
         templateService: TemplatesServiceProtocol
     ) {
         self.rootController = rootController

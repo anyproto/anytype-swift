@@ -120,6 +120,7 @@ extension UIColor.Additional {
         name: "Additional",
         colors: [
             ColorInfo(name: "separator", color: UIColor.Additional.separator), 
+            ColorInfo(name: "sharingBackground", color: UIColor.Additional.sharingBackground), 
             ColorInfo(name: "space", color: UIColor.Additional.space)
         ]
     )

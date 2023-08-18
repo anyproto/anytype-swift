@@ -359,7 +359,4 @@ public enum BundledRelationKey: String {
 
     /// ID of template chosen as default for particular object type
     case defaultTemplateId = "defaultTemplateId"
-
-    /// List of backlinks
-    case backlinks = "backlinks"
 }

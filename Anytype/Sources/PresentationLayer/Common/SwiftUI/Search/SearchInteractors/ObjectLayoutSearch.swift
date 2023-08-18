@@ -1,0 +1,15 @@
+import Services
+
+final class ObjectLayoutSearch: SearchInteractorProtocol {
+    let layouts: [DetailsLayout]
+    let searchService: SearchServiceProtocol
+    
+    init(layouts: [DetailsLayout], searchService: SearchServiceProtocol) {
+        self.layouts = layouts
+        self.searchService = searchService
+    }
+    
+    func search(text: String) async throws -> [ObjectDetails] {
+        try await searchService.searchObjectsWithLayouts(text: text, layouts: layouts)
+    }
+}

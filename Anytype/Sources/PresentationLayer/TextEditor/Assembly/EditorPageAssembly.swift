@@ -167,7 +167,7 @@ final class EditorAssembly {
             newSearchModuleAssembly: modulesDI.newSearch(),
             textIconPickerModuleAssembly: modulesDI.textIconPicker(),
             alertHelper: AlertHelper(viewController: controller),
-            pageService: serviceLocator.pageService(),
+            pageService: serviceLocator.pageRepository(),
             templateService: serviceLocator.templatesService
         )
 
@@ -269,7 +269,7 @@ final class EditorAssembly {
             document: document,
             onShowStyleMenu: blocksStateManager.didSelectStyleSelection(infos:),
             onBlockSelection: actionHandler.selectBlock(info:),
-            pageService: serviceLocator.pageService(),
+            pageService: serviceLocator.pageRepository(),
             linkToObjectCoordinator: coordinatorsDI.linkToObject().make(browserController: browser),
             cursorManager: cursorManager
         )
@@ -295,7 +295,6 @@ final class EditorAssembly {
 
         let responderScrollViewHelper = ResponderScrollViewHelper(scrollView: scrollView)
         
-        let simpleTableCursorManager = EditorCursorManager(focusSubjectHolder: focusSubjectHolder)
         let simpleTableDependenciesBuilder = SimpleTableDependenciesBuilder(
             document: document,
             router: router,
@@ -306,7 +305,7 @@ final class EditorAssembly {
             viewInput: viewInput,
             mainEditorSelectionManager: blocksStateManager,
             responderScrollViewHelper: responderScrollViewHelper,
-            pageService: serviceLocator.pageService(),
+            pageService: serviceLocator.pageRepository(),
             linkToObjectCoordinator: coordinatorsDI.linkToObject().make(browserController: browser)
         )
 
@@ -319,7 +318,7 @@ final class EditorAssembly {
             markdownListener: markdownListener,
             simpleTableDependenciesBuilder: simpleTableDependenciesBuilder,
             subjectsHolder: focusSubjectHolder,
-            pageService: serviceLocator.pageService(),
+            pageService: serviceLocator.pageRepository(),
             detailsService: serviceLocator.detailsService(objectId: document.objectId),
             audioSessionService: serviceLocator.audioSessionService(),
             infoContainer: document.infoContainer,
