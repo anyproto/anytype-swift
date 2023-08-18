@@ -7,6 +7,8 @@ struct SetViewSettingsCoordinatorView: View {
         VStack(spacing: 0) {
             model.list()
         }
+        .sheet(isPresented: $model.showObjects) {}
+        .sheet(isPresented: $model.showLayouts) {}
         .sheet(isPresented: $model.showRelations) {}
         .sheet(isPresented: $model.showFilters) {}
         .sheet(isPresented: $model.showSorts) {}

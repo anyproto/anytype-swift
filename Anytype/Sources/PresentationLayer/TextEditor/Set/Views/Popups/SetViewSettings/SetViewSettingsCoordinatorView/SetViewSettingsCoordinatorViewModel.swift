@@ -2,6 +2,8 @@ import SwiftUI
 
 @MainActor
 protocol SetViewSettingsCoordinatorOutput: AnyObject {
+    func onDefaultObjectTap()
+    func onLayoutTap()
     func onRelationsTap()
     func onFiltersTap()
     func onSortsTap()
@@ -9,6 +11,8 @@ protocol SetViewSettingsCoordinatorOutput: AnyObject {
 
 @MainActor
 final class SetViewSettingsCoordinatorViewModel: ObservableObject, SetViewSettingsCoordinatorOutput {
+    @Published var showObjects = false
+    @Published var showLayouts = false
     @Published var showRelations = false
     @Published var showFilters = false
     @Published var showSorts = false
@@ -24,6 +28,14 @@ final class SetViewSettingsCoordinatorViewModel: ObservableObject, SetViewSettin
     }
     
     // MARK: - SetViewSettingsNavigationOutput
+    
+    func onDefaultObjectTap() {
+        showObjects.toggle()
+    }
+    
+    func onLayoutTap() {
+        showLayouts.toggle()
+    }
     
     func onRelationsTap() {
         showRelations.toggle()
