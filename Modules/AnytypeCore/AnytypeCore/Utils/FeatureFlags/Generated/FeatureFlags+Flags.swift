@@ -94,8 +94,8 @@ public extension FeatureFlags {
         value(for: .analyticsAlerts)
     }
 
-    static var middleareErrorAlerts: Bool {
-        value(for: .middleareErrorAlerts)
+    static var middlewareErrorAlerts: Bool {
+        value(for: .middlewareErrorAlerts)
     }
 
     // All toggles
@@ -122,6 +122,6 @@ public extension FeatureFlags {
         .showAlertOnAssert,
         .analytics,
         .analyticsAlerts,
-        .middleareErrorAlerts
+        .middlewareErrorAlerts
     ]
 }

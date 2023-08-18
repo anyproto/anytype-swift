@@ -34,7 +34,7 @@ final class InvocationMesagesHandler: InvocationMesagesHandlerProtocol {
     func assertationHandler(message: String, info: [String: String], file: StaticString, function: String, line: UInt) {
         anytypeAssertionFailure(message, info: info, file: file, function: function, line: line)
         
-        guard FeatureFlags.middleareErrorAlerts else { return }
+        guard FeatureFlags.middlewareErrorAlerts else { return }
         
         let fileName = URL(string: "\(file)")?.deletingPathExtension().lastPathComponent ?? ""
         let infoString = info.map { "\($0.key): \($0.value)" }.joined(separator: "\n")

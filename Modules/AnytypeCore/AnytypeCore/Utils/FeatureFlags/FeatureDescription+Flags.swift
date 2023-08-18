@@ -141,7 +141,7 @@ public extension FeatureDescription {
         debugValue: false
     )
     
-    static let middleareErrorAlerts = FeatureDescription(
+    static let middlewareErrorAlerts = FeatureDescription(
         title: "Middleware - show error alerts",
         type: .debug,
         defaultValue: false,
