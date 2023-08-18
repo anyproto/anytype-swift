@@ -37,7 +37,7 @@ final class SentryConfigurator: AppConfiguratorProtocol {
             }
         }
         
-        AssertionLogger.shared.handler = SentryNonFatalLogger()
+        AssertionLogger.shared.addHandler(SentryNonFatalLogger())
     }
 }
 

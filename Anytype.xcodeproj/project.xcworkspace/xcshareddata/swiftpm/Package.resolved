@@ -68,8 +68,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/kean/Pulse",
       "state" : {
-        "branch" : "3.5.5",
-        "revision" : "40acf8dc87d0856aedc0b8e9111f8880e5c154bf"
+        "branch" : "4.0.1",
+        "revision" : "f41d4d9597cd6e4611bb87bab70e23013c251177"
       }
     },
     {
