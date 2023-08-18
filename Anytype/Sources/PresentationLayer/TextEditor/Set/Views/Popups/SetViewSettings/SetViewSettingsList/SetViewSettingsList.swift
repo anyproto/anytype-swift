@@ -65,6 +65,11 @@ struct SetViewSettingsList: View {
             HStack(spacing: 0) {
                 AnytypeText(setting.title, style: .uxBodyRegular, color: .Text.primary)
                 Spacer()
+                AnytypeText(setting.placeholder, style: .uxCalloutRegular, color: .Text.tertiary)
+                    .lineLimit(1)
+                Spacer.fixedWidth(6)
+                Image(asset: .X24.Arrow.right)
+                    .foregroundColor(.Text.tertiary)
             }
         }
         .frame(height: 52, alignment: .leading)

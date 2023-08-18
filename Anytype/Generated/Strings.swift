@@ -1541,6 +1541,18 @@ internal enum Loc {
           /// Image preview
           internal static let title = Loc.tr("Localizable", "Set.View.Settings.ImagePreview.Title", fallback: "Image preview")
         }
+        internal enum NoFilters {
+          /// No filters
+          internal static let placeholder = Loc.tr("Localizable", "Set.View.Settings.NoFilters.Placeholder", fallback: "No filters")
+        }
+        internal enum NoRelations {
+          /// No relations
+          internal static let placeholder = Loc.tr("Localizable", "Set.View.Settings.NoRelations.Placeholder", fallback: "No relations")
+        }
+        internal enum NoSorts {
+          /// No sorts
+          internal static let placeholder = Loc.tr("Localizable", "Set.View.Settings.NoSorts.Placeholder", fallback: "No sorts")
+        }
       }
     }
   }

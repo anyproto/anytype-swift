@@ -20,6 +20,19 @@ enum SetViewSettings: CaseIterable {
         }
     }
     
+    var placeholder: String {
+        switch self {
+        case .defaultObject, .layout:
+            return ""
+        case .relations:
+            return Loc.Set.View.Settings.NoRelations.placeholder
+        case .filters:
+            return Loc.Set.View.Settings.NoFilters.placeholder
+        case .sorts:
+            return Loc.Set.View.Settings.NoSorts.placeholder
+        }
+    }
+    
     var isLast: Bool {
         self == SetViewSettings.allCases.last
     }
