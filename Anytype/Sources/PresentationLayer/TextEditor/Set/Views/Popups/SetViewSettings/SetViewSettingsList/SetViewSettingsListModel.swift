@@ -3,6 +3,7 @@ import SwiftUI
 @MainActor
 final class SetViewSettingsListModel: ObservableObject {
     @Published var name = ""
+    @Published var focused = true
     
     let settings = SetViewSettings.allCases
     

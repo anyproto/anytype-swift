@@ -886,6 +886,8 @@
 		2EDC2B082A13E5E00065E009 /* KeyPhraseViewModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDC2B072A13E5E00065E009 /* KeyPhraseViewModuleAssembly.swift */; };
 		2EE10C7428ACFCF100F41D50 /* LightDimmingButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE10C7328ACFCF100F41D50 /* LightDimmingButtonStyle.swift */; };
 		2EE622FC29F2F57D004DBF3E /* SetItemProviderObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE622FB29F2F57D004DBF3E /* SetItemProviderObject.swift */; };
+		2EEFEADC2A93C39100AD5CDC /* SheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEFEADB2A93C39100AD5CDC /* SheetView.swift */; };
+		2EEFEADF2A93C41100AD5CDC /* UISheetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEFEADE2A93C41100AD5CDC /* UISheetController.swift */; };
 		2EFBBEFA2A41DBD900734A0B /* PhraseTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFBBEF92A41DBD900734A0B /* PhraseTextView.swift */; };
 		2EFBBEFC2A42512300734A0B /* UIPhraseTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFBBEFB2A42512300734A0B /* UIPhraseTextView.swift */; };
 		2EFFEB9629A52537002F5859 /* SetDragAndDropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFFEB9529A52537002F5859 /* SetDragAndDropView.swift */; };
@@ -2374,6 +2376,8 @@
 		2EDC2B072A13E5E00065E009 /* KeyPhraseViewModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyPhraseViewModuleAssembly.swift; sourceTree = "<group>"; };
 		2EE10C7328ACFCF100F41D50 /* LightDimmingButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightDimmingButtonStyle.swift; sourceTree = "<group>"; };
 		2EE622FB29F2F57D004DBF3E /* SetItemProviderObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetItemProviderObject.swift; sourceTree = "<group>"; };
+		2EEFEADB2A93C39100AD5CDC /* SheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetView.swift; sourceTree = "<group>"; };
+		2EEFEADE2A93C41100AD5CDC /* UISheetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISheetController.swift; sourceTree = "<group>"; };
 		2EFBBEF92A41DBD900734A0B /* PhraseTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhraseTextView.swift; sourceTree = "<group>"; };
 		2EFBBEFB2A42512300734A0B /* UIPhraseTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPhraseTextView.swift; sourceTree = "<group>"; };
 		2EFFEB9529A52537002F5859 /* SetDragAndDropView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetDragAndDropView.swift; sourceTree = "<group>"; };
@@ -6297,6 +6301,15 @@
 			path = KeyPhraseView;
 			sourceTree = "<group>";
 		};
+		2EEFEADD2A93C3B400AD5CDC /* SheetView */ = {
+			isa = PBXGroup;
+			children = (
+				2EEFEADB2A93C39100AD5CDC /* SheetView.swift */,
+				2EEFEADE2A93C41100AD5CDC /* UISheetController.swift */,
+			);
+			path = SheetView;
+			sourceTree = "<group>";
+		};
 		2EFBBEF82A41DBC300734A0B /* PhraseTextView */ = {
 			isa = PBXGroup;
 			children = (
@@ -7914,6 +7927,7 @@
 		53A46330262878710097C25E /* Design system */ = {
 			isa = PBXGroup;
 			children = (
+				2EEFEADD2A93C3B400AD5CDC /* SheetView */,
 				C9EF85152938E69A0001E6EC /* TappableLabel */,
 				12AB961528002EEA008E32EA /* TitleView */,
 				53F7447027F71564005C9BB0 /* PopupsView */,
@@ -9005,6 +9019,7 @@
 				2E0797B42A0940F8006F0FD7 /* JoinFlowViewModel.swift in Sources */,
 				3DE0CFD626F8593D003A606A /* SlashMenuItemDisplayData.swift in Sources */,
 				2E1146D0293124ED0057C753 /* SetKanbanColumnSettingsViewModel.swift in Sources */,
+				2EEFEADF2A93C41100AD5CDC /* UISheetController.swift in Sources */,
 				3D34F20A27BE3B5300990C49 /* SettingsAppearanceView.swift in Sources */,
 				95ADB5602A0284A400FE061B /* LegacyAuthViewAssembly.swift in Sources */,
 				EAADB1B32678EB52004B0AF2 /* MarkStyleModifier.swift in Sources */,
@@ -9669,6 +9684,7 @@
 				3DB1C9F527283FA0000D2779 /* DashboardClearCacheAlert.swift in Sources */,
 				2AD934082A8F5C880093B6BF /* SwiftEntryKit+DebugError.swift in Sources */,
 				2A2A347529229D2B0004BD8B /* NavigationContext.swift in Sources */,
+				2EEFEADC2A93C39100AD5CDC /* SheetView.swift in Sources */,
 				53D408D127F1D48000495335 /* PasteboardServiceProtocol.swift in Sources */,
 				1211AF7D27F4BE7400BACB88 /* CGSizeExtensions.swift in Sources */,
 				2AAF3452295B19DF00921320 /* TreeSubscriptionDataBuilder.swift in Sources */,

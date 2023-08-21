@@ -144,11 +144,7 @@ final class EditorSetRouter: EditorSetRouterProtocol {
     @MainActor
     func showSetSettings() {
         let view = setViewSettingsCoordinatorAssembly.make()
-        let popup = AnytypePopup(
-            contentView: view,
-            floatingPanelStyle: true
-        )
-        navigationContext.present(popup)
+        navigationContext.presentSwiftUISheetView(view: view)
     }
     
     func showSetSettingsLegacy(onSettingTap: @escaping (EditorSetSetting) -> Void) {

@@ -13,15 +13,26 @@ struct SetViewSettingsList: View {
                 }
             )
             
-            viewName
-            
-            Spacer.fixedHeight(12)
-            
-            settings
-            
-            Spacer.fixedHeight(8)
+            content
         }
         .padding(.horizontal, 20)
+        .background(Color.Background.secondary)
+        .frame(maxHeight: 400)
+    }
+    
+    private var content: some View {
+        ScrollView(.vertical, showsIndicators: false) {
+            VStack(spacing: 0) {
+                viewName
+                
+                Spacer.fixedHeight(12)
+                
+                settings
+                
+                Spacer.fixedHeight(8)
+            }
+        }
+        .bounceBehaviorBasedOnSize()
     }
     
     private var viewName: some View {
@@ -48,6 +59,7 @@ struct SetViewSettingsList: View {
         )
         .foregroundColor(.Text.primary)
         .font(AnytypeFontBuilder.font(anytypeFont: .uxTitle1Semibold))
+        .focused($model.focused)
         
         Spacer.fixedHeight(10)
     }
