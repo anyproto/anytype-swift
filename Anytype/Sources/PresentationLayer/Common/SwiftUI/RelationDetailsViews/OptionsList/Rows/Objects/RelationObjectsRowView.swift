@@ -30,10 +30,7 @@ struct RelationObjectsRowView: View {
                 if object.isDeleted {
                     Image(asset: .ghost).resizable().frame(width: 28, height: 28)
                 } else {
-                    SwiftUIObjectIconImageView(
-                        iconImage: icon,
-                        usecase: .dashboardSearch
-                    )
+                    IconView(icon: icon)
                 }
             }.frame(width: 48, height: 48)
         }
@@ -48,11 +45,8 @@ struct RelationObjectsRowView: View {
             Spacer.fixedWidth(12)
         }
         else if let icon = object.icon {
-            SwiftUIObjectIconImageView(
-                iconImage: icon,
-                usecase: .dashboardSearch
-            )
-            .frame(width: 48, height: 48)
+            IconView(icon: icon)
+                .frame(width: 48, height: 48)
             Spacer.fixedWidth(12)
         }
     }
@@ -100,7 +94,7 @@ struct RelationObjectsRowView_Previews: PreviewProvider {
         RelationObjectsRowView(
             object: Relation.Object.Option(
                 id: "",
-                icon: .placeholder("r"),
+                icon: .object(.placeholder("r")),
                 title: "title",
                 type: "type",
                 isArchived: false,

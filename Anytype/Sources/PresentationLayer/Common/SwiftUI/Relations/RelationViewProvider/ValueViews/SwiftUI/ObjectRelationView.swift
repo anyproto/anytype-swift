@@ -33,17 +33,19 @@ struct ObjectRelationView: View {
             
             if FeatureFlags.deleteObjectPlaceholder {
                 if let icon = option.icon, shouldShowIcon(icon: icon) {
-                    SwiftUIObjectIconImageView(
-                        iconImage: icon,
-                        usecase: style.objectIconImageUsecase
-                    ).frame(width: style.objectRelationStyle.size.width, height: style.objectRelationStyle.size.height)
+                    IconView(icon: icon)
+                        .frame(
+                            width: style.objectRelationStyle.size.width,
+                            height: style.objectRelationStyle.size.height
+                        )
                 }
             } else {
                 if let icon = option.icon, shouldShowIconLegacy(icon: icon) {
-                    SwiftUIObjectIconImageView(
-                        iconImage: icon,
-                        usecase: style.objectIconImageUsecase
-                    ).frame(width: style.objectRelationStyle.size.width, height: style.objectRelationStyle.size.height)
+                    IconView(icon: icon)
+                        .frame(
+                            width: style.objectRelationStyle.size.width,
+                            height: style.objectRelationStyle.size.height
+                        )
                 }
             }
             
@@ -94,8 +96,8 @@ struct ObjectRelationView: View {
     }
 
     // Delete with FeatureFlags.deleteObjectPlaceholder
-    private func shouldShowIconLegacy(icon: ObjectIconImage) -> Bool {
-        if case .placeholder = icon {
+    private func shouldShowIconLegacy(icon: Icon) -> Bool {
+        if case .object(.placeholder) = icon {
             return false
         }
         switch style {
@@ -106,7 +108,7 @@ struct ObjectRelationView: View {
         }
     }
     
-    private func shouldShowIcon(icon: ObjectIconImage) -> Bool {
+    private func shouldShowIcon(icon: Icon) -> Bool {
         switch style {
         case .regular, .set, .filter, .setCollection, .kanbanHeader:
             return true

@@ -4,7 +4,6 @@ import Foundation
 import AnytypeCore
 
 final class BlockActionHandlerMock: BlockActionHandlerProtocol {
-        
     var blockSelectionHandler: BlockSelectionHandler? {
         get {
             assertionFailure()
@@ -189,8 +188,8 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
 
-    func createTable(blockId: BlockId, rowsCount: Int, columnsCount: Int, blockText: NSAttributedString?) {
-        assertionFailure()
+    func createTable(blockId: Services.BlockId, rowsCount: Int, columnsCount: Int, blockText: NSAttributedString?) async throws -> Services.BlockId {
+        fatalError()
     }
     
     func uploadMediaFile(uploadingSource: FileUploadingSource, type: MediaPickerContentType, blockId: BlockId) {

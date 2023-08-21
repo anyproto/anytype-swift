@@ -1,7 +1,7 @@
 import SwiftUI
 
 class FlowRelationsViewModel: ObservableObject {
-    let icon: ObjectIconImage?
+    let icon: Icon?
     let showIcon: Bool
     let title: String?
     let description: String?
@@ -10,7 +10,7 @@ class FlowRelationsViewModel: ObservableObject {
     let onIconTap: () -> Void
     
     init(
-        icon: ObjectIconImage? = nil,
+        icon: Icon? = nil,
         showIcon: Bool = true,
         title: String?,
         description: String?,

@@ -36,7 +36,7 @@ final class ObjectHeaderIconView: UIView {
     
     private let containerView = UIView()
     
-    private let iconImageView = ObjectIconImageView()
+    private let iconImageView = IconViewUIKit()
     private let previewImageView = UIImageView()
     
     // MARK: - Initializers
@@ -60,7 +60,7 @@ extension ObjectHeaderIconView: ConfigurableView {
 
     struct ObjectHeaderIconModel: Hashable {
         enum Mode: Hashable {
-            case icon(ObjectIconType)
+            case icon(ObjectIcon)
             case image(UIImage?)
             case basicPreview(UIImage?)
             case profilePreview(UIImage?)
@@ -73,8 +73,8 @@ extension ObjectHeaderIconView: ConfigurableView {
 
     func configure(model: ObjectHeaderIconModel) {
         switch model.mode {
-        case .icon(let objectIconType):
-            showObjectIconType(objectIconType, usecase: model.usecase)
+        case .icon(let ObjectIcon):
+            showObjectIcon(ObjectIcon, usecase: model.usecase)
         case .image(let uiImage):
             guard let uiImage = uiImage else { return }
             showImage(uiImage, usecase: model.usecase)
@@ -95,15 +95,14 @@ extension ObjectHeaderIconView: ConfigurableView {
 
 private extension ObjectHeaderIconView {
     
-    func showObjectIconType(_ objectIconType: ObjectIconType, usecase: ObjectIconImageUsecase) {
+    func showObjectIcon(_ icon: ObjectIcon, usecase: ObjectIconImageUsecase) {
         let model = ObjectIconImageModel(
-            iconImage: ObjectIconImage.icon(objectIconType),
+            iconImage: .object(icon),
             usecase: usecase
         )
         
         applyImageGuideline(model.imageGuideline)
-        
-        iconImageView.configure(model: model)
+        iconImageView.icon = model.iconImage
         
         iconImageView.isHidden = false
         previewImageView.isHidden = true
@@ -119,7 +118,7 @@ private extension ObjectHeaderIconView {
         
         applyImageGuideline(model.imageGuideline)
         
-        iconImageView.configure(model: model)
+        iconImageView.icon = model.iconImage
         
         iconImageView.isHidden = false
         previewImageView.isHidden = true
@@ -150,7 +149,7 @@ private extension ObjectHeaderIconView {
         
         containerView.layer.cornerRadius = imageGuideline.cornerRadius
         layer.cornerRadius = imageGuideline.cornerRadius + initialBorderWidth
-    }    
+    }
 }
 
 // MARK: - Private extension

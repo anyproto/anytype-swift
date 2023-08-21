@@ -60,7 +60,7 @@ struct CreatingSoulView: View {
     
     private var soul: some View {
         VStack(spacing: 8) {
-            SwiftUIObjectIconImageViewWithPlaceholder(iconImage: model.profileIcon, usecase: .dashboardSearch)
+            IconView(icon: model.profileIcon)
                 .frame(width: Constants.imageDimension, height: Constants.imageDimension)
             AnytypeText(model.soulName, style: .previewTitle2Medium, color: .Text.primary)
                 .frame(width: 80)
@@ -72,7 +72,7 @@ struct CreatingSoulView: View {
     
     private var space: some View {
         VStack(spacing: 8) {
-            SwiftUIObjectIconImageViewWithPlaceholder(iconImage: model.spaceIcon, usecase: .dashboardSearch)
+            IconView(icon: model.spaceIcon)
                 .frame(width: Constants.imageDimension, height: Constants.imageDimension)
             AnytypeText(Loc.Auth.JoinFlow.Personal.Space.title, style: .previewTitle2Medium, color: .Text.primary)
                 .multilineTextAlignment(.center)

@@ -18,7 +18,7 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .package(url: "https://github.com/kean/Pulse", revision: "3.5.5"),
+        .package(url: "https://github.com/kean/Pulse", revision: "4.0.1"),
         .package(url: "https://github.com/apple/swift-log.git", revision: "1.4.2")
     ],
     targets: [
