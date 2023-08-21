@@ -65,7 +65,7 @@ extension UIColor {
   
     // MARK: - Additional
     enum Additional {
-      internal static let editingBackground = UIColor(asset: Asset.Additional.editingBackground)
+      internal static let separator = UIColor(asset: Asset.Additional.separator)
       internal static let space = UIColor(asset: Asset.Additional.space)
     }
     

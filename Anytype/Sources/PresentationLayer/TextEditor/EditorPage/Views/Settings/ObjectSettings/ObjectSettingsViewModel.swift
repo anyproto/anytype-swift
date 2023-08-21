@@ -85,6 +85,10 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
             output?.linkToAction(document: document, onSelect: onSelect)
         }
         
+        objectActionsViewModel.onTemplateMakeDefault = { [weak delegate] templateId in
+            delegate?.didTapUseTemplateAsDefault(templateId: templateId)
+        }
+        
         setupSubscription()
         onDocumentUpdate()
     }

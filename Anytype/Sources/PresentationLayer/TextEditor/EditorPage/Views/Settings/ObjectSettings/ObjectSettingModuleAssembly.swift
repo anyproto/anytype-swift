@@ -4,6 +4,7 @@ import UIKit
 protocol ObjectSettingsModuleDelegate: AnyObject {
     func didCreateLinkToItself(selfName: String, data: EditorScreenData)
     func didCreateTemplate(templateId: BlockId)
+    func didTapUseTemplateAsDefault(templateId: BlockId)
 }
 
 protocol ObjectSettingModuleAssemblyProtocol {

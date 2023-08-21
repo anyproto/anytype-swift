@@ -16,12 +16,16 @@ final class SetTemplatesInteractor: SetTemplatesInteractorProtocol {
             return true
         }
         
+        if setDocument.isCollection() {
+            return UserDefaultsConfig.defaultObjectType.recommendedLayout.isTemplatesAvailable
+        }
+        
         guard setObject.setOf.count == 1,
                 let typeId = setObject.setOf.first else {
             return false
         }
         
-        let objectDetails = try await templatesService.typeObjectDetails(objectTypeId: typeId)
+        let objectDetails = try await templatesService.objectDetails(objectId: typeId)
         
         return objectDetails.setIsTemplatesAvailable
     }

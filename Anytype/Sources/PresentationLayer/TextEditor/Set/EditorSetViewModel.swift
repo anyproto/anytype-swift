@@ -21,10 +21,10 @@ final class EditorSetViewModel: ObservableObject {
     lazy var headerSettingsViewModel = SetHeaderSettingsViewModel(
         setDocument: setDocument,
         setTemplatesInteractor: setTemplatesInteractor,
-        onViewTap: showViewPicker,
-        onSettingsTap: showSetSettings,
-        onCreateTap: createObject,
-        onSecondaryCreateTap: onSecondaryCreateTap
+        onViewTap: { [weak self] in self?.showViewPicker() } ,
+        onSettingsTap: { [weak self] in self?.showSetSettings() } ,
+        onCreateTap: { [weak self] in self?.createObject() },
+        onSecondaryCreateTap: { [weak self] in self?.onSecondaryCreateTap() }
     )
     @Published var configurationsDict: OrderedDictionary<String, [SetContentViewItemConfiguration]> = [:]
     @Published var pagitationDataDict: OrderedDictionary<String, EditorSetPaginationData> = [:]
@@ -164,7 +164,15 @@ final class EditorSetViewModel: ObservableObject {
     
     func setup(router: EditorSetRouterProtocol) {
         self.router = router
-        self.headerModel = ObjectHeaderViewModel(document: setDocument, router: router, isOpenedForPreview: false)
+        self.headerModel = ObjectHeaderViewModel(
+            document: setDocument,
+            router: router,
+            configuration: .init(
+                isOpenedForPreview: false,
+                shouldShowTemplateSelection: false,
+                usecase: .editor
+            )
+        )
         
         setDocument.setUpdatePublisher.sink { [weak self] in
             self?.onDataChange($0)

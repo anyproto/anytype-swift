@@ -22,12 +22,14 @@ extension EditorPageObject {
     init(
         details: ObjectDetails,
         isOpenedForPreview: Bool = false,
-        shouldShowTemplatesOptions: Bool = true
+        shouldShowTemplatesOptions: Bool = true,
+        usecase: ObjectHeaderEmptyData.ObjectHeaderEmptyUsecase = .editor
     ) {
         self.objectId = details.id
         self.isSupportedForEdit = details.isSupportedForEdit
         self.isOpenedForPreview = isOpenedForPreview
         self.shouldShowTemplatesOptions = shouldShowTemplatesOptions
+        self.usecase = usecase
     }
 }
 

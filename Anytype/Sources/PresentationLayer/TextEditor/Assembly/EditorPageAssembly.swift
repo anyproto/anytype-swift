@@ -166,7 +166,8 @@ final class EditorAssembly {
             newSearchModuleAssembly: modulesDI.newSearch(),
             textIconPickerModuleAssembly: modulesDI.textIconPicker(),
             alertHelper: AlertHelper(viewController: controller),
-            pageService: serviceLocator.pageService()
+            pageService: serviceLocator.pageService(),
+            templateService: serviceLocator.templatesService
         )
 
         let viewModel = buildViewModel(
@@ -182,7 +183,8 @@ final class EditorAssembly {
             bottomNavigationManager: bottomNavigationManager,
             configuration: EditorPageViewModelConfiguration(
                 isOpenedForPreview: data.isOpenedForPreview,
-                shouldShowTemplateSelection: data.shouldShowTemplatesOptions
+                shouldShowTemplateSelection: data.shouldShowTemplatesOptions,
+                usecase: data.usecase
             )
         )
 
@@ -286,7 +288,7 @@ final class EditorAssembly {
         let headerModel = ObjectHeaderViewModel(
             document: document,
             router: router,
-            isOpenedForPreview: configuration.isOpenedForPreview
+            configuration: configuration
         )
 
         let responderScrollViewHelper = ResponderScrollViewHelper(scrollView: scrollView)

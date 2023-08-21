@@ -56,16 +56,20 @@ final class AuthService: AuthServiceProtocol {
 
     func createAccount(name: String, imagePath: String) async throws {
         do {
+            let start = CFAbsoluteTimeGetCurrent()
+            
             let response = try await ClientCommands.accountCreate(.with {
                 $0.name = name
                 $0.avatar = .avatarLocalPath(imagePath)
                 $0.icon = Int64(GradientId.random.rawValue)
                 $0.disableLocalNetworkSync = true
             }).invoke()
+    
+            let middleTime = Int(((CFAbsoluteTimeGetCurrent() - start) * 1_000)) // milliseconds
             
             let analyticsId = response.account.info.analyticsID
             AnytypeAnalytics.instance().setUserId(analyticsId)
-            AnytypeAnalytics.instance().logAccountCreate(analyticsId: analyticsId)
+            AnytypeAnalytics.instance().logAccountCreate(analyticsId: analyticsId, middleTime: middleTime)
             appErrorLoggerConfiguration.setUserId(analyticsId)
             
             UserDefaultsConfig.usersId = response.account.id
