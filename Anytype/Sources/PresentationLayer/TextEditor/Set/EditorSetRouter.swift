@@ -32,7 +32,7 @@ protocol EditorSetRouterProtocol:
     )
     
     func showViewSettings(setDocument: SetDocumentProtocol, dataviewService: DataviewServiceProtocol)
-    func showSorts(setDocument: SetDocumentProtocol)
+    func showSorts()
     func showFilters(setDocument: SetDocumentProtocol, dataviewService: DataviewServiceProtocol, subscriptionDetailsStorage: ObjectDetailsStorage)
     func showFilterSearch(filter: SetFilter, onApply: @escaping (SetFilter) -> Void)
     
@@ -145,7 +145,7 @@ final class EditorSetRouter: EditorSetRouterProtocol {
     
     @MainActor
     func showSetSettings() {
-        let view = setViewSettingsCoordinatorAssembly.make()
+        let view = setViewSettingsCoordinatorAssembly.make(setDocument: setDocument)
         navigationContext.presentSwiftUISheetView(view: view)
     }
     
@@ -273,7 +273,7 @@ final class EditorSetRouter: EditorSetRouterProtocol {
     }
     
     @MainActor
-    func showSorts(setDocument: SetDocumentProtocol) {
+    func showSorts() {
         let view = setSortsListCoordinatorAssembly.make(with: setDocument)
         let vc = UIHostingController(
             rootView: view

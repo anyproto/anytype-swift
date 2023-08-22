@@ -717,7 +717,7 @@ extension EditorSetViewModel {
     }
     
     func showSorts() {
-        router?.showSorts(setDocument: setDocument)
+        router?.showSorts()
     }
     
     func showFilters() {

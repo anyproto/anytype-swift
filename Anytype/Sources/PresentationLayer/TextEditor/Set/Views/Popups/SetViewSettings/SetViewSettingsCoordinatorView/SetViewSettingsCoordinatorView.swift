@@ -9,6 +9,8 @@ struct SetViewSettingsCoordinatorView: View {
             .sheet(isPresented: $model.showLayouts) {}
             .sheet(isPresented: $model.showRelations) {}
             .sheet(isPresented: $model.showFilters) {}
-            .sheet(isPresented: $model.showSorts) {}
+            .sheet(isPresented: $model.showSorts) {
+                model.setSortsList()
+            }
     }
 }
