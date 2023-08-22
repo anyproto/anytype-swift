@@ -866,6 +866,12 @@
 		2EC9425F2900351C00DE91E4 /* DataviewGroup+Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC9425E2900351C00DE91E4 /* DataviewGroup+Filter.swift */; };
 		2EC9426C2901905900DE91E4 /* SetKanbanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC942692901905800DE91E4 /* SetKanbanView.swift */; };
 		2EC9426E2901946800DE91E4 /* SetKanbanColumn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC9426D2901946800DE91E4 /* SetKanbanColumn.swift */; };
+		2ECB33FD2A94F79C00E0F9BB /* SetSortTypesListModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB33FC2A94F79C00E0F9BB /* SetSortTypesListModuleAssembly.swift */; };
+		2ECB34012A95041800E0F9BB /* View+Detents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB34002A95041800E0F9BB /* View+Detents.swift */; };
+		2ECB34042A95130800E0F9BB /* SetSortsListCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB34032A95130800E0F9BB /* SetSortsListCoordinatorView.swift */; };
+		2ECB34062A95131100E0F9BB /* SetSortsListCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB34052A95131100E0F9BB /* SetSortsListCoordinatorViewModel.swift */; };
+		2ECB34082A95133900E0F9BB /* SetSortsListCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB34072A95133900E0F9BB /* SetSortsListCoordinatorAssembly.swift */; };
+		2ECB340A2A95200000E0F9BB /* SetSortsListModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB34092A95200000E0F9BB /* SetSortsListModuleAssembly.swift */; };
 		2ECC87562A43A17800A78293 /* MigrationGuideViewModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECC87552A43A17800A78293 /* MigrationGuideViewModuleAssembly.swift */; };
 		2ECD122B28AFE58E00BD464A /* TitleWithIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECD122A28AFE58E00BD464A /* TitleWithIconView.swift */; };
 		2ECD123028AFE6A900BD464A /* TitleWithIconStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECD122F28AFE6A900BD464A /* TitleWithIconStyle.swift */; };
@@ -2356,6 +2362,12 @@
 		2EC9425E2900351C00DE91E4 /* DataviewGroup+Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataviewGroup+Filter.swift"; sourceTree = "<group>"; };
 		2EC942692901905800DE91E4 /* SetKanbanView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetKanbanView.swift; sourceTree = "<group>"; };
 		2EC9426D2901946800DE91E4 /* SetKanbanColumn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetKanbanColumn.swift; sourceTree = "<group>"; };
+		2ECB33FC2A94F79C00E0F9BB /* SetSortTypesListModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetSortTypesListModuleAssembly.swift; sourceTree = "<group>"; };
+		2ECB34002A95041800E0F9BB /* View+Detents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Detents.swift"; sourceTree = "<group>"; };
+		2ECB34032A95130800E0F9BB /* SetSortsListCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetSortsListCoordinatorView.swift; sourceTree = "<group>"; };
+		2ECB34052A95131100E0F9BB /* SetSortsListCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetSortsListCoordinatorViewModel.swift; sourceTree = "<group>"; };
+		2ECB34072A95133900E0F9BB /* SetSortsListCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetSortsListCoordinatorAssembly.swift; sourceTree = "<group>"; };
+		2ECB34092A95200000E0F9BB /* SetSortsListModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetSortsListModuleAssembly.swift; sourceTree = "<group>"; };
 		2ECC87552A43A17800A78293 /* MigrationGuideViewModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MigrationGuideViewModuleAssembly.swift; sourceTree = "<group>"; };
 		2ECD122A28AFE58E00BD464A /* TitleWithIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleWithIconView.swift; sourceTree = "<group>"; };
 		2ECD122F28AFE6A900BD464A /* TitleWithIconStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleWithIconStyle.swift; sourceTree = "<group>"; };
@@ -6004,6 +6016,8 @@
 		2E412D0128466AC900C973FF /* Sorts */ = {
 			isa = PBXGroup;
 			children = (
+				2ECB34022A9512D700E0F9BB /* Coordinator */,
+				2ECB33FB2A94F70D00E0F9BB /* Types */,
 				2E975EE6287C23DA004DE574 /* List */,
 				2E975EE3287C23DA004DE574 /* Search */,
 			);
@@ -6132,10 +6146,10 @@
 			isa = PBXGroup;
 			children = (
 				2E975EE7287C23DA004DE574 /* SetSortRowConfiguration.swift */,
-				2E975EE8287C23DA004DE574 /* SetSortTypesListViewModel.swift */,
 				2E975EE9287C23DA004DE574 /* SetSortsListViewModel.swift */,
 				2E975EEA287C23DA004DE574 /* SetSortsListView.swift */,
 				2E975EEB287C23DA004DE574 /* SetSortRow.swift */,
+				2ECB34092A95200000E0F9BB /* SetSortsListModuleAssembly.swift */,
 			);
 			path = List;
 			sourceTree = "<group>";
@@ -6240,6 +6254,25 @@
 				2E7CAA3B2949E6A200475898 /* SetKanbanColumnHeaderType.swift */,
 			);
 			path = Column;
+			sourceTree = "<group>";
+		};
+		2ECB33FB2A94F70D00E0F9BB /* Types */ = {
+			isa = PBXGroup;
+			children = (
+				2E975EE8287C23DA004DE574 /* SetSortTypesListViewModel.swift */,
+				2ECB33FC2A94F79C00E0F9BB /* SetSortTypesListModuleAssembly.swift */,
+			);
+			path = Types;
+			sourceTree = "<group>";
+		};
+		2ECB34022A9512D700E0F9BB /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				2ECB34032A95130800E0F9BB /* SetSortsListCoordinatorView.swift */,
+				2ECB34052A95131100E0F9BB /* SetSortsListCoordinatorViewModel.swift */,
+				2ECB34072A95133900E0F9BB /* SetSortsListCoordinatorAssembly.swift */,
+			);
+			path = Coordinator;
 			sourceTree = "<group>";
 		};
 		2ECD122C28AFE5DE00BD464A /* TitleWIthIconView */ = {
@@ -7476,6 +7509,7 @@
 				2A00A73F29D33AA7007BE598 /* TappableArea.swift */,
 				2A00A74129D33B25007BE598 /* EdgeInsets+Helpers.swift */,
 				2E48ACA22A55D4EF0059CB5C /* CustomBackSwipe.swift */,
+				2ECB34002A95041800E0F9BB /* View+Detents.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -9102,6 +9136,7 @@
 				2AC906E029B6289A00209E39 /* FavoriteListWidgetModuleAssembly.swift in Sources */,
 				1289C518281159DE005085E2 /* FileDownloadingModuleOutput.swift in Sources */,
 				12DE4057264AE455007B5074 /* UIView+Layout.swift in Sources */,
+				2ECB34012A95041800E0F9BB /* View+Detents.swift in Sources */,
 				2ACE879729F2859800C2B2A9 /* EmptyNavigationLink.swift in Sources */,
 				3D22B20E2685DABD00C78C28 /* BlockImageViewModel.swift in Sources */,
 				2AAF343C29559BF700921320 /* TreeWidgetViewModel.swift in Sources */,
@@ -9152,6 +9187,7 @@
 				EAADB1A52678CD6E004B0AF2 /* MentionTextDetector.swift in Sources */,
 				2A2C330928928C02008BC326 /* UrlOpener.swift in Sources */,
 				3D88217C26F3722600A41E75 /* BlockText+AnytypeText.swift in Sources */,
+				2ECB33FD2A94F79C00E0F9BB /* SetSortTypesListModuleAssembly.swift in Sources */,
 				12AF9986273A8B87004CBB80 /* RelationsBuilder.swift in Sources */,
 				EA57F41B26B99937007D4292 /* MarkupViewProtocol.swift in Sources */,
 				3D210C142758CCE50007F558 /* RelationsListRowPlaceholderView.swift in Sources */,
@@ -9248,6 +9284,7 @@
 				0A2ADCEA2497CFDC00FA135D /* TextServiceProtocol.swift in Sources */,
 				12928C8827BCF75600CE94C3 /* AnytypePopupViewModelProtocol.swift in Sources */,
 				3DCC548F26D3B4B9002517AC /* BlockBookmarkImageView.swift in Sources */,
+				2ECB34082A95133900E0F9BB /* SetSortsListCoordinatorAssembly.swift in Sources */,
 				2AFFFB842924DFC600A487E1 /* UIHelpersDI.swift in Sources */,
 				3DF80F3726EF8F5C000492F3 /* TextBlockLayout.swift in Sources */,
 				127240DC2846306E00C6F8E2 /* NewSearchError.swift in Sources */,
@@ -9371,6 +9408,7 @@
 				3D2F9C3F271F024E0043C326 /* FloaterAlertView.swift in Sources */,
 				2A90C47B28605F8C00B6B44E /* TableOfContentsContentProvider.swift in Sources */,
 				2AC3F9462A138263005EFEE9 /* FileLimitsStorage.swift in Sources */,
+				2ECB34062A95131100E0F9BB /* SetSortsListCoordinatorViewModel.swift in Sources */,
 				863776832A658AF10040308E /* TemplateModulesAssembly.swift in Sources */,
 				2E6F3E1D2A4DB179002F4278 /* SceneStateNotifier.swift in Sources */,
 				1211D65A2667CED000541D9C /* ActivityIndicatorView.swift in Sources */,
@@ -9992,6 +10030,7 @@
 				EA54129C26C6856B00C9B6F3 /* AttributedStringChange.swift in Sources */,
 				3D3A183927340187000D0842 /* NSAttributedString+Convenience.swift in Sources */,
 				EA57F39826B74D2E007D4292 /* BlockInformationCreator.swift in Sources */,
+				2ECB340A2A95200000E0F9BB /* SetSortsListModuleAssembly.swift in Sources */,
 				2A4919A929530B0F00FCEAC9 /* HomeSubmoduleProviderProtocol.swift in Sources */,
 				2A9486582950A494007A5586 /* HomeWidgetsViewModel.swift in Sources */,
 				12DE4060264AE455007B5074 /* LayoutAnchorType.swift in Sources */,
@@ -10121,6 +10160,7 @@
 				2A9486542950A3E7007A5586 /* HomeWidgetsModuleAssembly.swift in Sources */,
 				129C54D427FC83C000C390C7 /* SupportedRelationFormat.swift in Sources */,
 				120F7D86267F9E8000327734 /* URLExtensions.swift in Sources */,
+				2ECB34042A95130800E0F9BB /* SetSortsListCoordinatorView.swift in Sources */,
 				2A66937E2A7104EA007747DD /* ObjectIconImageFontSet.swift in Sources */,
 				3DC9F26C2660216500B115B9 /* LogoOverlay.swift in Sources */,
 				2A8C00F729C4AAF200309C14 /* SettingsView.swift in Sources */,

@@ -67,11 +67,8 @@ final class EditorAssembly {
             targetObjectID: data.inline?.targetObjectID,
             relationDetailsStorage: serviceLocator.relationDetailsStorage()
         )
-        let dataviewService = DataviewService(
-            objectId: data.objectId,
-            blockId: data.inline?.blockId,
-            prefilledFieldsBuilder: SetPrefilledFieldsBuilder()
-        )
+        let dataviewService = serviceLocator.dataviewService(objectId: data.objectId, blockId: data.inline?.blockId)
+        
         let detailsService = serviceLocator.detailsService(objectId: data.objectId)
         
         let model = EditorSetViewModel(
@@ -104,6 +101,7 @@ final class EditorAssembly {
             objectCoverPickerModuleAssembly: modulesDI.objectCoverPicker(),
             objectIconPickerModuleAssembly: modulesDI.objectIconPicker(),
             setViewSettingsCoordinatorAssembly: coordinatorsDI.setViewSettings(),
+            setSortsListCoordinatorAssembly: coordinatorsDI.setSortsList(),
             toastPresenter: uiHelpersDI.toastPresenter(using: browser),
             alertHelper: AlertHelper(viewController: controller),
             templateSelectionCoordinator: TemplateSelectionCoordinator(

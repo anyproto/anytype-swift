@@ -16,6 +16,7 @@ protocol CoordinatorsDIProtocol: AnyObject {
     func joinFlow() -> JoinFlowCoordinatorAssemblyProtocol
     func loginFlow() -> LoginFlowCoordinatorAssemblyProtocol
     func setViewSettings() -> SetViewSettingsCoordinatorAssemblyProtocol
+    func setSortsList() -> SetSortsListCoordinatorAssemblyProtocol
     
     // Now like a coordinator. Migrate to isolated modules
     func browser() -> EditorBrowserAssembly

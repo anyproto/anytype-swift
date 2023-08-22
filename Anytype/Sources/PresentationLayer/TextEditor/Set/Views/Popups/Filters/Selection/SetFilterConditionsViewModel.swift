@@ -1,6 +1,7 @@
 import Services
 import Combine
 
+@MainActor
 final class SetFilterConditionsViewModel: CheckPopupViewViewModelProtocol {
     @Published private(set) var items: [CheckPopupItem] = []
     let title: String

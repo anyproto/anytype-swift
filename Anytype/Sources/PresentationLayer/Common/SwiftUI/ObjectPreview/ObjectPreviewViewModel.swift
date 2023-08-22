@@ -2,6 +2,7 @@ import Services
 import SwiftUI
 import FloatingPanel
 
+@MainActor
 final class ObjectPreviewViewModel: ObservableObject {
 
     @Published private(set) var objectPreviewModel: ObjectPreviewModel

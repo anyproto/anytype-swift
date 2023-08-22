@@ -1,6 +1,7 @@
 import Services
 import Combine
 
+@MainActor
 final class ObjectPreviewIconMenuViewModel: CheckPopupViewViewModelProtocol {
     let title = Loc.icon
     @Published private(set) var items: [CheckPopupItem] = []

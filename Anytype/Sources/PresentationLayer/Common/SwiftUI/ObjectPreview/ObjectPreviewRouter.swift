@@ -8,12 +8,14 @@ final class ObjectPreviewRouter {
         self.viewController = viewController
     }
 
+    @MainActor
     func showLayoutMenu(cardStyle: BlockLink.CardStyle, onSelect: @escaping (BlockLink.CardStyle) -> Void) {
         let viewModel = ObjectPreviewLayoutMenuViewModel(cardStyle: cardStyle, onSelect: onSelect)
         let view = PopupViewBuilder.createCheckPopup(viewModel: viewModel)
         viewController?.topPresentedController.present(view, animated: true, completion: nil)
     }
 
+    @MainActor
     func showIconMenu(
         objectLayout: DetailsLayout,
         iconSize: BlockLink.IconSize,
@@ -30,6 +32,7 @@ final class ObjectPreviewRouter {
         viewController?.topPresentedController.present(view, animated: true, completion: nil)
     }
 
+    @MainActor
     func showDescriptionMenu(
         currentDescription: BlockLink.Description,
         onSelect: @escaping (BlockLink.Description) -> Void
