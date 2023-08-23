@@ -76,10 +76,13 @@ struct SetViewSettingsList: View {
         } label: {
             HStack(spacing: 0) {
                 AnytypeText(setting.title, style: .uxBodyRegular, color: .Text.primary)
+                
                 Spacer()
-                AnytypeText(setting.placeholder, style: .uxCalloutRegular, color: .Text.tertiary)
-                    .lineLimit(1)
+                
+                value(for: setting)
+                
                 Spacer.fixedWidth(6)
+                
                 Image(asset: .X24.Arrow.right)
                     .foregroundColor(.Text.tertiary)
             }
@@ -88,6 +91,16 @@ struct SetViewSettingsList: View {
         .if(!setting.isLast) {
             $0.divider()
         }
+    }
+    
+    private func value(for setting: SetViewSettings) -> some View {
+        let text = model.valueForSetting(setting)
+        return AnytypeText(
+            text,
+            style: .uxCalloutRegular,
+            color: setting.isPlaceholder(text) ? .Text.tertiary : .Text.secondary
+        )
+        .lineLimit(1)
     }
     
     private var settingsMenu: some View {

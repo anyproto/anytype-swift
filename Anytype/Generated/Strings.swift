@@ -1555,6 +1555,14 @@ internal enum Loc {
           /// No sorts
           internal static let placeholder = Loc.tr("Localizable", "Set.View.Settings.NoSorts.Placeholder", fallback: "No sorts")
         }
+        internal enum Objects {
+          internal enum Applied {
+            /// %d applied
+            internal static func title(_ p1: Int) -> String {
+              return Loc.tr("Localizable", "Set.View.Settings.Objects.Applied.Title", p1, fallback: "%d applied")
+            }
+          }
+        }
       }
     }
   }

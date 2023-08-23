@@ -32,7 +32,7 @@ final class SetViewSettingsCoordinatorViewModel: ObservableObject, SetViewSettin
     }
     
     func list() -> AnyView {
-        setViewSettingsListModuleAssembly.make(output: self)
+        setViewSettingsListModuleAssembly.make(setDocument: setDocument, output: self)
     }
     
     // MARK: - SetViewSettingsNavigationOutput

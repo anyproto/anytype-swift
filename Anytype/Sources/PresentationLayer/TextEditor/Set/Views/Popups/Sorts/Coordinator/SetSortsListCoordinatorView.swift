@@ -12,6 +12,5 @@ struct SetSortsListCoordinatorView: View {
                 model.setSortTypesList(data: data)
                     .fitPresentationDetents()
             }
-            .mediumPresentationDetents()
     }
 }
