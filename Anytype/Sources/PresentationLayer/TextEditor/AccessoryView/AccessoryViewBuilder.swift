@@ -11,7 +11,8 @@ struct AccessoryViewBuilder {
         onShowStyleMenu: @escaping RoutingAction<[BlockInformation]>,
         onBlockSelection: @escaping RoutingAction<BlockInformation>,
         pageService: PageServiceProtocol,
-        linkToObjectCoordinator: LinkToObjectCoordinatorProtocol
+        linkToObjectCoordinator: LinkToObjectCoordinatorProtocol,
+        cursorManager: EditorCursorManager
     ) -> AccessoryViewStateManager {
         let mentionsView = MentionView(
             documentId: document.objectId,
@@ -57,7 +58,8 @@ struct AccessoryViewBuilder {
                 document: document,
                 actionHandler: actionHandler,
                 router: router,
-                pasteboardService: pasteboardService
+                pasteboardService: pasteboardService,
+                cursorManager: cursorManager
             )
         )
         let slashMenuView = SlashMenuAssembly.menuView(

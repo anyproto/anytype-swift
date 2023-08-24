@@ -11,7 +11,12 @@ protocol TemplateSelectionCoordinatorProtocol: AnyObject {
         onTemplateSelection: @escaping (BlockId?) -> ()
     )
     
-    func showTemplateEditing(blockId: BlockId, spaceId: String, onTemplateSelection: @escaping (BlockId) -> Void)
+    func showTemplateEditing(
+        blockId: BlockId,
+        spaceId: String,
+        onTemplateSelection: @escaping (BlockId) -> Void,
+        onSetAsDefaultTempalte: @escaping (BlockId) -> Void
+    )
 }
 
 final class TemplateSelectionCoordinator: TemplateSelectionCoordinatorProtocol {
@@ -19,6 +24,7 @@ final class TemplateSelectionCoordinator: TemplateSelectionCoordinatorProtocol {
     private let templatesModuleAssembly: TemplateModulesAssembly
     private let editorAssembly: EditorAssembly
     private let objectSettingCoordinator: ObjectSettingsCoordinatorProtocol
+    private var handler: TemplateSelectionObjectSettingsHandler?
     
     init(
         navigationContext: NavigationContextProtocol,
@@ -45,11 +51,20 @@ final class TemplateSelectionCoordinator: TemplateSelectionCoordinatorProtocol {
                 navigationContext?.dismissTopPresented(animated: true) {
                     onTemplateSelection(templateId)
                 }
-            },
-            templateEditingHandler: { [weak self] templateId in
-                self?.showTemplateEditing(blockId: templateId, spaceId: setDocument.spaceId, onTemplateSelection: onTemplateSelection)
             }
         )
+        let model = view.model
+        
+        view.model.templateEditingHandler = { [weak self, weak model] templateId in
+            self?.showTemplateEditing(
+                blockId: templateId,
+                spaceId: setDocument.spaceId,
+                onTemplateSelection: onTemplateSelection,
+                onSetAsDefaultTempalte: { templateId in
+                    model?.setTemplateAsDefault(templateId: templateId)
+                }
+            )
+        }
         
         let viewModel = AnytypePopupViewModel(
             contentView: view,
@@ -62,7 +77,12 @@ final class TemplateSelectionCoordinator: TemplateSelectionCoordinatorProtocol {
         navigationContext.present(popup)
     }
     
-    func showTemplateEditing(blockId: BlockId, spaceId: String, onTemplateSelection: @escaping (BlockId) -> Void) {
+    func showTemplateEditing(
+        blockId: BlockId,
+        spaceId: String,
+        onTemplateSelection: @escaping (BlockId) -> Void,
+        onSetAsDefaultTempalte: @escaping (BlockId) -> Void
+    ) {
         let editorPage = editorAssembly.buildEditorModule(
             browser: nil,
             data: .page(
@@ -75,12 +95,13 @@ final class TemplateSelectionCoordinator: TemplateSelectionCoordinatorProtocol {
                 )
             )
         )
+        handler = TemplateSelectionObjectSettingsHandler(useAsTemplateAction: onSetAsDefaultTempalte)
         let editingTemplateViewController = TemplateEditingViewController(
             editorViewController: editorPage.vc,
             onSettingsTap: { [weak self] in
-                guard let self = self else { return }
+                guard let self = self, let handler = self.handler else { return }
                 
-                self.objectSettingCoordinator.startFlow(objectId: blockId, delegate: self)
+                self.objectSettingCoordinator.startFlow(objectId: blockId, delegate: handler)
             }, onSelectTemplateTap: { [weak self] in
                 self?.navigationContext.dismissAllPresented(animated: true) {
                     onTemplateSelection(blockId)
@@ -92,12 +113,22 @@ final class TemplateSelectionCoordinator: TemplateSelectionCoordinatorProtocol {
     }
 }
 
-extension TemplateSelectionCoordinator: ObjectSettingsModuleDelegate {
+final class TemplateSelectionObjectSettingsHandler: ObjectSettingsModuleDelegate {
+    let useAsTemplateAction: (BlockId) -> Void
+    
+    init(useAsTemplateAction: @escaping (BlockId) -> Void) {
+        self.useAsTemplateAction = useAsTemplateAction
+    }
+    
     func didCreateLinkToItself(selfName: String, data: EditorScreenData) {
         anytypeAssertionFailure("Should be disabled in restrictions. Check template restrinctions")
     }
     
     func didCreateTemplate(templateId: BlockId) {
         anytypeAssertionFailure("Should be disabled in restrictions. Check template restrinctions")
+    }
+    
+    func didTapUseTemplateAsDefault(templateId: BlockId) {
+        useAsTemplateAction(templateId)
     }
 }

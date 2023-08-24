@@ -10,7 +10,8 @@ protocol EditorSetRouterProtocol:
     ObjectHeaderRouterProtocol
 {
     
-    func showSetSettings(onSettingTap: @escaping (EditorSetSetting) -> Void)
+    func showSetSettings()
+    func showSetSettingsLegacy(onSettingTap: @escaping (EditorSetSetting) -> Void)
     func dismissSetSettingsIfNeeded()
     
     func setNavigationViewHidden(_ isHidden: Bool, animated: Bool)
@@ -93,6 +94,7 @@ final class EditorSetRouter: EditorSetRouterProtocol {
     private let relationValueCoordinator: RelationValueCoordinatorProtocol
     private let objectCoverPickerModuleAssembly: ObjectCoverPickerModuleAssemblyProtocol
     private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
+    private let setViewSettingsCoordinatorAssembly: SetViewSettingsCoordinatorAssemblyProtocol
     private let toastPresenter: ToastPresenterProtocol
     private let alertHelper: AlertHelper
     private let templateSelectionCoordinator: TemplateSelectionCoordinatorProtocol
@@ -114,6 +116,7 @@ final class EditorSetRouter: EditorSetRouterProtocol {
         relationValueCoordinator: RelationValueCoordinatorProtocol,
         objectCoverPickerModuleAssembly: ObjectCoverPickerModuleAssemblyProtocol,
         objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
+        setViewSettingsCoordinatorAssembly: SetViewSettingsCoordinatorAssemblyProtocol,
         toastPresenter: ToastPresenterProtocol,
         alertHelper: AlertHelper,
         templateSelectionCoordinator: TemplateSelectionCoordinatorProtocol
@@ -130,6 +133,7 @@ final class EditorSetRouter: EditorSetRouterProtocol {
         self.relationValueCoordinator = relationValueCoordinator
         self.objectCoverPickerModuleAssembly = objectCoverPickerModuleAssembly
         self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
+        self.setViewSettingsCoordinatorAssembly = setViewSettingsCoordinatorAssembly
         self.toastPresenter = toastPresenter
         self.alertHelper = alertHelper
         self.templateSelectionCoordinator = templateSelectionCoordinator
@@ -137,7 +141,13 @@ final class EditorSetRouter: EditorSetRouterProtocol {
     
     // MARK: - EditorSetRouterProtocol
     
-    func showSetSettings(onSettingTap: @escaping (EditorSetSetting) -> Void) {
+    @MainActor
+    func showSetSettings() {
+        let view = setViewSettingsCoordinatorAssembly.make()
+        navigationContext.presentSwiftUISheetView(view: view)
+    }
+    
+    func showSetSettingsLegacy(onSettingTap: @escaping (EditorSetSetting) -> Void) {
         guard let currentSetSettingsPopup = currentSetSettingsPopup else {
             showSetSettingsPopup(onSettingTap: onSettingTap)
             return
@@ -566,5 +576,9 @@ extension EditorSetRouter: ObjectSettingsModuleDelegate {
         toastPresenter.showObjectName(selfName, middleAction: Loc.Editor.Toast.linkedTo, secondObjectId: data.objectId) { [weak self] in
             self?.showPage(data: data)
         }
+    }
+    
+    func didTapUseTemplateAsDefault(templateId: BlockId) {
+        anytypeAssertionFailure("Invalid delegate method handler")
     }
 }

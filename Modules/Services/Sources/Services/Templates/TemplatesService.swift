@@ -2,23 +2,24 @@ import ProtobufMessages
 import SwiftProtobuf
 
 public protocol TemplatesServiceProtocol {
-    func typeObjectDetails(objectTypeId: BlockId) async throws -> ObjectDetails
+    func objectDetails(objectId: BlockId) async throws -> ObjectDetails
     func cloneTemplate(blockId: BlockId) async throws
     func createTemplateFromObjectType(objectTypeId: BlockId) async throws -> BlockId
     func createTemplateFromObject(objectId: BlockId) async throws -> BlockId
     func deleteTemplate(templateId: BlockId) async throws
+    func setTemplateAsDefaultForType(templateId: BlockId) async throws
 }
 
 public final class TemplatesService: TemplatesServiceProtocol {
     public init() {}
     
-    public func typeObjectDetails(objectTypeId: BlockId) async throws -> ObjectDetails {
+    public func objectDetails(objectId: BlockId) async throws -> ObjectDetails {
         let objectShow = try await ClientCommands.objectShow(.with {
-            $0.contextID = objectTypeId
-            $0.objectID = objectTypeId
+            $0.contextID = objectId
+            $0.objectID = objectId
         }).invoke()
         
-        guard let details = objectShow.objectView.details.first(where: { $0.id == objectTypeId })?.details,
+        guard let details = objectShow.objectView.details.first(where: { $0.id == objectId })?.details,
               let objectDetails = try? ObjectDetails(protobufStruct: details) else {
             throw AnyUnpackError.typeMismatch
         }
@@ -33,7 +34,7 @@ public final class TemplatesService: TemplatesServiceProtocol {
     }
     
     public func createTemplateFromObjectType(objectTypeId: BlockId) async throws -> BlockId {
-        let objectDetails = try await typeObjectDetails(objectTypeId: objectTypeId)
+        let objectDetails = try await objectDetails(objectId: objectTypeId)
         
         let response = try await ClientCommands.objectCreate(.with {
             $0.details = .with {
@@ -60,6 +61,22 @@ public final class TemplatesService: TemplatesServiceProtocol {
         _ = try await ClientCommands.objectSetIsArchived(.with {
             $0.contextID = templateId
             $0.isArchived = true
+        }).invoke()
+    }
+    
+    public func setTemplateAsDefaultForType(templateId: BlockId) async throws {
+        let templateDetails = try await objectDetails(objectId: templateId)
+        let typeDetails = try await objectDetails(objectId: templateDetails.targetObjectType)
+
+        _ = try await ClientCommands.objectSetDetails(.with {
+            $0.contextID = typeDetails.id
+            
+            $0.details = [
+                Anytype_Rpc.Object.SetDetails.Detail.with {
+                    $0.key = BundledRelationKey.defaultTemplateId.rawValue
+                    $0.value = templateId.protobufValue
+                }
+            ]
         }).invoke()
     }
 }

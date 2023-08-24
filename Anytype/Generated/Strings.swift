@@ -629,6 +629,8 @@ internal enum Loc {
     internal static let linkItself = Loc.tr("Localizable", "Actions.LinkItself", fallback: "Link to")
     /// Make template
     internal static let makeAsTemplate = Loc.tr("Localizable", "Actions.MakeAsTemplate", fallback: "Make template")
+    /// Set as default
+    internal static let templateMakeDefault = Loc.tr("Localizable", "Actions.TemplateMakeDefault", fallback: "Set as default")
   }
   internal enum Alert {
     internal enum CameraPermissions {
@@ -1521,6 +1523,10 @@ internal enum Loc {
             internal static let title = Loc.tr("Localizable", "Set.View.Settings.CardSize.Small.Title", fallback: "Small")
           }
         }
+        internal enum DefaultObject {
+          /// Default object
+          internal static let title = Loc.tr("Localizable", "Set.View.Settings.DefaultObject.Title", fallback: "Default object")
+        }
         internal enum GroupBackgroundColors {
           /// Color columns
           internal static let title = Loc.tr("Localizable", "Set.View.Settings.GroupBackgroundColors.Title", fallback: "Color columns")
@@ -1536,6 +1542,18 @@ internal enum Loc {
         internal enum ImagePreview {
           /// Image preview
           internal static let title = Loc.tr("Localizable", "Set.View.Settings.ImagePreview.Title", fallback: "Image preview")
+        }
+        internal enum NoFilters {
+          /// No filters
+          internal static let placeholder = Loc.tr("Localizable", "Set.View.Settings.NoFilters.Placeholder", fallback: "No filters")
+        }
+        internal enum NoRelations {
+          /// No relations
+          internal static let placeholder = Loc.tr("Localizable", "Set.View.Settings.NoRelations.Placeholder", fallback: "No relations")
+        }
+        internal enum NoSorts {
+          /// No sorts
+          internal static let placeholder = Loc.tr("Localizable", "Set.View.Settings.NoSorts.Placeholder", fallback: "No sorts")
         }
       }
     }

@@ -124,6 +124,13 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
+    static let newSetSettings = FeatureDescription(
+        title: "New Set settings",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.25.0"),
+        defaultValue: false,
+        debugValue: false
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(
@@ -151,5 +158,12 @@ public extension FeatureDescription {
         type: .debug,
         defaultValue: false,
         debugValue: false
+    )
+    
+    static let nonfatalAlerts = FeatureDescription(
+        title: "Show non fatal alerts",
+        type: .debug,
+        defaultValue: false,
+        debugValue: true
     )
 }

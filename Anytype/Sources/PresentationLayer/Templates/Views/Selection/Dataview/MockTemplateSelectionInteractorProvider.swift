@@ -7,7 +7,7 @@ final class MockTemplateSelectionInteractorProvider: TemplateSelectionInteractor
 
     @Published private var templates = MockTemplatePreviewModel.allPreviews.map { $0.model }
     
-    func setDefaultTemplate(model: TemplatePreviewModel) async throws {
+    func setDefaultTemplate(templateId: Services.BlockId) async throws {
         fatalError()
     }
 }

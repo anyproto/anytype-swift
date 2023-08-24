@@ -16,6 +16,8 @@ final class BlockViewModelBuilder {
     private let pageService: PageServiceProtocol
     private let detailsService: DetailsServiceProtocol
     private let audioSessionService: AudioSessionServiceProtocol
+    private let infoContainer: InfoContainerProtocol
+    private let tableService: BlockTableServiceProtocol
 
     init(
         document: BaseDocumentProtocol,
@@ -28,7 +30,9 @@ final class BlockViewModelBuilder {
         subjectsHolder: FocusSubjectsHolder,
         pageService: PageServiceProtocol,
         detailsService: DetailsServiceProtocol,
-        audioSessionService: AudioSessionServiceProtocol
+        audioSessionService: AudioSessionServiceProtocol,
+        infoContainer: InfoContainerProtocol,
+        tableService: BlockTableServiceProtocol
     ) {
         self.document = document
         self.handler = handler
@@ -41,6 +45,8 @@ final class BlockViewModelBuilder {
         self.pageService = pageService
         self.detailsService = detailsService
         self.audioSessionService = audioSessionService
+        self.infoContainer = infoContainer
+        self.tableService = tableService
     }
 
     func buildEditorItems(infos: [BlockInformation]) -> [EditorItem] {
@@ -275,7 +281,11 @@ final class BlockViewModelBuilder {
         case .table:
             return SimpleTableBlockViewModel(
                 info: info,
-                simpleTableDependenciesBuilder: simpleTableDependenciesBuilder
+                simpleTableDependenciesBuilder: simpleTableDependenciesBuilder,
+                infoContainer: infoContainer,
+                tableService: tableService,
+                document: document,
+                focusSubject: subjectsHolder.focusSubject(for: info.id)
             )
         case let .dataView(data):
             let details = document.detailsStorage.get(id: data.targetObjectID)

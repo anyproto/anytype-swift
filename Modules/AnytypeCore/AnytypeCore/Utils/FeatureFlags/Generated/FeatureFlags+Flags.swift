@@ -86,6 +86,10 @@ public extension FeatureFlags {
         value(for: .widgetTaskDone)
     }
 
+    static var newSetSettings: Bool {
+        value(for: .newSetSettings)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -100,6 +104,10 @@ public extension FeatureFlags {
 
     static var analyticsAlerts: Bool {
         value(for: .analyticsAlerts)
+    }
+
+    static var nonfatalAlerts: Bool {
+        value(for: .nonfatalAlerts)
     }
 
     // All toggles
@@ -124,9 +132,11 @@ public extension FeatureFlags {
         .colorfulRecoveryPhrase,
         .recentEditWidget,
         .widgetTaskDone,
+        .newSetSettings,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
-        .analyticsAlerts
+        .analyticsAlerts,
+        .nonfatalAlerts
     ]
 }

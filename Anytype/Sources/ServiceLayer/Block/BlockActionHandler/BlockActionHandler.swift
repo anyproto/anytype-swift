@@ -271,23 +271,21 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         rowsCount: Int,
         columnsCount: Int,
         blockText: NSAttributedString?
-    ) {
+    ) async throws -> BlockId {
         guard let isTextAndEmpty = blockText?.string.isEmpty
-                ?? document.infoContainer.get(id: blockId)?.isTextAndEmpty else { return }
+                ?? document.infoContainer.get(id: blockId)?.isTextAndEmpty else { return "" }
         
         let position: BlockPosition = isTextAndEmpty ? .replace : .bottom
 
         AnytypeAnalytics.instance().logCreateBlock(type: TableBlockType.simpleTableBlock.rawValue)
         
-        Task {
-            try await blockTableService.createTable(
-                contextId: document.objectId,
-                targetId: blockId,
-                position: position,
-                rowsCount: rowsCount,
-                columnsCount: columnsCount
-            )
-        }
+        return try await blockTableService.createTable(
+            contextId: document.objectId,
+            targetId: blockId,
+            position: position,
+            rowsCount: rowsCount,
+            columnsCount: columnsCount
+        )
     }
 
 
