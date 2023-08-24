@@ -46,7 +46,7 @@ class SetDocument: SetDocumentProtocol {
     var dataViewRelationsDetails: [RelationDetails] = []
     
     var sortedRelations: [SetRelation] {
-        dataBuilder.sortedRelations(dataview: dataView, view: activeView)
+        dataBuilder.sortedRelations(dataview: dataView, view: activeView, spaceId: spaceId)
     }
     
     var isObjectLocked: Bool {
@@ -118,7 +118,8 @@ class SetDocument: SetDocumentProtocol {
         dataBuilder.activeViewRelations(
             dataViewRelationsDetails: dataViewRelationsDetails,
             view: activeView,
-            excludeRelations: excludeRelations
+            excludeRelations: excludeRelations,
+            spaceId: spaceId
         )
     }
     
@@ -210,7 +211,7 @@ class SetDocument: SetDocumentProtocol {
     }
     
     private func updateDataViewRelations() {
-        dataViewRelationsDetails = relationDetailsStorage.relationsDetails(for: dataView.relationLinks, includeDeleted: false)
+        dataViewRelationsDetails = relationDetailsStorage.relationsDetails(for: dataView.relationLinks, spaceId: spaceId, includeDeleted: false)
     }
     
     private func updateSorts() {

@@ -24,8 +24,8 @@ final class RelationsSearchInteractor {
         try await searchService.searchRelations(text: text, excludedIds: excludedIds, spaceId: spaceId)
     }
     
-    func searchInMarketplace(text: String) async throws -> [RelationDetails] {
-        try await searchService.searchMarketplaceRelations(text: text, includeInstalled: false)
+    func searchInMarketplace(text: String, excludedIds: [String]) async throws -> [RelationDetails] {
+        try await searchService.searchMarketplaceRelations(text: text, excludedIds: excludedIds)
     }
     
     func installRelation(spaceId: String, objectId: String) async throws -> RelationDetails? {

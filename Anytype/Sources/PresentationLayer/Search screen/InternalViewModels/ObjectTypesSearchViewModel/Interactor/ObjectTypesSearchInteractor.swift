@@ -42,8 +42,8 @@ extension ObjectTypesSearchInteractor {
         )
     }
     
-    func searchInMarketplace(text: String) async throws -> [ObjectDetails] {
-        try await searchService.searchMarketplaceObjectTypes(text: text, includeInstalled: false)
+    func searchInMarketplace(text: String, excludedIds: [String]) async throws -> [ObjectDetails] {
+        try await searchService.searchMarketplaceObjectTypes(text: text, excludedIds: excludedIds)
     }
     
     func installType(objectId: String) async throws -> ObjectDetails {

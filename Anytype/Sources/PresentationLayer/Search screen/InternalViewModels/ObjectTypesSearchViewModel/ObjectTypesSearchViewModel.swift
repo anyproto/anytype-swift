@@ -40,7 +40,7 @@ extension ObjectTypesSearchViewModel: NewInternalSearchViewModelProtocol {
     
     func search(text: String) async throws {
         let objects = try await interactor.search(text: text)
-        let marketplaceObjects = try await interactor.searchInMarketplace(text: text)
+        let marketplaceObjects = try await interactor.searchInMarketplace(text: text, excludedIds: objects.map(\.sourceObject))
         
         if objects.isEmpty && marketplaceObjects.isEmpty {
             handleError(for: text)

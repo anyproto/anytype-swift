@@ -42,9 +42,9 @@ final class RelationDetailsStorage: RelationDetailsStorageProtocol {
         return links.map { searchDetailsByKey[RelationDetailsKey(key: $0.key, spaceId: spaceId)] ?? createDeletedRelation(link: $0) }
     }
     
-    func relationsDetails(for ids: [ObjectId]) -> [RelationDetails] {
+    func relationsDetails(for ids: [ObjectId], spaceId: String) -> [RelationDetails] {
         return ids.compactMap { id in
-            return details.first { $0.id == id }
+            return details.first { $0.id == id && $0.spaceId == spaceId }
         }
     }
     
@@ -52,10 +52,6 @@ final class RelationDetailsStorage: RelationDetailsStorageProtocol {
         guard let details = searchDetailsByKey[RelationDetailsKey(key: key.rawValue, spaceId: spaceId)] else {
             throw RelationDetailsStorageError.relationNotFound
         }
-        return details
-    }
-    
-    func relationsDetails() -> [RelationDetails] {
         return details
     }
     

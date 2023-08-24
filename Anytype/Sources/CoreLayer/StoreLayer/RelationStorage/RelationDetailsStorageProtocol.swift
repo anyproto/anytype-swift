@@ -6,9 +6,8 @@ import AnytypeCore
 protocol RelationDetailsStorageProtocol: AnyObject {
     
     func relationsDetails(for links: [RelationLink], spaceId: String) -> [RelationDetails]
-    func relationsDetails(for ids: [ObjectId]) -> [RelationDetails]
+    func relationsDetails(for ids: [ObjectId], spaceId: String) -> [RelationDetails]
     func relationsDetails(for key: BundledRelationKey, spaceId: String) throws -> RelationDetails
-    func relationsDetails() -> [RelationDetails]
     var relationsDetailsPublisher: AnyPublisher<[RelationDetails], Never> { get }
     
     func startSubscription() async
@@ -16,7 +15,7 @@ protocol RelationDetailsStorageProtocol: AnyObject {
 }
 
 extension RelationDetailsStorageProtocol {
-    func relationsDetails(for links: [RelationLink], includeDeleted: Bool = false) -> [RelationDetails] {
-        return relationsDetails().filter { !$0.isDeleted }
+    func relationsDetails(for links: [RelationLink], spaceId: String, includeDeleted: Bool = false) -> [RelationDetails] {
+        return relationsDetails(for: links, spaceId: spaceId).filter { !$0.isDeleted }
     }
 }

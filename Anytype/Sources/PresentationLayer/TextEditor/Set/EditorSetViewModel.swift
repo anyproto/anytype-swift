@@ -450,6 +450,7 @@ final class EditorSetViewModel: ObservableObject {
                     activeView: activeView,
                     isObjectLocked: setDocument.isObjectLocked,
                     storage: subscriptionService.storage,
+                    spaceId: setDocument.spaceId,
                     onIconTap: { [weak self] details in
                         self?.updateDetailsIfNeeded(details)
                     },

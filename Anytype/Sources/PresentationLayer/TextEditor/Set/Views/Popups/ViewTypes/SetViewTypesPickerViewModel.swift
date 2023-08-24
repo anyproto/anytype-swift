@@ -80,7 +80,7 @@ final class SetViewTypesPickerViewModel: ObservableObject {
         guard activeView.type != selectedType || activeView.name != name else {
             return
         }
-        let dataViewRelationsDetails = relationDetailsStorage.relationsDetails(for: setDocument.dataView.relationLinks)
+        let dataViewRelationsDetails = relationDetailsStorage.relationsDetails(for: setDocument.dataView.relationLinks, spaceId: setDocument.spaceId)
         let groupRelationKey = activeView.groupRelationKey.isEmpty ?
         setDocument.dataView.groupByRelations(for: activeView, dataViewRelationsDetails: dataViewRelationsDetails).first?.key ?? "" :
         activeView.groupRelationKey
