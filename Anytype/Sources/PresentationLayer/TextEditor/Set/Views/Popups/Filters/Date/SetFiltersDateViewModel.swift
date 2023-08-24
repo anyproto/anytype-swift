@@ -1,18 +1,22 @@
-import Foundation
+import SwiftUI
 import Services
 import Combine
 
+@MainActor
 final class SetFiltersDateViewModel: ObservableObject {
     @Published var quickOption: DataviewFilter.QuickOption
     @Published var date: Date
     @Published var numberOfDays: Int
     @Published var condition: DataviewFilter.Condition
     
+    @Published var showFiltersDaysView = false
+    
     private let filter: SetFilter
-    private let router: EditorSetRouterProtocol
-    private let setSelectionModel: SetFiltersSelectionViewModel
+    private weak var setSelectionModel: SetFiltersSelectionViewModel?
     private let onApplyDate: (SetFiltersDate) -> Void
     private var cancellable: AnyCancellable?
+    
+    private let setTextViewModuleAssembly = SetTextViewModuleAssembly()
     
     var rows: [SetFiltersDateRowConfiguration] {
         DataviewFilter.QuickOption.orderedCases(for: condition).map { option in
@@ -30,15 +34,13 @@ final class SetFiltersDateViewModel: ObservableObject {
     
     init(
         filter: SetFilter,
-        router: EditorSetRouterProtocol,
-        setSelectionModel: SetFiltersSelectionViewModel,
+        setSelectionModel: SetFiltersSelectionViewModel?,
         onApplyDate: @escaping (SetFiltersDate) -> Void)
     {
         self.filter = filter
-        self.router = router
         self.quickOption = filter.filter.quickOption
         self.setSelectionModel = setSelectionModel
-        self.condition = setSelectionModel.condition
+        self.condition = setSelectionModel?.condition ?? DataviewFilter.Condition.equal
         
         if filter.filter.quickOption == .exactDate,
            let timeInterval = filter.filter.value.safeDoubleValue,
@@ -68,8 +70,18 @@ final class SetFiltersDateViewModel: ObservableObject {
         )
     }
     
+    func filtersDaysView() -> AnyView {
+        setTextViewModuleAssembly.make(
+            title: quickOption.title,
+            text: "\(numberOfDays)",
+            onTextChanged: { [weak self] value in
+                self?.numberOfDays = Int(Double(value) ?? 0)
+            }
+        )
+    }
+    
     private func setup() {
-        cancellable = setSelectionModel.$condition.sink {  [weak self] condition in
+        cancellable = setSelectionModel?.$condition.sink {  [weak self] condition in
             self?.condition = condition
         }
     }
@@ -79,7 +91,7 @@ final class SetFiltersDateViewModel: ObservableObject {
         
         switch option {
         case .numberOfDaysAgo, .numberOfDaysNow:
-            showFiltersDaysView()
+            showFiltersDaysView.toggle()
         default:
             break
         }
@@ -94,15 +106,5 @@ final class SetFiltersDateViewModel: ObservableObject {
         default:
             return .default
         }
-    }
-    
-    private func showFiltersDaysView() {
-        router.showFiltersDaysView(
-            title: quickOption.title,
-            days: numberOfDays,
-            onApply: { [weak self] value in
-                self?.numberOfDays = value
-            }
-        )
     }
 }

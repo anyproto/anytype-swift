@@ -51,7 +51,6 @@ protocol EditorSetRouterProtocol:
         onSelect: @escaping (Bool, BlockBackgroundColor?) -> Void
     )
     
-    func showFiltersDaysView(title: String, days: Int, onApply: @escaping (Int) -> Void)
     func showFilterConditions(filter: SetFilter, onSelect: @escaping (DataviewFilter.Condition) -> Void)
     
     func showSettings()
@@ -95,6 +94,7 @@ final class EditorSetRouter: EditorSetRouterProtocol {
     private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
     private let setViewSettingsCoordinatorAssembly: SetViewSettingsCoordinatorAssemblyProtocol
     private let setSortsListCoordinatorAssembly: SetSortsListCoordinatorAssemblyProtocol
+    private let setFiltersDateCoordinatorAssembly: SetFiltersDateCoordinatorAssemblyProtocol
     private let toastPresenter: ToastPresenterProtocol
     private let alertHelper: AlertHelper
     private let templateSelectionCoordinator: TemplateSelectionCoordinatorProtocol
@@ -118,6 +118,7 @@ final class EditorSetRouter: EditorSetRouterProtocol {
         objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
         setViewSettingsCoordinatorAssembly: SetViewSettingsCoordinatorAssemblyProtocol,
         setSortsListCoordinatorAssembly: SetSortsListCoordinatorAssemblyProtocol,
+        setFiltersDateCoordinatorAssembly: SetFiltersDateCoordinatorAssemblyProtocol,
         toastPresenter: ToastPresenterProtocol,
         alertHelper: AlertHelper,
         templateSelectionCoordinator: TemplateSelectionCoordinatorProtocol
@@ -136,6 +137,7 @@ final class EditorSetRouter: EditorSetRouterProtocol {
         self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
         self.setViewSettingsCoordinatorAssembly = setViewSettingsCoordinatorAssembly
         self.setSortsListCoordinatorAssembly = setSortsListCoordinatorAssembly
+        self.setFiltersDateCoordinatorAssembly = setFiltersDateCoordinatorAssembly
         self.toastPresenter = toastPresenter
         self.alertHelper = alertHelper
         self.templateSelectionCoordinator = templateSelectionCoordinator
@@ -294,6 +296,7 @@ final class EditorSetRouter: EditorSetRouterProtocol {
         presentSheet(vc)
     }
     
+    @MainActor
     func showFilterSearch(
         filter: SetFilter,
         onApply: @escaping (SetFilter) -> Void
@@ -301,6 +304,7 @@ final class EditorSetRouter: EditorSetRouterProtocol {
         let viewModel = SetFiltersSelectionViewModel(
             filter: filter,
             router: self,
+            setFiltersDateCoordinatorAssembly: setFiltersDateCoordinatorAssembly,
             newSearchModuleAssembly: newSearchModuleAssembly,
             onApply: { [weak self] filter in
                 onApply(filter)
@@ -378,19 +382,6 @@ final class EditorSetRouter: EditorSetRouterProtocol {
                 dismissOnBackdropView: true
             )
         )
-        navigationContext.present(popup)
-    }
-    
-    func showFiltersDaysView(title: String, days: Int, onApply: @escaping (Int) -> Void) {
-        let viewModel =  SetFiltersDaysViewModel(
-            title: title,
-            value: "\(days)",
-            onValueChanged: { value in
-                let result = Int(Double(value) ?? 0)
-                onApply(result)
-            }
-        )
-        let popup = AnytypePopup(viewModel: viewModel)
         navigationContext.present(popup)
     }
     

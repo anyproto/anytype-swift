@@ -7,15 +7,21 @@ import SwiftUI
 final class SetFiltersContentViewBuilder {
     let filter: SetFilter
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
+    private let setFiltersDateCoordinatorAssembly: SetFiltersDateCoordinatorAssemblyProtocol
     
-    init(filter: SetFilter, newSearchModuleAssembly: NewSearchModuleAssemblyProtocol) {
+    init(
+        filter: SetFilter,
+        setFiltersDateCoordinatorAssembly: SetFiltersDateCoordinatorAssemblyProtocol,
+        newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
+    ) {
         self.filter = filter
+        self.setFiltersDateCoordinatorAssembly = setFiltersDateCoordinatorAssembly
         self.newSearchModuleAssembly = newSearchModuleAssembly
     }
     
+    @MainActor
     @ViewBuilder
     func buildContentView(
-        router: EditorSetRouterProtocol,
         setSelectionModel: SetFiltersSelectionViewModel,
         onSelect: @escaping (_ ids: [String]) -> Void,
         onApplyText: @escaping (_ text: String) -> Void,
@@ -31,7 +37,7 @@ final class SetFiltersContentViewBuilder {
         case .checkbox:
             buildCheckboxView(onApplyCheckbox: onApplyCheckbox)
         case .date:
-            buildDateView(router: router, setSelectionModel: setSelectionModel, onApplyDate: onApplyDate)
+            buildDateView(setSelectionModel: setSelectionModel, onApplyDate: onApplyDate)
         }
     }
     
@@ -139,19 +145,12 @@ final class SetFiltersContentViewBuilder {
     
     // MARK: - Private methods: Date
     
+    @MainActor
     func buildDateView(
-        router: EditorSetRouterProtocol,
         setSelectionModel: SetFiltersSelectionViewModel,
         onApplyDate: @escaping (SetFiltersDate) -> Void
     ) -> some View {
-        SetFiltersDateView(
-            viewModel: SetFiltersDateViewModel(
-                filter: filter,
-                router: router,
-                setSelectionModel: setSelectionModel,
-                onApplyDate: onApplyDate
-            )
-        )
+        setFiltersDateCoordinatorAssembly.make(filter: filter)
     }
     
     // MARK: - Helper methods

@@ -3,6 +3,7 @@ import Services
 import Combine
 import SwiftProtobuf
 
+@MainActor
 final class SetFiltersSelectionViewModel: ObservableObject {
     @Published var state: SetFiltersSelectionViewState {
         didSet {
@@ -33,6 +34,7 @@ final class SetFiltersSelectionViewModel: ObservableObject {
     init(
         filter: SetFilter,
         router: EditorSetRouterProtocol,
+        setFiltersDateCoordinatorAssembly: SetFiltersDateCoordinatorAssemblyProtocol,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
         onApply: @escaping (SetFilter) -> Void
     ) {
@@ -41,6 +43,7 @@ final class SetFiltersSelectionViewModel: ObservableObject {
         self.condition = filter.filter.condition
         self.contentViewBuilder = SetFiltersContentViewBuilder(
             filter: filter,
+            setFiltersDateCoordinatorAssembly: setFiltersDateCoordinatorAssembly,
             newSearchModuleAssembly: newSearchModuleAssembly
         )
         self.contentHandler = SetFiltersContentHandler(filter: filter, onApply: onApply)
@@ -54,7 +57,6 @@ final class SetFiltersSelectionViewModel: ObservableObject {
     @ViewBuilder
     func makeContentView() -> some View {
         contentViewBuilder.buildContentView(
-            router: router,
             setSelectionModel: self,
             onSelect: { [contentHandler] ids in
                 contentHandler.handleSelectedIds(ids)

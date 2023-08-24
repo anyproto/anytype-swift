@@ -171,4 +171,12 @@ final class ModulesDI: ModulesDIProtocol {
     func setSortTypesList() -> SetSortTypesListModuleAssemblyProtocol {
         SetSortTypesListModuleAssembly()
     }
+    
+    func setTextView() -> SetTextViewModuleAssemblyProtocol {
+        SetTextViewModuleAssembly()
+    }
+    
+    func setFiltersDateView() -> SetFiltersDateViewModuleAssemblyProtocol {
+        SetFiltersDateViewModuleAssembly()
+    }
 }
