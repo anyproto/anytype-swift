@@ -17,6 +17,5 @@ public enum ObjectTypeUniqueKey: String, Codable {
 
     {% call enumList "ot-" "" %}
 
-    {% call enumList "_ot" "marketplace" %}
 }
 {% endif %}

@@ -67,8 +67,8 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
         return result
     }
     
-    func objectType(recommendedLayout: DetailsLayout) throws -> ObjectType {
-        let result = objectTypes.filter { $0.recommendedLayout == recommendedLayout }
+    func objectType(recommendedLayout: DetailsLayout, spaceId: String) throws -> ObjectType {
+        let result = objectTypes.filter { $0.recommendedLayout == recommendedLayout && $0.spaceId == spaceId }
         if result.count > 1 {
             anytypeAssertionFailure("Multiple types contains recommendedLayout", info: ["recommendedLayout": "\(recommendedLayout.rawValue)"])
         }
@@ -79,8 +79,8 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
         return first
     }
     
-    func objectType(uniqueKey: ObjectTypeUniqueKey) throws -> ObjectType {
-        let result = objectTypes.filter { $0.uniqueKey == uniqueKey }
+    func objectType(uniqueKey: ObjectTypeUniqueKey, spaceId: String) throws -> ObjectType {
+        let result = objectTypes.filter { $0.uniqueKey == uniqueKey && $0.spaceId == spaceId }
         if result.count > 1 {
             anytypeAssertionFailure("Multiple types contains uniqueKey", info: ["uniqueKey": "\(uniqueKey.rawValue)"])
         }

@@ -36,7 +36,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     // MARK: - Service proxy
 
     func turnIntoPage(blockId: BlockId) async throws -> BlockId? {
-        try await service.turnIntoPage(blockId: blockId)
+        try await service.turnIntoPage(blockId: blockId, spaceId: document.spaceId)
     }
     
     func turnInto(_ style: BlockText.Style, blockId: BlockId) {

@@ -6,9 +6,11 @@ protocol SetTemplatesInteractorProtocol {
 
 final class SetTemplatesInteractor: SetTemplatesInteractorProtocol {
     private let templatesService: TemplatesServiceProtocol
+    private let objectTypeProvider: ObjectTypeProviderProtocol
     
-    init(templatesService: TemplatesServiceProtocol) {
+    init(templatesService: TemplatesServiceProtocol, objectTypeProvider: ObjectTypeProviderProtocol) {
         self.templatesService = templatesService
+        self.objectTypeProvider = objectTypeProvider
     }
     
     func isTemplatesAvailableFor(setDocument: SetDocumentProtocol, setObject: ObjectDetails) async throws -> Bool {
@@ -17,7 +19,7 @@ final class SetTemplatesInteractor: SetTemplatesInteractorProtocol {
         }
         
         if setDocument.isCollection() {
-            return UserDefaultsConfig.defaultObjectType.recommendedLayout.isTemplatesAvailable
+            return objectTypeProvider.defaultObjectType(spaceId: setDocument.spaceId)?.recommendedLayout?.isTemplatesAvailable ?? false
         }
         
         guard setObject.setOf.count == 1,

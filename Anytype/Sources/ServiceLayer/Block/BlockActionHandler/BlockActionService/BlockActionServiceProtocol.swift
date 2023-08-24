@@ -7,7 +7,7 @@ protocol BlockActionServiceProtocol {
 
     func upload(blockId: BlockId, filePath: String) async throws
     func turnInto(_ style: BlockText.Style, blockId: BlockId)
-    func turnIntoPage(blockId: BlockId) async throws -> BlockId?
+    func turnIntoPage(blockId: BlockId, spaceId: String) async throws -> BlockId?
     func add(info: BlockInformation, targetBlockId: BlockId, position: BlockPosition, setFocus: Bool)
     func addChild(info: BlockInformation, parentId: BlockId)
     func delete(blockIds: [BlockId])

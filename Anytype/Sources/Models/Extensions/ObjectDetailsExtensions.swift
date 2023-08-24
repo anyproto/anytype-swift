@@ -147,7 +147,7 @@ extension BundledRelationsValueProvider {
     }
     
     var isTemplateType: Bool {
-        type == ObjectTypeId.BundledTypeId.template.rawValue
+        objectType.uniqueKey == .objectType
     }
     
     var setIsTemplatesAvailable: Bool {

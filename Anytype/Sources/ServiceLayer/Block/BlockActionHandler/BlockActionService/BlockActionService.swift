@@ -105,8 +105,8 @@ final class BlockActionService: BlockActionServiceProtocol {
         }
     }
     
-    func turnIntoPage(blockId: BlockId) async throws -> BlockId? {
-        let pageType = try objectTypeProvider.objectType(uniqueKey: .page)
+    func turnIntoPage(blockId: BlockId, spaceId: String) async throws -> BlockId? {
+        let pageType = try objectTypeProvider.objectType(uniqueKey: .page, spaceId: spaceId)
         return try await objectActionService.convertChildrenToPages(
             contextID: documentId,
             blocksIds: [blockId],

@@ -9,7 +9,7 @@ final class ServiceLocator {
 
     let textService = TextService()
     let templatesService = TemplatesService()
-    lazy private(set) var setTemplatesInteractor = SetTemplatesInteractor(templatesService: templatesService)
+    lazy private(set) var setTemplatesInteractor = SetTemplatesInteractor(templatesService: templatesService, objectTypeProvider: objectTypeProvider())
     
     // MARK: - Services
     

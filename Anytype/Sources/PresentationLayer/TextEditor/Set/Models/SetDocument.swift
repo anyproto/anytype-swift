@@ -136,7 +136,7 @@ class SetDocument: SetDocumentProtocol {
     
     func isBookmarksSet() -> Bool {
         guard let details,
-              let bookmarkType = (try? objectTypeProvider.objectType(recommendedLayout: .bookmark)) else { return false }
+              let bookmarkType = (try? objectTypeProvider.objectType(recommendedLayout: .bookmark, spaceId: document.spaceId)) else { return false }
         return details.setOf.contains(bookmarkType.id)
     }
     
