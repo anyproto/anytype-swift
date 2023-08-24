@@ -24,7 +24,6 @@ struct FitPresentationDetentsViewModifier: ViewModifier {
              content.readSize { size in
                  height = size.height
              }
-             .frame(height: height)
              Spacer(minLength: 0)
          }
          .presentationDetents([.height(height)])
@@ -44,8 +43,8 @@ struct MediumPresentationDetentsViewModifier: ViewModifier {
          if #available(iOS 16.4, *) {
              content
                  .presentationDetents([.medium, .large])
-                 .presentationCornerRadius(16)
                  .presentationDragIndicator(.hidden)
+                 .presentationCornerRadius(16)
          } else if #available(iOS 16.0, *) {
              content
                  .presentationDetents([.medium, .large])
