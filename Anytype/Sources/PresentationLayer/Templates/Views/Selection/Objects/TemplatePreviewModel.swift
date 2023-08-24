@@ -55,11 +55,24 @@ extension TemplatePreviewModel: IdProvider {
     var id: BlockId {
         switch mode {
         case .blank:
-            return "Blank"
+            return ""
         case .addTemplate:
             return "Add template"
         case let .installed(model):
             return model.id
+        }
+    }
+}
+
+extension TemplatePreviewModel {
+    var contextualMenuOptions: [TemplateOptionAction] {
+        switch mode {
+        case .addTemplate:
+            return []
+        case .installed:
+            return TemplateOptionAction.allCases
+        case .blank:
+            return [.setAsDefault]
         }
     }
 }

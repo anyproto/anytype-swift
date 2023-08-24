@@ -21,9 +21,17 @@ extension View {
         }
     }
     
-    public func presentationBackgroundLegacy<S>(_ style: S) -> some View where S : ShapeStyle {
+    func presentationBackgroundLegacy<S>(_ style: S) -> some View where S : ShapeStyle {
         if #available(iOS 16.4, *) {
             return self.presentationBackground(style)
+       } else {
+            return self
+        }
+    }
+
+    func bounceBehaviorBasedOnSize() -> some View {
+        if #available(iOS 16.4, *) {
+            return self.scrollBounceBehavior(.basedOnSize)
         } else {
             return self
         }

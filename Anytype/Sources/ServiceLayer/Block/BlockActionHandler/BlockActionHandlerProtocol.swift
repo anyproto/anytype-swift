@@ -59,7 +59,7 @@ protocol BlockActionHandlerProtocol: AnyObject {
         rowsCount: Int,
         columnsCount: Int,
         blockText: NSAttributedString?
-    )
+    ) async throws -> BlockId
 }
 
 extension BlockActionHandlerProtocol {

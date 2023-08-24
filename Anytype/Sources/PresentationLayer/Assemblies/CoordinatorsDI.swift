@@ -109,4 +109,8 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     func legacyAuthViewAssembly() -> LegacyAuthViewAssembly {
         return LegacyAuthViewAssembly(serviceLocator: serviceLocator)
     }
+    
+    func setViewSettings() -> SetViewSettingsCoordinatorAssemblyProtocol {
+        return SetViewSettingsCoordinatorAssembly(modulesDI: modulesDI)
+    }
 }

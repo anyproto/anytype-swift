@@ -37,10 +37,14 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum {
   /// DEPRECATED
   case bundledRelation // = 512
   case subObject // = 513
+
+  /// DEPRECATED
   case bundledObjectType // = 514
   case anytypeProfile // = 515
   case date // = 516
   case workspace // = 518
+  case strelation // = 521
+  case sttype // = 528
   case missingObject // = 519
   case UNRECOGNIZED(Int)
 
@@ -66,6 +70,8 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum {
     case 516: self = .date
     case 518: self = .workspace
     case 519: self = .missingObject
+    case 521: self = .strelation
+    case 528: self = .sttype
     default: self = .UNRECOGNIZED(rawValue)
     }
   }
@@ -88,6 +94,8 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum {
     case .date: return 516
     case .workspace: return 518
     case .missingObject: return 519
+    case .strelation: return 521
+    case .sttype: return 528
     case .UNRECOGNIZED(let i): return i
     }
   }
@@ -114,6 +122,8 @@ extension Anytype_Model_SmartBlockType: CaseIterable {
     .anytypeProfile,
     .date,
     .workspace,
+    .strelation,
+    .sttype,
     .missingObject,
   ]
 }
@@ -279,6 +289,9 @@ public struct Anytype_Model_SmartBlockSnapshotBase {
   public var removedCollectionKeys: [String] = []
 
   public var relationLinks: [Anytype_Model_RelationLink] = []
+
+  /// this field is not passing to the crdt changes and can be only set in the snapshot
+  public var key: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -3038,6 +3051,8 @@ public struct Anytype_Model_Object {
 
     public var smartBlockType: Anytype_Model_SmartBlockType = .accountOld
 
+    public var key: String = String()
+
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public init() {}
@@ -3078,6 +3093,9 @@ public struct Anytype_Model_ObjectType {
 
   public var installedByDefault: Bool = false
 
+  /// name of objectType (can be localized for bundled types)
+  public var key: String = String()
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public enum Layout: SwiftProtobuf.Enum {
@@ -3097,6 +3115,9 @@ public struct Anytype_Model_ObjectType {
     case relationOptionsList // = 12
     case relationOption // = 13
     case collection // = 14
+    case audio // = 15
+    case video // = 16
+    case date // = 17
 
     /// to be released later
     case database // = 20
@@ -3123,6 +3144,9 @@ public struct Anytype_Model_ObjectType {
       case 12: self = .relationOptionsList
       case 13: self = .relationOption
       case 14: self = .collection
+      case 15: self = .audio
+      case 16: self = .video
+      case 17: self = .date
       case 20: self = .database
       default: self = .UNRECOGNIZED(rawValue)
       }
@@ -3145,6 +3169,9 @@ public struct Anytype_Model_ObjectType {
       case .relationOptionsList: return 12
       case .relationOption: return 13
       case .collection: return 14
+      case .audio: return 15
+      case .video: return 16
+      case .date: return 17
       case .database: return 20
       case .UNRECOGNIZED(let i): return i
       }
@@ -3175,6 +3202,9 @@ extension Anytype_Model_ObjectType.Layout: CaseIterable {
     .relationOptionsList,
     .relationOption,
     .collection,
+    .audio,
+    .video,
+    .date,
     .database,
   ]
 }
@@ -3757,6 +3787,8 @@ extension Anytype_Model_SmartBlockType: SwiftProtobuf._ProtoNameProviding {
     516: .same(proto: "Date"),
     518: .same(proto: "Workspace"),
     519: .same(proto: "MissingObject"),
+    521: .same(proto: "STRelation"),
+    528: .same(proto: "STType"),
   ]
 }
 
@@ -3790,6 +3822,7 @@ extension Anytype_Model_SmartBlockSnapshotBase: SwiftProtobuf.Message, SwiftProt
     6: .same(proto: "collections"),
     8: .same(proto: "removedCollectionKeys"),
     7: .same(proto: "relationLinks"),
+    9: .same(proto: "key"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -3806,6 +3839,7 @@ extension Anytype_Model_SmartBlockSnapshotBase: SwiftProtobuf.Message, SwiftProt
       case 6: try { try decoder.decodeSingularMessageField(value: &self._collections) }()
       case 7: try { try decoder.decodeRepeatedMessageField(value: &self.relationLinks) }()
       case 8: try { try decoder.decodeRepeatedStringField(value: &self.removedCollectionKeys) }()
+      case 9: try { try decoder.decodeSingularStringField(value: &self.key) }()
       default: break
       }
     }
@@ -3840,6 +3874,9 @@ extension Anytype_Model_SmartBlockSnapshotBase: SwiftProtobuf.Message, SwiftProt
     if !self.removedCollectionKeys.isEmpty {
       try visitor.visitRepeatedStringField(value: self.removedCollectionKeys, fieldNumber: 8)
     }
+    if !self.key.isEmpty {
+      try visitor.visitSingularStringField(value: self.key, fieldNumber: 9)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -3852,6 +3889,7 @@ extension Anytype_Model_SmartBlockSnapshotBase: SwiftProtobuf.Message, SwiftProt
     if lhs._collections != rhs._collections {return false}
     if lhs.removedCollectionKeys != rhs.removedCollectionKeys {return false}
     if lhs.relationLinks != rhs.relationLinks {return false}
+    if lhs.key != rhs.key {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -6727,6 +6765,7 @@ extension Anytype_Model_Object.ChangePayload: SwiftProtobuf.Message, SwiftProtob
   public static let protoMessageName: String = Anytype_Model_Object.protoMessageName + ".ChangePayload"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "smartBlockType"),
+    2: .same(proto: "key"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -6736,6 +6775,7 @@ extension Anytype_Model_Object.ChangePayload: SwiftProtobuf.Message, SwiftProtob
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularEnumField(value: &self.smartBlockType) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.key) }()
       default: break
       }
     }
@@ -6745,11 +6785,15 @@ extension Anytype_Model_Object.ChangePayload: SwiftProtobuf.Message, SwiftProtob
     if self.smartBlockType != .accountOld {
       try visitor.visitSingularEnumField(value: self.smartBlockType, fieldNumber: 1)
     }
+    if !self.key.isEmpty {
+      try visitor.visitSingularStringField(value: self.key, fieldNumber: 2)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Model_Object.ChangePayload, rhs: Anytype_Model_Object.ChangePayload) -> Bool {
     if lhs.smartBlockType != rhs.smartBlockType {return false}
+    if lhs.key != rhs.key {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -6769,6 +6813,7 @@ extension Anytype_Model_ObjectType: SwiftProtobuf.Message, SwiftProtobuf._Messag
     8: .same(proto: "types"),
     9: .same(proto: "isArchived"),
     11: .same(proto: "installedByDefault"),
+    12: .same(proto: "key"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -6788,6 +6833,7 @@ extension Anytype_Model_ObjectType: SwiftProtobuf.Message, SwiftProtobuf._Messag
       case 9: try { try decoder.decodeSingularBoolField(value: &self.isArchived) }()
       case 10: try { try decoder.decodeSingularBoolField(value: &self.readonly) }()
       case 11: try { try decoder.decodeSingularBoolField(value: &self.installedByDefault) }()
+      case 12: try { try decoder.decodeSingularStringField(value: &self.key) }()
       default: break
       }
     }
@@ -6827,6 +6873,9 @@ extension Anytype_Model_ObjectType: SwiftProtobuf.Message, SwiftProtobuf._Messag
     if self.installedByDefault != false {
       try visitor.visitSingularBoolField(value: self.installedByDefault, fieldNumber: 11)
     }
+    if !self.key.isEmpty {
+      try visitor.visitSingularStringField(value: self.key, fieldNumber: 12)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -6842,6 +6891,7 @@ extension Anytype_Model_ObjectType: SwiftProtobuf.Message, SwiftProtobuf._Messag
     if lhs.types != rhs.types {return false}
     if lhs.isArchived != rhs.isArchived {return false}
     if lhs.installedByDefault != rhs.installedByDefault {return false}
+    if lhs.key != rhs.key {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -6864,6 +6914,9 @@ extension Anytype_Model_ObjectType.Layout: SwiftProtobuf._ProtoNameProviding {
     12: .same(proto: "relationOptionsList"),
     13: .same(proto: "relationOption"),
     14: .same(proto: "collection"),
+    15: .same(proto: "audio"),
+    16: .same(proto: "video"),
+    17: .same(proto: "date"),
     20: .same(proto: "database"),
   ]
 }

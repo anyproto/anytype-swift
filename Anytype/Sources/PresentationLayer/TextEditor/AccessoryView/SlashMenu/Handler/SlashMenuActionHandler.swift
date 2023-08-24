@@ -8,18 +8,21 @@ final class SlashMenuActionHandler {
     private let router: EditorRouterProtocol
     private let document: BaseDocumentProtocol
     private let pasteboardService: PasteboardServiceProtocol
+    private let cursorManager: EditorCursorManager
     private weak var textView: UITextView?
     
     init(
         document: BaseDocumentProtocol,
         actionHandler: BlockActionHandlerProtocol,
         router: EditorRouterProtocol,
-        pasteboardService: PasteboardServiceProtocol
+        pasteboardService: PasteboardServiceProtocol,
+        cursorManager: EditorCursorManager
     ) {
         self.document = document
         self.actionHandler = actionHandler
         self.router = router
         self.pasteboardService = pasteboardService
+        self.cursorManager = cursorManager
     }
     
     func handle(_ action: SlashAction, textView: UITextView?, blockId: BlockId, selectedRange: NSRange) {
@@ -62,7 +65,17 @@ final class SlashMenuActionHandler {
         case let .other(other):
             switch other {
             case .table(let rowsCount, let columnsCount):
-                actionHandler.createTable(blockId: blockId, rowsCount: rowsCount, columnsCount: columnsCount, blockText: textView?.attributedText)
+                Task { @MainActor [textView] in
+                    guard let blockId = try? await actionHandler.createTable(
+                        blockId: blockId,
+                        rowsCount: rowsCount,
+                        columnsCount: columnsCount,
+                        blockText: textView?.attributedText
+                    ) else { return }
+                    
+                    cursorManager.blockFocus = .init(id: blockId, position: .beginning)
+                }
+                
             default:
                 actionHandler.addBlock(other.blockViewsType, blockId: blockId, blockText: textView?.attributedText)
             }

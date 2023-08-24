@@ -35,16 +35,18 @@ public struct Invocation<Request, Response> where Request: Message,
         
         let result: Response
         
+        log(message: messageName, data: request)
+        
         do {
             result = try await Task {
                 try invokeTask(request)
             }.value
         } catch {
-            log(message: messageName, rquest: request, response: nil, error: error)
+            log(message: messageName, data: nil, error: error)
             throw error
         }
         
-        log(message: messageName, rquest: request, response: result, error: result.error.isNull ? nil : result.error)
+        log(message: messageName, data: result, error: result.error.isNull ? nil : result.error)
         
         if !result.error.isNull {
             throw result.error
@@ -59,20 +61,30 @@ public struct Invocation<Request, Response> where Request: Message,
         return result
     }
     
-    private func log(message: String, rquest: Request, response: Response?, error: Error?) {
+    private func log(message: String, data: Request?) {
+        let message = InvocationMessage(
+            name: "\(message)-Request",
+            requestJsonData: nil,
+            responseJsonData: try? data?.jsonUTF8Data(),
+            responseError: nil
+        )
+        InvocationSettings.handler?.logHandler(message: message)
+    }
+    
+    private func log(message: String, data: Response?, error: Error?) {
         
         let name: String
-        if let response, !response.event.messages.isEmpty {
-            let messageNames = (try? response.event.jsonUTF8Data())?.parseMessages() ?? ""
+        if let data, !data.event.messages.isEmpty {
+            let messageNames = (try? data.event.jsonUTF8Data())?.parseMessages() ?? ""
             name = "\(message),Events:\(messageNames)"
         } else {
             name = message
         }
         
         let message = InvocationMessage(
-            name: name,
-            requestJsonData: try? request.jsonUTF8Data(),
-            responseJsonData: try? response?.jsonUTF8Data(),
+            name: "\(name)-Response",
+            requestJsonData: nil,
+            responseJsonData: try? data?.jsonUTF8Data(),
             responseError: error
         )
         InvocationSettings.handler?.logHandler(message: message)

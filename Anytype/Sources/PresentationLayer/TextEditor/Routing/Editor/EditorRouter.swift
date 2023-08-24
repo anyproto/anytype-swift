@@ -28,6 +28,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     private let textIconPickerModuleAssembly: TextIconPickerModuleAssemblyProtocol
     private let alertHelper: AlertHelper
     private let pageService: PageServiceProtocol
+    private let templateService: TemplatesServiceProtocol
     
     init(
         rootController: EditorBrowserController?,
@@ -50,7 +51,8 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
         textIconPickerModuleAssembly: TextIconPickerModuleAssemblyProtocol,
         alertHelper: AlertHelper,
-        pageService: PageServiceProtocol
+        pageService: PageServiceProtocol,
+        templateService: TemplatesServiceProtocol
     ) {
         self.rootController = rootController
         self.viewController = viewController
@@ -74,6 +76,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         self.textIconPickerModuleAssembly = textIconPickerModuleAssembly
         self.alertHelper = alertHelper
         self.pageService = pageService
+        self.templateService = templateService
     }
 
     func showPage(objectId: String) {
@@ -537,7 +540,7 @@ extension EditorRouter: ObjectSettingsModuleDelegate {
         templateSelectionCoordinator.showTemplateEditing(blockId: templateId, spaceId: document.spaceId) { [weak self] templateSelection in
             Task { @MainActor [weak self] in
                 do {
-                    guard let type = document.details?.type,
+                    guard let type = self?.document.details?.type,
                           let objectDetails = try await self?.pageService.createPage(
                             name: "",
                             type: type,
@@ -555,7 +558,15 @@ extension EditorRouter: ObjectSettingsModuleDelegate {
                     print(error.localizedDescription)
                 }
             }
+        } onSetAsDefaultTempalte: { [weak self] templateId in
+            Task { [weak self] in
+                try? await self?.templateService.setTemplateAsDefaultForType(templateId: templateId)
+            }
         }
+    }
+    
+    func didTapUseTemplateAsDefault(templateId: BlockId) {
+        anytypeAssertionFailure("Invalid delegate method handler")
     }
 }
 

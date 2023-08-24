@@ -23,6 +23,7 @@ final class ObjectActionsViewModel: ObservableObject {
 
     var onLinkItselfAction: RoutingAction<(BlockId) -> Void>?
     var onNewTemplateCreation: RoutingAction<BlockId>?
+    var onTemplateMakeDefault: RoutingAction<BlockId>?
     var dismissSheet: () -> () = {}
 
     let undoRedoAction: () -> ()
@@ -129,5 +130,11 @@ final class ObjectActionsViewModel: ObservableObject {
             let templateId = try await templatesService.createTemplateFromObject(objectId: details.id)
             onNewTemplateCreation?(templateId)
         }
+    }
+    
+    func makeTemplateAsDefault() {
+        guard let details = details else { return }
+        
+        onTemplateMakeDefault?(details.id)
     }
 }

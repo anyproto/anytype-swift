@@ -9,15 +9,15 @@ final class AnytypeImageDownloader {
     static func retrieveImage(
         with url: URL,
         options: KingfisherOptionsInfo? = nil,
-        completionHandler: @escaping (UIImage?) -> Void)
+        completionHandler: @escaping (UIImage?, Data?) -> Void)
     {
         KingfisherManager.shared.retrieveImage(with: url, options: options) { result in
             switch result {
             case .success(let imageResult):
-                completionHandler(imageResult.image)
+                completionHandler(imageResult.image, imageResult.data())
             case .failure(let error):
                 anytypeAssertionFailure(error.localizedDescription)
-                completionHandler(nil)
+                completionHandler(nil, nil)
             }
         }
     }
@@ -39,12 +39,12 @@ extension AnytypeImageDownloader {
         imageId: String,
         width: CGFloat,
         options: KingfisherOptionsInfo? = nil,
-        completionHandler: @escaping (UIImage?) -> Void)
+        completionHandler: @escaping (UIImage?, Data?) -> Void)
     {
         let imageMetadata = ImageMetadata(id: imageId, width: .width(width))
         guard let url = imageMetadata.contentUrl else {
             anytypeAssertionFailure("Url is nil")
-            completionHandler(nil)
+            completionHandler(nil, nil)
             return
         }
         AnytypeImageDownloader.retrieveImage(with: url, completionHandler: completionHandler)

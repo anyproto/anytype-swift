@@ -40,4 +40,5 @@ protocol ModulesDIProtocol: AnyObject {
     func templatesAssembly() -> TemplateModulesAssembly
     func spaceSettings() -> SpaceSettingsModuleAssemblyProtocol
     func remoteStorage() -> RemoteStorageModuleAssemblyProtocol
+    func setViewSettingsList() -> SetViewSettingsListModuleAssemblyProtocol
 }
