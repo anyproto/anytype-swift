@@ -1,5 +1,6 @@
 import Foundation
 
+// TODO: Delete it
 public enum ObjectTypeId: RawRepresentable {
     public init?(rawValue: String) {
         self = .dynamic(rawValue)

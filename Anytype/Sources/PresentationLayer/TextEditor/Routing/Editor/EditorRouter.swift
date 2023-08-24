@@ -537,10 +537,11 @@ extension EditorRouter: ObjectSettingsModuleDelegate {
         templateSelectionCoordinator.showTemplateEditing(blockId: templateId, spaceId: document.spaceId) { [weak self] templateSelection in
             Task { @MainActor [weak self] in
                 do {
-                    guard let type = self?.document.details?.type,
+                    guard let document = self?.document,
+                          let type = self?.document.details?.objectType,
                           let objectDetails = try await self?.pageService.createPage(
                             name: "",
-                            type: type,
+                            typeUniqueKey: type.uniqueKey,
                             shouldDeleteEmptyObject: true,
                             shouldSelectType: false,
                             shouldSelectTemplate: false,

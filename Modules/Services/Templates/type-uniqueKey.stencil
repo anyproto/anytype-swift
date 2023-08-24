@@ -4,16 +4,16 @@
 {% for file in files %}
   {% for value in file.document.data %}
     {% if prefixVar.count == 0 %}
-    case {{value}} = "{{prefixType}}{{value}}"
+    static let {{value}} = ObjectTypeUniqueKey(value: "{{prefixType}}{{value}}")
     {% else %}
-    case {{prefixVar}}{{value|upperFirstLetter}} = "{{prefixType}}{{value}}"
+    static let {{prefixVar}}{{value|upperFirstLetter}} = ObjectTypeUniqueKey(value: "{{prefixType}}{{value}}")
     {% endif %}
   {% endfor %}
 {% endfor %}
 {% endmacro %}
 
 {% if files %}
-public enum ObjectTypeUniqueKey: String, Codable {
+public extension ObjectTypeUniqueKey {
 
     {% call enumList "ot-" "" %}
 

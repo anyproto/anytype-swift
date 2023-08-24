@@ -243,7 +243,7 @@ final class BlockViewModelBuilder {
                         selectedObjectId: self.document.details?.type,
                         onSelect: { [weak self] type in
                             Task { [weak self] in
-                                try await self?.handler.setObjectTypeId(type.id)
+                                try await self?.handler.setObjectType(type: type)
                             }
                         }
                     )

@@ -22,4 +22,4 @@ json:
   - inputs: Dependencies/Middleware/json/systemTypes.json
     outputs:
       templatePath: ./Templates/type-uniqueKey.stencil
-      output: ./Sources/Models/Relations/Provider/Bundled/Generated/ObjectTypeUniqueKey.swift
+      output: ./Sources/Models/Relations/Provider/Bundled/Generated/ObjectTypeUniqueKey+Bundled.swift

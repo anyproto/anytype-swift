@@ -3453,6 +3453,8 @@ public struct Anytype_Rpc {
 
         public var spaceID: String = String()
 
+        public var objectTypeUniqueKey: String = String()
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public init() {}
@@ -5944,7 +5946,7 @@ public struct Anytype_Rpc {
 
         public var contextID: String = String()
 
-        public var objectTypeURL: String = String()
+        public var objectTypeUniqueKey: String = String()
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -7079,7 +7081,7 @@ public struct Anytype_Rpc {
 
         public var objectIds: [String] = []
 
-        public var objectTypeID: String = String()
+        public var objectTypeUniqueKey: String = String()
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -10913,8 +10915,7 @@ public struct Anytype_Rpc {
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
-        /// id of desired object type
-        public var objectType: String = String()
+        public var objectTypeUniqueKey: String = String()
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -13617,7 +13618,7 @@ public struct Anytype_Rpc {
 
         public var blockIds: [String] = []
 
-        public var objectType: String = String()
+        public var objectTypeUniqueKey: String = String()
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -17820,6 +17821,8 @@ public struct Anytype_Rpc {
         public var internalFlags: [Anytype_Model_InternalFlag] = []
 
         public var spaceID: String = String()
+
+        public var objectTypeUniqueKey: String = String()
 
         /// link block params
         public var targetID: String = String()
@@ -31108,6 +31111,7 @@ extension Anytype_Rpc.Object.Create.Request: SwiftProtobuf.Message, SwiftProtobu
     2: .same(proto: "internalFlags"),
     3: .same(proto: "templateId"),
     4: .same(proto: "spaceId"),
+    5: .same(proto: "objectTypeUniqueKey"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -31120,6 +31124,7 @@ extension Anytype_Rpc.Object.Create.Request: SwiftProtobuf.Message, SwiftProtobu
       case 2: try { try decoder.decodeRepeatedMessageField(value: &self.internalFlags) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self.templateID) }()
       case 4: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.objectTypeUniqueKey) }()
       default: break
       }
     }
@@ -31142,6 +31147,9 @@ extension Anytype_Rpc.Object.Create.Request: SwiftProtobuf.Message, SwiftProtobu
     if !self.spaceID.isEmpty {
       try visitor.visitSingularStringField(value: self.spaceID, fieldNumber: 4)
     }
+    if !self.objectTypeUniqueKey.isEmpty {
+      try visitor.visitSingularStringField(value: self.objectTypeUniqueKey, fieldNumber: 5)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -31150,6 +31158,7 @@ extension Anytype_Rpc.Object.Create.Request: SwiftProtobuf.Message, SwiftProtobu
     if lhs.internalFlags != rhs.internalFlags {return false}
     if lhs.templateID != rhs.templateID {return false}
     if lhs.spaceID != rhs.spaceID {return false}
+    if lhs.objectTypeUniqueKey != rhs.objectTypeUniqueKey {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -34811,7 +34820,7 @@ extension Anytype_Rpc.Object.SetObjectType.Request: SwiftProtobuf.Message, Swift
   public static let protoMessageName: String = Anytype_Rpc.Object.SetObjectType.protoMessageName + ".Request"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "contextId"),
-    3: .same(proto: "objectTypeUrl"),
+    3: .same(proto: "objectTypeUniqueKey"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -34821,7 +34830,7 @@ extension Anytype_Rpc.Object.SetObjectType.Request: SwiftProtobuf.Message, Swift
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.contextID) }()
-      case 3: try { try decoder.decodeSingularStringField(value: &self.objectTypeURL) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.objectTypeUniqueKey) }()
       default: break
       }
     }
@@ -34831,15 +34840,15 @@ extension Anytype_Rpc.Object.SetObjectType.Request: SwiftProtobuf.Message, Swift
     if !self.contextID.isEmpty {
       try visitor.visitSingularStringField(value: self.contextID, fieldNumber: 1)
     }
-    if !self.objectTypeURL.isEmpty {
-      try visitor.visitSingularStringField(value: self.objectTypeURL, fieldNumber: 3)
+    if !self.objectTypeUniqueKey.isEmpty {
+      try visitor.visitSingularStringField(value: self.objectTypeUniqueKey, fieldNumber: 3)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Object.SetObjectType.Request, rhs: Anytype_Rpc.Object.SetObjectType.Request) -> Bool {
     if lhs.contextID != rhs.contextID {return false}
-    if lhs.objectTypeURL != rhs.objectTypeURL {return false}
+    if lhs.objectTypeUniqueKey != rhs.objectTypeUniqueKey {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -36448,7 +36457,7 @@ extension Anytype_Rpc.Object.ListSetObjectType.Request: SwiftProtobuf.Message, S
   public static let protoMessageName: String = Anytype_Rpc.Object.ListSetObjectType.protoMessageName + ".Request"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "objectIds"),
-    2: .same(proto: "objectTypeId"),
+    2: .same(proto: "objectTypeUniqueKey"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -36458,7 +36467,7 @@ extension Anytype_Rpc.Object.ListSetObjectType.Request: SwiftProtobuf.Message, S
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeRepeatedStringField(value: &self.objectIds) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self.objectTypeID) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.objectTypeUniqueKey) }()
       default: break
       }
     }
@@ -36468,15 +36477,15 @@ extension Anytype_Rpc.Object.ListSetObjectType.Request: SwiftProtobuf.Message, S
     if !self.objectIds.isEmpty {
       try visitor.visitRepeatedStringField(value: self.objectIds, fieldNumber: 1)
     }
-    if !self.objectTypeID.isEmpty {
-      try visitor.visitSingularStringField(value: self.objectTypeID, fieldNumber: 2)
+    if !self.objectTypeUniqueKey.isEmpty {
+      try visitor.visitSingularStringField(value: self.objectTypeUniqueKey, fieldNumber: 2)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Object.ListSetObjectType.Request, rhs: Anytype_Rpc.Object.ListSetObjectType.Request) -> Bool {
     if lhs.objectIds != rhs.objectIds {return false}
-    if lhs.objectTypeID != rhs.objectTypeID {return false}
+    if lhs.objectTypeUniqueKey != rhs.objectTypeUniqueKey {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -42057,7 +42066,7 @@ extension Anytype_Rpc.Template.CreateFromObjectType: SwiftProtobuf.Message, Swif
 extension Anytype_Rpc.Template.CreateFromObjectType.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Template.CreateFromObjectType.protoMessageName + ".Request"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "objectType"),
+    1: .same(proto: "objectTypeUniqueKey"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -42066,21 +42075,21 @@ extension Anytype_Rpc.Template.CreateFromObjectType.Request: SwiftProtobuf.Messa
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.objectType) }()
+      case 1: try { try decoder.decodeSingularStringField(value: &self.objectTypeUniqueKey) }()
       default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.objectType.isEmpty {
-      try visitor.visitSingularStringField(value: self.objectType, fieldNumber: 1)
+    if !self.objectTypeUniqueKey.isEmpty {
+      try visitor.visitSingularStringField(value: self.objectTypeUniqueKey, fieldNumber: 1)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Template.CreateFromObjectType.Request, rhs: Anytype_Rpc.Template.CreateFromObjectType.Request) -> Bool {
-    if lhs.objectType != rhs.objectType {return false}
+    if lhs.objectTypeUniqueKey != rhs.objectTypeUniqueKey {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -45937,7 +45946,7 @@ extension Anytype_Rpc.Block.ListConvertToObjects.Request: SwiftProtobuf.Message,
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "contextId"),
     2: .same(proto: "blockIds"),
-    3: .same(proto: "objectType"),
+    3: .same(proto: "objectTypeUniqueKey"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -45948,7 +45957,7 @@ extension Anytype_Rpc.Block.ListConvertToObjects.Request: SwiftProtobuf.Message,
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.contextID) }()
       case 2: try { try decoder.decodeRepeatedStringField(value: &self.blockIds) }()
-      case 3: try { try decoder.decodeSingularStringField(value: &self.objectType) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.objectTypeUniqueKey) }()
       default: break
       }
     }
@@ -45961,8 +45970,8 @@ extension Anytype_Rpc.Block.ListConvertToObjects.Request: SwiftProtobuf.Message,
     if !self.blockIds.isEmpty {
       try visitor.visitRepeatedStringField(value: self.blockIds, fieldNumber: 2)
     }
-    if !self.objectType.isEmpty {
-      try visitor.visitSingularStringField(value: self.objectType, fieldNumber: 3)
+    if !self.objectTypeUniqueKey.isEmpty {
+      try visitor.visitSingularStringField(value: self.objectTypeUniqueKey, fieldNumber: 3)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -45970,7 +45979,7 @@ extension Anytype_Rpc.Block.ListConvertToObjects.Request: SwiftProtobuf.Message,
   public static func ==(lhs: Anytype_Rpc.Block.ListConvertToObjects.Request, rhs: Anytype_Rpc.Block.ListConvertToObjects.Request) -> Bool {
     if lhs.contextID != rhs.contextID {return false}
     if lhs.blockIds != rhs.blockIds {return false}
-    if lhs.objectType != rhs.objectType {return false}
+    if lhs.objectTypeUniqueKey != rhs.objectTypeUniqueKey {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -52057,6 +52066,7 @@ extension Anytype_Rpc.BlockLink.CreateWithObject.Request: SwiftProtobuf.Message,
     5: .same(proto: "templateId"),
     7: .same(proto: "internalFlags"),
     8: .same(proto: "spaceId"),
+    9: .same(proto: "objectTypeUniqueKey"),
     2: .same(proto: "targetId"),
     4: .same(proto: "position"),
     6: .same(proto: "fields"),
@@ -52076,6 +52086,7 @@ extension Anytype_Rpc.BlockLink.CreateWithObject.Request: SwiftProtobuf.Message,
       case 6: try { try decoder.decodeSingularMessageField(value: &self._fields) }()
       case 7: try { try decoder.decodeRepeatedMessageField(value: &self.internalFlags) }()
       case 8: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
+      case 9: try { try decoder.decodeSingularStringField(value: &self.objectTypeUniqueKey) }()
       default: break
       }
     }
@@ -52110,6 +52121,9 @@ extension Anytype_Rpc.BlockLink.CreateWithObject.Request: SwiftProtobuf.Message,
     if !self.spaceID.isEmpty {
       try visitor.visitSingularStringField(value: self.spaceID, fieldNumber: 8)
     }
+    if !self.objectTypeUniqueKey.isEmpty {
+      try visitor.visitSingularStringField(value: self.objectTypeUniqueKey, fieldNumber: 9)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -52119,6 +52133,7 @@ extension Anytype_Rpc.BlockLink.CreateWithObject.Request: SwiftProtobuf.Message,
     if lhs.templateID != rhs.templateID {return false}
     if lhs.internalFlags != rhs.internalFlags {return false}
     if lhs.spaceID != rhs.spaceID {return false}
+    if lhs.objectTypeUniqueKey != rhs.objectTypeUniqueKey {return false}
     if lhs.targetID != rhs.targetID {return false}
     if lhs.position != rhs.position {return false}
     if lhs._fields != rhs._fields {return false}

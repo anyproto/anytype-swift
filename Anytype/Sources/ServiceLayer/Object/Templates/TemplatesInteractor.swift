@@ -19,7 +19,7 @@ final class SetTemplatesInteractor: SetTemplatesInteractorProtocol {
         }
         
         if setDocument.isCollection() {
-            return objectTypeProvider.defaultObjectType(spaceId: setDocument.spaceId)?.recommendedLayout?.isTemplatesAvailable ?? false
+            return (try? objectTypeProvider.defaultObjectType(spaceId: setDocument.spaceId))?.recommendedLayout?.isTemplatesAvailable ?? false
         }
         
         guard setObject.setOf.count == 1,

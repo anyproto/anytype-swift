@@ -11,7 +11,7 @@ protocol BlockActionServiceProtocol {
     func add(info: BlockInformation, targetBlockId: BlockId, position: BlockPosition, setFocus: Bool)
     func addChild(info: BlockInformation, parentId: BlockId)
     func delete(blockIds: [BlockId])
-    func createPage(targetId: BlockId, spaceId: String, type: ObjectTypeId, position: BlockPosition) async throws -> BlockId
+    func createPage(targetId: BlockId, spaceId: String, typeUniqueKey: ObjectTypeUniqueKey, position: BlockPosition) async throws -> BlockId
     func split(
         _ string: NSAttributedString,
         blockId: BlockId,
@@ -29,7 +29,7 @@ protocol BlockActionServiceProtocol {
     func setText(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) async throws
     func setTextForced(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) async throws
     func merge(secondBlockId: BlockId)
-    func setObjectTypeId(_ objectTypeId: String) async throws
+    func setObjectType(type: ObjectType) async throws
     func setObjectSetType() async throws
     func setObjectCollectionType() async throws
     func createAndFetchBookmark(

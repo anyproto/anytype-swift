@@ -43,14 +43,18 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     
     func defaultObjectTypePublisher(spaceId: String) -> AnyPublisher<ObjectType, Never> {
         return $defaultObjectTypes
-            .compactMap { [weak self] _ in self?.defaultObjectType(spaceId: spaceId) }
+            .compactMap { [weak self] _ in try? self?.defaultObjectType(spaceId: spaceId) }
             .removeDuplicates()
             .eraseToAnyPublisher()
     }
     
-    func defaultObjectType(spaceId: String) -> ObjectType? {
+    func defaultObjectType(spaceId: String) throws -> ObjectType {
         let typeId = defaultObjectTypes[spaceId]
-        return objectTypes.first { $0.id == typeId } ?? findNoteType(spaceId: spaceId)
+        guard let type = objectTypes.first(where: { $0.id == typeId }) ?? findNoteType(spaceId: spaceId) else {
+            anytypeAssertionFailure("Default object type not found")
+            throw ObjectTypeError.objectTypeNotFound
+        }
+        return type
     }
     
     func setDefaultObjectType(type: ObjectType, spaceId: String) {
@@ -82,11 +86,11 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     func objectType(uniqueKey: ObjectTypeUniqueKey, spaceId: String) throws -> ObjectType {
         let result = objectTypes.filter { $0.uniqueKey == uniqueKey && $0.spaceId == spaceId }
         if result.count > 1 {
-            anytypeAssertionFailure("Multiple types contains uniqueKey", info: ["uniqueKey": "\(uniqueKey.rawValue)"])
+            anytypeAssertionFailure("Multiple types contains uniqueKey", info: ["uniqueKey": "\(uniqueKey)"])
         }
         
         guard let first = result.first else {
-            anytypeAssertionFailure("Object type not found by uniqueKey", info: ["uniqueKey": "\(uniqueKey.rawValue)"])
+            anytypeAssertionFailure("Object type not found by uniqueKey", info: ["uniqueKey": "\(uniqueKey)"])
             throw ObjectTypeError.objectTypeNotFound
         }
         return first
@@ -104,7 +108,7 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
             isDeleted: true,
             sourceObject: "",
             spaceId: "",
-            uniqueKey: nil,
+            uniqueKey: .empty,
             recommendedRelations: [],
             recommendedLayout: nil
         )

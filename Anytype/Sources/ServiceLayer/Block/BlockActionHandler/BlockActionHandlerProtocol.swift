@@ -31,9 +31,9 @@ protocol BlockActionHandlerProtocol: AnyObject {
     func addBlock(_ type: BlockContentType, blockId: BlockId, blockText: NSAttributedString?, position: BlockPosition?)
     func toggleWholeBlockMarkup(_ markup: MarkupType, blockId: BlockId)
     func upload(blockId: BlockId, filePath: String) async throws
-    func createPage(targetId: BlockId, spaceId: String, type: ObjectTypeId) async throws -> BlockId?
+    func createPage(targetId: BlockId, spaceId: String, typeUniqueKey: ObjectTypeUniqueKey) async throws -> BlockId?
 
-    func setObjectTypeId(_ objectTypeId: String) async throws
+    func setObjectType(type: ObjectType) async throws
     func setObjectSetType() async throws
     func setObjectCollectionType() async throws
     func changeTextForced(_ text: NSAttributedString, blockId: BlockId)

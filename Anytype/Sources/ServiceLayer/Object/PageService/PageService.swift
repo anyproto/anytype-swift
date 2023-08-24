@@ -1,6 +1,7 @@
 import ProtobufMessages
 import SwiftProtobuf
 import Services
+import AnytypeCore
 
 protocol PageServiceProtocol: AnyObject {
     func createPage(
@@ -14,7 +15,7 @@ protocol PageServiceProtocol: AnyObject {
     
     func createPage(
         name: String,
-        type: String,
+        typeUniqueKey: ObjectTypeUniqueKey,
         shouldDeleteEmptyObject: Bool,
         shouldSelectType: Bool,
         shouldSelectTemplate: Bool,
@@ -54,7 +55,7 @@ final class PageService: PageServiceProtocol {
     
     func createPage(
         name: String,
-        type: String,
+        typeUniqueKey: ObjectTypeUniqueKey,
         shouldDeleteEmptyObject: Bool,
         shouldSelectType: Bool,
         shouldSelectTemplate: Bool,
@@ -63,8 +64,7 @@ final class PageService: PageServiceProtocol {
     ) async throws -> ObjectDetails {
         let details = Google_Protobuf_Struct(
             fields: [
-                BundledRelationKey.name.rawValue: name.protobufValue,
-                BundledRelationKey.type.rawValue: type.protobufValue
+                BundledRelationKey.name.rawValue: name.protobufValue
             ]
         )
         
@@ -85,6 +85,7 @@ final class PageService: PageServiceProtocol {
             $0.internalFlags = internalFlags
             $0.templateID = templateId ?? ""
             $0.spaceID = spaceId
+            $0.objectTypeUniqueKey = typeUniqueKey.value
         }).invoke()
         
         return try response.details.toDetails()
@@ -98,10 +99,10 @@ final class PageService: PageServiceProtocol {
         spaceId: String,
         templateId: String? = nil
     ) async throws -> ObjectDetails {
-        let defaultObjectType = objectTypeProvider.defaultObjectType(spaceId: spaceId)
+        let defaultObjectType = try objectTypeProvider.defaultObjectType(spaceId: spaceId)
         return try await createPage(
             name: name,
-            type: defaultObjectType?.id ?? "",
+            typeUniqueKey: defaultObjectType.uniqueKey,
             shouldDeleteEmptyObject: shouldDeleteEmptyObject,
             shouldSelectType: shouldSelectType,
             shouldSelectTemplate: shouldSelectTemplate,

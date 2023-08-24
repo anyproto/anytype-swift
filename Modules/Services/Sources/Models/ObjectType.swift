@@ -21,7 +21,7 @@ public struct ObjectType: Equatable, Hashable, Codable {
     public let isDeleted: Bool
     public let sourceObject: String
     public let spaceId: String
-    public let uniqueKey: ObjectTypeUniqueKey?
+    public let uniqueKey: ObjectTypeUniqueKey
     
     public let recommendedRelations: [ObjectId]
     public let recommendedLayout: DetailsLayout?
@@ -37,7 +37,7 @@ public struct ObjectType: Equatable, Hashable, Codable {
         isDeleted: Bool,
         sourceObject: String,
         spaceId: String,
-        uniqueKey: ObjectTypeUniqueKey?,
+        uniqueKey: ObjectTypeUniqueKey,
         recommendedRelations: [ObjectId],
         recommendedLayout: DetailsLayout?
     ) {

@@ -51,7 +51,7 @@ final class DataviewTemplateSelectionInteractorProvider: TemplateSelectionIntera
         self.objectTypeProvider = objectTypeProvider
         self.dataviewService = dataviewService
         
-        let defaultTypeId = objectTypeProvider.defaultObjectType(spaceId: setDocument.objectId)?.id ?? ""
+        let defaultTypeId = (try? objectTypeProvider.defaultObjectType(spaceId: setDocument.objectId))?.id ?? ""
         
         if setDocument.isCollection() || setDocument.isRelationsSet() {
             self.objectTypeId = .dynamic(defaultTypeId)

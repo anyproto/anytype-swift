@@ -66,7 +66,7 @@ final class ChangeTypeAccessoryViewModel {
         }
 
         Task { @MainActor in
-            try await handler.setObjectTypeId(type.id)
+            try await handler.setObjectType(type: type)
             applyDefaultTemplateIfNeeded(typeId: type.id)
         }
     }

@@ -14,7 +14,7 @@ extension ObjectType {
         isDeleted: false,
         sourceObject: "",
         spaceId: "",
-        uniqueKey: nil,
+        uniqueKey: .empty,
         recommendedRelations: [],
         recommendedLayout: nil
     )

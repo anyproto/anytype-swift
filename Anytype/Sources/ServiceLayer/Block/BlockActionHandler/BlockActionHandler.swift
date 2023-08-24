@@ -56,8 +56,8 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         try await service.upload(blockId: blockId, filePath: filePath)
     }
     
-    func setObjectTypeId(_ objectTypeId: String) async throws {
-        try await service.setObjectTypeId(objectTypeId)
+    func setObjectType(type: ObjectType) async throws {
+        try await service.setObjectType(type: type)
     }
 
     func setObjectSetType() async throws {
@@ -254,7 +254,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         }
     }
     
-    func createPage(targetId: BlockId, spaceId: String, type: ObjectTypeId) async throws -> BlockId? {
+    func createPage(targetId: BlockId, spaceId: String, typeUniqueKey: ObjectTypeUniqueKey) async throws -> BlockId? {
         guard let info = document.infoContainer.get(id: targetId) else { return nil }
         var position: BlockPosition
         if case .text(let blockText) = info.content, blockText.text.isEmpty {
@@ -263,7 +263,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
             position = .bottom
         }
         
-        return try await service.createPage(targetId: targetId, spaceId: spaceId, type: type, position: position)
+        return try await service.createPage(targetId: targetId, spaceId: spaceId, typeUniqueKey: typeUniqueKey, position: position)
     }
 
     func createTable(

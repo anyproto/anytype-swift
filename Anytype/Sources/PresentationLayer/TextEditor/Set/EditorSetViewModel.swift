@@ -569,9 +569,9 @@ final class EditorSetViewModel: ObservableObject {
     
     func createObject(selectedTemplateId: BlockId?) {
         if setDocument.isCollection() {
-            guard let defaultObjectType = objectTypeProvider.defaultObjectType(spaceId: setDocument.spaceId) else { return }
+            guard let defaultObjectType = try? objectTypeProvider.defaultObjectType(spaceId: setDocument.spaceId) else { return }
             createObject(
-                with: defaultObjectType.id,
+                type: defaultObjectType,
                 shouldSelectType: true,
                 relationsDetails: [],
                 templateId: selectedTemplateId,
@@ -589,13 +589,13 @@ final class EditorSetViewModel: ObservableObject {
         } else if setDocument.isBookmarksSet() {
             createBookmarkObject()
         } else if setDocument.isRelationsSet() {
-            guard let defaultObjectType = objectTypeProvider.defaultObjectType(spaceId: setDocument.spaceId) else { return }
+            guard let defaultObjectType = try? objectTypeProvider.defaultObjectType(spaceId: setDocument.spaceId) else { return }
             let relationsDetails = setDocument.dataViewRelationsDetails.filter { [weak self] detail in
                 guard let source = self?.details?.setOf else { return false }
                 return source.contains(detail.id)
             }
             createObject(
-                with: defaultObjectType.id,
+                type: defaultObjectType,
                 shouldSelectType: true,
                 relationsDetails: relationsDetails,
                 templateId: selectedTemplateId,
@@ -604,10 +604,11 @@ final class EditorSetViewModel: ObservableObject {
                 }
             )
         } else {
-            let type = details?.setOf.first ?? ""
+            let typeId = details?.setOf.first ?? ""
+            let type = try? objectTypeProvider.objectType(id: typeId)
             createObject(
-                with: type,
-                shouldSelectType: type.isEmpty,
+                type: type,
+                shouldSelectType: type.isNil,
                 relationsDetails: [],
                 templateId: selectedTemplateId,
                 completion: { [weak self] details in
@@ -626,7 +627,7 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     private func createObject(
-        with type: String,
+        type: ObjectType?,
         shouldSelectType: Bool,
         relationsDetails: [RelationDetails],
         templateId: BlockId?,
@@ -636,7 +637,7 @@ final class EditorSetViewModel: ObservableObject {
             guard let self else { return }
             
             let details = try await self.dataviewService.addRecord(
-                objectType: type,
+                typeUniqueKey: type?.uniqueKey,
                 shouldSelectType: shouldSelectType,
                 templateId: templateId ?? "",
                 spaceId: setDocument.spaceId,

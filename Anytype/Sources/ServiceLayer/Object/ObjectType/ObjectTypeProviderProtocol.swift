@@ -6,7 +6,7 @@ protocol ObjectTypeProviderProtocol: AnyObject {
 
     var objectTypes: [ObjectType] { get }
     
-    func defaultObjectType(spaceId: String) -> ObjectType?
+    func defaultObjectType(spaceId: String) throws -> ObjectType
     func defaultObjectTypePublisher(spaceId: String) -> AnyPublisher<ObjectType, Never>
     func setDefaultObjectType(type: ObjectType, spaceId: String)
     func objectType(id: String) throws -> ObjectType
