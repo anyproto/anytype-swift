@@ -33,7 +33,6 @@ final class ChangeTypeAccessoryViewModel {
         self.objectService = objectService
         self.document = document
 
-        fetchSupportedTypes()
         subscribeOnDocumentChanges()
     }
 
@@ -43,26 +42,6 @@ final class ChangeTypeAccessoryViewModel {
 
     func toggleChangeTypeState() {
         isTypesViewVisible.toggle()
-    }
-
-    private func fetchSupportedTypes() {
-        Task { @MainActor [weak self] in
-            let supportedTypes = try? await self?.searchService
-                .searchObjectTypes(
-                    text: "",
-                    filteringTypeId: nil,
-                    shouldIncludeSets: true,
-                    shouldIncludeCollections: true,
-                    shouldIncludeBookmark: false,
-                    spaceId: self?.document.spaceId ?? ""
-                ).map { type in
-                    TypeItem(from: type, handler: { [weak self] in
-                        self?.onTypeTap(type: ObjectType(details: type))
-                    })
-                }
-            
-            supportedTypes.map { self?.allSupportedTypes = $0 }
-        }
     }
 
     private func onTypeTap(type: ObjectType) {
@@ -105,12 +84,38 @@ final class ChangeTypeAccessoryViewModel {
 
     private func subscribeOnDocumentChanges() {
         document.updatePublisher.sink { [weak self] _ in
-            guard let self = self else { return }
-            let filteredItems = self.allSupportedTypes.filter {
-                $0.id != self.document.details?.type
+            Task { @MainActor [weak self] in
+                await self?.fetchSupportedTypes()
+                self?.updateSupportedTypes()
             }
-            self.supportedTypes = [self.searchItem] + filteredItems
+            
         }.store(in: &cancellables)
+    }
+    
+    private func updateSupportedTypes() {
+        let filteredItems = allSupportedTypes.filter {
+            $0.id != document.details?.type
+        }
+        supportedTypes = [searchItem] + filteredItems
+        
+    }
+    
+    private func fetchSupportedTypes() async {
+        let supportedTypes = try? await searchService
+            .searchObjectTypes(
+                text: "",
+                filteringTypeId: nil,
+                shouldIncludeSets: true,
+                shouldIncludeCollections: true,
+                shouldIncludeBookmark: false,
+                spaceId: document.spaceId
+            ).map { type in
+                TypeItem(from: type, handler: { [weak self] in
+                    self?.onTypeTap(type: ObjectType(details: type))
+                })
+            }
+        
+        supportedTypes.map { allSupportedTypes = $0 }
     }
     
     private func onSearchTap() {
