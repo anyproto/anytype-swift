@@ -34,7 +34,7 @@ final class VideoBlockContentView: UIView, BlockContentView {
             "Wrong state \(configuration.file.state) for block file"
         )
         
-        guard let url = configuration.file.metadata.contentUrl else { return }
+        guard let url = configuration.file.contentUrl else { return }
         videoVC.player = AVPlayer(url: url)
         
         subscribeOnStatusChange(action: configuration.action)
