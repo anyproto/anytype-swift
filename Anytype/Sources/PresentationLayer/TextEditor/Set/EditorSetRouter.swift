@@ -33,8 +33,7 @@ protocol EditorSetRouterProtocol:
     
     func showViewSettings(setDocument: SetDocumentProtocol, dataviewService: DataviewServiceProtocol)
     func showSorts()
-    func showFilters(setDocument: SetDocumentProtocol, dataviewService: DataviewServiceProtocol, subscriptionDetailsStorage: ObjectDetailsStorage)
-    func showFilterSearch(filter: SetFilter, onApply: @escaping (SetFilter) -> Void)
+    func showFilters(setDocument: SetDocumentProtocol, subscriptionDetailsStorage: ObjectDetailsStorage)
     
     func showCardSizes(size: DataviewViewSize, onSelect: @escaping (DataviewViewSize) -> Void)
     func showCovers(setDocument: SetDocumentProtocol, onSelect: @escaping (String) -> Void)
@@ -94,7 +93,7 @@ final class EditorSetRouter: EditorSetRouterProtocol {
     private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
     private let setViewSettingsCoordinatorAssembly: SetViewSettingsCoordinatorAssemblyProtocol
     private let setSortsListCoordinatorAssembly: SetSortsListCoordinatorAssemblyProtocol
-    private let setFiltersDateCoordinatorAssembly: SetFiltersDateCoordinatorAssemblyProtocol
+    private let setFiltersListCoordinatorAssembly: SetFiltersListCoordinatorAssemblyProtocol
     private let toastPresenter: ToastPresenterProtocol
     private let alertHelper: AlertHelper
     private let templateSelectionCoordinator: TemplateSelectionCoordinatorProtocol
@@ -118,7 +117,7 @@ final class EditorSetRouter: EditorSetRouterProtocol {
         objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
         setViewSettingsCoordinatorAssembly: SetViewSettingsCoordinatorAssemblyProtocol,
         setSortsListCoordinatorAssembly: SetSortsListCoordinatorAssemblyProtocol,
-        setFiltersDateCoordinatorAssembly: SetFiltersDateCoordinatorAssemblyProtocol,
+        setFiltersListCoordinatorAssembly: SetFiltersListCoordinatorAssemblyProtocol,
         toastPresenter: ToastPresenterProtocol,
         alertHelper: AlertHelper,
         templateSelectionCoordinator: TemplateSelectionCoordinatorProtocol
@@ -137,7 +136,7 @@ final class EditorSetRouter: EditorSetRouterProtocol {
         self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
         self.setViewSettingsCoordinatorAssembly = setViewSettingsCoordinatorAssembly
         self.setSortsListCoordinatorAssembly = setSortsListCoordinatorAssembly
-        self.setFiltersDateCoordinatorAssembly = setFiltersDateCoordinatorAssembly
+        self.setFiltersListCoordinatorAssembly = setFiltersListCoordinatorAssembly
         self.toastPresenter = toastPresenter
         self.alertHelper = alertHelper
         self.templateSelectionCoordinator = templateSelectionCoordinator
@@ -280,39 +279,21 @@ final class EditorSetRouter: EditorSetRouterProtocol {
         let vc = UIHostingController(
             rootView: view
         )
-        presentSheet(vc)
-    }
-    
-    func showFilters(setDocument: SetDocumentProtocol, dataviewService: DataviewServiceProtocol, subscriptionDetailsStorage: ObjectDetailsStorage) {
-        let viewModel = SetFiltersListViewModel(
-            setDocument: setDocument,
-            dataviewService: dataviewService,
-            router: self,
-            subscriptionDetailsStorage: subscriptionDetailsStorage
-        )
-        let vc = UIHostingController(
-            rootView: SetFiltersListView(viewModel: viewModel)
-        )
-        presentSheet(vc)
+        vc.sheetPresentationController?.detents = [.large()]
+        navigationContext.present(vc)
     }
     
     @MainActor
-    func showFilterSearch(
-        filter: SetFilter,
-        onApply: @escaping (SetFilter) -> Void
-    ) {
-        let viewModel = SetFiltersSelectionViewModel(
-            filter: filter,
-            router: self,
-            setFiltersDateCoordinatorAssembly: setFiltersDateCoordinatorAssembly,
-            newSearchModuleAssembly: newSearchModuleAssembly,
-            onApply: { [weak self] filter in
-                onApply(filter)
-                self?.navigationContext.dismissTopPresented()
-            }
+    func showFilters(setDocument: SetDocumentProtocol, subscriptionDetailsStorage: ObjectDetailsStorage) {
+        let view = setFiltersListCoordinatorAssembly.make(
+            with: setDocument,
+            subscriptionDetailsStorage: subscriptionDetailsStorage
         )
-        let popup = AnytypePopup(viewModel: viewModel)
-        navigationContext.present(popup)
+        let vc = UIHostingController(
+            rootView: view
+        )
+        vc.sheetPresentationController?.detents = [.large()]
+        navigationContext.present(vc)
     }
     
     @MainActor

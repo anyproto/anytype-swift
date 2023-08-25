@@ -723,7 +723,6 @@ extension EditorSetViewModel {
     func showFilters() {
         router?.showFilters(
             setDocument: setDocument,
-            dataviewService: dataviewService,
             subscriptionDetailsStorage: subscriptionService.storage
         )
     }

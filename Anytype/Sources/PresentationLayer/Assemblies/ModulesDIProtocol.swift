@@ -41,4 +41,8 @@ protocol ModulesDIProtocol: AnyObject {
     func setSortTypesList() -> SetSortTypesListModuleAssemblyProtocol
     func setTextView() -> SetTextViewModuleAssemblyProtocol
     func setFiltersDateView() -> SetFiltersDateViewModuleAssemblyProtocol
+    func setFilterConditions() -> SetFilterConditionsModuleAssemblyProtocol
+    func setFiltersSelectionHeader() -> SetFiltersSelectionHeaderModuleAssemblyProtocol
+    func setFiltersSelectionView() -> SetFiltersSelectionViewModuleAssemblyProtocol
+    func setFiltersListModule() -> SetFiltersListModuleAssemblyProtocol
 }

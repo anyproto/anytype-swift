@@ -1,9 +1,22 @@
-//
-//  SetFiltersSelectionHeaderModuleAssembly.swift
-//  Anytype
-//
-//  Created by Anna Zakharova on 24.08.2023.
-//  Copyright © 2023 Anytype. All rights reserved.
-//
+import SwiftUI
+import Services
 
-import Foundation
+protocol SetFiltersSelectionHeaderModuleAssemblyProtocol {
+    @MainActor
+    func make(filter: SetFilter, output: SetFiltersSelectionCoordinatorOutput?) -> AnyView
+}
+
+final class SetFiltersSelectionHeaderModuleAssembly: SetFiltersSelectionHeaderModuleAssemblyProtocol {
+    
+    // MARK: - SetFiltersSelectionHeaderModuleAssemblyProtocol
+    
+    @MainActor
+    func make(filter: SetFilter,output: SetFiltersSelectionCoordinatorOutput?) -> AnyView {
+        return SetFiltersSelectionHeaderView(
+            viewModel: SetFiltersSelectionHeaderViewModel(
+                filter: filter,
+                output: output
+            )
+        ).eraseToAnyView()
+    }
+}

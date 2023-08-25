@@ -35,7 +35,7 @@ final class SetViewSettingsCoordinatorViewModel: ObservableObject, SetViewSettin
         setViewSettingsListModuleAssembly.make(setDocument: setDocument, output: self)
     }
     
-    // MARK: - SetViewSettingsNavigationOutput
+    // MARK: - SetViewSettingsCoordinatorOutput
     
     func onDefaultObjectTap() {
         showObjects.toggle()

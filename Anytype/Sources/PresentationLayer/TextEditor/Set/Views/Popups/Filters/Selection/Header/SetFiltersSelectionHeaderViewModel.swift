@@ -1,20 +1,19 @@
 import SwiftUI
 import Services
 
+@MainActor
 final class SetFiltersSelectionHeaderViewModel: ObservableObject {
     @Published var headerConfiguration: SetFiltersSelectionHeaderConfiguration
     
-    var onConditionChanged: ((DataviewFilter.Condition) -> Void)?
-    
     private var filter: SetFilter
-    private let router: EditorSetRouterProtocol
+    private weak var output: SetFiltersSelectionCoordinatorOutput?
     
     init(
         filter: SetFilter,
-        router: EditorSetRouterProtocol
+        output: SetFiltersSelectionCoordinatorOutput?
     ) {
         self.filter = filter
-        self.router = router
+        self.output = output
         self.headerConfiguration = Self.headerConfiguration(with: filter)
     }
     
@@ -40,15 +39,11 @@ final class SetFiltersSelectionHeaderViewModel: ObservableObject {
             )
         )
         headerConfiguration = Self.headerConfiguration(with: filter)
-        onConditionChanged?(condition)
     }
     
     private func showFilterConditions() {
-        router.showFilterConditions(
-            filter: filter,
-            onSelect: { [weak self] condition in
-                self?.updateFilter(with: condition)
-            }
-        )
+        output?.onConditionTap { [weak self] condition in
+            self?.updateFilter(with: condition)
+        }
     }
 }

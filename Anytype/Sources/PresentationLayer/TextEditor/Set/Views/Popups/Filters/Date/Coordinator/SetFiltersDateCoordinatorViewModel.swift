@@ -10,15 +10,18 @@ final class SetFiltersDateCoordinatorViewModel: ObservableObject, SetFiltersDate
     @Published var filtersDaysData: FiltersDateData?
     
     private let filter: SetFilter
+    private let completion: (SetFiltersDate) -> Void
     private let setFiltersDateViewModuleAssembly: SetFiltersDateViewModuleAssemblyProtocol
     private let setTextViewModuleAssembly: SetTextViewModuleAssemblyProtocol
     
     init(
         filter: SetFilter,
+        completion: @escaping (SetFiltersDate) -> Void,
         setFiltersDateViewModuleAssembly: SetFiltersDateViewModuleAssemblyProtocol,
         setTextViewModuleAssembly: SetTextViewModuleAssemblyProtocol
     ) {
         self.filter = filter
+        self.completion = completion
         self.setFiltersDateViewModuleAssembly = setFiltersDateViewModuleAssembly
         self.setTextViewModuleAssembly = setTextViewModuleAssembly
     }
@@ -27,9 +30,7 @@ final class SetFiltersDateCoordinatorViewModel: ObservableObject, SetFiltersDate
         setFiltersDateViewModuleAssembly.make(
             filter: filter,
             selectionModel: nil,
-            onApplyDate: { _ in
-                
-            }
+            onApplyDate: completion
         )
     }
     
