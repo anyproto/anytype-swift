@@ -1,15 +1,8 @@
-//
-//  ObjectPreviewLayoutViewModel.swift
-//  Anytype
-//
-//  Created by Denis Batvinkin on 30.03.2022.
-//  Copyright © 2022 Anytype. All rights reserved.
-//
-
 import Services
 import SwiftUI
 import FloatingPanel
 
+@MainActor
 final class ObjectPreviewLayoutMenuViewModel: CheckPopupViewViewModelProtocol {
     let title = Loc.previewLayout
     @Published private(set) var items: [CheckPopupItem] = []

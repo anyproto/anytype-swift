@@ -436,6 +436,7 @@
 "Set.View.Settings.NoRelations.Placeholder" = "No relations";
 "Set.View.Settings.NoFilters.Placeholder" = "No filters";
 "Set.View.Settings.NoSorts.Placeholder" = "No sorts";
+"Set.View.Settings.Objects.Applied.Title" = "%d applied";
 
 // MARK: - Sets: Kanban
 "Set.View.Kanban.Column.Title.Uncategorized" = "Uncategorized";

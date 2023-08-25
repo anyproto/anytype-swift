@@ -1,24 +1,22 @@
 import Services
 import Combine
 
+@MainActor
 final class SetSortTypesListViewModel: CheckPopupViewViewModelProtocol {
     let title: String
     @Published private(set) var items: [CheckPopupItem] = []
 
     private let sort: SetSort
     private var selectedSort: DataviewSort
-    private let onSelect: (DataviewSort) -> Void
+    private let completion: (SetSort) -> Void
 
     // MARK: - Initializer
 
-    init(
-        sort: SetSort,
-        onSelect: @escaping (DataviewSort) -> Void
-    ) {
+    init(sort: SetSort, completion: @escaping (SetSort) -> Void) {
         self.title = sort.relationDetails.name
         self.sort = sort
         self.selectedSort = sort.sort
-        self.onSelect = onSelect
+        self.completion = completion
         self.items = self.buildPopupItems()
     }
     
@@ -40,13 +38,18 @@ final class SetSortTypesListViewModel: CheckPopupViewViewModelProtocol {
             return
         }
 
-        let sort = DataviewSort(
+        let dataviewSort = DataviewSort(
             id: selectedSort.id,
             relationKey: selectedSort.relationKey,
             type: item
         )
-        selectedSort = sort
-        onSelect(sort)
+        selectedSort = dataviewSort
+        completion(
+            SetSort(
+                relationDetails: sort.relationDetails,
+                sort: dataviewSort
+            )
+        )
         items = buildPopupItems()
     }
 }

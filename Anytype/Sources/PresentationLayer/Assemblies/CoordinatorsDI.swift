@@ -107,6 +107,10 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     }
     
     func setViewSettings() -> SetViewSettingsCoordinatorAssemblyProtocol {
-        return SetViewSettingsCoordinatorAssembly(modulesDI: modulesDI)
+        return SetViewSettingsCoordinatorAssembly(modulesDI: modulesDI, coordinatorsDI: self)
+    }
+    
+    func setSortsList() -> SetSortsListCoordinatorAssemblyProtocol {
+        return SetSortsListCoordinatorAssembly(modulesDI: modulesDI)
     }
 }

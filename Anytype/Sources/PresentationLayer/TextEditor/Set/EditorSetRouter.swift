@@ -32,7 +32,7 @@ protocol EditorSetRouterProtocol:
     )
     
     func showViewSettings(setDocument: SetDocumentProtocol, dataviewService: DataviewServiceProtocol)
-    func showSorts(setDocument: SetDocumentProtocol, dataviewService: DataviewServiceProtocol)
+    func showSorts()
     func showFilters(setDocument: SetDocumentProtocol, dataviewService: DataviewServiceProtocol, subscriptionDetailsStorage: ObjectDetailsStorage)
     func showFilterSearch(filter: SetFilter, onApply: @escaping (SetFilter) -> Void)
     
@@ -53,7 +53,6 @@ protocol EditorSetRouterProtocol:
     
     func showFiltersDaysView(title: String, days: Int, onApply: @escaping (Int) -> Void)
     func showFilterConditions(filter: SetFilter, onSelect: @escaping (DataviewFilter.Condition) -> Void)
-    func showSortTypesList(setSort: SetSort, onSelect: @escaping (SetSort) -> Void)
     
     func showSettings()
     func showQueries(selectedObjectId: BlockId?, onSelect: @escaping (BlockId) -> ())
@@ -95,6 +94,7 @@ final class EditorSetRouter: EditorSetRouterProtocol {
     private let objectCoverPickerModuleAssembly: ObjectCoverPickerModuleAssemblyProtocol
     private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
     private let setViewSettingsCoordinatorAssembly: SetViewSettingsCoordinatorAssemblyProtocol
+    private let setSortsListCoordinatorAssembly: SetSortsListCoordinatorAssemblyProtocol
     private let toastPresenter: ToastPresenterProtocol
     private let alertHelper: AlertHelper
     private let templateSelectionCoordinator: TemplateSelectionCoordinatorProtocol
@@ -117,6 +117,7 @@ final class EditorSetRouter: EditorSetRouterProtocol {
         objectCoverPickerModuleAssembly: ObjectCoverPickerModuleAssemblyProtocol,
         objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
         setViewSettingsCoordinatorAssembly: SetViewSettingsCoordinatorAssemblyProtocol,
+        setSortsListCoordinatorAssembly: SetSortsListCoordinatorAssemblyProtocol,
         toastPresenter: ToastPresenterProtocol,
         alertHelper: AlertHelper,
         templateSelectionCoordinator: TemplateSelectionCoordinatorProtocol
@@ -134,6 +135,7 @@ final class EditorSetRouter: EditorSetRouterProtocol {
         self.objectCoverPickerModuleAssembly = objectCoverPickerModuleAssembly
         self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
         self.setViewSettingsCoordinatorAssembly = setViewSettingsCoordinatorAssembly
+        self.setSortsListCoordinatorAssembly = setSortsListCoordinatorAssembly
         self.toastPresenter = toastPresenter
         self.alertHelper = alertHelper
         self.templateSelectionCoordinator = templateSelectionCoordinator
@@ -143,7 +145,7 @@ final class EditorSetRouter: EditorSetRouterProtocol {
     
     @MainActor
     func showSetSettings() {
-        let view = setViewSettingsCoordinatorAssembly.make()
+        let view = setViewSettingsCoordinatorAssembly.make(setDocument: setDocument)
         navigationContext.presentSwiftUISheetView(view: view)
     }
     
@@ -270,14 +272,11 @@ final class EditorSetRouter: EditorSetRouterProtocol {
         navigationContext.presentSwiftUIView(view: view)
     }
     
-    func showSorts(setDocument: SetDocumentProtocol, dataviewService: DataviewServiceProtocol) {
-        let viewModel = SetSortsListViewModel(
-            setDocument: setDocument,
-            dataviewService: dataviewService,
-            router: self
-        )
+    @MainActor
+    func showSorts() {
+        let view = setSortsListCoordinatorAssembly.make(with: setDocument)
         let vc = UIHostingController(
-            rootView: SetSortsListView(viewModel: viewModel)
+            rootView: view
         )
         presentSheet(vc)
     }
@@ -312,6 +311,7 @@ final class EditorSetRouter: EditorSetRouterProtocol {
         navigationContext.present(popup)
     }
     
+    @MainActor
     func showCardSizes(size: DataviewViewSize, onSelect: @escaping (DataviewViewSize) -> Void) {
         let view = CheckPopupView(
             viewModel: SetViewSettingsCardSizeViewModel(
@@ -339,6 +339,7 @@ final class EditorSetRouter: EditorSetRouterProtocol {
         presentSheet(vc)
     }
     
+    @MainActor
     func showGroupByRelations(
         selectedRelationKey: String,
         relations: [RelationDetails],
@@ -393,6 +394,7 @@ final class EditorSetRouter: EditorSetRouterProtocol {
         navigationContext.present(popup)
     }
     
+    @MainActor
     func showFilterConditions(filter: SetFilter, onSelect: @escaping (DataviewFilter.Condition) -> Void) {
         let view = CheckPopupView(
             viewModel: SetFilterConditionsViewModel(
@@ -404,21 +406,6 @@ final class EditorSetRouter: EditorSetRouterProtocol {
         )
         let popul = AnytypePopup(contentView: view)
         presentSheet(popul)
-    }
-    
-    func showSortTypesList(setSort: SetSort, onSelect: @escaping (SetSort) -> Void) {
-        let view = CheckPopupView(viewModel: SetSortTypesListViewModel(
-            sort: setSort,
-            onSelect: { sort in
-                let newSetSort = SetSort(
-                    relationDetails: setSort.relationDetails,
-                    sort: sort
-                )
-                onSelect(newSetSort)
-            })
-        )
-        let popup = AnytypePopup(contentView: view)
-        presentSheet(popup)
     }
     
     func showSettings() {

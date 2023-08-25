@@ -1,5 +1,6 @@
 import SwiftUI
 
+@MainActor
 protocol CheckPopupViewViewModelProtocol: ObservableObject {
     var title: String { get }
 

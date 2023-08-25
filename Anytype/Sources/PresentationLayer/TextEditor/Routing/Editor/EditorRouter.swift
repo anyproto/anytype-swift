@@ -314,6 +314,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         navigationContext.present(vc)
     }
     
+    @MainActor
     func showObjectPreview(
         blockLinkState: BlockLinkState,
         onSelect: @escaping (BlockLink.Appearance) -> Void

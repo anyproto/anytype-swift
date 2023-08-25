@@ -1,6 +1,7 @@
 import Services
 import Combine
 
+@MainActor
 final class SetViewSettingsGroupByViewModel: CheckPopupViewViewModelProtocol {
     let title: String = Loc.Set.View.Settings.GroupBy.title
     @Published private(set) var items: [CheckPopupItem] = []
