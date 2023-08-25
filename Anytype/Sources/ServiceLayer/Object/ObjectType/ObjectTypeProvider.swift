@@ -43,18 +43,13 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     
     func defaultObjectTypePublisher(spaceId: String) -> AnyPublisher<ObjectType, Never> {
         return $defaultObjectTypes
-            .compactMap { [weak self] _ in try? self?.defaultObjectType(spaceId: spaceId) }
+            .compactMap { [weak self] storage in try? self?.defaultObjectType(storage: storage, spaceId: spaceId) }
             .removeDuplicates()
             .eraseToAnyPublisher()
     }
     
     func defaultObjectType(spaceId: String) throws -> ObjectType {
-        let typeId = defaultObjectTypes[spaceId]
-        guard let type = objectTypes.first(where: { $0.id == typeId }) ?? findNoteType(spaceId: spaceId) else {
-            anytypeAssertionFailure("Default object type not found")
-            throw ObjectTypeError.objectTypeNotFound
-        }
-        return type
+       return try defaultObjectType(storage: defaultObjectTypes, spaceId: spaceId)
     }
     
     func setDefaultObjectType(type: ObjectType, spaceId: String) {
@@ -155,6 +150,15 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
         let type = objectTypes.first { $0.uniqueKey == .note && $0.spaceId == spaceId }
         if type.isNil {
             anytypeAssertionFailure("Note type not found")
+        }
+        return type
+    }
+    
+    func defaultObjectType(storage: [String: String], spaceId: String) throws -> ObjectType {
+        let typeId = storage[spaceId]
+        guard let type = objectTypes.first(where: { $0.id == typeId }) ?? findNoteType(spaceId: spaceId) else {
+            anytypeAssertionFailure("Default object type not found")
+            throw ObjectTypeError.objectTypeNotFound
         }
         return type
     }

@@ -4,4 +4,5 @@ import Foundation
 protocol SpaceSettingsModuleOutput: AnyObject {
     func onChangeIconSelected(objectId: String)
     func onRemoteStorageSelected()
+    func onPersonalizationSelected()
 }

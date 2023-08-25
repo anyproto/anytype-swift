@@ -83,7 +83,7 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol, SettingsModuleOutp
     
     func onPersonalizationSelected() {
         let module = personalizationModuleAssembly.make(spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId, output: self)
-        navigationContext.present(module)
+        navigationContext.present(AnytypePopup(contentView: module))
     }
     
     func onAppearanceSelected() {

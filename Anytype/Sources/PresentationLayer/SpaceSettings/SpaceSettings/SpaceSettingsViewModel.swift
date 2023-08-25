@@ -56,7 +56,7 @@ final class SpaceSettingsViewModel: ObservableObject {
     }
     
     func onPersonalizationTap() {
-        
+        output?.onPersonalizationSelected()
     }
     
     // MARK: - Private

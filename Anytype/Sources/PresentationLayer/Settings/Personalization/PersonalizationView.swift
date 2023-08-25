@@ -2,10 +2,13 @@ import SwiftUI
 import AnytypeCore
 
 struct PersonalizationView: View {
-    @ObservedObject var model: PersonalizationViewModel
+    @StateObject var model: PersonalizationViewModel
 
     var body: some View {
         VStack(spacing: 0) {
+            if FeatureFlags.multiSpaceSettings {
+                DragIndicator()
+            }
             Spacer.fixedHeight(12)
             AnytypeText(Loc.personalization, style: .uxTitle1Semibold, color: .Text.primary)
             Spacer.fixedHeight(12)
@@ -15,10 +18,12 @@ struct PersonalizationView: View {
         }
         .background(Color.Background.secondary)
         .cornerRadius(16, corners: .top)
-        
         .onAppear {
             AnytypeAnalytics.instance().logScreenSettingsPersonal()
         }
+        .if(FeatureFlags.multiSpaceSettings, transform: {
+            $0.fitPresentationDetents()
+        })
     }
 
     private var defaultType: some View {
