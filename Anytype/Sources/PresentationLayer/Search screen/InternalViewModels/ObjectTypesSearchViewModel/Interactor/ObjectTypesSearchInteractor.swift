@@ -10,11 +10,13 @@ final class ObjectTypesSearchInteractor {
     private let excludedObjectTypeId: String?
     private let showBookmark: Bool
     private let showSetAndCollection: Bool
+    private let objectTypeProvider: ObjectTypeProviderProtocol
     
     init(
         spaceId: String,
         searchService: SearchServiceProtocol,
         workspaceService: WorkspaceServiceProtocol,
+        objectTypeProvider: ObjectTypeProviderProtocol,
         excludedObjectTypeId: String?,
         showBookmark: Bool,
         showSetAndCollection: Bool
@@ -25,6 +27,7 @@ final class ObjectTypesSearchInteractor {
         self.excludedObjectTypeId = excludedObjectTypeId
         self.showBookmark = showBookmark
         self.showSetAndCollection = showSetAndCollection
+        self.objectTypeProvider = objectTypeProvider
     }
     
 }
@@ -42,8 +45,9 @@ extension ObjectTypesSearchInteractor {
         )
     }
     
-    func searchInMarketplace(text: String, excludedIds: [String]) async throws -> [ObjectDetails] {
-        try await searchService.searchMarketplaceObjectTypes(text: text, excludedIds: excludedIds)
+    func searchInMarketplace(text: String) async throws -> [ObjectDetails] {
+        let excludedIds = objectTypeProvider.objectTypes(spaceId: spaceId).map(\.sourceObject)
+        return try await searchService.searchMarketplaceObjectTypes(text: text, excludedIds: excludedIds)
     }
     
     func installType(objectId: String) async throws -> ObjectDetails {

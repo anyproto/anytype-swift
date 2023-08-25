@@ -107,15 +107,14 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         
         let result = try await search(filters: filters, sorts: [sort], fullText: text)
 
-        return result
-//        return result.reordered(
-//            by: [
-//                ObjectTypeId.bundled(.page).rawValue,
-//                ObjectTypeId.bundled(.note).rawValue,
-//                ObjectTypeId.bundled(.task).rawValue,
-//                ObjectTypeId.bundled(.collection).rawValue
-//            ]
-//        ) { $0.id }
+        return result.reordered(
+            by: [
+                ObjectTypeUniqueKey.page.value,
+                ObjectTypeUniqueKey.note.value,
+                ObjectTypeUniqueKey.task.value,
+                ObjectTypeUniqueKey.collection.value
+            ]
+        ) { $0.uniqueKey }
     }
     
     func searchMarketplaceObjectTypes(text: String, excludedIds: [String]) async throws -> [ObjectDetails] {

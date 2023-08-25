@@ -48,6 +48,10 @@ final class RelationDetailsStorage: RelationDetailsStorageProtocol {
         }
     }
     
+    func relationsDetails(spaceId: String) -> [RelationDetails] {
+        return details.filter { $0.spaceId == spaceId }
+    }
+    
     func relationsDetails(for key: BundledRelationKey, spaceId: String) throws -> RelationDetails {
         guard let details = searchDetailsByKey[RelationDetailsKey(key: key.rawValue, spaceId: spaceId)] else {
             throw RelationDetailsStorageError.relationNotFound

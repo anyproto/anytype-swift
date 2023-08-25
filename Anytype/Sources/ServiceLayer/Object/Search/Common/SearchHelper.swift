@@ -258,8 +258,8 @@ class SearchHelper {
     private static func templateScheme() -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .equal
-        filter.relationKey = BundledRelationKey.type.rawValue
-        filter.value = "ObjectTypeId.bundled(.template).rawValue.protobufValue"
+        filter.relationKey = "\(BundledRelationKey.type.rawValue).\(BundledRelationKey.uniqueKey.rawValue)"
+        filter.value = ObjectTypeUniqueKey.template.value.protobufValue
 
         return filter
     }

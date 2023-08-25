@@ -150,6 +150,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
             spaceId: spaceId,
             searchService: serviceLocator.searchService(),
             workspaceService: serviceLocator.workspaceService(),
+            objectTypeProvider: serviceLocator.objectTypeProvider(),
             excludedObjectTypeId: excludedObjectTypeId,
             showBookmark: showBookmark,
             showSetAndCollection: showSetAndCollection
@@ -181,6 +182,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
             spaceId: spaceId,
             searchService: serviceLocator.searchService(),
             workspaceService: serviceLocator.workspaceService(),
+            objectTypeProvider: serviceLocator.objectTypeProvider(),
             excludedObjectTypeId: nil,
             showBookmark: false,
             showSetAndCollection: false
@@ -273,7 +275,8 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
                 objectId: document.objectId,
                 blockId: nil,
                 prefilledFieldsBuilder: SetPrefilledFieldsBuilder()
-            )
+            ),
+            relationDetailsStorage: serviceLocator.relationDetailsStorage()
         )
         
         let internalViewModel = RelationsSearchViewModel(

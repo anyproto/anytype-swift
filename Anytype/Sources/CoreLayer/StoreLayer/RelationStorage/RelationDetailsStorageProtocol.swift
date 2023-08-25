@@ -7,6 +7,7 @@ protocol RelationDetailsStorageProtocol: AnyObject {
     
     func relationsDetails(for links: [RelationLink], spaceId: String) -> [RelationDetails]
     func relationsDetails(for ids: [ObjectId], spaceId: String) -> [RelationDetails]
+    func relationsDetails(spaceId: String) -> [RelationDetails]
     func relationsDetails(for key: BundledRelationKey, spaceId: String) throws -> RelationDetails
     var relationsDetailsPublisher: AnyPublisher<[RelationDetails], Never> { get }
     
