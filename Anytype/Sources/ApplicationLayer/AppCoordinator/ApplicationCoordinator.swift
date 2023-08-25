@@ -58,7 +58,7 @@ final class ApplicationCoordinator: ApplicationCoordinatorProtocol {
     
     func handleDeeplink(url: URL) {
         guard applicationStateService.state == .home else { return }
-        DispatchQueue.main.async { QuickActionsStorage.shared.action = .newNote }
+        DispatchQueue.main.async { QuickActionsStorage.shared.action = .newObject }
     }
     
     // MARK: - Subscription

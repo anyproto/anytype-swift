@@ -6,6 +6,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
     private var di: DIProtocol?
+    private var quickActionShortcutBuilder: QuickActionShortcutBuilderProtocol?
     private var applicationCoordinator: ApplicationCoordinatorProtocol?
     
     // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -26,6 +27,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let applicationCoordinator = di.coordinatorsDI.application().make()
         self.applicationCoordinator = applicationCoordinator
+        quickActionShortcutBuilder = di.serviceLocator.quickActionShortcutBuilder()
         
         applicationCoordinator.start(connectionOptions: connectionOptions)
 
@@ -42,7 +44,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
-        UIApplication.shared.shortcutItems = QuickAction.allCases.map { $0.shortcut }
+        UIApplication.shared.shortcutItems = QuickAction.allCases.compactMap { quickActionShortcutBuilder?.buildShortcutItem(action: $0) }
     }
     
     func windowScene(_ windowScene: UIWindowScene, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
@@ -50,10 +52,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     private func handleQuickAction(_ item: UIApplicationShortcutItem) -> Bool {
-        guard let action = QuickAction(rawValue: item.type) else {
-            anytypeAssertionFailure("Not supported action", info: ["action": item.type])
-            return false
-        }
+        guard let action = quickActionShortcutBuilder?.buildAction(shortcutItem: item) else { return false }
         
         DispatchQueue.main.async { QuickActionsStorage.shared.action = action }
         return true

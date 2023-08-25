@@ -271,6 +271,11 @@ final class ServiceLocator {
     func workspaceStorage() -> WorkspacesStorageProtocol {
         return _workspaceStorage
     }
+    
+    func quickActionShortcutBuilder() -> QuickActionShortcutBuilderProtocol {
+        return QuickActionShortcutBuilder(activeWorkspaceStorage: activeWorkspaceStorage(), objectTypeProvider: objectTypeProvider())
+    }
+    
     // MARK: - Private
     
     private func subscriptionToggler() -> SubscriptionTogglerProtocol {
