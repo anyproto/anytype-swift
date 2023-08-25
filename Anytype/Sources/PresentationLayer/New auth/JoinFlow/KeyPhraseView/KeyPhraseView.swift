@@ -13,16 +13,32 @@ struct KeyPhraseView: View {
         .onAppear {
             model.onAppear()
         }
+        .sheet(isPresented: $model.showMoreInfo) {
+            model.keyPhraseMoreInfo()
+        }
     }
     
     private var content: some View {
-        VStack(spacing: 16) {
-            AnytypeText(Loc.Auth.JoinFlow.Key.title, style: .uxTitle1Semibold, color: .Text.primary)
-                .opacity(0.9)
+        VStack(spacing: 0) {
+            AnytypeText(Loc.Auth.JoinFlow.Key.title, style: .heading, color: .Auth.inputText)
+                .multilineTextAlignment(.center)
+            
+            Spacer.fixedHeight(26)
+            
+            AnytypeText(
+                model.keyShown ? Loc.Auth.JoinFlow.Key.Description.shown : Loc.Auth.JoinFlow.Key.description,
+                style: .calloutRegular,
+                color: .Auth.body
+            )
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, 8)
+            
+            Spacer.fixedHeight(16)
             
             phraseTextView
             
             if model.keyShown {
+                Spacer.fixedHeight(13)
                 StandardButton(
                     Loc.Auth.JoinFlow.Key.Button.Copy.title,
                     style: .secondarySmall,
@@ -31,14 +47,6 @@ struct KeyPhraseView: View {
                     }
                 )
             }
-            
-            AnytypeText(
-                Loc.Auth.JoinFlow.Key.description,
-                style: .authBody,
-                color: .Auth.body
-            )
-                .multilineTextAlignment(.center)
-                .padding(.horizontal, 24)
         }
         .padding(.horizontal, UIDevice.isPad ? 75 : 0)
     }
@@ -56,7 +64,16 @@ struct KeyPhraseView: View {
     }
     
     private var buttons: some View {
-        VStack(spacing: 12) {
+        VStack(spacing: 0) {
+            AnytypeText(Loc.Auth.JoinFlow.Key.Button.Info.title, style: .uxCalloutRegular, color: .Text.primary)
+                .padding(.vertical, 4)
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    model.showMoreInfo.toggle()
+                }
+            
+            Spacer.fixedHeight(14)
+            
             StandardButton(model.keyShown ? Loc.Auth.JoinFlow.Key.Button.Saved.title : Loc.Auth.JoinFlow.Key.Button.Show.title,
                 style: .primaryLarge,
                 action: {
@@ -66,6 +83,7 @@ struct KeyPhraseView: View {
             .colorScheme(.light)
             
             if !model.keyShown {
+                Spacer.fixedHeight(13)
                 StandardButton(
                     Loc.Auth.JoinFlow.Key.Button.Later.title,
                     style: .secondaryLarge,

@@ -138,14 +138,12 @@ final class ModulesDI: ModulesDIProtocol {
         return MigrationGuideViewModuleAssembly()
     }
     
-    // @joe_pusya: will be moved to separate modulesDI
-    
-    func authVoid() -> VoidViewModuleAssemblyProtocol {
-        return VoidViewModuleAssembly(serviceLocator: serviceLocator)
-    }
-    
     func authKey() -> KeyPhraseViewModuleAssemblyProtocol {
         return KeyPhraseViewModuleAssembly(uiHelpersDI: uiHelpersDI)
+    }
+    
+    func authKeyMoreInfo() -> KeyPhraseMoreInfoViewModuleAssembly {
+        return KeyPhraseMoreInfoViewModuleAssembly()
     }
     
     func authSoul() -> SoulViewModuleAssemblyProtocol {

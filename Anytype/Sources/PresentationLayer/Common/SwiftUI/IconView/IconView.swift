@@ -6,7 +6,7 @@ struct IconView: View {
     let icon: Icon?
     
     @State private var task: Task<Void, Never>?
-    @State private var size: CGSize = .zero
+    @State private var size: CGSize?
     @State private var placeholderImage: UIImage?
     @State private var image: UIImage?
     
@@ -16,15 +16,9 @@ struct IconView: View {
     // MARK: - Public properties
     
     var body: some View {
-        ZStack {
-            Color.clear.readSize { newSize in
-                size = newSize
-            }
-            if redactionReasons.contains(.placeholder) {
-                systemPlaceholder
-            } else {
-                content
-            }
+        content
+        .readSize { newSize in
+            size = newSize
         }
         .onChange(of: isEnable) { _ in
             updateIcon()
@@ -39,28 +33,30 @@ struct IconView: View {
         }
         .frame(idealWidth: 30, idealHeight: 30) // Default frame
     }
-        
-    @ViewBuilder
-    private var content: some View {
-        if let image {
-            Image(uiImage: image)
+    
+    // Root view should be a image view for apply initial frame.
+    // Don't use a viewbuilder, because view builder make a container
+    private var content: Image {
+        if redactionReasons.contains(.placeholder) {
+            return systemPlaceholder
+        } else if let image {
+            return Image(uiImage: image)
         } else if let placeholderImage {
-            Image(uiImage: placeholderImage)
+            return Image(uiImage: placeholderImage)
         } else {
-            systemPlaceholder
+            return systemPlaceholder
         }
     }
     
-    private var systemPlaceholder: some View {
+    private var systemPlaceholder: Image {
         // Empty image for native placeholder
         Image(uiImage: UIImage())
             .resizable()
-            .frame(width: size.width, height: size.height)
     }
     
     private func updateIcon(_ newIcon: Icon? = nil) {
         task?.cancel()
-        guard let icon = newIcon ?? icon else {
+        guard let icon = newIcon ?? icon, let size else {
             placeholderImage = nil
             image = nil
             return

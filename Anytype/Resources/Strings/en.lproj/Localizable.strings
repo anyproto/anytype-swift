@@ -207,30 +207,31 @@
 "Auth.LogIn" = "Log in";
 "Auth.Join" = "Join";
 "Auth.Welcome.Title" = "the\neverything\napp";
-"Auth.Welcome.Subtitle" = "For those who celebrate trust & autonomy. Anytype is your safe space to write, plan, think and organise everything that matters to you";
+"Auth.Welcome.Subtitle" = "Anytype is your safe space to write, plan, think and organise everything that matters to you.";
 "Auth.Caption.Privacy.Text" = "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)";
 "Auth.Next" = "Next";
 
 // New Auth - Join flow
 
-"Auth.JoinFlow.Void.Title" = "This is your Void";
-"Auth.JoinFlow.Void.Description" = "It is an encrypted location for everything you create. Everything is stored on your device, and backed up to the distributed network.";
-
-"Auth.JoinFlow.Key.Title" = "End-to-end Encryption";
-"Auth.JoinFlow.Key.Description" = "Your data is encrypted by the Key above - your secret Recovery phrase. Store it securely. This is the only way to login and access your Void.";
+"Auth.JoinFlow.Key.Title" = "Save your recovery phrase";
+"Auth.JoinFlow.Key.Description" = "To log in into your account you need a recovery phrase. It is 12 random words, like a master password for all data. Save it now or later in settings.";
+"Auth.JoinFlow.Key.Description.Shown" = "Lose the Recovery Phrase, lose your account. It's irreplaceable, so secure it well. Quick option: Save to password manager. Safest option: Write on paper and store offline in a secure spot.";
 "Auth.JoinFlow.Key.TextField.Placeholder" = "Type your recovery phrase";
-"Auth.JoinFlow.Key.Button.Show.Title" = "Show me the key";
-"Auth.JoinFlow.Key.Button.Saved.Title" = "I saved my key";
-"Auth.JoinFlow.Key.Button.Later.Title" = "Check later";
+"Auth.JoinFlow.Key.Button.Show.Title" = "Show Recovery Phrase";
+"Auth.JoinFlow.Key.Button.Saved.Title" = "Enter your space";
+"Auth.JoinFlow.Key.Button.Later.Title" = "Do it later";
 "Auth.JoinFlow.Key.Button.Copy.Title" = "Copy to clipboard";
+"Auth.JoinFlow.Key.Button.Info.Title" = "Learn more";
 
-"Auth.JoinFlow.Soul.Title" = "Anytype Identity";
-"Auth.JoinFlow.Soul.Description" = "Great! As a last step, let's create your Identity and enter your name. Don't worry – you can always change the name later.";
-"Auth.JoinFlow.Soul.Placeholder" = "Name";
-"Auth.JoinFlow.Soul.Button.Title" = "Go to the app";
+"Auth.JoinFlow.Key.MoreInfo.Description" = "Your Recovery Phrase protects your data cryptographically. No one can access your data without your Recovery Phrase (not even Anytype).\nThat makes it very important to keep it safe, and equally importantly, to keep it to yourself.\n\n**So again, please don't share your Recovery Phrase.**\n\n**One last important thing...**\nWe do not know your Recovery Phrase and will never ask for it. If you lose it, no one, including Anytype, can help you restore your data. So, it's essential you keep it somewhere safe.\n\n**The easiest way so store your Recovery Phrase is to save it to your password manager.\n\nThe securest way is to write it down on paper and keep it offline, in a safe and secure place.**";
+"Auth.JoinFlow.Key.MoreInfo.Button.Title" = "Sounds good";
 
-"Auth.JoinFlow.Creating.Soul.Title" = "Creating your Identity…";
-"Auth.JoinFlow.Setting.Space.Title" = "Setting up the Personal space...";
+"Auth.JoinFlow.Soul.Title" = "Set a name for new identity";
+"Auth.JoinFlow.Soul.Description" = "First, choose a name to use inside Anytype.";
+"Auth.JoinFlow.Soul.Placeholder" = "Untitled";
+
+"Auth.JoinFlow.Creating.Soul.Title" = "Generating new Anytype identity";
+"Auth.JoinFlow.Setting.Space.Title" = "Setting up your Personal space";
 "Auth.JoinFlow.Personal.Space.Title" = "Personal Space";
 
 // New Auth - Login flow
