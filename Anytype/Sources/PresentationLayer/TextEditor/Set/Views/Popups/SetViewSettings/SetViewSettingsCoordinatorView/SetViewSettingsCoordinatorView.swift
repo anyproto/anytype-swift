@@ -8,7 +8,9 @@ struct SetViewSettingsCoordinatorView: View {
             .sheet(isPresented: $model.showObjects) {}
             .sheet(isPresented: $model.showLayouts) {}
             .sheet(isPresented: $model.showRelations) {}
-            .sheet(isPresented: $model.showFilters) {}
+            .sheet(isPresented: $model.showFilters) {
+                model.setFiltersList()
+            }
             .sheet(isPresented: $model.showSorts) {
                 model.setSortsList()
             }

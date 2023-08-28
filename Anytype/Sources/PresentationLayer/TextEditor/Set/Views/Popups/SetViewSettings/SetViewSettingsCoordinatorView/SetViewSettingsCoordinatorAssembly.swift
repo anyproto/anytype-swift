@@ -1,8 +1,9 @@
 import SwiftUI
+import Services
 
 protocol SetViewSettingsCoordinatorAssemblyProtocol {
     @MainActor
-    func make(setDocument: SetDocumentProtocol) -> AnyView
+    func make(setDocument: SetDocumentProtocol, subscriptionDetailsStorage: ObjectDetailsStorage) -> AnyView
 }
 
 final class SetViewSettingsCoordinatorAssembly: SetViewSettingsCoordinatorAssemblyProtocol {
@@ -18,11 +19,13 @@ final class SetViewSettingsCoordinatorAssembly: SetViewSettingsCoordinatorAssemb
     // MARK: - SetViewSettingsCoordinatorModuleAssemblyProtocol
     
     @MainActor
-    func make(setDocument: SetDocumentProtocol) -> AnyView {
+    func make(setDocument: SetDocumentProtocol, subscriptionDetailsStorage: ObjectDetailsStorage) -> AnyView {
         return SetViewSettingsCoordinatorView(
             model: SetViewSettingsCoordinatorViewModel(
                 setDocument: setDocument,
+                subscriptionDetailsStorage: subscriptionDetailsStorage,
                 setViewSettingsListModuleAssembly: self.modulesDI.setViewSettingsList(),
+                setFiltersListCoordinatorAssembly: self.coordinatorsDI.setFiltersList(),
                 setSortsListCoordinatorAssembly: self.coordinatorsDI.setSortsList()
             )
         ).eraseToAnyView()

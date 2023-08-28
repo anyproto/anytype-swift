@@ -10,7 +10,7 @@ protocol EditorSetRouterProtocol:
     ObjectHeaderRouterProtocol
 {
     
-    func showSetSettings()
+    func showSetSettings(subscriptionDetailsStorage: ObjectDetailsStorage)
     func showSetSettingsLegacy(onSettingTap: @escaping (EditorSetSetting) -> Void)
     func dismissSetSettingsIfNeeded()
     
@@ -145,8 +145,11 @@ final class EditorSetRouter: EditorSetRouterProtocol {
     // MARK: - EditorSetRouterProtocol
     
     @MainActor
-    func showSetSettings() {
-        let view = setViewSettingsCoordinatorAssembly.make(setDocument: setDocument)
+    func showSetSettings(subscriptionDetailsStorage: ObjectDetailsStorage) {
+        let view = setViewSettingsCoordinatorAssembly.make(
+            setDocument: setDocument,
+            subscriptionDetailsStorage: subscriptionDetailsStorage
+        )
         navigationContext.presentSwiftUISheetView(view: view)
     }
     

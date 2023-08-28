@@ -683,7 +683,7 @@ extension EditorSetViewModel {
     
     func showSetSettings() {
         if FeatureFlags.newSetSettings {
-            router?.showSetSettings()
+            router?.showSetSettings(subscriptionDetailsStorage: subscriptionService.storage)
         } else {
             router?.showSetSettingsLegacy { [weak self] setting in
                 guard let self else { return }
