@@ -23,12 +23,12 @@ final class SetFiltersSelectionCoordinatorAssembly: SetFiltersSelectionCoordinat
         return SetFiltersSelectionCoordinatorView(
             model: SetFiltersSelectionCoordinatorViewModel(
                 filter: filter,
-                completion: completion,
                 setFiltersSelectionHeaderModuleAssembly: self.modulesDI.setFiltersSelectionHeader(),
                 setFiltersSelectionViewModuleAssembly: self.modulesDI.setFiltersSelectionView(),
                 setFiltersDateCoordinatorAssembly: self.coordinatorsDI.setFiltersDate(),
                 setFilterConditionsModuleAssembly:  self.modulesDI.setFilterConditions(),
-                newSearchModuleAssembly: self.modulesDI.newSearch()
+                newSearchModuleAssembly: self.modulesDI.newSearch(),
+                completion: completion
             )
         ).eraseToAnyView()
     }

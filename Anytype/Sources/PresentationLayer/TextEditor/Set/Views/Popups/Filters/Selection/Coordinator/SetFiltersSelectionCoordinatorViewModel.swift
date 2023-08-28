@@ -11,22 +11,21 @@ final class SetFiltersSelectionCoordinatorViewModel: ObservableObject, SetFilter
     @Published var filterConditions: FilterConditions?
     
     private let filter: SetFilter
-    private let completion: (SetFilter) -> Void
     private let setFiltersSelectionViewModuleAssembly: SetFiltersSelectionViewModuleAssemblyProtocol
     private let setFilterConditionsModuleAssembly: SetFilterConditionsModuleAssemblyProtocol
     private let contentViewBuilder: SetFiltersContentViewBuilder
+    private let completion: (SetFilter) -> Void
     
     init(
         filter: SetFilter,
-        completion: @escaping (SetFilter) -> Void,
         setFiltersSelectionHeaderModuleAssembly: SetFiltersSelectionHeaderModuleAssemblyProtocol,
         setFiltersSelectionViewModuleAssembly: SetFiltersSelectionViewModuleAssemblyProtocol,
         setFiltersDateCoordinatorAssembly: SetFiltersDateCoordinatorAssemblyProtocol,
         setFilterConditionsModuleAssembly: SetFilterConditionsModuleAssemblyProtocol,
-        newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
+        newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
+        completion: @escaping (SetFilter) -> Void
     ) {
         self.filter = filter
-        self.completion = completion
         self.setFiltersSelectionViewModuleAssembly = setFiltersSelectionViewModuleAssembly
         self.setFilterConditionsModuleAssembly = setFilterConditionsModuleAssembly
         self.contentViewBuilder = SetFiltersContentViewBuilder(
@@ -35,6 +34,7 @@ final class SetFiltersSelectionCoordinatorViewModel: ObservableObject, SetFilter
             setFiltersDateCoordinatorAssembly: setFiltersDateCoordinatorAssembly,
             newSearchModuleAssembly: newSearchModuleAssembly
         )
+        self.completion = completion
     }
     
     func list() -> AnyView {

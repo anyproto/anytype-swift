@@ -29,9 +29,9 @@ final class SetFiltersDateCoordinatorAssembly: SetFiltersDateCoordinatorAssembly
             model: SetFiltersDateCoordinatorViewModel(
                 filter: filter,
                 setSelectionModel: setSelectionModel,
-                completion: completion,
                 setFiltersDateViewModuleAssembly: self.modulesDI.setFiltersDateView(),
-                setTextViewModuleAssembly: self.modulesDI.setTextView()
+                setTextViewModuleAssembly: self.modulesDI.setTextView(),
+                completion: completion
             )
         ).eraseToAnyView()
     }

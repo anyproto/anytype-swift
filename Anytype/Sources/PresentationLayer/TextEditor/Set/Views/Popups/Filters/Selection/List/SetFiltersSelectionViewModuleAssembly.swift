@@ -32,5 +32,4 @@ final class SetFiltersSelectionViewModuleAssembly: SetFiltersSelectionViewModule
         ).eraseToAnyView()
     }
     
-    
 }

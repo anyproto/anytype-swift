@@ -50,8 +50,6 @@ protocol EditorSetRouterProtocol:
         onSelect: @escaping (Bool, BlockBackgroundColor?) -> Void
     )
     
-    func showFilterConditions(filter: SetFilter, onSelect: @escaping (DataviewFilter.Condition) -> Void)
-    
     func showSettings()
     func showQueries(selectedObjectId: BlockId?, onSelect: @escaping (BlockId) -> ())
     
@@ -282,8 +280,7 @@ final class EditorSetRouter: EditorSetRouterProtocol {
         let vc = UIHostingController(
             rootView: view
         )
-        vc.sheetPresentationController?.detents = [.large()]
-        navigationContext.present(vc)
+        presentSheet(vc, detents: [.large()], selectedDetentIdentifier: .large)
     }
     
     @MainActor
@@ -295,8 +292,7 @@ final class EditorSetRouter: EditorSetRouterProtocol {
         let vc = UIHostingController(
             rootView: view
         )
-        vc.sheetPresentationController?.detents = [.large()]
-        navigationContext.present(vc)
+        presentSheet(vc, detents: [.large()], selectedDetentIdentifier: .large)
     }
     
     @MainActor
@@ -367,20 +363,6 @@ final class EditorSetRouter: EditorSetRouterProtocol {
             )
         )
         navigationContext.present(popup)
-    }
-    
-    @MainActor
-    func showFilterConditions(filter: SetFilter, onSelect: @escaping (DataviewFilter.Condition) -> Void) {
-        let view = CheckPopupView(
-            viewModel: SetFilterConditionsViewModel(
-                filter: filter,
-                onSelect: { condition in
-                    onSelect(condition)
-                }
-            )
-        )
-        let popul = AnytypePopup(contentView: view)
-        presentSheet(popul)
     }
     
     func showSettings() {
@@ -493,12 +475,14 @@ final class EditorSetRouter: EditorSetRouterProtocol {
         navigationContext.presentSwiftUIView(view: view)
     }
     
-    private func presentSheet(_ vc: UIViewController) {
-        if #available(iOS 15.0, *) {
-            if let sheet = vc.sheetPresentationController {
-                sheet.detents = [.medium(), .large()]
-                sheet.selectedDetentIdentifier = .medium
-            }
+    private func presentSheet(
+        _ vc: UIViewController,
+        detents: [UISheetPresentationController.Detent] = [.medium(), .large()],
+        selectedDetentIdentifier: UISheetPresentationController.Detent.Identifier = .medium
+    ) {
+        if let sheet = vc.sheetPresentationController {
+            sheet.detents = detents
+            sheet.selectedDetentIdentifier = selectedDetentIdentifier
         }
         navigationContext.present(vc)
     }

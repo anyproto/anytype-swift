@@ -6,6 +6,7 @@ struct SetViewSettingsList: View {
     
     var body: some View {
         VStack(spacing: 0) {
+            Spacer.fixedHeight(8)
             TitleView(
                 title: Loc.SetViewTypesPicker.title,
                 rightButton: {
