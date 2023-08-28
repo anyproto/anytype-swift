@@ -43,10 +43,12 @@ struct MediumPresentationDetentsViewModifier: ViewModifier {
          if #available(iOS 16.4, *) {
              content
                  .presentationDetents([.medium, .large])
+                 .presentationDragIndicator(.hidden)
                  .presentationCornerRadius(16)
          } else if #available(iOS 16.0, *) {
              content
                  .presentationDetents([.medium, .large])
+                 .presentationDragIndicator(.hidden)
          } else {
              VStack(spacing: 0) {
                  content

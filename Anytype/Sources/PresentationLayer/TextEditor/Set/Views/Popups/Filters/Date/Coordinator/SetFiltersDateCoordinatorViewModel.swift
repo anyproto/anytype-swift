@@ -10,17 +10,23 @@ final class SetFiltersDateCoordinatorViewModel: ObservableObject, SetFiltersDate
     @Published var filtersDaysData: FiltersDateData?
     
     private let filter: SetFilter
+    
+    // TODO: Needs refactoring
+    private weak var setSelectionModel: SetFiltersSelectionViewModel?
+    
     private let completion: (SetFiltersDate) -> Void
     private let setFiltersDateViewModuleAssembly: SetFiltersDateViewModuleAssemblyProtocol
     private let setTextViewModuleAssembly: SetTextViewModuleAssemblyProtocol
     
     init(
         filter: SetFilter,
+        setSelectionModel: SetFiltersSelectionViewModel?,
         completion: @escaping (SetFiltersDate) -> Void,
         setFiltersDateViewModuleAssembly: SetFiltersDateViewModuleAssemblyProtocol,
         setTextViewModuleAssembly: SetTextViewModuleAssemblyProtocol
     ) {
         self.filter = filter
+        self.setSelectionModel = setSelectionModel
         self.completion = completion
         self.setFiltersDateViewModuleAssembly = setFiltersDateViewModuleAssembly
         self.setTextViewModuleAssembly = setTextViewModuleAssembly
@@ -29,7 +35,7 @@ final class SetFiltersDateCoordinatorViewModel: ObservableObject, SetFiltersDate
     func list() -> AnyView {
         setFiltersDateViewModuleAssembly.make(
             filter: filter,
-            selectionModel: nil,
+            selectionModel: setSelectionModel,
             onApplyDate: completion
         )
     }

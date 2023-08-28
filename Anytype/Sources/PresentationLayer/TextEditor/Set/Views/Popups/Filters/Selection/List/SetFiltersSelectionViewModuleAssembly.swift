@@ -5,6 +5,7 @@ protocol SetFiltersSelectionViewModuleAssemblyProtocol {
     @MainActor
     func make(
         with filter: SetFilter,
+        output: SetFiltersSelectionCoordinatorOutput?,
         contentViewBuilder: SetFiltersContentViewBuilder,
         completion: @escaping (SetFilter) -> Void
     ) -> AnyView
@@ -17,12 +18,14 @@ final class SetFiltersSelectionViewModuleAssembly: SetFiltersSelectionViewModule
     @MainActor
     func make(
         with filter: SetFilter,
+        output: SetFiltersSelectionCoordinatorOutput?,
         contentViewBuilder: SetFiltersContentViewBuilder,
         completion: @escaping (SetFilter) -> Void
     ) -> AnyView {
         return SetFiltersSelectionView(
             viewModel: SetFiltersSelectionViewModel(
                 filter: filter,
+                output: output,
                 contentViewBuilder: contentViewBuilder,
                 onApply: completion
             )

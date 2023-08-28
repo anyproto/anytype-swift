@@ -5,18 +5,33 @@ import UIKit
 import SwiftUI
 
 final class SetFiltersContentViewBuilder {
-    let filter: SetFilter
+    private let filter: SetFilter
+    private let setFiltersSelectionHeaderModuleAssembly: SetFiltersSelectionHeaderModuleAssemblyProtocol
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     private let setFiltersDateCoordinatorAssembly: SetFiltersDateCoordinatorAssemblyProtocol
     
     init(
         filter: SetFilter,
+        setFiltersSelectionHeaderModuleAssembly: SetFiltersSelectionHeaderModuleAssemblyProtocol,
         setFiltersDateCoordinatorAssembly: SetFiltersDateCoordinatorAssemblyProtocol,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     ) {
         self.filter = filter
+        self.setFiltersSelectionHeaderModuleAssembly = setFiltersSelectionHeaderModuleAssembly
         self.setFiltersDateCoordinatorAssembly = setFiltersDateCoordinatorAssembly
         self.newSearchModuleAssembly = newSearchModuleAssembly
+    }
+    
+    @MainActor
+    func buildHeader(
+        output: SetFiltersSelectionCoordinatorOutput?,
+        onConditionChanged: @escaping (DataviewFilter.Condition) -> Void
+    ) -> AnyView {
+        setFiltersSelectionHeaderModuleAssembly.make(
+            filter: filter,
+            output: output,
+            onConditionChanged: onConditionChanged
+        )
     }
     
     @MainActor
@@ -25,14 +40,13 @@ final class SetFiltersContentViewBuilder {
         onSelect: @escaping (_ ids: [String]) -> Void,
         onApplyText: @escaping (_ text: String) -> Void,
         onApplyCheckbox: @escaping (Bool) -> Void,
-        onApplyDate: @escaping (SetFiltersDate) -> Void,
-        onKeyboardHeightChange: @escaping (_ height: CGFloat) -> Void
+        onApplyDate: @escaping (SetFiltersDate) -> Void
     ) -> AnyView {
         switch filter.conditionType {
         case let .selected(format):
             return buildSearchView(with: format, onSelect: onSelect)
         case .text, .number:
-            return buildTextView(onApplyText: onApplyText, onKeyboardHeightChange: onKeyboardHeightChange)
+            return buildTextView(onApplyText: onApplyText)
         case .checkbox:
             return buildCheckboxView(onApplyCheckbox: onApplyCheckbox)
         case .date:
@@ -125,14 +139,12 @@ final class SetFiltersContentViewBuilder {
     // MARK: - Private methods: Text
     
     func buildTextView(
-        onApplyText: @escaping (_ text: String) -> Void,
-        onKeyboardHeightChange: @escaping (_ height: CGFloat) -> Void
+        onApplyText: @escaping (_ text: String) -> Void
     ) -> AnyView {
         SetFiltersTextView(
             viewModel: SetFiltersTextViewModel(
                 filter: self.filter,
-                onApplyText: onApplyText,
-                onKeyboardHeightChange: onKeyboardHeightChange
+                onApplyText: onApplyText
             )
         ).eraseToAnyView()
     }
@@ -157,7 +169,11 @@ final class SetFiltersContentViewBuilder {
         setSelectionModel: SetFiltersSelectionViewModel?,
         onApplyDate: @escaping (SetFiltersDate) -> Void
     ) -> AnyView {
-        setFiltersDateCoordinatorAssembly.make(filter: filter, completion: onApplyDate)
+        setFiltersDateCoordinatorAssembly.make(
+            filter: filter,
+            setSelectionModel: setSelectionModel,
+            completion: onApplyDate
+        )
     }
     
     // MARK: - Helper methods

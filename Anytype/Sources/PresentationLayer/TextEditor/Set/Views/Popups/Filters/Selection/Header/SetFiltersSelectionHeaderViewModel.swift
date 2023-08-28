@@ -7,13 +7,16 @@ final class SetFiltersSelectionHeaderViewModel: ObservableObject {
     
     private var filter: SetFilter
     private weak var output: SetFiltersSelectionCoordinatorOutput?
+    private let onConditionChanged: (DataviewFilter.Condition) -> Void
     
     init(
         filter: SetFilter,
-        output: SetFiltersSelectionCoordinatorOutput?
+        output: SetFiltersSelectionCoordinatorOutput?,
+        onConditionChanged: @escaping (DataviewFilter.Condition) -> Void
     ) {
         self.filter = filter
         self.output = output
+        self.onConditionChanged = onConditionChanged
         self.headerConfiguration = Self.headerConfiguration(with: filter)
     }
     
@@ -39,10 +42,11 @@ final class SetFiltersSelectionHeaderViewModel: ObservableObject {
             )
         )
         headerConfiguration = Self.headerConfiguration(with: filter)
+        onConditionChanged(condition)
     }
     
     private func showFilterConditions() {
-        output?.onConditionTap { [weak self] condition in
+        output?.onConditionTap(filter: filter) { [weak self] condition in
             self?.updateFilter(with: condition)
         }
     }

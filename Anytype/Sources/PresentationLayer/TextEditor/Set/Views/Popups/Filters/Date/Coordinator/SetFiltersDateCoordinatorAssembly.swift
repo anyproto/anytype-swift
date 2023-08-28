@@ -2,7 +2,11 @@ import SwiftUI
 
 protocol SetFiltersDateCoordinatorAssemblyProtocol {
     @MainActor
-    func make(filter: SetFilter, completion: @escaping (SetFiltersDate) -> Void) -> AnyView
+    func make(
+        filter: SetFilter,
+        setSelectionModel: SetFiltersSelectionViewModel?,
+        completion: @escaping (SetFiltersDate) -> Void
+    ) -> AnyView
 }
 
 final class SetFiltersDateCoordinatorAssembly: SetFiltersDateCoordinatorAssemblyProtocol {
@@ -16,10 +20,15 @@ final class SetFiltersDateCoordinatorAssembly: SetFiltersDateCoordinatorAssembly
     // MARK: - SetFiltersDateCoordinatorAssemblyProtocol
     
     @MainActor
-    func make(filter: SetFilter, completion: @escaping (SetFiltersDate) -> Void) -> AnyView {
+    func make(
+        filter: SetFilter,
+        setSelectionModel: SetFiltersSelectionViewModel?,
+        completion: @escaping (SetFiltersDate) -> Void
+    ) -> AnyView {
         return SetFiltersDateCoordinatorView(
             model: SetFiltersDateCoordinatorViewModel(
                 filter: filter,
+                setSelectionModel: setSelectionModel,
                 completion: completion,
                 setFiltersDateViewModuleAssembly: self.modulesDI.setFiltersDateView(),
                 setTextViewModuleAssembly: self.modulesDI.setTextView()

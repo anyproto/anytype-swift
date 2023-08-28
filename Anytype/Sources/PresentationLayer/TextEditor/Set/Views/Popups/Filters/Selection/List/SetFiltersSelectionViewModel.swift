@@ -13,21 +13,37 @@ final class SetFiltersSelectionViewModel: ObservableObject {
     private let contentViewBuilder: SetFiltersContentViewBuilder
     private let onApply: (SetFilter) -> Void
     
+    private weak var output: SetFiltersSelectionCoordinatorOutput?
+    
     init(
         filter: SetFilter,
+        output: SetFiltersSelectionCoordinatorOutput?,
         contentViewBuilder: SetFiltersContentViewBuilder,
         onApply: @escaping (SetFilter) -> Void
     ) {
         self.filter = filter
         self.condition = filter.filter.condition
+        self.output = output
+        self.condition = filter.filter.condition
         self.contentViewBuilder = contentViewBuilder
-        self.contentHandler = SetFiltersContentHandler(filter: filter, onApply: onApply)
+        self.contentHandler = SetFiltersContentHandler(
+            filter: filter,
+            onApply: onApply
+        )
         self.onApply = onApply
         self.state = filter.filter.condition.hasValues ? .content : .empty
     }
 
+    func headerView() -> AnyView {
+        contentViewBuilder.buildHeader(
+            output: output,
+            onConditionChanged: { [weak self] condition in
+                self?.updateState(with: condition)
+            }
+        )
+    }
     
-    func contentView() -> some View {
+    func contentView() -> AnyView {
         contentViewBuilder.buildContentView(
             setSelectionModel: self,
             onSelect: { [contentHandler] ids in
@@ -41,8 +57,6 @@ final class SetFiltersSelectionViewModel: ObservableObject {
             },
             onApplyDate: { [contentHandler] in
                 contentHandler.handleDate($0)
-            },
-            onKeyboardHeightChange: { [weak self] _ in
             }
         )
     }
@@ -51,7 +65,12 @@ final class SetFiltersSelectionViewModel: ObservableObject {
         contentHandler.handleEmptyValue()
     }
     
+    func isCompactPresentationMode() -> Bool {
+        contentViewBuilder.compactPresentationMode() || state == .empty
+    }
+    
     private func updateState(with condition: DataviewFilter.Condition) {
+        self.condition = condition
         self.state = condition.hasValues ? .content : .empty
         contentHandler.updateCondition(condition)
     }

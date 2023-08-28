@@ -3,7 +3,7 @@ import Services
 
 @MainActor
 protocol SetFiltersSelectionCoordinatorOutput: AnyObject {
-    func onConditionTap(completion: @escaping (DataviewFilter.Condition) -> Void)
+    func onConditionTap(filter: SetFilter, completion: @escaping (DataviewFilter.Condition) -> Void)
 }
 
 @MainActor
@@ -12,7 +12,6 @@ final class SetFiltersSelectionCoordinatorViewModel: ObservableObject, SetFilter
     
     private let filter: SetFilter
     private let completion: (SetFilter) -> Void
-    private let setFiltersSelectionHeaderModuleAssembly: SetFiltersSelectionHeaderModuleAssemblyProtocol
     private let setFiltersSelectionViewModuleAssembly: SetFiltersSelectionViewModuleAssemblyProtocol
     private let setFilterConditionsModuleAssembly: SetFilterConditionsModuleAssemblyProtocol
     private let contentViewBuilder: SetFiltersContentViewBuilder
@@ -28,38 +27,28 @@ final class SetFiltersSelectionCoordinatorViewModel: ObservableObject, SetFilter
     ) {
         self.filter = filter
         self.completion = completion
-        self.setFiltersSelectionHeaderModuleAssembly = setFiltersSelectionHeaderModuleAssembly
         self.setFiltersSelectionViewModuleAssembly = setFiltersSelectionViewModuleAssembly
         self.setFilterConditionsModuleAssembly = setFilterConditionsModuleAssembly
         self.contentViewBuilder = SetFiltersContentViewBuilder(
             filter: filter,
+            setFiltersSelectionHeaderModuleAssembly: setFiltersSelectionHeaderModuleAssembly,
             setFiltersDateCoordinatorAssembly: setFiltersDateCoordinatorAssembly,
             newSearchModuleAssembly: newSearchModuleAssembly
-        )
-    }
-    
-    func header() -> AnyView {
-        setFiltersSelectionHeaderModuleAssembly.make(
-            filter: filter,
-            output: self
         )
     }
     
     func list() -> AnyView {
         setFiltersSelectionViewModuleAssembly.make(
             with: filter,
+            output: self,
             contentViewBuilder: contentViewBuilder,
             completion: completion
         )
     }
     
-    func isCompactPresentationMode() -> Bool {
-        contentViewBuilder.compactPresentationMode()
-    }
-    
     // MARK: - SetFiltersSelectionCoordinatorOutput
     
-    func onConditionTap(completion: @escaping (DataviewFilter.Condition) -> Void) {
+    func onConditionTap(filter: SetFilter, completion: @escaping (DataviewFilter.Condition) -> Void) {
         filterConditions = FilterConditions(
             filter: filter,
             completion: completion

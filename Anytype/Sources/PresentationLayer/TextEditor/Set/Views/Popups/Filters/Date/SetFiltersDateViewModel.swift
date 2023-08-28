@@ -81,9 +81,9 @@ final class SetFiltersDateViewModel: ObservableObject {
     }
     
     private func setup() {
-//        cancellable = setSelectionModel?.$condition.sink {  [weak self] condition in
-//            self?.condition = condition
-//        }
+        cancellable = setSelectionModel?.$condition.sink {  [weak self] condition in
+            self?.condition = condition
+        }
     }
      
     private func handleOptionTap(_ option: DataviewFilter.QuickOption) {

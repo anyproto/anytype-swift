@@ -5,13 +5,18 @@ struct SetFiltersSelectionView: View {
     
     var body: some View {
         VStack(spacing: 0) {
+            DragIndicator()
+            viewModel.headerView()
             switch viewModel.state {
             case .content:
                 viewModel.contentView()
             case .empty:
-                Spacer()
+                Spacer.fixedHeight(8)
                 button
             }
+        }
+        .if(viewModel.isCompactPresentationMode()) {
+            $0.fitPresentationDetents()
         }
     }
     
