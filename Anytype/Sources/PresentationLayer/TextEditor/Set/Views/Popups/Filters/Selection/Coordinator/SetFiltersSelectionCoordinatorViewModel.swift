@@ -53,6 +53,10 @@ final class SetFiltersSelectionCoordinatorViewModel: ObservableObject, SetFilter
         )
     }
     
+    func isCompactPresentationMode() -> Bool {
+        contentViewBuilder.compactPresentationMode()
+    }
+    
     // MARK: - SetFiltersSelectionCoordinatorOutput
     
     func onConditionTap(completion: @escaping (DataviewFilter.Condition) -> Void) {

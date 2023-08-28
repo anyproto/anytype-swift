@@ -40,6 +40,15 @@ final class SetFiltersContentViewBuilder {
         }
     }
     
+    func compactPresentationMode() -> Bool {
+        switch filter.conditionType {
+        case .text, .number, .checkbox:
+            return true
+        default:
+            return false
+        }
+    }
+    
     // MARK: - Private methods: Search
     
     private func buildSearchView(
@@ -121,7 +130,7 @@ final class SetFiltersContentViewBuilder {
     ) -> AnyView {
         SetFiltersTextView(
             viewModel: SetFiltersTextViewModel(
-                filter: filter,
+                filter: self.filter,
                 onApplyText: onApplyText,
                 onKeyboardHeightChange: onKeyboardHeightChange
             )
@@ -135,7 +144,7 @@ final class SetFiltersContentViewBuilder {
     ) -> AnyView {
         SetFiltersCheckboxView(
             viewModel: SetFiltersCheckboxViewModel(
-                filter: filter,
+                filter: self.filter,
                 onApplyCheckbox: onApplyCheckbox
             )
         ).eraseToAnyView()

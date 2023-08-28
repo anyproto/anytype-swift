@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct SetFiltersTextView: View {
-    @ObservedObject var viewModel: SetFiltersTextViewModel
+    @StateObject var viewModel: SetFiltersTextViewModel
     
     var body: some View {
         VStack(spacing: 0) {
