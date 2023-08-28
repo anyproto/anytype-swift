@@ -9,17 +9,23 @@ final class SetFiltersContentViewBuilder {
     private let setFiltersSelectionHeaderModuleAssembly: SetFiltersSelectionHeaderModuleAssemblyProtocol
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     private let setFiltersDateCoordinatorAssembly: SetFiltersDateCoordinatorAssemblyProtocol
+    private let setFiltersTextViewModuleAssembly: SetFiltersTextViewModuleAssemblyProtocol
+    private let setFiltersCheckboxViewModuleAssembly: SetFiltersCheckboxViewModuleAssemblyProtocol
     
     init(
         filter: SetFilter,
         setFiltersSelectionHeaderModuleAssembly: SetFiltersSelectionHeaderModuleAssemblyProtocol,
         setFiltersDateCoordinatorAssembly: SetFiltersDateCoordinatorAssemblyProtocol,
-        newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
+        newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
+        setFiltersTextViewModuleAssembly: SetFiltersTextViewModuleAssemblyProtocol,
+        setFiltersCheckboxViewModuleAssembly: SetFiltersCheckboxViewModuleAssemblyProtocol
     ) {
         self.filter = filter
         self.setFiltersSelectionHeaderModuleAssembly = setFiltersSelectionHeaderModuleAssembly
         self.setFiltersDateCoordinatorAssembly = setFiltersDateCoordinatorAssembly
         self.newSearchModuleAssembly = newSearchModuleAssembly
+        self.setFiltersTextViewModuleAssembly = setFiltersTextViewModuleAssembly
+        self.setFiltersCheckboxViewModuleAssembly = setFiltersCheckboxViewModuleAssembly
     }
     
     @MainActor
@@ -138,28 +144,26 @@ final class SetFiltersContentViewBuilder {
     
     // MARK: - Private methods: Text
     
+    @MainActor
     func buildTextView(
         onApplyText: @escaping (_ text: String) -> Void
     ) -> AnyView {
-        SetFiltersTextView(
-            viewModel: SetFiltersTextViewModel(
-                filter: self.filter,
-                onApplyText: onApplyText
-            )
-        ).eraseToAnyView()
+        setFiltersTextViewModuleAssembly.make(
+            with: filter,
+            onApplyText: onApplyText
+        )
     }
     
     // MARK: - Private methods: Checkbox
     
+    @MainActor
     func buildCheckboxView(
         onApplyCheckbox: @escaping (Bool) -> Void
     ) -> AnyView {
-        SetFiltersCheckboxView(
-            viewModel: SetFiltersCheckboxViewModel(
-                filter: self.filter,
-                onApplyCheckbox: onApplyCheckbox
-            )
-        ).eraseToAnyView()
+        setFiltersCheckboxViewModuleAssembly.make(
+            with: filter,
+            onApplyCheckbox: onApplyCheckbox
+        )
     }
     
     // MARK: - Private methods: Date

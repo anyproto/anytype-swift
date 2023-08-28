@@ -28,6 +28,8 @@ final class SetFiltersSelectionCoordinatorAssembly: SetFiltersSelectionCoordinat
                 setFiltersDateCoordinatorAssembly: self.coordinatorsDI.setFiltersDate(),
                 setFilterConditionsModuleAssembly:  self.modulesDI.setFilterConditions(),
                 newSearchModuleAssembly: self.modulesDI.newSearch(),
+                setFiltersTextViewModuleAssembly: self.modulesDI.setFiltersTextView(),
+                setFiltersCheckboxViewModuleAssembly: self.modulesDI.setFiltersCheckboxView(),
                 completion: completion
             )
         ).eraseToAnyView()

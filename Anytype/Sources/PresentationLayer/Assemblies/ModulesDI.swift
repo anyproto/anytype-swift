@@ -190,6 +190,14 @@ final class ModulesDI: ModulesDIProtocol {
         SetFiltersSelectionViewModuleAssembly()
     }
     
+    func setFiltersTextView() -> SetFiltersTextViewModuleAssemblyProtocol {
+        SetFiltersTextViewModuleAssembly()
+    }
+    
+    func setFiltersCheckboxView() -> SetFiltersCheckboxViewModuleAssemblyProtocol {
+        SetFiltersCheckboxViewModuleAssembly()
+    }
+    
     func setFiltersListModule() -> SetFiltersListModuleAssemblyProtocol {
         SetFiltersListModuleAssembly(serviceLocator: serviceLocator)
     }
