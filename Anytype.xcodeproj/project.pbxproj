@@ -749,6 +749,7 @@
 		2E1146D2293125610057C753 /* SetKanbanColumnSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1146D1293125610057C753 /* SetKanbanColumnSettingsView.swift */; };
 		2E1C80E52A2F6EF000217C47 /* AboutApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1C80E42A2F6EF000217C47 /* AboutApp.swift */; };
 		2E21599D28EC619E0042B205 /* EditorPageTemplatesHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E21599C28EC619E0042B205 /* EditorPageTemplatesHandler.swift */; };
+		2E2A22F42A9E327C00745D78 /* SetViewSettingsImagePreviewModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2A22F32A9E327C00745D78 /* SetViewSettingsImagePreviewModuleAssembly.swift */; };
 		2E2D255D28880C8D00E3DFD1 /* SetFiltersSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2D255428880C8D00E3DFD1 /* SetFiltersSelectionView.swift */; };
 		2E2D255E28880C8D00E3DFD1 /* SetFiltersSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2D255528880C8D00E3DFD1 /* SetFiltersSelectionViewModel.swift */; };
 		2E2D255F28880C8D00E3DFD1 /* SetFilterConditionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2D255628880C8D00E3DFD1 /* SetFilterConditionsViewModel.swift */; };
@@ -2262,6 +2263,7 @@
 		2E1146D1293125610057C753 /* SetKanbanColumnSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetKanbanColumnSettingsView.swift; sourceTree = "<group>"; };
 		2E1C80E42A2F6EF000217C47 /* AboutApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutApp.swift; sourceTree = "<group>"; };
 		2E21599C28EC619E0042B205 /* EditorPageTemplatesHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorPageTemplatesHandler.swift; sourceTree = "<group>"; };
+		2E2A22F32A9E327C00745D78 /* SetViewSettingsImagePreviewModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewSettingsImagePreviewModuleAssembly.swift; sourceTree = "<group>"; };
 		2E2D255428880C8D00E3DFD1 /* SetFiltersSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetFiltersSelectionView.swift; sourceTree = "<group>"; };
 		2E2D255528880C8D00E3DFD1 /* SetFiltersSelectionViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetFiltersSelectionViewModel.swift; sourceTree = "<group>"; };
 		2E2D255628880C8D00E3DFD1 /* SetFilterConditionsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetFilterConditionsViewModel.swift; sourceTree = "<group>"; };
@@ -5966,6 +5968,7 @@
 				2E0DAF2428A2723C00F43320 /* SetViewSettingsImagePreviewView.swift */,
 				2E0DAF2628A273FC00F43320 /* SetViewSettingsImagePreviewCover.swift */,
 				2E0DAF2828A2767B00F43320 /* SetViewSettingsImagePreviewRowConfiguration.swift */,
+				2E2A22F32A9E327C00745D78 /* SetViewSettingsImagePreviewModuleAssembly.swift */,
 			);
 			path = ImagePreview;
 			sourceTree = "<group>";
@@ -5995,13 +5998,6 @@
 				2E1146D1293125610057C753 /* SetKanbanColumnSettingsView.swift */,
 			);
 			path = Settings;
-			sourceTree = "<group>";
-		};
-		2E2B0D16290AEB4400150841 /* GroupBy */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = GroupBy;
 			sourceTree = "<group>";
 		};
 		2E2D255328880C8D00E3DFD1 /* Selection */ = {
@@ -6836,7 +6832,6 @@
 		3D30416627EA4DC100FFE0EB /* ViewSettings */ = {
 			isa = PBXGroup;
 			children = (
-				2E2B0D16290AEB4400150841 /* GroupBy */,
 				2EB7D2AC292BD1E50076592B /* GroupBy */,
 				2E0DAF1F28A26DC400F43320 /* ImagePreview */,
 				2E0DAF1C28A26DBD00F43320 /* CardSize */,
@@ -10120,6 +10115,7 @@
 				2E0A57BA2A3C7C6800359110 /* UsecaseService.swift in Sources */,
 				535FDE2027E8B63A0098DBFA /* PasteboardHelper.swift in Sources */,
 				126C46D726BD966700D31DBF /* ObjectHeaderIcon.swift in Sources */,
+				2E2A22F42A9E327C00745D78 /* SetViewSettingsImagePreviewModuleAssembly.swift in Sources */,
 				3D8A82D82656EDF400C4A9CD /* Popup.swift in Sources */,
 				2A617BCE2A49EC0B00725152 /* CommonWidgetInternalViewModel.swift in Sources */,
 				C9C49A82270499B500D86463 /* CameraPermissionVerifier.swift in Sources */,

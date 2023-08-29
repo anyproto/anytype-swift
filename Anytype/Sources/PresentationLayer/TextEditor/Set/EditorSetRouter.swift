@@ -92,6 +92,7 @@ final class EditorSetRouter: EditorSetRouterProtocol {
     private let setViewSettingsCoordinatorAssembly: SetViewSettingsCoordinatorAssemblyProtocol
     private let setSortsListCoordinatorAssembly: SetSortsListCoordinatorAssemblyProtocol
     private let setFiltersListCoordinatorAssembly: SetFiltersListCoordinatorAssemblyProtocol
+    private let setViewSettingsImagePreviewModuleAssembly: SetViewSettingsImagePreviewModuleAssemblyProtocol
     private let toastPresenter: ToastPresenterProtocol
     private let alertHelper: AlertHelper
     private let templateSelectionCoordinator: TemplateSelectionCoordinatorProtocol
@@ -116,6 +117,7 @@ final class EditorSetRouter: EditorSetRouterProtocol {
         setViewSettingsCoordinatorAssembly: SetViewSettingsCoordinatorAssemblyProtocol,
         setSortsListCoordinatorAssembly: SetSortsListCoordinatorAssemblyProtocol,
         setFiltersListCoordinatorAssembly: SetFiltersListCoordinatorAssemblyProtocol,
+        setViewSettingsImagePreviewModuleAssembly: SetViewSettingsImagePreviewModuleAssemblyProtocol,
         toastPresenter: ToastPresenterProtocol,
         alertHelper: AlertHelper,
         templateSelectionCoordinator: TemplateSelectionCoordinatorProtocol
@@ -135,6 +137,7 @@ final class EditorSetRouter: EditorSetRouterProtocol {
         self.setViewSettingsCoordinatorAssembly = setViewSettingsCoordinatorAssembly
         self.setSortsListCoordinatorAssembly = setSortsListCoordinatorAssembly
         self.setFiltersListCoordinatorAssembly = setFiltersListCoordinatorAssembly
+        self.setViewSettingsImagePreviewModuleAssembly = setViewSettingsImagePreviewModuleAssembly
         self.toastPresenter = toastPresenter
         self.alertHelper = alertHelper
         self.templateSelectionCoordinator = templateSelectionCoordinator
@@ -310,16 +313,13 @@ final class EditorSetRouter: EditorSetRouterProtocol {
         )
     }
     
+    @MainActor
     func showCovers(setDocument: SetDocumentProtocol, onSelect: @escaping (String) -> Void) {
-        let viewModel = SetViewSettingsImagePreviewViewModel(
+        let view = setViewSettingsImagePreviewModuleAssembly.make(
             setDocument: setDocument,
             onSelect: onSelect
         )
-        let vc = UIHostingController(
-            rootView: SetViewSettingsImagePreviewView(
-                viewModel: viewModel
-            )
-        )
+        let vc = UIHostingController(rootView: view)
         presentSheet(vc)
     }
     

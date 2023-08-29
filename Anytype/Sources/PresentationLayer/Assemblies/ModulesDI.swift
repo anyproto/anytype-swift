@@ -201,4 +201,8 @@ final class ModulesDI: ModulesDIProtocol {
     func setFiltersListModule() -> SetFiltersListModuleAssemblyProtocol {
         SetFiltersListModuleAssembly(serviceLocator: serviceLocator)
     }
+    
+    func setViewSettingsImagePreview() -> SetViewSettingsImagePreviewModuleAssemblyProtocol {
+        SetViewSettingsImagePreviewModuleAssembly()
+    }
 }
