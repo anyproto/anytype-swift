@@ -205,4 +205,8 @@ final class ModulesDI: ModulesDIProtocol {
     func setViewSettingsImagePreview() -> SetViewSettingsImagePreviewModuleAssemblyProtocol {
         SetViewSettingsImagePreviewModuleAssembly()
     }
+    
+    func setLayoutSettingsView() -> SetLayoutSettingsViewAssemblyProtocol {
+        SetLayoutSettingsViewAssembly()
+    }
 }
