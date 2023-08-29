@@ -19,6 +19,19 @@ extension DataviewViewType {
     var icon: ImageAsset {
         switch self {
         case .table:
+            return .X54.View.grid
+        case .list:
+            return .X54.View.list
+        case .gallery:
+            return .X54.View.gallery
+        case .kanban:
+            return .X24.View.kanban
+        }
+    }
+    
+    var iconLecacy: ImageAsset {
+        switch self {
+        case .table:
             return .X24.View.table
         case .list:
             return .X24.View.list

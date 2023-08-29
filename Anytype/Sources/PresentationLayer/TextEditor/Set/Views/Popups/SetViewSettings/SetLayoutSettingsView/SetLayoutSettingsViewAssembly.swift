@@ -7,12 +7,25 @@ protocol SetLayoutSettingsViewAssemblyProtocol {
 
 final class SetLayoutSettingsViewAssembly: SetLayoutSettingsViewAssemblyProtocol {
     
+    private let serviceLocator: ServiceLocator
+    
+    init(serviceLocator: ServiceLocator) {
+        self.serviceLocator = serviceLocator
+    }
+    
     // MARK: - SetLayoutSettingsViewAssemblyProtocol
     
     @MainActor
     func make(setDocument: SetDocumentProtocol) -> AnyView {
+        let dataviewService = serviceLocator.dataviewService(
+            objectId: setDocument.objectId,
+            blockId: setDocument.blockId
+        )
         return SetLayoutSettingsView(
-            viewModel: SetLayoutSettingsViewModel(setDocument: setDocument)
+            model: SetLayoutSettingsViewModel(
+                setDocument: setDocument,
+                dataviewService: dataviewService
+            )
         ).eraseToAnyView()
     }
 }

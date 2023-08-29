@@ -272,6 +272,13 @@ internal extension ImageAsset {
     static let underline = ImageAsset.bundle(name: "x40/Underline")
     static let video = ImageAsset.bundle(name: "x40/Video")
   }
+  enum X54 {
+    enum View {
+      static let gallery = ImageAsset.bundle(name: "x54/View/Gallery")
+      static let grid = ImageAsset.bundle(name: "x54/View/Grid")
+      static let list = ImageAsset.bundle(name: "x54/View/List")
+    }
+  }
   enum Emoji {
     }
   static let createNewObject = ImageAsset.bundle(name: "createNewObject")

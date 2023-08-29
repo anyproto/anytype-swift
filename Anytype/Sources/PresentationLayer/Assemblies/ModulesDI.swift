@@ -207,6 +207,6 @@ final class ModulesDI: ModulesDIProtocol {
     }
     
     func setLayoutSettingsView() -> SetLayoutSettingsViewAssemblyProtocol {
-        SetLayoutSettingsViewAssembly()
+        SetLayoutSettingsViewAssembly(serviceLocator: serviceLocator)
     }
 }
