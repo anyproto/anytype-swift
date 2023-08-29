@@ -18,6 +18,8 @@ final class RelationsListViewModel: ObservableObject {
     
     private weak var output: RelationsListModuleOutput?
     
+    private var subscriptions: [AnyCancellable] = []
+    
     // MARK: - Initializers
     
     init(
@@ -39,7 +41,13 @@ final class RelationsListViewModel: ObservableObject {
             .receiveOnMain()
             .assign(to: &$sections)
         
-        document.isLockedPublisher.assign(to: &$navigationBarButtonsDisabled)
+        document.syncPublisher
+            .receiveOnMain()
+            .sink { [weak self] in
+                guard let self else { return }
+                navigationBarButtonsDisabled = self.document.isLocked || self.document.isArchived
+            }
+            .store(in: &subscriptions)
     }
     
 }

@@ -97,7 +97,7 @@ final class TemplateSelectionCoordinator: TemplateSelectionCoordinatorProtocol {
             onSettingsTap: { [weak self] in
                 guard let self = self, let handler = self.handler else { return }
                 
-                self.objectSettingCoordinator.startFlow(objectId: blockId, delegate: handler)
+                self.objectSettingCoordinator.startFlow(objectId: blockId, delegate: handler, output: nil)
             }, onSelectTemplateTap: { [weak self] in
                 self?.navigationContext.dismissAllPresented(animated: true) {
                     onTemplateSelection(blockId)

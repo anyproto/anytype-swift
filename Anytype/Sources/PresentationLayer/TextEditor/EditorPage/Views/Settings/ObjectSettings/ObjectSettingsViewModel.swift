@@ -13,6 +13,7 @@ protocol ObjectSettingswModelOutput: AnyObject {
     func relationsAction(document: BaseDocumentProtocol)
     func openPageAction(screenData: EditorScreenData)
     func linkToAction(document: BaseDocumentProtocol, onSelect: @escaping (BlockId) -> ())
+    func closeEditorAction()
 }
 
 final class ObjectSettingsViewModel: ObservableObject, Dismissible {
@@ -67,6 +68,9 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
             },
             openPageAction: { [weak output] screenData in
                 output?.openPageAction(screenData: screenData)
+            },
+            closeEditorAction: { [weak output] in
+                output?.closeEditorAction()
             }
         )
         
@@ -122,6 +126,7 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
             objectActionsViewModel.details = details
         }
         objectActionsViewModel.isLocked = document.isLocked
+        objectActionsViewModel.isArchived = document.isArchived
         objectActionsViewModel.objectRestrictions = document.objectRestrictions
     }
 }

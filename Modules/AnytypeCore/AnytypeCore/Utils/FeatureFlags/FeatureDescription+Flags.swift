@@ -94,6 +94,12 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
+    static let openBinObject = FeatureDescription(
+        title: "Open bin object - IOS-1605",
+        type: .feature(author: "m@anytype.io", releaseVersion: "0.25.0"),
+        defaultValue: true
+    )
+    
     static let colorfulRecoveryPhrase = FeatureDescription(
         title: "Colourful recovery phrase",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.24.0"),
@@ -152,6 +158,6 @@ public extension FeatureDescription {
         title: "Show non fatal alerts",
         type: .debug,
         defaultValue: false,
-        debugValue: true
+        debugValue: CoreEnvironment.isSimulator
     )
 }

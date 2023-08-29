@@ -476,6 +476,7 @@
 		2A730A762940C10000E51335 /* SearchObjectRowView+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A730A752940C10000E51335 /* SearchObjectRowView+Init.swift */; };
 		2A733A8B294080B300B7D27C /* RelationsSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A733A8A294080B300B7D27C /* RelationsSearchViewModel.swift */; };
 		2A733A8D294082C200B7D27C /* RelationsSearchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A733A8C294082C200B7D27C /* RelationsSearchInteractor.swift */; };
+		2A7466AA2A9DFDF400D73F63 /* ObjectSettingsCoordinatorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7466A92A9DFDF400D73F63 /* ObjectSettingsCoordinatorOutput.swift */; };
 		2A7BD6E628D85993008B735C /* RelationSubscriptionDataBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7BD6E528D85993008B735C /* RelationSubscriptionDataBuilder.swift */; };
 		2A7BD6E828D8599D008B735C /* RelationSubscriptionDataBuilderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7BD6E728D8599D008B735C /* RelationSubscriptionDataBuilderProtocol.swift */; };
 		2A7BD6EB28D85B6B008B735C /* ObjectTypeSubscriptionDataBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7BD6EA28D85B6B008B735C /* ObjectTypeSubscriptionDataBuilder.swift */; };
@@ -1980,6 +1981,7 @@
 		2A730A752940C10000E51335 /* SearchObjectRowView+Init.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchObjectRowView+Init.swift"; sourceTree = "<group>"; };
 		2A733A8A294080B300B7D27C /* RelationsSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationsSearchViewModel.swift; sourceTree = "<group>"; };
 		2A733A8C294082C200B7D27C /* RelationsSearchInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationsSearchInteractor.swift; sourceTree = "<group>"; };
+		2A7466A92A9DFDF400D73F63 /* ObjectSettingsCoordinatorOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectSettingsCoordinatorOutput.swift; sourceTree = "<group>"; };
 		2A7BD6E528D85993008B735C /* RelationSubscriptionDataBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationSubscriptionDataBuilder.swift; sourceTree = "<group>"; };
 		2A7BD6E728D8599D008B735C /* RelationSubscriptionDataBuilderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationSubscriptionDataBuilderProtocol.swift; sourceTree = "<group>"; };
 		2A7BD6EA28D85B6B008B735C /* ObjectTypeSubscriptionDataBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectTypeSubscriptionDataBuilder.swift; sourceTree = "<group>"; };
@@ -5784,6 +5786,7 @@
 			children = (
 				2AEE49ED292E27FA00EA53AA /* ObjectSettingsCoordinator.swift */,
 				2A3629A6292E2BB200C02EC3 /* ObjectSettingsCoordinatorAssembly.swift */,
+				2A7466A92A9DFDF400D73F63 /* ObjectSettingsCoordinatorOutput.swift */,
 			);
 			path = ObjectSettingsFlow;
 			sourceTree = "<group>";
@@ -9434,6 +9437,7 @@
 				2EC669212A166FD1001F71BC /* JoinFlowStepOutput.swift in Sources */,
 				0AD7695925D5908E00669F8C /* FileActionsService.swift in Sources */,
 				125B6EC226F235F400BCD7D6 /* CursorModeAccessoryViewDelegate.swift in Sources */,
+				2A7466AA2A9DFDF400D73F63 /* ObjectSettingsCoordinatorOutput.swift in Sources */,
 				2EB7D2AE292BD1E50076592B /* SetViewSettingsGroupByViewModel.swift in Sources */,
 				EA20CDCD2612288400DBA9FE /* VideoBlockViewModel.swift in Sources */,
 				2AD6792C29812EE600339624 /* HomeBottomPanelModuleOutput.swift in Sources */,

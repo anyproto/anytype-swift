@@ -11,7 +11,7 @@ struct VideoBlockViewModel: BlockViewModelProtocol {
     let showVideoPicker: (BlockId) -> ()
     
     func didSelectRowInTableView(editorEditingState: EditorEditingState) {
-        if case .locked = editorEditingState { return }
+        if case .readonly = editorEditingState { return }
 
         switch fileData.state {
         case .empty, .error:

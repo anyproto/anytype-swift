@@ -66,6 +66,10 @@ public extension FeatureFlags {
         value(for: .validateRecoveryPhrase)
     }
 
+    static var openBinObject: Bool {
+        value(for: .openBinObject)
+    }
+
     static var colorfulRecoveryPhrase: Bool {
         value(for: .colorfulRecoveryPhrase)
     }
@@ -119,6 +123,7 @@ public extension FeatureFlags {
         .showAllFilesInBin,
         .superNewButtonLoadingState,
         .validateRecoveryPhrase,
+        .openBinObject,
         .colorfulRecoveryPhrase,
         .recentEditWidget,
         .widgetTaskDone,

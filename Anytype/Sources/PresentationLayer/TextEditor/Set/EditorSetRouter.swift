@@ -77,7 +77,7 @@ protocol EditorSetRouterProtocol:
     )
 }
 
-final class EditorSetRouter: EditorSetRouterProtocol {
+final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorOutput {
     
     // MARK: - DI
     
@@ -409,7 +409,7 @@ final class EditorSetRouter: EditorSetRouterProtocol {
     }
     
     func showSettings() {
-        objectSettingCoordinator.startFlow(objectId: setDocument.objectId, delegate: self)
+        objectSettingCoordinator.startFlow(objectId: setDocument.objectId, delegate: self, output: self)
     }
     
     func showCoverPicker() {

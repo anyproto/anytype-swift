@@ -26,7 +26,7 @@ struct BlockFileViewModel: BlockViewModelProtocol {
                 )
             )
         case .empty, .error:
-            if case .locked = editorEditingState { return }
+            if case .readonly = editorEditingState { return }
             showFilePicker(blockId)
         case .uploading:
             return
