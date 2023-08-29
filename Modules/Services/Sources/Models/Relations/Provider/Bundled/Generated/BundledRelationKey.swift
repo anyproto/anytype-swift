@@ -365,4 +365,7 @@ public enum BundledRelationKey: String {
 
     /// Unique key used to ensure object uniqueness within the space
     case uniqueKey = "uniqueKey"
+
+    /// List of backlinks
+    case backlinks = "backlinks"
 }

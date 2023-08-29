@@ -181,12 +181,12 @@ class SearchHelper {
         return filter
     }
 
-    static func templatesFilters(type: ObjectTypeId, spaceId spaceIdValue: String) -> [DataviewFilter] {
+    static func templatesFilters(type: String, spaceId spaceIdValue: String) -> [DataviewFilter] {
         [
             isArchivedFilter(isArchived: false),
             isDeletedFilter(isDeleted: false),
             templateScheme(),
-            templateTypeFilter(type: type.rawValue),
+            templateTypeFilter(type: type),
             spaceId(spaceIdValue)
         ]
     }

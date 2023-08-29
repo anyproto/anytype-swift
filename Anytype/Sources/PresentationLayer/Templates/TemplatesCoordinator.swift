@@ -35,7 +35,7 @@ final class TemplatesCoordinator {
 
     func showTemplatesPopupIfNeeded(
         document: BaseDocumentProtocol,
-        templatesTypeId: ObjectTypeId,
+        templatesTypeId: String,
         onShow: (() -> Void)?
     ) {
         let isSelectTemplate = document.details?.isSelectTemplate ?? false
@@ -64,7 +64,7 @@ final class TemplatesCoordinator {
     
     func showTemplatesPopupWithTypeCheckIfNeeded(
         document: BaseDocumentProtocol,
-        templatesTypeId: ObjectTypeId,
+        templatesTypeId: String,
         onShow: (() -> Void)?
     ) {
         let needShowTypeMenu = document.details?.isSelectType ?? false &&

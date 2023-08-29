@@ -64,7 +64,7 @@ final class TemplatesSelectionViewModel: ObservableObject {
     }
     
     func onAddTemplateTap() {
-        let objectTypeId = interactor.objectTypeId.rawValue
+        let objectTypeId = interactor.objectTypeId
         Task { [weak self] in
             do {
                 guard let objectId = try await self?.templatesService.createTemplateFromObjectType(objectTypeId: objectTypeId) else {

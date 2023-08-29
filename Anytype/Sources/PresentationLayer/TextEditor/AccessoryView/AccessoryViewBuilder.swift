@@ -77,11 +77,11 @@ struct AccessoryViewBuilder {
         )
 
         accessoryViewSwitcher.onDoneButton = {
-            guard let type = document.details?.objectType else { return }
+            guard let typeId = document.details?.type else { return }
 
             router.showTemplatesPopupIfNeeded(
                 document: document,
-                templatesTypeId: .dynamic(type.id),
+                templatesTypeId: typeId,
                 onShow: nil
             )
         }

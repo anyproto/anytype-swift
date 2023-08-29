@@ -19,7 +19,7 @@ protocol SearchServiceProtocol: AnyObject {
     func searchFiles(text: String, excludedFileIds: [String],  spaceId: String) async throws -> [ObjectDetails]
     func searchImages() async throws -> [ObjectDetails]
     func searchObjects(text: String, excludedObjectIds: [String], limitedTypeIds: [String], spaceId: String) async throws -> [ObjectDetails]
-    func searchTemplates(for type: ObjectTypeId, spaceId: String) async throws -> [ObjectDetails]
+    func searchTemplates(for type: String, spaceId: String) async throws -> [ObjectDetails]
     func searchObjects(
         text: String,
         excludedObjectIds: [String],
@@ -182,7 +182,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         return try await search(filters: filters, sorts: [sort], fullText: text)
     }
 
-    func searchTemplates(for type: ObjectTypeId, spaceId: String) async throws -> [ObjectDetails] {
+    func searchTemplates(for type: String, spaceId: String) async throws -> [ObjectDetails] {
         try await search(filters: SearchHelper.templatesFilters(type: type, spaceId: spaceId))
     }
 	

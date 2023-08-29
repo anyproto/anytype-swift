@@ -4,7 +4,7 @@ import AnytypeCore
 
 protocol TemplateSelectionInteractorProvider {
     var userTemplates: AnyPublisher<[TemplatePreviewModel], Never> { get }
-    var objectTypeId: ObjectTypeId { get }
+    var objectTypeId: String { get }
     
     func setDefaultTemplate(templateId: BlockId) async throws
 }
@@ -23,7 +23,7 @@ final class DataviewTemplateSelectionInteractorProvider: TemplateSelectionIntera
             .eraseToAnyPublisher()
     }
     
-    let objectTypeId: ObjectTypeId
+    let objectTypeId: String
     
     private let setDocument: SetDocumentProtocol
     private let dataView: DataviewView
@@ -54,12 +54,12 @@ final class DataviewTemplateSelectionInteractorProvider: TemplateSelectionIntera
         let defaultTypeId = (try? objectTypeProvider.defaultObjectType(spaceId: setDocument.spaceId))?.id ?? ""
         
         if setDocument.isCollection() || setDocument.isRelationsSet() {
-            self.objectTypeId = .dynamic(defaultTypeId)
+            self.objectTypeId = defaultTypeId
         } else {
             if let firstSetOf = setDocument.details?.setOf.first {
-                self.objectTypeId = .dynamic(firstSetOf)
+                self.objectTypeId = firstSetOf
             } else {
-                self.objectTypeId = .dynamic(defaultTypeId)
+                self.objectTypeId = defaultTypeId
                 anytypeAssertionFailure("Couldn't find default object type in sets", info: ["setId": setDocument.objectId])
             }
         }

@@ -341,24 +341,24 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
 
     func showTemplatesPopupIfNeeded(
         document: BaseDocumentProtocol,
-        templatesTypeId: ObjectTypeId,
+        templatesTypeId: String,
         onShow: (() -> Void)?
     ) {
         templatesCoordinator.showTemplatesPopupIfNeeded(
             document: document,
-            templatesTypeId: .dynamic(templatesTypeId.rawValue),
+            templatesTypeId: templatesTypeId,
             onShow: onShow
         )
     }
     
     func showTemplatesPopupWithTypeCheckIfNeeded(
         document: BaseDocumentProtocol,
-        templatesTypeId: ObjectTypeId,
+        templatesTypeId: String,
         onShow: (() -> Void)?
     ) {
         templatesCoordinator.showTemplatesPopupWithTypeCheckIfNeeded(
             document: document,
-            templatesTypeId: .dynamic(templatesTypeId.rawValue),
+            templatesTypeId: templatesTypeId,
             onShow: onShow
         )
     }

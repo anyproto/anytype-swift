@@ -72,12 +72,12 @@ protocol EditorRouterProtocol:
     
     func showTemplatesPopupIfNeeded(
         document: BaseDocumentProtocol,
-        templatesTypeId: ObjectTypeId,
+        templatesTypeId: String,
         onShow: (() -> Void)?
     )
     func showTemplatesPopupWithTypeCheckIfNeeded(
         document: BaseDocumentProtocol,
-        templatesTypeId: ObjectTypeId,
+        templatesTypeId: String,
         onShow: (() -> Void)?
     )
     

@@ -2,7 +2,7 @@ import Services
 import Combine
 
 final class MockTemplateSelectionInteractorProvider: TemplateSelectionInteractorProvider {
-    var objectTypeId: ObjectTypeId { fatalError() }
+    var objectTypeId: String { fatalError() }
     var userTemplates: AnyPublisher<[TemplatePreviewModel], Never> { $templates.eraseToAnyPublisher() }
 
     @Published private var templates = MockTemplatePreviewModel.allPreviews.map { $0.model }
