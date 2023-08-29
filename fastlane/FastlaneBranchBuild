@@ -15,10 +15,8 @@ platform :ios do
     match(readonly: true)
     
     version = "0.0.1"
-
-    last_build = latest_testflight_build_number(version: version)
+    build_number = "0"
     increment_version_number(version_number: version)
-    build_number = last_build + 1
     increment_build_number(build_number: build_number, xcodeproj: xcodeproj)
 
     add_badge(
