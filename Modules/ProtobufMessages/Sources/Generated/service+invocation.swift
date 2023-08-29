@@ -1914,6 +1914,16 @@ public struct ClientCommands {
         }
     }
 
+    public static func debugStackGoroutines(
+        _ request: Anytype_Rpc.Debug.StackGoroutines.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Debug.StackGoroutines.Request, Anytype_Rpc.Debug.StackGoroutines.Response> {
+        return Invocation(messageName: "DebugStackGoroutines", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceDebugStackGoroutines(requestData) ?? Data()
+            return try Anytype_Rpc.Debug.StackGoroutines.Response(serializedData: responseData)
+        }
+    }
+
     public static func debugExportLocalstore(
         _ request: Anytype_Rpc.Debug.ExportLocalstore.Request = .init()
     ) -> Invocation<Anytype_Rpc.Debug.ExportLocalstore.Request, Anytype_Rpc.Debug.ExportLocalstore.Response> {

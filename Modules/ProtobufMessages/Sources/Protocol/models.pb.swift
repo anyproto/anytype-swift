@@ -1493,9 +1493,14 @@ public struct Anytype_Model_Block {
         /// Enable backgrounds in groups
         public var groupBackgroundColors: Bool = false
 
+        /// Limit of objects shown in widget
         public var pageLimit: Int32 = 0
 
+        /// Default template that is chosen for new object created within the view
         public var defaultTemplateID: String = String()
+
+        /// Default object type that is chosen for new object created within the view
+        public var defaultObjectTypeID: String = String()
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -5114,6 +5119,7 @@ extension Anytype_Model_Block.Content.Dataview.View: SwiftProtobuf.Message, Swif
     12: .same(proto: "groupBackgroundColors"),
     13: .same(proto: "pageLimit"),
     14: .same(proto: "defaultTemplateId"),
+    15: .same(proto: "defaultObjectTypeId"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -5136,6 +5142,7 @@ extension Anytype_Model_Block.Content.Dataview.View: SwiftProtobuf.Message, Swif
       case 12: try { try decoder.decodeSingularBoolField(value: &self.groupBackgroundColors) }()
       case 13: try { try decoder.decodeSingularInt32Field(value: &self.pageLimit) }()
       case 14: try { try decoder.decodeSingularStringField(value: &self.defaultTemplateID) }()
+      case 15: try { try decoder.decodeSingularStringField(value: &self.defaultObjectTypeID) }()
       default: break
       }
     }
@@ -5184,6 +5191,9 @@ extension Anytype_Model_Block.Content.Dataview.View: SwiftProtobuf.Message, Swif
     if !self.defaultTemplateID.isEmpty {
       try visitor.visitSingularStringField(value: self.defaultTemplateID, fieldNumber: 14)
     }
+    if !self.defaultObjectTypeID.isEmpty {
+      try visitor.visitSingularStringField(value: self.defaultObjectTypeID, fieldNumber: 15)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -5202,6 +5212,7 @@ extension Anytype_Model_Block.Content.Dataview.View: SwiftProtobuf.Message, Swif
     if lhs.groupBackgroundColors != rhs.groupBackgroundColors {return false}
     if lhs.pageLimit != rhs.pageLimit {return false}
     if lhs.defaultTemplateID != rhs.defaultTemplateID {return false}
+    if lhs.defaultObjectTypeID != rhs.defaultObjectTypeID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
