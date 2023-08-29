@@ -808,7 +808,6 @@
 		2E7C44672892CFCA0062287C /* SetFiltersDateRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C44662892CFCA0062287C /* SetFiltersDateRowView.swift */; };
 		2E7C44692892D73C0062287C /* SetFiltersDateType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C44682892D73C0062287C /* SetFiltersDateType.swift */; };
 		2E7C446B2892E66D0062287C /* SetFiltersDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C446A2892E66D0062287C /* SetFiltersDate.swift */; };
-		2E7C446D2893F96A0062287C /* SetFiltersDaysViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C446C2893F96A0062287C /* SetFiltersDaysViewModel.swift */; };
 		2E7C446F289409610062287C /* TextRelationDetailsViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C446E289409610062287C /* TextRelationDetailsViewModelProtocol.swift */; };
 		2E7C4471289842E10062287C /* DataviewFilter+Update.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C4470289842E10062287C /* DataviewFilter+Update.swift */; };
 		2E7C4473289843220062287C /* DataviewFilter+Condition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C4472289843220062287C /* DataviewFilter+Condition.swift */; };
@@ -857,6 +856,8 @@
 		2E9EFE72285B62E500C8E47A /* SetFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9EFE71285B62E500C8E47A /* SetFilter.swift */; };
 		2EA098A72A697511009182C0 /* SubscriptionData+Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA098A62A697511009182C0 /* SubscriptionData+Info.swift */; };
 		2EA0F4912936629E003225BA /* GroupsSubscribeResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA0F4902936629E003225BA /* GroupsSubscribeResult.swift */; };
+		2EB3F0212A9D1B5D00B79A3F /* SetFiltersTextViewModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB3F0202A9D1B5D00B79A3F /* SetFiltersTextViewModuleAssembly.swift */; };
+		2EB3F0232A9D1CAA00B79A3F /* SetFiltersCheckboxViewModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB3F0222A9D1CAA00B79A3F /* SetFiltersCheckboxViewModuleAssembly.swift */; };
 		2EB7D2AE292BD1E50076592B /* SetViewSettingsGroupByViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB7D2AD292BD1E50076592B /* SetViewSettingsGroupByViewModel.swift */; };
 		2EB97A1B28B64CDC002BBB39 /* SetListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB97A1A28B64CDC002BBB39 /* SetListViewCell.swift */; };
 		2EC669212A166FD1001F71BC /* JoinFlowStepOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC669202A166FD1001F71BC /* JoinFlowStepOutput.swift */; };
@@ -874,6 +875,23 @@
 		2ECB34062A95131100E0F9BB /* SetSortsListCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB34052A95131100E0F9BB /* SetSortsListCoordinatorViewModel.swift */; };
 		2ECB34082A95133900E0F9BB /* SetSortsListCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB34072A95133900E0F9BB /* SetSortsListCoordinatorAssembly.swift */; };
 		2ECB340A2A95200000E0F9BB /* SetSortsListModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB34092A95200000E0F9BB /* SetSortsListModuleAssembly.swift */; };
+		2ECB340F2A97A90800E0F9BB /* SetTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB340E2A97A90800E0F9BB /* SetTextView.swift */; };
+		2ECB34112A97A92100E0F9BB /* SetTextViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB34102A97A92100E0F9BB /* SetTextViewModel.swift */; };
+		2ECB34132A97AC3500E0F9BB /* SetTextViewModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB34122A97AC3500E0F9BB /* SetTextViewModuleAssembly.swift */; };
+		2ECB34162A97B44800E0F9BB /* SetFiltersDateCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB34152A97B44800E0F9BB /* SetFiltersDateCoordinatorView.swift */; };
+		2ECB34182A97B45B00E0F9BB /* SetFiltersDateCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB34172A97B45B00E0F9BB /* SetFiltersDateCoordinatorViewModel.swift */; };
+		2ECB341A2A97B4C400E0F9BB /* SetFiltersDateCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB34192A97B4C400E0F9BB /* SetFiltersDateCoordinatorAssembly.swift */; };
+		2ECB341C2A97B80F00E0F9BB /* SetFiltersDateViewModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB341B2A97B80F00E0F9BB /* SetFiltersDateViewModuleAssembly.swift */; };
+		2ECB341F2A97C32A00E0F9BB /* SetFilterConditionsModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB341E2A97C32A00E0F9BB /* SetFilterConditionsModuleAssembly.swift */; };
+		2ECB342B2A97C95600E0F9BB /* SetFiltersSelectionHeaderModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB342A2A97C95600E0F9BB /* SetFiltersSelectionHeaderModuleAssembly.swift */; };
+		2ECB342D2A97CFF800E0F9BB /* SetFiltersSelectionCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB342C2A97CFF800E0F9BB /* SetFiltersSelectionCoordinatorView.swift */; };
+		2ECB342F2A97D00500E0F9BB /* SetFiltersSelectionCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB342E2A97D00500E0F9BB /* SetFiltersSelectionCoordinatorViewModel.swift */; };
+		2ECB34312A97D01B00E0F9BB /* SetFiltersSelectionCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB34302A97D01B00E0F9BB /* SetFiltersSelectionCoordinatorAssembly.swift */; };
+		2ECB34332A97D12800E0F9BB /* SetFiltersSelectionViewModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB34322A97D12800E0F9BB /* SetFiltersSelectionViewModuleAssembly.swift */; };
+		2ECB34372A98FEA800E0F9BB /* SetFiltersListCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB34362A98FEA800E0F9BB /* SetFiltersListCoordinatorView.swift */; };
+		2ECB34392A98FEB000E0F9BB /* SetFiltersListCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB34382A98FEB000E0F9BB /* SetFiltersListCoordinatorViewModel.swift */; };
+		2ECB343B2A98FEBE00E0F9BB /* SetFiltersListCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB343A2A98FEBE00E0F9BB /* SetFiltersListCoordinatorAssembly.swift */; };
+		2ECB343D2A98FFB500E0F9BB /* SetFiltersListModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB343C2A98FFB500E0F9BB /* SetFiltersListModuleAssembly.swift */; };
 		2ECC87562A43A17800A78293 /* MigrationGuideViewModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECC87552A43A17800A78293 /* MigrationGuideViewModuleAssembly.swift */; };
 		2ECD122B28AFE58E00BD464A /* TitleWithIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECD122A28AFE58E00BD464A /* TitleWithIconView.swift */; };
 		2ECD123028AFE6A900BD464A /* TitleWithIconStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECD122F28AFE6A900BD464A /* TitleWithIconStyle.swift */; };
@@ -2303,7 +2321,6 @@
 		2E7C44662892CFCA0062287C /* SetFiltersDateRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersDateRowView.swift; sourceTree = "<group>"; };
 		2E7C44682892D73C0062287C /* SetFiltersDateType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersDateType.swift; sourceTree = "<group>"; };
 		2E7C446A2892E66D0062287C /* SetFiltersDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersDate.swift; sourceTree = "<group>"; };
-		2E7C446C2893F96A0062287C /* SetFiltersDaysViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersDaysViewModel.swift; sourceTree = "<group>"; };
 		2E7C446E289409610062287C /* TextRelationDetailsViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRelationDetailsViewModelProtocol.swift; sourceTree = "<group>"; };
 		2E7C4470289842E10062287C /* DataviewFilter+Update.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataviewFilter+Update.swift"; sourceTree = "<group>"; };
 		2E7C4472289843220062287C /* DataviewFilter+Condition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataviewFilter+Condition.swift"; sourceTree = "<group>"; };
@@ -2352,6 +2369,8 @@
 		2E9EFE71285B62E500C8E47A /* SetFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFilter.swift; sourceTree = "<group>"; };
 		2EA098A62A697511009182C0 /* SubscriptionData+Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SubscriptionData+Info.swift"; sourceTree = "<group>"; };
 		2EA0F4902936629E003225BA /* GroupsSubscribeResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsSubscribeResult.swift; sourceTree = "<group>"; };
+		2EB3F0202A9D1B5D00B79A3F /* SetFiltersTextViewModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersTextViewModuleAssembly.swift; sourceTree = "<group>"; };
+		2EB3F0222A9D1CAA00B79A3F /* SetFiltersCheckboxViewModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersCheckboxViewModuleAssembly.swift; sourceTree = "<group>"; };
 		2EB7D2AD292BD1E50076592B /* SetViewSettingsGroupByViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetViewSettingsGroupByViewModel.swift; sourceTree = "<group>"; };
 		2EB97A1A28B64CDC002BBB39 /* SetListViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetListViewCell.swift; sourceTree = "<group>"; };
 		2EC669202A166FD1001F71BC /* JoinFlowStepOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinFlowStepOutput.swift; sourceTree = "<group>"; };
@@ -2369,6 +2388,23 @@
 		2ECB34052A95131100E0F9BB /* SetSortsListCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetSortsListCoordinatorViewModel.swift; sourceTree = "<group>"; };
 		2ECB34072A95133900E0F9BB /* SetSortsListCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetSortsListCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		2ECB34092A95200000E0F9BB /* SetSortsListModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetSortsListModuleAssembly.swift; sourceTree = "<group>"; };
+		2ECB340E2A97A90800E0F9BB /* SetTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetTextView.swift; sourceTree = "<group>"; };
+		2ECB34102A97A92100E0F9BB /* SetTextViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetTextViewModel.swift; sourceTree = "<group>"; };
+		2ECB34122A97AC3500E0F9BB /* SetTextViewModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetTextViewModuleAssembly.swift; sourceTree = "<group>"; };
+		2ECB34152A97B44800E0F9BB /* SetFiltersDateCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersDateCoordinatorView.swift; sourceTree = "<group>"; };
+		2ECB34172A97B45B00E0F9BB /* SetFiltersDateCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersDateCoordinatorViewModel.swift; sourceTree = "<group>"; };
+		2ECB34192A97B4C400E0F9BB /* SetFiltersDateCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersDateCoordinatorAssembly.swift; sourceTree = "<group>"; };
+		2ECB341B2A97B80F00E0F9BB /* SetFiltersDateViewModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersDateViewModuleAssembly.swift; sourceTree = "<group>"; };
+		2ECB341E2A97C32A00E0F9BB /* SetFilterConditionsModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFilterConditionsModuleAssembly.swift; sourceTree = "<group>"; };
+		2ECB342A2A97C95600E0F9BB /* SetFiltersSelectionHeaderModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersSelectionHeaderModuleAssembly.swift; sourceTree = "<group>"; };
+		2ECB342C2A97CFF800E0F9BB /* SetFiltersSelectionCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersSelectionCoordinatorView.swift; sourceTree = "<group>"; };
+		2ECB342E2A97D00500E0F9BB /* SetFiltersSelectionCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersSelectionCoordinatorViewModel.swift; sourceTree = "<group>"; };
+		2ECB34302A97D01B00E0F9BB /* SetFiltersSelectionCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersSelectionCoordinatorAssembly.swift; sourceTree = "<group>"; };
+		2ECB34322A97D12800E0F9BB /* SetFiltersSelectionViewModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersSelectionViewModuleAssembly.swift; sourceTree = "<group>"; };
+		2ECB34362A98FEA800E0F9BB /* SetFiltersListCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersListCoordinatorView.swift; sourceTree = "<group>"; };
+		2ECB34382A98FEB000E0F9BB /* SetFiltersListCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersListCoordinatorViewModel.swift; sourceTree = "<group>"; };
+		2ECB343A2A98FEBE00E0F9BB /* SetFiltersListCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersListCoordinatorAssembly.swift; sourceTree = "<group>"; };
+		2ECB343C2A98FFB500E0F9BB /* SetFiltersListModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersListModuleAssembly.swift; sourceTree = "<group>"; };
 		2ECC87552A43A17800A78293 /* MigrationGuideViewModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MigrationGuideViewModuleAssembly.swift; sourceTree = "<group>"; };
 		2ECD122A28AFE58E00BD464A /* TitleWithIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleWithIconView.swift; sourceTree = "<group>"; };
 		2ECD122F28AFE6A900BD464A /* TitleWithIconStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleWithIconStyle.swift; sourceTree = "<group>"; };
@@ -5971,12 +6007,9 @@
 		2E2D255328880C8D00E3DFD1 /* Selection */ = {
 			isa = PBXGroup;
 			children = (
-				2E2D255428880C8D00E3DFD1 /* SetFiltersSelectionView.swift */,
-				2E2D255528880C8D00E3DFD1 /* SetFiltersSelectionViewModel.swift */,
-				2E2D255628880C8D00E3DFD1 /* SetFilterConditionsViewModel.swift */,
-				2E2D255728880C8D00E3DFD1 /* SetFiltersContentViewBuilder.swift */,
-				2E2D255828880C8D00E3DFD1 /* SetFiltersSelectionViewState.swift */,
-				2E2D256528880EB300E3DFD1 /* SetFiltersContentHandler.swift */,
+				2ECB34342A97D14E00E0F9BB /* List */,
+				2ECB34292A97C90F00E0F9BB /* Coordinator */,
+				2ECB341D2A97C2D100E0F9BB /* Conditions */,
 				2E2D255928880C8D00E3DFD1 /* Header */,
 			);
 			path = Selection;
@@ -5988,6 +6021,7 @@
 				2E2D255A28880C8D00E3DFD1 /* SetFiltersSelectionHeaderConfiguration.swift */,
 				2E2D255B28880C8D00E3DFD1 /* SetFiltersSelectionHeaderView.swift */,
 				2E2D255C28880C8D00E3DFD1 /* SetFiltersSelectionHeaderViewModel.swift */,
+				2ECB342A2A97C95600E0F9BB /* SetFiltersSelectionHeaderModuleAssembly.swift */,
 			);
 			path = Header;
 			sourceTree = "<group>";
@@ -5998,6 +6032,7 @@
 				2E2D256A288ACA3400E3DFD1 /* SetFiltersCheckboxView.swift */,
 				2E2D256C288ACA5100E3DFD1 /* SetFiltersCheckboxViewModel.swift */,
 				2E2D256E288AD08100E3DFD1 /* SetFiltersCheckboxValue.swift */,
+				2EB3F0222A9D1CAA00B79A3F /* SetFiltersCheckboxViewModuleAssembly.swift */,
 			);
 			path = Checkbox;
 			sourceTree = "<group>";
@@ -6097,13 +6132,15 @@
 		2E7C445B28916D810062287C /* Date */ = {
 			isa = PBXGroup;
 			children = (
+				2ECB34142A97B42000E0F9BB /* Coordinator */,
+				2ECB340D2A97A8EA00E0F9BB /* SetTextView */,
 				2E7C445C2891753B0062287C /* SetFiltersDateView.swift */,
 				2E7C445E2891755A0062287C /* SetFiltersDateViewModel.swift */,
 				2E7C4460289184BA0062287C /* SetFiltersDateRowConfiguration.swift */,
 				2E7C44662892CFCA0062287C /* SetFiltersDateRowView.swift */,
 				2E7C44682892D73C0062287C /* SetFiltersDateType.swift */,
 				2E7C446A2892E66D0062287C /* SetFiltersDate.swift */,
-				2E7C446C2893F96A0062287C /* SetFiltersDaysViewModel.swift */,
+				2ECB341B2A97B80F00E0F9BB /* SetFiltersDateViewModuleAssembly.swift */,
 			);
 			path = Date;
 			sourceTree = "<group>";
@@ -6131,11 +6168,13 @@
 		2E975ECF287C2325004DE574 /* List */ = {
 			isa = PBXGroup;
 			children = (
+				2ECB34352A98FDC700E0F9BB /* Coordinator */,
 				2E975ED0287C2325004DE574 /* SetFilterRow.swift */,
 				2E975ED1287C2325004DE574 /* SetFiltersListViewModel.swift */,
 				2E975ED2287C2325004DE574 /* RelationFilterBuilder.swift */,
 				2E975ED3287C2325004DE574 /* SetFiltersListView.swift */,
 				2E975ED4287C2325004DE574 /* SetFilterRowConfiguration.swift */,
+				2ECB343C2A98FFB500E0F9BB /* SetFiltersListModuleAssembly.swift */,
 			);
 			path = List;
 			sourceTree = "<group>";
@@ -6166,6 +6205,7 @@
 			children = (
 				2E975F03287F00BC004DE574 /* SetFiltersTextView.swift */,
 				2E975F05287F00E6004DE574 /* SetFiltersTextViewModel.swift */,
+				2EB3F0202A9D1B5D00B79A3F /* SetFiltersTextViewModuleAssembly.swift */,
 			);
 			path = Text;
 			sourceTree = "<group>";
@@ -6278,6 +6318,68 @@
 				2ECB34032A95130800E0F9BB /* SetSortsListCoordinatorView.swift */,
 				2ECB34052A95131100E0F9BB /* SetSortsListCoordinatorViewModel.swift */,
 				2ECB34072A95133900E0F9BB /* SetSortsListCoordinatorAssembly.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		2ECB340D2A97A8EA00E0F9BB /* SetTextView */ = {
+			isa = PBXGroup;
+			children = (
+				2ECB340E2A97A90800E0F9BB /* SetTextView.swift */,
+				2ECB34102A97A92100E0F9BB /* SetTextViewModel.swift */,
+				2ECB34122A97AC3500E0F9BB /* SetTextViewModuleAssembly.swift */,
+			);
+			path = SetTextView;
+			sourceTree = "<group>";
+		};
+		2ECB34142A97B42000E0F9BB /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				2ECB34152A97B44800E0F9BB /* SetFiltersDateCoordinatorView.swift */,
+				2ECB34172A97B45B00E0F9BB /* SetFiltersDateCoordinatorViewModel.swift */,
+				2ECB34192A97B4C400E0F9BB /* SetFiltersDateCoordinatorAssembly.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		2ECB341D2A97C2D100E0F9BB /* Conditions */ = {
+			isa = PBXGroup;
+			children = (
+				2E2D255628880C8D00E3DFD1 /* SetFilterConditionsViewModel.swift */,
+				2ECB341E2A97C32A00E0F9BB /* SetFilterConditionsModuleAssembly.swift */,
+			);
+			path = Conditions;
+			sourceTree = "<group>";
+		};
+		2ECB34292A97C90F00E0F9BB /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				2ECB342C2A97CFF800E0F9BB /* SetFiltersSelectionCoordinatorView.swift */,
+				2ECB342E2A97D00500E0F9BB /* SetFiltersSelectionCoordinatorViewModel.swift */,
+				2ECB34302A97D01B00E0F9BB /* SetFiltersSelectionCoordinatorAssembly.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		2ECB34342A97D14E00E0F9BB /* List */ = {
+			isa = PBXGroup;
+			children = (
+				2E2D255428880C8D00E3DFD1 /* SetFiltersSelectionView.swift */,
+				2E2D255528880C8D00E3DFD1 /* SetFiltersSelectionViewModel.swift */,
+				2E2D255728880C8D00E3DFD1 /* SetFiltersContentViewBuilder.swift */,
+				2E2D255828880C8D00E3DFD1 /* SetFiltersSelectionViewState.swift */,
+				2ECB34322A97D12800E0F9BB /* SetFiltersSelectionViewModuleAssembly.swift */,
+				2E2D256528880EB300E3DFD1 /* SetFiltersContentHandler.swift */,
+			);
+			path = List;
+			sourceTree = "<group>";
+		};
+		2ECB34352A98FDC700E0F9BB /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				2ECB34362A98FEA800E0F9BB /* SetFiltersListCoordinatorView.swift */,
+				2ECB34382A98FEB000E0F9BB /* SetFiltersListCoordinatorViewModel.swift */,
+				2ECB343A2A98FEBE00E0F9BB /* SetFiltersListCoordinatorAssembly.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -9129,6 +9231,7 @@
 				2E975EDC287C2325004DE574 /* RelationFilterBuilder.swift in Sources */,
 				2A96148B2A6981DF00E50D0A /* IconView.swift in Sources */,
 				3D7F7173279F0829003FE893 /* EditorSetPaginationData.swift in Sources */,
+				2ECB34182A97B45B00E0F9BB /* SetFiltersDateCoordinatorViewModel.swift in Sources */,
 				53FF7C5226F7E49900A5A592 /* AudioPlayerView.swift in Sources */,
 				2AC906E029B6289A00209E39 /* FavoriteListWidgetModuleAssembly.swift in Sources */,
 				1289C518281159DE005085E2 /* FileDownloadingModuleOutput.swift in Sources */,
@@ -9180,6 +9283,7 @@
 				3D1CEC2D27F48301000D36BA /* SettingsButton.swift in Sources */,
 				3D43FDB026B18BF80094D4C0 /* Array+SafeCall.swift in Sources */,
 				2AF605A128F417210078213D /* EditorBottomNavigationManager.swift in Sources */,
+				2ECB341C2A97B80F00E0F9BB /* SetFiltersDateViewModuleAssembly.swift in Sources */,
 				EAADB1A52678CD6E004B0AF2 /* MentionTextDetector.swift in Sources */,
 				2A2C330928928C02008BC326 /* UrlOpener.swift in Sources */,
 				3D88217C26F3722600A41E75 /* BlockText+AnytypeText.swift in Sources */,
@@ -9266,6 +9370,7 @@
 				2E5E066629943E20004A98CE /* RelationsSearchTarget.swift in Sources */,
 				0A2C0D56247144F4008ADD86 /* TextViewWithPlaceholder.swift in Sources */,
 				2AD741312993E28F004BD223 /* HomeWidgetCommonAssemblyProtocol.swift in Sources */,
+				2ECB34392A98FEB000E0F9BB /* SetFiltersListCoordinatorViewModel.swift in Sources */,
 				EAADB1BA2678FE01004B0AF2 /* CGSizeExtension.swift in Sources */,
 				C96B6C9D27B0F33100C453EB /* BlocksFileEmptyViewConfiguration.swift in Sources */,
 				3D17023F2715D0D80079B65B /* EditorSyncStatusItem.swift in Sources */,
@@ -9342,6 +9447,7 @@
 				12DE405E264AE455007B5074 /* LayoutAnchor.swift in Sources */,
 				53EA4A782637637200968B8E /* StyleColorCellView.swift in Sources */,
 				12D15D2227F5F81F00D22086 /* ObjectsOptionsSearchModuleBuilder.swift in Sources */,
+				2ECB34312A97D01B00E0F9BB /* SetFiltersSelectionCoordinatorAssembly.swift in Sources */,
 				12870A2C26DE6A7400A6F46A /* ImageWidth.swift in Sources */,
 				03B55546230AD13A0070FDF3 /* ActivityIndicator.swift in Sources */,
 				2E21599D28EC619E0042B205 /* EditorPageTemplatesHandler.swift in Sources */,
@@ -9385,6 +9491,7 @@
 				530F503226F0ECB000F76D03 /* AudioBlockViewModel.swift in Sources */,
 				125683DE27DF1D0A003A8251 /* FilesSearchInteractor.swift in Sources */,
 				1223C9002726BE1C00C34616 /* FeaturedRelationBlockView.swift in Sources */,
+				2EB3F0212A9D1B5D00B79A3F /* SetFiltersTextViewModuleAssembly.swift in Sources */,
 				EA43DD6826B1A33000E66878 /* NSAttributedString+Markup.swift in Sources */,
 				2AF109562A02639700EDDE26 /* FileIconBuilder.swift in Sources */,
 				2AF109582A03C56600EDDE26 /* NSItemProvider+Async.swift in Sources */,
@@ -9432,6 +9539,7 @@
 				2A017FBA291E7BB7009C5BEF /* RelationsListModuleAsembly.swift in Sources */,
 				03CB3EFF230C0FF2003D5DFD /* SeedService.swift in Sources */,
 				2EC669212A166FD1001F71BC /* JoinFlowStepOutput.swift in Sources */,
+				2EB3F0232A9D1CAA00B79A3F /* SetFiltersCheckboxViewModuleAssembly.swift in Sources */,
 				0AD7695925D5908E00669F8C /* FileActionsService.swift in Sources */,
 				125B6EC226F235F400BCD7D6 /* CursorModeAccessoryViewDelegate.swift in Sources */,
 				2EB7D2AE292BD1E50076592B /* SetViewSettingsGroupByViewModel.swift in Sources */,
@@ -9544,6 +9652,7 @@
 				2E330C52286CB6A70099C7C3 /* CreateBookmarkViewModel.swift in Sources */,
 				12C2A5672754E1C400311854 /* DateRelationDetailsValue.swift in Sources */,
 				2E7C445D2891753B0062287C /* SetFiltersDateView.swift in Sources */,
+				2ECB342D2A97CFF800E0F9BB /* SetFiltersSelectionCoordinatorView.swift in Sources */,
 				2E5E066029897CDE004A98CE /* EditorSetEmptyView.swift in Sources */,
 				12C2A5692754E90800311854 /* DateRelationDetailsRowView.swift in Sources */,
 				12C2A5802755F0CE00311854 /* DateRelationValue.swift in Sources */,
@@ -9573,6 +9682,7 @@
 				2AE5C71D29B7299F00A92C12 /* WidgetSourceSearchViewModel.swift in Sources */,
 				EA45749725F8D2EB007D6C83 /* TextBlockContentView.swift in Sources */,
 				12EB9AF62771F0E900BA732F /* RelationOptionsListView.swift in Sources */,
+				2ECB342B2A97C95600E0F9BB /* SetFiltersSelectionHeaderModuleAssembly.swift in Sources */,
 				3DDD3D0E26AEB55700B5673A /* BlockFileView.swift in Sources */,
 				861E75F82A5D5A5F00F18552 /* TemplateSelectionCoordinator.swift in Sources */,
 				C96AFFD1284A385D0048B8EB /* SeparatorItemView.swift in Sources */,
@@ -9651,6 +9761,7 @@
 				2AC906DF29B6289A00209E39 /* RecentListWidgetModuleAssembly.swift in Sources */,
 				2A1F949B297961A300E25782 /* BundledRelationKey+CommonKeys.swift in Sources */,
 				2AFD69D72987BC240006D792 /* WidgetTypeInternalViewModelProtocol.swift in Sources */,
+				2ECB34112A97A92100E0F9BB /* SetTextViewModel.swift in Sources */,
 				2E2D256128880C8D00E3DFD1 /* SetFiltersSelectionViewState.swift in Sources */,
 				2AFA110E296C672A0055422F /* HomeBottomPanelProvider.swift in Sources */,
 				2A673C1329B0BD2100E3D672 /* DebugMenuModuleAssembly.swift in Sources */,
@@ -9684,7 +9795,6 @@
 				2A28D04D297FCC1D00E55E15 /* WidgetContainerViewModel.swift in Sources */,
 				2E999483293E490300FFBED9 /* Relation+Set.swift in Sources */,
 				2A673C1129B0BC3E00E3D672 /* SettingsModuleOutput.swift in Sources */,
-				2E7C446D2893F96A0062287C /* SetFiltersDaysViewModel.swift in Sources */,
 				2A3C43E02A66F17800281DFB /* BlockDivider+Handle.swift in Sources */,
 				2E975EDB287C2325004DE574 /* SetFiltersListViewModel.swift in Sources */,
 				3D829182265E92760007C152 /* OffsetAwareScrollView.swift in Sources */,
@@ -9723,6 +9833,7 @@
 				1211AF7D27F4BE7400BACB88 /* CGSizeExtensions.swift in Sources */,
 				2AAF3452295B19DF00921320 /* TreeSubscriptionDataBuilder.swift in Sources */,
 				12E286E82849EF5D00BF64EB /* ObjectTypeProviderProtocol.swift in Sources */,
+				2ECB34332A97D12800E0F9BB /* SetFiltersSelectionViewModuleAssembly.swift in Sources */,
 				2AFB5467286997C6004F7458 /* DataviewType+Extensions.swift in Sources */,
 				2A9D299228BCC16E00789AC7 /* NonExistentBlockContentConfiguration.swift in Sources */,
 				3DB3EC69275513B8002781DA /* ProgressBarStub.swift in Sources */,
@@ -9813,6 +9924,7 @@
 				2A39DC4629FBC567003C43A9 /* FileStorageView.swift in Sources */,
 				12A52E2C26CAA1A2000F0333 /* ViewAnimator+Scale.swift in Sources */,
 				3D1B5F78274CF567007D97AE /* SetTableViewHeader.swift in Sources */,
+				2ECB341A2A97B4C400E0F9BB /* SetFiltersDateCoordinatorAssembly.swift in Sources */,
 				1226857928D4C5E60013A28E /* AppMetricsTracker.swift in Sources */,
 				2A00A74229D33B25007BE598 /* EdgeInsets+Helpers.swift in Sources */,
 				3D8D41B9274287A900F8EBF3 /* EditorSetHostingController.swift in Sources */,
@@ -9920,6 +10032,7 @@
 				3D38CC9626D632C500E4F7BF /* ObjectHeaderViewModel.swift in Sources */,
 				C92DCD91272990CE00A03D91 /* ChangeTypeAccessoryView.swift in Sources */,
 				2E8387BA291A51A000506766 /* SetCardDropData.swift in Sources */,
+				2ECB343B2A98FEBE00E0F9BB /* SetFiltersListCoordinatorAssembly.swift in Sources */,
 				C973E1AD285C567F00978BC4 /* SimpleTableDependenciesBuilder.swift in Sources */,
 				12C2A5602754E13000311854 /* DateRelationDetailsView.swift in Sources */,
 				12EEC36B26A0903F00C3C4B1 /* EmojiData.swift in Sources */,
@@ -10064,6 +10177,7 @@
 				C99DCEC4283CCBF30051F99D /* GenericUIKitToSwiftUIView.swift in Sources */,
 				2A6693722A7104EA007747DD /* BookmarkIconImageGuideline.swift in Sources */,
 				5356072526E2602F001464A4 /* UnsupportedBlockViewModel.swift in Sources */,
+				2ECB343D2A98FFB500E0F9BB /* SetFiltersListModuleAssembly.swift in Sources */,
 				3D44984026D53A89005A3E06 /* ObjectHeader+Mutation.swift in Sources */,
 				125B6ECE26F235F400BCD7D6 /* DismissableInputAccessoryView.swift in Sources */,
 				2E8E8D162A262D2E009BC3B0 /* CreatingSoulView.swift in Sources */,
@@ -10128,6 +10242,7 @@
 				2AE6E29329DDB62C00B5AAD3 /* GradientIconsExamples.swift in Sources */,
 				126F3D57273D2C0A00AEF39A /* RelationsSection.swift in Sources */,
 				2ED9F43F2A8E90E500BE0A6B /* SetViewSettingsCoordinatorViewModel.swift in Sources */,
+				2ECB340F2A97A90800E0F9BB /* SetTextView.swift in Sources */,
 				2A6688952A1CCB3D00D80CED /* AboutViewModel.swift in Sources */,
 				3DA6DBDB2746582300516E75 /* View+ReadSize.swift in Sources */,
 				2AA0C43F2A013EF800B9C108 /* FilesSubscriptionService.swift in Sources */,
@@ -10159,6 +10274,7 @@
 				2A66937E2A7104EA007747DD /* ObjectIconImageFontSet.swift in Sources */,
 				3DC9F26C2660216500B115B9 /* LogoOverlay.swift in Sources */,
 				2A8C00F729C4AAF200309C14 /* SettingsView.swift in Sources */,
+				2ECB341F2A97C32A00E0F9BB /* SetFilterConditionsModuleAssembly.swift in Sources */,
 				EA57F41D26B99937007D4292 /* MarkupViewModelProtocol.swift in Sources */,
 				2A4063632A5D480E00ECEA79 /* AsyncHelpers.swift in Sources */,
 				C9C536AD276C9040003CD3F3 /* Color+Assets.swift in Sources */,
@@ -10260,6 +10376,7 @@
 				2A03FD5D2A7A85DD00CB7191 /* RecentWidgetType.swift in Sources */,
 				3DB1CA1D272A7FE3000D2779 /* QuickAction.swift in Sources */,
 				123FDADD26C17CBA00F6F44B /* ObjectHeaderCover.swift in Sources */,
+				2ECB342F2A97D00500E0F9BB /* SetFiltersSelectionCoordinatorViewModel.swift in Sources */,
 				0ACC357625C851650003CF3A /* BlockViewModelBuilder.swift in Sources */,
 				12FD9D1F2767172A00991886 /* RelationText.swift in Sources */,
 				2EA098A72A697511009182C0 /* SubscriptionData+Info.swift in Sources */,
@@ -10302,6 +10419,7 @@
 				535F799A274705C30050A1B8 /* FlowRelationsViewModel.swift in Sources */,
 				2A1F949929795FEB00E25782 /* FavoriteSubscriptionService.swift in Sources */,
 				2ADFA9DC2949C61D00F64688 /* UIKitModule.swift in Sources */,
+				2ECB34132A97AC3500E0F9BB /* SetTextViewModuleAssembly.swift in Sources */,
 				C93B2D2F274E41390008544D /* CustomStateKeys.swift in Sources */,
 				2A2C3311289294B8008BC326 /* ModulesDI.swift in Sources */,
 				2AFFFB9B292778B700A487E1 /* ObjectSettingModuleAssembly.swift in Sources */,
@@ -10409,6 +10527,7 @@
 				2A6574682A4456F6002F568C /* ObjectIconExample.swift in Sources */,
 				125683D027DF14F5003A8251 /* TagsSearchInteractor.swift in Sources */,
 				533856B0263B22B8005A06A9 /* MarkupViewController.swift in Sources */,
+				2ECB34372A98FEA800E0F9BB /* SetFiltersListCoordinatorView.swift in Sources */,
 				3D540C7B2625C9DE00A07BD8 /* EditorBrowserAssembly.swift in Sources */,
 				12B691D327F4CB5D00A0C336 /* ImageCornersGuideline.swift in Sources */,
 				12E05EEF2796A9C10037B667 /* AnytypePopup.swift in Sources */,
@@ -10418,6 +10537,7 @@
 				2A7BD6EB28D85B6B008B735C /* ObjectTypeSubscriptionDataBuilder.swift in Sources */,
 				2E7C4473289843220062287C /* DataviewFilter+Condition.swift in Sources */,
 				2A7DCDE8292E8260001919B4 /* SearchModuleAssemblyProtocol.swift in Sources */,
+				2ECB34162A97B44800E0F9BB /* SetFiltersDateCoordinatorView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

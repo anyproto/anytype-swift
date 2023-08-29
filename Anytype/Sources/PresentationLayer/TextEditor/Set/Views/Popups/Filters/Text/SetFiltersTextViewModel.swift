@@ -6,7 +6,6 @@ final class SetFiltersTextViewModel: ObservableObject {
     
     let keyboardType: UIKeyboardType
     let onApplyText: (String) -> Void
-    let onKeyboardHeightChange: (CGFloat) -> Void
     
     private var keyboardListenerHelper: KeyboardEventsListnerHelper?
     
@@ -17,37 +16,14 @@ final class SetFiltersTextViewModel: ObservableObject {
         return formatter
     }()
     
-    init(
-        filter: SetFilter,
-        onApplyText: @escaping (String) -> Void,
-        onKeyboardHeightChange: @escaping (CGFloat) -> Void)
-    {
+    init(filter: SetFilter, onApplyText: @escaping (String) -> Void) {
         self.input = Self.initialValue(from: filter)
         self.keyboardType = Self.keybordType(for: filter)
         self.onApplyText = onApplyText
-        self.onKeyboardHeightChange = onKeyboardHeightChange
-        self.setupKeyboardListener()
     }
 
     func handleText() {
         onApplyText(input)
-    }
-    
-    private func setupKeyboardListener() {
-        let action: KeyboardEventsListnerHelper.Action = { [weak self] event in
-            guard let keyboardRect = event.endFrame else { return }
-            self?.onKeyboardHeightChange(keyboardRect.height)
-        }
-
-        let willHideAction: KeyboardEventsListnerHelper.Action = { [weak self] _ in
-            self?.onKeyboardHeightChange(0)
-        }
-
-        self.keyboardListenerHelper = KeyboardEventsListnerHelper(
-            willShowAction: action,
-            willChangeFrame: action,
-            willHideAction: willHideAction
-        )
     }
     
     private static func keybordType(for filter: SetFilter) -> UIKeyboardType {

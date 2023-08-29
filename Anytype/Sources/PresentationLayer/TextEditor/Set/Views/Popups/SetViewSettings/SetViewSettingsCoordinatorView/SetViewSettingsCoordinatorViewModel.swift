@@ -1,4 +1,5 @@
 import SwiftUI
+import Services
 
 @MainActor
 protocol SetViewSettingsCoordinatorOutput: AnyObject {
@@ -18,16 +19,22 @@ final class SetViewSettingsCoordinatorViewModel: ObservableObject, SetViewSettin
     @Published var showSorts = false
     
     private let setDocument: SetDocumentProtocol
+    private let subscriptionDetailsStorage: ObjectDetailsStorage
     private let setViewSettingsListModuleAssembly: SetViewSettingsListModuleAssemblyProtocol
+    private let setFiltersListCoordinatorAssembly: SetFiltersListCoordinatorAssemblyProtocol
     private let setSortsListCoordinatorAssembly: SetSortsListCoordinatorAssemblyProtocol
     
     init(
         setDocument: SetDocumentProtocol,
+        subscriptionDetailsStorage: ObjectDetailsStorage,
         setViewSettingsListModuleAssembly: SetViewSettingsListModuleAssemblyProtocol,
+        setFiltersListCoordinatorAssembly: SetFiltersListCoordinatorAssemblyProtocol,
         setSortsListCoordinatorAssembly: SetSortsListCoordinatorAssemblyProtocol
     ) {
         self.setDocument = setDocument
+        self.subscriptionDetailsStorage = subscriptionDetailsStorage
         self.setViewSettingsListModuleAssembly = setViewSettingsListModuleAssembly
+        self.setFiltersListCoordinatorAssembly = setFiltersListCoordinatorAssembly
         self.setSortsListCoordinatorAssembly = setSortsListCoordinatorAssembly
     }
     
@@ -35,7 +42,7 @@ final class SetViewSettingsCoordinatorViewModel: ObservableObject, SetViewSettin
         setViewSettingsListModuleAssembly.make(setDocument: setDocument, output: self)
     }
     
-    // MARK: - SetViewSettingsNavigationOutput
+    // MARK: - SetViewSettingsCoordinatorOutput
     
     func onDefaultObjectTap() {
         showObjects.toggle()
@@ -49,8 +56,17 @@ final class SetViewSettingsCoordinatorViewModel: ObservableObject, SetViewSettin
         showRelations.toggle()
     }
     
+    // MARK: - Filters
+    
     func onFiltersTap() {
         showFilters.toggle()
+    }
+    
+    func setFiltersList() -> AnyView {
+        setFiltersListCoordinatorAssembly.make(
+            with: setDocument,
+            subscriptionDetailsStorage: subscriptionDetailsStorage
+        )
     }
     
     // MARK: - Sorts

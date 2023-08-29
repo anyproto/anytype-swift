@@ -102,6 +102,7 @@ final class EditorAssembly {
             objectIconPickerModuleAssembly: modulesDI.objectIconPicker(),
             setViewSettingsCoordinatorAssembly: coordinatorsDI.setViewSettings(),
             setSortsListCoordinatorAssembly: coordinatorsDI.setSortsList(),
+            setFiltersListCoordinatorAssembly: coordinatorsDI.setFiltersList(),
             toastPresenter: uiHelpersDI.toastPresenter(using: browser),
             alertHelper: AlertHelper(viewController: controller),
             templateSelectionCoordinator: TemplateSelectionCoordinator(

@@ -5,58 +5,91 @@ import UIKit
 import SwiftUI
 
 final class SetFiltersContentViewBuilder {
-    let filter: SetFilter
+    private let filter: SetFilter
+    private let setFiltersSelectionHeaderModuleAssembly: SetFiltersSelectionHeaderModuleAssemblyProtocol
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
+    private let setFiltersDateCoordinatorAssembly: SetFiltersDateCoordinatorAssemblyProtocol
+    private let setFiltersTextViewModuleAssembly: SetFiltersTextViewModuleAssemblyProtocol
+    private let setFiltersCheckboxViewModuleAssembly: SetFiltersCheckboxViewModuleAssemblyProtocol
     
-    init(filter: SetFilter, newSearchModuleAssembly: NewSearchModuleAssemblyProtocol) {
+    init(
+        filter: SetFilter,
+        setFiltersSelectionHeaderModuleAssembly: SetFiltersSelectionHeaderModuleAssemblyProtocol,
+        setFiltersDateCoordinatorAssembly: SetFiltersDateCoordinatorAssemblyProtocol,
+        newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
+        setFiltersTextViewModuleAssembly: SetFiltersTextViewModuleAssemblyProtocol,
+        setFiltersCheckboxViewModuleAssembly: SetFiltersCheckboxViewModuleAssemblyProtocol
+    ) {
         self.filter = filter
+        self.setFiltersSelectionHeaderModuleAssembly = setFiltersSelectionHeaderModuleAssembly
+        self.setFiltersDateCoordinatorAssembly = setFiltersDateCoordinatorAssembly
         self.newSearchModuleAssembly = newSearchModuleAssembly
+        self.setFiltersTextViewModuleAssembly = setFiltersTextViewModuleAssembly
+        self.setFiltersCheckboxViewModuleAssembly = setFiltersCheckboxViewModuleAssembly
     }
     
-    @ViewBuilder
+    @MainActor
+    func buildHeader(
+        output: SetFiltersSelectionCoordinatorOutput?,
+        onConditionChanged: @escaping (DataviewFilter.Condition) -> Void
+    ) -> AnyView {
+        setFiltersSelectionHeaderModuleAssembly.make(
+            filter: filter,
+            output: output,
+            onConditionChanged: onConditionChanged
+        )
+    }
+    
+    @MainActor
     func buildContentView(
-        router: EditorSetRouterProtocol,
-        setSelectionModel: SetFiltersSelectionViewModel,
+        setSelectionModel: SetFiltersSelectionViewModel?,
         onSelect: @escaping (_ ids: [String]) -> Void,
         onApplyText: @escaping (_ text: String) -> Void,
         onApplyCheckbox: @escaping (Bool) -> Void,
-        onApplyDate: @escaping (SetFiltersDate) -> Void,
-        onKeyboardHeightChange: @escaping (_ height: CGFloat) -> Void
-    ) -> some View {
+        onApplyDate: @escaping (SetFiltersDate) -> Void
+    ) -> AnyView {
         switch filter.conditionType {
         case let .selected(format):
-            buildSearchView(with: format, onSelect: onSelect)
+            return buildSearchView(with: format, onSelect: onSelect)
         case .text, .number:
-            buildTextView(onApplyText: onApplyText, onKeyboardHeightChange: onKeyboardHeightChange)
+            return buildTextView(onApplyText: onApplyText)
         case .checkbox:
-            buildCheckboxView(onApplyCheckbox: onApplyCheckbox)
+            return buildCheckboxView(onApplyCheckbox: onApplyCheckbox)
         case .date:
-            buildDateView(router: router, setSelectionModel: setSelectionModel, onApplyDate: onApplyDate)
+            return buildDateView(setSelectionModel: setSelectionModel, onApplyDate: onApplyDate)
+        }
+    }
+    
+    func compactPresentationMode() -> Bool {
+        switch filter.conditionType {
+        case .text, .number, .checkbox:
+            return true
+        default:
+            return false
         }
     }
     
     // MARK: - Private methods: Search
     
-    @ViewBuilder
     private func buildSearchView(
         with format: RelationFormat,
         onSelect: @escaping (_ ids: [String]) -> Void
-    ) -> some View {
+    ) -> AnyView {
         switch format {
         case .tag:
-            buildTagsSearchView(onSelect: onSelect)
+            return buildTagsSearchView(onSelect: onSelect)
         case .object:
-            buildObjectsSearchView(onSelect: onSelect)
+            return buildObjectsSearchView(onSelect: onSelect)
         case .status:
-            buildStatusesSearchView(onSelect: onSelect)
+            return buildStatusesSearchView(onSelect: onSelect)
         default:
-            EmptyView()
+            return EmptyView().eraseToAnyView()
         }
     }
     
     private func buildTagsSearchView(
         onSelect: @escaping (_ ids: [String]) -> Void
-    ) -> some View {
+    ) -> AnyView {
         let selectedTagIds = selectedIds(
             from: filter.filter.value
         )
@@ -67,12 +100,12 @@ final class SetFiltersContentViewBuilder {
             selectedTagIds: [],
             onSelect: onSelect,
             onCreate: { _ in }
-        )
+        ).eraseToAnyView()
     }
     
     private func buildObjectsSearchView(
         onSelect: @escaping (_ ids: [String]) -> Void
-    ) -> some View {
+    ) -> AnyView {
         let selectedObjectsIds: [String] = {
             let value = filter.filter.value
             let values: [Google_Protobuf_Value] = {
@@ -90,12 +123,12 @@ final class SetFiltersContentViewBuilder {
             excludedObjectIds: [],
             limitedObjectType: filter.relationDetails.objectTypes,
             onSelect: { details in onSelect(details.map(\.id)) }
-        )
+        ).eraseToAnyView()
     }
     
     private func buildStatusesSearchView(
         onSelect: @escaping (_ ids: [String]) -> Void
-    ) -> some View {
+    ) -> AnyView {
         let selectedStatusesIds = selectedIds(
             from: filter.filter.value
         )
@@ -106,51 +139,44 @@ final class SetFiltersContentViewBuilder {
             selectedStatusesIds: [],
             onSelect: onSelect,
             onCreate: { _ in }
-        )
+        ).eraseToAnyView()
     }
     
     // MARK: - Private methods: Text
     
+    @MainActor
     func buildTextView(
-        onApplyText: @escaping (_ text: String) -> Void,
-        onKeyboardHeightChange: @escaping (_ height: CGFloat) -> Void
-    ) -> some View {
-        SetFiltersTextView(
-            viewModel: SetFiltersTextViewModel(
-                filter: filter,
-                onApplyText: onApplyText,
-                onKeyboardHeightChange: onKeyboardHeightChange
-            )
+        onApplyText: @escaping (_ text: String) -> Void
+    ) -> AnyView {
+        setFiltersTextViewModuleAssembly.make(
+            with: filter,
+            onApplyText: onApplyText
         )
     }
     
     // MARK: - Private methods: Checkbox
     
+    @MainActor
     func buildCheckboxView(
         onApplyCheckbox: @escaping (Bool) -> Void
-    ) -> some View {
-        SetFiltersCheckboxView(
-            viewModel: SetFiltersCheckboxViewModel(
-                filter: filter,
-                onApplyCheckbox: onApplyCheckbox
-            )
+    ) -> AnyView {
+        setFiltersCheckboxViewModuleAssembly.make(
+            with: filter,
+            onApplyCheckbox: onApplyCheckbox
         )
     }
     
     // MARK: - Private methods: Date
     
+    @MainActor
     func buildDateView(
-        router: EditorSetRouterProtocol,
-        setSelectionModel: SetFiltersSelectionViewModel,
+        setSelectionModel: SetFiltersSelectionViewModel?,
         onApplyDate: @escaping (SetFiltersDate) -> Void
-    ) -> some View {
-        SetFiltersDateView(
-            viewModel: SetFiltersDateViewModel(
-                filter: filter,
-                router: router,
-                setSelectionModel: setSelectionModel,
-                onApplyDate: onApplyDate
-            )
+    ) -> AnyView {
+        setFiltersDateCoordinatorAssembly.make(
+            filter: filter,
+            setSelectionModel: setSelectionModel,
+            completion: onApplyDate
         )
     }
     

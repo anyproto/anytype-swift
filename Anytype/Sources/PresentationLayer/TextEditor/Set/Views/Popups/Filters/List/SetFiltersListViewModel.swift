@@ -4,6 +4,7 @@ import Services
 import FloatingPanel
 import Combine
 
+@MainActor
 final class SetFiltersListViewModel: ObservableObject {
     @Published var rows: [SetFilterRowConfiguration] = []
     
@@ -11,19 +12,20 @@ final class SetFiltersListViewModel: ObservableObject {
     private var cancellable: Cancellable?
     
     private let dataviewService: DataviewServiceProtocol
-    private let router: EditorSetRouterProtocol
     private let relationFilterBuilder = RelationFilterBuilder()
     private let subscriptionDetailsStorage: ObjectDetailsStorage
+    
+    private weak var output: SetFiltersListCoordinatorOutput?
     
     init(
         setDocument: SetDocumentProtocol,
         dataviewService: DataviewServiceProtocol,
-        router: EditorSetRouterProtocol,
+        output: SetFiltersListCoordinatorOutput?,
         subscriptionDetailsStorage: ObjectDetailsStorage)
     {
         self.setDocument = setDocument
         self.dataviewService = dataviewService
-        self.router = router
+        self.output = output
         self.subscriptionDetailsStorage = subscriptionDetailsStorage
         self.setup()
     }
@@ -36,7 +38,7 @@ extension SetFiltersListViewModel {
     
     func addButtonTapped() {
         let relationsDetails = setDocument.activeViewRelations(excludeRelations: [])
-        router.showRelationSearch(relationsDetails: relationsDetails) { [weak self] relationDetails in
+        output?.onAddButtonTap(relationDetails: relationsDetails) { [weak self] relationDetails in
             guard let filter = self?.makeSetFilter(with: relationDetails) else {
                 return
             }
@@ -122,7 +124,7 @@ extension SetFiltersListViewModel {
     // MARK: - Routing
     
     func showFilterSearch(with filter: SetFilter) {
-        router.showFilterSearch(filter: filter) { [weak self] updatedFilter in
+        output?.onFilterTap(filter: filter) { [weak self] updatedFilter in
             guard let self else { return }
             Task {
                 if filter.filter.id.isNotEmpty {

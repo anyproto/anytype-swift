@@ -169,4 +169,36 @@ final class ModulesDI: ModulesDIProtocol {
     func setSortTypesList() -> SetSortTypesListModuleAssemblyProtocol {
         SetSortTypesListModuleAssembly()
     }
+    
+    func setTextView() -> SetTextViewModuleAssemblyProtocol {
+        SetTextViewModuleAssembly()
+    }
+    
+    func setFiltersDateView() -> SetFiltersDateViewModuleAssemblyProtocol {
+        SetFiltersDateViewModuleAssembly()
+    }
+    
+    func setFilterConditions() -> SetFilterConditionsModuleAssemblyProtocol {
+        SetFilterConditionsModuleAssembly()
+    }
+    
+    func setFiltersSelectionHeader() -> SetFiltersSelectionHeaderModuleAssemblyProtocol {
+        SetFiltersSelectionHeaderModuleAssembly()
+    }
+    
+    func setFiltersSelectionView() -> SetFiltersSelectionViewModuleAssemblyProtocol {
+        SetFiltersSelectionViewModuleAssembly()
+    }
+    
+    func setFiltersTextView() -> SetFiltersTextViewModuleAssemblyProtocol {
+        SetFiltersTextViewModuleAssembly()
+    }
+    
+    func setFiltersCheckboxView() -> SetFiltersCheckboxViewModuleAssemblyProtocol {
+        SetFiltersCheckboxViewModuleAssembly()
+    }
+    
+    func setFiltersListModule() -> SetFiltersListModuleAssemblyProtocol {
+        SetFiltersListModuleAssembly(serviceLocator: serviceLocator)
+    }
 }

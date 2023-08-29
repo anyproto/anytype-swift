@@ -39,4 +39,12 @@ protocol ModulesDIProtocol: AnyObject {
     func setViewSettingsList() -> SetViewSettingsListModuleAssemblyProtocol
     func setSortsList() -> SetSortsListModuleAssemblyProtocol
     func setSortTypesList() -> SetSortTypesListModuleAssemblyProtocol
+    func setTextView() -> SetTextViewModuleAssemblyProtocol
+    func setFiltersDateView() -> SetFiltersDateViewModuleAssemblyProtocol
+    func setFilterConditions() -> SetFilterConditionsModuleAssemblyProtocol
+    func setFiltersSelectionHeader() -> SetFiltersSelectionHeaderModuleAssemblyProtocol
+    func setFiltersSelectionView() -> SetFiltersSelectionViewModuleAssemblyProtocol
+    func setFiltersTextView() -> SetFiltersTextViewModuleAssemblyProtocol
+    func setFiltersCheckboxView() -> SetFiltersCheckboxViewModuleAssemblyProtocol
+    func setFiltersListModule() -> SetFiltersListModuleAssemblyProtocol
 }
