@@ -567,9 +567,10 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     func createObject(selectedTemplateId: BlockId?) {
+        let defaultObjectTypeID = activeView.defaultObjectTypeID ?? objectTypeProvider.defaultObjectType.id
         if setDocument.isCollection() {
             createObject(
-                with: objectTypeProvider.defaultObjectType.id,
+                with: defaultObjectTypeID,
                 shouldSelectType: true,
                 relationsDetails: [],
                 templateId: selectedTemplateId,
@@ -592,7 +593,7 @@ final class EditorSetViewModel: ObservableObject {
                 return source.contains(detail.id)
             }
             createObject(
-                with: objectTypeProvider.defaultObjectType.id,
+                with: defaultObjectTypeID,
                 shouldSelectType: true,
                 relationsDetails: relationsDetails,
                 templateId: selectedTemplateId,
