@@ -16,16 +16,16 @@ extension DataviewViewType {
         }
     }
     
-    var icon: ImageAsset {
+    func icon(selected: Bool) -> ImageAsset {
         switch self {
         case .table:
-            return .X54.View.grid
+            return selected ? .X54.View.gridSelected : .X54.View.grid
         case .list:
-            return .X54.View.list
+            return selected ? .X54.View.listSelected : .X54.View.list
         case .gallery:
-            return .X54.View.gallery
+            return selected ? .X54.View.gallerySelected : .X54.View.gallery
         case .kanban:
-            return .X24.View.kanban
+            return selected ? .X54.View.kanbanSelected : .X54.View.kanban
         }
     }
     

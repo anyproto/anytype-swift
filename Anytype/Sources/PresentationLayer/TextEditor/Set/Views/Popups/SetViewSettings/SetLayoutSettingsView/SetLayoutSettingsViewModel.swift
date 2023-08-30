@@ -34,11 +34,12 @@ final class SetLayoutSettingsViewModel: ObservableObject {
     private func updateTypes() {
         types = DataviewViewType.allCases.compactMap { viewType in
             guard viewType.isSupported else { return nil }
+            let selected = viewType == selectedType
             return SetViewTypeConfiguration(
                 id: viewType.name,
-                icon: viewType.icon,
+                icon: viewType.icon(selected: selected),
                 name: viewType.name,
-                isSelected: viewType == selectedType,
+                isSelected: selected,
                 onTap: { [weak self] in
                     self?.selectedType = viewType
                     self?.updateView()
