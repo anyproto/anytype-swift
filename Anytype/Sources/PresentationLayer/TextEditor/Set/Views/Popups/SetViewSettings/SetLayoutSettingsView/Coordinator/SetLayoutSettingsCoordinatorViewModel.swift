@@ -24,7 +24,7 @@ final class SetLayoutSettingsCoordinatorViewModel: ObservableObject, SetLayoutSe
     }
     
     func list() -> AnyView {
-        setLayoutSettingsViewAssembly.make(setDocument: setDocument)
+        setLayoutSettingsViewAssembly.make(setDocument: setDocument, output: self)
     }
     
     // MARK: - SetLayoutSettingsCoordinatorOutput

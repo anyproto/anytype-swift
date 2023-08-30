@@ -734,8 +734,7 @@
 		2E0A6CD92A3773F200A28AF2 /* LoginFlowOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0A6CD82A3773F200A28AF2 /* LoginFlowOutput.swift */; };
 		2E0A6CDB2A3775D900A28AF2 /* LoginFlowCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0A6CDA2A3775D900A28AF2 /* LoginFlowCoordinatorAssembly.swift */; };
 		2E0D0E75289D652000785833 /* EditorSetViewSettingsRelation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0D0E74289D652000785833 /* EditorSetViewSettingsRelation.swift */; };
-		2E0D0E77289D653500785833 /* EditorSetViewSettingsToggleItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0D0E76289D653500785833 /* EditorSetViewSettingsToggleItem.swift */; };
-		2E0D0E79289D678200785833 /* EditorSetViewSettingsValueItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0D0E78289D678200785833 /* EditorSetViewSettingsValueItem.swift */; };
+		2E0D0E79289D678200785833 /* EditorSetViewSettingsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0D0E78289D678200785833 /* EditorSetViewSettingsItem.swift */; };
 		2E0D0F712938CFE200674D3F /* DataviewGroupOrder+Update.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0D0F702938CFE200674D3F /* DataviewGroupOrder+Update.swift */; };
 		2E0DAF1B28A17DB400F43320 /* SetPrefilledFieldsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DAF1A28A17DB400F43320 /* SetPrefilledFieldsBuilder.swift */; };
 		2E0DAF1E28A26DBD00F43320 /* SetViewSettingsCardSizeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DAF1D28A26DBD00F43320 /* SetViewSettingsCardSizeViewModel.swift */; };
@@ -756,6 +755,7 @@
 		2E2A22FE2A9E462100745D78 /* SetLayoutSettingsCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2A22FD2A9E462100745D78 /* SetLayoutSettingsCoordinatorView.swift */; };
 		2E2A23002A9E463700745D78 /* SetLayoutSettingsCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2A22FF2A9E463700745D78 /* SetLayoutSettingsCoordinatorViewModel.swift */; };
 		2E2A23022A9E46B100745D78 /* SetLayoutSettingsCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2A23012A9E46B100745D78 /* SetLayoutSettingsCoordinatorAssembly.swift */; };
+		2E2A23042A9F746D00745D78 /* SetLayoutSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2A23032A9F746D00745D78 /* SetLayoutSettings.swift */; };
 		2E2D255D28880C8D00E3DFD1 /* SetFiltersSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2D255428880C8D00E3DFD1 /* SetFiltersSelectionView.swift */; };
 		2E2D255E28880C8D00E3DFD1 /* SetFiltersSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2D255528880C8D00E3DFD1 /* SetFiltersSelectionViewModel.swift */; };
 		2E2D255F28880C8D00E3DFD1 /* SetFilterConditionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2D255628880C8D00E3DFD1 /* SetFilterConditionsViewModel.swift */; };
@@ -2254,8 +2254,7 @@
 		2E0A6CD82A3773F200A28AF2 /* LoginFlowOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFlowOutput.swift; sourceTree = "<group>"; };
 		2E0A6CDA2A3775D900A28AF2 /* LoginFlowCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFlowCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		2E0D0E74289D652000785833 /* EditorSetViewSettingsRelation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetViewSettingsRelation.swift; sourceTree = "<group>"; };
-		2E0D0E76289D653500785833 /* EditorSetViewSettingsToggleItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetViewSettingsToggleItem.swift; sourceTree = "<group>"; };
-		2E0D0E78289D678200785833 /* EditorSetViewSettingsValueItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetViewSettingsValueItem.swift; sourceTree = "<group>"; };
+		2E0D0E78289D678200785833 /* EditorSetViewSettingsItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetViewSettingsItem.swift; sourceTree = "<group>"; };
 		2E0D0F702938CFE200674D3F /* DataviewGroupOrder+Update.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataviewGroupOrder+Update.swift"; sourceTree = "<group>"; };
 		2E0DAF1A28A17DB400F43320 /* SetPrefilledFieldsBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetPrefilledFieldsBuilder.swift; sourceTree = "<group>"; };
 		2E0DAF1D28A26DBD00F43320 /* SetViewSettingsCardSizeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetViewSettingsCardSizeViewModel.swift; sourceTree = "<group>"; };
@@ -2276,6 +2275,7 @@
 		2E2A22FD2A9E462100745D78 /* SetLayoutSettingsCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetLayoutSettingsCoordinatorView.swift; sourceTree = "<group>"; };
 		2E2A22FF2A9E463700745D78 /* SetLayoutSettingsCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetLayoutSettingsCoordinatorViewModel.swift; sourceTree = "<group>"; };
 		2E2A23012A9E46B100745D78 /* SetLayoutSettingsCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetLayoutSettingsCoordinatorAssembly.swift; sourceTree = "<group>"; };
+		2E2A23032A9F746D00745D78 /* SetLayoutSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetLayoutSettings.swift; sourceTree = "<group>"; };
 		2E2D255428880C8D00E3DFD1 /* SetFiltersSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetFiltersSelectionView.swift; sourceTree = "<group>"; };
 		2E2D255528880C8D00E3DFD1 /* SetFiltersSelectionViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetFiltersSelectionViewModel.swift; sourceTree = "<group>"; };
 		2E2D255628880C8D00E3DFD1 /* SetFilterConditionsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetFilterConditionsViewModel.swift; sourceTree = "<group>"; };
@@ -6019,6 +6019,7 @@
 				2E2A22F62A9E447000745D78 /* SetLayoutSettingsView.swift */,
 				2E2A22F82A9E448B00745D78 /* SetLayoutSettingsViewModel.swift */,
 				2E2A22FA2A9E449A00745D78 /* SetLayoutSettingsViewAssembly.swift */,
+				2E2A23032A9F746D00745D78 /* SetLayoutSettings.swift */,
 			);
 			path = SetLayoutSettingsView;
 			sourceTree = "<group>";
@@ -6870,10 +6871,9 @@
 				2E0DAF1F28A26DC400F43320 /* ImagePreview */,
 				2E0DAF1C28A26DBD00F43320 /* CardSize */,
 				3D30416727EA4DC100FFE0EB /* EditorSetViewSettingsViewModel.swift */,
-				2E0D0E78289D678200785833 /* EditorSetViewSettingsValueItem.swift */,
+				2E0D0E78289D678200785833 /* EditorSetViewSettingsItem.swift */,
 				3D30416827EA4DC100FFE0EB /* EditorSetViewSettingsView.swift */,
 				2E0D0E74289D652000785833 /* EditorSetViewSettingsRelation.swift */,
-				2E0D0E76289D653500785833 /* EditorSetViewSettingsToggleItem.swift */,
 			);
 			path = ViewSettings;
 			sourceTree = "<group>";
@@ -10016,7 +10016,7 @@
 				12636CF6276A0DC70084D35D /* ListCreateButton.swift in Sources */,
 				5386E3C227B3F63E004D8221 /* TextRelationViewSwiftUI.swift in Sources */,
 				124E2BC2273020F500A2D534 /* RelationsListView.swift in Sources */,
-				2E0D0E79289D678200785833 /* EditorSetViewSettingsValueItem.swift in Sources */,
+				2E0D0E79289D678200785833 /* EditorSetViewSettingsItem.swift in Sources */,
 				2EE622FC29F2F57D004DBF3E /* SetItemProviderObject.swift in Sources */,
 				3D7EA8A6268EF38D00C76974 /* BlockFileConfiguration.swift in Sources */,
 				535FDE0A27E7E27B0098DBFA /* PasteboardTask.swift in Sources */,
@@ -10178,6 +10178,7 @@
 				12DE4060264AE455007B5074 /* LayoutAnchorType.swift in Sources */,
 				2AFA110A296C44BF0055422F /* HomeBottomPanelModuleAssembly.swift in Sources */,
 				3D24912B27BD271900821595 /* MentionMarkupEventProvider.swift in Sources */,
+				2E2A23042A9F746D00745D78 /* SetLayoutSettings.swift in Sources */,
 				3DB1CA5A272BEF3B000D2779 /* WallpaperPickerView.swift in Sources */,
 				539168852632DD5200AD5C5F /* StyleCellView.swift in Sources */,
 				C9BFBA8B28A12E980003D9E6 /* ShimmeringBlockView.swift in Sources */,
@@ -10543,7 +10544,6 @@
 				125B6EBD26F235F400BCD7D6 /* EditorSearchCellData.swift in Sources */,
 				2E2EA2CE2A543EFE00569E1E /* AnytypeFontConfig.swift in Sources */,
 				EA3D1E4F26CFC0E5001A31D9 /* TextViewAttributeSelectionInteraction.swift in Sources */,
-				2E0D0E77289D653500785833 /* EditorSetViewSettingsToggleItem.swift in Sources */,
 				2E0797BC2A0965FD006F0FD7 /* JoinFlowCoordinatorAssembly.swift in Sources */,
 				0A74E4FB23A90E8C00B6C406 /* AuthService.swift in Sources */,
 				53F80F0527BD8DAD00E9E12A /* ObjectListRelationViewUIKit.swift in Sources */,

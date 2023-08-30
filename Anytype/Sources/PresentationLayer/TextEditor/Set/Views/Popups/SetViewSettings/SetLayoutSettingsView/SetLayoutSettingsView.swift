@@ -8,6 +8,9 @@ struct SetLayoutSettingsView: View {
             Spacer.fixedHeight(8)
             TitleView(title: Loc.layout)
             viewTypes
+            Spacer.fixedHeight(8)
+            settingsSection
+            Spacer.fixedHeight(16)
         }
         .padding(.horizontal, 20)
     }
@@ -50,5 +53,51 @@ struct SetLayoutSettingsView: View {
             repeating: GridItem(.flexible(), spacing: 8, alignment: .topLeading),
             count: 3
         )
+    }
+    
+    
+    private var settingsSection: some View {
+        VStack(spacing: 0) {
+            ForEach(model.settings) { setting in
+                Group {
+                    switch setting {
+                    case let .toggle(item):
+                        toggleSettings(with: item)
+                    case let .value(item):
+                        valueSetting(with: item)
+                    }
+                }
+                .if(model.settings.last != setting) {
+                    $0.divider()
+                }
+            }
+        }
+    }
+    
+    private func valueSetting(with model: EditorSetViewSettingsValueItem) -> some View {
+        Button {
+            model.onTap()
+        } label: {
+            HStack(spacing: 0) {
+                AnytypeText(model.title, style: .uxTitle2Regular, color: .Text.primary)
+                Spacer()
+                AnytypeText(model.value, style: .uxCalloutRegular, color: .Text.secondary)
+                Spacer.fixedWidth(6)
+                Image(asset: .X24.Arrow.right)
+                    .foregroundColor(.Text.tertiary)
+            }
+        }
+        .frame(height: 52)
+    }
+    
+    private func toggleSettings(with model: EditorSetViewSettingsToggleItem) -> some View {
+        AnytypeToggle(
+            title: model.title,
+            font: .uxTitle2Regular,
+            isOn: model.isSelected
+        ) {
+            model.onChange($0)
+        }
+        .frame(height: 52)
     }
 }

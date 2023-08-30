@@ -61,4 +61,20 @@ extension DataviewViewType {
         self == .list ||
         (FeatureFlags.setKanbanView && self == .kanban)
     }
+    
+    var settings: [SetLayoutSettings] {
+        switch setContentViewType {
+        case let .collection(type):
+            switch type {
+            case .gallery:
+                return [.icon, .cardSize, .imagePreview, .fitImage]
+            case .list:
+                return [.icon]
+            }
+        case .table:
+            return [.icon]
+        case .kanban:
+            return [.icon, .groupBy, .colorColumns]
+        }
+    }
 }

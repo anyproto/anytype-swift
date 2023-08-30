@@ -7,6 +7,7 @@ struct SetLayoutSettingsCoordinatorView: View {
         model.list()
             .sheet(item: $model.imagePreviewData) { data in
                 model.imagePreview(data: data)
+                    .mediumPresentationDetents()
             }
     }
 }
