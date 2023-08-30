@@ -7,6 +7,15 @@ struct SetLayoutSettingsView: View {
         VStack(spacing: 0) {
             Spacer.fixedHeight(8)
             TitleView(title: Loc.layout)
+            ScrollView(.vertical, showsIndicators: false) {
+                content
+            }
+        }
+    }
+    
+    private var content: some View {
+        VStack(spacing: 0) {
+            Spacer.fixedHeight(2)
             viewTypes
             Spacer.fixedHeight(8)
             settingsSection
@@ -65,6 +74,8 @@ struct SetLayoutSettingsView: View {
                         toggleSettings(with: item)
                     case let .value(item):
                         valueSetting(with: item)
+                    case let .context(item):
+                        contextMenu(with: item)
                     }
                 }
                 .if(model.settings.last != setting) {
@@ -78,14 +89,7 @@ struct SetLayoutSettingsView: View {
         Button {
             model.onTap()
         } label: {
-            HStack(spacing: 0) {
-                AnytypeText(model.title, style: .uxTitle2Regular, color: .Text.primary)
-                Spacer()
-                AnytypeText(model.value, style: .uxCalloutRegular, color: .Text.secondary)
-                Spacer.fixedWidth(6)
-                Image(asset: .X18.Disclosure.right)
-                    .foregroundColor(.Button.active)
-            }
+            valueSettingContent(title: model.title, value: model.value, contextual: false)
         }
         .frame(height: 52)
     }
@@ -99,5 +103,33 @@ struct SetLayoutSettingsView: View {
             model.onChange($0)
         }
         .frame(height: 52)
+    }
+    
+    private func contextMenu(with model: EditorSetViewSettingsContextItem) -> some View {
+        Menu {
+            VStack(spacing: 0) {
+                ForEach(model.options) { option in
+                    Button {
+                        option.onTap()
+                    } label: {
+                        AnytypeText(option.id, style: .uxCalloutRegular, color: .Text.primary)
+                    }
+                }
+            }
+        } label: {
+            valueSettingContent(title: model.title, value: model.value, contextual: true)
+        }
+        .frame(height: 52)
+    }
+    
+    private func valueSettingContent(title: String, value: String, contextual: Bool) -> some View {
+        HStack(spacing: 0) {
+            AnytypeText(title, style: .uxTitle2Regular, color: .Text.primary)
+            Spacer()
+            AnytypeText(value, style: .uxCalloutRegular, color: .Text.secondary)
+            Spacer.fixedWidth(6)
+            Image(asset: contextual ? .X18.Disclosure.down : .X18.Disclosure.right)
+                .foregroundColor(.Button.active)
+        }
     }
 }

@@ -8,7 +8,7 @@ struct SetViewSettingsCoordinatorView: View {
             .sheet(isPresented: $model.showObjects) {}
             .sheet(isPresented: $model.showLayouts) {
                 model.setLayoutSettings()
-                    .fitPresentationDetents()
+                    .mediumPresentationDetents()
             }
             .sheet(isPresented: $model.showRelations) {}
             .sheet(isPresented: $model.showFilters) {
