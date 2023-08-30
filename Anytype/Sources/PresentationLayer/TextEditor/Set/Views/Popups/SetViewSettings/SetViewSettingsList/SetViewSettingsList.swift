@@ -84,8 +84,8 @@ struct SetViewSettingsList: View {
                 
                 Spacer.fixedWidth(6)
                 
-                Image(asset: .X24.Arrow.right)
-                    .foregroundColor(.Text.tertiary)
+                Image(asset: .X18.Disclosure.right)
+                    .foregroundColor(.Button.active)
             }
         }
         .frame(height: 52, alignment: .leading)
