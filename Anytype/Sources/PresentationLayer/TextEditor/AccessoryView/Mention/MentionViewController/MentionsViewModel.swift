@@ -54,7 +54,7 @@ final class MentionsViewModel {
             let name = searchString.isEmpty ? Loc.Object.Title.placeholder : searchString
             let mention = MentionObject(
                 id: newBlockDetails.id,
-                objectIcon: newBlockDetails.objectIconImageWithPlaceholder,
+                objectIcon: newBlockDetails.objectIconImage,
                 name: name,
                 description: nil,
                 type: nil
