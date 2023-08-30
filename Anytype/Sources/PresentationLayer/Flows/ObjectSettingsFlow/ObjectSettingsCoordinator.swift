@@ -3,7 +3,7 @@ import Services
 import AnytypeCore
 
 protocol ObjectSettingsCoordinatorProtocol {
-    func startFlow(objectId: BlockId, delegate: ObjectSettingsModuleDelegate)
+    func startFlow(objectId: BlockId, delegate: ObjectSettingsModuleDelegate, output: ObjectSettingsCoordinatorOutput?)
 }
 
 final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
@@ -21,6 +21,8 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
     private let addNewRelationCoordinator: AddNewRelationCoordinatorProtocol
     private let searchModuleAssembly: SearchModuleAssemblyProtocol
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
+    
+    private weak var output: ObjectSettingsCoordinatorOutput?
     
     init(
         navigationContext: NavigationContextProtocol,
@@ -50,7 +52,8 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
         self.newSearchModuleAssembly = newSearchModuleAssembly
     }
     
-    func startFlow(objectId: BlockId, delegate: ObjectSettingsModuleDelegate) {
+    func startFlow(objectId: BlockId, delegate: ObjectSettingsModuleDelegate, output: ObjectSettingsCoordinatorOutput?) {
+        self.output = output
         let document = BaseDocument(objectId: objectId)
         Task { @MainActor in
             do {
@@ -114,6 +117,10 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
         }
 
         navigationContext.presentSwiftUIView(view: moduleView)
+    }
+    
+    func closeEditorAction() {
+        output?.closeEditor()
     }
     
     // MARK: - RelationsListModuleOutput

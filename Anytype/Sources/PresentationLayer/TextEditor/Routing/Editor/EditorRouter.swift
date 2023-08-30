@@ -5,7 +5,7 @@ import SwiftUI
 import FloatingPanel
 import AnytypeCore
 
-final class EditorRouter: NSObject, EditorRouterProtocol {
+final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordinatorOutput {
     private weak var rootController: EditorBrowserController?
     private weak var viewController: UIViewController?
     private let navigationContext: NavigationContextProtocol
@@ -359,7 +359,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     
     // MARK: - Settings
     func showSettings() {
-        objectSettingCoordinator.startFlow(objectId: document.objectId, delegate: self)
+        objectSettingCoordinator.startFlow(objectId: document.objectId, delegate: self, output: self)
     }
     
     func showCoverPicker() {

@@ -13,13 +13,15 @@ final class ObjectActionsViewModel: ObservableObject {
         return ObjectAction.allCasesWith(
             details: details,
             objectRestrictions: objectRestrictions,
-            isLocked: isLocked
+            isLocked: isLocked,
+            isArchived: isArchived
         )
     }
     
     @Published var details: ObjectDetails?
     @Published var objectRestrictions: ObjectRestrictions = ObjectRestrictions()
     @Published var isLocked: Bool = false
+    @Published var isArchived: Bool = false
 
     var onLinkItselfAction: RoutingAction<(BlockId) -> Void>?
     var onNewTemplateCreation: RoutingAction<BlockId>?
@@ -28,6 +30,7 @@ final class ObjectActionsViewModel: ObservableObject {
 
     let undoRedoAction: () -> ()
     let openPageAction: (_ screenData: EditorScreenData) -> ()
+    let closeEditorAction: () -> ()
     
     private let objectId: BlockId
     private let service: ObjectActionsServiceProtocol
@@ -40,7 +43,8 @@ final class ObjectActionsViewModel: ObservableObject {
         blockActionsService: BlockActionsServiceSingleProtocol,
         templatesService: TemplatesServiceProtocol,
         undoRedoAction: @escaping () -> (),
-        openPageAction: @escaping (_ screenData: EditorScreenData) -> ()
+        openPageAction: @escaping (_ screenData: EditorScreenData) -> (),
+        closeEditorAction: @escaping () -> ()
     ) {
         self.objectId = objectId
         self.service = service
@@ -48,6 +52,7 @@ final class ObjectActionsViewModel: ObservableObject {
         self.templatesService = templatesService
         self.undoRedoAction = undoRedoAction
         self.openPageAction = openPageAction
+        self.closeEditorAction = closeEditorAction
     }
 
     func changeArchiveState() {
@@ -58,6 +63,9 @@ final class ObjectActionsViewModel: ObservableObject {
             try await service.setArchive(objectIds: [objectId], isArchived)
             if isArchived {
                 dismissSheet()
+                if FeatureFlags.openBinObject {
+                    closeEditorAction()
+                }
             }
         }
     }
@@ -136,5 +144,15 @@ final class ObjectActionsViewModel: ObservableObject {
         guard let details = details else { return }
         
         onTemplateMakeDefault?(details.id)
+    }
+    
+    func deleteAction() {
+        guard let details = details else { return }
+        Task { @MainActor in
+            // TODO: Add new analytics route
+            try await service.delete(objectIds: [details.id], route: .bin)
+            dismissSheet()
+            closeEditorAction()
+        }
     }
 }

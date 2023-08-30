@@ -46,14 +46,17 @@ final class BaseDocument: BaseDocumentProtocol {
             relationsDetails: objectRelationsDetails,
             typeRelationsDetails: typeRelationsDetails,
             objectId: objectId,
-            isObjectLocked: isLocked,
+            isObjectLocked: isLocked || isArchived,
             storage: detailsStorage
         )
     }
     
-    @Published var isLocked = false
-    var isLockedPublisher: AnyPublisher<Bool, Never> {
-        $isLocked.eraseToAnyPublisher()
+    var isLocked: Bool {
+        return infoContainer.get(id: objectId)?.isLocked ?? false
+    }
+    
+    var isArchived: Bool {
+        return details?.isArchived ?? false
     }
     
     var details: ObjectDetails? {
@@ -169,12 +172,6 @@ final class BaseDocument: BaseDocumentProtocol {
         if !forPreview {
             eventsListener.startListening()
         }
-                
-        infoContainer.publisherFor(id: objectId)
-            .compactMap { $0?.isLocked }
-            .removeDuplicates()
-            .receiveOnMain()
-            .assign(to: &$isLocked)
         
         Publishers
             .CombineLatest(

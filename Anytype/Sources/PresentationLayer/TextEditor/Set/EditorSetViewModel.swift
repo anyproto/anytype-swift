@@ -518,7 +518,7 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     private func handleDetails(details: ObjectDetails, isAppear: Bool) {
-        if details.isArchived && isAppear {
+        if !FeatureFlags.openBinObject, details.isArchived && isAppear {
             // Waiting for the first responder automatic restoration and then close the screen
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) { [router] in
                 router?.closeEditor()

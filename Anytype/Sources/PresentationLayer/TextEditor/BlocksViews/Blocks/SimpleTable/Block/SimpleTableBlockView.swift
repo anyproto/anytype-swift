@@ -72,7 +72,7 @@ final class SimpleTableBlockView: UIView, BlockContentView {
                 collectionView.isLocked = false
             case .moving, .loading:
                 return
-            case .locked, .simpleTablesSelection:
+            case .readonly, .simpleTablesSelection:
                 collectionView.isLocked = true
             }
         }.store(in: &cancellables)

@@ -11,13 +11,20 @@ enum ObjectAction: Hashable, Identifiable {
     case linkItself
     case makeAsTemplate
     case templateSetAsDefault
+    case delete
 
     // When adding to case
     static func allCasesWith(
         details: ObjectDetails,
         objectRestrictions: ObjectRestrictions,
-        isLocked: Bool
+        isLocked: Bool,
+        isArchived: Bool
     ) -> [Self] {
+        
+        if isArchived {
+            return actionsForArchiveObject()
+        }
+        
         if details.isTemplateType {
             return [
                 .archive(isArchived: details.isArchived),
@@ -76,6 +83,15 @@ enum ObjectAction: Hashable, Identifiable {
             return "makeAsTemplate"
         case .templateSetAsDefault:
             return "templateSetAsDefault"
+        case .delete:
+            return "delete"
         }
+    }
+    
+    private static func actionsForArchiveObject() -> [Self] {
+        return [
+            .delete,
+            .archive(isArchived: true)
+        ]
     }
 }

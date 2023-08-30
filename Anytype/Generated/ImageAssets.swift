@@ -85,6 +85,7 @@ internal extension ImageAsset {
   enum X18 {
     static let attention = ImageAsset.bundle(name: "x18/Attention")
     static let clear = ImageAsset.bundle(name: "x18/Clear")
+    static let delete = ImageAsset.bundle(name: "x18/Delete")
     enum Disclosure {
       static let down = ImageAsset.bundle(name: "x18/Disclosure/Down")
       static let `left` = ImageAsset.bundle(name: "x18/Disclosure/Left")
@@ -319,7 +320,6 @@ internal extension ImageAsset {
     enum Divider {
       static let dots = ImageAsset.bundle(name: "TextEditor/Divider/Dots")
     }
-    static let lockedObject = ImageAsset.bundle(name: "TextEditor/locked_object")
     static let search = ImageAsset.bundle(name: "TextEditor/search")
     static let shimmering = ImageAsset.bundle(name: "TextEditor/shimmering")
     enum Text {

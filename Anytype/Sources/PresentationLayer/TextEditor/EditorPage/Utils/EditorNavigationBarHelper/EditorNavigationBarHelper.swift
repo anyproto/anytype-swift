@@ -112,7 +112,7 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
             controller?.navigationItem.rightBarButtonItem = settingsBarButtonItem
             controller?.navigationItem.leftBarButtonItem = syncStatusBarButtonItem
             lastTitleModel.map { navigationBarTitleView.configure(model: .title($0)) }
-            navigationBarTitleView.setIsLocked(false)
+            navigationBarTitleView.setIsReadonly(nil)
             updateNavigationBarAppearanceBasedOnContentOffset(currentScrollViewOffset)
         case .selecting(let blocks):
             navigationBarTitleView.setAlphaForSubviews(1)
@@ -122,15 +122,15 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
             controller?.navigationItem.rightBarButtonItem = doneBarButtonItem
             let title = Loc.selectedBlocks(blocks.count)
             navigationBarTitleView.configure(model: .modeTitle(title))
-            navigationBarTitleView.setIsLocked(false)
+            navigationBarTitleView.setIsReadonly(nil)
         case .moving:
             let title = Loc.Editor.MovingState.scrollToSelectedPlace
             navigationBarTitleView.configure(model: .modeTitle(title))
             controller?.navigationItem.leftBarButtonItem = nil
             controller?.navigationItem.rightBarButtonItem = nil
-            navigationBarTitleView.setIsLocked(false)
-        case .locked:
-            navigationBarTitleView.setIsLocked(true)
+            navigationBarTitleView.setIsReadonly(nil)
+        case .readonly(let mode):
+            navigationBarTitleView.setIsReadonly(mode)
         case let .simpleTablesSelection(_, selectedBlocks, _):
             navigationBarTitleView.setAlphaForSubviews(1)
             updateBarButtonItemsBackground(opacity: 1)
@@ -139,12 +139,12 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
             controller?.navigationItem.rightBarButtonItem = doneBarButtonItem
             let title = Loc.selectedBlocks(selectedBlocks.count)
             navigationBarTitleView.configure(model: .modeTitle(title))
-            navigationBarTitleView.setIsLocked(false)
+            navigationBarTitleView.setIsReadonly(nil)
         case .loading:
             controller?.navigationItem.titleView = navigationBarTitleView
             controller?.navigationItem.rightBarButtonItem = nil
             controller?.navigationItem.leftBarButtonItem = syncStatusBarButtonItem
-            navigationBarTitleView.setIsLocked(true)
+            navigationBarTitleView.setIsReadonly(nil)
         }
     }
 }
@@ -169,7 +169,7 @@ private extension EditorNavigationBarHelper {
         guard let percent = countPercentOfNavigationBarAppearance(offset: newOffset) else { return }
 
         switch currentEditorState {
-            case .editing, .locked: break
+            case .editing, .readonly: break
             default: return
         }
         

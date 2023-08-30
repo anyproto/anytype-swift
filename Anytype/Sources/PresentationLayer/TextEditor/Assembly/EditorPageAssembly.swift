@@ -256,7 +256,7 @@ final class EditorAssembly {
             actionHandler: actionHandler,
             pasteboardService: pasteboardService,
             router: router,
-            initialEditingState: configuration.isOpenedForPreview ? .locked : .editing,
+            initialEditingState: configuration.isOpenedForPreview ? .readonly(state: .locked) : .editing,
             viewInput: viewInput,
             bottomNavigationManager: bottomNavigationManager
         )

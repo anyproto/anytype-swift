@@ -22,4 +22,12 @@ import Foundation
 // Temporary solution - setup environment from main target.
 public enum CoreEnvironment {
     public static var isDebug: Bool = false
+    
+    public static var isSimulator: Bool {
+        #if targetEnvironment(simulator)
+          return true
+        #else
+          return false
+        #endif
+    }
 }
