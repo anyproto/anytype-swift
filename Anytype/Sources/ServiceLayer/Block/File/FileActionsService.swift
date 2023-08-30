@@ -114,12 +114,12 @@ final class FileActionsService: FileActionsServiceProtocol {
     func spaceUsage() async throws -> FileLimits {
         let result = try await ClientCommands.fileSpaceUsage().invoke()
         return FileLimits(
-            filesCount: Int64(result.usage.filesCount),
-            cidsCount: Int64(result.usage.cidsCount),
-            bytesUsage: Int64(result.usage.bytesUsage),
-            bytesLeft: Int64(result.usage.bytesLeft),
-            bytesLimit: Int64(result.usage.bytesLimit),
-            localBytesUsage: Int64(result.usage.localBytesUsage)
+            filesCount: Int64(clamping: result.usage.filesCount),
+            cidsCount: Int64(clamping: result.usage.cidsCount),
+            bytesUsage: Int64(clamping: result.usage.bytesUsage),
+            bytesLeft: Int64(clamping: result.usage.bytesLeft),
+            bytesLimit: Int64(clamping: result.usage.bytesLimit),
+            localBytesUsage: Int64(clamping: result.usage.localBytesUsage)
         )
     }
     
