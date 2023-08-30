@@ -112,7 +112,7 @@ final class SetLayoutSettingsViewModel: ObservableObject {
                     title: Loc.Set.View.Settings.GroupBy.title,
                     value: groupByValue(with: setDocument.activeView.groupRelationKey),
                     onTap: { [weak self] in
-        //                self?.showGroupByRelations()
+                        self?.onGroupByTap()
                     }
                 ))
             }
@@ -124,6 +124,14 @@ final class SetLayoutSettingsViewModel: ObservableObject {
         output?.onImagePreviewTap { [weak self] key in
             guard let self else { return }
             let activeView = activeView.updated(coverRelationKey: key)
+            self.updateView(activeView)
+        }
+    }
+    
+    private func onGroupByTap() {
+        output?.onGroupByTap { [weak self] key in
+            guard let self else { return }
+            let activeView = activeView.updated(groupRelationKey: key)
             self.updateView(activeView)
         }
     }

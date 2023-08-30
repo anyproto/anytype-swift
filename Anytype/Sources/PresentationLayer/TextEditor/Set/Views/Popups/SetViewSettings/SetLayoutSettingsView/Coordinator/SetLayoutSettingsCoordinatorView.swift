@@ -9,5 +9,9 @@ struct SetLayoutSettingsCoordinatorView: View {
                 model.imagePreview(data: data)
                     .mediumPresentationDetents()
             }
+            .sheet(item: $model.groupByData) { data in
+                model.groupByView(data: data)
+                    .fitPresentationDetents()
+            }
     }
 }

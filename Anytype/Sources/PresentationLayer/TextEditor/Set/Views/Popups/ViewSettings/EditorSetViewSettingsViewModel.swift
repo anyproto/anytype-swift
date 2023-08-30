@@ -244,13 +244,9 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
     }
     
     private func showGroupByRelations() {
-        router.showGroupByRelations(
-            selectedRelationKey: setDocument.activeView.groupRelationKey,
-            relations: groupByRelations(),
-            onSelect: { [weak self] key in
-                self?.onGroupBySettingChange(key)
-            }
-        )
+        router.showGroupByRelations { [weak self] key in
+            self?.onGroupBySettingChange(key)
+        }
     }
     
     private func groupByRelations() -> [RelationDetails] {

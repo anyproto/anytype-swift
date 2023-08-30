@@ -12,13 +12,12 @@ final class SetViewSettingsGroupByViewModel: CheckPopupViewViewModelProtocol {
 
     // MARK: - Initializer
 
-    init(
-        selectedRelationKey: String,
-        relations: [RelationDetails],
-        onSelect: @escaping (String) -> Void
-    ) {
-        self.selectedRelationKey = selectedRelationKey
-        self.relations = relations
+    init(setDocument: SetDocumentProtocol, onSelect: @escaping (String) -> Void) {
+        self.selectedRelationKey = setDocument.activeView.groupRelationKey
+        self.relations = setDocument.dataView.groupByRelations(
+            for: setDocument.activeView,
+            dataViewRelationsDetails: setDocument.dataViewRelationsDetails
+        )
         self.onSelect = onSelect
         self.items = self.buildPopupItems()
     }

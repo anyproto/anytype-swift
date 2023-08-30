@@ -38,11 +38,7 @@ protocol EditorSetRouterProtocol:
     func showCardSizes(size: DataviewViewSize, onSelect: @escaping (DataviewViewSize) -> Void)
     func showCovers(setDocument: SetDocumentProtocol, onSelect: @escaping (String) -> Void)
     
-    func showGroupByRelations(
-        selectedRelationKey: String,
-        relations: [RelationDetails],
-        onSelect: @escaping (String) -> Void
-    )
+    func showGroupByRelations(onSelect: @escaping (String) -> Void)
     
     func showKanbanColumnSettings(
         hideColumn: Bool,
@@ -93,6 +89,7 @@ final class EditorSetRouter: EditorSetRouterProtocol {
     private let setSortsListCoordinatorAssembly: SetSortsListCoordinatorAssemblyProtocol
     private let setFiltersListCoordinatorAssembly: SetFiltersListCoordinatorAssemblyProtocol
     private let setViewSettingsImagePreviewModuleAssembly: SetViewSettingsImagePreviewModuleAssemblyProtocol
+    private let setViewSettingsGroupByModuleAssembly: SetViewSettingsGroupByModuleAssemblyProtocol
     private let toastPresenter: ToastPresenterProtocol
     private let alertHelper: AlertHelper
     private let templateSelectionCoordinator: TemplateSelectionCoordinatorProtocol
@@ -118,6 +115,7 @@ final class EditorSetRouter: EditorSetRouterProtocol {
         setSortsListCoordinatorAssembly: SetSortsListCoordinatorAssemblyProtocol,
         setFiltersListCoordinatorAssembly: SetFiltersListCoordinatorAssemblyProtocol,
         setViewSettingsImagePreviewModuleAssembly: SetViewSettingsImagePreviewModuleAssemblyProtocol,
+        setViewSettingsGroupByModuleAssembly: SetViewSettingsGroupByModuleAssemblyProtocol,
         toastPresenter: ToastPresenterProtocol,
         alertHelper: AlertHelper,
         templateSelectionCoordinator: TemplateSelectionCoordinatorProtocol
@@ -138,6 +136,7 @@ final class EditorSetRouter: EditorSetRouterProtocol {
         self.setSortsListCoordinatorAssembly = setSortsListCoordinatorAssembly
         self.setFiltersListCoordinatorAssembly = setFiltersListCoordinatorAssembly
         self.setViewSettingsImagePreviewModuleAssembly = setViewSettingsImagePreviewModuleAssembly
+        self.setViewSettingsGroupByModuleAssembly = setViewSettingsGroupByModuleAssembly
         self.toastPresenter = toastPresenter
         self.alertHelper = alertHelper
         self.templateSelectionCoordinator = templateSelectionCoordinator
@@ -324,17 +323,10 @@ final class EditorSetRouter: EditorSetRouterProtocol {
     }
     
     @MainActor
-    func showGroupByRelations(
-        selectedRelationKey: String,
-        relations: [RelationDetails],
-        onSelect: @escaping (String) -> Void
-    ) {
-        let view = CheckPopupView(
-            viewModel: SetViewSettingsGroupByViewModel(
-                selectedRelationKey: selectedRelationKey,
-                relations: relations,
-                onSelect: onSelect
-            )
+    func showGroupByRelations(onSelect: @escaping (String) -> Void) {
+        let view = setViewSettingsGroupByModuleAssembly.make(
+            setDocument: setDocument,
+            onSelect: onSelect
         )
         presentSheet(
             AnytypePopup(

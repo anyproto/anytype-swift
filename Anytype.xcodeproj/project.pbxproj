@@ -756,6 +756,7 @@
 		2E2A23002A9E463700745D78 /* SetLayoutSettingsCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2A22FF2A9E463700745D78 /* SetLayoutSettingsCoordinatorViewModel.swift */; };
 		2E2A23022A9E46B100745D78 /* SetLayoutSettingsCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2A23012A9E46B100745D78 /* SetLayoutSettingsCoordinatorAssembly.swift */; };
 		2E2A23042A9F746D00745D78 /* SetLayoutSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2A23032A9F746D00745D78 /* SetLayoutSettings.swift */; };
+		2E2A23062A9F96FA00745D78 /* SetViewSettingsGroupByModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2A23052A9F96FA00745D78 /* SetViewSettingsGroupByModuleAssembly.swift */; };
 		2E2D255D28880C8D00E3DFD1 /* SetFiltersSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2D255428880C8D00E3DFD1 /* SetFiltersSelectionView.swift */; };
 		2E2D255E28880C8D00E3DFD1 /* SetFiltersSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2D255528880C8D00E3DFD1 /* SetFiltersSelectionViewModel.swift */; };
 		2E2D255F28880C8D00E3DFD1 /* SetFilterConditionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2D255628880C8D00E3DFD1 /* SetFilterConditionsViewModel.swift */; };
@@ -2276,6 +2277,7 @@
 		2E2A22FF2A9E463700745D78 /* SetLayoutSettingsCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetLayoutSettingsCoordinatorViewModel.swift; sourceTree = "<group>"; };
 		2E2A23012A9E46B100745D78 /* SetLayoutSettingsCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetLayoutSettingsCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		2E2A23032A9F746D00745D78 /* SetLayoutSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetLayoutSettings.swift; sourceTree = "<group>"; };
+		2E2A23052A9F96FA00745D78 /* SetViewSettingsGroupByModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewSettingsGroupByModuleAssembly.swift; sourceTree = "<group>"; };
 		2E2D255428880C8D00E3DFD1 /* SetFiltersSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetFiltersSelectionView.swift; sourceTree = "<group>"; };
 		2E2D255528880C8D00E3DFD1 /* SetFiltersSelectionViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetFiltersSelectionViewModel.swift; sourceTree = "<group>"; };
 		2E2D255628880C8D00E3DFD1 /* SetFilterConditionsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetFilterConditionsViewModel.swift; sourceTree = "<group>"; };
@@ -6284,6 +6286,7 @@
 			isa = PBXGroup;
 			children = (
 				2EB7D2AD292BD1E50076592B /* SetViewSettingsGroupByViewModel.swift */,
+				2E2A23052A9F96FA00745D78 /* SetViewSettingsGroupByModuleAssembly.swift */,
 			);
 			path = GroupBy;
 			sourceTree = "<group>";
@@ -9997,6 +10000,7 @@
 				038A81FD23A0158B00B71388 /* LegacyLoginViewModel.swift in Sources */,
 				2E56F1382A0D43F400031167 /* LoopingPlayerUIView.swift in Sources */,
 				3D93852026FB0B74001C137F /* PageService.swift in Sources */,
+				2E2A23062A9F96FA00745D78 /* SetViewSettingsGroupByModuleAssembly.swift in Sources */,
 				2E0797C52A09678C006F0FD7 /* AuthModuleAssembly.swift in Sources */,
 				3DDD3D1426AED74E00B5673A /* CodeLanguage.swift in Sources */,
 				12D15D1E27F5F6C000D22086 /* RelationOptionsSearchModuleBuilderProtocol.swift in Sources */,

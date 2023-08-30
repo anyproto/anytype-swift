@@ -209,4 +209,8 @@ final class ModulesDI: ModulesDIProtocol {
     func setLayoutSettingsView() -> SetLayoutSettingsViewAssemblyProtocol {
         SetLayoutSettingsViewAssembly(serviceLocator: serviceLocator)
     }
+    
+    func setViewSettingsGroupByView() -> SetViewSettingsGroupByModuleAssemblyProtocol {
+        SetViewSettingsGroupByModuleAssembly()
+    }
 }
