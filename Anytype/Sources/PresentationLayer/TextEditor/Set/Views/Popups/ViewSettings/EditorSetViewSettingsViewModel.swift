@@ -248,11 +248,4 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
             self?.onGroupBySettingChange(key)
         }
     }
-    
-    private func groupByRelations() -> [RelationDetails] {
-        setDocument.dataView.groupByRelations(
-            for: setDocument.activeView,
-            dataViewRelationsDetails: setDocument.dataViewRelationsDetails
-        )
-    }
 }

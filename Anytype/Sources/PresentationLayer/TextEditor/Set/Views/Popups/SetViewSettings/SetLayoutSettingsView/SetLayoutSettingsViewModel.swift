@@ -35,7 +35,7 @@ final class SetLayoutSettingsViewModel: ObservableObject {
         cancellable = setDocument.activeViewPublisher.sink { [weak self] activeView in
             guard let self else { return }
             self.activeView = activeView
-            self.selectedType = activeView.type
+            selectedType = activeView.type
         }
     }
     
@@ -50,9 +50,9 @@ final class SetLayoutSettingsViewModel: ObservableObject {
                 isSelected: selected,
                 onTap: { [weak self] in
                     guard let self else { return }
-                    self.selectedType = viewType
-                    let activeView = self.activeView.updated(type: selectedType)
-                    self.updateView(activeView)
+                    selectedType = viewType
+                    let activeView = activeView.updated(type: selectedType)
+                    updateView(activeView)
                 }
             )
         }
@@ -67,8 +67,8 @@ final class SetLayoutSettingsViewModel: ObservableObject {
                     isSelected: !activeView.hideIcon,
                     onChange: { [weak self] show in
                         guard let self else { return }
-                        let activeView = self.activeView.updated(hideIcon: !show)
-                        self.updateView(activeView)
+                        let activeView = activeView.updated(hideIcon: !show)
+                        updateView(activeView)
                     }
                 ))
             case .cardSize:
@@ -77,8 +77,8 @@ final class SetLayoutSettingsViewModel: ObservableObject {
                         id: size.value,
                         onTap: { [weak self] in
                             guard let self else { return }
-                            let activeView = self.activeView.updated(cardSize: size)
-                            self.updateView(activeView)
+                            let activeView = activeView.updated(cardSize: size)
+                            updateView(activeView)
                         }
                     )
                 }
@@ -101,8 +101,8 @@ final class SetLayoutSettingsViewModel: ObservableObject {
                     isSelected: activeView.coverFit,
                     onChange: { [weak self] fit in
                         guard let self else { return }
-                        let activeView = self.activeView.updated(coverFit: fit)
-                        self.updateView(activeView)
+                        let activeView = activeView.updated(coverFit: fit)
+                        updateView(activeView)
                     }
                 ))
             case .colorColumns:
@@ -111,8 +111,8 @@ final class SetLayoutSettingsViewModel: ObservableObject {
                     isSelected: activeView.groupBackgroundColors,
                     onChange: { [weak self] colored in
                         guard let self else { return }
-                        let activeView = self.activeView.updated(groupBackgroundColors: colored)
-                        self.updateView(activeView)
+                        let activeView = activeView.updated(groupBackgroundColors: colored)
+                        updateView(activeView)
                     }
                 ))
             case .groupBy:
@@ -132,7 +132,7 @@ final class SetLayoutSettingsViewModel: ObservableObject {
         output?.onImagePreviewTap { [weak self] key in
             guard let self else { return }
             let activeView = activeView.updated(coverRelationKey: key)
-            self.updateView(activeView)
+            updateView(activeView)
         }
     }
     
@@ -140,7 +140,7 @@ final class SetLayoutSettingsViewModel: ObservableObject {
         output?.onGroupByTap { [weak self] key in
             guard let self else { return }
             let activeView = activeView.updated(groupRelationKey: key)
-            self.updateView(activeView)
+            updateView(activeView)
         }
     }
     
