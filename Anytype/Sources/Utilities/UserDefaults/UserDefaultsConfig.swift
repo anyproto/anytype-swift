@@ -51,31 +51,28 @@ extension UserDefaultsConfig {
 
 extension UserDefaultsConfig {
     
-    @UserDefault("UserData.Wallpaper", defaultValue: nil)
-    private static var _wallpaper: Data?
-    
-    private static var wallpaperSubject = CurrentValueSubject<BackgroundType, Never>(wallpaper)
-    static var wallpaperPublisher: AnyPublisher<BackgroundType, Never> { wallpaperSubject.eraseToAnyPublisher() }
-    
-    static var wallpaper: BackgroundType {
-        get {
-            guard let rawWallpaper = _wallpaper else { return .default }
-            if let wallpaper = try? JSONDecoder().decode(BackgroundType.self, from: rawWallpaper) {
-                return wallpaper
-            }
-            
-            return .default
-        }
-        set {
-            guard let encoded = try? JSONEncoder().encode(newValue) else {
-                anytypeAssertionFailure("Cannot encode", info: ["wallpaperId": "\(newValue)"])
-                return
-            }
-            _wallpaper = encoded
-            wallpaperSubject.send(newValue)
-        }
+    @UserDefault("UserData.Wallpapers", defaultValue: [:])
+    private static var _wallpapers: [String: BackgroundType] {
+        didSet { wallpapersSubject.send(_wallpapers) }
     }
     
+    private static var wallpapersSubject = CurrentValueSubject<[String: BackgroundType], Never>(_wallpapers)
+    static func wallpaperPublisher(spaceId: String) -> AnyPublisher<BackgroundType, Never> {
+        return wallpapersSubject
+            .compactMap { items -> BackgroundType in
+                return items[spaceId] ?? .default
+            }
+            .removeDuplicates()
+            .eraseToAnyPublisher()
+    }
+    
+    static func wallpaper(spaceId: String) -> BackgroundType {
+        return _wallpapers[spaceId] ?? .default
+    }
+    
+    static func setWallpaper(spaceId: String, wallpaper: BackgroundType) {
+        _wallpapers[spaceId] = wallpaper
+    }
 }
 
 // MARK: - UserInterfaceStyle

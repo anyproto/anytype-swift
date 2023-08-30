@@ -12,6 +12,9 @@ struct SpaceSettingsCoordinatorView: View {
         }
         .sheet(isPresented: $model.showPersonalization) {
             model.personalizationModule()
+                .sheet(isPresented: $model.showWallpaperPicker) {
+                    model.wallpaperModule()
+                }
         }
     }
 }

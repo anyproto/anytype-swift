@@ -3,7 +3,7 @@ import SwiftUI
 
 protocol WallpaperPickerModuleAssemblyProtocol: AnyObject {
     @MainActor
-    func make() -> AnyView
+    func make(spaceId: String) -> AnyView
 }
 
 final class WallpaperPickerModuleAssembly: WallpaperPickerModuleAssemblyProtocol {
@@ -11,9 +11,9 @@ final class WallpaperPickerModuleAssembly: WallpaperPickerModuleAssemblyProtocol
     // MARK: - WallpaperPickerModuleAssemblyProtocol
     
     @MainActor
-    func make() -> AnyView {
-        let model = WallpaperPickerViewModel()
-        let view = WallpaperPickerView(model: model)
-        return view.eraseToAnyView()
+    func make(spaceId: String) -> AnyView {
+        return WallpaperPickerView(
+            model: WallpaperPickerViewModel(spaceId: spaceId)
+        ).eraseToAnyView()
     }
 }

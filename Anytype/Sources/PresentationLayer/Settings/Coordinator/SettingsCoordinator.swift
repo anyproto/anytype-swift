@@ -129,7 +129,7 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol, SettingsModuleOutp
     // MARK: - SettingsAppearanceModuleOutput
     
     func onWallpaperChangeSelected() {
-        let module = wallpaperPickerModuleAssembly.make()
+        let module = wallpaperPickerModuleAssembly.make(spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId)
         navigationContext.present(module)
     }
     

@@ -2,11 +2,12 @@ import SwiftUI
 import AnytypeCore
 
 struct DashboardWallpaper: View {
-    @ObservedObject private var model = DashboardWallpaperViewModel()
+    
+    let wallpaper: BackgroundType
     
     var body: some View {
         Group {
-            switch model.wallpaper {
+            switch wallpaper {
             case .color(let color):
                 Color(hex: color.data.hex).ignoresSafeArea()
             case .gradient(let gradient):
@@ -18,6 +19,6 @@ struct DashboardWallpaper: View {
 
 struct DashboardWallpaper_Previews: PreviewProvider {
     static var previews: some View {
-        DashboardWallpaper()
+        DashboardWallpaper(wallpaper: .default)
     }
 }

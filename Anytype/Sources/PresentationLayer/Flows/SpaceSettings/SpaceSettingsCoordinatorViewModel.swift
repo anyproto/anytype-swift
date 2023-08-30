@@ -12,12 +12,14 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
     private let personalizationModuleAssembly: PersonalizationModuleAssemblyProtocol
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
+    private let wallpaperPickerModuleAssembly: WallpaperPickerModuleAssemblyProtocol
     private let objectTypeProvider: ObjectTypeProviderProtocol
     private let urlOpener: URLOpenerProtocol
     private let documentService: DocumentServiceProtocol
     
     @Published var showRemoteStorage = false
     @Published var showPersonalization = false
+    @Published var showWallpaperPicker = false
     
     init(
         spaceSettingsModuleAssembly: SpaceSettingsModuleAssemblyProtocol,
@@ -28,6 +30,7 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
         personalizationModuleAssembly: PersonalizationModuleAssemblyProtocol,
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
+        wallpaperPickerModuleAssembly: WallpaperPickerModuleAssemblyProtocol,
         objectTypeProvider: ObjectTypeProviderProtocol,
         urlOpener: URLOpenerProtocol,
         documentService: DocumentServiceProtocol
@@ -40,6 +43,7 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
         self.personalizationModuleAssembly = personalizationModuleAssembly
         self.activeWorkspaceStorage = activeWorkspaceStorage
         self.newSearchModuleAssembly = newSearchModuleAssembly
+        self.wallpaperPickerModuleAssembly = wallpaperPickerModuleAssembly
         self.objectTypeProvider = objectTypeProvider
         self.urlOpener = urlOpener
         self.documentService = documentService
@@ -55,6 +59,10 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
     
     func personalizationModule() -> AnyView {
         return personalizationModuleAssembly.make(spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId, output: self)
+    }
+    
+    func wallpaperModule() -> AnyView {
+        return wallpaperPickerModuleAssembly.make(spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId)
     }
     
     // MARK: - SpaceSettingsModuleOutput
@@ -96,5 +104,9 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
             self?.navigationContext.dismissTopPresented(animated: true)
         }
         navigationContext.present(module)
+    }
+    
+    func onWallpaperChangeSelected() {
+        showWallpaperPicker.toggle()
     }
 }

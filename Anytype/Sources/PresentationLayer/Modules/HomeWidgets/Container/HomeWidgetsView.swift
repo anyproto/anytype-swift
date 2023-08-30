@@ -8,7 +8,7 @@ struct HomeWidgetsView: View {
     
     var body: some View {
         ZStack {
-            DashboardWallpaper()
+            DashboardWallpaper(wallpaper: model.wallpaper)
             VerticalScrollViewWithOverlayHeader {
                 HomeTopShadow()
             } content: {
