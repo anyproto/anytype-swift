@@ -14,8 +14,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/amplitude/analytics-connector-ios.git",
       "state" : {
-        "revision" : "b44981119e2efc0edd1d2e26831c3c4c0e0264e6",
-        "version" : "1.0.0"
+        "revision" : "d2f3ec4b022211a67d5d4509135d84359f7f8b8d",
+        "version" : "1.0.2"
       }
     },
     {

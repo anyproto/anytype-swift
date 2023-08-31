@@ -3,14 +3,14 @@ import AnytypeCore
 
 struct MentionObject {
     let id: String
-    let objectIcon: Icon
+    let objectIcon: Icon?
     let name: String
     let description: String?
     let type: ObjectType?
     
     init(
         id: String,
-        objectIcon: Icon,
+        objectIcon: Icon?,
         name: String,
         description: String?,
         type: ObjectType?
@@ -25,7 +25,7 @@ struct MentionObject {
     init(details: ObjectDetails) {
         self.init(
             id: details.id,
-            objectIcon: details.objectIconImageWithPlaceholder,
+            objectIcon: details.objectIconImage,
             name: details.mentionTitle,
             description: details.description,
             type: details.objectType
