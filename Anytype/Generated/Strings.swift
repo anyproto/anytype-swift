@@ -20,8 +20,6 @@ internal enum Loc {
   internal static let account = Loc.tr("Localizable", "Account", fallback: "Account")
   /// Account deleted
   internal static let accountDeleted = Loc.tr("Localizable", "Account deleted", fallback: "Account deleted")
-  /// Account is deleted
-  internal static let accountIsDeleted = Loc.tr("Localizable", "Account is deleted", fallback: "Account is deleted")
   /// Account recover error, try again
   internal static let accountRecoverError = Loc.tr("Localizable", "Account recover error", fallback: "Account recover error, try again")
   /// Account recover error, probably no internet connection
@@ -142,8 +140,6 @@ internal enum Loc {
   internal static let color = Loc.tr("Localizable", "Color", fallback: "Color")
   /// Companies, contacts, friends and family
   internal static let companiesContactsFriendsAndFamily = Loc.tr("Localizable", "Companies, contacts, friends and family", fallback: "Companies, contacts, friends and family")
-  /// Connection refused. Please, try again
-  internal static let connectionRefused = Loc.tr("Localizable", "Connection refused", fallback: "Connection refused. Please, try again")
   /// Copied
   internal static let copied = Loc.tr("Localizable", "Copied", fallback: "Copied")
   /// %@ copied to clipboard
@@ -226,8 +222,6 @@ internal enum Loc {
   internal static let everywhere = Loc.tr("Localizable", "Everywhere", fallback: "Everywhere")
   /// Exact day
   internal static let exactDay = Loc.tr("Localizable", "Exact day", fallback: "Exact day")
-  /// Failed to create your account due to a network error
-  internal static let failedToCreateYourAccountDueToANetworkError = Loc.tr("Localizable", "Failed to create your account due to a network error", fallback: "Failed to create your account due to a network error")
   /// Failed to sync, trying again...
   internal static let failedToSyncTryingAgain = Loc.tr("Localizable", "Failed to sync, trying again...", fallback: "Failed to sync, trying again...")
   /// Favorite
@@ -268,8 +262,6 @@ internal enum Loc {
   internal static let initializingSync = Loc.tr("Localizable", "Initializing sync", fallback: "Initializing sync")
   /// Into object
   internal static let intoObject = Loc.tr("Localizable", "Into object", fallback: "Into object")
-  /// Invalid invitation code
-  internal static let invalidInvitationCode = Loc.tr("Localizable", "Invalid invitation code", fallback: "Invalid invitation code")
   /// Layout
   internal static let layout = Loc.tr("Localizable", "Layout", fallback: "Layout")
   /// Limit object types
@@ -545,8 +537,6 @@ internal enum Loc {
   internal static let yellowBackground = Loc.tr("Localizable", "Yellow background", fallback: "Yellow background")
   /// Yesterday
   internal static let yesterday = Loc.tr("Localizable", "Yesterday", fallback: "Yesterday")
-  /// Your device seems to be offline. Please, check your connection and try again
-  internal static let yourDeviceSeemsToBeOffline = Loc.tr("Localizable", "Your device seems to be offline", fallback: "Your device seems to be offline. Please, check your connection and try again")
   internal enum About {
     /// Account ID: %@
     internal static func accountId(_ p1: Any) -> String {
