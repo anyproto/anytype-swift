@@ -36,23 +36,39 @@ class SetHeaderSettingsViewModel: ObservableObject {
     private func setup() {
         setDocument.activeViewPublisher
             .sink { [weak self] view in
-                self?.viewName = view.name
+                guard let self else { return }
+                viewName = view.name
+                if setDocument.activeView.defaultObjectTypeID != view.defaultObjectTypeID {
+                    checkTemplatesAvailablility(activeView: view)
+                }
             }
             .store(in: &subscriptions)
         
         setDocument.detailsPublisher
             .sink { [weak self] details in
-                self?.isActive = details.setOf.first { $0.isNotEmpty } != nil || details.isCollection
-                
-                self?.checkTemplatesAvailablility(details: details)
+                guard let self else { return }
+                isActive = details.setOf.first { $0.isNotEmpty } != nil || details.isCollection
+                if setDocument.isCollection() || setDocument.isRelationsSet() {
+                    checkTemplatesAvailablility(activeView: setDocument.activeView)
+                } else {
+                    checkTemplatesAvailablility(details: details)
+                }
             }
             .store(in: &subscriptions)
+    }
+    
+    func checkTemplatesAvailablility(activeView: DataviewView) {
+        Task { @MainActor in
+            let isTemplatesAvailable = try await setTemplatesInteractor.isTemplatesAvailableFor(
+                activeView: activeView
+            )
+            isTemplatesSelectionAvailable = isTemplatesAvailable
+        }
     }
     
     func checkTemplatesAvailablility(details: ObjectDetails) {
         Task { @MainActor in
             let isTemplatesAvailable = try await setTemplatesInteractor.isTemplatesAvailableFor(
-                setDocument: setDocument,
                 setObject: details
             )
             isTemplatesSelectionAvailable = isTemplatesAvailable

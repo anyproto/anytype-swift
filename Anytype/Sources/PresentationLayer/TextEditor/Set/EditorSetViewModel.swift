@@ -129,7 +129,6 @@ final class EditorSetViewModel: ObservableObject {
     private let textService: TextServiceProtocol
     private let groupsSubscriptionsHandler: GroupsSubscriptionsHandlerProtocol
     private let setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol
-    private let objectTypeProvider: ObjectTypeProviderProtocol
     private let setTemplatesInteractor: SetTemplatesInteractorProtocol
     private var subscriptions = [AnyCancellable]()
     private var titleSubscription: AnyCancellable?
@@ -144,7 +143,6 @@ final class EditorSetViewModel: ObservableObject {
         textService: TextServiceProtocol,
         groupsSubscriptionsHandler: GroupsSubscriptionsHandlerProtocol,
         setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol,
-        objectTypeProvider: ObjectTypeProviderProtocol,
         setTemplatesInteractor: SetTemplatesInteractorProtocol
     ) {
         self.setDocument = setDocument
@@ -156,7 +154,6 @@ final class EditorSetViewModel: ObservableObject {
         self.textService = textService
         self.groupsSubscriptionsHandler = groupsSubscriptionsHandler
         self.setSubscriptionDataBuilder = setSubscriptionDataBuilder
-        self.objectTypeProvider = objectTypeProvider
         self.setTemplatesInteractor = setTemplatesInteractor
 
         self.titleString = setDocument.details?.pageCellTitle ?? ""
@@ -567,10 +564,9 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     func createObject(selectedTemplateId: BlockId?) {
-        let defaultObjectTypeID = activeView.defaultObjectTypeID ?? objectTypeProvider.defaultObjectType.id
         if setDocument.isCollection() {
             createObject(
-                with: defaultObjectTypeID,
+                with: setDocument.activeView.defaultObjectTypeIDWithFallback,
                 shouldSelectType: true,
                 relationsDetails: [],
                 templateId: selectedTemplateId,
@@ -593,7 +589,7 @@ final class EditorSetViewModel: ObservableObject {
                 return source.contains(detail.id)
             }
             createObject(
-                with: defaultObjectTypeID,
+                with: setDocument.activeView.defaultObjectTypeIDWithFallback,
                 shouldSelectType: true,
                 relationsDetails: relationsDetails,
                 templateId: selectedTemplateId,
@@ -857,6 +853,6 @@ extension EditorSetViewModel {
         textService: TextService(),
         groupsSubscriptionsHandler: DI.preview.serviceLocator.groupsSubscriptionsHandler(),
         setSubscriptionDataBuilder: SetSubscriptionDataBuilder(accountManager: DI.preview.serviceLocator.accountManager()),
-        objectTypeProvider: DI.preview.serviceLocator.objectTypeProvider(), setTemplatesInteractor: DI.preview.serviceLocator.setTemplatesInteractor
+        setTemplatesInteractor: DI.preview.serviceLocator.setTemplatesInteractor
     )
 }
