@@ -13,7 +13,7 @@ final class RelationDetailsStorage: RelationDetailsStorageProtocol {
     private let subscriptionDataBuilder: RelationSubscriptionDataBuilderProtocol
     
     private var details = [RelationDetails]()
-    private var searchDetailsByKey = [String: RelationDetails]()
+    private var searchDetailsByKey = SynchronizedDictionary<String, RelationDetails>()
 
     private var relationsDetailsSubject = CurrentValueSubject<[RelationDetails], Never>([])
     var relationsDetailsPublisher: AnyPublisher<[RelationDetails], Never> {
