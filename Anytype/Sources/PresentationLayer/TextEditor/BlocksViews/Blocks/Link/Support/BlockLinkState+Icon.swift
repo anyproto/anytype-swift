@@ -4,6 +4,7 @@ import AnytypeCore
 
 extension BlockLinkState {
 
+    @MainActor
     func applyTitleState(
         on label: AnytypeLabel,
         font: AnytypeFont,

@@ -12,6 +12,11 @@ extension KingfisherManager {
         options: KingfisherOptionsInfo? = nil,
         progressBlock: DownloadProgressBlock? = nil
     ) async throws -> RetrieveImageResult {
+        // SessionDelegate inside ImageDownloader contains tasks dictionary by url.
+        // If we download the same image with the same url in different views, kingfisher override the download task and call completion one time.
+        var options = options ?? KingfisherOptionsInfo()
+        options.append(.downloader(ImageDownloader(name: "IndividualDownloader")))
+        
         var downloadTask: DownloadTask?
 
         return try await withTaskCancellationHandler {

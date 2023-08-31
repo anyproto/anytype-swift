@@ -61,7 +61,7 @@ struct IconView: View {
             image = nil
             return
         }
-        task = Task {
+        task = Task { @MainActor in
             let maker = IconMaker(icon: icon, size: size, iconContext: IconContext(isEnabled: isEnable))
             placeholderImage = maker.makePlaceholder()
             image = await maker.make()

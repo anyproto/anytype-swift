@@ -31,6 +31,7 @@ final class IconMaker {
         self.painter = createPainter(icon: icon)
     }
     
+    @MainActor
     func makePlaceholder() -> UIImage {
         let hash = HashData(icon: icon, bounds: bounds, iconContext: iconContext, placeholder: true)
         if let image = imageStorage.image(forKey: hash.hashString) {
@@ -48,6 +49,7 @@ final class IconMaker {
         return image
     }
     
+    @MainActor
     func make() async -> UIImage {
         let hash = HashData(icon: icon, bounds: bounds, iconContext: iconContext, placeholder: false)
         if let image = imageStorage.image(forKey: hash.hashString) {
