@@ -21,6 +21,7 @@ final class SetViewSettingsCoordinatorViewModel: ObservableObject, SetViewSettin
     private let setDocument: SetDocumentProtocol
     private let subscriptionDetailsStorage: ObjectDetailsStorage
     private let setViewSettingsListModuleAssembly: SetViewSettingsListModuleAssemblyProtocol
+    private let setLayoutSettingsCoordinatorAssembly: SetLayoutSettingsCoordinatorAssemblyProtocol
     private let setFiltersListCoordinatorAssembly: SetFiltersListCoordinatorAssemblyProtocol
     private let setSortsListCoordinatorAssembly: SetSortsListCoordinatorAssemblyProtocol
     
@@ -28,12 +29,14 @@ final class SetViewSettingsCoordinatorViewModel: ObservableObject, SetViewSettin
         setDocument: SetDocumentProtocol,
         subscriptionDetailsStorage: ObjectDetailsStorage,
         setViewSettingsListModuleAssembly: SetViewSettingsListModuleAssemblyProtocol,
+        setLayoutSettingsCoordinatorAssembly: SetLayoutSettingsCoordinatorAssemblyProtocol,
         setFiltersListCoordinatorAssembly: SetFiltersListCoordinatorAssemblyProtocol,
         setSortsListCoordinatorAssembly: SetSortsListCoordinatorAssemblyProtocol
     ) {
         self.setDocument = setDocument
         self.subscriptionDetailsStorage = subscriptionDetailsStorage
         self.setViewSettingsListModuleAssembly = setViewSettingsListModuleAssembly
+        self.setLayoutSettingsCoordinatorAssembly = setLayoutSettingsCoordinatorAssembly
         self.setFiltersListCoordinatorAssembly = setFiltersListCoordinatorAssembly
         self.setSortsListCoordinatorAssembly = setSortsListCoordinatorAssembly
     }
@@ -44,13 +47,23 @@ final class SetViewSettingsCoordinatorViewModel: ObservableObject, SetViewSettin
     
     // MARK: - SetViewSettingsCoordinatorOutput
     
+    // MARK: - Default type
+    
     func onDefaultObjectTap() {
         showObjects.toggle()
     }
     
+    // MARK: - Layout
+    
     func onLayoutTap() {
         showLayouts.toggle()
     }
+    
+    func setLayoutSettings() -> AnyView {
+        setLayoutSettingsCoordinatorAssembly.make(setDocument: setDocument)
+    }
+    
+    // MARK: - Relations
     
     func onRelationsTap() {
         showRelations.toggle()

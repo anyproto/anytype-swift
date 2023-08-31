@@ -5,6 +5,7 @@ import Combine
 final class SetViewSettingsListModel: ObservableObject {
     @Published var name = ""
     @Published var focused = false
+    @Published var layoutValue = SetViewSettings.layout.placeholder
     @Published var filtersValue = SetViewSettings.filters.placeholder
     @Published var sortsValue = SetViewSettings.sorts.placeholder
     
@@ -41,6 +42,8 @@ final class SetViewSettingsListModel: ObservableObject {
     
     func valueForSetting(_ setting: SetViewSettings) -> String {
         switch setting {
+        case .layout:
+            return layoutValue
         case .filters:
             return filtersValue
         case .sorts:
@@ -59,6 +62,10 @@ final class SetViewSettingsListModel: ObservableObject {
     }
     
     private func setupSubscriptions() {
+        setDocument.activeViewPublisher.sink { [weak self] activeView in
+            self?.layoutValue = activeView.type.name
+        }.store(in: &cancellables)
+        
         setDocument.filtersPublisher.sink { [weak self] filters in
             self?.updateFltersValue(filters)
         }.store(in: &cancellables)

@@ -25,6 +25,7 @@ final class SetViewSettingsCoordinatorAssembly: SetViewSettingsCoordinatorAssemb
                 setDocument: setDocument,
                 subscriptionDetailsStorage: subscriptionDetailsStorage,
                 setViewSettingsListModuleAssembly: self.modulesDI.setViewSettingsList(),
+                setLayoutSettingsCoordinatorAssembly: self.coordinatorsDI.setLayoutSettings(),
                 setFiltersListCoordinatorAssembly: self.coordinatorsDI.setFiltersList(),
                 setSortsListCoordinatorAssembly: self.coordinatorsDI.setSortsList()
             )

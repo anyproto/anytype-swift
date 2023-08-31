@@ -47,4 +47,7 @@ protocol ModulesDIProtocol: AnyObject {
     func setFiltersTextView() -> SetFiltersTextViewModuleAssemblyProtocol
     func setFiltersCheckboxView() -> SetFiltersCheckboxViewModuleAssemblyProtocol
     func setFiltersListModule() -> SetFiltersListModuleAssemblyProtocol
+    func setViewSettingsImagePreview() -> SetViewSettingsImagePreviewModuleAssemblyProtocol
+    func setLayoutSettingsView() -> SetLayoutSettingsViewAssemblyProtocol
+    func setViewSettingsGroupByView() -> SetViewSettingsGroupByModuleAssemblyProtocol
 }
