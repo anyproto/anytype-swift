@@ -16,9 +16,6 @@ final class HomeWidgetsViewModel: ObservableObject {
     private let recentStateManagerProtocol: HomeWidgetsRecentStateManagerProtocol
     private let documentService: DocumentServiceProtocol
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
-    // Temporary
-    private let workspaceService: WorkspaceServiceProtocol
-    private let workspacesStorage: WorkspacesStorageProtocol
     private weak var output: HomeWidgetsModuleOutput?
     
     // MARK: - State
@@ -27,6 +24,7 @@ final class HomeWidgetsViewModel: ObservableObject {
     @Published var bottomPanelProvider: HomeSubmoduleProviderProtocol
     @Published var hideEditButton: Bool = false
     @Published var dataLoaded: Bool = false
+    @Published var wallpaper: BackgroundType = .default
     
     private var objectSubscriptions = [AnyCancellable]()
     
@@ -40,8 +38,6 @@ final class HomeWidgetsViewModel: ObservableObject {
         recentStateManagerProtocol: HomeWidgetsRecentStateManagerProtocol,
         documentService: DocumentServiceProtocol,
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
-        workspaceService: WorkspaceServiceProtocol,
-        workspacesStorage: WorkspacesStorageProtocol,
         output: HomeWidgetsModuleOutput?
     ) {
         self.widgetObject = documentService.document(objectId: info.widgetsId)
@@ -53,9 +49,8 @@ final class HomeWidgetsViewModel: ObservableObject {
         self.recentStateManagerProtocol = recentStateManagerProtocol
         self.documentService = documentService
         self.activeWorkspaceStorage = activeWorkspaceStorage
-        self.workspaceService = workspaceService
-        self.workspacesStorage = workspacesStorage
         self.output = output
+        subscribeOnWallpaper(info: info)
     }
     
     func onAppear() {
@@ -107,5 +102,11 @@ final class HomeWidgetsViewModel: ObservableObject {
         stateManager.isEditStatePublisher
             .receiveOnMain()
             .assign(to: &$hideEditButton)
+    }
+    
+    private func subscribeOnWallpaper(info: AccountInfo) {
+        UserDefaultsConfig.wallpaperPublisher(spaceId: info.accountSpaceId)
+            .receiveOnMain()
+            .assign(to: &$wallpaper)
     }
 }

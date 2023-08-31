@@ -13,7 +13,8 @@ struct PersonalizationView: View {
             AnytypeText(Loc.personalization, style: .uxTitle1Semibold, color: .Text.primary)
             Spacer.fixedHeight(12)
             
-            defaultType
+            PersonalizationRowView(title: Loc.defaultObjectType, descriontion: model.objectType, onTap: { model.onObjectTypeTap() })
+            PersonalizationRowView(title: Loc.wallpaper, descriontion: nil, onTap: { model.onWallpaperChangeTap() })
             Spacer.fixedHeight(20)
         }
         .background(Color.Background.secondary)
@@ -24,21 +25,6 @@ struct PersonalizationView: View {
         .if(FeatureFlags.multiSpaceSettings, transform: {
             $0.fitPresentationDetents()
         })
-    }
-
-    private var defaultType: some View {
-        Button(action: { model.onObjectTypeTap() }) {
-            HStack(spacing: 0) {
-                AnytypeText(Loc.defaultObjectType, style: .uxBodyRegular, color: .Text.primary)
-                Spacer()
-                AnytypeText(model.objectType, style: .uxBodyRegular, color: .Text.secondary)
-                Spacer.fixedWidth(10)
-                Image(asset: .arrowForward).foregroundColor(.Text.tertiary)
-            }
-            .padding(.vertical, 14)
-            .divider()
-            .padding(.horizontal, 20)
-        }
     }
 }
 

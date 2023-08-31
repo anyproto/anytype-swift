@@ -69,8 +69,6 @@ final class HomeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol {
             recentStateManagerProtocol: recentStateManagerProtocol,
             documentService: serviceLocator.documentService(),
             activeWorkspaceStorage: serviceLocator.activeWorkspaceStorage(),
-            workspaceService: serviceLocator.workspaceService(),
-            workspacesStorage: serviceLocator.workspaceStorage(),
             output: output
         )
     }

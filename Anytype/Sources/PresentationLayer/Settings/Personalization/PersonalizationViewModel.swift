@@ -23,6 +23,10 @@ final class PersonalizationViewModel: ObservableObject {
         output?.onDefaultTypeSelected()
     }
     
+    func onWallpaperChangeTap() {
+        output?.onWallpaperChangeSelected()
+    }
+    
     private func setupSubscriptions() {
         objectTypeProvider.defaultObjectTypePublisher(spaceId: spaceId)
             .map { $0.name }
