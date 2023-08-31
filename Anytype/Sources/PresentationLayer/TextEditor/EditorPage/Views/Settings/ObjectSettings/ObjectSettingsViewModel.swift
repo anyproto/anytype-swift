@@ -28,7 +28,7 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
         return settingsBuilder.build(
             details: details,
             restrictions: objectActionsViewModel.objectRestrictions,
-            isLocked: document.isLocked
+            isReadonly: document.isLocked || document.isArchived
         )
     }
     
