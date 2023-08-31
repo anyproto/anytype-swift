@@ -65,5 +65,6 @@ public extension BundledRelationKey {
         .fileSyncStatus,
         .defaultTemplateId,
         .uniqueKey,
+        .backlinks,
     ]
 }

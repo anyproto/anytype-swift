@@ -5,11 +5,14 @@ import Combine
 protocol ObjectTypeProviderProtocol: AnyObject {
 
     var objectTypes: [ObjectType] { get }
-    var defaultObjectType: ObjectType { get }
-    var defaultObjectTypePublisher: AnyPublisher<ObjectType, Never> { get }
-    func setDefaulObjectType(type: ObjectType)
     
-    func objectType(id: String) -> ObjectType?
+    func defaultObjectType(spaceId: String) throws -> ObjectType
+    func defaultObjectTypePublisher(spaceId: String) -> AnyPublisher<ObjectType, Never>
+    func setDefaultObjectType(type: ObjectType, spaceId: String)
+    func objectType(id: String) throws -> ObjectType
+    func objectType(recommendedLayout: DetailsLayout, spaceId: String) throws -> ObjectType
+    func objectType(uniqueKey: ObjectTypeUniqueKey, spaceId: String) throws -> ObjectType
+    func objectTypes(spaceId: String) -> [ObjectType]
     func deleteObjectType(id: String) -> ObjectType
         
     func startSubscription() async

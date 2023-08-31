@@ -56,7 +56,7 @@ final class SpaceSettingsViewModel: ObservableObject {
     }
     
     func onPersonalizationTap() {
-        
+        output?.onPersonalizationSelected()
     }
     
     // MARK: - Private
@@ -92,7 +92,7 @@ final class SpaceSettingsViewModel: ObservableObject {
         
         info.removeAll()
         
-        if let spaceRelationDetails = try? relationDetailsStorage.relationsDetails(for: .spaceId) {
+        if let spaceRelationDetails = try? relationDetailsStorage.relationsDetails(for: .spaceId, spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId) {
             info.append(
                 SettingsInfoModel(title: spaceRelationDetails.name, subtitle: details.spaceId, onTap: { [weak self] in
                     UIPasteboard.general.string = details.spaceId
@@ -101,7 +101,7 @@ final class SpaceSettingsViewModel: ObservableObject {
             )
         }
         
-        if let createdDateDetails = try? relationDetailsStorage.relationsDetails(for: .createdDate) {
+        if let createdDateDetails = try? relationDetailsStorage.relationsDetails(for: .createdDate, spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId) {
             let date = details.createdDate.map { dateFormatter.string(from: $0) } ?? Loc.unknown
             info.append(
                 SettingsInfoModel(title: createdDateDetails.name, subtitle: date)

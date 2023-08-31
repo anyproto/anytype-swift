@@ -9,7 +9,7 @@ final class ServiceLocator {
 
     let textService = TextService()
     let templatesService = TemplatesService()
-    lazy private(set) var setTemplatesInteractor = SetTemplatesInteractor(templatesService: templatesService)
+    lazy private(set) var setTemplatesInteractor = SetTemplatesInteractor(templatesService: templatesService, objectTypeProvider: objectTypeProvider())
     
     // MARK: - Services
     
@@ -68,10 +68,7 @@ final class ServiceLocator {
     }
     
     func searchService() -> SearchServiceProtocol {
-        SearchService(
-            objectTypeProvider: objectTypeProvider(),
-            relationDetailsStorage: relationDetailsStorage()
-        )
+        SearchService()
     }
     
     func detailsService(objectId: BlockId) -> DetailsServiceProtocol {
@@ -193,7 +190,7 @@ final class ServiceLocator {
         return _middlewareConfigurationProvider
     }
     
-    private lazy var _documentService = DocumentService(relationDetailsStorage: relationDetailsStorage())
+    private lazy var _documentService = DocumentService(relationDetailsStorage: relationDetailsStorage(), objectTypeProvider: objectTypeProvider())
     func documentService() -> DocumentServiceProtocol {
         return _documentService
     }
@@ -274,6 +271,11 @@ final class ServiceLocator {
     func workspaceStorage() -> WorkspacesStorageProtocol {
         return _workspaceStorage
     }
+    
+    func quickActionShortcutBuilder() -> QuickActionShortcutBuilderProtocol {
+        return QuickActionShortcutBuilder(activeWorkspaceStorage: activeWorkspaceStorage(), objectTypeProvider: objectTypeProvider())
+    }
+    
     // MARK: - Private
     
     private func subscriptionToggler() -> SubscriptionTogglerProtocol {

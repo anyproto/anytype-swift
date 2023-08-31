@@ -17,6 +17,9 @@ extension BundledRelationsValueProvider {
         return layout
     }
     
+    public var recommendedLayoutValue: DetailsLayout? {
+        return recommendedLayout.flatMap { DetailsLayout(rawValue: $0) }
+    }
     
     public var coverTypeValue: CoverType {
         guard
@@ -66,5 +69,9 @@ extension BundledRelationsValueProvider {
     
     public var iconOptionValue: GradientId? {
         return iconOption.flatMap { GradientId($0) }
+    }
+    
+    public var uniqueKeyValue: ObjectTypeUniqueKey {
+        return ObjectTypeUniqueKey(value: uniqueKey)
     }
 }

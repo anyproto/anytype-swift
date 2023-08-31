@@ -5,7 +5,7 @@ import AnytypeCore
 
 protocol TemplatesSubscriptionServiceProtocol: AnyObject {
     func startSubscription(
-        objectType: ObjectTypeId,
+        objectType: String,
         spaceId: String,
         update: @escaping SubscriptionCallback
     )
@@ -24,7 +24,7 @@ final class TemplatesSubscriptionService: TemplatesSubscriptionServiceProtocol {
     }
     
     func startSubscription(
-        objectType: ObjectTypeId,
+        objectType: String,
         spaceId: String,
         update: @escaping SubscriptionCallback
     ) {

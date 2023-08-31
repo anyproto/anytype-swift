@@ -14,12 +14,9 @@ struct UserDefaultsConfig {
     @UserDefault("App.AnalyticsUserConsent", defaultValue: false)
     public static var analyticsUserConsent: Bool
     
-    @UserDefault("UserData.DefaultObjectType", defaultValue: ObjectType.fallbackType)
-    static var defaultObjectType: ObjectType {
-        didSet {
-            AnytypeAnalytics.instance().logDefaultObjectTypeChange(defaultObjectType.analyticsType)
-        }
-    }
+    // Key - spaceId, value - objectTypeId
+    @UserDefault("UserData.DefaultObjectTypes", defaultValue: [:])
+    static var defaultObjectTypes: [String: String]
     
     @UserDefault("UserData.RowsPerPageInSet", defaultValue: 50)
     static var rowsPerPageInSet: Int

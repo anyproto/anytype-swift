@@ -18,8 +18,7 @@ final class RelationSubscriptionDataBuilder: RelationSubscriptionDataBuilderProt
         )
         let filters = [
             SearchHelper.isArchivedFilter(isArchived: false),
-            SearchHelper.typeFilter(typeIds: [ObjectTypeId.bundled(.relation).rawValue]),
-            SearchHelper.spaceId(accountManager.account.info.accountSpaceId)
+            SearchHelper.layoutFilter([.relation])
         ]
         
         let keys = [
@@ -32,7 +31,8 @@ final class RelationSubscriptionDataBuilder: RelationSubscriptionDataBuilderProt
             BundledRelationKey.isHidden.rawValue,
             BundledRelationKey.isReadonly.rawValue,
             BundledRelationKey.relationMaxCount.rawValue,
-            BundledRelationKey.sourceObject.rawValue
+            BundledRelationKey.sourceObject.rawValue,
+            BundledRelationKey.spaceId.rawValue
         ]
         
         return .search(

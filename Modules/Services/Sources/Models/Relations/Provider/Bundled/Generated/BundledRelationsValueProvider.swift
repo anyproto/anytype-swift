@@ -151,6 +151,7 @@ public protocol BundledRelationsValueProvider {
     var starred: Bool { get }
     var defaultTemplateId: ObjectId { get }
     var uniqueKey: String { get }
+    var backlinks: ObjectId { get }
 } 
 
 public extension BundledRelationsValueProvider where Self: RelationValueProvider {
@@ -656,5 +657,9 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     /// Unique key used to ensure object uniqueness within the space
     var uniqueKey: String {
         return value(for: BundledRelationKey.uniqueKey.rawValue)
+    }
+    /// List of backlinks
+    var backlinks: ObjectId {
+        return value(for: BundledRelationKey.backlinks.rawValue)
     }
 }

@@ -14,6 +14,7 @@ public struct RelationDetails: Hashable {
     public let maxCount: Int
     public let sourceObject: String
     public let isDeleted: Bool
+    public let spaceId: String
     
     public init(
         id: String,
@@ -26,7 +27,8 @@ public struct RelationDetails: Hashable {
         objectTypes: [String],
         maxCount: Int,
         sourceObject: String,
-        isDeleted: Bool
+        isDeleted: Bool,
+        spaceId: String
     ) {
         self.id = id
         self.key = key
@@ -39,6 +41,7 @@ public struct RelationDetails: Hashable {
         self.maxCount = maxCount
         self.sourceObject = sourceObject
         self.isDeleted = isDeleted
+        self.spaceId = spaceId
     }
 }
 
@@ -56,6 +59,7 @@ public extension RelationDetails {
         self.maxCount = objectDetails.relationMaxCount ?? 0
         self.sourceObject = objectDetails.sourceObject
         self.isDeleted = objectDetails.isDeleted
+        self.spaceId = objectDetails.spaceId
     }
     
     var asCreateMiddleware: Google_Protobuf_Struct {

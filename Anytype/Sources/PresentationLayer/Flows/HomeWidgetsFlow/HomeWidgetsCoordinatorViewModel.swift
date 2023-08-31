@@ -100,7 +100,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject,
             .receiveOnMain()
             .sink { [weak self] action in
                 switch action {
-                case .newNote:
+                case .newObject:
                     self?.createAndShowNewPage()
                     self?.quickActionsStorage.action = nil
                 case .none:

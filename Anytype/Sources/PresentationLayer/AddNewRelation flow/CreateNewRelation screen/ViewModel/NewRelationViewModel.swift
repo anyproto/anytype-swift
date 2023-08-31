@@ -72,7 +72,8 @@ extension NewRelationViewModel {
             objectTypes: objectTypeIds,
             maxCount: 0,
             sourceObject: "",
-            isDeleted: false
+            isDeleted: false,
+            spaceId: ""
         )
         
         Task { @MainActor in
@@ -96,7 +97,7 @@ extension NewRelationViewModel: NewRelationModuleInput {
     
     func updateTypesRestriction(objectTypeIds: [String]) {
         objectTypes = objectTypeIds.compactMap {
-            objectTypeProvider.objectType(id: $0)
+            try? objectTypeProvider.objectType(id: $0)
         }
     }
     

@@ -21,7 +21,7 @@ final class WorkspacesSubscriptionBuilder: WorkspacesSubscriptionBuilderProtocol
         )
         
         let filters = [
-            SearchHelper.typeFilter(typeIds: [ObjectTypeId.bundled(.space).rawValue])
+            SearchHelper.layoutFilter([.space])
         ]
         
         let keys: [BundledRelationKey] = .builder {

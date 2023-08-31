@@ -33,7 +33,6 @@ final class ChangeTypeAccessoryViewModel {
         self.objectService = objectService
         self.document = document
 
-        fetchSupportedTypes()
         subscribeOnDocumentChanges()
     }
 
@@ -45,28 +44,8 @@ final class ChangeTypeAccessoryViewModel {
         isTypesViewVisible.toggle()
     }
 
-    private func fetchSupportedTypes() {
-        Task { @MainActor [weak self] in
-            let supportedTypes = try? await self?.searchService
-                .searchObjectTypes(
-                    text: "",
-                    filteringTypeId: nil,
-                    shouldIncludeSets: true,
-                    shouldIncludeCollections: true,
-                    shouldIncludeBookmark: false,
-                    spaceId: self?.document.spaceId ?? ""
-                ).map { type in
-                    TypeItem(from: type, handler: { [weak self] in
-                        self?.onTypeTap(typeId: type.id)
-                    })
-                }
-            
-            supportedTypes.map { self?.allSupportedTypes = $0 }
-        }
-    }
-
-    private func onTypeTap(typeId: String) {
-        if typeId == ObjectTypeId.BundledTypeId.set.rawValue {
+    private func onTypeTap(type: ObjectType) {
+        if type.recommendedLayout == .set {
             Task { @MainActor in
                 document.resetSubscriptions() // to avoid glytch with premature document update
                 try await handler.setObjectSetType()
@@ -76,7 +55,7 @@ final class ChangeTypeAccessoryViewModel {
             return
         }
         
-        if typeId == ObjectTypeId.BundledTypeId.collection.rawValue {
+        if type.recommendedLayout == .collection {
             Task { @MainActor in
                 document.resetSubscriptions() // to avoid glytch with premature document update
                 try await handler.setObjectCollectionType()
@@ -87,14 +66,14 @@ final class ChangeTypeAccessoryViewModel {
         }
 
         Task { @MainActor in
-            try await handler.setObjectTypeId(typeId)
-            applyDefaultTemplateIfNeeded(typeId: typeId)
+            try await handler.setObjectType(type: type)
+            applyDefaultTemplateIfNeeded(typeId: type.id)
         }
     }
     
     private func applyDefaultTemplateIfNeeded(typeId: String) {
         Task { @MainActor in
-            let availableTemplates = try? await searchService.searchTemplates(for: .dynamic(typeId), spaceId: document.spaceId)
+            let availableTemplates = try? await searchService.searchTemplates(for: typeId, spaceId: document.spaceId)
             guard availableTemplates?.count == 1,
                   let firstTemplate = availableTemplates?.first
             else { return }
@@ -105,19 +84,45 @@ final class ChangeTypeAccessoryViewModel {
 
     private func subscribeOnDocumentChanges() {
         document.updatePublisher.sink { [weak self] _ in
-            guard let self = self else { return }
-            let filteredItems = self.allSupportedTypes.filter {
-                $0.id != self.document.details?.type
+            Task { @MainActor [weak self] in
+                await self?.fetchSupportedTypes()
+                self?.updateSupportedTypes()
             }
-            self.supportedTypes = [self.searchItem] + filteredItems
+            
         }.store(in: &cancellables)
+    }
+    
+    private func updateSupportedTypes() {
+        let filteredItems = allSupportedTypes.filter {
+            $0.id != document.details?.type
+        }
+        supportedTypes = [searchItem] + filteredItems
+        
+    }
+    
+    private func fetchSupportedTypes() async {
+        let supportedTypes = try? await searchService
+            .searchObjectTypes(
+                text: "",
+                filteringTypeId: nil,
+                shouldIncludeSets: true,
+                shouldIncludeCollections: true,
+                shouldIncludeBookmark: false,
+                spaceId: document.spaceId
+            ).map { type in
+                TypeItem(from: type, handler: { [weak self] in
+                    self?.onTypeTap(type: ObjectType(details: type))
+                })
+            }
+        
+        supportedTypes.map { allSupportedTypes = $0 }
     }
     
     private func onSearchTap() {
         router.showTypesForEmptyObject(
             selectedObjectId: document.details?.type,
-            onSelect: { [weak self] typeId in
-                self?.onTypeTap(typeId: typeId)
+            onSelect: { [weak self] type in
+                self?.onTypeTap(type: type)
             }
         )
     }
