@@ -36,4 +36,8 @@ enum SetViewSettings: CaseIterable {
     var isLast: Bool {
         self == SetViewSettings.allCases.last
     }
+    
+    func isPlaceholder(_ text: String) -> Bool {
+        self.placeholder == text
+    }
 }

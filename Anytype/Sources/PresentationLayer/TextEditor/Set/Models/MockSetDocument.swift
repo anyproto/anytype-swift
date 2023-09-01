@@ -9,6 +9,8 @@ final class MockSetDocument: SetDocumentProtocol {
     
     var spaceId: String { "" }
     
+    var blockId: BlockId? { nil }
+    
     var targetObjectID: String? { "" }
     
     var dataviews: [BlockDataview] { [] }

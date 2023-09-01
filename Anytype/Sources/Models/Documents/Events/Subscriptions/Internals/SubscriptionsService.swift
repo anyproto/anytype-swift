@@ -16,7 +16,7 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
     private var subscription: AnyCancellable?
     private let toggler: SubscriptionTogglerProtocol
     
-    private var subscribers = [String: Subscriber]()
+    private var subscribers = SynchronizedDictionary<String, Subscriber>()
     private let taskQueue = FIFOQueue()
     
     // MARK: - Public properties
@@ -141,24 +141,23 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
         }
     }
     
-    @MainActor
-    private func handle(events: EventsBunch) {
+    private func handle(events: EventsBunch) async {
         anytypeAssert(events.localEvents.isEmpty, "Local events with emplty objectId: \(events)")
         
         for event in events.middlewareEvents {
             switch event.value {
             case .objectDetailsSet(let data):
                 guard let details = storage.set(data: data) else { return }
-                update(details: details, ids: data.subIds)
+                await update(details: details, ids: data.subIds)
             case .objectDetailsAmend(let data):
                 guard let details = storage.amend(data: data) else { return }
-                update(details: details, ids: data.subIds)
+                await update(details: details, ids: data.subIds)
             case .objectDetailsUnset(let data):
                 guard let details = storage.unset(data: data) else { return }
-                update(details: details, ids: data.subIds)
+                await update(details: details, ids: data.subIds)
             case .subscriptionPosition(let position):
                 let update: SubscriptionUpdate = .move(from: position.id, after: position.afterID.isNotEmpty ? position.afterID : nil)
-                sendUpdate(update, subId: position.subID)
+                await sendUpdate(update, subId: position.subID)
             case .subscriptionAdd(let data):
                 guard
                     let details = storage.get(id: data.id)
@@ -168,13 +167,13 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
                 }
                 
                 let update: SubscriptionUpdate = .add(details, after: data.afterID.isNotEmpty ? data.afterID : nil)
-                sendUpdate(update, subId: data.subID)
+                await sendUpdate(update, subId: data.subID)
             case .subscriptionRemove(let remove):
-                sendUpdate(.remove(remove.id), subId: remove.subID)
+                await sendUpdate(.remove(remove.id), subId: remove.subID)
             case .objectRemove:
                 break // unsupported (Not supported in middleware converter also)
             case .subscriptionCounters(let data):
-                sendUpdate(
+                await sendUpdate(
                     .pageCount(numberOfPagesFromTotalCount(
                         Int(data.total),
                         numberOfRowsPerPage: Int(data.total - data.nextCount)
@@ -187,6 +186,7 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
         }
     }
     
+    @MainActor
     private func sendUpdate(_ update: SubscriptionUpdate, subId: String) {
         guard let action = subscribers[subId]?.callback else {
             return
@@ -194,6 +194,7 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
         action(subId, update)
     }
     
+    @MainActor
     private func update(details: ObjectDetails, ids: [String]) {
         for id in ids {
             guard let action = subscribers[id]?.callback else {

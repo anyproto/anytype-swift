@@ -129,7 +129,6 @@ final class EditorSetViewModel: ObservableObject {
     private let textService: TextServiceProtocol
     private let groupsSubscriptionsHandler: GroupsSubscriptionsHandlerProtocol
     private let setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol
-    private let objectTypeProvider: ObjectTypeProviderProtocol
     private let setTemplatesInteractor: SetTemplatesInteractorProtocol
     private var subscriptions = [AnyCancellable]()
     private var titleSubscription: AnyCancellable?
@@ -144,7 +143,6 @@ final class EditorSetViewModel: ObservableObject {
         textService: TextServiceProtocol,
         groupsSubscriptionsHandler: GroupsSubscriptionsHandlerProtocol,
         setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol,
-        objectTypeProvider: ObjectTypeProviderProtocol,
         setTemplatesInteractor: SetTemplatesInteractorProtocol
     ) {
         self.setDocument = setDocument
@@ -156,7 +154,6 @@ final class EditorSetViewModel: ObservableObject {
         self.textService = textService
         self.groupsSubscriptionsHandler = groupsSubscriptionsHandler
         self.setSubscriptionDataBuilder = setSubscriptionDataBuilder
-        self.objectTypeProvider = objectTypeProvider
         self.setTemplatesInteractor = setTemplatesInteractor
 
         self.titleString = setDocument.details?.pageCellTitle ?? ""
@@ -519,7 +516,7 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     private func handleDetails(details: ObjectDetails, isAppear: Bool) {
-        if details.isArchived && isAppear {
+        if !FeatureFlags.openBinObject, details.isArchived && isAppear {
             // Waiting for the first responder automatic restoration and then close the screen
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) { [router] in
                 router?.closeEditor()
@@ -571,7 +568,7 @@ final class EditorSetViewModel: ObservableObject {
         if setDocument.isCollection() {
             guard let defaultObjectType = try? objectTypeProvider.defaultObjectType(spaceId: setDocument.spaceId) else { return }
             createObject(
-                type: defaultObjectType,
+                with: setDocument.activeView.defaultObjectTypeIDWithFallback,
                 shouldSelectType: true,
                 relationsDetails: [],
                 templateId: selectedTemplateId,
@@ -595,7 +592,7 @@ final class EditorSetViewModel: ObservableObject {
                 return source.contains(detail.id)
             }
             createObject(
-                type: defaultObjectType,
+                with: setDocument.activeView.defaultObjectTypeIDWithFallback,
                 shouldSelectType: true,
                 relationsDetails: relationsDetails,
                 templateId: selectedTemplateId,
@@ -688,7 +685,7 @@ extension EditorSetViewModel {
     
     func showSetSettings() {
         if FeatureFlags.newSetSettings {
-            router?.showSetSettings()
+            router?.showSetSettings(subscriptionDetailsStorage: subscriptionService.storage)
         } else {
             router?.showSetSettingsLegacy { [weak self] setting in
                 guard let self else { return }
@@ -722,16 +719,12 @@ extension EditorSetViewModel {
     }
     
     func showSorts() {
-        router?.showSorts(
-            setDocument: setDocument,
-            dataviewService: dataviewService
-        )
+        router?.showSorts()
     }
     
     func showFilters() {
         router?.showFilters(
             setDocument: setDocument,
-            dataviewService: dataviewService,
             subscriptionDetailsStorage: subscriptionService.storage
         )
     }
@@ -865,8 +858,7 @@ extension EditorSetViewModel {
         objectActionsService: DI.preview.serviceLocator.objectActionsService(),
         textService: TextService(),
         groupsSubscriptionsHandler: DI.preview.serviceLocator.groupsSubscriptionsHandler(),
-        setSubscriptionDataBuilder: SetSubscriptionDataBuilder(activeWorkspaceStorage: DI.preview.serviceLocator.activeWorkspaceStorage()),
-        objectTypeProvider: DI.preview.serviceLocator.objectTypeProvider(), 
+        setSubscriptionDataBuilder: SetSubscriptionDataBuilder(accountManager: DI.preview.serviceLocator.accountManager()),
         setTemplatesInteractor: DI.preview.serviceLocator.setTemplatesInteractor
     )
 }

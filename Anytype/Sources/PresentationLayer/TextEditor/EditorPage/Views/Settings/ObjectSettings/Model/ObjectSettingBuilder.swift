@@ -1,8 +1,8 @@
 import Services
 
 final class ObjectSettingBuilder {
-    func build(details: ObjectDetails, restrictions: ObjectRestrictions, isLocked: Bool) -> [ObjectSetting] {
-        var settings = defaultSettings(details: details, isLocked: isLocked)
+    func build(details: ObjectDetails, restrictions: ObjectRestrictions, isReadonly: Bool) -> [ObjectSetting] {
+        var settings = defaultSettings(details: details, isReadonly: isReadonly)
         if restrictions.objectRestriction.contains(.layoutchange) {
             settings = settings.filter { $0 != .layout }
         }
@@ -10,8 +10,8 @@ final class ObjectSettingBuilder {
         return settings
     }
     
-    private func defaultSettings(details: ObjectDetails, isLocked: Bool) -> [ObjectSetting] {
-        if isLocked { return ObjectSetting.lockedEditingCases }
+    private func defaultSettings(details: ObjectDetails, isReadonly: Bool) -> [ObjectSetting] {
+        if isReadonly { return ObjectSetting.readonlyEditingCases }
 
         switch details.layoutValue {
         case .basic, .profile, .set, .collection, .space, .file, .image:

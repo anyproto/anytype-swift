@@ -11,21 +11,36 @@ final class CreatingSoulViewModel: ObservableObject {
     @Published var showSpace = false
     
     let state: JoinFlowState
+    var soulName: String {
+        accountManager.account.id
+    }
     
     private let accountManager: AccountManagerProtocol
     private let subscriptionService: SingleObjectSubscriptionServiceProtocol
+    private let authService: AuthServiceProtocol
+    private let seedService: SeedServiceProtocol
+    private let usecaseService: UsecaseServiceProtocol
     private weak var output: JoinFlowStepOutput?
+    
+    private var animationInProgress = false
     
     init(
         state: JoinFlowState,
         output: JoinFlowStepOutput?,
         accountManager: AccountManagerProtocol,
-        subscriptionService: SingleObjectSubscriptionServiceProtocol
+        subscriptionService: SingleObjectSubscriptionServiceProtocol,
+        authService: AuthServiceProtocol,
+        seedService: SeedServiceProtocol,
+        usecaseService: UsecaseServiceProtocol
     ) {
         self.state = state
         self.output = output
         self.accountManager = accountManager
         self.subscriptionService = subscriptionService
+        self.authService = authService
+        self.seedService = seedService
+        self.usecaseService = usecaseService
+        self.createAccount()
     }
     
     func onAppear() {
@@ -33,8 +48,61 @@ final class CreatingSoulViewModel: ObservableObject {
         AnytypeAnalytics.instance().logScreenOnboarding(step: .spaceCreating)
     }
     
-    func animateCreation() {
-        guard profileIcon != nil, spaceIcon != nil else { return }
+    // MARK: - Create account step
+    
+    private func createAccount() {
+        Task {
+            output?.disableBackAction(true)
+            do {
+                state.mnemonic = try await authService.createWallet()
+                try await authService.createAccount(
+                    name: "",
+                    imagePath: ""
+                )
+                try await usecaseService.setObjectImportUseCaseToSkip()
+                try? seedService.saveSeed(state.mnemonic)
+                
+                createAccountSuccess()
+            } catch {
+                createAccountError(error)
+            }
+        }
+    }
+    
+    private func createAccountSuccess() {
+        output?.disableBackAction(false)
+        setupSubscription()
+    }
+    
+    private func createAccountError(_ error: Error) {
+        output?.disableBackAction(false)
+        output?.onError(error)
+    }
+    
+    // MARK: - Animation step
+    
+    private func setupSubscription() {
+        subscriptionService.startSubscription(
+            subIdPrefix: Constants.subProfileId,
+            objectId: accountManager.account.info.profileObjectID
+        ) { [weak self] details in
+            self?.profileIcon = details.objectIconImage
+            self?.animateCreation()
+        }
+        
+        subscriptionService.startSubscription(
+            subIdPrefix: Constants.subSpaceId,
+            objectId: accountManager.account.info.accountSpaceId
+        ) { [weak self] details in
+            self?.spaceIcon = details.objectIconImage
+            self?.animateCreation()
+        }
+    }
+    
+    private func animateCreation() {
+        guard profileIcon != nil, spaceIcon != nil, !animationInProgress else { return }
+        
+        animationInProgress = true
         
         let animationTime = 0.5
         let finishAnimationTime = 1.5
@@ -53,24 +121,6 @@ final class CreatingSoulViewModel: ObservableObject {
                 self?.output?.onNext()
             }
        }
-    }
-    
-    func setupSubscription() {
-        subscriptionService.startSubscription(
-            subIdPrefix: Constants.subProfileId,
-            objectId: accountManager.account.info.profileObjectID
-        ) { [weak self] details in
-            self?.profileIcon = details.objectIconImage
-            self?.animateCreation()
-        }
-        
-        subscriptionService.startSubscription(
-            subIdPrefix: Constants.subSpaceId,
-            objectId: accountManager.account.info.workspaceObjectId
-        ) { [weak self] details in
-            self?.spaceIcon = details.objectIconImage
-            self?.animateCreation()
-        }
     }
 }
 

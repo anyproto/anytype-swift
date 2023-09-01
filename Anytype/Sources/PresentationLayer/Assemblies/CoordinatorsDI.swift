@@ -111,6 +111,26 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     }
     
     func setViewSettings() -> SetViewSettingsCoordinatorAssemblyProtocol {
-        return SetViewSettingsCoordinatorAssembly(modulesDI: modulesDI)
+        return SetViewSettingsCoordinatorAssembly(modulesDI: modulesDI, coordinatorsDI: self)
+    }
+    
+    func setSortsList() -> SetSortsListCoordinatorAssemblyProtocol {
+        return SetSortsListCoordinatorAssembly(modulesDI: modulesDI)
+    }
+    
+    func setFiltersDate() -> SetFiltersDateCoordinatorAssemblyProtocol {
+        SetFiltersDateCoordinatorAssembly(modulesDI: modulesDI)
+    }
+    
+    func setFiltersSelection() -> SetFiltersSelectionCoordinatorAssemblyProtocol {
+        SetFiltersSelectionCoordinatorAssembly(modulesDI: modulesDI, coordinatorsDI: self)
+    }
+    
+    func setFiltersList() -> SetFiltersListCoordinatorAssemblyProtocol {
+        SetFiltersListCoordinatorAssembly(modulesDI: modulesDI, coordinatorsDI: self)
+    }
+    
+    func setLayoutSettings() -> SetLayoutSettingsCoordinatorAssemblyProtocol {
+        SetLayoutSettingsCoordinatorAssembly(modulesDI: modulesDI)
     }
 }

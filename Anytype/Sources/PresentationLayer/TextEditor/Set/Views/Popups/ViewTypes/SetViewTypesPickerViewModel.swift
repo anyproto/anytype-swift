@@ -66,7 +66,7 @@ final class SetViewTypesPickerViewModel: ObservableObject {
             guard viewType.isSupported else { return nil }
             return SetViewTypeConfiguration(
                 id: viewType.name,
-                icon: viewType.icon,
+                icon: viewType.iconLecacy,
                 name: viewType.name,
                 isSelected: viewType == selectedType,
                 onTap: { [weak self] in

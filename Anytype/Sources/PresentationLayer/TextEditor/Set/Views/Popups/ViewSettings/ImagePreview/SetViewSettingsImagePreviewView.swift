@@ -2,7 +2,7 @@ import SwiftUI
 
 struct SetViewSettingsImagePreviewView: View {
     @Environment(\.presentationMode) var presentationMode
-    @ObservedObject var viewModel: SetViewSettingsImagePreviewViewModel
+    @StateObject var viewModel: SetViewSettingsImagePreviewViewModel
 
     var body: some View {
         ScrollView(showsIndicators: false) {

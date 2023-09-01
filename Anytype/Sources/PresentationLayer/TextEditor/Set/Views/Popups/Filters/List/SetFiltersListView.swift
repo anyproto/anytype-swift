@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct SetFiltersListView: View {
-    @ObservedObject var viewModel: SetFiltersListViewModel
+    @StateObject var viewModel: SetFiltersListViewModel
     
     @State private var editMode = EditMode.inactive
     

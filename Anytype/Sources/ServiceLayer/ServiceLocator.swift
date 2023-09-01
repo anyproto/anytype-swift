@@ -238,6 +238,14 @@ final class ServiceLocator {
         CameraPermissionVerifier()
     }
     
+    func dataviewService(objectId: BlockId, blockId: BlockId?) -> DataviewServiceProtocol {
+        DataviewService(
+            objectId: objectId,
+            blockId: blockId,
+            prefilledFieldsBuilder: SetPrefilledFieldsBuilder()
+        )
+    }
+    
     
     private lazy var _sceneStateNotifier = SceneStateNotifier()
     func sceneStateNotifier() -> SceneStateNotifierProtocol {

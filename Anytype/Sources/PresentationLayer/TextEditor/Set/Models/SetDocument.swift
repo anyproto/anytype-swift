@@ -83,7 +83,7 @@ class SetDocument: SetDocumentProtocol {
     @Published var filters: [SetFilter] = []
     var filtersPublisher: AnyPublisher<[SetFilter], Never> { $filters.eraseToAnyPublisher() }
     
-    private let blockId: BlockId?
+    let blockId: BlockId?
     
     private var subscriptions = [AnyCancellable]()
     private let relationDetailsStorage: RelationDetailsStorageProtocol

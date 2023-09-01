@@ -2,7 +2,7 @@ import SwiftUI
 
 protocol SetViewSettingsListModuleAssemblyProtocol {
     @MainActor
-    func make(output: SetViewSettingsCoordinatorOutput?) -> AnyView
+    func make(setDocument: SetDocumentProtocol, output: SetViewSettingsCoordinatorOutput?) -> AnyView
 }
 
 final class SetViewSettingsListModuleAssembly: SetViewSettingsListModuleAssemblyProtocol {
@@ -16,9 +16,12 @@ final class SetViewSettingsListModuleAssembly: SetViewSettingsListModuleAssembly
     // MARK: - SetViewSettingsListModuleAssemblyProtocol
     
     @MainActor
-    func make(output: SetViewSettingsCoordinatorOutput?) -> AnyView {
+    func make(setDocument: SetDocumentProtocol, output: SetViewSettingsCoordinatorOutput?) -> AnyView {
         return SetViewSettingsList(
-            model: SetViewSettingsListModel(output: output)
+            model: SetViewSettingsListModel(
+                setDocument: setDocument,
+                output: output
+            )
         ).eraseToAnyView()
     }
 }

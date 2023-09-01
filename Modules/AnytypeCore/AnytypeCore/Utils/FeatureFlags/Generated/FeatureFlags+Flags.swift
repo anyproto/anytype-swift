@@ -74,6 +74,10 @@ public extension FeatureFlags {
         value(for: .multiSpaceSettings)
     }
 
+    static var openBinObject: Bool {
+        value(for: .openBinObject)
+    }
+
     static var colorfulRecoveryPhrase: Bool {
         value(for: .colorfulRecoveryPhrase)
     }
@@ -129,6 +133,7 @@ public extension FeatureFlags {
         .validateRecoveryPhrase,
         .multiSpace,
         .multiSpaceSettings,
+        .openBinObject,
         .colorfulRecoveryPhrase,
         .recentEditWidget,
         .widgetTaskDone,

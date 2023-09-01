@@ -20,9 +20,9 @@ protocol BaseDocumentProtocol: AnyObject, BaseDocumentGeneralProtocol {
     var isLocked: Bool { get }
     var isEmpty: Bool { get }
     var isOpened: Bool { get }
+    var isArchived: Bool { get }
     
     var parsedRelationsPublisher: AnyPublisher<ParsedRelations, Never> { get }
-    var isLockedPublisher: AnyPublisher<Bool, Never> { get }
     
     var syncPublisher: AnyPublisher<Void, Never> { get }
     

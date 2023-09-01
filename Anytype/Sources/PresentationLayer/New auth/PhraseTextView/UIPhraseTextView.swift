@@ -33,7 +33,7 @@ class UIPhraseTextView: UITextView, UITextViewDelegate {
     override var intrinsicContentSize: CGSize {
         let fixedWidth = frame.size.width
         let newSize = sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
-        return CGSize(width: max(newSize.width, fixedWidth), height: max(newSize.height.rounded(), 155))
+        return CGSize(width: max(newSize.width, fixedWidth), height: max(newSize.height.rounded(), 151))
     }
     
     override func layoutSubviews() {
@@ -68,7 +68,7 @@ class UIPhraseTextView: UITextView, UITextViewDelegate {
         layer.cornerRadius = 24
         layer.cornerCurve = .continuous
         textContentType = .password
-        textContainerInset = UIEdgeInsets(top: 24, left: 22, bottom: 24, right: 22)
+        textContainerInset = UIEdgeInsets(top: 22, left: 22, bottom: 22, right: 22)
         
         // add placeholderLabel
         addSubview(placeholderLabel)
@@ -101,7 +101,7 @@ class UIPhraseTextView: UITextView, UITextViewDelegate {
     }
     
     private func handleTextAlignment(alignToCenter: Bool) {
-        textAlignment = alignToCenter ? .center : .left
+        textAlignment = alignToCenter ? .center : .natural
     }
 }
 

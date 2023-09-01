@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct SetFiltersCheckboxView: View {
-    @ObservedObject var viewModel: SetFiltersCheckboxViewModel
+    @StateObject var viewModel: SetFiltersCheckboxViewModel
     
     var body: some View {
         VStack(spacing: 0) {

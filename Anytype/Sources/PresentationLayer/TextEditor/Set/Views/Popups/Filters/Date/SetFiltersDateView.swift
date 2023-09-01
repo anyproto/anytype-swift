@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct SetFiltersDateView: View {
-    @ObservedObject var viewModel: SetFiltersDateViewModel
+    @StateObject var viewModel: SetFiltersDateViewModel
     
     var body: some View {
         VStack(spacing: 0) {
@@ -10,6 +10,9 @@ struct SetFiltersDateView: View {
             button
         }
         .padding(.horizontal, 20)
+        .sheet(isPresented: $viewModel.showFiltersDaysView) {
+            viewModel.filtersDaysView()
+        }
     }
     
     private var rows: some View {

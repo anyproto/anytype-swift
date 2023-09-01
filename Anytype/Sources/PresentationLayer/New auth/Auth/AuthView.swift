@@ -42,11 +42,11 @@ struct AuthView: View {
                     model.onDebugMenuAction()
                 }
             
-            Spacer.fixedHeight(30)
+            Spacer.fixedHeight(20)
             
-            AnytypeText(Loc.Auth.Welcome.subtitle, style: .authBody, color: .Auth.body)
+            AnytypeText(Loc.Auth.Welcome.subtitle, style: .uxCalloutRegular, color: .Auth.body)
                 .multilineTextAlignment(.center)
-                .padding(.horizontal, UIDevice.isPad ? 75 : 28)
+                .padding(.horizontal, UIDevice.isPad ? 75 : 30)
         }
     }
 

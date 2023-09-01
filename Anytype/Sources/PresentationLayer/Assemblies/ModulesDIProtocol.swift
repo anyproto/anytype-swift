@@ -33,12 +33,25 @@ protocol ModulesDIProtocol: AnyObject {
     func joinFlow() -> JoinFlowModuleAssemblyProtocol
     func login() -> LoginViewModuleAssemblyProtocol
     func migrationGuide() -> MigrationGuideViewModuleAssemblyProtocol
-    func authVoid() -> VoidViewModuleAssemblyProtocol
     func authKey() -> KeyPhraseViewModuleAssemblyProtocol
+    func authKeyMoreInfo() -> KeyPhraseMoreInfoViewModuleAssembly
     func authSoul() -> SoulViewModuleAssemblyProtocol
     func authCreatingSoul() -> CreatingSoulViewModuleAssemblyProtocol
     func templatesAssembly() -> TemplateModulesAssembly
     func spaceSettings() -> SpaceSettingsModuleAssemblyProtocol
     func remoteStorage() -> RemoteStorageModuleAssemblyProtocol
     func setViewSettingsList() -> SetViewSettingsListModuleAssemblyProtocol
+    func setSortsList() -> SetSortsListModuleAssemblyProtocol
+    func setSortTypesList() -> SetSortTypesListModuleAssemblyProtocol
+    func setTextView() -> SetTextViewModuleAssemblyProtocol
+    func setFiltersDateView() -> SetFiltersDateViewModuleAssemblyProtocol
+    func setFilterConditions() -> SetFilterConditionsModuleAssemblyProtocol
+    func setFiltersSelectionHeader() -> SetFiltersSelectionHeaderModuleAssemblyProtocol
+    func setFiltersSelectionView() -> SetFiltersSelectionViewModuleAssemblyProtocol
+    func setFiltersTextView() -> SetFiltersTextViewModuleAssemblyProtocol
+    func setFiltersCheckboxView() -> SetFiltersCheckboxViewModuleAssemblyProtocol
+    func setFiltersListModule() -> SetFiltersListModuleAssemblyProtocol
+    func setViewSettingsImagePreview() -> SetViewSettingsImagePreviewModuleAssemblyProtocol
+    func setLayoutSettingsView() -> SetLayoutSettingsViewAssemblyProtocol
+    func setViewSettingsGroupByView() -> SetViewSettingsGroupByModuleAssemblyProtocol
 }

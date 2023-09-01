@@ -45,4 +45,10 @@ public final class SynchronizedDictionary<K, V> where K: Hashable {
         
         return keys
     }
+    
+    public func removeAll() {
+        lock.lock()
+        dictionary.removeAll()
+        lock.unlock()
+    }
 }

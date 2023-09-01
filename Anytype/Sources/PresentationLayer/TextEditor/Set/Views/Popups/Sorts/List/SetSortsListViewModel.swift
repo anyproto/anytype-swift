@@ -3,6 +3,7 @@ import SwiftUI
 import Services
 import Combine
 
+@MainActor
 final class SetSortsListViewModel: ObservableObject {
     @Published var rows: [SetSortRowConfiguration] = []
     
@@ -10,19 +11,18 @@ final class SetSortsListViewModel: ObservableObject {
     private var cancellable: Cancellable?
     
     private let dataviewService: DataviewServiceProtocol
-    private let router: EditorSetRouterProtocol
+    private weak var output: SetSortsListCoordinatorOutput?
     
     init(
         setDocument: SetDocumentProtocol,
         dataviewService: DataviewServiceProtocol,
-        router: EditorSetRouterProtocol)
-    {
+        output: SetSortsListCoordinatorOutput?
+    ) {
         self.setDocument = setDocument
         self.dataviewService = dataviewService
-        self.router = router
+        self.output = output
         self.setup()
     }
-    
 }
 
 extension SetSortsListViewModel {
@@ -31,23 +31,19 @@ extension SetSortsListViewModel {
     
     func addButtonTapped() {
         let excludeRelations: [RelationDetails] = setDocument.sorts.map { $0.relationDetails }
-        router.showRelationSearch(
-            relationsDetails: setDocument.activeViewRelations(excludeRelations: excludeRelations))
-        { [weak self] relationDetails in
+        let relationsDetails = setDocument.activeViewRelations(excludeRelations: excludeRelations)
+        output?.onAddButtonTap(relationDetails: relationsDetails, completion: { [weak self] relationDetails in
             self?.addNewSort(with: relationDetails)
-        }
+        })
     }
     
     func rowTapped(_ id: String, index: Int) {
         guard let setSort = setDocument.sorts[safe: index], setSort.id == id  else {
             return
         }
-        router.showSortTypesList(
-            setSort: setSort,
-            onSelect: { [weak self] newSetSort in
-                self?.updateSorts(with: newSetSort)
-            }
-        )
+        output?.onSetSortTap(setSort, completion: { [weak self] setSort in
+            self?.updateSorts(with: setSort)
+        })
     }
     
     // MARK: - Actions

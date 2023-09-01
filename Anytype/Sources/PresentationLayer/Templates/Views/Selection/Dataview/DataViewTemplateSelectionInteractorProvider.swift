@@ -54,7 +54,7 @@ final class DataviewTemplateSelectionInteractorProvider: TemplateSelectionIntera
         let defaultTypeId = (try? objectTypeProvider.defaultObjectType(spaceId: setDocument.spaceId))?.id ?? ""
         
         if setDocument.isCollection() || setDocument.isRelationsSet() {
-            self.objectTypeId = defaultTypeId
+            self.objectTypeId = setDocument.activeView.defaultObjectTypeIDWithFallback
         } else {
             if let firstSetOf = setDocument.details?.setOf.first {
                 self.objectTypeId = firstSetOf

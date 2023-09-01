@@ -68,11 +68,8 @@ final class EditorAssembly {
             relationDetailsStorage: serviceLocator.relationDetailsStorage(),
             objectTypeProvider: serviceLocator.objectTypeProvider()
         )
-        let dataviewService = DataviewService(
-            objectId: data.objectId,
-            blockId: data.inline?.blockId,
-            prefilledFieldsBuilder: SetPrefilledFieldsBuilder()
-        )
+        let dataviewService = serviceLocator.dataviewService(objectId: data.objectId, blockId: data.inline?.blockId)
+        
         let detailsService = serviceLocator.detailsService(objectId: data.objectId)
         
         let model = EditorSetViewModel(
@@ -86,6 +83,7 @@ final class EditorAssembly {
             groupsSubscriptionsHandler: serviceLocator.groupsSubscriptionsHandler(),
             setSubscriptionDataBuilder: SetSubscriptionDataBuilder(activeWorkspaceStorage: serviceLocator.activeWorkspaceStorage()),
             objectTypeProvider: serviceLocator.objectTypeProvider(),
+            setSubscriptionDataBuilder: SetSubscriptionDataBuilder(accountManager: serviceLocator.accountManager()),
             setTemplatesInteractor: serviceLocator.setTemplatesInteractor
         )
         let controller = EditorSetHostingController(objectId: data.objectId, model: model)
@@ -105,6 +103,10 @@ final class EditorAssembly {
             objectCoverPickerModuleAssembly: modulesDI.objectCoverPicker(),
             objectIconPickerModuleAssembly: modulesDI.objectIconPicker(),
             setViewSettingsCoordinatorAssembly: coordinatorsDI.setViewSettings(),
+            setSortsListCoordinatorAssembly: coordinatorsDI.setSortsList(),
+            setFiltersListCoordinatorAssembly: coordinatorsDI.setFiltersList(),
+            setViewSettingsImagePreviewModuleAssembly: modulesDI.setViewSettingsImagePreview(),
+            setViewSettingsGroupByModuleAssembly: modulesDI.setViewSettingsGroupByView(),
             toastPresenter: uiHelpersDI.toastPresenter(using: browser),
             alertHelper: AlertHelper(viewController: controller),
             templateSelectionCoordinator: TemplateSelectionCoordinator(
@@ -259,7 +261,7 @@ final class EditorAssembly {
             actionHandler: actionHandler,
             pasteboardService: pasteboardService,
             router: router,
-            initialEditingState: configuration.isOpenedForPreview ? .locked : .editing,
+            initialEditingState: configuration.isOpenedForPreview ? .readonly(state: .locked) : .editing,
             viewInput: viewInput,
             bottomNavigationManager: bottomNavigationManager
         )

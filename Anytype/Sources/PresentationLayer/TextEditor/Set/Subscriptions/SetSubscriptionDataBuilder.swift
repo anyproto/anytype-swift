@@ -41,24 +41,23 @@ final class SetSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol {
     
     func buildKeys(with data: SetSubscriptionData) -> [String] {
         
-        var keys = [
-            BundledRelationKey.id.rawValue,
-            BundledRelationKey.iconEmoji.rawValue,
-            BundledRelationKey.iconImage.rawValue,
-            BundledRelationKey.name.rawValue,
-            BundledRelationKey.snippet.rawValue,
-            BundledRelationKey.description.rawValue,
-            BundledRelationKey.type.rawValue,
-            BundledRelationKey.layout.rawValue,
-            BundledRelationKey.isDeleted.rawValue,
-            BundledRelationKey.done.rawValue,
-            BundledRelationKey.coverId.rawValue,
-            BundledRelationKey.coverScale.rawValue,
-            BundledRelationKey.coverType.rawValue,
-            BundledRelationKey.coverX.rawValue,
-            BundledRelationKey.coverY.rawValue,
-            BundledRelationKey.relationOptionColor.rawValue
-        ]
+        var keys: [String] = Array<BundledRelationKey>.builder {
+            BundledRelationKey.id
+            BundledRelationKey.name
+            BundledRelationKey.snippet
+            BundledRelationKey.description
+            BundledRelationKey.type
+            BundledRelationKey.layout
+            BundledRelationKey.isDeleted
+            BundledRelationKey.done
+            BundledRelationKey.coverId
+            BundledRelationKey.coverScale
+            BundledRelationKey.coverType
+            BundledRelationKey.coverX
+            BundledRelationKey.coverY
+            BundledRelationKey.relationOptionColor
+            BundledRelationKey.objectIconImageKeys
+        }.uniqued().map(\.rawValue)
         
         keys.append(contentsOf: data.options.map { $0.key })
         keys.append(data.coverRelationKey)
