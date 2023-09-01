@@ -45,8 +45,8 @@ struct KeyPhraseMoreInfoView: View {
     
     private var instruction: some View {
         ZStack {
-            Color.Button.active
-                .opacity(0.09)
+            Color.Background.highlightedOfSelected
+                .opacity(0.9)
             instructionContent
         }
         .cornerRadius(8)
