@@ -663,9 +663,9 @@ internal enum Loc {
     internal static let next = Loc.tr("Localizable", "Auth.Next", fallback: "Next")
     internal enum Caption {
       internal enum Privacy {
-        /// By continuing you agree to **[Terms of Use](%@)** and **[Privacy Policy](%@)**
+        /// By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)
         internal static func text(_ p1: Any, _ p2: Any) -> String {
-          return Loc.tr("Localizable", "Auth.Caption.Privacy.Text", String(describing: p1), String(describing: p2), fallback: "By continuing you agree to **[Terms of Use](%@)** and **[Privacy Policy](%@)**")
+          return Loc.tr("Localizable", "Auth.Caption.Privacy.Text", String(describing: p1), String(describing: p2), fallback: "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)")
         }
       }
     }
@@ -707,22 +707,32 @@ internal enum Loc {
             internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.Button.Tip.Title", fallback: "You can find Recovery Phrase later in Anytype settings")
           }
         }
-        internal enum MoreInfo {
-          /// Your Recovery Phrase protects your data cryptographically. No one can access your data without your Recovery Phrase (not even Anytype).
-          /// That makes it very important to keep it safe, and equally importantly, to keep it to yourself.
-          /// 
-          /// **So again, please don't share your Recovery Phrase.**
-          /// 
-          /// **One last important thing...**
-          /// We do not know your Recovery Phrase and will never ask for it. If you lose it, no one, including Anytype, can help you restore your data. So, it's essential you keep it somewhere safe.
-          /// 
-          /// **The easiest way so store your Recovery Phrase is to save it to your password manager.
-          /// 
-          /// The securest way is to write it down on paper and keep it offline, in a safe and secure place.**
-          internal static let description = Loc.tr("Localizable", "Auth.JoinFlow.Key.MoreInfo.Description", fallback: "Your Recovery Phrase protects your data cryptographically. No one can access your data without your Recovery Phrase (not even Anytype).\nThat makes it very important to keep it safe, and equally importantly, to keep it to yourself.\n\n**So again, please don't share your Recovery Phrase.**\n\n**One last important thing...**\nWe do not know your Recovery Phrase and will never ask for it. If you lose it, no one, including Anytype, can help you restore your data. So, it's essential you keep it somewhere safe.\n\n**The easiest way so store your Recovery Phrase is to save it to your password manager.\n\nThe securest way is to write it down on paper and keep it offline, in a safe and secure place.**")
-          internal enum Button {
-            /// Sounds good
-            internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.MoreInfo.Button.Title", fallback: "Sounds good")
+        internal enum ReadMore {
+          /// What is Recovery Phrase?
+          internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.ReadMore.Title", fallback: "What is Recovery Phrase?")
+          internal enum Instruction {
+            /// How to save my phrase?
+            internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.ReadMore.Instruction.Title", fallback: "How to save my phrase?")
+            internal enum Option1 {
+              /// The easiest way to store your Recovery Phrase is to save it in your password manager.
+              internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title", fallback: "The easiest way to store your Recovery Phrase is to save it in your password manager.")
+            }
+            internal enum Option2 {
+              /// The most secure way is to write it down on paper and keep it offline, in a safe and secure place.
+              internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title", fallback: "The most secure way is to write it down on paper and keep it offline, in a safe and secure place.")
+            }
+          }
+          internal enum Option1 {
+            /// Recovery Phrase is 12 random words from which your account is magically generated on this device.
+            internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.ReadMore.Option1.Title", fallback: "Recovery Phrase is 12 random words from which your account is magically generated on this device.")
+          }
+          internal enum Option2 {
+            /// Who knows combination of these words – owns the account. **Now, you are the only person in the world who can access it.**
+            internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.ReadMore.Option2.Title", fallback: "Who knows combination of these words – owns the account. **Now, you are the only person in the world who can access it.**")
+          }
+          internal enum Option3 {
+            /// That is why it is essential to keep Recovery Phrase secure! You own - you responsible!
+            internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.ReadMore.Option3.Title", fallback: "That is why it is essential to keep Recovery Phrase secure! You own - you responsible!")
           }
         }
         internal enum TextField {

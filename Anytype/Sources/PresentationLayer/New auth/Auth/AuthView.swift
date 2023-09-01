@@ -81,7 +81,7 @@ struct AuthView: View {
         )
         .multilineTextAlignment(.center)
         .padding(.horizontal, 38)
-        .accentColor(.Auth.caption)
+        .accentColor(.Auth.body)
         .environment(\.openURL, OpenURLAction { url in
             model.onUrlTapAction(url)
             return .handled
