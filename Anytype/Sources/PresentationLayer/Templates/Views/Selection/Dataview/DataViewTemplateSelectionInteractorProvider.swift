@@ -52,7 +52,7 @@ final class DataviewTemplateSelectionInteractorProvider: TemplateSelectionIntera
         self.dataviewService = dataviewService
         
         if setDocument.isCollection() || setDocument.isRelationsSet() {
-            self.objectTypeId = .dynamic(objectTypeProvider.defaultObjectType.id)
+            self.objectTypeId = .dynamic(setDocument.activeView.defaultObjectTypeIDWithFallback)
         } else {
             if let firstSetOf = setDocument.details?.setOf.first {
                 self.objectTypeId = .dynamic(firstSetOf)
