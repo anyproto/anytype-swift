@@ -28,7 +28,7 @@ struct AuthView: View {
             privacyPolicy
             Spacer.fixedHeight(14)
         }
-        .padding(.horizontal, 30)
+        .padding(.horizontal, 20)
         .ignoresSafeArea(.keyboard)
     }
     
@@ -46,12 +46,12 @@ struct AuthView: View {
             
             AnytypeText(Loc.Auth.Welcome.subtitle, style: .uxCalloutRegular, color: .Auth.body)
                 .multilineTextAlignment(.center)
-                .padding(.horizontal, UIDevice.isPad ? 75 : 30)
+                .padding(.horizontal, UIDevice.isPad ? 85 : 38)
         }
     }
 
     private var buttons: some View {
-        HStack(spacing: 13) {
+        VStack(spacing: 12) {
             StandardButton(
                 Loc.Auth.join,
                 style: .primaryLarge,
@@ -80,8 +80,8 @@ struct AuthView: View {
             color: .Auth.caption
         )
         .multilineTextAlignment(.center)
-        .padding(.horizontal, 28)
-        .accentColor(.Text.secondary)
+        .padding(.horizontal, 38)
+        .accentColor(.Auth.caption)
         .environment(\.openURL, OpenURLAction { url in
             model.onUrlTapAction(url)
             return .handled

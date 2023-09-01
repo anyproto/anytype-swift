@@ -62,7 +62,7 @@ struct CreatingSoulView: View {
         VStack(spacing: 8) {
             IconView(icon: model.profileIcon)
                 .frame(width: Constants.imageDimension, height: Constants.imageDimension)
-            AnytypeText(model.soulName, style: .previewTitle2Medium, color: .Text.primary)
+            AnytypeText(model.soulName, style: .calloutRegular, color: .Auth.body)
                 .frame(width: 80)
                 .truncationMode(.middle)
                 .lineLimit(1)
@@ -74,7 +74,7 @@ struct CreatingSoulView: View {
         VStack(spacing: 8) {
             IconView(icon: model.spaceIcon)
                 .frame(width: Constants.imageDimension, height: Constants.imageDimension)
-            AnytypeText(Loc.Auth.JoinFlow.Personal.Space.title, style: .previewTitle2Medium, color: .Text.primary)
+            AnytypeText(Loc.Auth.JoinFlow.Personal.Space.title, style: .calloutRegular, color: .Auth.body)
                 .multilineTextAlignment(.center)
         }
         .frame(width: Constants.itemWidth)
