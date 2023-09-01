@@ -26,7 +26,7 @@ struct KeyPhraseMoreInfoView: View {
     }
     
     private var optionsRows: some View {
-        VStack(spacing: 16) {
+        VStack(alignment: .leading, spacing: 16) {
             optionRow(for: "🎲", description: Loc.Auth.JoinFlow.Key.ReadMore.Option1.title)
             optionRow(for: "🪪", description: Loc.Auth.JoinFlow.Key.ReadMore.Option2.title)
             optionRow(for: "☝️", description: Loc.Auth.JoinFlow.Key.ReadMore.Option3.title)
