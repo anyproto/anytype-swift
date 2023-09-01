@@ -13,6 +13,7 @@ struct SpaceCreateView: View {
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 0) {
                     SettingsObjectHeader(name: $model.spaceName, nameTitle: Loc.Settings.spaceName, iconImage: model.spaceIcon, onTap: {})
+                        .focused(.constant(true))
                     
                     SectionHeaderView(title: Loc.type)
                     SpaceTypeView(name: model.spaceType.fullName)
@@ -22,6 +23,7 @@ struct SpaceCreateView: View {
                 StandardButton(model: StandardButtonModel(text: Loc.create, inProgress: model.createLoadingState, style: .primaryLarge, action: {
                     model.onTapCreate()
                 }))
+                .padding(.bottom, 10)
             }
             .padding(.horizontal, 20)
         }
