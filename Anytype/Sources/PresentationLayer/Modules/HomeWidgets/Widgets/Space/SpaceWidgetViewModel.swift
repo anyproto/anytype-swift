@@ -45,7 +45,7 @@ final class SpaceWidgetViewModel: ObservableObject {
     }
     
     private func handleSpaceDetails(details: ObjectDetails) {
-        spaceName = details.name
+        spaceName = details.title
         spaceIcon = details.objectIconImage
         spaceAccessibility = details.spaceAccessibilityValue?.name ?? ""
     }
