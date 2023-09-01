@@ -3,7 +3,7 @@ import Services
 
 protocol SetFiltersSelectionCoordinatorAssemblyProtocol {
     @MainActor
-    func make(with filter: SetFilter, completion: @escaping (SetFilter) -> Void) -> AnyView
+    func make(with spaceId: String, filter: SetFilter, completion: @escaping (SetFilter) -> Void) -> AnyView
 }
 
 final class SetFiltersSelectionCoordinatorAssembly: SetFiltersSelectionCoordinatorAssemblyProtocol {
@@ -19,9 +19,10 @@ final class SetFiltersSelectionCoordinatorAssembly: SetFiltersSelectionCoordinat
     // MARK: - SetFiltersSelectionCoordinatorAssemblyProtocol
     
     @MainActor
-    func make(with filter: SetFilter, completion: @escaping (SetFilter) -> Void) -> AnyView {
+    func make(with spaceId: String, filter: SetFilter, completion: @escaping (SetFilter) -> Void) -> AnyView {
         return SetFiltersSelectionCoordinatorView(
             model: SetFiltersSelectionCoordinatorViewModel(
+                spaceId: spaceId,
                 filter: filter,
                 setFiltersSelectionHeaderModuleAssembly: self.modulesDI.setFiltersSelectionHeader(),
                 setFiltersSelectionViewModuleAssembly: self.modulesDI.setFiltersSelectionView(),

@@ -71,7 +71,8 @@ final class SetFiltersListCoordinatorViewModel: ObservableObject, SetFiltersList
     
     func setFiltersSelection(data: FiltersSelectionData) -> AnyView {
         setFiltersSelectionCoordinatorAssembly.make(
-            with: data.filter,
+            with: setDocument.spaceId,
+            filter: data.filter,
             completion: { [weak self] filter in
                 self?.filtersSelectionData = nil
                 data.completion(filter)

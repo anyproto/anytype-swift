@@ -153,6 +153,11 @@ class SetDocument: SetDocumentProtocol {
         details?.isCollection ?? false
     }
     
+    func defaultObjectTypeForActiveView() -> ObjectType? {
+        let activeViewDefaulType = activeView.defaultObjectTypeID.flatMap { try? ObjectTypeProvider.shared.objectType(id: $0) }
+        return activeViewDefaulType ?? (try? objectTypeProvider.objectType(uniqueKey: .page, spaceId: spaceId))
+    }
+    
     @MainActor
     func open() async throws {
         try await document.open()

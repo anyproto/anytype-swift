@@ -59,8 +59,8 @@ class SetHeaderSettingsViewModel: ObservableObject {
     
     func checkTemplatesAvailablility(activeView: DataviewView) {
         Task { @MainActor in
-            let isTemplatesAvailable = try await setTemplatesInteractor.isTemplatesAvailableFor(
-                activeView: activeView
+            let isTemplatesAvailable = try await setTemplatesInteractor.isTemplatesAvailableForActiveView(
+                setDocument: setDocument
             )
             isTemplatesSelectionAvailable = isTemplatesAvailable
         }

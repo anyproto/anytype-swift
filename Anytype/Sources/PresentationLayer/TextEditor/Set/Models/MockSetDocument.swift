@@ -3,6 +3,7 @@ import Services
 import Combine
 
 final class MockSetDocument: SetDocumentProtocol {
+    
     var document: BaseDocumentProtocol { fatalError() }
     
     var objectId: BlockId { "" }
@@ -60,6 +61,8 @@ final class MockSetDocument: SetDocumentProtocol {
     func isBookmarksSet() -> Bool { false }
     
     func isCollection() -> Bool { false }
+    
+    func defaultObjectTypeForActiveView() -> Services.ObjectType? { nil }
     
     var syncPublisher: AnyPublisher<Void, Never> { fatalError() }
     

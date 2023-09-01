@@ -2,7 +2,7 @@ import Services
 
 protocol SetTemplatesInteractorProtocol {
     func isTemplatesAvailableFor(setObject: ObjectDetails) async throws -> Bool
-    func isTemplatesAvailableFor(activeView: DataviewView) async throws -> Bool
+    func isTemplatesAvailableForActiveView(setDocument: SetDocumentProtocol) async throws -> Bool
 }
 
 final class SetTemplatesInteractor: SetTemplatesInteractorProtocol {
@@ -21,8 +21,8 @@ final class SetTemplatesInteractor: SetTemplatesInteractorProtocol {
         return try await isTemplatesAvailableFor(objectTypeId: objectTypeId)
     }
     
-    func isTemplatesAvailableFor(activeView: DataviewView) async throws -> Bool {
-        let objectTypeId = activeView.defaultObjectTypeIDWithFallback
+    func isTemplatesAvailableForActiveView(setDocument: SetDocumentProtocol) async throws -> Bool {
+        let objectTypeId = setDocument.defaultObjectTypeForActiveView()?.id ?? ""
         return try await isTemplatesAvailableFor(objectTypeId: objectTypeId)
     }
     

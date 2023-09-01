@@ -5,8 +5,7 @@ import UIKit
 import SwiftUI
 
 final class SetFiltersContentViewBuilder {
-    let spaceId: String
-    let filter: SetFilter
+    private let spaceId: String
     private let filter: SetFilter
     private let setFiltersSelectionHeaderModuleAssembly: SetFiltersSelectionHeaderModuleAssemblyProtocol
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol

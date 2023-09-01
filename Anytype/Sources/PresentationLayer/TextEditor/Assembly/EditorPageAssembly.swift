@@ -83,7 +83,6 @@ final class EditorAssembly {
             groupsSubscriptionsHandler: serviceLocator.groupsSubscriptionsHandler(),
             setSubscriptionDataBuilder: SetSubscriptionDataBuilder(activeWorkspaceStorage: serviceLocator.activeWorkspaceStorage()),
             objectTypeProvider: serviceLocator.objectTypeProvider(),
-            setSubscriptionDataBuilder: SetSubscriptionDataBuilder(accountManager: serviceLocator.accountManager()),
             setTemplatesInteractor: serviceLocator.setTemplatesInteractor
         )
         let controller = EditorSetHostingController(objectId: data.objectId, model: model)
