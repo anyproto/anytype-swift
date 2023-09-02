@@ -119,7 +119,7 @@
 "File block subtitle" = "以原始状态存储文件";
 "Picture block subtitle" = "上传图片，丰富页面内容";
 "Video block subtitle" = "上传可播放的视频";
-"Bookmark block subtitle" = "保存您最喜欢的链接和摘要";
+"Bookmark block subtitle" = "剪藏您最喜欢的链接和摘要";
 "Code block subtitle" = "捕获代码片段";
 "Align right" = "右对齐";
 "Align left" = "左对齐";
@@ -736,8 +736,8 @@
 "Widgets.Layout.CompactList.Title" = "紧凑型列表";
 "Widgets.Layout.Link.Description" = "紧凑型对象";
 "Widgets.Layout.Tree.Description" = "对象的层次结构";
-"Widgets.Layout.List.Description" = "具有集合对象列表视图的小工具";
-"Widgets.Layout.CompactList.Description" = "具有集合对象列表视图的小工具";
+"Widgets.Layout.List.Description" = "具有集合对象列表视图的小部件";
+"Widgets.Layout.CompactList.Description" = "具有集合对象列表视图的小部件";
 "Widgets.Empty.Title" = "该数据视图不包含对象";
 "Widgets.Library.RecentlyEdited.Name" = "最近编辑的文档";
 "Widgets.Library.RecentlyOpened.Name" = "最近打开的文档";
