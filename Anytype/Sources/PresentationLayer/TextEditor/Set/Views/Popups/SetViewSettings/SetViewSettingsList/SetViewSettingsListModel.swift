@@ -10,6 +10,7 @@ final class SetViewSettingsListModel: ObservableObject {
     @Published var sortsValue = SetViewSettings.sorts.placeholder
     
     let settings = SetViewSettings.allCases
+    let canBeDeleted: Bool
     
     private let setDocument: SetDocumentProtocol
     private let dataviewService: DataviewServiceProtocol
@@ -24,6 +25,7 @@ final class SetViewSettingsListModel: ObservableObject {
     ) {
         self.setDocument = setDocument
         self.dataviewService = dataviewService
+        self.canBeDeleted = setDocument.dataView.views.count > 1
         self.output = output
         self.debounceNameChanges()
         self.setupSubscriptions()

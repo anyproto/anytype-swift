@@ -106,7 +106,9 @@ struct SetViewSettingsList: View {
     
     private var settingsMenu: some View {
         Menu {
-            deleteButton
+            if model.canBeDeleted {
+                deleteButton
+            }
             duplicateButton
         } label: {
             Image(asset: .X24.more)
