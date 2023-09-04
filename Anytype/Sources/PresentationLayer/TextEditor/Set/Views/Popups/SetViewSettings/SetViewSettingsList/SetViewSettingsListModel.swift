@@ -25,6 +25,7 @@ final class SetViewSettingsListModel: ObservableObject {
         self.setDocument = setDocument
         self.dataviewService = dataviewService
         self.output = output
+        self.debounceNameChanges()
         self.setupSubscriptions()
     }
     
@@ -78,6 +79,7 @@ final class SetViewSettingsListModel: ObservableObject {
     
     private func setupSubscriptions() {
         setDocument.activeViewPublisher.sink { [weak self] activeView in
+            self?.name = activeView.name
             self?.layoutValue = activeView.type.name
         }.store(in: &cancellables)
         
@@ -88,6 +90,27 @@ final class SetViewSettingsListModel: ObservableObject {
         setDocument.sortsPublisher.sink { [weak self] sorts in
             self?.updateSortsValue(sorts)
         }.store(in: &cancellables)
+    }
+    
+    private func debounceNameChanges() {
+        $name
+            .debounce(for: .seconds(0.5), scheduler: RunLoop.main)
+            .filter { [weak self] name in
+                self?.setDocument.activeView.name != name
+            }
+            .sink { [weak self] name in
+                self?.updateView(with: name)
+            }
+            .store(in: &cancellables)
+    }
+    
+    private func updateView(with name: String) {
+        let newView = setDocument.activeView.updated(
+            name: name
+        )
+        Task {
+            try await dataviewService.updateView(newView)
+        }
     }
     
     private func updateFltersValue(_ filters: [SetFilter]) {
