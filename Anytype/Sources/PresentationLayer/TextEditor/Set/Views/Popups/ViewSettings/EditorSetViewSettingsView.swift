@@ -1,4 +1,5 @@
 import SwiftUI
+import AnytypeCore
 
 struct EditorSetViewSettingsView: View {
     @ObservedObject var model: EditorSetViewSettingsViewModel
@@ -32,7 +33,7 @@ struct EditorSetViewSettingsView: View {
                     .environment(\.editMode, $editMode)
             }
             ToolbarItem(placement: .principal) {
-                AnytypeText(Loc.settings, style: .uxTitle1Semibold, color: .Text.primary)
+                AnytypeText(FeatureFlags.newSetSettings ? Loc.relations : Loc.settings, style: .uxTitle1Semibold, color: .Text.primary)
             }
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: {
@@ -47,9 +48,11 @@ struct EditorSetViewSettingsView: View {
     
     private var listContent: some View {
         Group {
-            VStack(spacing: 0) {
-                settingsSection
-                ListSectionHeaderView(title: Loc.relations)
+            if !FeatureFlags.newSetSettings {
+                VStack(spacing: 0) {
+                    settingsSection
+                    ListSectionHeaderView(title: Loc.relations)
+                }
             }
             relationsSection
         }
