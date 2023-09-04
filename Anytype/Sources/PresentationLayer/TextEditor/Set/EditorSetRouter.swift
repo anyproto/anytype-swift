@@ -54,10 +54,6 @@ protocol EditorSetRouterProtocol:
     func replaceCurrentPage(with data: EditorScreenData)
     func showRelationValueEditingView(key: String)
     func showRelationValueEditingView(objectDetails: ObjectDetails, relation: Relation)
-    func showAddNewRelationView(
-        document: BaseDocumentProtocol,
-        onSelect: ((RelationDetails, _ isNew: Bool) -> Void)?
-    )
     
     func showFailureToast(message: String)
     
@@ -80,7 +76,6 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
     private let createObjectModuleAssembly: CreateObjectModuleAssemblyProtocol
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     private let editorPageCoordinator: EditorPageCoordinatorProtocol
-    private let addNewRelationCoordinator: AddNewRelationCoordinatorProtocol
     private let objectSettingCoordinator: ObjectSettingsCoordinatorProtocol
     private let relationValueCoordinator: RelationValueCoordinatorProtocol
     private let objectCoverPickerModuleAssembly: ObjectCoverPickerModuleAssemblyProtocol
@@ -107,7 +102,6 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
         createObjectModuleAssembly: CreateObjectModuleAssemblyProtocol,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
         editorPageCoordinator: EditorPageCoordinatorProtocol,
-        addNewRelationCoordinator: AddNewRelationCoordinatorProtocol,
         objectSettingCoordinator: ObjectSettingsCoordinatorProtocol,
         relationValueCoordinator: RelationValueCoordinatorProtocol,
         objectCoverPickerModuleAssembly: ObjectCoverPickerModuleAssemblyProtocol,
@@ -129,7 +123,6 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
         self.createObjectModuleAssembly = createObjectModuleAssembly
         self.newSearchModuleAssembly = newSearchModuleAssembly
         self.editorPageCoordinator = editorPageCoordinator
-        self.addNewRelationCoordinator = addNewRelationCoordinator
         self.objectSettingCoordinator = objectSettingCoordinator
         self.relationValueCoordinator = relationValueCoordinator
         self.objectCoverPickerModuleAssembly = objectCoverPickerModuleAssembly
@@ -400,18 +393,6 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
     
     func showRelationValueEditingView(objectDetails: ObjectDetails, relation: Relation) {
         relationValueCoordinator.startFlow(objectDetails: objectDetails, relation: relation, analyticsType: .dataview, output: self)
-    }
-    
-    func showAddNewRelationView(
-        document: BaseDocumentProtocol,
-        onSelect: ((RelationDetails, _ isNew: Bool) -> Void)?
-    ) {
-        addNewRelationCoordinator.showAddNewRelationView(
-            document: document,
-            excludedRelationsIds: setDocument.sortedRelations.map(\.id),
-            target: .dataview(activeViewId: setDocument.activeView.id),
-            onCompletion: onSelect
-        )
     }
     
     func showPage(data: EditorScreenData) {
