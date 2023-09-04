@@ -1359,6 +1359,7 @@ public struct Anytype_Rpc {
             case failedToStopSearcherNode // = 106
             case anotherAnytypeProcessIsRunning // = 108
             case failedToFetchRemoteNodeHasIncompatibleProtoVersion // = 110
+            case accountIsDeleted // = 111
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -1378,6 +1379,7 @@ public struct Anytype_Rpc {
               case 106: self = .failedToStopSearcherNode
               case 108: self = .anotherAnytypeProcessIsRunning
               case 110: self = .failedToFetchRemoteNodeHasIncompatibleProtoVersion
+              case 111: self = .accountIsDeleted
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -1395,6 +1397,7 @@ public struct Anytype_Rpc {
               case .failedToStopSearcherNode: return 106
               case .anotherAnytypeProcessIsRunning: return 108
               case .failedToFetchRemoteNodeHasIncompatibleProtoVersion: return 110
+              case .accountIsDeleted: return 111
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -23273,6 +23276,7 @@ extension Anytype_Rpc.Account.Select.Response.Error.Code: CaseIterable {
     .failedToStopSearcherNode,
     .anotherAnytypeProcessIsRunning,
     .failedToFetchRemoteNodeHasIncompatibleProtoVersion,
+    .accountIsDeleted,
   ]
 }
 
@@ -28242,6 +28246,7 @@ extension Anytype_Rpc.Account.Select.Response.Error.Code: SwiftProtobuf._ProtoNa
     106: .same(proto: "FAILED_TO_STOP_SEARCHER_NODE"),
     108: .same(proto: "ANOTHER_ANYTYPE_PROCESS_IS_RUNNING"),
     110: .same(proto: "FAILED_TO_FETCH_REMOTE_NODE_HAS_INCOMPATIBLE_PROTO_VERSION"),
+    111: .same(proto: "ACCOUNT_IS_DELETED"),
   ]
 }
 
