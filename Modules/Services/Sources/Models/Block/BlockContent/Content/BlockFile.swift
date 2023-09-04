@@ -1,8 +1,5 @@
 public typealias FileId = String
 
-public typealias ImageMetadata = FileMetadata
-public typealias VideoMetadata = FileMetadata
-
 public struct FileMetadata: Hashable {
     public var name: String
     public var size: Int64

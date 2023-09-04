@@ -25,7 +25,7 @@ final class FilePreviewMedia: NSObject, PreviewRemoteItem {
 
     func startDownloading() {
         Task { @MainActor in
-            guard let url = file.metadata.contentUrl else { return }
+            guard let url = file.contentUrl else { return }
             let data = try await fileDownloader.downloadData(url: url)
             let path = file.originalPath(with: blockId)
 
