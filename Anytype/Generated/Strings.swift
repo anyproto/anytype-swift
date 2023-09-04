@@ -1730,6 +1730,18 @@ internal enum Loc {
     /// Select template
     internal static let selectTemplate = Loc.tr("Localizable", "TemplateSelection.SelectTemplate", fallback: "Select template")
   }
+  internal enum Templates {
+    internal enum Popup {
+      /// The template was set as default
+      internal static let `default` = Loc.tr("Localizable", "Templates.Popup.Default", fallback: "The template was set as default")
+      /// The template was duplicated
+      internal static let duplicated = Loc.tr("Localizable", "Templates.Popup.Duplicated", fallback: "The template was duplicated")
+      /// The template was removed
+      internal static let removed = Loc.tr("Localizable", "Templates.Popup.Removed", fallback: "The template was removed")
+      /// New template was added to the type
+      internal static let wasAddedTo = Loc.tr("Localizable", "Templates.Popup.WasAddedTo", fallback: "New template was added to the type")
+    }
+  }
   internal enum TextStyle {
     internal enum Bold {
       /// Bold

@@ -12,9 +12,11 @@ protocol TemplateModulesAssemblyProtocol {
 
 final class TemplateModulesAssembly: TemplateModulesAssemblyProtocol {
     private let serviceLocator: ServiceLocator
+    private let uiHelperDI: UIHelpersDIProtocol
     
-    init(serviceLocator: ServiceLocator) {
+    init(serviceLocator: ServiceLocator, uiHelperDI: UIHelpersDIProtocol) {
         self.serviceLocator = serviceLocator
+        self.uiHelperDI = uiHelperDI
     }
     
     @MainActor
@@ -38,6 +40,7 @@ final class TemplateModulesAssembly: TemplateModulesAssemblyProtocol {
                 ),
                 setDocument: setDocument,
                 templatesService: serviceLocator.templatesService,
+                toastPresenter: uiHelperDI.toastPresenter(),
                 onTemplateSelection: onTemplateSelection
             )
         )
