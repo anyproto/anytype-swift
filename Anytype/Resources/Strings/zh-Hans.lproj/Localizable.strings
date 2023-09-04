@@ -2,8 +2,8 @@
 "StyleMenu.Color.TextColor.Placeholder" = "A";
 
 // MARK: Text Style in Slash and Style menu
-"TextStyle.Text.Title" = "纯文本";
-"TextStyle.Text.Subtitle" = "只需从纯文本开始书写";
+"TextStyle.Text.Title" = "正文";
+"TextStyle.Text.Subtitle" = "只需从正文开始书写";
 
 "TextStyle.Title.Title" = "大标题";
 "TextStyle.Title.Subtitle" = "一级标题";
@@ -59,7 +59,7 @@
 "BlockLink.PreviewSettings.IconSize.Medium" = "中等";
 
 "BlockLink.PreviewSettings.Layout.Card.Title" = "卡片";
-"BlockLink.PreviewSettings.Layout.Text.Title" = "纯文本";
+"BlockLink.PreviewSettings.Layout.Text.Title" = "正文";
 
 // MARK: - Settings
 "Settings.Title" = "个人空间";
@@ -79,7 +79,7 @@
 "Relation.From.Type" = "来自 %@ 类型";
 
 "Relation.Format.Object.Title" = "对象";
-"Relation.Format.Text.Title" = "纯文本";
+"Relation.Format.Text.Title" = "正文";
 "Relation.Format.Number.Title" = "数目";
 "Relation.Format.Status.Title" = "状态";
 "Relation.Format.Tag.Title" = "标签";
@@ -206,7 +206,7 @@
 // New Auth
 "Auth.LogIn" = "登录";
 "Auth.Join" = "加入";
-"Auth.Welcome.Title" = "学习与思考\ne集于一身\n的创作应用";
+"Auth.Welcome.Title" = "学习与思考\n集于一身\n的创作应用";
 "Auth.Welcome.Subtitle" = "Anytype 是您编写、计划、思考和组织集于一身，对您重要的安全空间。";
 "Auth.Caption.Privacy.Text" = "继续即表示您同意 [使用条款](%@) 和 [隐私策略](%@)";
 "Auth.Next" = "下一步";
@@ -604,7 +604,7 @@
 "Connection refused" = "连接被拒绝。请重试";
 "Companies, contacts, friends and family" = "公司、联系人、朋友和家人";
 "Failed to sync, trying again..." = "同步失败，请重试...";
-"Sync.Status.Version.Outdated.Description" = "版本已过旧。请更新 Anytype";
+"Sync.Status.Version.Outdated.Description" = "版本已过时。请更新 Anytype";
 "This object doesn't exist" = "此对象不存在";
 "Setting up encrypted storage\nPlease wait" = "设置加密存储\n请稍候";
 "These objects will be deleted irrevocably" = "这些对象将被删除且不可撤销。您无法撤销此操作。";
@@ -667,7 +667,7 @@
 "DebugMenu.ToggleAuthor" = "发行版本: %@, %@";
 
 // MARK: Link Past Actions
-"LinkPaste.text" = "粘贴为纯文本";
+"LinkPaste.text" = "粘贴为正文";
 "LinkPaste.link" = "粘贴为链接";
 "LinkPaste.bookmark" = "创建书签";
 
@@ -702,13 +702,13 @@
 "Content.Common.Error" = "出错了，请重试";
 "Content.Bookmark.Add" = "添加网络书签";
 "Content.Bookmark.Loading" = "正在加载，请稍候...";
-"Content.DataView.InlineSet.Subtitle" = "内联设置";
-"Content.DataView.InlineCollection.Subtitle" = "内联集锦";
+"Content.DataView.InlineSet.Subtitle" = "关联设置";
+"Content.DataView.InlineCollection.Subtitle" = "关联集锦";
 "Content.DataView.InlineSet.NoSource" = "无信息来源";
 "Content.DataView.InlineSet.NoData" = "没有数据";
 "Content.DataView.InlineSet.Untitled" = "无标题集";
 "Content.DataView.InlineCollection.Untitled" = "无标题集锦";
-"Content.DataView.InlineSet.Toast.Failure" = "该内联集合无信息来源";
+"Content.DataView.InlineSet.Toast.Failure" = "该关联集合无信息来源";
 
 // MARK: - Widget extension
 "WidgetExtension.LockScreen.Title" = "新对象";
@@ -745,7 +745,7 @@
 
 // MARK: - About
 "About.AppVersion" = "App 版本: %@";
-"About.BuildNumber" = "内部版本: %@";
+"About.BuildNumber" = "构建版本: %@";
 "About.Library" = "库版本: %@";
 "About.accountId" = "帐户 ID: %@";
 "About.analyticsId" = "分析 ID: %@";
@@ -769,7 +769,7 @@
 "ClearCache.Error" = "错误，请稍后重试";
 
 // MARK: - MigrationGuide
-"MigrationGuide.Title" = "快到了!";
+"MigrationGuide.Title" = "快好了!";
 "MigrationGuide.Subtitle" = "要使用此版本的应用程序，请在下面选择正确的选项来迁移您的帐户。";
 "MigrationGuide.DidntComplete.Title" = "我没有完成迁移";
 "MigrationGuide.DidntComplete.Step1" = "下载桌面端应用程序 **点这里**";
