@@ -116,28 +116,16 @@ struct SetViewSettingsList: View {
     }
     
     private var deleteButton: some View {
-        Button(action: {
+        Button(Loc.SetViewTypesPicker.Settings.Delete.view, role: .destructive) {
             presentationMode.dismiss()
             model.deleteView()
-        }) {
-            AnytypeText(
-                Loc.SetViewTypesPicker.Settings.Delete.view,
-                style: .uxCalloutRegular,
-                color: .System.red
-            )
         }
     }
     
     private var duplicateButton: some View {
-        Button(action: {
+        Button(Loc.SetViewTypesPicker.Settings.Duplicate.view) {
             presentationMode.dismiss()
             model.duplicateView()
-        }) {
-            AnytypeText(
-                Loc.SetViewTypesPicker.Settings.Duplicate.view,
-                style: .uxCalloutRegular,
-                color: .Text.primary
-            )
         }
     }
 }

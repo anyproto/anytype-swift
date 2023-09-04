@@ -12,15 +12,18 @@ final class SetViewSettingsListModel: ObservableObject {
     let settings = SetViewSettings.allCases
     
     private let setDocument: SetDocumentProtocol
+    private let dataviewService: DataviewServiceProtocol
     private weak var output: SetViewSettingsCoordinatorOutput?
     
     private var cancellables = [AnyCancellable]()
     
     init(
         setDocument: SetDocumentProtocol,
+        dataviewService: DataviewServiceProtocol,
         output: SetViewSettingsCoordinatorOutput?
     ) {
         self.setDocument = setDocument
+        self.dataviewService = dataviewService
         self.output = output
         self.setupSubscriptions()
     }
@@ -54,11 +57,23 @@ final class SetViewSettingsListModel: ObservableObject {
     }
     
     func deleteView() {
-
+        let activeView = setDocument.activeView
+        Task {
+            try await dataviewService.deleteView(activeView.id)
+            AnytypeAnalytics.instance().logRemoveView(objectType: setDocument.analyticsType)
+        }
     }
     
     func duplicateView() {
-
+        let activeView = setDocument.activeView
+        let source = setDocument.details?.setOf ?? []
+        Task {
+            try await dataviewService.createView(activeView, source: source)
+            AnytypeAnalytics.instance().logDuplicateView(
+                type: activeView.type.stringValue,
+                objectType: setDocument.analyticsType
+            )
+        }
     }
     
     private func setupSubscriptions() {
