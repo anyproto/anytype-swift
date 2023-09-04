@@ -247,6 +247,14 @@ extension AnytypeFont {
                 lineHeight: 20,
                 kern: -0.24
             )
+        case .authEmoji:
+            return AnytypeFontConfig(
+                fontName: .inter,
+                size: 44,
+                weight: .regular,
+                lineHeight: 56,
+                kern: -0.48
+            )
         }
     }
     

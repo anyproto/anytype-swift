@@ -53,6 +53,7 @@ final class KeyPhraseViewModel: ObservableObject {
     }
     
     func keyPhraseMoreInfo() -> AnyView? {
-        output?.keyPhraseMoreInfo()
+        AnytypeAnalytics.instance().logClickOnboarding(step: .phrase, button: .moreInfo)
+        return output?.keyPhraseMoreInfo()
     }
 }
