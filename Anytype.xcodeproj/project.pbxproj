@@ -734,22 +734,14 @@
 		2E0A6CD72A3773B800A28AF2 /* LoginFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0A6CD62A3773B800A28AF2 /* LoginFlowCoordinator.swift */; };
 		2E0A6CD92A3773F200A28AF2 /* LoginFlowOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0A6CD82A3773F200A28AF2 /* LoginFlowOutput.swift */; };
 		2E0A6CDB2A3775D900A28AF2 /* LoginFlowCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0A6CDA2A3775D900A28AF2 /* LoginFlowCoordinatorAssembly.swift */; };
-		2E0D0E75289D652000785833 /* EditorSetViewSettingsRelation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0D0E74289D652000785833 /* EditorSetViewSettingsRelation.swift */; };
-		2E0D0E79289D678200785833 /* EditorSetViewSettingsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0D0E78289D678200785833 /* EditorSetViewSettingsItem.swift */; };
 		2E0D0F712938CFE200674D3F /* DataviewGroupOrder+Update.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0D0F702938CFE200674D3F /* DataviewGroupOrder+Update.swift */; };
 		2E0DAF1B28A17DB400F43320 /* SetPrefilledFieldsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DAF1A28A17DB400F43320 /* SetPrefilledFieldsBuilder.swift */; };
-		2E0DAF1E28A26DBD00F43320 /* SetViewSettingsCardSizeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DAF1D28A26DBD00F43320 /* SetViewSettingsCardSizeViewModel.swift */; };
 		2E0DAF2128A26F1600F43320 /* DataviewViewSize+Value.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DAF2028A26F1600F43320 /* DataviewViewSize+Value.swift */; };
-		2E0DAF2328A271EA00F43320 /* SetViewSettingsImagePreviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DAF2228A271EA00F43320 /* SetViewSettingsImagePreviewViewModel.swift */; };
-		2E0DAF2528A2723C00F43320 /* SetViewSettingsImagePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DAF2428A2723C00F43320 /* SetViewSettingsImagePreviewView.swift */; };
-		2E0DAF2728A273FC00F43320 /* SetViewSettingsImagePreviewCover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DAF2628A273FC00F43320 /* SetViewSettingsImagePreviewCover.swift */; };
-		2E0DAF2928A2767B00F43320 /* SetViewSettingsImagePreviewRowConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0DAF2828A2767B00F43320 /* SetViewSettingsImagePreviewRowConfiguration.swift */; };
 		2E0E007F2A680D8600F1D95B /* PhraseTextValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0E007E2A680D8600F1D95B /* PhraseTextValidator.swift */; };
 		2E1146D0293124ED0057C753 /* SetKanbanColumnSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1146CF293124ED0057C753 /* SetKanbanColumnSettingsViewModel.swift */; };
 		2E1146D2293125610057C753 /* SetKanbanColumnSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1146D1293125610057C753 /* SetKanbanColumnSettingsView.swift */; };
 		2E1C80E52A2F6EF000217C47 /* AboutApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1C80E42A2F6EF000217C47 /* AboutApp.swift */; };
 		2E21599D28EC619E0042B205 /* EditorPageTemplatesHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E21599C28EC619E0042B205 /* EditorPageTemplatesHandler.swift */; };
-		2E2A22F42A9E327C00745D78 /* SetViewSettingsImagePreviewModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2A22F32A9E327C00745D78 /* SetViewSettingsImagePreviewModuleAssembly.swift */; };
 		2E2A22F72A9E447000745D78 /* SetLayoutSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2A22F62A9E447000745D78 /* SetLayoutSettingsView.swift */; };
 		2E2A22F92A9E448B00745D78 /* SetLayoutSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2A22F82A9E448B00745D78 /* SetLayoutSettingsViewModel.swift */; };
 		2E2A22FB2A9E449A00745D78 /* SetLayoutSettingsViewAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2A22FA2A9E449A00745D78 /* SetLayoutSettingsViewAssembly.swift */; };
@@ -757,7 +749,6 @@
 		2E2A23002A9E463700745D78 /* SetLayoutSettingsCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2A22FF2A9E463700745D78 /* SetLayoutSettingsCoordinatorViewModel.swift */; };
 		2E2A23022A9E46B100745D78 /* SetLayoutSettingsCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2A23012A9E46B100745D78 /* SetLayoutSettingsCoordinatorAssembly.swift */; };
 		2E2A23042A9F746D00745D78 /* SetLayoutSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2A23032A9F746D00745D78 /* SetLayoutSettings.swift */; };
-		2E2A23062A9F96FA00745D78 /* SetViewSettingsGroupByModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2A23052A9F96FA00745D78 /* SetViewSettingsGroupByModuleAssembly.swift */; };
 		2E2D255D28880C8D00E3DFD1 /* SetFiltersSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2D255428880C8D00E3DFD1 /* SetFiltersSelectionView.swift */; };
 		2E2D255E28880C8D00E3DFD1 /* SetFiltersSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2D255528880C8D00E3DFD1 /* SetFiltersSelectionViewModel.swift */; };
 		2E2D255F28880C8D00E3DFD1 /* SetFilterConditionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2D255628880C8D00E3DFD1 /* SetFilterConditionsViewModel.swift */; };
@@ -865,9 +856,24 @@
 		2E9EFE72285B62E500C8E47A /* SetFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9EFE71285B62E500C8E47A /* SetFilter.swift */; };
 		2EA098A72A697511009182C0 /* SubscriptionData+Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA098A62A697511009182C0 /* SubscriptionData+Info.swift */; };
 		2EA0F4912936629E003225BA /* GroupsSubscribeResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA0F4902936629E003225BA /* GroupsSubscribeResult.swift */; };
+		2EAA13FB2AA63918000A712A /* EditorSetRelationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA13EB2AA63918000A712A /* EditorSetRelationsView.swift */; };
+		2EAA13FC2AA63918000A712A /* SetViewSettingsImagePreviewModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA13ED2AA63918000A712A /* SetViewSettingsImagePreviewModuleAssembly.swift */; };
+		2EAA13FD2AA63918000A712A /* SetViewSettingsImagePreviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA13EE2AA63918000A712A /* SetViewSettingsImagePreviewViewModel.swift */; };
+		2EAA13FE2AA63918000A712A /* SetViewSettingsImagePreviewRowConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA13EF2AA63918000A712A /* SetViewSettingsImagePreviewRowConfiguration.swift */; };
+		2EAA13FF2AA63918000A712A /* SetViewSettingsImagePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA13F02AA63918000A712A /* SetViewSettingsImagePreviewView.swift */; };
+		2EAA14002AA63918000A712A /* SetViewSettingsImagePreviewCover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA13F12AA63918000A712A /* SetViewSettingsImagePreviewCover.swift */; };
+		2EAA14012AA63918000A712A /* SetViewSettingsGroupByViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA13F32AA63918000A712A /* SetViewSettingsGroupByViewModel.swift */; };
+		2EAA14022AA63918000A712A /* SetViewSettingsGroupByModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA13F42AA63918000A712A /* SetViewSettingsGroupByModuleAssembly.swift */; };
+		2EAA14032AA63918000A712A /* SetViewSettingsCardSizeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA13F62AA63918000A712A /* SetViewSettingsCardSizeViewModel.swift */; };
+		2EAA14042AA63918000A712A /* EditorSetViewSettingsRelation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA13F72AA63918000A712A /* EditorSetViewSettingsRelation.swift */; };
+		2EAA14052AA63918000A712A /* EditorSetRelationsViewModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA13F82AA63918000A712A /* EditorSetRelationsViewModuleAssembly.swift */; };
+		2EAA14062AA63918000A712A /* EditorSetViewSettingsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA13F92AA63918000A712A /* EditorSetViewSettingsItem.swift */; };
+		2EAA14072AA63918000A712A /* EditorSetRelationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA13FA2AA63918000A712A /* EditorSetRelationsViewModel.swift */; };
+		2EAA140A2AA63BFF000A712A /* EditorSetRelationsCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA14092AA63BFF000A712A /* EditorSetRelationsCoordinatorView.swift */; };
+		2EAA140C2AA63C0B000A712A /* EditorSetRelationsCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA140B2AA63C0B000A712A /* EditorSetRelationsCoordinatorViewModel.swift */; };
+		2EAA140E2AA63C18000A712A /* EditorSetRelationsCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA140D2AA63C18000A712A /* EditorSetRelationsCoordinatorAssembly.swift */; };
 		2EB3F0212A9D1B5D00B79A3F /* SetFiltersTextViewModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB3F0202A9D1B5D00B79A3F /* SetFiltersTextViewModuleAssembly.swift */; };
 		2EB3F0232A9D1CAA00B79A3F /* SetFiltersCheckboxViewModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB3F0222A9D1CAA00B79A3F /* SetFiltersCheckboxViewModuleAssembly.swift */; };
-		2EB7D2AE292BD1E50076592B /* SetViewSettingsGroupByViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB7D2AD292BD1E50076592B /* SetViewSettingsGroupByViewModel.swift */; };
 		2EB97A1B28B64CDC002BBB39 /* SetListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB97A1A28B64CDC002BBB39 /* SetListViewCell.swift */; };
 		2EC669212A166FD1001F71BC /* JoinFlowStepOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC669202A166FD1001F71BC /* JoinFlowStepOutput.swift */; };
 		2EC669242A16755A001F71BC /* AuthCustomTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC669232A16755A001F71BC /* AuthCustomTransition.swift */; };
@@ -991,8 +997,6 @@
 		3D30412927E8D12800FFE0EB /* EditorSetSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D30412727E8D12800FFE0EB /* EditorSetSettingsViewModel.swift */; };
 		3D30412A27E8D12800FFE0EB /* EditorSetSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D30412827E8D12800FFE0EB /* EditorSetSettingsView.swift */; };
 		3D30412C27E8D45C00FFE0EB /* EditorSetSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D30412B27E8D45C00FFE0EB /* EditorSetSetting.swift */; };
-		3D30416927EA4DC100FFE0EB /* EditorSetViewSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D30416727EA4DC100FFE0EB /* EditorSetViewSettingsViewModel.swift */; };
-		3D30416A27EA4DC100FFE0EB /* EditorSetViewSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D30416827EA4DC100FFE0EB /* EditorSetViewSettingsView.swift */; };
 		3D30416D27EA5E9900FFE0EB /* DataviewService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D30416C27EA5E9900FFE0EB /* DataviewService.swift */; };
 		3D30416F27EA5EA700FFE0EB /* DataviewServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D30416E27EA5EA600FFE0EB /* DataviewServiceProtocol.swift */; };
 		3D30417227EA689F00FFE0EB /* SetContentViewDataBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D30417127EA689F00FFE0EB /* SetContentViewDataBuilder.swift */; };
@@ -2256,22 +2260,14 @@
 		2E0A6CD62A3773B800A28AF2 /* LoginFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFlowCoordinator.swift; sourceTree = "<group>"; };
 		2E0A6CD82A3773F200A28AF2 /* LoginFlowOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFlowOutput.swift; sourceTree = "<group>"; };
 		2E0A6CDA2A3775D900A28AF2 /* LoginFlowCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFlowCoordinatorAssembly.swift; sourceTree = "<group>"; };
-		2E0D0E74289D652000785833 /* EditorSetViewSettingsRelation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetViewSettingsRelation.swift; sourceTree = "<group>"; };
-		2E0D0E78289D678200785833 /* EditorSetViewSettingsItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetViewSettingsItem.swift; sourceTree = "<group>"; };
 		2E0D0F702938CFE200674D3F /* DataviewGroupOrder+Update.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataviewGroupOrder+Update.swift"; sourceTree = "<group>"; };
 		2E0DAF1A28A17DB400F43320 /* SetPrefilledFieldsBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetPrefilledFieldsBuilder.swift; sourceTree = "<group>"; };
-		2E0DAF1D28A26DBD00F43320 /* SetViewSettingsCardSizeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetViewSettingsCardSizeViewModel.swift; sourceTree = "<group>"; };
 		2E0DAF2028A26F1600F43320 /* DataviewViewSize+Value.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataviewViewSize+Value.swift"; sourceTree = "<group>"; };
-		2E0DAF2228A271EA00F43320 /* SetViewSettingsImagePreviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewSettingsImagePreviewViewModel.swift; sourceTree = "<group>"; };
-		2E0DAF2428A2723C00F43320 /* SetViewSettingsImagePreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewSettingsImagePreviewView.swift; sourceTree = "<group>"; };
-		2E0DAF2628A273FC00F43320 /* SetViewSettingsImagePreviewCover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewSettingsImagePreviewCover.swift; sourceTree = "<group>"; };
-		2E0DAF2828A2767B00F43320 /* SetViewSettingsImagePreviewRowConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewSettingsImagePreviewRowConfiguration.swift; sourceTree = "<group>"; };
 		2E0E007E2A680D8600F1D95B /* PhraseTextValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhraseTextValidator.swift; sourceTree = "<group>"; };
 		2E1146CF293124ED0057C753 /* SetKanbanColumnSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetKanbanColumnSettingsViewModel.swift; sourceTree = "<group>"; };
 		2E1146D1293125610057C753 /* SetKanbanColumnSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetKanbanColumnSettingsView.swift; sourceTree = "<group>"; };
 		2E1C80E42A2F6EF000217C47 /* AboutApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutApp.swift; sourceTree = "<group>"; };
 		2E21599C28EC619E0042B205 /* EditorPageTemplatesHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorPageTemplatesHandler.swift; sourceTree = "<group>"; };
-		2E2A22F32A9E327C00745D78 /* SetViewSettingsImagePreviewModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewSettingsImagePreviewModuleAssembly.swift; sourceTree = "<group>"; };
 		2E2A22F62A9E447000745D78 /* SetLayoutSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetLayoutSettingsView.swift; sourceTree = "<group>"; };
 		2E2A22F82A9E448B00745D78 /* SetLayoutSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetLayoutSettingsViewModel.swift; sourceTree = "<group>"; };
 		2E2A22FA2A9E449A00745D78 /* SetLayoutSettingsViewAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetLayoutSettingsViewAssembly.swift; sourceTree = "<group>"; };
@@ -2279,7 +2275,6 @@
 		2E2A22FF2A9E463700745D78 /* SetLayoutSettingsCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetLayoutSettingsCoordinatorViewModel.swift; sourceTree = "<group>"; };
 		2E2A23012A9E46B100745D78 /* SetLayoutSettingsCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetLayoutSettingsCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		2E2A23032A9F746D00745D78 /* SetLayoutSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetLayoutSettings.swift; sourceTree = "<group>"; };
-		2E2A23052A9F96FA00745D78 /* SetViewSettingsGroupByModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewSettingsGroupByModuleAssembly.swift; sourceTree = "<group>"; };
 		2E2D255428880C8D00E3DFD1 /* SetFiltersSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetFiltersSelectionView.swift; sourceTree = "<group>"; };
 		2E2D255528880C8D00E3DFD1 /* SetFiltersSelectionViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetFiltersSelectionViewModel.swift; sourceTree = "<group>"; };
 		2E2D255628880C8D00E3DFD1 /* SetFilterConditionsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetFilterConditionsViewModel.swift; sourceTree = "<group>"; };
@@ -2387,9 +2382,24 @@
 		2E9EFE71285B62E500C8E47A /* SetFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFilter.swift; sourceTree = "<group>"; };
 		2EA098A62A697511009182C0 /* SubscriptionData+Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SubscriptionData+Info.swift"; sourceTree = "<group>"; };
 		2EA0F4902936629E003225BA /* GroupsSubscribeResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsSubscribeResult.swift; sourceTree = "<group>"; };
+		2EAA13EB2AA63918000A712A /* EditorSetRelationsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorSetRelationsView.swift; sourceTree = "<group>"; };
+		2EAA13ED2AA63918000A712A /* SetViewSettingsImagePreviewModuleAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetViewSettingsImagePreviewModuleAssembly.swift; sourceTree = "<group>"; };
+		2EAA13EE2AA63918000A712A /* SetViewSettingsImagePreviewViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetViewSettingsImagePreviewViewModel.swift; sourceTree = "<group>"; };
+		2EAA13EF2AA63918000A712A /* SetViewSettingsImagePreviewRowConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetViewSettingsImagePreviewRowConfiguration.swift; sourceTree = "<group>"; };
+		2EAA13F02AA63918000A712A /* SetViewSettingsImagePreviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetViewSettingsImagePreviewView.swift; sourceTree = "<group>"; };
+		2EAA13F12AA63918000A712A /* SetViewSettingsImagePreviewCover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetViewSettingsImagePreviewCover.swift; sourceTree = "<group>"; };
+		2EAA13F32AA63918000A712A /* SetViewSettingsGroupByViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetViewSettingsGroupByViewModel.swift; sourceTree = "<group>"; };
+		2EAA13F42AA63918000A712A /* SetViewSettingsGroupByModuleAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetViewSettingsGroupByModuleAssembly.swift; sourceTree = "<group>"; };
+		2EAA13F62AA63918000A712A /* SetViewSettingsCardSizeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetViewSettingsCardSizeViewModel.swift; sourceTree = "<group>"; };
+		2EAA13F72AA63918000A712A /* EditorSetViewSettingsRelation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorSetViewSettingsRelation.swift; sourceTree = "<group>"; };
+		2EAA13F82AA63918000A712A /* EditorSetRelationsViewModuleAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorSetRelationsViewModuleAssembly.swift; sourceTree = "<group>"; };
+		2EAA13F92AA63918000A712A /* EditorSetViewSettingsItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorSetViewSettingsItem.swift; sourceTree = "<group>"; };
+		2EAA13FA2AA63918000A712A /* EditorSetRelationsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorSetRelationsViewModel.swift; sourceTree = "<group>"; };
+		2EAA14092AA63BFF000A712A /* EditorSetRelationsCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetRelationsCoordinatorView.swift; sourceTree = "<group>"; };
+		2EAA140B2AA63C0B000A712A /* EditorSetRelationsCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetRelationsCoordinatorViewModel.swift; sourceTree = "<group>"; };
+		2EAA140D2AA63C18000A712A /* EditorSetRelationsCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetRelationsCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		2EB3F0202A9D1B5D00B79A3F /* SetFiltersTextViewModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersTextViewModuleAssembly.swift; sourceTree = "<group>"; };
 		2EB3F0222A9D1CAA00B79A3F /* SetFiltersCheckboxViewModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersCheckboxViewModuleAssembly.swift; sourceTree = "<group>"; };
-		2EB7D2AD292BD1E50076592B /* SetViewSettingsGroupByViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetViewSettingsGroupByViewModel.swift; sourceTree = "<group>"; };
 		2EB97A1A28B64CDC002BBB39 /* SetListViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetListViewCell.swift; sourceTree = "<group>"; };
 		2EC669202A166FD1001F71BC /* JoinFlowStepOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinFlowStepOutput.swift; sourceTree = "<group>"; };
 		2EC669232A16755A001F71BC /* AuthCustomTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCustomTransition.swift; sourceTree = "<group>"; };
@@ -2513,8 +2523,6 @@
 		3D30412727E8D12800FFE0EB /* EditorSetSettingsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorSetSettingsViewModel.swift; sourceTree = "<group>"; };
 		3D30412827E8D12800FFE0EB /* EditorSetSettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorSetSettingsView.swift; sourceTree = "<group>"; };
 		3D30412B27E8D45C00FFE0EB /* EditorSetSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetSetting.swift; sourceTree = "<group>"; };
-		3D30416727EA4DC100FFE0EB /* EditorSetViewSettingsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorSetViewSettingsViewModel.swift; sourceTree = "<group>"; };
-		3D30416827EA4DC100FFE0EB /* EditorSetViewSettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorSetViewSettingsView.swift; sourceTree = "<group>"; };
 		3D30416C27EA5E9900FFE0EB /* DataviewService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataviewService.swift; sourceTree = "<group>"; };
 		3D30416E27EA5EA600FFE0EB /* DataviewServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataviewServiceProtocol.swift; sourceTree = "<group>"; };
 		3D30417127EA689F00FFE0EB /* SetContentViewDataBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetContentViewDataBuilder.swift; sourceTree = "<group>"; };
@@ -5970,26 +5978,6 @@
 			path = LoginFlow;
 			sourceTree = "<group>";
 		};
-		2E0DAF1C28A26DBD00F43320 /* CardSize */ = {
-			isa = PBXGroup;
-			children = (
-				2E0DAF1D28A26DBD00F43320 /* SetViewSettingsCardSizeViewModel.swift */,
-			);
-			path = CardSize;
-			sourceTree = "<group>";
-		};
-		2E0DAF1F28A26DC400F43320 /* ImagePreview */ = {
-			isa = PBXGroup;
-			children = (
-				2E0DAF2228A271EA00F43320 /* SetViewSettingsImagePreviewViewModel.swift */,
-				2E0DAF2428A2723C00F43320 /* SetViewSettingsImagePreviewView.swift */,
-				2E0DAF2628A273FC00F43320 /* SetViewSettingsImagePreviewCover.swift */,
-				2E0DAF2828A2767B00F43320 /* SetViewSettingsImagePreviewRowConfiguration.swift */,
-				2E2A22F32A9E327C00745D78 /* SetViewSettingsImagePreviewModuleAssembly.swift */,
-			);
-			path = ImagePreview;
-			sourceTree = "<group>";
-		};
 		2E0DAF2A28A3EFC100F43320 /* Collection */ = {
 			isa = PBXGroup;
 			children = (
@@ -6285,13 +6273,59 @@
 			path = Filters;
 			sourceTree = "<group>";
 		};
-		2EB7D2AC292BD1E50076592B /* GroupBy */ = {
+		2EAA13EA2AA63918000A712A /* RelationsSettings */ = {
 			isa = PBXGroup;
 			children = (
-				2EB7D2AD292BD1E50076592B /* SetViewSettingsGroupByViewModel.swift */,
-				2E2A23052A9F96FA00745D78 /* SetViewSettingsGroupByModuleAssembly.swift */,
+				2EAA14082AA639A2000A712A /* Coordinator */,
+				2EAA13EC2AA63918000A712A /* ImagePreview */,
+				2EAA13F22AA63918000A712A /* GroupBy */,
+				2EAA13F52AA63918000A712A /* CardSize */,
+				2EAA13F72AA63918000A712A /* EditorSetViewSettingsRelation.swift */,
+				2EAA13F82AA63918000A712A /* EditorSetRelationsViewModuleAssembly.swift */,
+				2EAA13F92AA63918000A712A /* EditorSetViewSettingsItem.swift */,
+				2EAA13EB2AA63918000A712A /* EditorSetRelationsView.swift */,
+				2EAA13FA2AA63918000A712A /* EditorSetRelationsViewModel.swift */,
+			);
+			path = RelationsSettings;
+			sourceTree = "<group>";
+		};
+		2EAA13EC2AA63918000A712A /* ImagePreview */ = {
+			isa = PBXGroup;
+			children = (
+				2EAA13ED2AA63918000A712A /* SetViewSettingsImagePreviewModuleAssembly.swift */,
+				2EAA13EE2AA63918000A712A /* SetViewSettingsImagePreviewViewModel.swift */,
+				2EAA13EF2AA63918000A712A /* SetViewSettingsImagePreviewRowConfiguration.swift */,
+				2EAA13F02AA63918000A712A /* SetViewSettingsImagePreviewView.swift */,
+				2EAA13F12AA63918000A712A /* SetViewSettingsImagePreviewCover.swift */,
+			);
+			path = ImagePreview;
+			sourceTree = "<group>";
+		};
+		2EAA13F22AA63918000A712A /* GroupBy */ = {
+			isa = PBXGroup;
+			children = (
+				2EAA13F32AA63918000A712A /* SetViewSettingsGroupByViewModel.swift */,
+				2EAA13F42AA63918000A712A /* SetViewSettingsGroupByModuleAssembly.swift */,
 			);
 			path = GroupBy;
+			sourceTree = "<group>";
+		};
+		2EAA13F52AA63918000A712A /* CardSize */ = {
+			isa = PBXGroup;
+			children = (
+				2EAA13F62AA63918000A712A /* SetViewSettingsCardSizeViewModel.swift */,
+			);
+			path = CardSize;
+			sourceTree = "<group>";
+		};
+		2EAA14082AA639A2000A712A /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				2EAA14092AA63BFF000A712A /* EditorSetRelationsCoordinatorView.swift */,
+				2EAA140B2AA63C0B000A712A /* EditorSetRelationsCoordinatorViewModel.swift */,
+				2EAA140D2AA63C18000A712A /* EditorSetRelationsCoordinatorAssembly.swift */,
+			);
+			path = Coordinator;
 			sourceTree = "<group>";
 		};
 		2EC669222A167513001F71BC /* Transition */ = {
@@ -6858,6 +6892,7 @@
 		3D30416527EA4DC000FFE0EB /* Popups */ = {
 			isa = PBXGroup;
 			children = (
+				2EAA13EA2AA63918000A712A /* RelationsSettings */,
 				2ED9F4372A8E8EF300BE0A6B /* SetViewSettings */,
 				2E9BF63928B7D341006D3CC2 /* ViewTypes */,
 				2E9EFE69285B576400C8E47A /* Filters */,
@@ -6865,23 +6900,8 @@
 				53EDA87B2837EC2100887804 /* CreateObject */,
 				3D30412527E8D07E00FFE0EB /* ViewPicker */,
 				3D30412627E8D0F300FFE0EB /* MainSettings */,
-				3D30416627EA4DC100FFE0EB /* ViewSettings */,
 			);
 			path = Popups;
-			sourceTree = "<group>";
-		};
-		3D30416627EA4DC100FFE0EB /* ViewSettings */ = {
-			isa = PBXGroup;
-			children = (
-				2EB7D2AC292BD1E50076592B /* GroupBy */,
-				2E0DAF1F28A26DC400F43320 /* ImagePreview */,
-				2E0DAF1C28A26DBD00F43320 /* CardSize */,
-				3D30416727EA4DC100FFE0EB /* EditorSetViewSettingsViewModel.swift */,
-				2E0D0E78289D678200785833 /* EditorSetViewSettingsItem.swift */,
-				3D30416827EA4DC100FFE0EB /* EditorSetViewSettingsView.swift */,
-				2E0D0E74289D652000785833 /* EditorSetViewSettingsRelation.swift */,
-			);
-			path = ViewSettings;
 			sourceTree = "<group>";
 		};
 		3D30416B27EA5E8A00FFE0EB /* Dataview */ = {
@@ -9310,7 +9330,9 @@
 				2A28D03D297E8C4C00E55E15 /* SetsSubscriptionService.swift in Sources */,
 				3DE5121626728C0F00153962 /* BaseDocumentProtocol.swift in Sources */,
 				2EDC2B062A13E4E00065E009 /* KeyPhraseViewModel.swift in Sources */,
+				2EAA14062AA63918000A712A /* EditorSetViewSettingsItem.swift in Sources */,
 				127EAC19273A438900C731F2 /* RelationsListRowHintView.swift in Sources */,
+				2EAA13FB2AA63918000A712A /* EditorSetRelationsView.swift in Sources */,
 				C940A9A6286033C0008B500B /* SimpleTableViewModel.swift in Sources */,
 				8639E0142A6020E700F52ED2 /* TemplatesSubscriptionService.swift in Sources */,
 				2ABAF2C1293DED8C003C4730 /* CreateObjectModuleAssembly.swift in Sources */,
@@ -9453,6 +9475,7 @@
 				2AECFD3E28993C67000E9CFB /* RelationValueCoordinatorAssemblyProtocol.swift in Sources */,
 				2EC9425128F97F5E00DE91E4 /* GroupsSubscribeServiceProtocol.swift in Sources */,
 				53856BCB2659B38F00CB1FAE /* CodeBlockViewModel.swift in Sources */,
+				2EAA14072AA63918000A712A /* EditorSetRelationsViewModel.swift in Sources */,
 				2A03039828ABAA45002EFC46 /* TextRelationActionViewModelProtocol.swift in Sources */,
 				C91AFF11270C3E2F005F9386 /* ActivityViewController.swift in Sources */,
 				5391687D2632DCC600AD5C5F /* StyleCellContentView.swift in Sources */,
@@ -9474,6 +9497,7 @@
 				3D1CEC2B27F38CE3000D36BA /* DeletedAccountView.swift in Sources */,
 				2AFFFB8A2926670E00A487E1 /* ObjectLayoutPickerModuleAssembly.swift in Sources */,
 				531629372632BD0B000D6780 /* StylePanelLayout.swift in Sources */,
+				2EAA14042AA63918000A712A /* EditorSetViewSettingsRelation.swift in Sources */,
 				C9A7528328E3297000235BDE /* URLConstants.swift in Sources */,
 				12D15D2027F5F78500D22086 /* TagsOptionsSearchModuleBuilder.swift in Sources */,
 				2AD53F5529DEEF7600460CF3 /* MigrationGuideView.swift in Sources */,
@@ -9551,6 +9575,7 @@
 				2AC3F9462A138263005EFEE9 /* FileLimitsStorage.swift in Sources */,
 				2ECB34062A95131100E0F9BB /* SetSortsListCoordinatorViewModel.swift in Sources */,
 				863776832A658AF10040308E /* TemplateModulesAssembly.swift in Sources */,
+				2EAA14012AA63918000A712A /* SetViewSettingsGroupByViewModel.swift in Sources */,
 				2E6F3E1D2A4DB179002F4278 /* SceneStateNotifier.swift in Sources */,
 				1211D65A2667CED000541D9C /* ActivityIndicatorView.swift in Sources */,
 				125683E227DF1E7D003A8251 /* SearchObjectRowView.swift in Sources */,
@@ -9580,7 +9605,6 @@
 				0AD7695925D5908E00669F8C /* FileActionsService.swift in Sources */,
 				125B6EC226F235F400BCD7D6 /* CursorModeAccessoryViewDelegate.swift in Sources */,
 				2A7466AA2A9DFDF400D73F63 /* ObjectSettingsCoordinatorOutput.swift in Sources */,
-				2EB7D2AE292BD1E50076592B /* SetViewSettingsGroupByViewModel.swift in Sources */,
 				EA20CDCD2612288400DBA9FE /* VideoBlockViewModel.swift in Sources */,
 				2AD6792C29812EE600339624 /* HomeBottomPanelModuleOutput.swift in Sources */,
 				3D1CEC4527F5F566000D36BA /* Clock.swift in Sources */,
@@ -9619,6 +9643,7 @@
 				2E2EA2CA2A53388500569E1E /* DotView.swift in Sources */,
 				2A6E04B1298D66DB0023B33D /* WidgetObjectListCommonModuleOutput.swift in Sources */,
 				2ABA0E07283BC420008369DC /* BlockObjectsSearchInteractor.swift in Sources */,
+				2EAA13FC2AA63918000A712A /* SetViewSettingsImagePreviewModuleAssembly.swift in Sources */,
 				12EEC36C26A0903F00C3C4B1 /* EmojiProvider.swift in Sources */,
 				2AD37D5A299121D30012409E /* WidgetObjectListViewModel.swift in Sources */,
 				2E0D0F712938CFE200674D3F /* DataviewGroupOrder+Update.swift in Sources */,
@@ -9766,7 +9791,6 @@
 				3D93D561270B3FC500614E29 /* UINavigationController+Extension.swift in Sources */,
 				2A6F5046288A8F0B00ED6E2E /* ImageAssets.swift in Sources */,
 				2ADD66732A6ECA0100266F57 /* CoreGraphics+Hash.swift in Sources */,
-				3D30416927EA4DC100FFE0EB /* EditorSetViewSettingsViewModel.swift in Sources */,
 				531629392632BD0B000D6780 /* StyleCellConfiguration.swift in Sources */,
 				2A39F3CD29ED9A7E005DE8F5 /* LayoutAlignment+Analytics.swift in Sources */,
 				3DE6926827302D5800A4CD4E /* AccessoryViewStateManager.swift in Sources */,
@@ -9789,7 +9813,6 @@
 				C99A53AE28A1411B00B3E5F4 /* ObjectHeaderEmptyData.swift in Sources */,
 				3DCC549226D3B568002517AC /* BlockBookmarkOnlyUrlConfiguration.swift in Sources */,
 				2A6E04A6298D05AF0023B33D /* DocumentService.swift in Sources */,
-				2E0DAF2928A2767B00F43320 /* SetViewSettingsImagePreviewRowConfiguration.swift in Sources */,
 				129C54D227FC7A2800C390C7 /* RelationFormatsListViewModel.swift in Sources */,
 				125B6ED026F235F400BCD7D6 /* SlashMenuAssembly.swift in Sources */,
 				2AFF7AC2299CDA4B00B7746B /* WidgetObjectListBinViewModel.swift in Sources */,
@@ -9882,6 +9905,7 @@
 				2E63047B28A55D2A00BEF2E9 /* SetCollectionView.swift in Sources */,
 				5315D39627B99E28000F3456 /* StatusRelationViewUIKit.swift in Sources */,
 				C92DCD952729952500A03D91 /* CursorModeAccessoryViewModel.swift in Sources */,
+				2EAA14002AA63918000A712A /* SetViewSettingsImagePreviewCover.swift in Sources */,
 				3D155278264D97A100B0E976 /* View+Snackbar.swift in Sources */,
 				2AD37D5C299145370012409E /* WidgetObjectListRecentViewModel.swift in Sources */,
 				120E819726A06CFC006FE84E /* ObjectLayoutPickerViewModel.swift in Sources */,
@@ -9916,7 +9940,6 @@
 				3DB3EC5D2754CB0D002781DA /* ProgressBar.swift in Sources */,
 				2A7BD6E828D8599D008B735C /* RelationSubscriptionDataBuilderProtocol.swift in Sources */,
 				1244794727DC96FB00581174 /* TagsSearchViewModel.swift in Sources */,
-				2E0D0E75289D652000785833 /* EditorSetViewSettingsRelation.swift in Sources */,
 				C90F8F2C28DCBDBA00E874A9 /* FilePreviewContext.swift in Sources */,
 				126C46D326BD909300D31DBF /* EditorSection.swift in Sources */,
 				12DE405F264AE455007B5074 /* LayoutProxy.swift in Sources */,
@@ -9931,13 +9954,13 @@
 				2A4C79B229B8A1F9003BB9D3 /* WidgetSourceSearchChangeInternalViewModel.swift in Sources */,
 				12B0FF60274FC5E200CA35FE /* TextRelationActionButtonViewModelDelegate.swift in Sources */,
 				3D1B5F66274C0CFD007D97AE /* SetTableViewRow.swift in Sources */,
-				2E0DAF2728A273FC00F43320 /* SetViewSettingsImagePreviewCover.swift in Sources */,
 				3D85FB5B2799B66E00E17BB2 /* EditorSetPaginationView.swift in Sources */,
 				3D7F718127A088B7003FE893 /* EditorSetViewModel+Pagination.swift in Sources */,
 				120F7D5C267D0C4400327734 /* Color+Extensions.swift in Sources */,
 				2EC9425F2900351C00DE91E4 /* DataviewGroup+Filter.swift in Sources */,
 				2AD06B81285729890006C255 /* TableOfContentsConfiguration.swift in Sources */,
 				3DE0CFD926F8593D003A606A /* SlashMenuItemFilterMatch.swift in Sources */,
+				2EAA13FF2AA63918000A712A /* SetViewSettingsImagePreviewView.swift in Sources */,
 				2A730A732940BE7A00E51335 /* NewSearchCreateButtonModel.swift in Sources */,
 				125683ED27DF4DDF003A8251 /* SelectionIndicatorView.swift in Sources */,
 				C9C536A9276C75F4003CD3F3 /* Assets.swift in Sources */,
@@ -9953,11 +9976,11 @@
 				2AE5C71F29B72B8100A92C12 /* WidgetSourceSearchInteractor.swift in Sources */,
 				2AC906DC29B6276A00209E39 /* ListWidgetModuleAssembly.swift in Sources */,
 				0A78328624BDEB5900A1B6F6 /* MarkupType.swift in Sources */,
-				2E0DAF1E28A26DBD00F43320 /* SetViewSettingsCardSizeViewModel.swift in Sources */,
 				5356072926E61E2E001464A4 /* UnsupportedBlockContentConfiguration.swift in Sources */,
 				5392CACF28469E1000F56F10 /* PasteboardPasteResult.swift in Sources */,
 				1215E8B426A860ED0089AF7E /* AppConfiguratorProtocol.swift in Sources */,
 				861E75F62A5C03E400F18552 /* EditableView.swift in Sources */,
+				2EAA140E2AA63C18000A712A /* EditorSetRelationsCoordinatorAssembly.swift in Sources */,
 				2A945D3E299E3E9D00C34C86 /* PlainList.swift in Sources */,
 				3DDC6A602627071E004F5EA4 /* BlockLinkState.swift in Sources */,
 				2E74AF0829CB4A5100AC3B91 /* SetContentViewItem.swift in Sources */,
@@ -9982,7 +10005,6 @@
 				C9892C3D284E22E2006E3BE3 /* SpreadsheetLayout.swift in Sources */,
 				2E975EF0287C23DA004DE574 /* SetSortsListViewModel.swift in Sources */,
 				2ADD556E2987CDDE009AFCB1 /* LinkWidgetViewModel.swift in Sources */,
-				2E0DAF2528A2723C00F43320 /* SetViewSettingsImagePreviewView.swift in Sources */,
 				C98282382850B3CF00C4E1D4 /* SpreadsheetInvalidationContext.swift in Sources */,
 				12A52E1B26CA88CD000F0333 /* UIEditorBarButtonItem.swift in Sources */,
 				2A2C33232892C63B008BC326 /* RelationValueCoordinatorOutput.swift in Sources */,
@@ -10004,7 +10026,6 @@
 				038A81FD23A0158B00B71388 /* LegacyLoginViewModel.swift in Sources */,
 				2E56F1382A0D43F400031167 /* LoopingPlayerUIView.swift in Sources */,
 				3D93852026FB0B74001C137F /* PageService.swift in Sources */,
-				2E2A23062A9F96FA00745D78 /* SetViewSettingsGroupByModuleAssembly.swift in Sources */,
 				2E0797C52A09678C006F0FD7 /* AuthModuleAssembly.swift in Sources */,
 				3DDD3D1426AED74E00B5673A /* CodeLanguage.swift in Sources */,
 				12D15D1E27F5F6C000D22086 /* RelationOptionsSearchModuleBuilderProtocol.swift in Sources */,
@@ -10021,10 +10042,10 @@
 				12DE405D264AE455007B5074 /* LayoutProperty.swift in Sources */,
 				3D5A415B2703132800F1F6A1 /* SlashActionOther.swift in Sources */,
 				125B6EC526F235F400BCD7D6 /* MentionsViewController.swift in Sources */,
+				2EAA140C2AA63C0B000A712A /* EditorSetRelationsCoordinatorViewModel.swift in Sources */,
 				12636CF6276A0DC70084D35D /* ListCreateButton.swift in Sources */,
 				5386E3C227B3F63E004D8221 /* TextRelationViewSwiftUI.swift in Sources */,
 				124E2BC2273020F500A2D534 /* RelationsListView.swift in Sources */,
-				2E0D0E79289D678200785833 /* EditorSetViewSettingsItem.swift in Sources */,
 				2EE622FC29F2F57D004DBF3E /* SetItemProviderObject.swift in Sources */,
 				3D7EA8A6268EF38D00C76974 /* BlockFileConfiguration.swift in Sources */,
 				535FDE0A27E7E27B0098DBFA /* PasteboardTask.swift in Sources */,
@@ -10098,6 +10119,7 @@
 				3D6E9A43270F2CCC001B0A07 /* BrowserPage.swift in Sources */,
 				2E2D255E28880C8D00E3DFD1 /* SetFiltersSelectionViewModel.swift in Sources */,
 				2A0303A128ABD4C9002EFC46 /* SystemURLServiceProtocol.swift in Sources */,
+				2EAA13FD2AA63918000A712A /* SetViewSettingsImagePreviewViewModel.swift in Sources */,
 				127EABF92739587400C731F2 /* ObjectRelationView.swift in Sources */,
 				3D1B5F4C274BDE5D007D97AE /* SetContentViewItemConfiguration.swift in Sources */,
 				3D44984526D53D61005A3E06 /* EditorPageViewModelProtocol.swift in Sources */,
@@ -10113,7 +10135,6 @@
 				2EDC2AFD2A125C6A0065E009 /* JoinFlowStep.swift in Sources */,
 				12B691D227F4CB5D00A0C336 /* ImageGuideline.swift in Sources */,
 				C9E939D428538B600089CB98 /* TextBlockActionHandler.swift in Sources */,
-				2E0DAF2328A271EA00F43320 /* SetViewSettingsImagePreviewViewModel.swift in Sources */,
 				12FD9D29276717CF00991886 /* RelationTag.swift in Sources */,
 				2A4063672A5DB55600ECEA79 /* PasteboardFile.swift in Sources */,
 				53D4088827EC9EFE00495335 /* ObjectPreviewView.swift in Sources */,
@@ -10161,7 +10182,6 @@
 				2E0A57BA2A3C7C6800359110 /* UsecaseService.swift in Sources */,
 				535FDE2027E8B63A0098DBFA /* PasteboardHelper.swift in Sources */,
 				126C46D726BD966700D31DBF /* ObjectHeaderIcon.swift in Sources */,
-				2E2A22F42A9E327C00745D78 /* SetViewSettingsImagePreviewModuleAssembly.swift in Sources */,
 				3D8A82D82656EDF400C4A9CD /* Popup.swift in Sources */,
 				2A617BCE2A49EC0B00725152 /* CommonWidgetInternalViewModel.swift in Sources */,
 				C9C49A82270499B500D86463 /* CameraPermissionVerifier.swift in Sources */,
@@ -10202,6 +10222,7 @@
 				2AD741292993DB27004BD223 /* BinLinkWidgetViewModel.swift in Sources */,
 				2AE906F1297043A60044A10A /* EditorSetRouter.swift in Sources */,
 				3D1D840F26F4AC330091A78A /* TextTriggerSymbols.swift in Sources */,
+				2EAA14022AA63918000A712A /* SetViewSettingsGroupByModuleAssembly.swift in Sources */,
 				12FD9D2B2767180A00991886 /* RelationUnknown.swift in Sources */,
 				C97B5D6427F499D200EA7E33 /* IndentationSettings.swift in Sources */,
 				C91FAF5F2812C2510055BC4A /* AlertModel.swift in Sources */,
@@ -10210,6 +10231,7 @@
 				C9A4268C28489CC800F388FC /* SimpleTableBlockContentConfiguration.swift in Sources */,
 				2E9221A1294B8D4900968750 /* DataViewBlockView.swift in Sources */,
 				3D07ED6C261F49ED00C007E2 /* DividerBlockViewModel.swift in Sources */,
+				2EAA14052AA63918000A712A /* EditorSetRelationsViewModuleAssembly.swift in Sources */,
 				53FF7C4E26F7DB3C00A5A592 /* AnytypeSharedAudioplayer.swift in Sources */,
 				3D8D41B62742840000F8EBF3 /* DocumentDetaisProvider.swift in Sources */,
 				EA20CDD926122CCF00DBA9FE /* VideoBlockContentViewConfiguration.swift in Sources */,
@@ -10390,13 +10412,13 @@
 				2ADA5EEA28A292D000CD82A4 /* FeatureFlagViewModel.swift in Sources */,
 				1289C51428105493005085E2 /* FileDownloadingView.swift in Sources */,
 				2EC669242A16755A001F71BC /* AuthCustomTransition.swift in Sources */,
-				3D30416A27EA4DC100FFE0EB /* EditorSetViewSettingsView.swift in Sources */,
 				C9D5F7BF281A79F70076A47F /* UICollectionViewCompositionalLayout+BlockLayout.swift in Sources */,
 				03D1516623FB446A004027CE /* MiddlewareConfigurationProvider.swift in Sources */,
 				2AD8AFD72A851CC400F12D54 /* BlockWidgetExpandedService.swift in Sources */,
 				3D30408C27DA92F900FFE0EB /* ObjectHeaderLocalEvent.swift in Sources */,
 				124A60B727130EFD0012FD2D /* ObjectDetailsExtensions.swift in Sources */,
 				533AED8C26CC421F0018E33C /* SwiftUIFont.swift in Sources */,
+				2EAA14032AA63918000A712A /* SetViewSettingsCardSizeViewModel.swift in Sources */,
 				1280E20B265C1A5700E5AEEE /* UIImageExtensions.swift in Sources */,
 				2AA8107229A36412007DD64B /* BrowserBottomPanelManager.swift in Sources */,
 				12FD9D232767177400991886 /* RelationStatus.swift in Sources */,
@@ -10491,6 +10513,7 @@
 				8637768F2A6668680040308E /* TemplatePreviewModel.swift in Sources */,
 				125FD2FE26CE522700D21F5A /* EditorNavigationBarHelperProtocol.swift in Sources */,
 				534D19CB2623BDCC0080AEF0 /* ButtonWithImage.swift in Sources */,
+				2EAA140A2AA63BFF000A712A /* EditorSetRelationsCoordinatorView.swift in Sources */,
 				2A673C1929B0D7CD00E3D672 /* SettingsAccountViewModel.swift in Sources */,
 				3D68564D26E10D2500AA36A9 /* View+Placeholder.swift in Sources */,
 				5386E3BE27B2C8B7004D8221 /* TextRelationViewUIKit.swift in Sources */,
@@ -10552,6 +10575,7 @@
 				125B6EBD26F235F400BCD7D6 /* EditorSearchCellData.swift in Sources */,
 				2E2EA2CE2A543EFE00569E1E /* AnytypeFontConfig.swift in Sources */,
 				EA3D1E4F26CFC0E5001A31D9 /* TextViewAttributeSelectionInteraction.swift in Sources */,
+				2EAA13FE2AA63918000A712A /* SetViewSettingsImagePreviewRowConfiguration.swift in Sources */,
 				2E0797BC2A0965FD006F0FD7 /* JoinFlowCoordinatorAssembly.swift in Sources */,
 				0A74E4FB23A90E8C00B6C406 /* AuthService.swift in Sources */,
 				53F80F0527BD8DAD00E9E12A /* ObjectListRelationViewUIKit.swift in Sources */,

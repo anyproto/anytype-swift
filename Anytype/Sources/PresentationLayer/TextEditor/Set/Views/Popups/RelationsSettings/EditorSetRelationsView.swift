@@ -1,8 +1,8 @@
 import SwiftUI
 import AnytypeCore
 
-struct EditorSetViewSettingsView: View {
-    @ObservedObject var model: EditorSetViewSettingsViewModel
+struct EditorSetRelationsView: View {
+    @StateObject var model: EditorSetRelationsViewModel
     @State private var editMode = EditMode.inactive
     
     var body: some View {

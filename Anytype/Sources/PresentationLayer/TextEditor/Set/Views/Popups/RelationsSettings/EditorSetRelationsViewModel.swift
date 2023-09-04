@@ -5,12 +5,16 @@ import Services
 import AnytypeCore
 import Combine
 
-final class EditorSetViewSettingsViewModel: ObservableObject {
+@MainActor
+final class EditorSetRelationsViewModel: ObservableObject {
     @Published var contentViewType: SetContentViewType = .table
     
     private let setDocument: SetDocumentProtocol
     private let dataviewService: DataviewServiceProtocol
-    private let router: EditorSetRouterProtocol
+    // TODO: Remove router with FeatureFlags.newSetSettings
+    private let router: EditorSetRouterProtocol?
+    
+    private weak var output: EditorSetRelationsCoordinatorOutput?
     
     private var cancellable: Cancellable?
 
@@ -89,9 +93,15 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
         }
     }
     
-    init(setDocument: SetDocumentProtocol, dataviewService: DataviewServiceProtocol, router: EditorSetRouterProtocol) {
+    init(
+        setDocument: SetDocumentProtocol,
+        dataviewService: DataviewServiceProtocol,
+        output: EditorSetRelationsCoordinatorOutput?,
+        router: EditorSetRouterProtocol?
+    ) {
         self.setDocument = setDocument
         self.dataviewService = dataviewService
+        self.output = output
         self.router = router
         self.setup()
     }
@@ -138,7 +148,7 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
     }
     
     func showAddNewRelationView() {
-        router.showAddNewRelationView(document: setDocument.document) { relation, isNew in
+        output?.onAddButtonTap { relation, isNew in
             AnytypeAnalytics.instance().logAddRelation(format: relation.format, isNew: isNew, type: .dataview)
         }
     }
@@ -226,7 +236,7 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
     }
     
     private func showCardSizes() {
-        router.showCardSizes(
+        router?.showCardSizes(
             size: mappedCardSize(),
             onSelect: { [weak self] size in
                 self?.onCardSizeChange(size)
@@ -235,7 +245,7 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
     }
     
     private func showCovers() {
-        router.showCovers(
+        router?.showCovers(
             setDocument: setDocument,
             onSelect: { [weak self] key in
                 self?.onImagePreviewChange(key)
@@ -244,7 +254,7 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
     }
     
     private func showGroupByRelations() {
-        router.showGroupByRelations { [weak self] key in
+        router?.showGroupByRelations { [weak self] key in
             self?.onGroupBySettingChange(key)
         }
     }

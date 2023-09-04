@@ -31,7 +31,7 @@ protocol EditorSetRouterProtocol:
         dataviewService: DataviewServiceProtocol
     )
     
-    func showViewSettings(setDocument: SetDocumentProtocol, dataviewService: DataviewServiceProtocol)
+    func showViewSettings(setDocument: SetDocumentProtocol)
     func showSorts()
     func showFilters(setDocument: SetDocumentProtocol, subscriptionDetailsStorage: ObjectDetailsStorage)
     
@@ -90,6 +90,7 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
     private let setFiltersListCoordinatorAssembly: SetFiltersListCoordinatorAssemblyProtocol
     private let setViewSettingsImagePreviewModuleAssembly: SetViewSettingsImagePreviewModuleAssemblyProtocol
     private let setViewSettingsGroupByModuleAssembly: SetViewSettingsGroupByModuleAssemblyProtocol
+    private let editorSetRelationsCoordinatorAssembly: EditorSetRelationsCoordinatorAssemblyProtocol
     private let toastPresenter: ToastPresenterProtocol
     private let alertHelper: AlertHelper
     private let templateSelectionCoordinator: TemplateSelectionCoordinatorProtocol
@@ -116,6 +117,7 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
         setFiltersListCoordinatorAssembly: SetFiltersListCoordinatorAssemblyProtocol,
         setViewSettingsImagePreviewModuleAssembly: SetViewSettingsImagePreviewModuleAssemblyProtocol,
         setViewSettingsGroupByModuleAssembly: SetViewSettingsGroupByModuleAssemblyProtocol,
+        editorSetRelationsCoordinatorAssembly: EditorSetRelationsCoordinatorAssemblyProtocol,
         toastPresenter: ToastPresenterProtocol,
         alertHelper: AlertHelper,
         templateSelectionCoordinator: TemplateSelectionCoordinatorProtocol
@@ -137,6 +139,7 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
         self.setFiltersListCoordinatorAssembly = setFiltersListCoordinatorAssembly
         self.setViewSettingsImagePreviewModuleAssembly = setViewSettingsImagePreviewModuleAssembly
         self.setViewSettingsGroupByModuleAssembly = setViewSettingsGroupByModuleAssembly
+        self.editorSetRelationsCoordinatorAssembly = editorSetRelationsCoordinatorAssembly
         self.toastPresenter = toastPresenter
         self.alertHelper = alertHelper
         self.templateSelectionCoordinator = templateSelectionCoordinator
@@ -263,16 +266,9 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
         navigationContext.present(vc)
     }
 
-    
-    func showViewSettings(setDocument: SetDocumentProtocol, dataviewService: DataviewServiceProtocol) {
-        let viewModel = EditorSetViewSettingsViewModel(
-            setDocument: setDocument,
-            dataviewService: dataviewService,
-            router: self
-        )
-        let view = EditorSetViewSettingsView(
-            model: viewModel
-        )
+    @MainActor
+    func showViewSettings(setDocument: SetDocumentProtocol) {
+        let view = editorSetRelationsCoordinatorAssembly.make(with: setDocument)
         navigationContext.presentSwiftUIView(view: view)
     }
     
