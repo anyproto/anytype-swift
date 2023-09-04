@@ -17,9 +17,14 @@ final class SetViewSettingsListModuleAssembly: SetViewSettingsListModuleAssembly
     
     @MainActor
     func make(setDocument: SetDocumentProtocol, output: SetViewSettingsCoordinatorOutput?) -> AnyView {
+        let dataviewService = serviceLocator.dataviewService(
+            objectId: setDocument.objectId,
+            blockId: setDocument.blockId
+        )
         return SetViewSettingsList(
             model: SetViewSettingsListModel(
                 setDocument: setDocument,
+                dataviewService: dataviewService,
                 output: output
             )
         ).eraseToAnyView()
