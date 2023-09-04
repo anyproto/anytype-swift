@@ -2,21 +2,21 @@ import SwiftUI
 import Services
 
 @MainActor
-protocol EditorSetRelationsCoordinatorOutput: AnyObject {
+protocol SetRelationsCoordinatorOutput: AnyObject {
     func onAddButtonTap(completion: @escaping (RelationDetails, _ isNew: Bool) -> Void)
 }
 
 @MainActor
-final class EditorSetRelationsCoordinatorViewModel: ObservableObject, EditorSetRelationsCoordinatorOutput {
+final class SetRelationsCoordinatorViewModel: ObservableObject, SetRelationsCoordinatorOutput {
     @Published var addRelationsData: AddRelationsData?
     
     private let setDocument: SetDocumentProtocol
-    private let setRelationsViewModuleAssembly: EditorSetRelationsViewModuleAssemblyProtocol
+    private let setRelationsViewModuleAssembly: SetRelationsViewModuleAssemblyProtocol
     private let addNewRelationCoordinator: AddNewRelationCoordinatorProtocol
     
     init(
         setDocument: SetDocumentProtocol,
-        setRelationsViewModuleAssembly: EditorSetRelationsViewModuleAssemblyProtocol,
+        setRelationsViewModuleAssembly: SetRelationsViewModuleAssemblyProtocol,
         addNewRelationCoordinator: AddNewRelationCoordinatorProtocol
     ) {
         self.setDocument = setDocument
@@ -48,7 +48,7 @@ final class EditorSetRelationsCoordinatorViewModel: ObservableObject, EditorSetR
     }
 }
 
-extension EditorSetRelationsCoordinatorViewModel {
+extension SetRelationsCoordinatorViewModel {
     struct AddRelationsData: Identifiable {
         let id = UUID()
         let completion: (RelationDetails, _ isNew: Bool) -> Void

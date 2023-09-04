@@ -130,7 +130,7 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
         SetLayoutSettingsCoordinatorAssembly(modulesDI: modulesDI)
     }
     
-    func setRelations() -> EditorSetRelationsCoordinatorAssemblyProtocol {
-        EditorSetRelationsCoordinatorAssembly(modulesDI: modulesDI, coordinatorsDI: self)
+    func setRelations() -> SetRelationsCoordinatorAssemblyProtocol {
+        SetRelationsCoordinatorAssembly(modulesDI: modulesDI, coordinatorsDI: self)
     }
 }

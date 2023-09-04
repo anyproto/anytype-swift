@@ -6,7 +6,7 @@ import AnytypeCore
 import Combine
 
 @MainActor
-final class EditorSetRelationsViewModel: ObservableObject {
+final class SetRelationsViewModel: ObservableObject {
     @Published var contentViewType: SetContentViewType = .table
     
     private let setDocument: SetDocumentProtocol
@@ -14,12 +14,12 @@ final class EditorSetRelationsViewModel: ObservableObject {
     // TODO: Remove router with FeatureFlags.newSetSettings
     private let router: EditorSetRouterProtocol?
     
-    private weak var output: EditorSetRelationsCoordinatorOutput?
+    private weak var output: SetRelationsCoordinatorOutput?
     
     private var cancellable: Cancellable?
 
-    var cardSizeSetting: EditorSetViewSettingsValueItem {
-        EditorSetViewSettingsValueItem(
+    var cardSizeSetting: SetViewSettingsValueItem {
+        SetViewSettingsValueItem(
             title: Loc.Set.View.Settings.CardSize.title,
             value: setDocument.activeView.cardSize.value,
             onTap: { [weak self] in
@@ -28,8 +28,8 @@ final class EditorSetRelationsViewModel: ObservableObject {
         )
     }
     
-    var iconSetting: EditorSetViewSettingsToggleItem {
-        EditorSetViewSettingsToggleItem(
+    var iconSetting: SetViewSettingsToggleItem {
+        SetViewSettingsToggleItem(
             title: Loc.icon,
             isSelected: !setDocument.activeView.hideIcon,
             onChange: { [weak self] show in
@@ -38,8 +38,8 @@ final class EditorSetRelationsViewModel: ObservableObject {
         )
     }
     
-    var imagePreviewSetting: EditorSetViewSettingsValueItem {
-        EditorSetViewSettingsValueItem(
+    var imagePreviewSetting: SetViewSettingsValueItem {
+        SetViewSettingsValueItem(
             title: Loc.Set.View.Settings.ImagePreview.title,
             value: imagePreviewValue(),
             onTap: { [weak self] in
@@ -48,8 +48,8 @@ final class EditorSetRelationsViewModel: ObservableObject {
         )
     }
     
-    var coverFitSetting: EditorSetViewSettingsToggleItem {
-        EditorSetViewSettingsToggleItem(
+    var coverFitSetting: SetViewSettingsToggleItem {
+        SetViewSettingsToggleItem(
             title: Loc.Set.View.Settings.ImageFit.title,
             isSelected: setDocument.activeView.coverFit,
             onChange: { [weak self] fit in
@@ -58,8 +58,8 @@ final class EditorSetRelationsViewModel: ObservableObject {
         )
     }
     
-    var groupBySetting: EditorSetViewSettingsValueItem {
-        EditorSetViewSettingsValueItem(
+    var groupBySetting: SetViewSettingsValueItem {
+        SetViewSettingsValueItem(
             title: Loc.Set.View.Settings.GroupBy.title,
             value: groupByValue(with: setDocument.activeView.groupRelationKey),
             onTap: { [weak self] in
@@ -68,8 +68,8 @@ final class EditorSetRelationsViewModel: ObservableObject {
         )
     }
     
-    var groupBackgroundColorsSetting: EditorSetViewSettingsToggleItem {
-        EditorSetViewSettingsToggleItem(
+    var groupBackgroundColorsSetting: SetViewSettingsToggleItem {
+        SetViewSettingsToggleItem(
             title: Loc.Set.View.Settings.GroupBackgroundColors.title,
             isSelected: setDocument.activeView.groupBackgroundColors,
             onChange: { [weak self] colored in
@@ -78,9 +78,9 @@ final class EditorSetRelationsViewModel: ObservableObject {
         )
     }
     
-    var relations: [EditorSetViewSettingsRelation] {
+    var relations: [SetViewSettingsRelation] {
         setDocument.sortedRelations.map { relation in
-            EditorSetViewSettingsRelation(
+            SetViewSettingsRelation(
                 id: relation.id,
                 image: relation.relationDetails.format.iconAsset,
                 title: relation.relationDetails.name,
@@ -96,7 +96,7 @@ final class EditorSetRelationsViewModel: ObservableObject {
     init(
         setDocument: SetDocumentProtocol,
         dataviewService: DataviewServiceProtocol,
-        output: EditorSetRelationsCoordinatorOutput?,
+        output: SetRelationsCoordinatorOutput?,
         router: EditorSetRouterProtocol?
     ) {
         self.setDocument = setDocument

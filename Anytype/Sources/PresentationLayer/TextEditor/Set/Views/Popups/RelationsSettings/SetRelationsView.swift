@@ -1,8 +1,8 @@
 import SwiftUI
 import AnytypeCore
 
-struct EditorSetRelationsView: View {
-    @StateObject var model: EditorSetRelationsViewModel
+struct SetRelationsView: View {
+    @StateObject var model: SetRelationsViewModel
     @State private var editMode = EditMode.inactive
     
     var body: some View {
@@ -81,7 +81,7 @@ struct EditorSetRelationsView: View {
         }
     }
     
-    private func valueSetting(with model: EditorSetViewSettingsValueItem) -> some View {
+    private func valueSetting(with model: SetViewSettingsValueItem) -> some View {
         Button {
             model.onTap()
         } label: {
@@ -99,7 +99,7 @@ struct EditorSetRelationsView: View {
         .divider()
     }
     
-    private func toggleSettings(with model: EditorSetViewSettingsToggleItem) -> some View {
+    private func toggleSettings(with model: SetViewSettingsToggleItem) -> some View {
         AnytypeToggle(
             title: model.title,
             isOn: model.isSelected
@@ -124,7 +124,7 @@ struct EditorSetRelationsView: View {
         }
     }
     
-    private func relationRow(_ relation: EditorSetViewSettingsRelation) -> some View {
+    private func relationRow(_ relation: SetViewSettingsRelation) -> some View {
         HStack(spacing: 0) {
             Image(asset: relation.image)
                 .foregroundColor(.Button.active)

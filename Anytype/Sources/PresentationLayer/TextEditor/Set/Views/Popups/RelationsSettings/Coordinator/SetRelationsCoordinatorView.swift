@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct SetRelationsCoordinatorView: View {
-    @StateObject var model: EditorSetRelationsCoordinatorViewModel
+    @StateObject var model: SetRelationsCoordinatorViewModel
     
     var body: some View {
         model.list()

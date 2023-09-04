@@ -1,12 +1,12 @@
 import SwiftUI
 import Services
 
-protocol EditorSetRelationsCoordinatorAssemblyProtocol {
+protocol SetRelationsCoordinatorAssemblyProtocol {
     @MainActor
     func make(with setDocument: SetDocumentProtocol) -> AnyView
 }
 
-final class EditorSetRelationsCoordinatorAssembly: EditorSetRelationsCoordinatorAssemblyProtocol {
+final class SetRelationsCoordinatorAssembly: SetRelationsCoordinatorAssemblyProtocol {
     
     private let modulesDI: ModulesDIProtocol
     private let coordinatorsDI: CoordinatorsDIProtocol
@@ -20,8 +20,8 @@ final class EditorSetRelationsCoordinatorAssembly: EditorSetRelationsCoordinator
     
     @MainActor
     func make(with setDocument: SetDocumentProtocol) -> AnyView {
-        return EditorSetRelationsCoordinatorView(
-            model: EditorSetRelationsCoordinatorViewModel(
+        return SetRelationsCoordinatorView(
+            model: SetRelationsCoordinatorViewModel(
                 setDocument: setDocument,
                 setRelationsViewModuleAssembly: self.modulesDI.setRelationsView(),
                 addNewRelationCoordinator: self.coordinatorsDI.addNewRelation().make()

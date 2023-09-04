@@ -1,16 +1,16 @@
 import SwiftUI
 
-protocol EditorSetRelationsViewModuleAssemblyProtocol {
+protocol SetRelationsViewModuleAssemblyProtocol {
     @MainActor
     // TODO: Remove router with FeatureFlags.newSetSettings
     func make(
         setDocument: SetDocumentProtocol,
-        output: EditorSetRelationsCoordinatorOutput?,
+        output: SetRelationsCoordinatorOutput?,
         router: EditorSetRouterProtocol?
     ) -> AnyView
 }
 
-final class EditorSetRelationsViewModuleAssembly: EditorSetRelationsViewModuleAssemblyProtocol {
+final class SetRelationsViewModuleAssembly: SetRelationsViewModuleAssemblyProtocol {
     
     private let serviceLocator: ServiceLocator
     
@@ -23,15 +23,15 @@ final class EditorSetRelationsViewModuleAssembly: EditorSetRelationsViewModuleAs
     @MainActor
     func make(
         setDocument: SetDocumentProtocol,
-        output: EditorSetRelationsCoordinatorOutput?,
+        output: SetRelationsCoordinatorOutput?,
         router: EditorSetRouterProtocol?
     ) -> AnyView {
         let dataviewService = serviceLocator.dataviewService(
             objectId: setDocument.objectId,
             blockId: setDocument.blockId
         )
-        return EditorSetRelationsView(
-            model: EditorSetRelationsViewModel(
+        return SetRelationsView(
+            model: SetRelationsViewModel(
                 setDocument: setDocument,
                 dataviewService: dataviewService,
                 output: output,

@@ -1,7 +1,7 @@
-enum EditorSetViewSettingsItem: Identifiable, Equatable {
-    case value(EditorSetViewSettingsValueItem)
-    case toggle(EditorSetViewSettingsToggleItem)
-    case context(EditorSetViewSettingsContextItem)
+enum SetViewSettingsItem: Identifiable, Equatable {
+    case value(SetViewSettingsValueItem)
+    case toggle(SetViewSettingsToggleItem)
+    case context(SetViewSettingsContextItem)
     
     var id: String {
         switch self {
@@ -15,19 +15,19 @@ enum EditorSetViewSettingsItem: Identifiable, Equatable {
     }
 }
 
-struct EditorSetViewSettingsValueItem: Equatable {
+struct SetViewSettingsValueItem: Equatable {
     let title: String
     let value: String
     @EquatableNoop var onTap: () -> Void
 }
 
-struct EditorSetViewSettingsToggleItem: Equatable {
+struct SetViewSettingsToggleItem: Equatable {
     let title: String
     let isSelected: Bool
     @EquatableNoop var onChange: (Bool) -> Void
 }
 
-struct EditorSetViewSettingsContextItem: Equatable {
+struct SetViewSettingsContextItem: Equatable {
     let title: String
     let value: String
     let options: [Option]

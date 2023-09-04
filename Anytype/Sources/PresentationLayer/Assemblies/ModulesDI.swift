@@ -214,7 +214,7 @@ final class ModulesDI: ModulesDIProtocol {
         SetViewSettingsGroupByModuleAssembly()
     }
     
-    func setRelationsView() -> EditorSetRelationsViewModuleAssemblyProtocol {
-        EditorSetRelationsViewModuleAssembly(serviceLocator: serviceLocator)
+    func setRelationsView() -> SetRelationsViewModuleAssemblyProtocol {
+        SetRelationsViewModuleAssembly(serviceLocator: serviceLocator)
     }
 }
