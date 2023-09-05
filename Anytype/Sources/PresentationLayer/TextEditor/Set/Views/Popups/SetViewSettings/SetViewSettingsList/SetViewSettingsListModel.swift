@@ -83,11 +83,12 @@ final class SetViewSettingsListModel: ObservableObject {
     }
     
     private func setupSubscriptions() {
-        setDocument.activeViewPublisher.sink { [weak self] activeView in
-            self?.name = activeView.name
-            self?.layoutValue = activeView.type.name
-            self?.updateRelationsValue()
-        }.store(in: &cancellables)
+        Publishers.CombineLatest(setDocument.activeViewPublisher, setDocument.syncPublisher)
+            .sink { [weak self] activeView, _ in
+                self?.name = activeView.name
+                self?.layoutValue = activeView.type.name
+                self?.updateRelationsValue()
+            }.store(in: &cancellables)
         
         setDocument.filtersPublisher.sink { [weak self] filters in
             self?.updateFiltersValue(filters)
