@@ -21,7 +21,11 @@ public struct DataviewView: Hashable, Identifiable {
     public let defaultObjectTypeID: BlockId?
     
     public var defaultObjectTypeIDWithFallback: BlockId {
-        defaultObjectTypeID ?? ObjectTypeId.BundledTypeId.page.rawValue
+        if let defaultObjectTypeID, defaultObjectTypeID.isNotEmpty {
+            return defaultObjectTypeID
+        } else {
+            return ObjectTypeId.BundledTypeId.page.rawValue
+        }
     }
 
     public static var empty: DataviewView {
