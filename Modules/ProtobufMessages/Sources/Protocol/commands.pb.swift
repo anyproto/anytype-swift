@@ -93,9 +93,6 @@ public struct Anytype_Rpc {
             case null // = 0
             case unknownError // = 1
             case badInput // = 2
-            case versionIsEmpty // = 3
-            case notFound // = 101
-            case timeout // = 102
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -107,9 +104,6 @@ public struct Anytype_Rpc {
               case 0: self = .null
               case 1: self = .unknownError
               case 2: self = .badInput
-              case 3: self = .versionIsEmpty
-              case 101: self = .notFound
-              case 102: self = .timeout
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -119,9 +113,6 @@ public struct Anytype_Rpc {
               case .null: return 0
               case .unknownError: return 1
               case .badInput: return 2
-              case .versionIsEmpty: return 3
-              case .notFound: return 101
-              case .timeout: return 102
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -218,7 +209,6 @@ public struct Anytype_Rpc {
             case null // = 0
             case unknownError // = 1
             case badInput // = 2
-            case nodeNotStarted // = 101
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -230,7 +220,6 @@ public struct Anytype_Rpc {
               case 0: self = .null
               case 1: self = .unknownError
               case 2: self = .badInput
-              case 101: self = .nodeNotStarted
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -240,7 +229,6 @@ public struct Anytype_Rpc {
               case .null: return 0
               case .unknownError: return 1
               case .badInput: return 2
-              case .nodeNotStarted: return 101
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -307,7 +295,6 @@ public struct Anytype_Rpc {
             case null // = 0
             case unknownError // = 1
             case badInput // = 2
-            case nodeNotStarted // = 101
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -319,7 +306,6 @@ public struct Anytype_Rpc {
               case 0: self = .null
               case 1: self = .unknownError
               case 2: self = .badInput
-              case 101: self = .nodeNotStarted
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -329,7 +315,6 @@ public struct Anytype_Rpc {
               case .null: return 0
               case .unknownError: return 1
               case .badInput: return 2
-              case .nodeNotStarted: return 101
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -907,6 +892,7 @@ public struct Anytype_Rpc {
         /// Account name
         public var name: String = String()
 
+        ///TODO: Remove if not needed, GO-1926
         public var avatar: Anytype_Rpc.Account.Create.Request.OneOf_Avatar? = nil
 
         /// Path to an image, that will be used as an avatar of this account
@@ -929,6 +915,7 @@ public struct Anytype_Rpc {
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
+        ///TODO: Remove if not needed, GO-1926
         public enum OneOf_Avatar: Equatable {
           /// Path to an image, that will be used as an avatar of this account
           case avatarLocalPath(String)
@@ -978,7 +965,7 @@ public struct Anytype_Rpc {
         /// Clears the value of `account`. Subsequent reads from it will return its default value.
         public mutating func clearAccount() {self._account = nil}
 
-        /// deprecated, use account
+        /// deprecated, use account, GO-1926
         public var config: Anytype_Rpc.Account.Config {
           get {return _config ?? Anytype_Rpc.Account.Config()}
           set {_config = newValue}
@@ -1014,20 +1001,9 @@ public struct Anytype_Rpc {
             case badInput // = 2
             case accountCreatedButFailedToStartNode // = 101
             case accountCreatedButFailedToSetName // = 102
-            case accountCreatedButFailedToSetAvatar // = 103
             case failedToStopRunningNode // = 104
             case failedToWriteConfig // = 105
             case failedToCreateLocalRepo // = 106
-            case badInviteCode // = 900
-
-            /// means general network error
-            case netError // = 901
-
-            /// means we wasn't able to connect to the cafe server
-            case netConnectionRefused // = 902
-
-            /// client can additionally support this error code to notify user that device is offline
-            case netOffline // = 903
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -1041,14 +1017,9 @@ public struct Anytype_Rpc {
               case 2: self = .badInput
               case 101: self = .accountCreatedButFailedToStartNode
               case 102: self = .accountCreatedButFailedToSetName
-              case 103: self = .accountCreatedButFailedToSetAvatar
               case 104: self = .failedToStopRunningNode
               case 105: self = .failedToWriteConfig
               case 106: self = .failedToCreateLocalRepo
-              case 900: self = .badInviteCode
-              case 901: self = .netError
-              case 902: self = .netConnectionRefused
-              case 903: self = .netOffline
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -1060,14 +1031,9 @@ public struct Anytype_Rpc {
               case .badInput: return 2
               case .accountCreatedButFailedToStartNode: return 101
               case .accountCreatedButFailedToSetName: return 102
-              case .accountCreatedButFailedToSetAvatar: return 103
               case .failedToStopRunningNode: return 104
               case .failedToWriteConfig: return 105
               case .failedToCreateLocalRepo: return 106
-              case .badInviteCode: return 900
-              case .netError: return 901
-              case .netConnectionRefused: return 902
-              case .netOffline: return 903
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -1146,14 +1112,7 @@ public struct Anytype_Rpc {
             /// Any other errors
             case unknownError // = 1
             case badInput // = 2
-            case noAccountsFound // = 101
             case needToRecoverWalletFirst // = 102
-            case failedToCreateLocalRepo // = 103
-            case localRepoExistsButCorrupted // = 104
-            case failedToRunNode // = 105
-            case walletRecoverNotPerformed // = 106
-            case failedToStopRunningNode // = 107
-            case anotherAnytypeProcessIsRunning // = 108
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -1165,14 +1124,7 @@ public struct Anytype_Rpc {
               case 0: self = .null
               case 1: self = .unknownError
               case 2: self = .badInput
-              case 101: self = .noAccountsFound
               case 102: self = .needToRecoverWalletFirst
-              case 103: self = .failedToCreateLocalRepo
-              case 104: self = .localRepoExistsButCorrupted
-              case 105: self = .failedToRunNode
-              case 106: self = .walletRecoverNotPerformed
-              case 107: self = .failedToStopRunningNode
-              case 108: self = .anotherAnytypeProcessIsRunning
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -1182,14 +1134,7 @@ public struct Anytype_Rpc {
               case .null: return 0
               case .unknownError: return 1
               case .badInput: return 2
-              case .noAccountsFound: return 101
               case .needToRecoverWalletFirst: return 102
-              case .failedToCreateLocalRepo: return 103
-              case .localRepoExistsButCorrupted: return 104
-              case .failedToRunNode: return 105
-              case .walletRecoverNotPerformed: return 106
-              case .failedToStopRunningNode: return 107
-              case .anotherAnytypeProcessIsRunning: return 108
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -1372,7 +1317,7 @@ public struct Anytype_Rpc {
         /// Clears the value of `account`. Subsequent reads from it will return its default value.
         public mutating func clearAccount() {self._account = nil}
 
-        /// deprecated, use account
+        /// deprecated, use account, GO-1926
         public var config: Anytype_Rpc.Account.Config {
           get {return _config ?? Anytype_Rpc.Account.Config()}
           set {_config = newValue}
@@ -1412,10 +1357,9 @@ public struct Anytype_Rpc {
             case failedToFindAccountInfo // = 104
             case localRepoNotExistsAndMnemonicNotSet // = 105
             case failedToStopSearcherNode // = 106
-            case failedToRecoverPredefinedBlocks // = 107
             case anotherAnytypeProcessIsRunning // = 108
-            case accountIsDeleted // = 109
             case failedToFetchRemoteNodeHasIncompatibleProtoVersion // = 110
+            case accountIsDeleted // = 111
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -1433,10 +1377,9 @@ public struct Anytype_Rpc {
               case 104: self = .failedToFindAccountInfo
               case 105: self = .localRepoNotExistsAndMnemonicNotSet
               case 106: self = .failedToStopSearcherNode
-              case 107: self = .failedToRecoverPredefinedBlocks
               case 108: self = .anotherAnytypeProcessIsRunning
-              case 109: self = .accountIsDeleted
               case 110: self = .failedToFetchRemoteNodeHasIncompatibleProtoVersion
+              case 111: self = .accountIsDeleted
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -1452,10 +1395,9 @@ public struct Anytype_Rpc {
               case .failedToFindAccountInfo: return 104
               case .localRepoNotExistsAndMnemonicNotSet: return 105
               case .failedToStopSearcherNode: return 106
-              case .failedToRecoverPredefinedBlocks: return 107
               case .anotherAnytypeProcessIsRunning: return 108
-              case .accountIsDeleted: return 109
               case .failedToFetchRemoteNodeHasIncompatibleProtoVersion: return 110
+              case .accountIsDeleted: return 111
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -1852,7 +1794,6 @@ public struct Anytype_Rpc {
             case badInput // = 2
             case accountIsNotRunning // = 101
             case failedToWriteConfig // = 102
-            case failedToGetConfig // = 103
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -1866,7 +1807,6 @@ public struct Anytype_Rpc {
               case 2: self = .badInput
               case 101: self = .accountIsNotRunning
               case 102: self = .failedToWriteConfig
-              case 103: self = .failedToGetConfig
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -1878,7 +1818,6 @@ public struct Anytype_Rpc {
               case .badInput: return 2
               case .accountIsNotRunning: return 101
               case .failedToWriteConfig: return 102
-              case .failedToGetConfig: return 103
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -1896,6 +1835,7 @@ public struct Anytype_Rpc {
       public init() {}
     }
 
+    ///TODO: Remove this request if we do not need it, GO-1926
     public struct GetConfig {
       // SwiftProtobuf.Message conformance is added in an extension below. See the
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -3113,7 +3053,7 @@ public struct Anytype_Rpc {
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
-        /// deprecated
+        /// deprecated, GO-1926
         public var contextID: String = String()
 
         public var objectID: String = String()
@@ -3206,7 +3146,7 @@ public struct Anytype_Rpc {
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
-        /// deprecated
+        /// deprecated, GO-1926
         public var contextID: String = String()
 
         public var objectID: String = String()
@@ -3967,10 +3907,9 @@ public struct Anytype_Rpc {
             public typealias RawValue = Int
             case null // = 0
             case unknownError // = 1
-            case badInput // = 2
 
             /// ...
-            case unknownObjectTypeURL // = 3
+            case badInput // = 2
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -3982,7 +3921,6 @@ public struct Anytype_Rpc {
               case 0: self = .null
               case 1: self = .unknownError
               case 2: self = .badInput
-              case 3: self = .unknownObjectTypeURL
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -3992,7 +3930,6 @@ public struct Anytype_Rpc {
               case .null: return 0
               case .unknownError: return 1
               case .badInput: return 2
-              case .unknownObjectTypeURL: return 3
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -4302,7 +4239,7 @@ public struct Anytype_Rpc {
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
-        /// deprecated
+        /// deprecated, GO-1926
         public var contextID: String = String()
 
         public var traceID: String = String()
@@ -5869,7 +5806,6 @@ public struct Anytype_Rpc {
             case null // = 0
             case unknownError // = 1
             case badInput // = 2
-            case unknownObjectTypeURL // = 3
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -5881,7 +5817,6 @@ public struct Anytype_Rpc {
               case 0: self = .null
               case 1: self = .unknownError
               case 2: self = .badInput
-              case 3: self = .unknownObjectTypeURL
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -5891,7 +5826,6 @@ public struct Anytype_Rpc {
               case .null: return 0
               case .unknownError: return 1
               case .badInput: return 2
-              case .unknownObjectTypeURL: return 3
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -5972,7 +5906,6 @@ public struct Anytype_Rpc {
             case null // = 0
             case unknownError // = 1
             case badInput // = 2
-            case unknownObjectTypeURL // = 3
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -5984,7 +5917,6 @@ public struct Anytype_Rpc {
               case 0: self = .null
               case 1: self = .unknownError
               case 2: self = .badInput
-              case 3: self = .unknownObjectTypeURL
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -5994,7 +5926,6 @@ public struct Anytype_Rpc {
               case .null: return 0
               case .unknownError: return 1
               case .badInput: return 2
-              case .unknownObjectTypeURL: return 3
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -6995,7 +6926,6 @@ public struct Anytype_Rpc {
             case null // = 0
             case unknownError // = 1
             case badInput // = 2
-            case unknownObjectTypeURL // = 3
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -7007,7 +6937,6 @@ public struct Anytype_Rpc {
               case 0: self = .null
               case 1: self = .unknownError
               case 2: self = .badInput
-              case 3: self = .unknownObjectTypeURL
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -7017,7 +6946,6 @@ public struct Anytype_Rpc {
               case .null: return 0
               case .unknownError: return 1
               case .badInput: return 2
-              case .unknownObjectTypeURL: return 3
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -7681,10 +7609,9 @@ public struct Anytype_Rpc {
           public enum Code: SwiftProtobuf.Enum {
             public typealias RawValue = Int
             case null // = 0
-            case internalError // = 1
-            case unknownError // = 2
-            case badInput // = 3
-            case accountIsNotRunning // = 4
+            case unknownError // = 1
+            case badInput // = 2
+            case internalError // = 3
             case noObjectsToImport // = 5
             case importIsCanceled // = 6
             case limitOfRowsOrRelationsExceeded // = 7
@@ -7697,10 +7624,9 @@ public struct Anytype_Rpc {
             public init?(rawValue: Int) {
               switch rawValue {
               case 0: self = .null
-              case 1: self = .internalError
-              case 2: self = .unknownError
-              case 3: self = .badInput
-              case 4: self = .accountIsNotRunning
+              case 1: self = .unknownError
+              case 2: self = .badInput
+              case 3: self = .internalError
               case 5: self = .noObjectsToImport
               case 6: self = .importIsCanceled
               case 7: self = .limitOfRowsOrRelationsExceeded
@@ -7711,10 +7637,9 @@ public struct Anytype_Rpc {
             public var rawValue: Int {
               switch self {
               case .null: return 0
-              case .internalError: return 1
-              case .unknownError: return 2
-              case .badInput: return 3
-              case .accountIsNotRunning: return 4
+              case .unknownError: return 1
+              case .badInput: return 2
+              case .internalError: return 3
               case .noObjectsToImport: return 5
               case .importIsCanceled: return 6
               case .limitOfRowsOrRelationsExceeded: return 7
@@ -7788,10 +7713,10 @@ public struct Anytype_Rpc {
               public enum Code: SwiftProtobuf.Enum {
                 public typealias RawValue = Int
                 case null // = 0
-                case internalError // = 1
-                case unauthorized // = 2
-                case unknownError // = 3
-                case badInput // = 4
+                case unknownError // = 1
+                case badInput // = 2
+                case internalError // = 3
+                case unauthorized // = 4
                 case forbidden // = 5
                 case serviceUnavailable // = 6
                 case accountIsNotRunning // = 7
@@ -7804,10 +7729,10 @@ public struct Anytype_Rpc {
                 public init?(rawValue: Int) {
                   switch rawValue {
                   case 0: self = .null
-                  case 1: self = .internalError
-                  case 2: self = .unauthorized
-                  case 3: self = .unknownError
-                  case 4: self = .badInput
+                  case 1: self = .unknownError
+                  case 2: self = .badInput
+                  case 3: self = .internalError
+                  case 4: self = .unauthorized
                   case 5: self = .forbidden
                   case 6: self = .serviceUnavailable
                   case 7: self = .accountIsNotRunning
@@ -7818,10 +7743,10 @@ public struct Anytype_Rpc {
                 public var rawValue: Int {
                   switch self {
                   case .null: return 0
-                  case .internalError: return 1
-                  case .unauthorized: return 2
-                  case .unknownError: return 3
-                  case .badInput: return 4
+                  case .unknownError: return 1
+                  case .badInput: return 2
+                  case .internalError: return 3
+                  case .unauthorized: return 4
                   case .forbidden: return 5
                   case .serviceUnavailable: return 6
                   case .accountIsNotRunning: return 7
@@ -7897,9 +7822,9 @@ public struct Anytype_Rpc {
           public enum Code: SwiftProtobuf.Enum {
             public typealias RawValue = Int
             case null // = 0
-            case internalError // = 1
-            case unknownError // = 2
-            case badInput // = 3
+            case unknownError // = 1
+            case badInput // = 2
+            case internalError // = 3
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -7909,9 +7834,9 @@ public struct Anytype_Rpc {
             public init?(rawValue: Int) {
               switch rawValue {
               case 0: self = .null
-              case 1: self = .internalError
-              case 2: self = .unknownError
-              case 3: self = .badInput
+              case 1: self = .unknownError
+              case 2: self = .badInput
+              case 3: self = .internalError
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -7919,9 +7844,9 @@ public struct Anytype_Rpc {
             public var rawValue: Int {
               switch self {
               case .null: return 0
-              case .internalError: return 1
-              case .unknownError: return 2
-              case .badInput: return 3
+              case .unknownError: return 1
+              case .badInput: return 2
+              case .internalError: return 3
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -8007,6 +7932,7 @@ public struct Anytype_Rpc {
           case personalProjects // = 1
           case knowledgeBase // = 2
           case notesDiary // = 3
+          case strategicWriting // = 4
           case UNRECOGNIZED(Int)
 
           public init() {
@@ -8019,6 +7945,7 @@ public struct Anytype_Rpc {
             case 1: self = .personalProjects
             case 2: self = .knowledgeBase
             case 3: self = .notesDiary
+            case 4: self = .strategicWriting
             default: self = .UNRECOGNIZED(rawValue)
             }
           }
@@ -8029,6 +7956,7 @@ public struct Anytype_Rpc {
             case .personalProjects: return 1
             case .knowledgeBase: return 2
             case .notesDiary: return 3
+            case .strategicWriting: return 4
             case .UNRECOGNIZED(let i): return i
             }
           }
@@ -8997,10 +8925,9 @@ public struct Anytype_Rpc {
               case null // = 0
               case unknownError // = 1
               case badInput // = 2
-              case unknownObjectTypeURL // = 3
 
               /// ...
-              case readonlyObjectType // = 4
+              case readonlyObjectType // = 3
               case UNRECOGNIZED(Int)
 
               public init() {
@@ -9012,8 +8939,7 @@ public struct Anytype_Rpc {
                 case 0: self = .null
                 case 1: self = .unknownError
                 case 2: self = .badInput
-                case 3: self = .unknownObjectTypeURL
-                case 4: self = .readonlyObjectType
+                case 3: self = .readonlyObjectType
                 default: self = .UNRECOGNIZED(rawValue)
                 }
               }
@@ -9023,8 +8949,7 @@ public struct Anytype_Rpc {
                 case .null: return 0
                 case .unknownError: return 1
                 case .badInput: return 2
-                case .unknownObjectTypeURL: return 3
-                case .readonlyObjectType: return 4
+                case .readonlyObjectType: return 3
                 case .UNRECOGNIZED(let i): return i
                 }
               }
@@ -9095,10 +9020,9 @@ public struct Anytype_Rpc {
               case null // = 0
               case unknownError // = 1
               case badInput // = 2
-              case unknownObjectTypeURL // = 3
 
               /// ...
-              case readonlyObjectType // = 4
+              case readonlyObjectType // = 3
               case UNRECOGNIZED(Int)
 
               public init() {
@@ -9110,8 +9034,7 @@ public struct Anytype_Rpc {
                 case 0: self = .null
                 case 1: self = .unknownError
                 case 2: self = .badInput
-                case 3: self = .unknownObjectTypeURL
-                case 4: self = .readonlyObjectType
+                case 3: self = .readonlyObjectType
                 default: self = .UNRECOGNIZED(rawValue)
                 }
               }
@@ -9121,8 +9044,7 @@ public struct Anytype_Rpc {
                 case .null: return 0
                 case .unknownError: return 1
                 case .badInput: return 2
-                case .unknownObjectTypeURL: return 3
-                case .readonlyObjectType: return 4
+                case .readonlyObjectType: return 3
                 case .UNRECOGNIZED(let i): return i
                 }
               }
@@ -9851,7 +9773,6 @@ public struct Anytype_Rpc {
 
             /// ...
             case nodeNotStarted // = 103
-            case fileNotYetPinned // = 104
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -9864,7 +9785,6 @@ public struct Anytype_Rpc {
               case 1: self = .unknownError
               case 2: self = .badInput
               case 103: self = .nodeNotStarted
-              case 104: self = .fileNotYetPinned
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -9875,7 +9795,6 @@ public struct Anytype_Rpc {
               case .unknownError: return 1
               case .badInput: return 2
               case .nodeNotStarted: return 103
-              case .fileNotYetPinned: return 104
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -10012,7 +9931,7 @@ public struct Anytype_Rpc {
 
         public var type: Anytype_Model_Block.Content.File.TypeEnum = .none
 
-        /// deprecated, has no affect
+        /// deprecated, has no affect, GO-1926
         public var disableEncryption: Bool = false
 
         public var style: Anytype_Model_Block.Content.File.Style = .auto
@@ -10149,7 +10068,6 @@ public struct Anytype_Rpc {
             case null // = 0
             case unknownError // = 1
             case badInput // = 2
-            case notFound // = 3
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -10161,7 +10079,6 @@ public struct Anytype_Rpc {
               case 0: self = .null
               case 1: self = .unknownError
               case 2: self = .badInput
-              case 3: self = .notFound
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -10171,7 +10088,6 @@ public struct Anytype_Rpc {
               case .null: return 0
               case .unknownError: return 1
               case .badInput: return 2
-              case .notFound: return 3
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -19314,10 +19230,9 @@ public struct Anytype_Rpc {
               public typealias RawValue = Int
               case null // = 0
               case unknownError // = 1
-              case badInput // = 2
 
               /// ...
-              case notADataviewBlock // = 3
+              case badInput // = 2
               case UNRECOGNIZED(Int)
 
               public init() {
@@ -19329,7 +19244,6 @@ public struct Anytype_Rpc {
                 case 0: self = .null
                 case 1: self = .unknownError
                 case 2: self = .badInput
-                case 3: self = .notADataviewBlock
                 default: self = .UNRECOGNIZED(rawValue)
                 }
               }
@@ -19339,7 +19253,6 @@ public struct Anytype_Rpc {
                 case .null: return 0
                 case .unknownError: return 1
                 case .badInput: return 2
-                case .notADataviewBlock: return 3
                 case .UNRECOGNIZED(let i): return i
                 }
               }
@@ -22779,8 +22692,6 @@ public struct Anytype_Rpc {
             case null // = 0
             case unknownError // = 1
             case badInput // = 2
-            case notFound // = 101
-            case timeout // = 102
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -22792,8 +22703,6 @@ public struct Anytype_Rpc {
               case 0: self = .null
               case 1: self = .unknownError
               case 2: self = .badInput
-              case 101: self = .notFound
-              case 102: self = .timeout
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -22803,8 +22712,6 @@ public struct Anytype_Rpc {
               case .null: return 0
               case .unknownError: return 1
               case .badInput: return 2
-              case .notFound: return 101
-              case .timeout: return 102
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -23100,9 +23007,6 @@ extension Anytype_Rpc.App.GetVersion.Response.Error.Code: CaseIterable {
     .null,
     .unknownError,
     .badInput,
-    .versionIsEmpty,
-    .notFound,
-    .timeout,
   ]
 }
 
@@ -23120,7 +23024,6 @@ extension Anytype_Rpc.App.SetDeviceState.Response.Error.Code: CaseIterable {
     .null,
     .unknownError,
     .badInput,
-    .nodeNotStarted,
   ]
 }
 
@@ -23130,7 +23033,6 @@ extension Anytype_Rpc.App.Shutdown.Response.Error.Code: CaseIterable {
     .null,
     .unknownError,
     .badInput,
-    .nodeNotStarted,
   ]
 }
 
@@ -23189,14 +23091,9 @@ extension Anytype_Rpc.Account.Create.Response.Error.Code: CaseIterable {
     .badInput,
     .accountCreatedButFailedToStartNode,
     .accountCreatedButFailedToSetName,
-    .accountCreatedButFailedToSetAvatar,
     .failedToStopRunningNode,
     .failedToWriteConfig,
     .failedToCreateLocalRepo,
-    .badInviteCode,
-    .netError,
-    .netConnectionRefused,
-    .netOffline,
   ]
 }
 
@@ -23206,14 +23103,7 @@ extension Anytype_Rpc.Account.Recover.Response.Error.Code: CaseIterable {
     .null,
     .unknownError,
     .badInput,
-    .noAccountsFound,
     .needToRecoverWalletFirst,
-    .failedToCreateLocalRepo,
-    .localRepoExistsButCorrupted,
-    .failedToRunNode,
-    .walletRecoverNotPerformed,
-    .failedToStopRunningNode,
-    .anotherAnytypeProcessIsRunning,
   ]
 }
 
@@ -23240,10 +23130,9 @@ extension Anytype_Rpc.Account.Select.Response.Error.Code: CaseIterable {
     .failedToFindAccountInfo,
     .localRepoNotExistsAndMnemonicNotSet,
     .failedToStopSearcherNode,
-    .failedToRecoverPredefinedBlocks,
     .anotherAnytypeProcessIsRunning,
-    .accountIsDeleted,
     .failedToFetchRemoteNodeHasIncompatibleProtoVersion,
+    .accountIsDeleted,
   ]
 }
 
@@ -23316,7 +23205,6 @@ extension Anytype_Rpc.Account.ConfigUpdate.Response.Error.Code: CaseIterable {
     .badInput,
     .accountIsNotRunning,
     .failedToWriteConfig,
-    .failedToGetConfig,
   ]
 }
 
@@ -23504,7 +23392,6 @@ extension Anytype_Rpc.Object.CreateObjectType.Response.Error.Code: CaseIterable 
     .null,
     .unknownError,
     .badInput,
-    .unknownObjectTypeURL,
   ]
 }
 
@@ -23675,7 +23562,6 @@ extension Anytype_Rpc.Object.SetObjectType.Response.Error.Code: CaseIterable {
     .null,
     .unknownError,
     .badInput,
-    .unknownObjectTypeURL,
   ]
 }
 
@@ -23685,7 +23571,6 @@ extension Anytype_Rpc.Object.SetInternalFlags.Response.Error.Code: CaseIterable 
     .null,
     .unknownError,
     .badInput,
-    .unknownObjectTypeURL,
   ]
 }
 
@@ -23778,7 +23663,6 @@ extension Anytype_Rpc.Object.ListSetObjectType.Response.Error.Code: CaseIterable
     .null,
     .unknownError,
     .badInput,
-    .unknownObjectTypeURL,
   ]
 }
 
@@ -23845,10 +23729,9 @@ extension Anytype_Rpc.Object.Import.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
   public static var allCases: [Anytype_Rpc.Object.Import.Response.Error.Code] = [
     .null,
-    .internalError,
     .unknownError,
     .badInput,
-    .accountIsNotRunning,
+    .internalError,
     .noObjectsToImport,
     .importIsCanceled,
     .limitOfRowsOrRelationsExceeded,
@@ -23859,10 +23742,10 @@ extension Anytype_Rpc.Object.Import.Notion.ValidateToken.Response.Error.Code: Ca
   // The compiler won't synthesize support with the UNRECOGNIZED case.
   public static var allCases: [Anytype_Rpc.Object.Import.Notion.ValidateToken.Response.Error.Code] = [
     .null,
-    .internalError,
-    .unauthorized,
     .unknownError,
     .badInput,
+    .internalError,
+    .unauthorized,
     .forbidden,
     .serviceUnavailable,
     .accountIsNotRunning,
@@ -23873,9 +23756,9 @@ extension Anytype_Rpc.Object.ImportList.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
   public static var allCases: [Anytype_Rpc.Object.ImportList.Response.Error.Code] = [
     .null,
-    .internalError,
     .unknownError,
     .badInput,
+    .internalError,
   ]
 }
 
@@ -23896,6 +23779,7 @@ extension Anytype_Rpc.Object.ImportUseCase.Request.UseCase: CaseIterable {
     .personalProjects,
     .knowledgeBase,
     .notesDiary,
+    .strategicWriting,
   ]
 }
 
@@ -23986,7 +23870,6 @@ extension Anytype_Rpc.ObjectType.Relation.Add.Response.Error.Code: CaseIterable 
     .null,
     .unknownError,
     .badInput,
-    .unknownObjectTypeURL,
     .readonlyObjectType,
   ]
 }
@@ -23997,7 +23880,6 @@ extension Anytype_Rpc.ObjectType.Relation.Remove.Response.Error.Code: CaseIterab
     .null,
     .unknownError,
     .badInput,
-    .unknownObjectTypeURL,
     .readonlyObjectType,
   ]
 }
@@ -24065,7 +23947,6 @@ extension Anytype_Rpc.File.Offload.Response.Error.Code: CaseIterable {
     .unknownError,
     .badInput,
     .nodeNotStarted,
-    .fileNotYetPinned,
   ]
 }
 
@@ -24094,7 +23975,6 @@ extension Anytype_Rpc.File.Download.Response.Error.Code: CaseIterable {
     .null,
     .unknownError,
     .badInput,
-    .notFound,
   ]
 }
 
@@ -24845,7 +24725,6 @@ extension Anytype_Rpc.BlockDataview.Relation.ListAvailable.Response.Error.Code: 
     .null,
     .unknownError,
     .badInput,
-    .notADataviewBlock,
   ]
 }
 
@@ -25146,8 +25025,6 @@ extension Anytype_Rpc.Log.Send.Response.Error.Code: CaseIterable {
     .null,
     .unknownError,
     .badInput,
-    .notFound,
-    .timeout,
   ]
 }
 
@@ -26538,9 +26415,6 @@ extension Anytype_Rpc.App.GetVersion.Response.Error.Code: SwiftProtobuf._ProtoNa
     0: .same(proto: "NULL"),
     1: .same(proto: "UNKNOWN_ERROR"),
     2: .same(proto: "BAD_INPUT"),
-    3: .same(proto: "VERSION_IS_EMPTY"),
-    101: .same(proto: "NOT_FOUND"),
-    102: .same(proto: "TIMEOUT"),
   ]
 }
 
@@ -26681,7 +26555,6 @@ extension Anytype_Rpc.App.SetDeviceState.Response.Error.Code: SwiftProtobuf._Pro
     0: .same(proto: "NULL"),
     1: .same(proto: "UNKNOWN_ERROR"),
     2: .same(proto: "BAD_INPUT"),
-    101: .same(proto: "NODE_NOT_STARTED"),
   ]
 }
 
@@ -26802,7 +26675,6 @@ extension Anytype_Rpc.App.Shutdown.Response.Error.Code: SwiftProtobuf._ProtoName
     0: .same(proto: "NULL"),
     1: .same(proto: "UNKNOWN_ERROR"),
     2: .same(proto: "BAD_INPUT"),
-    101: .same(proto: "NODE_NOT_STARTED"),
   ]
 }
 
@@ -27786,14 +27658,9 @@ extension Anytype_Rpc.Account.Create.Response.Error.Code: SwiftProtobuf._ProtoNa
     2: .same(proto: "BAD_INPUT"),
     101: .same(proto: "ACCOUNT_CREATED_BUT_FAILED_TO_START_NODE"),
     102: .same(proto: "ACCOUNT_CREATED_BUT_FAILED_TO_SET_NAME"),
-    103: .same(proto: "ACCOUNT_CREATED_BUT_FAILED_TO_SET_AVATAR"),
     104: .same(proto: "FAILED_TO_STOP_RUNNING_NODE"),
     105: .same(proto: "FAILED_TO_WRITE_CONFIG"),
     106: .same(proto: "FAILED_TO_CREATE_LOCAL_REPO"),
-    900: .same(proto: "BAD_INVITE_CODE"),
-    901: .same(proto: "NET_ERROR"),
-    902: .same(proto: "NET_CONNECTION_REFUSED"),
-    903: .same(proto: "NET_OFFLINE"),
   ]
 }
 
@@ -27914,14 +27781,7 @@ extension Anytype_Rpc.Account.Recover.Response.Error.Code: SwiftProtobuf._ProtoN
     0: .same(proto: "NULL"),
     1: .same(proto: "UNKNOWN_ERROR"),
     2: .same(proto: "BAD_INPUT"),
-    101: .same(proto: "NO_ACCOUNTS_FOUND"),
     102: .same(proto: "NEED_TO_RECOVER_WALLET_FIRST"),
-    103: .same(proto: "FAILED_TO_CREATE_LOCAL_REPO"),
-    104: .same(proto: "LOCAL_REPO_EXISTS_BUT_CORRUPTED"),
-    105: .same(proto: "FAILED_TO_RUN_NODE"),
-    106: .same(proto: "WALLET_RECOVER_NOT_PERFORMED"),
-    107: .same(proto: "FAILED_TO_STOP_RUNNING_NODE"),
-    108: .same(proto: "ANOTHER_ANYTYPE_PROCESS_IS_RUNNING"),
   ]
 }
 
@@ -28226,10 +28086,9 @@ extension Anytype_Rpc.Account.Select.Response.Error.Code: SwiftProtobuf._ProtoNa
     104: .same(proto: "FAILED_TO_FIND_ACCOUNT_INFO"),
     105: .same(proto: "LOCAL_REPO_NOT_EXISTS_AND_MNEMONIC_NOT_SET"),
     106: .same(proto: "FAILED_TO_STOP_SEARCHER_NODE"),
-    107: .same(proto: "FAILED_TO_RECOVER_PREDEFINED_BLOCKS"),
     108: .same(proto: "ANOTHER_ANYTYPE_PROCESS_IS_RUNNING"),
-    109: .same(proto: "ACCOUNT_IS_DELETED"),
     110: .same(proto: "FAILED_TO_FETCH_REMOTE_NODE_HAS_INCOMPATIBLE_PROTO_VERSION"),
+    111: .same(proto: "ACCOUNT_IS_DELETED"),
   ]
 }
 
@@ -28679,7 +28538,6 @@ extension Anytype_Rpc.Account.ConfigUpdate.Response.Error.Code: SwiftProtobuf._P
     2: .same(proto: "BAD_INPUT"),
     101: .same(proto: "ACCOUNT_IS_NOT_RUNNING"),
     102: .same(proto: "FAILED_TO_WRITE_CONFIG"),
-    103: .same(proto: "FAILED_TO_GET_CONFIG"),
   ]
 }
 
@@ -31710,7 +31568,6 @@ extension Anytype_Rpc.Object.CreateObjectType.Response.Error.Code: SwiftProtobuf
     0: .same(proto: "NULL"),
     1: .same(proto: "UNKNOWN_ERROR"),
     2: .same(proto: "BAD_INPUT"),
-    3: .same(proto: "UNKNOWN_OBJECT_TYPE_URL"),
   ]
 }
 
@@ -34570,7 +34427,6 @@ extension Anytype_Rpc.Object.SetObjectType.Response.Error.Code: SwiftProtobuf._P
     0: .same(proto: "NULL"),
     1: .same(proto: "UNKNOWN_ERROR"),
     2: .same(proto: "BAD_INPUT"),
-    3: .same(proto: "UNKNOWN_OBJECT_TYPE_URL"),
   ]
 }
 
@@ -34716,7 +34572,6 @@ extension Anytype_Rpc.Object.SetInternalFlags.Response.Error.Code: SwiftProtobuf
     0: .same(proto: "NULL"),
     1: .same(proto: "UNKNOWN_ERROR"),
     2: .same(proto: "BAD_INPUT"),
-    3: .same(proto: "UNKNOWN_OBJECT_TYPE_URL"),
   ]
 }
 
@@ -36201,7 +36056,6 @@ extension Anytype_Rpc.Object.ListSetObjectType.Response.Error.Code: SwiftProtobu
     0: .same(proto: "NULL"),
     1: .same(proto: "UNKNOWN_ERROR"),
     2: .same(proto: "BAD_INPUT"),
-    3: .same(proto: "UNKNOWN_OBJECT_TYPE_URL"),
   ]
 }
 
@@ -37162,10 +37016,9 @@ extension Anytype_Rpc.Object.Import.Response.Error: SwiftProtobuf.Message, Swift
 extension Anytype_Rpc.Object.Import.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "NULL"),
-    1: .same(proto: "INTERNAL_ERROR"),
-    2: .same(proto: "UNKNOWN_ERROR"),
-    3: .same(proto: "BAD_INPUT"),
-    4: .same(proto: "ACCOUNT_IS_NOT_RUNNING"),
+    1: .same(proto: "UNKNOWN_ERROR"),
+    2: .same(proto: "BAD_INPUT"),
+    3: .same(proto: "INTERNAL_ERROR"),
     5: .same(proto: "NO_OBJECTS_TO_IMPORT"),
     6: .same(proto: "IMPORT_IS_CANCELED"),
     7: .same(proto: "LIMIT_OF_ROWS_OR_RELATIONS_EXCEEDED"),
@@ -37319,10 +37172,10 @@ extension Anytype_Rpc.Object.Import.Notion.ValidateToken.Response.Error: SwiftPr
 extension Anytype_Rpc.Object.Import.Notion.ValidateToken.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "NULL"),
-    1: .same(proto: "INTERNAL_ERROR"),
-    2: .same(proto: "UNAUTHORIZED"),
-    3: .same(proto: "UNKNOWN_ERROR"),
-    4: .same(proto: "BAD_INPUT"),
+    1: .same(proto: "UNKNOWN_ERROR"),
+    2: .same(proto: "BAD_INPUT"),
+    3: .same(proto: "INTERNAL_ERROR"),
+    4: .same(proto: "UNAUTHORIZED"),
     5: .same(proto: "FORBIDDEN"),
     6: .same(proto: "SERVICE_UNAVAILABLE"),
     7: .same(proto: "ACCOUNT_IS_NOT_RUNNING"),
@@ -37450,9 +37303,9 @@ extension Anytype_Rpc.Object.ImportList.Response.Error: SwiftProtobuf.Message, S
 extension Anytype_Rpc.Object.ImportList.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "NULL"),
-    1: .same(proto: "INTERNAL_ERROR"),
-    2: .same(proto: "UNKNOWN_ERROR"),
-    3: .same(proto: "BAD_INPUT"),
+    1: .same(proto: "UNKNOWN_ERROR"),
+    2: .same(proto: "BAD_INPUT"),
+    3: .same(proto: "INTERNAL_ERROR"),
   ]
 }
 
@@ -37554,6 +37407,7 @@ extension Anytype_Rpc.Object.ImportUseCase.Request.UseCase: SwiftProtobuf._Proto
     1: .same(proto: "PERSONAL_PROJECTS"),
     2: .same(proto: "KNOWLEDGE_BASE"),
     3: .same(proto: "NOTES_DIARY"),
+    4: .same(proto: "STRATEGIC_WRITING"),
   ]
 }
 
@@ -39017,8 +38871,7 @@ extension Anytype_Rpc.ObjectType.Relation.Add.Response.Error.Code: SwiftProtobuf
     0: .same(proto: "NULL"),
     1: .same(proto: "UNKNOWN_ERROR"),
     2: .same(proto: "BAD_INPUT"),
-    3: .same(proto: "UNKNOWN_OBJECT_TYPE_URL"),
-    4: .same(proto: "READONLY_OBJECT_TYPE"),
+    3: .same(proto: "READONLY_OBJECT_TYPE"),
   ]
 }
 
@@ -39158,8 +39011,7 @@ extension Anytype_Rpc.ObjectType.Relation.Remove.Response.Error.Code: SwiftProto
     0: .same(proto: "NULL"),
     1: .same(proto: "UNKNOWN_ERROR"),
     2: .same(proto: "BAD_INPUT"),
-    3: .same(proto: "UNKNOWN_OBJECT_TYPE_URL"),
-    4: .same(proto: "READONLY_OBJECT_TYPE"),
+    3: .same(proto: "READONLY_OBJECT_TYPE"),
   ]
 }
 
@@ -40341,7 +40193,6 @@ extension Anytype_Rpc.File.Offload.Response.Error.Code: SwiftProtobuf._ProtoName
     1: .same(proto: "UNKNOWN_ERROR"),
     2: .same(proto: "BAD_INPUT"),
     103: .same(proto: "NODE_NOT_STARTED"),
-    104: .same(proto: "FILE_NOT_YET_PINNED"),
   ]
 }
 
@@ -40802,7 +40653,6 @@ extension Anytype_Rpc.File.Download.Response.Error.Code: SwiftProtobuf._ProtoNam
     0: .same(proto: "NULL"),
     1: .same(proto: "UNKNOWN_ERROR"),
     2: .same(proto: "BAD_INPUT"),
-    3: .same(proto: "NOT_FOUND"),
   ]
 }
 
@@ -54181,7 +54031,6 @@ extension Anytype_Rpc.BlockDataview.Relation.ListAvailable.Response.Error.Code: 
     0: .same(proto: "NULL"),
     1: .same(proto: "UNKNOWN_ERROR"),
     2: .same(proto: "BAD_INPUT"),
-    3: .same(proto: "NOT_A_DATAVIEW_BLOCK"),
   ]
 }
 
@@ -59271,8 +59120,6 @@ extension Anytype_Rpc.Log.Send.Response.Error.Code: SwiftProtobuf._ProtoNameProv
     0: .same(proto: "NULL"),
     1: .same(proto: "UNKNOWN_ERROR"),
     2: .same(proto: "BAD_INPUT"),
-    101: .same(proto: "NOT_FOUND"),
-    102: .same(proto: "TIMEOUT"),
   ]
 }
 
