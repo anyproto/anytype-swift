@@ -41,7 +41,7 @@ final class SetRelationsCoordinatorViewModel: ObservableObject, SetRelationsCoor
     func newRelationView(data: AddRelationsData) -> NewSearchView {
         addNewRelationCoordinator.addNewRelationView(
             document: setDocument.document,
-            excludedRelationsIds: setDocument.sortedRelations.map(\.id),
+            excludedRelationsIds: setDocument.sortedRelations(for: setDocument.activeView).map(\.id),
             target: .dataview(activeViewId: setDocument.activeView.id),
             onCompletion: data.completion
         )

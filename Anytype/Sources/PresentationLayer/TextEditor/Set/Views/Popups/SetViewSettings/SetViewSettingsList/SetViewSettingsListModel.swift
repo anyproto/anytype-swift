@@ -1,5 +1,6 @@
 import SwiftUI
 import Combine
+import Services
 
 @MainActor
 final class SetViewSettingsListModel: ObservableObject {
@@ -83,12 +84,11 @@ final class SetViewSettingsListModel: ObservableObject {
     }
     
     private func setupSubscriptions() {
-        Publishers.CombineLatest(setDocument.activeViewPublisher, setDocument.syncPublisher)
-            .sink { [weak self] activeView, _ in
-                self?.name = activeView.name
-                self?.layoutValue = activeView.type.name
-                self?.updateRelationsValue()
-            }.store(in: &cancellables)
+        setDocument.activeViewPublisher.sink { [weak self] activeView in
+            self?.name = activeView.name
+            self?.layoutValue = activeView.type.name
+            self?.updateRelationsValue(with: activeView)
+        }.store(in: &cancellables)
         
         setDocument.filtersPublisher.sink { [weak self] filters in
             self?.updateFiltersValue(filters)
@@ -120,8 +120,8 @@ final class SetViewSettingsListModel: ObservableObject {
         }
     }
     
-    private func updateRelationsValue() {
-        let visibleRelations = setDocument.sortedRelations.filter { $0.option.isVisible }
+    private func updateRelationsValue(with activeView: DataviewView) {
+        let visibleRelations = setDocument.sortedRelations(for: activeView).filter { $0.option.isVisible }
         let value = updatedValue(count: visibleRelations.count, firstName: visibleRelations.first?.relationDetails.name)
         relationsValue = value ?? SetViewSettings.relations.placeholder
     }

@@ -79,7 +79,7 @@ final class SetRelationsViewModel: ObservableObject {
     }
     
     var relations: [SetViewSettingsRelation] {
-        setDocument.sortedRelations.map { relation in
+        setDocument.sortedRelations(for: setDocument.activeView).map { relation in
             SetViewSettingsRelation(
                 id: relation.id,
                 image: relation.relationDetails.format.iconAsset,
@@ -108,7 +108,7 @@ final class SetRelationsViewModel: ObservableObject {
     
     func deleteRelations(indexes: IndexSet) {
         indexes.forEach { index in
-            guard let relation = setDocument.sortedRelations[safe: index] else {
+            guard let relation = setDocument.sortedRelations(for: setDocument.activeView)[safe: index] else {
                 anytypeAssertionFailure("No relation to delete", info: ["index": "\(index)"])
                 return
             }
@@ -124,9 +124,10 @@ final class SetRelationsViewModel: ObservableObject {
         from.forEach { sortedRelationsFromIndex in
             guard sortedRelationsFromIndex != to else { return }
             
-            let relationFrom = setDocument.sortedRelations[sortedRelationsFromIndex]
+            let sortedRelations = setDocument.sortedRelations(for: setDocument.activeView)
+            let relationFrom = sortedRelations[sortedRelationsFromIndex]
             let sortedRelationsToIndex = to > sortedRelationsFromIndex ? to - 1 : to // map insert index to item index
-            let relationTo = setDocument.sortedRelations[sortedRelationsToIndex]
+            let relationTo = sortedRelations[sortedRelationsToIndex]
             
             // index in all options array (includes hidden options)
             guard let indexFrom = setDocument.activeView.options.index(of: relationFrom) else {

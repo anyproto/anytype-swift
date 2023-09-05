@@ -15,8 +15,6 @@ final class MockSetDocument: SetDocumentProtocol {
     
     var dataViewRelationsDetails: [Services.RelationDetails] { [] }
     
-    var sortedRelations: [SetRelation] { [] }
-    
     var isObjectLocked: Bool { false }
     
     var analyticsType: AnalyticsObjectType { .custom }
@@ -44,6 +42,8 @@ final class MockSetDocument: SetDocumentProtocol {
     var filters: [SetFilter] { [] }
     
     var filtersPublisher: AnyPublisher<[SetFilter], Never> { fatalError() }
+    
+    func sortedRelations(for activeView: DataviewView) -> [SetRelation] { [] }
     
     func canStartSubscription() -> Bool { false }
     
