@@ -11,6 +11,7 @@ struct SpaceWidgetView: View {
                 .frame(width: 40, height: 40)
             VStack(alignment: .leading, spacing: 1) {
                 AnytypeText(model.spaceName, style: .previewTitle2Medium, color: .Text.primary)
+                    .lineLimit(1)
                 AnytypeText(model.spaceAccessibility, style: .relation3Regular, color: .Text.secondary)
             }
             Spacer()
