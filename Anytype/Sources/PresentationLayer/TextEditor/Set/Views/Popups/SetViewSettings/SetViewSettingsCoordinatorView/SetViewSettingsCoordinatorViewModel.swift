@@ -4,6 +4,7 @@ import Services
 @MainActor
 protocol SetViewSettingsCoordinatorOutput: AnyObject {
     func onDefaultObjectTap()
+    func onDefaultTemplateTap()
     func onLayoutTap()
     func onRelationsTap()
     func onFiltersTap()
@@ -53,6 +54,10 @@ final class SetViewSettingsCoordinatorViewModel: ObservableObject, SetViewSettin
     // MARK: - Default type
     
     func onDefaultObjectTap() {
+        showObjects.toggle()
+    }
+    
+    func onDefaultTemplateTap() {
         showObjects.toggle()
     }
     

@@ -128,6 +128,10 @@ class SetDocument: SetDocumentProtocol {
         updateData()
     }
     
+    func isTypeSet() -> Bool {
+        !isCollection() && !isRelationsSet()
+    }
+    
     func isBookmarksSet() -> Bool {
         details?.setOf.contains(ObjectTypeId.BundledTypeId.bookmark.rawValue) ?? false
     }
