@@ -552,14 +552,16 @@ extension EditorRouter: ObjectSettingsModuleDelegate {
                 }
             }
         } onSetAsDefaultTempalte: { [weak self] templateId in
-            Task { [weak self] in
-                try? await self?.templateService.setTemplateAsDefaultForType(templateId: templateId)
-            }
+            self?.didTapUseTemplateAsDefault(templateId: templateId)
         }
     }
     
     func didTapUseTemplateAsDefault(templateId: BlockId) {
-        anytypeAssertionFailure("Invalid delegate method handler")
+        Task { @MainActor in
+            try? await templateService.setTemplateAsDefaultForType(templateId: templateId)
+            navigationContext.dismissTopPresented(animated: true, completion: nil)
+            toastPresenter.show(message: Loc.Templates.Popup.default)
+        }
     }
 }
 

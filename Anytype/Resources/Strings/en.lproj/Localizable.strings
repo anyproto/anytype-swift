@@ -335,6 +335,11 @@
 "TemplateEditing.Title" = "Edit template";
 "TemplateEditing.SelectButtonTitle" = "Select template";
 
+"Templates.Popup.WasAddedTo" = "New template was added to the type";
+"Templates.Popup.Duplicated" = "The template was duplicated";
+"Templates.Popup.Removed" = "The template was removed";
+"Templates.Popup.Default" = "The template was set as default";
+
 "To Bin" = "To Bin";
 
 // MARK: - Context Menu

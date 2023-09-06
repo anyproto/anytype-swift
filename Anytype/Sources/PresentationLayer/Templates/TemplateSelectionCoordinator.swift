@@ -54,12 +54,13 @@ final class TemplateSelectionCoordinator: TemplateSelectionCoordinatorProtocol {
         )
         let model = view.model
         
-        view.model.templateEditingHandler = { [weak self, weak model] templateId in
+        view.model.templateEditingHandler = { [weak self, weak model, weak navigationContext] templateId in
             self?.showTemplateEditing(
                 blockId: templateId,
                 onTemplateSelection: onTemplateSelection,
                 onSetAsDefaultTempalte: { templateId in
                     model?.setTemplateAsDefault(templateId: templateId)
+                    navigationContext?.dismissTopPresented(animated: true, completion: nil)
                 }
             )
         }

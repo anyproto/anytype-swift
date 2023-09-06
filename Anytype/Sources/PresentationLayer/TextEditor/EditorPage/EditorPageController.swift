@@ -599,6 +599,7 @@ private extension EditorPageController {
     func createHeaderCellRegistration() -> UICollectionView.CellRegistration<EditorViewListCell, ObjectHeader> {
         .init { cell, _, item in
             cell.contentConfiguration = item.makeContentConfiguration(maxWidth: cell.bounds.width)
+            cell.backgroundConfiguration = UIBackgroundConfiguration.clear()
         }
     }
     
