@@ -21,11 +21,12 @@ struct EditableView<Content: View & ContextualMenuItemsProvider>: View {
         } label: {
             content
         }
-            .padding(.trailing, 8)
-            .padding(.top, 8)
-            .if(canBeEdited && isEditing) {
-                $0.overlay(dotImageButton, alignment: .topTrailing)
-            }
+        .disabled(isEditing)
+        .padding(.trailing, 8)
+        .padding(.top, 8)
+        .if(canBeEdited && isEditing) {
+            $0.overlay(dotImageButton, alignment: .topTrailing)
+        }
     }
     
     var dotImageButton: some View {
