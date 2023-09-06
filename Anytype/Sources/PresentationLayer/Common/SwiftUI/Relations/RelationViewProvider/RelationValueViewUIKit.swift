@@ -61,4 +61,8 @@ final class RelationValueViewUIKit: UIView, BlockContentView {
             return RelationPlaceholderViewUIKit(hint: unknown.value, style: style)
         }
     }
+    
+    override var debugDescription: String {
+        super.debugDescription + relationView.debugDescription + "RelationView size: \(relationView.frame), selfSize: \(self.frame)"
+    }
 }
