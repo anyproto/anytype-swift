@@ -18,6 +18,7 @@ struct SpaceSwitchView: View {
                 .presentationDetents([.height(380), .large])
                 .presentationDragIndicator(.hidden)
                 .presentationBackgroundLegacy(.ultraThinMaterial)
+                .presentationCornerRadiusLegacy(16)
         } else {
             contentContainer
         }
