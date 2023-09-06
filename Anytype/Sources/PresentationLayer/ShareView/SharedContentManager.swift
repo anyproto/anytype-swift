@@ -18,7 +18,7 @@ final class SharedContentManager: SharedContentManagerProtocol {
     private lazy var userDefaults = UserDefaults(suiteName: TargetsConstants.appGroup)
     
     func saveSharedContent(content: [SharedContent]) throws {
-        let sharedData = try JSONEncoder().encode(content)
+        let sharedData = try encoder.encode(content)
         let jsonString = String(data: sharedData, encoding: .utf8)
         
         userDefaults?.set(jsonString, forKey: SharedUserDefaultsKey.sharingExtension)

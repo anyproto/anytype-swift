@@ -1,5 +1,9 @@
 import Services
 
+protocol SearchInteractorProtocol: AnyObject {
+    func search(text: String) async throws -> [ObjectDetails]
+}
+
 final class ObjectLayoutSearch: SearchInteractorProtocol {
     let layouts: [DetailsLayout]
     let searchService: SearchServiceProtocol

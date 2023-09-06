@@ -1306,6 +1306,8 @@
 		8638C7602A6FE26300BF2A41 /* EmojiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8638C75F2A6FE26300BF2A41 /* EmojiTests.swift */; };
 		8639E0142A6020E700F52ED2 /* TemplatesSubscriptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8639E0132A6020E700F52ED2 /* TemplatesSubscriptionService.swift */; };
 		864F93D92AA5EC94008AA9E7 /* SharedContentSaveOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864F93D82AA5EC94008AA9E7 /* SharedContentSaveOption.swift */; };
+		8673528B2AA8BC00003F92DC /* URL+Middleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8673528A2AA8BC00003F92DC /* URL+Middleware.swift */; };
+		8673528D2AA8BF2C003F92DC /* WrappedSearchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8673528C2AA8BF2C003F92DC /* WrappedSearchInteractor.swift */; };
 		867519E22A669146001C2346 /* TemplateEditingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 867519E12A669146001C2346 /* TemplateEditingViewController.swift */; };
 		867580042A58306A0008566A /* TemplatePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 867580032A58306A0008566A /* TemplatePreview.swift */; };
 		86760D112A666F4400E915C9 /* HeaderViewSizeConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86760D102A666F4400E915C9 /* HeaderViewSizeConfiguration.swift */; };
@@ -2867,6 +2869,8 @@
 		8638C75F2A6FE26300BF2A41 /* EmojiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EmojiTests.swift; path = AnyTypeTests/Emoji/EmojiTests.swift; sourceTree = SOURCE_ROOT; };
 		8639E0132A6020E700F52ED2 /* TemplatesSubscriptionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesSubscriptionService.swift; sourceTree = "<group>"; };
 		864F93D82AA5EC94008AA9E7 /* SharedContentSaveOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedContentSaveOption.swift; sourceTree = "<group>"; };
+		8673528A2AA8BC00003F92DC /* URL+Middleware.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Middleware.swift"; sourceTree = "<group>"; };
+		8673528C2AA8BF2C003F92DC /* WrappedSearchInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrappedSearchInteractor.swift; sourceTree = "<group>"; };
 		867519E12A669146001C2346 /* TemplateEditingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateEditingViewController.swift; sourceTree = "<group>"; };
 		867580032A58306A0008566A /* TemplatePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatePreview.swift; sourceTree = "<group>"; };
 		86760D102A666F4400E915C9 /* HeaderViewSizeConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderViewSizeConfiguration.swift; sourceTree = "<group>"; };
@@ -4787,6 +4791,7 @@
 				EAADB1B92678FE01004B0AF2 /* CGSizeExtension.swift */,
 				EAADB1BD26790459004B0AF2 /* NSMutableAttributedStringExtension.swift */,
 				120F7D85267F9E8000327734 /* URLExtensions.swift */,
+				8673528A2AA8BC00003F92DC /* URL+Middleware.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -8515,6 +8520,7 @@
 			isa = PBXGroup;
 			children = (
 				867B2A982A9CCE4D0040381E /* ObjectLayoutSearch.swift */,
+				8673528C2AA8BF2C003F92DC /* WrappedSearchInteractor.swift */,
 			);
 			path = SearchInteractors;
 			sourceTree = "<group>";
@@ -9671,6 +9677,7 @@
 				2AD741352994F19B004BD223 /* ApplicationStateService.swift in Sources */,
 				03B1619E239F3A2000BF27D1 /* WaitingOnCreatAccountView.swift in Sources */,
 				2ACD86F629C316C90082E861 /* BlockWidgetInfo.swift in Sources */,
+				8673528B2AA8BC00003F92DC /* URL+Middleware.swift in Sources */,
 				2A6693712A7104EA007747DD /* SpaceIconImageGuideline.swift in Sources */,
 				12DE405E264AE455007B5074 /* LayoutAnchor.swift in Sources */,
 				53EA4A782637637200968B8E /* StyleColorCellView.swift in Sources */,
@@ -10658,6 +10665,7 @@
 				0ACFCCF7249C17B5002E0477 /* BlockListService Protocol.swift in Sources */,
 				2AFEED0D2A72713500D7A45B /* Icon.swift in Sources */,
 				3D1CEC3127F5A8CA000D36BA /* DeletedAccountViewModel.swift in Sources */,
+				8673528D2AA8BF2C003F92DC /* WrappedSearchInteractor.swift in Sources */,
 				535F799A274705C30050A1B8 /* FlowRelationsViewModel.swift in Sources */,
 				2A1F949929795FEB00E25782 /* FavoriteSubscriptionService.swift in Sources */,
 				2ADFA9DC2949C61D00F64688 /* UIKitModule.swift in Sources */,

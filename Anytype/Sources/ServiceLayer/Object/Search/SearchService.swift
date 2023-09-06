@@ -3,11 +3,8 @@ import Combine
 import Services
 import AnytypeCore
 
-protocol SearchInteractorProtocol: AnyObject {
+protocol SearchServiceProtocol: AnyObject {
     func search(text: String) async throws -> [ObjectDetails]
-}
-
-protocol SearchServiceProtocol: SearchInteractorProtocol {
     func search(text: String, excludedObjectIds: [String]) async throws -> [ObjectDetails]
     func searchObjectTypes(
         text: String,

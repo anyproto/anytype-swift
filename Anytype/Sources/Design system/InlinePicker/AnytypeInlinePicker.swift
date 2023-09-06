@@ -14,7 +14,7 @@ public struct AnytypeInlinePicker<T> : View where T: (Identifiable & Equatable &
         self.selectionHandler = selectionHandler
     }
     
-    @MainActor public var body: some View {
+    public var body: some View {
         VStack(spacing: 0) {
             ForEach(allValues, id: \.self) { value in
                 Button {

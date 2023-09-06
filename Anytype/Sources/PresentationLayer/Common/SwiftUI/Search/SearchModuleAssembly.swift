@@ -16,7 +16,9 @@ final class SearchModuleAssembly: SearchModuleAssemblyProtocol {
         title: String?,
         onSelect: @escaping (ObjectSearchData) -> ()
     ) -> SwiftUIModule {
-        let viewModel = ObjectSearchViewModel(searchService: serviceLocator.searchService()) { data in
+        let viewModel = ObjectSearchViewModel(
+            searchService: WrappedSearchInteractor(searchService: serviceLocator.searchService())
+        ) { data in
             onSelect(data)
         }
         let searchView = SearchView(title: title, viewModel: viewModel)

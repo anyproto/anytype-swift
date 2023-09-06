@@ -126,22 +126,7 @@ final class SharedContentInteractor: SharedContentInteractorProtocol {
     }
 }
 
-
-extension URL {
-    var attributedString: NSAttributedString {
-        let mutableAttributedString = NSMutableAttributedString(string: absoluteString)
-        let newRange = mutableAttributedString.wholeRange
-        let modifier = MarkStyleModifier(
-            attributedString: mutableAttributedString,
-            anytypeFont: .uxBodyRegular
-        )
-        modifier.apply(.link(self), shouldApplyMarkup: true, range: newRange)
-        
-        return NSAttributedString(attributedString: modifier.attributedString)
-    }
-}
-
-extension NSAttributedString {
+private extension NSAttributedString {
     var blockInformation: BlockInformation {
         let middlewareString = AttributedTextConverter.asMiddleware(attributedText: self)
         return BlockInformation.empty(
