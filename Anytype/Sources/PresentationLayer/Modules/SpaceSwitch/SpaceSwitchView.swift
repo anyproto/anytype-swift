@@ -9,6 +9,7 @@ struct SpaceSwitchView: View {
     }
     
     @StateObject var model: SpaceSwitchViewModel
+    @Environment(\.presentationMode) @Binding var presentationMode
     
     @State private var headerSize: CGSize = .zero
     @State private var spacingBetweenItems: CGFloat = 0
@@ -66,6 +67,9 @@ struct SpaceSwitchView: View {
             self.spacingBetweenItems = spacingBetweenItems
             self.externalSpacing = externalSpacing
         }
+        .onChange(of: model.dismiss) { _ in
+            presentationMode.dismiss()
+        }
     }
     
     private var content: some View {
@@ -74,8 +78,10 @@ struct SpaceSwitchView: View {
                 SpaceRowView(model: row)
                     .id(row.id)
             }
-            SpacePlusRow(loading: model.spaceCreateLoading) {
-                model.onTapAddSpace()
+            if model.createSpaceAvailable {
+                SpacePlusRow() {
+                    model.onTapAddSpace()
+                }
             }
         }
         .padding([.top], headerSize.height + 6)

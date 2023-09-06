@@ -6,8 +6,8 @@ struct SpaceTypeView: View {
     
     var body: some View {
         HStack(spacing: 4) {
-            // TODO: add icon
-            Color.gray.frame(width: 20, height: 20)
+            Image(asset: .X24.privateSpace)
+                .foregroundColor(.Text.primary)
             AnytypeText(name, style: .bodyRegular, color: .Text.primary)
         }
         .frame(height: 52)
