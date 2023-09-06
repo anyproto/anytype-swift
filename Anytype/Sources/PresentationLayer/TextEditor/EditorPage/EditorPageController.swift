@@ -148,11 +148,11 @@ final class EditorPageController: UIViewController {
             performBlocksSelection(with: touch)
         case .editing:
             guard let selectingRangeEditorItem = selectingRangeEditorItem,
+                  selectingRangeEditorItem.canHandleTextRangeTouch,
                   let sourceTextIndexPath = dataSource.indexPath(for: selectingRangeEditorItem),
                   let cell = collectionView.cellForItem(at: sourceTextIndexPath) else {
                 return
             }
-
             let pointInCell = touch.location(in: cell)
             let isAscendingTouch = pointInCell.y > cell.center.y
             let threshold: CGFloat = isAscendingTouch ? Constants.selectingTextThreshold : -Constants.selectingTextThreshold
