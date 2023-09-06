@@ -16,6 +16,6 @@ final class ImageDataIconPainter: IconPainter {
     func prepare(bounds: CGRect) async {}
     
     func draw(bounds: CGRect, context: CGContext, iconContext: IconContext) {
-        image.drawFit(in: bounds)
+        image.imageAsset?.image(with: UITraitCollection.current).drawFit(in: bounds)
     }
 }
