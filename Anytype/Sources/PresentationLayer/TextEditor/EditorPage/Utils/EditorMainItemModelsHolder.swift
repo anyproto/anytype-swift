@@ -1,15 +1,22 @@
 import Services
+import AnytypeCore
 
 typealias BlockMapping = Dictionary<BlockId, BlockViewModelProtocol>
 
 final class EditorMainItemModelsHolder {
     var items = [EditorItem]() {
         didSet {
-            blocksMapping = Dictionary(uniqueKeysWithValues: items.compactMap { item in
-                guard case let .block(blockViewModel) = item else { return nil }
-
-                return (blockViewModel.blockId, blockViewModel)
+            let dictionary = items.reduce(into: BlockMapping(), { result, pair in
+                guard case let .block(blockViewModel) = pair else { return }
+                
+                if let viewModel = result[blockViewModel.blockId] {
+                    anytypeAssertionFailure("There are duplicates with block type: \(blockViewModel.content.type)")
+                }
+                
+                result[blockViewModel.blockId] = blockViewModel
             })
+            
+            blocksMapping = dictionary
         }
     }
 
