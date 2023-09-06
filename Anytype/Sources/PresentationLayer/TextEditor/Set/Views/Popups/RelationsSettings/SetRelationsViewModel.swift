@@ -5,17 +5,21 @@ import Services
 import AnytypeCore
 import Combine
 
-final class EditorSetViewSettingsViewModel: ObservableObject {
+@MainActor
+final class SetRelationsViewModel: ObservableObject {
     @Published var contentViewType: SetContentViewType = .table
     
     private let setDocument: SetDocumentProtocol
     private let dataviewService: DataviewServiceProtocol
-    private let router: EditorSetRouterProtocol
+    // TODO: Remove router with FeatureFlags.newSetSettings
+    private let router: EditorSetRouterProtocol?
+    
+    private weak var output: SetRelationsCoordinatorOutput?
     
     private var cancellable: Cancellable?
 
-    var cardSizeSetting: EditorSetViewSettingsValueItem {
-        EditorSetViewSettingsValueItem(
+    var cardSizeSetting: SetViewSettingsValueItem {
+        SetViewSettingsValueItem(
             title: Loc.Set.View.Settings.CardSize.title,
             value: setDocument.activeView.cardSize.value,
             onTap: { [weak self] in
@@ -24,8 +28,8 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
         )
     }
     
-    var iconSetting: EditorSetViewSettingsToggleItem {
-        EditorSetViewSettingsToggleItem(
+    var iconSetting: SetViewSettingsToggleItem {
+        SetViewSettingsToggleItem(
             title: Loc.icon,
             isSelected: !setDocument.activeView.hideIcon,
             onChange: { [weak self] show in
@@ -34,8 +38,8 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
         )
     }
     
-    var imagePreviewSetting: EditorSetViewSettingsValueItem {
-        EditorSetViewSettingsValueItem(
+    var imagePreviewSetting: SetViewSettingsValueItem {
+        SetViewSettingsValueItem(
             title: Loc.Set.View.Settings.ImagePreview.title,
             value: imagePreviewValue(),
             onTap: { [weak self] in
@@ -44,8 +48,8 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
         )
     }
     
-    var coverFitSetting: EditorSetViewSettingsToggleItem {
-        EditorSetViewSettingsToggleItem(
+    var coverFitSetting: SetViewSettingsToggleItem {
+        SetViewSettingsToggleItem(
             title: Loc.Set.View.Settings.ImageFit.title,
             isSelected: setDocument.activeView.coverFit,
             onChange: { [weak self] fit in
@@ -54,8 +58,8 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
         )
     }
     
-    var groupBySetting: EditorSetViewSettingsValueItem {
-        EditorSetViewSettingsValueItem(
+    var groupBySetting: SetViewSettingsValueItem {
+        SetViewSettingsValueItem(
             title: Loc.Set.View.Settings.GroupBy.title,
             value: groupByValue(with: setDocument.activeView.groupRelationKey),
             onTap: { [weak self] in
@@ -64,8 +68,8 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
         )
     }
     
-    var groupBackgroundColorsSetting: EditorSetViewSettingsToggleItem {
-        EditorSetViewSettingsToggleItem(
+    var groupBackgroundColorsSetting: SetViewSettingsToggleItem {
+        SetViewSettingsToggleItem(
             title: Loc.Set.View.Settings.GroupBackgroundColors.title,
             isSelected: setDocument.activeView.groupBackgroundColors,
             onChange: { [weak self] colored in
@@ -74,9 +78,9 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
         )
     }
     
-    var relations: [EditorSetViewSettingsRelation] {
-        setDocument.sortedRelations.map { relation in
-            EditorSetViewSettingsRelation(
+    var relations: [SetViewSettingsRelation] {
+        setDocument.sortedRelations(for: setDocument.activeView).map { relation in
+            SetViewSettingsRelation(
                 id: relation.id,
                 image: relation.relationDetails.format.iconAsset,
                 title: relation.relationDetails.name,
@@ -89,16 +93,22 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
         }
     }
     
-    init(setDocument: SetDocumentProtocol, dataviewService: DataviewServiceProtocol, router: EditorSetRouterProtocol) {
+    init(
+        setDocument: SetDocumentProtocol,
+        dataviewService: DataviewServiceProtocol,
+        output: SetRelationsCoordinatorOutput?,
+        router: EditorSetRouterProtocol?
+    ) {
         self.setDocument = setDocument
         self.dataviewService = dataviewService
+        self.output = output
         self.router = router
         self.setup()
     }
     
     func deleteRelations(indexes: IndexSet) {
         indexes.forEach { index in
-            guard let relation = setDocument.sortedRelations[safe: index] else {
+            guard let relation = setDocument.sortedRelations(for: setDocument.activeView)[safe: index] else {
                 anytypeAssertionFailure("No relation to delete", info: ["index": "\(index)"])
                 return
             }
@@ -114,9 +124,10 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
         from.forEach { sortedRelationsFromIndex in
             guard sortedRelationsFromIndex != to else { return }
             
-            let relationFrom = setDocument.sortedRelations[sortedRelationsFromIndex]
+            let sortedRelations = setDocument.sortedRelations(for: setDocument.activeView)
+            let relationFrom = sortedRelations[sortedRelationsFromIndex]
             let sortedRelationsToIndex = to > sortedRelationsFromIndex ? to - 1 : to // map insert index to item index
-            let relationTo = setDocument.sortedRelations[sortedRelationsToIndex]
+            let relationTo = sortedRelations[sortedRelationsToIndex]
             
             // index in all options array (includes hidden options)
             guard let indexFrom = setDocument.activeView.options.index(of: relationFrom) else {
@@ -138,7 +149,7 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
     }
     
     func showAddNewRelationView() {
-        router.showAddNewRelationView(document: setDocument.document) { relation, isNew in
+        output?.onAddButtonTap { relation, isNew in
             AnytypeAnalytics.instance().logAddRelation(format: relation.format, isNew: isNew, type: .dataview)
         }
     }
@@ -226,7 +237,7 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
     }
     
     private func showCardSizes() {
-        router.showCardSizes(
+        router?.showCardSizes(
             size: mappedCardSize(),
             onSelect: { [weak self] size in
                 self?.onCardSizeChange(size)
@@ -235,7 +246,7 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
     }
     
     private func showCovers() {
-        router.showCovers(
+        router?.showCovers(
             setDocument: setDocument,
             onSelect: { [weak self] key in
                 self?.onImagePreviewChange(key)
@@ -244,7 +255,7 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
     }
     
     private func showGroupByRelations() {
-        router.showGroupByRelations { [weak self] key in
+        router?.showGroupByRelations { [weak self] key in
             self?.onGroupBySettingChange(key)
         }
     }

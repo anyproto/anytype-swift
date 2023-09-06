@@ -85,7 +85,7 @@ struct SetLayoutSettingsView: View {
         }
     }
     
-    private func valueSetting(with model: EditorSetViewSettingsValueItem) -> some View {
+    private func valueSetting(with model: SetViewSettingsValueItem) -> some View {
         Button {
             model.onTap()
         } label: {
@@ -94,7 +94,7 @@ struct SetLayoutSettingsView: View {
         .frame(height: 52)
     }
     
-    private func toggleSettings(with model: EditorSetViewSettingsToggleItem) -> some View {
+    private func toggleSettings(with model: SetViewSettingsToggleItem) -> some View {
         AnytypeToggle(
             title: model.title,
             font: .uxTitle2Regular,
@@ -105,7 +105,7 @@ struct SetLayoutSettingsView: View {
         .frame(height: 52)
     }
     
-    private func contextMenu(with model: EditorSetViewSettingsContextItem) -> some View {
+    private func contextMenu(with model: SetViewSettingsContextItem) -> some View {
         Menu {
             VStack(spacing: 0) {
                 ForEach(model.options) { option in

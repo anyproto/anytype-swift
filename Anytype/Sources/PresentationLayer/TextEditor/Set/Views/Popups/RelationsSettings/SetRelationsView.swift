@@ -1,7 +1,8 @@
 import SwiftUI
+import AnytypeCore
 
-struct EditorSetViewSettingsView: View {
-    @ObservedObject var model: EditorSetViewSettingsViewModel
+struct SetRelationsView: View {
+    @StateObject var model: SetRelationsViewModel
     @State private var editMode = EditMode.inactive
     
     var body: some View {
@@ -32,7 +33,7 @@ struct EditorSetViewSettingsView: View {
                     .environment(\.editMode, $editMode)
             }
             ToolbarItem(placement: .principal) {
-                AnytypeText(Loc.settings, style: .uxTitle1Semibold, color: .Text.primary)
+                AnytypeText(FeatureFlags.newSetSettings ? Loc.relations : Loc.settings, style: .uxTitle1Semibold, color: .Text.primary)
             }
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: {
@@ -47,9 +48,11 @@ struct EditorSetViewSettingsView: View {
     
     private var listContent: some View {
         Group {
-            VStack(spacing: 0) {
-                settingsSection
-                ListSectionHeaderView(title: Loc.relations)
+            if !FeatureFlags.newSetSettings {
+                VStack(spacing: 0) {
+                    settingsSection
+                    ListSectionHeaderView(title: Loc.relations)
+                }
             }
             relationsSection
         }
@@ -78,7 +81,7 @@ struct EditorSetViewSettingsView: View {
         }
     }
     
-    private func valueSetting(with model: EditorSetViewSettingsValueItem) -> some View {
+    private func valueSetting(with model: SetViewSettingsValueItem) -> some View {
         Button {
             model.onTap()
         } label: {
@@ -96,7 +99,7 @@ struct EditorSetViewSettingsView: View {
         .divider()
     }
     
-    private func toggleSettings(with model: EditorSetViewSettingsToggleItem) -> some View {
+    private func toggleSettings(with model: SetViewSettingsToggleItem) -> some View {
         AnytypeToggle(
             title: model.title,
             isOn: model.isSelected
@@ -121,7 +124,7 @@ struct EditorSetViewSettingsView: View {
         }
     }
     
-    private func relationRow(_ relation: EditorSetViewSettingsRelation) -> some View {
+    private func relationRow(_ relation: SetViewSettingsRelation) -> some View {
         HStack(spacing: 0) {
             Image(asset: relation.image)
                 .foregroundColor(.Button.active)

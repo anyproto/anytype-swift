@@ -10,7 +10,9 @@ struct SetViewSettingsCoordinatorView: View {
                 model.setLayoutSettings()
                     .mediumPresentationDetents()
             }
-            .sheet(isPresented: $model.showRelations) {}
+            .sheet(isPresented: $model.showRelations) {
+                model.relationsList()
+            }
             .sheet(isPresented: $model.showFilters) {
                 model.setFiltersList()
             }

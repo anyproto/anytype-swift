@@ -1,4 +1,4 @@
-struct EditorSetViewSettingsRelation: Identifiable {
+struct SetViewSettingsRelation: Identifiable {
     let id: String
     let image: ImageAsset
     let title: String

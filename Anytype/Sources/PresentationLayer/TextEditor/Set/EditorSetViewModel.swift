@@ -47,7 +47,8 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     var colums: [RelationDetails] {
-        setDocument.sortedRelations.filter { $0.option.isVisible }.map(\.relationDetails)
+        setDocument.sortedRelations(for: activeView)
+            .filter { $0.option.isVisible }.map(\.relationDetails)
     }
     
     var isSmallItemSize: Bool {
@@ -707,10 +708,7 @@ extension EditorSetViewModel {
     }
 
     func showViewSettings() {
-        router?.showViewSettings(
-            setDocument: setDocument,
-            dataviewService: dataviewService
-        )
+        router?.showViewSettings(setDocument: setDocument)
     }
     
     func showSorts() {

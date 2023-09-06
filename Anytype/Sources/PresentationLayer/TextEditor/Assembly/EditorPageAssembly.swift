@@ -94,7 +94,6 @@ final class EditorAssembly {
             createObjectModuleAssembly: modulesDI.createObject(),
             newSearchModuleAssembly: modulesDI.newSearch(),
             editorPageCoordinator: coordinatorsDI.editorPage().make(browserController: browser),
-            addNewRelationCoordinator: coordinatorsDI.addNewRelation().make(),
             objectSettingCoordinator: coordinatorsDI.objectSettings().make(browserController: browser),
             relationValueCoordinator: coordinatorsDI.relationValue().make(),
             objectCoverPickerModuleAssembly: modulesDI.objectCoverPicker(),
@@ -104,6 +103,7 @@ final class EditorAssembly {
             setFiltersListCoordinatorAssembly: coordinatorsDI.setFiltersList(),
             setViewSettingsImagePreviewModuleAssembly: modulesDI.setViewSettingsImagePreview(),
             setViewSettingsGroupByModuleAssembly: modulesDI.setViewSettingsGroupByView(),
+            editorSetRelationsCoordinatorAssembly: coordinatorsDI.setRelations(),
             toastPresenter: uiHelpersDI.toastPresenter(using: browser),
             alertHelper: AlertHelper(viewController: controller),
             templateSelectionCoordinator: TemplateSelectionCoordinator(

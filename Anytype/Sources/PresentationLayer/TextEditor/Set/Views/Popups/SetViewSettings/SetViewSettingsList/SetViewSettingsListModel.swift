@@ -1,11 +1,13 @@
 import SwiftUI
 import Combine
+import Services
 
 @MainActor
 final class SetViewSettingsListModel: ObservableObject {
     @Published var name = ""
     @Published var focused = false
     @Published var layoutValue = SetViewSettings.layout.placeholder
+    @Published var relationsValue = SetViewSettings.relations.placeholder
     @Published var filtersValue = SetViewSettings.filters.placeholder
     @Published var sortsValue = SetViewSettings.sorts.placeholder
     
@@ -50,6 +52,8 @@ final class SetViewSettingsListModel: ObservableObject {
         switch setting {
         case .layout:
             return layoutValue
+        case .relations:
+            return relationsValue
         case .filters:
             return filtersValue
         case .sorts:
@@ -83,10 +87,11 @@ final class SetViewSettingsListModel: ObservableObject {
         setDocument.activeViewPublisher.sink { [weak self] activeView in
             self?.name = activeView.name
             self?.layoutValue = activeView.type.name
+            self?.updateRelationsValue(with: activeView)
         }.store(in: &cancellables)
         
         setDocument.filtersPublisher.sink { [weak self] filters in
-            self?.updateFltersValue(filters)
+            self?.updateFiltersValue(filters)
         }.store(in: &cancellables)
         
         setDocument.sortsPublisher.sink { [weak self] sorts in
@@ -115,7 +120,13 @@ final class SetViewSettingsListModel: ObservableObject {
         }
     }
     
-    private func updateFltersValue(_ filters: [SetFilter]) {
+    private func updateRelationsValue(with activeView: DataviewView) {
+        let visibleRelations = setDocument.sortedRelations(for: activeView).filter { $0.option.isVisible }
+        let value = updatedValue(count: visibleRelations.count, firstName: visibleRelations.first?.relationDetails.name)
+        relationsValue = value ?? SetViewSettings.relations.placeholder
+    }
+    
+    private func updateFiltersValue(_ filters: [SetFilter]) {
         let value = updatedValue(count: filters.count, firstName: filters.first?.relationDetails.name)
         filtersValue = value ?? SetViewSettings.filters.placeholder
     }

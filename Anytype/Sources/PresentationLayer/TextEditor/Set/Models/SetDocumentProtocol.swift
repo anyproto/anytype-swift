@@ -13,7 +13,6 @@ protocol SetDocumentProtocol: BaseDocumentGeneralProtocol {
     var targetObjectID: String? { get }
     var dataviews: [BlockDataview] { get }
     var dataViewRelationsDetails: [RelationDetails] { get }
-    var sortedRelations: [SetRelation] { get }
     var isObjectLocked: Bool { get }
     var analyticsType: AnalyticsObjectType { get }
     // TODO Refactor this
@@ -36,6 +35,7 @@ protocol SetDocumentProtocol: BaseDocumentGeneralProtocol {
     var filters: [SetFilter] { get }
     var filtersPublisher: AnyPublisher<[SetFilter], Never> { get }
     
+    func sortedRelations(for activeView: DataviewView) -> [SetRelation]
     func canStartSubscription() -> Bool
     func activeViewRelations(excludeRelations: [RelationDetails]) -> [RelationDetails]
     func objectOrderIds(for groupId: String) -> [String]
