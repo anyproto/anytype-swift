@@ -474,8 +474,6 @@
 "SlashMenu.TableOfContents" = "Table of contents";
 "SlashMenu.Table" = "Table";
 
-"Failed to create your account due to a network error" = "Failed to create your account due to a network error";
-"Invalid invitation code" = "Invalid invitation code";
 "Unknown error" = "Unknown error";
 "Account is deleted" = "Account is deleted";
 "Add phone" = "Add phone";
@@ -605,8 +603,6 @@
 "Ok" = "Ok";
 "Error occurred. Please try again" = "Error occurred. Please try again";
 "Add" = "Add";
-"Your device seems to be offline" = "Your device seems to be offline. Please, check your connection and try again";
-"Connection refused" = "Connection refused. Please, try again";
 "Companies, contacts, friends and family" = "Companies, contacts, friends and family";
 "Failed to sync, trying again..." = "Failed to sync, trying again...";
 "Sync.Status.Version.Outdated.Description" = "Version outdated. Please update Anytype";
