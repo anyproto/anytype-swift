@@ -76,7 +76,11 @@ struct SetViewSettingsList: View {
             model.onSettingTap(setting)
         } label: {
             HStack(spacing: 0) {
-                AnytypeText(setting.title, style: .uxBodyRegular, color: .Text.primary)
+                AnytypeText(
+                    setting.title,
+                    style: .uxBodyRegular,
+                    color: setting.disabled ? .Text.tertiary : .Text.primary
+                )
                 
                 Spacer()
                 
