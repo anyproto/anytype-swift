@@ -194,6 +194,7 @@ struct TextBlockActionHandler: TextBlockActionHandlerProtocol {
                     let position: BlockPosition = textView.text == trimmedText ?
                         .replace : .bottom
                     
+                    let safeSendableAttributedString = SafeSendable(value: originalAttributedString)
                     Task {
                         try await actionHandler.createAndFetchBookmark(
                             targetID: self.info.id,
@@ -201,7 +202,7 @@ struct TextBlockActionHandler: TextBlockActionHandlerProtocol {
                             url: url
                         )
                         
-                        originalAttributedString.map {
+                        safeSendableAttributedString.value.map {
                             actionHandler.changeTextForced($0, blockId: self.info.id)
                         }
                     }

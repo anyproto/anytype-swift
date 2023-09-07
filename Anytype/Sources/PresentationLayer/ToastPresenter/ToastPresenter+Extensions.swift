@@ -57,6 +57,8 @@ extension ToastPresenterProtocol {
         objectId: BlockId,
         tapHandler: @escaping () -> Void
     ) {
+        let safeSendableP1 = SafeSendable(value: p1)
+        
         Task { @MainActor [weak self] in
             guard let details = await retrieveObjectDetails(objectId: objectId) else {
                 return
@@ -65,12 +67,12 @@ extension ToastPresenterProtocol {
             let compositeAttributedString = NSMutableAttributedString()
             let iconObjectAttributedString = await createAttributedString(from: details)
             
-            compositeAttributedString.append(iconObjectAttributedString)
+            compositeAttributedString.append(iconObjectAttributedString.value)
             
-            let attributedString = NSMutableAttributedString(attributedString: p1)
+            let attributedString = NSMutableAttributedString(attributedString: safeSendableP1.value)
             attributedString.append(.init(string: "  "))
             
-            let tappableAttributedString = NSMutableAttributedString(attributedString: iconObjectAttributedString)
+            let tappableAttributedString = NSMutableAttributedString(attributedString: iconObjectAttributedString.value)
             
             let dismissableTapHandler: () -> Void = { [weak self] in
                 self?.dismiss { tapHandler() }
@@ -94,19 +96,23 @@ private func retrieveObjectDetails(objectId: BlockId) async -> ObjectDetails? {
     return targetDocument.details
 }
 
-private func createAttributedString(from objectDetails: ObjectDetails) async -> NSAttributedString {
+private func createAttributedString(from objectDetails: ObjectDetails) async -> SafeSendable<NSAttributedString> {
     guard let Icon = objectDetails.objectIconImage else {
-        return await NSAttributedString(
+        let attributedString = await NSAttributedString(
             string: objectDetails.title.trimmed(numberOfCharacters: 16),
             attributes: ToastView.objectAttributes
         )
+        
+        return .init(value: attributedString)
     }
     let maker = IconMaker(icon: Icon, size: CGSize(width: 16, height: 16))
     let image = await maker.make()
-    return await NSAttributedString.imageFirstComposite(
+    let attributedString = await NSAttributedString.imageFirstComposite(
         image: image,
         text: objectDetails.title.trimmed(numberOfCharacters: 16),
         attributes: ToastView.objectAttributes
     )
+    
+    return .init(value: attributedString)
 }
 
