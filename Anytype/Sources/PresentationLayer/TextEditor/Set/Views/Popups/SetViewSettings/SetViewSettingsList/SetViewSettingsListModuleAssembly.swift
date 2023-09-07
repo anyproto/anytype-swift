@@ -37,7 +37,7 @@ final class SetViewSettingsListModuleAssembly: SetViewSettingsListModuleAssembly
             model: SetViewSettingsListModel(
                 setDocument: setDocument,
                 dataviewService: dataviewService,
-                templatesService: self.serviceLocator.templatesService,
+                templatesInteractor: self.serviceLocator.setTemplatesInteractor,
                 templateInteractorProvider: templateInteractorProvider,
                 output: output
             )

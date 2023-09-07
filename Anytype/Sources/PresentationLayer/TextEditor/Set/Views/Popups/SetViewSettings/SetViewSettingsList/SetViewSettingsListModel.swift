@@ -12,13 +12,13 @@ final class SetViewSettingsListModel: ObservableObject {
     @Published var relationsValue = SetViewSettings.relations.placeholder
     @Published var filtersValue = SetViewSettings.filters.placeholder
     @Published var sortsValue = SetViewSettings.sorts.placeholder
+    @Published var settings: [SetViewSettings] = []
     
     let canBeDeleted: Bool
-    let settings: [SetViewSettings]
     
     private let setDocument: SetDocumentProtocol
     private let dataviewService: DataviewServiceProtocol
-    private let templatesService: TemplatesServiceProtocol
+    private let templatesInteractor: SetTemplatesInteractorProtocol
     private let templateInteractorProvider: TemplateSelectionInteractorProvider?
     private weak var output: SetViewSettingsCoordinatorOutput?
     
@@ -27,20 +27,15 @@ final class SetViewSettingsListModel: ObservableObject {
     init(
         setDocument: SetDocumentProtocol,
         dataviewService: DataviewServiceProtocol,
-        templatesService: TemplatesServiceProtocol,
+        templatesInteractor: SetTemplatesInteractorProtocol,
         templateInteractorProvider: TemplateSelectionInteractorProvider?,
         output: SetViewSettingsCoordinatorOutput?
     ) {
         self.setDocument = setDocument
         self.dataviewService = dataviewService
-        self.templatesService = templatesService
+        self.templatesInteractor = templatesInteractor
         self.templateInteractorProvider = templateInteractorProvider
         self.output = output
-        
-        self.settings = setDocument.isTypeSet() ?
-        SetViewSettings.allCases.filter { $0 != .defaultObject } :
-        SetViewSettings.allCases.filter { $0 != .defaultTemplate }
-        
         self.canBeDeleted = setDocument.dataView.views.count > 1
         self.debounceNameChanges()
         self.setupSubscriptions()
@@ -102,6 +97,15 @@ final class SetViewSettingsListModel: ObservableObject {
     }
     
     private func setupSubscriptions() {
+        setDocument.detailsPublisher.sink { [weak self] details in
+            guard let self else { return }
+            if setDocument.isTypeSet() {
+                checkTemplatesAvailablility(details: details)
+            } else {
+                settings = SetViewSettings.allCases.filter { $0 != .defaultTemplate }
+            }
+        }.store(in: &cancellables)
+        
         setDocument.activeViewPublisher.sink { [weak self] activeView in
             self?.name = activeView.name
             self?.layoutValue = activeView.type.name
@@ -175,7 +179,7 @@ final class SetViewSettingsListModel: ObservableObject {
                 setDocument.activeView.defaultObjectTypeID != activeView.defaultObjectTypeID else { return }
         let objectTypeId = activeView.defaultObjectTypeIDWithFallback
         Task { @MainActor in
-            let objectDetails = try await templatesService.objectDetails(objectId: objectTypeId)
+            let objectDetails = try await templatesInteractor.objectDetails(for: objectTypeId)
             defaultObjectValue = objectDetails.name
         }
     }
@@ -203,6 +207,18 @@ final class SetViewSettingsListModel: ObservableObject {
             return Loc.Set.View.Settings.Objects.Applied.title(count)
         } else {
             return nil
+        }
+    }
+    
+    func checkTemplatesAvailablility(details: ObjectDetails) {
+        Task { @MainActor [weak self] in
+            guard let self else { return }
+            let isTemplatesAvailable = try await templatesInteractor.isTemplatesAvailableFor(
+                setObject: details
+            )
+            settings = isTemplatesAvailable ?
+            SetViewSettings.allCases.filter { $0 != .defaultObject } :
+            SetViewSettings.allCases.filter { $0 != .defaultObject &&  $0 != .defaultTemplate}
         }
     }
 }
