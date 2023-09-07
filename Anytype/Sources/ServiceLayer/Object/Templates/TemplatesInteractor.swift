@@ -14,7 +14,7 @@ final class SetTemplatesInteractor: SetTemplatesInteractorProtocol {
     }
     
     func isTemplatesAvailableFor(setObject: ObjectDetails) async throws -> Bool {
-        guard setObject.setOf.count == 1, let objectTypeId = setObject.setOf.first else {
+        guard setObject.setOf.count == 1, let objectTypeId = setObject.setOf.first, objectTypeId.isNotEmpty else {
             return false
         }
         return try await isTemplatesAvailableFor(objectTypeId: objectTypeId)
