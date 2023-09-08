@@ -49,7 +49,7 @@ struct SetViewRow: View {
                 Button(action: {
                     configuration.onEditTap()
                 }) {
-                    Image(asset: .X32.edit)
+                    Image(asset: .X24.edit)
                         .foregroundColor(.Button.active)
                 }
             }
