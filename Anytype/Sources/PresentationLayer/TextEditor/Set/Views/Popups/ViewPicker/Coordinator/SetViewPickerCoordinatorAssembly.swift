@@ -3,6 +3,7 @@ import Services
 import AnytypeCore
 
 protocol SetViewPickerCoordinatorAssemblyProtocol {
+    // TODO: Remove showViewTypes with FeatureFlags.newSetSettings
     @MainActor
     func make(
         with setDocument: SetDocumentProtocol,

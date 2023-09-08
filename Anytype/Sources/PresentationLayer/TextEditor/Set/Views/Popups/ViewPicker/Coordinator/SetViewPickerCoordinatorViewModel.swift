@@ -14,7 +14,6 @@ final class SetViewPickerCoordinatorViewModel: ObservableObject, SetViewPickerCo
     
     private let setDocument: SetDocumentProtocol
     private let setViewPickerModuleAssembly: SetViewPickerModuleAssemblyProtocol
-    // TODO: Remove showViewTypes with FeatureFlags.newSetSettings
     private let showViewTypes: RoutingAction<DataviewView?>
     
     init(
