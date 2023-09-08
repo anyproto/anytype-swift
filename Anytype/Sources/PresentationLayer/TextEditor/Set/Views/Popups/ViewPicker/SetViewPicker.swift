@@ -6,6 +6,15 @@ struct SetViewPicker: View {
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
+        VStack(spacing: 0) {
+            Spacer.fixedHeight(8)
+            content
+        }
+        .frame(height: 350)
+        .background(Color.Background.primary)
+    }
+    
+    private var content: some View {
         NavigationView {
             viewsList
                 .navigationTitle(Loc.views)
@@ -18,7 +27,6 @@ struct SetViewPicker: View {
                 }
         }
         .navigationViewStyle(.stack)
-        .frame(height: 350)
     }
     
     private var viewsList: some View {
