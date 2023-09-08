@@ -4,13 +4,23 @@ import SwiftUI
 struct HomeWidgetsCoordinatorView: View {
     
     @StateObject var model: HomeWidgetsCoordinatorViewModel
+    @State private var backgroundOpacity = 0.0
     
     var body: some View {
-        VStack {
+        ZStack {
+            Color.Text.primary
+                .opacity(backgroundOpacity)
+                .ignoresSafeArea()
+                .onChange(of: model.homeAnimationId) { newValue in
+                    backgroundOpacity = 0
+                    withAnimation(.easeInOut(duration: 0.2)) {
+                        backgroundOpacity = 0.5
+                    }
+                }
             model.homeWidgetsModule()
                 .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .offset(x: -100)))
+                .animation(.easeInOut(duration: 0.35), value: model.homeAnimationId)
         }
-        .animation(.default, value: model.homeAnimationId)
         .onAppear {
             model.onAppear()
         }
