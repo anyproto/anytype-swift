@@ -715,16 +715,16 @@ internal enum Loc {
             }
           }
           internal enum Option1 {
-            /// Recovery Phrase is 12 random words from which your account is magically generated on this device.
-            internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.ReadMore.Option1.Title", fallback: "Recovery Phrase is 12 random words from which your account is magically generated on this device.")
+            /// Recovery Phrase is a random combination of 12 words from which your account is magically generated on this device.
+            internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.ReadMore.Option1.Title", fallback: "Recovery Phrase is a random combination of 12 words from which your account is magically generated on this device.")
           }
           internal enum Option2 {
-            /// Who knows combination of these words – owns the account. **Now, you are the only person in the world who can access it.**
-            internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.ReadMore.Option2.Title", fallback: "Who knows combination of these words – owns the account. **Now, you are the only person in the world who can access it.**")
+            /// Whomever knows Recovery Phrase, owns the account. **At this moment, you are the only person in the world who knows it.**
+            internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.ReadMore.Option2.Title", fallback: "Whomever knows Recovery Phrase, owns the account. **At this moment, you are the only person in the world who knows it.**")
           }
           internal enum Option3 {
-            /// That is why it is essential to keep Recovery Phrase secure! You own - you responsible!
-            internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.ReadMore.Option3.Title", fallback: "That is why it is essential to keep Recovery Phrase secure! You own - you responsible!")
+            /// That's why it's essential to keep Recovery Phrase safe. As the sole owner, nobody can help you if it's lost.
+            internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.ReadMore.Option3.Title", fallback: "That's why it's essential to keep Recovery Phrase safe. As the sole owner, nobody can help you if it's lost.")
           }
         }
         internal enum TextField {
