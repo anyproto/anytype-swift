@@ -1,4 +1,4 @@
-struct EditorSetViewRowConfiguration: Identifiable, Equatable {
+struct SetViewRowConfiguration: Identifiable, Equatable {
     let id: String
     let name: String
     let typeName: String

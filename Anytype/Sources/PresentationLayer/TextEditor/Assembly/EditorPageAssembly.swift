@@ -104,6 +104,7 @@ final class EditorAssembly {
             setViewSettingsImagePreviewModuleAssembly: modulesDI.setViewSettingsImagePreview(),
             setViewSettingsGroupByModuleAssembly: modulesDI.setViewSettingsGroupByView(),
             editorSetRelationsCoordinatorAssembly: coordinatorsDI.setRelations(),
+            setViewPickerCoordinatorAssembly: coordinatorsDI.setViewPicker(),
             toastPresenter: uiHelpersDI.toastPresenter(using: browser),
             alertHelper: AlertHelper(viewController: controller),
             templateSelectionCoordinator: TemplateSelectionCoordinator(

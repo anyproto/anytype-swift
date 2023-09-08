@@ -1,7 +1,7 @@
 import SwiftUI
 
-struct EditorSetViewPicker: View {
-    @ObservedObject var viewModel: EditorSetViewPickerViewModel
+struct SetViewPicker: View {
+    @StateObject var viewModel: SetViewPickerViewModel
     @State private var editMode = EditMode.inactive
     @Environment(\.presentationMode) var presentationMode
     
@@ -67,8 +67,8 @@ struct EditorSetViewPicker: View {
         }
     }
     
-    private func row(with configuration: EditorSetViewRowConfiguration) -> some View {
-        EditorSetViewRow(configuration: configuration, onTap: {
+    private func row(with configuration: SetViewRowConfiguration) -> some View {
+        SetViewRow(configuration: configuration, onTap: {
             presentationMode.wrappedValue.dismiss()
             configuration.onTap()
         })

@@ -1,10 +1,10 @@
 import SwiftUI
 import Services
 
-struct EditorSetViewRow: View {
+struct SetViewRow: View {
     @Environment(\.editMode) var editMode
     
-    let configuration: EditorSetViewRowConfiguration
+    let configuration: SetViewRowConfiguration
     let onTap: () -> Void
     
     var body: some View {

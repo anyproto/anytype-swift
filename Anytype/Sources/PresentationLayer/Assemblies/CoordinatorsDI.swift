@@ -133,4 +133,8 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     func setRelations() -> SetRelationsCoordinatorAssemblyProtocol {
         SetRelationsCoordinatorAssembly(modulesDI: modulesDI, coordinatorsDI: self)
     }
+    
+    func setViewPicker() -> SetViewPickerCoordinatorAssemblyProtocol {
+        SetViewPickerCoordinatorAssembly(modulesDI: modulesDI)
+    }
 }
