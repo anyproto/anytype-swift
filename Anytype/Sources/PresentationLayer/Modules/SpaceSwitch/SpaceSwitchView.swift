@@ -2,15 +2,26 @@ import SwiftUI
 
 struct SpaceSwitchView: View {
     
+    private enum Constants {
+        static let minExternalSpacing: CGFloat = 30
+        static let maxInternalSpacing: CGFloat = 21
+        static let itemWidth: CGFloat = SpaceRowView.width
+    }
+    
     @StateObject var model: SpaceSwitchViewModel
+    @Environment(\.presentationMode) @Binding var presentationMode
     
     @State private var headerSize: CGSize = .zero
+    @State private var spacingBetweenItems: CGFloat = 0
+    @State private var externalSpacing: CGFloat = 0
     
-    private let columns = [
-        GridItem(.flexible(), alignment: .top),
-        GridItem(.flexible(), alignment: .top),
-        GridItem(.flexible(), alignment: .top)
-    ]
+    private var columns: [GridItem] {
+        [
+            GridItem(.fixed(Constants.itemWidth), spacing: spacingBetweenItems, alignment: .top),
+            GridItem(.fixed(Constants.itemWidth), spacing: spacingBetweenItems, alignment: .top),
+            GridItem(.fixed(Constants.itemWidth), spacing: spacingBetweenItems, alignment: .top)
+        ]
+    }
     
     var body: some View {
         if #available(iOS 16.0, *) {
@@ -18,6 +29,7 @@ struct SpaceSwitchView: View {
                 .presentationDetents([.height(380), .large])
                 .presentationDragIndicator(.hidden)
                 .presentationBackgroundLegacy(.ultraThinMaterial)
+                .presentationCornerRadiusLegacy(16)
         } else {
             contentContainer
         }
@@ -45,6 +57,19 @@ struct SpaceSwitchView: View {
                 }
         }
         .background(Color.Background.material)
+        .readSize { newSize in
+            let allSpacing = newSize.width - CGFloat(columns.count) * Constants.itemWidth
+            let countBetweenSpacing = CGFloat(columns.count - 1)
+            let freeSpacing = max(allSpacing - Constants.minExternalSpacing * 2, 0)
+            let preferredSpacingBetweenItems = freeSpacing * (1 / countBetweenSpacing)
+            let spacingBetweenItems = min(preferredSpacingBetweenItems, Constants.maxInternalSpacing)
+            let externalSpacing = (allSpacing - spacingBetweenItems * countBetweenSpacing) * 0.5
+            self.spacingBetweenItems = spacingBetweenItems
+            self.externalSpacing = externalSpacing
+        }
+        .onChange(of: model.dismiss) { _ in
+            presentationMode.dismiss()
+        }
     }
     
     private var content: some View {
@@ -53,35 +78,33 @@ struct SpaceSwitchView: View {
                 SpaceRowView(model: row)
                     .id(row.id)
             }
-            SpacePlusRow(loading: model.spaceCreateLoading) {
-                model.onTapAddSpace()
+            if model.createSpaceAvailable {
+                SpacePlusRow() {
+                    model.onTapAddSpace()
+                }
             }
         }
-        .padding([.top], headerSize.height + 14)
+        .padding([.top], headerSize.height + 6)
         .animation(.default, value: model.rows.count)
     }
 
     private var header: some View {
-        VStack {
-            DragIndicator()
-            HStack {
-                Spacer()
-                AnytypeText(model.profileName, style: .heading, color: .Text.white)
-                Spacer()
-            }
-            .overlay(rightButton, alignment: .trailing)
-            .frame(height: 48)
-            .padding(.horizontal, 16)
-        }
-    }
-    
-    private var rightButton: some View {
-        Button {
-            model.onTapProfile()
-        } label: {
+        HStack(spacing: 0) {
             IconView(icon: model.profileIcon)
                 .frame(width: 32, height: 32)
+            Spacer.fixedWidth(12)
+            AnytypeText(model.profileName, style: .heading, color: .Text.labelInversion)
+                .lineLimit(1)
+            Spacer()
+            Button {
+                model.onTapProfile()
+            } label: {
+                Image(asset: .Dashboard.settings)
+                    .foregroundColor(.Button.white)
+            }
         }
+        .frame(height: 68)
+        .padding(.horizontal, externalSpacing)
     }
 }
 

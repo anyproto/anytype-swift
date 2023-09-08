@@ -26,6 +26,14 @@ extension View {
             return self.presentationBackground(style)
        } else {
             return self
+       }
+    }
+    
+    func presentationCornerRadiusLegacy(_ radius: CGFloat?) -> some View {
+        if #available(iOS 16.4, *) {
+            return self.presentationCornerRadius(radius)
+        } else {
+            return self
         }
     }
 

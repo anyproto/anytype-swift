@@ -11,15 +11,8 @@ final class SpaceCreateViewModel: ObservableObject {
     
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private let workspaceService: WorkspaceServiceProtocol
-//    private let objectActionsService: ObjectActionsServiceProtocol
-//    private let relationDetailsStorage: RelationDetailsStorageProtocol
-//    private let dateFormatter = DateFormatter.relationDateFormatter
-//    private weak var output: SpaceSettingsModuleOutput?
     
     // MARK: - State
-    
-//    private var subscriptions: [AnyCancellable] = []
-//    private var dataLoaded: Bool = false
     
     @Published var spaceName: String = ""
     let spaceGradient: GradientId = .random

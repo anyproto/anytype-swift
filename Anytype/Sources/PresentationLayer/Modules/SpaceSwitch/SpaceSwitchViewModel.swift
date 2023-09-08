@@ -5,6 +5,10 @@ import Services
 @MainActor
 final class SpaceSwitchViewModel: ObservableObject {
     
+    private enum Constants {
+        static let maxSpaces = 10
+    }
+    
     // MARK: - DI
     
     private let workspacesStorage: WorkspacesStorageProtocol
@@ -23,8 +27,8 @@ final class SpaceSwitchViewModel: ObservableObject {
     @Published var dismiss: Bool = false
     @Published var profileName: String = ""
     @Published var profileIcon: Icon?
-    @Published var spaceCreateLoading: Bool = false
     @Published var scrollToRowId: String? = nil
+    @Published var createSpaceAvailable: Bool = false
     
     init(
         workspacesStorage: WorkspacesStorageProtocol,
@@ -102,6 +106,8 @@ final class SpaceSwitchViewModel: ObservableObject {
         if scrollToRowId.isNil, let selectedRow = rows.first(where: { $0.isSelected }) {
             scrollToRowId = selectedRow.id
         }
+        
+        createSpaceAvailable = workspaces.count < Constants.maxSpaces
     }
     
     private func updateProfile(profile: ObjectDetails) {
@@ -112,6 +118,7 @@ final class SpaceSwitchViewModel: ObservableObject {
     private func onTapWorkspace(workspace: ObjectDetails) {
         Task {
             try await activeWorkspaceStorage.setActiveSpace(spaceId: workspace.spaceId)
+            dismiss.toggle()
         }
     }
 }
