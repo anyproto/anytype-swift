@@ -174,9 +174,7 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
             with: setDocument,
             showViewTypes: showViewTypes
         )
-        let vc = UIHostingController(rootView: view)
-        
-        presentSheet(vc)
+        navigationContext.presentSwiftUISheetView(view: view)
     }
     
     func showCreateObject(details: ObjectDetails) {

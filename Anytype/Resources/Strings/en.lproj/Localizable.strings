@@ -701,7 +701,7 @@
 "SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Untitled";
 
 // MARK: Select view picker
-"EditorSetViewPicker.View.Not.Supported.Title" = "not supported";
+"EditorSetViewPicker.View.Not.Supported.Title" = "Unsupported";
 
 // BlockContent
 "Content.File.Upload" = "Upload a file";

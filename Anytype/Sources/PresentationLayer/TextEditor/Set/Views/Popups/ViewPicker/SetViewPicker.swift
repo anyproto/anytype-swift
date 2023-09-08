@@ -6,7 +6,6 @@ struct SetViewPicker: View {
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
-        DragIndicator()
         NavigationView {
             viewsList
                 .navigationTitle(Loc.views)
@@ -19,21 +18,19 @@ struct SetViewPicker: View {
                 }
         }
         .navigationViewStyle(.stack)
+        .frame(height: 350)
     }
     
     private var viewsList: some View {
         List {
             ForEach(viewModel.rows) {
-                if #available(iOS 15.0, *) {
-                    row(with: $0)
-                        .divider()
-                        .listRowSeparator(.hidden)
-                        .listRowInsets(.init(top: 0, leading: 20, bottom: 0, trailing: 20))
-                        .deleteDisabled(viewModel.disableDeletion)
-                } else {
-                    row(with: $0)
-                        .deleteDisabled(viewModel.disableDeletion)
-                }
+                row(with: $0)
+                    .if($0 != viewModel.rows.last) {
+                        $0.divider()
+                    }
+                    .listRowSeparator(.hidden)
+                    .listRowInsets(.init(top: 0, leading: 20, bottom: 0, trailing: 20))
+                    .deleteDisabled(viewModel.disableDeletion)
             }
             .onMove { from, to in
                 viewModel.move(from: from, to: to)
@@ -53,6 +50,7 @@ struct SetViewPicker: View {
                 addButton
             }
         }
+        .bounceBehaviorBasedOnSize()
     }
     
     private var addButton: some View {
