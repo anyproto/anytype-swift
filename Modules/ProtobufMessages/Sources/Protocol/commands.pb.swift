@@ -7739,9 +7739,9 @@ public struct Anytype_Rpc {
             case unknownError // = 1
             case badInput // = 2
             case internalError // = 3
-            case noObjectsToImport // = 4
-            case importIsCanceled // = 5
-            case limitOfRowsOrRelationsExceeded // = 6
+            case noObjectsToImport // = 5
+            case importIsCanceled // = 6
+            case limitOfRowsOrRelationsExceeded // = 7
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -7754,9 +7754,9 @@ public struct Anytype_Rpc {
               case 1: self = .unknownError
               case 2: self = .badInput
               case 3: self = .internalError
-              case 4: self = .noObjectsToImport
-              case 5: self = .importIsCanceled
-              case 6: self = .limitOfRowsOrRelationsExceeded
+              case 5: self = .noObjectsToImport
+              case 6: self = .importIsCanceled
+              case 7: self = .limitOfRowsOrRelationsExceeded
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -7767,9 +7767,9 @@ public struct Anytype_Rpc {
               case .unknownError: return 1
               case .badInput: return 2
               case .internalError: return 3
-              case .noObjectsToImport: return 4
-              case .importIsCanceled: return 5
-              case .limitOfRowsOrRelationsExceeded: return 6
+              case .noObjectsToImport: return 5
+              case .importIsCanceled: return 6
+              case .limitOfRowsOrRelationsExceeded: return 7
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -37398,9 +37398,9 @@ extension Anytype_Rpc.Object.Import.Response.Error.Code: SwiftProtobuf._ProtoNam
     1: .same(proto: "UNKNOWN_ERROR"),
     2: .same(proto: "BAD_INPUT"),
     3: .same(proto: "INTERNAL_ERROR"),
-    4: .same(proto: "NO_OBJECTS_TO_IMPORT"),
-    5: .same(proto: "IMPORT_IS_CANCELED"),
-    6: .same(proto: "LIMIT_OF_ROWS_OR_RELATIONS_EXCEEDED"),
+    5: .same(proto: "NO_OBJECTS_TO_IMPORT"),
+    6: .same(proto: "IMPORT_IS_CANCELED"),
+    7: .same(proto: "LIMIT_OF_ROWS_OR_RELATIONS_EXCEEDED"),
   ]
 }
 
