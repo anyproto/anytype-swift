@@ -27,9 +27,9 @@ struct CodeLanguageListView: View {
                                         .foregroundColor(Color.Text.primary)
                                 }
                             }
-                            .padding(.horizontal, 20)
                             .frame(height: 52)
                             .newDivider()
+                            .padding(.horizontal, 20)
                             .fixTappableArea()
                         }
                     }
