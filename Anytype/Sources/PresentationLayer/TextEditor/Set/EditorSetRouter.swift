@@ -143,6 +143,7 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
     func showSetSettings(subscriptionDetailsStorage: ObjectDetailsStorage) {
         let view = setViewSettingsCoordinatorAssembly.make(
             setDocument: setDocument,
+            activeViewId: setDocument.activeView.id,
             subscriptionDetailsStorage: subscriptionDetailsStorage
         )
         navigationContext.presentSwiftUISheetView(view: view)

@@ -17,6 +17,7 @@ final class SetViewSettingsListModel: ObservableObject {
     let canBeDeleted: Bool
     
     private let setDocument: SetDocumentProtocol
+    private let activeViewId: String
     private let dataviewService: DataviewServiceProtocol
     private let templatesInteractor: SetTemplatesInteractorProtocol
     private let templateInteractorProvider: TemplateSelectionInteractorProvider?
@@ -24,14 +25,23 @@ final class SetViewSettingsListModel: ObservableObject {
     
     private var cancellables = [AnyCancellable]()
     
+    private var activeView: DataviewView {
+        setDocument.dataView.views.first { [weak self] view in
+            guard let self else { return false }
+            return view.id == activeViewId
+        } ?? .empty
+    }
+    
     init(
         setDocument: SetDocumentProtocol,
+        activeViewId: String,
         dataviewService: DataviewServiceProtocol,
         templatesInteractor: SetTemplatesInteractorProtocol,
         templateInteractorProvider: TemplateSelectionInteractorProvider?,
         output: SetViewSettingsCoordinatorOutput?
     ) {
         self.setDocument = setDocument
+        self.activeViewId = activeViewId
         self.dataviewService = dataviewService
         self.templatesInteractor = templatesInteractor
         self.templateInteractorProvider = templateInteractorProvider
@@ -77,17 +87,17 @@ final class SetViewSettingsListModel: ObservableObject {
     }
     
     func deleteView() {
-        let activeView = setDocument.activeView
-        Task {
-            try await dataviewService.deleteView(activeView.id)
+        Task { [weak self] in
+            guard let self else { return }
+            try await dataviewService.deleteView(activeViewId)
             AnytypeAnalytics.instance().logRemoveView(objectType: setDocument.analyticsType)
         }
     }
     
     func duplicateView() {
-        let activeView = setDocument.activeView
         let source = setDocument.details?.setOf ?? []
-        Task {
+        Task { [weak self] in
+            guard let self else { return }
             try await dataviewService.createView(activeView, source: source)
             AnytypeAnalytics.instance().logDuplicateView(
                 type: activeView.type.stringValue,
@@ -97,6 +107,21 @@ final class SetViewSettingsListModel: ObservableObject {
     }
     
     private func setupSubscriptions() {
+//        setDocument.dataviewPublisher.sink { [weak self] dataview in
+//            let activeView = dataview.views.first { [weak self] view in
+//                guard let self else { return false }
+//                return view.id == activeViewId
+//            } ?? .empty
+//            self?.name = activeView.name
+//            self?.layoutValue = activeView.type.name
+//            self?.updateRelationsValue(with: activeView)
+//            self?.updateDefaultObjectValue(with: activeView)
+//        }.store(in: &cancellables)
+        
+        setDocument.syncPublisher.sink { [weak self] in
+            self?.updateState()
+        }.store(in: &cancellables)
+        
         setDocument.detailsPublisher.sink { [weak self] details in
             guard let self else { return }
             if setDocument.isTypeSet() {
@@ -105,21 +130,21 @@ final class SetViewSettingsListModel: ObservableObject {
                 settings = SetViewSettings.allCases.filter { $0 != .defaultTemplate }
             }
         }.store(in: &cancellables)
+    }
+    
+    private func updateState() {
+        let activeView = activeView
+        name = activeView.name
+        layoutValue = activeView.type.name
+        updateRelationsValue(with: activeView)
+        updateDefaultObjectValue(with: activeView)
         
-        setDocument.activeViewPublisher.sink { [weak self] activeView in
-            self?.name = activeView.name
-            self?.layoutValue = activeView.type.name
-            self?.updateRelationsValue(with: activeView)
-            self?.updateDefaultObjectValue(with: activeView)
-        }.store(in: &cancellables)
+        let sorts = setDocument.sorts(for: activeViewId)
+        updateSortsValue(sorts)
         
-        setDocument.filtersPublisher.sink { [weak self] filters in
-            self?.updateFiltersValue(filters)
-        }.store(in: &cancellables)
+        let filters = setDocument.filters(for: activeViewId)
+        updateFiltersValue(filters)
         
-        setDocument.sortsPublisher.sink { [weak self] sorts in
-            self?.updateSortsValue(sorts)
-        }.store(in: &cancellables)
     }
     
     private func setupTemplatesSubscriptions() {
@@ -156,7 +181,7 @@ final class SetViewSettingsListModel: ObservableObject {
         $name
             .debounce(for: .seconds(0.5), scheduler: RunLoop.main)
             .filter { [weak self] name in
-                self?.setDocument.activeView.name != name
+                self?.activeView.name != name
             }
             .sink { [weak self] name in
                 self?.updateView(with: name)
@@ -165,9 +190,7 @@ final class SetViewSettingsListModel: ObservableObject {
     }
     
     private func updateView(with name: String) {
-        let newView = setDocument.activeView.updated(
-            name: name
-        )
+        let newView = activeView.updated(name: name)
         Task {
             try await dataviewService.updateView(newView)
         }
@@ -176,7 +199,7 @@ final class SetViewSettingsListModel: ObservableObject {
     private func updateDefaultObjectValue(with activeView: DataviewView) {
         guard !setDocument.isTypeSet(),
             defaultObjectValue == SetViewSettings.defaultObject.placeholder ||
-                setDocument.activeView.defaultObjectTypeID != activeView.defaultObjectTypeID else { return }
+                activeView.defaultObjectTypeID != activeView.defaultObjectTypeID else { return }
         let objectTypeId = activeView.defaultObjectTypeIDWithFallback
         Task { @MainActor in
             let objectDetails = try await templatesInteractor.objectDetails(for: objectTypeId)

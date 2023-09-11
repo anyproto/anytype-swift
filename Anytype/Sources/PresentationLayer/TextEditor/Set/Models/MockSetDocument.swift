@@ -39,9 +39,13 @@ final class MockSetDocument: SetDocumentProtocol {
     
     var sortsPublisher: AnyPublisher<[SetSort], Never> { fatalError() }
     
+    func sorts(for activeViewId: String) -> [SetSort] { [] }
+    
     var filters: [SetFilter] { [] }
     
     var filtersPublisher: AnyPublisher<[SetFilter], Never> { fatalError() }
+    
+    func filters(for activeViewId: String) -> [SetFilter] { [] }
     
     func sortedRelations(for activeView: DataviewView) -> [SetRelation] { [] }
     

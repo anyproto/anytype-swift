@@ -3,7 +3,11 @@ import Services
 
 protocol SetViewSettingsCoordinatorAssemblyProtocol {
     @MainActor
-    func make(setDocument: SetDocumentProtocol, subscriptionDetailsStorage: ObjectDetailsStorage) -> AnyView
+    func make(
+        setDocument: SetDocumentProtocol,
+        activeViewId: String,
+        subscriptionDetailsStorage: ObjectDetailsStorage
+    ) -> AnyView
 }
 
 final class SetViewSettingsCoordinatorAssembly: SetViewSettingsCoordinatorAssemblyProtocol {
@@ -19,10 +23,11 @@ final class SetViewSettingsCoordinatorAssembly: SetViewSettingsCoordinatorAssemb
     // MARK: - SetViewSettingsCoordinatorModuleAssemblyProtocol
     
     @MainActor
-    func make(setDocument: SetDocumentProtocol, subscriptionDetailsStorage: ObjectDetailsStorage) -> AnyView {
+    func make(setDocument: SetDocumentProtocol, activeViewId: String, subscriptionDetailsStorage: ObjectDetailsStorage) -> AnyView {
         return SetViewSettingsCoordinatorView(
             model: SetViewSettingsCoordinatorViewModel(
                 setDocument: setDocument,
+                activeViewId: activeViewId,
                 subscriptionDetailsStorage: subscriptionDetailsStorage,
                 setViewSettingsListModuleAssembly: self.modulesDI.setViewSettingsList(),
                 setLayoutSettingsCoordinatorAssembly: self.coordinatorsDI.setLayoutSettings(),

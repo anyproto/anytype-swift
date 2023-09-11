@@ -2,7 +2,11 @@ import SwiftUI
 
 protocol SetViewSettingsListModuleAssemblyProtocol {
     @MainActor
-    func make(setDocument: SetDocumentProtocol, output: SetViewSettingsCoordinatorOutput?) -> AnyView
+    func make(
+        setDocument: SetDocumentProtocol,
+        activeViewId: String,
+        output: SetViewSettingsCoordinatorOutput?
+    ) -> AnyView
 }
 
 final class SetViewSettingsListModuleAssembly: SetViewSettingsListModuleAssemblyProtocol {
@@ -16,7 +20,7 @@ final class SetViewSettingsListModuleAssembly: SetViewSettingsListModuleAssembly
     // MARK: - SetViewSettingsListModuleAssemblyProtocol
     
     @MainActor
-    func make(setDocument: SetDocumentProtocol, output: SetViewSettingsCoordinatorOutput?) -> AnyView {
+    func make(setDocument: SetDocumentProtocol, activeViewId: String, output: SetViewSettingsCoordinatorOutput?) -> AnyView {
         let dataviewService = serviceLocator.dataviewService(
             objectId: setDocument.objectId,
             blockId: setDocument.blockId
@@ -36,6 +40,7 @@ final class SetViewSettingsListModuleAssembly: SetViewSettingsListModuleAssembly
         return SetViewSettingsList(
             model: SetViewSettingsListModel(
                 setDocument: setDocument,
+                activeViewId: activeViewId,
                 dataviewService: dataviewService,
                 templatesInteractor: self.serviceLocator.setTemplatesInteractor,
                 templateInteractorProvider: templateInteractorProvider,

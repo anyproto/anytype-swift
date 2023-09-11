@@ -31,9 +31,11 @@ protocol SetDocumentProtocol: BaseDocumentGeneralProtocol {
 
     var sorts: [SetSort] { get }
     var sortsPublisher: AnyPublisher<[SetSort], Never> { get }
+    func sorts(for activeViewId: String) -> [SetSort]
     
     var filters: [SetFilter] { get }
     var filtersPublisher: AnyPublisher<[SetFilter], Never> { get }
+    func filters(for activeViewId: String) -> [SetFilter]
     
     func sortedRelations(for activeView: DataviewView) -> [SetRelation]
     func canStartSubscription() -> Bool
