@@ -125,7 +125,7 @@ final class SetViewSettingsListModel: ObservableObject {
         let view = view
         name = view.name
         layoutValue = view.type.name
-        updateRelationsValue(with: view)
+        updateRelationsValue()
         updateDefaultObjectValue(with: view)
         
         let sorts = setDocument.sorts(for: viewId)
@@ -196,8 +196,8 @@ final class SetViewSettingsListModel: ObservableObject {
         }
     }
     
-    private func updateRelationsValue(with view: DataviewView) {
-        let visibleRelations = setDocument.sortedRelations(for: view).filter { $0.option.isVisible }
+    private func updateRelationsValue() {
+        let visibleRelations = setDocument.sortedRelations(for: viewId).filter { $0.option.isVisible }
         let value = updatedValue(count: visibleRelations.count, firstName: visibleRelations.first?.relationDetails.name)
         relationsValue = value ?? SetViewSettings.relations.placeholder
     }

@@ -5,6 +5,7 @@ protocol SetRelationsViewModuleAssemblyProtocol {
     // TODO: Remove router with FeatureFlags.newSetSettings
     func make(
         setDocument: SetDocumentProtocol,
+        viewId: String,
         output: SetRelationsCoordinatorOutput?,
         router: EditorSetRouterProtocol?
     ) -> AnyView
@@ -23,6 +24,7 @@ final class SetRelationsViewModuleAssembly: SetRelationsViewModuleAssemblyProtoc
     @MainActor
     func make(
         setDocument: SetDocumentProtocol,
+        viewId: String,
         output: SetRelationsCoordinatorOutput?,
         router: EditorSetRouterProtocol?
     ) -> AnyView {
@@ -33,6 +35,7 @@ final class SetRelationsViewModuleAssembly: SetRelationsViewModuleAssemblyProtoc
         return SetRelationsView(
             model: SetRelationsViewModel(
                 setDocument: setDocument,
+                viewId: viewId,
                 dataviewService: dataviewService,
                 output: output,
                 router: router

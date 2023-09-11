@@ -3,7 +3,7 @@ import Services
 
 protocol SetRelationsCoordinatorAssemblyProtocol {
     @MainActor
-    func make(with setDocument: SetDocumentProtocol) -> AnyView
+    func make(with setDocument: SetDocumentProtocol, viewId: String) -> AnyView
 }
 
 final class SetRelationsCoordinatorAssembly: SetRelationsCoordinatorAssemblyProtocol {
@@ -19,10 +19,11 @@ final class SetRelationsCoordinatorAssembly: SetRelationsCoordinatorAssemblyProt
     // MARK: - SetFiltersListCoordinatorAssemblyProtocol
     
     @MainActor
-    func make(with setDocument: SetDocumentProtocol) -> AnyView {
+    func make(with setDocument: SetDocumentProtocol, viewId: String) -> AnyView {
         return SetRelationsCoordinatorView(
             model: SetRelationsCoordinatorViewModel(
                 setDocument: setDocument,
+                viewId: viewId,
                 setRelationsViewModuleAssembly: self.modulesDI.setRelationsView(),
                 addNewRelationCoordinator: self.coordinatorsDI.addNewRelation().make()
             )

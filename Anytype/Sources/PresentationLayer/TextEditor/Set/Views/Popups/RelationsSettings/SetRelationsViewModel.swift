@@ -10,6 +10,7 @@ final class SetRelationsViewModel: ObservableObject {
     @Published var contentViewType: SetContentViewType = .table
     
     private let setDocument: SetDocumentProtocol
+    private let viewId: String
     private let dataviewService: DataviewServiceProtocol
     // TODO: Remove router with FeatureFlags.newSetSettings
     private let router: EditorSetRouterProtocol?
@@ -17,11 +18,18 @@ final class SetRelationsViewModel: ObservableObject {
     private weak var output: SetRelationsCoordinatorOutput?
     
     private var cancellable: Cancellable?
-
+    
+    private var view: DataviewView {
+        setDocument.dataView.views.first { [weak self] view in
+            guard let self else { return false }
+            return view.id == viewId
+        } ?? .empty
+    }
+    
     var cardSizeSetting: SetViewSettingsValueItem {
         SetViewSettingsValueItem(
             title: Loc.Set.View.Settings.CardSize.title,
-            value: setDocument.activeView.cardSize.value,
+            value: view.cardSize.value,
             onTap: { [weak self] in
                 self?.showCardSizes()
             }
@@ -31,7 +39,7 @@ final class SetRelationsViewModel: ObservableObject {
     var iconSetting: SetViewSettingsToggleItem {
         SetViewSettingsToggleItem(
             title: Loc.icon,
-            isSelected: !setDocument.activeView.hideIcon,
+            isSelected: !view.hideIcon,
             onChange: { [weak self] show in
                 self?.onShowIconChange(show)
             }
@@ -51,7 +59,7 @@ final class SetRelationsViewModel: ObservableObject {
     var coverFitSetting: SetViewSettingsToggleItem {
         SetViewSettingsToggleItem(
             title: Loc.Set.View.Settings.ImageFit.title,
-            isSelected: setDocument.activeView.coverFit,
+            isSelected: view.coverFit,
             onChange: { [weak self] fit in
                 self?.onCoverFitChange(fit)
             }
@@ -61,7 +69,7 @@ final class SetRelationsViewModel: ObservableObject {
     var groupBySetting: SetViewSettingsValueItem {
         SetViewSettingsValueItem(
             title: Loc.Set.View.Settings.GroupBy.title,
-            value: groupByValue(with: setDocument.activeView.groupRelationKey),
+            value: groupByValue(with: view.groupRelationKey),
             onTap: { [weak self] in
                 self?.showGroupByRelations()
             }
@@ -71,7 +79,7 @@ final class SetRelationsViewModel: ObservableObject {
     var groupBackgroundColorsSetting: SetViewSettingsToggleItem {
         SetViewSettingsToggleItem(
             title: Loc.Set.View.Settings.GroupBackgroundColors.title,
-            isSelected: setDocument.activeView.groupBackgroundColors,
+            isSelected: view.groupBackgroundColors,
             onChange: { [weak self] colored in
                 self?.onGroupBackgroundColorsChange(colored)
             }
@@ -79,7 +87,7 @@ final class SetRelationsViewModel: ObservableObject {
     }
     
     var relations: [SetViewSettingsRelation] {
-        setDocument.sortedRelations(for: setDocument.activeView).map { relation in
+        setDocument.sortedRelations(for: viewId).map { relation in
             SetViewSettingsRelation(
                 id: relation.id,
                 image: relation.relationDetails.format.iconAsset,
@@ -95,11 +103,13 @@ final class SetRelationsViewModel: ObservableObject {
     
     init(
         setDocument: SetDocumentProtocol,
+        viewId: String,
         dataviewService: DataviewServiceProtocol,
         output: SetRelationsCoordinatorOutput?,
         router: EditorSetRouterProtocol?
     ) {
         self.setDocument = setDocument
+        self.viewId = viewId
         self.dataviewService = dataviewService
         self.output = output
         self.router = router
@@ -108,42 +118,44 @@ final class SetRelationsViewModel: ObservableObject {
     
     func deleteRelations(indexes: IndexSet) {
         indexes.forEach { index in
-            guard let relation = setDocument.sortedRelations(for: setDocument.activeView)[safe: index] else {
+            guard let relation = setDocument.sortedRelations(for: viewId)[safe: index] else {
                 anytypeAssertionFailure("No relation to delete", info: ["index": "\(index)"])
                 return
             }
             Task {
                 let key = relation.relationDetails.key
                 try await dataviewService.deleteRelation(relationKey: key)
-                try await dataviewService.removeViewRelations([key], viewId: setDocument.activeView.id)
+                try await dataviewService.removeViewRelations([key], viewId: viewId)
             }
         }
     }
     
     func moveRelation(from: IndexSet, to: Int) {
-        from.forEach { sortedRelationsFromIndex in
-            guard sortedRelationsFromIndex != to else { return }
+        from.forEach { [weak self] sortedRelationsFromIndex in
+            guard let self, sortedRelationsFromIndex != to else { return }
             
-            let sortedRelations = setDocument.sortedRelations(for: setDocument.activeView)
+            let sortedRelations = setDocument.sortedRelations(for: viewId)
             let relationFrom = sortedRelations[sortedRelationsFromIndex]
             let sortedRelationsToIndex = to > sortedRelationsFromIndex ? to - 1 : to // map insert index to item index
             let relationTo = sortedRelations[sortedRelationsToIndex]
+            let options = view.options
             
             // index in all options array (includes hidden options)
-            guard let indexFrom = setDocument.activeView.options.index(of: relationFrom) else {
+            guard let indexFrom = options.index(of: relationFrom) else {
                 anytypeAssertionFailure("No from relation for move", info: ["key": relationFrom.relationDetails.key])
                 return
             }
-            guard let indexTo = setDocument.activeView.options.index(of: relationTo) else {
+            guard let indexTo = options.index(of: relationTo) else {
                 anytypeAssertionFailure("No to relation for move", info: ["key": relationTo.relationDetails.key])
                 return
             }
             
-            var newOptions = setDocument.activeView.options
+            var newOptions = options
             newOptions.moveElement(from: indexFrom, to: indexTo)
             let keys = newOptions.map { $0.key }
-            Task {
-                try await dataviewService.sortViewRelations(keys, viewId: setDocument.activeView.id)
+            Task { [weak self] in
+                guard let self else { return }
+                try await dataviewService.sortViewRelations(keys, viewId: viewId)
             }
         }
     }
@@ -155,8 +167,9 @@ final class SetRelationsViewModel: ObservableObject {
     }
     
     private func setup() {
-        cancellable = setDocument.activeViewPublisher.sink { [weak self] activeView in
-            self?.contentViewType = activeView.type.setContentViewType
+        cancellable = setDocument.syncPublisher.sink {  [weak self] in
+            guard let self else { return }
+            contentViewType = view.type.setContentViewType
         }
     }
     
@@ -166,38 +179,38 @@ final class SetRelationsViewModel: ObservableObject {
             try await dataviewService.replaceViewRelation(
                 relation.option.key,
                 with: newOption,
-                viewId: setDocument.activeView.id
+                viewId: viewId
             )
         }
     }
     
     private func onShowIconChange(_ show: Bool) {
-        let newView = setDocument.activeView.updated(hideIcon: !show)
+        let newView = view.updated(hideIcon: !show)
         updateView(newView)
     }
     
     private func onImagePreviewChange(_ key: String) {
-        let newView = setDocument.activeView.updated(coverRelationKey: key)
+        let newView = view.updated(coverRelationKey: key)
         updateView(newView)
     }
     
     private func onCoverFitChange(_ fit: Bool) {
-        let newView = setDocument.activeView.updated(coverFit: fit)
+        let newView = view.updated(coverFit: fit)
         updateView(newView)
     }
     
     private func onGroupBackgroundColorsChange(_ colored: Bool) {
-        let newView = setDocument.activeView.updated(groupBackgroundColors: colored)
+        let newView = view.updated(groupBackgroundColors: colored)
         updateView(newView)
     }
     
     private func onGroupBySettingChange(_ key: String) {
-        let newView = setDocument.activeView.updated(groupRelationKey: key)
+        let newView = view.updated(groupRelationKey: key)
         updateView(newView)
     }
     
     private func onCardSizeChange(_ size: DataviewViewSize) {
-        let newView = setDocument.activeView.updated(cardSize: size)
+        let newView = view.updated(cardSize: size)
         updateView(newView)
     }
     
@@ -213,21 +226,21 @@ final class SetRelationsViewModel: ObservableObject {
     
     private func imagePreviewValueFromCovers() -> String? {
         SetViewSettingsImagePreviewCover.allCases.first { cover in
-            return cover.rawValue == setDocument.activeView.coverRelationKey
+            return cover.rawValue == view.coverRelationKey
         }?.title
     }
     
     private func imagePreviewValueFromRelations() -> String? {
         setDocument.dataViewRelationsDetails.first { relationDetails in
-            return relationDetails.key == setDocument.activeView.coverRelationKey
+            return relationDetails.key == view.coverRelationKey
         }?.name
     }
     
     private func mappedCardSize() -> DataviewViewSize {
-        if setDocument.activeView.cardSize == .medium {
+        if view.cardSize == .medium {
             return .large
         }
-        return setDocument.activeView.cardSize
+        return view.cardSize
     }
     
     private func groupByValue(with key: String) -> String {

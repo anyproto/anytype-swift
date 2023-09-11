@@ -101,13 +101,14 @@ class SetDocument: SetDocumentProtocol {
         self.setup()
     }
     
-    func sortedRelations(for activeView: DataviewView) -> [SetRelation] {
-        dataBuilder.sortedRelations(dataview: dataView, view: activeView)
+    func sortedRelations(for viewId: String) -> [SetRelation] {
+        let view = dataView.views.first { $0.id == viewId } ?? .empty
+        return dataBuilder.sortedRelations(dataview: dataView, view: view)
     }
     
     func sorts(for viewId: String) -> [SetSort] {
-        let activeView = dataView.views.first { $0.id == viewId } ?? .empty
-        return activeView.sorts.compactMap { sort in
+        let view = dataView.views.first { $0.id == viewId } ?? .empty
+        return view.sorts.compactMap { sort in
             let relationDetails = dataViewRelationsDetails.first { relationDetails in
                 sort.relationKey == relationDetails.key
             }
@@ -118,8 +119,8 @@ class SetDocument: SetDocumentProtocol {
     }
     
     func filters(for viewId: String) -> [SetFilter] {
-        let activeView = dataView.views.first { $0.id == viewId } ?? .empty
-        return activeView.filters.compactMap { filter in
+        let view = dataView.views.first { $0.id == viewId } ?? .empty
+        return view.filters.compactMap { filter in
             let relationDetails = dataViewRelationsDetails.first { relationDetails in
                 filter.relationKey == relationDetails.key
             }

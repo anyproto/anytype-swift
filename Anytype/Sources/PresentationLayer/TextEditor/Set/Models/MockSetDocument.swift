@@ -47,7 +47,7 @@ final class MockSetDocument: SetDocumentProtocol {
     
     func filters(for viewId: String) -> [SetFilter] { [] }
     
-    func sortedRelations(for activeView: DataviewView) -> [SetRelation] { [] }
+    func sortedRelations(for viewId: String) -> [SetRelation] { [] }
     
     func canStartSubscription() -> Bool { false }
     

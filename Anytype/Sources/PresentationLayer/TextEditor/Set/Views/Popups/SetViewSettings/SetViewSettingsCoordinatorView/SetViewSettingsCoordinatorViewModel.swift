@@ -85,7 +85,10 @@ final class SetViewSettingsCoordinatorViewModel: ObservableObject, SetViewSettin
     }
     
     func relationsList() -> AnyView {
-        setRelationsCoordinatorAssembly.make(with: setDocument)
+        setRelationsCoordinatorAssembly.make(
+            with: setDocument,
+            viewId: viewId
+        )
     }
     
     // MARK: - Filters

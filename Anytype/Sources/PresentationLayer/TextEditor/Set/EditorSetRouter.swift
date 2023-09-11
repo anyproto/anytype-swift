@@ -254,7 +254,10 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
 
     @MainActor
     func showViewSettings(setDocument: SetDocumentProtocol) {
-        let view = editorSetRelationsCoordinatorAssembly.make(with: setDocument)
+        let view = editorSetRelationsCoordinatorAssembly.make(
+            with: setDocument,
+            viewId: setDocument.activeView.id
+        )
         navigationContext.presentSwiftUIView(view: view)
     }
     
