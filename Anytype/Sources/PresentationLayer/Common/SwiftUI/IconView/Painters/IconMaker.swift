@@ -49,10 +49,17 @@ final class IconMaker {
         return image
     }
     
-    @MainActor
-    func make() async -> UIImage {
+    func makeFromCache() -> UIImage? {
         let hash = HashData(icon: icon, bounds: bounds, iconContext: iconContext, placeholder: false)
         if let image = imageStorage.image(forKey: hash.hashString) {
+            return image
+        }
+        return nil
+    }
+    
+    @MainActor
+    func make() async -> UIImage {
+        if let image = makeFromCache() {
             return image
         }
         
@@ -63,7 +70,10 @@ final class IconMaker {
                 painter?.draw(bounds: bounds, context: ctx.cgContext, iconContext: iconContext)
             }
         }
+        
+        let hash = HashData(icon: icon, bounds: bounds, iconContext: iconContext, placeholder: false)
         imageStorage.saveImage(image, forKey: hash.hashString)
+        
         return image
     }
     
