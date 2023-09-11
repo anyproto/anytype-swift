@@ -15,7 +15,7 @@ protocol EditorSetRouterProtocol:
     func dismissSetSettingsIfNeeded()
     
     func setNavigationViewHidden(_ isHidden: Bool, animated: Bool)
-    func showViewPicker(showViewTypes: @escaping RoutingAction<DataviewView?>)
+    func showViewPicker(subscriptionDetailsStorage: ObjectDetailsStorage, showViewTypes: @escaping RoutingAction<DataviewView?>)
     
     func showCreateObject(details: ObjectDetails)
     func showCreateBookmarkObject()
@@ -170,9 +170,13 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
     }
     
     @MainActor
-    func showViewPicker(showViewTypes: @escaping RoutingAction<DataviewView?>) {
+    func showViewPicker(
+        subscriptionDetailsStorage: ObjectDetailsStorage,
+        showViewTypes: @escaping RoutingAction<DataviewView?>
+    ) {
         let view = setViewPickerCoordinatorAssembly.make(
             with: setDocument,
+            subscriptionDetailsStorage: subscriptionDetailsStorage,
             showViewTypes: showViewTypes
         )
         navigationContext.presentSwiftUISheetView(view: view)
