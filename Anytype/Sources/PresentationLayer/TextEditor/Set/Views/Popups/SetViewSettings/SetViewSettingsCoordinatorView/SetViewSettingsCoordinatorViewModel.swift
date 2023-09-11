@@ -75,7 +75,10 @@ final class SetViewSettingsCoordinatorViewModel: ObservableObject, SetViewSettin
     }
     
     func setLayoutSettings() -> AnyView {
-        setLayoutSettingsCoordinatorAssembly.make(setDocument: setDocument)
+        setLayoutSettingsCoordinatorAssembly.make(
+            setDocument: setDocument,
+            viewId: viewId
+        )
     }
     
     // MARK: - Relations

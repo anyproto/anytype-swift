@@ -14,28 +14,36 @@ final class SetLayoutSettingsViewModel: ObservableObject {
     }
     
     private let setDocument: SetDocumentProtocol
+    private let viewId: String
     private weak var output: SetLayoutSettingsCoordinatorOutput?
     
-    private var activeView: DataviewView = .empty
     private var cancellable: Cancellable?
     private let dataviewService: DataviewServiceProtocol
     
+    private var view: DataviewView {
+        setDocument.dataView.views.first { [weak self] view in
+            guard let self else { return false }
+            return view.id == viewId
+        } ?? .empty
+    }
+    
     init(
         setDocument: SetDocumentProtocol,
+        viewId: String,
         output: SetLayoutSettingsCoordinatorOutput?,
         dataviewService: DataviewServiceProtocol
     ) {
         self.setDocument = setDocument
+        self.viewId = viewId
         self.output = output
         self.dataviewService = dataviewService
         self.setupSubscription()
     }
     
     private func setupSubscription() {
-        cancellable = setDocument.activeViewPublisher.sink { [weak self] activeView in
+        cancellable = setDocument.syncPublisher.sink { [weak self] in
             guard let self else { return }
-            self.activeView = activeView
-            selectedType = activeView.type
+            selectedType = view.type
         }
     }
     
@@ -51,7 +59,7 @@ final class SetLayoutSettingsViewModel: ObservableObject {
                 onTap: { [weak self] in
                     guard let self else { return }
                     selectedType = viewType
-                    let activeView = activeView.updated(type: selectedType)
+                    let activeView = view.updated(type: selectedType)
                     updateView(activeView)
                 }
             )
@@ -64,10 +72,10 @@ final class SetLayoutSettingsViewModel: ObservableObject {
             case .icon:
                 return .toggle(SetViewSettingsToggleItem(
                     title: Loc.icon,
-                    isSelected: !activeView.hideIcon,
+                    isSelected: !view.hideIcon,
                     onChange: { [weak self] show in
                         guard let self else { return }
-                        let activeView = activeView.updated(hideIcon: !show)
+                        let activeView = view.updated(hideIcon: !show)
                         updateView(activeView)
                     }
                 ))
@@ -77,14 +85,14 @@ final class SetLayoutSettingsViewModel: ObservableObject {
                         id: size.value,
                         onTap: { [weak self] in
                             guard let self else { return }
-                            let activeView = activeView.updated(cardSize: size)
+                            let activeView = view.updated(cardSize: size)
                             updateView(activeView)
                         }
                     )
                 }
                 return .context(SetViewSettingsContextItem(
                     title: Loc.Set.View.Settings.CardSize.title,
-                    value: activeView.cardSize.value,
+                    value: view.cardSize.value,
                     options: options
                 ))
             case .imagePreview:
@@ -98,27 +106,27 @@ final class SetLayoutSettingsViewModel: ObservableObject {
             case .fitImage:
                 return .toggle(SetViewSettingsToggleItem(
                     title: Loc.Set.View.Settings.ImageFit.title,
-                    isSelected: activeView.coverFit,
+                    isSelected: view.coverFit,
                     onChange: { [weak self] fit in
                         guard let self else { return }
-                        let activeView = activeView.updated(coverFit: fit)
+                        let activeView = view.updated(coverFit: fit)
                         updateView(activeView)
                     }
                 ))
             case .colorColumns:
                 return .toggle(SetViewSettingsToggleItem(
                     title: Loc.Set.View.Settings.GroupBackgroundColors.title,
-                    isSelected: activeView.groupBackgroundColors,
+                    isSelected: view.groupBackgroundColors,
                     onChange: { [weak self] colored in
                         guard let self else { return }
-                        let activeView = activeView.updated(groupBackgroundColors: colored)
+                        let activeView = view.updated(groupBackgroundColors: colored)
                         updateView(activeView)
                     }
                 ))
             case .groupBy:
                 return .value(SetViewSettingsValueItem(
                     title: Loc.Set.View.Settings.GroupBy.title,
-                    value: groupByValue(with: activeView.groupRelationKey),
+                    value: groupByValue(with: view.groupRelationKey),
                     onTap: { [weak self] in
                         self?.onGroupByTap()
                     }
@@ -131,7 +139,7 @@ final class SetLayoutSettingsViewModel: ObservableObject {
     private func onImagePreviewTap() {
         output?.onImagePreviewTap { [weak self] key in
             guard let self else { return }
-            let activeView = activeView.updated(coverRelationKey: key)
+            let activeView = view.updated(coverRelationKey: key)
             updateView(activeView)
         }
     }
@@ -139,7 +147,7 @@ final class SetLayoutSettingsViewModel: ObservableObject {
     private func onGroupByTap() {
         output?.onGroupByTap { [weak self] key in
             guard let self else { return }
-            let activeView = activeView.updated(groupRelationKey: key)
+            let activeView = view.updated(groupRelationKey: key)
             updateView(activeView)
         }
     }
@@ -165,13 +173,13 @@ final class SetLayoutSettingsViewModel: ObservableObject {
     
     private func imagePreviewValueFromCovers() -> String? {
         SetViewSettingsImagePreviewCover.allCases.first { [weak self] cover in
-            return cover.rawValue == self?.activeView.coverRelationKey
+            return cover.rawValue == self?.view.coverRelationKey
         }?.title
     }
     
     private func imagePreviewValueFromRelations() -> String? {
         setDocument.dataViewRelationsDetails.first { [weak self] relationDetails in
-            return relationDetails.key == self?.activeView.coverRelationKey
+            return relationDetails.key == self?.view.coverRelationKey
         }?.name
     }
 }
