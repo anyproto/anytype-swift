@@ -63,5 +63,6 @@ public extension BundledRelationKey {
         .sourceFilePath,
         .fileSyncStatus,
         .defaultTemplateId,
+        .backlinks,
     ]
 }
