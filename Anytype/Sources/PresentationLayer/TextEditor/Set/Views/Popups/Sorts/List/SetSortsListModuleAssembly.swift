@@ -3,7 +3,11 @@ import Services
 
 protocol SetSortsListModuleAssemblyProtocol {
     @MainActor
-    func make(with setDocument: SetDocumentProtocol, output: SetSortsListCoordinatorOutput?) -> AnyView
+    func make(
+        with setDocument: SetDocumentProtocol,
+        viewId: String,
+        output: SetSortsListCoordinatorOutput?
+    ) -> AnyView
 }
 
 final class SetSortsListModuleAssembly: SetSortsListModuleAssemblyProtocol {
@@ -17,7 +21,11 @@ final class SetSortsListModuleAssembly: SetSortsListModuleAssemblyProtocol {
     // MARK: - SetSortsListModuleAssemblyProtocol
     
     @MainActor
-    func make(with setDocument: SetDocumentProtocol, output: SetSortsListCoordinatorOutput?) -> AnyView {
+    func make(
+        with setDocument: SetDocumentProtocol,
+        viewId: String,
+        output: SetSortsListCoordinatorOutput?
+    ) -> AnyView {
         let dataviewService = serviceLocator.dataviewService(
             objectId: setDocument.objectId,
             blockId: setDocument.blockId
@@ -25,6 +33,7 @@ final class SetSortsListModuleAssembly: SetSortsListModuleAssemblyProtocol {
         return SetSortsListView(
             viewModel: SetSortsListViewModel(
                 setDocument: setDocument,
+                viewId: viewId,
                 dataviewService: dataviewService,
                 output: output
             )

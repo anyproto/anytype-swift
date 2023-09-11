@@ -143,7 +143,7 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
     func showSetSettings(subscriptionDetailsStorage: ObjectDetailsStorage) {
         let view = setViewSettingsCoordinatorAssembly.make(
             setDocument: setDocument,
-            activeViewId: setDocument.activeView.id,
+            viewId: setDocument.activeView.id,
             subscriptionDetailsStorage: subscriptionDetailsStorage
         )
         navigationContext.presentSwiftUISheetView(view: view)
@@ -260,7 +260,10 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
     
     @MainActor
     func showSorts() {
-        let view = setSortsListCoordinatorAssembly.make(with: setDocument)
+        let view = setSortsListCoordinatorAssembly.make(
+            with: setDocument,
+            viewId: setDocument.activeView.id
+        )
         let vc = UIHostingController(
             rootView: view
         )
@@ -271,6 +274,7 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
     func showFilters(setDocument: SetDocumentProtocol, subscriptionDetailsStorage: ObjectDetailsStorage) {
         let view = setFiltersListCoordinatorAssembly.make(
             with: setDocument,
+            viewId: setDocument.activeView.id,
             subscriptionDetailsStorage: subscriptionDetailsStorage
         )
         let vc = UIHostingController(

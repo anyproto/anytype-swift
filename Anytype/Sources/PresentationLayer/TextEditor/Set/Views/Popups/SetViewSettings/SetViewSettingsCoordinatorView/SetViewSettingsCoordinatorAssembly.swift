@@ -5,7 +5,7 @@ protocol SetViewSettingsCoordinatorAssemblyProtocol {
     @MainActor
     func make(
         setDocument: SetDocumentProtocol,
-        activeViewId: String,
+        viewId: String,
         subscriptionDetailsStorage: ObjectDetailsStorage
     ) -> AnyView
 }
@@ -23,11 +23,11 @@ final class SetViewSettingsCoordinatorAssembly: SetViewSettingsCoordinatorAssemb
     // MARK: - SetViewSettingsCoordinatorModuleAssemblyProtocol
     
     @MainActor
-    func make(setDocument: SetDocumentProtocol, activeViewId: String, subscriptionDetailsStorage: ObjectDetailsStorage) -> AnyView {
+    func make(setDocument: SetDocumentProtocol, viewId: String, subscriptionDetailsStorage: ObjectDetailsStorage) -> AnyView {
         return SetViewSettingsCoordinatorView(
             model: SetViewSettingsCoordinatorViewModel(
                 setDocument: setDocument,
-                activeViewId: activeViewId,
+                viewId: viewId,
                 subscriptionDetailsStorage: subscriptionDetailsStorage,
                 setViewSettingsListModuleAssembly: self.modulesDI.setViewSettingsList(),
                 setLayoutSettingsCoordinatorAssembly: self.coordinatorsDI.setLayoutSettings(),

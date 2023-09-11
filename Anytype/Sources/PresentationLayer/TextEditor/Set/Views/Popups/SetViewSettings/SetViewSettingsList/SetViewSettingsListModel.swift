@@ -17,7 +17,7 @@ final class SetViewSettingsListModel: ObservableObject {
     let canBeDeleted: Bool
     
     private let setDocument: SetDocumentProtocol
-    private let activeViewId: String
+    private let viewId: String
     private let dataviewService: DataviewServiceProtocol
     private let templatesInteractor: SetTemplatesInteractorProtocol
     private let templateInteractorProvider: TemplateSelectionInteractorProvider?
@@ -25,23 +25,23 @@ final class SetViewSettingsListModel: ObservableObject {
     
     private var cancellables = [AnyCancellable]()
     
-    private var activeView: DataviewView {
+    private var view: DataviewView {
         setDocument.dataView.views.first { [weak self] view in
             guard let self else { return false }
-            return view.id == activeViewId
+            return view.id == viewId
         } ?? .empty
     }
     
     init(
         setDocument: SetDocumentProtocol,
-        activeViewId: String,
+        viewId: String,
         dataviewService: DataviewServiceProtocol,
         templatesInteractor: SetTemplatesInteractorProtocol,
         templateInteractorProvider: TemplateSelectionInteractorProvider?,
         output: SetViewSettingsCoordinatorOutput?
     ) {
         self.setDocument = setDocument
-        self.activeViewId = activeViewId
+        self.viewId = viewId
         self.dataviewService = dataviewService
         self.templatesInteractor = templatesInteractor
         self.templateInteractorProvider = templateInteractorProvider
@@ -89,7 +89,7 @@ final class SetViewSettingsListModel: ObservableObject {
     func deleteView() {
         Task { [weak self] in
             guard let self else { return }
-            try await dataviewService.deleteView(activeViewId)
+            try await dataviewService.deleteView(viewId)
             AnytypeAnalytics.instance().logRemoveView(objectType: setDocument.analyticsType)
         }
     }
@@ -98,26 +98,15 @@ final class SetViewSettingsListModel: ObservableObject {
         let source = setDocument.details?.setOf ?? []
         Task { [weak self] in
             guard let self else { return }
-            try await dataviewService.createView(activeView, source: source)
+            try await dataviewService.createView(view, source: source)
             AnytypeAnalytics.instance().logDuplicateView(
-                type: activeView.type.stringValue,
+                type: view.type.stringValue,
                 objectType: setDocument.analyticsType
             )
         }
     }
     
     private func setupSubscriptions() {
-//        setDocument.dataviewPublisher.sink { [weak self] dataview in
-//            let activeView = dataview.views.first { [weak self] view in
-//                guard let self else { return false }
-//                return view.id == activeViewId
-//            } ?? .empty
-//            self?.name = activeView.name
-//            self?.layoutValue = activeView.type.name
-//            self?.updateRelationsValue(with: activeView)
-//            self?.updateDefaultObjectValue(with: activeView)
-//        }.store(in: &cancellables)
-        
         setDocument.syncPublisher.sink { [weak self] in
             self?.updateState()
         }.store(in: &cancellables)
@@ -133,16 +122,16 @@ final class SetViewSettingsListModel: ObservableObject {
     }
     
     private func updateState() {
-        let activeView = activeView
-        name = activeView.name
-        layoutValue = activeView.type.name
-        updateRelationsValue(with: activeView)
-        updateDefaultObjectValue(with: activeView)
+        let view = view
+        name = view.name
+        layoutValue = view.type.name
+        updateRelationsValue(with: view)
+        updateDefaultObjectValue(with: view)
         
-        let sorts = setDocument.sorts(for: activeViewId)
+        let sorts = setDocument.sorts(for: viewId)
         updateSortsValue(sorts)
         
-        let filters = setDocument.filters(for: activeViewId)
+        let filters = setDocument.filters(for: viewId)
         updateFiltersValue(filters)
         
     }
@@ -181,7 +170,7 @@ final class SetViewSettingsListModel: ObservableObject {
         $name
             .debounce(for: .seconds(0.5), scheduler: RunLoop.main)
             .filter { [weak self] name in
-                self?.activeView.name != name
+                self?.view.name != name
             }
             .sink { [weak self] name in
                 self?.updateView(with: name)
@@ -190,25 +179,25 @@ final class SetViewSettingsListModel: ObservableObject {
     }
     
     private func updateView(with name: String) {
-        let newView = activeView.updated(name: name)
+        let newView = view.updated(name: name)
         Task {
             try await dataviewService.updateView(newView)
         }
     }
     
-    private func updateDefaultObjectValue(with activeView: DataviewView) {
+    private func updateDefaultObjectValue(with view: DataviewView) {
         guard !setDocument.isTypeSet(),
             defaultObjectValue == SetViewSettings.defaultObject.placeholder ||
-                activeView.defaultObjectTypeID != activeView.defaultObjectTypeID else { return }
-        let objectTypeId = activeView.defaultObjectTypeIDWithFallback
+                view.defaultObjectTypeID != view.defaultObjectTypeID else { return }
+        let objectTypeId = view.defaultObjectTypeIDWithFallback
         Task { @MainActor in
             let objectDetails = try await templatesInteractor.objectDetails(for: objectTypeId)
             defaultObjectValue = objectDetails.name
         }
     }
     
-    private func updateRelationsValue(with activeView: DataviewView) {
-        let visibleRelations = setDocument.sortedRelations(for: activeView).filter { $0.option.isVisible }
+    private func updateRelationsValue(with view: DataviewView) {
+        let visibleRelations = setDocument.sortedRelations(for: view).filter { $0.option.isVisible }
         let value = updatedValue(count: visibleRelations.count, firstName: visibleRelations.first?.relationDetails.name)
         relationsValue = value ?? SetViewSettings.relations.placeholder
     }

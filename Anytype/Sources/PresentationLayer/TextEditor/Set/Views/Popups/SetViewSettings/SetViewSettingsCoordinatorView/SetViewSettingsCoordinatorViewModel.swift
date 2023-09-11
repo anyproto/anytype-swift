@@ -20,7 +20,7 @@ final class SetViewSettingsCoordinatorViewModel: ObservableObject, SetViewSettin
     @Published var showSorts = false
     
     private let setDocument: SetDocumentProtocol
-    private let activeViewId: String
+    private let viewId: String
     private let subscriptionDetailsStorage: ObjectDetailsStorage
     private let setViewSettingsListModuleAssembly: SetViewSettingsListModuleAssemblyProtocol
     private let setLayoutSettingsCoordinatorAssembly: SetLayoutSettingsCoordinatorAssemblyProtocol
@@ -30,7 +30,7 @@ final class SetViewSettingsCoordinatorViewModel: ObservableObject, SetViewSettin
     
     init(
         setDocument: SetDocumentProtocol,
-        activeViewId: String,
+        viewId: String,
         subscriptionDetailsStorage: ObjectDetailsStorage,
         setViewSettingsListModuleAssembly: SetViewSettingsListModuleAssemblyProtocol,
         setLayoutSettingsCoordinatorAssembly: SetLayoutSettingsCoordinatorAssemblyProtocol,
@@ -39,7 +39,7 @@ final class SetViewSettingsCoordinatorViewModel: ObservableObject, SetViewSettin
         setSortsListCoordinatorAssembly: SetSortsListCoordinatorAssemblyProtocol
     ) {
         self.setDocument = setDocument
-        self.activeViewId = activeViewId
+        self.viewId = viewId
         self.subscriptionDetailsStorage = subscriptionDetailsStorage
         self.setViewSettingsListModuleAssembly = setViewSettingsListModuleAssembly
         self.setLayoutSettingsCoordinatorAssembly = setLayoutSettingsCoordinatorAssembly
@@ -51,7 +51,7 @@ final class SetViewSettingsCoordinatorViewModel: ObservableObject, SetViewSettin
     func list() -> AnyView {
         setViewSettingsListModuleAssembly.make(
             setDocument: setDocument,
-            activeViewId: activeViewId,
+            viewId: viewId,
             output: self
         )
     }
@@ -97,6 +97,7 @@ final class SetViewSettingsCoordinatorViewModel: ObservableObject, SetViewSettin
     func setFiltersList() -> AnyView {
         setFiltersListCoordinatorAssembly.make(
             with: setDocument,
+            viewId: viewId,
             subscriptionDetailsStorage: subscriptionDetailsStorage
         )
     }
@@ -108,6 +109,9 @@ final class SetViewSettingsCoordinatorViewModel: ObservableObject, SetViewSettin
     }
     
     func setSortsList() -> AnyView {
-        setSortsListCoordinatorAssembly.make(with: setDocument)
+        setSortsListCoordinatorAssembly.make(
+            with: setDocument,
+            viewId: viewId
+        )
     }
 }

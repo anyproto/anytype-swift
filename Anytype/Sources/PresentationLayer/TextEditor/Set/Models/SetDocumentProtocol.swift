@@ -31,15 +31,15 @@ protocol SetDocumentProtocol: BaseDocumentGeneralProtocol {
 
     var sorts: [SetSort] { get }
     var sortsPublisher: AnyPublisher<[SetSort], Never> { get }
-    func sorts(for activeViewId: String) -> [SetSort]
+    func sorts(for viewId: String) -> [SetSort]
     
     var filters: [SetFilter] { get }
     var filtersPublisher: AnyPublisher<[SetFilter], Never> { get }
-    func filters(for activeViewId: String) -> [SetFilter]
+    func filters(for viewId: String) -> [SetFilter]
     
     func sortedRelations(for activeView: DataviewView) -> [SetRelation]
     func canStartSubscription() -> Bool
-    func activeViewRelations(excludeRelations: [RelationDetails]) -> [RelationDetails]
+    func viewRelations(viewId: String, excludeRelations: [RelationDetails]) -> [RelationDetails]
     func objectOrderIds(for groupId: String) -> [String]
     func updateActiveViewId(_ id: BlockId)
     func isTypeSet() -> Bool
