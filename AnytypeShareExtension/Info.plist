@@ -11,7 +11,7 @@
 				<key>NSExtensionActivationSupportsFileWithMaxCount</key>
 				<integer>0</integer>
 				<key>NSExtensionActivationSupportsImageWithMaxCount</key>
-				<string>0</string>
+				<integer>0</integer>
 				<key>NSExtensionActivationSupportsText</key>
 				<true/>
 				<key>NSExtensionActivationSupportsWebPageWithMaxCount</key>
