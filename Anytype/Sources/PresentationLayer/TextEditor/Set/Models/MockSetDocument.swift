@@ -53,6 +53,8 @@ final class MockSetDocument: SetDocumentProtocol {
     
     func updateActiveViewId(_ id: Services.BlockId) { }
     
+    func isTypeSet() -> Bool { false }
+    
     func isRelationsSet() -> Bool { false }
     
     func isBookmarksSet() -> Bool { false }

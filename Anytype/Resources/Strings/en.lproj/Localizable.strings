@@ -442,6 +442,7 @@
 "Set.View.Settings.GroupBy.Title" = "Group by";
 "Set.View.Settings.GroupBackgroundColors.Title" = "Color columns";
 "Set.View.Settings.DefaultObject.Title" = "Default object";
+"Set.View.Settings.DefaultTemplate.Title" = "Default template";
 
 "Set.View.Settings.NoRelations.Placeholder" = "No relations";
 "Set.View.Settings.NoFilters.Placeholder" = "No filters";

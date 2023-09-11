@@ -40,6 +40,7 @@ protocol SetDocumentProtocol: BaseDocumentGeneralProtocol {
     func activeViewRelations(excludeRelations: [RelationDetails]) -> [RelationDetails]
     func objectOrderIds(for groupId: String) -> [String]
     func updateActiveViewId(_ id: BlockId)
+    func isTypeSet() -> Bool
     func isRelationsSet() -> Bool
     func isBookmarksSet() -> Bool
     func isCollection() -> Bool
