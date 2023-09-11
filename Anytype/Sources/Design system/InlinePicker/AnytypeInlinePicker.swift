@@ -32,14 +32,12 @@ public struct AnytypeInlinePicker<T> : View where T: (Identifiable & Equatable &
     @ViewBuilder
     func buildItem(value: T) -> some View {
         HStack {
-            Group {
-                Spacer.fixedWidth(16)
-                Image(asset: .toastTick)
-                    .renderingMode(.template)
-                    .foregroundColor(Color.Dark.blue)
-                    .opacity(value == initialValue ? 1 : 0)
-                Spacer.fixedWidth(8)
-            }
+            Spacer.fixedWidth(16)
+            Image(asset: .toastTick)
+                .renderingMode(.template)
+                .foregroundColor(Color.Dark.blue)
+                .opacity(value == initialValue ? 1 : 0)
+            Spacer.fixedWidth(8)
             AnytypeText(value.title, style: .bodyRegular, color: .Text.primary)
             Spacer()
         }

@@ -9670,7 +9670,7 @@
 				2AFFFB8A2926670E00A487E1 /* ObjectLayoutPickerModuleAssembly.swift in Sources */,
 				531629372632BD0B000D6780 /* StylePanelLayout.swift in Sources */,
 				2EAA14042AA63918000A712A /* SetViewSettingsRelation.swift in Sources */,
-				C9A7528328E3297000235BDE /* URLConstants.swift in Sources */,
+				C9A7528328E3297000235BDE /* SharedContants.swift in Sources */,
 				C9A7528328E3297000235BDE /* SharedContants.swift in Sources */,
 				12D15D2027F5F78500D22086 /* TagsOptionsSearchModuleBuilder.swift in Sources */,
 				2AD53F5529DEEF7600460CF3 /* MigrationGuideView.swift in Sources */,
@@ -10202,7 +10202,6 @@
 				038A81FD23A0158B00B71388 /* LegacyLoginViewModel.swift in Sources */,
 				2E56F1382A0D43F400031167 /* LoopingPlayerUIView.swift in Sources */,
 				3D93852026FB0B74001C137F /* PageRepository.swift in Sources */,
-				2E2A23062A9F96FA00745D78 /* SetViewSettingsGroupByModuleAssembly.swift in Sources */,
 				3D93852026FB0B74001C137F /* PageRepository.swift in Sources */,
 				2E0797C52A09678C006F0FD7 /* AuthModuleAssembly.swift in Sources */,
 				3DDD3D1426AED74E00B5673A /* CodeLanguage.swift in Sources */,
@@ -11036,6 +11035,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				APP_URL_SCHEME = "com.dev-anytype";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Anytype/Anytype.entitlements;
@@ -11079,6 +11079,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				APP_URL_SCHEME = com.anytype;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Anytype/Anytype.entitlements;
@@ -11232,6 +11233,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				APP_URL_SCHEME = "com.dev-anytype";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Anytype/Anytype.entitlements;
@@ -11374,7 +11376,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.AnytypeShareExtension;
+				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.dev.AnytypeShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;

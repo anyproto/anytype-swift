@@ -27,7 +27,7 @@
 			<string></string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.anytype</string>
+				<string>$(APP_URL_SCHEME)</string>
 			</array>
 		</dict>
 	</array>

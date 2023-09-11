@@ -8,15 +8,15 @@
 		<dict>
 			<key>NSExtensionActivationRule</key>
 			<dict>
-				<key>NSExtensionActivationSupportsWebURLWithMaxCount</key>
-				<integer>1</integer>
-				<key>NSExtensionActivationSupportsWebPageWithMaxCount</key>
-				<integer>1</integer>
+				<key>NSExtensionActivationSupportsFileWithMaxCount</key>
+				<integer>0</integer>
 				<key>NSExtensionActivationSupportsImageWithMaxCount</key>
-				<string>1</string>
+				<string>0</string>
 				<key>NSExtensionActivationSupportsText</key>
 				<true/>
-				<key>NSExtensionActivationSupportsFileWithMaxCount</key>
+				<key>NSExtensionActivationSupportsWebPageWithMaxCount</key>
+				<integer>1</integer>
+				<key>NSExtensionActivationSupportsWebURLWithMaxCount</key>
 				<integer>1</integer>
 			</dict>
 		</dict>
