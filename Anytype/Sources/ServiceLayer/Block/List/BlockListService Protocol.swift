@@ -12,4 +12,6 @@ protocol BlockListServiceProtocol: AnyObject {
     func moveToPage(objectId: BlockId, blockId: BlockId, pageId: BlockId) async throws
     func setLinkAppearance(objectId: BlockId, blockIds: [BlockId], appearance: BlockLink.Appearance) async throws
     func changeMarkup(objectId: BlockId, blockIds: [BlockId], markType: MarkupType) async throws
+    
+    func lastBlockId(from objectId: BlockId) async throws -> BlockId
 }

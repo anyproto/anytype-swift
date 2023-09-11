@@ -2,7 +2,7 @@ import Security
 import LocalAuthentication
 import Foundation
 
-protocol KeychainStoreProtocol {
+public protocol KeychainStoreProtocol {
     func storeItem(item: String, queryable: SecureStoreQueryable) throws
     func retreiveItem(queryable: SecureStoreQueryable) throws -> String
     func contains(queryable: SecureStoreQueryable) -> Bool
@@ -10,15 +10,16 @@ protocol KeychainStoreProtocol {
 }
 
 /// Wrapper for keychain store
-final class KeychainStore: KeychainStoreProtocol {
+public final class KeychainStore: KeychainStoreProtocol {
     
     // MARK: - Public methods
+    public init() {}
     
     /// Add item (password, key, certificate, etc.) to keychain
     ///
     /// - Parameters:
     ///   - item: Item to store in keychain
-    func storeItem(item: String, queryable: SecureStoreQueryable) throws {
+    public func storeItem(item: String, queryable: SecureStoreQueryable) throws {
         guard let dataItem = item.data(using: .utf8) else {
             throw KeychainError.stringItem2DataConversionError
         }
@@ -47,7 +48,7 @@ final class KeychainStore: KeychainStoreProtocol {
     /// Obtain item from keychain
     ///
     /// - Returns: Stored item from keychain
-    func retreiveItem(queryable: SecureStoreQueryable) throws -> String {
+    public func retreiveItem(queryable: SecureStoreQueryable) throws -> String {
         var query = queryable.query
         query[String(kSecMatchLimit)] = kSecMatchLimitOne
         query[String(kSecReturnAttributes)] = kCFBooleanTrue
@@ -77,7 +78,7 @@ final class KeychainStore: KeychainStoreProtocol {
     /// Obtain item from keychain
     ///
     /// - Returns: Stored item from keychain
-    func contains(queryable: SecureStoreQueryable) -> Bool {
+    public func contains(queryable: SecureStoreQueryable) -> Bool {
         var query = queryable.query
         // specify kSecUseAuthenticationUIFail so that the error
         // errSecInteractionNotAllowed will be returned if an item needs
@@ -95,7 +96,7 @@ final class KeychainStore: KeychainStoreProtocol {
     }
     
     /// Remove item from keychain
-    func removeItem(queryable: SecureStoreQueryable) throws {
+    public func removeItem(queryable: SecureStoreQueryable) throws {
         let query = queryable.query
         
         let status = SecItemDelete(query as CFDictionary)

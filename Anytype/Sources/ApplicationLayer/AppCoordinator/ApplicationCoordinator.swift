@@ -61,6 +61,8 @@ final class ApplicationCoordinator: ApplicationCoordinatorProtocol {
         switch url {
         case URLConstants.createObjectURL:
             windowManager.createAndShowNewObject()
+        case URLConstants.sharingExtenstionURL:
+            windowManager.showSharingScene()
         default:
             break
         }

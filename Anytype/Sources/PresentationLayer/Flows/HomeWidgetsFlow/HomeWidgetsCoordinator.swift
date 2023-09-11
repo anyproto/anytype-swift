@@ -7,6 +7,7 @@ protocol HomeWidgetsCoordinatorProtocol {
     func startFlow() -> AnyView
     func flowStarted()
     func createAndShowNewPage()
+    func showSharedScene()
 }
 
 @MainActor
@@ -27,6 +28,7 @@ final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsM
     private let dashboardAlertsAssembly: DashboardAlertsAssemblyProtocol
     private let quickActionsStorage: QuickActionsStorage
     private let widgetTypeModuleAssembly: WidgetTypeModuleAssemblyProtocol
+    private let shareModuleAssembly: ShareModuleAssemblyProtocol
     
     // MARK: - State
     
@@ -44,7 +46,8 @@ final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsM
         dashboardService: DashboardServiceProtocol,
         dashboardAlertsAssembly: DashboardAlertsAssemblyProtocol,
         quickActionsStorage: QuickActionsStorage,
-        widgetTypeModuleAssembly: WidgetTypeModuleAssemblyProtocol
+        widgetTypeModuleAssembly: WidgetTypeModuleAssemblyProtocol,
+        shareModuleAssembly: ShareModuleAssemblyProtocol
     ) {
         self.homeWidgetsModuleAssembly = homeWidgetsModuleAssembly
         self.accountManager = accountManager
@@ -58,6 +61,7 @@ final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsM
         self.dashboardAlertsAssembly = dashboardAlertsAssembly
         self.quickActionsStorage = quickActionsStorage
         self.widgetTypeModuleAssembly = widgetTypeModuleAssembly
+        self.shareModuleAssembly = shareModuleAssembly
     }
     
     // MARK: - HomeWidgetsCoordinatorProtocol
@@ -104,6 +108,32 @@ final class HomeWidgetsCoordinator: HomeWidgetsCoordinatorProtocol, HomeWidgetsM
             AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: .navigation, view: .home)
             openObject(screenData: details.editorScreenData())
         }
+    }
+    
+    func showSharedScene() {
+        let shareView = shareModuleAssembly.make { [weak self] arg in
+            guard let self = self else { return }
+            let searchView = self.searchModuleAssembly.makeObjectSearch(
+                title: arg.0,
+                layouts: arg.1,
+                onSelect: arg.2
+            )
+            self.navigationContext.present(searchView)
+        } onClose: { [weak navigationContext] _ in
+            navigationContext?.dismissTopPresented(animated: true)
+        }
+        
+        guard let shareView = shareView else {
+            return
+        }
+        
+        let shareViewPopup = AnytypePopup(
+            contentView: shareView,
+            floatingPanelStyle: true,
+            configuration: .init(isGrabberVisible: false, dismissOnBackdropView: true)
+        )
+
+        navigationContext.present(shareView)
     }
     
     // MARK: - HomeWidgetsModuleOutput
