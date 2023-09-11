@@ -52,4 +52,5 @@ protocol ModulesDIProtocol: AnyObject {
     func setViewSettingsGroupByView() -> SetViewSettingsGroupByModuleAssemblyProtocol
     func setRelationsView() -> SetRelationsViewModuleAssemblyProtocol
     func shareAssembly() -> ShareModuleAssemblyProtocol
+    func setViewPicker() -> SetViewPickerModuleAssemblyProtocol
 }

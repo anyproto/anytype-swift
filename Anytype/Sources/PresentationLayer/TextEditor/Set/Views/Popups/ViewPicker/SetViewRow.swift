@@ -1,10 +1,10 @@
 import SwiftUI
 import Services
 
-struct EditorSetViewRow: View {
+struct SetViewRow: View {
     @Environment(\.editMode) var editMode
     
-    let configuration: EditorSetViewRowConfiguration
+    let configuration: SetViewRowConfiguration
     let onTap: () -> Void
     
     var body: some View {
@@ -21,11 +21,19 @@ struct EditorSetViewRow: View {
             HStack(spacing: 0) {
                 AnytypeText(
                     configuration.name,
-                    style: .uxBodyRegular,
-                    color: configuration.isSupported ? .Text.primary : .Text.secondary
+                    style: .subheading,
+                    color: configuration.isActive ? .Text.primary : .Button.active
                 )
+                
                 Spacer(minLength: 5)
-                accessoryView
+                
+                if !configuration.isSupported, editMode?.wrappedValue == .inactive {
+                    AnytypeText(
+                        Loc.EditorSetViewPicker.View.Not.Supported.title,
+                        style: .caption2Regular,
+                        color: .Text.secondary
+                    )
+                }
             }
         }
         .disabled(
@@ -35,32 +43,13 @@ struct EditorSetViewRow: View {
         .frame(height: 52)
     }
     
-    private var accessoryView: some View {
-        Group {
-            if configuration.isSupported {
-                if configuration.isActive, editMode?.wrappedValue == .inactive {
-                    Image(asset: .X24.tick)
-                        .foregroundColor(.Button.button)
-                }
-            } else {
-                if editMode?.wrappedValue == .inactive {
-                    AnytypeText(
-                        Loc.EditorSetViewPicker.View.Not.Supported.title,
-                        style: .uxBodyRegular,
-                        color: .Text.secondary
-                    )
-                }
-            }
-        }
-    }
-    
     private var editButton: some View {
         Group {
             if editMode?.wrappedValue == .active {
                 Button(action: {
                     configuration.onEditTap()
                 }) {
-                    Image(asset: .X32.edit)
+                    Image(asset: .X24.edit)
                         .foregroundColor(.Button.active)
                 }
             }

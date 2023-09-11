@@ -221,4 +221,8 @@ final class ModulesDI: ModulesDIProtocol {
     func shareAssembly() -> ShareModuleAssemblyProtocol {
         return ShareModuleAssembly(serviceLocator: serviceLocator)
     }
+    
+    func setViewPicker() -> SetViewPickerModuleAssemblyProtocol {
+        SetViewPickerModuleAssembly(serviceLocator: serviceLocator)
+    }
 }

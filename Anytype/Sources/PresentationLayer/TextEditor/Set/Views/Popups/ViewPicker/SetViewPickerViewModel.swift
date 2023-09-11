@@ -3,28 +3,29 @@ import Services
 import Combine
 import AnytypeCore
 
-final class EditorSetViewPickerViewModel: ObservableObject {
-    @Published var rows: [EditorSetViewRowConfiguration] = []
+@MainActor
+final class SetViewPickerViewModel: ObservableObject {
+    @Published var rows: [SetViewRowConfiguration] = []
     @Published var disableDeletion = false
     
     private let setDocument: SetDocumentProtocol
     private var cancellable: AnyCancellable?
     private let dataviewService: DataviewServiceProtocol
-    private let showViewTypes: RoutingAction<DataviewView?>
+    private weak var output: SetViewPickerCoordinatorOutput?
     
     init(
         setDocument: SetDocumentProtocol,
         dataviewService: DataviewServiceProtocol,
-        showViewTypes: @escaping RoutingAction<DataviewView?>)
-    {
+        output: SetViewPickerCoordinatorOutput?
+    ) {
         self.setDocument = setDocument
         self.dataviewService = dataviewService
-        self.showViewTypes = showViewTypes
+        self.output = output
         self.setup()
     }
     
     func addButtonTapped() {
-        showViewTypes(nil)
+        output?.onAddButtonTap()
     }
     
     func move(from: IndexSet, to: Int) {
@@ -58,7 +59,7 @@ final class EditorSetViewPickerViewModel: ObservableObject {
     
     private func updateRows(with dataView: BlockDataview) {
         rows = dataView.views.map { view in
-            EditorSetViewRowConfiguration(
+            SetViewRowConfiguration(
                 id: view.id,
                 name: view.name,
                 typeName: view.type.name.lowercased(),
@@ -87,6 +88,6 @@ final class EditorSetViewPickerViewModel: ObservableObject {
         guard let activeView = setDocument.dataView.views.first(where: { $0.id == id }) else {
             return
         }
-        showViewTypes(activeView)
+        output?.onEditButtonTap(dataView: activeView)
     }
 }

@@ -113,6 +113,7 @@ internal extension ImageAsset {
     static let customizeView = ImageAsset.bundle(name: "x24/Customize View")
     static let database = ImageAsset.bundle(name: "x24/Database")
     static let date = ImageAsset.bundle(name: "x24/Date")
+    static let edit = ImageAsset.bundle(name: "x24/Edit")
     static let email = ImageAsset.bundle(name: "x24/Email")
     static let embed = ImageAsset.bundle(name: "x24/Embed")
     static let empty = ImageAsset.bundle(name: "x24/Empty")
@@ -176,7 +177,6 @@ internal extension ImageAsset {
     static let download = ImageAsset.bundle(name: "x32/Download")
     static let dragDrop = ImageAsset.bundle(name: "x32/Drag & Drop")
     static let duplicate = ImageAsset.bundle(name: "x32/Duplicate")
-    static let edit = ImageAsset.bundle(name: "x32/Edit")
     static let empty = ImageAsset.bundle(name: "x32/Empty")
     static let export = ImageAsset.bundle(name: "x32/Export")
     enum Favorite {

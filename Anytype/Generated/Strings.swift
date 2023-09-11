@@ -1142,8 +1142,8 @@ internal enum Loc {
     internal enum View {
       internal enum Not {
         internal enum Supported {
-          /// not supported
-          internal static let title = Loc.tr("Localizable", "EditorSetViewPicker.View.Not.Supported.Title", fallback: "not supported")
+          /// Unsupported
+          internal static let title = Loc.tr("Localizable", "EditorSetViewPicker.View.Not.Supported.Title", fallback: "Unsupported")
         }
       }
     }
