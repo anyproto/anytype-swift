@@ -17,11 +17,11 @@ final class CodeLanguageListModuleAssembly: CodeLanguageListModuleAssemblyProtoc
     // MARK: - CodeLanguageListModuleAssemblyProtocol
     
     func make(document: BaseDocumentProtocol, blockId: BlockId) -> UIViewController {
-        let viewModel = CodeLanguageListViewModel(
+        let viewModel = CodeLanguageLegacyListViewModel(
             document: document,
             blockId: blockId,
             blockListService: serviceLocator.blockListService()
         )
-        return CodeLanguageListViewController(viewModel: viewModel)
+        return CodeLanguageLegacyListViewController(viewModel: viewModel)
     }
 }

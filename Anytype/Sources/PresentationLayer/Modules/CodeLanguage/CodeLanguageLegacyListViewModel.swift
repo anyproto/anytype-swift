@@ -1,7 +1,7 @@
 import Foundation
 import Services
 
-final class CodeLanguageListViewModel {
+final class CodeLanguageLegacyListViewModel {
     
     var items: [CodeLanguage] = CodeLanguage.allCases
     
