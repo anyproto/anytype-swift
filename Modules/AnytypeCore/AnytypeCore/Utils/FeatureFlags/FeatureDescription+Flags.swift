@@ -118,6 +118,12 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
+    static let newCodeLanguages = FeatureDescription(
+        title: "New code languages - IOS-987",
+        type: .feature(author: "m@anytype.io", releaseVersion: "0.26.0"),
+        defaultValue: true
+    )
+    
     static let newSetSettings = FeatureDescription(
         title: "New Set settings",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.25.0"),

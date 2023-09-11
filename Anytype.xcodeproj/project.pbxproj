@@ -387,6 +387,9 @@
 		2A30735128AD04D7003673DF /* TopAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A30735028AD04D7003673DF /* TopAlertView.swift */; };
 		2A3425AC2A6A8EB3005E61F1 /* SmallImageIdPainter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3425AB2A6A8EB3005E61F1 /* SmallImageIdPainter.swift */; };
 		2A3425B32A6AD415005E61F1 /* AnytypeText+Mention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3425B22A6AD415005E61F1 /* AnytypeText+Mention.swift */; };
+		2A35FF8E2AAF202E00D6006D /* CodeLanguageListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A35FF8D2AAF202E00D6006D /* CodeLanguageListView.swift */; };
+		2A35FF902AAF203C00D6006D /* CodeLanguageListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A35FF8F2AAF203C00D6006D /* CodeLanguageListViewModel.swift */; };
+		2A35FF922AAF20FD00D6006D /* CodeLanguageRowModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A35FF912AAF20FD00D6006D /* CodeLanguageRowModel.swift */; };
 		2A3629A7292E2BB200C02EC3 /* ObjectSettingsCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3629A6292E2BB200C02EC3 /* ObjectSettingsCoordinatorAssembly.swift */; };
 		2A39DC4629FBC567003C43A9 /* FileStorageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A39DC4529FBC567003C43A9 /* FileStorageView.swift */; };
 		2A39DC4829FBC57F003C43A9 /* FileStorageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A39DC4729FBC57F003C43A9 /* FileStorageViewModel.swift */; };
@@ -1927,6 +1930,9 @@
 		2A30735028AD04D7003673DF /* TopAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopAlertView.swift; sourceTree = "<group>"; };
 		2A3425AB2A6A8EB3005E61F1 /* SmallImageIdPainter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallImageIdPainter.swift; sourceTree = "<group>"; };
 		2A3425B22A6AD415005E61F1 /* AnytypeText+Mention.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AnytypeText+Mention.swift"; sourceTree = "<group>"; };
+		2A35FF8D2AAF202E00D6006D /* CodeLanguageListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeLanguageListView.swift; sourceTree = "<group>"; };
+		2A35FF8F2AAF203C00D6006D /* CodeLanguageListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeLanguageListViewModel.swift; sourceTree = "<group>"; };
+		2A35FF912AAF20FD00D6006D /* CodeLanguageRowModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeLanguageRowModel.swift; sourceTree = "<group>"; };
 		2A3629A6292E2BB200C02EC3 /* ObjectSettingsCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectSettingsCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		2A39DC4529FBC567003C43A9 /* FileStorageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileStorageView.swift; sourceTree = "<group>"; };
 		2A39DC4729FBC57F003C43A9 /* FileStorageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileStorageViewModel.swift; sourceTree = "<group>"; };
@@ -5546,6 +5552,9 @@
 				534D19C62623A7220080AEF0 /* CodeLanguageLegacyListViewController.swift */,
 				2ABAF2B82938E58E003C4730 /* CodeLanguageLegacyListViewModel.swift */,
 				2ABAF2BA2938E5FA003C4730 /* CodeLanguageModuleAssembly.swift */,
+				2A35FF8D2AAF202E00D6006D /* CodeLanguageListView.swift */,
+				2A35FF8F2AAF203C00D6006D /* CodeLanguageListViewModel.swift */,
+				2A35FF912AAF20FD00D6006D /* CodeLanguageRowModel.swift */,
 			);
 			path = CodeLanguage;
 			sourceTree = "<group>";
@@ -9314,6 +9323,7 @@
 				3D93D56B270C9E3400614E29 /* URLInputViewController.swift in Sources */,
 				2ACA341829AD09D400BBD2F5 /* DashboardWallpaperViewModel.swift in Sources */,
 				C982025E28746DBF00065EBE /* SimpleTableStateManager.swift in Sources */,
+				2A35FF8E2AAF202E00D6006D /* CodeLanguageListView.swift in Sources */,
 				2E9863512937B55800304645 /* GroupsSubscriptionsHandlerProtocol.swift in Sources */,
 				C91989ED2811673600CC6BEB /* UndoRedoView.swift in Sources */,
 				C9121A5C273B8E2F00FFDA07 /* RoundedShadowView.swift in Sources */,
@@ -9476,6 +9486,7 @@
 				2EC9425128F97F5E00DE91E4 /* GroupsSubscribeServiceProtocol.swift in Sources */,
 				53856BCB2659B38F00CB1FAE /* CodeBlockViewModel.swift in Sources */,
 				2EAA14072AA63918000A712A /* SetRelationsViewModel.swift in Sources */,
+				2A35FF902AAF203C00D6006D /* CodeLanguageListViewModel.swift in Sources */,
 				2A03039828ABAA45002EFC46 /* TextRelationActionViewModelProtocol.swift in Sources */,
 				C91AFF11270C3E2F005F9386 /* ActivityViewController.swift in Sources */,
 				5391687D2632DCC600AD5C5F /* StyleCellContentView.swift in Sources */,
@@ -9587,6 +9598,7 @@
 				12A52E2926CAA17B000F0333 /* AnimatableView.swift in Sources */,
 				039DA2E62305843D0041F95C /* LegacyErrorAlertView.swift in Sources */,
 				2AFFFB972927722A00A487E1 /* ObjectCoverPickerModuleAssembly.swift in Sources */,
+				2A35FF922AAF20FD00D6006D /* CodeLanguageRowModel.swift in Sources */,
 				1247BCA727FF3827005F2DB4 /* FeedbackGeneratorExamplesView.swift in Sources */,
 				3D929B2F263307700063F1BE /* AnytypeFont.swift in Sources */,
 				2AAF344D2959B71C00921320 /* HomeWidgetProviderAssemblyProtocol.swift in Sources */,

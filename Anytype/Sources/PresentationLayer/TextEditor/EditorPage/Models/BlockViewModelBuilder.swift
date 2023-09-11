@@ -78,20 +78,21 @@ final class BlockViewModelBuilder {
         case let .text(content):
             switch content.contentType {
             case .code:
+                let codeLanguage = CodeLanguage.create(
+                    middleware: info.fields[CodeBlockFields.FieldName.codeLanguage]?.stringValue
+                )
                 return CodeBlockViewModel(
                     info: info,
                     content: content,
                     anytypeText: content.anytypeText(document: document),
-                    codeLanguage: CodeLanguage.create(
-                        middleware: info.fields[CodeBlockFields.FieldName.codeLanguage]?.stringValue
-                    ),
+                    codeLanguage: codeLanguage,
                     becomeFirstResponder: { _ in },
                     textDidChange: { [weak self] block, textView in
                         self?.handler.changeText(textView.attributedText, info: info)
                         self?.delegate.textBlockSetNeedsLayout()
                     },
                     showCodeSelection: { [weak self] info in
-                        self?.router.showCodeLanguage(blockId: info.id)
+                        self?.router.showCodeLanguage(blockId: info.id, selectedLanguage: codeLanguage)
                     }
                 )
             default:

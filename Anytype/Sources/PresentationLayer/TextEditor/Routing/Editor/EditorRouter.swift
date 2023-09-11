@@ -164,9 +164,14 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         fileCoordinator.downloadFileAt(fileURL, withType: type)
     }
     
-    func showCodeLanguage(blockId: BlockId) {
-        let moduleViewController = codeLanguageListModuleAssembly.make(document: document, blockId: blockId)
-        navigationContext.present(moduleViewController)
+    func showCodeLanguage(blockId: BlockId, selectedLanguage: CodeLanguage) {
+        if FeatureFlags.newCodeLanguages {
+            let module = codeLanguageListModuleAssembly.make(document: document, blockId: blockId, selectedLanguage: selectedLanguage)
+            navigationContext.present(module)
+        } else {
+            let moduleViewController = codeLanguageListModuleAssembly.makeLegacy(document: document, blockId: blockId)
+            navigationContext.present(moduleViewController)
+        }
     }
     
     func showStyleMenu(
