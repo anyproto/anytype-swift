@@ -6,40 +6,40 @@ username(ENV["APPLE_ID"]) # Your Apple Developer Portal username
 
 for_lane :dev do
 	type("appstore")
-	app_identifier([ENV["APP_ID_DEVELOP"], ENV["APP_WIDGET_ID_DEVELOP"]]) 
+	app_identifier([ENV["APP_ID_DEVELOP"], ENV["APP_SHARE_EXTENSION_ID_DEVELOP"], ENV["APP_WIDGET_ID_DEVELOP"]]) 
 end
 
 for_lane :release do
 	type("appstore")
-	app_identifier([ENV["APP_ID_RELEASE"], ENV["APP_WIDGET_ID_RELEASE"]]) 
+	app_identifier([ENV["APP_ID_RELEASE"], ENV["APP_WIDGET_ID_RELEASE"], ENV["APP_SHARE_EXTENSION_ID_RELEASE"]]) 
 end
 
 for_lane :test_build do
 	type("appstore")
-	app_identifier([ENV["APP_ID_DEVELOP"], ENV["APP_WIDGET_ID_DEVELOP"]]) 
+	app_identifier([ENV["APP_ID_DEVELOP"], ENV["APP_WIDGET_ID_DEVELOP"], ENV["APP_SHARE_EXTENSION_ID_DEVELOP"]]) 
 end
 
 for_lane :branch_build do
 	type("appstore")
-	app_identifier([ENV["APP_ID_DEVELOP"], ENV["APP_WIDGET_ID_DEVELOP"]]) 
+	app_identifier([ENV["APP_ID_DEVELOP"], ENV["APP_WIDGET_ID_DEVELOP"], ENV["APP_SHARE_EXTENSION_ID_DEVELOP"]]) 
 end
 
 for_lane :generate_dev_profiles do
 	type('development')
-	app_identifier([ENV["APP_ID_DEVELOP"], ENV["APP_WIDGET_ID_DEVELOP"]])
+	app_identifier([ENV["APP_ID_DEVELOP"], ENV["APP_WIDGET_ID_DEVELOP"], ENV["APP_SHARE_EXTENSION_ID_DEVELOP"]])
 end
 
 for_lane :install_dev_profiles do
 	type("development")
-	app_identifier([ENV["APP_ID_DEVELOP"], ENV["APP_WIDGET_ID_DEVELOP"]]) 
+	app_identifier([ENV["APP_ID_DEVELOP"], ENV["APP_WIDGET_ID_DEVELOP"], ENV["APP_SHARE_EXTENSION_ID_DEVELOP"]]) 
 end
 
 for_lane :generate_appstore_profiles do
 	type("appstore")
-	app_identifier([ENV["APP_ID_DEVELOP"], ENV["APP_WIDGET_ID_DEVELOP"], ENV["APP_ID_RELEASE"], ENV["APP_WIDGET_ID_RELEASE"]]) 
+	app_identifier([ENV["APP_ID_DEVELOP"], ENV["APP_WIDGET_ID_DEVELOP"], ENV["APP_SHARE_EXTENSION_ID_DEVELOP"], ENV["APP_ID_RELEASE"], ENV["APP_WIDGET_ID_RELEASE"], ENV["APP_SHARE_EXTENSION_ID_RELEASE"]]) 
 end
 
 for_lane :install_appstore_profiles do
 	type("appstore")
-	app_identifier([ENV["APP_ID_DEVELOP"], ENV["APP_WIDGET_ID_DEVELOP"], ENV["APP_ID_RELEASE"], ENV["APP_WIDGET_ID_RELEASE"]]) 
+	app_identifier([ENV["APP_ID_DEVELOP"], ENV["APP_WIDGET_ID_DEVELOP"], ENV["APP_SHARE_EXTENSION_ID_DEVELOP"], ENV["APP_ID_RELEASE"], ENV["APP_WIDGET_ID_RELEASE"], ENV["APP_SHARE_EXTENSION_ID_RELEASE"]]) 
 end
