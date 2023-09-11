@@ -51,15 +51,15 @@ final class DataviewTemplateSelectionInteractorProvider: TemplateSelectionIntera
         self.objectTypeProvider = objectTypeProvider
         self.dataviewService = dataviewService
         
-        if setDocument.isCollection() || setDocument.isRelationsSet() {
-            self.objectTypeId = .dynamic(setDocument.activeView.defaultObjectTypeIDWithFallback)
-        } else {
+        if setDocument.isTypeSet() {
             if let firstSetOf = setDocument.details?.setOf.first {
                 self.objectTypeId = .dynamic(firstSetOf)
             } else {
                 self.objectTypeId = .dynamic(objectTypeProvider.defaultObjectType.id)
                 anytypeAssertionFailure("Couldn't find default object type in sets", info: ["setId": setDocument.objectId])
             }
+        } else {
+            self.objectTypeId = .dynamic(setDocument.activeView.defaultObjectTypeIDWithFallback)
         }
         
         subscribeOnDocmentUpdates()

@@ -9,7 +9,7 @@ final class MentionAssembly {
         let viewModel = MentionsViewModel(
             documentId: documentId,
             mentionService: mentionService,
-            pageService: ServiceLocator.shared.pageService(),
+            pageService: ServiceLocator.shared.pageRepository(),
             onSelect: onMentionSelect
         )
         let controller = MentionsViewController(viewModel: viewModel, dismissAction: onDismiss)

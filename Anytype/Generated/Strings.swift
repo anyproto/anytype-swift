@@ -1549,6 +1549,10 @@ internal enum Loc {
           /// Default object
           internal static let title = Loc.tr("Localizable", "Set.View.Settings.DefaultObject.Title", fallback: "Default object")
         }
+        internal enum DefaultTemplate {
+          /// Default template
+          internal static let title = Loc.tr("Localizable", "Set.View.Settings.DefaultTemplate.Title", fallback: "Default template")
+        }
         internal enum GroupBackgroundColors {
           /// Color columns
           internal static let title = Loc.tr("Localizable", "Set.View.Settings.GroupBackgroundColors.Title", fallback: "Color columns")
@@ -1623,6 +1627,38 @@ internal enum Loc {
     internal static let spaceName = Loc.tr("Localizable", "Settings.SpaceName", fallback: "Space name")
     /// Personal Space
     internal static let title = Loc.tr("Localizable", "Settings.Title", fallback: "Personal Space")
+  }
+  internal enum Sharing {
+    /// Add to
+    internal static let addTo = Loc.tr("Localizable", "Sharing.AddTo", fallback: "Add to")
+    /// Link to
+    internal static let linkTo = Loc.tr("Localizable", "Sharing.LinkTo", fallback: "Link to")
+    /// SAVE AS
+    internal static let saveAs = Loc.tr("Localizable", "Sharing.SaveAs", fallback: "SAVE AS")
+    internal enum Navigation {
+      /// Add to Anytype
+      internal static let title = Loc.tr("Localizable", "Sharing.Navigation.title", fallback: "Add to Anytype")
+      internal enum LeftButton {
+        /// Cancel
+        internal static let title = Loc.tr("Localizable", "Sharing.Navigation.LeftButton.Title", fallback: "Cancel")
+      }
+      internal enum RightButton {
+        /// Done
+        internal static let title = Loc.tr("Localizable", "Sharing.Navigation.RightButton.Title", fallback: "Done")
+      }
+    }
+    internal enum Text {
+      /// Note object
+      internal static let noteObject = Loc.tr("Localizable", "Sharing.Text.NoteObject", fallback: "Note object")
+      /// Text block
+      internal static let textBlock = Loc.tr("Localizable", "Sharing.Text.TextBlock", fallback: "Text block")
+    }
+    internal enum Url {
+      /// Bookmark object
+      internal static let bookmark = Loc.tr("Localizable", "Sharing.URL.Bookmark", fallback: "Bookmark object")
+      /// Text block
+      internal static let text = Loc.tr("Localizable", "Sharing.URL.Text", fallback: "Text block")
+    }
   }
   internal enum SignUp {
     internal enum InvintationCode {

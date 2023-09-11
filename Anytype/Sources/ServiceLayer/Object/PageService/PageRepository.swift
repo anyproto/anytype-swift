@@ -2,8 +2,8 @@ import ProtobufMessages
 import SwiftProtobuf
 import Services
 
-protocol PageServiceProtocol: AnyObject {
-    func createPage(
+protocol PageRepositoryProtocol: AnyObject {
+    func createDefaultPage(
         name: String,
         shouldDeleteEmptyObject: Bool,
         shouldSelectType: Bool,
@@ -21,16 +21,16 @@ protocol PageServiceProtocol: AnyObject {
     ) async throws -> ObjectDetails
 }
 
-// MARK: - Default argumentsf
-extension PageServiceProtocol {
-    func createPage(
+// MARK: - Default arguments
+extension PageRepositoryProtocol {
+    func createDefaultPage(
         name: String,
         shouldDeleteEmptyObject: Bool = false,
         shouldSelectType: Bool = false,
         shouldSelectTemplate: Bool = false,
         templateId: String? = nil
     ) async throws -> ObjectDetails {
-        try await createPage(
+        try await createDefaultPage(
             name: name,
             shouldDeleteEmptyObject: shouldDeleteEmptyObject,
             shouldSelectType: shouldSelectType,
@@ -40,12 +40,15 @@ extension PageServiceProtocol {
     }
 }
 
-final class PageService: PageServiceProtocol {
+final class PageRepository: PageRepositoryProtocol {
     
     private let objectTypeProvider: ObjectTypeProviderProtocol
+    private let pageService: PageServiceProtocol
     
-    init(objectTypeProvider: ObjectTypeProviderProtocol) {
+    init(objectTypeProvider: ObjectTypeProviderProtocol,
+         pageService: PageServiceProtocol) {
         self.objectTypeProvider = objectTypeProvider
+        self.pageService = pageService
     }
     
     func createPage(
@@ -56,42 +59,24 @@ final class PageService: PageServiceProtocol {
         shouldSelectTemplate: Bool,
         templateId: String? = nil
     ) async throws -> ObjectDetails {
-        let details = Google_Protobuf_Struct(
-            fields: [
-                BundledRelationKey.name.rawValue: name.protobufValue,
-                BundledRelationKey.type.rawValue: type.protobufValue
-            ]
+        try await pageService.createPage(
+            name: name,
+            type: type,
+            shouldDeleteEmptyObject: shouldDeleteEmptyObject,
+            shouldSelectType: shouldSelectType,
+            shouldSelectTemplate: shouldSelectTemplate,
+            templateId: templateId
         )
-        
-        let internalFlags: [Anytype_Model_InternalFlag] = .builder {
-            if shouldDeleteEmptyObject {
-                Anytype_Model_InternalFlag.with { $0.value = .editorDeleteEmpty }
-            }
-            if shouldSelectType {
-                Anytype_Model_InternalFlag.with { $0.value = .editorSelectType }
-            }
-            if shouldSelectTemplate {
-                Anytype_Model_InternalFlag.with { $0.value = .editorSelectTemplate }
-            }
-        }
-        
-        let response = try await ClientCommands.objectCreate(.with {
-            $0.details = details
-            $0.internalFlags = internalFlags
-            $0.templateID = templateId ?? ""
-        }).invoke()
-        
-        return try response.details.toDetails()
     }
     
-    func createPage(
+    func createDefaultPage(
         name: String,
         shouldDeleteEmptyObject: Bool,
         shouldSelectType: Bool,
         shouldSelectTemplate: Bool,
         templateId: String? = nil
     ) async throws -> ObjectDetails {
-        try await createPage(
+        try await pageService.createPage(
             name: name,
             type: objectTypeProvider.defaultObjectType.id,
             shouldDeleteEmptyObject: shouldDeleteEmptyObject,
