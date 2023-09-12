@@ -81,7 +81,8 @@ final class EditorAssembly {
             textService: serviceLocator.textService,
             groupsSubscriptionsHandler: serviceLocator.groupsSubscriptionsHandler(),
             setSubscriptionDataBuilder: SetSubscriptionDataBuilder(accountManager: serviceLocator.accountManager()),
-            setTemplatesInteractor: serviceLocator.setTemplatesInteractor
+            setTemplatesInteractor: serviceLocator.setTemplatesInteractor,
+            objectTypeProvider: serviceLocator.objectTypeProvider()
         )
         let controller = EditorSetHostingController(objectId: data.objectId, model: model)
         let navigationContext = NavigationContext(rootViewController: browser ?? controller)

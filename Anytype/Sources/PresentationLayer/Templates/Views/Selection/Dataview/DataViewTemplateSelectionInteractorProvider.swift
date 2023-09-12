@@ -11,12 +11,13 @@ protocol TemplateSelectionInteractorProvider {
 
 final class DataviewTemplateSelectionInteractorProvider: TemplateSelectionInteractorProvider {
     var userTemplates: AnyPublisher<[TemplatePreviewModel], Never> {
-        Publishers.CombineLatest($templatesDetails, $defaultTemplateId)
-            .map { details, defaultTemplateId in
-                details.map {
+        Publishers.CombineLatest3($templatesDetails, $defaultTemplateId, $typeDefaultTemplateId)
+            .map { details, defaultTemplateId, typeDefaultTemplateId in
+                let templateId = defaultTemplateId.isNotEmpty ? defaultTemplateId : typeDefaultTemplateId
+                return details.map {
                     TemplatePreviewModel(
                         objectDetails: $0,
-                        isDefault: $0.id == defaultTemplateId
+                        isDefault: $0.id == templateId
                     )
                 }
             }
@@ -34,6 +35,7 @@ final class DataviewTemplateSelectionInteractorProvider: TemplateSelectionIntera
     
     @Published private var templatesDetails = [ObjectDetails]()
     @Published private var defaultTemplateId: BlockId
+    @Published private var typeDefaultTemplateId: BlockId
     
     private var cancellables = [AnyCancellable]()
     
@@ -51,16 +53,19 @@ final class DataviewTemplateSelectionInteractorProvider: TemplateSelectionIntera
         self.objectTypeProvider = objectTypeProvider
         self.dataviewService = dataviewService
         
+        let defaultObjectTypeID = setDocument.activeView.defaultObjectTypeIDWithFallback
         if setDocument.isCollection() || setDocument.isRelationsSet() {
-            self.objectTypeId = .dynamic(setDocument.activeView.defaultObjectTypeIDWithFallback)
+            self.objectTypeId = .dynamic(defaultObjectTypeID)
         } else {
             if let firstSetOf = setDocument.details?.setOf.first {
                 self.objectTypeId = .dynamic(firstSetOf)
             } else {
-                self.objectTypeId = .dynamic(objectTypeProvider.defaultObjectType.id)
+                self.objectTypeId = .dynamic(defaultObjectTypeID)
                 anytypeAssertionFailure("Couldn't find default object type in sets", info: ["setId": setDocument.objectId])
             }
         }
+        
+        self.typeDefaultTemplateId = objectTypeProvider.objectType(id: objectTypeId.rawValue)?.defaultTemplateId ?? .empty
         
         subscribeOnDocmentUpdates()
         loadTemplates()
@@ -68,24 +73,17 @@ final class DataviewTemplateSelectionInteractorProvider: TemplateSelectionIntera
     
     private func subscribeOnDocmentUpdates() {
         setDocument.activeViewPublisher.sink { [weak self] activeDataView in
-            guard let self = self else { return }
+            guard let self else { return }
             if self.defaultTemplateId != activeDataView.defaultTemplateID {
                 self.defaultTemplateId = activeDataView.defaultTemplateID ?? .empty
             }
         }.store(in: &cancellables)
         
-        
-        setDocument.updatePublisher.sink { [weak self] _ in
-            guard let self = self,
-                  let view = self.setDocument.dataView.views.first(where: { $0.id == self.dataView.id }) else {
-                anytypeAssertionFailure(
-                    "Can't find selected dataView for template picker",
-                    info: ["DataView.Id": self?.dataView.id ?? .empty]
-                )
-                return
-            }
-            if self.defaultTemplateId != view.defaultTemplateID {
-                self.defaultTemplateId = view.defaultTemplateID ?? .empty
+        objectTypeProvider.syncPublisher.sink { [weak self] in
+            guard let self else { return }
+            let defaultTemplateId = objectTypeProvider.objectType(id: objectTypeId.rawValue)?.defaultTemplateId ?? .empty
+            if typeDefaultTemplateId != defaultTemplateId {
+                typeDefaultTemplateId = defaultTemplateId
             }
         }.store(in: &cancellables)
     }

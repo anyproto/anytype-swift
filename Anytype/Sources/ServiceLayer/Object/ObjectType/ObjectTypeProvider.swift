@@ -3,6 +3,7 @@ import Services
 import ProtobufMessages
 import Combine
 
+
 extension ObjectType: IdProvider {}
 
 final class ObjectTypeProvider: ObjectTypeProviderProtocol {
@@ -20,6 +21,7 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     private let subscriptionBuilder: ObjectTypeSubscriptionDataBuilderProtocol
     
     private(set) var objectTypes = [ObjectType]()
+    
     private var searchTypesById = SynchronizedDictionary<String, ObjectType>()
     
     private init(
@@ -35,6 +37,9 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     @Published
     var defaultObjectType: ObjectType = .fallbackType
     var defaultObjectTypePublisher: AnyPublisher<ObjectType, Never> { $defaultObjectType.eraseToAnyPublisher() }
+    
+    @Published var sync: () = ()
+    var syncPublisher: AnyPublisher<Void, Never> { $sync.eraseToAnyPublisher() }
     
     func setDefaulObjectType(type: ObjectType) {
         UserDefaultsConfig.defaultObjectType = type
@@ -57,7 +62,8 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
             isArchived: false,
             isDeleted: true,
             sourceObject: "",
-            recommendedRelations: []
+            recommendedRelations: [],
+            defaultTemplateId: ""
         )
     }
     
@@ -78,6 +84,7 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     private func handleEvent(update: SubscriptionUpdate) {
         objectTypes.applySubscriptionUpdate(update, transform: { ObjectType(details: $0) })
         updateAllCache()
+        sync = ()
     }
     
     private func updateAllCache() {
