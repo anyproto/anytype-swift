@@ -48,7 +48,7 @@ struct AnytypeWidgetEntryView : View {
     var body: some View {
         ZStack {
             Circle()
-                .background(Color.white)
+                .fill(Color.white)
                 .opacity(0.12)
             Image(systemName: "plus")
                 .resizable()
