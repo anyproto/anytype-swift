@@ -3,7 +3,6 @@ import Services
 import ProtobufMessages
 import Combine
 
-
 extension ObjectType: IdProvider {}
 
 final class ObjectTypeProvider: ObjectTypeProviderProtocol {
@@ -21,7 +20,6 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     private let subscriptionBuilder: ObjectTypeSubscriptionDataBuilderProtocol
     
     private(set) var objectTypes = [ObjectType]()
-    
     private var searchTypesById = SynchronizedDictionary<String, ObjectType>()
     
     private init(
