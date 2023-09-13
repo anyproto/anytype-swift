@@ -126,9 +126,8 @@ public extension FeatureDescription {
     
     static let newSetSettings = FeatureDescription(
         title: "New Set settings",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.25.0"),
-        defaultValue: false,
-        debugValue: false
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.26.0"),
+        defaultValue: true
     )
     
     // MARK: - Debug
