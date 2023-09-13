@@ -2265,7 +2265,7 @@ public struct Anytype_Rpc {
         public mutating func clearDetails() {self._details = nil}
 
         /// use case
-        public var useCase: Anytype_Rpc.Object.ImportUseCase.Request.UseCase = .skip
+        public var useCase: Anytype_Rpc.Object.ImportUseCase.Request.UseCase = .empty
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -8051,41 +8051,44 @@ public struct Anytype_Rpc {
 
         public var spaceID: String = String()
 
-        public var useCase: Anytype_Rpc.Object.ImportUseCase.Request.UseCase = .skip
+        public var useCase: Anytype_Rpc.Object.ImportUseCase.Request.UseCase = .empty
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public enum UseCase: SwiftProtobuf.Enum {
           public typealias RawValue = Int
-          case skip // = 0
-          case personalProjects // = 1
-          case knowledgeBase // = 2
-          case notesDiary // = 3
-          case strategicWriting // = 4
+          case empty // = 0
+          case skip // = 1
+          case personalProjects // = 2
+          case knowledgeBase // = 3
+          case notesDiary // = 4
+          case strategicWriting // = 5
           case UNRECOGNIZED(Int)
 
           public init() {
-            self = .skip
+            self = .empty
           }
 
           public init?(rawValue: Int) {
             switch rawValue {
-            case 0: self = .skip
-            case 1: self = .personalProjects
-            case 2: self = .knowledgeBase
-            case 3: self = .notesDiary
-            case 4: self = .strategicWriting
+            case 0: self = .empty
+            case 1: self = .skip
+            case 2: self = .personalProjects
+            case 3: self = .knowledgeBase
+            case 4: self = .notesDiary
+            case 5: self = .strategicWriting
             default: self = .UNRECOGNIZED(rawValue)
             }
           }
 
           public var rawValue: Int {
             switch self {
-            case .skip: return 0
-            case .personalProjects: return 1
-            case .knowledgeBase: return 2
-            case .notesDiary: return 3
-            case .strategicWriting: return 4
+            case .empty: return 0
+            case .skip: return 1
+            case .personalProjects: return 2
+            case .knowledgeBase: return 3
+            case .notesDiary: return 4
+            case .strategicWriting: return 5
             case .UNRECOGNIZED(let i): return i
             }
           }
@@ -23928,6 +23931,7 @@ extension Anytype_Rpc.Object.ImportList.ImportResponse.TypeEnum: CaseIterable {
 extension Anytype_Rpc.Object.ImportUseCase.Request.UseCase: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
   public static var allCases: [Anytype_Rpc.Object.ImportUseCase.Request.UseCase] = [
+    .empty,
     .skip,
     .personalProjects,
     .knowledgeBase,
@@ -29347,7 +29351,7 @@ extension Anytype_Rpc.Workspace.Create.Request: SwiftProtobuf.Message, SwiftProt
     try { if let v = self._details {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
     } }()
-    if self.useCase != .skip {
+    if self.useCase != .empty {
       try visitor.visitSingularEnumField(value: self.useCase, fieldNumber: 2)
     }
     try unknownFields.traverse(visitor: &visitor)
@@ -37769,7 +37773,7 @@ extension Anytype_Rpc.Object.ImportUseCase.Request: SwiftProtobuf.Message, Swift
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.useCase != .skip {
+    if self.useCase != .empty {
       try visitor.visitSingularEnumField(value: self.useCase, fieldNumber: 1)
     }
     if !self.spaceID.isEmpty {
@@ -37788,11 +37792,12 @@ extension Anytype_Rpc.Object.ImportUseCase.Request: SwiftProtobuf.Message, Swift
 
 extension Anytype_Rpc.Object.ImportUseCase.Request.UseCase: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "SKIP"),
-    1: .same(proto: "PERSONAL_PROJECTS"),
-    2: .same(proto: "KNOWLEDGE_BASE"),
-    3: .same(proto: "NOTES_DIARY"),
-    4: .same(proto: "STRATEGIC_WRITING"),
+    0: .same(proto: "EMPTY"),
+    1: .same(proto: "SKIP"),
+    2: .same(proto: "PERSONAL_PROJECTS"),
+    3: .same(proto: "KNOWLEDGE_BASE"),
+    4: .same(proto: "NOTES_DIARY"),
+    5: .same(proto: "STRATEGIC_WRITING"),
   ]
 }
 
