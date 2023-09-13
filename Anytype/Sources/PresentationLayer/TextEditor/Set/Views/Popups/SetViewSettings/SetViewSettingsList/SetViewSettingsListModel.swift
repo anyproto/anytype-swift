@@ -50,6 +50,7 @@ final class SetViewSettingsListModel: ObservableObject {
         self.templateInteractorProvider = templateInteractorProvider
         self.output = output
         self.canBeDeleted = setDocument.dataView.views.count > 1
+        self.setupFocus()
         self.debounceNameChanges()
         self.setupSubscriptions()
         self.setupTemplatesSubscriptions()
@@ -167,6 +168,10 @@ final class SetViewSettingsListModel: ObservableObject {
         if defaultTemplateValue != title {
             defaultTemplateValue = title
         }
+    }
+    
+    private func setupFocus() {
+        focused = mode == .new
     }
     
     private func debounceNameChanges() {
