@@ -26,7 +26,7 @@ protocol EditorRouterProtocol:
     
     func saveFile(fileURL: URL, type: FileContentType)
     
-    func showCodeLanguage(blockId: BlockId)
+    func showCodeLanguage(blockId: BlockId, selectedLanguage: CodeLanguage)
     
     func showStyleMenu(
         informations: [BlockInformation],
