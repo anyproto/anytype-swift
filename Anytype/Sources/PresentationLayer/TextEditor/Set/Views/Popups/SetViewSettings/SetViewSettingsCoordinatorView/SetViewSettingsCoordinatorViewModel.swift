@@ -4,6 +4,7 @@ import Services
 @MainActor
 protocol SetViewSettingsCoordinatorOutput: AnyObject {
     func onDefaultObjectTap()
+    func onDefaultTemplateTap()
     func onLayoutTap()
     func onRelationsTap()
     func onFiltersTap()
@@ -22,6 +23,7 @@ final class SetViewSettingsCoordinatorViewModel: ObservableObject, SetViewSettin
     private let subscriptionDetailsStorage: ObjectDetailsStorage
     private let setViewSettingsListModuleAssembly: SetViewSettingsListModuleAssemblyProtocol
     private let setLayoutSettingsCoordinatorAssembly: SetLayoutSettingsCoordinatorAssemblyProtocol
+    private let setRelationsCoordinatorAssembly: SetRelationsCoordinatorAssemblyProtocol
     private let setFiltersListCoordinatorAssembly: SetFiltersListCoordinatorAssemblyProtocol
     private let setSortsListCoordinatorAssembly: SetSortsListCoordinatorAssemblyProtocol
     
@@ -30,6 +32,7 @@ final class SetViewSettingsCoordinatorViewModel: ObservableObject, SetViewSettin
         subscriptionDetailsStorage: ObjectDetailsStorage,
         setViewSettingsListModuleAssembly: SetViewSettingsListModuleAssemblyProtocol,
         setLayoutSettingsCoordinatorAssembly: SetLayoutSettingsCoordinatorAssemblyProtocol,
+        setRelationsCoordinatorAssembly: SetRelationsCoordinatorAssemblyProtocol,
         setFiltersListCoordinatorAssembly: SetFiltersListCoordinatorAssemblyProtocol,
         setSortsListCoordinatorAssembly: SetSortsListCoordinatorAssemblyProtocol
     ) {
@@ -37,6 +40,7 @@ final class SetViewSettingsCoordinatorViewModel: ObservableObject, SetViewSettin
         self.subscriptionDetailsStorage = subscriptionDetailsStorage
         self.setViewSettingsListModuleAssembly = setViewSettingsListModuleAssembly
         self.setLayoutSettingsCoordinatorAssembly = setLayoutSettingsCoordinatorAssembly
+        self.setRelationsCoordinatorAssembly = setRelationsCoordinatorAssembly
         self.setFiltersListCoordinatorAssembly = setFiltersListCoordinatorAssembly
         self.setSortsListCoordinatorAssembly = setSortsListCoordinatorAssembly
     }
@@ -50,6 +54,10 @@ final class SetViewSettingsCoordinatorViewModel: ObservableObject, SetViewSettin
     // MARK: - Default type
     
     func onDefaultObjectTap() {
+        showObjects.toggle()
+    }
+    
+    func onDefaultTemplateTap() {
         showObjects.toggle()
     }
     
@@ -67,6 +75,10 @@ final class SetViewSettingsCoordinatorViewModel: ObservableObject, SetViewSettin
     
     func onRelationsTap() {
         showRelations.toggle()
+    }
+    
+    func relationsList() -> AnyView {
+        setRelationsCoordinatorAssembly.make(with: setDocument)
     }
     
     // MARK: - Filters

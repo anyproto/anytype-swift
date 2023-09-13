@@ -31,25 +31,17 @@ final class MiddlewareEventConverter {
         switch event {
         case let .threadStatus(status):
             return SyncStatus(status.summary.status).flatMap { .syncStatus($0) }
-        case let .blockSetFields(fields):
-            infoContainer.update(blockId: fields.id) { info in
-                return info.updated(fields: fields.fields.fields)
-            }
-            return .blocks(blockIds: [fields.id])
-        case let .blockAdd(value):
-            value.blocks
-                .compactMap(BlockInformationConverter.convert(block:))
-                .forEach { block in
-                    infoContainer.add(block)
-                }
+        case let .blockSetFields(data):
+            infoContainer.setFields(data: data)
+            return .blocks(blockIds: [data.id])
+        case let .blockAdd(data):
+            infoContainer.add(data: data)
             // Because blockAdd message will always come together with blockSetChildrenIds
             // and it is easier to create update from those message
             return nil
         
-        case let .blockDelete(value):
-            value.blockIds.forEach { blockId in
-                infoContainer.remove(id: blockId)
-            }
+        case let .blockDelete(data):
+            infoContainer.delete(data: data)
             // Because blockDelete message will always come together with blockSetChildrenIds
             // and it is easier to create update from those message
             return nil
@@ -60,28 +52,21 @@ final class MiddlewareEventConverter {
             return .general
         case let .blockSetText(newData):
             return blockSetTextUpdate(newData)
-        case let .blockSetBackgroundColor(updateData):
-            infoContainer.update(blockId: updateData.id, update: { info in
-                return info.updated(
-                    backgroundColor: MiddlewareColor(rawValue: updateData.backgroundColor) ?? .default
-                )
-            })
-
-            var childIds = infoContainer.recursiveChildren(of: updateData.id).map { $0.id }
-            childIds.append(updateData.id)
+        case let .blockSetBackgroundColor(data):
+            infoContainer.setBackgroundColor(data: data)
             
+            var childIds = infoContainer.recursiveChildren(of: data.id).map { $0.id }
+            childIds.append(data.id)
             return .blocks(blockIds: Set(childIds))
             
         case let .blockSetAlign(value):
+            infoContainer.setAlign(data: value)
+
             let blockId = value.id
             let alignment = value.align
             guard let modelAlignment = alignment.asBlockModel else {
                 anytypeAssertionFailure("We cannot parse alignment", info: ["value": "\(value)"])
                 return .general
-            }
-            
-            infoContainer.update(blockId: blockId) { info in
-                info.updated(horizontalAlignment: modelAlignment)
             }
             return .blocks(blockIds: [blockId])
         
@@ -126,16 +111,12 @@ final class MiddlewareEventConverter {
             guard let details = detailsStorage.unset(data: data) else { return nil }
             return .details(id: details.id)
             
-        case .objectRelationsAmend(let amend):
-            relationLinksStorage.amend(
-                relationLinks: amend.relationLinks.map { RelationLink(middlewareRelationLink: $0) }
-            )
-            
+        case .objectRelationsAmend(let data):
+            relationLinksStorage.ammend(data: data)
             return .general
             
-        case .objectRelationsRemove(let remove):
-            relationLinksStorage.remove(relationKeys: remove.relationKeys)
-            
+        case .objectRelationsRemove(let data):
+            relationLinksStorage.remove(data: data)
             return .general
             
         case let .blockSetFile(data):
@@ -280,7 +261,7 @@ final class MiddlewareEventConverter {
             infoContainer.updateRelation(blockId: data.id) { $0.handleSetRelation(data: data) }
             return .general // Relace to `.blocks(blockIds: [data.id])` after implment task https://linear.app/anytype/issue/IOS-914
         case .objectRestrictionsSet(let restrictions):
-            restrictionsContainer.restrinctions = MiddlewareObjectRestrictionsConverter.convertObjectRestrictions(middlewareRestrictions: restrictions.restrictions)
+            restrictionsContainer.set(data: restrictions)
             return nil
         case .blockSetWidget(let data):
             infoContainer.updateWidget(blockId: data.id) { $0.handleSetWidget(data: data) }

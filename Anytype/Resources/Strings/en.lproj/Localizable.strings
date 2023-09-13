@@ -334,6 +334,11 @@
 "TemplateEditing.Title" = "Edit template";
 "TemplateEditing.SelectButtonTitle" = "Select template";
 
+"Templates.Popup.WasAddedTo" = "New template was added to the type";
+"Templates.Popup.Duplicated" = "The template was duplicated";
+"Templates.Popup.Removed" = "The template was removed";
+"Templates.Popup.Default" = "The template was set as default";
+
 "To Bin" = "To Bin";
 
 // MARK: - Context Menu
@@ -436,6 +441,7 @@
 "Set.View.Settings.GroupBy.Title" = "Group by";
 "Set.View.Settings.GroupBackgroundColors.Title" = "Color columns";
 "Set.View.Settings.DefaultObject.Title" = "Default object";
+"Set.View.Settings.DefaultTemplate.Title" = "Default template";
 
 "Set.View.Settings.NoRelations.Placeholder" = "No relations";
 "Set.View.Settings.NoFilters.Placeholder" = "No filters";
@@ -691,7 +697,7 @@
 "SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Untitled";
 
 // MARK: Select view picker
-"EditorSetViewPicker.View.Not.Supported.Title" = "not supported";
+"EditorSetViewPicker.View.Not.Supported.Title" = "Unsupported";
 
 // BlockContent
 "Content.File.Upload" = "Upload a file";
@@ -804,4 +810,18 @@
 // MARK: - Cpear cache alert
 "ClearCacheAlert.Title" = "Are you sure?";
 "ClearCacheAlert.Description" = "All media files stored in Anytype will be deleted from your current device. They can be downloaded again from a backup node or another device.";
+
+// MARK: - Sharing
+"Sharing.Navigation.title" = "Add to Anytype";
+"Sharing.Navigation.LeftButton.Title" = "Cancel";
+"Sharing.Navigation.RightButton.Title" = "Done";
+
+"Sharing.SaveAs" = "SAVE AS";
+"Sharing.AddTo" = "Add to";
+"Sharing.LinkTo" = "Link to";
+
+"Sharing.URL.Bookmark" = "Bookmark object";
+"Sharing.URL.Text" = "Text block";
+"Sharing.Text.NoteObject" = "Note object";
+"Sharing.Text.TextBlock" = "Text block";
 

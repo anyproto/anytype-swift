@@ -222,6 +222,14 @@ class SearchHelper {
         return filter
     }
     
+    static func buildFilters(isArchived: Bool, workspaceId: String) -> [DataviewFilter] {
+        [
+            SearchHelper.notHiddenFilter(),
+            SearchHelper.isArchivedFilter(isArchived: isArchived),
+            SearchHelper.workspaceId(workspaceId),
+        ]
+    }
+    
     // MARK: - Private
 
     private static func templateTypeFilter(type: String) -> DataviewFilter {

@@ -43,10 +43,6 @@ class SetDocument: SetDocumentProtocol {
     
     var dataViewRelationsDetails: [RelationDetails] = []
     
-    var sortedRelations: [SetRelation] {
-        dataBuilder.sortedRelations(dataview: dataView, view: activeView)
-    }
-    
     var isObjectLocked: Bool {
         document.isLocked ||
         activeView.type == .gallery ||
@@ -105,6 +101,10 @@ class SetDocument: SetDocumentProtocol {
         self.setup()
     }
     
+    func sortedRelations(for activeView: DataviewView) -> [SetRelation] {
+        dataBuilder.sortedRelations(dataview: dataView, view: activeView)
+    }
+    
     func canStartSubscription() -> Bool {
         (details?.setOf.isNotEmpty ?? false) || isCollection()
     }
@@ -126,6 +126,10 @@ class SetDocument: SetDocumentProtocol {
     func updateActiveViewId(_ id: BlockId) {
         updateDataview(with: id)
         updateData()
+    }
+    
+    func isTypeSet() -> Bool {
+        !isCollection() && !isRelationsSet()
     }
     
     func isBookmarksSet() -> Bool {

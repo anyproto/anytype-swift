@@ -22,11 +22,26 @@ struct PersonalizationView: View {
     }
 
     private var defaultType: some View {
-        Button(action: { model.onObjectTypeTap() }) {
+        AnytypeRow(
+            action: model.onObjectTypeTap,
+            title: Loc.defaultObjectType,
+            description: model.objectType
+        )
+    }
+}
+
+struct AnytypeRow: View {
+    let action: () -> Void
+    let title: String
+    let description: String
+    
+    var body: some View {
+        Button(action: action) {
             HStack(spacing: 0) {
-                AnytypeText(Loc.defaultObjectType, style: .uxBodyRegular, color: .Text.primary)
+                AnytypeText(title, style: .uxBodyRegular, color: .Text.primary)
                 Spacer()
-                AnytypeText(model.objectType, style: .uxBodyRegular, color: .Text.secondary)
+                AnytypeText(description, style: .uxBodyRegular, color: .Text.secondary)
+                    .lineLimit(1)
                 Spacer.fixedWidth(10)
                 Image(asset: .arrowForward).foregroundColor(.Text.tertiary)
             }

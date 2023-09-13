@@ -20,6 +20,7 @@ final class TemplatesSelectionViewModel: ObservableObject {
     private let interactor: TemplateSelectionInteractorProvider
     private let setDocument: SetDocumentProtocol
     private let templatesService: TemplatesServiceProtocol
+    private let toastPresenter: ToastPresenterProtocol
     private let onTemplateSelection: (BlockId?) -> Void
     private var cancellables = [AnyCancellable]()
     
@@ -27,11 +28,13 @@ final class TemplatesSelectionViewModel: ObservableObject {
         interactor: TemplateSelectionInteractorProvider,
         setDocument: SetDocumentProtocol,
         templatesService: TemplatesServiceProtocol,
+        toastPresenter: ToastPresenterProtocol,
         onTemplateSelection: @escaping (BlockId?) -> Void
     ) {
         self.interactor = interactor
         self.setDocument = setDocument
         self.templatesService = templatesService
+        self.toastPresenter = toastPresenter
         self.onTemplateSelection = onTemplateSelection
         
         updateTemplatesList()
@@ -72,6 +75,11 @@ final class TemplatesSelectionViewModel: ObservableObject {
                 }
                 AnytypeAnalytics.instance().logTemplateCreate(objectType: .object(typeId: objectTypeId))
                 self?.templateEditingHandler?(objectId)
+                self?.toastPresenter.showObjectCompositeAlert(
+                    prefixText: Loc.Templates.Popup.wasAddedTo,
+                    objectId: self?.interactor.objectTypeId.rawValue ?? "",
+                    tapHandler: { }
+                )
             } catch {
                 anytypeAssertionFailure(error.localizedDescription)
             }
@@ -80,7 +88,10 @@ final class TemplatesSelectionViewModel: ObservableObject {
     
     func setTemplateAsDefault(templateId: BlockId) {
         Task {
-            try await interactor.setDefaultTemplate(templateId: templateId)
+            do {
+                try await interactor.setDefaultTemplate(templateId: templateId)
+                toastPresenter.show(message: Loc.Templates.Popup.default)
+            }
         }
     }
     
@@ -93,8 +104,10 @@ final class TemplatesSelectionViewModel: ObservableObject {
                 switch option {
                 case .delete:
                     try await templatesService.deleteTemplate(templateId: templateViewModel.id)
+                    toastPresenter.show(message: Loc.Templates.Popup.removed)
                 case .duplicate:
                     try await templatesService.cloneTemplate(blockId: templateViewModel.id)
+                    toastPresenter.show(message: Loc.Templates.Popup.duplicated)
                 case .editTemplate:
                     templateEditingHandler?(templateViewModel.id)
                 case .setAsDefault:

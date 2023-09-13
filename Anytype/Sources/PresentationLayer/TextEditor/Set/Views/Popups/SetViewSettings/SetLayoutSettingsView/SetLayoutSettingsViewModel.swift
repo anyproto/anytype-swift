@@ -9,7 +9,7 @@ final class SetLayoutSettingsViewModel: ObservableObject {
     var types: [SetViewTypeConfiguration] {
         updatedTypes()
     }
-    var settings: [EditorSetViewSettingsItem] {
+    var settings: [SetViewSettingsItem] {
         updatedSettings()
     }
     
@@ -58,11 +58,11 @@ final class SetLayoutSettingsViewModel: ObservableObject {
         }
     }
     
-    private func updatedSettings() -> [EditorSetViewSettingsItem] {
+    private func updatedSettings() -> [SetViewSettingsItem] {
         selectedType.settings.compactMap { setting in
             switch setting {
             case .icon:
-                return .toggle(EditorSetViewSettingsToggleItem(
+                return .toggle(SetViewSettingsToggleItem(
                     title: Loc.icon,
                     isSelected: !activeView.hideIcon,
                     onChange: { [weak self] show in
@@ -73,7 +73,7 @@ final class SetLayoutSettingsViewModel: ObservableObject {
                 ))
             case .cardSize:
                 let options = DataviewViewSize.availableCases.compactMap { size in
-                    EditorSetViewSettingsContextItem.Option(
+                    SetViewSettingsContextItem.Option(
                         id: size.value,
                         onTap: { [weak self] in
                             guard let self else { return }
@@ -82,13 +82,13 @@ final class SetLayoutSettingsViewModel: ObservableObject {
                         }
                     )
                 }
-                return .context(EditorSetViewSettingsContextItem(
+                return .context(SetViewSettingsContextItem(
                     title: Loc.Set.View.Settings.CardSize.title,
                     value: activeView.cardSize.value,
                     options: options
                 ))
             case .imagePreview:
-                return .value(EditorSetViewSettingsValueItem(
+                return .value(SetViewSettingsValueItem(
                     title: Loc.Set.View.Settings.ImagePreview.title,
                     value: imagePreviewValue(),
                     onTap: { [weak self] in
@@ -96,7 +96,7 @@ final class SetLayoutSettingsViewModel: ObservableObject {
                     }
                 ))
             case .fitImage:
-                return .toggle(EditorSetViewSettingsToggleItem(
+                return .toggle(SetViewSettingsToggleItem(
                     title: Loc.Set.View.Settings.ImageFit.title,
                     isSelected: activeView.coverFit,
                     onChange: { [weak self] fit in
@@ -106,7 +106,7 @@ final class SetLayoutSettingsViewModel: ObservableObject {
                     }
                 ))
             case .colorColumns:
-                return .toggle(EditorSetViewSettingsToggleItem(
+                return .toggle(SetViewSettingsToggleItem(
                     title: Loc.Set.View.Settings.GroupBackgroundColors.title,
                     isSelected: activeView.groupBackgroundColors,
                     onChange: { [weak self] colored in
@@ -116,7 +116,7 @@ final class SetLayoutSettingsViewModel: ObservableObject {
                     }
                 ))
             case .groupBy:
-                return .value(EditorSetViewSettingsValueItem(
+                return .value(SetViewSettingsValueItem(
                     title: Loc.Set.View.Settings.GroupBy.title,
                     value: groupByValue(with: activeView.groupRelationKey),
                     onTap: { [weak self] in

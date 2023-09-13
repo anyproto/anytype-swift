@@ -10,7 +10,7 @@ struct AccessoryViewBuilder {
         document: BaseDocumentProtocol,
         onShowStyleMenu: @escaping RoutingAction<[BlockInformation]>,
         onBlockSelection: @escaping RoutingAction<BlockInformation>,
-        pageService: PageServiceProtocol,
+        pageService: PageRepositoryProtocol,
         linkToObjectCoordinator: LinkToObjectCoordinatorProtocol,
         cursorManager: EditorCursorManager
     ) -> AccessoryViewStateManager {

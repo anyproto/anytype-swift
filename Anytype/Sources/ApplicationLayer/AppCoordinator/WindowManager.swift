@@ -64,6 +64,11 @@ final class WindowManager {
     }
     
     @MainActor
+    func showSharingScene() {
+        homeWidgetsCoordinator?.showSharedScene()
+    }
+    
+    @MainActor
     func showDeletedAccountWindow(deadline: Date) {
         startNewRootView(
             DeletedAccountView(

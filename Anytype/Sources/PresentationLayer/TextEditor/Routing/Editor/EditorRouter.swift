@@ -27,7 +27,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     private let textIconPickerModuleAssembly: TextIconPickerModuleAssemblyProtocol
     private let alertHelper: AlertHelper
-    private let pageService: PageServiceProtocol
+    private let pageService: PageRepositoryProtocol
     private let templateService: TemplatesServiceProtocol
     
     init(
@@ -51,7 +51,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
         textIconPickerModuleAssembly: TextIconPickerModuleAssemblyProtocol,
         alertHelper: AlertHelper,
-        pageService: PageServiceProtocol,
+        pageService: PageRepositoryProtocol,
         templateService: TemplatesServiceProtocol
     ) {
         self.rootController = rootController
@@ -164,9 +164,14 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         fileCoordinator.downloadFileAt(fileURL, withType: type)
     }
     
-    func showCodeLanguage(blockId: BlockId) {
-        let moduleViewController = codeLanguageListModuleAssembly.make(document: document, blockId: blockId)
-        navigationContext.present(moduleViewController)
+    func showCodeLanguage(blockId: BlockId, selectedLanguage: CodeLanguage) {
+        if FeatureFlags.newCodeLanguages {
+            let module = codeLanguageListModuleAssembly.make(document: document, blockId: blockId, selectedLanguage: selectedLanguage)
+            navigationContext.present(module)
+        } else {
+            let moduleViewController = codeLanguageListModuleAssembly.makeLegacy(document: document, blockId: blockId)
+            navigationContext.present(moduleViewController)
+        }
     }
     
     func showStyleMenu(
@@ -552,14 +557,16 @@ extension EditorRouter: ObjectSettingsModuleDelegate {
                 }
             }
         } onSetAsDefaultTempalte: { [weak self] templateId in
-            Task { [weak self] in
-                try? await self?.templateService.setTemplateAsDefaultForType(templateId: templateId)
-            }
+            self?.didTapUseTemplateAsDefault(templateId: templateId)
         }
     }
     
     func didTapUseTemplateAsDefault(templateId: BlockId) {
-        anytypeAssertionFailure("Invalid delegate method handler")
+        Task { @MainActor in
+            try? await templateService.setTemplateAsDefaultForType(templateId: templateId)
+            navigationContext.dismissTopPresented(animated: true, completion: nil)
+            toastPresenter.show(message: Loc.Templates.Popup.default)
+        }
     }
 }
 

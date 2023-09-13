@@ -15,11 +15,7 @@ protocol EditorSetRouterProtocol:
     func dismissSetSettingsIfNeeded()
     
     func setNavigationViewHidden(_ isHidden: Bool, animated: Bool)
-    func showViewPicker(
-        setDocument: SetDocumentProtocol,
-        dataviewService: DataviewServiceProtocol,
-        showViewTypes: @escaping RoutingAction<DataviewView?>
-    )
+    func showViewPicker(showViewTypes: @escaping RoutingAction<DataviewView?>)
     
     func showCreateObject(details: ObjectDetails)
     func showCreateBookmarkObject()
@@ -31,7 +27,7 @@ protocol EditorSetRouterProtocol:
         dataviewService: DataviewServiceProtocol
     )
     
-    func showViewSettings(setDocument: SetDocumentProtocol, dataviewService: DataviewServiceProtocol)
+    func showViewSettings(setDocument: SetDocumentProtocol)
     func showSorts()
     func showFilters(setDocument: SetDocumentProtocol, subscriptionDetailsStorage: ObjectDetailsStorage)
     
@@ -54,10 +50,6 @@ protocol EditorSetRouterProtocol:
     func replaceCurrentPage(with data: EditorScreenData)
     func showRelationValueEditingView(key: String)
     func showRelationValueEditingView(objectDetails: ObjectDetails, relation: Relation)
-    func showAddNewRelationView(
-        document: BaseDocumentProtocol,
-        onSelect: ((RelationDetails, _ isNew: Bool) -> Void)?
-    )
     
     func showFailureToast(message: String)
     
@@ -80,7 +72,6 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
     private let createObjectModuleAssembly: CreateObjectModuleAssemblyProtocol
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     private let editorPageCoordinator: EditorPageCoordinatorProtocol
-    private let addNewRelationCoordinator: AddNewRelationCoordinatorProtocol
     private let objectSettingCoordinator: ObjectSettingsCoordinatorProtocol
     private let relationValueCoordinator: RelationValueCoordinatorProtocol
     private let objectCoverPickerModuleAssembly: ObjectCoverPickerModuleAssemblyProtocol
@@ -90,6 +81,8 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
     private let setFiltersListCoordinatorAssembly: SetFiltersListCoordinatorAssemblyProtocol
     private let setViewSettingsImagePreviewModuleAssembly: SetViewSettingsImagePreviewModuleAssemblyProtocol
     private let setViewSettingsGroupByModuleAssembly: SetViewSettingsGroupByModuleAssemblyProtocol
+    private let editorSetRelationsCoordinatorAssembly: SetRelationsCoordinatorAssemblyProtocol
+    private let setViewPickerCoordinatorAssembly: SetViewPickerCoordinatorAssemblyProtocol
     private let toastPresenter: ToastPresenterProtocol
     private let alertHelper: AlertHelper
     private let templateSelectionCoordinator: TemplateSelectionCoordinatorProtocol
@@ -106,7 +99,6 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
         createObjectModuleAssembly: CreateObjectModuleAssemblyProtocol,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
         editorPageCoordinator: EditorPageCoordinatorProtocol,
-        addNewRelationCoordinator: AddNewRelationCoordinatorProtocol,
         objectSettingCoordinator: ObjectSettingsCoordinatorProtocol,
         relationValueCoordinator: RelationValueCoordinatorProtocol,
         objectCoverPickerModuleAssembly: ObjectCoverPickerModuleAssemblyProtocol,
@@ -116,6 +108,8 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
         setFiltersListCoordinatorAssembly: SetFiltersListCoordinatorAssemblyProtocol,
         setViewSettingsImagePreviewModuleAssembly: SetViewSettingsImagePreviewModuleAssemblyProtocol,
         setViewSettingsGroupByModuleAssembly: SetViewSettingsGroupByModuleAssemblyProtocol,
+        editorSetRelationsCoordinatorAssembly: SetRelationsCoordinatorAssemblyProtocol,
+        setViewPickerCoordinatorAssembly: SetViewPickerCoordinatorAssemblyProtocol,
         toastPresenter: ToastPresenterProtocol,
         alertHelper: AlertHelper,
         templateSelectionCoordinator: TemplateSelectionCoordinatorProtocol
@@ -127,7 +121,6 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
         self.createObjectModuleAssembly = createObjectModuleAssembly
         self.newSearchModuleAssembly = newSearchModuleAssembly
         self.editorPageCoordinator = editorPageCoordinator
-        self.addNewRelationCoordinator = addNewRelationCoordinator
         self.objectSettingCoordinator = objectSettingCoordinator
         self.relationValueCoordinator = relationValueCoordinator
         self.objectCoverPickerModuleAssembly = objectCoverPickerModuleAssembly
@@ -137,6 +130,8 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
         self.setFiltersListCoordinatorAssembly = setFiltersListCoordinatorAssembly
         self.setViewSettingsImagePreviewModuleAssembly = setViewSettingsImagePreviewModuleAssembly
         self.setViewSettingsGroupByModuleAssembly = setViewSettingsGroupByModuleAssembly
+        self.editorSetRelationsCoordinatorAssembly = editorSetRelationsCoordinatorAssembly
+        self.setViewPickerCoordinatorAssembly = setViewPickerCoordinatorAssembly
         self.toastPresenter = toastPresenter
         self.alertHelper = alertHelper
         self.templateSelectionCoordinator = templateSelectionCoordinator
@@ -173,20 +168,13 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
         rootController?.setNavigationViewHidden(isHidden, animated: animated)
     }
     
-    func showViewPicker(
-        setDocument: SetDocumentProtocol,
-        dataviewService: DataviewServiceProtocol,
-        showViewTypes: @escaping RoutingAction<DataviewView?>)
-    {
-        let viewModel = EditorSetViewPickerViewModel(
-            setDocument: setDocument,
-            dataviewService: dataviewService,
+    @MainActor
+    func showViewPicker(showViewTypes: @escaping RoutingAction<DataviewView?>) {
+        let view = setViewPickerCoordinatorAssembly.make(
+            with: setDocument,
             showViewTypes: showViewTypes
         )
-        let vc = UIHostingController(
-            rootView: EditorSetViewPicker(viewModel: viewModel)
-        )
-        presentSheet(vc)
+        navigationContext.presentSwiftUISheetView(view: view)
     }
     
     func showCreateObject(details: ObjectDetails) {
@@ -263,16 +251,9 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
         navigationContext.present(vc)
     }
 
-    
-    func showViewSettings(setDocument: SetDocumentProtocol, dataviewService: DataviewServiceProtocol) {
-        let viewModel = EditorSetViewSettingsViewModel(
-            setDocument: setDocument,
-            dataviewService: dataviewService,
-            router: self
-        )
-        let view = EditorSetViewSettingsView(
-            model: viewModel
-        )
+    @MainActor
+    func showViewSettings(setDocument: SetDocumentProtocol) {
+        let view = editorSetRelationsCoordinatorAssembly.make(with: setDocument)
         navigationContext.presentSwiftUIView(view: view)
     }
     
@@ -404,18 +385,6 @@ final class EditorSetRouter: EditorSetRouterProtocol, ObjectSettingsCoordinatorO
     
     func showRelationValueEditingView(objectDetails: ObjectDetails, relation: Relation) {
         relationValueCoordinator.startFlow(objectDetails: objectDetails, relation: relation, analyticsType: .dataview, output: self)
-    }
-    
-    func showAddNewRelationView(
-        document: BaseDocumentProtocol,
-        onSelect: ((RelationDetails, _ isNew: Bool) -> Void)?
-    ) {
-        addNewRelationCoordinator.showAddNewRelationView(
-            document: document,
-            excludedRelationsIds: setDocument.sortedRelations.map(\.id),
-            target: .dataview(activeViewId: setDocument.activeView.id),
-            onCompletion: onSelect
-        )
     }
     
     func showPage(data: EditorScreenData) {

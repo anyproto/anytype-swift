@@ -10,6 +10,13 @@ protocol AddNewRelationCoordinatorProtocol {
         target: RelationsSearchTarget,
         onCompletion: ((_ newRelationDetails: RelationDetails, _ isNew: Bool) -> Void)?
     )
+    
+    func addNewRelationView(
+        document: BaseDocumentProtocol,
+        excludedRelationsIds: [String],
+        target: RelationsSearchTarget,
+        onCompletion: ((_ newRelationDetails: RelationDetails, _ isNew: Bool) -> Void)?
+    ) -> NewSearchView
 }
 
 final class AddNewRelationCoordinator {
@@ -55,6 +62,20 @@ extension AddNewRelationCoordinator: AddNewRelationCoordinatorProtocol {
         navigationContext.presentSwiftUIView(view: view)
     }
     
+    func addNewRelationView(
+        document: BaseDocumentProtocol,
+        excludedRelationsIds: [String],
+        target: RelationsSearchTarget,
+        onCompletion: ((_ newRelationDetails: RelationDetails, _ isNew: Bool) -> Void)?
+    ) -> NewSearchView {
+        self.onCompletion = onCompletion
+        return newSearchModuleAssembly.relationsSearchModule(
+            document: document,
+            excludedRelationsIds: excludedRelationsIds,
+            target: target,
+            output: self
+        )
+    }
 }
 
 // MARK: - SearchNewRelationModuleOutput

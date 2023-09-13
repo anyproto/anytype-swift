@@ -82,6 +82,10 @@ public extension FeatureFlags {
         value(for: .widgetTaskDone)
     }
 
+    static var newCodeLanguages: Bool {
+        value(for: .newCodeLanguages)
+    }
+
     static var newSetSettings: Bool {
         value(for: .newSetSettings)
     }
@@ -127,6 +131,7 @@ public extension FeatureFlags {
         .colorfulRecoveryPhrase,
         .recentEditWidget,
         .widgetTaskDone,
+        .newCodeLanguages,
         .newSetSettings,
         .rainbowViews,
         .showAlertOnAssert,

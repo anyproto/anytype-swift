@@ -26,7 +26,7 @@ final class SimpleTableDependenciesBuilder {
     private let tableService = BlockTableService()
     private let responderScrollViewHelper: ResponderScrollViewHelper
     private let cacheContainer = SimpleTableHeightCacheContainer()
-    private let pageService: PageServiceProtocol
+    private let pageService: PageRepositoryProtocol
     private let linkToObjectCoordinator: LinkToObjectCoordinatorProtocol
 
     weak var mainEditorSelectionManager: SimpleTableSelectionHandler?
@@ -42,7 +42,7 @@ final class SimpleTableDependenciesBuilder {
         viewInput: (EditorPageViewInput & RelativePositionProvider)?,
         mainEditorSelectionManager: SimpleTableSelectionHandler?,
         responderScrollViewHelper: ResponderScrollViewHelper,
-        pageService: PageServiceProtocol,
+        pageService: PageRepositoryProtocol,
         linkToObjectCoordinator: LinkToObjectCoordinatorProtocol
     ) {
         self.document = document
