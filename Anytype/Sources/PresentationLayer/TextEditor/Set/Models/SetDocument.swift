@@ -72,10 +72,7 @@ class SetDocument: SetDocumentProtocol {
     var activeViewPublisher: AnyPublisher<DataviewView, Never> { $activeView.eraseToAnyPublisher() }
     
     @Published var sorts: [SetSort] = []
-    var sortsPublisher: AnyPublisher<[SetSort], Never> { $sorts.eraseToAnyPublisher() }
-    
     @Published var filters: [SetFilter] = []
-    var filtersPublisher: AnyPublisher<[SetFilter], Never> { $filters.eraseToAnyPublisher() }
     
     let blockId: BlockId?
     

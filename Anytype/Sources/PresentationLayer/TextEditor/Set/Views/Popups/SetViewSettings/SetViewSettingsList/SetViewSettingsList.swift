@@ -18,14 +18,12 @@ struct SetViewSettingsList: View {
             content
         }
         .background(Color.Background.secondary)
-        .frame(maxHeight: 400)
+        .frame(maxHeight: 401)
     }
     
     private var content: some View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack(spacing: 0) {
-                Spacer.fixedHeight(1)
-                
                 viewName
                 
                 Spacer.fixedHeight(12)
@@ -35,6 +33,7 @@ struct SetViewSettingsList: View {
                 Spacer.fixedHeight(8)
             }
             .padding(.horizontal, 20)
+            .padding(.top, 1)
         }
         .bounceBehaviorBasedOnSize()
     }
