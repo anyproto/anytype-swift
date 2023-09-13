@@ -131,6 +131,7 @@ final class EditorSetViewModel: ObservableObject {
     private let groupsSubscriptionsHandler: GroupsSubscriptionsHandlerProtocol
     private let setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol
     private let setTemplatesInteractor: SetTemplatesInteractorProtocol
+    private let objectTypeProvider: ObjectTypeProviderProtocol
     private var subscriptions = [AnyCancellable]()
     private var titleSubscription: AnyCancellable?
 
@@ -144,7 +145,8 @@ final class EditorSetViewModel: ObservableObject {
         textService: TextServiceProtocol,
         groupsSubscriptionsHandler: GroupsSubscriptionsHandlerProtocol,
         setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol,
-        setTemplatesInteractor: SetTemplatesInteractorProtocol
+        setTemplatesInteractor: SetTemplatesInteractorProtocol,
+        objectTypeProvider: ObjectTypeProviderProtocol
     ) {
         self.setDocument = setDocument
         self.subscriptionService = subscriptionService
@@ -156,7 +158,7 @@ final class EditorSetViewModel: ObservableObject {
         self.groupsSubscriptionsHandler = groupsSubscriptionsHandler
         self.setSubscriptionDataBuilder = setSubscriptionDataBuilder
         self.setTemplatesInteractor = setTemplatesInteractor
-
+        self.objectTypeProvider = objectTypeProvider
         self.titleString = setDocument.details?.pageCellTitle ?? ""
     }
     
@@ -561,16 +563,18 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     func createObject() {
-        createObject(selectedTemplateId: activeView.defaultTemplateID)
+        createObject(selectedTemplateId: nil)
     }
     
     func createObject(selectedTemplateId: BlockId?) {
         if setDocument.isCollection() {
+            let objectTypeId = setDocument.activeView.defaultObjectTypeIDWithFallback
+            let templateId = selectedTemplateId ?? defaultTemplateId(for: objectTypeId)
             createObject(
-                with: setDocument.activeView.defaultObjectTypeIDWithFallback,
+                with: objectTypeId,
                 shouldSelectType: true,
                 relationsDetails: [],
-                templateId: selectedTemplateId,
+                templateId: templateId,
                 completion: { details in
                     Task { @MainActor [weak self] in
                         guard let self else { return }
@@ -589,26 +593,38 @@ final class EditorSetViewModel: ObservableObject {
                 guard let source = self?.details?.setOf else { return false }
                 return source.contains(detail.id)
             }
+            let objectTypeId = setDocument.activeView.defaultObjectTypeIDWithFallback
+            let templateId = selectedTemplateId ?? defaultTemplateId(for: objectTypeId)
             createObject(
                 with: setDocument.activeView.defaultObjectTypeIDWithFallback,
                 shouldSelectType: true,
                 relationsDetails: relationsDetails,
-                templateId: selectedTemplateId,
+                templateId: templateId,
                 completion: { [weak self] details in
                     self?.openObject(details: details)
                 }
             )
         } else {
-            let type = details?.setOf.first ?? ""
+            let objectTypeId = details?.setOf.first ?? ""
+            let templateId = selectedTemplateId ?? defaultTemplateId(for: objectTypeId)
             createObject(
-                with: type,
-                shouldSelectType: type.isEmpty,
+                with: objectTypeId,
+                shouldSelectType: templateId.isEmpty,
                 relationsDetails: [],
-                templateId: selectedTemplateId,
+                templateId: templateId,
                 completion: { [weak self] details in
                     self?.handleCreatedObject(details: details)
                 }
             )
+        }
+    }
+    
+    private func defaultTemplateId(for objectTypeId: String) -> String {
+        if let defaultTemplateID = activeView.defaultTemplateID, defaultTemplateID.isNotEmpty {
+            let templateID = defaultTemplateID == TemplateType.blank.id ? "" : defaultTemplateID
+            return templateID
+        } else {
+            return objectTypeProvider.objectType(id: objectTypeId)?.defaultTemplateId ?? ""
         }
     }
     
@@ -848,6 +864,7 @@ extension EditorSetViewModel {
         textService: TextService(),
         groupsSubscriptionsHandler: DI.preview.serviceLocator.groupsSubscriptionsHandler(),
         setSubscriptionDataBuilder: SetSubscriptionDataBuilder(accountManager: DI.preview.serviceLocator.accountManager()),
-        setTemplatesInteractor: DI.preview.serviceLocator.setTemplatesInteractor
+        setTemplatesInteractor: DI.preview.serviceLocator.setTemplatesInteractor,
+        objectTypeProvider: DI.preview.serviceLocator.objectTypeProvider()
     )
 }

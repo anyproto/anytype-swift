@@ -9,6 +9,7 @@ struct IconView: View {
     @State private var size: CGSize?
     @State private var placeholderImage: UIImage?
     @State private var image: UIImage?
+    @State private var id = UUID()
     
     @Environment(\.isEnabled) private var isEnable
     @Environment(\.redactionReasons) var redactionReasons
@@ -29,9 +30,9 @@ struct IconView: View {
         .onChange(of: icon) { icon in
             // Icon field from struct contains old value
             updateIcon(icon)
-            
         }
         .frame(idealWidth: 30, idealHeight: 30) // Default frame
+        .id(id)
     }
     
     // Root view should be a image view for apply initial frame.
@@ -61,10 +62,14 @@ struct IconView: View {
             image = nil
             return
         }
-        task = Task { @MainActor in
-            let maker = IconMaker(icon: icon, size: size, iconContext: IconContext(isEnabled: isEnable))
-            placeholderImage = maker.makePlaceholder()
-            image = await maker.make()
+        let maker = IconMaker(icon: icon, size: size, iconContext: IconContext(isEnabled: isEnable))
+        if let imageFromCache = maker.makeFromCache() {
+            image = imageFromCache
+        } else {
+            task = Task { @MainActor in
+                placeholderImage = maker.makePlaceholder()
+                image = await maker.make()
+            }
         }
     }
 }

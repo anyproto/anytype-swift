@@ -43,6 +43,17 @@ enum TemplateType: Equatable {
     case blank
     case addTemplate
     case installed(TemplateModel)
+    
+    var id: String {
+        switch self {
+        case .blank:
+            return "blank"
+        case .addTemplate:
+            return "Add template"
+        case let .installed(model):
+            return model.id
+        }
+    }
 }
 
 struct TemplatePreviewModel: Identifiable, Equatable {
@@ -53,14 +64,7 @@ struct TemplatePreviewModel: Identifiable, Equatable {
 
 extension TemplatePreviewModel: IdProvider {
     var id: BlockId {
-        switch mode {
-        case .blank:
-            return ""
-        case .addTemplate:
-            return "Add template"
-        case let .installed(model):
-            return model.id
-        }
+        mode.id
     }
 }
 
