@@ -27,7 +27,7 @@ final class SetLayoutSettingsViewAssembly: SetLayoutSettingsViewAssemblyProtocol
     ) -> AnyView {
         let dataviewService = serviceLocator.dataviewService(
             objectId: setDocument.objectId,
-            blockId: setDocument.blockId
+            blockId: setDocument.inlineParameters?.blockId
         )
         return SetLayoutSettingsView(
             model: SetLayoutSettingsViewModel(

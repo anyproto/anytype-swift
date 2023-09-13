@@ -24,6 +24,7 @@ final class RemoteStorageModuleAssembly: RemoteStorageModuleAssemblyProtocol {
                 activeWorkspaceStorage: self.serviceLocator.activeWorkspaceStorage(),
                 subscriptionService: self.serviceLocator.singleObjectSubscriptionService(),
                 fileLimitsStorage: self.serviceLocator.fileLimitsStorage(),
+                documentProvider: self.serviceLocator.documentsProvider,
                 output: output
             )
         )

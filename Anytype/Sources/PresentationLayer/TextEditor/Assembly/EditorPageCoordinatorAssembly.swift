@@ -24,7 +24,8 @@ final class EditorPageCoordinatorAssembly: EditorPageCoordinatorAssemblyProtocol
             browserController: browserController,
             editorAssembly: coordinatorsID.editor(),
             alertHelper: AlertHelper(viewController: browserController),
-            objectTypeProvider: serviceLocator.objectTypeProvider()
+            objectTypeProvider: serviceLocator.objectTypeProvider(),
+            documentsProvider: serviceLocator.documentsProvider
         )
         
         return coordinator

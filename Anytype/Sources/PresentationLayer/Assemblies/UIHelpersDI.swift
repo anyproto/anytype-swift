@@ -13,9 +13,11 @@ protocol UIHelpersDIProtocol {
 final class UIHelpersDI: UIHelpersDIProtocol {
     
     private let _viewControllerProvider: ViewControllerProviderProtocol
+    private let serviceLocator: ServiceLocator
     
-    init(viewControllerProvider: ViewControllerProviderProtocol) {
+    init(viewControllerProvider: ViewControllerProviderProtocol, serviceLocator: ServiceLocator) {
         self._viewControllerProvider = viewControllerProvider
+        self.serviceLocator = serviceLocator
     }
     
     // MARK: - UIHelpersDIProtocol
@@ -28,7 +30,8 @@ final class UIHelpersDI: UIHelpersDIProtocol {
         ToastPresenter(
             viewControllerProvider: viewControllerProvider(),
             containerViewController: containerViewController,
-            keyboardHeightListener: KeyboardHeightListener()
+            keyboardHeightListener: KeyboardHeightListener(),
+            documentsProvider: serviceLocator.documentsProvider
         )
     }
     

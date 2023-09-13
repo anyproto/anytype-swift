@@ -15,7 +15,7 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
     private let wallpaperPickerModuleAssembly: WallpaperPickerModuleAssemblyProtocol
     private let objectTypeProvider: ObjectTypeProviderProtocol
     private let urlOpener: URLOpenerProtocol
-    private let documentService: DocumentServiceProtocol
+    private let documentService: OpenedDocumentsProviderProtocol
     
     @Published var showRemoteStorage = false
     @Published var showPersonalization = false
@@ -33,7 +33,7 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
         wallpaperPickerModuleAssembly: WallpaperPickerModuleAssemblyProtocol,
         objectTypeProvider: ObjectTypeProviderProtocol,
         urlOpener: URLOpenerProtocol,
-        documentService: DocumentServiceProtocol
+        documentService: OpenedDocumentsProviderProtocol
     ) {
         self.spaceSettingsModuleAssembly = spaceSettingsModuleAssembly
         self.navigationContext = navigationContext

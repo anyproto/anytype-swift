@@ -79,6 +79,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
     private let pasteboardService: PasteboardServiceProtocol
     private let router: EditorRouterProtocol
     private let bottomNavigationManager: EditorBottomNavigationManagerProtocol
+    private let documentsProvider: DocumentsProviderProtocol
     
     weak var blocksOptionViewModel: SelectionOptionsViewModel?
     weak var blocksSelectionOverlayViewModel: BlocksSelectionOverlayViewModel?
@@ -97,7 +98,8 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         router: EditorRouterProtocol,
         initialEditingState: EditorEditingState,
         viewInput: EditorPageViewInput,
-        bottomNavigationManager: EditorBottomNavigationManagerProtocol
+        bottomNavigationManager: EditorBottomNavigationManagerProtocol,
+        documentsProvider: DocumentsProviderProtocol
     ) {
         self.document = document
         self.modelsHolder = modelsHolder
@@ -110,6 +112,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         self.editingState = initialEditingState
         self.viewInput = viewInput
         self.bottomNavigationManager = bottomNavigationManager
+        self.documentsProvider = documentsProvider
 
         setupEditingHandlers()
     }
@@ -281,8 +284,8 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         case let .object(blockId):
             if let info = document.infoContainer.get(id: blockId),
                case let .link(content) = info.content {
-                let targetDocument = BaseDocument(objectId: content.targetBlockID)
-                
+                let targetDocument = documentsProvider.document(objectId: content.targetBlockID, forPreview: false)
+            
                 Task { @MainActor [weak self] in
                     try? await targetDocument.open()
                     guard let id = targetDocument.children.last?.id,
