@@ -17,7 +17,7 @@ protocol SearchServiceProtocol: AnyObject {
     func searchMarketplaceObjectTypes(text: String, includeInstalled: Bool) async throws -> [ObjectDetails]
     func searchFiles(text: String, excludedFileIds: [String]) async throws -> [ObjectDetails]
     func searchImages() async throws -> [ObjectDetails]
-    func searchObjectsByTypes(text: String, excludedObjectIds: [String], limitedTypeIds: [String]) async throws -> [ObjectDetails]
+    func searchObjectsByTypes(text: String, typeIds: [String], excludedObjectIds: [String]) async throws -> [ObjectDetails]
     func searchTemplates(for type: ObjectTypeId) async throws -> [ObjectDetails]
     func searchObjects(
         text: String,
@@ -177,7 +177,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         return try await search(filters: filters, sorts: [sort], fullText: "", limit: Constants.defaultLimit)
     }
     
-    func searchObjectsByTypes(text: String, excludedObjectIds: [String], limitedTypeIds: [String]) async throws -> [ObjectDetails] {
+    func searchObjectsByTypes(text: String, typeIds: [String], excludedObjectIds: [String]) async throws -> [ObjectDetails] {
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.lastOpenedDate,
             type: .desc
@@ -185,11 +185,11 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         
         let filters: [DataviewFilter] = .builder {
             SearchHelper.excludedIdsFilter(excludedObjectIds)
-            if limitedTypeIds.isEmpty {
+            if typeIds.isEmpty {
                 buildFilters(isArchived: false, layouts: DetailsLayout.visibleLayouts)
             } else {
                 buildFilters(isArchived: false)
-                SearchHelper.typeFilter(typeIds: limitedTypeIds)
+                SearchHelper.typeFilter(typeIds: typeIds)
             }
         }
                 
